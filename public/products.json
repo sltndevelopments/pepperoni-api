@@ -1,14 +1,14 @@
 {
   "products": [
     {
-      "name": "Halal Pepperoni 1 кг",
-      "sku": "4680-PEP-1000",
-      "image": "https://pepperoni.tatar/images/pepperoni-1kg.jpg",
-      "description": "Халяль пепперони для пиццы, замороженная, фасовка 1 кг.",
-      "category": "Meat",
-      "brand": "Kazan Delicacies",
+      "name": "Пепперони Halal",
+      "sku": "PEP-HALAL-001",
+      "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
+      "description": "Пепперони из говядины и курицы, сертифицирована Halal.",
+      "category": "Мясные изделия",
+      "brand": "Казанские Деликатесы",
       "offers": {
-        "url": "https://pepperoni.tatar/products/pepperoni-1kg",
+        "url": "https://pepperoni.tatar",
         "priceCurrency": "RUB",
         "price": "790.00",
         "availability": "https://schema.org/InStock"
@@ -22,4 +22,3 @@
     }
   ]
 }
-
