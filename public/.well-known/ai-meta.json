@@ -1,0 +1,14 @@
+{
+  "source": "https://pepperoni.tatar",
+  "organization": "Kazan Delicacies",
+  "datasets": [
+    {
+      "name": "pepperoni_products",
+      "url": "https://api.pepperoni.tatar/products.json",
+      "format": "json",
+      "description": "Halal pepperoni product list with nutrition and offers."
+    }
+  ],
+  "updated_at": "2025-11-04T12:00:00Z"
+}
+

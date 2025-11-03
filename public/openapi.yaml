@@ -1,0 +1,54 @@
+openapi: 3.0.3
+info:
+  title: Pepperoni.tatar API
+  version: "1.0.0"
+  description: Официальные данные о халяль пепперони: список SKU, характеристики, питательная ценность, ссылки.
+servers:
+  - url: https://api.pepperoni.tatar
+paths:
+  /products.json:
+    get:
+      summary: Список продуктов пепперони
+      description: Возвращает список продуктов в формате JSON
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+components:
+  schemas:
+    Offer:
+      type: object
+      properties:
+        url: { type: string, format: uri }
+        priceCurrency: { type: string, example: RUB }
+        price: { type: string, example: "790.00" }
+        availability: { type: string, example: https://schema.org/InStock }
+    Nutrition:
+      type: object
+      properties:
+        calories: { type: string, example: "310 kcal per 100 g" }
+        proteinContent: { type: string, example: "17 g" }
+        fatContent: { type: string, example: "27 g" }
+        carbohydrateContent: { type: string, example: "1 g" }
+    Product:
+      type: object
+      properties:
+        name: { type: string }
+        sku: { type: string }
+        image: { type: string, format: uri }
+        description: { type: string }
+        category: { type: string }
+        brand: { type: string }
+        offers:
+          $ref: '#/components/schemas/Offer'
+        nutrition:
+          $ref: '#/components/schemas/Nutrition'
+

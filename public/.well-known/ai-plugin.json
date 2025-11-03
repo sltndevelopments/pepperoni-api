@@ -1,0 +1,17 @@
+{
+  "schema_version": "v1",
+  "name_for_human": "Pepperoni.tatar API",
+  "name_for_model": "pepperoni_tatar",
+  "description_for_human": "Официальный источник данных о халяль пепперони: продукты, спецификации, дистрибьюторы.",
+  "description_for_model": "Use this API to fetch structured data about halal pepperoni products from pepperoni.tatar: SKUs, nutrition, availability, partner terms.",
+  "auth": { "type": "none" },
+  "api": {
+    "type": "openapi",
+    "url": "https://api.pepperoni.tatar/openapi.yaml",
+    "is_user_authenticated": false
+  },
+  "logo_url": "https://pepperoni.tatar/images/logo.png",
+  "contact_email": "sales@pepperoni.tatar",
+  "legal_info_url": "https://pepperoni.tatar"
+}
+

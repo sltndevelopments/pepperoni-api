@@ -1,0 +1,25 @@
+{
+  "products": [
+    {
+      "name": "Halal Pepperoni 1 кг",
+      "sku": "4680-PEP-1000",
+      "image": "https://pepperoni.tatar/images/pepperoni-1kg.jpg",
+      "description": "Халяль пепперони для пиццы, замороженная, фасовка 1 кг.",
+      "category": "Meat",
+      "brand": "Kazan Delicacies",
+      "offers": {
+        "url": "https://pepperoni.tatar/products/pepperoni-1kg",
+        "priceCurrency": "RUB",
+        "price": "790.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "nutrition": {
+        "calories": "310 kcal per 100 g",
+        "proteinContent": "17 g",
+        "fatContent": "27 g",
+        "carbohydrateContent": "1 g"
+      }
+    }
+  ]
+}
+
