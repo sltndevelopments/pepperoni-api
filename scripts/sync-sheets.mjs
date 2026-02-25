@@ -378,6 +378,12 @@ async function main() {
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/pepperoni</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
 `;
   writeFileSync(sitemapPath, sitemap, 'utf-8');
