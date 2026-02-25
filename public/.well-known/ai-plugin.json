@@ -1,10 +1,10 @@
 {
   "schema_version": "v1",
-  "version": "1.0.0",
-  "name_for_human": "Pepperoni.tatar API",
-  "name_for_model": "pepperoni_tatar",
-  "description_for_human": "Официальный источник данных о халяль пепперони: продукты, спецификации, дистрибьюторы.",
-  "description_for_model": "Use this API to fetch structured data about halal pepperoni products from pepperoni.tatar: SKUs, nutrition, availability, partner terms.",
+  "version": "2.0.0",
+  "name_for_human": "Казанские Деликатесы — Халяль продукция API",
+  "name_for_model": "kazan_delikates",
+  "description_for_human": "Полный каталог халяль продукции Казанских Деликатесов: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка. Актуальные цены.",
+  "description_for_model": "Use this API to fetch structured data about halal meat products and Tatar pastries from Kazan Delicacies (Казанские Деликатесы): 77 products across frozen meats, refrigerated meats, and bakery. Includes pepperoni, sausages, ham, smoked meats, kazylyk, gubadiya, echpochmak, chak-chak. Prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN). Halal certified #614A/2024. HACCP. Private Label available.",
   "auth": { "type": "none" },
   "api": {
     "type": "openapi",
@@ -12,7 +12,7 @@
     "is_user_authenticated": false
   },
   "logo_url": "https://pepperoni.tatar/images/logo.png",
-  "contact_email": "sales@pepperoni.tatar",
-  "legal_info_url": "https://pepperoni.tatar"
+  "contact_email": "info@kazandelikates.tatar",
+  "legal_info_url": "https://kazandelikates.tatar"
 }
 
