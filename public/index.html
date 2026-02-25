@@ -1,1 +1,359 @@
-<h1>Pepperoni API online</h1><p>Visit <a href='/products.json'>/products.json</a></p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Пепперони Halal — Казанские Деликатесы | pepperoni.tatar</title>
+  <meta name="description" content="Халяль пепперони из говядины и курицы от Казанских Деликатесов. Каталог продуктов, пищевая ценность, цены. Сертификат Halal. Казань, Татарстан.">
+  <meta name="keywords" content="пепперони, халяль, halal, pepperoni, казанские деликатесы, мясные изделия, говядина, курица, Казань, Татарстан, купить пепперони">
+  <meta name="author" content="Казанские Деликатесы">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://api.pepperoni.tatar/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Пепперони Halal — Казанские Деликатесы">
+  <meta property="og:description" content="Халяль пепперони из говядины и курицы. Каталог продуктов, пищевая ценность, цены. Сертификат Halal.">
+  <meta property="og:url" content="https://api.pepperoni.tatar/">
+  <meta property="og:site_name" content="Pepperoni.tatar">
+  <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta property="og:locale" content="ru_RU">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Пепперони Halal — Казанские Деликатесы">
+  <meta name="twitter:description" content="Халяль пепперони из говядины и курицы. Каталог, цены, пищевая ценность.">
+  <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+
+  <!-- Alternate language -->
+  <link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/">
+
+  <!-- LLMs -->
+  <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+
+  <!-- JSON-LD: Organization -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Казанские Деликатесы",
+    "alternateName": "Kazan Delicacies",
+    "url": "https://kazandelikates.tatar",
+    "logo": "https://pepperoni.tatar/images/logo.png",
+    "email": "sales@pepperoni.tatar",
+    "description": "Производитель халяль мясных изделий из Казани, Татарстан.",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Казань",
+      "addressRegion": "Татарстан",
+      "addressCountry": "RU"
+    },
+    "sameAs": [
+      "https://pepperoni.tatar",
+      "https://kazandelikates.tatar"
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: Product -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Пепперони Halal",
+    "sku": "PEP-HALAL-001",
+    "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
+    "description": "Пепперони из говядины и курицы, сертифицирована Halal.",
+    "category": "Мясные изделия",
+    "brand": {
+      "@type": "Brand",
+      "name": "Казанские Деликатесы"
+    },
+    "manufacturer": {
+      "@type": "Organization",
+      "name": "Казанские Деликатесы",
+      "url": "https://kazandelikates.tatar"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://pepperoni.tatar",
+      "priceCurrency": "RUB",
+      "price": "790.00",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "Казанские Деликатесы"
+      }
+    },
+    "nutrition": {
+      "@type": "NutritionInformation",
+      "calories": "310 kcal per 100 g",
+      "proteinContent": "17 g",
+      "fatContent": "27 g",
+      "carbohydrateContent": "1 g"
+    },
+    "additionalProperty": [
+      {
+        "@type": "PropertyValue",
+        "name": "Сертификация",
+        "value": "Halal"
+      }
+    ]
+  }
+  </script>
+
+  <!-- JSON-LD: WebSite -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Pepperoni.tatar API",
+    "url": "https://api.pepperoni.tatar",
+    "description": "Официальный источник данных о халяль пепперони: продукты, спецификации, пищевая ценность.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "Казанские Деликатесы",
+      "url": "https://kazandelikates.tatar"
+    }
+  }
+  </script>
+
+  <!-- JSON-LD: DataCatalog -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DataCatalog",
+    "name": "Каталог продуктов Pepperoni.tatar",
+    "url": "https://api.pepperoni.tatar/products.json",
+    "description": "Структурированные данные о халяль пепперони: SKU, цены, наличие, пищевая ценность.",
+    "creator": {
+      "@type": "Organization",
+      "name": "Казанские Деликатесы"
+    },
+    "license": "https://pepperoni.tatar",
+    "dateModified": "2025-11-04"
+  }
+  </script>
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #fafafa;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 48px 24px;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .subtitle {
+      color: #666;
+      font-size: 1.1rem;
+    }
+    .badge {
+      display: inline-block;
+      background: #1b7a3d;
+      color: #fff;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-top: 12px;
+      letter-spacing: 0.5px;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .product-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 4px;
+    }
+    .sku {
+      color: #999;
+      font-size: 0.85rem;
+      margin-bottom: 16px;
+    }
+    .product-card p {
+      margin-bottom: 16px;
+    }
+    .price {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1b7a3d;
+      margin-bottom: 16px;
+    }
+    .nutrition {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .nutrition-item {
+      text-align: center;
+      background: #f5f5f5;
+      border-radius: 8px;
+      padding: 12px 8px;
+    }
+    .nutrition-item .value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      display: block;
+    }
+    .nutrition-item .label {
+      font-size: 0.75rem;
+      color: #888;
+    }
+    .availability {
+      color: #1b7a3d;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .api-section {
+      background: #fff;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+    .api-section h2 {
+      font-size: 1.2rem;
+      margin-bottom: 16px;
+    }
+    .endpoint-list {
+      list-style: none;
+    }
+    .endpoint-list li {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .endpoint-list li:last-child {
+      border-bottom: none;
+    }
+    .endpoint-list a {
+      color: #0066cc;
+      text-decoration: none;
+      font-family: 'SF Mono', 'Consolas', monospace;
+      font-size: 0.9rem;
+    }
+    .endpoint-list a:hover {
+      text-decoration: underline;
+    }
+    .endpoint-desc {
+      color: #888;
+      font-size: 0.85rem;
+      margin-left: 4px;
+    }
+    footer {
+      text-align: center;
+      color: #aaa;
+      font-size: 0.85rem;
+      padding-top: 16px;
+    }
+    footer a {
+      color: #888;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Pepperoni.tatar API</h1>
+      <p class="subtitle">Казанские Деликатесы — халяль мясные изделия</p>
+      <span class="badge">HALAL</span>
+    </header>
+
+    <div class="product-card" itemscope itemtype="https://schema.org/Product">
+      <h2 itemprop="name">Пепперони Halal</h2>
+      <div class="sku">SKU: <span itemprop="sku">PEP-HALAL-001</span></div>
+      <p itemprop="description">Пепперони из говядины и курицы, сертифицирована Halal. Производство — Казань, Татарстан.</p>
+      <div class="price" itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+        <span itemprop="price" content="790.00">790</span>
+        <span itemprop="priceCurrency" content="RUB">₽</span>
+        <link itemprop="availability" href="https://schema.org/InStock">
+      </div>
+      <div class="nutrition" itemprop="nutrition" itemscope itemtype="https://schema.org/NutritionInformation">
+        <div class="nutrition-item">
+          <span class="value" itemprop="calories">310</span>
+          <span class="label">ккал/100г</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="value" itemprop="proteinContent">17г</span>
+          <span class="label">белки</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="value" itemprop="fatContent">27г</span>
+          <span class="label">жиры</span>
+        </div>
+        <div class="nutrition-item">
+          <span class="value" itemprop="carbohydrateContent">1г</span>
+          <span class="label">углеводы</span>
+        </div>
+      </div>
+      <div class="availability">&#10003; В наличии</div>
+    </div>
+
+    <div class="api-section">
+      <h2>API и данные</h2>
+      <ul class="endpoint-list">
+        <li>
+          <a href="/products.json">/products.json</a>
+          <span class="endpoint-desc">— каталог продуктов</span>
+        </li>
+        <li>
+          <a href="/openapi.yaml">/openapi.yaml</a>
+          <span class="endpoint-desc">— OpenAPI спецификация</span>
+        </li>
+        <li>
+          <a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a>
+          <span class="endpoint-desc">— манифест AI-плагина</span>
+        </li>
+        <li>
+          <a href="/.well-known/ai-meta.json">/.well-known/ai-meta.json</a>
+          <span class="endpoint-desc">— метаданные для AI</span>
+        </li>
+        <li>
+          <a href="/llms.txt">/llms.txt</a>
+          <span class="endpoint-desc">— инструкции для LLM</span>
+        </li>
+        <li>
+          <a href="/llms-full.txt">/llms-full.txt</a>
+          <span class="endpoint-desc">— полная документация для LLM</span>
+        </li>
+        <li>
+          <a href="/robots.txt">/robots.txt</a>
+          <span class="endpoint-desc">— правила для поисковых роботов</span>
+        </li>
+        <li>
+          <a href="/sitemap.xml">/sitemap.xml</a>
+          <span class="endpoint-desc">— карта сайта</span>
+        </li>
+      </ul>
+    </div>
+
+    <footer>
+      <p>&copy; <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> &middot; <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
+      <p><a href="mailto:sales@pepperoni.tatar">sales@pepperoni.tatar</a></p>
+    </footer>
+  </div>
+</body>
+</html>
