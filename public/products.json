@@ -1,24 +1,395 @@
 {
+  "@context": "https://schema.org",
+  "source": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pubhtml",
+  "liveEndpoint": "https://api.pepperoni.tatar/api/products",
+  "publisher": {
+    "name": "Казанские Деликатесы",
+    "url": "https://kazandelikates.tatar",
+    "address": "420061, Республика Татарстан, г Казань, ул Аграрная, дом 2, офис 7",
+    "phone": "+79872170202",
+    "email": "info@kazandelikates.tatar"
+  },
+  "priceDate": "8 января 2026",
+  "deliveryTerms": "EXW Kazan Russia",
+  "certification": "Halal",
   "products": [
     {
-      "name": "Пепперони Halal",
-      "sku": "PEP-HALAL-001",
-      "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
-      "description": "Пепперони из говядины и курицы, сертифицирована Halal.",
-      "category": "Мясные изделия",
+      "name": "Сосиски «Из говядины» (80 г × 6 шт)",
+      "sku": "KD-001",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
       "offers": {
-        "url": "https://pepperoni.tatar",
         "priceCurrency": "RUB",
-        "price": "790.00",
+        "price": "290.00",
+        "priceExclVAT": "263.64",
         "availability": "https://schema.org/InStock"
       },
-      "nutrition": {
-        "calories": "310 kcal per 100 g",
-        "proteinContent": "17 g",
-        "fatContent": "27 g",
-        "carbohydrateContent": "1 g"
-      }
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Два мяса» (80 г × 6 шт)",
+      "sku": "KD-002",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.48 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "286.00",
+        "priceExclVAT": "260.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Три перца с сыром» (80 г × 6 шт)",
+      "sku": "KD-003",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.48 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "316.00",
+        "priceExclVAT": "287.27",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Куриные» (80 г × 6 шт)",
+      "sku": "KD-004",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.48 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "286.00",
+        "priceExclVAT": "260.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «С бараниной» (80 г × 6 шт)",
+      "sku": "KD-005",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.48 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "366.00",
+        "priceExclVAT": "332.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «С травами» (130 г × 5 шт)",
+      "sku": "KD-006",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.65 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "424.00",
+        "priceExclVAT": "385.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «С сыром» (130 г × 5 шт)",
+      "sku": "KD-007",
+      "category": "Сосиски гриль для хот-догов",
+      "weight": "0.65 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "455.00",
+        "priceExclVAT": "413.64",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Котлета говяжья прожаренная (100 г × 3 шт)",
+      "sku": "KD-008",
+      "category": "Котлеты для бургеров",
+      "weight": "0.3 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "276.00",
+        "priceExclVAT": "250.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "1602"
+    },
+    {
+      "name": "Котлета говяжья прожаренная (150 г × 2 шт)",
+      "sku": "KD-009",
+      "category": "Котлеты для бургеров",
+      "weight": "0.3 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "276.00",
+        "priceExclVAT": "250.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "1602"
+    },
+    {
+      "name": "Ветчина из Курицы в батоне",
+      "sku": "KD-010",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "350.00",
+        "priceExclVAT": "318.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина из Курицы в нарезке",
+      "sku": "KD-011",
+      "category": "Топпинги",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "185.00",
+        "priceExclVAT": "168.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина из Индейки в батоне",
+      "sku": "KD-012",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "376.00",
+        "priceExclVAT": "341.82",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина из Индейки в нарезке",
+      "sku": "KD-013",
+      "category": "Топпинги",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "198.00",
+        "priceExclVAT": "180.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Пепперони вар-коп из конины",
+      "sku": "KD-014",
+      "category": "Топпинги",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "315.00",
+        "priceExclVAT": "286.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Пепперони вар-коп классика",
+      "sku": "KD-015",
+      "category": "Топпинги",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "274.00",
+        "priceExclVAT": "249.09",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Пепперони вар-коп классика целый батон",
+      "sku": "KD-016",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "457.00",
+        "priceExclVAT": "415.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Пепперони сырокопчёный в нарезке",
+      "sku": "KD-017",
+      "category": "Топпинги",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "380.00",
+        "priceExclVAT": "345.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Пепперони сырокопчёный целый батон",
+      "sku": "KD-018",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "608.00",
+        "priceExclVAT": "552.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Грудка куриная варено-копченая",
+      "sku": "KD-019",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "370.00",
+        "priceExclVAT": "336.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Филе куриное варное",
+      "sku": "KD-020",
+      "category": "Топпинги",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "449.00",
+        "priceExclVAT": "408.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "hsCode": "160100"
+    },
+    {
+      "name": "Фарш говяжий",
+      "sku": "KD-021",
+      "category": "Мясные заготовки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "670.00",
+        "priceExclVAT": "609.09",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток"
+    },
+    {
+      "name": "Фарш из куриной кожи",
+      "sku": "KD-022",
+      "category": "Мясные заготовки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "82.00",
+        "priceExclVAT": "74.55",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток"
+    },
+    {
+      "name": "Филе бедра куриного в кубике 1×1 см",
+      "sku": "KD-023",
+      "category": "Мясные заготовки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "520.00",
+        "priceExclVAT": "472.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток"
+    },
+    {
+      "name": "Филе грудки куриной в кубике 1×1 см",
+      "sku": "KD-024",
+      "category": "Мясные заготовки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "520.00",
+        "priceExclVAT": "472.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток"
+    },
+    {
+      "name": "Говядина 1 сорт в кубике 1×1 см",
+      "sku": "KD-025",
+      "category": "Мясные заготовки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "810.00",
+        "priceExclVAT": "736.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток"
     }
   ]
 }
