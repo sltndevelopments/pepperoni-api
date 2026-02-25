@@ -9,13 +9,15 @@
     "phone": "+79872170202",
     "email": "info@kazandelikates.tatar"
   },
-  "priceDate": "8 января 2026",
+  "priceDate": "8-10 января 2026",
   "deliveryTerms": "EXW Kazan Russia",
   "certification": "Halal",
+  "sections": ["Заморозка", "Охлаждённая продукция", "Выпечка"],
   "products": [
     {
       "name": "Сосиски «Из говядины» (80 г × 6 шт)",
       "sku": "KD-001",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
@@ -32,6 +34,7 @@
     {
       "name": "Сосиски «Два мяса» (80 г × 6 шт)",
       "sku": "KD-002",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
@@ -48,6 +51,7 @@
     {
       "name": "Сосиски «Три перца с сыром» (80 г × 6 шт)",
       "sku": "KD-003",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
@@ -64,6 +68,7 @@
     {
       "name": "Сосиски «Куриные» (80 г × 6 шт)",
       "sku": "KD-004",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
@@ -80,6 +85,7 @@
     {
       "name": "Сосиски «С бараниной» (80 г × 6 шт)",
       "sku": "KD-005",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.48 кг",
       "brand": "Казанские Деликатесы",
@@ -96,6 +102,7 @@
     {
       "name": "Сосиски «С травами» (130 г × 5 шт)",
       "sku": "KD-006",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.65 кг",
       "brand": "Казанские Деликатесы",
@@ -112,6 +119,7 @@
     {
       "name": "Сосиски «С сыром» (130 г × 5 шт)",
       "sku": "KD-007",
+      "section": "Заморозка",
       "category": "Сосиски гриль для хот-догов",
       "weight": "0.65 кг",
       "brand": "Казанские Деликатесы",
@@ -128,6 +136,7 @@
     {
       "name": "Котлета говяжья прожаренная (100 г × 3 шт)",
       "sku": "KD-008",
+      "section": "Заморозка",
       "category": "Котлеты для бургеров",
       "weight": "0.3 кг",
       "brand": "Казанские Деликатесы",
@@ -144,6 +153,7 @@
     {
       "name": "Котлета говяжья прожаренная (150 г × 2 шт)",
       "sku": "KD-009",
+      "section": "Заморозка",
       "category": "Котлеты для бургеров",
       "weight": "0.3 кг",
       "brand": "Казанские Деликатесы",
@@ -160,6 +170,7 @@
     {
       "name": "Ветчина из Курицы в батоне",
       "sku": "KD-010",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -170,11 +181,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Ветчина из Курицы в нарезке",
       "sku": "KD-011",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "0.5 кг",
       "brand": "Казанские Деликатесы",
@@ -185,11 +198,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "180 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Ветчина из Индейки в батоне",
       "sku": "KD-012",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -200,11 +215,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Ветчина из Индейки в нарезке",
       "sku": "KD-013",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "0.4 кг",
       "brand": "Казанские Деликатесы",
@@ -215,11 +232,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "180 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Пепперони вар-коп из конины",
       "sku": "KD-014",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "0.5 кг",
       "brand": "Казанские Деликатесы",
@@ -230,11 +249,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Пепперони вар-коп классика",
       "sku": "KD-015",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "0.5 кг",
       "brand": "Казанские Деликатесы",
@@ -245,11 +266,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Пепперони вар-коп классика целый батон",
       "sku": "KD-016",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -260,11 +283,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Пепперони сырокопчёный в нарезке",
       "sku": "KD-017",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "0.5 кг",
       "brand": "Казанские Деликатесы",
@@ -275,11 +300,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Пепперони сырокопчёный целый батон",
       "sku": "KD-018",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -290,11 +317,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Грудка куриная варено-копченая",
       "sku": "KD-019",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -305,11 +334,13 @@
         "availability": "https://schema.org/InStock"
       },
       "shelfLife": "360 суток",
+      "storage": "",
       "hsCode": "160100"
     },
     {
       "name": "Филе куриное варное",
       "sku": "KD-020",
+      "section": "Заморозка",
       "category": "Топпинги",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -319,11 +350,14 @@
         "priceExclVAT": "408.18",
         "availability": "https://schema.org/InStock"
       },
-      "hsCode": "160100"
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": ""
     },
     {
       "name": "Фарш говяжий",
       "sku": "KD-021",
+      "section": "Заморозка",
       "category": "Мясные заготовки",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -333,11 +367,14 @@
         "priceExclVAT": "609.09",
         "availability": "https://schema.org/InStock"
       },
-      "shelfLife": "180 суток"
+      "shelfLife": "180 суток",
+      "storage": "",
+      "hsCode": ""
     },
     {
       "name": "Фарш из куриной кожи",
       "sku": "KD-022",
+      "section": "Заморозка",
       "category": "Мясные заготовки",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -347,11 +384,14 @@
         "priceExclVAT": "74.55",
         "availability": "https://schema.org/InStock"
       },
-      "shelfLife": "180 суток"
+      "shelfLife": "180 суток",
+      "storage": "",
+      "hsCode": ""
     },
     {
       "name": "Филе бедра куриного в кубике 1×1 см",
       "sku": "KD-023",
+      "section": "Заморозка",
       "category": "Мясные заготовки",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -361,11 +401,14 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock"
       },
-      "shelfLife": "180 суток"
+      "shelfLife": "180 суток",
+      "storage": "",
+      "hsCode": ""
     },
     {
       "name": "Филе грудки куриной в кубике 1×1 см",
       "sku": "KD-024",
+      "section": "Заморозка",
       "category": "Мясные заготовки",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -375,11 +418,14 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock"
       },
-      "shelfLife": "180 суток"
+      "shelfLife": "180 суток",
+      "storage": "",
+      "hsCode": ""
     },
     {
       "name": "Говядина 1 сорт в кубике 1×1 см",
       "sku": "KD-025",
+      "section": "Заморозка",
       "category": "Мясные заготовки",
       "weight": "1 кг",
       "brand": "Казанские Деликатесы",
@@ -389,7 +435,912 @@
         "priceExclVAT": "736.36",
         "availability": "https://schema.org/InStock"
       },
-      "shelfLife": "180 суток"
+      "shelfLife": "180 суток",
+      "storage": "",
+      "hsCode": ""
+    },
+    {
+      "name": "Сосиски «К завтраку»",
+      "sku": "KD-026",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "135.00",
+        "priceExclVAT": "122.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "0-6°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «К завтраку» (без оболочки) для «Сосиски в тесте»",
+      "sku": "KD-027",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "245.00",
+        "priceExclVAT": "222.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Нежные»",
+      "sku": "KD-028",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "181.00",
+        "priceExclVAT": "164.55",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Казанские с молоком»",
+      "sku": "KD-029",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "235.00",
+        "priceExclVAT": "213.64",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «С сыром»",
+      "sku": "KD-030",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "293.00",
+        "priceExclVAT": "266.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски «Из говядины»",
+      "sku": "KD-031",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "284.00",
+        "priceExclVAT": "258.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски в/с Премиум",
+      "sku": "KD-032",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "146.00",
+        "priceExclVAT": "132.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сосиски в/с Сочные",
+      "sku": "KD-033",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.4 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "144.00",
+        "priceExclVAT": "130.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сардельки «Буинские»",
+      "sku": "KD-034",
+      "section": "Охлаждённая продукция",
+      "category": "Сосиски, сардельки",
+      "weight": "0.24 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "166.00",
+        "priceExclVAT": "150.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Вареная «Из Говядины»",
+      "sku": "KD-035",
+      "section": "Охлаждённая продукция",
+      "category": "Вареные",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "292.00",
+        "priceExclVAT": "265.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "0-6°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Вареная Ассорти",
+      "sku": "KD-036",
+      "section": "Охлаждённая продукция",
+      "category": "Вареные",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "197.00",
+        "priceExclVAT": "179.09",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Вареная Нежная",
+      "sku": "KD-037",
+      "section": "Охлаждённая продукция",
+      "category": "Вареные",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "200.00",
+        "priceExclVAT": "181.82",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина из Индейки",
+      "sku": "KD-038",
+      "section": "Охлаждённая продукция",
+      "category": "Ветчины",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "380.00",
+        "priceExclVAT": "345.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "0-6°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина Мраморная с говядиной",
+      "sku": "KD-039",
+      "section": "Охлаждённая продукция",
+      "category": "Ветчины",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "398.00",
+        "priceExclVAT": "361.82",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина из Курицы",
+      "sku": "KD-040",
+      "section": "Охлаждённая продукция",
+      "category": "Ветчины",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "350.00",
+        "priceExclVAT": "318.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Ветчина Филейная",
+      "sku": "KD-041",
+      "section": "Охлаждённая продукция",
+      "category": "Ветчины",
+      "weight": "0.5 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "188.00",
+        "priceExclVAT": "170.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сервелат Ханский",
+      "sku": "KD-042",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.45 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "216.00",
+        "priceExclVAT": "196.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "0-6°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Сервелат по-татарски в/к",
+      "sku": "KD-043",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.45 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "298.00",
+        "priceExclVAT": "270.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Полукопченая из Индейки",
+      "sku": "KD-044",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.45 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "348.00",
+        "priceExclVAT": "316.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Полукопченая из Говядины",
+      "sku": "KD-045",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.45 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "358.00",
+        "priceExclVAT": "325.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Колбаски с Сыром",
+      "sku": "KD-046",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.3 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "271.00",
+        "priceExclVAT": "246.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Грудка куриная",
+      "sku": "KD-047",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "380.00",
+        "priceExclVAT": "345.45",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Филе куриное",
+      "sku": "KD-048",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "449.00",
+        "priceExclVAT": "408.18",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Рамазан",
+      "sku": "KD-049",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.54 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "377.00",
+        "priceExclVAT": "342.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Рамазан (половинка)",
+      "sku": "KD-050",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.27 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "188.00",
+        "priceExclVAT": "170.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Мраморная",
+      "sku": "KD-051",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.54 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "362.00",
+        "priceExclVAT": "329.09",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Мраморная (половинка)",
+      "sku": "KD-052",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.27 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "181.00",
+        "priceExclVAT": "164.55",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Филейный",
+      "sku": "KD-053",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.54 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "333.00",
+        "priceExclVAT": "302.73",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Филейный (половинка)",
+      "sku": "KD-054",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.27 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "166.00",
+        "priceExclVAT": "150.91",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Княжеская",
+      "sku": "KD-055",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.54 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "362.00",
+        "priceExclVAT": "329.09",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "в/к Княжеская (половинка)",
+      "sku": "KD-056",
+      "section": "Охлаждённая продукция",
+      "category": "Копченые",
+      "weight": "0.27 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "181.00",
+        "priceExclVAT": "164.55",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Казылык «Премиум» в подарочной упаковке",
+      "sku": "KD-057",
+      "section": "Охлаждённая продукция",
+      "category": "Премиум Казылык",
+      "weight": "0.2 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "650.00",
+        "priceExclVAT": "541.67",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "180 суток",
+      "storage": "0-12°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Казылык «Премиум» в нарезке в подарочной упаковке",
+      "sku": "KD-058",
+      "section": "Охлаждённая продукция",
+      "category": "Премиум Казылык",
+      "weight": "0.1 кг",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "price": "450.00",
+        "priceExclVAT": "375.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "30 суток",
+      "storage": "0-12°C",
+      "hsCode": "160100"
+    },
+    {
+      "name": "Губадия с кортом",
+      "sku": "KD-059",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "56.00",
+        "pricePerBox": "2688.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": ""
+    },
+    {
+      "name": "Чебурек жареный",
+      "sku": "KD-060",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "30",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "58.86",
+        "pricePerBox": "1765.80",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Перемяч жареный",
+      "sku": "KD-061",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "59.14",
+        "pricePerBox": "2838.72",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Самса с курицей",
+      "sku": "KD-062",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "120 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "61.73",
+        "pricePerBox": "2963.04",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Эчпочмак с говядиной и картофелем",
+      "sku": "KD-063",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "68.77",
+        "pricePerBox": "3300.96",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Самса с говядиной",
+      "sku": "KD-064",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "120 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "73.14",
+        "pricePerBox": "3510.72",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Элеш с курицей и картофелем",
+      "sku": "KD-065",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "150 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "77.84",
+        "pricePerBox": "3736.32",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Чак-Чак в пластиковой упаковке",
+      "sku": "KD-066",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "300 г",
+      "qtyPerBox": "1",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "194.70",
+        "pricePerBox": "194.70",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "60 суток",
+      "storage": "до +18°C",
+      "hsCode": "1905"
+    },
+    {
+      "name": "Чак-Чак в крафтовой подарочной упаковке",
+      "sku": "KD-067",
+      "section": "Выпечка",
+      "category": "Национальная татарская выпечка",
+      "weight": "300 г",
+      "qtyPerBox": "1",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "271.70",
+        "pricePerBox": "271.70",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "60 суток",
+      "storage": "до +18°C",
+      "hsCode": "1905"
+    },
+    {
+      "name": "Сочник с творогом",
+      "sku": "KD-068",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "30",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "44.00",
+        "pricePerBox": "1320.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "360 суток",
+      "storage": "–18°C",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Пирожок печеный с картофелем",
+      "sku": "KD-069",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "44.74",
+        "pricePerBox": "2147.52",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Сырник",
+      "sku": "KD-070",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "70 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "45.10",
+        "pricePerBox": "2164.80",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "040490"
+    },
+    {
+      "name": "Пирожок с яблоком",
+      "sku": "KD-071",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "36",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "49.50",
+        "pricePerBox": "1782.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Пирожок с зеленым луком и яйцом",
+      "sku": "KD-072",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "58.52",
+        "pricePerBox": "2808.96",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Маффин апельсиновый",
+      "sku": "KD-073",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "24",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "67.55",
+        "pricePerBox": "1621.20",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Сосиска в тесте",
+      "sku": "KD-074",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "120 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "69.03",
+        "pricePerBox": "3313.44",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Пирожок с вишней",
+      "sku": "KD-075",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "48",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "71.50",
+        "pricePerBox": "3432.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Круассан с шоколадом и орехами",
+      "sku": "KD-076",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "90 г",
+      "qtyPerBox": "20",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "72.60",
+        "pricePerBox": "1452.00",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
+    },
+    {
+      "name": "Маффин шоколадный",
+      "sku": "KD-077",
+      "section": "Выпечка",
+      "category": "Классическая выпечка",
+      "weight": "100 г",
+      "qtyPerBox": "24",
+      "brand": "Казанские Деликатесы",
+      "offers": {
+        "priceCurrency": "RUB",
+        "pricePerUnit": "73.64",
+        "pricePerBox": "1767.36",
+        "availability": "https://schema.org/InStock"
+      },
+      "shelfLife": "",
+      "storage": "",
+      "hsCode": "190590"
     }
   ]
 }
