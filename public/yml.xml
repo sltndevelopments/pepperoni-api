@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="2026-01-10">
+  <shop>
+    <name>Казанские Деликатесы</name>
+    <company>ООО «Казанские Деликатесы»</company>
+    <url>https://kazandelikates.tatar</url>
+    <currencies>
+      <currency id="RUB" rate="1"/>
+    </currencies>
+    <categories>
+      <category id="1">Заморозка</category>
+      <category id="2" parentId="1">Сосиски гриль для хот-догов</category>
+      <category id="3" parentId="1">Котлеты для бургеров</category>
+      <category id="4" parentId="1">Топпинги</category>
+      <category id="5" parentId="1">Мясные заготовки</category>
+      <category id="6">Охлаждённая продукция</category>
+      <category id="7" parentId="6">Сосиски, сардельки</category>
+      <category id="8" parentId="6">Вареные</category>
+      <category id="9" parentId="6">Ветчины</category>
+      <category id="10" parentId="6">Копченые</category>
+      <category id="11" parentId="6">Премиум Казылык</category>
+      <category id="12">Выпечка</category>
+      <category id="13" parentId="12">Национальная татарская выпечка</category>
+      <category id="14" parentId="12">Классическая выпечка</category>
+    </categories>
+    <delivery>true</delivery>
+    <offers>
+      <offer id="KD-001" available="true"><name>Сосиски «Из говядины» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>290</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски из говядины для хот-догов, халяль. Вес 0.48 кг. Срок годности 360 суток. Хранение –18°C.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
+      <offer id="KD-002" available="true"><name>Сосиски «Два мяса» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>286</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски из двух видов мяса, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
+      <offer id="KD-003" available="true"><name>Сосиски «Три перца с сыром» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>316</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски с тремя перцами и сыром, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
+      <offer id="KD-005" available="true"><name>Сосиски «С бараниной» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>366</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски с бараниной, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
+      <offer id="KD-015" available="true"><name>Пепперони вар-коп классика</name><url>https://pepperoni.tatar</url><price>274</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони варёно-копчёный классический, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
+      <offer id="KD-014" available="true"><name>Пепперони вар-коп из конины</name><url>https://pepperoni.tatar</url><price>315</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони варёно-копчёный из конины, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
+      <offer id="KD-017" available="true"><name>Пепперони сырокопчёный в нарезке</name><url>https://pepperoni.tatar</url><price>380</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони сырокопчёный в нарезке, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
+      <offer id="KD-018" available="true"><name>Пепперони сырокопчёный целый батон</name><url>https://pepperoni.tatar</url><price>608</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони сырокопчёный целый батон, халяль. Вес 1 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">1 кг</param></offer>
+      <offer id="KD-057" available="true"><name>Казылык «Премиум» в подарочной упаковке</name><url>https://pepperoni.tatar</url><price>650</price><currencyId>RUB</currencyId><categoryId>11</categoryId><vendor>Казанские Деликатесы</vendor><description>Казылык — традиционная конская колбаса, деликатес татарской кухни. Подарочная упаковка 200 г. Срок годности 180 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.2 кг</param></offer>
+      <offer id="KD-059" available="true"><name>Губадия с кортом</name><url>https://pepperoni.tatar</url><price>56</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Губадия — традиционный татарский слоёный пирог с кортом (творожная масса). 100 г. Халяль.</description><param name="Сертификация">Halal</param><param name="Вес">100 г</param></offer>
+      <offer id="KD-063" available="true"><name>Эчпочмак с говядиной и картофелем</name><url>https://pepperoni.tatar</url><price>68.77</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Эчпочмак — традиционный татарский треугольный пирожок с говядиной и картофелем. 100 г. Халяль.</description><param name="Сертификация">Halal</param><param name="Вес">100 г</param></offer>
+      <offer id="KD-066" available="true"><name>Чак-Чак в крафтовой подарочной упаковке</name><url>https://pepperoni.tatar</url><price>271.70</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Чак-чак — традиционная татарская сладость из теста с мёдом. Крафтовая подарочная упаковка 300 г.</description><param name="Сертификация">Halal</param><param name="Вес">300 г</param></offer>
+    </offers>
+  </shop>
+</yml_catalog>
