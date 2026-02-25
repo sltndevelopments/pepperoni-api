@@ -53,6 +53,24 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
+const ENRICHMENTS = {
+  'пепперони вар-коп классика': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы. Халяль. Термостабильный — не скручивается при запекании.' },
+  'пепперони вар-коп классика целый батон': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы, целый батон. Халяль.' },
+  'пепперони вар-коп из конины': { meatType: 'конина', description: 'Пепперони варёно-копчёный из конины. Халяль.' },
+  'пепперони сырокопчёный в нарезке': { meatType: 'говядина, курица', description: 'Пепперони сырокопчёный в нарезке из говядины и курицы. Халяль.' },
+  'пепперони сырокопчёный целый батон': { meatType: 'говядина, курица', description: 'Пепперони сырокопчёный из говядины и курицы, целый батон. Халяль.' },
+};
+
+function enrich(product) {
+  const key = product.name.toLowerCase();
+  const data = ENRICHMENTS[key];
+  if (data) {
+    product.meatType = data.meatType;
+    product.description = data.description;
+  }
+  return product;
+}
+
 function buildStandard(lines, section, startIdx) {
   let category = '';
   const products = [];
@@ -194,7 +212,7 @@ export default async function handler(req, res) {
         result = buildStandard(lines, sheet.section, idx);
       }
 
-      allProducts = allProducts.concat(result.products);
+      allProducts = allProducts.concat(result.products.map(enrich));
       idx = result.nextIdx;
     }
 
@@ -207,7 +225,9 @@ export default async function handler(req, res) {
         (p) =>
           p.name.toLowerCase().includes(q) ||
           (p.category && p.category.toLowerCase().includes(q)) ||
-          (p.sku && p.sku.toLowerCase().includes(q))
+          (p.sku && p.sku.toLowerCase().includes(q)) ||
+          (p.description && p.description.toLowerCase().includes(q)) ||
+          (p.meatType && p.meatType.toLowerCase().includes(q))
       );
     }
     if (section) {
