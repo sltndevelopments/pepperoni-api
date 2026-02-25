@@ -1,0 +1,39 @@
+name: Sync prices from Google Sheets
+
+on:
+  schedule:
+    # Каждый день в 06:00 по Москве (03:00 UTC)
+    - cron: '0 3 * * *'
+  workflow_dispatch: # Ручной запуск из GitHub UI
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Sync data from Google Sheets
+        run: node scripts/sync-sheets.mjs
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add public/products.json public/llms-full.txt public/sitemap.xml
+          git commit -m "🔄 Auto-sync prices from Google Sheets [$(date -u +%Y-%m-%d)]"
+          git push
