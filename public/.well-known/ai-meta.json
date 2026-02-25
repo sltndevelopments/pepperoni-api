@@ -3,12 +3,24 @@
   "organization": "Kazan Delicacies",
   "datasets": [
     {
-      "name": "pepperoni_products",
+      "name": "pepperoni_products_live",
+      "url": "https://api.pepperoni.tatar/api/products",
+      "format": "json",
+      "description": "Live product catalog synced with Google Sheets. 25+ halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
+      "updateFrequency": "hourly"
+    },
+    {
+      "name": "pepperoni_products_static",
       "url": "https://api.pepperoni.tatar/products.json",
       "format": "json",
-      "description": "Halal pepperoni product list with nutrition and offers."
+      "description": "Static product catalog with 25 halal meat products."
+    },
+    {
+      "name": "pepperoni_price_list",
+      "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv",
+      "format": "csv",
+      "description": "Original price list from Google Sheets in CSV format."
     }
   ],
-  "updated_at": "2025-11-04T12:00:00Z"
+  "updated_at": "2026-01-08T12:00:00Z"
 }
-

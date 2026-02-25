@@ -1,20 +1,59 @@
 openapi: 3.0.3
 info:
   title: Pepperoni.tatar API
-  version: "1.0.0"
+  version: "2.0.0"
   description: >
-    Официальные данные о халяль пепперони: список SKU, характеристики, питательная ценность, ссылки.
+    Каталог халяль мясных изделий от Казанских Деликатесов.
+    Актуальные цены из Google Sheets: пепперони, сосиски, ветчина, котлеты, мясные заготовки.
+    Цены в RUB, USD, KZT, UZS, KGS, BYN, AZN.
+  contact:
+    name: Казанские Деликатесы
+    email: info@kazandelikates.tatar
+    url: https://kazandelikates.tatar
 servers:
   - url: https://api.pepperoni.tatar
     description: Production server
 paths:
+  /api/products:
+    get:
+      tags:
+        - Products
+      summary: Актуальный каталог продуктов (live из Google Sheets)
+      description: >
+        Возвращает актуальные данные о продуктах и ценах, синхронизированные
+        с Google Sheets прайс-листом. Обновляется при каждом запросе.
+        Кешируется на 1 час.
+      operationId: getLiveProducts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  '@context':
+                    type: string
+                    example: https://schema.org
+                  '@type':
+                    type: string
+                    example: DataCatalog
+                  dateModified:
+                    type: string
+                    format: date-time
+                  totalProducts:
+                    type: integer
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
   /products.json:
     get:
       tags:
         - Products
-      summary: Список продуктов пепперони
-      description: Возвращает список продуктов в формате JSON
-      operationId: getProducts
+      summary: Статический каталог продуктов
+      description: Статический JSON-файл с каталогом продуктов (25 товаров).
+      operationId: getStaticProducts
       responses:
         '200':
           description: OK
@@ -40,25 +79,31 @@ components:
           example: RUB
         price:
           type: string
-          example: "790.00"
+          example: "290.00"
+        priceExclVAT:
+          type: string
+          example: "263.64"
         availability:
           type: string
           example: https://schema.org/InStock
-    Nutrition:
-      type: object
-      properties:
-        calories:
+        exportPrices:
+          type: object
+          properties:
+            USD:
+              type: number
+            KZT:
+              type: number
+            UZS:
+              type: number
+            KGS:
+              type: number
+            BYN:
+              type: number
+            AZN:
+              type: number
+        deliveryTerms:
           type: string
-          example: "310 kcal per 100 g"
-        proteinContent:
-          type: string
-          example: "17 g"
-        fatContent:
-          type: string
-          example: "27 g"
-        carbohydrateContent:
-          type: string
-          example: "1 g"
+          example: EXW Kazan Russia
     Product:
       type: object
       properties:
@@ -66,16 +111,25 @@ components:
           type: string
         sku:
           type: string
-        image:
-          type: string
-          format: uri
-        description:
-          type: string
         category:
+          type: string
+        weight:
           type: string
         brand:
           type: string
+        description:
+          type: string
+        certification:
+          type: string
+          example: Halal
         offers:
           $ref: '#/components/schemas/Offer'
-        nutrition:
-          $ref: '#/components/schemas/Nutrition'
+        shelfLife:
+          type: string
+          example: "360 суток"
+        storage:
+          type: string
+          example: "–18°C"
+        hsCode:
+          type: string
+          example: "160100"

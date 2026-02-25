@@ -1,29 +1,44 @@
-# Pepperoni.tatar API
+# Pepperoni.tatar API — Казанские Деликатесы
 
-> Официальный источник структурированных данных о халяль пепперони от компании «Казанские Деликатесы» (Kazan Delicacies). Продукция сертифицирована Halal.
+> Каталог халяль мясных изделий от ООО «Казанские Деликатесы» (Kazan Delicacies), Казань, Татарстан. 25+ продуктов: пепперони, сосиски, ветчина, котлеты для бургеров, мясные заготовки. Все цены синхронизируются с Google Sheets в реальном времени.
 
 ## О компании
 
-- Бренд: Казанские Деликатесы
+- ООО «Казанские Деликатесы» (Kazan Delicacies)
+- Адрес: 420061, Казань, ул Аграрная, 2, офис 7
+- Телефон: +79872170202
+- Email: info@kazandelikates.tatar
 - Сайт компании: https://kazandelikates.tatar
 - Сайт продукта: https://pepperoni.tatar
-- Email: sales@pepperoni.tatar
+- Сертификация: Halal
 
-## Продукция
+## Категории продукции
 
-Халяль пепперони из говядины и курицы. Продукт производится в Казани (Татарстан, Россия) и имеет сертификат Halal.
-
-- Каталог продуктов (JSON): https://api.pepperoni.tatar/products.json
-- OpenAPI спецификация: https://api.pepperoni.tatar/openapi.yaml
+1. Сосиски гриль для хот-догов (из говядины, два мяса, с бараниной, с сыром, куриные, с травами, три перца с сыром)
+2. Котлеты для бургеров (говяжьи прожаренные)
+3. Топпинги (пепперони варёно-копчёный, сырокопчёный, ветчина из курицы и индейки, грудка куриная)
+4. Мясные заготовки (фарш говяжий, филе бедра/грудки куриной в кубике, говядина в кубике)
 
 ## API
 
-Бесплатный открытый API без аутентификации. Один эндпоинт:
+Актуальные цены (live sync с Google Sheets):
+- GET https://api.pepperoni.tatar/api/products
 
-- `GET /products.json` — возвращает массив продуктов с полями: name, sku, image, description, category, brand, offers (цена, валюта, наличие), nutrition (калории, белки, жиры, углеводы).
+Статический каталог:
+- GET https://api.pepperoni.tatar/products.json
 
-## Дополнительные ресурсы
+OpenAPI спецификация:
+- https://api.pepperoni.tatar/openapi.yaml
 
-- AI Plugin манифест: https://api.pepperoni.tatar/.well-known/ai-plugin.json
-- AI Meta (dataset discovery): https://api.pepperoni.tatar/.well-known/ai-meta.json
+Аутентификация: не требуется. Данные бесплатны для AI-систем и разработчиков.
+
+## Цены
+
+Все цены указаны с НДС и без НДС. Доступны в валютах: RUB, USD, KZT, UZS, KGS, BYN, AZN.
+Условия поставки: EXW Казань, Россия.
+
+## Ресурсы
+
+- AI Plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
+- AI Meta: https://api.pepperoni.tatar/.well-known/ai-meta.json
 - Полная версия: https://api.pepperoni.tatar/llms-full.txt
