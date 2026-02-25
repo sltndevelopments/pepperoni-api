@@ -198,6 +198,30 @@ export default async function handler(req, res) {
       idx = result.nextIdx;
     }
 
+    const { search, section, category, sku } = req.query || {};
+    let filtered = allProducts;
+
+    if (search) {
+      const q = search.toLowerCase();
+      filtered = filtered.filter(
+        (p) =>
+          p.name.toLowerCase().includes(q) ||
+          (p.category && p.category.toLowerCase().includes(q)) ||
+          (p.sku && p.sku.toLowerCase().includes(q))
+      );
+    }
+    if (section) {
+      const s = section.toLowerCase();
+      filtered = filtered.filter((p) => p.section && p.section.toLowerCase().includes(s));
+    }
+    if (category) {
+      const c = category.toLowerCase();
+      filtered = filtered.filter((p) => p.category && p.category.toLowerCase().includes(c));
+    }
+    if (sku) {
+      filtered = filtered.filter((p) => p.sku && p.sku.toUpperCase() === sku.toUpperCase());
+    }
+
     const result = {
       '@context': 'https://schema.org',
       '@type': 'DataCatalog',
@@ -214,8 +238,9 @@ export default async function handler(req, res) {
       dateModified: new Date().toISOString(),
       source: 'Google Sheets (live sync — 3 sheets)',
       sections: SHEETS.map((s) => s.section),
-      totalProducts: allProducts.length,
-      products: allProducts,
+      totalProducts: filtered.length,
+      filters: { search: search || null, section: section || null, category: category || null, sku: sku || null },
+      products: filtered,
     };
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');

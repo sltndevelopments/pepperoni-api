@@ -24,6 +24,35 @@ paths:
         с Google Sheets прайс-листом. Обновляется при каждом запросе.
         Кешируется на 1 час.
       operationId: getLiveProducts
+      parameters:
+        - name: search
+          in: query
+          description: Поиск по названию, категории или SKU (например, ?search=пепперони)
+          required: false
+          schema:
+            type: string
+            example: пепперони
+        - name: section
+          in: query
+          description: Фильтр по разделу (Заморозка, Охлаждённая продукция, Выпечка)
+          required: false
+          schema:
+            type: string
+            example: Заморозка
+        - name: category
+          in: query
+          description: Фильтр по категории (Топпинги, Сосиски, Ветчины, Копченые и др.)
+          required: false
+          schema:
+            type: string
+            example: Топпинги
+        - name: sku
+          in: query
+          description: Точный поиск по артикулу (например, ?sku=KD-015)
+          required: false
+          schema:
+            type: string
+            example: KD-015
       responses:
         '200':
           description: OK
