@@ -1,5 +1,11 @@
-const SHEET_CSV_URL =
+const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
+
+const SHEETS = [
+  { gid: '1087942289', section: 'Заморозка', type: 'standard' },
+  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
+  { gid: '26993021', section: 'Выпечка', type: 'bakery' },
+];
 
 function parseCSV(text) {
   const rows = [];
@@ -47,37 +53,21 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
-function generateSKU(name, index) {
-  const slug = name
-    .replace(/[«»"]/g, '')
-    .replace(/[^\w\sа-яёА-ЯЁ]/g, '')
-    .trim()
-    .substring(0, 20)
-    .replace(/\s+/g, '-')
-    .toUpperCase();
-  return `KD-${String(index).padStart(3, '0')}`;
-}
-
-function buildProducts(lines) {
+function buildStandard(lines, section, startIdx) {
   let category = '';
   const products = [];
-  let idx = 0;
+  let idx = startIdx;
 
   for (const cols of lines) {
     if (!cols || cols.length < 3) continue;
     const name = cols[0];
-    if (!name) continue;
-
-    if (name === 'Наименование') continue;
-    if (name.startsWith('ООО')) continue;
+    if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
     const priceVAT = toNumber(cols[2]);
     const priceNoVAT = toNumber(cols[3]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
-      if (name && !cols[1]) {
-        category = name;
-      }
+      if (name && !cols[1]) category = name;
       continue;
     }
 
@@ -97,11 +87,11 @@ function buildProducts(lines) {
 
     products.push({
       name,
-      sku: generateSKU(name, idx),
-      category: category || 'Мясные изделия',
+      sku: `KD-${String(idx).padStart(3, '0')}`,
+      section,
+      category: category || section,
       weight,
       brand: 'Казанские Деликатесы',
-      description: `${name}. Халяль продукция от Казанских Деликатесов.${shelfLife ? ' Срок годности: ' + shelfLife + '.' : ''}${storage ? ' Хранение: ' + storage + '.' : ''}`,
       certification: 'Halal',
       offers: {
         url: 'https://pepperoni.tatar',
@@ -109,7 +99,6 @@ function buildProducts(lines) {
         price: priceVAT.toFixed(2),
         priceExclVAT: priceNoVAT.toFixed(2),
         availability: 'https://schema.org/InStock',
-        priceValidUntil: new Date(Date.now() + 30 * 86400000).toISOString().split('T')[0],
         exportPrices: prices,
         deliveryTerms: 'EXW Kazan Russia',
       },
@@ -119,31 +108,114 @@ function buildProducts(lines) {
     });
   }
 
-  return products;
+  return { products, nextIdx: idx };
+}
+
+function buildBakery(lines, section, startIdx) {
+  let category = '';
+  const products = [];
+  let idx = startIdx;
+
+  for (const cols of lines) {
+    if (!cols || cols.length < 4) continue;
+    const name = cols[0];
+    if (!name || name === 'Наименование' || name.startsWith('ООО')) continue;
+
+    const pricePerUnit = toNumber(cols[3]);
+    const pricePerBox = toNumber(cols[4]);
+
+    if (pricePerUnit === 0 && pricePerBox === 0) {
+      if (name && !cols[1]) category = name;
+      continue;
+    }
+
+    idx++;
+    const weightGrams = cols[1] || '';
+    const qtyPerBox = cols[2] || '';
+    const priceBoxNoVAT = toNumber(cols[5]);
+    const shelfLife = cols[6] || '';
+    const storage = cols[7] || '';
+    const hsCode = cols[8] || '';
+
+    const prices = {};
+    if (toNumber(cols[9])) prices.USD = toNumber(cols[9]);
+    if (toNumber(cols[10])) prices.KZT = toNumber(cols[10]);
+    if (toNumber(cols[11])) prices.UZS = toNumber(cols[11]);
+    if (toNumber(cols[12])) prices.KGS = toNumber(cols[12]);
+    if (toNumber(cols[13])) prices.BYN = toNumber(cols[13]);
+    if (toNumber(cols[14])) prices.AZN = toNumber(cols[14]);
+
+    products.push({
+      name,
+      sku: `KD-${String(idx).padStart(3, '0')}`,
+      section,
+      category: category || section,
+      weight: weightGrams ? `${weightGrams} г` : '',
+      qtyPerBox: qtyPerBox || '',
+      brand: 'Казанские Деликатесы',
+      certification: 'Halal',
+      offers: {
+        url: 'https://pepperoni.tatar',
+        priceCurrency: 'RUB',
+        pricePerUnit: pricePerUnit.toFixed(2),
+        pricePerBox: pricePerBox.toFixed(2),
+        pricePerBoxExclVAT: priceBoxNoVAT.toFixed(2),
+        availability: 'https://schema.org/InStock',
+        exportPrices: prices,
+        deliveryTerms: 'EXW Kazan Russia',
+      },
+      shelfLife,
+      storage,
+      hsCode,
+    });
+  }
+
+  return { products, nextIdx: idx };
 }
 
 export default async function handler(req, res) {
   try {
-    const response = await fetch(SHEET_CSV_URL);
-    if (!response.ok) throw new Error(`Google Sheets HTTP ${response.status}`);
-    const csv = await response.text();
-    const lines = parseCSV(csv);
-    const products = buildProducts(lines);
+    const fetches = SHEETS.map((s) =>
+      fetch(`${BASE_URL}&gid=${s.gid}`).then((r) => r.text())
+    );
+    const csvs = await Promise.all(fetches);
+
+    let allProducts = [];
+    let idx = 0;
+
+    for (let i = 0; i < SHEETS.length; i++) {
+      const lines = parseCSV(csvs[i]);
+      const sheet = SHEETS[i];
+      let result;
+
+      if (sheet.type === 'bakery') {
+        result = buildBakery(lines, sheet.section, idx);
+      } else {
+        result = buildStandard(lines, sheet.section, idx);
+      }
+
+      allProducts = allProducts.concat(result.products);
+      idx = result.nextIdx;
+    }
 
     const result = {
       '@context': 'https://schema.org',
       '@type': 'DataCatalog',
-      name: 'Каталог продуктов — Казанские Деликатесы',
+      name: 'Полный каталог — Казанские Деликатесы',
       url: 'https://api.pepperoni.tatar/api/products',
       publisher: {
         '@type': 'Organization',
         name: 'Казанские Деликатесы',
         url: 'https://kazandelikates.tatar',
+        address: '420061, Казань, ул Аграрная, 2, оф 7',
+        phone: '+79872170202',
+        email: 'info@kazandelikates.tatar',
       },
       dateModified: new Date().toISOString(),
-      source: 'Google Sheets (live sync)',
-      totalProducts: products.length,
-      products,
+      source: 'Google Sheets (live sync — 3 sheets)',
+      sections: SHEETS.map((s) => s.section),
+      totalProducts: allProducts.length,
+      products: allProducts,
     };
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
