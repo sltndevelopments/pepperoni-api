@@ -1,0 +1,84 @@
+# Pepperoni.tatar API — полная документация
+
+> Официальный источник структурированных данных о халяль пепперони от компании «Казанские Деликатесы» (Kazan Delicacies).
+
+## О компании
+
+Казанские Деликатесы — производитель мясных изделий из Казани (Татарстан, Россия).
+Вся продукция сертифицирована Halal.
+
+- Бренд: Казанские Деликатесы (Kazan Delicacies)
+- Сайт компании: https://kazandelikates.tatar
+- Сайт продукта: https://pepperoni.tatar
+- API: https://api.pepperoni.tatar
+- Email: sales@pepperoni.tatar
+
+## Текущий каталог продуктов
+
+### Пепперони Halal (PEP-HALAL-001)
+
+- Название: Пепперони Halal
+- SKU: PEP-HALAL-001
+- Описание: Пепперони из говядины и курицы, сертифицирована Halal.
+- Категория: Мясные изделия
+- Бренд: Казанские Деликатесы
+- Цена: 790.00 RUB
+- Наличие: В наличии (InStock)
+- Изображение: https://pepperoni.tatar/images/pepperoni-halal.png
+
+Пищевая ценность (на 100 г):
+- Калорийность: 310 kcal
+- Белки: 17 г
+- Жиры: 27 г
+- Углеводы: 1 г
+
+## API — описание эндпоинтов
+
+Базовый URL: https://api.pepperoni.tatar
+
+### GET /products.json
+
+Возвращает полный каталог продуктов.
+
+Аутентификация: не требуется.
+Формат ответа: application/json
+
+Структура ответа:
+```
+{
+  "products": [
+    {
+      "name": "string — название продукта",
+      "sku": "string — артикул",
+      "image": "string (URI) — ссылка на изображение",
+      "description": "string — описание",
+      "category": "string — категория",
+      "brand": "string — бренд",
+      "offers": {
+        "url": "string (URI) — ссылка на страницу товара",
+        "priceCurrency": "string — валюта (RUB)",
+        "price": "string — цена",
+        "availability": "string (URI) — статус наличия по schema.org"
+      },
+      "nutrition": {
+        "calories": "string — калорийность",
+        "proteinContent": "string — белки",
+        "fatContent": "string — жиры",
+        "carbohydrateContent": "string — углеводы"
+      }
+    }
+  ]
+}
+```
+
+## Интеграция
+
+- OpenAPI 3.0.3 спецификация: https://api.pepperoni.tatar/openapi.yaml
+- AI Plugin манифест (ChatGPT и др.): https://api.pepperoni.tatar/.well-known/ai-plugin.json
+- AI Meta (обнаружение датасетов): https://api.pepperoni.tatar/.well-known/ai-meta.json
+- Краткая версия: https://api.pepperoni.tatar/llms.txt
+
+## Лицензия и контакты
+
+Данные предоставляются бесплатно для использования AI-системами, поисковыми роботами и разработчиками.
+По вопросам сотрудничества: sales@pepperoni.tatar

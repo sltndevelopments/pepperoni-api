@@ -1,0 +1,29 @@
+# Pepperoni.tatar API
+
+> Официальный источник структурированных данных о халяль пепперони от компании «Казанские Деликатесы» (Kazan Delicacies). Продукция сертифицирована Halal.
+
+## О компании
+
+- Бренд: Казанские Деликатесы
+- Сайт компании: https://kazandelikates.tatar
+- Сайт продукта: https://pepperoni.tatar
+- Email: sales@pepperoni.tatar
+
+## Продукция
+
+Халяль пепперони из говядины и курицы. Продукт производится в Казани (Татарстан, Россия) и имеет сертификат Halal.
+
+- Каталог продуктов (JSON): https://api.pepperoni.tatar/products.json
+- OpenAPI спецификация: https://api.pepperoni.tatar/openapi.yaml
+
+## API
+
+Бесплатный открытый API без аутентификации. Один эндпоинт:
+
+- `GET /products.json` — возвращает массив продуктов с полями: name, sku, image, description, category, brand, offers (цена, валюта, наличие), nutrition (калории, белки, жиры, углеводы).
+
+## Дополнительные ресурсы
+
+- AI Plugin манифест: https://api.pepperoni.tatar/.well-known/ai-plugin.json
+- AI Meta (dataset discovery): https://api.pepperoni.tatar/.well-known/ai-meta.json
+- Полная версия: https://api.pepperoni.tatar/llms-full.txt
