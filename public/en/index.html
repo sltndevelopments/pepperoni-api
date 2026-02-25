@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Kazan Delicacies — Halal Meat Products & Tatar Pastries | pepperoni.tatar</title>
+  <meta name="description" content="Full catalog of halal products by Kazan Delicacies: 77 items — pepperoni, sausages, ham, smoked meats, burger patties, Tatar pastries (gubadiya, echpochmak, chak-chak). Prices in RUB, USD, KZT. Kazan, Tatarstan, Russia.">
+  <meta name="keywords" content="halal pepperoni, halal sausages, halal meat, kazan delicacies, halal food Russia, pepperoni wholesale, halal burger patties, tatar pastries, gubadiya, echpochmak, chak-chak, kazylyk, horse meat sausage, private label halal, HACCP, export halal meat">
+  <meta name="author" content="Kazan Delicacies">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://api.pepperoni.tatar/en/">
+  <link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/">
+  <link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kazan Delicacies — Halal Meat Products & Tatar Pastries">
+  <meta property="og:description" content="77 halal products: pepperoni, sausages, ham, smoked meats, Tatar pastries. Prices in 7 currencies. EXW Kazan, Russia.">
+  <meta property="og:url" content="https://api.pepperoni.tatar/en/">
+  <meta property="og:site_name" content="Pepperoni.tatar">
+  <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Kazan Delicacies — Halal Meat Products">
+  <meta name="twitter:description" content="77 halal products: pepperoni, sausages, ham, Tatar pastries. Wholesale. Export. Private Label.">
+  <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+
+  <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Kazan Delicacies",
+    "alternateName": ["Казанские Деликатесы", "ООО «Казанские Деликатесы»"],
+    "url": "https://kazandelikates.tatar",
+    "logo": "https://pepperoni.tatar/images/logo.png",
+    "email": "info@kazandelikates.tatar",
+    "telephone": "+79872170202",
+    "description": "Manufacturer of halal meat products and traditional Tatar pastries. 77 products from beef, horse meat, chicken, and turkey. Halal certificate #614A/2024 (DUM RT). HACCP. Private Label available.",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Agrarnaya st., 2, office 7",
+      "addressLocality": "Kazan",
+      "postalCode": "420061",
+      "addressRegion": "Tatarstan",
+      "addressCountry": "RU"
+    },
+    "sameAs": ["https://pepperoni.tatar", "https://kazandelikates.tatar", "https://api.pepperoni.tatar"]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "DataCatalog",
+    "name": "Halal Product Catalog — Kazan Delicacies",
+    "url": "https://api.pepperoni.tatar/products.json",
+    "description": "77 products in 3 sections: Frozen (25), Refrigerated (33), Bakery (19). Prices synced with Google Sheets.",
+    "creator": {"@type": "Organization", "name": "Kazan Delicacies"},
+    "inLanguage": ["ru", "en"]
+  }
+  </script>
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.6}
+    .container{max-width:900px;margin:0 auto;padding:40px 24px}
+    header{text-align:center;margin-bottom:40px}
+    h1{font-size:1.8rem;font-weight:700;margin-bottom:6px}
+    .subtitle{color:#666;font-size:1rem}
+    .badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;margin-top:10px;letter-spacing:.5px}
+    .info-bar{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:20px 0;font-size:.85rem;color:#888}
+    .info-bar a{color:#0066cc;text-decoration:none}
+    .category-title{font-size:1.2rem;font-weight:700;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid #1b7a3d;color:#1b7a3d}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px}
+    .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s}
+    .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+    .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
+    .product-sku{font-size:.75rem;color:#aaa;margin-bottom:8px}
+    .product-price{font-size:1.3rem;font-weight:700;color:#1b7a3d}
+    .product-price-vat{font-size:.75rem;color:#aaa;font-weight:400}
+    .product-avail{font-size:.8rem;color:#1b7a3d;margin-top:6px}
+    .api-section{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:28px;margin-top:32px}
+    .api-section h2{font-size:1.1rem;margin-bottom:14px}
+    .endpoint-list{list-style:none}
+    .endpoint-list li{padding:8px 0;border-bottom:1px solid #f0f0f0}
+    .endpoint-list li:last-child{border-bottom:none}
+    .endpoint-list a{color:#0066cc;text-decoration:none;font-family:'SF Mono',Consolas,monospace;font-size:.85rem}
+    .endpoint-list a:hover{text-decoration:underline}
+    .endpoint-desc{color:#888;font-size:.8rem;margin-left:4px}
+    .live-badge{display:inline-block;background:#e8f5e9;color:#1b7a3d;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:600;margin-left:6px}
+    footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:24px;margin-top:16px}
+    footer a{color:#888;text-decoration:none}
+    footer a:hover{text-decoration:underline}
+    #loading{text-align:center;padding:40px;color:#aaa}
+    @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
+      <span style="color:#1b7a3d;font-weight:600">Catalog</span>
+      <a href="/en/pepperoni" style="color:#0066cc;text-decoration:none">Pepperoni</a>
+      <a href="/en/about" style="color:#0066cc;text-decoration:none">About</a>
+      <a href="/en/faq" style="color:#0066cc;text-decoration:none">FAQ</a>
+      <a href="/en/delivery" style="color:#0066cc;text-decoration:none">Delivery</a>
+      <a href="/openapi.yaml" style="color:#0066cc;text-decoration:none">API</a>
+      <a href="/" style="color:#888;text-decoration:none;margin-left:auto">🇷🇺 Русский</a>
+    </div>
+    <header>
+      <h1>Kazan Delicacies</h1>
+      <p class="subtitle">Halal Meat Products — Kazan, Tatarstan, Russia</p>
+      <span class="badge">HALAL</span>
+      <div class="info-bar">
+        <span>+7 (987) 217-02-02</span>
+        <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
+        <a href="https://kazandelikates.tatar">kazandelikates.tatar</a>
+        <span>EXW Kazan</span>
+      </div>
+    </header>
+
+    <div id="catalog">
+      <div id="loading">Loading catalog...</div>
+    </div>
+
+    <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
+      <h2 style="margin-top:0">Contact Us</h2>
+      <p style="margin-bottom:12px;color:#444">Wholesale supplies, export, Private Label — let's discuss.</p>
+      <a href="tel:+79872170202" style="display:inline-block;background:#1b7a3d;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem">📞 +7 987 217-02-02</a>
+      <a href="mailto:info@kazandelikates.tatar" style="display:inline-block;border:2px solid #1b7a3d;color:#1b7a3d;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem">📧 info@kazandelikates.tatar</a>
+    </div>
+
+    <div class="api-section">
+      <h2>API & Data</h2>
+      <ul class="endpoint-list">
+        <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc">— live prices from Google Sheets</span></li>
+        <li><a href="/products.json">/products.json</a><span class="endpoint-desc">— static catalog (77 products)</span></li>
+        <li><a href="/openapi.yaml">/openapi.yaml</a><span class="endpoint-desc">— OpenAPI specification</span></li>
+        <li><a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a><span class="endpoint-desc">— AI plugin manifest</span></li>
+        <li><a href="/llms.txt">/llms.txt</a><span class="endpoint-desc">— instructions for LLMs</span></li>
+        <li><a href="/api/health">/api/health</a><span class="endpoint-desc">— API status & endpoint list</span></li>
+      </ul>
+    </div>
+
+    <footer>
+      <p><a href="/en/pepperoni">Halal Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery & Export</a> · <a href="/openapi.yaml">API</a></p>
+      <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
+    </footer>
+  </div>
+
+  <script>
+    const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
+    const SHEETS=[
+      {gid:'1087942289',section:'Frozen Products',icon:'❄️',type:'std'},
+      {gid:'1589357549',section:'Refrigerated Products',icon:'🧊',type:'std'},
+      {gid:'26993021',section:'Bakery',icon:'🥐',type:'bakery'},
+    ];
+    function parseCSV(t){const r=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){if(q&&t[i+1]==='"'){c+='"';i++}else q=!q}else if(ch===','&&!q){r.push(c);c=''}else if(ch==='\n'&&!q){r.push(c);c='';r.push(null)}else c+=ch}if(c)r.push(c);const lines=[];let line=[];for(const cell of r){if(cell===null){lines.push(line);line=[]}else line.push(cell.trim())}if(line.length)lines.push(line);return lines}
+    function num(s){if(!s)return 0;return parseFloat(s.replace(/\s/g,'').replace(',','.'))||0}
+    function parseStandard(lines,section){let cat='';const groups={};for(const cols of lines){if(!cols||cols.length<3)continue;const name=cols[0];if(!name||name==='Наименование'||name==='Номенклатура'||name.startsWith('ООО'))continue;const price=num(cols[2]),pnv=num(cols[3]);if(price===0&&pnv===0){if(name&&!cols[1])cat=name;continue}const c=cat||section;if(!groups[c])groups[c]=[];groups[c].push({name,weight:cols[1]||'',price,shelf:cols[4]||'',storage:cols[5]||''});}return groups;}
+    function parseBakery(lines,section){let cat='';const groups={};for(const cols of lines){if(!cols||cols.length<4)continue;const name=cols[0];if(!name||name==='Наименование'||name.startsWith('ООО'))continue;const ppu=num(cols[3]),ppb=num(cols[4]);if(ppu===0&&ppb===0){if(name&&!cols[1])cat=name;continue}const c=cat||section;if(!groups[c])groups[c]=[];groups[c].push({name,weight:cols[1]?cols[1]+' g':'',qty:cols[2]||'',price:ppu,priceBox:ppb,shelf:cols[6]||'',storage:cols[7]||'',isBakery:true});}return groups;}
+    function renderGroups(allGroups){let html='';for(const{section,icon,groups}of allGroups){html+=`<h2 style="font-size:1.4rem;margin:40px 0 4px;color:#333">${icon} ${section}</h2>`;for(const[cat,products]of Object.entries(groups)){html+=`<div class="category-title">${cat}</div><div class="products-grid">`;for(const p of products){const priceLabel=p.isBakery?`<span itemprop="price" content="${p.price.toFixed(2)}">${p.price.toLocaleString('en-US')}</span> <span itemprop="priceCurrency" content="RUB">₽/pc</span>`:`<span itemprop="price" content="${p.price.toFixed(2)}">${p.price.toLocaleString('en-US')}</span> <span itemprop="priceCurrency" content="RUB">₽</span> <span class="product-price-vat">incl. VAT</span>`;const meta=p.isBakery?`${p.weight}${p.qty?' · '+p.qty+' pcs/box':''}${p.priceBox?' · '+p.priceBox.toLocaleString('en-US')+' ₽/box':''}`:`${p.weight}${p.shelf?' · '+p.shelf:''}${p.storage?' · '+p.storage:''}`;html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product"><div class="product-name" itemprop="name">${p.name}</div><div class="product-sku">${meta}</div><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><div class="product-price">${priceLabel}</div><link itemprop="availability" href="https://schema.org/InStock"></div><div class="product-avail">✓ In stock</div></div>`;}html+='</div>';}}return html;}
+    async function loadCatalog(){try{const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>r.text())));const allGroups=[];for(let i=0;i<SHEETS.length;i++){const lines=parseCSV(csvs[i]);const s=SHEETS[i];const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);allGroups.push({section:s.section,icon:s.icon,groups});}const total=allGroups.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);document.getElementById('catalog').innerHTML=`<div style="text-align:center;color:#888;font-size:.9rem;margin-bottom:8px">${total} products · 3 sections · live prices from Google Sheets</div>`+renderGroups(allGroups);}catch(e){document.getElementById('loading').textContent='Catalog: /products.json';}}
+    loadCatalog();
+  </script>
+</body>
+</html>
