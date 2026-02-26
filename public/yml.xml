@@ -1,43 +1,1032 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-01-10">
-  <shop>
-    <name>Казанские Деликатесы</name>
-    <company>ООО «Казанские Деликатесы»</company>
-    <url>https://kazandelikates.tatar</url>
-    <currencies>
-      <currency id="RUB" rate="1"/>
-    </currencies>
-    <categories>
-      <category id="1">Заморозка</category>
-      <category id="2" parentId="1">Сосиски гриль для хот-догов</category>
-      <category id="3" parentId="1">Котлеты для бургеров</category>
-      <category id="4" parentId="1">Топпинги</category>
-      <category id="5" parentId="1">Мясные заготовки</category>
-      <category id="6">Охлаждённая продукция</category>
-      <category id="7" parentId="6">Сосиски, сардельки</category>
-      <category id="8" parentId="6">Вареные</category>
-      <category id="9" parentId="6">Ветчины</category>
-      <category id="10" parentId="6">Копченые</category>
-      <category id="11" parentId="6">Премиум Казылык</category>
-      <category id="12">Выпечка</category>
-      <category id="13" parentId="12">Национальная татарская выпечка</category>
-      <category id="14" parentId="12">Классическая выпечка</category>
-    </categories>
-    <delivery>true</delivery>
-    <offers>
-      <offer id="KD-001" available="true"><name>Сосиски «Из говядины» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>290</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски из говядины для хот-догов, халяль. Вес 0.48 кг. Срок годности 360 суток. Хранение –18°C.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
-      <offer id="KD-002" available="true"><name>Сосиски «Два мяса» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>286</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски из двух видов мяса, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
-      <offer id="KD-003" available="true"><name>Сосиски «Три перца с сыром» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>316</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски с тремя перцами и сыром, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
-      <offer id="KD-005" available="true"><name>Сосиски «С бараниной» (80 г × 6 шт)</name><url>https://pepperoni.tatar</url><price>366</price><currencyId>RUB</currencyId><categoryId>2</categoryId><vendor>Казанские Деликатесы</vendor><description>Сосиски с бараниной, халяль. Вес 0.48 кг.</description><param name="Сертификация">Halal</param><param name="Вес">0.48 кг</param></offer>
-      <offer id="KD-015" available="true"><name>Пепперони вар-коп классика</name><url>https://pepperoni.tatar</url><price>274</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони варёно-копчёный классический, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
-      <offer id="KD-014" available="true"><name>Пепперони вар-коп из конины</name><url>https://pepperoni.tatar</url><price>315</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони варёно-копчёный из конины, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
-      <offer id="KD-017" available="true"><name>Пепперони сырокопчёный в нарезке</name><url>https://pepperoni.tatar</url><price>380</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони сырокопчёный в нарезке, халяль. Вес 0.5 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.5 кг</param></offer>
-      <offer id="KD-018" available="true"><name>Пепперони сырокопчёный целый батон</name><url>https://pepperoni.tatar</url><price>608</price><currencyId>RUB</currencyId><categoryId>4</categoryId><vendor>Казанские Деликатесы</vendor><description>Пепперони сырокопчёный целый батон, халяль. Вес 1 кг. Срок годности 360 суток.</description><param name="Сертификация">Halal</param><param name="Вес">1 кг</param></offer>
-      <offer id="KD-057" available="true"><name>Казылык «Премиум» в подарочной упаковке</name><url>https://pepperoni.tatar</url><price>650</price><currencyId>RUB</currencyId><categoryId>11</categoryId><vendor>Казанские Деликатесы</vendor><description>Казылык — традиционная конская колбаса, деликатес татарской кухни. Подарочная упаковка 200 г. Срок годности 180 суток.</description><param name="Сертификация">Halal</param><param name="Вес">0.2 кг</param></offer>
-      <offer id="KD-059" available="true"><name>Губадия с кортом</name><url>https://pepperoni.tatar</url><price>56</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Губадия — традиционный татарский слоёный пирог с кортом (творожная масса). 100 г. Халяль.</description><param name="Сертификация">Halal</param><param name="Вес">100 г</param></offer>
-      <offer id="KD-063" available="true"><name>Эчпочмак с говядиной и картофелем</name><url>https://pepperoni.tatar</url><price>68.77</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Эчпочмак — традиционный татарский треугольный пирожок с говядиной и картофелем. 100 г. Халяль.</description><param name="Сертификация">Halal</param><param name="Вес">100 г</param></offer>
-      <offer id="KD-066" available="true"><name>Чак-Чак в крафтовой подарочной упаковке</name><url>https://pepperoni.tatar</url><price>271.70</price><currencyId>RUB</currencyId><categoryId>13</categoryId><vendor>Казанские Деликатесы</vendor><description>Чак-чак — традиционная татарская сладость из теста с мёдом. Крафтовая подарочная упаковка 300 г.</description><param name="Сертификация">Halal</param><param name="Вес">300 г</param></offer>
-    </offers>
-  </shop>
+<yml_catalog date="2026-02-26">
+<shop>
+<name>Казанские Деликатесы</name>
+<company>ООО «Казанские Деликатесы»</company>
+<url>https://kazandelikates.tatar</url>
+<currencies><currency id="RUB" rate="1"/></currencies>
+<categories>
+<category id="1">Заморозка</category>
+<category id="2" parentId="1">Сосиски гриль для хот-догов</category>
+<category id="3" parentId="1">Котлеты для бургеров</category>
+<category id="4" parentId="1">Топпинги</category>
+<category id="5" parentId="1">Мясные заготовки</category>
+<category id="6">Охлаждённая продукция</category>
+<category id="7" parentId="6">Сосиски, сардельки</category>
+<category id="8" parentId="6">Вареные</category>
+<category id="9" parentId="6">Ветчины</category>
+<category id="10" parentId="6">Копченые</category>
+<category id="11" parentId="6">Премиум Казылык</category>
+<category id="12">Выпечка</category>
+<category id="13" parentId="12">Национальная татарская выпечка</category>
+<category id="14" parentId="12">Классическая выпечка</category>
+</categories>
+<delivery>true</delivery>
+<offers>
+<offer id="KD-001" available="true">
+<name>Сосиски «Из говядины» (80 г × 6 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>290</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Из говядины» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,48</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-002" available="true">
+<name>Сосиски «Два мяса» (80 г × 6 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>286</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Два мяса» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,48</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-003" available="true">
+<name>Сосиски «Три перца с сыром» (80 г × 6 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>316</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Три перца с сыром» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,48</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-004" available="true">
+<name>Сосиски «Куриные» (80 г × 6 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>286</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Куриные» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,48</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-005" available="true">
+<name>Сосиски «С бараниной» (80 г × 6 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>366</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «С бараниной» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,48</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-006" available="true">
+<name>Сосиски «С травами» (130 г × 5 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>424</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «С травами» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,65</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-007" available="true">
+<name>Сосиски «С сыром» (130 г × 5 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>455</price>
+<currencyId>RUB</currencyId>
+<categoryId>2</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «С сыром» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,65</param>
+
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-008" available="true">
+<name>Котлета говяжья прожаренная (100 г × 3 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>276</price>
+<currencyId>RUB</currencyId>
+<categoryId>3</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Котлета говяжья прожаренная (100 г × 3 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,3</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">1602</param>
+</offer>
+<offer id="KD-009" available="true">
+<name>Котлета говяжья прожаренная (150 г × 2 шт)</name>
+<url>https://pepperoni.tatar</url>
+<price>276</price>
+<currencyId>RUB</currencyId>
+<categoryId>3</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Котлета говяжья прожаренная (150 г × 2 шт). Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,3</param>
+
+<param name="ТН ВЭД">1602</param>
+</offer>
+<offer id="KD-010" available="true">
+<name>Ветчина из Курицы в батоне</name>
+<url>https://pepperoni.tatar</url>
+<price>350</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Курицы в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-011" available="true">
+<name>Ветчина из Курицы в нарезке</name>
+<url>https://pepperoni.tatar</url>
+<price>185</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Курицы в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">180 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-012" available="true">
+<name>Ветчина из Индейки в батоне</name>
+<url>https://pepperoni.tatar</url>
+<price>376</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Индейки в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-013" available="true">
+<name>Ветчина из Индейки в нарезке</name>
+<url>https://pepperoni.tatar</url>
+<price>198</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Индейки в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">180 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-014" available="true">
+<name>Пепперони вар-коп из конины</name>
+<url>https://pepperoni.tatar</url>
+<price>315</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пепперони вар-коп из конины. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-015" available="true">
+<name>Пепперони вар-коп классика</name>
+<url>https://pepperoni.tatar</url>
+<price>274</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пепперони вар-коп классика. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-016" available="true">
+<name>Пепперони вар-коп классика целый батон</name>
+<url>https://pepperoni.tatar</url>
+<price>457</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пепперони вар-коп классика целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-017" available="true">
+<name>Пепперони сырокопчёный в нарезке</name>
+<url>https://pepperoni.tatar</url>
+<price>380</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пепперони сырокопчёный в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-018" available="true">
+<name>Пепперони сырокопчёный целый батон</name>
+<url>https://pepperoni.tatar</url>
+<price>608</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пепперони сырокопчёный целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-019" available="true">
+<name>Грудка куриная варено-копченая</name>
+<url>https://pepperoni.tatar</url>
+<price>370</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Грудка куриная варено-копченая. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1 кг</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-020" available="true">
+<name>Филе куриное варное</name>
+<url>https://pepperoni.tatar</url>
+<price>449</price>
+<currencyId>RUB</currencyId>
+<categoryId>4</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Филе куриное варное. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1 кг</param>
+
+
+</offer>
+<offer id="KD-021" available="true">
+<name>Фарш говяжий</name>
+<url>https://pepperoni.tatar</url>
+<price>670</price>
+<currencyId>RUB</currencyId>
+<categoryId>5</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Фарш говяжий. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">180 суток</param>
+
+</offer>
+<offer id="KD-022" available="true">
+<name>Фарш из куриной кожи</name>
+<url>https://pepperoni.tatar</url>
+<price>82</price>
+<currencyId>RUB</currencyId>
+<categoryId>5</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Фарш из куриной кожи. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">180 суток</param>
+
+</offer>
+<offer id="KD-023" available="true">
+<name>Филе бедра куриного в кубике 1х1 см</name>
+<url>https://pepperoni.tatar</url>
+<price>520</price>
+<currencyId>RUB</currencyId>
+<categoryId>5</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Филе бедра куриного в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">180 суток</param>
+
+</offer>
+<offer id="KD-024" available="true">
+<name>Филе грудки куриной в кубике 1х1 см</name>
+<url>https://pepperoni.tatar</url>
+<price>520</price>
+<currencyId>RUB</currencyId>
+<categoryId>5</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Филе грудки куриной в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">180 суток</param>
+
+</offer>
+<offer id="KD-025" available="true">
+<name>Говядина 1 сорт в кубике 1х1 см</name>
+<url>https://pepperoni.tatar</url>
+<price>810</price>
+<currencyId>RUB</currencyId>
+<categoryId>5</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Говядина 1 сорт в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">180 суток</param>
+
+</offer>
+<offer id="KD-026" available="true">
+<name>Сосиски «К завтраку»</name>
+<url>https://pepperoni.tatar</url>
+<price>135</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «К завтраку». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-027" available="true">
+<name>Сосиски «К завтраку» (без оболочки) 
+ для «Сосиски в тесте»</name>
+<url>https://pepperoni.tatar</url>
+<price>245</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «К завтраку» (без оболочки) 
+ для «Сосиски в тесте». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-028" available="true">
+<name>Сосиски «Нежные»</name>
+<url>https://pepperoni.tatar</url>
+<price>181</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Нежные». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-029" available="true">
+<name>Сосиски «Казанские с молоком»</name>
+<url>https://pepperoni.tatar</url>
+<price>235</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «Казанские с молоком». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-030" available="true">
+<name>Сосиски «С сыром»</name>
+<url>https://pepperoni.tatar</url>
+<price>293</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски «С сыром». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-031" available="true">
+<name>Сосиски &quot;Из говядины&quot;</name>
+<url>https://pepperoni.tatar</url>
+<price>284</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски &quot;Из говядины&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-032" available="true">
+<name>Сосиски в/с Премиум</name>
+<url>https://pepperoni.tatar</url>
+<price>146</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски в/с Премиум. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-033" available="true">
+<name>Сосиски в/с Сочные</name>
+<url>https://pepperoni.tatar</url>
+<price>144</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиски в/с Сочные. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-034" available="true">
+<name>Сардельки «Буинские&quot;</name>
+<url>https://pepperoni.tatar</url>
+<price>166</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сардельки «Буинские&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,24</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-035" available="true">
+<name>Вареная «Из Говядины»</name>
+<url>https://pepperoni.tatar</url>
+<price>292</price>
+<currencyId>RUB</currencyId>
+<categoryId>8</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Вареная «Из Говядины». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-036" available="true">
+<name>Вареная Ассорти</name>
+<url>https://pepperoni.tatar</url>
+<price>197</price>
+<currencyId>RUB</currencyId>
+<categoryId>8</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Вареная Ассорти. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-037" available="true">
+<name>Вареная Нежная</name>
+<url>https://pepperoni.tatar</url>
+<price>200</price>
+<currencyId>RUB</currencyId>
+<categoryId>8</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Вареная Нежная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-038" available="true">
+<name>Ветчина из Индейки</name>
+<url>https://pepperoni.tatar</url>
+<price>380</price>
+<currencyId>RUB</currencyId>
+<categoryId>9</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-039" available="true">
+<name>Ветчина Мраморная с говядиной</name>
+<url>https://pepperoni.tatar</url>
+<price>398</price>
+<currencyId>RUB</currencyId>
+<categoryId>9</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина Мраморная с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-040" available="true">
+<name>Ветчина из Курицы</name>
+<url>https://pepperoni.tatar</url>
+<price>350</price>
+<currencyId>RUB</currencyId>
+<categoryId>9</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина из Курицы. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-041" available="true">
+<name>Ветчина Филейная</name>
+<url>https://pepperoni.tatar</url>
+<price>188</price>
+<currencyId>RUB</currencyId>
+<categoryId>9</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Ветчина Филейная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,5</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-042" available="true">
+<name>Сервелат Ханский</name>
+<url>https://pepperoni.tatar</url>
+<price>216</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сервелат Ханский. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,45</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-043" available="true">
+<name>Сервелат по-татарски в/к</name>
+<url>https://pepperoni.tatar</url>
+<price>298</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сервелат по-татарски в/к. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,45</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-044" available="true">
+<name>Полукопченая из Индейки</name>
+<url>https://pepperoni.tatar</url>
+<price>348</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Полукопченая из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,45</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-045" available="true">
+<name>Полукопченая из Говядины</name>
+<url>https://pepperoni.tatar</url>
+<price>358</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Полукопченая из Говядины. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,45</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-046" available="true">
+<name>Колбаски с Сыром</name>
+<url>https://pepperoni.tatar</url>
+<price>271</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Колбаски с Сыром. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,3</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-047" available="true">
+<name>Грудка куриная</name>
+<url>https://pepperoni.tatar</url>
+<price>380</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Грудка куриная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-048" available="true">
+<name>Филе куриное</name>
+<url>https://pepperoni.tatar</url>
+<price>449</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Филе куриное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">1</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-049" available="true">
+<name>в/к Рамазан</name>
+<url>https://pepperoni.tatar</url>
+<price>377</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Рамазан. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,54</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-050" available="true">
+<name>в/к Рамазан (половинка)</name>
+<url>https://pepperoni.tatar</url>
+<price>188</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Рамазан (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,27</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-051" available="true">
+<name>в/к Мраморная</name>
+<url>https://pepperoni.tatar</url>
+<price>362</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Мраморная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,54</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-052" available="true">
+<name>в/к Мраморная (половинка)</name>
+<url>https://pepperoni.tatar</url>
+<price>181</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Мраморная (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,27</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-053" available="true">
+<name>в/к Филейный</name>
+<url>https://pepperoni.tatar</url>
+<price>333</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Филейный. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,54</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-054" available="true">
+<name>в/к Филейный (половинка)</name>
+<url>https://pepperoni.tatar</url>
+<price>166</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Филейный (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,27</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-055" available="true">
+<name>в/к Княжеская</name>
+<url>https://pepperoni.tatar</url>
+<price>362</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Княжеская. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,54</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-056" available="true">
+<name>в/к Княжеская (половинка)</name>
+<url>https://pepperoni.tatar</url>
+<price>181</price>
+<currencyId>RUB</currencyId>
+<categoryId>10</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>в/к Княжеская (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,27</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-057" available="true">
+<name>Казылык «Премиум» в подарочной упаковке</name>
+<url>https://pepperoni.tatar</url>
+<price>650</price>
+<currencyId>RUB</currencyId>
+<categoryId>11</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Казылык «Премиум» в подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: 0-12 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,2</param>
+<param name="Срок годности">180 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-058" available="true">
+<name>Казылык «Премиум» в нарезке в подарочной упаковке</name>
+<url>https://pepperoni.tatar</url>
+<price>450</price>
+<currencyId>RUB</currencyId>
+<categoryId>11</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Казылык «Премиум» в нарезке в подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-12 ˚C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">0,1</param>
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
+</offer>
+<offer id="KD-059" available="true">
+<name>Губадия с кортом</name>
+<url>https://pepperoni.tatar</url>
+<price>56</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Губадия с кортом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+<param name="Срок годности">360 суток</param>
+
+</offer>
+<offer id="KD-060" available="true">
+<name>Чебурек жареный</name>
+<url>https://pepperoni.tatar</url>
+<price>58.86</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Чебурек жареный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-061" available="true">
+<name>Перемяч жареный</name>
+<url>https://pepperoni.tatar</url>
+<price>59.14</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Перемяч жареный. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-062" available="true">
+<name>Самса с курицей</name>
+<url>https://pepperoni.tatar</url>
+<price>61.73</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Самса с курицей. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">120 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-063" available="true">
+<name>Эчпочмак с говядиной и картофелем</name>
+<url>https://pepperoni.tatar</url>
+<price>68.77</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Эчпочмак с говядиной и картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-064" available="true">
+<name>Самса с говядиной</name>
+<url>https://pepperoni.tatar</url>
+<price>73.14</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Самса с говядиной. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">120 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-065" available="true">
+<name>Элеш с курицей и картофелем</name>
+<url>https://pepperoni.tatar</url>
+<price>77.84</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Элеш с курицей и картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">150 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-066" available="true">
+<name>Чак-Чак в пластиковой упаковке</name>
+<url>https://pepperoni.tatar</url>
+<price>194.7</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Чак-Чак в пластиковой упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 60 суток. Хранение: до +18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">300 г</param>
+<param name="Срок годности">60 суток</param>
+<param name="ТН ВЭД">1905</param>
+</offer>
+<offer id="KD-067" available="true">
+<name>Чак-Чак в крафтовой подарочной упаковке</name>
+<url>https://pepperoni.tatar</url>
+<price>271.7</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Чак-Чак в крафтовой подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 60 суток. Хранение: до +18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">300 г</param>
+<param name="Срок годности">60 суток</param>
+<param name="ТН ВЭД">1905</param>
+</offer>
+<offer id="KD-068" available="true">
+<name>Сочник с творогом</name>
+<url>https://pepperoni.tatar</url>
+<price>44</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сочник с творогом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-069" available="true">
+<name>Пирожок печеный с картофелем</name>
+<url>https://pepperoni.tatar</url>
+<price>44.74</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пирожок печеный с картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-070" available="true">
+<name>Сырник</name>
+<url>https://pepperoni.tatar</url>
+<price>45.1</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сырник. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">70 г</param>
+
+<param name="ТН ВЭД">040490</param>
+</offer>
+<offer id="KD-071" available="true">
+<name>Пирожок с яблоком</name>
+<url>https://pepperoni.tatar</url>
+<price>49.5</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пирожок с яблоком. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-072" available="true">
+<name>Пирожок с зеленым луком и яйцом</name>
+<url>https://pepperoni.tatar</url>
+<price>58.52</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пирожок с зеленым луком и яйцом. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-073" available="true">
+<name>Маффин апельсиновый</name>
+<url>https://pepperoni.tatar</url>
+<price>67.55</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Маффин апельсиновый. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-074" available="true">
+<name>Сосиска в тесте</name>
+<url>https://pepperoni.tatar</url>
+<price>69.03</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Сосиска в тесте. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">120 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-075" available="true">
+<name>Пирожок с вишней</name>
+<url>https://pepperoni.tatar</url>
+<price>71.5</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Пирожок с вишней. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-076" available="true">
+<name>Круассан с шоколадом и орехами</name>
+<url>https://pepperoni.tatar</url>
+<price>72.6</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Круассан с шоколадом и орехами. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">90 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+<offer id="KD-077" available="true">
+<name>Маффин шоколадный</name>
+<url>https://pepperoni.tatar</url>
+<price>73.64</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>Маффин шоколадный. Халяль продукция от Казанских Деликатесов.</description>
+<param name="Сертификация">Halal</param>
+<param name="Вес">100 г</param>
+
+<param name="ТН ВЭД">190590</param>
+</offer>
+</offers>
+</shop>
 </yml_catalog>
