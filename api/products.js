@@ -1,3 +1,5 @@
+import { logVisit } from './stats.js';
+
 const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
@@ -377,6 +379,7 @@ function buildBakery(lines, section, startIdx) {
 
 export default async function handler(req, res) {
   try {
+    logVisit(req);
     const fetches = SHEETS.map((s) =>
       fetch(`${BASE_URL}&gid=${s.gid}`).then((r) => r.text())
     );
