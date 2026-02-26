@@ -176,10 +176,46 @@
     </div>
 
     <div class="api-section" style="background:#f5f5ff;border-color:#0066cc">
-      <h2 style="margin-top:0">📥 Скачать каталог</h2>
-      <p style="margin-bottom:12px;color:#444">Полный прайс-лист с 77 товарами — откроется в Excel, Google Sheets, Numbers.</p>
-      <a href="/api/export?lang=ru&format=csv" style="display:inline-block;background:#0066cc;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem">📄 Скачать прайс (RU)</a>
-      <a href="/api/export?lang=en&format=csv" style="display:inline-block;border:2px solid #0066cc;color:#0066cc;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem">📄 Download Price List (EN)</a>
+      <h2 style="margin-top:0">📥 Скачать прайс-лист</h2>
+      <p style="margin-bottom:12px;color:#444">Полный каталог с 77 товарами — откроется в Excel, Google Sheets, Numbers.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <span style="font-size:.85rem;color:#666">Язык:</span>
+        <select id="dl-lang" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
+          <option value="ru" selected>Русский</option>
+          <option value="en">English</option>
+        </select>
+        <span style="font-size:.85rem;color:#666;margin-left:8px">Валюта:</span>
+        <select id="dl-cur" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
+          <option value="RUB" selected>RUB ₽</option>
+          <option value="USD">USD $</option>
+          <option value="KZT">KZT ₸</option>
+          <option value="UZS">UZS</option>
+          <option value="KGS">KGS</option>
+          <option value="BYN">BYN</option>
+          <option value="AZN">AZN</option>
+        </select>
+        <span id="dl-vat-wrap" style="margin-left:8px">
+          <span style="font-size:.85rem;color:#666">НДС:</span>
+          <select id="dl-vat" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
+            <option value="true" selected>С НДС</option>
+            <option value="false">Без НДС</option>
+          </select>
+        </span>
+      </div>
+      <a onclick="downloadFile('xlsx')" style="display:inline-block;background:#0066cc;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem;cursor:pointer">📊 Скачать Excel (.xls)</a>
+      <a onclick="downloadFile('csv')" style="display:inline-block;border:2px solid #0066cc;color:#0066cc;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem;cursor:pointer">📄 Скачать CSV</a>
+      <script>
+        document.getElementById('dl-cur').addEventListener('change',function(){
+          document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';
+        });
+        function downloadFile(fmt){
+          const lang=document.getElementById('dl-lang').value;
+          const cur=document.getElementById('dl-cur').value;
+          const vat=document.getElementById('dl-vat').value;
+          const vatParam=cur==='RUB'?`&vat=${vat}`:'';
+          window.location.href=`/api/export?lang=${lang}&currency=${cur}&format=${fmt}${vatParam}`;
+        }
+      </script>
     </div>
 
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
