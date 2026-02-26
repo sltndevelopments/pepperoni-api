@@ -167,6 +167,33 @@ const SECTION_TRANSLATIONS = {
   'Выпечка': 'Bakery',
 };
 
+const MEAT_TR = {
+  'говядина, курица': 'beef, chicken',
+  'конина': 'horse meat',
+  'говядина': 'beef',
+  'курица': 'chicken',
+  'индейка': 'turkey',
+  'баранина': 'lamb',
+};
+
+const SHELF_TR_MAP = {
+  '30 суток': '30 days', '60 суток': '60 days',
+  '180 суток': '180 days', '360 суток': '360 days',
+};
+
+const STORAGE_TR_MAP = {
+  '–18°C': '–18°C', '0-6 ˚C': '0–6°C', '0-6°C': '0–6°C',
+  '0-12 ˚C': '0–12°C', 'до +18°C': 'up to +18°C',
+};
+
+const DESC_TR = {
+  'пепперони вар-коп классика': 'Boiled-smoked classic pepperoni from beef and chicken. Halal. Thermostable — does not curl when baked.',
+  'пепперони вар-коп классика целый батон': 'Boiled-smoked classic pepperoni, whole stick, from beef and chicken. Halal.',
+  'пепперони вар-коп из конины': 'Boiled-smoked pepperoni from horse meat. Halal.',
+  'пепперони сырокопчёный в нарезке': 'Dry-cured pepperoni, sliced, from beef and chicken. Halal.',
+  'пепперони сырокопчёный целый батон': 'Dry-cured pepperoni, whole stick, from beef and chicken. Halal.',
+};
+
 function translateProduct(product) {
   const key = product.name.toLowerCase().trim();
   const translated = { ...product };
@@ -179,6 +206,21 @@ function translateProduct(product) {
   if (product.section) {
     translated.section_ru = product.section;
     translated.section = SECTION_TRANSLATIONS[product.section] || product.section;
+  }
+  if (product.shelfLife) {
+    translated.shelfLife = SHELF_TR_MAP[product.shelfLife] || product.shelfLife.replace('суток', 'days');
+  }
+  if (product.storage) {
+    translated.storage = STORAGE_TR_MAP[product.storage] || product.storage;
+  }
+  if (product.meatType) {
+    translated.meatType = MEAT_TR[product.meatType] || product.meatType;
+  }
+  if (product.description) {
+    translated.description = DESC_TR[key] || product.description;
+  }
+  if (product.weight) {
+    translated.weight = product.weight.replace(' г', ' g').replace(' кг', ' kg');
   }
   return translated;
 }
