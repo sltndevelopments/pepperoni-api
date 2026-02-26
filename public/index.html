@@ -250,6 +250,8 @@
 
     function parseCSV(t){const r=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){if(q&&t[i+1]==='"'){c+='"';i++}else q=!q}else if(ch===','&&!q){r.push(c);c=''}else if(ch==='\n'&&!q){r.push(c);c='';r.push(null)}else c+=ch}if(c)r.push(c);const lines=[];let line=[];for(const cell of r){if(cell===null){lines.push(line);line=[]}else line.push(cell.trim())}if(line.length)lines.push(line);return lines}
     function num(s){if(!s)return 0;return parseFloat(s.replace(/\s/g,'').replace(',','.'))||0}
+    const CUR_SYM={RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'};
+    let CUR='RUB',VAT=true,ALL_GROUPS=[];
 
     function parseStandard(lines,section){
       let cat='';const groups={};
@@ -259,13 +261,11 @@
         if(!name||name==='Наименование'||name==='Номенклатура'||name.startsWith('ООО'))continue;
         const price=num(cols[2]),pnv=num(cols[3]);
         if(price===0&&pnv===0){if(name&&!cols[1])cat=name;continue}
-        const c=cat||section;
-        if(!groups[c])groups[c]=[];
-        groups[c].push({name,weight:cols[1]||'',price,shelf:cols[4]||'',storage:cols[5]||''});
+        const c=cat||section;if(!groups[c])groups[c]=[];
+        groups[c].push({name,weight:cols[1]||'',price,priceNoVAT:pnv,shelf:cols[4]||'',storage:cols[5]||'',hsCode:cols[6]||'',usd:num(cols[7]),kzt:num(cols[8]),uzs:num(cols[9]),kgs:num(cols[10]),byn:num(cols[11]),azn:num(cols[12])});
       }
       return groups;
     }
-
     function parseBakery(lines,section){
       let cat='';const groups={};
       for(const cols of lines){
@@ -274,29 +274,38 @@
         if(!name||name==='Наименование'||name.startsWith('ООО'))continue;
         const ppu=num(cols[3]),ppb=num(cols[4]);
         if(ppu===0&&ppb===0){if(name&&!cols[1])cat=name;continue}
-        const c=cat||section;
-        if(!groups[c])groups[c]=[];
-        groups[c].push({name,weight:cols[1]?cols[1]+' г':'',qty:cols[2]||'',price:ppu,priceBox:ppb,shelf:cols[6]||'',storage:cols[7]||'',isBakery:true});
+        const c=cat||section;if(!groups[c])groups[c]=[];
+        groups[c].push({name,weight:cols[1]?cols[1]+' г':'',qty:cols[2]||'',price:ppu,priceBox:ppb,priceBoxNoVAT:num(cols[5]),shelf:cols[6]||'',storage:cols[7]||'',hsCode:cols[8]||'',usd:num(cols[9]),kzt:num(cols[10]),uzs:num(cols[11]),kgs:num(cols[12]),byn:num(cols[13]),azn:num(cols[14]),isBakery:true});
       }
       return groups;
     }
-
+    function getPrice(p){
+      if(CUR==='RUB')return VAT?p.price:p.priceNoVAT;
+      const m={USD:p.usd,KZT:p.kzt,UZS:p.uzs,KGS:p.kgs,BYN:p.byn,AZN:p.azn};
+      return m[CUR]||0;
+    }
+    function fmtPrice(v){if(!v)return '—';return v.toLocaleString('ru-RU',{minimumFractionDigits:v<10?2:0,maximumFractionDigits:2})}
     function renderGroups(allGroups){
       let html='';
+      const sym=CUR_SYM[CUR]||CUR;
+      const vatLabel=CUR==='RUB'?(VAT?'с НДС':'без НДС'):'';
       for(const{section,icon,groups}of allGroups){
         html+=`<h2 style="font-size:1.4rem;margin:40px 0 4px;color:#333">${icon} ${section}</h2>`;
         for(const[cat,products]of Object.entries(groups)){
           html+=`<div class="category-title">${cat}</div><div class="products-grid">`;
           for(const p of products){
+            const pr=getPrice(p);
             const priceLabel=p.isBakery
-              ?`<span itemprop="price" content="${p.price.toFixed(2)}">${p.price.toLocaleString('ru-RU')}</span> <span itemprop="priceCurrency" content="RUB">₽/шт</span>`
-              :`<span itemprop="price" content="${p.price.toFixed(2)}">${p.price.toLocaleString('ru-RU')}</span> <span itemprop="priceCurrency" content="RUB">₽</span> <span class="product-price-vat">с НДС</span>`;
-            const meta=p.isBakery
-              ?`${p.weight}${p.qty?' &middot; '+p.qty+' шт/кор':''}${p.priceBox?' &middot; '+p.priceBox.toLocaleString('ru-RU')+' ₽/кор':''}`
-              :`${p.weight}${p.shelf?' &middot; '+p.shelf:''}${p.storage?' &middot; '+p.storage:''}`;
+              ?`${fmtPrice(pr)} ${sym}/шт`
+              :`${fmtPrice(pr)} ${sym} <span class="product-price-vat">${vatLabel}</span>`;
+            const weightInfo=p.weight?`<b>Вес расч.:</b> ${p.weight} кг`:'';
+            const shelfInfo=p.shelf?` · ${p.shelf}`:'';
+            const storageInfo=p.storage?` · ${p.storage}`:'';
+            const hsInfo=p.hsCode?` · ТН ВЭД: ${p.hsCode}`:'';
+            const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
             html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product">
               <div class="product-name" itemprop="name">${p.name}</div>
-              <div class="product-sku">${meta}</div>
+              <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <div class="product-price">${priceLabel}</div>
                 <link itemprop="availability" href="https://schema.org/InStock">
@@ -309,26 +318,43 @@
       }
       return html;
     }
-
+    function renderControls(){
+      const currencies=['RUB','USD','KZT','UZS','KGS','BYN','AZN'];
+      let html='<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:16px 0;align-items:center">';
+      html+='<span style="font-size:.85rem;color:#888">Валюта:</span>';
+      for(const c of currencies){
+        const active=c===CUR?'background:#1b7a3d;color:#fff':'background:#fff;color:#333;border:1px solid #ddd';
+        html+=`<button onclick="setCur('${c}')" style="${active};padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;border:none;${active}">${c}</button>`;
+      }
+      if(CUR==='RUB'){
+        html+='<span style="margin-left:12px;font-size:.85rem;color:#888">НДС:</span>';
+        const onA=VAT?'background:#1b7a3d;color:#fff':'background:#fff;color:#333;border:1px solid #ddd';
+        const offA=!VAT?'background:#1b7a3d;color:#fff':'background:#fff;color:#333;border:1px solid #ddd';
+        html+=`<button onclick="setVAT(true)" style="${onA};padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;border:none;${onA}">С НДС</button>`;
+        html+=`<button onclick="setVAT(false)" style="${offA};padding:6px 14px;border-radius:6px;cursor:pointer;font-size:.85rem;font-weight:600;border:none;${offA}">Без НДС</button>`;
+      }
+      html+='</div>';
+      return html;
+    }
+    function setCur(c){CUR=c;if(c!=='RUB')VAT=false;else VAT=true;render()}
+    function setVAT(v){VAT=v;render()}
+    function render(){
+      const total=ALL_GROUPS.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
+      document.getElementById('catalog').innerHTML=renderControls()
+        +`<div style="text-align:center;color:#888;font-size:.85rem;margin-bottom:8px">${total} товаров · 3 раздела · актуальные цены из Google Sheets</div>`
+        +renderGroups(ALL_GROUPS);
+    }
     async function loadCatalog(){
       try{
         const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>r.text())));
-        const allGroups=[];
         for(let i=0;i<SHEETS.length;i++){
-          const lines=parseCSV(csvs[i]);
-          const s=SHEETS[i];
+          const lines=parseCSV(csvs[i]);const s=SHEETS[i];
           const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);
-          allGroups.push({section:s.section,icon:s.icon,groups});
+          ALL_GROUPS.push({section:s.section,icon:s.icon,groups});
         }
-        const total=allGroups.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
-        document.getElementById('catalog').innerHTML=
-          `<div style="text-align:center;color:#888;font-size:.9rem;margin-bottom:8px">${total} товаров &middot; 3 раздела &middot; актуальные цены из Google Sheets</div>`
-          +renderGroups(allGroups);
-      }catch(e){
-        document.getElementById('loading').textContent='Каталог: /products.json';
-      }
+        render();
+      }catch(e){document.getElementById('loading').textContent='Каталог: /products.json';}
     }
-
     loadCatalog();
   </script>
 </body>
