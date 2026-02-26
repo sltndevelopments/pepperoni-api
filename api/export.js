@@ -1,3 +1,5 @@
+import ExcelJS from 'exceljs';
+
 const PRODUCTS_URL = 'https://api.pepperoni.tatar/api/products';
 
 const CUR_NAMES = {
@@ -19,26 +21,6 @@ function getPrice(p, currency, withVAT) {
   return p.offers?.exportPrices?.[currency] || 0;
 }
 
-function getPriceBakery(p, currency) {
-  if (currency === 'RUB') {
-    return {
-      perUnit: parseFloat(p.offers?.pricePerUnit || 0),
-      perBox: parseFloat(p.offers?.pricePerBox || 0),
-    };
-  }
-  const rate = p.offers?.exportPrices?.[currency];
-  if (!rate) return { perUnit: 0, perBox: 0 };
-  return { perUnit: rate, perBox: rate };
-}
-
-function escapeXml(s) {
-  return String(s || '')
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-}
-
 function generateCSV(products, lang, currency, withVAT) {
   const isEn = lang === 'en';
   const curLabel = CUR_NAMES[currency]?.[lang] || currency;
@@ -47,8 +29,8 @@ function generateCSV(products, lang, currency, withVAT) {
     : (isEn ? 'excl. VAT' : 'без НДС');
 
   const headers = isEn
-    ? ['SKU', 'Name', 'Original Name (RU)', 'Section', 'Category', 'Weight', `Price ${currency} (${vatLabel})`, 'Price per Unit', 'Price per Box', 'Qty/Box', 'Shelf Life', 'Storage', 'HS Code', 'Meat Type', 'Certification']
-    : ['Артикул', 'Название', 'Раздел', 'Категория', 'Вес', `Цена ${curLabel} (${vatLabel})`, 'Цена за шт', 'Цена за короб', 'Кол-во/кор', 'Срок годности', 'Хранение', 'ТН ВЭД', 'Тип мяса', 'Сертификация'];
+    ? ['SKU', 'Name', 'Original Name (RU)', 'Section', 'Category', 'Weight', `Price ${currency} (${vatLabel})`, 'Price/Unit', 'Price/Box', 'Qty/Box', 'Shelf Life', 'Storage', 'HS Code', 'Meat Type', 'Certification']
+    : ['Артикул', 'Название', 'Раздел', 'Категория', 'Вес', `Цена ${curLabel} (${vatLabel})`, 'Цена/шт', 'Цена/кор', 'Кол/кор', 'Срок годности', 'Хранение', 'ТН ВЭД', 'Тип мяса', 'Сертификация'];
 
   const BOM = '\uFEFF';
   let csv = BOM + headers.join(';') + '\n';
@@ -56,140 +38,96 @@ function generateCSV(products, lang, currency, withVAT) {
   for (const p of products) {
     const isBakery = !!p.offers?.pricePerUnit;
     const price = isBakery ? 0 : getPrice(p, currency, withVAT);
-    const bk = isBakery ? getPriceBakery(p, currency) : { perUnit: 0, perBox: 0 };
+    const ppu = isBakery ? parseFloat(p.offers.pricePerUnit) : 0;
+    const ppb = isBakery ? parseFloat(p.offers.pricePerBox) : 0;
 
     const row = isEn
-      ? [
-          p.sku || '',
-          `"${(p.name || '').replace(/"/g, '""')}"`,
-          `"${(p.name_ru || p.name || '').replace(/"/g, '""')}"`,
-          p.section || '',
-          p.category || '',
-          p.weight || '',
-          isBakery ? '' : price.toFixed(2),
-          isBakery ? bk.perUnit.toFixed(2) : '',
-          isBakery ? bk.perBox.toFixed(2) : '',
-          p.qtyPerBox || '',
-          p.shelfLife || '',
-          p.storage || '',
-          p.hsCode || '',
-          p.meatType || '',
-          p.certification || 'Halal',
-        ]
-      : [
-          p.sku || '',
-          `"${(p.name || '').replace(/"/g, '""')}"`,
-          p.section || '',
-          p.category || '',
-          p.weight || '',
-          isBakery ? '' : price.toFixed(2),
-          isBakery ? bk.perUnit.toFixed(2) : '',
-          isBakery ? bk.perBox.toFixed(2) : '',
-          p.qtyPerBox || '',
-          p.shelfLife || '',
-          p.storage || '',
-          p.hsCode || '',
-          p.meatType || '',
-          p.certification || 'Halal',
-        ];
+      ? [p.sku, `"${(p.name||'').replace(/"/g,'""')}"`, `"${(p.name_ru||p.name||'').replace(/"/g,'""')}"`, p.section, p.category, p.weight, isBakery?'':price.toFixed(2), isBakery?ppu.toFixed(2):'', isBakery?ppb.toFixed(2):'', p.qtyPerBox||'', p.shelfLife, p.storage, p.hsCode, p.meatType||'', p.certification||'Halal']
+      : [p.sku, `"${(p.name||'').replace(/"/g,'""')}"`, p.section, p.category, p.weight, isBakery?'':price.toFixed(2), isBakery?ppu.toFixed(2):'', isBakery?ppb.toFixed(2):'', p.qtyPerBox||'', p.shelfLife, p.storage, p.hsCode, p.meatType||'', p.certification||'Halal'];
     csv += row.join(';') + '\n';
   }
   return csv;
 }
 
-function generateExcelXML(products, lang, currency, withVAT) {
+async function generateXLSX(products, lang, currency, withVAT) {
   const isEn = lang === 'en';
   const curLabel = CUR_NAMES[currency]?.[lang] || currency;
   const vatLabel = currency === 'RUB'
     ? (withVAT ? (isEn ? 'incl. VAT' : 'с НДС') : (isEn ? 'excl. VAT' : 'без НДС'))
     : (isEn ? 'excl. VAT' : 'без НДС');
 
+  const wb = new ExcelJS.Workbook();
+  wb.creator = 'Kazan Delicacies';
+  wb.created = new Date();
+
+  const ws = wb.addWorksheet(isEn ? 'Catalog' : 'Каталог');
+
+  const titleRow = ws.addRow([isEn ? 'Kazan Delicacies — Halal Product Catalog' : 'Казанские Деликатесы — Каталог халяль продукции']);
+  titleRow.font = { bold: true, size: 14 };
+  ws.mergeCells('A1:F1');
+
+  ws.addRow([
+    `${isEn ? 'Currency' : 'Валюта'}: ${curLabel} (${vatLabel})`,
+    '',
+    `${isEn ? 'Date' : 'Дата'}: ${new Date().toISOString().split('T')[0]}`,
+    '',
+    `${isEn ? 'Contact' : 'Контакт'}: info@kazandelikates.tatar`,
+    '',
+    '+7 987 217-02-02',
+  ]);
+
+  ws.addRow([]);
+
   const headers = isEn
-    ? ['SKU', 'Name', 'Original (RU)', 'Section', 'Category', 'Weight', `Price ${currency} (${vatLabel})`, 'Price/Unit', 'Price/Box', 'Qty/Box', 'Shelf Life', 'Storage', 'HS Code', 'Meat Type', 'Cert']
-    : ['Артикул', 'Название', 'Раздел', 'Категория', 'Вес', `Цена ${curLabel} (${vatLabel})`, 'Цена/шт', 'Цена/кор', 'Кол-во/кор', 'Годность', 'Хранение', 'ТН ВЭД', 'Мясо', 'Серт.'];
+    ? ['SKU', 'Name', 'Original (RU)', 'Section', 'Category', 'Weight', `Price ${currency} (${vatLabel})`, 'Price/Unit', 'Price/Box', 'Qty/Box', 'Shelf Life', 'Storage', 'HS Code', 'Meat Type', 'Cert.']
+    : ['Артикул', 'Название', 'Раздел', 'Категория', 'Вес', `Цена ${curLabel} (${vatLabel})`, 'Цена/шт', 'Цена/кор', 'Кол/кор', 'Годность', 'Хранение', 'ТН ВЭД', 'Мясо', 'Серт.'];
 
-  const sheetName = isEn ? 'Kazan Delicacies Catalog' : 'Каталог Казанские Деликатесы';
+  const headerRow = ws.addRow(headers);
+  headerRow.eachCell((cell) => {
+    cell.fill = { type: 'pattern', pattern: 'solid', fgColor: { argb: 'FF1B7A3D' } };
+    cell.font = { bold: true, color: { argb: 'FFFFFFFF' }, size: 11 };
+    cell.alignment = { horizontal: 'center' };
+    cell.border = { bottom: { style: 'thin' } };
+  });
 
-  let xml = `<?xml version="1.0" encoding="UTF-8"?>
-<?mso-application progid="Excel.Sheet"?>
-<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
- xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet">
-<Styles>
- <Style ss:ID="header"><Font ss:Bold="1" ss:Size="11"/><Interior ss:Color="#1B7A3D" ss:Pattern="Solid"/><Font ss:Color="#FFFFFF" ss:Bold="1"/></Style>
- <Style ss:ID="num"><NumberFormat ss:Format="0.00"/></Style>
- <Style ss:ID="title"><Font ss:Bold="1" ss:Size="14"/></Style>
-</Styles>
-<Worksheet ss:Name="${escapeXml(sheetName)}">
-<Table>
-`;
-
-  xml += `<Row><Cell ss:StyleID="title"><Data ss:Type="String">${isEn ? 'Kazan Delicacies — Halal Product Catalog' : 'Казанские Деликатесы — Каталог халяль продукции'}</Data></Cell></Row>\n`;
-  xml += `<Row><Cell><Data ss:Type="String">${isEn ? 'Currency' : 'Валюта'}: ${curLabel} (${vatLabel})</Data></Cell><Cell><Data ss:Type="String">${isEn ? 'Date' : 'Дата'}: ${new Date().toISOString().split('T')[0]}</Data></Cell></Row>\n`;
-  xml += '<Row></Row>\n';
-
-  xml += '<Row>';
-  for (const h of headers) {
-    xml += `<Cell ss:StyleID="header"><Data ss:Type="String">${escapeXml(h)}</Data></Cell>`;
-  }
-  xml += '</Row>\n';
-
+  let currentSection = '';
   for (const p of products) {
-    const isBakery = !!p.offers?.pricePerUnit;
-    const price = isBakery ? 0 : getPrice(p, currency, withVAT);
-    const bk = isBakery ? getPriceBakery(p, currency) : { perUnit: 0, perBox: 0 };
-
-    const cells = isEn
-      ? [
-          { t: 'String', v: p.sku || '' },
-          { t: 'String', v: p.name || '' },
-          { t: 'String', v: p.name_ru || p.name || '' },
-          { t: 'String', v: p.section || '' },
-          { t: 'String', v: p.category || '' },
-          { t: 'String', v: p.weight || '' },
-          { t: 'Number', v: isBakery ? '' : price.toFixed(2) },
-          { t: 'Number', v: isBakery ? bk.perUnit.toFixed(2) : '' },
-          { t: 'Number', v: isBakery ? bk.perBox.toFixed(2) : '' },
-          { t: 'String', v: p.qtyPerBox || '' },
-          { t: 'String', v: p.shelfLife || '' },
-          { t: 'String', v: p.storage || '' },
-          { t: 'String', v: p.hsCode || '' },
-          { t: 'String', v: p.meatType || '' },
-          { t: 'String', v: p.certification || 'Halal' },
-        ]
-      : [
-          { t: 'String', v: p.sku || '' },
-          { t: 'String', v: p.name || '' },
-          { t: 'String', v: p.section || '' },
-          { t: 'String', v: p.category || '' },
-          { t: 'String', v: p.weight || '' },
-          { t: 'Number', v: isBakery ? '' : price.toFixed(2) },
-          { t: 'Number', v: isBakery ? bk.perUnit.toFixed(2) : '' },
-          { t: 'Number', v: isBakery ? bk.perBox.toFixed(2) : '' },
-          { t: 'String', v: p.qtyPerBox || '' },
-          { t: 'String', v: p.shelfLife || '' },
-          { t: 'String', v: p.storage || '' },
-          { t: 'String', v: p.hsCode || '' },
-          { t: 'String', v: p.meatType || '' },
-          { t: 'String', v: p.certification || 'Halal' },
-        ];
-
-    xml += '<Row>';
-    for (const c of cells) {
-      if (c.v === '' || c.v === undefined) {
-        xml += '<Cell><Data ss:Type="String"></Data></Cell>';
-      } else if (c.t === 'Number' && !isNaN(parseFloat(c.v))) {
-        xml += `<Cell ss:StyleID="num"><Data ss:Type="Number">${c.v}</Data></Cell>`;
-      } else {
-        xml += `<Cell><Data ss:Type="String">${escapeXml(c.v)}</Data></Cell>`;
-      }
+    if (p.section !== currentSection) {
+      currentSection = p.section;
+      const sectionRow = ws.addRow([currentSection]);
+      sectionRow.font = { bold: true, size: 12, color: { argb: 'FF1B7A3D' } };
+      ws.mergeCells(`A${sectionRow.number}:F${sectionRow.number}`);
     }
-    xml += '</Row>\n';
+
+    const isBakery = !!p.offers?.pricePerUnit;
+    const price = isBakery ? null : getPrice(p, currency, withVAT);
+    const ppu = isBakery ? parseFloat(p.offers.pricePerUnit) : null;
+    const ppb = isBakery ? parseFloat(p.offers.pricePerBox) : null;
+
+    const row = isEn
+      ? [p.sku, p.name, p.name_ru || p.name, p.section, p.category, p.weight, price, ppu, ppb, p.qtyPerBox || '', p.shelfLife, p.storage, p.hsCode, p.meatType || '', p.certification || 'Halal']
+      : [p.sku, p.name, p.section, p.category, p.weight, price, ppu, ppb, p.qtyPerBox || '', p.shelfLife, p.storage, p.hsCode, p.meatType || '', p.certification || 'Halal'];
+
+    const dataRow = ws.addRow(row);
+    const priceCol = isEn ? 7 : 6;
+    [priceCol, priceCol + 1, priceCol + 2].forEach((col) => {
+      const cell = dataRow.getCell(col);
+      if (cell.value && typeof cell.value === 'number') {
+        cell.numFmt = '#,##0.00';
+      }
+    });
   }
 
-  xml += `</Table>
-</Worksheet>
-</Workbook>`;
-  return xml;
+  ws.columns.forEach((col) => {
+    let maxLen = 10;
+    col.eachCell({ includeEmpty: false }, (cell) => {
+      const len = String(cell.value || '').length;
+      if (len > maxLen) maxLen = len;
+    });
+    col.width = Math.min(maxLen + 2, 40);
+  });
+
+  return wb.xlsx.writeBuffer();
 }
 
 export default async function handler(req, res) {
@@ -210,20 +148,18 @@ export default async function handler(req, res) {
 
     if (format === 'csv') {
       const csv = generateCSV(products, lang, currency, withVAT);
-      const filename = `${company}_${currency}${vatSuffix}.csv`;
       res.setHeader('Content-Type', 'text/csv; charset=utf-8');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      res.setHeader('Content-Disposition', `attachment; filename="${company}_${currency}${vatSuffix}.csv"`);
       res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
       res.status(200).send(csv);
     } else if (format === 'xlsx' || format === 'excel') {
-      const xml = generateExcelXML(products, lang, currency, withVAT);
-      const filename = `${company}_${currency}${vatSuffix}.xls`;
-      res.setHeader('Content-Type', 'application/vnd.ms-excel; charset=utf-8');
-      res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+      const buffer = await generateXLSX(products, lang, currency, withVAT);
+      res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+      res.setHeader('Content-Disposition', `attachment; filename="${company}_${currency}${vatSuffix}.xlsx"`);
       res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-      res.status(200).send(xml);
+      res.status(200).send(Buffer.from(buffer));
     } else {
-      res.status(400).json({ error: 'Supported formats: csv, xlsx. Params: lang (ru/en), currency (RUB/USD/KZT/UZS/KGS/BYN/AZN), vat (true/false), format (csv/xlsx)' });
+      res.status(400).json({ error: 'Supported formats: csv, xlsx' });
     }
   } catch (err) {
     res.status(500).json({ error: err.message });
