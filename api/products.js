@@ -247,6 +247,28 @@ const ENRICHMENTS = {
   'пепперони сырокопчёный целый батон': { meatType: 'говядина, курица', description: 'Пепперони сырокопчёный из говядины и курицы, целый батон. Халяль.' },
 };
 
+const B2B_DATA = {
+  halal_cert: { body: 'Комитет по стандарту Халяль ДУМ РТ', number: '614A/2024', country: 'Russia' },
+  quality_system: 'HACCP',
+  customs_union_cert: true,
+  manufacturer: { name: 'ООО «Казанские Деликатесы»', inn: '1686021074', ogrn: '1221600096893' },
+  delivery_terms: 'EXW Kazan, Russia (Incoterms 2020)',
+  private_label: true,
+  no_pork: true,
+  no_gmo: true,
+  no_transglutaminase: true,
+};
+
+const PRODUCT_B2B = {
+  'пепперони вар-коп классика': { ean: '4680638720318', min_order: '6 packs (1 box)', pallet_qty: '120 boxes', export_ready: true },
+  'пепперони вар-коп классика целый батон': { ean: '4680638720318', min_order: '6 pcs (1 box)', export_ready: true },
+  'пепперони вар-коп из конины': { min_order: '6 packs (1 box)', export_ready: true },
+  'пепперони сырокопчёный в нарезке': { min_order: '6 packs (1 box)', export_ready: true },
+  'пепперони сырокопчёный целый батон': { min_order: '6 pcs (1 box)', export_ready: true },
+  'казылык «премиум» в подарочной упаковке': { min_order: '1 pc', export_ready: true },
+  'казылык «премиум» в нарезке в подарочной упаковке': { min_order: '1 pc', export_ready: true },
+};
+
 function enrich(product) {
   const key = product.name.toLowerCase();
   const data = ENRICHMENTS[key];
@@ -254,6 +276,16 @@ function enrich(product) {
     product.meatType = data.meatType;
     product.description = data.description;
   }
+  const b2b = PRODUCT_B2B[key];
+  if (b2b) {
+    if (b2b.ean) product.ean = b2b.ean;
+    if (b2b.min_order) product.min_order = b2b.min_order;
+    if (b2b.pallet_qty) product.pallet_qty = b2b.pallet_qty;
+    product.export_ready = b2b.export_ready || false;
+  }
+  product.halal_cert = B2B_DATA.halal_cert;
+  product.quality_system = B2B_DATA.quality_system;
+  product.private_label = B2B_DATA.private_label;
   return product;
 }
 
@@ -446,6 +478,7 @@ export default async function handler(req, res) {
       },
       dateModified: new Date().toISOString(),
       source: 'Google Sheets (live sync — 3 sheets)',
+      b2b: B2B_DATA,
       sections: SHEETS.map((s) => s.section),
       totalProducts: filtered.length,
       filters: { search: search || null, section: section || null, category: category || null, sku: sku || null },
