@@ -126,11 +126,11 @@
     .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s}
     .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
     .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
-    .product-sku{font-size:.75rem;color:#aaa;margin-bottom:8px}
+    .product-sku{font-size:.75rem;color:#767676;margin-bottom:8px}
     .product-meta{font-size:.8rem;color:#888;margin-bottom:8px}
     .product-meta span{display:inline-block;margin-right:12px}
     .product-price{font-size:1.3rem;font-weight:700;color:#1b7a3d}
-    .product-price-vat{font-size:.75rem;color:#aaa;font-weight:400}
+    .product-price-vat{font-size:.75rem;color:#767676;font-weight:400}
     .product-avail{font-size:.8rem;color:#1b7a3d;margin-top:6px}
     .api-section{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:28px;margin-top:32px}
     .api-section h2{font-size:1.1rem;margin-bottom:14px}
@@ -139,9 +139,9 @@
     .endpoint-list li:last-child{border-bottom:none}
     .endpoint-list a{color:#0066cc;text-decoration:none;font-family:'SF Mono',Consolas,monospace;font-size:.85rem}
     .endpoint-list a:hover{text-decoration:underline}
-    .endpoint-desc{color:#888;font-size:.8rem;margin-left:4px}
+    .endpoint-desc{color:#636363;font-size:.8rem;margin-left:4px}
     .live-badge{display:inline-block;background:#e8f5e9;color:#1b7a3d;padding:2px 8px;border-radius:4px;font-size:.7rem;font-weight:600;margin-left:6px}
-    footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:24px;margin-top:16px}
+    footer{text-align:center;color:#767676;font-size:.85rem;padding-top:24px;margin-top:16px}
     footer a{color:#888;text-decoration:none}
     footer a:hover{text-decoration:underline}
     #loading{text-align:center;padding:40px;color:#aaa}
@@ -175,7 +175,8 @@
       </div>
     </header>
 
-    <div id="catalog">
+    <main>
+    <div id="catalog" style="min-height:400px">
       <div id="loading">Загрузка каталога...</div>
     </div>
 
@@ -183,12 +184,12 @@
       <h2 style="margin-top:0">📥 Скачать прайс-лист</h2>
       <p style="margin-bottom:12px;color:#444">Полный каталог с 77 товарами — откроется в Excel, Google Sheets, Numbers.</p>
       <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-        <span style="font-size:.85rem;color:#666">Язык:</span>
+        <label for="dl-lang" style="font-size:.85rem;color:#555">Язык:</label>
         <select id="dl-lang" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
           <option value="ru" selected>Русский</option>
           <option value="en">English</option>
         </select>
-        <span style="font-size:.85rem;color:#666;margin-left:8px">Валюта:</span>
+        <label for="dl-cur" style="font-size:.85rem;color:#555;margin-left:8px">Валюта:</label>
         <select id="dl-cur" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
           <option value="RUB" selected>RUB ₽</option>
           <option value="USD">USD $</option>
@@ -199,7 +200,7 @@
           <option value="AZN">AZN</option>
         </select>
         <span id="dl-vat-wrap" style="margin-left:8px">
-          <span style="font-size:.85rem;color:#666">НДС:</span>
+          <label for="dl-vat" style="font-size:.85rem;color:#555">НДС:</label>
           <select id="dl-vat" style="padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.85rem">
             <option value="true" selected>С НДС</option>
             <option value="false">Без НДС</option>
@@ -273,6 +274,7 @@
       </ul>
     </div>
 
+    </main>
     <footer>
       <p><a href="/pepperoni">Пепперони</a> &middot; <a href="/kazylyk">Казылык</a> &middot; <a href="/bakery">Выпечка</a> &middot; <a href="/pizzeria">Для пиццерий</a> &middot; <a href="/about">О компании</a> &middot; <a href="/faq">FAQ</a> &middot; <a href="/delivery">Доставка</a></p>
       <p>ООО «Казанские Деликатесы» &middot; 420061, г. Казань, ул. Аграрная, 2, оф. 7</p>
