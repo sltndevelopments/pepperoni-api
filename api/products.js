@@ -250,6 +250,20 @@ const PHOTO_MAP = {
   'казылык «премиум» в нарезке в подарочной упаковке': '1GXWdHyyrV3rbo2fv01PaQbjysa2urY2v',
   'сервелат по-татарски в/к': '16HVyDEM9KeLSDDpiUumqVW9_Dnh86H6z',
   'сервелат ханский': '1jcXJr7CM_eWv2QOoYUBQQwVPY73prXxt',
+  'полукопченая из индейки': '15YAm_GVxvsoeOqSNcdEoVYxEEJCWE4Pw',
+  'полукопченая из говядины': '13nPvrqzS94tvC8v9aXG8saa-kQqW2DG7',
+  'колбаски с сыром': '1VePKl2R7gUb4ruGIOkXHBWxf_UoEAiHy',
+  'ветчина из индейки в нарезке': '15YAm_GVxvsoeOqSNcdEoVYxEEJCWE4Pw',
+  'ветчина из курицы в нарезке': '1flTPwr5GUoS-CnqfElSZJCFRoNwNB7io',
+  'пепперони вар-коп классика': '1oWk0EeXj9oydoub26DWOgLthFr2y7tl4',
+  'пепперони вар-коп классика целый батон': '1LWYZxshDgBXoTUA_0ZSWaaE_yuc7C5GG',
+  'пепперони вар-коп из конины': '1bEVk2ZtDDA_DPoLTu7QBgXnOSMqWQmGB',
+  'пепперони сырокопчёный в нарезке': '1dsWK22bv3BYYWioHzq69CRtEewTd2f-J',
+  'пепперони сырокопчёный целый батон': '1Wf2OgqUfpiagNtwKFH5wJn6TFfMQWwjv',
+  'грудка куриная варено-копченая': '1h3C8RxwLbJpK5LFuC7lYNrlj1Q88A01C',
+  'грудка куриная': '1h3C8RxwLbJpK5LFuC7lYNrlj1Q88A01C',
+  'филе куриное варное': '1Gavu8JIePXW_g5eM5DFkV4DkfyhyKTe8',
+  'филе куриное': '1Gavu8JIePXW_g5eM5DFkV4DkfyhyKTe8',
 };
 
 function addPhoto(product) {
