@@ -225,6 +225,43 @@ function translateProduct(product) {
   return translated;
 }
 
+const PHOTO_MAP = {
+  'сосиски «три перца с сыром» (80 г × 6 шт)': '1VePKl2R7gUb4ruGIOkXHBWxf_UoEAiHy',
+  'сосиски «три перца с сыром»': '1VePKl2R7gUb4ruGIOkXHBWxf_UoEAiHy',
+  'сардельки «буинские»': '10_5gM8biLke58yTb0LV9w3yt5AKZ5hzG',
+  'сардельки «буинские"': '10_5gM8biLke58yTb0LV9w3yt5AKZ5hzG',
+  'ветчина из индейки в батоне': '15YAm_GVxvsoeOqSNcdEoVYxEEJCWE4Pw',
+  'ветчина из индейки': '15YAm_GVxvsoeOqSNcdEoVYxEEJCWE4Pw',
+  'ветчина из курицы в батоне': '1flTPwr5GUoS-CnqfElSZJCFRoNwNB7io',
+  'ветчина из курицы': '1flTPwr5GUoS-CnqfElSZJCFRoNwNB7io',
+  'ветчина мраморная с говядиной': '13nPvrqzS94tvC8v9aXG8saa-kQqW2DG7',
+  'ветчина филейная': '1OVHazeVO2M9OTPykCvdARNRKFX6HyNn3',
+  'в/к княжеская': '1r-xgyBH4mCuvryZLiBIm88ZvTA8J4jIT',
+  'в/к княжеская (половинка)': '1r-xgyBH4mCuvryZLiBIm88ZvTA8J4jIT',
+  'в/к мраморная': '1atX6OFApIgqwSa1lSJ15iiKjKJ-B_QrD',
+  'в/к мраморная (половинка)': '1atX6OFApIgqwSa1lSJ15iiKjKJ-B_QrD',
+  'в/к рамазан': '1_NuL7WMKZkeP1GtRHbaTPpAnOl8tMjey',
+  'в/к рамазан (половинка)': '1_NuL7WMKZkeP1GtRHbaTPpAnOl8tMjey',
+  'в/к филейный': '1xhT5jb0J_hq1UVzLaspbDV0XJ2yEclx1',
+  'в/к филейный (половинка)': '1xhT5jb0J_hq1UVzLaspbDV0XJ2yEclx1',
+  'котлета говяжья прожаренная (100 г × 3 шт)': '1eKrDak9KTS-RRpiovBQse6ThMgtK92kq',
+  'котлета говяжья прожаренная (150 г × 2 шт)': '1eKrDak9KTS-RRpiovBQse6ThMgtK92kq',
+  'казылык «премиум» в подарочной упаковке': '1lker4f3yIS_8Q3a_YxKKKeguU62bqBKL',
+  'казылык «премиум» в нарезке в подарочной упаковке': '1GXWdHyyrV3rbo2fv01PaQbjysa2urY2v',
+  'сервелат по-татарски в/к': '16HVyDEM9KeLSDDpiUumqVW9_Dnh86H6z',
+  'сервелат ханский': '1jcXJr7CM_eWv2QOoYUBQQwVPY73prXxt',
+};
+
+function addPhoto(product) {
+  const key = product.name.toLowerCase().trim();
+  const photoId = PHOTO_MAP[key];
+  if (photoId) {
+    product.image = `https://drive.google.com/thumbnail?id=${photoId}&sz=w800`;
+    product.imageOriginal = `https://drive.google.com/uc?id=${photoId}`;
+  }
+  return product;
+}
+
 const ENRICHMENTS = {
   'пепперони вар-коп классика': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы. Халяль. Термостабильный — не скручивается при запекании.' },
   'пепперони вар-коп классика целый батон': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы, целый батон. Халяль.' },
@@ -384,7 +421,7 @@ export default async function handler(req, res) {
         result = buildStandard(lines, sheet.section, idx);
       }
 
-      allProducts = allProducts.concat(result.products.map(enrich));
+      allProducts = allProducts.concat(result.products.map(p => addPhoto(enrich(p))));
       idx = result.nextIdx;
     }
 
