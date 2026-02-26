@@ -30,6 +30,10 @@
   <link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/">
   <link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/">
   <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#1b7a3d">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
   <!-- JSON-LD: Organization -->
   <script type="application/ld+json">
@@ -402,6 +406,7 @@
       }catch(e){document.getElementById('loading').textContent='Каталог: /products.json';}
     }
     loadCatalog();
+    if('serviceWorker' in navigator){navigator.serviceWorker.register('/sw.js').catch(()=>{})}
   </script>
 </body>
 </html>

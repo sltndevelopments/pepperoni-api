@@ -1,0 +1,16 @@
+{
+  "name": "Казанские Деликатесы — Халяль продукция",
+  "short_name": "КД Каталог",
+  "description": "Каталог халяль мясных изделий и татарской выпечки. 77 товаров. Актуальные цены.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafafa",
+  "theme_color": "#1b7a3d",
+  "orientation": "any",
+  "lang": "ru",
+  "categories": ["food", "business"],
+  "icons": [
+    {"src": "https://pepperoni.tatar/images/logo.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "https://pepperoni.tatar/images/logo.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable"}
+  ]
+}
