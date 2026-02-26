@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -269,6 +269,233 @@ function generateLlmsFullTxt(allProducts) {
   return txt;
 }
 
+// --- YML Feed for Yandex.Market ---
+
+const YML_CATEGORIES = {
+  'Сосиски гриль для хот-догов': { id: 2, parent: 1 },
+  'Котлеты для бургеров': { id: 3, parent: 1 },
+  'Топпинги': { id: 4, parent: 1 },
+  'Мясные заготовки': { id: 5, parent: 1 },
+  'Сосиски, сардельки': { id: 7, parent: 6 },
+  'Вареные': { id: 8, parent: 6 },
+  'Ветчины': { id: 9, parent: 6 },
+  'Копченые': { id: 10, parent: 6 },
+  'Премиум Казылык': { id: 11, parent: 6 },
+  'Национальная татарская выпечка': { id: 13, parent: 12 },
+  'Классическая выпечка': { id: 14, parent: 12 },
+};
+
+function escapeXml(s) {
+  return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function generateYML(allProducts) {
+  const today = new Date().toISOString().split('T')[0];
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE yml_catalog SYSTEM "shops.dtd">
+<yml_catalog date="${today}">
+<shop>
+<name>Казанские Деликатесы</name>
+<company>ООО «Казанские Деликатесы»</company>
+<url>https://kazandelikates.tatar</url>
+<currencies><currency id="RUB" rate="1"/></currencies>
+<categories>
+<category id="1">Заморозка</category>
+<category id="2" parentId="1">Сосиски гриль для хот-догов</category>
+<category id="3" parentId="1">Котлеты для бургеров</category>
+<category id="4" parentId="1">Топпинги</category>
+<category id="5" parentId="1">Мясные заготовки</category>
+<category id="6">Охлаждённая продукция</category>
+<category id="7" parentId="6">Сосиски, сардельки</category>
+<category id="8" parentId="6">Вареные</category>
+<category id="9" parentId="6">Ветчины</category>
+<category id="10" parentId="6">Копченые</category>
+<category id="11" parentId="6">Премиум Казылык</category>
+<category id="12">Выпечка</category>
+<category id="13" parentId="12">Национальная татарская выпечка</category>
+<category id="14" parentId="12">Классическая выпечка</category>
+</categories>
+<delivery>true</delivery>
+<offers>
+`;
+  for (const p of allProducts) {
+    const price = p.offers.price || p.offers.pricePerUnit;
+    if (!price || parseFloat(price) === 0) continue;
+    const catInfo = YML_CATEGORIES[p.category];
+    const catId = catInfo ? catInfo.id : (p.section === 'Заморозка' ? 1 : p.section === 'Выпечка' ? 12 : 6);
+    const desc = `${p.name}. Халяль продукция от Казанских Деликатесов.${p.shelfLife ? ' Срок годности: ' + p.shelfLife + '.' : ''}${p.storage ? ' Хранение: ' + p.storage + '.' : ''}`;
+    xml += `<offer id="${escapeXml(p.sku)}" available="true">
+<name>${escapeXml(p.name)}</name>
+<url>https://pepperoni.tatar</url>
+<price>${parseFloat(price)}</price>
+<currencyId>RUB</currencyId>
+<categoryId>${catId}</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<description>${escapeXml(desc)}</description>
+<param name="Сертификация">Halal</param>
+${p.weight ? `<param name="Вес">${escapeXml(p.weight)}</param>` : ''}
+${p.shelfLife ? `<param name="Срок годности">${escapeXml(p.shelfLife)}</param>` : ''}
+${p.hsCode ? `<param name="ТН ВЭД">${escapeXml(p.hsCode)}</param>` : ''}
+</offer>
+`;
+  }
+  xml += `</offers>
+</shop>
+</yml_catalog>`;
+  return xml;
+}
+
+// --- Google Merchant Feed ---
+
+function generateGoogleFeed(allProducts) {
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:g="http://base.google.com/ns/1.0">
+<channel>
+<title>Kazan Delicacies — Halal Products</title>
+<link>https://kazandelikates.tatar</link>
+<description>Halal meat products and Tatar pastries from Kazan, Russia. 77 products.</description>
+`;
+  for (const p of allProducts) {
+    const price = p.offers.price || p.offers.pricePerUnit;
+    if (!price || parseFloat(price) === 0) continue;
+    xml += `<item>
+<g:id>${escapeXml(p.sku)}</g:id>
+<g:title>${escapeXml(p.name)}</g:title>
+<g:description>${escapeXml(p.name + '. Halal. Kazan Delicacies.')}</g:description>
+<g:link>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</g:link>
+<g:price>${parseFloat(price)} RUB</g:price>
+<g:availability>in_stock</g:availability>
+<g:condition>new</g:condition>
+<g:brand>Kazan Delicacies</g:brand>
+<g:product_type>${escapeXml(p.section + ' > ' + p.category)}</g:product_type>
+${p.hsCode ? `<g:gtin>${escapeXml(p.hsCode)}</g:gtin>` : ''}
+</item>
+`;
+  }
+  xml += `</channel>
+</rss>`;
+  return xml;
+}
+
+// --- RSS Feed ---
+
+function generateRSS(allProducts) {
+  const today = new Date().toUTCString();
+  let xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<channel>
+<title>Казанские Деликатесы — Каталог продукции</title>
+<link>https://api.pepperoni.tatar</link>
+<description>Каталог халяль продукции: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка.</description>
+<language>ru</language>
+<lastBuildDate>${today}</lastBuildDate>
+<atom:link href="https://api.pepperoni.tatar/rss.xml" rel="self" type="application/rss+xml"/>
+`;
+  for (const p of allProducts) {
+    const price = p.offers.price || p.offers.pricePerUnit || '0';
+    xml += `<item>
+<title>${escapeXml(p.name)} — ${price} ₽</title>
+<link>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</link>
+<guid>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</guid>
+<description>${escapeXml(p.name + '. ' + p.category + '. ' + (p.weight || '') + '. Halal. Казанские Деликатесы.')}</description>
+<category>${escapeXml(p.section + ' / ' + p.category)}</category>
+</item>
+`;
+  }
+  xml += `</channel>
+</rss>`;
+  return xml;
+}
+
+// --- Individual Product Pages ---
+
+function generateProductPages(allProducts) {
+  const dir = join(PUBLIC, 'products');
+  if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
+
+  for (const p of allProducts) {
+    const slug = p.sku.toLowerCase();
+    const price = p.offers.price || p.offers.pricePerUnit || '0';
+    const priceNoVAT = p.offers.priceExclVAT || p.offers.pricePerBoxExclVAT || '';
+    const html = `<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${p.name} — Казанские Деликатесы | Халяль</title>
+<meta name="description" content="${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${price} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://api.pepperoni.tatar/products/${slug}">
+<meta property="og:type" content="product">
+<meta property="og:title" content="${p.name} — Казанские Деликатесы">
+<meta property="og:description" content="${p.category}. ${price} ₽. Халяль.">
+<meta property="og:url" content="https://api.pepperoni.tatar/products/${slug}">
+<meta property="og:locale" content="ru_RU">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Product",
+  "name":"${p.name.replace(/"/g, '\\"')}",
+  "sku":"${p.sku}",
+  "brand":{"@type":"Brand","name":"Казанские Деликатесы"},
+  "category":"${(p.category || '').replace(/"/g, '\\"')}",
+  "description":"${p.name.replace(/"/g, '\\"')}. Халяль продукция.",
+  "offers":{"@type":"Offer","priceCurrency":"RUB","price":"${price}","availability":"https://schema.org/InStock","url":"https://pepperoni.tatar"},
+  "manufacturer":{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.8}
+.c{max-width:700px;margin:0 auto;padding:40px 24px}
+nav a{color:#0066cc;text-decoration:none;font-size:.9rem}
+h1{font-size:1.6rem;font-weight:700;margin:20px 0 8px}
+.badge{display:inline-block;background:#1b7a3d;color:#fff;padding:3px 10px;border-radius:4px;font-size:.8rem;font-weight:600;margin:4px 4px 16px 0}
+.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;margin:12px 0}
+.price{font-size:1.6rem;font-weight:700;color:#1b7a3d;margin:8px 0}
+table{width:100%;border-collapse:collapse;margin:12px 0}td{padding:6px 10px;border-bottom:1px solid #eee;font-size:.9rem}
+td:first-child{color:#888}td:last-child{font-weight:600}
+.cta{display:inline-block;background:#1b7a3d;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem}
+footer{text-align:center;color:#aaa;font-size:.8rem;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
+footer a{color:#888;text-decoration:none}
+</style>
+</head>
+<body>
+<div class="c">
+<nav><a href="/">← Каталог</a></nav>
+<h1>${p.name}</h1>
+<span class="badge">HALAL</span>
+<span class="badge" style="background:#eee;color:#333">${p.sku}</span>
+<span class="badge" style="background:#eee;color:#333">${p.section}</span>
+<div class="card">
+<div class="price">${parseFloat(price).toLocaleString('ru-RU')} ₽</div>
+<div style="color:#1b7a3d;font-size:.85rem">✓ В наличии</div>
+</div>
+<table>
+${p.category ? `<tr><td>Категория</td><td>${p.category}</td></tr>` : ''}
+${p.weight ? `<tr><td>Вес расчёта</td><td>${p.weight}</td></tr>` : ''}
+${priceNoVAT ? `<tr><td>Цена без НДС</td><td>${priceNoVAT} ₽</td></tr>` : ''}
+${p.shelfLife ? `<tr><td>Срок годности</td><td>${p.shelfLife}</td></tr>` : ''}
+${p.storage ? `<tr><td>Хранение</td><td>${p.storage}</td></tr>` : ''}
+${p.hsCode ? `<tr><td>ТН ВЭД</td><td>${p.hsCode}</td></tr>` : ''}
+<tr><td>Сертификация</td><td>Halal</td></tr>
+<tr><td>Производитель</td><td>Казанские Деликатесы</td></tr>
+</table>
+<div style="margin-top:20px">
+<a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
+<a href="mailto:info@kazandelikates.tatar" class="cta" style="background:transparent;border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
+</div>
+<footer>
+<p><a href="/">Каталог</a> · <a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a></p>
+<p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a></p>
+</footer>
+</div>
+</body>
+</html>`;
+    writeFileSync(join(dir, `${slug}.html`), html, 'utf-8');
+  }
+}
+
 // --- Main ---
 
 async function main() {
@@ -314,6 +541,21 @@ async function main() {
   const llmsFullPath = join(PUBLIC, 'llms-full.txt');
   writeFileSync(llmsFullPath, llmsFullTxt, 'utf-8');
   console.log(`✅ ${llmsFullPath}`);
+
+  const ymlPath = join(PUBLIC, 'yml.xml');
+  writeFileSync(ymlPath, generateYML(allProducts), 'utf-8');
+  console.log(`✅ ${ymlPath}`);
+
+  const feedPath = join(PUBLIC, 'feed.xml');
+  writeFileSync(feedPath, generateGoogleFeed(allProducts), 'utf-8');
+  console.log(`✅ ${feedPath}`);
+
+  const rssPath = join(PUBLIC, 'rss.xml');
+  writeFileSync(rssPath, generateRSS(allProducts), 'utf-8');
+  console.log(`✅ ${rssPath}`);
+
+  generateProductPages(allProducts);
+  console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
   const today = new Date().toISOString().split('T')[0];
   const sitemapPath = join(PUBLIC, 'sitemap.xml');
@@ -414,6 +656,48 @@ async function main() {
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/kazylyk</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/bakery</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/pizzeria</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/en/kazylyk</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/en/bakery</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/en/pizzeria</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+${allProducts.map(p => `  <url>
+    <loc>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>`).join('\n')}
 </urlset>
 `;
   writeFileSync(sitemapPath, sitemap, 'utf-8');
