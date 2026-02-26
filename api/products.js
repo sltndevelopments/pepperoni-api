@@ -53,6 +53,136 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
+const TRANSLATIONS = {
+  'сосиски гриль для хот-догов': 'Grill Sausages for Hot Dogs',
+  'сосиски «из говядины» (80 г × 6 шт)': 'Beef Sausages (80g × 6 pcs)',
+  'сосиски «два мяса» (80 г × 6 шт)': 'Two-Meat Sausages (80g × 6 pcs)',
+  'сосиски «три перца с сыром» (80 г × 6 шт)': 'Three Peppers & Cheese Sausages (80g × 6 pcs)',
+  'сосиски «куриные» (80 г × 6 шт)': 'Chicken Sausages (80g × 6 pcs)',
+  'сосиски «с бараниной» (80 г × 6 шт)': 'Lamb Sausages (80g × 6 pcs)',
+  'сосиски «с травами» (130 г × 5 шт)': 'Herb Sausages (130g × 5 pcs)',
+  'сосиски «с сыром» (130 г × 5 шт)': 'Cheese Sausages (130g × 5 pcs)',
+  'котлеты для бургеров': 'Burger Patties',
+  'котлета говяжья прожаренная (100 г × 3 шт)': 'Fried Beef Patty (100g × 3 pcs)',
+  'котлета говяжья прожаренная (150 г × 2 шт)': 'Fried Beef Patty (150g × 2 pcs)',
+  'топпинги': 'Toppings',
+  'ветчина из курицы в батоне': 'Chicken Ham (whole)',
+  'ветчина из курицы в нарезке': 'Chicken Ham (sliced)',
+  'ветчина из индейки в батоне': 'Turkey Ham (whole)',
+  'ветчина из индейки в нарезке': 'Turkey Ham (sliced)',
+  'пепперони вар-коп из конины': 'Boiled-Smoked Pepperoni (horse meat)',
+  'пепперони вар-коп классика': 'Boiled-Smoked Pepperoni Classic (beef & chicken)',
+  'пепперони вар-коп классика целый батон': 'Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken)',
+  'пепперони сырокопчёный в нарезке': 'Dry-Cured Pepperoni (sliced, beef & chicken)',
+  'пепперони сырокопчёный целый батон': 'Dry-Cured Pepperoni (whole stick, beef & chicken)',
+  'грудка куриная варено-копченая': 'Smoked Chicken Breast',
+  'филе куриное варное': 'Boiled Chicken Fillet',
+  'мясные заготовки': 'Meat Preparations',
+  'фарш говяжий': 'Beef Mince',
+  'фарш из куриной кожи': 'Chicken Skin Mince',
+  'филе бедра куриного в кубике 1х1 см': 'Diced Chicken Thigh (1×1 cm)',
+  'филе грудки куриной в кубике 1х1 см': 'Diced Chicken Breast (1×1 cm)',
+  'говядина 1 сорт в кубике 1х1 см': 'Diced Beef Grade 1 (1×1 cm)',
+  'сосиски, сардельки': 'Sausages & Frankfurters',
+  'сосиски «к завтраку»': 'Breakfast Sausages',
+  'сосиски «к завтраку» (без оболочки) \nдля «сосиски в тесте»': 'Breakfast Sausages (skinless, for pigs-in-blankets)',
+  'сосиски «нежные»': 'Tender Sausages',
+  'сосиски «казанские с молоком»': 'Kazan Milk Sausages',
+  'сосиски «с сыром»': 'Cheese Sausages',
+  'сосиски «из говядины»': 'Beef Sausages',
+  'сосиски "из говядины"': 'Beef Sausages',
+  'сосиски в/с премиум': 'Premium Sausages',
+  'сосиски в/с сочные': 'Juicy Sausages',
+  'сардельки «буинские»': 'Buinsk Frankfurters',
+  'сардельки «буинские"': 'Buinsk Frankfurters',
+  'вареные': 'Boiled Sausages',
+  'вареная «из говядины»': 'Boiled Beef Sausage',
+  'вареная ассорти': 'Boiled Assorted Sausage',
+  'вареная нежная': 'Boiled Tender Sausage',
+  'ветчины': 'Hams',
+  'ветчина из индейки': 'Turkey Ham',
+  'ветчина мраморная с говядиной': 'Marbled Beef Ham',
+  'ветчина из курицы': 'Chicken Ham',
+  'ветчина филейная': 'Fillet Ham',
+  'копченые': 'Smoked Meats',
+  'сервелат ханский': 'Khan Cervelat',
+  'сервелат по-татарски в/к': 'Tatar-Style Smoked Cervelat',
+  'полукопченая из индейки': 'Semi-Smoked Turkey Sausage',
+  'полукопченая из говядины': 'Semi-Smoked Beef Sausage',
+  'колбаски с сыром': 'Cheese Sausage Links',
+  'грудка куриная': 'Chicken Breast',
+  'филе куриное': 'Chicken Fillet',
+  'в/к рамазан': 'Ramazan Smoked Sausage',
+  'в/к рамазан (половинка)': 'Ramazan Smoked Sausage (half)',
+  'в/к мраморная': 'Marbled Smoked Sausage',
+  'в/к мраморная (половинка)': 'Marbled Smoked Sausage (half)',
+  'в/к филейный': 'Fillet Smoked Sausage',
+  'в/к филейный (половинка)': 'Fillet Smoked Sausage (half)',
+  'в/к княжеская': 'Knyazheskaya Smoked Sausage',
+  'в/к княжеская (половинка)': 'Knyazheskaya Smoked Sausage (half)',
+  'премиум казылык': 'Premium Kazylyk',
+  'казылык «премиум» в подарочной упаковке': 'Kazylyk Premium (gift box, horse meat)',
+  'казылык «премиум» в нарезке в подарочной упаковке': 'Kazylyk Premium Sliced (gift box, horse meat)',
+  'национальная татарская выпечка': 'Traditional Tatar Pastries',
+  'губадия с кортом': 'Gubadiya with Kort (Tatar layered pie)',
+  'чебурек жареный': 'Fried Cheburek',
+  'перемяч жареный': 'Fried Peremyach (Tatar meat pie)',
+  'самса с курицей': 'Chicken Samsa',
+  'эчпочмак с говядиной и картофелем': 'Echpochmak with Beef & Potato (Tatar triangle pie)',
+  'самса с говядиной': 'Beef Samsa',
+  'элеш с курицей и картофелем': 'Elesh with Chicken & Potato (Tatar pie)',
+  'чак-чак в пластиковой упаковке': 'Chak-Chak (plastic pack)',
+  'чак-чак в крафтовой подарочной упаковке': 'Chak-Chak (craft gift box)',
+  'классическая выпечка': 'Classic Pastries',
+  'сочник с творогом': 'Cottage Cheese Sochnik',
+  'пирожок печеный с картофелем': 'Baked Potato Pie',
+  'сырник': 'Syrnik (cottage cheese pancake)',
+  'пирожок с яблоком': 'Apple Pie',
+  'пирожок с зеленым луком и яйцом': 'Spring Onion & Egg Pie',
+  'маффин апельсиновый': 'Orange Muffin',
+  'сосиска в тесте': 'Sausage Roll',
+  'пирожок с вишней': 'Cherry Pie',
+  'круассан с шоколадом и орехами': 'Chocolate & Nut Croissant',
+  'маффин шоколадный': 'Chocolate Muffin',
+};
+
+const CATEGORY_TRANSLATIONS = {
+  'Сосиски гриль для хот-догов': 'Grill Sausages for Hot Dogs',
+  'Котлеты для бургеров': 'Burger Patties',
+  'Топпинги': 'Toppings',
+  'Мясные заготовки': 'Meat Preparations',
+  'Сосиски, сардельки': 'Sausages & Frankfurters',
+  'Вареные': 'Boiled Sausages',
+  'Ветчины': 'Hams',
+  'Копченые': 'Smoked Meats',
+  'Премиум Казылык': 'Premium Kazylyk',
+  'Национальная татарская выпечка': 'Traditional Tatar Pastries',
+  'Классическая выпечка': 'Classic Pastries',
+  'Готовые блюда': 'Ready Meals',
+};
+
+const SECTION_TRANSLATIONS = {
+  'Заморозка': 'Frozen Products',
+  'Охлаждённая продукция': 'Refrigerated Products',
+  'Выпечка': 'Bakery',
+};
+
+function translateProduct(product) {
+  const key = product.name.toLowerCase().trim();
+  const translated = { ...product };
+  translated.name_ru = product.name;
+  translated.name = TRANSLATIONS[key] || product.name;
+  if (product.category) {
+    translated.category_ru = product.category;
+    translated.category = CATEGORY_TRANSLATIONS[product.category] || product.category;
+  }
+  if (product.section) {
+    translated.section_ru = product.section;
+    translated.section = SECTION_TRANSLATIONS[product.section] || product.section;
+  }
+  return translated;
+}
+
 const ENRICHMENTS = {
   'пепперони вар-коп классика': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы. Халяль. Термостабильный — не скручивается при запекании.' },
   'пепперони вар-коп классика целый батон': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы, целый батон. Халяль.' },
@@ -216,8 +346,10 @@ export default async function handler(req, res) {
       idx = result.nextIdx;
     }
 
-    const { search, section, category, sku } = req.query || {};
-    let filtered = allProducts;
+    const { search, section, category, sku, lang } = req.query || {};
+    let filtered = lang === 'en'
+      ? allProducts.map(translateProduct)
+      : allProducts;
 
     if (search) {
       const q = search.toLowerCase();
