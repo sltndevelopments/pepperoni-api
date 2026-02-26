@@ -2,29 +2,27 @@
 
 ## Cursor Cloud specific instructions
 
-This is **Pepperoni.tatar API** — a purely static site deployed to Vercel. There is no build step, no package manager, no dependencies, and no automated tests.
+This is a Vercel-deployed static site + serverless API for Kazan Delicacies (pepperoni.tatar).
+
+### Project structure
+- `public/` — Static HTML pages (Russian at root, English under `en/`)
+- `api/` — Vercel serverless functions (`products.js` fetches live data from Google Sheets)
+- `vercel.json` — Vercel config with `cleanUrls: true` (pages served without `.html` extension)
+- `package.json` — Only dependency is `exceljs` (used by the export API)
 
 ### Running locally
+- Serve static pages: `npx serve public -l 3000`
+- No build step required; all HTML pages are standalone with inline/embedded CSS
+- API functions (`api/products.js`) are Vercel serverless and cannot be run locally without `vercel dev`
 
-Serve the `public/` directory with any static file server:
+### HTML page conventions
+- All pages share the same `<style>` block (copy from `public/pepperoni.html`)
+- Navigation uses inline styles in a flex div (not a `<nav>` element)
+- Green accent: `#1b7a3d`, blue links: `#0066cc`
+- Every page must include: hreflang tags, Schema.org JSON-LD, CTA buttons (phone + email), footer
+- Russian pages link to `/en/*`, English pages link back to `/*` (without `/en/`)
 
-```bash
-python3 -m http.server 3000 -d public
-```
-
-### Key endpoints
-
-| Path | Content |
-|---|---|
-| `/` | HTML landing page |
-| `/products.json` | Product catalog JSON |
-| `/openapi.yaml` | OpenAPI 3.0.3 specification |
-| `/.well-known/ai-plugin.json` | AI plugin manifest |
-| `/.well-known/ai-meta.json` | AI metadata / dataset discovery |
-
-### Notes
-
-- No `package.json`, `requirements.txt`, or dependency manifest exists — no install step is needed.
-- No linter, test framework, or build tooling is configured.
-- Deployment is configured via `vercel.json` (static site, clean URLs).
-- The OpenAPI spec references `https://api.pepperoni.tatar` as the production server.
+### Testing
+- No automated test suite exists (`npm test` is a no-op)
+- Validate pages by serving locally and checking HTTP 200 responses
+- Check for required elements: DOCTYPE, hreflang, JSON-LD, CTA buttons
