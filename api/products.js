@@ -486,7 +486,7 @@ export default async function handler(req, res) {
     };
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 's-maxage=900, stale-while-revalidate=86400');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(result);
   } catch (err) {
