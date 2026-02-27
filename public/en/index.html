@@ -198,7 +198,8 @@
   </div>
 
   <script>
-    const BASE=(location.hostname==='api.pepperoni.tatar'?'/sheets-proxy/':'https://docs.google.com/spreadsheets/')+'d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
+    const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
+    const USE_API=location.hostname==='api.pepperoni.tatar';
     const SHEETS=[
       {gid:'1087942289',section:'Frozen Products',icon:'❄️',type:'std'},
       {gid:'1589357549',section:'Refrigerated Products',icon:'🧊',type:'std'},
@@ -291,13 +292,39 @@
         +`<div style="text-align:center;color:#888;font-size:.85rem;margin-bottom:8px">${total} products · 3 sections · live prices from Google Sheets</div>`
         +renderGroups(ALL_GROUPS);
     }
+    async function loadFromSheets(){
+      const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>{if(!r.ok)throw new Error();return r.text()})));
+      for(let i=0;i<SHEETS.length;i++){const lines=parseCSV(csvs[i]);const s=SHEETS[i];
+        const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);
+        ALL_GROUPS.push({section:s.section,icon:s.icon,groups});}
+    }
+    async function loadFromAPI(){
+      const d=await fetch('/api/products?lang=en').then(r=>r.json());
+      const groups={};
+      const secTR={'Заморозка':'Frozen Products','Охлаждённая продукция':'Refrigerated Products','Выпечка':'Bakery'};
+      for(const p of d.products){
+        const sec=p.section_ru||p.section||'Other';const secEN=secTR[sec]||p.section||sec;
+        const cat=p.category||secEN;
+        if(!groups[secEN])groups[secEN]={};
+        if(!groups[secEN][cat])groups[secEN][cat]=[];
+        const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
+        const pnv=parseFloat(p.offers?.priceExclVAT||0);
+        const isBakery=!!p.offers?.pricePerUnit;
+        groups[secEN][cat].push({name:p.name,nameRu:p.name_ru||p.name,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
+      }
+      const icons={'Frozen Products':'❄️','Refrigerated Products':'🧊','Bakery':'🥐'};
+      for(const[sec,cats]of Object.entries(groups)){
+        ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
+      }
+    }
     async function loadCatalog(){
-      try{const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>r.text())));
-        for(let i=0;i<SHEETS.length;i++){const lines=parseCSV(csvs[i]);const s=SHEETS[i];
-          const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);
-          ALL_GROUPS.push({section:s.section,icon:s.icon,groups});}
+      try{
+        if(USE_API){await loadFromAPI()}else{await loadFromSheets()}
         render();
-      }catch(e){document.getElementById('loading').textContent='Catalog: /products.json';}
+      }catch(e){
+        try{ALL_GROUPS=[];await loadFromAPI();render()}
+        catch(e2){document.getElementById('loading').textContent='Catalog: /products.json';}
+      }
     }
     loadCatalog();
   </script>
