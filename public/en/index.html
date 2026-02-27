@@ -198,7 +198,7 @@
   </div>
 
   <script>
-    const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
+    const BASE=(location.hostname==='api.pepperoni.tatar'?'/sheets-proxy/':'https://docs.google.com/spreadsheets/')+'d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
     const SHEETS=[
       {gid:'1087942289',section:'Frozen Products',icon:'❄️',type:'std'},
       {gid:'1589357549',section:'Refrigerated Products',icon:'🧊',type:'std'},
