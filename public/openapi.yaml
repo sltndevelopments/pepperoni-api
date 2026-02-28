@@ -1,204 +1,404 @@
 openapi: 3.1.0
 info:
   title: Pepperoni.tatar API
-  version: "2.0.0"
+  version: "2.1.0"
   description: >
-    Каталог халяль мясных изделий от Казанских Деликатесов.
-    Актуальные цены из Google Sheets: пепперони, сосиски, ветчина, котлеты, мясные заготовки.
-    Цены в RUB, USD, KZT, UZS, KGS, BYN, AZN.
+    Halal meat products and Tatar pastries catalog by Kazan Delicacies (Казанские Деликатесы).
+    77 products across 3 sections: Frozen, Refrigerated, Bakery.
+    Live prices synced from Google Sheets. Prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).
+    Halal certified #614A/2024 (DUM RT). HACCP. Private Label available.
   contact:
-    name: Казанские Деликатесы
+    name: Казанские Деликатесы / Kazan Delicacies
     email: info@kazandelikates.tatar
     url: https://kazandelikates.tatar
+  license:
+    name: Public API — no authentication required
+    url: https://api.pepperoni.tatar
 servers:
   - url: https://api.pepperoni.tatar
-    description: Production server
+    description: Production (Russia, reverse proxy)
+  - url: https://pepperoni-api.vercel.app
+    description: Direct (Vercel, global CDN)
+security: []
 paths:
-  /api/products:
+  /api/v1/products:
     get:
       tags:
         - Products
-      summary: Актуальный каталог продуктов (live из Google Sheets)
+      summary: Product catalog (live from Google Sheets)
       description: >
-        Возвращает актуальные данные о продуктах и ценах, синхронизированные
-        с Google Sheets прайс-листом. Обновляется при каждом запросе.
-        Кешируется на 1 час.
-      operationId: getLiveProducts
+        Returns current product data and prices synced with Google Sheets.
+        Updated on each request, cached for 1 hour.
+        Supports search, filtering by section/category/SKU, and language selection.
+      operationId: getProducts
       parameters:
         - name: search
           in: query
-          description: Поиск по названию, категории или SKU (например, ?search=пепперони)
-          required: false
+          description: Search by name, category, SKU, meatType or description
           schema:
             type: string
-            example: пепперони
+            examples:
+              - пепперони
+              - beef
+              - KD-015
         - name: section
           in: query
-          description: Фильтр по разделу (Заморозка, Охлаждённая продукция, Выпечка)
-          required: false
+          description: Filter by section
           schema:
             type: string
-            example: Заморозка
+            enum: [Заморозка, Охлаждённая продукция, Выпечка]
         - name: category
           in: query
-          description: Фильтр по категории (Топпинги, Сосиски, Ветчины, Копченые и др.)
-          required: false
+          description: Filter by category
           schema:
             type: string
-            example: Топпинги
+            examples:
+              - Топпинги
+              - Сосиски гриль для хот-догов
+              - Toppings
         - name: sku
           in: query
-          description: Точный поиск по артикулу (например, ?sku=KD-015)
-          required: false
+          description: Exact SKU match
           schema:
             type: string
             example: KD-015
         - name: lang
           in: query
-          description: Язык ответа (ru — русский, en — английский с переводом названий)
-          required: false
+          description: Response language (ru = Russian, en = English with translated names)
           schema:
             type: string
             enum: [ru, en]
             default: ru
       responses:
         '200':
-          description: OK
+          description: Product catalog
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  '@context':
-                    type: string
-                    example: https://schema.org
-                  '@type':
-                    type: string
-                    example: DataCatalog
-                  dateModified:
-                    type: string
-                    format: date-time
-                  totalProducts:
-                    type: integer
-                  products:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Product'
-  /api/export:
+                $ref: '#/components/schemas/CatalogResponse'
+  /api/v1/export:
     get:
       tags:
         - Export
-      summary: Скачать каталог в формате CSV (для Excel)
+      summary: Download catalog as Excel (.xlsx) or CSV
       description: >
-        Возвращает CSV-файл со всеми товарами и ценами.
-        Открывается в Excel, Google Sheets, Numbers.
-        Поддерживает русский и английский язык.
+        Returns a downloadable file with all products and prices.
+        Supports language, currency, VAT selection and format choice.
       operationId: exportCatalog
       parameters:
         - name: lang
           in: query
-          description: Язык (ru или en)
           schema:
             type: string
             enum: [ru, en]
             default: ru
-        - name: format
+        - name: currency
           in: query
-          description: Формат файла
           schema:
             type: string
-            enum: [csv]
-            default: csv
+            enum: [RUB, USD, KZT, UZS, KGS, BYN, AZN]
+            default: RUB
+        - name: vat
+          in: query
+          description: Include VAT (only for RUB)
+          schema:
+            type: boolean
+            default: true
+        - name: format
+          in: query
+          schema:
+            type: string
+            enum: [xlsx, csv]
+            default: xlsx
       responses:
         '200':
-          description: CSV файл для скачивания
+          description: Downloadable file
+          headers:
+            Content-Disposition:
+              schema:
+                type: string
+                example: 'attachment; filename="Kazan_Delicacies_USD.xlsx"'
           content:
+            application/vnd.openxmlformats-officedocument.spreadsheetml.sheet:
+              schema:
+                type: string
+                format: binary
             text/csv:
               schema:
                 type: string
-  /products.json:
+  /api/v1/health:
     get:
       tags:
-        - Products
-      summary: Статический каталог продуктов
-      description: Статический JSON-файл с каталогом продуктов (25 товаров).
-      operationId: getStaticProducts
+        - System
+      summary: API health check
+      operationId: healthCheck
       responses:
         '200':
-          description: OK
+          description: API status and endpoint list
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  products:
-                    type: array
-                    items:
-                      $ref: '#/components/schemas/Product'
+                  status:
+                    type: string
+                    example: healthy
+                  version:
+                    type: string
+                    example: "2.1.0"
+                  endpoints:
+                    type: object
+  /api/v1/stats:
+    get:
+      tags:
+        - System
+      summary: AI bot visit analytics
+      operationId: getStats
+      responses:
+        '200':
+          description: Visit statistics with bot detection
+          content:
+            application/json:
+              schema:
+                type: object
+  /products.json:
+    get:
+      tags:
+        - Products
+      summary: Static product catalog (updated daily by GitHub Actions)
+      operationId: getStaticProducts
+      responses:
+        '200':
+          description: Static JSON catalog
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogResponse'
 components:
+  securitySchemes: {}
   schemas:
+    CatalogResponse:
+      type: object
+      required:
+        - dateModified
+        - totalProducts
+        - products
+      properties:
+        '@context':
+          type: string
+          const: https://schema.org
+        '@type':
+          type: string
+          const: DataCatalog
+        dateModified:
+          type: string
+          format: date-time
+          example: "2026-02-27T12:00:00.000Z"
+        totalProducts:
+          type: integer
+          example: 77
+        source:
+          type: string
+          example: "Google Sheets (live sync — 3 sheets)"
+        sections:
+          type: array
+          items:
+            type: string
+          example: [Заморозка, Охлаждённая продукция, Выпечка]
+        filters:
+          type: object
+          description: Active filters in the request (null if not applied)
+        b2b:
+          $ref: '#/components/schemas/B2BInfo'
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
+    B2BInfo:
+      type: object
+      properties:
+        halal_cert:
+          type: object
+          properties:
+            body:
+              type: string
+              example: Комитет по стандарту Халяль ДУМ РТ
+            number:
+              type: string
+              example: "614A/2024"
+            country:
+              type: string
+              example: Russia
+        quality_system:
+          type: string
+          example: HACCP
+        customs_union_cert:
+          type: boolean
+          example: true
+        manufacturer:
+          type: object
+          properties:
+            name:
+              type: string
+              example: ООО «Казанские Деликатесы»
+            inn:
+              type: string
+              example: "1686021074"
+            ogrn:
+              type: string
+              example: "1221600096893"
+        delivery_terms:
+          type: string
+          example: EXW Kazan, Russia (Incoterms 2020)
+        private_label:
+          type: boolean
+          example: true
+        no_pork:
+          type: boolean
+          example: true
+        no_gmo:
+          type: boolean
+          example: true
+        no_transglutaminase:
+          type: boolean
+          example: true
     Offer:
       type: object
       properties:
         url:
           type: string
           format: uri
+          example: https://pepperoni.tatar
         priceCurrency:
           type: string
           example: RUB
         price:
           type: string
+          description: Price including VAT (RUB)
           example: "290.00"
         priceExclVAT:
           type: string
+          description: Price excluding VAT (RUB)
           example: "263.64"
+        pricePerUnit:
+          type: string
+          description: Per-unit price for bakery items
+          example: "56.00"
+        pricePerBox:
+          type: string
+          description: Per-box price for bakery items
+          example: "2688.00"
         availability:
           type: string
           example: https://schema.org/InStock
+        vatIncluded:
+          type: boolean
+          description: Whether price includes VAT
+          example: true
         exportPrices:
           type: object
-          properties:
-            USD:
-              type: number
-            KZT:
-              type: number
-            UZS:
-              type: number
-            KGS:
-              type: number
-            BYN:
-              type: number
-            AZN:
-              type: number
+          description: Prices in export currencies (all excl. VAT)
+          additionalProperties:
+            type: number
+          example:
+            USD: 3.41
+            KZT: 1712.05
+            UZS: 41483.77
+            KGS: 298.46
+            BYN: 9.78
+            AZN: 5.80
         deliveryTerms:
           type: string
           example: EXW Kazan Russia
+        incoterms:
+          type: string
+          example: EXW
     Product:
       type: object
+      required:
+        - name
+        - sku
+        - offers
       properties:
         name:
           type: string
+          example: Сосиски «Из говядины» (80 г × 6 шт)
+        name_ru:
+          type: string
+          description: Original Russian name (when lang=en)
         sku:
           type: string
+          example: KD-001
+        ean:
+          type: string
+          description: EAN/GTIN barcode
+          example: "4680638720318"
+        section:
+          type: string
+          description: Product line
+          example: Заморозка
         category:
           type: string
+          example: Сосиски гриль для хот-догов
         weight:
           type: string
+          description: Unit weight for pricing
+          example: "0.48 кг"
+        qtyPerBox:
+          type: string
+          description: Units per shipping box
+          example: "6"
         brand:
           type: string
+          example: Казанские Деликатесы
         description:
           type: string
+        meatType:
+          type: string
+          description: Type of meat used
+          example: говядина, курица
         certification:
           type: string
           example: Halal
+        image:
+          type: string
+          format: uri
+          description: Product image URL (when available)
         offers:
           $ref: '#/components/schemas/Offer'
         shelfLife:
           type: string
+          description: Shelf life
           example: "360 суток"
         storage:
           type: string
+          description: Storage temperature
           example: "–18°C"
         hsCode:
           type: string
+          description: HS/ТН ВЭД customs code
           example: "160100"
+        countryOfOrigin:
+          type: string
+          example: RU
+        halal_cert:
+          type: object
+          properties:
+            body:
+              type: string
+            number:
+              type: string
+        quality_system:
+          type: string
+          example: HACCP
+        private_label:
+          type: boolean
+        export_ready:
+          type: boolean
+        min_order:
+          type: string
+          description: Minimum order quantity
+          example: "6 packs (1 box)"
+        pallet_qty:
+          type: string
+          description: Boxes per pallet
