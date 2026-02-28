@@ -161,6 +161,92 @@ paths:
             application/json:
               schema:
                 type: object
+  /api/v1/search:
+    get:
+      tags:
+        - Search
+      summary: Fast product search (optimized for AI agents)
+      description: >
+        Lightweight search endpoint returning compact results.
+        For AI agents, prefer this over /api/products for faster responses.
+        Returns max 10 results by default (up to 50).
+      operationId: searchProducts
+      parameters:
+        - name: q
+          in: query
+          required: true
+          description: Search query (name, category, SKU, meat type)
+          schema:
+            type: string
+            example: pepperoni
+        - name: lang
+          in: query
+          schema:
+            type: string
+            enum: [ru, en]
+            default: ru
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 10
+            maximum: 50
+      responses:
+        '200':
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  totalMatches:
+                    type: integer
+                  returned:
+                    type: integer
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        sku:
+                          type: string
+                        name:
+                          type: string
+                        category:
+                          type: string
+                        price:
+                          type: number
+                        priceCurrency:
+                          type: string
+  /api/v1/product/{sku}:
+    get:
+      tags:
+        - Products
+      summary: Single product by SKU
+      description: Returns full product details for a specific SKU.
+      operationId: getProductBySku
+      parameters:
+        - name: sku
+          in: path
+          required: true
+          schema:
+            type: string
+            example: KD-015
+        - name: lang
+          in: query
+          schema:
+            type: string
+            enum: [ru, en]
+            default: ru
+      responses:
+        '200':
+          description: Full product details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '404':
+          description: Product not found
   /products.json:
     get:
       tags:
