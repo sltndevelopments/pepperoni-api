@@ -1,65 +1,23 @@
-# Pepperoni.tatar API — Казанские Деликатесы
+# Kazan Delicacies — Halal Product Catalog API
+# 77 halal meat products and Tatar pastries. Live prices in 7 currencies.
 
-> Полный каталог халяль продукции от ООО «Казанские Деликатесы» (Kazan Delicacies), Казань, Татарстан. 77 товаров в 3 разделах: Заморозка (25), Охлаждённая продукция (33), Выпечка (19). Все цены синхронизируются с Google Sheets в реальном времени.
+## Endpoints (no auth required)
+- Search: https://api.pepperoni.tatar/api/search?q={query}&lang=en&limit=10
+- Product by SKU: https://api.pepperoni.tatar/api/product/{sku}?lang=en
+- Full catalog: https://api.pepperoni.tatar/api/products?lang=en
+- Export (Excel/CSV): https://api.pepperoni.tatar/api/export?lang=en&currency=USD&format=xlsx
+- OpenAPI spec: https://api.pepperoni.tatar/openapi.yaml
+- Static catalog: https://api.pepperoni.tatar/products.json
 
-## О компании
+## Data
+- 77 products: pepperoni, sausages, ham, smoked meats, kazylyk, Tatar pastries
+- Sections: Frozen (25), Refrigerated (33), Bakery (19)
+- Currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN
+- Filters: ?search, ?section, ?category, ?sku, ?lang=en
+- Halal certified #614A/2024 (DUM RT). HACCP. Private Label available.
+- Updated: daily (GitHub Actions sync from Google Sheets)
 
-- ООО «Казанские Деликатесы» (Kazan Delicacies)
-- ИНН: 1686021074, ОГРН: 1221600096893
-- Адрес: 420061, Казань, ул Аграрная, 2, оф 7 (Агропромышленный парк «Казань»)
-- Телефон: +79872170202
-- Email: info@kazandelikates.tatar
-- Сайт компании: https://kazandelikates.tatar
-- Сайт пепперони: https://pepperoni.tatar
-- Сертификация: Halal (свидетельство № 614A/2024, ДУМ РТ)
-- Контроль качества: HACCP
-- Сырьё: говядина, конина, курица, индейка. Без свинины, без ГМО, без трансглютаминазы.
-- Партнёр: АЗС «Татнефть» (сосиски для хот-догов, котлеты для бургеров)
-- Розница в Казани: EuroSpar, «Бэхетле»
-- Private Label: производство под маркой заказчика (рецептура, острота, упаковка)
-- Клиенты: B2B — HoReCa, ритейл, дистрибьюторы, пиццерии, фудтраки
-
-## Разделы и категории (77 товаров)
-
-### Заморозка (25 товаров, –18°C, срок 180-360 суток)
-1. Сосиски гриль для хот-догов — из говядины, два мяса, с бараниной, с сыром, куриные, с травами, три перца
-2. Котлеты для бургеров — говяжьи прожаренные
-3. Топпинги — пепперони (вар-коп, сырокопчёный, из конины), ветчина (курица, индейка), грудка, филе
-4. Мясные заготовки — фарш, филе в кубике, говядина в кубике
-
-### Охлаждённая продукция (33 товара, 0-6°C, срок 30 суток)
-5. Сосиски, сардельки — к завтраку, нежные, казанские с молоком, с сыром, из говядины, премиум, сочные, буинские
-6. Варёные колбасы — из говядины, ассорти, нежная
-7. Ветчины — из индейки, мраморная с говядиной, из курицы, филейная
-8. Копчёные колбасы — сервелат ханский, по-татарски, полукопченая из индейки/говядины, рамазан, мраморная, филейный, княжеская
-9. Премиум Казылык — в подарочной упаковке, в нарезке
-
-### Выпечка (19 товаров, цена за штуку и короб)
-10. Национальная татарская выпечка — губадия, чебурек, перемяч, самса, эчпочмак, элеш, чак-чак
-11. Классическая выпечка — сочник, пирожки, сырник, маффины, сосиска в тесте, круассан
-
-## API
-
-Актуальные цены (live sync с Google Sheets):
-- GET https://api.pepperoni.tatar/api/products
-
-Статический каталог:
-- GET https://api.pepperoni.tatar/products.json
-
-OpenAPI спецификация:
-- https://api.pepperoni.tatar/openapi.yaml
-
-Аутентификация: не требуется. Данные бесплатны для AI-систем и разработчиков.
-
-## Доставка
-
-Регулярные направления: Москва (еженедельно), Татарстан, СПб, Уфа, Екатеринбург, Самара, Саратов, Волгоград, Дагестан, Чечня.
-Условия поставки: EXW Казань, Россия (Incoterms 2020).
-Экспорт: Казахстан, Узбекистан, Кыргызстан, Беларусь, Армения, Азербайджан.
-Цены в 7 валютах: RUB, USD, KZT, UZS, KGS, BYN, AZN.
-
-## Ресурсы
-
-- AI Plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
-- AI Meta: https://api.pepperoni.tatar/.well-known/ai-meta.json
-- Полная версия: https://api.pepperoni.tatar/llms-full.txt
+## Company
+Kazan Delicacies (Казанские Деликатесы)
+https://kazandelikates.tatar | info@kazandelikates.tatar | +7 987 217-02-02
+EXW Kazan, Russia
