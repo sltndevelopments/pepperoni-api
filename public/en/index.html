@@ -266,7 +266,7 @@
         +renderGroups(ALL_GROUPS);
     }
     async function loadFromAPI(){
-      const d=await fetch('https://pepperoni.tatar/api/products?lang=en').then(r=>r.json());
+      const d=await fetch('/api/products?lang=en').then(r=>r.json());
       const groups={};
       const secTR={'Заморозка':'Frozen Products','Охлаждённая продукция':'Refrigerated Products','Выпечка':'Bakery'};
       for(const p of d.products){

@@ -363,7 +363,7 @@
         +renderGroups(ALL_GROUPS);
     }
     async function loadFromAPI(){
-      const d=await fetch('https://api.pepperoni.tatar/api/products').then(r=>r.json());
+      const d=await fetch('/api/products').then(r=>r.json());
       const groups={};
       for(const p of d.products){
         const sec=p.section||'Прочее';const cat=p.category||sec;
