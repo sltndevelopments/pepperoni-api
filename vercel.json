@@ -3,8 +3,8 @@
   "public": true,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/products/:sku", "destination": "/product.html" },
-    { "source": "/en/products/:sku", "destination": "/en/product.html" }
+    { "source": "/products/:sku", "destination": "/product" },
+    { "source": "/en/products/:sku", "destination": "/en/product" }
   ],
   "redirects": [
     {
