@@ -1,6 +1,9 @@
 {
   "version": 2,
   "public": true,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/en/products/:sku", "destination": "/en/products/[sku].html" }
+  ]
 }
 

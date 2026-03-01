@@ -127,8 +127,9 @@
     .info-bar a{color:#0066cc;text-decoration:none}
     .category-title{font-size:1.2rem;font-weight:700;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid #1b7a3d;color:#1b7a3d}
     .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px}
-    .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s}
-    .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+    a.product-card-link{text-decoration:none;color:inherit;display:block}
+    .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,border-color .2s;cursor:pointer}
+    .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:#1b7a3d}
     .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
     .product-sku{font-size:.75rem;color:#767676;margin-bottom:8px}
     .product-meta{font-size:.8rem;color:#636363;margin-bottom:8px}
@@ -318,7 +319,8 @@
             const hsInfo=p.hsCode?` · ТН ВЭД: ${p.hsCode}`:'';
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
             const photo=getPhoto(p.name);
-            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product">
+            const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
+            html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
               ${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
               <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>
@@ -327,7 +329,7 @@
                 <link itemprop="availability" href="https://schema.org/InStock">
               </div>
               <div class="product-avail">&#10003; В наличии</div>
-            </div>`;
+            </div></a>`;
           }
           html+='</div>';
         }
@@ -370,7 +372,7 @@
         const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
         const pnv=parseFloat(p.offers?.priceExclVAT||0);
         const isBakery=!!p.offers?.pricePerUnit;
-        groups[sec][cat].push({name:p.name,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
+        groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
       }
       const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
       for(const[sec,cats]of Object.entries(groups)){
