@@ -226,45 +226,7 @@
   </div>
 
   <script>
-    const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
-    const SHEETS=[
-      {gid:'1087942289',section:'Заморозка',icon:'❄️',type:'std'},
-      {gid:'1589357549',section:'Охлаждённая продукция',icon:'🧊',type:'std'},
-      {gid:'26993021',section:'Выпечка',icon:'🥐',type:'bakery'},
-    ];
-
-    function parseCSV(t){const r=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){if(q&&t[i+1]==='"'){c+='"';i++}else q=!q}else if(ch===','&&!q){r.push(c);c=''}else if(ch==='\n'&&!q){r.push(c);c='';r.push(null)}else c+=ch}if(c)r.push(c);const lines=[];let line=[];for(const cell of r){if(cell===null){lines.push(line);line=[]}else line.push(cell.trim())}if(line.length)lines.push(line);return lines}
-    function num(s){if(!s)return 0;return parseFloat(s.replace(/\s/g,'').replace(',','.'))||0}
-
-    function parseStandard(lines,section){
-      let cat='';const groups={};
-      for(const cols of lines){
-        if(!cols||cols.length<3)continue;
-        const name=cols[0];
-        if(!name||name==='Наименование'||name==='Номенклатура'||name.startsWith('ООО'))continue;
-        const price=num(cols[2]),pnv=num(cols[3]);
-        if(price===0&&pnv===0){if(name&&!cols[1])cat=name;continue}
-        const c=cat||section;
-        if(!groups[c])groups[c]=[];
-        groups[c].push({name,weight:cols[1]||'',price,shelf:cols[4]||'',storage:cols[5]||''});
-      }
-      return groups;
-    }
-
-    function parseBakery(lines,section){
-      let cat='';const groups={};
-      for(const cols of lines){
-        if(!cols||cols.length<4)continue;
-        const name=cols[0];
-        if(!name||name==='Наименование'||name.startsWith('ООО'))continue;
-        const ppu=num(cols[3]),ppb=num(cols[4]);
-        if(ppu===0&&ppb===0){if(name&&!cols[1])cat=name;continue}
-        const c=cat||section;
-        if(!groups[c])groups[c]=[];
-        groups[c].push({name,weight:cols[1]?cols[1]+' г':'',qty:cols[2]||'',price:ppu,priceBox:ppb,shelf:cols[6]||'',storage:cols[7]||'',isBakery:true});
-      }
-      return groups;
-    }
+    const SECTION_ICONS={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
 
     function renderGroups(allGroups){
       let html='';
@@ -297,17 +259,34 @@
 
     async function loadCatalog(){
       try{
-        const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>r.text())));
-        const allGroups=[];
-        for(let i=0;i<SHEETS.length;i++){
-          const lines=parseCSV(csvs[i]);
-          const s=SHEETS[i];
-          const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);
-          allGroups.push({section:s.section,icon:s.icon,groups});
+        const res=await fetch('/api/products');
+        const data=await res.json();
+        const products=data.products;
+        const sectionOrder=data.sections||Object.keys(SECTION_ICONS);
+        const sections={};
+        for(const p of products){
+          if(!sections[p.section])sections[p.section]={};
+          const cat=p.category||p.section;
+          if(!sections[p.section][cat])sections[p.section][cat]=[];
+          const isBakery=p.offers.pricePerUnit!==undefined;
+          sections[p.section][cat].push({
+            name:p.name,
+            weight:p.weight||'',
+            price:isBakery?parseFloat(p.offers.pricePerUnit):parseFloat(p.offers.price),
+            priceBox:isBakery?parseFloat(p.offers.pricePerBox):0,
+            qty:p.qtyPerBox||'',
+            shelf:p.shelfLife||'',
+            storage:p.storage||'',
+            isBakery
+          });
         }
-        const total=allGroups.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
+        const allGroups=[];
+        for(const s of sectionOrder){
+          if(sections[s])allGroups.push({section:s,icon:SECTION_ICONS[s]||'📦',groups:sections[s]});
+        }
+        const total=products.length;
         document.getElementById('catalog').innerHTML=
-          `<div style="text-align:center;color:#888;font-size:.9rem;margin-bottom:8px">${total} товаров &middot; 3 раздела &middot; актуальные цены из Google Sheets</div>`
+          `<div style="text-align:center;color:#888;font-size:.9rem;margin-bottom:8px">${total} товаров &middot; ${sectionOrder.length} раздела &middot; актуальные цены из Google Sheets</div>`
           +renderGroups(allGroups);
       }catch(e){
         document.getElementById('loading').textContent='Каталог: /products.json';
