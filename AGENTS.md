@@ -14,6 +14,14 @@ This is a Vercel-deployed static site + serverless API for Kazan Delicacies (pep
 - Serve static pages: `npx serve public -l 3000`
 - No build step required; all HTML pages are standalone with inline/embedded CSS
 - API functions (`api/products.js`) are Vercel serverless and cannot be run locally without `vercel dev`
+- To test catalog loading via API locally, you need a server that handles both static files and `/api/products`
+
+### Russia accessibility setup
+- Both `api.pepperoni.tatar` and `pepperoni.tatar` use a Russian reverse proxy (37.9.4.101) to bypass ISP blocks
+- DNS in Cloudflare points both domains to `37.9.4.101` (no Cloudflare proxy, direct A record)
+- nginx on the Russian server proxies requests to `pepperoni-api.vercel.app`
+- Catalog pages (`index.html`, `en/index.html`) fetch data from `/api/products` (not Google Sheets directly), so the browser never contacts `docs.google.com`
+- nginx config reference: `nginx/pepperoni.tatar.conf`
 
 ### HTML page conventions
 - All pages share the same `<style>` block (copy from `public/pepperoni.html`)
