@@ -198,15 +198,6 @@
   </div>
 
   <script>
-    const BASE='https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
-    const USE_API=location.hostname==='api.pepperoni.tatar';
-    const SHEETS=[
-      {gid:'1087942289',section:'Frozen Products',icon:'❄️',type:'std'},
-      {gid:'1589357549',section:'Refrigerated Products',icon:'🧊',type:'std'},
-      {gid:'26993021',section:'Bakery',icon:'🥐',type:'bakery'},
-    ];
-    function parseCSV(t){const r=[];let c='',q=false;for(let i=0;i<t.length;i++){const ch=t[i];if(ch==='"'){if(q&&t[i+1]==='"'){c+='"';i++}else q=!q}else if(ch===','&&!q){r.push(c);c=''}else if(ch==='\n'&&!q){r.push(c);c='';r.push(null)}else c+=ch}if(c)r.push(c);const lines=[];let line=[];for(const cell of r){if(cell===null){lines.push(line);line=[]}else line.push(cell.trim())}if(line.length)lines.push(line);return lines}
-    function num(s){if(!s)return 0;return parseFloat(s.replace(/\s/g,'').replace(',','.'))||0}
     const TR={'сосиски «из говядины» (80 г × 6 шт)':'Beef Sausages (80g×6)','сосиски «два мяса» (80 г × 6 шт)':'Two-Meat Sausages (80g×6)','сосиски «три перца с сыром» (80 г × 6 шт)':'Three Peppers & Cheese Sausages (80g×6)','сосиски «куриные» (80 г × 6 шт)':'Chicken Sausages (80g×6)','сосиски «с бараниной» (80 г × 6 шт)':'Lamb Sausages (80g×6)','сосиски «с травами» (130 г × 5 шт)':'Herb Sausages (130g×5)','сосиски «с сыром» (130 г × 5 шт)':'Cheese Sausages (130g×5)','котлета говяжья прожаренная (100 г × 3 шт)':'Fried Beef Patty (100g×3)','котлета говяжья прожаренная (150 г × 2 шт)':'Fried Beef Patty (150g×2)','ветчина из курицы в батоне':'Chicken Ham (whole)','ветчина из курицы в нарезке':'Chicken Ham (sliced)','ветчина из индейки в батоне':'Turkey Ham (whole)','ветчина из индейки в нарезке':'Turkey Ham (sliced)','пепперони вар-коп из конины':'Pepperoni Boiled-Smoked (horse meat)','пепперони вар-коп классика':'Pepperoni Classic (beef & chicken)','пепперони вар-коп классика целый батон':'Pepperoni Classic Whole Stick (beef & chicken)','пепперони сырокопчёный в нарезке':'Pepperoni Dry-Cured (sliced)','пепперони сырокопчёный целый батон':'Pepperoni Dry-Cured Whole Stick','грудка куриная варено-копченая':'Smoked Chicken Breast','филе куриное варное':'Boiled Chicken Fillet','фарш говяжий':'Beef Mince','фарш из куриной кожи':'Chicken Skin Mince','филе бедра куриного в кубике 1х1 см':'Diced Chicken Thigh 1×1cm','филе грудки куриной в кубике 1х1 см':'Diced Chicken Breast 1×1cm','говядина 1 сорт в кубике 1х1 см':'Diced Beef Grade 1 1×1cm','сосиски «к завтраку»':'Breakfast Sausages','сосиски «нежные»':'Tender Sausages','сосиски «казанские с молоком»':'Kazan Milk Sausages','сосиски «с сыром»':'Cheese Sausages','сосиски «из говядины»':'Beef Sausages','сосиски "из говядины"':'Beef Sausages','сосиски в/с премиум':'Premium Sausages','сосиски в/с сочные':'Juicy Sausages','сардельки «буинские"':'Buinsk Frankfurters','сардельки «буинские»':'Buinsk Frankfurters','вареная «из говядины»':'Boiled Beef Sausage','вареная ассорти':'Boiled Assorted Sausage','вареная нежная':'Boiled Tender Sausage','ветчина из индейки':'Turkey Ham','ветчина мраморная с говядиной':'Marbled Beef Ham','ветчина из курицы':'Chicken Ham','ветчина филейная':'Fillet Ham','сервелат ханский':'Khan Cervelat','сервелат по-татарски в/к':'Tatar-Style Smoked Cervelat','полукопченая из индейки':'Semi-Smoked Turkey Sausage','полукопченая из говядины':'Semi-Smoked Beef Sausage','колбаски с сыром':'Cheese Sausage Links','грудка куриная':'Chicken Breast','филе куриное':'Chicken Fillet','в/к рамазан':'Ramazan Smoked Sausage','в/к рамазан (половинка)':'Ramazan Smoked (half)','в/к мраморная':'Marbled Smoked Sausage','в/к мраморная (половинка)':'Marbled Smoked (half)','в/к филейный':'Fillet Smoked Sausage','в/к филейный (половинка)':'Fillet Smoked (half)','в/к княжеская':'Knyazheskaya Smoked Sausage','в/к княжеская (половинка)':'Knyazheskaya Smoked (half)','казылык «премиум» в подарочной упаковке':'Kazylyk Premium (gift box)','казылык «премиум» в нарезке в подарочной упаковке':'Kazylyk Premium Sliced (gift box)','губадия с кортом':'Gubadiya with Kort','чебурек жареный':'Fried Cheburek','перемяч жареный':'Fried Peremyach','самса с курицей':'Chicken Samsa','эчпочмак с говядиной и картофелем':'Echpochmak (beef & potato)','самса с говядиной':'Beef Samsa','элеш с курицей и картофелем':'Elesh (chicken & potato)','чак-чак в пластиковой упаковке':'Chak-Chak (plastic)','чак-чак в крафтовой подарочной упаковке':'Chak-Chak (gift box)','сочник с творогом':'Cottage Cheese Sochnik','пирожок печеный с картофелем':'Baked Potato Pie','сырник':'Syrnik','пирожок с яблоком':'Apple Pie','пирожок с зеленым луком и яйцом':'Spring Onion & Egg Pie','маффин апельсиновый':'Orange Muffin','сосиска в тесте':'Sausage Roll','пирожок с вишней':'Cherry Pie','круассан с шоколадом и орехами':'Chocolate & Nut Croissant','маффин шоколадный':'Chocolate Muffin'};
     const CAT_TR={'Сосиски гриль для хот-догов':'Grill Sausages for Hot Dogs','Котлеты для бургеров':'Burger Patties','Топпинги':'Toppings','Мясные заготовки':'Meat Preparations','Сосиски, сардельки':'Sausages & Frankfurters','Вареные':'Boiled Sausages','Ветчины':'Hams','Копченые':'Smoked Meats','Премиум Казылык':'Premium Kazylyk','Национальная татарская выпечка':'Traditional Tatar Pastries','Классическая выпечка':'Classic Pastries'};
     function tr(name){const k=name.toLowerCase().trim().replace(/\s+/g,' ');return TR[k]||name}
@@ -220,26 +211,6 @@
     const CUR_SYM={RUB:'₽',USD:'$',KZT:'₸',UZS:'UZS',KGS:'KGS',BYN:'BYN',AZN:'AZN'};
     let CUR='USD',VAT=false,ALL_GROUPS=[];
 
-    function parseStandard(lines,section){
-      let cat='';const groups={};
-      for(const cols of lines){if(!cols||cols.length<3)continue;const name=cols[0];
-        if(!name||name==='Наименование'||name==='Номенклатура'||name.startsWith('ООО'))continue;
-        const price=num(cols[2]),pnv=num(cols[3]);
-        if(price===0&&pnv===0){if(name&&!cols[1])cat=name;continue}
-        const c=trCat(cat)||section;if(!groups[c])groups[c]=[];
-        groups[c].push({name:tr(name),nameRu:name,weight:cols[1]||'',price,priceNoVAT:pnv,shelf:cols[4]||'',storage:cols[5]||'',hsCode:cols[6]||'',usd:num(cols[7]),kzt:num(cols[8]),uzs:num(cols[9]),kgs:num(cols[10]),byn:num(cols[11]),azn:num(cols[12])});
-      }return groups;
-    }
-    function parseBakery(lines,section){
-      let cat='';const groups={};
-      for(const cols of lines){if(!cols||cols.length<4)continue;const name=cols[0];
-        if(!name||name==='Наименование'||name.startsWith('ООО'))continue;
-        const ppu=num(cols[3]),ppb=num(cols[4]);
-        if(ppu===0&&ppb===0){if(name&&!cols[1])cat=name;continue}
-        const c=trCat(cat)||section;if(!groups[c])groups[c]=[];
-        groups[c].push({name:tr(name),nameRu:name,weight:cols[1]?cols[1]+' g':'',qty:cols[2]||'',price:ppu,priceBox:ppb,priceBoxNoVAT:num(cols[5]),priceNoVAT:ppu,shelf:cols[6]||'',storage:cols[7]||'',hsCode:cols[8]||'',usd:num(cols[9]),kzt:num(cols[10]),uzs:num(cols[11]),kgs:num(cols[12]),byn:num(cols[13]),azn:num(cols[14]),isBakery:true});
-      }return groups;
-    }
     function getPrice(p){
       if(CUR==='RUB')return VAT?p.price:p.priceNoVAT;
       const m={USD:p.usd,KZT:p.kzt,UZS:p.uzs,KGS:p.kgs,BYN:p.byn,AZN:p.azn};
@@ -289,14 +260,8 @@
     function render(){
       const total=ALL_GROUPS.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
       document.getElementById('catalog').innerHTML=renderControls()
-        +`<div style="text-align:center;color:#888;font-size:.85rem;margin-bottom:8px">${total} products · 3 sections · live prices from Google Sheets</div>`
+        +`<div style="text-align:center;color:#888;font-size:.85rem;margin-bottom:8px">${total} products · 3 sections · live prices</div>`
         +renderGroups(ALL_GROUPS);
-    }
-    async function loadFromSheets(){
-      const csvs=await Promise.all(SHEETS.map(s=>fetch(BASE+'&gid='+s.gid).then(r=>{if(!r.ok)throw new Error();return r.text()})));
-      for(let i=0;i<SHEETS.length;i++){const lines=parseCSV(csvs[i]);const s=SHEETS[i];
-        const groups=s.type==='bakery'?parseBakery(lines,s.section):parseStandard(lines,s.section);
-        ALL_GROUPS.push({section:s.section,icon:s.icon,groups});}
     }
     async function loadFromAPI(){
       const d=await fetch('/api/products?lang=en').then(r=>r.json());
@@ -319,11 +284,10 @@
     }
     async function loadCatalog(){
       try{
-        if(USE_API){await loadFromAPI()}else{await loadFromSheets()}
+        await loadFromAPI();
         render();
       }catch(e){
-        try{ALL_GROUPS=[];await loadFromAPI();render()}
-        catch(e2){document.getElementById('loading').textContent='Catalog: /products.json';}
+        document.getElementById('loading').textContent='Catalog: loading error. Try /products.json';
       }
     }
     loadCatalog();
