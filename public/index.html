@@ -363,9 +363,19 @@
         +renderGroups(ALL_GROUPS);
     }
     async function loadFromAPI(){
-      const d=await fetch('/api/products').then(r=>r.json());
+      let d;
+      const urls=['/api/products','/products.json','https://api.pepperoni.tatar/api/products'];
+      for(const u of urls){
+        try{
+          const r=await fetch(u);
+          if(!r.ok)continue;
+          d=await r.json();
+          if(d&&d.products)break;
+        }catch(e){}
+      }
+      if(!d||!d.products)throw new Error('No data');
       const groups={};
-      for(const p of d.products){
+      for(const p of d.products||[]){
         const sec=p.section||'Прочее';const cat=p.category||sec;
         if(!groups[sec])groups[sec]={};
         if(!groups[sec][cat])groups[sec][cat]=[];

@@ -266,10 +266,20 @@
         +renderGroups(ALL_GROUPS);
     }
     async function loadFromAPI(){
-      const d=await fetch('/api/products?lang=en').then(r=>r.json());
+      let d;
+      const urls=['/api/products?lang=en','/products.json','https://api.pepperoni.tatar/api/products?lang=en'];
+      for(const u of urls){
+        try{
+          const r=await fetch(u);
+          if(!r.ok)continue;
+          d=await r.json();
+          if(d&&d.products)break;
+        }catch(e){}
+      }
+      if(!d||!d.products)throw new Error('No data');
       const groups={};
       const secTR={'Заморозка':'Frozen Products','Охлаждённая продукция':'Refrigerated Products','Выпечка':'Bakery'};
-      for(const p of d.products){
+      for(const p of d.products||[]){
         const sec=p.section_ru||p.section||'Other';const secEN=secTR[sec]||p.section||sec;
         const cat=p.category||secEN;
         if(!groups[secEN])groups[secEN]={};
