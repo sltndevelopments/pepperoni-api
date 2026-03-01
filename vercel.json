@@ -2,10 +2,6 @@
   "version": 2,
   "public": true,
   "cleanUrls": true,
-  "rewrites": [
-    { "source": "/products/:sku", "destination": "/product" },
-    { "source": "/en/products/:sku", "destination": "/en/product" }
-  ],
   "redirects": [
     {
       "source": "/:path*",
