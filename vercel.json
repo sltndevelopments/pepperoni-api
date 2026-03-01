@@ -3,7 +3,7 @@
   "public": true,
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/en/products/:sku", "destination": "/en/products/[sku].html" }
+    { "source": "/en/products/:sku", "destination": "/en/products/_template.html" }
   ]
 }
 
