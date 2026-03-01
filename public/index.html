@@ -10,13 +10,13 @@
   <meta name="author" content="Казанские Деликатесы">
   <meta name="robots" content="index, follow">
   <meta name="yandex-verification" content="56400c4e7aa6d677" />
-  <link rel="canonical" href="https://api.pepperoni.tatar/">
+  <link rel="canonical" href="https://pepperoni.tatar/">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Казанские Деликатесы — Халяль мясные изделия">
   <meta property="og:description" content="77 халяль товаров: пепперони, сосиски, ветчина, колбасы, котлеты, татарская выпечка. Цены, доставка EXW Казань.">
-  <meta property="og:url" content="https://api.pepperoni.tatar/">
+  <meta property="og:url" content="https://pepperoni.tatar/">
   <meta property="og:site_name" content="Pepperoni.tatar">
   <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
   <meta property="og:locale" content="ru_RU">
@@ -27,8 +27,8 @@
   <meta name="twitter:description" content="77 халяль товаров: пепперони, сосиски, ветчина, колбасы, котлеты, татарская выпечка (губадия, чак-чак, эчпочмак).">
   <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 
-  <link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/">
-  <link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/">
+  <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
+  <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
   <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
   <link rel="manifest" href="/manifest.json">
   <meta name="theme-color" content="#1b7a3d">
@@ -68,7 +68,7 @@
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Pepperoni.tatar API",
-    "url": "https://api.pepperoni.tatar",
+    "url": "https://pepperoni.tatar",
     "description": "Каталог халяль мясных изделий от Казанских Деликатесов с актуальными ценами.",
     "publisher": {
       "@type": "Organization",
@@ -84,7 +84,7 @@
     "@context": "https://schema.org",
     "@type": "DataCatalog",
     "name": "Полный каталог халяль продукции — Казанские Деликатесы",
-    "url": "https://api.pepperoni.tatar/products.json",
+    "url": "https://api.pepperoni.tatar/api/products",
     "description": "77 товаров в 3 разделах: Заморозка (25), Охлаждённая продукция (33), Выпечка (19). Актуальные цены синхронизируются с Google Sheets.",
     "creator": {
       "@type": "Organization",
@@ -126,10 +126,10 @@
     .info-bar{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin:20px 0;font-size:.85rem;color:#595959}
     .info-bar a{color:#0066cc;text-decoration:none}
     .category-title{font-size:1.2rem;font-weight:700;margin:32px 0 12px;padding-bottom:8px;border-bottom:2px solid #1b7a3d;color:#1b7a3d}
-    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px}
-    a.product-card-link{text-decoration:none;color:inherit;display:block}
-    .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,border-color .2s;cursor:pointer}
-    .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:#1b7a3d}
+    .products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-bottom:8px;position:relative;z-index:9998}
+    .product-card{position:relative !important;z-index:9999 !important;pointer-events:auto !important;background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,transform .2s}
+    .product-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.12);transform:translateY(-2px)}
+    .product-card *{pointer-events:none !important}
     .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
     .product-sku{font-size:.75rem;color:#767676;margin-bottom:8px}
     .product-meta{font-size:.8rem;color:#636363;margin-bottom:8px}
@@ -319,8 +319,8 @@
             const hsInfo=p.hsCode?` · ТН ВЭД: ${p.hsCode}`:'';
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
             const photo=getPhoto(p.name);
-            const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
-            html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
+            const sku=p.sku||'';
+            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product" onclick="window.location.href='/products/${sku}'" style="cursor:pointer">
               ${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
               <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>
@@ -329,7 +329,7 @@
                 <link itemprop="availability" href="https://schema.org/InStock">
               </div>
               <div class="product-avail">&#10003; В наличии</div>
-            </div></a>`;
+            </div>`;
           }
           html+='</div>';
         }
@@ -363,7 +363,7 @@
         +renderGroups(ALL_GROUPS);
     }
     async function loadFromAPI(){
-      const d=await fetch('/api/products').then(r=>r.json());
+      const d=await fetch('https://api.pepperoni.tatar/api/products').then(r=>r.json());
       const groups={};
       for(const p of d.products){
         const sec=p.section||'Прочее';const cat=p.category||sec;
@@ -372,7 +372,7 @@
         const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
         const pnv=parseFloat(p.offers?.priceExclVAT||0);
         const isBakery=!!p.offers?.pricePerUnit;
-        groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
+        groups[sec][cat].push({sku:(p.sku||'').toLowerCase(),name:p.name,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
       }
       const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
       for(const[sec,cats]of Object.entries(groups)){
