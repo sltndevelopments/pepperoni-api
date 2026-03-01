@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "public": true,
+  "buildCommand": "npm run build",
+  "outputDirectory": "public",
   "cleanUrls": true,
   "redirects": [
     {
@@ -9,9 +10,5 @@
       "destination": "https://pepperoni.tatar/:path*",
       "permanent": true
     }
-  ],
-  "rewrites": [
-    {"source": "/products/:sku", "destination": "/product.html"},
-    {"source": "/en/products/:sku", "destination": "/en/product.html"}
   ]
 }
