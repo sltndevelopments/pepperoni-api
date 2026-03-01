@@ -235,7 +235,7 @@
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} pcs/box`:'';
             const photo=getPhoto(p.nameRu||p.name);
             const sku=p.sku||'';
-            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product" onclick="window.location.href='/en/products/${sku}'" style="cursor:pointer">${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}<div class="product-name" itemprop="name">${p.name}</div><div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><div class="product-price">${priceLabel}</div><link itemprop="availability" href="https://schema.org/InStock"></div><div class="product-avail">✓ In stock</div></div>`;
+            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product" onclick="window.location.href='/en/product?sku=${sku}'" style="cursor:pointer">${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}<div class="product-name" itemprop="name">${p.name}</div><div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><div class="product-price">${priceLabel}</div><link itemprop="availability" href="https://schema.org/InStock"></div><div class="product-avail">✓ In stock</div></div>`;
           }html+='</div>';
         }
       }return html;

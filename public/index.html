@@ -320,7 +320,7 @@
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
             const photo=getPhoto(p.name);
             const sku=p.sku||'';
-            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product" onclick="window.location.href='/products/${sku}'" style="cursor:pointer">
+            html+=`<div class="product-card" itemscope itemtype="https://schema.org/Product" onclick="window.location.href='/product?sku=${sku}'" style="cursor:pointer">
               ${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
               <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>

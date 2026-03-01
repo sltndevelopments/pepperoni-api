@@ -27,7 +27,8 @@ footer a{color:#444;text-decoration:none}
 const CURRENCY_SYMS={USD:'$',KZT:'₸',UZS:'UZS',KGS:'KGS',BYN:'BYN',AZN:'AZN'};
 const L={navBack:'← Каталог',inStock:'✓ В наличии',category:'Категория',weight:'Вес расчёта',priceExclVAT:'Цена без НДС',shelfLife:'Срок годности',storage:'Хранение',hsCode:'ТН ВЭД',certification:'Сертификация',manufacturer:'Производитель',contact:'📧 Написать',catalog:'Каталог',pepperoni:'Пепперони',about:'О компании',brand:'Казанские Деликатесы',exportPrices:'Экспортные цены',order:'Заказ',orderDesc:'Оптом, экспорт, Private Label',inclVAT:'с НДС',exclVAT:'без НДС',perPc:'/шт',pricePerBox:'Цена за коробку',delivery:'Доставка',faq:'FAQ'};
 const m=location.pathname.match(/\/products\/([^/]+)/);
-const sku=(m?m[1]:'').toUpperCase().replace(/^KD-?/i,'KD-');
+const q=new URLSearchParams(location.search).get('sku');
+const sku=(m?m[1]:q||'').toUpperCase().replace(/^KD-?/i,'KD-');
 if(!sku){document.getElementById('app').innerHTML='<p style="color:#c00">Товар не найден</p>';return;}
 const urls=['/api/products?sku='+sku,'https://api.pepperoni.tatar/api/products?sku='+sku,'/products.json'];
 let p=null;
@@ -60,7 +61,7 @@ document.getElementById('app').innerHTML=`
 <a href="/pepperoni" style="color:#0066cc;text-decoration:none">${L.pepperoni}</a>
 <a href="/about" style="color:#0066cc;text-decoration:none">${L.about}</a>
 <a href="/delivery" style="color:#0066cc;text-decoration:none">${L.delivery}</a>
-<a href="/en/products/${slug}" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
+<a href="/en/product?sku=${p.sku}" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
 </div>
 <a href="/" style="display:inline-block;margin-bottom:24px;color:#0066cc;text-decoration:none;font-size:.9rem">${L.navBack}</a>
 <h1 style="font-size:1.6rem;margin-bottom:8px">${name}</h1>
