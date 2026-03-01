@@ -686,8 +686,8 @@ async function main() {
   writeFileSync(rssPath, generateRSS(allProducts), 'utf-8');
   console.log(`✅ ${rssPath}`);
 
-  generateProductPages(allProducts);
-  console.log(`✅ ${allProducts.length} RU + ${allProducts.length} EN product pages (154 total)`);
+  // Product pages: dynamic product.html + en/product.html via Vercel rewrites (no static files)
+  // generateProductPages(allProducts);
 
   const today = new Date().toISOString().split('T')[0];
   const sitemapPath = join(PUBLIC, 'sitemap.xml');

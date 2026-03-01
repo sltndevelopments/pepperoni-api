@@ -1,6 +1,17 @@
 {
   "version": 2,
   "public": true,
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{"type": "host", "value": "www.pepperoni.tatar"}],
+      "destination": "https://pepperoni.tatar/:path*",
+      "permanent": true
+    }
+  ],
+  "rewrites": [
+    {"source": "/products/:sku", "destination": "/product.html"},
+    {"source": "/en/products/:sku", "destination": "/en/product.html"}
+  ]
 }
-
