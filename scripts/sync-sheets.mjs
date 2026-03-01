@@ -87,6 +87,13 @@ function parseStandard(lines, section, startIdx) {
     }
 
     idx++;
+    const prices = {};
+    if (toNumber(cols[7])) prices.USD = toNumber(cols[7]);
+    if (toNumber(cols[8])) prices.KZT = toNumber(cols[8]);
+    if (toNumber(cols[9])) prices.UZS = toNumber(cols[9]);
+    if (toNumber(cols[10])) prices.KGS = toNumber(cols[10]);
+    if (toNumber(cols[11])) prices.BYN = toNumber(cols[11]);
+    if (toNumber(cols[12])) prices.AZN = toNumber(cols[12]);
 
     products.push({
       name,
@@ -100,6 +107,7 @@ function parseStandard(lines, section, startIdx) {
         price: priceVAT.toFixed(2),
         priceExclVAT: priceNoVAT.toFixed(2),
         availability: 'https://schema.org/InStock',
+        exportPrices: prices,
       },
       shelfLife: cols[4] || '',
       storage: cols[5] || '',
@@ -129,6 +137,13 @@ function parseBakery(lines, section, startIdx) {
     }
 
     idx++;
+    const prices = {};
+    if (toNumber(cols[9])) prices.USD = toNumber(cols[9]);
+    if (toNumber(cols[10])) prices.KZT = toNumber(cols[10]);
+    if (toNumber(cols[11])) prices.UZS = toNumber(cols[11]);
+    if (toNumber(cols[12])) prices.KGS = toNumber(cols[12]);
+    if (toNumber(cols[13])) prices.BYN = toNumber(cols[13]);
+    if (toNumber(cols[14])) prices.AZN = toNumber(cols[14]);
 
     products.push({
       name,
@@ -144,6 +159,7 @@ function parseBakery(lines, section, startIdx) {
         pricePerBox: pricePerBox.toFixed(2),
         pricePerBoxExclVAT: toNumber(cols[5]).toFixed(2),
         availability: 'https://schema.org/InStock',
+        exportPrices: prices,
       },
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
@@ -429,18 +445,16 @@ function esc(s) {
 }
 
 const PRODUCT_PAGE_STYLES = `*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.8}
-.c{max-width:700px;margin:0 auto;padding:40px 24px}
-nav a{color:#0066cc;text-decoration:none;font-size:.9rem}
-h1{font-size:1.6rem;font-weight:700;margin:20px 0 8px}
-.badge{display:inline-block;background:#1b7a3d;color:#fff;padding:3px 10px;border-radius:4px;font-size:.8rem;font-weight:600;margin:4px 4px 16px 0}
-.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;margin:12px 0}
-.price{font-size:1.6rem;font-weight:700;color:#1b7a3d;margin:8px 0}
-table{width:100%;border-collapse:collapse;margin:12px 0}td{padding:6px 10px;border-bottom:1px solid #eee;font-size:.9rem}
-td:first-child{color:#888}td:last-child{font-weight:600}
-.cta{display:inline-block;background:#1b7a3d;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem}
-footer{text-align:center;color:#aaa;font-size:.8rem;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
-footer a{color:#888;text-decoration:none}`;
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:40px 24px}
+.badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.5px}
+.detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem}
+.detail-row dt{color:#767676}
+.detail-row dd{color:#1a1a1a;font-weight:500}
+.cta-box{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}
+.cta-box a{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}
+footer{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}
+footer a{color:#444;text-decoration:none}`;
 
 const L10N = {
   ru: {
@@ -460,6 +474,13 @@ const L10N = {
     pepperoni: 'Пепперони',
     about: 'О компании',
     brand: 'Казанские Деликатесы',
+    exportPrices: 'Экспортные цены',
+    order: 'Заказ',
+    orderDesc: 'Оптом, экспорт, Private Label',
+    inclVAT: 'с НДС',
+    exclVAT: 'без НДС',
+    perPc: '/шт',
+    pricePerBox: 'Цена за коробку',
   },
   en: {
     navBack: '← Catalog',
@@ -478,8 +499,17 @@ const L10N = {
     pepperoni: 'Pepperoni',
     about: 'About',
     brand: 'Kazan Delicacies',
+    exportPrices: 'Export Prices',
+    order: 'Order',
+    orderDesc: 'Wholesale, export, Private Label available',
+    inclVAT: 'incl. VAT',
+    exclVAT: 'excl. VAT',
+    perPc: '/pc',
+    pricePerBox: 'Price per box',
   },
 };
+
+const CURRENCY_SYMS = { USD: '$', KZT: '₸', UZS: 'UZS', KGS: 'KGS', BYN: 'BYN', AZN: 'AZN' };
 
 function generateProductPage(p, slug, price, priceNoVAT, lang, t) {
   const l = L10N[lang];
@@ -494,6 +524,19 @@ function generateProductPage(p, slug, price, priceNoVAT, lang, t) {
   const storage = isRu ? p.storage : (t.storage_en || p.storage);
   const weight = isRu ? p.weight : (t.weight_en || p.weight);
   const localeNum = isRu ? 'ru-RU' : 'en-US';
+  const isBakery = !!p.offers?.pricePerUnit;
+  const priceRUB = isBakery ? p.offers?.pricePerUnit : p.offers?.price;
+  const ep = p.offers?.exportPrices || {};
+  const priceUSD = ep.USD || '';
+
+  let exportHtml = '';
+  if (Object.keys(ep).length) {
+    exportHtml = `<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">${l.exportPrices}</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">`;
+    for (const [cur, val] of Object.entries(ep)) {
+      if (val) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${Number(val).toLocaleString(localeNum)}</b> ${CURRENCY_SYMS[cur] || cur}</span>`;
+    }
+    exportHtml += '</div>';
+  }
 
   const HREFLANG = `
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/${slug}" />
@@ -520,33 +563,45 @@ function generateProductPage(p, slug, price, priceNoVAT, lang, t) {
 <style>${PRODUCT_PAGE_STYLES}</style>
 </head>
 <body>
-<div class="c">
-<nav><a href="${baseSlash}">${l.navBack}</a> · <a href="${isRu ? '/en/products/' + slug : '/products/' + slug}">${l.navAlt}</a></nav>
-<h1>${name}</h1>
-<span class="badge">HALAL</span>
-<span class="badge" style="background:#eee;color:#333">${p.sku}</span>
-<span class="badge" style="background:#eee;color:#333">${section}</span>
-<div class="card">
-<div class="price">${parseFloat(price).toLocaleString(localeNum)} ₽</div>
-<div style="color:#1b7a3d;font-size:.85rem">${l.inStock}</div>
+<div class="container">
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
+<a href="${baseSlash}" style="color:#0066cc;text-decoration:none">${l.catalog}</a>
+<a href="${base}/pepperoni" style="color:#0066cc;text-decoration:none">${l.pepperoni}</a>
+<a href="${base}/about" style="color:#0066cc;text-decoration:none">${l.about}</a>
+<a href="${base}/delivery" style="color:#0066cc;text-decoration:none">${isRu ? 'Доставка' : 'Delivery'}</a>
+<a href="${isRu ? '/en/products/' + slug : '/products/' + slug}" style="color:#595959;text-decoration:none;margin-left:auto">${isRu ? '🇬🇧 English' : '🇷🇺 Русский'}</a>
 </div>
-<table>
-${category ? `<tr><td>${l.category}</td><td>${category}</td></tr>` : ''}
-${weight ? `<tr><td>${l.weight}</td><td>${weight}</td></tr>` : ''}
-${priceNoVAT ? `<tr><td>${l.priceExclVAT}</td><td>${priceNoVAT} ₽</td></tr>` : ''}
-${shelf ? `<tr><td>${l.shelfLife}</td><td>${shelf}</td></tr>` : ''}
-${storage ? `<tr><td>${l.storage}</td><td>${storage}</td></tr>` : ''}
-${p.hsCode ? `<tr><td>${l.hsCode}</td><td>${p.hsCode}</td></tr>` : ''}
-<tr><td>${l.certification}</td><td>Halal</td></tr>
-<tr><td>${l.manufacturer}</td><td>${l.brand}</td></tr>
-</table>
-<div style="margin-top:20px">
-<a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
-<a href="mailto:info@kazandelikates.tatar" class="cta" style="background:transparent;border:2px solid #1b7a3d;color:#1b7a3d">${l.contact}</a>
+<a href="${baseSlash}" style="display:inline-block;margin-bottom:24px;color:#0066cc;text-decoration:none;font-size:.9rem">${l.navBack}</a>
+<h1 style="font-size:1.6rem;margin-bottom:8px">${name}</h1>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<span class="badge">HALAL</span>
+<span class="badge" style="background:#0066cc">${p.sku}</span>
+<span class="badge" style="background:#555">${section}</span>
+</div>
+${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${Number(priceUSD).toLocaleString(localeNum)} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery ? l.perPc : l.exclVAT}</span></div>` : ''}
+<div style="color:#767676;font-size:.9rem">${parseFloat(priceRUB || price).toLocaleString(localeNum)} ₽ ${isBakery ? l.perPc : l.inclVAT}</div>
+<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">${l.inStock}</div>
+${isBakery && p.offers?.pricePerBox ? `<div style="margin-top:8px;font-size:.9rem;color:#444">${l.pricePerBox}: <b>${parseFloat(p.offers.pricePerBox).toLocaleString(localeNum)} ₽</b>${p.qtyPerBox ? ' (' + p.qtyPerBox + (isRu ? ' шт)' : ' pcs)') : ''}</div>` : ''}
+<div style="margin:20px 0">
+${category ? `<dl class="detail-row"><dt>${l.category}</dt><dd>${category}</dd></dl>` : ''}
+${weight ? `<dl class="detail-row"><dt>${l.weight}</dt><dd>${weight}</dd></dl>` : ''}
+${priceNoVAT ? `<dl class="detail-row"><dt>${l.priceExclVAT}</dt><dd>${priceNoVAT} ₽</dd></dl>` : ''}
+${shelf ? `<dl class="detail-row"><dt>${l.shelfLife}</dt><dd>${shelf}</dd></dl>` : ''}
+${storage ? `<dl class="detail-row"><dt>${l.storage}</dt><dd>${storage}</dd></dl>` : ''}
+${p.hsCode ? `<dl class="detail-row"><dt>${l.hsCode}</dt><dd>${p.hsCode}</dd></dl>` : ''}
+<dl class="detail-row"><dt>${l.certification}</dt><dd>Halal</dd></dl>
+<dl class="detail-row"><dt>${l.manufacturer}</dt><dd>${l.brand}</dd></dl>
+</div>
+${exportHtml}
+<div class="cta-box">
+<h3 style="margin:0 0 8px">${l.order}</h3>
+<p style="color:#444;margin-bottom:12px">${l.orderDesc}</p>
+<a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
+<a href="mailto:info@kazandelikates.tatar?subject=Order:%20${encodeURIComponent(name)}%20(${p.sku})" style="border:2px solid #1b7a3d;color:#1b7a3d">${l.contact}</a>
 </div>
 <footer>
-<p><a href="${baseSlash}">${l.catalog}</a> · <a href="${base}/pepperoni">${l.pepperoni}</a> · <a href="${base}/about">${l.about}</a> · <a href="${base}/faq">FAQ</a></p>
-<p>© <a href="https://kazandelikates.tatar">${l.brand}</a></p>
+<p><a href="${base}/pepperoni">${l.pepperoni}</a> · <a href="${base}/about">${l.about}</a> · <a href="${base}/faq">FAQ</a> · <a href="${base}/delivery">${isRu ? 'Доставка' : 'Delivery'}</a></p>
+<p>© <a href="https://kazandelikates.tatar">${l.brand}</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
 </body>
