@@ -12,7 +12,7 @@ const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
 const SHEETS = [
-  { gid: '1087942289', section: 'Заморозка', type: 'standard' },
+  { gid: '1087942289', section: 'Заморозка', type: 'standard', priceColOffset: 1 },
   { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
@@ -72,18 +72,19 @@ function extractQtyFromName(name) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function parseStandard(lines, section, startIdx) {
+function parseStandard(lines, section, startIdx, colOffset = 0) {
   let category = '';
   const products = [];
   let idx = startIdx;
+  const o = colOffset;
 
   for (const cols of lines) {
-    if (!cols || cols.length < 3) continue;
+    if (!cols || cols.length < 7 + o) continue;
     const name = cols[0];
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
-    const priceVAT = toNumber(cols[2]);
-    const priceNoVAT = toNumber(cols[3]);
+    const priceVAT = toNumber(cols[2 + o]);
+    const priceNoVAT = toNumber(cols[3 + o]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
       if (name && !cols[1]) category = name;
@@ -103,12 +104,12 @@ function parseStandard(lines, section, startIdx) {
       offers.pricePerPiece = (priceVAT / qty).toFixed(2);
     }
     const ep = {};
-    if (toNumber(cols[7])) ep.USD = toNumber(cols[7]);
-    if (toNumber(cols[8])) ep.KZT = toNumber(cols[8]);
-    if (toNumber(cols[9])) ep.UZS = toNumber(cols[9]);
-    if (toNumber(cols[10])) ep.KGS = toNumber(cols[10]);
-    if (toNumber(cols[11])) ep.BYN = toNumber(cols[11]);
-    if (toNumber(cols[12])) ep.AZN = toNumber(cols[12]);
+    if (toNumber(cols[7 + o])) ep.USD = toNumber(cols[7 + o]);
+    if (toNumber(cols[8 + o])) ep.KZT = toNumber(cols[8 + o]);
+    if (toNumber(cols[9 + o])) ep.UZS = toNumber(cols[9 + o]);
+    if (toNumber(cols[10 + o])) ep.KGS = toNumber(cols[10 + o]);
+    if (toNumber(cols[11 + o])) ep.BYN = toNumber(cols[11 + o]);
+    if (toNumber(cols[12 + o])) ep.AZN = toNumber(cols[12 + o]);
     if (Object.keys(ep).length) offers.exportPrices = ep;
 
     products.push({
@@ -119,9 +120,9 @@ function parseStandard(lines, section, startIdx) {
       weight: cols[1] || '',
       brand: 'Казанские Деликатесы',
       offers,
-      shelfLife: cols[4] || '',
-      storage: cols[5] || '',
-      hsCode: cols[6] || '',
+      shelfLife: cols[4 + o] || '',
+      storage: cols[5 + o] || '',
+      hsCode: cols[6 + o] || '',
     });
   }
 
@@ -598,7 +599,7 @@ async function main() {
     if (sheet.type === 'bakery') {
       result = parseBakery(lines, sheet.section, idx);
     } else {
-      result = parseStandard(lines, sheet.section, idx);
+      result = parseStandard(lines, sheet.section, idx, sheet.priceColOffset || 0);
     }
 
     console.log(`  ✅ ${sheet.section}: ${result.products.length} товаров`);
