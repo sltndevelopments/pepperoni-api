@@ -9,7 +9,7 @@
     "phone": "+79872170202",
     "email": "info@kazandelikates.tatar"
   },
-  "lastSynced": "2026-03-01",
+  "lastSynced": "2026-03-02",
   "deliveryTerms": "EXW Kazan Russia",
   "certification": "Halal",
   "sections": [
@@ -30,7 +30,15 @@
         "priceCurrency": "RUB",
         "price": "290.00",
         "priceExclVAT": "263.64",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.41,
+          "KZT": 1697.32,
+          "UZS": 41404.25,
+          "KGS": 297.82,
+          "BYN": 9.86,
+          "AZN": 5.79
+        }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
@@ -47,7 +55,15 @@
         "priceCurrency": "RUB",
         "price": "286.00",
         "priceExclVAT": "260.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.36,
+          "KZT": 1673.91,
+          "UZS": 40833.16,
+          "KGS": 293.71,
+          "BYN": 9.73,
+          "AZN": 5.71
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -64,7 +80,15 @@
         "priceCurrency": "RUB",
         "price": "316.00",
         "priceExclVAT": "287.27",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.71,
+          "KZT": 1849.5,
+          "UZS": 45116.35,
+          "KGS": 324.52,
+          "BYN": 10.75,
+          "AZN": 6.31
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -81,7 +105,15 @@
         "priceCurrency": "RUB",
         "price": "286.00",
         "priceExclVAT": "260.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.36,
+          "KZT": 1673.91,
+          "UZS": 40833.16,
+          "KGS": 293.71,
+          "BYN": 9.73,
+          "AZN": 5.71
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -98,7 +130,15 @@
         "priceCurrency": "RUB",
         "price": "366.00",
         "priceExclVAT": "332.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.3,
+          "KZT": 2142.14,
+          "UZS": 52255.02,
+          "KGS": 375.87,
+          "BYN": 12.45,
+          "AZN": 7.31
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -115,7 +155,15 @@
         "priceCurrency": "RUB",
         "price": "424.00",
         "priceExclVAT": "385.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.98,
+          "KZT": 2481.6,
+          "UZS": 60535.87,
+          "KGS": 435.43,
+          "BYN": 14.42,
+          "AZN": 8.46
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -132,7 +180,15 @@
         "priceCurrency": "RUB",
         "price": "455.00",
         "priceExclVAT": "413.64",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 5.34,
+          "KZT": 2663.04,
+          "UZS": 64961.84,
+          "KGS": 467.27,
+          "BYN": 15.48,
+          "AZN": 9.08
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -149,7 +205,15 @@
         "priceCurrency": "RUB",
         "price": "276.00",
         "priceExclVAT": "250.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.24,
+          "KZT": 1615.38,
+          "UZS": 39405.42,
+          "KGS": 283.44,
+          "BYN": 9.39,
+          "AZN": 5.51
+        }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
@@ -166,7 +230,15 @@
         "priceCurrency": "RUB",
         "price": "276.00",
         "priceExclVAT": "250.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.24,
+          "KZT": 1615.38,
+          "UZS": 39405.42,
+          "KGS": 283.44,
+          "BYN": 9.39,
+          "AZN": 5.51
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -183,7 +255,15 @@
         "priceCurrency": "RUB",
         "price": "350.00",
         "priceExclVAT": "318.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.11,
+          "KZT": 2048.49,
+          "UZS": 49970.65,
+          "KGS": 359.44,
+          "BYN": 11.91,
+          "AZN": 6.99
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -200,7 +280,15 @@
         "priceCurrency": "RUB",
         "price": "185.00",
         "priceExclVAT": "168.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.17,
+          "KZT": 1082.77,
+          "UZS": 26413.06,
+          "KGS": 189.99,
+          "BYN": 6.29,
+          "AZN": 3.69
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -217,7 +305,15 @@
         "priceCurrency": "RUB",
         "price": "376.00",
         "priceExclVAT": "341.82",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.42,
+          "KZT": 2200.67,
+          "UZS": 53682.75,
+          "KGS": 386.14,
+          "BYN": 12.79,
+          "AZN": 7.51
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -234,7 +330,15 @@
         "priceCurrency": "RUB",
         "price": "198.00",
         "priceExclVAT": "180.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.33,
+          "KZT": 1158.86,
+          "UZS": 28269.11,
+          "KGS": 203.34,
+          "BYN": 6.74,
+          "AZN": 3.95
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -251,7 +355,15 @@
         "priceCurrency": "RUB",
         "price": "315.00",
         "priceExclVAT": "286.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.7,
+          "KZT": 1843.64,
+          "UZS": 44973.58,
+          "KGS": 323.49,
+          "BYN": 10.72,
+          "AZN": 6.29
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -268,7 +380,15 @@
         "priceCurrency": "RUB",
         "price": "274.00",
         "priceExclVAT": "249.09",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.22,
+          "KZT": 1603.68,
+          "UZS": 39119.88,
+          "KGS": 281.39,
+          "BYN": 9.32,
+          "AZN": 5.47
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -285,7 +405,15 @@
         "priceCurrency": "RUB",
         "price": "457.00",
         "priceExclVAT": "415.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 5.37,
+          "KZT": 2674.75,
+          "UZS": 65247.39,
+          "KGS": 469.32,
+          "BYN": 15.55,
+          "AZN": 9.12
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -302,7 +430,15 @@
         "priceCurrency": "RUB",
         "price": "380.00",
         "priceExclVAT": "345.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.46,
+          "KZT": 2224.08,
+          "UZS": 54253.84,
+          "KGS": 390.25,
+          "BYN": 12.93,
+          "AZN": 7.59
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -319,7 +455,15 @@
         "priceCurrency": "RUB",
         "price": "608.00",
         "priceExclVAT": "552.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 7.14,
+          "KZT": 3558.52,
+          "UZS": 86806.15,
+          "KGS": 624.4,
+          "BYN": 20.68,
+          "AZN": 12.14
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -336,7 +480,15 @@
         "priceCurrency": "RUB",
         "price": "370.00",
         "priceExclVAT": "336.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.35,
+          "KZT": 2165.55,
+          "UZS": 52826.11,
+          "KGS": 379.98,
+          "BYN": 12.59,
+          "AZN": 7.39
+        }
       },
       "shelfLife": "360 суток",
       "storage": "",
@@ -353,7 +505,15 @@
         "priceCurrency": "RUB",
         "price": "449.00",
         "priceExclVAT": "408.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 5.27,
+          "KZT": 2627.92,
+          "UZS": 64105.2,
+          "KGS": 461.11,
+          "BYN": 15.27,
+          "AZN": 8.96
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -370,7 +530,15 @@
         "priceCurrency": "RUB",
         "price": "670.00",
         "priceExclVAT": "609.09",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 7.87,
+          "KZT": 3921.4,
+          "UZS": 95658.09,
+          "KGS": 688.07,
+          "BYN": 22.79,
+          "AZN": 13.38
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -387,7 +555,15 @@
         "priceCurrency": "RUB",
         "price": "82.00",
         "priceExclVAT": "74.55",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 0.96,
+          "KZT": 479.93,
+          "UZS": 11707.41,
+          "KGS": 84.21,
+          "BYN": 2.79,
+          "AZN": 1.64
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -404,7 +580,15 @@
         "priceCurrency": "RUB",
         "price": "520.00",
         "priceExclVAT": "472.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 6.11,
+          "KZT": 3043.48,
+          "UZS": 74242.1,
+          "KGS": 534.02,
+          "BYN": 17.69,
+          "AZN": 10.38
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -421,7 +605,15 @@
         "priceCurrency": "RUB",
         "price": "520.00",
         "priceExclVAT": "472.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 6.11,
+          "KZT": 3043.48,
+          "UZS": 74242.1,
+          "KGS": 534.02,
+          "BYN": 17.69,
+          "AZN": 10.38
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -438,7 +630,15 @@
         "priceCurrency": "RUB",
         "price": "810.00",
         "priceExclVAT": "736.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 9.51,
+          "KZT": 4740.8,
+          "UZS": 115646.35,
+          "KGS": 831.84,
+          "BYN": 27.55,
+          "AZN": 16.17
+        }
       },
       "shelfLife": "180 суток",
       "storage": "",
@@ -455,7 +655,15 @@
         "priceCurrency": "RUB",
         "price": "135.00",
         "priceExclVAT": "122.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 1.59,
+          "KZT": 790.13,
+          "UZS": 19274.39,
+          "KGS": 138.64,
+          "BYN": 4.59,
+          "AZN": 2.7
+        }
       },
       "shelfLife": "30 суток",
       "storage": "0-6 ˚C",
@@ -472,7 +680,15 @@
         "priceCurrency": "RUB",
         "price": "245.00",
         "priceExclVAT": "222.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.88,
+          "KZT": 1433.94,
+          "UZS": 34979.45,
+          "KGS": 251.61,
+          "BYN": 8.33,
+          "AZN": 4.89
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -489,7 +705,15 @@
         "priceCurrency": "RUB",
         "price": "181.00",
         "priceExclVAT": "164.55",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.13,
+          "KZT": 1059.36,
+          "UZS": 25841.96,
+          "KGS": 185.88,
+          "BYN": 6.16,
+          "AZN": 3.61
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -506,7 +730,15 @@
         "priceCurrency": "RUB",
         "price": "235.00",
         "priceExclVAT": "213.64",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.76,
+          "KZT": 1375.42,
+          "UZS": 33551.72,
+          "KGS": 241.34,
+          "BYN": 7.99,
+          "AZN": 4.69
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -523,7 +755,15 @@
         "priceCurrency": "RUB",
         "price": "293.00",
         "priceExclVAT": "266.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.44,
+          "KZT": 1714.88,
+          "UZS": 41832.57,
+          "KGS": 300.9,
+          "BYN": 9.97,
+          "AZN": 5.85
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -540,7 +780,15 @@
         "priceCurrency": "RUB",
         "price": "284.00",
         "priceExclVAT": "258.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.34,
+          "KZT": 1662.21,
+          "UZS": 40547.61,
+          "KGS": 291.66,
+          "BYN": 9.66,
+          "AZN": 5.67
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -557,7 +805,15 @@
         "priceCurrency": "RUB",
         "price": "146.00",
         "priceExclVAT": "132.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 1.71,
+          "KZT": 854.51,
+          "UZS": 20844.9,
+          "KGS": 149.94,
+          "BYN": 4.97,
+          "AZN": 2.91
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -574,7 +830,15 @@
         "priceCurrency": "RUB",
         "price": "144.00",
         "priceExclVAT": "130.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 1.69,
+          "KZT": 842.81,
+          "UZS": 20559.35,
+          "KGS": 147.88,
+          "BYN": 4.9,
+          "AZN": 2.87
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -591,7 +855,15 @@
         "priceCurrency": "RUB",
         "price": "166.00",
         "priceExclVAT": "150.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 1.95,
+          "KZT": 971.57,
+          "UZS": 23700.36,
+          "KGS": 170.48,
+          "BYN": 5.65,
+          "AZN": 3.31
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -608,7 +880,15 @@
         "priceCurrency": "RUB",
         "price": "292.00",
         "priceExclVAT": "265.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.43,
+          "KZT": 1709.03,
+          "UZS": 41689.8,
+          "KGS": 299.87,
+          "BYN": 9.93,
+          "AZN": 5.83
+        }
       },
       "shelfLife": "30 суток",
       "storage": "0-6 ˚C",
@@ -625,7 +905,15 @@
         "priceCurrency": "RUB",
         "price": "197.00",
         "priceExclVAT": "179.09",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.31,
+          "KZT": 1153.01,
+          "UZS": 28126.33,
+          "KGS": 202.31,
+          "BYN": 6.7,
+          "AZN": 3.93
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -642,7 +930,15 @@
         "priceCurrency": "RUB",
         "price": "200.00",
         "priceExclVAT": "181.82",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.35,
+          "KZT": 1170.57,
+          "UZS": 28554.65,
+          "KGS": 205.39,
+          "BYN": 6.8,
+          "AZN": 3.99
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -659,7 +955,15 @@
         "priceCurrency": "RUB",
         "price": "380.00",
         "priceExclVAT": "345.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.46,
+          "KZT": 2224.08,
+          "UZS": 54253.84,
+          "KGS": 390.25,
+          "BYN": 12.93,
+          "AZN": 7.59
+        }
       },
       "shelfLife": "30 суток",
       "storage": "0-6 ˚C",
@@ -676,7 +980,15 @@
         "priceCurrency": "RUB",
         "price": "398.00",
         "priceExclVAT": "361.82",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.67,
+          "KZT": 2329.43,
+          "UZS": 56823.76,
+          "KGS": 408.73,
+          "BYN": 13.54,
+          "AZN": 7.95
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -693,7 +1005,15 @@
         "priceCurrency": "RUB",
         "price": "350.00",
         "priceExclVAT": "318.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.11,
+          "KZT": 2048.49,
+          "UZS": 49970.65,
+          "KGS": 359.44,
+          "BYN": 11.91,
+          "AZN": 6.99
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -710,7 +1030,15 @@
         "priceCurrency": "RUB",
         "price": "188.00",
         "priceExclVAT": "170.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.21,
+          "KZT": 1100.33,
+          "UZS": 26841.38,
+          "KGS": 193.07,
+          "BYN": 6.4,
+          "AZN": 3.75
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -727,7 +1055,15 @@
         "priceCurrency": "RUB",
         "price": "216.00",
         "priceExclVAT": "196.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.54,
+          "KZT": 1264.21,
+          "UZS": 30839.03,
+          "KGS": 221.82,
+          "BYN": 7.35,
+          "AZN": 4.31
+        }
       },
       "shelfLife": "30 суток",
       "storage": "0-6 ˚C",
@@ -744,7 +1080,15 @@
         "priceCurrency": "RUB",
         "price": "298.00",
         "priceExclVAT": "270.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.5,
+          "KZT": 1744.15,
+          "UZS": 42546.44,
+          "KGS": 306.04,
+          "BYN": 10.14,
+          "AZN": 5.95
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -761,7 +1105,15 @@
         "priceCurrency": "RUB",
         "price": "348.00",
         "priceExclVAT": "316.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.09,
+          "KZT": 2036.79,
+          "UZS": 49685.1,
+          "KGS": 357.38,
+          "BYN": 11.84,
+          "AZN": 6.95
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -778,7 +1130,15 @@
         "priceCurrency": "RUB",
         "price": "358.00",
         "priceExclVAT": "325.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.2,
+          "KZT": 2095.32,
+          "UZS": 51112.83,
+          "KGS": 367.65,
+          "BYN": 12.18,
+          "AZN": 7.15
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -795,7 +1155,15 @@
         "priceCurrency": "RUB",
         "price": "271.00",
         "priceExclVAT": "246.36",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.18,
+          "KZT": 1586.12,
+          "UZS": 38691.56,
+          "KGS": 278.31,
+          "BYN": 9.22,
+          "AZN": 5.41
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -812,7 +1180,15 @@
         "priceCurrency": "RUB",
         "price": "380.00",
         "priceExclVAT": "345.45",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.46,
+          "KZT": 2224.08,
+          "UZS": 54253.84,
+          "KGS": 390.25,
+          "BYN": 12.93,
+          "AZN": 7.59
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -829,7 +1205,15 @@
         "priceCurrency": "RUB",
         "price": "449.00",
         "priceExclVAT": "408.18",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 5.27,
+          "KZT": 2627.92,
+          "UZS": 64105.2,
+          "KGS": 461.11,
+          "BYN": 15.27,
+          "AZN": 8.96
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -846,7 +1230,15 @@
         "priceCurrency": "RUB",
         "price": "377.00",
         "priceExclVAT": "342.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.43,
+          "KZT": 2206.52,
+          "UZS": 53825.52,
+          "KGS": 387.17,
+          "BYN": 12.82,
+          "AZN": 7.53
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -863,7 +1255,15 @@
         "priceCurrency": "RUB",
         "price": "188.00",
         "priceExclVAT": "170.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.21,
+          "KZT": 1100.33,
+          "UZS": 26841.38,
+          "KGS": 193.07,
+          "BYN": 6.4,
+          "AZN": 3.75
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -880,7 +1280,15 @@
         "priceCurrency": "RUB",
         "price": "362.00",
         "priceExclVAT": "329.09",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.25,
+          "KZT": 2118.73,
+          "UZS": 51683.92,
+          "KGS": 371.76,
+          "BYN": 12.31,
+          "AZN": 7.23
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -897,7 +1305,15 @@
         "priceCurrency": "RUB",
         "price": "181.00",
         "priceExclVAT": "164.55",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.13,
+          "KZT": 1059.36,
+          "UZS": 25841.96,
+          "KGS": 185.88,
+          "BYN": 6.16,
+          "AZN": 3.61
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -914,7 +1330,15 @@
         "priceCurrency": "RUB",
         "price": "333.00",
         "priceExclVAT": "302.73",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 3.91,
+          "KZT": 1948.99,
+          "UZS": 47543.5,
+          "KGS": 341.98,
+          "BYN": 11.33,
+          "AZN": 6.65
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -931,7 +1355,15 @@
         "priceCurrency": "RUB",
         "price": "166.00",
         "priceExclVAT": "150.91",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 1.95,
+          "KZT": 971.57,
+          "UZS": 23700.36,
+          "KGS": 170.48,
+          "BYN": 5.65,
+          "AZN": 3.31
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -948,7 +1380,15 @@
         "priceCurrency": "RUB",
         "price": "362.00",
         "priceExclVAT": "329.09",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.25,
+          "KZT": 2118.73,
+          "UZS": 51683.92,
+          "KGS": 371.76,
+          "BYN": 12.31,
+          "AZN": 7.23
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -965,7 +1405,15 @@
         "priceCurrency": "RUB",
         "price": "181.00",
         "priceExclVAT": "164.55",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.13,
+          "KZT": 1059.36,
+          "UZS": 25841.96,
+          "KGS": 185.88,
+          "BYN": 6.16,
+          "AZN": 3.61
+        }
       },
       "shelfLife": "30 суток",
       "storage": "",
@@ -982,7 +1430,15 @@
         "priceCurrency": "RUB",
         "price": "650.00",
         "priceExclVAT": "541.67",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 7,
+          "KZT": 3487.32,
+          "UZS": 85069.08,
+          "KGS": 611.9,
+          "BYN": 20.27,
+          "AZN": 11.9
+        }
       },
       "shelfLife": "180 суток",
       "storage": "0-12 ˚C",
@@ -999,7 +1455,15 @@
         "priceCurrency": "RUB",
         "price": "450.00",
         "priceExclVAT": "375.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 4.84,
+          "KZT": 2414.3,
+          "UZS": 58893.98,
+          "KGS": 423.62,
+          "BYN": 14.03,
+          "AZN": 8.24
+        }
       },
       "shelfLife": "30 суток",
       "storage": "0-12 ˚C",
@@ -1018,7 +1482,15 @@
         "pricePerUnit": "56.00",
         "pricePerBox": "2688.00",
         "pricePerBoxExclVAT": "2443.64",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 31.57,
+          "KZT": 15732.45,
+          "UZS": 383775.13,
+          "KGS": 2760.49,
+          "BYN": 91.44,
+          "AZN": 11893.34
+        }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
@@ -1037,7 +1509,15 @@
         "pricePerUnit": "58.86",
         "pricePerBox": "1765.80",
         "pricePerBoxExclVAT": "1605.27",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 20.74,
+          "KZT": 10334.92,
+          "UZS": 252108.62,
+          "KGS": 1813.41,
+          "BYN": 60.07,
+          "AZN": 35.25
+        }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
@@ -1056,7 +1536,15 @@
         "pricePerUnit": "59.14",
         "pricePerBox": "2838.72",
         "pricePerBoxExclVAT": "2580.65",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 33.34,
+          "KZT": 16614.54,
+          "UZS": 405292.63,
+          "KGS": 2915.26,
+          "BYN": 96.56,
+          "AZN": 56.67
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1075,7 +1563,15 @@
         "pricePerUnit": "61.73",
         "pricePerBox": "2963.04",
         "pricePerBoxExclVAT": "2693.67",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 34.8,
+          "KZT": 17342.17,
+          "UZS": 423042.49,
+          "KGS": 3042.94,
+          "BYN": 100.79,
+          "AZN": 59.15
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1094,7 +1590,15 @@
         "pricePerUnit": "68.77",
         "pricePerBox": "3300.96",
         "pricePerBoxExclVAT": "3000.87",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 38.76,
+          "KZT": 19319.96,
+          "UZS": 471288.43,
+          "KGS": 3389.97,
+          "BYN": 112.29,
+          "AZN": 65.9
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1113,7 +1617,15 @@
         "pricePerUnit": "73.14",
         "pricePerBox": "3510.72",
         "pricePerBoxExclVAT": "3191.56",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 41.23,
+          "KZT": 20547.65,
+          "UZS": 501236.41,
+          "KGS": 3605.39,
+          "BYN": 119.42,
+          "AZN": 70.09
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1132,7 +1644,15 @@
         "pricePerUnit": "77.84",
         "pricePerBox": "3736.32",
         "pricePerBoxExclVAT": "3396.65",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 43.88,
+          "KZT": 21868.04,
+          "UZS": 533445.92,
+          "KGS": 3837.07,
+          "BYN": 127.1,
+          "AZN": 74.59
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1151,7 +1671,15 @@
         "pricePerUnit": "194.70",
         "pricePerBox": "194.70",
         "pricePerBoxExclVAT": "162.25",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.1,
+          "KZT": 1044.59,
+          "UZS": 25481.46,
+          "KGS": 183.29,
+          "BYN": 6.07,
+          "AZN": 3.56
+        }
       },
       "shelfLife": "60 суток",
       "storage": "до +18°C",
@@ -1170,7 +1698,15 @@
         "pricePerUnit": "271.70",
         "pricePerBox": "271.70",
         "pricePerBoxExclVAT": "226.42",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 2.92,
+          "KZT": 1457.72,
+          "UZS": 35559.4,
+          "KGS": 255.78,
+          "BYN": 8.47,
+          "AZN": 4.97
+        }
       },
       "shelfLife": "60 суток",
       "storage": "до +18°C",
@@ -1189,7 +1725,15 @@
         "pricePerUnit": "44.00",
         "pricePerBox": "1320.00",
         "pricePerBoxExclVAT": "1200.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 15.5,
+          "KZT": 7725.74,
+          "UZS": 188460.72,
+          "KGS": 1355.59,
+          "BYN": 44.9,
+          "AZN": 26.35
+        }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
@@ -1208,7 +1752,15 @@
         "pricePerUnit": "44.74",
         "pricePerBox": "2147.52",
         "pricePerBoxExclVAT": "1952.29",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 25.22,
+          "KZT": 12569.08,
+          "UZS": 306608.32,
+          "KGS": 2205.43,
+          "BYN": 73.05,
+          "AZN": 42.87
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1227,7 +1779,15 @@
         "pricePerUnit": "45.10",
         "pricePerBox": "2164.80",
         "pricePerBoxExclVAT": "1968.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 25.42,
+          "KZT": 12670.22,
+          "UZS": 309075.58,
+          "KGS": 2223.18,
+          "BYN": 73.64,
+          "AZN": 43.22
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1246,7 +1806,15 @@
         "pricePerUnit": "49.50",
         "pricePerBox": "1782.00",
         "pricePerBoxExclVAT": "1620.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 20.93,
+          "KZT": 10429.75,
+          "UZS": 254421.97,
+          "KGS": 1830.05,
+          "BYN": 60.62,
+          "AZN": 35.58
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1265,7 +1833,15 @@
         "pricePerUnit": "58.52",
         "pricePerBox": "2808.96",
         "pricePerBoxExclVAT": "2553.60",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 32.99,
+          "KZT": 16440.38,
+          "UZS": 401044.41,
+          "KGS": 2884.71,
+          "BYN": 95.55,
+          "AZN": 56.08
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1284,7 +1860,15 @@
         "pricePerUnit": "67.55",
         "pricePerBox": "1621.20",
         "pricePerBoxExclVAT": "1473.82",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 19.04,
+          "KZT": 9488.63,
+          "UZS": 231464.32,
+          "KGS": 1664.92,
+          "BYN": 55.15,
+          "AZN": 32.37
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1303,7 +1887,15 @@
         "pricePerUnit": "69.03",
         "pricePerBox": "3313.44",
         "pricePerBoxExclVAT": "3012.22",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 38.91,
+          "KZT": 19393.03,
+          "UZS": 473070.96,
+          "KGS": 3402.79,
+          "BYN": 112.71,
+          "AZN": 66.15
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1322,7 +1914,15 @@
         "pricePerUnit": "71.50",
         "pricePerBox": "3432.00",
         "pricePerBoxExclVAT": "3120.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 40.3,
+          "KZT": 20086.94,
+          "UZS": 489997.87,
+          "KGS": 3524.55,
+          "BYN": 116.75,
+          "AZN": 68.52
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1341,7 +1941,15 @@
         "pricePerUnit": "72.60",
         "pricePerBox": "1452.00",
         "pricePerBoxExclVAT": "1210.00",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 15.63,
+          "KZT": 7790.13,
+          "UZS": 190031.23,
+          "KGS": 1366.89,
+          "BYN": 45.28,
+          "AZN": 26.57
+        }
       },
       "shelfLife": "",
       "storage": "",
@@ -1360,7 +1968,15 @@
         "pricePerUnit": "73.64",
         "pricePerBox": "1767.36",
         "pricePerBoxExclVAT": "1606.69",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "exportPrices": {
+          "USD": 20.75,
+          "KZT": 10344.06,
+          "UZS": 252331.63,
+          "KGS": 1815.02,
+          "BYN": 60.12,
+          "AZN": 35.28
+        }
       },
       "shelfLife": "",
       "storage": "",
