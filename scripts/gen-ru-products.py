@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
-"""Generate RU product pages from API. Run when node is unavailable."""
+"""Generate RU product pages from products.json. Source of truth: sync-sheets."""
 import json
 import os
+import re
 import urllib.parse
-import urllib.request
 
-API = "https://pepperoni.tatar/api/products"
 OUT = "public/products"
 PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
+
+
+def extract_qty_from_name(name):
+    m = re.search(r"[×x]\s*(\d+)\s*шт", str(name or ""), re.I)
+    return int(m.group(1)) if m else 0
 
 
 def html_esc(s):
@@ -16,11 +20,7 @@ def html_esc(s):
 
 
 def load_products():
-    try:
-        with urllib.request.urlopen(API, timeout=30) as r:
-            return json.load(r).get("products", [])
-    except Exception:
-        pass
+    """Load from products.json (source of truth). API may have stale/wrong column mapping."""
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
     if os.path.exists(p):
         with open(p, encoding="utf-8") as f:
@@ -137,9 +137,15 @@ footer a{{color:#444;text-decoration:none}}
             qty_str = f" ({qty} шт)" if qty else ""
             pbox_fmt = f"{pbox:,.2f}".replace(",", " ").replace(".", ",")
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за коробку: <b>{pbox_fmt} ₽</b>{qty_str}</div>\n'
-        elif not is_bakery and p["offers"].get("pricePerPiece"):
-            pp_fmt = f"{float(p['offers']['pricePerPiece']):,.2f}".replace(",", " ").replace(".", ",")
-            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
+        elif not is_bakery:
+            pp = p["offers"].get("pricePerPiece")
+            if not pp:
+                qty = extract_qty_from_name(p.get("name", ""))
+                if qty > 1 and price_rub:
+                    pp = str(round(float(price_rub) / qty, 2))
+            if pp:
+                pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
+                html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
         html += '<div style="margin:20px 0">\n'
         if p.get("category"):
             html += f'<dl class="detail-row"><dt>Категория</dt><dd>{p["category"]}</dd></dl>\n'

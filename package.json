@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "sync": "node scripts/sync-sheets.mjs",
+    "gen-ru": "python3 scripts/gen-ru-products.py",
+    "gen-en": "python3 scripts/gen-en-products.py",
+    "gen-cards": "npm run gen-ru && npm run gen-en"
   },
   "repository": {
     "type": "git",

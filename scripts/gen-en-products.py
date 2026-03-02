@@ -1,22 +1,44 @@
 #!/usr/bin/env python3
-"""Generate EN product pages from API. Run when node is unavailable."""
+"""Generate EN product pages from products.json with translations."""
 import json
 import os
+import re
 import urllib.parse
-import urllib.request
 
-API = "https://pepperoni.tatar/api/products?lang=en"
 OUT = "public/en/products"
 PRODUCTS_JSON = "public/products.json"
+TRANSLATIONS_JSON = "scripts/translations.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
 
+def extract_qty_from_name(name):
+    m = re.search(r"[×x]\s*(\d+)\s*шт", str(name or ""), re.I)
+    return int(m.group(1)) if m else 0
+
+
+def load_translations():
+    p = os.path.join(os.path.dirname(__file__), "..", TRANSLATIONS_JSON)
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f)
+    return {"products": {}, "categories": {}, "sections": {}, "shelfLife": {}}
+
+
+def translate(t, key, kind="products"):
+    if kind == "shelfLife" and key in t.get("shelfLife", {}):
+        return t["shelfLife"][key]
+    if kind == "sections" and key in t.get("sections", {}):
+        return t["sections"][key]
+    if kind == "categories" and key in t.get("categories", {}):
+        return t["categories"][key]
+    if kind == "products" and key in t.get("products", {}):
+        return t["products"][key]
+    if kind == "shelfLife" and key:
+        return key.replace("суток", "days")
+    return key
+
+
 def load_products():
-    try:
-        with urllib.request.urlopen(API, timeout=30) as r:
-            return json.load(r).get("products", [])
-    except Exception:
-        pass
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
     if os.path.exists(p):
         with open(p, encoding="utf-8") as f:
@@ -27,19 +49,21 @@ def load_products():
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
+    tr = load_translations()
     for p in products:
         sku = p["sku"]
         slug = sku.lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
         price_rub = p["offers"]["pricePerUnit"] if is_bakery else p["offers"]["price"]
         price_usd = p["offers"].get("exportPrices", {}).get("USD", "")
-        name = p["name"]
-        section = p.get("section", "")
-        category = p.get("category", "")
+        name = translate(tr, (p["name"] or "").strip().lower(), "products") or p["name"]
+        section = translate(tr, p.get("section", ""), "sections") or p.get("section", "")
+        category = translate(tr, p.get("category", ""), "categories") or p.get("category", "")
         weight = p.get("weight", "")
         if weight and " g" not in weight and " kg" not in weight:
             weight = weight.replace(",", ".") + " kg"
-        shelf_life = p.get("shelfLife", "")
+        weight = weight.replace(" г", " g").replace(" кг", " kg").replace(",", ".")
+        shelf_life = translate(tr, p.get("shelfLife", ""), "shelfLife") or p.get("shelfLife", "")
         storage = p.get("storage", "")
         hs_code = p.get("hsCode", "")
         price_excl = p["offers"].get("priceExclVAT") or p["offers"].get("pricePerBoxExclVAT", "")
@@ -56,7 +80,7 @@ def main():
             export_html += "</div>"
 
         pr = float(price_rub) if price_rub else 0
-        desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${price_usd}" if price_usd else f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽"
+        desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽" + (f" (${price_usd})" if price_usd else "") + "."
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
@@ -78,7 +102,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://api.pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://api.pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://api.pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"USD","price":"{price_usd or pr}","availability":"https://schema.org/InStock"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -127,18 +151,22 @@ footer a{{color:#444;text-decoration:none}}
 <span class="badge" style="background:#555">{section}</span>
 </div>
 '''
-        if price_usd:
-            html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${price_usd} <span style="font-size:.85rem;color:#767676;font-weight:400">{"/pc" if is_bakery else "excl. VAT"}</span></div>\n'
-        else:
-            html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{pr:,.2f} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
+        usd_suffix = f' <span style="font-size:.85rem;color:#767676;font-weight:400">(${price_usd})</span>' if price_usd else ''
+        html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{pr:,.2f} ₽{usd_suffix}<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>\n'
         if is_bakery and p["offers"].get("pricePerBox"):
             pbox = float(p["offers"]["pricePerBox"])
             qty = p.get("qtyPerBox", "")
             qty_str = f" ({qty} pcs)" if qty else ""
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>{pbox:,.2f} ₽</b>{qty_str}</div>\n'
-        elif not is_bakery and p["offers"].get("pricePerPiece"):
-            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>{float(p["offers"]["pricePerPiece"]):,.2f} ₽</b></div>\n'
+        elif not is_bakery:
+            pp = p["offers"].get("pricePerPiece")
+            if not pp:
+                qty = extract_qty_from_name(p.get("name", ""))
+                if qty > 1 and price_rub:
+                    pp = round(float(price_rub) / qty, 2)
+            if pp:
+                html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>{float(pp):,.2f} ₽</b></div>\n'
         html += '<div style="margin:20px 0">\n'
         if category:
             html += f'<dl class="detail-row"><dt>Category</dt><dd>{category}</dd></dl>\n'

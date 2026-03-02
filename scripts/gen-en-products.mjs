@@ -1,8 +1,29 @@
-const res = await fetch('https://pepperoni.tatar/api/products?lang=en');
-const data = await res.json();
-import { writeFileSync, mkdirSync } from 'fs';
+import { writeFileSync, mkdirSync, readFileSync, existsSync } from 'fs';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const ROOT = join(__dirname, '..');
+
+let data;
+try {
+  const res = await fetch('https://pepperoni.tatar/api/products?lang=en');
+  data = await res.json();
+} catch (e) {
+  const p = join(ROOT, 'public/products.json');
+  if (existsSync(p)) {
+    data = JSON.parse(readFileSync(p, 'utf8'));
+  } else {
+    throw new Error('No API and no products.json');
+  }
+}
 
 mkdirSync('public/en/products', { recursive: true });
+
+function extractQty(name) {
+  const m = (name || '').match(/[×x]\s*(\d+)\s*шт/i);
+  return m ? parseInt(m[1], 10) : 0;
+}
 
 for (const p of data.products) {
   const sku = p.sku;
@@ -11,6 +32,11 @@ for (const p of data.products) {
   const priceRUB = isBakery ? p.offers.pricePerUnit : p.offers.price;
   const priceUSD = p.offers?.exportPrices?.USD || '';
   const name = (p.name || '').replace(/\s+/g, ' ').trim();
+  let pricePerPiece = p.offers?.pricePerPiece;
+  if (!pricePerPiece && !isBakery) {
+    const qty = extractQty(p.name);
+    if (qty > 1 && priceRUB) pricePerPiece = (parseFloat(priceRUB) / qty).toFixed(2);
+  }
   const desc = `${name}. ${p.category || p.section}. Halal products by Kazan Delicacies. Price: ${priceUSD ? '$'+priceUSD : priceRUB+' ₽'}.`.replace(/"/g, '&quot;').replace(/\n/g, ' ');
 
   const priceNoVAT = p.offers?.priceExclVAT || p.offers?.pricePerBoxExclVAT || '';
@@ -99,7 +125,7 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${sku}",name:"${name.re
 ${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?'/pc':'excl. VAT'}</span></div>` : `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${parseFloat(priceRUB).toLocaleString('en-US')} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?' /pc':' incl. VAT'}</span></div>`}
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>
 ${isBakery&&p.offers.pricePerBox?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('en-US')} ₽</b>${p.qtyPerBox?' ('+p.qtyPerBox+' pcs)':''}</div>`:''}
-${!isBakery&&p.offers.pricePerPiece?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>${parseFloat(p.offers.pricePerPiece).toLocaleString('en-US')} ₽</b></div>`:''}
+${!isBakery&&pricePerPiece?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>${parseFloat(pricePerPiece).toLocaleString('en-US')} ₽</b></div>`:''}
 <div style="margin:20px 0">
 ${p.category?`<dl class="detail-row"><dt>Category</dt><dd>${p.category}</dd></dl>`:''}
 ${p.weight?`<dl class="detail-row"><dt>Unit weight</dt><dd>${p.weight.includes(' g')||p.weight.includes(' kg')?p.weight:(p.weight.replace(',','.')+' kg')}</dd></dl>`:''}
