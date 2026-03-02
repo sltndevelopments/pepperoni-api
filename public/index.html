@@ -10,7 +10,7 @@
   <meta name="keywords" content="пепперони, халяль, halal, pepperoni, казанские деликатесы, сосиски халяль, ветчина халяль, котлеты для бургеров, мясные изделия, говядина, курица, индейка, конина, Казань, Татарстан, купить халяль, оптом, выпечка, губадия, эчпочмак, чак-чак, самса, сервелат, казылык, колбаса">
   <meta name="author" content="Казанские Деликатесы">
   <meta name="robots" content="index, follow">
-  <meta name="yandex-verification" content="56400c4e7aa6d677" />
+  <meta name="yandex-verification" content="d0a735c825c78ddf" />
   <link rel="canonical" href="https://api.pepperoni.tatar/">
 
   <!-- Open Graph -->
@@ -142,7 +142,8 @@
     .product-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,border-color .2s;cursor:pointer}
     .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:#1b7a3d}
     .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
-    .product-sku{font-size:.75rem;color:#767676;margin-bottom:8px}
+    .product-sku{font-size:.75rem;color:#767676;margin-bottom:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+    .product-sku .prop{display:inline-block;padding:2px 6px;background:#f5f5f5;border-radius:4px;font-size:.7rem}
     .product-meta{font-size:.8rem;color:#636363;margin-bottom:8px}
     .product-meta span{display:inline-block;margin-right:12px}
     .product-price{font-size:1.3rem;font-weight:700;color:#1b7a3d}
@@ -326,27 +327,34 @@
       for(const{section,icon,groups}of allGroups){
         html+=`<h2 style="font-size:1.4rem;margin:40px 0 4px;color:#333">${icon} ${section}</h2>`;
         for(const[cat,products]of Object.entries(groups)){
-          html+=`<div class="category-title">${cat}</div><div class="products-grid">`;
+          html+=`<h3 class="category-title">${cat}</h3><div class="products-grid">`;
           for(const p of products){
             const pr=getPrice(p);
+            const priceCur=CUR==='RUB'?'RUB':CUR;
             const priceLabel=p.isBakery
               ?`${fmtPrice(pr)} ${sym}/шт`
               :`${fmtPrice(pr)} ${sym} <span class="product-price-vat">${vatLabel}</span>`;
-            const weightInfo=p.weight?`<b>Вес расч.:</b> ${p.weight} кг`:'';
-            const shelfInfo=p.shelf?` · ${p.shelf}`:'';
-            const storageInfo=p.storage?` · ${p.storage}`:'';
-            const hsInfo=p.hsCode?` · ТН ВЭД: ${p.hsCode}`:'';
-            const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
+            const props=[];
+            if(p.weight)props.push(`<span class="prop" title="Вес расчёта">${p.weight} кг</span>`);
+            if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Штук в коробке">${p.qty} шт/кор</span>`);
+            if(p.shelf)props.push(`<span class="prop" title="Срок годности">${p.shelf}</span>`);
+            if(p.storage)props.push(`<span class="prop" title="Хранение">${p.storage}</span>`);
+            if(p.hsCode)props.push(`<span class="prop" title="ТН ВЭД">${p.hsCode}</span>`);
+            const propsHtml=props.length?props.join(''):'';
             const photo=getPhoto(p.name);
             const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
             const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
             html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
+              <meta itemprop="sku" content="${p.sku||''}">
+              <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
               ${photo?`<img src="${photo}" alt="${altText}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
-              <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>
+              <div class="product-sku">${propsHtml}</div>
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
-                <div class="product-price">${priceLabel}</div>
+                <meta itemprop="price" content="${pr}">
+                <meta itemprop="priceCurrency" content="${priceCur}">
                 <link itemprop="availability" href="https://schema.org/InStock">
+                <div class="product-price">${priceLabel}</div>
               </div>
               <div class="product-avail">&#10003; В наличии</div>
             </div></a>`;
