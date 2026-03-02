@@ -372,7 +372,9 @@
     function getPrice(p){
       if(CUR==='RUB')return VAT?p.price:p.priceNoVAT;
       const m={USD:p.usd,KZT:p.kzt,UZS:p.uzs,KGS:p.kgs,BYN:p.byn,AZN:p.azn};
-      return m[CUR]||0;
+      let v=m[CUR]||0;
+      if(p.isBakery&&p.qty){const q=parseFloat(p.qty)||1;if(q>0)v=v/q;}
+      return v;
     }
     function fmtPrice(v){if(!v)return '—';return v.toLocaleString('ru-RU',{minimumFractionDigits:v<10?2:0,maximumFractionDigits:2})}
     const fmtWeight=w=>{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|кг|kg)\s*$/i.test(s)?s:s+' кг'};
@@ -482,10 +484,10 @@
     }
     async function loadCatalog(){
       try{
-        await loadFromAPI();
+        await loadFromProductsJSON();
         render();
       }catch(e){
-        try{await loadFromProductsJSON();render();}catch(e2){document.getElementById('loading').textContent='Каталог: ошибка загрузки.';}
+        try{await loadFromAPI();render();}catch(e2){document.getElementById('loading').textContent='Каталог: ошибка загрузки.';}
       }
     }
     loadCatalog();
