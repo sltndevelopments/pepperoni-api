@@ -41,7 +41,7 @@ def main():
         weight = p.get("weight", "")
         weight_suffix = "" if (" г" in weight or " кг" in weight) else " кг"
         pr = float(price_rub) if price_rub else 0
-        name = p["name"]
+        name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
 
         html = f'''<!DOCTYPE html>
@@ -49,6 +49,7 @@ def main():
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-language" content="ru">
 <title>{name} — Казанские Деликатесы | Халяль</title>
 <meta name="description" content="{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}">
 <meta name="robots" content="index, follow">

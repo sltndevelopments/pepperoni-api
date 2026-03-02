@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="ru">
 
   <title>Казанские Деликатесы — Халяль мясные изделия | pepperoni.tatar</title>
   <meta name="description" content="Полный каталог халяль продукции Казанских Деликатесов: 77 товаров — пепперони, сосиски, ветчина, колбасы, котлеты, татарская выпечка (губадия, эчпочмак, чак-чак). Цены в RUB, USD, KZT. Казань.">
@@ -41,12 +42,14 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Казанские Деликатесы",
-    "alternateName": "Kazan Delicacies",
+    "alternateName": ["Kazan Delicacies", "ООО «Казанские Деликатесы»"],
+    "legalName": "ООО «Казанские Деликатесы»",
     "url": "https://kazandelikates.tatar",
     "logo": "https://pepperoni.tatar/images/logo.png",
+    "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
     "email": "info@kazandelikates.tatar",
     "telephone": "+79872170202",
-    "description": "Производитель халяль мясных изделий: пепперони, сосиски, ветчина, котлеты для бургеров, мясные заготовки.",
+    "description": "Производитель халяль мясных изделий и татарской выпечки. 77 наименований. Пепперони, сосиски, ветчина, котлеты, губадия, чак-чак. Сертификат Halal №614A/2024 (ДУМ РТ). HACCP. Private Label.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "ул Аграрная, дом 2, офис 7",
@@ -55,9 +58,17 @@
       "addressRegion": "Татарстан",
       "addressCountry": "RU"
     },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Halal",
+      "credentialCategory": "certification",
+      "recognizedBy": {"@type": "Organization", "name": "ДУМ РТ", "url": "https://dumrt.ru"},
+      "identifier": "614A/2024"
+    },
     "sameAs": [
       "https://pepperoni.tatar",
-      "https://kazandelikates.tatar"
+      "https://kazandelikates.tatar",
+      "https://api.pepperoni.tatar"
     ]
   }
   </script>
@@ -170,8 +181,8 @@
       <a href="/en/" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
     </div>
     <header>
-      <h1>Казанские Деликатесы</h1>
-      <p class="subtitle">Халяль мясные изделия — Казань, Татарстан</p>
+      <h1>Казанские Деликатесы — халяль пепперони, сосиски, выпечка</h1>
+      <p class="subtitle">77 товаров. Казань, Татарстан. EXW.</p>
       <span class="badge">HALAL</span>
       <div class="info-bar">
         <span>+7 (987) 217-02-02</span>
@@ -229,6 +240,14 @@
       </script>
     </div>
 
+    <div class="api-section" style="background:#e8f5e9;border:2px solid #1b7a3d">
+      <h2 style="margin-top:0;color:#1b7a3d">API для партнёров</h2>
+      <p style="margin-bottom:12px;color:#444">Интегрируйте каталог напрямую в ERP, 1С, iiko или МойСклад. Цены и наличие обновляются в реальном времени. <a href="/openapi.yaml" style="color:#1b7a3d;font-weight:600">OpenAPI</a> · <a href="/api/products" style="color:#1b7a3d;font-weight:600">JSON</a></p>
+    </div>
+    <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
+      <h2 style="margin-top:0">Наши партнёры</h2>
+      <p style="margin-bottom:12px;color:#444">АЗС Татнефть · EuroSpar · Бэхетле · пиццерии и HoReCa по России.</p>
+    </div>
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Связаться</h2>
       <p style="margin-bottom:12px;color:#444">Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
@@ -320,8 +339,9 @@
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} шт/кор`:'';
             const photo=getPhoto(p.name);
             const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
+            const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
             html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
-              ${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
+              ${photo?`<img src="${photo}" alt="${altText}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
               <div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div>
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">

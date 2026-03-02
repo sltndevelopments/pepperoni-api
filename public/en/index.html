@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="en">
 
   <title>Kazan Delicacies — Halal Meat Products & Tatar Pastries | pepperoni.tatar</title>
   <meta name="description" content="Full catalog of halal products by Kazan Delicacies: 77 items — pepperoni, sausages, ham, smoked meats, burger patties, Tatar pastries (gubadiya, echpochmak, chak-chak). Prices in RUB, USD, KZT. Kazan, Tatarstan, Russia.">
@@ -35,11 +36,13 @@
     "@type": "Organization",
     "name": "Kazan Delicacies",
     "alternateName": ["Казанские Деликатесы", "ООО «Казанские Деликатесы»"],
+    "legalName": "OOO «Kazan Delicacies»",
     "url": "https://kazandelikates.tatar",
     "logo": "https://pepperoni.tatar/images/logo.png",
+    "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
     "email": "info@kazandelikates.tatar",
     "telephone": "+79872170202",
-    "description": "Manufacturer of halal meat products and traditional Tatar pastries. 77 products from beef, horse meat, chicken, and turkey. Halal certificate #614A/2024 (DUM RT). HACCP. Private Label available.",
+    "description": "Manufacturer of halal meat products and traditional Tatar pastries. 77 products: pepperoni, sausages, ham, burger patties, gubadiya, chak-chak. Halal certificate #614A/2024 (DUM RT). HACCP. Private Label. Wholesale & Export.",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "Agrarnaya st., 2, office 7",
@@ -47,6 +50,13 @@
       "postalCode": "420061",
       "addressRegion": "Tatarstan",
       "addressCountry": "RU"
+    },
+    "hasCredential": {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Halal",
+      "credentialCategory": "certification",
+      "recognizedBy": {"@type": "Organization", "name": "DUM RT", "url": "https://dumrt.ru"},
+      "identifier": "614A/2024"
     },
     "sameAs": ["https://pepperoni.tatar", "https://kazandelikates.tatar", "https://api.pepperoni.tatar"]
   }
@@ -115,8 +125,8 @@
       <a href="/" style="color:#888;text-decoration:none;margin-left:auto">🇷🇺 Русский</a>
     </div>
     <header>
-      <h1>Kazan Delicacies</h1>
-      <p class="subtitle">Halal Meat Products — Kazan, Tatarstan, Russia</p>
+      <h1>Kazan Delicacies — Halal Pepperoni, Sausages & Pastries</h1>
+      <p class="subtitle">77 products. Kazan, Tatarstan. EXW.</p>
       <span class="badge">HALAL</span>
       <div class="info-bar">
         <span>+7 (987) 217-02-02</span>
@@ -173,6 +183,14 @@
       </script>
     </div>
 
+    <div class="api-section" style="background:#e8f5e9;border:2px solid #1b7a3d">
+      <h2 style="margin-top:0;color:#1b7a3d">API for Partners</h2>
+      <p style="margin-bottom:12px;color:#444">Integrate our catalog into your ERP, 1C, iiko or MoiSklad. Prices and stock update in real time. <a href="/openapi.yaml" style="color:#1b7a3d;font-weight:600">OpenAPI</a> · <a href="/api/products" style="color:#1b7a3d;font-weight:600">JSON</a></p>
+    </div>
+    <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
+      <h2 style="margin-top:0">Our Partners</h2>
+      <p style="margin-bottom:12px;color:#444">Tatneft gas stations · EuroSpar · Bekhtle · pizzerias and HoReCa across Russia.</p>
+    </div>
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Contact Us</h2>
       <p style="margin-bottom:12px;color:#444">Wholesale supplies, export, Private Label — let's discuss.</p>
@@ -235,7 +253,8 @@
             const boxInfo=p.isBakery&&p.qty?` · ${p.qty} pcs/box`:'';
             const photo=getPhoto(p.nameRu||p.name);
             const href=p.sku?`/en/products/${p.sku.toLowerCase()}`:'#';
-            html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">${photo?`<img src="${photo}" alt="${p.name}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}<div class="product-name" itemprop="name">${p.name}</div><div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><div class="product-price">${priceLabel}</div><link itemprop="availability" href="https://schema.org/InStock"></div><div class="product-avail">✓ In stock</div></div></a>`;
+            const altText=(p.name||'Product').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+            html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">${photo?`<img src="${photo}" alt="${altText}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}<div class="product-name" itemprop="name">${p.name}</div><div class="product-sku">${weightInfo}${boxInfo}${shelfInfo}${storageInfo}${hsInfo}</div><div itemprop="offers" itemscope itemtype="https://schema.org/Offer"><div class="product-price">${priceLabel}</div><link itemprop="availability" href="https://schema.org/InStock"></div><div class="product-avail">✓ In stock</div></div></a>`;
           }html+='</div>';
         }
       }return html;

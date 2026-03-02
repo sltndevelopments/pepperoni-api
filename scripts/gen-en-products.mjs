@@ -10,8 +10,8 @@ for (const p of data.products) {
   const isBakery = !!p.offers?.pricePerUnit;
   const priceRUB = isBakery ? p.offers.pricePerUnit : p.offers.price;
   const priceUSD = p.offers?.exportPrices?.USD || '';
-  const name = p.name;
-  const desc = `${name}. ${p.category || p.section}. Halal products by Kazan Delicacies. Price: ${priceUSD ? '$'+priceUSD : priceRUB+' ₽'}.`;
+  const name = (p.name || '').replace(/\s+/g, ' ').trim();
+  const desc = `${name}. ${p.category || p.section}. Halal products by Kazan Delicacies. Price: ${priceUSD ? '$'+priceUSD : priceRUB+' ₽'}.`.replace(/"/g, '&quot;').replace(/\n/g, ' ');
 
   const ep = p.offers?.exportPrices || {};
   const syms = {USD:'$',KZT:'₸',UZS:'UZS',KGS:'KGS',BYN:'BYN',AZN:'AZN'};
@@ -29,8 +29,9 @@ for (const p of data.products) {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-language" content="en">
 <title>${name} — Kazan Delicacies | Halal</title>
-<meta name="description" content="${desc.replace(/"/g, '&quot;')}">
+<meta name="description" content="${desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://api.pepperoni.tatar/en/products/${skuLow}">
 <meta property="og:type" content="product">
