@@ -40,6 +40,9 @@ for (const p of data.products) {
 <link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/products/${skuLow}">
 <link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/products/${skuLow}">
 <script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://api.pepperoni.tatar/en/"},{"@type":"ListItem","position":2,"name":"Catalog","item":"https://api.pepperoni.tatar/en/"},{"@type":"ListItem","position":3,"name":"${name.replace(/"/g,'\\"')}","item":"https://api.pepperoni.tatar/en/products/${skuLow}"}]}
+</script>
+<script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"${name.replace(/"/g,'\\"')}","sku":"${sku}","brand":{"@type":"Brand","name":"Kazan Delicacies"},"offers":{"@type":"Offer","priceCurrency":"${priceUSD?'USD':'RUB'}","price":"${priceUSD||priceRUB}","availability":"https://schema.org/InStock"}}
 </script>
 <style>
@@ -73,7 +76,15 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${sku}",name:"${name.re
 <a href="/en/delivery" style="color:#0066cc;text-decoration:none">Delivery</a>
 <a href="/products/${skuLow}" style="color:#595959;text-decoration:none;margin-left:auto">🇷🇺 Русский</a>
 </div>
-<a href="/en/" style="display:inline-block;margin-bottom:24px;color:#0066cc;text-decoration:none;font-size:.9rem">← Back to catalog</a>
+<nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:16px">
+  <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/en/"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></li>
+    <span aria-hidden="true"> › </span>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/en/"><span itemprop="name">Catalog</span></a><meta itemprop="position" content="2"></li>
+    <span aria-hidden="true"> › </span>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">${name.replace(/"/g,'&quot;')}</span><meta itemprop="position" content="3"></li>
+  </ol>
+</nav>
 <h1 style="font-size:1.6rem;margin-bottom:8px">${name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
 <span class="badge">HALAL</span>
@@ -101,7 +112,7 @@ ${exportHtml}
 <a href="mailto:info@kazandelikates.tatar?subject=Order:%20${encodeURIComponent(name)}%20(${sku})" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Email</a>
 </div>
 <footer>
-<p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a></p>
+<p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="https://api.pepperoni.tatar/">For Distributors (API)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
