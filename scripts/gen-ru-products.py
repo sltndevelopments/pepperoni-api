@@ -94,11 +94,8 @@ footer a{{color:#444;text-decoration:none}}
 <span class="badge" style="background:#555">{section}</span>
 </div>
 '''
-        if price_usd:
-            suffix = "/шт" if is_bakery else "без НДС"
-            html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${price_usd} <span style="font-size:.85rem;color:#767676;font-weight:400">{suffix}</span></div>\n'
         fmt = f"{pr:,.2f}".replace(",", " ").replace(".", ",")
-        html += f'<div style="color:#767676;font-size:.9rem">{fmt} ₽{" /шт" if is_bakery else " с НДС"}</div>\n'
+        html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{fmt} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /шт" if is_bakery else " с НДС"}</span></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>\n'
         if is_bakery and p["offers"].get("pricePerBox"):
             pbox = float(p["offers"]["pricePerBox"])

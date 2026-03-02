@@ -496,8 +496,7 @@ footer a{color:#444;text-decoration:none}
 <span class="badge" style="background:#0066cc">${p.sku}</span>
 <span class="badge" style="background:#555">${p.section || ''}</span>
 </div>
-${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery ? '/шт' : 'без НДС'}</span></div>` : ''}
-<div style="color:#767676;font-size:.9rem">${parseFloat(priceRUB).toLocaleString('ru-RU')} ₽${isBakery ? ' /шт' : ' с НДС'}</div>
+<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${parseFloat(priceRUB).toLocaleString('ru-RU')} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery ? ' /шт' : ' с НДС'}</span></div>
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>
 ${isBakery && p.offers.pricePerBox ? `<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за коробку: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('ru-RU')} ₽</b>${p.qtyPerBox ? ' (' + p.qtyPerBox + ' шт)' : ''}</div>` : ''}
 <div style="margin:20px 0">

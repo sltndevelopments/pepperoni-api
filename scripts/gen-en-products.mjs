@@ -1,4 +1,4 @@
-const res = await fetch('https://pepperoni.tatar/api/products');
+const res = await fetch('https://pepperoni.tatar/api/products?lang=en');
 const data = await res.json();
 import { writeFileSync, mkdirSync } from 'fs';
 
@@ -71,13 +71,12 @@ footer a{color:#444;text-decoration:none}
 <span class="badge" style="background:#0066cc">${sku}</span>
 <span class="badge" style="background:#555">${p.section||''}</span>
 </div>
-${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?'/pc':'excl. VAT'}</span></div>` : ''}
-<div style="color:#767676;font-size:.9rem">${parseFloat(priceRUB).toLocaleString('en-US')} ₽${isBakery?' /pc':' incl. VAT'}</div>
+${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?'/pc':'excl. VAT'}</span></div>` : `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${parseFloat(priceRUB).toLocaleString('en-US')} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?' /pc':' incl. VAT'}</span></div>`}
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>
 ${isBakery&&p.offers.pricePerBox?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('en-US')} ₽</b>${p.qtyPerBox?' ('+p.qtyPerBox+' pcs)':''}</div>`:''}
 <div style="margin:20px 0">
 ${p.category?`<dl class="detail-row"><dt>Category</dt><dd>${p.category}</dd></dl>`:''}
-${p.weight?`<dl class="detail-row"><dt>Unit weight</dt><dd>${p.weight} kg</dd></dl>`:''}
+${p.weight?`<dl class="detail-row"><dt>Unit weight</dt><dd>${p.weight.includes(' g')||p.weight.includes(' kg')?p.weight:(p.weight.replace(',','.')+' kg')}</dd></dl>`:''}
 ${p.offers?.priceExclVAT?`<dl class="detail-row"><dt>Price excl. VAT</dt><dd>${p.offers.priceExclVAT} ₽</dd></dl>`:''}
 ${p.shelfLife?`<dl class="detail-row"><dt>Shelf life</dt><dd>${p.shelfLife}</dd></dl>`:''}
 ${p.storage?`<dl class="detail-row"><dt>Storage</dt><dd>${p.storage}</dd></dl>`:''}
@@ -88,7 +87,7 @@ ${p.hsCode?`<dl class="detail-row"><dt>HS Code</dt><dd>${p.hsCode}</dd></dl>`:''
 ${exportHtml}
 <div class="cta-box">
 <h3 style="margin:0 0 8px">Order</h3>
-<p style="color:#444;margin-bottom:12px">Wholesale, export, Private Label available</p>
+<p style="color:#444;margin-bottom:12px">Wholesale, export, Private Label</p>
 <a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject=Order:%20${encodeURIComponent(name)}%20(${sku})" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Email</a>
 </div>
