@@ -59,8 +59,10 @@ def main():
         if is_bakery and price_usd_raw:
             qty = int(p.get("qtyPerBox") or 1) or 1
             price_usd = f"{float(price_usd_raw) / qty:.2f}" if qty > 0 else ""
+            price_usd_box = float(price_usd_raw)
         else:
             price_usd = price_usd_raw
+            price_usd_box = 0
         name = translate(tr, (p["name"] or "").strip().lower(), "products") or p["name"]
         section = translate(tr, p.get("section", ""), "sections") or p.get("section", "")
         category = translate(tr, p.get("category", ""), "categories") or p.get("category", "")
@@ -166,30 +168,16 @@ footer a{{color:#444;text-decoration:none}}
         else:
             html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{pr:,.2f} ₽<span style="font-size:.85rem;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>\n'
-        if is_bakery and p["offers"].get("pricePerBox"):
-            pbox = float(p["offers"]["pricePerBox"])
+        if is_bakery and p["offers"].get("pricePerBox") and price_usd_box > 0:
             qty = p.get("qtyPerBox", "")
             qty_str = f" ({qty} pcs)" if qty else ""
-            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>{pbox:,.2f} ₽</b>{qty_str}</div>\n'
-        elif not is_bakery:
-            pp = p["offers"].get("pricePerPiece")
-            if not pp:
-                qty = extract_qty_from_name(p.get("name", ""))
-                if qty > 1 and price_rub:
-                    pp = round(float(price_rub) / qty, 2)
-            if pp:
-                html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>{float(pp):,.2f} ₽</b></div>\n'
+            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${price_usd_box:,.2f}</b>{qty_str}</div>\n'
         html += '<div style="margin:20px 0">\n'
-        if category:
-            html += f'<dl class="detail-row"><dt>Category</dt><dd>{category}</dd></dl>\n'
-        if weight:
-            html += f'<dl class="detail-row"><dt>Unit weight</dt><dd>{weight}</dd></dl>\n'
-        if shelf_life:
-            html += f'<dl class="detail-row"><dt>Shelf life</dt><dd>{shelf_life}</dd></dl>\n'
-        if storage:
-            html += f'<dl class="detail-row"><dt>Storage</dt><dd>{storage}</dd></dl>\n'
-        if hs_code:
-            html += f'<dl class="detail-row"><dt>HS Code</dt><dd>{hs_code}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Category</dt><dd>{category or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Unit weight</dt><dd>{weight or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Shelf life</dt><dd>{shelf_life or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Storage</dt><dd>{storage or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>HS Code</dt><dd>{hs_code or "—"}</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Certification</dt><dd>Halal</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Brand</dt><dd>Kazan Delicacies</dd></dl>\n'
         html += "</div>\n"

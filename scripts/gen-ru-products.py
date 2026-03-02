@@ -147,16 +147,11 @@ footer a{{color:#444;text-decoration:none}}
                 pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
                 html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
         html += '<div style="margin:20px 0">\n'
-        if p.get("category"):
-            html += f'<dl class="detail-row"><dt>Категория</dt><dd>{p["category"]}</dd></dl>\n'
-        if weight:
-            html += f'<dl class="detail-row"><dt>Вес расчёта</dt><dd>{weight}{weight_suffix}</dd></dl>\n'
-        if p.get("shelfLife"):
-            html += f'<dl class="detail-row"><dt>Срок годности</dt><dd>{p["shelfLife"]}</dd></dl>\n'
-        if p.get("storage"):
-            html += f'<dl class="detail-row"><dt>Хранение</dt><dd>{p["storage"]}</dd></dl>\n'
-        if p.get("hsCode"):
-            html += f'<dl class="detail-row"><dt>ТН ВЭД</dt><dd>{p["hsCode"]}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Категория</dt><dd>{p.get("category") or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Вес расчёта</dt><dd>{(weight + weight_suffix) if weight else "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Срок годности</dt><dd>{p.get("shelfLife") or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>Хранение</dt><dd>{p.get("storage") or "—"}</dd></dl>\n'
+        html += f'<dl class="detail-row"><dt>ТН ВЭД</dt><dd>{p.get("hsCode") or "—"}</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>\n'
         html += "</div>\n"
