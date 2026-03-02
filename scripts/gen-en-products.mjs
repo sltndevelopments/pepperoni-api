@@ -56,11 +56,15 @@ footer{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top
 footer a{color:#444;text-decoration:none}
 </style>
 <!-- Yandex.Metrika counter -->
-<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js?id=107064141","ym");ym(107064141,"init",{ssr:true,clickmap:true,accurateTrackBounce:true,trackLinks:true});</script>
+<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
+<script>
+window.dataLayer=window.dataLayer||[];
+window.dataLayer.push({ecommerce:{detail:{products:[{id:"${sku}",name:"${name.replace(/"/g,'\\"')}",price:${parseFloat(priceRUB)||parseFloat(priceUSD)||0},brand:"Kazan Delicacies",category:"${(p.category||'').replace(/"/g,'\\"')}"}]}}});
+</script>
 <div class="container">
 <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
 <a href="/en/" style="color:#0066cc;text-decoration:none">Catalog</a>
@@ -101,6 +105,15 @@ ${exportHtml}
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
+<script>
+document.addEventListener('click',function(e){
+  var link=e.target.closest('a');if(!link)return;
+  var href=link.getAttribute('href')||'';
+  if(href.indexOf('tel:')===0){typeof ym==='function'&&ym(107064141,'reachGoal','click_phone')}
+  if(href.indexOf('mailto:')===0){typeof ym==='function'&&ym(107064141,'reachGoal','click_email')}
+  if(href.indexOf('kazandelikates.tatar')!==-1){typeof ym==='function'&&ym(107064141,'reachGoal','go_to_main_site')}
+});
+</script>
 </body>
 </html>`;
 
