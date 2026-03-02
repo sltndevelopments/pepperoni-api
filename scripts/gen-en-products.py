@@ -76,6 +76,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .detail-row dd{{color:#1a1a1a;font-weight:500}}
 .cta-box{{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}}
 .cta-box a{{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}}
+.tg-order-btn{{display:inline-flex;align-items:center;justify-content:center;background:#2AABEE;color:#fff;padding:12px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:16px;margin-top:15px;transition:background .2s,transform .2s;width:100%;box-sizing:border-box}}
+.tg-order-btn:hover{{background:#2298D6;transform:translateY(-2px);color:#fff}}
 footer{{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}}
 footer a{{color:#444;text-decoration:none}}
 </style>
@@ -138,10 +140,12 @@ footer a{{color:#444;text-decoration:none}}
         html += "</div>\n"
         html += export_html
         subj = urllib.parse.quote(f"Order: {name} ({sku})", safe="")
+        tg_svg = '<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" style="margin-right:8px;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.9 8.94c-.15.65-.53.81-1.08.5l-3-2.21-1.44 1.39c-.16.16-.29.29-.6.29l.21-3.05 5.55-5.02c.24-.22-.05-.34-.38-.11l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.13-.95l11.55-4.45c.53-.2.99.11.78.97z"/></svg>'
         html += f'''<div class="cta-box">
 <h3 style="margin:0 0 8px">Order</h3>
 <p style="color:#444;margin-bottom:12px">Wholesale, export, Private Label</p>
-<a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
+<a href="https://t.me/KazanDel_Bot?start={sku}" target="_blank" rel="noopener" class="tg-order-btn">{tg_svg}Order Bulk via Telegram</a>
+<a href="tel:+79872170202" style="background:#1b7a3d;color:#fff;margin-top:8px">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject={subj}" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Email</a>
 </div>
 <footer>

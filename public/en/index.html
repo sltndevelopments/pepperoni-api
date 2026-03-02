@@ -111,7 +111,12 @@
     footer a{color:#888;text-decoration:none}
     footer a:hover{text-decoration:underline}
     #loading{text-align:center;padding:40px;color:#aaa}
-    @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}}
+    .capabilities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:20px}
+    .capability-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,border-color .2s}
+    .capability-card:hover{border-color:#1b7a3d;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .capability-card h3{font-size:1rem;color:#1b7a3d;margin-bottom:10px;font-weight:600}
+    .capability-card p{font-size:.9rem;color:#444;line-height:1.5;margin:0}
+    @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}.capabilities-grid{grid-template-columns:1fr}}
   </style>
   <!-- Yandex.Metrika (stub immediately, tag.js deferred for LCP) -->
   <script>
@@ -208,6 +213,28 @@
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Our Partners</h2>
       <p style="margin-bottom:12px;color:#444">Tatneft gas stations · EuroSpar · Bekhtle · pizzerias and HoReCa across Russia.</p>
+    </div>
+    <div class="api-section" style="background:#f8fcf8;border:2px solid #1b7a3d">
+      <h2 style="margin-top:0;font-size:1.2rem;color:#1b7a3d">Manufacturing Solutions for HoReCa & Retail</h2>
+      <p style="margin-bottom:20px;color:#555;font-size:.95rem">We don't just supply products. We adapt them to your business processes.</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <h3>🏷️ Private Label (OEM)</h3>
+          <p>Production of Halal sausages and delicacies under your brand. Full support: from developing a unique recipe to packaging and branding according to your network standards.</p>
+        </div>
+        <div class="capability-card">
+          <h3>🎯 Customization for Your Menu</h3>
+          <p>Need pepperoni that doesn't cup at 350°C? Or a specific slice diameter to optimize food costs? We adjust the spiciness, size, weight, and ingredients precisely to your specifications.</p>
+        </div>
+        <div class="capability-card">
+          <h3>✅ 100% Halal & Quality Control</h3>
+          <p>We use only premium beef and poultry. All products are strictly certified by Halal DUM RT. We guarantee consistent premium quality in every batch.</p>
+        </div>
+        <div class="capability-card">
+          <h3>🚚 Export & Logistics</h3>
+          <p>Streamlined supply chain for major distributors. Shipments on EXW and DAP terms. Strict adherence to temperature control at all stages of delivery to your distribution center.</p>
+        </div>
+      </div>
     </div>
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Contact Us</h2>

@@ -166,7 +166,12 @@
     footer a:hover{text-decoration:underline}
     #loading{text-align:center;padding:40px;color:#aaa}
     .section-divider{border-top:3px solid #1b7a3d;margin-top:40px}
-    @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}}
+    .capabilities-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:20px}
+    .capability-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;transition:box-shadow .2s,border-color .2s}
+    .capability-card:hover{border-color:#1b7a3d;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+    .capability-card h3{font-size:1rem;color:#1b7a3d;margin-bottom:10px;font-weight:600}
+    .capability-card p{font-size:.9rem;color:#444;line-height:1.5;margin:0}
+    @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}.capabilities-grid{grid-template-columns:1fr}}
   </style>
   <!-- Yandex.Metrika (stub immediately, tag.js deferred for LCP) -->
   <script>
@@ -265,6 +270,28 @@
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Наши партнёры</h2>
       <p style="margin-bottom:12px;color:#444">АЗС Татнефть · EuroSpar · Бэхетле · пиццерии и HoReCa по России.</p>
+    </div>
+    <div class="api-section" style="background:#f8fcf8;border:2px solid #1b7a3d">
+      <h2 style="margin-top:0;font-size:1.2rem;color:#1b7a3d">Производственные решения для HoReCa и Ритейла</h2>
+      <p style="margin-bottom:20px;color:#555;font-size:.95rem">Мы не просто поставляем продукцию. Мы адаптируем её под бизнес-процессы вашей сети.</p>
+      <div class="capabilities-grid">
+        <div class="capability-card">
+          <h3>🏷️ Private Label (СТМ)</h3>
+          <p>Производство халяльных колбас и деликатесов под вашей торговой маркой. Полное сопровождение: от разработки уникальной рецептуры до фасовки и брендирования упаковки под стандарты вашей сети.</p>
+        </div>
+        <div class="capability-card">
+          <h3>🎯 Кастомизация под ваше меню</h3>
+          <p>Нужна пепперони, которая не сворачивается «чашечкой» при 350°C? Или особый диаметр нарезки для экономии фудкоста? Мы меняем остроту, размер, вес и состав продукта по вашему ТЗ.</p>
+        </div>
+        <div class="capability-card">
+          <h3>✅ 100% Халяль и Контроль качества</h3>
+          <p>Используем только отборную говядину и птицу. Вся продукция сертифицирована комитетом Халяль ДУМ РТ. Гарантируем стабильное качество в каждой партии.</p>
+        </div>
+        <div class="capability-card">
+          <h3>🚚 Экспорт и Логистика</h3>
+          <p>Выстроенная система поставок для крупных дистрибьюторов. Отгрузки на условиях EXW и DAP. Строгое соблюдение температурного режима на всех этапах доставки до вашего РЦ.</p>
+        </div>
+      </div>
     </div>
     <div class="api-section" style="background:#f0f7f0;border-color:#1b7a3d">
       <h2 style="margin-top:0">Связаться</h2>
