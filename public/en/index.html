@@ -28,6 +28,9 @@
   <meta name="twitter:description" content="77 halal products: pepperoni, sausages, ham, Tatar pastries. Wholesale. Export. Private Label.">
   <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 
+  <link rel="preconnect" href="https://mc.yandex.ru">
+  <link rel="preconnect" href="https://mc.yandex.com">
+  <link rel="preconnect" href="https://drive.google.com" crossorigin>
   <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 
   <script type="application/ld+json">
@@ -91,7 +94,7 @@
     .product-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.08);border-color:#1b7a3d}
     .product-name{font-size:.95rem;font-weight:600;margin-bottom:4px}
     .product-sku{font-size:.75rem;color:#aaa;margin-bottom:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
-    .product-sku .prop{display:inline-block;padding:2px 6px;background:#f5f5f5;border-radius:4px;font-size:.7rem}
+    .product-sku .prop{display:inline-block;padding:2px 6px;background:#e8e8e8;color:#333;border-radius:4px;font-size:.7rem}
     .product-price{font-size:1.3rem;font-weight:700;color:#1b7a3d}
     .product-price-vat{font-size:.75rem;color:#aaa;font-weight:400}
     .product-avail{font-size:.8rem;color:#1b7a3d;margin-top:6px}
@@ -110,13 +113,17 @@
     #loading{text-align:center;padding:40px;color:#aaa}
     @media(max-width:600px){.products-grid{grid-template-columns:1fr}.info-bar{flex-direction:column;align-items:center;gap:8px}}
   </style>
-  <!-- Yandex.Metrika counter -->
-  <script type="text/javascript">
-    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
-    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}
-    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
-    (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
-    ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});
+  <!-- Yandex.Metrika (stub immediately, tag.js deferred for LCP) -->
+  <script>
+    (function(m,e,i){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();
+    window.addEventListener('load',function(){
+      var r='https://mc.yandex.ru/metrika/tag.js';
+      for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}
+      var t=document.createElement('script'),a=document.getElementsByTagName('script')[0];
+      t.async=1;t.src=r;a.parentNode.insertBefore(t,a);
+    });
+    ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
+    })(window,document,'ym');
   </script>
   <noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
   <!-- /Yandex.Metrika counter -->
@@ -247,6 +254,8 @@
       return m[CUR]||0;
     }
     function fmtPrice(v){if(!v)return '—';return v.toLocaleString('en-US',{minimumFractionDigits:v<10?2:0,maximumFractionDigits:2})}
+    const fmtWeight=w=>{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|кг|kg)\s*$/i.test(s)?s:s+' kg'};
+    const fmtQty=q=>{if(!q)return'';const s=String(q).trim();return/\d+\s*pcs/i.test(s)?s:s+' pcs/box'};
     function renderGroups(allGroups){
       let html='';const sym=CUR_SYM[CUR]||CUR;
       const vatLabel=CUR==='RUB'?(VAT?'incl. VAT':'excl. VAT'):'excl. VAT';
@@ -259,8 +268,8 @@
             const priceCur=CUR==='RUB'?'RUB':CUR;
             const priceLabel=p.isBakery?`${fmtPrice(pr)} ${sym}/pc`:`${fmtPrice(pr)} ${sym} <span class="product-price-vat">${vatLabel}</span>`;
             const props=[];
-            if(p.weight)props.push(`<span class="prop" title="Unit weight">${p.weight} kg</span>`);
-            if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Pcs per box">${p.qty} pcs/box</span>`);
+            if(p.weight)props.push(`<span class="prop" title="Unit weight">${fmtWeight(p.weight)}</span>`);
+            if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Pcs per box">${fmtQty(p.qty)}</span>`);
             if(p.shelf)props.push(`<span class="prop" title="Shelf life">${trShelf(p.shelf)}</span>`);
             if(p.storage)props.push(`<span class="prop" title="Storage">${trStor(p.storage)}</span>`);
             if(p.hsCode)props.push(`<span class="prop" title="HS Code">${p.hsCode}</span>`);
