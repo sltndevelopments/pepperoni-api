@@ -355,7 +355,7 @@
   <script>
     const PHOTOS={};
     function getPhoto(name){const id=PHOTOS[name.toLowerCase().trim()];return id?`https://drive.google.com/thumbnail?id=${id}&sz=w400`:null;}
-    const CUR_SYM={RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'};
+    const CUR_SYM={RUB:'\u20BD',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'};
     let CUR='RUB',VAT=true,ALL_GROUPS=[];
 
     function getPrice(p){
@@ -366,6 +366,7 @@
     function fmtPrice(v){if(!v)return '—';return v.toLocaleString('ru-RU',{minimumFractionDigits:v<10?2:0,maximumFractionDigits:2})}
     const fmtWeight=w=>{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|кг|kg)\s*$/i.test(s)?s:s+' кг'};
     const fmtQty=q=>{if(!q)return'';const s=String(q).trim();return/\d+\s*шт/i.test(s)?s:s+' шт/кор'};
+    const looksLikePrice=v=>/^\d{2,}[.,]\d{2}$/.test(String(v||'').trim());
     function renderGroups(allGroups){
       let html='';
       const sym=CUR_SYM[CUR]||CUR;
@@ -381,11 +382,11 @@
               ?`${fmtPrice(pr)} ${sym}/шт`
               :`${fmtPrice(pr)} ${sym} <span class="product-price-vat">${vatLabel}</span>`;
             const props=[];
-            if(p.weight)props.push(`<span class="prop" title="Вес расчёта">${fmtWeight(p.weight)}</span>`);
+            if(p.weight&&!looksLikePrice(p.weight))props.push(`<span class="prop" title="Вес расчёта">${fmtWeight(p.weight)}</span>`);
             if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Штук в коробке">${fmtQty(p.qty)}</span>`);
-            if(p.shelf)props.push(`<span class="prop" title="Срок годности">${p.shelf}</span>`);
-            if(p.storage)props.push(`<span class="prop" title="Хранение">${p.storage}</span>`);
-            if(p.hsCode)props.push(`<span class="prop" title="ТН ВЭД">${p.hsCode}</span>`);
+            if(p.shelf&&!looksLikePrice(p.shelf))props.push(`<span class="prop" title="Срок годности">${p.shelf}</span>`);
+            if(p.storage&&!looksLikePrice(p.storage))props.push(`<span class="prop" title="Хранение">${p.storage}</span>`);
+            if(p.hsCode&&!looksLikePrice(p.hsCode))props.push(`<span class="prop" title="ТН ВЭД">${p.hsCode}</span>`);
             const propsHtml=props.length?props.join(''):'';
             const photo=getPhoto(p.name);
             const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
@@ -395,13 +396,13 @@
               <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
               ${photo?`<img src="${photo}" alt="${altText}" style="width:100%;height:160px;object-fit:cover;border-radius:8px;margin-bottom:10px" loading="lazy" itemprop="image">`:''}
               <div class="product-name" itemprop="name">${p.name}</div>
-              <div class="product-sku">${propsHtml}</div>
               <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <meta itemprop="price" content="${pr}">
                 <meta itemprop="priceCurrency" content="${priceCur}">
                 <link itemprop="availability" href="https://schema.org/InStock">
                 <div class="product-price">${priceLabel}</div>
               </div>
+              <div class="product-sku">${propsHtml}</div>
               <div class="product-avail">&#10003; В наличии</div>
             </div></a>`;
           }
