@@ -453,12 +453,27 @@
         ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
       }
     }
+    async function loadFromProductsJSON(){
+      const d=await fetch('/products.json').then(r=>r.json());
+      const groups={};
+      for(const p of d.products||[]){
+        const sec=p.section||'Прочее',cat=p.category||sec;
+        if(!groups[sec])groups[sec]={};if(!groups[sec][cat])groups[sec][cat]=[];
+        const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
+        const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
+        const isBakery=!!p.offers?.pricePerUnit;
+        groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
+      }
+      const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
+      ALL_GROUPS=[];
+      for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
+    }
     async function loadCatalog(){
       try{
         await loadFromAPI();
         render();
       }catch(e){
-        document.getElementById('loading').textContent='Каталог: ошибка загрузки. Попробуйте /products.json';
+        try{await loadFromProductsJSON();render();}catch(e2){document.getElementById('loading').textContent='Каталог: ошибка загрузки.';}
       }
     }
     loadCatalog();

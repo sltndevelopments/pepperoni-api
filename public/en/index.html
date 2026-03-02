@@ -366,12 +366,31 @@
         ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
       }
     }
+    async function loadFromProductsJSON(){
+      const d=await fetch('/products.json').then(r=>r.json());
+      const groups={};
+      const secTR={'Заморозка':'Frozen Products','Охлаждённая продукция':'Refrigerated Products','Выпечка':'Bakery'};
+      const catTR={'Сосиски гриль для хот-догов':'Grill Sausages for Hot Dogs','Котлеты для бургеров':'Burger Patties','Топпинги':'Toppings','Мясные заготовки':'Meat Preparations','Сосиски, сардельки':'Sausages & Frankfurters','Вареные':'Boiled Sausages','Ветчины':'Hams','Копченые':'Smoked Meats','Премиум Казылык':'Premium Kazylyk','Национальная татарская выпечка':'Traditional Tatar Pastries','Классическая выпечка':'Classic Pastries'};
+      for(const p of d.products||[]){
+        const sec=p.section||'Other',secEN=secTR[sec]||sec;
+        const cat=catTR[p.category]||p.category||secEN;
+        if(!groups[secEN])groups[secEN]={};if(!groups[secEN][cat])groups[secEN][cat]=[];
+        const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
+        const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
+        const isBakery=!!p.offers?.pricePerUnit;
+        const nameEN=tr(p.name);
+        groups[secEN][cat].push({name:nameEN,nameRu:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,priceBox:isBakery?parseFloat(p.offers?.pricePerBox||0):0,qty:p.qtyPerBox||''});
+      }
+      const icons={'Frozen Products':'❄️','Refrigerated Products':'🧊','Bakery':'🥐'};
+      ALL_GROUPS=[];
+      for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
+    }
     async function loadCatalog(){
       try{
         await loadFromAPI();
         render();
       }catch(e){
-        document.getElementById('loading').textContent='Catalog: loading error. Try /products.json';
+        try{await loadFromProductsJSON();render();}catch(e2){document.getElementById('loading').textContent='Catalog: loading error.';}
       }
     }
     loadCatalog();

@@ -1,4 +1,6 @@
 import { logVisit } from './stats.js';
+import { readFileSync } from 'fs';
+import { join } from 'path';
 
 const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
@@ -413,6 +415,16 @@ function buildBakery(lines, section, startIdx) {
   return { products, nextIdx: idx };
 }
 
+function loadProductsJSON() {
+  try {
+    const path = join(process.cwd(), 'public', 'products.json');
+    const data = JSON.parse(readFileSync(path, 'utf8'));
+    return data.products || [];
+  } catch (e) {
+    return [];
+  }
+}
+
 export default async function handler(req, res) {
   try {
     logVisit(req);
@@ -437,6 +449,19 @@ export default async function handler(req, res) {
 
       allProducts = allProducts.concat(result.products.map(p => addPhoto(enrich(p))));
       idx = result.nextIdx;
+    }
+
+    const staticBySku = {};
+    for (const p of loadProductsJSON()) {
+      if (p.sku) staticBySku[p.sku] = p;
+    }
+    for (const p of allProducts) {
+      if (!p.sku) continue;
+      const pr = parseFloat(p.offers?.price || p.offers?.pricePerUnit || 0);
+      if (pr <= 0 && staticBySku[p.sku]?.offers) {
+        const s = staticBySku[p.sku].offers;
+        p.offers = { ...p.offers, price: s.price || p.offers?.price, priceExclVAT: s.priceExclVAT || p.offers?.priceExclVAT, pricePerUnit: s.pricePerUnit || p.offers?.pricePerUnit, pricePerBox: s.pricePerBox || p.offers?.pricePerBox, pricePerBoxExclVAT: s.pricePerBoxExclVAT || p.offers?.pricePerBoxExclVAT, exportPrices: s.exportPrices || p.offers?.exportPrices };
+      }
     }
 
     const { search, section, category, sku, lang } = req.query || {};
@@ -494,6 +519,25 @@ export default async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    const { lang } = req.query || {};
+    const staticProducts = loadProductsJSON();
+    if (staticProducts.length > 0) {
+      let filtered = lang === 'en' ? staticProducts.map(translateProduct) : staticProducts;
+      res.setHeader('Content-Type', 'application/json; charset=utf-8');
+      res.setHeader('Cache-Control', 's-maxage=60, stale-while-revalidate=300');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      res.setHeader('X-Data-Source', 'fallback-products-json');
+      res.status(200).json({
+        '@context': 'https://schema.org',
+        '@type': 'DataCatalog',
+        name: 'Полный каталог — Казанские Деликатесы',
+        url: 'https://api.pepperoni.tatar/api/products',
+        source: 'products.json (fallback)',
+        totalProducts: filtered.length,
+        products: filtered,
+      });
+    } else {
+      res.status(500).json({ error: err.message });
+    }
   }
 }
