@@ -86,6 +86,13 @@ function parseStandard(lines, section, startIdx) {
     }
 
     idx++;
+    const ep = {};
+    if (toNumber(cols[7])) ep.USD = toNumber(cols[7]);
+    if (toNumber(cols[8])) ep.KZT = toNumber(cols[8]);
+    if (toNumber(cols[9])) ep.UZS = toNumber(cols[9]);
+    if (toNumber(cols[10])) ep.KGS = toNumber(cols[10]);
+    if (toNumber(cols[11])) ep.BYN = toNumber(cols[11]);
+    if (toNumber(cols[12])) ep.AZN = toNumber(cols[12]);
 
     products.push({
       name,
@@ -99,6 +106,7 @@ function parseStandard(lines, section, startIdx) {
         price: priceVAT.toFixed(2),
         priceExclVAT: priceNoVAT.toFixed(2),
         availability: 'https://schema.org/InStock',
+        exportPrices: Object.keys(ep).length ? ep : undefined,
       },
       shelfLife: cols[4] || '',
       storage: cols[5] || '',
@@ -128,6 +136,13 @@ function parseBakery(lines, section, startIdx) {
     }
 
     idx++;
+    const ep = {};
+    if (toNumber(cols[9])) ep.USD = toNumber(cols[9]);
+    if (toNumber(cols[10])) ep.KZT = toNumber(cols[10]);
+    if (toNumber(cols[11])) ep.UZS = toNumber(cols[11]);
+    if (toNumber(cols[12])) ep.KGS = toNumber(cols[12]);
+    if (toNumber(cols[13])) ep.BYN = toNumber(cols[13]);
+    if (toNumber(cols[14])) ep.AZN = toNumber(cols[14]);
 
     products.push({
       name,
@@ -143,6 +158,7 @@ function parseBakery(lines, section, startIdx) {
         pricePerBox: pricePerBox.toFixed(2),
         pricePerBoxExclVAT: toNumber(cols[5]).toFixed(2),
         availability: 'https://schema.org/InStock',
+        exportPrices: Object.keys(ep).length ? ep : undefined,
       },
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
@@ -413,81 +429,97 @@ function generateProductPages(allProducts) {
   const dir = join(PUBLIC, 'products');
   if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
 
+  const syms = { USD: '$', KZT: '₸', UZS: 'UZS', KGS: 'KGS', BYN: 'BYN', AZN: 'AZN' };
+
   for (const p of allProducts) {
     const slug = p.sku.toLowerCase();
-    const price = p.offers.price || p.offers.pricePerUnit || '0';
+    const isBakery = !!p.offers?.pricePerUnit;
+    const priceRUB = isBakery ? p.offers.pricePerUnit : p.offers.price;
     const priceNoVAT = p.offers.priceExclVAT || p.offers.pricePerBoxExclVAT || '';
+    const priceUSD = p.offers?.exportPrices?.USD || '';
+    const ep = p.offers?.exportPrices || {};
+    let exportHtml = '';
+    if (Object.keys(ep).length) {
+      exportHtml = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Экспортные цены</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">';
+      for (const [cur, val] of Object.entries(ep)) {
+        if (val) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${val}</b> ${syms[cur] || cur}</span>`;
+      }
+      exportHtml += '</div>';
+    }
+
     const html = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${p.name} — Казанские Деликатесы | Халяль</title>
-<meta name="description" content="${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${price} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}">
+<meta name="description" content="${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${priceRUB} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://api.pepperoni.tatar/products/${slug}">
 <meta property="og:type" content="product">
 <meta property="og:title" content="${p.name} — Казанские Деликатесы">
-<meta property="og:description" content="${p.category}. ${price} ₽. Халяль.">
+<meta property="og:description" content="${p.category}. ${priceRUB} ₽. Халяль.">
 <meta property="og:url" content="https://api.pepperoni.tatar/products/${slug}">
 <meta property="og:locale" content="ru_RU">
+<link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/products/${slug}">
+<link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/products/${slug}">
 <script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"Product",
-  "name":"${p.name.replace(/"/g, '\\"')}",
-  "sku":"${p.sku}",
-  "brand":{"@type":"Brand","name":"Казанские Деликатесы"},
-  "category":"${(p.category || '').replace(/"/g, '\\"')}",
-  "description":"${p.name.replace(/"/g, '\\"')}. Халяль продукция.",
-  "offers":{"@type":"Offer","priceCurrency":"RUB","price":"${price}","availability":"https://schema.org/InStock","url":"https://pepperoni.tatar"},
-  "manufacturer":{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}
-}
+{"@context":"https://schema.org","@type":"Product","name":"${p.name.replace(/"/g, '\\"')}","sku":"${p.sku}","brand":{"@type":"Brand","name":"Казанские Деликатесы"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"${priceRUB}","availability":"https://schema.org/InStock"},"manufacturer":{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.8}
-.c{max-width:700px;margin:0 auto;padding:40px 24px}
-nav a{color:#0066cc;text-decoration:none;font-size:.9rem}
-h1{font-size:1.6rem;font-weight:700;margin:20px 0 8px}
-.badge{display:inline-block;background:#1b7a3d;color:#fff;padding:3px 10px;border-radius:4px;font-size:.8rem;font-weight:600;margin:4px 4px 16px 0}
-.card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;margin:12px 0}
-.price{font-size:1.6rem;font-weight:700;color:#1b7a3d;margin:8px 0}
-table{width:100%;border-collapse:collapse;margin:12px 0}td{padding:6px 10px;border-bottom:1px solid #eee;font-size:.9rem}
-td:first-child{color:#888}td:last-child{font-weight:600}
-.cta{display:inline-block;background:#1b7a3d;color:#fff;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;margin:4px 6px 4px 0;font-size:.9rem}
-footer{text-align:center;color:#aaa;font-size:.8rem;margin-top:32px;padding-top:16px;border-top:1px solid #eee}
-footer a{color:#888;text-decoration:none}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.6}
+.container{max-width:900px;margin:0 auto;padding:40px 24px}
+.badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.5px}
+.detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem}
+.detail-row dt{color:#767676}
+.detail-row dd{color:#1a1a1a;font-weight:500}
+.cta-box{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}
+.cta-box a{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}
+footer{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}
+footer a{color:#444;text-decoration:none}
 </style>
 </head>
 <body>
-<div class="c">
-<nav><a href="/">← Каталог</a></nav>
-<h1>${p.name}</h1>
-<span class="badge">HALAL</span>
-<span class="badge" style="background:#eee;color:#333">${p.sku}</span>
-<span class="badge" style="background:#eee;color:#333">${p.section}</span>
-<div class="card">
-<div class="price">${parseFloat(price).toLocaleString('ru-RU')} ₽</div>
-<div style="color:#1b7a3d;font-size:.85rem">✓ В наличии</div>
+<div class="container">
+<div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
+<a href="/" style="color:#0066cc;text-decoration:none">Каталог</a>
+<a href="/pepperoni" style="color:#0066cc;text-decoration:none">Пепперони</a>
+<a href="/about" style="color:#0066cc;text-decoration:none">О компании</a>
+<a href="/delivery" style="color:#0066cc;text-decoration:none">Доставка</a>
+<a href="/en/products/${slug}" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
 </div>
-<table>
-${p.category ? `<tr><td>Категория</td><td>${p.category}</td></tr>` : ''}
-${p.weight ? `<tr><td>Вес расчёта</td><td>${p.weight}</td></tr>` : ''}
-${priceNoVAT ? `<tr><td>Цена без НДС</td><td>${priceNoVAT} ₽</td></tr>` : ''}
-${p.shelfLife ? `<tr><td>Срок годности</td><td>${p.shelfLife}</td></tr>` : ''}
-${p.storage ? `<tr><td>Хранение</td><td>${p.storage}</td></tr>` : ''}
-${p.hsCode ? `<tr><td>ТН ВЭД</td><td>${p.hsCode}</td></tr>` : ''}
-<tr><td>Сертификация</td><td>Halal</td></tr>
-<tr><td>Производитель</td><td>Казанские Деликатесы</td></tr>
-</table>
-<div style="margin-top:20px">
-<a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
-<a href="mailto:info@kazandelikates.tatar" class="cta" style="background:transparent;border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
+<a href="/" style="display:inline-block;margin-bottom:24px;color:#0066cc;text-decoration:none;font-size:.9rem">← Каталог</a>
+<h1 style="font-size:1.6rem;margin-bottom:8px">${p.name}</h1>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<span class="badge">HALAL</span>
+<span class="badge" style="background:#0066cc">${p.sku}</span>
+<span class="badge" style="background:#555">${p.section || ''}</span>
+</div>
+${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery ? '/шт' : 'без НДС'}</span></div>` : ''}
+<div style="color:#767676;font-size:.9rem">${parseFloat(priceRUB).toLocaleString('ru-RU')} ₽${isBakery ? ' /шт' : ' с НДС'}</div>
+<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>
+${isBakery && p.offers.pricePerBox ? `<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за коробку: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('ru-RU')} ₽</b>${p.qtyPerBox ? ' (' + p.qtyPerBox + ' шт)' : ''}</div>` : ''}
+<div style="margin:20px 0">
+${p.category ? `<dl class="detail-row"><dt>Категория</dt><dd>${p.category}</dd></dl>` : ''}
+${p.weight ? `<dl class="detail-row"><dt>Вес расчёта</dt><dd>${p.weight}${p.weight.includes(' г') || p.weight.includes(' кг') ? '' : ' кг'}</dd></dl>` : ''}
+${priceNoVAT ? `<dl class="detail-row"><dt>Цена без НДС</dt><dd>${priceNoVAT} ₽</dd></dl>` : ''}
+${p.shelfLife ? `<dl class="detail-row"><dt>Срок годности</dt><dd>${p.shelfLife}</dd></dl>` : ''}
+${p.storage ? `<dl class="detail-row"><dt>Хранение</dt><dd>${p.storage}</dd></dl>` : ''}
+${p.hsCode ? `<dl class="detail-row"><dt>ТН ВЭД</dt><dd>${p.hsCode}</dd></dl>` : ''}
+<dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>
+<dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>
+</div>
+${exportHtml}
+<div class="cta-box">
+<h3 style="margin:0 0 8px">Заказ</h3>
+<p style="color:#444;margin-bottom:12px">Опт, экспорт, Private Label</p>
+<a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
+<a href="mailto:info@kazandelikates.tatar?subject=Заказ:%20${encodeURIComponent(p.name)}%20(${p.sku})" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
 </div>
 <footer>
-<p><a href="/">Каталог</a> · <a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a></p>
-<p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a></p>
+<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a></p>
+<p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
 </body>

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kd-catalog-v3';
+const CACHE_NAME = 'kd-catalog-v4';
 const STATIC_URLS = [
   '/',
   '/en/',
@@ -47,6 +47,11 @@ self.addEventListener('fetch', (e) => {
         })
         .catch(() => caches.match(e.request))
     );
+    return;
+  }
+
+  if (url.pathname.startsWith('/products/') || url.pathname.startsWith('/en/products/')) {
+    e.respondWith(fetch(e.request));
     return;
   }
 
