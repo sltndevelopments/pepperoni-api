@@ -55,7 +55,12 @@ def main():
         slug = sku.lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
         price_rub = p["offers"]["pricePerUnit"] if is_bakery else p["offers"]["price"]
-        price_usd = p["offers"].get("exportPrices", {}).get("USD", "")
+        price_usd_raw = p["offers"].get("exportPrices", {}).get("USD", "")
+        if is_bakery and price_usd_raw:
+            qty = int(p.get("qtyPerBox") or 1) or 1
+            price_usd = f"{float(price_usd_raw) / qty:.2f}" if qty > 0 else ""
+        else:
+            price_usd = price_usd_raw
         name = translate(tr, (p["name"] or "").strip().lower(), "products") or p["name"]
         section = translate(tr, p.get("section", ""), "sections") or p.get("section", "")
         category = translate(tr, p.get("category", ""), "categories") or p.get("category", "")
@@ -80,7 +85,11 @@ def main():
             export_html += "</div>"
 
         pr = float(price_rub) if price_rub else 0
-        desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽" + (f" (${price_usd})" if price_usd else "") + "."
+        pr_usd = float(price_usd) if price_usd else 0
+        if pr_usd > 0:
+            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
+        else:
+            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
@@ -102,7 +111,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://api.pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://api.pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://api.pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -151,8 +160,11 @@ footer a{{color:#444;text-decoration:none}}
 <span class="badge" style="background:#555">{section}</span>
 </div>
 '''
-        usd_suffix = f' <span style="font-size:.85rem;color:#767676;font-weight:400">(${price_usd})</span>' if price_usd else ''
-        html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{pr:,.2f} ₽{usd_suffix}<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
+        pr_usd = float(price_usd) if price_usd else 0
+        if pr_usd > 0:
+            html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${pr_usd:,.2f}<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
+        else:
+            html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{pr:,.2f} ₽<span style="font-size:.85rem;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>\n'
         if is_bakery and p["offers"].get("pricePerBox"):
             pbox = float(p["offers"]["pricePerBox"])
