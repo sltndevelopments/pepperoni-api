@@ -67,6 +67,11 @@ function toNumber(s) {
 
 // --- Parsers for each sheet type ---
 
+function extractQtyFromName(name) {
+  const m = String(name || '').match(/[×x]\s*(\d+)\s*шт/i);
+  return m ? parseInt(m[1], 10) : 0;
+}
+
 function parseStandard(lines, section, startIdx) {
   let category = '';
   const products = [];
@@ -86,6 +91,17 @@ function parseStandard(lines, section, startIdx) {
     }
 
     idx++;
+    const qty = extractQtyFromName(name);
+    const offers = {
+      priceCurrency: 'RUB',
+      price: priceVAT.toFixed(2),
+      priceExclVAT: priceNoVAT.toFixed(2),
+      availability: 'https://schema.org/InStock',
+      exportPrices: undefined,
+    };
+    if (qty > 1) {
+      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
+    }
     const ep = {};
     if (toNumber(cols[7])) ep.USD = toNumber(cols[7]);
     if (toNumber(cols[8])) ep.KZT = toNumber(cols[8]);
@@ -93,6 +109,7 @@ function parseStandard(lines, section, startIdx) {
     if (toNumber(cols[10])) ep.KGS = toNumber(cols[10]);
     if (toNumber(cols[11])) ep.BYN = toNumber(cols[11]);
     if (toNumber(cols[12])) ep.AZN = toNumber(cols[12]);
+    if (Object.keys(ep).length) offers.exportPrices = ep;
 
     products.push({
       name,
@@ -101,13 +118,7 @@ function parseStandard(lines, section, startIdx) {
       category: category || section,
       weight: cols[1] || '',
       brand: 'Казанские Деликатесы',
-      offers: {
-        priceCurrency: 'RUB',
-        price: priceVAT.toFixed(2),
-        priceExclVAT: priceNoVAT.toFixed(2),
-        availability: 'https://schema.org/InStock',
-        exportPrices: Object.keys(ep).length ? ep : undefined,
-      },
+      offers,
       shelfLife: cols[4] || '',
       storage: cols[5] || '',
       hsCode: cols[6] || '',
@@ -439,8 +450,9 @@ function generateProductPages(allProducts) {
     const priceUSD = p.offers?.exportPrices?.USD || '';
     const ep = p.offers?.exportPrices || {};
     let exportHtml = '';
-    if (Object.keys(ep).length) {
+    if (priceNoVAT || Object.keys(ep).length) {
       exportHtml = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Экспортные цены</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">';
+      if (priceNoVAT) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${priceNoVAT}</b> \u20BD <small style="color:#767676">без НДС</small></span>`;
       for (const [cur, val] of Object.entries(ep)) {
         if (val) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${val}</b> ${syms[cur] || cur}</span>`;
       }
@@ -521,10 +533,10 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${p.sku}",name:"${p.nam
 <div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${parseFloat(priceRUB).toLocaleString('ru-RU')} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery ? ' /шт' : ' с НДС'}</span></div>
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>
 ${isBakery && p.offers.pricePerBox ? `<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за коробку: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('ru-RU')} ₽</b>${p.qtyPerBox ? ' (' + p.qtyPerBox + ' шт)' : ''}</div>` : ''}
+${!isBakery && p.offers.pricePerPiece ? `<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>${parseFloat(p.offers.pricePerPiece).toLocaleString('ru-RU')} ₽</b></div>` : ''}
 <div style="margin:20px 0">
 ${p.category ? `<dl class="detail-row"><dt>Категория</dt><dd>${p.category}</dd></dl>` : ''}
 ${p.weight ? `<dl class="detail-row"><dt>Вес расчёта</dt><dd>${p.weight}${p.weight.includes(' г') || p.weight.includes(' кг') ? '' : ' кг'}</dd></dl>` : ''}
-${priceNoVAT ? `<dl class="detail-row"><dt>Цена без НДС</dt><dd>${priceNoVAT} ₽</dd></dl>` : ''}
 ${p.shelfLife ? `<dl class="detail-row"><dt>Срок годности</dt><dd>${p.shelfLife}</dd></dl>` : ''}
 ${p.storage ? `<dl class="detail-row"><dt>Хранение</dt><dd>${p.storage}</dd></dl>` : ''}
 ${p.hsCode ? `<dl class="detail-row"><dt>ТН ВЭД</dt><dd>${p.hsCode}</dd></dl>` : ''}

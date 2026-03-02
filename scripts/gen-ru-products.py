@@ -7,6 +7,7 @@ import urllib.request
 
 API = "https://pepperoni.tatar/api/products"
 OUT = "public/products"
+PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
 
@@ -14,11 +15,22 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
+def load_products():
+    try:
+        with urllib.request.urlopen(API, timeout=30) as r:
+            return json.load(r).get("products", [])
+    except Exception:
+        pass
+    p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f).get("products", [])
+    return []
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
-    with urllib.request.urlopen(API, timeout=30) as r:
-        data = json.load(r)
-    products = data.get("products", [])
+    products = load_products()
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -31,8 +43,10 @@ def main():
         price_usd = p["offers"].get("exportPrices", {}).get("USD", "")
         ep = p["offers"].get("exportPrices") or {}
         export_html = ""
-        if ep:
+        if price_no_vat or ep:
             export_html = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Экспортные цены</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">'
+            if price_no_vat:
+                export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{price_no_vat}</b> \u20BD <small style="color:#767676">без НДС</small></span>'
             for cur, val in ep.items():
                 if val:
                     export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{val}</b> {SYMS.get(cur, cur)}</span>'
@@ -123,13 +137,14 @@ footer a{{color:#444;text-decoration:none}}
             qty_str = f" ({qty} шт)" if qty else ""
             pbox_fmt = f"{pbox:,.2f}".replace(",", " ").replace(".", ",")
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за коробку: <b>{pbox_fmt} ₽</b>{qty_str}</div>\n'
+        elif not is_bakery and p["offers"].get("pricePerPiece"):
+            pp_fmt = f"{float(p['offers']['pricePerPiece']):,.2f}".replace(",", " ").replace(".", ",")
+            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
         html += '<div style="margin:20px 0">\n'
         if p.get("category"):
             html += f'<dl class="detail-row"><dt>Категория</dt><dd>{p["category"]}</dd></dl>\n'
         if weight:
             html += f'<dl class="detail-row"><dt>Вес расчёта</dt><dd>{weight}{weight_suffix}</dd></dl>\n'
-        if price_no_vat:
-            html += f'<dl class="detail-row"><dt>Цена без НДС</dt><dd>{price_no_vat} ₽</dd></dl>\n'
         if p.get("shelfLife"):
             html += f'<dl class="detail-row"><dt>Срок годности</dt><dd>{p["shelfLife"]}</dd></dl>\n'
         if p.get("storage"):

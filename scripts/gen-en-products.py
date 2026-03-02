@@ -7,14 +7,26 @@ import urllib.request
 
 API = "https://pepperoni.tatar/api/products?lang=en"
 OUT = "public/en/products"
+PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
+
+
+def load_products():
+    try:
+        with urllib.request.urlopen(API, timeout=30) as r:
+            return json.load(r).get("products", [])
+    except Exception:
+        pass
+    p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
+    if os.path.exists(p):
+        with open(p, encoding="utf-8") as f:
+            return json.load(f).get("products", [])
+    return []
 
 
 def main():
     os.makedirs(OUT, exist_ok=True)
-    with urllib.request.urlopen(API, timeout=30) as r:
-        data = json.load(r)
-    products = data.get("products", [])
+    products = load_products()
     for p in products:
         sku = p["sku"]
         slug = sku.lower()
@@ -34,8 +46,10 @@ def main():
 
         ep = p["offers"].get("exportPrices") or {}
         export_html = ""
-        if ep:
+        if price_excl or ep:
             export_html = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Export Prices</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">'
+            if price_excl:
+                export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{price_excl}</b> \u20BD <small style="color:#767676">excl. VAT</small></span>'
             for cur, val in ep.items():
                 if val:
                     export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{val}</b> {SYMS.get(cur, cur)}</span>'
@@ -123,13 +137,13 @@ footer a{{color:#444;text-decoration:none}}
             qty = p.get("qtyPerBox", "")
             qty_str = f" ({qty} pcs)" if qty else ""
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>{pbox:,.2f} ₽</b>{qty_str}</div>\n'
+        elif not is_bakery and p["offers"].get("pricePerPiece"):
+            html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>{float(p["offers"]["pricePerPiece"]):,.2f} ₽</b></div>\n'
         html += '<div style="margin:20px 0">\n'
         if category:
             html += f'<dl class="detail-row"><dt>Category</dt><dd>{category}</dd></dl>\n'
         if weight:
             html += f'<dl class="detail-row"><dt>Unit weight</dt><dd>{weight}</dd></dl>\n'
-        if price_excl:
-            html += f'<dl class="detail-row"><dt>Price excl. VAT</dt><dd>{price_excl} ₽</dd></dl>\n'
         if shelf_life:
             html += f'<dl class="detail-row"><dt>Shelf life</dt><dd>{shelf_life}</dd></dl>\n'
         if storage:

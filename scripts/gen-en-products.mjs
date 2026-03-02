@@ -13,11 +13,13 @@ for (const p of data.products) {
   const name = (p.name || '').replace(/\s+/g, ' ').trim();
   const desc = `${name}. ${p.category || p.section}. Halal products by Kazan Delicacies. Price: ${priceUSD ? '$'+priceUSD : priceRUB+' ₽'}.`.replace(/"/g, '&quot;').replace(/\n/g, ' ');
 
+  const priceNoVAT = p.offers?.priceExclVAT || p.offers?.pricePerBoxExclVAT || '';
   const ep = p.offers?.exportPrices || {};
   const syms = {USD:'$',KZT:'₸',UZS:'UZS',KGS:'KGS',BYN:'BYN',AZN:'AZN'};
   let exportHtml = '';
-  if (Object.keys(ep).length) {
+  if (priceNoVAT || Object.keys(ep).length) {
     exportHtml = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Export Prices</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">';
+    if (priceNoVAT) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${priceNoVAT}</b> \u20BD <small style="color:#767676">excl. VAT</small></span>`;
     for (const [cur, val] of Object.entries(ep)) {
       if (val) exportHtml += `<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>${val}</b> ${syms[cur]||cur}</span>`;
     }
@@ -97,10 +99,10 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${sku}",name:"${name.re
 ${priceUSD ? `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">$${priceUSD} <span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?'/pc':'excl. VAT'}</span></div>` : `<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">${parseFloat(priceRUB).toLocaleString('en-US')} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">${isBakery?' /pc':' incl. VAT'}</span></div>`}
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>
 ${isBakery&&p.offers.pricePerBox?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${parseFloat(p.offers.pricePerBox).toLocaleString('en-US')} ₽</b>${p.qtyPerBox?' ('+p.qtyPerBox+' pcs)':''}</div>`:''}
+${!isBakery&&p.offers.pricePerPiece?`<div style="margin-top:8px;font-size:.9rem;color:#444">Price per 1 pc: <b>${parseFloat(p.offers.pricePerPiece).toLocaleString('en-US')} ₽</b></div>`:''}
 <div style="margin:20px 0">
 ${p.category?`<dl class="detail-row"><dt>Category</dt><dd>${p.category}</dd></dl>`:''}
 ${p.weight?`<dl class="detail-row"><dt>Unit weight</dt><dd>${p.weight.includes(' g')||p.weight.includes(' kg')?p.weight:(p.weight.replace(',','.')+' kg')}</dd></dl>`:''}
-${p.offers?.priceExclVAT?`<dl class="detail-row"><dt>Price excl. VAT</dt><dd>${p.offers.priceExclVAT} ₽</dd></dl>`:''}
 ${p.shelfLife?`<dl class="detail-row"><dt>Shelf life</dt><dd>${p.shelfLife}</dd></dl>`:''}
 ${p.storage?`<dl class="detail-row"><dt>Storage</dt><dd>${p.storage}</dd></dl>`:''}
 ${p.hsCode?`<dl class="detail-row"><dt>HS Code</dt><dd>${p.hsCode}</dd></dl>`:''}

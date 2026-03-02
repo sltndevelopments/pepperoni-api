@@ -295,6 +295,11 @@ function enrich(product) {
   return product;
 }
 
+function extractQtyFromName(name) {
+  const m = String(name || '').match(/[×x]\s*(\d+)\s*шт/i);
+  return m ? parseInt(m[1], 10) : 0;
+}
+
 function buildStandard(lines, section, startIdx) {
   let category = '';
   const products = [];
@@ -318,6 +323,7 @@ function buildStandard(lines, section, startIdx) {
     const shelfLife = cols[4] || '';
     const storage = cols[5] || '';
     const hsCode = cols[6] || '';
+    const qty = extractQtyFromName(name);
 
     const prices = {};
     if (toNumber(cols[7])) prices.USD = toNumber(cols[7]);
@@ -327,6 +333,19 @@ function buildStandard(lines, section, startIdx) {
     if (toNumber(cols[11])) prices.BYN = toNumber(cols[11]);
     if (toNumber(cols[12])) prices.AZN = toNumber(cols[12]);
 
+    const offers = {
+      url: 'https://pepperoni.tatar',
+      priceCurrency: 'RUB',
+      price: priceVAT.toFixed(2),
+      priceExclVAT: priceNoVAT.toFixed(2),
+      availability: 'https://schema.org/InStock',
+      exportPrices: prices,
+      deliveryTerms: 'EXW Kazan Russia',
+    };
+    if (qty > 1) {
+      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
+    }
+
     products.push({
       name,
       sku: `KD-${String(idx).padStart(3, '0')}`,
@@ -335,15 +354,7 @@ function buildStandard(lines, section, startIdx) {
       weight,
       brand: 'Казанские Деликатесы',
       certification: 'Halal',
-      offers: {
-        url: 'https://pepperoni.tatar',
-        priceCurrency: 'RUB',
-        price: priceVAT.toFixed(2),
-        priceExclVAT: priceNoVAT.toFixed(2),
-        availability: 'https://schema.org/InStock',
-        exportPrices: prices,
-        deliveryTerms: 'EXW Kazan Russia',
-      },
+      offers,
       shelfLife,
       storage,
       hsCode,
@@ -460,7 +471,7 @@ export default async function handler(req, res) {
       const pr = parseFloat(p.offers?.price || p.offers?.pricePerUnit || 0);
       if (pr <= 0 && staticBySku[p.sku]?.offers) {
         const s = staticBySku[p.sku].offers;
-        p.offers = { ...p.offers, price: s.price || p.offers?.price, priceExclVAT: s.priceExclVAT || p.offers?.priceExclVAT, pricePerUnit: s.pricePerUnit || p.offers?.pricePerUnit, pricePerBox: s.pricePerBox || p.offers?.pricePerBox, pricePerBoxExclVAT: s.pricePerBoxExclVAT || p.offers?.pricePerBoxExclVAT, exportPrices: s.exportPrices || p.offers?.exportPrices };
+        p.offers = { ...p.offers, price: s.price || p.offers?.price, priceExclVAT: s.priceExclVAT || p.offers?.priceExclVAT, pricePerUnit: s.pricePerUnit || p.offers?.pricePerUnit, pricePerBox: s.pricePerBox || p.offers?.pricePerBox, pricePerBoxExclVAT: s.pricePerBoxExclVAT || p.offers?.pricePerBoxExclVAT, pricePerPiece: s.pricePerPiece || p.offers?.pricePerPiece, exportPrices: s.exportPrices || p.offers?.exportPrices };
       }
     }
 
