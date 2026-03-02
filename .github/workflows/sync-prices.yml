@@ -24,6 +24,9 @@ jobs:
       - name: Sync data from Google Sheets
         run: node scripts/sync-sheets.mjs
 
+      - name: Regenerate product pages (RU + EN)
+        run: python3 scripts/gen-ru-products.py && python3 scripts/gen-en-products.py
+
       - name: Check for changes
         id: changes
         run: |
@@ -34,6 +37,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add public/products.json public/llms-full.txt public/sitemap.xml
+          git add public/products.json public/products/ public/en/products/ public/llms-full.txt public/sitemap.xml
           git commit -m "🔄 Auto-sync prices from Google Sheets [$(date -u +%Y-%m-%d)]"
           git push
