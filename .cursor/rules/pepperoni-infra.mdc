@@ -1,0 +1,12 @@
+---
+description: Pepperoni.tatar infrastructure context (v2.0)
+alwaysApply: true
+---
+
+# Pepperoni.tatar Infrastructure (v2.0, Headless)
+
+- **api.pepperoni.tatar** (Data & AI): JSON, llms.txt, OpenAPI. VPS nginx. <100ms.
+- **pepperoni.tatar** (Presentation): HTML, маркетинг, каталог. Vercel.
+- **Правило:** Frontend fetch только из `https://api.pepperoni.tatar/api/products` (не Sheets).
+- **Data Flow:** Google Sheets → VPS cron 10m → `products.json`. Sync: `scripts/sync-vps.sh`.
+- **Deployment:** GitHub Actions → VPS `/repo` (rsync excludes `data/`).

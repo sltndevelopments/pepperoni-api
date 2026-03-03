@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://api.pepperoni.tatar/sitemap.xml
+
+# AI Discovery
+Allow: /llms.txt
