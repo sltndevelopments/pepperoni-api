@@ -24,9 +24,9 @@ def cloudinary_url(url, width=800, watermark=None):
     if "/image/upload/" not in url:
         return url
     if watermark == "thumb":
-        transform = "f_auto,q_auto,w_800,c_limit,l_text:Arial_50_bold:pepperoni.tatar,co_white,o_40"
+        transform = "f_auto,q_auto,w_800,c_limit/co_rgb:FFFFFF,l_text:Arial_50_bold:PEPPERONI_TATAR,o_50"
     elif watermark == "full":
-        transform = "f_auto,q_auto,w_1920,c_limit,l_text:Arial_100_bold:KazanDelikates,co_white,o_40"
+        transform = "f_auto,q_auto,w_1920,c_limit/co_rgb:FFFFFF,l_text:Arial_100_bold:KAZAN_DELIKATES,o_40"
     else:
         transform = f"f_auto,q_auto,w_{width},c_limit"
     parts = url.split("/image/upload/", 1)
