@@ -200,7 +200,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 @media(min-width:768px){{.product-hero{{grid-template-columns:1fr 1fr}}}}
 .product-gallery{{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
 .product-main-img{{margin-bottom:12px}}
-.product-main-img img{{display:block;width:100%}}
+.product-main-img img{{display:block;width:100%;min-height:300px;background:#f0f0f0}}
 .product-thumbs{{display:flex;gap:12px;flex-wrap:wrap}}
 .product-thumbs img{{flex:1;min-width:80px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
 .product-thumbs img:hover{{border-color:#1b7a3d}}
