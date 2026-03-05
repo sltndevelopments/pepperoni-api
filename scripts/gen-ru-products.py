@@ -90,7 +90,7 @@ def main():
         seo_start = (p.get("seoDescriptionRU") or "")[:60]
         alt_main = (f"{name}. {seo_start}".rstrip(". ") or name).replace('"', "&quot;")
         img_class = "product-img"
-        img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%;cursor:pointer"
+        img_style = "max-width:100%;height:auto;min-height:280px;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%;cursor:pointer"
         thumbs = []
         for label, url, full in [("Упаковка", pack_img, pack_full), ("В разрезе", slice_img, slice_full)]:
             if url:
@@ -98,7 +98,7 @@ def main():
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" fetchpriority="high" loading="eager" oncontextmenu="return false;" ondragstart="return false;"/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" oncontextmenu="return false;" ondragstart="return false;"/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
