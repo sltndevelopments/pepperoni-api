@@ -20,26 +20,28 @@ def html_esc(s):
 
 
 def cloudinary_url(url, width=800, watermark=None):
-    """Cloudinary transform with watermark. Strips existing transforms to avoid nesting/doubles."""
+    """Clean-slate rebuild: strip ALL between /upload/ and v1234/, then force-inject transform."""
     if not url:
         return ""
     url = str(url).strip()
     if "/image/upload/" not in url:
         return url
-    # Build transform: l_text first in overlay segment, fl_layer_apply required for Cloudinary
+    # Transform strings — fixed, no stacking
     if watermark == "thumb":
         transform = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_white,o_30/fl_layer_apply,g_center"
     elif watermark == "full":
         transform = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_white,o_30/fl_layer_apply,g_center"
     else:
         transform = f"f_auto,q_auto,w_{width},c_limit"
-    # Strip ALL existing transforms: keep only version + public_id
+    # Extract base (before /image/upload/) and clean path (v1234/xxx.jpg)
     parts = url.split("/image/upload/", 1)
     if len(parts) != 2:
         return url
-    rest = parts[1].lstrip("/")
+    rest = parts[1]
     m = re.search(r"(v\d+/[^\s#?]*)", rest)
-    path = m.group(1) if m else rest
+    if not m:
+        return url
+    path = m.group(1)
     base = parts[0].rstrip("/")
     return f"{base}/image/upload/{transform}/{path}"
 

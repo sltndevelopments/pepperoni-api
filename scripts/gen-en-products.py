@@ -17,7 +17,7 @@ def extract_qty_from_name(name):
 
 
 def cloudinary_url(url, width=800, watermark=None):
-    """Cloudinary transform with watermark. Strips existing transforms to avoid nesting/doubles."""
+    """Clean-slate rebuild: strip ALL between /upload/ and v1234/, then force-inject transform."""
     if not url:
         return ""
     url = str(url).strip()
@@ -32,9 +32,11 @@ def cloudinary_url(url, width=800, watermark=None):
     parts = url.split("/image/upload/", 1)
     if len(parts) != 2:
         return url
-    rest = parts[1].lstrip("/")
+    rest = parts[1]
     m = re.search(r"(v\d+/[^\s#?]*)", rest)
-    path = m.group(1) if m else rest
+    if not m:
+        return url
+    path = m.group(1)
     base = parts[0].rstrip("/")
     return f"{base}/image/upload/{transform}/{path}"
 
