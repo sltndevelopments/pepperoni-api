@@ -49,18 +49,7 @@ def main():
         price_no_vat = p["offers"].get("priceExclVAT") or p["offers"].get(
             "pricePerBoxExclVAT", ""
         )
-        price_usd = p["offers"].get("exportPrices", {}).get("USD", "")
         ep = p["offers"].get("exportPrices") or {}
-        export_html = ""
-        if price_no_vat or ep:
-            export_html = '<h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Экспортные цены</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0">'
-            if price_no_vat:
-                export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{price_no_vat}</b> \u20BD <small style="color:#767676">без НДС</small></span>'
-            for cur, val in ep.items():
-                if val:
-                    export_html += f'<span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>{val}</b> {SYMS.get(cur, cur)}</span>'
-            export_html += "</div>"
-
         weight = p.get("weight", "")
         weight_suffix = "" if (" г" in weight or " кг" in weight) else " кг"
         pr = float(price_rub) if price_rub else 0
@@ -69,10 +58,32 @@ def main():
         seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
         seo_desc = seo_desc[:160].replace('"', "&quot;")
 
-        img_url = p.get("image") or p.get("imageMain") or ""
-        if img_url and "drive.google.com" in str(img_url) and "/uc?" not in str(img_url):
-            img_url = drive_to_direct_url(img_url)
-        img_html = f'<div style="margin:20px 0"><img src="{img_url}" alt="{html_esc(name)}" style="max-width:100%;height:auto;border-radius:8px;max-height:300px" loading="lazy"/></div>' if img_url else ""
+        def to_direct(u):
+            if not u: return ""
+            u = str(u).strip()
+            if not u: return ""
+            if "drive.google.com" in u and "/uc?" not in u:
+                return drive_to_direct_url(u)
+            return u
+
+        main_img = to_direct(p.get("imageMain") or p.get("image"))
+        pack_img = to_direct(p.get("imagePack"))
+        slice_img = to_direct(p.get("imageSlice"))
+
+        img_class = 'product-img'
+        img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%"
+        thumbs = []
+        for label, url in [("Упаковка", pack_img), ("В разрезе", slice_img)]:
+            if url:
+                thumbs.append(f'<img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy"/>')
+
+        img_html = ""
+        if main_img:
+            main_tag = f'<img src="{main_img}" alt="{html_esc(name)}" class="{img_class}" style="{img_style}" loading="eager"/>'
+            if thumbs:
+                img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
+            else:
+                img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div></div>'
 
         specs = []
         if p.get("articleNumber") or p.get("sku"):
@@ -91,8 +102,8 @@ def main():
             specs.append(("Мин. заказ", p["minOrder"]))
         if p.get("nutrition"):
             specs.append(("КБЖУ", p["nutrition"]))
-        specs_rows = "".join(f'<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">{k}</td><td style="padding:8px 12px;border:1px solid #e0e0e0">{v}</td></tr>' for k, v in specs)
-        specs_table = f'<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
+        specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
+        specs_table = f'<div class="section-block"><h3 class="section-title">Технические характеристики</h3><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -126,17 +137,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
-body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.6}}
-.container{{max-width:900px;margin:0 auto;padding:40px 24px}}
+body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.6}}
+.container{{max-width:960px;margin:0 auto;padding:24px 16px}}
+@media(min-width:768px){{.container{{padding:40px 24px}}}}
 .badge{{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.5px}}
-.detail-row{{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem}}
-.detail-row dt{{color:#767676}}
-.detail-row dd{{color:#1a1a1a;font-weight:500}}
+.product-hero{{display:grid;gap:32px;margin-bottom:32px;align-items:start}}
+@media(min-width:768px){{.product-hero{{grid-template-columns:1fr 1fr}}}}
+.product-gallery{{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
+.product-main-img{{margin-bottom:12px}}
+.product-main-img img{{display:block;width:100%}}
+.product-thumbs{{display:flex;gap:12px;flex-wrap:wrap}}
+.product-thumbs img{{flex:1;min-width:80px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
+.product-thumbs img:hover{{border-color:#1b7a3d}}
+.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover}}
+.product-info{{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
+.price-block{{font-size:1.75rem;font-weight:700;color:#1b7a3d;margin:16px 0}}
+.section-block{{background:#fff;border-radius:12px;padding:24px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
+.section-title{{font-size:1rem;color:#1b7a3d;margin-bottom:16px;font-weight:600}}
+.specs-table{{width:100%;border-collapse:collapse;font-size:.9rem}}
+.specs-table td{{padding:12px 16px;border:1px solid #e8e8e8}}
+.specs-table tr:nth-child(even){{background:#f8f9fa}}
+.specs-key{{color:#666;width:40%}}
+.specs-val{{color:#1a1a1a;font-weight:500}}
 .cta-box{{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}}
 .cta-box a{{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}}
 .tg-order-btn,.wa-order-btn{{display:inline-flex;align-items:center;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0;transition:background .2s}}
 .tg-order-btn{{background:#2AABEE;color:#fff}}.tg-order-btn:hover{{background:#2298D6;color:#fff}}
 .wa-order-btn{{background:#25D366;color:#fff}}.wa-order-btn:hover{{background:#20BD5A;color:#fff}}
+.export-prices{{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}}
+.export-prices span{{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:6px;font-size:.85rem}}
 footer{{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}}
 footer a{{color:#444;text-decoration:none}}
 </style>
@@ -159,7 +188,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="/delivery" style="color:#0066cc;text-decoration:none">Доставка</a>
 <a href="/en/products/{slug}" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
 </div>
-<nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:16px">
+<nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:24px">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
     <span aria-hidden="true"> › </span>
@@ -168,16 +197,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{html_esc(name)}</span><meta itemprop="position" content="3"></li>
   </ol>
 </nav>
-{img_html}
-<h1 style="font-size:1.6rem;margin-bottom:8px">{name}</h1>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<div class="product-hero">
+<div>{img_html if img_html else '<div class="product-gallery"><div class="product-main-img"><span style="color:#999;font-size:.9rem">Фото не загружено</span></div></div>'}</div>
+<div class="product-info">
+<h1 style="font-size:1.5rem;margin-bottom:10px">{name}</h1>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
 <span class="badge">HALAL</span>
 <span class="badge" style="background:#0066cc">{p['sku']}</span>
 <span class="badge" style="background:#555">{section}</span>
 </div>
 '''
         fmt = f"{pr:,.2f}".replace(",", " ").replace(".", ",")
-        html += f'<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">{fmt} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /шт" if is_bakery else " с НДС"}</span></div>\n'
+        html += f'<div class="price-block">{fmt} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /шт" if is_bakery else " с НДС"}</span></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>\n'
         if is_bakery and p["offers"].get("pricePerBox"):
             pbox = float(p["offers"]["pricePerBox"])
@@ -194,23 +225,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if pp:
                 pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
                 html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
-        html += '<div style="margin:20px 0">\n'
-        html += f'<dl class="detail-row"><dt>Категория</dt><dd>{p.get("category") or "—"}</dd></dl>\n'
-        html += f'<dl class="detail-row"><dt>Вес расчёта</dt><dd>{(weight + weight_suffix) if weight else "—"}</dd></dl>\n'
-        html += f'<dl class="detail-row"><dt>Срок годности</dt><dd>{p.get("shelfLife") or "—"}</dd></dl>\n'
-        html += f'<dl class="detail-row"><dt>Хранение</dt><dd>{p.get("storage") or "—"}</dd></dl>\n'
-        html += f'<dl class="detail-row"><dt>ТН ВЭД</dt><dd>{p.get("hsCode") or "—"}</dd></dl>\n'
-        html += '<dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>\n'
-        html += '<dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>\n'
-        html += "</div>\n"
-        html += specs_table
-        if p.get("ingredientsRU"):
-            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
-            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Состав</h3><p style="font-size:.9rem;color:#444;line-height:1.5">{ing}</p></div>\n'
-        if p.get("cookingMethods"):
-            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
-            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Способы приготовления</h3><p style="font-size:.9rem;color:#444">{cm}</p></div>\n'
-        html += export_html
+        if price_no_vat or ep:
+            html += '<h3 class="section-title" style="margin-top:20px">Экспортные цены</h3><div class="export-prices">'
+            if price_no_vat:
+                html += f'<span><b>{price_no_vat}</b> ₽ <small style="color:#767676">без НДС</small></span>'
+            for cur, val in ep.items():
+                if val:
+                    html += f'<span><b>{val}</b> {SYMS.get(cur, cur)}</span>'
+            html += "</div>\n"
         subj = urllib.parse.quote(f"Заказ: {name} ({p['sku']})", safe="")
         tg_svg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.9 8.94c-.15.65-.53.81-1.08.5l-3-2.21-1.44 1.39c-.16.16-.29.29-.6.29l.21-3.05 5.55-5.02c.24-.22-.05-.34-.38-.11l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.13-.95l11.55-4.45c.53-.2.99.11.78.97z"/></svg>'
         wa_svg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>'
@@ -222,7 +244,17 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject={subj}" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
 </div>
-<footer>
+</div>
+</div>
+'''
+        html += specs_table
+        if p.get("ingredientsRU"):
+            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div class="section-block"><h3 class="section-title">Состав</h3><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
+        if p.get("cookingMethods"):
+            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div class="section-block"><h3 class="section-title">Способы приготовления</h3><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
+        html += '''<footer>
 <p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="https://api.pepperoni.tatar/">Для дистрибьюторов (API)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>

@@ -30,17 +30,35 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.6}
-.container{max-width:900px;margin:0 auto;padding:40px 24px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.6}
+.container{max-width:960px;margin:0 auto;padding:24px 16px}
+@media(min-width:768px){.container{padding:40px 24px}}
 .badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;letter-spacing:.5px}
-.detail-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #eee;font-size:.9rem}
-.detail-row dt{color:#767676}
-.detail-row dd{color:#1a1a1a;font-weight:500}
+.product-hero{display:grid;gap:32px;margin-bottom:32px;align-items:start}
+@media(min-width:768px){.product-hero{grid-template-columns:1fr 1fr}}
+.product-gallery{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.product-main-img{margin-bottom:12px}
+.product-main-img img{display:block;width:100%}
+.product-thumbs{display:flex;gap:12px;flex-wrap:wrap}
+.product-thumbs img{flex:1;min-width:80px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
+.product-thumbs img:hover{border-color:#1b7a3d}
+.product-img{max-width:100%;height:auto;border-radius:8px;object-fit:cover}
+.product-info{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.price-block{font-size:1.75rem;font-weight:700;color:#1b7a3d;margin:16px 0}
+.section-block{background:#fff;border-radius:12px;padding:24px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.section-title{font-size:1rem;color:#1b7a3d;margin-bottom:16px;font-weight:600}
+.specs-table{width:100%;border-collapse:collapse;font-size:.9rem}
+.specs-table td{padding:12px 16px;border:1px solid #e8e8e8}
+.specs-table tr:nth-child(even){background:#f8f9fa}
+.specs-key{color:#666;width:40%}
+.specs-val{color:#1a1a1a;font-weight:500}
 .cta-box{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}
 .cta-box a{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}
 .tg-order-btn,.wa-order-btn{display:inline-flex;align-items:center;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0;transition:background .2s}
 .tg-order-btn{background:#2AABEE;color:#fff}.tg-order-btn:hover{background:#2298D6;color:#fff}
 .wa-order-btn{background:#25D366;color:#fff}.wa-order-btn:hover{background:#20BD5A;color:#fff}
+.export-prices{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}
+.export-prices span{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:6px;font-size:.85rem}
 footer{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}
 footer a{color:#444;text-decoration:none}
 </style>
@@ -63,7 +81,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="/delivery" style="color:#0066cc;text-decoration:none">Доставка</a>
 <a href="/en/products/kd-017" style="color:#595959;text-decoration:none;margin-left:auto">🇬🇧 English</a>
 </div>
-<nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:16px">
+<nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:24px">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
     <span aria-hidden="true"> › </span>
@@ -72,25 +90,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">Пепперони сырокопчёный в нарезке</span><meta itemprop="position" content="3"></li>
   </ol>
 </nav>
-
-<h1 style="font-size:1.6rem;margin-bottom:8px">Пепперони сырокопчёный в нарезке</h1>
-<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
+<div class="product-hero">
+<div><div class="product-gallery"><div class="product-main-img"><span style="color:#999;font-size:.9rem">Фото не загружено</span></div></div></div>
+<div class="product-info">
+<h1 style="font-size:1.5rem;margin-bottom:10px">Пепперони сырокопчёный в нарезке</h1>
+<div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
 <span class="badge">HALAL</span>
 <span class="badge" style="background:#0066cc">KD-017</span>
 <span class="badge" style="background:#555">Заморозка</span>
 </div>
-<div style="font-size:2rem;font-weight:700;color:#1b7a3d;margin:16px 0">380,00 ₽<span style="font-size:.85rem;color:#767676;font-weight:400"> с НДС</span></div>
+<div class="price-block">380,00 ₽<span style="font-size:.85rem;color:#767676;font-weight:400"> с НДС</span></div>
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>
-<div style="margin:20px 0">
-<dl class="detail-row"><dt>Категория</dt><dd>Топпинги</dd></dl>
-<dl class="detail-row"><dt>Вес расчёта</dt><dd>0,5 кг</dd></dl>
-<dl class="detail-row"><dt>Срок годности</dt><dd>360 суток</dd></dl>
-<dl class="detail-row"><dt>Хранение</dt><dd>–18°C</dd></dl>
-<dl class="detail-row"><dt>ТН ВЭД</dt><dd>160100</dd></dl>
-<dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>
-<dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>
-</div>
-<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody><tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">Артикул</td><td style="padding:8px 12px;border:1px solid #e0e0e0">KD-017</td></tr><tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">Срок годности</td><td style="padding:8px 12px;border:1px solid #e0e0e0">360 суток</td></tr><tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">Условия хранения</td><td style="padding:8px 12px;border:1px solid #e0e0e0">–18°C</td></tr></tbody></table></div><h3 style="margin-top:20px;font-size:1rem;color:#1b7a3d">Экспортные цены</h3><div style="display:flex;gap:12px;flex-wrap:wrap;margin:8px 0"><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>345.45</b> ₽ <small style="color:#767676">без НДС</small></span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>4.43</b> $</span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>2199.85</b> ₸</span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>53975.56</b> UZS</span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>387.29</b> KGS</span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>12.92</b> BYN</span><span style="background:#fff;border:1px solid #ddd;padding:6px 12px;border-radius:6px;font-size:.85rem"><b>7.53</b> AZN</span></div><div class="cta-box">
+<h3 class="section-title" style="margin-top:20px">Экспортные цены</h3><div class="export-prices"><span><b>345.45</b> ₽ <small style="color:#767676">без НДС</small></span><span><b>4.43</b> $</span><span><b>2199.85</b> ₸</span><span><b>53975.56</b> UZS</span><span><b>387.29</b> KGS</span><span><b>12.92</b> BYN</span><span><b>7.53</b> AZN</span></div>
+<div class="cta-box">
 <h3 style="margin:0 0 8px">Заказ</h3>
 <p style="color:#444;margin-bottom:12px">Опт, экспорт, Private Label</p>
 <a href="https://t.me/KazanDel_Bot?start=KD-017" target="_blank" rel="noopener" class="tg-order-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.9 8.94c-.15.65-.53.81-1.08.5l-3-2.21-1.44 1.39c-.16.16-.29.29-.6.29l.21-3.05 5.55-5.02c.24-.22-.05-.34-.38-.11l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.13-.95l11.55-4.45c.53-.2.99.11.78.97z"/></svg>Telegram</a>
@@ -98,19 +110,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject=%D0%97%D0%B0%D0%BA%D0%B0%D0%B7%3A%20%D0%9F%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%20%D1%81%D1%8B%D1%80%D0%BE%D0%BA%D0%BE%D0%BF%D1%87%D1%91%D0%BD%D1%8B%D0%B9%20%D0%B2%20%D0%BD%D0%B0%D1%80%D0%B5%D0%B7%D0%BA%D0%B5%20%28KD-017%29" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
 </div>
-<footer>
+</div>
+</div>
+<div class="section-block"><h3 class="section-title">Технические характеристики</h3><table class="specs-table"><tbody><tr><td class="specs-key">Артикул</td><td class="specs-val">KD-017</td></tr><tr><td class="specs-key">Срок годности</td><td class="specs-val">360 суток</td></tr><tr><td class="specs-key">Условия хранения</td><td class="specs-val">–18°C</td></tr></tbody></table></div><footer>
 <p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="https://api.pepperoni.tatar/">Для дистрибьюторов (API)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
 <script>
-document.addEventListener("click",function(e){
+document.addEventListener("click",function(e){{
   var link=e.target.closest("a");if(!link)return;
   var href=link.getAttribute("href")||"";
-  if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
-  if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
-  if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
-});
+  if(href.indexOf("tel:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}}
+  if(href.indexOf("mailto:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}}
+  if(href.indexOf("kazandelikates.tatar")!==-1){{typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}}
+}});
 </script>
 </body>
 </html>
