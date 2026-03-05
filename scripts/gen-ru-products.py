@@ -28,9 +28,9 @@ def cloudinary_url(url, width=800, watermark=None):
         return url
     # Transform strings — fixed, no stacking
     if watermark == "thumb":
-        transform = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_white,o_30/fl_layer_apply,g_center"
+        transform = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center"
     elif watermark == "full":
-        transform = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_white,o_30/fl_layer_apply,g_center"
+        transform = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center"
     else:
         transform = f"f_auto,q_auto,w_{width},c_limit"
     # Extract base (before /image/upload/) and clean path (v1234/xxx.jpg)
