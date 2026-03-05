@@ -12,7 +12,7 @@ const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
 const SHEETS = [
-  { gid: '1087942289', section: 'Заморозка', type: 'standard', priceColOffset: 1 },
+  { gid: '1087942289', section: 'Заморозка', type: 'standard', priceColOffset: 0 },
   { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
