@@ -25,13 +25,18 @@ def cloudinary_url(url, width=800, watermark=None):
         return url
     transform = f"f_auto,q_auto,w_{width},c_limit"
     if watermark == "thumb":
-        wm = "l_text:Arial_28:pepperoni.tatar,co_white,o_18/fl_layer_apply,g_center"
+        wm = "l_text:Arial_40:pepperoni,co_white,o_30,g_center/fl_layer_apply"
         transform = f"{transform},{wm}"
     elif watermark == "full":
-        wm1 = "l_text:Arial_70:kazandelikates.tatar,co_white,o_12/fl_layer_apply,g_north_west,x_20,y_20"
-        wm2 = "l_text:Arial_70:pepperoni.tatar,co_white,o_12/fl_layer_apply,g_south_east,x_20,y_20"
-        transform = f"{transform},{wm1},{wm2}"
-    return re.sub(r"(/image/upload/)(?:[^/]+/)?", rf"\1{transform}/", url, count=1)
+        wm = "l_text:Arial_80:KazanDelikates,co_white,o_30,g_center/fl_layer_apply"
+        transform = f"{transform},{wm}"
+    parts = url.split("/image/upload/", 1)
+    if len(parts) != 2:
+        return url
+    rest = parts[1].lstrip("/")
+    m = re.search(r"(v\d+/.*)", rest)
+    path = m.group(1) if m else rest
+    return f"{parts[0]}/image/upload/{transform}/{path}"
 
 
 def load_translations():

@@ -26,17 +26,23 @@ def cloudinary_url(url, width=800, watermark=None):
     url = str(url).strip()
     if "/image/upload/" not in url:
         return url
+    # Build transform: no dots in text (Cloudinary-safe)
     transform = f"f_auto,q_auto,w_{width},c_limit"
     if watermark == "thumb":
-        # Single centered watermark for thumbnails (800px)
-        wm = "l_text:Arial_28:pepperoni.tatar,co_white,o_18/fl_layer_apply,g_center"
+        wm = "l_text:Arial_40:pepperoni,co_white,o_30,g_center/fl_layer_apply"
         transform = f"{transform},{wm}"
     elif watermark == "full":
-        # Two watermarks for full-size lightbox (1920px)
-        wm1 = "l_text:Arial_70:kazandelikates.tatar,co_white,o_12/fl_layer_apply,g_north_west,x_20,y_20"
-        wm2 = "l_text:Arial_70:pepperoni.tatar,co_white,o_12/fl_layer_apply,g_south_east,x_20,y_20"
-        transform = f"{transform},{wm1},{wm2}"
-    return re.sub(r"(/image/upload/)(?:[^/]+/)?", rf"\1{transform}/", url, count=1)
+        wm = "l_text:Arial_80:KazanDelikates,co_white,o_30,g_center/fl_layer_apply"
+        transform = f"{transform},{wm}"
+    # Insert transform, preserve version and public_id (strip any existing transforms)
+    parts = url.split("/image/upload/", 1)
+    if len(parts) != 2:
+        return url
+    rest = parts[1].lstrip("/")
+    # Find version (v + digits) or use rest as-is
+    m = re.search(r"(v\d+/.*)", rest)
+    path = m.group(1) if m else rest
+    return f"{parts[0]}/image/upload/{transform}/{path}"
 
 
 def load_products():
