@@ -19,14 +19,15 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
-def cloudinary_optimize(url):
-    """Add f_auto,q_auto to Cloudinary URLs for WebP compression."""
+def cloudinary_url(url, width=800):
+    """Cloudinary transform: f_auto,q_auto,w_N,c_limit for optimal LCP."""
     if not url:
         return ""
     url = str(url).strip()
-    if "/image/upload/" in url and "/image/upload/f_auto,q_auto/" not in url:
-        return url.replace("/image/upload/", "/image/upload/f_auto,q_auto/")
-    return url
+    if "/image/upload/" not in url:
+        return url
+    transform = f"f_auto,q_auto,w_{width},c_limit"
+    return re.sub(r"(/image/upload/)(?:[^/]+/)?", rf"\1{transform}/", url, count=1)
 
 
 def load_products():
@@ -59,22 +60,29 @@ def main():
         seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
         seo_desc = seo_desc[:160].replace('"', "&quot;")
 
-        main_img = cloudinary_optimize(p.get("imageMain") or p.get("image"))
-        pack_img = cloudinary_optimize(p.get("imagePack"))
-        slice_img = cloudinary_optimize(p.get("imageSlice"))
+        main_raw = (p.get("imageMain") or p.get("image") or "").strip()
+        pack_raw = (p.get("imagePack") or "").strip()
+        slice_raw = (p.get("imageSlice") or "").strip()
+
+        main_img = cloudinary_url(main_raw, 800)
+        main_full = cloudinary_url(main_raw, 1920)
+        pack_img = cloudinary_url(pack_raw, 800)
+        pack_full = cloudinary_url(pack_raw, 1920)
+        slice_img = cloudinary_url(slice_raw, 800)
+        slice_full = cloudinary_url(slice_raw, 1920)
 
         seo_start = (p.get("seoDescriptionRU") or "")[:60]
         alt_main = (f"{name}. {seo_start}".rstrip(". ") or name).replace('"', "&quot;")
         img_class = "product-img"
-        img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%"
+        img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%;cursor:pointer"
         thumbs = []
-        for label, url in [("Упаковка", pack_img), ("В разрезе", slice_img)]:
+        for label, url, full in [("Упаковка", pack_img, pack_full), ("В разрезе", slice_img, slice_full)]:
             if url:
-                thumbs.append(f'<img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy"/>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy"/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager"/>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" fetchpriority="high" loading="eager"/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -144,7 +152,13 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-thumbs{{display:flex;gap:12px;flex-wrap:wrap}}
 .product-thumbs img{{flex:1;min-width:80px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
 .product-thumbs img:hover{{border-color:#1b7a3d}}
+.product-thumbs .lightbox-trigger{{display:inline-block}}
+.lightbox-trigger{{cursor:pointer}}
 .product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover}}
+.lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}}
+.lightbox img{{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default}}
+.lightbox-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333}}
+.lightbox-close:hover{{background:#eee}}
 .product-info{{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
 .price-block{{font-size:1.75rem;font-weight:700;color:#1b7a3d;margin:16px 0}}
 .section-block{{background:#fff;border-radius:12px;padding:24px;margin-top:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
@@ -261,6 +275,18 @@ document.addEventListener("click",function(e){{
   if(href.indexOf("tel:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}}
   if(href.indexOf("mailto:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}}
   if(href.indexOf("kazandelikates.tatar")!==-1){{typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}}
+}});
+document.querySelectorAll(".lightbox-trigger").forEach(function(el){{
+  el.addEventListener("click",function(){{
+    var full=el.getAttribute("data-full");if(!full)return;
+    var m=document.createElement("div");m.className="lightbox";
+    var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
+    var img=document.createElement("img");img.src=full;img.alt="";
+    m.appendChild(btn);m.appendChild(img);
+    m.onclick=function(ev){{if(ev.target===m||ev.target===btn){{document.body.removeChild(m);document.body.style.overflow="";}}}};
+    img.onclick=function(ev){{ev.stopPropagation();}};
+    document.body.style.overflow="hidden";document.body.appendChild(m);
+  }});
 }});
 </script>
 </body>
