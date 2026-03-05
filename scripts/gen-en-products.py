@@ -16,6 +16,14 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
+def drive_to_direct_url(url):
+    """Convert Google Drive view link to direct image URL."""
+    if not url:
+        return ""
+    m = re.search(r"/file/d/([a-zA-Z0-9_-]+)", str(url)) or re.search(r"[?&]id=([a-zA-Z0-9_-]+)", str(url))
+    return f"https://drive.google.com/uc?export=view&id={m.group(1)}" if m else url
+
+
 def load_translations():
     p = os.path.join(os.path.dirname(__file__), "..", TRANSLATIONS_JSON)
     if os.path.exists(p):
@@ -92,8 +100,34 @@ def main():
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
         else:
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
+        seo_desc = (p.get("seoDescriptionEN") or desc)[:160].replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
+
+        img_url = p.get("image") or p.get("imageMain") or ""
+        if img_url and "drive.google.com" in str(img_url) and "/uc?" not in str(img_url):
+            img_url = drive_to_direct_url(img_url)
+        img_html = f'<div style="margin:20px 0"><img src="{img_url}" alt="{name_esc}" style="max-width:100%;height:auto;border-radius:8px;max-height:300px" loading="lazy"/></div>' if img_url else ""
+
+        specs = []
+        if p.get("articleNumber") or p.get("sku"):
+            specs.append(("SKU", p.get("articleNumber") or sku))
+        if p.get("diameter"):
+            specs.append(("Diameter", f"{p['diameter']} mm"))
+        if p.get("casing"):
+            specs.append(("Casing", p["casing"]))
+        if p.get("shelfLife"):
+            specs.append(("Shelf life", shelf_life or p["shelfLife"]))
+        if p.get("storage"):
+            specs.append(("Storage", storage or p["storage"]))
+        if p.get("boxWeightGross"):
+            specs.append(("Box weight gross", p["boxWeightGross"]))
+        if p.get("minOrder"):
+            specs.append(("Min order", p["minOrder"]))
+        if p.get("nutrition"):
+            specs.append(("Nutrition", p["nutrition"]))
+        specs_rows = "".join(f'<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">{k}</td><td style="padding:8px 12px;border:1px solid #e0e0e0">{v}</td></tr>' for k, v in specs)
+        specs_table = f'<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Technical specs</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -108,7 +142,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{name} — Kazan Delicacies | Halal</title>
-<meta name="description" content="{desc.replace(chr(34), '&quot;')}">
+<meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://api.pepperoni.tatar/en/products/{slug}">
 <meta property="og:type" content="product">
@@ -166,6 +200,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{name_esc}</span><meta itemprop="position" content="3"></li>
   </ol>
 </nav>
+{img_html}
 <h1 style="font-size:1.6rem;margin-bottom:8px">{name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
 <span class="badge">HALAL</span>
@@ -192,6 +227,16 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += '<dl class="detail-row"><dt>Certification</dt><dd>Halal</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Brand</dt><dd>Kazan Delicacies</dd></dl>\n'
         html += "</div>\n"
+        html += specs_table
+        if p.get("ingredientsEN"):
+            ing = p["ingredientsEN"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Ingredients</h3><p style="font-size:.9rem;color:#444;line-height:1.5">{ing}</p></div>\n'
+        elif p.get("ingredientsRU"):
+            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Ingredients</h3><p style="font-size:.9rem;color:#444;line-height:1.5">{ing}</p></div>\n'
+        if p.get("cookingMethods"):
+            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Cooking methods</h3><p style="font-size:.9rem;color:#444">{cm}</p></div>\n'
         html += export_html
         subj = urllib.parse.quote(f"Order: {name} ({sku})", safe="")
         tg_svg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.9 8.94c-.15.65-.53.81-1.08.5l-3-2.21-1.44 1.39c-.16.16-.29.29-.6.29l.21-3.05 5.55-5.02c.24-.22-.05-.34-.38-.11l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.13-.95l11.55-4.45c.53-.2.99.11.78.97z"/></svg>'

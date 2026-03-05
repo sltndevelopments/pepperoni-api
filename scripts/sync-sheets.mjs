@@ -65,6 +65,13 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
+/** Convert Google Drive view link to direct image URL */
+function driveToDirectUrl(url) {
+  if (!url || typeof url !== 'string') return '';
+  const m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  return m ? `https://drive.google.com/uc?export=view&id=${m[1]}` : url;
+}
+
 // --- Parsers for each sheet type ---
 
 function extractQtyFromName(name) {
@@ -77,14 +84,17 @@ function parseStandard(lines, section, startIdx, colOffset = 0) {
   const products = [];
   let idx = startIdx;
   const o = colOffset;
+  // New B2B mapping: A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage, H=7 HS,
+  // I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 SKU, S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN,
+  // V=21 Diameter, W=22 Casing, X=23 IngrRU, Y=24 IngrEN, Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
 
   for (const cols of lines) {
     if (!cols || cols.length < 7 + o) continue;
     const name = cols[0];
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
-    const priceVAT = toNumber(cols[2 + o]);
-    const priceNoVAT = toNumber(cols[3 + o]);
+    const priceVAT = toNumber(cols[3 + o]) || toNumber(cols[2 + o]);
+    const priceNoVAT = toNumber(cols[4 + o]) || toNumber(cols[3 + o]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
       if (name && !cols[1]) category = name;
@@ -100,29 +110,57 @@ function parseStandard(lines, section, startIdx, colOffset = 0) {
       availability: 'https://schema.org/InStock',
       exportPrices: undefined,
     };
+    const pricePerPieceVal = toNumber(cols[2 + o]);
     if (qty > 1) {
-      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
+      offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
+    } else if (pricePerPieceVal) {
+      offers.pricePerPiece = pricePerPieceVal.toFixed(2);
     }
     const ep = {};
-    if (toNumber(cols[7 + o])) ep.USD = toNumber(cols[7 + o]);
-    if (toNumber(cols[8 + o])) ep.KZT = toNumber(cols[8 + o]);
-    if (toNumber(cols[9 + o])) ep.UZS = toNumber(cols[9 + o]);
-    if (toNumber(cols[10 + o])) ep.KGS = toNumber(cols[10 + o]);
-    if (toNumber(cols[11 + o])) ep.BYN = toNumber(cols[11 + o]);
-    if (toNumber(cols[12 + o])) ep.AZN = toNumber(cols[12 + o]);
+    if (toNumber(cols[8 + o])) ep.USD = toNumber(cols[8 + o]);
+    if (toNumber(cols[9 + o])) ep.KZT = toNumber(cols[9 + o]);
+    if (toNumber(cols[10 + o])) ep.UZS = toNumber(cols[10 + o]);
+    if (toNumber(cols[11 + o])) ep.KGS = toNumber(cols[11 + o]);
+    if (toNumber(cols[12 + o])) ep.BYN = toNumber(cols[12 + o]);
+    if (toNumber(cols[13 + o])) ep.AZN = toNumber(cols[13 + o]);
     if (Object.keys(ep).length) offers.exportPrices = ep;
+
+    const articleFromSheet = (cols[17 + o] || '').trim();
+    const sku = `KD-${String(idx).padStart(3, '0')}`;
+
+    const mainPhoto = driveToDirectUrl(cols[27 + o]);
+    const packPhoto = driveToDirectUrl(cols[28 + o]);
+    const slicePhoto = driveToDirectUrl(cols[29 + o]);
+    const image = mainPhoto || packPhoto || slicePhoto || '';
 
     products.push({
       name,
-      sku: `KD-${String(idx).padStart(3, '0')}`,
+      sku,
+      articleNumber: articleFromSheet || undefined,
       section,
       category: category || section,
       weight: cols[1] || '',
       brand: 'Казанские Деликатесы',
       offers,
-      shelfLife: cols[4 + o] || '',
-      storage: cols[5 + o] || '',
-      hsCode: cols[6 + o] || '',
+      shelfLife: cols[5 + o] || '',
+      storage: cols[6 + o] || '',
+      hsCode: cols[7 + o] || '',
+      cookingMethods: cols[14 + o] || '',
+      minOrder: cols[15 + o] || '',
+      boxWeightGross: cols[16 + o] || '',
+      barcode: cols[18 + o] || '',
+      seoDescriptionRU: cols[19 + o] || '',
+      seoDescriptionEN: cols[20 + o] || '',
+      diameter: cols[21 + o] || '',
+      casing: cols[22 + o] || '',
+      ingredientsRU: cols[23 + o] || '',
+      ingredientsEN: cols[24 + o] || '',
+      nutrition: cols[25 + o] || '',
+      packageType: cols[26 + o] || '',
+      image,
+      imageMain: mainPhoto || undefined,
+      imagePack: packPhoto || undefined,
+      imageSlice: slicePhoto || undefined,
     });
   }
 
@@ -460,13 +498,28 @@ function generateProductPages(allProducts) {
       exportHtml += '</div>';
     }
 
+    const seoDesc = (p.seoDescriptionRU || `${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${priceRUB} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}`).replace(/"/g, '&quot;').slice(0, 160);
+
+    const specsRows = [];
+    if (p.articleNumber || p.sku) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">Артикул</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.articleNumber || p.sku}</td></tr>`);
+    if (p.diameter) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Диаметр</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.diameter} мм</td></tr>`);
+    if (p.casing) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Оболочка</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.casing}</td></tr>`);
+    if (p.shelfLife) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Срок годности</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.shelfLife}</td></tr>`);
+    if (p.storage) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Условия хранения</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.storage}</td></tr>`);
+    if (p.boxWeightGross) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Вес коробки брутто</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.boxWeightGross}</td></tr>`);
+    if (p.minOrder) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Мин. заказ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.minOrder}</td></tr>`);
+    if (p.nutrition) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">КБЖУ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.nutrition}</td></tr>`);
+    const specsTable = specsRows.length ? `<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>${specsRows.join('')}</tbody></table></div>` : '';
+
+    const imgHtml = p.image ? `<div style="margin:20px 0"><img src="${p.image}" alt="${(p.name || '').replace(/"/g, '&quot;')}" style="max-width:100%;height:auto;border-radius:8px;max-height:300px" loading="lazy"/></div>` : '';
+
     const html = `<!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>${p.name} — Казанские Деликатесы | Халяль</title>
-<meta name="description" content="${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${priceRUB} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}">
+<meta name="description" content="${seoDesc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://api.pepperoni.tatar/products/${slug}">
 <meta property="og:type" content="product">
@@ -525,6 +578,7 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${p.sku}",name:"${p.nam
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">${p.name.replace(/"/g,'&quot;')}</span><meta itemprop="position" content="3"></li>
   </ol>
 </nav>
+${imgHtml}
 <h1 style="font-size:1.6rem;margin-bottom:8px">${p.name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
 <span class="badge">HALAL</span>
@@ -544,6 +598,9 @@ ${p.hsCode ? `<dl class="detail-row"><dt>ТН ВЭД</dt><dd>${p.hsCode}</dd></d
 <dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>
 <dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>
 </div>
+${specsTable}
+${p.ingredientsRU ? `<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Состав</h3><p style="font-size:.9rem;color:#444;line-height:1.5">${p.ingredientsRU.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p></div>` : ''}
+${p.cookingMethods ? `<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Способы приготовления</h3><p style="font-size:.9rem;color:#444">${p.cookingMethods.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</p></div>` : ''}
 ${exportHtml}
 <div class="cta-box">
 <h3 style="margin:0 0 8px">Заказ</h3>
@@ -779,6 +836,13 @@ ${allProducts.map(p => `  <url>
 `;
   writeFileSync(sitemapPath, sitemap, 'utf-8');
   console.log(`✅ ${sitemapPath}`);
+
+  // IndexNow ping for Bing/Yandex
+  try {
+    const indexNowUrl = 'https://www.bing.com/indexnow?url=https://pepperoni.tatar/&key=2164b9a639c7455aad8651dc19e48641';
+    const r = await fetch(indexNowUrl);
+    if (r.ok) console.log('✅ IndexNow ping sent');
+  } catch (_) {}
 
   console.log('\n🎉 Синхронизация завершена!');
 }

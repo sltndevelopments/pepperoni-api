@@ -8,7 +8,8 @@
     "sync": "node scripts/sync-sheets.mjs",
     "gen-ru": "python3 scripts/gen-ru-products.py",
     "gen-en": "python3 scripts/gen-en-products.py",
-    "gen-cards": "npm run gen-ru && npm run gen-en"
+    "gen-cards": "npm run gen-ru && npm run gen-en",
+    "dev": "python3 -m http.server 3000 -d public"
   },
   "repository": {
     "type": "git",

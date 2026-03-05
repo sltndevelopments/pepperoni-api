@@ -19,6 +19,15 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
+def drive_to_direct_url(url):
+    """Convert Google Drive view link to direct image URL."""
+    if not url:
+        return ""
+    import re
+    m = re.search(r"/file/d/([a-zA-Z0-9_-]+)", str(url)) or re.search(r"[?&]id=([a-zA-Z0-9_-]+)", str(url))
+    return f"https://drive.google.com/uc?export=view&id={m.group(1)}" if m else url
+
+
 def load_products():
     """Load from products.json (source of truth). API may have stale/wrong column mapping."""
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
@@ -57,6 +66,33 @@ def main():
         pr = float(price_rub) if price_rub else 0
         name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
+        seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
+        seo_desc = seo_desc[:160].replace('"', "&quot;")
+
+        img_url = p.get("image") or p.get("imageMain") or ""
+        if img_url and "drive.google.com" in str(img_url) and "/uc?" not in str(img_url):
+            img_url = drive_to_direct_url(img_url)
+        img_html = f'<div style="margin:20px 0"><img src="{img_url}" alt="{html_esc(name)}" style="max-width:100%;height:auto;border-radius:8px;max-height:300px" loading="lazy"/></div>' if img_url else ""
+
+        specs = []
+        if p.get("articleNumber") or p.get("sku"):
+            specs.append(("Артикул", p.get("articleNumber") or p["sku"]))
+        if p.get("diameter"):
+            specs.append(("Диаметр", f"{p['diameter']} мм"))
+        if p.get("casing"):
+            specs.append(("Оболочка", p["casing"]))
+        if p.get("shelfLife"):
+            specs.append(("Срок годности", p["shelfLife"]))
+        if p.get("storage"):
+            specs.append(("Условия хранения", p["storage"]))
+        if p.get("boxWeightGross"):
+            specs.append(("Вес коробки брутто", p["boxWeightGross"]))
+        if p.get("minOrder"):
+            specs.append(("Мин. заказ", p["minOrder"]))
+        if p.get("nutrition"):
+            specs.append(("КБЖУ", p["nutrition"]))
+        specs_rows = "".join(f'<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">{k}</td><td style="padding:8px 12px;border:1px solid #e0e0e0">{v}</td></tr>' for k, v in specs)
+        specs_table = f'<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -72,7 +108,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="content-language" content="ru">
 <title>{name} — Казанские Деликатесы | Халяль</title>
-<meta name="description" content="{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}">
+<meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://api.pepperoni.tatar/products/{slug}">
 <meta property="og:type" content="product">
@@ -132,6 +168,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{html_esc(name)}</span><meta itemprop="position" content="3"></li>
   </ol>
 </nav>
+{img_html}
 <h1 style="font-size:1.6rem;margin-bottom:8px">{name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px">
 <span class="badge">HALAL</span>
@@ -166,6 +203,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += '<dl class="detail-row"><dt>Сертификация</dt><dd>Halal</dd></dl>\n'
         html += '<dl class="detail-row"><dt>Производитель</dt><dd>Казанские Деликатесы</dd></dl>\n'
         html += "</div>\n"
+        html += specs_table
+        if p.get("ingredientsRU"):
+            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Состав</h3><p style="font-size:.9rem;color:#444;line-height:1.5">{ing}</p></div>\n'
+        if p.get("cookingMethods"):
+            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
+            html += f'<div style="margin-top:16px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:8px">Способы приготовления</h3><p style="font-size:.9rem;color:#444">{cm}</p></div>\n'
         html += export_html
         subj = urllib.parse.quote(f"Заказ: {name} ({p['sku']})", safe="")
         tg_svg = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" style="margin-right:6px;flex-shrink:0"><path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm5.56 8.16l-1.9 8.94c-.15.65-.53.81-1.08.5l-3-2.21-1.44 1.39c-.16.16-.29.29-.6.29l.21-3.05 5.55-5.02c.24-.22-.05-.34-.38-.11l-6.86 4.32-2.96-.92c-.64-.2-.65-.64.13-.95l11.55-4.45c.53-.2.99.11.78.97z"/></svg>'
