@@ -38,15 +38,6 @@ def to_number(s):
         return 0
 
 
-def drive_to_direct_url(url):
-    """Convert Google Drive view link to direct image URL."""
-    if not url:
-        return ""
-    url = str(url).strip()
-    m = re.search(r"/file/d/([a-zA-Z0-9_-]+)", url) or re.search(r"[?&]id=([a-zA-Z0-9_-]+)", url)
-    return f"https://drive.google.com/uc?export=view&id={m.group(1)}" if m else url
-
-
 def extract_qty_from_name(name):
     m = re.search(r"[×x]\s*(\d+)\s*шт", str(name or ""), re.I)
     return int(m.group(1)) if m else 0
@@ -107,9 +98,9 @@ def parse_standard(lines, section, start_idx, col_offset=0):
         article = (cols[17 + o] or "").strip() if len(cols) > 17 + o else ""
         sku = f"KD-{idx:03d}"
 
-        main_photo = drive_to_direct_url(cols[27 + o]) if len(cols) > 27 + o else ""
-        pack_photo = drive_to_direct_url(cols[28 + o]) if len(cols) > 28 + o else ""
-        slice_photo = drive_to_direct_url(cols[29 + o]) if len(cols) > 29 + o else ""
+        main_photo = (cols[27 + o] or "").strip() if len(cols) > 27 + o else ""
+        pack_photo = (cols[28 + o] or "").strip() if len(cols) > 28 + o else ""
+        slice_photo = (cols[29 + o] or "").strip() if len(cols) > 29 + o else ""
         image = main_photo or pack_photo or slice_photo
 
         def cell(i):

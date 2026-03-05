@@ -16,12 +16,14 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def drive_to_direct_url(url):
-    """Convert Google Drive view link to direct image URL."""
+def cloudinary_optimize(url):
+    """Add f_auto,q_auto to Cloudinary URLs for WebP compression."""
     if not url:
         return ""
-    m = re.search(r"/file/d/([a-zA-Z0-9_-]+)", str(url)) or re.search(r"[?&]id=([a-zA-Z0-9_-]+)", str(url))
-    return f"https://drive.google.com/uc?export=view&id={m.group(1)}" if m else url
+    url = str(url).strip()
+    if "/image/upload/" in url and "/image/upload/f_auto,q_auto/" not in url:
+        return url.replace("/image/upload/", "/image/upload/f_auto,q_auto/")
+    return url
 
 
 def load_translations():
@@ -94,19 +96,14 @@ def main():
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
-        def to_direct(u):
-            if not u: return ""
-            u = str(u).strip()
-            if not u: return ""
-            if "drive.google.com" in u and "/uc?" not in u:
-                return drive_to_direct_url(u)
-            return u
+        main_img = cloudinary_optimize(p.get("imageMain") or p.get("image"))
+        pack_img = cloudinary_optimize(p.get("imagePack"))
+        slice_img = cloudinary_optimize(p.get("imageSlice"))
 
-        main_img = to_direct(p.get("imageMain") or p.get("image"))
-        pack_img = to_direct(p.get("imagePack"))
-        slice_img = to_direct(p.get("imageSlice"))
-
-        img_class = 'product-img'
+        seo_start = (p.get("seoDescriptionEN") or "")[:60]
+        alt_main = (name_esc + ". " + seo_start).rstrip(". ") or name_esc
+        alt_main = alt_main.replace('"', "&quot;")
+        img_class = "product-img"
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%"
         thumbs = []
         for label, url in [("Pack", pack_img), ("Slice", slice_img)]:
@@ -115,7 +112,7 @@ def main():
 
         img_html = ""
         if main_img:
-            main_tag = f'<img src="{main_img}" alt="{name_esc}" class="{img_class}" style="{img_style}" loading="eager"/>'
+            main_tag = f'<img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager"/>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
