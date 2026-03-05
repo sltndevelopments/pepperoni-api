@@ -44,9 +44,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .product-thumbs img:hover{border-color:#1b7a3d}
 .product-thumbs .lightbox-trigger{display:inline-block}
 .lightbox-trigger{cursor:pointer}
-.product-img{max-width:100%;height:auto;border-radius:8px;object-fit:cover}
+.product-img{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none}
 .lightbox{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}
-.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default}
+.lightbox img{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default;user-select:none;-webkit-user-drag:none}
 .lightbox-close{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333}
 .lightbox-close:hover{background:#eee}
 .product-info{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}
@@ -136,7 +136,7 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){{
     var full=el.getAttribute("data-full");if(!full)return;
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
-    var img=document.createElement("img");img.src=full;img.alt="";
+    var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){{if(ev.target===m||ev.target===btn){{document.body.removeChild(m);document.body.style.overflow="";}}}};
     img.onclick=function(ev){{ev.stopPropagation();}};

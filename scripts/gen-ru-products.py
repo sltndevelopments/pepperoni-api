@@ -20,29 +20,28 @@ def html_esc(s):
 
 
 def cloudinary_url(url, width=800, watermark=None):
-    """Cloudinary transform with optional watermark. watermark: 'thumb' or 'full'."""
+    """Cloudinary transform with watermark. Strips existing transforms to avoid nesting/doubles."""
     if not url:
         return ""
     url = str(url).strip()
     if "/image/upload/" not in url:
         return url
-    # Build transform: no dots in text (Cloudinary-safe)
-    transform = f"f_auto,q_auto,w_{width},c_limit"
+    # Build transform (fixed strings — no stacking)
     if watermark == "thumb":
-        wm = "l_text:Arial_40:pepperoni,co_white,o_30,g_center/fl_layer_apply"
-        transform = f"{transform},{wm}"
+        transform = "f_auto,q_auto,w_800,c_limit,l_text:Arial_50_bold:pepperoni.tatar,co_white,o_40"
     elif watermark == "full":
-        wm = "l_text:Arial_80:KazanDelikates,co_white,o_30,g_center/fl_layer_apply"
-        transform = f"{transform},{wm}"
-    # Insert transform, preserve version and public_id (strip any existing transforms)
+        transform = "f_auto,q_auto,w_1920,c_limit,l_text:Arial_100_bold:KazanDelikates,co_white,o_40"
+    else:
+        transform = f"f_auto,q_auto,w_{width},c_limit"
+    # Strip ALL existing transforms: keep only version + public_id
     parts = url.split("/image/upload/", 1)
     if len(parts) != 2:
         return url
     rest = parts[1].lstrip("/")
-    # Find version (v + digits) or use rest as-is
-    m = re.search(r"(v\d+/.*)", rest)
+    m = re.search(r"(v\d+/[^\s#?]*)", rest)
     path = m.group(1) if m else rest
-    return f"{parts[0]}/image/upload/{transform}/{path}"
+    base = parts[0].rstrip("/")
+    return f"{base}/image/upload/{transform}/{path}"
 
 
 def load_products():
@@ -93,11 +92,11 @@ def main():
         thumbs = []
         for label, url, full in [("Упаковка", pack_img, pack_full), ("В разрезе", slice_img, slice_full)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy"/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy" oncontextmenu="return false;" ondragstart="return false;"/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" fetchpriority="high" loading="eager"/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" fetchpriority="high" loading="eager" oncontextmenu="return false;" ondragstart="return false;"/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -173,9 +172,9 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-thumbs img:hover{{border-color:#1b7a3d}}
 .product-thumbs .lightbox-trigger{{display:inline-block}}
 .lightbox-trigger{{cursor:pointer}}
-.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover}}
+.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none}}
 .lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}}
-.lightbox img{{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default}}
+.lightbox img{{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default;user-select:none;-webkit-user-drag:none}}
 .lightbox-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333}}
 .lightbox-close:hover{{background:#eee}}
 .product-info{{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
@@ -300,7 +299,7 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){{
     var full=el.getAttribute("data-full");if(!full)return;
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
-    var img=document.createElement("img");img.src=full;img.alt="";
+    var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){{if(ev.target===m||ev.target===btn){{document.body.removeChild(m);document.body.style.overflow="";}}}};
     img.onclick=function(ev){{ev.stopPropagation();}};
