@@ -16,14 +16,21 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def cloudinary_url(url, width=800):
-    """Cloudinary transform: f_auto,q_auto,w_N,c_limit for optimal LCP."""
+def cloudinary_url(url, width=800, watermark=None):
+    """Cloudinary transform with optional watermark. watermark: 'thumb' or 'full'."""
     if not url:
         return ""
     url = str(url).strip()
     if "/image/upload/" not in url:
         return url
     transform = f"f_auto,q_auto,w_{width},c_limit"
+    if watermark == "thumb":
+        wm = "l_text:Arial_28:pepperoni.tatar,co_white,o_18/fl_layer_apply,g_center"
+        transform = f"{transform},{wm}"
+    elif watermark == "full":
+        wm1 = "l_text:Arial_70:kazandelikates.tatar,co_white,o_12/fl_layer_apply,g_north_west,x_20,y_20"
+        wm2 = "l_text:Arial_70:pepperoni.tatar,co_white,o_12/fl_layer_apply,g_south_east,x_20,y_20"
+        transform = f"{transform},{wm1},{wm2}"
     return re.sub(r"(/image/upload/)(?:[^/]+/)?", rf"\1{transform}/", url, count=1)
 
 
@@ -101,12 +108,12 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, 800)
-        main_full = cloudinary_url(main_raw, 1920)
-        pack_img = cloudinary_url(pack_raw, 800)
-        pack_full = cloudinary_url(pack_raw, 1920)
-        slice_img = cloudinary_url(slice_raw, 800)
-        slice_full = cloudinary_url(slice_raw, 1920)
+        main_img = cloudinary_url(main_raw, 800, "thumb")
+        main_full = cloudinary_url(main_raw, 1920, "full")
+        pack_img = cloudinary_url(pack_raw, 800, "thumb")
+        pack_full = cloudinary_url(pack_raw, 1920, "full")
+        slice_img = cloudinary_url(slice_raw, 800, "thumb")
+        slice_full = cloudinary_url(slice_raw, 1920, "full")
 
         seo_start = (p.get("seoDescriptionEN") or "")[:60]
         alt_main = (name_esc + ". " + seo_start).rstrip(". ") or name_esc
@@ -129,6 +136,8 @@ def main():
         specs = []
         if p.get("articleNumber") or p.get("sku"):
             specs.append(("SKU", p.get("articleNumber") or sku))
+        if p.get("barcode"):
+            specs.append(("Barcode", p["barcode"]))
         if p.get("diameter"):
             specs.append(("Diameter", f"{p['diameter']} mm"))
         if p.get("casing"):
@@ -139,12 +148,14 @@ def main():
             specs.append(("Storage", storage or p["storage"]))
         if p.get("boxWeightGross"):
             specs.append(("Box weight gross", p["boxWeightGross"]))
+        if p.get("packageType"):
+            specs.append(("Packaging", p["packageType"]))
         if p.get("minOrder"):
             specs.append(("Min order", p["minOrder"]))
         if p.get("nutrition"):
             specs.append(("Nutrition", p["nutrition"]))
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
-        specs_table = f'<div class="section-block"><h3 class="section-title">Technical specs</h3><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
+        specs_table = f'<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -206,8 +217,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .cta-box{{background:#f0f7f0;border:2px solid #1b7a3d;border-radius:10px;padding:24px;margin-top:24px}}
 .cta-box a{{display:inline-block;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0}}
 .tg-order-btn,.wa-order-btn{{display:inline-flex;align-items:center;padding:10px 24px;border-radius:8px;text-decoration:none;font-weight:600;font-size:.9rem;margin:4px 6px 4px 0;transition:background .2s}}
-.tg-order-btn{{background:#2AABEE;color:#fff}}.tg-order-btn:hover{{background:#2298D6;color:#fff}}
-.wa-order-btn{{background:#25D366;color:#fff}}.wa-order-btn:hover{{background:#20BD5A;color:#fff}}
+.tg-order-btn{{background:#0088cc;color:#fff}}.tg-order-btn:hover{{background:#006699;color:#fff}}
+.wa-order-btn{{background:#128c7e;color:#fff}}.wa-order-btn:hover{{background:#0d6b5f;color:#fff}}
 .export-prices{{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0}}
 .export-prices span{{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:6px;font-size:.85rem}}
 footer{{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}}
@@ -262,7 +273,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             qty_str = f" ({qty} pcs)" if qty else ""
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${price_usd_box:,.2f}</b>{qty_str}</div>\n'
         if price_excl or ep:
-            html += '<h3 class="section-title" style="margin-top:20px">Export Prices</h3><div class="export-prices">'
+            html += '<h2 class="section-title" style="margin-top:20px">Export Prices</h2><div class="export-prices">'
             if price_excl:
                 html += f'<span><b>{price_excl}</b> ₽ <small style="color:#767676">excl. VAT</small></span>'
             for cur, val in ep.items():
@@ -286,13 +297,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         html += specs_table
         if p.get("ingredientsEN"):
             ing = p["ingredientsEN"].replace("<", "&lt;").replace(">", "&gt;")
-            html += f'<div class="section-block"><h3 class="section-title">Ingredients</h3><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
+            html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         elif p.get("ingredientsRU"):
             ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
-            html += f'<div class="section-block"><h3 class="section-title">Ingredients</h3><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
+            html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
-            html += f'<div class="section-block"><h3 class="section-title">Cooking methods</h3><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
+            html += f'<div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += '''<footer>
 <p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="https://api.pepperoni.tatar/">For Distributors (API)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
