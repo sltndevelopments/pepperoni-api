@@ -1,0 +1,41 @@
+name: Update Catalog
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # every 6 hours
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Sync from Google Sheets
+        run: python3 scripts/sync-sheets.py
+
+      - name: Generate RU product pages
+        run: python3 scripts/gen-ru-products.py
+
+      - name: Generate EN product pages
+        run: python3 scripts/gen-en-products.py
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore: auto-update catalog from Google Sheets'
+          file_pattern: |
+            public/products.json
+            public/products/
+            public/en/products/
+          commit_user_name: 'github-actions[bot]'
+          commit_user_email: 'github-actions[bot]@users.noreply.github.com'
