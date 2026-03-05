@@ -26,11 +26,11 @@ def cloudinary_url(url, width=800, watermark=None):
     url = str(url).strip()
     if "/image/upload/" not in url:
         return url
-    # Build transform: base + text overlay as separate segment (no dots in text — Cloudinary parses as ext)
+    # Build transform: l_text first in overlay segment, fl_layer_apply required for Cloudinary
     if watermark == "thumb":
-        transform = "f_auto,q_auto,w_800,c_limit/co_rgb:FFFFFF,l_text:Arial_50_bold:PEPPERONI_TATAR,o_50"
+        transform = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_white,o_30/fl_layer_apply,g_center"
     elif watermark == "full":
-        transform = "f_auto,q_auto,w_1920,c_limit/co_rgb:FFFFFF,l_text:Arial_100_bold:KAZAN_DELIKATES,o_40"
+        transform = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_white,o_30/fl_layer_apply,g_center"
     else:
         transform = f"f_auto,q_auto,w_{width},c_limit"
     # Strip ALL existing transforms: keep only version + public_id
@@ -138,20 +138,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>{name} — Казанские Деликатесы | Халяль</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://api.pepperoni.tatar/products/{slug}">
+<link rel="canonical" href="https://pepperoni.tatar/products/{slug}">
 <meta property="og:type" content="product">
 <meta property="og:title" content="{name} — Казанские Деликатесы">
 <meta property="og:description" content="{p.get('category','')}. {price_rub} ₽. Халяль.">
-<meta property="og:url" content="https://api.pepperoni.tatar/products/{slug}">
+<meta property="og:url" content="https://pepperoni.tatar/products/{slug}">
 <meta property="og:locale" content="ru_RU">
-<link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/products/{slug}">
-<link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/products/{slug}">
+<link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
+<link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://api.pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://api.pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://api.pepperoni.tatar/products/{slug}"}}]}}
+{{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
@@ -217,9 +218,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:24px">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
     <span aria-hidden="true"> › </span>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/"><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
     <span aria-hidden="true"> › </span>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">{html_esc(name)}</span><meta itemprop="position" content="3"></li>
   </ol>
