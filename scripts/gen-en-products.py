@@ -130,14 +130,15 @@ def main():
         alt_main = alt_main.replace('"', "&quot;")
         img_class = "product-img"
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:contain;width:100%;cursor:pointer;background:#f0f0f0"
+        img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="this.onerror=null;var s=this.src;this.src=(s.indexOf(\'?\')>=0?s+\'&_=\':s+\'?_=\')+Date.now();"'
         thumbs = []
         for label, url, full in [("Pack", pack_img, pack_full), ("Slice", slice_img, slice_full)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy" oncontextmenu="return false;" ondragstart="return false;"/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" oncontextmenu="return false;" ondragstart="return false;"/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
