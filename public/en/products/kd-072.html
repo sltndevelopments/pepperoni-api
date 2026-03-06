@@ -125,25 +125,25 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </footer>
 </div>
 <script>
-document.addEventListener("click",function(e){{
+document.addEventListener("click",function(e){
   var link=e.target.closest("a");if(!link)return;
   var href=link.getAttribute("href")||"";
-  if(href.indexOf("tel:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}}
-  if(href.indexOf("mailto:")===0){{typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}}
-  if(href.indexOf("kazandelikates.tatar")!==-1){{typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}}
-}});
-document.querySelectorAll(".lightbox-trigger").forEach(function(el){{
-  el.addEventListener("click",function(){{
+  if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
+  if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
+  if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
+});
+document.querySelectorAll(".lightbox-trigger").forEach(function(el){
+  el.addEventListener("click",function(){
     var full=el.getAttribute("data-full");if(!full)return;
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Close");btn.textContent="×";
     var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     m.appendChild(btn);m.appendChild(img);
-    m.onclick=function(ev){{if(ev.target===m||ev.target===btn){{document.body.removeChild(m);document.body.style.overflow="";}}}};
-    img.onclick=function(ev){{ev.stopPropagation();}};
+    m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};
+    img.onclick=function(ev){ev.stopPropagation();};
     document.body.style.overflow="hidden";document.body.appendChild(m);
-  }});
-}});
+  });
+});
 </script>
 <script src="/force-image-reload.js" defer></script>
 </body>
