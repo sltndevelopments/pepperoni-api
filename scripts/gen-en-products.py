@@ -16,7 +16,7 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def cloudinary_url(pid, is_full=False):
+def cloudinary_url(pid, is_full=False, width=None):
     """Build Cloudinary URL and proxy through /api/health."""
     if not pid or not str(pid).strip():
         return ""
@@ -37,7 +37,8 @@ def cloudinary_url(pid, is_full=False):
         pid = pid.rstrip("/") + ".jpg" if "/" in pid else pid + ".jpg"
     pid = pid.replace("govyadiny", "govadiny")
     base = "https://res.cloudinary.com/duygfl3vz/image/upload/"
-    thumb = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    thumb_w = int(width) if width else 800
+    thumb = f"f_auto,q_auto,w_{thumb_w},c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
     remote = f"{base}{transform}{pid}?v=3"
@@ -120,9 +121,9 @@ def main():
 
         main_img = cloudinary_url(main_raw, False)
         main_full = cloudinary_url(main_raw, True)
-        pack_img = cloudinary_url(pack_raw, False)
+        pack_img = cloudinary_url(pack_raw, False, 320)
         pack_full = cloudinary_url(pack_raw, True)
-        slice_img = cloudinary_url(slice_raw, False)
+        slice_img = cloudinary_url(slice_raw, False, 320)
         slice_full = cloudinary_url(slice_raw, True)
 
         seo_start = (p.get("seoDescriptionEN") or "")[:60]
@@ -134,11 +135,11 @@ def main():
         thumbs = []
         for label, url, full in [("Pack", pack_img, pack_full), ("Slice", slice_img, slice_full)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" loading="lazy" {img_attrs}/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" width="320" height="213" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="800" height="533" loading="eager" fetchpriority="high" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
