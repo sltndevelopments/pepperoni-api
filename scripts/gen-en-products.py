@@ -42,7 +42,7 @@ def cloudinary_url(pid, is_full=False, width=None):
         thumb_size = "w_320,h_213,c_fill,g_auto"
     else:
         thumb_size = "w_800,h_533,c_fill,g_auto"
-    thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
     return f"{base}{transform}{pid}?v=3"
@@ -124,9 +124,9 @@ def main():
 
         main_img = cloudinary_url(main_raw, False, 800)
         main_full = cloudinary_url(main_raw, True)
-        pack_img = cloudinary_url(pack_raw, False, 320)
+        pack_img = cloudinary_url(pack_raw, False, 800)
         pack_full = cloudinary_url(pack_raw, True)
-        slice_img = cloudinary_url(slice_raw, False, 320)
+        slice_img = cloudinary_url(slice_raw, False, 800)
         slice_full = cloudinary_url(slice_raw, True)
 
         seo_start = (p.get("seoDescriptionEN") or "")[:60]
