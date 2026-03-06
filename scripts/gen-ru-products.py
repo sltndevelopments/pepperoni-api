@@ -43,6 +43,8 @@ def cloudinary_url(pid, is_full=False):
             pid = f"{prefix}/{name}.jpg"
         else:
             pid = f"{pid}.jpg"
+    # Исправление опечатки: govyadiny -> govadiny (Cloudinary хранит govadiny)
+    pid = pid.replace("govyadiny", "govadiny")
     base = "https://res.cloudinary.com/duygfl3vz/image/upload/"
     thumb = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
