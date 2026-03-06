@@ -16,8 +16,8 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def cloudinary_url(pid, is_full=False, width=None):
-    """Build Cloudinary URL and proxy through /api/health."""
+def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
+    """Build Cloudinary URL; optionally wrap via /api/health proxy."""
     if not pid or not str(pid).strip():
         return ""
     pid = str(pid).strip()
@@ -42,7 +42,9 @@ def cloudinary_url(pid, is_full=False, width=None):
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
     remote = f"{base}{transform}{pid}?v=3"
-    return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
+    if via_proxy:
+        return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
+    return remote
 
 
 def load_translations():
@@ -119,27 +121,33 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False, 640)
-        main_full = cloudinary_url(main_raw, True)
-        pack_img = cloudinary_url(pack_raw, False, 320)
-        pack_full = cloudinary_url(pack_raw, True)
-        slice_img = cloudinary_url(slice_raw, False, 320)
-        slice_full = cloudinary_url(slice_raw, True)
+        main_img = cloudinary_url(main_raw, False, 640, False)
+        main_img_proxy = cloudinary_url(main_raw, False, 640, True)
+        main_full = cloudinary_url(main_raw, True, None, False)
+        main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        pack_img = cloudinary_url(pack_raw, False, 320, False)
+        pack_img_proxy = cloudinary_url(pack_raw, False, 320, True)
+        pack_full = cloudinary_url(pack_raw, True, None, False)
+        pack_full_proxy = cloudinary_url(pack_raw, True, None, True)
+        slice_img = cloudinary_url(slice_raw, False, 320, False)
+        slice_img_proxy = cloudinary_url(slice_raw, False, 320, True)
+        slice_full = cloudinary_url(slice_raw, True, None, False)
+        slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
 
         seo_start = (p.get("seoDescriptionEN") or "")[:60]
         alt_main = (name_esc + ". " + seo_start).rstrip(". ") or name_esc
         alt_main = alt_main.replace('"', "&quot;")
         img_class = "product-img"
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:contain;width:100%;cursor:pointer;background:#f0f0f0"
-        img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="this.onerror=null;var s=this.src;this.src=(s.indexOf(\'?\')>=0?s+\'&_=\':s+\'?_=\')+Date.now();"'
+        img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy;}"'
         thumbs = []
-        for label, url, full in [("Pack", pack_img, pack_full), ("Slice", slice_img, slice_full)]:
+        for label, url, proxy, full, full_proxy in [("Pack", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("Slice", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" width="320" height="213" loading="lazy" {img_attrs}/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style};max-height:120px" width="320" height="213" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="800" height="533" loading="eager" fetchpriority="high" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="800" height="533" loading="eager" fetchpriority="high" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -338,9 +346,11 @@ document.addEventListener("click",function(e){
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
   el.addEventListener("click",function(){
     var full=el.getAttribute("data-full");if(!full)return;
+    var fullProxy=el.getAttribute("data-full-proxy")||"";
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Close");btn.textContent="×";
     var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
+    if(fullProxy){img.onerror=function(){this.onerror=null;this.src=fullProxy;};}
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};
     img.onclick=function(ev){ev.stopPropagation();};
