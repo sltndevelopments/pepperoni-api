@@ -48,6 +48,10 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     thumb_w = int(width) if width else 800
     if thumb_w <= 320:
         thumb_size = "w_320,h_213,c_fill,g_auto"
+    elif thumb_w <= 480:
+        thumb_size = "w_480,h_320,c_fill,g_auto"
+    elif thumb_w <= 640:
+        thumb_size = "w_640,h_427,c_fill,g_auto"
     else:
         thumb_size = "w_800,h_533,c_fill,g_auto"
     thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
@@ -93,14 +97,17 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False, 800, False)
-        main_img_proxy = cloudinary_url(main_raw, False, 800, True)
+        main_img_480 = cloudinary_url(main_raw, False, 480, False)
+        main_img_640 = cloudinary_url(main_raw, False, 640, False)
+        main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        pack_img_480 = cloudinary_url(pack_raw, False, 480, False)
         pack_img = cloudinary_url(pack_raw, False, 800, False)
         pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
         pack_full = cloudinary_url(pack_raw, True, None, False)
         pack_full_proxy = cloudinary_url(pack_raw, True, None, True)
+        slice_img_480 = cloudinary_url(slice_raw, False, 480, False)
         slice_img = cloudinary_url(slice_raw, False, 800, False)
         slice_img_proxy = cloudinary_url(slice_raw, False, 800, True)
         slice_full = cloudinary_url(slice_raw, True, None, False)
@@ -112,13 +119,20 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
-        for label, url, proxy, full, full_proxy in [("Упаковка", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
+        for label, url_480, url, proxy, full, full_proxy in [("Упаковка", pack_img_480, pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img_480, slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" loading="lazy" {img_attrs}/></span>')
+                if url_480:
+                    thumb_img = f'<img src="{url}" srcset="{url_480} 480w, {url} 800w" sizes="(max-width: 768px) 100vw, 800px" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/>'
+                else:
+                    thumb_img = f'<img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/>'
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">{thumb_img}</span>')
 
         img_html = ""
-        if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" fetchpriority="high" {img_attrs}/></span>'
+        if main_img_640:
+            if main_img_480:
+                main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img_640}" srcset="{main_img_480} 480w, {main_img_640} 640w" sizes="(max-width: 768px) 100vw, 640px" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+            else:
+                main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img_640}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -148,7 +162,7 @@ def main():
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Технические характеристики</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
-        preload_main = f'<link rel="preload" as="image" href="{main_img}">' if main_img else ""
+        preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img_480 or main_img_640}" fetchpriority="high">' if (main_img_480 or main_img_640) else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -191,7 +205,7 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-hero{{display:grid;gap:32px;margin-bottom:32px;align-items:start}}
 @media(min-width:768px){{.product-hero{{grid-template-columns:1fr 1fr}}}}
 .product-gallery{{background:transparent;border-radius:0;padding:0;box-shadow:none}}
-.product-main-img{{margin-bottom:10px;aspect-ratio:3/2;overflow:hidden}}
+.product-main-img{{margin-bottom:10px;aspect-ratio:3/2;overflow:hidden;background:#f0f0f0}}
 .product-main-img img{{display:block;width:100%;height:100%;object-fit:cover;background:transparent}}
 .product-thumbs{{display:grid;grid-template-columns:1fr;gap:12px}}
 .product-thumbs img{{display:block;width:100%;max-width:none;aspect-ratio:3/2;height:auto;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
