@@ -19,31 +19,35 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
-def cloudinary_url(url, width=800, watermark=None):
-    """Clean-slate rebuild: strip ALL between /upload/ and v1234/, then force-inject transform."""
-    if not url:
+def cloudinary_url(pid, is_full=False):
+    """Просто склейка: ID из таблицы -> полная ссылка с водяным знаком. Никакой магии."""
+    if not pid or not str(pid).strip():
         return ""
-    url = str(url).strip()
-    if "/image/upload/" not in url:
-        return url
-    # Transform strings — fixed, no stacking
-    if watermark == "thumb":
-        transform = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center"
-    elif watermark == "full":
-        transform = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center"
-    else:
-        transform = f"f_auto,q_auto,w_{width},c_limit"
-    # Extract base (before /image/upload/) and clean path (v1234/xxx.jpg)
-    parts = url.split("/image/upload/", 1)
-    if len(parts) != 2:
-        return url
-    rest = parts[1]
-    m = re.search(r"(v\d+/[^\s#?]*)", rest)
-    if not m:
-        return url
-    path = m.group(1)
-    base = parts[0].rstrip("/")
-    return f"{base}/image/upload/{transform}/{path}"
+    pid = str(pid).strip()
+    # Если пришла полная ссылка — вытащим ID (v123/name.jpg или name.jpg)
+    if "cloudinary.com" in pid:
+        try:
+            parts = pid.split("/upload/")
+            last_part = parts[-1].split("?")[0]
+            m = re.search(r"(v\d+/.+)|([^/]+\.(?:jpg|jpeg|png|webp))", last_part)
+            pid = m.group(1) or m.group(2) if m else last_part.split("/")[-1]
+        except Exception:
+            return pid
+    if not pid:
+        return ""
+    # Добавляем .jpg если нет расширения изображения
+    last = pid.split("/")[-1].lower()
+    if not any(last.endswith(ext) for ext in (".jpg", ".jpeg", ".png", ".webp")):
+        if "/" in pid:
+            prefix, name = pid.rsplit("/", 1)
+            pid = f"{prefix}/{name}.jpg"
+        else:
+            pid = f"{pid}.jpg"
+    base = "https://res.cloudinary.com/duygfl3vz/image/upload/"
+    thumb = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    transform = full if is_full else thumb
+    return f"{base}{transform}{pid}"
 
 
 def load_products():
@@ -80,17 +84,17 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, 800, "thumb")
-        main_full = cloudinary_url(main_raw, 1920, "full")
-        pack_img = cloudinary_url(pack_raw, 800, "thumb")
-        pack_full = cloudinary_url(pack_raw, 1920, "full")
-        slice_img = cloudinary_url(slice_raw, 800, "thumb")
-        slice_full = cloudinary_url(slice_raw, 1920, "full")
+        main_img = cloudinary_url(main_raw, False)
+        main_full = cloudinary_url(main_raw, True)
+        pack_img = cloudinary_url(pack_raw, False)
+        pack_full = cloudinary_url(pack_raw, True)
+        slice_img = cloudinary_url(slice_raw, False)
+        slice_full = cloudinary_url(slice_raw, True)
 
         seo_start = (p.get("seoDescriptionRU") or "")[:60]
         alt_main = (f"{name}. {seo_start}".rstrip(". ") or name).replace('"', "&quot;")
         img_class = "product-img"
-        img_style = "max-width:100%;height:auto;min-height:280px;border-radius:8px;object-fit:cover;aspect-ratio:1;width:100%;cursor:pointer"
+        img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:contain;width:100%;cursor:pointer;background:#f0f0f0"
         thumbs = []
         for label, url, full in [("Упаковка", pack_img, pack_full), ("В разрезе", slice_img, slice_full)]:
             if url:
@@ -169,13 +173,13 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 @media(min-width:768px){{.product-hero{{grid-template-columns:1fr 1fr}}}}
 .product-gallery{{background:#fff;border-radius:12px;padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
 .product-main-img{{margin-bottom:12px}}
-.product-main-img img{{display:block;width:100%;min-height:300px;background:#f0f0f0}}
+.product-main-img img{{display:block;width:100%;height:auto;object-fit:contain;background:#f0f0f0}}
 .product-thumbs{{display:flex;gap:12px;flex-wrap:wrap}}
 .product-thumbs img{{flex:1;min-width:80px;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
 .product-thumbs img:hover{{border-color:#1b7a3d}}
 .product-thumbs .lightbox-trigger{{display:inline-block}}
 .lightbox-trigger{{cursor:pointer}}
-.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none}}
+.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:contain;user-select:none;-webkit-user-drag:none}}
 .lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}}
 .lightbox img{{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default;user-select:none;-webkit-user-drag:none}}
 .lightbox-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333}}
@@ -198,6 +202,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .export-prices span{{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:6px;font-size:.85rem}}
 footer{{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}}
 footer a{{color:#444;text-decoration:none}}
+@media(max-width:767px){{.product-main-img img,.product-img{{max-height:50vh;aspect-ratio:auto}}.product-thumbs img{{min-width:60px;max-height:80px}}}}
+@media(max-width:480px){{.product-main-img img,.product-img{{max-height:40vh}}.product-thumbs{{gap:8px}}.product-thumbs img{{min-width:50px;max-height:60px}}}}
 </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
