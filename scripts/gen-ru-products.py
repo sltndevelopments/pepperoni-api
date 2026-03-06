@@ -46,7 +46,7 @@ def cloudinary_url(pid, is_full=False, width=None):
     pid = pid.replace("govyadiny", "govadiny")
     base = "https://res.cloudinary.com/duygfl3vz/image/upload/"
     thumb_w = int(width) if width else 800
-    thumb = f"f_auto,q_auto,w_{thumb_w},c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    thumb = f"f_auto,q_auto:eco,w_{thumb_w},c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
     remote = f"{base}{transform}{pid}?v=3"
@@ -87,7 +87,7 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False)
+        main_img = cloudinary_url(main_raw, False, 640)
         main_full = cloudinary_url(main_raw, True)
         pack_img = cloudinary_url(pack_raw, False, 320)
         pack_full = cloudinary_url(pack_raw, True)
@@ -136,6 +136,8 @@ def main():
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Технические характеристики</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
+        preload_main = f'<link rel="preload" as="image" href="{main_img}">' if main_img else ""
+
         html = f'''<!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -161,6 +163,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:locale" content="ru_RU">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
+{preload_main}
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
