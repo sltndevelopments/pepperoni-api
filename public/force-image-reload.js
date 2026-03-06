@@ -1,91 +1,94 @@
 (function() {
     'use strict';
-    console.log('Force Image Reload Auto v2.0');
-    var MAX_RETRIES = 2;
+    console.log('Force Image Reload v3.0 - no confirm, immediate fix');
 
     function addCacheBuster(url) {
-        if (url.includes('?')) return url + '&_=' + Date.now();
-        return url + '?_=' + Date.now();
+        if (!url || url.indexOf('data:') === 0 || url.indexOf('blob:') === 0) return url;
+        var sep = url.indexOf('?') >= 0 ? '&' : '?';
+        return url + sep + 'fix=' + Date.now();
     }
 
-    function reloadImage(img, retryCount) {
-        retryCount = retryCount || 0;
-        var originalSrc = img.src;
-        if (!originalSrc || originalSrc.startsWith('data:') || originalSrc.startsWith('blob:')) return;
-        var newSrc = addCacheBuster(originalSrc);
-        var newImage = new Image();
-        newImage.onload = function() {
+    function quickReloadImage(img) {
+        var src = img.src;
+        if (!src || src.indexOf('data:') === 0 || src.indexOf('blob:') === 0) return;
+        var newSrc = addCacheBuster(src);
+        var newImg = new Image();
+        newImg.onload = function() {
             img.src = newSrc;
-            var parent = img.closest('.lightbox-trigger');
-            if (parent && parent.hasAttribute('data-full')) {
+            var parent = img.closest && img.closest('.lightbox-trigger');
+            if (parent && parent.getAttribute('data-full')) {
                 parent.setAttribute('data-full', addCacheBuster(parent.getAttribute('data-full')));
             }
         };
-        newImage.onerror = function() {
-            if (retryCount < MAX_RETRIES) {
-                setTimeout(function() { reloadImage(img, retryCount + 1); }, 500);
-            }
-        };
-        newImage.src = newSrc;
+        newImg.src = newSrc;
     }
 
-    function reloadAllImages() {
+    function fixAllImagesNow() {
         var images = document.querySelectorAll('img');
         var count = 0;
-        images.forEach(function(img) {
-            var src = img.src;
-            if (!src || src.startsWith('data:') || src.startsWith('blob:')) return;
-            reloadImage(img);
-            count++;
-        });
-        if (count > 0) showNotification('Обновлено ' + count + ' изображений');
-    }
-
-    function showNotification(message, isError) {
-        var n = document.createElement('div');
-        n.style.cssText = 'position:fixed;top:20px;right:20px;padding:15px 20px;border-radius:5px;z-index:10000;font-family:Arial,sans-serif;font-size:14px;box-shadow:0 4px 6px rgba(0,0,0,.1)';
-        n.style.background = isError ? '#f44336' : '#4CAF50';
-        n.style.color = '#fff';
-        n.textContent = message;
-        document.body.appendChild(n);
-        setTimeout(function() { if (n.parentNode) n.parentNode.removeChild(n); }, 3000);
-    }
-
-    function checkAndReloadImages() {
-        var images = document.querySelectorAll('img');
-        var errored = [];
-        images.forEach(function(img) {
-            if (img.complete && img.naturalHeight === 0 && !img.src.startsWith('data:') && !img.src.startsWith('blob:')) {
-                errored.push(img);
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            if (img.src && img.src.indexOf('data:') !== 0 && img.src.indexOf('blob:') !== 0) {
+                setTimeout(function(im) { quickReloadImage(im); }, count * 80, img);
+                count++;
             }
-        });
-        if (errored.length > 0) {
-            console.log('Auto-reloading ' + errored.length + ' failed images');
-            showNotification('Перезагрузка ' + errored.length + ' изображений...', true);
-            errored.forEach(function(img) { reloadImage(img); });
-        } else {
-            console.log('All images loaded successfully');
+        }
+        if (count > 0) showMessage('Изображения обновляются...');
+    }
+
+    function showMessage(text) {
+        var msg = document.createElement('div');
+        msg.textContent = text;
+        msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4CAF50;color:#fff;padding:10px 15px;border-radius:5px;z-index:99999;font-size:14px;box-shadow:0 2px 5px rgba(0,0,0,.2)';
+        document.body.appendChild(msg);
+        setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 3000);
+    }
+
+    function checkAndFixBroken() {
+        var images = document.querySelectorAll('img');
+        var broken = 0;
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            if (img.complete && img.naturalWidth === 0 && img.naturalHeight === 0 && img.src && img.src.indexOf('data:') !== 0) {
+                quickReloadImage(img);
+                broken++;
+            }
+        }
+        if (broken > 0) {
+            console.log('Fixed ' + broken + ' broken images');
+            showMessage('Исправлено ' + broken + ' изображений');
         }
     }
 
-    function createReloadButton() {
+    function createButton() {
         var btn = document.createElement('button');
         btn.textContent = '\u27F3 \u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f';
         btn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#0088cc;color:#fff;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;z-index:9999;font-size:14px';
-        btn.onclick = function() { reloadAllImages(); };
+        btn.onclick = fixAllImagesNow;
         document.body.appendChild(btn);
     }
 
     function init() {
-        setTimeout(checkAndReloadImages, 2000);
-        createReloadButton();
+        setTimeout(fixAllImagesNow, 500);
+        setTimeout(checkAndFixBroken, 3000);
+        createButton();
         document.addEventListener('visibilitychange', function() {
-            if (!document.hidden) setTimeout(checkAndReloadImages, 500);
+            if (!document.hidden) setTimeout(checkAndFixBroken, 300);
         });
     }
 
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
     else init();
 
-    window.forceImageReload = { reloadAllImages: reloadAllImages, checkAndReloadImages: checkAndReloadImages };
+    window.fixImagesNow = { reload: fixAllImagesNow, check: function() {
+        var images = document.querySelectorAll('img');
+        var ok = 0, bad = 0;
+        for (var i = 0; i < images.length; i++) {
+            var img = images[i];
+            if (img.complete && img.naturalWidth > 0 && img.naturalHeight > 0) ok++;
+            else if (img.src && img.src.indexOf('data:') !== 0) bad++;
+        }
+        return { ok: ok, bad: bad, total: images.length };
+    }};
+    window.forceImageReload = { reloadAllImages: fixAllImagesNow, checkAndReloadImages: checkAndFixBroken };
 })();
