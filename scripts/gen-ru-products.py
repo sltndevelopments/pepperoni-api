@@ -19,8 +19,8 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
-def cloudinary_url(pid, is_full=False, width=None):
-    """Build direct Cloudinary URL from image id."""
+def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
+    """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
         return ""
     pid = str(pid).strip()
@@ -53,7 +53,10 @@ def cloudinary_url(pid, is_full=False, width=None):
     thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
-    return f"{base}{transform}{pid}?v=3"
+    remote = f"{base}{transform}{pid}?v=3"
+    if via_proxy:
+        return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
+    return remote
 
 
 def load_products():
@@ -90,26 +93,32 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False, 800)
-        main_full = cloudinary_url(main_raw, True)
-        pack_img = cloudinary_url(pack_raw, False, 800)
-        pack_full = cloudinary_url(pack_raw, True)
-        slice_img = cloudinary_url(slice_raw, False, 800)
-        slice_full = cloudinary_url(slice_raw, True)
+        main_img = cloudinary_url(main_raw, False, 800, False)
+        main_img_proxy = cloudinary_url(main_raw, False, 800, True)
+        main_full = cloudinary_url(main_raw, True, None, False)
+        main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        pack_img = cloudinary_url(pack_raw, False, 800, False)
+        pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
+        pack_full = cloudinary_url(pack_raw, True, None, False)
+        pack_full_proxy = cloudinary_url(pack_raw, True, None, True)
+        slice_img = cloudinary_url(slice_raw, False, 800, False)
+        slice_img_proxy = cloudinary_url(slice_raw, False, 800, True)
+        slice_full = cloudinary_url(slice_raw, True, None, False)
+        slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
 
         seo_start = (p.get("seoDescriptionRU") or "")[:60]
         alt_main = (f"{name}. {seo_start}".rstrip(". ") or name).replace('"', "&quot;")
         img_class = "product-img"
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
-        img_attrs = 'oncontextmenu="return false;" ondragstart="return false;"'
+        img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
-        for label, url, full in [("Упаковка", pack_img, pack_full), ("В разрезе", slice_img, slice_full)]:
+        for label, url, proxy, full, full_proxy in [("Упаковка", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" tabindex="0" role="button"><img src="{url}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" loading="lazy" {img_attrs}/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" tabindex="0" role="button"><img src="{main_img}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" fetchpriority="high" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" loading="eager" fetchpriority="high" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -212,8 +221,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .export-prices span{{background:#fff;border:1px solid #ddd;padding:8px 14px;border-radius:6px;font-size:.85rem}}
 footer{{text-align:center;color:#555;font-size:.85rem;padding-top:24px;margin-top:32px}}
 footer a{{color:#444;text-decoration:none}}
-@media(max-width:767px){{.product-main-img img,.product-img{{max-height:50vh;height:auto}}.product-thumbs img{{min-width:60px;max-height:80px}}}}
-@media(max-width:480px){{.product-main-img img,.product-img{{max-height:40vh}}.product-thumbs{{gap:8px}}.product-thumbs img{{min-width:50px;max-height:60px}}}}
+@media(max-width:767px){{.product-thumbs{{gap:10px}}}}
+@media(max-width:480px){{.product-thumbs{{gap:8px}}}}
 </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
@@ -316,9 +325,11 @@ document.addEventListener("click",function(e){
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
   el.addEventListener("click",function(){
     var full=el.getAttribute("data-full");if(!full)return;
+    var fullProxy=el.getAttribute("data-full-proxy")||"";
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
     var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
+    if(fullProxy){img.onerror=function(){this.onerror=null;this.src=fullProxy;};}
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};
     img.onclick=function(ev){ev.stopPropagation();};
