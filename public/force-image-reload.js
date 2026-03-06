@@ -33,15 +33,6 @@
                 count++;
             }
         }
-        if (count > 0) showMessage('Изображения обновляются...');
-    }
-
-    function showMessage(text) {
-        var msg = document.createElement('div');
-        msg.textContent = text;
-        msg.style.cssText = 'position:fixed;top:20px;right:20px;background:#4CAF50;color:#fff;padding:10px 15px;border-radius:5px;z-index:99999;font-size:14px;box-shadow:0 2px 5px rgba(0,0,0,.2)';
-        document.body.appendChild(msg);
-        setTimeout(function() { if (msg.parentNode) msg.parentNode.removeChild(msg); }, 3000);
     }
 
     function checkAndFixBroken() {
@@ -56,22 +47,12 @@
         }
         if (broken > 0) {
             console.log('Fixed ' + broken + ' broken images');
-            showMessage('Исправлено ' + broken + ' изображений');
         }
-    }
-
-    function createButton() {
-        var btn = document.createElement('button');
-        btn.textContent = '\u27F3 \u041e\u0431\u043d\u043e\u0432\u0438\u0442\u044c \u0438\u0437\u043e\u0431\u0440\u0430\u0436\u0435\u043d\u0438\u044f';
-        btn.style.cssText = 'position:fixed;bottom:20px;right:20px;background:#0088cc;color:#fff;border:none;padding:10px 15px;border-radius:5px;cursor:pointer;z-index:9999;font-size:14px';
-        btn.onclick = fixAllImagesNow;
-        document.body.appendChild(btn);
     }
 
     function init() {
         setTimeout(fixAllImagesNow, 500);
         setTimeout(checkAndFixBroken, 3000);
-        createButton();
         document.addEventListener('visibilitychange', function() {
             if (!document.hidden) setTimeout(checkAndFixBroken, 300);
         });
