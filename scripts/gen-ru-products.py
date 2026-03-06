@@ -49,7 +49,7 @@ def cloudinary_url(pid, is_full=False):
     thumb = "f_auto,q_auto,w_800,c_limit/l_text:Arial_50_bold:PEPPERONI_TATAR,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
-    return f"{base}{transform}{pid}?v=2"
+    return f"{base}{transform}{pid}?v=3"
 
 
 def load_products():
@@ -318,6 +318,7 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){{
   }});
 }});
 </script>
+<script src="/force-image-reload.js" defer></script>
 </body>
 </html>'''
         path = os.path.join(OUT, f"{slug}.html")
