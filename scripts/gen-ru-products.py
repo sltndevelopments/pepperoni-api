@@ -20,7 +20,7 @@ def html_esc(s):
 
 
 def cloudinary_url(pid, is_full=False):
-    """Собирает Cloudinary URL и проксирует через /api/image-proxy."""
+    """Собирает Cloudinary URL и проксирует через /api/health."""
     if not pid or not str(pid).strip():
         return ""
     pid = str(pid).strip()
@@ -49,7 +49,7 @@ def cloudinary_url(pid, is_full=False):
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     transform = full if is_full else thumb
     remote = f"{base}{transform}{pid}?v=3"
-    return f"/api/image-proxy?u={urllib.parse.quote(remote, safe='')}"
+    return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
 
 
 def load_products():
