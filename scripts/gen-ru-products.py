@@ -319,7 +319,6 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
   });
 });
 </script>
-<script src="/force-image-reload.js" defer></script>
 </body>
 </html>'''
         path = os.path.join(OUT, f"{slug}.html")
