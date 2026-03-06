@@ -129,17 +129,14 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img_480 = cloudinary_url(main_raw, False, 480, False)
-        main_img_640 = cloudinary_url(main_raw, False, 640, False)
+        main_img = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
-        pack_img_480 = cloudinary_url(pack_raw, False, 480, False)
         pack_img = cloudinary_url(pack_raw, False, 800, False)
         pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
         pack_full = cloudinary_url(pack_raw, True, None, False)
         pack_full_proxy = cloudinary_url(pack_raw, True, None, True)
-        slice_img_480 = cloudinary_url(slice_raw, False, 480, False)
         slice_img = cloudinary_url(slice_raw, False, 800, False)
         slice_img_proxy = cloudinary_url(slice_raw, False, 800, True)
         slice_full = cloudinary_url(slice_raw, True, None, False)
@@ -152,20 +149,13 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
-        for label, url_480, url, proxy, full, full_proxy in [("Pack", pack_img_480, pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("Slice", slice_img_480, slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
+        for label, url, proxy, full, full_proxy in [("Pack", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("Slice", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                if url_480:
-                    thumb_img = f'<img src="{url}" srcset="{url_480} 480w, {url} 800w" sizes="(max-width: 768px) 100vw, 800px" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/>'
-                else:
-                    thumb_img = f'<img src="{url}" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/>'
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">{thumb_img}</span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
-        if main_img_640:
-            if main_img_480:
-                main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img_640}" srcset="{main_img_480} 480w, {main_img_640} 640w" sizes="(max-width: 768px) 100vw, 640px" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
-            else:
-                main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img_640}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+        if main_img:
+            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -195,20 +185,14 @@ def main():
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
-        preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img_480 or main_img_640}" fetchpriority="high">' if (main_img_480 or main_img_640) else ""
+        preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
 
         html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
-<!-- Google Tag Manager -->
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':
-new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
-<!-- End Google Tag Manager -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+{preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>{name} — Kazan Delicacies | Halal</title>
 <meta name="description" content="{seo_desc}">
@@ -219,7 +203,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:url" content="https://pepperoni.tatar/en/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
-{preload_main}
+<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
+<script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
@@ -268,8 +253,6 @@ footer a{{color:#444;text-decoration:none}}
 @media(max-width:767px){{.product-thumbs{{gap:10px}}}}
 @media(max-width:480px){{.product-thumbs{{gap:8px}}}}
 </style>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </head>
