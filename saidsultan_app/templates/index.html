@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sultan AI — AI Visibility Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FFFFFF;
+      --bg-alt: #F5F5F7;
+      --text: #1D1D1F;
+      --accent: #0071E3;
+      --accent-hover: #0077ED;
+      --gray: #6E6E73;
+      --border: #D2D2D7;
+      --border-light: #E5E5E7;
+      --green: #34C759;
+      --yellow: #FF9F0A;
+      --red: #FF3B30;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.5; }
+    .container { max-width: 980px; margin: 0 auto; padding: 0 24px; }
+
+    /* 1. НАВИГАЦИЯ */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav.scrolled { background: rgba(255,255,255,0.9); }
+    .nav-logo { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; color: var(--text); text-decoration: none; }
+    .nav.scrolled { background: rgba(255,255,255,0.9); }
+    .nav-cta {
+      padding: 8px 20px;
+      font-size: 14px;
+      font-weight: 500;
+      color: white;
+      background: var(--accent);
+      border: none;
+      border-radius: 980px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      font-family: inherit;
+    }
+    .nav-cta:hover { background: var(--accent-hover); transform: scale(1.02); }
+    .nav.scrolled { background: rgba(255,255,255,0.9); }
+
+    /* Прогресс-бар при анализе */
+    .page-progress {
+      position: fixed;
+      top: 52px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--border);
+      z-index: 99;
+      display: none;
+    }
+    .page-progress.visible { display: block; }
+    .page-progress-fill { height: 100%; background: var(--accent); transition: width 0.3s ease; }
+
+    /* 2. HERO */
+    .hero {
+      background: var(--bg);
+      padding: 120px 24px 80px;
+      text-align: center;
+    }
+    @media (max-width: 768px) { .hero { padding: 80px 24px 60px; } .hero h1 { font-size: 36px; } }
+    .hero-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: var(--gray); margin-bottom: 16px; }
+    .hero h1 {
+      font-size: clamp(36px, 8vw, 64px);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+    .hero-sub { font-size: 19px; color: var(--gray); max-width: 520px; margin: 0 auto 32px; line-height: 1.5; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; align-items: center; margin-bottom: 16px; }
+    .btn-pill {
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 44px; padding: 0 28px; font-size: 16px; font-weight: 500;
+      border-radius: 980px; cursor: pointer;
+      transition: transform 0.15s ease, background 0.15s;
+      font-family: inherit;
+    }
+    .btn-pill:hover { transform: scale(1.02); }
+    .hero-cta-arrow { display: inline-block; margin-left: 6px; animation: bounceDown 2s ease-in-out infinite; }
+    @keyframes bounceDown { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+    .btn-pill-primary { background: var(--accent); color: white; border: none; }
+    .btn-pill-primary:hover { background: var(--accent-hover); }
+    .btn-pill-secondary { background: transparent; color: var(--accent); border: none; text-decoration: none; }
+    .btn-pill-secondary:hover { text-decoration: underline; }
+    .hero-micro { font-size: 13px; color: var(--gray); }
+
+    /* 3. СОЦИАЛЬНОЕ ДОКАЗАТЕЛЬСТВО */
+    .social-proof {
+      background: var(--bg-alt);
+      padding: 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .social-proof .brands { font-size: 15px; font-weight: 500; color: var(--text); margin-bottom: 8px; }
+    .social-proof .brands span { color: var(--gray); margin: 0 8px; }
+    .social-proof .note { font-size: 13px; color: var(--gray); }
+
+    /* 4. КАК ЭТО РАБОТАЕТ */
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease-out, transform 0.4s ease-out;
+    }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+    .how-section { background: var(--bg); padding: 80px 24px; }
+    @media (max-width: 768px) { .how-section { padding: 48px 24px; } }
+    .how-section h2 { font-size: 40px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+    .how-section .sub { font-size: 19px; color: var(--gray); text-align: center; margin-bottom: 48px; }
+    .how-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    @media (max-width: 768px) { .how-cards { grid-template-columns: 1fr; } }
+    .how-card {
+      padding: 32px;
+      border: 1px solid var(--border-light);
+      border-radius: 18px;
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .how-card.active { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0,113,227,0.1); }
+    .how-card .num { font-size: 48px; font-weight: 700; color: var(--border); line-height: 1; margin-bottom: 16px; }
+    .how-card.active .num { color: var(--accent); }
+    .how-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .how-card p { font-size: 15px; color: var(--gray); line-height: 1.5; }
+
+    /* 5. ФОРМА */
+    .form-section { background: var(--bg-alt); padding: 80px 24px; }
+    .form-card {
+      max-width: 560px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .form-progress { display: flex; align-items: center; gap: 12px; margin-bottom: 32px; }
+    .form-progress .dots { display: flex; gap: 8px; }
+    .form-progress .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); transition: background 0.3s; }
+    .form-progress .dot.active { background: var(--accent); }
+    .form-progress .text { font-size: 14px; color: var(--gray); }
+    .form-step { display: none; }
+    .form-step.visible { display: block; animation: fadeInUp 0.4s ease; }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    .form-step h3 { font-size: 24px; font-weight: 600; margin-bottom: 8px; }
+    .form-step .hint { font-size: 15px; color: var(--gray); margin-bottom: 24px; }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+    input, select {
+      width: 100%;
+      height: 52px;
+      padding: 0 16px;
+      font-size: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-family: inherit;
+      transition: border-color 0.15s;
+    }
+    input:focus, select:focus { outline: none; border-color: var(--accent); }
+    input::placeholder { color: var(--gray); }
+    select { cursor: pointer; }
+    .goal-other-field { margin-top: 12px; display: none; }
+    .btn-form {
+      width: 100%;
+      height: 52px;
+      margin-top: 24px;
+      font-size: 16px;
+      font-weight: 500;
+      background: var(--accent);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      font-family: inherit;
+    }
+    .btn-form:hover:not(:disabled) { background: var(--accent-hover); transform: scale(1.01); }
+    .btn-form:disabled { opacity: 0.6; cursor: not-allowed; }
+    .error-msg {
+      background: rgba(255,59,48,0.08);
+      border: 1px solid rgba(255,59,48,0.3);
+      color: var(--red);
+      padding: 12px;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-top: 16px;
+      display: none;
+    }
+    .error-msg.visible { display: block; }
+    .progress-log { padding: 32px 40px; display: none; }
+    .progress-log-title { font-size: 20px; font-weight: 600; color: #1D1D1F; margin-bottom: 24px; }
+    .progress-step {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; font-size: 15px; color: #6E6E73;
+      border-bottom: 1px solid #F5F5F7;
+      opacity: 0; transform: translateY(6px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .progress-step.visible { opacity: 1; transform: translateY(0); }
+    .progress-step.done { color: #1D1D1F; }
+    .progress-step-icon {
+      width: 20px; height: 20px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0;
+    }
+    .progress-step-icon.pending { border: 2px solid #D2D2D7; }
+    .progress-step-icon.loading { border: 2px solid #0071E3; border-top-color: transparent; animation: spin 0.8s linear infinite; }
+    .progress-step-icon.done { background: #34C759; color: white; }
+
+    /* 6. ОТЧЁТ */
+    .report-section { background: var(--bg-alt); padding: 80px 24px; display: none; }
+    .report-section.visible { display: block; }
+    .score-card {
+      max-width: 720px;
+      margin: 0 auto 32px;
+      background: white;
+      border-radius: 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .score-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+      padding: 40px;
+    }
+    .score-left { min-width: 160px; }
+    .score-big-number {
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -3px;
+      color: #1D1D1F;
+    }
+    .score-title {
+      font-size: 14px;
+      color: #6E6E73;
+      margin-top: 6px;
+    }
+    .score-status-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 10px;
+    }
+    .score-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #FF3B30;
+      flex-shrink: 0;
+    }
+    .score-status-text {
+      font-size: 14px;
+      color: #1D1D1F;
+      font-weight: 500;
+    }
+    .score-right { flex: 1; }
+    .score-bar-container { margin-bottom: 32px; }
+    .score-bar-track {
+      position: relative;
+      height: 10px;
+      border-radius: 5px;
+      background: linear-gradient(to right, rgba(255,59,48,0.15) 0%, rgba(255,159,10,0.15) 50%, rgba(52,199,89,0.15) 100%);
+      margin-bottom: 8px;
+    }
+    .score-bar-fill {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      border-radius: 5px;
+      background: linear-gradient(to right, #FF3B30 0%, #FF9F0A 50%, #34C759 100%);
+      width: 0%;
+      transition: width 1.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .score-bar-thumb {
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translate(-50%, -50%);
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15), 0 0 0 2px rgba(0,0,0,0.06);
+      transition: left 1.5s cubic-bezier(0.4,0,0.2,1);
+    }
+    .score-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #6E6E73;
+    }
+    .score-mini-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .score-mini-card {
+      background: #F5F5F7;
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .score-mini-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      margin-bottom: 8px;
+    }
+    .score-mini-number {
+      font-size: 28px;
+      font-weight: 700;
+      line-height: 1;
+      color: #1D1D1F;
+    }
+    .score-mini-label {
+      font-size: 12px;
+      color: #6E6E73;
+      margin-top: 4px;
+    }
+    @media (max-width: 768px) {
+      .score-main { flex-direction: column; gap: 24px; }
+      .score-mini-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    .report-card {
+      max-width: 720px;
+      margin: 0 auto 24px;
+      background: white;
+      border-radius: 20px;
+      padding: 32px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+      opacity: 0;
+      animation: fadeInUp 0.5s ease forwards;
+    }
+    .report-card h2 { font-size: 22px; font-weight: 600; margin-bottom: 20px; }
+    .scan-item { padding: 20px 0; border-bottom: 1px solid var(--border-light); }
+    .scan-item:last-child { border-bottom: none; }
+    .scan-status { font-size: 13px; color: var(--gray); margin-bottom: 8px; }
+    .scan-status.mentioned { color: var(--green); }
+    .scan-answer { font-size: 15px; color: var(--text); margin-bottom: 8px; }
+    .btn-read { background: none; border: none; color: var(--gray); font-size: 14px; cursor: pointer; padding: 0; }
+    .btn-read:hover { color: var(--accent); text-decoration: underline; }
+    .why-block { border-left: 3px solid var(--yellow); padding-left: 20px; font-size: 15px; color: var(--text); line-height: 1.6; }
+    .action-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    .action-card .num { font-size: 32px; font-weight: 700; color: var(--accent); line-height: 1; flex-shrink: 0; }
+    .action-card .text { flex: 1; font-size: 15px; line-height: 1.5; }
+    .action-tag { display: inline-block; font-size: 12px; color: var(--gray); padding: 4px 12px; background: var(--bg-alt); border-radius: 980px; }
+    .report-email-hint { font-size: 14px; color: var(--gray); margin-top: 24px; }
+
+    /* 7. БЛОК ЗАЯВКИ — скрыт до появления отчёта */
+    .lead-section {
+      background: #1D1D1F;
+      padding: 80px 24px;
+      display: none;
+    }
+    @media (max-width: 768px) { .lead-section { padding: 48px 24px; } }
+    .lead-section h2 { font-size: 40px; font-weight: 700; color: white; text-align: center; margin-bottom: 12px; }
+    @media (max-width: 768px) { .lead-section h2 { font-size: 28px; } }
+    .lead-section .lead-hint { font-size: 19px; color: var(--gray); text-align: center; margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .lead-form {
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    @media (max-width: 768px) { .lead-form { flex-direction: column; } }
+    .lead-form .form-group { flex: 1; min-width: 140px; }
+    .lead-form input {
+      height: 52px;
+      padding: 0 16px;
+      font-size: 16px;
+      border: 1px solid #D2D2D7;
+      border-radius: 12px;
+      background: #FFFFFF;
+      color: #1D1D1F;
+    }
+    .lead-form input::placeholder { color: #6E6E73; }
+    .lead-form .btn-lead {
+      height: 52px;
+      padding: 0 32px;
+      font-size: 16px;
+      font-weight: 500;
+      background: white;
+      color: #1D1D1F;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      font-family: inherit;
+    }
+    .lead-form .btn-lead:hover:not(:disabled) { transform: scale(1.02); opacity: 0.95; }
+    .lead-form .btn-lead:disabled { opacity: 0.6; cursor: not-allowed; }
+    .lead-micro { font-size: 14px; color: var(--gray); text-align: center; margin-top: 16px; }
+    .lead-success { color: var(--green); font-size: 14px; margin-top: 12px; display: none; }
+    .lead-success.visible { display: block; }
+    .lead-error { color: var(--red); font-size: 14px; margin-top: 12px; display: none; }
+    .lead-error.visible { display: block; }
+
+    /* 8. ФУТЕР */
+    footer { background: var(--bg-alt); padding: 48px 24px; text-align: center; border-top: 1px solid var(--border); }
+    footer .container { font-size: 14px; color: var(--gray); }
+
+    .loader {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .scroll-reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.4s ease-out, transform 0.4s ease-out; }
+    .scroll-reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <nav class="nav" id="nav">
+    <a href="#" class="nav-logo">Sultan AI</a>
+    <button type="button" class="nav-cta" id="nav-cta">Попробовать бесплатно</button>
+  </nav>
+
+  <div class="page-progress" id="page-progress">
+    <div class="page-progress-fill" id="page-progress-fill" style="width: 0%"></div>
+  </div>
+
+  <section class="hero">
+    <div class="hero-tag">✦ AI Visibility Platform</div>
+    <h1>Узнайте, что ИИ<br>говорит о вашем бизнесе</h1>
+    <p class="hero-sub">Введите адрес сайта — за 60 секунд получите отчёт о вашей видимости в ChatGPT, Perplexity и других ИИ-поисковиках.</p>
+    <div class="hero-ctas">
+      <button type="button" class="btn-pill btn-pill-primary" id="hero-cta">Получить отчёт бесплатно <span class="hero-cta-arrow">↓</span></button>
+      <a href="#form-section" class="btn-pill btn-pill-secondary">Смотреть пример →</a>
+    </div>
+    <p class="hero-micro">Не требует регистрации · Результат за 60 сек</p>
+  </section>
+
+  <section class="social-proof scroll-reveal">
+    <div class="brands">ChatGPT · Perplexity · Gemini · Claude</div>
+    <div class="note">Проверяем видимость в ведущих ИИ-поисковиках</div>
+  </section>
+
+  <section class="how-section scroll-reveal">
+    <h2>Три шага к ясности</h2>
+    <p class="sub">Без технических знаний. Без регистрации.</p>
+    <div class="how-cards">
+      <div class="how-card active" data-step="1">
+        <div class="num">01</div>
+        <h3>Вводите сайт</h3>
+        <p>Мы автоматически читаем ваш сайт и понимаем чем вы занимаетесь</p>
+      </div>
+      <div class="how-card" data-step="2">
+        <div class="num">02</div>
+        <h3>Отвечаете на 3 вопроса</h3>
+        <p>Клиенты, регионы, цели — чтобы отчёт был про ваш бизнес, а не шаблонный</p>
+      </div>
+      <div class="how-card" data-step="3">
+        <div class="num">03</div>
+        <h3>Получаете план</h3>
+        <p>AI Visibility Score, анализ и 5 конкретных шагов что делать</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="form-section scroll-reveal" id="form-section">
+    <div class="form-card">
+      <div class="form-progress">
+        <div class="dots">
+          <span class="dot active" id="dot1"></span>
+          <span class="dot" id="dot2"></span>
+          <span class="dot" id="dot3"></span>
+        </div>
+        <span class="text" id="progress-text">Шаг 1 из 3</span>
+      </div>
+
+      <div class="form-step visible" id="step1">
+        <h3>Ваш сайт</h3>
+        <p class="hint">Мы прочитаем его и поймём чем вы занимаетесь</p>
+        <form id="step1-form">
+          <div class="form-group">
+            <input type="text" id="url" placeholder="например: pepperoni.tatar" required>
+          </div>
+          <button type="submit" class="btn-form" id="step1-btn">Анализировать →</button>
+        </form>
+        <div class="error-msg" id="step1-error"></div>
+      </div>
+
+      <div class="form-step" id="step2">
+        <h3>Расскажите о бизнесе</h3>
+        <p class="hint" id="site-summary"></p>
+        <form id="step2-form">
+          <div class="form-group">
+            <label>Ваши клиенты</label>
+            <input type="text" id="clients" placeholder="Рестораны, оптовики, ритейл..." required>
+          </div>
+          <div class="form-group">
+            <label>Регионы развития</label>
+            <input type="text" id="regions" placeholder="Москва, вся Россия, СНГ...">
+          </div>
+          <div class="form-group">
+            <label>Главная цель</label>
+            <select id="goal" required>
+              <option value="">Выберите...</option>
+              <option value="Найти новых клиентов">Найти новых клиентов</option>
+              <option value="Повысить узнаваемость бренда">Повысить узнаваемость бренда</option>
+              <option value="Выйти в новый регион">Выйти в новый регион</option>
+              <option value="Попасть в ответы ИИ">Попасть в ответы ИИ</option>
+              <option value="__other__">Другое</option>
+            </select>
+            <input type="text" id="goal-other" class="goal-other-field" placeholder="Опишите вашу цель">
+          </div>
+          <div class="form-group">
+            <label>Email для отчёта (опционально)</label>
+            <input type="email" id="email" placeholder="your@company.com">
+          </div>
+          <button type="submit" class="btn-form" id="step2-btn">Получить отчёт →</button>
+        </form>
+        <div class="error-msg" id="step2-error"></div>
+      </div>
+      <div class="progress-log" id="progressLog">
+        <div class="progress-log-title">Анализируем ваш сайт</div>
+        <div class="progress-steps" id="progressSteps"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="report-section" id="report-section">
+    <div class="container">
+      <div class="score-card">
+        <div class="score-main">
+          <div class="score-left">
+            <div class="score-big-number" id="scoreNumber">—</div>
+            <div class="score-title">AI Visibility Score</div>
+            <div class="score-status-row">
+              <span class="score-dot" id="scoreDot"></span>
+              <span class="score-status-text" id="scoreStatus">Низкая видимость</span>
+            </div>
+          </div>
+          <div class="score-right">
+            <div class="score-bar-container">
+              <div class="score-bar-track">
+                <div class="score-bar-fill" id="scoreBarFill"></div>
+                <div class="score-bar-thumb" id="scoreBarThumb"></div>
+              </div>
+              <div class="score-bar-labels">
+                <span>0 · Низкая</span>
+                <span>50 · Средняя</span>
+                <span>100 · Высокая</span>
+              </div>
+            </div>
+            <div class="score-mini-grid" id="scoreMiniGrid"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="report-card">
+        <h2>Что ИИ говорит о вас</h2>
+        <div id="scan-results"></div>
+      </div>
+
+      <div class="report-card">
+        <h2>Почему вас не упоминают</h2>
+        <div class="why-block" id="why-not-mentioned"></div>
+      </div>
+
+      <div class="report-card">
+        <h2>Ваш план действий</h2>
+        <div id="actions-list"></div>
+        <p class="report-email-hint">Хотите получить этот отчёт на почту? Оставьте заявку ниже.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lead-section" id="cta-section">
+    <h2>Хотите чтобы мы сделали это за вас?</h2>
+    <p class="lead-hint">Берём на себя всё — статьи, размещение, мониторинг результата</p>
+    <form id="lead-form" class="lead-form">
+      <div class="form-group">
+        <input type="text" id="lead-name" placeholder="Имя" required>
+      </div>
+      <div class="form-group">
+        <input type="tel" id="lead-phone" placeholder="Телефон" required>
+      </div>
+      <button type="submit" class="btn-lead" id="lead-btn">Оставить заявку</button>
+    </form>
+    <p class="lead-micro">Свяжемся в течение рабочего дня</p>
+    <div class="lead-success" id="lead-success">Заявка отправлена. Мы свяжемся с вами в ближайшее время.</div>
+    <div class="lead-error" id="lead-error"></div>
+  </section>
+
+  <footer>
+    <div class="container">Sultan AI © 2026 · AI Visibility Platform</div>
+  </footer>
+
+  <script>
+    const formSection = document.getElementById('form-section');
+    const reportSection = document.getElementById('report-section');
+    const pageProgress = document.getElementById('page-progress');
+    const pageProgressFill = document.getElementById('page-progress-fill');
+    const howCards = document.querySelectorAll('.how-card');
+    const dots = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3')];
+    const progressText = document.getElementById('progress-text');
+    const step1Form = document.getElementById('step1-form');
+    const step2Form = document.getElementById('step2-form');
+    const step2El = document.getElementById('step2');
+    const progressLog = document.getElementById('progressLog');
+    const progressSteps = document.getElementById('progressSteps');
+    const siteSummary = document.getElementById('site-summary');
+
+    let siteData = null;
+    let progressStepTimeouts = [];
+
+    const PROGRESS_STEPS = [
+      { text: 'Читаем содержимое сайта', delay: 0 },
+      { text: 'Понимаем нишу и продукт', delay: 5000 },
+      { text: 'Проверяем упоминания в ИИ', delay: 12000 },
+      { text: 'Сканируем конкурентное окружение', delay: 24000 },
+      { text: 'Анализируем контент для ИИ', delay: 36000 },
+      { text: 'Формируем план действий', delay: 48000 },
+    ];
+
+    function showProgressLog() {
+      step2El.style.display = 'none';
+      progressLog.style.display = 'block';
+      progressSteps.innerHTML = '';
+      progressStepTimeouts = [];
+      PROGRESS_STEPS.forEach((step, i) => {
+        const el = document.createElement('div');
+        el.className = 'progress-step';
+        el.innerHTML = `<div class="progress-step-icon pending" id="stepIcon${i}"></div><span>${step.text}</span>`;
+        progressSteps.appendChild(el);
+        const t = setTimeout(() => {
+          el.classList.add('visible');
+          const icon = document.getElementById('stepIcon' + i);
+          if (icon) {
+            icon.className = 'progress-step-icon loading';
+          }
+          if (i > 0) {
+            const prevIcon = document.getElementById('stepIcon' + (i - 1));
+            if (prevIcon) {
+              prevIcon.className = 'progress-step-icon done';
+              prevIcon.textContent = '✓';
+            }
+            const prev = el.previousElementSibling;
+            if (prev) prev.classList.add('done');
+          }
+        }, step.delay);
+        progressStepTimeouts.push(t);
+      });
+    }
+
+    function hideProgressLogAndMarkDone() {
+      progressStepTimeouts.forEach(t => clearTimeout(t));
+      progressStepTimeouts = [];
+      document.querySelectorAll('.progress-step').forEach(el => el.classList.add('visible', 'done'));
+      document.querySelectorAll('.progress-step-icon').forEach(icon => {
+        icon.className = 'progress-step-icon done';
+        icon.textContent = '✓';
+      });
+      progressLog.style.display = 'none';
+      step2El.style.display = 'block';
+    }
+
+    let lastReport = null;
+
+    const COLORS = { red: '#FF3B30', yellow: '#FF9F0A', green: '#34C759', border: '#D2D2D7' };
+
+    function scrollToForm() {
+      formSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    document.getElementById('nav-cta').addEventListener('click', scrollToForm);
+    document.getElementById('hero-cta').addEventListener('click', scrollToForm);
+
+    document.getElementById('goal').addEventListener('change', function() {
+      const other = document.getElementById('goal-other');
+      other.style.display = this.value === '__other__' ? 'block' : 'none';
+      other.required = this.value === '__other__';
+    });
+
+    function updateUI(step) {
+      howCards.forEach((c, i) => c.classList.toggle('active', i < step));
+      dots.forEach((d, i) => d.classList.toggle('active', i < step));
+      progressText.textContent = step === 3 ? 'Готово' : `Шаг ${step} из 3`;
+    }
+
+    function escapeHtml(s) {
+      const div = document.createElement('div');
+      div.textContent = s || '';
+      return div.innerHTML;
+    }
+
+    function stripMarkdown(text) {
+      if (!text || typeof text !== 'string') return '';
+      return text
+        .replace(/\*\*([^*]+)\*\*/g, '$1')
+        .replace(/\*([^*]+)\*/g, '$1')
+        .replace(/^#{1,6}\s+/gm, '')
+        .replace(/^\*\s+/gm, '')
+        .replace(/^-\s+/gm, '')
+        .replace(/\n{3,}/g, '\n\n')
+        .trim();
+    }
+
+    function inferActionTag(text) {
+      const t = (text || '').toLowerCase();
+      if (/статья|контент|блог|статьи/.test(t)) return 'Контент';
+      if (/справочник|2gis|яндекс|карты|каталог/.test(t)) return 'Справочник';
+      if (/pr|пресс-релиз|публикация|сми/.test(t)) return 'PR';
+      return 'SEO';
+    }
+
+    function renderScore(score, scores) {
+      const s = score || 0;
+      const scoreNumber = document.getElementById('scoreNumber');
+      const scoreDot = document.getElementById('scoreDot');
+      const scoreStatus = document.getElementById('scoreStatus');
+      const scoreBarFill = document.getElementById('scoreBarFill');
+      const scoreBarThumb = document.getElementById('scoreBarThumb');
+      const scoreMiniGrid = document.getElementById('scoreMiniGrid');
+
+      scoreNumber.textContent = s;
+      scoreBarFill.style.width = s + '%';
+      scoreBarThumb.style.left = s + '%';
+
+      if (s < 50) {
+        scoreDot.style.background = '#FF3B30';
+        scoreStatus.textContent = 'Низкая видимость';
+        scoreNumber.style.color = '#FF3B30';
+      } else if (s < 80) {
+        scoreDot.style.background = '#FF9F0A';
+        scoreStatus.textContent = 'Средняя видимость';
+        scoreNumber.style.color = '#FF9F0A';
+      } else {
+        scoreDot.style.background = '#34C759';
+        scoreStatus.textContent = 'Высокая видимость';
+        scoreNumber.style.color = '#34C759';
+      }
+
+      const miniData = [
+        { val: scores?.ai_mentions ?? 0, label: 'Упоминания в ИИ' },
+        { val: scores?.content_for_ai ?? 0, label: 'Контент для ИИ' },
+        { val: scores?.directories ?? 60, label: 'Присутствие в справочниках' },
+        { val: scores?.expert_content ?? 20, label: 'Экспертный контент' }
+      ];
+      scoreMiniGrid.innerHTML = miniData.map(m => {
+        const dotColor = m.val >= 80 ? '#34C759' : m.val >= 50 ? '#FF9F0A' : '#FF3B30';
+        return `<div class="score-mini-card"><div class="score-mini-dot" style="background:${dotColor}"></div><div class="score-mini-number">${m.val}</div><div class="score-mini-label">${m.label}</div></div>`;
+      }).join('');
+    }
+
+    step1Form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      document.getElementById('step1-error').classList.remove('visible');
+      const btn = document.getElementById('step1-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="loader"></span> Читаю сайт...';
+      try {
+        const res = await fetch('/api/fetch-site', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ url: document.getElementById('url').value.trim() })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || data.error || 'Ошибка загрузки сайта');
+        if (data.error) throw new Error(data.error);
+        siteData = data;
+        siteSummary.textContent = 'Сайт прочитан: ' + (data.title || data.url || '') + '. Ответьте на вопросы ниже.';
+        document.getElementById('step1').classList.remove('visible');
+        document.getElementById('step2').classList.add('visible');
+        updateUI(2);
+      } catch (err) {
+        document.getElementById('step1-error').textContent = err.message || 'Ошибка при чтении сайта';
+        document.getElementById('step1-error').classList.add('visible');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Анализировать →';
+      }
+    });
+
+    step2Form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      document.getElementById('step2-error').classList.remove('visible');
+      const btn = document.getElementById('step2-btn');
+      btn.disabled = true;
+      showProgressLog();
+      try {
+        const ctrl = new AbortController();
+        const timeout = setTimeout(() => ctrl.abort(), 180000);
+        const res = await fetch('/api/analyze-web', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            url: document.getElementById('url').value.trim(),
+            site_content: (siteData?.content || siteData?.title || '') + ' ' + (siteData?.description || ''),
+            brand: siteData?.brand || '',
+            clients: document.getElementById('clients').value.trim(),
+            regions: document.getElementById('regions').value.trim(),
+            goal: (() => {
+              const g = document.getElementById('goal').value;
+              return g === '__other__' ? (document.getElementById('goal-other').value.trim() || 'Другое') : g;
+            })(),
+            email: document.getElementById('email').value.trim()
+          }),
+          signal: ctrl.signal
+        });
+        clearTimeout(timeout);
+        const text = await res.text();
+        let data;
+        try { data = JSON.parse(text); } catch (_) {
+          throw new Error(text.startsWith('<') ? 'Таймаут. Попробуйте ещё раз.' : text || 'Ошибка анализа');
+        }
+        if (!res.ok) throw new Error(data.detail || 'Ошибка анализа');
+        lastReport = data;
+
+        renderScore(data.visibility_score, data.scores);
+
+        document.getElementById('scan-results').innerHTML = (data.scan_results || []).map((r, idx) => {
+          const full = stripMarkdown(r.answer || '');
+          const short = full.slice(0, 200);
+          const truncated = full.length > 200;
+          return `
+          <div class="scan-item" data-idx="${idx}">
+            <div class="scan-status ${r.mentioned ? 'mentioned' : ''}">${r.mentioned ? '✓' : '○'} ${escapeHtml(r.prompt)}</div>
+            <div class="scan-answer">
+              <span class="scan-answer-short">${escapeHtml(short)}${truncated ? '...' : ''}</span>
+              ${truncated ? `<span class="scan-answer-full" style="display:none">${escapeHtml(full)}</span>` : ''}
+            </div>
+            ${truncated ? '<button type="button" class="btn-read">Читать →</button>' : ''}
+          </div>
+          `;
+        }).join('');
+
+        document.querySelectorAll('.btn-read').forEach(b => {
+          b.addEventListener('click', function() {
+            const item = this.closest('.scan-item');
+            const short = item.querySelector('.scan-answer-short');
+            const full = item.querySelector('.scan-answer-full');
+            if (full && full.style.display === 'none') {
+              short.style.display = 'none';
+              full.style.display = 'inline';
+              this.textContent = 'Свернуть';
+            } else if (full) {
+              short.style.display = 'inline';
+              full.style.display = 'none';
+              this.textContent = 'Читать →';
+            }
+          });
+        });
+
+        document.getElementById('why-not-mentioned').textContent = data.why_not_mentioned || '—';
+
+        document.getElementById('actions-list').innerHTML = (data.actions || []).map((a, i) => {
+          const tag = inferActionTag(a);
+          return `
+          <div class="action-card">
+            <span class="num">0${i + 1}</span>
+            <span class="text">${escapeHtml(a)}</span>
+            <span class="action-tag">[${tag}]</span>
+          </div>
+          `;
+        }).join('');
+
+        updateUI(3);
+        hideProgressLogAndMarkDone();
+        formSection.style.display = 'none';
+        reportSection.classList.add('visible');
+        document.getElementById('cta-section').style.display = 'block';
+        setTimeout(() => reportSection.scrollIntoView({ behavior: 'smooth' }), 100);
+      } catch (err) {
+        document.getElementById('step2-error').textContent = err.message || 'Ошибка при анализе';
+        document.getElementById('step2-error').classList.add('visible');
+        hideProgressLogAndMarkDone();
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Получить отчёт →';
+      }
+    });
+
+    document.getElementById('lead-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const leadError = document.getElementById('lead-error');
+      const leadSuccess = document.getElementById('lead-success');
+      const leadBtn = document.getElementById('lead-btn');
+      leadError.classList.remove('visible');
+      leadSuccess.classList.remove('visible');
+      leadBtn.disabled = true;
+      leadBtn.textContent = 'Отправка...';
+      try {
+        const res = await fetch('/api/lead', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: document.getElementById('lead-name').value.trim(),
+            phone: document.getElementById('lead-phone').value.trim(),
+            brand: lastReport?.brand || ''
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.detail || 'Ошибка отправки');
+        leadSuccess.classList.add('visible');
+        document.getElementById('lead-form').reset();
+      } catch (err) {
+        leadError.textContent = err.message || 'Ошибка. Попробуйте позже.';
+        leadError.classList.add('visible');
+      } finally {
+        leadBtn.disabled = false;
+        leadBtn.textContent = 'Оставить заявку';
+      }
+    });
+
+    window.addEventListener('scroll', () => {
+      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.scroll-reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>

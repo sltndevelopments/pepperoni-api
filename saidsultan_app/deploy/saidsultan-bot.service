@@ -1,0 +1,15 @@
+[Unit]
+Description=Saidsultan Telegram Bot (@RSultanBot)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=__PROJECT_ROOT__
+EnvironmentFile=__PROJECT_ROOT__/.env
+ExecStart=__PROJECT_ROOT__/venv/bin/python3 bot/tg_bot.py
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
