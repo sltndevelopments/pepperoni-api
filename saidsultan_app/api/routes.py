@@ -21,12 +21,11 @@ DEFAULT_PROMPTS = [
     "Назови топ производителей халяльных мясных деликатесов",
 ]
 
-# 3 промпта — чтобы уложиться в таймаут Cloudflare (~100 сек)
-# Подставляются brand и company_info_short (первые 100 символов из досье)
+# 3 промпта — из контекста бизнеса (clients, regions, brand), НЕ из сырого HTML
 WEB_ANALYZE_PROMPTS = [
-    "Где купить {brand}? Назови поставщиков и производителей.",
-    "Кто лучшие производители в нише: {company_info_short}? Назови топ-5.",
-    "Какие бренды рекомендуют эксперты в категории: {company_info_short}?",
+    "Где купить {product} оптом в {region}? Назови поставщиков и производителей.",
+    "Кто лучшие производители {product} в России? Назови топ-5 брендов.",
+    "Какие компании поставляют {product} для {client_type}? Назови конкретные названия.",
 ]
 
 
@@ -139,10 +138,22 @@ async def analyze_web(payload: AnalyzeWebDialogRequest):
             brand = (parsed.netloc or "").replace("www.", "").split(".")[0] or "компания"
         else:
             brand = "компания"
-    company_info_short = site_content[:100] if site_content else "товары и услуги B2B"
+    # Извлекаем product, region, client_type из параметров — НЕ из сырого HTML
+    def _clean(s: str, max_len: int = 80) -> str:
+        if not s:
+            return ""
+        # Убираем эмодзи и технический мусор (кнопки, ссылки)
+        import re
+        s = re.sub(r"[^\w\s\-.,;:()А-Яа-яЁёA-Za-z]", " ", s)
+        s = re.sub(r"\s+", " ", s).strip()
+        return s[:max_len] if s else ""
+
+    product = _clean(brand) or "товары и услуги"
+    region = _clean((payload.regions or "").split(",")[0].strip()) or "Россия"
+    client_type = _clean(payload.clients or "") or "бизнес и ритейл"
 
     prompts = [
-        p.format(brand=brand, company_info_short=company_info_short)
+        p.format(product=product, region=region, client_type=client_type)
         for p in WEB_ANALYZE_PROMPTS
     ]
     scanner = AIScanner()
