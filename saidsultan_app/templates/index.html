@@ -354,6 +354,21 @@
     .scan-status { font-size: 13px; color: var(--gray); margin-bottom: 8px; }
     .scan-status.mentioned { color: var(--green); }
     .scan-answer { font-size: 15px; color: var(--text); margin-bottom: 8px; }
+    .ai-says-section { margin-bottom: 24px; }
+    .section-subtitle { font-size: 15px; color: #6E6E73; margin-top: 4px; margin-bottom: 20px; }
+    .accordion-card { background: white; border-radius: 16px; border: 1px solid #E5E5EA; margin-bottom: 10px; overflow: hidden; transition: box-shadow 0.2s ease; }
+    .accordion-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.06); }
+    .accordion-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 20px 24px; cursor: pointer; user-select: none; }
+    .accordion-header-left { flex: 1; }
+    .accordion-question { font-size: 15px; font-weight: 500; color: #1D1D1F; line-height: 1.4; margin-bottom: 6px; }
+    .accordion-preview { font-size: 13px; color: #6E6E73; line-height: 1.5; }
+    .accordion-header-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .accordion-status { font-size: 13px; font-weight: 500; padding: 4px 10px; border-radius: 20px; white-space: nowrap; }
+    .status-green { background: rgba(52,199,89,0.1); color: #1A7F37; }
+    .status-red { background: rgba(255,59,48,0.1); color: #C0392B; }
+    .accordion-toggle { font-size: 20px; color: #6E6E73; width: 24px; text-align: center; font-weight: 300; }
+    .accordion-body { padding: 0 24px 24px; border-top: 1px solid #F5F5F7; }
+    .accordion-response { font-size: 14px; color: #3A3A3C; line-height: 1.7; padding-top: 16px; white-space: pre-wrap; }
     .btn-read { background: none; border: none; color: var(--gray); font-size: 14px; cursor: pointer; padding: 0; }
     .btn-read:hover { color: var(--accent); text-decoration: underline; }
     .why-block { border-left: 3px solid var(--yellow); padding-left: 20px; font-size: 15px; color: var(--text); line-height: 1.6; }
@@ -583,9 +598,10 @@
         </div>
       </div>
 
-      <div class="report-card">
-        <h2>Что ИИ говорит о вас</h2>
-        <div id="scan-results"></div>
+      <div class="report-card ai-says-section">
+        <h2 class="section-title">Что ИИ говорит о вас</h2>
+        <p class="section-subtitle">Реальные ответы ИИ на запросы ваших клиентов</p>
+        <div class="ai-accordion" id="aiAccordion"></div>
       </div>
 
       <div class="report-card">
@@ -740,6 +756,53 @@
       return 'SEO';
     }
 
+    function buildAiAccordion(scanResults) {
+      const container = document.getElementById('aiAccordion');
+      if (!container) return;
+      container.innerHTML = '';
+      const items = (scanResults || []).map(r => ({
+        prompt: r.prompt || '',
+        response: stripMarkdown(r.answer || r.response || ''),
+        mentioned: !!r.mentioned
+      }));
+      items.forEach((item, i) => {
+        const preview = item.response ? (item.response.length > 120 ? item.response.slice(0, 120) + '...' : item.response) : '—';
+        const mentioned = item.mentioned;
+        const statusIcon = mentioned ? '🟢' : '🔴';
+        const statusText = mentioned ? 'Упомянут' : 'Не упомянут';
+        const statusClass = mentioned ? 'status-green' : 'status-red';
+        const card = document.createElement('div');
+        card.className = 'accordion-card';
+        card.innerHTML = `
+          <div class="accordion-header" onclick="toggleAccordion(${i})">
+            <div class="accordion-header-left">
+              <div class="accordion-question">${escapeHtml(item.prompt)}</div>
+              <div class="accordion-preview" id="preview${i}">${escapeHtml(preview)}</div>
+            </div>
+            <div class="accordion-header-right">
+              <span class="accordion-status ${statusClass}">${statusIcon} ${statusText}</span>
+              <span class="accordion-toggle" id="toggle${i}">+</span>
+            </div>
+          </div>
+          <div class="accordion-body" id="body${i}" style="display:none">
+            <div class="accordion-response">${escapeHtml(item.response || '—')}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleAccordion(i) {
+      const body = document.getElementById('body' + i);
+      const toggle = document.getElementById('toggle' + i);
+      const preview = document.getElementById('preview' + i);
+      if (!body || !toggle) return;
+      const isOpen = body.style.display !== 'none';
+      body.style.display = isOpen ? 'none' : 'block';
+      toggle.textContent = isOpen ? '+' : '−';
+      if (preview) preview.style.display = isOpen ? 'block' : 'none';
+    }
+
     function renderScore(score, scores) {
       const s = score || 0;
       const scoreNumber = document.getElementById('scoreNumber');
@@ -845,38 +908,7 @@
 
         renderScore(data.visibility_score, data.scores);
 
-        document.getElementById('scan-results').innerHTML = (data.scan_results || []).map((r, idx) => {
-          const full = stripMarkdown(r.answer || '');
-          const short = full.slice(0, 200);
-          const truncated = full.length > 200;
-          return `
-          <div class="scan-item" data-idx="${idx}">
-            <div class="scan-status ${r.mentioned ? 'mentioned' : ''}">${r.mentioned ? '✓' : '○'} ${escapeHtml(r.prompt)}</div>
-            <div class="scan-answer">
-              <span class="scan-answer-short">${escapeHtml(short)}${truncated ? '...' : ''}</span>
-              ${truncated ? `<span class="scan-answer-full" style="display:none">${escapeHtml(full)}</span>` : ''}
-            </div>
-            ${truncated ? '<button type="button" class="btn-read">Читать →</button>' : ''}
-          </div>
-          `;
-        }).join('');
-
-        document.querySelectorAll('.btn-read').forEach(b => {
-          b.addEventListener('click', function() {
-            const item = this.closest('.scan-item');
-            const short = item.querySelector('.scan-answer-short');
-            const full = item.querySelector('.scan-answer-full');
-            if (full && full.style.display === 'none') {
-              short.style.display = 'none';
-              full.style.display = 'inline';
-              this.textContent = 'Свернуть';
-            } else if (full) {
-              short.style.display = 'inline';
-              full.style.display = 'none';
-              this.textContent = 'Читать →';
-            }
-          });
-        });
+        buildAiAccordion(data.scan_results);
 
         document.getElementById('why-not-mentioned').textContent = data.why_not_mentioned || '—';
 
