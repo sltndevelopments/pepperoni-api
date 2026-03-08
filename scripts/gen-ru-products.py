@@ -92,7 +92,7 @@ def main():
         name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
         seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
-        seo_desc = seo_desc[:160].replace('"', "&quot;")
+        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Каталог халяль продукции. Заказ оптом.")[:160].replace('"', "&quot;")
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
@@ -119,11 +119,11 @@ def main():
         thumbs = []
         for label, url, proxy, full, full_proxy in [("Упаковка", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -163,15 +163,22 @@ def main():
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
-<title>{name} — Казанские Деликатесы | Халяль</title>
+<title>{(t := name + " — Казанские Деликатесы | Халяль")[:60].rstrip(" |") or t[:60]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/products/{slug}">
 <meta property="og:type" content="product">
+<meta property="og:site_name" content="Казанские Деликатесы">
 <meta property="og:title" content="{name} — Казанские Деликатесы">
-<meta property="og:description" content="{p.get('category','')}. {price_rub} ₽. Халяль.">
+<meta property="og:description" content="{seo_desc[:200]}">
 <meta property="og:url" content="https://pepperoni.tatar/products/{slug}">
+<meta property="og:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
 <meta property="og:locale" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{name} — Казанские Деликатесы">
+<meta name="twitter:description" content="{seo_desc[:200]}">
+<meta name="twitter:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
@@ -180,7 +187,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -224,7 +231,7 @@ footer a{{color:#444;text-decoration:none}}
 @media(max-width:767px){{.product-thumbs{{gap:10px}}}}
 @media(max-width:480px){{.product-thumbs{{gap:8px}}}}
 </style>
-<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="Yandex Metrika" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
@@ -326,7 +333,7 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
     var fullProxy=el.getAttribute("data-full-proxy")||"";
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
-    var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
+    var img=document.createElement("img");img.src=full;img.alt=el.getAttribute("data-alt")||"Фото продукта";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     if(fullProxy){img.onerror=function(){this.onerror=null;this.src=fullProxy;};}
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};

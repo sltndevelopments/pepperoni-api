@@ -122,7 +122,8 @@ def main():
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
         else:
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
-        seo_desc = (p.get("seoDescriptionEN") or desc)[:160].replace('"', "&quot;")
+        seo_desc = (p.get("seoDescriptionEN") or desc)
+        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Halal food catalog. Wholesale orders.")[:160].replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
@@ -152,11 +153,11 @@ def main():
         thumbs = []
         for label, url, proxy, full, full_proxy in [("Pack", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("Slice", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
             if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
+                thumbs.append(f'<span class="lightbox-trigger" data-alt="{name_esc} — {label}" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{name_esc} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -195,13 +196,23 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<title>{name} — Kazan Delicacies | Halal</title>
+<title>{(t := name + " — Kazan Delicacies | Halal")[:60].rstrip(" |") or t[:60]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/products/{slug}">
 <meta property="og:type" content="product">
+<meta property="og:site_name" content="Kazan Delicacies">
 <meta property="og:title" content="{name} — Kazan Delicacies">
+<meta property="og:description" content="{seo_desc[:200]}">
 <meta property="og:url" content="https://pepperoni.tatar/en/products/{slug}">
+<meta property="og:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{name} — Kazan Delicacies">
+<meta name="twitter:description" content="{seo_desc[:200]}">
+<meta name="twitter:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
@@ -210,7 +221,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -254,7 +265,7 @@ footer a{{color:#444;text-decoration:none}}
 @media(max-width:767px){{.product-thumbs{{gap:10px}}}}
 @media(max-width:480px){{.product-thumbs{{gap:8px}}}}
 </style>
-<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="Yandex Metrika" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
 </head>
 <body>
@@ -351,7 +362,7 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
     var fullProxy=el.getAttribute("data-full-proxy")||"";
     var m=document.createElement("div");m.className="lightbox";
     var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Close");btn.textContent="×";
-    var img=document.createElement("img");img.src=full;img.alt="";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
+    var img=document.createElement("img");img.src=full;img.alt=el.getAttribute("data-alt")||"Product photo";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     if(fullProxy){img.onerror=function(){this.onerror=null;this.src=fullProxy;};}
     m.appendChild(btn);m.appendChild(img);
     m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};

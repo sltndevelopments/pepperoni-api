@@ -826,12 +826,6 @@ async function main() {
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
-${allProducts.map(p => `  <url>
-    <loc>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>`).join('\n')}
 </urlset>
 `;
   writeFileSync(sitemapPath, sitemap, 'utf-8');
