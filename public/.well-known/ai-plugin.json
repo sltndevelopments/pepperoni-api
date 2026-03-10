@@ -3,8 +3,8 @@
   "version": "2.0.0",
   "name_for_human": "Казанские Деликатесы — Халяль продукция API",
   "name_for_model": "kazan_delikates",
-  "description_for_human": "Полный каталог халяль продукции Казанских Деликатесов: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка. Актуальные цены.",
-  "description_for_model": "Use this API to fetch structured data about halal meat products and Tatar pastries from Kazan Delicacies (Казанские Деликатесы): 77 products across frozen meats, refrigerated meats, and bakery. Includes pepperoni, sausages, ham, smoked meats, kazylyk, gubadiya, echpochmak, chak-chak. Prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN). Halal certified #614A/2024. HACCP. Private Label available.",
+  "description_for_human": "Полный каталог халяль продукции Казанских Деликатесов: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка. Актуальные цены в 7 валютах.",
+  "description_for_model": "Use this API to fetch structured data about halal meat products and Tatar pastries from Kazan Delicacies (Казанские Деликатесы), a B2B halal food manufacturer based in Kazan, Tatarstan, Russia (since 1999). 77+ products across frozen meats, refrigerated meats, and bakery. Includes pepperoni, sausages, ham, smoked meats, kazylyk, gubadiya, echpochmak, chak-chak. Prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN). Delivery: EXW Kazan. Halal certified #614A/2024 (DUM RT). HACCP. ISO 22000:2018. Private Label / white-label production available. Export to UAE, GCC, Kazakhstan, Uzbekistan, Africa, China. Target customers: HoReCa, fast food, pizzerias, dark kitchens, gas stations, retail chains, distributors. Use search endpoint for product lookup, product endpoint for details by SKU, export endpoint for price lists in Excel/CSV.",
   "auth": { "type": "none" },
   "api": {
     "type": "openapi",
