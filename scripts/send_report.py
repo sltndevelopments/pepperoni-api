@@ -112,17 +112,24 @@ def build_prompt(stats: dict, date_str: str) -> str:
     ya  = stats.get("yandex_7d", {})
     gen = stats.get("generated_today", {})
 
+    gsc_clicks = gsc.get('clicks') or 0
+    gsc_impr   = gsc.get('impr')   or 0
+    gsc_ctr    = gsc.get('ctr')    or 0
+    gsc_pos    = gsc.get('pos')    or 0
+    ya_impr    = ya.get('impr')    or 0
+    ya_pos     = ya.get('pos')     or 0
+
     return f"""Дата отчёта: {date_str}
 
 === GOOGLE SEARCH CONSOLE (7 дней) ===
-Клики: {gsc.get('clicks', 0):.0f}
-Показы: {gsc.get('impr', 0):.0f}
-CTR: {(gsc.get('ctr', 0) or 0)*100:.2f}%
-Средняя позиция: {gsc.get('pos', 0) or 0:.1f}
+Клики: {gsc_clicks:.0f}
+Показы: {gsc_impr:.0f}
+CTR: {gsc_ctr * 100:.2f}%
+Средняя позиция: {gsc_pos:.1f}
 
 === ЯНДЕКС (7 дней) ===
-Показы: {ya.get('impr', 0):.0f}
-Средняя позиция: {ya.get('pos', 0) or 0:.1f}
+Показы: {ya_impr:.0f}
+Средняя позиция: {ya_pos:.1f}
 
 === ТОП ЗАПРОСЫ (по показам) ===
 {top_q if top_q else 'нет данных'}
