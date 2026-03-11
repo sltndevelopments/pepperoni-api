@@ -44,11 +44,12 @@ jobs:
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
           BING_CLIENT_ID:          ${{ secrets.BING_CLIENT_ID }}
           BING_CLIENT_SECRET:      ${{ secrets.BING_CLIENT_SECRET }}
+          GH_PAT:                  ${{ secrets.GH_PAT }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
@@ -59,9 +60,17 @@ jobs:
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"
               echo "BING_CLIENT_ID=$BING_CLIENT_ID"
               echo "BING_CLIENT_SECRET=$BING_CLIENT_SECRET"
+              echo "GITHUB_TOKEN=$GH_PAT"
             } > /var/www/pepperoni/seo-agent.env
             chmod 600 /var/www/pepperoni/seo-agent.env
             echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
+
+            # Update git remote URL with fresh PAT so VPS agent can push
+            cd /var/www/pepperoni/repo
+            git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/sltndevelopments/pepperoni-api.git"
+            git config user.email "seo-agent@pepperoni.tatar"
+            git config user.name  "SEO Agent"
+            echo "✅ git remote updated with fresh PAT"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0

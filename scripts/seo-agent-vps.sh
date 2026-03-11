@@ -53,33 +53,23 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze f
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 
-# ---- Step 5: Trigger GitHub Actions deploy via API ----
-# New/updated HTML files are in /var/www/pepperoni/repo/public/ — trigger a deploy
-# GitHub Actions handles git commit + publish via seo-agent.yml workflow_dispatch
-log "Step 5: Triggering GitHub Actions deploy …"
-GITHUB_REPO="sltndevelopments/pepperoni-api"
-GITHUB_WORKFLOW="seo-agent.yml"
-# Only trigger if new files were generated (check for recently modified HTML)
-NEW_FILES=0
-if [ -f data/.last_run ]; then
-    NEW_FILES=$(find public/geo public/blog -name "*.html" -newer data/.last_run 2>/dev/null | wc -l | tr -d ' \n' || true)
-    NEW_FILES="${NEW_FILES:-0}"
-fi
-if [ "$NEW_FILES" -gt 0 ] 2>/dev/null; then
-    log "  $NEW_FILES new HTML files found — triggering GitHub Actions …"
-    # Use GitHub API to dispatch seo-agent workflow (it will commit generated files)
-    # Requires GITHUB_TOKEN in env (set via repo secret or PAT)
-    if [ -n "${GITHUB_TOKEN:-}" ]; then
-        curl -s -X POST \
-          -H "Authorization: token $GITHUB_TOKEN" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/repos/$GITHUB_REPO/actions/workflows/$GITHUB_WORKFLOW/dispatches" \
-          -d '{"ref":"main"}' && log "  ✅ Workflow dispatched" || log "  ⚠️  Workflow dispatch failed"
+# ---- Step 5: Git commit & push generated content ----
+log "Step 5: Committing and pushing generated content …"
+
+# Stage any new/modified HTML in geo, blog, and key pages
+git add public/geo/*.html public/blog/*.html 2>/dev/null || true
+git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
+
+if ! git diff --cached --quiet 2>/dev/null; then
+    CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
+    git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1
+    if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
+        log "  ✅ Pushed $CHANGED file(s) to GitHub → triggers deploy"
     else
-        log "  ℹ️  GITHUB_TOKEN not set, skipping dispatch"
+        log "  ⚠️  Push failed — check GITHUB_TOKEN in env file"
     fi
 else
-    log "  ℹ️  No new content generated"
+    log "  ℹ️  No new content to commit"
 fi
 touch data/.last_run 2>/dev/null || true
 
