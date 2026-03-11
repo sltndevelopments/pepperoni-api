@@ -38,3 +38,9 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/gsc-index.py
+
+      - name: Submit URLs to Yandex Webmaster
+        env:
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: python scripts/yandex-index.py
+        continue-on-error: true
