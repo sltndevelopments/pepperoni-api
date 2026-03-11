@@ -1,17 +1,19 @@
-name: Submit URLs to Google Indexing API
+name: Google Search Console — Indexing & Sitemap
 
 on:
   workflow_run:
     workflows: ["Deploy to VPS"]
     types: [completed]
-  workflow_dispatch:  # Allow manual trigger
+  workflow_dispatch:
   push:
     branches: [main]
     paths:
       - 'scripts/gsc-index.py'
+      - 'scripts/gsc-sitemap.py'
+      - 'public/sitemap.xml'
 
 jobs:
-  index:
+  gsc:
     runs-on: ubuntu-latest
     if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' || github.event_name == 'push' }}
     steps:
@@ -25,6 +27,12 @@ jobs:
 
       - name: Install dependencies
         run: pip install cryptography
+
+      - name: Submit sitemap to Google Search Console
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/gsc-sitemap.py
+        continue-on-error: true
 
       - name: Submit URLs to Google Indexing API
         env:

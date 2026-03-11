@@ -1,8 +1,14 @@
 User-agent: *
 Allow: /
+Allow: /geo/
+Allow: /products/
+Allow: /en/
+Allow: /.well-known/
 
 Sitemap: https://pepperoni.tatar/sitemap.xml
 Sitemap: https://api.pepperoni.tatar/sitemap.xml
 
-# AI Discovery
-Allow: /llms.txt
+# AI / LLM Discovery (OpenAI, Claude, etc.)
+Allow: /.well-known/llms.txt
+Allow: /.well-known/ai-plugin.json
+Allow: /llms-full.txt

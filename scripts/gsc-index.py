@@ -2,7 +2,7 @@
 """
 Submit URLs to Google Indexing API after deploy.
 Uses service account credentials from GSC_SERVICE_ACCOUNT_KEY env var.
-Last updated: 2026-03-11 — added 36 burger/hotdog geo pages.
+Indexing API: 68 URLs (main, geo, commercial, key products).
 """
 
 import json
@@ -92,6 +92,14 @@ URLS = [
     "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-armenia",
     "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-azerbaijan",
     "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-kyrgyzstan",
+
+    # Key product pages (pepperoni, sausages)
+    "https://pepperoni.tatar/products/kd-001",
+    "https://pepperoni.tatar/products/kd-002",
+    "https://pepperoni.tatar/products/kd-014",
+    "https://pepperoni.tatar/products/kd-015",
+    "https://pepperoni.tatar/products/kd-017",
+    "https://pepperoni.tatar/products/kd-018",
 ]
 
 
