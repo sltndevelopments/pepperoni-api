@@ -36,40 +36,7 @@ jobs:
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
       - name: Write SEO Agent env file on VPS
-        run: |
-          # Build env file content and scp it to VPS
-          mkdir -p /tmp/seo-env
-          cat > /tmp/seo-env/seo-agent.env << 'ENVEOF'
-          GSC_SERVICE_ACCOUNT_KEY_B64=PLACEHOLDER_GSC
-          YANDEX_WM_TOKEN=PLACEHOLDER_YA
-          CLAUDE_API_KEY=PLACEHOLDER_CLAUDE
-          INDEXNOW_KEY=PLACEHOLDER_INOW
-          BING_CLIENT_ID=PLACEHOLDER_BINGCID
-          BING_CLIENT_SECRET=PLACEHOLDER_BINGCSEC
-          ENVEOF
-
-          # Write real env file (GSC key is multiline JSON so we base64-encode it)
-          python3 - << 'PYEOF'
-          import base64, os
-          gsc  = os.environ["GSC_SERVICE_ACCOUNT_KEY"]
-          ya   = os.environ["YANDEX_WM_TOKEN"]
-          cl   = os.environ["CLAUDE_API_KEY"]
-          inow = os.environ["INDEXNOW_KEY"]
-          bcid = os.environ["BING_CLIENT_ID"]
-          bsec = os.environ["BING_CLIENT_SECRET"]
-          gsc_b64 = base64.b64encode(gsc.encode()).decode()
-          lines = [
-              f'GSC_SERVICE_ACCOUNT_KEY_B64={gsc_b64}',
-              f'YANDEX_WM_TOKEN={ya}',
-              f'CLAUDE_API_KEY={cl}',
-              f'INDEXNOW_KEY={inow}',
-              f'BING_CLIENT_ID={bcid}',
-              f'BING_CLIENT_SECRET={bsec}',
-          ]
-          with open('/tmp/seo-env/seo-agent.env', 'w') as f:
-              f.write('\n'.join(lines) + '\n')
-          print(f"✅ env file built ({len('\n'.join(lines))} chars)")
-          PYEOF
+        uses: appleboy/ssh-action@v1.0.0
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
           YANDEX_WM_TOKEN:         ${{ secrets.YANDEX_WM_TOKEN }}
@@ -77,26 +44,24 @@ jobs:
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
           BING_CLIENT_ID:          ${{ secrets.BING_CLIENT_ID }}
           BING_CLIENT_SECRET:      ${{ secrets.BING_CLIENT_SECRET }}
-
-      - name: Upload env file to VPS
-        uses: appleboy/scp-action@v0.1.7
-        with:
-          host:     ${{ secrets.VPS_HOST }}
-          username: root
-          key:      ${{ secrets.VPS_SSH_KEY }}
-          source:   /tmp/seo-env/seo-agent.env
-          target:   /var/www/pepperoni/
-          strip_components: 2
-
-      - name: Fix env permissions on VPS
-        uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET
           script: |
+            # GSC key is JSON — base64-encode it so it fits on one line safely
+            GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
+            {
+              echo "GSC_SERVICE_ACCOUNT_KEY_B64=$GSC_B64"
+              echo "YANDEX_WM_TOKEN=$YANDEX_WM_TOKEN"
+              echo "CLAUDE_API_KEY=$CLAUDE_API_KEY"
+              echo "INDEXNOW_KEY=$INDEXNOW_KEY"
+              echo "BING_CLIENT_ID=$BING_CLIENT_ID"
+              echo "BING_CLIENT_SECRET=$BING_CLIENT_SECRET"
+            } > /var/www/pepperoni/seo-agent.env
             chmod 600 /var/www/pepperoni/seo-agent.env
-            echo "✅ seo-agent.env on VPS: $(wc -c < /var/www/pepperoni/seo-agent.env) bytes"
+            echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
