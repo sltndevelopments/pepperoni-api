@@ -20,9 +20,10 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, MAX_TOKENS
+from claude_client import call_claude as _claude
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
+MAX_TOKENS   = 4096
 MAX_ARTICLES = int(os.environ.get("MAX_ARTICLES", "3"))   # per run
 MAX_TITLES   = int(os.environ.get("MAX_TITLES",   "10"))  # per run
 
