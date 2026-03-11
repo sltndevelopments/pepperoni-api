@@ -2,6 +2,7 @@
 """
 Submit URLs to Google Indexing API after deploy.
 Uses service account credentials from GSC_SERVICE_ACCOUNT_KEY env var.
+Last updated: 2026-03-11 — added 36 burger/hotdog geo pages.
 """
 
 import json
