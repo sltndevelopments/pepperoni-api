@@ -76,11 +76,14 @@ git add public/index.html public/pepperoni.html public/en/index.html public/site
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
-    git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1
-    if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
-        log "  ✅ Pushed $CHANGED file(s) to GitHub → triggers deploy"
+    if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then
+        if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
+            log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
+        else
+            log "  ⚠️  Push failed — git extraheader may be outdated (re-deploy to refresh)"
+        fi
     else
-        log "  ⚠️  Push failed — check GITHUB_TOKEN in env file"
+        log "  ⚠️  Commit failed"
     fi
 else
     log "  ℹ️  No new content to commit"

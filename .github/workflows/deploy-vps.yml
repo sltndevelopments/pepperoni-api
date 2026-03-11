@@ -65,14 +65,15 @@ jobs:
             chmod 600 /var/www/pepperoni/seo-agent.env
             echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
 
-            # Update git remote and user config so VPS agent can commit & push
+            # Set up git on VPS so SEO agent can commit & push autonomously
             git config --global --add safe.directory /var/www/pepperoni/repo
             cd /var/www/pepperoni/repo
             git config user.email "seo-agent@pepperoni.tatar"
             git config user.name  "SEO Agent"
-            git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/sltndevelopments/pepperoni-api.git"
-            echo "✅ git remote and user config updated"
-            git fetch origin main --quiet && echo "✅ git fetch OK — push will work"
+            # Use http.extraheader with x-access-token (GitHub PAT format for git over HTTPS)
+            B64=$(echo -n "x-access-token:${GH_PAT}" | base64 -w0)
+            git config http.https://github.com/.extraheader "Authorization: Basic ${B64}"
+            git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK — agent can push"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
