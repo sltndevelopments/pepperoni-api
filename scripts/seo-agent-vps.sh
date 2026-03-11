@@ -35,10 +35,6 @@ else
 fi
 
 cd "$REPO_DIR"
-
-# Pull latest code from git (deploy already does rsync, but ensure data is fresh)
-git pull origin main --quiet 2>/dev/null || log "⚠️  git pull failed (non-fatal)"
-
 log "=== SEO Agent started ==="
 
 # ---- Step 1: Fetch GSC data ----
@@ -57,20 +53,31 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze f
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 
-# ---- Step 5: Git commit & push ----
-log "Step 5: Committing generated content …"
-git config user.email "seo-agent@pepperoni.tatar"
-git config user.name  "SEO Agent"
-git add public/geo/*.html public/blog/*.html public/sitemap.xml 2>/dev/null || true
-git add public/index.html public/pepperoni.html public/en/index.html 2>/dev/null || true
-
-if ! git diff --cached --quiet; then
-    git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1
-    git push origin main >> "$LOG_FILE" 2>&1
-    log "✅ Pushed new content to GitHub"
+# ---- Step 5: Trigger GitHub Actions deploy via API ----
+# New/updated HTML files are in /var/www/pepperoni/repo/public/ — trigger a deploy
+# GitHub Actions handles git commit + publish via seo-agent.yml workflow_dispatch
+log "Step 5: Triggering GitHub Actions deploy …"
+GITHUB_REPO="sltndevelopments/pepperoni-api"
+GITHUB_WORKFLOW="seo-agent.yml"
+# Only trigger if new files were generated (check for recently modified HTML)
+NEW_FILES=$(find public/geo public/blog -name "*.html" -newer data/.last_run 2>/dev/null | wc -l || echo 0)
+if [ "$NEW_FILES" -gt 0 ]; then
+    log "  $NEW_FILES new HTML files found — triggering GitHub Actions …"
+    # Use GitHub API to dispatch seo-agent workflow (it will commit generated files)
+    # Requires GITHUB_TOKEN in env (set via repo secret or PAT)
+    if [ -n "${GITHUB_TOKEN:-}" ]; then
+        curl -s -X POST \
+          -H "Authorization: token $GITHUB_TOKEN" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/repos/$GITHUB_REPO/actions/workflows/$GITHUB_WORKFLOW/dispatches" \
+          -d '{"ref":"main"}' && log "  ✅ Workflow dispatched" || log "  ⚠️  Workflow dispatch failed"
+    else
+        log "  ℹ️  GITHUB_TOKEN not set, skipping dispatch"
+    fi
 else
-    log "ℹ️  No new content generated"
+    log "  ℹ️  No new content generated"
 fi
+touch data/.last_run 2>/dev/null || true
 
 # ---- Step 6: GSC indexing ----
 log "Step 6: Submitting URLs to Google …"
