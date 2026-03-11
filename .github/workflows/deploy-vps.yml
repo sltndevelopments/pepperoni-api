@@ -37,22 +37,24 @@ jobs:
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
+        env:
+          GSC_KEY:    ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+          YA_TOKEN:   ${{ secrets.YANDEX_WM_TOKEN }}
+          CLAUDE_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          INOW_KEY:   ${{ secrets.INDEXNOW_KEY }}
+          BING_CID:   ${{ secrets.BING_CLIENT_ID }}
+          BING_CSEC:  ${{ secrets.BING_CLIENT_SECRET }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET
+          envs: GSC_KEY,YA_TOKEN,CLAUDE_KEY,INOW_KEY,BING_CID,BING_CSEC
           script: |
-            cat > /var/www/pepperoni/seo-agent.env << ENVEOF
-            GSC_SERVICE_ACCOUNT_KEY='${GSC_SERVICE_ACCOUNT_KEY}'
-            YANDEX_WM_TOKEN=${YANDEX_WM_TOKEN}
-            CLAUDE_API_KEY=${CLAUDE_API_KEY}
-            INDEXNOW_KEY=${INDEXNOW_KEY}
-            BING_CLIENT_ID=${BING_CLIENT_ID}
-            BING_CLIENT_SECRET=${BING_CLIENT_SECRET}
-            ENVEOF
+            printf 'GSC_SERVICE_ACCOUNT_KEY=%s\nYANDEX_WM_TOKEN=%s\nCLAUDE_API_KEY=%s\nINDEXNOW_KEY=%s\nBING_CLIENT_ID=%s\nBING_CLIENT_SECRET=%s\n' \
+              "$GSC_KEY" "$YA_TOKEN" "$CLAUDE_KEY" "$INOW_KEY" "$BING_CID" "$BING_CSEC" \
+              > /var/www/pepperoni/seo-agent.env
             chmod 600 /var/www/pepperoni/seo-agent.env
-            echo "✅ seo-agent.env written"
+            echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
