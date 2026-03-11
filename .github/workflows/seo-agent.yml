@@ -1,0 +1,94 @@
+name: SEO Agent — daily analysis & content generation
+
+on:
+  schedule:
+    - cron: "30 5 * * *"   # 08:30 MSK (UTC+3) every day
+  workflow_dispatch:
+    inputs:
+      max_articles:
+        description: "Max new pages to generate (default: 3)"
+        default: "3"
+      max_titles:
+        description: "Max title updates (default: 10)"
+        default: "10"
+
+permissions:
+  contents: write
+
+jobs:
+  agent:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install cryptography
+
+      - name: Fetch GSC queries
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/fetch_gsc_queries.py
+        continue-on-error: true
+
+      - name: Fetch Yandex queries
+        env:
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: python scripts/fetch_yandex_queries.py
+        continue-on-error: true
+
+      - name: Analyze opportunities
+        run: python scripts/analyze_queries.py
+        continue-on-error: true
+
+      - name: Generate content via Claude API
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          MAX_ARTICLES: ${{ github.event.inputs.max_articles || '3' }}
+          MAX_TITLES:   ${{ github.event.inputs.max_titles   || '10' }}
+        run: python scripts/generate_content.py
+        continue-on-error: true
+
+      - name: Commit & push generated content
+        run: |
+          git config user.email "seo-agent@pepperoni.tatar"
+          git config user.name  "SEO Agent"
+          git add public/geo/*.html public/blog/*.html public/sitemap.xml 2>/dev/null || true
+          git add public/index.html public/pepperoni.html public/en/index.html 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(seo): auto-update $(date +%Y-%m-%d)"
+            git push origin main
+          else
+            echo "No changes to commit"
+          fi
+        continue-on-error: true
+
+      - name: Submit new URLs to Google Indexing API
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/gsc-index.py
+        continue-on-error: true
+
+      - name: Submit new URLs to Yandex
+        env:
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: python scripts/yandex-index.py
+        continue-on-error: true
+
+      - name: Send daily report
+        env:
+          CLAUDE_API_KEY:  ${{ secrets.CLAUDE_API_KEY }}
+          REPORT_EMAIL:    ${{ secrets.REPORT_EMAIL }}
+          SMTP_HOST:       ${{ secrets.SMTP_HOST }}
+          SMTP_PORT:       ${{ secrets.SMTP_PORT }}
+          SMTP_USER:       ${{ secrets.SMTP_USER }}
+          SMTP_PASS:       ${{ secrets.SMTP_PASS }}
+        run: python scripts/send_report.py
+        continue-on-error: true
