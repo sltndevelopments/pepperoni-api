@@ -60,10 +60,12 @@ log "Step 5: Triggering GitHub Actions deploy …"
 GITHUB_REPO="sltndevelopments/pepperoni-api"
 GITHUB_WORKFLOW="seo-agent.yml"
 # Only trigger if new files were generated (check for recently modified HTML)
-NEW_FILES=$(find public/geo public/blog -name "*.html" -newer data/.last_run 2>/dev/null | wc -l)
-NEW_FILES="${NEW_FILES//[^0-9]/}"
-NEW_FILES="${NEW_FILES:-0}"
-if [ "${NEW_FILES}" -gt 0 ] 2>/dev/null; then
+NEW_FILES=0
+if [ -f data/.last_run ]; then
+    NEW_FILES=$(find public/geo public/blog -name "*.html" -newer data/.last_run 2>/dev/null | wc -l | tr -d ' \n' || true)
+    NEW_FILES="${NEW_FILES:-0}"
+fi
+if [ "$NEW_FILES" -gt 0 ] 2>/dev/null; then
     log "  $NEW_FILES new HTML files found — triggering GitHub Actions …"
     # Use GitHub API to dispatch seo-agent workflow (it will commit generated files)
     # Requires GITHUB_TOKEN in env (set via repo secret or PAT)

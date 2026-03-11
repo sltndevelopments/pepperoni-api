@@ -42,6 +42,7 @@ def fetch_queries(token: str, date_from: str, date_to: str) -> list:
         f"/user/{USER_ID}/hosts/{urllib.parse.quote(HOST_ID, safe='')}"
         f"/search-queries/popular"
         f"?query_indicator=TOTAL_SHOWS&query_indicator=TOTAL_CLICKS"
+        f"&order_by=TOTAL_SHOWS"
         f"&date_from={date_from}&date_to={date_to}&limit=500&offset=0"
     )
     data = api_get(token, path)
