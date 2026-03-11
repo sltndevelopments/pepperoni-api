@@ -19,12 +19,26 @@ LOG_FILE="$LOG_DIR/agent-$(date +%Y%m%d-%H%M%S).log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"; }
 
 # Load secrets from env file
+# Use python to safely parse env (handles GSC multiline base64 value)
 if [ -f "$ENV_FILE" ]; then
-    set -a
-    # shellcheck disable=SC1090
-    source "$ENV_FILE"
-    set +a
-    # GSC key is base64-encoded (JSON contains newlines/spaces that break shell vars)
+    eval "$(python3 - "$ENV_FILE" << 'PYEOF'
+import sys, os, re
+
+env_file = sys.argv[1]
+with open(env_file) as f:
+    for line in f:
+        line = line.rstrip('\n')
+        if '=' not in line or line.startswith('#'):
+            continue
+        key, val = line.split('=', 1)
+        key = key.strip()
+        val = val.strip()
+        # shell-escape the value
+        val_escaped = val.replace("'", "'\\''")
+        print(f"export {key}='{val_escaped}'")
+PYEOF
+)"
+    # GSC key is base64-encoded — decode to real JSON
     if [ -n "${GSC_SERVICE_ACCOUNT_KEY_B64:-}" ]; then
         export GSC_SERVICE_ACCOUNT_KEY
         GSC_SERVICE_ACCOUNT_KEY=$(echo "$GSC_SERVICE_ACCOUNT_KEY_B64" | base64 -d)

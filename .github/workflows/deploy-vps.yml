@@ -65,12 +65,14 @@ jobs:
             chmod 600 /var/www/pepperoni/seo-agent.env
             echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
 
-            # Update git remote URL with fresh PAT so VPS agent can push
+            # Update git remote and user config so VPS agent can commit & push
+            git config --global --add safe.directory /var/www/pepperoni/repo
             cd /var/www/pepperoni/repo
-            git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/sltndevelopments/pepperoni-api.git"
             git config user.email "seo-agent@pepperoni.tatar"
             git config user.name  "SEO Agent"
-            echo "✅ git remote updated with fresh PAT"
+            git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/sltndevelopments/pepperoni-api.git"
+            echo "✅ git remote and user config updated"
+            git fetch origin main --quiet && echo "✅ git fetch OK — push will work"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
