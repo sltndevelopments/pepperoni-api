@@ -20,42 +20,17 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
+from claude_client import call_claude as _claude, MAX_TOKENS
 
-CLAUDE_API_KEY = os.environ.get("CLAUDE_API_KEY", "")
-CLAUDE_MODEL   = "claude-opus-4-5"
-PUBLIC_DIR     = Path(__file__).parent.parent / "public"
-MAX_TOKENS     = 4096
-MAX_ARTICLES   = int(os.environ.get("MAX_ARTICLES", "3"))   # per run
-MAX_TITLES     = int(os.environ.get("MAX_TITLES",   "10"))  # per run
+PUBLIC_DIR   = Path(__file__).parent.parent / "public"
+MAX_ARTICLES = int(os.environ.get("MAX_ARTICLES", "3"))   # per run
+MAX_TITLES   = int(os.environ.get("MAX_TITLES",   "10"))  # per run
 
 # ---------- Claude API ----------
 
 def call_claude(system: str, prompt: str) -> tuple[str, int]:
-    """Call Claude API, return (text, tokens_used)."""
-    if not CLAUDE_API_KEY:
-        raise RuntimeError("CLAUDE_API_KEY not set")
-
-    body = json.dumps({
-        "model": CLAUDE_MODEL,
-        "max_tokens": MAX_TOKENS,
-        "system": system,
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
-
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=body,
-        headers={
-            "x-api-key": CLAUDE_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-    )
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
-    text = data["content"][0]["text"]
-    tokens = data.get("usage", {}).get("output_tokens", 0)
-    return text, tokens
+    """Call Claude API via proxy, return (text, tokens_used)."""
+    return _claude(prompt, system=system, max_tokens=MAX_TOKENS)
 
 
 # ---------- Title/Meta updater ----------

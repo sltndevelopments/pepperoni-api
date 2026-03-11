@@ -16,9 +16,8 @@ from email.mime.text import MIMEText
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
+from claude_client import call_claude_cheap
 
-CLAUDE_API_KEY = os.environ.get("CLAUDE_API_KEY", "")
-CLAUDE_MODEL   = "claude-haiku-4-5"  # cheap model for report summaries
 REPORT_EMAIL   = os.environ.get("REPORT_EMAIL", "995620@gmail.com")
 SMTP_HOST      = os.environ.get("SMTP_HOST", "")
 SMTP_PORT      = int(os.environ.get("SMTP_PORT", "587"))
@@ -28,32 +27,19 @@ FROM_EMAIL     = os.environ.get("FROM_EMAIL", "noreply@pepperoni.tatar")
 
 
 def call_claude(prompt: str) -> str:
-    if not CLAUDE_API_KEY:
-        return prompt  # fallback: return raw stats
-
-    body = json.dumps({
-        "model": CLAUDE_MODEL,
-        "max_tokens": 2048,
-        "system": (
-            "Ты SEO-аналитик сайта pepperoni.tatar. "
-            "Пишешь краткие, структурированные ежедневные отчёты на русском языке. "
-            "Выделяй главное, давай конкретные рекомендации."
-        ),
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
-
-    req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
-        data=body,
-        headers={
-            "x-api-key": CLAUDE_API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
-        },
-    )
-    with urllib.request.urlopen(req) as resp:
-        data = json.loads(resp.read())
-    return data["content"][0]["text"]
+    try:
+        text, _ = call_claude_cheap(
+            prompt,
+            system=(
+                "Ты SEO-аналитик сайта pepperoni.tatar. "
+                "Пишешь краткие, структурированные ежедневные отчёты на русском языке. "
+                "Выделяй главное, давай конкретные рекомендации."
+            ),
+            max_tokens=2048,
+        )
+        return text
+    except Exception as e:
+        return f"[Claude недоступен: {e}]\n\n{prompt}"
 
 
 def gather_stats() -> dict:
