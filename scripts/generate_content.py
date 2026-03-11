@@ -299,7 +299,8 @@ def process_new_pages(opportunities: list, conn) -> int:
 # ---------- Main ----------
 
 def main():
-    if not CLAUDE_API_KEY:
+    from claude_client import CLAUDE_API_KEY as _key
+    if not _key:
         print("❌ CLAUDE_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
