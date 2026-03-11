@@ -47,6 +47,50 @@ URLS = [
     "https://pepperoni.tatar/geo/pepperoni-armenia",
     "https://pepperoni.tatar/geo/pepperoni-azerbaijan",
     "https://pepperoni.tatar/geo/pepperoni-kyrgyzstan",
+
+    # Burger patties geo pages - Russia
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-moskva",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-spb",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kazan",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-ufa",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-ekaterinburg",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-yanao",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-dagestan",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-mahachkala",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-grozny",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-sochi",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-krasnodar",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-astrahan",
+
+    # Burger patties geo pages - CIS
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kazakhstan",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-uzbekistan",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-belarus",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-armenia",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-azerbaijan",
+    "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kyrgyzstan",
+
+    # Hot dog sausages geo pages - Russia
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-moskva",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-spb",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-kazan",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-ufa",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-ekaterinburg",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-yanao",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-dagestan",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-mahachkala",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-grozny",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-sochi",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-krasnodar",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-astrahan",
+
+    # Hot dog sausages geo pages - CIS
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-kazakhstan",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-uzbekistan",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-belarus",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-armenia",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-azerbaijan",
+    "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-kyrgyzstan",
 ]
 
 
