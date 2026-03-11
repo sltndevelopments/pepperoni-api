@@ -24,6 +24,11 @@ if [ -f "$ENV_FILE" ]; then
     # shellcheck disable=SC1090
     source "$ENV_FILE"
     set +a
+    # GSC key is base64-encoded (JSON contains newlines/spaces that break shell vars)
+    if [ -n "${GSC_SERVICE_ACCOUNT_KEY_B64:-}" ]; then
+        export GSC_SERVICE_ACCOUNT_KEY
+        GSC_SERVICE_ACCOUNT_KEY=$(echo "$GSC_SERVICE_ACCOUNT_KEY_B64" | base64 -d)
+    fi
     log "✅ Env loaded from $ENV_FILE"
 else
     log "⚠️  $ENV_FILE not found — secrets missing"
