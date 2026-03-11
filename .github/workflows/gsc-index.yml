@@ -44,3 +44,11 @@ jobs:
           YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
         run: python scripts/yandex-index.py
         continue-on-error: true
+
+      - name: Submit URLs via IndexNow + Bing Webmaster
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          BING_CLIENT_ID: ${{ secrets.BING_CLIENT_ID }}
+          BING_CLIENT_SECRET: ${{ secrets.BING_CLIENT_SECRET }}
+        run: python scripts/bing-index.py
+        continue-on-error: true
