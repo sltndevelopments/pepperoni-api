@@ -2,3 +2,9 @@ node_modules/
 scripts/gsc-key.json
 *.pem
 *-key.json
+
+# SEO Agent runtime data (SQLite DB + logs)
+data/seo_data.db
+data/logs/
+!data/.gitkeep
+
