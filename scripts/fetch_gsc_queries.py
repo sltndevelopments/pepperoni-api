@@ -16,7 +16,7 @@ from datetime import datetime, timedelta, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
 
-SITE_URL = "https://pepperoni.tatar/"
+SITE_URL = "sc-domain:pepperoni.tatar"
 DAYS_BACK = int(os.environ.get("GSC_DAYS_BACK", "30"))
 ROW_LIMIT = 25000
 
