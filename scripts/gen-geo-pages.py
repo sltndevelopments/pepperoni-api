@@ -508,8 +508,7 @@ def build_page(loc: dict) -> str:
     slug = loc["slug"]
     url = f"https://pepperoni.tatar/geo/{slug}"
 
-    # hidden SEO keywords (not visible to user)
-    hidden_seo = f"без свинины, no pork, halal no pork, не содержит свинину, {loc['keywords']}"
+    hidden_seo = loc['keywords']
 
     html = f"""<!DOCTYPE html>
 <html lang="{loc['lang']}">
@@ -672,9 +671,6 @@ def build_page(loc: dict) -> str:
     <p>Готовы обсудить поставки в {city_gen}, объёмы, цены и условия. Ответим в течение нескольких часов.</p>
     <a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="cta cta-outline">📧 info@kazandelikates.tatar</a>
-
-    <!-- Hidden SEO: not rendered, for crawlers -->
-    <span aria-hidden="true" style="display:none">без свинины, no pork, не содержит свинину, halal no pork, halal certified</span>
 
     <footer>
       <p><a href="/">← Каталог</a> &middot; <a href="/pepperoni">Пепперони</a> &middot; <a href="/about">О компании</a> &middot; <a href="/delivery">Доставка</a> &middot; <a href="/faq">FAQ</a></p>
