@@ -34,3 +34,42 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
+
+      - name: Write SEO Agent env file on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET
+          script: |
+            cat > /var/www/pepperoni/seo-agent.env << ENVEOF
+            GSC_SERVICE_ACCOUNT_KEY='${GSC_SERVICE_ACCOUNT_KEY}'
+            YANDEX_WM_TOKEN=${YANDEX_WM_TOKEN}
+            CLAUDE_API_KEY=${CLAUDE_API_KEY}
+            INDEXNOW_KEY=${INDEXNOW_KEY}
+            BING_CLIENT_ID=${BING_CLIENT_ID}
+            BING_CLIENT_SECRET=${BING_CLIENT_SECRET}
+            ENVEOF
+            chmod 600 /var/www/pepperoni/seo-agent.env
+            echo "✅ seo-agent.env written"
+
+      - name: Install SEO Agent cron on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pepperoni/repo/data/logs
+            mkdir -p /var/www/pepperoni/repo/public/blog
+
+            # Add SEO agent cron if not already present
+            CRON_LINE="30 5 * * * bash /var/www/pepperoni/repo/scripts/seo-agent-vps.sh >> /var/log/pepperoni-seo-agent.log 2>&1"
+            if ! crontab -l 2>/dev/null | grep -q "seo-agent-vps.sh"; then
+              (crontab -l 2>/dev/null; echo "$CRON_LINE") | crontab -
+              echo "✅ SEO agent cron installed (08:30 MSK daily)"
+            else
+              echo "ℹ️  SEO agent cron already present"
+            fi
+            crontab -l | grep seo-agent
