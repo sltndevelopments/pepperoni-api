@@ -12,6 +12,7 @@ import json
 import os
 import socket
 import urllib.error
+import urllib.request
 
 # ── Proxy config ──────────────────────────────────────────────
 PROXY_HOST = "190.2.137.56"
@@ -165,7 +166,6 @@ def call_claude(
             errors.append(f"proxy: {e}")
 
     # ── Direct fallback (no proxy) ──
-    import urllib.request
     try:
         req = urllib.request.Request(ANTHROPIC_URL, data=body, headers=headers)
         with urllib.request.urlopen(req) as resp:

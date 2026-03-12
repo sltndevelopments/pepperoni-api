@@ -77,10 +77,12 @@ git add public/index.html public/pepperoni.html public/en/index.html public/site
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then
+        # Pull remote changes first to avoid non-fast-forward rejection
+        git pull --rebase origin main >> "$LOG_FILE" 2>&1 || log "  ⚠️  Rebase failed, push may fail"
         if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
         else
-            log "  ⚠️  Push failed — git extraheader may be outdated (re-deploy to refresh)"
+            log "  ⚠️  Push failed — check git extraheader (re-deploy to refresh)"
         fi
     else
         log "  ⚠️  Commit failed"
