@@ -6,11 +6,23 @@ on:
   workflow_dispatch:
     inputs:
       max_articles:
-        description: "Max new pages to generate (default: 3)"
+        description: "Max new blog articles per run (default: 3)"
         default: "3"
       max_titles:
-        description: "Max title updates (default: 10)"
+        description: "Max title updates per run (default: 10)"
         default: "10"
+      max_typegeo:
+        description: "Max type+geo pages per run (default: 3)"
+        default: "3"
+      max_product_updates:
+        description: "Max product description updates (default: 5)"
+        default: "5"
+      run_news:
+        description: "Generate news articles (true/false)"
+        default: "false"
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
@@ -32,6 +44,8 @@ jobs:
       - name: Install dependencies
         run: pip install cryptography
 
+      # ── Step 1: Fetch search data ──────────────────────────────
+
       - name: Fetch GSC queries
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
@@ -48,27 +62,68 @@ jobs:
         run: python scripts/analyze_queries.py
         continue-on-error: true
 
+      # ── Step 2: Generate content ───────────────────────────────
+
       - name: Generate content via Claude API
         env:
-          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
-          MAX_ARTICLES: ${{ github.event.inputs.max_articles || '3' }}
-          MAX_TITLES:   ${{ github.event.inputs.max_titles   || '10' }}
+          CLAUDE_API_KEY:       ${{ secrets.CLAUDE_API_KEY }}
+          MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
+          MAX_TITLES:           ${{ github.event.inputs.max_titles   || '10' }}
+          MAX_TYPEGEO:          ${{ github.event.inputs.max_typegeo  || '3' }}
         run: python scripts/generate_content.py
         continue-on-error: true
+
+      # ── Step 3: Update product descriptions (weekly, Mon only) ─
+
+      - name: Update product descriptions via GSC data
+        if: github.event_name == 'workflow_dispatch' || format('{0}', github.event.schedule) == '' || (toJSON(github.event) != '' && contains(toJSON(github.event), 'Mon'))
+        env:
+          CLAUDE_API_KEY:          ${{ secrets.CLAUDE_API_KEY }}
+          MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
+        run: python scripts/update_product_descriptions.py
+        continue-on-error: true
+
+      # ── Step 4: Generate news (manual or weekly) ───────────────
+
+      - name: Generate news articles
+        if: github.event.inputs.run_news == 'true'
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: python scripts/gen_news.py
+        continue-on-error: true
+
+      # ── Step 5: Commit & push all changes ──────────────────────
 
       - name: Commit & push generated content
         run: |
           git config user.email "seo-agent@pepperoni.tatar"
           git config user.name  "SEO Agent"
-          git add public/geo/*.html public/blog/*.html public/sitemap.xml 2>/dev/null || true
-          git add public/index.html public/pepperoni.html public/en/index.html 2>/dev/null || true
+          # Blog articles (RU + EN)
+          git add "public/blog/*.html" 2>/dev/null || true
+          git add "public/en/blog/*.html" 2>/dev/null || true
+          # FAQ pages
+          git add "public/faq/*.html" 2>/dev/null || true
+          git add "public/en/faq/*.html" 2>/dev/null || true
+          # Geo pages (type+geo + regular)
+          git add "public/geo/*.html" 2>/dev/null || true
+          # News section
+          git add "public/news/*.html" 2>/dev/null || true
+          # Updated pages and sitemap
+          git add public/sitemap.xml public/index.html public/en/index.html 2>/dev/null || true
+          git add public/pepperoni.html 2>/dev/null || true
+          # Product card updates
+          git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
           if ! git diff --cached --quiet; then
-            git commit -m "chore(seo): auto-update $(date +%Y-%m-%d)"
+            COUNT=$(git diff --cached --name-only | wc -l)
+            git commit -m "chore(seo): auto-generate content $(date +%Y-%m-%d) — ${COUNT} files"
             git push origin main
+            echo "✅ Pushed ${COUNT} files"
           else
             echo "No changes to commit"
           fi
         continue-on-error: true
+
+      # ── Step 6: Index new URLs ─────────────────────────────────
 
       - name: Submit new URLs to Google Indexing API
         env:
@@ -81,6 +136,8 @@ jobs:
           YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
         run: python scripts/yandex-index.py
         continue-on-error: true
+
+      # ── Step 7: Daily report ───────────────────────────────────
 
       - name: Send daily report
         env:
