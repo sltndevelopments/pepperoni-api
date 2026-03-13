@@ -53,13 +53,68 @@ def gather_stats() -> dict:
     """).fetchone()
     stats["gsc_7d"] = dict(row) if row else {}
 
-    # Top growing queries (pos improved)
+    # GSC stats previous 7 days (8-14 days ago) for WoW comparison
+    row_prev = conn.execute("""
+        SELECT SUM(clicks) as clicks, SUM(impressions) as impr, AVG(ctr) as ctr, AVG(position) as pos
+        FROM gsc_queries WHERE date >= date('now', '-14 days') AND date < date('now', '-7 days')
+    """).fetchone()
+    stats["gsc_prev_7d"] = dict(row_prev) if row_prev else {}
+
+    # Top queries by impressions last 7 days
     top_queries = conn.execute("""
-        SELECT query, AVG(position) as pos, SUM(impressions) as impr
+        SELECT query, AVG(position) as pos, SUM(impressions) as impr, SUM(clicks) as clicks
         FROM gsc_queries WHERE date >= date('now', '-7 days')
         GROUP BY query ORDER BY impr DESC LIMIT 10
     """).fetchall()
     stats["top_queries"] = [dict(r) for r in top_queries]
+
+    # Queries that improved position (week over week) — best growth
+    improved = conn.execute("""
+        SELECT cur.query,
+               cur.pos  AS pos_now,
+               prev.pos AS pos_prev,
+               (prev.pos - cur.pos) AS improvement
+        FROM (
+            SELECT query, AVG(position) as pos
+            FROM gsc_queries WHERE date >= date('now', '-7 days')
+            GROUP BY query
+        ) cur
+        JOIN (
+            SELECT query, AVG(position) as pos
+            FROM gsc_queries WHERE date >= date('now', '-14 days') AND date < date('now', '-7 days')
+            GROUP BY query
+        ) prev ON cur.query = prev.query
+        WHERE cur.pos < prev.pos
+        ORDER BY improvement DESC LIMIT 5
+    """).fetchall()
+    stats["improved_queries"] = [dict(r) for r in improved]
+
+    # Queries that dropped in position
+    dropped = conn.execute("""
+        SELECT cur.query,
+               cur.pos  AS pos_now,
+               prev.pos AS pos_prev,
+               (cur.pos - prev.pos) AS drop_amount
+        FROM (
+            SELECT query, AVG(position) as pos
+            FROM gsc_queries WHERE date >= date('now', '-7 days')
+            GROUP BY query
+        ) cur
+        JOIN (
+            SELECT query, AVG(position) as pos
+            FROM gsc_queries WHERE date >= date('now', '-14 days') AND date < date('now', '-7 days')
+            GROUP BY query
+        ) prev ON cur.query = prev.query
+        WHERE cur.pos > prev.pos
+        ORDER BY drop_amount DESC LIMIT 5
+    """).fetchall()
+    stats["dropped_queries"] = [dict(r) for r in dropped]
+
+    # Total unique pages indexed in GSC
+    pages_count = conn.execute("""
+        SELECT COUNT(DISTINCT page) as cnt FROM gsc_queries WHERE date >= date('now', '-7 days')
+    """).fetchone()
+    stats["pages_in_search"] = (pages_count["cnt"] if pages_count else 0) or 0
 
     # Opportunities summary
     opps = conn.execute("""
@@ -79,46 +134,95 @@ def gather_stats() -> dict:
 
     # Yandex stats last 7 days
     ya_row = conn.execute("""
-        SELECT SUM(impressions) as impr, AVG(position) as pos
+        SELECT SUM(impressions) as impr, AVG(position) as pos, SUM(clicks) as clicks
         FROM yandex_queries WHERE date >= date('now', '-7 days')
     """).fetchone()
     stats["yandex_7d"] = dict(ya_row) if ya_row else {}
+
+    # Yandex previous 7 days
+    ya_prev = conn.execute("""
+        SELECT SUM(impressions) as impr, AVG(position) as pos, SUM(clicks) as clicks
+        FROM yandex_queries WHERE date >= date('now', '-14 days') AND date < date('now', '-7 days')
+    """).fetchone()
+    stats["yandex_prev_7d"] = dict(ya_prev) if ya_prev else {}
 
     conn.close()
     return stats
 
 
+def _wow(now_val, prev_val, pct=True) -> str:
+    """Format week-over-week change as +12% or (нет данных)."""
+    try:
+        n = float(now_val or 0)
+        p = float(prev_val or 0)
+        if p == 0:
+            return "(нет данных за прош. неделю)"
+        delta = n - p
+        if pct:
+            pct_val = delta / p * 100
+            sign = "+" if pct_val >= 0 else ""
+            return f"{sign}{pct_val:.1f}%"
+        sign = "+" if delta >= 0 else ""
+        return f"{sign}{delta:.1f}"
+    except Exception:
+        return ""
+
+
 def build_prompt(stats: dict, date_str: str) -> str:
-    top_q = "\n".join(
-        f"  {i+1}. «{r['query']}» — pos {r['pos']:.1f}, {r['impr']} показов"
-        for i, r in enumerate(stats.get("top_queries", []))
-    )
-    opps_str = ", ".join(f"{k}: {v}" for k, v in stats.get("open_opportunities", {}).items())
-    gsc = stats.get("gsc_7d", {})
-    ya  = stats.get("yandex_7d", {})
-    gen = stats.get("generated_today", {})
+    gsc      = stats.get("gsc_7d", {})
+    gsc_prev = stats.get("gsc_prev_7d", {})
+    ya       = stats.get("yandex_7d", {})
+    ya_prev  = stats.get("yandex_prev_7d", {})
+    gen      = stats.get("generated_today", {})
 
     gsc_clicks = gsc.get('clicks') or 0
     gsc_impr   = gsc.get('impr')   or 0
     gsc_ctr    = gsc.get('ctr')    or 0
     gsc_pos    = gsc.get('pos')    or 0
     ya_impr    = ya.get('impr')    or 0
+    ya_clicks  = ya.get('clicks')  or 0
     ya_pos     = ya.get('pos')     or 0
+    pages      = stats.get("pages_in_search", 0)
+
+    top_q = "\n".join(
+        f"  {i+1}. «{r['query']}» — поз. {r['pos']:.1f}, {r['impr']} показов, {r['clicks']} кликов"
+        for i, r in enumerate(stats.get("top_queries", []))
+    )
+
+    improved_q = "\n".join(
+        f"  ↑ «{r['query']}»: {r['pos_prev']:.1f} → {r['pos_now']:.1f} (+{r['improvement']:.1f})"
+        for r in stats.get("improved_queries", [])
+    )
+
+    dropped_q = "\n".join(
+        f"  ↓ «{r['query']}»: {r['pos_prev']:.1f} → {r['pos_now']:.1f} (-{r['drop_amount']:.1f})"
+        for r in stats.get("dropped_queries", [])
+    )
+
+    opps_str = ", ".join(f"{k}: {v}" for k, v in stats.get("open_opportunities", {}).items())
 
     return f"""Дата отчёта: {date_str}
 
-=== GOOGLE SEARCH CONSOLE (7 дней) ===
-Клики: {gsc_clicks:.0f}
-Показы: {gsc_impr:.0f}
-CTR: {gsc_ctr * 100:.2f}%
-Средняя позиция: {gsc_pos:.1f}
+=== GOOGLE (последние 7 дней vs предыдущие 7) ===
+Клики:          {gsc_clicks:.0f}  {_wow(gsc_clicks, gsc_prev.get('clicks'))}
+Показы:         {gsc_impr:.0f}  {_wow(gsc_impr, gsc_prev.get('impr'))}
+CTR:            {gsc_ctr * 100:.2f}%  {_wow(gsc_ctr, gsc_prev.get('ctr'))}
+Средняя позиция:{gsc_pos:.1f}  {_wow(gsc_pos, gsc_prev.get('pos'), pct=False)} (чем меньше — тем лучше)
+Страниц в поиске: {pages}
 
-=== ЯНДЕКС (7 дней) ===
-Показы: {ya_impr:.0f}
-Средняя позиция: {ya_pos:.1f}
+=== ЯНДЕКС (последние 7 дней vs предыдущие 7) ===
+Клики:          {ya_clicks:.0f}  {_wow(ya_clicks, ya_prev.get('clicks'))}
+Показы:         {ya_impr:.0f}  {_wow(ya_impr, ya_prev.get('impr'))}
+Средняя позиция:{ya_pos:.1f}  {_wow(ya_pos, ya_prev.get('pos'), pct=False)} (чем меньше — тем лучше)
 
-=== ТОП ЗАПРОСЫ (по показам) ===
+=== ТОП ЗАПРОСЫ (по показам, 7 дней) ===
 {top_q if top_q else 'нет данных'}
+
+=== ЗАПРОСЫ, КОТОРЫЕ ВЫРОСЛИ В ПОЗИЦИИ ===
+{improved_q if improved_q else 'нет данных (нужно 2 недели истории)'}
+
+=== ЗАПРОСЫ, КОТОРЫЕ УПАЛИ В ПОЗИЦИИ ===
+{dropped_q if dropped_q else 'нет данных (нужно 2 недели истории)'}
 
 === ОТКРЫТЫЕ ВОЗМОЖНОСТИ ===
 {opps_str if opps_str else 'нет новых'}
@@ -127,11 +231,21 @@ CTR: {gsc_ctr * 100:.2f}%
 Контент: {gen.get('cnt', 0)} единиц, токенов Claude: {gen.get('tokens', 0) or 0}
 
 ---
-Напиши краткий отчёт (3-5 абзацев) с:
-1. Общей оценкой недели
-2. Топ-3 возможности для роста
-3. Конкретными действиями на сегодня (максимум 3)
-Формат — Markdown."""
+На основе этих данных напиши структурированный отчёт на русском языке:
+
+## 📈 Растёт ли сайт?
+Сравни текущую неделю с прошлой: клики, показы, позиции. Дай однозначный вердикт: растём / стоим / падаем и почему.
+
+## 🔑 Топ-3 возможности роста
+Конкретные запросы или страницы, где можно улучшить результат.
+
+## ⚠️ Что требует внимания
+Запросы, которые упали. Что с ними делать.
+
+## ✅ Действия на сегодня (максимум 3)
+Конкретные, выполнимые задачи.
+
+Формат — Markdown. Будь конкретен, используй цифры из данных выше."""
 
 
 def send_email(subject: str, body_md: str, date_str: str):
@@ -189,7 +303,7 @@ def main():
     conn.commit()
     conn.close()
 
-    subject = f"🍕 pepperoni.tatar SEO отчёт {date_str}"
+    subject = f"🍕 pepperoni.tatar | SEO Growth Digest {date_str}"
     send_email(subject, report_text, date_str)
 
 
