@@ -20,6 +20,18 @@ on:
       run_news:
         description: "Generate news articles (true/false)"
         default: "false"
+      max_geo_pages:
+        description: "Bulk geo pages per run (default: 100)"
+        default: "100"
+      geo_mode:
+        description: "Geo mode: russia | world | all"
+        default: "all"
+      geo_langs:
+        description: "Languages (space-separated, empty=all): ru en ar kk uz ky tg az ka mn ro hy be"
+        default: ""
+      geo_products:
+        description: "Product IDs (space-separated, empty=all): pepperoni sosiki-hotdog kotlety-burgery ..."
+        default: ""
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
@@ -42,7 +54,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install cryptography
+        run: pip install cryptography PySocks
 
       # ── Step 1: Fetch search data ──────────────────────────────
 
@@ -92,6 +104,31 @@ jobs:
         run: python scripts/gen_news.py
         continue-on-error: true
 
+      # ── Step 4b: Bulk geo pages (100–200 pages/day) ─────────────
+
+      - name: Create geo output directories
+        run: |
+          for d in geo en/geo ar/geo kk/geo uz/geo ky/geo tg/geo az/geo ka/geo mn/geo ro/geo hy/geo be/geo; do
+            mkdir -p "public/$d"
+          done
+
+      - name: Generate bulk geo pages
+        env:
+          CLAUDE_API_KEY:   ${{ secrets.CLAUDE_API_KEY }}
+          SOCKS_PROXY:      ${{ secrets.SOCKS_PROXY }}
+          MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
+          GEO_WORKERS:      "5"
+          GEO_SLEEP:        "0.5"
+        run: |
+          LANGS="${{ github.event.inputs.geo_langs }}"
+          PRODUCTS="${{ github.event.inputs.geo_products }}"
+          MODE="${{ github.event.inputs.geo_mode || 'all' }}"
+          CMD="python scripts/generate_geo_bulk.py --mode $MODE --max-pages ${{ github.event.inputs.max_geo_pages || '100' }}"
+          if [ -n "$LANGS" ]; then CMD="$CMD --langs $LANGS"; fi
+          if [ -n "$PRODUCTS" ]; then CMD="$CMD --products $PRODUCTS"; fi
+          eval $CMD
+        continue-on-error: true
+
       # ── Step 5: Commit & push all changes ──────────────────────
 
       - name: Commit & push generated content
@@ -104,8 +141,23 @@ jobs:
           # FAQ pages
           git add "public/faq/*.html" 2>/dev/null || true
           git add "public/en/faq/*.html" 2>/dev/null || true
-          # Geo pages (type+geo + regular)
+          # Geo pages (type+geo + regular geo)
           git add "public/geo/*.html" 2>/dev/null || true
+          # Bulk multilingual geo pages
+          git add "public/en/geo/*.html" 2>/dev/null || true
+          git add "public/ar/geo/*.html" 2>/dev/null || true
+          git add "public/kk/geo/*.html" 2>/dev/null || true
+          git add "public/uz/geo/*.html" 2>/dev/null || true
+          git add "public/ky/geo/*.html" 2>/dev/null || true
+          git add "public/tg/geo/*.html" 2>/dev/null || true
+          git add "public/az/geo/*.html" 2>/dev/null || true
+          git add "public/ka/geo/*.html" 2>/dev/null || true
+          git add "public/mn/geo/*.html" 2>/dev/null || true
+          git add "public/ro/geo/*.html" 2>/dev/null || true
+          git add "public/hy/geo/*.html" 2>/dev/null || true
+          git add "public/be/geo/*.html" 2>/dev/null || true
+          # Updated sitemap with new geo URLs
+          git add data/seo_data.db 2>/dev/null || true
           # News section
           git add "public/news/*.html" 2>/dev/null || true
           # Updated pages and sitemap

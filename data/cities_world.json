@@ -1,0 +1,289 @@
+{
+  "countries": [
+    {
+      "code": "kz", "name_ru": "Казахстан", "name_en": "Kazakhstan",
+      "langs": ["ru", "kk"],
+      "currency": "KZT", "halal_note_ru": "95% мусульманское население, крупнейший рынок СНГ для халяль продукции",
+      "halal_note_en": "95% Muslim population, largest CIS halal market",
+      "certs_required": ["Халяль ДУМ РТ", "ТР ТС 021/2011", "HACCP", "FSSC 22000"],
+      "logistics": "автодоставка Казань-Алматы 2500 км, 48-72ч",
+      "cities": [
+        {"slug": "almaty", "name_ru": "Алматы", "name_kk": "Алматы", "population": "2 000 000", "horeca": "10 000+ заведений", "halal_demand": "очень высокий"},
+        {"slug": "astana", "name_ru": "Астана", "name_kk": "Астана", "population": "1 300 000", "horeca": "6 000+ заведений", "halal_demand": "очень высокий"},
+        {"slug": "shymkent", "name_ru": "Шымкент", "name_kk": "Шымкент", "population": "1 200 000", "horeca": "5 000+ заведений", "halal_demand": "очень высокий"},
+        {"slug": "karaganda", "name_ru": "Карагандa", "name_kk": "Қарағанды", "population": "490 000", "horeca": "2 500+ заведений", "halal_demand": "высокий"},
+        {"slug": "aktobe", "name_ru": "Актобе", "name_kk": "Ақтөбе", "population": "500 000", "horeca": "2 000+ заведений", "halal_demand": "высокий"},
+        {"slug": "taraz", "name_ru": "Тараз", "name_kk": "Тараз", "population": "390 000", "horeca": "1 500+ заведений", "halal_demand": "очень высокий"},
+        {"slug": "pavlodar", "name_ru": "Павлодар", "name_kk": "Павлодар", "population": "340 000", "horeca": "1 300+ заведений", "halal_demand": "высокий"},
+        {"slug": "ust-kamenogorsk", "name_ru": "Усть-Каменогорск", "name_kk": "Өскемен", "population": "320 000", "horeca": "1 200+ заведений", "halal_demand": "высокий"},
+        {"slug": "semey", "name_ru": "Семей", "name_kk": "Семей", "population": "340 000", "horeca": "1 300+ заведений", "halal_demand": "высокий"},
+        {"slug": "uralsk", "name_ru": "Уральск", "name_kk": "Орал", "population": "280 000", "horeca": "1 000+ заведений", "halal_demand": "высокий"},
+        {"slug": "atyrau", "name_ru": "Атырау", "name_kk": "Атырау", "population": "290 000", "horeca": "1 100+ заведений", "halal_demand": "высокий"},
+        {"slug": "aktau", "name_ru": "Актау", "name_kk": "Ақтау", "population": "210 000", "horeca": "900+ заведений", "halal_demand": "высокий"},
+        {"slug": "kostanay", "name_ru": "Костанай", "name_kk": "Қостанай", "population": "245 000", "horeca": "900+ заведений", "halal_demand": "высокий"},
+        {"slug": "petropavlovsk-kz", "name_ru": "Петропавловск", "name_kk": "Петропавл", "population": "215 000", "horeca": "800+ заведений", "halal_demand": "высокий"},
+        {"slug": "kyzylorda", "name_ru": "Кызылорда", "name_kk": "Қызылорда", "population": "210 000", "horeca": "800+ заведений", "halal_demand": "очень высокий"}
+      ]
+    },
+    {
+      "code": "by", "name_ru": "Беларусь", "name_en": "Belarus",
+      "langs": ["ru", "be"],
+      "currency": "BYN", "halal_note_ru": "небольшое мусульманское население, но растущий спрос на чистый состав и халяль",
+      "halal_note_en": "growing demand for clean-label and halal products",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "ТР ТС 021/2011"],
+      "logistics": "автодоставка Казань-Минск 1600 км, 36ч",
+      "cities": [
+        {"slug": "minsk", "name_ru": "Минск", "name_be": "Мінск", "population": "2 000 000", "horeca": "8 000+ заведений", "halal_demand": "средний, растущий"},
+        {"slug": "gomel", "name_ru": "Гомель", "name_be": "Гомель", "population": "480 000", "horeca": "2 000+ заведений", "halal_demand": "средний"},
+        {"slug": "mogilev", "name_ru": "Могилёв", "name_be": "Магілёў", "population": "360 000", "horeca": "1 500+ заведений", "halal_demand": "средний"},
+        {"slug": "vitebsk", "name_ru": "Витебск", "name_be": "Віцебск", "population": "360 000", "horeca": "1 500+ заведений", "halal_demand": "средний"},
+        {"slug": "grodno", "name_ru": "Гродно", "name_be": "Гродна", "population": "370 000", "horeca": "1 500+ заведений", "halal_demand": "средний"},
+        {"slug": "brest", "name_ru": "Брест", "name_be": "Брэст", "population": "350 000", "horeca": "1 500+ заведений", "halal_demand": "средний"}
+      ]
+    },
+    {
+      "code": "uz", "name_ru": "Узбекистан", "name_en": "Uzbekistan",
+      "langs": ["ru", "uz"],
+      "currency": "UZS", "halal_note_ru": "96% мусульманское население, огромный рынок халяль",
+      "halal_note_en": "96% Muslim population, major halal market",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "автодоставка Казань-Ташкент 3200 км, 72ч",
+      "cities": [
+        {"slug": "tashkent", "name_ru": "Ташкент", "name_uz": "Toshkent", "population": "2 800 000", "horeca": "12 000+ заведений", "halal_demand": "исключительно халяль рынок"},
+        {"slug": "samarkand", "name_ru": "Самарканд", "name_uz": "Samarqand", "population": "600 000", "horeca": "3 000+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "namangan", "name_ru": "Наманган", "name_uz": "Namangan", "population": "580 000", "horeca": "2 500+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "andijan", "name_ru": "Андижан", "name_uz": "Andijon", "population": "450 000", "horeca": "2 000+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "fergana", "name_ru": "Фергана", "name_uz": "Farg'ona", "population": "430 000", "horeca": "2 000+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "bukhara", "name_ru": "Бухара", "name_uz": "Buxoro", "population": "300 000", "horeca": "2 500+ заведений (туризм)", "halal_demand": "исключительно халяль"},
+        {"slug": "nukus", "name_ru": "Нукус", "name_uz": "Nukus", "population": "310 000", "horeca": "1 000+ заведений", "halal_demand": "исключительно халяль"}
+      ]
+    },
+    {
+      "code": "az", "name_ru": "Азербайджан", "name_en": "Azerbaijan",
+      "langs": ["ru", "az"],
+      "currency": "AZN", "halal_note_ru": "97% мусульманское население, развитый HoReCa рынок",
+      "halal_note_en": "97% Muslim population, developed HoReCa market",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "авто Казань-Баку 2700 км, 60ч",
+      "cities": [
+        {"slug": "baku", "name_ru": "Баку", "name_az": "Bakı", "population": "2 300 000", "horeca": "10 000+ заведений", "halal_demand": "высокий, развитый туризм"},
+        {"slug": "ganja", "name_ru": "Гянджа", "name_az": "Gəncə", "population": "340 000", "horeca": "1 500+ заведений", "halal_demand": "высокий"},
+        {"slug": "sumqayit", "name_ru": "Сумгаит", "name_az": "Sumqayıt", "population": "330 000", "horeca": "1 200+ заведений", "halal_demand": "высокий"},
+        {"slug": "mingachevir", "name_ru": "Мингечаур", "name_az": "Mingəçevir", "population": "100 000", "horeca": "400+ заведений", "halal_demand": "высокий"}
+      ]
+    },
+    {
+      "code": "am", "name_ru": "Армения", "name_en": "Armenia",
+      "langs": ["ru", "hy"],
+      "currency": "AMD", "halal_note_ru": "небольшое мусульманское население, но спрос на качественные мясные изделия",
+      "halal_note_en": "demand for quality meat products, growing expat community",
+      "certs_required": ["HACCP", "FSSC 22000", "Халяль"],
+      "logistics": "авто Казань-Ереван 2900 км, 72ч",
+      "cities": [
+        {"slug": "yerevan", "name_ru": "Ереван", "name_hy": "Երևան", "population": "1 100 000", "horeca": "5 000+ заведений", "halal_demand": "средний, много русских экспатов"},
+        {"slug": "gyumri", "name_ru": "Гюмри", "name_hy": "Գյումրի", "population": "120 000", "horeca": "500+ заведений", "halal_demand": "средний"},
+        {"slug": "vanadzor", "name_ru": "Ванадзор", "name_hy": "Վանաձոր", "population": "85 000", "horeca": "350+ заведений", "halal_demand": "средний"}
+      ]
+    },
+    {
+      "code": "ge", "name_ru": "Грузия", "name_en": "Georgia",
+      "langs": ["ru", "ka"],
+      "currency": "GEL", "halal_note_ru": "мусульманские регионы Аджария, Панкиси; туристический рынок",
+      "halal_note_en": "Muslim regions in Adjaria; major tourist market",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "авто Казань-Тбилиси 2500 км, 60ч",
+      "cities": [
+        {"slug": "tbilisi", "name_ru": "Тбилиси", "name_ka": "თბილისი", "population": "1 200 000", "horeca": "6 000+ заведений (туризм)", "halal_demand": "средний, рост туристического HoReCa"},
+        {"slug": "batumi", "name_ru": "Батуми", "name_ka": "ბათუმი", "population": "170 000", "horeca": "3 000+ заведений (курорт)", "halal_demand": "высокий, туристы из мусульманских стран"},
+        {"slug": "kutaisi", "name_ru": "Кутаиси", "name_ka": "ქუთაისი", "population": "145 000", "horeca": "800+ заведений", "halal_demand": "средний"}
+      ]
+    },
+    {
+      "code": "kg", "name_ru": "Кыргызстан", "name_en": "Kyrgyzstan",
+      "langs": ["ru", "ky"],
+      "currency": "KGS", "halal_note_ru": "90% мусульманское население, растущий рынок",
+      "halal_note_en": "90% Muslim population, growing market",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "авто Казань-Бишкек 3000 км, 72ч",
+      "cities": [
+        {"slug": "bishkek", "name_ru": "Бишкек", "name_ky": "Бишкек", "population": "1 100 000", "horeca": "4 000+ заведений", "halal_demand": "высокий"},
+        {"slug": "osh", "name_ru": "Ош", "name_ky": "Ош", "population": "310 000", "horeca": "1 500+ заведений", "halal_demand": "очень высокий"},
+        {"slug": "jalal-abad", "name_ru": "Джалал-Абад", "name_ky": "Жалал-Абад", "population": "110 000", "horeca": "500+ заведений", "halal_demand": "очень высокий"}
+      ]
+    },
+    {
+      "code": "tj", "name_ru": "Таджикистан", "name_en": "Tajikistan",
+      "langs": ["ru", "tg"],
+      "currency": "TJS", "halal_note_ru": "99% мусульманское население, большая диаспора в России",
+      "halal_note_en": "99% Muslim population, large diaspora in Russia",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "авто Казань-Душанбе 4000 км, 96ч",
+      "cities": [
+        {"slug": "dushanbe", "name_ru": "Душанбе", "name_tg": "Душанбе", "population": "950 000", "horeca": "3 000+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "khujand", "name_ru": "Худжанд", "name_tg": "Хуҷанд", "population": "180 000", "horeca": "800+ заведений", "halal_demand": "исключительно халяль"},
+        {"slug": "bokhtar", "name_ru": "Бохтар", "name_tg": "Бохтар", "population": "110 000", "horeca": "400+ заведений", "halal_demand": "исключительно халяль"}
+      ]
+    },
+    {
+      "code": "md", "name_ru": "Молдова", "name_en": "Moldova",
+      "langs": ["ru", "ro"],
+      "currency": "MDL", "halal_note_ru": "небольшое мусульманское население, спрос на качественную продукцию",
+      "halal_note_en": "demand for quality meat products",
+      "certs_required": ["HACCP", "FSSC 22000", "Халяль"],
+      "logistics": "авто Казань-Кишинёв 1800 км, 48ч",
+      "cities": [
+        {"slug": "chisinau", "name_ru": "Кишинёв", "name_ro": "Chișinău", "population": "800 000", "horeca": "3 000+ заведений", "halal_demand": "средний"},
+        {"slug": "balti", "name_ru": "Бэлць", "name_ro": "Bălți", "population": "145 000", "horeca": "600+ заведений", "halal_demand": "средний"}
+      ]
+    },
+    {
+      "code": "ee", "name_ru": "Эстония", "name_en": "Estonia",
+      "langs": ["ru", "et", "en"],
+      "currency": "EUR", "halal_note_ru": "русскоязычная диаспора 25%, интерес к качественным продуктам",
+      "halal_note_en": "25% Russian-speaking diaspora, demand for quality products",
+      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "logistics": "авто Казань-Таллин 2100 км, 48ч",
+      "cities": [
+        {"slug": "tallinn", "name_ru": "Таллин", "name_et": "Tallinn", "population": "450 000", "horeca": "2 000+ заведений", "halal_demand": "небольшой, растущий"},
+        {"slug": "tartu", "name_ru": "Тарту", "name_et": "Tartu", "population": "95 000", "horeca": "500+ заведений", "halal_demand": "небольшой"}
+      ]
+    },
+    {
+      "code": "lv", "name_ru": "Латвия", "name_en": "Latvia",
+      "langs": ["ru", "lv", "en"],
+      "currency": "EUR", "halal_note_ru": "русскоязычная диаспора 26%, интерес к продуктам без нитрита",
+      "halal_note_en": "26% Russian-speaking diaspora, clean-label demand",
+      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "logistics": "авто Казань-Рига 1900 км, 42ч",
+      "cities": [
+        {"slug": "riga", "name_ru": "Рига", "name_lv": "Rīga", "population": "620 000", "horeca": "3 000+ заведений", "halal_demand": "небольшой, растущий"},
+        {"slug": "daugavpils", "name_ru": "Даугавпилс", "name_lv": "Daugavpils", "population": "85 000", "horeca": "400+ заведений", "halal_demand": "небольшой"}
+      ]
+    },
+    {
+      "code": "lt", "name_ru": "Литва", "name_en": "Lithuania",
+      "langs": ["ru", "lt", "en"],
+      "currency": "EUR", "halal_note_ru": "русскоязычное и польское население, интерес к чистому составу",
+      "halal_note_en": "demand for clean-label halal products",
+      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "logistics": "авто Казань-Вильнюс 1700 км, 40ч",
+      "cities": [
+        {"slug": "vilnius", "name_ru": "Вильнюс", "name_lt": "Vilnius", "population": "580 000", "horeca": "2 500+ заведений", "halal_demand": "небольшой"},
+        {"slug": "kaunas", "name_ru": "Каунас", "name_lt": "Kaunas", "population": "290 000", "horeca": "1 200+ заведений", "halal_demand": "небольшой"}
+      ]
+    },
+    {
+      "code": "mn", "name_ru": "Монголия", "name_en": "Mongolia",
+      "langs": ["ru", "mn"],
+      "currency": "MNT", "halal_note_ru": "5% мусульманское население, интерес к качественным мясным полуфабрикатам",
+      "halal_note_en": "5% Muslim population, growing demand for processed meat",
+      "certs_required": ["HACCP", "FSSC 22000"],
+      "logistics": "авто Казань-Улан-Батор 5500 км, 7 дней",
+      "cities": [
+        {"slug": "ulaanbaatar", "name_ru": "Улан-Батор", "name_mn": "Улаанбаатар", "population": "1 500 000", "horeca": "3 000+ заведений", "halal_demand": "небольшой"},
+        {"slug": "darkhan", "name_ru": "Дархан", "name_mn": "Дархан", "population": "90 000", "horeca": "300+ заведений", "halal_demand": "небольшой"}
+      ]
+    },
+    {
+      "code": "ae", "name_ru": "ОАЭ", "name_en": "United Arab Emirates",
+      "langs": ["en", "ar"],
+      "currency": "AED", "halal_note_ru": "76% мусульманское население, крупнейший хаб для экспорта на Ближний Восток",
+      "halal_note_en": "76% Muslim, major hub for Middle East distribution, premium halal market",
+      "certs_required": ["Халяль ДУМ РТ", "HACCP", "FSSC 22000", "ESMA Halal", "Ветеринарный сертификат РФ"],
+      "logistics": "авиа Казань-Дубай 5ч, морской Новороссийск-Джебель-Али 14 дней",
+      "export_note": "требуется ветеринарный сертификат для экспорта в ОАЭ, ESMA Halal сертификат",
+      "cities": [
+        {"slug": "dubai", "name_ru": "Дубай", "name_ar": "دبي", "population": "3 600 000", "horeca": "15 000+ restaurants", "halal_demand": "исключительно халяль, premium segment"},
+        {"slug": "abu-dhabi", "name_ru": "Абу-Даби", "name_ar": "أبوظبي", "population": "1 500 000", "horeca": "8 000+ restaurants", "halal_demand": "исключительно халяль"},
+        {"slug": "sharjah", "name_ru": "Шарджа", "name_ar": "الشارقة", "population": "1 400 000", "horeca": "5 000+ restaurants", "halal_demand": "исключительно халяль"},
+        {"slug": "ajman", "name_ru": "Аджман", "name_ar": "عجمان", "population": "500 000", "horeca": "2 000+ restaurants", "halal_demand": "исключительно халяль"}
+      ]
+    },
+    {
+      "code": "sa", "name_ru": "Саудовская Аравия", "name_en": "Saudi Arabia",
+      "langs": ["en", "ar"],
+      "currency": "SAR", "halal_note_ru": "100% халяль рынок, крупнейший импортёр продуктов питания на Ближнем Востоке",
+      "halal_note_en": "100% halal market, largest food importer in Middle East",
+      "certs_required": ["Халяль ДУМ РТ", "HACCP", "FSSC 22000", "SASO Halal", "SFDA", "Ветеринарный сертификат РФ"],
+      "logistics": "морской Новороссийск-Джидда 12 дней, авиа Казань-Эр-Рияд 5ч",
+      "export_note": "требуется SASO сертификат, регистрация в SFDA",
+      "cities": [
+        {"slug": "riyadh", "name_ru": "Эр-Рияд", "name_ar": "الرياض", "population": "7 500 000", "horeca": "25 000+ restaurants", "halal_demand": "100% халяль"},
+        {"slug": "jeddah", "name_ru": "Джидда", "name_ar": "جدة", "population": "4 700 000", "horeca": "18 000+ restaurants", "halal_demand": "100% халяль, крупный порт импорта"},
+        {"slug": "mecca", "name_ru": "Мекка", "name_ar": "مكة المكرمة", "population": "2 000 000", "horeca": "10 000+ restaurants", "halal_demand": "100% халяль, паломнический сезон"},
+        {"slug": "medina", "name_ru": "Медина", "name_ar": "المدينة المنورة", "population": "1 300 000", "horeca": "6 000+ restaurants", "halal_demand": "100% халяль"},
+        {"slug": "dammam", "name_ru": "Даммам", "name_ar": "الدمام", "population": "1 000 000", "horeca": "5 000+ restaurants", "halal_demand": "100% халяль"}
+      ]
+    },
+    {
+      "code": "qa", "name_ru": "Катар", "name_en": "Qatar",
+      "langs": ["en", "ar"],
+      "currency": "QAR", "halal_note_ru": "77% мусульманское население, высокие доходы, premium сегмент",
+      "halal_note_en": "77% Muslim, high income, premium food segment",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "QSSO Halal"],
+      "logistics": "морской Новороссийск-Доха 15 дней",
+      "cities": [
+        {"slug": "doha", "name_ru": "Доха", "name_ar": "الدوحة", "population": "2 400 000", "horeca": "8 000+ restaurants", "halal_demand": "100% халяль, premium"}
+      ]
+    },
+    {
+      "code": "kw", "name_ru": "Кувейт", "name_en": "Kuwait",
+      "langs": ["en", "ar"],
+      "currency": "KWD", "halal_note_ru": "74% мусульманское население, один из богатейших рынков в мире",
+      "halal_note_en": "74% Muslim, one of the wealthiest markets globally",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "морской Новороссийск-Эль-Кувейт 15 дней",
+      "cities": [
+        {"slug": "kuwait-city", "name_ru": "Эль-Кувейт", "name_ar": "مدينة الكويت", "population": "3 200 000", "horeca": "6 000+ restaurants", "halal_demand": "100% халяль"}
+      ]
+    },
+    {
+      "code": "bh", "name_ru": "Бахрейн", "name_en": "Bahrain",
+      "langs": ["en", "ar"],
+      "currency": "BHD", "halal_note_ru": "73% мусульманское население, финансовый хаб Персидского залива",
+      "halal_note_en": "73% Muslim, financial hub of the Gulf",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "морской Новороссийск-Манама 15 дней",
+      "cities": [
+        {"slug": "manama", "name_ru": "Манама", "name_ar": "المنامة", "population": "700 000", "horeca": "3 000+ restaurants", "halal_demand": "очень высокий"}
+      ]
+    },
+    {
+      "code": "om", "name_ru": "Оман", "name_en": "Oman",
+      "langs": ["en", "ar"],
+      "currency": "OMR", "halal_note_ru": "87% мусульманское население, стратегическое расположение",
+      "halal_note_en": "87% Muslim, strategic location",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "logistics": "морской Новороссийск-Маскат 18 дней",
+      "cities": [
+        {"slug": "muscat", "name_ru": "Маскат", "name_ar": "مسقط", "population": "1 400 000", "horeca": "4 000+ restaurants", "halal_demand": "очень высокий"},
+        {"slug": "salalah", "name_ru": "Салала", "name_ar": "صلالة", "population": "300 000", "horeca": "1 200+ restaurants", "halal_demand": "очень высокий"}
+      ]
+    },
+    {
+      "code": "ye", "name_ru": "Йемен", "name_en": "Yemen",
+      "langs": ["ar"],
+      "currency": "YER", "halal_note_ru": "99% мусульманское население, сложная логистика",
+      "halal_note_en": "99% Muslim, challenging logistics",
+      "certs_required": ["Халяль", "HACCP"],
+      "logistics": "через ОАЭ или Саудовскую Аравию",
+      "cities": [
+        {"slug": "sanaa", "name_ru": "Сана", "name_ar": "صنعاء", "population": "3 900 000", "horeca": "5 000+ restaurants", "halal_demand": "100% халяль"}
+      ]
+    },
+    {
+      "code": "eg", "name_ru": "Египет", "name_en": "Egypt",
+      "langs": ["en", "ar"],
+      "currency": "EGP", "halal_note_ru": "90% мусульманское население, крупнейший рынок Африки и Ближнего Востока",
+      "halal_note_en": "90% Muslim, largest market in Africa and Middle East",
+      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "GHAE Halal"],
+      "logistics": "морской Новороссийск-Александрия 8 дней",
+      "cities": [
+        {"slug": "cairo", "name_ru": "Каир", "name_ar": "القاهرة", "population": "21 000 000", "horeca": "40 000+ restaurants", "halal_demand": "100% халяль, огромный рынок"},
+        {"slug": "alexandria", "name_ru": "Александрия", "name_ar": "الإسكندرية", "population": "5 400 000", "horeca": "12 000+ restaurants", "halal_demand": "100% халяль, портовый"},
+        {"slug": "giza", "name_ru": "Гиза", "name_ar": "الجيزة", "population": "4 000 000", "horeca": "8 000+ restaurants", "halal_demand": "100% халяль"},
+        {"slug": "sharm-el-sheikh", "name_ru": "Шарм-эш-Шейх", "name_ar": "شرم الشيخ", "population": "70 000", "horeca": "3 000+ restaurants (туризм)", "halal_demand": "100% халяль, туристический"}
+      ]
+    }
+  ]
+}
