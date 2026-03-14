@@ -247,7 +247,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
       </span>
     </div>
     <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
-    <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-outline">📄 Скачать CSV</a>
+    <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
     <script>
       document.getElementById('dl-cur').addEventListener('change',function(){document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';});
       function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${vat}`:'';window.location.href=`/api/export?lang=${lang}&currency=${cur}&format=${fmt}${vatParam}`;}
