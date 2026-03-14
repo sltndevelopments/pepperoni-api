@@ -69,12 +69,12 @@ def gen_ru() -> str:
   "name":"Казанские Деликатесы","alternateName":["Kazan Delicacies","ООО «Казанские Деликатесы»"],
   "legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar",
   "logo":"https://pepperoni.tatar/images/logo.png",
-  "email":"info@kazandelikates.tatar","telephone":"+78005509076",
+  "email":"info@kazandelikates.tatar","telephone":"+79872170202",
   "description":"Производитель халяль мясных изделий в Татарстане. Пепперони, сосиски, котлеты для бургеров, татарская выпечка. ХАССП, FSSC 22000. СТМ.",
   "address":{{"@type":"PostalAddress","streetAddress":"ул. Мусина 83А","addressLocality":"Казань","postalCode":"420061","addressRegion":"Татарстан","addressCountry":"RU"}},
   "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"ДУМ РТ","url":"https://dumrt.ru"}}}},
   "contactPoint":[
-    {{"@type":"ContactPoint","telephone":"+78005509076","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"],"contactOption":"TollFree"}},
+    {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
     {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
   ],
   "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar"]
@@ -306,8 +306,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="info-block">
     <h2>Связаться</h2>
     <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
-    <a href="tel:+78005509076" class="btn-dl btn-dl-solid">📞 8-800-550-90-76</a>
-    <a href="tel:+79872170202" class="btn-dl btn-dl-solid">📱 +7 987 217-02-02</a>
+    <a href="tel:+79872170202" class="btn-dl btn-dl-solid">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#25d366;color:#25d366">💬 WhatsApp</a>
   </div>
@@ -338,7 +337,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <div class="footer__col-title">Производство</div>
         <p>г. Казань, ул. Мусина 83А</p>
         <p>Татарстан, 420061</p>
-        <a href="tel:+78005509076">8-800-550-90-76 (бесплатно)</a>
+        <a href="tel:+79872170202">+7 987 217-02-02</a>
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
@@ -538,7 +537,7 @@ def gen_en() -> str:
   "name":"Kazan Delicacies","alternateName":"Казанские Деликатесы",
   "url":"https://pepperoni.tatar/en/",
   "logo":"https://pepperoni.tatar/images/logo.png",
-  "email":"info@kazandelikates.tatar","telephone":"+78005509076",
+  "email":"info@kazandelikates.tatar","telephone":"+79872170202",
   "address":{{"@type":"PostalAddress","streetAddress":"Musina St. 83A","addressLocality":"Kazan","postalCode":"420061","addressRegion":"Tatarstan","addressCountry":"RU"}},
   "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"DUM RT","url":"https://dumrt.ru"}}}}
 }}
@@ -707,7 +706,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
   <div class="info-block">
     <h2>Contact Us</h2>
     <p>Wholesale supply, export, Private Label — let's discuss terms.</p>
-    <a href="tel:+78005509076" class="btn-dl btn-dl-solid">📞 +7-800-550-90-76</a>
+    <a href="tel:+79872170202" class="btn-dl btn-dl-solid">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#25d366;color:#25d366">💬 WhatsApp</a>
   </div>
@@ -725,7 +724,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
         <div class="footer__col-title">Production</div>
         <p>Kazan, Musina St. 83A</p>
         <p>Tatarstan, 420061, Russia</p>
-        <a href="tel:+78005509076">+7-800-550-90-76 (free)</a>
+        <a href="tel:+79872170202">+7 987 217-02-02</a>
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
