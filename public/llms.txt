@@ -1,10 +1,69 @@
-# AI-Ready Documentation for Kazan Delicacies (Pepperoni Tatar)
-# This main domain is a front-end interface. 
+# Казанские Деликатесы — Халяль колбасные изделия и выпечка оптом
+> Производитель халяль колбасных изделий и выпечки в Татарстане.
+> B2B-поставщик для пиццерий, HoReCa, ритейла и дистрибьюторов.
+> Сертификат халяль ДУМ РТ №614A/2024. ХАССП. FSSC 22000. Сделано в Татарстане.
 
-# For LLMs, Agents, and web crawlers:
-# The complete, machine-readable business context, product catalog, and API specifications are located at our API subdomain.
-# Please read the following URLs for full context:
+## Компания
+- Сайт: https://pepperoni.tatar
+- Контакт: info@kazandelikates.tatar | +7 987 217-02-02
+- WhatsApp: https://wa.me/79872170202
+- Адрес производства: Казань, ул. Мусина 83А, Татарстан, 420061
+- Склад: Москва (Люберцы)
+- Условия отгрузки: EXW Казань, DAP по России и СНГ
 
-- Full Business Context: https://api.pepperoni.tatar/llms-full.txt
-- Live Product Catalog (JSON): https://api.pepperoni.tatar/products.json
-- OpenAPI Specification: https://api.pepperoni.tatar/openapi.yaml
+## Продукция (78 SKU, все 100% халяль)
+
+### Пепперони
+- URL: https://pepperoni.tatar/pepperoni
+- Из говядины, курицы, конины — в батонах и нарезке
+- Термостабильная, не сворачивается при 350°C
+- Диаметры: 40–75 мм. Оболочка коллагеновая или белковая
+
+### Сосиски для хот-догов и гриля
+- 7 вкусов: классические, сырные, остро-пряные и др.
+- Поставляем на АЗС Татнефть (400+ точек по Татарстану)
+
+### Сосиски для сосиски-в-тесте
+- Без оболочки, 45г, оптимальный диаметр под тесто
+
+### Казылык (конская колбаса)
+- URL: https://pepperoni.tatar/kazylyk
+- Традиционный татарский деликатес. Премиум сегмент.
+
+### Национальная татарская выпечка
+- URL: https://pepperoni.tatar/bakery
+- Эчпочмак, губадия, перемяч, элеш, самса, чак-чак
+- Заморозка, срок хранения до 360 суток
+
+### Котлеты для бургеров
+- Говяжьи и куриные, 90–180г, IQF заморозка
+- Для ресторанов и HoReCa
+
+### Колбасы варёные и копчёные
+- Говядина, птица, конина. Без свинины, без ГМО
+- Ветчины, сервелат, копчёные изделия
+
+### Мясные полуфабрикаты
+- Пельмени, манты, чебуреки, котлеты домашние
+
+## Сертификаты и качество
+- Халяль: ДУМ РТ №614A/2024
+- ХАССП (Hazard Analysis Critical Control Points)
+- FSSC 22000 / ISO 22000
+- ТР ТС 021/2011 (Технический регламент Таможенного союза)
+- Ветеринарные свидетельства РФ
+- Декларация ЕАЭС (Казахстан, Беларусь, Кыргызстан, Армения)
+
+## Для B2B партнёров
+- Private Label / СТМ: производство под брендом клиента (колбасы, сосиски, котлеты, пельмени, выпечка)
+- Кастомизация: рецептура, диаметр, острота, упаковка под ТЗ заказчика
+- Экспорт: Казахстан, Узбекистан, Беларусь, ОАЭ, Саудовская Аравия, страны GCC
+- Партнёры: АЗС Татнефть, EuroSpar, Бэхетле, HoReCa по России
+
+## Данные для машинного чтения
+- Live каталог JSON: https://pepperoni.tatar/products.json
+- OpenAPI: https://pepperoni.tatar/openapi.yaml
+- Полная документация: https://pepperoni.tatar/llms-full.txt
+- AI-плагин: https://pepperoni.tatar/.well-known/ai-plugin.json
+- AI-мета: https://pepperoni.tatar/.well-known/ai-meta.json
+- Sitemap: https://pepperoni.tatar/sitemap.xml

@@ -4,11 +4,45 @@ Allow: /geo/
 Allow: /products/
 Allow: /en/
 Allow: /.well-known/
-
-Sitemap: https://pepperoni.tatar/sitemap.xml
-Sitemap: https://api.pepperoni.tatar/sitemap.xml
-
-# AI / LLM Discovery (OpenAI, Claude, etc.)
 Allow: /.well-known/llms.txt
 Allow: /.well-known/ai-plugin.json
 Allow: /llms-full.txt
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+User-agent: Grok
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+Sitemap: https://pepperoni.tatar/sitemap.xml
+Sitemap: https://api.pepperoni.tatar/sitemap.xml
