@@ -13,7 +13,7 @@ const BASE_URL =
 
 const SHEETS = [
   { gid: '1087942289', section: 'Заморозка', type: 'standard', priceColOffset: 0 },
-  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
+  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'cooled' },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
 
@@ -158,6 +158,83 @@ function parseStandard(lines, section, startIdx, colOffset = 0) {
       nutrition: cols[25 + o] || '',
       packageType: cols[26 + o] || '',
       image,
+      imageMain: mainPhoto || undefined,
+      imagePack: packPhoto || undefined,
+      imageSlice: slicePhoto || undefined,
+    });
+  }
+
+  return { products, nextIdx: idx };
+}
+
+// Охлаждённая продукция — нет колонки "Цена за 1 шт", всё сдвинуто на -1 vs Заморозка:
+// 0=Номенклатура, 1=Вес, 2=ЦенаНДС, 3=ЦенаБезНДС, 4=СрокГодности, 5=Хранение,
+// 6=ТН_ВЭД, 7=USD, 8=KZT, 9=UZB, 10=KGS, 11=BYN, 12=AZN,
+// 13=Параметры, 14=Квант, 15=ВесКоробки, 16=Артикул, 17=Штрихкод,
+// 18=SEO_RU, 19=SEO_EN, 20=Диаметр, 21=Оболочка, 22=СоставRU, 23=СоставEN,
+// 24=КБЖУ, 25=ТипУпаковки, 26=ГлавноеФото, 27=ФотоУпаковки, 28=ФотоСреза
+function parseCooled(lines, section, startIdx) {
+  let category = '';
+  const products = [];
+  let idx = startIdx;
+
+  for (const cols of lines) {
+    if (!cols || cols.length < 6) continue;
+    const name = cols[0];
+    if (!name || name === 'Номенклатура' || name === 'Наименование' || name.startsWith('ООО')) continue;
+
+    const priceVAT = toNumber(cols[2]);
+    const priceNoVAT = toNumber(cols[3]);
+
+    if (priceVAT === 0 && priceNoVAT === 0) {
+      if (name && !cols[1]) category = name;
+      continue;
+    }
+
+    idx++;
+    const ep = {};
+    if (toNumber(cols[7])) ep.USD = toNumber(cols[7]);
+    if (toNumber(cols[8])) ep.KZT = toNumber(cols[8]);
+    if (toNumber(cols[9])) ep.UZS = toNumber(cols[9]);
+    if (toNumber(cols[10])) ep.KGS = toNumber(cols[10]);
+    if (toNumber(cols[11])) ep.BYN = toNumber(cols[11]);
+    if (toNumber(cols[12])) ep.AZN = toNumber(cols[12]);
+
+    const mainPhoto = driveToDirectUrl(cols[26]);
+    const packPhoto = driveToDirectUrl(cols[27]);
+    const slicePhoto = driveToDirectUrl(cols[28]);
+
+    products.push({
+      name,
+      sku: `KD-${String(idx).padStart(3, '0')}`,
+      articleNumber: (cols[16] || '').trim() || undefined,
+      section,
+      category: category || section,
+      weight: cols[1] || '',
+      brand: 'Казанские Деликатесы',
+      offers: {
+        priceCurrency: 'RUB',
+        price: priceVAT.toFixed(2),
+        priceExclVAT: priceNoVAT.toFixed(2),
+        availability: 'https://schema.org/InStock',
+        exportPrices: Object.keys(ep).length ? ep : undefined,
+      },
+      shelfLife: cols[4] || '',
+      storage: cols[5] || '',
+      hsCode: cols[6] || '',
+      cookingMethods: cols[13] || '',
+      minOrder: cols[14] || '',
+      boxWeightGross: cols[15] || '',
+      barcode: cols[17] || '',
+      seoDescriptionRU: cols[18] || '',
+      seoDescriptionEN: cols[19] || '',
+      diameter: cols[20] || '',
+      casing: cols[21] || '',
+      ingredientsRU: cols[22] || '',
+      ingredientsEN: cols[23] || '',
+      nutrition: cols[24] || '',
+      packageType: cols[25] || '',
+      image: mainPhoto || packPhoto || slicePhoto || '',
       imageMain: mainPhoto || undefined,
       imagePack: packPhoto || undefined,
       imageSlice: slicePhoto || undefined,
@@ -695,6 +772,8 @@ async function main() {
 
     if (sheet.type === 'bakery') {
       result = parseBakery(lines, sheet.section, idx);
+    } else if (sheet.type === 'cooled') {
+      result = parseCooled(lines, sheet.section, idx);
     } else {
       result = parseStandard(lines, sheet.section, idx, sheet.priceColOffset || 0);
     }
