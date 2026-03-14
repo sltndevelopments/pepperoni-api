@@ -368,11 +368,10 @@ function renderGroups(allGroups){
           ?`${fmtPrice(pr)} ${sym}/шт`
           :`${fmtPrice(pr)} ${sym} <span class="product-price-vat">${vatLabel}</span>`;
         const props=[];
-        if(p.weight&&!looksLikePrice(p.weight))props.push(`<span class="prop" title="Вес расчёта">${fmtWeight(p.weight)}</span>`);
+        if(p.weight&&!looksLikePrice(p.weight))props.push(`<span class="prop" title="Вес">${fmtWeight(p.weight)}</span>`);
         if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Штук в коробке">${fmtQty(p.qty)}</span>`);
         if(p.shelf&&!looksLikePrice(p.shelf))props.push(`<span class="prop" title="Срок годности">${p.shelf}</span>`);
         if(p.storage&&!looksLikePrice(p.storage))props.push(`<span class="prop" title="Хранение">${p.storage}</span>`);
-        if(p.hsCode&&!looksLikePrice(p.hsCode))props.push(`<span class="prop" title="ТН ВЭД">${p.hsCode}</span>`);
         const propsHtml=props.length?props.join(''):'';
         const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
         const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
