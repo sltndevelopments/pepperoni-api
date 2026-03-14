@@ -153,8 +153,8 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .info-block p{{font-size:.88rem;color:var(--muted);margin-bottom:12px}}
 .info-block a{{color:var(--green);font-weight:600}}
 .btn-dl{{display:inline-block;padding:9px 20px;border-radius:7px;font-weight:600;font-size:.85rem;margin:3px 4px 3px 0;cursor:pointer;text-decoration:none}}
-.btn-dl-solid{{background:#0066cc;color:#fff;border:none}}
-.btn-dl-outline{{border:2px solid #0066cc;color:#0066cc;background:#fff}}
+.btn-dl-solid{{background:#0057b3;color:#fff;border:none}}
+.btn-dl-outline{{border:2px solid #0057b3;color:#0057b3;background:#fff}}
 select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.83rem}}
 
 /* Capabilities */
@@ -167,9 +167,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .footer{{background:#1a1a1a;color:#ccc;padding:36px 0 20px}}
 .footer__grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:24px}}
 .footer__col-title{{color:#fff;font-weight:600;margin-bottom:10px;font-size:.88rem}}
-.footer__col p,.footer__col a{{font-size:.82rem;color:#aaa;display:block;margin-bottom:5px}}
+.footer__col p,.footer__col a{{font-size:.82rem;color:#c8c8c8;display:block;margin-bottom:5px}}
 .footer__col a:hover{{color:#fff}}
-.footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#666}}
+.footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 
 /* Endpoint list */
 .endpoint-list{{list-style:none;font-size:.85rem}}
@@ -206,6 +206,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 </nav>
 
+<main>
 <section class="hero">
   <div class="container">
     <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · FSSC 22000</div>
@@ -270,12 +271,12 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <h2>📥 Скачать прайс-лист</h2>
     <p>Полный каталог — откроется в Excel, Google Sheets, Numbers.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-      <label style="font-size:.83rem;color:#555">Язык:</label>
+      <label for="dl-lang" style="font-size:.83rem;color:#555">Язык:</label>
       <select id="dl-lang" class="dl-select"><option value="ru" selected>Русский</option><option value="en">English</option></select>
-      <label style="font-size:.83rem;color:#555;margin-left:8px">Валюта:</label>
+      <label for="dl-cur" style="font-size:.83rem;color:#555;margin-left:8px">Валюта:</label>
       <select id="dl-cur" class="dl-select"><option value="RUB" selected>RUB ₽</option><option value="USD">USD $</option><option value="KZT">KZT ₸</option><option value="UZS">UZS</option><option value="KGS">KGS</option><option value="BYN">BYN</option><option value="AZN">AZN</option></select>
       <span id="dl-vat-wrap" style="margin-left:8px">
-        <label style="font-size:.83rem;color:#555">НДС:</label>
+        <label for="dl-vat" style="font-size:.83rem;color:#555">НДС:</label>
         <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
       </span>
     </div>
@@ -308,7 +309,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">📧 info@kazandelikates.tatar</a>
-    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#25d366;color:#25d366">💬 WhatsApp</a>
+    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
   </div>
 
   <div class="info-block">
@@ -324,6 +325,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     </ul>
   </div>
 </div>
+</main>
 
 <footer class="footer">
   <div class="container">
@@ -609,9 +611,9 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .footer{{background:#1a1a1a;color:#ccc;padding:36px 0 20px}}
 .footer__grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:24px}}
 .footer__col-title{{color:#fff;font-weight:600;margin-bottom:10px;font-size:.88rem}}
-.footer__col p,.footer__col a{{font-size:.82rem;color:#aaa;display:block;margin-bottom:5px}}
+.footer__col p,.footer__col a{{font-size:.82rem;color:#c8c8c8;display:block;margin-bottom:5px}}
 .footer__col a:hover{{color:#fff}}
-.footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#666}}
+.footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 @media(max-width:600px){{.hero{{padding:40px 0 32px}}.usps{{padding:32px 0 0}}.nav__links{{gap:10px;font-size:.82rem}}.certs__inner{{gap:16px}}}}
 </style>
 </head>
@@ -632,6 +634,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
   </div>
 </nav>
 
+<main>
 <section class="hero">
   <div class="container">
     <div class="hero__badge">🌿 100% HALAL · HACCP · FSSC 22000</div>
@@ -708,9 +711,10 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
     <p>Wholesale supply, export, Private Label — let's discuss terms.</p>
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline">📧 info@kazandelikates.tatar</a>
-    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#25d366;color:#25d366">💬 WhatsApp</a>
+    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
   </div>
 </div>
+</main>
 
 <footer class="footer">
   <div class="container">
