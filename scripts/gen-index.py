@@ -40,7 +40,7 @@ def gen_ru() -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
-<title>Производитель мясных деликатесов Халяль оптом | Казанские Деликатесы</title>
+<title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
 <meta name="description" content="Халяль пепперони, сосиски, котлеты для бургеров, татарская выпечка оптом от производителя в Казани. ХАССП, FSSC 22000, сертификат ДУМ РТ. EXW Казань. HoReCa, ретейл, экспорт СНГ.">
 <meta name="keywords" content="халяль пепперони оптом, сосиски халяль, котлеты для бургеров халяль, татарская выпечка, мясные изделия казань, производитель халяль, ХАССП, FSSC 22000">
 <meta name="author" content="Казанские Деликатесы">
@@ -54,7 +54,7 @@ def gen_ru() -> str:
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1b7a3d">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Производитель мясных деликатесов Халяль оптом | Казанские Деликатесы">
+<meta property="og:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
 <meta property="og:description" content="Халяль пепперони, сосиски, котлеты, выпечка оптом. ХАССП, FSSC 22000, ДУМ РТ. Экспорт. EXW Казань.">
 <meta property="og:url" content="https://pepperoni.tatar/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
@@ -211,7 +211,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <section class="hero">
   <div class="container">
     <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · FSSC 22000</div>
-    <h1>Производитель халяль мясных деликатесов для HoReCa и ретейла</h1>
+    <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
     <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
     <div class="hero__btns">
       <a href="#catalog" class="btn btn-primary">Смотреть каталог</a>
@@ -640,7 +640,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 <section class="hero">
   <div class="container">
     <div class="hero__badge">🌿 100% HALAL · HACCP · FSSC 22000</div>
-    <h1>Halal Meat Products Manufacturer for HoReCa &amp; Retail</h1>
+    <h1>Halal Sausage Products &amp; Pastries Manufacturer for HoReCa &amp; Retail</h1>
     <p class="hero__sub">Pepperoni, sausages, burger patties, traditional Tatar pastries — made in Kazan, Russia. Export to CIS and Middle East.</p>
     <div class="hero__btns">
       <a href="#catalog" class="btn btn-primary">View Catalog</a>
