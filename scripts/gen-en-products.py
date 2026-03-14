@@ -118,12 +118,8 @@ def main():
         ep = p["offers"].get("exportPrices") or {}
         pr = float(price_rub) if price_rub else 0
         pr_usd = float(price_usd) if price_usd else 0
-        if pr_usd > 0:
-            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
-        else:
-            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
-        seo_desc = (p.get("seoDescriptionEN") or desc)
-        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Halal food catalog. Wholesale orders.")[:160].replace('"', "&quot;")
+        seo_desc = p.get("seoDescriptionEN") or f"Buy {name} wholesale from the manufacturer. 100% Halal, HACCP certified. Perfect for HoReCa, pizzerias, and distributors. Export available (EXW Kazan)."
+        seo_desc = seo_desc[:160].replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
@@ -196,7 +192,7 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<title>{(t := name + " — Kazan Delicacies | Halal")[:60].rstrip(" |") or t[:60]}</title>
+<title>{(name + " Halal Wholesale | Kazan Delicacies")[:65]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/products/{slug}">

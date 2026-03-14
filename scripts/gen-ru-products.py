@@ -91,8 +91,9 @@ def main():
         pr = float(price_rub) if price_rub else 0
         name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
-        seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
-        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Каталог халяль продукции. Заказ оптом.")[:160].replace('"', "&quot;")
+        price_str = f"{price_rub} руб." if price_rub else "по запросу"
+        seo_desc = p.get("seoDescriptionRU") or f"Купить {name} оптом от производителя. 100% Халяль, ХАССП. Идеально для HoReCa, пиццерий и дистрибьюторов. Доставка по РФ и экспорт. Цена: {price_str}"
+        seo_desc = seo_desc[:160].replace('"', "&quot;")
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
@@ -163,7 +164,7 @@ def main():
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
-<title>{(t := name + " — Казанские Деликатесы | Халяль")[:60].rstrip(" |") or t[:60]}</title>
+<title>{(name + " Халяль Оптом | Казанские Деликатесы")[:65]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/products/{slug}">

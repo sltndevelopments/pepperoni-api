@@ -6,35 +6,11 @@ on:
   workflow_dispatch:
     inputs:
       max_articles:
-        description: "Max new blog articles per run (default: 3)"
+        description: "Max new pages to generate (default: 3)"
         default: "3"
       max_titles:
-        description: "Max title updates per run (default: 10)"
+        description: "Max title updates (default: 10)"
         default: "10"
-      max_typegeo:
-        description: "Max type+geo pages per run (default: 3)"
-        default: "3"
-      max_product_updates:
-        description: "Max product description updates (default: 5)"
-        default: "5"
-      run_news:
-        description: "Generate news articles (true/false)"
-        default: "false"
-      max_geo_pages:
-        description: "Bulk geo pages per run (default: 100)"
-        default: "100"
-      geo_mode:
-        description: "Geo mode: russia | world | all"
-        default: "all"
-      geo_langs:
-        description: "Languages (space-separated, empty=all): ru en ar kk uz ky tg az ka mn ro hy be"
-        default: ""
-      geo_products:
-        description: "Product IDs (space-separated, empty=all): pepperoni sosiki-hotdog kotlety-burgery ..."
-        default: ""
-
-env:
-  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 permissions:
   contents: write
@@ -54,9 +30,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install cryptography PySocks
-
-      # ── Step 1: Fetch search data ──────────────────────────────
+        run: pip install cryptography
 
       - name: Fetch GSC queries
         env:
@@ -74,108 +48,27 @@ jobs:
         run: python scripts/analyze_queries.py
         continue-on-error: true
 
-      # ── Step 2: Generate content ───────────────────────────────
-
       - name: Generate content via Claude API
         env:
-          CLAUDE_API_KEY:       ${{ secrets.CLAUDE_API_KEY }}
-          MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
-          MAX_TITLES:           ${{ github.event.inputs.max_titles   || '10' }}
-          MAX_TYPEGEO:          ${{ github.event.inputs.max_typegeo  || '3' }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          MAX_ARTICLES: ${{ github.event.inputs.max_articles || '3' }}
+          MAX_TITLES:   ${{ github.event.inputs.max_titles   || '10' }}
         run: python scripts/generate_content.py
         continue-on-error: true
-
-      # ── Step 3: Update product descriptions (weekly, Mon only) ─
-
-      - name: Update product descriptions via GSC data
-        if: github.event_name == 'workflow_dispatch' || format('{0}', github.event.schedule) == '' || (toJSON(github.event) != '' && contains(toJSON(github.event), 'Mon'))
-        env:
-          CLAUDE_API_KEY:          ${{ secrets.CLAUDE_API_KEY }}
-          MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
-        run: python scripts/update_product_descriptions.py
-        continue-on-error: true
-
-      # ── Step 4: Generate news (manual or weekly) ───────────────
-
-      - name: Generate news articles
-        if: github.event.inputs.run_news == 'true'
-        env:
-          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
-        run: python scripts/gen_news.py
-        continue-on-error: true
-
-      # ── Step 4b: Bulk geo pages (100–200 pages/day) ─────────────
-
-      - name: Create geo output directories
-        run: |
-          for d in geo en/geo ar/geo kk/geo uz/geo ky/geo tg/geo az/geo ka/geo mn/geo ro/geo hy/geo be/geo; do
-            mkdir -p "public/$d"
-          done
-
-      - name: Generate bulk geo pages
-        env:
-          CLAUDE_API_KEY:   ${{ secrets.CLAUDE_API_KEY }}
-          SOCKS_PROXY:      ${{ secrets.SOCKS_PROXY }}
-          MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
-          GEO_WORKERS:      "5"
-          GEO_SLEEP:        "0.5"
-        run: |
-          LANGS="${{ github.event.inputs.geo_langs }}"
-          PRODUCTS="${{ github.event.inputs.geo_products }}"
-          MODE="${{ github.event.inputs.geo_mode || 'all' }}"
-          CMD="python scripts/generate_geo_bulk.py --mode $MODE --max-pages ${{ github.event.inputs.max_geo_pages || '100' }}"
-          if [ -n "$LANGS" ]; then CMD="$CMD --langs $LANGS"; fi
-          if [ -n "$PRODUCTS" ]; then CMD="$CMD --products $PRODUCTS"; fi
-          eval $CMD
-        continue-on-error: true
-
-      # ── Step 5: Commit & push all changes ──────────────────────
 
       - name: Commit & push generated content
         run: |
           git config user.email "seo-agent@pepperoni.tatar"
           git config user.name  "SEO Agent"
-          # Blog articles (RU + EN)
-          git add "public/blog/*.html" 2>/dev/null || true
-          git add "public/en/blog/*.html" 2>/dev/null || true
-          # FAQ pages
-          git add "public/faq/*.html" 2>/dev/null || true
-          git add "public/en/faq/*.html" 2>/dev/null || true
-          # Geo pages (type+geo + regular geo)
-          git add "public/geo/*.html" 2>/dev/null || true
-          # Bulk multilingual geo pages
-          git add "public/en/geo/*.html" 2>/dev/null || true
-          git add "public/ar/geo/*.html" 2>/dev/null || true
-          git add "public/kk/geo/*.html" 2>/dev/null || true
-          git add "public/uz/geo/*.html" 2>/dev/null || true
-          git add "public/ky/geo/*.html" 2>/dev/null || true
-          git add "public/tg/geo/*.html" 2>/dev/null || true
-          git add "public/az/geo/*.html" 2>/dev/null || true
-          git add "public/ka/geo/*.html" 2>/dev/null || true
-          git add "public/mn/geo/*.html" 2>/dev/null || true
-          git add "public/ro/geo/*.html" 2>/dev/null || true
-          git add "public/hy/geo/*.html" 2>/dev/null || true
-          git add "public/be/geo/*.html" 2>/dev/null || true
-          # Updated sitemap with new geo URLs
-          git add data/seo_data.db 2>/dev/null || true
-          # News section
-          git add "public/news/*.html" 2>/dev/null || true
-          # Updated pages and sitemap
-          git add public/sitemap.xml public/index.html public/en/index.html 2>/dev/null || true
-          git add public/pepperoni.html 2>/dev/null || true
-          # Product card updates
-          git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
+          git add public/geo/*.html public/blog/*.html public/sitemap.xml 2>/dev/null || true
+          git add public/index.html public/pepperoni.html public/en/index.html 2>/dev/null || true
           if ! git diff --cached --quiet; then
-            COUNT=$(git diff --cached --name-only | wc -l)
-            git commit -m "chore(seo): auto-generate content $(date +%Y-%m-%d) — ${COUNT} files"
+            git commit -m "chore(seo): auto-update $(date +%Y-%m-%d)"
             git push origin main
-            echo "✅ Pushed ${COUNT} files"
           else
             echo "No changes to commit"
           fi
         continue-on-error: true
-
-      # ── Step 6: Index new URLs ─────────────────────────────────
 
       - name: Submit new URLs to Google Indexing API
         env:
@@ -188,8 +81,6 @@ jobs:
           YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
         run: python scripts/yandex-index.py
         continue-on-error: true
-
-      # ── Step 7: Daily report ───────────────────────────────────
 
       - name: Send daily report
         env:

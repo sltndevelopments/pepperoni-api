@@ -35,6 +35,9 @@ jobs:
       - name: Regenerate EN product pages
         run: python3 scripts/gen-en-products.py
 
+      - name: Regenerate index pages (RU + EN)
+        run: python3 scripts/gen-index.py
+
       - name: Check for changes
         id: changes
         run: |
@@ -48,5 +51,6 @@ jobs:
           git add public/products.json public/llms-full.txt public/sitemap.xml
           git add public/products/*.html
           git add public/en/products/*.html
-          git commit -m "🔄 Auto-sync prices + regenerate product pages [$(date -u +%Y-%m-%d)]"
+          git add public/index.html public/en/index.html
+          git commit -m "🔄 Auto-sync prices + regenerate product & index pages [$(date -u +%Y-%m-%d)]"
           git push

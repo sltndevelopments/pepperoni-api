@@ -14,18 +14,18 @@ import socket
 import urllib.error
 import urllib.request
 
-# ── Proxy config (optional, via env) ──────────────────────────
-PROXY_HOST = os.environ.get("SOCKS_PROXY_HOST", "")
-PROXY_PORT = int(os.environ.get("SOCKS_PROXY_PORT", "1080"))
-PROXY_USER = os.environ.get("SOCKS_PROXY_USER", "")
-PROXY_PASS = os.environ.get("SOCKS_PROXY_PASS", "")
+# ── Proxy config ──────────────────────────────────────────────
+PROXY_HOST = "190.2.137.56"
+PROXY_PORT = 443
+PROXY_USER = "upqr8rrkth-corp.mobile.res-country-US-state-5128638-hold-session-session-69add76542aa2"
+PROXY_PASS = "u5b2xg81SwhTvPZq"
 
 # ── Claude config ─────────────────────────────────────────────
 CLAUDE_API_KEY  = os.environ.get("CLAUDE_API_KEY", "")
-DEFAULT_MODEL   = "claude-3-5-sonnet-20241022"   # primary (stable)
-FALLBACK_MODEL  = "claude-3-5-haiku-20241022"    # fallback (cheaper)
-HAIKU_MODEL     = "claude-3-5-haiku-20241022"    # cheap model for reports
-HAIKU_FALLBACK  = "claude-3-haiku-20240307"
+DEFAULT_MODEL   = "claude-sonnet-4-5"       # primary
+FALLBACK_MODEL  = "claude-3-5-sonnet-20241022"  # fallback if primary fails
+HAIKU_MODEL     = "claude-haiku-4-5"         # cheap model for reports
+HAIKU_FALLBACK  = "claude-3-5-haiku-20241022"
 
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 
@@ -137,8 +137,8 @@ def call_claude(
 
     errors = []
 
-    # ── Try SOCKS5 proxy (only if configured via env) ──
-    if use_proxy and PROXY_HOST:
+    # ── Try SOCKS5 proxy ──
+    if use_proxy:
         try:
             raw = _make_request_via_socks5(ANTHROPIC_URL, body, headers)
             data = json.loads(raw)
@@ -165,25 +165,16 @@ def call_claude(
         except Exception as e:
             errors.append(f"proxy: {e}")
 
-    # ── Direct (no proxy) ──
-    for attempt_model in [model, FALLBACK_MODEL]:
-        body_dict["model"] = attempt_model
-        body = json.dumps(body_dict).encode()
-        try:
-            req = urllib.request.Request(ANTHROPIC_URL, data=body, headers=headers)
-            with urllib.request.urlopen(req, timeout=90) as resp:
-                data = json.loads(resp.read())
-            if "error" in data:
-                errors.append(f"direct/{attempt_model}: API error {data['error']}")
-                continue
-            text = data["content"][0]["text"]
-            tokens = data.get("usage", {}).get("output_tokens", 0)
-            return text, tokens
-        except urllib.error.HTTPError as e:
-            errors.append(f"direct/{attempt_model}: HTTP {e.code}")
-        except Exception as e:
-            errors.append(f"direct/{attempt_model}: {e}")
-            break  # network error — don't retry other models
+    # ── Direct fallback (no proxy) ──
+    try:
+        req = urllib.request.Request(ANTHROPIC_URL, data=body, headers=headers)
+        with urllib.request.urlopen(req) as resp:
+            data = json.loads(resp.read())
+        text = data["content"][0]["text"]
+        tokens = data.get("usage", {}).get("output_tokens", 0)
+        return text, tokens
+    except Exception as e:
+        errors.append(f"direct: {e}")
 
     raise RuntimeError(f"Claude API failed. Errors: {'; '.join(errors)}")
 
