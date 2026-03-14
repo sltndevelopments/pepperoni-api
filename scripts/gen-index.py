@@ -154,6 +154,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .info-block a{{color:var(--green);font-weight:600}}
 .btn-dl{{display:inline-block;padding:9px 20px;border-radius:7px;font-weight:600;font-size:.85rem;margin:3px 4px 3px 0;cursor:pointer;text-decoration:none}}
 .btn-dl-solid{{background:#0057b3;color:#fff;border:none}}
+.info-block .btn-dl-solid{{color:#fff}}
 .btn-dl-outline{{border:2px solid #0057b3;color:#0057b3;background:#fff}}
 select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.83rem}}
 
@@ -603,6 +604,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .info-block a{{color:var(--green);font-weight:600}}
 .btn-dl{{display:inline-block;padding:9px 20px;border-radius:7px;font-weight:600;font-size:.85rem;margin:3px 4px 3px 0;cursor:pointer;text-decoration:none}}
 .btn-dl-solid{{background:var(--green);color:#fff;border:none}}
+.info-block .btn-dl-solid{{color:#fff}}
 .btn-dl-outline{{border:2px solid var(--green);color:var(--green);background:#fff}}
 .capabilities-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:16px}}
 .capability-card{{background:var(--green-light);border-radius:var(--radius);padding:18px}}
