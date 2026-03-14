@@ -60,7 +60,7 @@ def gen_ru() -> str:
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Производитель халяль мясных изделий оптом | Казанские Деликатесы">
+<meta name="twitter:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
 <meta name="twitter:description" content="Пепперони, сосиски, котлеты, выпечка. 100% Халяль. EXW Казань.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
@@ -515,7 +515,7 @@ def gen_en() -> str:
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<title>Halal Meat Products Wholesale Manufacturer | Kazan Delicacies</title>
+<title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
 <meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, FSSC 22000, Halal DUM RT certified. Export available (EXW Kazan). HoReCa and retail.">
 <meta name="keywords" content="halal pepperoni wholesale, halal meat manufacturer Russia, halal sausages supplier, burger patties halal, Tatar bakery wholesale, HACCP FSSC 22000">
 <meta name="robots" content="index, follow">
@@ -524,14 +524,14 @@ def gen_en() -> str:
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Halal Meat Products Wholesale Manufacturer | Kazan Delicacies">
+<meta property="og:title" content="Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies">
 <meta property="og:description" content="Halal pepperoni, sausages, burger patties wholesale from manufacturer. HACCP, FSSC 22000. Export (EXW Kazan).">
 <meta property="og:url" content="https://pepperoni.tatar/en/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Halal Meat Manufacturer | Kazan Delicacies">
+<meta name="twitter:title" content="Halal Sausage Products &amp; Pastries Manufacturer | Kazan Delicacies">
 <meta name="twitter:description" content="Halal pepperoni, sausages, patties wholesale. HACCP, FSSC 22000. Export EXW Kazan.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
