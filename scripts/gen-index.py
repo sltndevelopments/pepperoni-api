@@ -237,7 +237,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="usps__grid">
       <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Собственное производство</div><div class="usp-card__text">Производим в Казани с 2022 года. Полный контроль качества от сырья до отгрузки. ХАССП на всех этапах.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт EXW Казань</div><div class="usp-card__text">Поставляем в Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, таможенное оформление.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Разработка рецептуры, дизайн упаковки. От 100 кг партия.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Колбасы, сосиски, котлеты, пельмени, выпечка.</div></div>
       <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины, без ГМО, без нитрита натрия. Сертификат ДУМ РТ.</div></div>
     </div>
   </div>
@@ -666,7 +666,7 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
     <div class="usps__grid">
       <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Own Manufacturing</div><div class="usp-card__text">We produce in Kazan since 2022. Full quality control from raw materials to shipment. HACCP at every stage.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Export EXW Kazan</div><div class="usp-card__text">We supply to Kazakhstan, Belarus, Uzbekistan, UAE, Saudi Arabia. Veterinary certificates included.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (OEM)</div><div class="usp-card__text">Production under your brand. Recipe development, packaging design. From 100 kg minimum order.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (OEM)</div><div class="usp-card__text">Production under your brand. Sausages, hot dogs, burger patties, dumplings, pastries.</div></div>
       <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Strict Halal Standard</div><div class="usp-card__text">Only beef, chicken, horse meat, turkey. No pork, no GMO, no sodium nitrite. DUM RT Certificate.</div></div>
     </div>
   </div>
