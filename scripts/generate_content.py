@@ -322,6 +322,42 @@ def html_shell(lang: str, title: str, desc: str, canonical: str, body: str, sche
 
 # ---------- Blog article generator (RU) ----------
 
+ARTICLE_CSS = """
+:root{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:var(--text);line-height:1.7;font-size:16px}
+a{color:var(--green);text-decoration:none}
+a:hover{text-decoration:underline}
+.nav{background:#fff;border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;z-index:100}
+.nav__inner{max-width:800px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.nav__logo{font-weight:700;font-size:1.05rem;color:var(--green)}
+.nav__links{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
+.nav__links a{color:var(--muted)}
+.nav__links a:hover{color:var(--green);text-decoration:none}
+.article-wrap{max-width:800px;margin:0 auto;padding:40px 20px 60px}
+.breadcrumb{font-size:.82rem;color:var(--muted);margin-bottom:24px}
+.breadcrumb a{color:var(--muted)}
+.breadcrumb span{color:var(--green)}
+h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.25;margin-bottom:20px;color:var(--text)}
+h2{font-size:1.25rem;font-weight:700;margin:36px 0 12px;color:var(--text);border-left:3px solid var(--green);padding-left:12px}
+h3{font-size:1.05rem;font-weight:700;margin:24px 0 8px;color:var(--text)}
+p{margin-bottom:16px;color:#333}
+ul,ol{margin:0 0 16px 24px}
+li{margin-bottom:6px;color:#333}
+.lead{font-size:1.05rem;color:#444;line-height:1.75;margin-bottom:24px;padding:16px 20px;background:#fff;border-radius:var(--radius);border-left:4px solid var(--green)}
+.cta-block{background:var(--green);color:#fff;border-radius:var(--radius);padding:28px 32px;margin:40px 0;text-align:center}
+.cta-block h2{color:#fff;border:none;padding:0;margin:0 0 10px;font-size:1.3rem}
+.cta-block p{color:rgba(255,255,255,.9);margin-bottom:18px}
+.btn-cta{display:inline-block;background:#fff;color:var(--green);font-weight:700;padding:12px 28px;border-radius:8px;font-size:.95rem;transition:all .2s}
+.btn-cta:hover{background:var(--green-light);text-decoration:none;transform:translateY(-1px)}
+.info-box{background:var(--green-light);border:1px solid #c8e6c9;border-radius:var(--radius);padding:16px 20px;margin:24px 0}
+.info-box p{margin:0;color:var(--green-dark);font-size:.92rem}
+footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
+footer a{color:#aaa}
+footer a:hover{color:#fff;text-decoration:none}
+@media(max-width:600px){.article-wrap{padding:24px 16px 40px}.cta-block{padding:20px 18px}}
+"""
+
 def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
     system = (
         "Ты эксперт в мясной промышленности, SEO-автор для сайта pepperoni.tatar. "
@@ -329,20 +365,31 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
         "Статьи без воды, с реальными фактами. Халяль тематика, без упоминания свинины."
     )
     prompt = f"""Напиши информационную SEO-статью по теме: «{topic}».
-Верни ТОЛЬКО полный валидный HTML5, без объяснений.
+Верни ТОЛЬКО полный валидный HTML5, без объяснений, без markdown-блоков.
 
 Требования:
 - <!DOCTYPE html> с lang="ru"
-- <head>: charset, viewport, оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical /blog/{slug}
-- Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org)
-- Bootstrap 5 CDN
-- Один <h1> с ключевым запросом
-- Структура: введение (80-100 слов), 4 подзаголовка H2, практические советы, заключение с CTA
+- <head>: charset, viewport, theme-color="#1b7a3d", оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical https://pepperoni.tatar/blog/{slug}
+- Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org, url=https://pepperoni.tatar/blog/{slug})
+- Schema.org BreadcrumbList в JSON-LD
+- Google Tag Manager сниппет: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); и noscript версия
+- CSS встроен в <style> тегом — используй ТОЧНО этот CSS без изменений:
+{ARTICLE_CSS}
+- Структура body:
+  <nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo">Казанские Деликатесы</a><div class="nav__links"><a href="/">Каталог</a><a href="/pepperoni">Пепперони</a><a href="/blog">Блог</a><a href="/faq">FAQ</a><a href="/delivery">Доставка</a></div></div></nav>
+  <main class="article-wrap">
+    breadcrumb: Главная → Блог → [название статьи]
+    <h1> с ключевым запросом
+    <div class="lead"> — вводный абзац 60-80 слов
+    4 секции H2 с содержательным текстом
+    <div class="info-box"> — полезный факт или совет
+    <div class="cta-block"> — призыв к действию, кнопка <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a>
+  </main>
+  <footer> © 2022–{YEAR} Казанские Деликатесы · г. Казань, ул. Аграрная, 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/">pepperoni.tatar</a> </footer>
 - Текст 700-900 слов
-- Контекстные ссылки: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
-- Schema.org BreadcrumbList
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Аграрная, 2, +7 987 217-02-02
-- НЕ упоминать свинину нигде"""
+- Контекстные ссылки в тексте: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
+- НЕ использовать Bootstrap
+- НЕ упоминать свинину"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
@@ -361,20 +408,31 @@ def generate_article_en(topic: str, slug: str, conn) -> tuple[Path, int]:
         "No fluff, real facts. Halal theme, no mention of pork."
     )
     prompt = f"""Write an informational SEO article on the topic: «{topic}».
-Return ONLY full valid HTML5, no explanations.
+Return ONLY full valid HTML5, no explanations, no markdown blocks.
 
 Requirements:
 - <!DOCTYPE html> with lang="en"
-- <head>: charset, viewport, optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical /en/blog/{slug}
-- Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org)
-- Bootstrap 5 CDN
-- One <h1> with main keyword
-- Structure: intro (80-100 words), 4 H2 subheadings, practical tips, conclusion with CTA
+- <head>: charset, viewport, theme-color="#1b7a3d", optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical https://pepperoni.tatar/en/blog/{slug}
+- Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org, url=https://pepperoni.tatar/en/blog/{slug})
+- Schema.org BreadcrumbList in JSON-LD
+- Google Tag Manager snippet: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); and noscript version
+- CSS embedded in <style> — use EXACTLY this CSS without changes:
+{ARTICLE_CSS}
+- Body structure:
+  <nav class="nav"><div class="nav__inner"><a href="/en/" class="nav__logo">Kazan Delicacies</a><div class="nav__links"><a href="/en/">Catalog</a><a href="/en/pepperoni">Pepperoni</a><a href="/blog">Blog</a><a href="/faq">FAQ</a></div></div></nav>
+  <main class="article-wrap">
+    breadcrumb: Home → Blog → [article title]
+    <h1> with main keyword
+    <div class="lead"> — intro paragraph 60-80 words
+    4 sections with H2 headings and content
+    <div class="info-box"> — useful fact or tip
+    <div class="cta-block"> — call to action, button <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a>
+  </main>
+  <footer> © 2022–{YEAR} Kazan Delicacies · Kazan, Agrarnaya St. 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/en/">pepperoni.tatar</a> </footer>
 - Text 700-900 words
-- Contextual links: /en/, /pepperoni-optom (as wholesale page)
-- Schema.org BreadcrumbList
-- Footer: © 2022–{YEAR} Kazan Delicacies, Kazan, Musina St. 83A, +7 987 217-02-02
-- Do NOT mention pork anywhere"""
+- Contextual links: /en/, /pepperoni-optom, /en/pepperoni
+- Do NOT use Bootstrap
+- Do NOT mention pork"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
