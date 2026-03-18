@@ -161,7 +161,7 @@ jobs:
           # News section
           git add "public/news/*.html" 2>/dev/null || true
           # Updated pages and sitemap
-          git add public/sitemap.xml public/index.html public/en/index.html 2>/dev/null || true
+          git add public/sitemap.xml public/index.html public/en/index.html public/blog.html 2>/dev/null || true
           git add public/pepperoni.html 2>/dev/null || true
           # Product card updates
           git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true

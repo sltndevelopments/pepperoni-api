@@ -611,6 +611,82 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
     return out_path, tokens
 
 
+# ---------- Blog index auto-updater ----------
+
+def update_blog_index() -> None:
+    """Rebuild public/blog.html from all existing RU blog article files."""
+    blog_dir = PUBLIC_DIR / "blog"
+    index_path = PUBLIC_DIR / "blog.html"
+    if not index_path.exists() or not blog_dir.exists():
+        return
+
+    content = index_path.read_text(encoding="utf-8")
+    start_marker = "<!-- BLOG_ARTICLES_START -->"
+    end_marker = "<!-- BLOG_ARTICLES_END -->"
+    if start_marker not in content or end_marker not in content:
+        return
+
+    # Collect all RU blog articles with metadata
+    articles = []
+    skip_slugs = {"api", "bakery", "export", "halal-production", "kazylyk", "pepperoni-pizzeria", "production"}
+    all_slugs = set()
+
+    for html_file in sorted(blog_dir.glob("*.html"), key=lambda f: f.stat().st_mtime, reverse=True):
+        slug = html_file.stem
+        all_slugs.add(slug)
+        file_content = html_file.read_text(encoding="utf-8")
+
+        # Extract title
+        import re as _re
+        og_title = _re.search(r'<meta property="og:title" content="([^"]+)"', file_content)
+        title_tag = _re.search(r'<title>([^<]+)</title>', file_content)
+        title = (og_title.group(1) if og_title else (title_tag.group(1) if title_tag else slug))
+        title = _re.sub(r'\s*[|–—]\s*(Казанские Деликатесы|pepperoni\.tatar).*$', '', title).strip()
+
+        # Extract description
+        desc_match = _re.search(r'<meta name="description" content="([^"]+)"', file_content)
+        desc = desc_match.group(1)[:200] if desc_match else ""
+
+        # Extract date
+        date_match = _re.search(r'<time[^>]*datetime="([^"]+)"', file_content)
+        date_str = date_match.group(1)[:10] if date_match else ""
+        if date_str:
+            try:
+                from datetime import datetime as _dt
+                d = _dt.strptime(date_str, "%Y-%m-%d")
+                months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"]
+                date_display = f"{d.day} {months[d.month-1]} {d.year}"
+            except Exception:
+                date_display = date_str
+        else:
+            date_display = "2026"
+
+        articles.append((slug, title, desc, date_display))
+
+    if not articles:
+        return
+
+    # Build HTML blocks
+    blocks = []
+    for slug, title, desc, date_display in articles:
+        blocks.append(f"""    <div class="article">
+      <h2><a href="/blog/{slug}" style="color:#1b7a3d;text-decoration:none">{title}</a></h2>
+      <div class="date">{date_display}</div>
+      <p>{desc}</p>
+      <a href="/blog/{slug}" style="color:#0066cc;font-size:.9rem">Читать полностью →</a>
+    </div>""")
+
+    new_section = f"{start_marker}\n" + "\n\n".join(blocks) + f"\n    {end_marker}"
+    new_content = _re.sub(
+        rf"{_re.escape(start_marker)}.*?{_re.escape(end_marker)}",
+        new_section,
+        content,
+        flags=_re.DOTALL,
+    )
+    index_path.write_text(new_content, encoding="utf-8")
+    print(f"✅ blog.html updated — {len(articles)} articles")
+
+
 # ---------- Blog article (legacy, from DB) ----------
 
 def generate_article(query: str, slug: str, conn) -> tuple[Path, int]:
@@ -974,6 +1050,7 @@ def main():
     print("\n[4/7] Generating scheduled blog articles …")
     art_done = run_scheduled_articles(conn)
     print(f"  → {art_done} articles generated")
+    update_blog_index()
 
     # 5. Type+Geo pages
     print("\n[5/7] Generating type+geo pages …")
