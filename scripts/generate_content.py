@@ -224,7 +224,7 @@ def update_sitemap_lastmod():
         return block
 
     new_content = re.sub(
-        r"<url>.*?</url>",
+        r"<url>\s*<loc>([^<]+)</loc>.*?</url>",
         replace_loc_with_lastmod,
         content,
         flags=re.DOTALL,

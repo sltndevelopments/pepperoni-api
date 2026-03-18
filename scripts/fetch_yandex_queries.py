@@ -69,7 +69,7 @@ def save_queries(queries: list, fetched_at: str, date: str):
         query_text = q.get("query_text", "")
         if not query_text:
             continue
-        indicators = {i["query_indicator"]: i["value"] for i in q.get("indicators", [])}
+        indicators = {i["query_indicator"]: i["value"] for i in q.get("indicators", []) if isinstance(i, dict)}
         try:
             conn.execute(
                 """INSERT OR IGNORE INTO yandex_queries
