@@ -38,7 +38,7 @@ YEAR         = datetime.now().year
 FOOTER_RU = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Казанские Деликатесы | Производство халяль колбасных изделий</p>
-    <p class="mb-1">г. Казань, ул. Мусина 83А | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
+    <p class="mb-1">г. Казань, ул. Аграрная, 2 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
     <p class="mb-0"><a href="/" class="text-white me-3">Главная</a><a href="/pepperoni" class="text-white me-3">Пепперони</a><a href="/pepperoni-optom" class="text-white">Оптом</a></p>
   </div>
 </footer>"""
@@ -341,7 +341,7 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
 - Текст 700-900 слов
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
 - Schema.org BreadcrumbList
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7 987 217-02-02
+- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Аграрная, 2, +7 987 217-02-02
 - НЕ упоминать свинину нигде"""
 
     html, tokens = call_claude(system, prompt)
@@ -597,7 +597,7 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
 - <h1> с запросом «{query}»
 - Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+79872170202
 - BreadcrumbList microdata
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7 987 217-02-02
+- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Аграрная, 2, +7 987 217-02-02
 - НЕ упоминать свинину
 - Ссылка «← Все продукты» на /"""
 

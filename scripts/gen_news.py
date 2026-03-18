@@ -26,7 +26,7 @@ YEAR       = datetime.now().year
 FOOTER = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Казанские Деликатесы | Производство халяль колбасных изделий</p>
-    <p class="mb-1">г. Казань, ул. Мусина 83А | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a></p>
+    <p class="mb-1">г. Казань, ул. Аграрная, 2 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a></p>
     <p class="mb-0"><a href="/" class="text-white me-3">Главная</a><a href="/news/" class="text-white me-3">Новости</a><a href="/pepperoni-optom" class="text-white">Оптом</a></p>
   </div>
 </footer>"""
