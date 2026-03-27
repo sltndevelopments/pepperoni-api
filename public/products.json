@@ -1,14 +1,5 @@
 {
   "@context": "https://schema.org",
-  "@type": "Dataset",
-  "name": "Каталог продукции Казанские Деликатесы",
-  "url": "https://api.pepperoni.tatar/products.json",
-  "creator": {
-    "@type": "Organization",
-    "name": "Казанские Деликатесы",
-    "url": "https://kazandelikates.tatar"
-  },
-  "license": "https://kazandelikates.tatar",
   "source": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pubhtml",
   "liveEndpoint": "https://api.pepperoni.tatar/api/products",
   "publisher": {
@@ -42,11 +33,11 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 3.23,
-          "KZT": 1560.59,
-          "UZS": 39367.32,
-          "KGS": 282.27,
-          "BYN": 9.61,
-          "AZN": 5.49
+          "KZT": 1564.02,
+          "UZS": 39481.28,
+          "KGS": 282.89,
+          "BYN": 9.63,
+          "AZN": 5.5
         },
         "pricePerPiece": "48.33"
       },
@@ -84,12 +75,12 @@
         "priceExclVAT": "260.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.18,
-          "KZT": 1539.06,
-          "UZS": 38824.32,
-          "KGS": 278.37,
-          "BYN": 9.48,
-          "AZN": 5.41
+          "USD": 3.19,
+          "KZT": 1542.44,
+          "UZS": 38936.71,
+          "KGS": 278.99,
+          "BYN": 9.5,
+          "AZN": 5.42
         },
         "pricePerPiece": "47.67"
       },
@@ -126,11 +117,11 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 3.52,
-          "KZT": 1700.51,
-          "UZS": 42896.8,
-          "KGS": 307.57,
-          "BYN": 10.47,
-          "AZN": 5.98
+          "KZT": 1704.24,
+          "UZS": 43020.98,
+          "KGS": 308.25,
+          "BYN": 10.49,
+          "AZN": 5.99
         },
         "pricePerPiece": "52.67"
       },
@@ -166,12 +157,12 @@
         "priceExclVAT": "260.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.18,
-          "KZT": 1539.06,
-          "UZS": 38824.32,
-          "KGS": 278.37,
-          "BYN": 9.48,
-          "AZN": 5.41
+          "USD": 3.19,
+          "KZT": 1542.44,
+          "UZS": 38936.71,
+          "KGS": 278.99,
+          "BYN": 9.5,
+          "AZN": 5.42
         },
         "pricePerPiece": "47.67"
       },
@@ -207,12 +198,12 @@
         "priceExclVAT": "332.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.07,
-          "KZT": 1969.57,
-          "UZS": 49684.27,
-          "KGS": 356.24,
-          "BYN": 12.13,
-          "AZN": 6.93
+          "USD": 4.08,
+          "KZT": 1973.9,
+          "UZS": 49828.1,
+          "KGS": 357.02,
+          "BYN": 12.15,
+          "AZN": 6.94
         },
         "pricePerPiece": "61.00"
       },
@@ -248,12 +239,12 @@
         "priceExclVAT": "385.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.72,
-          "KZT": 2281.69,
-          "UZS": 57557.73,
-          "KGS": 412.69,
-          "BYN": 14.05,
-          "AZN": 8.02
+          "USD": 4.73,
+          "KZT": 2286.7,
+          "UZS": 57724.35,
+          "KGS": 413.6,
+          "BYN": 14.08,
+          "AZN": 8.04
         },
         "pricePerPiece": "84.80"
       },
@@ -289,12 +280,12 @@
         "priceExclVAT": "413.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.06,
-          "KZT": 2448.51,
-          "UZS": 61765.96,
-          "KGS": 442.87,
-          "BYN": 15.08,
-          "AZN": 8.61
+          "USD": 5.08,
+          "KZT": 2453.89,
+          "UZS": 61944.76,
+          "KGS": 443.84,
+          "BYN": 15.11,
+          "AZN": 8.63
         },
         "pricePerPiece": "91.00"
       },
@@ -330,12 +321,12 @@
         "priceExclVAT": "250.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.07,
-          "KZT": 1485.25,
-          "UZS": 37466.83,
-          "KGS": 268.64,
-          "BYN": 9.15,
-          "AZN": 5.22
+          "USD": 3.08,
+          "KZT": 1488.51,
+          "UZS": 37575.28,
+          "KGS": 269.23,
+          "BYN": 9.17,
+          "AZN": 5.23
         },
         "pricePerPiece": "92.00"
       },
@@ -369,12 +360,12 @@
         "priceExclVAT": "250.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.07,
-          "KZT": 1485.25,
-          "UZS": 37466.83,
-          "KGS": 268.64,
-          "BYN": 9.15,
-          "AZN": 5.22
+          "USD": 3.08,
+          "KZT": 1488.51,
+          "UZS": 37575.28,
+          "KGS": 269.23,
+          "BYN": 9.17,
+          "AZN": 5.23
         },
         "pricePerPiece": "92.00"
       },
@@ -408,11 +399,11 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 3.9,
-          "KZT": 1883.47,
-          "UZS": 47512.28,
-          "KGS": 340.67,
-          "BYN": 11.6,
-          "AZN": 6.62
+          "KZT": 1887.6,
+          "UZS": 47649.82,
+          "KGS": 341.42,
+          "BYN": 11.62,
+          "AZN": 6.64
         }
       },
       "shelfLife": "360 суток",
@@ -434,11 +425,11 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 2.06,
-          "KZT": 995.55,
-          "UZS": 25113.63,
-          "KGS": 180.07,
-          "BYN": 6.13,
-          "AZN": 3.5
+          "KZT": 997.73,
+          "UZS": 25186.33,
+          "KGS": 180.46,
+          "BYN": 6.14,
+          "AZN": 3.51
         }
       },
       "shelfLife": "180 суток",
@@ -458,12 +449,12 @@
         "priceExclVAT": "341.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.18,
-          "KZT": 2023.39,
-          "UZS": 51041.76,
-          "KGS": 365.97,
-          "BYN": 12.46,
-          "AZN": 7.11
+          "USD": 4.19,
+          "KZT": 2027.83,
+          "UZS": 51189.52,
+          "KGS": 366.78,
+          "BYN": 12.49,
+          "AZN": 7.13
         }
       },
       "shelfLife": "360 суток",
@@ -484,11 +475,11 @@
         "priceExclVAT": "180.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.2,
-          "KZT": 1065.51,
-          "UZS": 26878.38,
-          "KGS": 192.72,
-          "BYN": 6.56,
+          "USD": 2.21,
+          "KZT": 1067.84,
+          "UZS": 26956.18,
+          "KGS": 193.14,
+          "BYN": 6.58,
           "AZN": 3.75
         }
       },
@@ -510,11 +501,11 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 3.51,
-          "KZT": 1695.12,
-          "UZS": 42761.05,
-          "KGS": 306.6,
-          "BYN": 10.44,
-          "AZN": 5.96
+          "KZT": 1698.84,
+          "UZS": 42884.84,
+          "KGS": 307.27,
+          "BYN": 10.46,
+          "AZN": 5.97
         }
       },
       "shelfLife": "360 суток",
@@ -535,12 +526,12 @@
         "priceExclVAT": "249.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.05,
-          "KZT": 1474.49,
-          "UZS": 37195.33,
-          "KGS": 266.69,
-          "BYN": 9.08,
-          "AZN": 5.18
+          "USD": 3.06,
+          "KZT": 1477.72,
+          "UZS": 37303.0,
+          "KGS": 267.28,
+          "BYN": 9.1,
+          "AZN": 5.2
         }
       },
       "shelfLife": "360 суток",
@@ -561,12 +552,12 @@
         "priceExclVAT": "415.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.09,
-          "KZT": 2459.28,
-          "UZS": 62037.46,
-          "KGS": 444.81,
-          "BYN": 15.14,
-          "AZN": 8.65
+          "USD": 5.1,
+          "KZT": 2464.67,
+          "UZS": 62217.05,
+          "KGS": 445.79,
+          "BYN": 15.18,
+          "AZN": 8.67
         }
       },
       "shelfLife": "360 суток",
@@ -587,12 +578,12 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.23,
-          "KZT": 2044.91,
-          "UZS": 51584.76,
-          "KGS": 369.87,
-          "BYN": 12.59,
-          "AZN": 7.19
+          "USD": 4.24,
+          "KZT": 2049.4,
+          "UZS": 51734.09,
+          "KGS": 370.68,
+          "BYN": 12.62,
+          "AZN": 7.21
         }
       },
       "shelfLife": "360 суток",
@@ -619,12 +610,12 @@
         "priceExclVAT": "552.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 6.77,
-          "KZT": 3271.86,
-          "UZS": 82535.62,
-          "KGS": 591.79,
-          "BYN": 20.15,
-          "AZN": 11.5
+          "USD": 6.78,
+          "KZT": 3279.04,
+          "UZS": 82774.54,
+          "KGS": 593.09,
+          "BYN": 20.19,
+          "AZN": 11.53
         }
       },
       "shelfLife": "360 суток",
@@ -645,12 +636,12 @@
         "priceExclVAT": "336.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.12,
-          "KZT": 1991.1,
-          "UZS": 50227.27,
-          "KGS": 360.13,
-          "BYN": 12.26,
-          "AZN": 7.0
+          "USD": 4.13,
+          "KZT": 1995.47,
+          "UZS": 50372.66,
+          "KGS": 360.92,
+          "BYN": 12.29,
+          "AZN": 7.02
         }
       },
       "shelfLife": "30 суток",
@@ -673,12 +664,12 @@
         "priceExclVAT": "408.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.0,
-          "KZT": 2416.22,
-          "UZS": 60951.47,
-          "KGS": 437.03,
-          "BYN": 14.88,
-          "AZN": 8.5
+          "USD": 5.01,
+          "KZT": 2421.53,
+          "UZS": 61127.91,
+          "KGS": 437.99,
+          "BYN": 14.91,
+          "AZN": 8.51
         }
       },
       "shelfLife": "30 суток",
@@ -698,12 +689,12 @@
         "priceExclVAT": "609.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 7.46,
-          "KZT": 3605.5,
-          "UZS": 90952.08,
-          "KGS": 652.14,
-          "BYN": 22.2,
-          "AZN": 12.68
+          "USD": 7.47,
+          "KZT": 3613.41,
+          "UZS": 91215.37,
+          "KGS": 653.57,
+          "BYN": 22.25,
+          "AZN": 12.71
         }
       },
       "shelfLife": "180 суток",
@@ -724,9 +715,9 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 0.91,
-          "KZT": 441.27,
-          "UZS": 11131.45,
-          "KGS": 79.81,
+          "KZT": 442.24,
+          "UZS": 11163.67,
+          "KGS": 79.99,
           "BYN": 2.72,
           "AZN": 1.55
         }
@@ -748,12 +739,12 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.79,
-          "KZT": 2798.3,
-          "UZS": 70589.67,
-          "KGS": 506.14,
-          "BYN": 17.23,
-          "AZN": 9.84
+          "USD": 5.8,
+          "KZT": 2804.44,
+          "UZS": 70794.02,
+          "KGS": 507.25,
+          "BYN": 17.27,
+          "AZN": 9.86
         }
       },
       "shelfLife": "180 суток",
@@ -773,12 +764,12 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.79,
-          "KZT": 2798.3,
-          "UZS": 70589.67,
-          "KGS": 506.14,
-          "BYN": 17.23,
-          "AZN": 9.84
+          "USD": 5.8,
+          "KZT": 2804.44,
+          "UZS": 70794.02,
+          "KGS": 507.25,
+          "BYN": 17.27,
+          "AZN": 9.86
         }
       },
       "shelfLife": "180 суток",
@@ -798,12 +789,12 @@
         "priceExclVAT": "736.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 9.02,
-          "KZT": 4358.89,
-          "UZS": 109956.99,
-          "KGS": 788.4,
-          "BYN": 26.84,
-          "AZN": 15.33
+          "USD": 9.04,
+          "KZT": 4368.46,
+          "UZS": 110275.29,
+          "KGS": 790.13,
+          "BYN": 26.9,
+          "AZN": 15.36
         }
       },
       "shelfLife": "180 суток",
@@ -823,17 +814,17 @@
         "priceExclVAT": "122.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 726.48,
-          "KZT": 18326.17,
-          "UZS": 131.4,
-          "KGS": 4.47,
-          "BYN": 2.55
+          "USD": 728.08,
+          "KZT": 18379.22,
+          "UZS": 131.69,
+          "KGS": 4.48,
+          "BYN": 2.56
         },
         "pricePerPiece": "135.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,50",
+      "hsCode": "1,51",
       "articleNumber": "4,68E+12",
       "cookingMethods": "0",
       "minOrder": "0",
@@ -862,11 +853,11 @@
         "priceExclVAT": "222.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1318.43,
-          "KZT": 33258.6,
-          "UZS": 238.47,
-          "KGS": 8.12,
-          "BYN": 4.64
+          "USD": 1321.32,
+          "KZT": 33354.87,
+          "UZS": 238.99,
+          "KGS": 8.14,
+          "BYN": 4.65
         },
         "pricePerPiece": "245.00"
       },
@@ -894,17 +885,17 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 974.02,
-          "KZT": 24570.64,
-          "UZS": 176.17,
-          "KGS": 6.0,
-          "BYN": 3.42
+          "USD": 976.16,
+          "KZT": 24641.76,
+          "UZS": 176.56,
+          "KGS": 6.01,
+          "BYN": 3.43
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,01",
+      "hsCode": "2,02",
       "articleNumber": "4680638720035",
       "boxWeightGross": "999976",
       "barcode": "Сосиски «Нежные» (80 г × 6 шт) | Сосиски «Нежные» для завтраков, хот-догов и HORECA (6 шт, 480 г) — охлаждённые | Нежные и сочные сосиски из индейки, курицы и говядины с мягким вкусом, идеально подходят для завтраков и горячих блюд. | Сосиски «Нежные» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию филе индейки, куриного мяса и говядины они имеют мягкую текстуру и сбалансированный вкус. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: филе индейки, мясо куриное механической обвалки, говядина, сливки, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
@@ -929,11 +920,11 @@
         "priceExclVAT": "213.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1264.62,
-          "KZT": 31901.1,
-          "UZS": 228.73,
-          "KGS": 7.79,
-          "BYN": 4.45
+          "USD": 1267.39,
+          "KZT": 31993.45,
+          "UZS": 229.24,
+          "KGS": 7.8,
+          "BYN": 4.46
         },
         "pricePerPiece": "235.00"
       },
@@ -964,17 +955,17 @@
         "priceExclVAT": "266.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1576.73,
-          "KZT": 39774.57,
-          "UZS": 285.19,
-          "KGS": 9.71,
-          "BYN": 5.54
+          "USD": 1580.19,
+          "KZT": 39889.7,
+          "UZS": 285.81,
+          "KGS": 9.73,
+          "BYN": 5.56
         },
         "pricePerPiece": "293.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,26",
+      "hsCode": "3,27",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999975",
       "barcode": "Сосиски «С сыром» (130 г × 5 шт) | Сосиски «С сыром» для завтраков, хот-догов и HORECA — охлаждённые | Сочные сосиски из говядины и куриного филе с нежным сыром, идеально подходят для завтраков и горячих блюд. | Сосиски «С сыром» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию говядины, куриного филе и твёрдого сыра сосиски имеют насыщенный вкус и нежную текстуру. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: говядина, куриное филе, твердый сыр, сухое молоко, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
@@ -1000,17 +991,17 @@
         "priceExclVAT": "258.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1528.3,
-          "KZT": 38552.82,
-          "UZS": 276.43,
-          "KGS": 9.41,
-          "BYN": 5.37
+          "USD": 1531.66,
+          "KZT": 38664.42,
+          "UZS": 277.03,
+          "KGS": 9.43,
+          "BYN": 5.39
         },
         "pricePerPiece": "284.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,16",
+      "hsCode": "3,17",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999980",
       "barcode": "Говяжьи сосиски для завтраков, хот-догов и HORECA — охлаждённые | Нежные сосиски из говядины с натуральными специями, подходят для завтраков, хот-догов и горячих блюд. Сохраняют сочность и насыщенный вкус при приготовлении. | Классические сосиски «Из Говядины» — универсальное решение для домашней кухни и HORECA. Плотная текстура и ароматные специи (чёрный перец, кардамон) придают продукту насыщенный вкус и делают его отличной альтернативой традиционным мясным колбаскам. Состав: говядина, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, сахар, специи. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
@@ -1035,11 +1026,11 @@
         "priceExclVAT": "132.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 785.68,
-          "KZT": 19819.41,
-          "UZS": 142.11,
-          "KGS": 4.84,
-          "BYN": 2.76
+          "USD": 787.4,
+          "KZT": 19876.78,
+          "UZS": 142.42,
+          "KGS": 4.85,
+          "BYN": 2.77
         },
         "pricePerPiece": "146.00"
       },
@@ -1069,17 +1060,17 @@
         "priceExclVAT": "130.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 774.91,
-          "KZT": 19547.91,
-          "UZS": 140.16,
-          "KGS": 4.77,
-          "BYN": 2.72
+          "USD": 776.61,
+          "KZT": 19604.5,
+          "UZS": 140.47,
+          "KGS": 4.78,
+          "BYN": 2.73
         },
         "pricePerPiece": "144.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,60",
+      "hsCode": "1,61",
       "articleNumber": "4680638721414",
       "boxWeightGross": "995002",
       "diameter": "есть",
@@ -1102,11 +1093,11 @@
         "priceExclVAT": "150.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 893.3,
-          "KZT": 22534.4,
-          "UZS": 161.57,
-          "KGS": 5.5,
-          "BYN": 3.14
+          "USD": 895.26,
+          "KZT": 22599.63,
+          "UZS": 161.93,
+          "KGS": 5.51,
+          "BYN": 3.15
         },
         "pricePerPiece": "166.00"
       },
@@ -1134,17 +1125,17 @@
         "priceExclVAT": "265.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1571.35,
-          "KZT": 39638.82,
-          "UZS": 284.21,
-          "KGS": 9.68,
-          "BYN": 5.53
+          "USD": 1574.8,
+          "KZT": 39753.56,
+          "UZS": 284.84,
+          "KGS": 9.7,
+          "BYN": 5.54
         },
         "pricePerPiece": "292.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,25",
+      "hsCode": "3,26",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999998",
       "diameter": "есть",
@@ -1164,17 +1155,17 @@
         "priceExclVAT": "179.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1060.13,
-          "KZT": 26742.63,
-          "UZS": 191.75,
-          "KGS": 6.53,
-          "BYN": 3.73
+          "USD": 1062.45,
+          "KZT": 26820.04,
+          "UZS": 192.17,
+          "KGS": 6.54,
+          "BYN": 3.74
         },
         "pricePerPiece": "197.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,19",
+      "hsCode": "2,20",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995003",
       "diameter": "есть",
@@ -1194,11 +1185,11 @@
         "priceExclVAT": "181.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1076.27,
-          "KZT": 27149.87,
-          "UZS": 194.67,
-          "KGS": 6.63,
-          "BYN": 3.78
+          "USD": 1078.63,
+          "KZT": 27228.47,
+          "UZS": 195.09,
+          "KGS": 6.64,
+          "BYN": 3.79
         },
         "pricePerPiece": "200.00"
       },
@@ -1224,17 +1215,17 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2044.91,
-          "KZT": 51584.76,
-          "UZS": 369.87,
-          "KGS": 12.59,
-          "BYN": 7.19
+          "USD": 2049.4,
+          "KZT": 51734.09,
+          "UZS": 370.68,
+          "KGS": 12.62,
+          "BYN": 7.21
         },
         "pricePerPiece": "380.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,23",
+      "hsCode": "4,24",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999946",
       "casing": "Состав: мясо индейки, вода, крахмал картофельный, нитритно- посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй, пряности.",
@@ -1255,17 +1246,17 @@
         "priceExclVAT": "361.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2141.78,
-          "KZT": 54028.25,
-          "UZS": 387.39,
-          "KGS": 13.19,
-          "BYN": 7.53
+          "USD": 2146.48,
+          "KZT": 54184.65,
+          "UZS": 388.24,
+          "KGS": 13.22,
+          "BYN": 7.55
         },
         "pricePerPiece": "398.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,43",
+      "hsCode": "4,44",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999997",
       "casing": "Состав: говядина, филе куриное, вода, растительный белок, крахмал картофельный, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
@@ -1287,11 +1278,11 @@
         "priceExclVAT": "318.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1883.47,
-          "KZT": 47512.28,
-          "UZS": 340.67,
-          "KGS": 11.6,
-          "BYN": 6.62
+          "USD": 1887.6,
+          "KZT": 47649.82,
+          "UZS": 341.42,
+          "KGS": 11.62,
+          "BYN": 6.64
         },
         "pricePerPiece": "350.00"
       },
@@ -1319,17 +1310,17 @@
         "priceExclVAT": "170.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1011.69,
-          "KZT": 25520.88,
-          "UZS": 182.99,
-          "KGS": 6.23,
-          "BYN": 3.56
+          "USD": 1013.91,
+          "KZT": 25594.76,
+          "UZS": 183.39,
+          "KGS": 6.24,
+          "BYN": 3.57
         },
         "pricePerPiece": "188.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,09",
+      "hsCode": "2,10",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995009",
       "casing": "Состав: филе бедра кур., кожа кур., вода, крахмал картофельный, нпс(поваренная соль, фикс. окраски: нитрит натрия),соль,рег. кислотности (трифосфаты, пирофосфаты, полифосфаты),пряности,экстракты пряностей, сахар, усилитель вкуса и аромата (глутамат натрия).",
@@ -1350,17 +1341,17 @@
         "priceExclVAT": "196.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1162.37,
-          "KZT": 29321.86,
-          "UZS": 210.24,
-          "KGS": 7.16,
-          "BYN": 4.09
+          "USD": 1164.92,
+          "KZT": 29406.74,
+          "UZS": 210.7,
+          "KGS": 7.17,
+          "BYN": 4.1
         },
         "pricePerPiece": "216.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,40",
+      "hsCode": "2,41",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999975"
     },
@@ -1377,11 +1368,11 @@
         "priceExclVAT": "270.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1603.64,
-          "KZT": 40453.31,
-          "UZS": 290.05,
-          "KGS": 9.87,
-          "BYN": 5.64
+          "USD": 1607.16,
+          "KZT": 40570.42,
+          "UZS": 290.69,
+          "KGS": 9.9,
+          "BYN": 5.65
         },
         "pricePerPiece": "298.00"
       },
@@ -1407,17 +1398,17 @@
         "priceExclVAT": "316.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1872.71,
-          "KZT": 47240.78,
-          "UZS": 338.72,
-          "KGS": 11.53,
-          "BYN": 6.58
+          "USD": 1876.82,
+          "KZT": 47377.53,
+          "UZS": 339.46,
+          "KGS": 11.56,
+          "BYN": 6.6
         },
         "pricePerPiece": "348.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,87",
+      "hsCode": "3,88",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999910",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
@@ -1436,17 +1427,17 @@
         "priceExclVAT": "325.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1926.52,
-          "KZT": 48598.28,
-          "UZS": 348.45,
-          "KGS": 11.86,
-          "BYN": 6.77
+          "USD": 1930.75,
+          "KZT": 48738.96,
+          "UZS": 349.22,
+          "KGS": 11.89,
+          "BYN": 6.79
         },
         "pricePerPiece": "358.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,98",
+      "hsCode": "3,99",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999961",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
@@ -1465,11 +1456,11 @@
         "priceExclVAT": "246.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1458.34,
-          "KZT": 36788.08,
-          "UZS": 263.77,
-          "KGS": 8.98,
-          "BYN": 5.13
+          "USD": 1461.55,
+          "KZT": 36894.57,
+          "UZS": 264.35,
+          "KGS": 9.0,
+          "BYN": 5.14
         },
         "pricePerPiece": "271.00"
       },
@@ -1495,17 +1486,17 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2044.91,
-          "KZT": 51584.76,
-          "UZS": 369.87,
-          "KGS": 12.59,
-          "BYN": 7.19
+          "USD": 2049.4,
+          "KZT": 51734.09,
+          "UZS": 370.68,
+          "KGS": 12.62,
+          "BYN": 7.21
         },
         "pricePerPiece": "380.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,23"
+      "hsCode": "4,24"
     },
     {
       "name": "Филе куриное",
@@ -1520,17 +1511,17 @@
         "priceExclVAT": "408.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2416.22,
-          "KZT": 60951.47,
-          "UZS": 437.03,
-          "KGS": 14.88,
-          "BYN": 8.5
+          "USD": 2421.53,
+          "KZT": 61127.91,
+          "UZS": 437.99,
+          "KGS": 14.91,
+          "BYN": 8.51
         },
         "pricePerPiece": "449.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "5,00"
+      "hsCode": "5,01"
     },
     {
       "name": "в/к Рамазан",
@@ -1545,17 +1536,17 @@
         "priceExclVAT": "342.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2028.77,
-          "KZT": 51177.51,
-          "UZS": 366.95,
-          "KGS": 12.49,
-          "BYN": 7.13
+          "USD": 2033.22,
+          "KZT": 51325.66,
+          "UZS": 367.75,
+          "KGS": 12.52,
+          "BYN": 7.15
         },
         "pricePerPiece": "377.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,20",
+      "hsCode": "4,21",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995005",
       "casing": "Состав: филе грудок куриных,мясо кур.мехобвалки,вода,сыворотка молочная сухая,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)), соль,рег. кислотности(трифосфаты,пирофосфаты), стабилизатор(полифосфаты),пряности,экстракты специй и пряностей,сахара,антиокис.(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизаторы.",
@@ -1576,17 +1567,17 @@
         "priceExclVAT": "170.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1011.69,
-          "KZT": 25520.88,
-          "UZS": 182.99,
-          "KGS": 6.23,
-          "BYN": 3.56
+          "USD": 1013.91,
+          "KZT": 25594.76,
+          "UZS": 183.39,
+          "KGS": 6.24,
+          "BYN": 3.57
         },
         "pricePerPiece": "188.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,09",
+      "hsCode": "2,10",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995012",
       "casing": "Состав: филе грудок куриных,мясо кур.мехобвалки,вода,сыворотка молочная сухая,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)), соль,рег. кислотности(трифосфаты,пирофосфаты), стабилизатор(полифосфаты),пряности,экстракты специй и пряностей,сахара,антиокис.(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизаторы.",
@@ -1608,17 +1599,17 @@
         "priceExclVAT": "329.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1948.05,
-          "KZT": 49141.27,
-          "UZS": 352.35,
-          "KGS": 11.99,
-          "BYN": 6.85
+          "USD": 1952.32,
+          "KZT": 49283.53,
+          "UZS": 353.12,
+          "KGS": 12.02,
+          "BYN": 6.86
         },
         "pricePerPiece": "362.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,03",
+      "hsCode": "4,04",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995006",
       "casing": "Состав: филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо куриное мехобвалки халяль,белок соевый,крахмал картоф.,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафин.дезодорированное,соль, клетчатка,рег.кислотности(трифосфаты,пирофосфаты), загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив.(говяжий),сахара,антиокислитель(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизатор.",
@@ -1640,17 +1631,17 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 974.02,
-          "KZT": 24570.64,
-          "UZS": 176.17,
-          "KGS": 6.0,
-          "BYN": 3.42
+          "USD": 976.16,
+          "KZT": 24641.76,
+          "UZS": 176.56,
+          "KGS": 6.01,
+          "BYN": 3.43
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,01",
+      "hsCode": "2,02",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995011",
       "casing": "Состав: филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо куриное мехобвалки халяль,белок соевый,крахмал картоф.,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафин.дезодорированное,соль, клетчатка,рег.кислотности(трифосфаты,пирофосфаты), загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив.(говяжий),сахара,антиокислитель(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизатор.",
@@ -1673,11 +1664,11 @@
         "priceExclVAT": "302.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1791.99,
-          "KZT": 45204.54,
-          "UZS": 324.12,
-          "KGS": 11.03,
-          "BYN": 6.3
+          "USD": 1795.92,
+          "KZT": 45335.4,
+          "UZS": 324.83,
+          "KGS": 11.06,
+          "BYN": 6.31
         },
         "pricePerPiece": "333.00"
       },
@@ -1702,11 +1693,11 @@
         "priceExclVAT": "150.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 893.3,
-          "KZT": 22534.4,
-          "UZS": 161.57,
-          "KGS": 5.5,
-          "BYN": 3.14
+          "USD": 895.26,
+          "KZT": 22599.63,
+          "UZS": 161.93,
+          "KGS": 5.51,
+          "BYN": 3.15
         },
         "pricePerPiece": "166.00"
       },
@@ -1731,17 +1722,17 @@
         "priceExclVAT": "329.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1948.05,
-          "KZT": 49141.27,
-          "UZS": 352.35,
-          "KGS": 11.99,
-          "BYN": 6.85
+          "USD": 1952.32,
+          "KZT": 49283.53,
+          "UZS": 353.12,
+          "KGS": 12.02,
+          "BYN": 6.86
         },
         "pricePerPiece": "362.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,03",
+      "hsCode": "4,04",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995008",
       "casing": "Состав:филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо кур.мехобвалки,белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафинир. дезодорир.,соль,клетчатка,рег.кислотности(трифосфаты, пирофосфаты),загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив. (говяжий),сахара,антиокислитель (аскорбат натрия),усилитель вкуса и аромата(глутамат натрия), ароматизатор.",
@@ -1763,17 +1754,17 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 974.02,
-          "KZT": 24570.64,
-          "UZS": 176.17,
-          "KGS": 6.0,
-          "BYN": 3.42
+          "USD": 976.16,
+          "KZT": 24641.76,
+          "UZS": 176.56,
+          "KGS": 6.01,
+          "BYN": 3.43
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,01",
+      "hsCode": "2,02",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995010",
       "casing": "Состав:филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо кур.мехобвалки,белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафинир. дезодорир.,соль,клетчатка,рег.кислотности(трифосфаты, пирофосфаты),загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив. (говяжий),сахара,антиокислитель (аскорбат натрия),усилитель вкуса и аромата(глутамат натрия), ароматизатор.",
@@ -1795,17 +1786,17 @@
         "priceExclVAT": "541.67",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3206.39,
-          "KZT": 80884.0,
-          "UZS": 579.95,
-          "KGS": 19.74,
-          "BYN": 11.27
+          "USD": 3213.42,
+          "KZT": 81118.14,
+          "UZS": 581.22,
+          "KGS": 19.79,
+          "BYN": 11.3
         },
         "pricePerPiece": "650.00"
       },
       "shelfLife": "0-12 ˚C",
       "storage": "160100",
-      "hsCode": "6,63",
+      "hsCode": "6,65",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999911",
       "casing": "Состав:конина,жир конский,посолочная смесь(поваренная соль,фиксатор окраски нитрит натрия),перец черный,чеснок,перец красный.",
@@ -1828,17 +1819,17 @@
         "priceExclVAT": "375.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2219.81,
-          "KZT": 55996.62,
-          "UZS": 401.5,
-          "KGS": 13.67,
-          "BYN": 7.81
+          "USD": 2224.68,
+          "KZT": 56158.71,
+          "UZS": 402.38,
+          "KGS": 13.7,
+          "BYN": 7.82
         },
         "pricePerPiece": "450.00"
       },
       "shelfLife": "0-12 ˚C",
       "storage": "160100",
-      "hsCode": "4,59",
+      "hsCode": "4,60",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999909",
       "barcode": "Аутентичный казылык, приготовленный по классической татарской рецептуре, нарезанный тонкими ломтиками для удобного использования в кафе, ресторанах, отелей, магазинах и кейтеринге. Богатый пряный букет, выразительная мясная нота и плотная структура делают продукт фаворитом для ассорти и восточных блюд. Халяль сертификация и прослеживаемость поставок гарантируются.",
@@ -1865,12 +1856,12 @@
         "pricePerBoxExclVAT": "2443.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 29.92,
-          "KZT": 14465.08,
-          "UZS": 364894.86,
-          "KGS": 2616.33,
-          "BYN": 89.07,
-          "AZN": 50.86
+          "USD": 29.98,
+          "KZT": 14496.45,
+          "UZS": 365941.6,
+          "KGS": 2622.01,
+          "BYN": 89.26,
+          "AZN": 50.97
         }
       },
       "shelfLife": "360 суток",
@@ -1892,12 +1883,12 @@
         "pricePerBoxExclVAT": "1605.27",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 19.65,
-          "KZT": 9502.36,
-          "UZS": 239705.83,
-          "KGS": 1718.72,
-          "BYN": 58.51,
-          "AZN": 33.41
+          "USD": 19.7,
+          "KZT": 9522.97,
+          "UZS": 240393.46,
+          "KGS": 1722.44,
+          "BYN": 58.64,
+          "AZN": 33.48
         }
       },
       "shelfLife": "360 суток",
@@ -1919,12 +1910,12 @@
         "pricePerBoxExclVAT": "2580.65",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 31.6,
-          "KZT": 15276.11,
-          "UZS": 385353.78,
-          "KGS": 2763.03,
-          "BYN": 94.06,
-          "AZN": 53.71
+          "USD": 31.66,
+          "KZT": 15309.23,
+          "UZS": 386459.21,
+          "KGS": 2769.02,
+          "BYN": 94.26,
+          "AZN": 53.83
         }
       },
       "shelfLife": "360 суток",
@@ -1946,12 +1937,12 @@
         "pricePerBoxExclVAT": "2693.67",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 32.98,
-          "KZT": 15945.13,
-          "UZS": 402230.41,
-          "KGS": 2884.03,
-          "BYN": 98.18,
-          "AZN": 56.06
+          "USD": 33.05,
+          "KZT": 15979.7,
+          "UZS": 403384.26,
+          "KGS": 2890.29,
+          "BYN": 98.39,
+          "AZN": 56.19
         }
       },
       "shelfLife": "360 суток",
@@ -1973,12 +1964,12 @@
         "pricePerBoxExclVAT": "3000.87",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 36.74,
-          "KZT": 17763.59,
-          "UZS": 448102.84,
-          "KGS": 3212.94,
-          "BYN": 109.38,
-          "AZN": 62.46
+          "USD": 36.82,
+          "KZT": 17802.11,
+          "UZS": 449388.28,
+          "KGS": 3219.91,
+          "BYN": 109.61,
+          "AZN": 62.59
         }
       },
       "shelfLife": "360 суток",
@@ -2000,12 +1991,12 @@
         "pricePerBoxExclVAT": "3191.56",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 39.08,
-          "KZT": 18892.38,
-          "UZS": 476577.49,
-          "KGS": 3417.11,
-          "BYN": 116.33,
-          "AZN": 66.43
+          "USD": 39.16,
+          "KZT": 18933.35,
+          "UZS": 477944.62,
+          "KGS": 3424.52,
+          "BYN": 116.58,
+          "AZN": 66.57
         }
       },
       "shelfLife": "360 суток",
@@ -2027,12 +2018,12 @@
         "pricePerBoxExclVAT": "3396.65",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 41.59,
-          "KZT": 20106.4,
-          "UZS": 507202.42,
-          "KGS": 3636.69,
-          "BYN": 123.8,
-          "AZN": 70.7
+          "USD": 41.68,
+          "KZT": 20150.01,
+          "UZS": 508657.39,
+          "KGS": 3644.58,
+          "BYN": 124.07,
+          "AZN": 70.85
         }
       },
       "shelfLife": "360 суток",
@@ -2055,10 +2046,10 @@
         "availability": "https://schema.org/InStock",
         "exportPrices": {
           "USD": 1.99,
-          "KZT": 960.44,
-          "UZS": 24227.87,
-          "KGS": 173.72,
-          "BYN": 5.91,
+          "KZT": 962.52,
+          "UZS": 24297.37,
+          "KGS": 174.09,
+          "BYN": 5.93,
           "AZN": 3.38
         }
       },
@@ -2081,12 +2072,12 @@
         "pricePerBoxExclVAT": "226.42",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.77,
-          "KZT": 1340.29,
-          "UZS": 33810.01,
-          "KGS": 242.42,
-          "BYN": 8.25,
-          "AZN": 4.71
+          "USD": 2.78,
+          "KZT": 1343.2,
+          "UZS": 33907.0,
+          "KGS": 242.95,
+          "BYN": 8.27,
+          "AZN": 4.72
         }
       },
       "shelfLife": "60 суток",
@@ -2108,12 +2099,12 @@
         "pricePerBoxExclVAT": "1200.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 14.69,
-          "KZT": 7103.38,
-          "UZS": 179189.17,
-          "KGS": 1284.8,
-          "BYN": 43.74,
-          "AZN": 24.98
+          "USD": 14.72,
+          "KZT": 7118.78,
+          "UZS": 179703.2,
+          "KGS": 1287.59,
+          "BYN": 43.83,
+          "AZN": 25.03
         }
       },
       "shelfLife": "360 суток",
@@ -2135,12 +2126,12 @@
         "pricePerBoxExclVAT": "1952.29",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 23.9,
-          "KZT": 11556.54,
-          "UZS": 291524.36,
-          "KGS": 2090.26,
-          "BYN": 71.16,
-          "AZN": 40.63
+          "USD": 23.95,
+          "KZT": 11581.6,
+          "UZS": 292360.63,
+          "KGS": 2094.79,
+          "BYN": 71.31,
+          "AZN": 40.72
         }
       },
       "shelfLife": "360 суток",
@@ -2162,12 +2153,12 @@
         "pricePerBoxExclVAT": "1968.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 24.09,
-          "KZT": 11649.54,
-          "UZS": 293870.24,
-          "KGS": 2107.08,
-          "BYN": 71.73,
-          "AZN": 40.96
+          "USD": 24.15,
+          "KZT": 11674.8,
+          "UZS": 294713.24,
+          "KGS": 2111.65,
+          "BYN": 71.89,
+          "AZN": 41.05
         }
       },
       "shelfLife": "360 суток",
@@ -2189,12 +2180,12 @@
         "pricePerBoxExclVAT": "1620.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 19.83,
-          "KZT": 9589.56,
-          "UZS": 241905.38,
-          "KGS": 1734.49,
-          "BYN": 59.05,
-          "AZN": 33.72
+          "USD": 19.88,
+          "KZT": 9610.35,
+          "UZS": 242599.32,
+          "KGS": 1738.25,
+          "BYN": 59.17,
+          "AZN": 33.79
         }
       },
       "shelfLife": "360 суток",
@@ -2216,12 +2207,12 @@
         "pricePerBoxExclVAT": "2553.60",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 31.26,
-          "KZT": 15115.99,
-          "UZS": 381314.56,
-          "KGS": 2734.06,
-          "BYN": 93.07,
-          "AZN": 53.15
+          "USD": 31.33,
+          "KZT": 15148.77,
+          "UZS": 382408.41,
+          "KGS": 2739.99,
+          "BYN": 93.28,
+          "AZN": 53.26
         }
       },
       "shelfLife": "360 суток",
@@ -2243,12 +2234,12 @@
         "pricePerBoxExclVAT": "1473.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 18.04,
-          "KZT": 8724.25,
-          "UZS": 220077.15,
-          "KGS": 1577.98,
-          "BYN": 53.72,
-          "AZN": 30.68
+          "USD": 18.08,
+          "KZT": 8743.17,
+          "UZS": 220708.47,
+          "KGS": 1581.4,
+          "BYN": 53.83,
+          "AZN": 30.74
         }
       },
       "shelfLife": "360 суток",
@@ -2270,12 +2261,12 @@
         "pricePerBoxExclVAT": "3012.22",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 36.88,
-          "KZT": 17830.78,
-          "UZS": 449797.67,
-          "KGS": 3225.09,
-          "BYN": 109.79,
-          "AZN": 62.69
+          "USD": 36.96,
+          "KZT": 17869.44,
+          "UZS": 451087.97,
+          "KGS": 3232.09,
+          "BYN": 110.03,
+          "AZN": 62.83
         }
       },
       "shelfLife": "360 суток",
@@ -2297,12 +2288,12 @@
         "pricePerBoxExclVAT": "3120.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 38.2,
-          "KZT": 18468.78,
-          "UZS": 465891.85,
-          "KGS": 3340.49,
-          "BYN": 113.72,
-          "AZN": 64.94
+          "USD": 38.28,
+          "KZT": 18508.83,
+          "UZS": 467228.31,
+          "KGS": 3347.74,
+          "BYN": 113.96,
+          "AZN": 65.08
         }
       },
       "shelfLife": "360 суток",
@@ -2324,12 +2315,12 @@
         "pricePerBoxExclVAT": "1210.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 14.81,
-          "KZT": 7162.57,
-          "UZS": 180682.41,
-          "KGS": 1295.51,
-          "BYN": 44.1,
-          "AZN": 25.18
+          "USD": 14.85,
+          "KZT": 7178.1,
+          "UZS": 181200.72,
+          "KGS": 1298.32,
+          "BYN": 44.2,
+          "AZN": 25.24
         }
       },
       "shelfLife": "360 суток",
@@ -2351,12 +2342,12 @@
         "pricePerBoxExclVAT": "1606.69",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 19.67,
-          "KZT": 9510.77,
-          "UZS": 239917.88,
-          "KGS": 1720.24,
-          "BYN": 58.56,
-          "AZN": 33.44
+          "USD": 19.71,
+          "KZT": 9531.39,
+          "UZS": 240606.11,
+          "KGS": 1723.97,
+          "BYN": 58.69,
+          "AZN": 33.51
         }
       },
       "shelfLife": "360 суток",
