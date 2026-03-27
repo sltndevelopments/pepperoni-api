@@ -136,6 +136,13 @@ jobs:
           python scripts/rebuild_sitemap.py
           python scripts/patch_blog_meta.py
           python scripts/patch_schemas.py
+          python scripts/patch_geo_links.py
+        continue-on-error: true
+
+      - name: Add FAQ Schema to existing blog articles (via Claude)
+        env:
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: python scripts/patch_faq_blog.py
         continue-on-error: true
 
       # ── Step 6: Commit & push all changes ──────────────────────
