@@ -1,0 +1,129 @@
+{
+  "_comment": "Примеры ответов для аудита payload. Скопировать эксперту после деплоя.",
+  "api_search_q_pepperoni_limit_3_fields_min": {
+    "request": "GET /api/search?q=pepperoni&limit=3&fields=min",
+    "response_headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+      "X-Data-Version": "2026-02-28",
+      "X-Data-Source": "Google Sheets",
+      "X-Last-Sync": "2026-02-28T12:00:00.000Z"
+    },
+    "response_body": {
+      "@context": "https://schema.org",
+      "@type": "ItemList",
+      "name": "Результаты поиска «pepperoni»",
+      "numberOfItems": 5,
+      "url": "https://api.pepperoni.tatar/api/search?q=pepperoni",
+      "dateModified": "2026-02-28T12:00:00.000Z",
+      "products": [
+        {
+          "type": "Product",
+          "schema": "https://schema.org/Product",
+          "source": "api.pepperoni.tatar",
+          "id": "KD-014",
+          "sku": "KD-014",
+          "name": "Пепперони вар-коп из конины",
+          "name_ru": "Пепперони вар-коп из конины",
+          "category": "Топпинги",
+          "section": "Заморозка",
+          "weight": "0,5",
+          "price": "315.00",
+          "priceCurrency": "RUB",
+          "url": "https://pepperoni.tatar",
+          "canonicalUrl": "https://api.pepperoni.tatar/api/product/KD-014",
+          "shelfLife": "360 суток",
+          "updatedAt": "2026-02-28T12:00:00.000Z"
+        },
+        {
+          "type": "Product",
+          "schema": "https://schema.org/Product",
+          "source": "api.pepperoni.tatar",
+          "id": "KD-015",
+          "sku": "KD-015",
+          "name": "Пепперони вар-коп классика",
+          "name_ru": "Пепперони вар-коп классика",
+          "category": "Топпинги",
+          "section": "Заморозка",
+          "weight": "0,5",
+          "price": "274.00",
+          "priceCurrency": "RUB",
+          "url": "https://pepperoni.tatar",
+          "canonicalUrl": "https://api.pepperoni.tatar/api/product/KD-015",
+          "shelfLife": "360 суток",
+          "updatedAt": "2026-02-28T12:00:00.000Z"
+        },
+        {
+          "type": "Product",
+          "schema": "https://schema.org/Product",
+          "source": "api.pepperoni.tatar",
+          "id": "KD-016",
+          "sku": "KD-016",
+          "name": "Пепперони сырокопчёный",
+          "name_ru": "Пепперони сырокопчёный",
+          "category": "Топпинги",
+          "section": "Заморозка",
+          "weight": "0,5",
+          "price": "299.00",
+          "priceCurrency": "RUB",
+          "url": "https://pepperoni.tatar",
+          "canonicalUrl": "https://api.pepperoni.tatar/api/product/KD-016",
+          "shelfLife": "360 суток",
+          "updatedAt": "2026-02-28T12:00:00.000Z"
+        }
+      ],
+      "meta": {
+        "q": "pepperoni",
+        "limit": 3,
+        "offset": 0,
+        "total": 5
+      }
+    }
+  },
+  "api_product_KD015_fields_min": {
+    "request": "GET /api/product/KD-015?fields=min",
+    "response_headers": {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "s-maxage=3600, stale-while-revalidate=86400",
+      "X-Data-Version": "2026-02-28",
+      "X-Data-Source": "Google Sheets",
+      "X-Last-Sync": "2026-02-28T12:00:00.000Z"
+    },
+    "response_body": {
+      "type": "Product",
+      "source": "api.pepperoni.tatar",
+      "id": "KD-015",
+      "sku": "KD-015",
+      "name": "Пепперони вар-коп классика",
+      "name_ru": "Пепперони вар-коп классика",
+      "category": "Топпинги",
+      "section": "Заморозка",
+      "weight": "0,5",
+      "price": "274.00",
+      "priceCurrency": "RUB",
+      "url": "https://pepperoni.tatar",
+      "canonicalUrl": "https://api.pepperoni.tatar/api/product/KD-015",
+      "shelfLife": "360 суток",
+      "updatedAt": "2026-02-28T12:00:00.000Z"
+    }
+  },
+  "api_search_no_q_returns_400": {
+    "request": "GET /api/search",
+    "response_status": 400,
+    "response_body": {
+      "error": "Missing required parameter: q",
+      "hint": "Use GET /api/search?q=pepperoni for search. For full catalog use GET /api/products",
+      "example": "https://api.pepperoni.tatar/api/search?q=pepperoni&limit=5"
+    }
+  },
+  "post_deploy_checklist": [
+    "curl -I 'https://api.pepperoni.tatar/api/search?q=beef'",
+    "curl -I 'https://api.pepperoni.tatar/api/product/KD-001'",
+    "curl -I 'https://api.pepperoni.tatar/api/products'",
+    "curl 'https://api.pepperoni.tatar/api/search' → expect 400",
+    "curl 'https://api.pepperoni.tatar/api/feed' → expect 200",
+    "curl -s 'https://api.pepperoni.tatar/api/search?q=pepperoni&limit=3&fields=min' | wc -c  # размер min payload",
+    "curl -sI 'https://api.pepperoni.tatar/api/products' | grep X-Data-Version",
+    "curl -sI 'https://api.pepperoni.tatar/api/search?q=x' | grep X-Data-Version  # должен совпадать с products"
+  ]
+}

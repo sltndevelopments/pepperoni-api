@@ -1,0 +1,11 @@
+# Exclude from Vercel deployment (smaller upload, faster deploy)
+node_modules
+.git
+.github
+.env*
+*.log
+.DS_Store
+scripts/
+docs/
+.cursor
+*.md
