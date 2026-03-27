@@ -15,13 +15,20 @@ PUBLIC   = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 
 # Map geo page slug prefix → matching product SKUs
+# Order matters: more specific prefixes must come before shorter ones
 PRODUCT_MAP = {
-    "pepperoni": ["kd-026", "kd-027", "kd-028", "kd-029", "kd-030"],  # pepperoni line
+    # Pepperoni — specific types first
+    "pepperoni-govyadina": ["kd-015", "kd-016", "kd-017", "kd-018"],  # beef pepperoni
+    "pepperoni-kurica":    ["kd-015", "kd-016", "kd-017", "kd-018"],  # chicken (same line)
+    "pepperoni-konina":    ["kd-014"],                                  # horse meat pepperoni
+    "pepperoni-miks":      ["kd-015", "kd-014", "kd-017"],             # mixed pepperoni
+    "pepperoni":           ["kd-014", "kd-015", "kd-016", "kd-017", "kd-018"],  # all pepperoni
+    # Other products
     "kotlety-dlya-burgerov": ["kd-009", "kd-010"],                     # burger patties
-    "sosiki-dlya-hotdog": ["kd-001", "kd-002", "kd-003", "kd-004", "kd-005"],  # hot dog sausages
-    "kazylyk": ["kd-057", "kd-058"],                                   # kazylyk
-    "vetchina": ["kd-036", "kd-037", "kd-038", "kd-039"],             # ham
-    "sosiki": ["kd-019", "kd-020", "kd-021", "kd-022"],               # chilled sausages
+    "sosiki-dlya-hotdog":    ["kd-001", "kd-002", "kd-003", "kd-004", "kd-005"],  # hot dog sausages
+    "kazylyk":               ["kd-057", "kd-058"],                     # kazylyk
+    "vetchina":              ["kd-036", "kd-037", "kd-038", "kd-039"],  # ham
+    "sosiki":                ["kd-019", "kd-020", "kd-021", "kd-022"],  # chilled sausages
 }
 
 # Build SKU → product name map
@@ -39,7 +46,8 @@ for p in PRODUCTS:
 
 
 def get_product_type(slug: str):
-    for prefix in PRODUCT_MAP:
+    # Check longer prefixes first to avoid "pepperoni" matching "pepperoni-govyadina"
+    for prefix in sorted(PRODUCT_MAP.keys(), key=len, reverse=True):
         if slug.startswith(prefix):
             return prefix
     return None
@@ -83,9 +91,6 @@ GEO_PRODUCTS_CSS = """
 def patch_geo_file(path: Path, lang: str = "ru") -> bool:
     html = path.read_text(encoding="utf-8")
 
-    if "geo-products" in html:
-        return False  # already patched
-
     slug = path.stem
     product_type = get_product_type(slug)
     if not product_type:
@@ -98,11 +103,16 @@ def patch_geo_file(path: Path, lang: str = "ru") -> bool:
     else:
         block = build_products_block_ru(skus)
 
-    # Inject before CTA or before </main>
+    # Remove existing geo-products block if present (to replace with correct one)
+    html = re.sub(r'\n?<section class="geo-products">.*?</section>\n?', '', html, flags=re.DOTALL)
+
+    # Inject before CTA, </main>, or before <footer>
     if '<div class="cta-block">' in html:
         html = html.replace('<div class="cta-block">', block + '<div class="cta-block">', 1)
     elif "</main>" in html:
         html = html.replace("</main>", block + "</main>", 1)
+    elif "<footer" in html:
+        html = html.replace("<footer", block + "<footer", 1)
     else:
         return False
 
