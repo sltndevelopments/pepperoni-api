@@ -842,11 +842,13 @@ const NAME_EN_OVERRIDES={{
   'Пепперони варено-копченый классика':'Classic Pepperoni Cooked-Smoked (sliced)',
   'Пепперони варено-копченый классика целый батон':'Classic Pepperoni Cooked-Smoked (whole stick)',
   'Сосиски «К завтраку»':'Breakfast Sausages',
-  'Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр':'Mini Sausages for Pigs-in-Blanket (45g, skinless)'
+  'Сосиски «К завтраку» (без оболочки) для «Сосиски в тесте» 45 гр':'Mini Sausages for Pigs-in-Blanket (45g, skinless)'
 }};
 
+function normName(n){{return(n||'').replace(/\\s*\\n\\s*/g,' ').trim()}}
 function getNameEn(p){{
-  if(NAME_EN_OVERRIDES[p.name])return NAME_EN_OVERRIDES[p.name];
+  const k=normName(p.name);
+  if(NAME_EN_OVERRIDES[k])return NAME_EN_OVERRIDES[k];
   if(p.seoDescriptionEN&&p.seoDescriptionEN!=='0'){{
     const first=p.seoDescriptionEN.split('|')[0].trim();
     if(first&&first.length>1&&/[a-zA-Z]/.test(first))return first;
