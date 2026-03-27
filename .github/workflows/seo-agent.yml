@@ -129,7 +129,16 @@ jobs:
           eval $CMD
         continue-on-error: true
 
-      # ── Step 5: Commit & push all changes ──────────────────────
+      # ── Step 5: Post-processing ────────────────────────────────
+
+      - name: Rebuild sitemap + patch blog meta + update llms.txt
+        run: |
+          python scripts/rebuild_sitemap.py
+          python scripts/patch_blog_meta.py
+          python scripts/patch_schemas.py
+        continue-on-error: true
+
+      # ── Step 6: Commit & push all changes ──────────────────────
 
       - name: Commit & push generated content
         run: |
@@ -161,7 +170,8 @@ jobs:
           # News section
           git add "public/news/*.html" 2>/dev/null || true
           # Updated pages and sitemap
-          git add public/sitemap.xml public/index.html public/en/index.html public/blog.html 2>/dev/null || true
+          git add public/sitemap.xml public/index.html public/en/index.html public/blog.html public/en/blog.html 2>/dev/null || true
+          git add public/llms.txt public/llms-full.txt 2>/dev/null || true
           git add public/pepperoni.html 2>/dev/null || true
           # Product card updates
           git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
