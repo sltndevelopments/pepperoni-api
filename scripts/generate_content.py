@@ -753,8 +753,58 @@ def generate_article(query: str, slug: str, conn) -> tuple[Path, int]:
 
 # ---------- Schedule: daily articles ----------
 
+def _slug_from_query(query: str) -> str:
+    """Convert a Yandex search query into a URL-safe slug."""
+    import re, unicodedata
+    TRANSLIT = {
+        'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z',
+        'и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r',
+        'с':'s','т':'t','у':'u','ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh',
+        'щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya',
+    }
+    s = query.lower().strip()
+    s = ''.join(TRANSLIT.get(c, c) for c in s)
+    s = re.sub(r'[^a-z0-9]+', '-', s)
+    s = s.strip('-')[:60]
+    return s or 'article'
+
+
+def _get_yandex_topics(conn, lang: str, done_slugs: set, limit: int) -> list[tuple[str, str]]:
+    """
+    Pull high-impression queries from opportunities table (Yandex source).
+    Returns list of (topic_title, slug) tuples not yet in done_slugs.
+    Marks used opportunities as in_progress to avoid repeats.
+    """
+    types = "('quick_growth','commercial_gap')"
+    rows = conn.execute(
+        f"""SELECT id, query, impressions FROM opportunities
+            WHERE type IN {types} AND source='yandex' AND status='new'
+            ORDER BY impressions DESC LIMIT 50"""
+    ).fetchall()
+
+    result = []
+    for row in rows:
+        if len(result) >= limit:
+            break
+        q = row["query"] if hasattr(row, "__getitem__") else row[1]
+        opp_id = row["id"] if hasattr(row, "__getitem__") else row[0]
+        slug = _slug_from_query(q)
+        if slug in done_slugs:
+            continue
+        result.append((q, slug))
+        done_slugs.add(slug)
+        conn.execute(
+            "UPDATE opportunities SET status='in_progress' WHERE id=?", (opp_id,)
+        )
+
+    return result
+
+
 def run_scheduled_articles(conn) -> int:
-    """Generate 3 RU + 3 EN blog articles per day from predefined topic list."""
+    """Generate 3 RU + 3 EN blog articles per day.
+    Priority: real Yandex search queries from opportunities table.
+    Fallback: predefined BLOG_TOPICS_RU / BLOG_TOPICS_EN lists.
+    """
     now = datetime.now(timezone.utc).isoformat()
     count = 0
     new_urls = []
@@ -766,8 +816,12 @@ def run_scheduled_articles(conn) -> int:
     for f in (PUBLIC_DIR / "en" / "blog").glob("*.html") if (PUBLIC_DIR / "en" / "blog").exists() else []:
         done_slugs.add(f.stem)
 
-    # RU articles
-    ru_pending = [(t, s) for t, s in BLOG_TOPICS_RU if s not in done_slugs]
+    # RU articles: try Yandex opportunities first, then fall back to hardcoded list
+    ru_from_yandex = _get_yandex_topics(conn, "ru", done_slugs, MAX_ARTICLES)
+    ru_from_list   = [(t, s) for t, s in BLOG_TOPICS_RU if s not in done_slugs]
+    ru_pending     = (ru_from_yandex + ru_from_list)[:MAX_ARTICLES]
+    if ru_from_yandex:
+        print(f"  🔍 Using {len(ru_from_yandex)} Yandex queries + {len(ru_pending)-len(ru_from_yandex)} preset topics for RU")
     for topic, slug in ru_pending[:MAX_ARTICLES]:
         try:
             print(f"  📝 [RU] {topic[:60]}")
@@ -780,12 +834,22 @@ def run_scheduled_articles(conn) -> int:
             )
             new_urls.append(f"https://pepperoni.tatar/blog/{slug}")
             count += 1
+            # Mark opportunity as done if it came from Yandex
+            conn.execute(
+                "UPDATE opportunities SET status='done', notes=? WHERE status='in_progress' AND query=?",
+                (str(out_path), topic),
+            )
             print(f"     ✅ {out_path.name} ({tokens} tokens)")
         except Exception as ex:
             print(f"  ⚠️  RU article failed ({slug}): {ex}", file=sys.stderr)
 
-    # EN articles
-    en_pending = [(t, s) for t, s in BLOG_TOPICS_EN if s not in done_slugs]
+    # EN articles: Yandex opportunities first (English queries), then preset list
+    # Note: Yandex data is RU queries — we pass them to EN generator as keyword seeds
+    en_from_yandex = _get_yandex_topics(conn, "en", done_slugs, MAX_ARTICLES)
+    en_from_list   = [(t, s) for t, s in BLOG_TOPICS_EN if s not in done_slugs]
+    en_pending     = (en_from_yandex + en_from_list)[:MAX_ARTICLES]
+    if en_from_yandex:
+        print(f"  🔍 Using {len(en_from_yandex)} Yandex queries + {len(en_pending)-len(en_from_yandex)} preset topics for EN")
     for topic, slug in en_pending[:MAX_ARTICLES]:
         try:
             print(f"  📝 [EN] {topic[:60]}")
@@ -798,9 +862,15 @@ def run_scheduled_articles(conn) -> int:
             )
             new_urls.append(f"https://pepperoni.tatar/en/blog/{slug}")
             count += 1
+            conn.execute(
+                "UPDATE opportunities SET status='done', notes=? WHERE status='in_progress' AND query=?",
+                (str(out_path), topic),
+            )
             print(f"     ✅ {out_path.name} ({tokens} tokens)")
         except Exception as ex:
             print(f"  ⚠️  EN article failed ({slug}): {ex}", file=sys.stderr)
+
+    conn.commit()
 
     if new_urls:
         add_to_sitemap(new_urls)
