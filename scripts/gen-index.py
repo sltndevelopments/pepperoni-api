@@ -837,11 +837,19 @@ const CAT_EN={{
   'Национальная татарская выпечка':'Tatar National Pastry'
 }};
 const SEC_ICONS={{'Frozen Products':'❄️','Chilled Products':'🧊','Bakery & Pastry':'🥐'}};
+const NAME_EN_OVERRIDES={{
+  'Пепперони варено-копченый из конины':'Horse Pepperoni Cooked-Smoked (sliced)',
+  'Пепперони варено-копченый классика':'Classic Pepperoni Cooked-Smoked (sliced)',
+  'Пепперони варено-копченый классика целый батон':'Classic Pepperoni Cooked-Smoked (whole stick)',
+  'Сосиски «К завтраку»':'Breakfast Sausages',
+  'Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр':'Mini Sausages for Pigs-in-Blanket (45g, skinless)'
+}};
 
 function getNameEn(p){{
-  if(p.seoDescriptionEN){{
+  if(NAME_EN_OVERRIDES[p.name])return NAME_EN_OVERRIDES[p.name];
+  if(p.seoDescriptionEN&&p.seoDescriptionEN!=='0'){{
     const first=p.seoDescriptionEN.split('|')[0].trim();
-    if(first&&first.length>1)return first;
+    if(first&&first.length>1&&/[a-zA-Z]/.test(first))return first;
   }}
   return p.name;
 }}
