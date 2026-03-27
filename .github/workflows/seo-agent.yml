@@ -185,15 +185,23 @@ jobs:
           fi
         continue-on-error: true
 
-      # ── Step 6: Index new URLs ─────────────────────────────────
+      # ── Step 7: Index new URLs ────────────────────────────────
+      # All 3 scripts read sitemap.xml dynamically — no hardcoded lists.
+      # Any new page committed above is automatically submitted for indexing.
 
-      - name: Submit new URLs to Google Indexing API
+      - name: Submit all URLs via IndexNow (Bing + Yandex instant)
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: python scripts/bing-index.py
+        continue-on-error: true
+
+      - name: Submit top URLs to Google Indexing API (180/day)
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/gsc-index.py
         continue-on-error: true
 
-      - name: Submit new URLs to Yandex
+      - name: Submit top URLs to Yandex recrawl queue (150/day)
         env:
           YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
         run: python scripts/yandex-index.py
