@@ -70,7 +70,7 @@ BLOG_TOPICS_RU = [
     ("Пепперони оптом: как найти надёжного поставщика", "pepperoni-optom-postavshchik"),
     ("HACCP и ISO на производстве мясных деликатесов: что это значит", "haccp-iso-myasnoe-proizvodstvo"),
     ("Пепперони из конины: особенности и рынок сбыта", "pepperoni-iz-koniny"),
-    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-snг"),
+    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-sng"),
     ("Хот-дог сосиски оптом: ассортимент и условия поставки", "sosiki-dlya-hotdog-optom"),
     ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
     ("Халяль сертификация мясной продукции в России", "halyal-sertifikaciya-myasa"),
@@ -82,6 +82,21 @@ BLOG_TOPICS_RU = [
     ("Поставки мясных изделий в рестораны: логистика и условия", "postavki-myasnye-restorany"),
     ("Как отличить настоящий халяль продукт от подделки", "kak-otlichit-halyal"),
     ("B2B продажи мясной продукции: как работает оптовый рынок", "b2b-myasnaya-produkciya"),
+    # --- Batch 2 ---
+    ("Халяль колбаса оптом: виды, производители, условия закупки", "halyal-kolbasa-optom"),
+    ("Казылык: что это такое, состав, применение в ресторане", "kazylyk-chto-eto-takoe"),
+    ("Пепперони для пиццы: как правильно выбрать диаметр и нарезку", "pepperoni-dlya-pizzy-diametr"),
+    ("Сосиски халяль оптом: ассортимент для HoReCa и ретейла", "sosiki-halyal-optom"),
+    ("Как работает частная торговая марка (СТМ) в мясной отрасли", "stm-myasnaya-otrasl"),
+    ("Говяжий фарш оптом: требования B2B и условия хранения", "govyazhiy-farsh-optom"),
+    ("Пельмени халяль оптом: производство и поставки для общепита", "pelmeni-halyal-optom"),
+    ("Чем отличается замороженная и охлаждённая продукция для HoReCa", "zamorozhennaya-vs-ohlazhd-horeca"),
+    ("Требования к маркировке мясной продукции в России 2024–2025", "markirovka-myasnoy-produkcii"),
+    ("Как пиццерии снизить себестоимость: закупка ингредиентов оптом", "pizzeriya-sebestoimost-ingredienty"),
+    ("Шаурма мясо оптом: виды начинки, нарезка, поставки", "shaurma-myaso-optom"),
+    ("Хлеб и выпечка халяль для общепита: что предлагают производители", "halyal-vypechka-obshchepit"),
+    ("Контрактное производство мясных изделий: шаги и условия", "kontraktnoe-proizvodstvo-myaso"),
+    ("Курица халяль оптом: грудка, бедро, тушка — чем отличаются", "kurica-halyal-optom"),
 ]
 
 BLOG_TOPICS_EN = [
@@ -105,6 +120,21 @@ BLOG_TOPICS_EN = [
     ("Halal Food Market in Russia: Trends and Opportunities 2025", "halal-food-market-russia"),
     ("Pepperoni Slicing Specifications: Thickness, Diameter Guide", "pepperoni-slicing-specs"),
     ("Meat Products Quality Control: What Buyers Should Check", "meat-products-quality-control"),
+    # --- Batch 2 ---
+    ("Halal Sausages Wholesale: Types, Specs, and B2B Ordering", "halal-sausages-wholesale"),
+    ("Kazylyk Horse Sausage: Traditional Recipe and Modern B2B Use", "kazylyk-horse-sausage-b2b"),
+    ("Pepperoni Diameter Guide: Which Size to Choose for Pizza", "pepperoni-diameter-guide"),
+    ("Private Label Meat: Step-by-Step Guide for Restaurant Chains", "private-label-meat-step-by-step"),
+    ("Halal Ground Beef Wholesale: Specs and Cold Chain Requirements", "halal-ground-beef-wholesale"),
+    ("Halal Dumplings (Pelmeni) for HoReCa: Bulk Supply Guide", "halal-pelmeni-horeca"),
+    ("Frozen vs Chilled Meat Products: What HoReCa Buyers Should Know", "frozen-vs-chilled-horeca"),
+    ("Meat Product Labelling Requirements in Russia 2025", "meat-labelling-russia-2025"),
+    ("How Pizzerias Cut Ingredient Costs: Wholesale Sourcing Guide", "pizzeria-ingredient-cost-cutting"),
+    ("Shawarma Meat Wholesale: Cuts, Slicing, and Delivery", "shawarma-meat-wholesale"),
+    ("Halal Bakery Products for Food Service: What Suppliers Offer", "halal-bakery-foodservice"),
+    ("Contract Meat Manufacturing in Russia: How It Works", "contract-meat-manufacturing-russia"),
+    ("Halal Chicken Wholesale: Breast, Thigh, Whole Bird Differences", "halal-chicken-wholesale"),
+    ("Kazan as a Halal Food Production Hub: Why It Matters", "kazan-halal-food-hub"),
 ]
 
 # ---------- Type+Geo combinations ----------
