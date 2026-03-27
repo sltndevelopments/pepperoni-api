@@ -18,7 +18,7 @@ from pathlib import Path
 
 PUBLIC     = Path(__file__).parent.parent / "public"
 API_KEY    = os.environ.get("CLAUDE_API_KEY", "")
-MODEL      = "claude-opus-4-5"
+MODEL      = "claude-sonnet-4-5"
 MAX_TOKENS = 800
 
 
