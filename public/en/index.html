@@ -31,7 +31,7 @@
   "url":"https://pepperoni.tatar/en/",
   "logo":"https://pepperoni.tatar/images/logo.png",
   "email":"info@kazandelikates.tatar","telephone":"+79872170202",
-  "address":{"@type":"PostalAddress","streetAddress":"Musina St. 83A","addressLocality":"Kazan","postalCode":"420061","addressRegion":"Tatarstan","addressCountry":"RU"},
+  "address":{"@type":"PostalAddress","streetAddress":"ul. Agrarnaya, 2","addressLocality":"Kazan","postalCode":"420059","addressRegion":"Tatarstan","addressCountry":"RU"},
   "hasCredential":{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{"@type":"Organization","name":"DUM RT","url":"https://dumrt.ru"}}
 }
 </script>
@@ -118,6 +118,7 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
     <div class="nav__links">
       <a href="/en/pepperoni.html">Pepperoni</a>
       <a href="/en/about.html">About</a>
+      <a href="/en/blog">Blog</a>
       <a href="/en/faq.html">FAQ</a>
       <a href="/en/delivery.html">Delivery</a>
       <a href="/openapi.yaml">API</a>
@@ -218,8 +219,8 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Production</div>
-        <p>Kazan, Musina St. 83A</p>
-        <p>Tatarstan, 420061, Russia</p>
+        <p>Kazan, ul. Agrarnaya, 2</p>
+        <p>Tatarstan, 420059, Russia</p>
         <a href="tel:+79872170202">+7 987 217-02-02</a>
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
@@ -233,6 +234,7 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
       <div class="footer__col">
         <div class="footer__col-title">Navigation</div>
         <a href="/en/pepperoni.html">Pepperoni</a>
+        <a href="/en/blog">Blog</a>
         <a href="/en/faq.html">FAQ</a>
         <a href="/en/delivery.html">Delivery</a>
         <a href="/">🇷🇺 Russian version</a>
@@ -311,21 +313,45 @@ function render(){
     +renderGroups(ALL_GROUPS);
 }
 
+const SEC_EN={'Заморозка':'Frozen Products','Охлаждённая продукция':'Chilled Products','Выпечка':'Bakery & Pastry'};
+const CAT_EN={
+  'Сосиски гриль для хот-догов':'Grill & Hot Dog Sausages',
+  'Котлеты для бургеров':'Burger Patties',
+  'Мясные заготовки':'Meat Semi-Finished',
+  'Топпинги':'Toppings & Pepperoni',
+  'Вареные':'Cooked Sausages',
+  'Ветчины':'Ham & Delicacies',
+  'Копченые':'Smoked Products',
+  'Премиум Казылык':'Premium Kazylyk',
+  'Сосиски, сардельки':'Sausages & Franks',
+  'Классическая выпечка':'Classic Pastry',
+  'Национальная татарская выпечка':'Tatar National Pastry'
+};
+const SEC_ICONS={'Frozen Products':'❄️','Chilled Products':'🧊','Bakery & Pastry':'🥐'};
+
+function getNameEn(p){
+  if(p.seoDescriptionEN){
+    const first=p.seoDescriptionEN.split('|')[0].trim();
+    if(first&&first.length>1)return first;
+  }
+  return p.name;
+}
+
 async function loadCatalog(){
   try{
     const d=await fetch('/products.json').then(r=>r.json());
     const groups={};
     for(const p of d.products||[]){
-      const sec=p.section||'Other',cat=p.category||sec;
+      const secRu=p.section||'Other',catRu=p.category||secRu;
+      const sec=SEC_EN[secRu]||secRu,cat=CAT_EN[catRu]||catRu;
       if(!groups[sec])groups[sec]={};if(!groups[sec][cat])groups[sec][cat]=[];
       const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
-      groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''});
+      groups[sec][cat].push({name:getNameEn(p),sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''});
     }
-    const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
     ALL_GROUPS=[];
-    for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({section:sec,icon:icons[sec]||'📦',groups:cats});
+    for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({section:sec,icon:SEC_ICONS[sec]||'📦',groups:cats});
     render();
   }catch(e){document.getElementById('loading').textContent='Failed to load catalog.';}
 }
