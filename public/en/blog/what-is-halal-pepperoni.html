@@ -88,10 +88,59 @@ tr:nth-child(even) td{background:#f5f5f5}
 footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
 footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/what-is-halal-pepperoni">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/en/blog/what-is-halal-pepperoni">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/what-is-halal-pepperoni">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What meats are used in halal pepperoni instead of pork?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Halal pepperoni uses a blend of premium-grade beef (70-80%) and lamb (20-30%). This combination delivers optimal flavor balance and appropriate fat content for the curing process, with lamb providing distinctive flavor notes and beef ensuring structure and consistency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long is the curing period for halal pepperoni production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The controlled drying and curing process for halal pepperoni typically takes 3-4 weeks. This fermentation period allows starter cultures to develop the characteristic tangy undertone while ensuring microbiological safety and proper texture."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which certifications are required for halal pepperoni ingredients?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every ingredient in halal pepperoni—from meat to spices to casings—must carry halal certification. Manufacturers operate under supervision of Islamic religious authorities who verify compliance with Sharia requirements throughout the entire production chain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can halal pepperoni be used as a direct substitute in pizza and food service applications?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, halal pepperoni is specifically designed for pizza toppings, sandwiches, and charcuterie boards. It maintains the distinctive spicy flavor, aromatic profile, and characteristic texture that pepperoni lovers expect while enabling operators to serve Muslim consumers."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -185,7 +234,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p><strong>Storage and handling:</strong> Confirm shelf life parameters, temperature requirements, and handling protocols to maintain product quality through distribution and storage.</p>
 
-    <div class="cta-block">
+    
+<section class="faq-section"><h2>Frequently Asked Questions</h2>
+<details><summary>What meats are used in halal pepperoni instead of pork?</summary><p>Halal pepperoni uses a blend of premium-grade beef (70-80%) and lamb (20-30%). This combination delivers optimal flavor balance and appropriate fat content for the curing process, with lamb providing distinctive flavor notes and beef ensuring structure and consistency.</p></details>
+<details><summary>How long is the curing period for halal pepperoni production?</summary><p>The controlled drying and curing process for halal pepperoni typically takes 3-4 weeks. This fermentation period allows starter cultures to develop the characteristic tangy undertone while ensuring microbiological safety and proper texture.</p></details>
+<details><summary>Which certifications are required for halal pepperoni ingredients?</summary><p>Every ingredient in halal pepperoni—from meat to spices to casings—must carry halal certification. Manufacturers operate under supervision of Islamic religious authorities who verify compliance with Sharia requirements throughout the entire production chain.</p></details>
+<details><summary>Can halal pepperoni be used as a direct substitute in pizza and food service applications?</summary><p>Yes, halal pepperoni is specifically designed for pizza toppings, sandwiches, and charcuterie boards. It maintains the distinctive spicy flavor, aromatic profile, and characteristic texture that pepperoni lovers expect while enabling operators to serve Muslim consumers.</p></details>
+</section>
+<div class="cta-block">
       <h3>Source Certified Halal Pepperoni from Kazan Delicacies</h3>
       <p>Kazan Delicacies manufactures premium halal pepperoni and cured meats in Kazan, Tatarstan, Russia, under strict halal certification standards. Our production facility operates under certification #614A/2024 from the Muslim Spiritual Board of Tatarstan.</p>
       <p>We serve wholesale distributors, pizzerias, restaurant chains, and food service operators requiring reliable halal meat supplies with consistent quality and full documentation support.</p>

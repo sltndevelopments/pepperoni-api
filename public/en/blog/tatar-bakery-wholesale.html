@@ -88,10 +88,59 @@ tr:nth-child(even) td{background:#f5f5f5}
 footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
 footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/tatar-bakery-wholesale">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/en/blog/tatar-bakery-wholesale">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/tatar-bakery-wholesale">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the shelf life and storage requirements for Kazan Delicacies Tatar bakery products?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All frozen Tatar bakery products have a shelf life of up to 360 days when stored at –18°C. This extended shelf life makes them ideal for wholesale distribution and inventory management in HoReCa operations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which halal certification do Kazan Delicacies bakery products carry?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All products are certified halal under certificate #614A/2024 issued by the Muslim Spiritual Board (MSB) of Tatarstan. The production facility is also HACCP certified for food safety compliance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What portion sizes are available for wholesale orders of Tatar pastries?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most savory items like Echpochmak, Peremyach, and Samsa come in 100g portions. Elesh pies are 150g per piece for main course servings, while Chak-chak dessert is packaged in 300g units."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can these traditional Tatar bakery products be used in HoReCa menu development?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, these products are specifically adapted for food service operations. Items like Peremyach and Samsa offer versatile ethnic menu options, while Gubadiya and Chak-chak provide distinctive dessert presentations for restaurants and catering."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -199,6 +248,13 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
   </article>
+
+<section class="faq-section"><h2>Frequently Asked Questions</h2>
+<details><summary>What is the shelf life and storage requirements for Kazan Delicacies Tatar bakery products?</summary><p>All frozen Tatar bakery products have a shelf life of up to 360 days when stored at –18°C. This extended shelf life makes them ideal for wholesale distribution and inventory management in HoReCa operations.</p></details>
+<details><summary>Which halal certification do Kazan Delicacies bakery products carry?</summary><p>All products are certified halal under certificate #614A/2024 issued by the Muslim Spiritual Board (MSB) of Tatarstan. The production facility is also HACCP certified for food safety compliance.</p></details>
+<details><summary>What portion sizes are available for wholesale orders of Tatar pastries?</summary><p>Most savory items like Echpochmak, Peremyach, and Samsa come in 100g portions. Elesh pies are 150g per piece for main course servings, while Chak-chak dessert is packaged in 300g units.</p></details>
+<details><summary>Can these traditional Tatar bakery products be used in HoReCa menu development?</summary><p>Yes, these products are specifically adapted for food service operations. Items like Peremyach and Samsa offer versatile ethnic menu options, while Gubadiya and Chak-chak provide distinctive dessert presentations for restaurants and catering.</p></details>
+</section>
 </main>
 <footer>
   © 2022–2026 <a href="/en/">Kazan Delicacies</a> · Kazan, ul. Agrarnaya, 2 · <a href="tel:+79872170202">+7 987 217-02-02</a>

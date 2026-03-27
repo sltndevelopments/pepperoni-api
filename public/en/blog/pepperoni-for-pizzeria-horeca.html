@@ -84,10 +84,59 @@ tr:nth-child(even) td{background:#f5f5f5}
 footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
 footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/pepperoni-for-pizzeria-horeca">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/en/blog/pepperoni-for-pizzeria-horeca">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/pepperoni-for-pizzeria-horeca">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does Kazan Delicacies pepperoni perform in high-temperature pizza ovens?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our halal pepperoni is engineered with heat-stable formulation that maintains its flat, circular shape at temperatures up to 350°C. This prevents curling during baking in conveyor, deck, or wood-fired ovens, ensuring consistent presentation across every pizza."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What packaging formats are available for HoReCa operators?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer 0.5 kg pre-sliced vacuum packs for immediate kitchen use and 1 kg whole chubs for operations that prefer in-house portioning. All products are vacuum-sealed for maximum shelf life and food safety during distribution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can restaurant chains get private label halal pepperoni manufacturing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, Kazan Delicacies offers comprehensive private label manufacturing for restaurant chains, franchise operations, and large distributors. We work with partners to develop customized products under their own branding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which halal certification does your pepperoni carry?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our pepperoni carries Halal certification #614A/2024 from MSB Tatarstan. Production takes place in our HACCP-certified facility in Kazan, ensuring both religious compliance and consistent quality control at every stage."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -179,7 +228,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     <p>Product shelf life and cold chain management are critical for food service operations. Our vacuum-sealed packaging and clear date coding ensure your inventory management runs smoothly, with full traceability for food safety compliance.</p>
 
-    <div class="cta-block">
+    
+<section class="faq-section"><h2>Frequently Asked Questions</h2>
+<details><summary>How does Kazan Delicacies pepperoni perform in high-temperature pizza ovens?</summary><p>Our halal pepperoni is engineered with heat-stable formulation that maintains its flat, circular shape at temperatures up to 350°C. This prevents curling during baking in conveyor, deck, or wood-fired ovens, ensuring consistent presentation across every pizza.</p></details>
+<details><summary>What packaging formats are available for HoReCa operators?</summary><p>We offer 0.5 kg pre-sliced vacuum packs for immediate kitchen use and 1 kg whole chubs for operations that prefer in-house portioning. All products are vacuum-sealed for maximum shelf life and food safety during distribution.</p></details>
+<details><summary>Can restaurant chains get private label halal pepperoni manufacturing?</summary><p>Yes, Kazan Delicacies offers comprehensive private label manufacturing for restaurant chains, franchise operations, and large distributors. We work with partners to develop customized products under their own branding.</p></details>
+<details><summary>Which halal certification does your pepperoni carry?</summary><p>Our pepperoni carries Halal certification #614A/2024 from MSB Tatarstan. Production takes place in our HACCP-certified facility in Kazan, ensuring both religious compliance and consistent quality control at every stage.</p></details>
+</section>
+<div class="cta-block">
       <h3>Ready to Upgrade Your Pizza Menu with Premium Halal Pepperoni?</h3>
       <p>Contact our food service team to discuss wholesale pricing, private label options, and delivery schedules for your operation.</p>
       <div class="cta-details">

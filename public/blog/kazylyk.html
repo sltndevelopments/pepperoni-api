@@ -55,6 +55,15 @@ footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:
 footer a{color:#aaa}
 footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/kazylyk">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/kazylyk">
@@ -70,6 +79,46 @@ footer a:hover{color:#fff;text-decoration:none}
 <meta name="twitter:title" content="Казылык — деликатес татарской кухни в подарочной упаковке | pepperoni.tatar">
 <meta name="twitter:description" content="Казылык халяль — традиционная конская колбаса. Подарочная упаковка 200 г и 100 г в нарезке. Сделано в Татарстане. ХАССП. 180 суток хранения.">
 <meta name="twitter:image" content="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/v1/og-blog-default.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Что такое казылык и из чего он делается?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Казылык — это традиционная конская колбаса, один из самых ценных деликатесов татарской и башкирской кухни. Производится из конины по старинным рецептам с сертификатом халяль ДУМ РТ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Сколько хранится казылык в подарочной упаковке?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Целый казылык в вакуумной упаковке хранится 180 суток при температуре 0–12°C. Нарезка после вскрытия — до 30 суток."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли заказать казылык оптом для корпоративных подарков?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, казылык в подарочной упаковке идеально подходит для корпоративных подарков и праздничных наборов. Для оптового заказа свяжитесь по телефону +7 987 217-02-02."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Чем казылык в нарезке отличается от целого по цене и формату?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Целый казылык «Премиум» весит 200 г и стоит 650 ₽, нарезка — 100 г за 450 ₽. Нарезка удобнее для подачи, целый формат выгоднее по цене за грамм."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

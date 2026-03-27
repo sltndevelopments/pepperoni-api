@@ -95,6 +95,15 @@ footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:
 footer a{color:#aaa}
 footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/kak-otlichit-halyal">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/kak-otlichit-halyal">
@@ -110,6 +119,46 @@ footer a:hover{color:#fff;text-decoration:none}
 <meta name="twitter:title" content="Как отличить настоящий халяль продукт от подделки">
 <meta name="twitter:description" content="Экспертное руководство по проверке подлинности халяль продукции. Сертификаты, маркировка, признаки подделок — все для профессионалов HoReCa.">
 <meta name="twitter:image" content="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/v1/og-blog-default.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как проверить подлинность халяль-сертификата у поставщика?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Запросите скан-копию сертификата и проверьте его номер в публичном реестре сертифицирующего органа (ДУМ РТ, Совет муфтиев России). Убедитесь, что срок действия актуален, реквизиты производителя совпадают с данными на упаковке, а в перечне указаны конкретные наименования продукции."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что должно быть указано на упаковке настоящего халяль продукта?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "На лицевой стороне должен быть четкий халяль логотип сертифицирующей организации. Также производитель указывает номер сертификата, название органа сертификации и срок его действия. Обязательна корректная маркировка со штрихкодом и GTIN."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие ингредиенты запрещены в составе халяль мясной продукции?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "В халяль продукции не допускаются плазма крови, гемоглобин и кровяные компоненты. Также необходимо проверять происхождение эмульгаторов (E471, E472), желатина и ферментов — все они должны быть халяль-сертифицированы."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли доверять поставщику, если у него нет выделенной линии для халяль производства?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Нет, это серьезный риск. Сертифицированное предприятие обязано разделять линии халяль и не-халяль продукции. При выборе поставщика уточняйте наличие выделенных участков и запрашивайте документы, подтверждающие раздельное производство."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -55,6 +55,15 @@ footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:
 footer a{color:#aaa}
 footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/halal-production">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/halal-production">
@@ -70,6 +79,46 @@ footer a:hover{color:#fff;text-decoration:none}
 <meta name="twitter:title" content="Особенности производства халяль колбасных изделий | Казанские Деликатесы">
 <meta name="twitter:description" content="Халяль — строгий стандарт производства. Сырьё, забой, ХАССП. Сделано в Татарстане. Только говядина, конина, курица, индейка. Без свинины, без ГМО.">
 <meta name="twitter:image" content="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/v1/og-blog-default.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Чем халяль колбаса отличается от обычной?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Халяль колбаса производится только из разрешённого мяса (говядина, конина, курица, индейка) без свинины. Забой выполняется по исламским правилам с полным обескровливанием, а в составе минимум добавок — без ГМО и трансглютаминазы."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как проверить подлинность халяль сертификата на продукцию?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Продукция «Казанских Деликатесов» сертифицирована комитетом по стандарту Халяль ДУМ РТ (свидетельство № 614A/2024). Это реальный аудит производства, а не самодекларирование — можно проверить через официальный реестр ДУМ РТ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Где производятся халяль колбасные изделия «Казанских Деликатесов»?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Производство расположено в Татарстане, на территории Агропромышленного парка «Казань». Предприятие работает по системе ХАССП с полной прослеживаемостью каждой партии."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли заказать халяль колбасу оптом для ресторана или магазина?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, «Казанские Деликатесы» работают с B2B и HoReCa сегментом. Вся продукция имеет сертификат Халяль ДУМ РТ и документы ХАССП, что важно для общепита и розничных сетей."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

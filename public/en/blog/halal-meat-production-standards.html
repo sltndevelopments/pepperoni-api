@@ -87,10 +87,59 @@ tr:nth-child(even) td{background:#f5f5f5}
 footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
 footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/halal-meat-production-standards">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/en/blog/halal-meat-production-standards">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/halal-meat-production-standards">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What certification does Kazan Delicacies hold for halal meat production?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kazan Delicacies holds MSB Tatarstan (Muslim Spiritual Board) Certificate #614A/2024, which involves comprehensive third-party auditing and continuous oversight covering supplier verification, slaughter procedures, and cross-contamination prevention."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which protein types are permitted in your halal production facility?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our facility exclusively processes beef, horse meat, chicken, and turkey. Pork and pork-derived ingredients are completely excluded to eliminate any cross-contamination risk."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does your facility ensure traceability for B2B buyers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We maintain supplier documentation for full traceability, with halal certificates verified for every raw material batch entering our HACCP-certified production facility. This provides documented assurance that products meet authentic Islamic dietary requirements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does halal slaughter methodology matter for meat quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zabiha slaughter principles—including swift severance of major vessels and complete blood drainage—directly impact meat quality, shelf life, and flavor characteristics. These aren't merely religious formalities but contribute to the premium product standards that discerning B2B buyers expect."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -185,7 +234,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     
     <p>We maintain current certification documentation for customer review and provide detailed product specifications including ingredient declarations, allergen statements, and halal status confirmation for each SKU. This transparency supports your own labeling compliance, customer inquiries, and quality assurance programs.</p>
 
-    <div class="cta-block">
+    
+<section class="faq-section"><h2>Frequently Asked Questions</h2>
+<details><summary>What certification does Kazan Delicacies hold for halal meat production?</summary><p>Kazan Delicacies holds MSB Tatarstan (Muslim Spiritual Board) Certificate #614A/2024, which involves comprehensive third-party auditing and continuous oversight covering supplier verification, slaughter procedures, and cross-contamination prevention.</p></details>
+<details><summary>Which protein types are permitted in your halal production facility?</summary><p>Our facility exclusively processes beef, horse meat, chicken, and turkey. Pork and pork-derived ingredients are completely excluded to eliminate any cross-contamination risk.</p></details>
+<details><summary>How does your facility ensure traceability for B2B buyers?</summary><p>We maintain supplier documentation for full traceability, with halal certificates verified for every raw material batch entering our HACCP-certified production facility. This provides documented assurance that products meet authentic Islamic dietary requirements.</p></details>
+<details><summary>Why does halal slaughter methodology matter for meat quality?</summary><p>Zabiha slaughter principles—including swift severance of major vessels and complete blood drainage—directly impact meat quality, shelf life, and flavor characteristics. These aren't merely religious formalities but contribute to the premium product standards that discerning B2B buyers expect.</p></details>
+</section>
+<div class="cta-block">
       <h3>Partner with a Certified Halal Meat Manufacturer</h3>
       <p>Kazan Delicacies supplies wholesale buyers, distributors, and HoReCa operators with certified halal meat products backed by MSB Tatarstan certification and HACCP quality systems. Our production facility in Kazan, Tatarstan delivers consistent quality, full traceability, and authentic halal compliance.</p>
       <p><strong>Contact our B2B sales team:</strong></p>

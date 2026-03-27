@@ -55,6 +55,15 @@ footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:
 footer a{color:#aaa}
 footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/api">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/api">
@@ -70,6 +79,46 @@ footer a:hover{color:#fff;text-decoration:none}
 <meta name="twitter:title" content="Открытый API для разработчиков и AI: каталог халяль продукции | pepperoni.tatar">
 <meta name="twitter:description" content="Бесплатный API каталога 77 халяль товаров. JSON, OpenAPI, AI-плагин. Мультиязычность, 7 валют. Интеграция с iiko, 1С, МойСклад.">
 <meta name="twitter:image" content="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/v1/og-blog-default.jpg">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как подключить API каталога халяль продукции к своей системе учёта?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "API доступен бесплатно без аутентификации по адресу api.pepperoni.tatar/api/products. Подходит для интеграции с ERP, 1С, iiko и МойСклад — достаточно настроить GET-запросы к эндпоинту."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли получить прайс-лист в нескольких валютах для экспорта?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, API поддерживает 7 валют: RUB, USD, KZT, UZS, KGS, BYN и AZN. Прайс можно скачать в Excel или CSV с выбором нужной валюты и языка."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Что такое AI-обнаружимость и зачем она нужна оптовикам?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Благодаря llms.txt и OpenAPI спецификации ChatGPT, Perplexity и другие AI-ассистенты находят и рекомендуют продукцию. Это означает, что ваши клиенты смогут узнать о халяль товарах через AI-поиск."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как часто обновляются цены в API каталога?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Цены синхронизируются с Google Sheets в реальном времени. При изменении прайса в таблице данные в API обновляются автоматически без задержек."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->

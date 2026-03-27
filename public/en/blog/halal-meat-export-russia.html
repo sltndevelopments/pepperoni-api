@@ -87,10 +87,59 @@ tr:nth-child(even) td{background:#f5f5f5}
 footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
 footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
 @media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
 </style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/halal-meat-export-russia">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/en/blog/halal-meat-export-russia">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/halal-meat-export-russia">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which countries can receive halal meat exports from Kazan Delicacies under Customs Union certification?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Kazan Delicacies exports to six countries: Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia, and Azerbaijan. The Customs Union certification streamlines cross-border trade and eliminates redundant certification requirements in each destination market."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What currencies are available for pricing halal meat orders?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Seven currencies are supported: Russian Ruble (RUB), US Dollar (USD), Kazakhstani Tenge (KZT), Uzbek Som (UZS), Kyrgyz Som (KGS), Belarusian Ruble (BYN), and Azerbaijani Manat (AZN). This flexibility helps buyers manage currency volatility risks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does the EXW Kazan delivery term work for wholesale buyers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under EXW Kazan (Incoterms 2020), buyers assume responsibility for transportation, export clearance, and logistics from the Kazan production facility. This gives established distributors full control over carrier selection, routing, and customs brokerage arrangements."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where can B2B buyers download current price lists with currency and VAT options?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Buyers can download current price lists directly from the company's API portal at api.pepperoni.tatar. The system allows selection of preferred language, currency, and VAT calculation method in Excel format."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -175,7 +224,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       The product portfolio includes a comprehensive range of beef, lamb, and poultry items suitable for HoReCa operations, retail distribution, and food manufacturing applications. Detailed specifications, packaging configurations, and minimum order quantities are available in the downloadable price lists.
     </p>
 
-    <div class="cta-block">
+    
+<section class="faq-section"><h2>Frequently Asked Questions</h2>
+<details><summary>Which countries can receive halal meat exports from Kazan Delicacies under Customs Union certification?</summary><p>Kazan Delicacies exports to six countries: Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia, and Azerbaijan. The Customs Union certification streamlines cross-border trade and eliminates redundant certification requirements in each destination market.</p></details>
+<details><summary>What currencies are available for pricing halal meat orders?</summary><p>Seven currencies are supported: Russian Ruble (RUB), US Dollar (USD), Kazakhstani Tenge (KZT), Uzbek Som (UZS), Kyrgyz Som (KGS), Belarusian Ruble (BYN), and Azerbaijani Manat (AZN). This flexibility helps buyers manage currency volatility risks.</p></details>
+<details><summary>How does the EXW Kazan delivery term work for wholesale buyers?</summary><p>Under EXW Kazan (Incoterms 2020), buyers assume responsibility for transportation, export clearance, and logistics from the Kazan production facility. This gives established distributors full control over carrier selection, routing, and customs brokerage arrangements.</p></details>
+<details><summary>Where can B2B buyers download current price lists with currency and VAT options?</summary><p>Buyers can download current price lists directly from the company's API portal at api.pepperoni.tatar. The system allows selection of preferred language, currency, and VAT calculation method in Excel format.</p></details>
+</section>
+<div class="cta-block">
       <h3>Request Export Price List</h3>
       <p>
         Access current pricing in your preferred currency and explore our complete product range. Contact our export department for quantity-based quotations, certification documentation, and logistics coordination.
