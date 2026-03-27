@@ -137,6 +137,7 @@ jobs:
           python scripts/patch_blog_meta.py
           python scripts/patch_schemas.py
           python scripts/patch_geo_links.py
+          python scripts/gen_category_pages.py
         continue-on-error: true
 
       - name: Add FAQ Schema to existing blog articles (via Claude)
