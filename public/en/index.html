@@ -264,6 +264,9 @@ function getPrice(p){
 function fmtPrice(v){if(!v)return'—';return v.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}
 const looksLikePrice=v=>/^\d{2,}[.,]\d{2}$/.test(String(v||'').trim());
 
+function fmtWeight(w){return String(w).replace(/кг/,'kg').replace(/г/,'g')}
+function fmtQty(q){return q?q+' pcs/box':''}
+
 function renderGroups(allGroups){
   let html='';
   const sym=CUR_SYM[CUR]||CUR;
@@ -273,6 +276,16 @@ function renderGroups(allGroups){
       html+=`<h3 class="category-title">${cat}</h3><div class="products-grid">`;
       for(const p of products){
         const pr=getPrice(p);
+        const priceLabel=p.isBakery
+          ?`${fmtPrice(pr)} ${sym}/pc`
+          :`${fmtPrice(pr)} ${sym} <span class="product-price-vat">excl. VAT</span>`;
+        const props=[];
+        if(p.weight&&!looksLikePrice(p.weight))props.push(`<span class="prop" title="Weight">${fmtWeight(p.weight)}</span>`);
+        if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Box qty">${fmtQty(p.qty)}</span>`);
+        if(p.shelf&&!looksLikePrice(p.shelf))props.push(`<span class="prop" title="Shelf life">${p.shelf.replace(/суток/,'days').replace(/сутки/,'days').replace(/сут\./,'days')}</span>`);
+        if(p.storage&&!looksLikePrice(p.storage))props.push(`<span class="prop" title="Storage">${p.storage}</span>`);
+        if(p.hsCode)props.push(`<span class="prop" title="HS Code">${p.hsCode}</span>`);
+        const propsHtml=props.length?`<div class="product-sku">${props.join('')}</div>`:'';
         const href=p.sku?`/en/products/${p.sku.toLowerCase()}`:'#';
         html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${p.sku||''}">
@@ -281,8 +294,9 @@ function renderGroups(allGroups){
             <meta itemprop="price" content="${pr}">
             <meta itemprop="priceCurrency" content="${CUR}">
             <link itemprop="availability" href="https://schema.org/InStock">
-            <div class="product-price">${fmtPrice(pr)} ${sym}</div>
+            <div class="product-price">${priceLabel}</div>
           </div>
+          ${propsHtml}
           <div class="product-avail">✓ In stock</div>
         </div></a>`;
       }
@@ -384,6 +398,8 @@ const NAME_EN_OVERRIDES={
   'Эчпочмак с говядиной и картофелем':'Echpochmak (beef & potato)',
   'Самса с говядиной':'Beef Samsa',
   'Элеш с курицей и картофелем':'Elesh (chicken & potato)',
+  'Котлета говяжья прожаренная (100 г × 3 шт)':'Fried Beef Patty (100g × 3 pcs)',
+  'Котлета говяжья прожаренная (150 г × 2 шт)':'Fried Beef Patty (150g × 2 pcs)',
   'Чак-Чак в пластиковой упаковке':'Chak-Chak (plastic box)',
   'Чак-Чак в крафтовой подарочной упаковке':'Chak-Chak (kraft gift box)',
   'Сочник с творогом':'Cottage Cheese Sochnik',
