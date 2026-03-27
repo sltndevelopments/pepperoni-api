@@ -62,71 +62,172 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 # ---------- Schedule topics ----------
 
 BLOG_TOPICS_RU = [
+    # ── ПЕППЕРОНИ (все виды) ─────────────────────────────────────
     ("Что такое халяль пепперони: состав, производство, отличия", "chto-takoe-halyal-pepperoni"),
     ("Пепперони из говядины: преимущества для пиццерий и HoReCa", "pepperoni-iz-govyadiny"),
     ("Как выбрать пепперони для пиццерии: руководство для закупщика", "kak-vybrat-pepperoni-dlya-pizzerii"),
     ("Пепперони куриный: характеристики, диаметры, применение", "pepperoni-kuriniy"),
-    ("Private Label колбасных изделий: как работает СТМ производство", "private-label-kolbasnyh-izdeliy"),
     ("Пепперони оптом: как найти надёжного поставщика", "pepperoni-optom-postavshchik"),
-    ("HACCP и ISO на производстве мясных деликатесов: что это значит", "haccp-iso-myasnoe-proizvodstvo"),
     ("Пепперони из конины: особенности и рынок сбыта", "pepperoni-iz-koniny"),
-    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-sng"),
-    ("Хот-дог сосиски оптом: ассортимент и условия поставки", "sosiki-dlya-hotdog-optom"),
-    ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
-    ("Халяль сертификация мясной продукции в России", "halyal-sertifikaciya-myasa"),
-    ("Как хранить пепперони: температурный режим и сроки", "kak-hranit-pepperoni"),
-    ("Замороженные мясные полуфабрикаты для HoReCa: что важно знать", "zamorozhennye-polufarikaty-horeca"),
-    ("Пепперони для суши: особенности нарезки и применения", "pepperoni-dlya-sushi"),
-    ("Мясные деликатесы из Казани: история и традиции производства", "myasnye-delikatesy-kazan"),
     ("Пепперони миксовый (говядина+курица): состав и применение", "pepperoni-miksoviy"),
-    ("Поставки мясных изделий в рестораны: логистика и условия", "postavki-myasnye-restorany"),
-    ("Как отличить настоящий халяль продукт от подделки", "kak-otlichit-halyal"),
-    ("B2B продажи мясной продукции: как работает оптовый рынок", "b2b-myasnaya-produkciya"),
-    # --- Batch 2 ---
-    ("Халяль колбаса оптом: виды, производители, условия закупки", "halyal-kolbasa-optom"),
-    ("Казылык: что это такое, состав, применение в ресторане", "kazylyk-chto-eto-takoe"),
     ("Пепперони для пиццы: как правильно выбрать диаметр и нарезку", "pepperoni-dlya-pizzy-diametr"),
+    ("Пепперони для суши: особенности нарезки и применения", "pepperoni-dlya-sushi"),
+    ("Как хранить пепперони: температурный режим и сроки", "kak-hranit-pepperoni"),
+    ("Пепперони варено-копчёный: в чём отличие от сырокопчёного", "pepperoni-vareno-vs-syrokopch"),
+    ("Пепперони сырокопчёный: технология, вкус, применение в пицце", "pepperoni-syrokopchyonyy"),
+    ("Пепперони в нарезке vs целый батон: что выбрать для HoReCa", "pepperoni-narezka-vs-baton"),
+    # ── СОСИСКИ И ХОТДОГ ────────────────────────────────────────
+    ("Сосиски халяль для хот-догов оптом: ассортимент и условия", "sosiki-dlya-hotdog-optom"),
     ("Сосиски халяль оптом: ассортимент для HoReCa и ретейла", "sosiki-halyal-optom"),
+    ("Сосиски из говядины халяль: состав, характеристики, B2B", "sosiki-iz-govyadiny-halyal"),
+    ("Сосиски «Два мяса»: говядина и курица в одной сосиске", "sosiki-dva-myasa"),
+    ("Сосиски с сыром халяль: применение в фастфуде и кафе", "sosiki-s-syrom-halyal"),
+    ("Сосиски с бараниной халяль: особенности и рынок", "sosiki-s-baraninoy"),
+    ("Сосиски гриль для роликового гриля: какие подходят", "sosiki-dlya-rolikovogo-grilya"),
+    ("Сардельки халяль оптом: чем отличаются от сосисок", "sardeli-halyal-optom"),
+    # ── КОТЛЕТЫ И БУРГЕРЫ ───────────────────────────────────────
+    ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
+    ("Говяжья котлета для бургера халяль: состав, вес, формат", "govyazhya-kotleta-burger-halyal"),
+    ("Котлеты 100г vs 150г для бургера: что выбрать для меню", "kotlety-100g-vs-150g"),
+    ("Халяль бургер для ресторана: как выстроить меню и закупку", "halyal-burger-menyu-restoran"),
+    # ── ВЕТЧИНЫ ─────────────────────────────────────────────────
+    ("Ветчина из индейки халяль оптом: диетический белок для HoReCa", "vetchina-iz-indeyki-halyal"),
+    ("Ветчина из курицы халяль: нарезка и батон — чем отличаются", "vetchina-iz-kuricy-halyal"),
+    ("Ветчина мраморная с говядиной: что такое мраморность в колбасе", "vetchina-mramornaya-govyadina"),
+    ("Ветчина филейная халяль: премиум продукт для ресторанов", "vetchina-fileynaya-halyal"),
+    ("Ветчина оптом для HoReCa: как выбрать поставщика в 2026", "vetchina-optom-horeca-2026"),
+    # ── КОПЧЁНЫЕ И ДЕЛИКАТЕСЫ ───────────────────────────────────
+    ("Сервелат халяль: как выбрать качественный продукт оптом", "servelat-halyal-optom"),
+    ("Сервелат по-татарски: рецептура, состав, применение", "servelat-po-tatarski"),
+    ("Копчёные колбасы халяль: виды, хранение, поставки для ресторанов", "kopchyonye-kolbasy-halyal"),
+    ("Полукопчёная колбаса из индейки: лёгкий деликатес для HoReCa", "polukopchenaya-iz-indeyki"),
+    ("Колбаски с сыром копчёные халяль: для гриля и пикника", "kolbaski-s-syrom-kopchyonye"),
+    ("Грудка куриная варено-копчёная: применение в салатах и нарезке", "grudka-kurinnaya-vareno-kopch"),
+    ("Варёная колбаса халяль: «Из говядины», Ассорти, Нежная — обзор", "varionaya-kolbasa-halyal-obzor"),
+    # ── КАЗЫЛЫК ──────────────────────────────────────────────────
+    ("Казылык: что это такое, состав, применение в ресторане", "kazylyk-chto-eto-takoe"),
+    ("Казылык Премиум: подарочная упаковка и нарезка для ресторанов", "kazylyk-premium-podark"),
+    ("Казылык из конины: история татарского деликатеса", "kazylyk-iz-koniny-istoriya"),
+    ("Казылык оптом: поставки для ресторанов татарской кухни", "kazylyk-optom-restorany"),
+    ("Казылык как сувенирная продукция: подарочная упаковка для туристов", "kazylyk-suvenirnaya-upakovka"),
+    # ── ТАТАРСКАЯ ВЫПЕЧКА ────────────────────────────────────────
+    ("Татарская выпечка оптом: губадия, эчпочмак, самса для HoReCa", "tatarskaya-vypechka-optom"),
+    ("Губадия: что это, состав, как подавать в ресторане", "gubadiya-chto-eto"),
+    ("Эчпочмак халяль: традиционный татарский пирожок для кафе", "echpochmak-halyal"),
+    ("Самса халяль с курицей и говядиной: оптовые поставки", "samsa-halyal-optom"),
+    ("Перемяч жареный: татарский чебурек для фастфуда и кейтеринга", "peremyach-zharenyy"),
+    ("Чебурек халяль жареный: производство и поставки оптом", "cheburek-halyal-optom"),
+    ("Элеш с курицей и картофелем: закрытый пирог татарской кухни", "elesh-s-kuricey"),
+    ("Чак-чак оптом: татарская сладость для подарков и кейтеринга", "chakchak-optom"),
+    ("Татарская национальная кухня для ресторанного меню: ТОП-7 блюд", "tatarskaya-kuhnya-restoran-menu"),
+    # ── КЛАССИЧЕСКАЯ ВЫПЕЧКА ────────────────────────────────────
+    ("Сосиска в тесте халяль: производство для школ, кафе, кейтеринга", "sosiska-v-teste-halyal"),
+    ("Пирожки халяль оптом: ассортимент для буфетов и кафе", "pirozhki-halyal-optom"),
+    ("Маффины халяль: шоколадный и апельсиновый для кофеен", "maffiny-halyal-kofeyni"),
+    ("Круассан с шоколадом халяль: премиальная выпечка для кофеен", "kruassan-shokolad-halyal"),
+    ("Сырник халяль: творожный продукт для завтраков в HoReCa", "syrnik-halyal-horeca"),
+    # ── МЯСНЫЕ ЗАГОТОВКИ ─────────────────────────────────────────
+    ("Говяжий фарш оптом: характеристики, хранение, B2B поставки", "govyazhiy-farsh-optom"),
+    ("Фарш из куриной кожи: применение в переработке и производстве", "farsh-iz-kurinoy-kozhi"),
+    ("Куриное филе кубиком 1×1 см: полуфабрикат для HoReCa", "kurinnoe-file-kubik-horeca"),
+    ("Говядина кубиком для промышленной переработки: что важно знать", "govyadina-kubik-promyshlennost"),
+    ("Мясные заготовки оптом: как выстроить цепочку поставок", "myasnye-zagotovki-tsepochka"),
+    # ── СТРАТЕГИЯ И РЫНОК ───────────────────────────────────────
+    ("Private Label колбасных изделий: как работает СТМ производство", "private-label-kolbasnyh-izdeliy"),
     ("Как работает частная торговая марка (СТМ) в мясной отрасли", "stm-myasnaya-otrasl"),
-    ("Говяжий фарш оптом: требования B2B и условия хранения", "govyazhiy-farsh-optom"),
-    ("Пельмени халяль оптом: производство и поставки для общепита", "pelmeni-halyal-optom"),
+    ("HACCP и ISO на производстве мясных деликатесов: что это значит", "haccp-iso-myasnoe-proizvodstvo"),
+    ("Халяль сертификация мясной продукции в России", "halyal-sertifikaciya-myasa"),
+    ("Как отличить настоящий халяль продукт от подделки", "kak-otlichit-halyal"),
+    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-sng"),
+    ("Мясные деликатесы из Казани: история и традиции производства", "myasnye-delikatesy-kazan"),
+    ("Поставки мясных изделий в рестораны: логистика и условия", "postavki-myasnye-restorany"),
+    ("B2B продажи мясной продукции: как работает оптовый рынок", "b2b-myasnaya-produkciya"),
+    ("Замороженные мясные полуфабрикаты для HoReCa: что важно знать", "zamorozhennye-polufarikaty-horeca"),
     ("Чем отличается замороженная и охлаждённая продукция для HoReCa", "zamorozhennaya-vs-ohlazhd-horeca"),
     ("Требования к маркировке мясной продукции в России 2026", "markirovka-myasnoy-produkcii"),
     ("Как пиццерии снизить себестоимость: закупка ингредиентов оптом", "pizzeriya-sebestoimost-ingredienty"),
     ("Шаурма мясо оптом: виды начинки, нарезка, поставки", "shaurma-myaso-optom"),
-    ("Хлеб и выпечка халяль для общепита: что предлагают производители", "halyal-vypechka-obshchepit"),
+    ("Халяль колбаса оптом: виды, производители, условия закупки", "halyal-kolbasa-optom"),
     ("Контрактное производство мясных изделий: шаги и условия", "kontraktnoe-proizvodstvo-myaso"),
     ("Курица халяль оптом: грудка, бедро, тушка — чем отличаются", "kurica-halyal-optom"),
+    ("Хлеб и выпечка халяль для общепита: что предлагают производители", "halyal-vypechka-obshchepit"),
 ]
 
 BLOG_TOPICS_EN = [
+    # ── PEPPERONI (all types) ────────────────────────────────────
     ("Halal Pepperoni: Ingredients, Production, and B2B Sourcing Guide", "halal-pepperoni-guide"),
     ("Beef Pepperoni vs Chicken Pepperoni: Key Differences for Buyers", "beef-vs-chicken-pepperoni"),
     ("How to Source Halal Pepperoni for Pizzerias: A Complete Guide", "source-halal-pepperoni-pizzeria"),
-    ("Private Label Meat Products: How Contract Manufacturing Works", "private-label-meat-products"),
-    ("Halal Certification for Meat Products in Russia: What You Need to Know", "halal-certification-russia"),
     ("Wholesale Pepperoni Supplier from Russia: Export Capabilities", "wholesale-pepperoni-russia-export"),
-    ("Hot Dog Sausages Wholesale: Choosing the Right Supplier", "hot-dog-sausages-wholesale"),
-    ("Burger Patties Wholesale: Halal Options for HoReCa", "burger-patties-wholesale-halal"),
-    ("HACCP and ISO in Meat Production: Quality Assurance Explained", "haccp-iso-meat-production"),
-    ("Halal Meat Export to CIS Countries: Kazakhstan, Uzbekistan, Belarus", "halal-meat-export-cis"),
-    ("Frozen Meat Semi-Products for HoReCa: Bulk Ordering Guide", "frozen-meat-products-horeca"),
-    ("Kazan Delicacies: Halal Meat Producer in Russia Since 2022", "kazan-delicacies-halal-producer"),
-    ("Pepperoni for Sushi Rolls: Specifications and Applications", "pepperoni-for-sushi"),
-    ("Mixed Pepperoni (Beef+Chicken): Composition and Use Cases", "mixed-pepperoni-beef-chicken"),
     ("Horse Meat Pepperoni: Market, Properties, and Halal Status", "horse-meat-pepperoni"),
-    ("B2B Meat Products Supply Chain: How Wholesale Works", "b2b-meat-products-supply"),
-    ("How to Store Pepperoni: Temperature, Shelf Life, and Tips", "how-to-store-pepperoni"),
-    ("Halal Food Market in Russia: Trends and Opportunities 2026", "halal-food-market-russia"),
-    ("Pepperoni Slicing Specifications: Thickness, Diameter Guide", "pepperoni-slicing-specs"),
-    ("Meat Products Quality Control: What Buyers Should Check", "meat-products-quality-control"),
-    # --- Batch 2 ---
-    ("Halal Sausages Wholesale: Types, Specs, and B2B Ordering", "halal-sausages-wholesale"),
-    ("Kazylyk Horse Sausage: Traditional Recipe and Modern B2B Use", "kazylyk-horse-sausage-b2b"),
+    ("Mixed Pepperoni (Beef+Chicken): Composition and Use Cases", "mixed-pepperoni-beef-chicken"),
     ("Pepperoni Diameter Guide: Which Size to Choose for Pizza", "pepperoni-diameter-guide"),
-    ("Private Label Meat: Step-by-Step Guide for Restaurant Chains", "private-label-meat-step-by-step"),
+    ("Pepperoni for Sushi Rolls: Specifications and Applications", "pepperoni-for-sushi"),
+    ("How to Store Pepperoni: Temperature, Shelf Life, and Tips", "how-to-store-pepperoni"),
+    ("Pepperoni Slicing Specifications: Thickness, Diameter Guide", "pepperoni-slicing-specs"),
+    ("Cooked-Smoked vs Dry-Cured Pepperoni: What Buyers Need to Know", "cooked-vs-dry-pepperoni"),
+    ("Pepperoni in Slices vs Whole Log: What to Order for HoReCa", "pepperoni-slices-vs-log"),
+    # ── HOT DOG SAUSAGES ────────────────────────────────────────
+    ("Hot Dog Sausages Wholesale: Choosing the Right Supplier", "hot-dog-sausages-wholesale"),
+    ("Halal Sausages Wholesale: Types, Specs, and B2B Ordering", "halal-sausages-wholesale"),
+    ("Beef Hot Dog Sausages Halal: Specs for Professional Kitchens", "beef-hotdog-sausages-halal"),
+    ("Dual-Meat Sausages (Beef+Chicken): Unique Selling Points for HoReCa", "dual-meat-sausages-horeca"),
+    ("Sausages with Cheese Halal: Use Cases in Fast Food and Cafes", "sausages-with-cheese-halal"),
+    ("Lamb Sausages Halal Wholesale: Niche Market Opportunities", "lamb-sausages-halal-wholesale"),
+    ("How to Choose Sausages for a Roller Grill: Buying Guide", "sausages-roller-grill-guide"),
+    # ── BURGER PATTIES ──────────────────────────────────────────
+    ("Burger Patties Wholesale: Halal Options for HoReCa", "burger-patties-wholesale-halal"),
+    ("100g vs 150g Halal Burger Patties: Which to Choose for Your Menu", "burger-patties-100g-vs-150g"),
+    ("Halal Beef Burger Patties: Sourcing Guide for Restaurant Chains", "halal-beef-burger-patties"),
+    # ── HAM & DELI ──────────────────────────────────────────────
+    ("Halal Turkey Ham Wholesale: Lean Protein for HoReCa", "halal-turkey-ham-wholesale"),
+    ("Halal Chicken Ham: Sliced vs Log — What to Order", "halal-chicken-ham-wholesale"),
+    ("Marbled Beef Ham Halal: Premium Deli Product for Restaurants", "marbled-beef-ham-halal"),
+    ("Halal Fillet Ham: Premium Cut for Upscale Catering", "halal-fillet-ham-catering"),
+    ("Halal Ham Wholesale for HoReCa: Supplier Selection Guide 2026", "halal-ham-wholesale-guide-2026"),
+    # ── SMOKED & CURED MEATS ────────────────────────────────────
+    ("Halal Servelat (Cervelat) Sausage: What It Is and How to Buy", "halal-cervelat-wholesale"),
+    ("Smoked Halal Sausages: Types, Shelf Life, and Cold Chain", "smoked-halal-sausages"),
+    ("Semi-Smoked Turkey Sausage Halal: Light Delicacy for Restaurants", "semi-smoked-turkey-sausage"),
+    ("Smoked Chicken Breast Halal: Bulk Sourcing for Salads and Catering", "smoked-chicken-breast-halal"),
+    ("Cooked Beef Sausage Halal: Classic Deli for HoReCa Menus", "cooked-beef-sausage-halal"),
+    # ── KAZYLYK ─────────────────────────────────────────────────
+    ("Kazylyk Horse Sausage: Traditional Recipe and Modern B2B Use", "kazylyk-horse-sausage-b2b"),
+    ("What Is Kazylyk? Tatar Horse Sausage Explained for Export Markets", "what-is-kazylyk"),
+    ("Kazylyk as a Gift Product: Premium Packaging for Tourists and Events", "kazylyk-gift-packaging"),
+    ("Kazylyk Wholesale for Tatar Cuisine Restaurants", "kazylyk-wholesale-restaurants"),
+    # ── TATAR BAKERY ────────────────────────────────────────────
+    ("Tatar Bakery Products Wholesale: Echpochmak, Samsa, Gubadia", "tatar-bakery-wholesale"),
+    ("What Is Echpochmak? Tatar Triangular Pie for Restaurants", "what-is-echpochmak"),
+    ("Samsa Halal: Chicken and Beef Varieties for Food Service", "samsa-halal-foodservice"),
+    ("Gubadia: Traditional Tatar Pie with Kort for Catering", "gubadia-tatar-pie-catering"),
+    ("Cheburek Halal: Fried Meat Pastry for Fast Food and Kiosks", "cheburek-halal-fastfood"),
+    ("Elesh Tatar Pie with Chicken: Closed Pastry for Restaurant Menus", "elesh-tatar-pie-restaurant"),
+    ("Chak-Chak Wholesale: Tatar Honey Pastry for Gifts and Events", "chakchak-wholesale-gifts"),
+    ("Tatar National Cuisine for Restaurant Menus: Top 7 Must-Have Dishes", "tatar-cuisine-restaurant-menu"),
+    # ── CLASSIC BAKERY ──────────────────────────────────────────
+    ("Sausage Roll Halal: Production for Schools, Cafes, and Catering", "sausage-roll-halal-catering"),
+    ("Halal Pirozhki Wholesale: Assortment for Buffets and Cafes", "halal-pirozhki-wholesale"),
+    ("Halal Muffins for Coffee Shops: Chocolate and Orange Varieties", "halal-muffins-coffee-shops"),
+    ("Halal Chocolate Croissant: Premium Bakery for Cafes", "halal-chocolate-croissant"),
+    ("Cottage Cheese Pancake (Syrnik) Halal: Breakfast Product for HoReCa", "syrnik-halal-breakfast"),
+    # ── MEAT PREPARATIONS ───────────────────────────────────────
     ("Halal Ground Beef Wholesale: Specs and Cold Chain Requirements", "halal-ground-beef-wholesale"),
-    ("Halal Dumplings (Pelmeni) for HoReCa: Bulk Supply Guide", "halal-pelmeni-horeca"),
+    ("Chicken Skin Mince: Industrial Use in Meat Processing", "chicken-skin-mince-industrial"),
+    ("Diced Chicken Fillet 1×1 cm: Ready-Cut for HoReCa Kitchens", "diced-chicken-fillet-horeca"),
+    ("Diced Beef 1×1 cm: Bulk Supply for Food Processing", "diced-beef-bulk-supply"),
+    ("Meat Preparations Wholesale: Building an Efficient Supply Chain", "meat-preparations-supply-chain"),
+    # ── STRATEGY & MARKET ───────────────────────────────────────
+    ("Private Label Meat Products: How Contract Manufacturing Works", "private-label-meat-products"),
+    ("Private Label Meat: Step-by-Step Guide for Restaurant Chains", "private-label-meat-step-by-step"),
+    ("HACCP and ISO in Meat Production: Quality Assurance Explained", "haccp-iso-meat-production"),
+    ("Halal Certification for Meat Products in Russia: What You Need to Know", "halal-certification-russia"),
+    ("How to Spot Fake Halal: What Buyers Should Check", "how-to-spot-fake-halal"),
+    ("Halal Meat Export to CIS Countries: Kazakhstan, Uzbekistan, Belarus", "halal-meat-export-cis"),
+    ("Kazan Delicacies: Halal Meat Producer in Russia Since 2022", "kazan-delicacies-halal-producer"),
+    ("Kazan as a Halal Food Production Hub: Why It Matters", "kazan-halal-food-hub"),
+    ("B2B Meat Products Supply Chain: How Wholesale Works", "b2b-meat-products-supply"),
+    ("Frozen Meat Semi-Products for HoReCa: Bulk Ordering Guide", "frozen-meat-products-horeca"),
     ("Frozen vs Chilled Meat Products: What HoReCa Buyers Should Know", "frozen-vs-chilled-horeca"),
     ("Meat Product Labelling Requirements in Russia 2026", "meat-labelling-russia-2026"),
     ("How Pizzerias Cut Ingredient Costs: Wholesale Sourcing Guide", "pizzeria-ingredient-cost-cutting"),
@@ -134,7 +235,9 @@ BLOG_TOPICS_EN = [
     ("Halal Bakery Products for Food Service: What Suppliers Offer", "halal-bakery-foodservice"),
     ("Contract Meat Manufacturing in Russia: How It Works", "contract-meat-manufacturing-russia"),
     ("Halal Chicken Wholesale: Breast, Thigh, Whole Bird Differences", "halal-chicken-wholesale"),
-    ("Kazan as a Halal Food Production Hub: Why It Matters", "kazan-halal-food-hub"),
+    ("Meat Products Quality Control: What Buyers Should Check", "meat-products-quality-control"),
+    ("Halal Food Market in Russia: Trends and Opportunities 2026", "halal-food-market-russia"),
+    ("Halal Dumplings (Pelmeni) for HoReCa: Bulk Supply Guide", "halal-pelmeni-horeca"),
 ]
 
 # ---------- Type+Geo combinations ----------
@@ -402,6 +505,7 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
 - <head>: charset, viewport, theme-color="#1b7a3d", оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical https://pepperoni.tatar/blog/{slug}
 - Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org, url=https://pepperoni.tatar/blog/{slug})
 - Schema.org BreadcrumbList в JSON-LD
+- Schema.org FAQPage в JSON-LD — ОБЯЗАТЕЛЬНО: 3-5 вопросов и ответов, которые реально задают покупатели по теме статьи (вопросы начинаются с «Как», «Где», «Что», «Можно ли», «Сколько» и т.п.)
 - Google Tag Manager сниппет: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); и noscript версия
 - CSS встроен в <style> тегом — используй ТОЧНО этот CSS без изменений:
 {ARTICLE_CSS}
@@ -410,14 +514,24 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
   <main class="article-wrap">
     breadcrumb: Главная → Блог → [название статьи]
     <h1> с ключевым запросом
-    <div class="lead"> — вводный абзац 60-80 слов
-    4 секции H2 с содержательным текстом
+    <div class="lead"> — вводный абзац 60-80 слов, первые 2 предложения должны ПРЯМО отвечать на главный вопрос темы
+    4-5 секций H2 с содержательным текстом
     <div class="info-box"> — полезный факт или совет
-    <div class="cta-block"> — призыв к действию, кнопка <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a>
+    <section class="faq-section"><h2>Часто задаваемые вопросы</h2> — те же 3-5 вопросов из FAQPage Schema в виде <details><summary>вопрос</summary><p>ответ</p></details>
+    <div class="cta-block"> — призыв к действию, кнопка <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a> и ссылка <a href="/">смотреть каталог</a>
   </main>
   <footer> © 2022–{YEAR} Казанские Деликатесы · г. Казань, ул. Аграрная, 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/">pepperoni.tatar</a> </footer>
-- Текст 700-900 слов
-- Контекстные ссылки в тексте: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
+- Текст 800-1000 слов
+- Контекстные ссылки внутри текста (используй ТОЛЬКО реально существующие страницы сайта):
+  /pepperoni — пепперони
+  /pepperoni-optom — пепперони оптом
+  /pepperoni-dlya-pizzerii — пепперони для пиццерий
+  /pepperoni-dlya-horeca — для HoReCa
+  /kazylyk — казылык
+  /bakery — выпечка
+  /about — о производстве
+  / — каталог всех товаров
+- Выбери 2-3 ссылки из списка выше, которые РЕАЛЬНО уместны по теме статьи
 - НЕ использовать Bootstrap
 - НЕ упоминать свинину"""
 
@@ -433,8 +547,8 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
 def generate_article_en(topic: str, slug: str, conn) -> tuple[Path, int]:
     system = (
         "You are an expert in meat industry and SEO copywriting for pepperoni.tatar — "
-        "a B2B halal meat products manufacturer from Russia. "
-        "Write expert, informative articles in English for HoReCa and wholesale buyers. "
+        "a B2B halal meat products manufacturer from Kazan, Russia (brand: Kazan Delicacies). "
+        "Write expert, informative articles in English for HoReCa and wholesale buyers worldwide. "
         "No fluff, real facts. Halal theme, no mention of pork."
     )
     prompt = f"""Write an informational SEO article on the topic: «{topic}».
@@ -445,22 +559,30 @@ Requirements:
 - <head>: charset, viewport, theme-color="#1b7a3d", optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical https://pepperoni.tatar/en/blog/{slug}
 - Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org, url=https://pepperoni.tatar/en/blog/{slug})
 - Schema.org BreadcrumbList in JSON-LD
+- Schema.org FAQPage in JSON-LD — REQUIRED: 3-5 real buyer questions and detailed answers about the topic (questions starting with "How", "What", "Can", "Where", "Which", "How much" etc.)
 - Google Tag Manager snippet: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); and noscript version
 - CSS embedded in <style> — use EXACTLY this CSS without changes:
 {ARTICLE_CSS}
 - Body structure:
-  <nav class="nav"><div class="nav__inner"><a href="/en/" class="nav__logo">Kazan Delicacies</a><div class="nav__links"><a href="/en/">Catalog</a><a href="/en/pepperoni">Pepperoni</a><a href="/blog">Blog</a><a href="/faq">FAQ</a></div></div></nav>
+  <nav class="nav"><div class="nav__inner"><a href="/en/" class="nav__logo">Kazan Delicacies</a><div class="nav__links"><a href="/en/">Catalog</a><a href="/en/pepperoni">Pepperoni</a><a href="/en/blog">Blog</a><a href="/en/faq">FAQ</a></div></div></nav>
   <main class="article-wrap">
     breadcrumb: Home → Blog → [article title]
     <h1> with main keyword
-    <div class="lead"> — intro paragraph 60-80 words
-    4 sections with H2 headings and content
+    <div class="lead"> — intro 60-80 words, FIRST 2 sentences must directly answer the main question of the topic
+    4-5 H2 sections with informative content
     <div class="info-box"> — useful fact or tip
-    <div class="cta-block"> — call to action, button <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a>
+    <section class="faq-section"><h2>Frequently Asked Questions</h2> — same 3-5 questions from FAQPage Schema as <details><summary>question</summary><p>answer</p></details>
+    <div class="cta-block"> — CTA with button <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a> and link <a href="/en/">view full catalog</a>
   </main>
   <footer> © 2022–{YEAR} Kazan Delicacies · Kazan, Agrarnaya St. 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/en/">pepperoni.tatar</a> </footer>
-- Text 700-900 words
-- Contextual links: /en/, /pepperoni-optom, /en/pepperoni
+- Text 800-1000 words
+- Contextual internal links (use ONLY real existing pages):
+  /en/pepperoni — pepperoni products
+  /en/kazylyk — kazylyk
+  /en/bakery — bakery
+  /en/about — about production
+  /en/ — full product catalog
+- Choose 2-3 links from above that are GENUINELY relevant to the article topic
 - Do NOT use Bootstrap
 - Do NOT mention pork"""
 
