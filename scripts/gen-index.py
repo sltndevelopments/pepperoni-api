@@ -157,6 +157,10 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .info-block .btn-dl-solid{{color:#fff}}
 .btn-dl-outline{{border:2px solid #0057b3;color:#0057b3;background:#fff}}
 select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.83rem}}
+.dl-contact-wrap{{margin:14px 0 16px;max-width:440px}}
+.dl-contact-wrap label{{display:block;font-size:.83rem;color:#444;margin-bottom:6px;font-weight:600}}
+.dl-contact-wrap input{{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:.9rem;box-sizing:border-box}}
+.dl-contact-hint{{font-size:.78rem;color:#888;margin-top:8px;line-height:1.45;max-width:42em}}
 
 /* Capabilities */
 .capabilities-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:16px}}
@@ -281,11 +285,16 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
       </span>
     </div>
+    <div class="dl-contact-wrap">
+      <label for="dl-contact">WhatsApp или email <span style="font-weight:400;color:#888">(необязательно)</span></label>
+      <input type="text" id="dl-contact" name="contact" autocomplete="email" inputmode="email" placeholder="+7… или name@company.ru" maxlength="200">
+      <p class="dl-contact-hint">Оставьте контакт — пришлём обновление прайса, когда изменятся цены.</p>
+    </div>
     <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
     <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
     <script>
       document.getElementById('dl-cur').addEventListener('change',function(){{document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';}});
-      function downloadFile(fmt){{const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${{vat}}`:'';window.location.href=`/api/export?lang=${{lang}}&currency=${{cur}}&format=${{fmt}}${{vatParam}}`;}}
+      async function downloadFile(fmt){{const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${{vat}}`:'';const el=document.getElementById('dl-contact');const raw=el?String(el.value||'').trim():'';if(raw.length>=4){{try{{await fetch('/api/price-lead',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{contact:raw,lang,format:fmt,currency:cur,vat:vat,page:location.href}})}});}}catch(e){{}}}}window.location.href=`/api/export?lang=${{encodeURIComponent(lang)}}&currency=${{encodeURIComponent(cur)}}&format=${{fmt}}${{vatParam}}`;}}
     </script>
   </div>
 
@@ -605,6 +614,12 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 .btn-dl-solid{{background:var(--green);color:#fff;border:none}}
 .info-block .btn-dl-solid{{color:#fff}}
 .btn-dl-outline{{border:2px solid var(--green);color:var(--green);background:#fff}}
+.dl-price-block .btn-dl-solid{{background:#0057b3!important;color:#fff!important;border:none}}
+select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.83rem}}
+.dl-contact-wrap{{margin:14px 0 16px;max-width:440px}}
+.dl-contact-wrap label{{display:block;font-size:.83rem;color:#444;margin-bottom:6px;font-weight:600}}
+.dl-contact-wrap input{{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:.9rem;box-sizing:border-box}}
+.dl-contact-hint{{font-size:.78rem;color:#888;margin-top:8px;line-height:1.45;max-width:42em}}
 .capabilities-grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:16px}}
 .capability-card{{background:var(--green-light);border-radius:var(--radius);padding:18px}}
 .capability-card h3{{font-size:.92rem;margin-bottom:6px}}
@@ -697,6 +712,32 @@ a.product-card-link{{text-decoration:none;color:inherit;display:block}}
 </section>
 
 <div class="container">
+  <div class="info-block dl-price-block" style="background:#f5f5ff;border-color:#0066cc">
+    <h2>📥 Download price list</h2>
+    <p>Full catalog — opens in Excel, Google Sheets, or Numbers.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <label for="dl-lang" style="font-size:.83rem;color:#555">Language:</label>
+      <select id="dl-lang" class="dl-select"><option value="ru">Russian</option><option value="en" selected>English</option></select>
+      <label for="dl-cur" style="font-size:.83rem;color:#555;margin-left:8px">Currency:</label>
+      <select id="dl-cur" class="dl-select"><option value="RUB">RUB ₽</option><option value="USD" selected>USD $</option><option value="KZT">KZT ₸</option><option value="UZS">UZS</option><option value="KGS">KGS</option><option value="BYN">BYN</option><option value="AZN">AZN</option></select>
+      <span id="dl-vat-wrap" style="margin-left:8px;display:none">
+        <label for="dl-vat" style="font-size:.83rem;color:#555">VAT:</label>
+        <select id="dl-vat" class="dl-select"><option value="true" selected>incl. VAT</option><option value="false">excl. VAT</option></select>
+      </span>
+    </div>
+    <div class="dl-contact-wrap">
+      <label for="dl-contact">WhatsApp or email <span style="font-weight:400;color:#888">(optional)</span></label>
+      <input type="text" id="dl-contact" name="contact" autocomplete="email" inputmode="email" placeholder="+7… or name@company.com" maxlength="200">
+      <p class="dl-contact-hint">Leave your contact — we will send an updated price list when prices change.</p>
+    </div>
+    <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Download Excel (.xlsx)</a>
+    <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Download CSV</a>
+    <script>
+      document.getElementById('dl-cur').addEventListener('change',function(){{document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';}});
+      async function downloadFile(fmt){{const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${{vat}}`:'';const el=document.getElementById('dl-contact');const raw=el?String(el.value||'').trim():'';if(raw.length>=4){{try{{await fetch('/api/price-lead',{{method:'POST',headers:{{'Content-Type':'application/json'}},body:JSON.stringify({{contact:raw,lang,format:fmt,currency:cur,vat:vat,page:location.href}})}});}}catch(e){{}}}}window.location.href=`/api/export?lang=${{encodeURIComponent(lang)}}&currency=${{encodeURIComponent(cur)}}&format=${{fmt}}${{vatParam}}`;}}
+    </script>
+  </div>
+
   <div class="info-block">
     <h2>🤝 Solutions for HoReCa &amp; Retail</h2>
     <p>We don't just supply — we adapt production to your business needs.</p>
