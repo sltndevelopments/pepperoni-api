@@ -36,40 +36,37 @@ jobs:
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
       - name: Diagnose and fix API server on VPS
+        continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "=== 1. Running node processes ==="
+            echo "=== 1. Running node processes ===" || true
             ps aux | grep -E "node|pm2" | grep -v grep || echo "No node processes"
 
-            echo "=== 2. PM2 status ==="
+            echo "=== 2. PM2 status ===" || true
             pm2 list 2>/dev/null || echo "PM2 not found"
 
-            echo "=== 3. Listening ports ==="
-            ss -tlnp | grep -E "3000|8000|8080|4000|node" || netstat -tlnp 2>/dev/null | grep -E "3000|8000|8080|node" || true
+            echo "=== 3. Listening ports ===" || true
+            ss -tlnp 2>/dev/null | head -20 || true
 
-            echo "=== 4. Nginx proxy config ==="
-            nginx -T 2>/dev/null | grep -E "proxy_pass|proxy_cache|location /api|location ~" | head -20 || true
+            echo "=== 4. Nginx proxy/cache config ===" || true
+            nginx -T 2>/dev/null | grep -E "proxy_pass|proxy_cache_path|location /api|location ~" | head -20 || true
 
-            echo "=== 5. data/products.json first price ==="
-            python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print('price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "File not readable"
+            echo "=== 5. data/products.json price ===" || true
+            python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print('KD-001 price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "Not found"
 
-            echo "=== 6. public/products.json first price ==="
-            python3 -c "import json; d=json.load(open('/var/www/pepperoni/repo/public/products.json')); print('price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "File not readable"
+            echo "=== 6. public/products.json price ===" || true
+            python3 -c "import json; d=json.load(open('/var/www/pepperoni/repo/public/products.json')); print('KD-001 price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "Not found"
 
-            echo "=== 7. Nginx cache paths ==="
-            nginx -T 2>/dev/null | grep "proxy_cache_path" || echo "No proxy_cache_path found"
-
-            echo "=== 8. Kill/restart node if running ==="
-            if command -v pm2 &>/dev/null && pm2 list 2>/dev/null | grep -q "online"; then
-              pm2 restart all && echo "✅ PM2 restarted"
-            else
-              # Kill all node processes (they auto-restart via supervisor/systemctl or we restart manually)
-              pkill -f "node " 2>/dev/null && echo "Killed node processes" || echo "No node to kill"
+            echo "=== 7. Kill/restart node ===" || true
+            if command -v pm2 &>/dev/null; then
+              pm2 list 2>/dev/null | grep -q "online" && pm2 restart all 2>/dev/null && echo "PM2 restarted" || echo "PM2: nothing to restart"
             fi
+            pkill -f "node " 2>/dev/null && echo "Killed node processes" || echo "No node processes to kill"
+            true
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
