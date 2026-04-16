@@ -35,6 +35,34 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
+      - name: Restart Node.js API server on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "=== Running node/pm2 processes ==="
+            pm2 list 2>/dev/null || ps aux | grep -E "node|pm2" | grep -v grep | head -10
+
+            # Restart via PM2 (most common)
+            if command -v pm2 &>/dev/null; then
+              pm2 restart all 2>/dev/null && echo "✅ PM2 restarted" || true
+              pm2 list 2>/dev/null | head -20
+            fi
+
+            # Restart via systemctl (if there's a service)
+            for svc in pepperoni pepperoni-api node-api api-server; do
+              if systemctl is-active --quiet "$svc" 2>/dev/null; then
+                systemctl restart "$svc"
+                echo "✅ systemctl restart $svc"
+              fi
+            done
+
+            echo "=== Test API after restart ==="
+            sleep 3
+            curl -sk https://localhost/api/products -H "Host: pepperoni.tatar" 2>/dev/null | python3 -c "import json,sys; d=json.load(sys.stdin); print('KD-001 price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "(no response yet)"
+
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
         env:
