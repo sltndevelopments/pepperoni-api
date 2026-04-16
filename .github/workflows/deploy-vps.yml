@@ -122,24 +122,29 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            set -e
-            # Ensure certbot is installed
-            if ! command -v certbot &>/dev/null; then
-              echo "Installing certbot..."
-              apt-get update -qq && apt-get install -y certbot python3-certbot-nginx -qq
+            # Restore nginx config from certbot backup (certbot --nginx modifies configs)
+            echo "=== Restoring nginx from certbot backups ==="
+            for conf_dir in /etc/nginx/sites-enabled /etc/nginx/sites-available /etc/nginx/conf.d; do
+              for bak in "$conf_dir"/*.certbot.bak 2>/dev/null; do
+                [ -f "$bak" ] || continue
+                original="${bak%.certbot.bak}"
+                cp "$bak" "$original"
+                echo "  Restored: $original"
+              done
+            done
+
+            # Update SSL cert paths in nginx config to point to new Let's Encrypt cert
+            CERT_DIR="/etc/letsencrypt/live/pepperoni.tatar"
+            if [ -f "$CERT_DIR/fullchain.pem" ]; then
+              for conf in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf 2>/dev/null; do
+                [ -f "$conf" ] || continue
+                sed -i "s|ssl_certificate .*|ssl_certificate $CERT_DIR/fullchain.pem;|g" "$conf"
+                sed -i "s|ssl_certificate_key .*|ssl_certificate_key $CERT_DIR/privkey.pem;|g" "$conf"
+                echo "  Updated SSL paths in: $conf"
+              done
             fi
 
-            echo "=== Existing certs ==="
-            certbot certificates 2>&1 || true
+            nginx -t 2>&1 && (systemctl reload nginx 2>/dev/null || nginx -s reload) && echo "✅ nginx reloaded OK"
 
-            # Force-renew (works even if already expired or not yet due)
-            echo "=== Force-renewing cert ==="
-            certbot --nginx --non-interactive --agree-tos \
-              -m info@kazandelikates.tatar \
-              -d pepperoni.tatar -d api.pepperoni.tatar -d www.pepperoni.tatar \
-              --force-renewal 2>&1
-
-            systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
-            echo "=== New cert expiry ==="
-            certbot certificates 2>&1 | grep -E "Domains|Expiry|VALID" | head -10
-            echo "✅ SSL done"
+            echo "=== Cert expiry ==="
+            echo | openssl s_client -connect localhost:443 -servername pepperoni.tatar 2>/dev/null | openssl x509 -noout -dates 2>/dev/null || true
