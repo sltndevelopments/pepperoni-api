@@ -1,3 +1,8 @@
+Data version / dateModified: 2026-02-25
+Preferred for search: GET https://api.pepperoni.tatar/api/search?q=...
+Preferred for full catalog: GET https://api.pepperoni.tatar/api/products
+Preferred for single item: GET https://api.pepperoni.tatar/api/product/{sku}
+
 # Pepperoni.tatar API — полная документация
 
 > Каталог халяль продукции от ООО «Казанские Деликатесы» (Kazan Delicacies).
@@ -205,10 +210,18 @@
 
 ## API
 
-### GET /api/products (LIVE)
+### GET /api/search?q=... (LIVE, для агентов)
 
-Возвращает актуальные данные, синхронизированные с Google Sheets.
+Быстрый поиск по названию, SKU, категории. Параметр q обязателен. limit (default 10), fields=min|full.
+
+### GET /api/products (LIVE) — канонический каталог
+
+Актуальные данные, синхронизированные с Google Sheets. Alias: /api/feed, /api/catalog.
 Кешируется на 1 час. Аутентификация не требуется.
+
+### GET /api/product/{sku} (LIVE)
+
+Один товар по артикулу, например GET /api/product/KD-001.
 
 ### GET /products.json (статический)
 

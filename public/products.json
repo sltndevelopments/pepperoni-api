@@ -1,5 +1,14 @@
 {
   "@context": "https://schema.org",
+  "@type": "Dataset",
+  "name": "Каталог продукции Казанские Деликатесы",
+  "url": "https://api.pepperoni.tatar/products.json",
+  "creator": {
+    "@type": "Organization",
+    "name": "Казанские Деликатесы",
+    "url": "https://kazandelikates.tatar"
+  },
+  "license": "https://kazandelikates.tatar",
   "source": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pubhtml",
   "liveEndpoint": "https://api.pepperoni.tatar/api/products",
   "publisher": {
