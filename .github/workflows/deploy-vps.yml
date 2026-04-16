@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
-      - name: Diagnose VPS nginx config
+      - name: Write nginx diag to public file
         continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -43,10 +43,20 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "=== FULL NGINX CONFIG ===" && nginx -T 2>&1 | head -200 || true
-            echo "=== PROCESSES ===" && ps aux | grep -E "node|pm2" | grep -v grep || true
-            echo "=== DATA PRODUCTS ===" && python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print('KD-001:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "NOT FOUND"
-            echo "=== ALL PRODUCTS.JSON ===" && find /var/www/pepperoni -name "products.json" -ls 2>/dev/null || true
+            {
+              echo "=== NGINX CONFIG ==="
+              nginx -T 2>&1
+              echo ""
+              echo "=== PROCESSES ==="
+              ps aux | grep -E "node|pm2" | grep -v grep
+              echo ""
+              echo "=== DATA/PRODUCTS.JSON ==="
+              python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print('KD-001:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo "NOT FOUND"
+              echo ""
+              echo "=== ALL PRODUCTS.JSON FILES ==="
+              find /var/www -name "products.json" -ls 2>/dev/null
+            } > /var/www/pepperoni/repo/public/vps-diag.txt 2>&1 || true
+            echo "Diag written to public/vps-diag.txt"
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
