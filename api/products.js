@@ -310,8 +310,10 @@ function buildStandard(lines, section, startIdx) {
     const name = cols[0];
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
-    const priceVAT = toNumber(cols[2]);
-    const priceNoVAT = toNumber(cols[3]);
+    // New B2B mapping: C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage, H=7 HS, I-N=8-13 currencies
+    const pricePerPieceVal = toNumber(cols[2]);
+    const priceVAT = toNumber(cols[3]) || toNumber(cols[2]);
+    const priceNoVAT = toNumber(cols[4]) || toNumber(cols[3]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
       if (name && !cols[1]) category = name;
@@ -320,18 +322,18 @@ function buildStandard(lines, section, startIdx) {
 
     idx++;
     const weight = cols[1] || '';
-    const shelfLife = cols[4] || '';
-    const storage = cols[5] || '';
-    const hsCode = cols[6] || '';
+    const shelfLife = cols[5] || '';
+    const storage = cols[6] || '';
+    const hsCode = cols[7] || '';
     const qty = extractQtyFromName(name);
 
     const prices = {};
-    if (toNumber(cols[7])) prices.USD = toNumber(cols[7]);
-    if (toNumber(cols[8])) prices.KZT = toNumber(cols[8]);
-    if (toNumber(cols[9])) prices.UZS = toNumber(cols[9]);
-    if (toNumber(cols[10])) prices.KGS = toNumber(cols[10]);
-    if (toNumber(cols[11])) prices.BYN = toNumber(cols[11]);
-    if (toNumber(cols[12])) prices.AZN = toNumber(cols[12]);
+    if (toNumber(cols[8])) prices.USD = toNumber(cols[8]);
+    if (toNumber(cols[9])) prices.KZT = toNumber(cols[9]);
+    if (toNumber(cols[10])) prices.UZS = toNumber(cols[10]);
+    if (toNumber(cols[11])) prices.KGS = toNumber(cols[11]);
+    if (toNumber(cols[12])) prices.BYN = toNumber(cols[12]);
+    if (toNumber(cols[13])) prices.AZN = toNumber(cols[13]);
 
     const offers = {
       url: 'https://pepperoni.tatar',
@@ -343,7 +345,9 @@ function buildStandard(lines, section, startIdx) {
       deliveryTerms: 'EXW Kazan Russia',
     };
     if (qty > 1) {
-      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
+      offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
+    } else if (pricePerPieceVal) {
+      offers.pricePerPiece = pricePerPieceVal.toFixed(2);
     }
 
     products.push({
