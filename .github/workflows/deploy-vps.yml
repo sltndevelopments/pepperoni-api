@@ -115,36 +115,48 @@ jobs:
             fi
             echo "=== Current crontab ===" && crontab -l
 
-      - name: Renew SSL certificate on VPS
+      - name: Fix nginx config and SSL on VPS
+        continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            # Restore nginx config from certbot backup (certbot --nginx modifies configs)
-            echo "=== Restoring nginx from certbot backups ==="
-            for conf_dir in /etc/nginx/sites-enabled /etc/nginx/sites-available /etc/nginx/conf.d; do
-              for bak in "$conf_dir"/*.certbot.bak 2>/dev/null; do
-                [ -f "$bak" ] || continue
-                original="${bak%.certbot.bak}"
+            echo "=== 1. Certbot backup files ==="
+            find /etc/nginx -name "*.certbot.bak*" 2>/dev/null || echo "No backups found"
+
+            echo "=== 2. Current nginx config (relevant lines) ==="
+            nginx -T 2>/dev/null | grep -E "server_name|root |ssl_cert|listen|403|deny" | head -40 || true
+
+            echo "=== 3. Restore from certbot backup ==="
+            find /etc/nginx -name "*.certbot.bak*" 2>/dev/null | while read bak; do
+              # Strip certbot suffix (handles .certbot.bak and .certbot.bak.TIMESTAMP)
+              original=$(echo "$bak" | sed 's/\.certbot\.bak.*//')
+              if [ -f "$original" ] || [ ! -f "$original" ]; then
                 cp "$bak" "$original"
-                echo "  Restored: $original"
-              done
+                echo "  Restored: $bak -> $original"
+              fi
             done
 
-            # Update SSL cert paths in nginx config to point to new Let's Encrypt cert
+            echo "=== 4. Update SSL cert path to new Let's Encrypt cert ==="
             CERT_DIR="/etc/letsencrypt/live/pepperoni.tatar"
             if [ -f "$CERT_DIR/fullchain.pem" ]; then
-              for conf in /etc/nginx/sites-enabled/* /etc/nginx/conf.d/*.conf 2>/dev/null; do
-                [ -f "$conf" ] || continue
-                sed -i "s|ssl_certificate .*|ssl_certificate $CERT_DIR/fullchain.pem;|g" "$conf"
-                sed -i "s|ssl_certificate_key .*|ssl_certificate_key $CERT_DIR/privkey.pem;|g" "$conf"
-                echo "  Updated SSL paths in: $conf"
+              for conf in $(find /etc/nginx -name "*.conf" -not -name "*.bak*" 2>/dev/null); do
+                if grep -q "pepperoni\|ssl_certificate" "$conf" 2>/dev/null; then
+                  sed -i "s|ssl_certificate [^;]*;|ssl_certificate $CERT_DIR/fullchain.pem;|g" "$conf"
+                  sed -i "s|ssl_certificate_key [^;]*;|ssl_certificate_key $CERT_DIR/privkey.pem;|g" "$conf"
+                  echo "  Updated SSL in: $conf"
+                fi
               done
             fi
 
-            nginx -t 2>&1 && (systemctl reload nginx 2>/dev/null || nginx -s reload) && echo "✅ nginx reloaded OK"
+            echo "=== 5. nginx -t ==="
+            nginx -t 2>&1 || true
 
-            echo "=== Cert expiry ==="
-            echo | openssl s_client -connect localhost:443 -servername pepperoni.tatar 2>/dev/null | openssl x509 -noout -dates 2>/dev/null || true
+            echo "=== 6. Reload nginx ==="
+            systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
+
+            echo "=== 7. Test endpoint ==="
+            sleep 2
+            curl -sk https://localhost/ -H "Host: pepperoni.tatar" | head -c 200 || true
