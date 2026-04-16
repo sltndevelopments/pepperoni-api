@@ -114,6 +114,19 @@ jobs:
             cp /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/data/products.json
             echo "✅ data/products.json updated: $(python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print(len(d['products']), 'products, first price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo 'copied')"
 
+            echo "=== Clear nginx proxy cache ==="
+            # Find and clear nginx cache directories
+            nginx -T 2>/dev/null | grep "proxy_cache_path\|fastcgi_cache_path" | awk '{print $2}' | while read cache_dir; do
+              [ -d "$cache_dir" ] && rm -rf "$cache_dir"/* && echo "Cleared: $cache_dir"
+            done
+            # Common cache paths
+            for cache_dir in /var/cache/nginx /tmp/nginx_cache /var/www/pepperoni/cache; do
+              [ -d "$cache_dir" ] && rm -rf "$cache_dir"/* && echo "Cleared: $cache_dir" || true
+            done
+            # Reload nginx to apply fresh state
+            nginx -t 2>/dev/null && (systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true)
+            echo "✅ nginx cache cleared and reloaded"
+
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
