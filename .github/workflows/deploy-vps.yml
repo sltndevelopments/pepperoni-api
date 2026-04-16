@@ -75,6 +75,17 @@ jobs:
             git config http.https://github.com/.extraheader "Authorization: Basic ${B64}"
             git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK — agent can push"
 
+      - name: Update API data/products.json on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pepperoni/data
+            cp /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/data/products.json
+            echo "✅ data/products.json updated: $(python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print(len(d['products']), 'products, first price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo 'copied')"
+
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -93,4 +104,13 @@ jobs:
             else
               echo "ℹ️  SEO agent cron already present"
             fi
-            crontab -l | grep seo-agent
+
+            # Add price sync cron if not already present (every 10 min)
+            SYNC_CRON="*/10 * * * * bash /var/www/pepperoni/repo/scripts/sync-vps.sh >> /var/log/pepperoni-sync.log 2>&1"
+            if ! crontab -l 2>/dev/null | grep -q "sync-vps.sh"; then
+              (crontab -l 2>/dev/null; echo "$SYNC_CRON") | crontab -
+              echo "✅ Price sync cron installed (every 10 min)"
+            else
+              echo "ℹ️  Price sync cron already present"
+            fi
+            echo "=== Current crontab ===" && crontab -l
