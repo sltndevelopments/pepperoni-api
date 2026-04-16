@@ -114,3 +114,25 @@ jobs:
               echo "ℹ️  Price sync cron already present"
             fi
             echo "=== Current crontab ===" && crontab -l
+
+      - name: Renew SSL certificate on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            if command -v certbot &>/dev/null; then
+              certbot renew --non-interactive --quiet 2>&1 || certbot renew --force-renewal --non-interactive 2>&1
+              systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
+              echo "✅ SSL renewed, nginx reloaded"
+              # Show cert expiry
+              certbot certificates 2>/dev/null | grep -E "Domains|Expiry|VALID" | head -10
+            else
+              echo "⚠️  certbot not found — installing..."
+              apt-get install -y certbot python3-certbot-nginx -qq
+              certbot --nginx --non-interactive --agree-tos \
+                -m info@kazandelikates.tatar \
+                -d pepperoni.tatar -d api.pepperoni.tatar 2>&1
+              echo "✅ certbot installed and certificate issued"
+            fi
