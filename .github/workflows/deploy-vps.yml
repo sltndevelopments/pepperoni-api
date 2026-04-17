@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
-      - name: Write nginx diag to data dir
+      - name: Clear nginx proxy cache on VPS
         continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -43,20 +43,21 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            mkdir -p /var/www/pepperoni/data
-            {
-              echo "=== NGINX CONFIG ==="
-              nginx -T 2>&1
-              echo "=== PROCESSES ==="
-              ps aux | grep -E "node|pm2" | grep -v grep || echo "none"
-              echo "=== PORTS ==="
-              ss -tlnp 2>/dev/null || netstat -tlnp 2>/dev/null || echo "no ss/netstat"
-              echo "=== ALL PRODUCTS.JSON ==="
-              find /var/www -name "products.json" 2>/dev/null
-              echo "=== DATA DIR ==="
-              ls -la /var/www/pepperoni/data/ 2>/dev/null
-            } > /var/www/pepperoni/data/vps-diag.txt 2>&1
-            echo "Written to /var/www/pepperoni/data/vps-diag.txt"
+            echo "=== Finding nginx cache directories ==="
+            CACHE_DIRS=$(nginx -T 2>/dev/null | grep -oE "proxy_cache_path\s+[^ ]+" | awk '{print $2}' | sort -u)
+            echo "From config: $CACHE_DIRS"
+
+            # Known common cache paths
+            for d in $CACHE_DIRS /var/cache/nginx /var/cache/nginx/proxy /tmp/nginx_cache /var/www/pepperoni/cache; do
+              if [ -d "$d" ]; then
+                find "$d" -type f -delete 2>/dev/null && echo "  Cleared: $d"
+              fi
+            done
+
+            echo "=== Reload nginx ==="
+            nginx -t 2>&1 | tail -3
+            systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
+            echo "✅ nginx cache cleared and reloaded"
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
