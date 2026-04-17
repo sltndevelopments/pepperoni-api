@@ -11,6 +11,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Regenerate product pages (picks up latest generator changes)
+        run: |
+          python3 scripts/gen-ru-products.py
+          python3 scripts/gen-en-products.py
+
       - name: Deploy via rsync
         uses: Burnett01/rsync-deployments@7.0.0
         with:
