@@ -21,6 +21,9 @@ jobs:
           python3 scripts/gen-ru-products.py
           python3 scripts/gen-en-products.py
 
+      - name: Add Core Web Vitals perf hints (preconnect + YM pixel dims)
+        run: python3 scripts/add-perf-hints.py
+
       - name: Rebuild sitemap.xml (covers all 400+ URLs + hreflang)
         run: |
           python3 scripts/rebuild_sitemap.py
