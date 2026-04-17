@@ -21,6 +21,14 @@ jobs:
           python3 scripts/gen-ru-products.py
           python3 scripts/gen-en-products.py
 
+      - name: Rebuild sitemap.xml (covers all 400+ URLs + hreflang)
+        run: |
+          python3 scripts/rebuild_sitemap.py
+          echo "--- head ---"
+          head -5 public/sitemap.xml
+          echo "--- URL count ---"
+          grep -c "<loc>" public/sitemap.xml
+
       - name: Deploy via rsync
         uses: Burnett01/rsync-deployments@7.0.0
         with:
@@ -134,6 +142,14 @@ jobs:
                 add_header Cache-Control "public, max-age=300" always;
                 add_header Access-Control-Allow-Origin "*" always;
                 default_type application/x-yaml;
+            }
+            # IndexNow verification keys (32-hex .txt at site root) — must be reachable
+            # for Bing/Yandex to validate our IndexNow submissions.
+            location ~ "^/[a-f0-9]{32}\.txt$" {
+                root /var/www/pepperoni/repo/public;
+                try_files $uri =404;
+                add_header Cache-Control "public, max-age=86400" always;
+                default_type text/plain;
             }
             location ^~ /.well-known/ {
                 root /var/www/pepperoni/repo/public;
@@ -332,6 +348,21 @@ jobs:
               echo "ℹ️  Price sync cron already present"
             fi
             echo "=== Current crontab ===" && crontab -l
+
+      - name: Ping IndexNow (Bing + Yandex + Seznam) with full sitemap
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: |
+          # Give CDN/nginx a moment to pick up fresh sitemap.xml
+          sleep 5
+          # Verify the IndexNow key file is live (must be reachable so Bing/Yandex can validate)
+          KEY="${INDEXNOW_KEY:-2164b9a639c7455aad8651dc19e48641}"
+          echo "=== Verify key file: https://pepperoni.tatar/${KEY}.txt ==="
+          curl -s -o /tmp/keyfile.txt -w "HTTP %{http_code}\n" "https://pepperoni.tatar/${KEY}.txt"
+          head -c 200 /tmp/keyfile.txt; echo
+          echo "=== Submit all sitemap URLs via IndexNow ==="
+          python3 scripts/bing-index.py || echo "⚠️  IndexNow step returned non-zero (non-fatal)"
 
       - name: Delete stale certbot backups (prevents accidental nginx-conf rollback)
         continue-on-error: true
