@@ -66,7 +66,7 @@ jobs:
 
             # 3) Create snippet that overrides /products.json and /api/products with static file
             cat > /etc/nginx/snippets/pepperoni-static-data.conf <<'EOF'
-            # Serve catalog data directly from VPS — bypasses Vercel edge cache
+            # Serve catalog data and HTML pages directly from VPS — bypasses Vercel edge cache
             location = /products.json {
                 alias /var/www/pepperoni/static-api/products.json;
                 add_header Cache-Control "public, max-age=60, must-revalidate" always;
@@ -78,6 +78,20 @@ jobs:
                 add_header Cache-Control "public, max-age=60, must-revalidate" always;
                 add_header Access-Control-Allow-Origin "*" always;
                 default_type application/json;
+            }
+            # RU product pages
+            location ^~ /products/ {
+                root /var/www/pepperoni/repo/public;
+                try_files $uri $uri.html $uri/index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
+            }
+            # EN product pages
+            location ^~ /en/products/ {
+                root /var/www/pepperoni/repo/public;
+                try_files $uri $uri.html $uri/index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
             }
             EOF
 
