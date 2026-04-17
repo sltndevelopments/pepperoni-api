@@ -184,30 +184,33 @@ jobs:
             }
             EOF
 
-            # 4) Include snippet into each pepperoni.tatar server block (once)
-            echo "=== 4a. Server blocks with pepperoni.tatar ==="
-            grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/ 2>/dev/null || echo "(none found via server_name regex)"
-            CONFS=$(grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/ 2>/dev/null)
-            if [ -z "$CONFS" ]; then
-              # Fallback: any config mentioning pepperoni.tatar as server_name
-              CONFS=$(grep -rlE "pepperoni\.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null)
-              echo "Fallback CONFS: $CONFS"
-            fi
+            # 4) Include snippet into each pepperoni.tatar server block (once) — use python for robustness
+            echo "=== 4a. Server blocks with pepperoni.tatar (sites-enabled only) ==="
+            CONFS=$(grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | grep -v '\.bak' || true)
+            echo "CONFS: $CONFS"
             for conf in $CONFS; do
-              if ! grep -q "pepperoni-static-data.conf" "$conf"; then
-                # Try insertion after server_name line
-                if grep -qE "server_name[[:space:]]+[^;]*pepperoni\.tatar" "$conf"; then
-                  sed -i '/server_name[[:space:]]\+[^;]*pepperoni\.tatar[^;]*;/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;' "$conf"
-                  echo "  ✅ Added include (after server_name) to: $conf"
-                else
-                  # Fallback: insert right after the first listen 443 line in that file
-                  sed -i '0,/listen[[:space:]]\+443/{/listen[[:space:]]\+443/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;
-                  }' "$conf"
-                  echo "  ✅ Added include (after listen 443) to: $conf"
-                fi
-              else
-                echo "  ℹ️  already included in: $conf"
-              fi
+              python3 - "$conf" <<'PYEOF'
+            import re, sys
+            path = sys.argv[1]
+            with open(path) as f:
+                src = f.read()
+            inc = "    include /etc/nginx/snippets/pepperoni-static-data.conf;"
+            # Insert include directly after every `server_name ...pepperoni.tatar...;` line
+            # unless it's already immediately after.
+            pat = re.compile(r"(^[ \t]*server_name[^;\n]*pepperoni\.tatar[^;\n]*;[ \t]*\n)", re.M)
+            def repl(m):
+                tail = src[m.end(): m.end()+200]
+                if "pepperoni-static-data.conf" in tail[:300]:
+                    return m.group(0)
+                return m.group(0) + inc + "\n"
+            new = pat.sub(repl, src)
+            if new != src:
+                with open(path, "w") as f:
+                    f.write(new)
+                print(f"  ✅ injected include into: {path}")
+            else:
+                print(f"  ℹ️  no change (already present or no match): {path}")
+            PYEOF
             done
 
             echo "=== 4b. Verify include is actually in effective nginx -T ==="
