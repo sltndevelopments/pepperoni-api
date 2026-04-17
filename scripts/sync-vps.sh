@@ -14,6 +14,11 @@ mkdir -p "$DATA_DIR"
 cd "$REPO_DIR"
 node scripts/sync-sheets.mjs
 
+# 1b. Перегенерируем llms-full.txt расширенным Python-генератором
+#     (Node-версия отдаёт усечённую таблицу; Python добавляет per-SKU карточки,
+#     buyer-personas, FAQ и AIO-ответы — всего ~90 KB вместо 16 KB).
+python3 scripts/gen-llms-full.py || echo "⚠️  gen-llms-full.py failed (non-fatal)"
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 

@@ -24,6 +24,9 @@ jobs:
       - name: Add Core Web Vitals perf hints (preconnect + YM pixel dims)
         run: python3 scripts/add-perf-hints.py
 
+      - name: Regenerate llms-full.txt (AI-ready, rich variant — ~90 KB)
+        run: python3 scripts/gen-llms-full.py
+
       - name: Rebuild sitemap.xml (covers all 400+ URLs + hreflang)
         run: |
           python3 scripts/rebuild_sitemap.py
