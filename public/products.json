@@ -1,14 +1,5 @@
 {
   "@context": "https://schema.org",
-  "@type": "Dataset",
-  "name": "Каталог продукции Казанские Деликатесы",
-  "url": "https://api.pepperoni.tatar/products.json",
-  "creator": {
-    "@type": "Organization",
-    "name": "Казанские Деликатесы",
-    "url": "https://kazandelikates.tatar"
-  },
-  "license": "https://kazandelikates.tatar",
   "source": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pubhtml",
   "liveEndpoint": "https://api.pepperoni.tatar/api/products",
   "publisher": {
@@ -18,7 +9,7 @@
     "phone": "+79872170202",
     "email": "info@kazandelikates.tatar"
   },
-  "lastSynced": "2026-03-13",
+  "lastSynced": "2026-04-17",
   "deliveryTerms": "EXW Kazan Russia",
   "certification": "Halal",
   "sections": [
@@ -41,12 +32,12 @@
         "priceExclVAT": "263.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.32,
-          "KZT": 1628.74,
-          "UZS": 40380.21,
-          "KGS": 290.01,
-          "BYN": 9.81,
-          "AZN": 5.64
+          "USD": 3.48,
+          "KZT": 1630.34,
+          "UZS": 42194.03,
+          "KGS": 304.13,
+          "BYN": 9.88,
+          "AZN": 5.91
         },
         "pricePerPiece": "48.33"
       },
@@ -66,9 +57,9 @@
       "ingredientsEN": "Ingredients: High-quality beef, poultry meat, water, flour, vegetable fiber, curing mix (table salt, sodium nitrite), seasoning mix (sugar, black pepper, ground cardamom). Allergens: Contains vegetable fiber and black pepper.",
       "nutrition": "Калории: 226 ккал на 100 г. Белки: 10,4 г. Жиры: 20,1 г. Углеводы: 1,2 г. Соль: Не более 2,5%. ГМО: Продукт не содержит генетически модифицированных организмов.",
       "packageType": "Вакуум",
-      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
-      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
-      "imagePack": "v1772730305/sosiski_dla_hot_dogov_iz_govadiny_nhvftx.jpg",
+      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
       "imageSlice": "v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
     },
     {
@@ -84,12 +75,12 @@
         "priceExclVAT": "260.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.27,
-          "KZT": 1606.28,
-          "UZS": 39823.24,
-          "KGS": 286.01,
-          "BYN": 9.67,
-          "AZN": 5.56
+          "USD": 3.43,
+          "KZT": 1607.85,
+          "UZS": 41612.05,
+          "KGS": 299.93,
+          "BYN": 9.74,
+          "AZN": 5.83
         },
         "pricePerPiece": "47.67"
       },
@@ -97,6 +88,7 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "999880",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "4,8",
       "barcode": "4680638720622",
       "seoDescriptionRU": "Сосиски из индейки и курицы (80 г × 6 шт) | Сосиски для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Профессиональные сосиски из индейки и курицы для хот-догов, завтраков и гриля.Профессиональные сосиски из индейки и курицы — универсальное решение для HORECA, гриль-баров и хот-догов. Баланс насыщенной индейки и нежной курицы создаёт мягкую текстуру и деликатный вкус. Благодаря термостабильной рецептуре сосиски устойчивы при жарке и на гриле, сохраняют сочность и форму.Аромат: мясной с нотами мускатного ореха и кардамона. Вкус: сбалансированный, менее жирный, с плотной оболочкой и сочным мякишем.Подходят для хот-догов, завтраков и гриль-меню.",
@@ -124,12 +116,12 @@
         "priceExclVAT": "287.27",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.61,
-          "KZT": 1774.77,
-          "UZS": 44000.5,
-          "KGS": 316.01,
-          "BYN": 10.69,
-          "AZN": 6.14
+          "USD": 3.79,
+          "KZT": 1776.5,
+          "UZS": 45976.95,
+          "KGS": 331.4,
+          "BYN": 10.76,
+          "AZN": 6.44
         },
         "pricePerPiece": "52.67"
       },
@@ -137,6 +129,7 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "999883",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "4.8",
       "barcode": "4680638720646",
       "seoDescriptionRU": "Сосиски с сыром Гауда и смесью трёх перцев (80 г × 6 шт) | Сосиски для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Пикантные мясные сосиски с сыром и пряностями для хот-догов и гриля. Профессиональные сосиски с сыром Гауда и смесью трёх перцев (чёрный, белый, красный) — яркое решение для HORECA, гриль-меню и хот-догов. Пряный, но не слишком острый вкус подчёркивает мясную основу, а сыр добавляет мягкость и лёгкую сладость. Аромат: пряный, с мягкими нотами перца и сырной сладостью. Вкус: пикантный, сбалансированный, с яркими пряными оттенками. Подходят для хот-догов, гриля и подачи с гарнирами — квашеной капустой, маринованными овощами и пикантными соусами.",
@@ -164,12 +157,12 @@
         "priceExclVAT": "260.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.27,
-          "KZT": 1606.28,
-          "UZS": 39823.24,
-          "KGS": 286.01,
-          "BYN": 9.67,
-          "AZN": 5.56
+          "USD": 3.43,
+          "KZT": 1607.85,
+          "UZS": 41612.05,
+          "KGS": 299.93,
+          "BYN": 9.74,
+          "AZN": 5.83
         },
         "pricePerPiece": "47.67"
       },
@@ -177,8 +170,11 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "800049",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "4.8",
       "barcode": "4680638720431",
+      "seoDescriptionRU": "Сосиски «Куриные» (80 г × 6 шт) | Куриные сосиски для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Профессиональные куриные сосиски для хот-догов, завтраков и гриля. Лёгкая и сочная альтернатива классическим мясным сосискам. Не ужариваются, сохраняют форму при приготовлении. | Профессиональные куриные сосиски — удобное решение для HORECA, завтраков и хот-догов. Подходят для приготовления на гриле, роликовом гриле или сковороде. Плотная текстура и натуральные специи придают мягкий и насыщенный вкус. Состав: куриное филе, мякоть окорочка, куриная кожа, растительная клетчатка, мука, вода, соль, специи. Без оболочки. Срок годности: 360 суток при –18 °C.",
+      "seoDescriptionEN": "Chicken Sausages (80 g × 6 pieces) | Chicken Sausages for Hot Dogs and HORECA (6 pieces, 480 g) — thermostable | Professional chicken sausages for hot dogs, breakfasts, and grilling. A light and juicy alternative to classic meat sausages. They do not shrink and retain their shape during cooking. | Professional chicken sausages are a convenient solution for HORECA, breakfasts, and hot dogs. Suitable for grilling, roller grilling, or frying. The dense texture and natural spices give a mild and rich flavor. Ingredients: chicken fillet, ham hock meat, chicken skin, vegetable fiber, flour, water, salt, and spices. No casing. Shelf life: 360 days at -18°C.",
       "diameter": "24",
       "casing": "без оболочки",
       "ingredientsRU": "Состав: мякоть окорочка кур, кожа куриная, филе грудки кур, фарш ММО кур, клетчатка пшеничная, мука пшеничная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), регуляторы кислотности (Е450, Е451), загустители (Е407, Е415), усилитель вкуса и аромата (Е621), антиокислители (Е316, Е300), молоко сухое, пряности (перец черный, мускатный орех, кориандр, чеснок).",
@@ -202,12 +198,12 @@
         "priceExclVAT": "332.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.19,
-          "KZT": 2055.58,
-          "UZS": 50962.61,
-          "KGS": 366.01,
-          "BYN": 12.38,
-          "AZN": 7.12
+          "USD": 4.39,
+          "KZT": 2057.6,
+          "UZS": 53251.78,
+          "KGS": 383.83,
+          "BYN": 12.46,
+          "AZN": 7.46
         },
         "pricePerPiece": "61.00"
       },
@@ -215,6 +211,7 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "999969",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "4.8",
       "barcode": "4680638720950",
       "seoDescriptionRU": "Сосиски из баранины (80 г × 6 шт) | Сосиски из баранины для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Профессиональные сосиски из баранины для хот-догов, гриля и стрит-фуда. Насыщенный вкус баранины, плотная структура и сочная текстура. Сохраняют форму при жарке. | Профессиональные сосиски из баранины — яркое решение для HORECA, гриль-меню и тематических хот-догов. Насыщенный вкус с характерной пикантностью и лёгкой маслянистостью подчёркивает выраженную мясную ноту. Аромат пряно-овощной с ярким оттенком баранины. Сосиски хорошо выдерживают высокие температуры, образуют аппетитную хрустящую корочку и сохраняют сочность внутри. Подходят для подачи в лаваше, с восточными соусами и в составе гриль-сетов.",
@@ -242,12 +239,12 @@
         "priceExclVAT": "385.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.85,
-          "KZT": 2381.33,
-          "UZS": 59038.65,
-          "KGS": 424.01,
-          "BYN": 14.34,
-          "AZN": 8.24
+          "USD": 5.08,
+          "KZT": 2383.66,
+          "UZS": 61690.59,
+          "KGS": 444.66,
+          "BYN": 14.44,
+          "AZN": 8.64
         },
         "pricePerPiece": "84.80"
       },
@@ -255,8 +252,11 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "999970",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "5.2",
       "barcode": "4680638720936",
+      "seoDescriptionRU": "Сосиски гриль для хот-догов «С Травами» (130 г × 5 шт) | Сосиски гриль «С Травами» для хот-догов и HORECA (5 шт, 650 г) — термостабильные | Профессиональные гриль-сосиски из индейки для хот-догов, завтраков и гриля. Сочные, ароматные, не ужариваются и сохраняют форму при приготовлении. | Профессиональные сосиски гриль «С Травами» — отличное решение для HORECA, фастфуда и хот-догов. Благодаря термостабильной рецептуре они сохраняют форму и сочность при приготовлении на гриле, роликовом гриле или сковороде. Аромат трав и специй придаёт продукту насыщенный и аппетитный вкус. Состав: мясо индейки, сухое молоко, вода, мука, растительная клетчатка, соль, комплексная смесь специй. Без оболочки. Срок годности: 360 суток при –18 °C.",
+      "seoDescriptionEN": "Hot Dog Grill Sausages with Herbs (130 g × 5 pcs) | Hot Dog Grill Sausages with Herbs for HORECA (5 pcs, 650 g) — thermostable | Professional turkey grill sausages for hot dogs, breakfasts, and grilling. Juicy, flavorful, and retain their shape during cooking. | Professional Grill Sausages with Herbs are an excellent solution for HORECA, fast food, and hot dogs. Thanks to their thermostable formulation, they retain their shape and juiciness when cooked on a grill, roller grill, or frying pan. The aroma of herbs and spices gives the product a rich and appetizing flavor. Ingredients: turkey meat, milk powder, water, flour, vegetable fiber, salt, and a complex blend of spices. No casing. Shelf life: 360 days at -18°C.",
       "diameter": "24",
       "casing": "без оболочки",
       "ingredientsRU": "Состав: говядина, мясо кур, сыр полутвердый с МДЖ 45% (молоко коровье нормализованное пастеризованное, закваска на основе молочнокислых мезофильных и термофильных бактерий, соль, уплотнитель хлорид кальция, ферментный препарат животного происхождения: пепсин, химозин), клетчатка пшеничная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), белок растительный, регуляторы кислотности (Е450, Е451), пряности (мускатный орех, перец душистый, кориандр, чеснок), усилитель вкуса и аромата (Е621), антиокислители (Е300, Е301), экстракты пряностей.",
@@ -280,12 +280,12 @@
         "priceExclVAT": "413.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.2,
-          "KZT": 2555.44,
-          "UZS": 63355.15,
-          "KGS": 455.01,
-          "BYN": 15.39,
-          "AZN": 8.85
+          "USD": 5.46,
+          "KZT": 2557.94,
+          "UZS": 66200.98,
+          "KGS": 477.17,
+          "BYN": 15.49,
+          "AZN": 9.28
         },
         "pricePerPiece": "91.00"
       },
@@ -293,8 +293,11 @@
       "storage": "–18°C",
       "hsCode": "160100",
       "articleNumber": "999982",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "5.2",
       "barcode": "4680638720943",
+      "seoDescriptionRU": "Сосиски гриль для хот-догов «С Сыром» (130 г × 5 шт) | Сосиски гриль «С Сыром» для хот-догов и HORECA (5 шт, 650 г) — термостабильные | Профессиональные гриль-сосиски с сыром для хот-догов, завтраков и гриля. Сочные, ароматные, не ужариваются и сохраняют форму при приготовлении. | Профессиональные сосиски гриль «С Сыром» — отличное решение для HORECA, фастфуда и хот-догов. Благодаря термостабильной рецептуре они сохраняют форму и сочность при приготовлении на гриле, роликовом гриле или сковороде. Нежный расплавленный сыр и сбалансированные специи придают продукту насыщенный вкус. Состав: говядина, мясо индейки, твердый сыр (МДЖ 50%), мука, растительная клетчатка, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Без оболочки. Срок годности: 360 суток при –18 °C.",
+      "seoDescriptionEN": "Hot Dog Grill Sausages with Cheese (130 g × 5 pcs) | Hot Dog Grill Sausages with Cheese for HORECA (5 pcs, 650 g) — thermostable | Professional hot dog grill sausages with cheese for hot dogs, breakfasts, and grills. Juicy, flavorful, and retain their shape during cooking. | Professional grilled sausages with cheese are an excellent solution for HORECA, fast food, and hot dogs. Thanks to their thermostable formula, they retain their shape and juiciness when cooked on a grill, roller grill, or frying pan. The delicate melted cheese and balanced spices give the product a rich flavor. Ingredients: beef, turkey meat, hard cheese (50% fat), flour, vegetable fiber, water, salt, sodium nitrite, and a complex blend of spices. No casing. Shelf life: 360 days at –18 °C.",
       "diameter": "24",
       "casing": "без оболочки",
       "ingredientsRU": "Состав: конина, говядина, мясо птицы (кур), кожа кур, вода, мука пшеничная, клетчатка растительная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), сахар, перец черный, кардамон молотый, регуляторы кислотности (Е223, Е262), антиокислитель (Е301).",
@@ -318,12 +321,12 @@
         "priceExclVAT": "250.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.16,
-          "KZT": 1550.11,
-          "UZS": 38430.82,
-          "KGS": 276.01,
-          "BYN": 9.34,
-          "AZN": 5.37
+          "USD": 3.31,
+          "KZT": 1551.63,
+          "UZS": 40157.08,
+          "KGS": 289.45,
+          "BYN": 9.4,
+          "AZN": 5.63
         },
         "pricePerPiece": "92.00"
       },
@@ -331,15 +334,18 @@
       "storage": "–18°C",
       "hsCode": "1602",
       "articleNumber": "800041",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "7.2",
       "barcode": "4620016152911",
       "seoDescriptionRU": "Сочная халяль‑котлета из отборной говядины и филе бедра курицы, приправлена только солью и молотым чёрным перцем. Нежная структура куриного филе и насыщенный вкус говядины дают идеальный баланс сочности и мясного аромата. Подходит для гриля, жарки и бургер‑меню.",
       "seoDescriptionEN": "Juicy halal patty made from selected beef and chicken thigh fillet, seasoned only with salt and ground black pepper. The delicate structure of the chicken fillet and rich flavor of the beef provide the perfect balance of juiciness and meaty aroma. Perfect for grilling, frying, and burger menus.",
+      "casing": "без оболочки",
+      "ingredientsRU": "Состав: Говядина, мякоть окорочка куриного, жир говяжий,вода, клетчатка растительная, поваренная соль, комплексная смесь специй.",
+      "ingredientsEN": "Ingredients: Beef, chicken leg meat, beef fat, water, vegetable fiber, table salt, and a complex blend of spices.",
       "packageType": "Вакуум",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg"
     },
     {
       "name": "Котлета говяжья прожаренная (150 г × 2 шт)",
@@ -354,12 +360,12 @@
         "priceExclVAT": "250.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.16,
-          "KZT": 1550.11,
-          "UZS": 38430.82,
-          "KGS": 276.01,
-          "BYN": 9.34,
-          "AZN": 5.37
+          "USD": 3.31,
+          "KZT": 1551.63,
+          "UZS": 40157.08,
+          "KGS": 289.45,
+          "BYN": 9.4,
+          "AZN": 5.63
         },
         "pricePerPiece": "92.00"
       },
@@ -367,15 +373,17 @@
       "storage": "–18°C",
       "hsCode": "1602",
       "articleNumber": "800043",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
       "boxWeightGross": "3.6",
       "barcode": "4620016152911",
       "seoDescriptionRU": "Сочная халяль‑котлета из отборной говядины и филе бедра курицы, приправлена только солью и молотым чёрным перцем. Нежная структура куриного филе и насыщенный вкус говядины дают идеальный баланс сочности и мясного аромата. Подходит для гриля, жарки и бургер‑меню.",
       "seoDescriptionEN": "Juicy halal patty made from selected beef and chicken thigh fillet, seasoned only with salt and ground black pepper. The delicate structure of the chicken fillet and rich flavor of the beef provide the perfect balance of juiciness and meaty aroma. Perfect for grilling, frying, and burger menus.",
+      "ingredientsRU": "Состав: Говядина, мякоть окорочка куриного, жир говяжий,вода, клетчатка растительная, поваренная соль, комплексная смесь специй.",
+      "ingredientsEN": "Ingredients: Beef, chicken leg meat, beef fat, water, vegetable fiber, table salt, and a complex blend of spices.",
       "packageType": "Вакуум",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg"
     },
     {
       "name": "Ветчина из Курицы в батоне",
@@ -386,16 +394,16 @@
       "brand": "Казанские Деликатесы",
       "offers": {
         "priceCurrency": "RUB",
-        "price": "350.00",
-        "priceExclVAT": "318.18",
+        "price": "611.00",
+        "priceExclVAT": "555.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.0,
-          "KZT": 1965.72,
-          "UZS": 48734.73,
-          "KGS": 350.01,
-          "BYN": 11.84,
-          "AZN": 6.8
+          "USD": 7.33,
+          "KZT": 3434.95,
+          "UZS": 88898.46,
+          "KGS": 640.77,
+          "BYN": 20.81,
+          "AZN": 12.46
         }
       },
       "shelfLife": "360 суток",
@@ -412,16 +420,16 @@
       "brand": "Казанские Деликатесы",
       "offers": {
         "priceCurrency": "RUB",
-        "price": "185.00",
-        "priceExclVAT": "168.18",
+        "price": "325.00",
+        "priceExclVAT": "295.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.12,
-          "KZT": 1039.02,
-          "UZS": 25759.79,
-          "KGS": 185.0,
-          "BYN": 6.26,
-          "AZN": 3.6
+          "USD": 3.9,
+          "KZT": 1827.1,
+          "UZS": 47286.42,
+          "KGS": 340.83,
+          "BYN": 11.07,
+          "AZN": 6.63
         }
       },
       "shelfLife": "180 суток",
@@ -437,16 +445,16 @@
       "brand": "Казанские Деликатесы",
       "offers": {
         "priceCurrency": "RUB",
-        "price": "376.00",
-        "priceExclVAT": "341.82",
+        "price": "660.00",
+        "priceExclVAT": "600.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.3,
-          "KZT": 2111.75,
-          "UZS": 52355.03,
-          "KGS": 376.01,
-          "BYN": 12.72,
-          "AZN": 7.31
+          "USD": 7.91,
+          "KZT": 3710.42,
+          "UZS": 96027.8,
+          "KGS": 692.15,
+          "BYN": 22.48,
+          "AZN": 13.46
         }
       },
       "shelfLife": "360 суток",
@@ -459,20 +467,20 @@
       "sku": "KD-013",
       "section": "Заморозка",
       "category": "Топпинги",
-      "weight": "0,4",
+      "weight": "0,5",
       "brand": "Казанские Деликатесы",
       "offers": {
         "priceCurrency": "RUB",
-        "price": "198.00",
-        "priceExclVAT": "180.00",
+        "price": "350.00",
+        "priceExclVAT": "318.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.26,
-          "KZT": 1112.04,
-          "UZS": 27569.93,
-          "KGS": 198.01,
-          "BYN": 6.7,
-          "AZN": 3.85
+          "USD": 4.2,
+          "KZT": 1967.65,
+          "UZS": 50923.83,
+          "KGS": 367.05,
+          "BYN": 11.92,
+          "AZN": 7.14
         }
       },
       "shelfLife": "180 суток",
@@ -492,17 +500,18 @@
         "priceExclVAT": "286.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.6,
-          "KZT": 1769.15,
-          "UZS": 43861.26,
-          "KGS": 315.01,
-          "BYN": 10.66,
-          "AZN": 6.12
+          "USD": 3.78,
+          "KZT": 1770.88,
+          "UZS": 45831.45,
+          "KGS": 330.35,
+          "BYN": 10.73,
+          "AZN": 6.42
         }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "160100"
+      "hsCode": "160100",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде."
     },
     {
       "name": "Пепперони варено-копченый классика",
@@ -517,17 +526,18 @@
         "priceExclVAT": "249.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3.13,
-          "KZT": 1538.88,
-          "UZS": 38152.33,
-          "KGS": 274.01,
-          "BYN": 9.27,
-          "AZN": 5.33
+          "USD": 3.29,
+          "KZT": 1540.39,
+          "UZS": 39866.09,
+          "KGS": 287.35,
+          "BYN": 9.33,
+          "AZN": 5.59
         }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "160100"
+      "hsCode": "160100",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде."
     },
     {
       "name": "Пепперони варено-копченый классика целый батон",
@@ -542,17 +552,18 @@
         "priceExclVAT": "415.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.23,
-          "KZT": 2566.67,
-          "UZS": 63633.64,
-          "KGS": 457.01,
-          "BYN": 15.46,
-          "AZN": 8.88
+          "USD": 5.48,
+          "KZT": 2569.18,
+          "UZS": 66491.98,
+          "KGS": 479.26,
+          "BYN": 15.56,
+          "AZN": 9.32
         }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "160100"
+      "hsCode": "160100",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде."
     },
     {
       "name": "Пепперони сырокопчёный в нарезке",
@@ -567,17 +578,22 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.35,
-          "KZT": 2134.21,
-          "UZS": 52912.0,
-          "KGS": 380.01,
-          "BYN": 12.85,
-          "AZN": 7.39
+          "USD": 4.56,
+          "KZT": 2136.3,
+          "UZS": 55288.73,
+          "KGS": 398.51,
+          "BYN": 12.94,
+          "AZN": 7.75
         }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "160100",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде.",
+      "seoDescriptionRU": "Пепперони (нарезка) халяль (500 г) | Пепперони халяль — сервировочная нарезка для пиццы, закусок и HORECA | Тонкие слайсы пепперони правильной круглой формы с насыщенным мясным вкусом и ароматом специй. | Пепперони халяль (нарезка) — удобное решение для пиццерий, ресторанов и HORECA. Готовая сервировочная нарезка позволяет быстро использовать продукт для пиццы, сэндвичей и горячих закусок. Благодаря сбалансированной рецептуре и специям пепперони обладает ярким вкусом и аппетитным ароматом. Состав: говядина, мясо кур механической обвалки, пшеничная мука, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: 90 суток при –18 °C.",
+      "seoDescriptionEN": "Peperon (sliced) Halal (500 g) | Peperon Halal - serving slices for pizza, snacks and HORECA | Thin slices of Peperon with a regular round shape and rich meat flavor and spice aroma. | Peperon Halal (sliced) - a convenient solution for pizzerias, restaurants and HORECA. Ready-made serving slices allow you to quickly use the product for pizza, sandwiches and hot snacks. Due to the balanced recipe and spices, pepperoni has a bright taste and appetizing aroma. Ingredients: beef, mechanically deboned chicken meat, wheat flour, salt, sodium nitrite color fixative, and a complex blend of spices. Does not contain GMOs. Shelf life: 90 days at -18°C.",
+      "ingredientsRU": "Состав: говядина, мясо кур механической обвалки, мука пшеничная, посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй",
+      "ingredientsEN": "Ingredients: beef, mechanically deboned chicken meat, wheat flour, seasoning mixture (table salt, color fixer: sodium nitrite), complex spice mixture",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/pepperoni_6_st_yujwot.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/pepperoni_6_st_yujwot.jpg"
     },
@@ -594,17 +610,18 @@
         "priceExclVAT": "552.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 6.95,
-          "KZT": 3414.74,
-          "UZS": 84659.19,
-          "KGS": 608.02,
-          "BYN": 20.57,
-          "AZN": 11.82
+          "USD": 7.29,
+          "KZT": 3418.08,
+          "UZS": 88461.97,
+          "KGS": 637.62,
+          "BYN": 20.7,
+          "AZN": 12.4
         }
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "160100"
+      "hsCode": "160100",
+      "cookingMethods": "Способы приготовления: Гриль, роликовый грил, жарка на решетке или сковороде."
     },
     {
       "name": "Грудка куриная варено-копченая",
@@ -619,12 +636,12 @@
         "priceExclVAT": "336.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 4.23,
-          "KZT": 2078.05,
-          "UZS": 51519.57,
-          "KGS": 370.01,
-          "BYN": 12.52,
-          "AZN": 7.19
+          "USD": 4.44,
+          "KZT": 2080.08,
+          "UZS": 53833.77,
+          "KGS": 388.03,
+          "BYN": 12.6,
+          "AZN": 7.54
         }
       },
       "shelfLife": "30 суток",
@@ -647,12 +664,12 @@
         "priceExclVAT": "408.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.13,
-          "KZT": 2521.74,
-          "UZS": 62519.7,
-          "KGS": 449.01,
-          "BYN": 15.19,
-          "AZN": 8.73
+          "USD": 5.38,
+          "KZT": 2524.21,
+          "UZS": 65328.0,
+          "KGS": 470.88,
+          "BYN": 15.29,
+          "AZN": 9.15
         }
       },
       "shelfLife": "30 суток",
@@ -672,12 +689,12 @@
         "priceExclVAT": "609.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 7.66,
-          "KZT": 3762.95,
-          "UZS": 93292.2,
-          "KGS": 670.02,
-          "BYN": 22.66,
-          "AZN": 13.02
+          "USD": 8.03,
+          "KZT": 3766.64,
+          "UZS": 97482.77,
+          "KGS": 702.64,
+          "BYN": 22.82,
+          "AZN": 13.66
         }
       },
       "shelfLife": "180 суток",
@@ -697,12 +714,12 @@
         "priceExclVAT": "74.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 0.94,
-          "KZT": 460.54,
-          "UZS": 11417.85,
-          "KGS": 82.0,
-          "BYN": 2.77,
-          "AZN": 1.59
+          "USD": 0.98,
+          "KZT": 460.99,
+          "UZS": 11930.73,
+          "KGS": 85.99,
+          "BYN": 2.79,
+          "AZN": 1.67
         }
       },
       "shelfLife": "180 суток",
@@ -722,12 +739,12 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.95,
-          "KZT": 2920.5,
-          "UZS": 72405.89,
-          "KGS": 520.01,
-          "BYN": 17.59,
-          "AZN": 10.11
+          "USD": 6.24,
+          "KZT": 2923.36,
+          "UZS": 75658.27,
+          "KGS": 545.33,
+          "BYN": 17.71,
+          "AZN": 10.6
         }
       },
       "shelfLife": "180 суток",
@@ -747,12 +764,12 @@
         "priceExclVAT": "472.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 5.95,
-          "KZT": 2920.5,
-          "UZS": 72405.89,
-          "KGS": 520.01,
-          "BYN": 17.59,
-          "AZN": 10.11
+          "USD": 6.24,
+          "KZT": 2923.36,
+          "UZS": 75658.27,
+          "KGS": 545.33,
+          "BYN": 17.71,
+          "AZN": 10.6
         }
       },
       "shelfLife": "180 суток",
@@ -772,12 +789,12 @@
         "priceExclVAT": "736.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 9.26,
-          "KZT": 4549.24,
-          "UZS": 112786.09,
-          "KGS": 810.02,
-          "BYN": 27.4,
-          "AZN": 15.75
+          "USD": 9.71,
+          "KZT": 4553.7,
+          "UZS": 117852.3,
+          "KGS": 849.46,
+          "BYN": 27.58,
+          "AZN": 16.51
         }
       },
       "shelfLife": "180 суток",
@@ -797,23 +814,30 @@
         "priceExclVAT": "122.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 758.21,
-          "KZT": 18797.68,
-          "UZS": 135.0,
-          "KGS": 4.57,
-          "BYN": 2.62
+          "USD": 758.98,
+          "KZT": 19642.79,
+          "UZS": 141.58,
+          "KGS": 4.6,
+          "BYN": 2.75
         },
         "pricePerPiece": "135.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,54",
+      "hsCode": "1,62",
       "articleNumber": "4,68E+12",
+      "cookingMethods": "0",
+      "minOrder": "0",
       "boxWeightGross": "999921",
+      "barcode": "Сосиски «К завтраку» (80 г × 6 шт) | Сосиски «К завтраку» для завтраков, хот-догов и HORECA (6 шт, 480 г) — охлаждённые | Нежные и сочные сосиски для завтраков, горячих блюд и хот-догов. Подходят для жарки, гриля и быстрого приготовления. | Сосиски «К завтраку» — универсальный продукт для домашней кухни и HORECA. Благодаря мягкой текстуре и сбалансированным специям они отлично подходят для завтраков, хот-догов и горячих блюд. Состав: мясо куриное механической обвалки, говядина, куриные яйца, растительный белок, манная крупа, картофельный крахмал, сливки, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Breakfast Sausages (80 g × 6 pcs) | Breakfast Sausages for Breakfast, Hot Dogs and HORECA (6 pcs, 480 g) - chilled | Delicate and juicy sausages for breakfast, hot dishes and hot dogs. Suitable for frying, grilling and quick cooking. | Breakfast Sausages are a versatile product for home cooking and HORECA. Due to their soft texture and balanced spices, they are perfect for breakfasts, hot dogs, and hot dishes. Ingredients: mechanically deboned chicken meat, beef, chicken eggs, vegetable protein, semolina, potato starch, cream, water, salt, sodium nitrite color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
+      "seoDescriptionEN": "0",
+      "diameter": "есть",
       "casing": "Состав: мясо кур механической обвалки, крупа манная, мука пшеничная, крахмал картофельный, соевый белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), регуляторы кислотности Е450i, Е451i, желирующий агент Е407, кориандр.",
       "ingredientsRU": "Ingredients: mechanically deboned chicken meat, semolina, wheat flour, potato starch, soy protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), acidity regulators E450i, E451i, gelling agent E407, and coriander.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
-      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg",
+      "image": "0",
+      "imageMain": "0",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
     },
     {
@@ -829,17 +853,18 @@
         "priceExclVAT": "222.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1376.01,
-          "KZT": 34114.31,
-          "UZS": 245.01,
-          "KGS": 8.29,
-          "BYN": 4.76
+          "USD": 1377.4,
+          "KZT": 35648.03,
+          "UZS": 256.95,
+          "KGS": 8.34,
+          "BYN": 4.99
         },
         "pricePerPiece": "245.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,80",
+      "hsCode": "2,94",
+      "diameter": "без оболоччки",
       "casing": "Состав: мясо кур механической обвалки, крупа манная, мука пшеничная, крахмал картофельный, соевый белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), регуляторы кислотности Е450i, Е451i, желирующий агент Е407, кориандр.",
       "ingredientsRU": "Ingredients: mechanically deboned chicken meat, semolina, wheat flour, potato starch, soy protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), acidity regulators E450i, E451i, gelling agent E407, and coriander.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
@@ -860,19 +885,22 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1016.56,
-          "KZT": 25202.82,
-          "UZS": 181.0,
-          "KGS": 6.12,
-          "BYN": 3.52
+          "USD": 1017.59,
+          "KZT": 26335.89,
+          "UZS": 189.83,
+          "KGS": 6.16,
+          "BYN": 3.69
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,07",
+      "hsCode": "2,17",
       "articleNumber": "4680638720035",
       "boxWeightGross": "999976",
+      "barcode": "Сосиски «Нежные» (80 г × 6 шт) | Сосиски «Нежные» для завтраков, хот-догов и HORECA (6 шт, 480 г) — охлаждённые | Нежные и сочные сосиски из индейки, курицы и говядины с мягким вкусом, идеально подходят для завтраков и горячих блюд. | Сосиски «Нежные» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию филе индейки, куриного мяса и говядины они имеют мягкую текстуру и сбалансированный вкус. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: филе индейки, мясо куриное механической обвалки, говядина, сливки, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Delicate Sausages (80 g × 6 pcs) | Delicate Sausages for Breakfast, Hot Dogs, and HORECA (6 pcs, 480 g) - Chilled | Delicate and juicy turkey, chicken, and beef sausages with a mild flavor, perfect for breakfast and hot dishes. | Delicate Sausages are a versatile product for home cooking and HORECA. With a combination of turkey fillet, chicken meat, and beef, they have a soft texture and balanced flavor. Suitable for breakfast, hot dogs, and quick cooking. Ingredients: turkey fillet, mechanically deboned chicken meat, beef, cream, vegetable protein, water, salt, sodium nitrite color fixative, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
+      "diameter": "есть",
       "casing": "Состав: филе индейки, мясо кур механической обвалки, говядина, молоко сухое, растительный белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
       "ingredientsRU": "Ingredients: turkey fillet, mechanically deboned chicken meat, beef, dry milk, vegetable protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), and a complex blend of spices.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
@@ -892,19 +920,22 @@
         "priceExclVAT": "213.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1319.84,
-          "KZT": 32721.89,
-          "UZS": 235.01,
-          "KGS": 7.95,
-          "BYN": 4.57
+          "USD": 1321.18,
+          "KZT": 34193.01,
+          "UZS": 246.46,
+          "KGS": 8.0,
+          "BYN": 4.79
         },
         "pricePerPiece": "235.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,69",
+      "hsCode": "2,82",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999978",
+      "barcode": "Сосиски «Казанские с молоком» для завтраков, горячих блюд и HORECA — охлаждённые | Нежные сосиски из говядины и куриного филе с добавлением молока, отличаются мягким вкусом и сочной текстурой. | Сосиски «Казанские с молоком» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию говядины, куриного филе и молока сосиски имеют нежную текстуру и насыщенный вкус. Ароматные специи (чёрный перец, душистый перец, мускатный орех) делают их отличным вариантом для завтраков и горячих блюд. Состав: говядина, куриное филе, сухое молоко, куриные яйца, растительный белок, сливки, вода, соль, фиксатор окраски — нитрит натрия, сахар, специи. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Kazan's Sausages with Milk for Breakfasts, Hot Dishes, and HORECA - Chilled | Delicate sausages made from beef and chicken fillet with the addition of milk, featuring a mild taste and juicy texture. | Kazan's Sausages with Milk are a versatile product for home cooking and HORECA. The combination of beef, chicken fillet, and milk gives the sausages a delicate texture and rich flavor. The aromatic spices (black pepper, allspice, and nutmeg) make them a great option for breakfasts and hot dishes. Ingredients: beef, chicken fillet, powdered milk, chicken eggs, vegetable protein, cream, water, salt, sodium nitrite color fixer, sugar, and spices. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
+      "diameter": "есть",
       "casing": "Состав: говядина, филе куриное, молоко сухое, яйца куриные, растительный белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
       "ingredientsRU": "Ingredients: beef, chicken fillet, dry milk, chicken eggs, vegetable protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), and a complex mixture of spices.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
@@ -924,19 +955,22 @@
         "priceExclVAT": "266.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1645.59,
-          "KZT": 40797.93,
-          "UZS": 293.01,
-          "KGS": 9.91,
-          "BYN": 5.7
+          "USD": 1647.26,
+          "KZT": 42632.14,
+          "UZS": 307.29,
+          "KGS": 9.98,
+          "BYN": 5.97
         },
         "pricePerPiece": "293.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,35",
+      "hsCode": "3,51",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999975",
+      "barcode": "Сосиски «С сыром» (130 г × 5 шт) | Сосиски «С сыром» для завтраков, хот-догов и HORECA — охлаждённые | Сочные сосиски из говядины и куриного филе с нежным сыром, идеально подходят для завтраков и горячих блюд. | Сосиски «С сыром» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию говядины, куриного филе и твёрдого сыра сосиски имеют насыщенный вкус и нежную текстуру. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: говядина, куриное филе, твердый сыр, сухое молоко, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Sausages \"With Cheese\" (130 g × 5 pieces) | Sausages \"With Cheese\" for breakfasts, hot dogs, and HORECA (6 pieces, 480 g) - chilled | Juicy sausages made from beef and chicken fillet with tender cheese, perfect for breakfasts and hot dishes. | Sausages \"With Cheese\" are a versatile product for home cooking and HORECA. Thanks to the combination of beef, chicken fillet, and hard cheese, the sausages have a rich flavor and a delicate texture. They are suitable for breakfast, hot dogs, and quick cooking. Ingredients: beef, chicken fillet, hard cheese, milk powder, cream, chicken eggs, vegetable protein, water, salt, sodium nitrite, and a complex blend of spices. They do not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
+      "diameter": "есть",
       "casing": "Состав: говядина, филе куриное, сыр твердый с МДЖ 50%, молоко сухое, яйца куриные, растительный белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
       "ingredientsRU": "Ingredients: beef, chicken fillet, hard cheese with a fat content of 50%, dry milk, chicken eggs, vegetable protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), and a complex blend of spices.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_1.1_eeaaav.jpg",
@@ -957,21 +991,24 @@
         "priceExclVAT": "258.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1595.04,
-          "KZT": 39544.75,
-          "UZS": 284.01,
-          "KGS": 9.61,
-          "BYN": 5.52
+          "USD": 1596.66,
+          "KZT": 41322.62,
+          "UZS": 297.85,
+          "KGS": 9.67,
+          "BYN": 5.79
         },
         "pricePerPiece": "284.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,25",
+      "hsCode": "3,41",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999980",
-      "casing": "Состав: говядина, молоко сухое, яйца куриные, растительный белок, вода, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), сахар, перец, кардамон молотый.",
-      "ingredientsRU": "Ingredients: beef, dry milk, chicken eggs, vegetable protein, water, nitrite-salting mixture (table salt, color fixer: sodium nitrite), sugar, pepper, ground cardamom.",
+      "barcode": "Говяжьи сосиски для завтраков, хот-догов и HORECA — охлаждённые | Нежные сосиски из говядины с натуральными специями, подходят для завтраков, хот-догов и горячих блюд. Сохраняют сочность и насыщенный вкус при приготовлении. | Классические сосиски «Из Говядины» — универсальное решение для домашней кухни и HORECA. Плотная текстура и ароматные специи (чёрный перец, кардамон) придают продукту насыщенный вкус и делают его отличной альтернативой традиционным мясным колбаскам. Состав: говядина, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, сахар, специи. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Beef sausages for breakfast, hot dogs, and HORECA — chilled | Delicate beef sausages with natural spices, suitable for breakfast, hot dogs, and hot dishes. They retain their juiciness and rich flavor during cooking. | Classic Beef sausages are a versatile solution for home cooking and HORECA. Their dense texture and aromatic spices (black pepper, cardamom) give them a rich flavor and make them a great alternative to traditional meat sausages. Ingredients: beef, cream, chicken eggs, vegetable protein, water, salt, sodium nitrite color fixer, sugar, and spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging",
+      "diameter": "есть",
+      "casing": "Состав: говядина, сливки, яйца куриные, растительный белок, вода, посолочная смесь (поваренная соль, фиксатор окраски - нитрит натрия), сахар-песок, пряности (перец черный, кардамон молотый).",
+      "ingredientsRU": "Ingredients: beef, cream, chicken eggs, vegetable protein, water, salting mixture (table salt, sodium nitrite color fixer), granulated sugar, spices (black pepper, ground cardamom).",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730444/sosiski_iz_govadiny_80_g_6_st_2_icliam.jpg"
@@ -989,19 +1026,20 @@
         "priceExclVAT": "132.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 819.99,
-          "KZT": 20329.35,
-          "UZS": 146.0,
-          "KGS": 4.94,
-          "BYN": 2.84
+          "USD": 820.82,
+          "KZT": 21243.32,
+          "UZS": 153.12,
+          "KGS": 4.97,
+          "BYN": 2.98
         },
         "pricePerPiece": "146.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,67",
+      "hsCode": "1,75",
       "articleNumber": "4680638721407",
       "boxWeightGross": "995001",
+      "diameter": "есть",
       "casing": "Состав: мясо куриное мехобвалки, стаб. белковый (кожа кур., вода пит., говядина), вода, филе грудок кур., говядина, крахмал картоф., нпс (соль, фиксатор окраски (нитрит натрия)), рег. кислотности (пирофосфаты, трифосфаты), загуститель (альгинат натрия), пряности, экстракты пряностей, белок жив. (говяжий), сахара, экстракт дрожжей, антиокис. (аскорбат натрия), усил. вкуса и аромата (глутамат натрия), ароматизаторы.",
       "ingredientsRU": "Ingredients: chicken meat mekhobvalki, stable. protein (chicken skin, pit water, beef), water, chicken breast fillet, beef, potato starch, nps (salt, color fixative (sodium nitrite)), acidity regulator (pyrophosphates, triphosphates), thickener (sodium alginate), spices, spice extracts, live protein. (beef), sugar, yeast extract, antioxidant. (sodium ascorbate), usyl. Flavor and aroma (sodium glutamate), flavorings.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg",
@@ -1022,19 +1060,20 @@
         "priceExclVAT": "130.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 808.75,
-          "KZT": 20050.86,
-          "UZS": 144.0,
-          "KGS": 4.87,
-          "BYN": 2.8
+          "USD": 809.58,
+          "KZT": 20952.31,
+          "UZS": 151.02,
+          "KGS": 4.9,
+          "BYN": 2.94
         },
         "pricePerPiece": "144.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,65",
+      "hsCode": "1,73",
       "articleNumber": "4680638721414",
       "boxWeightGross": "995002",
+      "diameter": "есть",
       "casing": "Состав: мясо кур. мехобвалки, стаб. белковый (вода пит., кожа кур., говядина), вода, филе грудок кур., говядина, сывор. молочная сухая, молоко сухое обезжиренное, крахмал картоф., нпс(соль, фиксатор окраски (нитрит натрия)), рег. кислотности (пирофосфаты, трифосфаты), стабилизатор (полифосфаты), загуститель (альгинат натрия), белок жив. (говяжий), специи, пряности, экстракты пряностей, сахара, антиокис. (аскорбат натрия, изоаскорбат натрия), усил. вкуса и аромата (глутамат натрия), экстракт дрожжей, ароматизаторы.",
       "ingredientsRU": "Ingredients: chicken meat. mekhobalki, stable. protein (pit water, chicken skin, beef), water, chicken breast fillet, beef, whey milk powder, skimmed milk powder, potato starch, nps(salt, color fixative (sodium nitrite)), acidity regulator (pyrophosphates, triphosphates), stabilizer (polyphosphates), thickener (sodium alginate), live protein (beef), spices, spices, spice extracts, sugars, antioxidant. (sodium ascorbate, sodium isoascorbate), usyl. taste and aroma (monosodium glutamate), yeast extract, flavorings.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
@@ -1054,19 +1093,20 @@
         "priceExclVAT": "150.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 932.31,
-          "KZT": 23114.19,
-          "UZS": 166.0,
-          "KGS": 5.62,
-          "BYN": 3.23
+          "USD": 933.26,
+          "KZT": 24153.36,
+          "UZS": 174.09,
+          "KGS": 5.65,
+          "BYN": 3.38
         },
         "pricePerPiece": "166.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,90",
+      "hsCode": "1,99",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999982",
+      "diameter": "есть",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/buinskie_sardel_ki_bspdgs.jpg",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/sardel_ki_buinskie_ilutwn.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/sardel_ki_buinskie_ilutwn.jpg",
@@ -1085,19 +1125,20 @@
         "priceExclVAT": "265.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1639.97,
-          "KZT": 40658.69,
-          "UZS": 292.01,
-          "KGS": 9.88,
-          "BYN": 5.68
+          "USD": 1641.64,
+          "KZT": 42486.64,
+          "UZS": 306.24,
+          "KGS": 9.94,
+          "BYN": 5.95
         },
         "pricePerPiece": "292.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,34",
+      "hsCode": "3,50",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999998",
+      "diameter": "есть",
       "casing": "Состав:говядина,филе куриное,вода,мука пшеничная,фиксатор окраски нитритно-посолочная смесь(соль пищевая,нитрит натрия),растительный белок,усилитель вкуса декстроза, стабилизаторы Е450,Е500,Е451,загуститель Е407,усилитель вкуса и аромата Е621,желирующий агент Е508,антиокислители Е301,Е300,экстракты специй(чеснок,кориандр,перец черный),ароматизаторы,краситель-экстракт паприки.",
       "ingredientsRU": "Composition:beef,chicken fillet,water, wheat flour,color fixative, nitrite-salt mixture (salt, sodium nitrite),vegetable protein, flavor enhancer dextrose, stabilizers E450,E500,E451,thickener E407,flavor enhancer E621,gelling agent E508,antioxidants E301,E300,spice extracts (garlic,coriander, black pepper),flavors, colorant-paprika extract."
     },
@@ -1114,19 +1155,20 @@
         "priceExclVAT": "179.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1106.42,
-          "KZT": 27430.69,
-          "UZS": 197.01,
-          "KGS": 6.66,
-          "BYN": 3.83
+          "USD": 1107.55,
+          "KZT": 28663.93,
+          "UZS": 206.61,
+          "KGS": 6.71,
+          "BYN": 4.02
         },
         "pricePerPiece": "197.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,25",
+      "hsCode": "2,36",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995003",
+      "diameter": "есть",
       "casing": "Состав:филе куриных грудок,мясо куриное мехобвалки,говядина,белок соевый,крахмал картофельный,нпс (соль,фиксатор окраски (нитрит натрия)),соль,регуляторы кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок животный (говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),аром.,краситель (понсо 4R).",
       "ingredientsRU": "Composition:chicken breast fillet, chicken meat, beef, soy protein, potato starch, NPS (salt, color fixator (sodium nitrite)), salt, acidity regulators (pyrophosphates, triphosphates), spices, spice extracts, animal protein (beef), fiber, sugars, antioxidant (sodium ascorbate), flavor enhancer (sodium glutamate), aroma, color (ponceau 4R)."
     },
@@ -1143,19 +1185,20 @@
         "priceExclVAT": "181.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1123.27,
-          "KZT": 27848.42,
-          "UZS": 200.01,
-          "KGS": 6.77,
-          "BYN": 3.89
+          "USD": 1124.41,
+          "KZT": 29100.44,
+          "UZS": 209.75,
+          "KGS": 6.81,
+          "BYN": 4.08
         },
         "pricePerPiece": "200.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,29",
+      "hsCode": "2,40",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995004",
+      "diameter": "есть",
       "casing": "Состав:мясо куриное мехобвалки,стаб.белковый(кожа кур.,вода пит.),вода, филе грудок кур.,говядина,сыв.молочная сухая,крахмал картоф.,нпс(соль,фикс.окраски(нитрит натрия)),соль,белок жив.(говяжий),рег.кислотности(трифосфаты,пирофосфаты),стаб.(полифосфаты),загуститель(альгинат натрия),пряности, экстракты пряностей,сахара,антиокис.(аскорб. кислота),усил. вкуса и аромата(глутамат натрия),ароматизаторы,экстракт дрожжей,растит.экстракты.",
       "ingredientsRU": "Composition:mekhobalki chicken meat,stable.protein(chicken skin,pit water),water, chicken breast fillet,beef,dry milk whey,potato starch,nps(salt,fixed coloring(sodium nitrite)),salt,live protein.(beef),reg. of acidity (triphosphates,pyrophosphates),stable.(polyphosphates),thickener (sodium alginate), spices, spice extracts,sugars,antioxidant.(ascorbic acid),usil. taste and aroma (monosodium glutamate),flavorings,yeast extract,vegetable oil.extracts."
     },
@@ -1172,17 +1215,17 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2134.21,
-          "KZT": 52912.0,
-          "UZS": 380.01,
-          "KGS": 12.85,
-          "BYN": 7.39
+          "USD": 2136.38,
+          "KZT": 55290.83,
+          "UZS": 398.53,
+          "KGS": 12.94,
+          "BYN": 7.75
         },
         "pricePerPiece": "380.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,35",
+      "hsCode": "4,56",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999946",
       "casing": "Состав: мясо индейки, вода, крахмал картофельный, нитритно- посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй, пряности.",
@@ -1203,17 +1246,17 @@
         "priceExclVAT": "361.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2235.31,
-          "KZT": 55418.35,
-          "UZS": 398.01,
-          "KGS": 13.46,
-          "BYN": 7.74
+          "USD": 2237.58,
+          "KZT": 57909.87,
+          "UZS": 417.41,
+          "KGS": 13.55,
+          "BYN": 8.11
         },
         "pricePerPiece": "398.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,55",
+      "hsCode": "4,77",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999997",
       "casing": "Состав: говядина, филе куриное, вода, растительный белок, крахмал картофельный, нитритно-посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
@@ -1235,17 +1278,17 @@
         "priceExclVAT": "318.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1965.72,
-          "KZT": 48734.73,
-          "UZS": 350.01,
-          "KGS": 11.84,
-          "BYN": 6.8
+          "USD": 1967.72,
+          "KZT": 50925.76,
+          "UZS": 367.07,
+          "KGS": 11.92,
+          "BYN": 7.14
         },
         "pricePerPiece": "350.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,00",
+      "hsCode": "4,20",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999941",
       "casing": "Состав: мякоть куриных окорочков, филе куриное, крахмал картофельный, вода, посолочная смесь (поваренная соль, фиксатор окраски: нитрит натрия), комплексная смесь специй.",
@@ -1267,17 +1310,17 @@
         "priceExclVAT": "170.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1055.87,
-          "KZT": 26177.51,
-          "UZS": 188.0,
-          "KGS": 6.36,
-          "BYN": 3.65
+          "USD": 1056.95,
+          "KZT": 27354.41,
+          "UZS": 197.17,
+          "KGS": 6.4,
+          "BYN": 3.83
         },
         "pricePerPiece": "188.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,15",
+      "hsCode": "2,25",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995009",
       "casing": "Состав: филе бедра кур., кожа кур., вода, крахмал картофельный, нпс(поваренная соль, фикс. окраски: нитрит натрия),соль,рег. кислотности (трифосфаты, пирофосфаты, полифосфаты),пряности,экстракты пряностей, сахар, усилитель вкуса и аромата (глутамат натрия).",
@@ -1298,17 +1341,17 @@
         "priceExclVAT": "196.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1213.13,
-          "KZT": 30076.29,
-          "UZS": 216.01,
-          "KGS": 7.31,
-          "BYN": 4.2
+          "USD": 1214.36,
+          "KZT": 31428.47,
+          "UZS": 226.53,
+          "KGS": 7.36,
+          "BYN": 4.4
         },
         "pricePerPiece": "216.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,47",
+      "hsCode": "2,59",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999975"
     },
@@ -1325,19 +1368,21 @@
         "priceExclVAT": "270.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1673.67,
-          "KZT": 41494.14,
-          "UZS": 298.01,
-          "KGS": 10.08,
-          "BYN": 5.79
+          "USD": 1675.37,
+          "KZT": 43359.65,
+          "UZS": 312.53,
+          "KGS": 10.15,
+          "BYN": 6.08
         },
         "pricePerPiece": "298.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,41",
+      "hsCode": "3,57",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999994",
+      "barcode": "Сервелат «По-Татарски» (450 г) | Сервелат «По-Татарски» для нарезки, закусок и HORECA — охлаждённый | Ароматный сервелат из говядины с чесноком и специями, отличается насыщенным мясным вкусом и плотной текстурой. | Сервелат «По-Татарски» — классическая мясная колбаса, идеально подходящая для бутербродов, закусок и ресторанной подачи. Благодаря сочетанию говядины, говяжьего жира и ароматных специй с добавлением свежего чеснока продукт обладает ярким вкусом и аппетитным ароматом. Состав: говядина, куриное мясо механической обвалки, говяжий жир, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй, свежий чеснок. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
+      "seoDescriptionRU": "Servelat \"Po-Tatarski\" (450 g) | Servelat \"Po-Tatarski\" for slicing, appetizers, and HORECA - chilled | A fragrant beef servelat with garlic and spices, featuring a rich meat flavor and a dense texture. | Servelat \"Po-Tatarski\" is a classic meat sausage that is perfect for sandwiches, appetizers, and restaurant presentations. With its combination of beef, beef fat, and aromatic spices, including fresh garlic, this product offers a vibrant taste and appetizing aroma. Ingredients: beef, mechanically deboned chicken meat, beef fat, vegetable protein, water, salt, sodium nitrite color fixative, a complex blend of spices, and fresh garlic. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
       "packageType": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg"
     },
     {
@@ -1353,17 +1398,17 @@
         "priceExclVAT": "316.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1954.49,
-          "KZT": 48456.25,
-          "UZS": 348.01,
-          "KGS": 11.77,
-          "BYN": 6.77
+          "USD": 1956.48,
+          "KZT": 50634.76,
+          "UZS": 364.97,
+          "KGS": 11.85,
+          "BYN": 7.09
         },
         "pricePerPiece": "348.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,98",
+      "hsCode": "4,17",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999910",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
@@ -1382,17 +1427,17 @@
         "priceExclVAT": "325.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2010.65,
-          "KZT": 49848.67,
-          "UZS": 358.01,
-          "KGS": 12.11,
-          "BYN": 6.96
+          "USD": 2012.7,
+          "KZT": 52089.78,
+          "UZS": 375.46,
+          "KGS": 12.19,
+          "BYN": 7.3
         },
         "pricePerPiece": "358.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,09",
+      "hsCode": "4,29",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999961",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
@@ -1411,17 +1456,19 @@
         "priceExclVAT": "246.36",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1522.03,
-          "KZT": 37734.61,
-          "UZS": 271.01,
-          "KGS": 9.17,
-          "BYN": 5.27
+          "USD": 1523.58,
+          "KZT": 39431.09,
+          "UZS": 284.21,
+          "KGS": 9.23,
+          "BYN": 5.53
         },
         "pricePerPiece": "271.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,10",
+      "hsCode": "3,25",
+      "barcode": "Колбаски «С сыром» (330 г) | Колбаски «С сыром» для гриля, завтраков и HORECA — охлаждённые | Сочные мясные колбаски с добавлением твёрдого сыра, отличаются насыщенным вкусом и ароматом специй. | Колбаски «С сыром» — отличный вариант для гриля, завтраков и горячих блюд. Благодаря сочетанию говядины, куриного филе и твёрдого сыра продукт имеет сочную текстуру и насыщенный вкус. Подходят для приготовления на сковороде, гриле или подаче в качестве горячей закуски. Состав: говядина, куриное филе, твердый сыр, куриная кожа, пшеничная мука, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C.",
+      "seoDescriptionRU": "Sausages \"With Cheese\" (330 g) | Sausages \"With Cheese\" for grilling, breakfasts, and HORECA - chilled | Juicy meat sausages with the addition of hard cheese, featuring a rich flavor and aroma of spices. | Sausages \"With Cheese\" are an excellent option for grilling, breakfasts, and hot dishes. Thanks to the combination of beef, chicken fillet, and hard cheese, the product has a juicy texture and rich flavor. Suitable for cooking in a pan, on the grill, or serving as a hot appetizer. Ingredients: beef, chicken fillet, hard cheese, chicken skin, wheat flour, vegetable protein, water, salt, sodium nitrite color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg"
@@ -1439,17 +1486,17 @@
         "priceExclVAT": "345.45",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2134.21,
-          "KZT": 52912.0,
-          "UZS": 380.01,
-          "KGS": 12.85,
-          "BYN": 7.39
+          "USD": 2136.38,
+          "KZT": 55290.83,
+          "UZS": 398.53,
+          "KGS": 12.94,
+          "BYN": 7.75
         },
         "pricePerPiece": "380.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,35"
+      "hsCode": "4,56"
     },
     {
       "name": "Филе куриное",
@@ -1464,17 +1511,17 @@
         "priceExclVAT": "408.18",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2521.74,
-          "KZT": 62519.7,
-          "UZS": 449.01,
-          "KGS": 15.19,
-          "BYN": 8.73
+          "USD": 2524.3,
+          "KZT": 65330.48,
+          "UZS": 470.89,
+          "KGS": 15.29,
+          "BYN": 9.15
         },
         "pricePerPiece": "449.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "5,13"
+      "hsCode": "5,38"
     },
     {
       "name": "в/к Рамазан",
@@ -1489,17 +1536,17 @@
         "priceExclVAT": "342.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2117.36,
-          "KZT": 52494.27,
-          "UZS": 377.01,
-          "KGS": 12.75,
-          "BYN": 7.33
+          "USD": 2119.52,
+          "KZT": 54854.32,
+          "UZS": 395.38,
+          "KGS": 12.84,
+          "BYN": 7.69
         },
         "pricePerPiece": "377.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,31",
+      "hsCode": "4,52",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995005",
       "casing": "Состав: филе грудок куриных,мясо кур.мехобвалки,вода,сыворотка молочная сухая,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)), соль,рег. кислотности(трифосфаты,пирофосфаты), стабилизатор(полифосфаты),пряности,экстракты специй и пряностей,сахара,антиокис.(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизаторы.",
@@ -1520,17 +1567,17 @@
         "priceExclVAT": "170.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1055.87,
-          "KZT": 26177.51,
-          "UZS": 188.0,
-          "KGS": 6.36,
-          "BYN": 3.65
+          "USD": 1056.95,
+          "KZT": 27354.41,
+          "UZS": 197.17,
+          "KGS": 6.4,
+          "BYN": 3.83
         },
         "pricePerPiece": "188.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,15",
+      "hsCode": "2,25",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995012",
       "casing": "Состав: филе грудок куриных,мясо кур.мехобвалки,вода,сыворотка молочная сухая,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)), соль,рег. кислотности(трифосфаты,пирофосфаты), стабилизатор(полифосфаты),пряности,экстракты специй и пряностей,сахара,антиокис.(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизаторы.",
@@ -1552,17 +1599,17 @@
         "priceExclVAT": "329.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2033.12,
-          "KZT": 50405.64,
-          "UZS": 362.01,
-          "KGS": 12.25,
-          "BYN": 7.04
+          "USD": 2035.19,
+          "KZT": 52671.79,
+          "UZS": 379.65,
+          "KGS": 12.33,
+          "BYN": 7.38
         },
         "pricePerPiece": "362.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,14",
+      "hsCode": "4,34",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995006",
       "casing": "Состав: филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо куриное мехобвалки халяль,белок соевый,крахмал картоф.,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафин.дезодорированное,соль, клетчатка,рег.кислотности(трифосфаты,пирофосфаты), загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив.(говяжий),сахара,антиокислитель(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизатор.",
@@ -1584,17 +1631,17 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1016.56,
-          "KZT": 25202.82,
-          "UZS": 181.0,
-          "KGS": 6.12,
-          "BYN": 3.52
+          "USD": 1017.59,
+          "KZT": 26335.89,
+          "UZS": 189.83,
+          "KGS": 6.16,
+          "BYN": 3.69
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,07",
+      "hsCode": "2,17",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995011",
       "casing": "Состав: филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо куриное мехобвалки халяль,белок соевый,крахмал картоф.,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафин.дезодорированное,соль, клетчатка,рег.кислотности(трифосфаты,пирофосфаты), загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив.(говяжий),сахара,антиокислитель(аскорбат натрия),усилитель вкуса и аромата(глутамат натрия),ароматизатор.",
@@ -1617,17 +1664,17 @@
         "priceExclVAT": "302.73",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1870.24,
-          "KZT": 46367.62,
-          "UZS": 333.01,
-          "KGS": 11.26,
-          "BYN": 6.47
+          "USD": 1872.15,
+          "KZT": 48452.23,
+          "UZS": 349.24,
+          "KGS": 11.34,
+          "BYN": 6.79
         },
         "pricePerPiece": "333.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "3,81",
+      "hsCode": "3,99",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995007",
       "casing": "Состав:филе куриных грудок,мясо кур.мехобвалки,говядина, белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),соль,рег.кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок жив.(говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),ароматизатор, краситель(понсо 4R).",
@@ -1646,17 +1693,17 @@
         "priceExclVAT": "150.91",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 932.31,
-          "KZT": 23114.19,
-          "UZS": 166.0,
-          "KGS": 5.62,
-          "BYN": 3.23
+          "USD": 933.26,
+          "KZT": 24153.36,
+          "UZS": 174.09,
+          "KGS": 5.65,
+          "BYN": 3.38
         },
         "pricePerPiece": "166.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "1,90",
+      "hsCode": "1,99",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995013",
       "casing": "Состав:филе куриных грудок,мясо кур.мехобвалки,говядина, белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),соль,рег.кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок жив.(говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),ароматизатор, краситель(понсо 4R).",
@@ -1675,17 +1722,17 @@
         "priceExclVAT": "329.09",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2033.12,
-          "KZT": 50405.64,
-          "UZS": 362.01,
-          "KGS": 12.25,
-          "BYN": 7.04
+          "USD": 2035.19,
+          "KZT": 52671.79,
+          "UZS": 379.65,
+          "KGS": 12.33,
+          "BYN": 7.38
         },
         "pricePerPiece": "362.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "4,14",
+      "hsCode": "4,34",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995008",
       "casing": "Состав:филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо кур.мехобвалки,белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафинир. дезодорир.,соль,клетчатка,рег.кислотности(трифосфаты, пирофосфаты),загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив. (говяжий),сахара,антиокислитель (аскорбат натрия),усилитель вкуса и аромата(глутамат натрия), ароматизатор.",
@@ -1707,17 +1754,17 @@
         "priceExclVAT": "164.55",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 1016.56,
-          "KZT": 25202.82,
-          "UZS": 181.0,
-          "KGS": 6.12,
-          "BYN": 3.52
+          "USD": 1017.59,
+          "KZT": 26335.89,
+          "UZS": 189.83,
+          "KGS": 6.16,
+          "BYN": 3.69
         },
         "pricePerPiece": "181.00"
       },
       "shelfLife": "0-6 ˚C",
       "storage": "160100",
-      "hsCode": "2,07",
+      "hsCode": "2,17",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "995010",
       "casing": "Состав:филе куриной грудки,стаб.белковый(вода питьевая,кожа куриная),мясо кур.мехобвалки,белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),масло подсолнечное рафинир. дезодорир.,соль,клетчатка,рег.кислотности(трифосфаты, пирофосфаты),загуститель(альгинат натрия),пряности,экстракты пряностей, белок жив. (говяжий),сахара,антиокислитель (аскорбат натрия),усилитель вкуса и аромата(глутамат натрия), ароматизатор.",
@@ -1739,17 +1786,17 @@
         "priceExclVAT": "541.67",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 3346.41,
-          "KZT": 82965.08,
-          "UZS": 595.85,
-          "KGS": 20.15,
-          "BYN": 11.58
+          "USD": 3349.81,
+          "KZT": 86695.05,
+          "UZS": 624.89,
+          "KGS": 20.29,
+          "BYN": 12.15
         },
         "pricePerPiece": "650.00"
       },
       "shelfLife": "0-12 ˚C",
       "storage": "160100",
-      "hsCode": "6,81",
+      "hsCode": "7,15",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999911",
       "casing": "Состав:конина,жир конский,посолочная смесь(поваренная соль,фиксатор окраски нитрит натрия),перец черный,чеснок,перец красный.",
@@ -1772,17 +1819,17 @@
         "priceExclVAT": "375.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2316.74,
-          "KZT": 57437.36,
-          "UZS": 412.51,
-          "KGS": 13.95,
-          "BYN": 8.02
+          "USD": 2319.1,
+          "KZT": 60019.65,
+          "UZS": 432.61,
+          "KGS": 14.05,
+          "BYN": 8.41
         },
         "pricePerPiece": "450.00"
       },
       "shelfLife": "0-12 ˚C",
       "storage": "160100",
-      "hsCode": "4,72",
+      "hsCode": "4,95",
       "articleNumber": "4,68E+12",
       "boxWeightGross": "999909",
       "barcode": "Аутентичный казылык, приготовленный по классической татарской рецептуре, нарезанный тонкими ломтиками для удобного использования в кафе, ресторанах, отелей, магазинах и кейтеринге. Богатый пряный букет, выразительная мясная нота и плотная структура делают продукт фаворитом для ассорти и восточных блюд. Халяль сертификация и прослеживаемость поставок гарантируются.",
@@ -1809,12 +1856,12 @@
         "pricePerBoxExclVAT": "2443.64",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 30.74,
-          "KZT": 15096.77,
-          "UZS": 374283.3,
-          "KGS": 2688.07,
-          "BYN": 90.93,
-          "AZN": 52.26
+          "USD": 32.24,
+          "KZT": 15111.55,
+          "UZS": 391095.62,
+          "KGS": 2818.96,
+          "BYN": 91.54,
+          "AZN": 54.8
         }
       },
       "shelfLife": "360 суток",
@@ -1836,12 +1883,12 @@
         "pricePerBoxExclVAT": "1605.27",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 20.19,
-          "KZT": 9917.33,
-          "UZS": 245873.27,
-          "KGS": 1765.84,
-          "BYN": 59.73,
-          "AZN": 34.33
+          "USD": 21.18,
+          "KZT": 9927.04,
+          "UZS": 256917.58,
+          "KGS": 1851.83,
+          "BYN": 60.13,
+          "AZN": 36.0
         }
       },
       "shelfLife": "360 суток",
@@ -1863,12 +1910,12 @@
         "pricePerBoxExclVAT": "2580.65",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 32.46,
-          "KZT": 15943.22,
-          "UZS": 395268.62,
-          "KGS": 2838.79,
-          "BYN": 96.02,
-          "AZN": 55.19
+          "USD": 34.04,
+          "KZT": 15958.82,
+          "UZS": 413023.57,
+          "KGS": 2977.02,
+          "BYN": 96.67,
+          "AZN": 57.87
         }
       },
       "shelfLife": "360 суток",
@@ -1890,12 +1937,12 @@
         "pricePerBoxExclVAT": "2693.67",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 33.88,
-          "KZT": 16641.45,
-          "UZS": 412579.47,
-          "KGS": 2963.11,
-          "BYN": 100.23,
-          "AZN": 57.6
+          "USD": 35.53,
+          "KZT": 16657.74,
+          "UZS": 431112.01,
+          "KGS": 3107.39,
+          "BYN": 100.9,
+          "AZN": 60.41
         }
       },
       "shelfLife": "360 суток",
@@ -1917,12 +1964,12 @@
         "pricePerBoxExclVAT": "3000.87",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 37.75,
-          "KZT": 18539.33,
-          "UZS": 459632.16,
-          "KGS": 3301.04,
-          "BYN": 111.66,
-          "AZN": 64.17
+          "USD": 39.59,
+          "KZT": 18557.47,
+          "UZS": 480278.24,
+          "KGS": 3461.78,
+          "BYN": 112.41,
+          "AZN": 67.3
         }
       },
       "shelfLife": "360 суток",
@@ -1944,12 +1991,12 @@
         "pricePerBoxExclVAT": "3191.56",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 40.15,
-          "KZT": 19717.41,
-          "UZS": 488839.44,
-          "KGS": 3510.81,
-          "BYN": 118.75,
-          "AZN": 68.25
+          "USD": 42.1,
+          "KZT": 19736.71,
+          "UZS": 510797.47,
+          "KGS": 3681.76,
+          "BYN": 119.55,
+          "AZN": 71.57
         }
       },
       "shelfLife": "360 суток",
@@ -1971,12 +2018,12 @@
         "pricePerBoxExclVAT": "3396.65",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 42.73,
-          "KZT": 20984.45,
-          "UZS": 520252.32,
-          "KGS": 3736.41,
-          "BYN": 126.39,
-          "AZN": 72.63
+          "USD": 44.81,
+          "KZT": 21004.99,
+          "UZS": 543621.38,
+          "KGS": 3918.35,
+          "BYN": 127.24,
+          "AZN": 76.17
         }
       },
       "shelfLife": "360 суток",
@@ -1998,12 +2045,12 @@
         "pricePerBoxExclVAT": "162.25",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.04,
-          "KZT": 1002.38,
-          "UZS": 24851.23,
-          "KGS": 178.48,
-          "BYN": 6.04,
-          "AZN": 3.47
+          "USD": 2.14,
+          "KZT": 1003.36,
+          "UZS": 25967.52,
+          "KGS": 187.17,
+          "BYN": 6.08,
+          "AZN": 3.64
         }
       },
       "shelfLife": "60 суток",
@@ -2025,12 +2072,12 @@
         "pricePerBoxExclVAT": "226.42",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 2.85,
-          "KZT": 1398.82,
-          "UZS": 34679.91,
-          "KGS": 249.07,
-          "BYN": 8.42,
-          "AZN": 4.84
+          "USD": 2.99,
+          "KZT": 1400.19,
+          "UZS": 36237.69,
+          "KGS": 261.2,
+          "BYN": 8.48,
+          "AZN": 5.08
         }
       },
       "shelfLife": "60 суток",
@@ -2052,12 +2099,12 @@
         "pricePerBoxExclVAT": "1200.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 15.09,
-          "KZT": 7413.58,
-          "UZS": 183799.56,
-          "KGS": 1320.03,
-          "BYN": 44.65,
-          "AZN": 25.66
+          "USD": 15.83,
+          "KZT": 7420.84,
+          "UZS": 192055.6,
+          "KGS": 1384.31,
+          "BYN": 44.95,
+          "AZN": 26.91
         }
       },
       "shelfLife": "360 суток",
@@ -2079,12 +2126,12 @@
         "pricePerBoxExclVAT": "1952.29",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 24.56,
-          "KZT": 12061.22,
-          "UZS": 299025.04,
-          "KGS": 2147.57,
-          "BYN": 72.64,
-          "AZN": 41.75
+          "USD": 25.75,
+          "KZT": 12073.02,
+          "UZS": 312456.86,
+          "KGS": 2252.15,
+          "BYN": 73.13,
+          "AZN": 43.78
         }
       },
       "shelfLife": "360 суток",
@@ -2106,12 +2153,12 @@
         "pricePerBoxExclVAT": "1968.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 24.76,
-          "KZT": 12158.28,
-          "UZS": 301431.28,
-          "KGS": 2164.86,
-          "BYN": 73.23,
-          "AZN": 42.08
+          "USD": 25.96,
+          "KZT": 12170.17,
+          "UZS": 314971.18,
+          "KGS": 2270.27,
+          "BYN": 73.72,
+          "AZN": 44.13
         }
       },
       "shelfLife": "360 суток",
@@ -2133,12 +2180,12 @@
         "pricePerBoxExclVAT": "1620.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 20.38,
-          "KZT": 10008.34,
-          "UZS": 248129.41,
-          "KGS": 1782.05,
-          "BYN": 60.28,
-          "AZN": 34.64
+          "USD": 21.37,
+          "KZT": 10018.13,
+          "UZS": 259275.06,
+          "KGS": 1868.82,
+          "BYN": 60.68,
+          "AZN": 36.33
         }
       },
       "shelfLife": "360 суток",
@@ -2160,12 +2207,12 @@
         "pricePerBoxExclVAT": "2553.60",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 32.12,
-          "KZT": 15776.1,
-          "UZS": 391125.47,
-          "KGS": 2809.03,
-          "BYN": 95.02,
-          "AZN": 54.61
+          "USD": 33.69,
+          "KZT": 15791.54,
+          "UZS": 408694.32,
+          "KGS": 2945.81,
+          "BYN": 95.66,
+          "AZN": 57.27
         }
       },
       "shelfLife": "360 суток",
@@ -2187,12 +2234,12 @@
         "pricePerBoxExclVAT": "1473.82",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 18.54,
-          "KZT": 9105.24,
-          "UZS": 225739.56,
-          "KGS": 1621.24,
-          "BYN": 54.84,
-          "AZN": 31.52
+          "USD": 19.44,
+          "KZT": 9114.15,
+          "UZS": 235879.49,
+          "KGS": 1700.19,
+          "BYN": 55.21,
+          "AZN": 33.05
         }
       },
       "shelfLife": "360 суток",
@@ -2214,12 +2261,12 @@
         "pricePerBoxExclVAT": "3012.22",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 37.89,
-          "KZT": 18609.45,
-          "UZS": 461370.6,
-          "KGS": 3313.53,
-          "BYN": 112.08,
-          "AZN": 64.41
+          "USD": 39.74,
+          "KZT": 18627.66,
+          "UZS": 482094.77,
+          "KGS": 3474.87,
+          "BYN": 112.84,
+          "AZN": 67.55
         }
       },
       "shelfLife": "360 суток",
@@ -2241,12 +2288,12 @@
         "pricePerBoxExclVAT": "3120.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 39.25,
-          "KZT": 19275.31,
-          "UZS": 477878.86,
-          "KGS": 3432.09,
-          "BYN": 116.09,
-          "AZN": 66.72
+          "USD": 41.16,
+          "KZT": 19294.18,
+          "UZS": 499344.56,
+          "KGS": 3599.21,
+          "BYN": 116.87,
+          "AZN": 69.97
         }
       },
       "shelfLife": "360 суток",
@@ -2268,12 +2315,12 @@
         "pricePerBoxExclVAT": "1210.00",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 15.22,
-          "KZT": 7475.36,
-          "UZS": 185331.22,
-          "KGS": 1331.03,
-          "BYN": 45.02,
-          "AZN": 25.87
+          "USD": 15.96,
+          "KZT": 7482.68,
+          "UZS": 193656.06,
+          "KGS": 1395.85,
+          "BYN": 45.33,
+          "AZN": 27.13
         }
       },
       "shelfLife": "360 суток",
@@ -2295,12 +2342,12 @@
         "pricePerBoxExclVAT": "1606.69",
         "availability": "https://schema.org/InStock",
         "exportPrices": {
-          "USD": 20.21,
-          "KZT": 9926.11,
-          "UZS": 246090.76,
-          "KGS": 1767.4,
-          "BYN": 59.78,
-          "AZN": 34.36
+          "USD": 21.19,
+          "KZT": 9935.82,
+          "UZS": 257144.84,
+          "KGS": 1853.46,
+          "BYN": 60.19,
+          "AZN": 36.03
         }
       },
       "shelfLife": "360 суток",
