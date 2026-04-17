@@ -74,9 +74,10 @@ jobs:
             SRV_CONF=$(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/ 2>/dev/null | head -1)
             echo "Server config: $SRV_CONF"
 
-            # 3) Create snippet that overrides /products.json and /api/products with static file
+            # 3) Create snippet that overrides SEO-critical files with static from VPS
             cat > /etc/nginx/snippets/pepperoni-static-data.conf <<'EOF'
-            # Serve catalog data and HTML pages directly from VPS — bypasses Vercel edge cache
+            # Serve SEO-critical files directly from VPS — bypasses Vercel edge cache
+            # Product catalog
             location = /products.json {
                 alias /var/www/pepperoni/static-api/products.json;
                 add_header Cache-Control "public, max-age=60, must-revalidate" always;
@@ -89,6 +90,58 @@ jobs:
                 add_header Access-Control-Allow-Origin "*" always;
                 default_type application/json;
             }
+
+            # SEO / discovery files
+            location = /robots.txt {
+                alias /var/www/pepperoni/repo/public/robots.txt;
+                add_header Cache-Control "public, max-age=300" always;
+                default_type text/plain;
+            }
+            location = /sitemap.xml {
+                alias /var/www/pepperoni/repo/public/sitemap.xml;
+                add_header Cache-Control "public, max-age=300" always;
+                default_type application/xml;
+            }
+            location = /rss.xml {
+                alias /var/www/pepperoni/repo/public/rss.xml;
+                add_header Cache-Control "public, max-age=300" always;
+                default_type application/rss+xml;
+            }
+            location = /feed.xml {
+                alias /var/www/pepperoni/repo/public/feed.xml;
+                add_header Cache-Control "public, max-age=300" always;
+                default_type application/atom+xml;
+            }
+            location = /llms.txt {
+                alias /var/www/pepperoni/repo/public/llms.txt;
+                add_header Cache-Control "public, max-age=300" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                default_type text/plain;
+            }
+            location = /llms-full.txt {
+                alias /var/www/pepperoni/repo/public/llms-full.txt;
+                add_header Cache-Control "public, max-age=300" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                default_type text/plain;
+            }
+            location = /manifest.json {
+                alias /var/www/pepperoni/repo/public/manifest.json;
+                add_header Cache-Control "public, max-age=3600" always;
+                default_type application/json;
+            }
+            location = /openapi.yaml {
+                alias /var/www/pepperoni/repo/public/openapi.yaml;
+                add_header Cache-Control "public, max-age=300" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                default_type application/x-yaml;
+            }
+            location ^~ /.well-known/ {
+                root /var/www/pepperoni/repo/public;
+                add_header Cache-Control "public, max-age=300" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                try_files $uri =404;
+            }
+
             # RU product pages
             location ^~ /products/ {
                 root /var/www/pepperoni/repo/public;
@@ -100,6 +153,32 @@ jobs:
             location ^~ /en/products/ {
                 root /var/www/pepperoni/repo/public;
                 try_files $uri $uri.html $uri/index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
+            }
+            # Main static HTML pages (home, category, blog index, etc.)
+            location = / {
+                root /var/www/pepperoni/repo/public;
+                try_files /index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
+            }
+            location = /en/ {
+                root /var/www/pepperoni/repo/public;
+                try_files /en/index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
+            }
+            # Category / landing pages (pepperoni, bakery, about, etc.) — static HTML with clean URLs
+            location ~ ^/(pepperoni|bakery|about|delivery|faq|blog|kazylyk|pizzeria|sosiski-dlya-hotdog|sosiski-halyal|vetchina-optom|kolbasy-kopchyonye|kolbasy-varenye|kotlety-dlya-burgerov|vyipechka-halyal|myasnyie-zagotovki|pepperoni-dlya-horeca|pepperoni-dlya-pizzerii|pepperoni-optom|pepperoni-private-label|pepperoni-v-narezke)$ {
+                root /var/www/pepperoni/repo/public;
+                try_files $uri.html $uri/index.html =404;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                default_type text/html;
+            }
+            location ~ ^/en/(pepperoni|bakery|about|delivery|faq|blog|kazylyk|pizzeria)$ {
+                root /var/www/pepperoni/repo/public;
+                try_files $uri.html $uri/index.html =404;
                 add_header Cache-Control "public, max-age=60, must-revalidate" always;
                 default_type text/html;
             }
@@ -120,7 +199,7 @@ jobs:
             nginx -t 2>&1 | tail -5
             if nginx -t 2>/dev/null; then
               systemctl reload nginx || nginx -s reload
-              echo "✅ nginx reloaded — products.json and /api/products now served from VPS"
+              echo "✅ nginx reloaded — SEO files + static pages now served from VPS"
             else
               echo "❌ nginx config error, rolling back"
               for conf in $(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/); do
@@ -131,10 +210,10 @@ jobs:
 
             # 6) Local smoke test
             echo "=== Smoke test (localhost) ==="
-            curl -s -H "Host: pepperoni.tatar" http://127.0.0.1/products.json 2>&1 | head -c 200
-            echo ""
-            curl -s -H "Host: pepperoni.tatar" http://127.0.0.1/api/products 2>&1 | head -c 200
-            echo ""
+            for path in /products.json /api/products /llms.txt /robots.txt /sitemap.xml /.well-known/ai-meta.json /; do
+              code=$(curl -s -o /dev/null -w "%{http_code}" -H "Host: pepperoni.tatar" "http://127.0.0.1$path")
+              echo "  $path → $code"
+            done
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
