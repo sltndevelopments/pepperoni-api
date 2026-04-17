@@ -35,7 +35,7 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
 
-      - name: Clear nginx proxy cache on VPS
+      - name: Serve products.json + /api/products directly from VPS (bypass Vercel cache)
         continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -43,21 +43,74 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "=== Finding nginx cache directories ==="
-            CACHE_DIRS=$(nginx -T 2>/dev/null | grep -oE "proxy_cache_path\s+[^ ]+" | awk '{print $2}' | sort -u)
-            echo "From config: $CACHE_DIRS"
+            set -x
+            # 1) Generate /api/products flat JSON from the freshly rsynced products.json
+            mkdir -p /var/www/pepperoni/static-api/api
+            cp -f /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/static-api/products.json
+            node -e "
+              const fs=require('fs');
+              const d=JSON.parse(fs.readFileSync('/var/www/pepperoni/static-api/products.json','utf8'));
+              const out={lastSynced:d.lastSynced,total:(d.products||[]).length,products:(d.products||[]).map(p=>({
+                sku:p.sku, name:p.name, price:parseFloat(p.offers?.price||0), currency:p.offers?.priceCurrency||'RUB',
+                image:p.image, brand:p.brand?.name, availability:p.offers?.availability
+              }))};
+              fs.writeFileSync('/var/www/pepperoni/static-api/api/products.json',JSON.stringify(out));
+            " || cp /var/www/pepperoni/static-api/products.json /var/www/pepperoni/static-api/api/products.json
 
-            # Known common cache paths
-            for d in $CACHE_DIRS /var/cache/nginx /var/cache/nginx/proxy /tmp/nginx_cache /var/www/pepperoni/cache; do
-              if [ -d "$d" ]; then
-                find "$d" -type f -delete 2>/dev/null && echo "  Cleared: $d"
-              fi
-            done
+            chown -R www-data:www-data /var/www/pepperoni/static-api 2>/dev/null || true
+            chmod -R a+r /var/www/pepperoni/static-api
 
-            echo "=== Reload nginx ==="
-            nginx -t 2>&1 | tail -3
-            systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
-            echo "✅ nginx cache cleared and reloaded"
+            # 2) Find the server block serving pepperoni.tatar
+            SRV_CONF=$(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/ 2>/dev/null | head -1)
+            echo "Server config: $SRV_CONF"
+
+            # 3) Create snippet that overrides /products.json and /api/products with static file
+            cat > /etc/nginx/snippets/pepperoni-static-data.conf <<'EOF'
+            # Serve catalog data directly from VPS — bypasses Vercel edge cache
+            location = /products.json {
+                alias /var/www/pepperoni/static-api/products.json;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                default_type application/json;
+            }
+            location = /api/products {
+                alias /var/www/pepperoni/static-api/api/products.json;
+                add_header Cache-Control "public, max-age=60, must-revalidate" always;
+                add_header Access-Control-Allow-Origin "*" always;
+                default_type application/json;
+            }
+            EOF
+
+            # 4) Include snippet into each pepperoni.tatar server block (once)
+            if [ -n "$SRV_CONF" ]; then
+              for conf in $(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/); do
+                if ! grep -q "pepperoni-static-data.conf" "$conf"; then
+                  # Insert include inside each server { ... } block after server_name line
+                  sed -i '/server_name[[:space:]]\+[^;]*pepperoni\.tatar[^;]*;/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;' "$conf"
+                  echo "Added include to: $conf"
+                fi
+              done
+            fi
+
+            # 5) Test and reload
+            nginx -t 2>&1 | tail -5
+            if nginx -t 2>/dev/null; then
+              systemctl reload nginx || nginx -s reload
+              echo "✅ nginx reloaded — products.json and /api/products now served from VPS"
+            else
+              echo "❌ nginx config error, rolling back"
+              for conf in $(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/); do
+                sed -i '/include \/etc\/nginx\/snippets\/pepperoni-static-data.conf;/d' "$conf"
+              done
+              nginx -t && systemctl reload nginx
+            fi
+
+            # 6) Local smoke test
+            echo "=== Smoke test (localhost) ==="
+            curl -s -H "Host: pepperoni.tatar" http://127.0.0.1/products.json 2>&1 | head -c 200
+            echo ""
+            curl -s -H "Host: pepperoni.tatar" http://127.0.0.1/api/products 2>&1 | head -c 200
+            echo ""
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
