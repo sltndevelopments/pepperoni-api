@@ -1,26 +1,101 @@
 {
-  "source": "https://www.pepperoni.tatar",
-  "organization": "Kazan Delicacies",
+  "schema_version": "1.0",
+  "source": "https://pepperoni.tatar",
+  "organization": "Kazan Delicacies / Казанские Деликатесы",
+  "legal_name": "ООО «Казанские Деликатесы»",
+  "brand": "Pepperoni.tatar",
+  "founded": "2022",
+  "location": {
+    "country": "RU",
+    "region": "Tatarstan",
+    "city": "Kazan",
+    "address": "ул. Аграрная, 2",
+    "postal_code": "420059",
+    "geo": { "lat": 55.7945, "lon": 49.1110 }
+  },
+  "contact": {
+    "email": "info@kazandelikates.tatar",
+    "phone": "+79872170202",
+    "whatsapp": "+79872170202",
+    "telegram_bot": "@KazanDel_Bot"
+  },
+  "product_count": 77,
+  "categories": [
+    "pepperoni", "sausages", "ham", "smoked-meat", "kazylyk",
+    "burger-patties", "meat-prep", "tatar-bakery", "classic-bakery"
+  ],
+  "certifications": [
+    { "type": "halal", "issuer": "DUM RT", "number": "614A/2024" },
+    { "type": "HACCP" },
+    { "type": "ISO", "standard": "22000:2018" },
+    { "type": "FSSC 22000" },
+    { "type": "TR TS 034/2013" }
+  ],
+  "languages": ["ru", "en"],
+  "currencies": ["RUB", "USD", "KZT", "UZS", "KGS", "BYN", "AZN"],
+  "export_markets": ["RU", "KZ", "BY", "UZ", "KG", "AZ", "AM", "AE", "SA", "GCC"],
+  "business_model": ["B2B", "wholesale", "HoReCa", "private-label", "export"],
+  "minimum_order_kg": 20,
+  "delivery_terms": "EXW Kazan",
   "datasets": [
     {
       "name": "pepperoni_products_live",
-      "url": "https://api.pepperoni.tatar/api/products",
+      "url": "https://pepperoni.tatar/api/products",
       "format": "json",
-      "description": "Live product catalog synced with Google Sheets. 25+ halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
-      "updateFrequency": "hourly"
+      "description": "Live B2B catalog of 77 halal meat products and Tatar pastries with prices in 7 currencies. Synced with Google Sheets every 10 minutes.",
+      "update_frequency": "10 minutes",
+      "language": ["ru", "en"]
     },
     {
       "name": "pepperoni_products_static",
-      "url": "https://api.pepperoni.tatar/products.json",
+      "url": "https://pepperoni.tatar/products.json",
       "format": "json",
-      "description": "Static product catalog with 25 halal meat products."
+      "description": "Full static product catalog with complete schema.org Product markup, images, multi-currency prices, ingredients and specs."
     },
     {
-      "name": "pepperoni_price_list",
+      "name": "pepperoni_llms_full",
+      "url": "https://pepperoni.tatar/llms-full.txt",
+      "format": "text/plain",
+      "description": "Full text digest of all 77 products + blog + categories + FAQ for LLM ingestion."
+    },
+    {
+      "name": "pepperoni_openapi",
+      "url": "https://pepperoni.tatar/openapi.yaml",
+      "format": "openapi-3.1",
+      "description": "Complete API specification with search, filters, single-product lookup, export price-list endpoints."
+    },
+    {
+      "name": "pepperoni_sitemap",
+      "url": "https://pepperoni.tatar/sitemap.xml",
+      "format": "xml",
+      "description": "XML sitemap with 350+ pages (products, categories, blog, geo pages)."
+    },
+    {
+      "name": "pepperoni_price_list_csv",
       "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv",
       "format": "csv",
-      "description": "Original price list from Google Sheets in CSV format."
+      "description": "Original price list from Google Sheets (public CSV)."
     }
   ],
-  "updated_at": "2026-01-08T12:00:00Z"
+  "ai_policy": {
+    "content_use": "allow",
+    "training_use": "allow-with-attribution",
+    "attribution_format": "Source: Kazan Delicacies / pepperoni.tatar",
+    "contact_for_licensing": "info@kazandelikates.tatar"
+  },
+  "ai_bots_allowed": [
+    "GPTBot", "ChatGPT-User", "OAI-SearchBot",
+    "ClaudeBot", "anthropic-ai", "Claude-Web",
+    "PerplexityBot", "Perplexity-User",
+    "Googlebot", "Google-Extended", "Bingbot",
+    "YandexBot", "YandexAdditional",
+    "DeepSeekBot", "Grok", "Applebot-Extended",
+    "cohere-ai", "Meta-ExternalAgent", "Bytespider"
+  ],
+  "same_as": [
+    "https://pepperoni.tatar",
+    "https://kazandelikates.tatar",
+    "https://pepperoni-api.vercel.app"
+  ],
+  "updated_at": "2026-04-17T14:00:00Z"
 }

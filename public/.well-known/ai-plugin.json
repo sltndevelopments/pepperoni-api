@@ -1,18 +1,24 @@
 {
   "schema_version": "v1",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "name_for_human": "Казанские Деликатесы — Халяль продукция API",
   "name_for_model": "kazan_delikates",
   "description_for_human": "Полный каталог халяль продукции Казанских Деликатесов: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка. Актуальные цены в 7 валютах.",
-  "description_for_model": "Use this API to fetch structured data about halal meat products and Tatar pastries from Kazan Delicacies (Казанские Деликатесы), a B2B halal food manufacturer based in Kazan, Tatarstan, Russia (since 2022). 77+ products across frozen meats, refrigerated meats, and bakery. Includes pepperoni, sausages, ham, smoked meats, kazylyk, gubadiya, echpochmak, chak-chak. Prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN). Delivery: EXW Kazan. Halal certified #614A/2024 (DUM RT). HACCP. ISO 22000:2018. Private Label / white-label production available. Export to UAE, GCC, Kazakhstan, Uzbekistan, Africa, China. Target customers: HoReCa, fast food, pizzerias, dark kitchens, gas stations, retail chains, distributors. Use search endpoint for product lookup, product endpoint for details by SKU, export endpoint for price lists in Excel/CSV.",
+  "description_for_model": "Public read-only API for Kazan Delicacies (Казанские Деликатесы, brand Pepperoni.tatar), a halal meat and Tatar bakery B2B manufacturer from Kazan, Republic of Tatarstan, Russia (founded 2022). 77 SKUs across 11 categories: pepperoni (beef/chicken/horse), sausages, ham, smoked and boiled sausages, kazylyk (traditional horse-meat delicacy), burger patties, meat preparations (minced beef, chicken fillet, cubed meats), classic bakery (muffins, croissants, donuts) and Tatar bakery (echpochmak, gubadiya, chak-chak, samsa, elesh, peremyach, chebureks). All products are Halal certified by DUM RT (certificate #614A/2024), HACCP, ISO 22000:2018 (FSSC 22000) compliant. Prices available in 7 currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN. Target buyers: HoReCa, pizzerias, dark kitchens, fast food chains, gas stations, retail chains, wholesale distributors, private-label partners. Minimum wholesale order: 20 kg. Delivery: EXW Kazan. Export to Russia, Kazakhstan, Belarus, Uzbekistan, Kyrgyzstan, Azerbaijan, Armenia, UAE, Saudi Arabia, GCC, and Africa. Use GET /api/products for full catalog (JSON), GET /products.json for static catalog with full schema.org Product markup, GET /openapi.yaml for complete API spec.",
   "auth": { "type": "none" },
   "api": {
     "type": "openapi",
-    "url": "https://api.pepperoni.tatar/openapi.yaml",
+    "url": "https://pepperoni.tatar/openapi.yaml",
     "is_user_authenticated": false
   },
-  "logo_url": "https://pepperoni.tatar/images/logo.png",
+  "logo_url": "https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_512,h_512,c_pad,b_rgb:1b7a3d/l_text:Arial_96_bold:KD,co_rgb:FFFFFF/fl_layer_apply,g_center/v1/logo-placeholder.png",
   "contact_email": "info@kazandelikates.tatar",
-  "legal_info_url": "https://kazandelikates.tatar"
+  "legal_info_url": "https://kazandelikates.tatar",
+  "endpoints": {
+    "catalog_json": "https://pepperoni.tatar/products.json",
+    "catalog_live": "https://pepperoni.tatar/api/products",
+    "llms_digest": "https://pepperoni.tatar/llms-full.txt",
+    "sitemap": "https://pepperoni.tatar/sitemap.xml",
+    "rss_blog": "https://pepperoni.tatar/rss.xml"
+  }
 }
-

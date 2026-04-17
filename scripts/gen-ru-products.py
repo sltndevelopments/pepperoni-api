@@ -73,6 +73,127 @@ def load_products():
     return []
 
 
+_CUR_SYMS = {"USD": "$", "RUB": "₽", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
+
+
+def _product_schema(p, slug, name, price_rub, main_img, weight):
+    url = f"https://pepperoni.tatar/products/{slug}"
+    offers = []
+    if price_rub:
+        offers.append({
+            "@type": "Offer",
+            "url": url,
+            "priceCurrency": "RUB",
+            "price": str(price_rub),
+            "availability": "https://schema.org/InStock",
+            "priceValidUntil": f"{datetime.now().year + 1}-12-31",
+            "itemCondition": "https://schema.org/NewCondition",
+            "seller": {
+                "@type": "Organization",
+                "name": "Казанские Деликатесы",
+                "url": "https://pepperoni.tatar"
+            }
+        })
+    for cur, val in (p.get("offers", {}).get("exportPrices") or {}).items():
+        if val and cur != "RUB":
+            try:
+                offers.append({
+                    "@type": "Offer",
+                    "url": url,
+                    "priceCurrency": cur,
+                    "price": str(val),
+                    "availability": "https://schema.org/InStock",
+                    "priceValidUntil": f"{datetime.now().year + 1}-12-31"
+                })
+            except Exception:
+                pass
+    desc_full = p.get("seoDescriptionRU") or p.get("descriptionRU") or ""
+    if not desc_full:
+        desc_full = f"{name}. Халяль. {p.get('category','')}. Производитель: Казанские Деликатесы."
+    desc_full = " ".join(str(desc_full).split())[:700]
+
+    images = []
+    for img_key in ("imageMain", "image", "imagePack", "imageSlice"):
+        v = p.get(img_key)
+        if v and v not in images:
+            images.append(v)
+    if main_img and main_img not in images:
+        images.insert(0, main_img)
+    if not images:
+        images = ["https://pepperoni.tatar/og-default.png"]
+
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "@id": url,
+        "name": name,
+        "sku": p.get("sku", ""),
+        "mpn": p.get("articleNumber") or p.get("sku", ""),
+        "url": url,
+        "image": images if len(images) > 1 else images[0],
+        "description": desc_full,
+        "category": p.get("category", "") or p.get("section", ""),
+        "brand": {"@type": "Brand", "name": "Казанские Деликатесы"},
+        "manufacturer": {
+            "@type": "Organization",
+            "name": "ООО «Казанские Деликатесы»",
+            "url": "https://kazandelikates.tatar",
+            "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Казань",
+                "addressRegion": "Татарстан",
+                "addressCountry": "RU"
+            }
+        },
+        "countryOfOrigin": {"@type": "Country", "name": "Россия"},
+        "isAccessoryOrSparePartFor": None,
+        "offers": offers if len(offers) > 1 else (offers[0] if offers else None),
+        "additionalProperty": []
+    }
+    if weight:
+        schema["weight"] = {"@type": "QuantitativeValue", "value": str(weight)}
+    if p.get("barcode"):
+        schema["gtin"] = str(p["barcode"])
+    if p.get("shelfLife"):
+        schema["additionalProperty"].append({"@type": "PropertyValue", "name": "Срок годности", "value": p["shelfLife"]})
+    if p.get("storage"):
+        schema["additionalProperty"].append({"@type": "PropertyValue", "name": "Условия хранения", "value": p["storage"]})
+    if p.get("ingredientsRU"):
+        schema["additionalProperty"].append({"@type": "PropertyValue", "name": "Состав", "value": p["ingredientsRU"][:400]})
+    schema["additionalProperty"].append({"@type": "PropertyValue", "name": "Халяль", "value": "Да, сертификат ДУМ РТ №614A/2024"})
+    schema["additionalProperty"].append({"@type": "PropertyValue", "name": "Стандарт качества", "value": "ХАССП, ISO 22000:2018"})
+    if not schema["additionalProperty"]:
+        schema.pop("additionalProperty")
+    schema.pop("isAccessoryOrSparePartFor", None)
+    if not schema.get("offers"):
+        schema.pop("offers", None)
+    return schema
+
+
+def _faq_schema(p, name):
+    sku = p.get("sku", "")
+    category = p.get("category", "") or "мясной продукт"
+    shelf = p.get("shelfLife") or "уточняется"
+    storage = p.get("storage") or "см. упаковку"
+    min_order = p.get("minOrder") or "от 20 кг"
+    faqs = [
+        {"q": f"Это халяль?", "a": f"Да, {name} — халяль продукция. Сертифицировано ДУМ Республики Татарстан, сертификат №614A/2024. Производство соответствует стандартам ХАССП и ISO 22000:2018."},
+        {"q": "Можно ли купить оптом?", "a": f"Да, минимальная партия — {min_order}. Мы работаем с HoReCa, пиццериями, dark-kitchen, сетевым ритейлом, дистрибьюторами и экспортёрами. Цена зависит от объёма."},
+        {"q": "Какой срок годности?", "a": f"Срок годности: {shelf}. Условия хранения: {storage}."},
+        {"q": "В каких валютах доступна цена?", "a": "Прайс доступен в 7 валютах: RUB, USD, KZT (Казахстан), UZS (Узбекистан), KGS (Кыргызстан), BYN (Беларусь), AZN (Азербайджан). Условия поставки — EXW Казань."},
+        {"q": "Есть ли Private Label / СТМ?", "a": "Да, мы производим собственные торговые марки (СТМ / Private Label) для сетей и дистрибьюторов. Минимальная партия и брендирование оболочки/упаковки обсуждаются индивидуально."},
+        {"q": "Как заказать?", "a": f"Напишите в Telegram @KazanDel_Bot (укажите артикул {sku}), WhatsApp +7 987 217-02-02 или на почту info@kazandelikates.tatar. Работаем по России, СНГ, экспортируем в ОАЭ и страны Персидского залива."},
+    ]
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+            {"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}}
+            for f in faqs
+        ]
+    }
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
@@ -188,7 +309,10 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{json.dumps(_product_schema(p, slug, name, price_rub, main_img, weight), ensure_ascii=False, separators=(',',':'))}
+</script>
+<script type="application/ld+json">
+{json.dumps(_faq_schema(p, name), ensure_ascii=False, separators=(',',':'))}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -315,8 +439,19 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Способы приготовления</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
+
+        # Visible FAQ (matches FAQPage schema) for humans and AI Overview
+        faq_items = _faq_schema(p, name)["mainEntity"]
+        faq_html = '<div class="section-block"><h2 class="section-title">Частые вопросы (FAQ)</h2>'
+        for item in faq_items:
+            q = item["name"].replace("<", "&lt;")
+            a = item["acceptedAnswer"]["text"].replace("<", "&lt;")
+            faq_html += f'<details style="border-bottom:1px solid #eee;padding:12px 0"><summary style="font-weight:600;cursor:pointer;font-size:.95rem;color:#1a1a1a">{q}</summary><p style="margin-top:10px;font-size:.9rem;color:#444;line-height:1.6">{a}</p></details>'
+        faq_html += "</div>\n"
+        html += faq_html
+
         html += '''<footer>
-<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="https://api.pepperoni.tatar/">Для дистрибьюторов (API)</a></p>
+<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/products.json">API (JSON)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
