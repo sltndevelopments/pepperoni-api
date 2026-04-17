@@ -185,34 +185,56 @@ jobs:
             EOF
 
             # 4) Include snippet into each pepperoni.tatar server block (once)
-            if [ -n "$SRV_CONF" ]; then
-              for conf in $(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/); do
-                if ! grep -q "pepperoni-static-data.conf" "$conf"; then
-                  # Insert include inside each server { ... } block after server_name line
-                  sed -i '/server_name[[:space:]]\+[^;]*pepperoni\.tatar[^;]*;/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;' "$conf"
-                  echo "Added include to: $conf"
-                fi
-              done
+            echo "=== 4a. Server blocks with pepperoni.tatar ==="
+            grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/ 2>/dev/null || echo "(none found via server_name regex)"
+            CONFS=$(grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/ 2>/dev/null)
+            if [ -z "$CONFS" ]; then
+              # Fallback: any config mentioning pepperoni.tatar as server_name
+              CONFS=$(grep -rlE "pepperoni\.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null)
+              echo "Fallback CONFS: $CONFS"
             fi
+            for conf in $CONFS; do
+              if ! grep -q "pepperoni-static-data.conf" "$conf"; then
+                # Try insertion after server_name line
+                if grep -qE "server_name[[:space:]]+[^;]*pepperoni\.tatar" "$conf"; then
+                  sed -i '/server_name[[:space:]]\+[^;]*pepperoni\.tatar[^;]*;/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;' "$conf"
+                  echo "  ✅ Added include (after server_name) to: $conf"
+                else
+                  # Fallback: insert right after the first listen 443 line in that file
+                  sed -i '0,/listen[[:space:]]\+443/{/listen[[:space:]]\+443/a\    include /etc/nginx/snippets/pepperoni-static-data.conf;
+                  }' "$conf"
+                  echo "  ✅ Added include (after listen 443) to: $conf"
+                fi
+              else
+                echo "  ℹ️  already included in: $conf"
+              fi
+            done
+
+            echo "=== 4b. Verify include is actually in effective nginx -T ==="
+            nginx -T 2>/dev/null | grep -c "pepperoni-static-data.conf" || echo "0 include references — BAD"
 
             # 5) Test and reload
-            nginx -t 2>&1 | tail -5
+            echo "=== 5. nginx -t ==="
+            nginx -t 2>&1 | tail -8
             if nginx -t 2>/dev/null; then
               systemctl reload nginx || nginx -s reload
-              echo "✅ nginx reloaded — SEO files + static pages now served from VPS"
+              echo "✅ nginx reloaded"
             else
-              echo "❌ nginx config error, rolling back"
-              for conf in $(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/); do
+              echo "❌ nginx config error — DO NOT rollback, show config around errors:"
+              nginx -t 2>&1 | head -20
+              for conf in $CONFS; do
                 sed -i '/include \/etc\/nginx\/snippets\/pepperoni-static-data.conf;/d' "$conf"
               done
               nginx -t && systemctl reload nginx
             fi
 
-            # 6) Local smoke test
-            echo "=== Smoke test (localhost) ==="
-            for path in /products.json /api/products /llms.txt /robots.txt /sitemap.xml /.well-known/ai-meta.json /; do
-              code=$(curl -s -o /dev/null -w "%{http_code}" -H "Host: pepperoni.tatar" "http://127.0.0.1$path")
-              echo "  $path → $code"
+            # 6) Local smoke test — verify VPS serves SEO files directly (no x-vercel-cache)
+            echo "=== 6. Smoke test (localhost) ==="
+            for path in /products.json /api/products /llms.txt /robots.txt /sitemap.xml /.well-known/ai-meta.json / /products/kd-001; do
+              resp=$(curl -sI -H "Host: pepperoni.tatar" "http://127.0.0.1$path" 2>&1)
+              code=$(echo "$resp" | head -1 | awk '{print $2}')
+              vercel=$(echo "$resp" | grep -i "x-vercel-cache" | head -1 | tr -d '\r')
+              echo "  $path → HTTP $code  ${vercel:-'(no vercel header, good)'}"
             done
 
       - name: Write SEO Agent env file on VPS
