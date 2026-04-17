@@ -12,8 +12,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout
+      - name: Checkout (STARTUP-AIO — Vercel production branch)
         uses: actions/checkout@v4
+        with:
+          ref: STARTUP-AIO
 
       - name: Setup Python
         uses: actions/setup-python@v5
