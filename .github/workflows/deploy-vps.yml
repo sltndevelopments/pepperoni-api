@@ -308,7 +308,7 @@ jobs:
             fi
             echo "=== Current crontab ===" && crontab -l
 
-      - name: Fix nginx config and SSL on VPS
+      - name: Delete stale certbot backups (prevents accidental nginx-conf rollback)
         continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -316,40 +316,8 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "=== 1. Certbot backup files ==="
-            find /etc/nginx -name "*.certbot.bak*" 2>/dev/null || echo "No backups found"
-
-            echo "=== 2. Current nginx config (relevant lines) ==="
-            nginx -T 2>/dev/null | grep -E "server_name|root |ssl_cert|listen|403|deny" | head -40 || true
-
-            echo "=== 3. Restore from certbot backup ==="
-            find /etc/nginx -name "*.certbot.bak*" 2>/dev/null | while read bak; do
-              # Strip certbot suffix (handles .certbot.bak and .certbot.bak.TIMESTAMP)
-              original=$(echo "$bak" | sed 's/\.certbot\.bak.*//')
-              if [ -f "$original" ] || [ ! -f "$original" ]; then
-                cp "$bak" "$original"
-                echo "  Restored: $bak -> $original"
-              fi
-            done
-
-            echo "=== 4. Update SSL cert path to new Let's Encrypt cert ==="
-            CERT_DIR="/etc/letsencrypt/live/pepperoni.tatar"
-            if [ -f "$CERT_DIR/fullchain.pem" ]; then
-              for conf in $(find /etc/nginx -name "*.conf" -not -name "*.bak*" 2>/dev/null); do
-                if grep -q "pepperoni\|ssl_certificate" "$conf" 2>/dev/null; then
-                  sed -i "s|ssl_certificate [^;]*;|ssl_certificate $CERT_DIR/fullchain.pem;|g" "$conf"
-                  sed -i "s|ssl_certificate_key [^;]*;|ssl_certificate_key $CERT_DIR/privkey.pem;|g" "$conf"
-                  echo "  Updated SSL in: $conf"
-                fi
-              done
-            fi
-
-            echo "=== 5. nginx -t ==="
-            nginx -t 2>&1 || true
-
-            echo "=== 6. Reload nginx ==="
-            systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
-
-            echo "=== 7. Test endpoint ==="
-            sleep 2
-            curl -sk https://localhost/ -H "Host: pepperoni.tatar" | head -c 200 || true
+            # These .certbot.bak files were used during a one-off SSL repair; they are now stale
+            # and would silently revert the pepperoni-static-data.conf include if ever restored.
+            find /etc/nginx -name "*.certbot.bak*" -mtime +0 -delete 2>/dev/null || true
+            echo "✅ stale certbot backups purged (if any)"
+            nginx -t && (systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true)
