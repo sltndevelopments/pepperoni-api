@@ -99,45 +99,15 @@ def save_page_record(slug, product_id, city_slug, country_code, lang, template_i
 
 
 # ── HTTP helper ───────────────────────────────────────────────────────────────
+# Delegates to the shared claude_client (multi-proxy failover + socket timeout +
+# auto-fallback to direct) so a dead proxy no longer hangs the runner for 6h.
+sys.path.insert(0, os.path.dirname(__file__))
+from claude_client import call_claude as _shared_call_claude  # noqa: E402
+
+
 def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
-    """Call Claude API. Returns (text, tokens_used)."""
-    import urllib.request
-    import urllib.error
-
-    if not CLAUDE_API_KEY:
-        raise RuntimeError("CLAUDE_API_KEY not set")
-
-    headers = {
-        "x-api-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-    }
-    body = json.dumps({
-        "model": CLAUDE_MODEL,
-        "max_tokens": max_tokens,
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
-
-    proxies = {}
-    if SOCKS_PROXY:
-        try:
-            import socks
-            import socket
-            proxy_host, proxy_port = SOCKS_PROXY.replace("socks5://", "").split(":")
-            socks.set_default_proxy(socks.SOCKS5, proxy_host, int(proxy_port))
-            socket.socket = socks.socksocket
-        except Exception:
-            pass
-
-    req = urllib.request.Request(CLAUDE_ENDPOINT, data=body, headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            data = json.loads(resp.read())
-            text = data["content"][0]["text"]
-            tokens = data.get("usage", {}).get("output_tokens", 0)
-            return text, tokens
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"Claude API error {e.code}: {e.read().decode()}")
+    """Call Claude API via shared client. Returns (text, tokens_used)."""
+    return _shared_call_claude(prompt=prompt, model=CLAUDE_MODEL, max_tokens=max_tokens)
 
 
 # ── Slug helpers ──────────────────────────────────────────────────────────────

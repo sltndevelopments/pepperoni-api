@@ -39,9 +39,14 @@ env:
 permissions:
   contents: write
 
+concurrency:
+  group: seo-agent
+  cancel-in-progress: false
+
 jobs:
   agent:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
