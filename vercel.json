@@ -34,5 +34,14 @@
     { "source": "/pepperoni-dlya-setey", "destination": "/dlya-setey", "permanent": true },
     { "source": "/pepperoni-dlya-horeca", "destination": "/dlya-horeca", "permanent": true },
     { "source": "/pepperoni-dlya-distribyutorov", "destination": "/dlya-distributorov", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/api/v1/products",      "destination": "/api/products"      },
+    { "source": "/api/v1/health",        "destination": "/api/health"        },
+    { "source": "/api/v1/stats",         "destination": "/api/stats"         },
+    { "source": "/api/v1/search",        "destination": "/api/search"        },
+    { "source": "/api/v1/export",        "destination": "/api/export"        },
+    { "source": "/api/v1/price-lead",    "destination": "/api/price-lead"    },
+    { "source": "/api/v1/product/:sku",  "destination": "/api/product/:sku"  }
   ]
 }
