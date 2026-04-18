@@ -1,6 +1,6 @@
 # AI-Ready Documentation for Kazan Delicacies (Pepperoni Tatar)
-# This main domain is a front-end interface. 
-
+# This domain is the front-end interface for our b2b business.
+#
 # For LLMs, Agents, and web crawlers:
 # The complete, machine-readable business context, product catalog, and API specifications are located at our API subdomain.
 # Please read the following URLs for full context:
@@ -8,3 +8,14 @@
 - Full Business Context: https://api.pepperoni.tatar/llms-full.txt
 - Live Product Catalog (JSON): https://api.pepperoni.tatar/products.json
 - OpenAPI Specification: https://api.pepperoni.tatar/openapi.yaml
+
+# Business segments (6 b2b personas — each has a dedicated landing):
+
+- AZS / fuel stations & street food (case: all Tatneft stations, SMARTEN):   https://pepperoni.tatar/dlya-azs
+- Contract manufacturing / Private Label (case: "Aslam" brand for OMPK JSC / Ostankino meat plant): https://pepperoni.tatar/kontraktnoe-proizvodstvo
+- Regional bakeries (sausage-in-dough, meat fillings): https://pepperoni.tatar/dlya-pekaren
+- Retail chains (case: EuroSpar, Bahetle — Kazan; Metro Cash & Carry; Miratorg — Tatar pastries): https://pepperoni.tatar/dlya-setey
+- HoReCa / foodservice (case: GFC, SweetLife distributors; Kazan Helicopter Plant corporate catering): https://pepperoni.tatar/dlya-horeca
+- Regional & foodservice distributors (case: GFC, SweetLife — federal foodservice):  https://pepperoni.tatar/dlya-distributorov
+
+# Full list of confirmed partners & clients:  https://pepperoni.tatar/partnery

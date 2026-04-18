@@ -26,5 +26,13 @@
         { "key": "Pragma", "value": "no-cache" }
       ]
     }
+  ],
+  "redirects": [
+    { "source": "/pepperoni-dlya-azs", "destination": "/dlya-azs", "permanent": true },
+    { "source": "/pepperoni-private-label", "destination": "/kontraktnoe-proizvodstvo", "permanent": true },
+    { "source": "/pepperoni-dlya-pekaren", "destination": "/dlya-pekaren", "permanent": true },
+    { "source": "/pepperoni-dlya-setey", "destination": "/dlya-setey", "permanent": true },
+    { "source": "/pepperoni-dlya-horeca", "destination": "/dlya-horeca", "permanent": true },
+    { "source": "/pepperoni-dlya-distribyutorov", "destination": "/dlya-distributorov", "permanent": true }
   ]
 }

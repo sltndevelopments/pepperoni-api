@@ -92,6 +92,19 @@ img{max-width:100%;height:auto}
 .usp-card__title{font-weight:700;margin-bottom:5px;font-size:.92rem}
 .usp-card__text{color:var(--muted);font-size:.85rem;line-height:1.5}
 
+/* Segments (6 personas) */
+.segments{padding:48px 0 8px}
+.segments__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px}
+.seg-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}
+.seg-card:hover{box-shadow:var(--shadow);border-color:var(--green);transform:translateY(-2px)}
+.seg-card__num{position:absolute;top:14px;right:16px;font-size:.72rem;font-weight:700;color:#bbb;letter-spacing:1px}
+.seg-card__icon{font-size:1.9rem;margin-bottom:8px}
+.seg-card__title{font-weight:700;font-size:1rem;margin-bottom:6px;color:#1a1a1a}
+.seg-card__desc{color:var(--muted);font-size:.85rem;line-height:1.5;margin-bottom:10px;flex-grow:1}
+.seg-card__case{font-size:.78rem;color:var(--green);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px dashed #eee}
+.seg-card__arrow{display:inline-block;margin-left:4px;transition:transform .2s}
+.seg-card:hover .seg-card__arrow{transform:translateX(3px)}
+
 /* Catalog section */
 .catalog-section{padding:0 0 48px}
 .catalog-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:4px}
@@ -164,6 +177,8 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   <div class="container nav__inner">
     <span class="nav__logo">🥩 Казанские Деликатесы</span>
     <div class="nav__links">
+      <a href="#segments">Для кого</a>
+      <a href="/partnery">Партнёры</a>
       <a href="/pepperoni">Пепперони</a>
       <a href="/kazylyk">Казылык</a>
       <a href="/bakery">Выпечка</a>
@@ -181,11 +196,11 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 <section class="hero">
   <div class="container">
     <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · FSSC 22000</div>
-    <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
+    <h1>Производитель халяль колбасных изделий и выпечки для HoReCa, сетей и АЗС</h1>
     <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
     <div class="hero__btns">
-      <a href="#catalog" class="btn btn-primary">Смотреть каталог</a>
-      <a href="mailto:info@kazandelikates.tatar" class="btn btn-outline">Связаться с нами</a>
+      <a href="#segments" class="btn btn-primary">Выбрать сегмент</a>
+      <a href="#catalog" class="btn btn-outline">Смотреть каталог</a>
     </div>
   </div>
 </section>
@@ -199,6 +214,119 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
   </div>
 </div>
+
+<section class="segments" id="segments">
+  <div class="container">
+    <h2 class="section-title">Для кого мы работаем</h2>
+    <p class="section-sub">6 сегментов b2b · у каждого — своя матрица, своя упаковка, свои условия</p>
+    <div class="segments__grid">
+      <a href="/dlya-azs" class="seg-card">
+        <span class="seg-card__num">01</span>
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">АЗС и street food</div>
+        <div class="seg-card__desc">Сосиски, пепперони, котлеты, сосиски в тесте для прикассовой зоны и хот-догов.</div>
+        <div class="seg-card__case">Кейс: сеть АЗС «Татнефть» + СМАРТЕН <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/kontraktnoe-proizvodstvo" class="seg-card">
+        <span class="seg-card__num">02</span>
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">Контрактное производство (СТМ)</div>
+        <div class="seg-card__desc">Халяль колбасы, сосиски, пепперони, выпечка под вашим брендом. От 500 кг/мес.</div>
+        <div class="seg-card__case">Кейс: «Aslam» для АО «ОМПК» <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-pekaren" class="seg-card">
+        <span class="seg-card__num">03</span>
+        <div class="seg-card__icon">🥐</div>
+        <div class="seg-card__title">Региональные пекарни</div>
+        <div class="seg-card__desc">Сосиски для теста, мясные начинки, фарш. Стабильная ТУ и ХАССП под требования сетей.</div>
+        <div class="seg-card__case">ВСД и стабильный жир <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-setey" class="seg-card">
+        <span class="seg-card__num">04</span>
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Розничные сети</div>
+        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка. EAN, ВСД, полный пакет документов.</div>
+        <div class="seg-card__case">EuroSpar, Бэхетле, Metro, Мираторг <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-horeca" class="seg-card">
+        <span class="seg-card__num">05</span>
+        <div class="seg-card__icon">🍽️</div>
+        <div class="seg-card__title">HoReCa и фудсервис</div>
+        <div class="seg-card__desc">Рестораны, отели, пиццерии, dark kitchen, кейтеринг. Форматы 0,5–5 кг под профессиональные кухни.</div>
+        <div class="seg-card__case">Кейс: GFC, «СвитЛайф», КВЗ <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-distributorov" class="seg-card">
+        <span class="seg-card__num">06</span>
+        <div class="seg-card__icon">📦</div>
+        <div class="seg-card__title">Региональные дистрибьюторы</div>
+        <div class="seg-card__desc">Отсрочка 30 дней, собственный прайс, полный ассортимент халяль из Татарстана на одном складе.</div>
+        <div class="seg-card__case">Кейс: GFC, «СвитЛайф» <span class="seg-card__arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="segments" style="background:#fff" id="partners">
+  <div class="container">
+    <h2 class="section-title">С кем мы работаем</h2>
+    <p class="section-sub">Крупнейшие клиенты и партнёры «Казанских Деликатесов»</p>
+    <div class="segments__grid">
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">Сеть АЗС «Татнефть»</div>
+        <div class="seg-card__desc">Сосиски для хот-догов и котлеты для гамбургеров — во всех АЗС сети. Татарская выпечка — в ряде АЗС региона.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">АО «ОМПК» (Останкино)</div>
+        <div class="seg-card__desc">Private Label: производим халяль-линейку под торговой маркой «Aslam» для одного из крупнейших мясокомбинатов России.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">EuroSpar (Казань)</div>
+        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка в супермаркетах сети.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">«Бэхетле» (Казань)</div>
+        <div class="seg-card__desc">Халяль-ассортимент в казанской сети премиальных супермаркетов.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Metro Cash &amp; Carry</div>
+        <div class="seg-card__desc">Халяль-продукция в оптовых гипермаркетах федеральной сети.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">«Мираторг»</div>
+        <div class="seg-card__desc">Наша татарская выпечка (эчпочмак, перемяч, самса) на полках супермаркетов «Мираторг».</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏭</div>
+        <div class="seg-card__title">Казанский Вертолётный Завод</div>
+        <div class="seg-card__desc">Халяль-продукция для корпоративного питания крупного промышленного предприятия.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">СМАРТЕН</div>
+        <div class="seg-card__desc">Сетевой оператор АЗС — халяль-продукция для прикассовой зоны и street food.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">GFC</div>
+        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — наша халяль-линейка во всех регионах присутствия.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">«СвитЛайф»</div>
+        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — поставки халяль-продукции в HoReCa по России.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <a href="/partnery" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Полный список партнёров →</a>
+    </div>
+  </div>
+</section>
 
 <section class="usps">
   <div class="container">
@@ -276,11 +404,6 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   </div>
 
   <div class="info-block">
-    <h2>Наши партнёры</h2>
-    <p>АЗС Татнефть · EuroSpar · Бэхетле · пиццерии и HoReCa по России.</p>
-  </div>
-
-  <div class="info-block">
     <h2>Связаться</h2>
     <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
@@ -326,7 +449,17 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
       <div class="footer__col">
+        <div class="footer__col-title">Для кого</div>
+        <a href="/dlya-azs">АЗС и street food</a>
+        <a href="/kontraktnoe-proizvodstvo">Контрактное производство (СТМ)</a>
+        <a href="/dlya-pekaren">Региональные пекарни</a>
+        <a href="/dlya-setey">Розничные сети</a>
+        <a href="/dlya-horeca">HoReCa и фудсервис</a>
+        <a href="/dlya-distributorov">Дистрибьюторы</a>
+      </div>
+      <div class="footer__col">
         <div class="footer__col-title">Разделы</div>
+        <a href="/partnery">Партнёры и клиенты</a>
         <a href="/pepperoni">Пепперони</a>
         <a href="/kazylyk">Казылык</a>
         <a href="/bakery">Выпечка</a>
