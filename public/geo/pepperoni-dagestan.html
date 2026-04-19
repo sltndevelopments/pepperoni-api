@@ -109,7 +109,61 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}
     footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+
+.geo-products{max-width:800px;margin:2rem auto;padding:1.2rem 1.5rem;background:var(--green-light,#e8f5e9);border-radius:10px}
+.geo-products h2{font-size:1.2rem;color:var(--green,#1b7a3d);margin-bottom:.8rem}
+.geo-products ul{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:.5rem}
+.geo-products li a{display:inline-block;padding:.3rem .8rem;background:#fff;border:1px solid var(--green,#1b7a3d);border-radius:6px;color:var(--green,#1b7a3d);font-size:.9rem;text-decoration:none}
+.geo-products li a:hover{background:var(--green,#1b7a3d);color:#fff}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как заказать продукцию с доставкой в мой город?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Позвоните по номеру +7 987 217-02-02 или напишите в WhatsApp — менеджер рассчитает стоимость доставки и условия для вашего региона."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какой минимальный заказ для оптовой поставки?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Минимальная партия начинается от 8 упаковок. Для крупных партий предусмотрены индивидуальные условия и скидки."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Есть ли сертификат халяль?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, вся продукция Казанских Деликатесов сертифицирована по стандарту халяль ДУМ РТ №614А/2024. Сертификат предоставляется по запросу."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Как давно вы работаете на рынке?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Казанские Деликатесы работают с 2022 года. Производство расположено в Казани, ул. Аграрная, 2. Отгрузки по всей России и СНГ."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Возможна ли поставка под частной торговой маркой (СТМ)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, мы производим продукцию под брендом заказчика от партии 100 кг. Разработка рецептуры, дизайн упаковки — всё включено."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -209,7 +263,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="cta cta-outline">📧 info@kazandelikates.tatar</a>
 
-    <footer>
+    
+<section class="geo-products"><h2>Продукты в каталоге</h2><ul><li><a href="/products/kd-014">Пепперони варено-копченый из конины</a></li><li><a href="/products/kd-015">Пепперони варено-копченый классика</a></li><li><a href="/products/kd-016">Пепперони варено-копченый классика целый батон</a></li><li><a href="/products/kd-017">Пепперони сырокопчёный в нарезке</a></li><li><a href="/products/kd-018">Пепперони сырокопчёный целый батон</a></li></ul></section>
+<footer>
       <p><a href="/">← Каталог</a> &middot; <a href="/pepperoni">Пепперони</a> &middot; <a href="/about">О компании</a> &middot; <a href="/delivery">Доставка</a> &middot; <a href="/faq">FAQ</a></p>
       <p>&copy; <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> &middot; <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
     </footer>
