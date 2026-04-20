@@ -3,8 +3,24 @@ scripts/gsc-key.json
 *.pem
 *-key.json
 
+# OS / IDE
+.DS_Store
+.cursor/
+.idea/
+.vscode/
+*.swp
+
+# Local env (never commit)
+.env
+.env.*
+!.env.example
+
 # SEO Agent runtime data (SQLite DB + logs)
 data/seo_data.db
 data/logs/
 !data/.gitkeep
 
+# Sales intel: keep README, scripts, reports, small guides — not raw scrapes / big spreadsheets
+sales-intel/raw/
+sales-intel/data/*.csv
+sales-intel/data/*.xlsx
