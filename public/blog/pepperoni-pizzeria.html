@@ -50,10 +50,59 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .cta-outline{background:transparent;border:2px solid #1b7a3d;color:#1b7a3d}
     footer{text-align:center;color:#555;font-size:.85rem;padding-top:32px;margin-top:16px;border-top:1px solid #eee}
     footer a{color:#444;text-decoration:none}
-  </style>
+  
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
+</style>
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/pepperoni-pizzeria">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/pepperoni-pizzeria">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/blog/pepperoni-pizzeria">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Почему пепперони от Казанских Деликатесов не скручивается при запекании?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Это термостабильный продукт, специально разработанный для профессиональной кухни. Ломтики сохраняют правильную круглую форму и не деформируются при температуре до 350°C, что критично для презентабельного вида пиццы."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие форматы халяль пепперони доступны для пиццерий?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Варёно-копчёный классика — 0,5 кг в нарезке или 1 кг целый батон, варёно-копчёный из конины — 0,5 кг в нарезке, сырокопчёный — 0,5 кг в нарезке или 1 кг целый батон. Все варианты произведены по системе ХАССП в Татарстане."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли заказать пепперони под собственной торговой маркой для сети?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, доступно производство СТМ (Private Label) с гибкой рецептурой. Вы можете выбрать тип мяса (говядина, курица, индейка, баранина или миксы), уровень остроты (mild/medium/spicy) и упаковку от 0,5 до 5 кг."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Где уже поставляется халяль пепперони от Казанских Деликатесов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Продукция представлена в Metro Cash & Carry, поставляется в HoReCa по всей России через дистрибьюторов GFC и СвитЛайф, а также в сетевые пиццерии. Компания также производит халяль-СТМ Aslam для мясокомбината Останкино."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
