@@ -515,6 +515,12 @@ export default async function handler(req, res) {
       filtered = filtered.filter((p) => p.sku && p.sku.toUpperCase() === sku.toUpperCase());
     }
 
+    // Fallback: use brand logo for products without a photo (never return null image)
+    const FALLBACK_IMAGE = 'https://pepperoni.tatar/images/logo.png';
+    for (const p of filtered) {
+      if (!p.image) p.image = FALLBACK_IMAGE;
+    }
+
     const result = {
       '@context': 'https://schema.org',
       '@type': 'DataCatalog',
