@@ -101,7 +101,11 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
 {GTM}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
   <meta http-equiv="content-language" content="ru">
   <title>{title}</title>
   <meta name="description" content="{desc}">
