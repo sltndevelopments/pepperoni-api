@@ -11,30 +11,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-
-      - name: Regenerate product pages (picks up latest generator changes)
-        run: |
-          python3 scripts/gen-ru-products.py
-          python3 scripts/gen-en-products.py
-
-      - name: Add Core Web Vitals perf hints (preconnect + YM pixel dims)
-        run: python3 scripts/add-perf-hints.py
-
-      - name: Regenerate llms-full.txt (AI-ready, rich variant — ~90 KB)
-        run: python3 scripts/gen-llms-full.py
-
-      - name: Rebuild sitemap.xml (covers all 400+ URLs + hreflang)
-        run: |
-          python3 scripts/rebuild_sitemap.py
-          echo "--- head ---"
-          head -5 public/sitemap.xml
-          echo "--- URL count ---"
-          grep -c "<loc>" public/sitemap.xml
-
       - name: Deploy via rsync
         uses: Burnett01/rsync-deployments@7.0.0
         with:
@@ -58,209 +34,6 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: cd /var/www/pepperoni/repo && npm install --omit=dev
-
-      - name: Serve products.json + /api/products directly from VPS (bypass Vercel cache)
-        continue-on-error: true
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            set -x
-            # 1) Generate /api/products flat JSON from the freshly rsynced products.json
-            mkdir -p /var/www/pepperoni/static-api/api
-            cp -f /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/static-api/products.json
-            node -e "
-              const fs=require('fs');
-              const d=JSON.parse(fs.readFileSync('/var/www/pepperoni/static-api/products.json','utf8'));
-              const out={lastSynced:d.lastSynced,total:(d.products||[]).length,products:(d.products||[]).map(p=>({
-                sku:p.sku, name:p.name, price:parseFloat(p.offers?.price||0), currency:p.offers?.priceCurrency||'RUB',
-                image:p.image, brand:p.brand?.name, availability:p.offers?.availability
-              }))};
-              fs.writeFileSync('/var/www/pepperoni/static-api/api/products.json',JSON.stringify(out));
-            " || cp /var/www/pepperoni/static-api/products.json /var/www/pepperoni/static-api/api/products.json
-
-            chown -R www-data:www-data /var/www/pepperoni/static-api 2>/dev/null || true
-            chmod -R a+r /var/www/pepperoni/static-api
-
-            # 2) Find the server block serving pepperoni.tatar
-            SRV_CONF=$(grep -rlE "server_name[[:space:]]+.*pepperoni\.tatar" /etc/nginx/ 2>/dev/null | head -1)
-            echo "Server config: $SRV_CONF"
-
-            # 3) Create snippet that overrides SEO-critical files with static from VPS
-            cat > /etc/nginx/snippets/pepperoni-static-data.conf <<'EOF'
-            # Serve SEO-critical files directly from VPS — bypasses Vercel edge cache
-            # Product catalog
-            location = /products.json {
-                alias /var/www/pepperoni/static-api/products.json;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                default_type application/json;
-            }
-            location = /api/products {
-                alias /var/www/pepperoni/static-api/api/products.json;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                default_type application/json;
-            }
-
-            # SEO / discovery files
-            location = /robots.txt {
-                alias /var/www/pepperoni/repo/public/robots.txt;
-                add_header Cache-Control "public, max-age=300" always;
-                default_type text/plain;
-            }
-            location = /sitemap.xml {
-                alias /var/www/pepperoni/repo/public/sitemap.xml;
-                add_header Cache-Control "public, max-age=300" always;
-                default_type application/xml;
-            }
-            location = /rss.xml {
-                alias /var/www/pepperoni/repo/public/rss.xml;
-                add_header Cache-Control "public, max-age=300" always;
-                default_type application/rss+xml;
-            }
-            location = /feed.xml {
-                alias /var/www/pepperoni/repo/public/feed.xml;
-                add_header Cache-Control "public, max-age=300" always;
-                default_type application/atom+xml;
-            }
-            location = /llms.txt {
-                alias /var/www/pepperoni/repo/public/llms.txt;
-                add_header Cache-Control "public, max-age=300" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                default_type text/plain;
-            }
-            location = /llms-full.txt {
-                alias /var/www/pepperoni/repo/public/llms-full.txt;
-                add_header Cache-Control "public, max-age=300" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                default_type text/plain;
-            }
-            location = /manifest.json {
-                alias /var/www/pepperoni/repo/public/manifest.json;
-                add_header Cache-Control "public, max-age=3600" always;
-                default_type application/json;
-            }
-            location = /openapi.yaml {
-                alias /var/www/pepperoni/repo/public/openapi.yaml;
-                add_header Cache-Control "public, max-age=300" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                default_type application/x-yaml;
-            }
-            # IndexNow verification keys (32-hex .txt at site root) — must be reachable
-            # for Bing/Yandex to validate our IndexNow submissions.
-            location ~ "^/[a-f0-9]{32}\.txt$" {
-                root /var/www/pepperoni/repo/public;
-                try_files $uri =404;
-                add_header Cache-Control "public, max-age=86400" always;
-                default_type text/plain;
-            }
-            location ^~ /.well-known/ {
-                root /var/www/pepperoni/repo/public;
-                add_header Cache-Control "public, max-age=300" always;
-                add_header Access-Control-Allow-Origin "*" always;
-                try_files $uri =404;
-            }
-
-            # RU product pages
-            location ^~ /products/ {
-                root /var/www/pepperoni/repo/public;
-                try_files $uri $uri.html $uri/index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            # EN product pages
-            location ^~ /en/products/ {
-                root /var/www/pepperoni/repo/public;
-                try_files $uri $uri.html $uri/index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            # Main static HTML pages (home, category, blog index, etc.)
-            location = / {
-                root /var/www/pepperoni/repo/public;
-                try_files /index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            location = /en/ {
-                root /var/www/pepperoni/repo/public;
-                try_files /en/index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            # Category / landing pages (pepperoni, bakery, about, etc.) — static HTML with clean URLs
-            location ~ ^/(pepperoni|bakery|about|delivery|faq|blog|kazylyk|pizzeria|sosiski-dlya-hotdog|sosiski-halyal|vetchina-optom|kolbasy-kopchyonye|kolbasy-varenye|kotlety-dlya-burgerov|vyipechka-halyal|myasnyie-zagotovki|pepperoni-dlya-horeca|pepperoni-dlya-pizzerii|pepperoni-optom|pepperoni-private-label|pepperoni-v-narezke)$ {
-                root /var/www/pepperoni/repo/public;
-                try_files $uri.html $uri/index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            location ~ ^/en/(pepperoni|bakery|about|delivery|faq|blog|kazylyk|pizzeria)$ {
-                root /var/www/pepperoni/repo/public;
-                try_files $uri.html $uri/index.html =404;
-                add_header Cache-Control "public, max-age=60, must-revalidate" always;
-                default_type text/html;
-            }
-            EOF
-
-            # 4) Include snippet into each pepperoni.tatar server block (once) — use python for robustness
-            echo "=== 4a. Server blocks with pepperoni.tatar (sites-enabled only) ==="
-            CONFS=$(grep -rlE "server_name[[:space:]]+[^;]*pepperoni\.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | grep -v '\.bak' || true)
-            echo "CONFS: $CONFS"
-            for conf in $CONFS; do
-              python3 - "$conf" <<'PYEOF'
-            import re, sys
-            path = sys.argv[1]
-            with open(path) as f:
-                src = f.read()
-            inc = "    include /etc/nginx/snippets/pepperoni-static-data.conf;"
-            # Insert include directly after every `server_name ...pepperoni.tatar...;` line
-            # unless it's already immediately after.
-            pat = re.compile(r"(^[ \t]*server_name[^;\n]*pepperoni\.tatar[^;\n]*;[ \t]*\n)", re.M)
-            def repl(m):
-                tail = src[m.end(): m.end()+200]
-                if "pepperoni-static-data.conf" in tail[:300]:
-                    return m.group(0)
-                return m.group(0) + inc + "\n"
-            new = pat.sub(repl, src)
-            if new != src:
-                with open(path, "w") as f:
-                    f.write(new)
-                print(f"  ✅ injected include into: {path}")
-            else:
-                print(f"  ℹ️  no change (already present or no match): {path}")
-            PYEOF
-            done
-
-            echo "=== 4b. Verify include is actually in effective nginx -T ==="
-            nginx -T 2>/dev/null | grep -c "pepperoni-static-data.conf" || echo "0 include references — BAD"
-
-            # 5) Test and reload
-            echo "=== 5. nginx -t ==="
-            nginx -t 2>&1 | tail -8
-            if nginx -t 2>/dev/null; then
-              systemctl reload nginx || nginx -s reload
-              echo "✅ nginx reloaded"
-            else
-              echo "❌ nginx config error — DO NOT rollback, show config around errors:"
-              nginx -t 2>&1 | head -20
-              for conf in $CONFS; do
-                sed -i '/include \/etc\/nginx\/snippets\/pepperoni-static-data.conf;/d' "$conf"
-              done
-              nginx -t && systemctl reload nginx
-            fi
-
-            # 6) Local smoke test — verify VPS serves SEO files directly (no x-vercel-cache)
-            echo "=== 6. Smoke test (localhost) ==="
-            for path in /products.json /api/products /llms.txt /robots.txt /sitemap.xml /.well-known/ai-meta.json / /products/kd-001; do
-              resp=$(curl -sI -H "Host: pepperoni.tatar" "http://127.0.0.1$path" 2>&1)
-              code=$(echo "$resp" | head -1 | awk '{print $2}')
-              vercel=$(echo "$resp" | grep -i "x-vercel-cache" | head -1 | tr -d '\r')
-              echo "  $path → HTTP $code  ${vercel:-'(no vercel header, good)'}"
-            done
 
       - name: Write SEO Agent env file on VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -302,29 +75,61 @@ jobs:
             git config http.https://github.com/.extraheader "Authorization: Basic ${B64}"
             git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK — agent can push"
 
-      - name: Update API data/products.json on VPS
+      - name: Fix nginx routing — serve all HTML pages from public/
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            mkdir -p /var/www/pepperoni/data
-            cp /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/data/products.json
-            echo "✅ data/products.json updated: $(python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print(len(d['products']), 'products, first price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo 'copied')"
+            ROOT=/var/www/pepperoni/repo/public
+            NGINX_CONF=$(find /etc/nginx/sites-available/ -name "pepperoni*" 2>/dev/null | head -1)
+            echo "nginx config: ${NGINX_CONF:-not found}"
 
-            echo "=== Clear nginx proxy cache ==="
-            # Find and clear nginx cache directories
-            nginx -T 2>/dev/null | grep "proxy_cache_path\|fastcgi_cache_path" | awk '{print $2}' | while read cache_dir; do
-              [ -d "$cache_dir" ] && rm -rf "$cache_dir"/* && echo "Cleared: $cache_dir"
-            done
-            # Common cache paths
-            for cache_dir in /var/cache/nginx /tmp/nginx_cache /var/www/pepperoni/cache; do
-              [ -d "$cache_dir" ] && rm -rf "$cache_dir"/* && echo "Cleared: $cache_dir" || true
-            done
-            # Reload nginx to apply fresh state
-            nginx -t 2>/dev/null && (systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true)
-            echo "✅ nginx cache cleared and reloaded"
+            if [ -z "$NGINX_CONF" ]; then
+              echo "⚠️  No pepperoni nginx config found — skipping"
+              exit 0
+            fi
+
+            if grep -q "pepperoni-clean-urls" "$NGINX_CONF" 2>/dev/null; then
+              echo "✅ nginx already patched"
+              exit 0
+            fi
+
+            # Write patch via Python (avoids bash $ escaping issues for nginx vars)
+            python3 - "$NGINX_CONF" "$ROOT" << 'PYEOF'
+            import re, sys
+            conf_path, root = sys.argv[1], sys.argv[2]
+            with open(conf_path) as f:
+                content = f.read()
+            patch = """
+                # BEGIN pepperoni-clean-urls (auto-generated)
+                location = /dlya-azs            { alias """ + root + """/dlya-azs.html; default_type text/html; }
+                location = /dlya-pekaren        { alias """ + root + """/dlya-pekaren.html; default_type text/html; }
+                location = /dlya-setey          { alias """ + root + """/dlya-setey.html; default_type text/html; }
+                location = /dlya-horeca         { alias """ + root + """/dlya-horeca.html; default_type text/html; }
+                location = /dlya-distributorov  { alias """ + root + """/dlya-distributorov.html; default_type text/html; }
+                location = /kontraktnoe-proizvodstvo { alias """ + root + """/kontraktnoe-proizvodstvo.html; default_type text/html; }
+                location ~ ^/(geo|products|en)(/.*)?$ {
+                    root """ + root + """;
+                    try_files $uri $uri.html $uri/index.html =404;
+                    default_type text/html;
+                }
+                # END pepperoni-clean-urls
+            """
+            # Insert before last closing brace in the file
+            new_content = content.rstrip().rsplit('}', 1)
+            if len(new_content) == 2:
+                result = new_content[0] + patch + '\n}\n'
+                with open(conf_path, 'w') as f:
+                    f.write(result)
+                print("patched OK")
+            else:
+                print("ERROR: could not find closing brace")
+                sys.exit(1)
+            PYEOF
+
+            nginx -t 2>&1 && systemctl reload nginx && echo "✅ nginx reloaded" || echo "❌ nginx test failed — check $NGINX_CONF manually"
 
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -344,42 +149,4 @@ jobs:
             else
               echo "ℹ️  SEO agent cron already present"
             fi
-
-            # Add price sync cron if not already present (every 10 min)
-            SYNC_CRON="*/10 * * * * bash /var/www/pepperoni/repo/scripts/sync-vps.sh >> /var/log/pepperoni-sync.log 2>&1"
-            if ! crontab -l 2>/dev/null | grep -q "sync-vps.sh"; then
-              (crontab -l 2>/dev/null; echo "$SYNC_CRON") | crontab -
-              echo "✅ Price sync cron installed (every 10 min)"
-            else
-              echo "ℹ️  Price sync cron already present"
-            fi
-            echo "=== Current crontab ===" && crontab -l
-
-      - name: Ping IndexNow (Bing + Yandex + Seznam) with full sitemap
-        continue-on-error: true
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-        run: |
-          # Give CDN/nginx a moment to pick up fresh sitemap.xml
-          sleep 5
-          # Verify the IndexNow key file is live (must be reachable so Bing/Yandex can validate)
-          KEY="${INDEXNOW_KEY:-2164b9a639c7455aad8651dc19e48641}"
-          echo "=== Verify key file: https://pepperoni.tatar/${KEY}.txt ==="
-          curl -s -o /tmp/keyfile.txt -w "HTTP %{http_code}\n" "https://pepperoni.tatar/${KEY}.txt"
-          head -c 200 /tmp/keyfile.txt; echo
-          echo "=== Submit all sitemap URLs via IndexNow ==="
-          python3 scripts/bing-index.py || echo "⚠️  IndexNow step returned non-zero (non-fatal)"
-
-      - name: Delete stale certbot backups (prevents accidental nginx-conf rollback)
-        continue-on-error: true
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            # These .certbot.bak files were used during a one-off SSL repair; they are now stale
-            # and would silently revert the pepperoni-static-data.conf include if ever restored.
-            find /etc/nginx -name "*.certbot.bak*" -mtime +0 -delete 2>/dev/null || true
-            echo "✅ stale certbot backups purged (if any)"
-            nginx -t && (systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true)
+            crontab -l | grep seo-agent
