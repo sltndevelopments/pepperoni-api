@@ -185,18 +185,30 @@ def derive_link_ru(p: dict) -> str:
     return f"{BASE_URL}/products/{sku}"
 
 
+def normalize_image_url(url: str) -> str | None:
+    if not url or url == "0":
+        return None
+    if url.startswith("http://") or url.startswith("https://"):
+        return url
+    if url.startswith("v") and "/" in url:
+        return f"https://res.cloudinary.com/duygfl3vz/image/upload/{url}"
+    return None
+
+
 def derive_image(p: dict) -> str:
-    return (p.get("imageMain")
-            or p.get("image")
+    return (normalize_image_url(p.get("imageMain"))
+            or normalize_image_url(p.get("image"))
             or OG_BY_SECTION.get(p.get("section"), "")
             or DEFAULT_IMAGE)
 
 
 def derive_additional_images(p: dict) -> list:
     out = []
+    main = p.get("imageMain")
+    primary = p.get("image")
     for k in ("imagePack", "imageSlice"):
-        v = p.get(k)
-        if v and v != p.get("imageMain") and v != p.get("image"):
+        v = normalize_image_url(p.get(k))
+        if v and v != main and v != primary:
             out.append(v)
     return out[:10]  # GMC limit
 

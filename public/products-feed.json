@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-11T14:45:47.098084+00:00",
+  "dateModified": "2026-05-11T18:35:54.119877+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -29,7 +29,7 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
-          "v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-001",
         "brand": {
@@ -3820,7 +3820,6 @@
         "description": "Breakfast Sausages are a versatile product for home cooking and HORECA. Due to their soft texture and balanced spices, they are perfect for breakfasts, hot dogs, and hot dishes. Ingredients: mechanically deboned chicken meat, beef, chicken eggs, vegetable protein, semolina, potato starch, cream, water, salt, sodium nitrite color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
-          "0",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-026",
