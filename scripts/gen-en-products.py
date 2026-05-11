@@ -215,6 +215,7 @@ def main():
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
 <meta http-equiv="content-language" content="en">
 <title>{(name + " — Kazan Delicacies | Halal")[:70]}</title>
 <meta name="description" content="{seo_desc}">

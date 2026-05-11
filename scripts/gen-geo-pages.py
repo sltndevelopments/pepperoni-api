@@ -521,6 +521,7 @@ def build_page(loc: dict) -> str:
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
   <meta http-equiv="content-language" content="{loc['lang']}">
   <title>{loc['title']}</title>
   <meta name="description" content="{loc['desc']}">
