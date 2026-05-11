@@ -1,26 +1,45 @@
 {
   "source": "https://www.pepperoni.tatar",
   "organization": "Kazan Delicacies",
+  "product_count": 77,
   "datasets": [
     {
       "name": "pepperoni_products_live",
       "url": "https://api.pepperoni.tatar/api/products",
       "format": "json",
-      "description": "Live product catalog synced with Google Sheets. 77+ halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
+      "description": "Live product catalog synced with Google Sheets. 77 halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
       "updateFrequency": "hourly"
     },
     {
       "name": "pepperoni_products_static",
       "url": "https://api.pepperoni.tatar/products.json",
       "format": "json",
-      "description": "Static product catalog with 77 halal meat products."
+      "description": "Static product catalog with 77 halal meat products: pepperoni, sausages, burger patties, and deli meats."
     },
     {
       "name": "pepperoni_price_list",
       "url": "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv",
       "format": "csv",
-      "description": "Original price list from Google Sheets in CSV format."
+      "description": "Original price list from Google Sheets in CSV format with RUB wholesale prices."
+    },
+    {
+      "name": "pepperoni_openapi",
+      "url": "https://api.pepperoni.tatar/openapi.yaml",
+      "format": "yaml",
+      "description": "OpenAPI 3.0.3 specification for the Kazan Delicacies product catalog API."
+    },
+    {
+      "name": "pepperoni_llms_txt",
+      "url": "https://api.pepperoni.tatar/llms.txt",
+      "format": "text",
+      "description": "LLM-friendly summary of Kazan Delicacies: company overview, product catalog, pricing, export, and contact info. Optimized for AI models."
+    },
+    {
+      "name": "pepperoni_sitemap",
+      "url": "https://pepperoni.tatar/sitemap.xml",
+      "format": "xml",
+      "description": "XML sitemap covering 77 RU + 77 EN product pages, 54 geo landing pages, and blog posts for pepperoni.tatar."
     }
   ],
-  "updated_at": "2026-01-08T12:00:00Z"
+  "updated_at": "2026-05-11T09:00:00Z"
 }
