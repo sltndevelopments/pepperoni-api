@@ -24,3 +24,4 @@ data/logs/
 sales-intel/raw/
 sales-intel/data/*.csv
 sales-intel/data/*.xlsx
+.vercel

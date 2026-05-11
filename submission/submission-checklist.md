@@ -1,5 +1,12 @@
 # Pre-publish checklist
 
+> **Status (2026-05-11):** Published.
+> Live URL: <https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog>
+>
+> This document is kept as a re-publish reference — re-run the smoke
+> tests below before pushing any breaking change to the OpenAPI spec
+> or the knowledge-base files.
+
 Before clicking **Publish** in the GPT Editor, run through this list.
 Everything should already be green — these are the items we tested
 locally on 2026-05-11.
@@ -69,18 +76,22 @@ Run these from the editor preview pane:
 
 If all four pass, click **Publish → Everyone**.
 
-## Post-publish actions
+## Post-publish actions — completed 2026-05-11
 
-1. Copy the GPT URL (looks like
-   `https://chatgpt.com/g/g-XXXXXXXXX-kazan-delicacies-halal-catalog`).
-2. Add it to:
-   - `public/.well-known/ai-meta.json` →
-     `"gpt_store_url": "<URL>"`
-   - Footer of `public/llms.txt` and `public/en/llms.txt`
-     (line: "Official ChatGPT: <URL>")
-3. Commit + push so the GPT URL is part of the public corpus.
-4. Run [BrightEdge GPT-Store crawler check](https://gpts.bright-edge.com/) or
-   monitor with `curl -A "GPTBot" https://pepperoni.tatar/llms.txt -o /dev/null -w "%{http_code}\n"`.
+GPT URL: `https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog`
+
+Done in commits `fbfa89cd` (URL added to generator) and `b01f103a` (auto-regen):
+
+- ✅ `public/.well-known/ai-meta.json` → `gpt_store_url`
+- ✅ `public/llms.txt` (RU) — footer `Official ChatGPT: …`
+- ✅ `public/en/llms.txt` (EN) — footer `Official ChatGPT: …`
+- ✅ `public/llms-full.txt` (RU full) — same footer
+- ✅ `public/en/llms-full.txt` (EN full) — same footer
+- ✅ `scripts/sync-sheets.py` — RU + EN footer templates (regenerates on every CI run)
+
+Monitor with `curl -A "GPTBot" https://pepperoni.tatar/llms.txt -o /dev/null -w "%{http_code}\n"`
+or watch `/var/log/nginx/ai-bots.log` on the VPS for `openai-gptbot` /
+`openai-chatgpt-user` hits.
 
 ## Categories to pick in GPT Store
 
