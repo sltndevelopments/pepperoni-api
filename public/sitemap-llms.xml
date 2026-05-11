@@ -76,4 +76,21 @@
     <priority>0.7</priority>
   </url>
 
+  <!-- Product feed (Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping) -->
+  <url>
+    <loc>https://pepperoni.tatar/products-feed.csv</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/products-feed.xml</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/products-feed.json</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
 </urlset>

@@ -59,3 +59,20 @@ en_dir.mkdir(parents=True, exist_ok=True)
 (en_dir / "llms-full.txt").write_text(en_txt, encoding="utf-8")
 (en_dir / "llms.txt").write_text(en_txt, encoding="utf-8")
 print(f"OK EN: en/llms.txt + en/llms-full.txt — {len(en_txt)} chars, {len(products)} SKUs")
+
+# Product feed (GMC / OpenAI Commerce / Bing Shopping / Perplexity Shopping)
+try:
+    import subprocess
+    res = subprocess.run(
+        ["python3", str(ROOT / "scripts" / "gen-products-feed.py")],
+        capture_output=True, text=True, check=False,
+    )
+    if res.returncode == 0:
+        print("OK Product feed regenerated (CSV + XML + JSON)")
+        for line in res.stdout.strip().splitlines():
+            if line.startswith("OK"):
+                print(f"   {line}")
+    else:
+        print(f"WARN gen-products-feed failed: {res.stderr[:200]}", file=sys.stderr)
+except Exception as e:
+    print(f"WARN gen-products-feed exception: {e}", file=sys.stderr)

@@ -233,6 +233,81 @@ jobs:
               echo "  $path → HTTP $code"
             done
 
+      - name: Enable AI-bot logging on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -eux
+            REPO=/var/www/pepperoni/repo
+            SNIPPETS=/etc/nginx/snippets
+
+            # 1) Install nginx snippet
+            install -D -m 0644 "${REPO}/infra/nginx/ai-bots-logging.conf" \
+              "${SNIPPETS}/ai-bots-logging.conf"
+            echo "✅ snippet installed"
+
+            # 2) Install logrotate policy
+            install -D -m 0644 "${REPO}/infra/nginx/logrotate-ai-bots" \
+              /etc/logrotate.d/nginx-ai-bots
+            echo "✅ logrotate installed"
+
+            # 3) Pre-create log file
+            touch /var/log/nginx/ai-bots.log
+            chown www-data:adm /var/log/nginx/ai-bots.log
+            chmod 0640 /var/log/nginx/ai-bots.log
+            echo "✅ log file created"
+
+            # 4) Install parser script
+            install -D -m 0755 "${REPO}/infra/scripts/parse-ai-bots.py" \
+              /opt/pepperoni-api/infra/scripts/parse-ai-bots.py
+            echo "✅ parser installed"
+
+            # 5) Install daily cron job
+            cat > /etc/cron.d/pepperoni-ai-bots <<'CRON'
+            # /etc/cron.d/pepperoni-ai-bots — daily AI-bot digest at 06:05 server time
+            MAILTO=""
+            5 6 * * * root /usr/bin/python3 /opt/pepperoni-api/infra/scripts/parse-ai-bots.py > /var/log/nginx/parse-ai-bots.cron 2>&1
+            CRON
+            echo "✅ cron installed"
+
+            # 6) Inject include into api.pepperoni.tatar server block(s)
+            API_CONFS=$(grep -rlE "server_name[[:space:]]+[^;]*api\.pepperoni\.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | grep -v '\.bak' || true)
+            echo "API server configs: ${API_CONFS}"
+            for conf in $API_CONFS; do
+              if grep -q "ai-bots-logging.conf" "$conf"; then
+                echo "  ℹ️  already includes ai-bots-logging in ${conf}"
+                continue
+              fi
+              # Insert after the server_name line within the api.pepperoni.tatar block
+              python3 - "$conf" <<'PYEOF'
+            import re, sys
+            path = sys.argv[1]
+            with open(path) as f:
+                src = f.read()
+            inc = "    include snippets/ai-bots-logging.conf;"
+            pat = re.compile(r"(^[ \t]*server_name[^;\n]*api\.pepperoni\.tatar[^;\n]*;[ \t]*\n)", re.M)
+            new = pat.sub(r"\1" + inc + "\n", src)
+            if new != src:
+                with open(path, "w") as f:
+                    f.write(new)
+                print(f"  ✅ added include to {path}")
+            else:
+                print(f"  ❌ could not inject into {path}")
+            PYEOF
+            done
+
+            # 7) Test and reload nginx
+            if nginx -t 2>&1; then
+              systemctl reload nginx || nginx -s reload
+              echo "✅ nginx reloaded"
+            else
+              echo "❌ nginx config error"
+              nginx -t 2>&1 | head -20
+            fi
+
       - name: Write SEO Agent env file on VPS
         continue-on-error: true
         uses: appleboy/ssh-action@v1.0.0

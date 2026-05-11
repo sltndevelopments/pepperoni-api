@@ -53,7 +53,28 @@
       "url": "https://pepperoni.tatar/sitemap.xml",
       "format": "xml",
       "description": "XML sitemap covering 77 RU + 77 EN product pages, 106 geo landing pages, blog posts, and segment landings."
+    },
+    {
+      "name": "pepperoni_products_feed_csv",
+      "url": "https://pepperoni.tatar/products-feed.csv",
+      "format": "text/tab-separated-values",
+      "description": "Google Merchant Center compatible product feed (TSV, 77 SKUs). EN titles, descriptions ≥150 chars, GTIN, MPN, google_product_category, product_type, shipping, tax, custom_label_0=halal. Ready for direct upload to Google Merchant, Bing Merchant, Yandex Market, and OpenAI Commerce ingestion.",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_xml",
+      "url": "https://pepperoni.tatar/products-feed.xml",
+      "format": "application/rss+xml",
+      "description": "RSS 2.0 product feed in Google Merchant XML namespace (g:). 77 halal SKUs with full attribute set for shopping crawlers (Perplexity Shopping, Bing Shopping, ChatGPT Shopping, Brave Search Shopping).",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_json",
+      "url": "https://pepperoni.tatar/products-feed.json",
+      "format": "application/ld+json",
+      "description": "Schema.org ItemList feed with 77 Product entries including Halal Certification, OfferShippingDetails (EXW Kazan), full exportPrices in 7 currencies, GTIN-13, country of origin, manufacturer details. Optimised for ChatGPT, Claude, Perplexity, DeepSeek shopping discovery.",
+      "updateFrequency": "daily"
     }
   ],
-  "updated_at": "2026-05-11T11:00:00Z"
+  "updated_at": "2026-05-11T12:30:00Z"
 }

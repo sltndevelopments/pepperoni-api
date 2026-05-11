@@ -16,6 +16,9 @@ Allow: /en/llms.txt
 Allow: /en/llms-full.txt
 Allow: /products.json
 Allow: /openapi.yaml
+Allow: /products-feed.csv
+Allow: /products-feed.xml
+Allow: /products-feed.json
 
 # ───────── Traditional search engines ─────────
 User-agent: Googlebot
@@ -143,6 +146,12 @@ Allow: /
 Sitemap: https://pepperoni.tatar/sitemap.xml
 Sitemap: https://pepperoni.tatar/sitemap-llms.xml
 Sitemap: https://pepperoni.tatar/rss.xml
+
+# ───────── Product feeds (Google Merchant / OpenAI Commerce / Bing Shopping) ─────────
+# Discoverable feed URLs for shopping crawlers
+# CSV  (TSV format, GMC standard): https://pepperoni.tatar/products-feed.csv
+# XML  (RSS 2.0, GMC):              https://pepperoni.tatar/products-feed.xml
+# JSON (Schema.org ItemList):       https://pepperoni.tatar/products-feed.json
 
 # Host directive (for Yandex)
 Host: https://pepperoni.tatar

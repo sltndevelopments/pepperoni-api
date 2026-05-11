@@ -54,5 +54,6 @@ jobs:
           git add public/en/llms.txt public/en/llms-full.txt
           git add public/products/*.html
           git add public/en/products/*.html
+          git add public/products-feed.csv public/products-feed.xml public/products-feed.json
           git commit -m "🔄 Auto-sync prices + regenerate product pages [$(date -u +%Y-%m-%d)]"
           git push

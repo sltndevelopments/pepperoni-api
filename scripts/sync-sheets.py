@@ -546,8 +546,7 @@ def generate_llms_full_txt(all_products):
 
 ## О компании
 
-«Казанские Деликатесы» — производитель халяльной мясной продукции из Казани, Республика Татарстан.
-Компания работает с 2022 года и специализируется на выпуске халяльных колбасных изделий, сосисок, пепперони, деликатесов, мясных полуфабрикатов, выпечки и продукции для HoReCa, fast food, retail и экспорта.
+**«Казанские Деликатесы» — производитель халяль-пепперони из России, поставляющий нарезное говяжье пепперони для пиццерий, дистрибьюторов и розничных сетей.** Базируется в Казани, Республика Татарстан — мусульманской столице Российской Федерации. Компания работает с 2022 года и также выпускает халяль сосиски для хот-догов и гриля, котлеты для бургеров, копчёные ветчины из курицы и индейки, премиум казылык (татарская конская колбаса), мясные полуфабрикаты и традиционную татарскую выпечку (эчпочмак, самса, перемяч, губадия, чак-чак) — всего 77 SKU, все халяль. Федеральные кейсы: пепперони «Аслам» для ОМПК (Останкинский мясокомбинат), сеть АЗС Татнефть, СМАРТЕН, EuroSpar, Бахетле, Metro Cash & Carry, Мираторг.
 
 ### Контакты и ресурсы
 
@@ -997,10 +996,7 @@ def generate_llms_full_txt_en(all_products):
 
 ## About the company
 
-Kazan Delicacies is a halal meat producer based in Kazan, Republic of Tatarstan, Russia.
-Operating since 2022, the company manufactures halal sausages, pepperoni, hams, deli meats,
-meat preparations, traditional Tatar pastries, and ready-to-cook items for HoReCa,
-fast food, retail, gas stations, dark kitchens, and export markets.
+**Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying sliced beef pepperoni for pizzerias, distributors and retail chains.** Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian Federation. Operating since 2022, the company also manufactures halal hot-dog & grill sausages, burger patties, smoked chicken & turkey hams, premium kazylyk (Tatar horse-meat sausage), meat preparations, and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak) — 77 SKUs total, all halal-certified. Federal-scale references: «Aslam» pepperoni for OMPK (Ostankino Meat Plant), Tatneft fuel-station network, SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg.
 
 ### Contacts & resources
 
