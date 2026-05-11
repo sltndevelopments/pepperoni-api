@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 """
 Sync products from Google Sheets to products.json and related files.
 Python version — works when Node.js is unavailable.
@@ -652,6 +653,7 @@ def generate_llms_full_txt(all_products):
 - OpenAPI: https://api.pepperoni.tatar/openapi.yaml
 - AI-plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
 - Полная документация: https://api.pepperoni.tatar/llms-full.txt
+- Official ChatGPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
 """
     return txt
 
@@ -1110,6 +1112,7 @@ Static snapshot of the catalog. Refreshed on every deploy.
 - AI plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
 - Full documentation (Russian): https://pepperoni.tatar/llms-full.txt
 - Full documentation (English): https://pepperoni.tatar/en/llms-full.txt
+- Official ChatGPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
 """
     return txt
 
