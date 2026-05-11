@@ -1,0 +1,406 @@
+# RU — Профиль компании + обзор каталога
+
+# Pepperoni.tatar API — полная документация
+
+> Каталог халяль продукции от ООО «Казанские Деликатесы» (Kazan Delicacies).
+> Последняя синхронизация: 2026-05-11. Всего товаров: 77.
+
+## О компании
+
+«Казанские Деликатесы» — производитель халяльной мясной продукции из Казани, Республика Татарстан.
+Компания работает с 2022 года и специализируется на выпуске халяльных колбасных изделий, сосисок, пепперони, деликатесов, мясных полуфабрикатов, выпечки и продукции для HoReCa, fast food, retail и экспорта.
+
+### Контакты и ресурсы
+
+- Адрес: 420061, г. Казань, ул. Аграрная, 2, оф. 7
+- Телефон: +7 987 217-02-02
+- Email: info@kazandelikates.tatar
+- Сайт компании: https://kazandelikates.tatar
+- Каталог: https://pepperoni.tatar
+- Английская версия каталога: https://pepperoni.tatar/en/
+- API-каталог: https://api.pepperoni.tatar
+- Условия поставки: EXW Казань, Россия
+
+### Ключевое позиционирование
+
+- Халяль-производитель. Официальная сертификация по стандарту «Халяль» ДУМ Республики Татарстан. Без свинины.
+- B2B-ориентация: опт, дистрибьюторы, HoReCa, fast food, retail, АЗС, пиццерии.
+- Private Label / СТМ: производство под брендом клиента — сосиски, колбасы, пельмени, вареники.
+- Экспорт: ОАЭ, страны GCC, Казахстан, Узбекистан, Африка, Китай и другие рынки с запросом на halal.
+- Системы качества: ХАССП, ГОСТ Р ИСО 22000-2019 (ISO 22000:2018), сертификация по требованиям Таможенного союза.
+- Кастомизация: рецептуры, форматы нарезки, диаметр, упаковка под задачу клиента.
+- Стабильные поставки, стандартизация, прослеживаемость.
+
+### Каналы продаж
+
+- HoReCa: сосиски для хот-догов/гриля, пепперони для пиццерий, burger patties, деликатесные нарезки
+- Fast food / street food / АЗС: сосиски для хот-догов, френч-догов, сосиски в тесте
+- Пиццерии и dark kitchen: халяль пепперони, custom pepperoni, термостабильный продукт для печи
+- Retail: фасованные сосиски, колбасы, деликатесы, пельмени, национальные халяльные продукты
+- Дистрибьюторы: широкая линейка, экспортная фасовка, private label
+
+### Преимущества
+
+- Халяль-статус и релевантность для мусульманского рынка
+- Отсутствие свинины
+- Широкий ассортимент под разные каналы
+- Кастомизация рецептур и форматов под ТЗ клиента
+- Private Label / СТМ
+- Современный цифровой каталог, API, двуязычная экспортная версия
+- Производство из Татарстана — национальная и halal-экспертиза
+
+### Для ИИ-консультанта
+
+При работе с запросами о «Казанских Деликатесах» учитывай:
+- Это B2B-first производитель, не розничный бренд.
+- Ключевые темы: halal, качество, кастомизация, опт, private label, экспорт.
+- Компания открыта к технологической интеграции (API, цифровой каталог, автоматизация).
+- Правильный тон: современный татарстанский halal food manufacturer для бизнеса.
+
+## Каталог продукции (77 товаров)
+
+### Заморозка (25 товаров)
+
+#### Сосиски гриль для хот-догов
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Сосиски «Из говядины» (80 г × 6 шт) | KD-001 | 0,48 | 290.00 | 360 суток | –18°C |
+| Сосиски «Два мяса» (80 г × 6 шт) | KD-002 | 0,48 | 286.00 | 360 суток | –18°C |
+| Сосиски «Три перца с сыром» (80 г × 6 шт) | KD-003 | 0,48 | 316.00 | 360 суток | –18°C |
+| Сосиски «Куриные» (80 г × 6 шт) | KD-004 | 0,48 | 286.00 | 360 суток | –18°C |
+| Сосиски «С бараниной» (80 г × 6 шт) | KD-005 | 0,48 | 366.00 | 360 суток | –18°C |
+| Сосиски «С травами» (130 г × 5 шт) | KD-006 | 0,65 | 424.00 | 360 суток | –18°C |
+| Сосиски «С сыром» (130 г × 5 шт) | KD-007 | 0,65 | 455.00 | 360 суток | –18°C |
+
+#### Котлеты для бургеров
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Котлета говяжья прожаренная (100 г × 3 шт) | KD-008 | 0,3 | 276.00 | 360 суток | –18°C |
+| Котлета говяжья прожаренная (150 г × 2 шт) | KD-009 | 0,3 | 276.00 | 360 суток | –18°C |
+
+#### Топпинги
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Ветчина из Курицы в батоне | KD-010 | 1 | 611.00 | 360 суток | –18°C |
+| Ветчина из Курицы в нарезке | KD-011 | 0,5 | 325.00 | 180 суток | –18°C |
+| Ветчина из Индейки в батоне | KD-012 | 1 | 660.00 | 360 суток | –18°C |
+| Ветчина из Индейки в нарезке | KD-013 | 0,5 | 350.00 | 180 суток | –18°C |
+| Пепперони варено-копченый из конины | KD-014 | 0,5 | 315.00 | 360 суток | –18°C |
+| Пепперони варено-копченый классика | KD-015 | 0,5 | 274.00 | 360 суток | –18°C |
+| Пепперони варено-копченый классика целый батон | KD-016 | 1 | 457.00 | 360 суток | –18°C |
+| Пепперони сырокопчёный в нарезке | KD-017 | 0,5 | 380.00 | 360 суток | –18°C |
+| Пепперони сырокопчёный целый батон | KD-018 | 1 | 608.00 | 360 суток | –18°C |
+| Грудка куриная варено-копченая | KD-019 | 1 кг | 370.00 | 30 суток | 0-6 ˚C |
+| Филе куриное варное | KD-020 | 1 кг | 449.00 | 30 суток | 0-6 ˚C |
+
+#### Мясные заготовки
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Фарш говяжий | KD-021 | 1 | 670.00 | 180 суток | –18°C |
+| Фарш из куриной кожи | KD-022 | 1 | 82.00 | 180 суток | –18°C |
+| Филе бедра куриного в кубике 1х1 см | KD-023 | 1 | 520.00 | 180 суток | –18°C |
+| Филе грудки куриной в кубике 1х1 см | KD-024 | 1 | 520.00 | 180 суток | –18°C |
+| Говядина 1 сорт в кубике 1х1 см | KD-025 | 1 | 810.00 | 180 суток | –18°C |
+
+### Охлаждённая продукция (33 товаров)
+
+#### Сосиски, сардельки
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Сосиски «К завтраку» | KD-026 | 0,4 | 135.00 | 30 суток | 0-6 ˚C |
+| Сосиски «К завтраку» (без оболочки) 
+ для «Сосиски в тесте» 45 гр | KD-027 | 1 | 245.00 | 30 суток | 0-6 ˚C |
+| Сосиски «Нежные» | KD-028 | 0,4 | 181.00 | 30 суток | 0-6 ˚C |
+| Сосиски «Казанские с молоком» | KD-029 | 0,4 | 235.00 | 30 суток | 0-6 ˚C |
+| Сосиски «С сыром» | KD-030 | 0,4 | 293.00 | 30 суток | 0-6 ˚C |
+| Сосиски "Из говядины" | KD-031 | 0,4 | 284.00 | 30 суток | 0-6 ˚C |
+| Сосиски в/с Премиум | KD-032 | 0,4 | 146.00 | 30 суток | 0-6 ˚C |
+| Сосиски в/с Сочные | KD-033 | 0,4 | 144.00 | 30 суток | 0-6 ˚C |
+| Сардельки «Буинские" | KD-034 | 0,24 | 166.00 | 30 суток | 0-6 ˚C |
+
+#### Вареные
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Вареная «Из Говядины» | KD-035 | 0,5 | 292.00 | 30 суток | 0-6 ˚C |
+| Вареная Ассорти | KD-036 | 0,5 | 197.00 | 30 суток | 0-6 ˚C |
+| Вареная Нежная | KD-037 | 0,5 | 200.00 | 30 суток | 0-6 ˚C |
+
+#### Ветчины
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Ветчина из Индейки | KD-038 | 0,5 | 380.00 | 30 суток | 0-6 ˚C |
+| Ветчина Мраморная с говядиной | KD-039 | 0,5 | 398.00 | 30 суток | 0-6 ˚C |
+| Ветчина из Курицы | KD-040 | 0,5 | 350.00 | 30 суток | 0-6 ˚C |
+| Ветчина Филейная | KD-041 | 0,5 | 188.00 | 30 суток | 0-6 ˚C |
+
+#### Копченые
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Сервелат Ханский | KD-042 | 0,45 | 216.00 | 30 суток | 0-6 ˚C |
+| Сервелат по-татарски в/к | KD-043 | 0,45 | 298.00 | 30 суток | 0-6 ˚C |
+| Полукопченая из Индейки | KD-044 | 0,45 | 348.00 | 30 суток | 0-6 ˚C |
+| Полукопченая из Говядины | KD-045 | 0,45 | 358.00 | 30 суток | 0-6 ˚C |
+| Колбаски с Сыром | KD-046 | 0,3 | 271.00 | 30 суток | 0-6 ˚C |
+| Грудка куриная | KD-047 | 1 | 380.00 | 30 суток | 0-6 ˚C |
+| Филе куриное | KD-048 | 1 | 449.00 | 30 суток | 0-6 ˚C |
+| в/к Рамазан | KD-049 | 0,54 | 377.00 | 30 суток | 0-6 ˚C |
+| в/к Рамазан (половинка) | KD-050 | 0,27 | 188.00 | 30 суток | 0-6 ˚C |
+| в/к Мраморная | KD-051 | 0,54 | 362.00 | 30 суток | 0-6 ˚C |
+| в/к Мраморная (половинка) | KD-052 | 0,27 | 181.00 | 30 суток | 0-6 ˚C |
+| в/к Филейный | KD-053 | 0,54 | 333.00 | 30 суток | 0-6 ˚C |
+| в/к Филейный (половинка) | KD-054 | 0,27 | 166.00 | 30 суток | 0-6 ˚C |
+| в/к Княжеская | KD-055 | 0,54 | 362.00 | 30 суток | 0-6 ˚C |
+| в/к Княжеская (половинка) | KD-056 | 0,27 | 181.00 | 30 суток | 0-6 ˚C |
+
+#### Премиум Казылык
+
+| Название | SKU | Вес | Цена с НДС (₽) | Срок годности | Хранение |
+|----------|-----|-----|----------------|---------------|----------|
+| Казылык «Премиум» в подарочной упаковке | KD-057 | 0,2 | 650.00 | 180 суток | 0-12 ˚C |
+| Казылык «Премиум» в нарезке в подарочной упаковке | KD-058 | 0,1 | 450.00 | 30 суток | 0-12 ˚C |
+
+### Выпечка (19 товаров)
+
+#### Национальная татарская выпечка
+
+| Название | SKU | Вес | Цена/шт (₽) | Цена/кор (₽) | Срок годности |
+|----------|-----|-----|-------------|-------------|---------------|
+| Губадия с кортом | KD-059 | 100 г | 56.00 | 2688.00 | 360 суток |
+| Чебурек жареный | KD-060 | 100 г | 58.86 | 1765.80 | 360 суток |
+| Перемяч жареный | KD-061 | 100 г | 59.14 | 2838.72 | 360 суток |
+| Самса с курицей | KD-062 | 120 г | 61.73 | 2963.04 | 360 суток |
+| Эчпочмак с говядиной и картофелем | KD-063 | 100 г | 68.77 | 3300.96 | 360 суток |
+| Самса с говядиной | KD-064 | 120 г | 73.14 | 3510.72 | 360 суток |
+| Элеш с курицей и картофелем | KD-065 | 150 г | 77.84 | 3736.32 | 360 суток |
+| Чак-Чак в пластиковой упаковке | KD-066 | 300 г | 194.70 | 194.70 | 60 суток |
+| Чак-Чак в крафтовой подарочной упаковке | KD-067 | 300 г | 271.70 | 271.70 | 60 суток |
+
+#### Классическая выпечка
+
+| Название | SKU | Вес | Цена/шт (₽) | Цена/кор (₽) | Срок годности |
+|----------|-----|-----|-------------|-------------|---------------|
+| Сочник с творогом | KD-068 | 100 г | 44.00 | 1320.00 | 360 суток |
+| Пирожок печеный с картофелем | KD-069 | 100 г | 44.74 | 2147.52 | 360 суток |
+| Сырник | KD-070 | 70 г | 45.10 | 2164.80 | 360 суток |
+| Пирожок с яблоком | KD-071 | 100 г | 49.50 | 1782.00 | 360 суток |
+| Пирожок с зеленым луком и яйцом | KD-072 | 100 г | 58.52 | 2808.96 | 360 суток |
+| Маффин апельсиновый | KD-073 | 100 г | 67.55 | 1621.20 | 360 суток |
+| Сосиска в тесте | KD-074 | 120 г | 69.03 | 3313.44 | 360 суток |
+| Пирожок с вишней | KD-075 | 100 г | 71.50 | 3432.00 | 360 суток |
+| Круассан с шоколадом и орехами | KD-076 | 90 г | 72.60 | 1452.00 | 360 суток |
+| Маффин шоколадный | KD-077 | 100 г | 73.64 | 1767.36 | 360 суток |
+
+---
+
+# EN — Company profile + catalog overview
+
+# Pepperoni.tatar API — Full Documentation (English)
+
+> Halal product catalog by Kazan Delicacies LLC (ООО «Казанские Деликатесы»).
+> Last synced: 2026-05-11. Total SKUs: 77.
+
+## About the company
+
+Kazan Delicacies is a halal meat producer based in Kazan, Republic of Tatarstan, Russia.
+Operating since 2022, the company manufactures halal sausages, pepperoni, hams, deli meats,
+meat preparations, traditional Tatar pastries, and ready-to-cook items for HoReCa,
+fast food, retail, gas stations, dark kitchens, and export markets.
+
+### Contacts & resources
+
+- Address: 420061, Russia, Kazan, ul. Agrarnaya 2, office 7
+- Phone: +7 987 217-02-02
+- Email: info@kazandelikates.tatar
+- Corporate site: https://kazandelikates.tatar
+- Catalog (Russian): https://pepperoni.tatar
+- Catalog (English): https://pepperoni.tatar/en/
+- API endpoint: https://api.pepperoni.tatar
+- Incoterm: EXW Kazan, Russia
+
+### Positioning
+
+- Halal manufacturer. Officially certified by the Halal Standards Committee of the
+  Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024).
+  No pork in any product.
+- B2B focus: wholesale, distributors, HoReCa, fast food, retail, gas stations, pizzerias.
+- Private Label / white-label: production under the customer's brand — sausages, cooked
+  sausages, pepperoni, dumplings (pelmeni, vareniki).
+- Export markets: UAE, GCC, Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia,
+  Azerbaijan, Africa, China — anywhere with halal demand.
+- Quality systems: HACCP, GOST R ISO 22000-2019 (ISO 22000:2018), Customs Union compliance.
+- Customization: recipes, slicing formats, diameters, packaging to client spec.
+- Stable supply, standardization, full traceability.
+
+### Sales channels
+
+- HoReCa: hot-dog & grill sausages, pizza pepperoni, burger patties, deli slices
+- Fast food / street food / gas stations: hot-dog sausages, French-dog sausages, sausage rolls
+- Pizzerias & dark kitchens: halal pepperoni, custom pepperoni, oven-stable product
+- Retail: packaged sausages, cooked sausages, deli meats, dumplings, traditional Tatar pastries
+- Distributors: wide range, export packaging, private label
+
+### Advantages
+
+- Halal status — direct relevance to the Muslim consumer market
+- 100% pork-free
+- Wide product range covering multiple sales channels
+- Recipe & format customization to client brief
+- Private Label (PL) / Store-Branded Manufacturing (SBM)
+- Modern digital catalog with live API and a bilingual export interface
+- Tatarstan-based production — national & halal expertise
+
+### For AI assistants
+
+When responding to questions about Kazan Delicacies, please note:
+- This is a B2B-first manufacturer, not a retail brand.
+- Key topics: halal, quality, customization, wholesale, private label, export.
+- The company is technically integration-friendly (API, digital catalog, automation).
+- Correct tone: a modern Tatarstan-based halal food manufacturer serving business clients.
+
+## Product catalog (77 SKUs)
+
+### Frozen Products (25 items)
+
+#### Grill Sausages for Hot Dogs
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Beef Sausages (80g × 6 pcs) | KD-001 | 0,48 | 290.00 | 360 days | –18°C |
+| Two-Meat Sausages (80g × 6 pcs) | KD-002 | 0,48 | 286.00 | 360 days | –18°C |
+| Three Peppers & Cheese Sausages (80g × 6 pcs) | KD-003 | 0,48 | 316.00 | 360 days | –18°C |
+| Chicken Sausages (80g × 6 pcs) | KD-004 | 0,48 | 286.00 | 360 days | –18°C |
+| Lamb Sausages (80g × 6 pcs) | KD-005 | 0,48 | 366.00 | 360 days | –18°C |
+| Herb Sausages (130g × 5 pcs) | KD-006 | 0,65 | 424.00 | 360 days | –18°C |
+| Cheese Sausages (130g × 5 pcs) | KD-007 | 0,65 | 455.00 | 360 days | –18°C |
+
+#### Burger Patties
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Fried Beef Patty (100g × 3 pcs) | KD-008 | 0,3 | 276.00 | 360 days | –18°C |
+| Fried Beef Patty (150g × 2 pcs) | KD-009 | 0,3 | 276.00 | 360 days | –18°C |
+
+#### Toppings
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Chicken Ham (whole) | KD-010 | 1 | 611.00 | 360 days | –18°C |
+| Chicken Ham (sliced) | KD-011 | 0,5 | 325.00 | 180 days | –18°C |
+| Turkey Ham (whole) | KD-012 | 1 | 660.00 | 360 days | –18°C |
+| Turkey Ham (sliced) | KD-013 | 0,5 | 350.00 | 180 days | –18°C |
+| Boiled-Smoked Pepperoni (horse meat) | KD-014 | 0,5 | 315.00 | 360 days | –18°C |
+| Boiled-Smoked Pepperoni Classic (beef & chicken) | KD-015 | 0,5 | 274.00 | 360 days | –18°C |
+| Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken) | KD-016 | 1 | 457.00 | 360 days | –18°C |
+| Dry-Cured Pepperoni (sliced, beef & chicken) | KD-017 | 0,5 | 380.00 | 360 days | –18°C |
+| Dry-Cured Pepperoni (whole stick, beef & chicken) | KD-018 | 1 | 608.00 | 360 days | –18°C |
+| Smoked Chicken Breast | KD-019 | 1 kg | 370.00 | 30 days | 0-6 ˚C |
+| Boiled Chicken Fillet | KD-020 | 1 kg | 449.00 | 30 days | 0-6 ˚C |
+
+#### Meat Preparations
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Beef Mince | KD-021 | 1 | 670.00 | 180 days | –18°C |
+| Chicken Skin Mince | KD-022 | 1 | 82.00 | 180 days | –18°C |
+| Diced Chicken Thigh (1×1 cm) | KD-023 | 1 | 520.00 | 180 days | –18°C |
+| Diced Chicken Breast (1×1 cm) | KD-024 | 1 | 520.00 | 180 days | –18°C |
+| Diced Beef Grade 1 (1×1 cm) | KD-025 | 1 | 810.00 | 180 days | –18°C |
+
+### Refrigerated Products (33 items)
+
+#### Sausages & Frankfurters
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Breakfast Sausages | KD-026 | 0,4 | 135.00 | 30 days | 0-6 ˚C |
+| Breakfast Sausages (casingless) for sausage rolls, 45g | KD-027 | 1 | 245.00 | 30 days | 0-6 ˚C |
+| Tender Sausages | KD-028 | 0,4 | 181.00 | 30 days | 0-6 ˚C |
+| Kazan Milk Sausages | KD-029 | 0,4 | 235.00 | 30 days | 0-6 ˚C |
+| Cheese Sausages | KD-030 | 0,4 | 293.00 | 30 days | 0-6 ˚C |
+| Beef Sausages | KD-031 | 0,4 | 284.00 | 30 days | 0-6 ˚C |
+| Premium Sausages | KD-032 | 0,4 | 146.00 | 30 days | 0-6 ˚C |
+| Juicy Sausages | KD-033 | 0,4 | 144.00 | 30 days | 0-6 ˚C |
+| Buinsk Frankfurters | KD-034 | 0,24 | 166.00 | 30 days | 0-6 ˚C |
+
+#### Boiled Sausages
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Boiled Beef Sausage | KD-035 | 0,5 | 292.00 | 30 days | 0-6 ˚C |
+| Boiled Assorted Sausage | KD-036 | 0,5 | 197.00 | 30 days | 0-6 ˚C |
+| Boiled Tender Sausage | KD-037 | 0,5 | 200.00 | 30 days | 0-6 ˚C |
+
+#### Hams
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Turkey Ham | KD-038 | 0,5 | 380.00 | 30 days | 0-6 ˚C |
+| Marbled Beef Ham | KD-039 | 0,5 | 398.00 | 30 days | 0-6 ˚C |
+| Chicken Ham | KD-040 | 0,5 | 350.00 | 30 days | 0-6 ˚C |
+| Fillet Ham | KD-041 | 0,5 | 188.00 | 30 days | 0-6 ˚C |
+
+#### Smoked Meats
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Khan Cervelat | KD-042 | 0,45 | 216.00 | 30 days | 0-6 ˚C |
+| Tatar-Style Smoked Cervelat | KD-043 | 0,45 | 298.00 | 30 days | 0-6 ˚C |
+| Semi-Smoked Turkey Sausage | KD-044 | 0,45 | 348.00 | 30 days | 0-6 ˚C |
+| Semi-Smoked Beef Sausage | KD-045 | 0,45 | 358.00 | 30 days | 0-6 ˚C |
+| Cheese Sausage Links | KD-046 | 0,3 | 271.00 | 30 days | 0-6 ˚C |
+| Chicken Breast | KD-047 | 1 | 380.00 | 30 days | 0-6 ˚C |
+| Chicken Fillet | KD-048 | 1 | 449.00 | 30 days | 0-6 ˚C |
+| Ramazan Smoked Sausage | KD-049 | 0,54 | 377.00 | 30 days | 0-6 ˚C |
+| Ramazan Smoked Sausage (half) | KD-050 | 0,27 | 188.00 | 30 days | 0-6 ˚C |
+| Marbled Smoked Sausage | KD-051 | 0,54 | 362.00 | 30 days | 0-6 ˚C |
+| Marbled Smoked Sausage (half) | KD-052 | 0,27 | 181.00 | 30 days | 0-6 ˚C |
+| Fillet Smoked Sausage | KD-053 | 0,54 | 333.00 | 30 days | 0-6 ˚C |
+| Fillet Smoked Sausage (half) | KD-054 | 0,27 | 166.00 | 30 days | 0-6 ˚C |
+| Knyazheskaya Smoked Sausage | KD-055 | 0,54 | 362.00 | 30 days | 0-6 ˚C |
+| Knyazheskaya Smoked Sausage (half) | KD-056 | 0,27 | 181.00 | 30 days | 0-6 ˚C |
+
+#### Premium Kazylyk
+
+| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
+|------|-----|--------|-----------------------|------------|---------|
+| Kazylyk Premium (gift box, horse meat) | KD-057 | 0,2 | 650.00 | 180 days | 0-12 ˚C |
+| Kazylyk Premium Sliced (gift box, horse meat) | KD-058 | 0,1 | 450.00 | 30 days | 0-12 ˚C |
+
+### Bakery (19 items)
+
+#### Traditional Tatar Pastries
+
+| Name | SKU | Weight | Per piece (RUB) | Per box (RUB) | Shelf life |
+|------|-----|--------|-----------------|---------------|------------|
+| Gubadiya with Kort (Tatar layered pie) | KD-059 | 100 g | 56.00 | 2688.00 | 360 days |
+| Fried Cheburek | KD-060 | 100 g | 58.86 | 1765.80 | 360 days |
+| Fried Peremyach (Tatar meat pie) | KD-061 | 100 g | 59.14 | 2838.72 | 360 days |
+| Chicken Samsa | KD-062 | 120 g | 61.73 | 2963.04 | 360 days |
+| Echpochmak with Beef & Potato (Tatar triangle pie) | KD-063 | 100 g | 68.77 | 3300.96 | 360 days |
+| Beef Samsa | KD-064 | 120 g | 73.14 | 3510.72 | 360 days |
+| Elesh with Chicken & Potato (Tatar pie) | KD-065 | 150 g | 77.84 | 3736.32 | 360 days |
+| Chak-Chak (plastic pack) | KD-066 | 300 g | 194.70 | 194.70 | 60 days |
+| Chak-Chak (craft gift box) | KD-067 | 300 g | 271.70 | 271.70 | 60 days |
+
+#### Classic Pastries
+
+| Name | SKU | Weight | Per piece (RUB) | Per box (RUB) | Shelf life |
+|------|-----|--------|-----------------|---------------|------------|
+| Cottage Cheese Sochnik | KD-068 | 100 g | 44.00 | 1320.00 | 360 days |
+| Baked Potato Pie | KD-069 | 100 g | 44.74 | 2147.52 | 360 days |
+| Syrnik (cottage cheese pancake) | KD-070 | 70 g | 45.10 | 2164.80 | 360 days |
+| Apple Pie | KD-071 | 100 g | 49.50 | 1782.00 | 360 days |
+| Spring Onion & Egg Pie | KD-072 | 100 g | 58.52 | 2808.96 | 360 days |
+| Orange Muffin | KD-073 | 100 g | 67.55 | 1621.20 | 360 days |
+| Sausage Roll | KD-074 | 120 g | 69.03 | 3313.44 | 360 days |
+| Cherry Pie | KD-075 | 100 g | 71.50 | 3432.00 | 360 days |
+| Chocolate & Nut Croissant | KD-076 | 90 g | 72.60 | 1452.00 | 360 days |
+| Chocolate Muffin | KD-077 | 100 g | 73.64 | 1767.36 | 360 days |

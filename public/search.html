@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-language" content="ru">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+<title>Поиск по каталогу — Казанские Деликатесы</title>
+<meta name="description" content="Поиск по 77 халяль товарам: пепперони, сосиски, ветчина, колбасы, татарская выпечка. Введите название, SKU или категорию.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://pepperoni.tatar/search">
+<link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/search">
+<link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/search">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.7}
+.container{max-width:1000px;margin:0 auto;padding:32px 20px}
+h1{font-size:1.6rem;margin-bottom:16px}
+.search-bar{display:flex;gap:10px;margin-bottom:24px}
+.search-bar input{flex:1;padding:12px 16px;font-size:1rem;border:2px solid #1b7a3d;border-radius:8px;outline:none}
+.search-bar button{padding:12px 22px;background:#1b7a3d;color:#fff;border:0;border-radius:8px;cursor:pointer;font-weight:600;font-size:1rem}
+.meta{font-size:.9rem;color:#666;margin-bottom:16px}
+.results{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.r-card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:14px;text-decoration:none;color:#1a1a1a}
+.r-card:hover{border-color:#1b7a3d;box-shadow:0 4px 10px rgba(0,0,0,.04)}
+.r-card .sku{font-size:.7rem;color:#888;letter-spacing:.5px}
+.r-card .name{font-size:.95rem;font-weight:600;margin:4px 0 6px;line-height:1.3}
+.r-card .cat{font-size:.78rem;color:#888;margin-bottom:8px}
+.r-card .price{font-size:1.05rem;font-weight:700;color:#1b7a3d}
+.empty{text-align:center;color:#666;padding:40px 20px}
+.empty a{color:#0066cc}
+nav{font-size:.85rem;margin-bottom:18px}
+nav a{color:#0066cc;text-decoration:none}
+@media(max-width:520px){h1{font-size:1.3rem}.search-bar{flex-direction:column}.search-bar button{width:100%}}
+</style>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<div class="container">
+  <nav><a href="/">← Каталог</a> · <a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/en/search" style="float:right;color:#888">🇬🇧 EN</a></nav>
+
+  <h1>Поиск по каталогу халяль продукции</h1>
+
+  <form class="search-bar" onsubmit="event.preventDefault();go(document.getElementById('q').value)">
+    <input id="q" type="search" name="q" placeholder="Пепперони, сосиски, KD-001, эчпочмак…" autofocus autocomplete="off">
+    <button type="submit">Найти</button>
+  </form>
+
+  <div id="meta" class="meta"></div>
+  <div id="results" class="results"></div>
+
+<script>
+function go(q){
+  q = (q||'').trim();
+  const url = new URL(location.href);
+  if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+  history.replaceState(null, '', url);
+  render(q);
+}
+
+async function init(){
+  const q = new URLSearchParams(location.search).get('q') || '';
+  document.getElementById('q').value = q;
+  window._catalog = await fetch('/products.json').then(r=>r.json()).then(d=>d.products||[]);
+  render(q);
+}
+
+function render(q){
+  const meta = document.getElementById('meta');
+  const list = document.getElementById('results');
+  if (!q){
+    meta.textContent = 'Введите запрос — поиск по 77 товарам каталога. Можно искать по названию, SKU, категории, ингредиенту.';
+    list.innerHTML = '';
+    return;
+  }
+  const needle = q.toLowerCase();
+  const out = (window._catalog||[]).filter(p=>{
+    return [p.name, p.sku, p.category, p.section, p.ingredientsRU||''].some(s=>(s||'').toLowerCase().includes(needle));
+  });
+  meta.textContent = `Найдено: ${out.length} из ${(window._catalog||[]).length} · «${q}»`;
+  if (!out.length){
+    list.innerHTML = `<div class="empty">Ничего не найдено по запросу «${q}».<br><a href="/">Посмотреть весь каталог →</a></div>`;
+    return;
+  }
+  list.innerHTML = out.map(p=>{
+    const slug = (p.sku||'').toLowerCase();
+    const price = p.offers && (p.offers.price || p.offers.pricePerUnit) || '';
+    return `<a href="/products/${slug}" class="r-card">
+      <div class="sku">${p.sku||''}</div>
+      <div class="name">${p.name||''}</div>
+      <div class="cat">${p.category||p.section||''}</div>
+      <div class="price">${price ? price + ' ₽' : 'по запросу'}</div>
+    </a>`;
+  }).join('');
+}
+init();
+</script>
+
+<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});</script><noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt='' width="1" height="1" loading="lazy" /></div></noscript>
+</div>
+</body>
+</html>
