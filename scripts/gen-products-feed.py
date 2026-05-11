@@ -243,11 +243,13 @@ def derive_product_type(p: dict, tr: dict) -> str:
 
 
 def derive_custom_labels(p: dict, tr: dict) -> dict:
+    package = p.get("packageType", "")
+    package_en = tr.get("packageTypes", {}).get(package, package)
     return {
         "custom_label_0": "halal",
         "custom_label_1": t_section(p.get("section", ""), tr).lower().replace(" products", ""),
         "custom_label_2": t_category(p.get("category", ""), tr),
-        "custom_label_3": p.get("packageType", ""),
+        "custom_label_3": package_en,
         "custom_label_4": "halal-#614A/2024",
     }
 
