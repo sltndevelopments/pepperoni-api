@@ -152,7 +152,11 @@ def build_burger_page(loc):
 {GTM}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="manifest" href="/manifest.json">
   <title>Халяль котлеты для бургеров оптом — {city} | Казанские Деликатесы</title>
   <meta name="description" content="Котлеты для бургеров халяль оптом в {city_gen}. Говяжьи и куриные. Заморозка, 360 суток. ХАССП. Halal № 614A/2024. Поставки от производителя.{exp}">
   <meta name="keywords" content="котлеты для бургеров {city.lower()}, халяль котлеты для бургеров {city.lower()}, котлеты для бургеров оптом {city.lower()}, burger patties halal {city.lower()}, котлеты говяжьи для бургеров {city.lower()}">
@@ -275,7 +279,10 @@ def build_hotdog_page(loc):
 {GTM}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
+<link rel="icon" href="/favicon.ico" sizes="any">
   <title>Халяль сосиски для хот-догов и франч-догов оптом — {city}</title>
   <meta name="description" content="Сосиски для хот-догов и франч-догов халяль оптом в {city_gen}. Говядина, курица. Заморозка 360 суток. ХАССП. Halal № 614A/2024. Поставки от производителя.{exp}">
   <meta name="keywords" content="сосиски для хот-догов {city.lower()}, сосиски для франч-догов {city.lower()}, халяль сосиски {city.lower()}, сосиски для хот-догов оптом {city.lower()}, сосиски гриль {city.lower()}">
