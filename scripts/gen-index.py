@@ -420,6 +420,7 @@ function renderGroups(allGroups){{
         const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
         html+=`<a href="${{href}}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${{p.sku||''}}">
+          <meta itemprop="image" content="${{p.image||p.imageMain||''}}">
           <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
           <div class="product-name" itemprop="name">${{p.name}}</div>
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -980,6 +981,8 @@ function renderGroups(allGroups){{
         const href=p.sku?`/en/products/${{p.sku.toLowerCase()}}`:'#';
         html+=`<a href="${{href}}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${{p.sku||''}}">
+          <meta itemprop="image" content="${{p.image||p.imageMain||''}}">
+          <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Kazan Delicacies"></span>
           <div class="product-name" itemprop="name">${{p.name}}</div>
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="price" content="${{pr}}">
