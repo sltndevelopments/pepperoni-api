@@ -141,6 +141,7 @@ Allow: /
 
 # ───────── Sitemaps ─────────
 Sitemap: https://pepperoni.tatar/sitemap.xml
+Sitemap: https://pepperoni.tatar/sitemap-llms.xml
 Sitemap: https://pepperoni.tatar/rss.xml
 
 # Host directive (for Yandex)

@@ -152,6 +152,7 @@ def build_burger_page(loc):
 {GTM}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="ru">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
@@ -280,6 +281,7 @@ def build_hotdog_page(loc):
 {GTM}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="ru">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/images/icon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">

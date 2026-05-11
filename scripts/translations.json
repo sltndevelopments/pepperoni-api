@@ -17,8 +17,11 @@
     "ветчина из индейки в батоне": "Turkey Ham (whole)",
     "ветчина из индейки в нарезке": "Turkey Ham (sliced)",
     "пепперони вар-коп из конины": "Boiled-Smoked Pepperoni (horse meat)",
+    "пепперони варено-копченый из конины": "Boiled-Smoked Pepperoni (horse meat)",
     "пепперони вар-коп классика": "Boiled-Smoked Pepperoni Classic (beef & chicken)",
+    "пепперони варено-копченый классика": "Boiled-Smoked Pepperoni Classic (beef & chicken)",
     "пепперони вар-коп классика целый батон": "Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken)",
+    "пепперони варено-копченый классика целый батон": "Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken)",
     "пепперони сырокопчёный в нарезке": "Dry-Cured Pepperoni (sliced, beef & chicken)",
     "пепперони сырокопчёный целый батон": "Dry-Cured Pepperoni (whole stick, beef & chicken)",
     "грудка куриная варено-копченая": "Smoked Chicken Breast",
@@ -35,6 +38,9 @@
     "сосиски «казанские с молоком»": "Kazan Milk Sausages",
     "сосиски «с сыром»": "Cheese Sausages",
     "сосиски «из говядины»": "Beef Sausages",
+    "сосиски \"из говядины\"": "Beef Sausages",
+    "сосиски «к завтраку» (без оболочки) \n для «сосиски в тесте» 45 гр": "Breakfast Sausages (casingless) for sausage rolls, 45g",
+    "сардельки «буинские\"": "Buinsk Frankfurters",
     "сосиски в/с премиум": "Premium Sausages",
     "сосиски в/с сочные": "Juicy Sausages",
     "сардельки «буинские»": "Buinsk Frankfurters",
@@ -112,5 +118,23 @@
     "60 суток": "60 days",
     "180 суток": "180 days",
     "360 суток": "360 days"
+  },
+  "packageTypes": {
+    "Вакуум": "Vacuum-packed",
+    "вакуум": "Vacuum-packed",
+    "МГС": "Modified atmosphere (MAP)",
+    "Крафт": "Craft paper",
+    "Картон": "Cardboard box",
+    "Подложка": "Tray",
+    "Полипропилен": "Polypropylene"
+  },
+  "casings": {
+    "без оболочки": "casingless",
+    "без оболоччки": "casingless",
+    "есть": "with casing",
+    "натуральная": "natural casing",
+    "коллагеновая": "collagen casing",
+    "полиамидная": "polyamide casing",
+    "целлюлозная": "cellulose casing"
   }
 }
