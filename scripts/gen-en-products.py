@@ -123,7 +123,10 @@ def main():
         else:
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
         seo_desc = (p.get("seoDescriptionEN") or desc)
-        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Halal food catalog. Wholesale orders.")[:160].replace('"', "&quot;")
+        seo_desc = seo_desc[:160].rsplit(" ", 1)[0] if len(seo_desc) > 160 else seo_desc
+        if len(seo_desc) < 120:
+            seo_desc = (seo_desc + " Halal wholesale catalog. Export, HACCP, Private Label.")
+        seo_desc = seo_desc[:160].replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
 
@@ -171,7 +174,8 @@ def main():
         if p.get("diameter"):
             specs.append(("Diameter", f"{p['diameter']} mm"))
         if p.get("casing"):
-            specs.append(("Casing", p["casing"]))
+            casing_en = {"без оболочки": "No casing", "натуральная": "Natural", "коллагеновая": "Collagen", "целлюлозная": "Cellulose", "фиброузная": "Fibrous", "полиамидная": "Polyamide"}.get(p["casing"].strip().lower(), p["casing"])
+            specs.append(("Casing", casing_en))
         if p.get("shelfLife"):
             specs.append(("Shelf life", shelf_life or p["shelfLife"]))
         if p.get("storage"):
@@ -179,11 +183,24 @@ def main():
         if p.get("boxWeightGross"):
             specs.append(("Box weight gross", p["boxWeightGross"]))
         if p.get("packageType"):
-            specs.append(("Packaging", p["packageType"]))
+            pkg_en = {"вакуум": "Vacuum", "вакуумная упаковка": "Vacuum pack", "лоток": "Tray", "гофрокороб": "Corrugated box", "термоусадочная": "Shrink wrap"}.get(p["packageType"].strip().lower(), p["packageType"])
+            specs.append(("Packaging", pkg_en))
         if p.get("minOrder"):
             specs.append(("Min order", p["minOrder"]))
         if p.get("nutrition"):
-            specs.append(("Nutrition", p["nutrition"]))
+            nut = p["nutrition"]
+            # Replace Russian nutrition terms with English
+            for ru, en in [
+                ("Калории", "Calories"), ("ккал", "kcal"), ("Белки", "Protein"), ("Жиры", "Fat"),
+                ("Углеводы", "Carbohydrates"), ("Не более", "Max"), ("Продукт не содержит", "Free of"),
+                ("не содержит", "free of"), ("генетически модифицированных организмов", "GMO"),
+                ("ГМО", "GMO"), (" на ", " per "), ("Соль", "Salt"),
+            ]:
+                nut = nut.replace(ru, en)
+            # Clean up leftovers: replace Russian punctuation with English
+            import re
+            nut = re.sub(r'(\d+),(\d+)\s*г\.?', r'\1.\2 g', nut)
+            specs.append(("Nutrition", nut))
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
@@ -196,7 +213,8 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<title>{(t := name + " — Kazan Delicacies | Halal")[:60].rstrip(" |") or t[:60]}</title>
+<meta http-equiv="content-language" content="en">
+<title>{(name + " — Kazan Delicacies | Halal")[:70]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/products/{slug}">
@@ -273,7 +291,7 @@ footer a{{color:#444;text-decoration:none}}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({{ecommerce:{{detail:{{products:[{{id:"{sku}",name:"{name_esc}",price:{pr},brand:"Kazan Delicacies",category:"{category_esc}"}}]}}}}}});</script>
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({{ecommerce:{{detail:{{products:[{{id:"{sku}",name:"{name_esc}",price:{f"{pr_usd:.2f}" if pr_usd > 0 else pr},brand:"Kazan Delicacies",category:"{category_esc}"}}]}}}}}});</script>
 <div class="container">
 <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
 <a href="/en/" style="color:#0066cc;text-decoration:none">Catalog</a>
@@ -341,7 +359,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
-            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
+            cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")
             html += f'<div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += '''<footer>
 <p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="https://api.pepperoni.tatar/">For Distributors (API)</a></p>

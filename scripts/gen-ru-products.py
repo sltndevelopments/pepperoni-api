@@ -91,8 +91,11 @@ def main():
         pr = float(price_rub) if price_rub else 0
         name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
-        seo_desc = p.get("seoDescriptionRU") or f"{name}. {p.get('category','')}. Халяль продукция от Казанских Деликатесов. {('Вес: ' + weight + '. ') if weight else ''} Цена: {price_rub} ₽. {(p.get('shelfLife','') and 'Срок годности: ' + p['shelfLife'] + '.') or ''}"
-        seo_desc = (seo_desc[:160] if len(seo_desc) >= 120 else seo_desc + " Каталог халяль продукции. Заказ оптом.")[:160].replace('"', "&quot;")
+        seo_desc = p.get("seoDescriptionRU") or f"Купить {name} оптом от производителя. 100% Халяль, ХАССП. {p.get('category','')}. {('Вес: ' + weight + '. ') if weight else ''}Цена: {price_rub} ₽. Доставка по РФ и СНГ."
+        seo_desc = seo_desc[:160].rsplit(" ", 1)[0] if len(seo_desc) > 160 else seo_desc
+        if len(seo_desc) < 120:
+            seo_desc = (seo_desc + " Каталог халяль продукции. Экспорт, опт, Private Label.")
+        seo_desc = seo_desc[:160].replace('"', "&quot;")
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
@@ -163,7 +166,7 @@ def main():
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
-<title>{(t := name + " — Казанские Деликатесы | Халяль")[:60].rstrip(" |") or t[:60]}</title>
+<title>{(name + " — Казанские Деликатесы | Халяль")[:70]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/products/{slug}">

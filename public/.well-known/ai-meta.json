@@ -6,14 +6,14 @@
       "name": "pepperoni_products_live",
       "url": "https://api.pepperoni.tatar/api/products",
       "format": "json",
-      "description": "Live product catalog synced with Google Sheets. 25+ halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
+      "description": "Live product catalog synced with Google Sheets. 77+ halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
       "updateFrequency": "hourly"
     },
     {
       "name": "pepperoni_products_static",
       "url": "https://api.pepperoni.tatar/products.json",
       "format": "json",
-      "description": "Static product catalog with 25 halal meat products."
+      "description": "Static product catalog with 77 halal meat products."
     },
     {
       "name": "pepperoni_price_list",
