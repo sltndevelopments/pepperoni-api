@@ -477,6 +477,14 @@ export default async function handler(req, res) {
         const s = staticBySku[p.sku].offers;
         p.offers = { ...p.offers, price: s.price || p.offers?.price, priceExclVAT: s.priceExclVAT || p.offers?.priceExclVAT, pricePerUnit: s.pricePerUnit || p.offers?.pricePerUnit, pricePerBox: s.pricePerBox || p.offers?.pricePerBox, pricePerBoxExclVAT: s.pricePerBoxExclVAT || p.offers?.pricePerBoxExclVAT, pricePerPiece: s.pricePerPiece || p.offers?.pricePerPiece, exportPrices: s.exportPrices || p.offers?.exportPrices };
       }
+      // Merge product images from static products.json (Cloudinary URLs)
+      const sp = staticBySku[p.sku];
+      if (sp) {
+        if (sp.image) p.image = sp.image;
+        if (sp.imageMain) p.imageMain = sp.imageMain;
+        if (sp.imagePack) p.imagePack = sp.imagePack;
+        if (sp.imageSlice) p.imageSlice = sp.imageSlice;
+      }
     }
 
     const { search, section, category, sku, lang } = req.query || {};

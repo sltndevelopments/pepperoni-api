@@ -495,7 +495,19 @@ components:
         image:
           type: string
           format: uri
-          description: Product image URL (when available)
+          description: Primary product image (Cloudinary)
+        imageMain:
+          type: string
+          format: uri
+          description: Main product photo
+        imagePack:
+          type: string
+          format: uri
+          description: Product packaging photo
+        imageSlice:
+          type: string
+          format: uri
+          description: Product slice/cross-section photo
         offers:
           $ref: '#/components/schemas/Offer'
         shelfLife:
