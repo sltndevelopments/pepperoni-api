@@ -21,7 +21,7 @@ servers:
     description: Direct (Vercel, global CDN)
 security: []
 paths:
-  /api/v1/products:
+  /api/products:
     get:
       tags:
         - Products
@@ -76,7 +76,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CatalogResponse'
-  /api/v1/export:
+  /api/export:
     get:
       tags:
         - Export
@@ -126,7 +126,7 @@ paths:
             text/csv:
               schema:
                 type: string
-  /api/v1/health:
+  /api/health:
     get:
       tags:
         - System
@@ -149,7 +149,7 @@ paths:
                   endpoints:
                     type: object
                     description: "Map of available API endpoints"
-  /api/v1/stats:
+  /api/stats:
     get:
       tags:
         - System
@@ -207,7 +207,7 @@ paths:
                           type: string
                   note:
                     type: string
-  /api/v1/search:
+  /api/search:
     get:
       tags:
         - Search
@@ -264,7 +264,7 @@ paths:
                           type: number
                         priceCurrency:
                           type: string
-  /api/v1/product/{sku}:
+  /api/product/{sku}:
     get:
       tags:
         - Products
