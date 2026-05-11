@@ -12,8 +12,10 @@ const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
 const SHEETS = [
-  { gid: '1087942289', section: 'Заморозка', type: 'standard', priceColOffset: 0 },
-  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
+  // Frozen (Заморозка) — 30 cols, has separate "Цена за 1 шт" column at C.
+  { gid: '1087942289', section: 'Заморозка', type: 'standard', hasPiecePrice: true },
+  // Chilled (Охлаждённая) — 29 cols, NO "Цена за 1 шт"; everything after B shifted left by 1.
+  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard', hasPiecePrice: false },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
 
@@ -79,22 +81,35 @@ function extractQtyFromName(name) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function parseStandard(lines, section, startIdx, colOffset = 0) {
+function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
   let category = '';
   const products = [];
   let idx = startIdx;
-  const o = colOffset;
-  // New B2B mapping: A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage, H=7 HS,
-  // I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 SKU, S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN,
-  // V=21 Diameter, W=22 Casing, X=23 IngrRU, Y=24 IngrEN, Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+
+  // Frozen (hasPiecePrice=true) — 30 cols:
+  //   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
+  //   H=7 HS, I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 Article,
+  //   S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN, V=21 Diameter, W=22 Casing, X=23 IngrRU,
+  //   Y=24 IngrEN, Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+  //
+  // Chilled (hasPiecePrice=false) — 29 cols, NO "Цена за 1 шт";
+  //   everything after B shifts left by 1 (post=-1).
+  const colPriceVat = hasPiecePrice ? 3 : 2;
+  const colPriceNoVat = hasPiecePrice ? 4 : 3;
+  const colPricePiece = hasPiecePrice ? 2 : null;
+  const post = hasPiecePrice ? 0 : -1;
+  const cell = (cols, i) => {
+    const j = i + post;
+    return j >= 0 && j < cols.length ? (cols[j] || '') : '';
+  };
 
   for (const cols of lines) {
-    if (!cols || cols.length < 7 + o) continue;
+    if (!cols || cols.length < 5) continue;
     const name = cols[0];
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
-    const priceVAT = toNumber(cols[3 + o]) || toNumber(cols[2 + o]);
-    const priceNoVAT = toNumber(cols[4 + o]) || toNumber(cols[3 + o]);
+    const priceVAT = toNumber(cols[colPriceVat]);
+    const priceNoVAT = toNumber(cols[colPriceNoVat]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
       if (name && !cols[1]) category = name;
@@ -110,27 +125,32 @@ function parseStandard(lines, section, startIdx, colOffset = 0) {
       availability: 'https://schema.org/InStock',
       exportPrices: undefined,
     };
-    const pricePerPieceVal = toNumber(cols[2 + o]);
-    if (qty > 1) {
-      offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
-    } else if (pricePerPieceVal) {
-      offers.pricePerPiece = pricePerPieceVal.toFixed(2);
+    if (colPricePiece !== null) {
+      const pricePerPieceVal = toNumber(cols[colPricePiece]);
+      if (qty > 1) {
+        offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
+      } else if (pricePerPieceVal) {
+        offers.pricePerPiece = pricePerPieceVal.toFixed(2);
+      }
+    } else if (qty > 1 && priceVAT) {
+      // Chilled — derive per-piece from VAT price ÷ qty when name contains × N шт.
+      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
     }
+
     const ep = {};
-    if (toNumber(cols[8 + o])) ep.USD = toNumber(cols[8 + o]);
-    if (toNumber(cols[9 + o])) ep.KZT = toNumber(cols[9 + o]);
-    if (toNumber(cols[10 + o])) ep.UZS = toNumber(cols[10 + o]);
-    if (toNumber(cols[11 + o])) ep.KGS = toNumber(cols[11 + o]);
-    if (toNumber(cols[12 + o])) ep.BYN = toNumber(cols[12 + o]);
-    if (toNumber(cols[13 + o])) ep.AZN = toNumber(cols[13 + o]);
+    const curList = ['USD', 'KZT', 'UZS', 'KGS', 'BYN', 'AZN'];
+    for (let i = 0; i < curList.length; i++) {
+      const v = toNumber(cols[8 + post + i]);
+      if (v) ep[curList[i]] = v;
+    }
     if (Object.keys(ep).length) offers.exportPrices = ep;
 
-    const articleFromSheet = (cols[17 + o] || '').trim();
+    const articleFromSheet = (cell(cols, 17) || '').trim();
     const sku = `KD-${String(idx).padStart(3, '0')}`;
 
-    const mainPhoto = driveToDirectUrl(cols[27 + o]);
-    const packPhoto = driveToDirectUrl(cols[28 + o]);
-    const slicePhoto = driveToDirectUrl(cols[29 + o]);
+    const mainPhoto = driveToDirectUrl(cell(cols, 27));
+    const packPhoto = driveToDirectUrl(cell(cols, 28));
+    const slicePhoto = driveToDirectUrl(cell(cols, 29));
     const image = mainPhoto || packPhoto || slicePhoto || '';
 
     products.push({
@@ -142,21 +162,21 @@ function parseStandard(lines, section, startIdx, colOffset = 0) {
       weight: cols[1] || '',
       brand: 'Казанские Деликатесы',
       offers,
-      shelfLife: cols[5 + o] || '',
-      storage: cols[6 + o] || '',
-      hsCode: cols[7 + o] || '',
-      cookingMethods: cols[14 + o] || '',
-      minOrder: cols[15 + o] || '',
-      boxWeightGross: cols[16 + o] || '',
-      barcode: cols[18 + o] || '',
-      seoDescriptionRU: cols[19 + o] || '',
-      seoDescriptionEN: cols[20 + o] || '',
-      diameter: cols[21 + o] || '',
-      casing: cols[22 + o] || '',
-      ingredientsRU: cols[23 + o] || '',
-      ingredientsEN: cols[24 + o] || '',
-      nutrition: cols[25 + o] || '',
-      packageType: cols[26 + o] || '',
+      shelfLife: cell(cols, 5),
+      storage: cell(cols, 6),
+      hsCode: cell(cols, 7),
+      cookingMethods: cell(cols, 14),
+      minOrder: cell(cols, 15),
+      boxWeightGross: cell(cols, 16),
+      barcode: cell(cols, 18),
+      seoDescriptionRU: cell(cols, 19),
+      seoDescriptionEN: cell(cols, 20),
+      diameter: cell(cols, 21),
+      casing: cell(cols, 22),
+      ingredientsRU: cell(cols, 23),
+      ingredientsEN: cell(cols, 24),
+      nutrition: cell(cols, 25),
+      packageType: cell(cols, 26),
       image,
       imageMain: mainPhoto || undefined,
       imagePack: packPhoto || undefined,
@@ -696,7 +716,7 @@ async function main() {
     if (sheet.type === 'bakery') {
       result = parseBakery(lines, sheet.section, idx);
     } else {
-      result = parseStandard(lines, sheet.section, idx, sheet.priceColOffset || 0);
+      result = parseStandard(lines, sheet.section, idx, sheet.hasPiecePrice !== false);
     }
 
     console.log(`  ✅ ${sheet.section}: ${result.products.length} товаров`);

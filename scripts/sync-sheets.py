@@ -18,15 +18,24 @@ PUBLIC = ROOT / "public"
 BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv"
 
 SHEETS = [
-    {"gid": "1087942289", "section": "Заморозка", "type": "standard", "priceColOffset": 0},
-    {"gid": "1589357549", "section": "Охлаждённая продукция", "type": "standard"},
+    # Frozen (Заморозка) has 30 cols incl. "Цена за 1 шт" at col C.
+    {"gid": "1087942289", "section": "Заморозка", "type": "standard", "hasPiecePrice": True},
+    # Chilled (Охлаждённая) has 29 cols, NO "Цена за 1 шт" — everything after B shifts left by 1.
+    {"gid": "1589357549", "section": "Охлаждённая продукция", "type": "standard", "hasPiecePrice": False},
     {"gid": "26993021", "section": "Выпечка", "type": "bakery"},
 ]
 
-# B2B: A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
-# H=7 HS, I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 Article,
-# S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN, V=21 Diameter, W=22 Casing, X=23 IngrRU, Y=24 IngrEN,
-# Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+# Frozen (hasPiecePrice=True) layout — 30 cols:
+#   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
+#   H=7 HS, I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 Article,
+#   S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN, V=21 Diameter, W=22 Casing, X=23 IngrRU, Y=24 IngrEN,
+#   Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+#
+# Chilled (hasPiecePrice=False) layout — 29 cols, no "Цена за 1 шт":
+#   A=0 Name, B=1 Weight, C=2 Price VAT, D=3 NoVAT, E=4 ShelfLife, F=5 Storage, G=6 HS,
+#   H-M=7-12 currencies, N=13 Cooking, O=14 MinOrder, P=15 BoxWeight, Q=16 Article,
+#   R=17 Barcode, S=18 SEO_RU, T=19 SEO_EN, U=20 Diameter, V=21 Casing, W=22 IngrRU, X=23 IngrEN,
+#   Y=24 Nutrition, Z=25 PkgType, AA=26 MainPhoto, AB=27 PackPhoto, AC=28 SlicePhoto
 
 
 def to_number(s):
@@ -43,27 +52,39 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def parse_standard(lines, section, start_idx, col_offset=0):
+def parse_standard(lines, section, start_idx, has_piece_price=True):
+    """Parse 'standard' B2B sheet (Frozen or Chilled).
+
+    Frozen has separate 'Цена за 1 шт' column → hasPiecePrice=True.
+    Chilled does NOT have it → hasPiecePrice=False, every column after B
+    is effectively shifted left by 1.
+    """
     category = ""
     products = []
     idx = start_idx
-    o = col_offset
+
+    if has_piece_price:
+        col_price_piece = 2
+        col_price_vat = 3
+        col_price_novat = 4
+        post = 0          # offset for all post-price columns (shelfLife, storage, currencies, …)
+    else:
+        col_price_piece = None
+        col_price_vat = 2
+        col_price_novat = 3
+        post = -1         # everything after B shifts left by 1
 
     reader = csv.reader(io.StringIO(lines))
     for cols in reader:
-        if not cols or len(cols) < 7 + o:
+        if not cols or len(cols) < 5:
             continue
         cols = [c.strip() if isinstance(c, str) else str(c or "").strip() for c in cols]
         name = cols[0]
         if not name or name == "Наименование" or name == "Номенклатура" or name.startswith("ООО"):
             continue
 
-        price_vat = to_number(cols[3 + o]) if len(cols) > 3 + o else 0
-        if not price_vat and len(cols) > 2 + o:
-            price_vat = to_number(cols[2 + o])
-        price_no_vat = to_number(cols[4 + o]) if len(cols) > 4 + o else 0
-        if not price_no_vat and len(cols) > 3 + o:
-            price_no_vat = to_number(cols[3 + o])
+        price_vat = to_number(cols[col_price_vat]) if len(cols) > col_price_vat else 0
+        price_no_vat = to_number(cols[col_price_novat]) if len(cols) > col_price_novat else 0
 
         if price_vat == 0 and price_no_vat == 0:
             if name and not (cols[1] if len(cols) > 1 else ""):
@@ -79,32 +100,38 @@ def parse_standard(lines, section, start_idx, col_offset=0):
             "availability": "https://schema.org/InStock",
             "exportPrices": None,
         }
-        price_per_piece_val = to_number(cols[2 + o]) if len(cols) > 2 + o else 0
-        if qty > 1:
-            offers["pricePerPiece"] = f"{(price_per_piece_val or price_vat / qty):.2f}"
-        elif price_per_piece_val:
-            offers["pricePerPiece"] = f"{price_per_piece_val:.2f}"
+
+        if col_price_piece is not None:
+            price_per_piece_val = to_number(cols[col_price_piece]) if len(cols) > col_price_piece else 0
+            if qty > 1:
+                offers["pricePerPiece"] = f"{(price_per_piece_val or price_vat / qty):.2f}"
+            elif price_per_piece_val:
+                offers["pricePerPiece"] = f"{price_per_piece_val:.2f}"
+        elif qty > 1 and price_vat:
+            # Chilled has no piece-price column — derive it from VAT price ÷ qty
+            offers["pricePerPiece"] = f"{(price_vat / qty):.2f}"
 
         ep = {}
         for i, cur in enumerate(["USD", "KZT", "UZS", "KGS", "BYN", "AZN"]):
-            ci = 8 + o + i
-            if len(cols) > ci:
+            ci = 8 + post + i
+            if 0 <= ci < len(cols):
                 v = to_number(cols[ci])
                 if v:
                     ep[cur] = v
         if ep:
             offers["exportPrices"] = ep
 
-        article = (cols[17 + o] or "").strip() if len(cols) > 17 + o else ""
+        article = (cols[17 + post] or "").strip() if len(cols) > 17 + post else ""
         sku = f"KD-{idx:03d}"
 
-        main_photo = (cols[27 + o] or "").strip() if len(cols) > 27 + o else ""
-        pack_photo = (cols[28 + o] or "").strip() if len(cols) > 28 + o else ""
-        slice_photo = (cols[29 + o] or "").strip() if len(cols) > 29 + o else ""
+        main_photo = (cols[27 + post] or "").strip() if len(cols) > 27 + post else ""
+        pack_photo = (cols[28 + post] or "").strip() if len(cols) > 28 + post else ""
+        slice_photo = (cols[29 + post] or "").strip() if len(cols) > 29 + post else ""
         image = main_photo or pack_photo or slice_photo
 
-        def cell(i):
-            return (cols[i + o] or "").strip() if len(cols) > i + o else ""
+        def cell(i, _post=post):
+            j = i + _post
+            return (cols[j] or "").strip() if 0 <= j < len(cols) else ""
 
         p = {
             "name": name,
@@ -360,7 +387,7 @@ def main():
         if sheet["type"] == "bakery":
             result = parse_bakery(text, sheet["section"], idx)
         else:
-            result = parse_standard(text, sheet["section"], idx, sheet.get("priceColOffset", 0))
+            result = parse_standard(text, sheet["section"], idx, sheet.get("hasPiecePrice", True))
 
         print(f"  ✅ {sheet['section']}: {len(result['products'])} товаров")
         all_products.extend(result["products"])
