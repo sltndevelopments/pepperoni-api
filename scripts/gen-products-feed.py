@@ -185,6 +185,24 @@ def derive_link_ru(p: dict) -> str:
     return f"{BASE_URL}/products/{sku}"
 
 
+def normalize_weight(weight: str) -> str:
+    """Normalize weight to 'X.XX kg' format."""
+    if not weight:
+        return ""
+    w = str(weight).strip().lower()
+    w = w.replace(",", ".")
+    # Extract numeric value
+    import re
+    m = re.match(r"([\d.]+)\s*(g|г|kg|кг)?", w)
+    if not m:
+        return ""
+    val = float(m.group(1))
+    unit = m.group(2)
+    if unit in ("g", "г"):
+        val = val / 1000
+    return f"{val:.3f} kg"
+
+
 def normalize_image_url(url: str) -> str | None:
     if not url or url == "0":
         return None
@@ -215,7 +233,8 @@ def derive_additional_images(p: dict) -> list:
 
 def derive_price(p: dict) -> str:
     """RUB price WITH VAT. Format: '290.00 RUB'."""
-    pr = (p.get("offers") or {}).get("price")
+    offers = p.get("offers") or {}
+    pr = offers.get("price") or offers.get("pricePerBox") or offers.get("pricePerUnit")
     if not pr:
         return ""
     try:
@@ -226,7 +245,8 @@ def derive_price(p: dict) -> str:
 
 
 def derive_price_no_vat(p: dict) -> str:
-    pr = (p.get("offers") or {}).get("priceExclVAT")
+    offers = p.get("offers") or {}
+    pr = offers.get("priceExclVAT") or offers.get("pricePerBoxExclVAT")
     if not pr:
         return ""
     try:
@@ -286,7 +306,7 @@ def build_row(p: dict, tr: dict) -> dict:
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
         "shipping": f"{COUNTRY}:::0.00 {CURRENCY}",
-        "shipping_weight": (p.get("weight", "") + " kg") if p.get("weight") else "",
+        "shipping_weight": normalize_weight(p.get("weight", "")),
         "tax": f"{COUNTRY}:20:y",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
