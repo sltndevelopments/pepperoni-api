@@ -1974,12 +1974,18 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/peremyach-zharenyy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/peremyach-zharenyy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/peremyach-zharenyy"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/blog/pirozhki-halyal-optom</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/pirozhki-halyal-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/pirozhki-halyal-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/pirozhki-halyal-optom"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/blog/pizzeriya-sebestoimost-ingredienty</loc>
@@ -2736,6 +2742,24 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/pepperoni-vareno-vs-syrokopch"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/pepperoni-vareno-vs-syrokopch"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/pepperoni-vareno-vs-syrokopch"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/blog/peremyach-zharenyy</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/peremyach-zharenyy"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/peremyach-zharenyy"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/peremyach-zharenyy"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/blog/pirozhki-halyal-optom</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/pirozhki-halyal-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/pirozhki-halyal-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/pirozhki-halyal-optom"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/blog/private-label-meat-products</loc>
