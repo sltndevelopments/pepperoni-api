@@ -28,12 +28,6 @@
     }
   ],
   "redirects": [
-    {
-      "source": "/:path*",
-      "has": [{"type": "host", "value": "api.pepperoni.tatar"}],
-      "destination": "https://pepperoni.tatar/:path*",
-      "permanent": true
-    },
     { "source": "/pepperoni-dlya-azs", "destination": "/dlya-azs", "permanent": true },
     { "source": "/pepperoni-private-label", "destination": "/kontraktnoe-proizvodstvo", "permanent": true },
     { "source": "/pepperoni-dlya-pekaren", "destination": "/dlya-pekaren", "permanent": true },
