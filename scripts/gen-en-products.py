@@ -189,7 +189,6 @@ def main():
             specs.append(("Min order", p["minOrder"]))
         if p.get("nutrition"):
             nut = p["nutrition"]
-            # Replace Russian nutrition terms with English
             for ru, en in [
                 ("Калории", "Calories"), ("ккал", "kcal"), ("Белки", "Protein"), ("Жиры", "Fat"),
                 ("Углеводы", "Carbohydrates"), ("Не более", "Max"), ("Продукт не содержит", "Free of"),
@@ -197,7 +196,6 @@ def main():
                 ("ГМО", "GMO"), (" на ", " per "), ("Соль", "Salt"),
             ]:
                 nut = nut.replace(ru, en)
-            # Clean up leftovers: replace Russian punctuation with English
             import re
             nut = re.sub(r'(\d+),(\d+)\s*г\.?', r'\1.\2 g', nut)
             specs.append(("Nutrition", nut))

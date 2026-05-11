@@ -26,6 +26,11 @@ jobs:
             data/products.json
             data/products.json.tmp
             *.log
+            public/*.html
+            public/products/
+            public/geo/
+            public/en/
+            public/blog/
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
