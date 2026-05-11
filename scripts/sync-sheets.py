@@ -16,6 +16,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
+SUBMISSION = ROOT / "submission"
 BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv"
 
 SHEETS = [
@@ -1117,6 +1118,107 @@ Static snapshot of the catalog. Refreshed on every deploy.
     return txt
 
 
+def generate_kb_files(all_products):
+    """Generate submission/kb-*.txt Knowledge files for GPT Store upload.
+
+    Called daily by CI so kb files stay in sync with Google Sheets.
+    The files still need manual re-upload to the GPT editor — OpenAI has
+    no API for updating Knowledge files.
+    """
+    today = datetime.now().strftime("%Y-%m-%d")
+
+    # --- kb-company.txt (RU + EN company profile) ---
+    company = f"""# Kazan Delicacies — Company Profile (RU)
+# Generated: {today}
+
+«Казанские Деликатесы» — производитель халяль-пепперони из России,
+поставляющий нарезное говяжье пепперони для пиццерий, дистрибьюторов
+и розничных сетей.
+
+Базируется в Казани, Республика Татарстан — мусульманской столице
+Российской Федерации. Компания работает с 2022 года.
+
+77 SKU: пепперони, сосиски для хот-догов и гриля, котлеты для бургеров,
+ветчины из курицы и индейки, казылык, мясные полуфабрикаты, татарская выпечка
+(эчпочмак, самса, перемяч, губадия, чак-чак).
+
+Халяль #614A/2024 (DUM RT). HACCP. ISO 22000:2018.
+
+Федеральные кейсы: пепперони «Аслам» для ОМПК, сеть АЗС Татнефть,
+СМАРТЕН, EuroSpar, Бахетле, Metro Cash & Carry, Мираторг.
+
+Контакты: +7 987 217-02-02, info@kazandelikates.tatar
+Сайт: https://pepperoni.tatar
+API: https://api.pepperoni.tatar
+
+---
+
+# Kazan Delicacies — Company Profile (EN)
+# Generated: {today}
+
+Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying
+sliced beef pepperoni for pizzerias, distributors and retail chains.
+
+Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian
+Federation. Operating since 2022.
+
+77 SKUs: pepperoni, hot-dog & grill sausages, burger patties,
+chicken & turkey hams, kazylyk (Tatar horse-meat sausage), meat preparations,
+and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak).
+
+Halal #614A/2024 (DUM RT). HACCP. ISO 22000:2018.
+
+Federal-scale references: Aslam pepperoni for OMPK, Tatneft fuel stations,
+SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg.
+
+Contact: +7 987 217-02-02, info@kazandelikates.tatar
+Website: https://pepperoni.tatar
+API: https://api.pepperoni.tatar
+GPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
+"""
+
+    # --- kb-products-ru.txt ---
+    products_ru = _product_detail_cards(all_products)
+
+    # --- kb-products-en.txt ---
+    tr = _load_translations()
+    products_en = _product_detail_cards_en(all_products, tr)
+
+    # --- kb-faq.txt (RU + EN) ---
+    faq_ru = _extract_faq_from_html()
+    faq_en = _extract_faq_from_html_en()
+
+    faq = f"""# FAQ — Kazan Delicacies (RU)
+# Generated: {today}
+
+"""
+    for i, item in enumerate(faq_ru, 1):
+        faq += f"## Q{i}: {item['q']}\n\n{item['a']}\n\n"
+
+    faq += f"""---
+# FAQ — Kazan Delicacies (EN)
+# Generated: {today}
+
+"""
+    for i, item in enumerate(faq_en, 1):
+        faq += f"## Q{i}: {item['q']}\n\n{item['a']}\n\n"
+
+    # Write all four files
+    SUBMISSION.mkdir(parents=True, exist_ok=True)
+
+    (SUBMISSION / "kb-company.txt").write_text(company, encoding="utf-8")
+    print(f"✅ {SUBMISSION / 'kb-company.txt'}")
+
+    (SUBMISSION / "kb-products-ru.txt").write_text(products_ru, encoding="utf-8")
+    print(f"✅ {SUBMISSION / 'kb-products-ru.txt'}")
+
+    (SUBMISSION / "kb-products-en.txt").write_text(products_en, encoding="utf-8")
+    print(f"✅ {SUBMISSION / 'kb-products-en.txt'}")
+
+    (SUBMISSION / "kb-faq.txt").write_text(faq, encoding="utf-8")
+    print(f"✅ {SUBMISSION / 'kb-faq.txt'}")
+
+
 def main():
     print("📥 Загрузка данных из Google Sheets...")
 
@@ -1159,6 +1261,9 @@ def main():
         print("✅ IndexNow ping sent")
     except Exception:
         pass
+
+    print()
+    generate_kb_files(all_products)
 
     print("\n🎉 Синхронизация завершена!")
     print("\nЗапусти для генерации страниц:")
