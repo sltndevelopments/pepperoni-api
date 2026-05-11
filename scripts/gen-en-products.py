@@ -337,6 +337,21 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             qty = p.get("qtyPerBox", "")
             qty_str = f" ({qty} pcs)" if qty else ""
             html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>${price_usd_box:,.2f}</b>{qty_str}</div>\n'
+        elif not is_bakery:
+            pp = p["offers"].get("pricePerPiece")
+            qty = extract_qty_from_name(p.get("name", ""))
+            if not pp and qty > 1 and price_rub:
+                pp = str(round(float(price_rub) / qty, 2))
+            if pp:
+                pp_val = float(pp)
+                if pr_usd > 0 and qty > 1:
+                    pp_str = f"${pr_usd / qty:,.2f}"
+                elif pp_val:
+                    pp_str = f"{pp_val:,.2f} ₽"
+                else:
+                    pp_str = ""
+                if pp_str:
+                    html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per piece: <b>{pp_str}</b></div>\n'
         if price_excl or ep:
             html += '<h2 class="section-title" style="margin-top:20px">Export Prices</h2><div class="export-prices">'
             if price_excl:
