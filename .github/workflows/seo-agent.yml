@@ -39,14 +39,9 @@ env:
 permissions:
   contents: write
 
-concurrency:
-  group: seo-agent
-  cancel-in-progress: false
-
 jobs:
   agent:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -134,24 +129,7 @@ jobs:
           eval $CMD
         continue-on-error: true
 
-      # ── Step 5: Post-processing ────────────────────────────────
-
-      - name: Rebuild sitemap + patch blog meta + update llms.txt
-        run: |
-          python scripts/rebuild_sitemap.py
-          python scripts/patch_blog_meta.py
-          python scripts/patch_schemas.py
-          python scripts/patch_geo_links.py
-          python scripts/gen_category_pages.py
-        continue-on-error: true
-
-      - name: Add FAQ Schema to existing blog articles (via Claude)
-        env:
-          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
-        run: python scripts/patch_faq_blog.py
-        continue-on-error: true
-
-      # ── Step 6: Commit & push all changes ──────────────────────
+      # ── Step 5: Commit & push all changes ──────────────────────
 
       - name: Commit & push generated content
         run: |
@@ -183,8 +161,7 @@ jobs:
           # News section
           git add "public/news/*.html" 2>/dev/null || true
           # Updated pages and sitemap
-          git add public/sitemap.xml public/index.html public/en/index.html public/blog.html public/en/blog.html 2>/dev/null || true
-          git add public/llms.txt public/llms-full.txt 2>/dev/null || true
+          git add public/sitemap.xml public/index.html public/en/index.html 2>/dev/null || true
           git add public/pepperoni.html 2>/dev/null || true
           # Product card updates
           git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
@@ -198,23 +175,15 @@ jobs:
           fi
         continue-on-error: true
 
-      # ── Step 7: Index new URLs ────────────────────────────────
-      # All 3 scripts read sitemap.xml dynamically — no hardcoded lists.
-      # Any new page committed above is automatically submitted for indexing.
+      # ── Step 6: Index new URLs ─────────────────────────────────
 
-      - name: Submit all URLs via IndexNow (Bing + Yandex instant)
-        env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
-        run: python scripts/bing-index.py
-        continue-on-error: true
-
-      - name: Submit top URLs to Google Indexing API (180/day)
+      - name: Submit new URLs to Google Indexing API
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
         run: python scripts/gsc-index.py
         continue-on-error: true
 
-      - name: Submit top URLs to Yandex recrawl queue (150/day)
+      - name: Submit new URLs to Yandex
         env:
           YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
         run: python scripts/yandex-index.py

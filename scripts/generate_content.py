@@ -38,7 +38,7 @@ YEAR         = datetime.now().year
 FOOTER_RU = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Казанские Деликатесы | Производство халяль колбасных изделий</p>
-    <p class="mb-1">г. Казань, ул. Аграрная, 2 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
+    <p class="mb-1">г. Казань, ул. Мусина 83А | <a href="tel:+78005509076" class="text-white">+7(800)550-90-76</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
     <p class="mb-0"><a href="/" class="text-white me-3">Главная</a><a href="/pepperoni" class="text-white me-3">Пепперони</a><a href="/pepperoni-optom" class="text-white">Оптом</a></p>
   </div>
 </footer>"""
@@ -46,7 +46,7 @@ FOOTER_RU = f"""<footer class="bg-dark text-white py-4 mt-5">
 FOOTER_EN = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Kazan Delicacies | Halal meat products manufacturer</p>
-    <p class="mb-1">Kazan, Musina St. 83A | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
+    <p class="mb-1">Kazan, Musina St. 83A | <a href="tel:+78005509076" class="text-white">+7(800)550-90-76</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
     <p class="mb-0"><a href="/en/" class="text-white me-3">Home</a><a href="/en/pepperoni" class="text-white me-3">Pepperoni</a><a href="/pepperoni-optom" class="text-white">Wholesale</a></p>
   </div>
 </footer>"""
@@ -62,182 +62,49 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 # ---------- Schedule topics ----------
 
 BLOG_TOPICS_RU = [
-    # ── ПЕППЕРОНИ (все виды) ─────────────────────────────────────
     ("Что такое халяль пепперони: состав, производство, отличия", "chto-takoe-halyal-pepperoni"),
     ("Пепперони из говядины: преимущества для пиццерий и HoReCa", "pepperoni-iz-govyadiny"),
     ("Как выбрать пепперони для пиццерии: руководство для закупщика", "kak-vybrat-pepperoni-dlya-pizzerii"),
     ("Пепперони куриный: характеристики, диаметры, применение", "pepperoni-kuriniy"),
-    ("Пепперони оптом: как найти надёжного поставщика", "pepperoni-optom-postavshchik"),
-    ("Пепперони из конины: особенности и рынок сбыта", "pepperoni-iz-koniny"),
-    ("Пепперони миксовый (говядина+курица): состав и применение", "pepperoni-miksoviy"),
-    ("Пепперони для пиццы: как правильно выбрать диаметр и нарезку", "pepperoni-dlya-pizzy-diametr"),
-    ("Пепперони для суши: особенности нарезки и применения", "pepperoni-dlya-sushi"),
-    ("Как хранить пепперони: температурный режим и сроки", "kak-hranit-pepperoni"),
-    ("Пепперони варено-копчёный: в чём отличие от сырокопчёного", "pepperoni-vareno-vs-syrokopch"),
-    ("Пепперони сырокопчёный: технология, вкус, применение в пицце", "pepperoni-syrokopchyonyy"),
-    ("Пепперони в нарезке vs целый батон: что выбрать для HoReCa", "pepperoni-narezka-vs-baton"),
-    # ── СОСИСКИ И ХОТДОГ ────────────────────────────────────────
-    ("Сосиски халяль для хот-догов оптом: ассортимент и условия", "sosiki-dlya-hotdog-optom"),
-    ("Сосиски халяль оптом: ассортимент для HoReCa и ретейла", "sosiki-halyal-optom"),
-    ("Сосиски из говядины халяль: состав, характеристики, B2B", "sosiki-iz-govyadiny-halyal"),
-    ("Сосиски «Два мяса»: говядина и курица в одной сосиске", "sosiki-dva-myasa"),
-    ("Сосиски с сыром халяль: применение в фастфуде и кафе", "sosiki-s-syrom-halyal"),
-    ("Сосиски с бараниной халяль: особенности и рынок", "sosiki-s-baraninoy"),
-    ("Сосиски гриль для роликового гриля: какие подходят", "sosiki-dlya-rolikovogo-grilya"),
-    ("Сардельки халяль оптом: чем отличаются от сосисок", "sardeli-halyal-optom"),
-    # ── КОТЛЕТЫ И БУРГЕРЫ ───────────────────────────────────────
-    ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
-    ("Говяжья котлета для бургера халяль: состав, вес, формат", "govyazhya-kotleta-burger-halyal"),
-    ("Котлеты 100г vs 150г для бургера: что выбрать для меню", "kotlety-100g-vs-150g"),
-    ("Халяль бургер для ресторана: как выстроить меню и закупку", "halyal-burger-menyu-restoran"),
-    # ── ВЕТЧИНЫ ─────────────────────────────────────────────────
-    ("Ветчина из индейки халяль оптом: диетический белок для HoReCa", "vetchina-iz-indeyki-halyal"),
-    ("Ветчина из курицы халяль: нарезка и батон — чем отличаются", "vetchina-iz-kuricy-halyal"),
-    ("Ветчина мраморная с говядиной: что такое мраморность в колбасе", "vetchina-mramornaya-govyadina"),
-    ("Ветчина филейная халяль: премиум продукт для ресторанов", "vetchina-fileynaya-halyal"),
-    ("Ветчина оптом для HoReCa: как выбрать поставщика в 2026", "vetchina-optom-horeca-2026"),
-    # ── КОПЧЁНЫЕ И ДЕЛИКАТЕСЫ ───────────────────────────────────
-    ("Сервелат халяль: как выбрать качественный продукт оптом", "servelat-halyal-optom"),
-    ("Сервелат по-татарски: рецептура, состав, применение", "servelat-po-tatarski"),
-    ("Копчёные колбасы халяль: виды, хранение, поставки для ресторанов", "kopchyonye-kolbasy-halyal"),
-    ("Полукопчёная колбаса из индейки: лёгкий деликатес для HoReCa", "polukopchenaya-iz-indeyki"),
-    ("Колбаски с сыром копчёные халяль: для гриля и пикника", "kolbaski-s-syrom-kopchyonye"),
-    ("Грудка куриная варено-копчёная: применение в салатах и нарезке", "grudka-kurinnaya-vareno-kopch"),
-    ("Варёная колбаса халяль: «Из говядины», Ассорти, Нежная — обзор", "varionaya-kolbasa-halyal-obzor"),
-    # ── КАЗЫЛЫК ──────────────────────────────────────────────────
-    ("Казылык: что это такое, состав, применение в ресторане", "kazylyk-chto-eto-takoe"),
-    ("Казылык Премиум: подарочная упаковка и нарезка для ресторанов", "kazylyk-premium-podark"),
-    ("Казылык из конины: история татарского деликатеса", "kazylyk-iz-koniny-istoriya"),
-    ("Казылык оптом: поставки для ресторанов татарской кухни", "kazylyk-optom-restorany"),
-    ("Казылык как сувенирная продукция: подарочная упаковка для туристов", "kazylyk-suvenirnaya-upakovka"),
-    # ── ТАТАРСКАЯ ВЫПЕЧКА ────────────────────────────────────────
-    ("Татарская выпечка оптом: губадия, эчпочмак, самса для HoReCa", "tatarskaya-vypechka-optom"),
-    ("Губадия: что это, состав, как подавать в ресторане", "gubadiya-chto-eto"),
-    ("Эчпочмак халяль: традиционный татарский пирожок для кафе", "echpochmak-halyal"),
-    ("Самса халяль с курицей и говядиной: оптовые поставки", "samsa-halyal-optom"),
-    ("Перемяч жареный: татарский чебурек для фастфуда и кейтеринга", "peremyach-zharenyy"),
-    ("Чебурек халяль жареный: производство и поставки оптом", "cheburek-halyal-optom"),
-    ("Элеш с курицей и картофелем: закрытый пирог татарской кухни", "elesh-s-kuricey"),
-    ("Чак-чак оптом: татарская сладость для подарков и кейтеринга", "chakchak-optom"),
-    ("Татарская национальная кухня для ресторанного меню: ТОП-7 блюд", "tatarskaya-kuhnya-restoran-menu"),
-    # ── КЛАССИЧЕСКАЯ ВЫПЕЧКА ────────────────────────────────────
-    ("Сосиска в тесте халяль: производство для школ, кафе, кейтеринга", "sosiska-v-teste-halyal"),
-    ("Пирожки халяль оптом: ассортимент для буфетов и кафе", "pirozhki-halyal-optom"),
-    ("Маффины халяль: шоколадный и апельсиновый для кофеен", "maffiny-halyal-kofeyni"),
-    ("Круассан с шоколадом халяль: премиальная выпечка для кофеен", "kruassan-shokolad-halyal"),
-    ("Сырник халяль: творожный продукт для завтраков в HoReCa", "syrnik-halyal-horeca"),
-    # ── МЯСНЫЕ ЗАГОТОВКИ ─────────────────────────────────────────
-    ("Говяжий фарш оптом: характеристики, хранение, B2B поставки", "govyazhiy-farsh-optom"),
-    ("Фарш из куриной кожи: применение в переработке и производстве", "farsh-iz-kurinoy-kozhi"),
-    ("Куриное филе кубиком 1×1 см: полуфабрикат для HoReCa", "kurinnoe-file-kubik-horeca"),
-    ("Говядина кубиком для промышленной переработки: что важно знать", "govyadina-kubik-promyshlennost"),
-    ("Мясные заготовки оптом: как выстроить цепочку поставок", "myasnye-zagotovki-tsepochka"),
-    # ── СТРАТЕГИЯ И РЫНОК ───────────────────────────────────────
     ("Private Label колбасных изделий: как работает СТМ производство", "private-label-kolbasnyh-izdeliy"),
-    ("Как работает частная торговая марка (СТМ) в мясной отрасли", "stm-myasnaya-otrasl"),
+    ("Пепперони оптом: как найти надёжного поставщика", "pepperoni-optom-postavshchik"),
     ("HACCP и ISO на производстве мясных деликатесов: что это значит", "haccp-iso-myasnoe-proizvodstvo"),
+    ("Пепперони из конины: особенности и рынок сбыта", "pepperoni-iz-koniny"),
+    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-snг"),
+    ("Хот-дог сосиски оптом: ассортимент и условия поставки", "sosiki-dlya-hotdog-optom"),
+    ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
     ("Халяль сертификация мясной продукции в России", "halyal-sertifikaciya-myasa"),
-    ("Как отличить настоящий халяль продукт от подделки", "kak-otlichit-halyal"),
-    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-sng"),
-    ("Мясные деликатесы из Казани: история и традиции производства", "myasnye-delikatesy-kazan"),
-    ("Поставки мясных изделий в рестораны: логистика и условия", "postavki-myasnye-restorany"),
-    ("B2B продажи мясной продукции: как работает оптовый рынок", "b2b-myasnaya-produkciya"),
+    ("Как хранить пепперони: температурный режим и сроки", "kak-hranit-pepperoni"),
     ("Замороженные мясные полуфабрикаты для HoReCa: что важно знать", "zamorozhennye-polufarikaty-horeca"),
-    ("Чем отличается замороженная и охлаждённая продукция для HoReCa", "zamorozhennaya-vs-ohlazhd-horeca"),
-    ("Требования к маркировке мясной продукции в России 2026", "markirovka-myasnoy-produkcii"),
-    ("Как пиццерии снизить себестоимость: закупка ингредиентов оптом", "pizzeriya-sebestoimost-ingredienty"),
-    ("Шаурма мясо оптом: виды начинки, нарезка, поставки", "shaurma-myaso-optom"),
-    ("Халяль колбаса оптом: виды, производители, условия закупки", "halyal-kolbasa-optom"),
-    ("Контрактное производство мясных изделий: шаги и условия", "kontraktnoe-proizvodstvo-myaso"),
-    ("Курица халяль оптом: грудка, бедро, тушка — чем отличаются", "kurica-halyal-optom"),
-    ("Хлеб и выпечка халяль для общепита: что предлагают производители", "halyal-vypechka-obshchepit"),
+    ("Пепперони для суши: особенности нарезки и применения", "pepperoni-dlya-sushi"),
+    ("Мясные деликатесы из Казани: история и традиции производства", "myasnye-delikatesy-kazan"),
+    ("Пепперони миксовый (говядина+курица): состав и применение", "pepperoni-miksoviy"),
+    ("Поставки мясных изделий в рестораны: логистика и условия", "postavki-myasnye-restorany"),
+    ("Как отличить настоящий халяль продукт от подделки", "kak-otlichit-halyal"),
+    ("B2B продажи мясной продукции: как работает оптовый рынок", "b2b-myasnaya-produkciya"),
 ]
 
 BLOG_TOPICS_EN = [
-    # ── PEPPERONI (all types) ────────────────────────────────────
     ("Halal Pepperoni: Ingredients, Production, and B2B Sourcing Guide", "halal-pepperoni-guide"),
     ("Beef Pepperoni vs Chicken Pepperoni: Key Differences for Buyers", "beef-vs-chicken-pepperoni"),
     ("How to Source Halal Pepperoni for Pizzerias: A Complete Guide", "source-halal-pepperoni-pizzeria"),
-    ("Wholesale Pepperoni Supplier from Russia: Export Capabilities", "wholesale-pepperoni-russia-export"),
-    ("Horse Meat Pepperoni: Market, Properties, and Halal Status", "horse-meat-pepperoni"),
-    ("Mixed Pepperoni (Beef+Chicken): Composition and Use Cases", "mixed-pepperoni-beef-chicken"),
-    ("Pepperoni Diameter Guide: Which Size to Choose for Pizza", "pepperoni-diameter-guide"),
-    ("Pepperoni for Sushi Rolls: Specifications and Applications", "pepperoni-for-sushi"),
-    ("How to Store Pepperoni: Temperature, Shelf Life, and Tips", "how-to-store-pepperoni"),
-    ("Pepperoni Slicing Specifications: Thickness, Diameter Guide", "pepperoni-slicing-specs"),
-    ("Cooked-Smoked vs Dry-Cured Pepperoni: What Buyers Need to Know", "cooked-vs-dry-pepperoni"),
-    ("Pepperoni in Slices vs Whole Log: What to Order for HoReCa", "pepperoni-slices-vs-log"),
-    # ── HOT DOG SAUSAGES ────────────────────────────────────────
-    ("Hot Dog Sausages Wholesale: Choosing the Right Supplier", "hot-dog-sausages-wholesale"),
-    ("Halal Sausages Wholesale: Types, Specs, and B2B Ordering", "halal-sausages-wholesale"),
-    ("Beef Hot Dog Sausages Halal: Specs for Professional Kitchens", "beef-hotdog-sausages-halal"),
-    ("Dual-Meat Sausages (Beef+Chicken): Unique Selling Points for HoReCa", "dual-meat-sausages-horeca"),
-    ("Sausages with Cheese Halal: Use Cases in Fast Food and Cafes", "sausages-with-cheese-halal"),
-    ("Lamb Sausages Halal Wholesale: Niche Market Opportunities", "lamb-sausages-halal-wholesale"),
-    ("How to Choose Sausages for a Roller Grill: Buying Guide", "sausages-roller-grill-guide"),
-    # ── BURGER PATTIES ──────────────────────────────────────────
-    ("Burger Patties Wholesale: Halal Options for HoReCa", "burger-patties-wholesale-halal"),
-    ("100g vs 150g Halal Burger Patties: Which to Choose for Your Menu", "burger-patties-100g-vs-150g"),
-    ("Halal Beef Burger Patties: Sourcing Guide for Restaurant Chains", "halal-beef-burger-patties"),
-    # ── HAM & DELI ──────────────────────────────────────────────
-    ("Halal Turkey Ham Wholesale: Lean Protein for HoReCa", "halal-turkey-ham-wholesale"),
-    ("Halal Chicken Ham: Sliced vs Log — What to Order", "halal-chicken-ham-wholesale"),
-    ("Marbled Beef Ham Halal: Premium Deli Product for Restaurants", "marbled-beef-ham-halal"),
-    ("Halal Fillet Ham: Premium Cut for Upscale Catering", "halal-fillet-ham-catering"),
-    ("Halal Ham Wholesale for HoReCa: Supplier Selection Guide 2026", "halal-ham-wholesale-guide-2026"),
-    # ── SMOKED & CURED MEATS ────────────────────────────────────
-    ("Halal Servelat (Cervelat) Sausage: What It Is and How to Buy", "halal-cervelat-wholesale"),
-    ("Smoked Halal Sausages: Types, Shelf Life, and Cold Chain", "smoked-halal-sausages"),
-    ("Semi-Smoked Turkey Sausage Halal: Light Delicacy for Restaurants", "semi-smoked-turkey-sausage"),
-    ("Smoked Chicken Breast Halal: Bulk Sourcing for Salads and Catering", "smoked-chicken-breast-halal"),
-    ("Cooked Beef Sausage Halal: Classic Deli for HoReCa Menus", "cooked-beef-sausage-halal"),
-    # ── KAZYLYK ─────────────────────────────────────────────────
-    ("Kazylyk Horse Sausage: Traditional Recipe and Modern B2B Use", "kazylyk-horse-sausage-b2b"),
-    ("What Is Kazylyk? Tatar Horse Sausage Explained for Export Markets", "what-is-kazylyk"),
-    ("Kazylyk as a Gift Product: Premium Packaging for Tourists and Events", "kazylyk-gift-packaging"),
-    ("Kazylyk Wholesale for Tatar Cuisine Restaurants", "kazylyk-wholesale-restaurants"),
-    # ── TATAR BAKERY ────────────────────────────────────────────
-    ("Tatar Bakery Products Wholesale: Echpochmak, Samsa, Gubadia", "tatar-bakery-wholesale"),
-    ("What Is Echpochmak? Tatar Triangular Pie for Restaurants", "what-is-echpochmak"),
-    ("Samsa Halal: Chicken and Beef Varieties for Food Service", "samsa-halal-foodservice"),
-    ("Gubadia: Traditional Tatar Pie with Kort for Catering", "gubadia-tatar-pie-catering"),
-    ("Cheburek Halal: Fried Meat Pastry for Fast Food and Kiosks", "cheburek-halal-fastfood"),
-    ("Elesh Tatar Pie with Chicken: Closed Pastry for Restaurant Menus", "elesh-tatar-pie-restaurant"),
-    ("Chak-Chak Wholesale: Tatar Honey Pastry for Gifts and Events", "chakchak-wholesale-gifts"),
-    ("Tatar National Cuisine for Restaurant Menus: Top 7 Must-Have Dishes", "tatar-cuisine-restaurant-menu"),
-    # ── CLASSIC BAKERY ──────────────────────────────────────────
-    ("Sausage Roll Halal: Production for Schools, Cafes, and Catering", "sausage-roll-halal-catering"),
-    ("Halal Pirozhki Wholesale: Assortment for Buffets and Cafes", "halal-pirozhki-wholesale"),
-    ("Halal Muffins for Coffee Shops: Chocolate and Orange Varieties", "halal-muffins-coffee-shops"),
-    ("Halal Chocolate Croissant: Premium Bakery for Cafes", "halal-chocolate-croissant"),
-    ("Cottage Cheese Pancake (Syrnik) Halal: Breakfast Product for HoReCa", "syrnik-halal-breakfast"),
-    # ── MEAT PREPARATIONS ───────────────────────────────────────
-    ("Halal Ground Beef Wholesale: Specs and Cold Chain Requirements", "halal-ground-beef-wholesale"),
-    ("Chicken Skin Mince: Industrial Use in Meat Processing", "chicken-skin-mince-industrial"),
-    ("Diced Chicken Fillet 1×1 cm: Ready-Cut for HoReCa Kitchens", "diced-chicken-fillet-horeca"),
-    ("Diced Beef 1×1 cm: Bulk Supply for Food Processing", "diced-beef-bulk-supply"),
-    ("Meat Preparations Wholesale: Building an Efficient Supply Chain", "meat-preparations-supply-chain"),
-    # ── STRATEGY & MARKET ───────────────────────────────────────
     ("Private Label Meat Products: How Contract Manufacturing Works", "private-label-meat-products"),
-    ("Private Label Meat: Step-by-Step Guide for Restaurant Chains", "private-label-meat-step-by-step"),
-    ("HACCP and ISO in Meat Production: Quality Assurance Explained", "haccp-iso-meat-production"),
     ("Halal Certification for Meat Products in Russia: What You Need to Know", "halal-certification-russia"),
-    ("How to Spot Fake Halal: What Buyers Should Check", "how-to-spot-fake-halal"),
+    ("Wholesale Pepperoni Supplier from Russia: Export Capabilities", "wholesale-pepperoni-russia-export"),
+    ("Hot Dog Sausages Wholesale: Choosing the Right Supplier", "hot-dog-sausages-wholesale"),
+    ("Burger Patties Wholesale: Halal Options for HoReCa", "burger-patties-wholesale-halal"),
+    ("HACCP and ISO in Meat Production: Quality Assurance Explained", "haccp-iso-meat-production"),
     ("Halal Meat Export to CIS Countries: Kazakhstan, Uzbekistan, Belarus", "halal-meat-export-cis"),
-    ("Kazan Delicacies: Halal Meat Producer in Russia Since 2022", "kazan-delicacies-halal-producer"),
-    ("Kazan as a Halal Food Production Hub: Why It Matters", "kazan-halal-food-hub"),
-    ("B2B Meat Products Supply Chain: How Wholesale Works", "b2b-meat-products-supply"),
     ("Frozen Meat Semi-Products for HoReCa: Bulk Ordering Guide", "frozen-meat-products-horeca"),
-    ("Frozen vs Chilled Meat Products: What HoReCa Buyers Should Know", "frozen-vs-chilled-horeca"),
-    ("Meat Product Labelling Requirements in Russia 2026", "meat-labelling-russia-2026"),
-    ("How Pizzerias Cut Ingredient Costs: Wholesale Sourcing Guide", "pizzeria-ingredient-cost-cutting"),
-    ("Shawarma Meat Wholesale: Cuts, Slicing, and Delivery", "shawarma-meat-wholesale"),
-    ("Halal Bakery Products for Food Service: What Suppliers Offer", "halal-bakery-foodservice"),
-    ("Contract Meat Manufacturing in Russia: How It Works", "contract-meat-manufacturing-russia"),
-    ("Halal Chicken Wholesale: Breast, Thigh, Whole Bird Differences", "halal-chicken-wholesale"),
+    ("Kazan Delicacies: Halal Meat Producer in Russia Since 2022", "kazan-delicacies-halal-producer"),
+    ("Pepperoni for Sushi Rolls: Specifications and Applications", "pepperoni-for-sushi"),
+    ("Mixed Pepperoni (Beef+Chicken): Composition and Use Cases", "mixed-pepperoni-beef-chicken"),
+    ("Horse Meat Pepperoni: Market, Properties, and Halal Status", "horse-meat-pepperoni"),
+    ("B2B Meat Products Supply Chain: How Wholesale Works", "b2b-meat-products-supply"),
+    ("How to Store Pepperoni: Temperature, Shelf Life, and Tips", "how-to-store-pepperoni"),
+    ("Halal Food Market in Russia: Trends and Opportunities 2025", "halal-food-market-russia"),
+    ("Pepperoni Slicing Specifications: Thickness, Diameter Guide", "pepperoni-slicing-specs"),
     ("Meat Products Quality Control: What Buyers Should Check", "meat-products-quality-control"),
-    ("Halal Food Market in Russia: Trends and Opportunities 2026", "halal-food-market-russia"),
-    ("Halal Dumplings (Pelmeni) for HoReCa: Bulk Supply Guide", "halal-pelmeni-horeca"),
 ]
 
 # ---------- Type+Geo combinations ----------
@@ -357,7 +224,7 @@ def update_sitemap_lastmod():
         return block
 
     new_content = re.sub(
-        r"<url>\s*<loc>([^<]+)</loc>.*?</url>",
+        r"<url>.*?</url>",
         replace_loc_with_lastmod,
         content,
         flags=re.DOTALL,
@@ -455,42 +322,6 @@ def html_shell(lang: str, title: str, desc: str, canonical: str, body: str, sche
 
 # ---------- Blog article generator (RU) ----------
 
-ARTICLE_CSS = """
-:root{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:var(--text);line-height:1.7;font-size:16px}
-a{color:var(--green);text-decoration:none}
-a:hover{text-decoration:underline}
-.nav{background:#fff;border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;z-index:100}
-.nav__inner{max-width:800px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
-.nav__logo{font-weight:700;font-size:1.05rem;color:var(--green)}
-.nav__links{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem;color:var(--muted)}
-.nav__links a{color:var(--muted)}
-.nav__links a:hover{color:var(--green);text-decoration:none}
-.article-wrap{max-width:740px;margin:0 auto;padding:40px 32px 60px}
-.breadcrumb{font-size:.82rem;color:var(--muted);margin-bottom:24px}
-.breadcrumb a{color:var(--muted)}
-.breadcrumb span{color:var(--green)}
-h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.25;margin-bottom:20px;color:var(--text)}
-h2{font-size:1.25rem;font-weight:700;margin:36px 0 12px;color:var(--text);border-left:3px solid var(--green);padding-left:12px}
-h3{font-size:1.05rem;font-weight:700;margin:24px 0 8px;color:var(--text)}
-p{margin-bottom:16px;color:#333}
-ul,ol{margin:0 0 16px 24px}
-li{margin-bottom:6px;color:#333}
-.lead{font-size:1.05rem;color:#444;line-height:1.75;margin-bottom:24px;padding:16px 20px;background:#fff;border-radius:var(--radius);border-left:4px solid var(--green)}
-.cta-block{background:var(--green);color:#fff;border-radius:var(--radius);padding:28px 32px;margin:40px 0;text-align:center}
-.cta-block h2{color:#fff;border:none;padding:0;margin:0 0 10px;font-size:1.3rem}
-.cta-block p{color:rgba(255,255,255,.9);margin-bottom:18px}
-.btn-cta{display:inline-block;background:#fff;color:var(--green);font-weight:700;padding:12px 28px;border-radius:8px;font-size:.95rem;transition:all .2s}
-.btn-cta:hover{background:var(--green-light);text-decoration:none;transform:translateY(-1px)}
-.info-box{background:var(--green-light);border:1px solid #c8e6c9;border-radius:var(--radius);padding:16px 20px;margin:24px 0}
-.info-box p{margin:0;color:var(--green-dark);font-size:.92rem}
-footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
-footer a{color:#aaa}
-footer a:hover{color:#fff;text-decoration:none}
-@media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
-"""
-
 def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
     system = (
         "Ты эксперт в мясной промышленности, SEO-автор для сайта pepperoni.tatar. "
@@ -498,42 +329,20 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
         "Статьи без воды, с реальными фактами. Халяль тематика, без упоминания свинины."
     )
     prompt = f"""Напиши информационную SEO-статью по теме: «{topic}».
-Верни ТОЛЬКО полный валидный HTML5, без объяснений, без markdown-блоков.
+Верни ТОЛЬКО полный валидный HTML5, без объяснений.
 
 Требования:
 - <!DOCTYPE html> с lang="ru"
-- <head>: charset, viewport, theme-color="#1b7a3d", оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical https://pepperoni.tatar/blog/{slug}
-- Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org, url=https://pepperoni.tatar/blog/{slug})
-- Schema.org BreadcrumbList в JSON-LD
-- Schema.org FAQPage в JSON-LD — ОБЯЗАТЕЛЬНО: 3-5 вопросов и ответов, которые реально задают покупатели по теме статьи (вопросы начинаются с «Как», «Где», «Что», «Можно ли», «Сколько» и т.п.)
-- Google Tag Manager сниппет: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); и noscript версия
-- CSS встроен в <style> тегом — используй ТОЧНО этот CSS без изменений:
-{ARTICLE_CSS}
-- Структура body:
-  <nav class="nav"><div class="nav__inner"><a href="/" class="nav__logo">Казанские Деликатесы</a><div class="nav__links"><a href="/">Каталог</a><a href="/pepperoni">Пепперони</a><a href="/blog">Блог</a><a href="/faq">FAQ</a><a href="/delivery">Доставка</a></div></div></nav>
-  <main class="article-wrap">
-    breadcrumb: Главная → Блог → [название статьи]
-    <h1> с ключевым запросом
-    <div class="lead"> — вводный абзац 60-80 слов, первые 2 предложения должны ПРЯМО отвечать на главный вопрос темы
-    4-5 секций H2 с содержательным текстом
-    <div class="info-box"> — полезный факт или совет
-    <section class="faq-section"><h2>Часто задаваемые вопросы</h2> — те же 3-5 вопросов из FAQPage Schema в виде <details><summary>вопрос</summary><p>ответ</p></details>
-    <div class="cta-block"> — призыв к действию, кнопка <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a> и ссылка <a href="/">смотреть каталог</a>
-  </main>
-  <footer> © 2022–{YEAR} Казанские Деликатесы · г. Казань, ул. Аграрная, 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/">pepperoni.tatar</a> </footer>
-- Текст 800-1000 слов
-- Контекстные ссылки внутри текста (используй ТОЛЬКО реально существующие страницы сайта):
-  /pepperoni — пепперони
-  /pepperoni-optom — пепперони оптом
-  /pepperoni-dlya-pizzerii — пепперони для пиццерий
-  /pepperoni-dlya-horeca — для HoReCa
-  /kazylyk — казылык
-  /bakery — выпечка
-  /about — о производстве
-  / — каталог всех товаров
-- Выбери 2-3 ссылки из списка выше, которые РЕАЛЬНО уместны по теме статьи
-- НЕ использовать Bootstrap
-- НЕ упоминать свинину"""
+- <head>: charset, viewport, оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical /blog/{slug}
+- Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org)
+- Bootstrap 5 CDN
+- Один <h1> с ключевым запросом
+- Структура: введение (80-100 слов), 4 подзаголовка H2, практические советы, заключение с CTA
+- Текст 700-900 слов
+- Контекстные ссылки: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
+- Schema.org BreadcrumbList
+- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7(800)550-90-76
+- НЕ упоминать свинину нигде"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
@@ -547,44 +356,25 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
 def generate_article_en(topic: str, slug: str, conn) -> tuple[Path, int]:
     system = (
         "You are an expert in meat industry and SEO copywriting for pepperoni.tatar — "
-        "a B2B halal meat products manufacturer from Kazan, Russia (brand: Kazan Delicacies). "
-        "Write expert, informative articles in English for HoReCa and wholesale buyers worldwide. "
+        "a B2B halal meat products manufacturer from Russia. "
+        "Write expert, informative articles in English for HoReCa and wholesale buyers. "
         "No fluff, real facts. Halal theme, no mention of pork."
     )
     prompt = f"""Write an informational SEO article on the topic: «{topic}».
-Return ONLY full valid HTML5, no explanations, no markdown blocks.
+Return ONLY full valid HTML5, no explanations.
 
 Requirements:
 - <!DOCTYPE html> with lang="en"
-- <head>: charset, viewport, theme-color="#1b7a3d", optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical https://pepperoni.tatar/en/blog/{slug}
-- Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org, url=https://pepperoni.tatar/en/blog/{slug})
-- Schema.org BreadcrumbList in JSON-LD
-- Schema.org FAQPage in JSON-LD — REQUIRED: 3-5 real buyer questions and detailed answers about the topic (questions starting with "How", "What", "Can", "Where", "Which", "How much" etc.)
-- Google Tag Manager snippet: (function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f)}})(window,document,'script','dataLayer','GTM-W2Q5S8HF'); and noscript version
-- CSS embedded in <style> — use EXACTLY this CSS without changes:
-{ARTICLE_CSS}
-- Body structure:
-  <nav class="nav"><div class="nav__inner"><a href="/en/" class="nav__logo">Kazan Delicacies</a><div class="nav__links"><a href="/en/">Catalog</a><a href="/en/pepperoni">Pepperoni</a><a href="/en/blog">Blog</a><a href="/en/faq">FAQ</a></div></div></nav>
-  <main class="article-wrap">
-    breadcrumb: Home → Blog → [article title]
-    <h1> with main keyword
-    <div class="lead"> — intro 60-80 words, FIRST 2 sentences must directly answer the main question of the topic
-    4-5 H2 sections with informative content
-    <div class="info-box"> — useful fact or tip
-    <section class="faq-section"><h2>Frequently Asked Questions</h2> — same 3-5 questions from FAQPage Schema as <details><summary>question</summary><p>answer</p></details>
-    <div class="cta-block"> — CTA with button <a href="tel:+79872170202" class="btn-cta">+7 987 217-02-02</a> and link <a href="/en/">view full catalog</a>
-  </main>
-  <footer> © 2022–{YEAR} Kazan Delicacies · Kazan, Agrarnaya St. 2 · <a href="tel:+79872170202">+7 987 217-02-02</a> · <a href="/en/">pepperoni.tatar</a> </footer>
-- Text 800-1000 words
-- Contextual internal links (use ONLY real existing pages):
-  /en/pepperoni — pepperoni products
-  /en/kazylyk — kazylyk
-  /en/bakery — bakery
-  /en/about — about production
-  /en/ — full product catalog
-- Choose 2-3 links from above that are GENUINELY relevant to the article topic
-- Do NOT use Bootstrap
-- Do NOT mention pork"""
+- <head>: charset, viewport, optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical /en/blog/{slug}
+- Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org)
+- Bootstrap 5 CDN
+- One <h1> with main keyword
+- Structure: intro (80-100 words), 4 H2 subheadings, practical tips, conclusion with CTA
+- Text 700-900 words
+- Contextual links: /en/, /pepperoni-optom (as wholesale page)
+- Schema.org BreadcrumbList
+- Footer: © 2022–{YEAR} Kazan Delicacies, Kazan, Musina St. 83A, +7(800)550-90-76
+- Do NOT mention pork anywhere"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
@@ -644,7 +434,7 @@ def generate_faq_page(faq: dict) -> tuple[Path, int]:
   <div class="mt-5 p-4 bg-light rounded">
     <h2 class="h4">{'Нужна консультация?' if lang == 'ru' else 'Need a consultation?'}</h2>
     <p>{'Свяжитесь с нами для получения прайс-листа и образцов продукции.' if lang == 'ru' else 'Contact us for a price list and product samples.'}</p>
-    <a href="tel:+79872170202" class="btn btn-danger">+7 987 217-02-02</a>
+    <a href="tel:+78005509076" class="btn btn-danger">+7(800)550-90-76</a>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>"""
@@ -745,7 +535,7 @@ def generate_type_geo_page(type_slug: str, type_ru: str, type_en: str,
 - Bootstrap 5 CDN
 - <h1>: {type_ru} в {city_ru} — оптовые поставки
 - Секции: о продукте (3 абзаца), преимущества (ul 5 пунктов), условия поставки, CTA
-- Кнопка «Получить прайс» → tel:+79872170202
+- Кнопка «Получить прайс» → tel:+78005509076
 - Контекстные ссылки: /pepperoni, /pepperoni-optom
 - Футер с контактами
 - НЕ упоминать свинину, текст 400-500 слов"""
@@ -805,9 +595,9 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
 - Schema.org LocalBusiness + Product JSON-LD
 - Bootstrap 5 CDN
 - <h1> с запросом «{query}»
-- Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+79872170202
+- Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+78005509076
 - BreadcrumbList microdata
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Аграрная, 2, +7 987 217-02-02
+- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7(800)550-90-76
 - НЕ упоминать свинину
 - Ссылка «← Все продукты» на /"""
 
@@ -821,82 +611,6 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
     return out_path, tokens
 
 
-# ---------- Blog index auto-updater ----------
-
-def update_blog_index() -> None:
-    """Rebuild public/blog.html from all existing RU blog article files."""
-    blog_dir = PUBLIC_DIR / "blog"
-    index_path = PUBLIC_DIR / "blog.html"
-    if not index_path.exists() or not blog_dir.exists():
-        return
-
-    content = index_path.read_text(encoding="utf-8")
-    start_marker = "<!-- BLOG_ARTICLES_START -->"
-    end_marker = "<!-- BLOG_ARTICLES_END -->"
-    if start_marker not in content or end_marker not in content:
-        return
-
-    # Collect all RU blog articles with metadata
-    articles = []
-    skip_slugs = {"api", "bakery", "export", "halal-production", "kazylyk", "pepperoni-pizzeria", "production"}
-    all_slugs = set()
-
-    for html_file in sorted(blog_dir.glob("*.html"), key=lambda f: f.stat().st_mtime, reverse=True):
-        slug = html_file.stem
-        all_slugs.add(slug)
-        file_content = html_file.read_text(encoding="utf-8")
-
-        # Extract title
-        import re as _re
-        og_title = _re.search(r'<meta property="og:title" content="([^"]+)"', file_content)
-        title_tag = _re.search(r'<title>([^<]+)</title>', file_content)
-        title = (og_title.group(1) if og_title else (title_tag.group(1) if title_tag else slug))
-        title = _re.sub(r'\s*[|–—]\s*(Казанские Деликатесы|pepperoni\.tatar).*$', '', title).strip()
-
-        # Extract description
-        desc_match = _re.search(r'<meta name="description" content="([^"]+)"', file_content)
-        desc = desc_match.group(1)[:200] if desc_match else ""
-
-        # Extract date
-        date_match = _re.search(r'<time[^>]*datetime="([^"]+)"', file_content)
-        date_str = date_match.group(1)[:10] if date_match else ""
-        if date_str:
-            try:
-                from datetime import datetime as _dt
-                d = _dt.strptime(date_str, "%Y-%m-%d")
-                months = ["января","февраля","марта","апреля","мая","июня","июля","августа","сентября","октября","ноября","декабря"]
-                date_display = f"{d.day} {months[d.month-1]} {d.year}"
-            except Exception:
-                date_display = date_str
-        else:
-            date_display = "2026"
-
-        articles.append((slug, title, desc, date_display))
-
-    if not articles:
-        return
-
-    # Build HTML blocks
-    blocks = []
-    for slug, title, desc, date_display in articles:
-        blocks.append(f"""    <div class="article">
-      <h2><a href="/blog/{slug}" style="color:#1b7a3d;text-decoration:none">{title}</a></h2>
-      <div class="date">{date_display}</div>
-      <p>{desc}</p>
-      <a href="/blog/{slug}" style="color:#0066cc;font-size:.9rem">Читать полностью →</a>
-    </div>""")
-
-    new_section = f"{start_marker}\n" + "\n\n".join(blocks) + f"\n    {end_marker}"
-    new_content = _re.sub(
-        rf"{_re.escape(start_marker)}.*?{_re.escape(end_marker)}",
-        new_section,
-        content,
-        flags=_re.DOTALL,
-    )
-    index_path.write_text(new_content, encoding="utf-8")
-    print(f"✅ blog.html updated — {len(articles)} articles")
-
-
 # ---------- Blog article (legacy, from DB) ----------
 
 def generate_article(query: str, slug: str, conn) -> tuple[Path, int]:
@@ -905,58 +619,8 @@ def generate_article(query: str, slug: str, conn) -> tuple[Path, int]:
 
 # ---------- Schedule: daily articles ----------
 
-def _slug_from_query(query: str) -> str:
-    """Convert a Yandex search query into a URL-safe slug."""
-    import re, unicodedata
-    TRANSLIT = {
-        'а':'a','б':'b','в':'v','г':'g','д':'d','е':'e','ё':'yo','ж':'zh','з':'z',
-        'и':'i','й':'y','к':'k','л':'l','м':'m','н':'n','о':'o','п':'p','р':'r',
-        'с':'s','т':'t','у':'u','ф':'f','х':'kh','ц':'ts','ч':'ch','ш':'sh',
-        'щ':'sch','ъ':'','ы':'y','ь':'','э':'e','ю':'yu','я':'ya',
-    }
-    s = query.lower().strip()
-    s = ''.join(TRANSLIT.get(c, c) for c in s)
-    s = re.sub(r'[^a-z0-9]+', '-', s)
-    s = s.strip('-')[:60]
-    return s or 'article'
-
-
-def _get_yandex_topics(conn, lang: str, done_slugs: set, limit: int) -> list[tuple[str, str]]:
-    """
-    Pull high-impression queries from opportunities table (Yandex source).
-    Returns list of (topic_title, slug) tuples not yet in done_slugs.
-    Marks used opportunities as in_progress to avoid repeats.
-    """
-    types = "('quick_growth','commercial_gap')"
-    rows = conn.execute(
-        f"""SELECT id, query, impressions FROM opportunities
-            WHERE type IN {types} AND source='yandex' AND status='new'
-            ORDER BY impressions DESC LIMIT 50"""
-    ).fetchall()
-
-    result = []
-    for row in rows:
-        if len(result) >= limit:
-            break
-        q = row["query"] if hasattr(row, "__getitem__") else row[1]
-        opp_id = row["id"] if hasattr(row, "__getitem__") else row[0]
-        slug = _slug_from_query(q)
-        if slug in done_slugs:
-            continue
-        result.append((q, slug))
-        done_slugs.add(slug)
-        conn.execute(
-            "UPDATE opportunities SET status='in_progress' WHERE id=?", (opp_id,)
-        )
-
-    return result
-
-
 def run_scheduled_articles(conn) -> int:
-    """Generate 3 RU + 3 EN blog articles per day.
-    Priority: real Yandex search queries from opportunities table.
-    Fallback: predefined BLOG_TOPICS_RU / BLOG_TOPICS_EN lists.
-    """
+    """Generate 3 RU + 3 EN blog articles per day from predefined topic list."""
     now = datetime.now(timezone.utc).isoformat()
     count = 0
     new_urls = []
@@ -968,12 +632,8 @@ def run_scheduled_articles(conn) -> int:
     for f in (PUBLIC_DIR / "en" / "blog").glob("*.html") if (PUBLIC_DIR / "en" / "blog").exists() else []:
         done_slugs.add(f.stem)
 
-    # RU articles: try Yandex opportunities first, then fall back to hardcoded list
-    ru_from_yandex = _get_yandex_topics(conn, "ru", done_slugs, MAX_ARTICLES)
-    ru_from_list   = [(t, s) for t, s in BLOG_TOPICS_RU if s not in done_slugs]
-    ru_pending     = (ru_from_yandex + ru_from_list)[:MAX_ARTICLES]
-    if ru_from_yandex:
-        print(f"  🔍 Using {len(ru_from_yandex)} Yandex queries + {len(ru_pending)-len(ru_from_yandex)} preset topics for RU")
+    # RU articles
+    ru_pending = [(t, s) for t, s in BLOG_TOPICS_RU if s not in done_slugs]
     for topic, slug in ru_pending[:MAX_ARTICLES]:
         try:
             print(f"  📝 [RU] {topic[:60]}")
@@ -986,22 +646,12 @@ def run_scheduled_articles(conn) -> int:
             )
             new_urls.append(f"https://pepperoni.tatar/blog/{slug}")
             count += 1
-            # Mark opportunity as done if it came from Yandex
-            conn.execute(
-                "UPDATE opportunities SET status='done', notes=? WHERE status='in_progress' AND query=?",
-                (str(out_path), topic),
-            )
             print(f"     ✅ {out_path.name} ({tokens} tokens)")
         except Exception as ex:
             print(f"  ⚠️  RU article failed ({slug}): {ex}", file=sys.stderr)
 
-    # EN articles: Yandex opportunities first (English queries), then preset list
-    # Note: Yandex data is RU queries — we pass them to EN generator as keyword seeds
-    en_from_yandex = _get_yandex_topics(conn, "en", done_slugs, MAX_ARTICLES)
-    en_from_list   = [(t, s) for t, s in BLOG_TOPICS_EN if s not in done_slugs]
-    en_pending     = (en_from_yandex + en_from_list)[:MAX_ARTICLES]
-    if en_from_yandex:
-        print(f"  🔍 Using {len(en_from_yandex)} Yandex queries + {len(en_pending)-len(en_from_yandex)} preset topics for EN")
+    # EN articles
+    en_pending = [(t, s) for t, s in BLOG_TOPICS_EN if s not in done_slugs]
     for topic, slug in en_pending[:MAX_ARTICLES]:
         try:
             print(f"  📝 [EN] {topic[:60]}")
@@ -1014,15 +664,9 @@ def run_scheduled_articles(conn) -> int:
             )
             new_urls.append(f"https://pepperoni.tatar/en/blog/{slug}")
             count += 1
-            conn.execute(
-                "UPDATE opportunities SET status='done', notes=? WHERE status='in_progress' AND query=?",
-                (str(out_path), topic),
-            )
             print(f"     ✅ {out_path.name} ({tokens} tokens)")
         except Exception as ex:
             print(f"  ⚠️  EN article failed ({slug}): {ex}", file=sys.stderr)
-
-    conn.commit()
 
     if new_urls:
         add_to_sitemap(new_urls)
@@ -1330,7 +974,6 @@ def main():
     print("\n[4/7] Generating scheduled blog articles …")
     art_done = run_scheduled_articles(conn)
     print(f"  → {art_done} articles generated")
-    update_blog_index()
 
     # 5. Type+Geo pages
     print("\n[5/7] Generating type+geo pages …")
