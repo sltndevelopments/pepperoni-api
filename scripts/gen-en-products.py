@@ -86,109 +86,6 @@ def load_products():
     return []
 
 
-def _product_schema_en(p, slug, name, pr_usd, price_rub, main_img, weight):
-    url = f"https://pepperoni.tatar/en/products/{slug}"
-    offers = []
-    if pr_usd and pr_usd > 0:
-        offers.append({
-            "@type": "Offer",
-            "url": url,
-            "priceCurrency": "USD",
-            "price": f"{pr_usd:.2f}",
-            "availability": "https://schema.org/InStock",
-            "priceValidUntil": f"{datetime.now().year + 1}-12-31",
-            "itemCondition": "https://schema.org/NewCondition",
-            "seller": {"@type": "Organization", "name": "Kazan Delicacies", "url": "https://pepperoni.tatar"}
-        })
-    if price_rub:
-        offers.append({
-            "@type": "Offer",
-            "url": url,
-            "priceCurrency": "RUB",
-            "price": str(price_rub),
-            "availability": "https://schema.org/InStock",
-            "priceValidUntil": f"{datetime.now().year + 1}-12-31"
-        })
-    for cur, val in (p.get("offers", {}).get("exportPrices") or {}).items():
-        if val and cur not in ("RUB", "USD"):
-            try:
-                offers.append({
-                    "@type": "Offer",
-                    "url": url,
-                    "priceCurrency": cur,
-                    "price": str(val),
-                    "availability": "https://schema.org/InStock",
-                    "priceValidUntil": f"{datetime.now().year + 1}-12-31"
-                })
-            except Exception:
-                pass
-
-    desc = p.get("seoDescriptionEN") or p.get("descriptionEN") or f"{name}. Halal meat product by Kazan Delicacies."
-    desc = " ".join(str(desc).split())[:700]
-    images = []
-    for img_key in ("imageMain", "image", "imagePack", "imageSlice"):
-        v = p.get(img_key)
-        if v and v not in images:
-            images.append(v)
-    if main_img and main_img not in images:
-        images.insert(0, main_img)
-    if not images:
-        images = ["https://pepperoni.tatar/og-default.png"]
-
-    schema = {
-        "@context": "https://schema.org",
-        "@type": "Product",
-        "@id": url,
-        "name": name,
-        "sku": p.get("sku", ""),
-        "mpn": p.get("articleNumber") or p.get("sku", ""),
-        "url": url,
-        "image": images if len(images) > 1 else images[0],
-        "description": desc,
-        "category": p.get("category", "") or p.get("section", ""),
-        "brand": {"@type": "Brand", "name": "Kazan Delicacies"},
-        "manufacturer": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies LLC",
-            "url": "https://kazandelikates.tatar",
-            "address": {"@type": "PostalAddress", "addressLocality": "Kazan", "addressRegion": "Tatarstan", "addressCountry": "RU"}
-        },
-        "countryOfOrigin": {"@type": "Country", "name": "Russia"},
-        "additionalProperty": [
-            {"@type": "PropertyValue", "name": "Halal", "value": "Certified by DUM RT, #614A/2024"},
-            {"@type": "PropertyValue", "name": "Quality standard", "value": "HACCP, ISO 22000:2018 (FSSC 22000)"}
-        ]
-    }
-    if weight:
-        schema["weight"] = {"@type": "QuantitativeValue", "value": str(weight)}
-    if p.get("barcode"):
-        schema["gtin"] = str(p["barcode"])
-    if offers:
-        schema["offers"] = offers if len(offers) > 1 else offers[0]
-    return schema
-
-
-def _faq_schema_en(p, name):
-    sku = p.get("sku", "")
-    shelf = p.get("shelfLife") or "see packaging"
-    faqs = [
-        {"q": "Is this product Halal?", "a": f"Yes, {name} is Halal-certified by DUM RT (Spiritual Board of Muslims of Tatarstan), certificate #614A/2024. Production complies with HACCP and ISO 22000:2018 (FSSC 22000)."},
-        {"q": "Can I order wholesale?", "a": "Yes, minimum wholesale order from 20 kg. We supply HoReCa, pizzerias, dark kitchens, fast food, retail chains, wholesale distributors and Private Label / contract-manufacturing partners. Pricing depends on volume."},
-        {"q": "What is the shelf life and storage?", "a": f"Shelf life: {shelf}. Storage conditions: see product label or contact sales."},
-        {"q": "Which currencies are available?", "a": "Prices are available in 7 currencies: RUB, USD, KZT (Kazakhstan), UZS (Uzbekistan), KGS (Kyrgyzstan), BYN (Belarus), AZN (Azerbaijan). Delivery terms: EXW Kazan."},
-        {"q": "Do you offer Private Label / white-label?", "a": "Yes, we produce Private Label / contract-manufacturing runs for chains and distributors. MOQ, casing, packaging and branding are negotiated individually."},
-        {"q": "How to place an order?", "a": f"Contact our sales team via WhatsApp +7 987 217-02-02, Telegram @KazanDel_Bot (please mention SKU {sku}), or email info@kazandelikates.tatar. We ship across Russia, CIS, UAE, Saudi Arabia and GCC."},
-    ]
-    return {
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}}
-            for f in faqs
-        ]
-    }
-
-
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
@@ -221,7 +118,14 @@ def main():
         ep = p["offers"].get("exportPrices") or {}
         pr = float(price_rub) if price_rub else 0
         pr_usd = float(price_usd) if price_usd else 0
-        seo_desc = p.get("seoDescriptionEN") or f"Buy {name} wholesale from the manufacturer. 100% Halal, HACCP certified. Perfect for HoReCa, pizzerias, and distributors. Export available (EXW Kazan)."
+        if pr_usd > 0:
+            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
+        else:
+            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
+        seo_desc = (p.get("seoDescriptionEN") or desc)
+        seo_desc = seo_desc[:160].rsplit(" ", 1)[0] if len(seo_desc) > 160 else seo_desc
+        if len(seo_desc) < 120:
+            seo_desc = (seo_desc + " Halal wholesale catalog. Export, HACCP, Private Label.")
         seo_desc = seo_desc[:160].replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
@@ -270,7 +174,8 @@ def main():
         if p.get("diameter"):
             specs.append(("Diameter", f"{p['diameter']} mm"))
         if p.get("casing"):
-            specs.append(("Casing", p["casing"]))
+            casing_en = {"без оболочки": "No casing", "натуральная": "Natural", "коллагеновая": "Collagen", "целлюлозная": "Cellulose", "фиброузная": "Fibrous", "полиамидная": "Polyamide"}.get(p["casing"].strip().lower(), p["casing"])
+            specs.append(("Casing", casing_en))
         if p.get("shelfLife"):
             specs.append(("Shelf life", shelf_life or p["shelfLife"]))
         if p.get("storage"):
@@ -278,11 +183,24 @@ def main():
         if p.get("boxWeightGross"):
             specs.append(("Box weight gross", p["boxWeightGross"]))
         if p.get("packageType"):
-            specs.append(("Packaging", p["packageType"]))
+            pkg_en = {"вакуум": "Vacuum", "вакуумная упаковка": "Vacuum pack", "лоток": "Tray", "гофрокороб": "Corrugated box", "термоусадочная": "Shrink wrap"}.get(p["packageType"].strip().lower(), p["packageType"])
+            specs.append(("Packaging", pkg_en))
         if p.get("minOrder"):
             specs.append(("Min order", p["minOrder"]))
         if p.get("nutrition"):
-            specs.append(("Nutrition", p["nutrition"]))
+            nut = p["nutrition"]
+            # Replace Russian nutrition terms with English
+            for ru, en in [
+                ("Калории", "Calories"), ("ккал", "kcal"), ("Белки", "Protein"), ("Жиры", "Fat"),
+                ("Углеводы", "Carbohydrates"), ("Не более", "Max"), ("Продукт не содержит", "Free of"),
+                ("не содержит", "free of"), ("генетически модифицированных организмов", "GMO"),
+                ("ГМО", "GMO"), (" на ", " per "), ("Соль", "Salt"),
+            ]:
+                nut = nut.replace(ru, en)
+            # Clean up leftovers: replace Russian punctuation with English
+            import re
+            nut = re.sub(r'(\d+),(\d+)\s*г\.?', r'\1.\2 g', nut)
+            specs.append(("Nutrition", nut))
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
@@ -295,7 +213,8 @@ def main():
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 {preload_main}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<title>{(name + " Halal Wholesale | Kazan Delicacies")[:65]}</title>
+<meta http-equiv="content-language" content="en">
+<title>{(name + " — Kazan Delicacies | Halal")[:70]}</title>
 <meta name="description" content="{seo_desc}">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/products/{slug}">
@@ -320,10 +239,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{json.dumps(_product_schema_en(p, slug, name, pr_usd, price_rub, main_img, weight), ensure_ascii=False, separators=(',',':'))}
-</script>
-<script type="application/ld+json">
-{json.dumps(_faq_schema_en(p, name), ensure_ascii=False, separators=(',',':'))}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -375,7 +291,7 @@ footer a{{color:#444;text-decoration:none}}
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
-<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({{ecommerce:{{detail:{{products:[{{id:"{sku}",name:"{name_esc}",price:{pr},brand:"Kazan Delicacies",category:"{category_esc}"}}]}}}}}});</script>
+<script>window.dataLayer=window.dataLayer||[];window.dataLayer.push({{ecommerce:{{detail:{{products:[{{id:"{sku}",name:"{name_esc}",price:{f"{pr_usd:.2f}" if pr_usd > 0 else pr},brand:"Kazan Delicacies",category:"{category_esc}"}}]}}}}}});</script>
 <div class="container">
 <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
 <a href="/en/" style="color:#0066cc;text-decoration:none">Catalog</a>
@@ -443,20 +359,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
-            cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
+            cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")
             html += f'<div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
-
-        faq_items = _faq_schema_en(p, name)["mainEntity"]
-        faq_html = '<div class="section-block"><h2 class="section-title">Frequently Asked Questions</h2>'
-        for item in faq_items:
-            q = item["name"].replace("<", "&lt;")
-            a = item["acceptedAnswer"]["text"].replace("<", "&lt;")
-            faq_html += f'<details style="border-bottom:1px solid #eee;padding:12px 0"><summary style="font-weight:600;cursor:pointer;font-size:.95rem;color:#1a1a1a">{q}</summary><p style="margin-top:10px;font-size:.9rem;color:#444;line-height:1.6">{a}</p></details>'
-        faq_html += "</div>\n"
-        html += faq_html
-
         html += '''<footer>
-<p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="/products.json">API (JSON)</a></p>
+<p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="https://api.pepperoni.tatar/">For Distributors (API)</a></p>
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
