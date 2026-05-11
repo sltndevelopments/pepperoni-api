@@ -14,6 +14,11 @@ mkdir -p "$DATA_DIR"
 cd "$REPO_DIR"
 node scripts/sync-sheets.mjs
 
+# 1b. Regenerate rich llms.txt for RU and EN (overrides the thin one
+# that sync-sheets.mjs writes). This keeps AI crawlers fed with full
+# context on every cron tick.
+python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
+
 # 1b. Перегенерируем llms-full.txt расширенным Python-генератором
 #     (Node-версия отдаёт усечённую таблицу; Python добавляет per-SKU карточки,
 #     buyer-personas, FAQ и AIO-ответы — всего ~90 KB вместо 16 KB).
