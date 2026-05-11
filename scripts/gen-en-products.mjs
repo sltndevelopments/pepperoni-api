@@ -61,14 +61,14 @@ for (const p of data.products) {
 <title>${name} — Kazan Delicacies | Halal</title>
 <meta name="description" content="${desc}">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://api.pepperoni.tatar/en/products/${skuLow}">
+<link rel="canonical" href="https://pepperoni.tatar/en/products/${skuLow}">
 <meta property="og:type" content="product">
 <meta property="og:title" content="${name} — Kazan Delicacies">
-<meta property="og:url" content="https://api.pepperoni.tatar/en/products/${skuLow}">
-<link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/products/${skuLow}">
-<link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/products/${skuLow}">
+<meta property="og:url" content="https://pepperoni.tatar/en/products/${skuLow}">
+<link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/${skuLow}">
+<link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/${skuLow}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://api.pepperoni.tatar/en/"},{"@type":"ListItem","position":2,"name":"Catalog","item":"https://api.pepperoni.tatar/en/"},{"@type":"ListItem","position":3,"name":"${name.replace(/"/g,'\\"')}","item":"https://api.pepperoni.tatar/en/products/${skuLow}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"},{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"},{"@type":"ListItem","position":3,"name":"${name.replace(/"/g,'\\"')}","item":"https://pepperoni.tatar/en/products/${skuLow}"}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"${name.replace(/"/g,'\\"')}","sku":"${sku}","brand":{"@type":"Brand","name":"Kazan Delicacies"},"offers":{"@type":"Offer","priceCurrency":"${priceUSD?'USD':'RUB'}","price":"${priceUSD||priceRUB}","availability":"https://schema.org/InStock"}}
@@ -109,9 +109,9 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${sku}",name:"${name.re
 </div>
 <nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:16px">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/en/"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/en/"><span itemprop="name">Home</span></a><meta itemprop="position" content="1"></li>
     <span aria-hidden="true"> › </span>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/en/"><span itemprop="name">Catalog</span></a><meta itemprop="position" content="2"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/en/"><span itemprop="name">Catalog</span></a><meta itemprop="position" content="2"></li>
     <span aria-hidden="true"> › </span>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">${name.replace(/"/g,'&quot;')}</span><meta itemprop="position" content="3"></li>
   </ol>

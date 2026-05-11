@@ -15,7 +15,7 @@
 - Corporate site: https://kazandelikates.tatar
 - Catalog (Russian): https://pepperoni.tatar
 - Catalog (English): https://pepperoni.tatar/en/
-- API endpoint: https://api.pepperoni.tatar
+- API endpoint: https://pepperoni.tatar
 - Incoterm: EXW Kazan, Russia
 
 ### Positioning
@@ -1657,8 +1657,8 @@ Static snapshot of the catalog. Refreshed on every deploy.
 
 ## Documentation
 
-- OpenAPI: https://api.pepperoni.tatar/openapi.yaml
-- AI plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
+- OpenAPI: https://pepperoni.tatar/openapi.yaml
+- AI plugin: https://pepperoni.tatar/.well-known/ai-plugin.json
 - Full documentation (Russian): https://pepperoni.tatar/llms-full.txt
 - Full documentation (English): https://pepperoni.tatar/en/llms-full.txt
 - Official ChatGPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog

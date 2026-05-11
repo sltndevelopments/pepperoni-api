@@ -57,7 +57,7 @@
   "sameAs":[
     "https://pepperoni.tatar/",
     "https://kazandelikates.tatar",
-    "https://api.pepperoni.tatar",
+    "https://pepperoni.tatar",
     "https://yandex.ru/maps/org/kazanskie_delikatesy/179167232879/",
     "https://2gis.ru/kazan/firm/70000001081636107",
     "https://www.metro-cc.ru/",
@@ -156,6 +156,21 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .capability-card{background:var(--green-light);border-radius:var(--radius);padding:18px}
 .capability-card h3{font-size:.92rem;margin-bottom:6px}
 .capability-card p{font-size:.82rem;color:#444;line-height:1.5}
+.segments__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px}
+.seg-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}
+.seg-card:hover{box-shadow:var(--shadow);border-color:var(--green);transform:translateY(-2px)}
+.seg-card__num{position:absolute;top:14px;right:16px;font-size:.72rem;font-weight:700;color:#bbb;letter-spacing:1px}
+.seg-card__icon{font-size:1.9rem;margin-bottom:8px}
+.seg-card__title{font-weight:700;font-size:1rem;margin-bottom:6px;color:#1a1a1a}
+.seg-card__desc{color:var(--muted);font-size:.85rem;line-height:1.5;margin-bottom:10px;flex-grow:1}
+.seg-card__case{font-size:.78rem;color:var(--green);font-weight:600;margin-top:auto;padding-top:8px;border-top:1px dashed #eee}
+.seg-card__arrow{display:inline-block;margin-left:4px;transition:transform .2s}
+.seg-card:hover .seg-card__arrow{transform:translateX(3px)}
+.endpoint-list{list-style:none;font-size:.85rem}
+.endpoint-list li{padding:5px 0;border-bottom:1px solid var(--border)}
+.endpoint-list a{color:#0066cc}
+.live-badge{display:inline-block;background:#1b7a3d;color:#fff;font-size:.65rem;font-weight:700;padding:1px 6px;border-radius:3px;margin-left:6px;vertical-align:middle}
+.endpoint-desc{color:var(--muted);font-size:.8rem}
 .footer{background:#1a1a1a;color:#ccc;padding:36px 0 20px}
 .footer__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:24px}
 .footer__col-title{color:#fff;font-weight:600;margin-bottom:10px;font-size:.88rem}
@@ -190,8 +205,8 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <h1>Halal Sausage Products &amp; Pastries Manufacturer for HoReCa &amp; Retail</h1>
     <p class="hero__sub">Pepperoni, sausages, burger patties, traditional Tatar pastries — made in Kazan, Russia. Export to CIS and Middle East.</p>
     <div class="hero__btns">
-      <a href="#catalog" class="btn btn-primary">View Catalog</a>
-      <a href="mailto:info@kazandelikates.tatar" class="btn btn-outline">Contact Us</a>
+      <a href="#segments" class="btn btn-primary">Select Segment</a>
+      <a href="#catalog" class="btn btn-outline">View Catalog</a>
     </div>
   </div>
 </section>
@@ -205,6 +220,119 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <span class="badges__item"><span class="dot"></span>Private Label Available</span>
   </div>
 </div>
+
+<section class="segments" id="segments">
+  <div class="container">
+    <h2 class="section-title">Who We Serve</h2>
+    <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
+    <div class="segments__grid">
+      <a href="/en/for-gas-stations" class="seg-card">
+        <span class="seg-card__num">01</span>
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">Gas Stations &amp; Street Food</div>
+        <div class="seg-card__desc">Sausages, pepperoni, patties, sausage rolls for C-store hot dog stations and grab-and-go.</div>
+        <div class="seg-card__case">Case: Tatneft gas station chain + SMARTEN <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/contract-manufacturing" class="seg-card">
+        <span class="seg-card__num">02</span>
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
+        <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. From 500 kg/month.</div>
+        <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/for-bakeries" class="seg-card">
+        <span class="seg-card__num">03</span>
+        <div class="seg-card__icon">🥐</div>
+        <div class="seg-card__title">Regional Bakeries</div>
+        <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
+        <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/for-retail" class="seg-card">
+        <span class="seg-card__num">04</span>
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Retail Chains</div>
+        <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
+        <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/for-horeca" class="seg-card">
+        <span class="seg-card__num">05</span>
+        <div class="seg-card__icon">🍽️</div>
+        <div class="seg-card__title">HoReCa &amp; Food Service</div>
+        <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
+        <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/for-distributors" class="seg-card">
+        <span class="seg-card__num">06</span>
+        <div class="seg-card__icon">📦</div>
+        <div class="seg-card__title">Regional Distributors</div>
+        <div class="seg-card__desc">30-day deferred payment, own price list, full halal assortment from Tatarstan in one warehouse.</div>
+        <div class="seg-card__case">Case: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="segments" style="background:#fff" id="partners">
+  <div class="container">
+    <h2 class="section-title">Who We Work With</h2>
+    <p class="section-sub">Key clients and partners of Kazan Delicacies</p>
+    <div class="segments__grid">
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">Tatneft Gas Station Chain</div>
+        <div class="seg-card__desc">Hot dog sausages and burger patties — at all gas stations in the network. Tatar pastries — at select locations in the region.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">OMPK (Ostankino)</div>
+        <div class="seg-card__desc">Private Label: we manufacture the halal product line under the "Aslam" trademark for one of Russia's largest meat processing plants.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">EuroSpar (Kazan)</div>
+        <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries in the chain's supermarkets.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Bakhetle (Kazan)</div>
+        <div class="seg-card__desc">Halal assortment in Kazan's premium supermarket chain.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Metro Cash &amp; Carry</div>
+        <div class="seg-card__desc">Halal products in wholesale hypermarkets of the federal chain.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Miratorg</div>
+        <div class="seg-card__desc">Our Tatar pastries (echpochmak, peremyach, samsa) on the shelves of Miratorg supermarkets.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏭</div>
+        <div class="seg-card__title">Kazan Helicopter Plant</div>
+        <div class="seg-card__desc">Halal products for corporate catering at a major industrial enterprise.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">SMARTEN</div>
+        <div class="seg-card__desc">Gas station network operator — halal products for C-store and street food.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">GFC</div>
+        <div class="seg-card__desc">Federal food service distributor — our halal product line in all regions of presence.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">SweetLife</div>
+        <div class="seg-card__desc">Federal food service distributor — halal product supply to HoReCa across Russia.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <a href="/en/partnery" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Full Partner List →</a>
+    </div>
+  </div>
+</section>
 
 <section class="usps">
   <div class="container">
@@ -287,6 +415,19 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
+  </div>
+
+  <div class="info-block">
+    <h2>API for Partners</h2>
+    <p>Integrate the halal product catalog directly into your ERP, 1C, iiko, or MoySklad. Prices update in real time. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
+    <ul class="endpoint-list" style="margin-top:12px">
+      <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — real-time prices from Google Sheets</span></li>
+      <li><a href="/products.json">/products.json</a><span class="endpoint-desc"> — static catalog</span></li>
+      <li><a href="/openapi.yaml">/openapi.yaml</a><span class="endpoint-desc"> — OpenAPI specification</span></li>
+      <li><a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a><span class="endpoint-desc"> — AI plugin manifest</span></li>
+      <li><a href="/llms.txt">/llms.txt</a><span class="endpoint-desc"> — LLM instructions</span></li>
+      <li><a href="/sitemap.xml">/sitemap.xml</a><span class="endpoint-desc"> — sitemap</span></li>
+    </ul>
   </div>
 </div>
 </main>
