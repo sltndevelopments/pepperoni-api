@@ -469,6 +469,14 @@ def _product_detail_cards(all_products: list[dict]) -> str:
         box_price = offers.get("pricePerBox")
         per_piece = offers.get("pricePerPiece")
 
+        # Product images (Cloudinary)
+        images = []
+        for img_field in ("image", "imageMain", "imagePack", "imageSlice"):
+            if p.get(img_field):
+                images.append(p[img_field])
+        if images:
+            out += f"![]({images[0]})\n\n"
+
         attrs = []
         if price:
             line = f"Цена с НДС: {price} ₽"
@@ -917,6 +925,14 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
         price_no_vat = offers.get("priceExclVAT") or offers.get("pricePerBoxExclVAT") or ""
         box_price = offers.get("pricePerBox")
         per_piece = offers.get("pricePerPiece")
+
+        # Product images (Cloudinary)
+        images = []
+        for img_field in ("image", "imageMain", "imagePack", "imageSlice"):
+            if p.get(img_field):
+                images.append(p[img_field])
+        if images:
+            out += f"![]({images[0]})\n\n"
 
         attrs = []
         if price:
