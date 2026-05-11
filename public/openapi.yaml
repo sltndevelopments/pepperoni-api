@@ -148,6 +148,7 @@ paths:
                     example: "2.1.0"
                   endpoints:
                     type: object
+                    description: "Map of available API endpoints"
   /api/v1/stats:
     get:
       tags:
@@ -161,6 +162,51 @@ paths:
             application/json:
               schema:
                 type: object
+                properties:
+                  service:
+                    type: string
+                  totalVisits:
+                    type: integer
+                  botVisits:
+                    type: integer
+                  humanVisits:
+                    type: integer
+                  botBreakdown:
+                    type: object
+                    description: "Map of bot name to visit count"
+                  countryBreakdown:
+                    type: object
+                    description: "Map of country code to visit count"
+                  recentBotVisits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bot:
+                          type: string
+                        path:
+                          type: string
+                        country:
+                          type: string
+                        time:
+                          type: string
+                  recentVisits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bot:
+                          type: string
+                        path:
+                          type: string
+                        country:
+                          type: string
+                        time:
+                          type: string
+                        ua:
+                          type: string
+                  note:
+                    type: string
   /api/v1/search:
     get:
       tags:
