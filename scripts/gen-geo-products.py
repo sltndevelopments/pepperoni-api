@@ -157,6 +157,7 @@ def build_burger_page(loc):
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
   <title>Халяль котлеты для бургеров оптом — {city} | Казанские Деликатесы</title>
   <meta name="description" content="Котлеты для бургеров халяль оптом в {city_gen}. Говяжьи и куриные. Заморозка, 360 суток. ХАССП. Halal № 614A/2024. Поставки от производителя.{exp}">
   <meta name="keywords" content="котлеты для бургеров {city.lower()}, халяль котлеты для бургеров {city.lower()}, котлеты для бургеров оптом {city.lower()}, burger patties halal {city.lower()}, котлеты говяжьи для бургеров {city.lower()}">

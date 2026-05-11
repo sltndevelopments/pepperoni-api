@@ -106,6 +106,7 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
+<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
   <meta http-equiv="content-language" content="ru">
   <title>{title}</title>
   <meta name="description" content="{desc}">
