@@ -702,6 +702,37 @@ def _tr_shelf(value: str, tr: dict) -> str:
     return out
 
 
+def _tr_package(value: str, tr: dict) -> str:
+    if not value:
+        return ""
+    return (tr.get("packageTypes") or {}).get(value.strip(), value)
+
+
+def _tr_casing(value: str, tr: dict) -> str:
+    if not value:
+        return ""
+    return (tr.get("casings") or {}).get(value.strip().lower(), value)
+
+
+# Unit / preposition strings that leak through from Google Sheets free-form fields
+# (weight, storage, etc.). Applied as a last-mile sweep on EN llms output.
+_EN_UNIT_RULES = [
+    (re.compile(r"(\d+(?:[.,]\d+)?)\s*кг\b"), r"\1 kg"),
+    (re.compile(r"(\d+(?:[.,]\d+)?)\s*г\b"),  r"\1 g"),
+    (re.compile(r"\bдо\s+"), "up to "),
+    (re.compile(r"\bот\s+"), "from "),
+]
+
+
+def _en_normalise_units(value: str) -> str:
+    if not value:
+        return value
+    out = value
+    for pat, repl in _EN_UNIT_RULES:
+        out = pat.sub(repl, out)
+    return out
+
+
 def _extract_faq_from_html_en() -> list[dict]:
     """Pull EN Q&A from public/en/faq.html FAQPage JSON-LD."""
     faq_path = PUBLIC / "en" / "faq.html"
@@ -896,13 +927,19 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
         if box_price:
             attrs.append(f"Per box: {box_price} RUB")
         if p.get("weight"):
-            attrs.append(f"Weight: {p['weight']} kg")
+            w = _en_normalise_units(str(p['weight']))
+            # If the raw weight already had a unit (e.g. "100 г" → "100 g"),
+            # don't append another " kg".
+            if re.search(r"\b(g|kg)\b", w):
+                attrs.append(f"Weight: {w}")
+            else:
+                attrs.append(f"Weight: {w} kg")
         if p.get("qtyPerBox"):
             attrs.append(f"Pieces per box: {p['qtyPerBox']}")
         if p.get("shelfLife"):
             attrs.append(f"Shelf life: {_tr_shelf(p['shelfLife'], tr)}")
         if p.get("storage"):
-            attrs.append(f"Storage: {p['storage']}")
+            attrs.append(f"Storage: {_en_normalise_units(p['storage'])}")
         if p.get("hsCode"):
             attrs.append(f"HS code: {p['hsCode']}")
         if p.get("articleNumber"):
@@ -911,8 +948,10 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
             attrs.append(f"Barcode: {p['barcode']}")
         if p.get("diameter"):
             attrs.append(f"Diameter: {p['diameter']}")
+        if p.get("casing"):
+            attrs.append(f"Casing: {_tr_casing(p['casing'], tr)}")
         if p.get("packageType"):
-            attrs.append(f"Packaging: {p['packageType']}")
+            attrs.append(f"Packaging: {_tr_package(p['packageType'], tr)}")
         if p.get("minOrder"):
             attrs.append(f"Minimum order: {p['minOrder']}")
         if p.get("boxWeightGross"):
@@ -1028,13 +1067,16 @@ When responding to questions about Kazan Delicacies, please note:
                 txt += "|------|-----|--------|-----------------|---------------|------------|\n"
                 for p in products:
                     en = _tr_product(p["name"], tr)
-                    txt += f"| {en} | {p['sku']} | {p.get('weight','')} | {p['offers'].get('pricePerUnit','')} | {p['offers'].get('pricePerBox','')} | {_tr_shelf(p.get('shelfLife',''), tr)} |\n"
+                    w = _en_normalise_units(str(p.get('weight','')))
+                    txt += f"| {en} | {p['sku']} | {w} | {p['offers'].get('pricePerUnit','')} | {p['offers'].get('pricePerBox','')} | {_tr_shelf(p.get('shelfLife',''), tr)} |\n"
             else:
                 txt += "| Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |\n"
                 txt += "|------|-----|--------|-----------------------|------------|---------|\n"
                 for p in products:
                     en = _tr_product(p["name"], tr)
-                    txt += f"| {en} | {p['sku']} | {p.get('weight','')} | {p['offers'].get('price','')} | {_tr_shelf(p.get('shelfLife',''), tr)} | {p.get('storage','')} |\n"
+                    w = _en_normalise_units(str(p.get('weight','')))
+                    storage = _en_normalise_units(p.get('storage',''))
+                    txt += f"| {en} | {p['sku']} | {w} | {p['offers'].get('price','')} | {_tr_shelf(p.get('shelfLife',''), tr)} | {storage} |\n"
 
     txt += _product_detail_cards_en(all_products, tr)
     txt += _persona_guide_en(all_products, tr)

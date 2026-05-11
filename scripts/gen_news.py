@@ -189,6 +189,7 @@ def generate_news_index(articles: list[dict]) -> Path:
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="content-language" content="ru">
   <title>Новости | Казанские Деликатесы — производитель халяль мясных изделий</title>
   <meta name="description" content="Последние новости компании Казанские Деликатесы: новый ассортимент, экспорт, сертификаты, условия поставок.">
   <link rel="canonical" href="https://pepperoni.tatar/news/">

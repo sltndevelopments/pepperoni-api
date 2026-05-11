@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  AI / LLM discovery sitemap.
+
+  Lists the machine-readable resources GPTBot, ClaudeBot, PerplexityBot,
+  Google-Extended, YandexGPT, DeepSeekBot, Grok, Alice and other AI
+  crawlers fetch to ingest the Kazan Delicacies catalog without scraping
+  HTML.
+
+  Referenced from /robots.txt; mirrored on both pepperoni.tatar and
+  api.pepperoni.tatar. Generated on each catalog sync via
+  scripts/gen-llms-full.py (see also scripts/sync-vps.sh).
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Russian full LLM context (citation-ready dump) -->
+  <url>
+    <loc>https://pepperoni.tatar/llms.txt</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/llms-full.txt</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- English full LLM context -->
+  <url>
+    <loc>https://pepperoni.tatar/en/llms.txt</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/llms-full.txt</loc>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- ChatGPT Plugin manifest + AI dataset discovery -->
+  <url>
+    <loc>https://pepperoni.tatar/.well-known/ai-plugin.json</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/.well-known/ai-meta.json</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/.well-known/llms.txt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Structured data / API contracts -->
+  <url>
+    <loc>https://pepperoni.tatar/products.json</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/products.json</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/api/products</loc>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://api.pepperoni.tatar/openapi.yaml</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
