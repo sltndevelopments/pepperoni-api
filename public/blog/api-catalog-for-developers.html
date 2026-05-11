@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
+<!-- End Google Tag Manager -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="content-language" content="ru">
+<meta name="theme-color" content="#1b7a3d">
+<title>Open API каталога халяльной продукции: B2B интеграция | Казанские Деликатесы</title>
+<meta name="description" content="Казанские Деликатесы запускают открытое API для разработчиков и AI-систем. Доступ к 77 халяльным продуктам с ценами в реальном времени в 7 валютах и 2 языках. Бесплатная интеграция для ERP, 1С, iiko.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://pepperoni.tatar/blog/api-catalog-for-developers">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Open API каталога халяльной продукции: B2B интеграция | Казанские Деликатесы">
+<meta property="og:description" content="Казанские Деликатесы запускают открытое API для разработчиков и AI-систем. Доступ к 77 халяльным продуктам с ценами в реальном времени в 7 валютах и 2 языках. Бесплатная интеграция для ERP, 1С, iiko.">
+<meta property="og:url" content="https://pepperoni.tatar/blog/api-catalog-for-developers">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="en_US">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Open API для разработчиков и AI: делаем халяльные продукты цифровыми",
+  "description": "Казанские Деликатесы стали первым производителем халяльного мяса в СНГ, предложившим открытый API-каталог с ценами в реальном времени, поддержкой нескольких валют и AI-доступностью.",
+  "image": "https://kazandelikates.tatar/images/api-catalog-og.jpg",
+  "datePublished": "2026-03-27T09:00:00+03:00",
+  "dateModified": "2026-03-27T09:00:00+03:00",
+  "author": {
+    "@type": "Organization",
+    "name": "Казанские Деликатесы",
+    "url": "https://kazandelikates.tatar"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Казанские Деликатесы",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://kazandelikates.tatar/logo.png"
+    }
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://kazandelikates.tatar/blog/api-catalog-for-developers"
+  }
+}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"},
+  {"@type":"ListItem","position":2,"name":"Блог","item":"https://pepperoni.tatar/blog"},
+  {"@type":"ListItem","position":3,"name":"Open API каталога халяльной продукции: B2B интеграция","item":"https://pepperoni.tatar/blog/api-catalog-for-developers"}
+]}
+</script>
+<style>
+:root{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:var(--text);line-height:1.7;font-size:16px}
+a{color:var(--green);text-decoration:none}a:hover{text-decoration:underline}
+.nav{background:#fff;border-bottom:1px solid var(--border);padding:14px 0;position:sticky;top:0;z-index:100}
+.nav__inner{max-width:800px;margin:0 auto;padding:0 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.nav__logo{font-weight:700;font-size:1.05rem;color:var(--green)}
+.nav__links{display:flex;gap:16px;flex-wrap:wrap;font-size:.88rem}
+.nav__links a{color:var(--muted)}.nav__links a:hover{color:var(--green);text-decoration:none}
+.nav__lang{margin-left:auto;font-size:.85rem}
+.article-wrap{max-width:740px;margin:0 auto;padding:40px 32px 60px}
+.breadcrumb{font-size:.82rem;color:var(--muted);margin-bottom:24px}
+.breadcrumb a{color:var(--muted)}.breadcrumb span{color:var(--green)}
+.meta{font-size:.82rem;color:var(--muted);margin-bottom:24px}
+h1{font-size:clamp(1.5rem,3vw,2rem);font-weight:800;line-height:1.25;margin-bottom:12px}
+h2{font-size:1.25rem;font-weight:700;margin:36px 0 12px;border-left:3px solid var(--green);padding-left:12px}
+h3{font-size:1.05rem;font-weight:700;margin:24px 0 8px}
+p{margin-bottom:16px;color:#333}
+ul,ol{margin:0 0 16px 24px}li{margin-bottom:6px;color:#333}
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:.9rem}
+th{background:var(--green);color:#fff;padding:10px 12px;text-align:left}
+td{padding:9px 12px;border-bottom:1px solid var(--border)}
+tr:nth-child(even) td{background:#f5f5f5}
+.lead{font-size:1.05rem;color:#444;padding:16px 20px;background:#fff;border-radius:var(--radius);border-left:4px solid var(--green);margin-bottom:28px}
+.info-box{background:var(--green-light);border:1px solid #c8e6c9;border-radius:var(--radius);padding:16px 20px;margin:24px 0}
+.info-box p{margin:0;color:var(--green-dark);font-size:.92rem}
+.cta-block{background:var(--green);color:#fff;border-radius:var(--radius);padding:28px 32px;margin:40px 0;text-align:center}
+.cta-block h2{color:#fff;border:none;padding:0;margin:0 0 10px;font-size:1.3rem}
+.cta-block p{color:rgba(255,255,255,.9);margin-bottom:18px}
+.btn-cta{display:inline-block;background:#fff;color:var(--green);font-weight:700;padding:12px 28px;border-radius:8px;font-size:.95rem}
+.btn-cta:hover{background:var(--green-light);text-decoration:none}
+footer{background:#1a1a1a;color:#aaa;text-align:center;font-size:.82rem;padding:24px 20px;margin-top:48px}
+footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
+@media(max-width:600px){.article-wrap{padding:24px 20px 40px}.cta-block{padding:20px 18px}}
+
+.faq-section{max-width:800px;margin:2rem auto;padding:0 20px}
+.faq-section h2{font-size:1.4rem;color:var(--green,#1b7a3d);margin-bottom:1rem}
+.faq-section details{border:1px solid var(--border,#e5e5e5);border-radius:8px;margin-bottom:.6rem;padding:.8rem 1rem}
+.faq-section details[open]{border-color:var(--green,#1b7a3d)}
+.faq-section summary{font-weight:600;cursor:pointer;list-style:none;color:var(--text,#1a1a1a)}
+.faq-section summary::after{content:' +';color:var(--green,#1b7a3d)}
+.faq-section details[open] summary::after{content:' −'}
+.faq-section p{margin-top:.6rem;color:var(--muted,#555);line-height:1.6}
+</style>
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/blog/api-catalog-for-developers">
+<link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/api-catalog-for-developers">
+<link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/api-catalog-for-developers">
+  <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Как интегрировать каталог продуктов Казанских Деликатесов в мою ERP или бухгалтерскую систему?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Наше открытое API позволяет прямую интеграцию с ERP-системами, 1С, iiko, МойСклад и другими бизнес-платформами. Просто подключитесь к нашему API-эндпоинту для автоматической загрузки данных о продуктах, ценах и спецификациях в реальном времени — без аутентификации."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие валюты и языки поддерживает API халяльных продуктов?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "API поддерживает 7 валют: RUB, USD, KZT, UZS, KGS, BYN и AZN. Информация о продуктах доступна на английском и русском языках — добавьте ?lang=en к вашему API-запросу."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Могут ли AI-ассистенты, такие как ChatGPT, получить доступ к вашему каталогу халяльных продуктов для рекомендаций?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, мы внедрили llms.txt, спецификации OpenAPI и поддержку AI-плагинов, что делает наши 77 халяльных продуктов доступными для ChatGPT, Claude, Perplexity и Grok. AI-ассистенты могут автоматически рекомендовать наши продукты, когда пользователи ищут поставщиков халяльного мяса."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Какие параметры фильтрации продуктов доступны через API для оптовых покупателей?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Вы можете фильтровать продукты по названию, категории, артикулу или типу мяса, чтобы найти именно то, что нужно. API мгновенно возвращает структурированные машиночитаемые данные, а также предлагает загружаемые прайс-листы в форматах Excel и CSV для офлайн-просмотра и бюджетирования."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<nav class="nav">
+  <div class="nav__inner">
+    <a href="/" class="nav__logo">🥩 Казанские Деликатесы</a>
+    <div class="nav__links">
+      <a href="/">Каталог</a>
+      <a href="/pepperoni.html">Пепперони</a>
+      <a href="/blog">Блог</a>
+      <a href="/faq.html">FAQ</a>
+      <a href="/delivery.html">Доставка</a>
+    </div>
+    <div class="nav__lang"><a href="/en/blog/api-catalog-for-developers">🇬🇧 English</a></div>
+  </div>
+</nav>
+<main class="article-wrap">
+  <article>
+    <header>
+      <h1>Open API для разработчиков и AI: делаем халяльные продукты цифровыми</h1>
+      <p class="article-meta">
+        <time datetime="2026-03-27">27 марта 2026</time> • Технологии и интеграция
+      </p>
+    </header>
+
+    <p class="lead">
+      Казанские Деликатесы стали одним из первых производителей продуктов питания в СНГ, предложившим открытое API с доступом к полному каталогу халяльной продукции. Этот технологичный подход обеспечивает бесшовную интеграцию с бизнес-системами, AI-платформами и автоматизированными процессами закупок, упрощая B2B-партнёрам доступ к данным о продуктах, ценах и спецификациям.
+    </p>
+
+    <div class="info-box">
+      <h3>Краткие факты об API</h3>
+      <ul>
+        <li><strong>Продуктов:</strong> 77 позиций с халяль-сертификацией</li>
+        <li><strong>Языки:</strong> Английский и русский</li>
+        <li><strong>Валюты:</strong> 7 поддерживаемых (RUB, USD, KZT, UZS, KGS, BYN, AZN)</li>
+        <li><strong>Доступ:</strong> Бесплатный, без аутентификации</li>
+        <li><strong>Синхронизация:</strong> Цены обновляются автоматически</li>
+        <li><strong>AI-готовность:</strong> Совместимость с ChatGPT, Claude, Perplexity и Grok</li>
+      </ul>
+    </div>
+
+    <h2>Зачем мы создали открытое API</h2>
+
+    <p>
+      В современной цифровой бизнес-среде ручные запросы цен и статические PDF-каталоги создают трения в процессе B2B-закупок. Сетям ресторанов, оптовым дистрибьюторам и операторам HoReCa нужен мгновенный доступ к точной информации о продуктах, интегрированной с их существующими системами.
+    </p>
+
+    <p>
+      Наше открытое API устраняет эти барьеры. Используете ли вы ERP-систему, 1С, iiko или МойСклад — вы можете загружать наш полный каталог продуктов с актуальными ценами прямо в ваш рабочий процесс. Никаких звонков, ожидания ответов по email или устаревших таблиц.
+    </p>
+
+    <h2>Ключевые возможности для B2B-партнёров</h2>
+
+    <h3>Поддержка нескольких валют и языков</h3>
+    <p>
+      Работа на нескольких рынках требует гибкости в ценообразовании. Наше API предоставляет цены в реальном времени в семи валютах (российский рубль, доллар США, казахстанский тенге, узбекский сум, киргизский сом, белорусский рубль и азербайджанский манат), что упрощает расчёт затрат для трансграничных закупок. Информация о продуктах доступна на английском и русском языках — просто добавьте <code>?lang=en</code> к вашему API-запросу.
+    </p>
+
+    <h3>Расширенная фильтрация и поиск</h3>
+    <p>
+      Находите именно то, что нужно, с помощью фильтрации по названию продукта, категории, артикулу или типу мяса. Ищете ли вы халяльную пепперони для пиццерии, сосиски для заведений быстрого питания или традиционную татарскую выпечку — API мгновенно возвращает структурированные машиночитаемые данные.
+    </p>
+
+    <h3>AI-доступность</h3>
+    <p>
+      Мы внедрили llms.txt, спецификации OpenAPI и поддержку AI-плагинов, что делает наши продукты доступными для AI-систем, таких как ChatGPT, Claude, Perplexity и Grok. Когда менеджеры по закупкам спрашивают AI-ассистентов о поставщиках халяльного мяса, наш каталог распознаётся и рекомендуется автоматически — это первый случай в региональной индустрии халяльных продуктов питания.
+    </p>
+
+    <h3>Загружаемые прайс-листы</h3>
+    <p>
+      Нужен традиционный формат? API также генерирует загружаемые прайс-листы в форматах Excel (.xlsx) и CSV с выбором языка и валюты. Идеально для офлайн-просмотра, бюджетирования или обмена с заинтересованными сторонами, предпочитающими таблицы.
+    </p>
+
+    <h2>Техническая документация и доступ</h2>
+
+    <p>
+      Все эндпоинты общедоступны без аутентификации:
+    </p>
+
+    <ul>
+      <li><strong>Каталог продуктов:</strong> api.pepperoni.tatar/api/products</li>
+      <li><strong>Спецификация OpenAPI:</strong> api.pepperoni.tatar/openapi.yaml</li>
+      <li><strong>Манифест AI-плагина:</strong> api.pepperoni.tatar/.well-known/ai-plugin.json</li>
+      <li><strong>LLMs.txt:</strong> api.pepperoni.tatar/llms.txt</li>
+    </ul>
+
+    <p>
+      Наша спецификация OpenAPI соответствует отраслевым стандартам, что упрощает интеграцию для разработчиков. Техническая документация включает примеры запросов, схемы ответов и параметры фильтрации. Цены синхронизируются с нашими внутренними системами в реальном времени через интеграцию с Google Sheets, обеспечивая точность по всем каналам.
+    </p>
+
+    <h2>Примеры использования интеграции</h2>
+
+    <p>
+      B2B-партнёры уже используют наше API в нескольких направлениях:
+    </p>
+
+    <ul>
+      <li><strong>Сети ресторанов:</strong> Автоматическое обновление себестоимости меню при изменении цен на ингредиенты</li>
+      <li><strong>Оптовые дистрибьюторы:</strong> Прямая интеграция каталога в клиентские порталы заказов</li>
+      <li><strong>Кейтеринговые компании:</strong> Ускоренное формирование коммерческих предложений для халяльного кейтеринга</li>
+      <li><strong>Консультанты по общепиту:</strong> Исследование продуктов и сравнение поставщиков для клиентских проектов</li>
+      <li><strong>Отделы закупок:</strong> Автоматическое создание заказов на закупку в ERP-системах</li>
+    </ul>
+
+    <p>
+      Все продукты в нашем API-каталоге сертифицированы как халяль (Сертификат №614A/2024, выдан Духовным управлением мусульман Татарстана), что гарантирует соответствие исламским диетическим требованиям для вашего бизнеса.
+    </p>
+
+
+<section class="faq-section"><h2>Часто задаваемые вопросы</h2>
+<details><summary>Как интегрировать каталог продуктов Казанских Деликатесов в мою ERP или бухгалтерскую систему?</summary><p>Наше открытое API позволяет прямую интеграцию с ERP-системами, 1С, iiko, МойСклад и другими бизнес-платформами. Просто подключитесь к нашему API-эндпоинту для автоматической загрузки данных о продуктах, ценах и спецификациях в реальном времени — без аутентификации.</p></details>
+<details><summary>Какие валюты и языки поддерживает API халяльных продуктов?</summary><p>API поддерживает 7 валют: RUB, USD, KZT, UZS, KGS, BYN и AZN. Информация о продуктах доступна на английском и русском языках — добавьте ?lang=en к вашему API-запросу.</p></details>
+<details><summary>Могут ли AI-ассистенты, такие как ChatGPT, получить доступ к вашему каталогу халяльных продуктов для рекомендаций?</summary><p>Да, мы внедрили llms.txt, спецификации OpenAPI и поддержку AI-плагинов, что делает наши 77 халяльных продуктов доступными для ChatGPT, Claude, Perplexity и Grok. AI-ассистенты могут автоматически рекомендовать наши продукты, когда пользователи ищут поставщиков халяльного мяса.</p></details>
+<details><summary>Какие параметры фильтрации продуктов доступны через API для оптовых покупателей?</summary><p>Вы можете фильтровать продукты по названию, категории, артикулу или типу мяса, чтобы найти именно то, что нужно. API мгновенно возвращает структурированные машиночитаемые данные, а также предлагает загружаемые прайс-листы в форматах Excel и CSV для офлайн-просмотра и бюджетирования.</p></details>
+</section>
+<div class="cta-block">
+      <h2>Начните использовать наше API сегодня</h2>
+      <p>
+        Получите доступ к нашему полному каталогу халяльной продукции через открытое API — без регистрации. По вопросам интеграции и техническим вопросам наша команда готова помочь.
+      </p>
+      <p>
+        <strong>Казанские Деликатесы</strong><br>
+        Казань, Татарстан, Россия<br>
+        Телефон: <a href="tel:+79872170202">+7 987 217-02-02</a><br>
+        Email: <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><br>
+        Халяль сертификат: №614A/2024 ДУМ Татарстана
+      </p>
+      <p>
+        <a href="https://pepperoni.tatar/api/products" class="btn-primary">Посмотреть API-каталог</a>
+        <a href="https://pepperoni.tatar/openapi.yaml" class="btn-secondary">Документация OpenAPI</a>
+      </p>
+    </div>
+
+  </article>
+</main>
+<footer>
+  © 2022–2026 <a href="/">Казанские Деликатесы</a> · Казань, ул. Аграрная, 2 · <a href="tel:+79872170202">+7 987 217-02-02</a>
+</footer>
+</body>
+</html>
