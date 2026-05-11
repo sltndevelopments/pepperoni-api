@@ -96,18 +96,27 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-dlya-pizzerii"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-dlya-pizzerii"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-dlya-pizzerii"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/pepperoni-optom</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-optom"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/pepperoni-v-narezke</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-v-narezke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-v-narezke"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-v-narezke"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/pizzeria</loc>
@@ -3521,6 +3530,15 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/about"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/beef-halal-pepperoni</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/beef-halal-pepperoni"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/beef-halal-pepperoni"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/beef-halal-pepperoni"/>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/delivery</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -3588,6 +3606,9 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/beef-halal-pepperoni"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/beef-halal-pepperoni"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/beef-halal-pepperoni"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/delivery</loc>
@@ -4689,24 +4710,54 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-export"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-export"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-export"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/halal-pepperoni-for-pizzerias</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-for-pizzerias"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-for-pizzerias"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-for-pizzerias"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/halal-pepperoni-russia</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-russia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-russia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-russia"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/halal-sliced-pepperoni-for-pizza</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-sliced-pepperoni-for-pizza"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-sliced-pepperoni-for-pizza"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-sliced-pepperoni-for-pizza"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/kolbasy-kopchyonye</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kolbasy-kopchyonye"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kolbasy-kopchyonye"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kolbasy-kopchyonye"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/kolbasy-varenye</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kolbasy-varenye"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kolbasy-varenye"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kolbasy-varenye"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/kontraktnoe-proizvodstvo</loc>
@@ -4718,6 +4769,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kontraktnoe-proizvodstvo"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/kotlety-dlya-burgerov</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kotlety-dlya-burgerov"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kotlety-dlya-burgerov"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kotlety-dlya-burgerov"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/myasnyie-zagotovki</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/myasnyie-zagotovki"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/myasnyie-zagotovki"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/myasnyie-zagotovki"/>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/partnery</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -4725,6 +4794,33 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/partnery"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/partnery"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/partnery"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/pepperoni-dlya-pizzerii</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-dlya-pizzerii"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-dlya-pizzerii"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-dlya-pizzerii"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/pepperoni-optom</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-optom"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/pepperoni-v-narezke</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/pepperoni-v-narezke"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/pepperoni-v-narezke"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/pepperoni-v-narezke"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/privacy</loc>
@@ -4745,10 +4841,49 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/search"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/sosiski-dlya-hotdog</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/sosiski-dlya-hotdog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/sosiski-dlya-hotdog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/sosiski-dlya-hotdog"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/sosiski-halyal</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/sosiski-halyal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/sosiski-halyal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/sosiski-halyal"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/vetchina-optom</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/vetchina-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/vetchina-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/vetchina-optom"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/vyipechka-halyal</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/vyipechka-halyal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/vyipechka-halyal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/vyipechka-halyal"/>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/wholesale-halal-pepperoni-supplier</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/wholesale-halal-pepperoni-supplier"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/faq</loc>
@@ -4760,16 +4895,58 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/faq"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/halal-pepperoni-export</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-export"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-export"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-export"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/halal-pepperoni-for-pizzerias</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-for-pizzerias"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-for-pizzerias"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-for-pizzerias"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/halal-pepperoni-russia</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-pepperoni-russia"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-pepperoni-russia"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-pepperoni-russia"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/halal-sliced-pepperoni-for-pizza</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal-sliced-pepperoni-for-pizza"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal-sliced-pepperoni-for-pizza"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal-sliced-pepperoni-for-pizza"/>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/kolbasy-kopchyonye</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kolbasy-kopchyonye"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kolbasy-kopchyonye"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kolbasy-kopchyonye"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/kolbasy-varenye</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kolbasy-varenye"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kolbasy-varenye"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kolbasy-varenye"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/kontraktnoe-proizvodstvo</loc>
@@ -4785,12 +4962,18 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/kotlety-dlya-burgerov"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/kotlety-dlya-burgerov"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/kotlety-dlya-burgerov"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/myasnyie-zagotovki</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/myasnyie-zagotovki"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/myasnyie-zagotovki"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/myasnyie-zagotovki"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/partnery</loc>
@@ -4824,23 +5007,44 @@
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/sosiski-dlya-hotdog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/sosiski-dlya-hotdog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/sosiski-dlya-hotdog"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/sosiski-halyal</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/sosiski-halyal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/sosiski-halyal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/sosiski-halyal"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/vetchina-optom</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/vetchina-optom"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/vetchina-optom"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/vetchina-optom"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/vyipechka-halyal</loc>
     <lastmod>2026-05-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/vyipechka-halyal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/vyipechka-halyal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/vyipechka-halyal"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/wholesale-halal-pepperoni-supplier</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/wholesale-halal-pepperoni-supplier"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
   </url>
 </urlset>
