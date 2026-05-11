@@ -12,6 +12,8 @@ Allow: /.well-known/ai-plugin.json
 Allow: /.well-known/ai-meta.json
 Allow: /llms.txt
 Allow: /llms-full.txt
+Allow: /en/llms.txt
+Allow: /en/llms-full.txt
 Allow: /products.json
 Allow: /openapi.yaml
 

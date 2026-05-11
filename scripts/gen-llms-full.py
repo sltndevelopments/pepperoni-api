@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """
-Regenerate public/llms-full.txt from the already-synced public/products.json.
+Regenerate the four llms.txt artefacts from public/products.json:
 
-This script is the *richer* successor to the llms-full.txt block emitted by
-sync-sheets.mjs (Node) and sync-sheets.py — it runs after either of those
-as the authoritative generator, so both sync paths converge on the same
-92 KB+ AI-ready dump (per-SKU cards, buyer personas, FAQ, Q&A).
+  public/llms.txt           — RU rich content (formerly a thin "pointer")
+  public/llms-full.txt      — RU full LLM context dump (same content)
+  public/en/llms.txt        — EN rich content
+  public/en/llms-full.txt   — EN full LLM context dump (same content)
 
-Usage:
-    python3 scripts/gen-llms-full.py
+Why two RU files and two EN files?
+- llms.txt is what most LLM crawlers fetch first.
+- llms-full.txt is the canonical "deepest" dump.
+- Keeping both at the same rich content (vs. a one-line pointer) prevents
+  AI crawlers that ignore cross-link follow-ups from missing the catalog.
 
-Safe to run on VPS: only touches public/llms-full.txt and requires
-public/products.json to already exist.
+Runs after sync-sheets.{py,mjs} populates products.json. Safe to run on
+the VPS (only writes the four files; reads products.json).
 """
 from __future__ import annotations
 
@@ -27,23 +30,32 @@ spec = importlib.util.spec_from_file_location(
     "sync_sheets", ROOT / "scripts" / "sync-sheets.py"
 )
 if spec is None or spec.loader is None:
-    print("❌ could not load scripts/sync-sheets.py", file=sys.stderr)
+    print("ERR: could not load scripts/sync-sheets.py", file=sys.stderr)
     sys.exit(1)
 sync_sheets = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sync_sheets)
 
 products_path = PUBLIC / "products.json"
 if not products_path.exists():
-    print(f"❌ {products_path} not found — run sync first", file=sys.stderr)
+    print(f"ERR: {products_path} not found — run sync first", file=sys.stderr)
     sys.exit(1)
 
 data = json.loads(products_path.read_text(encoding="utf-8"))
 products = data.get("products") or []
 if not products:
-    print("❌ products.json has no products", file=sys.stderr)
+    print("ERR: products.json has no products", file=sys.stderr)
     sys.exit(1)
 
-txt = sync_sheets.generate_llms_full_txt(products)
-out = PUBLIC / "llms-full.txt"
-out.write_text(txt, encoding="utf-8")
-print(f"✅ {out} — {len(txt)} bytes, {txt.count(chr(10))} lines, {len(products)} SKUs")
+# Russian
+ru_txt = sync_sheets.generate_llms_full_txt(products)
+(PUBLIC / "llms-full.txt").write_text(ru_txt, encoding="utf-8")
+(PUBLIC / "llms.txt").write_text(ru_txt, encoding="utf-8")
+print(f"OK RU: llms.txt + llms-full.txt — {len(ru_txt)} chars, {len(products)} SKUs")
+
+# English
+en_txt = sync_sheets.generate_llms_full_txt_en(products)
+en_dir = PUBLIC / "en"
+en_dir.mkdir(parents=True, exist_ok=True)
+(en_dir / "llms-full.txt").write_text(en_txt, encoding="utf-8")
+(en_dir / "llms.txt").write_text(en_txt, encoding="utf-8")
+print(f"OK EN: en/llms.txt + en/llms-full.txt — {len(en_txt)} chars, {len(products)} SKUs")
