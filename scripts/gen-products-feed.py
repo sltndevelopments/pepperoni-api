@@ -398,6 +398,16 @@ def write_json(rows: list, products: list, path: Path):
     item_list = []
     for r, p in zip(rows, products):
         offer = (p.get("offers") or {})
+        price_str = derive_price(p)
+        try:
+            price_val = float(str(price_str).replace(",", ".").split()[0]) if price_str else None
+        except (ValueError, IndexError):
+            price_val = None
+        price_excl = derive_price_no_vat(p)
+        try:
+            price_excl_val = float(str(price_excl).replace(",", ".").split()[0]) if price_excl else None
+        except (ValueError, IndexError):
+            price_excl_val = None
         item_list.append({
             "@type": "Product",
             "@id": f"{BASE_URL}/en/products/{p['sku'].lower()}#product",
@@ -438,8 +448,8 @@ def write_json(rows: list, products: list, path: Path):
                 "@type": "Offer",
                 "url": r["link"],
                 "priceCurrency": offer.get("priceCurrency", CURRENCY),
-                "price": offer.get("price"),
-                "priceExclVAT": offer.get("priceExclVAT"),
+                "price": price_val,
+                "priceExclVAT": price_excl_val,
                 "availability": offer.get("availability", "https://schema.org/InStock"),
                 "itemCondition": "https://schema.org/NewCondition",
                 "seller": {"@type": "Organization", "name": BRAND, "url": "https://kazandelikates.tatar"},
@@ -466,7 +476,7 @@ def write_json(rows: list, products: list, path: Path):
                 {"@type": "PropertyValue", "name": "shelfLife", "value": p.get("shelfLife", "")},
                 {"@type": "PropertyValue", "name": "storage", "value": p.get("storage", "")},
                 {"@type": "PropertyValue", "name": "hsCode", "value": p.get("hsCode", "")},
-                {"@type": "PropertyValue", "name": "weight_kg", "value": p.get("weight", "")},
+                {"@type": "PropertyValue", "name": "weight_kg", "value": normalize_weight(p.get("weight", ""))},
                 {"@type": "PropertyValue", "name": "minOrder_boxes", "value": p.get("minOrder", "")},
                 {"@type": "PropertyValue", "name": "diameter_mm", "value": p.get("diameter", "")},
                 {"@type": "PropertyValue", "name": "casing", "value": p.get("casing", "")},

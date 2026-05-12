@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-02-26">
+<yml_catalog date="2026-05-12">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -44,10 +44,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Два мяса» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «Два мяса» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,48</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-003" available="true">
@@ -57,10 +57,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Три перца с сыром» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «Три перца с сыром» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,48</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-004" available="true">
@@ -70,10 +70,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Куриные» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «Куриные» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,48</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-005" available="true">
@@ -83,10 +83,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С бараниной» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «С бараниной» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,48</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-006" available="true">
@@ -96,10 +96,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С травами» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «С травами» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,65</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-007" available="true">
@@ -109,10 +109,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С сыром» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиски «С сыром» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,65</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-008" available="true">
@@ -135,20 +135,20 @@
 <currencyId>RUB</currencyId>
 <categoryId>3</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Котлета говяжья прожаренная (150 г × 2 шт). Халяль продукция от Казанских Деликатесов.</description>
+<description>Котлета говяжья прожаренная (150 г × 2 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,3</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">1602</param>
 </offer>
 <offer id="KD-010" available="true">
 <name>Ветчина из Курицы в батоне</name>
 <url>https://pepperoni.tatar</url>
-<price>350</price>
+<price>611</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Ветчина из Курицы в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">360 суток</param>
@@ -157,11 +157,11 @@
 <offer id="KD-011" available="true">
 <name>Ветчина из Курицы в нарезке</name>
 <url>https://pepperoni.tatar</url>
-<price>185</price>
+<price>325</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Ветчина из Курицы в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">180 суток</param>
@@ -170,11 +170,11 @@
 <offer id="KD-012" available="true">
 <name>Ветчина из Индейки в батоне</name>
 <url>https://pepperoni.tatar</url>
-<price>376</price>
+<price>660</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Индейки в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Ветчина из Индейки в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">360 суток</param>
@@ -183,50 +183,50 @@
 <offer id="KD-013" available="true">
 <name>Ветчина из Индейки в нарезке</name>
 <url>https://pepperoni.tatar</url>
-<price>198</price>
+<price>350</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Индейки в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Ветчина из Индейки в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<param name="Вес">0,5</param>
 <param name="Срок годности">180 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-014" available="true">
-<name>Пепперони вар-коп из конины</name>
+<name>Пепперони варено-копченый из конины</name>
 <url>https://pepperoni.tatar</url>
 <price>315</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони вар-коп из конины. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Пепперони варено-копченый из конины. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-015" available="true">
-<name>Пепперони вар-коп классика</name>
+<name>Пепперони варено-копченый классика</name>
 <url>https://pepperoni.tatar</url>
 <price>274</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони вар-коп классика. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Пепперони варено-копченый классика. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-016" available="true">
-<name>Пепперони вар-коп классика целый батон</name>
+<name>Пепперони варено-копченый классика целый батон</name>
 <url>https://pepperoni.tatar</url>
 <price>457</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони вар-коп классика целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Пепперони варено-копченый классика целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">360 суток</param>
@@ -239,7 +239,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони сырокопчёный в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Пепперони сырокопчёный в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">360 суток</param>
@@ -252,7 +252,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони сырокопчёный целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Пепперони сырокопчёный целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">360 суток</param>
@@ -265,10 +265,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Грудка куриная варено-копченая. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток.</description>
+<description>Грудка куриная варено-копченая. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1 кг</param>
-<param name="Срок годности">360 суток</param>
+<param name="Срок годности">30 суток</param>
 <param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-020" available="true">
@@ -278,11 +278,11 @@
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе куриное варное. Халяль продукция от Казанских Деликатесов.</description>
+<description>Филе куриное варное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1 кг</param>
-
-
+<param name="Срок годности">30 суток</param>
+<param name="ТН ВЭД">160100</param>
 </offer>
 <offer id="KD-021" available="true">
 <name>Фарш говяжий</name>
@@ -291,7 +291,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Фарш говяжий. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Фарш говяжий. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">180 суток</param>
@@ -304,7 +304,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Фарш из куриной кожи. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Фарш из куриной кожи. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">180 суток</param>
@@ -317,7 +317,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе бедра куриного в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Филе бедра куриного в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">180 суток</param>
@@ -330,7 +330,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе грудки куриной в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Филе грудки куриной в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">180 суток</param>
@@ -343,7 +343,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Говядина 1 сорт в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток.</description>
+<description>Говядина 1 сорт в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">180 суток</param>
@@ -364,14 +364,14 @@
 </offer>
 <offer id="KD-027" available="true">
 <name>Сосиски «К завтраку» (без оболочки) 
- для «Сосиски в тесте»</name>
+ для «Сосиски в тесте» 45 гр</name>
 <url>https://pepperoni.tatar</url>
 <price>245</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <description>Сосиски «К завтраку» (без оболочки) 
- для «Сосиски в тесте». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+ для «Сосиски в тесте» 45 гр. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">30 суток</param>
@@ -384,7 +384,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Нежные». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски «Нежные». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -397,7 +397,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Казанские с молоком». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски «Казанские с молоком». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -410,7 +410,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С сыром». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски «С сыром». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -423,7 +423,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски &quot;Из говядины&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски &quot;Из говядины&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -436,7 +436,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски в/с Премиум. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски в/с Премиум. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -449,7 +449,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски в/с Сочные. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сосиски в/с Сочные. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,4</param>
 <param name="Срок годности">30 суток</param>
@@ -462,7 +462,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сардельки «Буинские&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сардельки «Буинские&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,24</param>
 <param name="Срок годности">30 суток</param>
@@ -488,7 +488,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>8</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Вареная Ассорти. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Вареная Ассорти. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -501,7 +501,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>8</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Вареная Нежная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Вареная Нежная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -527,7 +527,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина Мраморная с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Ветчина Мраморная с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -540,7 +540,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Ветчина из Курицы. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -553,7 +553,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина Филейная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Ветчина Филейная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -579,7 +579,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сервелат по-татарски в/к. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Сервелат по-татарски в/к. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,45</param>
 <param name="Срок годности">30 суток</param>
@@ -592,7 +592,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Полукопченая из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Полукопченая из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,45</param>
 <param name="Срок годности">30 суток</param>
@@ -605,7 +605,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Полукопченая из Говядины. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Полукопченая из Говядины. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,45</param>
 <param name="Срок годности">30 суток</param>
@@ -618,7 +618,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Колбаски с Сыром. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Колбаски с Сыром. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,3</param>
 <param name="Срок годности">30 суток</param>
@@ -631,7 +631,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Грудка куриная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Грудка куриная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">30 суток</param>
@@ -644,7 +644,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе куриное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>Филе куриное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">1</param>
 <param name="Срок годности">30 суток</param>
@@ -657,7 +657,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Рамазан. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Рамазан. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -670,7 +670,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Рамазан (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Рамазан (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -683,7 +683,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Мраморная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Мраморная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -696,7 +696,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Мраморная (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Мраморная (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -709,7 +709,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Филейный. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Филейный. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -722,7 +722,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Филейный (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Филейный (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -735,7 +735,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Княжеская. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Княжеская. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -748,7 +748,7 @@
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Княжеская (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток.</description>
+<description>в/к Княжеская (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -791,7 +791,7 @@
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
 <param name="Срок годности">360 суток</param>
-
+<param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-060" available="true">
 <name>Чебурек жареный</name>
@@ -813,10 +813,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Перемяч жареный. Халяль продукция от Казанских Деликатесов.</description>
+<description>Перемяч жареный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-062" available="true">
@@ -826,10 +826,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Самса с курицей. Халяль продукция от Казанских Деликатесов.</description>
+<description>Самса с курицей. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">120 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-063" available="true">
@@ -839,10 +839,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Эчпочмак с говядиной и картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<description>Эчпочмак с говядиной и картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-064" available="true">
@@ -852,10 +852,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Самса с говядиной. Халяль продукция от Казанских Деликатесов.</description>
+<description>Самса с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">120 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-065" available="true">
@@ -865,10 +865,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Элеш с курицей и картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<description>Элеш с курицей и картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">150 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-066" available="true">
@@ -917,10 +917,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок печеный с картофелем. Халяль продукция от Казанских Деликатесов.</description>
+<description>Пирожок печеный с картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-070" available="true">
@@ -930,10 +930,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сырник. Халяль продукция от Казанских Деликатесов.</description>
+<description>Сырник. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">70 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">040490</param>
 </offer>
 <offer id="KD-071" available="true">
@@ -943,10 +943,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с яблоком. Халяль продукция от Казанских Деликатесов.</description>
+<description>Пирожок с яблоком. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-072" available="true">
@@ -956,10 +956,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с зеленым луком и яйцом. Халяль продукция от Казанских Деликатесов.</description>
+<description>Пирожок с зеленым луком и яйцом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-073" available="true">
@@ -969,10 +969,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Маффин апельсиновый. Халяль продукция от Казанских Деликатесов.</description>
+<description>Маффин апельсиновый. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-074" available="true">
@@ -982,10 +982,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиска в тесте. Халяль продукция от Казанских Деликатесов.</description>
+<description>Сосиска в тесте. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">120 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-075" available="true">
@@ -995,10 +995,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с вишней. Халяль продукция от Казанских Деликатесов.</description>
+<description>Пирожок с вишней. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-076" available="true">
@@ -1008,10 +1008,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Круассан с шоколадом и орехами. Халяль продукция от Казанских Деликатесов.</description>
+<description>Круассан с шоколадом и орехами. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">90 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 <offer id="KD-077" available="true">
@@ -1021,10 +1021,10 @@
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Маффин шоколадный. Халяль продукция от Казанских Деликатесов.</description>
+<description>Маффин шоколадный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
 <param name="Сертификация">Halal</param>
 <param name="Вес">100 г</param>
-
+<param name="Срок годности">360 суток</param>
 <param name="ТН ВЭД">190590</param>
 </offer>
 </offers>
