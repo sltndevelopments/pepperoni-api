@@ -234,7 +234,7 @@ def derive_additional_images(p: dict) -> list:
 def derive_price(p: dict) -> str:
     """RUB price WITH VAT. Format: '290.00 RUB'."""
     offers = p.get("offers") or {}
-    pr = offers.get("price") or offers.get("pricePerBox") or offers.get("pricePerUnit")
+    pr = offers.get("price") or offers.get("pricePerUnit") or offers.get("pricePerBox")
     if not pr:
         return ""
     try:
