@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-12T10:18:52.867372+00:00",
+  "dateModified": "2026-05-12T15:35:03.550934+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -1402,7 +1402,7 @@
         "name": "Halal Chicken Ham (whole) — Kazan Delicacies",
         "description": "Halal Chicken Ham (whole) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598108/products/vetcina-iz-kuricy-v-batone.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-010",
         "brand": {
@@ -1553,7 +1553,7 @@
         "name": "Halal Chicken Ham (sliced) — Kazan Delicacies",
         "description": "Halal Chicken Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598108/products/vetcina-iz-kuricy-v-batone.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-011",
         "brand": {
@@ -1704,7 +1704,7 @@
         "name": "Halal Turkey Ham (whole) — Kazan Delicacies",
         "description": "Halal Turkey Ham (whole) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598109/products/vetcina-iz-indeiki-v-batone.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-012",
         "brand": {
@@ -1855,7 +1855,7 @@
         "name": "Halal Turkey Ham (sliced) — Kazan Delicacies",
         "description": "Halal Turkey Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598109/products/vetcina-iz-indeiki-v-batone.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-013",
         "brand": {
@@ -2006,7 +2006,8 @@
         "name": "Halal Boiled-Smoked Pepperoni (horse meat) — Kazan Delicacies",
         "description": "Halal Boiled-Smoked Pepperoni (horse meat) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598112/products/pepperoni-syrokopcheny.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598114/products/pepperoni-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-014",
         "brand": {
@@ -2157,7 +2158,8 @@
         "name": "Halal Boiled-Smoked Pepperoni Classic (beef & chicken) — Kazan Delicacies",
         "description": "Halal Boiled-Smoked Pepperoni Classic (beef & chicken) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598112/products/pepperoni-syrokopcheny.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598114/products/pepperoni-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-015",
         "brand": {
@@ -2308,7 +2310,8 @@
         "name": "Halal Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken) — Kazan Delicacies",
         "description": "Halal Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598113/products/pepperoni-celaya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598114/products/pepperoni-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-016",
         "brand": {
@@ -2610,7 +2613,8 @@
         "name": "Halal Dry-Cured Pepperoni (whole stick, beef & chicken) — Kazan Delicacies",
         "description": "Halal Dry-Cured Pepperoni (whole stick, beef & chicken) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-default-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598113/products/pepperoni-celaya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598114/products/pepperoni-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-018",
         "brand": {
@@ -5191,7 +5195,7 @@
         "name": "Halal Boiled Beef Sausage (0,5 kg) — Kazan Delicacies",
         "description": "Halal Boiled Beef Sausage (0,5 kg) — Kazan Delicacies — halal boiled sausages from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598116/products/kolbasa-varenaya-govyadina.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-035",
         "brand": {
@@ -7006,7 +7010,7 @@
         "name": "Halal Chicken Breast (1 kg) — Kazan Delicacies",
         "description": "Halal Chicken Breast (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598117/products/kurinaya-grudka.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-047",
         "brand": {
@@ -7157,7 +7161,7 @@
         "name": "Halal Chicken Fillet (1 kg) — Kazan Delicacies",
         "description": "Halal Chicken Fillet (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598118/products/kurinaya-vetcina.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-048",
         "brand": {
@@ -7916,7 +7920,7 @@
         "name": "Halal Fillet Smoked Sausage (0,54 kg) — Kazan Delicacies",
         "description": "Halal Fillet Smoked Sausage (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598119/products/vetcina-fileynaya.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-053",
         "brand": {
@@ -8067,7 +8071,7 @@
         "name": "Halal Fillet Smoked Sausage (half) — Kazan Delicacies",
         "description": "Halal Fillet Smoked Sausage (half) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598119/products/vetcina-fileynaya.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-054",
         "brand": {
@@ -9883,7 +9887,7 @@
         "name": "Halal Chak-Chak (plastic pack) — Kazan Delicacies",
         "description": "Halal Chak-Chak (plastic pack) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598120/products/chak-chak-bez-upakovki.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-066",
         "brand": {
@@ -10034,7 +10038,7 @@
         "name": "Halal Chak-Chak (craft gift box) — Kazan Delicacies",
         "description": "Halal Chak-Chak (craft gift box) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598122/products/chak-chak.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-067",
         "brand": {
