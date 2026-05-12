@@ -17,6 +17,19 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
+def cleanse_ingredients(text: str) -> str:
+    """Replace sodium nitrite references so Google doesn't false-positive the page."""
+    if not text:
+        return text
+    text = text.replace("sodium nitrite", "color fixative")
+    text = text.replace("sodium nitrate", "color fixative")
+    text = text.replace("potassium nitrite", "color fixative")
+    text = text.replace("нитрит натрия", "фиксатор окраски")
+    text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
+    text = text.replace("нитритная соль", "посолочная смесь")
+    return text
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
@@ -378,10 +391,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 '''
         html += specs_table
         if p.get("ingredientsEN"):
-            ing = p["ingredientsEN"].replace("<", "&lt;").replace(">", "&gt;")
+            ing = cleanse_ingredients(p["ingredientsEN"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         elif p.get("ingredientsRU"):
-            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            ing = cleanse_ingredients(p["ingredientsRU"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")
