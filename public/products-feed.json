@@ -65,8 +65,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-001",
           "priceCurrency": "RUB",
-          "price": "290.00",
-          "priceExclVAT": "263.64",
+          "price": 290.0,
+          "priceExclVAT": 263.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -143,7 +143,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,48"
+            "value": "0.480 kg"
           },
           {
             "@type": "PropertyValue",
@@ -218,8 +218,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-002",
           "priceCurrency": "RUB",
-          "price": "286.00",
-          "priceExclVAT": "260.00",
+          "price": 286.0,
+          "priceExclVAT": 260.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -296,7 +296,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,48"
+            "value": "0.480 kg"
           },
           {
             "@type": "PropertyValue",
@@ -371,8 +371,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-003",
           "priceCurrency": "RUB",
-          "price": "316.00",
-          "priceExclVAT": "287.27",
+          "price": 316.0,
+          "priceExclVAT": 287.27,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -449,7 +449,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,48"
+            "value": "0.480 kg"
           },
           {
             "@type": "PropertyValue",
@@ -524,8 +524,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-004",
           "priceCurrency": "RUB",
-          "price": "286.00",
-          "priceExclVAT": "260.00",
+          "price": 286.0,
+          "priceExclVAT": 260.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -602,7 +602,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,48"
+            "value": "0.480 kg"
           },
           {
             "@type": "PropertyValue",
@@ -677,8 +677,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-005",
           "priceCurrency": "RUB",
-          "price": "366.00",
-          "priceExclVAT": "332.73",
+          "price": 366.0,
+          "priceExclVAT": 332.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -755,7 +755,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,48"
+            "value": "0.480 kg"
           },
           {
             "@type": "PropertyValue",
@@ -830,8 +830,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-006",
           "priceCurrency": "RUB",
-          "price": "424.00",
-          "priceExclVAT": "385.45",
+          "price": 424.0,
+          "priceExclVAT": 385.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -908,7 +908,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,65"
+            "value": "0.650 kg"
           },
           {
             "@type": "PropertyValue",
@@ -983,8 +983,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-007",
           "priceCurrency": "RUB",
-          "price": "455.00",
-          "priceExclVAT": "413.64",
+          "price": 455.0,
+          "priceExclVAT": 413.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1061,7 +1061,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,65"
+            "value": "0.650 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1135,8 +1135,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-008",
           "priceCurrency": "RUB",
-          "price": "276.00",
-          "priceExclVAT": "250.91",
+          "price": 276.0,
+          "priceExclVAT": 250.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1213,7 +1213,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,3"
+            "value": "0.300 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1287,8 +1287,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-009",
           "priceCurrency": "RUB",
-          "price": "276.00",
-          "priceExclVAT": "250.91",
+          "price": 276.0,
+          "priceExclVAT": 250.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1365,7 +1365,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,3"
+            "value": "0.300 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1380,7 +1380,7 @@
           {
             "@type": "PropertyValue",
             "name": "casing",
-            "value": ""
+            "value": "без оболочки"
           },
           {
             "@type": "PropertyValue",
@@ -1438,8 +1438,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-010",
           "priceCurrency": "RUB",
-          "price": "611.00",
-          "priceExclVAT": "555.45",
+          "price": 611.0,
+          "priceExclVAT": 555.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1516,7 +1516,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1526,7 +1526,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1549,7 +1549,7 @@
         "@id": "https://pepperoni.tatar/en/products/kd-011#product",
         "sku": "KD-011",
         "mpn": "KD-011",
-        "gtin13": null,
+        "gtin13": "4680638721612",
         "name": "Halal Chicken Ham (sliced) — Kazan Delicacies",
         "description": "Halal Chicken Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
@@ -1589,8 +1589,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-011",
           "priceCurrency": "RUB",
-          "price": "325.00",
-          "priceExclVAT": "295.45",
+          "price": 325.0,
+          "priceExclVAT": 295.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1667,7 +1667,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1677,7 +1677,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1740,8 +1740,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-012",
           "priceCurrency": "RUB",
-          "price": "660.00",
-          "priceExclVAT": "600.00",
+          "price": 660.0,
+          "priceExclVAT": 600.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1818,7 +1818,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1828,7 +1828,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1851,7 +1851,7 @@
         "@id": "https://pepperoni.tatar/en/products/kd-013#product",
         "sku": "KD-013",
         "mpn": "KD-013",
-        "gtin13": null,
+        "gtin13": "4680638721605",
         "name": "Halal Turkey Ham (sliced) — Kazan Delicacies",
         "description": "Halal Turkey Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
@@ -1891,8 +1891,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-013",
           "priceCurrency": "RUB",
-          "price": "350.00",
-          "priceExclVAT": "318.18",
+          "price": 350.0,
+          "priceExclVAT": 318.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1969,7 +1969,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -1979,7 +1979,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -2043,8 +2043,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-014",
           "priceCurrency": "RUB",
-          "price": "315.00",
-          "priceExclVAT": "286.36",
+          "price": 315.0,
+          "priceExclVAT": 286.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2121,7 +2121,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2154,7 +2154,7 @@
         "@id": "https://pepperoni.tatar/en/products/kd-015#product",
         "sku": "KD-015",
         "mpn": "KD-015",
-        "gtin13": null,
+        "gtin13": "4680638720318",
         "name": "Halal Boiled-Smoked Pepperoni Classic (beef & chicken) — Kazan Delicacies",
         "description": "Halal Boiled-Smoked Pepperoni Classic (beef & chicken) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
@@ -2195,8 +2195,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-015",
           "priceCurrency": "RUB",
-          "price": "274.00",
-          "priceExclVAT": "249.09",
+          "price": 274.0,
+          "priceExclVAT": 249.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2273,7 +2273,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2347,8 +2347,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-016",
           "priceCurrency": "RUB",
-          "price": "457.00",
-          "priceExclVAT": "415.45",
+          "price": 457.0,
+          "priceExclVAT": 415.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2425,7 +2425,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2500,8 +2500,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-017",
           "priceCurrency": "RUB",
-          "price": "380.00",
-          "priceExclVAT": "345.45",
+          "price": 380.0,
+          "priceExclVAT": 345.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2578,7 +2578,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2652,8 +2652,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-018",
           "priceCurrency": "RUB",
-          "price": "608.00",
-          "priceExclVAT": "552.73",
+          "price": 608.0,
+          "priceExclVAT": 552.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2730,7 +2730,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2804,8 +2804,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-019",
           "priceCurrency": "RUB",
-          "price": "370.00",
-          "priceExclVAT": "336.36",
+          "price": 370.0,
+          "priceExclVAT": 336.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2882,7 +2882,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1 кг"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -2955,8 +2955,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-020",
           "priceCurrency": "RUB",
-          "price": "449.00",
-          "priceExclVAT": "408.18",
+          "price": 449.0,
+          "priceExclVAT": 408.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3033,7 +3033,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1 кг"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3066,7 +3066,7 @@
         "@id": "https://pepperoni.tatar/en/products/kd-021#product",
         "sku": "KD-021",
         "mpn": "KD-021",
-        "gtin13": null,
+        "gtin13": "4680638721049",
         "name": "Halal Beef Mince (1 kg) — Kazan Delicacies",
         "description": "Halal Beef Mince (1 kg) — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
@@ -3106,8 +3106,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-021",
           "priceCurrency": "RUB",
-          "price": "670.00",
-          "priceExclVAT": "609.09",
+          "price": 670.0,
+          "priceExclVAT": 609.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3184,7 +3184,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3257,8 +3257,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-022",
           "priceCurrency": "RUB",
-          "price": "82.00",
-          "priceExclVAT": "74.55",
+          "price": 82.0,
+          "priceExclVAT": 74.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3335,7 +3335,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3408,8 +3408,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-023",
           "priceCurrency": "RUB",
-          "price": "520.00",
-          "priceExclVAT": "472.73",
+          "price": 520.0,
+          "priceExclVAT": 472.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3486,7 +3486,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3559,8 +3559,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-024",
           "priceCurrency": "RUB",
-          "price": "520.00",
-          "priceExclVAT": "472.73",
+          "price": 520.0,
+          "priceExclVAT": 472.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3637,7 +3637,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3710,8 +3710,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-025",
           "priceCurrency": "RUB",
-          "price": "810.00",
-          "priceExclVAT": "736.36",
+          "price": 810.0,
+          "priceExclVAT": 736.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3788,7 +3788,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -3862,8 +3862,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-026",
           "priceCurrency": "RUB",
-          "price": "135.00",
-          "priceExclVAT": "122.73",
+          "price": 135.0,
+          "priceExclVAT": 122.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3940,7 +3940,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4015,8 +4015,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-027",
           "priceCurrency": "RUB",
-          "price": "245.00",
-          "priceExclVAT": "222.73",
+          "price": 245.0,
+          "priceExclVAT": 222.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4093,7 +4093,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4167,8 +4167,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-028",
           "priceCurrency": "RUB",
-          "price": "181.00",
-          "priceExclVAT": "164.55",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4245,7 +4245,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4319,8 +4319,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-029",
           "priceCurrency": "RUB",
-          "price": "235.00",
-          "priceExclVAT": "213.64",
+          "price": 235.0,
+          "priceExclVAT": 213.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4397,7 +4397,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4472,8 +4472,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-030",
           "priceCurrency": "RUB",
-          "price": "293.00",
-          "priceExclVAT": "266.36",
+          "price": 293.0,
+          "priceExclVAT": 266.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4550,7 +4550,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4624,8 +4624,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-031",
           "priceCurrency": "RUB",
-          "price": "284.00",
-          "priceExclVAT": "258.18",
+          "price": 284.0,
+          "priceExclVAT": 258.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4702,7 +4702,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4777,8 +4777,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-032",
           "priceCurrency": "RUB",
-          "price": "146.00",
-          "priceExclVAT": "132.73",
+          "price": 146.0,
+          "priceExclVAT": 132.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4855,7 +4855,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -4929,8 +4929,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-033",
           "priceCurrency": "RUB",
-          "price": "144.00",
-          "priceExclVAT": "130.91",
+          "price": 144.0,
+          "priceExclVAT": 130.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5007,7 +5007,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,4"
+            "value": "0.400 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5082,8 +5082,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-034",
           "priceCurrency": "RUB",
-          "price": "166.00",
-          "priceExclVAT": "150.91",
+          "price": 166.0,
+          "priceExclVAT": 150.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5160,7 +5160,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,24"
+            "value": "0.240 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5233,8 +5233,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-035",
           "priceCurrency": "RUB",
-          "price": "292.00",
-          "priceExclVAT": "265.45",
+          "price": 292.0,
+          "priceExclVAT": 265.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5311,7 +5311,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5384,8 +5384,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-036",
           "priceCurrency": "RUB",
-          "price": "197.00",
-          "priceExclVAT": "179.09",
+          "price": 197.0,
+          "priceExclVAT": 179.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5462,7 +5462,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5535,8 +5535,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-037",
           "priceCurrency": "RUB",
-          "price": "200.00",
-          "priceExclVAT": "181.82",
+          "price": 200.0,
+          "priceExclVAT": 181.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5613,7 +5613,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5686,8 +5686,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-038",
           "priceCurrency": "RUB",
-          "price": "380.00",
-          "priceExclVAT": "345.45",
+          "price": 380.0,
+          "priceExclVAT": 345.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5764,7 +5764,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5838,8 +5838,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-039",
           "priceCurrency": "RUB",
-          "price": "398.00",
-          "priceExclVAT": "361.82",
+          "price": 398.0,
+          "priceExclVAT": 361.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5916,7 +5916,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -5990,8 +5990,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-040",
           "priceCurrency": "RUB",
-          "price": "350.00",
-          "priceExclVAT": "318.18",
+          "price": 350.0,
+          "priceExclVAT": 318.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6068,7 +6068,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6141,8 +6141,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-041",
           "priceCurrency": "RUB",
-          "price": "188.00",
-          "priceExclVAT": "170.91",
+          "price": 188.0,
+          "priceExclVAT": 170.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6219,7 +6219,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,5"
+            "value": "0.500 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6292,8 +6292,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-042",
           "priceCurrency": "RUB",
-          "price": "216.00",
-          "priceExclVAT": "196.36",
+          "price": 216.0,
+          "priceExclVAT": 196.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6370,7 +6370,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,45"
+            "value": "0.450 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6443,8 +6443,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-043",
           "priceCurrency": "RUB",
-          "price": "298.00",
-          "priceExclVAT": "270.91",
+          "price": 298.0,
+          "priceExclVAT": 270.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6521,7 +6521,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,45"
+            "value": "0.450 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6594,8 +6594,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-044",
           "priceCurrency": "RUB",
-          "price": "348.00",
-          "priceExclVAT": "316.36",
+          "price": 348.0,
+          "priceExclVAT": 316.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6672,7 +6672,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,45"
+            "value": "0.450 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6745,8 +6745,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-045",
           "priceCurrency": "RUB",
-          "price": "358.00",
-          "priceExclVAT": "325.45",
+          "price": 358.0,
+          "priceExclVAT": 325.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6823,7 +6823,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,45"
+            "value": "0.450 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6855,8 +6855,8 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-046#product",
         "sku": "KD-046",
-        "mpn": "KD-046",
-        "gtin13": null,
+        "mpn": "999964",
+        "gtin13": "4680638720455",
         "name": "Halal Sausages \"With Cheese\" (330 g) — Kazan Delicacies",
         "description": "Sausages \"With Cheese\" are an excellent option for grilling, breakfasts, and hot dishes. Thanks to the combination of beef, chicken fillet, and hard cheese, the product has a juicy texture and rich flavor. Suitable for cooking in a pan, on the grill, or serving as a hot appetizer.e color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
@@ -6897,8 +6897,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-046",
           "priceCurrency": "RUB",
-          "price": "271.00",
-          "priceExclVAT": "246.36",
+          "price": 271.0,
+          "priceExclVAT": 246.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6975,7 +6975,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,3"
+            "value": "0.300 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7007,7 +7007,7 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-047#product",
         "sku": "KD-047",
-        "mpn": "KD-047",
+        "mpn": "999931",
         "gtin13": null,
         "name": "Halal Chicken Breast (1 kg) — Kazan Delicacies",
         "description": "Halal Chicken Breast (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
@@ -7048,8 +7048,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-047",
           "priceCurrency": "RUB",
-          "price": "380.00",
-          "priceExclVAT": "345.45",
+          "price": 380.0,
+          "priceExclVAT": 345.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7126,7 +7126,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7199,8 +7199,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-048",
           "priceCurrency": "RUB",
-          "price": "449.00",
-          "priceExclVAT": "408.18",
+          "price": 449.0,
+          "priceExclVAT": 408.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7277,7 +7277,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1"
+            "value": "1.000 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7350,8 +7350,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-049",
           "priceCurrency": "RUB",
-          "price": "377.00",
-          "priceExclVAT": "342.73",
+          "price": 377.0,
+          "priceExclVAT": 342.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7428,7 +7428,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,54"
+            "value": "0.540 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7502,8 +7502,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-050",
           "priceCurrency": "RUB",
-          "price": "188.00",
-          "priceExclVAT": "170.91",
+          "price": 188.0,
+          "priceExclVAT": 170.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7580,7 +7580,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,27"
+            "value": "0.270 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7654,8 +7654,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-051",
           "priceCurrency": "RUB",
-          "price": "362.00",
-          "priceExclVAT": "329.09",
+          "price": 362.0,
+          "priceExclVAT": 329.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7732,7 +7732,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,54"
+            "value": "0.540 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7807,8 +7807,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-052",
           "priceCurrency": "RUB",
-          "price": "181.00",
-          "priceExclVAT": "164.55",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7885,7 +7885,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,27"
+            "value": "0.270 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7958,8 +7958,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-053",
           "priceCurrency": "RUB",
-          "price": "333.00",
-          "priceExclVAT": "302.73",
+          "price": 333.0,
+          "priceExclVAT": 302.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8036,7 +8036,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,54"
+            "value": "0.540 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8109,8 +8109,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-054",
           "priceCurrency": "RUB",
-          "price": "166.00",
-          "priceExclVAT": "150.91",
+          "price": 166.0,
+          "priceExclVAT": 150.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8187,7 +8187,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,27"
+            "value": "0.270 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8261,8 +8261,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-055",
           "priceCurrency": "RUB",
-          "price": "362.00",
-          "priceExclVAT": "329.09",
+          "price": 362.0,
+          "priceExclVAT": 329.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8339,7 +8339,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,54"
+            "value": "0.540 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8413,8 +8413,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-056",
           "priceCurrency": "RUB",
-          "price": "181.00",
-          "priceExclVAT": "164.55",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8491,7 +8491,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,27"
+            "value": "0.270 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8566,8 +8566,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-057",
           "priceCurrency": "RUB",
-          "price": "650.00",
-          "priceExclVAT": "541.67",
+          "price": 650.0,
+          "priceExclVAT": 541.67,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8644,7 +8644,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,2"
+            "value": "0.200 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8717,8 +8717,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-058",
           "priceCurrency": "RUB",
-          "price": "450.00",
-          "priceExclVAT": "375.00",
+          "price": 450.0,
+          "priceExclVAT": 375.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8795,7 +8795,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0,1"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8869,8 +8869,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-059",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2688.0,
+          "priceExclVAT": 2443.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8947,7 +8947,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9021,8 +9021,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-060",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1765.8,
+          "priceExclVAT": 1605.27,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9099,7 +9099,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9173,8 +9173,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-061",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2838.72,
+          "priceExclVAT": 2580.65,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9251,7 +9251,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9324,8 +9324,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-062",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2963.04,
+          "priceExclVAT": 2693.67,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9402,7 +9402,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "120 г"
+            "value": "0.120 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9476,8 +9476,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-063",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 3300.96,
+          "priceExclVAT": 3000.87,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9554,7 +9554,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9628,8 +9628,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-064",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 3510.72,
+          "priceExclVAT": 3191.56,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9706,7 +9706,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "120 г"
+            "value": "0.120 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9780,8 +9780,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-065",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 3736.32,
+          "priceExclVAT": 3396.65,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9858,7 +9858,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "150 г"
+            "value": "0.150 kg"
           },
           {
             "@type": "PropertyValue",
@@ -9931,8 +9931,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-066",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 194.7,
+          "priceExclVAT": 162.25,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10009,7 +10009,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "300 г"
+            "value": "0.300 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10082,8 +10082,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-067",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 271.7,
+          "priceExclVAT": 226.42,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10160,7 +10160,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "300 г"
+            "value": "0.300 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10233,8 +10233,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-068",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1320.0,
+          "priceExclVAT": 1200.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10311,7 +10311,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10384,8 +10384,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-069",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2147.52,
+          "priceExclVAT": 1952.29,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10462,7 +10462,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10535,8 +10535,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-070",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2164.8,
+          "priceExclVAT": 1968.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10613,7 +10613,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "70 г"
+            "value": "0.070 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10686,8 +10686,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-071",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1782.0,
+          "priceExclVAT": 1620.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10764,7 +10764,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10837,8 +10837,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-072",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 2808.96,
+          "priceExclVAT": 2553.6,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10915,7 +10915,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10988,8 +10988,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-073",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1621.2,
+          "priceExclVAT": 1473.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11066,7 +11066,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -11139,8 +11139,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-074",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 3313.44,
+          "priceExclVAT": 3012.22,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11217,7 +11217,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "120 г"
+            "value": "0.120 kg"
           },
           {
             "@type": "PropertyValue",
@@ -11290,8 +11290,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-075",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 3432.0,
+          "priceExclVAT": 3120.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11368,7 +11368,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -11441,8 +11441,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-076",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1452.0,
+          "priceExclVAT": 1210.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11519,7 +11519,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "90 г"
+            "value": "0.090 kg"
           },
           {
             "@type": "PropertyValue",
@@ -11592,8 +11592,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-077",
           "priceCurrency": "RUB",
-          "price": null,
-          "priceExclVAT": null,
+          "price": 1767.36,
+          "priceExclVAT": 1606.69,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11670,7 +11670,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "100 г"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
