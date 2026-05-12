@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-12T15:35:03.550934+00:00",
+  "dateModified": "2026-05-12T16:23:44.914503+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -76,11 +76,11 @@
           },
           "exportPrices": {
             "USD": 3.57,
-            "KZT": 1653.29,
-            "UZS": 43328.63,
-            "KGS": 311.98,
+            "KZT": 1656.27,
+            "UZS": 43318.79,
+            "KGS": 312.29,
             "BYN": 9.98,
-            "AZN": 6.06
+            "AZN": 6.07
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -229,11 +229,11 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1630.48,
-            "UZS": 42731.0,
-            "KGS": 307.68,
-            "BYN": 9.84,
-            "AZN": 5.98
+            "KZT": 1633.42,
+            "UZS": 42721.29,
+            "KGS": 307.98,
+            "BYN": 9.85,
+            "AZN": 5.99
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -382,11 +382,11 @@
           },
           "exportPrices": {
             "USD": 3.89,
-            "KZT": 1801.51,
-            "UZS": 47213.27,
-            "KGS": 339.95,
-            "BYN": 10.87,
-            "AZN": 6.61
+            "KZT": 1804.76,
+            "UZS": 47202.55,
+            "KGS": 340.28,
+            "BYN": 10.88,
+            "AZN": 6.62
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -535,11 +535,11 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1630.48,
-            "UZS": 42731.0,
-            "KGS": 307.68,
-            "BYN": 9.84,
-            "AZN": 5.98
+            "KZT": 1633.42,
+            "UZS": 42721.29,
+            "KGS": 307.98,
+            "BYN": 9.85,
+            "AZN": 5.99
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -687,12 +687,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.5,
-            "KZT": 2086.56,
-            "UZS": 54683.72,
-            "KGS": 393.74,
-            "BYN": 12.59,
-            "AZN": 7.65
+            "USD": 4.51,
+            "KZT": 2090.32,
+            "UZS": 54671.3,
+            "KGS": 394.13,
+            "BYN": 12.6,
+            "AZN": 7.66
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -841,11 +841,11 @@
           },
           "exportPrices": {
             "USD": 5.22,
-            "KZT": 2417.22,
-            "UZS": 63349.45,
-            "KGS": 456.14,
-            "BYN": 14.59,
-            "AZN": 8.87
+            "KZT": 2421.58,
+            "UZS": 63335.06,
+            "KGS": 456.58,
+            "BYN": 14.6,
+            "AZN": 8.88
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -994,9 +994,9 @@
           },
           "exportPrices": {
             "USD": 5.6,
-            "KZT": 2593.95,
-            "UZS": 67981.13,
-            "KGS": 489.48,
+            "KZT": 2598.63,
+            "UZS": 67965.69,
+            "KGS": 489.97,
             "BYN": 15.66,
             "AZN": 9.52
           },
@@ -1146,11 +1146,11 @@
           },
           "exportPrices": {
             "USD": 3.4,
-            "KZT": 1573.47,
-            "UZS": 41236.91,
-            "KGS": 296.92,
+            "KZT": 1576.31,
+            "UZS": 41227.54,
+            "KGS": 297.21,
             "BYN": 9.5,
-            "AZN": 5.77
+            "AZN": 5.78
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1298,11 +1298,11 @@
           },
           "exportPrices": {
             "USD": 3.4,
-            "KZT": 1573.47,
-            "UZS": 41236.91,
-            "KGS": 296.92,
+            "KZT": 1576.31,
+            "UZS": 41227.54,
+            "KGS": 297.21,
             "BYN": 9.5,
-            "AZN": 5.77
+            "AZN": 5.78
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1449,11 +1449,11 @@
           },
           "exportPrices": {
             "USD": 7.52,
-            "KZT": 3483.3,
-            "UZS": 91288.95,
-            "KGS": 657.31,
+            "KZT": 3489.58,
+            "UZS": 91268.21,
+            "KGS": 657.95,
             "BYN": 21.03,
-            "AZN": 12.78
+            "AZN": 12.79
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1600,10 +1600,10 @@
           },
           "exportPrices": {
             "USD": 4.0,
-            "KZT": 1852.82,
-            "UZS": 48557.95,
-            "KGS": 349.63,
-            "BYN": 11.18,
+            "KZT": 1856.16,
+            "UZS": 48546.92,
+            "KGS": 349.98,
+            "BYN": 11.19,
             "AZN": 6.8
           },
           "shippingDetails": {
@@ -1750,12 +1750,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 8.12,
-            "KZT": 3762.65,
-            "UZS": 98609.99,
-            "KGS": 710.02,
-            "BYN": 22.71,
-            "AZN": 13.8
+            "USD": 8.13,
+            "KZT": 3769.44,
+            "UZS": 98587.6,
+            "KGS": 710.72,
+            "BYN": 22.72,
+            "AZN": 13.82
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1902,11 +1902,11 @@
           },
           "exportPrices": {
             "USD": 4.31,
-            "KZT": 1995.35,
-            "UZS": 52293.18,
-            "KGS": 376.53,
-            "BYN": 12.04,
-            "AZN": 7.32
+            "KZT": 1998.94,
+            "UZS": 52281.3,
+            "KGS": 376.9,
+            "BYN": 12.05,
+            "AZN": 7.33
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2054,9 +2054,9 @@
           },
           "exportPrices": {
             "USD": 3.88,
-            "KZT": 1795.81,
-            "UZS": 47063.86,
-            "KGS": 338.87,
+            "KZT": 1799.05,
+            "UZS": 47053.17,
+            "KGS": 339.21,
             "BYN": 10.84,
             "AZN": 6.59
           },
@@ -2206,11 +2206,11 @@
           },
           "exportPrices": {
             "USD": 3.37,
-            "KZT": 1562.07,
-            "UZS": 40938.09,
-            "KGS": 294.77,
+            "KZT": 1564.89,
+            "UZS": 40928.79,
+            "KGS": 295.06,
             "BYN": 9.43,
-            "AZN": 5.73
+            "AZN": 5.74
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2357,12 +2357,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.62,
-            "KZT": 2605.35,
-            "UZS": 68279.95,
-            "KGS": 491.64,
+            "USD": 5.63,
+            "KZT": 2610.05,
+            "UZS": 68264.44,
+            "KGS": 492.12,
             "BYN": 15.73,
-            "AZN": 9.56
+            "AZN": 9.57
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2462,7 +2462,9 @@
         "name": "Peperon (sliced) Halal (500 g) — Kazan Delicacies",
         "description": "Peperon Halal (sliced) - a convenient solution for pizzerias, restaurants and HORECA. Ready-made serving slices allow you to quickly use the product for pizza, sandwiches and hot snacks. Due to the balanced recipe and spices, pepperoni has a bright taste and appetizing aroma.e color fixative, and a complex blend of spices. Does not contain GMOs. Shelf life: 90 days at -18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/pepperoni_6_st_yujwot.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/pepperoni_6_st_yujwot.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-017",
         "brand": {
@@ -2508,10 +2510,10 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.67,
-            "KZT": 2166.38,
-            "UZS": 56775.45,
-            "KGS": 408.8,
+            "USD": 4.68,
+            "KZT": 2170.28,
+            "UZS": 56762.55,
+            "KGS": 409.2,
             "BYN": 13.08,
             "AZN": 7.95
           },
@@ -2660,12 +2662,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.48,
-            "KZT": 3466.2,
-            "UZS": 90840.72,
-            "KGS": 654.08,
-            "BYN": 20.92,
-            "AZN": 12.72
+            "USD": 7.49,
+            "KZT": 3472.45,
+            "UZS": 90820.09,
+            "KGS": 654.72,
+            "BYN": 20.93,
+            "AZN": 12.73
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2812,12 +2814,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.55,
-            "KZT": 2109.37,
-            "UZS": 55281.36,
-            "KGS": 398.04,
-            "BYN": 12.73,
-            "AZN": 7.74
+            "USD": 4.56,
+            "KZT": 2113.17,
+            "UZS": 55268.8,
+            "KGS": 398.43,
+            "BYN": 12.74,
+            "AZN": 7.75
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2963,12 +2965,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.52,
-            "KZT": 2559.74,
-            "UZS": 67084.68,
-            "KGS": 483.03,
-            "BYN": 15.45,
-            "AZN": 9.39
+            "USD": 5.53,
+            "KZT": 2564.36,
+            "UZS": 67069.44,
+            "KGS": 483.51,
+            "BYN": 15.46,
+            "AZN": 9.4
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3114,12 +3116,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 8.24,
-            "KZT": 3819.66,
-            "UZS": 100104.08,
-            "KGS": 720.78,
-            "BYN": 23.06,
-            "AZN": 14.01
+            "USD": 8.25,
+            "KZT": 3826.55,
+            "UZS": 100081.35,
+            "KGS": 721.49,
+            "BYN": 23.07,
+            "AZN": 14.03
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3266,11 +3268,11 @@
           },
           "exportPrices": {
             "USD": 1.01,
-            "KZT": 467.48,
-            "UZS": 12251.54,
-            "KGS": 88.21,
+            "KZT": 468.32,
+            "UZS": 12248.76,
+            "KGS": 88.3,
             "BYN": 2.82,
-            "AZN": 1.71
+            "AZN": 1.72
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3417,11 +3419,11 @@
           },
           "exportPrices": {
             "USD": 6.4,
-            "KZT": 2964.51,
-            "UZS": 77692.72,
-            "KGS": 559.41,
-            "BYN": 17.89,
-            "AZN": 10.87
+            "KZT": 2969.86,
+            "UZS": 77675.07,
+            "KGS": 559.96,
+            "BYN": 17.9,
+            "AZN": 10.89
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3568,11 +3570,11 @@
           },
           "exportPrices": {
             "USD": 6.4,
-            "KZT": 2964.51,
-            "UZS": 77692.72,
-            "KGS": 559.41,
-            "BYN": 17.89,
-            "AZN": 10.87
+            "KZT": 2969.86,
+            "UZS": 77675.07,
+            "KGS": 559.96,
+            "BYN": 17.9,
+            "AZN": 10.89
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3718,12 +3720,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 9.96,
-            "KZT": 4617.8,
-            "UZS": 121021.35,
-            "KGS": 871.39,
-            "BYN": 27.87,
-            "AZN": 16.94
+            "USD": 9.97,
+            "KZT": 4626.13,
+            "UZS": 120993.87,
+            "KGS": 872.25,
+            "BYN": 27.89,
+            "AZN": 16.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3871,11 +3873,11 @@
           },
           "exportPrices": {
             "USD": 1.66,
-            "KZT": 769.79,
-            "UZS": 20174.28,
-            "KGS": 145.26,
+            "KZT": 771.11,
+            "UZS": 20167.95,
+            "KGS": 145.37,
             "BYN": 4.65,
-            "AZN": 2.82
+            "AZN": 2.83
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4023,12 +4025,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.01,
-            "KZT": 1397.02,
-            "UZS": 36612.58,
-            "KGS": 263.62,
-            "BYN": 8.43,
-            "AZN": 5.12
+            "USD": 3.02,
+            "KZT": 1399.42,
+            "UZS": 36601.1,
+            "KGS": 263.83,
+            "BYN": 8.44,
+            "AZN": 5.13
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4176,9 +4178,9 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1032.09,
-            "UZS": 27048.48,
-            "KGS": 194.76,
+            "KZT": 1033.86,
+            "UZS": 27039.99,
+            "KGS": 194.91,
             "BYN": 6.23,
             "AZN": 3.79
           },
@@ -4328,9 +4330,9 @@
           },
           "exportPrices": {
             "USD": 2.89,
-            "KZT": 1340.0,
-            "UZS": 35118.19,
-            "KGS": 252.86,
+            "KZT": 1342.3,
+            "UZS": 35107.18,
+            "KGS": 253.06,
             "BYN": 8.09,
             "AZN": 4.92
           },
@@ -4481,10 +4483,10 @@
           },
           "exportPrices": {
             "USD": 3.61,
-            "KZT": 1670.73,
-            "UZS": 43785.66,
-            "KGS": 315.27,
-            "BYN": 10.08,
+            "KZT": 1673.59,
+            "UZS": 43771.93,
+            "KGS": 315.52,
+            "BYN": 10.09,
             "AZN": 6.13
           },
           "shippingDetails": {
@@ -4632,12 +4634,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.49,
-            "KZT": 1619.41,
-            "UZS": 42440.71,
-            "KGS": 305.59,
-            "BYN": 9.77,
-            "AZN": 5.94
+            "USD": 3.5,
+            "KZT": 1622.19,
+            "UZS": 42427.4,
+            "KGS": 305.82,
+            "BYN": 9.78,
+            "AZN": 5.95
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4786,11 +4788,11 @@
           },
           "exportPrices": {
             "USD": 1.8,
-            "KZT": 832.51,
-            "UZS": 21818.11,
-            "KGS": 157.1,
+            "KZT": 833.94,
+            "UZS": 21811.27,
+            "KGS": 157.22,
             "BYN": 5.03,
-            "AZN": 3.05
+            "AZN": 3.06
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4938,9 +4940,9 @@
           },
           "exportPrices": {
             "USD": 1.77,
-            "KZT": 821.11,
-            "UZS": 21519.23,
-            "KGS": 154.95,
+            "KZT": 822.52,
+            "UZS": 21512.48,
+            "KGS": 155.07,
             "BYN": 4.96,
             "AZN": 3.01
           },
@@ -5091,11 +5093,11 @@
           },
           "exportPrices": {
             "USD": 2.04,
-            "KZT": 946.55,
-            "UZS": 24806.89,
-            "KGS": 178.62,
-            "BYN": 5.71,
-            "AZN": 3.47
+            "KZT": 948.18,
+            "UZS": 24799.11,
+            "KGS": 178.76,
+            "BYN": 5.72,
+            "AZN": 3.48
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5241,10 +5243,10 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.59,
-            "KZT": 1665.02,
-            "UZS": 43636.22,
-            "KGS": 314.19,
+            "USD": 3.6,
+            "KZT": 1667.88,
+            "UZS": 43622.53,
+            "KGS": 314.44,
             "BYN": 10.05,
             "AZN": 6.11
           },
@@ -5392,10 +5394,10 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.42,
-            "KZT": 1123.32,
-            "UZS": 29439.5,
-            "KGS": 211.97,
+            "USD": 2.43,
+            "KZT": 1125.25,
+            "UZS": 29430.27,
+            "KGS": 212.14,
             "BYN": 6.78,
             "AZN": 4.12
           },
@@ -5544,11 +5546,11 @@
           },
           "exportPrices": {
             "USD": 2.46,
-            "KZT": 1140.43,
-            "UZS": 29887.82,
-            "KGS": 215.2,
-            "BYN": 6.88,
-            "AZN": 4.18
+            "KZT": 1142.38,
+            "UZS": 29878.45,
+            "KGS": 215.37,
+            "BYN": 6.89,
+            "AZN": 4.19
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5695,11 +5697,11 @@
           },
           "exportPrices": {
             "USD": 4.68,
-            "KZT": 2166.81,
-            "UZS": 56786.86,
-            "KGS": 408.88,
+            "KZT": 2170.53,
+            "UZS": 56769.05,
+            "KGS": 409.2,
             "BYN": 13.08,
-            "AZN": 7.95
+            "AZN": 7.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5847,9 +5849,9 @@
           },
           "exportPrices": {
             "USD": 4.9,
-            "KZT": 2269.45,
-            "UZS": 59476.77,
-            "KGS": 428.25,
+            "KZT": 2273.34,
+            "UZS": 59458.11,
+            "KGS": 428.59,
             "BYN": 13.7,
             "AZN": 8.33
           },
@@ -5999,11 +6001,11 @@
           },
           "exportPrices": {
             "USD": 4.31,
-            "KZT": 1995.75,
-            "UZS": 52303.69,
-            "KGS": 376.6,
+            "KZT": 1999.17,
+            "UZS": 52287.28,
+            "KGS": 376.9,
             "BYN": 12.05,
-            "AZN": 7.32
+            "AZN": 7.33
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6149,12 +6151,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.31,
-            "KZT": 1072.0,
-            "UZS": 28094.55,
-            "KGS": 202.29,
+            "USD": 2.32,
+            "KZT": 1073.84,
+            "UZS": 28085.74,
+            "KGS": 202.45,
             "BYN": 6.47,
-            "AZN": 3.93
+            "AZN": 3.94
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6301,10 +6303,10 @@
           },
           "exportPrices": {
             "USD": 2.66,
-            "KZT": 1231.66,
-            "UZS": 32278.85,
-            "KGS": 232.42,
-            "BYN": 7.43,
+            "KZT": 1233.77,
+            "UZS": 32268.72,
+            "KGS": 232.6,
+            "BYN": 7.44,
             "AZN": 4.52
           },
           "shippingDetails": {
@@ -6452,11 +6454,11 @@
           },
           "exportPrices": {
             "USD": 3.67,
-            "KZT": 1699.24,
-            "UZS": 44532.85,
-            "KGS": 320.65,
+            "KZT": 1702.15,
+            "UZS": 44518.89,
+            "KGS": 320.9,
             "BYN": 10.26,
-            "AZN": 6.23
+            "AZN": 6.24
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6602,12 +6604,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.28,
-            "KZT": 1984.34,
-            "UZS": 52004.81,
-            "KGS": 374.45,
+            "USD": 4.29,
+            "KZT": 1987.75,
+            "UZS": 51988.5,
+            "KGS": 374.74,
             "BYN": 11.98,
-            "AZN": 7.28
+            "AZN": 7.29
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6753,12 +6755,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.4,
-            "KZT": 2041.36,
-            "UZS": 53499.2,
-            "KGS": 385.21,
-            "BYN": 12.32,
-            "AZN": 7.49
+            "USD": 4.41,
+            "KZT": 2044.87,
+            "UZS": 53482.42,
+            "KGS": 385.51,
+            "BYN": 12.33,
+            "AZN": 7.5
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6905,10 +6907,10 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.33,
-            "KZT": 1545.28,
-            "UZS": 40498.0,
-            "KGS": 291.6,
+            "USD": 3.34,
+            "KZT": 1547.93,
+            "UZS": 40485.3,
+            "KGS": 291.83,
             "BYN": 9.33,
             "AZN": 5.67
           },
@@ -7057,11 +7059,11 @@
           },
           "exportPrices": {
             "USD": 4.68,
-            "KZT": 2166.81,
-            "UZS": 56786.86,
-            "KGS": 408.88,
+            "KZT": 2170.53,
+            "UZS": 56769.05,
+            "KGS": 409.2,
             "BYN": 13.08,
-            "AZN": 7.95
+            "AZN": 7.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7207,12 +7209,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.52,
-            "KZT": 2560.26,
-            "UZS": 67098.16,
-            "KGS": 483.13,
-            "BYN": 15.45,
-            "AZN": 9.39
+            "USD": 5.53,
+            "KZT": 2564.65,
+            "UZS": 67077.11,
+            "KGS": 483.5,
+            "BYN": 15.46,
+            "AZN": 9.4
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7359,9 +7361,9 @@
           },
           "exportPrices": {
             "USD": 4.64,
-            "KZT": 2149.7,
-            "UZS": 56338.54,
-            "KGS": 405.65,
+            "KZT": 2153.39,
+            "UZS": 56320.87,
+            "KGS": 405.97,
             "BYN": 12.98,
             "AZN": 7.89
           },
@@ -7510,12 +7512,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.31,
-            "KZT": 1072.0,
-            "UZS": 28094.55,
-            "KGS": 202.29,
+            "USD": 2.32,
+            "KZT": 1073.84,
+            "UZS": 28085.74,
+            "KGS": 202.45,
             "BYN": 6.47,
-            "AZN": 3.93
+            "AZN": 3.94
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7662,12 +7664,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.45,
-            "KZT": 2064.17,
-            "UZS": 54096.96,
-            "KGS": 389.51,
+            "USD": 4.46,
+            "KZT": 2067.72,
+            "UZS": 54079.99,
+            "KGS": 389.82,
             "BYN": 12.46,
-            "AZN": 7.57
+            "AZN": 7.58
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7816,9 +7818,9 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1032.09,
-            "UZS": 27048.48,
-            "KGS": 194.76,
+            "KZT": 1033.86,
+            "UZS": 27039.99,
+            "KGS": 194.91,
             "BYN": 6.23,
             "AZN": 3.79
           },
@@ -7967,10 +7969,10 @@
           },
           "exportPrices": {
             "USD": 4.1,
-            "KZT": 1898.81,
-            "UZS": 49763.22,
-            "KGS": 358.31,
-            "BYN": 11.46,
+            "KZT": 1902.07,
+            "UZS": 49747.62,
+            "KGS": 358.59,
+            "BYN": 11.47,
             "AZN": 6.97
           },
           "shippingDetails": {
@@ -8118,11 +8120,11 @@
           },
           "exportPrices": {
             "USD": 2.04,
-            "KZT": 946.55,
-            "UZS": 24806.89,
-            "KGS": 178.62,
-            "BYN": 5.71,
-            "AZN": 3.47
+            "KZT": 948.18,
+            "UZS": 24799.11,
+            "KGS": 178.76,
+            "BYN": 5.72,
+            "AZN": 3.48
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8269,12 +8271,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.45,
-            "KZT": 2064.17,
-            "UZS": 54096.96,
-            "KGS": 389.51,
+            "USD": 4.46,
+            "KZT": 2067.72,
+            "UZS": 54079.99,
+            "KGS": 389.82,
             "BYN": 12.46,
-            "AZN": 7.57
+            "AZN": 7.58
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8422,9 +8424,9 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1032.09,
-            "UZS": 27048.48,
-            "KGS": 194.76,
+            "KZT": 1033.86,
+            "UZS": 27039.99,
+            "KGS": 194.91,
             "BYN": 6.23,
             "AZN": 3.79
           },
@@ -8574,12 +8576,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.33,
-            "KZT": 3397.52,
-            "UZS": 89040.8,
-            "KGS": 641.12,
+            "USD": 7.34,
+            "KZT": 3403.35,
+            "UZS": 89012.87,
+            "KGS": 641.62,
             "BYN": 20.51,
-            "AZN": 12.46
+            "AZN": 12.47
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8726,11 +8728,11 @@
           },
           "exportPrices": {
             "USD": 5.08,
-            "KZT": 2352.13,
-            "UZS": 61643.63,
-            "KGS": 443.85,
+            "KZT": 2356.17,
+            "UZS": 61624.3,
+            "KGS": 444.2,
             "BYN": 14.2,
-            "AZN": 8.63
+            "AZN": 8.64
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8830,7 +8832,8 @@
         "name": "Halal Gubadiya with Kort (Tatar layered pie) — Kazan Delicacies",
         "description": "Halal Gubadiya with Kort (Tatar layered pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600099/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600101/products/gubadiya-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-059",
         "brand": {
@@ -8876,12 +8879,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 33.07,
-            "KZT": 15324.55,
-            "UZS": 401619.32,
-            "KGS": 2891.6,
-            "BYN": 92.5,
-            "AZN": 56.21
+            "USD": 33.1,
+            "KZT": 15353.67,
+            "UZS": 401566.93,
+            "KGS": 2894.57,
+            "BYN": 92.55,
+            "AZN": 56.28
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9027,12 +9030,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 21.72,
-            "KZT": 10066.97,
-            "UZS": 263830.78,
-            "KGS": 1899.54,
-            "BYN": 60.76,
-            "AZN": 36.93
+            "USD": 21.75,
+            "KZT": 10086.09,
+            "UZS": 263796.36,
+            "KGS": 1901.5,
+            "BYN": 60.8,
+            "AZN": 36.97
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9132,7 +9135,8 @@
         "name": "Halal Fried Peremyach (Tatar meat pie) — Kazan Delicacies",
         "description": "Halal Fried Peremyach (Tatar meat pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600103/products/peremyach.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600105/products/peremyach-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-061",
         "brand": {
@@ -9178,12 +9182,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 34.92,
-            "KZT": 16183.77,
-            "UZS": 424137.31,
-            "KGS": 3053.72,
-            "BYN": 97.69,
-            "AZN": 59.36
+            "USD": 34.96,
+            "KZT": 16214.51,
+            "UZS": 424081.98,
+            "KGS": 3056.87,
+            "BYN": 97.74,
+            "AZN": 59.43
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9283,7 +9287,7 @@
         "name": "Halal Chicken Samsa (120 г kg) — Kazan Delicacies",
         "description": "Halal Chicken Samsa (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600109/products/samsa-kurica.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-062",
         "brand": {
@@ -9329,12 +9333,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 36.45,
-            "KZT": 16892.54,
-            "UZS": 442712.47,
-            "KGS": 3187.46,
-            "BYN": 101.96,
-            "AZN": 61.96
+            "USD": 36.49,
+            "KZT": 16924.63,
+            "UZS": 442654.73,
+            "KGS": 3190.74,
+            "BYN": 102.02,
+            "AZN": 62.03
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9480,12 +9484,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 40.61,
-            "KZT": 18819.05,
-            "UZS": 493201.68,
-            "KGS": 3550.97,
-            "BYN": 113.59,
-            "AZN": 69.03
+            "USD": 40.65,
+            "KZT": 18854.8,
+            "UZS": 493137.35,
+            "KGS": 3554.63,
+            "BYN": 113.65,
+            "AZN": 69.11
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9585,7 +9589,8 @@
         "name": "Halal Beef Samsa (120 г kg) — Kazan Delicacies",
         "description": "Halal Beef Samsa (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600106/products/samsa-govyadina.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600107/products/samsa-govyadina-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-064",
         "brand": {
@@ -9631,12 +9636,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 43.19,
-            "KZT": 20014.91,
-            "UZS": 524542.14,
-            "KGS": 3776.62,
-            "BYN": 120.81,
-            "AZN": 73.42
+            "USD": 43.24,
+            "KZT": 20052.93,
+            "UZS": 524473.72,
+            "KGS": 3780.51,
+            "BYN": 120.88,
+            "AZN": 73.5
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9782,12 +9787,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 45.96,
-            "KZT": 21301.07,
-            "UZS": 558249.28,
-            "KGS": 4019.31,
-            "BYN": 128.57,
-            "AZN": 78.13
+            "USD": 46.01,
+            "KZT": 21341.53,
+            "UZS": 558176.46,
+            "KGS": 4023.44,
+            "BYN": 128.64,
+            "AZN": 78.22
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9934,11 +9939,11 @@
           },
           "exportPrices": {
             "USD": 2.2,
-            "KZT": 1017.5,
-            "UZS": 26666.26,
-            "KGS": 191.99,
-            "BYN": 6.14,
-            "AZN": 3.73
+            "KZT": 1019.44,
+            "UZS": 26662.78,
+            "KGS": 192.19,
+            "BYN": 6.15,
+            "AZN": 3.74
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10084,11 +10089,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.06,
-            "KZT": 1419.92,
-            "UZS": 37212.78,
-            "KGS": 267.93,
-            "BYN": 8.57,
+            "USD": 3.07,
+            "KZT": 1422.62,
+            "UZS": 37207.93,
+            "KGS": 268.2,
+            "BYN": 8.58,
             "AZN": 5.21
           },
           "shippingDetails": {
@@ -10235,12 +10240,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 16.24,
-            "KZT": 7525.44,
-            "UZS": 197223.48,
-            "KGS": 1419.98,
-            "BYN": 45.42,
-            "AZN": 27.6
+            "USD": 16.26,
+            "KZT": 7539.74,
+            "UZS": 197197.75,
+            "KGS": 1421.44,
+            "BYN": 45.45,
+            "AZN": 27.64
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10386,12 +10391,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 26.42,
-            "KZT": 12243.2,
-            "UZS": 320864.52,
-            "KGS": 2310.17,
-            "BYN": 73.9,
-            "AZN": 44.91
+            "USD": 26.45,
+            "KZT": 12266.46,
+            "UZS": 320822.67,
+            "KGS": 2312.55,
+            "BYN": 73.94,
+            "AZN": 44.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10537,12 +10542,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 26.63,
-            "KZT": 12341.72,
-            "UZS": 323446.51,
-            "KGS": 2328.76,
-            "BYN": 74.49,
-            "AZN": 45.27
+            "USD": 26.66,
+            "KZT": 12365.17,
+            "UZS": 323404.32,
+            "KGS": 2331.16,
+            "BYN": 74.54,
+            "AZN": 45.32
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10688,12 +10693,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 21.92,
-            "KZT": 10159.34,
-            "UZS": 266251.7,
-            "KGS": 1916.97,
-            "BYN": 61.32,
-            "AZN": 37.27
+            "USD": 21.95,
+            "KZT": 10178.64,
+            "UZS": 266216.97,
+            "KGS": 1918.94,
+            "BYN": 61.36,
+            "AZN": 37.31
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10839,12 +10844,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 34.56,
-            "KZT": 16014.13,
-            "UZS": 419691.56,
-            "KGS": 3021.71,
-            "BYN": 96.66,
-            "AZN": 58.74
+            "USD": 34.59,
+            "KZT": 16044.56,
+            "UZS": 419636.82,
+            "KGS": 3024.82,
+            "BYN": 96.71,
+            "AZN": 58.81
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10990,12 +10995,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 19.94,
-            "KZT": 9242.62,
-            "UZS": 242226.59,
-            "KGS": 1743.99,
-            "BYN": 55.79,
-            "AZN": 33.9
+            "USD": 19.97,
+            "KZT": 9260.18,
+            "UZS": 242194.99,
+            "KGS": 1745.79,
+            "BYN": 55.82,
+            "AZN": 33.94
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11141,12 +11146,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 40.76,
-            "KZT": 18890.23,
-            "UZS": 495067.09,
-            "KGS": 3564.4,
-            "BYN": 114.02,
-            "AZN": 69.29
+            "USD": 40.81,
+            "KZT": 18926.12,
+            "UZS": 495002.51,
+            "KGS": 3568.07,
+            "BYN": 114.08,
+            "AZN": 69.37
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11292,12 +11297,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 42.22,
-            "KZT": 19566.14,
-            "UZS": 512781.05,
-            "KGS": 3691.94,
-            "BYN": 118.1,
-            "AZN": 71.77
+            "USD": 42.27,
+            "KZT": 19603.31,
+            "UZS": 512714.16,
+            "KGS": 3695.74,
+            "BYN": 118.17,
+            "AZN": 71.85
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11443,12 +11448,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 16.37,
-            "KZT": 7588.15,
-            "UZS": 198867.01,
-            "KGS": 1431.81,
-            "BYN": 45.8,
-            "AZN": 27.83
+            "USD": 16.39,
+            "KZT": 7602.57,
+            "UZS": 198841.07,
+            "KGS": 1433.28,
+            "BYN": 45.83,
+            "AZN": 27.87
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11594,12 +11599,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 21.74,
-            "KZT": 10075.87,
-            "UZS": 264064.16,
-            "KGS": 1901.22,
-            "BYN": 60.82,
-            "AZN": 36.96
+            "USD": 21.77,
+            "KZT": 10095.01,
+            "UZS": 264029.72,
+            "KGS": 1903.18,
+            "BYN": 60.85,
+            "AZN": 37.0
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",

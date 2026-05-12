@@ -1913,7 +1913,11 @@
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "190590"
+      "hsCode": "190590",
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600099/products/gubadiya.jpg",
+      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600099/products/gubadiya.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600101/products/gubadiya-v-razreze.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600099/products/gubadiya.jpg"
     },
     {
       "name": "Чебурек жареный",
@@ -1967,7 +1971,11 @@
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "190590"
+      "hsCode": "190590",
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600103/products/peremyach.jpg",
+      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600103/products/peremyach.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600105/products/peremyach-v-razreze.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600103/products/peremyach.jpg"
     },
     {
       "name": "Самса с курицей",
@@ -1994,7 +2002,10 @@
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "190590"
+      "hsCode": "190590",
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600109/products/samsa-kurica.jpg",
+      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600109/products/samsa-kurica.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600109/products/samsa-kurica.jpg"
     },
     {
       "name": "Эчпочмак с говядиной и картофелем",
@@ -2048,7 +2059,11 @@
       },
       "shelfLife": "360 суток",
       "storage": "–18°C",
-      "hsCode": "190590"
+      "hsCode": "190590",
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600106/products/samsa-govyadina.jpg",
+      "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600106/products/samsa-govyadina.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600107/products/samsa-govyadina-v-razreze.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600106/products/samsa-govyadina.jpg"
     },
     {
       "name": "Элеш с курицей и картофелем",
