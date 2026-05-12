@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-12T16:23:44.914503+00:00",
+  "dateModified": "2026-05-12T16:47:06.899526+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -8984,7 +8984,8 @@
         "name": "Halal Fried Cheburek (100 г kg) — Kazan Delicacies",
         "description": "Halal Fried Cheburek (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603451/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603453/products/cheburek-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-060",
         "brand": {
@@ -9438,7 +9439,8 @@
         "name": "Halal Echpochmak with Beef & Potato (Tatar triangle pie) — Kazan Delicacies",
         "description": "Halal Echpochmak with Beef & Potato (Tatar triangle pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603456/products/echpochmak.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603457/products/echpochmak-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-063",
         "brand": {
@@ -9741,7 +9743,8 @@
         "name": "Halal Elesh with Chicken & Potato (Tatar pie) — Kazan Delicacies",
         "description": "Halal Elesh with Chicken & Potato (Tatar pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 150 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603459/products/elesh.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603460/products/elesh-v-razreze.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-065",
         "brand": {
