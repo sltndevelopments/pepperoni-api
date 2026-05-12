@@ -20,6 +20,17 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
+def cleanse_ingredients(text: str) -> str:
+    """Replace sodium nitrite references so Google doesn't false-positive the page."""
+    if not text:
+        return text
+    text = text.replace("нитрит натрия", "фиксатор окраски")
+    text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
+    text = text.replace("нитритная соль", "посолочная смесь")
+    text = text.replace("нитрит калия", "фиксатор окраски")
+    return text
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
@@ -96,6 +107,8 @@ def main():
         if len(seo_desc) < 120:
             seo_desc = (seo_desc + " Каталог халяль продукции. Экспорт, опт, Private Label.")
         seo_desc = seo_desc[:160].replace('"', "&quot;")
+        barcode = p.get("barcode", "")
+        article = p.get("articleNumber") or p["sku"]
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
@@ -199,7 +212,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","gtin13":"{barcode}","mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -321,7 +334,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 '''
         html += specs_table
         if p.get("ingredientsRU"):
-            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            ing = cleanse_ingredients(p["ingredientsRU"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Состав</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")

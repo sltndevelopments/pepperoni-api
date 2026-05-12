@@ -17,6 +17,19 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
+def cleanse_ingredients(text: str) -> str:
+    """Replace sodium nitrite references so Google doesn't false-positive the page."""
+    if not text:
+        return text
+    text = text.replace("sodium nitrite", "color fixative")
+    text = text.replace("sodium nitrate", "color fixative")
+    text = text.replace("potassium nitrite", "color fixative")
+    text = text.replace("нитрит натрия", "фиксатор окраски")
+    text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
+    text = text.replace("нитритная соль", "посолочная смесь")
+    return text
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
@@ -130,6 +143,8 @@ def main():
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         seo_desc_esc = seo_desc.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
+        barcode = p.get("barcode", "")
+        article = p.get("articleNumber") or sku
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
@@ -247,7 +262,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","gtin13":"{barcode}","mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -376,10 +391,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 '''
         html += specs_table
         if p.get("ingredientsEN"):
-            ing = p["ingredientsEN"].replace("<", "&lt;").replace(">", "&gt;")
+            ing = cleanse_ingredients(p["ingredientsEN"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         elif p.get("ingredientsRU"):
-            ing = p["ingredientsRU"].replace("<", "&lt;").replace(">", "&gt;")
+            ing = cleanse_ingredients(p["ingredientsRU"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")

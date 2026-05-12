@@ -216,7 +216,13 @@ def parse_bakery(lines, section, start_idx):
                 if v:
                     ep[cur] = v
 
-        products.append({
+        # Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
+        main_photo = (cols[28] or "").strip() if len(cols) > 28 else ""
+        pack_photo = (cols[29] or "").strip() if len(cols) > 29 else ""
+        slice_photo = (cols[30] or "").strip() if len(cols) > 30 else ""
+        image = main_photo or pack_photo or slice_photo
+
+        p = {
             "name": name,
             "sku": f"KD-{idx:03d}",
             "section": section,
@@ -235,7 +241,17 @@ def parse_bakery(lines, section, start_idx):
             "shelfLife": (cols[6] or "").strip() if len(cols) > 6 else "",
             "storage": (cols[7] or "").strip() if len(cols) > 7 else "",
             "hsCode": (cols[8] or "").strip() if len(cols) > 8 else "",
-        })
+        }
+        if image:
+            p["image"] = image
+        if main_photo:
+            p["imageMain"] = main_photo
+        if pack_photo:
+            p["imagePack"] = pack_photo
+        if slice_photo:
+            p["imageSlice"] = slice_photo
+
+        products.append(p)
 
     return {"products": products, "next_idx": idx}
 
