@@ -19,6 +19,7 @@ Allow: /openapi.yaml
 Allow: /products-feed.csv
 Allow: /products-feed.xml
 Allow: /products-feed.json
+Allow: /ai.txt
 
 # ───────── Traditional search engines ─────────
 User-agent: Googlebot

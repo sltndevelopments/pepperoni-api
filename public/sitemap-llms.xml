@@ -37,6 +37,13 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- AI crawler discovery manifest (ai.txt-spec.org convention) -->
+  <url>
+    <loc>https://pepperoni.tatar/ai.txt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
   <!-- ChatGPT Plugin manifest + AI dataset discovery -->
   <url>
     <loc>https://pepperoni.tatar/.well-known/ai-plugin.json</loc>

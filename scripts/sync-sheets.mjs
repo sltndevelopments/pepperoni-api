@@ -296,7 +296,7 @@ function generateLlmsFullTxt(allProducts) {
 - Сайт компании: https://kazandelikates.tatar
 - Каталог: https://pepperoni.tatar
 - Английская версия каталога: https://pepperoni.tatar/en/
-- API-каталог: https://api.pepperoni.tatar
+- API-каталог: https://pepperoni.tatar
 - Условия поставки: EXW Казань, Россия
 
 ### Ключевое позиционирование
@@ -384,7 +384,7 @@ function generateLlmsFullTxt(allProducts) {
 - OpenAPI: https://api.pepperoni.tatar/openapi.yaml
 - AI Plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
 - AI Meta: https://api.pepperoni.tatar/.well-known/ai-meta.json
-- Краткая версия: https://api.pepperoni.tatar/llms.txt
+- Краткая версия: https://pepperoni.tatar/llms.txt
 - Прайс-лист: https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pubhtml
 
 ## Контакты
@@ -488,7 +488,7 @@ function generateGoogleFeed(allProducts) {
 <g:id>${escapeXml(p.sku)}</g:id>
 <g:title>${escapeXml(p.name)}</g:title>
 <g:description>${escapeXml(p.name + '. Halal. Kazan Delicacies.')}</g:description>
-<g:link>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</g:link>
+<g:link>https://pepperoni.tatar/products/${p.sku.toLowerCase()}</g:link>
 <g:price>${parseFloat(price)} RUB</g:price>
 <g:availability>in_stock</g:availability>
 <g:condition>new</g:condition>
@@ -511,18 +511,18 @@ function generateRSS(allProducts) {
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 <channel>
 <title>Казанские Деликатесы — Каталог продукции</title>
-<link>https://api.pepperoni.tatar</link>
+<link>https://pepperoni.tatar</link>
 <description>Каталог халяль продукции: 77 товаров — пепперони, сосиски, ветчина, колбасы, татарская выпечка.</description>
 <language>ru</language>
 <lastBuildDate>${today}</lastBuildDate>
-<atom:link href="https://api.pepperoni.tatar/rss.xml" rel="self" type="application/rss+xml"/>
+<atom:link href="https://pepperoni.tatar/rss.xml" rel="self" type="application/rss+xml"/>
 `;
   for (const p of allProducts) {
     const price = p.offers.price || p.offers.pricePerUnit || '0';
     xml += `<item>
 <title>${escapeXml(p.name)} — ${price} ₽</title>
-<link>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</link>
-<guid>https://api.pepperoni.tatar/products/${p.sku.toLowerCase()}</guid>
+<link>https://pepperoni.tatar/products/${p.sku.toLowerCase()}</link>
+<guid>https://pepperoni.tatar/products/${p.sku.toLowerCase()}</guid>
 <description>${escapeXml(p.name + '. ' + p.category + '. ' + (p.weight || '') + '. Halal. Казанские Деликатесы.')}</description>
 <category>${escapeXml(p.section + ' / ' + p.category)}</category>
 </item>
@@ -581,16 +581,16 @@ function generateProductPages(allProducts) {
 <title>${p.name} — Казанские Деликатесы | Халяль</title>
 <meta name="description" content="${seoDesc}">
 <meta name="robots" content="index, follow">
-<link rel="canonical" href="https://api.pepperoni.tatar/products/${slug}">
+<link rel="canonical" href="https://pepperoni.tatar/products/${slug}">
 <meta property="og:type" content="product">
 <meta property="og:title" content="${p.name} — Казанские Деликатесы">
 <meta property="og:description" content="${p.category}. ${priceRUB} ₽. Халяль.">
-<meta property="og:url" content="https://api.pepperoni.tatar/products/${slug}">
+<meta property="og:url" content="https://pepperoni.tatar/products/${slug}">
 <meta property="og:locale" content="ru_RU">
-<link rel="alternate" hreflang="ru" href="https://api.pepperoni.tatar/products/${slug}">
-<link rel="alternate" hreflang="en" href="https://api.pepperoni.tatar/en/products/${slug}">
+<link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/${slug}">
+<link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/${slug}">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://api.pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Каталог","item":"https://api.pepperoni.tatar/"},{"@type":"ListItem","position":3,"name":"${p.name.replace(/"/g, '\\"')}","item":"https://api.pepperoni.tatar/products/${slug}"}]}
+{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":3,"name":"${p.name.replace(/"/g, '\\"')}","item":"https://pepperoni.tatar/products/${slug}"}]}
 </script>
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Product","name":"${p.name.replace(/"/g, '\\"')}","sku":"${p.sku}","brand":{"@type":"Brand","name":"Казанские Деликатесы"},"offers":{"@type":"Offer","priceCurrency":"RUB","price":"${priceRUB}","availability":"https://schema.org/InStock"},"manufacturer":{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}
@@ -631,9 +631,9 @@ window.dataLayer.push({ecommerce:{detail:{products:[{id:"${p.sku}",name:"${p.nam
 </div>
 <nav aria-label="breadcrumb" style="font-size:.85rem;color:#666;margin-bottom:16px">
   <ol itemscope itemtype="https://schema.org/BreadcrumbList" style="list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;gap:4px">
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/"><span itemprop="name">Главная</span></a><meta itemprop="position" content="1"></li>
     <span aria-hidden="true"> › </span>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://api.pepperoni.tatar/"><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
+    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><a itemprop="item" href="https://pepperoni.tatar/"><span itemprop="name">Каталог</span></a><meta itemprop="position" content="2"></li>
     <span aria-hidden="true"> › </span>
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem"><span itemprop="name">${p.name.replace(/"/g,'&quot;')}</span><meta itemprop="position" content="3"></li>
   </ol>
@@ -671,7 +671,7 @@ ${exportHtml}
 <a href="mailto:info@kazandelikates.tatar?subject=Заказ:%20${encodeURIComponent(p.name)}%20(${p.sku})" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
 </div>
 <footer>
-<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="https://api.pepperoni.tatar/">Для дистрибьюторов (API)</a></p>
+<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>
@@ -756,7 +756,7 @@ async function main() {
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://api.pepperoni.tatar/</loc>
+    <loc>https://pepperoni.tatar/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -767,7 +767,7 @@ async function main() {
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/products.json</loc>
+    <loc>https://pepperoni.tatar/products.json</loc>
     <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
@@ -779,109 +779,109 @@ async function main() {
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/llms.txt</loc>
+    <loc>https://pepperoni.tatar/llms.txt</loc>
     <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/llms-full.txt</loc>
+    <loc>https://pepperoni.tatar/llms-full.txt</loc>
     <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/about</loc>
+    <loc>https://pepperoni.tatar/about</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/faq</loc>
+    <loc>https://pepperoni.tatar/faq</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/delivery</loc>
+    <loc>https://pepperoni.tatar/delivery</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/yml.xml</loc>
+    <loc>https://pepperoni.tatar/yml.xml</loc>
     <lastmod>${today}</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/pepperoni</loc>
+    <loc>https://pepperoni.tatar/pepperoni</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/</loc>
+    <loc>https://pepperoni.tatar/en/</loc>
     <lastmod>${today}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/pepperoni</loc>
+    <loc>https://pepperoni.tatar/en/pepperoni</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/about</loc>
+    <loc>https://pepperoni.tatar/en/about</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/faq</loc>
+    <loc>https://pepperoni.tatar/en/faq</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/delivery</loc>
+    <loc>https://pepperoni.tatar/en/delivery</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/kazylyk</loc>
+    <loc>https://pepperoni.tatar/kazylyk</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/bakery</loc>
+    <loc>https://pepperoni.tatar/bakery</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/pizzeria</loc>
+    <loc>https://pepperoni.tatar/pizzeria</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/kazylyk</loc>
+    <loc>https://pepperoni.tatar/en/kazylyk</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/bakery</loc>
+    <loc>https://pepperoni.tatar/en/bakery</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://api.pepperoni.tatar/en/pizzeria</loc>
+    <loc>https://pepperoni.tatar/en/pizzeria</loc>
     <lastmod>${today}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>

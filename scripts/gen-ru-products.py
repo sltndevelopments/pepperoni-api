@@ -340,7 +340,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Способы приготовления</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += '''<footer>
-<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="https://api.pepperoni.tatar/">Для дистрибьюторов (API)</a></p>
+<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>

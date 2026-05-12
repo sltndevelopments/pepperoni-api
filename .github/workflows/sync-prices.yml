@@ -31,7 +31,7 @@ jobs:
       - name: Sync data from Google Sheets
         run: node scripts/sync-sheets.mjs
 
-      - name: Regenerate llms.txt + en/llms.txt (rich AI context)
+      - name: Regenerate llms.txt + en/llms.txt + products-feed.* (rich AI context)
         run: python3 scripts/gen-llms-full.py
 
       - name: Regenerate RU product pages
@@ -39,6 +39,23 @@ jobs:
 
       - name: Regenerate EN product pages
         run: python3 scripts/gen-en-products.py
+
+      - name: Rebuild comprehensive sitemap.xml (covers blog, geo, EN landings)
+        run: python3 scripts/rebuild_sitemap.py
+
+      - name: Lint — fail if any canonical points to api.pepperoni.tatar
+        run: |
+          set -e
+          # User-facing pages should canonicalise to pepperoni.tatar, never api.*
+          if grep -l 'rel="canonical" href="https://api\.pepperoni\.tatar' public/products/*.html public/en/products/*.html 2>/dev/null; then
+            echo "❌ Found api.pepperoni.tatar canonical in product HTML. Failing build."
+            exit 1
+          fi
+          if grep -q 'https://api\.pepperoni\.tatar/products/' public/sitemap.xml; then
+            echo "❌ sitemap.xml contains api.pepperoni.tatar product URLs."
+            exit 1
+          fi
+          echo "✅ All canonicals point to pepperoni.tatar"
 
       - name: Check for changes
         id: changes
