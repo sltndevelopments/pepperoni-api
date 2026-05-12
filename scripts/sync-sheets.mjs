@@ -731,10 +731,10 @@ async function main() {
   writeFileSync(productsPath, JSON.stringify(productsJSON, null, 2), 'utf-8');
   console.log(`✅ ${productsPath}`);
 
-  const llmsFullTxt = generateLlmsFullTxt(allProducts);
-  const llmsFullPath = join(PUBLIC, 'llms-full.txt');
-  writeFileSync(llmsFullPath, llmsFullTxt, 'utf-8');
-  console.log(`✅ ${llmsFullPath}`);
+  // NOTE: llms-full.txt is intentionally NOT written here.
+  // The Python script scripts/gen-llms-full.py is the single source of truth.
+  // It produces the rich ~122 KB dump (RU + EN) with all 77 product cards.
+  // sync-prices.yml workflow always runs gen-llms-full.py AFTER this script.
 
   const ymlPath = join(PUBLIC, 'yml.xml');
   writeFileSync(ymlPath, generateYML(allProducts), 'utf-8');

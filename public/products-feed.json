@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-12T18:16:01.574679+00:00",
+  "dateModified": "2026-05-12T18:39:08.950391+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -76,8 +76,8 @@
           },
           "exportPrices": {
             "USD": 3.57,
-            "KZT": 1656.32,
-            "UZS": 43389.4,
+            "KZT": 1656.34,
+            "UZS": 43389.76,
             "KGS": 312.3,
             "BYN": 9.98,
             "AZN": 6.07
@@ -229,8 +229,8 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1633.48,
-            "UZS": 42790.93,
+            "KZT": 1633.49,
+            "UZS": 42791.28,
             "KGS": 307.99,
             "BYN": 9.85,
             "AZN": 5.99
@@ -382,8 +382,8 @@
           },
           "exportPrices": {
             "USD": 3.89,
-            "KZT": 1804.82,
-            "UZS": 47279.49,
+            "KZT": 1804.84,
+            "UZS": 47279.87,
             "KGS": 340.3,
             "BYN": 10.88,
             "AZN": 6.62
@@ -535,8 +535,8 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1633.48,
-            "UZS": 42790.93,
+            "KZT": 1633.49,
+            "UZS": 42791.28,
             "KGS": 307.99,
             "BYN": 9.85,
             "AZN": 5.99
@@ -688,8 +688,8 @@
           },
           "exportPrices": {
             "USD": 4.51,
-            "KZT": 2090.39,
-            "UZS": 54760.42,
+            "KZT": 2090.41,
+            "UZS": 54760.86,
             "KGS": 394.14,
             "BYN": 12.6,
             "AZN": 7.66
@@ -841,8 +841,8 @@
           },
           "exportPrices": {
             "USD": 5.22,
-            "KZT": 2421.66,
-            "UZS": 63438.3,
+            "KZT": 2421.68,
+            "UZS": 63438.82,
             "KGS": 456.6,
             "BYN": 14.6,
             "AZN": 8.88
@@ -994,9 +994,9 @@
           },
           "exportPrices": {
             "USD": 5.6,
-            "KZT": 2598.71,
-            "UZS": 68076.48,
-            "KGS": 489.98,
+            "KZT": 2598.73,
+            "UZS": 68077.03,
+            "KGS": 489.99,
             "BYN": 15.66,
             "AZN": 9.53
           },
@@ -1146,8 +1146,8 @@
           },
           "exportPrices": {
             "USD": 3.4,
-            "KZT": 1576.36,
-            "UZS": 41294.74,
+            "KZT": 1576.37,
+            "UZS": 41295.08,
             "KGS": 297.22,
             "BYN": 9.5,
             "AZN": 5.78
@@ -1298,8 +1298,8 @@
           },
           "exportPrices": {
             "USD": 3.4,
-            "KZT": 1576.36,
-            "UZS": 41294.74,
+            "KZT": 1576.37,
+            "UZS": 41295.08,
             "KGS": 297.22,
             "BYN": 9.5,
             "AZN": 5.78
@@ -1402,7 +1402,7 @@
         "name": "Halal Chicken Ham (whole) — Kazan Delicacies",
         "description": "Halal Chicken Ham (whole) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598108/products/vetcina-iz-kuricy-v-batone.jpg"
+          "https://pepperoni.tatar/og-default-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-010",
         "brand": {
@@ -1449,8 +1449,8 @@
           },
           "exportPrices": {
             "USD": 7.52,
-            "KZT": 3489.7,
-            "UZS": 91416.99,
+            "KZT": 3489.73,
+            "UZS": 91417.73,
             "KGS": 657.98,
             "BYN": 21.04,
             "AZN": 12.79
@@ -1526,7 +1526,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1553,7 +1553,7 @@
         "name": "Halal Chicken Ham (sliced) — Kazan Delicacies",
         "description": "Halal Chicken Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598108/products/vetcina-iz-kuricy-v-batone.jpg"
+          "https://pepperoni.tatar/og-default-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-011",
         "brand": {
@@ -1599,9 +1599,9 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.0,
-            "KZT": 1856.22,
-            "UZS": 48626.06,
+            "USD": 4,
+            "KZT": 1856.24,
+            "UZS": 48626.45,
             "KGS": 349.99,
             "BYN": 11.19,
             "AZN": 6.8
@@ -1677,7 +1677,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1704,7 +1704,7 @@
         "name": "Halal Turkey Ham (whole) — Kazan Delicacies",
         "description": "Halal Turkey Ham (whole) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598109/products/vetcina-iz-indeiki-v-batone.jpg"
+          "https://pepperoni.tatar/og-default-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-012",
         "brand": {
@@ -1751,9 +1751,9 @@
           },
           "exportPrices": {
             "USD": 8.13,
-            "KZT": 3769.56,
-            "UZS": 98748.3,
-            "KGS": 710.74,
+            "KZT": 3769.59,
+            "UZS": 98749.1,
+            "KGS": 710.75,
             "BYN": 22.72,
             "AZN": 13.82
           },
@@ -1828,7 +1828,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -1855,7 +1855,7 @@
         "name": "Halal Turkey Ham (sliced) — Kazan Delicacies",
         "description": "Halal Turkey Ham (sliced) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598109/products/vetcina-iz-indeiki-v-batone.jpg"
+          "https://pepperoni.tatar/og-default-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-013",
         "brand": {
@@ -1902,8 +1902,8 @@
           },
           "exportPrices": {
             "USD": 4.31,
-            "KZT": 1999.01,
-            "UZS": 52366.52,
+            "KZT": 1999.03,
+            "UZS": 52366.95,
             "KGS": 376.91,
             "BYN": 12.05,
             "AZN": 7.33
@@ -1979,7 +1979,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "68"
           },
           {
             "@type": "PropertyValue",
@@ -2006,8 +2006,7 @@
         "name": "Halal Boiled-Smoked Pepperoni (horse meat) — Kazan Delicacies",
         "description": "Halal Boiled-Smoked Pepperoni (horse meat) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598112/products/pepperoni-syrokopcheny.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598114/products/pepperoni-v-razreze.jpg"
+          "https://pepperoni.tatar/og-default-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-014",
         "brand": {
@@ -2054,8 +2053,8 @@
           },
           "exportPrices": {
             "USD": 3.88,
-            "KZT": 1799.11,
-            "UZS": 47129.87,
+            "KZT": 1799.12,
+            "UZS": 47130.25,
             "KGS": 339.22,
             "BYN": 10.84,
             "AZN": 6.59
@@ -2131,7 +2130,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "50-55"
           },
           {
             "@type": "PropertyValue",
@@ -2207,8 +2206,8 @@
           },
           "exportPrices": {
             "USD": 3.37,
-            "KZT": 1564.94,
-            "UZS": 40995.51,
+            "KZT": 1564.95,
+            "UZS": 40995.84,
             "KGS": 295.07,
             "BYN": 9.43,
             "AZN": 5.74
@@ -2284,7 +2283,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "50-55"
           },
           {
             "@type": "PropertyValue",
@@ -2360,8 +2359,8 @@
           },
           "exportPrices": {
             "USD": 5.63,
-            "KZT": 2610.14,
-            "UZS": 68375.72,
+            "KZT": 2610.16,
+            "UZS": 68376.27,
             "KGS": 492.14,
             "BYN": 15.73,
             "AZN": 9.57
@@ -2437,7 +2436,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "50-55"
           },
           {
             "@type": "PropertyValue",
@@ -2513,8 +2512,8 @@
           },
           "exportPrices": {
             "USD": 4.68,
-            "KZT": 2170.35,
-            "UZS": 56855.08,
+            "KZT": 2170.37,
+            "UZS": 56855.54,
             "KGS": 409.22,
             "BYN": 13.08,
             "AZN": 7.96
@@ -2590,7 +2589,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "50-55"
           },
           {
             "@type": "PropertyValue",
@@ -2666,8 +2665,8 @@
           },
           "exportPrices": {
             "USD": 7.49,
-            "KZT": 3472.57,
-            "UZS": 90968.13,
+            "KZT": 3472.59,
+            "UZS": 90968.87,
             "KGS": 654.75,
             "BYN": 20.93,
             "AZN": 12.73
@@ -2743,7 +2742,7 @@
           {
             "@type": "PropertyValue",
             "name": "diameter_mm",
-            "value": ""
+            "value": "50-55"
           },
           {
             "@type": "PropertyValue",
@@ -2818,8 +2817,8 @@
           },
           "exportPrices": {
             "USD": 4.56,
-            "KZT": 2113.24,
-            "UZS": 55358.89,
+            "KZT": 2113.26,
+            "UZS": 55359.34,
             "KGS": 398.45,
             "BYN": 12.74,
             "AZN": 7.75
@@ -2969,9 +2968,9 @@
           },
           "exportPrices": {
             "USD": 5.53,
-            "KZT": 2564.44,
-            "UZS": 67178.77,
-            "KGS": 483.52,
+            "KZT": 2564.46,
+            "UZS": 67179.31,
+            "KGS": 483.53,
             "BYN": 15.46,
             "AZN": 9.4
           },
@@ -3120,9 +3119,9 @@
           },
           "exportPrices": {
             "USD": 8.25,
-            "KZT": 3826.68,
-            "UZS": 100244.49,
-            "KGS": 721.51,
+            "KZT": 3826.71,
+            "UZS": 100245.3,
+            "KGS": 721.52,
             "BYN": 23.07,
             "AZN": 14.03
           },
@@ -3272,8 +3271,8 @@
           "exportPrices": {
             "USD": 1.01,
             "KZT": 468.34,
-            "UZS": 12268.73,
-            "KGS": 88.3,
+            "UZS": 12268.83,
+            "KGS": 88.31,
             "BYN": 2.82,
             "AZN": 1.72
           },
@@ -3422,8 +3421,8 @@
           },
           "exportPrices": {
             "USD": 6.4,
-            "KZT": 2969.96,
-            "UZS": 77801.69,
+            "KZT": 2969.98,
+            "UZS": 77802.32,
             "KGS": 559.98,
             "BYN": 17.9,
             "AZN": 10.89
@@ -3573,8 +3572,8 @@
           },
           "exportPrices": {
             "USD": 6.4,
-            "KZT": 2969.96,
-            "UZS": 77801.69,
+            "KZT": 2969.98,
+            "UZS": 77802.32,
             "KGS": 559.98,
             "BYN": 17.9,
             "AZN": 10.89
@@ -3724,8 +3723,8 @@
           },
           "exportPrices": {
             "USD": 9.97,
-            "KZT": 4626.28,
-            "UZS": 121191.09,
+            "KZT": 4626.32,
+            "UZS": 121192.08,
             "KGS": 872.28,
             "BYN": 27.89,
             "AZN": 16.96
@@ -3876,8 +3875,8 @@
           },
           "exportPrices": {
             "USD": 1.66,
-            "KZT": 771.04,
-            "UZS": 20198.41,
+            "KZT": 771.05,
+            "UZS": 20198.43,
             "KGS": 145.38,
             "BYN": 4.65,
             "AZN": 2.83
@@ -4029,8 +4028,8 @@
           },
           "exportPrices": {
             "USD": 3.02,
-            "KZT": 1399.3,
-            "UZS": 36656.38,
+            "KZT": 1399.32,
+            "UZS": 36656.4,
             "KGS": 263.84,
             "BYN": 8.43,
             "AZN": 5.13
@@ -4181,8 +4180,8 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1033.77,
-            "UZS": 27080.83,
+            "KZT": 1033.78,
+            "UZS": 27080.85,
             "KGS": 194.92,
             "BYN": 6.23,
             "AZN": 3.79
@@ -4333,8 +4332,8 @@
           },
           "exportPrices": {
             "USD": 2.89,
-            "KZT": 1342.19,
-            "UZS": 35160.2,
+            "KZT": 1342.2,
+            "UZS": 35160.22,
             "KGS": 253.07,
             "BYN": 8.09,
             "AZN": 4.92
@@ -4486,8 +4485,8 @@
           },
           "exportPrices": {
             "USD": 3.61,
-            "KZT": 1673.45,
-            "UZS": 43838.03,
+            "KZT": 1673.47,
+            "UZS": 43838.07,
             "KGS": 315.53,
             "BYN": 10.09,
             "AZN": 6.13
@@ -4638,8 +4637,8 @@
           },
           "exportPrices": {
             "USD": 3.5,
-            "KZT": 1622.05,
-            "UZS": 42491.47,
+            "KZT": 1622.07,
+            "UZS": 42491.5,
             "KGS": 305.83,
             "BYN": 9.78,
             "AZN": 5.95
@@ -4791,8 +4790,8 @@
           },
           "exportPrices": {
             "USD": 1.8,
-            "KZT": 833.87,
-            "UZS": 21844.21,
+            "KZT": 833.88,
+            "UZS": 21844.22,
             "KGS": 157.22,
             "BYN": 5.03,
             "AZN": 3.06
@@ -4943,8 +4942,8 @@
           },
           "exportPrices": {
             "USD": 1.77,
-            "KZT": 822.45,
-            "UZS": 21544.97,
+            "KZT": 822.46,
+            "UZS": 21544.99,
             "KGS": 155.07,
             "BYN": 4.96,
             "AZN": 3.01
@@ -5096,8 +5095,8 @@
           },
           "exportPrices": {
             "USD": 2.04,
-            "KZT": 948.1,
-            "UZS": 24836.56,
+            "KZT": 948.11,
+            "UZS": 24836.58,
             "KGS": 178.76,
             "BYN": 5.72,
             "AZN": 3.48
@@ -5200,7 +5199,7 @@
         "name": "Halal Boiled Beef Sausage (0,5 kg) — Kazan Delicacies",
         "description": "Halal Boiled Beef Sausage (0,5 kg) — Kazan Delicacies — halal boiled sausages from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598116/products/kolbasa-varenaya-govyadina.jpg"
+          "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-035",
         "brand": {
@@ -5247,8 +5246,8 @@
           },
           "exportPrices": {
             "USD": 3.6,
-            "KZT": 1667.74,
-            "UZS": 43688.42,
+            "KZT": 1667.76,
+            "UZS": 43688.45,
             "KGS": 314.45,
             "BYN": 10.05,
             "AZN": 6.11
@@ -5398,8 +5397,8 @@
           },
           "exportPrices": {
             "USD": 2.43,
-            "KZT": 1125.15,
-            "UZS": 29474.72,
+            "KZT": 1125.17,
+            "UZS": 29474.74,
             "KGS": 212.15,
             "BYN": 6.78,
             "AZN": 4.12
@@ -5549,8 +5548,8 @@
           },
           "exportPrices": {
             "USD": 2.46,
-            "KZT": 1142.29,
-            "UZS": 29923.57,
+            "KZT": 1142.3,
+            "UZS": 29923.59,
             "KGS": 215.38,
             "BYN": 6.89,
             "AZN": 4.19
@@ -5700,8 +5699,8 @@
           },
           "exportPrices": {
             "USD": 4.68,
-            "KZT": 2170.34,
-            "UZS": 56854.79,
+            "KZT": 2170.37,
+            "UZS": 56854.83,
             "KGS": 409.21,
             "BYN": 13.08,
             "AZN": 7.95
@@ -5852,8 +5851,8 @@
           },
           "exportPrices": {
             "USD": 4.9,
-            "KZT": 2273.15,
-            "UZS": 59547.91,
+            "KZT": 2273.18,
+            "UZS": 59547.95,
             "KGS": 428.6,
             "BYN": 13.7,
             "AZN": 8.33
@@ -6004,8 +6003,8 @@
           },
           "exportPrices": {
             "USD": 4.31,
-            "KZT": 1999.0,
-            "UZS": 52366.25,
+            "KZT": 1999.03,
+            "UZS": 52366.29,
             "KGS": 376.91,
             "BYN": 12.05,
             "AZN": 7.33
@@ -6155,8 +6154,8 @@
           },
           "exportPrices": {
             "USD": 2.32,
-            "KZT": 1073.75,
-            "UZS": 28128.16,
+            "KZT": 1073.76,
+            "UZS": 28128.18,
             "KGS": 202.45,
             "BYN": 6.47,
             "AZN": 3.94
@@ -6306,8 +6305,8 @@
           },
           "exportPrices": {
             "USD": 2.66,
-            "KZT": 1233.67,
-            "UZS": 32317.46,
+            "KZT": 1233.68,
+            "UZS": 32317.48,
             "KGS": 232.61,
             "BYN": 7.44,
             "AZN": 4.52
@@ -6457,8 +6456,8 @@
           },
           "exportPrices": {
             "USD": 3.67,
-            "KZT": 1702.01,
-            "UZS": 44586.12,
+            "KZT": 1702.03,
+            "UZS": 44586.16,
             "KGS": 320.91,
             "BYN": 10.26,
             "AZN": 6.24
@@ -6608,8 +6607,8 @@
           },
           "exportPrices": {
             "USD": 4.29,
-            "KZT": 1987.58,
-            "UZS": 52067.02,
+            "KZT": 1987.6,
+            "UZS": 52067.05,
             "KGS": 374.75,
             "BYN": 11.98,
             "AZN": 7.29
@@ -6759,8 +6758,8 @@
           },
           "exportPrices": {
             "USD": 4.41,
-            "KZT": 2044.69,
-            "UZS": 53563.19,
+            "KZT": 2044.72,
+            "UZS": 53563.23,
             "KGS": 385.52,
             "BYN": 12.33,
             "AZN": 7.49
@@ -6911,8 +6910,8 @@
           },
           "exportPrices": {
             "USD": 3.34,
-            "KZT": 1547.8,
-            "UZS": 40546.44,
+            "KZT": 1547.82,
+            "UZS": 40546.47,
             "KGS": 291.83,
             "BYN": 9.33,
             "AZN": 5.67
@@ -7015,7 +7014,7 @@
         "name": "Halal Chicken Breast (1 kg) — Kazan Delicacies",
         "description": "Halal Chicken Breast (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598117/products/kurinaya-grudka.jpg"
+          "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-047",
         "brand": {
@@ -7062,8 +7061,8 @@
           },
           "exportPrices": {
             "USD": 4.68,
-            "KZT": 2170.34,
-            "UZS": 56854.79,
+            "KZT": 2170.37,
+            "UZS": 56854.83,
             "KGS": 409.21,
             "BYN": 13.08,
             "AZN": 7.95
@@ -7166,7 +7165,7 @@
         "name": "Halal Chicken Fillet (1 kg) — Kazan Delicacies",
         "description": "Halal Chicken Fillet (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598118/products/kurinaya-vetcina.jpg"
+          "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-048",
         "brand": {
@@ -7213,8 +7212,8 @@
           },
           "exportPrices": {
             "USD": 5.53,
-            "KZT": 2564.43,
-            "UZS": 67178.42,
+            "KZT": 2564.46,
+            "UZS": 67178.47,
             "KGS": 483.52,
             "BYN": 15.46,
             "AZN": 9.4
@@ -7364,8 +7363,8 @@
           },
           "exportPrices": {
             "USD": 4.64,
-            "KZT": 2153.21,
-            "UZS": 56405.93,
+            "KZT": 2153.24,
+            "UZS": 56405.98,
             "KGS": 405.98,
             "BYN": 12.98,
             "AZN": 7.89
@@ -7516,8 +7515,8 @@
           },
           "exportPrices": {
             "USD": 2.32,
-            "KZT": 1073.75,
-            "UZS": 28128.16,
+            "KZT": 1073.76,
+            "UZS": 28128.18,
             "KGS": 202.45,
             "BYN": 6.47,
             "AZN": 3.94
@@ -7668,8 +7667,8 @@
           },
           "exportPrices": {
             "USD": 4.46,
-            "KZT": 2067.54,
-            "UZS": 54161.67,
+            "KZT": 2067.56,
+            "UZS": 54161.71,
             "KGS": 389.83,
             "BYN": 12.46,
             "AZN": 7.58
@@ -7821,8 +7820,8 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1033.77,
-            "UZS": 27080.83,
+            "KZT": 1033.78,
+            "UZS": 27080.85,
             "KGS": 194.92,
             "BYN": 6.23,
             "AZN": 3.79
@@ -7925,7 +7924,7 @@
         "name": "Halal Fillet Smoked Sausage (0,54 kg) — Kazan Delicacies",
         "description": "Halal Fillet Smoked Sausage (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598119/products/vetcina-fileynaya.jpg"
+          "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-053",
         "brand": {
@@ -7972,8 +7971,8 @@
           },
           "exportPrices": {
             "USD": 4.1,
-            "KZT": 1901.91,
-            "UZS": 49822.75,
+            "KZT": 1901.93,
+            "UZS": 49822.78,
             "KGS": 358.6,
             "BYN": 11.46,
             "AZN": 6.97
@@ -8076,7 +8075,7 @@
         "name": "Halal Fillet Smoked Sausage (half) — Kazan Delicacies",
         "description": "Halal Fillet Smoked Sausage (half) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598119/products/vetcina-fileynaya.jpg"
+          "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-054",
         "brand": {
@@ -8123,8 +8122,8 @@
           },
           "exportPrices": {
             "USD": 2.04,
-            "KZT": 948.1,
-            "UZS": 24836.56,
+            "KZT": 948.11,
+            "UZS": 24836.58,
             "KGS": 178.76,
             "BYN": 5.72,
             "AZN": 3.48
@@ -8275,8 +8274,8 @@
           },
           "exportPrices": {
             "USD": 4.46,
-            "KZT": 2067.54,
-            "UZS": 54161.67,
+            "KZT": 2067.56,
+            "UZS": 54161.71,
             "KGS": 389.83,
             "BYN": 12.46,
             "AZN": 7.58
@@ -8427,8 +8426,8 @@
           },
           "exportPrices": {
             "USD": 2.23,
-            "KZT": 1033.77,
-            "UZS": 27080.83,
+            "KZT": 1033.78,
+            "UZS": 27080.85,
             "KGS": 194.92,
             "BYN": 6.23,
             "AZN": 3.79
@@ -8580,8 +8579,8 @@
           },
           "exportPrices": {
             "USD": 7.34,
-            "KZT": 3403.06,
-            "UZS": 89147.31,
+            "KZT": 3403.1,
+            "UZS": 89147.37,
             "KGS": 641.64,
             "BYN": 20.51,
             "AZN": 12.47
@@ -8731,8 +8730,8 @@
           },
           "exportPrices": {
             "USD": 5.08,
-            "KZT": 2355.96,
-            "UZS": 61717.37,
+            "KZT": 2356,
+            "UZS": 61717.41,
             "KGS": 444.21,
             "BYN": 14.2,
             "AZN": 8.64
@@ -8835,8 +8834,7 @@
         "name": "Halal Gubadiya with Kort (Tatar layered pie) — Kazan Delicacies",
         "description": "Halal Gubadiya with Kort (Tatar layered pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600099/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600101/products/gubadiya-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-059",
         "brand": {
@@ -8883,9 +8881,9 @@
           },
           "exportPrices": {
             "USD": 33.1,
-            "KZT": 15352.29,
-            "UZS": 402172.22,
-            "KGS": 2894.65,
+            "KZT": 15352.54,
+            "UZS": 402178.75,
+            "KGS": 2894.69,
             "BYN": 92.54,
             "AZN": 56.27
           },
@@ -8987,8 +8985,7 @@
         "name": "Halal Fried Cheburek (100 г kg) — Kazan Delicacies",
         "description": "Halal Fried Cheburek (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603451/products/cheburek.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603453/products/cheburek-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-060",
         "brand": {
@@ -9035,9 +9032,9 @@
           },
           "exportPrices": {
             "USD": 21.74,
-            "KZT": 10085.19,
-            "UZS": 264193.99,
-            "KGS": 1901.54,
+            "KZT": 10085.36,
+            "UZS": 264198.28,
+            "KGS": 1901.58,
             "BYN": 60.79,
             "AZN": 36.97
           },
@@ -9139,8 +9136,7 @@
         "name": "Halal Fried Peremyach (Tatar meat pie) — Kazan Delicacies",
         "description": "Halal Fried Peremyach (Tatar meat pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600103/products/peremyach.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600105/products/peremyach-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-061",
         "brand": {
@@ -9187,9 +9183,9 @@
           },
           "exportPrices": {
             "USD": 34.96,
-            "KZT": 16213.07,
-            "UZS": 424721.21,
-            "KGS": 3056.94,
+            "KZT": 16213.33,
+            "UZS": 424728.11,
+            "KGS": 3056.99,
             "BYN": 97.73,
             "AZN": 59.43
           },
@@ -9291,7 +9287,7 @@
         "name": "Halal Chicken Samsa (120 г kg) — Kazan Delicacies",
         "description": "Halal Chicken Samsa (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600109/products/samsa-kurica.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-062",
         "brand": {
@@ -9338,9 +9334,9 @@
           },
           "exportPrices": {
             "USD": 36.49,
-            "KZT": 16923.12,
-            "UZS": 443321.95,
-            "KGS": 3190.82,
+            "KZT": 16923.4,
+            "UZS": 443329.15,
+            "KGS": 3190.88,
             "BYN": 102.01,
             "AZN": 62.03
           },
@@ -9442,8 +9438,7 @@
         "name": "Halal Echpochmak with Beef & Potato (Tatar triangle pie) — Kazan Delicacies",
         "description": "Halal Echpochmak with Beef & Potato (Tatar triangle pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603456/products/echpochmak.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603457/products/echpochmak-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-063",
         "brand": {
@@ -9490,10 +9485,10 @@
           },
           "exportPrices": {
             "USD": 40.65,
-            "KZT": 18853.12,
-            "UZS": 493880.67,
-            "KGS": 3554.72,
-            "BYN": 113.64,
+            "KZT": 18853.43,
+            "UZS": 493888.69,
+            "KGS": 3554.78,
+            "BYN": 113.65,
             "AZN": 69.1
           },
           "shippingDetails": {
@@ -9594,8 +9589,7 @@
         "name": "Halal Beef Samsa (120 г kg) — Kazan Delicacies",
         "description": "Halal Beef Samsa (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600106/products/samsa-govyadina.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778600107/products/samsa-govyadina-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-064",
         "brand": {
@@ -9642,9 +9636,9 @@
           },
           "exportPrices": {
             "USD": 43.23,
-            "KZT": 20051.14,
-            "UZS": 525264.27,
-            "KGS": 3780.61,
+            "KZT": 20051.47,
+            "UZS": 525272.8,
+            "KGS": 3780.67,
             "BYN": 120.87,
             "AZN": 73.49
           },
@@ -9746,8 +9740,7 @@
         "name": "Halal Elesh with Chicken & Potato (Tatar pie) — Kazan Delicacies",
         "description": "Halal Elesh with Chicken & Potato (Tatar pie) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 150 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603459/products/elesh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778603460/products/elesh-v-razreze.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-065",
         "brand": {
@@ -9794,9 +9787,9 @@
           },
           "exportPrices": {
             "USD": 46.01,
-            "KZT": 21339.63,
-            "UZS": 559017.81,
-            "KGS": 4023.55,
+            "KZT": 21339.97,
+            "UZS": 559026.89,
+            "KGS": 4023.61,
             "BYN": 128.63,
             "AZN": 78.22
           },
@@ -9898,7 +9891,7 @@
         "name": "Halal Chak-Chak (plastic pack) — Kazan Delicacies",
         "description": "Halal Chak-Chak (plastic pack) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778598120/products/chak-chak-bez-upakovki.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-066",
         "brand": {
@@ -9945,8 +9938,8 @@
           },
           "exportPrices": {
             "USD": 2.2,
-            "KZT": 1019.34,
-            "UZS": 26702.97,
+            "KZT": 1019.36,
+            "UZS": 26703.4,
             "KGS": 192.2,
             "BYN": 6.14,
             "AZN": 3.74
@@ -10049,9 +10042,7 @@
         "name": "Halal Chak-Chak (craft gift box) — Kazan Delicacies",
         "description": "Halal Chak-Chak (craft gift box) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. 100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy.",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg"
+          "https://pepperoni.tatar/og-bakery-en.png"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-067",
         "brand": {
@@ -10098,8 +10089,8 @@
           },
           "exportPrices": {
             "USD": 3.07,
-            "KZT": 1422.5,
-            "UZS": 37264.01,
+            "KZT": 1422.52,
+            "UZS": 37264.62,
             "KGS": 268.21,
             "BYN": 8.57,
             "AZN": 5.21
@@ -10249,10 +10240,10 @@
           },
           "exportPrices": {
             "USD": 16.25,
-            "KZT": 7539.06,
-            "UZS": 197494.99,
-            "KGS": 1421.48,
-            "BYN": 45.44,
+            "KZT": 7539.18,
+            "UZS": 197498.2,
+            "KGS": 1421.5,
+            "BYN": 45.45,
             "AZN": 27.63
           },
           "shippingDetails": {
@@ -10399,11 +10390,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 26.44,
-            "KZT": 12265.36,
-            "UZS": 321306.25,
-            "KGS": 2312.61,
-            "BYN": 73.93,
+            "USD": 26.45,
+            "KZT": 12265.56,
+            "UZS": 321311.47,
+            "KGS": 2312.65,
+            "BYN": 73.94,
             "AZN": 44.96
           },
           "shippingDetails": {
@@ -10551,9 +10542,9 @@
           },
           "exportPrices": {
             "USD": 26.66,
-            "KZT": 12364.06,
-            "UZS": 323891.79,
-            "KGS": 2331.22,
+            "KZT": 12364.26,
+            "UZS": 323897.05,
+            "KGS": 2331.26,
             "BYN": 74.53,
             "AZN": 45.32
           },
@@ -10702,11 +10693,11 @@
           },
           "exportPrices": {
             "USD": 21.94,
-            "KZT": 10177.73,
-            "UZS": 266618.24,
-            "KGS": 1918.99,
+            "KZT": 10177.9,
+            "UZS": 266622.57,
+            "KGS": 1919.02,
             "BYN": 61.35,
-            "AZN": 37.3
+            "AZN": 37.31
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10853,9 +10844,9 @@
           },
           "exportPrices": {
             "USD": 34.59,
-            "KZT": 16043.12,
-            "UZS": 420269.35,
-            "KGS": 3024.9,
+            "KZT": 16043.38,
+            "UZS": 420276.17,
+            "KGS": 3024.95,
             "BYN": 96.71,
             "AZN": 58.8
           },
@@ -11004,10 +10995,10 @@
           },
           "exportPrices": {
             "USD": 19.96,
-            "KZT": 9259.35,
-            "UZS": 242560.06,
-            "KGS": 1745.83,
-            "BYN": 55.81,
+            "KZT": 9259.5,
+            "UZS": 242564,
+            "KGS": 1745.86,
+            "BYN": 55.82,
             "AZN": 33.94
           },
           "shippingDetails": {
@@ -11155,11 +11146,11 @@
           },
           "exportPrices": {
             "USD": 40.8,
-            "KZT": 18924.43,
-            "UZS": 495748.64,
-            "KGS": 3568.17,
-            "BYN": 114.07,
-            "AZN": 69.36
+            "KZT": 18924.73,
+            "UZS": 495756.69,
+            "KGS": 3568.22,
+            "BYN": 114.08,
+            "AZN": 69.37
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11306,9 +11297,9 @@
           },
           "exportPrices": {
             "USD": 42.26,
-            "KZT": 19601.56,
-            "UZS": 513486.98,
-            "KGS": 3695.84,
+            "KZT": 19601.88,
+            "UZS": 513495.32,
+            "KGS": 3695.9,
             "BYN": 118.16,
             "AZN": 71.85
           },
@@ -11457,9 +11448,9 @@
           },
           "exportPrices": {
             "USD": 16.39,
-            "KZT": 7601.89,
-            "UZS": 199140.79,
-            "KGS": 1433.32,
+            "KZT": 7602.01,
+            "UZS": 199144.02,
+            "KGS": 1433.35,
             "BYN": 45.82,
             "AZN": 27.86
           },
@@ -11608,11 +11599,11 @@
           },
           "exportPrices": {
             "USD": 21.76,
-            "KZT": 10094.11,
-            "UZS": 264427.69,
-            "KGS": 1903.23,
+            "KZT": 10094.28,
+            "UZS": 264431.99,
+            "KGS": 1903.26,
             "BYN": 60.85,
-            "AZN": 37.0
+            "AZN": 37
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
