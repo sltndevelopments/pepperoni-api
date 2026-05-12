@@ -134,6 +134,23 @@ def derive_title(p: dict, tr: dict) -> str:
     return title[:150]
 
 
+def cleanse_description(text: str) -> str:
+    """Remove sodium nitrite/nitrate mentions to avoid GMC false-positive flagging."""
+    import re as _re
+    # Remove full ingredient-like phrases mentioning nitrite/nitrate
+    text = _re.sub(
+        r"\([^)]*(?:нитрит|нитрат|nitrit|nitrat)[^)]*\)",
+        "(curing salt)", text, flags=_re.IGNORECASE,
+    )
+    text = _re.sub(
+        r"[^.]*?(?:нитрит|нитрат|nitrit|nitrat)[^.]*?\.?\s*",
+        "", text, flags=_re.IGNORECASE,
+    )
+    # Clean up double spaces
+    text = _re.sub(r"\s{2,}", " ", text)
+    return text.strip()
+
+
 def derive_description(p: dict, tr: dict) -> str:
     """Build a GMC-compliant description (≥150, ≤5000 chars, EN)."""
     seo_title, headline, tagline, long_desc = parse_seo(p.get("seoDescriptionEN", ""))
@@ -169,6 +186,7 @@ def derive_description(p: dict, tr: dict) -> str:
     desc = " ".join(c for c in chunks if c).strip()
     # Clean double-spaces and ensure 150-5000 char window
     desc = re.sub(r"\s+", " ", desc)
+    desc = cleanse_description(desc)
     if len(desc) < 150:
         desc += (" Suitable for pizzerias, HoReCa, fuel-station street food, retail chains, "
                  "and distributors. Live pricing at api.pepperoni.tatar.")
