@@ -1,6 +1,6 @@
 # ai.txt — AI crawler discovery manifest for pepperoni.tatar
 # https://ai.txt-spec.org/ · convention adopted by GPTBot, ClaudeBot, PerplexityBot
-# Last updated: 2026-05-12
+# Last updated: 2026-05-13
 
 # ─────────────────────────────────────────────────────────────────────────────
 # About
@@ -61,6 +61,7 @@ Allow: /
 # https://pepperoni.tatar/products-feed.csv   (TSV, GMC format)
 # https://pepperoni.tatar/products-feed.xml   (RSS 2.0 with g: namespace)
 # https://pepperoni.tatar/products-feed.json  (Schema.org ItemList)
+# https://pepperoni.tatar/ru/products-feed.json (Schema.org ItemList, русский)
 
 # Discovery:
 # https://pepperoni.tatar/sitemap.xml             (806 URLs)

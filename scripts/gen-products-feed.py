@@ -65,6 +65,86 @@ OG_BY_SECTION = {
 }
 
 
+
+def t_ru_product(name_ru: str) -> str:
+    return name_ru.strip() if name_ru else ""
+
+
+def t_ru_category(cat_ru: str) -> str:
+    return cat_ru
+
+
+def t_ru_section(sec_ru: str) -> str:
+    return sec_ru
+
+
+def parse_seo_ru(s: str):
+    """Parse seoDescriptionRU in same format as EN."""
+    if not s:
+        return (None, None, None, None)
+    parts = [p.strip() for p in s.split("|")]
+    while len(parts) < 4:
+        parts.append("")
+    return parts[0], parts[1], parts[2], parts[3]
+
+
+def derive_title_ru(p: dict) -> str:
+    """Build a Russian title (<=150 chars)."""
+    seo_title, _, _, _ = parse_seo_ru(p.get("seoDescriptionRU", ""))
+    name_ru = seo_title or p.get("name", "")
+    name_ru = re.sub(r"\s+", " ", name_ru).strip()
+    title = name_ru
+    weight = p.get("weight", "")
+    needs_weight = weight and weight not in title and "(" not in title
+    if len(title) < 50 and needs_weight:
+        title = f"{title} ({weight} кг)"
+    brand_ru = "Казанские Деликатесы"
+    if brand_ru.lower() not in title.lower() and len(title) + len(f" — {brand_ru}") <= 150:
+        title = f"{title} — {brand_ru}"
+    return title[:150]
+
+
+def derive_description_ru(p: dict) -> str:
+    """Build Russian description (>=150, <=5000 chars)."""
+    seo_title, headline, tagline, long_desc = parse_seo_ru(p.get("seoDescriptionRU", ""))
+    chunks = []
+    if long_desc and len(long_desc) >= 50:
+        chunks.append(long_desc)
+    elif headline and tagline:
+        chunks.append(headline)
+        chunks.append(tagline)
+    if sum(len(c) for c in chunks) < 150:
+        name_ru = derive_title_ru(p)
+        cat_ru = t_ru_category(p.get("category", ""))
+        sec_ru = t_ru_section(p.get("section", ""))
+        weight = p.get("weight", "")
+        shelf = p.get("shelfLife", "")
+        storage = p.get("storage", "")
+        chunks.append(
+            f"{name_ru} — халяль {cat_ru.lower()} от Казанских Деликатесов, категория {sec_ru.lower()}."
+        )
+        if weight:
+            chunks.append(f"Вес нетто: {weight} кг.")
+        if shelf:
+            chunks.append(f"Срок годности: {shelf}.")
+        if storage:
+            chunks.append(f"Хранение: {storage}.")
+    chunks.append(
+        "ХАЛЯЛЬ сертификат №614A/2024 (ДУМ РТ). ХАССП и ISO 22000. "
+        "100% без свинины. Оптом от производителя из Казани (Татарстан). EXW Казань / РЦ Люберцы."
+    )
+    desc = " ".join(c for c in chunks if c).strip()
+    desc = re.sub(r"\s+", " ", desc)
+    if len(desc) < 150:
+        desc += (" Подходит для пиццерий, HoReCa, АЗС, розничных сетей, "
+                 "дистрибьюторов. Актуальные цены на api.pepperoni.tatar.")
+    return desc[:5000]
+
+
+def derive_link_ru(p: dict) -> str:
+    sku = p.get("sku", "").lower()
+    return f"{BASE_URL}/products/{sku}"
+
 def load():
     products = json.loads(DATA.read_text(encoding="utf-8")).get("products", [])
     tr = json.loads(TRANSLATIONS.read_text(encoding="utf-8"))
@@ -526,6 +606,135 @@ def write_json(rows: list, products: list, path: Path):
     print(f"OK JSON  {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
 
 
+
+def write_json_ru(products: list, path: Path):
+    """Generate Russian-language JSON feed (Schema.org ItemList) for AI Shopping."""
+    BRAND_RU = "Казанские Деликатесы"
+    item_list = []
+    for p in products:
+        offer = (p.get("offers") or {})
+        sku = p.get("sku", "").lower()
+        price_str = derive_price(p)
+        try:
+            price_val = float(str(price_str).replace(",", ".").split()[0]) if price_str else None
+        except (ValueError, IndexError):
+            price_val = None
+        price_excl = derive_price_no_vat(p)
+        try:
+            price_excl_val = float(str(price_excl).replace(",", ".").split()[0]) if price_excl else None
+        except (ValueError, IndexError):
+            price_excl_val = None
+
+        image = (normalize_image_url(p.get("imageMain"))
+                 or normalize_image_url(p.get("image"))
+                 or OG_BY_SECTION.get(p.get("section"), "")
+                 or DEFAULT_IMAGE)
+        addl_images = []
+        for k in ("imagePack", "imageSlice"):
+            v = normalize_image_url(p.get(k))
+            if v and v != image:
+                addl_images.append(v)
+
+        item_list.append({
+            "@type": "Product",
+            "@id": f"{BASE_URL}/products/{sku}#product",
+            "sku": sku.upper(),
+            "mpn": p.get("articleNumber", "") or sku.upper(),
+            "gtin13": p.get("barcode", "") or None,
+            "name": derive_title_ru(p),
+            "description": derive_description_ru(p),
+            "image": [image] + addl_images,
+            "url": derive_link_ru(p),
+            "brand": {"@type": "Brand", "name": BRAND_RU},
+            "manufacturer": {
+                "@type": "Organization",
+                "name": BRAND_RU,
+                "url": "https://kazandelikates.tatar",
+                "address": {
+                    "@type": "PostalAddress",
+                    "streetAddress": "ул. Аграрная, 2",
+                    "addressLocality": "Казань",
+                    "addressRegion": "Татарстан",
+                    "postalCode": "420059",
+                    "addressCountry": "RU",
+                },
+            },
+            "countryOfOrigin": "RU",
+            "category": f"{p.get('section', '')} > {p.get('category', '')} > {derive_title_ru(p)}",
+            "hasCertification": {
+                "@type": "Certification",
+                "name": "Халяль",
+                "identifier": "614A/2024",
+                "issuedBy": {
+                    "@type": "Organization",
+                    "name": "Духовное управление мусульман Республики Татарстан (ДУМ РТ)",
+                    "url": "https://dumrt.ru",
+                },
+            },
+            "offers": {
+                "@type": "Offer",
+                "url": derive_link_ru(p),
+                "priceCurrency": offer.get("priceCurrency", CURRENCY),
+                "price": price_val,
+                "priceExclVAT": price_excl_val,
+                "availability": offer.get("availability", "https://schema.org/InStock"),
+                "itemCondition": "https://schema.org/NewCondition",
+                "seller": {"@type": "Organization", "name": BRAND_RU, "url": "https://kazandelikates.tatar"},
+                "exportPrices": offer.get("exportPrices"),
+                "shippingDetails": {
+                    "@type": "OfferShippingDetails",
+                    "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
+                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": CURRENCY},
+                    "shippingOrigin": {
+                        "@type": "DefinedRegion",
+                        "addressLocality": "Казань",
+                        "addressCountry": "RU",
+                    },
+                    "deliveryTime": {
+                        "@type": "ShippingDeliveryTime",
+                        "handlingTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"},
+                    },
+                },
+            },
+            "additionalProperty": [
+                {"@type": "PropertyValue", "name": "халяль", "value": True},
+                {"@type": "PropertyValue", "name": "категория", "value": p.get("section", "")},
+                {"@type": "PropertyValue", "name": "тип", "value": p.get("category", "")},
+                {"@type": "PropertyValue", "name": "срокГодности", "value": p.get("shelfLife", "")},
+                {"@type": "PropertyValue", "name": "хранение", "value": p.get("storage", "")},
+                {"@type": "PropertyValue", "name": "тнВэд", "value": p.get("hsCode", "")},
+                {"@type": "PropertyValue", "name": "вес_кг", "value": normalize_weight(p.get("weight", ""))},
+                {"@type": "PropertyValue", "name": "минЗаказ_коробов", "value": p.get("minOrder", "")},
+                {"@type": "PropertyValue", "name": "диаметр_мм", "value": p.get("diameter", "")},
+                {"@type": "PropertyValue", "name": "оболочка", "value": p.get("casing", "")},
+                {"@type": "PropertyValue", "name": "упаковка", "value": p.get("packageType", "")},
+            ],
+        })
+
+    out = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": f"{BASE_URL}/ru/products-feed.json",
+        "name": "Казанские Деликатесы — Каталог халяль продукции",
+        "description": "Машиночитаемый каталог 77 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
+        "url": f"{BASE_URL}/ru/products-feed.json",
+        "inLanguage": "ru",
+        "dateModified": datetime.now(timezone.utc).isoformat(),
+        "publisher": {
+            "@type": "Organization",
+            "name": BRAND_RU,
+            "url": "https://kazandelikates.tatar",
+            "logo": "https://pepperoni.tatar/images/logo.png",
+        },
+        "numberOfItems": len(item_list),
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "item": p} for i, p in enumerate(item_list)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"OK JSON RU {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
+
 def main():
     products, tr = load()
     rows = [build_row(p, tr) for p in products]
@@ -533,6 +742,11 @@ def main():
     write_csv(rows, PUBLIC / "products-feed.csv")
     write_xml(rows, PUBLIC / "products-feed.xml")
     write_json(rows, products, PUBLIC / "products-feed.json")
+    # Russian-language JSON feed for AI Shopping (ChatGPT, Perplexity in Russian)
+    try:
+        write_json_ru(products, PUBLIC / "ru" / "products-feed.json")
+    except Exception as e:
+        print(f"WARN Russian JSON feed generation failed: {e}")
 
     # Sanity stats
     short_titles = sum(1 for r in rows if len(r["title"]) < 30)
