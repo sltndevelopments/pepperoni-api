@@ -1757,4 +1757,4 @@ A: HACCP, GOST R ISO 22000-2019 (ISO 22000:2018), Customs Union (EAC) compliance
 A: Frozen products (–18°C): 180–360 days. Chilled (0…+4°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
 
 **Q: How do I get an up-to-date price list?**
-A: Live catalog with prices: https://api.pepperoni.tatar/api/products (JSON, no auth). Static snapshot: https://pepperoni.tatar/products.json. Markdown price list: https://pepperoni.tatar/wholesale-price-list.md. For a commercial quote: info@kazandelikates.tatar.
+A: Live catalog with prices: https://api.pepperoni.tatar/api/products (JSON, no auth). Static snapshot: https://pepperoni.tatar/products.json. Plain text price list: https://pepperoni.tatar/wholesale-price-list.txt. For a commercial quote: info@kazandelikates.tatar.
