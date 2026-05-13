@@ -150,9 +150,11 @@ Sitemap: https://pepperoni.tatar/rss.xml
 
 # ───────── Product feeds (Google Merchant / OpenAI Commerce / Bing Shopping) ─────────
 # Discoverable feed URLs for shopping crawlers
-# CSV  (TSV format, GMC standard): https://pepperoni.tatar/products-feed.csv
-# XML  (RSS 2.0, GMC):              https://pepperoni.tatar/products-feed.xml
-# JSON (Schema.org ItemList):       https://pepperoni.tatar/products-feed.json
+# CSV  (TSV format, GMC standard):   https://pepperoni.tatar/products-feed.csv
+# XML  (RSS 2.0, GMC):               https://pepperoni.tatar/products-feed.xml
+# JSON (Schema.org ItemList):        https://pepperoni.tatar/products-feed.json
+# CSV  (OpenAI Commerce / ChatGPT):   https://pepperoni.tatar/products-feed-openai.csv
+# CSV  (OpenAI Commerce gzip/SFTP):   https://pepperoni.tatar/products-feed-openai.csv.gz
 
 # Host directive (for Yandex)
 Host: https://pepperoni.tatar
