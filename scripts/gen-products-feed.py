@@ -601,7 +601,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "availability": avail,
         "seller_name": BRAND,
         "seller_url": "https://kazandelikates.tatar",
-        "return_policy": "https://pepperoni.tatar/privacy",
+        "return_policy": "https://pepperoni.tatar/returns",
         "target_countries": "RU",
         "store_country": "RU",
         # OpenAI recommended
