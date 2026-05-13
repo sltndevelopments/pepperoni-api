@@ -195,7 +195,12 @@ def derive_description(p: dict, tr: dict) -> str:
         if diameter:
             chunks.append(f"Diameter: {diameter} mm.")
         if casing:
-            chunks.append(f"Casing: {casing}.")
+            casing_en = casing.lower().strip()
+            if casing_en in ("без оболочки", "без оболоччки"):
+                casing_en = "casingless"
+            elif casing_en == "есть":
+                casing_en = "natural casing"
+            chunks.append(f"Casing: {casing_en}.")
     # Halal + sourcing pitch — always include for AI parsing
     chunks.append(
         "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
