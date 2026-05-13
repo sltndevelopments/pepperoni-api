@@ -5,6 +5,7 @@ Outputs:
   public/products-feed.csv   — GMC CSV (tab-separated, GMC standard)
   public/products-feed.xml   — RSS 2.0 / Google Merchant XML feed
   public/products-feed.json  — Schema.org ItemList for AI crawlers (Bing, Perplexity, ChatGPT)
+  public/products-feed-openai.csv / .csv.gz / .tsv.gz — OpenAI Commerce (tab-separated; .tsv.gz per file-upload overview)
 
 Sources:
   public/products.json        — live catalog (77 SKUs)
@@ -16,9 +17,11 @@ import gzip
 import html
 import json
 import re
+import shutil
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -30,6 +33,14 @@ BASE_URL = "https://pepperoni.tatar"
 BRAND = "Kazan Delicacies"
 COUNTRY = "RU"
 CURRENCY = "RUB"
+
+# OpenAI Commerce best practices — stable feed click attribution (same params every snapshot).
+# https://developers.openai.com/commerce/guides/best-practices
+OPENAI_FEED_UTM: tuple[tuple[str, str], ...] = (
+    ("utm_source", "openai"),
+    ("utm_medium", "feed"),
+    ("utm_campaign", "pepperoni_commerce"),
+)
 
 # Google taxonomy IDs — https://www.google.com/basepages/producttype/taxonomy.en-US.txt
 TAXONOMY = {
@@ -65,122 +76,6 @@ OG_BY_SECTION = {
     "Выпечка":               "https://pepperoni.tatar/og-bakery-en.png",
 }
 
-
-
-def t_ru_product(name_ru: str) -> str:
-    return name_ru.strip() if name_ru else ""
-
-
-def t_ru_category(cat_ru: str) -> str:
-    return cat_ru
-
-
-def t_ru_section(sec_ru: str) -> str:
-    return sec_ru
-
-
-def parse_seo_ru(s: str):
-    """Parse seoDescriptionRU in same format as EN."""
-    if not s:
-        return (None, None, None, None)
-    parts = [p.strip() for p in s.split("|")]
-    while len(parts) < 4:
-        parts.append("")
-    return parts[0], parts[1], parts[2], parts[3]
-
-
-def derive_title_ru(p: dict) -> str:
-    """Build a Russian title (<=150 chars)."""
-    seo_title, _, _, _ = parse_seo_ru(p.get("seoDescriptionRU", ""))
-    name_ru = seo_title or p.get("name", "")
-    name_ru = re.sub(r"\s+", " ", name_ru).strip()
-    title = name_ru
-    weight = p.get("weight", "")
-    needs_weight = weight and weight not in title and "(" not in title
-    if len(title) < 50 and needs_weight:
-        title = f"{title} ({weight} кг)"
-    brand_ru = "Казанские Деликатесы"
-    if brand_ru.lower() not in title.lower() and len(title) + len(f" — {brand_ru}") <= 150:
-        title = f"{title} — {brand_ru}"
-    return title[:150]
-
-
-def derive_description_ru(p: dict) -> str:
-    """Build Russian description (>=150, <=5000 chars)."""
-    seo_title, headline, tagline, long_desc = parse_seo_ru(p.get("seoDescriptionRU", ""))
-    chunks = []
-    if long_desc and len(long_desc) >= 50:
-        chunks.append(long_desc)
-    elif headline and tagline:
-        chunks.append(headline)
-        chunks.append(tagline)
-    if sum(len(c) for c in chunks) < 500:
-        name_ru = derive_title_ru(p)
-        cat_ru = t_ru_category(p.get("category", ""))
-        sec_ru = t_ru_section(p.get("section", ""))
-        weight = p.get("weight", "")
-        shelf = p.get("shelfLife", "")
-        storage = p.get("storage", "")
-        chunks.append(
-            f"{name_ru} — халяль {cat_ru.lower()} от Казанских Деликатесов, категория {sec_ru.lower()}."
-        )
-        if weight:
-            chunks.append(f"Вес нетто: {weight} кг.")
-        if shelf:
-            chunks.append(f"Срок годности: {shelf}.")
-        if storage:
-            chunks.append(f"Хранение: {storage}.")
-        # Добавляем структурированные поля для полноты описания
-        if sum(len(c) for c in chunks) < 500:
-            article = p.get("articleNumber", "")
-            barcode = p.get("barcode", "")
-            diameter = p.get("diameter", "")
-            casing = p.get("casing", "")
-            packaging = p.get("packageType", "")
-            min_order = p.get("minOrder", "")
-            cooking = p.get("cookingMethods", "")
-            ingredients = p.get("ingredientsRU", "") or p.get("ingredients", "")
-            nutrition = p.get("nutritionalValue", "")
-            hs_code = p.get("hsCode", "")
-            if article:
-                chunks.append(f"Артикул: {article}.")
-            if barcode:
-                chunks.append(f"Штрихкод: {barcode}.")
-            if diameter:
-                chunks.append(f"Диаметр: {diameter} мм, подходит для профессионального слайсера.")
-            if casing:
-                chunks.append(f"Оболочка: {casing}.")
-            if packaging:
-                chunks.append(f"Упаковка: {packaging}.")
-            if min_order:
-                chunks.append(f"Минимальный заказ: {min_order} коробов.")
-            if hs_code:
-                chunks.append(f"Код ТН ВЭД: {hs_code}.")
-            if cooking:
-                chunks.append(f"Способ приготовления: {cooking}.")
-            if ingredients:
-                chunks.append(f"Состав: {ingredients}.")
-            if nutrition:
-                chunks.append(f"Пищевая ценность на 100г: {nutrition}.")
-    chunks.append(
-        "ХАЛЯЛЬ сертификат №614A/2024, выдан Духовным управлением мусульман Республики Татарстан (ДУМ РТ). "
-        "Производство сертифицировано по ХАССП и ISO 22000. 100% без свинины, из халяльного мяса "
-        "(говядина, индейка, курица, конина). Оптовые поставки напрямую от производителя из Казани, "
-        "Республика Татарстан. Отгрузка: EXW Казань (склад производителя) или РЦ Люберцы (Московская область)."
-    )
-    desc = " ".join(c for c in chunks if c).strip()
-    desc = re.sub(r"\s+", " ", desc)
-    if len(desc) < 150:
-        desc += (" Подходит для пиццерий, HoReCa, АЗС, розничных сетей, дистрибьюторов "
-                 "и операторов общественного питания. Идеально для хот-догов, пиццы, "
-                 "сэндвичей, бургеров и национальной кухни. Оптовые цены и экспортные "
-                 "котировки доступны на api.pepperoni.tatar.")
-    return desc[:5000]
-
-
-def derive_link_ru(p: dict) -> str:
-    sku = p.get("sku", "").lower()
-    return f"{BASE_URL}/products/{sku}"
 
 def load():
     products = json.loads(DATA.read_text(encoding="utf-8")).get("products", [])
@@ -297,41 +192,10 @@ def derive_description(p: dict, tr: dict) -> str:
             chunks.append(f"Shelf life: {shelf_clean}.")
         if storage:
             chunks.append(f"Storage: {storage}.")
-        # GMC requires >=500 chars — enrich with all available structured fields
-        if sum(len(c) for c in chunks) < 500:
-            article = p.get("articleNumber", "")
-            barcode = p.get("barcode", "")
-            packaging = p.get("packageType", "")
-            min_order = p.get("minOrder", "")
-            cooking = p.get("cookingMethods", "")
-            ingredients = p.get("ingredientsEN", "") or p.get("ingredients", "")
-            nutrition = p.get("nutritionalValue", "")
-            hs_code = p.get("hsCode", "")
-            if article:
-                chunks.append(f"Article number: {article}.")
-            if barcode:
-                chunks.append(f"Barcode: {barcode}.")
-            if diameter:
-                chunks.append(f"Diameter: {diameter} mm, ideal for professional slicing equipment.")
-            if casing:
-                chunks.append(f"Casing: {casing}.")
-            if packaging:
-                chunks.append(f"Packaging: {packaging}.")
-            if min_order:
-                chunks.append(f"Minimum order: {min_order} boxes.")
-            if hs_code:
-                chunks.append(f"HS code: {hs_code}.")
-            if cooking:
-                chunks.append(f"Preparation: {cooking}.")
-            if ingredients:
-                chunks.append(f"Ingredients: {ingredients}.")
-            if nutrition:
-                chunks.append(f"Nutritional information per 100g: {nutrition}.")
-        else:
-            if diameter:
-                chunks.append(f"Diameter: {diameter} mm.")
-            if casing:
-                chunks.append(f"Casing: {casing}.")
+        if diameter:
+            chunks.append(f"Diameter: {diameter} mm.")
+        if casing:
+            chunks.append(f"Casing: {casing}.")
     # Halal + sourcing pitch — always include for AI parsing
     chunks.append(
         "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
@@ -339,37 +203,49 @@ def derive_description(p: dict, tr: dict) -> str:
         "(beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. "
         "Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region)."
     )
-    # Mandatory product use-case paragraph for GMC minimum length
-    sec = p.get("section", "")
-    if "выпечк" in sec.lower() or "bakery" in sec.lower():
-        chunks.append(
-            "This halal Tatar bakery product is produced using traditional recipes. "
-            "Ready to heat and serve — ideal for cafes and restaurant chains looking "
-            "to expand their menu with authentic ethnic cuisine offerings."
-        )
-    else:
-        chunks.append(
-            "Versatile halal meat product designed for professional foodservice use. "
-            "Suitable for hot dogs, pizza toppings, salads, sandwiches, and grill menus. "
-            "Consistent quality, stable pricing, and reliable supply chain for wholesale buyers."
-        )
     desc = " ".join(c for c in chunks if c).strip()
     # Clean double-spaces and ensure 500-5000 char window
     desc = re.sub(r"\s+", " ", desc)
     desc = cleanse_description(desc)
     if len(desc) < 500:
-        desc += (
-            " Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
-            "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, pizza toppings, "
-            "sandwiches, burgers, and national cuisine applications. Wholesale pricing available. "
-            "Live prices and export quotes at api.pepperoni.tatar."
-        )
+        desc += (" Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
+                 "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, pizza toppings, "
+                 "sandwiches, burgers, and national cuisine applications. Wholesale pricing available. "
+                 "Live prices and export quotes at api.pepperoni.tatar.")
     return desc[:5000]
 
 
 def derive_link(p: dict) -> str:
     sku = p.get("sku", "").lower()
     return f"{BASE_URL}/en/products/{sku}"
+
+
+def safe_shopping_url(url: str) -> str:
+    """Percent-encode path (by segment) and query; keep already-% encoded paths intact."""
+    if not url or not isinstance(url, str):
+        return url
+    u = url.strip()
+    low = u.lower()
+    if not (low.startswith("http://") or low.startswith("https://")):
+        return u
+    p = urlsplit(u)
+    path = p.path
+    if "%" not in path:
+        path = "/".join(quote(seg, safe="") if seg else seg for seg in path.split("/"))
+    q = urlencode(parse_qsl(p.query, keep_blank_values=True), doseq=True)
+    return urlunsplit((p.scheme, p.netloc, path, q, p.fragment))
+
+
+def with_openai_feed_attribution(product_url: str) -> str:
+    """Product landing URL + stable UTM block (OpenAI: feed attribution)."""
+    base = safe_shopping_url(product_url.strip())
+    p = urlsplit(base)
+    merged = dict(parse_qsl(p.query, keep_blank_values=True))
+    for k, v in OPENAI_FEED_UTM:
+        merged[k] = v
+    ordered = sorted(merged.items(), key=lambda kv: kv[0])
+    q = urlencode(ordered, doseq=True)
+    return urlunsplit((p.scheme, p.netloc, p.path, q, p.fragment))
 
 
 def derive_link_ru(p: dict) -> str:
@@ -445,32 +321,6 @@ def derive_price_no_vat(p: dict) -> str:
         v = float(str(pr).replace(",", "."))
         return f"{v:.2f} {CURRENCY}"
     except Exception:
-        return ""
-def derive_price_usd(p: dict) -> str:
-    """USD price from exportPrices (for EN feed → GMC currency match)."""
-    offers = p.get("offers") or {}
-    ep = offers.get("exportPrices") or {}
-    usd = ep.get("USD")
-    if usd is None:
-        return ""
-    try:
-        v = float(str(usd).replace(",", "."))
-        return f"{v:.2f} USD"
-    except (ValueError, TypeError):
-        return ""
-
-
-def derive_price_usd_no_vat(p: dict) -> str:
-    """Approximate USD ex-VAT (price / 1.20)."""
-    offers = p.get("offers") or {}
-    ep = offers.get("exportPrices") or {}
-    usd = ep.get("USD")
-    if usd is None:
-        return ""
-    try:
-        v = float(str(usd).replace(",", "."))
-        return f"{v / 1.20:.2f} USD"
-    except (ValueError, TypeError):
         return ""
 
 
@@ -609,11 +459,12 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         avail = "backorder"
 
     addl = [normalize_image_url(p.get(k)) for k in ("imagePack", "imageSlice")]
-    addl = [u for u in addl if u]
+    addl = [safe_shopping_url(u) for u in addl if u]
     main_img = (normalize_image_url(p.get("imageMain"))
                 or normalize_image_url(p.get("image"))
                 or OG_BY_SECTION.get(p.get("section"), "")
                 or DEFAULT_IMAGE)
+    main_img = safe_shopping_url(main_img) if main_img else ""
 
     google_cat_id, google_cat_path = derive_taxonomy(p)
     product_type = derive_product_type(p, tr)
@@ -626,14 +477,14 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "item_id": sku,
         "title": derive_title(p, tr),
         "description": derive_description(p, tr),
-        "url": derive_link(p),
+        "url": with_openai_feed_attribution(derive_link(p)),
         "brand": BRAND,
         "image_url": main_img,
         "price": price_str,
         "availability": avail,
         "seller_name": BRAND,
-        "seller_url": "https://kazandelikates.tatar",
-        "return_policy": "https://pepperoni.tatar/returns",
+        "seller_url": safe_shopping_url("https://kazandelikates.tatar"),
+        "return_policy": safe_shopping_url("https://pepperoni.tatar/returns"),
         "target_countries": "RU,KZ,BY,UZ,KG,AZ",
         "store_country": "RU",
         # OpenAI recommended
@@ -647,7 +498,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "item_weight_unit": "kg",
         "weight": weight_str,
         "expiration_date": derive_expiration_date(p),
-        "seller_privacy_policy": "https://pepperoni.tatar/privacy",
+        "seller_privacy_policy": safe_shopping_url("https://pepperoni.tatar/privacy"),
         "accepts_returns": "false",
         "shipping": derive_openai_shipping(p),
         # Extra AI context
@@ -719,7 +570,6 @@ def write_openai_csv_gz(products: list, tr: dict, path: Path):
 # ----------------------------------------------------------------------
 # CSV output (Google Merchant Center TSV)
 # ----------------------------------------------------------------------
-
 def write_csv(rows: list, path: Path):
     if not rows:
         return
@@ -907,135 +757,6 @@ def write_json(rows: list, products: list, path: Path):
     print(f"OK JSON  {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
 
 
-
-def write_json_ru(products: list, path: Path):
-    """Generate Russian-language JSON feed (Schema.org ItemList) for AI Shopping."""
-    BRAND_RU = "Казанские Деликатесы"
-    item_list = []
-    for p in products:
-        offer = (p.get("offers") or {})
-        sku = p.get("sku", "").lower()
-        price_str = derive_price(p)
-        try:
-            price_val = float(str(price_str).replace(",", ".").split()[0]) if price_str else None
-        except (ValueError, IndexError):
-            price_val = None
-        price_excl = derive_price_no_vat(p)
-        try:
-            price_excl_val = float(str(price_excl).replace(",", ".").split()[0]) if price_excl else None
-        except (ValueError, IndexError):
-            price_excl_val = None
-
-        image = (normalize_image_url(p.get("imageMain"))
-                 or normalize_image_url(p.get("image"))
-                 or OG_BY_SECTION.get(p.get("section"), "")
-                 or DEFAULT_IMAGE)
-        addl_images = []
-        for k in ("imagePack", "imageSlice"):
-            v = normalize_image_url(p.get(k))
-            if v and v != image:
-                addl_images.append(v)
-
-        item_list.append({
-            "@type": "Product",
-            "@id": f"{BASE_URL}/products/{sku}#product",
-            "sku": sku.upper(),
-            "mpn": p.get("articleNumber", "") or sku.upper(),
-            "gtin13": p.get("barcode", "") or None,
-            "name": derive_title_ru(p),
-            "description": derive_description_ru(p),
-            "image": [image] + addl_images,
-            "url": derive_link_ru(p),
-            "brand": {"@type": "Brand", "name": BRAND_RU},
-            "manufacturer": {
-                "@type": "Organization",
-                "name": BRAND_RU,
-                "url": "https://kazandelikates.tatar",
-                "address": {
-                    "@type": "PostalAddress",
-                    "streetAddress": "ул. Аграрная, 2",
-                    "addressLocality": "Казань",
-                    "addressRegion": "Татарстан",
-                    "postalCode": "420059",
-                    "addressCountry": "RU",
-                },
-            },
-            "countryOfOrigin": "RU",
-            "category": f"{p.get('section', '')} > {p.get('category', '')} > {derive_title_ru(p)}",
-            "hasCertification": {
-                "@type": "Certification",
-                "name": "Халяль",
-                "identifier": "614A/2024",
-                "issuedBy": {
-                    "@type": "Organization",
-                    "name": "Духовное управление мусульман Республики Татарстан (ДУМ РТ)",
-                    "url": "https://dumrt.ru",
-                },
-            },
-            "offers": {
-                "@type": "Offer",
-                "url": derive_link_ru(p),
-                "priceCurrency": offer.get("priceCurrency", CURRENCY),
-                "price": price_val,
-                "priceExclVAT": price_excl_val,
-                "availability": offer.get("availability", "https://schema.org/InStock"),
-                "itemCondition": "https://schema.org/NewCondition",
-                "seller": {"@type": "Organization", "name": BRAND_RU, "url": "https://kazandelikates.tatar"},
-                "exportPrices": offer.get("exportPrices"),
-                "shippingDetails": {
-                    "@type": "OfferShippingDetails",
-                    "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
-                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": CURRENCY},
-                    "shippingOrigin": {
-                        "@type": "DefinedRegion",
-                        "addressLocality": "Казань",
-                        "addressCountry": "RU",
-                    },
-                    "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"},
-                    },
-                },
-            },
-            "additionalProperty": [
-                {"@type": "PropertyValue", "name": "халяль", "value": True},
-                {"@type": "PropertyValue", "name": "категория", "value": p.get("section", "")},
-                {"@type": "PropertyValue", "name": "тип", "value": p.get("category", "")},
-                {"@type": "PropertyValue", "name": "срокГодности", "value": p.get("shelfLife", "")},
-                {"@type": "PropertyValue", "name": "хранение", "value": p.get("storage", "")},
-                {"@type": "PropertyValue", "name": "тнВэд", "value": p.get("hsCode", "")},
-                {"@type": "PropertyValue", "name": "вес_кг", "value": normalize_weight(p.get("weight", ""))},
-                {"@type": "PropertyValue", "name": "минЗаказ_коробов", "value": p.get("minOrder", "")},
-                {"@type": "PropertyValue", "name": "диаметр_мм", "value": p.get("diameter", "")},
-                {"@type": "PropertyValue", "name": "оболочка", "value": p.get("casing", "")},
-                {"@type": "PropertyValue", "name": "упаковка", "value": p.get("packageType", "")},
-            ],
-        })
-
-    out = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "@id": f"{BASE_URL}/ru/products-feed.json",
-        "name": "Казанские Деликатесы — Каталог халяль продукции",
-        "description": "Машиночитаемый каталог 77 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
-        "url": f"{BASE_URL}/ru/products-feed.json",
-        "inLanguage": "ru",
-        "dateModified": datetime.now(timezone.utc).isoformat(),
-        "publisher": {
-            "@type": "Organization",
-            "name": BRAND_RU,
-            "url": "https://kazandelikates.tatar",
-            "logo": "https://pepperoni.tatar/images/logo.png",
-        },
-        "numberOfItems": len(item_list),
-        "itemListElement": [
-            {"@type": "ListItem", "position": i + 1, "item": p} for i, p in enumerate(item_list)
-        ],
-    }
-    path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"OK JSON RU {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
-
 def main():
     products, tr = load()
     rows = [build_row(p, tr) for p in products]
@@ -1043,11 +764,6 @@ def main():
     write_csv(rows, PUBLIC / "products-feed.csv")
     write_xml(rows, PUBLIC / "products-feed.xml")
     write_json(rows, products, PUBLIC / "products-feed.json")
-    # Russian-language JSON feed for AI Shopping (ChatGPT, Perplexity in Russian)
-    try:
-        write_json_ru(products, PUBLIC / "ru" / "products-feed.json")
-    except Exception as e:
-        print(f"WARN Russian JSON feed generation failed: {e}")
 
     # OpenAI Commerce CSV feed (ChatGPT product discovery)
     try:
@@ -1057,7 +773,11 @@ def main():
 
     # OpenAI Commerce gzip-compressed CSV (SFTP delivery)
     try:
-        write_openai_csv_gz(products, tr, PUBLIC / "products-feed-openai.csv.gz")
+        gz_path = PUBLIC / "products-feed-openai.csv.gz"
+        write_openai_csv_gz(products, tr, gz_path)
+        tsv_gz = PUBLIC / "products-feed-openai.tsv.gz"
+        shutil.copyfile(gz_path, tsv_gz)
+        print(f"OK OpenAI TSV.GZ {tsv_gz} — {tsv_gz.stat().st_size//1024} KB (alias for OpenAI file-upload naming)")
     except Exception as e:
         print(f"WARN OpenAI Commerce CSV.GZ generation failed: {e}")
 
@@ -1069,7 +789,7 @@ def main():
     no_price = sum(1 for r in rows if not r["price"])
     print(f"\nFeed health:")
     print(f"  Short titles (<30 char): {short_titles}/{len(rows)}")
-    print(f"  Short descs  (<150 char): {short_descs}/{len(rows)}")
+    print(f"  Short descs  (<500 char): {short_descs}/{len(rows)}")
     print(f"  Missing image  (fallback): {no_image}/{len(rows)}")
     print(f"  Missing GTIN              : {no_gtin}/{len(rows)}")
     print(f"  Missing price             : {no_price}/{len(rows)}")

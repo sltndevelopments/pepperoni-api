@@ -1,6 +1,6 @@
 # ai.txt — AI crawler discovery manifest for pepperoni.tatar
 # https://ai.txt-spec.org/ · convention adopted by GPTBot, ClaudeBot, PerplexityBot
-# Last updated: 2026-05-13
+# Last updated: 2026-05-12
 
 # ─────────────────────────────────────────────────────────────────────────────
 # About
@@ -58,12 +58,12 @@ Allow: /
 # https://api.pepperoni.tatar/openapi.yaml    (OpenAPI 3.0.3 spec)
 
 # Product feeds (Google Merchant / OpenAI Commerce / Bing Shopping):
-# https://pepperoni.tatar/products-feed.csv   (TSV, GMC format)
-# https://pepperoni.tatar/products-feed.xml   (RSS 2.0 with g: namespace)
-# https://pepperoni.tatar/products-feed.json  (Schema.org ItemList)
-# https://pepperoni.tatar/ru/products-feed.json (Schema.org ItemList, русский)
+# https://pepperoni.tatar/products-feed.csv          (TSV, GMC format)
+# https://pepperoni.tatar/products-feed.xml          (RSS 2.0 with g: namespace)
+# https://pepperoni.tatar/products-feed.json         (Schema.org ItemList)
 # https://pepperoni.tatar/products-feed-openai.csv   (OpenAI Commerce TSV)
-# https://pepperoni.tatar/products-feed-openai.csv.gz (OpenAI Commerce gzip / SFTP)
+# https://pepperoni.tatar/products-feed-openai.csv.gz (OpenAI Commerce gzip/SFTP)
+# https://pepperoni.tatar/products-feed-openai.tsv.gz (same bytes; name matches tsv.gz in file-upload overview)
 
 # Discovery:
 # https://pepperoni.tatar/sitemap.xml             (806 URLs)
