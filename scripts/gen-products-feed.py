@@ -582,7 +582,7 @@ def write_xml(rows: list, path: Path):
         lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
         lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
         lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-        lines.append(f"      <g:shipping><g:country>RU</g:country><g:price>0.00 {CURRENCY}</g:price></g:shipping>")
+        lines.append(f"      <g:shipping><g:country>RU</g:country><g:price>0.00 USD</g:price></g:shipping>")
         if r["shipping_weight"]:
             lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
         lines.append(f"      <g:tax><g:country>RU</g:country><g:rate>20</g:rate><g:tax_ship>y</g:tax_ship></g:tax>")
