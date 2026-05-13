@@ -647,7 +647,7 @@ footer a{{color:#888;text-decoration:none}}
 <h1>{h1}</h1>
 <p class="hero-subtitle">{subtitle}</p>
 <span class="badge">HALAL #614A/2024</span>
-<span class="badge badge-outline">HACCP + FSSC 22000</span>
+<span class="badge badge-outline">HACCP + ISO 22000:2018</span>
 <span class="badge badge-outline">Weekly shipments</span>
 <span class="badge badge-outline">EXW Kazan / Lyubertsy DC</span>
 
