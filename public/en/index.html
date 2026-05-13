@@ -122,6 +122,15 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .capability-card{background:var(--green-light);border-radius:var(--radius);padding:18px}
 .capability-card h3{font-size:.92rem;margin-bottom:6px}
 .capability-card p{font-size:.82rem;color:#444;line-height:1.5}
+.about-products{padding:20px 0 12px}
+.about-products__details{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+.about-products__summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:.95rem;color:var(--green-dark);list-style:none;-webkit-user-select:none;user-select:none;line-height:1.45}
+.about-products__summary::-webkit-details-marker{display:none}
+.about-products__hint{font-weight:500;color:var(--muted);font-size:.82rem}
+.about-products__details[open] .about-products__summary{border-bottom:1px solid var(--border);margin-bottom:4px}
+.about-products__text{padding:4px 18px 18px}
+.about-products__text h3{font-size:1.02rem;margin:18px 0 8px;color:var(--green-dark)}
+.about-products__text p{color:#444;font-size:.9rem;line-height:1.65;margin-bottom:14px}
 .segments__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px}
 .seg-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}
 .seg-card:hover{box-shadow:var(--shadow);border-color:var(--green);transform:translateY(-2px)}
@@ -320,8 +329,9 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 
 <section class="about-products">
   <div class="container">
-    <h2 class="section-title">Halal Pepperoni & Sausages Wholesale from the Manufacturer</h2>
-    <div class="about-products__text">
+    <details class="about-products__details">
+      <summary class="about-products__summary">Halal pepperoni &amp; sausages wholesale from the manufacturer — <span class="about-products__hint">expand full description</span></summary>
+      <div class="about-products__text">
       <p>Kazan Delicacies is a halal meat products manufacturer for HoReCa and retail based in Kazan, Russia. Since 2022 we produce pepperoni, sausages, hot dogs, meat semi-finished products and traditional Tatar pastries wholesale. All products are certified Halal (Muslim Spiritual Board of Tatarstan No. 614A/2024), compliant with HACCP and ISO 22000:2018. Our in-house laboratory controls quality at every stage — from incoming raw materials to shipment of finished products in corrugated boxes.</p>
       <h3>Pepperoni Wholesale</h3>
       <p>Halal pepperoni is our flagship product. We produce boiled-smoked and dry-cured pepperoni from beef, horse meat and turkey. Diameter from 22 to 55 mm, any cut: sliced, diced, whole stick. Gas-flushed or vacuum packaging. We supply pepperoni wholesale for pizzerias, bakeries, delivery services and retail chains. Contract slicing to customer specifications. Consistent batch-to-batch quality with laboratory confirmation and test protocols.</p>
@@ -333,6 +343,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
       <p>We operate across Russia and export to CIS countries and the UAE. EXW Kazan shipment or delivery via our distribution warehouse in Lyubertsy (Moscow region). We accept orders from 1 box of any catalog item. Individual terms for distributors, wholesale buyers and retail chains. Private Label (OEM) — we produce sausages and pastries under your brand: from recipe and specification development to serial production in your packaging. Full-cycle contract manufacturing of halal products at our own factory in Kazan.</p>
       <p>Kazan Delicacies products are already available in retail chains across Tatarstan and neighboring regions. We export to Kazakhstan, Belarus, Uzbekistan, Kyrgyzstan, Azerbaijan and the UAE. For export shipments we provide a complete package of documents: veterinary certificates, Halal certificates, TR CU declarations. Contact our sales department for the current price list and delivery cost calculation to your city.</p>
     </div>
+    </details>
   </div>
 </section>
 
