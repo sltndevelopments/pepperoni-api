@@ -140,7 +140,7 @@ footer a{{color:#888;text-decoration:none}}
   <h1>{h1}</h1>
   <p class="hero-subtitle">{subtitle}</p>
   <span class="badge">HALAL #614A/2024</span>
-  <span class="badge badge-outline">HACCP + FSSC 22000</span>
+  <span class="badge badge-outline">HACCP + ISO 22000:2018</span>
   <span class="badge badge-outline">EXW Kazan</span>
   <span class="badge badge-outline">Made in Tatarstan</span>
 
@@ -151,7 +151,7 @@ footer a{{color:#888;text-decoration:none}}
     <ul style="margin-left:0;list-style:none">
       <li>✅ <strong>100% Halal</strong> — certified by Muslim Spiritual Board of Tatarstan (#614A/2024)</li>
       <li>✅ <strong>Direct from manufacturer</strong> — no middlemen, factory pricing EXW Kazan</li>
-      <li>✅ <strong>HACCP + FSSC 22000</strong> — full quality control at every production stage</li>
+      <li>✅ <strong>HACCP + ISO 22000:2018</strong> — full quality control at every production stage</li>
       <li>✅ <strong>No pork, no GMO, no meat glue</strong> — strictly halal ingredients only</li>
       <li>✅ <strong>Private Label available</strong> — production under your brand from 500 kg/month</li>
       <li>✅ <strong>Flexible logistics</strong> — refrigerated truck delivery, veterinary certificates included</li>
@@ -299,7 +299,7 @@ def build_page(info: dict) -> str:
         },
         "additionalProperty": [
             {"@type": "PropertyValue", "name": "Certification", "value": "Halal #614A/2024 (DUM RT)"},
-            {"@type": "PropertyValue", "name": "Quality Control", "value": "HACCP + FSSC 22000"},
+            {"@type": "PropertyValue", "name": "Quality Control", "value": "HACCP + ISO 22000:2018"},
             {"@type": "PropertyValue", "name": "Market", "value": city_en}
         ],
         "offers": {"@type": "Offer", "priceCurrency": "RUB", "availability": "https://schema.org/InStock"}
@@ -323,7 +323,7 @@ def build_page(info: dict) -> str:
         title = f"{product_label} {city_en} — Wholesale Halal Supplier | Kazan Delicacies"
         keywords = f"halal {product_label.lower()} {city_en.lower()}, {product_label.lower()} wholesale {city_en.lower()}, halal supplier {city_en.lower()}, kazan delicacies {city_en.lower()}"
 
-    description = subtitle + f" Halal Certificate #614A/2024 (DUM RT). HACCP + FSSC 22000. Direct factory pricing, EXW Kazan."
+    description = subtitle + f" Halal Certificate #614A/2024 (DUM RT). HACCP + ISO 22000:2018. Direct factory pricing, EXW Kazan."
 
     return TPL.format(
         slug=ru_slug,

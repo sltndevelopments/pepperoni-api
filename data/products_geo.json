@@ -1,8 +1,8 @@
 {
   "certs_block": {
-    "ru": "Сертификаты: Халяль (ДУМ РТ №614A/2024), HACCP, FSSC 22000, ISO 22000, ТР ТС 021/2011. Производство без нитрита натрия. Чистый состав без ГМО и красителей. Private Label / СТМ.",
-    "en": "Certifications: Halal (DUM RT #614A/2024), HACCP, FSSC 22000, ISO 22000, TR CU 021/2011. No sodium nitrite. Clean label — no GMO, no artificial colors. Private Label available.",
-    "ar": "شهادات: حلال (DUM RT رقم 614A/2024)، HACCP، FSSC 22000، ISO 22000. بدون نيتريت الصوديوم. تسمية نظيفة بدون معدلات وراثية. الإنتاج بالعلامة التجارية الخاصة."
+    "ru": "Сертификаты: Халяль (ДУМ РТ №614A/2024), HACCP, ISO 22000:2018, ТР ТС 021/2011. Производство без нитрита натрия. Чистый состав без ГМО и красителей. Private Label / СТМ.",
+    "en": "Certifications: Halal (DUM RT #614A/2024), HACCP, ISO 22000:2018, TR CU 021/2011. No sodium nitrite. Clean label — no GMO, no artificial colors. Private Label available.",
+    "ar": "شهادات: حلال (DUM RT رقم 614A/2024)، HACCP، ISO 22000:2018. بدون نيتريت الصوديوم. تسمية نظيفة بدون معدلات وراثية. الإنتاج بالعلامة التجارية الخاصة."
   },
   "products": [
     {
@@ -27,7 +27,7 @@
       "page_variants": [
         "horeca", "pizzeria", "retail", "optom", "private-label"
       ],
-      "usp_ru": "Единственный в России производитель халяль пепперони из говядины, курицы и конины. Диаметры 40-75 мм. HACCP, FSSC 22000, Халяль ДУМ РТ. Private Label."
+      "usp_ru": "Единственный в России производитель халяль пепперони из говядины, курицы и конины. Диаметры 40-75 мм. HACCP, ISO 22000:2018, Халяль ДУМ РТ. Private Label."
     },
     {
       "id": "sosiki-hotdog",
@@ -44,7 +44,7 @@
       ],
       "keywords_ru": ["сосиски для хот-догов оптом", "хот-дог сосиски халяль", "сосиски хот-дог производитель", "сосиски оптом для общепита"],
       "keywords_en": ["halal hot dog sausages wholesale", "halal sausages supplier"],
-      "usp_ru": "Халяль сосиски для хот-догов из говядины и курицы. Без нитрита натрия. Поставки для сетей фастфуд, уличной еды, HoReCa. HACCP, FSSC 22000."
+      "usp_ru": "Халяль сосиски для хот-догов из говядины и курицы. Без нитрита натрия. Поставки для сетей фастфуд, уличной еды, HoReCa. HACCP, ISO 22000:2018."
     },
     {
       "id": "sosiki-v-teste",
@@ -77,7 +77,7 @@
       ],
       "keywords_ru": ["ветчина халяль оптом", "ветчина говяжья оптом", "ветчина без нитрита", "ветчина производитель"],
       "keywords_en": ["halal ham wholesale", "halal turkey ham supplier", "beef ham no nitrite"],
-      "usp_ru": "Ветчины из говядины, индейки и курицы. Без нитрита натрия, чистый состав. Халяль, HACCP, FSSC 22000."
+      "usp_ru": "Ветчины из говядины, индейки и курицы. Без нитрита натрия, чистый состав. Халяль, HACCP, ISO 22000:2018."
     },
     {
       "id": "kotlety-burgery",
@@ -95,7 +95,7 @@
       "formats": ["90г", "120г", "150г", "180г", "замороженные IQF", "охлаждённые"],
       "keywords_ru": ["котлеты для бургеров оптом", "бургерные котлеты халяль", "котлеты для бургеров производитель", "котлеты IQF оптом"],
       "keywords_en": ["halal burger patties wholesale", "beef burger patties supplier", "halal IQF patties"],
-      "usp_ru": "Котлеты для бургеров из говядины и курицы. Форматы 90-180г. IQF заморозка. Халяль, HACCP, FSSC 22000. Для бургерных, HoReCa, ретейла."
+      "usp_ru": "Котлеты для бургеров из говядины и курицы. Форматы 90-180г. IQF заморозка. Халяль, HACCP, ISO 22000:2018. Для бургерных, HoReCa, ретейла."
     },
     {
       "id": "farsh",
@@ -113,7 +113,7 @@
       ],
       "keywords_ru": ["фарш халяль оптом", "говяжий фарш оптом", "фарш производитель", "фарш для общепита"],
       "keywords_en": ["halal minced meat wholesale", "halal beef mince supplier"],
-      "usp_ru": "Халяль фарши из говядины, курицы, индейки. Замороженные и охлаждённые. Для предприятий общепита, кулинарий, ретейла. HACCP, FSSC 22000."
+      "usp_ru": "Халяль фарши из говядины, курицы, индейки. Замороженные и охлаждённые. Для предприятий общепита, кулинарий, ретейла. HACCP, ISO 22000:2018."
     },
     {
       "id": "syroje-myaso",
@@ -131,7 +131,7 @@
       ],
       "keywords_ru": ["говядина халяль оптом", "курица халяль оптом", "конина халяль оптом", "мясо халяль производитель"],
       "keywords_en": ["halal beef wholesale", "halal chicken wholesale", "halal horse meat supplier"],
-      "usp_ru": "Сырое халяль мясо: говядина, курица, конина, индейка. Сертифицировано ДУМ РТ. HACCP, FSSC 22000. Поставки для производств, HoReCa, ретейла."
+      "usp_ru": "Сырое халяль мясо: говядина, курица, конина, индейка. Сертифицировано ДУМ РТ. HACCP, ISO 22000:2018. Поставки для производств, HoReCa, ретейла."
     },
     {
       "id": "kolbasnye",
@@ -146,9 +146,9 @@
         {"slug": "kolbasa-kopchonaya", "name_ru": "Колбаса копчёная халяль", "name_en": "Smoked Halal Sausage"},
         {"slug": "sosisy-molochnie", "name_ru": "Сосиски молочные халяль", "name_en": "Halal Milk Sausages"}
       ],
-      "usp_ru": "Колбасные изделия БЕЗ нитрита натрия. Чистый состав без ГМО, красителей, консервантов. Халяль ДУМ РТ, HACCP, FSSC 22000. Уникальное предложение для здорового питания.",
-      "keywords_ru": ["колбаса без нитрита натрия оптом", "колбаса халяль чистый состав", "колбаса ХАССП", "колбаса FSSC оптом"],
-      "keywords_en": ["halal sausage no nitrite wholesale", "clean label halal sausage", "FSSC 22000 halal sausage"],
+      "usp_ru": "Колбасные изделия БЕЗ нитрита натрия. Чистый состав без ГМО, красителей, консервантов. Халяль ДУМ РТ, HACCP, ISO 22000:2018. Уникальное предложение для здорового питания.",
+      "keywords_ru": ["колбаса без нитрита натрия оптом", "колбаса халяль чистый состав", "колбаса ХАССП", "колбаса ISO 22000 оптом"],
+      "keywords_en": ["halal sausage no nitrite wholesale", "clean label halal sausage", "ISO 22000:2018 halal sausage"],
       "differentiator": "БЕЗ нитрита натрия — ключевое конкурентное преимущество"
     },
     {
@@ -166,7 +166,7 @@
       ],
       "keywords_ru": ["пельмени халяль оптом", "пельмени без свинины оптом", "пельмени производитель", "пельмени для общепита"],
       "keywords_en": ["halal pelmeni wholesale", "Russian dumplings halal supplier", "halal dumplings B2B"],
-      "usp_ru": "Пельмени халяль из говядины и курицы. Замороженные. Без нитрита натрия. HACCP, FSSC 22000. Идеально для ретейла, кулинарий, общепита."
+      "usp_ru": "Пельмени халяль из говядины и курицы. Замороженные. Без нитрита натрия. HACCP, ISO 22000:2018. Идеально для ретейла, кулинарий, общепита."
     },
     {
       "id": "vypechka-klassicheskaya",
@@ -184,7 +184,7 @@
       ],
       "keywords_ru": ["выпечка халяль оптом", "пирожки халяль оптом", "самса халяль оптом", "выпечка для кафе оптом"],
       "keywords_en": ["halal bakery wholesale", "halal piroshki supplier", "halal pastry B2B"],
-      "usp_ru": "Классическая халяль выпечка: пирожки, чебуреки, самса. Замороженные полуфабрикаты и готовая продукция. HACCP, FSSC 22000."
+      "usp_ru": "Классическая халяль выпечка: пирожки, чебуреки, самса. Замороженные полуфабрикаты и готовая продукция. HACCP, ISO 22000:2018."
     },
     {
       "id": "vypechka-tatarskaya",
@@ -204,7 +204,7 @@
       ],
       "keywords_ru": ["татарская выпечка оптом", "эчпочмак оптом", "халяль татарская кухня оптом", "национальная выпечка для ресторанов"],
       "keywords_en": ["Tatar bakery wholesale", "echpochmak halal supplier", "traditional Tatar food B2B"],
-      "usp_ru": "Аутентичная татарская выпечка — эчпочмак, перемяч, губадия, казылык. Производство в Казани. Халяль, HACCP, FSSC 22000. Уникальный продукт для ресторанов татарской кухни."
+      "usp_ru": "Аутентичная татарская выпечка — эчпочмак, перемяч, губадия, казылык. Производство в Казани. Халяль, HACCP, ISO 22000:2018. Уникальный продукт для ресторанов татарской кухни."
     },
     {
       "id": "private-label",
@@ -218,8 +218,8 @@
       "keywords_ru": ["производство СТМ халяль", "private label мясные изделия", "СТМ пепперони", "производство под брендом заказчика", "контрактное производство мяса"],
       "keywords_en": ["halal private label manufacturing", "OEM halal meat products", "contract halal production Russia"],
       "keywords_ar": ["إنتاج حلال بالعلامة الخاصة", "مصنع حلال خاص"],
-      "usp_ru": "Производство мясных изделий под вашим брендом (СТМ/Private Label). Разработка рецептуры, дизайн упаковки, от 100 кг. Халяль, HACCP, FSSC 22000. Пепперони, сосиски, котлеты, пельмени под вашим брендом.",
-      "usp_en": "Halal private label manufacturing of pepperoni, sausages, burger patties, and dumplings. Custom recipes, packaging design, minimum 100 kg. HACCP, FSSC 22000, Halal certified."
+      "usp_ru": "Производство мясных изделий под вашим брендом (СТМ/Private Label). Разработка рецептуры, дизайн упаковки, от 100 кг. Халяль, HACCP, ISO 22000:2018. Пепперони, сосиски, котлеты, пельмени под вашим брендом.",
+      "usp_en": "Halal private label manufacturing of pepperoni, sausages, burger patties, and dumplings. Custom recipes, packaging design, minimum 100 kg. HACCP, ISO 22000:2018, Halal certified."
     }
   ],
   "page_types": {

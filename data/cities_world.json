@@ -5,7 +5,7 @@
       "langs": ["ru", "kk"],
       "currency": "KZT", "halal_note_ru": "95% мусульманское население, крупнейший рынок СНГ для халяль продукции",
       "halal_note_en": "95% Muslim population, largest CIS halal market",
-      "certs_required": ["Халяль ДУМ РТ", "ТР ТС 021/2011", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль ДУМ РТ", "ТР ТС 021/2011", "HACCP", "ISO 22000:2018"],
       "logistics": "автодоставка Казань-Алматы 2500 км, 48-72ч",
       "cities": [
         {"slug": "almaty", "name_ru": "Алматы", "name_kk": "Алматы", "population": "2 000 000", "horeca": "10 000+ заведений", "halal_demand": "очень высокий"},
@@ -30,7 +30,7 @@
       "langs": ["ru", "be"],
       "currency": "BYN", "halal_note_ru": "небольшое мусульманское население, но растущий спрос на чистый состав и халяль",
       "halal_note_en": "growing demand for clean-label and halal products",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "ТР ТС 021/2011"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018", "ТР ТС 021/2011"],
       "logistics": "автодоставка Казань-Минск 1600 км, 36ч",
       "cities": [
         {"slug": "minsk", "name_ru": "Минск", "name_be": "Мінск", "population": "2 000 000", "horeca": "8 000+ заведений", "halal_demand": "средний, растущий"},
@@ -46,7 +46,7 @@
       "langs": ["ru", "uz"],
       "currency": "UZS", "halal_note_ru": "96% мусульманское население, огромный рынок халяль",
       "halal_note_en": "96% Muslim population, major halal market",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "автодоставка Казань-Ташкент 3200 км, 72ч",
       "cities": [
         {"slug": "tashkent", "name_ru": "Ташкент", "name_uz": "Toshkent", "population": "2 800 000", "horeca": "12 000+ заведений", "halal_demand": "исключительно халяль рынок"},
@@ -63,7 +63,7 @@
       "langs": ["ru", "az"],
       "currency": "AZN", "halal_note_ru": "97% мусульманское население, развитый HoReCa рынок",
       "halal_note_en": "97% Muslim population, developed HoReCa market",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "авто Казань-Баку 2700 км, 60ч",
       "cities": [
         {"slug": "baku", "name_ru": "Баку", "name_az": "Bakı", "population": "2 300 000", "horeca": "10 000+ заведений", "halal_demand": "высокий, развитый туризм"},
@@ -77,7 +77,7 @@
       "langs": ["ru", "hy"],
       "currency": "AMD", "halal_note_ru": "небольшое мусульманское население, но спрос на качественные мясные изделия",
       "halal_note_en": "demand for quality meat products, growing expat community",
-      "certs_required": ["HACCP", "FSSC 22000", "Халяль"],
+      "certs_required": ["HACCP", "ISO 22000:2018", "Халяль"],
       "logistics": "авто Казань-Ереван 2900 км, 72ч",
       "cities": [
         {"slug": "yerevan", "name_ru": "Ереван", "name_hy": "Երևան", "population": "1 100 000", "horeca": "5 000+ заведений", "halal_demand": "средний, много русских экспатов"},
@@ -90,7 +90,7 @@
       "langs": ["ru", "ka"],
       "currency": "GEL", "halal_note_ru": "мусульманские регионы Аджария, Панкиси; туристический рынок",
       "halal_note_en": "Muslim regions in Adjaria; major tourist market",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "авто Казань-Тбилиси 2500 км, 60ч",
       "cities": [
         {"slug": "tbilisi", "name_ru": "Тбилиси", "name_ka": "თბილისი", "population": "1 200 000", "horeca": "6 000+ заведений (туризм)", "halal_demand": "средний, рост туристического HoReCa"},
@@ -103,7 +103,7 @@
       "langs": ["ru", "ky"],
       "currency": "KGS", "halal_note_ru": "90% мусульманское население, растущий рынок",
       "halal_note_en": "90% Muslim population, growing market",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "авто Казань-Бишкек 3000 км, 72ч",
       "cities": [
         {"slug": "bishkek", "name_ru": "Бишкек", "name_ky": "Бишкек", "population": "1 100 000", "horeca": "4 000+ заведений", "halal_demand": "высокий"},
@@ -116,7 +116,7 @@
       "langs": ["ru", "tg"],
       "currency": "TJS", "halal_note_ru": "99% мусульманское население, большая диаспора в России",
       "halal_note_en": "99% Muslim population, large diaspora in Russia",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "авто Казань-Душанбе 4000 км, 96ч",
       "cities": [
         {"slug": "dushanbe", "name_ru": "Душанбе", "name_tg": "Душанбе", "population": "950 000", "horeca": "3 000+ заведений", "halal_demand": "исключительно халяль"},
@@ -129,7 +129,7 @@
       "langs": ["ru", "ro"],
       "currency": "MDL", "halal_note_ru": "небольшое мусульманское население, спрос на качественную продукцию",
       "halal_note_en": "demand for quality meat products",
-      "certs_required": ["HACCP", "FSSC 22000", "Халяль"],
+      "certs_required": ["HACCP", "ISO 22000:2018", "Халяль"],
       "logistics": "авто Казань-Кишинёв 1800 км, 48ч",
       "cities": [
         {"slug": "chisinau", "name_ru": "Кишинёв", "name_ro": "Chișinău", "population": "800 000", "horeca": "3 000+ заведений", "halal_demand": "средний"},
@@ -141,7 +141,7 @@
       "langs": ["ru", "et", "en"],
       "currency": "EUR", "halal_note_ru": "русскоязычная диаспора 25%, интерес к качественным продуктам",
       "halal_note_en": "25% Russian-speaking diaspora, demand for quality products",
-      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "certs_required": ["HACCP", "ISO 22000:2018", "Халяль", "EU Food Safety"],
       "logistics": "авто Казань-Таллин 2100 км, 48ч",
       "cities": [
         {"slug": "tallinn", "name_ru": "Таллин", "name_et": "Tallinn", "population": "450 000", "horeca": "2 000+ заведений", "halal_demand": "небольшой, растущий"},
@@ -153,7 +153,7 @@
       "langs": ["ru", "lv", "en"],
       "currency": "EUR", "halal_note_ru": "русскоязычная диаспора 26%, интерес к продуктам без нитрита",
       "halal_note_en": "26% Russian-speaking diaspora, clean-label demand",
-      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "certs_required": ["HACCP", "ISO 22000:2018", "Халяль", "EU Food Safety"],
       "logistics": "авто Казань-Рига 1900 км, 42ч",
       "cities": [
         {"slug": "riga", "name_ru": "Рига", "name_lv": "Rīga", "population": "620 000", "horeca": "3 000+ заведений", "halal_demand": "небольшой, растущий"},
@@ -165,7 +165,7 @@
       "langs": ["ru", "lt", "en"],
       "currency": "EUR", "halal_note_ru": "русскоязычное и польское население, интерес к чистому составу",
       "halal_note_en": "demand for clean-label halal products",
-      "certs_required": ["HACCP", "FSSC 22000", "Халяль", "EU Food Safety"],
+      "certs_required": ["HACCP", "ISO 22000:2018", "Халяль", "EU Food Safety"],
       "logistics": "авто Казань-Вильнюс 1700 км, 40ч",
       "cities": [
         {"slug": "vilnius", "name_ru": "Вильнюс", "name_lt": "Vilnius", "population": "580 000", "horeca": "2 500+ заведений", "halal_demand": "небольшой"},
@@ -177,7 +177,7 @@
       "langs": ["ru", "mn"],
       "currency": "MNT", "halal_note_ru": "5% мусульманское население, интерес к качественным мясным полуфабрикатам",
       "halal_note_en": "5% Muslim population, growing demand for processed meat",
-      "certs_required": ["HACCP", "FSSC 22000"],
+      "certs_required": ["HACCP", "ISO 22000:2018"],
       "logistics": "авто Казань-Улан-Батор 5500 км, 7 дней",
       "cities": [
         {"slug": "ulaanbaatar", "name_ru": "Улан-Батор", "name_mn": "Улаанбаатар", "population": "1 500 000", "horeca": "3 000+ заведений", "halal_demand": "небольшой"},
@@ -189,7 +189,7 @@
       "langs": ["en", "ar"],
       "currency": "AED", "halal_note_ru": "76% мусульманское население, крупнейший хаб для экспорта на Ближний Восток",
       "halal_note_en": "76% Muslim, major hub for Middle East distribution, premium halal market",
-      "certs_required": ["Халяль ДУМ РТ", "HACCP", "FSSC 22000", "ESMA Halal", "Ветеринарный сертификат РФ"],
+      "certs_required": ["Халяль ДУМ РТ", "HACCP", "ISO 22000:2018", "ESMA Halal", "Ветеринарный сертификат РФ"],
       "logistics": "авиа Казань-Дубай 5ч, морской Новороссийск-Джебель-Али 14 дней",
       "export_note": "требуется ветеринарный сертификат для экспорта в ОАЭ, ESMA Halal сертификат",
       "cities": [
@@ -204,7 +204,7 @@
       "langs": ["en", "ar"],
       "currency": "SAR", "halal_note_ru": "100% халяль рынок, крупнейший импортёр продуктов питания на Ближнем Востоке",
       "halal_note_en": "100% halal market, largest food importer in Middle East",
-      "certs_required": ["Халяль ДУМ РТ", "HACCP", "FSSC 22000", "SASO Halal", "SFDA", "Ветеринарный сертификат РФ"],
+      "certs_required": ["Халяль ДУМ РТ", "HACCP", "ISO 22000:2018", "SASO Halal", "SFDA", "Ветеринарный сертификат РФ"],
       "logistics": "морской Новороссийск-Джидда 12 дней, авиа Казань-Эр-Рияд 5ч",
       "export_note": "требуется SASO сертификат, регистрация в SFDA",
       "cities": [
@@ -220,7 +220,7 @@
       "langs": ["en", "ar"],
       "currency": "QAR", "halal_note_ru": "77% мусульманское население, высокие доходы, premium сегмент",
       "halal_note_en": "77% Muslim, high income, premium food segment",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "QSSO Halal"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018", "QSSO Halal"],
       "logistics": "морской Новороссийск-Доха 15 дней",
       "cities": [
         {"slug": "doha", "name_ru": "Доха", "name_ar": "الدوحة", "population": "2 400 000", "horeca": "8 000+ restaurants", "halal_demand": "100% халяль, premium"}
@@ -231,7 +231,7 @@
       "langs": ["en", "ar"],
       "currency": "KWD", "halal_note_ru": "74% мусульманское население, один из богатейших рынков в мире",
       "halal_note_en": "74% Muslim, one of the wealthiest markets globally",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "морской Новороссийск-Эль-Кувейт 15 дней",
       "cities": [
         {"slug": "kuwait-city", "name_ru": "Эль-Кувейт", "name_ar": "مدينة الكويت", "population": "3 200 000", "horeca": "6 000+ restaurants", "halal_demand": "100% халяль"}
@@ -242,7 +242,7 @@
       "langs": ["en", "ar"],
       "currency": "BHD", "halal_note_ru": "73% мусульманское население, финансовый хаб Персидского залива",
       "halal_note_en": "73% Muslim, financial hub of the Gulf",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "морской Новороссийск-Манама 15 дней",
       "cities": [
         {"slug": "manama", "name_ru": "Манама", "name_ar": "المنامة", "population": "700 000", "horeca": "3 000+ restaurants", "halal_demand": "очень высокий"}
@@ -253,7 +253,7 @@
       "langs": ["en", "ar"],
       "currency": "OMR", "halal_note_ru": "87% мусульманское население, стратегическое расположение",
       "halal_note_en": "87% Muslim, strategic location",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018"],
       "logistics": "морской Новороссийск-Маскат 18 дней",
       "cities": [
         {"slug": "muscat", "name_ru": "Маскат", "name_ar": "مسقط", "population": "1 400 000", "horeca": "4 000+ restaurants", "halal_demand": "очень высокий"},
@@ -276,7 +276,7 @@
       "langs": ["en", "ar"],
       "currency": "EGP", "halal_note_ru": "90% мусульманское население, крупнейший рынок Африки и Ближнего Востока",
       "halal_note_en": "90% Muslim, largest market in Africa and Middle East",
-      "certs_required": ["Халяль", "HACCP", "FSSC 22000", "GHAE Halal"],
+      "certs_required": ["Халяль", "HACCP", "ISO 22000:2018", "GHAE Halal"],
       "logistics": "морской Новороссийск-Александрия 8 дней",
       "cities": [
         {"slug": "cairo", "name_ru": "Каир", "name_ar": "القاهرة", "population": "21 000 000", "horeca": "40 000+ restaurants", "halal_demand": "100% халяль, огромный рынок"},

@@ -41,8 +41,8 @@ def gen_ru() -> str:
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
-<meta name="description" content="Халяль пепперони, сосиски, котлеты для бургеров, татарская выпечка оптом от производителя в Казани. ХАССП, FSSC 22000, сертификат ДУМ РТ. EXW Казань. HoReCa, ретейл, экспорт СНГ.">
-<meta name="keywords" content="халяль пепперони оптом, сосиски халяль, котлеты для бургеров халяль, татарская выпечка, мясные изделия казань, производитель халяль, ХАССП, FSSC 22000">
+<meta name="description" content="Халяль пепперони, сосиски, котлеты для бургеров, татарская выпечка оптом от производителя в Казани. ХАССП, ISO 22000:2018, сертификат ДУМ РТ. EXW Казань. HoReCa, ретейл, экспорт СНГ.">
+<meta name="keywords" content="халяль пепперони оптом, сосиски халяль, котлеты для бургеров халяль, татарская выпечка, мясные изделия казань, производитель халяль, ХАССП, ISO 22000:2018">
 <meta name="author" content="Казанские Деликатесы">
 <meta name="robots" content="index, follow">
 <meta name="yandex-verification" content="d0a735c825c78ddf">
@@ -55,7 +55,7 @@ def gen_ru() -> str:
 <meta name="theme-color" content="#1b7a3d">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
-<meta property="og:description" content="Халяль пепперони, сосиски, котлеты, выпечка оптом. ХАССП, FSSC 22000, ДУМ РТ. Экспорт. EXW Казань.">
+<meta property="og:description" content="Халяль пепперони, сосиски, котлеты, выпечка оптом. ХАССП, ISO 22000:2018, ДУМ РТ. Экспорт. EXW Казань.">
 <meta property="og:url" content="https://pepperoni.tatar/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="ru_RU">
@@ -70,7 +70,7 @@ def gen_ru() -> str:
   "legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar",
   "logo":"https://pepperoni.tatar/images/logo.png",
   "email":"info@kazandelikates.tatar","telephone":"+79872170202",
-  "description":"Производитель халяль мясных изделий в Татарстане. Пепперони, сосиски, котлеты для бургеров, татарская выпечка. ХАССП, FSSC 22000. СТМ.",
+  "description":"Производитель халяль мясных изделий в Татарстане. Пепперони, сосиски, котлеты для бургеров, татарская выпечка. ХАССП, ISO 22000:2018. СТМ.",
   "address":{{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2","addressLocality":"Казань","postalCode":"420059","addressRegion":"Татарстан","addressCountry":"RU"}},
   "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"ДУМ РТ","url":"https://dumrt.ru"}}}},
   "contactPoint":[
@@ -214,7 +214,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <main>
 <section class="hero">
   <div class="container">
-    <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · FSSC 22000</div>
+    <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · ISO 22000:2018</div>
     <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
     <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
     <div class="hero__btns">
@@ -227,7 +227,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <div class="badges">
   <div class="container badges__inner">
     <span class="badges__item"><span class="dot"></span>Сертификат Халяль ДУМ РТ №614A/2024</span>
-    <span class="badges__item"><span class="dot"></span>ХАССП + FSSC 22000</span>
+    <span class="badges__item"><span class="dot"></span>ХАССП + ISO 22000:2018</span>
     <span class="badges__item"><span class="dot"></span>ТР ТС 021/2011</span>
     <span class="badges__item"><span class="dot"></span>EXW Казань · Склад Люберцы</span>
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
@@ -263,7 +263,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="certs__inner">
       <div class="cert-item"><div class="cert-item__name">☪️ Халяль</div><div class="cert-item__desc">ДУМ РТ №614A/2024</div></div>
       <div class="cert-item"><div class="cert-item__name">✅ ХАССП</div><div class="cert-item__desc">Hazard Analysis</div></div>
-      <div class="cert-item"><div class="cert-item__name">🏆 FSSC 22000</div><div class="cert-item__desc">Food Safety</div></div>
+      <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
       <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
       <div class="cert-item"><div class="cert-item__name">🇷🇺 ТР ТС 021/2011</div><div class="cert-item__desc">Таможенный союз</div></div>
       <div class="cert-item"><div class="cert-item__name">🐄 Ветеринарные</div><div class="cert-item__desc">Свидетельства РФ</div></div>
@@ -374,7 +374,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar">pepperoni.tatar</a> &nbsp;·&nbsp;
-      Халяль · ХАССП · FSSC 22000 · EXW Казань
+      Халяль · ХАССП · ISO 22000:2018 · EXW Казань
     </div>
   </div>
 </footer>
@@ -525,8 +525,8 @@ def gen_en() -> str:
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
-<meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, FSSC 22000, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
-<meta name="keywords" content="halal pepperoni wholesale, halal meat manufacturer Russia, halal sausages supplier, burger patties halal, Tatar bakery wholesale, HACCP FSSC 22000">
+<meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
+<meta name="keywords" content="halal pepperoni wholesale, halal meat manufacturer Russia, halal sausages supplier, burger patties halal, Tatar bakery wholesale, HACCP ISO 22000:2018">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
@@ -534,14 +534,14 @@ def gen_en() -> str:
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies">
-<meta property="og:description" content="Halal pepperoni, sausages, burger patties wholesale from manufacturer. HACCP, FSSC 22000. Export (EXW Kazan).">
+<meta property="og:description" content="Halal pepperoni, sausages, burger patties wholesale from manufacturer. HACCP, ISO 22000:2018. Export (EXW Kazan).">
 <meta property="og:url" content="https://pepperoni.tatar/en/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Halal Sausage Products &amp; Pastries Manufacturer | Kazan Delicacies">
-<meta name="twitter:description" content="Halal pepperoni, sausages, patties wholesale. HACCP, FSSC 22000. Export EXW Kazan.">
+<meta name="twitter:description" content="Halal pepperoni, sausages, patties wholesale. HACCP, ISO 22000:2018. Export EXW Kazan.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
 {{
@@ -670,7 +670,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <main>
 <section class="hero">
   <div class="container">
-    <div class="hero__badge">🌿 100% HALAL · HACCP · FSSC 22000</div>
+    <div class="hero__badge">🌿 100% HALAL · HACCP · ISO 22000:2018</div>
     <h1>Halal Sausage Products &amp; Pastries Manufacturer for HoReCa &amp; Retail</h1>
     <p class="hero__sub">Pepperoni, sausages, burger patties, traditional Tatar pastries — made in Kazan, Russia. Export to CIS and Middle East.</p>
     <div class="hero__btns">
@@ -683,7 +683,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <div class="badges">
   <div class="container badges__inner">
     <span class="badges__item"><span class="dot"></span>Halal Cert MSB Tatarstan #614A/2024</span>
-    <span class="badges__item"><span class="dot"></span>HACCP + FSSC 22000</span>
+    <span class="badges__item"><span class="dot"></span>HACCP + ISO 22000:2018</span>
     <span class="badges__item"><span class="dot"></span>ISO 22000</span>
     <span class="badges__item"><span class="dot"></span>EXW Kazan · Moscow Warehouse</span>
     <span class="badges__item"><span class="dot"></span>Private Label Available</span>
@@ -832,7 +832,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="certs__inner">
       <div class="cert-item"><div class="cert-item__name">☪️ Halal</div><div class="cert-item__desc">MSB Tatarstan #614A/2024</div></div>
       <div class="cert-item"><div class="cert-item__name">✅ HACCP</div><div class="cert-item__desc">Hazard Analysis</div></div>
-      <div class="cert-item"><div class="cert-item__name">🏆 FSSC 22000</div><div class="cert-item__desc">Food Safety</div></div>
+      <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
       <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
       <div class="cert-item"><div class="cert-item__name">🇷🇺 TR CU 021/2011</div><div class="cert-item__desc">Customs Union</div></div>
       <div class="cert-item"><div class="cert-item__name">🐄 Veterinary</div><div class="cert-item__desc">RF Certificates</div></div>
@@ -936,7 +936,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a> &nbsp;·&nbsp;
-      Halal · HACCP · FSSC 22000 · EXW Kazan
+      Halal · HACCP · ISO 22000:2018 · EXW Kazan
     </div>
   </div>
 </footer>

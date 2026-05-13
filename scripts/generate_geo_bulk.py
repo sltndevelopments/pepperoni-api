@@ -3,7 +3,7 @@
 Bulk Geo Page Generator — Pepperoni Tatar
 Generates 100–200 unique geo-targeted landing pages per run.
 Products × Cities × Page-types × Languages × Templates = millions of unique combinations.
-Certifications: Halal DUM RT, HACCP, FSSC 22000, ISO 22000, TR CU 021/2011.
+Certifications: Halal DUM RT, HACCP, ISO 22000:2018, TR CU 021/2011.
 """
 
 import json
@@ -176,17 +176,17 @@ def make_slug(product_slug: str, city_slug: str, lang: str, template_id: str) ->
 
 # ── Prompt builders ───────────────────────────────────────────────────────────
 CERT_BLOCK_RU = (
-    "**Сертификаты: Халяль (ДУМ РТ №614A/2024), HACCP, FSSC 22000, ISO 22000, "
+    "**Сертификаты: Халяль (ДУМ РТ №614A/2024), HACCP, ISO 22000:2018, "
     "ТР ТС 021/2011. Ветеринарные свидетельства РФ. Продукция без нитрита натрия. "
     "Чистый состав без ГМО и красителей. Private Label / СТМ.**"
 )
 CERT_BLOCK_EN = (
-    "**Certifications: Halal (DUM RT #614A/2024), HACCP, FSSC 22000, ISO 22000, "
+    "**Certifications: Halal (DUM RT #614A/2024), HACCP, ISO 22000:2018, "
     "TR CU 021/2011. Russian veterinary certificates. No sodium nitrite. "
     "Clean label — no GMO, no artificial colors. Private Label available.**"
 )
 CERT_BLOCK_AR = (
-    "**شهادات: حلال (DUM RT رقم 614A/2024)، HACCP، FSSC 22000، ISO 22000. "
+    "**شهادات: حلال (DUM RT رقم 614A/2024)، HACCP، ISO 22000:2018. "
     "بدون نيتريت الصوديوم. تسمية نظيفة. الإنتاج بالعلامة التجارية الخاصة.**"
 )
 
@@ -348,7 +348,7 @@ USP: {usp}
    - H1 с городом и продуктом
    - Вступление (2-3 предложения) — уникальный контекст города
    - Блок преимуществ (6 карточек) — конкретные цифры и факты
-   - Таблица сертификатов (Халяль ДУМ РТ, HACCP, FSSC 22000, ISO 22000, ТР ТС 021/2011, Ветеринарные свидетельства)
+   - Таблица сертификатов (Халяль ДУМ РТ, HACCP, ISO 22000:2018, ТР ТС 021/2011, Ветеринарные свидетельства)
    - FAQ блок (5 вопросов специфичных для этого города/региона)
    - CTA секция с формой заявки (имя, компания, телефон, email, сообщение)
    - Блок доставки в {city_name}
