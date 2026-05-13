@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kd-catalog-v5';
+const CACHE_NAME = 'kd-catalog-v6';
 const STATIC_URLS = [
   '/',
   '/en/',
@@ -52,6 +52,24 @@ self.addEventListener('fetch', (e) => {
 
   if (url.pathname.startsWith('/products/') || url.pathname.startsWith('/en/products/')) {
     e.respondWith(fetch(e.request));
+    return;
+  }
+
+  const acceptsHtml = (e.request.headers.get('accept') || '').includes('text/html');
+  const pathNorm = (url.pathname.replace(/\/+$/, '') || '/');
+  const isHomeHtml = acceptsHtml && (pathNorm === '/' || pathNorm === '/en');
+  if (isHomeHtml) {
+    e.respondWith(
+      fetch(e.request)
+        .then((res) => {
+          if (res.ok) {
+            const clone = res.clone();
+            caches.open(CACHE_NAME).then((c) => c.put(e.request, clone));
+          }
+          return res;
+        })
+        .catch(() => caches.match(e.request))
+    );
     return;
   }
 
