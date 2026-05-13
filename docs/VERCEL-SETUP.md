@@ -21,15 +21,20 @@ vercel --prod     # production
 
 ## Домены
 
-После добавления доменов в Vercel настройте DNS в Cloudflare:
+После добавления доменов в Vercel настройте DNS в Cloudflare.
 
-| Запись | Тип  | Имя | Значение                           | Proxy |
-|--------|------|-----|------------------------------------|-------|
-| www    | CNAME| www | d1e2847508378433.vercel-dns-017.com| Off   |
-| api    | CNAME| api | d1e2847508378433.vercel-dns-017.com| Off   |
-| apex   | A    | @   | 76.76.21.21                        | Off   |
+**Важно:** значения A/CNAME берите из **Vercel → Project → Settings → Domains** (они персональные и могут обновляться). Ниже — пример из истории проекта; не копируйте слепо, если Vercel показывает другое.
 
-Или используйте: `./scripts/setup-cloudflare-dns.sh` (см. DOMAIN-MIGRATION.md)
+| Запись | Тип  | Имя | Значение (пример)                    | Proxy |
+|--------|------|-----|--------------------------------------|-------|
+| www    | CNAME| www | `…vercel-dns-017.com` (как в Vercel) | **DNS only** |
+| apex   | A    | @   | IP из панели Vercel (часто 2× A)     | **DNS only** |
+
+Если сайт «не открывается из России» после правок в Cloudflare — см. **[CLOUDFLARE-DNS-RU.md](./CLOUDFLARE-DNS-RU.md)** (прокси, дубликаты записей, CAA).
+
+`api.pepperoni.tatar` в этой архитектуре часто указывает на **VPS**, не на Vercel — см. `scripts/setup-cloudflare-dns.sh` и `docs/HEADLESS-ARCHITECTURE.md`.
+
+Или используйте: `./scripts/setup-cloudflare-dns.sh` (проверьте `VERCEL_CNAME` и IP apex внутри скрипта под свою панель Vercel).
 
 ## Проверка после деплоя
 

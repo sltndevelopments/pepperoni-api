@@ -16,7 +16,8 @@ set -e
 
 TOKEN="${CLOUDFLARE_API_TOKEN:?Укажите CLOUDFLARE_API_TOKEN}"
 ZONE="${CLOUDFLARE_ZONE_ID:?Укажите CLOUDFLARE_ZONE_ID}"
-VERCEL_CNAME="cname.vercel-dns.com"
+# Должны совпадать с Vercel → Settings → Domains (скопируйте оттуда при расхождении).
+VERCEL_CNAME="d1e2847508378433.vercel-dns-017.com"
 VERCEL_IP="76.76.21.21"
 VPS_IP="37.9.4.101"
 
