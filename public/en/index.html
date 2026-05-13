@@ -105,6 +105,7 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
 .product-card__media::before{content:'';display:block;width:100%;padding-bottom:75%}
 .product-card__media img{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:cover;display:block}
 .product-card__media--placeholder{background:linear-gradient(165deg,#eaeaea 0%,#dadada 48%,#e8e8e8 100%)}
+.product-card__soon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 12px;font-size:.76rem;font-weight:600;color:#6a6a6a;line-height:1.35;letter-spacing:.01em}
 .product-card__body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;min-height:0}
 .product-card--featured .product-name{min-height:2.75em;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px}
 .product-card__foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
@@ -951,7 +952,7 @@ function renderGroups(allGroups){
         const hasImg=!!imgUrl;
         const mediaBlock=hasImg
           ?`<div class="product-card__media"><img src="${escAttr(imgUrl)}" alt="${altText}" loading="lazy" width="400" height="300" decoding="async"></div>`
-          :`<div class="product-card__media product-card__media--placeholder" aria-hidden="true"></div>`;
+          :`<div class="product-card__media product-card__media--placeholder" role="img" aria-label="Product photo coming soon"><span class="product-card__soon" aria-hidden="true">Photo coming soon</span></div>`;
         html+=`<a href="${href}" class="product-card-link"><div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${p.sku||''}">
           <meta itemprop="image" content="${imgForMeta}">
