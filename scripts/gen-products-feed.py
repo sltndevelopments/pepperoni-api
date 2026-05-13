@@ -12,11 +12,12 @@ Sources:
 """
 from __future__ import annotations
 import csv
+import gzip
 import html
 import json
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from xml.sax.saxutils import escape
 
@@ -284,6 +285,8 @@ def derive_description(p: dict, tr: dict) -> str:
         weight = p.get("weight", "")
         shelf = p.get("shelfLife", "")
         storage = p.get("storage", "")
+        diameter = p.get("diameter", "")
+        casing = p.get("casing", "")
         chunks.append(
             f"{name_en} — halal {cat_en.lower()} from Kazan Delicacies, {sec_en.lower()} category."
         )
@@ -298,8 +301,6 @@ def derive_description(p: dict, tr: dict) -> str:
         if sum(len(c) for c in chunks) < 500:
             article = p.get("articleNumber", "")
             barcode = p.get("barcode", "")
-            diameter = p.get("diameter", "")
-            casing = p.get("casing", "")
             packaging = p.get("packageType", "")
             min_order = p.get("minOrder", "")
             cooking = p.get("cookingMethods", "")
@@ -326,6 +327,11 @@ def derive_description(p: dict, tr: dict) -> str:
                 chunks.append(f"Ingredients: {ingredients}.")
             if nutrition:
                 chunks.append(f"Nutritional information per 100g: {nutrition}.")
+        else:
+            if diameter:
+                chunks.append(f"Diameter: {diameter} mm.")
+            if casing:
+                chunks.append(f"Casing: {casing}.")
     # Halal + sourcing pitch — always include for AI parsing
     chunks.append(
         "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
@@ -348,14 +354,16 @@ def derive_description(p: dict, tr: dict) -> str:
             "Consistent quality, stable pricing, and reliable supply chain for wholesale buyers."
         )
     desc = " ".join(c for c in chunks if c).strip()
-    # Clean double-spaces and ensure 150-5000 char window
+    # Clean double-spaces and ensure 500-5000 char window
     desc = re.sub(r"\s+", " ", desc)
     desc = cleanse_description(desc)
     if len(desc) < 500:
-            desc += (" Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
-                     "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, "
-                     "pizza toppings, sandwiches, burgers, and national cuisine applications. "
-                     "Wholesale pricing available. Live prices and export quotes at api.pepperoni.tatar.")
+        desc += (
+            " Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
+            "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, pizza toppings, "
+            "sandwiches, burgers, and national cuisine applications. Wholesale pricing available. "
+            "Live prices and export quotes at api.pepperoni.tatar."
+        )
     return desc[:5000]
 
 
@@ -466,6 +474,35 @@ def derive_price_usd_no_vat(p: dict) -> str:
         return ""
 
 
+def derive_price_usd(p: dict) -> str:
+    """USD price from exportPrices (for EN feed → GMC currency match)."""
+    offers = p.get("offers") or {}
+    ep = offers.get("exportPrices") or {}
+    usd = ep.get("USD")
+    if usd is None:
+        return ""
+    try:
+        v = float(str(usd).replace(",", "."))
+        return f"{v:.2f} USD"
+    except (ValueError, TypeError):
+        return ""
+
+
+def derive_price_usd_no_vat(p: dict) -> str:
+    """Approximate USD ex-VAT (price / 1.20) from exportPrices."""
+    offers = p.get("offers") or {}
+    ep = offers.get("exportPrices") or {}
+    usd = ep.get("USD")
+    if usd is None:
+        return ""
+    try:
+        v = float(str(usd).replace(",", "."))
+        v = v / 1.20
+        return f"{v:.2f} USD"
+    except (ValueError, TypeError):
+        return ""
+
+
 def derive_taxonomy(p: dict):
     cat = p.get("category", "")
     sec = p.get("section", "")
@@ -529,9 +566,6 @@ def build_row(p: dict, tr: dict) -> dict:
 
 
 # ----------------------------------------------------------------------
-# CSV output (Google Merchant Center TSV)
-# ----------------------------------------------------------------------
-# ----------------------------------------------------------------------
 # OpenAI Commerce CSV output
 # https://developers.openai.com/commerce/specs/file-upload/products
 # ----------------------------------------------------------------------
@@ -545,13 +579,11 @@ def derive_expiration_date(p: dict) -> str:
     shelf = p.get("shelfLife", "")
     if not shelf:
         return ""
-    import re as _re
-    m = _re.match(r"(\d+)\s*(суток|сутки|дней|день|месяцев|месяца|месяц)", shelf.lower())
+    m = re.match(r"(\d+)\s*(суток|сутки|дней|день|месяцев|месяца|месяц)", shelf.lower())
     if not m:
         return ""
     num = int(m.group(1))
     unit = m.group(2)
-    from datetime import datetime, timezone, timedelta
     if unit in ("месяцев", "месяца", "месяц"):
         days = num * 30
     else:
@@ -602,7 +634,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "seller_name": BRAND,
         "seller_url": "https://kazandelikates.tatar",
         "return_policy": "https://pepperoni.tatar/returns",
-        "target_countries": "RU",
+        "target_countries": "RU,KZ,BY,UZ,KG,AZ",
         "store_country": "RU",
         # OpenAI recommended
         "gtin": p.get("barcode", ""),
@@ -610,6 +642,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "product_category": product_type,
         "condition": "new",
         "age_group": "adult",
+        "listing_has_variations": "false",
         "additional_image_urls": ",".join(addl),
         "item_weight_unit": "kg",
         "weight": weight_str,
@@ -637,6 +670,7 @@ def write_openai_csv(products: list, tr: dict, path: Path):
         "seller_name", "seller_url", "return_policy",
         "target_countries", "store_country",
         "gtin", "mpn", "product_category", "condition", "age_group",
+        "listing_has_variations",
         "additional_image_urls", "item_weight_unit", "weight",
         "expiration_date", "seller_privacy_policy",
         "accepts_returns", "shipping",
@@ -652,6 +686,39 @@ def write_openai_csv(products: list, tr: dict, path: Path):
             w.writerow(r2)
     print(f"OK OpenAI CSV {path} — {len(rows)} rows, {path.stat().st_size//1024} KB")
 
+
+def write_openai_csv_gz(products: list, tr: dict, path: Path):
+    """Generate gzip-compressed OpenAI Commerce CSV for SFTP delivery."""
+    rows = [build_openai_row(p, tr) for p in products]
+    if not rows:
+        return
+    fieldnames = [
+        "is_eligible_search", "is_eligible_checkout",
+        "item_id", "title", "description", "url",
+        "brand", "image_url", "price", "availability",
+        "seller_name", "seller_url", "return_policy",
+        "target_countries", "store_country",
+        "gtin", "mpn", "product_category", "condition", "age_group",
+        "listing_has_variations",
+        "additional_image_urls", "item_weight_unit", "weight",
+        "expiration_date", "seller_privacy_policy",
+        "accepts_returns", "shipping",
+        "material", "warning", "age_restriction",
+        "country_of_origin",
+    ]
+    with gzip.open(path, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
+                           quoting=csv.QUOTE_MINIMAL)
+        w.writeheader()
+        for r in rows:
+            r2 = {k: re.sub(r"[\r\n\t]+", " ", str(v)) for k, v in r.items()}
+            w.writerow(r2)
+    print(f"OK OpenAI CSV.GZ {path} — {len(rows)} rows, {path.stat().st_size//1024} KB")
+
+
+# ----------------------------------------------------------------------
+# CSV output (Google Merchant Center TSV)
+# ----------------------------------------------------------------------
 
 def write_csv(rows: list, path: Path):
     if not rows:
@@ -988,9 +1055,15 @@ def main():
     except Exception as e:
         print(f"WARN OpenAI Commerce CSV generation failed: {e}")
 
+    # OpenAI Commerce gzip-compressed CSV (SFTP delivery)
+    try:
+        write_openai_csv_gz(products, tr, PUBLIC / "products-feed-openai.csv.gz")
+    except Exception as e:
+        print(f"WARN OpenAI Commerce CSV.GZ generation failed: {e}")
+
     # Sanity stats
     short_titles = sum(1 for r in rows if len(r["title"]) < 30)
-    short_descs = sum(1 for r in rows if len(r["description"]) < 150)
+    short_descs = sum(1 for r in rows if len(r["description"]) < 500)
     no_image = sum(1 for r in rows if r["image_link"] in ("", DEFAULT_IMAGE, ""))
     no_gtin = sum(1 for r in rows if not r["gtin"])
     no_price = sum(1 for r in rows if not r["price"])
