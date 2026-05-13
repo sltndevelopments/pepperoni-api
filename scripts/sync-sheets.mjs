@@ -415,6 +415,19 @@ function escapeXml(s) {
   return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 }
 
+function deriveYMLImage(p) {
+  // Return first available product image for Yandex Market / Alice
+  const candidates = [p.imageMain, p.image, p.imagePack, p.imageSlice];
+  for (const url of candidates) {
+    if (url && url !== '0' && (url.startsWith('http') || url.startsWith('v'))) {
+      if (url.startsWith('v')) return `https://res.cloudinary.com/duygfl3vz/image/upload/${url}`;
+      return url;
+    }
+  }
+  return ''; // no image — Yandex Market will use placeholder
+}
+
+
 function generateYML(allProducts) {
   const today = new Date().toISOString().split('T')[0];
   let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -424,7 +437,7 @@ function generateYML(allProducts) {
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
 <url>https://kazandelikates.tatar</url>
-<currencies><currency id="RUB" rate="1"/></currencies>
+<currencies><currency id="RUB" rate="1"/><currency id="USD" rate="0.012"/></currencies>
 <categories>
 <category id="1">Заморозка</category>
 <category id="2" parentId="1">Сосиски гриль для хот-догов</category>
@@ -449,19 +462,48 @@ function generateYML(allProducts) {
     if (!price || parseFloat(price) === 0) continue;
     const catInfo = YML_CATEGORIES[p.category];
     const catId = catInfo ? catInfo.id : (p.section === 'Заморозка' ? 1 : p.section === 'Выпечка' ? 12 : 6);
-    const desc = `${p.name}. Халяль продукция от Казанских Деликатесов.${p.shelfLife ? ' Срок годности: ' + p.shelfLife + '.' : ''}${p.storage ? ' Хранение: ' + p.storage + '.' : ''}`;
+
+    // Rich description: SEO → structured fallback
+    const seoParts = (p.seoDescriptionRU || '').split('|').map(s => s.trim()).filter(Boolean);
+    const seoLong = seoParts.length >= 4 ? seoParts.slice(3).join('. ') : '';
+    let desc = seoLong || p.seoDescriptionRU || '';
+    if (!desc || desc.length < 80) {
+      desc = `${p.name} — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан).`;
+      if (p.category) desc += ` Категория: ${p.category.toLowerCase()}.`;
+      if (p.weight) desc += ` Вес: ${p.weight} кг.`;
+      if (p.shelfLife) desc += ` Срок годности: ${p.shelfLife}.`;
+      if (p.storage) desc += ` Хранение: ${p.storage}.`;
+      if (p.diameter) desc += ` Диаметр: ${p.diameter} мм.`;
+      if (p.casing) desc += ` Оболочка: ${p.casing}.`;
+      if (p.packageType) desc += ` Упаковка: ${p.packageType}.`;
+      desc += ' Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.';
+    }
+
+    // Product image for Yandex Market / Alice
+    const img = deriveYMLImage(p);
+
     xml += `<offer id="${escapeXml(p.sku)}" available="true">
 <name>${escapeXml(p.name)}</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/${escapeXml(p.sku.toLowerCase())}</url>
 <price>${parseFloat(price)}</price>
 <currencyId>RUB</currencyId>
 <categoryId>${catId}</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>${escapeXml(desc)}</description>
-<param name="Сертификация">Halal</param>
-${p.weight ? `<param name="Вес">${escapeXml(p.weight)}</param>` : ''}
+<vendorCode>${escapeXml(p.articleNumber || p.sku)}</vendorCode>
+<description>${escapeXml(desc.substring(0, 3000))}</description>
+${p.barcode ? `<barcode>${escapeXml(p.barcode)}</barcode>` : ''}
+${img ? `<picture>${escapeXml(img)}</picture>` : ''}
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+${p.weight ? `<param name="Вес, кг">${escapeXml(p.weight)}</param>` : ''}
 ${p.shelfLife ? `<param name="Срок годности">${escapeXml(p.shelfLife)}</param>` : ''}
+${p.storage ? `<param name="Температура хранения">${escapeXml(p.storage)}</param>` : ''}
 ${p.hsCode ? `<param name="ТН ВЭД">${escapeXml(p.hsCode)}</param>` : ''}
+${p.diameter ? `<param name="Диаметр, мм">${escapeXml(String(p.diameter))}</param>` : ''}
+${p.casing ? `<param name="Оболочка">${escapeXml(p.casing)}</param>` : ''}
+${p.packageType ? `<param name="Упаковка">${escapeXml(p.packageType)}</param>` : ''}
+${p.minOrder ? `<param name="Мин. заказ, коробов">${escapeXml(String(p.minOrder))}</param>` : ''}
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 `;
   }
