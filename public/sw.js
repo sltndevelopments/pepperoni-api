@@ -1,7 +1,9 @@
-const CACHE_NAME = 'kd-catalog-v11';
+const CACHE_NAME = 'kd-catalog-v12';
 const STATIC_URLS = [
   '/',
   '/en/',
+  '/products/',
+  '/en/products/',
   '/pepperoni',
   '/about',
   '/faq',
@@ -50,7 +52,12 @@ self.addEventListener('fetch', (e) => {
     return;
   }
 
-  if (url.pathname.startsWith('/products/') || url.pathname.startsWith('/en/products/')) {
+  if (
+    url.pathname.startsWith('/products/') ||
+    url.pathname.startsWith('/en/products/') ||
+    url.pathname === '/products' ||
+    url.pathname === '/en/products'
+  ) {
     e.respondWith(fetch(e.request));
     return;
   }
