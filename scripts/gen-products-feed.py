@@ -59,7 +59,7 @@ CATEGORY_TAXONOMY = {
 DEFAULT_IMAGE = "https://pepperoni.tatar/images/logo.png"
 
 OG_BY_SECTION = {
-    "Заморозка":             "https://pepperoni.tatar/og-default-en.png",
+    "Заморозка":             "https://pepperoni.tatar/og-pepperoni-en.png",
     "Охлаждённая продукция": "https://pepperoni.tatar/og-pepperoni-en.png",
     "Выпечка":               "https://pepperoni.tatar/og-bakery-en.png",
 }
@@ -113,7 +113,7 @@ def derive_description_ru(p: dict) -> str:
     elif headline and tagline:
         chunks.append(headline)
         chunks.append(tagline)
-    if sum(len(c) for c in chunks) < 150:
+    if sum(len(c) for c in chunks) < 500:
         name_ru = derive_title_ru(p)
         cat_ru = t_ru_category(p.get("category", ""))
         sec_ru = t_ru_section(p.get("section", ""))
@@ -129,15 +129,51 @@ def derive_description_ru(p: dict) -> str:
             chunks.append(f"Срок годности: {shelf}.")
         if storage:
             chunks.append(f"Хранение: {storage}.")
+        # Добавляем структурированные поля для полноты описания
+        if sum(len(c) for c in chunks) < 500:
+            article = p.get("articleNumber", "")
+            barcode = p.get("barcode", "")
+            diameter = p.get("diameter", "")
+            casing = p.get("casing", "")
+            packaging = p.get("packageType", "")
+            min_order = p.get("minOrder", "")
+            cooking = p.get("cookingMethods", "")
+            ingredients = p.get("ingredientsRU", "") or p.get("ingredients", "")
+            nutrition = p.get("nutritionalValue", "")
+            hs_code = p.get("hsCode", "")
+            if article:
+                chunks.append(f"Артикул: {article}.")
+            if barcode:
+                chunks.append(f"Штрихкод: {barcode}.")
+            if diameter:
+                chunks.append(f"Диаметр: {diameter} мм, подходит для профессионального слайсера.")
+            if casing:
+                chunks.append(f"Оболочка: {casing}.")
+            if packaging:
+                chunks.append(f"Упаковка: {packaging}.")
+            if min_order:
+                chunks.append(f"Минимальный заказ: {min_order} коробов.")
+            if hs_code:
+                chunks.append(f"Код ТН ВЭД: {hs_code}.")
+            if cooking:
+                chunks.append(f"Способ приготовления: {cooking}.")
+            if ingredients:
+                chunks.append(f"Состав: {ingredients}.")
+            if nutrition:
+                chunks.append(f"Пищевая ценность на 100г: {nutrition}.")
     chunks.append(
-        "ХАЛЯЛЬ сертификат №614A/2024 (ДУМ РТ). ХАССП и ISO 22000. "
-        "100% без свинины. Оптом от производителя из Казани (Татарстан). EXW Казань / РЦ Люберцы."
+        "ХАЛЯЛЬ сертификат №614A/2024, выдан Духовным управлением мусульман Республики Татарстан (ДУМ РТ). "
+        "Производство сертифицировано по ХАССП и ISO 22000. 100% без свинины, из халяльного мяса "
+        "(говядина, индейка, курица, конина). Оптовые поставки напрямую от производителя из Казани, "
+        "Республика Татарстан. Отгрузка: EXW Казань (склад производителя) или РЦ Люберцы (Московская область)."
     )
     desc = " ".join(c for c in chunks if c).strip()
     desc = re.sub(r"\s+", " ", desc)
     if len(desc) < 150:
-        desc += (" Подходит для пиццерий, HoReCa, АЗС, розничных сетей, "
-                 "дистрибьюторов. Актуальные цены на api.pepperoni.tatar.")
+        desc += (" Подходит для пиццерий, HoReCa, АЗС, розничных сетей, дистрибьюторов "
+                 "и операторов общественного питания. Идеально для хот-догов, пиццы, "
+                 "сэндвичей, бургеров и национальной кухни. Оптовые цены и экспортные "
+                 "котировки доступны на api.pepperoni.tatar.")
     return desc[:5000]
 
 
@@ -241,7 +277,7 @@ def derive_description(p: dict, tr: dict) -> str:
         chunks.append(headline)
         chunks.append(tagline)
     # Add structured attributes when SEO description is thin
-    if sum(len(c) for c in chunks) < 150:
+    if sum(len(c) for c in chunks) < 500:
         name_en = derive_title(p, tr)
         cat_en = t_category(p.get("category", ""), tr)
         sec_en = t_section(p.get("section", ""), tr)
@@ -258,18 +294,68 @@ def derive_description(p: dict, tr: dict) -> str:
             chunks.append(f"Shelf life: {shelf_clean}.")
         if storage:
             chunks.append(f"Storage: {storage}.")
+        # GMC requires >=500 chars — enrich with all available structured fields
+        if sum(len(c) for c in chunks) < 500:
+            article = p.get("articleNumber", "")
+            barcode = p.get("barcode", "")
+            diameter = p.get("diameter", "")
+            casing = p.get("casing", "")
+            packaging = p.get("packageType", "")
+            min_order = p.get("minOrder", "")
+            cooking = p.get("cookingMethods", "")
+            ingredients = p.get("ingredientsEN", "") or p.get("ingredients", "")
+            nutrition = p.get("nutritionalValue", "")
+            hs_code = p.get("hsCode", "")
+            if article:
+                chunks.append(f"Article number: {article}.")
+            if barcode:
+                chunks.append(f"Barcode: {barcode}.")
+            if diameter:
+                chunks.append(f"Diameter: {diameter} mm, ideal for professional slicing equipment.")
+            if casing:
+                chunks.append(f"Casing: {casing}.")
+            if packaging:
+                chunks.append(f"Packaging: {packaging}.")
+            if min_order:
+                chunks.append(f"Minimum order: {min_order} boxes.")
+            if hs_code:
+                chunks.append(f"HS code: {hs_code}.")
+            if cooking:
+                chunks.append(f"Preparation: {cooking}.")
+            if ingredients:
+                chunks.append(f"Ingredients: {ingredients}.")
+            if nutrition:
+                chunks.append(f"Nutritional information per 100g: {nutrition}.")
     # Halal + sourcing pitch — always include for AI parsing
     chunks.append(
-        "HALAL certified #614A/2024 (DUM RT). HACCP & ISO 22000. "
-        "100% pork-free. Wholesale from Kazan (Tatarstan, Russia). EXW Kazan / DC Lyubertsy."
+        "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
+        "HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats "
+        "(beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. "
+        "Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region)."
     )
+    # Mandatory product use-case paragraph for GMC minimum length
+    sec = p.get("section", "")
+    if "выпечк" in sec.lower() or "bakery" in sec.lower():
+        chunks.append(
+            "This halal Tatar bakery product is produced using traditional recipes. "
+            "Ready to heat and serve — ideal for cafes and restaurant chains looking "
+            "to expand their menu with authentic ethnic cuisine offerings."
+        )
+    else:
+        chunks.append(
+            "Versatile halal meat product designed for professional foodservice use. "
+            "Suitable for hot dogs, pizza toppings, salads, sandwiches, and grill menus. "
+            "Consistent quality, stable pricing, and reliable supply chain for wholesale buyers."
+        )
     desc = " ".join(c for c in chunks if c).strip()
     # Clean double-spaces and ensure 150-5000 char window
     desc = re.sub(r"\s+", " ", desc)
     desc = cleanse_description(desc)
-    if len(desc) < 150:
-        desc += (" Suitable for pizzerias, HoReCa, fuel-station street food, retail chains, "
-                 "and distributors. Live pricing at api.pepperoni.tatar.")
+    if len(desc) < 500:
+            desc += (" Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
+                     "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, "
+                     "pizza toppings, sandwiches, burgers, and national cuisine applications. "
+                     "Wholesale pricing available. Live prices and export quotes at api.pepperoni.tatar.")
     return desc[:5000]
 
 
@@ -352,6 +438,32 @@ def derive_price_no_vat(p: dict) -> str:
         return f"{v:.2f} {CURRENCY}"
     except Exception:
         return ""
+def derive_price_usd(p: dict) -> str:
+    """USD price from exportPrices (for EN feed → GMC currency match)."""
+    offers = p.get("offers") or {}
+    ep = offers.get("exportPrices") or {}
+    usd = ep.get("USD")
+    if usd is None:
+        return ""
+    try:
+        v = float(str(usd).replace(",", "."))
+        return f"{v:.2f} USD"
+    except (ValueError, TypeError):
+        return ""
+
+
+def derive_price_usd_no_vat(p: dict) -> str:
+    """Approximate USD ex-VAT (price / 1.20)."""
+    offers = p.get("offers") or {}
+    ep = offers.get("exportPrices") or {}
+    usd = ep.get("USD")
+    if usd is None:
+        return ""
+    try:
+        v = float(str(usd).replace(",", "."))
+        return f"{v / 1.20:.2f} USD"
+    except (ValueError, TypeError):
+        return ""
 
 
 def derive_taxonomy(p: dict):
@@ -394,7 +506,7 @@ def build_row(p: dict, tr: dict) -> dict:
         "image_link": derive_image(p),
         "additional_image_link": ",".join(derive_additional_images(p)),
         "availability": "in_stock",
-        "price": derive_price(p),
+        "price": derive_price_usd(p) or derive_price(p),
         "sale_price": "",
         "brand": BRAND,
         "gtin": p.get("barcode", ""),
@@ -403,7 +515,7 @@ def build_row(p: dict, tr: dict) -> dict:
         "identifier_exists": "yes" if p.get("barcode") else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{COUNTRY}:::0.00 {CURRENCY}",
+        "shipping": f"{COUNTRY}:::0.00 USD",
         "shipping_weight": normalize_weight(p.get("weight", "")),
         "tax": f"{COUNTRY}:20:y",
         "multipack": p.get("qtyPerBox", ""),
@@ -496,12 +608,12 @@ def write_json(rows: list, products: list, path: Path):
     item_list = []
     for r, p in zip(rows, products):
         offer = (p.get("offers") or {})
-        price_str = derive_price(p)
+        price_str = derive_price_usd(p) or derive_price(p)
         try:
             price_val = float(str(price_str).replace(",", ".").split()[0]) if price_str else None
         except (ValueError, IndexError):
             price_val = None
-        price_excl = derive_price_no_vat(p)
+        price_excl = derive_price_usd_no_vat(p) or derive_price_no_vat(p)
         try:
             price_excl_val = float(str(price_excl).replace(",", ".").split()[0]) if price_excl else None
         except (ValueError, IndexError):
@@ -545,7 +657,7 @@ def write_json(rows: list, products: list, path: Path):
             "offers": {
                 "@type": "Offer",
                 "url": r["link"],
-                "priceCurrency": offer.get("priceCurrency", CURRENCY),
+                "priceCurrency": "USD",
                 "price": price_val,
                 "priceExclVAT": price_excl_val,
                 "availability": offer.get("availability", "https://schema.org/InStock"),
@@ -555,7 +667,7 @@ def write_json(rows: list, products: list, path: Path):
                 "shippingDetails": {
                     "@type": "OfferShippingDetails",
                     "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
-                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": CURRENCY},
+                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": "USD"},
                     "shippingOrigin": {
                         "@type": "DefinedRegion",
                         "addressLocality": "Kazan",
