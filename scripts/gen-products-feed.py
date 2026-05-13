@@ -21,6 +21,7 @@ import shutil
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
+from urllib.parse import parse_qsl, quote, urlencode, urlsplit, urlunsplit
 from xml.sax.saxutils import escape
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -32,6 +33,14 @@ BASE_URL = "https://pepperoni.tatar"
 BRAND = "Kazan Delicacies"
 COUNTRY = "RU"
 CURRENCY = "RUB"
+
+# OpenAI Commerce best practices — stable feed click attribution (same params every snapshot).
+# https://developers.openai.com/commerce/guides/best-practices
+OPENAI_FEED_UTM: tuple[tuple[str, str], ...] = (
+    ("utm_source", "openai"),
+    ("utm_medium", "feed"),
+    ("utm_campaign", "pepperoni_commerce"),
+)
 
 # Google taxonomy IDs — https://www.google.com/basepages/producttype/taxonomy.en-US.txt
 TAXONOMY = {
@@ -209,6 +218,34 @@ def derive_description(p: dict, tr: dict) -> str:
 def derive_link(p: dict) -> str:
     sku = p.get("sku", "").lower()
     return f"{BASE_URL}/en/products/{sku}"
+
+
+def safe_shopping_url(url: str) -> str:
+    """Percent-encode path (by segment) and query; keep already-% encoded paths intact."""
+    if not url or not isinstance(url, str):
+        return url
+    u = url.strip()
+    low = u.lower()
+    if not (low.startswith("http://") or low.startswith("https://")):
+        return u
+    p = urlsplit(u)
+    path = p.path
+    if "%" not in path:
+        path = "/".join(quote(seg, safe="") if seg else seg for seg in path.split("/"))
+    q = urlencode(parse_qsl(p.query, keep_blank_values=True), doseq=True)
+    return urlunsplit((p.scheme, p.netloc, path, q, p.fragment))
+
+
+def with_openai_feed_attribution(product_url: str) -> str:
+    """Product landing URL + stable UTM block (OpenAI: feed attribution)."""
+    base = safe_shopping_url(product_url.strip())
+    p = urlsplit(base)
+    merged = dict(parse_qsl(p.query, keep_blank_values=True))
+    for k, v in OPENAI_FEED_UTM:
+        merged[k] = v
+    ordered = sorted(merged.items(), key=lambda kv: kv[0])
+    q = urlencode(ordered, doseq=True)
+    return urlunsplit((p.scheme, p.netloc, p.path, q, p.fragment))
 
 
 def derive_link_ru(p: dict) -> str:
@@ -422,11 +459,12 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         avail = "backorder"
 
     addl = [normalize_image_url(p.get(k)) for k in ("imagePack", "imageSlice")]
-    addl = [u for u in addl if u]
+    addl = [safe_shopping_url(u) for u in addl if u]
     main_img = (normalize_image_url(p.get("imageMain"))
                 or normalize_image_url(p.get("image"))
                 or OG_BY_SECTION.get(p.get("section"), "")
                 or DEFAULT_IMAGE)
+    main_img = safe_shopping_url(main_img) if main_img else ""
 
     google_cat_id, google_cat_path = derive_taxonomy(p)
     product_type = derive_product_type(p, tr)
@@ -439,14 +477,14 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "item_id": sku,
         "title": derive_title(p, tr),
         "description": derive_description(p, tr),
-        "url": derive_link(p),
+        "url": with_openai_feed_attribution(derive_link(p)),
         "brand": BRAND,
         "image_url": main_img,
         "price": price_str,
         "availability": avail,
         "seller_name": BRAND,
-        "seller_url": "https://kazandelikates.tatar",
-        "return_policy": "https://pepperoni.tatar/returns",
+        "seller_url": safe_shopping_url("https://kazandelikates.tatar"),
+        "return_policy": safe_shopping_url("https://pepperoni.tatar/returns"),
         "target_countries": "RU,KZ,BY,UZ,KG,AZ",
         "store_country": "RU",
         # OpenAI recommended
@@ -460,7 +498,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "item_weight_unit": "kg",
         "weight": weight_str,
         "expiration_date": derive_expiration_date(p),
-        "seller_privacy_policy": "https://pepperoni.tatar/privacy",
+        "seller_privacy_policy": safe_shopping_url("https://pepperoni.tatar/privacy"),
         "accepts_returns": "false",
         "shipping": derive_openai_shipping(p),
         # Extra AI context
