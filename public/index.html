@@ -149,6 +149,17 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .capability-card h3{font-size:.92rem;margin-bottom:6px}
 .capability-card p{font-size:.82rem;color:#444;line-height:1.5}
 
+/* Long SEO copy — collapsed by default */
+.about-products{padding:20px 0 12px}
+.about-products__details{background:#fff;border:1px solid var(--border);border-radius:var(--radius)}
+.about-products__summary{cursor:pointer;padding:14px 18px;font-weight:700;font-size:.95rem;color:var(--green-dark);list-style:none;-webkit-user-select:none;user-select:none;line-height:1.45}
+.about-products__summary::-webkit-details-marker{display:none}
+.about-products__hint{font-weight:500;color:var(--muted);font-size:.82rem}
+.about-products__details[open] .about-products__summary{border-bottom:1px solid var(--border);margin-bottom:4px}
+.about-products__text{padding:4px 18px 18px}
+.about-products__text h3{font-size:1.02rem;margin:18px 0 8px;color:var(--green-dark)}
+.about-products__text p{color:#444;font-size:.9rem;line-height:1.65;margin-bottom:14px}
+
 /* Footer */
 .footer{background:#1a1a1a;color:#ccc;padding:36px 0 20px}
 .footer__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-bottom:24px}
@@ -360,8 +371,9 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 
 <section class="about-products">
   <div class="container">
-    <h2 class="section-title">Халяль пепперони и колбасы оптом от производителя</h2>
-    <div class="about-products__text">
+    <details class="about-products__details">
+      <summary class="about-products__summary">Халяль пепперони и колбасы оптом от производителя — <span class="about-products__hint">развернуть полное описание</span></summary>
+      <div class="about-products__text">
       <p>«Казанские Деликатесы» — производитель халяль колбасных изделий и выпечки для HoReCa и ретейла с собственным производством в Казани. С 2022 года выпускаем пепперони, сосиски, колбасы, мясные полуфабрикаты и национальную татарскую выпечку оптом. Вся продукция сертифицирована по стандарту Халяль (ДУМ РТ №614A/2024), соответствует требованиям ХАССП и ISO 22000:2018. Собственная лаборатория на заводе контролирует качество на каждом этапе — от входного сырья до отгрузки готовой продукции в гофрокоробах.</p>
       <h3>Пепперони оптом</h3>
       <p>Халяль пепперони — флагманская позиция ассортимента. Выпускаем варёно-копчёную и сырокопчёную пепперони из говядины, конины и индейки. Диаметр от 22 до 55 мм, любая нарезка: слайсом, кубиком, целым батоном. Упаковка газовая или вакуумная. Поставляем пепперони оптом для пиццерий, пекарен, служб доставки и розничных сетей. Контрактная нарезка под требования заказчика. Стабильное качество от партии к партии с лабораторным подтверждением и протоколами испытаний.</p>
@@ -373,6 +385,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
       <p>Работаем по всей России и на экспорт в страны СНГ и ОАЭ. Отгрузка EXW Казань или доставка через распределительный склад в Люберцах. Принимаем заказы от 1 коробки на любую позицию каталога. Индивидуальные условия для дистрибьюторов, оптовых покупателей и розничных сетей. Private Label (СТМ) — произведём колбасные изделия и выпечку под вашим брендом: от разработки рецептуры и ТУ до серийного выпуска в вашей упаковке. Полный цикл контрактного производства халяльной продукции на собственном заводе в Казани.</p>
       <p>Продукция «Казанских Деликатесов» уже представлена в розничных сетях Татарстана и соседних регионов. Экспортируем в Казахстан, Беларусь, Узбекистан, Кыргызстан, Азербайджан и ОАЭ. Для экспортных поставок оформляем полный пакет документов: ветеринарные сертификаты, свидетельства Халяль, декларации ТР ТС. Свяжитесь с отделом продаж для получения актуального прайс-листа и расчёта стоимости доставки до вашего города.</p>
     </div>
+    </details>
   </div>
 </section>
 
