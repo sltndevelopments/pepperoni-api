@@ -1,4 +1,4 @@
-const CACHE_NAME = 'kd-catalog-v10';
+const CACHE_NAME = 'kd-catalog-v11';
 const STATIC_URLS = [
   '/',
   '/en/',
