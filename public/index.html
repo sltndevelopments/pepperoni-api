@@ -122,6 +122,16 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
 .product-price-vat{font-size:.7rem;color:var(--muted);font-weight:400}
 .product-avail{font-size:.78rem;color:var(--green);margin-top:5px}
 
+/* Прототип карточки с фото (только KD-001) */
+.product-card--featured{padding:0;overflow:hidden;display:flex;flex-direction:column;position:relative}
+.product-card__media{aspect-ratio:4/3;background:linear-gradient(145deg,#f0f4f0,#e8ebe8);flex-shrink:0}
+.product-card__media img{width:100%;height:100%;object-fit:cover;display:block}
+.product-card__body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;min-height:0}
+.product-card--featured .product-name{min-height:2.75em;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px}
+.product-card__foot{margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}
+.product-card--featured .product-sku{margin-top:8px}
+.product-card__ribbon{position:absolute;top:10px;left:10px;background:rgba(27,122,61,.92);color:#fff;font-size:.65rem;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:.02em;z-index:1}
+
 /* Certs */
 .certs{background:var(--green-light);padding:32px 0}
 .certs__inner{display:flex;justify-content:center;gap:32px;flex-wrap:wrap;align-items:center}
@@ -963,6 +973,7 @@ const fmtWeight=w=>{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|к
 const fmtQty=q=>{if(!q)return'';const s=String(q).trim();return/\d+\s*шт/i.test(s)?s:s+' шт/кор'};
 const looksLikePrice=v=>/^\d{2,}[.,]\d{2}$/.test(String(v||'').trim());
 
+function escAttr(s){return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}
 function renderGroups(allGroups){
   let html='';
   const sym=CUR_SYM[CUR]||CUR;
@@ -985,9 +996,34 @@ function renderGroups(allGroups){
         const propsHtml=props.length?props.join(''):'';
         const href=p.sku?`/products/${p.sku.toLowerCase()}`:'#';
         const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+        const imgForMeta=escAttr(p.image||'');
+        const isPhotoCard=p.sku==='KD-001';
+        const imgUrl=isPhotoCard?(p.image||'https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg'):'';
+        if(isPhotoCard){
+          html+=`<a href="${href}" class="product-card-link"><div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
+          <span class="product-card__ribbon">Пример: KD-001</span>
+          <meta itemprop="sku" content="${p.sku||''}">
+          <meta itemprop="image" content="${imgForMeta||escAttr(imgUrl)}">
+          <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
+          <div class="product-card__media"><img src="${escAttr(imgUrl)}" alt="${altText}" loading="lazy" width="400" height="300" decoding="async"></div>
+          <div class="product-card__body">
+          <div class="product-name" itemprop="name">${p.name}</div>
+          <div class="product-card__foot">
+          <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
+            <meta itemprop="price" content="${pr}">
+            <meta itemprop="priceCurrency" content="${priceCur}">
+            <link itemprop="availability" href="https://schema.org/InStock">
+            <div class="product-price">${priceLabel}</div>
+          </div>
+          <div class="product-sku">${propsHtml}</div>
+          <div class="product-avail">✓ В наличии</div>
+          </div>
+          </div>
+        </div></a>`;
+        }else{
         html+=`<a href="${href}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${p.sku||''}">
-          <meta itemprop="image" content="${p.image||p.imageMain||''}">
+          <meta itemprop="image" content="${imgForMeta}">
           <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
           <div class="product-name" itemprop="name">${p.name}</div>
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
@@ -999,6 +1035,7 @@ function renderGroups(allGroups){
           <div class="product-sku">${propsHtml}</div>
           <div class="product-avail">✓ В наличии</div>
         </div></a>`;
+        }
       }
       html+='</div>';
     }
@@ -1047,7 +1084,7 @@ async function loadCatalog(){
       const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
-      groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''});
+      groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:(p.imageMain||p.image||'').trim()});
     }
     const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
     ALL_GROUPS=[];
@@ -1063,7 +1100,7 @@ async function loadCatalog(){
         const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
         const pnv=parseFloat(p.offers?.priceExclVAT||0);
         const isBakery=!!p.offers?.pricePerUnit;
-        groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''});
+        groups[sec][cat].push({name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:(p.imageMain||p.image||'').trim()});
       }
       const icons={'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'};
       ALL_GROUPS=[];
