@@ -5,6 +5,7 @@ Outputs:
   public/products-feed.csv   — GMC CSV (tab-separated, GMC standard)
   public/products-feed.xml   — RSS 2.0 / Google Merchant XML feed
   public/products-feed.json  — Schema.org ItemList for AI crawlers (Bing, Perplexity, ChatGPT)
+  public/products-feed-openai.csv / .csv.gz / .tsv.gz — OpenAI Commerce (tab-separated; .tsv.gz per file-upload overview)
 
 Sources:
   public/products.json        — live catalog (77 SKUs)
@@ -16,6 +17,7 @@ import gzip
 import html
 import json
 import re
+import shutil
 import sys
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
@@ -524,7 +526,7 @@ def write_openai_csv_gz(products: list, tr: dict, path: Path):
         for r in rows:
             r2 = {k: re.sub(r"[\r\n\t]+", " ", str(v)) for k, v in r.items()}
             w.writerow(r2)
-    print(f"OK OpenAI CSV {path} — {len(rows)} rows, {path.stat().st_size//1024} KB")
+    print(f"OK OpenAI CSV.GZ {path} — {len(rows)} rows, {path.stat().st_size//1024} KB")
 
 
 # ----------------------------------------------------------------------
@@ -733,7 +735,11 @@ def main():
 
     # OpenAI Commerce gzip-compressed CSV (SFTP delivery)
     try:
-        write_openai_csv_gz(products, tr, PUBLIC / "products-feed-openai.csv.gz")
+        gz_path = PUBLIC / "products-feed-openai.csv.gz"
+        write_openai_csv_gz(products, tr, gz_path)
+        tsv_gz = PUBLIC / "products-feed-openai.tsv.gz"
+        shutil.copyfile(gz_path, tsv_gz)
+        print(f"OK OpenAI TSV.GZ {tsv_gz} — {tsv_gz.stat().st_size//1024} KB (alias for OpenAI file-upload naming)")
     except Exception as e:
         print(f"WARN OpenAI Commerce CSV.GZ generation failed: {e}")
 
@@ -745,7 +751,7 @@ def main():
     no_price = sum(1 for r in rows if not r["price"])
     print(f"\nFeed health:")
     print(f"  Short titles (<30 char): {short_titles}/{len(rows)}")
-    print(f"  Short descs  (<150 char): {short_descs}/{len(rows)}")
+    print(f"  Short descs  (<500 char): {short_descs}/{len(rows)}")
     print(f"  Missing image  (fallback): {no_image}/{len(rows)}")
     print(f"  Missing GTIN              : {no_gtin}/{len(rows)}")
     print(f"  Missing price             : {no_price}/{len(rows)}")

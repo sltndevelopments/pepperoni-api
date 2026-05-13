@@ -19,11 +19,6 @@ node scripts/sync-sheets.mjs
 # context on every cron tick.
 python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
 
-# 1b. Перегенерируем llms-full.txt расширенным Python-генератором
-#     (Node-версия отдаёт усечённую таблицу; Python добавляет per-SKU карточки,
-#     buyer-personas, FAQ и AIO-ответы — всего ~90 KB вместо 16 KB).
-python3 scripts/gen-llms-full.py || echo "⚠️  gen-llms-full.py failed (non-fatal)"
-
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 
@@ -42,6 +37,10 @@ else
   mv "$TMP_FILE" "$FINAL_FILE"
   echo "[$(date -Iseconds)] Sync OK (no jq validation)"
 fi
+
+# 4. GMC + OpenAI Commerce feeds (catalog in public/products.json is valid)
+python3 scripts/gen-products-feed.py 2>&1 || echo "[warn] gen-products-feed failed (non-fatal)"
+bash scripts/upload-openai-feed-sftp.sh 2>&1 || echo "[warn] OpenAI SFTP upload failed (non-fatal)"
 
 # Опционально: llms, sitemap, IndexNow key для api.pepperoni.tatar
 cp -f public/llms-full.txt public/sitemap.xml public/*.txt "$DATA_DIR/" 2>/dev/null || true

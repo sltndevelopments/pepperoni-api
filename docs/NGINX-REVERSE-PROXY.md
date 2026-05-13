@@ -225,6 +225,16 @@ cp -f public/products.json public/llms-full.txt public/sitemap.xml /var/www/pepp
 mkdir -p /var/www/pepperoni/data
 ```
 
+### 5.8 OpenAI Commerce — выгрузка фида по SFTP (опционально)
+
+После каждого успешного `sync-vps.sh` пересобираются `public/products-feed-*.csv.gz` / `products-feed-openai.tsv.gz` и, если заданы переменные, выполняется `scripts/upload-openai-feed-sftp.sh` ([overview](https://developers.openai.com/commerce/specs/file-upload/overview): стабильное имя файла, полный снимок, push на SFTP).
+
+1. Создать на VPS файл `/var/www/pepperoni/openai-commerce.env` (`chmod 600`), см. комментарий в начале `scripts/upload-openai-feed-sftp.sh`.
+2. Положить приватный ключ (например Ed25519), путь указать в `OPENAI_COMMERCE_SFTP_IDENTITY`.
+3. Хост, логин и **полный** путь на стороне OpenAI — в `OPENAI_COMMERCE_SFTP_REMOTE_PATH` (как в инструкции от OpenAI).
+
+Без `OPENAI_COMMERCE_SFTP_HOST` скрипт молча пропускается — деплой и cron не ломаются.
+
 ### 5.6 Чеклист активации data-узла
 
 1. **Файл:** `ls -la /var/www/pepperoni/data/products.json`

@@ -19,6 +19,10 @@ Allow: /openapi.yaml
 Allow: /products-feed.csv
 Allow: /products-feed.xml
 Allow: /products-feed.json
+Allow: /products-feed-openai.csv
+Allow: /products-feed-openai.csv.gz
+Allow: /products-feed-openai.tsv.gz
+Allow: /ru/products-feed.json
 Allow: /ai.txt
 
 # ───────── Traditional search engines ─────────
@@ -155,6 +159,7 @@ Sitemap: https://pepperoni.tatar/rss.xml
 # JSON (Schema.org ItemList):        https://pepperoni.tatar/products-feed.json
 # CSV  (OpenAI Commerce / ChatGPT):   https://pepperoni.tatar/products-feed-openai.csv
 # CSV  (OpenAI Commerce gzip/SFTP):   https://pepperoni.tatar/products-feed-openai.csv.gz
+# TSV  (OpenAI Commerce gzip, spec):  https://pepperoni.tatar/products-feed-openai.tsv.gz
 
 # Host directive (for Yandex)
 Host: https://pepperoni.tatar
