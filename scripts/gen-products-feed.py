@@ -531,6 +531,128 @@ def build_row(p: dict, tr: dict) -> dict:
 # ----------------------------------------------------------------------
 # CSV output (Google Merchant Center TSV)
 # ----------------------------------------------------------------------
+# ----------------------------------------------------------------------
+# OpenAI Commerce CSV output
+# https://developers.openai.com/commerce/specs/file-upload/products
+# ----------------------------------------------------------------------
+def derive_openai_shipping(p: dict) -> str:
+    """OpenAI shipping format: country:region:service_class:price"""
+    return "RU:::0.00 RUB"
+
+
+def derive_expiration_date(p: dict) -> str:
+    """Derive expiration date from shelf life (for food products)."""
+    shelf = p.get("shelfLife", "")
+    if not shelf:
+        return ""
+    import re as _re
+    m = _re.match(r"(\d+)\s*(суток|сутки|дней|день|месяцев|месяца|месяц)", shelf.lower())
+    if not m:
+        return ""
+    num = int(m.group(1))
+    unit = m.group(2)
+    from datetime import datetime, timezone, timedelta
+    if unit in ("месяцев", "месяца", "месяц"):
+        days = num * 30
+    else:
+        days = num
+    exp = datetime.now(timezone.utc) + timedelta(days=days)
+    return exp.strftime("%Y-%m-%d")
+
+
+def build_openai_row(p: dict, tr: dict) -> dict:
+    """Build a row matching OpenAI Commerce product schema."""
+    sku = p.get("sku", "")
+    offers = p.get("offers") or {}
+    price_str = derive_price_usd(p) or derive_price(p)
+
+    # OpenAI availability: in_stock, out_of_stock, pre_order, backorder
+    avail = "in_stock"
+    oa = offers.get("availability", "")
+    if "outofstock" in oa.lower() or "out_of_stock" in oa.lower():
+        avail = "out_of_stock"
+    elif "preorder" in oa.lower() or "pre_order" in oa.lower():
+        avail = "pre_order"
+    elif "backorder" in oa.lower():
+        avail = "backorder"
+
+    addl = [normalize_image_url(p.get(k)) for k in ("imagePack", "imageSlice")]
+    addl = [u for u in addl if u]
+    main_img = (normalize_image_url(p.get("imageMain"))
+                or normalize_image_url(p.get("image"))
+                or OG_BY_SECTION.get(p.get("section"), "")
+                or DEFAULT_IMAGE)
+
+    google_cat_id, google_cat_path = derive_taxonomy(p)
+    product_type = derive_product_type(p, tr)
+    weight_str = normalize_weight(p.get("weight", ""))
+
+    return {
+        # OpenAI required
+        "is_eligible_search": "true",
+        "is_eligible_checkout": "false",
+        "item_id": sku,
+        "title": derive_title(p, tr),
+        "description": derive_description(p, tr),
+        "url": derive_link(p),
+        "brand": BRAND,
+        "image_url": main_img,
+        "price": price_str,
+        "availability": avail,
+        "seller_name": BRAND,
+        "seller_url": "https://kazandelikates.tatar",
+        "return_policy": "https://pepperoni.tatar/privacy",
+        "target_countries": "RU",
+        "store_country": "RU",
+        # OpenAI recommended
+        "gtin": p.get("barcode", ""),
+        "mpn": p.get("articleNumber", "") or sku,
+        "product_category": product_type,
+        "condition": "new",
+        "age_group": "adult",
+        "additional_image_urls": ",".join(addl),
+        "item_weight_unit": "kg",
+        "weight": weight_str,
+        "expiration_date": derive_expiration_date(p),
+        "seller_privacy_policy": "https://pepperoni.tatar/privacy",
+        "accepts_returns": "false",
+        "shipping": derive_openai_shipping(p),
+        # Extra AI context
+        "material": "halal meat, natural spices, no pork",
+        "warning": "Contains meat. Keep frozen -18C or refrigerated. Halal certified.",
+        "age_restriction": "0",
+        "country_of_origin": "RU",
+    }
+
+
+def write_openai_csv(products: list, tr: dict, path: Path):
+    """Generate OpenAI Commerce-compatible CSV feed."""
+    rows = [build_openai_row(p, tr) for p in products]
+    if not rows:
+        return
+    fieldnames = [
+        "is_eligible_search", "is_eligible_checkout",
+        "item_id", "title", "description", "url",
+        "brand", "image_url", "price", "availability",
+        "seller_name", "seller_url", "return_policy",
+        "target_countries", "store_country",
+        "gtin", "mpn", "product_category", "condition", "age_group",
+        "additional_image_urls", "item_weight_unit", "weight",
+        "expiration_date", "seller_privacy_policy",
+        "accepts_returns", "shipping",
+        "material", "warning", "age_restriction",
+        "country_of_origin",
+    ]
+    with path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
+                           quoting=csv.QUOTE_MINIMAL)
+        w.writeheader()
+        for r in rows:
+            r2 = {k: re.sub(r"[\r\n\t]+", " ", str(v)) for k, v in r.items()}
+            w.writerow(r2)
+    print(f"OK OpenAI CSV {path} — {len(rows)} rows, {path.stat().st_size//1024} KB")
+
+
 def write_csv(rows: list, path: Path):
     if not rows:
         return
@@ -859,6 +981,12 @@ def main():
         write_json_ru(products, PUBLIC / "ru" / "products-feed.json")
     except Exception as e:
         print(f"WARN Russian JSON feed generation failed: {e}")
+
+    # OpenAI Commerce CSV feed (ChatGPT product discovery)
+    try:
+        write_openai_csv(products, tr, PUBLIC / "products-feed-openai.csv")
+    except Exception as e:
+        print(f"WARN OpenAI Commerce CSV generation failed: {e}")
 
     # Sanity stats
     short_titles = sum(1 for r in rows if len(r["title"]) < 30)

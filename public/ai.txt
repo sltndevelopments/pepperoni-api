@@ -62,6 +62,7 @@ Allow: /
 # https://pepperoni.tatar/products-feed.xml   (RSS 2.0 with g: namespace)
 # https://pepperoni.tatar/products-feed.json  (Schema.org ItemList)
 # https://pepperoni.tatar/ru/products-feed.json (Schema.org ItemList, русский)
+# https://pepperoni.tatar/products-feed-openai.csv (OpenAI Commerce spec)
 
 # Discovery:
 # https://pepperoni.tatar/sitemap.xml             (806 URLs)

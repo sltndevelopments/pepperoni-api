@@ -20,6 +20,7 @@ Allow: /products-feed.csv
 Allow: /products-feed.xml
 Allow: /products-feed.json
 Allow: /ru/products-feed.json
+Allow: /products-feed-openai.csv
 Allow: /ai.txt
 
 # ───────── Traditional search engines ─────────
@@ -154,6 +155,7 @@ Sitemap: https://pepperoni.tatar/rss.xml
 # CSV  (TSV format, GMC standard): https://pepperoni.tatar/products-feed.csv
 # XML  (RSS 2.0, GMC):              https://pepperoni.tatar/products-feed.xml
 # JSON (Schema.org ItemList):       https://pepperoni.tatar/products-feed.json
+# CSV OpenAI Commerce (ChatGPT):      https://pepperoni.tatar/products-feed-openai.csv
 # JSON RU (Schema.org, русский):      https://pepperoni.tatar/ru/products-feed.json
 
 # Host directive (for Yandex)
