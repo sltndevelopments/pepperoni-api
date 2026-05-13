@@ -23,6 +23,8 @@ Allow: /products-feed-openai.csv
 Allow: /products-feed-openai.csv.gz
 Allow: /products-feed-openai.tsv.gz
 Allow: /ru/products-feed.json
+Allow: /wholesale-price-list.md
+Allow: /wholesale-price-list-ru.md
 Allow: /ai.txt
 
 # ───────── Traditional search engines ─────────
