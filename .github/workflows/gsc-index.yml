@@ -28,6 +28,10 @@ jobs:
       - name: Install dependencies
         run: pip install cryptography
 
+      - name: Validate sitemap.xml (well-formed XML)
+        run: |
+          python3 -c "import xml.etree.ElementTree as ET; ET.parse('public/sitemap.xml'); print('sitemap.xml: OK')"
+
       - name: Submit sitemap to Google Search Console
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
