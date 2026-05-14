@@ -227,7 +227,7 @@ mkdir -p /var/www/pepperoni/data
 
 ### 5.8 OpenAI Commerce — выгрузка фида по SFTP (опционально)
 
-После каждого успешного `sync-vps.sh` пересобираются `public/products-feed-*.csv.gz` / `products-feed-openai.tsv.gz` и, если заданы переменные, выполняется `scripts/upload-openai-feed-sftp.sh` ([overview](https://developers.openai.com/commerce/specs/file-upload/overview): стабильное имя файла, полный снимок, push на SFTP).
+После каждого успешного `sync-vps.sh` пересобираются фиды; для OpenAI Commerce в `public/` лежат `products-feed-openai.*` и **стабильное имя** `openai-commerce-kazan-delicacies.tsv.gz` (те же байты, что и `.tsv.gz` — для SFTP overwrite по [overview](https://developers.openai.com/commerce/specs/file-upload/overview)). Если заданы переменные, выполняется `scripts/upload-openai-feed-sftp.sh` (по умолчанию заливает стабильный `.tsv.gz`).
 
 1. Создать на VPS файл `/var/www/pepperoni/openai-commerce.env` (`chmod 600`), см. комментарий в начале `scripts/upload-openai-feed-sftp.sh`.
 2. Положить приватный ключ (например Ed25519), путь указать в `OPENAI_COMMERCE_SFTP_IDENTITY`.

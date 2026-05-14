@@ -64,6 +64,7 @@ Allow: /
 # https://pepperoni.tatar/products-feed-openai.csv   (OpenAI Commerce TSV)
 # https://pepperoni.tatar/products-feed-openai.csv.gz (OpenAI Commerce gzip/SFTP)
 # https://pepperoni.tatar/products-feed-openai.tsv.gz (same bytes; name matches tsv.gz in file-upload overview)
+# https://pepperoni.tatar/openai-commerce-kazan-delicacies.tsv.gz (stable filename for SFTP / OpenAI file-upload overview)
 
 # Discovery:
 # https://pepperoni.tatar/sitemap.xml             (806 URLs)

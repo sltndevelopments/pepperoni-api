@@ -5,7 +5,8 @@ Outputs:
   public/products-feed.csv   — GMC CSV (tab-separated, GMC standard)
   public/products-feed.xml   — RSS 2.0 / Google Merchant XML feed
   public/products-feed.json  — Schema.org ItemList for AI crawlers (Bing, Perplexity, ChatGPT)
-  public/products-feed-openai.csv / .csv.gz / .tsv.gz — OpenAI Commerce (tab-separated; .tsv.gz per file-upload overview)
+  public/products-feed-openai.csv / .csv.gz / .tsv.gz — OpenAI Commerce (tab-separated UTF-8; .tsv.gz per file-upload overview)
+  public/openai-commerce-kazan-delicacies.tsv.gz — stable snapshot path (same bytes; SFTP overwrite per overview)
 
 Sources:
   public/products.json        — live catalog (77 SKUs)
@@ -421,9 +422,60 @@ def build_row(p: dict, tr: dict) -> dict:
 
 
 # ----------------------------------------------------------------------
-# OpenAI Commerce CSV output
+# OpenAI Commerce file upload (stable schema + delivery)
 # https://developers.openai.com/commerce/specs/file-upload/products
+# https://developers.openai.com/commerce/specs/file-upload/overview
 # ----------------------------------------------------------------------
+# Same relative path on every publish for SFTP overwrite (overview).
+OPENAI_COMMERCE_STABLE_TSV_GZ = "openai-commerce-kazan-delicacies.tsv.gz"
+
+
+def sanitize_openai_gtin(barcode) -> str:
+    """OpenAI Products: GTIN 8–14 digits, no dashes or spaces."""
+    if not barcode:
+        return ""
+    digits = re.sub(r"\D", "", str(barcode))
+    if 8 <= len(digits) <= 14:
+        return digits
+    return ""
+
+
+def clip_openai_field(s: str, max_len: int) -> str:
+    if not s:
+        return ""
+    s = str(s).strip()
+    return s[:max_len] if len(s) > max_len else s
+
+
+def derive_openai_item_id(p: dict) -> str:
+    """item_id: alphanumeric, max 100 (Products spec)."""
+    sku = str(p.get("sku", "") or "").strip()
+    sku = re.sub(r"[^\w\-]+", "", sku, flags=re.ASCII) or "sku"
+    return sku[:100]
+
+
+def derive_openai_availability_date(p: dict, avail: str) -> str:
+    """Required when availability=pre_order (ISO 8601 date)."""
+    if avail != "pre_order":
+        return ""
+    offers = p.get("offers") or {}
+    for key in ("expectedShipDate", "availabilityDate", "preorderDate", "preOrderDate"):
+        v = p.get(key) or offers.get(key)
+        if v and str(v).strip():
+            raw = str(v).strip()
+            if len(raw) >= 10 and raw[4] == "-":
+                return raw[:10]
+    fut = datetime.now(timezone.utc) + timedelta(days=60)
+    return fut.strftime("%Y-%m-%d")
+
+
+def derive_openai_offer_id(sku: str, price_str: str) -> str:
+    """Optional offer_id; unique per row within feed (SKU + normalized price)."""
+    pslug = re.sub(r"[^\d.]", "", str(price_str).replace(",", "."))[:24]
+    base = f"{sku}-{pslug}" if pslug else sku
+    return clip_openai_field(base, 100)
+
+
 def derive_openai_shipping(p: dict) -> str:
     """OpenAI shipping format: country:region:service_class:price"""
     return "RU:::0.00 RUB"
@@ -449,19 +501,23 @@ def derive_expiration_date(p: dict) -> str:
 
 def build_openai_row(p: dict, tr: dict) -> dict:
     """Build a row matching OpenAI Commerce product schema."""
-    sku = p.get("sku", "")
+    sku_raw = str(p.get("sku", "") or "").strip()
+    sku_id = derive_openai_item_id(p)
     offers = p.get("offers") or {}
     price_str = derive_price_usd(p) or derive_price(p)
 
-    # OpenAI availability: in_stock, out_of_stock, pre_order, backorder
+    # OpenAI availability: in_stock, out_of_stock, pre_order, backorder, unknown
     avail = "in_stock"
-    oa = offers.get("availability", "")
-    if "outofstock" in oa.lower() or "out_of_stock" in oa.lower():
+    oa = str(offers.get("availability", "") or "")
+    ol = oa.lower().replace(" ", "")
+    if "outofstock" in ol or "out_of_stock" in ol:
         avail = "out_of_stock"
-    elif "preorder" in oa.lower() or "pre_order" in oa.lower():
+    elif "preorder" in ol or "pre_order" in ol:
         avail = "pre_order"
-    elif "backorder" in oa.lower():
+    elif "backorder" in ol:
         avail = "backorder"
+    elif "unknown" in ol:
+        avail = "unknown"
 
     addl = [normalize_image_url(p.get(k)) for k in ("imagePack", "imageSlice")]
     addl = [safe_shopping_url(u) for u in addl if u]
@@ -472,29 +528,39 @@ def build_openai_row(p: dict, tr: dict) -> dict:
     main_img = safe_shopping_url(main_img) if main_img else ""
 
     google_cat_id, google_cat_path = derive_taxonomy(p)
-    product_type = derive_product_type(p, tr)
+    product_type = clip_openai_field(derive_product_type(p, tr), 500)
     weight_str = normalize_weight(p.get("weight", ""))
+    gtin = sanitize_openai_gtin(p.get("barcode", ""))
+    mpn = clip_openai_field(str(p.get("articleNumber", "") or sku_raw or sku_id), 70)
+    avail_date = derive_openai_availability_date(p, avail)
+    offer_id = derive_openai_offer_id(sku_id, price_str)
+    mat = clip_openai_field(
+        "halal meat, natural spices, no pork",
+        100,
+    )
 
     return {
         # OpenAI required
         "is_eligible_search": "true",
         "is_eligible_checkout": "false",
-        "item_id": sku,
+        "item_id": sku_id,
         "title": derive_title(p, tr),
         "description": derive_description(p, tr),
         "url": with_openai_feed_attribution(derive_link(p)),
-        "brand": BRAND,
+        "brand": clip_openai_field(BRAND, 70),
         "image_url": main_img,
         "price": price_str,
         "availability": avail,
-        "seller_name": BRAND,
+        "availability_date": avail_date,
+        "seller_name": clip_openai_field(BRAND, 70),
         "seller_url": safe_shopping_url("https://kazandelikates.tatar"),
         "return_policy": safe_shopping_url("https://pepperoni.tatar/returns"),
         "target_countries": "RU,KZ,BY,UZ,KG,AZ",
         "store_country": "RU",
-        # OpenAI recommended
-        "gtin": p.get("barcode", ""),
-        "mpn": p.get("articleNumber", "") or sku,
+        # OpenAI recommended / optional
+        "gtin": gtin,
+        "mpn": mpn,
+        "offer_id": offer_id,
         "product_category": product_type,
         "condition": "new",
         "age_group": "adult",
@@ -506,12 +572,31 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "seller_privacy_policy": safe_shopping_url("https://pepperoni.tatar/privacy"),
         "accepts_returns": "false",
         "shipping": derive_openai_shipping(p),
-        # Extra AI context
-        "material": "halal meat, natural spices, no pork",
-        "warning": "Contains meat. Keep frozen -18C or refrigerated. Halal certified.",
-        "age_restriction": "0",
+        # Compliance / context (plain text; lengths per Products spec where applicable)
+        "material": mat,
+        "warning": clip_openai_field(
+            "Contains meat. Keep frozen -18C or refrigerated. Halal certified.",
+            500,
+        ),
+        "age_restriction": "",
         "country_of_origin": "RU",
     }
+
+
+OPENAI_FEED_FIELDNAMES = [
+    "is_eligible_search", "is_eligible_checkout",
+    "item_id", "title", "description", "url",
+    "brand", "image_url", "price", "availability", "availability_date",
+    "seller_name", "seller_url", "return_policy",
+    "target_countries", "store_country",
+    "gtin", "mpn", "offer_id", "product_category", "condition", "age_group",
+    "listing_has_variations",
+    "additional_image_urls", "item_weight_unit", "weight",
+    "expiration_date", "seller_privacy_policy",
+    "accepts_returns", "shipping",
+    "material", "warning", "age_restriction",
+    "country_of_origin",
+]
 
 
 def write_openai_csv(products: list, tr: dict, path: Path):
@@ -519,20 +604,7 @@ def write_openai_csv(products: list, tr: dict, path: Path):
     rows = [build_openai_row(p, tr) for p in products]
     if not rows:
         return
-    fieldnames = [
-        "is_eligible_search", "is_eligible_checkout",
-        "item_id", "title", "description", "url",
-        "brand", "image_url", "price", "availability",
-        "seller_name", "seller_url", "return_policy",
-        "target_countries", "store_country",
-        "gtin", "mpn", "product_category", "condition", "age_group",
-        "listing_has_variations",
-        "additional_image_urls", "item_weight_unit", "weight",
-        "expiration_date", "seller_privacy_policy",
-        "accepts_returns", "shipping",
-        "material", "warning", "age_restriction",
-        "country_of_origin",
-    ]
+    fieldnames = OPENAI_FEED_FIELDNAMES
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
                            quoting=csv.QUOTE_MINIMAL)
@@ -548,20 +620,7 @@ def write_openai_csv_gz(products: list, tr: dict, path: Path):
     rows = [build_openai_row(p, tr) for p in products]
     if not rows:
         return
-    fieldnames = [
-        "is_eligible_search", "is_eligible_checkout",
-        "item_id", "title", "description", "url",
-        "brand", "image_url", "price", "availability",
-        "seller_name", "seller_url", "return_policy",
-        "target_countries", "store_country",
-        "gtin", "mpn", "product_category", "condition", "age_group",
-        "listing_has_variations",
-        "additional_image_urls", "item_weight_unit", "weight",
-        "expiration_date", "seller_privacy_policy",
-        "accepts_returns", "shipping",
-        "material", "warning", "age_restriction",
-        "country_of_origin",
-    ]
+    fieldnames = OPENAI_FEED_FIELDNAMES
     with gzip.open(path, "wt", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
                            quoting=csv.QUOTE_MINIMAL)
@@ -782,7 +841,10 @@ def main():
         write_openai_csv_gz(products, tr, gz_path)
         tsv_gz = PUBLIC / "products-feed-openai.tsv.gz"
         shutil.copyfile(gz_path, tsv_gz)
+        stable = PUBLIC / OPENAI_COMMERCE_STABLE_TSV_GZ
+        shutil.copyfile(gz_path, stable)
         print(f"OK OpenAI TSV.GZ {tsv_gz} — {tsv_gz.stat().st_size//1024} KB (alias for OpenAI file-upload naming)")
+        print(f"OK OpenAI stable snapshot {stable} — same bytes; fixed path for SFTP overwrite")
     except Exception as e:
         print(f"WARN OpenAI Commerce CSV.GZ generation failed: {e}")
 

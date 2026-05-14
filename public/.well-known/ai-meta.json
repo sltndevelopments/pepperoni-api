@@ -69,13 +69,20 @@
       "updateFrequency": "daily"
     },
     {
-      "name": "pepperoni_products_feed_json",
-      "url": "https://pepperoni.tatar/products-feed.json",
-      "format": "application/ld+json",
-      "description": "Schema.org ItemList feed with 77 Product entries including Halal Certification, OfferShippingDetails (EXW Kazan), full exportPrices in 7 currencies, GTIN-13, country of origin, manufacturer details. Optimised for ChatGPT, Claude, Perplexity, DeepSeek shopping discovery.",
+      "name": "openai_commerce_product_feed_stable",
+      "url": "https://pepperoni.tatar/openai-commerce-kazan-delicacies.tsv.gz",
+      "format": "application/gzip",
+      "description": "OpenAI Agentic Commerce file-upload product feed (gzip tab-separated UTF-8). Full catalog snapshot; stable URL for SFTP mirror. Schema: https://developers.openai.com/commerce/specs/file-upload/products · Delivery: https://developers.openai.com/commerce/specs/file-upload/overview",
       "updateFrequency": "daily"
-    }
+    },
+    {
+      "name": "openai_commerce_product_feed_tsv_gz",
+      "url": "https://pepperoni.tatar/products-feed-openai.tsv.gz",
+      "format": "application/gzip",
+      "description": "Same OpenAI Commerce gzip TSV as openai_commerce_product_feed_stable; alternate path for crawlers.",
+      "updateFrequency": "daily"
+    },
   ],
   "gpt_store_url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
-  "updated_at": "2026-05-11T12:30:00Z"
+  "updated_at": "2026-05-14T12:00:00Z"
 }

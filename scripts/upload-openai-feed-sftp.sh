@@ -12,7 +12,7 @@
 #   OPENAI_COMMERCE_SFTP_PORT=22
 #
 # Optional: OPENAI_COMMERCE_ENV=/path/to.env  (default below)
-# Optional: OPENAI_COMMERCE_LOCAL_FEED=/var/www/.../public/products-feed-openai.tsv.gz
+# Optional: OPENAI_COMMERCE_LOCAL_FEED=/var/www/.../public/openai-commerce-kazan-delicacies.tsv.gz
 
 set -euo pipefail
 
@@ -41,7 +41,7 @@ if [[ -z "${OPENAI_COMMERCE_SFTP_REMOTE_PATH:-}" ]]; then
   exit 0
 fi
 
-LOCAL="${OPENAI_COMMERCE_LOCAL_FEED:-$REPO_DIR/public/products-feed-openai.tsv.gz}"
+LOCAL="${OPENAI_COMMERCE_LOCAL_FEED:-$REPO_DIR/public/${OPENAI_COMMERCE_STABLE_NAME:-openai-commerce-kazan-delicacies.tsv.gz}}"
 if [[ ! -f "$LOCAL" ]]; then
   LOCAL="$REPO_DIR/public/products-feed-openai.csv.gz"
 fi
