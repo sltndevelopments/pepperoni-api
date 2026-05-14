@@ -132,8 +132,17 @@ img{{max-width:100%;height:auto}}
 .category-title{{font-size:1.1rem;font-weight:700;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--green);color:var(--green)}}
 .products-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:6px}}
 a.product-card-link{{text-decoration:none;color:inherit;display:block}}
-.product-card{{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:box-shadow .2s,border-color .2s;cursor:pointer;height:100%}}
-.product-card:hover{{box-shadow:var(--shadow);border-color:var(--green)}}
+.product-card--featured{{padding:0;overflow:visible;display:flex;flex-direction:column;position:relative;border-radius:var(--radius);isolation:isolate}}
+.product-card__media{{position:relative;width:100%;flex-shrink:0;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(145deg,#f0f4f0,#e8ebe8)}}
+.product-card__media--placeholder{{background:linear-gradient(165deg,#eaeaea 0%,#dadada 48%,#e8e8e8 100%)}}
+.product-card__media--placeholder::before{{content:'';display:block;width:100%;padding-bottom:75%}}
+.product-card__media--photo{{line-height:0}}
+.product-card__media--photo img{{width:100%;height:auto;display:block;aspect-ratio:4/3;object-fit:cover;min-height:8rem;background:#e8ebe8}}
+.product-card__soon{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 12px;font-size:.76rem;font-weight:600;color:#6a6a6a;line-height:1.35;letter-spacing:.01em;z-index:1}}
+.product-card__body{{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;min-height:0;background:#fff;border-radius:0 0 var(--radius) var(--radius)}}
+.product-card--featured .product-name{{min-height:2.75em;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px}}
+.product-card__foot{{margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}}
+.product-card--featured .product-sku{{margin-top:8px}}
 .product-name{{font-size:.92rem;font-weight:600;margin-bottom:4px}}
 .product-sku{{font-size:.72rem;color:#767676;margin-bottom:7px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}}
 .product-sku .prop{{display:inline-block;padding:2px 6px;background:#e8e8e8;color:#333;border-radius:4px;font-size:.68rem}}
@@ -396,10 +405,26 @@ const fmtWeight=w=>{{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|�
 const fmtQty=q=>{{if(!q)return'';const s=String(q).trim();return/\d+\s*шт/i.test(s)?s:s+' шт/кор'}};
 const looksLikePrice=v=>/^\d{{2,}}[.,]\d{{2}}$/.test(String(v||'').trim());
 
+function escAttr(s){{return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}}
+function catalogImgDisplayUrl(url){{
+  if(!url||typeof url!=='string')return url;
+  const m='/image/upload/';
+  const i=url.indexOf(m);
+  if(i===-1)return url;
+  const rest=url.slice(i+m.length);
+  if(/^(f_|q_|w_|c_|fl_|dpr_)/.test(rest)||rest.includes(',f_')||rest.includes(',q_'))return url;
+  return url.slice(0,i+m.length)+'f_auto,q_auto:eco,w_480,c_limit/'+rest;
+}}
+function catalogImgProxyUrl(url){{
+  if(!url||typeof url!=='string')return '';
+  if(!url.includes('res.cloudinary.com'))return '';
+  return '/api/health?u='+encodeURIComponent(url);
+}}
 function renderGroups(allGroups){{
   let html='';
   const sym=CUR_SYM[CUR]||CUR;
   const vatLabel=CUR==='RUB'?(VAT?'с НДС':'без НДС'):'';
+  let imgSeq=0;
   for(const{{section,icon,groups}}of allGroups){{
     html+=`<h2 style="font-size:1.3rem;margin:36px 0 4px;color:#333">${{icon}} ${{section}}</h2>`;
     for(const[cat,products]of Object.entries(groups)){{
@@ -418,11 +443,23 @@ function renderGroups(allGroups){{
         const propsHtml=props.length?props.join(''):'';
         const href=p.sku?`/products/${{p.sku.toLowerCase()}}`:'#';
         const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-        html+=`<a href="${{href}}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
+        const rawImg=(p.image||'').trim();
+        const imgUrl=catalogImgDisplayUrl(rawImg);
+        const proxyUrl=catalogImgProxyUrl(imgUrl);
+        const imgForMeta=escAttr(rawImg||imgUrl);
+        const hasImg=!!rawImg;
+        const eager=imgSeq++<6;
+        const mediaBlock=hasImg
+          ?`<div class="product-card__media product-card__media--photo"><img src="${{escAttr(imgUrl)}}" data-proxy="${{escAttr(proxyUrl)}}" alt="${{altText}}" loading="${{eager?'eager':'lazy'}}" fetchpriority="${{eager?'high':'low'}}" width="400" height="300" decoding="async" onerror="if(this.dataset.proxy){{this.onerror=null;this.src=this.dataset.proxy}}"></div>`
+          :`<div class="product-card__media product-card__media--placeholder" role="img" aria-label="Фото скоро появится в карточке товара"><span class="product-card__soon" aria-hidden="true">Фото скоро будет</span></div>`;
+        html+=`<a href="${{href}}" class="product-card-link"><div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${{p.sku||''}}">
-          <meta itemprop="image" content="${{p.image||p.imageMain||''}}">
+          <meta itemprop="image" content="${{imgForMeta}}">
           <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
+          ${{mediaBlock}}
+          <div class="product-card__body">
           <div class="product-name" itemprop="name">${{p.name}}</div>
+          <div class="product-card__foot">
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="price" content="${{pr}}">
             <meta itemprop="priceCurrency" content="${{priceCur}}">
@@ -431,6 +468,8 @@ function renderGroups(allGroups){{
           </div>
           <div class="product-sku">${{propsHtml}}</div>
           <div class="product-avail">✓ В наличии</div>
+          </div>
+          </div>
         </div></a>`;
       }}
       html+='</div>';
@@ -595,8 +634,17 @@ img{{max-width:100%;height:auto}}
 .category-title{{font-size:1.1rem;font-weight:700;margin:28px 0 10px;padding-bottom:6px;border-bottom:2px solid var(--green);color:var(--green)}}
 .products-grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-bottom:6px}}
 a.product-card-link{{text-decoration:none;color:inherit;display:block}}
-.product-card{{background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:18px;transition:box-shadow .2s,border-color .2s;cursor:pointer;height:100%}}
-.product-card:hover{{box-shadow:var(--shadow);border-color:var(--green)}}
+.product-card--featured{{padding:0;overflow:visible;display:flex;flex-direction:column;position:relative;border-radius:var(--radius);isolation:isolate}}
+.product-card__media{{position:relative;width:100%;flex-shrink:0;overflow:hidden;border-radius:var(--radius) var(--radius) 0 0;background:linear-gradient(145deg,#f0f4f0,#e8ebe8)}}
+.product-card__media--placeholder{{background:linear-gradient(165deg,#eaeaea 0%,#dadada 48%,#e8e8e8 100%)}}
+.product-card__media--placeholder::before{{content:'';display:block;width:100%;padding-bottom:75%}}
+.product-card__media--photo{{line-height:0}}
+.product-card__media--photo img{{width:100%;height:auto;display:block;aspect-ratio:4/3;object-fit:cover;min-height:8rem;background:#e8ebe8}}
+.product-card__soon{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:10px 12px;font-size:.76rem;font-weight:600;color:#6a6a6a;line-height:1.35;letter-spacing:.01em;z-index:1}}
+.product-card__body{{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;min-height:0;background:#fff;border-radius:0 0 var(--radius) var(--radius)}}
+.product-card--featured .product-name{{min-height:2.75em;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;margin-bottom:6px}}
+.product-card__foot{{margin-top:auto;padding-top:10px;border-top:1px solid var(--border)}}
+.product-card--featured .product-sku{{margin-top:8px}}
 .product-name{{font-size:.92rem;font-weight:600;margin-bottom:4px}}
 .product-sku{{font-size:.72rem;color:#767676;margin-bottom:7px;display:flex;flex-wrap:wrap;gap:5px;align-items:center}}
 .product-sku .prop{{display:inline-block;padding:2px 6px;background:#e8e8e8;color:#333;border-radius:4px;font-size:.68rem}}
@@ -956,12 +1004,29 @@ function getPrice(p){{
 function fmtPrice(v){{if(!v)return'—';return v.toLocaleString('en-US',{{minimumFractionDigits:2,maximumFractionDigits:2}})}}
 const looksLikePrice=v=>/^\d{{2,}}[.,]\d{{2}}$/.test(String(v||'').trim());
 
+function escAttr(s){{return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}}
+function catalogImgDisplayUrl(url){{
+  if(!url||typeof url!=='string')return url;
+  const m='/image/upload/';
+  const i=url.indexOf(m);
+  if(i===-1)return url;
+  const rest=url.slice(i+m.length);
+  if(/^(f_|q_|w_|c_|fl_|dpr_)/.test(rest)||rest.includes(',f_')||rest.includes(',q_'))return url;
+  return url.slice(0,i+m.length)+'f_auto,q_auto:eco,w_480,c_limit/'+rest;
+}}
+function catalogImgProxyUrl(url){{
+  if(!url||typeof url!=='string')return '';
+  if(!url.includes('res.cloudinary.com'))return '';
+  return '/api/health?u='+encodeURIComponent(url);
+}}
+
 function fmtWeight(w){{return String(w).replace(/\bкг\b/,'kg').replace(/\bг\b/,'g')}}
 function fmtQty(q){{return q?q+' pcs/box':''}}
 
 function renderGroups(allGroups){{
   let html='';
   const sym=CUR_SYM[CUR]||CUR;
+  let imgSeq=0;
   for(const{{section,icon,groups}}of allGroups){{
     html+=`<h2 style="font-size:1.3rem;margin:36px 0 4px;color:#333">${{icon}} ${{section}}</h2>`;
     for(const[cat,products]of Object.entries(groups)){{
@@ -979,11 +1044,24 @@ function renderGroups(allGroups){{
         if(p.hsCode)props.push(`<span class="prop" title="HS Code">${{p.hsCode}}</span>`);
         const propsHtml=props.length?`<div class="product-sku">${{props.join('')}}</div>`:'';
         const href=p.sku?`/en/products/${{p.sku.toLowerCase()}}`:'#';
-        html+=`<a href="${{href}}" class="product-card-link"><div class="product-card" itemscope itemtype="https://schema.org/Product">
+        const altText=(p.name||'Product').replace(/"/g,'&quot;').replace(/</g,'&lt;');
+        const rawImg=(p.image||'').trim();
+        const imgUrl=catalogImgDisplayUrl(rawImg);
+        const proxyUrl=catalogImgProxyUrl(imgUrl);
+        const imgForMeta=escAttr(rawImg||imgUrl);
+        const hasImg=!!rawImg;
+        const eager=imgSeq++<6;
+        const mediaBlock=hasImg
+          ?`<div class="product-card__media product-card__media--photo"><img src="${{escAttr(imgUrl)}}" data-proxy="${{escAttr(proxyUrl)}}" alt="${{altText}}" loading="${{eager?'eager':'lazy'}}" fetchpriority="${{eager?'high':'low'}}" width="400" height="300" decoding="async" onerror="if(this.dataset.proxy){{this.onerror=null;this.src=this.dataset.proxy}}"></div>`
+          :`<div class="product-card__media product-card__media--placeholder" role="img" aria-label="Product photo coming soon"><span class="product-card__soon" aria-hidden="true">Photo coming soon</span></div>`;
+        html+=`<a href="${{href}}" class="product-card-link"><div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${{p.sku||''}}">
-          <meta itemprop="image" content="${{p.image||p.imageMain||''}}">
+          <meta itemprop="image" content="${{imgForMeta}}">
           <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Kazan Delicacies"></span>
+          ${{mediaBlock}}
+          <div class="product-card__body">
           <div class="product-name" itemprop="name">${{p.name}}</div>
+          <div class="product-card__foot">
           <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
             <meta itemprop="price" content="${{pr}}">
             <meta itemprop="priceCurrency" content="${{CUR}}">
@@ -992,6 +1070,8 @@ function renderGroups(allGroups){{
           </div>
           ${{propsHtml}}
           <div class="product-avail">✓ In stock</div>
+          </div>
+          </div>
         </div></a>`;
       }}
       html+='</div>';
