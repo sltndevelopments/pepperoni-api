@@ -123,6 +123,18 @@
   --pt-display-weight: 600;
 }
 
+/* ── EARTH · тёплая терракота / натуральный халяль / скандинавская чистота */
+:root[data-direction="earth"] {
+  --pt-bg:       #FBF9F4;
+  --pt-bg-alt:   #F3EAE0;
+  --pt-fg:       #1C1008;
+  --pt-fg-muted: rgba(28,16,8,.5);
+  --pt-accent:   #C4643E;
+  --pt-accent-2: #7A8B5E;
+  --pt-display-font: var(--pt-font-sans);
+  --pt-display-weight: 700;
+}
+
 /* ============================================================================
    Утилиты-примитивы (опционально — можно использовать или скопировать в свой
    CSS-фреймворк / Tailwind config).

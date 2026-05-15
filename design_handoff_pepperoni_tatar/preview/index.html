@@ -46,6 +46,7 @@
   <script type="text/babel" src="v2-manifest.jsx"></script>
   <script type="text/babel" src="v3-ornament.jsx"></script>
   <script type="text/babel" src="v4-catalog.jsx"></script>
+  <script type="text/babel" src="v5-earth.jsx"></script>
 
   <script type="text/babel" data-presets="react">
     const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -60,7 +61,7 @@
           <DesignCanvas>
 
             <DCSection id="landing" title="PEPPERONI.TATAR · Landing"
-              subtitle="Four directions · halal meat manufactory · TT / RU / EN">
+              subtitle="Five directions · halal meat manufactory · TT / RU / EN">
 
               <DCArtboard id="editorial" label="01 · EDITORIAL · cream / quiet luxury"
                 width={1440} height={3450}>
@@ -80,6 +81,11 @@
               <DCArtboard id="catalog" label="04 · CATALOG · B2B grid · 24 SKU"
                 width={1440} height={3600}>
                 <V4Catalog />
+              </DCArtboard>
+
+              <DCArtboard id="earth" label="05 · BUTCHER BLOCK · terracotta / natural halal"
+                width={1440} height={4200}>
+                <V5Earth />
               </DCArtboard>
 
             </DCSection>
