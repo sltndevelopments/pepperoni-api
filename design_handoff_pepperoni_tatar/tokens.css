@@ -1,0 +1,155 @@
+/* ============================================================================
+   PEPPERONI.TATAR — Design tokens
+   ----------------------------------------------------------------------------
+   Один источник правды для палитры, типографики, отступов и теней.
+   Подключите этот файл на сайт и обращайтесь к токенам через var(--pt-*).
+
+   Активная "ветка" дизайна выбирается атрибутом на <html> или корневом
+   контейнере: data-direction="editorial" | "manifest" | "ornament" | "catalog"
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Noto+Naskh+Arabic:wght@500;700&display=swap');
+
+:root {
+  /* ── Палитра (общая) ──────────────────────────────────────────────────── */
+  --pt-ink:           #0C1411;   /* основные чернила */
+  --pt-ink-soft:      rgba(12, 20, 17, .55);
+  --pt-cream:         #F4EFE6;   /* кремовый фон */
+  --pt-cream-warm:    #EDE7DA;   /* подложка */
+  --pt-paper:         #FAFAF7;   /* почти-белый */
+  --pt-emerald:       #0F4F3D;   /* основной изумруд */
+  --pt-emerald-deep:  #093729;   /* глубокий изумруд */
+  --pt-emerald-light: #1F8A60;   /* акцент-зелёный (Tesla-ветка) */
+  --pt-gold:          #C9A961;   /* основное золото */
+  --pt-gold-deep:     #A0823F;   /* тёмное золото */
+  --pt-carbon:        #070908;   /* углеродный фон */
+  --pt-carbon-soft:   #11140F;   /* карточки на углероде */
+
+  /* акценты по категориям продукции */
+  --pt-cat-pepperoni: #C24A2F;
+  --pt-cat-hotdog:    #D8A24E;
+  --pt-cat-ham:       #A24565;
+  --pt-cat-burger:    #3C5B3A;
+
+  /* ── Типографика ──────────────────────────────────────────────────────── */
+  --pt-font-serif:    "Instrument Serif", "Cormorant Garamond", Georgia, serif;
+  --pt-font-sans:     "Geist", system-ui, -apple-system, "Helvetica Neue", sans-serif;
+  --pt-font-mono:     "Geist Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --pt-font-arabic:   "Noto Naskh Arabic", "Amiri", serif;
+
+  /* размерная шкала (rem-based; 1rem = 16px) */
+  --pt-text-xs:    0.6875rem;    /* 11 — служебные mono-надписи */
+  --pt-text-sm:    0.8125rem;    /* 13 — UI / body small */
+  --pt-text-md:    0.9375rem;    /* 15 — body */
+  --pt-text-lg:    1.125rem;     /* 18 — sub-headings */
+  --pt-text-xl:    1.625rem;     /* 26 — section caps */
+  --pt-text-2xl:   2.75rem;      /* 44 — мелкие H2 */
+  --pt-text-3xl:   3.5rem;       /* 56 — H2 */
+  --pt-text-4xl:   4.5rem;       /* 72 — manifesto */
+  --pt-text-5xl:   6.75rem;      /* 108 — editorial hero */
+  --pt-text-display: 12.25rem;   /* 196 — manifest hero */
+
+  /* трекинг */
+  --pt-track-mono: 0.14em;       /* служебный mono uppercase */
+  --pt-track-display: -0.04em;   /* плотный display */
+  --pt-track-body: -0.005em;
+
+  /* ── Отступы (8-pt сетка) ─────────────────────────────────────────────── */
+  --pt-1: 4px;   --pt-2: 8px;   --pt-3: 12px;  --pt-4: 16px;
+  --pt-5: 24px;  --pt-6: 32px;  --pt-7: 48px;  --pt-8: 64px;
+  --pt-9: 80px;  --pt-10: 96px; --pt-11: 120px; --pt-12: 160px;
+
+  /* ── Линии / радиусы / тени ───────────────────────────────────────────── */
+  --pt-rule:        rgba(12, 20, 17, .12);
+  --pt-rule-strong: rgba(12, 20, 17, .22);
+  --pt-radius-0:    0;            /* плоско, без углов */
+  --pt-radius-1:    2px;
+  --pt-radius-2:    4px;
+  --pt-shadow-lift: 0 1px 3px rgba(0,0,0,.08), 0 4px 16px rgba(0,0,0,.06);
+  --pt-shadow-deep: 0 12px 40px rgba(0,0,0,.18);
+
+  /* ── По умолчанию = editorial ─────────────────────────────────────────── */
+  --pt-bg:     var(--pt-cream);
+  --pt-fg:     var(--pt-ink);
+  --pt-accent: var(--pt-emerald);
+  --pt-accent-2: var(--pt-gold);
+}
+
+/* ── EDITORIAL · крем / тихая роскошь (Blue Bottle × Aesop) ───────────── */
+:root[data-direction="editorial"] {
+  --pt-bg:       var(--pt-cream);
+  --pt-bg-alt:   var(--pt-cream-warm);
+  --pt-fg:       var(--pt-ink);
+  --pt-fg-muted: var(--pt-ink-soft);
+  --pt-accent:   var(--pt-emerald);
+  --pt-accent-2: var(--pt-gold-deep);
+  --pt-display-font: var(--pt-font-serif);
+  --pt-display-weight: 400;
+}
+
+/* ── MANIFEST · чёрный / Tesla / индустриальный спек-лист ─────────────── */
+:root[data-direction="manifest"] {
+  --pt-bg:       var(--pt-carbon);
+  --pt-bg-alt:   var(--pt-carbon-soft);
+  --pt-fg:       #FAFAF7;
+  --pt-fg-muted: rgba(250,250,247,.45);
+  --pt-accent:   var(--pt-emerald-light);
+  --pt-accent-2: var(--pt-gold);
+  --pt-display-font: var(--pt-font-sans);
+  --pt-display-weight: 700;
+}
+
+/* ── ORNAMENT · изумруд + золото / татарский орнамент ─────────────────── */
+:root[data-direction="ornament"] {
+  --pt-bg:       var(--pt-emerald);
+  --pt-bg-alt:   var(--pt-emerald-deep);
+  --pt-fg:       var(--pt-cream);
+  --pt-fg-muted: rgba(244,239,230,.75);
+  --pt-accent:   var(--pt-gold);
+  --pt-accent-2: var(--pt-gold-deep);
+  --pt-display-font: var(--pt-font-serif);
+  --pt-display-weight: 600;
+}
+
+/* ── CATALOG · белый B2B-grid / функциональная плотность ──────────────── */
+:root[data-direction="catalog"] {
+  --pt-bg:       var(--pt-paper);
+  --pt-bg-alt:   #EFE9D9;
+  --pt-fg:       var(--pt-ink);
+  --pt-fg-muted: var(--pt-ink-soft);
+  --pt-accent:   var(--pt-emerald);
+  --pt-accent-2: var(--pt-gold-deep);
+  --pt-display-font: var(--pt-font-sans);
+  --pt-display-weight: 600;
+}
+
+/* ============================================================================
+   Утилиты-примитивы (опционально — можно использовать или скопировать в свой
+   CSS-фреймворк / Tailwind config).
+   ========================================================================== */
+
+.pt-body  { font-family: var(--pt-font-sans);  color: var(--pt-fg); background: var(--pt-bg); font-size: var(--pt-text-md); line-height: 1.5; letter-spacing: var(--pt-track-body); }
+.pt-mono  { font-family: var(--pt-font-mono);  font-size: var(--pt-text-xs); letter-spacing: var(--pt-track-mono); text-transform: uppercase; color: var(--pt-fg-muted); }
+.pt-display { font-family: var(--pt-display-font); font-weight: var(--pt-display-weight); letter-spacing: var(--pt-track-display); line-height: .95; }
+
+.pt-rule   { border: 0; border-top: 1px solid var(--pt-rule); margin: 0; }
+.pt-pad    { padding-left: var(--pt-9); padding-right: var(--pt-9); }
+.pt-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--pt-5); }
+.pt-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--pt-7); }
+
+.pt-btn-primary {
+  display: inline-block; padding: 14px 22px;
+  background: var(--pt-fg); color: var(--pt-bg);
+  border: 0; cursor: pointer;
+  font: 500 var(--pt-text-sm)/1 var(--pt-font-sans);
+  letter-spacing: 0.02em;
+}
+.pt-btn-ghost {
+  display: inline-block; padding: 13px 22px;
+  background: transparent; color: var(--pt-fg);
+  border: 1px solid var(--pt-rule-strong); cursor: pointer;
+  font: 400 var(--pt-text-sm)/1 var(--pt-font-sans);
+}
+
+/* RTL поддержка арабских/арабографичных вставок */
+[dir="rtl"], .pt-arabic { font-family: var(--pt-font-arabic); }

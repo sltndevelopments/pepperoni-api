@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <title>PEPPERONI.TATAR — Landing exploration</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Noto+Naskh+Arabic:wght@500;700&display=swap" />
+
+  <template id="__bundler_thumbnail">
+    <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100" height="100" fill="#0F4F3D" />
+      <g transform="translate(50 50)" fill="none" stroke="#C9A961" stroke-width="2">
+        <rect x="-22" y="-22" width="44" height="44" />
+        <rect x="-22" y="-22" width="44" height="44" transform="rotate(45)" />
+        <circle r="14" />
+      </g>
+      <text x="50" y="86" text-anchor="middle" fill="#C9A961"
+        font-family="Geist, system-ui, sans-serif" font-size="9" letter-spacing="0.1em">PEPPERONI.TATAR</text>
+    </svg>
+  </template>
+
+  <style>
+    html, body { margin: 0; background: #f0eee9; }
+    body { font-family: 'Geist', system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    *, *::before, *::after { box-sizing: border-box; }
+    /* hide artboard scrollbars (design-canvas already does this for .dc-card,
+       but our flex column inside artboards can have its own scroll surfaces) */
+    [data-dc-slot] *::-webkit-scrollbar { display: none; }
+    [data-dc-slot] * { scrollbar-width: none; }
+  </style>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="text/babel" src="design-canvas.jsx"></script>
+  <script type="text/babel" src="tweaks-panel.jsx"></script>
+  <script type="text/babel" src="shared.jsx"></script>
+  <script type="text/babel" src="v1-editorial.jsx"></script>
+  <script type="text/babel" src="v2-manifest.jsx"></script>
+  <script type="text/babel" src="v3-ornament.jsx"></script>
+  <script type="text/babel" src="v4-catalog.jsx"></script>
+
+  <script type="text/babel" data-presets="react">
+    const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+      "lang": "en"
+    }/*EDITMODE-END*/;
+
+    function App() {
+      const [tw, setTweak] = useTweaks(TWEAK_DEFAULTS);
+
+      return (
+        <LangCtx.Provider value={tw.lang}>
+          <DesignCanvas>
+
+            <DCSection id="landing" title="PEPPERONI.TATAR · Landing"
+              subtitle="Four directions · halal meat manufactory · TT / RU / EN">
+
+              <DCArtboard id="editorial" label="01 · EDITORIAL · cream / quiet luxury"
+                width={1440} height={3450}>
+                <V1Editorial />
+              </DCArtboard>
+
+              <DCArtboard id="manifest" label="02 · MANIFEST · Tesla / industrial spec"
+                width={1440} height={3400}>
+                <V2Manifest />
+              </DCArtboard>
+
+              <DCArtboard id="ornament" label="03 · ORNAMENT · emerald / gold / Tatar pattern"
+                width={1440} height={4150}>
+                <V3Ornament />
+              </DCArtboard>
+
+              <DCArtboard id="catalog" label="04 · CATALOG · B2B grid · 24 SKU"
+                width={1440} height={3600}>
+                <V4Catalog />
+              </DCArtboard>
+
+            </DCSection>
+
+          </DesignCanvas>
+
+          <TweaksPanel title="Tweaks · PEPPERONI.TATAR">
+            <TweakSection label="Language" />
+            <TweakRadio label="Display" value={tw.lang}
+              options={[
+                { value: 'tt', label: 'TT' },
+                { value: 'ru', label: 'RU' },
+                { value: 'en', label: 'EN' },
+              ]}
+              onChange={(v) => setTweak('lang', v)} />
+            <div style={{ fontSize: 10.5, color: 'rgba(41,38,27,.55)', lineHeight: 1.5, marginTop: 4 }}>
+              Switches headings, body copy, product names, certifications and form labels across all four artboards.
+              <br/><br/>
+              <b style={{ color: 'rgba(41,38,27,.75)' }}>tt</b> · татарча (кириллица)<br/>
+              <b style={{ color: 'rgba(41,38,27,.75)' }}>ru</b> · русский<br/>
+              <b style={{ color: 'rgba(41,38,27,.75)' }}>en</b> · english
+            </div>
+          </TweaksPanel>
+        </LangCtx.Provider>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('app')).render(<App />);
+  </script>
+</body>
+</html>
