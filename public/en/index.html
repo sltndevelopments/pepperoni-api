@@ -149,7 +149,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .segments__grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px}
 .seg-card{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}
 .seg-card:hover{box-shadow:var(--shadow);border-color:var(--green);transform:translateY(-2px)}
-.seg-card__num{position:absolute;top:14px;right:16px;font-size:.72rem;font-weight:700;color:#bbb;letter-spacing:1px}
+.seg-card__num{position:absolute;top:14px;right:16px;font-size:.72rem;font-weight:700;color:#777;letter-spacing:1px}
 .seg-card__icon{font-size:1.9rem;margin-bottom:8px}
 .seg-card__title{font-weight:700;font-size:1rem;margin-bottom:6px;color:#1a1a1a}
 .seg-card__desc{color:var(--muted);font-size:.85rem;line-height:1.5;margin-bottom:10px;flex-grow:1}
@@ -1019,9 +1019,14 @@ function setCur(c){CUR=c;VAT=c==='RUB';render()}
 
 function render(){
   const total=ALL_GROUPS.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
-  document.getElementById('catalog-inner').innerHTML=renderControls()
-    +`<div style="font-size:.83rem;color:#595959;margin-bottom:8px">${total} products · live prices</div>`
-    +renderGroups(ALL_GROUPS);
+  var c=document.getElementById('catalog-inner');
+  // Phase 1 — header + count: instant paint (FCP)
+  c.innerHTML=renderControls()
+    +`<div style="font-size:.83rem;color:#595959;margin-bottom:8px">${total} products · live prices</div>`;
+  // Phase 2 — product grid: deferred to avoid long task blocking first paint
+  requestAnimationFrame(function(){
+    c.insertAdjacentHTML('beforeend',renderGroups(ALL_GROUPS));
+  });
 }
 
 const SEC_EN={'Заморозка':'Frozen Products','Охлаждённая продукция':'Chilled Products','Выпечка':'Bakery & Pastry'};
