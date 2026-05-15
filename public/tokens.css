@@ -135,6 +135,18 @@
   --pt-display-weight: 700;
 }
 
+/* ── APPLE · чёрный минимализм / точность / product-as-hero ───────────── */
+:root[data-direction="apple"] {
+  --pt-bg:       #000000;
+  --pt-bg-alt:   #f5f5f7;
+  --pt-fg:       #f5f5f7;
+  --pt-fg-muted: #86868b;
+  --pt-accent:   #0071e3;
+  --pt-accent-2: #2997ff;
+  --pt-display-font: var(--pt-font-sans);
+  --pt-display-weight: 600;
+}
+
 /* ============================================================================
    Утилиты-примитивы (опционально — можно использовать или скопировать в свой
    CSS-фреймворк / Tailwind config).
