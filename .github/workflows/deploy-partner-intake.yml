@@ -4,6 +4,10 @@ on:
   workflow_dispatch:
   push:
     branches: [STARTUP-AIO]
+    paths:
+      - 'infra/**'
+      - 'public/china.html'
+      - 'vercel.json'
 
 jobs:
   deploy:
@@ -28,182 +32,10 @@ jobs:
             data/products.json.tmp
             *.log
 
-      - name: Run partner intake installer on VPS
+      - name: Run deploy script on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            echo "=== Installing Partner Intake Server ==="
-
-            # 1. Install Python deps (handle PEP 668 externally-managed-env)
-            pip3 install --break-system-packages -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt 2>/dev/null || \
-            pip3 install -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt 2>/dev/null || \
-            pip3 install --user -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt || {
-              echo "⚠ pip3 install failed — trying apt packages..."
-              apt-get install -y python3-flask python3-dotenv 2>/dev/null || true
-              echo "⚠ You may need to install gspread and openai manually"
-            }
-            echo "✓ Python deps handled"
-
-            # 2. Install nginx snippet
-            cp /var/www/pepperoni/repo/infra/nginx/partner-intake.conf /etc/nginx/snippets/partner-intake.conf
-            echo "✓ nginx snippet installed"
-
-            # 3. Add nginx include to server block (idempotent)
-            echo "Searching for nginx config..."
-            NGINX_CONF=""
-            # Try multiple paths — common on Ubuntu/Debian
-            for f in \
-              /etc/nginx/sites-enabled/api.pepperoni.tatar.conf \
-              /etc/nginx/sites-enabled/api.pepperoni.tatar \
-              /etc/nginx/sites-enabled/default \
-              /etc/nginx/conf.d/api.pepperoni.tatar.conf \
-              /etc/nginx/conf.d/default.conf \
-              /etc/nginx/nginx.conf; do
-              if [ -f "$f" ]; then
-                NGINX_CONF="$f"
-                echo "  Found: $f"
-                break
-              fi
-            done
-            # If still not found, grep for the domain in all configs
-            if [ -z "$NGINX_CONF" ]; then
-              NGINX_CONF=$(grep -rl "api.pepperoni.tatar" /etc/nginx/sites-enabled/ /etc/nginx/conf.d/ 2>/dev/null | head -1)
-              [ -n "$NGINX_CONF" ] && echo "  Found via grep: $NGINX_CONF"
-            fi
-            # Last resort: list what exists
-            if [ -z "$NGINX_CONF" ]; then
-              echo "⚠ No nginx config found. Listing existing files:"
-              ls -la /etc/nginx/sites-enabled/ 2>/dev/null || true
-              ls -la /etc/nginx/conf.d/ 2>/dev/null || true
-            fi
-
-            if [ -n "$NGINX_CONF" ]; then
-              if grep -q "partner-intake.conf" "$NGINX_CONF" 2>/dev/null; then
-                echo "✓ nginx include already present"
-              else
-                echo "Adding partner-intake include to $NGINX_CONF ..."
-                cp "$NGINX_CONF" "$NGINX_CONF.bak-$(date +%Y%m%d%H%M%S)"
-                awk '/^}/ { print "    include /etc/nginx/snippets/partner-intake.conf;" } { print }' "$NGINX_CONF" > "$NGINX_CONF.tmp" && mv "$NGINX_CONF.tmp" "$NGINX_CONF"
-                echo "✓ nginx include added"
-              fi
-            else
-              echo "⚠ nginx config not found; nginx will NOT proxy /partner-submit"
-              echo "  Manually add to your server block:"
-              echo "  include /etc/nginx/snippets/partner-intake.conf;"
-            fi
-
-            # 4. Create upload directory
-            mkdir -p /var/www/pepperoni/data/partner-catalogs
-            chown www-data:www-data /var/www/pepperoni/data/partner-catalogs 2>/dev/null || true
-            echo "✓ upload dir created"
-
-            # 5. Create .env file if missing (needed by systemd)
-            if [ ! -f /var/www/pepperoni/.env ]; then
-              printf '%s\n' \
-                '# Partner Intake Server config' \
-                '# Fill in the values below, then: systemctl restart partner-intake' \
-                'GOOGLE_SHEET_ID=' \
-                'GOOGLE_SERVICE_ACCOUNT=/var/www/pepperoni/google-sa.json' \
-                'DEEPSEEK_API_KEY=' \
-                'UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' \
-                > /var/www/pepperoni/.env
-              chmod 600 /var/www/pepperoni/.env
-              echo "✓ .env created (fill in values and restart service)"
-            else
-              echo "✓ .env already exists"
-            fi
-
-            # 6. Create/update systemd service
-            printf '%s\n' \
-              '[Unit]' \
-              'Description=Partner Intake Server (pepperoni.tatar/china)' \
-              'After=network.target' \
-              '' \
-              '[Service]' \
-              'Type=simple' \
-              'User=www-data' \
-              'WorkingDirectory=/var/www/pepperoni/repo' \
-              'ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py' \
-              'Restart=always' \
-              'RestartSec=5' \
-              'EnvironmentFile=/var/www/pepperoni/.env' \
-              'Environment=UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' \
-              '' \
-              '[Install]' \
-              'WantedBy=multi-user.target' \
-              > /etc/systemd/system/partner-intake.service
-            echo "✓ systemd service created"
-
-            # 7. Verify Python setup before starting service
-            echo "---"
-            echo "Verifying Python environment..."
-            python3 --version 2>&1 || true
-            echo "Checking imports..."
-            python3 -c "import flask; print('flask', flask.__version__)" 2>&1 || echo "  ✗ flask NOT found"
-            python3 -c "import gspread; print('gspread', gspread.__version__)" 2>&1 || echo "  ✗ gspread NOT found (Google Sheets will be skipped)"
-            python3 -c "import openai; print('openai', openai.__version__)" 2>&1 || echo "  ✗ openai NOT found (translation will be skipped)"
-            echo "Import check done."
-
-            # 8. Start the server
-            # First, stop any existing instance
-            systemctl stop partner-intake 2>/dev/null || true
-            pkill -f "partner-intake-server.py" 2>/dev/null || true
-            sleep 1
-
-            # Start directly (more reliable than systemd for initial setup)
-            echo "Starting server directly..."
-            cd /var/www/pepperoni/repo
-            nohup python3 infra/scripts/partner-intake-server.py > /var/log/partner-intake.log 2>&1 &
-            SERVER_PID=$!
-            echo "Server PID: $SERVER_PID"
-            sleep 3
-
-            # Check if it's still running
-            if kill -0 $SERVER_PID 2>/dev/null; then
-              echo "✓ Server running (PID $SERVER_PID)"
-              # Also create systemd service for persistence across reboots
-              systemctl daemon-reload
-              systemctl enable partner-intake 2>/dev/null || true
-            else
-              echo "✗ Server died. Log output:"
-              cat /var/log/partner-intake.log 2>/dev/null || true
-              echo ""
-              echo "Trying systemd fallback..."
-              systemctl daemon-reload
-              systemctl start partner-intake 2>&1 || true
-              sleep 2
-              journalctl -u partner-intake --no-pager -n 20 2>/dev/null || true
-            fi
-
-            # 9. Test nginx and reload
-            echo "---"
-            echo "Checking nginx..."
-            if nginx -t 2>/dev/null; then
-              systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null || true
-              echo "✓ nginx reloaded"
-            else
-              echo "⚠ nginx config test failed. Debug info:"
-              nginx -t 2>&1 || true
-              echo "--- nginx conf contents (first 30 lines) ---"
-              head -30 "$NGINX_CONF" 2>/dev/null || true
-            fi
-
-            # 10. Verify service is running
-            sleep 2
-            echo ""
-            echo "=== Status ==="
-            systemctl status partner-intake --no-pager -l 2>&1 || true
-            echo ""
-            echo "=== Port check ==="
-            ss -tlnp 2>/dev/null | grep 5001 || netstat -tlnp 2>/dev/null | grep 5001 || echo "  (port 5001 status unknown — install net-tools for details)"
-            echo ""
-            echo "=== Testing local endpoint ==="
-            curl -sv http://127.0.0.1:5001/partner-submit 2>&1 | head -20 || echo "(curl to localhost failed — service may not be running)"
-            echo ""
-            echo "=== Testing public endpoint ==="
-            curl -sv https://api.pepperoni.tatar/partner-submit 2>&1 | head -20 || echo "(curl to public URL failed)"
-            echo ""
-            echo "=== Done ==="
+          script: bash /var/www/pepperoni/repo/infra/scripts/deploy-partner-intake.sh
