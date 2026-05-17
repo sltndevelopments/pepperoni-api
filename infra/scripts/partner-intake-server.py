@@ -3,17 +3,17 @@
 Partner Intake Server for pepperoni.tatar/china
 ================================================
 Receives form submissions from the /china page, writes to Google Sheets,
-translates Chinese descriptions to Russian via DeepSeek API, stores uploaded
-catalog files.
+translates Chinese descriptions to Russian via Claude API (fallback: DeepSeek).
 
 Run:  python3 partner-intake-server.py
 Port: 5001 (proxied by nginx at /partner-submit)
 
-Environment variables (set in /opt/pepperoni-api/.env):
-  GOOGLE_SHEET_ID          — Google Sheet ID (from sheet URL)
+Environment (set in /var/www/pepperoni/.env):
+  GOOGLE_SHEET_ID          — existing sheet ID (optional — auto-detected)
+  GOOGLE_SHEET_NAME        — sheet name to auto-create if no ID given
   GOOGLE_SERVICE_ACCOUNT   — path to service-account JSON key file
-  DEEPSEEK_API_KEY         — DeepSeek API key
-  UPLOAD_DIR               — directory for uploaded files (default: ./uploads)
+  CLAUDE_API_KEY           — Anthropic Claude API key (primary translation)
+  DEEPSEEK_API_KEY         — DeepSeek API key (optional fallback)
 """
 
 import os
@@ -23,29 +23,27 @@ import hashlib
 import time
 from datetime import datetime, timezone
 from pathlib import Path
-from urllib.parse import urlencode
 
 from flask import Flask, request, redirect
 from werkzeug.utils import secure_filename
 
 # ---------------------------------------------------------------------------
-# Config (from environment or defaults)
+# Config
 # ---------------------------------------------------------------------------
-BASE_DIR = Path(__file__).resolve().parent.parent  # /opt/pepperoni-api/infra/..
+BASE_DIR = Path(__file__).resolve().parent.parent
 UPLOAD_DIR = Path(os.getenv("UPLOAD_DIR", BASE_DIR / "data" / "partner-catalogs"))
 ALLOWED_EXTENSIONS = {".pdf", ".doc", ".docx", ".ppt", ".pptx", ".jpg", ".jpeg", ".png", ".zip"}
-MAX_FILE_SIZE = 10 * 1024 * 1024  # 10 MB per file
-MAX_TOTAL_SIZE = 30 * 1024 * 1024  # 30 MB total per submission
+MAX_FILE_SIZE = 10 * 1024 * 1024
+MAX_TOTAL_SIZE = 30 * 1024 * 1024
 
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-# Google Sheets config
 GOOGLE_SHEET_ID = os.getenv("GOOGLE_SHEET_ID", "")
+GOOGLE_SHEET_NAME = os.getenv("GOOGLE_SHEET_NAME", "Pepperoni Partners")
 GOOGLE_SA_PATH = os.getenv("GOOGLE_SERVICE_ACCOUNT", str(BASE_DIR / "google-sa.json"))
 
-# DeepSeek API config
+CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY", "")
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
-DEEPSEEK_BASE_URL = "https://api.deepseek.com/v1"
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -58,37 +56,65 @@ logging.basicConfig(
 log = logging.getLogger("partner-intake")
 
 # ---------------------------------------------------------------------------
-# Google Sheets helpers (lazy init)
+# Google Sheets helpers (lazy init + auto-create)
 # ---------------------------------------------------------------------------
 _sheet = None
 
 def _get_sheet():
-    """Return the first worksheet of the configured Google Sheet."""
+    """Return the worksheet for partner data. Creates sheet/tab if needed."""
     global _sheet
     if _sheet is not None:
         return _sheet
 
-    if not GOOGLE_SHEET_ID:
-        log.warning("GOOGLE_SHEET_ID not set — Sheets integration disabled")
+    if not Path(GOOGLE_SA_PATH).exists():
+        log.warning("Service account file not found: %s — Sheets disabled", GOOGLE_SA_PATH)
         return None
 
     try:
         import gspread
         gc = gspread.service_account(filename=GOOGLE_SA_PATH)
-        sh = gc.open_by_key(GOOGLE_SHEET_ID)
-        _sheet = sh.sheet1
-        log.info("Connected to Google Sheet: %s", _sheet.title)
+
+        if GOOGLE_SHEET_ID:
+            # Use explicitly configured sheet
+            sh = gc.open_by_key(GOOGLE_SHEET_ID)
+        else:
+            # Auto-find or create sheet by name
+            try:
+                sh = gc.open(GOOGLE_SHEET_NAME)
+                log.info("Found existing sheet: %s", GOOGLE_SHEET_NAME)
+            except gspread.SpreadsheetNotFound:
+                sh = gc.create(GOOGLE_SHEET_NAME)
+                log.info("Created new sheet: %s (ID: %s)", GOOGLE_SHEET_NAME, sh.id)
+                # Share with yourself (the owner of the SA) — optional
+                # The SA is the owner since it created the sheet
+
+        # Use first worksheet (or specifically named one)
+        try:
+            _sheet = sh.worksheet("Submissions")
+        except gspread.WorksheetNotFound:
+            _sheet = sh.sheet1
+            _sheet.update_title("Submissions")
+            # Write header row if sheet is empty
+            if not _sheet.get_all_values():
+                _sheet.append_row([
+                    "Timestamp", "Company Name", "Website", "Contact Person",
+                    "Position", "WeChat ID", "Email", "Phone", "Category",
+                    "Description (Original)", "Description (Russian)",
+                    "Notes", "Catalog Files"
+                ])
+
+        log.info("Connected: sheet=%s tab=%s", sh.title, _sheet.title)
         return _sheet
     except Exception as exc:
-        log.error("Failed to connect to Google Sheets: %s", exc)
+        log.error("Google Sheets error: %s", exc)
         return None
 
 
 def _append_row(data: list):
-    """Append a row to the sheet. Silently skip if Sheets is unavailable."""
+    """Append a row to the sheet. Returns True on success."""
     sheet = _get_sheet()
     if sheet is None:
-        log.warning("Sheet not available; row NOT saved.")
+        log.warning("Sheet unavailable; row NOT saved.")
         return False
     try:
         sheet.append_row(data, value_input_option="USER_ENTERED")
@@ -100,7 +126,7 @@ def _append_row(data: list):
 
 
 # ---------------------------------------------------------------------------
-# DeepSeek translation helper
+# Translation (Claude primary, DeepSeek fallback)
 # ---------------------------------------------------------------------------
 TRANSLATION_PROMPT = """You are a professional translator for a Russian halal meat manufacturer (Kazan Delicacies).
 Translate the following text from Chinese to Russian. Follow these rules:
@@ -116,45 +142,72 @@ Text to translate:
 ---
 """
 
+def _has_cjk(text: str) -> bool:
+    return any("\u4e00" <= ch <= "\u9fff" or "\u3400" <= ch <= "\u4dbf" for ch in text)
+
+
+def _translate_via_claude(text: str) -> str:
+    """Translate using Anthropic Claude API."""
+    from anthropic import Anthropic
+    client = Anthropic(api_key=CLAUDE_API_KEY)
+    prompt = TRANSLATION_PROMPT.format(text=text[:4000])
+    resp = client.messages.create(
+        model="claude-sonnet-4-20250514",
+        max_tokens=2000,
+        temperature=0.1,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return resp.content[0].text.strip()
+
+
+def _translate_via_deepseek(text: str) -> str:
+    """Translate using DeepSeek API (OpenAI-compatible)."""
+    from openai import OpenAI
+    client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url="https://api.deepseek.com/v1")
+    prompt = TRANSLATION_PROMPT.format(text=text[:4000])
+    resp = client.chat.completions.create(
+        model="deepseek-chat",
+        messages=[{"role": "user", "content": prompt}],
+        temperature=0.1,
+        max_tokens=2000,
+    )
+    return resp.choices[0].message.content.strip()
+
+
 def translate_text(text: str) -> str:
-    """Translate Chinese text to Russian via DeepSeek API."""
+    """Translate Chinese → Russian. Tries Claude, then DeepSeek."""
     if not text or not text.strip():
         return text
-    if not DEEPSEEK_API_KEY:
-        log.warning("DEEPSEEK_API_KEY not set — translation skipped")
+    if not _has_cjk(text):
+        log.info("No CJK characters; skipping translation.")
         return text
 
-    # Quick check: if no CJK characters, skip
-    has_cjk = any("\u4e00" <= ch <= "\u9fff" or "\u3400" <= ch <= "\u4dbf" for ch in text)
-    if not has_cjk:
-        log.info("No CJK characters detected; skipping translation.")
-        return text
+    # Try Claude first
+    if CLAUDE_API_KEY:
+        try:
+            result = _translate_via_claude(text)
+            log.info("Translated via Claude (%d → %d chars)", len(text), len(result))
+            return result
+        except Exception as exc:
+            log.warning("Claude translation failed: %s", exc)
 
-    try:
-        from openai import OpenAI
-        client = OpenAI(api_key=DEEPSEEK_API_KEY, base_url=DEEPSEEK_BASE_URL)
+    # Fallback to DeepSeek
+    if DEEPSEEK_API_KEY:
+        try:
+            result = _translate_via_deepseek(text)
+            log.info("Translated via DeepSeek (%d → %d chars)", len(text), len(result))
+            return result
+        except Exception as exc:
+            log.warning("DeepSeek translation failed: %s", exc)
 
-        prompt = TRANSLATION_PROMPT.format(text=text[:4000])  # limit to avoid huge requests
-
-        resp = client.chat.completions.create(
-            model="deepseek-chat",
-            messages=[{"role": "user", "content": prompt}],
-            temperature=0.1,
-            max_tokens=2000,
-        )
-        translated = resp.choices[0].message.content.strip()
-        log.info("Translation successful (%d → %d chars)", len(text), len(translated))
-        return translated
-    except Exception as exc:
-        log.error("Translation failed: %s", exc)
-        return text  # fallback: return original
+    log.warning("No translation API keys configured — returning original.")
+    return text
 
 
 # ---------------------------------------------------------------------------
 # File handling
 # ---------------------------------------------------------------------------
 def _safe_filename(original: str) -> str:
-    """Generate a safe, unique filename."""
     name = secure_filename(original)
     if not name:
         name = "catalog"
@@ -165,45 +218,28 @@ def _safe_filename(original: str) -> str:
 
 
 def _save_files(files) -> list:
-    """Save uploaded files, return list of relative paths."""
     saved = []
     total_size = 0
-
     if not files:
         return saved
-
-    # Group by field name; Formspree sends as 'catalog' (single or multiple)
     uploaded = request.files.getlist("catalog")
-
     for f in uploaded:
         if not f or not f.filename:
             continue
-
-        # Validate extension
         ext = Path(f.filename).suffix.lower()
         if ext not in ALLOWED_EXTENSIONS:
-            log.warning("Rejected file type: %s", f.filename)
             continue
-
-        # Validate size (read into memory to measure)
         f.seek(0, os.SEEK_END)
         size = f.tell()
         f.seek(0)
-
-        if size > MAX_FILE_SIZE:
-            log.warning("File too large (%d bytes): %s", size, f.filename)
+        if size > MAX_FILE_SIZE or total_size + size > MAX_TOTAL_SIZE:
             continue
-        if total_size + size > MAX_TOTAL_SIZE:
-            log.warning("Total upload size exceeded; skipping %s", f.filename)
-            continue
-
         filename = _safe_filename(f.filename)
         dest = UPLOAD_DIR / filename
         f.save(str(dest))
         total_size += size
         saved.append(str(dest))
         log.info("Saved: %s (%d bytes)", filename, size)
-
     return saved
 
 
@@ -217,7 +253,6 @@ def partner_submit():
     log.info("=" * 50)
     log.info("New submission from %s", request.remote_addr)
 
-    # --- 1. Gather form fields ---
     company     = (request.form.get("company") or "").strip()
     website     = (request.form.get("website") or "").strip()
     contact     = (request.form.get("contact_name") or "").strip()
@@ -231,46 +266,24 @@ def partner_submit():
 
     log.info("Company: %s | WeChat: %s | Category: %s", company, wechat, category)
 
-    # --- 2. Save uploaded files ---
     file_paths = _save_files(request.files)
     file_links = "\n".join(file_paths) if file_paths else ""
 
-    # --- 3. Translate description ---
-    translated = ""
-    if description:
-        log.info("Translating description (%d chars)...", len(description))
-        translated = translate_text(description)
-    else:
-        translated = ""
+    translated = translate_text(description) if description else ""
 
-    # --- 4. Write to Google Sheets ---
     now_utc = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     row = [
-        now_utc,       # A: Timestamp
-        company,       # B: Company Name
-        website,       # C: Website
-        contact,       # D: Contact Person
-        position,      # E: Position
-        wechat,        # F: WeChat ID
-        email,         # G: Email
-        phone,         # H: Phone
-        category,      # I: Category
-        description,   # J: Description (original)
-        translated,    # K: Description (Russian translation)
-        notes,         # L: Notes / How we met
-        file_links,    # M: Catalog file paths
+        now_utc, company, website, contact, position,
+        wechat, email, phone, category,
+        description, translated, notes, file_links,
     ]
     _append_row(row)
 
-    # --- 5. Redirect to success page ---
-    thanks_url = "https://pepperoni.tatar/china?thanks=1"
-    log.info("Redirecting to %s", thanks_url)
-    return redirect(thanks_url, code=302)
+    return redirect("https://pepperoni.tatar/china?thanks=1", code=302)
 
 
 @app.route("/partner-submit", methods=["GET", "HEAD"])
 def partner_submit_get():
-    """Health-check / friendly message for GET requests."""
     return "Partner intake endpoint is live. Please POST your form here.", 200
 
 
@@ -281,6 +294,7 @@ if __name__ == "__main__":
     port = int(os.getenv("PORT", "5001"))
     log.info("Starting partner-intake server on port %d", port)
     log.info("Upload dir: %s", UPLOAD_DIR)
-    log.info("Sheets ID: %s", GOOGLE_SHEET_ID or "(not set)")
-    log.info("DeepSeek:  %s", "enabled" if DEEPSEEK_API_KEY else "(not set)")
+    log.info("Sheets:     %s", GOOGLE_SHEET_ID or f"auto (name: {GOOGLE_SHEET_NAME})")
+    log.info("Claude:     %s", "enabled" if CLAUDE_API_KEY else "(not set)")
+    log.info("DeepSeek:   %s", "enabled" if DEEPSEEK_API_KEY else "(not set)")
     app.run(host="127.0.0.1", port=port, debug=False)
