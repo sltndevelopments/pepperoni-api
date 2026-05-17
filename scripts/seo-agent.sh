@@ -7,7 +7,7 @@
 #   1. fetch_gsc_queries.py     — pull data from Google Search Console
 #   2. fetch_yandex_queries.py  — pull data from Yandex Webmaster
 #   3. analyze_queries.py       — find opportunities in DB
-#   4. generate_content.py      — write new pages / update titles via Claude API
+#   4. generate_content.py      — write new pages / update titles via DeepSeek API
 #   5. git commit + push        — auto-deploy new content
 #   6. gsc-index.py             — submit new URLs to Google Indexing API
 #   7. yandex-index.py          — submit new URLs to Yandex
@@ -40,7 +40,7 @@ log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1
 
 # ---- Step 4: Generate content ----
-log "Step 4: Generating content via Claude API …"
+log "Step 4: Generating content via DeepSeek API …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 
 # ---- Step 5: Git commit & push ----

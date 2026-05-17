@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Generate a daily SEO report via Claude API and send it by email.
-Env: CLAUDE_API_KEY, REPORT_EMAIL (default: 995620@gmail.com)
+Generate a daily SEO report via DeepSeek API and send it by email.
+Env: DEEPSEEK_API_KEY, REPORT_EMAIL (default: 995620@gmail.com)
 """
 
 import json
@@ -39,7 +39,7 @@ def call_claude(prompt: str) -> str:
         )
         return text
     except Exception as e:
-        return f"[Claude недоступен: {e}]\n\n{prompt}"
+        return f"[DeepSeek недоступен: {e}]\n\n{prompt}"
 
 
 def gather_stats() -> dict:
@@ -228,7 +228,7 @@ CTR:            {gsc_ctr * 100:.2f}%  {_wow(gsc_ctr, gsc_prev.get('ctr'))}
 {opps_str if opps_str else 'нет новых'}
 
 === СГЕНЕРИРОВАНО СЕГОДНЯ ===
-Контент: {gen.get('cnt', 0)} единиц, токенов Claude: {gen.get('tokens', 0) or 0}
+Контент: {gen.get('cnt', 0)} единиц, токенов AI: {gen.get('tokens', 0) or 0}
 
 ---
 На основе этих данных напиши структурированный отчёт на русском языке:
@@ -290,7 +290,7 @@ def main():
     print(f"📊 Gathering stats for {date_str} …")
     stats = gather_stats()
 
-    print("🤖 Generating report with Claude …")
+    print("🤖 Generating report with DeepSeek …")
     prompt = build_prompt(stats, date_str)
     report_text = call_claude(prompt)
 

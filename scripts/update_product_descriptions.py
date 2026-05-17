@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Update product card descriptions based on GSC top queries.
-For each product page with GSC traffic, Claude rewrites the description
+For each product page with GSC traffic, AI rewrites the description
 to better match the search intent and improve CTR.
 
-Env: CLAUDE_API_KEY
+Env: DEEPSEEK_API_KEY
 """
 
 import json
@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, CLAUDE_API_KEY, DEFAULT_MODEL as CLAUDE_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
 MAX_PRODUCTS = int(os.environ.get("MAX_PRODUCT_UPDATES", "5"))
@@ -144,7 +144,7 @@ def update_product_page(page_url: str, queries: list[str], conn) -> bool:
                (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                VALUES (?,?,?,?,?,?,?,?,?,?)""",
             (now, "product_meta_update", "ru", queries[0] if queries else "", page_url,
-             str(file_path), new_title, "published", CLAUDE_MODEL, tokens),
+             str(file_path), new_title, "published", DEEPSEEK_MODEL, tokens),
         )
         print(f"  ✅ {file_path.name}: «{new_title[:50]}»")
         return True
@@ -155,8 +155,8 @@ def update_product_page(page_url: str, queries: list[str], conn) -> bool:
 
 
 def main():
-    if not CLAUDE_API_KEY:
-        print("❌ CLAUDE_API_KEY not set", file=sys.stderr)
+    if not DEEPSEEK_API_KEY:
+        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     init_db()

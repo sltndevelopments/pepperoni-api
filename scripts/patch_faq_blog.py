@@ -3,8 +3,8 @@
 Add FAQPage Schema + visible FAQ section to existing blog articles
 that were created before FAQ generation was added to prompts.
 
-Uses Claude API to generate relevant Q&A based on actual article content.
-Run: CLAUDE_API_KEY=... python scripts/patch_faq_blog.py
+Uses DeepSeek API to generate relevant Q&A based on actual article content.
+Run: DEEPSEEK_API_KEY=... python scripts/patch_faq_blog.py
 """
 
 import json
@@ -17,40 +17,43 @@ import urllib.error
 from pathlib import Path
 
 PUBLIC     = Path(__file__).parent.parent / "public"
-API_KEY    = os.environ.get("CLAUDE_API_KEY", "")
-MODEL      = "claude-sonnet-4-5"
+API_KEY    = os.environ.get("DEEPSEEK_API_KEY", "")
+MODEL      = "deepseek-v4-pro"
 MAX_TOKENS = 800
 
 
 def call_claude(system: str, prompt: str) -> str:
     if not API_KEY:
-        raise RuntimeError("CLAUDE_API_KEY not set")
+        raise RuntimeError("DEEPSEEK_API_KEY not set")
+    messages = []
+    if system:
+        messages.append({"role": "system", "content": system})
+    messages.append({"role": "user", "content": prompt})
     body = json.dumps({
         "model": MODEL,
         "max_tokens": MAX_TOKENS,
-        "system": system,
-        "messages": [{"role": "user", "content": prompt}],
+        "messages": messages,
+        "temperature": 0.7,
     }).encode()
     req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
+        "https://api.deepseek.com/v1/chat/completions",
         data=body,
         headers={
-            "x-api-key": API_KEY,
-            "anthropic-version": "2023-06-01",
-            "content-type": "application/json",
+            "Authorization": f"Bearer {API_KEY}",
+            "Content-Type": "application/json",
         },
     )
     for attempt in range(3):
         try:
             with urllib.request.urlopen(req, timeout=45) as r:
                 data = json.loads(r.read())
-                return data["content"][0]["text"].strip()
+                return data["choices"][0]["message"]["content"].strip()
         except urllib.error.HTTPError as e:
             if e.code == 529 or e.code == 429:
                 time.sleep(30)
                 continue
             raise
-    raise RuntimeError("Claude API failed after 3 attempts")
+    raise RuntimeError("DeepSeek API failed after 3 attempts")
 
 
 def extract_text(html: str, max_chars: int = 3000) -> str:
@@ -145,7 +148,7 @@ def patch_article(path: Path, lang: str) -> bool:
     try:
         qa = generate_faq(text, lang)
     except Exception as e:
-        print(f"    ❌ Claude error: {e}")
+        print(f"    ❌ API error: {e}")
         return False
 
     if not qa:
@@ -183,7 +186,7 @@ def patch_article(path: Path, lang: str) -> bool:
 
 def main():
     if not API_KEY:
-        print("❌ CLAUDE_API_KEY not set")
+        print("❌ DEEPSEEK_API_KEY not set")
         sys.exit(1)
 
     ru_files = [f for f in sorted((PUBLIC / "blog").glob("*.html")) if "FAQPage" not in f.read_text()]

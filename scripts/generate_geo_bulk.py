@@ -26,10 +26,9 @@ PUBLIC = ROOT / "public"
 DB_PATH = DATA / "seo_data.db"
 
 # ── API ───────────────────────────────────────────────────────────────────────
-CLAUDE_API_KEY = os.environ.get("CLAUDE_API_KEY", "")
-CLAUDE_MODEL = "claude-3-5-haiku-20241022"  # fast + cheap for bulk
-CLAUDE_ENDPOINT = "https://api.anthropic.com/v1/messages"
-SOCKS_PROXY = os.environ.get("SOCKS_PROXY", "")
+DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+DEEPSEEK_MODEL = "deepseek-chat"  # fast + cheap for bulk
+DEEPSEEK_ENDPOINT = "https://api.deepseek.com/v1/chat/completions"
 
 # ── Limits ────────────────────────────────────────────────────────────────────
 MAX_PAGES_PER_RUN = int(os.environ.get("MAX_GEO_PAGES", "100"))
@@ -99,57 +98,14 @@ def save_page_record(slug, product_id, city_slug, country_code, lang, template_i
 
 
 # ── HTTP helper ───────────────────────────────────────────────────────────────
-<<<<<<< HEAD
-# Delegates to the shared claude_client (multi-proxy failover + socket timeout +
-# auto-fallback to direct) so a dead proxy no longer hangs the runner for 6h.
+# Delegates to the shared DeepSeek client.
 sys.path.insert(0, os.path.dirname(__file__))
 from claude_client import call_claude as _shared_call_claude  # noqa: E402
 
 
 def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
-    """Call Claude API via shared client. Returns (text, tokens_used)."""
-    return _shared_call_claude(prompt=prompt, model=CLAUDE_MODEL, max_tokens=max_tokens)
-=======
-def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
-    """Call Claude API. Returns (text, tokens_used)."""
-    import urllib.request
-    import urllib.error
-
-    if not CLAUDE_API_KEY:
-        raise RuntimeError("CLAUDE_API_KEY not set")
-
-    headers = {
-        "x-api-key": CLAUDE_API_KEY,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json",
-    }
-    body = json.dumps({
-        "model": CLAUDE_MODEL,
-        "max_tokens": max_tokens,
-        "messages": [{"role": "user", "content": prompt}],
-    }).encode()
-
-    proxies = {}
-    if SOCKS_PROXY:
-        try:
-            import socks
-            import socket
-            proxy_host, proxy_port = SOCKS_PROXY.replace("socks5://", "").split(":")
-            socks.set_default_proxy(socks.SOCKS5, proxy_host, int(proxy_port))
-            socket.socket = socks.socksocket
-        except Exception:
-            pass
-
-    req = urllib.request.Request(CLAUDE_ENDPOINT, data=body, headers=headers, method="POST")
-    try:
-        with urllib.request.urlopen(req, timeout=60) as resp:
-            data = json.loads(resp.read())
-            text = data["content"][0]["text"]
-            tokens = data.get("usage", {}).get("output_tokens", 0)
-            return text, tokens
-    except urllib.error.HTTPError as e:
-        raise RuntimeError(f"Claude API error {e.code}: {e.read().decode()}")
->>>>>>> origin/STARTUP-AIO
+    """Call DeepSeek API via shared client. Returns (text, tokens_used)."""
+    return _shared_call_claude(prompt=prompt, model=DEEPSEEK_MODEL, max_tokens=max_tokens)
 
 
 # ── Slug helpers ──────────────────────────────────────────────────────────────
@@ -283,7 +239,7 @@ TEMPLATE_PROMPTS = {
 
 def build_prompt(product: dict, city_name: str, city_context: dict,
                  lang: str, template_id: str, country_name: str) -> str:
-    """Build a unique, high-quality Claude prompt for one page."""
+    """Build a unique, high-quality AI prompt for one page."""
 
     lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
     template_note = TEMPLATE_PROMPTS.get(template_id, TEMPLATE_PROMPTS["A"])
@@ -367,7 +323,7 @@ USP: {usp}
 
 # ── HTML post-processing ──────────────────────────────────────────────────────
 def clean_html(html: str) -> str:
-    """Strip markdown fences if Claude returns them."""
+    """Strip markdown fences if the model returns them."""
     html = re.sub(r"^```html?\s*\n?", "", html.strip(), flags=re.IGNORECASE)
     html = re.sub(r"\n?```\s*$", "", html.strip())
     return html.strip()
@@ -576,8 +532,8 @@ def main():
                         help="Just print task list, don't generate")
     args = parser.parse_args()
 
-    if not CLAUDE_API_KEY:
-        print("❌ CLAUDE_API_KEY not set", file=sys.stderr)
+    if not DEEPSEEK_API_KEY:
+        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     init_db()

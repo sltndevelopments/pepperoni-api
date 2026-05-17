@@ -54,7 +54,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install cryptography PySocks
+        run: pip install cryptography
 
       # ── Step 1: Fetch search data ──────────────────────────────
 
@@ -76,9 +76,9 @@ jobs:
 
       # ── Step 2: Generate content ───────────────────────────────
 
-      - name: Generate content via Claude API
+      - name: Generate content via DeepSeek API
         env:
-          CLAUDE_API_KEY:       ${{ secrets.CLAUDE_API_KEY }}
+          DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
           MAX_TITLES:           ${{ github.event.inputs.max_titles   || '10' }}
           MAX_TYPEGEO:          ${{ github.event.inputs.max_typegeo  || '3' }}
@@ -90,7 +90,7 @@ jobs:
       - name: Update product descriptions via GSC data
         if: github.event_name == 'workflow_dispatch' || format('{0}', github.event.schedule) == '' || (toJSON(github.event) != '' && contains(toJSON(github.event), 'Mon'))
         env:
-          CLAUDE_API_KEY:          ${{ secrets.CLAUDE_API_KEY }}
+          DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
         run: python scripts/update_product_descriptions.py
         continue-on-error: true
@@ -100,7 +100,7 @@ jobs:
       - name: Generate news articles
         if: github.event.inputs.run_news == 'true'
         env:
-          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/gen_news.py
         continue-on-error: true
 
@@ -114,8 +114,7 @@ jobs:
 
       - name: Generate bulk geo pages
         env:
-          CLAUDE_API_KEY:   ${{ secrets.CLAUDE_API_KEY }}
-          SOCKS_PROXY:      ${{ secrets.SOCKS_PROXY }}
+          DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
           GEO_WORKERS:      "5"
           GEO_SLEEP:        "0.5"
@@ -193,7 +192,7 @@ jobs:
 
       - name: Send daily report
         env:
-          CLAUDE_API_KEY:  ${{ secrets.CLAUDE_API_KEY }}
+          DEEPSEEK_API_KEY:  ${{ secrets.DEEPSEEK_API_KEY }}
           REPORT_EMAIL:    ${{ secrets.REPORT_EMAIL }}
           SMTP_HOST:       ${{ secrets.SMTP_HOST }}
           SMTP_PORT:       ${{ secrets.SMTP_PORT }}

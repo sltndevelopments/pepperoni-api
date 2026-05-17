@@ -1,10 +1,37 @@
 #!/usr/bin/env bash
-# Deploy Partner Intake Server — single script for GitHub Actions
+# Deploy Partner Intake Server — extracts creds from existing VPS config, sets up everything
 set -e
 cd /var/www/pepperoni/repo
 echo "=== Deploy Partner Intake Server ==="
 
-echo "[1/6] Installing Python deps..."
+# ---- 0. Extract credentials from existing VPS config ----
+echo "[0/7] Extracting credentials..."
+SA_FILE="/var/www/pepperoni/google-sa.json"
+ENV_FILE="/var/www/pepperoni/.env"
+
+# Decode GSC service account from seo-agent.env (base64-encoded JSON)
+if [ -f /var/www/pepperoni/seo-agent.env ] && [ ! -f "$SA_FILE" ]; then
+  GSC_B64=$(grep GSC_SERVICE_ACCOUNT_KEY_B64 /var/www/pepperoni/seo-agent.env | cut -d= -f2-)
+  if [ -n "$GSC_B64" ]; then
+    echo "$GSC_B64" | base64 -d > "$SA_FILE" 2>/dev/null || true
+    chmod 600 "$SA_FILE"
+    echo "  Service account extracted to $SA_FILE"
+  fi
+fi
+
+# Get DeepSeek key from seo-agent.env
+DEEPSEEK_KEY="${DEEPSEEK_API_KEY:-}"
+if [ -z "$DEEPSEEK_KEY" ] && [ -f /var/www/pepperoni/seo-agent.env ]; then
+  DEEPSEEK_KEY=$(grep DEEPSEEK_API_KEY /var/www/pepperoni/seo-agent.env | cut -d= -f2-)
+fi
+if [ -z "$DEEPSEEK_KEY" ] && [ -f "$ENV_FILE" ]; then
+  DEEPSEEK_KEY=$(grep DEEPSEEK_API_KEY "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)
+fi
+
+echo "  DeepSeek:   $([ -n "$DEEPSEEK_KEY" ] && echo 'found' || echo 'not found')"
+
+# ---- 1. Python dependencies ----
+echo "[1/7] Installing Python deps..."
 pip3 install --break-system-packages -r infra/scripts/requirements-partner.txt 2>/dev/null || \
 pip3 install -r infra/scripts/requirements-partner.txt 2>/dev/null || \
 pip3 install --user -r infra/scripts/requirements-partner.txt || {
@@ -13,7 +40,8 @@ pip3 install --user -r infra/scripts/requirements-partner.txt || {
 }
 echo "  done"
 
-echo "[2/6] Installing nginx snippet..."
+# ---- 2. Nginx ----
+echo "[2/7] Nginx setup..."
 cp -f infra/nginx/partner-intake.conf /etc/nginx/snippets/partner-intake.conf
 NGINX_CONF=""
 for f in /etc/nginx/sites-enabled/api.pepperoni.tatar.conf /etc/nginx/sites-enabled/api.pepperoni.tatar /etc/nginx/sites-enabled/default; do
@@ -26,26 +54,45 @@ if [ -n "$NGINX_CONF" ] && ! grep -q "partner-intake.conf" "$NGINX_CONF" 2>/dev/
   mv "$NGINX_CONF.tmp" "$NGINX_CONF"
   echo "  include added to $NGINX_CONF"
 else
-  echo "  nginx ok (already configured or config not found)"
+  echo "  ok"
 fi
 
-echo "[3/6] Creating directories..."
+# ---- 3. Directories ----
+echo "[3/7] Directories..."
 mkdir -p /var/www/pepperoni/data/partner-catalogs
 chown www-data:www-data /var/www/pepperoni/data/partner-catalogs 2>/dev/null || true
 
-echo "[4/6] Checking .env..."
-if [ ! -f /var/www/pepperoni/.env ]; then
-  printf '%s\n' '# Partner Intake Server config' 'GOOGLE_SHEET_ID=' 'GOOGLE_SERVICE_ACCOUNT=/var/www/pepperoni/google-sa.json' 'DEEPSEEK_API_KEY=' 'UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' > /var/www/pepperoni/.env
-  chmod 600 /var/www/pepperoni/.env
-  echo "  created (fill in values!)"
-fi
+# ---- 4. .env file ----
+echo "[4/7] Writing .env..."
+printf '%s\n' \
+  "# Partner Intake Server — auto-generated $(date)" \
+  "# Google Sheets: auto-creates/finds sheet '${GOOGLE_SHEET_NAME:-Pepperoni Partners}'" \
+  "GOOGLE_SHEET_ID=" \
+  "GOOGLE_SHEET_NAME=Pepperoni Partners" \
+  "GOOGLE_SERVICE_ACCOUNT=$SA_FILE" \
+  "DEEPSEEK_API_KEY=${DEEPSEEK_KEY}" \
+  "UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs" \
+  > "$ENV_FILE"
+chmod 600 "$ENV_FILE"
+echo "  .env written ($(wc -l < "$ENV_FILE") lines)"
 
-echo "[5/6] Creating systemd service..."
-printf '%s\n' '[Unit]' 'Description=Partner Intake Server' 'After=network.target' '' '[Service]' 'Type=simple' 'User=www-data' 'WorkingDirectory=/var/www/pepperoni/repo' 'ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py' 'Restart=always' 'RestartSec=5' 'EnvironmentFile=-/var/www/pepperoni/.env' '' '[Install]' 'WantedBy=multi-user.target' > /etc/systemd/system/partner-intake.service
+# ---- 5. Systemd ----
+echo "[5/7] Systemd service..."
+printf '%s\n' \
+  '[Unit]' 'Description=Partner Intake Server' 'After=network.target' '' \
+  '[Service]' 'Type=simple' 'User=www-data' \
+  'WorkingDirectory=/var/www/pepperoni/repo' \
+  'ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py' \
+  'Restart=always' 'RestartSec=5' \
+  "EnvironmentFile=-$ENV_FILE" \
+  'Environment=UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' '' \
+  '[Install]' 'WantedBy=multi-user.target' \
+  > /etc/systemd/system/partner-intake.service
 systemctl daemon-reload 2>/dev/null || true
 systemctl enable partner-intake 2>/dev/null || true
 
-echo "[6/6] Starting server..."
+# ---- 6. Start server ----
+echo "[6/7] Starting server..."
 systemctl stop partner-intake 2>/dev/null || true
 pkill -f "partner-intake-server.py" 2>/dev/null || true
 sleep 1
@@ -64,13 +111,13 @@ else
   journalctl -u partner-intake --no-pager -n 20 2>/dev/null || true
 fi
 
-echo ""
-echo "=== Reloading nginx ==="
+# ---- 7. Nginx reload + verify ----
+echo "[7/7] Reloading nginx..."
 nginx -t 2>/dev/null && { systemctl reload nginx 2>/dev/null || nginx -s reload 2>/dev/null; echo "  nginx reloaded"; } || echo "  nginx -t failed"
 
 echo ""
 echo "=== Verifying ==="
 sleep 1
-curl -s -o /dev/null -w "  Local:  HTTP %{http_code}\n" http://127.0.0.1:5001/partner-submit 2>/dev/null || echo "  Local:  NOT REACHABLE"
-curl -s -o /dev/null -w "  Public: HTTP %{http_code}\n" https://api.pepperoni.tatar/partner-submit 2>/dev/null || echo "  Public: NOT REACHABLE"
-echo "=== Deploy complete ==="
+curl -s -o /dev/null -w "  Local:  HTTP %{http_code}\n" http://127.0.0.1:5001/partner-submit 2>/dev/null || echo "  Local:  FAIL"
+curl -s -o /dev/null -w "  Public: HTTP %{http_code}\n" https://api.pepperoni.tatar/partner-submit 2>/dev/null || echo "  Public: FAIL"
+echo "=== Done ==="

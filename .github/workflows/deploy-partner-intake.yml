@@ -4,10 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [STARTUP-AIO]
-    paths:
-      - 'infra/**'
-      - 'public/china.html'
-      - 'vercel.json'
 
 jobs:
   deploy:
@@ -34,8 +30,32 @@ jobs:
 
       - name: Run deploy script on VPS
         uses: appleboy/ssh-action@v1.0.0
+        env:
+          DEEPSEEK_API_KEY: sk-4e98eaed895f4fb7bfba91d69b82bb34
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
+          envs: DEEPSEEK_API_KEY
           script: bash /var/www/pepperoni/repo/infra/scripts/deploy-partner-intake.sh
+
+      - name: Verify server + test submission
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            echo "=== Testing form submission ==="
+            curl -s -X POST http://127.0.0.1:5001/partner-submit \
+              -F 'company=TEST-AUTO-Verify' \
+              -F 'contact_name=TestBot' \
+              -F 'wechat=testbot' \
+              -F 'email=test@auto.verify' \
+              -F 'category=other' \
+              -F 'description=这是一个自动测试。测试翻译和表格写入功能是否正常。' \
+              -o /dev/null -w 'HTTP %{http_code}\n'
+            sleep 3
+            echo ""
+            echo "=== Server log (last 30 lines) ==="
+            tail -30 /var/log/partner-intake.log 2>/dev/null || echo "(no log)"
