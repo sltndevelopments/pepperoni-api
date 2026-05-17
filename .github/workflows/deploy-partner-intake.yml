@@ -4,13 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [STARTUP-AIO]
-    paths:
-      - 'infra/scripts/partner-intake-server.py'
-      - 'infra/scripts/install-partner-intake.sh'
-      - 'infra/scripts/requirements-partner.txt'
-      - 'infra/nginx/partner-intake.conf'
-      - 'public/china.html'
-      - 'vercel.json'
 
 jobs:
   deploy:
