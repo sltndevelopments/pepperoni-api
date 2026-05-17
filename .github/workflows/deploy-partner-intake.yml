@@ -35,7 +35,6 @@ jobs:
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            set -e
             echo "=== Installing Partner Intake Server ==="
 
             # 1. Install Python deps (handle PEP 668 externally-managed-env)
