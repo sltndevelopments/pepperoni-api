@@ -4,10 +4,6 @@ on:
   workflow_dispatch:
   push:
     branches: [STARTUP-AIO]
-    paths:
-      - 'infra/**'
-      - 'public/china.html'
-      - 'vercel.json'
 
 jobs:
   deploy:
