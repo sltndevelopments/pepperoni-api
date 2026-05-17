@@ -175,23 +175,14 @@ def _translate_via_deepseek(text: str) -> str:
 
 
 def translate_text(text: str) -> str:
-    """Translate Chinese → Russian. Tries Claude, then DeepSeek."""
+    """Translate Chinese → Russian. Tries DeepSeek first, then Claude."""
     if not text or not text.strip():
         return text
     if not _has_cjk(text):
         log.info("No CJK characters; skipping translation.")
         return text
 
-    # Try Claude first
-    if CLAUDE_API_KEY:
-        try:
-            result = _translate_via_claude(text)
-            log.info("Translated via Claude (%d → %d chars)", len(text), len(result))
-            return result
-        except Exception as exc:
-            log.warning("Claude translation failed: %s", exc)
-
-    # Fallback to DeepSeek
+    # Try DeepSeek first
     if DEEPSEEK_API_KEY:
         try:
             result = _translate_via_deepseek(text)
@@ -199,6 +190,15 @@ def translate_text(text: str) -> str:
             return result
         except Exception as exc:
             log.warning("DeepSeek translation failed: %s", exc)
+
+    # Fallback to Claude
+    if CLAUDE_API_KEY:
+        try:
+            result = _translate_via_claude(text)
+            log.info("Translated via Claude (%d → %d chars)", len(text), len(result))
+            return result
+        except Exception as exc:
+            log.warning("Claude translation failed: %s", exc)
 
     log.warning("No translation API keys configured — returning original.")
     return text
@@ -295,6 +295,6 @@ if __name__ == "__main__":
     log.info("Starting partner-intake server on port %d", port)
     log.info("Upload dir: %s", UPLOAD_DIR)
     log.info("Sheets:     %s", GOOGLE_SHEET_ID or f"auto (name: {GOOGLE_SHEET_NAME})")
-    log.info("Claude:     %s", "enabled" if CLAUDE_API_KEY else "(not set)")
-    log.info("DeepSeek:   %s", "enabled" if DEEPSEEK_API_KEY else "(not set)")
+    log.info("DeepSeek:   %s", "enabled (primary)" if DEEPSEEK_API_KEY else "(not set)")
+    log.info("Claude:     %s", "enabled (fallback)" if CLAUDE_API_KEY else "(not set)")
     app.run(host="127.0.0.1", port=port, debug=False)

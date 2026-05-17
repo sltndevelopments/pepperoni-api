@@ -25,14 +25,14 @@ if [ -f /var/www/pepperoni/seo-agent.env ]; then
   CLAUDE_KEY=$(grep CLAUDE_API_KEY /var/www/pepperoni/seo-agent.env | cut -d= -f2-)
 fi
 
-# Get DeepSeek key if present (user may have added it)
-DEEPSEEK_KEY=""
-if [ -f "$ENV_FILE" ]; then
+# Get DeepSeek key: use env var if passed, otherwise keep existing from .env
+DEEPSEEK_KEY="${DEEPSEEK_API_KEY:-}"
+if [ -z "$DEEPSEEK_KEY" ] && [ -f "$ENV_FILE" ]; then
   DEEPSEEK_KEY=$(grep DEEPSEEK_API_KEY "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)
 fi
 
-echo "  Claude API: $([ -n "$CLAUDE_KEY" ] && echo 'found' || echo 'not found')"
 echo "  DeepSeek:   $([ -n "$DEEPSEEK_KEY" ] && echo 'found' || echo 'not found')"
+echo "  Claude:     $([ -n "$CLAUDE_KEY" ] && echo 'found (fallback)' || echo 'not found')"
 
 # ---- 1. Python dependencies ----
 echo "[1/7] Installing Python deps..."
