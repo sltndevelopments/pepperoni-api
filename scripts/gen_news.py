@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate news articles for /news/ section.
-Static news + Claude-assisted generation for fresh content.
+Static news + AI-assisted generation for fresh content.
 
 Schema.org NewsArticle for Google News eligibility.
 Run once/week or manually.
@@ -16,7 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, CLAUDE_API_KEY, DEFAULT_MODEL as CLAUDE_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
 
 PUBLIC_DIR = Path(__file__).parent.parent / "public"
 NEWS_DIR   = PUBLIC_DIR / "news"
@@ -238,8 +238,8 @@ def add_to_sitemap(urls: list[str]):
 
 
 def main():
-    if not CLAUDE_API_KEY:
-        print("❌ CLAUDE_API_KEY not set", file=sys.stderr)
+    if not DEEPSEEK_API_KEY:
+        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     init_db()
@@ -266,7 +266,7 @@ def main():
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (now, "news_article", "ru", news["topic"][:100], slug,
-                 str(out_path), news["title"], "published", CLAUDE_MODEL, tokens),
+                 str(out_path), news["title"], "published", DEEPSEEK_MODEL, tokens),
             )
             new_urls.append(f"https://pepperoni.tatar/news/{slug}")
             count += 1

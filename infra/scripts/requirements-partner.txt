@@ -2,5 +2,4 @@ flask>=3.0
 gspread>=6.0
 google-auth>=2.30
 openai>=1.30
-anthropic>=0.30
 python-dotenv>=1.0

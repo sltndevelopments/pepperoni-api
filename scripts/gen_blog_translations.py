@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Generate missing blog article translations (RU→EN and EN→RU).
-Usage: CLAUDE_API_KEY=sk-ant-... python3 scripts/gen_blog_translations.py
+Usage: DEEPSEEK_API_KEY=sk-... python3 scripts/gen_blog_translations.py
 """
 
 import os, sys, re, time

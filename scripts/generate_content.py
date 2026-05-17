@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate SEO content via Claude API.
+Generate SEO content via DeepSeek API.
 
 Actions:
   1. Schedule mode: 3 RU + 3 EN blog articles/day from predefined topic list
@@ -11,7 +11,7 @@ Actions:
   6. New geo pages from DB opportunities
   7. Product card description updates based on GSC data
 
-Env: CLAUDE_API_KEY
+Env: DEEPSEEK_API_KEY
 """
 
 import json
@@ -25,7 +25,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, CLAUDE_API_KEY, DEFAULT_MODEL as CLAUDE_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
 MAX_TOKENS   = 4096
@@ -642,7 +642,7 @@ def run_scheduled_articles(conn) -> int:
                 """INSERT INTO generated_content
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "article", "ru", topic, slug, str(out_path), topic, "published", CLAUDE_MODEL, tokens),
+                (now, "article", "ru", topic, slug, str(out_path), topic, "published", DEEPSEEK_MODEL, tokens),
             )
             new_urls.append(f"https://pepperoni.tatar/blog/{slug}")
             count += 1
@@ -660,7 +660,7 @@ def run_scheduled_articles(conn) -> int:
                 """INSERT INTO generated_content
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "article", "en", topic, slug, str(out_path), topic, "published", CLAUDE_MODEL, tokens),
+                (now, "article", "en", topic, slug, str(out_path), topic, "published", DEEPSEEK_MODEL, tokens),
             )
             new_urls.append(f"https://pepperoni.tatar/en/blog/{slug}")
             count += 1
@@ -703,7 +703,7 @@ def run_faq_pages(conn) -> int:
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (now, "faq_page", lang, faq["title"], slug, str(out_path),
-                 faq["title"], "published", CLAUDE_MODEL, tokens),
+                 faq["title"], "published", DEEPSEEK_MODEL, tokens),
             )
             new_urls.append(url)
             count += 1
@@ -746,7 +746,7 @@ def run_comparison_pages(conn) -> int:
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (now, "comparison", lang, comp["title"], slug, str(out_path),
-                 comp["title"], "published", CLAUDE_MODEL, tokens),
+                 comp["title"], "published", DEEPSEEK_MODEL, tokens),
             )
             new_urls.append(url)
             count += 1
@@ -788,7 +788,7 @@ def run_type_geo_pages(conn) -> int:
                        (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                        VALUES (?,?,?,?,?,?,?,?,?,?)""",
                     (now, "geo_page", "ru", f"{type_ru} {city_ru} оптом", slug,
-                     str(out_path), f"{type_ru} {city_ru}", "published", CLAUDE_MODEL, tokens),
+                     str(out_path), f"{type_ru} {city_ru}", "published", DEEPSEEK_MODEL, tokens),
                 )
                 new_urls.append(f"https://pepperoni.tatar/geo/{slug}")
                 count += 1
@@ -872,7 +872,7 @@ CTR страницы низкий (< 3%). Позиция: {opp["position"]:.1f}.
                        (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                        VALUES (?,?,?,?,?,?,?,?,?,?)""",
                     (now, "title_update", "ru", query, page_url, str(rel_path),
-                     new_title, "published", CLAUDE_MODEL, tokens),
+                     new_title, "published", DEEPSEEK_MODEL, tokens),
                 )
                 conn.execute(
                     "UPDATE opportunities SET status='done', notes=? WHERE id=?",
@@ -929,7 +929,7 @@ def process_new_pages(opportunities: list, conn) -> int:
                    (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (now, page_type, "ru", query, slug_en, str(out_path),
-                 query, "published", CLAUDE_MODEL, tokens),
+                 query, "published", DEEPSEEK_MODEL, tokens),
             )
             conn.execute(
                 "UPDATE opportunities SET status='done', notes=? WHERE id=?",
@@ -946,8 +946,8 @@ def process_new_pages(opportunities: list, conn) -> int:
 # ---------- Main ----------
 
 def main():
-    if not CLAUDE_API_KEY:
-        print("❌ CLAUDE_API_KEY not set", file=sys.stderr)
+    if not DEEPSEEK_API_KEY:
+        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     init_db()

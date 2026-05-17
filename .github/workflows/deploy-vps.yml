@@ -40,7 +40,7 @@ jobs:
         env:
           GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
           YANDEX_WM_TOKEN:         ${{ secrets.YANDEX_WM_TOKEN }}
-          CLAUDE_API_KEY:          ${{ secrets.CLAUDE_API_KEY }}
+          DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
           BING_CLIENT_ID:          ${{ secrets.BING_CLIENT_ID }}
           BING_CLIENT_SECRET:      ${{ secrets.BING_CLIENT_SECRET }}
@@ -49,14 +49,14 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,CLAUDE_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,DEEPSEEK_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
             {
               echo "GSC_SERVICE_ACCOUNT_KEY_B64=$GSC_B64"
               echo "YANDEX_WM_TOKEN=$YANDEX_WM_TOKEN"
-              echo "CLAUDE_API_KEY=$CLAUDE_API_KEY"
+              echo "DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY"
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"
               echo "BING_CLIENT_ID=$BING_CLIENT_ID"
               echo "BING_CLIENT_SECRET=$BING_CLIENT_SECRET"

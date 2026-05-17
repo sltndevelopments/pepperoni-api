@@ -63,7 +63,7 @@ python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yand
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
 
-# ---- Step 4: Generate content via Claude API ----
+# ---- Step 4: Generate content via DeepSeek API ----
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 

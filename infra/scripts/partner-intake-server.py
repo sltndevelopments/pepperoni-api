@@ -3,7 +3,7 @@
 Partner Intake Server for pepperoni.tatar/china
 ================================================
 Receives form submissions from the /china page, writes to Google Sheets,
-translates Chinese descriptions to Russian via Claude API (fallback: DeepSeek).
+translates Chinese descriptions to Russian via DeepSeek API.
 
 Run:  python3 partner-intake-server.py
 Port: 5001 (proxied by nginx at /partner-submit)
@@ -12,8 +12,7 @@ Environment (set in /var/www/pepperoni/.env):
   GOOGLE_SHEET_ID          — existing sheet ID (optional — auto-detected)
   GOOGLE_SHEET_NAME        — sheet name to auto-create if no ID given
   GOOGLE_SERVICE_ACCOUNT   — path to service-account JSON key file
-  CLAUDE_API_KEY           — Anthropic Claude API key (primary translation)
-  DEEPSEEK_API_KEY         — DeepSeek API key (optional fallback)
+  DEEPSEEK_API_KEY         — DeepSeek API key
 """
 
 import os
@@ -42,7 +41,6 @@ GOOGLE_SHEET_ID = os.getenv("GOOGLE_SHEET_ID", "")
 GOOGLE_SHEET_NAME = os.getenv("GOOGLE_SHEET_NAME", "Pepperoni Partners")
 GOOGLE_SA_PATH = os.getenv("GOOGLE_SERVICE_ACCOUNT", str(BASE_DIR / "google-sa.json"))
 
-CLAUDE_API_KEY = os.getenv("CLAUDE_API_KEY", "")
 DEEPSEEK_API_KEY = os.getenv("DEEPSEEK_API_KEY", "")
 
 # ---------------------------------------------------------------------------
@@ -126,7 +124,7 @@ def _append_row(data: list):
 
 
 # ---------------------------------------------------------------------------
-# Translation (Claude primary, DeepSeek fallback)
+# Translation (DeepSeek)
 # ---------------------------------------------------------------------------
 TRANSLATION_PROMPT = """You are a professional translator for a Russian halal meat manufacturer (Kazan Delicacies).
 Translate the following text from Chinese to Russian. Follow these rules:
@@ -146,20 +144,6 @@ def _has_cjk(text: str) -> bool:
     return any("\u4e00" <= ch <= "\u9fff" or "\u3400" <= ch <= "\u4dbf" for ch in text)
 
 
-def _translate_via_claude(text: str) -> str:
-    """Translate using Anthropic Claude API."""
-    from anthropic import Anthropic
-    client = Anthropic(api_key=CLAUDE_API_KEY)
-    prompt = TRANSLATION_PROMPT.format(text=text[:4000])
-    resp = client.messages.create(
-        model="claude-sonnet-4-20250514",
-        max_tokens=2000,
-        temperature=0.1,
-        messages=[{"role": "user", "content": prompt}],
-    )
-    return resp.content[0].text.strip()
-
-
 def _translate_via_deepseek(text: str) -> str:
     """Translate using DeepSeek API (OpenAI-compatible)."""
     from openai import OpenAI
@@ -175,14 +159,13 @@ def _translate_via_deepseek(text: str) -> str:
 
 
 def translate_text(text: str) -> str:
-    """Translate Chinese → Russian. Tries DeepSeek first, then Claude."""
+    """Translate Chinese → Russian via DeepSeek API."""
     if not text or not text.strip():
         return text
     if not _has_cjk(text):
         log.info("No CJK characters; skipping translation.")
         return text
 
-    # Try DeepSeek first
     if DEEPSEEK_API_KEY:
         try:
             result = _translate_via_deepseek(text)
@@ -190,15 +173,6 @@ def translate_text(text: str) -> str:
             return result
         except Exception as exc:
             log.warning("DeepSeek translation failed: %s", exc)
-
-    # Fallback to Claude
-    if CLAUDE_API_KEY:
-        try:
-            result = _translate_via_claude(text)
-            log.info("Translated via Claude (%d → %d chars)", len(text), len(result))
-            return result
-        except Exception as exc:
-            log.warning("Claude translation failed: %s", exc)
 
     log.warning("No translation API keys configured — returning original.")
     return text
@@ -295,6 +269,5 @@ if __name__ == "__main__":
     log.info("Starting partner-intake server on port %d", port)
     log.info("Upload dir: %s", UPLOAD_DIR)
     log.info("Sheets:     %s", GOOGLE_SHEET_ID or f"auto (name: {GOOGLE_SHEET_NAME})")
-    log.info("DeepSeek:   %s", "enabled (primary)" if DEEPSEEK_API_KEY else "(not set)")
-    log.info("Claude:     %s", "enabled (fallback)" if CLAUDE_API_KEY else "(not set)")
+    log.info("DeepSeek:   %s", "enabled" if DEEPSEEK_API_KEY else "(not set)")
     app.run(host="127.0.0.1", port=port, debug=False)

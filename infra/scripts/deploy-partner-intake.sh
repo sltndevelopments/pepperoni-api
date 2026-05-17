@@ -19,24 +19,19 @@ if [ -f /var/www/pepperoni/seo-agent.env ] && [ ! -f "$SA_FILE" ]; then
   fi
 fi
 
-# Get Claude key from seo-agent.env
-CLAUDE_KEY=""
-if [ -f /var/www/pepperoni/seo-agent.env ]; then
-  CLAUDE_KEY=$(grep CLAUDE_API_KEY /var/www/pepperoni/seo-agent.env | cut -d= -f2-)
-fi
-
-# Get DeepSeek key: use env var if passed, otherwise keep existing from .env
+# Get DeepSeek key from seo-agent.env
 DEEPSEEK_KEY="${DEEPSEEK_API_KEY:-}"
+if [ -z "$DEEPSEEK_KEY" ] && [ -f /var/www/pepperoni/seo-agent.env ]; then
+  DEEPSEEK_KEY=$(grep DEEPSEEK_API_KEY /var/www/pepperoni/seo-agent.env | cut -d= -f2-)
+fi
 if [ -z "$DEEPSEEK_KEY" ] && [ -f "$ENV_FILE" ]; then
   DEEPSEEK_KEY=$(grep DEEPSEEK_API_KEY "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)
 fi
 
 echo "  DeepSeek:   $([ -n "$DEEPSEEK_KEY" ] && echo 'found' || echo 'not found')"
-echo "  Claude:     $([ -n "$CLAUDE_KEY" ] && echo 'found (fallback)' || echo 'not found')"
 
 # ---- 1. Python dependencies ----
 echo "[1/7] Installing Python deps..."
-pip3 install --break-system-packages anthropic 2>/dev/null || true
 pip3 install --break-system-packages -r infra/scripts/requirements-partner.txt 2>/dev/null || \
 pip3 install -r infra/scripts/requirements-partner.txt 2>/dev/null || \
 pip3 install --user -r infra/scripts/requirements-partner.txt || {
@@ -75,7 +70,6 @@ printf '%s\n' \
   "GOOGLE_SHEET_ID=" \
   "GOOGLE_SHEET_NAME=Pepperoni Partners" \
   "GOOGLE_SERVICE_ACCOUNT=$SA_FILE" \
-  "CLAUDE_API_KEY=${CLAUDE_KEY}" \
   "DEEPSEEK_API_KEY=${DEEPSEEK_KEY}" \
   "UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs" \
   > "$ENV_FILE"
