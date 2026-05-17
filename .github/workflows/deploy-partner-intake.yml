@@ -148,16 +148,35 @@ jobs:
             python3 -c "import openai; print('openai', openai.__version__)" 2>&1 || echo "  ✗ openai NOT found (translation will be skipped)"
             echo "Import check done."
 
-            # 8. Enable and start service
-            systemctl daemon-reload
-            systemctl enable partner-intake 2>/dev/null || true
-            if systemctl restart partner-intake 2>/dev/null; then
-              echo "✓ service restarted"
+            # 8. Start the server
+            # First, stop any existing instance
+            systemctl stop partner-intake 2>/dev/null || true
+            pkill -f "partner-intake-server.py" 2>/dev/null || true
+            sleep 1
+
+            # Start directly (more reliable than systemd for initial setup)
+            echo "Starting server directly..."
+            cd /var/www/pepperoni/repo
+            nohup python3 infra/scripts/partner-intake-server.py > /var/log/partner-intake.log 2>&1 &
+            SERVER_PID=$!
+            echo "Server PID: $SERVER_PID"
+            sleep 3
+
+            # Check if it's still running
+            if kill -0 $SERVER_PID 2>/dev/null; then
+              echo "✓ Server running (PID $SERVER_PID)"
+              # Also create systemd service for persistence across reboots
+              systemctl daemon-reload
+              systemctl enable partner-intake 2>/dev/null || true
             else
-              echo "⚠ Service failed. Logs:"
-              journalctl -u partner-intake --no-pager -n 30 2>/dev/null || true
-              echo "Manual test start..."
-              cd /var/www/pepperoni/repo && timeout 5 python3 infra/scripts/partner-intake-server.py 2>&1 || true
+              echo "✗ Server died. Log output:"
+              cat /var/log/partner-intake.log 2>/dev/null || true
+              echo ""
+              echo "Trying systemd fallback..."
+              systemctl daemon-reload
+              systemctl start partner-intake 2>&1 || true
+              sleep 2
+              journalctl -u partner-intake --no-pager -n 20 2>/dev/null || true
             fi
 
             # 9. Test nginx and reload
