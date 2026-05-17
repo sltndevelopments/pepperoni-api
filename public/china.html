@@ -262,47 +262,24 @@ img{max-width:100%;height:auto}
 
       <!--
       ============================================================
-      FORM BACKEND SETUP — READ THIS BEFORE DEPLOYING
-      ============================================================
+      FORM BACKEND: VPS Python server → Google Sheets + DeepSeek translation
       
-      OPTION 1: Formspree (recommended, free up to 50 submissions/month)
-        1. Go to https://formspree.io and sign up (free)
-        2. Create a new form, get your form ID (e.g. "xabcdeyz")
-        3. Replace YOUR_FORMSPREE_ID below with your actual form ID
-        4. Done. Submissions go to your email + Formspree dashboard.
-        5. Optional: connect Formspree → Zapier/Make/n8n → Google Sheets
+      Submissions go to api.pepperoni.tatar/partner-submit (nginx → Flask :5001).
+      The VPS server writes to Google Sheets and translates descriptions
+      from Chinese to Russian via DeepSeek API automatically.
       
-      OPTION 2: Google Apps Script (free, direct to Google Sheets)
-        1. Create a Google Sheet
-        2. Open Extensions → Apps Script
-        3. Paste the script from: https://github.com/levinunnink/html-form-to-google-sheet
-           (search "Submit a HTML form to Google Sheets" for the script)
-        4. Deploy as web app (Execute as: "me", Who has access: "Anyone")
-        5. Copy the web app URL and replace the form action below
-        6. For file uploads via Apps Script — see separate instructions in the docs
-      
-      OPTION 3: Google Form (simplest, file uploads work natively)
-        1. Create a Google Form with matching fields
-        2. Send link separately, or embed via iframe
-        3. See commented-out iframe section at the bottom of this file
-      
+      Setup instructions: infra/scripts/install-partner-intake.sh
+      Server code:        infra/scripts/partner-intake-server.py
       ============================================================
       -->
 
       <form
         id="partner-form"
-        action="https://formspree.io/f/maqvrvjj"
+        action="https://api.pepperoni.tatar/partner-submit"
         method="POST"
         enctype="multipart/form-data"
         novalidate
       >
-        <!-- Honeypot (spam protection for Formspree) -->
-        <input type="text" name="_gotcha" style="display:none">
-
-        <!-- Redirect after submission -->
-        <input type="hidden" name="_subject" value="New HotelEx Partner Submission">
-        <input type="hidden" name="_next" value="https://pepperoni.tatar/china?thanks=1">
-
         <!-- === Row 1: Company Name + Website === -->
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
           <div class="form-group">
@@ -578,11 +555,15 @@ img{max-width:100%;height:auto}
 
 <!--
 ============================================================
-FORMSPREE CONFIGURED — endpoint: https://formspree.io/f/maqvrvjj
+BACKEND: VPS Python server at api.pepperoni.tatar/partner-submit
 ============================================================
-✓ Form submissions go to: Formspree dashboard + email (rinat@pepperoni.tatar)
-✓ To add Google Sheets: Formspree Settings → Workflow → Zapier/Make/n8n
-✓ Test the form by submitting a test entry and checking the Submissions tab
+✓ Submissions → Python Flask server on VPS (:5001)
+✓ Writes structured data to Google Sheets
+✓ Auto-translates Chinese descriptions → Russian via DeepSeek API
+✓ Saves uploaded catalog files to VPS disk
+✓ Redirects to /china?thanks=1 on success
+
+Setup: run infra/scripts/install-partner-intake.sh on VPS
 ============================================================
 -->
 </body>
