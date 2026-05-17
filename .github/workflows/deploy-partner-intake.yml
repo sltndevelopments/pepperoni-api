@@ -1,0 +1,137 @@
+name: Deploy Partner Intake to VPS
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [STARTUP-AIO]
+    paths:
+      - 'infra/scripts/partner-intake-server.py'
+      - 'infra/scripts/install-partner-intake.sh'
+      - 'infra/scripts/requirements-partner.txt'
+      - 'infra/nginx/partner-intake.conf'
+      - 'public/china.html'
+      - 'vercel.json'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Deploy files via rsync
+        uses: Burnett01/rsync-deployments@7.0.0
+        with:
+          switches: -avzr --delete
+          path: .
+          remote_path: /var/www/pepperoni/repo
+          remote_host: ${{ secrets.VPS_HOST }}
+          remote_user: root
+          remote_key: ${{ secrets.VPS_SSH_KEY }}
+          exclude: |
+            .git*
+            node_modules
+            data/products.json
+            data/products.json.tmp
+            *.log
+
+      - name: Run partner intake installer on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            echo "=== Installing Partner Intake Server ==="
+
+            # 1. Install Python deps
+            pip3 install -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt
+            echo "✓ Python deps installed"
+
+            # 2. Install nginx snippet
+            cp /var/www/pepperoni/repo/infra/nginx/partner-intake.conf /etc/nginx/snippets/partner-intake.conf
+            echo "✓ nginx snippet installed"
+
+            # 3. Add nginx include to server block (idempotent)
+            NGINX_CONF="/etc/nginx/sites-enabled/api.pepperoni.tatar.conf"
+            if ! grep -q "partner-intake.conf" "$NGINX_CONF" 2>/dev/null; then
+              echo "Adding partner-intake include to nginx config..."
+              # Insert before the first 'location' block or at end of server block
+              sed -i '/^}/i \    include /etc/nginx/snippets/partner-intake.conf;\n' "$NGINX_CONF" || {
+                echo "⚠ Could not auto-insert nginx include. Please add manually:"
+                echo "  include /etc/nginx/snippets/partner-intake.conf;"
+              }
+            else
+              echo "✓ nginx include already present"
+            fi
+
+            # 4. Create upload directory
+            mkdir -p /var/www/pepperoni/data/partner-catalogs
+            chown www-data:www-data /var/www/pepperoni/data/partner-catalogs
+            echo "✓ upload dir created"
+
+            # 5. Create .env file if missing (needed by systemd)
+            if [ ! -f /var/www/pepperoni/.env ]; then
+              cat > /var/www/pepperoni/.env << 'ENVEOF'
+# Partner Intake Server config
+# Fill in the values below, then: systemctl restart partner-intake
+GOOGLE_SHEET_ID=
+GOOGLE_SERVICE_ACCOUNT=/var/www/pepperoni/google-sa.json
+DEEPSEEK_API_KEY=
+UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs
+ENVEOF
+              chmod 600 /var/www/pepperoni/.env
+              echo "✓ .env created (fill in values and restart service)"
+            else
+              echo "✓ .env already exists"
+            fi
+
+            # 6. Create/update systemd service
+            cat > /etc/systemd/system/partner-intake.service << 'SYSTEMDEOF'
+[Unit]
+Description=Partner Intake Server (pepperoni.tatar/china)
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/var/www/pepperoni/repo
+ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py
+Restart=always
+RestartSec=5
+EnvironmentFile=/var/www/pepperoni/.env
+Environment=UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs
+
+[Install]
+WantedBy=multi-user.target
+SYSTEMDEOF
+            echo "✓ systemd service created"
+
+            # 7. Enable and start service
+            systemctl daemon-reload
+            systemctl enable partner-intake
+            systemctl restart partner-intake || {
+              echo "⚠ Service failed to start. Check: systemctl status partner-intake"
+              echo "⚠ Make sure /var/www/pepperoni/.env exists with required vars"
+            }
+            echo "✓ service enabled & restarted"
+
+            # 8. Test nginx and reload
+            if nginx -t 2>/dev/null; then
+              systemctl reload nginx
+              echo "✓ nginx reloaded"
+            else
+              echo "⚠ nginx config test failed — please fix manually"
+            fi
+
+            # 9. Verify
+            sleep 2
+            echo ""
+            echo "=== Status ==="
+            systemctl status partner-intake --no-pager -l 2>&1 || true
+            echo ""
+            echo "=== Testing endpoint ==="
+            curl -s -o /dev/null -w "HTTP %{http_code}" http://127.0.0.1:5001/partner-submit || echo "(curl failed)"
+            echo ""
+            echo "=== Done ==="
