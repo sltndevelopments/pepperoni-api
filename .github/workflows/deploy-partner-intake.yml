@@ -138,16 +138,29 @@ jobs:
               > /etc/systemd/system/partner-intake.service
             echo "✓ systemd service created"
 
-            # 7. Enable and start service
-            systemctl daemon-reload
-            systemctl enable partner-intake
-            systemctl restart partner-intake || {
-              echo "⚠ Service failed to start. Check: systemctl status partner-intake"
-              echo "⚠ Make sure /var/www/pepperoni/.env exists with required vars"
-            }
-            echo "✓ service enabled & restarted"
+            # 7. Verify Python setup before starting service
+            echo "---"
+            echo "Verifying Python environment..."
+            python3 --version 2>&1 || true
+            echo "Checking imports..."
+            python3 -c "import flask; print('flask', flask.__version__)" 2>&1 || echo "  ✗ flask NOT found"
+            python3 -c "import gspread; print('gspread', gspread.__version__)" 2>&1 || echo "  ✗ gspread NOT found (Google Sheets will be skipped)"
+            python3 -c "import openai; print('openai', openai.__version__)" 2>&1 || echo "  ✗ openai NOT found (translation will be skipped)"
+            echo "Import check done."
 
-            # 8. Test nginx and reload
+            # 8. Enable and start service
+            systemctl daemon-reload
+            systemctl enable partner-intake 2>/dev/null || true
+            if systemctl restart partner-intake 2>/dev/null; then
+              echo "✓ service restarted"
+            else
+              echo "⚠ Service failed. Logs:"
+              journalctl -u partner-intake --no-pager -n 30 2>/dev/null || true
+              echo "Manual test start..."
+              cd /var/www/pepperoni/repo && timeout 5 python3 infra/scripts/partner-intake-server.py 2>&1 || true
+            fi
+
+            # 9. Test nginx and reload
             echo "---"
             echo "Checking nginx..."
             if nginx -t 2>/dev/null; then
@@ -160,7 +173,7 @@ jobs:
               head -30 "$NGINX_CONF" 2>/dev/null || true
             fi
 
-            # 9. Verify service is running
+            # 10. Verify service is running
             sleep 2
             echo ""
             echo "=== Status ==="
