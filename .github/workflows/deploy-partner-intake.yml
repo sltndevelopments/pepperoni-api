@@ -73,14 +73,14 @@ jobs:
 
             # 5. Create .env file if missing (needed by systemd)
             if [ ! -f /var/www/pepperoni/.env ]; then
-              cat > /var/www/pepperoni/.env << 'ENVEOF'
-# Partner Intake Server config
-# Fill in the values below, then: systemctl restart partner-intake
-GOOGLE_SHEET_ID=
-GOOGLE_SERVICE_ACCOUNT=/var/www/pepperoni/google-sa.json
-DEEPSEEK_API_KEY=
-UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs
-ENVEOF
+              printf '%s\n' \
+                '# Partner Intake Server config' \
+                '# Fill in the values below, then: systemctl restart partner-intake' \
+                'GOOGLE_SHEET_ID=' \
+                'GOOGLE_SERVICE_ACCOUNT=/var/www/pepperoni/google-sa.json' \
+                'DEEPSEEK_API_KEY=' \
+                'UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' \
+                > /var/www/pepperoni/.env
               chmod 600 /var/www/pepperoni/.env
               echo "✓ .env created (fill in values and restart service)"
             else
@@ -88,24 +88,24 @@ ENVEOF
             fi
 
             # 6. Create/update systemd service
-            cat > /etc/systemd/system/partner-intake.service << 'SYSTEMDEOF'
-[Unit]
-Description=Partner Intake Server (pepperoni.tatar/china)
-After=network.target
-
-[Service]
-Type=simple
-User=www-data
-WorkingDirectory=/var/www/pepperoni/repo
-ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py
-Restart=always
-RestartSec=5
-EnvironmentFile=/var/www/pepperoni/.env
-Environment=UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs
-
-[Install]
-WantedBy=multi-user.target
-SYSTEMDEOF
+            printf '%s\n' \
+              '[Unit]' \
+              'Description=Partner Intake Server (pepperoni.tatar/china)' \
+              'After=network.target' \
+              '' \
+              '[Service]' \
+              'Type=simple' \
+              'User=www-data' \
+              'WorkingDirectory=/var/www/pepperoni/repo' \
+              'ExecStart=/usr/bin/python3 /var/www/pepperoni/repo/infra/scripts/partner-intake-server.py' \
+              'Restart=always' \
+              'RestartSec=5' \
+              'EnvironmentFile=/var/www/pepperoni/.env' \
+              'Environment=UPLOAD_DIR=/var/www/pepperoni/data/partner-catalogs' \
+              '' \
+              '[Install]' \
+              'WantedBy=multi-user.target' \
+              > /etc/systemd/system/partner-intake.service
             echo "✓ systemd service created"
 
             # 7. Enable and start service
