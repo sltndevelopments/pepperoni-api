@@ -38,30 +38,42 @@ jobs:
             set -e
             echo "=== Installing Partner Intake Server ==="
 
-            # 1. Install Python deps
-            pip3 install -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt
-            echo "✓ Python deps installed"
+            # 1. Install Python deps (handle PEP 668 externally-managed-env)
+            pip3 install --break-system-packages -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt 2>/dev/null || \
+            pip3 install -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt 2>/dev/null || \
+            pip3 install --user -r /var/www/pepperoni/repo/infra/scripts/requirements-partner.txt || {
+              echo "⚠ pip3 install failed — trying apt packages..."
+              apt-get install -y python3-flask python3-dotenv 2>/dev/null || true
+              echo "⚠ You may need to install gspread and openai manually"
+            }
+            echo "✓ Python deps handled"
 
             # 2. Install nginx snippet
             cp /var/www/pepperoni/repo/infra/nginx/partner-intake.conf /etc/nginx/snippets/partner-intake.conf
             echo "✓ nginx snippet installed"
 
             # 3. Add nginx include to server block (idempotent)
-            NGINX_CONF="/etc/nginx/sites-enabled/api.pepperoni.tatar.conf"
-            if ! grep -q "partner-intake.conf" "$NGINX_CONF" 2>/dev/null; then
-              echo "Adding partner-intake include to nginx config..."
-              # Insert before the first 'location' block or at end of server block
-              sed -i '/^}/i \    include /etc/nginx/snippets/partner-intake.conf;\n' "$NGINX_CONF" || {
-                echo "⚠ Could not auto-insert nginx include. Please add manually:"
-                echo "  include /etc/nginx/snippets/partner-intake.conf;"
-              }
+            NGINX_CONF=""
+            for f in /etc/nginx/sites-enabled/api.pepperoni.tatar.conf /etc/nginx/conf.d/api.pepperoni.tatar.conf; do
+              [ -f "$f" ] && NGINX_CONF="$f" && break
+            done
+            if [ -n "$NGINX_CONF" ]; then
+              if grep -q "partner-intake.conf" "$NGINX_CONF" 2>/dev/null; then
+                echo "✓ nginx include already present"
+              else
+                echo "Adding partner-intake include to $NGINX_CONF ..."
+                cp "$NGINX_CONF" "$NGINX_CONF.bak-$(date +%Y%m%d%H%M%S)"
+                awk '/^}/ { print "    include /etc/nginx/snippets/partner-intake.conf;" } { print }' "$NGINX_CONF" > "$NGINX_CONF.tmp" && mv "$NGINX_CONF.tmp" "$NGINX_CONF"
+                echo "✓ nginx include added"
+              fi
             else
-              echo "✓ nginx include already present"
+              echo "⚠ nginx config not found at expected paths; add manually:"
+              echo "  include /etc/nginx/snippets/partner-intake.conf;"
             fi
 
             # 4. Create upload directory
             mkdir -p /var/www/pepperoni/data/partner-catalogs
-            chown www-data:www-data /var/www/pepperoni/data/partner-catalogs
+            chown www-data:www-data /var/www/pepperoni/data/partner-catalogs 2>/dev/null || true
             echo "✓ upload dir created"
 
             # 5. Create .env file if missing (needed by systemd)
