@@ -14,7 +14,13 @@ mkdir -p "$DATA_DIR"
 cd "$REPO_DIR"
 node scripts/sync-sheets.mjs
 
-# 1b. Regenerate rich llms.txt for RU and EN (overrides the thin one
+# 1b. Regenerate rich product pages (RU + EN) with gallery, SEO, Cloudinary images.
+# sync-sheets.mjs writes simple single-image pages; gen-ru/en-products.py override
+# them with the full gallery (imageMain + imagePack + imageSlice thumbnails).
+python3 scripts/gen-ru-products.py 2>&1 || echo "[warn] gen-ru-products.py failed; keeping previous files"
+python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py failed; keeping previous files"
+
+# 1c. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). This keeps AI crawlers fed with full
 # context on every cron tick.
 python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
