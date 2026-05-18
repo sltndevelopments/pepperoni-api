@@ -232,7 +232,13 @@ def _translate_catalogs(file_paths: list) -> str:
         except Exception as exc:
             log.warning("Catalog translation failed for %s: %s", fp, exc)
 
-    return "\n\n".join(translations) if translations else ""
+    result = "\n\n".join(translations) if translations else ""
+
+    # Prefix ' to prevent Google Sheets interpreting === or = as formula
+    if result:
+        result = "'" + result
+
+    return result
 
 
 # ---------------------------------------------------------------------------
