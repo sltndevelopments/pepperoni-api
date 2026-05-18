@@ -275,10 +275,10 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-gallery{{background:transparent;border-radius:0;padding:0;box-shadow:none}}
 .product-main-img{{margin-bottom:10px;aspect-ratio:3/2;overflow:hidden;background:#f0f0f0}}
 .product-main-img img{{display:block;width:100%;height:100%;object-fit:cover;background:transparent}}
-.product-thumbs{{display:grid;grid-template-columns:1fr;gap:12px}}
-.product-thumbs img{{display:block;width:100%;max-width:none;aspect-ratio:3/2;height:auto;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
-.product-thumbs img:hover{{border-color:#1b7a3d}}
-.product-thumbs .lightbox-trigger{{display:inline-block}}
+.product-thumbs{{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-top:10px}}
+.product-thumbs img{{display:block;width:100%;max-width:none;aspect-ratio:3/2;height:auto;object-fit:cover;cursor:pointer;border:2px solid transparent;border-radius:6px;transition:border-color .2s,box-shadow .2s}}
+.product-thumbs img:hover{{border-color:#1b7a3d;box-shadow:0 2px 8px rgba(0,0,0,.15)}}
+.product-thumbs .lightbox-trigger{{display:block}}
 .lightbox-trigger{{cursor:pointer}}
 .product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none}}
 .lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}}
