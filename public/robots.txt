@@ -26,7 +26,6 @@ Allow: /openai-commerce-kazan-delicacies.tsv.gz
 Allow: /ru/products-feed.json
 Allow: /wholesale-price-list.txt
 Allow: /wholesale-price-list-ru.txt
-Allow: /products/
 Allow: /en/products/
 Allow: /ai.txt
 
@@ -155,7 +154,6 @@ Allow: /
 # ───────── Sitemaps ─────────
 Sitemap: https://pepperoni.tatar/sitemap.xml
 Sitemap: https://pepperoni.tatar/sitemap-llms.xml
-Sitemap: https://pepperoni.tatar/rss.xml
 
 # ───────── Product feeds (Google Merchant / OpenAI Commerce / Bing Shopping) ─────────
 # Discoverable feed URLs for shopping crawlers

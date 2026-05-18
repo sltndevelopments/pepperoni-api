@@ -12,6 +12,29 @@ TRANSLATIONS_JSON = "scripts/translations.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
 
+def truncate_meta(text, max_len=160, min_len=150):
+    """Truncate text for meta description: 150–160 chars, word boundary,
+    prefer sentence boundary if within ±20 chars. Appends … when cut."""
+    if not text or len(text) <= max_len:
+        return text
+    # Look for sentence boundary within ±20 of maxLen
+    best_cut = -1
+    for m in re.finditer(r'[.!?]\s', text):
+        pos = m.start() + 1  # include the punctuation
+        if min_len - 20 <= pos <= max_len + 20:
+            best_cut = pos
+        if pos > max_len + 20:
+            break
+    if best_cut > 0 and best_cut <= max_len + 20:
+        return text[:best_cut].rstrip() + '…'
+    # Fall back to word boundary
+    if max_len < len(text) and text[max_len] != ' ' and text[max_len - 1] != ' ':
+        space_idx = text.rfind(' ', 0, max_len)
+        if space_idx >= min_len:
+            return text[:space_idx].rstrip() + '…'
+    return text[:max_len].rstrip() + '…'
+
+
 def extract_qty_from_name(name):
     m = re.search(r"[×x]\s*(\d+)\s*шт", str(name or ""), re.I)
     return int(m.group(1)) if m else 0
@@ -135,11 +158,11 @@ def main():
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
         else:
             desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
-        seo_desc = (p.get("seoDescriptionEN") or desc)
-        seo_desc = seo_desc[:160].rsplit(" ", 1)[0] if len(seo_desc) > 160 else seo_desc
+        seo_desc = truncate_meta(p.get("seoDescriptionEN") or desc)
         if len(seo_desc) < 120:
             seo_desc = (seo_desc + " Halal wholesale catalog. Export, HACCP, Private Label.")
-        seo_desc = seo_desc[:160].replace('"', "&quot;")
+            seo_desc = truncate_meta(seo_desc)
+        seo_desc = seo_desc.replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         seo_desc_esc = seo_desc.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')

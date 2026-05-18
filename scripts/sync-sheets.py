@@ -17,6 +17,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 SUBMISSION = ROOT / "submission"
+
+# ── Data quality helpers ──
+
+def _is_scientific_notation(val) -> bool:
+    """Detect Excel-exported scientific notation like '4,68E+12' or '4.68E+12'."""
+    if not isinstance(val, str):
+        return False
+    return bool(re.match(r'^\d+[.,]\d+E\+\d+$', val.strip()))
+
+
+def _is_valid_box_weight(val) -> bool:
+    """Reject 0, article-number lookalikes (>1000 or 200xxx/999xxx patterns)."""
+    if val is None or (isinstance(val, str) and val.strip() == ''):
+        return False
+    try:
+        n = float(str(val).replace(',', '.').strip())
+    except (ValueError, TypeError):
+        return False
+    if n == 0 or n > 1000:
+        return False
+    return True
+
+
+def _normalize_spaces(text: str) -> str:
+    """Collapse multiple spaces into one, strip trailing/leading whitespace."""
+    if not text:
+        return text
+    return re.sub(r' {2,}', ' ', text).strip()
 BASE_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv"
 
 SHEETS = [
@@ -515,8 +543,11 @@ def _product_detail_cards(all_products: list[dict]) -> str:
             attrs.append(f"HS-код: {p['hsCode']}")
         if p.get("articleNumber"):
             attrs.append(f"Артикул: {p['articleNumber']}")
-        if p.get("barcode"):
-            attrs.append(f"Штрих-код: {p['barcode']}")
+        barcode = p.get("barcode", "")
+        if barcode and not _is_scientific_notation(barcode):
+            attrs.append(f"Штрих-код: {barcode}")
+        elif barcode and _is_scientific_notation(barcode):
+            print(f"     ⚠️  {sku}: barcode in scientific notation — fix in Google Sheets: {barcode}")
         if p.get("diameter"):
             attrs.append(f"Диаметр: {p['diameter']}")
         if p.get("casing"):
@@ -525,8 +556,9 @@ def _product_detail_cards(all_products: list[dict]) -> str:
             attrs.append(f"Упаковка: {p['packageType']}")
         if p.get("minOrder"):
             attrs.append(f"Минимальный заказ: {p['minOrder']}")
-        if p.get("boxWeightGross"):
-            attrs.append(f"Вес короба брутто: {p['boxWeightGross']}")
+        bw = p.get("boxWeightGross", "")
+        if _is_valid_box_weight(bw):
+            attrs.append(f"Вес короба брутто: {str(bw).replace('.', ',')}")
 
         for line in attrs:
             out += f"- {line}\n"
@@ -540,13 +572,13 @@ def _product_detail_cards(all_products: list[dict]) -> str:
                 out += f"- Экспортные цены: {cur_line}\n"
 
         if p.get("ingredientsRU"):
-            out += f"- Состав: {p['ingredientsRU']}\n"
+            out += f"- Состав: {_normalize_spaces(p['ingredientsRU'])}\n"
         if p.get("nutrition"):
-            out += f"- Пищевая ценность: {p['nutrition']}\n"
+            out += f"- Пищевая ценность: {_normalize_spaces(p['nutrition'])}\n"
         if p.get("cookingMethods"):
-            out += f"- {p['cookingMethods']}\n"
+            out += f"- {_normalize_spaces(p['cookingMethods'])}\n"
         if p.get("seoDescriptionRU"):
-            out += f"\n{p['seoDescriptionRU']}\n"
+            out += f"\n{_normalize_spaces(p['seoDescriptionRU'])}\n"
 
         slug = _sku_to_slug(sku)
         out += f"\nСтраница товара: https://pepperoni.tatar/products/{slug}\n"
@@ -1175,8 +1207,11 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
             attrs.append(f"HS code: {p['hsCode']}")
         if p.get("articleNumber"):
             attrs.append(f"Article: {p['articleNumber']}")
-        if p.get("barcode"):
-            attrs.append(f"Barcode: {p['barcode']}")
+        barcode = p.get("barcode", "")
+        if barcode and not _is_scientific_notation(barcode):
+            attrs.append(f"Barcode: {barcode}")
+        elif barcode and _is_scientific_notation(barcode):
+            print(f"     ⚠️  {sku}: barcode in scientific notation — fix in Google Sheets: {barcode}")
         if p.get("diameter"):
             attrs.append(f"Diameter: {p['diameter']}")
         if p.get("casing"):
@@ -1185,8 +1220,9 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
             attrs.append(f"Packaging: {_tr_package(p['packageType'], tr)}")
         if p.get("minOrder"):
             attrs.append(f"Minimum order: {p['minOrder']}")
-        if p.get("boxWeightGross"):
-            attrs.append(f"Box gross weight: {p['boxWeightGross']} kg")
+        bw = p.get("boxWeightGross", "")
+        if _is_valid_box_weight(bw):
+            attrs.append(f"Box gross weight: {str(bw).replace('.', ',')} kg")
 
         for line in attrs:
             out += f"- {line}\n"
@@ -1198,9 +1234,9 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
                 out += f"- Export prices: {cur_line}\n"
 
         if p.get("ingredientsEN"):
-            out += f"- {p['ingredientsEN']}\n"
+            out += f"- {_normalize_spaces(p['ingredientsEN'])}\n"
         if p.get("seoDescriptionEN"):
-            out += f"\n{p['seoDescriptionEN']}\n"
+            out += f"\n{_normalize_spaces(p['seoDescriptionEN'])}\n"
 
         slug = _sku_to_slug(sku)
         out += f"\nProduct page: https://pepperoni.tatar/en/products/{slug}\n"

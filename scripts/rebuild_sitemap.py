@@ -22,10 +22,10 @@ TODAY   = date.today().isoformat()
 # page type → (priority, changefreq)
 RULES = {
     "root":     (1.00, "weekly"),
-    "catalog":  (0.95, "weekly"),
-    "product":  (0.85, "weekly"),
-    "geo":      (0.75, "monthly"),
-    "blog":     (0.80, "monthly"),
+    "catalog":  (0.70, "weekly"),
+    "product":  (0.80, "weekly"),
+    "geo":      (0.70, "monthly"),
+    "blog":     (0.70, "monthly"),
     "static":   (0.60, "monthly"),
     "en_index": (0.90, "weekly"),
 }
@@ -42,6 +42,13 @@ CATALOG_PAGES = {
 SKIP_FILES = {
     "yandex_d0a735c825c78ddf.html",
     "d0a735c825c78ddf.html",
+}
+
+# Directory names whose index.html we skip (duplicate homepages, noindex pages, etc.)
+SKIP_DIRS = {
+    "1", "2", "3", "4", "5",          # duplicate homepages
+    "search", "en/search",            # noindex (X-Robots-Tag)
+    "china",                          # noindex
 }
 
 
@@ -103,6 +110,18 @@ def build_entries() -> list:
         if fname in SKIP_FILES:
             continue
         if rel.startswith("faq/") or rel.startswith("en/faq/"):
+            continue
+        # Skip directories containing duplicate/noindex pages
+        parts = set(Path(rel).parent.parts)
+        if parts & SKIP_DIRS:
+            continue
+        # Also skip any file/dir whose clean URL path matches a SKIP_DIR entry
+        clean = rel
+        if clean.endswith("/index.html"):
+            clean = clean[:-11]
+        elif clean.endswith(".html"):
+            clean = clean[:-5]
+        if clean in SKIP_DIRS:
             continue
         pages.append((path, rel))
 

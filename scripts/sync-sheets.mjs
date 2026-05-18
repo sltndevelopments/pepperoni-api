@@ -67,6 +67,47 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
+/** Truncate text for meta description: 150–160 chars, word boundary,
+ *  prefer sentence boundary if within ±20 chars. Appends … when cut. */
+function truncateMeta(text, maxLen = 160, minLen = 150) {
+  if (!text || text.length <= maxLen) return text;
+  // Look for sentence boundary within ±20 of maxLen
+  const sentenceRe = /[.!?]\s/g;
+  let bestCut = -1;
+  let m;
+  while ((m = sentenceRe.exec(text)) !== null) {
+    const pos = m.index + 1; // include the punctuation
+    if (pos >= minLen - 20 && pos <= maxLen + 20) {
+      bestCut = pos;
+    }
+    if (pos > maxLen + 20) break;
+  }
+  if (bestCut > 0 && bestCut <= maxLen + 20) {
+    return text.slice(0, bestCut).trimEnd() + '…';
+  }
+  // Fall back to word boundary
+  if (text[maxLen] !== ' ' && text[maxLen - 1] !== ' ') {
+    const spaceIdx = text.lastIndexOf(' ', maxLen);
+    if (spaceIdx >= minLen) {
+      return text.slice(0, spaceIdx).trimEnd() + '…';
+    }
+  }
+  return text.slice(0, maxLen).trimEnd() + '…';
+}
+
+/** Scientific notation in barcodes means data loss in Google Sheets.
+ *  "4,68E+12" has only ~3 significant digits — a 13-digit GTIN CANNOT be
+ *  recovered.  We return empty string and warn so the sheet column gets fixed. */
+function fixBarcode(raw) {
+  if (!raw || typeof raw !== 'string') return raw;
+  const s = raw.trim();
+  if (/^\d+[.,]\d+E\+\d+$/i.test(s)) {
+    console.warn(`     ⚠️  Barcode ${s} is in scientific notation — cannot recover GTIN. FIX Google Sheet column to PLAIN TEXT!`);
+    return '';
+  }
+  return s;
+}
+
 /** Convert Google Drive view link to direct image URL */
 function driveToDirectUrl(url) {
   if (!url || typeof url !== 'string') return '';
@@ -167,8 +208,8 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       hsCode: cell(cols, 7),
       cookingMethods: cell(cols, 14),
       minOrder: cell(cols, 15),
-      boxWeightGross: cell(cols, 16),
-      barcode: cell(cols, 18),
+      boxWeightGross: (() => { const v = cell(cols, 16); const n = parseFloat((v||'').replace(',','.')); if (!n || n > 1000) { if (n > 1000) console.warn(`     ⚠️  ${cell(cols,0)}: boxWeightGross=${v} — suspicious value, check Google Sheet columns`); return ''; } return v; })(),
+      barcode: fixBarcode(cell(cols, 18)),
       seoDescriptionRU: cell(cols, 19),
       seoDescriptionEN: cell(cols, 20),
       diameter: cell(cols, 21),
@@ -600,7 +641,8 @@ function generateProductPages(allProducts) {
       exportHtml += '</div>';
     }
 
-    const seoDesc = (p.seoDescriptionRU || `${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${priceRUB} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}`).replace(/"/g, '&quot;').slice(0, 160);
+    const seoDescRaw = (p.seoDescriptionRU || `${p.name}. ${p.category}. Халяль продукция от Казанских Деликатесов. ${p.weight ? 'Вес: ' + p.weight + '.' : ''} Цена: ${priceRUB} ₽. ${p.shelfLife ? 'Срок годности: ' + p.shelfLife + '.' : ''}`).replace(/"/g, '&quot;');
+    const seoDesc = truncateMeta(seoDescRaw);
 
     const specsRows = [];
     if (p.articleNumber || p.sku) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666;width:40%">Артикул</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.articleNumber || p.sku}</td></tr>`);
@@ -793,145 +835,20 @@ async function main() {
   generateProductPages(allProducts);
   console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
-  const today = new Date().toISOString().split('T')[0];
-  const sitemapPath = join(PUBLIC, 'sitemap.xml');
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  // Rebuild sitemap.xml via Python script (auto-discovers ALL HTML pages
+  // including product pages, hreflang alternates, and uses file mtime).
+  const { execSync } = await import('child_process');
+  try {
+    execSync('python3 scripts/rebuild_sitemap.py', { cwd: ROOT, stdio: 'inherit' });
+  } catch (_) {
+    console.warn('⚠️  rebuild_sitemap.py failed — falling back to minimal sitemap');
+    const today = new Date().toISOString().split('T')[0];
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://pepperoni.tatar/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://api.pepperoni.tatar/api/products</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/products.json</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://api.pepperoni.tatar/openapi.yaml</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/llms.txt</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/llms-full.txt</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/about</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/faq</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/delivery</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/yml.xml</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/pepperoni</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/pepperoni</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/about</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/faq</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/delivery</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/kazylyk</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/bakery</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/pizzeria</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/kazylyk</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/bakery</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/pizzeria</loc>
-    <lastmod>${today}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-</urlset>
-`;
-  writeFileSync(sitemapPath, sitemap, 'utf-8');
-  console.log(`✅ ${sitemapPath}`);
+  <url><loc>https://pepperoni.tatar/</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>1.00</priority></url>
+</urlset>`;
+    writeFileSync(join(PUBLIC, 'sitemap.xml'), sitemap, 'utf-8');
+  }
 
   // IndexNow ping for Bing/Yandex
   try {

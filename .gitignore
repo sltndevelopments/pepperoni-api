@@ -25,3 +25,7 @@ sales-intel/raw/
 sales-intel/data/*.csv
 sales-intel/data/*.xlsx
 .vercel
+
+# Ops snapshots (DNS exports, secret indexes, etc.) — never commit
+ops/backups/*
+!ops/backups/README.md
