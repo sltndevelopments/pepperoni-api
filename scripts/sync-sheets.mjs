@@ -247,6 +247,7 @@ function parseBakery(lines, section, startIdx) {
     }
 
     idx++;
+
     const ep = {};
     if (toNumber(cols[9])) ep.USD = toNumber(cols[9]);
     if (toNumber(cols[10])) ep.KZT = toNumber(cols[10]);
@@ -255,7 +256,13 @@ function parseBakery(lines, section, startIdx) {
     if (toNumber(cols[13])) ep.BYN = toNumber(cols[13]);
     if (toNumber(cols[14])) ep.AZN = toNumber(cols[14]);
 
-    products.push({
+    // Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
+    const mainPhoto = driveToDirectUrl((cols[28] || '').trim());
+    const packPhoto = driveToDirectUrl((cols[29] || '').trim());
+    const slicePhoto = driveToDirectUrl((cols[30] || '').trim());
+    const image = mainPhoto || packPhoto || slicePhoto || undefined;
+
+    const product = {
       name,
       sku: `KD-${String(idx).padStart(3, '0')}`,
       section,
@@ -274,7 +281,13 @@ function parseBakery(lines, section, startIdx) {
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
       hsCode: cols[8] || '',
-    });
+    };
+    if (image) product.image = image;
+    if (mainPhoto) product.imageMain = mainPhoto;
+    if (packPhoto) product.imagePack = packPhoto;
+    if (slicePhoto) product.imageSlice = slicePhoto;
+
+    products.push(product);
   }
 
   return { products, nextIdx: idx };

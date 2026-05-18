@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-05-12">
+<yml_catalog date="2026-05-18">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
 <url>https://kazandelikates.tatar</url>
-<currencies><currency id="RUB" rate="1"/></currencies>
+<currencies><currency id="RUB" rate="1"/><currency id="USD" rate="0.012"/></currencies>
 <categories>
 <category id="1">Заморозка</category>
 <category id="2" parentId="1">Сосиски гриль для хот-догов</category>
@@ -26,1006 +26,1776 @@
 <offers>
 <offer id="KD-001" available="true">
 <name>Сосиски «Из говядины» (80 г × 6 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-001</url>
 <price>290</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Из говядины» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,48</param>
+<vendorCode>999969</vendorCode>
+<description>Профессиональные сосиски «Из говядины» — идеальное решение для HORECA, завтраков и хот-догов. Благодаря термостабильной рецептуре они не ужариваются и сохраняют форму на гриле или сковороде. Плотная текстура и специи (кардамон, черный перец) делают их отличной альтернативой пикантным мясным деликатесам. Состав: говядина высокого качества, мясо птицы, натуральные приправы. Без оболочки, без ГМО. Срок годности: 360 суток при –18°C.</description>
+<barcode>4680638720608</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+<param name="Мин. заказ, коробов">8</param>
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-002" available="true">
 <name>Сосиски «Два мяса» (80 г × 6 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-002</url>
 <price>286</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Два мяса» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,48</param>
+<vendorCode>999880</vendorCode>
+<description>Сосиски из индейки и курицы (80 г × 6 шт) | Сосиски для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Профессиональные сосиски из индейки и курицы для хот-догов, завтраков и гриля.Профессиональные сосиски из индейки и курицы — универсальное решение для HORECA, гриль-баров и хот-догов. Баланс насыщенной индейки и нежной курицы создаёт мягкую текстуру и деликатный вкус. Благодаря термостабильной рецептуре сосиски устойчивы при жарке и на гриле, сохраняют сочность и форму.Аромат: мясной с нотами мускатного ореха и кардамона. Вкус: сбалансированный, менее жирный, с плотной оболочкой и сочным мякишем.Подходят для хот-догов, завтраков и гриль-меню.</description>
+<barcode>4680638720622</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-003" available="true">
 <name>Сосиски «Три перца с сыром» (80 г × 6 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-003</url>
 <price>316</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Три перца с сыром» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,48</param>
+<vendorCode>999883</vendorCode>
+<description>Сосиски с сыром Гауда и смесью трёх перцев (80 г × 6 шт) | Сосиски для хот-догов и HORECA (6 шт, 480 г) — термостабильные | Пикантные мясные сосиски с сыром и пряностями для хот-догов и гриля. Профессиональные сосиски с сыром Гауда и смесью трёх перцев (чёрный, белый, красный) — яркое решение для HORECA, гриль-меню и хот-догов. Пряный, но не слишком острый вкус подчёркивает мясную основу, а сыр добавляет мягкость и лёгкую сладость. Аромат: пряный, с мягкими нотами перца и сырной сладостью. Вкус: пикантный, сбалансированный, с яркими пряными оттенками. Подходят для хот-догов, гриля и подачи с гарнирами — квашеной капустой, маринованными овощами и пикантными соусами.</description>
+<barcode>4680638720646</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-004" available="true">
 <name>Сосиски «Куриные» (80 г × 6 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-004</url>
 <price>286</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Куриные» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,48</param>
+<vendorCode>800049</vendorCode>
+<description>Профессиональные куриные сосиски — удобное решение для HORECA, завтраков и хот-догов. Подходят для приготовления на гриле, роликовом гриле или сковороде. Плотная текстура и натуральные специи придают мягкий и насыщенный вкус. Состав: куриное филе, мякоть окорочка, куриная кожа, растительная клетчатка, мука, вода, соль, специи. Без оболочки. Срок годности: 360 суток при –18 °C.</description>
+<barcode>4680638720431</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_gril__kurinye_bjrpdn.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-005" available="true">
 <name>Сосиски «С бараниной» (80 г × 6 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-005</url>
 <price>366</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С бараниной» (80 г × 6 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,48</param>
+<vendorCode>999969</vendorCode>
+<description>Профессиональные сосиски из баранины — яркое решение для HORECA, гриль-меню и тематических хот-догов. Насыщенный вкус с характерной пикантностью и лёгкой маслянистостью подчёркивает выраженную мясную ноту. Аромат пряно-овощной с ярким оттенком баранины. Сосиски хорошо выдерживают высокие температуры, образуют аппетитную хрустящую корочку и сохраняют сочность внутри. Подходят для подачи в лаваше, с восточными соусами и в составе гриль-сетов.</description>
+<barcode>4680638720950</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_iz_baraniny_1.0_begzsd.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-006" available="true">
 <name>Сосиски «С травами» (130 г × 5 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-006</url>
 <price>424</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С травами» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,65</param>
+<vendorCode>999970</vendorCode>
+<description>Профессиональные сосиски гриль «С Травами» — отличное решение для HORECA, фастфуда и хот-догов. Благодаря термостабильной рецептуре они сохраняют форму и сочность при приготовлении на гриле, роликовом гриле или сковороде. Аромат трав и специй придаёт продукту насыщенный и аппетитный вкус. Состав: мясо индейки, сухое молоко, вода, мука, растительная клетчатка, соль, комплексная смесь специй. Без оболочки. Срок годности: 360 суток при –18 °C.</description>
+<barcode>4680638720936</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,65</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-007" available="true">
 <name>Сосиски «С сыром» (130 г × 5 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-007</url>
 <price>455</price>
 <currencyId>RUB</currencyId>
 <categoryId>2</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С сыром» (130 г × 5 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,65</param>
+<vendorCode>999982</vendorCode>
+<description>Профессиональные сосиски гриль «С Сыром» — отличное решение для HORECA, фастфуда и хот-догов. Благодаря термостабильной рецептуре они сохраняют форму и сочность при приготовлении на гриле, роликовом гриле или сковороде. Нежный расплавленный сыр и сбалансированные специи придают продукту насыщенный вкус. Состав: говядина, мясо индейки, твердый сыр (МДЖ 50%), мука, растительная клетчатка, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Без оболочки. Срок годности: 360 суток при –18 °C.</description>
+<barcode>4680638720943</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730303/sosiski_dla_hot_dogov_prosto_s_syrom_fhqdsp.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,65</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">24</param>
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-008" available="true">
 <name>Котлета говяжья прожаренная (100 г × 3 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-008</url>
 <price>276</price>
 <currencyId>RUB</currencyId>
 <categoryId>3</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Котлета говяжья прожаренная (100 г × 3 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,3</param>
+<vendorCode>800041</vendorCode>
+<description>Сочная халяль‑котлета из отборной говядины и филе бедра курицы, приправлена только солью и молотым чёрным перцем. Нежная структура куриного филе и насыщенный вкус говядины дают идеальный баланс сочности и мясного аромата. Подходит для гриля, жарки и бургер‑меню.</description>
+<barcode>4620016152911</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,3</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">1602</param>
+
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-009" available="true">
 <name>Котлета говяжья прожаренная (150 г × 2 шт)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-009</url>
 <price>276</price>
 <currencyId>RUB</currencyId>
 <categoryId>3</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Котлета говяжья прожаренная (150 г × 2 шт). Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,3</param>
+<vendorCode>800043</vendorCode>
+<description>Сочная халяль‑котлета из отборной говядины и филе бедра курицы, приправлена только солью и молотым чёрным перцем. Нежная структура куриного филе и насыщенный вкус говядины дают идеальный баланс сочности и мясного аромата. Подходит для гриля, жарки и бургер‑меню.</description>
+<barcode>4620016152911</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,3</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">1602</param>
+
+<param name="Оболочка">без оболочки</param>
+<param name="Упаковка">Вакуум</param>
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-010" available="true">
 <name>Ветчина из Курицы в батоне</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-010</url>
 <price>611</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>999941</vendorCode>
+<description>Ветчина из Курицы в батоне — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 68 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">68</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-011" available="true">
 <name>Ветчина из Курицы в нарезке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-011</url>
 <price>325</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>KD-011</vendorCode>
+<description>Ветчина из Курицы в нарезке — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 0,5 кг. Срок годности: 180 суток. Хранение: –18°C. Диаметр: 68 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638721612</barcode>
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">68</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-012" available="true">
 <name>Ветчина из Индейки в батоне</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-012</url>
 <price>660</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Индейки в батоне. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>999946</vendorCode>
+<description>Ветчина из Индейки в батоне — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 68 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">68</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-013" available="true">
 <name>Ветчина из Индейки в нарезке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-013</url>
 <price>350</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Индейки в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>KD-013</vendorCode>
+<description>Ветчина из Индейки в нарезке — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 0,5 кг. Срок годности: 180 суток. Хранение: –18°C. Диаметр: 68 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638721605</barcode>
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">68</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-014" available="true">
 <name>Пепперони варено-копченый из конины</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-014</url>
 <price>315</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони варено-копченый из конины. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>KD-014</vendorCode>
+<description>Пепперони варено-копченый из конины — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 0,5 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 50-55 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">50-55</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-015" available="true">
 <name>Пепперони варено-копченый классика</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-015</url>
 <price>274</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони варено-копченый классика. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>KD-015</vendorCode>
+<description>Пепперони варено-копченый классика — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 0,5 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 50-55 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638720318</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">50-55</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-016" available="true">
 <name>Пепперони варено-копченый классика целый батон</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-016</url>
 <price>457</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони варено-копченый классика целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>KD-016</vendorCode>
+<description>Пепперони варено-копченый классика целый батон — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 50-55 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">50-55</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-017" available="true">
 <name>Пепперони сырокопчёный в нарезке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-017</url>
 <price>380</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони сырокопчёный в нарезке. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>KD-017</vendorCode>
+<description>Пепперони халяль (нарезка) — удобное решение для пиццерий, ресторанов и HORECA. Готовая сервировочная нарезка позволяет быстро использовать продукт для пиццы, сэндвичей и горячих закусок. Благодаря сбалансированной рецептуре и специям пепперони обладает ярким вкусом и аппетитным ароматом. Состав: говядина, мясо кур механической обвалки, пшеничная мука, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: 90 суток при –18 °C.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">50-55</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-018" available="true">
 <name>Пепперони сырокопчёный целый батон</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-018</url>
 <price>608</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пепперони сырокопчёный целый батон. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>KD-018</vendorCode>
+<description>Пепперони сырокопчёный целый батон — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг. Срок годности: 360 суток. Хранение: –18°C. Диаметр: 50-55 мм. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">50-55</param>
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-019" available="true">
 <name>Грудка куриная варено-копченая</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-019</url>
 <price>370</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Грудка куриная варено-копченая. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1 кг</param>
+<vendorCode>KD-019</vendorCode>
+<description>Грудка куриная варено-копченая — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1 кг</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-020" available="true">
 <name>Филе куриное варное</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-020</url>
 <price>449</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе куриное варное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1 кг</param>
+<vendorCode>KD-020</vendorCode>
+<description>Филе куриное варное — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: топпинги. Вес: 1 кг кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1 кг</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-021" available="true">
 <name>Фарш говяжий</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-021</url>
 <price>670</price>
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Фарш говяжий. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
-<param name="Срок годности">180 суток</param>
+<vendorCode>KD-021</vendorCode>
+<description>Фарш говяжий — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: мясные заготовки. Вес: 1 кг. Срок годности: 180 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638721049</barcode>
 
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
+<param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
+
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-022" available="true">
 <name>Фарш из куриной кожи</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-022</url>
 <price>82</price>
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Фарш из куриной кожи. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
-<param name="Срок годности">180 суток</param>
+<vendorCode>KD-022</vendorCode>
+<description>Фарш из куриной кожи — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: мясные заготовки. Вес: 1 кг. Срок годности: 180 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
 
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
+<param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
+
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-023" available="true">
 <name>Филе бедра куриного в кубике 1х1 см</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-023</url>
 <price>520</price>
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе бедра куриного в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
-<param name="Срок годности">180 суток</param>
+<vendorCode>KD-023</vendorCode>
+<description>Филе бедра куриного в кубике 1х1 см — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: мясные заготовки. Вес: 1 кг. Срок годности: 180 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
 
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
+<param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
+
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-024" available="true">
 <name>Филе грудки куриной в кубике 1х1 см</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-024</url>
 <price>520</price>
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе грудки куриной в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
-<param name="Срок годности">180 суток</param>
+<vendorCode>KD-024</vendorCode>
+<description>Филе грудки куриной в кубике 1х1 см — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: мясные заготовки. Вес: 1 кг. Срок годности: 180 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
 
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
+<param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
+
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-025" available="true">
 <name>Говядина 1 сорт в кубике 1х1 см</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-025</url>
 <price>810</price>
 <currencyId>RUB</currencyId>
 <categoryId>5</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Говядина 1 сорт в кубике 1х1 см. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
-<param name="Срок годности">180 суток</param>
+<vendorCode>KD-025</vendorCode>
+<description>Говядина 1 сорт в кубике 1х1 см — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: мясные заготовки. Вес: 1 кг. Срок годности: 180 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
 
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
+<param name="Срок годности">180 суток</param>
+<param name="Температура хранения">–18°C</param>
+
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-026" available="true">
 <name>Сосиски «К завтраку»</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-026</url>
 <price>135</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «К завтраку». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>999921</vendorCode>
+<description>Сосиски «К завтраку» — универсальный продукт для домашней кухни и HORECA. Благодаря мягкой текстуре и сбалансированным специям они отлично подходят для завтраков, хот-догов и горячих блюд. Состав: мясо куриное механической обвалки, говядина, куриные яйца, растительный белок, манная крупа, картофельный крахмал, сливки, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">0</param>
+<param name="Оболочка">есть</param>
+
+<param name="Мин. заказ, коробов">0</param>
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-027" available="true">
 <name>Сосиски «К завтраку» (без оболочки) 
  для «Сосиски в тесте» 45 гр</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-027</url>
 <price>245</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-027</vendorCode>
 <description>Сосиски «К завтраку» (без оболочки) 
- для «Сосиски в тесте» 45 гр. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+ для «Сосиски в тесте» 45 гр — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: сосиски, сардельки. Вес: 1 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: без оболоччки. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">без оболоччки</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-028" available="true">
 <name>Сосиски «Нежные»</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-028</url>
 <price>181</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Нежные». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>999976</vendorCode>
+<description>Сосиски «Нежные» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию филе индейки, куриного мяса и говядины они имеют мягкую текстуру и сбалансированный вкус. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: филе индейки, мясо куриное механической обвалки, говядина, сливки, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+<barcode>4680638720035</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-029" available="true">
 <name>Сосиски «Казанские с молоком»</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-029</url>
 <price>235</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «Казанские с молоком». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>999978</vendorCode>
+<description>Сосиски «Казанские с молоком» для завтраков, горячих блюд и HORECA — охлаждённые | Нежные сосиски из говядины и куриного филе с добавлением молока, отличаются мягким вкусом и сочной текстурой. | Сосиски «Казанские с молоком» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию говядины, куриного филе и молока сосиски имеют нежную текстуру и насыщенный вкус. Ароматные специи (чёрный перец, душистый перец, мускатный орех) делают их отличным вариантом для завтраков и горячих блюд. Состав: говядина, куриное филе, сухое молоко, куриные яйца, растительный белок, сливки, вода, соль, фиксатор окраски — нитрит натрия, сахар, специи. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-030" available="true">
 <name>Сосиски «С сыром»</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-030</url>
 <price>293</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски «С сыром». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>999975</vendorCode>
+<description>Сосиски «С сыром» — универсальный продукт для домашней кухни и HORECA. Благодаря сочетанию говядины, куриного филе и твёрдого сыра сосиски имеют насыщенный вкус и нежную текстуру. Подходят для завтраков, хот-догов и быстрого приготовления. Состав: говядина, куриное филе, твердый сыр, сухое молоко, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_1.1_eeaaav.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-031" available="true">
 <name>Сосиски &quot;Из говядины&quot;</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-031</url>
 <price>284</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски &quot;Из говядины&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>999980</vendorCode>
+<description>Говяжьи сосиски для завтраков, хот-догов и HORECA — охлаждённые | Нежные сосиски из говядины с натуральными специями, подходят для завтраков, хот-догов и горячих блюд. Сохраняют сочность и насыщенный вкус при приготовлении. | Классические сосиски «Из Говядины» — универсальное решение для домашней кухни и HORECA. Плотная текстура и ароматные специи (чёрный перец, кардамон) придают продукту насыщенный вкус и делают его отличной альтернативой традиционным мясным колбаскам. Состав: говядина, сливки, куриные яйца, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, сахар, специи. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-032" available="true">
 <name>Сосиски в/с Премиум</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-032</url>
 <price>146</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски в/с Премиум. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>995001</vendorCode>
+<description>Сосиски в/с Премиум — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: сосиски, сардельки. Вес: 0,4 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638721407</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-033" available="true">
 <name>Сосиски в/с Сочные</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-033</url>
 <price>144</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиски в/с Сочные. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,4</param>
+<vendorCode>995002</vendorCode>
+<description>Сосиски в/с Сочные — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: сосиски, сардельки. Вес: 0,4 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+<barcode>4680638721414</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-034" available="true">
 <name>Сардельки «Буинские&quot;</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-034</url>
 <price>166</price>
 <currencyId>RUB</currencyId>
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сардельки «Буинские&quot;. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,24</param>
+<vendorCode>999982</vendorCode>
+<description>Сардельки «Буинские&quot; — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: сосиски, сардельки. Вес: 0,24 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/buinskie_sardel_ki_bspdgs.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,24</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-035" available="true">
 <name>Вареная «Из Говядины»</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-035</url>
 <price>292</price>
 <currencyId>RUB</currencyId>
 <categoryId>8</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Вареная «Из Говядины». Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>999998</vendorCode>
+<description>Вареная «Из Говядины» — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: вареные. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-036" available="true">
 <name>Вареная Ассорти</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-036</url>
 <price>197</price>
 <currencyId>RUB</currencyId>
 <categoryId>8</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Вареная Ассорти. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>995003</vendorCode>
+<description>Вареная Ассорти — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: вареные. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-037" available="true">
 <name>Вареная Нежная</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-037</url>
 <price>200</price>
 <currencyId>RUB</currencyId>
 <categoryId>8</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Вареная Нежная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>995004</vendorCode>
+<description>Вареная Нежная — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: вареные. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Оболочка: есть. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+<param name="Оболочка">есть</param>
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-038" available="true">
 <name>Ветчина из Индейки</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-038</url>
 <price>380</price>
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>999946</vendorCode>
+<description>Ветчина из Индейки — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: ветчины. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-039" available="true">
 <name>Ветчина Мраморная с говядиной</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-039</url>
 <price>398</price>
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина Мраморная с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>999997</vendorCode>
+<description>Ветчина Мраморная с говядиной — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: ветчины. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-040" available="true">
 <name>Ветчина из Курицы</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-040</url>
 <price>350</price>
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина из Курицы. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>999941</vendorCode>
+<description>Ветчина из Курицы — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: ветчины. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-041" available="true">
 <name>Ветчина Филейная</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-041</url>
 <price>188</price>
 <currencyId>RUB</currencyId>
 <categoryId>9</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Ветчина Филейная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,5</param>
+<vendorCode>995009</vendorCode>
+<description>Ветчина Филейная — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: ветчины. Вес: 0,5 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-042" available="true">
 <name>Сервелат Ханский</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-042</url>
 <price>216</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сервелат Ханский. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,45</param>
+<vendorCode>999975</vendorCode>
+<description>Сервелат Ханский — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,45 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,45</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-043" available="true">
 <name>Сервелат по-татарски в/к</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-043</url>
 <price>298</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сервелат по-татарски в/к. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,45</param>
+<vendorCode>999994</vendorCode>
+<description>Сервелат «По-Татарски» — классическая мясная колбаса, идеально подходящая для бутербродов, закусок и ресторанной подачи. Благодаря сочетанию говядины, говяжьего жира и ароматных специй с добавлением свежего чеснока продукт обладает ярким вкусом и аппетитным ароматом. Состав: говядина, куриное мясо механической обвалки, говяжий жир, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй, свежий чеснок. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,45</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-044" available="true">
 <name>Полукопченая из Индейки</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-044</url>
 <price>348</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Полукопченая из Индейки. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,45</param>
+<vendorCode>999910</vendorCode>
+<description>Полукопченая из Индейки — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,45 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,45</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-045" available="true">
 <name>Полукопченая из Говядины</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-045</url>
 <price>358</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Полукопченая из Говядины. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,45</param>
+<vendorCode>999961</vendorCode>
+<description>Полукопченая из Говядины — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,45 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,45</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-046" available="true">
 <name>Колбаски с Сыром</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-046</url>
 <price>271</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Колбаски с Сыром. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,3</param>
+<vendorCode>999964</vendorCode>
+<description>Колбаски «С сыром» — отличный вариант для гриля, завтраков и горячих блюд. Благодаря сочетанию говядины, куриного филе и твёрдого сыра продукт имеет сочную текстуру и насыщенный вкус. Подходят для приготовления на сковороде, гриле или подаче в качестве горячей закуски. Состав: говядина, куриное филе, твердый сыр, куриная кожа, пшеничная мука, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C.</description>
+<barcode>4680638720455</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,3</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-047" available="true">
 <name>Грудка куриная</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-047</url>
 <price>380</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Грудка куриная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>999931</vendorCode>
+<description>Грудка куриная — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 1 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-048" available="true">
 <name>Филе куриное</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-048</url>
 <price>449</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Филе куриное. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">1</param>
+<vendorCode>KD-048</vendorCode>
+<description>Филе куриное — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 1 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">1</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-049" available="true">
 <name>в/к Рамазан</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-049</url>
 <price>377</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Рамазан. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,54</param>
+<vendorCode>995005</vendorCode>
+<description>в/к Рамазан — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,54 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-050" available="true">
 <name>в/к Рамазан (половинка)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-050</url>
 <price>188</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Рамазан (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,27</param>
+<vendorCode>995012</vendorCode>
+<description>в/к Рамазан (половинка) — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,27 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-051" available="true">
 <name>в/к Мраморная</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-051</url>
 <price>362</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Мраморная. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,54</param>
+<vendorCode>995006</vendorCode>
+<description>в/к Мраморная — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,54 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-052" available="true">
 <name>в/к Мраморная (половинка)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-052</url>
 <price>181</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Мраморная (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,27</param>
+<vendorCode>995011</vendorCode>
+<description>в/к Мраморная (половинка) — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,27 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-053" available="true">
 <name>в/к Филейный</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-053</url>
 <price>333</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Филейный. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,54</param>
+<vendorCode>995007</vendorCode>
+<description>в/к Филейный — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,54 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-054" available="true">
 <name>в/к Филейный (половинка)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-054</url>
 <price>166</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Филейный (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,27</param>
+<vendorCode>995013</vendorCode>
+<description>в/к Филейный (половинка) — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,27 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-055" available="true">
 <name>в/к Княжеская</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-055</url>
 <price>362</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Княжеская. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,54</param>
+<vendorCode>995008</vendorCode>
+<description>в/к Княжеская — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,54 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-056" available="true">
 <name>в/к Княжеская (половинка)</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-056</url>
 <price>181</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>в/к Княжеская (половинка). Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-6 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,27</param>
+<vendorCode>995010</vendorCode>
+<description>в/к Княжеская (половинка) — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: копченые. Вес: 0,27 кг. Срок годности: 30 суток. Хранение: 0-6 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-057" available="true">
 <name>Казылык «Премиум» в подарочной упаковке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-057</url>
 <price>650</price>
 <currencyId>RUB</currencyId>
 <categoryId>11</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Казылык «Премиум» в подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 180 суток. Хранение: 0-12 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,2</param>
+<vendorCode>999911</vendorCode>
+<description>Казылык «Премиум» в подарочной упаковке — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: премиум казылык. Вес: 0,2 кг. Срок годности: 180 суток. Хранение: 0-12 ˚C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,2</param>
 <param name="Срок годности">180 суток</param>
+<param name="Температура хранения">0-12 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-058" available="true">
 <name>Казылык «Премиум» в нарезке в подарочной упаковке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-058</url>
 <price>450</price>
 <currencyId>RUB</currencyId>
 <categoryId>11</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Казылык «Премиум» в нарезке в подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 30 суток. Хранение: 0-12 ˚C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">0,1</param>
+<vendorCode>999909</vendorCode>
+<description>Аутентичный казылык, приготовленный по классической татарской рецептуре, нарезанный тонкими ломтиками для удобного использования в кафе, ресторанах, отелей, магазинах и кейтеринге. Богатый пряный букет, выразительная мясная нота и плотная структура делают продукт фаворитом для ассорти и восточных блюд. Халяль сертификация и прослеживаемость поставок гарантируются.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700322/kyzylyk_narezka_bez_upakovki_1.6_gtkdqm.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,1</param>
 <param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-12 ˚C</param>
 <param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-059" available="true">
 <name>Губадия с кортом</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-059</url>
 <price>56</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Губадия с кортом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-059</vendorCode>
+<description>Губадия с кортом — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-060" available="true">
 <name>Чебурек жареный</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-060</url>
 <price>58.86</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Чебурек жареный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-060</vendorCode>
+<description>Чебурек жареный — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-061" available="true">
 <name>Перемяч жареный</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-061</url>
 <price>59.14</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Перемяч жареный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-061</vendorCode>
+<description>Перемяч жареный — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-062" available="true">
 <name>Самса с курицей</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-062</url>
 <price>61.73</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Самса с курицей. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">120 г</param>
+<vendorCode>KD-062</vendorCode>
+<description>Самса с курицей — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 120 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-063" available="true">
 <name>Эчпочмак с говядиной и картофелем</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-063</url>
 <price>68.77</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Эчпочмак с говядиной и картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-063</vendorCode>
+<description>Эчпочмак с говядиной и картофелем — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-064" available="true">
 <name>Самса с говядиной</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-064</url>
 <price>73.14</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Самса с говядиной. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">120 г</param>
+<vendorCode>KD-064</vendorCode>
+<description>Самса с говядиной — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 120 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-065" available="true">
 <name>Элеш с курицей и картофелем</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-065</url>
 <price>77.84</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Элеш с курицей и картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">150 г</param>
+<vendorCode>KD-065</vendorCode>
+<description>Элеш с курицей и картофелем — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 150 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">150 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-066" available="true">
 <name>Чак-Чак в пластиковой упаковке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-066</url>
 <price>194.7</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Чак-Чак в пластиковой упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 60 суток. Хранение: до +18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">300 г</param>
+<vendorCode>KD-066</vendorCode>
+<description>Чак-Чак в пластиковой упаковке — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 300 г кг. Срок годности: 60 суток. Хранение: до +18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">300 г</param>
 <param name="Срок годности">60 суток</param>
+<param name="Температура хранения">до +18°C</param>
 <param name="ТН ВЭД">1905</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-067" available="true">
 <name>Чак-Чак в крафтовой подарочной упаковке</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-067</url>
 <price>271.7</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Чак-Чак в крафтовой подарочной упаковке. Халяль продукция от Казанских Деликатесов. Срок годности: 60 суток. Хранение: до +18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">300 г</param>
+<vendorCode>KD-067</vendorCode>
+<description>Чак-Чак в крафтовой подарочной упаковке — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 300 г кг. Срок годности: 60 суток. Хранение: до +18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">300 г</param>
 <param name="Срок годности">60 суток</param>
+<param name="Температура хранения">до +18°C</param>
 <param name="ТН ВЭД">1905</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-068" available="true">
 <name>Сочник с творогом</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-068</url>
 <price>44</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сочник с творогом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-068</vendorCode>
+<description>Сочник с творогом — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-069" available="true">
 <name>Пирожок печеный с картофелем</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-069</url>
 <price>44.74</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок печеный с картофелем. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-069</vendorCode>
+<description>Пирожок печеный с картофелем — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-070" available="true">
 <name>Сырник</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-070</url>
 <price>45.1</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сырник. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">70 г</param>
+<vendorCode>KD-070</vendorCode>
+<description>Сырник — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 70 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">70 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">040490</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-071" available="true">
 <name>Пирожок с яблоком</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-071</url>
 <price>49.5</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с яблоком. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-071</vendorCode>
+<description>Пирожок с яблоком — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-072" available="true">
 <name>Пирожок с зеленым луком и яйцом</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-072</url>
 <price>58.52</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с зеленым луком и яйцом. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-072</vendorCode>
+<description>Пирожок с зеленым луком и яйцом — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-073" available="true">
 <name>Маффин апельсиновый</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-073</url>
 <price>67.55</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Маффин апельсиновый. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-073</vendorCode>
+<description>Маффин апельсиновый — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-074" available="true">
 <name>Сосиска в тесте</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-074</url>
 <price>69.03</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Сосиска в тесте. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">120 г</param>
+<vendorCode>KD-074</vendorCode>
+<description>Сосиска в тесте — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 120 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-075" available="true">
 <name>Пирожок с вишней</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-075</url>
 <price>71.5</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Пирожок с вишней. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-075</vendorCode>
+<description>Пирожок с вишней — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-076" available="true">
 <name>Круассан с шоколадом и орехами</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-076</url>
 <price>72.6</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Круассан с шоколадом и орехами. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">90 г</param>
+<vendorCode>KD-076</vendorCode>
+<description>Круассан с шоколадом и орехами — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 90 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">90 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 <offer id="KD-077" available="true">
 <name>Маффин шоколадный</name>
-<url>https://pepperoni.tatar</url>
+<url>https://pepperoni.tatar/products/kd-077</url>
 <price>73.64</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<description>Маффин шоколадный. Халяль продукция от Казанских Деликатесов. Срок годности: 360 суток. Хранение: –18°C.</description>
-<param name="Сертификация">Halal</param>
-<param name="Вес">100 г</param>
+<vendorCode>KD-077</vendorCode>
+<description>Маффин шоколадный — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Без свинины.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
 </offer>
 </offers>
 </shop>
