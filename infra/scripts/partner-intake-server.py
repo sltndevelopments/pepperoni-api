@@ -98,7 +98,7 @@ def _get_sheet():
                     "Timestamp", "Company Name", "Website", "Contact Person",
                     "Position", "WeChat ID", "Email", "Phone", "Category",
                     "Description (Original)", "Description (Russian)",
-                    "Notes", "Catalog Files"
+                    "Notes", "Catalog Files", "Catalog Translation",
                 ])
 
         log.info("Connected: sheet=%s tab=%s", sh.title, _sheet.title)
@@ -178,6 +178,56 @@ def translate_text(text: str) -> str:
     return text
 
 
+def _extract_pdf_text(file_path: str) -> str:
+    """Extract text from a PDF file. Returns empty string on failure."""
+    try:
+        from PyPDF2 import PdfReader
+        reader = PdfReader(file_path)
+        texts = []
+        for page in reader.pages[:10]:  # first 10 pages max
+            t = page.extract_text()
+            if t:
+                texts.append(t)
+        return "\n".join(texts)[:8000]  # limit to 8000 chars
+    except ImportError:
+        log.warning("PyPDF2 not installed — cannot extract PDF text")
+        return ""
+    except Exception as e:
+        log.warning("PDF extraction failed for %s: %s", file_path, e)
+        return ""
+
+
+def _translate_catalogs(file_paths: list) -> str:
+    """Extract text from uploaded catalog PDFs and translate if they contain CJK."""
+    if not DEEPSEEK_API_KEY:
+        return ""
+
+    translations = []
+    for fp in file_paths:
+        if not fp.lower().endswith(".pdf"):
+            continue
+        text = _extract_pdf_text(fp)
+        if not text:
+            continue
+        if not _has_cjk(text):
+            log.info("Catalog %s: no CJK, skipping translation", Path(fp).name)
+            continue
+
+        try:
+            result = _translate_via_deepseek(
+                "Переведи содержимое каталога с китайского на русский. "
+                "Сохрани структуру, названия продуктов и цифры. "
+                "Если есть таблицы — опиши их словами:\n\n" + text
+            )
+            fname = Path(fp).name
+            translations.append(f"=== {fname} ===\n{result}")
+            log.info("Catalog translated: %s (%d → %d chars)", fname, len(text), len(result))
+        except Exception as exc:
+            log.warning("Catalog translation failed for %s: %s", fp, exc)
+
+    return "\n\n".join(translations) if translations else ""
+
+
 # ---------------------------------------------------------------------------
 # File handling
 # ---------------------------------------------------------------------------
@@ -238,6 +288,10 @@ def partner_submit():
     description = (request.form.get("description") or "").strip()
     notes       = (request.form.get("notes") or "").strip()
 
+    # Google Sheets interprets "+79..." as formula → prefix with ' to force text
+    if phone and phone.startswith("+"):
+        phone = "'" + phone
+
     log.info("Company: %s | WeChat: %s | Category: %s", company, wechat, category)
 
     file_paths = _save_files(request.files)
@@ -245,11 +299,15 @@ def partner_submit():
 
     translated = translate_text(description) if description else ""
 
+    # Extract & translate catalog PDFs
+    catalog_translation = _translate_catalogs(file_paths) if file_paths else ""
+
     now_utc = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
     row = [
         now_utc, company, website, contact, position,
         wechat, email, phone, category,
         description, translated, notes, file_links,
+        catalog_translation,
     ]
     _append_row(row)
 
