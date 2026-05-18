@@ -198,7 +198,7 @@ def _extract_pdf_text(file_path: str) -> str:
 
 
 def _translate_catalogs(file_paths: list) -> str:
-    """Extract text from uploaded catalog PDFs and translate if they contain CJK."""
+    """Extract text from uploaded catalog PDFs and translate to Russian."""
     if not DEEPSEEK_API_KEY:
         return ""
 
@@ -209,16 +209,23 @@ def _translate_catalogs(file_paths: list) -> str:
         text = _extract_pdf_text(fp)
         if not text:
             continue
-        if not _has_cjk(text):
-            log.info("Catalog %s: no CJK, skipping translation", Path(fp).name)
-            continue
 
-        try:
-            result = _translate_via_deepseek(
+        # Detect language for appropriate translation prompt
+        if _has_cjk(text):
+            prompt = (
                 "Переведи содержимое каталога с китайского на русский. "
                 "Сохрани структуру, названия продуктов и цифры. "
                 "Если есть таблицы — опиши их словами:\n\n" + text
             )
+        else:
+            prompt = (
+                "Переведи содержимое каталога на русский язык. "
+                "Сохрани структуру, названия продуктов и цифры. "
+                "Если есть таблицы — опиши их словами:\n\n" + text
+            )
+
+        try:
+            result = _translate_via_deepseek(prompt)
             fname = Path(fp).name
             translations.append(f"=== {fname} ===\n{result}")
             log.info("Catalog translated: %s (%d → %d chars)", fname, len(text), len(result))
