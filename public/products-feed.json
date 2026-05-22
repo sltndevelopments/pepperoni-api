@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-05-21T06:55:18.118985+00:00",
+  "dateModified": "2026-05-22T06:51:24.401422+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -76,10 +76,10 @@
           },
           "exportPrices": {
             "USD": 3.7,
-            "KZT": 1746.34,
-            "UZS": 44753.4,
-            "KGS": 323.58,
-            "BYN": 10.16,
+            "KZT": 1744.18,
+            "UZS": 44526.98,
+            "KGS": 323.82,
+            "BYN": 10.13,
             "AZN": 6.29
           },
           "shippingDetails": {
@@ -229,11 +229,11 @@
           },
           "exportPrices": {
             "USD": 3.65,
-            "KZT": 1722.25,
-            "UZS": 44136.12,
-            "KGS": 319.12,
-            "BYN": 10.02,
-            "AZN": 6.2
+            "KZT": 1720.12,
+            "UZS": 43912.82,
+            "KGS": 319.35,
+            "BYN": 9.99,
+            "AZN": 6.21
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -382,11 +382,11 @@
           },
           "exportPrices": {
             "USD": 4.03,
-            "KZT": 1902.91,
-            "UZS": 48765.78,
-            "KGS": 352.59,
-            "BYN": 11.07,
-            "AZN": 6.85
+            "KZT": 1900.56,
+            "UZS": 48519.06,
+            "KGS": 352.85,
+            "BYN": 11.04,
+            "AZN": 6.86
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -535,11 +535,11 @@
           },
           "exportPrices": {
             "USD": 3.65,
-            "KZT": 1722.25,
-            "UZS": 44136.12,
-            "KGS": 319.12,
-            "BYN": 10.02,
-            "AZN": 6.2
+            "KZT": 1720.12,
+            "UZS": 43912.82,
+            "KGS": 319.35,
+            "BYN": 9.99,
+            "AZN": 6.21
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -688,10 +688,10 @@
           },
           "exportPrices": {
             "USD": 4.67,
-            "KZT": 2204,
-            "UZS": 56481.88,
-            "KGS": 408.38,
-            "BYN": 12.82,
+            "KZT": 2201.28,
+            "UZS": 56196.12,
+            "KGS": 408.68,
+            "BYN": 12.79,
             "AZN": 7.94
           },
           "shippingDetails": {
@@ -841,10 +841,10 @@
           },
           "exportPrices": {
             "USD": 5.41,
-            "KZT": 2553.27,
-            "UZS": 65432.56,
-            "KGS": 473.09,
-            "BYN": 14.85,
+            "KZT": 2550.11,
+            "UZS": 65101.52,
+            "KGS": 473.44,
+            "BYN": 14.82,
             "AZN": 9.2
           },
           "shippingDetails": {
@@ -994,11 +994,11 @@
           },
           "exportPrices": {
             "USD": 5.81,
-            "KZT": 2739.95,
-            "UZS": 70216.55,
-            "KGS": 507.68,
-            "BYN": 15.93,
-            "AZN": 9.87
+            "KZT": 2736.56,
+            "UZS": 69861.3,
+            "KGS": 508.06,
+            "BYN": 15.9,
+            "AZN": 9.88
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1146,10 +1146,10 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1662.04,
-            "UZS": 42592.9,
-            "KGS": 307.96,
-            "BYN": 9.66,
+            "KZT": 1659.98,
+            "UZS": 42377.4,
+            "KGS": 308.18,
+            "BYN": 9.64,
             "AZN": 5.99
           },
           "shippingDetails": {
@@ -1298,10 +1298,10 @@
           },
           "exportPrices": {
             "USD": 3.52,
-            "KZT": 1662.04,
-            "UZS": 42592.9,
-            "KGS": 307.96,
-            "BYN": 9.66,
+            "KZT": 1659.98,
+            "UZS": 42377.4,
+            "KGS": 308.18,
+            "BYN": 9.64,
             "AZN": 5.99
           },
           "shippingDetails": {
@@ -1449,11 +1449,11 @@
           },
           "exportPrices": {
             "USD": 7.8,
-            "KZT": 3679.36,
-            "UZS": 94290.79,
-            "KGS": 681.75,
-            "BYN": 21.4,
-            "AZN": 13.25
+            "KZT": 3674.81,
+            "UZS": 93813.75,
+            "KGS": 682.25,
+            "BYN": 21.35,
+            "AZN": 13.26
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1600,10 +1600,10 @@
           },
           "exportPrices": {
             "USD": 4.15,
-            "KZT": 1957.11,
-            "UZS": 50154.68,
-            "KGS": 362.63,
-            "BYN": 11.38,
+            "KZT": 1954.69,
+            "UZS": 49900.93,
+            "KGS": 362.9,
+            "BYN": 11.36,
             "AZN": 7.05
           },
           "shippingDetails": {
@@ -1740,8 +1740,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-012",
           "priceCurrency": "USD",
-          "price": 8.42,
-          "priceExclVAT": 7.02,
+          "price": 8.43,
+          "priceExclVAT": 7.03,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1750,12 +1750,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 8.42,
-            "KZT": 3974.43,
-            "UZS": 101852.58,
-            "KGS": 736.42,
-            "BYN": 23.11,
-            "AZN": 14.32
+            "USD": 8.43,
+            "KZT": 3969.51,
+            "UZS": 101337.27,
+            "KGS": 736.96,
+            "BYN": 23.06,
+            "AZN": 14.33
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1902,11 +1902,11 @@
           },
           "exportPrices": {
             "USD": 4.47,
-            "KZT": 2107.65,
-            "UZS": 54012.73,
-            "KGS": 390.53,
-            "BYN": 12.26,
-            "AZN": 7.59
+            "KZT": 2105.05,
+            "UZS": 53739.46,
+            "KGS": 390.81,
+            "BYN": 12.23,
+            "AZN": 7.6
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2053,11 +2053,11 @@
           },
           "exportPrices": {
             "USD": 4.02,
-            "KZT": 1896.89,
-            "UZS": 48611.46,
-            "KGS": 351.47,
-            "BYN": 11.03,
-            "AZN": 6.83
+            "KZT": 1894.54,
+            "UZS": 48365.52,
+            "KGS": 351.73,
+            "BYN": 11.01,
+            "AZN": 6.84
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2206,11 +2206,11 @@
           },
           "exportPrices": {
             "USD": 3.5,
-            "KZT": 1649.99,
-            "UZS": 42284.25,
-            "KGS": 305.73,
-            "BYN": 9.59,
-            "AZN": 5.94
+            "KZT": 1647.95,
+            "UZS": 42070.32,
+            "KGS": 305.95,
+            "BYN": 9.57,
+            "AZN": 5.95
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2348,8 +2348,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-016",
           "priceCurrency": "USD",
-          "price": 5.83,
-          "priceExclVAT": 4.86,
+          "price": 5.84,
+          "priceExclVAT": 4.87,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2358,12 +2358,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.83,
-            "KZT": 2751.99,
-            "UZS": 70525.19,
-            "KGS": 509.92,
-            "BYN": 16,
-            "AZN": 9.91
+            "USD": 5.84,
+            "KZT": 2748.59,
+            "UZS": 70168.38,
+            "KGS": 510.29,
+            "BYN": 15.97,
+            "AZN": 9.92
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2512,11 +2512,11 @@
           },
           "exportPrices": {
             "USD": 4.85,
-            "KZT": 2288.31,
-            "UZS": 58642.39,
-            "KGS": 424,
-            "BYN": 13.31,
-            "AZN": 8.24
+            "KZT": 2285.48,
+            "UZS": 58345.7,
+            "KGS": 424.31,
+            "BYN": 13.28,
+            "AZN": 8.25
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2665,11 +2665,11 @@
           },
           "exportPrices": {
             "USD": 7.76,
-            "KZT": 3661.3,
-            "UZS": 93827.83,
-            "KGS": 678.4,
-            "BYN": 21.29,
-            "AZN": 13.19
+            "KZT": 3656.76,
+            "UZS": 93353.12,
+            "KGS": 678.9,
+            "BYN": 21.25,
+            "AZN": 13.2
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2817,10 +2817,10 @@
           },
           "exportPrices": {
             "USD": 4.72,
-            "KZT": 2228.09,
-            "UZS": 57099.17,
-            "KGS": 412.84,
-            "BYN": 12.96,
+            "KZT": 2225.33,
+            "UZS": 56810.29,
+            "KGS": 413.14,
+            "BYN": 12.93,
             "AZN": 8.03
           },
           "shippingDetails": {
@@ -2968,11 +2968,11 @@
           },
           "exportPrices": {
             "USD": 5.73,
-            "KZT": 2703.82,
-            "UZS": 69290.62,
-            "KGS": 500.99,
-            "BYN": 15.72,
-            "AZN": 9.74
+            "KZT": 2700.47,
+            "UZS": 68940.05,
+            "KGS": 501.36,
+            "BYN": 15.69,
+            "AZN": 9.75
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3119,11 +3119,11 @@
           },
           "exportPrices": {
             "USD": 8.55,
-            "KZT": 4034.65,
-            "UZS": 103395.8,
-            "KGS": 747.58,
-            "BYN": 23.46,
-            "AZN": 14.53
+            "KZT": 4029.66,
+            "UZS": 102872.69,
+            "KGS": 748.13,
+            "BYN": 23.41,
+            "AZN": 14.54
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3270,9 +3270,9 @@
           },
           "exportPrices": {
             "USD": 1.05,
-            "KZT": 493.79,
-            "UZS": 12654.41,
-            "KGS": 91.49,
+            "KZT": 493.18,
+            "UZS": 12590.39,
+            "KGS": 91.56,
             "BYN": 2.87,
             "AZN": 1.78
           },
@@ -3410,7 +3410,7 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-023",
           "priceCurrency": "USD",
-          "price": 6.63,
+          "price": 6.64,
           "priceExclVAT": 5.53,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
@@ -3420,12 +3420,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 6.63,
-            "KZT": 3131.37,
-            "UZS": 80247.48,
-            "KGS": 580.21,
-            "BYN": 18.21,
-            "AZN": 11.28
+            "USD": 6.64,
+            "KZT": 3127.5,
+            "UZS": 79841.49,
+            "KGS": 580.64,
+            "BYN": 18.17,
+            "AZN": 11.29
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3561,7 +3561,7 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-024",
           "priceCurrency": "USD",
-          "price": 6.63,
+          "price": 6.64,
           "priceExclVAT": 5.53,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
@@ -3571,12 +3571,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 6.63,
-            "KZT": 3131.37,
-            "UZS": 80247.48,
-            "KGS": 580.21,
-            "BYN": 18.21,
-            "AZN": 11.28
+            "USD": 6.64,
+            "KZT": 3127.5,
+            "UZS": 79841.49,
+            "KGS": 580.64,
+            "BYN": 18.17,
+            "AZN": 11.29
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3712,8 +3712,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-025",
           "priceCurrency": "USD",
-          "price": 10.33,
-          "priceExclVAT": 8.61,
+          "price": 10.34,
+          "priceExclVAT": 8.62,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3722,12 +3722,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 10.33,
-            "KZT": 4877.71,
-            "UZS": 125000.89,
-            "KGS": 903.79,
-            "BYN": 28.36,
-            "AZN": 17.57
+            "USD": 10.34,
+            "KZT": 4871.68,
+            "UZS": 124368.47,
+            "KGS": 904.45,
+            "BYN": 28.3,
+            "AZN": 17.58
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3875,10 +3875,10 @@
           },
           "exportPrices": {
             "USD": 1.72,
-            "KZT": 812.95,
-            "UZS": 20833.48,
-            "KGS": 150.63,
-            "BYN": 4.73,
+            "KZT": 811.96,
+            "UZS": 20728.45,
+            "KGS": 150.74,
+            "BYN": 4.72,
             "AZN": 2.93
           },
           "shippingDetails": {
@@ -4028,11 +4028,11 @@
           },
           "exportPrices": {
             "USD": 3.13,
-            "KZT": 1475.36,
-            "UZS": 37808.91,
-            "KGS": 273.37,
-            "BYN": 8.58,
-            "AZN": 5.31
+            "KZT": 1473.56,
+            "UZS": 37618.29,
+            "KGS": 273.57,
+            "BYN": 8.56,
+            "AZN": 5.32
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4180,10 +4180,10 @@
           },
           "exportPrices": {
             "USD": 2.31,
-            "KZT": 1089.96,
-            "UZS": 27932.3,
-            "KGS": 201.96,
-            "BYN": 6.34,
+            "KZT": 1088.63,
+            "UZS": 27791.47,
+            "KGS": 202.11,
+            "BYN": 6.32,
             "AZN": 3.93
           },
           "shippingDetails": {
@@ -4332,10 +4332,10 @@
           },
           "exportPrices": {
             "USD": 3,
-            "KZT": 1415.14,
-            "UZS": 36265.69,
-            "KGS": 262.21,
-            "BYN": 8.23,
+            "KZT": 1413.41,
+            "UZS": 36082.85,
+            "KGS": 262.41,
+            "BYN": 8.21,
             "AZN": 5.1
           },
           "shippingDetails": {
@@ -4485,10 +4485,10 @@
           },
           "exportPrices": {
             "USD": 3.74,
-            "KZT": 1764.41,
-            "UZS": 45216.37,
-            "KGS": 326.93,
-            "BYN": 10.26,
+            "KZT": 1762.26,
+            "UZS": 44988.41,
+            "KGS": 327.17,
+            "BYN": 10.24,
             "AZN": 6.36
           },
           "shippingDetails": {
@@ -4626,7 +4626,7 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-031",
           "priceCurrency": "USD",
-          "price": 3.62,
+          "price": 3.63,
           "priceExclVAT": 3.02,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
@@ -4636,11 +4636,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.62,
-            "KZT": 1710.21,
-            "UZS": 43827.47,
-            "KGS": 316.88,
-            "BYN": 9.95,
+            "USD": 3.63,
+            "KZT": 1708.12,
+            "UZS": 43606.51,
+            "KGS": 317.12,
+            "BYN": 9.92,
             "AZN": 6.16
           },
           "shippingDetails": {
@@ -4790,10 +4790,10 @@
           },
           "exportPrices": {
             "USD": 1.86,
-            "KZT": 879.19,
-            "UZS": 22531.02,
-            "KGS": 162.91,
-            "BYN": 5.11,
+            "KZT": 878.12,
+            "UZS": 22417.43,
+            "KGS": 163.03,
+            "BYN": 5.1,
             "AZN": 3.17
           },
           "shippingDetails": {
@@ -4942,11 +4942,11 @@
           },
           "exportPrices": {
             "USD": 1.84,
-            "KZT": 867.15,
-            "UZS": 22222.38,
-            "KGS": 160.67,
-            "BYN": 5.04,
-            "AZN": 3.12
+            "KZT": 866.09,
+            "UZS": 22110.34,
+            "KGS": 160.79,
+            "BYN": 5.03,
+            "AZN": 3.13
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5095,10 +5095,10 @@
           },
           "exportPrices": {
             "USD": 2.12,
-            "KZT": 999.63,
-            "UZS": 25617.47,
-            "KGS": 185.22,
-            "BYN": 5.81,
+            "KZT": 998.41,
+            "UZS": 25488.31,
+            "KGS": 185.36,
+            "BYN": 5.8,
             "AZN": 3.6
           },
           "shippingDetails": {
@@ -5246,11 +5246,11 @@
           },
           "exportPrices": {
             "USD": 3.73,
-            "KZT": 1758.39,
-            "UZS": 45062.05,
-            "KGS": 325.81,
-            "BYN": 10.23,
-            "AZN": 6.33
+            "KZT": 1756.24,
+            "UZS": 44834.86,
+            "KGS": 326.05,
+            "BYN": 10.2,
+            "AZN": 6.34
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5386,8 +5386,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-036",
           "priceCurrency": "USD",
-          "price": 2.51,
-          "priceExclVAT": 2.09,
+          "price": 2.52,
+          "priceExclVAT": 2.1,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5396,12 +5396,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.51,
-            "KZT": 1186.31,
-            "UZS": 30401.45,
-            "KGS": 219.81,
-            "BYN": 6.9,
-            "AZN": 4.27
+            "USD": 2.52,
+            "KZT": 1184.86,
+            "UZS": 30248.18,
+            "KGS": 219.98,
+            "BYN": 6.88,
+            "AZN": 4.28
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5548,10 +5548,10 @@
           },
           "exportPrices": {
             "USD": 2.55,
-            "KZT": 1204.37,
-            "UZS": 30864.42,
-            "KGS": 223.16,
-            "BYN": 7,
+            "KZT": 1202.9,
+            "UZS": 30708.81,
+            "KGS": 223.33,
+            "BYN": 6.99,
             "AZN": 4.34
           },
           "shippingDetails": {
@@ -5699,11 +5699,11 @@
           },
           "exportPrices": {
             "USD": 4.85,
-            "KZT": 2288.31,
-            "UZS": 58642.39,
-            "KGS": 424,
-            "BYN": 13.31,
-            "AZN": 8.24
+            "KZT": 2285.52,
+            "UZS": 58346.74,
+            "KGS": 424.32,
+            "BYN": 13.28,
+            "AZN": 8.25
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5851,11 +5851,11 @@
           },
           "exportPrices": {
             "USD": 5.08,
-            "KZT": 2396.7,
-            "UZS": 61420.19,
-            "KGS": 444.08,
-            "BYN": 13.94,
-            "AZN": 8.63
+            "KZT": 2393.78,
+            "UZS": 61110.53,
+            "KGS": 444.42,
+            "BYN": 13.91,
+            "AZN": 8.64
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6003,11 +6003,11 @@
           },
           "exportPrices": {
             "USD": 4.47,
-            "KZT": 2107.65,
-            "UZS": 54012.73,
-            "KGS": 390.53,
-            "BYN": 12.26,
-            "AZN": 7.59
+            "KZT": 2105.08,
+            "UZS": 53740.42,
+            "KGS": 390.82,
+            "BYN": 12.23,
+            "AZN": 7.6
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6154,10 +6154,10 @@
           },
           "exportPrices": {
             "USD": 2.4,
-            "KZT": 1132.11,
-            "UZS": 29012.55,
-            "KGS": 209.77,
-            "BYN": 6.58,
+            "KZT": 1130.73,
+            "UZS": 28866.28,
+            "KGS": 209.93,
+            "BYN": 6.57,
             "AZN": 4.08
           },
           "shippingDetails": {
@@ -6305,10 +6305,10 @@
           },
           "exportPrices": {
             "USD": 2.76,
-            "KZT": 1300.72,
-            "UZS": 33333.57,
-            "KGS": 241.01,
-            "BYN": 7.56,
+            "KZT": 1299.14,
+            "UZS": 33165.52,
+            "KGS": 241.19,
+            "BYN": 7.55,
             "AZN": 4.69
           },
           "shippingDetails": {
@@ -6445,8 +6445,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-043",
           "priceCurrency": "USD",
-          "price": 3.8,
-          "priceExclVAT": 3.17,
+          "price": 3.81,
+          "priceExclVAT": 3.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6455,12 +6455,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.8,
-            "KZT": 1794.52,
-            "UZS": 45987.98,
-            "KGS": 332.51,
-            "BYN": 10.44,
-            "AZN": 6.46
+            "USD": 3.81,
+            "KZT": 1792.33,
+            "UZS": 45756.13,
+            "KGS": 332.75,
+            "BYN": 10.41,
+            "AZN": 6.47
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6607,10 +6607,10 @@
           },
           "exportPrices": {
             "USD": 4.44,
-            "KZT": 2095.61,
-            "UZS": 53704.09,
-            "KGS": 388.29,
-            "BYN": 12.19,
+            "KZT": 2093.05,
+            "UZS": 53433.33,
+            "KGS": 388.59,
+            "BYN": 12.16,
             "AZN": 7.55
           },
           "shippingDetails": {
@@ -6758,10 +6758,10 @@
           },
           "exportPrices": {
             "USD": 4.57,
-            "KZT": 2155.83,
-            "UZS": 55247.31,
-            "KGS": 399.45,
-            "BYN": 12.54,
+            "KZT": 2153.2,
+            "UZS": 54968.77,
+            "KGS": 399.75,
+            "BYN": 12.51,
             "AZN": 7.77
           },
           "shippingDetails": {
@@ -6910,10 +6910,10 @@
           },
           "exportPrices": {
             "USD": 3.46,
-            "KZT": 1631.93,
-            "UZS": 41821.28,
-            "KGS": 302.38,
-            "BYN": 9.49,
+            "KZT": 1629.94,
+            "UZS": 41610.44,
+            "KGS": 302.61,
+            "BYN": 9.47,
             "AZN": 5.88
           },
           "shippingDetails": {
@@ -7061,11 +7061,11 @@
           },
           "exportPrices": {
             "USD": 4.85,
-            "KZT": 2288.31,
-            "UZS": 58642.39,
-            "KGS": 424,
-            "BYN": 13.31,
-            "AZN": 8.24
+            "KZT": 2285.52,
+            "UZS": 58346.74,
+            "KGS": 424.32,
+            "BYN": 13.28,
+            "AZN": 8.25
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7212,11 +7212,11 @@
           },
           "exportPrices": {
             "USD": 5.73,
-            "KZT": 2703.82,
-            "UZS": 69290.62,
-            "KGS": 500.99,
-            "BYN": 15.72,
-            "AZN": 9.74
+            "KZT": 2700.52,
+            "UZS": 68941.28,
+            "KGS": 501.37,
+            "BYN": 15.69,
+            "AZN": 9.75
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7363,10 +7363,10 @@
           },
           "exportPrices": {
             "USD": 4.81,
-            "KZT": 2270.24,
-            "UZS": 58179.43,
-            "KGS": 420.65,
-            "BYN": 13.2,
+            "KZT": 2267.48,
+            "UZS": 57886.11,
+            "KGS": 420.97,
+            "BYN": 13.17,
             "AZN": 8.18
           },
           "shippingDetails": {
@@ -7515,10 +7515,10 @@
           },
           "exportPrices": {
             "USD": 2.4,
-            "KZT": 1132.11,
-            "UZS": 29012.55,
-            "KGS": 209.77,
-            "BYN": 6.58,
+            "KZT": 1130.73,
+            "UZS": 28866.28,
+            "KGS": 209.93,
+            "BYN": 6.57,
             "AZN": 4.08
           },
           "shippingDetails": {
@@ -7667,11 +7667,11 @@
           },
           "exportPrices": {
             "USD": 4.62,
-            "KZT": 2179.92,
-            "UZS": 55864.59,
-            "KGS": 403.92,
-            "BYN": 12.68,
-            "AZN": 7.85
+            "KZT": 2177.26,
+            "UZS": 55582.95,
+            "KGS": 404.22,
+            "BYN": 12.65,
+            "AZN": 7.86
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7820,10 +7820,10 @@
           },
           "exportPrices": {
             "USD": 2.31,
-            "KZT": 1089.96,
-            "UZS": 27932.3,
-            "KGS": 201.96,
-            "BYN": 6.34,
+            "KZT": 1088.63,
+            "UZS": 27791.47,
+            "KGS": 202.11,
+            "BYN": 6.32,
             "AZN": 3.93
           },
           "shippingDetails": {
@@ -7971,11 +7971,11 @@
           },
           "exportPrices": {
             "USD": 4.25,
-            "KZT": 2005.28,
-            "UZS": 51389.25,
-            "KGS": 371.56,
-            "BYN": 11.66,
-            "AZN": 7.22
+            "KZT": 2002.84,
+            "UZS": 51130.17,
+            "KGS": 371.84,
+            "BYN": 11.64,
+            "AZN": 7.23
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8122,10 +8122,10 @@
           },
           "exportPrices": {
             "USD": 2.12,
-            "KZT": 999.63,
-            "UZS": 25617.47,
-            "KGS": 185.22,
-            "BYN": 5.81,
+            "KZT": 998.41,
+            "UZS": 25488.31,
+            "KGS": 185.36,
+            "BYN": 5.8,
             "AZN": 3.6
           },
           "shippingDetails": {
@@ -8274,11 +8274,11 @@
           },
           "exportPrices": {
             "USD": 4.62,
-            "KZT": 2179.92,
-            "UZS": 55864.59,
-            "KGS": 403.92,
-            "BYN": 12.68,
-            "AZN": 7.85
+            "KZT": 2177.26,
+            "UZS": 55582.95,
+            "KGS": 404.22,
+            "BYN": 12.65,
+            "AZN": 7.86
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8426,10 +8426,10 @@
           },
           "exportPrices": {
             "USD": 2.31,
-            "KZT": 1089.96,
-            "UZS": 27932.3,
-            "KGS": 201.96,
-            "BYN": 6.34,
+            "KZT": 1088.63,
+            "UZS": 27791.47,
+            "KGS": 202.11,
+            "BYN": 6.32,
             "AZN": 3.93
           },
           "shippingDetails": {
@@ -8568,8 +8568,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-057",
           "priceCurrency": "USD",
-          "price": 7.6,
-          "priceExclVAT": 6.33,
+          "price": 7.61,
+          "priceExclVAT": 6.34,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8578,12 +8578,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.6,
-            "KZT": 3588.03,
-            "UZS": 91950.24,
-            "KGS": 664.82,
-            "BYN": 20.86,
-            "AZN": 12.92
+            "USD": 7.61,
+            "KZT": 3583.65,
+            "UZS": 91486.67,
+            "KGS": 665.32,
+            "BYN": 20.82,
+            "AZN": 12.93
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8719,8 +8719,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-058",
           "priceCurrency": "USD",
-          "price": 5.26,
-          "priceExclVAT": 4.38,
+          "price": 5.27,
+          "priceExclVAT": 4.39,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8729,11 +8729,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.26,
-            "KZT": 2484.02,
-            "UZS": 63657.86,
-            "KGS": 460.26,
-            "BYN": 14.44,
+            "USD": 5.27,
+            "KZT": 2480.99,
+            "UZS": 63336.92,
+            "KGS": 460.61,
+            "BYN": 14.41,
             "AZN": 8.95
           },
           "shippingDetails": {
@@ -8872,8 +8872,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-059",
           "priceCurrency": "USD",
-          "price": 34.3,
-          "priceExclVAT": 28.58,
+          "price": 34.32,
+          "priceExclVAT": 28.6,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8882,12 +8882,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 34.3,
-            "KZT": 16186.81,
-            "UZS": 414818.38,
-            "KGS": 2999.24,
-            "BYN": 94.13,
-            "AZN": 58.3
+            "USD": 34.32,
+            "KZT": 16167.06,
+            "UZS": 412727.03,
+            "KGS": 3001.5,
+            "BYN": 93.93,
+            "AZN": 58.35
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9025,8 +9025,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-060",
           "priceCurrency": "USD",
-          "price": 22.53,
-          "priceExclVAT": 18.78,
+          "price": 22.55,
+          "priceExclVAT": 18.79,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9035,12 +9035,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 22.53,
-            "KZT": 10633.4,
-            "UZS": 272501.47,
-            "KGS": 1970.26,
-            "BYN": 61.83,
-            "AZN": 38.3
+            "USD": 22.55,
+            "KZT": 10620.43,
+            "UZS": 271127.63,
+            "KGS": 1971.73,
+            "BYN": 61.7,
+            "AZN": 38.33
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9178,8 +9178,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-061",
           "priceCurrency": "USD",
-          "price": 36.22,
-          "priceExclVAT": 30.18,
+          "price": 36.25,
+          "priceExclVAT": 30.21,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9188,12 +9188,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 36.22,
-            "KZT": 17094.37,
-            "UZS": 438076.42,
-            "KGS": 3167.41,
-            "BYN": 99.41,
-            "AZN": 61.57
+            "USD": 36.25,
+            "KZT": 17073.52,
+            "UZS": 435867.81,
+            "KGS": 3169.78,
+            "BYN": 99.2,
+            "AZN": 61.62
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9330,8 +9330,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-062",
           "priceCurrency": "USD",
-          "price": 37.81,
-          "priceExclVAT": 31.51,
+          "price": 37.83,
+          "priceExclVAT": 31.52,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9340,12 +9340,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 37.81,
-            "KZT": 17843.02,
-            "UZS": 457262.05,
-            "KGS": 3306.12,
-            "BYN": 103.76,
-            "AZN": 64.27
+            "USD": 37.83,
+            "KZT": 17821.25,
+            "UZS": 454956.72,
+            "KGS": 3308.6,
+            "BYN": 103.54,
+            "AZN": 64.32
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9483,8 +9483,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-063",
           "priceCurrency": "USD",
-          "price": 42.12,
-          "priceExclVAT": 35.1,
+          "price": 42.15,
+          "priceExclVAT": 35.12,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9493,12 +9493,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 42.12,
-            "KZT": 19877.93,
-            "UZS": 509410.56,
-            "KGS": 3683.17,
-            "BYN": 115.59,
-            "AZN": 71.6
+            "USD": 42.15,
+            "KZT": 19853.68,
+            "UZS": 506842.32,
+            "KGS": 3685.93,
+            "BYN": 115.35,
+            "AZN": 71.65
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9636,8 +9636,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-064",
           "priceCurrency": "USD",
-          "price": 44.79,
-          "priceExclVAT": 37.33,
+          "price": 44.83,
+          "priceExclVAT": 37.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9646,12 +9646,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 44.79,
-            "KZT": 21141.07,
-            "UZS": 541781.01,
-            "KGS": 3917.22,
-            "BYN": 122.94,
-            "AZN": 76.15
+            "USD": 44.83,
+            "KZT": 21115.28,
+            "UZS": 539049.57,
+            "KGS": 3920.16,
+            "BYN": 122.68,
+            "AZN": 76.21
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9789,8 +9789,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-065",
           "priceCurrency": "USD",
-          "price": 47.67,
-          "priceExclVAT": 39.73,
+          "price": 47.71,
+          "priceExclVAT": 39.76,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9799,12 +9799,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 47.67,
-            "KZT": 22499.6,
-            "UZS": 576595.92,
-            "KGS": 4168.94,
-            "BYN": 130.84,
-            "AZN": 81.04
+            "USD": 47.71,
+            "KZT": 22472.15,
+            "UZS": 573688.95,
+            "KGS": 4172.07,
+            "BYN": 130.56,
+            "AZN": 81.1
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9951,10 +9951,10 @@
           },
           "exportPrices": {
             "USD": 2.28,
-            "KZT": 1074.75,
-            "UZS": 27542.63,
-            "KGS": 199.14,
-            "BYN": 6.25,
+            "KZT": 1073.44,
+            "UZS": 27403.78,
+            "KGS": 199.29,
+            "BYN": 6.24,
             "AZN": 3.87
           },
           "shippingDetails": {
@@ -10104,11 +10104,11 @@
           },
           "exportPrices": {
             "USD": 3.18,
-            "KZT": 1499.82,
-            "UZS": 38435.77,
-            "KGS": 277.9,
-            "BYN": 8.72,
-            "AZN": 5.4
+            "KZT": 1497.99,
+            "UZS": 38241.99,
+            "KGS": 278.11,
+            "BYN": 8.7,
+            "AZN": 5.41
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10244,8 +10244,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-068",
           "priceCurrency": "USD",
-          "price": 16.84,
-          "priceExclVAT": 14.03,
+          "price": 16.85,
+          "priceExclVAT": 14.04,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10254,12 +10254,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 16.84,
-            "KZT": 7948.87,
-            "UZS": 203705.15,
-            "KGS": 1472.84,
-            "BYN": 46.22,
-            "AZN": 28.63
+            "USD": 16.85,
+            "KZT": 7939.17,
+            "UZS": 202678.15,
+            "KGS": 1473.95,
+            "BYN": 46.13,
+            "AZN": 28.65
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10395,8 +10395,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-069",
           "priceCurrency": "USD",
-          "price": 27.4,
-          "priceExclVAT": 22.83,
+          "price": 27.42,
+          "priceExclVAT": 22.85,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10405,12 +10405,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 27.4,
-            "KZT": 12932.08,
-            "UZS": 331409.61,
-            "KGS": 2396.18,
-            "BYN": 75.2,
-            "AZN": 46.58
+            "USD": 27.42,
+            "KZT": 12916.3,
+            "UZS": 329738.77,
+            "KGS": 2397.98,
+            "BYN": 75.04,
+            "AZN": 46.62
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10546,8 +10546,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-070",
           "priceCurrency": "USD",
-          "price": 27.62,
-          "priceExclVAT": 23.02,
+          "price": 27.64,
+          "priceExclVAT": 23.03,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10556,12 +10556,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 27.62,
-            "KZT": 13036.14,
-            "UZS": 334076.45,
-            "KGS": 2415.46,
-            "BYN": 75.81,
-            "AZN": 46.96
+            "USD": 27.64,
+            "KZT": 13020.24,
+            "UZS": 332392.17,
+            "KGS": 2417.27,
+            "BYN": 75.65,
+            "AZN": 46.99
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10697,8 +10697,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-071",
           "priceCurrency": "USD",
-          "price": 22.74,
-          "priceExclVAT": 18.95,
+          "price": 22.75,
+          "priceExclVAT": 18.96,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10707,12 +10707,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 22.74,
-            "KZT": 10730.97,
-            "UZS": 275001.95,
-            "KGS": 1988.34,
-            "BYN": 62.4,
-            "AZN": 38.65
+            "USD": 22.75,
+            "KZT": 10717.88,
+            "UZS": 273615.51,
+            "KGS": 1989.83,
+            "BYN": 62.27,
+            "AZN": 38.68
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10848,8 +10848,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-072",
           "priceCurrency": "USD",
-          "price": 35.84,
-          "priceExclVAT": 29.87,
+          "price": 35.87,
+          "priceExclVAT": 29.89,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10858,12 +10858,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 35.84,
-            "KZT": 16915.19,
-            "UZS": 433484.56,
-            "KGS": 3134.21,
-            "BYN": 98.36,
-            "AZN": 60.93
+            "USD": 35.87,
+            "KZT": 16894.55,
+            "UZS": 431299.11,
+            "KGS": 3136.56,
+            "BYN": 98.16,
+            "AZN": 60.97
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10999,8 +10999,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-073",
           "priceCurrency": "USD",
-          "price": 20.69,
-          "priceExclVAT": 17.24,
+          "price": 20.7,
+          "priceExclVAT": 17.25,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11009,12 +11009,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 20.69,
-            "KZT": 9762.67,
-            "UZS": 250187.27,
-            "KGS": 1808.92,
-            "BYN": 56.77,
-            "AZN": 35.16
+            "USD": 20.7,
+            "KZT": 9750.76,
+            "UZS": 248925.93,
+            "KGS": 1810.28,
+            "BYN": 56.65,
+            "AZN": 35.19
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11150,8 +11150,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-074",
           "priceCurrency": "USD",
-          "price": 42.28,
-          "priceExclVAT": 35.23,
+          "price": 42.31,
+          "priceExclVAT": 35.26,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11160,12 +11160,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 42.28,
-            "KZT": 19953.12,
-            "UZS": 511337.28,
-            "KGS": 3697.1,
-            "BYN": 116.03,
-            "AZN": 71.87
+            "USD": 42.31,
+            "KZT": 19928.77,
+            "UZS": 508759.32,
+            "KGS": 3699.88,
+            "BYN": 115.79,
+            "AZN": 71.92
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11301,8 +11301,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-075",
           "priceCurrency": "USD",
-          "price": 43.79,
-          "priceExclVAT": 36.49,
+          "price": 43.82,
+          "priceExclVAT": 36.52,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11311,12 +11311,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 43.79,
-            "KZT": 20667.06,
-            "UZS": 529633.39,
-            "KGS": 3829.39,
-            "BYN": 120.18,
-            "AZN": 74.44
+            "USD": 43.82,
+            "KZT": 20641.84,
+            "UZS": 526963.2,
+            "KGS": 3832.26,
+            "BYN": 119.93,
+            "AZN": 74.5
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11452,8 +11452,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-076",
           "priceCurrency": "USD",
-          "price": 16.98,
-          "priceExclVAT": 14.15,
+          "price": 17.0,
+          "priceExclVAT": 14.17,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11462,12 +11462,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 16.98,
-            "KZT": 8015.11,
-            "UZS": 205402.69,
-            "KGS": 1485.11,
-            "BYN": 46.61,
-            "AZN": 28.87
+            "USD": 17,
+            "KZT": 8005.33,
+            "UZS": 204367.14,
+            "KGS": 1486.23,
+            "BYN": 46.51,
+            "AZN": 28.89
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11603,8 +11603,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-077",
           "priceCurrency": "USD",
-          "price": 22.55,
-          "priceExclVAT": 18.79,
+          "price": 22.57,
+          "priceExclVAT": 18.81,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11613,12 +11613,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 22.55,
-            "KZT": 10642.81,
-            "UZS": 272742.52,
-            "KGS": 1972,
-            "BYN": 61.89,
-            "AZN": 38.34
+            "USD": 22.57,
+            "KZT": 10629.82,
+            "UZS": 271367.47,
+            "KGS": 1973.48,
+            "BYN": 61.76,
+            "AZN": 38.36
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
