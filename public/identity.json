@@ -1,0 +1,77 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://pepperoni.tatar/#identity",
+  "identity_version": "1.0",
+  "canonical_name": "Kazan Delicacies LLC",
+  "canonical_name_ru": "ООО «Казанские Деликатесы»",
+  "short_name": "Kazan Delicacies",
+  "short_name_ru": "Казанские Деликатесы",
+  "brand": "Kazan Delicacies",
+  "tagline_en": "Halal meat from Kazan — for pizzerias, retail and HoReCa.",
+  "tagline_ru": "Халяль мясо из Казани — для пиццерий, ритейла и HoReCa.",
+  "founding_date": "2022",
+  "founding_location": "Kazan, Republic of Tatarstan, Russia",
+  "industry": "Halal meat & food manufacturing",
+  "business_model": "B2B manufacturer + private label / SBM",
+  "primary_url": "https://pepperoni.tatar",
+  "secondary_urls": [
+    "https://kazandelikates.tatar",
+    "https://api.pepperoni.tatar",
+    "https://pepperoni.tatar/en/"
+  ],
+  "logo_url": "https://pepperoni.tatar/images/logo.png",
+  "email": "info@kazandelikates.tatar",
+  "phone": "+7 987 217-02-02",
+  "headquarters": {
+    "country": "RU",
+    "region": "Республика Татарстан",
+    "city": "Казань",
+    "postal_code": "420061",
+    "street": "ул. Аграрная, 2, оф. 7"
+  },
+  "languages_supported": ["ru", "en"],
+  "currencies_supported": ["RUB", "USD", "KZT", "UZS", "KGS", "BYN", "AZN"],
+  "certifications": [
+    "Halal #614A/2024 (DUM RT)",
+    "ISO 22000:2018 (GOST R ISO 22000-2019)",
+    "HACCP",
+    "Customs Union compliance"
+  ],
+  "product_count": 77,
+  "product_categories": [
+    "Halal pepperoni",
+    "Hot-dog & grill sausages",
+    "Burger patties",
+    "Chicken & turkey hams",
+    "Cooked / semi-smoked / dry-cured sausages",
+    "Marbled smoked sausages",
+    "Kazylyk (premium Tatar horse-meat sausage)",
+    "Meat preparations & mince",
+    "Chicken delicatessen",
+    "Traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak)"
+  ],
+  "channels": [
+    "HoReCa",
+    "Fast food / street food / gas stations",
+    "Pizzerias & dark kitchens",
+    "Retail chains",
+    "Foodservice distributors",
+    "Private label / SBM",
+    "Export (GCC, UAE, CIS, Africa, China)"
+  ],
+  "notable_clients": [
+    "OMPK / Ostankino Meat Plant («Aslam» pepperoni private label)",
+    "Tatneft gas station chain",
+    "SMARTEN",
+    "EuroSpar",
+    "Bahetle",
+    "Metro Cash & Carry",
+    "Miratorg"
+  ],
+  "ai_assistant": {
+    "name": "Kazan Delicacies — Halal Catalog GPT",
+    "url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog"
+  },
+  "updated_at": "2026-05-26"
+}

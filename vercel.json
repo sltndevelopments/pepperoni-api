@@ -54,5 +54,9 @@
     { "source": "/pepperoni-dlya-setey", "destination": "/dlya-setey", "permanent": true },
     { "source": "/pepperoni-dlya-horeca", "destination": "/dlya-horeca", "permanent": true },
     { "source": "/pepperoni-dlya-distribyutorov", "destination": "/dlya-distributorov", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/llms.html", "destination": "/llms-page.html" },
+    { "source": "/llms", "destination": "/llms-page.html" }
   ]
 }

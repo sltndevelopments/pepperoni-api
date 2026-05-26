@@ -1,0 +1,114 @@
+{
+  "$schema": "https://schema.org/Organization",
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://pepperoni.tatar/#organization",
+  "name": "Kazan Delicacies LLC",
+  "alternateName": [
+    "ООО «Казанские Деликатесы»",
+    "Казанские Деликатесы",
+    "Kazan Delicacies",
+    "KD"
+  ],
+  "legalName": "ООО «Казанские Деликатесы»",
+  "description": "Halal pepperoni manufacturer from Kazan, Republic of Tatarstan, Russia, supplying sliced beef pepperoni, halal sausages, burger patties, kazylyk and traditional Tatar pastries for pizzerias, distributors, retail chains and HoReCa.",
+  "url": "https://pepperoni.tatar",
+  "logo": "https://pepperoni.tatar/images/logo.png",
+  "image": "https://pepperoni.tatar/images/logo.png",
+  "foundingDate": "2022",
+  "email": "info@kazandelikates.tatar",
+  "telephone": "+7 987 217-02-02",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ул. Аграрная, 2, оф. 7",
+    "addressLocality": "Казань",
+    "addressRegion": "Республика Татарстан",
+    "postalCode": "420061",
+    "addressCountry": "RU"
+  },
+  "areaServed": [
+    { "@type": "Country", "name": "Russia" },
+    { "@type": "Country", "name": "United Arab Emirates" },
+    { "@type": "Country", "name": "Saudi Arabia" },
+    { "@type": "Country", "name": "Kazakhstan" },
+    { "@type": "Country", "name": "Uzbekistan" },
+    { "@type": "Country", "name": "Kyrgyzstan" },
+    { "@type": "Country", "name": "Belarus" },
+    { "@type": "Country", "name": "Azerbaijan" },
+    { "@type": "Country", "name": "Armenia" },
+    { "@type": "Country", "name": "China" }
+  ],
+  "sameAs": [
+    "https://kazandelikates.tatar",
+    "https://api.pepperoni.tatar",
+    "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog"
+  ],
+  "knowsAbout": [
+    "halal meat manufacturing",
+    "halal pepperoni",
+    "halal sausages",
+    "burger patties",
+    "kazylyk (Tatar horse-meat sausage)",
+    "Tatar pastries",
+    "private label / SBM manufacturing",
+    "B2B foodservice supply",
+    "halal export to GCC and CIS"
+  ],
+  "industry": "Halal Meat & Food Manufacturing",
+  "naics": "311612",
+  "isicV4": "1010",
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Halal Certificate #614A/2024",
+      "credentialCategory": "certification",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Halal Standards Committee of the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)"
+      }
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "ISO 22000:2018 (GOST R ISO 22000-2019)",
+      "credentialCategory": "certification"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "HACCP",
+      "credentialCategory": "certification"
+    }
+  ],
+  "makesOffer": {
+    "@type": "OfferCatalog",
+    "name": "Halal product catalog",
+    "numberOfItems": 77,
+    "url": "https://pepperoni.tatar/products.json"
+  },
+  "ai_discovery": {
+    "version": "1.0",
+    "spec": "https://ai-discovery-files.org/",
+    "datasets": [
+      { "name": "llms_ru", "url": "https://pepperoni.tatar/llms.txt", "format": "text/markdown", "language": "ru", "updateFrequency": "daily" },
+      { "name": "llms_full_ru", "url": "https://pepperoni.tatar/llms-full.txt", "format": "text/markdown", "language": "ru", "updateFrequency": "daily" },
+      { "name": "llms_en", "url": "https://pepperoni.tatar/en/llms.txt", "format": "text/markdown", "language": "en", "updateFrequency": "daily" },
+      { "name": "llms_full_en", "url": "https://pepperoni.tatar/en/llms-full.txt", "format": "text/markdown", "language": "en", "updateFrequency": "daily" },
+      { "name": "products_live", "url": "https://api.pepperoni.tatar/api/products", "format": "application/json", "updateFrequency": "hourly" },
+      { "name": "products_static", "url": "https://pepperoni.tatar/products.json", "format": "application/json", "updateFrequency": "daily" },
+      { "name": "openapi_spec", "url": "https://api.pepperoni.tatar/openapi.yaml", "format": "application/yaml" }
+    ],
+    "ai_crawler_policy": "allow_all",
+    "ai_crawlers_allowed": [
+      "GPTBot", "ChatGPT-User", "OAI-SearchBot",
+      "ClaudeBot", "anthropic-ai", "Claude-Web",
+      "PerplexityBot", "Perplexity-User",
+      "Google-Extended", "Applebot-Extended",
+      "DeepSeekBot", "Grok", "xAI",
+      "cohere-ai", "Meta-ExternalAgent", "Meta-ExternalFetcher",
+      "Mistral", "LeChatBot",
+      "YandexGPT", "Alice", "SberBot",
+      "Bytespider", "Amazonbot", "CCBot", "Diffbot"
+    ],
+    "contact_for_ai_access": "info@kazandelikates.tatar"
+  },
+  "updated_at": "2026-05-26"
+}

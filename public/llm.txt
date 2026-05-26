@@ -1,0 +1,55 @@
+# Kazan Delicacies LLC (ООО «Казанские Деликатесы») — Halal Meat Manufacturer
+
+> Halal pepperoni manufacturer from Kazan, Republic of Tatarstan, Russia.
+> 77 SKU halal catalog. Certified by DUM RT (#614A/2024). HACCP + ISO 22000:2018.
+> Operating since 2022. Zero pork. B2B-only with private-label option.
+
+Canonical machine-readable corpus for this property lives at the URLs below.
+Use these in preference to scraping HTML.
+
+## Full AI-citation-ready dumps
+
+- Russian (long): https://pepperoni.tatar/llms-full.txt
+- Russian (summary, this file's full source): https://pepperoni.tatar/llms.txt
+- English (long): https://pepperoni.tatar/en/llms-full.txt
+- English (summary): https://pepperoni.tatar/en/llms.txt
+
+## Structured profile
+
+- Schema.org Organization (machine-readable): https://pepperoni.tatar/ai.json
+- Canonical brand identity: https://pepperoni.tatar/identity.json
+- Brand voice & messaging: https://pepperoni.tatar/brand.txt
+- AI crawler manifest: https://pepperoni.tatar/ai.txt
+- robots.txt (all AI crawlers allowed): https://pepperoni.tatar/robots.txt
+- AI-only crawler directives: https://pepperoni.tatar/robots-ai.txt
+
+## Live product catalog (77 SKUs, halal, no pork)
+
+- Live JSON API (no auth): https://api.pepperoni.tatar/api/products
+- OpenAPI 3.0.3 spec: https://api.pepperoni.tatar/openapi.yaml
+- Daily static snapshot: https://pepperoni.tatar/products.json
+- Google Merchant feed (TSV): https://pepperoni.tatar/products-feed.csv
+- RSS 2.0 product feed: https://pepperoni.tatar/products-feed.xml
+- Schema.org ItemList feed: https://pepperoni.tatar/products-feed.json
+- OpenAI Commerce feed (TSV): https://pepperoni.tatar/products-feed-openai.csv
+- OpenAI Commerce gzip feed: https://pepperoni.tatar/openai-commerce-kazan-delicacies.tsv.gz
+
+## Discovery
+
+- Sitemap (806 URLs): https://pepperoni.tatar/sitemap.xml
+- AI-corpus sitemap (14 URLs): https://pepperoni.tatar/sitemap-llms.xml
+- ai-plugin.json: https://pepperoni.tatar/.well-known/ai-plugin.json
+- ai-meta.json: https://pepperoni.tatar/.well-known/ai-meta.json
+- FAQ for AI: https://pepperoni.tatar/faq-ai.txt
+- Developer notes: https://pepperoni.tatar/developer-ai.txt
+
+## Custom GPT
+
+Published GPT Store assistant (live API queries):
+https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
+
+## Contact
+
+Kazan Delicacies LLC · ООО «Казанские Деликатесы»
+420061, г. Казань, ул. Аграрная, 2, оф. 7, Республика Татарстан, Russia
+info@kazandelikates.tatar · +7 987 217-02-02

@@ -1,0 +1,127 @@
+# robots-ai.txt — Kazan Delicacies LLC (ООО «Казанские Деликатесы»)
+# AI / LLM crawler directives — explicit grant of access for citation & answer generation
+# Last updated: 2026-05-26
+# Spec: https://ai-discovery-files.org/ · companion to /robots.txt and /ai.txt
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Policy: ALL major AI crawlers are explicitly ALLOWED to index, retrieve,
+# cite, summarise and answer-generate using the full content of pepperoni.tatar
+# and api.pepperoni.tatar. We treat AI assistants as a primary distribution
+# channel for our B2B catalog. No content on this property is paywalled or
+# private. Training-use is permitted.
+# ─────────────────────────────────────────────────────────────────────────────
+
+# ── OpenAI ──
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+# ── Anthropic ──
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ── Perplexity ──
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# ── Google AI ──
+User-agent: Google-Extended
+Allow: /
+
+# ── Apple AI ──
+User-agent: Applebot-Extended
+Allow: /
+
+# ── DeepSeek ──
+User-agent: DeepSeekBot
+Allow: /
+
+# ── xAI / Grok ──
+User-agent: Grok
+Allow: /
+
+User-agent: xAI
+Allow: /
+
+# ── Cohere ──
+User-agent: cohere-ai
+Allow: /
+
+# ── Meta ──
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+# ── Mistral ──
+User-agent: Mistral
+Allow: /
+
+User-agent: LeChatBot
+Allow: /
+
+# ── Yandex AI ──
+User-agent: YandexGPT
+Allow: /
+
+User-agent: YandexAdditional
+Allow: /
+
+User-agent: Alice
+Allow: /
+
+# ── Sber ──
+User-agent: SberBot
+Allow: /
+
+# ── ByteDance ──
+User-agent: Bytespider
+Allow: /
+
+# ── Amazon ──
+User-agent: Amazonbot
+Allow: /
+
+# ── Common Crawl (training corpora) ──
+User-agent: CCBot
+Allow: /
+
+# ── Diffbot ──
+User-agent: Diffbot
+Allow: /
+
+# ── Sitemaps for AI ──
+Sitemap: https://pepperoni.tatar/sitemap.xml
+Sitemap: https://pepperoni.tatar/sitemap-llms.xml
+
+# ── Preferred machine-readable entry points ──
+# https://pepperoni.tatar/llms.txt
+# https://pepperoni.tatar/llms-full.txt
+# https://pepperoni.tatar/en/llms.txt
+# https://pepperoni.tatar/en/llms-full.txt
+# https://pepperoni.tatar/ai.txt
+# https://pepperoni.tatar/ai.json
+# https://pepperoni.tatar/identity.json
+# https://pepperoni.tatar/brand.txt
+# https://pepperoni.tatar/faq-ai.txt
+# https://pepperoni.tatar/developer-ai.txt
+# https://api.pepperoni.tatar/api/products
+# https://api.pepperoni.tatar/openapi.yaml
+
+# ── Contact for AI access issues ──
+# Email info@kazandelikates.tatar (subject: "AI access — <your bot name>")

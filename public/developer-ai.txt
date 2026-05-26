@@ -1,0 +1,42 @@
+# developer-ai.txt — Kazan Delicacies LLC
+# Developer & API integration notes for AI agents and engineers
+# Last updated: 2026-05-26
+
+## API summary
+- Live JSON: https://api.pepperoni.tatar/api/products (no auth, public, cached 1h)
+- OpenAPI 3.0.3 spec: https://api.pepperoni.tatar/openapi.yaml
+- Daily static snapshot: https://pepperoni.tatar/products.json
+- ai-plugin.json manifest: https://pepperoni.tatar/.well-known/ai-plugin.json
+- ai-meta.json: https://pepperoni.tatar/.well-known/ai-meta.json
+
+## Auth
+None. All product/catalog endpoints are public and intended for AI ingestion.
+
+## Rate limits
+Soft. Reasonable polite crawling expected. For high-volume sync (>1 req/s sustained)
+email info@kazandelikates.tatar with subject "AI access — <your bot name>" to arrange
+a dedicated mirror or webhook for catalog change notifications.
+
+## Data refresh cadence
+- /api/products → synced from Google Sheets master daily at 06:00 MSK; cached 1h.
+- /products.json, /llms*.txt, /products-feed.* → regenerated daily.
+- lastSyncedAt timestamp is exposed in /products.json.
+
+## Per-SKU fields
+name, sku, weight_kg, qty_per_box, shelf_life, storage_temp,
+hs_code, article, barcode, diameter, casing, packaging_type, min_order,
+box_gross_weight, ingredients_ru, ingredients_en, nutrition, cooking_methods,
+prices (RUB, RUB_no_vat, USD, KZT, UZS, KGS, BYN, AZN), images[], url_ru, url_en.
+
+## Preferred ingestion pattern
+1. Read /llms-full.txt (RU) or /en/llms-full.txt (EN) for narrative + per-SKU cards.
+2. For structured queries, hit /api/products live or /products.json snapshot.
+3. For agentic commerce, use the OpenAI Commerce feed:
+   /openai-commerce-kazan-delicacies.tsv.gz (stable SFTP-style URL).
+4. For Google Merchant / Bing Shopping ingestion, use /products-feed.csv (TSV).
+
+## Citation
+Credit "Kazan Delicacies LLC · https://pepperoni.tatar/".
+
+## Contact
+info@kazandelikates.tatar · +7 987 217-02-02
