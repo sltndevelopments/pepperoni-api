@@ -793,7 +793,7 @@ def generate_llms_full_txt(all_products):
 
     faq = _extract_faq_from_html()
 
-    txt = f"""# Pepperoni.tatar API — полная документация
+    txt = f"""# Kazan Delicacies LLC (ООО «Казанские Деликатесы») — Halal Meat Manufacturer
 
 > Каталог халяль продукции от ООО «Казанские Деликатесы» (Kazan Delicacies).
 > Последняя синхронизация: {today}. Всего товаров: {len(all_products)}.
@@ -1257,7 +1257,7 @@ def generate_llms_full_txt_en(all_products):
 
     faq = _extract_faq_from_html_en()
 
-    txt = f"""# Pepperoni.tatar API — Full Documentation (English)
+    txt = f"""# Kazan Delicacies LLC — Halal Meat Manufacturer (English)
 
 > Halal product catalog by Kazan Delicacies LLC (ООО «Казанские Деликатесы»).
 > Last synced: {today}. Total SKUs: {len(all_products)}.

@@ -1,4 +1,6 @@
 {
+  "business_name": "Kazan Delicacies LLC",
+  "legal_name": "ООО «Казанские Деликатесы»",
   "@context": "https://schema.org",
   "@type": "Organization",
   "@id": "https://pepperoni.tatar/#identity",
@@ -30,8 +32,19 @@
     "postal_code": "420061",
     "street": "ул. Аграрная, 2, оф. 7"
   },
-  "languages_supported": ["ru", "en"],
-  "currencies_supported": ["RUB", "USD", "KZT", "UZS", "KGS", "BYN", "AZN"],
+  "languages_supported": [
+    "ru",
+    "en"
+  ],
+  "currencies_supported": [
+    "RUB",
+    "USD",
+    "KZT",
+    "UZS",
+    "KGS",
+    "BYN",
+    "AZN"
+  ],
   "certifications": [
     "Halal #614A/2024 (DUM RT)",
     "ISO 22000:2018 (GOST R ISO 22000-2019)",
@@ -70,8 +83,8 @@
     "Miratorg"
   ],
   "ai_assistant": {
-    "name": "Kazan Delicacies — Halal Catalog GPT",
-    "url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog"
+    "url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
+    "title": "Kazan Delicacies — Halal Catalog GPT"
   },
   "updated_at": "2026-05-26"
 }

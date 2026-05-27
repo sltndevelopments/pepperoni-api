@@ -1,4 +1,7 @@
 {
+  "business_name": "Kazan Delicacies LLC",
+  "legal_name": "ООО «Казанские Деликатесы»",
+  "brand_name": "Kazan Delicacies",
   "$schema": "https://schema.org/Organization",
   "@context": "https://schema.org",
   "@type": "Organization",
@@ -27,16 +30,46 @@
     "addressCountry": "RU"
   },
   "areaServed": [
-    { "@type": "Country", "name": "Russia" },
-    { "@type": "Country", "name": "United Arab Emirates" },
-    { "@type": "Country", "name": "Saudi Arabia" },
-    { "@type": "Country", "name": "Kazakhstan" },
-    { "@type": "Country", "name": "Uzbekistan" },
-    { "@type": "Country", "name": "Kyrgyzstan" },
-    { "@type": "Country", "name": "Belarus" },
-    { "@type": "Country", "name": "Azerbaijan" },
-    { "@type": "Country", "name": "Armenia" },
-    { "@type": "Country", "name": "China" }
+    {
+      "@type": "Country",
+      "name": "Russia"
+    },
+    {
+      "@type": "Country",
+      "name": "United Arab Emirates"
+    },
+    {
+      "@type": "Country",
+      "name": "Saudi Arabia"
+    },
+    {
+      "@type": "Country",
+      "name": "Kazakhstan"
+    },
+    {
+      "@type": "Country",
+      "name": "Uzbekistan"
+    },
+    {
+      "@type": "Country",
+      "name": "Kyrgyzstan"
+    },
+    {
+      "@type": "Country",
+      "name": "Belarus"
+    },
+    {
+      "@type": "Country",
+      "name": "Azerbaijan"
+    },
+    {
+      "@type": "Country",
+      "name": "Armenia"
+    },
+    {
+      "@type": "Country",
+      "name": "China"
+    }
   ],
   "sameAs": [
     "https://kazandelikates.tatar",
@@ -88,25 +121,79 @@
     "version": "1.0",
     "spec": "https://ai-discovery-files.org/",
     "datasets": [
-      { "name": "llms_ru", "url": "https://pepperoni.tatar/llms.txt", "format": "text/markdown", "language": "ru", "updateFrequency": "daily" },
-      { "name": "llms_full_ru", "url": "https://pepperoni.tatar/llms-full.txt", "format": "text/markdown", "language": "ru", "updateFrequency": "daily" },
-      { "name": "llms_en", "url": "https://pepperoni.tatar/en/llms.txt", "format": "text/markdown", "language": "en", "updateFrequency": "daily" },
-      { "name": "llms_full_en", "url": "https://pepperoni.tatar/en/llms-full.txt", "format": "text/markdown", "language": "en", "updateFrequency": "daily" },
-      { "name": "products_live", "url": "https://api.pepperoni.tatar/api/products", "format": "application/json", "updateFrequency": "hourly" },
-      { "name": "products_static", "url": "https://pepperoni.tatar/products.json", "format": "application/json", "updateFrequency": "daily" },
-      { "name": "openapi_spec", "url": "https://api.pepperoni.tatar/openapi.yaml", "format": "application/yaml" }
+      {
+        "name": "llms_ru",
+        "url": "https://pepperoni.tatar/llms.txt",
+        "format": "text/markdown",
+        "language": "ru",
+        "updateFrequency": "daily"
+      },
+      {
+        "name": "llms_full_ru",
+        "url": "https://pepperoni.tatar/llms-full.txt",
+        "format": "text/markdown",
+        "language": "ru",
+        "updateFrequency": "daily"
+      },
+      {
+        "name": "llms_en",
+        "url": "https://pepperoni.tatar/en/llms.txt",
+        "format": "text/markdown",
+        "language": "en",
+        "updateFrequency": "daily"
+      },
+      {
+        "name": "llms_full_en",
+        "url": "https://pepperoni.tatar/en/llms-full.txt",
+        "format": "text/markdown",
+        "language": "en",
+        "updateFrequency": "daily"
+      },
+      {
+        "name": "products_live",
+        "url": "https://api.pepperoni.tatar/api/products",
+        "format": "application/json",
+        "updateFrequency": "hourly"
+      },
+      {
+        "name": "products_static",
+        "url": "https://pepperoni.tatar/products.json",
+        "format": "application/json",
+        "updateFrequency": "daily"
+      },
+      {
+        "name": "openapi_spec",
+        "url": "https://api.pepperoni.tatar/openapi.yaml",
+        "format": "application/yaml"
+      }
     ],
     "ai_crawler_policy": "allow_all",
     "ai_crawlers_allowed": [
-      "GPTBot", "ChatGPT-User", "OAI-SearchBot",
-      "ClaudeBot", "anthropic-ai", "Claude-Web",
-      "PerplexityBot", "Perplexity-User",
-      "Google-Extended", "Applebot-Extended",
-      "DeepSeekBot", "Grok", "xAI",
-      "cohere-ai", "Meta-ExternalAgent", "Meta-ExternalFetcher",
-      "Mistral", "LeChatBot",
-      "YandexGPT", "Alice", "SberBot",
-      "Bytespider", "Amazonbot", "CCBot", "Diffbot"
+      "GPTBot",
+      "ChatGPT-User",
+      "OAI-SearchBot",
+      "ClaudeBot",
+      "anthropic-ai",
+      "Claude-Web",
+      "PerplexityBot",
+      "Perplexity-User",
+      "Google-Extended",
+      "Applebot-Extended",
+      "DeepSeekBot",
+      "Grok",
+      "xAI",
+      "cohere-ai",
+      "Meta-ExternalAgent",
+      "Meta-ExternalFetcher",
+      "Mistral",
+      "LeChatBot",
+      "YandexGPT",
+      "Alice",
+      "SberBot",
+      "Bytespider",
+      "Amazonbot",
+      "CCBot",
+      "Diffbot"
     ],
     "contact_for_ai_access": "info@kazandelikates.tatar"
   },

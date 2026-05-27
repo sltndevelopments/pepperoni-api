@@ -332,7 +332,7 @@ function generateLlmsFullTxt(allProducts) {
     sections[sec][cat].push(p);
   }
 
-  let txt = `# Pepperoni.tatar API — полная документация
+  let txt = `# Kazan Delicacies LLC (ООО «Казанские Деликатесы») — Halal Meat Manufacturer
 
 > Каталог халяль продукции от ООО «Казанские Деликатесы» (Kazan Delicacies).
 > Последняя синхронизация: ${today}. Всего товаров: ${allProducts.length}.
