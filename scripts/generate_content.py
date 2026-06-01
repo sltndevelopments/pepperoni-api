@@ -35,10 +35,27 @@ MAX_TYPEGEO  = int(os.environ.get("MAX_TYPEGEO",  "3"))
 TODAY        = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 YEAR         = datetime.now().year
 
+# --- Canonical contacts (single source of truth; never invent others) ---
+PHONE_DISPLAY = "+7 987 217-02-02"
+PHONE_TEL     = "+79872170202"
+EMAIL         = "info@kazandelikates.tatar"
+ADDR_RU       = "г. Казань, ул. Аграрная, 2, оф. 7"
+ADDR_EN       = "Kazan, Agrarnaya St. 2, of. 7"
+CONTACTS_RULE = (
+    f"Контактные данные используй СТРОГО такие и никакие другие: "
+    f"телефон {PHONE_DISPLAY} (tel:{PHONE_TEL}), email {EMAIL}, "
+    f"адрес {ADDR_RU}. НИКОГДА не выдумывай номера 8-800, другие адреса или email."
+)
+CONTACTS_RULE_EN = (
+    f"Use EXACTLY these contacts and no others: phone {PHONE_DISPLAY} "
+    f"(tel:{PHONE_TEL}), email {EMAIL}, address {ADDR_EN}. "
+    f"NEVER invent 8-800 numbers, other addresses or emails."
+)
+
 FOOTER_RU = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Казанские Деликатесы | Производство халяль колбасных изделий</p>
-    <p class="mb-1">г. Казань, ул. Мусина 83А | <a href="tel:+78005509076" class="text-white">+7(800)550-90-76</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
+    <p class="mb-1">г. Казань, ул. Аграрная, 2, оф. 7 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.tatar" class="text-white">info@kazandelikates.tatar</a></p>
     <p class="mb-0"><a href="/" class="text-white me-3">Главная</a><a href="/pepperoni" class="text-white me-3">Пепперони</a><a href="/pepperoni-optom" class="text-white">Оптом</a></p>
   </div>
 </footer>"""
@@ -46,7 +63,7 @@ FOOTER_RU = f"""<footer class="bg-dark text-white py-4 mt-5">
 FOOTER_EN = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Kazan Delicacies | Halal meat products manufacturer</p>
-    <p class="mb-1">Kazan, Musina St. 83A | <a href="tel:+78005509076" class="text-white">+7(800)550-90-76</a> | <a href="mailto:info@kazandelikates.ru" class="text-white">info@kazandelikates.ru</a></p>
+    <p class="mb-1">Kazan, Agrarnaya St. 2, of. 7 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.tatar" class="text-white">info@kazandelikates.tatar</a></p>
     <p class="mb-0"><a href="/en/" class="text-white me-3">Home</a><a href="/en/pepperoni" class="text-white me-3">Pepperoni</a><a href="/pepperoni-optom" class="text-white">Wholesale</a></p>
   </div>
 </footer>"""
@@ -345,7 +362,7 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
 - Текст 700-900 слов
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
 - Schema.org BreadcrumbList
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7(800)550-90-76
+- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}\n- {CONTACTS_RULE}
 - НЕ упоминать свинину нигде"""
 
     html, tokens = call_claude(system, prompt)
@@ -377,7 +394,7 @@ Requirements:
 - Text 700-900 words
 - Contextual links: /en/, /pepperoni-optom (as wholesale page)
 - Schema.org BreadcrumbList
-- Footer: © 2022–{YEAR} Kazan Delicacies, Kazan, Musina St. 83A, +7(800)550-90-76
+- Footer: © 2022–{YEAR} Kazan Delicacies, {ADDR_EN}, {PHONE_DISPLAY}\n- {CONTACTS_RULE_EN}
 - Do NOT mention pork anywhere"""
 
     html, tokens = call_claude(system, prompt)
@@ -438,7 +455,7 @@ def generate_faq_page(faq: dict) -> tuple[Path, int]:
   <div class="mt-5 p-4 bg-light rounded">
     <h2 class="h4">{'Нужна консультация?' if lang == 'ru' else 'Need a consultation?'}</h2>
     <p>{'Свяжитесь с нами для получения прайс-листа и образцов продукции.' if lang == 'ru' else 'Contact us for a price list and product samples.'}</p>
-    <a href="tel:+78005509076" class="btn btn-danger">+7(800)550-90-76</a>
+    <a href="tel:+79872170202" class="btn btn-danger">+7 987 217-02-02</a>
   </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>"""
@@ -539,7 +556,7 @@ def generate_type_geo_page(type_slug: str, type_ru: str, type_en: str,
 - Bootstrap 5 CDN
 - <h1>: {type_ru} в {city_ru} — оптовые поставки
 - Секции: о продукте (3 абзаца), преимущества (ul 5 пунктов), условия поставки, CTA
-- Кнопка «Получить прайс» → tel:+78005509076
+- Кнопка «Получить прайс» → tel:+79872170202
 - Контекстные ссылки: /pepperoni, /pepperoni-optom
 - Футер с контактами
 - НЕ упоминать свинину, текст 400-500 слов"""
@@ -599,9 +616,9 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
 - Schema.org LocalBusiness + Product JSON-LD
 - Bootstrap 5 CDN
 - <h1> с запросом «{query}»
-- Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+78005509076
+- Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+79872170202
 - BreadcrumbList microdata
-- Футер: © 2022–{YEAR} Казанские Деликатесы, г. Казань, ул. Мусина 83А, +7(800)550-90-76
+- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}\n- {CONTACTS_RULE}
 - НЕ упоминать свинину
 - Ссылка «← Все продукты» на /"""
 
