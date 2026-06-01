@@ -201,7 +201,11 @@ def update_sitemap_lastmod():
     content = sitemap_path.read_text(encoding="utf-8")
 
     def replace_loc_with_lastmod(match):
-        url = match.group(1)
+        block_full = match.group(0)
+        loc_m = re.search(r"<loc>(.*?)</loc>", block_full, re.DOTALL)
+        if not loc_m:
+            return block_full
+        url = loc_m.group(1).strip()
         # Map URL to file path
         rel = url.replace("https://pepperoni.tatar", "")
         if not rel or rel == "/":
@@ -216,7 +220,7 @@ def update_sitemap_lastmod():
         else:
             lastmod = TODAY
 
-        block = match.group(0)
+        block = block_full
         if "<lastmod>" in block:
             block = re.sub(r"<lastmod>[^<]+</lastmod>", f"<lastmod>{lastmod}</lastmod>", block)
         else:
