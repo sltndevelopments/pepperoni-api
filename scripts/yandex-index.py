@@ -103,20 +103,44 @@ def submit_url(token: str, url: str) -> str:
         return f"⚠️  {url} → {e.code}: {body[:100]}"
 
 
+def _find_sitemap_id(token: str) -> str | None:
+    """Resolve the registered sitemap_id for SITEMAP_URL.
+
+    The Yandex Webmaster v4 recrawl endpoint takes a sitemap_id, NOT the
+    URL-encoded sitemap URL. Passing an encoded URL (with %2F) makes the
+    server reject the request with '400 Ambiguous URI path separator'.
+    """
+    host_enc = urllib.parse.quote(HOST_ID, safe="")
+    data = api_get(token, f"/user/{USER_ID}/hosts/{host_enc}/sitemaps")
+    for sm in data.get("sitemaps", []):
+        if sm.get("sitemap_url") == SITEMAP_URL:
+            return sm.get("sitemap_id")
+    # Fallback: first sitemap registered for the host
+    sitemaps = data.get("sitemaps", [])
+    return sitemaps[0].get("sitemap_id") if sitemaps else None
+
+
 def submit_sitemap(token: str) -> str:
-    host_enc    = urllib.parse.quote(HOST_ID, safe="")
-    sitemap_enc = urllib.parse.quote(SITEMAP_URL, safe="")
+    sitemap_id = _find_sitemap_id(token)
+    if not sitemap_id:
+        return f"⚠️  Sitemap not registered in Yandex Webmaster: {SITEMAP_URL}"
+    host_enc = urllib.parse.quote(HOST_ID, safe="")
     url = (
         f"https://api.webmaster.yandex.net/v4"
-        f"/user/{USER_ID}/hosts/{host_enc}/sitemaps/{sitemap_enc}/recrawl"
+        f"/user/{USER_ID}/hosts/{host_enc}/sitemaps/{sitemap_id}/recrawl"
     )
     req = urllib.request.Request(url, data=b"", method="POST")
     req.add_header("Authorization", f"OAuth {token}")
     req.add_header("Content-Length", "0")
     try:
-        with urllib.request.urlopen(req, timeout=15):
-            return f"✅ Sitemap submitted: {SITEMAP_URL}"
+        with urllib.request.urlopen(req, timeout=15) as r:
+            # 202 Accepted = queued; recrawl may be rate-limited (allowed=false)
+            return f"✅ Sitemap recrawl queued: {SITEMAP_URL} (HTTP {r.status})"
     except urllib.error.HTTPError as e:
+        # 409 = a recrawl is already pending for this sitemap (rate-limited by
+        # Yandex). That is expected on frequent runs and is not an error.
+        if e.code == 409:
+            return f"ℹ️  Sitemap recrawl already pending (Yandex rate limit): {SITEMAP_URL}"
         return f"⚠️  Sitemap {e.code}: {e.read().decode()[:100]}"
 
 
