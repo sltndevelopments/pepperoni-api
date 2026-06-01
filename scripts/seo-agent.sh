@@ -43,9 +43,12 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1
 log "Step 4: Generating content via DeepSeek API …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 
+log "Generating bulk geo pages …"
+MAX_GEO_PAGES="${MAX_GEO_PAGES:-40}" GEO_WORKERS="${GEO_WORKERS:-4}" python3 scripts/generate_geo_bulk.py --mode all --max-pages "${MAX_GEO_PAGES:-40}" >> "$LOG_FILE" 2>&1 || log "⚠️  Geo bulk failed (non-fatal)"
+
 # ---- Step 5: Git commit & push ----
 log "Step 5: Committing generated content …"
-git add public/geo/*.html public/blog/*.html public/index.html public/pepperoni.html 2>/dev/null || true
+git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html public/index.html public/pepperoni.html 2>/dev/null || true
 git add public/en/index.html public/sitemap.xml 2>/dev/null || true
 
 if ! git diff --cached --quiet; then

@@ -27,7 +27,11 @@ DB_PATH = DATA / "seo_data.db"
 
 # ── API ───────────────────────────────────────────────────────────────────────
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
-DEEPSEEK_MODEL = "deepseek-chat"  # fast + cheap for bulk
+from importlib import import_module as _im
+try:
+    DEEPSEEK_MODEL = _im("claude_client").DEFAULT_MODEL  # deepseek-v4-flash
+except Exception:
+    DEEPSEEK_MODEL = "deepseek-v4-flash"
 DEEPSEEK_ENDPOINT = "https://api.deepseek.com/v1/chat/completions"
 
 # ── Limits ────────────────────────────────────────────────────────────────────
@@ -313,6 +317,7 @@ USP: {usp}
 6. Добавь в <head>: <link rel="canonical" href="https://pepperoni.tatar/geo/{product['slug_ru']}-{slugify(city_name)}/">
 7. НЕ добавляй navigation header и footer — страница встраивается в существующий сайт
 8. Добавь data-city="{city_name}" и data-product="{product['id']}" к <body>
+9. КОНТАКТЫ — используй СТРОГО эти и никакие другие: телефон +7 987 217-02-02 (tel:+79872170202), email info@kazandelikates.tatar, адрес: г. Казань, ул. Аграрная, 2, оф. 7. НИКОГДА не выдумывай номера 8-800, другие адреса/email.
 
 ВАЖНО: Страница должна быть на {100}% уникальной. Упомяни конкретный контекст {city_name}. 
 Избегай шаблонных фраз. Пиши как живой эксперт по мясному рынку {country_name}.
@@ -507,8 +512,21 @@ def build_task_queue(
     for task in tasks:
         prod_slug = task["product"].get(f"slug_{task['lang']}", task["product"].get("slug_ru", task["product"]["id"]))
         page_slug = f"{prod_slug}-{task['city_slug']}-{task['lang']}-{task['template_id'].lower()}"
-        if not page_exists(page_slug):
-            filtered.append(task)
+        if page_exists(page_slug):
+            continue
+        # Also skip if the HTML file already exists on disk (legacy pages
+        # generated before geo_pages DB existed) — backfill the DB record
+        # so we never regenerate or waste a daily slot on them.
+        tmpl = task["template_id"]
+        fname = f"{prod_slug}-{task['city_slug']}.html" if tmpl == "A" \
+            else f"{prod_slug}-{task['city_slug']}-{tmpl.lower()}.html"
+        disk_path = PUBLIC / task["output_dir"] / fname
+        if disk_path.exists():
+            save_page_record(page_slug, task["product"]["id"], task["city_slug"],
+                             task["country_code"], task["lang"], tmpl,
+                             str(disk_path), 0)
+            continue
+        filtered.append(task)
         if len(filtered) >= max_pages:
             break
 
