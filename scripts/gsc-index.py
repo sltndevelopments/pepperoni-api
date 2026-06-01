@@ -19,6 +19,29 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+import base64 as _b64
+
+def _load_gsc_key() -> str:
+    """Return the GSC service-account JSON.
+
+    Prefer GSC_SERVICE_ACCOUNT_KEY (raw JSON). If absent, decode the
+    base64 variant GSC_SERVICE_ACCOUNT_KEY_B64 so the script also works
+    when run manually (the cron wrapper decodes B64, but standalone runs
+    only have the *_B64 form available in the .env file)."""
+    import os
+    raw = os.environ.get("GSC_SERVICE_ACCOUNT_KEY", "")
+    if raw.strip():
+        return raw
+    b64 = os.environ.get("GSC_SERVICE_ACCOUNT_KEY_B64", "")
+    if b64.strip():
+        try:
+            return _b64.b64decode(b64).decode("utf-8")
+        except Exception:
+            return ""
+    return ""
+
+
+
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
 DAILY_LIMIT  = 180  # stay under 200/day hard limit
@@ -125,7 +148,7 @@ def submit_url(url: str, token: str) -> str:
 
 
 def main():
-    key_json = os.environ.get("GSC_SERVICE_ACCOUNT_KEY")
+    key_json = _load_gsc_key()
     if not key_json:
         key_file = Path(__file__).parent / "gsc-key.json"
         if key_file.exists():

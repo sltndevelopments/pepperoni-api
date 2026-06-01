@@ -16,6 +16,29 @@ from datetime import datetime, timedelta, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
 
+import base64 as _b64
+
+def _load_gsc_key() -> str:
+    """Return the GSC service-account JSON.
+
+    Prefer GSC_SERVICE_ACCOUNT_KEY (raw JSON). If absent, decode the
+    base64 variant GSC_SERVICE_ACCOUNT_KEY_B64 so the script also works
+    when run manually (the cron wrapper decodes B64, but standalone runs
+    only have the *_B64 form available in the .env file)."""
+    import os
+    raw = os.environ.get("GSC_SERVICE_ACCOUNT_KEY", "")
+    if raw.strip():
+        return raw
+    b64 = os.environ.get("GSC_SERVICE_ACCOUNT_KEY_B64", "")
+    if b64.strip():
+        try:
+            return _b64.b64decode(b64).decode("utf-8")
+        except Exception:
+            return ""
+    return ""
+
+
+
 SITE_URL = "sc-domain:pepperoni.tatar"
 DAYS_BACK = int(os.environ.get("GSC_DAYS_BACK", "30"))
 ROW_LIMIT = 25000
@@ -140,7 +163,7 @@ def save_rows(rows: list, fetched_at: str, start_date: str):
 
 
 def main():
-    sa_raw = os.environ.get("GSC_SERVICE_ACCOUNT_KEY", "")
+    sa_raw = _load_gsc_key()
     if not sa_raw:
         print("❌ GSC_SERVICE_ACCOUNT_KEY not set", file=sys.stderr)
         sys.exit(1)

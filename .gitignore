@@ -20,6 +20,7 @@ data/seo_data.db
 data/*.db-wal
 data/*.db-shm
 data/logs/
+!data/logs/.gitkeep
 !data/.gitkeep
 
 # Sales intel: keep README, scripts, reports, small guides — not raw scrapes / big spreadsheets
