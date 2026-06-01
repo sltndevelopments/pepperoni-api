@@ -31,7 +31,7 @@ jobs:
       - name: Run deploy script on VPS
         uses: appleboy/ssh-action@v1.0.0
         env:
-          DEEPSEEK_API_KEY: sk-4e98eaed895f4fb7bfba91d69b82bb34
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
