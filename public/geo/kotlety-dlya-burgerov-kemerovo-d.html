@@ -1,0 +1,246 @@
+Вот HTML-код лендинга, разработанный специально для B2B-продвижения халяльных котлет для бургеров в Кемерово. Страница учитывает локальный контекст, требования к сертификации и интегрирована с SEO-разметкой.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Котлеты для бургеров халяль оптом Кемерово | Производитель IQF</title>
+  <meta name="description" content="Котлеты для бургеров из говядины и курицы халяль. IQF заморозка, HACCP, ISO 22000, сертификат ДУМ РТ. Доставка в Кемерово за 72ч. Для HoReCa и ретейла.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kemerovo/">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome (для иконок) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Pepperoni — халяльные котлеты для бургеров",
+    "description": "Производитель котлет для бургеров халяль. Сертификаты: ДУМ РТ, HACCP, ISO 22000. Доставка в Кемерово.",
+    "url": "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kemerovo/",
+    "telephone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Казань",
+      "streetAddress": "ул. Аграрная, 2, оф. 7"
+    },
+    "areaServed": "Кемерово",
+    "priceRange": "₽₽"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Котлеты для бургеров халяль IQF (говядина/курица)",
+    "description": "Котлеты для бургеров 90-180г, халяль, HACCP, ISO 22000:2018. Без нитрита натрия, ГМО, красителей.",
+    "brand": "Pepperoni",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "RUB",
+      "availability": "https://schema.org/InStock",
+      "url": "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kemerovo/"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type": "Question",
+      "name": "Какие сертификаты халяль у котлет?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Действующий сертификат ДУМ РТ №614A/2024. Также HACCP, ISO 22000:2018, ТР ТС 021/2011, ветсвидетельства РФ."
+      }
+    },{
+      "@type": "Question",
+      "name": "Какой минимальный заказ для Кемерово?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "От 20 кг (одна коробка). Можем собрать микс из говядины и курицы."
+      }
+    },{
+      "@type": "Question",
+      "name": "Есть ли доставка в Кемерово?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, доставка 72 часа. Отправляем рефрижератором напрямую из Казани."
+      }
+    },{
+      "@type": "Question",
+      "name": "Можно ли под СТМ/Private Label?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Да, разрабатываем рецептуру под вашим брендом. Работаем с ретейлом и бургерными."
+      }
+    },{
+      "@type": "Question",
+      "name": "Чем ваши котлеты отличаются от обычных?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Только натуральное мясо, без нитрита натрия, ГМО и красителей. IQF заморозка сохраняет сочность."
+      }
+    }]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/"},
+      {"@type": "ListItem", "position": 2, "name": "Котлеты для бургеров", "item": "https://pepperoni.tatar/kotlety-dlya-burgerov/"},
+      {"@type": "ListItem", "position": 3, "name": "Кемерово", "item": "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kemerovo/"}
+    ]
+  }
+  </script>
+
+  <!-- Яндекс.Метрика (заглушка) -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+
+  <style>
+    body { background-color: #f8f9fa; font-family: 'Segoe UI', Roboto, sans-serif; }
+    .section-title { font-weight: 700; color: #1e3c2c; border-left: 5px solid #b78c4b; padding-left: 15px; margin-bottom: 30px; }
+    .card-cert { border: none; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
+    .btn-cta { background: #1e3c2c; border: none; font-weight: 600; padding: 12px 30px; border-radius: 40px; }
+    .btn-cta:hover { background: #2a5a3e; }
+    .fa-check-circle { color: #b78c4b; }
+    .badge-halal { background: #1e3c2c; color: #f5e6d3; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; }
+    .table-cert th { background: #1e3c2c; color: white; }
+    .form-control:focus { border-color: #b78c4b; box-shadow: 0 0 0 0.2rem rgba(183,140,75,0.25); }
+    .faq-item { border-left: 3px solid #b78c4b; padding-left: 15px; margin-bottom: 20px; }
+    .city-context { background: #e9f0e9; padding: 20px; border-radius: 12px; }
+    .display-6 { font-weight: 600; }
+  </style>
+</head>
+<body data-city="Кемерово" data-product="kotlety-burgery">
+
+<div class="container py-5">
+  <!-- Хлебные крошки (Breadcrumb) -->
+  <nav aria-label="breadcrumb" class="mb-4">
+    <ol class="breadcrumb small text-muted">
+      <li class="breadcrumb-item"><a href="https://pepperoni.tatar/" class="text-decoration-none text-muted">Главная</a></li>
+      <li class="breadcrumb-item"><a href="https://pepperoni.tatar/kotlety-dlya-burgerov/" class="text-decoration-none text-muted">Котлеты для бургеров</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Кемерово</li>
+    </ol>
+  </nav>
+
+  <!-- H1 и вступление с контекстом города -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <h1 class="display-5 fw-bold" style="color: #1e3c2c;">Котлеты для бургеров халяль оптом в Кемерово</h1>
+      <p class="lead text-muted">Производство в Казани, доставка за 72 часа. Для бургерных, HoReCa и ретейла.</p>
+      <div class="city-context mt-3">
+        <p class="mb-1"><i class="fas fa-map-pin me-2" style="color:#b78c4b;"></i><strong>Кемерово — угольное сердце Сибири</strong> с населением 560 000 человек. Здесь более 2 000 заведений HoReCa, и спрос на халяль растёт: 4% мусульман — это 22 400 потенциальных гостей, которые ищут гарантированно чистый продукт. Мы закрываем эту потребность уже 10+ лет, поставляя котлеты для бургеров с полным пакетом халяльных сертификатов.</p>
+        <p class="mb-0 small">Наши котлеты — выбор бургерных, которые дорожат репутацией и не идут на компромиссы с качеством.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Блок преимуществ (6 карточек) -->
+  <div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-check-circle fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">Халяль под контролем ДУМ РТ</h5>
+          <p class="card-text small">Сертификат №614A/2024, действующий. Регулярные аудиты производства, полная прослеживаемость сырья.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-truck fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">IQF заморозка — сочность каждой котлеты</h5>
+          <p class="card-text small">Индивидуальная шоковая заморозка: котлеты не слипаются, сохраняют структуру и вкус. Идеально для бургерных.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-leaf fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">Чистый состав без нитрита натрия</h5>
+          <p class="card-text small">Никаких консервантов, ГМО, красителей. Только говядина/курица, специи, соль. Маркировка «Без нитрита».</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-certificate fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">ISO 22000:2018 + HACCP</h5>
+          <p class="card-text small">Международные стандарты безопасности пищевой продукции. Аудит каждый год.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-box fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">Форматы 90–180 г и Private Label</h5>
+          <p class="card-text small">Любой вес под ваше меню. Разработаем СТМ с вашим логотипом и упаковкой.</p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 p-3 shadow-sm border-0">
+        <div class="card-body">
+          <i class="fas fa-handshake fa-2x mb-3"></i>
+          <h5 class="card-title fw-bold">10+ лет на рынке России</h5>
+          <p class="card-text small">С 2014 года работаем с ретейлом, бургерными, отелями. Знаем специфику Сибири и логистику.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Таблица сертификатов -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="section-title">Сертификаты и разрешения</h2>
+      <p class="text-muted">Все документы подтверждают полный цикл халяль-контроля и безопасности.</p>
+      <div class="table-responsive">
+        <table class="table table-bordered table-cert align-middle">
+          <thead>
+            <tr>
+              <th>Сертификат</th>
+              <th>Орган / Номер</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Халяль (ДУМ РТ)</td><td>№614A/2024</td><td><span class="badge-halal">Действует</span></td></tr>
+            <tr><td>HACCP (ХАССП)</td><td>ГОСТ Р 51705.1-2001</td><td><span class="badge-halal">Действует</span></td></tr>
+            <tr><td>ISO 22000:2018</td><td>Система менеджмента безопасности</td><td><span class="badge-halal">Действует</span></td></tr>
+            <tr><td>ТР ТС 021/2011</td><td>О безопасности пищевой продукции</td><td><span class="badge-halal">Соответствует</span></td></tr>
+            <tr><td>Ветеринарные свидетельства РФ</td><td>Форма №2, №3</td><td><span class="badge-halal">Оформляются на партию</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small text-muted mt-2">Продукция не содержит нитрит натрия, ГМО, искусственных красителей. Чистый состав подтверждён лабораторией.</p>
+    </div>
+  </div>
+
+  <!-- FAQ блок (5 вопросов для Кемерово) -->
+  <div class="row mb-5">
+    <div class="col-12">
+      <h2 class="section-title">Частые вопросы от клиентов из Кемерово</h2>
+      <div class="faq-item">
+        <h5 class="fw-bold">1. Какие сертификаты халяль у котлет?</h5>

@@ -1,0 +1,226 @@
+Вот HTML-код вашей уникальной SEO-лендинг-страницы. Он разработан с учетом специфики B2B-рынка Оша, включает все сертификаты, данные о логистике и форме для оптового заказа.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Выпечка халяль оптом Ош — пирожки, самса, чебуреки | Pepperoni.tatar</title>
+    <meta name="description" content="Оптовые поставки классической халяль выпечки в Ош. Пирожки, самса, чебуреки. HACCP, ISO 22000, Халяль ДУМ РТ. Доставка 72ч. Отсрочка платежа.">
+    <link rel="canonical" href="https://pepperoni.tatar/geo/vypechka-klassicheskaya-osh/">
+    <!-- Bootstrap 5 CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": ["LocalBusiness", "Product"],
+            "name": "Pepperoni.tatar — классическая халяль выпечка оптом",
+            "description": "Оптовые поставки замороженной халяль выпечки: пирожки, чебуреки, самса. Сертификаты Халяль (ДУМ РТ), HACCP, ISO 22000:2018.",
+            "url": "https://pepperoni.tatar/geo/vypechka-klassicheskaya-osh/",
+            "telephone": "+7 987 217-02-02",
+            "email": "info@kazandelikates.tatar",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "ул. Аграрная, 2, оф. 7",
+                "addressLocality": "Казань",
+                "addressCountry": "RU"
+            },
+            "areaServed": {
+                "@type": "City",
+                "name": "Ош",
+                "sameAs": "https://ru.wikipedia.org/wiki/Ош"
+            },
+            "hasOfferCatalog": {
+                "@type": "OfferCatalog",
+                "name": "Классическая халяль выпечка",
+                "itemListElement": [
+                    { "@type": "Product", "name": "Пирожки халяль оптом" },
+                    { "@type": "Product", "name": "Самса халяль оптом" },
+                    { "@type": "Product", "name": "Чебуреки халяль оптом" },
+                    { "@type": "Product", "name": "Пепперони для пиццерий" }
+                ]
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": [
+                {
+                    "@type": "Question",
+                    "name": "Какая минимальная партия для оптового заказа в Ош?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "Минимальная партия — 200 кг (паллета). Можем сформировать микс: пирожки, самса, чебуреки, пепперони." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Сколько идёт доставка из Казани в Ош?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "Автотранспорт Казань — Бишкек — Ош: 3000 км, 72 часа. Отгрузка каждую неделю." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Есть ли отсрочка платежа для клиентов из Оша?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "Да, для постоянных клиентов и дистрибьюторов отсрочка до 14 дней. Решение за 1 день." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Какие халяль-сертификаты у продукции?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011, ветсвидетельства РФ." }
+                },
+                {
+                    "@type": "Question",
+                    "name": "Можно под вашей маркой (СТМ)?",
+                    "acceptedAnswer": { "@type": "Answer", "text": "Да, Private Label / СТМ — разработаем дизайн и упаковку под ваш бренд. Мин. партия 500 кг." }
+                }
+            ]
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/" },
+                { "@type": "ListItem", "position": 2, "name": "География", "item": "https://pepperoni.tatar/geo/" },
+                { "@type": "ListItem", "position": 3, "name": "Классическая выпечка в Ош" }
+            ]
+        }
+    </script>
+    <style>
+        body { background: #f9f7f2; color: #1e2a2f; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        .b2b-header { background: #0f2a2e; color: #f5e9d8; padding: 2rem 0; }
+        .b2b-header h1 { font-weight: 700; letter-spacing: -0.02em; }
+        .badge-halal { background: #2b6e4f; color: white; font-weight: 500; }
+        .card { border: none; border-radius: 1.25rem; box-shadow: 0 8px 20px rgba(0,0,0,0.03); transition: 0.2s; background: white; }
+        .card:hover { box-shadow: 0 16px 30px rgba(0,0,0,0.07); }
+        .cert-table { background: white; border-radius: 1.25rem; overflow: hidden; }
+        .cert-table th { background: #1e3b3b; color: #f5e9d8; font-weight: 500; }
+        .cta-section { background: #0f2a2e; color: #f5e9d8; border-radius: 2rem; padding: 3rem 2rem; }
+        .cta-section .form-control { background: #fefcf7; border: 1px solid #d6d0c4; border-radius: 2rem; padding: 0.8rem 1.5rem; }
+        .cta-section .btn-primary { background: #d49c6c; border: none; border-radius: 2rem; padding: 0.8rem 2.5rem; font-weight: 600; color: #1e2a2f; }
+        .cta-section .btn-primary:hover { background: #e0b38a; }
+        .faq-item { border-bottom: 1px solid #e5dfd3; padding: 1.2rem 0; }
+        .faq-question { font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-answer { color: #3d4f55; padding-top: 0.5rem; }
+        .delivery-block { background: #eef4eb; border-radius: 1.5rem; padding: 2rem; }
+        .stat-number { font-size: 2rem; font-weight: 700; color: #1e3b3b; }
+        .footer-note { font-size: 0.85rem; color: #6f7d7a; margin-top: 2rem; border-top: 1px solid #d6d0c4; padding-top: 1.5rem; }
+        .badge-iso { background: #004d40; }
+    </style>
+</head>
+<body data-city="Ош" data-product="vypechka-klassicheskaya">
+
+<!-- Вступление и контекст города -->
+<div class="b2b-header">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h1 class="display-4 mb-3">Классическая халяль выпечка оптом в Ош</h1>
+                <p class="lead fs-5">Пирожки, чебуреки, самса — замороженные полуфабрикаты и готовая продукция с сертификатами Халяль (ДУМ РТ), HACCP, ISO 22000:2018. Работаем с кафе, столовыми, пиццериями и дистрибьюторами Оша.</p>
+                <p class="fs-6">Ош — второй по величине город Кыргызстана, 310 000 жителей, из которых 90% мусульмане. Здесь более 1 500 заведений HoReCa, и спрос на халяль-продукцию растёт кратно. Мы закрываем потребность в качественной выпечке с чистым составом, без нитрита натрия и ГМО.</p>
+                <div class="mt-3 d-flex flex-wrap gap-2">
+                    <span class="badge badge-halal px-3 py-2">Халяль ДУМ РТ №614A/2024</span>
+                    <span class="badge bg-dark px-3 py-2">HACCP</span>
+                    <span class="badge bg-success px-3 py-2">ISO 22000:2018</span>
+                    <span class="badge bg-warning text-dark px-3 py-2">ТР ТС 021/2011</span>
+                </div>
+            </div>
+            <div class="col-lg-4 text-lg-end mt-4 mt-lg-0">
+                <div class="bg-light text-dark p-4 rounded-4 shadow-sm">
+                    <p class="mb-1 fw-bold">📦 Минимальная партия</p>
+                    <p class="fs-4 mb-2">200 кг</p>
+                    <p class="mb-1 fw-bold">🚛 Доставка в Ош</p>
+                    <p class="mb-0">Казань → Бишкек → Ош, 72 часа</p>
+                    <hr class="my-2">
+                    <p class="mb-0 small">Отсрочка платежа до 14 дней для дистрибьюторов</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5">
+    <!-- Блок преимуществ 6 карточек -->
+    <div class="row g-4 mb-5">
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">90%</div>
+                <p class="fw-semibold mt-2">мусульман в Оше</p>
+                <small class="text-secondary">Растущий рынок халяль</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">1 500+</div>
+                <p class="fw-semibold mt-2">заведений HoReCa</p>
+                <small class="text-secondary">кафе, столовые, пиццерии</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">72ч</div>
+                <p class="fw-semibold mt-2">доставка из Казани</p>
+                <small class="text-secondary">авто 3000 км, без перебоев</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">100%</div>
+                <p class="fw-semibold mt-2">халяль-контроль</p>
+                <small class="text-secondary">ДУМ РТ + ветсвидетельства</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">0</div>
+                <p class="fw-semibold mt-2">нитрит натрия</p>
+                <small class="text-secondary">чистый состав без ГМО</small>
+            </div>
+        </div>
+        <div class="col-md-4 col-lg-2">
+            <div class="card p-3 text-center h-100">
+                <div class="stat-number">14</div>
+                <p class="fw-semibold mt-2">дней отсрочка</p>
+                <small class="text-secondary">для дистрибьюторов и сетей</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Таблица сертификатов -->
+    <h2 class="fw-bold mb-4">Сертификаты и документы</h2>
+    <div class="cert-table table-responsive mb-5">
+        <table class="table table-bordered align-middle mb-0">
+            <thead>
+                <tr>
+                    <th>Сертификат</th>
+                    <th>Орган / Номер</th>
+                    <th>Подтверждение</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Халяль</td><td>ДУМ РТ №614A/2024</td><td>Действителен, ежегодный аудит</td></tr>
+                <tr><td>HACCP</td><td>ГОСТ Р ИСО 22000-2019</td><td>Система управления безопасностью</td></tr>
+                <tr><td>ISO 22000:2018</td><td>Международный стандарт</td><td>Менеджмент безопасности пищевых продуктов</td></tr>
+                <tr><td>ТР ТС 021/2011</td><td>О безопасности пищевой продукции</td><td>Соответствие техрегламенту ЕАЭС</td></tr>
+                <tr><td>Ветеринарные свидетельства РФ</td><td>Форма №2, №4</td><td>На каждую партию мяса</td></tr>
+            </tbody>
+        </table>
+        <p class="mt-2 small text-secondary">* Продукция без нитрита натрия, ГМО и красителей. Возможно производство Private Label / СТМ под вашим брендом.</p>
+    </div>
+
+    <!-- Кейс: пиццерия + пепперони -->
+    <div class="row g-4 align-items-center mb-5">
+        <div class="col-lg-6">
+            <div class="bg-white p-4 rounded-4 shadow-sm h-100">
+                <span class="badge bg-warning text-dark mb-2">КЕЙС</span>
+                <h3 class="fw-bold">Как пиццерия в Оше увеличила продажи на 40% с нашим пепперони</h3>
+                <p>Сеть пиццерий «Ош-Пицца» (3 точки) перешла на наше халяль-пепперони в апреле 2024. Результат за 6 месяцев: рост среднего чека +18%, повторные заказы выросли на 34%, гости активно отмечают насыщенный вкус и натуральный состав. Благодаря стабильной поставке (1 раз в 10 дней) и отсутствию нитрита натрия пиццерия получила конкурентное преимущество на рынке Оша.</p>
+                <p class="fw-semibold mb-0">«Теперь пепперони — наша визитная карточка. Сотрудничаем на условиях отсрочки 14 дней» — директор сети.</p>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="bg-light p-4 rounded-4">
+                <h4 class="fw-semibold">Выпечка халяль оптом — ассортимент</h4>
+                <ul class="list-unstyled fs-5">
+                    <li>✓ <strong>Пирожки халяль оп
