@@ -18,10 +18,10 @@ SOCK_TIMEOUT_S = int(os.environ.get("DEEPSEEK_SOCK_TIMEOUT", "60"))
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 DEEPSEEK_URL = "https://api.deepseek.com/v1/chat/completions"
 
-DEFAULT_MODEL   = "deepseek-v4-pro"
-FALLBACK_MODEL  = "deepseek-chat"             # fallback if V4 Pro unavailable
-CHEAP_MODEL     = "deepseek-chat"             # cheap model for bulk/reports
-CHEAP_FALLBACK  = "deepseek-chat"             # same model, no cheaper tier
+DEFAULT_MODEL   = "deepseek-v4-flash"
+FALLBACK_MODEL  = "deepseek-v4-flash"         # same tier; legacy deepseek-chat retires 2026-07-24
+CHEAP_MODEL     = "deepseek-v4-flash"         # cheap/fast model for bulk/reports
+CHEAP_FALLBACK  = "deepseek-v4-flash"         # same model, no cheaper tier
 
 # Backward-compatible alias for scripts that import CLAUDE_API_KEY
 CLAUDE_API_KEY = DEEPSEEK_API_KEY
@@ -39,7 +39,8 @@ def _parse_deepseek_response(raw: bytes) -> tuple[str, int]:
     data = json.loads(raw)
     if "error" in data:
         raise RuntimeError(f"DeepSeek error: {data['error']}")
-    text = data["choices"][0]["message"]["content"]
+    msg = data["choices"][0]["message"]
+    text = msg.get("content") or msg.get("reasoning_content") or ""
     tokens = data.get("usage", {}).get("completion_tokens", 0)
     return text, tokens
 
@@ -71,6 +72,10 @@ def call_claude(
         "max_tokens": max_tokens,
         "messages": messages,
         "temperature": 0.7,
+        # V4 models enable "thinking" by default, which burns completion tokens
+        # on reasoning_content. SEO/content generation does not need chain-of-
+        # thought, so disable it to cut cost and avoid empty content responses.
+        "thinking": {"type": "disabled"},
     }
 
     body = json.dumps(body_dict).encode()
