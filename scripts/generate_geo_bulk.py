@@ -64,41 +64,60 @@ def get_conn():
 
 
 def init_db():
-    conn = get_conn()
-    conn.execute("""
-        CREATE TABLE IF NOT EXISTS geo_pages (
-            slug TEXT PRIMARY KEY,
-            product_id TEXT,
-            city_slug TEXT,
-            country_code TEXT,
-            lang TEXT,
-            template_id TEXT,
-            file_path TEXT,
-            created_at TEXT,
-            tokens_used INTEGER DEFAULT 0
-        )
-    """)
-    conn.commit()
-    conn.close()
+    """Best-effort: create stats table. Dedup does NOT depend on it."""
+    try:
+        conn = get_conn()
+        conn.execute("""
+            CREATE TABLE IF NOT EXISTS geo_pages (
+                slug TEXT PRIMARY KEY, product_id TEXT, city_slug TEXT,
+                country_code TEXT, lang TEXT, template_id TEXT,
+                file_path TEXT, created_at TEXT, tokens_used INTEGER DEFAULT 0
+            )
+        """)
+        conn.commit(); conn.close()
+    except Exception:
+        pass
+
+
+def _slug_to_paths(slug: str) -> list:
+    """page_slug = '{prodslug}-{cityslug}-{lang}-{tmpl}'. Map to on-disk html."""
+    parts = slug.rsplit("-", 2)  # [.., lang, tmpl]
+    if len(parts) < 3:
+        return []
+    base, lang, tmpl = parts[0], parts[1], parts[2]
+    out_dir = "en/geo" if lang == "en" else "geo"
+    fnames = [f"{base}.html"] if tmpl == "a" else [f"{base}-{tmpl}.html"]
+    return [PUBLIC / out_dir / fn for fn in fnames]
 
 
 def page_exists(slug: str) -> bool:
-    conn = get_conn()
-    row = conn.execute("SELECT 1 FROM geo_pages WHERE slug=?", (slug,)).fetchone()
-    conn.close()
-    return row is not None
+    # File-based dedup: robust against DB resets by cron/sync.
+    for p in _slug_to_paths(slug):
+        if p.exists():
+            return True
+    # Fallback to DB if available (non-fatal).
+    try:
+        conn = get_conn()
+        row = conn.execute("SELECT 1 FROM geo_pages WHERE slug=?", (slug,)).fetchone()
+        conn.close()
+        return row is not None
+    except Exception:
+        return False
 
 
 def save_page_record(slug, product_id, city_slug, country_code, lang, template_id, file_path, tokens):
-    conn = get_conn()
-    conn.execute(
+    try:
+        init_db()
+        conn = get_conn()
+        conn.execute(
         """INSERT OR REPLACE INTO geo_pages
            (slug, product_id, city_slug, country_code, lang, template_id, file_path, created_at, tokens_used)
            VALUES (?,?,?,?,?,?,?,?,?)""",
-        (slug, product_id, city_slug, country_code, lang, template_id, file_path, TODAY, tokens),
-    )
-    conn.commit()
-    conn.close()
+            (slug, product_id, city_slug, country_code, lang, template_id, file_path, TODAY, tokens),
+        )
+        conn.commit(); conn.close()
+    except Exception:
+        pass
 
 
 # ── HTTP helper ───────────────────────────────────────────────────────────────
