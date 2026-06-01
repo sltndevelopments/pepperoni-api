@@ -17,6 +17,8 @@ scripts/gsc-key.json
 
 # SEO Agent runtime data (SQLite DB + logs)
 data/seo_data.db
+data/*.db-wal
+data/*.db-shm
 data/logs/
 !data/.gitkeep
 

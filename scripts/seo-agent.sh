@@ -52,6 +52,7 @@ if ! git diff --cached --quiet; then
     git config user.email "seo-agent@pepperoni.tatar"
     git config user.name  "SEO Agent"
     git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1
+    git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 || log "⚠️  Rebase failed, push may fail"
     git push origin main >> "$LOG_FILE" 2>&1
     log "✅ Pushed new content"
 else
