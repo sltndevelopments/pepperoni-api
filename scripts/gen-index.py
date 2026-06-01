@@ -77,7 +77,7 @@ def gen_ru() -> str:
     {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
     {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
   ],
-  "sameAs":["https://kazandelikates.tatar","https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx"]
+  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar"]
 }}
 </script>
 <style>
@@ -101,7 +101,6 @@ img{{max-width:100%;height:auto}}
 .hero{{background:linear-gradient(135deg,#0f4d22 0%,var(--green) 60%,#2d9e56 100%);color:#fff;padding:56px 0 48px;text-align:center}}
 .hero__badge{{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:600;letter-spacing:.5px;margin-bottom:18px}}
 .hero h1{{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:14px;max-width:750px;margin-left:auto;margin-right:auto}}
-.hero__def{{font-size:1.02rem;opacity:.95;max-width:680px;margin:0 auto 14px;line-height:1.55}}
 .hero__sub{{font-size:1rem;opacity:.88;max-width:560px;margin:0 auto 28px}}
 .hero__btns{{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}}
 .btn{{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;font-size:.92rem;cursor:pointer;transition:all .2s}}
@@ -226,7 +225,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="container">
     <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · ISO 22000:2018</div>
     <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
-    <p class="hero__def">«Казанские Деликатесы» (pepperoni.tatar) — халяльный мясокомбинат из Казани, который производит пепперони, сосиски, котлеты для бургеров и татарскую выпечку с сертификацией Халяль ДУМ РТ, ХАССП и ISO 22000:2018 для опта, HoReCa и экспорта по СНГ.</p>
     <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
     <div class="hero__btns">
       <a href="#catalog" class="btn btn-primary">Смотреть каталог</a>
@@ -381,18 +379,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="/en/">English version</a>
         <a href="/openapi.yaml">API для партнёров</a>
       </div>
-      <div class="footer__col">
-        <div class="footer__col-title">Правовая информация</div>
-        <a href="/privacy">Политика конфиденциальности</a>
-        <a href="/terms">Условия использования</a>
-        <a href="tel:+79872170202">Контакты</a>
-      </div>
     </div>
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar">pepperoni.tatar</a> &nbsp;·&nbsp;
-      <a href="/privacy">Политика конфиденциальности</a> &nbsp;·&nbsp;
-      <a href="/terms">Условия</a> &nbsp;·&nbsp;
       Халяль · ХАССП · ISO 22000:2018 · EXW Казань
     </div>
   </div>
@@ -605,8 +595,7 @@ def gen_en() -> str:
   "logo":"https://pepperoni.tatar/images/logo.png",
   "email":"info@kazandelikates.tatar","telephone":"+79872170202",
   "address":{{"@type":"PostalAddress","streetAddress":"ul. Agrarnaya, 2","addressLocality":"Kazan","postalCode":"420059","addressRegion":"Tatarstan","addressCountry":"RU"}},
-  "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"Muslim Spiritual Board of Tatarstan","url":"https://dumrt.ru"}}}},
-  "sameAs":["https://kazandelikates.tatar","https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx"]
+  "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"Muslim Spiritual Board of Tatarstan","url":"https://dumrt.ru"}}}}
 }}
 </script>
 <style>
@@ -626,7 +615,6 @@ img{{max-width:100%;height:auto}}
 .hero{{background:linear-gradient(135deg,#0f4d22 0%,var(--green) 60%,#2d9e56 100%);color:#fff;padding:56px 0 48px;text-align:center}}
 .hero__badge{{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;padding:5px 14px;border-radius:20px;font-size:.8rem;font-weight:600;letter-spacing:.5px;margin-bottom:18px}}
 .hero h1{{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:14px;max-width:750px;margin-left:auto;margin-right:auto}}
-.hero__def{{font-size:1.02rem;opacity:.95;max-width:680px;margin:0 auto 14px;line-height:1.55}}
 .hero__sub{{font-size:1rem;opacity:.88;max-width:560px;margin:0 auto 28px}}
 .hero__btns{{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}}
 .btn{{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;font-size:.92rem;cursor:pointer;transition:all .2s}}
@@ -737,7 +725,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="container">
     <div class="hero__badge">🌿 100% HALAL · HACCP · ISO 22000:2018</div>
     <h1>Halal Sausage Products &amp; Pastries Manufacturer for HoReCa &amp; Retail</h1>
-    <p class="hero__def">Kazan Delicacies (pepperoni.tatar) is a halal meat manufacturer in Kazan, Russia, producing pepperoni, sausages, burger patties and traditional Tatar pastries, certified Halal (MSB Tatarstan), HACCP and ISO 22000:2018, for wholesale, HoReCa and export across the CIS.</p>
     <p class="hero__sub">Pepperoni, sausages, burger patties, traditional Tatar pastries — made in Kazan, Russia. Export to CIS and Middle East.</p>
     <div class="hero__btns">
       <a href="#segments" class="btn btn-primary">Select Segment</a>
@@ -998,18 +985,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="/">🇷🇺 Russian version</a>
         <a href="/openapi.yaml">API for Partners</a>
       </div>
-      <div class="footer__col">
-        <div class="footer__col-title">Legal</div>
-        <a href="/en/privacy">Privacy Policy</a>
-        <a href="/en/terms">Terms of Use</a>
-        <a href="tel:+79872170202">Contact</a>
-      </div>
     </div>
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a> &nbsp;·&nbsp;
-      <a href="/en/privacy">Privacy Policy</a> &nbsp;·&nbsp;
-      <a href="/en/terms">Terms</a> &nbsp;·&nbsp;
       Halal · HACCP · ISO 22000:2018 · EXW Kazan
     </div>
   </div>
