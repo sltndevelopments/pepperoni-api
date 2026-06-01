@@ -32,3 +32,4 @@ sales-intel/data/*.xlsx
 # Ops snapshots (DNS exports, secret indexes, etc.) — never commit
 ops/backups/*
 !ops/backups/README.md
+data/gsc_submitted.json

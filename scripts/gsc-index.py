@@ -42,6 +42,28 @@ def _load_gsc_key() -> str:
 
 
 
+SUBMITTED_FILE = Path(__file__).parent.parent / "data" / "gsc_submitted.json"
+
+
+def _load_submitted() -> dict:
+    """Map of url -> last-submitted epoch seconds (for rotation)."""
+    try:
+        import json as _j
+        return _j.loads(SUBMITTED_FILE.read_text())
+    except Exception:
+        return {}
+
+
+def _save_submitted(data: dict) -> None:
+    try:
+        import json as _j
+        SUBMITTED_FILE.parent.mkdir(parents=True, exist_ok=True)
+        SUBMITTED_FILE.write_text(_j.dumps(data))
+    except Exception as e:
+        print(f"  ⚠️  could not save rotation state: {e}")
+
+
+
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
 DAILY_LIMIT  = 180  # stay under 200/day hard limit
@@ -166,12 +188,19 @@ def main():
         print("❌ No URLs to submit")
         sys.exit(1)
 
-    # Sort by priority, submit top DAILY_LIMIT
-    all_urls.sort(key=priority_score, reverse=True)
+    # Rotation: prefer URLs not submitted recently so every page gets
+    # indexed over time instead of re-submitting the same top-priority set
+    # daily. Order = (oldest/never submitted first, then by priority).
+    seen = _load_submitted()
+    def sort_key(u):
+        return (seen.get(u, 0.0), -priority_score(u))
+    all_urls.sort(key=sort_key)
     to_submit = all_urls[:DAILY_LIMIT]
     skipped   = len(all_urls) - len(to_submit)
+    never = sum(1 for u in to_submit if u not in seen)
 
-    print(f"\n📊 Total in sitemap: {len(all_urls)} | Submitting: {len(to_submit)} | Skipped: {skipped}")
+    print(f"\n📊 Total in sitemap: {len(all_urls)} | Submitting: {len(to_submit)} "
+          f"(never-indexed: {never}) | Skipped: {skipped}")
     print("🔐 Getting access token...")
     try:
         token = get_access_token(sa)
@@ -186,6 +215,7 @@ def main():
         print(f"  {result}")
         if result.startswith("✅"):
             ok += 1
+            seen[url] = time.time()
         elif "QUOTA_EXCEEDED" in result:
             print("  ⛔ Daily quota reached, stopping.")
             break
@@ -193,6 +223,7 @@ def main():
             fail += 1
         time.sleep(0.35)
 
+    _save_submitted(seen)
     print(f"\n{'✅' if fail == 0 else '⚠️ '} Done: {ok} submitted, {fail} errors")
     if skipped:
         print(f"ℹ️  {skipped} URLs will rotate in on subsequent days")
