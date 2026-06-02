@@ -118,12 +118,48 @@ def action_status() -> str:
     pl = _count(PUBLIC / "private-label") + sum(_count(d) for d in PUBLIC.glob("*/private-label"))
     running = subprocess.run(["pgrep", "-f", "generate_geo_bulk"],
                              capture_output=True).returncode == 0
+
+    # Is the worker scheduled in cron?
+    cron = subprocess.run(["crontab", "-l"], capture_output=True, text=True).stdout or ""
+    scheduled = "seo-worker.sh" in cron and not cron.count("#PAUSED 15")
+
+    # Last worker tick + pages pushed (from its log)
+    last_line = ""
+    pushed = ""
+    try:
+        log = Path("/var/log/pepperoni-seo-worker.log")
+        if log.exists():
+            tail = log.read_text(errors="ignore").splitlines()[-40:]
+            ticks = [l for l in tail if "Worker tick" in l or "pushed" in l]
+            for l in reversed(tail):
+                if "pushed" in l:
+                    pushed = l.split("pushed", 1)[1].strip()
+                    break
+            starts = [l for l in tail if "SEO Worker tick" in l]
+            if starts:
+                # timestamp like [2026-06-02 18:15:01]
+                ts = starts[-1].split("]", 1)[0].lstrip("[")
+                last_line = ts
+    except Exception:
+        pass
+
+    if running:
+        gen = "🟢 активна (идёт прямо сейчас)"
+    elif scheduled:
+        gen = "🟡 по расписанию (каждые 3ч)"
+        if last_line:
+            gen += f"\nПоследний прогон: <b>{last_line}</b>"
+        if pushed:
+            gen += f" · +{pushed}"
+    else:
+        gen = "⚪ остановлена (крон выключен)"
+
     return (
         f"<b>📊 Статус сайта</b>\n"
         f"Гео-страниц: <b>{geo}</b>\n"
         f"Блог-статей: <b>{blog}</b>\n"
         f"Private Label: <b>{pl}</b>\n"
-        f"Массовая генерация: {'🟢 идёт' if running else '⚪ остановлена'}"
+        f"Генерация: {gen}"
     )
 
 
