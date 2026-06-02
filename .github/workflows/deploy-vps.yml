@@ -42,6 +42,7 @@ jobs:
           YANDEX_WM_TOKEN:         ${{ secrets.YANDEX_WM_TOKEN }}
           DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:         ${{ secrets.ANTHROPIC_PROXY }}
           TELEGRAM_BOT_TOKEN:      ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TG_PASSWORD:             ${{ secrets.TG_PASSWORD }}
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
@@ -52,7 +53,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,TELEGRAM_BOT_TOKEN,TG_PASSWORD,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,TELEGRAM_BOT_TOKEN,TG_PASSWORD,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
@@ -61,6 +62,7 @@ jobs:
               echo "YANDEX_WM_TOKEN=$YANDEX_WM_TOKEN"
               echo "DEEPSEEK_API_KEY=$DEEPSEEK_API_KEY"
               echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY"
+              echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "OPUS_MONTHLY_BUDGET_USD=40"
               echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN"
               echo "TG_PASSWORD=${TG_PASSWORD:-Namaz2015!}"

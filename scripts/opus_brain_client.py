@@ -26,6 +26,16 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 
+# Optional outbound proxy (e.g. SOCKS5) - Anthropic geoblocks some regions (RU).
+# Set ANTHROPIC_PROXY="socks5h://user:pass@host:port" to route around it.
+ANTHROPIC_PROXY = os.environ.get("ANTHROPIC_PROXY", "").strip()
+
+try:
+    import requests  # type: ignore
+    _HAS_REQUESTS = True
+except Exception:
+    _HAS_REQUESTS = False
+
 # Model is configurable so you can switch Opus versions without code changes.
 OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-8")
 
@@ -124,7 +134,7 @@ def call_model(
     tier: str = "brain",
     system=None,
     max_tokens: int = 4000,
-    temperature: float = 0.3,
+    temperature=None,
     cache_system: bool = True,
     retries: int = 2,
 ) -> tuple[str, dict]:
@@ -159,9 +169,11 @@ def call_model(
     body = {
         "model": cfg["model"],
         "max_tokens": max_tokens,
-        "temperature": temperature,
         "messages": [{"role": "user", "content": prompt}],
     }
+    # Some newer models (e.g. claude-opus-4-8) reject `temperature`.
+    if temperature is not None:
+        body["temperature"] = temperature
     if sys_blocks:
         body["system"] = sys_blocks
 
@@ -174,9 +186,20 @@ def call_model(
     last_err = None
     for attempt in range(retries + 1):
         try:
-            req = urllib.request.Request(ANTHROPIC_URL, data=data, headers=headers)
-            with urllib.request.urlopen(req, timeout=180) as resp:
-                raw = resp.read()
+            if ANTHROPIC_PROXY and _HAS_REQUESTS:
+                r = requests.post(
+                    ANTHROPIC_URL, data=data, headers=headers, timeout=180,
+                    proxies={"http": ANTHROPIC_PROXY, "https": ANTHROPIC_PROXY},
+                )
+                if r.status_code >= 400:
+                    raise urllib.error.HTTPError(
+                        ANTHROPIC_URL, r.status_code, r.text[:300], None, None
+                    )
+                raw = r.content
+            else:
+                req = urllib.request.Request(ANTHROPIC_URL, data=data, headers=headers)
+                with urllib.request.urlopen(req, timeout=180) as resp:
+                    raw = resp.read()
             obj = json.loads(raw)
             if obj.get("type") == "error" or "error" in obj:
                 raise RuntimeError(f"Anthropic error: {obj.get('error', obj)}")
@@ -205,7 +228,7 @@ def call_model(
     raise RuntimeError(f"Anthropic call failed: {last_err}")
 
 
-def call_opus(prompt, system=None, max_tokens=4000, temperature=0.3,
+def call_opus(prompt, system=None, max_tokens=4000, temperature=None,
               cache_system=True, retries=2):
     """Backward-compatible wrapper — strategy tier (Opus)."""
     return call_model(prompt, tier="brain", system=system, max_tokens=max_tokens,
