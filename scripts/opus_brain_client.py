@@ -42,6 +42,33 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 BUDGET_FILE = DATA / "opus_budget.json"
 
+# ── Multi-tier model registry ───────────────────────────────────────────────────
+# Three tiers: "brain" (Opus, strategy), "voice" (Sonnet, dialogue),
+# "micro" (Haiku, cheap classification). Prices USD per 1M tokens.
+MODELS = {
+    "brain": {
+        "model": os.environ.get("OPUS_MODEL", "claude-opus-4-8"),
+        "in": float(os.environ.get("OPUS_PRICE_INPUT", "5")),
+        "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "25")),
+        "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")),
+        "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "0.50")),
+    },
+    "voice": {
+        "model": os.environ.get("SONNET_MODEL", "claude-sonnet-4-6"),
+        "in": float(os.environ.get("SONNET_PRICE_INPUT", "3")),
+        "out": float(os.environ.get("SONNET_PRICE_OUTPUT", "15")),
+        "cache_write": float(os.environ.get("SONNET_PRICE_CACHE_WRITE", "3.75")),
+        "cache_read": float(os.environ.get("SONNET_PRICE_CACHE_READ", "0.30")),
+    },
+    "micro": {
+        "model": os.environ.get("HAIKU_MODEL", "claude-haiku-4-5"),
+        "in": float(os.environ.get("HAIKU_PRICE_INPUT", "1")),
+        "out": float(os.environ.get("HAIKU_PRICE_OUTPUT", "5")),
+        "cache_write": float(os.environ.get("HAIKU_PRICE_CACHE_WRITE", "1.25")),
+        "cache_read": float(os.environ.get("HAIKU_PRICE_CACHE_READ", "0.10")),
+    },
+}
+
 
 def brain_available() -> bool:
     """True if the brain can run (key present and budget remaining)."""
@@ -72,17 +99,19 @@ def remaining_budget() -> float:
     return max(0.0, MONTHLY_BUDGET_USD - d.get("spent_usd", 0.0))
 
 
-def _cost(usage: dict) -> float:
+def _cost(usage: dict, prices: dict | None = None) -> float:
+    p = prices or {"in": PRICE_INPUT, "out": PRICE_OUTPUT,
+                   "cache_write": PRICE_CACHE_WRITE, "cache_read": PRICE_CACHE_READ}
     return (
-        usage.get("input_tokens", 0)               / 1_000_000 * PRICE_INPUT +
-        usage.get("output_tokens", 0)              / 1_000_000 * PRICE_OUTPUT +
-        usage.get("cache_creation_input_tokens", 0)/ 1_000_000 * PRICE_CACHE_WRITE +
-        usage.get("cache_read_input_tokens", 0)    / 1_000_000 * PRICE_CACHE_READ
+        usage.get("input_tokens", 0)               / 1_000_000 * p["in"] +
+        usage.get("output_tokens", 0)              / 1_000_000 * p["out"] +
+        usage.get("cache_creation_input_tokens", 0)/ 1_000_000 * p["cache_write"] +
+        usage.get("cache_read_input_tokens", 0)    / 1_000_000 * p["cache_read"]
     )
 
 
-def _record_spend(usage: dict) -> float:
-    cost = _cost(usage)
+def _record_spend(usage: dict, prices: dict | None = None) -> float:
+    cost = _cost(usage, prices)
     d = _load_budget()
     d["spent_usd"] = round(d.get("spent_usd", 0.0) + cost, 4)
     d["calls"] = d.get("calls", 0) + 1

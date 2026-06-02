@@ -1,0 +1,328 @@
+Вот HTML-код вашей уникальной B2B-лендинговой страницы для оптовых продаж халяльных пельменей в Симферополе. Он учитывает все требования: SEO-оптимизацию, контекст города, акцент на чистый состав и сертификаты, а также содержит форму заявки и контакты.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Пельмени халяль оптом Симферополь | без нитрита натрия</title>
+  <meta name="description" content="Оптовые поставки пельменей халяль из говядины и курицы в Симферополь. Без свинины, без нитрита натрия. Сертификаты HACCP, ISO 22000:2018. Доставка 48 ч.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/pelmeni-simferopol/">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Пельмени халяль из говядины и курицы замороженные",
+    "description": "Пельмени без свинины, без нитрита натрия, без ГМО. Сертификат Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Kazan Delikates"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "RUB",
+      "availability": "https://schema.org/InStock",
+      "areaServed": "Симферополь"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Kazan Delikates — халяль мясная продукция",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Казань",
+      "streetAddress": "ул. Аграрная, 2, оф. 7"
+    },
+    "telephone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar"
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Есть ли у вас доставка в Симферополь?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, мы доставляем замороженные пельмени в Симферополь в течение 48 часов. Работаем с ретейлом, кулинариями и HoReCa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какие сертификаты подтверждают халяль?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Продукция сертифицирована ДУМ РТ (№614A/2024), также действуют HACCP, ISO 22000:2018, ТР ТС 021/2011 и ветеринарные свидетельства РФ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Пельмени без нитрита натрия — это действительно безопасно?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, мы не используем нитрит натрия, ГМО и красители. Контроль качества на производстве исключает искусственные добавки."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какой минимальный объём заказа для Симферополя?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Минимальная партия — 20 кг. Для HoReCa и кулинарий возможны индивидуальные условия и СТМ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Подходит ли продукция для крымскотатарской кухни?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, пельмени халяль из говядины и курицы полностью соответствуют требованиям крымскотатарского населения. Без свинины, только натуральные ингредиенты."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem","position": 1,"item": {"@id": "https://pepperoni.tatar/","name": "Главная"}},
+      {"@type": "ListItem","position": 2,"item": {"@id": "https://pepperoni.tatar/geo/pelmeni-simferopol/","name": "Пельмени халяль Симферополь"}}
+    ]
+  }
+  </script>
+  <style>
+    body {
+      background: #fafaf9;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      color: #1e1e1e;
+    }
+    .b2b-section {
+      padding: 3rem 0;
+    }
+    .bg-white-card {
+      background: #ffffff;
+      border-radius: 1.25rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.03), 0 2px 6px rgba(0,0,0,0.02);
+      padding: 1.5rem;
+      height: 100%;
+      transition: 0.2s;
+      border: 1px solid #ececec;
+    }
+    .bg-white-card:hover {
+      box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+    }
+    .cert-badge {
+      background: #e9f0e9;
+      color: #1e5434;
+      font-weight: 500;
+      border-radius: 40px;
+      padding: 0.4rem 1rem;
+      display: inline-block;
+      font-size: 0.85rem;
+    }
+    .hero-title {
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+    .lead-muted {
+      color: #2b3e2b;
+      font-weight: 400;
+    }
+    .cta-box {
+      background: #1f3b2c;
+      background-image: radial-gradient(circle at 10% 20%, #2d5a3e, #1a2f20);
+      color: white;
+      border-radius: 2rem;
+      padding: 2.8rem 2rem;
+    }
+    .cta-box h3 {
+      font-weight: 600;
+    }
+    .btn-cream {
+      background: #f9e7c2;
+      color: #1f3b2c;
+      border: none;
+      font-weight: 600;
+      padding: 0.8rem 2.4rem;
+      border-radius: 60px;
+      transition: 0.2s;
+    }
+    .btn-cream:hover {
+      background: #f5dba8;
+      color: #0f2419;
+    }
+    .table-cert th {
+      font-weight: 600;
+      background: #f0f5ef;
+    }
+    .faq-question {
+      font-weight: 600;
+      margin-bottom: 0.2rem;
+    }
+    .stat-number {
+      font-size: 1.9rem;
+      font-weight: 700;
+      color: #1a3e29;
+      line-height: 1.2;
+    }
+    .footer-note {
+      font-size: 0.9rem;
+      color: #5f6c5f;
+    }
+    .contact-line {
+      background: #f0f3ee;
+      border-radius: 40px;
+      padding: 0.4rem 1.2rem;
+      display: inline-block;
+    }
+    .border-soft {
+      border: 1px solid #e2e8e2;
+    }
+  </style>
+</head>
+<body data-city="Симферополь" data-product="pelmeni">
+
+<main>
+  <!-- Hero / Вступление -->
+  <section class="container py-4 pt-5">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <h1 class="display-5 hero-title mb-3">Пельмени халяль оптом в Симферополь <br><span class="text-success" style="color:#2b6e42 !important;">из говядины и курицы, без нитрита натрия</span></h1>
+        <p class="fs-5 lead-muted">Крым — регион с высоким спросом на халяль: 12% мусульман, более 2000 заведений HoReCa. Мы поставляем замороженные пельмени без свинины, с чистым составом и полным пакетом сертификатов. <strong>Производство сертифицировано HACCP, ISO 22000:2018, Халяль ДУМ РТ.</strong> Доставка в Симферополь — 48 часов.</p>
+        <div class="d-flex flex-wrap gap-2 mt-3">
+          <span class="cert-badge">✓ Халяль ДУМ РТ №614A/2024</span>
+          <span class="cert-badge">✓ Без нитрита натрия</span>
+          <span class="cert-badge">✓ HACCP / ISO 22000:2018</span>
+        </div>
+      </div>
+      <div class="col-lg-4 mt-4 mt-lg-0 text-lg-end">
+        <div class="contact-line d-inline-block">
+          <span class="fw-semibold">📞 +7 987 217-02-02</span><br>
+          <span class="small">info@kazandelikates.tatar</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Преимущества (6 карточек с цифрами) -->
+  <section class="container b2b-section">
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">100%</div>
+          <p class="fw-semibold mb-1">Говядина и курица</p>
+          <p class="mb-0 text-secondary small">Никакой свинины. Только халяльное мясо от проверенных поставщиков.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">0%</div>
+          <p class="fw-semibold mb-1">Нитрит натрия, ГМО, красители</p>
+          <p class="mb-0 text-secondary small">Чистый состав — залог здоровья. Контроль качества на каждом этапе.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">48 ч</div>
+          <p class="fw-semibold mb-1">Доставка в Симферополь</p>
+          <p class="mb-0 text-secondary small">Замороженная продукция прибывает в течение 2 суток. Ретейл и HoReCa.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">4</div>
+          <p class="fw-semibold mb-1">Системы сертификации</p>
+          <p class="mb-0 text-secondary small">Халяль ДУМ РТ, HACCP, ISO 22000:2018, ТР ТС 021/2011 — подтверждаем качество.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">2 000+</div>
+          <p class="fw-semibold mb-1">Заведений HoReCa в регионе</p>
+          <p class="mb-0 text-secondary small">Крым — растущий рынок. Мы уже работаем с кулинариями и ресторанами.</p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="bg-white-card">
+          <div class="stat-number">12%</div>
+          <p class="fw-semibold mb-1">Мусульманское население</p>
+          <p class="mb-0 text-secondary small">Крымскотатарская аудитория активно ищет халяль. Ваш ассортимент без свинины — ключевое преимущество.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Таблица сертификатов -->
+  <section class="container b2b-section">
+    <h2 class="fw-bold mb-4">Официальные сертификаты и подтверждения</h2>
+    <div class="table-responsive">
+      <table class="table table-bordered table-cert border-soft">
+        <thead>
+          <tr>
+            <th>Сертификат / Документ</th>
+            <th>Статус</th>
+            <th>Особенности</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Халяль (ДУМ РТ №614A/2024)</td>
+            <td><span class="badge bg-success">Действует</span></td>
+            <td>Соответствие нормам халяль, забой по стандартам</td>
+          </tr>
+          <tr>
+            <td>HACCP (анализ рисков)</td>
+            <td><span class="badge bg-success">Действует</span></td>
+            <td>Контроль на всех этапах производства</td>
+          </tr>
+          <tr>
+            <td>ISO 22000:2018</td>
+            <td><span class="badge bg-success">Действует</span></td>
+            <td>Международный стандарт безопасности пищевой продукции</td>
+          </tr>
+          <tr>
+            <td>ТР ТС 021/2011</td>
+            <td><span class="badge bg-success">Соответствует</span></td>
+            <td>Технический регламент Таможенного союза</td>
+          </tr>
+          <tr>
+            <td>Ветеринарные свидетельства РФ</td>
+            <td><span class="badge bg-success">Оформляются</span></td>
+            <td>На каждую партию, для розничных сетей и HoReCa</td>
+          </tr>
+          <tr>
+            <td>Private Label / СТМ</td>
+            <td><span class="badge bg-info">Возможен</span></td>
+            <td>Разработаем упаковку под вашим брендом (от 200 кг)</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="small text-secondary mt-2">*Продукция без нитрита натрия, ГМО и красителей. Чистый состав подтверждён лабораторией.</p>
+    </div>
+  </section>
+
+  <!-- FAQ блок — 5 вопросов специфичных для Симферополя / Крыма -->
+  <section class="container b2b-section">
+    <h2 class="fw-bold mb-4">Часто задаваемые вопросы (Симферополь, Крым)</h2>
+    <div class="row g-3">
+      <div class="col-lg-6">
+        <div class="bg-white-card p-3">
+          <div class="faq-question">🚚 Есть ли доставка в Симферополь?</div>
+          <p class="mb-0 small">Да, доставляем замороженные пельмени в Симферополь в течение 48 часов. Работаем с ретейлом, кулинариями и HoReCa. Минимальная партия — 20 кг.</p>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="bg-white-card p-3">
+          <div class="faq-question">📜 Какие сертификаты на халяль?</div>
+          <p class="mb-0 small">Пр
