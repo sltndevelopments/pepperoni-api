@@ -55,6 +55,15 @@ with open(DATA / "products_geo.json", encoding="utf-8") as f:
     CERTS = PRODUCTS_DATA["certs_block"]
     TEMPLATES = PRODUCTS_DATA["templates"]
 
+# ── Brain strategy (optional) ──────────────────────────────────────────────────
+STRATEGY_FILE = DATA / "strategy.json"
+
+def load_strategy() -> dict:
+    try:
+        return json.loads(STRATEGY_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
 # ── DB ────────────────────────────────────────────────────────────────────────
 def get_conn():
     DATA.mkdir(exist_ok=True)
@@ -460,6 +469,7 @@ def build_task_queue(
     max_pages: int = 100,
     langs: list[str] | None = None,
     product_ids: list[str] | None = None,
+    focus_products: list[str] | None = None,
 ) -> list[dict]:
     """
     Build a prioritized list of page generation tasks.
@@ -527,6 +537,10 @@ def build_task_queue(
     # Shuffle to avoid patterns, filter already done, limit
     random.shuffle(tasks)
 
+    if focus_products:
+        rank = {pid: i for i, pid in enumerate(focus_products)}
+        tasks.sort(key=lambda t: rank.get(t["product"]["id"], len(rank) + 1))
+
     filtered = []
     for task in tasks:
         prod_slug = task["product"].get(f"slug_{task['lang']}", task["product"].get("slug_ru", task["product"]["id"]))
@@ -567,11 +581,25 @@ def main():
                         help="Restrict to specific product IDs")
     parser.add_argument("--dry-run", action="store_true",
                         help="Just print task list, don't generate")
+    parser.add_argument("--ignore-strategy", action="store_true",
+                        help="Ignore data/strategy.json brain directives")
     args = parser.parse_args()
 
     if not DEEPSEEK_API_KEY:
         print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
         sys.exit(1)
+
+    strat = {} if args.ignore_strategy else load_strategy()
+    focus_products = strat.get("focus_products") or None
+    if strat.get("geo_daily_target") and args.max_pages == MAX_PAGES_PER_RUN:
+        try:
+            args.max_pages = int(strat["geo_daily_target"])
+        except Exception:
+            pass
+    if strat.get("focus_langs") and args.langs is None:
+        args.langs = list(strat["focus_langs"])
+    if strat:
+        print(f"🧠 Strategy applied: focus={focus_products} langs={args.langs} target={args.max_pages}")
 
     init_db()
 
@@ -584,6 +612,7 @@ def main():
         max_pages=args.max_pages,
         langs=args.langs,
         product_ids=args.products,
+        focus_products=focus_products,
     )
 
     print(f"📋 Tasks in queue: {len(tasks)}")
