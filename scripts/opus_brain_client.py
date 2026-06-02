@@ -27,16 +27,16 @@ ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 
 # Model is configurable so you can switch Opus versions without code changes.
-OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-1-20250805")
+OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-8")
 
 # Monthly hard cap in USD. Default 40; override with OPUS_MONTHLY_BUDGET_USD.
 MONTHLY_BUDGET_USD = float(os.environ.get("OPUS_MONTHLY_BUDGET_USD", "40"))
 
 # Pricing (USD per 1M tokens). Override via env if Anthropic changes prices.
-PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "15"))   # fresh input
-PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "75"))   # output
-PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "18.75"))# cache creation
-PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "1.50")) # cache hit
+PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "5"))   # fresh input
+PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "25"))   # output
+PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25"))# cache creation
+PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "0.50")) # cache hit
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
