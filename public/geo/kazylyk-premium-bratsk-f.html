@@ -1,0 +1,324 @@
+Вот HTML-код вашей уникальной лендинговой страницы. Она разработана для B2B-продвижения премиального казылыка (конской колбасы) в Братске, с акцентом на чистый состав, халяльную сертификацию и преимущества для местного рынка HoReCa.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Казылык оптом Братск | Премиум конская колбаса халяль</title>
+  <meta name="description" content="Премиум казылык (конская колбаса) оптом в Братск. Халяль ДУМ РТ, без нитрита натрия. Аутентичный татарский рецепт. Доставка 96 ч. Сертификаты HACCP, ISO.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/kazylyk-premium-bratsk/">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "Product"],
+    "name": "Премиум Казылык (конская колбаса) — KazanDelikates",
+    "description": "Премиум казылык — традиционная татарская конская колбаса по аутентичному рецепту. Натуральное вяление, халяль ДУМ РТ, без нитрита натрия. Деликатес для ресторанов и гурманов.",
+    "brand": "KazanDelikates",
+    "sku": "KAZ-PREM-001",
+    "category": "Мясные деликатесы/Вяленая колбаса",
+    "image": "https://pepperoni.tatar/img/kazylyk-premium.jpg",
+    "offers": {
+      "@type": "Offer",
+      "priceCurrency": "RUB",
+      "availability": "https://schema.org/InStock",
+      "seller": {
+        "@type": "Organization",
+        "name": "KazanDelikates"
+      }
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Казань",
+      "streetAddress": "ул. Аграрная, 2, оф. 7",
+      "addressCountry": "RU"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+7-987-217-02-02",
+      "email": "info@kazandelikates.tatar",
+      "contactType": "sales"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Братск"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Как быстро доставляете казылык в Братск?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Доставка в Братск занимает до 96 часов с момента заказа. Отправляем из Казани в термобоксах, отслеживание по РФ."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Есть ли у вас нитрит натрия в составе?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Нет, нитрит натрия не используется. Натуральное вяление, только соль, специи и натуральные ингредиенты."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Какой объём минимального заказа для Братска?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Минимальная партия — 10 кг. Для HoReCa и оптовиков возможны индивидуальные условия."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Подходит ли казылык для мусульманских ресторанов?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, продукт сертифицирован ДУМ РТ (№614A/2024), халяль, что подтверждает соответствие канонам."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Можно ли под вашей маркой продавать казылык (СТМ)?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Да, мы производим Private Label. Наносим ваш логотип, этикетку, меняем упаковку. Обсуждаемо от 50 кг."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/" },
+      { "@type": "ListItem", "position": 2, "name": "География", "item": "https://pepperoni.tatar/geo/" },
+      { "@type": "ListItem", "position": 3, "name": "Казылык премиум Братск", "item": "https://pepperoni.tatar/geo/kazylyk-premium-bratsk/" }
+    ]
+  }
+  </script>
+  <style>
+    body {
+      background-color: #faf9f6;
+      font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+    .container {
+      max-width: 1200px;
+    }
+    h1, h2, h3 {
+      letter-spacing: -0.01em;
+      font-weight: 600;
+    }
+    .card {
+      border: none;
+      border-radius: 1rem;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03), 0 2px 6px rgba(0, 0, 0, 0.02);
+      transition: all 0.2s;
+    }
+    .card:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+    }
+    .cert-badge {
+      background-color: #f0ede8;
+      border-radius: 0.6rem;
+      padding: 0.5rem 1rem;
+      font-weight: 500;
+      color: #2b2b2b;
+    }
+    .table-cert th {
+      background-color: #f3f0ea;
+      font-weight: 600;
+    }
+    .cta-section {
+      background: #1e2a2f;
+      background-image: radial-gradient(circle at 20% 30%, #2c3a41, #0f1a1e);
+      color: white;
+      border-radius: 2rem;
+    }
+    .cta-section .form-control {
+      background: rgba(255,255,255,0.85);
+      border: 1px solid #ced4da;
+      backdrop-filter: blur(4px);
+    }
+    .btn-primary {
+      background-color: #b48c4c;
+      border: none;
+      font-weight: 600;
+      padding: 0.7rem 2rem;
+      border-radius: 3rem;
+      transition: 0.2s;
+    }
+    .btn-primary:hover {
+      background-color: #9f7539;
+      transform: scale(0.98);
+    }
+    .small-meta {
+      font-size: 0.85rem;
+      color: #6c757d;
+    }
+    .faq-item {
+      border-bottom: 1px solid #eae5dc;
+      padding: 1rem 0;
+    }
+    .faq-item:last-of-type {
+      border-bottom: none;
+    }
+    .rating-stars {
+      color: #b48c4c;
+    }
+    .city-context {
+      background: #f4f1eb;
+      border-radius: 1.5rem;
+      padding: 1.8rem;
+    }
+    @media (max-width: 576px) {
+      .display-5 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body data-city="Братск" data-product="kazylyk-premium">
+  <main class="container py-4 py-md-5">
+    <!-- Хлебные крошки (скрытые, но для семантики) -->
+    <nav aria-label="Breadcrumb" class="small-meta mb-3">
+      <ol class="list-inline mb-0">
+        <li class="list-inline-item"><a href="https://pepperoni.tatar/" class="text-muted">Главная</a> /</li>
+        <li class="list-inline-item"><a href="https://pepperoni.tatar/geo/" class="text-muted">География</a> /</li>
+        <li class="list-inline-item active">Казылык премиум Братск</li>
+      </ol>
+    </nav>
+
+    <!-- H1 + вступление -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="display-5 fw-bold">Казылык оптом в Братск — премиум конская колбаса халяль</h1>
+        <p class="lead mt-3">Натуральная вяленая колбаса из конины по аутентичному татарскому рецепту. Полностью без нитрита натрия, ГМО и красителей. Сертификат халяль ДУМ РТ, HACCP, ISO 22000:2018. Для ресторанов, отелей, мясных отделов и частных гурманов Братска.</p>
+      </div>
+    </div>
+
+    <!-- Контекст города -->
+    <div class="city-context mb-5">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <p class="mb-1 fw-semibold">📍 Братск — 220 тыс. жителей, 700+ заведений HoReCa, растущий спрос на халяль в Сибири. Мусульманское сообщество ~4%.</p>
+          <p class="mb-0">Мы привозим премиальный казылык напрямую из Казани. Никаких посредников, только заводская упаковка и полная прослеживаемость. Доставка до Братска — 96 часов.</p>
+        </div>
+        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+          <span class="badge bg-dark fs-6 p-2 px-3">Сертификат халяль №614A/2024</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок преимуществ (6 карточек) -->
+    <h2 class="mb-4 fw-semibold">Почему выбирают наш казылык для Братска</h2>
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🧂 Без нитрита натрия</h5>
+            <p class="card-text small">Только натуральное вяление. Никаких консервантов — чистый состав, как в традиционном рецепте.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🕌 Халяль ДУМ РТ</h5>
+            <p class="card-text small">Официальный сертификат №614A/2024. Продукция одобрена Духовным управлением мусульман Татарстана.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🐎 Аутентичный рецепт</h5>
+            <p class="card-text small">Татарский казылык — национальный деликатес. Мы сохранили технологию предков: конина, соль, перец, тмин.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">📦 Доставка 96 ч в Братск</h5>
+            <p class="card-text small">Собственная логистика. Термобоксы, контроль температуры. Отправляем из Казани еженедельно.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🏭 Сертификаты HACCP, ISO</h5>
+            <p class="card-text small">Производство соответствует международным стандартам безопасности. Полный пакет документов для контролирующих органов.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🏷️ Private Label / СТМ</h5>
+            <p class="card-text small">Выпускаем продукцию под вашим брендом. Индивидуальная этикетка, фасовка, логотип. От 50 кг.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Таблица сертификатов -->
+    <h2 class="mb-3 fw-semibold">Сертификаты и соответствие</h2>
+    <div class="table-responsive mb-5">
+      <table class="table table-cert align-middle">
+        <thead>
+          <tr>
+            <th scope="col">Документ</th>
+            <th scope="col">Статус</th>
+            <th scope="col">Особенности</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Халяль (ДУМ РТ)</td>
+            <td><span class="badge bg-success">№614A/2024</span></td>
+            <td>Действителен, ежегодный аудит</td>
+          </tr>
+          <tr>
+            <td>HACCP</td>
+            <td><span class="badge bg-success">Да</span></td>
+            <td>Система управления безопасностью</td>
+          </tr>
+          <tr>
+            <td>ISO 22000:2018</td>
+            <td><span class="badge bg-success">Да</span></td>
+            <td>Международный стандарт пищевой безопасности</td>
+          </tr>
+          <tr>
+            <td>ТР ТС 021/2011</td>
+            <td><span class="badge bg-success">Соответствует</span></td>
+            <td>Техрегламент Таможенного союза</td>
+          </tr>
+          <tr>
+            <td>Ветеринарные свидетельства РФ</td>
+            <td><span class="badge bg-success">Форма №2</span></td>
+            <td>На каждую партию</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="small-meta">* Продукция не содержит нитрита натрия, ГМО, искусственных красителей. Полный состав: конина, соль, перец, тмин, чеснок.</p>
+    </div>
+
+    <!-- Блок сравнения с конкурентами -->
+    <div class="row mb-5 p-4 bg-light rounded-4">
+      <h3 class="fw-semibold mb-3">Чем мы отличаемся от других поставщиков</h3>
+      <div class="col-md-6">
+        <ul class="list-unstyled">
+          <li class="mb-2">✅ <strong>Нитрит натрия</strong> — у нас 0%, у многих конкурентов 0,005-0,01%</li>
+          <li class="mb-2">✅ <strong>Халяль-сертифика
