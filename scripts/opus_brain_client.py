@@ -119,8 +119,9 @@ def _record_spend(usage: dict, prices: dict | None = None) -> float:
     return cost
 
 
-def call_opus(
+def call_model(
     prompt: str,
+    tier: str = "brain",
     system=None,
     max_tokens: int = 4000,
     temperature: float = 0.3,
@@ -128,25 +129,22 @@ def call_opus(
     retries: int = 2,
 ) -> tuple[str, dict]:
     """
-    Call Claude Opus. Returns (text, usage_with_cost).
-
-    `system` may be a string or a list of text blocks. When cache_system is
-    True the (large, static) system content is marked cacheable so repeated
-    runs only pay ~10% for that portion.
-
-    Raises RuntimeError if no key or monthly budget exhausted.
+    Call an Anthropic model by tier ("brain"=Opus, "voice"=Sonnet, "micro"=Haiku).
+    Shared monthly budget across all tiers. Returns (text, usage_with_cost).
+    Raises RuntimeError if no key or budget exhausted.
     """
     if not ANTHROPIC_API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY not set — brain disabled")
-
-    rem = remaining_budget()
-    if rem <= 0:
+    if remaining_budget() <= 0:
         raise RuntimeError(
-            f"Opus monthly budget exhausted "
-            f"(${MONTHLY_BUDGET_USD:.0f}/mo). Resets next month."
+            f"Monthly Anthropic budget exhausted (${MONTHLY_BUDGET_USD:.0f}/mo). "
+            "Resets next month."
         )
 
-    # Build system blocks with optional cache_control on the last block.
+    cfg = MODELS.get(tier, MODELS["brain"])
+    prices = {"in": cfg["in"], "out": cfg["out"],
+              "cache_write": cfg["cache_write"], "cache_read": cfg["cache_read"]}
+
     sys_blocks = []
     if isinstance(system, str) and system:
         sys_blocks = [{"type": "text", "text": system}]
@@ -159,7 +157,7 @@ def call_opus(
         sys_blocks[-1] = {**sys_blocks[-1], "cache_control": {"type": "ephemeral"}}
 
     body = {
-        "model": OPUS_MODEL,
+        "model": cfg["model"],
         "max_tokens": max_tokens,
         "temperature": temperature,
         "messages": [{"role": "user", "content": prompt}],
@@ -172,7 +170,6 @@ def call_opus(
         "anthropic-version": ANTHROPIC_VERSION,
         "content-type": "application/json",
     }
-
     data = json.dumps(body).encode("utf-8")
     last_err = None
     for attempt in range(retries + 1):
@@ -186,14 +183,15 @@ def call_opus(
             parts = obj.get("content", [])
             text = "".join(p.get("text", "") for p in parts if p.get("type") == "text")
             usage = obj.get("usage", {}) or {}
-            cost = _record_spend(usage)
+            cost = _record_spend(usage, prices)
             usage["cost_usd"] = round(cost, 4)
             usage["budget_remaining_usd"] = round(remaining_budget(), 4)
+            usage["tier"] = tier
+            usage["model"] = cfg["model"]
             return text, usage
         except urllib.error.HTTPError as e:
             err_body = e.read().decode("utf-8", "ignore")
             last_err = f"HTTP {e.code}: {err_body[:300]}"
-            # 429/529 → backoff and retry; 4xx (bad request/auth) → stop
             if e.code in (429, 500, 502, 503, 529) and attempt < retries:
                 time.sleep(2 ** attempt * 3)
                 continue
@@ -205,6 +203,25 @@ def call_opus(
                 continue
             raise RuntimeError(f"Anthropic call failed: {last_err}")
     raise RuntimeError(f"Anthropic call failed: {last_err}")
+
+
+def call_opus(prompt, system=None, max_tokens=4000, temperature=0.3,
+              cache_system=True, retries=2):
+    """Backward-compatible wrapper — strategy tier (Opus)."""
+    return call_model(prompt, tier="brain", system=system, max_tokens=max_tokens,
+                      temperature=temperature, cache_system=cache_system, retries=retries)
+
+
+def call_voice(prompt, system=None, max_tokens=1500, temperature=0.4, cache_system=False):
+    """Dialogue tier (Sonnet) — cheap conversational replies."""
+    return call_model(prompt, tier="voice", system=system, max_tokens=max_tokens,
+                      temperature=temperature, cache_system=cache_system)
+
+
+def call_micro(prompt, system=None, max_tokens=200, temperature=0.0):
+    """Micro tier (Haiku) — cheap classification/routing."""
+    return call_model(prompt, tier="micro", system=system, max_tokens=max_tokens,
+                      temperature=temperature, cache_system=False)
 
 
 if __name__ == "__main__":

@@ -207,36 +207,68 @@ def pop_pending(chat_id: int) -> dict | None:
     return item
 
 
-def ask_brain(chat_id: int, question: str) -> str:
-    """Call Opus with journal context. Costs money — already confirmed."""
+def _load_strategy_text() -> str:
     try:
-        from opus_brain_client import call_opus, brain_available, remaining_budget
+        st = json.loads((DATA / "strategy.json").read_text())
+        return json.dumps(st, ensure_ascii=False)[:1500]
+    except Exception:
+        return "стратегия ещё не сформирована"
+
+
+def talk_to_brain(chat_id: int, question: str) -> str:
+    """
+    Tiered dialogue (cost-safe):
+      • SONNET ("voice") answers using current strategy + journal context.
+      • If the question requires real re-planning, Sonnet emits a marker and
+        we AUTO-ESCALATE to OPUS ("brain") to produce/refresh strategy, then
+        Sonnet-style summary is returned. All within the shared budget.
+    """
+    try:
+        from opus_brain_client import call_voice, call_opus, brain_available, remaining_budget
     except Exception as e:
         return f"Мозг недоступен: {e}"
     if not brain_available():
-        return ("🧠 Мозг недоступен: нет ANTHROPIC_API_KEY или исчерпан бюджет "
-                f"(осталось ${remaining_budget():.2f}).")
+        return ("🧠 Недоступно: нет ANTHROPIC_API_KEY или исчерпан бюджет "
+                f"(${remaining_budget():.2f}).")
 
-    context = J.recent_summary(max_chars=2000)
-    system = (
-        "Ты — стратегический мозг SEO/AI-присутствия компании «Казанские Деликатесы» "
-        "(pepperoni.tatar), халяль производитель мяса и выпечки. Цель — №1 в РФ, СНГ, "
-        "арабских/африканских/ЮВА рынках по всему ассортименту и услугам Private Label/OEM. "
-        "Отвечай кратко, по делу, на русском. Если предлагаешь действия — конкретные шаги. "
-        "Помни про равномерное покрытие всех категорий и масштабную географию.\n\n"
-        f"КОНТЕКСТ (журнал последних действий):\n{context}"
+    context = J.recent_summary(max_chars=1800)
+    strategy = _load_strategy_text()
+    voice_system = (
+        "Ты — голос стратегического мозга компании «Казанские Деликатесы» "
+        "(pepperoni.tatar), халяль производитель мяса и выпечки. Цель — №1 в РФ, "
+        "СНГ, арабских/африканских/ЮВА рынках по всему ассортименту и услугам "
+        "Private Label/OEM. Ты ОБЪЯСНЯЕШЬ и отвечаешь на вопросы владельца кратко, "
+        "по-русски, по делу, опираясь на текущую стратегию и журнал. "
+        "Стратегические РЕШЕНИЯ принимает мозг (Opus), не ты. "
+        "Если вопрос требует НОВОГО глубокого плана/перестройки стратегии — начни "
+        "ответ строго со строки '[ESCALATE]' и кратко поясни почему. Иначе отвечай обычно.\n\n"
+        f"ТЕКУЩАЯ СТРАТЕГИЯ: {strategy}\n\nЖУРНАЛ:\n{context}"
     )
     try:
-        text, usage = call_opus(prompt=question, system=system,
-                                max_tokens=1500, temperature=0.4, cache_system=False)
+        reply, usage = call_voice(question, system=voice_system, max_tokens=1200)
     except Exception as e:
-        return f"Ошибка вызова мозга: {e}"
+        return f"Ошибка диалога: {e}"
     J.log_event("user_cmd", question, who=str(chat_id))
-    J.log_event("brain_reply", text, who="opus",
-                meta={"cost_usd": usage.get("cost_usd")})
+
+    if reply.strip().startswith("[ESCALATE]"):
+        reason = reply.strip()[len("[ESCALATE]"):].strip()[:200]
+        # Auto-escalate to Opus to refresh the real strategy.
+        try:
+            import seo_brain
+            J.log_event("system", f"auto-escalation to Opus: {reason}", who="bot")
+            seo_brain.main()  # writes data/strategy.json via Opus
+            new_strat = action_strategy()
+            J.log_event("brain_reply", "strategy refreshed via escalation", who="opus")
+            v_cost = usage.get("cost_usd", 0)
+            return (f"🧠 Вопрос требует стратегии — подключил мозг (Opus) и обновил план.\n\n"
+                    f"{new_strat}\n\n<i>Sonnet ${v_cost} + Opus (см. 💰 Бюджет)</i>")
+        except Exception as e:
+            return f"Пытался подключить мозг, но: {e}"
+
     cost = usage.get("cost_usd", 0)
     rem = usage.get("budget_remaining_usd", 0)
-    return f"🧠 {text}\n\n<i>стоимость: ${cost} · осталось в бюджете: ${rem}</i>"
+    J.log_event("brain_reply", reply, who="sonnet", meta={"cost_usd": cost})
+    return f"💬 {reply}\n\n<i>${cost} (Sonnet) · бюджет: ${rem}</i>"
 
 
 # ── Message router ───────────────────────────────────────────────────────────────
@@ -262,8 +294,8 @@ def handle_message(msg: dict) -> None:
     if low in ("да", "yes", "✅ да", "подтверждаю"):
         pend = pop_pending(chat_id)
         if pend and pend["kind"] == "ask_brain":
-            send(chat_id, "🧠 Думаю…")
-            send(chat_id, ask_brain(chat_id, pend["payload"]), keyboard=MAIN_MENU)
+            send(chat_id, "💬 Думаю…")
+            send(chat_id, talk_to_brain(chat_id, pend["payload"]), keyboard=MAIN_MENU)
             return
     if low in ("нет", "no", "❌ нет", "отмена"):
         pop_pending(chat_id)
@@ -285,8 +317,9 @@ def handle_message(msg: dict) -> None:
         send(chat_id, action_run_generation(chat_id), keyboard=MAIN_MENU)
     elif text in ("🧠 Спросить мозг", "/ask"):
         set_pending(chat_id, "ask_brain_prompt", "")
-        send(chat_id, "Напиши вопрос мозгу одним сообщением "
-                      "(например: «что улучшить по выпечке в Турции?»).")
+        send(chat_id, "Напиши вопрос — отвечу через Sonnet (дёшево). "
+                      "Если понадобится глубокая стратегия, сам подключу Opus.\n"
+                      "Например: «что улучшить по выпечке в Турции?»")
     else:
         # If we're waiting for a brain question, treat this text as the question
         try:
@@ -295,12 +328,12 @@ def handle_message(msg: dict) -> None:
             d = {}
         if d.get(str(chat_id), {}).get("kind") == "ask_brain_prompt":
             pop_pending(chat_id)
-            set_pending(chat_id, "ask_brain", text)
-            send(chat_id, f"❓ Спросить мозг (Opus): «{text[:120]}»\n"
-                          f"Это будет стоить ~$0.01-0.03. Подтвердить?",
-                 keyboard=[["✅ Да", "❌ Нет"]])
+            send(chat_id, "💬 Думаю…")
+            send(chat_id, talk_to_brain(chat_id, text), keyboard=MAIN_MENU)
         else:
-            send(chat_id, "Не понял. Открой меню кнопкой ниже.", keyboard=MAIN_MENU)
+            # Free-form text from an authorized user → treat as a dialogue turn (cheap Sonnet)
+            send(chat_id, "💬 Думаю…")
+            send(chat_id, talk_to_brain(chat_id, text), keyboard=MAIN_MENU)
 
 
 # ── Daily digest (called by cron, not the loop) ──────────────────────────────────
