@@ -257,6 +257,30 @@ LANG_PROMPTS = {
         "output_dir": "be/geo",
         "lang_label": "BE",
     },
+    "ms": {
+        "system_note": "Write in Malay (Bahasa Melayu). Add English version at the end.",
+        "cert_block": CERT_BLOCK_EN,
+        "output_dir": "ms/geo",
+        "lang_label": "MS",
+    },
+    "id": {
+        "system_note": "Write in Indonesian (Bahasa Indonesia). Add English version at the end.",
+        "cert_block": CERT_BLOCK_EN,
+        "output_dir": "id/geo",
+        "lang_label": "ID",
+    },
+    "tr": {
+        "system_note": "Write in Turkish language. Add English version at the end.",
+        "cert_block": CERT_BLOCK_EN,
+        "output_dir": "tr/geo",
+        "lang_label": "TR",
+    },
+    "fr": {
+        "system_note": "Write in French language. Add English version at the end.",
+        "cert_block": CERT_BLOCK_EN,
+        "output_dir": "fr/geo",
+        "lang_label": "FR",
+    },
 }
 
 TEMPLATE_PROMPTS = {
