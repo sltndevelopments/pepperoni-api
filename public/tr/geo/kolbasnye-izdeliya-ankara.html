@@ -1,0 +1,272 @@
+Вот HTML-код лендинга, созданный специально для B2B-продаж халяльных колбасных изделий без нитрита натрия в Анкаре. Он учитывает локальный контекст, требования к сертификации и профессиональную аудиторию HoReCa.
+```html
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ankara'ya helal sosis & salam – nitritsiz, temiz etiket</title>
+  <meta name="description" content="Ankara restoran, kafe ve fast food işletmeleri için %100 helal, nitrit içermeyen sosis ve salam. DUM RT Helal, HACCP, ISO 22000:2018. 2-4 günde Novorossiysk–Samsun hattı.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/kolbasnye-izdeliya-ankara/">
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Schema JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": ["LocalBusiness", "Product"],
+    "name": "Kazan Delikates – Helal sosis ve salam (nitritsiz)",
+    "description": "Ankara HoReCa için nitritsiz, helal sertifikalı sosis ve salam ürünleri. DUM RT #614A/2024, HACCP, ISO 22000:2018.",
+    "url": "https://pepperoni.tatar/geo/kolbasnye-izdeliya-ankara/",
+    "telephone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Kazan",
+      "streetAddress": "ul. Agrarnaya, 2, of. 7",
+      "addressCountry": "RU"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Ankara",
+      "addressCountry": "TR"
+    },
+    "productID": "helal-nitritsiz-sosis",
+    "brand": {
+      "@type": "Brand",
+      "name": "Kazan Delikates"
+    },
+    "certification": [
+      "Halal DUM RT #614A/2024",
+      "HACCP",
+      "ISO 22000:2018",
+      "TR CU 021/2011",
+      "Russian veterinary certificates"
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {"@type":"Question","name":"Ankara'ya teslimat ne kadar sürer?","acceptedAnswer":{"@type":"Answer","text":"Novorossiysk–Samsun feribot/karayolu hattı 2-4 gün, ardından Ankara içi dağıtım 1 iş günü."}},
+      {"@type":"Question","name":"Ürünlerinizde nitrit var mı?","acceptedAnswer":{"@type":"Answer","text":"Kesinlikle yok. Sodyum nitrit ilavesiz, sadece doğal baharat ve tuz."}},
+      {"@type":"Question","name":"Hangi helal sertifikaya sahipsiniz?","acceptedAnswer":{"@type":"Answer","text":"DUM RT (Rusya Müslümanları Dini İdaresi) #614A/2024, ayrıca HACCP ve ISO 22000:2018."}},
+      {"@type":"Question","name":"Restoranım için özel etiket yapıyor musunuz?","acceptedAnswer":{"@type":"Answer","text":"Evet, Private Label seçeneği mevcut. Kendi markanızla sipariş verebilirsiniz."}},
+      {"@type":"Question","name":"Ürünlerin raf ömrü ve saklama koşulları nedir?","acceptedAnswer":{"@type":"Answer","text":"+2°C ile +6°C arası soğuk zincir, vakumlu profesyonel ambalaj. Raf ömrü 45 gün."}}
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://pepperoni.tatar/"},
+      {"@type":"ListItem","position":2,"name":"Ankara helal sosis","item":"https://pepperoni.tatar/geo/kolbasnye-izdeliya-ankara/"}
+    ]
+  }
+  </script>
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+    .b2b-section {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 2.5rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      margin-bottom: 2rem;
+    }
+    .cert-badge {
+      background: #e9f5ec;
+      border-left: 5px solid #1a4d2e;
+      padding: 1.2rem;
+      border-radius: 1rem;
+      font-weight: 500;
+    }
+    .cta-gradient {
+      background: linear-gradient(145deg, #1a4d2e 0%, #2b6e4e 100%);
+      color: white;
+      border-radius: 2rem;
+      padding: 3rem 2rem;
+    }
+    .form-control, .btn {
+      border-radius: 0.75rem;
+    }
+    .btn-cta {
+      background-color: #f5b342;
+      border: none;
+      font-weight: 700;
+      color: #1a2e1a;
+      transition: 0.2s;
+    }
+    .btn-cta:hover {
+      background-color: #e09e30;
+      color: #0f1f0f;
+    }
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1a4d2e;
+      line-height: 1;
+    }
+    .card-benefit {
+      border: none;
+      background: #f2f6f3;
+      border-radius: 1.5rem;
+      padding: 1.5rem 1rem;
+      height: 100%;
+    }
+    .table-cert th {
+      background-color: #1a4d2e;
+      color: white;
+      font-weight: 500;
+    }
+    .table-cert td, .table-cert th {
+      padding: 1rem;
+    }
+    .faq-item {
+      border-bottom: 1px solid #dee2e6;
+      padding: 1.2rem 0;
+    }
+    .faq-question {
+      font-weight: 600;
+      color: #1a3a2a;
+    }
+    .small-meta {
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+    .city-context {
+      background: #eef3f0;
+      border-radius: 2rem;
+      padding: 1.8rem;
+    }
+    .product-badge {
+      background: #d4e2d8;
+      color: #1a3a2a;
+      border-radius: 2rem;
+      padding: 0.3rem 1rem;
+      display: inline-block;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+    hr {
+      opacity: 0.3;
+    }
+  </style>
+</head>
+<body data-city="Анкара" data-product="kolbasnye">
+
+<div class="container py-4 py-lg-5">
+
+  <!-- H1 + intro -->
+  <div class="b2b-section">
+    <span class="product-badge mb-2">🇹🇷 Ankara – HoReCa toptan</span>
+    <h1 class="display-5 fw-bold" style="color: #1a3a2a;">Helal sosis & salam <br>nitrit içermez, temiz etiket</h1>
+    <p class="lead mt-3" style="max-width: 800px;">Ankara’nın 20.000’den fazla restoran, kafe ve fast food noktası için özel olarak üretiyoruz. %99 Müslüman nüfus, Ortadoğu köprüsü ve büyük bir HoReCa pazarı — işte bu yüzden nitritsiz, helal sertifikalı sosis ve salamlarımız tam size göre. Şeflerle çalışıyor, profesyonel ambalaj ve soğuk zincir garantisi sunuyoruz.</p>
+    <div class="d-flex flex-wrap gap-3 mt-3">
+      <div><span class="fw-bold">📍</span> Ankara teslimat: Novorossiysk–Samsun feribot 2-4 gün</div>
+      <div><span class="fw-bold">🏅</span> DUM RT Helal #614A/2024 · HACCP · ISO 22000:2018</div>
+    </div>
+  </div>
+
+  <!-- 6 kart (avantaj) -->
+  <div class="row g-4 mb-4">
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">0</div>
+        <p class="fw-bold mb-1">Sodyum nitrit</p>
+        <p class="mb-0 small">Tamamen nitritsiz üretim. Rakip ürünlerde E250, E251 bulunur. Biz sadece doğal baharat kullanıyoruz.</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">99%</div>
+        <p class="fw-bold mb-1">Müslüman nüfusa uygun</p>
+        <p class="mb-0 small">Ankara nüfusunun %99’u Müslüman. Helal DUM RT garantisiyle gönül rahatlığıyla servis edin.</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">20k+</div>
+        <p class="fw-bold mb-1">HoReCa noktası</p>
+        <p class="mb-0 small">Ankara’da 20.000’den fazla restoran, kafe ve fast food. Profesyonel ambalaj, şeflere özel numune.</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">45</div>
+        <p class="fw-bold mb-1">Gün raf ömrü</p>
+        <p class="mb-0 small">Vakumlu ambalaj, +2/+6°C. Uzun süre taze kalır, israfı azaltır.</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">3</div>
+        <p class="fw-bold mb-1">Sertifika sistemi</p>
+        <p class="mb-0 small">Helal DUM RT + HACCP + ISO 22000:2018. Ayrıca TR CU 021/2011 ve Rus veteriner belgeleri.</p>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-4">
+      <div class="card-benefit">
+        <div class="stat-number">100%</div>
+        <p class="fw-bold mb-1">Özel etiket (Private Label)</p>
+        <p class="mb-0 small">Kendi markanızla sipariş verin. Sizin adınıza üretiyor, Ankara’ya gönderiyoruz.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rakip karşılaştırması (ekstra USP) -->
+  <div class="b2b-section">
+    <div class="row align-items-center">
+      <div class="col-lg-7">
+        <h3 class="fw-bold" style="color: #1a3a2a;">Rakiplerden farkımız: nitrit yok, şeffaflık var</h3>
+        <p>Piyasada çoğu sosis ve salam sodyum nitrit (E250) içerir. Bizim ürünlerimizde <strong>sıfır nitrit</strong>, yapay renklendirici veya GMO yok. Temiz etiket, sadece helal kesim dana/ kuzu eti, baharat ve tuz. Şefler lezzet farkını hemen anlıyor. Üstelik HACCP ve ISO 22000:2018 ile belgeli üretim.</p>
+        <p class="small-meta">Karşılaştırma: klasik sosislerde 80-150 mg/kg nitrit, bizde 0 mg.</p>
+      </div>
+      <div class="col-lg-5 mt-3 mt-lg-0">
+        <div class="bg-light p-4 rounded-4">
+          <span class="fw-bold">🔬 Bağımsız test</span>
+          <p class="mb-0 small">Her parti bağımsız laboratuvar analizi. Nitrit, ağır metal, mikrobiyoloji raporları mevcut.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sertifika tablosu -->
+  <div class="b2b-section">
+    <h3 class="fw-bold mb-3">🔒 Resmi sertifikalar ve uygunluk</h3>
+    <div class="table-responsive">
+      <table class="table table-bordered table-cert">
+        <thead>
+          <tr><th>Belge</th><th>Kapsam / No</th><th>Durum</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Helal DUM RT</td><td>#614A/2024 (Rusya Müslümanları Dini İdaresi)</td><td>✅ Geçerli</td></tr>
+          <tr><td>HACCP</td><td>Tehlike analizi ve kritik kontrol noktaları</td><td>✅ Sertifikalı</td></tr>
+          <tr><td>ISO 22000:2018</td><td>Gıda güvenliği yönetim sistemi</td><td>✅ Sertifikalı</td></tr>
+          <tr><td>TR CU 021/2011</td><td>Gümrük Birliği gıda güvenliği</td><td>✅ Uygun</td></tr>
+          <tr><td>Rus Veteriner Sertifikaları</td><td>Hayvan sağlığı ve izlenebilirlik</td><td>✅ Her sevkiyat</td></tr>
+        </tbody>
+      </table>
+      <p class="small-meta mb-0">*Tüm belgeler talep üzerine dijital kopya olarak iletilir.</p>
+    </div>
+  </div>
+
+  <!-- Delivery block -->
+  <div class="b2b-section">
+    <h3 class="fw-bold">🚚 Ankara’ya teslimat – hızlı & güvenilir</h3>
+    <div class="row">
+      <div class="col-md-7">
+        <p>Novorossiysk limanından Samsun’a feribot/karayolu kombinasyonu: <strong>2-4 gün</strong>. Ardından Ankara içi dağıtım 1 iş günü. Soğuk zincir (+2/+6°C) tüm süreçte korunur. Düzenli haftalık sevkiyat, 500 kg’dan başlayan siparişler kabul edilir.</p>
+        <p><span class="fw-bold">📦 Profesyonel ambalaj:</span> vakumlu poliamid bariyer, 1-5 kg’lık bloklar, restoran mutfağına uygun.</p>
+      </div>
+      <div class="col-md-5">
+        <div class="bg-dark text-white p-3 rounded-4 d-inline-block w-100">
+          <span>
