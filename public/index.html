@@ -272,7 +272,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <h2 class="section-title">Как мы производим халяль деликатесы</h2>
     <p class="section-sub">Экскурсия по нашему мясокомбинату в Казани — линии, контроль качества, сертификация Халяль ДУМ РТ и ISO 22000:2018</p>
     <div class="video-frame" id="videoFrame">
-      <img class="video-poster" id="videoPoster" src="https://api.pepperoni.tatar/videos/kazan-poster.jpg" alt="Производство Казанских Деликатесов — превью видео" loading="lazy" width="1280" height="720">
+      <img class="video-poster" id="videoPoster" src="https://pepperoni.tatar/videos/kazan-poster.jpg" alt="Производство Казанских Деликатесов — превью видео" loading="lazy" width="1280" height="720">
       <button class="video-play" id="videoPlayBtn" type="button" aria-label="Смотреть видео">
         <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true"><path d="M66.5 7.7c-.8-2.9-2.5-5.4-5.4-6.2C55.8.1 34 0 34 0S12.2.1 6.9 1.5C4 2.3 2.3 4.8 1.5 7.7.1 13 0 24 0 24s.1 11 1.5 16.3c.8 2.9 2.5 5.4 5.4 6.2C12.2 47.9 34 48 34 48s21.8-.1 27.1-1.5c2.9-.8 4.6-3.3 5.4-6.2C67.9 35 68 24 68 24s-.1-11-1.5-16.3z" fill="#1b7a3d"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
       </button>
@@ -1167,7 +1167,7 @@ document.addEventListener('click',function(e){
 (function(){
   var frame=document.getElementById('videoFrame');
   if(!frame)return;
-  var base='https://api.pepperoni.tatar/videos/';
+  var base='https://pepperoni.tatar/videos/';
   var small=window.matchMedia('(max-width:768px)').matches;
   var src=base+(small?'kazan-720.mp4':'kazan-1080.mp4');
   function play(){
