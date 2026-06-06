@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "name": "Kazan Delicacies MCP",
+  "description": "Model Context Protocol server for the halal meat catalog of Kazan Delicacies (Казанские Деликатесы). 77 SKUs, live prices in 7 currencies, halal cert #614A/2024.",
+  "version": "1.0.0",
+  "publisher": {
+    "name": "Казанские Деликатесы / Kazan Delicacies",
+    "url": "https://kazandelikates.tatar",
+    "email": "info@kazandelikates.tatar"
+  },
+  "transports": {
+    "streamable_http": {
+      "url": "https://api.pepperoni.tatar/api/mcp",
+      "description": "Remote MCP (Streamable HTTP, stateless). Works with Claude Desktop, Cursor, and other MCP clients."
+    },
+    "stdio": {
+      "command": "node",
+      "args": ["mcp/stdio.js"],
+      "description": "Local stdio server — clone repo, npm install, run from project root."
+    }
+  },
+  "tools": [
+    { "name": "search_products", "description": "Search catalog by name, category, SKU, or meat type" },
+    { "name": "get_product", "description": "Full product card by SKU with prices and images" },
+    { "name": "get_catalog", "description": "Live catalog with optional filters and b2b metadata" },
+    { "name": "get_certification", "description": "Halal cert, HACCP, ISO 22000 link, safety guarantees" },
+    { "name": "get_delivery_info", "description": "EXW Kazan terms, currencies, export markets, HS codes" },
+    { "name": "submit_inquiry", "description": "Send B2B wholesale/export inquiry to sales team" }
+  ],
+  "resources": [
+    { "uri": "pepperoni://catalog/overview", "name": "catalog-overview", "mimeType": "application/json" }
+  ],
+  "related": {
+    "openapi": "https://api.pepperoni.tatar/openapi.yaml",
+    "ai_plugin": "https://pepperoni.tatar/.well-known/ai-plugin.json",
+    "llms_full": "https://pepperoni.tatar/llms-full.txt",
+    "products_live": "https://api.pepperoni.tatar/api/products"
+  },
+  "cursor_config_example": {
+    "mcpServers": {
+      "kazan-delicacies": {
+        "url": "https://api.pepperoni.tatar/api/mcp"
+      }
+    }
+  },
+  "updated_at": "2026-06-06T00:00:00Z"
+}

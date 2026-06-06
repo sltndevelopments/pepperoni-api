@@ -126,6 +126,33 @@ paths:
             text/csv:
               schema:
                 type: string
+  /api/mcp:
+    post:
+      tags:
+        - MCP
+      summary: Model Context Protocol (Streamable HTTP)
+      description: >
+        Stateless MCP server for AI clients (Claude Desktop, Cursor).
+        Tools: search_products, get_product, get_catalog, get_certification,
+        get_delivery_info, submit_inquiry.
+        Manifest: https://pepperoni.tatar/.well-known/mcp.json
+      operationId: mcpStreamableHttp
+      responses:
+        '200':
+          description: MCP JSON-RPC response
+          content:
+            application/json:
+              schema:
+                type: object
+    get:
+      tags:
+        - MCP
+      summary: MCP SSE stream (optional)
+      description: Streamable HTTP GET for server-sent events when supported by the client.
+      operationId: mcpSseStream
+      responses:
+        '200':
+          description: SSE stream
   /api/health:
     get:
       tags:

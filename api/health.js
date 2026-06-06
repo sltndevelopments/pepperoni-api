@@ -47,9 +47,11 @@ export default async function handler(req, res) {
       products_live: '/api/products',
       products_static: '/products.json',
       health: '/api/health',
+      mcp: '/api/mcp',
       openapi: '/openapi.yaml',
       llms: '/llms.txt',
       ai_plugin: '/.well-known/ai-plugin.json',
+      mcp_manifest: '/.well-known/mcp.json',
     },
   });
 }

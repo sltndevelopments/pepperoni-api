@@ -82,7 +82,14 @@
       "description": "Same OpenAI Commerce gzip TSV as openai_commerce_product_feed_stable; alternate path for crawlers.",
       "updateFrequency": "daily"
     },
+    {
+      "name": "pepperoni_mcp",
+      "url": "https://pepperoni.tatar/.well-known/mcp.json",
+      "format": "json",
+      "description": "Model Context Protocol server manifest. Remote endpoint: https://api.pepperoni.tatar/api/mcp — tools for search_products, get_product, get_catalog, get_certification, get_delivery_info, submit_inquiry. For Claude Desktop, Cursor, and MCP-compatible AI clients.",
+      "updateFrequency": "on_change"
+    }
   ],
   "gpt_store_url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
-  "updated_at": "2026-05-14T12:00:00Z"
+  "updated_at": "2026-06-06T12:00:00Z"
 }

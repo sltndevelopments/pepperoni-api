@@ -1,7 +1,8 @@
 {
-  "name": "workspace",
+  "name": "pepperoni-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Pepperoni.tatar API, catalog, and MCP server",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -10,7 +11,8 @@
     "gen-ru": "python3 scripts/gen-ru-products.py",
     "gen-en": "python3 scripts/gen-en-products.py",
     "gen-cards": "npm run gen-ru && npm run gen-en",
-    "dev": "python3 -m http.server 3000 -d public"
+    "dev": "python3 -m http.server 3000 -d public",
+    "mcp": "node mcp/stdio.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +26,8 @@
   },
   "homepage": "https://github.com/sltndevelopments/pepperoni-api#readme",
   "dependencies": {
-    "exceljs": "^4.4.0"
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "exceljs": "^4.4.0",
+    "zod": "^4.4.3"
   }
 }
