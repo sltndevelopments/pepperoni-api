@@ -28,6 +28,18 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Generate product descriptions for new/empty SKUs (DeepSeek)
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: |
+          if [ -z "$DEEPSEEK_API_KEY" ]; then
+            echo "DEEPSEEK_API_KEY not set — skipping description generation"
+            exit 0
+          fi
+          # First pass builds products.json so the generator sees current SKUs/empty fields
+          node scripts/sync-sheets.mjs
+          python3 scripts/gen-descriptions.py || echo "[warn] description generation failed; keeping existing overrides"
+
       - name: Sync data from Google Sheets
         run: node scripts/sync-sheets.mjs
 
@@ -68,6 +80,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add public/products.json public/llms.txt public/llms-full.txt public/sitemap.xml
+          git add data/descriptions-overrides.json
           git add public/en/llms.txt public/en/llms-full.txt
           git add public/products/*.html
           git add public/en/products/*.html

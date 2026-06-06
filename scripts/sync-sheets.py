@@ -1485,6 +1485,37 @@ GPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-h
     print(f"✅ {SUBMISSION / 'kb-faq.txt'}")
 
 
+def apply_description_overrides(products):
+    """Merge DeepSeek-generated descriptions when the Google Sheet cell is empty.
+
+    The Sheet stays the source of truth: an override is applied ONLY when the
+    corresponding field is empty. Rebuild data/descriptions-overrides.json via
+    scripts/gen-descriptions.py.
+    """
+    path = ROOT / "data" / "descriptions-overrides.json"
+    if not path.exists():
+        return
+    try:
+        overrides = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as ex:
+        print(f"  ⚠️  descriptions-overrides.json unreadable: {ex}")
+        return
+    fields = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
+    applied = 0
+    for p in products:
+        ov = overrides.get(p.get("sku"))
+        if not ov:
+            continue
+        for f in fields:
+            current = (p.get(f) or "").strip()
+            fallback = (ov.get(f) or "").strip()
+            if not current and fallback:
+                p[f] = fallback
+                applied += 1
+    if applied:
+        print(f"  📝 Применено {applied} сгенерированных полей из descriptions-overrides.json")
+
+
 def main():
     print("📥 Загрузка данных из Google Sheets...")
 
@@ -1507,6 +1538,8 @@ def main():
         idx = result["next_idx"]
 
     print(f"\n📊 Всего: {len(all_products)} товаров\n")
+
+    apply_description_overrides(all_products)
 
     products_json = generate_products_json(all_products)
     out_path = PUBLIC / "products.json"

@@ -484,6 +484,12 @@ export default async function handler(req, res) {
         if (sp.imageMain) p.imageMain = sp.imageMain;
         if (sp.imagePack) p.imagePack = sp.imagePack;
         if (sp.imageSlice) p.imageSlice = sp.imageSlice;
+        // Merge descriptions & ingredients (from Sheet or DeepSeek overrides
+        // baked into products.json). Live Sheet build does not carry these,
+        // so the static snapshot is the source for catalog/app text.
+        for (const f of ['seoDescriptionRU', 'seoDescriptionEN', 'ingredientsRU', 'ingredientsEN', 'nutrition']) {
+          if (!p[f] && sp[f]) p[f] = sp[f];
+        }
       }
     }
 

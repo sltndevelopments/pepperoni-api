@@ -787,6 +787,38 @@ document.addEventListener('click',function(e){
   }
 }
 
+// --- Description overrides (DeepSeek-generated, merged when Sheet cell empty) ---
+// The Google Sheet stays the source of truth: an override is applied ONLY when
+// the corresponding field from the Sheet is empty. Run scripts/gen-descriptions.py
+// to (re)build data/descriptions-overrides.json.
+
+function applyDescriptionOverrides(products) {
+  const path = join(ROOT, 'data', 'descriptions-overrides.json');
+  if (!existsSync(path)) return;
+  let overrides;
+  try {
+    overrides = JSON.parse(readFileSync(path, 'utf-8'));
+  } catch (e) {
+    console.warn(`  ⚠️  descriptions-overrides.json unreadable: ${e.message}`);
+    return;
+  }
+  const fields = ['seoDescriptionRU', 'seoDescriptionEN', 'ingredientsRU', 'ingredientsEN'];
+  let applied = 0;
+  for (const p of products) {
+    const ov = overrides[p.sku];
+    if (!ov) continue;
+    for (const f of fields) {
+      const current = (p[f] || '').toString().trim();
+      const fallback = (ov[f] || '').toString().trim();
+      if (!current && fallback) {
+        p[f] = fallback;
+        applied++;
+      }
+    }
+  }
+  if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
+}
+
 // --- Main ---
 
 async function main() {
@@ -822,6 +854,8 @@ async function main() {
   }
 
   console.log(`\n📊 Всего: ${allProducts.length} товаров\n`);
+
+  applyDescriptionOverrides(allProducts);
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');
