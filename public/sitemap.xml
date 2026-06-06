@@ -43778,6 +43778,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/about"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/halal</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/halal"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/halal"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/halal"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/export</loc>
+    <lastmod>2026-06-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/export"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/export"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/export"/>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/beef-halal-pepperoni</loc>
     <lastmod>2026-06-06</lastmod>
     <changefreq>monthly</changefreq>
