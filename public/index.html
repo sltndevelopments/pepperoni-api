@@ -112,6 +112,15 @@ img{max-width:100%;height:auto}
 .usp-card__title{font-weight:700;margin-bottom:5px;font-size:.92rem}
 .usp-card__text{color:var(--muted);font-size:.85rem;line-height:1.5}
 
+/* Video section */
+.video-section{padding:40px 0 8px;text-align:center}
+.video-frame{position:relative;width:100%;max-width:860px;margin:18px auto 0;aspect-ratio:16/9;background:#000;border-radius:16px;overflow:hidden;box-shadow:0 6px 28px rgba(0,0,0,.14);cursor:pointer}
+.video-poster{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.video-play{position:absolute;inset:0;margin:auto;width:68px;height:48px;border:none;background:transparent;padding:0;cursor:pointer;transition:transform .15s}
+.video-frame:hover .video-play{transform:scale(1.08)}
+.video-play svg{filter:drop-shadow(0 2px 6px rgba(0,0,0,.4))}
+.video-frame video{position:absolute;inset:0;width:100%;height:100%;background:#000;display:block}
+
 /* Catalog section */
 .catalog-section{padding:0 0 48px}
 .catalog-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-bottom:4px}
@@ -257,6 +266,19 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
   </div>
 </div>
+
+<section class="video-section" aria-label="Видео о производстве">
+  <div class="container">
+    <h2 class="section-title">Как мы производим халяль деликатесы</h2>
+    <p class="section-sub">Экскурсия по нашему мясокомбинату в Казани — линии, контроль качества, сертификация Халяль ДУМ РТ и ISO 22000:2018</p>
+    <div class="video-frame" id="videoFrame">
+      <img class="video-poster" id="videoPoster" src="https://api.pepperoni.tatar/videos/kazan-poster.jpg" alt="Производство Казанских Деликатесов — превью видео" loading="lazy" width="1280" height="720">
+      <button class="video-play" id="videoPlayBtn" type="button" aria-label="Смотреть видео">
+        <svg viewBox="0 0 68 48" width="68" height="48" aria-hidden="true"><path d="M66.5 7.7c-.8-2.9-2.5-5.4-5.4-6.2C55.8.1 34 0 34 0S12.2.1 6.9 1.5C4 2.3 2.3 4.8 1.5 7.7.1 13 0 24 0 24s.1 11 1.5 16.3c.8 2.9 2.5 5.4 5.4 6.2C12.2 47.9 34 48 34 48s21.8-.1 27.1-1.5c2.9-.8 4.6-3.3 5.4-6.2C67.9 35 68 24 68 24s-.1-11-1.5-16.3z" fill="#1b7a3d"/><path d="M45 24 27 14v20" fill="#fff"/></svg>
+      </button>
+    </div>
+  </div>
+</section>
 
 <section class="segments" id="segments">
   <div class="container">
@@ -1142,6 +1164,25 @@ document.addEventListener('click',function(e){
   if(href.indexOf('tel:')===0)typeof ym==='function'&&ym(107064141,'reachGoal','click_phone');
   if(href.indexOf('mailto:')===0)typeof ym==='function'&&ym(107064141,'reachGoal','click_email');
 });
+(function(){
+  var frame=document.getElementById('videoFrame');
+  if(!frame)return;
+  var base='https://api.pepperoni.tatar/videos/';
+  var small=window.matchMedia('(max-width:768px)').matches;
+  var src=base+(small?'kazan-720.mp4':'kazan-1080.mp4');
+  function play(){
+    var v=document.createElement('video');
+    v.controls=true;v.autoplay=true;v.playsInline=true;v.preload='auto';
+    v.setAttribute('controlslist','nodownload');
+    v.poster=base+'kazan-poster.jpg';
+    var s=document.createElement('source');s.src=src;s.type='video/mp4';
+    v.appendChild(s);
+    frame.innerHTML='';frame.style.cursor='default';frame.appendChild(v);
+    v.play().catch(function(){});
+    typeof ym==='function'&&ym(107064141,'reachGoal','play_video');
+  }
+  frame.addEventListener('click',play,{once:true});
+})();
 </script>
 </body>
 </html>
