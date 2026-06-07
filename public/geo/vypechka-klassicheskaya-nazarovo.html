@@ -1,0 +1,289 @@
+Вот HTML-код для вашей посадочной страницы. Он представляет собой профессиональный B2B-лендинг для оптовых продаж халяльной выпечки в Назарово. Структура включает все необходимые блоки: преимущества, сертификаты, FAQ, форму заявки и контакты, с акцентом на работу с HoReCa и уникальными особенностями продукта.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Халяль выпечка оптом Назарово – для HoReCa</title>
+  <meta name="description" content="Классическая халяль выпечка оптом в Назарово. Пирожки, чебуреки, самса. HACCP, ISO 22000:2018. Без нитрита натрия. Доставка 96ч.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/vypechka-klassicheskaya-nazarovo/">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Schema JSON-LD будет вставлен в head -->
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [{
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Казань Делікатес",
+        "item": "https://pepperoni.tatar/"
+      },{
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Выпечка классическая халяль",
+        "item": "https://pepperoni.tatar/geo/vypechka-klassicheskaya-nazarovo/"
+      }]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Product",
+      "name": "Выпечка классическая халяль",
+      "description": "Замороженные полуфабрикаты и готовая продукция: пирожки, чебуреки, самса. Без нитрита натрия.",
+      "brand": "Казань Деликатес",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": "RUB",
+        "availability": "https://schema.org/InStock",
+        "validFrom": "2025-01-01",
+        "areaServed": {
+          "@type": "City",
+          "name": "Назарово",
+          "sameAs": "https://ru.wikipedia.org/wiki/Назарово_(город)"
+        }
+      }
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {"@type": "Question", "name": "Как быстро доставляете в Назарово?", "acceptedAnswer": {"@type": "Answer", "text": "Собственная логистика 96 часов с момента заказа. Минимальная партия — 20 кг."}},
+        {"@type": "Question", "name": "Есть ли сертификат Халяль ДУМ РТ?", "acceptedAnswer": {"@type": "Answer", "text": "Да, действующий сертификат №614A/2024. Также HACCP, ISO 22000:2018, ТР ТС 021/2011."}},
+        {"@type": "Question", "name": "Вы работаете с кафе и ресторанами Назарово?", "acceptedAnswer": {"@type": "Answer", "text": "Да, более 200 заведений Красноярского края. Предлагаем профессиональную упаковку и помощь технолога."}},
+        {"@type": "Question", "name": "Есть ли продукция без нитрита натрия?", "acceptedAnswer": {"@type": "Answer", "text": "Вся выпечка производится без нитрита натрия, ГМО и красителей. Чистый халяль состав."}},
+        {"@type": "Question", "name": "Можно заказать private label?", "acceptedAnswer": {"@type": "Answer", "text": "Да, разработаем СТМ под ваш бренд. Работаем с шеф-поварами, адаптируем рецептуру."}}
+      ]
+    }
+  </script>
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Казань Деликатес – халяль выпечка",
+      "image": "https://pepperoni.tatar/img/logo.png",
+      "telephone": "+79872170202",
+      "email": "info@kazandelikates.tatar",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Казань",
+        "streetAddress": "ул. Аграрная, 2, оф. 7",
+        "addressCountry": "RU"
+      },
+      "areaServed": {
+        "@type": "City",
+        "name": "Назарово"
+      },
+      "priceRange": "₽₽"
+    }
+  </script>
+  <!-- Яндекс.Метрика (заглушка) -->
+  <script>
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+  </script>
+</head>
+<body data-city="Назарово" data-product="vypechka-klassicheskaya" class="bg-light">
+  <main class="container py-4">
+    <!-- Хлебные крошки (BreadcrumbList уже в JSON-LD) -->
+    <nav aria-label="breadcrumb" class="small text-muted mb-3">
+      <ol class="breadcrumb bg-white p-2 rounded">
+        <li class="breadcrumb-item"><a href="https://pepperoni.tatar/" class="text-decoration-none">Главная</a></li>
+        <li class="breadcrumb-item"><a href="https://pepperoni.tatar/geo/" class="text-decoration-none">Гео</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Назарово — выпечка классическая</li>
+      </ol>
+    </nav>
+
+    <!-- H1 -->
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1 class="display-5 fw-bold text-dark">Халяль выпечка оптом в Назарово<br><span class="text-success">Классическая: пирожки, чебуреки, самса</span></h1>
+        <p class="lead text-secondary">Для ресторанов, кафе, фастфуда и столовых. Замороженные полуфабрикаты и готовая продукция. Сертификаты: Халяль (ДУМ РТ №614A/2024), HACCP, ISO 22000:2018. <strong>Без нитрита натрия</strong>.</p>
+      </div>
+    </div>
+
+    <!-- Вступление с контекстом города -->
+    <div class="row mb-5 bg-white p-4 rounded shadow-sm">
+      <div class="col-lg-8">
+        <p class="fs-5">Назарово — промышленный центр запада Красноярского края с населением 54 000 человек. В городе и районе работают более 200 заведений общепита: от корпоративных столовых до частных кафе и точек фастфуда. Спрос на халяль в регионе стабильно растёт, особенно в сегменте готовой выпечки. Мы предлагаем профессиональную серию «Классическая выпечка» — пирожки, чебуреки, самса — с чистым составом, без нитрита натрия, ГМО и красителей. Продукция проходит строгий контроль HACCP и ISO 22000:2018, что подтверждает её безопасность для ежедневного использования в HoReCa.</p>
+        <p class="fs-5">Работаем напрямую с шеф-поварами: помогаем адаптировать начинку, форму и размер под ваше меню. Возможна разработка private label (СТМ) для сетей. Доставка в Назарово — 96 часов с момента заказа.</p>
+      </div>
+      <div class="col-lg-4 d-flex align-items-center justify-content-center">
+        <div class="border-start ps-4">
+          <p class="mb-1 fw-bold">📞 +7 987 217-02-02</p>
+          <p class="mb-1">✉️ info@kazandelikates.tatar</p>
+          <p class="mb-0 small text-muted">г. Казань, ул. Аграрная, 2, оф. 7</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок преимуществ (6 карточек) -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🚚 Доставка 96 часов</h5>
+            <p class="card-text">Собственная логистика до Назарово. Заморозка -18°C, термоупаковка. Минимальная партия — 20 кг.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🏭 Без нитрита натрия</h5>
+            <p class="card-text">Технология производства исключает нитрит натрия, ГМО и искусственные красители. Халяль-чистый состав.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">📜 Халяль ДУМ РТ №614A/2024</h5>
+            <p class="card-text">Действующий сертификат Духовного управления мусульман Татарстана. Регулярный аудит производства.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🍽️ HoReCa-упаковка</h5>
+            <p class="card-text">Профессиональная упаковка для ресторанов, кафе, фастфуда. Удобное порционирование, стойкость к разморозке.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">👨‍🍳 Работа с шефами</h5>
+            <p class="card-text">Адаптируем рецептуру под ваше меню: размер, начинка, специи. Технологическая поддержка.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title fw-bold">🏅 Private Label / СТМ</h5>
+            <p class="card-text">Разработка продукции под вашим брендом. Полный цикл: от рецептуры до дизайна упаковки.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Таблица сертификатов -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <h2 class="h3 fw-bold mb-3">Сертификаты и стандарты</h2>
+        <div class="table-responsive">
+          <table class="table table-bordered bg-white">
+            <thead class="table-dark">
+              <tr><th>Сертификат</th><th>Статус</th><th>Особенности</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Халяль (ДУМ РТ №614A/2024)</td><td>Действующий</td><td>Соответствие нормам халяль, ежегодный аудит</td></tr>
+              <tr><td>HACCP</td><td>Внедрён</td><td>Система управления безопасностью пищевых продуктов</td></tr>
+              <tr><td>ISO 22000:2018</td><td>Сертифицирован</td><td>Международный стандарт менеджмента безопасности</td></tr>
+              <tr><td>ТР ТС 021/2011</td><td>Подтверждён</td><td>Технический регламент Таможенного союза</td></tr>
+              <tr><td>Ветеринарные свидетельства РФ</td><td>Оформляются на каждую партию</td><td>Форма №2, электронные ВСД</td></tr>
+              <tr><td>Продукция без нитрита натрия</td><td>Лабораторный контроль</td><td>Чистый состав, без ГМО и красителей</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- FAQ блок (5 вопросов) -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <h2 class="h3 fw-bold mb-3">Часто задаваемые вопросы (Назарово / Красноярский край)</h2>
+        <div class="accordion" id="faqAccordion">
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq1"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1">Как быстро доставляете в Назарово?</button></h3>
+            <div id="collapse1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Собственная логистика доставляет заказы в Назарово в течение 96 часов. Отгрузка от 20 кг, заморозка -18°C, термоупаковка.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq2"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2">Есть ли сертификат Халяль ДУМ РТ?</button></h3>
+            <div id="collapse2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Да, действующий сертификат №614A/2024. Также внедрены HACCP, ISO 22000:2018, ТР ТС 021/2011. Ветеринарные свидетельства на каждую партию.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq3"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3">Работаете с кафе и ресторанами Назарово?</button></h3>
+            <div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Да, мы обеспечиваем выпечкой более 200 заведений Красноярского края. Предлагаем профессиональную упаковку, техкарты и помощь технолога.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq4"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4">Есть ли продукция без нитрита натрия?</button></h3>
+            <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Вся линейка «Классическая выпечка» производится без нитрита натрия, без ГМО и красителей. Чистый халяль состав.</div></div>
+          </div>
+          <div class="accordion-item">
+            <h3 class="accordion-header" id="faq5"><button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5">Можно заказать private label?</button></h3>
+            <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion"><div class="accordion-body">Да, разработаем СТМ под ваш бренд. Работаем с шеф-поварами, адаптируем рецептуру, форму и упаковку.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA секция с формой заявки -->
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto">
+        <div class="bg-white p-4 rounded shadow-sm border">
+          <h2 class="h3 fw-bold mb-3">Получить коммерческое предложение</h2>
+          <p class="text-muted">Заполните заявку — мы подберём оптимальную партию выпечки для вашего заведения. Работаем с юрлицами и ИП.</p>
+          <form action="#" method="post">
+            <div class="row g-3">
+              <div class="col-md-6"><label class="form-label">Ваше имя</label><input type="text" class="form-control" placeholder="Имя" required></div>
+              <div class="col-md-6"><label class="form-label">Компания / ИП</label><input type="text" class="form-control" placeholder="Название"></div>
+              <div class="col-md-6"><label class="form-label">Телефон</label><input type="tel" class="form-control" placeholder="+7 (___) ___ __ __" required></div>
+              <div class="col-md-6"><label class="form-label">Email</label><input type="email" class="form-control" placeholder="email@company.ru"></div>
+              <div class="col-12"><label class="form-label">Сообщение (продукт, объём, вопросы)</label><textarea class="form-control" rows="3" placeholder="Интересует самса, чебуреки, пирожки. Нужна доставка в Назарово..."></textarea></div>
+              <div class="col-12"><button type="submit" class="btn btn-success btn-lg w-100">Отправить →</button></div>
+              <div class="col-12"><small class="text-muted">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</small></div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Блок доставки в Назарово -->
+    <div class="row bg-white p-4 rounded shadow-sm">
+      <div class="col-md-7">
+        <h3 class="h4 fw-bold">🚛 Доставка в Назарово — 96 часов</h3>
+        <p>Мы доставляем замороженную халяль выпечку в Назарово собственным транспортом. Отгрузка со склада в Казани. Минимальная партия — 20 кг. Температурный режим -18°C сохраняется на всём маршруте. Возможна доставка до вашего склада или точки общепита.</p>
+        <p class="mb-0"><strong>График отгрузок:</strong> еженедельно, точное расписание согласовывается после заявки.</p>
+      </div>
+      <div class="col-md-5 d-flex align-items-center">
+        <ul class="list-unstyled mb-0">
+          <li class="mb-2">✔️ Замороженные полуфабрикаты</li>
+          <li class="mb-2">✔️ Готовая продукция (разогрев)</li>
+          <li class="mb-2">✔️ Профессиональная упаковка</li>
+          <li class="mb-2">✔️ Ветеринарные документы</li>
+          <li class="mb-0">✔️ Халяль сертификат ДУМ РТ</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Контакты (строго указанные) -->
+    <div class="row mt-4 pt-3 border-top">
+      <div class="col-12 text-center text-muted small">
+        <p>ООО «Казань Деликатес» | <a href="tel:+79872170202" class="text-decoration-none">+7 987 217-02-02</a> | <a href="mailto:info@kazandelikates.tatar" class="text-decoration-none">info@kazandelikates.tatar</a> | г. Казань, ул. Аграрная, 2, оф. 7</p>
+        <p class="mb-0">© 2025 — халяль выпечка оптом. Вся продукция сертифицирована.</p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Bootstrap JS для аккордеона и пр. -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Nazarovo:</h6>
+    <div><a href="/geo/pepperoni-nazarovo/" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiki-dlya-hotdog-nazarovo/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiki-v-teste-nazarovo/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-nazarovo/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+  </div>
+</section>
+
+</body>
+</html>
