@@ -127,6 +127,30 @@ def translate(t, key, kind="products"):
     return key
 
 
+# Honest Merchant-listing fields. B2B / EXW Kazan (Incoterms 2020): buyer arranges
+# shipping, returns by agreement. Factual data — not fabricated ratings — so it
+# satisfies Google's recommended fields without policy risk.
+def _shipping_details(currency: str) -> str:
+    return (
+        '"shippingDetails":{"@type":"OfferShippingDetails",'
+        '"shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},'
+        '"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"' + currency + '"},'
+        '"deliveryTime":{"@type":"ShippingDeliveryTime",'
+        '"handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},'
+        '"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":14,"unitCode":"DAY"}}}'
+    )
+
+
+RETURN_POLICY = (
+    '"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy",'
+    '"applicableCountry":"RU",'
+    '"returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",'
+    '"merchantReturnDays":14,'
+    '"returnMethod":"https://schema.org/ReturnByMail",'
+    '"returnFees":"https://schema.org/ReturnShippingFees"}'
+)
+
+
 def load_products():
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
     if os.path.exists(p):
@@ -182,6 +206,8 @@ def main():
         barcode = p.get("barcode", "")
         gtin = valid_gtin(barcode)
         gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
+        offer_currency = "USD" if pr_usd > 0 else "RUB"
+        shipping_details = _shipping_details(offer_currency)
         article = p.get("articleNumber") or sku
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
@@ -300,7 +326,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{shipping_details},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}

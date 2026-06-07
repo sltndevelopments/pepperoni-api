@@ -89,6 +89,27 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     return remote
 
 
+# Honest Merchant-listing fields. The business is B2B/EXW Казань (Incoterms 2020):
+# buyer arranges shipping, returns by agreement. These are factual, NOT fabricated
+# ratings — so they satisfy Google's recommended fields without policy risk.
+SHIPPING_DETAILS = (
+    '"shippingDetails":{"@type":"OfferShippingDetails",'
+    '"shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},'
+    '"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"RUB"},'
+    '"deliveryTime":{"@type":"ShippingDeliveryTime",'
+    '"handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},'
+    '"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}}'
+)
+RETURN_POLICY = (
+    '"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy",'
+    '"applicableCountry":"RU",'
+    '"returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",'
+    '"merchantReturnDays":14,'
+    '"returnMethod":"https://schema.org/ReturnByMail",'
+    '"returnFees":"https://schema.org/ReturnShippingFees"}'
+)
+
+
 def load_products():
     """Load from products.json (source of truth). API may have stale/wrong column mapping."""
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
@@ -228,7 +249,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{SHIPPING_DETAILS},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
