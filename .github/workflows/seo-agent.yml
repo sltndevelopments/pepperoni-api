@@ -164,11 +164,29 @@ jobs:
           git add public/pepperoni.html 2>/dev/null || true
           # Product card updates
           git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
+          # Guard: never commit unresolved merge-conflict markers into prod.
+          if git diff --cached --name-only -z | xargs -0 -r grep -lE '^(<{7}|={7}|>{7})( |$)' 2>/dev/null; then
+            echo "::error::Merge-conflict markers detected in staged files — aborting commit."
+            git reset
+            exit 1
+          fi
           if ! git diff --cached --quiet; then
             COUNT=$(git diff --cached --name-only | wc -l)
             git commit -m "chore(seo): auto-generate content $(date +%Y-%m-%d) — ${COUNT} files"
-            git push origin main
-            echo "✅ Pushed ${COUNT} files"
+            # Rebase onto latest main and retry push to survive races with manual pushes.
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase --no-edit origin main || {
+                echo "::error::Rebase hit a conflict — aborting to avoid pushing broken files.";
+                git rebase --abort 2>/dev/null || true;
+                exit 1;
+              }
+              if git push origin main; then
+                echo "✅ Pushed ${COUNT} files (attempt ${attempt})"
+                break
+              fi
+              echo "Push rejected (race), retrying… (${attempt}/5)"
+              sleep $((attempt * 3))
+            done
           else
             echo "No changes to commit"
           fi

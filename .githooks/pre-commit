@@ -1,0 +1,15 @@
+#!/bin/sh
+# Block commits that contain unresolved merge-conflict markers.
+# Enable once per clone with:  git config core.hooksPath .githooks
+
+markers=$(git diff --cached --name-only -z --diff-filter=ACM \
+  | xargs -0 -r grep -lE '^(<{7}|={7}|>{7})( |$)' 2>/dev/null)
+
+if [ -n "$markers" ]; then
+  echo "✖ Commit aborted: merge-conflict markers found in:"
+  echo "$markers" | sed 's/^/   /'
+  echo "Resolve the conflicts (remove <<<<<<< ======= >>>>>>>) before committing."
+  exit 1
+fi
+
+exit 0
