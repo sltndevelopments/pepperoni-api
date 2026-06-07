@@ -2,6 +2,80 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://pepperoni.tatar/oem</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/oem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/oem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/oem"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/private-label</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/private-label"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/private-label"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/private-label"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/oem/meat</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/oem/raw-meat</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/oem/toppings</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/oem/bakery</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/oem/pastry</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/private-label</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/capabilities</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/cases</loc>
+    <lastmod>2026-06-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url><loc>https://pepperoni.tatar/en/oem</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.80</priority></url>
+  <url><loc>https://pepperoni.tatar/en/oem/meat</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/oem/raw-meat</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/oem/toppings</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/oem/bakery</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/oem/pastry</loc><lastmod>2026-06-07</lastmod><changefreq>weekly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/capabilities</loc><lastmod>2026-06-07</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url><loc>https://pepperoni.tatar/en/cases</loc><lastmod>2026-06-07</lastmod><changefreq>monthly</changefreq><priority>0.70</priority></url>
+  <url>
     <loc>https://pepperoni.tatar/</loc>
     <lastmod>2026-06-07</lastmod>
     <changefreq>weekly</changefreq>
