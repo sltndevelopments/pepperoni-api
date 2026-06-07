@@ -77,12 +77,14 @@ def is_complete(text: str) -> bool:
     return "</html>" in text.lower()
 
 
-def iter_geo_html_files() -> list[Path]:
+def iter_html_files(scopes: list[str]) -> list[Path]:
+    """scopes: dir names to match against any path part, e.g. ['geo','blog'].
+    Empty scopes = all html under public/."""
     files: list[Path] = []
     if not PUBLIC.is_dir():
         return files
     for path in sorted(PUBLIC.rglob("*.html")):
-        if path.parent.name == "geo":
+        if not scopes or any(part in scopes for part in path.parts):
             files.append(path)
     return files
 
@@ -91,9 +93,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Repair truncated geo HTML pages")
     parser.add_argument("--dry-run", action="store_true", help="Count only, do not write")
     parser.add_argument("--limit", type=int, default=0, help="Max files to repair (0 = all)")
+    parser.add_argument("--scope", nargs="*", default=["geo"],
+                        help="Dir names to repair (e.g. geo blog). Empty = whole site.")
     args = parser.parse_args()
 
-    files = iter_geo_html_files()
+    files = iter_html_files(args.scope)
     scanned = 0
     skipped_ok = 0
     repaired = 0
