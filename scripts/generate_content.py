@@ -28,7 +28,7 @@ from seo_db import get_conn, init_db
 from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
-MAX_TOKENS   = 4096
+MAX_TOKENS   = 8000   # full HTML pages need headroom; 4096 truncated long pages
 MAX_ARTICLES = int(os.environ.get("MAX_ARTICLES", "3"))
 MAX_TITLES   = int(os.environ.get("MAX_TITLES",   "10"))
 MAX_TYPEGEO  = int(os.environ.get("MAX_TYPEGEO",  "3"))
@@ -283,6 +283,49 @@ def call_claude(system: str, prompt: str) -> tuple[str, int]:
     return _claude(prompt, system=system, max_tokens=MAX_TOKENS)
 
 
+_FALLBACK_FOOTER = (
+    '\n<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff">'
+    '<div class="container">'
+    '<p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной '
+    'мясной продукции и татарской выпечки в Казани.</p>'
+    '<p class="small mb-0">'
+    '<a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · '
+    'info@kazandelikates.tatar · +7 987 217-02-02</p>'
+    '</div></footer>\n'
+)
+
+
+def ensure_complete_html(html: str) -> str:
+    """Close a page that the model left truncated (no </body></html>)."""
+    html = (html or "").rstrip()
+    low = html.lower()
+    if "</body>" in low and "</html>" in low:
+        return html
+
+    lines = html.split("\n")
+    if lines and lines[-1].count("<") > lines[-1].count(">"):
+        html = "\n".join(lines[:-1]).rstrip()
+        low = html.lower()
+
+    if "<body" in low and "</body>" not in low:
+        if "<main" in low and "</main>" not in low:
+            html += "\n</main>"
+        if "</footer>" not in low:
+            html += _FALLBACK_FOOTER
+        html += "\n</body>"
+    if "</html>" not in html.lower():
+        html += "\n</html>"
+    return html + "\n"
+
+
+def is_valid_page(html: str) -> bool:
+    """Reject pages too broken to publish (truncated or with conflict markers)."""
+    if any(m in html for m in ("<<<<<<<", "=======\n", ">>>>>>>")):
+        return False
+    low = html.lower()
+    return ("</head>" in low) and ("<h1" in low) and ("</html>" in low)
+
+
 # ---------- Internal linking helper ----------
 
 def get_related_geo_links(current_slug: str, product_prefix: str, count: int = 4) -> str:
@@ -368,6 +411,7 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
@@ -400,6 +444,7 @@ Requirements:
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
@@ -467,6 +512,7 @@ def generate_faq_page(faq: dict) -> tuple[Path, int]:
     else:
         out_path = PUBLIC_DIR / "en" / "faq" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, 0
 
@@ -529,6 +575,7 @@ Requirements:
     else:
         out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
@@ -566,6 +613,7 @@ def generate_type_geo_page(type_slug: str, type_ru: str, type_en: str,
 
     out_path = PUBLIC_DIR / "geo" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
@@ -628,6 +676,7 @@ def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
 
     out_path = PUBLIC_DIR / "geo" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
+    html = ensure_complete_html(html)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 

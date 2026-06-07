@@ -386,6 +386,80 @@ def clean_html(html: str) -> str:
     return html.strip()
 
 
+# Footer appended when the model omitted/truncated the page tail. Keeps every
+# page self-contained and valid even if generation ran into the token limit.
+_FALLBACK_FOOTER = (
+    '\n<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff">'
+    '<div class="container">'
+    '<p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной '
+    'мясной продукции и татарской выпечки в Казани.</p>'
+    '<p class="small mb-0">'
+    '<a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · '
+    'info@kazandelikates.tatar · +7 987 217-02-02</p>'
+    '</div></footer>\n'
+)
+
+
+def ensure_complete_html(html: str) -> str:
+    """Guarantee the page is structurally closed.
+
+    The model occasionally hits the token limit and returns HTML truncated
+    mid-tag (no </body></html>, sometimes mid-element). We trim any dangling
+    final line and append the closing tags so the page is always valid.
+    """
+    html = html.rstrip()
+
+    has_body_open = "<body" in html.lower()
+    has_body_close = "</body>" in html.lower()
+    has_html_close = "</html>" in html.lower()
+
+    if has_body_close and has_html_close:
+        return html  # already complete
+
+    # If truncated, the last line is likely a half-written tag/sentence.
+    # Drop it only when it looks unterminated (open '<' without matching '>').
+    lines = html.split("\n")
+    if lines:
+        last = lines[-1]
+        opens = last.count("<")
+        closes = last.count(">")
+        if opens > closes:
+            lines = lines[:-1]
+            html = "\n".join(lines).rstrip()
+
+    if has_body_open and not has_body_close:
+        # Close an opened (but unclosed) <main> if present.
+        if "<main" in html.lower() and "</main>" not in html.lower():
+            html += "\n</main>"
+        if "</footer>" not in html.lower():
+            html += _FALLBACK_FOOTER
+        html += "\n</body>"
+
+    if not has_html_close:
+        html += "\n</html>"
+
+    return html + "\n"
+
+
+def is_valid_page(html: str) -> bool:
+    """Reject pages that are too broken to publish.
+
+    A page is publishable when it has a real <head>, a heading, and (after
+    ensure_complete_html) a closing </html>. Also reject leftover conflict
+    markers as a last line of defense.
+    """
+    low = html.lower()
+    if any(m in html for m in ("<<<<<<<", "=======\n", ">>>>>>>")):
+        return False
+    if "</head>" not in low:
+        return False
+    if "<h1" not in low:
+        return False
+    if "</html>" not in low:
+        return False
+    return True
+
+
 def inject_internal_links(html: str, product_id: str, city_slug: str, lang: str) -> str:
     """Append related pages section before </body>."""
     related = []
@@ -465,9 +539,17 @@ def generate_one_page(task: dict) -> dict:
     try:
         time.sleep(SLEEP_BETWEEN_CALLS + random.uniform(0, 0.5))
         prompt = build_prompt(product, city_name, city_context, lang, template_id, country_name)
-        html_content, tokens = call_claude(prompt, max_tokens=4000)
+        # 8000 tokens: a full geo page (head + 6 cards + cert table + FAQ + CTA
+        # + schema) runs ~5–7k tokens; 4000 truncated long pages mid-tag.
+        html_content, tokens = call_claude(prompt, max_tokens=8000)
         html_content = clean_html(html_content)
+        # Close/repair the tail BEFORE injecting links so the </body> anchor exists.
+        html_content = ensure_complete_html(html_content)
         html_content = inject_internal_links(html_content, product["id"], city_slug, lang)
+
+        if not is_valid_page(html_content):
+            return {"status": "error", "slug": page_slug,
+                    "error": "incomplete/invalid HTML — not saved"}
 
         file_path.write_text(html_content, encoding="utf-8")
         save_page_record(page_slug, product["id"], city_slug, country_code,
