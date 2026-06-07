@@ -6,58 +6,218 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options", "value": "DENY" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Content-Security-Policy", "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://googletagmanager.com https://mc.yandex.ru https://mc.yandex.com https://yastatic.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.pepperoni.tatar https://www.google-analytics.com https://mc.yandex.ru https://mc.yandex.com https://yandex.ru https://formspree.io; form-action 'self' https://api.pepperoni.tatar; frame-src https://www.googletagmanager.com;" }
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://googletagmanager.com https://mc.yandex.ru https://mc.yandex.com https://yastatic.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://api.pepperoni.tatar https://www.google-analytics.com https://mc.yandex.ru https://mc.yandex.com https://yandex.ru https://formspree.io; form-action 'self' https://api.pepperoni.tatar; frame-src https://www.googletagmanager.com;"
+        }
       ]
     },
     {
       "source": "/search",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
       ]
     },
     {
       "source": "/china",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
       ]
     },
     {
       "source": "/en/search",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, follow" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, follow"
+        }
       ]
     },
     {
       "source": "/products/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" },
-        { "key": "Pragma", "value": "no-cache" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        }
       ]
     },
     {
       "source": "/en/products/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate, max-age=0" },
-        { "key": "Pragma", "value": "no-cache" }
+        {
+          "key": "Cache-Control",
+          "value": "no-cache, no-store, must-revalidate, max-age=0"
+        },
+        {
+          "key": "Pragma",
+          "value": "no-cache"
+        }
       ]
     }
   ],
   "redirects": [
-    { "source": "/wholesale-price-list.md", "destination": "/wholesale-price-list.txt", "permanent": true },
-    { "source": "/wholesale-price-list-ru.md", "destination": "/wholesale-price-list-ru.txt", "permanent": true },
-    { "source": "/pepperoni-dlya-azs", "destination": "/dlya-azs", "permanent": true },
-    { "source": "/pepperoni-private-label", "destination": "/private-label", "permanent": true },
-    { "source": "/private-label/private-label-vypechka-optom", "destination": "/private-label", "permanent": true },
-    { "source": "/pepperoni-dlya-pekaren", "destination": "/dlya-pekaren", "permanent": true },
-    { "source": "/pepperoni-dlya-setey", "destination": "/dlya-setey", "permanent": true },
-    { "source": "/pepperoni-dlya-horeca", "destination": "/dlya-horeca", "permanent": true },
-    { "source": "/pepperoni-dlya-distribyutorov", "destination": "/dlya-distributorov", "permanent": true }
+    {
+      "source": "/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/en/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/en/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ar/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/ar/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/kk/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/kk/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/uz/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/uz/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ky/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/ky/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/tg/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/tg/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/az/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/az/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ka/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/ka/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/mn/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/mn/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ro/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/ro/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/hy/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/hy/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/be/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/be/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/fr/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/fr/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/id/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/id/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/ms/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/ms/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/tr/geo/:slug(.*)-:variant(b|c|d|f)",
+      "destination": "/tr/geo/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/wholesale-price-list.md",
+      "destination": "/wholesale-price-list.txt",
+      "permanent": true
+    },
+    {
+      "source": "/wholesale-price-list-ru.md",
+      "destination": "/wholesale-price-list-ru.txt",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-dlya-azs",
+      "destination": "/dlya-azs",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-private-label",
+      "destination": "/private-label",
+      "permanent": true
+    },
+    {
+      "source": "/private-label/private-label-vypechka-optom",
+      "destination": "/private-label",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-dlya-pekaren",
+      "destination": "/dlya-pekaren",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-dlya-setey",
+      "destination": "/dlya-setey",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-dlya-horeca",
+      "destination": "/dlya-horeca",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-dlya-distribyutorov",
+      "destination": "/dlya-distributorov",
+      "permanent": true
+    }
   ],
   "rewrites": [
-    { "source": "/llms.html", "destination": "/llms-page.html" },
-    { "source": "/llms", "destination": "/llms-page.html" }
+    {
+      "source": "/llms.html",
+      "destination": "/llms-page.html"
+    },
+    {
+      "source": "/llms",
+      "destination": "/llms-page.html"
+    }
   ]
 }
