@@ -256,8 +256,12 @@ def main():
         print(f"⚠️ snapshot write failed: {e}", file=sys.stderr)
 
     report = build_report(local, gsc if gsc else {"error": "skipped"})
-    print(report.replace("<b>", "").replace("</b>", "")
-                .replace("<i>", "").replace("</i>", ""))
+    if "--raw-report" in args:
+        # Emit HTML-formatted report for the Telegram bot to forward verbatim.
+        print(report)
+    else:
+        print(report.replace("<b>", "").replace("</b>", "")
+                    .replace("<i>", "").replace("</i>", ""))
 
     if "--no-telegram" not in args:
         # Only ping Telegram if there is something worth reporting, OR always on

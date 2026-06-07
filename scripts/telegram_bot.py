@@ -101,6 +101,7 @@ MAIN_MENU = [
     ["📊 Статус", "💰 Бюджет"],
     ["🚀 Запустить генерацию", "📜 История"],
     ["🧠 Спросить мозг", "📋 Стратегия"],
+    ["🩺 SEO здоровье"],
 ]
 
 
@@ -206,6 +207,25 @@ def action_history() -> str:
         ts = e.get("ts", "")[:16].replace("T", " ")
         lines.append(f"• [{ts}] {e.get('kind')}: {e.get('text','')[:90]}")
     return "\n".join(lines)
+
+
+def action_seo_health() -> str:
+    """Run the SEO health monitor on demand and return its report inline.
+
+    Uses --no-telegram so the result comes back here instead of broadcasting,
+    and --always so we still show a clean ✅ even when there are no issues."""
+    try:
+        out = subprocess.run(
+            ["python3", str(ROOT / "scripts" / "monitor_seo_health.py"),
+             "--no-telegram", "--raw-report"],
+            capture_output=True, text=True, timeout=180,
+        )
+        text = (out.stdout or "").strip()
+        return text or "🩺 Проверка завершена, отчёт пуст. См. логи."
+    except subprocess.TimeoutExpired:
+        return "🩺 Проверка идёт дольше обычного — результат будет в логах."
+    except Exception as e:
+        return f"🩺 Не удалось запустить проверку: {e}"
 
 
 def action_run_generation(chat_id: int) -> str:
@@ -351,6 +371,9 @@ def handle_message(msg: dict) -> None:
         send(chat_id, action_history(), keyboard=MAIN_MENU)
     elif text in ("🚀 Запустить генерацию", "/run", "запустить"):
         send(chat_id, action_run_generation(chat_id), keyboard=MAIN_MENU)
+    elif text in ("🩺 SEO здоровье", "/health", "здоровье"):
+        send(chat_id, "🩺 Проверяю структурированные данные…")
+        send(chat_id, action_seo_health(), keyboard=MAIN_MENU)
     elif text in ("🧠 Спросить мозг", "/ask"):
         set_pending(chat_id, "ask_brain_prompt", "")
         send(chat_id, "Напиши вопрос — отвечу через Sonnet (дёшево). "
