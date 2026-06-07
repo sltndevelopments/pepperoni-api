@@ -590,8 +590,10 @@ def build_task_queue(
             for lang in country_langs:
                 if langs and lang not in langs:
                     continue
-                # Rotate templates — each combo gets a unique template
-                template_id = random.choice(["A", "B", "C", "D", "F"])
+                # One canonical page per product×city. Template variants
+                # (-b/-c/-d/-f) were self-canonicalizing duplicates with 0 clicks
+                # in GSC, so we only ever emit the base template "A".
+                template_id = "A"
                 lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
                 tasks.append({
                     "product": product,
@@ -627,7 +629,7 @@ def build_task_queue(
                     for product in PRODUCTS:
                         if product_ids and product["id"] not in product_ids:
                             continue
-                        template_id = random.choice(["A", "C", "D"])
+                        template_id = "A"  # base only — no duplicate variants
                         tasks.append({
                             "product": product,
                             "city_slug": city["slug"],
