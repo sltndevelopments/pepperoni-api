@@ -1,0 +1,85 @@
+name: SEO Audit (temp, manual only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Fetch GSC queries
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/fetch_gsc_queries.py
+
+      - name: Fetch Yandex queries
+        env:
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: python scripts/fetch_yandex_queries.py
+        continue-on-error: true
+
+      - name: Analyze real traffic by URL section
+        run: |
+          python3 - <<'PY'
+          import sqlite3, collections, re
+          db = "data/seo_data.db"
+          c = sqlite3.connect(db); c.row_factory = sqlite3.Row
+          # discover tables
+          tabs = [r[0] for r in c.execute("SELECT name FROM sqlite_master WHERE type='table'")]
+          print("TABLES:", tabs)
+          for t in tabs:
+              cols = [r[1] for r in c.execute(f"PRAGMA table_info({t})")]
+              n = c.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
+              print(f"  {t}: {n} rows | cols={cols}")
+
+          def section(url):
+              u = url or ""
+              u = re.sub(r"^https?://[^/]+", "", u)
+              if "/geo/" in u:
+                  # variant vs base
+                  last = u.rstrip("/").split("/")[-1]
+                  return "geo-variant" if re.search(r"-[bcdf]$", last) else "geo-base"
+              for s in ("/oem","/private-label","/capabilities","/cases"):
+                  if u.startswith(s) or u.startswith("/en"+s): return "oem-b2b"
+              if "/products/" in u: return "products"
+              if "/blog/" in u: return "blog"
+              if "/faq" in u: return "faq"
+              if u in ("/","/en/","/en"): return "home"
+              return "other"
+
+          # GSC table heuristics: has page, clicks, impressions
+          gtab = next((t for t in tabs if 'gsc' in t.lower()), None) or next((t for t in tabs if 'page' in [r[1] for r in c.execute(f"PRAGMA table_info({t})")] and 'impressions' in [r[1] for r in c.execute(f"PRAGMA table_info({t})")]), None)
+          print("\n=== GSC table chosen:", gtab, "===")
+          if gtab:
+              agg = collections.defaultdict(lambda: [0,0,set()])  # clicks, impr, pages
+              for r in c.execute(f"SELECT page, clicks, impressions FROM {gtab}"):
+                  s = section(r["page"])
+                  agg[s][0]+=r["clicks"] or 0; agg[s][1]+=r["impressions"] or 0; agg[s][2].add(r["page"])
+              print(f"{'section':14} {'clicks':>8} {'impr':>10} {'urls':>7}")
+              tot_c=tot_i=0
+              for s,(cl,im,pp) in sorted(agg.items(), key=lambda x:-x[1][1]):
+                  print(f"{s:14} {cl:>8} {im:>10} {len(pp):>7}"); tot_c+=cl; tot_i+=im
+              print(f"{'TOTAL':14} {tot_c:>8} {tot_i:>10}")
+              # top 15 geo pages by impressions
+              print("\n=== TOP 20 pages by impressions ===")
+              page_agg = collections.defaultdict(lambda:[0,0])
+              for r in c.execute(f"SELECT page, clicks, impressions FROM {gtab}"):
+                  page_agg[r["page"]][0]+=r["clicks"] or 0; page_agg[r["page"]][1]+=r["impressions"] or 0
+              for url,(cl,im) in sorted(page_agg.items(), key=lambda x:-x[1][1])[:20]:
+                  print(f"  {im:>6} impr {cl:>4} clk  {url}")
+              # how many distinct geo pages have ANY impression
+              geo_pages = {u for u in page_agg if "/geo/" in (u or "")}
+              geo_with_impr = {u for u in geo_pages if page_agg[u][1]>0}
+              print(f"\n=== GEO REALITY ===")
+              print(f"distinct geo URLs with >=1 impression (28d): {len(geo_with_impr)}")
+              print(f"distinct geo URLs with >=1 click (28d): {len({u for u in geo_pages if page_agg[u][0]>0})}")
+          PY
