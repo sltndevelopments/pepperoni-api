@@ -12,6 +12,19 @@ TRANSLATIONS_JSON = "scripts/translations.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
 
+def valid_gtin(barcode):
+    """Return a clean GTIN-8/12/13/14 string if valid (correct length + check
+    digit), else "". Prevents Google "Invalid GTIN" structured-data errors."""
+    s = str(barcode or "").strip()
+    if not s or not s.isdigit() or len(s) not in (8, 12, 13, 14):
+        return ""
+    digits = [int(c) for c in s]
+    check = digits[-1]
+    body = digits[:-1][::-1]
+    total = sum(d * (3 if i % 2 == 0 else 1) for i, d in enumerate(body))
+    return s if (10 - (total % 10)) % 10 == check else ""
+
+
 def truncate_meta(text, max_len=160, min_len=150):
     """Truncate text for meta description: 150–160 chars, word boundary,
     prefer sentence boundary if within ±20 chars. Appends … when cut."""
@@ -167,6 +180,8 @@ def main():
         seo_desc_esc = seo_desc.replace("\\", "\\\\").replace('"', '\\"')
         category_esc = (category or "").replace("\\", "\\\\").replace('"', '\\"')
         barcode = p.get("barcode", "")
+        gtin = valid_gtin(barcode)
+        gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
         article = p.get("articleNumber") or sku
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
@@ -285,7 +300,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}","gtin13":"{barcode}","mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}

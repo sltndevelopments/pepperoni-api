@@ -20,6 +20,20 @@ def html_esc(s):
     return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
 
 
+def valid_gtin(barcode):
+    """Return a clean GTIN-8/12/13/14 string if valid (correct length + check
+    digit), else "". Prevents Google "Invalid GTIN" structured-data errors from
+    empty / scientific-notation / bad-checksum barcodes coming from the Sheet."""
+    s = str(barcode or "").strip()
+    if not s or not s.isdigit() or len(s) not in (8, 12, 13, 14):
+        return ""
+    digits = [int(c) for c in s]
+    check = digits[-1]
+    body = digits[:-1][::-1]
+    total = sum(d * (3 if i % 2 == 0 else 1) for i, d in enumerate(body))
+    return s if (10 - (total % 10)) % 10 == check else ""
+
+
 def cleanse_ingredients(text: str) -> str:
     """Replace sodium nitrite references so Google doesn't false-positive the page."""
     if not text:
@@ -108,6 +122,8 @@ def main():
             seo_desc = (seo_desc + " Каталог халяль продукции. Экспорт, опт, Private Label.")
         seo_desc = seo_desc[:160].replace('"', "&quot;")
         barcode = p.get("barcode", "")
+        gtin = valid_gtin(barcode)
+        gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
         article = p.get("articleNumber") or p["sku"]
 
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
@@ -212,7 +228,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}","gtin13":"{barcode}","mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31"}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
