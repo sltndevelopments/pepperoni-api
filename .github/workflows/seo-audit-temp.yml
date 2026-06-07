@@ -1,0 +1,71 @@
+name: SEO Audit (temp, manual only)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: pip install cryptography
+      - name: Fetch GSC queries
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/fetch_gsc_queries.py
+      - name: Blog analysis
+        run: |
+          python3 - <<'PY'
+          import sqlite3, collections, re
+          c = sqlite3.connect("data/seo_data.db"); c.row_factory = sqlite3.Row
+          rows = list(c.execute("SELECT query,page,clicks,impressions,ctr,position FROM gsc_queries"))
+
+          def is_blog(u): return "/blog/" in (u or "")
+
+          # Per-blog-page aggregate (weighted position by impressions)
+          pg = collections.defaultdict(lambda:[0,0,0.0,0])  # clk, impr, pos*impr, n
+          for r in rows:
+              if not is_blog(r["page"]): continue
+              a=pg[r["page"]]; a[0]+=r["clicks"] or 0; a[1]+=r["impressions"] or 0
+              a[2]+=(r["position"] or 0)*(r["impressions"] or 0); a[3]+=1
+
+          print("=== BLOG PAGES: impressions, clicks, ctr%, avg_pos ===")
+          print(f"{'impr':>6} {'clk':>4} {'ctr%':>6} {'pos':>6}  url")
+          for url,(clk,impr,pw,n) in sorted(pg.items(), key=lambda x:-x[1][1])[:40]:
+              pos = pw/impr if impr else 0
+              ctr = 100*clk/impr if impr else 0
+              print(f"{impr:>6} {clk:>4} {ctr:>6.1f} {pos:>6.1f}  {url.replace('https://pepperoni.tatar','')}")
+
+          # High-impression, zero-click pages (title/snippet problem)
+          print("\n=== ZERO-CLICK blog pages with >=40 impressions (fix title/meta) ===")
+          for url,(clk,impr,pw,n) in sorted(pg.items(), key=lambda x:-x[1][1]):
+              if clk==0 and impr>=40:
+                  print(f"  {impr:>5} impr  pos {pw/impr:>4.1f}  {url.replace('https://pepperoni.tatar','')}")
+
+          # Near-page-1 queries (position 4-20) on blog — quick win to push up
+          print("\n=== BLOG QUERIES at position 4-20 (near win), by impressions ===")
+          q = collections.defaultdict(lambda:[0,0,0.0,0,set()])
+          for r in rows:
+              if not is_blog(r["page"]): continue
+              k=r["query"]; a=q[k]; a[0]+=r["clicks"] or 0; a[1]+=r["impressions"] or 0
+              a[2]+=(r["position"] or 0)*(r["impressions"] or 0); a[3]+=1; a[4].add(r["page"])
+          cand=[]
+          for query,(clk,impr,pw,n,pages) in q.items():
+              pos=pw/impr if impr else 0
+              if 4<=pos<=20 and impr>=10: cand.append((impr,pos,clk,query,list(pages)[0]))
+          for impr,pos,clk,query,page in sorted(cand,key=lambda x:-x[0])[:25]:
+              print(f"  {impr:>4} impr pos {pos:>4.1f} clk {clk}  «{query}» -> {page.replace('https://pepperoni.tatar','')}")
+
+          # Top blog queries overall (what drives impressions)
+          print("\n=== TOP 20 blog queries by impressions ===")
+          for query,(clk,impr,pw,n,pages) in sorted(q.items(), key=lambda x:-x[1][1])[:20]:
+              pos=pw/impr if impr else 0
+              print(f"  {impr:>4} impr clk {clk} pos {pos:>4.1f}  «{query}»")
+          PY
