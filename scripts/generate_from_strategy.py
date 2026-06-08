@@ -147,8 +147,8 @@ Requirements:
 
 
 def main():
-    if not os.environ.get("DEEPSEEK_API_KEY"):
-        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
+    if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")):
+        print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         return 1
     strat = load_strategy()
     if not strat:

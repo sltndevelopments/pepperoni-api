@@ -16,44 +16,19 @@ import urllib.request
 import urllib.error
 from pathlib import Path
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from claude_client import call_claude as _call_claude, ANTHROPIC_API_KEY
+
 PUBLIC     = Path(__file__).parent.parent / "public"
-API_KEY    = os.environ.get("DEEPSEEK_API_KEY", "")
-MODEL      = "deepseek-v4-pro"
+API_KEY    = ANTHROPIC_API_KEY
 MAX_TOKENS = 800
 
 
 def call_claude(system: str, prompt: str) -> str:
     if not API_KEY:
-        raise RuntimeError("DEEPSEEK_API_KEY not set")
-    messages = []
-    if system:
-        messages.append({"role": "system", "content": system})
-    messages.append({"role": "user", "content": prompt})
-    body = json.dumps({
-        "model": MODEL,
-        "max_tokens": MAX_TOKENS,
-        "messages": messages,
-        "temperature": 0.7,
-    }).encode()
-    req = urllib.request.Request(
-        "https://api.deepseek.com/v1/chat/completions",
-        data=body,
-        headers={
-            "Authorization": f"Bearer {API_KEY}",
-            "Content-Type": "application/json",
-        },
-    )
-    for attempt in range(3):
-        try:
-            with urllib.request.urlopen(req, timeout=45) as r:
-                data = json.loads(r.read())
-                return data["choices"][0]["message"]["content"].strip()
-        except urllib.error.HTTPError as e:
-            if e.code == 529 or e.code == 429:
-                time.sleep(30)
-                continue
-            raise
-    raise RuntimeError("DeepSeek API failed after 3 attempts")
+        raise RuntimeError("ANTHROPIC_API_KEY not set")
+    text, _ = _call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    return text.strip()
 
 
 def extract_text(html: str, max_chars: int = 3000) -> str:

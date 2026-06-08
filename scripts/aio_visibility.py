@@ -135,7 +135,7 @@ def _score(items: list) -> float:
 
 def main():
     if not DEEPSEEK_API_KEY:
-        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
+        print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         return 1
 
     print(f"🤖 AIO-visibility: asking {len(QUESTIONS)} profile questions "

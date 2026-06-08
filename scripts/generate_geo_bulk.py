@@ -26,13 +26,12 @@ PUBLIC = ROOT / "public"
 DB_PATH = DATA / "seo_data.db"
 
 # ── API ───────────────────────────────────────────────────────────────────────
-DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+DEEPSEEK_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "") or os.environ.get("DEEPSEEK_API_KEY", "")
 from importlib import import_module as _im
 try:
-    DEEPSEEK_MODEL = _im("claude_client").DEFAULT_MODEL  # deepseek-v4-flash
+    DEEPSEEK_MODEL = _im("claude_client").DEFAULT_MODEL  # claude-sonnet-4-6
 except Exception:
-    DEEPSEEK_MODEL = "deepseek-v4-flash"
-DEEPSEEK_ENDPOINT = "https://api.deepseek.com/v1/chat/completions"
+    DEEPSEEK_MODEL = "claude-sonnet-4-6"
 
 # ── Limits ────────────────────────────────────────────────────────────────────
 MAX_PAGES_PER_RUN = int(os.environ.get("MAX_GEO_PAGES", "100"))
@@ -694,7 +693,7 @@ def main():
     args = parser.parse_args()
 
     if not DEEPSEEK_API_KEY:
-        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
+        print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     strat = {} if args.ignore_strategy else load_strategy()

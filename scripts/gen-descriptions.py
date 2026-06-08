@@ -39,11 +39,18 @@ FIELDS = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsE
 
 SYSTEM = (
     "Ты — контент-маркетолог и технолог пищевого производства компании "
-    "«Казанские Деликатесы» (pepperoni.tatar) — производителя халяльных мясных "
+    "«Казанские Деликатесы» (pepperoni.tatar) — производителя ХАЛЯЛЬНЫХ мясных "
     "изделий и татарской выпечки из Казани. Пишешь точные, аппетитные и при этом "
     "достоверные описания товаров. Не выдумывай сертификаты, ГОСТы или цифры, "
-    "которых нет во входных данных. Состав описывай типичный для данного вида "
-    "продукции, без точных процентов."
+    "которых нет во входных данных. "
+    "КРИТИЧЕСКИ ВАЖНО (халяль): продукция НЕ содержит свинины, сала, шпика, "
+    "бекона, желатина животного происхождения и алкоголя. Даже если для данного "
+    "вида продукта (пепперони, сервелат, салями и т.п.) классический рецепт "
+    "обычно свиной — здесь мясная основа ВСЕГДА говядина, мясо птицы или конина, "
+    "а жир — говяжий/курдючный. НИКОГДА не указывай свинину/шпик/pork/fatback/"
+    "bacon/lard в составе. Не пиши избыточные фразы вроде «без свинины» — халяль "
+    "это подразумевает. Состав описывай типичный для халяльного аналога, без "
+    "точных процентов."
 )
 
 
@@ -68,8 +75,8 @@ def build_prompt(p: dict) -> str:
 {{
   "seoDescriptionRU": "<краткий заголовок до 60 символов> | <SEO-подзаголовок до 70 символов> | <полное описание 280-400 символов: вкус, применение (HoReCa, опт, ретейл), польза, происхождение Казань/Татарстан, халяль>",
   "seoDescriptionEN": "<short headline up to 60 chars> | <SEO subheadline up to 70 chars> | <full description 280-400 chars: taste, use-cases, halal, made in Kazan>",
-  "ingredientsRU": "Состав: <типичный состав для этого вида продукции>. Аллергены: <если применимо>.",
-  "ingredientsEN": "Ingredients: <typical composition>. Allergens: <if applicable>."
+  "ingredientsRU": "Состав: <типичный ХАЛЯЛЬНЫЙ состав: говядина/мясо птицы/конина, говяжий жир — НЕ свинина и НЕ шпик>. Аллергены: <если применимо>.",
+  "ingredientsEN": "Ingredients: <typical HALAL composition: beef/poultry/horse meat, beef fat — NO pork, NO fatback/bacon>. Allergens: <if applicable>."
 }}
 Только валидный JSON в одну структуру."""
 
@@ -89,19 +96,19 @@ def parse_json(raw: str) -> dict | None:
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--api-key", default=os.environ.get("DEEPSEEK_API_KEY", ""))
+    ap.add_argument("--api-key", default=os.environ.get("ANTHROPIC_API_KEY", "") or os.environ.get("DEEPSEEK_API_KEY", ""))
     ap.add_argument("--only", default="", help="comma-separated SKUs")
     ap.add_argument("--force", action="store_true", help="regenerate even if present")
     ap.add_argument("--sleep", type=float, default=0.4)
     args = ap.parse_args()
 
     if args.api_key:
-        os.environ["DEEPSEEK_API_KEY"] = args.api_key
+        os.environ["ANTHROPIC_API_KEY"] = args.api_key
     # re-import key into client module
     import claude_client
-    claude_client.DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
-    if not claude_client.DEEPSEEK_API_KEY:
-        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
+    claude_client.ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+    if not claude_client.ANTHROPIC_API_KEY:
+        print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
     data = json.loads(PRODUCTS_JSON.read_text(encoding="utf-8"))
