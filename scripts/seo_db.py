@@ -86,10 +86,36 @@ def init_db():
             email_sent  INTEGER DEFAULT 0
         );
 
+        -- Closed-loop optimization: track every title/meta change and its effect.
+        -- The optimizer writes a row on apply (before_*), then a measure pass
+        -- fills after_* ~14 days later and sets a verdict. Regressions are reverted.
+        CREATE TABLE IF NOT EXISTS experiments (
+            id            INTEGER PRIMARY KEY AUTOINCREMENT,
+            applied_at    TEXT NOT NULL,
+            change_type   TEXT NOT NULL,           -- title_meta | content | internal_links
+            page          TEXT NOT NULL,           -- full URL
+            file_path     TEXT NOT NULL,           -- repo-relative path
+            query         TEXT,                    -- target query the change optimizes for
+            commit_sha    TEXT,                    -- git sha of the applying commit (for revert)
+            before_pos    REAL,
+            before_ctr    REAL,
+            before_impr   INTEGER,
+            before_title  TEXT,
+            after_title   TEXT,
+            measured_at   TEXT,                    -- when after_* was filled
+            after_pos     REAL,
+            after_ctr     REAL,
+            after_impr    INTEGER,
+            verdict       TEXT DEFAULT 'pending',  -- pending | win | neutral | regression | reverted
+            notes         TEXT
+        );
+
         CREATE INDEX IF NOT EXISTS idx_gsc_date   ON gsc_queries(date);
         CREATE INDEX IF NOT EXISTS idx_gsc_query  ON gsc_queries(query);
         CREATE INDEX IF NOT EXISTS idx_yandex_date ON yandex_queries(date);
         CREATE INDEX IF NOT EXISTS idx_opp_status ON opportunities(status);
+        CREATE INDEX IF NOT EXISTS idx_exp_verdict ON experiments(verdict);
+        CREATE INDEX IF NOT EXISTS idx_exp_page    ON experiments(page);
     """)
     conn.commit()
     conn.close()

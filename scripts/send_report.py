@@ -146,6 +146,23 @@ def gather_stats() -> dict:
     """).fetchone()
     stats["yandex_prev_7d"] = dict(ya_prev) if ya_prev else {}
 
+    # Optimizer experiments: applied today + verdict tallies (closed loop)
+    try:
+        applied_today = conn.execute(
+            "SELECT COUNT(*) c FROM experiments WHERE applied_at LIKE ?", (f"{today}%",)
+        ).fetchone()["c"]
+        verdicts = {r["verdict"]: r["c"] for r in conn.execute(
+            "SELECT verdict, COUNT(*) c FROM experiments GROUP BY verdict")}
+        pending = conn.execute(
+            "SELECT COUNT(*) c FROM experiments WHERE verdict='pending'").fetchone()["c"]
+        stats["experiments"] = {
+            "applied_today": applied_today,
+            "verdicts": verdicts,
+            "pending": pending,
+        }
+    except Exception:
+        stats["experiments"] = {}
+
     conn.close()
     return stats
 
@@ -229,6 +246,11 @@ CTR:            {gsc_ctr * 100:.2f}%  {_wow(gsc_ctr, gsc_prev.get('ctr'))}
 
 === СГЕНЕРИРОВАНО СЕГОДНЯ ===
 Контент: {gen.get('cnt', 0)} единиц, токенов AI: {gen.get('tokens', 0) or 0}
+
+=== ОПТИМИЗАТОР (замкнутый контур title/meta) ===
+Правок применено сегодня: {stats.get('experiments', {}).get('applied_today', 0)}
+В ожидании замера (~14 дней): {stats.get('experiments', {}).get('pending', 0)}
+Вердикты всего: {', '.join(f"{k}: {v}" for k, v in stats.get('experiments', {}).get('verdicts', {}).items()) or 'нет'}
 
 ---
 На основе этих данных напиши структурированный отчёт на русском языке:

@@ -1,36 +1,48 @@
-name: SEO Agent — daily analysis & content generation
+name: SEO Agent — daily data-driven optimization
+
+# Philosophy: success = clicks/traffic, NOT number of pages.
+# The default daily job MEASURES past changes and OPTIMIZES existing pages
+# (title/meta rewrites of near-page-1, low-CTR pages). Bulk page generation is
+# OFF by default and only runs when explicitly opted-in via workflow_dispatch,
+# because mass geo/article generation previously created thin/duplicate pages.
 
 on:
   schedule:
     - cron: "30 5 * * *"   # 08:30 MSK (UTC+3) every day
   workflow_dispatch:
     inputs:
+      opt_max_changes:
+        description: "Max title/meta optimizations per run (default: 8)"
+        default: "8"
+      generate_pages:
+        description: "Also GENERATE new pages this run? (true/false — default false)"
+        default: "false"
       max_articles:
-        description: "Max new blog articles per run (default: 3)"
+        description: "[gen] Max new blog articles per run"
         default: "3"
       max_titles:
-        description: "Max title updates per run (default: 10)"
+        description: "[gen] Max legacy title updates per run"
         default: "10"
       max_typegeo:
-        description: "Max type+geo pages per run (default: 3)"
+        description: "[gen] Max type+geo pages per run"
         default: "3"
       max_product_updates:
-        description: "Max product description updates (default: 5)"
+        description: "[gen] Max product description updates"
         default: "5"
       run_news:
-        description: "Generate news articles (true/false)"
+        description: "[gen] Generate news articles (true/false)"
         default: "false"
       max_geo_pages:
-        description: "Bulk geo pages per run (default: 100)"
+        description: "[gen] Bulk geo pages per run"
         default: "100"
       geo_mode:
-        description: "Geo mode: russia | world | all"
+        description: "[gen] Geo mode: russia | world | all"
         default: "all"
       geo_langs:
-        description: "Languages (space-separated, empty=all): ru en ar kk uz ky tg az ka mn ro hy be"
+        description: "[gen] Languages (space-separated, empty=all)"
         default: ""
       geo_products:
-        description: "Product IDs (space-separated, empty=all): pepperoni sosiki-hotdog kotlety-burgery ..."
+        description: "[gen] Product IDs (space-separated, empty=all)"
         default: ""
 
 env:
@@ -74,9 +86,27 @@ jobs:
         run: python scripts/analyze_queries.py
         continue-on-error: true
 
-      # ── Step 2: Generate content ───────────────────────────────
+      # ── Step 2: OPTIMIZE existing pages (the daily default job) ──
+      # First measure matured past experiments (and auto-revert regressions),
+      # then apply new title/meta optimizations to near-page-1, low-CTR pages.
+
+      - name: Measure matured experiments & revert regressions
+        run: python scripts/optimize_seo.py --measure
+        continue-on-error: true
+
+      - name: Optimize titles/meta of low-CTR pages
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPT_MAX_CHANGES:  ${{ github.event.inputs.opt_max_changes || '8' }}
+        run: python scripts/optimize_seo.py --apply
+        continue-on-error: true
+
+      # ── Step 3: Generate content (OPT-IN ONLY) ─────────────────
+      # Disabled by default. Mass generation previously produced thin/duplicate
+      # pages that hurt the domain. Enable per-run via the generate_pages input.
 
       - name: Generate content via DeepSeek API
+        if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
@@ -85,34 +115,30 @@ jobs:
         run: python scripts/generate_content.py
         continue-on-error: true
 
-      # ── Step 3: Update product descriptions (weekly, Mon only) ─
-
       - name: Update product descriptions via GSC data
-        if: github.event_name == 'workflow_dispatch' || format('{0}', github.event.schedule) == '' || (toJSON(github.event) != '' && contains(toJSON(github.event), 'Mon'))
+        if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
         run: python scripts/update_product_descriptions.py
         continue-on-error: true
 
-      # ── Step 4: Generate news (manual or weekly) ───────────────
-
       - name: Generate news articles
-        if: github.event.inputs.run_news == 'true'
+        if: github.event.inputs.generate_pages == 'true' && github.event.inputs.run_news == 'true'
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
         run: python scripts/gen_news.py
         continue-on-error: true
 
-      # ── Step 4b: Bulk geo pages (100–200 pages/day) ─────────────
-
       - name: Create geo output directories
+        if: github.event.inputs.generate_pages == 'true'
         run: |
           for d in geo en/geo ar/geo kk/geo uz/geo ky/geo tg/geo az/geo ka/geo mn/geo ro/geo hy/geo be/geo; do
             mkdir -p "public/$d"
           done
 
       - name: Generate bulk geo pages
+        if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
           MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
@@ -134,6 +160,11 @@ jobs:
         run: |
           git config user.email "seo-agent@pepperoni.tatar"
           git config user.name  "SEO Agent"
+          # Optimizer edits title/meta across any existing public/*.html page.
+          # Stage every tracked HTML change (does NOT add brand-new untracked
+          # files — those only appear when generate_pages=true and are staged
+          # by the explicit globs below).
+          git add -u "public/**/*.html" 2>/dev/null || true
           # Blog articles (RU + EN)
           git add "public/blog/*.html" 2>/dev/null || true
           git add "public/en/blog/*.html" 2>/dev/null || true
@@ -172,7 +203,8 @@ jobs:
           fi
           if ! git diff --cached --quiet; then
             COUNT=$(git diff --cached --name-only | wc -l)
-            git commit -m "chore(seo): auto-generate content $(date +%Y-%m-%d) — ${COUNT} files"
+            MODE="optimize"; [ "${{ github.event.inputs.generate_pages }}" = "true" ] && MODE="optimize+generate"
+            git commit -m "chore(seo): daily ${MODE} $(date +%Y-%m-%d) — ${COUNT} files"
             # Rebase onto latest main and retry push to survive races with manual pushes.
             for attempt in 1 2 3 4 5; do
               git pull --rebase --no-edit origin main || {
