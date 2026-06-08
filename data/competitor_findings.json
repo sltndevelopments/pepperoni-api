@@ -1,6 +1,127 @@
 {
-  "generated_at": "2026-06-08T07:39:28.875685+00:00",
+  "generated_at": "2026-06-08T07:40:40.907970+00:00",
   "window_days": 30,
   "enriched": false,
-  "losing_queries": []
+  "losing_queries": [
+    {
+      "query": "пепперони халяль",
+      "impressions": 132,
+      "clicks": 1,
+      "our_position": 35.3,
+      "our_best_position": 1.0,
+      "lost_score": 466.5
+    },
+    {
+      "query": "казылык это",
+      "impressions": 317,
+      "clicks": 0,
+      "our_position": 10.3,
+      "our_best_position": 7.0,
+      "lost_score": 325.7
+    },
+    {
+      "query": "сосиски для хот догов оптом",
+      "impressions": 68,
+      "clicks": 0,
+      "our_position": 39.0,
+      "our_best_position": 2.0,
+      "lost_score": 265.5
+    },
+    {
+      "query": "халяль сосиски для хот догов",
+      "impressions": 64,
+      "clicks": 1,
+      "our_position": 58.4,
+      "our_best_position": 3.7,
+      "lost_score": 256.0
+    },
+    {
+      "query": "халяльные сосиски для хот догов",
+      "impressions": 56,
+      "clicks": 0,
+      "our_position": 52.0,
+      "our_best_position": 14.5,
+      "lost_score": 224.0
+    },
+    {
+      "query": "котлеты для бургеров купить оптом",
+      "impressions": 55,
+      "clicks": 0,
+      "our_position": 39.8,
+      "our_best_position": 2.0,
+      "lost_score": 219.1
+    },
+    {
+      "query": "котлеты для гамбургеров оптом",
+      "impressions": 68,
+      "clicks": 0,
+      "our_position": 29.6,
+      "our_best_position": 29.6,
+      "lost_score": 201.1
+    },
+    {
+      "query": "пепперони халяль купить",
+      "impressions": 46,
+      "clicks": 0,
+      "our_position": 45.2,
+      "our_best_position": 11.0,
+      "lost_score": 184.0
+    },
+    {
+      "query": "пепперони халяль колбаса",
+      "impressions": 45,
+      "clicks": 0,
+      "our_position": 41.5,
+      "our_best_position": 1.0,
+      "lost_score": 180.0
+    },
+    {
+      "query": "котлеты для бургеров оптом",
+      "impressions": 57,
+      "clicks": 0,
+      "our_position": 31.2,
+      "our_best_position": 31.2,
+      "lost_score": 177.6
+    },
+    {
+      "query": "котлеты для бургеров опт",
+      "impressions": 47,
+      "clicks": 0,
+      "our_position": 29.6,
+      "our_best_position": 29.6,
+      "lost_score": 138.9
+    },
+    {
+      "query": "сосиски для хот догов купить оптом в москве",
+      "impressions": 41,
+      "clicks": 0,
+      "our_position": 29.1,
+      "our_best_position": 27.7,
+      "lost_score": 119.5
+    },
+    {
+      "query": "пепперони говядина",
+      "impressions": 47,
+      "clicks": 0,
+      "our_position": 25.1,
+      "our_best_position": 2.0,
+      "lost_score": 117.8
+    },
+    {
+      "query": "ветчина это халал",
+      "impressions": 57,
+      "clicks": 0,
+      "our_position": 11.1,
+      "our_best_position": 8.3,
+      "lost_score": 63.0
+    },
+    {
+      "query": "что такое казылык",
+      "impressions": 46,
+      "clicks": 0,
+      "our_position": 10.7,
+      "our_best_position": 1.0,
+      "lost_score": 49.4
+    }
+  ]
 }
