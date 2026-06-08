@@ -56,7 +56,25 @@ def request(key: str, title: str, detail: str = "", action: str = "",
         "created_at": datetime.now(timezone.utc).isoformat(),
     })
     _save(rows)
+    _notify_new_approval(title, detail, risk, requested_by)
     return True
+
+
+def _notify_new_approval(title: str, detail: str, risk: str, requested_by: str) -> None:
+    """Push an immediate Telegram alert — approvals are useless if nobody sees them."""
+    try:
+        from telegram_notify import notify
+    except Exception:
+        return
+    text = (
+        f"<b>✅ Нужно одобрение</b> [{risk}]\n"
+        f"{title}\n"
+        f"<i>{detail[:300]}</i>\n\n"
+        f"Запросил: {requested_by}\n"
+        f"Открой @KDSEOSiteBot → «✅ Аппрувы» или ответь:\n"
+        f"<code>одобрить 1</code> / <code>отклонить 1</code>"
+    )
+    notify(text)
 
 
 def take_approved(action: str | None = None) -> list:
@@ -82,9 +100,35 @@ def pending() -> list:
     return [a for a in _load() if a.get("status") == "pending"]
 
 
+def notify_pending() -> int:
+    """Re-send Telegram alerts for all pending approvals (manual / cron)."""
+    rows = pending()
+    if not rows:
+        print("no pending approvals")
+        return 0
+    try:
+        from telegram_notify import notify
+    except Exception as e:
+        print(f"telegram unavailable: {e}")
+        return 0
+    sent = 0
+    for i, a in enumerate(rows, 1):
+        text = (
+            f"<b>✅ Нужно одобрение</b> [{a.get('risk','?')}] (#{i})\n"
+            f"{a.get('title','?')}\n"
+            f"<i>{(a.get('detail') or '')[:300]}</i>\n\n"
+            f"Ответь: <code>одобрить {i}</code> или <code>отклонить {i}</code>"
+        )
+        if notify(text):
+            sent += 1
+    return sent
+
+
 if __name__ == "__main__":
     import sys
-    if len(sys.argv) >= 3 and sys.argv[1] == "request":
+    if len(sys.argv) >= 2 and sys.argv[1] == "notify":
+        print(f"notified {notify_pending()} batch(es)")
+    elif len(sys.argv) >= 3 and sys.argv[1] == "request":
         created = request(key=sys.argv[2], title=" ".join(sys.argv[3:]) or sys.argv[2])
         print("created" if created else "already-queued")
     else:

@@ -226,17 +226,10 @@ def build_report(local: dict, gsc: dict) -> str:
 
 def send_to_telegram(text: str) -> None:
     try:
-        import telegram_bot as tg
+        from telegram_notify import notify
+        notify(text)
     except Exception as e:
         print(f"⏭ telegram unavailable: {e}", file=sys.stderr)
-        return
-    auth = tg.load_authorized()
-    if not auth:
-        print("⏭ no authorized telegram chats")
-        return
-    for cid in auth:
-        tg.send(int(cid), text)
-    print(f"📤 sent to {len(auth)} chat(s)")
 
 
 def main():

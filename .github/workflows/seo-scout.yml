@@ -37,6 +37,7 @@ jobs:
       - name: Run Scout (discovery)
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scripts/scout_seo.py
         continue-on-error: true
 

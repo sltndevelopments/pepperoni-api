@@ -34,5 +34,6 @@ ops/backups/*
 !ops/backups/README.md
 data/gsc_submitted.json
 data/tg_authorized.json
+data/tg_notify.json
 data/tg_pending.json
 data/brain_journal.jsonl

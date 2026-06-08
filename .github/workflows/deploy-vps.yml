@@ -44,6 +44,7 @@ jobs:
           ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_PROXY:         ${{ secrets.ANTHROPIC_PROXY }}
           TELEGRAM_BOT_TOKEN:      ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:        ${{ secrets.TELEGRAM_CHAT_ID }}
           TG_PASSWORD:             ${{ secrets.TG_PASSWORD }}
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
           BING_CLIENT_ID:          ${{ secrets.BING_CLIENT_ID }}
@@ -65,6 +66,7 @@ jobs:
               echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "OPUS_MONTHLY_BUDGET_USD=40"
               echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN"
+              echo "TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}"
               echo "TG_PASSWORD=${TG_PASSWORD:-Namaz2015!}"
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"
               echo "BING_CLIENT_ID=$BING_CLIENT_ID"

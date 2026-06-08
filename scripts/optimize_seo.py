@@ -475,14 +475,10 @@ def run_report() -> None:
         print("· nothing to report to Telegram today")
         return
     try:
-        import telegram_bot as tg
+        from telegram_notify import notify
+        notify(text)
     except Exception as e:
         print(f"· telegram unavailable: {e}", file=sys.stderr)
-        return
-    auth = tg.load_authorized()
-    for cid in auth:
-        tg.send(int(cid), text)
-    print(f"📤 optimizer report sent to {len(auth)} chat(s)")
 
 
 # ---------------------------------------------------------------- main

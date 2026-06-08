@@ -452,15 +452,28 @@ def handle_message(msg: dict) -> None:
     name = msg["chat"].get("first_name", "user")
     text = (msg.get("text") or "").strip()
 
+    # Remember this chat for agent push notifications (even before password auth).
+    try:
+        from telegram_notify import register_chat
+        register_chat(chat_id, name)
+    except Exception:
+        pass
+
     # 1) Auth gate
     if not is_authorized(chat_id):
         if text == PASSWORD or _pw_hash(text) == PASSWORD_HASH:
             authorize(chat_id, name)
             J.log_event("system", f"authorized {name} ({chat_id})", who="bot")
-            send(chat_id, f"✅ Доступ открыт, {name}! Ты управляешь мозгом сайта.",
+            send(chat_id,
+                 f"✅ Доступ открыт, {name}! Ты управляешь мозгом сайта.\n"
+                 f"chat_id: <code>{chat_id}</code>",
                  keyboard=MAIN_MENU)
         else:
-            send(chat_id, "🔒 Введите пароль для доступа к мозгу сайта:")
+            send(chat_id,
+                 f"🔒 Введите пароль для доступа к мозгу сайта.\n\n"
+                 f"<i>Ваш chat_id: <code>{chat_id}</code> — добавьте в "
+                 f"TELEGRAM_CHAT_ID (GitHub Secrets / seo-agent.env), "
+                 f"чтобы агенты слали уведомления без входа.</i>")
         return
 
     # 2) Pending confirmation (e.g. brain question)

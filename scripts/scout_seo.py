@@ -208,15 +208,21 @@ def _maybe_send_digest(f: dict) -> None:
         lines.append("\n<b>Пробелы покрытия (ранжируется только главная):</b>")
         for e in f["coverage_gaps"][:6]:
             lines.append(f"  🕳 «{e['query']}» — {e['impr']} показов, поз {e['pos']}")
-    lines.append("\n<i>Мозг учтёт это при планировании. Скажи «спросить мозг», "
-                 "чтобы решить, какие страницы делать.</i>")
+    try:
+        import approvals
+        pend = approvals.pending()
+        if pend:
+            lines.append(f"\n<b>⏳ Ждут одобрения ({len(pend)}):</b>")
+            for i, a in enumerate(pend[:5], 1):
+                lines.append(f"  {i}. {a.get('title', '?')}")
+            lines.append("Ответь в @KDSEOSiteBot: <code>одобрить N</code>")
+    except Exception:
+        pass
+    lines.append("\n<i>Мозг учтёт это при планировании. @KDSEOSiteBot → «спросить мозг».</i>")
     text = "\n".join(lines)
     try:
-        import telegram_bot as tg
-        auth = tg.load_authorized()
-        for cid in auth:
-            tg.send(int(cid), text)
-        print(f"📤 scout digest sent to {len(auth)} chat(s)")
+        from telegram_notify import notify
+        notify(text)
     except Exception as e:
         print(f"· telegram unavailable: {e}", file=sys.stderr)
 
