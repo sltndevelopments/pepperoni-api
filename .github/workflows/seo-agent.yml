@@ -86,6 +86,14 @@ jobs:
         run: python scripts/analyze_queries.py
         continue-on-error: true
 
+      # ── Anomaly-Guard: instant alert on sudden traffic/position drops ──
+      - name: Anomaly-Guard (traffic/position watchdog)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/anomaly_guard.py
+        continue-on-error: true
+
       # ── Step 2: OPTIMIZE existing pages (the daily default job) ──
       # First measure matured past experiments (and auto-revert regressions),
       # then apply new title/meta optimizations to near-page-1, low-CTR pages.
@@ -196,6 +204,8 @@ jobs:
           # Landing-Builder output (owner-approved landings) + ledger + queue.
           git add "public/landing/*.html" 2>/dev/null || true
           git add data/experiments.json data/approvals.json 2>/dev/null || true
+          # Anomaly-Guard baseline time series.
+          git add data/anomaly_baseline.json 2>/dev/null || true
           # Blog articles (RU + EN)
           git add "public/blog/*.html" 2>/dev/null || true
           git add "public/en/blog/*.html" 2>/dev/null || true

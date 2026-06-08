@@ -59,6 +59,12 @@ python3 scripts/fetch_gsc_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  GSC fet
 log "Step 2: Fetching Yandex queries …"
 python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex fetch failed (non-fatal)"
 
+# ---- Step 2.5: ANOMALY-GUARD — watch for sudden traffic/position drops ----
+# Runs right after data fetch so a drop (algo update / breakage / deindex) fires
+# an instant Telegram alert before anything else. Keeps a git-tracked baseline.
+log "Step 2.5: Anomaly-Guard — checking for traffic/position drops …"
+python3 scripts/anomaly_guard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Anomaly-Guard failed (non-fatal)"
+
 # ---- Step 3: Analyze ----
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
@@ -126,6 +132,8 @@ git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/de
 git add public/landing/*.html 2>/dev/null || true
 # Competitor-Scout weekly findings (durable, git-tracked).
 git add data/competitor_findings.json 2>/dev/null || true
+# Anomaly-Guard daily baseline time series (durable, git-tracked).
+git add data/anomaly_baseline.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
