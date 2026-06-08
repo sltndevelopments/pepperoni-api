@@ -52,5 +52,41 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-08T06:14:37.687441+00:00",
+    "change_type": "title_meta",
+    "page": "https://api.pepperoni.tatar/en/kazylyk",
+    "file_path": "public/en/kazylyk.html",
+    "query": "kazylyk",
+    "before_pos": 8.35,
+    "before_ctr": 0.0,
+    "before_impr": 163,
+    "before_title": "Kazylyk Premium — Traditional Horse Meat Sausage | Kazan Delicacies",
+    "before_desc": "Kazylyk Premium — traditional air-dried horse meat sausage of Tatar and Bashkir cuisine. Halal certified. Gift packaging. Certificate #614A/2024. Perfect as a gift for special occasions.",
+    "after_title": "Kazylyk Premium Air-Dried Horse Meat Sausage – Kazan Delicacies",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-08T06:14:37.687441+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/en/blog/kazylyk-gift-packaging",
+    "file_path": "public/en/blog/kazylyk-gift-packaging.html",
+    "query": "kazylyk",
+    "before_pos": 5.83,
+    "before_ctr": 0.0,
+    "before_impr": 66,
+    "before_title": "Kazylyk Gift Packaging for Tourists & Corporate Events",
+    "before_desc": "Premium kazylyk gift packaging solutions for HoReCa buyers. Vacuum-sealed, branded options for tourist markets and corporate events. Halal certified.",
+    "after_title": "Kazylyk B2B Halal Meat | Bulk & Custom Packaging",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]
