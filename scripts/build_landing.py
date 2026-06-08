@@ -138,6 +138,26 @@ def related_links_block(current_slug: str) -> str:
 
 # ---------------------------------------------------------------- generation
 
+_PORK_PATTERNS = [
+    # "...халяль. В составе нет свинины, используются..." → "...халяль. В составе используются..."
+    (re.compile(r"\s*В составе нет свинины,?\s*", re.I), " В составе "),
+    (re.compile(r",?\s*без свинины", re.I), ""),
+    (re.compile(r",?\s*не содержит свинин\w*", re.I), ""),
+    (re.compile(r",?\s*нет свинины", re.I), ""),
+    (re.compile(r",?\s*no pork", re.I), ""),
+]
+
+
+def _scrub_redundant_pork(html: str) -> str:
+    """Halal already implies no pork — strip redundant 'no pork' phrasing."""
+    for pat, repl in _PORK_PATTERNS:
+        html = pat.sub(repl, html)
+    # tidy any double spaces / spaces before punctuation we may have introduced
+    html = re.sub(r"  +", " ", html)
+    html = re.sub(r"\s+([.,;])", r"\1", html)
+    return html
+
+
 def build_prompt(query: str) -> tuple[str, str]:
     system = (
         "Ты SEO-копирайтер B2B-производителя ХАЛЯЛЬ мясных деликатесов «Казанские "
@@ -165,7 +185,9 @@ def build_prompt(query: str) -> tuple[str, str]:
   ассортимент/спецификации, условия поставки, FAQ (видимый текст, дублирует JSON-LD),
   CTA с tel:{PHONE_TEL} и mailto:{EMAIL}.
 - Контакты СТРОГО: {PHONE_DISPLAY}, {EMAIL}, {ADDR_RU}. Не выдумывай 8-800 и др.
-- ХАЛЯЛЬ уже подразумевает отсутствие свинины — НЕ пиши «без свинины».
+- ХАЛЯЛЬ уже подразумевает отсутствие свинины. НЕ пиши «без свинины», «нет
+  свинины», «no pork» — это избыточно. Состав описывай позитивно: «только
+  говядина и/или курица (конина)».
 - Ссылка «← Каталог» на «/».
 - Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}, {EMAIL}."""
     return system, prompt
@@ -184,6 +206,7 @@ def build_one(query: str, conn) -> dict:
     if html.startswith("```"):
         html = re.sub(r"^```[a-zA-Z]*\n?", "", html).rstrip("`").rstrip()
     html = ensure_complete_html(html)
+    html = _scrub_redundant_pork(html)
     # inject related links before </body>
     block = related_links_block(slug)
     if block:
