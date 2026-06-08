@@ -114,26 +114,102 @@ GTM = ("<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Da
        "dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='"
        "+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>")
 
+# Exact site stylesheet (mirrors public/oem/*.html) — keeps every landing on-brand.
+SITE_CSS = """  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fafafa;color:#1a1a1a;line-height:1.8}
+    .container{max-width:820px;margin:0 auto;padding:40px 24px}
+    nav{font-size:.85rem;color:#888;margin-bottom:32px}nav a{color:#0066cc;text-decoration:none}
+    h1{font-size:2rem;font-weight:700;margin-bottom:8px;line-height:1.25}
+    h2{font-size:1.3rem;font-weight:700;margin:36px 0 12px;color:#1b7a3d}
+    h3{font-size:1.05rem;font-weight:600;margin:20px 0 8px}
+    p{margin-bottom:14px}
+    .segment-chip{display:inline-block;background:#fef3c7;color:#92400e;padding:4px 10px;border-radius:4px;font-size:.75rem;font-weight:700;margin-bottom:10px;letter-spacing:.5px;text-transform:uppercase}
+    .badge{display:inline-block;background:#1b7a3d;color:#fff;padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;margin:6px 4px 20px 0;letter-spacing:.5px}
+    .badge-outline{background:transparent;border:1.5px solid #1b7a3d;color:#1b7a3d}
+    .hero-subtitle{color:#666;font-size:1.05rem;margin-bottom:4px}
+    .card{background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:24px;margin:16px 0}
+    .grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:16px 0}
+    .feat-card{background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:16px}
+    .feat-card .icon{font-size:1.6rem;margin-bottom:6px}.feat-card .title{font-weight:600;font-size:.9rem}.feat-card .desc{font-size:.82rem;color:#666;margin-top:4px}
+    table{width:100%;border-collapse:collapse;margin:12px 0}
+    th,td{padding:8px 12px;text-align:left;border-bottom:1px solid #eee;font-size:.9rem}th{background:#f5f5f5;font-weight:600}
+    ul{margin:8px 0 14px 24px}li{margin-bottom:4px}
+    .spec-value{font-weight:600;color:#1b7a3d}
+    .faq dt{font-weight:600;margin:14px 0 4px}.faq dd{margin:0 0 10px;color:#555;font-size:.92rem}
+    .cta{background:#1b7a3d;color:#fff;display:inline-block;padding:12px 28px;border-radius:8px;text-decoration:none;font-weight:600;margin:8px 8px 8px 0;font-size:.95rem}.cta:hover{background:#15652f}
+    .cta-outline{background:transparent;border:2px solid #1b7a3d;color:#1b7a3d}
+    footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
+    @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
+  </style>"""
+
+SITE_NAV = """  <div class="container">
+    <div style="display:flex;gap:16px;flex-wrap:wrap;margin-bottom:24px;padding-bottom:16px;border-bottom:1px solid #eee;font-size:.9rem">
+      <a href="/" style="color:#0066cc;text-decoration:none;font-weight:600">Каталог</a>
+      <a href="/oem" style="color:#0066cc;text-decoration:none">OEM</a>
+      <a href="/private-label" style="color:#0066cc;text-decoration:none">Private Label</a>
+      <a href="/about" style="color:#0066cc;text-decoration:none">О компании</a>
+      <a href="/faq" style="color:#0066cc;text-decoration:none">FAQ</a>
+    </div>"""
+
+SITE_FOOTER = """    <footer>
+      <p><a href="/oem">← OEM</a> &middot; <a href="/private-label">Private Label</a> &middot; <a href="/about">О компании</a> &middot; <a href="/faq">FAQ</a></p>
+      <p>&copy; <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> &middot; <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
+    </footer>
+  </div>"""
+
+
+def build_schema(query: str, canonical: str, faq_pairs: list) -> str:
+    """Service + BreadcrumbList + FAQPage JSON-LD (FAQ filled from generated Q/A)."""
+    import json as _json
+    url = f"https://pepperoni.tatar{canonical}"
+    service = {
+        "@context": "https://schema.org", "@type": "Service",
+        "name": f"Контрактное производство: {query}",
+        "serviceType": "Private Label / OEM",
+        "areaServed": ["RU", "KZ", "AE", "UZ", "AZ"],
+        "provider": {
+            "@type": "Organization", "name": "Казанские Деликатесы",
+            "url": "https://pepperoni.tatar", "telephone": PHONE_DISPLAY, "email": EMAIL,
+            "address": {"@type": "PostalAddress", "addressLocality": "Казань",
+                        "addressRegion": "Республика Татарстан", "addressCountry": "RU"}},
+    }
+    crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList",
+              "itemListElement": [
+                  {"@type": "ListItem", "position": 1, "name": "Каталог", "item": "https://pepperoni.tatar/"},
+                  {"@type": "ListItem", "position": 2, "name": "OEM", "item": "https://pepperoni.tatar/oem"},
+                  {"@type": "ListItem", "position": 3, "name": query, "item": url}]}
+    faq = {"@context": "https://schema.org", "@type": "FAQPage",
+           "mainEntity": [{"@type": "Question", "name": q,
+                           "acceptedAnswer": {"@type": "Answer", "text": a}}
+                          for q, a in faq_pairs]}
+    blocks = [service, crumbs] + ([faq] if faq_pairs else [])
+    return "\n".join(
+        f'  <script type="application/ld+json">\n  {_json.dumps(b, ensure_ascii=False)}\n  </script>'
+        for b in blocks)
+
 
 def related_links_block(current_slug: str) -> str:
-    """Link the new landing to a few existing OEM/landing pages (cheap SEO lift)."""
-    links = []
-    for d, prefix in ((PUBLIC / "oem", "/oem/"), (LANDING_DIR, "/landing/")):
-        if not d.exists():
-            continue
-        for f in sorted(d.glob("*.html")):
+    """Link the new landing to a few existing OEM pages (cheap SEO lift)."""
+    cards = []
+    oem_dir = PUBLIC / "oem"
+    if oem_dir.exists():
+        for f in sorted(oem_dir.glob("*.html")):
             if f.stem == current_slug:
                 continue
             name = f.stem.replace("-", " ").title()
-            links.append(f'<a href="{prefix}{f.stem}" class="me-2">{name}</a>')
-            if len(links) >= 6:
+            cards.append(
+                f'<a href="/oem/{f.stem}" style="display:block;background:#fff;'
+                f'border:1px solid #e5e5e5;border-radius:8px;padding:14px;'
+                f'text-decoration:none;color:#1a1a1a;font-size:.9rem">'
+                f'<strong>{name}</strong><br>'
+                f'<span style="color:#666;font-size:.82rem">Контрактное производство под СТМ</span></a>')
+            if len(cards) >= 3:
                 break
-        if len(links) >= 6:
-            break
-    if not links:
+    if not cards:
         return ""
-    return ('\n<section class="container my-4"><h2 class="h6 text-muted">Смотрите также</h2>'
-            f'<div>{" · ".join(links)}</div></section>')
+    return ('\n    <h2>Смотрите также</h2>\n    <div class="grid-2">\n      '
+            + "\n      ".join(cards) + "\n    </div>")
 
 
 # ---------------------------------------------------------------- generation
@@ -162,35 +238,136 @@ def build_prompt(query: str) -> tuple[str, str]:
     system = (
         "Ты SEO-копирайтер B2B-производителя ХАЛЯЛЬ мясных деликатесов «Казанские "
         "Деликатесы» (pepperoni.tatar) из Казани. Пишешь убедительный, фактический "
-        "контент для оптовых/HoReCa покупателей. Без воды и кликбейта."
+        "контент для оптовых/HoReCa покупателей. Без воды и кликбейта. "
+        "Отвечаешь СТРОГО валидным JSON без markdown."
     )
-    canonical = f"/landing/{slugify(query)}"
-    prompt = f"""Сделай ОДНУ посадочную HTML5-страницу под поисковый запрос «{query}».
-Верни ТОЛЬКО валидный HTML, без markdown и пояснений.
+    prompt = f"""Сгенерируй контент посадочной страницы под поисковый запрос «{query}».
+Верни ТОЛЬКО JSON-объект (без ```), строго по схеме:
 
-ЖЁСТКИЕ ТРЕБОВАНИЯ:
-- <!DOCTYPE html>, <html lang="ru">
-- <head>: charset, viewport,
-  <title> с запросом «{query}» в начале (до 65 символов),
-  <meta name="description"> (до 160 символов, с запросом и УТП),
-  <link rel="canonical" href="https://pepperoni.tatar{canonical}">,
-  hreflang ru + x-default на этот же URL,
-  Bootstrap 5 CDN,
-  ТРИ JSON-LD блока: Service (контрактное производство/опт), FAQPage (4-5 вопросов
-  с реальными ответами под запрос), BreadcrumbList (Каталог → {query}).
-- <body>: сразу после <body> вставь ровно это: {GTM}
-- <h1> с запросом «{query}».
-- Секции: вводный абзац, преимущества (ul/li: халяль-сертификат ДУМ РТ,
-  ХАССП, ISO 22000:2018, опт от 500 кг/мес, доставка по РФ и СНГ),
-  ассортимент/спецификации, условия поставки, FAQ (видимый текст, дублирует JSON-LD),
-  CTA с tel:{PHONE_TEL} и mailto:{EMAIL}.
-- Контакты СТРОГО: {PHONE_DISPLAY}, {EMAIL}, {ADDR_RU}. Не выдумывай 8-800 и др.
-- ХАЛЯЛЬ уже подразумевает отсутствие свинины. НЕ пиши «без свинины», «нет
-  свинины», «no pork» — это избыточно. Состав описывай позитивно: «только
-  говядина и/или курица (конина)».
-- Ссылка «← Каталог» на «/».
-- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}, {EMAIL}."""
+{{
+  "title": "до 65 символов, запрос «{query}» в начале, в конце ' | Pepperoni.tatar'",
+  "description": "до 160 символов, с запросом и УТП (опт, халяль, СТМ)",
+  "chip": "короткая надпись-плашка, напр. 'Опт · Контрактное производство'",
+  "h1": "H1 с запросом «{query}»",
+  "subtitle": "1 предложение-подзаголовок",
+  "intro": "вводный абзац (2-3 предложения, <strong> для ключевых фраз) — обычный текст с HTML-тегами внутри",
+  "sections": [
+    {{"h2": "Заголовок секции", "html": "HTML-контент секии: <p>, <ul><li>, либо <table>. Используй классы card/grid-2/feat-card/spec-value где уместно."}}
+  ],
+  "faq": [{{"q": "вопрос под запрос", "a": "фактический ответ"}}]
+}}
+
+ТРЕБОВАНИЯ К КОНТЕНТУ:
+- 4-6 секций: преимущества, ассортимент/спецификации, условия поставки (MOQ от 500 кг/мес),
+  сертификаты (Халяль ДУМ РТ № 614A/2024 и № 884А/2025, ХАССП, ISO 22000:2018), кому подходит.
+- 4-5 пунктов FAQ под запрос «{query}».
+- Контакты НЕ вставляй в секции (их добавит шаблон). Не выдумывай 8-800.
+- ХАЛЯЛЬ уже подразумевает отсутствие свинины — НЕ пиши «без свинины», «нет свинины»,
+  «no pork». Состав описывай позитивно: «только говядина и/или курица (конина)».
+- Только факты о производителе из Казани, опт по РФ и экспорт в СНГ/ОАЭ.
+- HTML внутри полей — только инлайн-разметка (p, ul, li, table, strong, div.card и т.п.),
+  без <html>, <head>, <script>, <style>."""
     return system, prompt
+
+
+def _parse_content(raw: str) -> dict | None:
+    import json as _json
+    raw = (raw or "").strip()
+    if raw.startswith("```"):
+        raw = re.sub(r"^```[a-zA-Z]*\n?", "", raw).rstrip("`").rstrip()
+    m = re.search(r"\{.*\}", raw, re.S)
+    if not m:
+        return None
+    try:
+        return _json.loads(m.group(0))
+    except Exception:
+        return None
+
+
+def _assemble(query: str, slug: str, data: dict) -> str:
+    canonical = f"/landing/{slug}"
+    title = (data.get("title") or f"{query} оптом | Pepperoni.tatar").strip()
+    desc = (data.get("description") or "").strip()
+    chip = escape_attr(data.get("chip") or "Опт · Контрактное производство")
+    h1 = data.get("h1") or query.capitalize()
+    subtitle = data.get("subtitle") or ""
+    intro = data.get("intro") or ""
+    faq_pairs = [(f.get("q", "").strip(), f.get("a", "").strip())
+                 for f in (data.get("faq") or []) if f.get("q") and f.get("a")]
+
+    sections_html = []
+    for s in (data.get("sections") or []):
+        h2 = (s.get("h2") or "").strip()
+        body = (s.get("html") or "").strip()
+        if h2 or body:
+            sections_html.append(f"    <h2>{h2}</h2>\n    {body}")
+    sections_block = "\n\n".join(sections_html)
+
+    faq_block = ""
+    if faq_pairs:
+        items = "\n".join(f"      <dt>{q}</dt>\n      <dd>{a}</dd>" for q, a in faq_pairs)
+        faq_block = f'\n    <h2>Частые вопросы</h2>\n    <dl class="faq">\n{items}\n    </dl>'
+
+    cta = (
+        '\n    <h2>Обсудить производство под ваш бренд</h2>\n'
+        '    <p>Напишите нам — подберём рецептуру, формат и упаковку, сделаем образец.</p>\n'
+        f'    <a href="tel:{PHONE_TEL}" class="cta">📞 {PHONE_DISPLAY}</a>\n'
+        f'    <a href="mailto:{EMAIL}?subject={query}" class="cta cta-outline">📧 {EMAIL}</a>\n'
+        f'    <a href="https://wa.me/{PHONE_TEL.lstrip("+")}" class="cta cta-outline">💬 WhatsApp</a>')
+
+    related = related_links_block(slug)
+    schema = build_schema(query, canonical, faq_pairs)
+
+    html = f"""<!DOCTYPE html>
+<html lang="ru">
+<head>
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+{GTM}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="ru">
+  <meta name="theme-color" content="#1b7a3d">
+  <title>{title}</title>
+  <meta name="description" content="{escape_attr(desc)}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://pepperoni.tatar{canonical}">
+  <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar{canonical}">
+  <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar{canonical}">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="{escape_attr(title)}">
+  <meta property="og:description" content="{escape_attr(desc)}">
+  <meta property="og:url" content="https://pepperoni.tatar{canonical}">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+{schema}
+{SITE_CSS}
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+{SITE_NAV}
+    <nav aria-label="Breadcrumb"><a href="/">Каталог</a> &rsaquo; <a href="/oem">OEM</a> &rsaquo; <span>{query}</span></nav>
+
+    <span class="segment-chip">{chip}</span>
+    <h1>{h1}</h1>
+    <p class="hero-subtitle">{subtitle}</p>
+    <span class="badge">HALAL № 614A/2024</span>
+    <span class="badge badge-outline">ХАССП + ISO 22000:2018</span>
+    <span class="badge badge-outline">от 500 кг/мес</span>
+
+    <p>{intro}</p>
+
+{sections_block}
+{faq_block}
+{cta}
+{related}
+{SITE_FOOTER}
+</body>
+</html>"""
+    return _scrub_redundant_pork(html)
+
+
+def escape_attr(s: str) -> str:
+    return (s or "").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
 
 
 def build_one(query: str, conn) -> dict:
@@ -201,20 +378,17 @@ def build_one(query: str, conn) -> dict:
     url = f"https://pepperoni.tatar/landing/{slug}"
 
     system, prompt = build_prompt(query)
-    html, tokens = call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
-    html = (html or "").strip()
-    if html.startswith("```"):
-        html = re.sub(r"^```[a-zA-Z]*\n?", "", html).rstrip("`").rstrip()
-    html = ensure_complete_html(html)
-    html = _scrub_redundant_pork(html)
-    # inject related links before </body>
-    block = related_links_block(slug)
-    if block:
-        html = html.replace("</body>", block + "\n</body>", 1)
+    raw, tokens = call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    data = _parse_content(raw)
+    if not data or not data.get("sections"):
+        return {"status": "error", "query": query, "slug": slug,
+                "error": "LLM returned no usable content JSON"}
+
+    html = _assemble(query, slug, data)
 
     if not is_valid_page(html):
         return {"status": "error", "query": query, "slug": slug,
-                "error": "invalid/incomplete HTML — not saved"}
+                "error": "assembled HTML failed validation — not saved"}
 
     LANDING_DIR.mkdir(parents=True, exist_ok=True)
     out_path.write_text(html, encoding="utf-8")
