@@ -29,11 +29,8 @@ _SENT = re.compile(r"[^.!?；;]*[.!?；;]")
 # A sentence is dropped entirely if it matches any of these (it exists only to
 # assert the forbidden/redundant claim).
 DROP_SENTENCE = re.compile(
-    r"(не\s+содержит\s+свинин|без\s+свинин|нет\s+свинин|свин(ого|ой)\s+жир|"
-    r"свиного\s+белка|содержани[ея]\s+свинин|"
-    r"no\s+pork|absence\s+of\s+pork|pork[-\s]free|without\s+pork|"
-    r"no\s+alcohol|alcohol[-\s]free|no\s+alcohol-based|without\s+alcohol|"
-    r"не\s+содержит\s+алкогол|без\s+алкогол)",
+    r"(свинин|свин(ого|ой|ому|ым)\s+жир|свиного\s+белка|"
+    r"\bpork\b|\balcohol|\bбекон|\bсало\b|\blard\b)",
     re.I,
 )
 
