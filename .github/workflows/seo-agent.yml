@@ -119,6 +119,16 @@ jobs:
         run: python scripts/build_landing.py
         continue-on-error: true
 
+      # ── Step 2c: Linker — semantic internal links (blog↔landing↔OEM) ──
+      # Idempotent, no LLM, no new pages. Cheapest safe ranking lever.
+
+      - name: Refresh internal links (Linker)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/link_graph.py
+        continue-on-error: true
+
       # ── Step 3: Generate content (OPT-IN ONLY) ─────────────────
       # Disabled by default. Mass generation previously produced thin/duplicate
       # pages that hurt the domain. Enable per-run via the generate_pages input.

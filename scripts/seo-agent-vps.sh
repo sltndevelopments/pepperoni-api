@@ -83,6 +83,12 @@ python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log "⚠️  Opti
 log "Step 3.45: Landing-Builder — building approved landings …"
 python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log "⚠️  Landing-Builder failed (non-fatal)"
 
+# ---- Step 3.47: LINKER — semantic internal linking (blog↔landing↔OEM) ----
+# Cheapest safe ranking lever. Idempotent: refreshes the "Читайте также" block.
+# Runs after Landing-Builder so brand-new landings get linked in the same pass.
+log "Step 3.47: Linker — refreshing internal links …"
+python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log "⚠️  Linker failed (non-fatal)"
+
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 log "Step 3.5: Brain (Opus) planning strategy …"
 python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
