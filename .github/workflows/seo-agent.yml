@@ -94,6 +94,16 @@ jobs:
         run: python scripts/anomaly_guard.py
         continue-on-error: true
 
+      # ── Auto-escalation: out-of-band brain re-plan on strong signals ──
+      - name: Brain escalation (strong-signal re-plan)
+        env:
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:    ${{ secrets.ANTHROPIC_PROXY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/escalate_brain.py || true
+        continue-on-error: true
+
       # ── Step 2: OPTIMIZE existing pages (the daily default job) ──
       # First measure matured past experiments (and auto-revert regressions),
       # then apply new title/meta optimizations to near-page-1, low-CTR pages.
@@ -204,8 +214,8 @@ jobs:
           # Landing-Builder output (owner-approved landings) + ledger + queue.
           git add "public/landing/*.html" 2>/dev/null || true
           git add data/experiments.json data/approvals.json 2>/dev/null || true
-          # Anomaly-Guard baseline time series.
-          git add data/anomaly_baseline.json 2>/dev/null || true
+          # Anomaly-Guard baseline + brain-escalation state.
+          git add data/anomaly_baseline.json data/escalation_state.json 2>/dev/null || true
           # Blog articles (RU + EN)
           git add "public/blog/*.html" 2>/dev/null || true
           git add "public/en/blog/*.html" 2>/dev/null || true

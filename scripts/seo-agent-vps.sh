@@ -65,6 +65,21 @@ python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yand
 log "Step 2.5: Anomaly-Guard — checking for traffic/position drops …"
 python3 scripts/anomaly_guard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Anomaly-Guard failed (non-fatal)"
 
+# ---- Step 2.6: ESCALATION — out-of-band brain re-plan on strong signals ----
+# Scout runs before this (3.3) on the previous pass; reads its findings +
+# experiments + anomaly to decide if Opus must replan NOW (cooldown+budget gated).
+# If it escalates, the regular daily brain (3.5) is skipped to avoid double spend.
+BRAIN_ESCALATED=0
+log "Step 2.6: Escalation — checking for strong signals …"
+python3 scripts/escalate_brain.py >> "$LOG_FILE" 2>&1
+ESC_RC=$?
+if [ "$ESC_RC" = "10" ]; then
+    BRAIN_ESCALATED=1
+    log "  ↳ brain escalated this pass (daily brain will be skipped)"
+elif [ "$ESC_RC" != "0" ]; then
+    log "⚠️  Escalation check failed (non-fatal, rc=$ESC_RC)"
+fi
+
 # ---- Step 3: Analyze ----
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
@@ -108,8 +123,13 @@ if [ "$(date +%u)" = "1" ]; then
 fi
 
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
-log "Step 3.5: Brain (Opus) planning strategy …"
-python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
+# Skipped if Step 2.6 already escalated the brain this pass (no double spend).
+if [ "$BRAIN_ESCALATED" = "1" ]; then
+    log "Step 3.5: Brain — skipped (already escalated in Step 2.6)"
+else
+    log "Step 3.5: Brain (Opus) planning strategy …"
+    python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
+fi
 
 # ---- Step 4: Generate content via DeepSeek API ----
 log "Step 4: Generating content …"
@@ -140,6 +160,8 @@ git add data/competitor_findings.json 2>/dev/null || true
 git add data/anomaly_baseline.json 2>/dev/null || true
 # AIO-Visibility weekly citability ledger (durable, git-tracked).
 git add data/aio_visibility.json 2>/dev/null || true
+# Brain-escalation cooldown/state (durable, git-tracked).
+git add data/escalation_state.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
