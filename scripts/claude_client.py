@@ -31,6 +31,15 @@ ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "") or os.environ.get("D
 ANTHROPIC_URL = "https://api.anthropic.com/v1/messages"
 ANTHROPIC_VERSION = "2023-06-01"
 
+# Anthropic geo-blocks some regions (e.g. the Russian VPS). Route through a
+# SOCKS5/HTTP proxy when ANTHROPIC_PROXY is set, mirroring opus_brain_client.py.
+ANTHROPIC_PROXY = os.environ.get("ANTHROPIC_PROXY", "").strip()
+try:
+    import requests as _requests  # type: ignore
+    _HAS_REQUESTS = True
+except Exception:
+    _HAS_REQUESTS = False
+
 DEFAULT_MODEL  = "claude-sonnet-4-6"
 FALLBACK_MODEL = "claude-sonnet-4-5"   # convenience alias to latest 4.5 snapshot
 CHEAP_MODEL    = "claude-haiku-4-5-20251001"
@@ -43,6 +52,14 @@ CLAUDE_API_KEY = ANTHROPIC_API_KEY
 
 def _make_request(data: bytes, headers: dict, timeout: int = None) -> bytes:
     timeout = timeout or SOCK_TIMEOUT_S
+    if ANTHROPIC_PROXY and _HAS_REQUESTS:
+        r = _requests.post(
+            ANTHROPIC_URL, data=data, headers=headers, timeout=timeout,
+            proxies={"http": ANTHROPIC_PROXY, "https": ANTHROPIC_PROXY},
+        )
+        if r.status_code >= 400:
+            raise urllib.error.HTTPError(ANTHROPIC_URL, r.status_code, r.text[:300], None, None)
+        return r.content
     req = urllib.request.Request(ANTHROPIC_URL, data=data, headers=headers)
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()
