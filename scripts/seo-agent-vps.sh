@@ -89,6 +89,14 @@ python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log "⚠️  Landing-Bui
 log "Step 3.47: Linker — refreshing internal links …"
 python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log "⚠️  Linker failed (non-fatal)"
 
+# ---- Step 3.48: COMPETITOR-SCOUT — weekly competitive intelligence (Mon) ----
+# Finds queries where competitors outrank us (+ why, if a SERP key is set).
+# Discovery only; the brain reads data/competitor_findings.json.
+if [ "$(date +%u)" = "1" ]; then
+    log "Step 3.48: Competitor-Scout — weekly competitive intelligence …"
+    python3 scripts/competitor_scout.py >> "$LOG_FILE" 2>&1 || log "⚠️  Competitor-Scout failed (non-fatal)"
+fi
+
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 log "Step 3.5: Brain (Opus) planning strategy …"
 python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
@@ -116,6 +124,8 @@ git add data/experiments.json 2>/dev/null || true
 git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
 # Landing-Builder output (approved landings) + sitemap.
 git add public/landing/*.html 2>/dev/null || true
+# Competitor-Scout weekly findings (durable, git-tracked).
+git add data/competitor_findings.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')

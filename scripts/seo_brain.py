@@ -152,6 +152,20 @@ def scout_digest() -> dict:
     }
 
 
+def competitor_digest() -> dict:
+    """Queries where competitors outrank us (Competitor-Scout), with why-they-win."""
+    try:
+        f = json.loads((DATA / "competitor_findings.json").read_text())
+    except Exception:
+        return {}
+    losing = []
+    for e in (f.get("losing_queries") or [])[:12]:
+        losing.append({"query": e.get("query"), "impr": e.get("impressions"),
+                       "our_pos": e.get("our_position"),
+                       "why": e.get("why_they_win") or []})
+    return {"enriched": f.get("enriched"), "losing_queries": losing}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
@@ -160,6 +174,7 @@ def build_digest() -> dict:
         "opportunities": opportunities(),
         "experiments": experiments_digest(),
         "scout": scout_digest(),
+        "competitors": competitor_digest(),
     }
 
 
@@ -192,6 +207,10 @@ PLAYBOOK = """Ты — стратегический директор по пои
   fr (Сев./Зап. Африка), ar (арабские), en (международный), ru (РФ/СНГ) и т.д.
 - Приоритизируй по ROI: запросы с трафиком и позицией 5-15 важнее пустых ниш;
   города-миллионники и рынки с высоким % мусульман — выше.
+- КОНКУРЕНТЫ: в дайджесте competitors.losing_queries — запросы со спросом, где нас
+  обходят (наша позиция хуже 10). Если есть why (длиннее контент / больше schema /
+  отзывы / FAQ) — закладывай конкретные улучшения: усилить/удлинить контент целевой
+  страницы, добавить FAQ/Review-разметку, перелинковку. Это приоритетные цели «рук».
 - Избегай thin/duplicate. Каждая директива — уникальная ценность.
 - УЧИСЬ НА ЭКСПЕРИМЕНТАХ: в дайджесте есть блок "experiments" — результаты
   автоматических правок title/meta (win = CTR/позиция выросли, reverted =

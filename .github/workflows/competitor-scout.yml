@@ -1,0 +1,68 @@
+name: Competitor Scout — competitive intelligence (weekly)
+
+# Competitive intelligence: finds queries with real demand where competitors
+# outrank us (our avg position is poor), and — if a Yandex Search API key is set
+# — fetches the top competitor page to explain WHY it wins (content length,
+# schema, reviews, FAQ). Writes git-tracked findings the brain reads and sends a
+# weekly Telegram report. Discovery only — never edits pages.
+
+on:
+  schedule:
+    - cron: "0 7 * * 1"   # Mondays 07:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  competitor-scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install cryptography
+
+      - name: Fetch GSC queries
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/fetch_gsc_queries.py
+        continue-on-error: true
+
+      - name: Fetch Yandex queries
+        env:
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+        run: python scripts/fetch_yandex_queries.py
+        continue-on-error: true
+
+      - name: Run Competitor-Scout
+        env:
+          YANDEX_SEARCH_API_KEY: ${{ secrets.YANDEX_SEARCH_API_KEY }}
+          YANDEX_SEARCH_USER:    ${{ secrets.YANDEX_SEARCH_USER }}
+          TELEGRAM_BOT_TOKEN:    ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:      ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/competitor_scout.py
+        continue-on-error: true
+
+      - name: Commit competitor findings
+        run: |
+          git config user.email "seo-agent@pepperoni.tatar"
+          git config user.name  "Competitor Scout"
+          git add data/competitor_findings.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(competitor): findings $(date +%Y-%m-%d)"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase --no-edit origin main || { git rebase --abort 2>/dev/null || true; exit 1; }
+              if git push origin main; then echo "✅ pushed (attempt ${attempt})"; break; fi
+              echo "push race, retry ${attempt}/5"; sleep $((attempt * 3))
+            done
+          else
+            echo "No competitor changes to commit"
+          fi
+        continue-on-error: true
