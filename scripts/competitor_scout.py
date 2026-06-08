@@ -49,8 +49,8 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 FINDINGS_PATH = DATA / "competitor_findings.json"
 
-COMP_MIN_IMPR = int(os.environ.get("COMP_MIN_IMPR", "40"))
-COMP_POS_BAD  = float(os.environ.get("COMP_POS_BAD", "10"))
+COMP_MIN_IMPR = int(os.environ.get("COMP_MIN_IMPR", "10"))
+COMP_POS_BAD  = float(os.environ.get("COMP_POS_BAD", "6"))
 COMP_MAX      = int(os.environ.get("COMP_MAX", "15"))
 COMP_WINDOW   = int(os.environ.get("COMP_WINDOW_DAYS", "30"))
 
