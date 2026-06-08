@@ -106,5 +106,41 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-08T08:53:48.489851+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+    "file_path": "public/blog/vetchina-iz-kuricy-halyal.html",
+    "query": "ветчина это халал",
+    "before_pos": 10.12,
+    "before_ctr": 0.0,
+    "before_impr": 33,
+    "before_title": "Ветчина из курицы халяль — что это: состав, нарезка, батон",
+    "before_desc": "Чем отличается куриная ветчина в нарезке от батона: упаковка, хранение, применение. Экспертные советы для HoReCa и оптовых покупателей.",
+    "after_title": "Куриная ветчина халяль: состав, нарезка и батон для HoReCa",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-08T08:53:48.489851+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
+    "file_path": "public/en/blog/kak-otlichit-halyal.html",
+    "query": "how to identify halal certified products",
+    "before_pos": 8.19,
+    "before_ctr": 0.0,
+    "before_impr": 27,
+    "before_title": "How to Distinguish a Genuine Halal Product from a Fake | Kazan Delicacies",
+    "before_desc": "Expert guide on verifying the authenticity of halal products. Certificates, labeling, signs of counterfeits — everything for HoReCa professionals.",
+    "after_title": "How to Identify Halal Certified Products | Kazan Delicacies",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]
