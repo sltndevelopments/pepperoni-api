@@ -68,13 +68,24 @@ def clean_text_node(text: str) -> str:
     return cleaned
 
 
+# Word-level halal substitutions (applied before sentence-drop). Genericises
+# ambiguous fat terms instead of dropping the whole sentence.
+WORD_SUBS = [
+    (re.compile(r"\bшпик\b", re.I), "говяжий жир"),
+    (re.compile(r"\bpork fat\b|\bfatback\b", re.I), "beef fat"),
+]
+
+
 def clean_html(html: str) -> str:
     # Walk text nodes only (outside tags), preserving markup.
     parts = re.split(r"(<[^>]+>)", html)
     for i, part in enumerate(parts):
         if part.startswith("<"):
             continue
-        parts[i] = clean_text_node(part)
+        node = part
+        for pat, repl in WORD_SUBS:
+            node = pat.sub(repl, node)
+        parts[i] = clean_text_node(node)
     out = "".join(parts)
     # Remove now-empty paragraphs.
     out = re.sub(r"<p[^>]*>\s*</p>", "", out)
