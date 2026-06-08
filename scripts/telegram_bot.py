@@ -104,6 +104,7 @@ MAIN_MENU = [
     ["🧠 Спросить мозг", "📋 Стратегия"],
     ["🩺 SEO здоровье", "🧪 Эксперименты"],
     ["🛰 Разведка", "✅ Аппрувы"],
+    ["🤖 Мета-агент"],
 ]
 
 
@@ -285,6 +286,86 @@ def action_scout() -> str:
             lines.append(f"  «{e['query']}» — {e['impr']} показов")
     if not (nq or rq or gq):
         lines.append("\nНовых сигналов нет — спрос стабилен.")
+    return "\n".join(lines)
+
+
+def action_meta_status() -> str:
+    """One-glance summary of the whole meta-agent system (FREE, no LLM)."""
+    def _read(name, default):
+        try:
+            return json.loads((DATA / name).read_text())
+        except Exception:
+            return default
+
+    lines = ["🤖 <b>Статус мета-агента</b>", ""]
+
+    # A. Landing-Builder — approved/built landings (from approvals + landing dir)
+    appr = _read("approvals.json", [])
+    built = _count(PUBLIC / "landing")
+    pend_landing = sum(1 for a in appr
+                       if a.get("action") == "create_landing" and a.get("status") == "pending")
+    lines.append(f"🏗 <b>Landing-Builder</b>: построено {built} · "
+                 f"в очереди на аппрув {pend_landing}")
+
+    # C. Linker — internal links coverage
+    linked = 0
+    for d in (PUBLIC / "blog", PUBLIC / "oem", PUBLIC / "landing"):
+        if d.exists():
+            for f in d.glob("*.html"):
+                try:
+                    if 'data-linker="1"' in f.read_text(errors="ignore"):
+                        linked += 1
+                except Exception:
+                    pass
+    lines.append(f"🔗 <b>Linker</b>: перелинковано страниц {linked}")
+
+    # B. Competitor-Scout — losing queries
+    comp = _read("competitor_findings.json", {})
+    lq = comp.get("losing_queries", [])
+    if lq:
+        worst = lq[0]
+        lines.append(f"🔭 <b>Competitor-Scout</b>: проигрываем {len(lq)} запросов "
+                     f"(худший «{worst['query']}» поз {worst['our_position']})")
+    else:
+        lines.append("🔭 <b>Competitor-Scout</b>: нет данных (запускается по пн)")
+
+    # E. Anomaly-Guard — baseline points + last status
+    series = _read("anomaly_baseline.json", [])
+    if series:
+        last = series[-1]
+        lines.append(f"🚨 <b>Anomaly-Guard</b>: история {len(series)} дн., "
+                     f"посл. {last.get('date')} — клики {last.get('clicks')}, "
+                     f"поз {last.get('wpos')}")
+    else:
+        lines.append("🚨 <b>Anomaly-Guard</b>: baseline ещё не набран")
+
+    # D. AIO-Visibility — citability score
+    aio = _read("aio_visibility.json", [])
+    if aio:
+        a = aio[-1]
+        ds = a.get("deepseek_score")
+        px = a.get("perplexity_score")
+        extra = f" · live {px*100:.0f}%" if px is not None else ""
+        lines.append(f"🤖 <b>AIO-видимость</b>: ИИ знает нас в "
+                     f"{(ds or 0)*100:.0f}% вопросов{extra}")
+    else:
+        lines.append("🤖 <b>AIO-видимость</b>: нет данных (запускается по пн)")
+
+    # F. Escalation — last escalation
+    esc = _read("escalation_state.json", {})
+    if esc.get("last_escalation_at"):
+        lines.append(f"⚡ <b>Эскалация</b>: посл. {esc['last_escalation_at'][:16]}")
+    else:
+        lines.append("⚡ <b>Эскалация</b>: пока не срабатывала")
+
+    # Experiments roll-up
+    led = _read("experiments.json", [])
+    if led:
+        wins = sum(1 for e in led if e.get("verdict") == "win")
+        pend = sum(1 for e in led if e.get("verdict") == "pending")
+        lines.append(f"\n🧪 Эксперименты: {len(led)} всего · 🟢 {wins} побед · ⏳ {pend} в замере")
+
+    lines.append("\n<i>Полный цикл: спрос → измерение → эскалация → стратегия → исполнение.</i>")
     return "\n".join(lines)
 
 
@@ -512,6 +593,8 @@ def handle_message(msg: dict) -> None:
         send(chat_id, action_scout(), keyboard=MAIN_MENU)
     elif text in ("✅ Аппрувы", "/approvals", "аппрувы"):
         send(chat_id, action_approvals(), keyboard=MAIN_MENU)
+    elif text in ("🤖 Мета-агент", "/meta", "мета", "мета-агент"):
+        send(chat_id, action_meta_status(), keyboard=MAIN_MENU)
     elif _approval_decision(text) is not None:
         idx, approve = _approval_decision(text)
         send(chat_id, decide_approval(idx, approve, str(chat_id)), keyboard=MAIN_MENU)
