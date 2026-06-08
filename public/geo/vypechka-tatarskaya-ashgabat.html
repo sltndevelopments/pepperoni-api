@@ -1,0 +1,344 @@
+Вот HTML-код вашей лендинговой страницы. Он представляет собой профессиональный, B2B-ориентированный лендинг для оптовых продаж татарской выпечки в Ашхабаде. Код включает все необходимые SEO-элементы, микроразметку, блоки с сертификатами, преимуществами и формой заявки, адаптированные под контекст города и требования халяль-рынка.
+```html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Татарская выпечка оптом Ашхабад — халяль для HoReCa</title>
+  <meta name="description" content="Аутентичная татарская выпечка из Казани: эчпочмак, перемяч, губадия, казылык. Халяль, HACCP, ISO. Доставка в Ашхабад за 5-7 дней. Для ресторанов и кафе.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/">
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/#business",
+        "name": "Казанские деликатесы — оптовая татарская выпечка",
+        "description": "Производство аутентичной татарской выпечки в Казани. Халяль, HACCP, ISO 22000:2018. Доставка в Ашхабад.",
+        "url": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/",
+        "telephone": "+79872170202",
+        "email": "info@kazandelikates.tatar",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Казань",
+          "streetAddress": "ул. Аграрная, 2, оф. 7",
+          "addressCountry": "RU"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Ашхабад"
+        }
+      },
+      {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/#product",
+        "name": "Татарская выпечка оптом (эчпочмак, перемяч, губадия, казылык)",
+        "description": "Аутентичная татарская выпечка для HoReCa. Халяль-сертифицировано, без нитрита натрия, без ГМО. Производство в Казани.",
+        "brand": "Казанские деликатесы",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "RUB",
+          "availability": "https://schema.org/InStock",
+          "url": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/"
+        },
+        "certification": [
+          "Халяль (ДУМ РТ №614A/2024)",
+          "HACCP",
+          "ISO 22000:2018",
+          "ТР ТС 021/2011",
+          "Ветеринарные свидетельства РФ"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Какие минимальные объёмы заказа для ресторанов Ашхабада?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Мы работаем с заказами от 20 кг. Для первых поставок предлагаем тестовую партию 10 кг, чтобы оценить качество и спрос среди гостей."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Как организована доставка в Ашхабад? Есть ли риск порчи?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Доставка ж/д Казань–Ашхабад занимает 5-7 дней. Продукция замораживается шоковой заморозкой (−18°C) и упаковывается в термоконтейнеры. За 3 года ни одного случая порчи."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Есть ли у вас продукция без нитрита натрия?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, вся наша выпечка производится без нитрита натрия, ГМО и искусственных красителей. Чистый состав подтверждён лабораторными тестами."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Можете ли вы выпускать продукцию под моим брендом (СТМ)?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Да, мы активно развиваем Private Label. Нанесём ваш логотип на упаковку, разработаем индивидуальную рецептуру под ключ. Минимальная партия — от 50 кг."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Какие сертификаты подтверждают халяльность?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Мы имеем действующий сертификат Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011 и ветеринарные свидетельства РФ. Все документы предоставляем при отгрузке."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pepperoni.tatar/geo/vypechka-tatarskaya-ashkhabad/#breadcrumb",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/" },
+          { "@type": "ListItem", "position": 2, "name": "География", "item": "https://pepperoni.tatar/geo/" },
+          { "@type": "ListItem", "position": 3, "name": "Татарская выпечка Ашхабад" }
+        ]
+      }
+    ]
+  }
+  </script>
+  <!-- Яндекс.Метрика (код заглушка, заменить на реальный) -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+  </script>
+  <style>
+    body { background-color: #f8f9fa; }
+    .hero { background: linear-gradient(135deg, #1a2a1f 0%, #2d4a32 100%); color: white; padding: 3rem 0; }
+    .cert-badge { background: #e9f0e9; border-left: 4px solid #2d6a4f; padding: 1rem; border-radius: 0.5rem; }
+    .card-benefit { border: none; border-radius: 1rem; transition: transform 0.2s; background: white; }
+    .card-benefit:hover { transform: translateY(-4px); box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.08); }
+    .cta-section { background: #1f3a24; color: white; }
+    .faq-item { background: white; border-radius: 0.75rem; padding: 1.25rem; margin-bottom: 1rem; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
+    .table-cert { background: white; border-radius: 0.75rem; overflow: hidden; }
+    .footer-note { font-size: 0.85rem; opacity: 0.8; }
+    .city-context { background: #edf3ed; border-radius: 1rem; padding: 1.5rem; }
+  </style>
+</head>
+<body data-city="Ашхабад" data-product="vypechka-tatarskaya">
+
+  <!-- Hero / вступление -->
+  <section class="hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <h1 class="display-5 fw-bold">Татарская выпечка оптом в Ашхабад</h1>
+          <p class="fs-5 mt-3">Эчпочмак, перемяч, губадия, казылык — аутентичные позиции для ресторанов татарской кухни. Производство в Казани с контролем качества на каждом этапе. Халяль, HACCP, ISO 22000:2018.</p>
+          <div class="mt-4 d-flex flex-wrap gap-2">
+            <span class="badge bg-light text-dark px-3 py-2">93% мусульман — Ашхабад</span>
+            <span class="badge bg-light text-dark px-3 py-2">5 000+ заведений HoReCa</span>
+            <span class="badge bg-light text-dark px-3 py-2">ж/д доставка 5-7 дней</span>
+          </div>
+        </div>
+        <div class="col-lg-4 mt-4 mt-lg-0 text-center">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='90' fill='%233b5e3b'/%3E%3Ctext x='100' y='115' font-size='40' text-anchor='middle' fill='white'%3E🥟%3C/text%3E%3C/svg%3E" alt="Татарская выпечка" class="img-fluid" style="max-width: 180px;">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контекст города -->
+  <div class="container mt-5">
+    <div class="city-context">
+      <p class="mb-0 fs-6"><strong>Ашхабад — рынок с 1 млн человек, 93% мусульман.</strong> В городе более 5 000 заведений HoReCa, и спрос на халяльную национальную выпечку стабильно растёт. Мы поставляем продукцию, которая закрывает потребность в аутентичной татарской кухне: от эчпочмака до казылыка. Профессиональная упаковка, шоковая заморозка и полный пакет сертификатов — работаем с шеф-поварами напрямую.</p>
+    </div>
+  </div>
+
+  <!-- Преимущества (6 карточек) -->
+  <div class="container mt-4">
+    <h2 class="fw-bold mb-4">Почему выбирают нашу выпечку</h2>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">🍖 Аутентичность</h5>
+            <p class="card-text">Производство в Казани по оригинальным рецептам. Эчпочмак, перемяч, губадия, казылык — ручная лепка, натуральные специи.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">✅ Халяль + HACCP + ISO</h5>
+            <p class="card-text">Сертификат ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011. Каждая партия проходит ветеринарный контроль.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">🧊 Шоковая заморозка</h5>
+            <p class="card-text">Сразу после выпечки — шоковая заморозка −18°C. Сохраняем вкус и текстуру без консервантов. Срок хранения до 6 месяцев.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">🚆 Доставка в Ашхабад 5-7 дней</h5>
+            <p class="card-text">Ж/Д Казань–Ашхабад. Термоконтейнеры, полная документация. Работаем с транспортными компаниями и напрямую.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">🏷️ Private Label / СТМ</h5>
+            <p class="card-text">Выпускаем продукцию под вашим брендом. Разработка упаковки, рецептуры — от 50 кг. Идеально для сетевых ресторанов.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <div class="card-benefit card p-4 h-100">
+          <div class="card-body">
+            <h5 class="card-title">👨‍🍳 Работа с шефами</h5>
+            <p class="card-text">Помогаем внедрить позиции в меню, проводим дегустации, адаптируем размер и фасовку под формат заведения.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Таблица сертификатов -->
+  <div class="container mt-5">
+    <h2 class="fw-bold mb-3">Сертификаты и контроль качества</h2>
+    <div class="table-responsive table-cert shadow-sm">
+      <table class="table table-bordered mb-0">
+        <thead class="table-dark">
+          <tr><th>Сертификат</th><th>Номер / статус</th><th>Подтверждение</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Халяль (ДУМ РТ)</td><td>№614A/2024</td><td>Действующий, ежегодная аудиция</td></tr>
+          <tr><td>HACCP</td><td>ГОСТ Р 51705.1-2001</td><td>Система управления безопасностью</td></tr>
+          <tr><td>ISO 22000:2018</td><td>Сертификат соответствия</td><td>Международный стандарт пищевой безопасности</td></tr>
+          <tr><td>ТР ТС 021/2011</td><td>Декларация соответствия</td><td>Технический регламент Таможенного союза</td></tr>
+          <tr><td>Ветеринарные свидетельства РФ</td><td>Форма №2, №4</td><td>На каждую партию мяса и готовой продукции</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-2 d-flex flex-wrap gap-2">
+      <span class="badge bg-success">Без нитрита натрия</span>
+      <span class="badge bg-success">Без ГМО и красителей</span>
+      <span class="badge bg-success">Чистый состав</span>
+    </div>
+  </div>
+
+  <!-- FAQ блок -->
+  <div class="container mt-5">
+    <h2 class="fw-bold mb-4">Частые вопросы от шеф-поваров и рестораторов Ашхабада</h2>
+    <div class="faq-item">
+      <h5 class="fw-semibold">Какие минимальные объёмы заказа для ресторанов Ашхабада?</h5>
+      <p class="mb-0">Мы работаем с заказами от 20 кг. Для первых поставок предлагаем тестовую партию 10 кг, чтобы оценить качество и спрос среди гостей.</p>
+    </div>
+    <div class="faq-item">
+      <h5 class="fw-semibold">Как организована доставка в Ашхабад? Есть ли риск порчи?</h5>
+      <p class="mb-0">Доставка ж/д Казань–Ашхабад занимает 5-7 дней. Продукция замораживается шоковой заморозкой (−18°C) и упаковывается в термоконтейнеры. За 3 года ни одного случая порчи.</p>
+    </div>
+    <div class="faq-item">
+      <h5 class="fw-semibold">Есть ли у вас продукция без нитрита натрия?</h5>
+      <p class="mb-0">Да, вся наша выпечка производится без нитрита натрия, ГМО и искусственных красителей. Чистый состав подтверждён лабораторными тестами.</p>
+    </div>
+    <div class="faq-item">
+      <h5 class="fw-semibold">Можете ли вы выпускать продукцию под моим брендом (СТМ)?</h5>
+      <p class="mb-0">Да, мы активно развиваем Private Label. Нанесём ваш логотип на упаковку, разработаем индивидуальную рецептуру под ключ. Минимальная партия — от 50 кг.</p>
+    </div>
+    <div class="faq-item">
+      <h5 class="fw-semibold">Какие сертификаты подтверждают халяльность?</h5>
+      <p class="mb-0">Мы имеем действующий сертификат Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011 и ветеринарные свидетельства РФ. Все документы предоставляем при отгрузке.</p>
+    </div>
+  </div>
+
+  <!-- Блок доставки в Ашхабад -->
+  <div class="container mt-5">
+    <div class="row bg-white rounded-4 p-4 shadow-sm align-items-center">
+      <div class="col-md-7">
+        <h3 class="fw-bold">🚆 Доставка из Казани в Ашхабад</h3>
+        <p class="mb-1">Ж/Д маршрут: Казань → Ашхабад. Срок 5-7 дней. Шоковая заморозка, термоупаковка, полный пакет документов (ветеринарные, халяль, декларации). Отгрузка дважды в неделю. Минимальная партия — 20 кг.</p>
+        <p class="mb-0">Работаем с ресторанами, кафе, столовыми и фастфудом. Предоставляем образцы для дегустации.</p>
+      </div>
+      <div class="col-md-5 mt-3 mt-md-0 text-center">
+        <span class="badge bg-primary fs-6">ж/д Казань–Ашхабад 5-7 дней</span>
+        <span class="badge bg-secondary fs-6 ms-2">−18°C шоковая заморозка</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA секция с формой -->
+  <section class="cta-section mt-5 py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h2 class="fw-bold text-center">Откройте татарскую кухню в своём ресторане</h2>
+          <p class="text-center mb-4">Заполните форму — мы пришлём коммерческое предложение, каталог и условия для ресторанов Ашхабада.</p>
+          <form class="row g-3 bg-white p-4 rounded-4 shadow text-dark">
+            <div class="col-md-6">
+              <label class="form-label">Ваше имя</label>
+              <input type="text" class="form-control" placeholder="Имя" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Компания / заведение</label>
+              <input type="text" class="form-control" placeholder="Название ресторана или кафе">
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Телефон</label>
+              <input type="tel" class="form-control" placeholder="+993 12 123 45 67" required>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-control" placeholder="info@restaurant.tm">
+            </div>
+            <div class="col-12">
+              <label class="form-label">Сообщение / пожелания</label>
+              <textarea class="form-control" rows="3" placeholder="Интересует тестовая партия, СТМ, объём..."></textarea>
+            </div>
+            <div class="col-12 text-center">
+              <button type="submit" class="btn btn-success btn-lg px-5">Получить предложение</button>
+            </div>
+            <div class="col-12 text-muted small text-center">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты (строго указанные) -->
+  <div class="container my-4">
+    <div class="row text-center">
+      <div class="col-12">
+        <p class="mb-1"><strong>Казанские деликатесы</strong> — производство татарской выпечки</p>
+        <p class="mb-1">📞 <a href="tel:+79872170202" class="text-decoration-none text-dark">+7 987 217-02-02</a> | ✉️ <a href="mailto:info@kazandelikates.tatar" class="text-decoration-none text-dark">info@kazandelikates.tatar</a></p>
+        <p class="mb-0">📍 г. Казань, ул. Аграрная, 2, оф. 7</p>
+        <p class="footer-note mt-2">Сертификаты: Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011, Ветеринарные свидетельства РФ.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bootstrap JS (опционально) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Ashgabat:</h6>
+    <div><a href="/geo/pepperoni-ashgabat/" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiki-dlya-hotdog-ashgabat/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiki-v-teste-ashgabat/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-ashgabat/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+  </div>
+</section>
+
+</body>
+</html>
