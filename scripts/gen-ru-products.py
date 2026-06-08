@@ -338,6 +338,14 @@ def main():
         deep_html, _faq_pairs = category_deep_content(p.get("category"), name, section)
         faq_jsonld = _faq_jsonld(_faq_pairs)
 
+        # Per-SKU deep override: if data/product_overrides/<sku>.html exists, its
+        # HTML is appended after the category block. Lets top SKUs carry bespoke
+        # 1500+ word content that survives regeneration.
+        override_path = os.path.join("data", "product_overrides", f"{p['sku'].lower()}.html")
+        if os.path.exists(override_path):
+            with open(override_path, encoding="utf-8") as _ovf:
+                deep_html = deep_html + "\n" + _ovf.read()
+
         preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
 
         suffix_ru = " — Казанские Деликатесы | Халяль"

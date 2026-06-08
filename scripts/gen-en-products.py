@@ -377,6 +377,12 @@ def main():
         deep_html, _faq_pairs = category_deep_content(p.get("category"), name)
         faq_jsonld = _faq_jsonld(_faq_pairs)
 
+        # Per-SKU deep override (EN): data/product_overrides/<sku>.en.html
+        override_path = os.path.join("data", "product_overrides", f"{sku.lower()}.en.html")
+        if os.path.exists(override_path):
+            with open(override_path, encoding="utf-8") as _ovf:
+                deep_html = deep_html + "\n" + _ovf.read()
+
         preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
 
         suffix_en = " — Kazan Delicacies | Halal"
