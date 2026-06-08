@@ -30,7 +30,8 @@ _SENT = re.compile(r"[^.!?；;]*[.!?；;]")
 # assert the forbidden/redundant claim).
 DROP_SENTENCE = re.compile(
     r"(свинин|свин(ого|ой|ому|ым)\s+жир|свиного\s+белка|"
-    r"\bpork\b|\balcohol|\bбекон|\bсало\b|\blard\b)",
+    r"pork|alcohol|бекон|\bсало\b|lard|"
+    r"kosher|кошерн|кошер)",
     re.I,
 )
 
