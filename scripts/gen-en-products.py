@@ -66,6 +66,98 @@ def cleanse_ingredients(text: str) -> str:
     return text
 
 
+def _esc(s):
+    return str(s or "").replace("\\", "\\\\").replace('"', '\\"')
+
+
+def _faq_jsonld(pairs):
+    if not pairs:
+        return ""
+    items = ",".join(
+        '{{"@type":"Question","name":"{q}","acceptedAnswer":{{"@type":"Answer","text":"{a}"}}}}'.format(
+            q=_esc(q), a=_esc(a)) for q, a in pairs)
+    return ('<script type="application/ld+json">'
+            '{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{items}]}}'
+            '</script>').format(items=items)
+
+
+def category_deep_content(category, name):
+    """Substantive, query-targeted B2B/HoReCa/wholesale content per category (EN)."""
+    cat = (category or "").lower()
+    nm = name or "product"
+    if "hot" in cat or "grill" in cat or "sausage" in cat:
+        app = (f"\u201c{nm}\u201d are heat-stable grill sausages for hot dogs, built "
+               "for HoReCa throughput: food trucks, gas stations, kiosks, food "
+               "courts and chain foodservice. They hold their shape on the grill "
+               "and roller, stay juicy and deliver a consistent serve at peak "
+               "hours. Sold wholesale in fixed-pack cases.")
+        faq = [("Can I order hot-dog sausages wholesale?",
+                "Yes. We supply grill sausages for hot dogs wholesale in fixed-pack cases for HoReCa, gas stations, food trucks and chains. Minimum order and pricing on request."),
+               ("Are the sausages halal?",
+                "Yes, all products are halal, made from beef and/or chicken to halal standards.")]
+    elif "patt" in cat or "burger" in cat or "cutlet" in cat:
+        app = (f"\u201c{nm}\u201d are halal burger patties for HoReCa and private "
+               "label. Calibrated weight and diameter give even cooking and a "
+               "stable portion yield. Supplied frozen in cases; recipe, format "
+               "and packaging can be adapted to your brand (private label / OEM).")
+        faq = [("Are burger patties available wholesale?",
+                "Yes, burger patties are supplied frozen in cases for HoReCa and chains. Pricing and minimum order on request."),
+               ("Can patties be produced under our own brand (private label / OEM)?",
+                "Yes. We produce burger patties under private label: weight, diameter, recipe and packaging are adapted to your brand.")]
+    elif "smoked" in cat or "pepperoni" in nm.lower():
+        app = (f"\u201c{nm}\u201d is dry/semi-smoked product for slicing, pizza and "
+               "sandwich menus in HoReCa, plus retail and distribution. "
+               "Pepperoni holds slicing and keeps its pattern on pizza without "
+               "spreading. Supplied wholesale, batons or sliced, and under "
+               "private label.")
+        faq = [("Can I buy pepperoni / smoked sausage wholesale?",
+                "Yes, we supply wholesale to pizzerias, HoReCa and distributors \u2014 baton or sliced. Pricing and minimum order on request."),
+               ("Is it suitable for pizza?",
+                "Yes, the pepperoni is heat-stable for baking: it keeps its shape and pattern and does not spread on pizza.")]
+    elif "ham" in cat:
+        app = (f"\u201c{nm}\u201d is cooked ham for slicing, sandwiches and hot "
+               "dishes in HoReCa and retail. Dense structure holds a thin slice. "
+               "Supplied wholesale, baton or sliced.")
+        faq = [("Is the ham halal?",
+                "Yes, the ham is halal, made from chicken and/or beef to halal standards.")]
+    elif "bak" in cat or "pastr" in cat or "tatar" in cat:
+        app = (f"\u201c{nm}\u201d is frozen pastry for finishing in HoReCa, bakeries "
+               "and street food. Supplied in cases, cooked from frozen with no "
+               "thawing \u2014 consistent result and fast serve.")
+        faq = [("Is the pastry supplied frozen wholesale?",
+                "Yes, pastry is supplied frozen in cases for HoReCa, bakeries and street food, cooked from frozen.")]
+    else:
+        app = (f"\u201c{nm}\u201d is a product for HoReCa, wholesale and distribution "
+               "from Kazan Delicacies. Supplied in fixed-pack cases; private "
+               "label (OEM) supply is available.")
+        faq = [("Can I order wholesale?",
+                "Yes, we supply wholesale in cases for HoReCa, retail and distribution. Minimum order and pricing on request.")]
+
+    common = (
+        "<div class=\"section-block\"><h2 class=\"section-title\">Application & wholesale</h2>"
+        f"<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0 0 12px\">{app}</p>"
+        "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
+        "We work with HoReCa, retail chains, distributors and export. Wholesale "
+        "prices, minimum order and logistics are agreed individually. Private "
+        "Label / OEM supply is available: recipe, format and packaging adapted "
+        "to your brand.</p></div>"
+        "<div class=\"section-block\"><h2 class=\"section-title\">Halal & quality</h2>"
+        "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
+        "All Kazan Delicacies products are halal, made from beef and/or chicken "
+        "to halal standards. Raw-material and production control meet halal "
+        "certification requirements, documented for wholesale and export "
+        "partners.</p></div>"
+    )
+    faq_html = ("<div class=\"section-block\"><h2 class=\"section-title\">FAQ</h2>"
+                + "".join(
+                    f"<details style=\"margin:0 0 8px;border:1px solid #eee;border-radius:8px;padding:10px 14px\">"
+                    f"<summary style=\"font-weight:600;cursor:pointer;font-size:.95rem\">{q}</summary>"
+                    f"<p style=\"font-size:.9rem;color:#444;line-height:1.6;margin:8px 0 0\">{a}</p></details>"
+                    for q, a in faq)
+                + "</div>")
+    return common + faq_html, faq
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
@@ -282,6 +374,9 @@ def main():
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
+        deep_html, _faq_pairs = category_deep_content(p.get("category"), name)
+        faq_jsonld = _faq_jsonld(_faq_pairs)
+
         preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
 
         suffix_en = " — Kazan Delicacies | Halal"
@@ -328,6 +423,7 @@ def main():
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{shipping_details},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
 </script>
+{faq_jsonld}
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.6}}
@@ -463,6 +559,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("Способы приготовления:", "Methods:").replace("Гриль", "Grill").replace("роликовый грил", "roller grill").replace("жарка на решетке", "griddle").replace("сковороде", "pan").replace("или", "or")
             html += f'<div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
+        html += deep_html
         html += '''<footer>
 <p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="/openapi.yaml">API for Distributors</a></p>
 <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>

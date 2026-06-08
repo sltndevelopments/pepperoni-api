@@ -45,6 +45,135 @@ def cleanse_ingredients(text: str) -> str:
     return text
 
 
+def _faq_jsonld(pairs):
+    """Build a FAQPage JSON-LD from a list of (question, answer) pairs."""
+    if not pairs:
+        return ""
+    items = ",".join(
+        '{{"@type":"Question","name":"{q}","acceptedAnswer":{{"@type":"Answer","text":"{a}"}}}}'.format(
+            q=html_esc(q), a=html_esc(a)) for q, a in pairs)
+    return ('<script type="application/ld+json">'
+            '{{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{items}]}}'
+            '</script>').format(items=items)
+
+
+def category_deep_content(category, name, section):
+    """Substantive, query-targeted B2B/HoReCa/опт content per category.
+
+    Adds depth (wholesale terms, HoReCa application, storage/logistics, halal,
+    private label) so product pages compete on the commercial 'опт' queries
+    where thin pages lose. Returns (html_block, faq_pairs).
+    """
+    cat = (category or "").lower()
+    nm = name or "продукт"
+
+    # Category-specific application + commercial angle.
+    if "хот-дог" in cat or "гриль" in cat:
+        app = (f"«{nm}» — это термостабильные сосиски гриль для хот-догов, "
+               "рассчитанные на поток HoReCa: фудтраки, АЗС, киоски, фуд-корты и "
+               "сетевой общепит. Они держат форму на гриле и в ролике, не "
+               "лопаются и дают стабильную подачу в часы пик. Оптовые партии "
+               "поставляем коробками с фиксированной фасовкой — удобно для "
+               "точек с прогнозируемым расходом.")
+        faq = [
+            ("Можно ли заказать сосиски для хот-догов оптом?",
+             "Да. Мы поставляем сосиски гриль для хот-догов оптом коробками по фиксированной фасовке — для HoReCa, АЗС, фудтраков и сетей. Минимальный заказ и цена по запросу в Telegram или по телефону."),
+            ("Сосиски халяльные?",
+             "Да, вся продукция халяль и произведена по стандартам халяль из говядины и/или курицы."),
+            ("Подходят ли для гриля и роликового аппарата?",
+             "Да, сосиски термостабильные: держат форму на гриле и в роликовом аппарате, не теряют сок и форму при длительном прогреве."),
+        ]
+    elif "котлет" in cat or "бургер" in cat:
+        app = (f"«{nm}» — халяльные котлеты (паттисы) для бургеров под HoReCa и "
+               "СТМ. Калиброванный вес и диаметр обеспечивают одинаковую "
+               "прожарку и стабильный выход порции, что критично для бургерных "
+               "и сетей быстрого питания. Поставляем оптом замороженными "
+               "коробками; возможна фасовка и рецептура под собственную "
+               "торговую марку (private label).")
+        faq = [
+            ("Котлеты для бургеров продаются оптом?",
+             "Да, котлеты (паттисы) для бургеров поставляются оптом замороженными коробками для HoReCa и сетей. Цена и минимальный заказ — по запросу."),
+            ("Можно ли заказать котлеты под собственной маркой (СТМ/OEM)?",
+             "Да. Производим бургерные паттисы под private label: вес, диаметр, рецептуру и упаковку адаптируем под ваш бренд."),
+            ("Котлеты халяльные?",
+             "Да, котлеты халяль из говядины и/или курицы, произведены по стандартам халяль."),
+        ]
+    elif "копчен" in cat or "пепперони" in nm.lower():
+        app = (f"«{nm}» — сырокопчёная/варёно-копчёная продукция для нарезки, "
+               "пиццы и сэндвич-меню HoReCa, а также для розницы и "
+               "дистрибуции. Пепперони и копчёные колбасы держат нарезку, не "
+               "расплываются на пицце и дают равномерный рисунок. Поставляем "
+               "оптом; доступна нарезка газовой среде (МГС) и поставка под СТМ.")
+        faq = [
+            ("Можно купить пепперони/копчёную колбасу оптом?",
+             "Да, поставляем оптом для пиццерий, HoReCa и дистрибьюторов — батоном или в нарезке. Цена и минимальный заказ по запросу."),
+            ("Продукция халяльная?",
+             "Да, вся копчёная продукция халяль из говядины и/или курицы (конины) по стандартам халяль."),
+            ("Подходит ли пепперони для пиццы?",
+             "Да, пепперони термостабильна для запекания: держит форму и рисунок, не расплывается на пицце."),
+        ]
+    elif "ветчин" in cat:
+        app = (f"«{nm}» — варёная ветчина для нарезки, сэндвичей и горячих блюд "
+               "HoReCa, а также для розничной нарезки. Плотная структура держит "
+               "тонкий слайс. Поставляем оптом батоном и в нарезке.")
+        faq = [
+            ("Ветчина халяльная?",
+             "Да, ветчина халяль из курицы и/или говядины, произведена по стандартам халяль."),
+            ("Есть ли оптовая поставка ветчины?",
+             "Да, поставляем ветчину оптом батоном и в нарезке для HoReCa и розницы. Условия — по запросу."),
+        ]
+    elif "выпечк" in cat or "татарск" in cat or section == "Выпечка":
+        app = (f"«{nm}» — замороженная выпечка для доготовки в HoReCa, пекарнях "
+               "и точках стрит-фуда. Поставляется коробками, готовится из "
+               "заморозки без размораживания — стабильный результат и быстрая "
+               "подача. Подходит для кафе татарской кухни, столовых и "
+               "корпоративного питания.")
+        faq = [
+            ("Выпечка продаётся оптом замороженной?",
+             "Да, выпечка поставляется оптом замороженной коробками для HoReCa, пекарен и стрит-фуда. Доготавливается из заморозки."),
+            ("Выпечка халяльная?",
+             "Да, вся выпечка халяль и произведена по стандартам халяль."),
+        ]
+    else:
+        app = (f"«{nm}» — продукт для HoReCa, опта и дистрибуции от "
+               "«Казанских Деликатесов». Поставляем коробками с фиксированной "
+               "фасовкой; возможна поставка под собственной торговой маркой "
+               "(private label).")
+        faq = [
+            ("Можно заказать оптом?",
+             "Да, поставляем оптом коробками для HoReCa, розницы и дистрибуции. Минимальный заказ и цена — по запросу."),
+            ("Продукт халяльный?",
+             "Да, вся продукция халяль и произведена по стандартам халяль."),
+        ]
+
+    common = (
+        "<div class=\"section-block\"><h2 class=\"section-title\">Применение и опт</h2>"
+        f"<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0 0 12px\">{app}</p>"
+        "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
+        "Работаем с HoReCa, розничными сетями, дистрибьюторами и экспортом. "
+        "Оптовые цены, минимальный заказ и логистику обсуждаем индивидуально — "
+        "напишите в Telegram или позвоните. Возможна поставка под собственной "
+        "торговой маркой (Private Label / OEM): рецептуру, фасовку и оформление "
+        "адаптируем под ваш бренд.</p></div>"
+        "<div class=\"section-block\"><h2 class=\"section-title\">Халяль и качество</h2>"
+        "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
+        "Вся продукция «Казанских Деликатесов» — халяль, произведена по "
+        "стандартам халяль из говядины и/или курицы (конины). Контроль сырья и "
+        "производства соответствует требованиям халяль-сертификации, что "
+        "подтверждается документами для оптовых и экспортных партнёров.</p></div>"
+    )
+
+    faq_html = ("<div class=\"section-block\"><h2 class=\"section-title\">Частые вопросы</h2>"
+                + "".join(
+                    f"<details style=\"margin:0 0 8px;border:1px solid #eee;border-radius:8px;padding:10px 14px\">"
+                    f"<summary style=\"font-weight:600;cursor:pointer;font-size:.95rem\">{q}</summary>"
+                    f"<p style=\"font-size:.9rem;color:#444;line-height:1.6;margin:8px 0 0\">{a}</p></details>"
+                    for q, a in faq)
+                + "</div>")
+
+    return common + faq_html, faq
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
@@ -206,6 +335,9 @@ def main():
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)
         specs_table = f'<div class="section-block"><h2 class="section-title">Технические характеристики</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
+        deep_html, _faq_pairs = category_deep_content(p.get("category"), name, section)
+        faq_jsonld = _faq_jsonld(_faq_pairs)
+
         preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
 
         suffix_ru = " — Казанские Деликатесы | Халяль"
@@ -251,6 +383,7 @@ def main():
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{SHIPPING_DETAILS},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
+{faq_jsonld}
 <style>
 *{{margin:0;padding:0;box-sizing:border-box}}
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f5f5f5;color:#1a1a1a;line-height:1.6}}
@@ -376,6 +509,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         if p.get("cookingMethods"):
             cm = p["cookingMethods"].replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Способы приготовления</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
+        html += deep_html
         html += '''<footer>
 <p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
