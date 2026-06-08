@@ -1,0 +1,52 @@
+name: AIO Visibility — AI citability monitor (weekly)
+
+# Asks a panel of buyer-intent profile questions and measures whether AI
+# assistants mention us: knowledge-base presence (DeepSeek) always, and live
+# citability (Perplexity) when PPLX_API_KEY is set. Tracks a git-tracked ledger
+# the brain reads + a weekly Telegram report. Discovery only — edits nothing.
+
+on:
+  schedule:
+    - cron: "30 7 * * 1"   # Mondays 07:30 UTC (after competitor-scout)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  aio-visibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Run AIO-Visibility
+        env:
+          DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
+          PPLX_API_KEY:       ${{ secrets.PPLX_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/aio_visibility.py
+        continue-on-error: true
+
+      - name: Commit AIO visibility ledger
+        run: |
+          git config user.email "seo-agent@pepperoni.tatar"
+          git config user.name  "AIO Visibility"
+          git add data/aio_visibility.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(aio): citability snapshot $(date +%Y-%m-%d)"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase --no-edit origin main || { git rebase --abort 2>/dev/null || true; exit 1; }
+              if git push origin main; then echo "✅ pushed (attempt ${attempt})"; break; fi
+              echo "push race, retry ${attempt}/5"; sleep $((attempt * 3))
+            done
+          else
+            echo "No AIO changes to commit"
+          fi
+        continue-on-error: true

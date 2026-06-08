@@ -166,6 +166,20 @@ def competitor_digest() -> dict:
     return {"enriched": f.get("enriched"), "losing_queries": losing}
 
 
+def aio_digest() -> dict:
+    """AI-assistant citability over time (AIO-Visibility agent)."""
+    try:
+        led = json.loads((DATA / "aio_visibility.json").read_text())
+    except Exception:
+        return {}
+    if not led:
+        return {}
+    last = led[-1]
+    return {"deepseek_score": last.get("deepseek_score"),
+            "perplexity_score": last.get("perplexity_score"),
+            "not_cited_for": (last.get("lost") or [])[:6]}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
@@ -175,6 +189,7 @@ def build_digest() -> dict:
         "experiments": experiments_digest(),
         "scout": scout_digest(),
         "competitors": competitor_digest(),
+        "aio_visibility": aio_digest(),
     }
 
 
@@ -211,6 +226,9 @@ PLAYBOOK = """Ты — стратегический директор по пои
   обходят (наша позиция хуже 10). Если есть why (длиннее контент / больше schema /
   отзывы / FAQ) — закладывай конкретные улучшения: усилить/удлинить контент целевой
   страницы, добавить FAQ/Review-разметку, перелинковку. Это приоритетные цели «рук».
+- AIO-ВИДИМОСТЬ: aio_visibility.not_cited_for — вопросы покупателей, где ИИ-ассистенты
+  нас НЕ называют. Чтобы нас цитировали: усиливай entity-факты (кто мы, что делаем,
+  сертификаты, контакты), чёткие FAQ и структурированные ответы под эти вопросы.
 - Избегай thin/duplicate. Каждая директива — уникальная ценность.
 - УЧИСЬ НА ЭКСПЕРИМЕНТАХ: в дайджесте есть блок "experiments" — результаты
   автоматических правок title/meta (win = CTR/позиция выросли, reverted =

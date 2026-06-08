@@ -101,6 +101,10 @@ python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log "⚠️  Linker failed 
 if [ "$(date +%u)" = "1" ]; then
     log "Step 3.48: Competitor-Scout — weekly competitive intelligence …"
     python3 scripts/competitor_scout.py >> "$LOG_FILE" 2>&1 || log "⚠️  Competitor-Scout failed (non-fatal)"
+
+    # ---- Step 3.49: AIO-VISIBILITY — weekly AI-citability check (Mon) ----
+    log "Step 3.49: AIO-Visibility — checking AI citability …"
+    python3 scripts/aio_visibility.py >> "$LOG_FILE" 2>&1 || log "⚠️  AIO-Visibility failed (non-fatal)"
 fi
 
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
@@ -134,6 +138,8 @@ git add public/landing/*.html 2>/dev/null || true
 git add data/competitor_findings.json 2>/dev/null || true
 # Anomaly-Guard daily baseline time series (durable, git-tracked).
 git add data/anomaly_baseline.json 2>/dev/null || true
+# AIO-Visibility weekly citability ledger (durable, git-tracked).
+git add data/aio_visibility.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
