@@ -63,6 +63,15 @@ python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yand
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
 
+# ---- Step 3.4: OPTIMIZER — measure past experiments, then optimize titles/meta ----
+# Data-driven core: success = clicks, not page count. Measures matured
+# experiments (auto-reverts regressions), then rewrites near-page-1 low-CTR
+# titles. Runs BEFORE the brain so the strategy sees fresh optimizer results.
+log "Step 3.4: Optimizer — measure matured experiments …"
+python3 scripts/optimize_seo.py --measure >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer measure failed (non-fatal)"
+log "Step 3.4: Optimizer — apply title/meta improvements …"
+python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer apply failed (non-fatal)"
+
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 log "Step 3.5: Brain (Opus) planning strategy …"
 python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
@@ -83,6 +92,9 @@ log "Step 5: Committing and pushing generated content …"
 # Stage any new/modified HTML in geo, blog, and key pages
 git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
 git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
+# Optimizer edits title/meta across any existing page + its durable ledger.
+git add -u 'public/**/*.html' 2>/dev/null || true
+git add data/experiments.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
@@ -115,6 +127,10 @@ python3 scripts/yandex-index.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex index
 # ---- Step 8: Daily report ----
 log "Step 8: Sending daily report …"
 python3 scripts/send_report.py >> "$LOG_FILE" 2>&1 || log "⚠️  Report failed (non-fatal)"
+
+# ---- Step 8b: Optimizer digest → Telegram (only if there's activity) ----
+log "Step 8b: Optimizer Telegram digest …"
+python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer report failed (non-fatal)"
 
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true

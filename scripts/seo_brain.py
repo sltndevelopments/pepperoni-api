@@ -107,12 +107,42 @@ def opportunities(limit: int = 40) -> dict:
     return out
 
 
+def experiments_digest() -> dict:
+    """Compact summary of optimizer experiments so the brain learns what works.
+
+    Reads the durable JSON ledger (data/experiments.json). Surfaces verdict
+    tallies and concrete examples of winning vs reverted title rewrites so the
+    strategy can double down on patterns that lift CTR and avoid those that hurt.
+    """
+    try:
+        led = json.loads((DATA / "experiments.json").read_text())
+    except Exception:
+        return {}
+    verdicts: dict = {}
+    for e in led:
+        v = e.get("verdict", "pending")
+        verdicts[v] = verdicts.get(v, 0) + 1
+    def _ex(e):
+        return {"query": e.get("query"), "before": (e.get("before_title") or "")[:60],
+                "after": (e.get("after_title") or "")[:60],
+                "pos": [e.get("before_pos"), e.get("after_pos")]}
+    wins = [_ex(e) for e in led if e.get("verdict") == "win"][-8:]
+    reverts = [_ex(e) for e in led if e.get("verdict") == "reverted"][-8:]
+    return {
+        "verdicts": verdicts,
+        "pending": verdicts.get("pending", 0),
+        "winning_rewrites": wins,
+        "reverted_rewrites": reverts,
+    }
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
         "inventory": inventory(),
         "coverage": coverage_gaps(),
         "opportunities": opportunities(),
+        "experiments": experiments_digest(),
     }
 
 
@@ -146,6 +176,14 @@ PLAYBOOK = """Ты — стратегический директор по пои
 - Приоритизируй по ROI: запросы с трафиком и позицией 5-15 важнее пустых ниш;
   города-миллионники и рынки с высоким % мусульман — выше.
 - Избегай thin/duplicate. Каждая директива — уникальная ценность.
+- УЧИСЬ НА ЭКСПЕРИМЕНТАХ: в дайджесте есть блок "experiments" — результаты
+  автоматических правок title/meta (win = CTR/позиция выросли, reverted =
+  ухудшение, откатили). Смотри winning_rewrites/reverted_rewrites: усиливай
+  паттерны формулировок, которые ДАЮТ win (например «запрос — что это», intent
+  в начале title), и избегай тех, что приводили к откату. Отрази это в
+  prompt_tweaks (как руки должны писать title/meta).
+- ГЛАВНАЯ МЕТРИКА — клики/трафик, а НЕ количество страниц. Если опт-эксперименты
+  дают win — это важнее, чем выпуск новых гео-страниц.
 - Не раздувай вывод. Списки короткие и конкретные.
 
 ВЕРНИ СТРОГО валидный JSON (без markdown, без комментариев) по схеме:
@@ -225,6 +263,7 @@ def main():
     strategy["digest_summary"] = {
         "inventory": digest["inventory"],
         "opportunities_counts": {k: len(v) for k, v in digest["opportunities"].items()},
+        "experiments": digest.get("experiments", {}).get("verdicts", {}),
     }
     STRATEGY_FILE.write_text(json.dumps(strategy, ensure_ascii=False, indent=1))
 

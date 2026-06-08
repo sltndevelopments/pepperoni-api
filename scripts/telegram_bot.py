@@ -101,7 +101,7 @@ MAIN_MENU = [
     ["📊 Статус", "💰 Бюджет"],
     ["🚀 Запустить генерацию", "📜 История"],
     ["🧠 Спросить мозг", "📋 Стратегия"],
-    ["🩺 SEO здоровье"],
+    ["🩺 SEO здоровье", "🧪 Эксперименты"],
 ]
 
 
@@ -226,6 +226,37 @@ def action_seo_health() -> str:
         return "🩺 Проверка идёт дольше обычного — результат будет в логах."
     except Exception as e:
         return f"🩺 Не удалось запустить проверку: {e}"
+
+
+def action_experiments() -> str:
+    """Show the SEO optimizer's experiment ledger summary (FREE, no LLM)."""
+    try:
+        led = json.loads((DATA / "experiments.json").read_text())
+    except Exception:
+        return ("🧪 <b>Эксперименты оптимизатора</b>\n"
+                "Пока пусто — оптимизатор ещё не вносил правок title/meta "
+                "(или ledger не синхронизирован на этот хост).")
+    if not led:
+        return "🧪 <b>Эксперименты оптимизатора</b>\nПока пусто."
+    verdicts: dict = {}
+    for e in led:
+        v = e.get("verdict", "pending")
+        verdicts[v] = verdicts.get(v, 0) + 1
+    lines = ["🧪 <b>Эксперименты оптимизатора</b>",
+             f"Всего: <b>{len(led)}</b> · в ожидании замера: <b>{verdicts.get('pending',0)}</b>",
+             f"🟢 win: {verdicts.get('win',0)} · ⚪ neutral: {verdicts.get('neutral',0)} · "
+             f"🔴 откат: {verdicts.get('reverted',0)}"]
+    wins = [e for e in led if e.get("verdict") == "win"][-3:]
+    if wins:
+        lines.append("\n<b>Недавние победы:</b>")
+        for e in wins:
+            lines.append(f"  🟢 «{e.get('query')}»: поз {e.get('before_pos')}→{e.get('after_pos')}")
+    pend = [e for e in led if e.get("verdict") == "pending"][-3:]
+    if pend:
+        lines.append("\n<b>В работе (ждут замера ~14 дней):</b>")
+        for e in pend:
+            lines.append(f"  ⏳ «{e.get('query')}» → {(e.get('after_title') or '')[:42]}")
+    return "\n".join(lines)
 
 
 def action_run_generation(chat_id: int) -> str:
@@ -374,6 +405,8 @@ def handle_message(msg: dict) -> None:
     elif text in ("🩺 SEO здоровье", "/health", "здоровье"):
         send(chat_id, "🩺 Проверяю структурированные данные…")
         send(chat_id, action_seo_health(), keyboard=MAIN_MENU)
+    elif text in ("🧪 Эксперименты", "/experiments", "эксперименты"):
+        send(chat_id, action_experiments(), keyboard=MAIN_MENU)
     elif text in ("🧠 Спросить мозг", "/ask"):
         set_pending(chat_id, "ask_brain_prompt", "")
         send(chat_id, "Напиши вопрос — отвечу через Sonnet (дёшево). "

@@ -101,6 +101,12 @@ jobs:
         run: python scripts/optimize_seo.py --apply
         continue-on-error: true
 
+      - name: Telegram digest of optimizer activity
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python scripts/optimize_seo.py --report
+        continue-on-error: true
+
       # ── Step 3: Generate content (OPT-IN ONLY) ─────────────────
       # Disabled by default. Mass generation previously produced thin/duplicate
       # pages that hurt the domain. Enable per-run via the generate_pages input.

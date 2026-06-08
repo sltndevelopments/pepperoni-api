@@ -88,6 +88,29 @@ def save_ledger(rows: list) -> None:
         json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
+def ledger_summary() -> dict:
+    """Aggregate the ledger for reporting/strategy. Used by Telegram & the brain."""
+    led = load_ledger()
+    today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+    verdicts: dict[str, int] = {}
+    for e in led:
+        v = e.get("verdict", "pending")
+        verdicts[v] = verdicts.get(v, 0) + 1
+    wins = [e for e in led if e.get("verdict") == "win"]
+    reverts = [e for e in led if e.get("verdict") == "reverted"]
+    applied_today = [e for e in led if (e.get("applied_at") or "").startswith(today)]
+    measured_today = [e for e in led if (e.get("measured_at") or "").startswith(today)]
+    return {
+        "total": len(led),
+        "verdicts": verdicts,
+        "pending": verdicts.get("pending", 0),
+        "applied_today": applied_today,
+        "measured_today": measured_today,
+        "recent_wins": wins[-5:],
+        "recent_reverts": reverts[-5:],
+    }
+
+
 # ---------------------------------------------------------------- helpers
 
 def url_to_path(page_url: str) -> Path | None:
@@ -409,14 +432,68 @@ def run_measure(conn) -> int:
     return wins + neutral + reverted
 
 
+# ---------------------------------------------------------------- report
+
+def build_report_text() -> str:
+    s = ledger_summary()
+    lines = ["<b>🧪 SEO-оптимизатор — отчёт</b>"]
+
+    at = s["applied_today"]
+    if at:
+        lines.append(f"\n<b>Применено сегодня:</b> {len(at)} правок title/meta")
+        for e in at[:6]:
+            lines.append(f"  ✏️ «{e['query']}» → {e['after_title'][:48]}")
+    else:
+        lines.append("\nСегодня новых правок нет.")
+
+    mt = s["measured_today"]
+    if mt:
+        won = sum(1 for e in mt if e["verdict"] == "win")
+        rev = sum(1 for e in mt if e["verdict"] == "reverted")
+        neu = sum(1 for e in mt if e["verdict"] == "neutral")
+        lines.append(f"\n<b>Замерено сегодня:</b> {won} 🟢 win · {neu} ⚪ neutral · {rev} 🔴 откат")
+        for e in mt:
+            if e["verdict"] in ("win", "reverted"):
+                icon = "🟢" if e["verdict"] == "win" else "🔴"
+                bp, ap_ = e.get("before_pos"), e.get("after_pos")
+                lines.append(f"  {icon} «{e['query']}»: поз {bp}→{ap_}")
+
+    v = s["verdicts"]
+    lines.append(
+        f"\n<b>Всего:</b> {s['total']} | в ожидании замера: {s['pending']} | "
+        f"win: {v.get('win',0)} · откатов: {v.get('reverted',0)}"
+    )
+    return "\n".join(lines)
+
+
+def run_report() -> None:
+    text = build_report_text()
+    print(text.replace("<b>", "").replace("</b>", ""))
+    s = ledger_summary()
+    # Only ping Telegram when there is something worth seeing (avoid daily noise).
+    if not (s["applied_today"] or s["measured_today"]):
+        print("· nothing to report to Telegram today")
+        return
+    try:
+        import telegram_bot as tg
+    except Exception as e:
+        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        return
+    auth = tg.load_authorized()
+    for cid in auth:
+        tg.send(int(cid), text)
+    print(f"📤 optimizer report sent to {len(auth)} chat(s)")
+
+
 # ---------------------------------------------------------------- main
 
 def main():
     ap = argparse.ArgumentParser(description="Data-driven SEO optimizer (no page generation)")
     ap.add_argument("--apply", action="store_true", help="Find & rewrite low-CTR titles/meta")
     ap.add_argument("--measure", action="store_true", help="Measure matured experiments & revert regressions")
+    ap.add_argument("--report", action="store_true", help="Send optimizer activity digest to Telegram")
     args = ap.parse_args()
-    if not (args.apply or args.measure):
+    if not (args.apply or args.measure or args.report):
         args.apply = args.measure = True   # default: full daily cycle
 
     init_db()
@@ -427,6 +504,8 @@ def main():
         run_apply(conn)
     conn.commit()
     conn.close()
+    if args.report:
+        run_report()
 
 
 if __name__ == "__main__":
