@@ -31,10 +31,12 @@ Env:
 
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
 import sys
+import time
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -123,16 +125,50 @@ def our_best_page(conn, query: str) -> str | None:
 
 # ---------------------------------------------------------------- SERP (optional)
 
+_SEARCH_API   = "https://searchapi.api.cloud.yandex.net/v2/web/searchAsync"
+_OPERATION_API = "https://operation.api.cloud.yandex.net/operations/"
+
+
+def _yandex_post(url: str, payload: dict | None = None) -> dict:
+    headers = {"Authorization": f"Api-Key {YA_KEY}", "Content-Type": "application/json"}
+    data = json.dumps(payload).encode() if payload is not None else None
+    method = "POST" if payload is not None else "GET"
+    req = urllib.request.Request(url, data=data, headers=headers, method=method)
+    return json.loads(urllib.request.urlopen(req, timeout=20).read().decode("utf-8", "ignore"))
+
+
 def yandex_serp_top(query: str, n: int = 5) -> list[str]:
-    """Top organic URLs via the official Yandex XML search API (if key present)."""
-    if not (YA_KEY and YA_USER):
+    """Top organic URLs via the Yandex Cloud Search API v2 (async, if key present).
+
+    Auth is the service-account API key (``YANDEX_SEARCH_API_KEY``); the folder is
+    derived from the service account, so ``YANDEX_SEARCH_USER`` is optional and only
+    sent as ``folderId`` when explicitly provided.
+    """
+    if not YA_KEY:
         return []
-    url = ("https://yandex.com/search/xml?"
-           f"user={urllib.parse.quote(YA_USER)}&key={urllib.parse.quote(YA_KEY)}"
-           f"&query={urllib.parse.quote(query)}&l10n=ru&groupby=attr%3D%22%22.mode%3Dflat")
+    body: dict = {"query": {"searchType": "SEARCH_TYPE_RU", "queryText": query}}
+    if YA_USER:
+        body["folderId"] = YA_USER
     try:
-        req = urllib.request.Request(url, headers={"User-Agent": UA})
-        xml = urllib.request.urlopen(req, timeout=15).read().decode("utf-8", "ignore")
+        op = _yandex_post(_SEARCH_API, body)
+        op_id = op.get("id")
+        if not op_id:
+            print(f"· yandex serp: no operation id ({query}): {op}", file=sys.stderr)
+            return []
+        raw = None
+        for _ in range(12):
+            res = _yandex_post(_OPERATION_API + op_id)
+            if res.get("done"):
+                if res.get("error"):
+                    print(f"· yandex serp op error ({query}): {res['error']}", file=sys.stderr)
+                    return []
+                resp = res.get("response", {})
+                raw = resp.get("rawData") or resp.get("data")
+                break
+            time.sleep(3)
+        if not raw:
+            return []
+        xml = base64.b64decode(raw).decode("utf-8", "ignore")
     except Exception as e:
         print(f"· yandex serp failed ({query}): {e}", file=sys.stderr)
         return []
@@ -161,7 +197,7 @@ def analyze_page(url: str) -> dict:
 
 
 def enrich(findings: list[dict], conn) -> None:
-    if not (YA_KEY and YA_USER):
+    if not YA_KEY:
         return
     for f in findings[: min(8, len(findings))]:
         tops = yandex_serp_top(f["query"])
@@ -202,7 +238,7 @@ def telegram_report(findings: list[dict], enriched: bool) -> None:
             lines.append(f"    ↳ конкурент: {w}")
     if not enriched:
         lines.append("\n<i>SERP-анализ «почему» выключен — добавь YANDEX_SEARCH_API_KEY "
-                     "и YANDEX_SEARCH_USER, чтобы видеть причины (длина, schema, отзывы).</i>")
+                     "(Yandex Cloud Search API v2), чтобы видеть причины (длина, schema, отзывы).</i>")
     lines.append("\n<i>Это кандидаты на усиление контента/перелинковки/лендингов.</i>")
     try:
         from telegram_notify import notify
@@ -219,7 +255,7 @@ def main():
     findings = losing_queries(conn)
     print(f"🔭 {len(findings)} losing queries (impr>={COMP_MIN_IMPR}, pos>{COMP_POS_BAD})")
 
-    enriched = bool(YA_KEY and YA_USER)
+    enriched = bool(YA_KEY)
     if enriched:
         print("· enriching with Yandex SERP analysis …")
         enrich(findings, conn)
