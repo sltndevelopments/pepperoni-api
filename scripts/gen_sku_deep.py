@@ -79,19 +79,38 @@ def gen(sku: str, lang: str) -> str | None:
 
 
 def main() -> int:
-    skus = sys.argv[1:]
-    if not skus:
-        print("usage: gen_sku_deep.py <SKU> [SKU...]")
+    args = sys.argv[1:]
+    force = "--force" in args
+    args = [a for a in args if a != "--force"]
+    if args and args[0] == "--all":
+        skus = [it.get("sku") for it in ITEMS if it.get("sku")]
+    elif args:
+        skus = args
+    else:
+        print("usage: gen_sku_deep.py [--all | <SKU> ...] [--force]")
         return 1
     OUT.mkdir(parents=True, exist_ok=True)
+    done = skipped = failed = 0
     for sku in skus:
         for lang, suffix in (("ru", ".html"), ("en", ".en.html")):
             out = OUT / f"{sku.lower()}{suffix}"
-            html = gen(sku, lang)
+            if out.exists() and not force:
+                skipped += 1
+                continue
+            try:
+                html = gen(sku, lang)
+            except Exception as e:  # network/LLM flake — keep going, resumable
+                print(f"  ! {sku}/{lang}: {str(e)[:80]}", file=sys.stderr)
+                failed += 1
+                continue
             if html:
                 out.write_text(html, encoding="utf-8")
                 wc = len(re.findall(r"\w+", re.sub(r"<[^>]+>", " ", html)))
-                print(f"  ✓ {sku}/{lang}: {wc} words -> {out.name}")
+                print(f"  ✓ {sku}/{lang}: {wc} words -> {out.name}", flush=True)
+                done += 1
+            else:
+                failed += 1
+    print(f"\nDONE done={done} skipped={skipped} failed={failed}")
     return 0
 
 
