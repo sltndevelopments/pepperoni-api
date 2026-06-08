@@ -108,6 +108,17 @@ jobs:
         run: python scripts/optimize_seo.py --report
         continue-on-error: true
 
+      # ── Step 2b: Build owner-approved landing pages (Scout→approve→page) ──
+      # Only builds landings explicitly approved in Telegram. Safe by default.
+
+      - name: Build approved landing pages
+        env:
+          DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: python scripts/build_landing.py
+        continue-on-error: true
+
       # ── Step 3: Generate content (OPT-IN ONLY) ─────────────────
       # Disabled by default. Mass generation previously produced thin/duplicate
       # pages that hurt the domain. Enable per-run via the generate_pages input.
@@ -172,6 +183,9 @@ jobs:
           # files — those only appear when generate_pages=true and are staged
           # by the explicit globs below).
           git add -u "public/**/*.html" 2>/dev/null || true
+          # Landing-Builder output (owner-approved landings) + ledger + queue.
+          git add "public/landing/*.html" 2>/dev/null || true
+          git add data/experiments.json data/approvals.json 2>/dev/null || true
           # Blog articles (RU + EN)
           git add "public/blog/*.html" 2>/dev/null || true
           git add "public/en/blog/*.html" 2>/dev/null || true

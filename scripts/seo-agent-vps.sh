@@ -78,6 +78,11 @@ python3 scripts/optimize_seo.py --measure >> "$LOG_FILE" 2>&1 || log "⚠️  Op
 log "Step 3.4: Optimizer — apply title/meta improvements …"
 python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer apply failed (non-fatal)"
 
+# ---- Step 3.45: LANDING-BUILDER — build pages approved in Telegram ----
+# Closes the Scout→approval→page loop: only builds landings the owner approved.
+log "Step 3.45: Landing-Builder — building approved landings …"
+python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log "⚠️  Landing-Builder failed (non-fatal)"
+
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 log "Step 3.5: Brain (Opus) planning strategy …"
 python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
@@ -103,6 +108,8 @@ git add -u 'public/**/*.html' 2>/dev/null || true
 git add data/experiments.json 2>/dev/null || true
 # Scout discovery state + approval queue (durable, git-tracked).
 git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
+# Landing-Builder output (approved landings) + sitemap.
+git add public/landing/*.html 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
