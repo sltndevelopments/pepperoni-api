@@ -38,6 +38,7 @@ DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
 AUTH_FILE = DATA / "tg_authorized.json"
 PENDING_FILE = DATA / "tg_pending.json"   # pending confirmations
+APPROVALS_FILE = DATA / "approvals.json"  # high-impact actions awaiting human OK
 
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
@@ -102,6 +103,7 @@ MAIN_MENU = [
     ["🚀 Запустить генерацию", "📜 История"],
     ["🧠 Спросить мозг", "📋 Стратегия"],
     ["🩺 SEO здоровье", "🧪 Эксперименты"],
+    ["🛰 Разведка", "✅ Аппрувы"],
 ]
 
 
@@ -259,6 +261,92 @@ def action_experiments() -> str:
     return "\n".join(lines)
 
 
+def action_scout() -> str:
+    """Show the latest Scout demand-discovery findings (FREE, no LLM)."""
+    try:
+        f = json.loads((DATA / "scout_findings.json").read_text())
+    except Exception:
+        return ("🛰 <b>Разведка спроса</b>\nПока нет данных — Scout ещё не запускался "
+                "(или findings не синхронизированы на этот хост).")
+    nq, rq, gq = f.get("new_queries", []), f.get("rising_queries", []), f.get("coverage_gaps", [])
+    lines = ["🛰 <b>Разведка спроса</b>",
+             f"<i>обновлено: {f.get('generated_at','')[:16]}</i>"]
+    if nq:
+        lines.append("\n<b>🆕 Новые запросы:</b>")
+        for e in nq[:6]:
+            lines.append(f"  «{e['query']}» — {e['impr']} показов, поз {e['pos']}")
+    if rq:
+        lines.append("\n<b>📈 Растущий спрос:</b>")
+        for e in rq[:6]:
+            lines.append(f"  «{e['query']}» — {e.get('from_impr','?')}→{e['impr']}")
+    if gq:
+        lines.append("\n<b>🕳 Пробелы (ранжируется только главная):</b>")
+        for e in gq[:6]:
+            lines.append(f"  «{e['query']}» — {e['impr']} показов")
+    if not (nq or rq or gq):
+        lines.append("\nНовых сигналов нет — спрос стабилен.")
+    return "\n".join(lines)
+
+
+# ── High-impact approval queue ───────────────────────────────────────────────────
+def load_approvals() -> list:
+    try:
+        return json.loads(APPROVALS_FILE.read_text())
+    except Exception:
+        return []
+
+
+def save_approvals(rows: list) -> None:
+    DATA.mkdir(exist_ok=True)
+    APPROVALS_FILE.write_text(json.dumps(rows, ensure_ascii=False, indent=2))
+
+
+def action_approvals() -> str:
+    """List high-impact actions awaiting human decision (FREE)."""
+    rows = [a for a in load_approvals() if a.get("status") == "pending"]
+    if not rows:
+        return ("✅ <b>Аппрувы</b>\nНет действий, ожидающих решения.\n"
+                "<i>Сюда попадают рискованные изменения (удаление страниц/разделов, "
+                "смена структуры) — агент спросит тебя перед выполнением.</i>")
+    lines = ["✅ <b>Действия на одобрение</b>",
+             "Ответь: <code>одобрить N</code> или <code>отклонить N</code>\n"]
+    for i, a in enumerate(rows[:10], 1):
+        risk = a.get("risk", "high")
+        lines.append(f"<b>{i}.</b> [{risk}] {a.get('title','?')}")
+        if a.get("detail"):
+            lines.append(f"   <i>{a['detail'][:160]}</i>")
+        lines.append(f"   запросил: {a.get('requested_by','agent')} · {a.get('created_at','')[:16]}")
+    return "\n".join(lines)
+
+
+def _approval_decision(text: str):
+    """Parse 'одобрить N' / 'отклонить N' / 'approve N' / 'reject N'. Returns (idx, approve) or None."""
+    parts = (text or "").strip().lower().split()
+    if len(parts) != 2 or not parts[1].isdigit():
+        return None
+    verb = parts[0]
+    if verb in ("одобрить", "одобряю", "approve", "ок"):
+        return int(parts[1]), True
+    if verb in ("отклонить", "отклоняю", "reject", "отказ"):
+        return int(parts[1]), False
+    return None
+
+
+def decide_approval(index_1based: int, approve: bool, who: str) -> str:
+    rows = load_approvals()
+    pend = [a for a in rows if a.get("status") == "pending"]
+    if index_1based < 1 or index_1based > len(pend):
+        return f"Нет действия №{index_1based}. Открой ✅ Аппрувы, чтобы увидеть список."
+    target = pend[index_1based - 1]
+    target["status"] = "approved" if approve else "rejected"
+    target["decided_at"] = datetime.now(timezone.utc).isoformat()
+    target["decided_by"] = who
+    save_approvals(rows)
+    J.log_event("approval", f"{'approved' if approve else 'rejected'}: {target.get('title')}", who=who)
+    verb = "одобрено ✅ — агент выполнит на следующем цикле" if approve else "отклонено ❌"
+    return f"{verb}: {target.get('title')}"
+
+
 def action_run_generation(chat_id: int) -> str:
     running = subprocess.run(["pgrep", "-f", "generate_geo_bulk"],
                              capture_output=True).returncode == 0
@@ -407,6 +495,13 @@ def handle_message(msg: dict) -> None:
         send(chat_id, action_seo_health(), keyboard=MAIN_MENU)
     elif text in ("🧪 Эксперименты", "/experiments", "эксперименты"):
         send(chat_id, action_experiments(), keyboard=MAIN_MENU)
+    elif text in ("🛰 Разведка", "/scout", "разведка"):
+        send(chat_id, action_scout(), keyboard=MAIN_MENU)
+    elif text in ("✅ Аппрувы", "/approvals", "аппрувы"):
+        send(chat_id, action_approvals(), keyboard=MAIN_MENU)
+    elif _approval_decision(text) is not None:
+        idx, approve = _approval_decision(text)
+        send(chat_id, decide_approval(idx, approve, str(chat_id)), keyboard=MAIN_MENU)
     elif text in ("🧠 Спросить мозг", "/ask"):
         set_pending(chat_id, "ask_brain_prompt", "")
         send(chat_id, "Напиши вопрос — отвечу через Sonnet (дёшево). "

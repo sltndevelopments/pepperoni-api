@@ -1,0 +1,58 @@
+name: SEO Scout — demand discovery (every 6h)
+
+# Lightweight discovery agent: pulls fresh GSC data, diffs against its baseline
+# to find NEW / RISING queries and COVERAGE gaps, writes git-tracked findings,
+# queues high-value landing-page ideas for approval, and (on the VPS, where the
+# Telegram chats live) sends a digest. Generates NOTHING — discovery only.
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # every 6 hours
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install cryptography
+
+      - name: Fetch GSC queries
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: python scripts/fetch_gsc_queries.py
+        continue-on-error: true
+
+      - name: Run Scout (discovery)
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: python scripts/scout_seo.py
+        continue-on-error: true
+
+      - name: Commit scout state & findings
+        run: |
+          git config user.email "seo-agent@pepperoni.tatar"
+          git config user.name  "SEO Scout"
+          git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(scout): demand findings $(date +%Y-%m-%dT%H:%M)"
+            for attempt in 1 2 3 4 5; do
+              git pull --rebase --no-edit origin main || { git rebase --abort 2>/dev/null || true; exit 1; }
+              if git push origin main; then echo "✅ pushed scout state (attempt ${attempt})"; break; fi
+              echo "push race, retry ${attempt}/5"; sleep $((attempt * 3))
+            done
+          else
+            echo "No scout changes to commit"
+          fi
+        continue-on-error: true

@@ -136,6 +136,22 @@ def experiments_digest() -> dict:
     }
 
 
+def scout_digest() -> dict:
+    """New/rising/gap demand signals discovered by the Scout agent."""
+    try:
+        f = json.loads((DATA / "scout_findings.json").read_text())
+    except Exception:
+        return {}
+    def _trim(lst):
+        return [{"query": e.get("query"), "impr": e.get("impr"),
+                 "pos": e.get("pos"), "page": e.get("page")} for e in (lst or [])[:12]]
+    return {
+        "new_queries": _trim(f.get("new_queries")),
+        "rising_queries": _trim(f.get("rising_queries")),
+        "coverage_gaps": _trim(f.get("coverage_gaps")),
+    }
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
@@ -143,6 +159,7 @@ def build_digest() -> dict:
         "coverage": coverage_gaps(),
         "opportunities": opportunities(),
         "experiments": experiments_digest(),
+        "scout": scout_digest(),
     }
 
 
@@ -184,6 +201,11 @@ PLAYBOOK = """Ты — стратегический директор по пои
   prompt_tweaks (как руки должны писать title/meta).
 - ГЛАВНАЯ МЕТРИКА — клики/трафик, а НЕ количество страниц. Если опт-эксперименты
   дают win — это важнее, чем выпуск новых гео-страниц.
+- РАЗВЕДКА СПРОСА: блок "scout" — это сигналы от агента-разведчика:
+  new_queries (новые запросы без нормальной страницы), rising_queries (растущий
+  спрос), coverage_gaps (есть спрос, но ранжируется только главная — нужен
+  отдельный лендинг). Это ВЫСШИЙ приоритет для new_blog_topics / pl_oem_topics /
+  rewrite_pages: делай страницы под РЕАЛЬНЫЙ обнаруженный спрос, а не догадки.
 - Не раздувай вывод. Списки короткие и конкретные.
 
 ВЕРНИ СТРОГО валидный JSON (без markdown, без комментариев) по схеме:

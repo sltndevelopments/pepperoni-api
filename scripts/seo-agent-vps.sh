@@ -63,6 +63,12 @@ python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yand
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
 
+# ---- Step 3.3: SCOUT — discover new/rising queries & coverage gaps ----
+# Discovery only (no generation). Writes git-tracked findings the brain reads,
+# queues high-value landing ideas for approval, and pings Telegram.
+log "Step 3.3: Scout — discovering demand signals …"
+python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log "⚠️  Scout failed (non-fatal)"
+
 # ---- Step 3.4: OPTIMIZER — measure past experiments, then optimize titles/meta ----
 # Data-driven core: success = clicks, not page count. Measures matured
 # experiments (auto-reverts regressions), then rewrites near-page-1 low-CTR
@@ -95,6 +101,8 @@ git add public/index.html public/pepperoni.html public/en/index.html public/site
 # Optimizer edits title/meta across any existing page + its durable ledger.
 git add -u 'public/**/*.html' 2>/dev/null || true
 git add data/experiments.json 2>/dev/null || true
+# Scout discovery state + approval queue (durable, git-tracked).
+git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
