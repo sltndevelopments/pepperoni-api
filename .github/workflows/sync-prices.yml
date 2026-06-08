@@ -28,12 +28,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Generate product descriptions for new/empty SKUs (DeepSeek)
+      - name: Generate product descriptions for new/empty SKUs (Claude)
         env:
-          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:    ${{ secrets.ANTHROPIC_PROXY }}
         run: |
-          if [ -z "$DEEPSEEK_API_KEY" ]; then
-            echo "DEEPSEEK_API_KEY not set — skipping description generation"
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            echo "ANTHROPIC_API_KEY not set — skipping description generation"
             exit 0
           fi
           # First pass builds products.json so the generator sees current SKUs/empty fields

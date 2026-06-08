@@ -32,6 +32,8 @@ jobs:
         uses: appleboy/ssh-action@v1.0.0
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:  ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:    ${{ secrets.ANTHROPIC_PROXY }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root

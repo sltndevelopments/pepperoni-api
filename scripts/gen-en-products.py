@@ -64,10 +64,12 @@ def cleanse_ingredients(text: str) -> str:
     text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
     text = text.replace("нитритная соль", "посолочная смесь")
     # Halal guard: never publish pork (last-resort scrub against bad Sheet edits).
-    text = re.sub(r"\bpork fat\b|\bfatback\b", "beef fat", text, flags=re.I)
+    text = re.sub(r",?\s*pork-free\b", "", text, flags=re.I)
+    text = re.sub(r",?\s*без свинины\b", "", text, flags=re.I)
+    text = re.sub(r"\bpork fat\b|\bfatback\b|\bbacon\b", "beef fat", text, flags=re.I)
     text = re.sub(r"\bpork\b,?\s*", "", text, flags=re.I)
     text = re.sub(r"свинина,\s*", "", text)
-    text = re.sub(r"\bсвинина\b", "говядина", text)
+    text = re.sub(r"\bсвинин\w*\b", "говядина", text)
     text = re.sub(r"\bшпик\b", "говяжий жир", text)
     text = re.sub(r"\s{2,}", " ", text)
     return text

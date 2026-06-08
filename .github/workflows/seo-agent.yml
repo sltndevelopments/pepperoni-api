@@ -115,6 +115,8 @@ jobs:
       - name: Optimize titles/meta of low-CTR pages
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           OPT_MAX_CHANGES:  ${{ github.event.inputs.opt_max_changes || '8' }}
         run: python scripts/optimize_seo.py --apply
         continue-on-error: true
@@ -132,6 +134,8 @@ jobs:
       - name: Build approved landing pages
         env:
           DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
         run: python scripts/build_landing.py
@@ -155,6 +159,8 @@ jobs:
         if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
           MAX_TITLES:           ${{ github.event.inputs.max_titles   || '10' }}
           MAX_TYPEGEO:          ${{ github.event.inputs.max_typegeo  || '3' }}
@@ -165,6 +171,8 @@ jobs:
         if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
         run: python scripts/update_product_descriptions.py
         continue-on-error: true
@@ -173,6 +181,8 @@ jobs:
         if: github.event.inputs.generate_pages == 'true' && github.event.inputs.run_news == 'true'
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
         run: python scripts/gen_news.py
         continue-on-error: true
 
@@ -187,6 +197,8 @@ jobs:
         if: github.event.inputs.generate_pages == 'true'
         env:
           DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
           GEO_WORKERS:      "5"
           GEO_SLEEP:        "0.5"
@@ -294,6 +306,8 @@ jobs:
       - name: Send daily report
         env:
           DEEPSEEK_API_KEY:  ${{ secrets.DEEPSEEK_API_KEY }}
+          ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
+          ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           REPORT_EMAIL:    ${{ secrets.REPORT_EMAIL }}
           SMTP_HOST:       ${{ secrets.SMTP_HOST }}
           SMTP_PORT:       ${{ secrets.SMTP_PORT }}
