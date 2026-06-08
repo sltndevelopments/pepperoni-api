@@ -41,6 +41,12 @@ from claude_client import call_claude, DEEPSEEK_API_KEY, DEFAULT_MODEL
 PUBLIC_DIR = Path(__file__).parent.parent / "public"
 REPO_DIR   = Path(__file__).parent.parent
 
+# The SQLite DB (data/seo_data.db) is NOT tracked in git — it is rebuilt from the
+# GSC/Yandex APIs on every CI run and discarded. Experiments must outlive a single
+# run for the measure/revert loop to work, so the durable source of truth is a
+# git-tracked JSON ledger committed alongside the HTML changes.
+LEDGER_PATH = REPO_DIR / "data" / "experiments.json"
+
 OPT_MAX_CHANGES = int(os.environ.get("OPT_MAX_CHANGES", "8"))
 OPT_MIN_IMPR    = int(os.environ.get("OPT_MIN_IMPR",    "25"))
 OPT_POS_LOW     = float(os.environ.get("OPT_POS_LOW",   "5"))
@@ -63,6 +69,23 @@ BRAND_PATTERNS = ("pepperoni.tatar", "pepperoni tatar", "казанские де
 def is_brand_query(q: str) -> bool:
     ql = (q or "").lower()
     return any(b in ql for b in BRAND_PATTERNS)
+
+
+# ---------------------------------------------------------------- ledger
+
+def load_ledger() -> list:
+    if LEDGER_PATH.exists():
+        try:
+            return json.loads(LEDGER_PATH.read_text(encoding="utf-8"))
+        except Exception:
+            return []
+    return []
+
+
+def save_ledger(rows: list) -> None:
+    LEDGER_PATH.parent.mkdir(parents=True, exist_ok=True)
+    LEDGER_PATH.write_text(
+        json.dumps(rows, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
 # ---------------------------------------------------------------- helpers
@@ -183,8 +206,7 @@ def find_candidates(conn) -> list:
             best[p] = {"query": r["query"], "impr": r["impr"] or 0,
                        "clk": r["clk"] or 0, "wpos": r["wpos"] or 0}
 
-    pending_pages = {row["page"] for row in conn.execute(
-        "SELECT DISTINCT page FROM experiments WHERE verdict='pending'")}
+    pending_pages = {e["page"] for e in load_ledger() if e.get("verdict") == "pending"}
 
     out = []
     for page, b in best.items():
@@ -252,6 +274,7 @@ def run_apply(conn) -> int:
         print("❌ DEEPSEEK_API_KEY not set — cannot rewrite.", file=sys.stderr)
         return 0
     now = datetime.now(timezone.utc).isoformat()
+    ledger = load_ledger()
     cands = find_candidates(conn)
     print(f"🔎 {len(cands)} candidate pages (pos {OPT_POS_LOW:.0f}-{OPT_POS_HIGH:.0f}, "
           f"CTR<={OPT_MAX_CTR:.0%}, impr>={OPT_MIN_IMPR})")
@@ -279,20 +302,31 @@ def run_apply(conn) -> int:
             continue
 
         rel = str(path.relative_to(REPO_DIR))
-        conn.execute("""
-            INSERT INTO experiments
-              (applied_at, change_type, page, file_path, query,
-               before_pos, before_ctr, before_impr, before_title, after_title, verdict, notes)
-            VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
-        """, (now, "title_meta", c["page"], rel, c["query"],
-              c["pos"], c["ctr"], int(c["impr"]), backup_title, new["title"],
-              "pending", f"desc_before={backup_desc[:80]}"))
-        conn.commit()
+        ledger.append({
+            "applied_at": now,
+            "change_type": "title_meta",
+            "page": c["page"],
+            "file_path": rel,
+            "query": c["query"],
+            "before_pos": round(c["pos"], 2),
+            "before_ctr": round(c["ctr"], 5),
+            "before_impr": int(c["impr"]),
+            "before_title": backup_title,
+            "before_desc": backup_desc,
+            "after_title": new["title"],
+            "verdict": "pending",
+            "measured_at": None,
+            "after_pos": None,
+            "after_ctr": None,
+            "after_impr": None,
+        })
         changed += 1
         print(f"  ✏️  {path.name}: «{c['query']}» pos{c['pos']:.0f} ctr{c['ctr']:.1%}")
         print(f"      {cur_title[:55]}")
         print(f"   →  {new['title'][:55]}")
-    print(f"✅ applied {changed} title/meta optimizations")
+    if changed:
+        save_ledger(ledger)
+    print(f"✅ applied {changed} title/meta optimizations (ledger: {LEDGER_PATH.name})")
     return changed
 
 
@@ -311,59 +345,66 @@ def current_metrics(conn, page: str, query: str) -> dict | None:
             "ctr": (row["clk"] or 0) / row["impr"], "pos": row["wpos"] or 0}
 
 
-def revert_experiment(exp) -> bool:
-    """Restore the previous title (and best-effort description) on disk."""
+def days_since(iso_ts: str) -> float:
+    try:
+        t = datetime.fromisoformat(iso_ts)
+        if t.tzinfo is None:
+            t = t.replace(tzinfo=timezone.utc)
+        return (datetime.now(timezone.utc) - t).total_seconds() / 86400.0
+    except Exception:
+        return 0.0
+
+
+def revert_experiment(exp: dict) -> bool:
+    """Restore the previous title and description on disk."""
     path = REPO_DIR / exp["file_path"]
-    if not path.exists() or not exp["before_title"]:
+    if not path.exists() or not exp.get("before_title"):
         return False
-    desc = ""
-    if exp["notes"] and "desc_before=" in exp["notes"]:
-        desc = exp["notes"].split("desc_before=", 1)[1]
-    set_title_meta_h1(path, exp["before_title"], desc)
+    set_title_meta_h1(path, exp["before_title"], exp.get("before_desc", ""))
     return is_valid_html(path)
 
 
 def run_measure(conn) -> int:
-    now = datetime.now(timezone.utc)
-    rows = conn.execute("""
-        SELECT * FROM experiments
-        WHERE verdict='pending'
-          AND julianday('now') - julianday(applied_at) >= ?
-    """, (OPT_MATURE_DAYS,)).fetchall()
-    print(f"📏 {len(rows)} experiments matured (>= {OPT_MATURE_DAYS}d)")
+    now = datetime.now(timezone.utc).isoformat()
+    ledger = load_ledger()
+    matured = [e for e in ledger
+               if e.get("verdict") == "pending"
+               and days_since(e.get("applied_at", "")) >= OPT_MATURE_DAYS]
+    print(f"📏 {len(matured)} experiments matured (>= {OPT_MATURE_DAYS}d) "
+          f"of {sum(1 for e in ledger if e.get('verdict')=='pending')} pending")
     wins = neutral = reverted = 0
-    for exp in rows:
+    for exp in matured:
         m = current_metrics(conn, exp["page"], exp["query"])
         if not m:
-            # No data → mark neutral, leave change in place.
-            conn.execute("UPDATE experiments SET verdict='neutral', measured_at=?, "
-                         "notes=COALESCE(notes,'')||' | no-after-data' WHERE id=?",
-                         (now.isoformat(), exp["id"]))
+            exp["verdict"] = "neutral"
+            exp["measured_at"] = now
+            exp["notes"] = "no-after-data"
             neutral += 1
             continue
 
-        d_ctr = m["ctr"] - (exp["before_ctr"] or 0)
-        # position: lower is better, so improvement = before - after
-        d_pos = (exp["before_pos"] or 0) - m["pos"]
+        d_ctr = m["ctr"] - (exp.get("before_ctr") or 0)
+        d_pos = (exp.get("before_pos") or 0) - m["pos"]   # >0 means improved
 
         if d_ctr >= WIN_CTR_DELTA or d_pos >= WIN_POS_DELTA:
             verdict = "win"; wins += 1
-        elif -d_pos >= REGRESSION_POS_DELTA:   # position worsened a lot
+        elif -d_pos >= REGRESSION_POS_DELTA:
             verdict = "regression"
             if revert_experiment(exp):
                 verdict = "reverted"; reverted += 1
         else:
             verdict = "neutral"; neutral += 1
 
-        conn.execute("""
-            UPDATE experiments
-            SET verdict=?, measured_at=?, after_pos=?, after_ctr=?, after_impr=?
-            WHERE id=?
-        """, (verdict, now.isoformat(), m["pos"], m["ctr"], m["impr"], exp["id"]))
-        conn.commit()
+        exp["verdict"] = verdict
+        exp["measured_at"] = now
+        exp["after_pos"] = round(m["pos"], 2)
+        exp["after_ctr"] = round(m["ctr"], 5)
+        exp["after_impr"] = m["impr"]
         print(f"  {verdict:10s} {Path(exp['file_path']).name}: "
-              f"ctr {exp['before_ctr']:.1%}→{m['ctr']:.1%}, "
-              f"pos {exp['before_pos']:.1f}→{m['pos']:.1f}")
+              f"ctr {(exp.get('before_ctr') or 0):.1%}→{m['ctr']:.1%}, "
+              f"pos {(exp.get('before_pos') or 0):.1f}→{m['pos']:.1f}")
+
+    if matured:
+        save_ledger(ledger)
     print(f"✅ measured: {wins} wins, {neutral} neutral, {reverted} reverted")
     return wins + neutral + reverted
 

@@ -186,8 +186,8 @@ jobs:
           git add "public/ro/geo/*.html" 2>/dev/null || true
           git add "public/hy/geo/*.html" 2>/dev/null || true
           git add "public/be/geo/*.html" 2>/dev/null || true
-          # Updated sitemap with new geo URLs
-          git add data/seo_data.db 2>/dev/null || true
+          # Durable experiment ledger (source of truth for the measure/revert loop)
+          git add data/experiments.json 2>/dev/null || true
           # News section
           git add "public/news/*.html" 2>/dev/null || true
           # Updated pages and sitemap

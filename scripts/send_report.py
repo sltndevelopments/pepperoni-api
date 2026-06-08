@@ -10,6 +10,7 @@ import re
 import smtplib
 import sys
 import urllib.request
+from pathlib import Path
 from datetime import datetime, timezone
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
@@ -146,19 +147,20 @@ def gather_stats() -> dict:
     """).fetchone()
     stats["yandex_prev_7d"] = dict(ya_prev) if ya_prev else {}
 
-    # Optimizer experiments: applied today + verdict tallies (closed loop)
+    # Optimizer experiments: read the git-tracked JSON ledger (durable source of
+    # truth; the SQLite DB is rebuilt fresh each run and not committed).
     try:
-        applied_today = conn.execute(
-            "SELECT COUNT(*) c FROM experiments WHERE applied_at LIKE ?", (f"{today}%",)
-        ).fetchone()["c"]
-        verdicts = {r["verdict"]: r["c"] for r in conn.execute(
-            "SELECT verdict, COUNT(*) c FROM experiments GROUP BY verdict")}
-        pending = conn.execute(
-            "SELECT COUNT(*) c FROM experiments WHERE verdict='pending'").fetchone()["c"]
+        import json as _json
+        ledger_path = Path(__file__).parent.parent / "data" / "experiments.json"
+        ledger = _json.loads(ledger_path.read_text(encoding="utf-8")) if ledger_path.exists() else []
+        verdicts: dict = {}
+        for e in ledger:
+            v = e.get("verdict", "pending")
+            verdicts[v] = verdicts.get(v, 0) + 1
         stats["experiments"] = {
-            "applied_today": applied_today,
+            "applied_today": sum(1 for e in ledger if (e.get("applied_at") or "").startswith(today)),
             "verdicts": verdicts,
-            "pending": pending,
+            "pending": verdicts.get("pending", 0),
         }
     except Exception:
         stats["experiments"] = {}
