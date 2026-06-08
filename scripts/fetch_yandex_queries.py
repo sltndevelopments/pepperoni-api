@@ -16,8 +16,11 @@ from datetime import datetime, timedelta, timezone
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
 
-USER_ID  = "238539242"
-HOST_ID  = "https:pepperoni.tatar:443"
+# USER_ID / HOST_ID are resolved automatically from the token (see resolve_*),
+# so a token swap never breaks the script. Env overrides allowed for edge cases.
+USER_ID  = os.environ.get("YANDEX_USER_ID", "")          # auto-resolved if empty
+HOST_ID  = os.environ.get("YANDEX_HOST_ID", "")          # auto-resolved if empty
+HOST_DOMAIN = os.environ.get("YANDEX_HOST_DOMAIN", "pepperoni.tatar")
 BASE_URL = "https://api.webmaster.yandex.net/v4"
 DAYS_BACK = int(os.environ.get("YANDEX_DAYS_BACK", "30"))
 
@@ -34,6 +37,36 @@ def api_get(token: str, path: str) -> dict:
         body = e.read().decode()
         print(f"  Yandex API {e.code} on {path}: {body}", file=sys.stderr)
         return {}
+
+
+def resolve_user_id(token: str) -> str:
+    """Yandex returns the authenticated user_id — no need to hardcode it."""
+    if USER_ID:
+        return USER_ID
+    data = api_get(token, "/user/")
+    return str(data.get("user_id", "")) if data else ""
+
+
+def resolve_host_id(token: str, user_id: str) -> str:
+    """Find our verified host in this account; warn clearly if it's missing."""
+    if HOST_ID:
+        return HOST_ID
+    data = api_get(token, f"/user/{user_id}/hosts/")
+    hosts = data.get("hosts", []) if data else []
+    if not hosts:
+        print("❌ No hosts in this Yandex Webmaster account. Add & verify "
+              f"'{HOST_DOMAIN}' at webmaster.yandex.ru under the SAME account "
+              "that issued this token.", file=sys.stderr)
+        return ""
+    for h in hosts:
+        if HOST_DOMAIN in (h.get("unicode_host_url", "") + h.get("ascii_host_url", "")):
+            if h.get("verified") is False:
+                print(f"⚠️  Host '{HOST_DOMAIN}' found but NOT verified — verify it "
+                      "in Yandex Webmaster.", file=sys.stderr)
+            return h.get("host_id", "")
+    print(f"❌ '{HOST_DOMAIN}' not among this account's hosts: "
+          f"{[h.get('ascii_host_url') for h in hosts]}", file=sys.stderr)
+    return ""
 
 
 def fetch_queries(token: str, date_from: str, date_to: str) -> list:
@@ -92,10 +125,21 @@ def save_queries(queries: list, fetched_at: str, date: str):
 
 
 def main():
+    global USER_ID, HOST_ID
     token = os.environ.get("YANDEX_WM_TOKEN", "")
     if not token:
         print("❌ YANDEX_WM_TOKEN not set", file=sys.stderr)
         sys.exit(1)
+
+    USER_ID = resolve_user_id(token)
+    if not USER_ID:
+        print("❌ Could not resolve Yandex user_id (bad/expired token).", file=sys.stderr)
+        sys.exit(1)
+    HOST_ID = resolve_host_id(token, USER_ID)
+    if not HOST_ID:
+        # host missing/unverified — resolve_host_id already explained why
+        sys.exit(2)
+    print(f"  user_id={USER_ID} host_id={HOST_ID}")
 
     init_db()
 

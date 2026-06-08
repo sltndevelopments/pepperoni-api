@@ -20,8 +20,8 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
-USER_ID      = "238539242"
-HOST_ID      = "https:pepperoni.tatar:443"
+USER_ID      = os.environ.get("YANDEX_USER_ID", "238539242")
+HOST_ID      = os.environ.get("YANDEX_HOST_ID", "https:pepperoni.tatar:443")
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
 
