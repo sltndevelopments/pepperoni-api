@@ -41,6 +41,15 @@ SEED_QUERIES = [
 
 MAX_GSC_EXTRA = 10  # top demand queries auto-added from GSC
 
+# Target export markets (GSC uses ISO-3166 alpha-3 lowercase country codes).
+TARGET_COUNTRIES = {
+    "rus": "Россия", "kaz": "Казахстан", "blr": "Беларусь", "arm": "Армения",
+    "aze": "Азербайджан", "kgz": "Кыргызстан", "tjk": "Таджикистан",
+    "geo": "Грузия", "are": "ОАЭ", "sau": "Сауд. Аравия", "kwt": "Кувейт",
+    "bhr": "Бахрейн", "omn": "Оман", "yem": "Йемен", "qat": "Катар",
+    "egy": "Египет",
+}
+
 
 def _rows(conn, sql, args=()):
     try:
@@ -49,13 +58,35 @@ def _rows(conn, sql, args=()):
         return []
 
 
+def country_scoreboard(conn, cutoff: str) -> list:
+    """Per-target-country visibility: impressions/clicks/avg position (28d)."""
+    rows = _rows(conn, """
+        SELECT lower(country), SUM(impressions), SUM(clicks),
+               SUM(position*impressions)/MAX(SUM(impressions),1)
+        FROM gsc_queries WHERE date >= ? GROUP BY lower(country)
+    """, (cutoff,))
+    by_code = {r[0]: r for r in rows if r[0]}
+    out = []
+    for code, name in TARGET_COUNTRIES.items():
+        r = by_code.get(code)
+        out.append({
+            "country": name, "code": code,
+            "impressions_28d": int(r[1]) if r else 0,
+            "clicks_28d": int(r[2]) if r else 0,
+            "position_28d": round(r[3], 1) if r and r[3] else None,
+        })
+    return out
+
+
 def main() -> int:
     goals = []
     gsc_extra = []
+    countries = []
     if DB.exists():
         conn = sqlite3.connect(DB)
         cutoff = (datetime.now(timezone.utc) - timedelta(days=28)).strftime("%Y-%m-%d")
         week = (datetime.now(timezone.utc) - timedelta(days=7)).strftime("%Y-%m-%d")
+        countries = country_scoreboard(conn, cutoff)
 
         # Top real-demand queries (28d) not already in the seed list.
         seed_low = {q.lower() for q in SEED_QUERIES}
@@ -107,6 +138,7 @@ def main() -> int:
         "total": len(goals),
         "goals": sorted(goals, key=lambda g: (g["gap_to_1"] is None,
                                               -(g["impressions_28d"] or 0))),
+        "countries": countries,
     }
     DATA.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")

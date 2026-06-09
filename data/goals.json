@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-06-09T19:52:18.687111+00:00",
+ "generated_at": "2026-06-09T20:52:15.507557+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами",
  "achieved": 0,
  "tracked": 0,
@@ -158,6 +158,120 @@
    "trend": null,
    "gap_to_1": null,
    "achieved": false
+  }
+ ],
+ "countries": [
+  {
+   "country": "Россия",
+   "code": "rus",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Казахстан",
+   "code": "kaz",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Беларусь",
+   "code": "blr",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Армения",
+   "code": "arm",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Азербайджан",
+   "code": "aze",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Кыргызстан",
+   "code": "kgz",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Таджикистан",
+   "code": "tjk",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Грузия",
+   "code": "geo",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "ОАЭ",
+   "code": "are",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Сауд. Аравия",
+   "code": "sau",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Кувейт",
+   "code": "kwt",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Бахрейн",
+   "code": "bhr",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Оман",
+   "code": "omn",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Йемен",
+   "code": "yem",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Катар",
+   "code": "qat",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Египет",
+   "code": "egy",
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
   }
  ]
 }

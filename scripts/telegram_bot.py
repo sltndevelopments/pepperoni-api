@@ -426,6 +426,17 @@ def action_goals() -> str:
         tr = row.get("trend")
         trend = f" {'📈' if tr > 0 else '📉'}{abs(tr)}" if tr else ""
         lines.append(f"{icon} {row['query']} — {postxt}{trend}")
+    countries = g.get("countries") or []
+    visible = [c for c in countries if c.get("impressions_28d")]
+    dark = [c["country"] for c in countries if not c.get("impressions_28d")]
+    if countries:
+        lines.append("\n<b>🌍 Целевые страны (28д):</b>")
+        for c in sorted(visible, key=lambda x: -x["impressions_28d"])[:8]:
+            pos = f" · поз. {c['position_28d']}" if c.get("position_28d") else ""
+            lines.append(f"• {c['country']}: {c['impressions_28d']} показов, "
+                         f"{c['clicks_28d']} кликов{pos}")
+        if dark:
+            lines.append(f"⚫ Нет видимости: {', '.join(dark[:10])}")
     lines.append(f"\n<i>Обновлено: {g.get('generated_at','')[:16]}</i>")
     return "\n".join(lines)
 
