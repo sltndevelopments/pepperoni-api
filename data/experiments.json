@@ -142,5 +142,41 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-09T08:46:55.176544+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/vetchina-fileynaya-halyal",
+    "file_path": "public/blog/vetchina-fileynaya-halyal.html",
+    "query": "ветчина это халал",
+    "before_pos": 9.12,
+    "before_ctr": 0.0,
+    "before_impr": 25,
+    "before_title": "Ветчина халяль — что это: филейная премиум-ветчина для HoReCa",
+    "before_desc": "Ветчина филейная халяль — премиальный мясной продукт для HoReCa. Состав, технология производства, применение в меню ресторанов. Оптовые поставки в Казани.",
+    "after_title": "Ветчина — это халяль? Филейная премиум для HoReCa",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-09T08:46:55.176544+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+    "file_path": "public/geo/farsh-yerevan.html",
+    "query": "farsh yerevan",
+    "before_pos": 9.16,
+    "before_ctr": 0.0,
+    "before_impr": 25,
+    "before_title": "Фарш халяль оптом Ереван | Pepperoni Tatar",
+    "before_desc": "Халяль фарш из говядины, курицы, индейки оптом в Ереван. HACCP, ISO 22000:2018. Доставка из Казани за 72ч. Для HoReCa и ретейла.",
+    "after_title": "Farsh Yerevan — халяль фарш оптом | Pepperoni Tatar",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]
