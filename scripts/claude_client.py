@@ -22,8 +22,10 @@ import time
 import urllib.error
 import urllib.request
 
+# 300s: long generations (full landing pages, 4-8K tokens out) routinely take
+# >120s through the SOCKS proxy and were dying on read timeout.
 SOCK_TIMEOUT_S = int(os.environ.get("ANTHROPIC_SOCK_TIMEOUT",
-                                    os.environ.get("DEEPSEEK_SOCK_TIMEOUT", "120")))
+                                    os.environ.get("DEEPSEEK_SOCK_TIMEOUT", "300")))
 
 # Prefer ANTHROPIC_API_KEY; fall back to legacy DEEPSEEK_API_KEY so a partially
 # migrated environment still works.
