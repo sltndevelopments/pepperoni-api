@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="uz-Latn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vetçina Xalol Optom Buxoro | Kazan Delikates</title>
+  <meta name="description" content="Buxoro HoReCa uchun xalol vetçina optom: mol go'shti, hindiston tovuqi, tovuq. Nitrit yo'q, HACCP, ISO 22000:2018, Xalol sertifikati. Ishlab chiqaruvchidan to'g'ridan-to'g'ri.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/vetchina-bukhara/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --green: #1a7a3c;
+      --green-light: #e8f5ee;
+      --green-dark: #145e2e;
+      --gold: #c8952a;
+      --gold-light: #fdf6e3;
+      --gray-bg: #f8f9fa;
+      --text-dark: #1c1c1c;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: var(--text-dark);
+      background: #fff;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 60%, #2d9e56 100%);
+      color: #fff;
+      padding: 72px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 50%;
+    }
+    .hero-section::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -40px;
+      width: 240px; height: 240px;
+      background: rgba(200,149,42,0.12);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--gold);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero-section h1 {
+      font-size: clamp(1.7rem, 4vw, 2.6rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero-section h1 span {
+      color: #ffe082;
+    }
+    .hero-lead {
+      font-size: 1.08rem;
+      opacity: 0.93;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .cert-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+    .cert-pill {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 5px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+    }
+    .hero-cta-btn {
+      background: var(--gold);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 32px;
+      transition: background 0.2s, transform 0.2s;
+      box-shadow: 0 4px 18px rgba(200,149,42,0.35);
+    }
+    .hero-cta-btn:hover {
+      background: #a97820;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+    .section-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: #555;
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+    .advantage-card {
+      background: #fff;
+      border: 1.5px solid #e2ede7;
+      border-radius: 14px;
+      padding: 28px 22px;
+      height: 100%;
+      transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .advantage-card:hover {
+      box-shadow: 0 8px 32px rgba(26,122,60,0.13);
+      border-color: var(--green);
+      transform: translateY(-3px);
+    }
+    .advantage-card .card-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .advantage-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+    .advantage-card p {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .advantage-card .stat-num {
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--green);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .cert-section {
+      background: var(--green-light);
+      padding: 60px 0;
+    }
+    .cert-table th {
+      background: var(--green-dark);
+      color: #fff;
+      font-weight: 700;
+      border: none;
+      padding: 14px 18px;
+    }
+    .cert-table td {
+      padding: 13px 18px;
+      vertical-align: middle;
+      border-color: #d4e9db;
+    }
+    .cert-table tr:nth-child(even) td {
+      background: #f0f9f3;
+    }
+    .cert-table tr:nth-child(odd) td {
+      background: #fff;
+    }
+    .cert-badge-green {
+      background: var(--green);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 12px;
+      border-radius: 12px;
+      white-space: nowrap;
+    }
+    .delivery-section {
+      background: var(--gold-light);
+      border-left: 5px solid var(--gold);
+      border-radius: 12px;
+      padding: 36px 32px;
+    }
+    .delivery-section h2 {
+      color: var(--green-dark);
+      font-weight: 800;
+    }
+    .delivery-step {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+    .delivery-step-num {
+      background: var(--green);
+      color: #fff;
+      font-weight: 800;
+      font-size: 1rem;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .delivery-step-text strong {
+      color: var(--green-dark);
+      font-weight: 700;
+      display: block;
+      margin-bottom: 2px;
+    }
+    .delivery-step-text span {
+      font-size: 0.9rem;
+      color: #555;
+    }
+    .faq-section {
+      padding: 60px 0;
+      background: #fff;
+    }
+    .faq-item {
+      border: 1.5px solid #e2ede7;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover {
+      border-color: var(--green);
+    }
+    .faq-question {
+      background: #fff;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 18px 22px;
+      font-weight: 700;
+      font-size: 0.97rem;
+      color: var(--green-dark);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-question:hover {
+      background: var(--green-light);
+    }
+    .faq-answer {
+      padding: 0 22px 18px;
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.7;
+      display: none;
+    }
+    .faq-answer.open {
+      display: block;
+    }
+    .faq-icon {
+      font-size: 1.3rem;
+      color: var(--green);
+      flex-shrink: 0;
+      transition: transform 0.2s;
+    }
+    .faq-icon.rotated {
+      transform: rotate(45deg);
+    }
+    .cta-form-section {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%);
+      padding: 64px 0;
+      color: #fff;
+    }
+    .cta-form-section h2 {
+      font-size: 1.8rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+    .cta-form-section p {
+      opacity: 0.88;
+      margin-bottom: 0;
+    }
+    .form-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 36px 32px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.18);
+    }
+    .form-card .form-label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--green-dark);
+      margin-bottom: 5px;
+    }
+    .form-card .form-control {
+      border: 1.5px solid #d4e9db;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.92rem;
+      transition: border-color 0.2s;
+    }
+    .form-card .form-control:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(26,122,60,0.12);
+    }
+    .form-submit-btn {
+      background: var(--green);
+      color: #fff;
+      border: none;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 13px 32px;
+      border-radius: 8px;
+      width: 100%;
+      transition: background 0.2s;
+      margin-top: 6px;
+    }
+    .form-submit-btn:hover {
+      background: var(--green-dark);
+    }
+    .contact-info-block {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+    .contact-info-block a {
+      color: #ffe082;
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .contact-info-block a:hover {
+      text-decoration: underline;
+    }
+    .trust-bar {
+      background: var(--gray-bg);
+      padding: 18px 0;
+      border-top: 1px solid #e9ecef;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .trust-bar-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--green-dark);
+    }
+    .trust-bar-item .ti {
+      font-size: 1.3rem;
+    }
+    .product-types {
+      padding: 56px 0;
+      background: var(--gray-bg);
+    }
+    .product-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      border: 1.5px solid #e2ede7;
+      height: 100%;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 6px 24px rgba(26,122,60,0.12);
+      border-color: var(--green);
+    }
+    .product-card .product-emoji {
+      font-size: 3rem;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .product-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--green-dark);
+      margin-bottom: 8px;
+    }
+    .product-card ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.87rem;
+      color: #555;
+    }
+    .product-card ul li::before {
+      content: '✓ ';
+      color: var(--green);
+      font-weight: 700;
+    }
+    .halal-seal {
+      background: var(--green);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 10px;
+      display: inline-block;
+      margin-top: 10px;
+      letter-spacing: 0.05em;
+    }
+    @media (max-width: 768px) {
+      .hero-section { padding: 48px 0 40px; }
+      .form-card { padding: 24px 18px; }
+      .delivery-section { padding: 24px 18px; }
+    }
+  </style>
+
+  <!-- Yandex.Metrika -->
+  <script>
+    (function(m,e,t,r,i,k,a){
+      m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+      m[i].l=1*new Date();
+      k=e.createElement(t),a=e.getElementsByTagName(t)[0];
+      k.async=1;k.src=r;a.parentNode.insertBefore(k,a)
+    })(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+    ym(98765432,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pepperoni.tatar/#business",
+        "name": "Kazan Delikates",
+        "description": "Buxoro shahri uchun xalol vetçina ishlab chiqaruvchisi. Mol go'shti, hindiston tovuqi va tovuq vetçinasi optom yetkazib berish.",
+        "url": "https://pepperoni.tatar/geo/vetchina-bukhara/",
+        "telephone": "+79872170202",
+        "email": "info@kazandelikates.tatar",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Agrarnaya, 2, of. 7",
+          "addressLocality": "Kazan",
+          "addressCountry": "RU"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Buxoro",
+          "addressCountry": "UZ"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Xalol vetçina assortimenti"
+        },
+        "sameAs": []
+      },
+      {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/geo/vetchina-bukhara/#product",
+        "name": "Xalol vetçina optom Buxoro",
+        "description": "Mol go'shti, hindiston tovuqi va tovuq vetçinasi. Nitrit natriy yo'q, toza tarkib, Xalol sertifikati ДУМ РТ №614A/2024, HACCP, ISO 22000:2018.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delikates"
+        },
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "UZS",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delikates"
+          }
+        },
+        "certification": [
+          "Xalol ДУМ РТ №614A/2024",
+          "HACCP",
+          "ISO 22000:2018",
+          "TR TS 021/2011"
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pepperoni.tatar/geo/vetchina-bukhara/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Buxoro restoran va kafeleriga vetçina qanday yetkazib beriladi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Mahsulotlar Qozon shahridan Toshkent orqali Buxoroga avtomobil yo'li bilan yetkaziladi. Masofa 3 200 km, yetkazib berish muddati 72 soat. Harorat rejimi -2°C dan +4°C gacha saqlangan holda izotermal transport vositalarida amalga oshiriladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Vetçina haqiqatan xalolmi? Qanday sertifikat bor?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ha. Bizda Rossiya Federatsiyasi Tatariston Muftiyati tomonidan berilgan rasmiy Xalol sertifikati mavjud: ДУМ РТ №614A/2024. Barcha mahsulotlar xalol talablariga to'liq mos keladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Minimal buyurtma hajmi qancha?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HoReCa segmenti uchun minimal buyurtma 50 kg dan boshlanadi. Katta hajmdagi buyurtmalar uchun alohida narxlar va shartlar ko'rib chiqiladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Nitrit natriy yo'qmi — bu texnologik jihatdan qanday amalga oshiriladi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Biz nitrit natriy o'rniga tabiiy konservantlar va zamonaviy texnologiyalardan foydalanamiz. Mahsulot tarkibi GMO, sun'iy bo'yoqlar va ta'm kuchaytirgichlardan xoli. Bu HACCP va ISO 22000:2018 standartlari asosida nazorat qilinadi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Buxorodagi turizm mavsumida yetkazib berishni tezlashtirish mumkinmi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ha. Buxoro — Ipak yo'lining eng muhim turizm markazlaridan biri. Yoz va bahor mavsumida talabning oshishini hisobga olib, biz oldindan buyurtma berish imkoniyatini va ustuvor yetkazib berish rejimini taklif etamiz."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pepperoni.tatar/geo/vetchina-bukhara/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Bosh sahifa",
+            "item": "https://pepperoni.tatar/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Shaharlar bo'yicha",
+            "item": "https://pepperoni.tatar/geo/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Vetçina Buxoro",
+            "item": "https://pepperoni.tatar/geo/vetchina-bukhara/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body data-city="Бухара" data-product="vetchina">
+
+  <!-- HERO -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8">
+          <span class="hero-badge">🕌 Buxoro · HoReCa · Xalol B2B</span>
+          <h1>
+            <span>Xalol vetçina</span> optom Buxoroga —<br>
+            mol go'shti, hindiston tovuqi, tovuq
+          </h1>
+          <p class="hero-lead">
+            Buxoro — 2 500 dan ortiq restoran, kafe va mehmonxonasi bo'lgan, yiliga millionlab sayyohlarni qabul qiluvchi shahar. Bu yerda HoReCa uchun mahsulot sifati va xalol sertifikat nafaqat afzallik, balki majburiy talab. Biz Qozon shahridan ishlab chiqarilgan, nitrit natriy ishlatilmagan xalol vetçinani to'g'ridan-to'g'ri sizning omboringizga yetkazamiz.
+          </p>
+          <div class="cert-strip">
+            <span class="cert-pill">✅ Xalol ДУМ РТ №614A/2024</span>
+            <span class="cert-pill">🏭 HACCP</span>
+            <span class="cert-pill">📋 ISO 22000:2018</span>
+            <span class="cert-pill">🚫 Nitrit yo'q</span>
+            <span class="cert-pill">🌿 GMO yo'q</span>
+          </div>
+          <a href="#form" class="hero-cta-btn">📦 Narxlarni so'rash</a>
+        </div>
+        <div class="col-lg-4 d-none d-lg-flex justify-content-center align-items-center">
+          <div style="text-align:center; opacity:0.9;">
+            <div style="font-size:7rem; line-height:1;">🥩</div>
+            <div style="font-size:0.85rem; color:rgba(255,255,255,0.75); margin-top:8px; font-weight:600;">Ishlab chiqaruvchidan to'g'ridan-to'g'ri</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST BAR -->
+  <div class="trust-bar">
+    <div class="container">
+      <div class="row g-2 justify-content-center">
+        <div class="col-auto">
+          <div class="trust-bar-item">
+            <span class="ti">🚚</span> Buxoroga 72 soatda yetkazib berish
+          </div>
+        </div>
+        <div class="col-auto d-none d-md-flex">
+          <div class="trust-bar-item" style="color:#ccc;">|</div>
+        </div>
+        <div class="col-auto">
+          <div class="trust-bar-item">
+            <span class="ti">🕌</span> 96% musulmon aholi — 100% xalol
+          </div>
+        </div>
+        <div class="col-auto d-none d-md-flex">
+          <div class="trust-bar-item" style="color:#ccc;">|</div>
+        </div>
+        <div class="col-auto">
+          <div class="trust-bar-item">
+            <span class="ti">👨‍🍳</span> 2 500+ HoReCa ta'sisoti
+          </div>
+        </div>
+        <div class="col-auto d-none d-md-flex">
+          <div class="trust-bar-item" style="color:#ccc;">|</div>
+        </div>
+        <div class="col-auto">
+          <div class="trust-bar-item">
+            <span class="ti">🏭</span> Ishlab chiqaruvchidan narxlar
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAHSULOT TURLARI -->
+  <section class="product-types">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Vetçina assortimenti — uch xil go'sht</h2>
+        <p class="section-subtitle">Har bir mahsulot turi HoReCa talablariga moslab ishlab chiqilgan: professional qadoqlash, aniq og'irlik, uzaytirilgan saqlash muddati</p>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="product-card">
+            <span class="product-emoji">🐄</span>
+            <h3>Mol go'shti vetçinasi</h3>
+            <ul>
+              <li>To'liq xalol, premium sifat</li>
+              <li>Qovurilgan va qaynatilgan xil</li>
+              <li>Vakuum qadoqlash 300g–2kg</li>
+              <li>Saqlash: 0°C dan +6°C gacha</li>
+              <li>Muddati: 30–45 kun</li>
+            </ul>
+            <span class="halal-seal">XALOL ✓</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="product-card">
+            <span class="product-emoji">🦃</span>
+            <h3>Hindiston tovuqi vetçinasi</h3>
+            <ul>
+              <li>Dietik, past kaloriyali</li>
+              <li>Mehmonxona buffeti uchun ideal</li>
+              <li>Nozik ta'm, yumshoq tekstura</li>
+              <li>Vakuum qadoqlash 250g–1.5kg</li>
+              <li>Muddati: 25–40 kun</li>
+            </ul>
+            <span class="halal-seal">XALOL ✓</span>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="product-card">
+            <span class="product-emoji">🐔</span>
+            <h3>Tovuq vetçinasi</h3>
+            <ul>
+              <li>Eng keng tarqalgan format</li>
+              <li>Sandvich, salat, pizza uchun</li>
+              <li>Iqtisodiy narx, yuqori sifat</li>
+              <li>Vakuum qadoqlash 200g–2kg</li>
+              <li>Muddati: 25–40 kun</li>
+            </ul>
+            <span class="halal-seal">XALOL ✓</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFZALLIKLAR -->
+  <section class="py-5" style="background:#fff;">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Nima uchun Buxoro HoReCa biz bilan ishlaydi?</h2>
+        <p class="section-subtitle">Raqamlar va haq
+<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff"><div class="container"><p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной мясной продукции и татарской выпечки в Казани.</p><p class="small mb-0"><a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · info@kazandelikates.tatar · +7 987 217-02-02</p></div></footer>
+
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Bukhara:</h6>
+    <div><a href="/geo/pepperoni-bukhara/" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiki-dlya-hotdog-bukhara/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiki-v-teste-bukhara/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a></div>
+  </div>
+</section>
+
+</body>
+</html>
