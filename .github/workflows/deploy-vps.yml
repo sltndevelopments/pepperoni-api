@@ -12,21 +12,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Deploy via rsync
-        uses: Burnett01/rsync-deployments@7.0.0
+      # Deploy = git sync, NOT rsync --delete. The VPS repo is a live git clone
+      # whose untracked files are runtime state the agents create between
+      # commits (sqlite DB, strategy.json, freshly generated pages). The old
+      # rsync --delete wiped anything not yet on GitHub on EVERY deploy —
+      # silently destroying the brain's strategy and the SEO database whenever
+      # a push raced the daily pipeline. git reset --hard updates tracked files
+      # and leaves untracked runtime state alone.
+      - name: Deploy via git sync
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          switches: -avzr --delete
-          path: .
-          remote_path: /var/www/pepperoni/repo
-          remote_host: ${{ secrets.VPS_HOST }}
-          remote_user: root
-          remote_key: ${{ secrets.VPS_SSH_KEY }}
-          exclude: |
-            .git*
-            node_modules
-            data/products.json
-            data/products.json.tmp
-            *.log
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -e
+            cd /var/www/pepperoni/repo
+            git fetch origin main
+            git reset --hard origin/main
+            echo "Deployed: $(git log -1 --oneline)"
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
