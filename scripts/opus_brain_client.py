@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Anthropic Claude Opus client — the "brain" of the autonomous SEO engine.
+Anthropic brain client — the strategic "brain" of the autonomous SEO engine.
 
-Opus thinks (decides strategy); DeepSeek Flash executes (generates content).
-Kept dependency-free (urllib) to match claude_client.py.
+Claude Fable 5 thinks (decides strategy); Claude Sonnet executes (generates
+content). Kept dependency-free (urllib) to match claude_client.py.
 
 Hard budget cap: tracks monthly spend in data/opus_budget.json and REFUSES
 to call once the monthly cap is reached. Prompt caching is used on the large
@@ -13,6 +13,8 @@ Usage:
     from opus_brain_client import call_opus, brain_available
     text, usage = call_opus(system=[...], prompt="...", cache_system=True)
 """
+
+from __future__ import annotations
 
 import json
 import os
@@ -36,32 +38,33 @@ try:
 except Exception:
     _HAS_REQUESTS = False
 
-# Model is configurable so you can switch Opus versions without code changes.
-OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-8")
+# Model is configurable so you can switch brain versions without code changes.
+# Default: Claude Fable 5 — Anthropic's most capable GA model (since 2026-06-09).
+OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-fable-5")
 
 # Monthly hard cap in USD. Default 40; override with OPUS_MONTHLY_BUDGET_USD.
 MONTHLY_BUDGET_USD = float(os.environ.get("OPUS_MONTHLY_BUDGET_USD", "40"))
 
-# Pricing (USD per 1M tokens). Override via env if Anthropic changes prices.
-PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "5"))   # fresh input
-PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "25"))   # output
-PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25"))# cache creation
-PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "0.50")) # cache hit
+# Pricing (USD per 1M tokens) for Fable 5. Override via env if prices change.
+PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "10"))   # fresh input
+PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "50"))   # output
+PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "12.50"))# cache creation
+PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "1.00")) # cache hit
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 BUDGET_FILE = DATA / "opus_budget.json"
 
 # ── Multi-tier model registry ───────────────────────────────────────────────────
-# Three tiers: "brain" (Opus, strategy), "voice" (Sonnet, dialogue),
+# Three tiers: "brain" (Fable 5, strategy), "voice" (Sonnet, dialogue),
 # "micro" (Haiku, cheap classification). Prices USD per 1M tokens.
 MODELS = {
     "brain": {
-        "model": os.environ.get("OPUS_MODEL", "claude-opus-4-8"),
-        "in": float(os.environ.get("OPUS_PRICE_INPUT", "5")),
-        "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "25")),
-        "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")),
-        "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "0.50")),
+        "model": os.environ.get("OPUS_MODEL", "claude-fable-5"),
+        "in": float(os.environ.get("OPUS_PRICE_INPUT", "10")),
+        "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "50")),
+        "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "12.50")),
+        "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "1.00")),
     },
     "voice": {
         "model": os.environ.get("SONNET_MODEL", "claude-sonnet-4-6"),
@@ -139,7 +142,7 @@ def call_model(
     retries: int = 2,
 ) -> tuple[str, dict]:
     """
-    Call an Anthropic model by tier ("brain"=Opus, "voice"=Sonnet, "micro"=Haiku).
+    Call an Anthropic model by tier ("brain"=Fable 5, "voice"=Sonnet, "micro"=Haiku).
     Shared monthly budget across all tiers. Returns (text, usage_with_cost).
     Raises RuntimeError if no key or budget exhausted.
     """
@@ -171,8 +174,10 @@ def call_model(
         "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": prompt}],
     }
-    # Some newer models (e.g. claude-opus-4-8) reject `temperature`.
-    if temperature is not None:
+    # Models with always-on adaptive thinking (claude-fable-5, claude-opus-4-8)
+    # reject `temperature` — silently drop it for them.
+    _no_temp = cfg["model"].startswith(("claude-fable", "claude-mythos", "claude-opus-4-8"))
+    if temperature is not None and not _no_temp:
         body["temperature"] = temperature
     if sys_blocks:
         body["system"] = sys_blocks
@@ -230,7 +235,7 @@ def call_model(
 
 def call_opus(prompt, system=None, max_tokens=4000, temperature=None,
               cache_system=True, retries=2):
-    """Backward-compatible wrapper — strategy tier (Opus)."""
+    """Backward-compatible wrapper — strategy tier (Fable 5)."""
     return call_model(prompt, tier="brain", system=system, max_tokens=max_tokens,
                       temperature=temperature, cache_system=cache_system, retries=retries)
 
