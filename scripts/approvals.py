@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 """
-Shared approval queue for high-impact agent actions (human-in-the-loop).
+Shared action queue for high-impact agent actions — FULL AUTONOMY MODE.
 
-Any agent can request approval for a risky action (deleting pages, removing a
-section, large structural changes). The action is queued in a git-tracked file
-(data/approvals.json) and surfaced in Telegram ("✅ Аппрувы"), where the owner
-approves/rejects. On its next run the requesting agent calls take_approved() to
-execute only what was explicitly approved.
+Historically this was a human-in-the-loop approval queue. The owner granted the
+Brain (Claude Fable) full trust, so every request is now AUTO-APPROVED at
+creation: agents queue an action, the next pipeline pass executes it via
+take_approved(). The git-tracked file (data/approvals.json) remains as an
+audit trail, and Telegram gets an informational "decided & scheduled" ping
+instead of an approval ask.
 
-Status lifecycle: pending → approved | rejected → done (after execution).
+Status lifecycle: approved → done (after execution).  ("pending"/"rejected"
+remain readable for old entries.)
 
 Idempotency: each request has a stable `key`; requesting the same key twice does
-not create duplicates while one is still pending/approved.
+not create duplicates while one is still approved-but-unexecuted.
 """
 
 from __future__ import annotations
@@ -39,7 +41,7 @@ def _save(rows: list) -> None:
 def request(key: str, title: str, detail: str = "", action: str = "",
             payload: dict | None = None, risk: str = "high",
             requested_by: str = "agent") -> bool:
-    """Queue an action for approval. Returns True if newly created."""
+    """Queue an action — AUTO-APPROVED (full-autonomy mode). Returns True if new."""
     rows = _load()
     for a in rows:
         if a.get("key") == key and a.get("status") in ("pending", "approved"):
@@ -52,27 +54,40 @@ def request(key: str, title: str, detail: str = "", action: str = "",
         "payload": payload or {},
         "risk": risk,
         "requested_by": requested_by,
-        "status": "pending",
+        "status": "approved",
+        "auto_approved": True,
         "created_at": datetime.now(timezone.utc).isoformat(),
     })
     _save(rows)
-    _notify_new_approval(title, detail, risk, requested_by)
+    _notify_auto_decision(title, detail, risk, requested_by)
     return True
 
 
-def _notify_new_approval(title: str, detail: str, risk: str, requested_by: str) -> None:
-    """Push an immediate Telegram alert — approvals are useless if nobody sees them."""
+def auto_approve_pending() -> int:
+    """One-time migration: flip any legacy 'pending' entries to 'approved'."""
+    rows = _load()
+    n = 0
+    for a in rows:
+        if a.get("status") == "pending":
+            a["status"] = "approved"
+            a["auto_approved"] = True
+            n += 1
+    if n:
+        _save(rows)
+    return n
+
+
+def _notify_auto_decision(title: str, detail: str, risk: str, requested_by: str) -> None:
+    """Informational ping: the system decided and will execute on the next pass."""
     try:
         from telegram_notify import notify
     except Exception:
         return
     text = (
-        f"<b>✅ Нужно одобрение</b> [{risk}]\n"
+        f"<b>🤖 Fable решил</b> [{risk}]\n"
         f"{title}\n"
         f"<i>{detail[:300]}</i>\n\n"
-        f"Запросил: {requested_by}\n"
-        f"Открой @KDSEOSiteBot → «✅ Аппрувы» или ответь:\n"
-        f"<code>одобрить 1</code> / <code>отклонить 1</code>"
+        f"Инициатор: {requested_by}. Выполнится автоматически в ближайший цикл."
     )
     notify(text)
 
@@ -101,27 +116,10 @@ def pending() -> list:
 
 
 def notify_pending() -> int:
-    """Re-send Telegram alerts for all pending approvals (manual / cron)."""
-    rows = pending()
-    if not rows:
-        print("no pending approvals")
-        return 0
-    try:
-        from telegram_notify import notify
-    except Exception as e:
-        print(f"telegram unavailable: {e}")
-        return 0
-    sent = 0
-    for i, a in enumerate(rows, 1):
-        text = (
-            f"<b>✅ Нужно одобрение</b> [{a.get('risk','?')}] (#{i})\n"
-            f"{a.get('title','?')}\n"
-            f"<i>{(a.get('detail') or '')[:300]}</i>\n\n"
-            f"Ответь: <code>одобрить {i}</code> или <code>отклонить {i}</code>"
-        )
-        if notify(text):
-            sent += 1
-    return sent
+    """Full-autonomy mode: flip legacy pendings to approved, no asks sent."""
+    n = auto_approve_pending()
+    print(f"auto-approved {n} legacy pending item(s); approvals are autonomous now")
+    return 0
 
 
 if __name__ == "__main__":

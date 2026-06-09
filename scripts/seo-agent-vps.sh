@@ -71,8 +71,10 @@ python3 scripts/anomaly_guard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Anomaly-Gua
 # If it escalates, the regular daily brain (3.5) is skipped to avoid double spend.
 BRAIN_ESCALATED=0
 log "Step 2.6: Escalation — checking for strong signals …"
-python3 scripts/escalate_brain.py >> "$LOG_FILE" 2>&1
-ESC_RC=$?
+# NB: escalate exits 10 as a *signal* (brain already ran). Under `set -e` a bare
+# command with rc!=0 kills the whole pipeline, so capture rc via `||`.
+ESC_RC=0
+python3 scripts/escalate_brain.py >> "$LOG_FILE" 2>&1 || ESC_RC=$?
 if [ "$ESC_RC" = "10" ]; then
     BRAIN_ESCALATED=1
     log "  ↳ brain escalated this pass (daily brain will be skipped)"
@@ -83,6 +85,12 @@ fi
 # ---- Step 3: Analyze ----
 log "Step 3: Analyzing opportunities …"
 python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
+
+# ---- Step 3.1: GOALS — scoreboard "distance to #1" for target queries ----
+# Formalizes the mission: per target query, current position, trend and gap to
+# #1. Feeds the brain digest and the Telegram «🎯 Цели» button.
+log "Step 3.1: Goals — updating distance-to-#1 scoreboard …"
+python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals scoreboard failed (non-fatal)"
 
 # ---- Step 3.3: SCOUT — discover new/rising queries & coverage gaps ----
 # Discovery only (no generation). Writes git-tracked findings the brain reads,
@@ -127,9 +135,15 @@ fi
 if [ "$BRAIN_ESCALATED" = "1" ]; then
     log "Step 3.5: Brain — skipped (already escalated in Step 2.6)"
 else
-    log "Step 3.5: Brain (Opus) planning strategy …"
+    log "Step 3.5: Brain (Fable 5) planning strategy …"
     python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
 fi
+
+# ---- Step 3.6: WORKER — execute the brain's strategy (closes the loop) ----
+# Reads data/strategy.json and builds what Fable decided: blog topics,
+# PL/OEM pages, rewrites. Without this step the strategy is dead paper.
+log "Step 3.6: Worker — executing brain strategy …"
+python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log "⚠️  Strategy worker failed (non-fatal)"
 
 # ---- Step 4: Generate content via DeepSeek API ----
 log "Step 4: Generating content …"
@@ -162,6 +176,10 @@ git add data/anomaly_baseline.json 2>/dev/null || true
 git add data/aio_visibility.json 2>/dev/null || true
 # Brain-escalation cooldown/state (durable, git-tracked).
 git add data/escalation_state.json 2>/dev/null || true
+# Brain strategy + goals scoreboard (durable: Actions/worker must see them too).
+git add data/strategy.json data/goals.json 2>/dev/null || true
+# Worker output (PL/OEM pages from strategy).
+git add public/private-label/*.html 2>/dev/null || true
 
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
@@ -201,5 +219,8 @@ python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log "⚠️  Opt
 
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true
+
+# Completion marker for the pipeline watchdog (proves we reached the end).
+date -u +%Y-%m-%dT%H:%M:%SZ > data/.pipeline_ok 2>/dev/null || true
 
 log "=== SEO Agent finished ==="

@@ -134,4 +134,13 @@ jobs:
             else
               echo "ℹ️  Price sync cron already present"
             fi
+
+            # Add pipeline watchdog cron (2h after the daily agent starts)
+            WATCHDOG_CRON="30 7 * * * cd /var/www/pepperoni/repo && python3 scripts/pipeline_watchdog.py >> /var/log/pepperoni-watchdog.log 2>&1"
+            if ! crontab -l 2>/dev/null | grep -q "pipeline_watchdog.py"; then
+              (crontab -l 2>/dev/null; echo "$WATCHDOG_CRON") | crontab -
+              echo "✅ Pipeline watchdog cron installed (10:30 MSK daily)"
+            else
+              echo "ℹ️  Pipeline watchdog cron already present"
+            fi
             echo "=== Current crontab ===" && crontab -l

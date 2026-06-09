@@ -180,9 +180,43 @@ def aio_digest() -> dict:
             "not_cited_for": (last.get("lost") or [])[:6]}
 
 
+def goals_digest() -> dict:
+    """Distance-to-#1 scoreboard (goals_scoreboard.py) — the mission, quantified."""
+    try:
+        g = json.loads((DATA / "goals.json").read_text())
+    except Exception:
+        return {}
+    rows = g.get("goals", [])
+    return {
+        "achieved": g.get("achieved", 0),
+        "total": g.get("total", 0),
+        "worst_gaps": [
+            {"q": r["query"], "pos": r.get("position_7d") or r.get("position_28d"),
+             "gap": r.get("gap_to_1"), "impr": r.get("impressions_28d")}
+            for r in rows
+            if r.get("gap_to_1") and r["gap_to_1"] > 0.3
+        ][:12],
+        "no_data": [r["query"] for r in rows if r.get("position_28d") is None][:8],
+    }
+
+
+def ai_bots_digest() -> dict:
+    """AI crawler visits from nginx logs (parse-ai-bots digest, if present on VPS)."""
+    import os
+    for p in (Path(os.environ.get("AI_BOTS_DIGEST_DIR", "/var/log/nginx"))
+              / "ai-bots-digest-latest.md",):
+        try:
+            txt = p.read_text(encoding="utf-8")
+            return {"latest": txt[:1500]}
+        except Exception:
+            pass
+    return {}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
+        "goals": goals_digest(),
         "inventory": inventory(),
         "coverage": coverage_gaps(),
         "opportunities": opportunities(),
@@ -190,6 +224,7 @@ def build_digest() -> dict:
         "scout": scout_digest(),
         "competitors": competitor_digest(),
         "aio_visibility": aio_digest(),
+        "ai_bots": ai_bots_digest(),
     }
 
 
@@ -201,11 +236,20 @@ PLAYBOOK = """Ты — стратегический директор по пои
 причём не только по колбасам/мясу, но и по ВСЕЙ выпечке (татарская + классическая +
 европейская).
 
-Архитектура: ты — «мозг» (думаешь редко, дорого, качественно). DeepSeek Flash —
+Архитектура: ты — «мозг» (думаешь редко, дорого, качественно). Claude Sonnet —
 «руки» (генерят страницы 24/7 дёшево). Твоя задача — на основе дайджеста состояния
 сайта выдать КОМПАКТНУЮ стратегию-директиву, которую руки исполнят.
 
+ПОЛНАЯ АВТОНОМИЯ: владелец полностью доверяет твоим решениям — аппрувов нет.
+Твоя директива исполняется автоматически в тот же цикл. Решай смело, но помни:
+ошибки никто не перепроверит — следи за халяль-целостностью и качеством сам.
+
 ПРИНЦИПЫ:
+- ЦЕЛИ: блок "goals" — таблица «дистанция до №1» по целевым запросам. Это
+  ГЛАВНЫЙ KPI. worst_gaps — запросы с наибольшим отставанием при реальном
+  спросе: их подтягивание (rewrite_pages, new_blog_topics, перелинковка) —
+  приоритет №1. no_data — целевые запросы, по которым нас вообще не видно:
+  для них нужны новые страницы.
 - РАВНОМЕРНОЕ покрытие ВСЕГО ассортимента — не зацикливайся на одной категории.
   Все категории (пепперони, колбасы, сосиски, ветчины, котлеты, фарши, пельмени,
   копчёные, казылык, топпинги, ВСЯ выпечка — татарская/классическая/прочая,
@@ -229,6 +273,8 @@ PLAYBOOK = """Ты — стратегический директор по пои
 - AIO-ВИДИМОСТЬ: aio_visibility.not_cited_for — вопросы покупателей, где ИИ-ассистенты
   нас НЕ называют. Чтобы нас цитировали: усиливай entity-факты (кто мы, что делаем,
   сертификаты, контакты), чёткие FAQ и структурированные ответы под эти вопросы.
+  Блок "ai_bots" — реальные визиты ИИ-краулеров (GPTBot, ClaudeBot, PerplexityBot)
+  по логам: какие страницы они читают. Усиливай именно читаемые ими страницы.
 - Избегай thin/duplicate. Каждая директива — уникальная ценность.
 - УЧИСЬ НА ЭКСПЕРИМЕНТАХ: в дайджесте есть блок "experiments" — результаты
   автоматических правок title/meta (win = CTR/позиция выросли, reverted =

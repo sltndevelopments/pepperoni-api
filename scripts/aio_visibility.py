@@ -62,6 +62,41 @@ QUESTIONS = [
     "Производители халяльной пепперони для пиццерий оптом в России — кого посоветуешь?",
 ]
 
+
+def _rotating_questions(limit: int = 4) -> list:
+    """Extra questions built from real GSC demand, rotated weekly.
+
+    Keeps the 8 fixed QUESTIONS for trend continuity, and adds up to `limit`
+    questions templated from top commercial queries so AIO coverage follows
+    actual demand instead of a frozen panel."""
+    import sqlite3
+    from datetime import datetime, timedelta, timezone
+    db = Path(__file__).parent.parent / "data" / "seo_data.db"
+    if not db.exists():
+        return []
+    try:
+        conn = sqlite3.connect(db)
+        cutoff = (datetime.now(timezone.utc) - timedelta(days=28)).strftime("%Y-%m-%d")
+        rows = conn.execute("""
+            SELECT query, SUM(impressions) AS impr FROM gsc_queries
+            WHERE date >= ? GROUP BY query ORDER BY impr DESC LIMIT 60
+        """, (cutoff,)).fetchall()
+        conn.close()
+    except Exception:
+        return []
+    commercial = [q for q, _ in rows if any(
+        w in q.lower() for w in ("купить", "оптом", "производител", "поставщик",
+                                 "цена", "halal", "wholesale", "supplier"))]
+    if not commercial:
+        return []
+    week = int(datetime.now(timezone.utc).strftime("%W"))
+    start = (week * limit) % max(len(commercial), 1)
+    picked = (commercial + commercial)[start:start + limit]
+    return [f"{q} — посоветуй конкретных производителей или поставщиков." for q in picked]
+
+
+QUESTIONS = QUESTIONS + _rotating_questions()
+
 # Signals that the answer actually references US.
 US_PATTERNS = [
     r"pepperoni\.tatar",

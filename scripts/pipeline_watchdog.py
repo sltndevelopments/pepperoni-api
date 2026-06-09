@@ -1,0 +1,89 @@
+#!/usr/bin/env python3
+"""Pipeline watchdog — the watcher of the watchers.
+
+The daily SEO agent must reach its completion marker (data/.pipeline_ok) and
+the brain must keep data/strategy.json fresh. If either fails, this script
+fires a Telegram alert. Runs from cron ~2h after the daily agent starts, so a
+silent mid-pipeline death (like the set -e / exit-10 bug) is never silent again.
+
+Checks:
+  1. data/.pipeline_ok older than 26h  -> pipeline did not finish today
+  2. data/strategy.json missing/older than 48h -> brain is not steering
+  3. data/goals.json missing/older than 48h    -> scoreboard stale (warn only)
+"""
+from __future__ import annotations
+
+import os
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+DATA = ROOT / "data"
+ENV_FILE = Path("/var/www/pepperoni/seo-agent.env")
+
+
+def _load_env() -> None:
+    """Cron runs without the agent env — load Telegram creds from the env file."""
+    if not ENV_FILE.exists():
+        return
+    try:
+        for line in ENV_FILE.read_text().splitlines():
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                os.environ.setdefault(k.strip(), v.strip())
+    except OSError:
+        pass
+
+
+def _age_hours(p: Path) -> float | None:
+    try:
+        mtime = p.stat().st_mtime
+    except OSError:
+        return None
+    return (datetime.now(timezone.utc).timestamp() - mtime) / 3600
+
+
+def main() -> int:
+    _load_env()
+    problems: list[str] = []
+    warnings: list[str] = []
+
+    age = _age_hours(DATA / ".pipeline_ok")
+    if age is None:
+        problems.append("конвейер ни разу не дошёл до конца (нет маркера .pipeline_ok)")
+    elif age > 26:
+        problems.append(f"конвейер не завершался {age:.0f}ч — ежедневный цикл оборвался")
+
+    age = _age_hours(DATA / "strategy.json")
+    if age is None:
+        problems.append("strategy.json отсутствует — Мозг (Fable) не рулит")
+    elif age > 48:
+        problems.append(f"strategy.json устарела ({age:.0f}ч) — Мозг не обновлял стратегию")
+
+    age = _age_hours(DATA / "goals.json")
+    if age is None or age > 48:
+        warnings.append("goals.json отсутствует/устарел — таблица целей не обновляется")
+
+    if not problems and not warnings:
+        print("watchdog: all green")
+        return 0
+
+    lines = ["<b>🚨 Watchdog: проблемы конвейера</b>" if problems
+             else "<b>⚠️ Watchdog: предупреждения</b>"]
+    lines += [f"• {p}" for p in problems]
+    lines += [f"• (warn) {w}" for w in warnings]
+    lines.append("\nЛог: /var/log/pepperoni-seo-agent.log")
+    text = "\n".join(lines)
+    print(text)
+    try:
+        sys.path.insert(0, str(Path(__file__).parent))
+        from telegram_notify import notify
+        notify(text)
+    except Exception as e:
+        print(f"telegram unavailable: {e}", file=sys.stderr)
+    return 1 if problems else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

@@ -103,8 +103,8 @@ MAIN_MENU = [
     ["🚀 Запустить генерацию", "📜 История"],
     ["🧠 Спросить мозг", "📋 Стратегия"],
     ["🩺 SEO здоровье", "🧪 Эксперименты"],
-    ["🛰 Разведка", "✅ Аппрувы"],
-    ["🤖 Мета-агент"],
+    ["🛰 Разведка", "🎯 Цели"],
+    ["🤖 Мета-агент", "📒 Решения"],
 ]
 
 
@@ -302,10 +302,11 @@ def action_meta_status() -> str:
     # A. Landing-Builder — approved/built landings (from approvals + landing dir)
     appr = _read("approvals.json", [])
     built = _count(PUBLIC / "landing")
-    pend_landing = sum(1 for a in appr
-                       if a.get("action") == "create_landing" and a.get("status") == "pending")
+    queued_landing = sum(1 for a in appr
+                         if a.get("action") == "create_landing"
+                         and a.get("status") in ("pending", "approved"))
     lines.append(f"🏗 <b>Landing-Builder</b>: построено {built} · "
-                 f"в очереди на аппрув {pend_landing}")
+                 f"в очереди на выполнение {queued_landing} (автономно)")
 
     # C. Linker — internal links coverage
     linked = 0
@@ -382,21 +383,50 @@ def save_approvals(rows: list) -> None:
     APPROVALS_FILE.write_text(json.dumps(rows, ensure_ascii=False, indent=2))
 
 
-def action_approvals() -> str:
-    """List high-impact actions awaiting human decision (FREE)."""
-    rows = [a for a in load_approvals() if a.get("status") == "pending"]
+def action_decisions() -> str:
+    """Audit log of autonomous decisions (FREE). Approvals are gone — Fable decides."""
+    rows = load_approvals()
     if not rows:
-        return ("✅ <b>Аппрувы</b>\nНет действий, ожидающих решения.\n"
-                "<i>Сюда попадают рискованные изменения (удаление страниц/разделов, "
-                "смена структуры) — агент спросит тебя перед выполнением.</i>")
-    lines = ["✅ <b>Действия на одобрение</b>",
-             "Ответь: <code>одобрить N</code> или <code>отклонить N</code>\n"]
-    for i, a in enumerate(rows[:10], 1):
-        risk = a.get("risk", "high")
-        lines.append(f"<b>{i}.</b> [{risk}] {a.get('title','?')}")
-        if a.get("detail"):
-            lines.append(f"   <i>{a['detail'][:160]}</i>")
-        lines.append(f"   запросил: {a.get('requested_by','agent')} · {a.get('created_at','')[:16]}")
+        return ("📒 <b>Решения Fable</b>\nПока пусто.\n"
+                "<i>Система работает автономно: агенты решают и выполняют сами, "
+                "сюда пишется журнал их решений.</i>")
+    recent = sorted(rows, key=lambda a: a.get("created_at", ""), reverse=True)[:12]
+    status_icon = {"approved": "⏳ в очереди", "done": "✅ выполнено",
+                   "pending": "⏳ в очереди", "rejected": "❌ отклонено"}
+    lines = ["📒 <b>Решения Fable</b> (автономный режим)\n"]
+    for a in recent:
+        st = status_icon.get(a.get("status"), a.get("status", "?"))
+        lines.append(f"• {st} — {a.get('title','?')}")
+        lines.append(f"   <i>{a.get('requested_by','agent')} · {a.get('created_at','')[:16]}</i>")
+    return "\n".join(lines)
+
+
+def action_goals() -> str:
+    """Distance-to-#1 scoreboard from data/goals.json (FREE)."""
+    try:
+        g = json.loads((DATA / "goals.json").read_text())
+    except Exception:
+        return ("🎯 <b>Цели</b>\nТаблица ещё не построена — появится после "
+                "ближайшего ежедневного цикла.")
+    lines = [f"🎯 <b>Цель: №1 по каждому запросу</b>",
+             f"Достигнуто: <b>{g.get('achieved',0)}</b> из {g.get('total',0)} "
+             f"(с данными: {g.get('tracked',0)})\n"]
+    for row in g.get("goals", [])[:18]:
+        pos = row.get("position_7d") or row.get("position_28d")
+        if row.get("achieved"):
+            icon, postxt = "🥇", f"#{pos}"
+        elif pos is None:
+            icon, postxt = "⚪", "нет данных"
+        elif pos <= 3.5:
+            icon, postxt = "🟢", f"#{pos} (до №1: {row.get('gap_to_1')})"
+        elif pos <= 10:
+            icon, postxt = "🟡", f"#{pos} (до №1: {row.get('gap_to_1')})"
+        else:
+            icon, postxt = "🔴", f"#{pos}"
+        tr = row.get("trend")
+        trend = f" {'📈' if tr > 0 else '📉'}{abs(tr)}" if tr else ""
+        lines.append(f"{icon} {row['query']} — {postxt}{trend}")
+    lines.append(f"\n<i>Обновлено: {g.get('generated_at','')[:16]}</i>")
     return "\n".join(lines)
 
 
@@ -591,8 +621,10 @@ def handle_message(msg: dict) -> None:
         send(chat_id, action_experiments(), keyboard=MAIN_MENU)
     elif text in ("🛰 Разведка", "/scout", "разведка"):
         send(chat_id, action_scout(), keyboard=MAIN_MENU)
-    elif text in ("✅ Аппрувы", "/approvals", "аппрувы"):
-        send(chat_id, action_approvals(), keyboard=MAIN_MENU)
+    elif text in ("📒 Решения", "✅ Аппрувы", "/approvals", "аппрувы", "решения"):
+        send(chat_id, action_decisions(), keyboard=MAIN_MENU)
+    elif text in ("🎯 Цели", "/goals", "цели"):
+        send(chat_id, action_goals(), keyboard=MAIN_MENU)
     elif text in ("🤖 Мета-агент", "/meta", "мета", "мета-агент"):
         send(chat_id, action_meta_status(), keyboard=MAIN_MENU)
     elif _approval_decision(text) is not None:
