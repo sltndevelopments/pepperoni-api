@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="uz-Latn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pepperoni Xalol Samarqand | Ulgurji Yetkazib Berish</title>
+  <meta name="description" content="Samarqand uchun xalol pepperoni ulgurji: mol go'shti, tovuq, ot go'shtidan. HACCP, ISO 22000:2018, Xalol DUM RT. Pitsabarlar va HoReCa uchun. +7 987 217-02-02">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/pepperoni-samarkand/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1a3c2e;
+      --accent: #c8a84b;
+      --light-bg: #f8f5ef;
+      --card-border: #e2d9c8;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      color: #2d2d2d;
+      background: #fff;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, #1a3c2e 0%, #2d6a4f 60%, #1a3c2e 100%);
+      color: #fff;
+      padding: 72px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(200,168,75,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(200,168,75,0.18);
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      border-radius: 50px;
+      padding: 6px 20px;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+    .hero-section h1 {
+      font-size: clamp(1.7rem, 4vw, 2.7rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+    .hero-section h1 span {
+      color: var(--accent);
+    }
+    .hero-lead {
+      font-size: 1.08rem;
+      opacity: 0.92;
+      max-width: 620px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .hero-stat .lbl {
+      font-size: 0.78rem;
+      opacity: 0.75;
+      margin-top: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .section-title {
+      font-size: 1.55rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: #6b7280;
+      font-size: 0.97rem;
+      margin-bottom: 36px;
+    }
+    .advantage-card {
+      background: #fff;
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px 24px;
+      height: 100%;
+      transition: box-shadow 0.2s, transform 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .advantage-card:hover {
+      box-shadow: 0 8px 32px rgba(26,60,46,0.12);
+      transform: translateY(-3px);
+    }
+    .advantage-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--accent);
+      border-radius: 14px 0 0 14px;
+    }
+    .advantage-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+    }
+    .advantage-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .advantage-card p {
+      font-size: 0.9rem;
+      color: #555;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .advantage-card .highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
+    .cert-table th {
+      background: var(--primary);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+    .cert-table td {
+      font-size: 0.88rem;
+      vertical-align: middle;
+      padding: 12px 16px;
+    }
+    .cert-table tr:nth-child(even) td {
+      background: var(--light-bg);
+    }
+    .cert-badge {
+      display: inline-block;
+      background: #d1fae5;
+      color: #065f46;
+      border-radius: 50px;
+      padding: 3px 12px;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+    .brand-story {
+      background: var(--light-bg);
+      border-radius: 20px;
+      padding: 48px 40px;
+      border-left: 5px solid var(--accent);
+    }
+    .brand-story h2 {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    .faq-item {
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      margin-bottom: 12px;
+      overflow: hidden;
+    }
+    .faq-item .accordion-button {
+      font-weight: 600;
+      font-size: 0.97rem;
+      color: var(--primary);
+      background: #fff;
+    }
+    .faq-item .accordion-button:not(.collapsed) {
+      background: var(--light-bg);
+      color: var(--primary);
+      box-shadow: none;
+    }
+    .faq-item .accordion-button::after {
+      filter: none;
+    }
+    .faq-body {
+      font-size: 0.92rem;
+      color: #444;
+      line-height: 1.7;
+      background: var(--light-bg);
+      padding: 16px 20px;
+    }
+    .delivery-card {
+      background: linear-gradient(135deg, #1a3c2e, #2d6a4f);
+      color: #fff;
+      border-radius: 20px;
+      padding: 40px 36px;
+    }
+    .delivery-card h2 {
+      font-weight: 800;
+      font-size: 1.45rem;
+      margin-bottom: 20px;
+    }
+    .delivery-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 18px;
+    }
+    .delivery-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .delivery-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+    .delivery-item p {
+      font-size: 0.87rem;
+      opacity: 0.88;
+      margin: 0;
+    }
+    .cta-section {
+      background: var(--light-bg);
+      border-radius: 20px;
+      padding: 48px 40px;
+    }
+    .cta-section h2 {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+    }
+    .form-control, .form-select {
+      border: 1.5px solid var(--card-border);
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 0.93rem;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(200,168,75,0.15);
+    }
+    .btn-primary-custom {
+      background: var(--accent);
+      color: #1a3c2e;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 36px;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary-custom:hover {
+      background: #b8942e;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+    .contact-block {
+      background: var(--primary);
+      color: #fff;
+      border-radius: 14px;
+      padding: 28px 24px;
+    }
+    .contact-block a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .contact-block a:hover {
+      text-decoration: underline;
+    }
+    .no-nitrite-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fef3c7;
+      border: 1px solid #f59e0b;
+      color: #92400e;
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+    .section-divider {
+      height: 2px;
+      background: linear-gradient(90deg, var(--accent), transparent);
+      margin: 56px 0;
+      border-radius: 2px;
+    }
+    @media (max-width: 768px) {
+      .brand-story, .cta-section { padding: 28px 20px; }
+      .delivery-card { padding: 28px 20px; }
+      .hero-stats { gap: 20px; }
+    }
+  </style>
+
+  <!-- Yandex.Metrica -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+    ym(XXXXXXXX, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pepperoni.tatar/#business",
+        "name": "Pepperoni Tatar — Kazan Delikates",
+        "description": "Rossiyaning yagona xalol pepperoni ishlab chiqaruvchisi: mol go'shti, tovuq va ot go'shtidan. Samarqand uchun ulgurji yetkazib berish.",
+        "url": "https://pepperoni.tatar/geo/pepperoni-samarkand/",
+        "telephone": "+79872170202",
+        "email": "info@kazandelikates.tatar",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Agrarnaya, 2, of. 7",
+          "addressLocality": "Kazan",
+          "addressCountry": "RU"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Samarqand",
+          "addressCountry": "UZ"
+        },
+        "hasCredential": [
+          "Xalol DUM RT №614A/2024",
+          "HACCP",
+          "ISO 22000:2018",
+          "TR TS 021/2011"
+        ]
+      },
+      {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/#product-pepperoni",
+        "name": "Xalol Pepperoni — Mol go'shti, Tovuq, Ot go'shti",
+        "description": "Rossiyaning yagona xalol pepperoni ishlab chiqaruvchisi. Diametr 40-75 mm. Nitrit natriy yo'q. HACCP, ISO 22000:2018, Xalol DUM RT. HoReCa va pitsabarlar uchun.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Pepperoni Tatar"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Kazan Delikates",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Kazan",
+            "addressCountry": "RU"
+          }
+        },
+        "hasCertification": [
+          {
+            "@type": "Certification",
+            "name": "Xalol DUM RT №614A/2024"
+          },
+          {
+            "@type": "Certification",
+            "name": "HACCP"
+          },
+          {
+            "@type": "Certification",
+            "name": "ISO 22000:2018"
+          }
+        ],
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "UZS",
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delikates"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pepperoni.tatar/geo/pepperoni-samarkand/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Samarqandga pepperoni qancha vaqtda yetkazib beriladi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Kazan–Toshkent yo'nalishi bo'yicha avtomobil yetkazib berish 3 200 km, taxminan 72 soat. Sovutilgan konteynerda +2...+6°C haroratda yetkaziladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pepperoni haqiqatan xalolmi? Qaysi tashkilot sertifikat bergan?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ha. Xalol sertifikati Rossiya Tatariston Muftiyati (DUM RT) tomonidan №614A/2024 raqami bilan berilgan. Mahsulot to'liq xalol texnologiya bo'yicha ishlab chiqariladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Samarqand restoranlariga minimal buyurtma qancha?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "HoReCa uchun minimal buyurtma 20 kg dan boshlanadi. Katta hajmli buyurtmalar uchun alohida narx va yetkazib berish shartlari ko'rib chiqiladi."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Pepperoni tarkibida nitrit natriy bormi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yo'q. Bizning pepperonimiz nitrit natriy, GMO va sun'iy bo'yoqlar siz ishlab chiqariladi. Tarkib to'liq toza va shaffof."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Private Label — o'z brendim ostida buyurtma bera olamanmi?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Ha. Biz Samarqanddagi distribyutorlar, tarmoq restoranlar va supermarketlar uchun Private Label (STM) xizmatini taqdim etamiz. Minimal hajm va dizayn talablari bo'yicha menejer bilan bog'laning."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Bosh sahifa",
+            "item": "https://pepperoni.tatar/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Geografiya",
+            "item": "https://pepperoni.tatar/geo/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Pepperoni Samarqand",
+            "item": "https://pepperoni.tatar/geo/pepperoni-samarkand/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body data-city="Самарканд" data-product="pepperoni">
+
+<!-- ═══════════════════════════════════════════════
+     HERO SECTION
+═══════════════════════════════════════════════ -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <div class="hero-badge">🕌 Samarqand · HoReCa · Xalol B2B</div>
+        <h1>
+          <span>Xalol Pepperoni</span> —<br>
+          Samarqand Pitsabarlari va<br>Restoranlariga Ulgurji
+        </h1>
+        <p class="hero-lead">
+          Rossiyadan yagona ishlab chiqaruvchi: mol go'shti, tovuq va ot go'shtidan xalol pepperoni. 
+          Samarqandning 3 000+ HoReCa ob'ektlari uchun maxsus — sertifikatlangan, toza tarkibli, 
+          professional qadoqlangan. Kazandan to Samarqandgacha sovutilgan yetkazib berish.
+        </p>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="num">96%</div>
+            <div class="lbl">Musulmon aholi</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">3 000+</div>
+            <div class="lbl">HoReCa ob'ektlari</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">72 soat</div>
+            <div class="lbl">Yetkazib berish</div>
+          </div>
+          <div class="hero-stat">
+            <div class="num">40–75</div>
+            <div class="lbl">mm diametr</div>
+          </div>
+        </div>
+        <div class="mt-4 d-flex gap-3 flex-wrap">
+          <a href="#contact-form" class="btn btn-warning fw-bold px-4 py-3" style="border-radius:10px; color:#1a3c2e;">
+            📋 Narx-navo so'rash
+          </a>
+          <a href="tel:+79872170202" class="btn btn-outline-light fw-semibold px-4 py-3" style="border-radius:10px;">
+            📞 +7 987 217-02-02
+          </a>
+        </div>
+      </div>
+      <div class="col-lg-4 d-none d-lg-flex justify-content-center">
+        <div class="text-center" style="opacity:0.15; font-size:11rem; line-height:1;">🍕</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     INTRO — SAMARQAND KONTEKSTI
+═══════════════════════════════════════════════ -->
+<section class="py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="no-nitrite-badge mb-4">
+          ✅ Nitrit natriy yo'q &nbsp;|&nbsp; GMO yo'q &nbsp;|&nbsp; Sun'iy bo'yoq yo'q
+        </div>
+        <p class="fs-5 fw-semibold text-dark mb-3" style="line-height:1.75;">
+          Samarqand — bu nafaqat tarix va turizm shahri. Bu <strong>600 000 nafar aholisi</strong> va 
+          yildan yilga o'sib borayotgan zamonaviy oshxona madaniyati bilan <strong>Markaziy Osiyoning 
+          eng istiqbolli HoReCa bozorlaridan biri</strong>. Shaharning 96% musulmon aholisi uchun 
+          xalol mahsulot — bu shunchaki afzallik emas, bu <em>shart</em>.
+        </p>
+        <p class="text-secondary" style="line-height:1.7;">
+          Biroq Samarqanddagi ko'plab pitsabar va restoran egalari bir muammoga duch keladi: 
+          <strong>sifatli xalol pepperoni topish qiyin</strong>. Bozorda ko'p taklif bor, lekin 
+          haqiqiy sertifikat, toza tarkib va professional HoReCa formatida yetkazib berish — 
+          bularni bir joyda topish muammo edi. Biz aynan shu bo'shliqni to'ldirish uchun 
+          Samarqand bozorida ishlayapmiz.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══════════════════════════════════════════════
+     BRAND STORY
+═══════════════════════════════════════════════ -->
+<section class="py-2 pb-5">
+  <div class="container">
+    <div class="brand-story">
+      <div class="row align-items-center">
+        <div class="col-lg-7">
+          <h2>🏭 Pepperoni Tatar: Kazandan Dunyoga</h2>
+          <p style="line-height:1.75; color:#444; margin-bottom:14px;">
+            <strong>Pepperoni Tatar</strong> brendi Rossiyaning Tatariston poytaxti — Kazanda tug'ildi. 
+            Biz o'z ishimizni bitta oddiy savoldan boshladik: <em>"Nima uchun Rossiyada haqiqiy 
+            xalol pepperoni yo'q?"</em> — va javobini amalda ko'rsatdik.
+          </p>
+          <p style="line-height:1.75; color:#444; margin-bottom:14px;">
+            Bugun biz <strong>Rossiyaning yagona ishlab chiqaruvchisi</strong>miz — mol go'shti, 
+            tovuq va ot go'shtidan xalol pepperoni tayyorlaymiz. Tatariston musulmonlarining 
+            azaliy go'sht an'analari, zamonaviy HACCP va ISO 22000:2018 texnologiyasi, 
+            va Tatariston Muftiyatining (DUM RT) rasmiy Xalol sertifikati — bularning barchasi 
+            bir mahsulotda mujassamlashgan.
+          </p>
+          <p style="line-height:1.75; color:#444; margin-bottom:0;">
+            Samarqand uchun bu ayniqsa muhim: <strong>ot go'shtidan pepperoni</strong> — 
+            O'zbekiston oshxonasi an'analariga uyg'un, mahalliy iste'molchi uchun tanish va 
+            ishonchli xom ashyo. Biz bu madaniy jihatni yaxshi tushunamiz.
+          </p>
+        </div>
+        <div class="col-lg-5 mt-4 mt-lg-0">
+          <div class="row g-3">
+            <div class="col-6">
+              <div class="text-center p-3 bg-white rounded-3 shadow-sm">
+                <div style="font-size:2rem;">🥩</div>
+                <div class="fw-bold text-success mt-1" style="font-size:0.85rem;">Mol go'shti</div>
+                <div class="text-muted" style="font-size:0.78rem;">Beef Pepperoni</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-3 bg-white rounded-3 shadow-sm">
+                <div style="font-size:2rem;">🍗</div>
+                <div class="fw-bold text-success mt-1" style="font-size:0.85rem;">Tovuq</div>
+                <div class="text-muted" style="font-size:0.78rem;">Chicken Pepperoni</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-3 bg-white rounded-3 shadow-sm">
+                <div style="font-size:2rem;">🐴</div>
+                <div class="fw-bold text-success mt-1" style="font-size:0.85rem;">Ot go'shti</div>
+                <div class="text-muted" style="font-size:0.78rem;">Horse Pepperoni</div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="text-center p-3 bg-white rounded-3 shadow-sm">
+                <div style="font-size:2rem;">📐</div>
+                <div class="fw-bold text-success mt-1" style="font-size:0.85rem;">40–75 mm</div>
+                <div class="text-muted" style="font-size:0.78rem;">Diametr tanlovi</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container"><div class="section-divider"></div></div>
+
+<!-- ═══════════════════════════════════════════════
+     6 ADVANTAGES
+═══════════════════════════════════════════════ -->
+<section class="py-3 pb-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <div class="section-title">Nima uchun Samarqand HoReCa bizi tanlaydi?</div>
+      <p class="section-subtitle">Raqamlar va faktlar — bo'sh so'zlar emas</p>
+    </div>
+    <div class="row g-4">
+
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">🕌</div>
+          <h3>Haqiqiy Xalol — DUM RT Sertifikati</h3>
+          <p>
+            Tatariston Muftiyati tomonidan berilgan rasmiy Xalol sertifikati 
+            <span class="highlight">№614A/2024</span>. Bu shunchaki yozuv emas — 
+            bu muntazam audit va ishlab chiqarish nazorati. Samarqandning 
+            <span class="highlight">96% musulmon aholisi</span> uchun bu kafolat.
+          </p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">🍕</div>
+          <h3>HoReCa Format: Sh
+<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff"><div class="container"><p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной мясной продукции и татарской выпечки в Казани.</p><p class="small mb-0"><a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · info@kazandelikates.tatar · +7 987 217-02-02</p></div></footer>
+
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Samarkand:</h6>
+    <div><a href="/geo/sosiki-dlya-hotdog-samarkand/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiki-v-teste-samarkand/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-samarkand/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+  </div>
+</section>
+
+</body>
+</html>
