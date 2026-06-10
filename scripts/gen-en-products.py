@@ -248,7 +248,8 @@ RETURN_POLICY = (
     '"returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",'
     '"merchantReturnDays":14,'
     '"returnMethod":"https://schema.org/ReturnByMail",'
-    '"returnFees":"https://schema.org/ReturnShippingFees"}'
+    '"returnFees":"https://schema.org/ReturnShippingFees",'
+    '"returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"USD"}}'
 )
 
 

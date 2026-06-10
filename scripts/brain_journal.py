@@ -18,6 +18,8 @@ Usage:
     print(recent_summary(max_chars=2000))
 """
 
+from __future__ import annotations
+
 import json
 import os
 from datetime import datetime, timezone

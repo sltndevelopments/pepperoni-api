@@ -219,8 +219,10 @@ def build_report(local: dict, gsc: dict) -> str:
         else:
             lines.append(f"\n✅ Google: проблем не видит ({gsc.get('checked',0)} стр.)")
 
-    lines.append("\n<i>Если есть проблемы шаблона — напиши «почини schema», "
-                 "мозг проанализирует и исправит генератор.</i>")
+    lines.append("\n<i>Напиши «почини schema» — запущу детерминированный фиксер "
+                 "(image/description/shipping/return) по всему сайту и закоммичу. "
+                 "review/aggregateRating не добавляем: выдуманные отзывы = риск "
+                 "ручных санкций Google.</i>")
     return "\n".join(lines)
 
 

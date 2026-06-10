@@ -20,8 +20,39 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
-AUTH_FILE = DATA / "tg_authorized.json"
-NOTIFY_FILE = DATA / "tg_notify.json"  # anyone who ever opened the bot
+
+
+def tg_state_dir() -> Path:
+    """Persistent state dir OUTSIDE the git working tree, so deploys/clean/reset
+    can never wipe bot auth. Falls back to data/ for local dev."""
+    for cand in (os.environ.get("TG_STATE_DIR"), "/var/www/pepperoni/tg-state"):
+        if not cand:
+            continue
+        p = Path(cand)
+        try:
+            p.mkdir(parents=True, exist_ok=True)
+            probe = p / ".w"
+            probe.write_text("")
+            probe.unlink()
+            return p
+        except OSError:
+            continue
+    return DATA
+
+
+STATE_DIR = tg_state_dir()
+AUTH_FILE = STATE_DIR / "tg_authorized.json"
+NOTIFY_FILE = STATE_DIR / "tg_notify.json"  # anyone who ever opened the bot
+
+# One-time migration from the old in-repo location.
+if STATE_DIR != DATA:
+    for _name in ("tg_authorized.json", "tg_notify.json"):
+        _old, _new = DATA / _name, STATE_DIR / _name
+        if _old.exists() and not _new.exists():
+            try:
+                _new.write_text(_old.read_text(encoding="utf-8"), encoding="utf-8")
+            except OSError:
+                pass
 
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 API = f"https://api.telegram.org/bot{BOT_TOKEN}" if BOT_TOKEN else ""

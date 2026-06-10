@@ -18,8 +18,12 @@ Env:
   ANTHROPIC_API_KEY    — for the "ask brain" flow (optional)
 """
 
+from __future__ import annotations
+
+import html
 import json
 import os
+import re
 import subprocess
 import sys
 import time
@@ -36,8 +40,12 @@ import brain_journal as J
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
-AUTH_FILE = DATA / "tg_authorized.json"
-PENDING_FILE = DATA / "tg_pending.json"   # pending confirmations
+
+# Bot state lives OUTSIDE the git tree (survives deploys/reset); telegram_notify
+# owns the dir resolution + one-time migration from data/.
+from telegram_notify import STATE_DIR as TG_STATE
+AUTH_FILE = TG_STATE / "tg_authorized.json"
+PENDING_FILE = TG_STATE / "tg_pending.json"   # pending confirmations
 APPROVALS_FILE = DATA / "approvals.json"  # high-impact actions awaiting human OK
 
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
@@ -542,6 +550,27 @@ def _load_strategy_text() -> str:
         return "стратегия ещё не сформирована"
 
 
+def _site_inventory(max_chars: int = 1200) -> str:
+    """Factual page inventory from the local repo, so the dialogue LLM answers
+    «есть ли у нас страница X?» from real data instead of 'нет доступа к сайту'."""
+    lines = []
+    big = {"products": "карточки товаров RU", "en/products": "карточки EN",
+           "geo": "гео-страницы RU", "en/geo": "гео EN", "ar/geo": "гео AR",
+           "blog": "блог", "export": "экспортные страницы"}
+    small = ["landing", "oem", "private-label", "en/oem"]
+    for rel, label in big.items():
+        cnt = len(list((PUBLIC / rel).glob("*.html"))) if (PUBLIC / rel).is_dir() else 0
+        if cnt:
+            lines.append(f"{rel}/ — {cnt} стр. ({label})")
+    for rel in small:
+        d = PUBLIC / rel
+        if d.is_dir():
+            slugs = sorted(p.stem for p in d.glob("*.html"))
+            if slugs:
+                lines.append(f"{rel}/: " + ", ".join(slugs))
+    return "\n".join(lines)[:max_chars]
+
+
 def talk_to_brain(chat_id: int, question: str) -> str:
     """
     Tiered dialogue (cost-safe):
@@ -568,7 +597,11 @@ def talk_to_brain(chat_id: int, question: str) -> str:
         "по-русски, по делу, опираясь на текущую стратегию и журнал. "
         "Стратегические РЕШЕНИЯ принимает мозг (Opus), не ты. "
         "Если вопрос требует НОВОГО глубокого плана/перестройки стратегии — начни "
-        "ответ строго со строки '[ESCALATE]' и кратко поясни почему. Иначе отвечай обычно.\n\n"
+        "ответ строго со строки '[ESCALATE]' и кратко поясни почему. Иначе отвечай обычно. "
+        "У тебя есть ФАКТИЧЕСКИЙ инвентарь страниц сайта (ниже): на вопросы «есть ли "
+        "у нас страница/лендинг X» отвечай по нему и НИКОГДА не говори, что у тебя "
+        "нет доступа к сайту.\n\n"
+        f"ИНВЕНТАРЬ САЙТА:\n{_site_inventory()}\n\n"
         f"ТЕКУЩАЯ СТРАТЕГИЯ: {strategy}\n\nЖУРНАЛ:\n{context}"
     )
     try:
@@ -596,6 +629,72 @@ def talk_to_brain(chat_id: int, question: str) -> str:
     rem = usage.get("budget_remaining_usd", 0)
     J.log_event("brain_reply", reply, who="sonnet", meta={"cost_usd": cost})
     return f"💬 {reply}\n\n<i>${cost} (Sonnet) · бюджет: ${rem}</i>"
+
+
+# ── Command dispatch ─────────────────────────────────────────────────────────────
+def _norm_cmd(s: str) -> str:
+    """'📊 Статус сайта' / '/status' / 'СТАТУС' → comparable key."""
+    s = re.sub(r"[^\w\s]", " ", s.lower().replace("ё", "е"), flags=re.UNICODE)
+    return " ".join(s.split())
+
+
+def _cmd_health(cid: int) -> None:
+    send(cid, "🩺 Проверяю структурированные данные…")
+    send(cid, action_seo_health(), keyboard=MAIN_MENU)
+
+
+def _cmd_fix_schema(cid: int) -> None:
+    """Deterministic schema fixer: enrich Product JSON-LD site-wide, commit, push."""
+    send(cid, "🛠 Чиню Product-схемы по всему сайту (fix_schema.py)…")
+    try:
+        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "fix_schema.py")],
+                           capture_output=True, text=True, timeout=600, cwd=str(ROOT))
+        tail = "\n".join((r.stdout or r.stderr or "—").strip().splitlines()[-10:])
+        changed = "enriched" in (r.stdout or "")
+        if changed:
+            subprocess.run(["git", "add", "-A", "public"], cwd=str(ROOT), timeout=60)
+            c = subprocess.run(["git", "commit", "-m", "fix(schema): enrich Product JSON-LD (via bot)"],
+                               cwd=str(ROOT), capture_output=True, text=True, timeout=60)
+            if c.returncode == 0:
+                subprocess.run(["git", "push", "origin", "main"], cwd=str(ROOT),
+                               capture_output=True, timeout=120)
+        send(cid, "<pre>" + html.escape(tail)[:3500] + "</pre>", keyboard=MAIN_MENU)
+        J.log_event("system", "fix_schema run via bot", who=str(cid))
+    except Exception as e:
+        send(cid, f"❌ fix_schema: {e}", keyboard=MAIN_MENU)
+
+
+def _make_dispatch() -> dict:
+    table = [
+        (("start", "меню", "menu", "главное меню"),
+         lambda cid: send(cid, "Главное меню. Выбери действие:", keyboard=MAIN_MENU)),
+        (("статус", "status", "статус сайта"),
+         lambda cid: send(cid, action_status(), keyboard=MAIN_MENU)),
+        (("бюджет", "budget", "бюджет мозга"),
+         lambda cid: send(cid, action_budget(), keyboard=MAIN_MENU)),
+        (("стратегия", "strategy", "стратегия мозга"),
+         lambda cid: send(cid, action_strategy(), keyboard=MAIN_MENU)),
+        (("история", "history"),
+         lambda cid: send(cid, action_history(), keyboard=MAIN_MENU)),
+        (("запустить генерацию", "запустить", "run", "генерация"),
+         lambda cid: send(cid, action_run_generation(cid), keyboard=MAIN_MENU)),
+        (("seo здоровье", "здоровье", "health", "seo health"), _cmd_health),
+        (("эксперименты", "experiments"),
+         lambda cid: send(cid, action_experiments(), keyboard=MAIN_MENU)),
+        (("разведка", "scout"),
+         lambda cid: send(cid, action_scout(), keyboard=MAIN_MENU)),
+        (("решения", "аппрувы", "approvals", "решения мозга"),
+         lambda cid: send(cid, action_decisions(), keyboard=MAIN_MENU)),
+        (("цели", "goals"),
+         lambda cid: send(cid, action_goals(), keyboard=MAIN_MENU)),
+        (("мета", "мета агент", "meta", "мета агент статус"),
+         lambda cid: send(cid, action_meta_status(), keyboard=MAIN_MENU)),
+        (("почини schema", "почини схему", "почини схемы", "fix schema"), _cmd_fix_schema),
+    ]
+    return {alias: fn for aliases, fn in table for alias in aliases}
+
+
+_DISPATCH = _make_dispatch()
 
 
 # ── Message router ───────────────────────────────────────────────────────────────
@@ -642,54 +741,33 @@ def handle_message(msg: dict) -> None:
         send(chat_id, "Отменено.", keyboard=MAIN_MENU)
         return
 
-    # 3) Menu / commands (FREE)
-    if text in ("/start", "📋 Меню", "меню"):
-        send(chat_id, "Главное меню. Выбери действие:", keyboard=MAIN_MENU)
-    elif text in ("📊 Статус", "/status", "статус"):
-        send(chat_id, action_status(), keyboard=MAIN_MENU)
-    elif text in ("💰 Бюджет", "/budget", "бюджет"):
-        send(chat_id, action_budget(), keyboard=MAIN_MENU)
-    elif text in ("📋 Стратегия", "/strategy", "стратегия"):
-        send(chat_id, action_strategy(), keyboard=MAIN_MENU)
-    elif text in ("📜 История", "/history", "история"):
-        send(chat_id, action_history(), keyboard=MAIN_MENU)
-    elif text in ("🚀 Запустить генерацию", "/run", "запустить"):
-        send(chat_id, action_run_generation(chat_id), keyboard=MAIN_MENU)
-    elif text in ("🩺 SEO здоровье", "/health", "здоровье"):
-        send(chat_id, "🩺 Проверяю структурированные данные…")
-        send(chat_id, action_seo_health(), keyboard=MAIN_MENU)
-    elif text in ("🧪 Эксперименты", "/experiments", "эксперименты"):
-        send(chat_id, action_experiments(), keyboard=MAIN_MENU)
-    elif text in ("🛰 Разведка", "/scout", "разведка"):
-        send(chat_id, action_scout(), keyboard=MAIN_MENU)
-    elif text in ("📒 Решения", "✅ Аппрувы", "/approvals", "аппрувы", "решения"):
-        send(chat_id, action_decisions(), keyboard=MAIN_MENU)
-    elif text in ("🎯 Цели", "/goals", "цели"):
-        send(chat_id, action_goals(), keyboard=MAIN_MENU)
-    elif text in ("🤖 Мета-агент", "/meta", "мета", "мета-агент"):
-        send(chat_id, action_meta_status(), keyboard=MAIN_MENU)
-    elif _approval_decision(text) is not None:
+    # 3) Menu / commands (FREE) — emoji/case/slash-insensitive matching, so taps
+    #    on report header lines («📊 Статус сайта») route here, not to the LLM.
+    n = _norm_cmd(text)
+    handler = _DISPATCH.get(n)
+    if handler:
+        handler(chat_id)
+        return
+    if _approval_decision(text) is not None:
         idx, approve = _approval_decision(text)
         send(chat_id, decide_approval(idx, approve, str(chat_id)), keyboard=MAIN_MENU)
-    elif text in ("🧠 Спросить мозг", "/ask"):
+        return
+    if n in ("спросить мозг", "ask"):
         set_pending(chat_id, "ask_brain_prompt", "")
         send(chat_id, "Напиши вопрос — отвечу через Sonnet (дёшево). "
                       "Если понадобится глубокая стратегия, сам подключу Opus.\n"
                       "Например: «что улучшить по выпечке в Турции?»")
-    else:
-        # If we're waiting for a brain question, treat this text as the question
-        try:
-            d = json.loads(PENDING_FILE.read_text())
-        except Exception:
-            d = {}
-        if d.get(str(chat_id), {}).get("kind") == "ask_brain_prompt":
-            pop_pending(chat_id)
-            send(chat_id, "💬 Думаю…")
-            send(chat_id, talk_to_brain(chat_id, text), keyboard=MAIN_MENU)
-        else:
-            # Free-form text from an authorized user → treat as a dialogue turn (cheap Sonnet)
-            send(chat_id, "💬 Думаю…")
-            send(chat_id, talk_to_brain(chat_id, text), keyboard=MAIN_MENU)
+        return
+
+    # 4) Unmatched UI tap (emoji-prefixed, no real question) → menu, not LLM.
+    if not n or (not text[0].isalnum() and len(n.split()) <= 4):
+        send(chat_id, "Не понял команду. Вот меню:", keyboard=MAIN_MENU)
+        return
+
+    # 5) Free-form text → dialogue turn (cheap Sonnet), incl. pending brain question
+    pop_pending(chat_id)
+    send(chat_id, "💬 Думаю…")
+    send(chat_id, talk_to_brain(chat_id, text), keyboard=MAIN_MENU)
 
 
 # ── Daily digest (called by cron, not the loop) ──────────────────────────────────

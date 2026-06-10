@@ -161,6 +161,12 @@ MAX_GEO_PAGES="${MAX_GEO_PAGES:-40}" GEO_WORKERS="${GEO_WORKERS:-4}" \
     python3 scripts/generate_geo_bulk.py --mode all --max-pages "${MAX_GEO_PAGES:-40}" \
     >> "$LOG_FILE" 2>&1 || log "⚠️  Geo bulk generation failed (non-fatal)"
 
+# ---- Step 4c: Schema enricher — Product JSON-LD merchant-listing fields ----
+# Deterministic (no LLM): image/description/shipping/return on every freshly
+# generated page, so GSC never sees missing Merchant-listing fields again.
+log "Step 4c: Enriching Product schemas …"
+python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log "⚠️  Schema enricher failed (non-fatal)"
+
 # ---- Step 5: Git commit & push generated content ----
 log "Step 5: Committing and pushing generated content …"
 
