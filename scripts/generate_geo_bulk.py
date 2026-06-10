@@ -326,6 +326,10 @@ def build_system_prompt(lang: str) -> str:
 8. Добавь к <body> атрибуты data-city и data-product (значения — из параметров)
 9. КОНТАКТЫ — используй СТРОГО эти и никакие другие: телефон +7 987 217-02-02 (tel:+79872170202), email info@kazandelikates.tatar, адрес: г. Казань, ул. Аграрная, 2, оф. 7. НИКОГДА не выдумывай номера 8-800, другие адреса/email.
 
+ОБЪЁМ: 600–800 слов видимого текста. НЕ раздувай страницу — лаконичные карточки и
+FAQ-ответы по 2-3 предложения. ОБЯЗАТЕЛЬНО заверши документ закрывающими
+</body></html> — незакрытая страница будет отброшена.
+
 ВАЖНО: Страница должна быть на 100% уникальной. Упомяни конкретный контекст города.
 Избегай шаблонных фраз. Пиши как живой эксперт по мясному рынку указанной страны."""
 
@@ -591,11 +595,11 @@ def generate_one_page(task: dict) -> dict:
         return prep
     try:
         time.sleep(SLEEP_BETWEEN_CALLS + random.uniform(0, 0.5))
-        # 8000 tokens: a full geo page (head + 6 cards + cert table + FAQ + CTA
-        # + schema) runs ~5–7k tokens; 4000 truncated long pages mid-tag.
+        # 9000 tokens: a full geo page (head + 6 cards + cert table + FAQ + CTA
+        # + schema) runs ~5–7k tokens; lower caps truncated long pages mid-tag.
         html_content, tokens = _shared_call_claude(
             prompt=prep["user"], system=prep["system"],
-            model=DEEPSEEK_MODEL, max_tokens=8000)
+            model=DEEPSEEK_MODEL, max_tokens=9000)
         return finalize_page(prep, html_content, tokens)
     except Exception as exc:
         return {"status": "error", "slug": prep["page_slug"], "error": str(exc)}
@@ -619,7 +623,9 @@ def generate_batch(tasks: list) -> list:
             "prompt": prep["user"],
             "system": prep["system"],
             "model": DEEPSEEK_MODEL,
-            "max_tokens": 8000,
+            # 9000: headroom above the instructed 600-800 words so the model
+            # closes </html> instead of truncating mid-tag at the cap.
+            "max_tokens": 9000,
         })
 
     if not items:
