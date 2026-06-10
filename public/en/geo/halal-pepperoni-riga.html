@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Halal Pepperoni Wholesale in Riga | Kazan Delikates</title>
+  <meta name="description" content="Halal beef & chicken pepperoni wholesale for Riga HoReCa. HACCP, ISO 22000:2018, DUM RT certified. No nitrite. Private Label. Delivery Kazan–Riga 42h.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/pepperoni-riga/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --brand-green: #1a6b3c;
+      --brand-gold: #c8922a;
+      --brand-dark: #1c1c1c;
+      --brand-light: #f8f6f1;
+      --brand-accent: #e8f5ee;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--brand-dark);
+      background: #fff;
+    }
+
+    /* Hero */
+    .hero-section {
+      background: linear-gradient(135deg, #0d3d22 0%, #1a6b3c 50%, #0d3d22 100%);
+      color: #fff;
+      padding: 72px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 360px; height: 360px;
+      background: radial-gradient(circle, rgba(200,146,42,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--brand-gold);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+    }
+    .hero-section h1 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 18px;
+    }
+    .hero-section h1 span {
+      color: var(--brand-gold);
+    }
+    .hero-lead {
+      font-size: 1.1rem;
+      opacity: 0.9;
+      max-width: 580px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      margin-top: 36px;
+    }
+    .hero-stat {
+      text-align: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 12px;
+      padding: 16px 24px;
+      min-width: 130px;
+    }
+    .hero-stat .num {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--brand-gold);
+      display: block;
+    }
+    .hero-stat .lbl {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .hero-img-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+    .hero-img-placeholder {
+      background: rgba(255,255,255,0.06);
+      border: 2px dashed rgba(255,255,255,0.2);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 380px;
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 20px;
+    }
+    .hero-img-placeholder .icon {
+      font-size: 3rem;
+      margin-bottom: 10px;
+      opacity: 0.4;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 800;
+      color: var(--brand-dark);
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: #6c757d;
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+    .title-line {
+      width: 48px;
+      height: 4px;
+      background: var(--brand-gold);
+      border-radius: 2px;
+      margin: 10px 0 16px;
+    }
+
+    /* Advantages */
+    .advantages-section {
+      background: var(--brand-light);
+      padding: 72px 0;
+    }
+    .adv-card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 28px 24px;
+      height: 100%;
+      border: 1px solid #e8e8e8;
+      transition: box-shadow 0.25s, transform 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .adv-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--brand-green);
+      border-radius: 4px 0 0 4px;
+    }
+    .adv-card:hover {
+      box-shadow: 0 12px 32px rgba(26,107,60,0.12);
+      transform: translateY(-4px);
+    }
+    .adv-icon {
+      font-size: 2.2rem;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .adv-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--brand-green);
+      margin-bottom: 8px;
+    }
+    .adv-card p {
+      font-size: 0.88rem;
+      color: #555;
+      line-height: 1.65;
+      margin: 0;
+    }
+    .adv-card .adv-num {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--brand-gold);
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    /* Quality section */
+    .quality-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .quality-step {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 28px;
+      align-items: flex-start;
+    }
+    .quality-step .step-num {
+      background: var(--brand-green);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.9rem;
+      min-width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .quality-step h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 4px;
+      color: var(--brand-dark);
+    }
+    .quality-step p {
+      font-size: 0.85rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .quality-highlight {
+      background: var(--brand-accent);
+      border-left: 4px solid var(--brand-green);
+      border-radius: 0 12px 12px 0;
+      padding: 20px 24px;
+      margin-top: 24px;
+    }
+    .quality-highlight p {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--brand-dark);
+      font-weight: 500;
+    }
+
+    /* Certs */
+    .certs-section {
+      background: var(--brand-light);
+      padding: 72px 0;
+    }
+    .cert-table {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    }
+    .cert-table thead {
+      background: var(--brand-green);
+      color: #fff;
+    }
+    .cert-table thead th {
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 14px 18px;
+      border: none;
+    }
+    .cert-table tbody tr {
+      transition: background 0.2s;
+    }
+    .cert-table tbody tr:hover {
+      background: var(--brand-accent);
+    }
+    .cert-table tbody td {
+      padding: 14px 18px;
+      font-size: 0.9rem;
+      vertical-align: middle;
+      border-color: #e8e8e8;
+    }
+    .cert-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+    .cert-badge.active {
+      background: #d4edda;
+      color: #155724;
+    }
+    .cert-badge.food {
+      background: #cce5ff;
+      color: #004085;
+    }
+    .cert-badge.halal {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    /* Delivery */
+    .delivery-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .delivery-card {
+      background: linear-gradient(135deg, #0d3d22, #1a6b3c);
+      color: #fff;
+      border-radius: 20px;
+      padding: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .delivery-card::after {
+      content: '🚛';
+      position: absolute;
+      right: 30px;
+      bottom: 20px;
+      font-size: 5rem;
+      opacity: 0.12;
+    }
+    .delivery-card h3 {
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 20px;
+    }
+    .delivery-detail {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .delivery-detail .dd-icon {
+      font-size: 1.4rem;
+      min-width: 32px;
+    }
+    .delivery-detail .dd-text strong {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+    .delivery-detail .dd-text span {
+      font-size: 0.82rem;
+      opacity: 0.8;
+    }
+    .temp-badge {
+      display: inline-block;
+      background: rgba(200,146,42,0.25);
+      border: 1px solid rgba(200,146,42,0.5);
+      color: #f5c96a;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 6px 14px;
+      border-radius: 8px;
+      margin-top: 8px;
+    }
+    .route-line {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 24px 0;
+      flex-wrap: wrap;
+    }
+    .route-city {
+      background: rgba(255,255,255,0.15);
+      border-radius: 8px;
+      padding: 8px 16px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+    .route-arrow {
+      color: var(--brand-gold);
+      font-size: 1.2rem;
+    }
+    .route-info {
+      font-size: 0.8rem;
+      opacity: 0.75;
+      background: rgba(255,255,255,0.08);
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+
+    /* FAQ */
+    .faq-section {
+      background: var(--brand-light);
+      padding: 72px 0;
+    }
+    .faq-accordion .accordion-button {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: var(--brand-dark);
+      background: #fff;
+    }
+    .faq-accordion .accordion-button:not(.collapsed) {
+      color: var(--brand-green);
+      background: var(--brand-accent);
+      box-shadow: none;
+    }
+    .faq-accordion .accordion-button::after {
+      filter: none;
+    }
+    .faq-accordion .accordion-item {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px !important;
+      margin-bottom: 10px;
+      overflow: hidden;
+    }
+    .faq-accordion .accordion-body {
+      font-size: 0.9rem;
+      color: #555;
+      line-height: 1.7;
+      background: #fff;
+    }
+
+    /* CTA / Form */
+    .cta-section {
+      padding: 72px 0;
+      background: #fff;
+    }
+    .form-card {
+      background: var(--brand-light);
+      border-radius: 20px;
+      padding: 40px;
+      border: 1px solid #e8e8e8;
+    }
+    .form-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--brand-dark);
+      margin-bottom: 6px;
+    }
+    .form-control, .form-select {
+      border-radius: 10px;
+      border: 1.5px solid #ddd;
+      font-size: 0.9rem;
+      padding: 10px 14px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .form-control:focus, .form-select:focus {
+      border-color: var(--brand-green);
+      box-shadow: 0 0 0 3px rgba(26,107,60,0.12);
+    }
+    .btn-submit {
+      background: var(--brand-green);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 32px;
+      font-size: 1rem;
+      font-weight: 700;
+      width: 100%;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-submit:hover {
+      background: #145530;
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    .contact-info-block {
+      background: linear-gradient(135deg, #0d3d22, #1a6b3c);
+      color: #fff;
+      border-radius: 20px;
+      padding: 36px;
+      height: 100%;
+    }
+    .contact-info-block h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 24px;
+    }
+    .contact-item {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+    .contact-item .ci-icon {
+      font-size: 1.3rem;
+      min-width: 28px;
+    }
+    .contact-item .ci-text strong {
+      display: block;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      opacity: 0.7;
+      margin-bottom: 2px;
+    }
+    .contact-item .ci-text a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+    .contact-item .ci-text a:hover {
+      color: var(--brand-gold);
+    }
+    .contact-item .ci-text span {
+      font-size: 0.88rem;
+      opacity: 0.9;
+    }
+    .trust-badges {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .trust-badge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 767px) {
+      .hero-section { padding: 48px 0 40px; }
+      .delivery-card { padding: 28px 20px; }
+      .form-card { padding: 24px 20px; }
+      .contact-info-block { padding: 24px 20px; margin-top: 24px; }
+      .hero-stats { gap: 12px; }
+      .hero-stat { min-width: 100px; padding: 12px 16px; }
+    }
+  </style>
+
+  <!-- Yandex.Metrika -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+    ym(XXXXXXXX,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/XXXXXXXX" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pepperoni.tatar/#business",
+        "name": "Kazan Delikates — Halal Pepperoni Manufacturer",
+        "description": "Russia's only halal pepperoni manufacturer from beef, chicken and horse meat. Diameters 40–75 mm. HACCP, ISO 22000:2018, Halal DUM RT certified. Private Label available. Wholesale delivery to Riga, Latvia.",
+        "url": "https://pepperoni.tatar/geo/pepperoni-riga/",
+        "telephone": "+79872170202",
+        "email": "info@kazandelikates.tatar",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ul. Agrarnaya, 2, office 7",
+          "addressLocality": "Kazan",
+          "addressCountry": "RU"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Riga",
+          "containedInPlace": {
+            "@type": "Country",
+            "name": "Latvia"
+          }
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Halal Pepperoni Wholesale"
+        },
+        "sameAs": []
+      },
+      {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/#product-pepperoni",
+        "name": "Halal Pepperoni — Beef, Chicken & Horse Meat",
+        "description": "Wholesale halal pepperoni for HoReCa in Riga. Available in beef, chicken and horse meat varieties. Diameters 40–75 mm. No sodium nitrite, no GMO, no artificial colors. Certifications: Halal DUM RT #614A/2024, HACCP, ISO 22000:2018, TR CU 021/2011.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delikates"
+        },
+        "manufacturer": {
+          "@id": "https://pepperoni.tatar/#business"
+        },
+        "category": "Processed Meat / Sausage",
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#business"
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "Diameter range",
+            "value": "40–75 mm"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Halal certificate",
+            "value": "DUM RT #614A/2024"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Sodium nitrite",
+            "value": "None — clean label"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "Private Label",
+            "value": "Available"
+          }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://pepperoni.tatar/geo/pepperoni-riga/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does halal pepperoni comply with Latvian food import regulations for HoReCa use?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Our pepperoni is certified under ISO 22000:2018 and HACCP, which are internationally recognised food safety standards fully compatible with EU food law requirements. Russian veterinary certificates accompany every shipment. For import compliance we recommend consulting a licensed Latvian customs broker, as requirements may vary by shipment volume and product classification."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How long does delivery from Kazan to Riga take, and what are the temperature conditions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Kazan–Riga route covers approximately 1,900 km and takes around 42 hours by refrigerated truck. Products are transported at a controlled temperature of 0°C to +4°C for chilled items or at −18°C for frozen. Cold chain integrity is maintained throughout the entire route with temperature logging."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is your pepperoni suitable for the Russian-speaking diaspora and Muslim community in Riga?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Absolutely. Our pepperoni carries the Halal certificate issued by DUM RT (Spiritual Board of Muslims of the Republic of Tatarstan), No. 614A/2024 — one of the most respected halal authorities in Russia. The product contains no pork, no sodium nitrite, no GMO and no artificial colours, which aligns with both halal dietary requirements and the clean-label preferences common among health-conscious consumers in Riga's diaspora community."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What diameters and packaging formats are available for pizzerias and fast food operators in Riga?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "We produce pepperoni in diameters from 40 mm to 75 mm, covering the full range needed for Neapolitan-style pizza (40–45 mm), American-style pizza (50–60 mm) and large-format HoReCa applications (65–75 mm). Professional vacuum packaging is standard, with shelf life clearly labelled. Minimum wholesale order quantities start from one pallet. Private Label packaging with your brand is available from agreed MOQ."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can we order a sample batch before committing to a full wholesale contract?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. We regularly send sample sets to new HoReCa partners in the Baltic region. A sample pack includes all available varieties — beef, chicken and horse meat pepperoni in the diameters most relevant to your menu. Contact us at info@kazandelikates.tatar or call +7 987 217-02-02 to arrange a tasting shipment with full accompanying documentation."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "@id": "https://pepperoni.tatar/geo/pepperoni-riga/#breadcrumb",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://pepperoni.tatar/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Wholesale Regions",
+            "item": "https://pepperoni.tatar/geo/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Halal Pepperoni in Riga",
+            "item": "https://pepperoni.tatar/geo/pepperoni-riga/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body data-city="Рига" data-product="pepperoni">
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO SECTION
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+          <span class="hero-badge">🕌 Halal Certified · Wholesale B2B · Riga</span>
+          <h1>
+            Halal Pepperoni Wholesale<br>
+            for <span>Riga's HoReCa Market</span>
+          </h1>
+          <p class="hero-lead">
+            Riga operates over 3,000 food service venues — and a growing share of them serve customers
+            from the Russian-speaking community, where halal credentials are no longer optional.
+            We are Russia's only manufacturer of halal pepperoni from beef, chicken and horse meat,
+            supplying pizzerias, burger concepts and dark kitchens across the Baltic region with
+            certified, nitrite-free product shipped directly from our plant in Kazan.
+          </p>
+          <div class="hero-stats">
+            <div class="hero-stat">
+              <span class="num">3 000+</span>
+              <span class="lbl">HoReCa venues<br>in Riga</span>
+            </div>
+            <div class="hero-stat">
+              <span class="num">26%</span>
+              <span class="lbl">Russian-speaking<br>diaspora</span>
+            </div>
+            <div class="hero-stat">
+              <span class="num">40–75</span>
+              <span class="lbl">mm diameter<br>range</span>
+            </div>
+            <div class="hero-stat">
+              <span class="num">42h</span>
+              <span class="lbl">Kazan → Riga<br>delivery</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="hero-img-wrap">
+            <div class="hero-img-placeholder">
+              <div class="icon">🍕</div>
+              <strong style="color:rgba(255,255,255,0.6); font-size:0.95rem;">Halal Pepperoni</strong>
+              <span style="margin-top:6px; font-size:0.78rem;">Beef · Chicken · Horse Meat</span>
+              <span style="margin-top:4px; font-size:0.75rem; opacity:0.6;">Ø 40–75 mm · Vacuum packed</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       INTRO / CONTEXT
+  ═══════════════════════════════════════════════════════════ -->
+  <section style="padding: 48px 0; background:#fff; border-bottom: 1px solid #f0f0f0;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-9 text-center">
+          <p style="font-size:1.05rem; color:#444; line-height:1.8; margin:0;">
+            Riga's food scene is genuinely competitive — Old Town alone concentrates hundreds of
+            establishments ranging from Latvian fine dining to international fast food. What makes
+            the Riga market distinctive is the intersection of two trends: a large, brand-loyal
+            Russian-speaking consumer base with specific dietary expectations, and a broader
+            city-wide shift toward <strong>clean-label,
+<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff"><div class="container"><p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной мясной продукции и татарской выпечки в Казани.</p><p class="small mb-0"><a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · info@kazandelikates.tatar · +7 987 217-02-02</p></div></footer>
+
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Riga:</h6>
+    <div><a href="/geo/halal-hot-dog-sausages-riga/" class="btn btn-outline-secondary btn-sm m-1">Halal Hot Dog Sausages</a><a href="/geo/halal-corn-dog-sausages-riga/" class="btn btn-outline-secondary btn-sm m-1">Halal Corn Dog Sausages</a><a href="/geo/halal-ham-riga/" class="btn btn-outline-secondary btn-sm m-1">Halal Ham</a></div>
+  </div>
+</section>
+
+</body>
+</html>
