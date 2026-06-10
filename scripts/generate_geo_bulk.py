@@ -292,63 +292,19 @@ TEMPLATE_PROMPTS = {
 }
 
 
-def build_prompt(product: dict, city_name: str, city_context: dict,
-                 lang: str, template_id: str, country_name: str) -> str:
-    """Build a unique, high-quality AI prompt for one page."""
+def build_system_prompt(lang: str) -> str:
+    """Stable per-language instruction block.
 
+    Sent as the `system` parameter so Anthropic prompt caching reuses it across
+    every page of the same language in a run (cache reads cost 10% of input).
+    Keep page-specific values OUT of here — they go in the user prompt."""
     lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
-    template_note = TEMPLATE_PROMPTS.get(template_id, TEMPLATE_PROMPTS["A"])
-    cert_block = lang_cfg["cert_block"]
+    return f"""{lang_cfg['system_note']}
 
-    # City-specific context
-    population = city_context.get("population", "")
-    horeca = city_context.get("horeca", "")
-    halal_note = city_context.get("halal_note_ru", city_context.get("halal_note", ""))
-    delivery = city_context.get("delivery", "")
-    muslim_pct = city_context.get("muslim_pct", "")
-
-    # Product-specific
-    product_name = product.get("name_ru", product.get("name_en", ""))
-    usp = product.get("usp_ru", product.get("usp_en", ""))
-    keywords = " | ".join(product.get("keywords_ru", product.get("keywords_en", [])))
-    differentiator = product.get("differentiator", "")
-
-    # Random variation for uniqueness
-    random_angle = random.choice([
-        "история бренда Pepperoni Tatar из Казани",
-        "контроль качества на производстве",
-        "почему клиенты выбирают нас уже 10+ лет",
-        "сравнение с конкурентами — в чём наше преимущество",
-        "кейс: как пиццерия увеличила продажи с нашим пепперони",
-        "технология производства без нитрита натрия",
-        "экспортный опыт: поставки в 20+ стран",
-        "отзывы партнёров из этого региона",
-    ])
-
-    prompt = f"""
-{lang_cfg['system_note']}
-
-Ты эксперт по B2B продажам халяль мясной продукции. Напиши уникальную SEO-оптимизированную HTML landing page для {country_name}, город {city_name}.
-
-ПРОДУКТ: {product_name}
-USP: {usp}
-{f'КЛЮЧЕВОЕ ОТЛИЧИЕ: {differentiator}' if differentiator else ''}
-
-КОНТЕКСТ ГОРОДА:
-- Население: {population}
-- HoReCa: {horeca}
-- Халяль спрос: {halal_note}
-- Мусульмане: {muslim_pct}
-- Доставка: {delivery}
-
-ШАБЛОН (тема страницы): {template_note}
-
-ДОПОЛНИТЕЛЬНЫЙ УГОЛ: {random_angle}
+Ты эксперт по B2B продажам халяль мясной продукции. По параметрам из сообщения пользователя пишешь уникальную SEO-оптимизированную HTML landing page для указанных страны и города.
 
 СЕРТИФИКАТЫ (упомяни ВСЕ):
-{cert_block}
-
-КЛЮЧЕВЫЕ СЛОВА (вплети органично): {keywords}
+{lang_cfg['cert_block']}
 
 ТРЕБОВАНИЯ К HTML:
 1. Верни ТОЛЬКО валидный HTML, начиная с <!DOCTYPE html>
@@ -362,19 +318,74 @@ USP: {usp}
    - Таблица сертификатов (Халяль ДУМ РТ, HACCP, ISO 22000:2018, ТР ТС 021/2011, Ветеринарные свидетельства)
    - FAQ блок (5 вопросов специфичных для этого города/региона)
    - CTA секция с формой заявки (имя, компания, телефон, email, сообщение)
-   - Блок доставки в {city_name}
+   - Блок доставки в указанный город
 4. Schema.org JSON-LD: LocalBusiness + Product + FAQPage + BreadcrumbList
 5. Стиль: профессиональный, B2B, акцент на надёжность и сертификаты
-6. Добавь в <head>: <link rel="canonical" href="https://pepperoni.tatar/geo/{product['slug_ru']}-{slugify(city_name)}/">
+6. Добавь в <head> канонический тег: <link rel="canonical" href="CANONICAL из параметров">
 7. НЕ добавляй navigation header и footer — страница встраивается в существующий сайт
-8. Добавь data-city="{city_name}" и data-product="{product['id']}" к <body>
+8. Добавь к <body> атрибуты data-city и data-product (значения — из параметров)
 9. КОНТАКТЫ — используй СТРОГО эти и никакие другие: телефон +7 987 217-02-02 (tel:+79872170202), email info@kazandelikates.tatar, адрес: г. Казань, ул. Аграрная, 2, оф. 7. НИКОГДА не выдумывай номера 8-800, другие адреса/email.
 
-ВАЖНО: Страница должна быть на {100}% уникальной. Упомяни конкретный контекст {city_name}. 
-Избегай шаблонных фраз. Пиши как живой эксперт по мясному рынку {country_name}.
+ВАЖНО: Страница должна быть на 100% уникальной. Упомяни конкретный контекст города.
+Избегай шаблонных фраз. Пиши как живой эксперт по мясному рынку указанной страны."""
+
+
+def build_user_prompt(product: dict, city_name: str, city_context: dict,
+                      lang: str, template_id: str, country_name: str) -> str:
+    """Per-page variable parameters (the cheap, uncached part of the prompt)."""
+    template_note = TEMPLATE_PROMPTS.get(template_id, TEMPLATE_PROMPTS["A"])
+
+    population = city_context.get("population", "")
+    horeca = city_context.get("horeca", "")
+    halal_note = city_context.get("halal_note_ru", city_context.get("halal_note", ""))
+    delivery = city_context.get("delivery", "")
+    muslim_pct = city_context.get("muslim_pct", "")
+
+    product_name = product.get("name_ru", product.get("name_en", ""))
+    usp = product.get("usp_ru", product.get("usp_en", ""))
+    keywords = " | ".join(product.get("keywords_ru", product.get("keywords_en", [])))
+    differentiator = product.get("differentiator", "")
+
+    random_angle = random.choice([
+        "история бренда Pepperoni Tatar из Казани",
+        "контроль качества на производстве",
+        "почему клиенты выбирают нас уже 10+ лет",
+        "сравнение с конкурентами — в чём наше преимущество",
+        "кейс: как пиццерия увеличила продажи с нашим пепперони",
+        "технология производства без нитрита натрия",
+        "экспортный опыт: поставки в 20+ стран",
+        "отзывы партнёров из этого региона",
+    ])
+
+    return f"""СТРАНА: {country_name}
+ГОРОД: {city_name}
+
+ПРОДУКТ: {product_name}
+USP: {usp}
+{f'КЛЮЧЕВОЕ ОТЛИЧИЕ: {differentiator}' if differentiator else ''}
+
+КОНТЕКСТ ГОРОДА:
+- Население: {population}
+- HoReCa: {horeca}
+- Халяль спрос: {halal_note}
+- Мусульмане: {muslim_pct}
+- Доставка: {delivery}
+
+ШАБЛОН (тема страницы): {template_note}
+ДОПОЛНИТЕЛЬНЫЙ УГОЛ: {random_angle}
+КЛЮЧЕВЫЕ СЛОВА (вплети органично): {keywords}
+
+CANONICAL: https://pepperoni.tatar/geo/{product['slug_ru']}-{slugify(city_name)}/
+data-city="{city_name}" data-product="{product['id']}"
 """.strip()
 
-    return prompt
+
+def build_prompt(product: dict, city_name: str, city_context: dict,
+                 lang: str, template_id: str, country_name: str) -> str:
+    """Back-compat: combined single prompt (system + user)."""
+    return (build_system_prompt(lang) + "\n\n"
+            + build_user_prompt(product, city_name, city_context, lang,
+                                template_id, country_name))
 
 
 # ── HTML post-processing ──────────────────────────────────────────────────────
@@ -502,70 +513,136 @@ def update_sitemap(new_urls: list[str]):
 
 
 # ── Page generation ───────────────────────────────────────────────────────────
-def generate_one_page(task: dict) -> dict:
-    """Generate a single geo page. Returns result dict."""
+def prepare_task(task: dict) -> dict:
+    """Pre-flight checks + prompt building. Returns {"status": ...} when the
+    page should be skipped, else {"status": "ready", ...prepared fields}."""
     product = task["product"]
     city_slug = task["city_slug"]
-    city_name = task["city_name"]
-    city_context = task["city_context"]
     lang = task["lang"]
     template_id = task["template_id"]
-    country_code = task["country_code"]
-    country_name = task["country_name"]
     output_dir = task["output_dir"]
 
     prod_slug = product.get(f"slug_{lang}", product.get("slug_ru", product["id"]))
     page_slug = f"{prod_slug}-{city_slug}-{lang}-{template_id.lower()}"
 
-    # Check if already generated
     if page_exists(page_slug):
         return {"status": "skipped", "slug": page_slug}
 
-    # Check if file exists
     out_dir = PUBLIC / output_dir
     out_dir.mkdir(parents=True, exist_ok=True)
     filename = f"{prod_slug}-{city_slug}.html"
-    # For multiple templates, distinguish by template ID
     if template_id != "A":
         filename = f"{prod_slug}-{city_slug}-{template_id.lower()}.html"
     file_path = out_dir / filename
 
     if file_path.exists():
-        save_page_record(page_slug, product["id"], city_slug, country_code,
+        save_page_record(page_slug, product["id"], city_slug, task["country_code"],
                          lang, template_id, str(file_path), 0)
         return {"status": "already_exists", "slug": page_slug}
 
+    return {
+        "status": "ready",
+        "task": task,
+        "page_slug": page_slug,
+        "file_path": file_path,
+        "system": build_system_prompt(lang),
+        "user": build_user_prompt(product, task["city_name"], task["city_context"],
+                                  lang, template_id, task["country_name"]),
+    }
+
+
+def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
+    """Post-process generated HTML and persist the page."""
+    task = prep["task"]
+    product = task["product"]
+    page_slug = prep["page_slug"]
     try:
-        time.sleep(SLEEP_BETWEEN_CALLS + random.uniform(0, 0.5))
-        prompt = build_prompt(product, city_name, city_context, lang, template_id, country_name)
-        # 8000 tokens: a full geo page (head + 6 cards + cert table + FAQ + CTA
-        # + schema) runs ~5–7k tokens; 4000 truncated long pages mid-tag.
-        html_content, tokens = call_claude(prompt, max_tokens=8000)
         html_content = clean_html(html_content)
         # Close/repair the tail BEFORE injecting links so the </body> anchor exists.
         html_content = ensure_complete_html(html_content)
-        html_content = inject_internal_links(html_content, product["id"], city_slug, lang)
+        html_content = inject_internal_links(html_content, product["id"],
+                                             task["city_slug"], task["lang"])
 
         if not is_valid_page(html_content):
             return {"status": "error", "slug": page_slug,
                     "error": "incomplete/invalid HTML — not saved"}
 
-        file_path.write_text(html_content, encoding="utf-8")
-        save_page_record(page_slug, product["id"], city_slug, country_code,
-                         lang, template_id, str(file_path), tokens)
-
+        prep["file_path"].write_text(html_content, encoding="utf-8")
+        save_page_record(page_slug, product["id"], task["city_slug"],
+                         task["country_code"], task["lang"], task["template_id"],
+                         str(prep["file_path"]), tokens)
         return {
             "status": "generated",
             "slug": page_slug,
-            "file": str(file_path),
+            "file": str(prep["file_path"]),
             "tokens": tokens,
-            "city": city_name,
+            "city": task["city_name"],
             "product": product["name_ru"],
-            "lang": lang,
+            "lang": task["lang"],
         }
-
     except Exception as exc:
         return {"status": "error", "slug": page_slug, "error": str(exc)}
+
+
+def generate_one_page(task: dict) -> dict:
+    """Synchronous path: prepare → call → finalize. Used when batch is off."""
+    prep = prepare_task(task)
+    if prep["status"] != "ready":
+        return prep
+    try:
+        time.sleep(SLEEP_BETWEEN_CALLS + random.uniform(0, 0.5))
+        # 8000 tokens: a full geo page (head + 6 cards + cert table + FAQ + CTA
+        # + schema) runs ~5–7k tokens; 4000 truncated long pages mid-tag.
+        html_content, tokens = _shared_call_claude(
+            prompt=prep["user"], system=prep["system"],
+            model=DEEPSEEK_MODEL, max_tokens=8000)
+        return finalize_page(prep, html_content, tokens)
+    except Exception as exc:
+        return {"status": "error", "slug": prep["page_slug"], "error": str(exc)}
+
+
+def generate_batch(tasks: list) -> list:
+    """Batch path: all pages in one Message Batch (50% off, cache-friendly)."""
+    from claude_client import call_claude_batch
+
+    preps, results = {}, []
+    items = []
+    for task in tasks:
+        prep = prepare_task(task)
+        if prep["status"] != "ready":
+            results.append(prep)
+            continue
+        cid = prep["page_slug"][:64]  # custom_id is capped at 64 chars
+        preps[cid] = prep
+        items.append({
+            "custom_id": cid,
+            "prompt": prep["user"],
+            "system": prep["system"],
+            "model": DEEPSEEK_MODEL,
+            "max_tokens": 8000,
+        })
+
+    if not items:
+        return results
+
+    try:
+        batch_out = call_claude_batch(items)
+    except Exception as exc:
+        print(f"⚠️  batch failed ({exc}) — falling back to sync generation",
+              file=sys.stderr)
+        return results + [generate_one_page(p["task"]) for p in preps.values()]
+
+    for cid, prep in preps.items():
+        res = batch_out.get(cid)
+        if res is None:
+            results.append({"status": "error", "slug": prep["page_slug"],
+                            "error": "missing from batch results"})
+        elif res.get("ok"):
+            results.append(finalize_page(prep, res["text"], res.get("tokens", 0)))
+        else:
+            results.append({"status": "error", "slug": prep["page_slug"],
+                            "error": res.get("error", "batch item failed")})
+    return results
 
 
 # ── Task queue builder ────────────────────────────────────────────────────────
@@ -738,24 +815,35 @@ def main():
     total_tokens = 0
     new_urls = []
 
-    with ThreadPoolExecutor(max_workers=args.workers) as executor:
-        futures = {executor.submit(generate_one_page, task): task for task in tasks}
-        for future in as_completed(futures):
-            result = future.result()
-            status = result.get("status")
-            if status == "generated":
-                generated += 1
-                total_tokens += result.get("tokens", 0)
-                city = result.get("city", "")
-                product = result.get("product", "")
-                lang = result.get("lang", "")
-                new_urls.append(f"https://pepperoni.tatar/{result.get('output_dir', 'geo')}/{result['slug']}/")
-                if generated % 10 == 0 or generated <= 5:
-                    print(f"  ✓ [{generated}] [{lang}] {product} / {city}")
-            elif status == "error":
-                errors += 1
-                print(f"  ✗ ERROR: {result.get('slug')} — {result.get('error', '')[:100]}", file=sys.stderr)
-            # skipped/already_exists — silent
+    # Batch API by default (50% off + cache hits within the batch). Set
+    # GEO_BATCH=0 to use the legacy threaded sync path. Tiny runs (<3 pages)
+    # are not worth batch polling latency.
+    use_batch = os.environ.get("GEO_BATCH", "1") != "0" and len(tasks) >= 3
+
+    def handle(result):
+        nonlocal generated, errors, total_tokens
+        status = result.get("status")
+        if status == "generated":
+            generated += 1
+            total_tokens += result.get("tokens", 0)
+            new_urls.append(f"https://pepperoni.tatar/{result.get('output_dir', 'geo')}/{result['slug']}/")
+            if generated % 10 == 0 or generated <= 5:
+                print(f"  ✓ [{generated}] [{result.get('lang','')}] "
+                      f"{result.get('product','')} / {result.get('city','')}")
+        elif status == "error":
+            errors += 1
+            print(f"  ✗ ERROR: {result.get('slug')} — {result.get('error', '')[:100]}", file=sys.stderr)
+        # skipped/already_exists — silent
+
+    if use_batch:
+        print("📦 Mode: Message Batches API (−50% cost)")
+        for result in generate_batch(tasks):
+            handle(result)
+    else:
+        with ThreadPoolExecutor(max_workers=args.workers) as executor:
+            futures = {executor.submit(generate_one_page, task): task for task in tasks}
+            for future in as_completed(futures):
+                handle(future.result())
 
     # Update sitemap
     if new_urls:

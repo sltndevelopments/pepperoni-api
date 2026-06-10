@@ -135,22 +135,14 @@ def ask_deepseek(q: str) -> str:
 def ask_perplexity(q: str) -> str:
     if not PPLX_KEY:
         return ""
-    body = json.dumps({
-        "model": PPLX_MODEL,
-        "messages": [
-            {"role": "system", "content": "Отвечай по актуальным данным из интернета, "
-                                          "называй компании и сайты."},
-            {"role": "user", "content": q},
-        ],
-    }).encode()
-    req = urllib.request.Request(
-        PPLX_URL, data=body,
-        headers={"Authorization": f"Bearer {PPLX_KEY}",
-                 "Content-Type": "application/json"})
     try:
-        raw = urllib.request.urlopen(req, timeout=40).read()
-        data = json.loads(raw)
-        return data["choices"][0]["message"]["content"] or ""
+        # Shared client: same call, plus unified cost-ledger telemetry.
+        from pplx_client import pplx_search
+        text, _cites = pplx_search(
+            q, system="Отвечай по актуальным данным из интернета, "
+                      "называй компании и сайты.",
+            model=PPLX_MODEL, timeout=40)
+        return text
     except Exception as e:
         print(f"· perplexity failed: {e}", file=sys.stderr)
         return ""

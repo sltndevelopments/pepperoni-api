@@ -378,7 +378,10 @@ def build_one(query: str, conn) -> dict:
     url = f"https://pepperoni.tatar/landing/{slug}"
 
     system, prompt = build_prompt(query)
-    raw, tokens = call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    # Flagship content: Opus advisor coaches the Sonnet executor (beta).
+    # claude_client silently falls back to a plain call if unavailable.
+    raw, tokens = call_claude(prompt, system=system, max_tokens=MAX_TOKENS,
+                              advisor=True)
     data = _parse_content(raw)
     if not data or not data.get("sections"):
         return {"status": "error", "query": query, "slug": slug,

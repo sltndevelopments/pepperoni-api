@@ -433,7 +433,10 @@ def main() -> int:
             prompt = PROMPT.format(country=c["ru"] if lang == "ru" else c["en"],
                                    iso=c["iso"], lang=lang_names[lang], cities=c["cities"])
             try:
-                raw, _tok = call_claude(prompt, system=SYSTEM, max_tokens=3500)
+                # Flagship export pages: Opus advisor + Sonnet executor (beta,
+                # auto-fallback to plain call when unavailable).
+                raw, _tok = call_claude(prompt, system=SYSTEM, max_tokens=3500,
+                                        advisor=True)
                 gen = parse_json(raw)
                 html = render(c, lang, gen)
                 out.parent.mkdir(parents=True, exist_ok=True)

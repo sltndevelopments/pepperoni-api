@@ -57,13 +57,14 @@ def load_strategy() -> dict:
         return {}
 
 
-def gen_blog(topic: dict) -> bool:
+def prep_blog(topic: dict) -> dict | None:
+    """Build a batch-ready request for one blog topic (None → skip)."""
     slug = topic.get("slug") or slugify(topic.get("title_ru", ""))
     if not slug:
-        return False
+        return None
     out = PUBLIC / "blog" / f"{slug}.html"
     if out.exists():
-        return False
+        return None
     title = topic.get("title_ru", slug)
     intent = topic.get("intent", "информационный")
     system = (
@@ -81,25 +82,20 @@ def gen_blog(topic: dict) -> bool:
 - Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}
 - {CONTACTS_RULE}
 - НЕ упоминать свинину"""
-    html, _ = call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
-    html = clean_html(html)
-    if "<html" not in html.lower():
-        return False
-    out.parent.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding="utf-8")
-    print(f"  ✓ blog: /blog/{slug}")
-    return True
+    return {"out": out, "label": f"blog: /blog/{slug}",
+            "system": system, "prompt": prompt}
 
 
-def gen_pl(topic: dict) -> bool:
+def prep_pl(topic: dict) -> dict | None:
+    """Build a batch-ready request for one PL/OEM topic (None → skip)."""
     lang = topic.get("lang", "ru")
     slug = topic.get("slug") or slugify(topic.get("title", ""))
     if not slug:
-        return False
+        return None
     out_dir = PUBLIC / ("private-label" if lang == "ru" else f"{lang}/private-label")
     out = out_dir / f"{slug}.html"
     if out.exists():
-        return False
+        return None
     title = topic.get("title", slug)
     angle = topic.get("angle", "")
     if lang == "ru":
@@ -136,13 +132,17 @@ Requirements:
 - "Request OEM quote" button → tel:{PHONE_TEL}
 - Footer with contacts: {PHONE_DISPLAY}, {EMAIL}
 - Use EXACTLY these contacts, never invent others. No pork mentions. 600-800 words"""
-    html, _ = call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    return {"out": out, "label": f"PL/OEM [{lang}]: /private-label/{slug}",
+            "system": system, "prompt": prompt}
+
+
+def _write_page(prep: dict, html: str) -> bool:
     html = clean_html(html)
     if "<html" not in html.lower():
         return False
-    out_dir.mkdir(parents=True, exist_ok=True)
-    out.write_text(html, encoding="utf-8")
-    print(f"  ✓ PL/OEM [{lang}]: /private-label/{slug}")
+    prep["out"].parent.mkdir(parents=True, exist_ok=True)
+    prep["out"].write_text(html, encoding="utf-8")
+    print(f"  ✓ {prep['label']}")
     return True
 
 
@@ -156,17 +156,54 @@ def main():
         return 0
 
     print(f"🛠  Executing strategy ({strat.get('generated_at','?')})")
-    made = 0
+    preps = []
     for t in (strat.get("new_blog_topics") or [])[:MAX_BLOG]:
         try:
-            made += 1 if gen_blog(t) else 0
+            p = prep_blog(t)
+            if p:
+                preps.append(p)
         except Exception as e:
-            print(f"  ✗ blog error: {e}", file=sys.stderr)
+            print(f"  ✗ blog prep error: {e}", file=sys.stderr)
     for t in (strat.get("pl_oem_topics") or [])[:MAX_PL]:
         try:
-            made += 1 if gen_pl(t) else 0
+            p = prep_pl(t)
+            if p:
+                preps.append(p)
         except Exception as e:
-            print(f"  ✗ PL error: {e}", file=sys.stderr)
+            print(f"  ✗ PL prep error: {e}", file=sys.stderr)
+
+    if not preps:
+        print("✅ Strategy executor done: nothing new to generate")
+        return 0
+
+    made = 0
+    # Cron job, nobody waits → Batch API (−50%). Fall back to sync calls.
+    use_batch = os.environ.get("WORKER_BATCH", "1") != "0" and len(preps) >= 2
+    if use_batch:
+        try:
+            from claude_client import call_claude_batch
+            items = [{"custom_id": f"w{i}", "prompt": p["prompt"],
+                      "system": p["system"], "max_tokens": MAX_TOKENS}
+                     for i, p in enumerate(preps)]
+            out = call_claude_batch(items)
+            for i, p in enumerate(preps):
+                res = out.get(f"w{i}") or {}
+                if res.get("ok"):
+                    made += 1 if _write_page(p, res["text"]) else 0
+                else:
+                    print(f"  ✗ {p['label']}: {res.get('error','no result')}",
+                          file=sys.stderr)
+            print(f"✅ Strategy executor done (batch): {made} new pages")
+            return 0
+        except Exception as e:
+            print(f"⚠️  batch failed ({e}) — falling back to sync", file=sys.stderr)
+
+    for p in preps:
+        try:
+            html, _ = call_claude(p["prompt"], system=p["system"], max_tokens=MAX_TOKENS)
+            made += 1 if _write_page(p, html) else 0
+        except Exception as e:
+            print(f"  ✗ {p['label']}: {e}", file=sys.stderr)
 
     print(f"✅ Strategy executor done: {made} new pages")
     return 0

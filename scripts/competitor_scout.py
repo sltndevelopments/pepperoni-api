@@ -223,6 +223,49 @@ def enrich(findings: list[dict], conn) -> None:
         f["why_they_win"] = why
 
 
+def enrich_google(findings: list[dict]) -> bool:
+    """Google-grade SERP intel via Perplexity Agent API.
+
+    Yandex Search API only shows the Yandex SERP; most international/EN demand
+    lives in Google. For the worst losing queries we ask Perplexity (live web)
+    who actually ranks top-3 in Google and why, and store a structured brief
+    the Brain can act on. Cost: ~1 agent call per query, capped."""
+    try:
+        from pplx_client import pplx_agent_json, PPLX_KEY
+    except Exception:
+        return False
+    if not PPLX_KEY:
+        return False
+
+    cap = int(os.environ.get("COMP_PPLX_MAX", "6"))
+    done = 0
+    for f in findings:
+        if done >= cap:
+            break
+        q = f["query"]
+        try:
+            brief = pplx_agent_json(
+                f"Найди топ-3 результата Google по запросу «{q}» "
+                f"(регион: Россия, если запрос на русском; иначе глобально). "
+                f"Мы — pepperoni.tatar (халяль мясо оптом).",
+                instructions=(
+                    "Ты SEO-аналитик. Верни ТОЛЬКО JSON: "
+                    '{"top": [{"domain": str, "title": str, '
+                    '"why_ranks": str}], "gap_for_us": str}. '
+                    "why_ranks — 1 фраза (контент/авторитет/коммерция). "
+                    "gap_for_us — что конкретно добавить на pepperoni.tatar, "
+                    "чтобы обойти их. Без markdown."),
+                max_steps=3, max_output_tokens=900)
+            if brief.get("top"):
+                f["google_serp"] = brief["top"][:3]
+                f["google_gap"] = brief.get("gap_for_us", "")
+                done += 1
+        except Exception as e:
+            print(f"· pplx intel failed for «{q}»: {e}", file=sys.stderr)
+    print(f"· Google intel (Perplexity): {done} queries enriched")
+    return done > 0
+
+
 # ---------------------------------------------------------------- report
 
 def telegram_report(findings: list[dict], enriched: bool) -> None:
@@ -236,6 +279,11 @@ def telegram_report(findings: list[dict], enriched: bool) -> None:
                      f"{f['impressions']} показов")
         for w in f.get("why_they_win", [])[:2]:
             lines.append(f"    ↳ конкурент: {w}")
+        for g in f.get("google_serp", [])[:2]:
+            lines.append(f"    ↳ Google: {g.get('domain','?')} — "
+                         f"{g.get('why_ranks','')[:80]}")
+        if f.get("google_gap"):
+            lines.append(f"    💡 {f['google_gap'][:120]}")
     if not enriched:
         lines.append("\n<i>SERP-анализ «почему» выключен — добавь YANDEX_SEARCH_API_KEY "
                      "(Yandex Cloud Search API v2), чтобы видеть причины (длина, schema, отзывы).</i>")
@@ -261,6 +309,10 @@ def main():
         enrich(findings, conn)
     else:
         print("· SERP enrichment disabled (no YANDEX_SEARCH_API_KEY/USER)")
+
+    # Google SERP intel via Perplexity (live web) — independent of Yandex.
+    if findings:
+        enriched = enrich_google(findings) or enriched
 
     conn.close()
 

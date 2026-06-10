@@ -92,6 +92,12 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze f
 log "Step 3.1: Goals — updating distance-to-#1 scoreboard …"
 python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals scoreboard failed (non-fatal)"
 
+# ---- Step 3.2: MARKET PULSE — monthly live-web research of export markets ----
+# Perplexity Agent API over the 15 target countries. Internally self-gated:
+# exits instantly unless data/market_pulse.json is older than 28 days.
+log "Step 3.2: Market pulse — monthly export-market research …"
+python3 scripts/market_pulse.py >> "$LOG_FILE" 2>&1 || log "⚠️  Market pulse failed (non-fatal)"
+
 # ---- Step 3.3: SCOUT — discover new/rising queries & coverage gaps ----
 # Discovery only (no generation). Writes git-tracked findings the brain reads,
 # queues high-value landing ideas for approval, and pings Telegram.
@@ -178,6 +184,8 @@ git add data/aio_visibility.json 2>/dev/null || true
 git add data/escalation_state.json 2>/dev/null || true
 # Brain strategy + goals scoreboard (durable: Actions/worker must see them too).
 git add data/strategy.json data/goals.json 2>/dev/null || true
+# LLM cost telemetry + monthly market research (both feed the bot/brain).
+git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 

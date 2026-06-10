@@ -133,11 +133,34 @@ def detect(series: list, cur: dict) -> list[str]:
     return alerts
 
 
+def diagnose(messages: list[str]) -> str:
+    """Ask Perplexity (live web) whether a search-engine update explains the
+    drop. Runs only when an anomaly fired, so cost is near-zero."""
+    try:
+        from pplx_client import pplx_search, PPLX_KEY
+        if not PPLX_KEY:
+            return ""
+        text, _ = pplx_search(
+            "Был ли за последние 7 дней подтверждённый или широко обсуждаемый "
+            "апдейт алгоритма Google или Яндекса (core update, spam update, "
+            "изменения выдачи)? Ответь 2-3 предложениями с датами. Если ничего "
+            "значимого не было — так и скажи. Контекст: у сайта pepperoni.tatar "
+            "резкое падение: " + "; ".join(messages[:3]),
+            max_tokens=400)
+        return text.strip()
+    except Exception as e:
+        print(f"· pplx diagnose failed: {e}", file=sys.stderr)
+        return ""
+
+
 def alert(cur: dict, messages: list[str]) -> None:
     lines = ["<b>🚨 Anomaly-Guard — резкое падение!</b>",
              f"<i>Дата: {cur['date']}</i>", ""]
     for m in messages:
         lines.append(f"  🔻 {m}")
+    diag = diagnose(messages)
+    if diag:
+        lines.append(f"\n🌐 <b>Контекст из веба (Perplexity):</b>\n<i>{diag[:600]}</i>")
     lines.append("\n<i>Проверь: апдейт Я/Google, доступность сайта, "
                  "robots/sitemap, недавние изменения. Возможен сбой индексации.</i>")
     try:

@@ -218,6 +218,22 @@ def ai_bots_digest() -> dict:
     return {}
 
 
+def market_pulse_digest() -> dict:
+    """Monthly live-web market intel (market_pulse.py / Perplexity)."""
+    try:
+        mp = json.loads((DATA / "market_pulse.json").read_text())
+        out = {}
+        for code, c in (mp.get("countries") or {}).items():
+            out[c.get("name", code)] = {
+                "insights": (c.get("insights") or [])[:3],
+                "opportunity": c.get("opportunity", ""),
+                "risk": c.get("risk", ""),
+            }
+        return {"generated_at": mp.get("generated_at", ""), "markets": out}
+    except Exception:
+        return {}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
@@ -230,6 +246,7 @@ def build_digest() -> dict:
         "competitors": competitor_digest(),
         "aio_visibility": aio_digest(),
         "ai_bots": ai_bots_digest(),
+        "market_pulse": market_pulse_digest(),
     }
 
 
@@ -284,6 +301,10 @@ PLAYBOOK = """Ты — стратегический директор по пои
 - AIO-ВИДИМОСТЬ: aio_visibility.not_cited_for — вопросы покупателей, где ИИ-ассистенты
   нас НЕ называют. Чтобы нас цитировали: усиливай entity-факты (кто мы, что делаем,
   сертификаты, контакты), чёткие FAQ и структурированные ответы под эти вопросы.
+  Блок "market_pulse" — ежемесячная живая разведка 15 экспортных рынков через
+  веб-поиск (спрос, регуляторика, конкуренты, возможности и риски по каждой
+  стране). Используй её при выборе стран для гео-страниц, blog-тем и экспортного
+  контента: возможности → контент-приоритет, риски → не трать туда бюджет.
   Блок "ai_bots" — реальные визиты ИИ-краулеров (GPTBot, ClaudeBot, PerplexityBot)
   по логам: какие страницы они читают. Усиливай именно читаемые ими страницы.
 - Избегай thin/duplicate. Каждая директива — уникальная ценность.

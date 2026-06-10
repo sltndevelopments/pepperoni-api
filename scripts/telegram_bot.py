@@ -168,18 +168,48 @@ def action_status() -> str:
 
 
 def action_budget() -> str:
+    lines = []
+    # Brain (Fable) budget — separate guarded wallet.
     try:
         from opus_brain_client import remaining_budget, MONTHLY_BUDGET_USD, _load_budget
         d = _load_budget()
-        return (
-            f"<b>💰 Бюджет мозга (Opus)</b>\n"
+        lines.append(
+            f"<b>💰 Бюджет мозга (Fable)</b>\n"
             f"Месяц: {d['month']}\n"
             f"Потрачено: <b>${d.get('spent_usd',0):.3f}</b> / ${MONTHLY_BUDGET_USD:.0f}\n"
-            f"Осталось: <b>${remaining_budget():.3f}</b>\n"
-            f"Вызовов мозга: {d.get('calls',0)}"
+            f"Осталось: <b>${remaining_budget():.3f}</b> · вызовов: {d.get('calls',0)}"
         )
     except Exception as e:
-        return f"Бюджет недоступен: {e}"
+        lines.append(f"Бюджет мозга недоступен: {e}")
+
+    # Full LLM telemetry — every Anthropic/Perplexity call across all scripts.
+    try:
+        led = json.loads((DATA / "llm_costs.json").read_text())
+        from datetime import date as _date
+        m = led.get(_date.today().strftime("%Y-%m"), {})
+        if m:
+            usd = m.get("usd", 0.0)
+            base = m.get("usd_baseline", 0.0)
+            saved = max(0.0, base - usd)
+            pct = (saved / base * 100) if base else 0
+            lines.append(
+                f"\n<b>📟 Все LLM-вызовы (месяц)</b>\n"
+                f"Фактически: <b>${usd:.2f}</b>\n"
+                f"Без оптимизаций было бы: ${base:.2f}\n"
+                f"Экономия: <b>${saved:.2f}</b> ({pct:.0f}%)"
+            )
+            scripts = sorted(m.get("scripts", {}).items(),
+                             key=lambda kv: -kv[1].get("usd", 0))[:6]
+            if scripts:
+                lines.append("\nТоп по скриптам:")
+                for name, s in scripts:
+                    lines.append(f"• {name}: ${s.get('usd',0):.2f} "
+                                 f"({s.get('calls',0)} выз.)")
+        else:
+            lines.append("\n📟 Телеметрия LLM: данных за месяц ещё нет.")
+    except Exception:
+        lines.append("\n📟 Телеметрия LLM: леджер ещё не создан.")
+    return "\n".join(lines)
 
 
 def action_strategy() -> str:

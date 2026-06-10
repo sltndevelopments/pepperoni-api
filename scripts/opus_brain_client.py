@@ -216,6 +216,12 @@ def call_model(
             usage["budget_remaining_usd"] = round(remaining_budget(), 4)
             usage["tier"] = tier
             usage["model"] = cfg["model"]
+            # Mirror into the unified LLM cost ledger (data/llm_costs.json).
+            try:
+                from claude_client import _ledger_log
+                _ledger_log(cfg["model"], usage)
+            except Exception:
+                pass
             return text, usage
         except urllib.error.HTTPError as e:
             err_body = e.read().decode("utf-8", "ignore")
