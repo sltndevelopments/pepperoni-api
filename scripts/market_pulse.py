@@ -69,12 +69,23 @@ def main() -> int:
     for code, name in COUNTRIES.items():
         try:
             # 2000 tokens: Cyrillic JSON is token-dense; 800 truncated mid-string
-            # for 6/15 countries on the first live run.
+            # for 6/15 countries on the first live run. json_schema enforces
+            # valid structured output server-side.
             data = pplx_agent_json(
                 f"Рынок халяль мясной продукции в стране: {name}. "
                 f"Что важно знать экспортёру из России прямо сейчас "
                 f"(импорт, сертификация, спрос HoReCa/ритейл, конкуренты)?",
-                instructions=INSTRUCTIONS, max_steps=3, max_output_tokens=2000)
+                instructions=INSTRUCTIONS, max_steps=3, max_output_tokens=2000,
+                json_schema={
+                    "type": "object",
+                    "properties": {
+                        "insights": {"type": "array", "items": {"type": "string"},
+                                     "maxItems": 3},
+                        "opportunity": {"type": "string"},
+                        "risk": {"type": "string"},
+                    },
+                    "required": ["insights", "opportunity", "risk"],
+                })
             countries[code] = {"name": name, **data}
             print(f"  ✓ {name}: {len(data.get('insights', []))} insights")
         except Exception as e:

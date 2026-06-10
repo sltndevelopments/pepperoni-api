@@ -92,8 +92,11 @@ def _walk_text(node) -> list:
 
 def pplx_agent(input_text: str, instructions: str = "", preset: str = None,
                max_output_tokens: int = 3000, max_steps: int = None,
-               timeout: int = 300) -> str:
-    """Multi-step web research via the Agent API. Returns the final text."""
+               json_schema: dict = None, timeout: int = 300) -> str:
+    """Multi-step web research via the Agent API. Returns the final text.
+
+    json_schema: when given, requests structured output validated against the
+    schema — eliminates truncated/malformed JSON from free-text answers."""
     payload = {
         "preset": preset or DEFAULT_AGENT_PRESET,
         "input": input_text,
@@ -103,6 +106,11 @@ def pplx_agent(input_text: str, instructions: str = "", preset: str = None,
         payload["instructions"] = instructions
     if max_steps:
         payload["max_steps"] = max_steps
+    if json_schema:
+        payload["response_format"] = {
+            "type": "json_schema",
+            "json_schema": {"name": "result", "schema": json_schema},
+        }
     data = _post(AGENT_URL, payload, timeout=timeout)
     if data.get("error"):
         raise RuntimeError(f"pplx agent error: {str(data['error'])[:200]}")
@@ -119,7 +127,8 @@ def pplx_agent(input_text: str, instructions: str = "", preset: str = None,
 
 
 def pplx_agent_json(input_text: str, instructions: str = "", **kw) -> dict:
-    """Agent call that must return JSON. Tolerates markdown fences."""
+    """Agent call that must return JSON. Tolerates markdown fences and repairs
+    output truncated at the token cap (close open strings/brackets)."""
     raw = pplx_agent(input_text, instructions=instructions, **kw)
     s = raw.strip()
     if s.startswith("```"):
@@ -127,7 +136,36 @@ def pplx_agent_json(input_text: str, instructions: str = "", **kw) -> dict:
     start, end = s.find("{"), s.rfind("}")
     if start >= 0 and end > start:
         s = s[start:end + 1]
-    return json.loads(s)
+    try:
+        return json.loads(s)
+    except json.JSONDecodeError:
+        return json.loads(_repair_json(s[start:] if start >= 0 else s))
+
+
+def _repair_json(s: str) -> str:
+    """Best-effort close of a truncated JSON object."""
+    out, in_str, esc = [], False, False
+    stack = []
+    for ch in s:
+        if esc:
+            esc = False
+        elif ch == "\\" and in_str:
+            esc = True
+        elif ch == '"':
+            in_str = not in_str
+        elif not in_str:
+            if ch in "{[":
+                stack.append("}" if ch == "{" else "]")
+            elif ch in "}]" and stack:
+                stack.pop()
+        out.append(ch)
+    if in_str:
+        out.append('"')
+    # Drop a dangling trailing comma / colon before closing.
+    tail = "".join(out).rstrip()
+    while tail and tail[-1] in ",:":
+        tail = tail[:-1].rstrip()
+    return tail + "".join(reversed(stack))
 
 
 if __name__ == "__main__":
