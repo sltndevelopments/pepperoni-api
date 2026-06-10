@@ -1,16 +1,16 @@
 {
  "2026-06": {
-  "usd": 8.303779,
-  "usd_baseline": 14.735708,
+  "usd": 8.666167,
+  "usd_baseline": 15.088588,
   "days": {
    "2026-06-10": {
-    "calls": 144,
-    "in": 318999,
-    "out": 905589,
-    "cache_w": 2962,
+    "calls": 145,
+    "in": 336689,
+    "out": 908348,
+    "cache_w": 6765,
     "cache_r": 0,
-    "usd": 8.303779,
-    "usd_baseline": 14.735708
+    "usd": 8.666167,
+    "usd_baseline": 15.088588
    }
   },
   "scripts": {
@@ -67,6 +67,15 @@
     "cache_r": 0,
     "usd": 0.23757,
     "usd_baseline": 0.23757
+   },
+   "seo_brain": {
+    "calls": 1,
+    "in": 17690,
+    "out": 2759,
+    "cache_w": 3803,
+    "cache_r": 0,
+    "usd": 0.362387,
+    "usd_baseline": 0.35288
    }
   },
   "models": {
@@ -89,13 +98,13 @@
     "usd_baseline": 13.23249
    },
    "claude-fable-5": {
-    "calls": 1,
-    "in": 11807,
-    "out": 3749,
-    "cache_w": 2962,
+    "calls": 2,
+    "in": 29497,
+    "out": 6508,
+    "cache_w": 6765,
     "cache_r": 0,
-    "usd": 0.342545,
-    "usd_baseline": 0.33514
+    "usd": 0.704932,
+    "usd_baseline": 0.68802
    },
    "claude-haiku-4-5-20251001": {
     "calls": 5,
