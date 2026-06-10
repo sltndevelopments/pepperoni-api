@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Халяль гурил боовны бүтээгдэхүүн Улаанбаатар | Казань Деликатес</title>
+  <meta name="description" content="Улаанбаатарт халяль гурил боов бөөнөөр: пирожки, чебурек, самса. HoReCa сегментэд зориулсан. HACCP, ISO 22000:2018, Халяль ДУМ РТ. Казаньаас шууд хүргэлт.">
+  <link rel="canonical" href="https://pepperoni.tatar/geo/vypechka-klassicheskaya-ulan-bator/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --halal-green: #1a6b3a;
+      --halal-gold: #c8972b;
+      --dark-bg: #0f2318;
+      --light-bg: #f4f9f6;
+      --card-border: #d4edda;
+    }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+    }
+    .hero-section {
+      background: linear-gradient(135deg, var(--dark-bg) 0%, #1a4d2e 60%, #2d7a4f 100%);
+      color: #fff;
+      padding: 72px 0 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(200,151,43,0.18) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--halal-gold);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 4px 14px;
+      border-radius: 20px;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+    }
+    .hero-section h1 {
+      font-size: 2.3rem;
+      font-weight: 800;
+      line-height: 1.22;
+      margin-bottom: 20px;
+    }
+    .hero-section h1 span {
+      color: var(--halal-gold);
+    }
+    .hero-lead {
+      font-size: 1.08rem;
+      opacity: 0.92;
+      max-width: 620px;
+      line-height: 1.7;
+    }
+    .hero-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .hero-stat {
+      text-align: center;
+    }
+    .hero-stat .num {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--halal-gold);
+      display: block;
+    }
+    .hero-stat .label {
+      font-size: 0.78rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+    .section-title {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--dark-bg);
+      margin-bottom: 8px;
+    }
+    .section-sub {
+      color: #5a7a65;
+      font-size: 1rem;
+      margin-bottom: 36px;
+    }
+    .advantage-card {
+      border: 1.5px solid var(--card-border);
+      border-radius: 14px;
+      padding: 28px 22px;
+      height: 100%;
+      background: #fff;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .advantage-card:hover {
+      box-shadow: 0 8px 32px rgba(26,107,58,0.13);
+      transform: translateY(-3px);
+    }
+    .advantage-icon {
+      width: 52px; height: 52px;
+      background: linear-gradient(135deg, var(--halal-green), #2d9e5f);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      font-size: 1.5rem;
+    }
+    .advantage-card h5 {
+      font-weight: 700;
+      font-size: 1rem;
+      color: var(--dark-bg);
+      margin-bottom: 8px;
+    }
+    .advantage-card p {
+      font-size: 0.88rem;
+      color: #4a6655;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .advantage-card .highlight {
+      color: var(--halal-green);
+      font-weight: 700;
+    }
+    .cert-section {
+      background: var(--light-bg);
+      padding: 60px 0;
+    }
+    .cert-table th {
+      background: var(--halal-green);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.92rem;
+    }
+    .cert-table td {
+      vertical-align: middle;
+      font-size: 0.9rem;
+    }
+    .cert-badge {
+      display: inline-block;
+      background: #e8f5ee;
+      color: var(--halal-green);
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+      border: 1px solid #b2dfc4;
+    }
+    .cert-badge.gold {
+      background: #fdf3e0;
+      color: #a07010;
+      border-color: #f0d080;
+    }
+    .faq-section {
+      padding: 60px 0;
+    }
+    .faq-item {
+      border: 1.5px solid #e0ede6;
+      border-radius: 12px;
+      margin-bottom: 14px;
+      overflow: hidden;
+    }
+    .faq-question {
+      background: #fff;
+      padding: 18px 22px;
+      font-weight: 700;
+      font-size: 0.97rem;
+      color: var(--dark-bg);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .faq-question::after {
+      content: '▾';
+      color: var(--halal-green);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+    .faq-answer {
+      padding: 0 22px 18px;
+      font-size: 0.9rem;
+      color: #4a6655;
+      line-height: 1.7;
+      background: #f9fdfb;
+    }
+    .delivery-section {
+      background: linear-gradient(135deg, #0f2318 0%, #1a4d2e 100%);
+      color: #fff;
+      padding: 60px 0;
+    }
+    .delivery-card {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .delivery-card .icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+    .delivery-card h6 {
+      font-weight: 700;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--halal-gold);
+      margin-bottom: 8px;
+    }
+    .delivery-card p {
+      font-size: 0.85rem;
+      opacity: 0.85;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .cta-section {
+      padding: 64px 0;
+      background: #fff;
+    }
+    .cta-form-wrap {
+      background: var(--light-bg);
+      border: 1.5px solid var(--card-border);
+      border-radius: 18px;
+      padding: 40px 36px;
+    }
+    .form-label {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: #2a4a35;
+      margin-bottom: 5px;
+    }
+    .form-control, .form-select {
+      border: 1.5px solid #c8dfd0;
+      border-radius: 8px;
+      font-size: 0.93rem;
+      padding: 10px 14px;
+    }
+    .form-control:focus {
+      border-color: var(--halal-green);
+      box-shadow: 0 0 0 3px rgba(26,107,58,0.12);
+    }
+    .btn-halal {
+      background: linear-gradient(135deg, var(--halal-green), #2d9e5f);
+      color: #fff;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 36px;
+      border-radius: 10px;
+      border: none;
+      width: 100%;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-halal:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+      color: #fff;
+    }
+    .contact-info-block {
+      background: var(--dark-bg);
+      border-radius: 14px;
+      padding: 30px 26px;
+      color: #fff;
+    }
+    .contact-info-block h5 {
+      font-weight: 700;
+      color: var(--halal-gold);
+      margin-bottom: 20px;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+    .contact-row {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      margin-bottom: 16px;
+    }
+    .contact-row .ico {
+      font-size: 1.2rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .contact-row .text {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      opacity: 0.92;
+    }
+    .contact-row .text a {
+      color: var(--halal-gold);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .trust-strip {
+      background: var(--halal-gold);
+      padding: 14px 0;
+      text-align: center;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .years-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(200,151,43,0.15);
+      border: 1.5px solid var(--halal-gold);
+      border-radius: 40px;
+      padding: 8px 22px;
+      margin-top: 24px;
+      color: var(--halal-gold);
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    @media (max-width: 768px) {
+      .hero-section h1 { font-size: 1.65rem; }
+      .hero-stats { gap: 20px; }
+      .cta-form-wrap { padding: 24px 16px; }
+    }
+  </style>
+
+  <!-- Яндекс.Метрика -->
+  <script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+    m[i].l=1*new Date();
+    for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r){return;}}
+    k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+    (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
+    ym(12345678,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
+  </script>
+  <noscript><div><img src="https://mc.yandex.ru/watch/12345678" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://pepperoni.tatar/#business",
+        "name": "Казань Деликатес",
+        "description": "Халяль гурил боов, пирожки, самса, чебурек бөөнөөр нийлүүлэх. Улаанбаатарт HoReCa сегментэд зориулсан.",
+        "url": "https://pepperoni.tatar/geo/vypechka-klassicheskaya-ulan-bator/",
+        "telephone": "+79872170202",
+        "email": "info@kazandelikates.tatar",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "ул. Аграрная, 2, оф. 7",
+          "addressLocality": "Казань",
+          "addressCountry": "RU"
+        },
+        "areaServed": {
+          "@type": "City",
+          "name": "Улаанбаатар"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Халяль гурил боовны бүтээгдэхүүн"
+        }
+      },
+      {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/geo/vypechka-klassicheskaya-ulan-bator/#product",
+        "name": "Халяль гурил боов — пирожки, самса, чебурек (бөөн нийлүүлэлт)",
+        "description": "Улаанбаатарт рестораны болон кафены сегментэд зориулсан халяль гурил боов бөөнөөр: пирожки, самса, чебурек. Хөлдөөсөн хагас бэлэн болон бэлэн бүтээгдэхүүн.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Казань Деликатес"
+        },
+        "certification": [
+          "Халяль ДУМ РТ №614A/2024",
+          "HACCP",
+          "ISO 22000:2018",
+          "ТР ТС 021/2011"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "availability": "https://schema.org/InStock",
+          "priceCurrency": "RUB",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#business"
+          }
+        }
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Улаанбаатарт халяль гурил боов хүргэлт хэдэн хоногт ирдэг вэ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Казаньаас Улаанбаатар хүртэл авто тээврээр 5500 км, дунджаар 7 хоногт хүргэдэг. Хөлдөөсөн бүтээгдэхүүн тусгай рефрижераторт тээвэрлэгддэг тул чанар хадгалагдана."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Монголийн гаалийн дүрмийн дагуу ямар баримт бичиг шаардлагатай вэ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Бид ОХУ-ын малын эмнэлгийн гэрчилгээ, HACCP болон ISO 22000:2018 сертификат, ТР ТС 021/2011 стандартын бүрэн баримт бичгийн багцыг нийлүүлдэг. Монголийн гаалийн шаардлагад нийцсэн бүх цаасыг бэлтгэнэ."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Улаанбаатарын рестораны кухньд зориулж тусгай савлагаа хийж өгдөг үү?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Тийм. Бид Private Label / СТМ үйлчилгээ үзүүлдэг — таны ресторан эсвэл брэндийн нэрэмжит савлагаатай бүтээгдэхүүн нийлүүлэх боломжтой. Шеф нарын шаардлагад нийцсэн хэлбэрт тохируулж болно."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Монгол дахь мусульман хэрэглэгчдэд зориулсан халяль баталгаа хэрхэн нотлогддог вэ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Бидний бүтээгдэхүүн нь Татарстаны Мусульманчуудын Дини Газраас (ДУМ РТ) олгосон №614A/2024 халяль сертификаттай. Натрийн нитрит, ГМО, хиймэл будаг агуулдаггүй — цэвэр найрлагатай."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Улаанбаатарт анх удаа захиалга хийхэд хамгийн бага хэмжээ хэд вэ?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Улаанбаатарт хүргэлтийн бодит зардлыг харгалзан анхны захиалгын хамгийн бага хэмжээг хэлэлцэнэ. Бид HoReCa болон дистрибьюторуудтай уян хатан нөхцөлөөр ажилладаг. Нарийвчилсан мэдээллийг менежертэйгээ тохиролцоорой."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Нүүр хуудас",
+            "item": "https://pepperoni.tatar/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Бүтээгдэхүүн",
+            "item": "https://pepperoni.tatar/geo/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Халяль гурил боов — Улаанбаатар",
+            "item": "https://pepperoni.tatar/geo/vypechka-klassicheskaya-ulan-bator/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body data-city="Улан-Батор" data-product="vypechka-klassicheskaya">
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  🏆 10+ жилийн туршлага · Халяль ДУМ РТ №614A/2024 · HACCP · ISO 22000:2018 · Улаанбаатарт хүргэлт
+</div>
+
+<!-- HERO SECTION -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-8">
+        <span class="hero-badge">🌙 Халяль · B2B нийлүүлэлт · Улаанбаатар</span>
+        <h1>
+          <span>Улаанбаатарт</span> халяль гурил боов бөөнөөр —<br>
+          пирожки, самса, чебурек HoReCa сегментэд
+        </h1>
+        <p class="hero-lead">
+          Улаанбаатар — 1,5 сая хүн амтай, 3000 гаруй HoReCa цэгтэй хурдацтай хөгжиж буй хот. Мусульман хэрэглэгчид болон чанартай хагас бэлэн бүтээгдэхүүнд ашиглах сонирхолтой рестораны зах зээлд бид Казаньаас шууд, бүрэн баталгаатай халяль гурил боов нийлүүлдэг. 10 гаруй жилийн туршид Орос болон Азийн зах зээлд хамтрагч компаниуд маань биднийг найдвартай гэж үнэлсэн.
+        </p>
+        <div class="years-badge">
+          ⭐ 10+ жил зах зээлд · 500+ хамтрагч компани
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <span class="num">5</span>
+            <span class="label">Сертификат</span>
+          </div>
+          <div class="hero-stat">
+            <span class="num">7</span>
+            <span class="label">Хоногт хүргэлт</span>
+          </div>
+          <div class="hero-stat">
+            <span class="num">0</span>
+            <span class="label">Нитрит / ГМО</span>
+          </div>
+          <div class="hero-stat">
+            <span class="num">3000+</span>
+            <span class="label">HoReCa цэг</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ADVANTAGES -->
+<section class="py-5">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Яагаад Улаанбаатарын рестораны хамтрагчид биднийг сонгодог вэ?</h2>
+      <p class="section-sub">Тоо баримт, баталгаат сертификат, бодит үр дүн — шаблон биш</p>
+    </div>
+    <div class="row g-4">
+      <!-- Card 1 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">🏅</div>
+          <h5>Халяль — зөвхөн жинхэнэ баримт бичгээр</h5>
+          <p>
+            ДУМ РТ №614A/2024 сертификат нь Татарстаны Мусульманчуудын Дини Газраас олгосон — Монгол дахь мусульман хэрэглэгчдэд <span class="highlight">100% итгэл</span>. Натрийн нитрит, ГМО, хиймэл будаг — огт байхгүй.
+          </p>
+        </div>
+      </div>
+      <!-- Card 2 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">❄️</div>
+          <h5>Хөлдөөсөн хагас бэлэн: хадгалалт -18°C</h5>
+          <p>
+            Пирожки, самса, чебурек нь <span class="highlight">-18°C температурт 12 сар</span> хадгалагдана. Казаньаас Улаанбаатар хүртэл рефрижератор тээврээр чанар алдагдалгүй хүрдэг. Ресторанд хялбар хэрэглээ.
+          </p>
+        </div>
+      </div>
+      <!-- Card 3 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">👨‍🍳</div>
+          <h5>Шеф нарын шаардлагад нийцсэн савлагаа</h5>
+          <p>
+            HoReCa кухньд тохирсон <span class="highlight">5 кг, 10 кг гастроном хайрцаг</span>. Private Label / СТМ — таны ресторан, кафе, фастфудын брэндийн нэрэмжит савлагаа хийх боломжтой.
+          </p>
+        </div>
+      </div>
+      <!-- Card 4 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">📋</div>
+          <h5>Монголийн гаалийн бүрэн баримт бичиг</h5>
+          <p>
+            ОХУ-ын малын эмнэлгийн гэрчилгээ, HACCP, ISO 22000:2018, ТР ТС 021/2011 — <span class="highlight">бүх экспортын баримт бичгийг</span> бид бэлтгэнэ. Гаалийн асуудалд туршлагатай.
+          </p>
+        </div>
+      </div>
+      <!-- Card 5 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">🚛</div>
+          <h5>Казань → Улаанбаатар: 7 хоног</h5>
+          <p>
+            5500 км замыг тусгайлсан хөргөлттэй тээврээр <span class="highlight">7 хоногт</span> туулна. Тогтмол хуваарьтай ачаа — Улаанбаатарын агуулахад цаг хугацаандаа хүргэлт.
+          </p>
+        </div>
+      </div>
+      <!-- Card 6 -->
+      <div class="col-md-6 col-lg-4">
+        <div class="advantage-card">
+          <div class="advantage-icon">🤝</div>
+          <h5>10+ жилийн туршид найдвартай хамтрагч</h5>
+          <p>
+            Орос болон Азийн зах зээлд <span class="highlight">500 гаруй хамтрагч компани</span>. Бид зөвхөн бүтээгдэхүүн зардаггүй — тогтвортой нийлүүлэлтийн гинжийг хамт байгуулдаг. Улаанбаатарын HoReCa хамтрагчдад тусгай нөхцөл.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATES -->
+<section class="cert-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h2 class="section-title">Сертификат ба чанарын баталгаа</h2>
+      <p class="section-sub">Монголийн зах зээлд экспортлох бүх шаардлагыг
+<footer class="py-4 mt-5" style="background:#1f3b2c;color:#fff"><div class="container"><p class="mb-1">Казанские деликатесы (Pepperoni Tatar) — производство халяльной мясной продукции и татарской выпечки в Казани.</p><p class="small mb-0"><a href="https://pepperoni.tatar/" style="color:#fff">pepperoni.tatar</a> · info@kazandelikates.tatar · +7 987 217-02-02</p></div></footer>
+
+
+<section class="related-pages py-4 bg-light mt-5">
+  <div class="container">
+    <h6 class="text-muted mb-3">Другие продукты для Ulaanbaatar:</h6>
+    <div><a href="/geo/pepperoni-ulaanbaatar/" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiki-dlya-hotdog-ulaanbaatar/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiki-v-teste-ulaanbaatar/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-ulaanbaatar/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+  </div>
+</section>
+
+</body>
+</html>
