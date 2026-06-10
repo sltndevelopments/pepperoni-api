@@ -65,6 +65,21 @@ def main() -> int:
     if age is None or age > 48:
         warnings.append("goals.json отсутствует/устарел — таблица целей не обновляется")
 
+    # LLM spend spike guard: today's cost vs LLM_DAILY_ALERT_USD (default $15).
+    try:
+        import json
+        from datetime import date
+        led = json.loads((DATA / "llm_costs.json").read_text())
+        day = (led.get(date.today().strftime("%Y-%m"), {})
+                  .get("days", {}).get(date.today().isoformat(), {}))
+        spent = day.get("usd", 0.0)
+        cap = float(os.environ.get("LLM_DAILY_ALERT_USD", "15"))
+        if spent > cap:
+            warnings.append(f"расход LLM за сегодня ${spent:.2f} > ${cap:.0f} — "
+                            f"проверь объёмы генерации (кнопка «Бюджет» в боте)")
+    except Exception:
+        pass
+
     if not problems and not warnings:
         print("watchdog: all green")
         return 0

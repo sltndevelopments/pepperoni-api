@@ -234,6 +234,32 @@ def market_pulse_digest() -> dict:
         return {}
 
 
+def costs_digest() -> dict:
+    """LLM spend telemetry so the brain can weigh content volume vs budget."""
+    try:
+        led = json.loads((DATA / "llm_costs.json").read_text())
+        from datetime import date as _date
+        m = led.get(_date.today().strftime("%Y-%m"), {})
+        if not m:
+            return {}
+        days = m.get("days", {})
+        top = sorted(m.get("scripts", {}).items(),
+                     key=lambda kv: -kv[1].get("usd", 0))[:5]
+        geo = m.get("scripts", {}).get("generate_geo_bulk", {})
+        geo_pages = max(geo.get("calls", 0), 1)
+        return {
+            "month_usd": round(m.get("usd", 0.0), 2),
+            "month_usd_without_optimizations": round(m.get("usd_baseline", 0.0), 2),
+            "days_tracked": len(days),
+            "avg_daily_usd": round(m.get("usd", 0.0) / max(len(days), 1), 2),
+            "monthly_budget_usd": float(os.environ.get("LLM_MONTHLY_BUDGET", "200")),
+            "top_spenders": {k: round(v.get("usd", 0.0), 2) for k, v in top},
+            "geo_page_unit_cost_usd": round(geo.get("usd", 0.0) / geo_pages, 3),
+        }
+    except Exception:
+        return {}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
@@ -247,6 +273,7 @@ def build_digest() -> dict:
         "aio_visibility": aio_digest(),
         "ai_bots": ai_bots_digest(),
         "market_pulse": market_pulse_digest(),
+        "costs": costs_digest(),
     }
 
 
@@ -301,6 +328,13 @@ PLAYBOOK = """Ты — стратегический директор по пои
 - AIO-ВИДИМОСТЬ: aio_visibility.not_cited_for — вопросы покупателей, где ИИ-ассистенты
   нас НЕ называют. Чтобы нас цитировали: усиливай entity-факты (кто мы, что делаем,
   сертификаты, контакты), чёткие FAQ и структурированные ответы под эти вопросы.
+  Блок "costs" — твоя экономика: сколько система тратит на LLM в этом месяце,
+  средний расход в день, бюджет месяца (monthly_budget_usd), цена одной
+  гео-страницы. ТЫ управляешь расходами: geo_daily_target и количество тем —
+  это твой бюджетный рычаг. Трать там, где goals показывают отдачу (рост
+  позиций/показов), и сокращай объём по направлениям без движения. Если
+  avg_daily_usd * 30 превышает бюджет — снижай объёмы осознанно, начиная с
+  наименее результативных направлений. Качество всегда важнее количества.
   Блок "market_pulse" — ежемесячная живая разведка 15 экспортных рынков через
   веб-поиск (спрос, регуляторика, конкуренты, возможности и риски по каждой
   стране). Используй её при выборе стран для гео-страниц, blog-тем и экспортного
