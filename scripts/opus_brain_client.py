@@ -189,6 +189,11 @@ def call_model(
     if effort:
         out_cfg["effort"] = effort
     if json_schema:
+        try:
+            from claude_client import _strict_schema
+            json_schema = _strict_schema(json_schema)
+        except Exception:
+            pass
         out_cfg["format"] = {"type": "json_schema", "schema": json_schema}
     if out_cfg:
         body["output_config"] = out_cfg

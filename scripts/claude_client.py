@@ -221,7 +221,10 @@ def _http(method: str, url: str, body: bytes | None = None,
             proxies={"http": ANTHROPIC_PROXY, "https": ANTHROPIC_PROXY},
         )
         if r.status_code >= 400:
-            raise urllib.error.HTTPError(url, r.status_code, r.text[:500], None, None)
+            import io
+            # fp carries the body so callers' e.read() sees the API error text.
+            raise urllib.error.HTTPError(url, r.status_code, r.text[:500],
+                                         None, io.BytesIO(r.content))
         return r.content
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     with urllib.request.urlopen(req, timeout=timeout) as resp:
@@ -234,6 +237,18 @@ def _make_request(data: bytes, headers: dict, timeout: int = None) -> bytes:
 
 
 # ── Request building / response parsing ──────────────────────────────────────
+def _strict_schema(schema):
+    """Structured outputs require additionalProperties=false on every object."""
+    if isinstance(schema, dict):
+        s = {k: _strict_schema(v) for k, v in schema.items()}
+        if s.get("type") == "object" and "additionalProperties" not in s:
+            s["additionalProperties"] = False
+        return s
+    if isinstance(schema, list):
+        return [_strict_schema(x) for x in schema]
+    return schema
+
+
 def _build_body(prompt: str, system: str, model: str, max_tokens: int,
                 temperature: float, cache_system: bool, advisor: bool,
                 effort: str = None, json_schema: dict = None) -> dict:
@@ -255,7 +270,8 @@ def _build_body(prompt: str, system: str, model: str, max_tokens: int,
     if effort:
         out_cfg["effort"] = effort
     if json_schema:
-        out_cfg["format"] = {"type": "json_schema", "schema": json_schema}
+        out_cfg["format"] = {"type": "json_schema",
+                             "schema": _strict_schema(json_schema)}
     if out_cfg:
         body["output_config"] = out_cfg
     if advisor:
