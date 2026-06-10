@@ -250,7 +250,11 @@ li{margin-bottom:8px}
 footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}
 footer a{color:#888;text-decoration:none}"""
 
-SYSTEM = """Ты — SEO-копирайтер B2B-производителя халяльных мясных изделий «Казанские Деликатесы»
+from brand_system import brand_block
+
+SYSTEM = brand_block("ru") + """
+
+Ты — SEO-копирайтер B2B-производителя халяльных мясных изделий «Казанские Деликатесы»
 (pepperoni.tatar, Казань, Россия). Пишешь экспортные страницы. ЖЁСТКИЕ ПРАВИЛА:
 1. ЗАПРЕЩЕНО упоминать сертификаты, номера, аккредитации, ГОСТы — этот блок уже есть на странице.
 2. ЗАПРЕЩЕНО упоминать свинину, бекон, шпик, алкоголь в любом контексте. Вся продукция 100% халяль

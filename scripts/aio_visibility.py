@@ -125,7 +125,9 @@ def ask_deepseek(q: str) -> str:
     system = ("Ты помощник по B2B-закупкам продуктов питания в России. Отвечай "
               "конкретно: называй реальные компании, бренды и сайты, если знаешь.")
     try:
-        text, _ = call_claude(q, system=system, max_tokens=600)
+        # Панельный «средний AI-ассистент» — Haiku достаточно и в 3× дешевле.
+        from claude_client import call_claude_cheap
+        text, _ = call_claude_cheap(q, system=system, max_tokens=600)
         return text or ""
     except Exception as e:
         print(f"· deepseek failed: {e}", file=sys.stderr)

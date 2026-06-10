@@ -478,6 +478,14 @@ def call_claude_batch(
         counts = st.get("request_counts", {})
         print(f"  …batch {status}: {counts}", flush=True)
     if not results_url:
+        # CRITICAL: cancel the orphan batch. Otherwise it finishes server-side
+        # and bills full price while the caller falls back to sync calls —
+        # paying for the same content twice.
+        try:
+            _http("POST", f"{ANTHROPIC_BATCH_URL}/{batch_id}/cancel", b"")
+            print(f"  batch {batch_id} cancelled (timeout)", file=sys.stderr)
+        except Exception as e:  # noqa: BLE001
+            print(f"  batch cancel failed: {e}", file=sys.stderr)
         raise RuntimeError(f"batch {batch_id} did not finish within {timeout_s}s")
 
     out: dict = {}

@@ -46,7 +46,8 @@ def gen(sku: str, lang: str) -> str | None:
     cat = p.get("category", "")
     ing = p.get("ingredientsRU", "")
     is_en = lang == "en"
-    sys_p = (
+    from brand_system import brand_block
+    sys_p = brand_block("en" if is_en else "ru") + "\n\n" + (
         "You are an SEO + B2B copywriter for halal meat producer 'Kazan Delicacies' "
         "(pepperoni.tatar). Write deep, factual, non-clickbait wholesale/HoReCa content."
         if is_en else

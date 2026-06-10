@@ -278,7 +278,10 @@ Avg position: {pos:.1f}
 
 JSON: {{"title": "...", "description": "..."}}"""
     try:
-        raw, _ = call_claude(prompt, system=system, max_tokens=400)
+        # Title/meta — микрозадача: Haiku в 3 раза дешевле Sonnet без потери
+        # качества на 70-символьных заголовках.
+        from claude_client import call_claude_cheap
+        raw, _ = call_claude_cheap(prompt, system=system, max_tokens=400)
         m = re.search(r"\{.*\}", raw, re.DOTALL)
         if not m:
             return None

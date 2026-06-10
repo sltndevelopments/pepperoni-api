@@ -165,6 +165,42 @@ def gather_stats() -> dict:
     except Exception:
         stats["experiments"] = {}
 
+    # ── Unified ops blocks: AI visibility, LLM spend, market pulse ──────────
+    root = Path(__file__).parent.parent
+
+    try:  # AIO visibility — последний замер vs предыдущий
+        runs = _json.loads((root / "data" / "aio_visibility.json").read_text(encoding="utf-8"))
+        cur, prev = (runs[-1] if runs else {}), (runs[-2] if len(runs) > 1 else {})
+        stats["aio"] = {
+            "date": cur.get("date", "—"),
+            "pplx_now": cur.get("perplexity_score"),
+            "pplx_prev": prev.get("perplexity_score"),
+            "questions": cur.get("questions", 0),
+            "lost": len(cur.get("lost", [])),
+        }
+    except Exception:
+        stats["aio"] = {}
+
+    try:  # LLM-расход за текущий месяц из общего леджера
+        from claude_client import month_summary
+        m = month_summary() or {}
+        top = sorted((m.get("scripts") or {}).items(),
+                     key=lambda x: -x[1].get("usd", 0))[:3]
+        stats["llm_costs"] = {
+            "usd": m.get("usd", 0), "baseline": m.get("usd_baseline", 0),
+            "top": [(k, round(v.get("usd", 0), 2)) for k, v in top],
+        }
+    except Exception:
+        stats["llm_costs"] = {}
+
+    try:  # Market pulse — top-3 возможности
+        mp = _json.loads((root / "data" / "market_pulse.json").read_text(encoding="utf-8"))
+        stats["market_pulse"] = [
+            {"name": c.get("name", code), "opportunity": (c.get("opportunity") or "")[:140]}
+            for code, c in list((mp.get("countries") or {}).items())[:3]]
+    except Exception:
+        stats["market_pulse"] = []
+
     conn.close()
     return stats
 
@@ -220,7 +256,34 @@ def build_prompt(stats: dict, date_str: str) -> str:
 
     opps_str = ", ".join(f"{k}: {v}" for k, v in stats.get("open_opportunities", {}).items())
 
+    aio = stats.get("aio", {})
+    aio_str = "нет данных"
+    if aio.get("pplx_now") is not None:
+        prev = f" (было {aio['pplx_prev']:.0%})" if aio.get("pplx_prev") is not None else ""
+        aio_str = (f"Perplexity цитирует нас в {aio['pplx_now']:.0%} из "
+                   f"{aio.get('questions', 0)} вопросов{prev}; проиграно: {aio.get('lost', 0)}")
+
+    lc = stats.get("llm_costs", {})
+    llm_str = "нет данных"
+    if lc:
+        saved = (lc.get("baseline", 0) or 0) - (lc.get("usd", 0) or 0)
+        top = "; ".join(f"{k} ${v}" for k, v in lc.get("top", []))
+        llm_str = (f"${lc.get('usd', 0):.2f} за месяц (экономия ${saved:.2f} "
+                   f"к baseline). Топ: {top}")
+
+    pulse_str = "\n".join(f"  • {c['name']}: {c['opportunity']}"
+                          for c in stats.get("market_pulse", [])) or "  нет данных"
+
     return f"""Дата отчёта: {date_str}
+
+=== ВИДИМОСТЬ В AI-АССИСТЕНТАХ ===
+{aio_str}
+
+=== РАСХОД LLM (Anthropic + Perplexity) ===
+{llm_str}
+
+=== MARKET PULSE (экспортные рынки, топ-3 возможности) ===
+{pulse_str}
 
 === GOOGLE (последние 7 дней vs предыдущие 7) ===
 Клики:          {gsc_clicks:.0f}  {_wow(gsc_clicks, gsc_prev.get('clicks'))}

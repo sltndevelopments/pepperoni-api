@@ -6,6 +6,8 @@ Products × Cities × Page-types × Languages × Templates = millions of unique 
 Certifications: Halal DUM RT, HACCP, ISO 22000:2018, TR CU 021/2011.
 """
 
+from __future__ import annotations
+
 import json
 import os
 import re
@@ -303,8 +305,11 @@ def build_system_prompt(lang: str) -> str:
     Sent as the `system` parameter so Anthropic prompt caching reuses it across
     every page of the same language in a run (cache reads cost 10% of input).
     Keep page-specific values OUT of here — they go in the user prompt."""
+    from brand_system import brand_block
     lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
-    return f"""{lang_cfg['system_note']}
+    return brand_block(lang) + f"""
+
+{lang_cfg['system_note']}
 
 Ты эксперт по B2B продажам халяль мясной продукции. По параметрам из сообщения пользователя пишешь уникальную SEO-оптимизированную HTML landing page для указанных страны и города.
 

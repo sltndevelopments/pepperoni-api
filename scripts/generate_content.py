@@ -280,7 +280,11 @@ def add_to_sitemap(urls: list[str]):
 # ---------- Claude caller ----------
 
 def call_claude(system: str, prompt: str) -> tuple[str, int]:
-    return _claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    # Brand book prefix = single source of truth (brand_system.py reads
+    # public/brand.txt). Stable across calls → prompt-cache friendly.
+    from brand_system import brand_block
+    return _claude(prompt, system=brand_block("ru") + "\n\n" + system,
+                   max_tokens=MAX_TOKENS)
 
 
 _FALLBACK_FOOTER = (

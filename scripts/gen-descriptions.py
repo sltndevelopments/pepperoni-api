@@ -37,7 +37,9 @@ OVERRIDES = ROOT / "data" / "descriptions-overrides.json"
 
 FIELDS = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
 
-SYSTEM = (
+from brand_system import brand_block
+
+SYSTEM = brand_block("ru") + "\n\n" + (
     "Ты — контент-маркетолог и технолог пищевого производства компании "
     "«Казанские Деликатесы» (pepperoni.tatar) — производителя ХАЛЯЛЬНЫХ мясных "
     "изделий и татарской выпечки из Казани. Пишешь точные, аппетитные и при этом "

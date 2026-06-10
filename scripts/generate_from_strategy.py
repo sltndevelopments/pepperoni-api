@@ -67,7 +67,8 @@ def prep_blog(topic: dict) -> dict | None:
         return None
     title = topic.get("title_ru", slug)
     intent = topic.get("intent", "информационный")
-    system = (
+    from brand_system import brand_block
+    system = brand_block("ru") + "\n\n" + (
         "Ты эксперт мясной/пищевой промышленности и SEO-автор для pepperoni.tatar "
         "(Казанские Деликатесы, халяль производитель). Пишешь экспертно, без воды, "
         "без упоминания свинины."
@@ -98,8 +99,9 @@ def prep_pl(topic: dict) -> dict | None:
         return None
     title = topic.get("title", slug)
     angle = topic.get("angle", "")
+    from brand_system import brand_block
     if lang == "ru":
-        system = (
+        system = brand_block("ru") + "\n\n" + (
             "Ты B2B-эксперт по контрактному производству (Private Label / СТМ / OEM) "
             "халяль мясных изделий и выпечки для pepperoni.tatar (Казанские Деликатесы). "
             "Пишешь убедительно для закупщиков сетей, дистрибьюторов, маркетплейсов."
@@ -117,7 +119,7 @@ def prep_pl(topic: dict) -> dict | None:
 - {CONTACTS_RULE}
 - НЕ упоминать свинину, 600-800 слов"""
     else:
-        system = (
+        system = brand_block("en") + "\n\n" + (
             "You are a B2B expert in contract manufacturing (Private Label / White "
             "Label / OEM) of HALAL meat products and bakery for pepperoni.tatar "
             "(Kazan Delicacies). Write persuasively for export buyers (GCC, CIS)."

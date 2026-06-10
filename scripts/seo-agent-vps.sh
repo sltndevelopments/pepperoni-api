@@ -167,6 +167,15 @@ MAX_GEO_PAGES="${MAX_GEO_PAGES:-40}" GEO_WORKERS="${GEO_WORKERS:-4}" \
 log "Step 4c: Enriching Product schemas …"
 python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log "⚠️  Schema enricher failed (non-fatal)"
 
+# ---- Step 4d: QA gate — deterministic brand-safety check on changed pages ----
+# fix_pages repairs known LLM defects (phones/emails/fences/ar-pork) in place;
+# qa_pages quarantines anything still broken so it NEVER reaches the site.
+log "Step 4d: QA gate (fix + quarantine) …"
+python3 scripts/fix_pages.py >> "$LOG_FILE" 2>&1 || log "⚠️  fix_pages failed (non-fatal)"
+python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || log "⚠️  qa_pages failed (non-fatal)"
+# Product overrides QA (halal/structure) — report only, overrides are durable.
+python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log "⚠️  qa_overrides found issues (see log)"
+
 # ---- Step 5: Git commit & push generated content ----
 log "Step 5: Committing and pushing generated content …"
 
