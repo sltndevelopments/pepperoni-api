@@ -27,6 +27,17 @@ data/logs/
 sales-intel/raw/
 sales-intel/data/*.csv
 sales-intel/data/*.xlsx
+
+# Sales agent runtime (isolated from public/ site)
+sales-agent/data/*
+!sales-agent/data/.gitkeep
+sales-agent/data/sales_tg_authorized.json
+sales-agent/data/sales_tg_pending.json
+sales-agent/data/email_send_log.jsonl
+sales-agent/data/email_blacklist.json
+sales-agent/.env
+sales-agent/secrets/
+!sales-agent/secrets/.gitkeep
 .vercel
 
 # Ops snapshots (DNS exports, secret indexes, etc.) — never commit

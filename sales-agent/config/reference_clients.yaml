@@ -1,0 +1,72 @@
+# Эталоны с pepperoni.tatar — паттерны для lookalike
+# Источник: public/index.html «С кем работаем»
+
+references:
+  - id: tatneft_azs
+    name: Сеть АЗС Татнефть
+    segment: azs_foodretail
+    products: [гриль-сосиски, бургер-котлеты, хот-дог, выпечка]
+    okved: ["47.30", "10.71", "10.72"]
+    revenue_band: [giant]
+    halal_relevant: true
+
+  - id: ompk_ostankino
+    name: ОМПК (Останкино) / СТМ Аслам
+    segment: meat_plant_stm
+    products: [СТМ, halal_deli, колбасные]
+    okved: ["10.13", "10.71"]
+    revenue_band: [giant]
+    halal_relevant: true
+
+  - id: eurospar
+    name: EuroSpar
+    segment: retail_chain
+    products: [пепперони, сосиски, выпечка, halal_shelf]
+    okved: ["47.11", "47.19"]
+    revenue_band: [large]
+
+  - id: bahetle
+    name: Бэхетле
+    segment: retail_premium
+    products: [halal_assortment]
+    okved: ["47.11"]
+    revenue_band: [medium, large]
+    region_hint: ["16", "77"]
+
+  - id: metro
+    name: Metro Cash & Carry
+    segment: horeca_wholesale
+    products: [halal_frozen, horeca]
+    okved: ["46.39", "47.11"]
+    revenue_band: [giant]
+
+  - id: miratorg
+    name: Мираторг
+    segment: retail_with_bakery
+    products: [татарская_выпечка, эчпочмак, самса]
+    okved: ["47.11", "10.71"]
+    revenue_band: [giant]
+
+  - id: gfc_sweetlife
+    name: GFC / SweetLife
+    segment: foodservice_distributor
+    products: [halal_line, horeca, distributor]
+    okved: ["46.39", "46.17"]
+    revenue_band: [large, giant]
+
+  - id: regional_bakery_sausage
+    name: "Паттерн: Русь-Бейкери / региональная пекарня"
+    segment: regional_bakery
+    products: [сосиска_в_тесте, OEM_сосиски]
+    okved: ["10.71", "10.71.1", "10.71.2", "10.72"]
+    revenue_band: [medium, large]  # 100 млн — 10 млрд
+    signals: [sausage_in_dough_on_site, hot_dog]
+
+okved_weights:
+  "10.71": 40
+  "10.71.1": 45
+  "10.71.2": 45
+  "10.72": 35
+  "10.13": 30
+  "46.39": 25
+  "47.11": 15

@@ -1,0 +1,43 @@
+# Каналы аутрича. Исходящие — только через gate (draft → approve → send).
+channels:
+  email:
+    enabled: true
+    from: sales@kazandelikates.tatar
+    smtp_host: smtp.yandex.ru
+    smtp_port: 465
+    send_domain: kazandelikates.tatar
+    spf_dkim_dmarc: configure_in_dns
+    daily_limit: 30
+    sequence_days: [0, 3, 7, 14]
+
+  whatsapp:
+    enabled: false
+    note: B2B-еда в РФ — основной канал после email
+    anti_ban: manual_device_only
+
+  telegram:
+    enabled: false
+    note: Тёплые заходы через общие контакты (Ибраев, KazakhExport)
+
+  phone_task:
+    enabled: true
+    note: Агент создаёт задачу «позвонить» — не звонит сам
+
+# Секвенции по умолчанию
+sequences:
+  cold_b2b:
+    steps:
+      - channel: email
+        delay_days: 0
+      - channel: whatsapp
+        delay_days: 3
+      - channel: phone_task
+        delay_days: 7
+
+  warm_site_visitor:
+    steps:
+      - channel: email
+        delay_days: 0
+        template: warm_pepperoni_visit
+      - channel: phone_task
+        delay_days: 2

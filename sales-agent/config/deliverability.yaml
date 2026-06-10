@@ -1,0 +1,35 @@
+# Защита от блокировок (не лимит бизнес-объёма, а репутация домена)
+
+email:
+  send_from: sales@kazandelikates.tatar   # SMTP-ящик
+  reply_to: kam@kazandelikates.tatar      # из .env OWNER_EMAIL
+
+  # Yandex/корпоративка: старт консервативно, наращивать по метрикам
+  per_hour: 40
+  per_day: 300
+  min_interval_sec: 8          # пауза между письмами
+  max_same_domain_per_day: 3   # не долбить один домен
+  max_recipients_per_batch: 1  # без BCC-массовки
+
+  warmup:
+    enabled: true
+    week1_daily_cap: 50
+    week2_daily_cap: 150
+    week3_daily_cap: 300
+
+  content_rules:
+    no_all_caps_subject: true
+    max_links: 3
+    require_unsubscribe_line: false  # B2B 1:1 — не рассылка
+    plain_text_preferred: true
+
+  bounce_handling:
+    stop_on_hard_bounce: true
+    blacklist_file: data/email_blacklist.json
+
+  # Личные контакты ТОЛЬКО в теле письма, никогда на сайте/в боте публично
+  private_contacts_email_only: true
+
+crm_sheet:
+  url: https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5Y-A4Iw8sb7LV2KjBtrqlCoUqGXlspwC3B4JuicSAyZ3gMZrM5B_GEfiZAOhiQVn7RvgU3rZ8_HX0/pub?output=csv
+  sync_interval_hours: 6

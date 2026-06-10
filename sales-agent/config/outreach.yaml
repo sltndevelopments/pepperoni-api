@@ -1,0 +1,12 @@
+# Очередь холодного аутрича (пилот → масштаб)
+
+queue:
+  tiers: [S, A]
+  min_fit_score: 60
+  min_lookalike_score: 45
+  require_email: true
+  statuses: [new]
+
+pilot:
+  max_per_cycle: 3
+  daily_cap_first_week: 15

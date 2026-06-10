@@ -1,0 +1,28 @@
+# Роутинг моделей: дешёвые задачи — дешёвые модели, стратегия — Fable (brain)
+routing:
+  triage:
+    model: claude-haiku-4-5-20251001
+    fallback: claude-sonnet-4-6
+    tasks: [classify_inbound, spam_filter, intent_tag]
+
+  volume:
+    tier: voice
+    model: claude-sonnet-4-6
+    fallback: claude-sonnet-4-5
+    tasks: [enrich_summary, draft_email, qualify_site, objection_reply, telegram_chat]
+
+  strategy:
+    tier: brain
+    model: claude-fable-5   # env OPUS_MODEL
+    fallback: claude-sonnet-4-6
+    tasks: [weekly_plan, cluster_insight, win_loss_pattern, tender_forecast, outbound_gate]
+
+  cheap_internal:
+    provider: deepseek_proxy  # опционально: DEEPSEEK_API_URL
+    model: deepseek-chat
+    tasks: [raw_scrape_summary, bulk_dedup, log_digest]
+
+limits:
+  max_drafts_per_cycle: 10
+  max_enrich_per_cycle: 50
+  opus_calls_per_day: 5

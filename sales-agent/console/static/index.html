@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sales Agent — Pepperoni</title>
+  <style>
+    :root { --bg:#0f1419; --card:#1a2332; --text:#e7ecf3; --muted:#8b9cb3; --accent:#e85d04; --ok:#2d6a4f; --warn:#f4a261; }
+    * { box-sizing: border-box; }
+    body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 1.5rem; line-height: 1.5; }
+    h1 { font-size: 1.25rem; margin: 0 0 .25rem; }
+    .sub { color: var(--muted); font-size: .85rem; margin-bottom: 1.5rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: .75rem; margin-bottom: 1.5rem; }
+    .stat { background: var(--card); padding: 1rem; border-radius: 8px; }
+    .stat b { display: block; font-size: 1.5rem; color: var(--accent); }
+    .stat span { font-size: .75rem; color: var(--muted); }
+    section { background: var(--card); border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    section h2 { font-size: .9rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 0 0 .75rem; }
+    table { width: 100%; border-collapse: collapse; font-size: .85rem; }
+    th, td { text-align: left; padding: .4rem .5rem; border-bottom: 1px solid #2a3548; }
+    th { color: var(--muted); font-weight: 500; }
+    .btn { background: var(--accent); color: #fff; border: none; padding: .35rem .7rem; border-radius: 4px; cursor: pointer; font-size: .8rem; margin-right: .35rem; }
+    .btn.secondary { background: #3d4f66; }
+    .btn.ok { background: var(--ok); }
+    .preview { font-size: .8rem; color: var(--muted); max-width: 320px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .badge { display: inline-block; padding: .1rem .4rem; border-radius: 3px; font-size: .7rem; background: #2a3548; }
+    .badge.S { background: var(--ok); }
+    .badge.pending { background: var(--warn); color: #111; }
+  </style>
+</head>
+<body>
+  <h1>Sales Agent</h1>
+  <p class="sub">Казанские Деликатесы · локальная консоль · исходящее только через аппрув</p>
+
+  <div class="grid" id="stats"></div>
+
+  <section>
+    <h2>Очередь аппрува</h2>
+    <table><thead><tr><th></th><th>Канал</th><th>Лид</th><th>Тема</th><th></th></tr></thead><tbody id="approvals"></tbody></table>
+  </section>
+
+  <section>
+    <h2>Лиды (топ по score)</h2>
+    <table><thead><tr><th>Tier</th><th>Score</th><th>Статус</th><th>Компания</th><th>Регион</th></tr></thead><tbody id="leads"></tbody></table>
+  </section>
+
+  <section>
+    <h2>Инбокс</h2>
+    <table><thead><tr><th>Время</th><th>Канал</th><th>Текст</th></tr></thead><tbody id="inbox"></tbody></table>
+  </section>
+
+  <p>
+    <button class="btn" onclick="runCycle()">Запустить цикл</button>
+    <button class="btn secondary" onclick="refresh()">Обновить</button>
+  </p>
+
+  <script>
+    async function j(url, opts) {
+      const r = await fetch(url, opts);
+      return r.json();
+    }
+    async function refresh() {
+      const s = await j('/api/stats');
+      document.getElementById('stats').innerHTML = [
+        ['leads','Лиды'], ['pending_approvals','Аппрувы'], ['open_drafts','Черновики'],
+        ['inbox_messages','Инбокс'], ['unprocessed_signals','Сигналы']
+      ].map(([k,l]) => `<div class="stat"><b>${s[k]??0}</b><span>${l}</span></div>`).join('');
+
+      const ap = await j('/api/approvals');
+      document.getElementById('approvals').innerHTML = (ap.approvals||[]).map(a => `
+        <tr>
+          <td><span class="badge pending">pending</span></td>
+          <td>${a.channel||''}</td>
+          <td>${a.lead_name||'—'}</td>
+          <td class="preview">${a.title||''}</td>
+          <td>
+            <button class="btn ok" onclick="decide('${a.id}',true)">✓</button>
+            <button class="btn secondary" onclick="decide('${a.id}',false)">✗</button>
+          </td>
+        </tr>`).join('') || '<tr><td colspan="5">Пусто</td></tr>';
+
+      const ld = await j('/api/leads');
+      document.getElementById('leads').innerHTML = (ld.leads||[]).slice(0,15).map(l => `
+        <tr>
+          <td><span class="badge ${l.tier}">${l.tier}</span></td>
+          <td>${l.fit_score}</td>
+          <td>${l.status}</td>
+          <td>${l.name}</td>
+          <td>${l.region||'—'}</td>
+        </tr>`).join('') || '<tr><td colspan="5">Импортируй: import-intel</td></tr>';
+
+      const ib = await j('/api/inbox');
+      document.getElementById('inbox').innerHTML = (ib.messages||[]).slice(0,10).map(m => `
+        <tr>
+          <td>${(m.created_at||'').slice(0,16)}</td>
+          <td>${m.channel}</td>
+          <td class="preview">${m.body||''}</td>
+        </tr>`).join('') || '<tr><td colspan="3">Пусто</td></tr>';
+    }
+    async function decide(id, ok) {
+      await j(ok ? '/api/approve' : '/api/reject', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({approval_id: id})
+      });
+      refresh();
+    }
+    async function runCycle() {
+      await j('/api/cycle', { method: 'POST', headers: {'Content-Type':'application/json'}, body: '{}' });
+      refresh();
+    }
+    refresh();
+    setInterval(refresh, 30000);
+  </script>
+</body>
+</html>

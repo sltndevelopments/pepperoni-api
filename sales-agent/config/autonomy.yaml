@@ -1,0 +1,23 @@
+# Режим автономии: Opus одобряет исходящее; владельцу — горячие лиды.
+# «Не спамь» = не попасть в бан (deliverability.yaml), не лимит объёма.
+
+autonomy:
+  enabled: true
+  opus_approves_outbound: true
+  auto_send_cold_email: true
+  notify_on_routine_send: false
+  respect_deliverability: true   # per_hour, per_day, domain_cap
+
+escalation:
+  owner_name: Ринат
+  notify_telegram: true
+  # Статусы лида → сразу на владельца с контактами
+  hot_statuses: [hot, escalated, replied, meeting, proposal]
+  # Сигналы во входящих → эскалация
+  warm_intents: [price_request, sample_request, sausage_in_dough]
+  hot_temperatures: [hot, warm]
+
+# hold — редкий ручной аппрув (только если Opus сомневается)
+manual_hold:
+  enabled: true
+  notify: false

@@ -1,0 +1,85 @@
+# Матрица возможностей Казанских Деликатесов / Pepperoni.tatar
+# Агент сверяет любой лид, тендер и черновик КП с этим файлом.
+# Источник SKU: public/products.json (77 позиций, halal)
+
+company:
+  name: Казанские Деликатесы
+  brand: Pepperoni.tatar
+  site: https://pepperoni.tatar
+  api: https://api.pepperoni.tatar/api/products
+  halal: true
+  production:
+    kazan: primary
+    astrakhan: fixed_base  # фикс-база — приоритет загрузки простоя
+
+# Что МОЖЕМ поставлять (ключевые кластеры)
+can_produce:
+  - id: sausage_in_dough
+    label: Сосиска в тесте / слоёная выпечка с сосиской
+    keywords: [сосиска в тесте, сосиски в тесте, слоёнка с сосиской, пирожок с сосиской]
+    skus: [KD-001, KD-002, KD-003, KD-004, KD-005]
+    priority: tier_s
+
+  - id: grill_sausages
+    label: Сосиски для гриля / хот-догов (без оболочки, термостабильные)
+    keywords: [хот-дог, гриль, роликовый гриль, сосиски говяжьи]
+    skus: [KD-001, KD-006, KD-007, KD-008]
+    priority: high
+
+  - id: burger_patties
+    label: Бургерные котлеты из говядины (halal)
+    keywords: [бургер, котлета, говяжий бургер, smash]
+    skus: [KD-010, KD-011, KD-012]
+    priority: high
+
+  - id: frozen_bakery
+    label: Замороженная выпечка (круассаны, слойки, пирожки)
+    keywords: [круассан, слойка, замороженная выпечка, croissant]
+    skus: [KD-020, KD-021, KD-022]
+    priority: medium
+
+  - id: halal_deli
+    label: Halal деликатесы (пепперони, ветчина индейки, копчёности)
+    keywords: [халяль, halal, пепперони, ветчина, копчёная грудка]
+    skus: [KD-030, KD-031, KD-032]
+    priority: medium
+
+  - id: oem_white_label
+    label: White-label / СТМ под сети и дистрибьюторов
+    keywords: [СТМ, private label, OEM, white label]
+    moq_note: MOQ обсуждается; Астрахань — под простой мощности
+    priority: high
+
+# Что НЕ МОЖЕМ — жёсткий стоп для агента
+cannot_produce:
+  - id: breaded_chicken
+    label: Курица в панировке / наггетсы / стрипсы
+    keywords: [курица в панировке, наггетс, стрипс, chicken nugget]
+    reason: Нет линии панировки; только говядина/индейка halal без панировки
+
+  - id: pork_products
+    label: Свинина и не-halal свиные изделия
+    keywords: [свинина, pork, бекон свиной]
+    reason: Только halal; свинина исключена
+
+  - id: fresh_not_frozen
+    label: Охлаждёнка без заморозки (кроме ограниченного ассортимента)
+    keywords: [охлаждён, chilled only, без заморозки]
+    reason: Основной фокус — заморозка; охлаждёнка — точечно, не массовый OEM
+
+  - id: dairy_bakery
+    label: Слоёная выпечка с сыром / сливочным кремом (массовый OEM)
+    keywords: [сырная выпечка, сливочный круассан с сыром]
+    reason: Не профиль; halal мясная выпечка — да
+
+# Скоринг фита: минимальный порог для авто-аутрича
+scoring:
+  min_fit_for_draft: 60
+  tier_s_min: 85
+  auto_reject_below: 30
+
+# Логистика (для черновиков КП)
+logistics:
+  exw: Казань, Республика Татарстан
+  export_ports: [Каспий, Порт Оля]
+  currencies: [RUB, USD, KZT, UZS, KGS, BYN, AZN]

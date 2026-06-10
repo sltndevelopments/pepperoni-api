@@ -1,0 +1,262 @@
+# Схема Google Sheets CRM для sales-agent
+# Источник правды для агента: SQLite (data/agent.db)
+# Таблица — зеркало для команды: читаете вы, пишет агент + вы вручную
+
+version: 1
+
+sheet_id_env: CRM_SHEET_ID          # из URL: .../d/{ID}/edit
+credentials_env: GOOGLE_SHEETS_CREDENTIALS  # путь к JSON service account
+
+tabs:
+  leads:
+    title: "Лиды"
+    key_column: inn
+    freeze_rows: 1
+    freeze_columns: 3   # inn, company_short, status
+    filter: true
+
+    columns:
+      # --- Ключ и идентификация ---
+      - key: inn
+        header: inn
+        width: 110
+        source: import
+        editable_by: human
+
+      - key: company_short
+        header: company_short
+        width: 220
+        source: import
+
+      - key: legal_form
+        header: legal_form
+        source: import
+
+      # --- CRM (менеджер) ---
+      - key: status
+        header: status
+        dropdown:
+          - new
+          - qualified
+          - contacted
+          - meeting
+          - proposal
+          - negotiation
+          - won
+          - lost
+          - freeze
+          - skip
+          - owner_contact   # исключения (Коломенский и т.п.)
+        editable_by: human
+        agent_reads: true
+
+      - key: owner
+        header: owner
+        dropdown: [Ринат, Агент, ""]
+        editable_by: human
+
+      - key: priority
+        header: priority
+        dropdown: [A+, A, B, C, "—"]
+        source: import
+
+      - key: last_touch
+        header: last_touch
+        format: date
+        editable_by: human
+
+      - key: next_action
+        header: next_action
+        format: date
+        editable_by: human
+
+      - key: notes
+        header: notes
+        width: 300
+        editable_by: human
+        agent_reads: true
+
+      # --- ЛПР (заполняет агент или вы) ---
+      - key: lpr_name
+        header: lpr_name
+        editable_by: both
+
+      - key: lpr_email
+        header: lpr_email
+        editable_by: both
+
+      - key: lpr_phone
+        header: lpr_phone
+        editable_by: both
+
+      - key: gatekeeper_path
+        header: gatekeeper_path
+        editable_by: agent
+
+      # --- Данные компании (импорт / intel) ---
+      - key: okved_main
+        header: okved_main
+        source: import
+
+      - key: okved_name
+        header: okved_name
+        source: import
+
+      - key: revenue_mln_rub
+        header: revenue_mln_rub
+        source: import
+
+      - key: region
+        header: region
+        source: import
+
+      - key: city
+        header: city
+        source: import
+
+      - key: phones
+        header: phones
+        source: import
+
+      - key: emails
+        header: emails
+        source: import
+
+      - key: website
+        header: website
+        source: import
+
+      - key: sausage_in_dough
+        header: sausage_in_dough
+        source: import
+
+      - key: evidence_label
+        header: evidence_label
+        source: import
+
+      - key: evidence_url
+        header: evidence_url
+        source: import
+
+      # --- Агент (только запись агента) ---
+      - key: agent_status
+        header: agent_status
+        dropdown:
+          - idle
+          - queued
+          - drafted
+          - sent
+          - replied
+          - hot
+          - escalated
+          - excluded
+          - error
+        editable_by: agent
+
+      - key: agent_temperature
+        header: agent_temperature
+        dropdown: [cold, warm, hot, ""]
+        editable_by: agent
+
+      - key: lookalike_score
+        header: lookalike_score
+        editable_by: agent
+
+      - key: lookalike_match
+        header: lookalike_match
+        editable_by: agent
+
+      - key: emails_sent_count
+        header: emails_sent_count
+        editable_by: agent
+
+      - key: last_email_at
+        header: last_email_at
+        format: datetime
+        editable_by: agent
+
+      - key: last_email_subject
+        header: last_email_subject
+        width: 280
+        editable_by: agent
+
+      - key: last_draft_id
+        header: last_draft_id
+        editable_by: agent
+
+      - key: escalation_reason
+        header: escalation_reason
+        width: 240
+        editable_by: agent
+
+      - key: escalated_at
+        header: escalated_at
+        format: datetime
+        editable_by: agent
+
+      - key: agent_updated_at
+        header: agent_updated_at
+        format: datetime
+        editable_by: agent
+
+  activity:
+    title: "Активность"
+    append_only: true
+    columns:
+      - key: at
+        header: at
+        format: datetime
+      - key: inn
+        header: inn
+      - key: company_short
+        header: company_short
+      - key: action
+        header: action
+        # draft_created | email_sent | reply_received | hot | escalate | lookalike | qualify | hold | error
+      - key: detail
+        header: detail
+        width: 400
+      - key: draft_id
+        header: draft_id
+      - key: model
+        header: model
+
+  hot:
+    title: "🔥 Hot"
+    type: formula_view
+    note: "FILTER по agent_temperature=hot или agent_status=hot/escalated"
+
+  exclusions:
+    title: "Исключения"
+    source: config/exclusions.yaml
+    columns:
+      - key: inn
+      - key: company
+      - key: reason
+      - key: status
+
+  readme:
+    title: "README"
+    type: static
+    blocks:
+      - "Лиды — основная база. Колонки agent_* и Активность пишет sales-agent."
+      - "Меняйте status, owner, notes, next_action — агент подхватит при sync."
+      - "ИНН — ключ строки. Не меняйте и не дублируйте."
+      - "Команды: sync-sheet (импорт), crm-push (запись в таблицу), cycle (цикл агента)."
+
+sync:
+  pull_interval_minutes: 30
+  push_after:
+    - cycle
+    - draft_outreach
+    - escalate
+    - lookalike
+  human_columns_pull:
+    - status
+    - owner
+    - notes
+    - next_action
+    - last_touch
+    - lpr_name
+    - lpr_email
+    - lpr_phone
