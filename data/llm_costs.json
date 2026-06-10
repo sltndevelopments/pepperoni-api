@@ -1,0 +1,57 @@
+{
+ "2026-06": {
+  "usd": 1.212129,
+  "usd_baseline": 1.954947,
+  "days": {
+   "2026-06-10": {
+    "calls": 27,
+    "in": 93884,
+    "out": 106553,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 1.212129,
+    "usd_baseline": 1.954947
+   }
+  },
+  "scripts": {
+   "market_pulse": {
+    "calls": 15,
+    "in": 78673,
+    "out": 10553,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.469314,
+    "usd_baseline": 0.469314
+   },
+   "generate_geo_bulk": {
+    "calls": 12,
+    "in": 15211,
+    "out": 96000,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.742818,
+    "usd_baseline": 1.485633
+   }
+  },
+  "models": {
+   "pplx-agent": {
+    "calls": 15,
+    "in": 78673,
+    "out": 10553,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.469314,
+    "usd_baseline": 0.469314
+   },
+   "claude-sonnet-4-6": {
+    "calls": 12,
+    "in": 15211,
+    "out": 96000,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.742818,
+    "usd_baseline": 1.485633
+   }
+  }
+ }
+}
