@@ -178,5 +178,23 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-10T05:32:28.832011+00:00",
+    "change_type": "new_landing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 34.34,
+    "before_ctr": 0.0073,
+    "before_impr": 137,
+    "before_title": "(none — homepage only)",
+    "before_desc": "",
+    "after_title": "landing:пепперони халяль",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]

@@ -1,16 +1,16 @@
 {
  "2026-06": {
-  "usd": 1.708305,
-  "usd_baseline": 2.451123,
+  "usd": 8.202486,
+  "usd_baseline": 14.53312,
   "days": {
    "2026-06-10": {
-    "calls": 42,
-    "in": 174886,
-    "out": 118431,
-    "cache_w": 0,
+    "calls": 139,
+    "in": 312086,
+    "out": 866454,
+    "cache_w": 2962,
     "cache_r": 0,
-    "usd": 1.708305,
-    "usd_baseline": 2.451123
+    "usd": 8.202486,
+    "usd_baseline": 14.53312
    }
   },
   "scripts": {
@@ -24,13 +24,49 @@
     "usd_baseline": 0.96549
    },
    "generate_geo_bulk": {
-    "calls": 12,
-    "in": 15211,
-    "out": 96000,
+    "calls": 92,
+    "in": 126600,
+    "out": 795814,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.742818,
-    "usd_baseline": 1.485633
+    "usd": 6.15851,
+    "usd_baseline": 12.31701
+   },
+   "escalate_brain": {
+    "calls": 1,
+    "in": 11807,
+    "out": 3749,
+    "cache_w": 2962,
+    "cache_r": 0,
+    "usd": 0.342545,
+    "usd_baseline": 0.33514
+   },
+   "build_landing": {
+    "calls": 1,
+    "in": 7877,
+    "out": 5910,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.318849,
+    "usd_baseline": 0.318849
+   },
+   "generate_from_strategy": {
+    "calls": 6,
+    "in": 2867,
+    "out": 23364,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.179532,
+    "usd_baseline": 0.359061
+   },
+   "generate_content": {
+    "calls": 9,
+    "in": 3260,
+    "out": 15186,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.23757,
+    "usd_baseline": 0.23757
    }
   },
   "models": {
@@ -44,13 +80,22 @@
     "usd_baseline": 0.96549
    },
    "claude-sonnet-4-6": {
-    "calls": 12,
-    "in": 15211,
-    "out": 96000,
+    "calls": 108,
+    "in": 140604,
+    "out": 840274,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.742818,
-    "usd_baseline": 1.485633
+    "usd": 6.894453,
+    "usd_baseline": 13.23249
+   },
+   "claude-fable-5": {
+    "calls": 1,
+    "in": 11807,
+    "out": 3749,
+    "cache_w": 2962,
+    "cache_r": 0,
+    "usd": 0.342545,
+    "usd_baseline": 0.33514
    }
   }
  }
