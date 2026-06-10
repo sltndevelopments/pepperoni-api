@@ -353,6 +353,66 @@ def build_user_prompt(digest: dict) -> str:
     )
 
 
+# Structured-output schema mirroring the playbook's contract: the API
+# guarantees the reply parses, so a malformed strategy can no longer waste a
+# Fable call (~$0.5 each).
+STRATEGY_SCHEMA = {
+    "type": "object",
+    "properties": {
+        "focus_products": {"type": "array", "items": {"type": "string"}},
+        "focus_langs": {"type": "array", "items": {"type": "string"}},
+        "geo_daily_target": {"type": "integer"},
+        "new_blog_topics": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "slug": {"type": "string"},
+                    "title_ru": {"type": "string"},
+                    "intent": {"type": "string"},
+                },
+                "required": ["slug", "title_ru"],
+            },
+        },
+        "pl_oem_topics": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "slug": {"type": "string"},
+                    "title": {"type": "string"},
+                    "lang": {"type": "string"},
+                    "angle": {"type": "string"},
+                },
+                "required": ["slug", "title"],
+            },
+        },
+        "rewrite_pages": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string"},
+                    "reason": {"type": "string"},
+                },
+                "required": ["path"],
+            },
+        },
+        "prompt_tweaks": {
+            "type": "object",
+            "properties": {
+                "geo": {"type": "string"},
+                "blog": {"type": "string"},
+                "pl": {"type": "string"},
+            },
+        },
+        "notes": {"type": "string"},
+    },
+    "required": ["focus_products", "focus_langs", "geo_daily_target",
+                 "new_blog_topics", "pl_oem_topics", "notes"],
+}
+
+
 def _extract_json(text: str) -> dict:
     text = text.strip()
     if text.startswith("```"):
@@ -375,15 +435,42 @@ def main():
         return 0
 
     digest = build_digest()
-    print(f"🧠 Brain ({OPUS_MODEL}) thinking… budget left ${remaining_budget():.2f}")
+    user_prompt = build_user_prompt(digest)
+
+    # Free pre-flight: catch silent digest bloat (the brain is the priciest
+    # call in the system — $10/MTok in, $50/MTok out).
+    try:
+        from claude_client import count_tokens
+        n = count_tokens(user_prompt, system=PLAYBOOK, model=OPUS_MODEL)
+        if n > 0:
+            print(f"📏 digest size: {n:,} input tokens")
+        if n > 30_000:
+            warn = (f"⚠️ Дайджест Мозга распух: {n:,} токенов (>30K). "
+                    f"Проверь блоки digest — это бьёт по бюджету Fable.")
+            print(warn)
+            try:
+                from telegram_notify import notify
+                notify(warn)
+            except Exception:
+                pass
+    except Exception:
+        pass
+
+    # Daily ticks run at medium effort; escalations/monthly planning set
+    # BRAIN_EFFORT=high. Effort trims Fable's adaptive-thinking spend.
+    effort = os.environ.get("BRAIN_EFFORT", "medium")
+    print(f"🧠 Brain ({OPUS_MODEL}, effort={effort}) thinking… "
+          f"budget left ${remaining_budget():.2f}")
 
     try:
         text, usage = call_opus(
-            prompt=build_user_prompt(digest),
+            prompt=user_prompt,
             system=PLAYBOOK,
             max_tokens=4000,
             temperature=0.3,
             cache_system=True,
+            effort=effort,
+            json_schema=STRATEGY_SCHEMA,
         )
     except Exception as e:
         print(f"⚠️  Opus call failed ({e}). Keeping existing strategy.")

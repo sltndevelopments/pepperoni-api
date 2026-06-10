@@ -183,7 +183,8 @@ def main():
         try:
             from claude_client import call_claude_batch
             items = [{"custom_id": f"w{i}", "prompt": p["prompt"],
-                      "system": p["system"], "max_tokens": MAX_TOKENS}
+                      "system": p["system"], "max_tokens": MAX_TOKENS,
+                      "effort": "medium"}
                      for i, p in enumerate(preps)]
             out = call_claude_batch(items)
             for i, p in enumerate(preps):
@@ -200,7 +201,8 @@ def main():
 
     for p in preps:
         try:
-            html, _ = call_claude(p["prompt"], system=p["system"], max_tokens=MAX_TOKENS)
+            html, _ = call_claude(p["prompt"], system=p["system"],
+                                  max_tokens=MAX_TOKENS, effort="medium")
             made += 1 if _write_page(p, html) else 0
         except Exception as e:
             print(f"  ✗ {p['label']}: {e}", file=sys.stderr)

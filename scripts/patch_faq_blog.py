@@ -27,7 +27,8 @@ MAX_TOKENS = 800
 def call_claude(system: str, prompt: str) -> str:
     if not API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY not set")
-    text, _ = _call_claude(prompt, system=system, max_tokens=MAX_TOKENS)
+    text, _ = _call_claude(prompt, system=system, max_tokens=MAX_TOKENS,
+                           effort="medium")
     return text.strip()
 
 

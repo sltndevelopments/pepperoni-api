@@ -140,6 +140,8 @@ def call_model(
     temperature=None,
     cache_system: bool = True,
     retries: int = 2,
+    effort: str = None,
+    json_schema: dict = None,
 ) -> tuple[str, dict]:
     """
     Call an Anthropic model by tier ("brain"=Fable 5, "voice"=Sonnet, "micro"=Haiku).
@@ -181,6 +183,15 @@ def call_model(
         body["temperature"] = temperature
     if sys_blocks:
         body["system"] = sys_blocks
+    # output_config: effort trims thinking/output spend (Fable bills $50/MTok
+    # out); json_schema makes the strategy JSON structurally guaranteed.
+    out_cfg = {}
+    if effort:
+        out_cfg["effort"] = effort
+    if json_schema:
+        out_cfg["format"] = {"type": "json_schema", "schema": json_schema}
+    if out_cfg:
+        body["output_config"] = out_cfg
 
     headers = {
         "x-api-key": ANTHROPIC_API_KEY,
@@ -226,6 +237,11 @@ def call_model(
         except urllib.error.HTTPError as e:
             err_body = e.read().decode("utf-8", "ignore")
             last_err = f"HTTP {e.code}: {err_body[:300]}"
+            # output_config not supported here → drop it once and retry.
+            if e.code == 400 and "output_config" in err_body and "output_config" in body:
+                body.pop("output_config", None)
+                data = json.dumps(body).encode("utf-8")
+                continue
             if e.code in (429, 500, 502, 503, 529) and attempt < retries:
                 time.sleep(2 ** attempt * 3)
                 continue
@@ -240,10 +256,11 @@ def call_model(
 
 
 def call_opus(prompt, system=None, max_tokens=4000, temperature=None,
-              cache_system=True, retries=2):
+              cache_system=True, retries=2, effort=None, json_schema=None):
     """Backward-compatible wrapper — strategy tier (Fable 5)."""
     return call_model(prompt, tier="brain", system=system, max_tokens=max_tokens,
-                      temperature=temperature, cache_system=cache_system, retries=retries)
+                      temperature=temperature, cache_system=cache_system,
+                      retries=retries, effort=effort, json_schema=json_schema)
 
 
 def call_voice(prompt, system=None, max_tokens=1500, temperature=0.4, cache_system=False):

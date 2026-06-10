@@ -145,7 +145,8 @@ def main():
         sku = p["sku"]
         print(f"  [{i}/{len(todo)}] {sku} — {p['name'][:45]}  (missing: {', '.join(missing)})")
         try:
-            raw, _tok = call_claude(build_prompt(p), system=SYSTEM, max_tokens=1200)
+            raw, _tok = call_claude(build_prompt(p), system=SYSTEM,
+                                    max_tokens=1200, effort="medium")
         except Exception as ex:
             print(f"     ⚠️  API error: {ex}", file=sys.stderr)
             continue

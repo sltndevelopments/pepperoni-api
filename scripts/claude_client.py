@@ -235,7 +235,8 @@ def _make_request(data: bytes, headers: dict, timeout: int = None) -> bytes:
 
 # ── Request building / response parsing ──────────────────────────────────────
 def _build_body(prompt: str, system: str, model: str, max_tokens: int,
-                temperature: float, cache_system: bool, advisor: bool) -> dict:
+                temperature: float, cache_system: bool, advisor: bool,
+                effort: str = None, json_schema: dict = None) -> dict:
     body = {
         "model": model,
         "max_tokens": max_tokens,
@@ -248,6 +249,15 @@ def _build_body(prompt: str, system: str, model: str, max_tokens: int,
                                "cache_control": {"type": "ephemeral"}}]
         else:
             body["system"] = system
+    # output_config: effort cuts output-token spend (the dominant cost for
+    # generation: $15/MTok out vs $3 in); json_schema guarantees valid JSON.
+    out_cfg = {}
+    if effort:
+        out_cfg["effort"] = effort
+    if json_schema:
+        out_cfg["format"] = {"type": "json_schema", "schema": json_schema}
+    if out_cfg:
+        body["output_config"] = out_cfg
     if advisor:
         body["tools"] = [{
             "type": "advisor_20260301",
@@ -284,6 +294,8 @@ def call_claude(
     temperature: float = 0.7,
     advisor: bool = False,
     cache_system: bool = True,
+    effort: str = None,
+    json_schema: dict = None,
     _retries: int = 3,
 ) -> tuple[str, int]:
     """Call Claude Messages API. Returns (text, output_tokens).
@@ -291,6 +303,9 @@ def call_claude(
     advisor=True attaches an Opus advisor (beta) to a Sonnet/Haiku executor for
     higher-quality output at executor prices; silently falls back when the beta
     is unavailable on this account.
+    effort: "low"|"medium"|"high"|"max" — token-spend control (default high).
+    json_schema: structured output — the response text is guaranteed valid JSON
+    matching the schema. Both degrade gracefully on API rejection.
     """
     global _ADVISOR_BROKEN
     if not ANTHROPIC_API_KEY:
@@ -299,11 +314,17 @@ def call_claude(
     model = model or DEFAULT_MODEL
     use_advisor = (advisor and ADVISOR_ENABLE and not _ADVISOR_BROKEN
                    and not model.startswith(("claude-opus", "claude-fable")))
+    use_out_cfg = bool(effort or json_schema)
 
-    body_dict = _build_body(prompt, system, model, max_tokens,
-                            temperature, cache_system, use_advisor)
-    body = json.dumps(body_dict).encode()
-    headers = _headers([ADVISOR_BETA] if use_advisor else None)
+    def rebuild():
+        b = _build_body(prompt, system, model, max_tokens, temperature,
+                        cache_system, use_advisor,
+                        effort=effort if use_out_cfg else None,
+                        json_schema=json_schema if use_out_cfg else None)
+        return b, json.dumps(b).encode(), _headers(
+            [ADVISOR_BETA] if use_advisor else None)
+
+    body_dict, body, headers = rebuild()
 
     errors = []
     for attempt in range(_retries):
@@ -322,17 +343,19 @@ def call_claude(
             if use_advisor and e.code in (400, 403, 404):
                 _ADVISOR_BROKEN = True
                 use_advisor = False
-                body_dict = _build_body(prompt, system, model, max_tokens,
-                                        temperature, cache_system, False)
-                body = json.dumps(body_dict).encode()
-                headers = _headers()
+                body_dict, body, headers = rebuild()
+                continue
+            # output_config rejected (older model/endpoint) → drop and retry.
+            if use_out_cfg and e.code == 400 and "output_config" in err_body:
+                use_out_cfg = False
+                body_dict, body, headers = rebuild()
                 continue
             if e.code in (429, 500, 502, 503, 529) and attempt < _retries - 1:
                 time.sleep(2 ** attempt * 2)
                 continue
             if e.code in (404,) and body_dict["model"] == DEFAULT_MODEL:
-                body_dict["model"] = FALLBACK_MODEL
-                body = json.dumps(body_dict).encode()
+                model = FALLBACK_MODEL
+                body_dict, body, headers = rebuild()
                 continue
             errors.append(f"HTTP {e.code}: {err_body[:300]}")
             break
@@ -346,12 +369,31 @@ def call_claude(
     raise RuntimeError(f"Anthropic API failed. Errors: {'; '.join(errors)}")
 
 
-def call_claude_cheap(prompt: str, system: str = "", max_tokens: int = 2048) -> tuple[str, int]:
+def call_claude_cheap(prompt: str, system: str = "", max_tokens: int = 2048,
+                      effort: str = "low") -> tuple[str, int]:
     """Use a cheaper/faster model for simple tasks like reports."""
     try:
-        return call_claude(prompt, system=system, model=CHEAP_MODEL, max_tokens=max_tokens)
+        return call_claude(prompt, system=system, model=CHEAP_MODEL,
+                           max_tokens=max_tokens, effort=effort)
     except Exception:
-        return call_claude(prompt, system=system, model=CHEAP_FALLBACK, max_tokens=max_tokens)
+        return call_claude(prompt, system=system, model=CHEAP_FALLBACK,
+                           max_tokens=max_tokens, effort=effort)
+
+
+def count_tokens(prompt: str, system: str = "", model: str = None) -> int:
+    """Free pre-flight token count (POST /v1/messages/count_tokens).
+
+    Returns input_tokens, or -1 when the endpoint is unavailable."""
+    try:
+        body = {"model": model or DEFAULT_MODEL,
+                "messages": [{"role": "user", "content": prompt}]}
+        if system:
+            body["system"] = system
+        raw = _http("POST", f"{ANTHROPIC_BASE}/v1/messages/count_tokens",
+                    json.dumps(body).encode(), timeout=60)
+        return json.loads(raw).get("input_tokens", -1)
+    except Exception:
+        return -1
 
 
 # ── Batch API (50% off; stacks with prompt caching) ──────────────────────────
@@ -383,6 +425,7 @@ def call_claude_batch(
             max_tokens=it.get("max_tokens", 4096),
             temperature=it.get("temperature", 0.7),
             cache_system=True, advisor=False,
+            effort=it.get("effort"), json_schema=it.get("json_schema"),
         )
         requests_payload.append({"custom_id": it["custom_id"], "params": body})
 

@@ -33,6 +33,11 @@ try:
 except Exception:
     DEEPSEEK_MODEL = "claude-sonnet-4-6"
 
+# GEO_MODEL: override the generation model (e.g. Haiku pilot at 1/3 the price).
+GEO_MODEL = os.environ.get("GEO_MODEL", "").strip() or DEEPSEEK_MODEL
+# GEO_EFFORT: output-token spend control; templated pages don't need "high".
+GEO_EFFORT = os.environ.get("GEO_EFFORT", "medium")
+
 # ── Limits ────────────────────────────────────────────────────────────────────
 MAX_PAGES_PER_RUN = int(os.environ.get("MAX_GEO_PAGES", "100"))
 MAX_WORKERS = int(os.environ.get("GEO_WORKERS", "5"))
@@ -599,7 +604,7 @@ def generate_one_page(task: dict) -> dict:
         # + schema) runs ~5–7k tokens; lower caps truncated long pages mid-tag.
         html_content, tokens = _shared_call_claude(
             prompt=prep["user"], system=prep["system"],
-            model=DEEPSEEK_MODEL, max_tokens=9000)
+            model=GEO_MODEL, max_tokens=9000, effort=GEO_EFFORT)
         return finalize_page(prep, html_content, tokens)
     except Exception as exc:
         return {"status": "error", "slug": prep["page_slug"], "error": str(exc)}
@@ -622,10 +627,13 @@ def generate_batch(tasks: list) -> list:
             "custom_id": cid,
             "prompt": prep["user"],
             "system": prep["system"],
-            "model": DEEPSEEK_MODEL,
+            "model": GEO_MODEL,
             # 9000: headroom above the instructed 600-800 words so the model
             # closes </html> instead of truncating mid-tag at the cap.
             "max_tokens": 9000,
+            # Templated city landings don't need deep reasoning — medium cuts
+            # output-token spend ($15/MTok) without touching the page spec.
+            "effort": GEO_EFFORT,
         })
 
     if not items:

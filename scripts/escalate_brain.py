@@ -192,6 +192,9 @@ def main():
 
     print(f"🧠 escalating → running brain now (budget left ${remaining_budget():.2f})")
     try:
+        # Escalations are triggered by strong signals → full reasoning depth
+        # (daily ticks default to BRAIN_EFFORT=medium).
+        os.environ["BRAIN_EFFORT"] = os.environ.get("BRAIN_EFFORT_ESCALATED", "high")
         import seo_brain
         seo_brain.main()
     except Exception as e:
