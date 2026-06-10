@@ -237,6 +237,15 @@ def _make_request(data: bytes, headers: dict, timeout: int = None) -> bytes:
 
 
 # ── Request building / response parsing ──────────────────────────────────────
+def _supports_effort(model: str) -> bool:
+    """output_config.effort is supported on Sonnet 4.6+, Opus 4.5+, Fable,
+    Mythos — but NOT on Haiku (batch items with it get invalid_request)."""
+    return (model.startswith(("claude-fable", "claude-mythos"))
+            or model.startswith("claude-sonnet-4-6")
+            or model.startswith(("claude-opus-4-5", "claude-opus-4-6",
+                                 "claude-opus-4-7", "claude-opus-4-8")))
+
+
 def _strict_schema(schema):
     """Structured outputs require additionalProperties=false on every object."""
     if isinstance(schema, dict):
@@ -267,7 +276,7 @@ def _build_body(prompt: str, system: str, model: str, max_tokens: int,
     # output_config: effort cuts output-token spend (the dominant cost for
     # generation: $15/MTok out vs $3 in); json_schema guarantees valid JSON.
     out_cfg = {}
-    if effort:
+    if effort and _supports_effort(model):
         out_cfg["effort"] = effort
     if json_schema:
         out_cfg["format"] = {"type": "json_schema",
