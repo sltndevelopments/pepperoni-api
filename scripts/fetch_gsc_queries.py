@@ -111,7 +111,7 @@ def fetch_queries(token: str, start_date: str, end_date: str) -> list:
     body = json.dumps({
         "startDate": start_date,
         "endDate": end_date,
-        "dimensions": ["query", "page", "country", "device"],
+        "dimensions": ["date", "query", "page", "country", "device"],
         "rowLimit": ROW_LIMIT,
         "startRow": 0,
     }).encode()
@@ -136,10 +136,14 @@ def save_rows(rows: list, fetched_at: str, start_date: str):
     inserted = 0
     for row in rows:
         keys = row.get("keys", [])
-        query   = keys[0] if len(keys) > 0 else ""
-        page    = keys[1] if len(keys) > 1 else ""
-        country = keys[2] if len(keys) > 2 else ""
-        device  = keys[3] if len(keys) > 3 else ""
+        # dimensions order is now [date, query, page, country, device]; the real
+        # per-row date is keys[0] (was previously start_date for every row, which
+        # collapsed all days into one and made INSERT OR IGNORE drop fresh data).
+        row_date = keys[0] if len(keys) > 0 else start_date
+        query   = keys[1] if len(keys) > 1 else ""
+        page    = keys[2] if len(keys) > 2 else ""
+        country = keys[3] if len(keys) > 3 else ""
+        device  = keys[4] if len(keys) > 4 else ""
         try:
             conn.execute(
                 """INSERT OR IGNORE INTO gsc_queries
@@ -147,7 +151,7 @@ def save_rows(rows: list, fetched_at: str, start_date: str):
                     clicks, impressions, ctr, position)
                    VALUES (?,?,?,?,?,?,?,?,?,?)""",
                 (
-                    fetched_at, start_date, query, page, country, device,
+                    fetched_at, row_date, query, page, country, device,
                     row.get("clicks", 0),
                     row.get("impressions", 0),
                     row.get("ctr", 0),
