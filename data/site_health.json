@@ -1,8 +1,8 @@
 {
- "generated_at": "2026-06-11T07:09:35.234502+00:00",
+ "generated_at": "2026-06-11T07:20:37.252242+00:00",
  "pages_scanned": 4364,
- "broken_links_total": 1586,
- "pages_with_broken_links": 1547,
+ "broken_links_total": 1490,
+ "pages_with_broken_links": 1478,
  "broken_links_examples": {
   "/llms-page.html": [
    "/llms.html"
@@ -43,23 +43,23 @@
   "/geo/vypechka-tatarskaya-mingachevir.html": [
    "/geo/vypechka-tatarskaya-mingechaur/"
   ],
-  "/geo/vetchina-bratsk.html": [
-   "/vetchina/"
-  ],
   "/geo/vypechka-tatarskaya-ashgabat.html": [
    "/geo/vypechka-tatarskaya-ashkhabad/"
   ],
   "/geo/farsh-zheleznodorozhny.html": [
    "/geo/farsh-zheleznodorozhnyy/"
   ],
-  "/geo/sosiki-v-teste-derbent.html": [
-   "/horeca/"
-  ],
   "/geo/pelmeni-ulaanbaatar.html": [
    "/geo/pelmeni-ulan-bator/"
   ],
   "/geo/kazylyk-premium-hasavyurt.html": [
    "/geo/kazylyk-premium-khasavyurt/"
+  ],
+  "/geo/vetchina-zheleznodorozhny.html": [
+   "/geo/vetchina-zheleznodorozhnyy/"
+  ],
+  "/geo/vypechka-tatarskaya-balti.html": [
+   "/geo/vypechka-tatarskaya-belts/"
   ]
  },
  "pages_without_canonical": 3,
