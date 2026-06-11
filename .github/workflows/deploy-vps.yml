@@ -76,7 +76,9 @@ jobs:
               # generation, aggressive CTR optimization of existing pages, hard
               # daily spend cap. See scripts/claude_client.py:_budget_guard.
               echo "LLM_DAILY_BUDGET_USD=5"
-              echo "GEO_PER_TICK=0"
+              # GEO_PER_TICK caps the 3-hourly worker; the brain steers the real
+              # daily volume via strategy.geo_daily_target. 3×8 ticks = 24/day max.
+              echo "GEO_PER_TICK=3"
               echo "OPT_POS_LOW=1.5"
               echo "OPT_POS_HIGH=20"
               echo "OPT_MAX_CHANGES=20"
