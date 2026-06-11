@@ -65,6 +65,28 @@ def main() -> int:
     if age is None or age > 48:
         warnings.append("goals.json отсутствует/устарел — таблица целей не обновляется")
 
+    # GSC data freshness: a fetch bug once froze data for a month, leaving the
+    # brain and optimizer working blind on a stale snapshot. GSC lags ~3 days, so
+    # the newest row should never be older than ~5 days.
+    try:
+        import sqlite3
+        from datetime import date
+        db = DATA / "seo_data.db"
+        if db.exists():
+            conn = sqlite3.connect(str(db))
+            maxd = conn.execute("SELECT MAX(date) FROM gsc_queries").fetchone()[0]
+            conn.close()
+            if maxd:
+                gap = (date.today() - date.fromisoformat(maxd)).days
+                if gap > 5:
+                    problems.append(
+                        f"данные GSC устарели на {gap}д (последняя дата {maxd}) — "
+                        f"мозг и оптимизатор работают вслепую, проверь fetch_gsc_queries.py")
+            else:
+                warnings.append("в seo_data.db нет данных GSC — нечего оптимизировать")
+    except Exception:
+        pass
+
     # LLM spend spike guard: today's cost vs LLM_DAILY_ALERT_USD (default $15).
     try:
         import json

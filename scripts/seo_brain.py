@@ -260,9 +260,71 @@ def costs_digest() -> dict:
         return {}
 
 
+def data_health_digest() -> dict:
+    """Self-monitoring: is the brain even working on FRESH, REAL data?
+
+    Surfaces the blind spots the brain previously couldn't see:
+      - GSC data staleness (a fetch bug once froze data for a month)
+      - whole-site CTR (4361 pages with 27 clicks = high impressions, no clicks)
+      - Yandex coverage (0 = critical for RU/Tatarstan halal market)
+      - experiments stuck pending (optimizer can deadlock itself)
+    The brain MUST react to these before chasing new content.
+    """
+    out: dict = {}
+    try:
+        conn = sqlite3.connect(DB_PATH)
+        conn.row_factory = sqlite3.Row
+        # GSC freshness + whole-site CTR over last 30 days
+        row = conn.execute(
+            "SELECT MAX(date) AS maxd, SUM(clicks) AS clk, SUM(impressions) AS imp "
+            "FROM gsc_queries WHERE date >= date('now','-30 days')"
+        ).fetchone()
+        maxd = row["maxd"]
+        if maxd:
+            from datetime import date as _date
+            age = (_date.today() - _date.fromisoformat(maxd)).days
+            out["gsc_latest_date"] = maxd
+            out["gsc_data_age_days"] = age
+            out["gsc_stale"] = age > 5  # GSC lags ~3d; >5 means our fetch is broken
+        imp = row["imp"] or 0
+        clk = row["clk"] or 0
+        out["site_30d_impressions"] = imp
+        out["site_30d_clicks"] = clk
+        out["site_30d_ctr_pct"] = round(100 * clk / imp, 3) if imp else 0.0
+        out["ctr_critically_low"] = bool(imp >= 1000 and (clk / imp) < 0.005)
+        # Yandex coverage
+        yrow = conn.execute(
+            "SELECT SUM(impressions) AS imp, SUM(clicks) AS clk FROM yandex_queries"
+        ).fetchone()
+        out["yandex_impressions"] = yrow["imp"] or 0
+        out["yandex_dark"] = (yrow["imp"] or 0) == 0  # 0 = we're invisible on Yandex
+        conn.close()
+    except Exception:
+        pass
+    # Stuck experiments (pending but applied long ago = optimizer deadlock)
+    try:
+        led = json.loads((DATA / "experiments.json").read_text())
+        from datetime import datetime as _dt, timezone as _tz
+        now = _dt.now(_tz.utc)
+        pend = [e for e in led if e.get("verdict") == "pending"]
+        mature = int(os.environ.get("OPT_MATURE_DAYS", "14"))
+
+        def _age(e):
+            try:
+                return (now - _dt.fromisoformat(e["applied_at"])).days
+            except Exception:
+                return 0
+        out["experiments_pending"] = len(pend)
+        out["experiments_overdue"] = sum(1 for e in pend if _age(e) > mature + 7)
+    except Exception:
+        pass
+    return out
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
+        "data_health": data_health_digest(),
         "goals": goals_digest(),
         "inventory": inventory(),
         "coverage": coverage_gaps(),
@@ -294,6 +356,17 @@ PLAYBOOK = """Ты — стратегический директор по пои
 ошибки никто не перепроверит — следи за халяль-целостностью и качеством сам.
 
 ПРИНЦИПЫ:
+- ЗДОРОВЬЕ ДАННЫХ (блок "data_health") — ПРОВЕРЯЙ ПЕРВЫМ. Это твои глаза:
+  • gsc_stale=true или gsc_data_age_days>5 → данные GSC устарели, ты работаешь
+    вслепую. НЕ доверяй opportunities/goals, в директиве укажи проблему и
+    предложи действие "fix_data" (перезапуск fetch). Это важнее любой генерации.
+  • ctr_critically_low=true → сайт получает показы, но почти нет кликов
+    (заголовки/сниппеты не цепляют). Приоритет №1 — rewrite_pages title/meta у
+    топ-страниц по показам, а НЕ новые страницы.
+  • yandex_dark=true → нас не видно в Яндексе (критично для РФ/Татарстана).
+    Заложи проверку индексации в Яндексе и контент под яндексовый интент.
+  • experiments_overdue>0 → оптимизатор застрял на «созревающих» правках.
+    Укажи это, чтобы их домерили и разблокировали новые правки.
 - ЦЕЛИ: блок "goals" — таблица «дистанция до №1» по целевым запросам. Это
   ГЛАВНЫЙ KPI. worst_gaps — запросы с наибольшим отставанием при реальном
   спросе: их подтягивание (rewrite_pages, new_blog_topics, перелинковка) —
