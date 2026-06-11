@@ -98,6 +98,13 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze f
 log "Step 3.1: Goals — updating distance-to-#1 scoreboard …"
 python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals scoreboard failed (non-fatal)"
 
+# ---- Step 3.14b: FIX LINKS — repair broken internal links (deterministic) ----
+# Closes the "see → fix" loop: redirects geo/typo/lang-dup links to the right
+# page, removes unrendered template placeholders, unwraps genuinely-dead links.
+# Runs BEFORE site_health so the audit below reflects the repair.
+log "Step 3.14b: Fix-links — repairing broken internal links …"
+python3 scripts/fix_links.py >> "$LOG_FILE" 2>&1 || log "⚠️  Fix-links failed (non-fatal)"
+
 # ---- Step 3.15: SITE HEALTH — technical audit (broken links, dup canonicals) ----
 # Deterministic, no LLM. Feeds the brain digest so it fixes the broken
 # foundation (8k+ broken links) BEFORE chasing new content.
