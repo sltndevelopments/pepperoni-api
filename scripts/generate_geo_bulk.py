@@ -794,9 +794,17 @@ def main():
 
     strat = {} if args.ignore_strategy else load_strategy()
     focus_products = strat.get("focus_products") or None
-    if strat.get("geo_daily_target") and args.max_pages == MAX_PAGES_PER_RUN:
+    if strat.get("geo_daily_target"):
         try:
-            args.max_pages = int(strat["geo_daily_target"])
+            # Strategy can only lower the cap, never raise it above the sh-level default.
+            # If --max-pages was explicitly passed (≠ env default), honour it as a hard cap.
+            strategy_target = int(strat["geo_daily_target"])
+            if args.max_pages == MAX_PAGES_PER_RUN:
+                # No explicit CLI override — let strategy steer, but cap at 20 minimum safety
+                args.max_pages = min(strategy_target, MAX_PAGES_PER_RUN)
+            else:
+                # Explicit --max-pages was given: strategy can only reduce, not exceed
+                args.max_pages = min(args.max_pages, strategy_target)
         except Exception:
             pass
     if strat.get("focus_langs") and args.langs is None:

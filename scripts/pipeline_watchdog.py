@@ -73,7 +73,7 @@ def main() -> int:
         day = (led.get(date.today().strftime("%Y-%m"), {})
                   .get("days", {}).get(date.today().isoformat(), {}))
         spent = day.get("usd", 0.0)
-        cap = float(os.environ.get("LLM_DAILY_ALERT_USD", "15"))
+        cap = float(os.environ.get("LLM_DAILY_ALERT_USD", "5"))
         if spent > cap:
             warnings.append(f"расход LLM за сегодня ${spent:.2f} > ${cap:.0f} — "
                             f"проверь объёмы генерации (кнопка «Бюджет» в боте)")
