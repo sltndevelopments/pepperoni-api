@@ -57,11 +57,21 @@ def _norm_path(href: str) -> str | None:
     return href
 
 
+# Paths served by the API backend (api.pepperoni.tatar), not static files.
+# Links to these are valid in production even though no local file exists.
+BACKEND_PREFIXES = ("/api/",)
+
+
 def _resolve(path: str) -> bool:
-    """Does this site path resolve to a real file under public/?"""
+    """Does this site path resolve to a real file under public/?
+
+    Treats a trailing slash as equivalent to the file form (/foo/ == /foo.html),
+    and accepts API backend paths as valid (served dynamically, not as files)."""
     if path in ("/", ""):
         return (PUBLIC / "index.html").exists()
-    rel = path.lstrip("/")
+    if path.startswith(BACKEND_PREFIXES):
+        return True
+    rel = path.strip("/")  # tolerate both /foo and /foo/
     cands = [PUBLIC / rel, PUBLIC / f"{rel}.html", PUBLIC / rel / "index.html"]
     return any(c.exists() for c in cands)
 
