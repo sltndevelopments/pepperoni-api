@@ -211,7 +211,9 @@ def _fix_html(html: str) -> tuple[str, dict]:
             stats["placeholder"] += 1
             return inner
 
-        if not href.startswith("/"):
+        # consider internal links: site-absolute (/x) or own-domain absolute URLs
+        is_own_abs = href.startswith(("http://", "https://")) and OWN_HOST in href
+        if not href.startswith("/") and not is_own_abs:
             return whole  # external / relative / anchor — leave alone
         if _resolves(href):
             return whole
