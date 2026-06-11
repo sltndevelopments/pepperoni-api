@@ -799,6 +799,11 @@ def main():
 
     strat = {} if args.ignore_strategy else load_strategy()
     focus_products = strat.get("focus_products") or None
+    # Quality mode: geo_daily_target == 0 means STOP — generate no new geo pages
+    # regardless of any --max-pages passed by cron/worker.
+    if not args.ignore_strategy and str(strat.get("geo_daily_target", "")).strip() == "0":
+        print("🧠 Strategy: geo_daily_target=0 (quality mode) — пропускаю гео-генерацию.")
+        return
     if strat.get("geo_daily_target"):
         try:
             # Strategy can only lower the cap, never raise it above the sh-level default.
