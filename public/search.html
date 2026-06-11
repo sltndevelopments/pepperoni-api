@@ -101,12 +101,12 @@ function render(q){
   list.innerHTML = out.map(p=>{
     const slug = (p.sku||'').toLowerCase();
     const price = p.offers && (p.offers.price || p.offers.pricePerUnit) || '';
-    return `<a href="/products/${slug}" class="r-card">
+    return `
       <div class="sku">${p.sku||''}</div>
       <div class="name">${p.name||''}</div>
       <div class="cat">${p.category||p.section||''}</div>
       <div class="price">${price ? price + ' ₽' : 'по запросу'}</div>
-    </a>`;
+    `;
   }).join('');
 }
 init();

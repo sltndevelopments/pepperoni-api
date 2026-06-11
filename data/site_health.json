@@ -1,0 +1,245 @@
+{
+ "generated_at": "2026-06-11T07:09:35.234502+00:00",
+ "pages_scanned": 4364,
+ "broken_links_total": 1586,
+ "pages_with_broken_links": 1547,
+ "broken_links_examples": {
+  "/llms-page.html": [
+   "/llms.html"
+  ],
+  "/blog/kazylyk-horse-meat-sausage.html": [
+   "/blog/kazylyk-konina-kolbasa",
+   "/blog/kazylyk-konina-kolbasa",
+   "/blog/kazylyk-konina-kolbasa"
+  ],
+  "/blog/kazylyk-horse-sausage-b2b.html": [
+   "/blog/kazylyk-traditsionnyy-retsept",
+   "/blog/kazylyk-traditsionnyy-retsept",
+   "/blog/kazylyk-traditsionnyy-retsept"
+  ],
+  "/blog/lamb-sausages-halal-wholesale.html": [
+   "/blog/kolbasa-iz-baraniny-halal-optom",
+   "/blog/kolbasa-iz-baraniny-halal-optom",
+   "/blog/kolbasa-iz-baraniny-halal-optom"
+  ],
+  "/blog/iso-22000-certification.html": [
+   "/blog/iso-22000-sertifikatsiya",
+   "/blog/iso-22000-sertifikatsiya",
+   "/blog/iso-22000-sertifikatsiya"
+  ],
+  "/blog/kazylyk-gift-packaging.html": [
+   "/blog/podarochnaya-upakovka-kazylyka",
+   "/blog/podarochnaya-upakovka-kazylyka",
+   "/blog/podarochnaya-upakovka-kazylyka"
+  ],
+  "/blog/how-to-identify-halal-meat.html": [
+   "/blog/kak-opredelit-halal-myaso",
+   "/blog/kak-opredelit-halal-myaso",
+   "/blog/kak-opredelit-halal-myaso"
+  ],
+  "/blog/zamorozhennaya-vs-ohlazhd-horeca.html": [
+   "/en/blog/zamorozhennaya-vs-ohlazhd-horeca"
+  ],
+  "/geo/vypechka-tatarskaya-mingachevir.html": [
+   "/geo/vypechka-tatarskaya-mingechaur/"
+  ],
+  "/geo/vetchina-bratsk.html": [
+   "/vetchina/"
+  ],
+  "/geo/vypechka-tatarskaya-ashgabat.html": [
+   "/geo/vypechka-tatarskaya-ashkhabad/"
+  ],
+  "/geo/farsh-zheleznodorozhny.html": [
+   "/geo/farsh-zheleznodorozhnyy/"
+  ],
+  "/geo/sosiki-v-teste-derbent.html": [
+   "/horeca/"
+  ],
+  "/geo/pelmeni-ulaanbaatar.html": [
+   "/geo/pelmeni-ulan-bator/"
+  ],
+  "/geo/kazylyk-premium-hasavyurt.html": [
+   "/geo/kazylyk-premium-khasavyurt/"
+  ]
+ },
+ "pages_without_canonical": 3,
+ "no_canonical_examples": [
+  "/yandex_d0a735c825c78ddf.html",
+  "/d0a735c825c78ddf.html",
+  "/china.html"
+ ],
+ "duplicate_canonical_clusters": 527,
+ "duplicate_canonical_examples": {
+  "https://pepperoni.tatar/": 6,
+  "https://pepperoni.tatar/geo/farsh-tallin/": 3,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-vilnyus/": 3,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-riga/": 3,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-vilnyus/": 3,
+  "https://pepperoni.tatar/geo/kazylyk-premium-daugavpils/": 3,
+  "https://pepperoni.tatar/geo/farsh-kaunas/": 3,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-daugavpils/": 3,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-tallin/": 3,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-tartu/": 3,
+  "https://pepperoni.tatar/geo/pelmeni-kaunas/": 3,
+  "https://pepperoni.tatar/geo/vetchina-riga/": 3,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-riga/": 3,
+  "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-riga/": 3,
+  "https://pepperoni.tatar/geo/kazylyk-premium-tallin/": 3
+ },
+ "thin_pages_total": 123,
+ "thin_pages_examples": [
+  {
+   "page": "/geo/topping-dlya-pitstsy-moskva.html",
+   "words": 0
+  },
+  {
+   "page": "/geo/sosiki-dlya-hotdog-mogilev.html",
+   "words": 0
+  },
+  {
+   "page": "/geo/vetchina-prokopyevsk.html",
+   "words": 0
+  },
+  {
+   "page": "/uz/geo/sosiki-v-teste-bukhara.html",
+   "words": 0
+  },
+  {
+   "page": "/ar/geo/burgir-lahmeh-halal-medina.html",
+   "words": 0
+  },
+  {
+   "page": "/ar/geo/ham-halal-casablanca.html",
+   "words": 0
+  },
+  {
+   "page": "/ar/geo/lahmeh-niya-halal-giza.html",
+   "words": 0
+  },
+  {
+   "page": "/ar/geo/sujuk-hotdog-halal-ajman.html",
+   "words": 0
+  },
+  {
+   "page": "/ar/geo/sujuk-hotdog-halal-riyadh.html",
+   "words": 0
+  },
+  {
+   "page": "/yandex_d0a735c825c78ddf.html",
+   "words": 2
+  },
+  {
+   "page": "/d0a735c825c78ddf.html",
+   "words": 2
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-kostanay.html",
+   "words": 44
+  },
+  {
+   "page": "/geo/topping-dlya-pitstsy-balti.html",
+   "words": 46
+  },
+  {
+   "page": "/ar/geo/ham-halal-kuwait-city.html",
+   "words": 46
+  },
+  {
+   "page": "/ar/geo/burgir-lahmeh-halal-riyadh.html",
+   "words": 48
+  }
+ ],
+ "broken_html_total": 19,
+ "broken_html_examples": [
+  {
+   "page": "/blog/kazylyk-chto-eto.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/blog/kontrol-kachestva-myasnyh-produktov.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-dzerzhinsk.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/pepperoni-vitebsk.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/farsh-fergana.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/kazylyk-premium-petropavlovsk-kz.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-simferopol.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-pavlodar.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/kopchenye-delikatesy-krasnogorsk.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-arzamas.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/vypechka-tatarskaya-vologda.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-krasnogorsk.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/geo/pelmeni-rybinsk.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/en/blog/meat-products-quality-control.html",
+   "issues": [
+    "junk:Here's"
+   ]
+  },
+  {
+   "page": "/en/geo/halal-bakery-classic-daugavpils.html",
+   "issues": [
+    "junk:Here i"
+   ]
+  }
+ ]
+}
