@@ -23,6 +23,15 @@ data/logs/
 !data/logs/.gitkeep
 !data/.gitkeep
 
+# Python bytecode caches (never commit)
+__pycache__/
+*.pyc
+
+# QA quarantine — broken pages held back by qa_pages.py, regenerated each run
+data/quarantine/
+# Proxy lock + transient runtime artifacts
+data/llm_costs.json.lock
+
 # Sales intel: keep README, scripts, reports, small guides — not raw scrapes / big spreadsheets
 sales-intel/raw/
 sales-intel/data/*.csv
