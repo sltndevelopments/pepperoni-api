@@ -33,6 +33,23 @@ PLACEHOLDER_RE = re.compile(r"\$\{[^}]*\}|\{\{[^}]*\}\}|<%[^%]*%>")
 A_TAG_RE = re.compile(r'<a\b[^>]*?href=["\']([^"\']*)["\'][^>]*>(.*?)</a>', re.I | re.S)
 BACKEND_PREFIXES = ("/api/",)
 
+# Index of all existing site paths (built once) for fuzzy "did you mean" repair.
+_SITE_PATHS: set[str] | None = None
+
+
+def _site_paths() -> set[str]:
+    global _SITE_PATHS
+    if _SITE_PATHS is None:
+        paths = set()
+        for f in PUBLIC.rglob("*.html"):
+            rel = "/" + str(f.relative_to(PUBLIC))
+            paths.add(rel)
+            paths.add(rel[:-5])               # without .html
+            if rel.endswith("/index.html"):
+                paths.add(rel[:-len("index.html")].rstrip("/"))
+        _SITE_PATHS = paths
+    return _SITE_PATHS
+
 
 def _resolves(path: str) -> bool:
     if path in ("/", ""):
@@ -46,8 +63,33 @@ def _resolves(path: str) -> bool:
     return any((PUBLIC / c).exists() for c in (rel, f"{rel}.html", f"{rel}/index.html"))
 
 
+def _suggest(path: str) -> str | None:
+    """Find an existing path that's an obvious fix for a broken one.
+
+    Handles the concrete generator bugs seen on this site:
+      - duplicated language prefix:  /en/en/foo  →  /en/foo
+      - common typo: missing 's' (sosiki→sosiski) or extra segment
+    Returns a resolving path or None (caller then unwraps the dead link).
+    """
+    base = path.split("#")[0].split("?")[0]
+    # 1) collapse duplicated /en/en/, /ar/ar/ etc.
+    dedup = re.sub(r"^/([a-z]{2})/\1/", r"/\1/", base)
+    if dedup != base and _resolves(dedup):
+        return dedup
+    # 2) exact membership in the site index (with/without slash/.html)
+    cand = base.rstrip("/")
+    if cand in _site_paths():
+        return cand
+    # 3) light typo bridge: try inserting 's' (sosiki→sosiski is frequent)
+    for variant in (base.replace("sosiki", "sosiski"),
+                    base.replace("pepperoni-dlya-", "dlya-")):
+        if variant != base and _resolves(variant):
+            return variant
+    return None
+
+
 def _fix_html(html: str) -> tuple[str, dict]:
-    stats = {"placeholder": 0, "slash_fixed": 0, "unwrapped": 0}
+    stats = {"placeholder": 0, "redirected": 0, "unwrapped": 0}
 
     def repl(m: re.Match) -> str:
         href = m.group(1).strip()
@@ -64,16 +106,14 @@ def _fix_html(html: str) -> tuple[str, dict]:
         if _resolves(href):
             return whole
 
-        # 2) try slash/.html normalisation that resolves
-        base = href.split("#")[0].split("?")[0].strip("/")
-        suffix = href[len("/" + base):]  # preserve #anchor/?query
-        for cand in (f"/{base}.html", f"/{base}/", f"/{base}"):
-            if _resolves(cand):
-                stats["slash_fixed"] += 1
-                return whole.replace(f'"{href}"', f'"{cand}{suffix}"').replace(
-                    f"'{href}'", f"'{cand}{suffix}'")
+        # 2) try to redirect to an obviously-correct existing page
+        fix = _suggest(href)
+        if fix:
+            stats["redirected"] += 1
+            return whole.replace(f'"{href}"', f'"{fix}"').replace(
+                f"'{href}'", f"'{fix}'")
 
-        # 3) genuinely dead → unwrap to plain text (stop the 404)
+        # 3) genuinely dead, no good target → unwrap to plain text (stop the 404)
         stats["unwrapped"] += 1
         return inner
 
@@ -84,7 +124,8 @@ def _fix_html(html: str) -> tuple[str, dict]:
 def main() -> int:
     dry = "--dry-run" in sys.argv
     files = list(PUBLIC.rglob("*.html"))
-    totals = {"placeholder": 0, "slash_fixed": 0, "unwrapped": 0}
+    _site_paths()  # warm the index once
+    totals = {"placeholder": 0, "redirected": 0, "unwrapped": 0}
     changed_files = 0
     for f in files:
         try:
@@ -101,7 +142,7 @@ def main() -> int:
     print(f"🔗 fix_links: {'(dry-run) ' if dry else ''}"
           f"изменено страниц {changed_files} | "
           f"шаблонный мусор {totals['placeholder']} | "
-          f"нормализовано слеш/.html {totals['slash_fixed']} | "
+          f"перенаправлено на верный URL {totals['redirected']} | "
           f"снято мёртвых ссылок {totals['unwrapped']}")
     return 0
 
