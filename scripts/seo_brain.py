@@ -321,10 +321,21 @@ def data_health_digest() -> dict:
     return out
 
 
+def site_health_digest() -> dict:
+    """Technical-SEO health of the whole site (broken links, duplicate
+    canonicals, thin/broken pages) — produced by scripts/site_health.py."""
+    try:
+        import site_health
+        return site_health.brain_summary()
+    except Exception:
+        return {}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
         "data_health": data_health_digest(),
+        "site_health": site_health_digest(),
         "goals": goals_digest(),
         "inventory": inventory(),
         "coverage": coverage_gaps(),
@@ -367,6 +378,16 @@ PLAYBOOK = """Ты — стратегический директор по пои
     Заложи проверку индексации в Яндексе и контент под яндексовый интент.
   • experiments_overdue>0 → оптимизатор застрял на «созревающих» правках.
     Укажи это, чтобы их домерили и разблокировали новые правки.
+- ТЕХНИЧЕСКОЕ ЗДОРОВЬЕ (блок "site_health") — фундамент, без него рост невозможен:
+  • broken_links_total>0 → битые внутренние ссылки (404 для Google и людей).
+    Это ПРИОРИТЕТ: предложи действие "fix_links" — починить/удалить мёртвые ссылки.
+  • duplicate_canonical_clusters>0 → группы страниц с одинаковым canonical =
+    тонкий/дублированный контент, который Google понижает. НЕ плоди новые
+    похожие страницы; вместо этого укрупняй/уникализируй существующие или
+    ставь правильные canonical.
+  • thin_pages_total / broken_html_total → страницы с куцым или сломанным
+    контентом (LLM-мусор, незакрытый HTML). Заложи их перегенерацию/ремонт
+    (fix_pages.py) ДО создания нового. Сломанный фундамент топит весь домен.
 - ЦЕЛИ: блок "goals" — таблица «дистанция до №1» по целевым запросам. Это
   ГЛАВНЫЙ KPI. worst_gaps — запросы с наибольшим отставанием при реальном
   спросе: их подтягивание (rewrite_pages, new_blog_topics, перелинковка) —

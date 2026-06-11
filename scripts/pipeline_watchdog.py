@@ -102,6 +102,21 @@ def main() -> int:
     except Exception:
         pass
 
+    # Site-health: broken internal links are a silent SEO killer (we found 8k+).
+    try:
+        import json as _json
+        sh = _json.loads((DATA / "site_health.json").read_text())
+        bl = sh.get("broken_links_total", 0)
+        if bl > 500:
+            problems.append(
+                f"битых внутренних ссылок: {bl} (на {sh.get('pages_with_broken_links',0)} стр.) — "
+                f"чинит fix_links; Google и люди видят 404")
+        bh = sh.get("broken_html_total", 0)
+        if bh > 20:
+            warnings.append(f"страниц с битым HTML: {bh} — нужен fix_pages.py")
+    except Exception:
+        pass
+
     if not problems and not warnings:
         print("watchdog: all green")
         return 0

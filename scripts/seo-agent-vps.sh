@@ -98,6 +98,12 @@ python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze f
 log "Step 3.1: Goals — updating distance-to-#1 scoreboard …"
 python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals scoreboard failed (non-fatal)"
 
+# ---- Step 3.15: SITE HEALTH — technical audit (broken links, dup canonicals) ----
+# Deterministic, no LLM. Feeds the brain digest so it fixes the broken
+# foundation (8k+ broken links) BEFORE chasing new content.
+log "Step 3.15: Site-health — technical audit …"
+python3 scripts/site_health.py >> "$LOG_FILE" 2>&1 || log "⚠️  Site-health failed (non-fatal)"
+
 # ---- Step 3.2: MARKET PULSE — monthly live-web research of export markets ----
 # Perplexity Agent API over the 15 target countries. Internally self-gated:
 # exits instantly unless data/market_pulse.json is older than 28 days.
@@ -207,6 +213,7 @@ git add data/escalation_state.json 2>/dev/null || true
 git add data/strategy.json data/goals.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
+git add data/site_health.json 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 
