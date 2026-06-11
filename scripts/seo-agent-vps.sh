@@ -243,6 +243,8 @@ git add data/aio_visibility.json 2>/dev/null || true
 git add data/escalation_state.json 2>/dev/null || true
 # Brain strategy + goals scoreboard (durable: Actions/worker must see them too).
 git add data/strategy.json data/goals.json 2>/dev/null || true
+# Fable's long-term memory (principles/decisions/OKR/facts) — must persist.
+git add data/fable_memory.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
