@@ -21,12 +21,14 @@ Usage: python3 scripts/fix_links.py [--dry-run]
 """
 from __future__ import annotations
 
+import json
 import re
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
+DATA = ROOT / "data"
 
 PLACEHOLDER_RE = re.compile(r"\$\{[^}]*\}|\{\{[^}]*\}\}|<%[^%]*%>")
 # <a ...href="X"...>TEXT</a>  (non-greedy, single tag)
@@ -35,6 +37,35 @@ BACKEND_PREFIXES = ("/api/",)
 
 # Index of all existing site paths (built once) for fuzzy "did you mean" repair.
 _SITE_PATHS: set[str] | None = None
+_GEO_FALLBACK: dict[str, str] | None = None
+
+
+def _geo_fallback() -> dict[str, str]:
+    """Map a product geo-slug → its best existing category page, so a link to a
+    not-yet-generated geo page (/geo/pepperoni-astana/) routes to the relevant
+    catalog page instead of being deleted (preserves internal-link structure)."""
+    global _GEO_FALLBACK
+    if _GEO_FALLBACK is not None:
+        return _GEO_FALLBACK
+    out: dict[str, str] = {}
+    try:
+        d = json.loads((DATA / "products_geo.json").read_text())
+        products = d["products"] if isinstance(d, dict) else d
+    except Exception:
+        products = []
+    sp = _site_paths()
+    for p in products:
+        slug = (p.get("slug_ru") or "").strip()
+        if not slug:
+            continue
+        # candidate category pages, most specific first
+        for cand in (f"/{slug}.html", f"/{slug}-optom.html",
+                     f"/{slug}-dlya-pizzerii.html", f"/{slug}.html"):
+            if cand[:-5] in sp or cand in sp:
+                out[slug] = cand[:-5]
+                break
+    _GEO_FALLBACK = out
+    return out
 
 
 def _site_paths() -> set[str]:
@@ -85,6 +116,15 @@ def _suggest(path: str) -> str | None:
                     base.replace("pepperoni-dlya-", "dlya-")):
         if variant != base and _resolves(variant):
             return variant
+    # 4) not-yet-generated geo page → route to the product's category page
+    m = re.match(r"^/geo/([a-z-]+?)-[a-z]+/?$", base)
+    if m:
+        fb = _geo_fallback()
+        slug = m.group(1)
+        # longest product-slug prefix wins (e.g. sosiki-dlya-hotdog before sosiki)
+        for cand_slug in sorted(fb, key=len, reverse=True):
+            if slug == cand_slug or slug.startswith(cand_slug + "-"):
+                return fb[cand_slug]
     return None
 
 
