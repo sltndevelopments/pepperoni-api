@@ -331,11 +331,21 @@ def site_health_digest() -> dict:
         return {}
 
 
+def cwv_digest() -> dict:
+    """Core Web Vitals (page speed) per template — Google ranking factor."""
+    try:
+        import core_web_vitals
+        return core_web_vitals.brain_summary()
+    except Exception:
+        return {}
+
+
 def build_digest() -> dict:
     return {
         "date": TODAY,
         "data_health": data_health_digest(),
         "site_health": site_health_digest(),
+        "page_speed": cwv_digest(),
         "goals": goals_digest(),
         "inventory": inventory(),
         "coverage": coverage_gaps(),
@@ -385,9 +395,13 @@ PLAYBOOK = """Ты — стратегический директор по пои
     тонкий/дублированный контент, который Google понижает. НЕ плоди новые
     похожие страницы; вместо этого укрупняй/уникализируй существующие или
     ставь правильные canonical.
-  • thin_pages_total / broken_html_total → страницы с куцым или сломанным
+  •     thin_pages_total / broken_html_total → страницы с куцым или сломанным
     контентом (LLM-мусор, незакрытый HTML). Заложи их перегенерацию/ремонт
     (fix_pages.py) ДО создания нового. Сломанный фундамент топит весь домен.
+- СКОРОСТЬ (блок "page_speed") — фактор ранжирования Google. slow_templates —
+  типы страниц с медленным LCP/INP или сдвигом макета (CLS). Если у шаблона
+  стабильно низкий perf_score — заложи задачу на оптимизацию этого шаблона
+  (картинки, скрипты), это поднимает позиции по всем страницам типа сразу.
 - ЦЕЛИ: блок "goals" — таблица «дистанция до №1» по целевым запросам. Это
   ГЛАВНЫЙ KPI. worst_gaps — запросы с наибольшим отставанием при реальном
   спросе: их подтягивание (rewrite_pages, new_blog_topics, перелинковка) —

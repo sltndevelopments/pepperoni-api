@@ -104,6 +104,10 @@ python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals sc
 log "Step 3.15: Site-health — technical audit …"
 python3 scripts/site_health.py >> "$LOG_FILE" 2>&1 || log "⚠️  Site-health failed (non-fatal)"
 
+# ---- Step 3.16: CORE WEB VITALS — page speed per template (self-gated 7d) ----
+log "Step 3.16: Core Web Vitals — page-speed check …"
+python3 scripts/core_web_vitals.py >> "$LOG_FILE" 2>&1 || log "⚠️  CWV failed (non-fatal)"
+
 # ---- Step 3.2: MARKET PULSE — monthly live-web research of export markets ----
 # Perplexity Agent API over the 15 target countries. Internally self-gated:
 # exits instantly unless data/market_pulse.json is older than 28 days.
@@ -213,7 +217,7 @@ git add data/escalation_state.json 2>/dev/null || true
 git add data/strategy.json data/goals.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
-git add data/site_health.json 2>/dev/null || true
+git add data/site_health.json data/cwv.json 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 
