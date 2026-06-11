@@ -75,7 +75,9 @@ jobs:
               echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "ANTHROPIC_PROXY_FALLBACK=${ANTHROPIC_PROXY_FALLBACK:-}"
               echo "ASOCKS_API_KEY=${ASOCKS_API_KEY:-}"
-              echo "OPUS_MONTHLY_BUDGET_USD=40"
+              # Dedicated monthly budget for the BRAIN (Fable + escalations),
+              # tracked separately from the "hands" via data/opus_budget.json.
+              echo "OPUS_MONTHLY_BUDGET_USD=30"
               # Cost & quality controls (set 2026-06-11). Quality mode: no new geo
               # generation, aggressive CTR optimization of existing pages, hard
               # daily spend cap. See scripts/claude_client.py:_budget_guard.
