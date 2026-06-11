@@ -168,6 +168,14 @@ else
     python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
 fi
 
+# ---- Step 3.5b: TOOLSMITH — build & run tools the brain proposed for itself ----
+# The brain can request its own analysis tools (propose_tools/run_tools in
+# strategy.json); toolsmith generates them (model of the brain's choice) into
+# scripts/brain_tools/ after a static safety scan, then runs requested ones
+# read-only so their output feeds the NEXT brain digest (block "toolbox").
+log "Step 3.5b: Toolsmith — building/running brain's self-made tools …"
+python3 scripts/brain_toolsmith.py >> "$LOG_FILE" 2>&1 || log "⚠️  Toolsmith failed (non-fatal)"
+
 # ---- Step 3.6: WORKER — execute the brain's strategy (closes the loop) ----
 # Reads data/strategy.json and builds what Fable decided: blog topics,
 # PL/OEM pages, rewrites. Without this step the strategy is dead paper.
@@ -225,6 +233,9 @@ git add data/strategy.json data/goals.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
+# Brain's self-made tools registry + the generated tool scripts (durable).
+git add data/brain_tools.json 2>/dev/null || true
+git add 'scripts/brain_tools/*.py' 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 

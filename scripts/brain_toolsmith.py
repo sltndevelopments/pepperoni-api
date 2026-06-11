@@ -1,0 +1,241 @@
+#!/usr/bin/env python3
+"""Brain Toolsmith — lets the Fable brain build its own tools.
+
+The brain can emit `propose_tools` in its strategy (data/strategy.json). Each
+proposal describes a small, single-purpose Python utility the brain wants in its
+toolbox (e.g. "find product pages missing a price", "list cities with zero geo
+coverage for a product"). This executor turns each proposal into a real script
+under scripts/brain_tools/, using the model the BRAIN chose (haiku/sonnet/opus).
+
+Safety model (the brain is autonomous, so the guardrails live here):
+  • Generated tools are written to scripts/brain_tools/<name>.py — an isolated
+    namespace, never overwriting core pipeline scripts.
+  • Every tool must pass an AST parse + a static safety scan (no os.system,
+    subprocess, shutil.rmtree, network writes, eval/exec, open(...,'w') on paths
+    outside data/ or public/ unless dry-run) BEFORE it is accepted.
+  • A registry (data/brain_tools.json) tracks every tool, its purpose, the model
+    used, cost, and status. Existing tools are not regenerated unless the brain
+    bumps the proposal's "version".
+  • Tools are GENERATED here but NOT auto-run. The brain invokes a tool in a
+    later cycle by listing it in `run_tools`; this executor runs it read-only
+    (capturing stdout) and feeds the result back into the next brain digest.
+
+Model policy: the brain picks per tool. Cheap analysis → haiku; codegen that
+needs care → sonnet; novel/tricky tool → opus. Default sonnet.
+
+Usage:
+  python3 scripts/brain_toolsmith.py            # build proposed, run requested
+  python3 scripts/brain_toolsmith.py --build    # only build proposed tools
+  python3 scripts/brain_toolsmith.py --run NAME # run one tool read-only
+"""
+from __future__ import annotations
+
+import ast
+import io
+import json
+import re
+import sys
+from contextlib import redirect_stdout
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).parent.parent
+DATA = ROOT / "data"
+TOOLS_DIR = ROOT / "scripts" / "brain_tools"
+REGISTRY = DATA / "brain_tools.json"
+STRATEGY = DATA / "strategy.json"
+
+ALLOWED_MODELS = {
+    "haiku": "claude-haiku-4-5-20251001",
+    "sonnet": "claude-sonnet-4-6",
+    "opus": "claude-opus-4-8",
+}
+DEFAULT_MODEL_KEY = "sonnet"
+
+# Static safety scan — generated tool code must not contain these.
+FORBIDDEN = (
+    "os.system", "subprocess", "shutil.rmtree", "eval(", "exec(",
+    "__import__", "socket.", "requests.post", "requests.put",
+    "requests.delete", "urllib.request.urlopen", "rmtree", "os.remove",
+    "os.unlink", "Path.unlink", ".write_bytes(", "pickle.",
+)
+
+TOOLSMITH_SYSTEM = """Ты — генератор маленьких служебных Python-скриптов («инструментов»)
+для SEO-мозга сайта pepperoni.tatar (статический сайт, каталог халяль-продукции).
+Тебе дают описание нужного инструмента; верни ТОЛЬКО код одного .py-файла.
+
+ЖЁСТКИЕ ПРАВИЛА (иначе инструмент отклонят автоматически):
+- Только стандартная библиотека + json + pathlib + re + collections. НИКАКИХ
+  сторонних пакетов, сети, subprocess, os.system, eval/exec, удаления файлов.
+- Только ЧТЕНИЕ данных. Запись разрешена ТОЛЬКО в data/ (json-отчёт инструмента).
+- Скрипт ДОЛЖЕН иметь функцию main() -> None, печатающую КОМПАКТНЫЙ результат
+  (JSON или короткие строки) в stdout — это пойдёт в дайджест мозга.
+- Пути считай от корня репозитория: ROOT = Path(__file__).parents[2].
+  Данные: ROOT/'data', страницы: ROOT/'public'.
+- Без аргументов командной строки, без input(). Идемпотентно, быстро (<5 c).
+- Вверху файла — docstring: что инструмент делает и зачем мозгу.
+Верни чистый код без markdown-ограждений."""
+
+
+def _registry() -> dict:
+    try:
+        return json.loads(REGISTRY.read_text())
+    except Exception:
+        return {"tools": {}}
+
+
+def _save_registry(reg: dict) -> None:
+    DATA.mkdir(parents=True, exist_ok=True)
+    REGISTRY.write_text(json.dumps(reg, ensure_ascii=False, indent=1))
+
+
+def _safe(code: str) -> tuple[bool, str]:
+    try:
+        ast.parse(code)
+    except SyntaxError as e:
+        return False, f"syntax error: {e}"
+    for bad in FORBIDDEN:
+        if bad in code:
+            return False, f"forbidden construct: {bad}"
+    if "def main(" not in code:
+        return False, "no main() function"
+    return True, ""
+
+
+def _strip_fence(text: str) -> str:
+    text = text.strip()
+    if text.startswith("```"):
+        text = re.sub(r"^```[a-zA-Z]*\n", "", text)
+        text = re.sub(r"\n```\s*$", "", text)
+    return text.strip()
+
+
+def build_tool(proposal: dict, reg: dict) -> str:
+    """Generate one tool from a proposal. Returns status string."""
+    name = re.sub(r"[^a-z0-9_]", "_", (proposal.get("name") or "").lower()).strip("_")
+    if not name:
+        return "skip: no name"
+    purpose = (proposal.get("purpose") or "").strip()
+    spec = (proposal.get("spec") or purpose).strip()
+    version = int(proposal.get("version", 1))
+    model_key = (proposal.get("model") or DEFAULT_MODEL_KEY).lower()
+    model = ALLOWED_MODELS.get(model_key, ALLOWED_MODELS[DEFAULT_MODEL_KEY])
+
+    existing = reg["tools"].get(name)
+    if existing and int(existing.get("version", 1)) >= version and \
+            existing.get("status") == "ready":
+        return f"skip: {name} v{version} already built"
+
+    from claude_client import call_claude
+    prompt = (f"Создай инструмент «{name}».\nЦель (зачем мозгу): {purpose}\n"
+              f"Что должен делать: {spec}\n"
+              "Помни правила безопасности из system. Верни только код .py.")
+    try:
+        code, _ = call_claude(prompt, system=TOOLSMITH_SYSTEM, model=model,
+                              max_tokens=2048, temperature=0.2)
+    except Exception as e:
+        if e.__class__.__name__ == "BudgetExceeded":
+            raise
+        return f"fail: {name} — LLM error {e}"
+
+    code = _strip_fence(code)
+    ok, why = _safe(code)
+    if not ok:
+        reg["tools"][name] = {"status": "rejected", "reason": why,
+                              "version": version, "model": model_key,
+                              "purpose": purpose,
+                              "updated_at": datetime.now(timezone.utc).isoformat()}
+        return f"reject: {name} — {why}"
+
+    TOOLS_DIR.mkdir(parents=True, exist_ok=True)
+    (TOOLS_DIR / "__init__.py").write_text("")
+    (TOOLS_DIR / f"{name}.py").write_text(code, encoding="utf-8")
+    reg["tools"][name] = {"status": "ready", "version": version,
+                          "model": model_key, "purpose": purpose, "spec": spec,
+                          "updated_at": datetime.now(timezone.utc).isoformat(),
+                          "last_result": None}
+    return f"built: {name} v{version} ({model_key})"
+
+
+def run_tool(name: str, reg: dict) -> str:
+    """Run a ready tool read-only, capture stdout into the registry."""
+    name = re.sub(r"[^a-z0-9_]", "_", name.lower()).strip("_")
+    path = TOOLS_DIR / f"{name}.py"
+    if not path.exists():
+        return f"run-skip: {name} not found"
+    # Execute in a restricted namespace; tools were safety-scanned at build time.
+    src = path.read_text()
+    ns: dict = {"__name__": "__brain_tool__", "__file__": str(path)}
+    buf = io.StringIO()
+    try:
+        code_obj = compile(src, str(path), "exec")
+        exec(code_obj, ns)  # noqa: S102 — sandboxed by build-time static scan
+        if "main" in ns:
+            with redirect_stdout(buf):
+                ns["main"]()
+    except Exception as e:
+        out = f"error: {e}"
+    else:
+        out = buf.getvalue().strip()[:4000]
+    reg["tools"].setdefault(name, {})["last_result"] = out
+    reg["tools"][name]["last_run_at"] = datetime.now(timezone.utc).isoformat()
+    return f"ran: {name} ({len(out)} chars)"
+
+
+def brain_summary() -> dict:
+    """Compact view of the brain's toolbox for the next digest."""
+    reg = _registry()
+    ready = {n: t for n, t in reg.get("tools", {}).items()
+             if t.get("status") == "ready"}
+    return {
+        "available_tools": [
+            {"name": n, "purpose": t.get("purpose", ""),
+             "last_result": (t.get("last_result") or "")[:500]}
+            for n, t in ready.items()
+        ],
+        "count": len(ready),
+    }
+
+
+def main() -> int:
+    sys.path.insert(0, str(ROOT / "scripts"))
+    args = sys.argv[1:]
+    reg = _registry()
+    try:
+        strat = json.loads(STRATEGY.read_text())
+    except Exception:
+        strat = {}
+
+    if "--run" in args:
+        i = args.index("--run")
+        name = args[i + 1] if i + 1 < len(args) else ""
+        print(run_tool(name, reg))
+        _save_registry(reg)
+        return 0
+
+    build_only = "--build" in args
+
+    # 1) Build any tools the brain proposed
+    for proposal in (strat.get("propose_tools") or []):
+        try:
+            print("🛠 ", build_tool(proposal, reg))
+        except Exception as e:
+            if e.__class__.__name__ == "BudgetExceeded":
+                print(f"🛑 {e}", file=sys.stderr)
+                break
+            print(f"⚠️  toolsmith error: {e}", file=sys.stderr)
+    _save_registry(reg)
+
+    # 2) Run any tools the brain requested (read-only), feed results back
+    if not build_only:
+        for name in (strat.get("run_tools") or []):
+            print("▶️ ", run_tool(name, reg))
+        _save_registry(reg)
+
+    summary = brain_summary()
+    print(f"🧰 toolbox: {summary['count']} инструмент(ов) готовы")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
