@@ -10082,6 +10082,18 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-achinsk</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-aktau</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-aktobe</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -22585,6 +22597,12 @@
   <url>
     <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-malaysia</loc>
     <lastmod>2026-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-manama</loc>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
