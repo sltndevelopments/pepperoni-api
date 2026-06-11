@@ -39,6 +39,38 @@ BACKEND_PREFIXES = ("/api/",)
 _SITE_PATHS: set[str] | None = None
 _GEO_FALLBACK: dict[str, str] | None = None
 
+# Explicit geo-slug → existing category page aliases. products_geo.json uses
+# slightly different slugs than the catalog category pages (sosiki vs sosiski,
+# vetchina vs vetchina-optom). These bridge the gap so geo links to not-yet-
+# generated city pages route to the right catalog category instead of 404.
+# Products with NO category page yet (farsh, pelmeni, syroje-myaso, private-label,
+# topping-dlya-pitstsy, vypechka-*, kopchenye-delikatesy) are intentionally absent —
+# the brain creates those category pages; until then their links are unwrapped.
+GEO_SLUG_ALIASES = {
+    "pepperoni": "/pepperoni",
+    "halal-pepperoni": "/pepperoni",
+    "babbroni-halal": "/pepperoni",
+    "sosiki-dlya-hotdog": "/sosiski-dlya-hotdog",
+    "halal-hot-dog-sausages": "/sosiski-dlya-hotdog",
+    "sujuk-hotdog-halal": "/sosiski-dlya-hotdog",
+    "sosiki-v-teste": "/sosiski-dlya-hotdog",  # closest existing category
+    "halal-corn-dog-sausages": "/sosiski-dlya-hotdog",
+    "sujuk-aajin-halal": "/sosiski-dlya-hotdog",
+    "vetchina": "/vetchina-optom",
+    "halal-ham": "/vetchina-optom",
+    "ham-halal": "/vetchina-optom",
+    "kotlety-dlya-burgerov": "/kotlety-dlya-burgerov",
+    "halal-burger-patties": "/kotlety-dlya-burgerov",
+    "burgir-lahmeh-halal": "/kotlety-dlya-burgerov",
+    "kazylyk-premium": "/kazylyk",
+    "kopchenye-delikatesy": "/kolbasy-kopchyonye",
+    "kolbasnye-izdeliya": "/kolbasy-varenye",
+    "vypechka-klassicheskaya": "/vyipechka-halyal",
+    "vypechka-tatarskaya": "/vyipechka-halyal",
+    "farsh": "/myasnyie-zagotovki",
+    "syroje-myaso": "/myasnyie-zagotovki",
+}
+
 
 def _geo_fallback() -> dict[str, str]:
     """Map a product geo-slug → its best existing category page, so a link to a
@@ -47,30 +79,25 @@ def _geo_fallback() -> dict[str, str]:
     global _GEO_FALLBACK
     if _GEO_FALLBACK is not None:
         return _GEO_FALLBACK
-    out: dict[str, str] = {}
+    sp = _site_paths()
+    # Start from explicit aliases, keep only those whose target page actually exists.
+    out: dict[str, str] = {k: v for k, v in GEO_SLUG_ALIASES.items() if v in sp}
+    # Then auto-discover any product whose own slug page exists (future-proof:
+    # once the brain creates /farsh.html etc., links route there automatically).
     try:
         d = json.loads((DATA / "products_geo.json").read_text())
         products = d["products"] if isinstance(d, dict) else d
     except Exception:
         products = []
-    sp = _site_paths()
     for p in products:
-        # resolve the best category page once from the RU slug...
         ru = (p.get("slug_ru") or "").strip()
-        target = None
-        for cand in (f"/{ru}", f"/{ru}-optom", f"/{ru}-dlya-pizzerii",
-                     f"/{ru}-halyal"):
+        for cand in (f"/{ru}", f"/{ru}-optom", f"/{ru}-dlya-pizzerii", f"/{ru}-halyal"):
             if cand and cand in sp:
-                target = cand
+                for key in ("slug_ru", "slug_en", "slug_ar"):
+                    s = (p.get(key) or "").strip()
+                    if s and s not in out:
+                        out[s] = cand
                 break
-        if not target:
-            continue
-        # ...then map every language slug for this product to that page, so geo
-        # links on EN/AR pages (halal-ham-*, ham-halal-*) also route correctly.
-        for key in ("slug_ru", "slug_en", "slug_ar"):
-            s = (p.get(key) or "").strip()
-            if s:
-                out[s] = target
     _GEO_FALLBACK = out
     return out
 
