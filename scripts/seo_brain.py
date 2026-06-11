@@ -374,8 +374,18 @@ def build_digest() -> dict:
         "market_pulse": market_pulse_digest(),
         "costs": costs_digest(),
         "toolbox": toolbox_digest(),
+        "memory": memory_digest(),
         "owner_answers": _load_owner_answers()[-10:],
     }
+
+
+def memory_digest() -> dict:
+    """Fable's long-term memory: principles, decisions, OKR, facts."""
+    try:
+        import fable_memory
+        return fable_memory.digest()
+    except Exception:
+        return {"principles": [], "decisions": [], "okr": [], "facts": []}
 
 
 def toolbox_digest() -> dict:
@@ -388,15 +398,22 @@ def toolbox_digest() -> dict:
 
 
 # ── Playbook (static, cacheable system prompt) ─────────────────────────────────
-PLAYBOOK = """Ты — стратегический директор по поисковому и AI-присутствию компании
-«Казанские Деликатесы» (pepperoni.tatar), производителя ХАЛЯЛЬ мясных изделий и
-выпечки из Казани. Миссия: стать №1 в России и СНГ по ВСЕМУ ассортименту, а также
-№1 по услугам контрактного производства — Private Label / White Label / OEM (СТМ) —
-причём не только по колбасам/мясу, но и по ВСЕЙ выпечке (татарская + классическая +
+try:
+    import fable_persona as _persona
+    _PERSONA_BLOCK = _persona.block()
+except Exception:
+    _PERSONA_BLOCK = ""
+
+PLAYBOOK = _PERSONA_BLOCK + """
+
+— — — РЕЖИМ СТРАТЕГИЧЕСКОГО ЦИКЛА — — —
+Сейчас ты планируешь рабочий цикл. Миссия: №1 в России и СНГ по ВСЕМУ
+ассортименту и по услугам контрактного производства — Private Label / White
+Label / OEM (СТМ) — по колбасам/мясу И по ВСЕЙ выпечке (татарская/классическая/
 европейская).
 
-Архитектура: ты — «мозг» (думаешь редко, дорого, качественно). Claude Sonnet —
-«руки» (генерят страницы 24/7 дёшево). Твоя задача — на основе дайджеста состояния
+Архитектура: ты думаешь редко, дорого, качественно. Claude Sonnet — твои «руки»
+(генерят страницы 24/7 дёшево). Твоя задача — на основе дайджеста состояния
 сайта выдать КОМПАКТНУЮ стратегию-директиву, которую руки исполнят.
 
 ★★★ ГЛАВНАЯ ЦЕЛЬ БИЗНЕСА (важнее всего остального) ★★★
@@ -440,10 +457,35 @@ generate_geo_bulk, fix_links, generate_content и т.д.), а не только 
 и сообщит владельцу. Поэтому правь смело, но точечно: меняй логику осознанно,
 по одному агенту за раз, и описывай change максимально конкретно.
 
-ПОЛНАЯ АВТОНОМИЯ: владелец полностью доверяет твоим решениям — аппрувов нет.
-Твоя директива (включая правки кода) исполняется автоматически в тот же цикл.
-Решай смело, но помни: ошибки никто не перепроверит вручную — система защитит
-пайплайн авто-откатом, но за халяль-целостность и качество отвечаешь ты сам.
+ПОЛНАЯ ВЛАСТЬ ЗАМА: владелец дал тебе полномочия решать ВСЁ самому — контент,
+стратегию, бюджет LLM (в пределах лимита), цены/акции/позиционирование, запуск
+кампаний под страну, правки кода и создание инструментов. Аппрувов НЕТ ни на что.
+Твоя директива исполняется автоматически в тот же цикл. Действуй как хозяин,
+который думает о деньгах компании. Система защитит пайплайн авто-откатом, но за
+халяль-целостность, бренд и качество отвечаешь ТЫ. Не спрашивай разрешения —
+сообщай о важном через report_to_owner / proactive_message.
+
+★ ПАМЯТЬ (поле memory_ops): у тебя есть долговременная память (блок "memory" в
+дайджесте): принципы владельца, ваши решения, твои цели (OKR), факты. ВЕДИ её
+сам. Когда принимаешь важное решение или владелец что-то просит — ЗАПИШИ это в
+память через memory_ops, чтобы помнить неделями. Формат каждой операции:
+  {"action":"add|update|remove","section":"principles|decisions|okr|facts", ...}
+  • decisions: {"text":"что решили","why":"почему"}
+  • okr: {"objective":"цель","key_results":["метрика 1","метрика 2"],"quarter":"2026-Q3"}
+  • facts/principles: {"text":"..."}
+Сверяйся с памятью КАЖДЫЙ цикл: не нарушай принципы, двигай свои OKR, не
+переспрашивай уже решённое.
+
+★ СВОИ ЦЕЛИ (OKR): ты сам ставишь себе квартальные цели (через memory_ops →
+okr) и сам за них отвечаешь. Если активных OKR нет — поставь 2-3 на текущий
+квартал под главный KPI (коммерческие клики, №1 по странам). Каждый цикл сверяй
+прогресс и пиши о нём владельцу простым языком.
+
+★ ПРОАКТИВНОСТЬ (поле proactive_message): ты можешь САМ написать владельцу
+первым — но ТОЛЬКО при действительно важном: всплеск спроса/новая возможность,
+серьёзная проблема (обвал трафика, технич. авария), крупная победа (вышли в топ),
+исчерпание бюджета. Это отдельное срочное сообщение помимо обычного отчёта.
+Если важного нет — оставь proactive_message пустым (НЕ спамь по мелочи).
 
 ОБЩЕНИЕ С ВЛАДЕЛЬЦЕМ (поля report_to_owner и questions):
 - report_to_owner — ОБЯЗАТЕЛЬНО каждый цикл. 2-5 предложений простым языком
@@ -579,6 +621,11 @@ generate_geo_bulk, fix_links, generate_content и т.д.), а не только 
   "edit_agents": [                               // ПРАВКА КОДА существующих агентов (по необходимости)
     {"agent":"optimize_seo", "change":"что и зачем изменить в поведении/логике агента"}
   ],
+  "memory_ops": [                                // запись в долговременную память (по необходимости)
+    {"action":"add","section":"decisions","text":"...","why":"..."},
+    {"action":"add","section":"okr","objective":"...","key_results":["..."],"quarter":"2026-Q3"}
+  ],
+  "proactive_message": "",                       // СРОЧНОЕ сообщение владельцу первым (только если важно), иначе ""
   "notes": "1-3 предложения: логика решений на этот период"
 }"""
 
@@ -693,6 +740,35 @@ STRATEGY_SCHEMA = {
                 "required": ["agent", "change"],
             },
         },
+        "memory_ops": {
+            "type": "array",
+            "description": "Операции над долговременной памятью Fable. Записывай "
+                           "важные решения, принципы, цели (OKR) и факты, чтобы "
+                           "помнить их неделями.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "action": {"type": "string", "description": "add|update|remove"},
+                    "section": {"type": "string",
+                                "description": "principles|decisions|okr|facts"},
+                    "id": {"type": "string"},
+                    "text": {"type": "string"},
+                    "why": {"type": "string"},
+                    "objective": {"type": "string"},
+                    "key_results": {"type": "array", "items": {"type": "string"}},
+                    "quarter": {"type": "string"},
+                    "status": {"type": "string"},
+                },
+                "required": ["action", "section"],
+            },
+        },
+        "proactive_message": {
+            "type": "string",
+            "description": "СРОЧНОЕ отдельное сообщение владельцу, которое Fable "
+                           "инициирует сам — ТОЛЬКО при действительно важном "
+                           "(всплеск спроса, авария, крупная победа, бюджет). "
+                           "Иначе пустая строка.",
+        },
         "notes": {"type": "string"},
         "report_to_owner": {
             "type": "string",
@@ -745,8 +821,23 @@ def _report_and_ask(strategy: dict) -> None:
     report = (strategy.get("report_to_owner") or "").strip()
     questions = strategy.get("questions") or []
 
+    # Apply Fable's long-term memory operations (decisions, OKR, principles…).
+    ops = strategy.get("memory_ops") or []
+    if ops:
+        try:
+            import fable_memory
+            res = fable_memory.apply_ops(ops)
+            print("🧠 memory:", "; ".join(res))
+        except Exception as e:
+            print(f"⚠️  memory_ops failed: {e}")
+
+    # Proactive, deputy-initiated message — only when Fable judged it important.
+    proactive = (strategy.get("proactive_message") or "").strip()
+    if proactive:
+        notify(f"📣 <b>Fable</b>\n\n{proactive}")
+
     if report:
-        msg = f"🧠 <b>Мозг (Fable) — отчёт за цикл</b>\n\n{report}"
+        msg = f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}"
         notify(msg)
 
     if questions:
