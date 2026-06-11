@@ -55,15 +55,22 @@ def _geo_fallback() -> dict[str, str]:
         products = []
     sp = _site_paths()
     for p in products:
-        slug = (p.get("slug_ru") or "").strip()
-        if not slug:
-            continue
-        # candidate category pages, most specific first
-        for cand in (f"/{slug}.html", f"/{slug}-optom.html",
-                     f"/{slug}-dlya-pizzerii.html", f"/{slug}.html"):
-            if cand[:-5] in sp or cand in sp:
-                out[slug] = cand[:-5]
+        # resolve the best category page once from the RU slug...
+        ru = (p.get("slug_ru") or "").strip()
+        target = None
+        for cand in (f"/{ru}", f"/{ru}-optom", f"/{ru}-dlya-pizzerii",
+                     f"/{ru}-halyal"):
+            if cand and cand in sp:
+                target = cand
                 break
+        if not target:
+            continue
+        # ...then map every language slug for this product to that page, so geo
+        # links on EN/AR pages (halal-ham-*, ham-halal-*) also route correctly.
+        for key in ("slug_ru", "slug_en", "slug_ar"):
+            s = (p.get(key) or "").strip()
+            if s:
+                out[s] = target
     _GEO_FALLBACK = out
     return out
 
@@ -116,12 +123,13 @@ def _suggest(path: str) -> str | None:
                     base.replace("pepperoni-dlya-", "dlya-")):
         if variant != base and _resolves(variant):
             return variant
-    # 4) not-yet-generated geo page → route to the product's category page
-    m = re.match(r"^/geo/([a-z-]+?)-[a-z]+/?$", base)
+    # 4) not-yet-generated geo page → route to the product's category page.
+    # Geo slug is {product-slug}-{city}; city itself may contain dashes
+    # (rostov-na-donu), so match the longest product-slug PREFIX we know.
+    m = re.match(r"^/geo/([a-z0-9-]+?)/?$", base)
     if m:
         fb = _geo_fallback()
         slug = m.group(1)
-        # longest product-slug prefix wins (e.g. sosiki-dlya-hotdog before sosiki)
         for cand_slug in sorted(fb, key=len, reverse=True):
             if slug == cand_slug or slug.startswith(cand_slug + "-"):
                 return fb[cand_slug]
