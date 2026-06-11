@@ -245,21 +245,56 @@ def _headers(betas: list | None = None) -> dict:
     return h
 
 
+# Proxy chain: primary + any fallbacks. Anthropic geo-blocks the RU VPS, and the
+# mobile SOCKS5 proxies rotate/drop without warning — so we try each in turn on a
+# CONNECTION error and only give up when all are exhausted. Set extras via
+# ANTHROPIC_PROXY_FALLBACK (one URL) or ANTHROPIC_PROXIES (comma-separated).
+def _proxy_chain() -> list[str]:
+    chain = []
+    if ANTHROPIC_PROXY:
+        chain.append(ANTHROPIC_PROXY)
+    fb = os.environ.get("ANTHROPIC_PROXY_FALLBACK", "").strip()
+    if fb:
+        chain.append(fb)
+    for p in os.environ.get("ANTHROPIC_PROXIES", "").split(","):
+        p = p.strip()
+        if p:
+            chain.append(p)
+    # de-dup preserving order
+    seen, out = set(), []
+    for p in chain:
+        if p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
+
+
 def _http(method: str, url: str, body: bytes | None = None,
           headers: dict | None = None, timeout: int = None) -> bytes:
     timeout = timeout or SOCK_TIMEOUT_S
     headers = headers or _headers()
-    if ANTHROPIC_PROXY and _HAS_REQUESTS:
-        r = _requests.request(
-            method, url, data=body, headers=headers, timeout=timeout,
-            proxies={"http": ANTHROPIC_PROXY, "https": ANTHROPIC_PROXY},
-        )
-        if r.status_code >= 400:
-            import io
-            # fp carries the body so callers' e.read() sees the API error text.
-            raise urllib.error.HTTPError(url, r.status_code, r.text[:500],
-                                         None, io.BytesIO(r.content))
-        return r.content
+    chain = _proxy_chain()
+    if chain and _HAS_REQUESTS:
+        last_exc = None
+        for i, proxy in enumerate(chain):
+            try:
+                r = _requests.request(
+                    method, url, data=body, headers=headers, timeout=timeout,
+                    proxies={"http": proxy, "https": proxy},
+                )
+            except Exception as exc:  # connection-level failure → try next proxy
+                last_exc = exc
+                if i + 1 < len(chain):
+                    print(f"⚠️  proxy {i+1}/{len(chain)} down, trying next …",
+                          file=sys.stderr)
+                continue
+            if r.status_code >= 400:
+                import io
+                # fp carries the body so callers' e.read() sees the API error text.
+                raise urllib.error.HTTPError(url, r.status_code, r.text[:500],
+                                             None, io.BytesIO(r.content))
+            return r.content
+        raise last_exc if last_exc else RuntimeError("all proxies failed")
     req = urllib.request.Request(url, data=body, headers=headers, method=method)
     with urllib.request.urlopen(req, timeout=timeout) as resp:
         return resp.read()

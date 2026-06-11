@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import os
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -31,6 +32,24 @@ ANTHROPIC_VERSION = "2023-06-01"
 # Optional outbound proxy (e.g. SOCKS5) - Anthropic geoblocks some regions (RU).
 # Set ANTHROPIC_PROXY="socks5h://user:pass@host:port" to route around it.
 ANTHROPIC_PROXY = os.environ.get("ANTHROPIC_PROXY", "").strip()
+
+
+def _proxy_chain() -> list:
+    """Primary proxy + fallbacks (mobile SOCKS5 proxies drop without warning)."""
+    chain = [ANTHROPIC_PROXY] if ANTHROPIC_PROXY else []
+    fb = os.environ.get("ANTHROPIC_PROXY_FALLBACK", "").strip()
+    if fb:
+        chain.append(fb)
+    for p in os.environ.get("ANTHROPIC_PROXIES", "").split(","):
+        p = p.strip()
+        if p:
+            chain.append(p)
+    seen, out = set(), []
+    for p in chain:
+        if p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
 
 try:
     import requests  # type: ignore
@@ -207,11 +226,25 @@ def call_model(
     last_err = None
     for attempt in range(retries + 1):
         try:
-            if ANTHROPIC_PROXY and _HAS_REQUESTS:
-                r = requests.post(
-                    ANTHROPIC_URL, data=data, headers=headers, timeout=180,
-                    proxies={"http": ANTHROPIC_PROXY, "https": ANTHROPIC_PROXY},
-                )
+            chain = _proxy_chain()
+            if chain and _HAS_REQUESTS:
+                r = None
+                conn_err = None
+                for i, proxy in enumerate(chain):
+                    try:
+                        r = requests.post(
+                            ANTHROPIC_URL, data=data, headers=headers, timeout=180,
+                            proxies={"http": proxy, "https": proxy},
+                        )
+                        break
+                    except Exception as ce:  # connection-level → next proxy
+                        conn_err = ce
+                        r = None
+                        if i + 1 < len(chain):
+                            print(f"⚠️  brain proxy {i+1}/{len(chain)} down, "
+                                  f"trying next …", file=sys.stderr)
+                if r is None:
+                    raise conn_err if conn_err else RuntimeError("all proxies failed")
                 if r.status_code >= 400:
                     raise urllib.error.HTTPError(
                         ANTHROPIC_URL, r.status_code, r.text[:300], None, None
