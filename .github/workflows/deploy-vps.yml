@@ -72,6 +72,16 @@ jobs:
               echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY"
               echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "OPUS_MONTHLY_BUDGET_USD=40"
+              # Cost & quality controls (set 2026-06-11). Quality mode: no new geo
+              # generation, aggressive CTR optimization of existing pages, hard
+              # daily spend cap. See scripts/claude_client.py:_budget_guard.
+              echo "LLM_DAILY_BUDGET_USD=5"
+              echo "GEO_PER_TICK=0"
+              echo "OPT_POS_LOW=1.5"
+              echo "OPT_POS_HIGH=20"
+              echo "OPT_MAX_CHANGES=20"
+              echo "OPT_MIN_IMPR=25"
+              echo "OPT_MAX_CTR=0.02"
               echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN"
               echo "TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}"
               echo "TG_PASSWORD=${TG_PASSWORD:-Namaz2015!}"
