@@ -69,6 +69,11 @@ GEO_SLUG_ALIASES = {
     "vypechka-tatarskaya": "/vyipechka-halyal",
     "farsh": "/myasnyie-zagotovki",
     "syroje-myaso": "/myasnyie-zagotovki",
+    # direct category-page links that don't exist yet → nearest existing page
+    "horeca": "/dlya-horeca",
+    "pelmeni": "/myasnyie-zagotovki",
+    "private-label-stm": "/oem",
+    "topping-dlya-pitstsy": "/pepperoni-v-narezke",
 }
 
 
@@ -171,6 +176,15 @@ def _suggest(path: str) -> str | None:
                     base.replace("pepperoni-dlya-", "dlya-")):
         if variant != base and _resolves(variant):
             return variant
+    # 3b) direct link to a not-yet-created category page (/vetchina/, /farsh/) →
+    # route to the existing catalog category via the same alias table.
+    direct = base.strip("/")
+    if direct:
+        # strip a /catalog/ prefix if present (/catalog/pelmeni/ → pelmeni)
+        direct = re.sub(r"^catalog/", "", direct)
+        fb = _geo_fallback()
+        if direct in fb:
+            return fb[direct]
     # 4) not-yet-generated geo page → route to the product's category page.
     # Geo slug is {product-slug}-{city}; city itself may contain dashes
     # (rostov-na-donu), so match the longest product-slug PREFIX we know.
