@@ -41,9 +41,19 @@ from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
-TOOLS_DIR = ROOT / "scripts" / "brain_tools"
+SCRIPTS = ROOT / "scripts"
+TOOLS_DIR = SCRIPTS / "brain_tools"
+BACKUP_DIR = DATA / "agent_backups"
 REGISTRY = DATA / "brain_tools.json"
 STRATEGY = DATA / "strategy.json"
+
+# Core agents the brain is allowed to patch. Excludes the brain itself, the
+# toolsmith, proxy/secret handling and Telegram bot — patching those could
+# brick autonomy or leak credentials, so they stay engineer-only.
+PROTECTED_AGENTS = {
+    "seo_brain", "opus_brain_client", "claude_client", "brain_toolsmith",
+    "telegram_bot", "telegram_notify", "sync_asocks_proxy", "send_report",
+}
 
 ALLOWED_MODELS = {
     "haiku": "claude-haiku-4-5-20251001",
@@ -182,6 +192,113 @@ def run_tool(name: str, reg: dict) -> str:
     return f"ran: {name} ({len(out)} chars)"
 
 
+PATCH_SYSTEM = """Ты — старший Python-инженер, сопровождающий автономный SEO-пайплайн
+сайта pepperoni.tatar (статический халяль-каталог). Тебе дают ПОЛНЫЙ текущий код
+одного агента-скрипта и описание правки, которую запросил мозг-стратег.
+
+Внеси ТОЧЕЧНОЕ изменение и верни ПОЛНЫЙ изменённый файл целиком (не diff).
+ЖЁСТКИЕ ПРАВИЛА:
+- Сохрани публичный интерфейс (имена функций main/run, аргументы CLI, формат
+  вывода) — другие скрипты и cron на них завязаны. Меняй только запрошенную логику.
+- Никакого os.system/subprocess для новых внешних вызовов, не трогай работу с
+  секретами/прокси, не добавляй сетевых записей.
+- Код должен оставаться синтаксически валидным и импортируемым без побочных
+  эффектов на верхнем уровне (вся работа — внутри функций / под __main__).
+- Не выдумывай новые зависимости вне того, что уже импортирует файл.
+Верни ТОЛЬКО код .py без markdown-ограждений."""
+
+
+def _tg(text: str) -> None:
+    try:
+        sys.path.insert(0, str(SCRIPTS))
+        from telegram_notify import notify
+        notify(text)
+    except Exception:
+        pass
+
+
+def _import_ok(path: Path) -> tuple[bool, str]:
+    """Compile + import the module in a fresh subprocess-like namespace."""
+    src = path.read_text(encoding="utf-8")
+    try:
+        ast.parse(src)
+    except SyntaxError as e:
+        return False, f"syntax: {e}"
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(f"_agtest_{path.stem}", path)
+    if spec is None or spec.loader is None:
+        return False, "spec failed"
+    mod = importlib.util.module_from_spec(spec)
+    try:
+        spec.loader.exec_module(mod)  # top-level must be side-effect free
+    except SystemExit:
+        return True, ""  # argparse/no-arg guard can raise SystemExit — acceptable
+    except Exception as e:
+        return False, f"import: {e.__class__.__name__}: {e}"
+    return True, ""
+
+
+def patch_agent(req: dict, reg: dict) -> str:
+    """LLM-edit one core agent's code with backup + safety + auto-rollback."""
+    agent = re.sub(r"[^a-z0-9_]", "_", (req.get("agent") or "").lower()).strip("_")
+    change = (req.get("change") or "").strip()
+    if not agent or not change:
+        return "patch-skip: empty agent/change"
+    if agent in PROTECTED_AGENTS:
+        return f"patch-deny: {agent} is protected (engineer-only)"
+    target = SCRIPTS / f"{agent}.py"
+    if not target.exists():
+        return f"patch-skip: {agent}.py not found"
+
+    model_key = (req.get("model") or "sonnet").lower()
+    model = ALLOWED_MODELS.get(model_key, ALLOWED_MODELS["sonnet"])
+    original = target.read_text(encoding="utf-8")
+    if len(original) > 60000:
+        return f"patch-skip: {agent}.py too large to edit safely"
+
+    from claude_client import call_claude
+    prompt = (f"Файл scripts/{agent}.py:\n\n{original}\n\n"
+              f"Запрошенная правка от мозга:\n{change}\n\n"
+              "Верни полный изменённый файл по правилам из system.")
+    try:
+        new_code, _ = call_claude(prompt, system=PATCH_SYSTEM, model=model,
+                                  max_tokens=8192, temperature=0.1)
+    except Exception as e:
+        if e.__class__.__name__ == "BudgetExceeded":
+            raise
+        return f"patch-fail: {agent} — LLM error {e}"
+    new_code = _strip_fence(new_code)
+    if not new_code or new_code == original:
+        return f"patch-noop: {agent} (no change produced)"
+
+    # Static safety scan reuses the toolsmith FORBIDDEN list.
+    for bad in FORBIDDEN:
+        if bad in new_code and bad not in original:
+            return f"patch-reject: {agent} introduces forbidden `{bad}`"
+
+    BACKUP_DIR.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    backup = BACKUP_DIR / f"{agent}.{stamp}.bak"
+    backup.write_text(original, encoding="utf-8")
+
+    target.write_text(new_code, encoding="utf-8")
+    ok, why = _import_ok(target)
+    rec = reg.setdefault("agent_patches", {}).setdefault(agent, [])
+    if not ok:
+        target.write_text(original, encoding="utf-8")  # AUTO-ROLLBACK
+        rec.append({"at": stamp, "change": change, "model": model_key,
+                    "result": "rolled_back", "error": why})
+        _tg(f"🧠⚠️ Мозг правил агент <b>{agent}</b>, но правка сломала импорт "
+            f"({why}). Авто-откат к рабочей версии выполнен.\nПравка: {change[:300]}")
+        return f"patch-rollback: {agent} — {why}"
+
+    rec.append({"at": stamp, "change": change, "model": model_key,
+                "result": "applied", "backup": backup.name})
+    _tg(f"🧠✅ Мозг сам изменил код агента <b>{agent}</b> и проверил его.\n"
+        f"Правка: {change[:300]}\nБэкап: {backup.name}")
+    return f"patched: {agent} ({model_key}) ✅"
+
+
 def brain_summary() -> dict:
     """Compact view of the brain's toolbox for the next digest."""
     reg = _registry()
@@ -194,6 +311,11 @@ def brain_summary() -> dict:
             for n, t in ready.items()
         ],
         "count": len(ready),
+        "recent_agent_patches": [
+            {"agent": a, "at": h[-1].get("at"), "result": h[-1].get("result"),
+             "change": (h[-1].get("change") or "")[:160]}
+            for a, h in (reg.get("agent_patches") or {}).items() if h
+        ][-8:],
     }
 
 
@@ -224,6 +346,17 @@ def main() -> int:
                 print(f"🛑 {e}", file=sys.stderr)
                 break
             print(f"⚠️  toolsmith error: {e}", file=sys.stderr)
+    _save_registry(reg)
+
+    # 1b) Apply any code patches the brain requested for core agents
+    for req in (strat.get("edit_agents") or []):
+        try:
+            print("✂️ ", patch_agent(req, reg))
+        except Exception as e:
+            if e.__class__.__name__ == "BudgetExceeded":
+                print(f"🛑 {e}", file=sys.stderr)
+                break
+            print(f"⚠️  patch error: {e}", file=sys.stderr)
     _save_registry(reg)
 
     # 2) Run any tools the brain requested (read-only), feed results back

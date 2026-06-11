@@ -249,6 +249,9 @@ git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/nul
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true
+# Brain may have patched core agent code (with backups) — track both.
+git add -u 'scripts/*.py' 2>/dev/null || true
+git add data/agent_backups/*.bak 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 
