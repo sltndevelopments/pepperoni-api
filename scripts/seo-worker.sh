@@ -40,8 +40,14 @@ fi
 cd "$REPO_DIR"
 log "=== SEO Worker tick ==="
 
-# Per-tick budget (small; brain sets geo_daily_target, here we cap per tick)
-GEO_PER_TICK="${GEO_PER_TICK:-30}"
+# Daily spend kill switch (claude_client.py reads this). Worker runs every 3h —
+# without a hard cap it generated ~240 geo pages/day (8 ticks × 30), which was
+# the real driver of the 2026-06 auto-recharge spike, not the nightly cron.
+export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-5}"
+
+# Per-tick budget. 8 ticks/day × 3 pages = max 24/day, in line with the
+# geo_daily_target=20 set by the brain. Override via GEO_PER_TICK in env.
+GEO_PER_TICK="${GEO_PER_TICK:-3}"
 
 log "Generating geo pages (strategy-driven, up to $GEO_PER_TICK) …"
 MAX_GEO_PAGES="$GEO_PER_TICK" GEO_WORKERS="${GEO_WORKERS:-4}" \
