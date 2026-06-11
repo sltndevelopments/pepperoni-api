@@ -217,7 +217,7 @@ git add data/escalation_state.json 2>/dev/null || true
 git add data/strategy.json data/goals.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
-git add data/site_health.json data/cwv.json 2>/dev/null || true
+git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 

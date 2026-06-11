@@ -29,7 +29,23 @@ DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
 DB_PATH = DATA / "seo_data.db"
 STRATEGY_FILE = DATA / "strategy.json"
+# Owner ↔ brain dialogue files. Answers live OUTSIDE the repo (tg-state) so the
+# bot can write them without git conflicts; questions are tracked in the repo.
+QUESTIONS_FILE = DATA / "brain_questions.json"
+try:
+    import telegram_notify as _tn
+    ANSWERS_FILE = Path(_tn.STATE_DIR) / "brain_answers.json"
+except Exception:
+    ANSWERS_FILE = DATA / "brain_answers.json"
 TODAY = datetime.now(timezone.utc).strftime("%Y-%m-%d")
+
+
+def _load_owner_answers() -> list:
+    """Owner replies to the brain's questions, written by the Telegram bot."""
+    try:
+        return json.loads(ANSWERS_FILE.read_text()).get("answers", [])
+    except Exception:
+        return []
 
 
 # ── Digest builders ───────────────────────────────────────────────────────────
@@ -357,6 +373,7 @@ def build_digest() -> dict:
         "ai_bots": ai_bots_digest(),
         "market_pulse": market_pulse_digest(),
         "costs": costs_digest(),
+        "owner_answers": _load_owner_answers()[-10:],
     }
 
 
@@ -375,6 +392,21 @@ PLAYBOOK = """Ты — стратегический директор по пои
 ПОЛНАЯ АВТОНОМИЯ: владелец полностью доверяет твоим решениям — аппрувов нет.
 Твоя директива исполняется автоматически в тот же цикл. Решай смело, но помни:
 ошибки никто не перепроверит — следи за халяль-целостностью и качеством сам.
+
+ОБЩЕНИЕ С ВЛАДЕЛЬЦЕМ (поля report_to_owner и questions):
+- report_to_owner — ОБЯЗАТЕЛЬНО каждый цикл. 2-5 предложений простым языком
+  ему в Telegram: что увидел в данных, что решил и сделал, что дальше. Без
+  жаргона, как живой директор отчитывается собственнику. Конкретику и числа
+  (CTR, битые ссылки, позиции) переводи на понятный язык.
+- questions — ТОЛЬКО при реальном сомнении, когда решение влияет на бизнес,
+  бренд, деньги или юридически значимо (напр.: запускать ли платный канал,
+  менять ли позиционирование, тратить ли крупный бюджет, рискованная
+  халяль-формулировка). В 90% циклов questions ПУСТО — решай сам.
+  НЕ спрашивай про рутину (какие страницы переписать, сколько гео генерить) —
+  это твоя работа. Для каждого вопроса дай default_if_silent — что сделаешь,
+  если владелец промолчит.
+- owner_answers в дайджесте — ответы владельца на твои прошлые вопросы.
+  УЧИТЫВАЙ их как прямые указания и больше не задавай решённое.
 
 ПРИНЦИПЫ:
 - ЗДОРОВЬЕ ДАННЫХ (блок "data_health") — ПРОВЕРЯЙ ПЕРВЫМ. Это твои глаза:
@@ -549,9 +581,31 @@ STRATEGY_SCHEMA = {
             },
         },
         "notes": {"type": "string"},
+        "report_to_owner": {
+            "type": "string",
+            "description": "2-5 предложений ВЛАДЕЛЬЦУ простым языком: что я "
+                           "увидел, что решил и сделал в этом цикле, и что "
+                           "будет дальше. Без жаргона. Это идёт ему в Telegram.",
+        },
+        "questions": {
+            "type": "array",
+            "description": "Вопросы владельцу, ТОЛЬКО когда реально сомневаешься "
+                           "и решение влияет на бизнес/бренд/бюджет. Обычно пусто.",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "id": {"type": "string"},
+                    "text": {"type": "string"},
+                    "why": {"type": "string"},
+                    "options": {"type": "array", "items": {"type": "string"}},
+                    "default_if_silent": {"type": "string"},
+                },
+                "required": ["id", "text"],
+            },
+        },
     },
     "required": ["focus_products", "focus_langs", "geo_daily_target",
-                 "new_blog_topics", "pl_oem_topics", "notes"],
+                 "new_blog_topics", "pl_oem_topics", "notes", "report_to_owner"],
 }
 
 
@@ -565,6 +619,42 @@ def _extract_json(text: str) -> dict:
     if start == -1 or end == -1:
         raise ValueError("no JSON object in Opus reply")
     return json.loads(text[start:end + 1])
+
+
+def _report_and_ask(strategy: dict) -> None:
+    """Send the brain's human-language report to the owner, and any questions.
+
+    Questions are persisted to brain_questions.json so the Telegram bot can show
+    them and route the owner's reply back into brain_answers.json for next cycle.
+    """
+    from telegram_notify import notify
+
+    report = (strategy.get("report_to_owner") or "").strip()
+    questions = strategy.get("questions") or []
+
+    if report:
+        msg = f"🧠 <b>Мозг (Fable) — отчёт за цикл</b>\n\n{report}"
+        notify(msg)
+
+    if questions:
+        # persist for the bot + build a single readable message
+        QUESTIONS_FILE.write_text(json.dumps(
+            {"asked_at": datetime.now(timezone.utc).isoformat(),
+             "questions": questions, "status": "open"},
+            ensure_ascii=False, indent=1))
+        lines = ["❓ <b>Мозг сомневается и спрашивает тебя</b>",
+                 "<i>Ответь сообщением в бот: «ответ &lt;id&gt; &lt;текст&gt;». "
+                 "Если промолчишь — мозг примет решение сам.</i>", ""]
+        for q in questions:
+            lines.append(f"<b>[{q.get('id','?')}]</b> {q.get('text','')}")
+            if q.get("why"):
+                lines.append(f"   <i>почему: {q['why']}</i>")
+            if q.get("options"):
+                lines.append("   варианты: " + " / ".join(q["options"]))
+            if q.get("default_if_silent"):
+                lines.append(f"   по умолчанию: {q['default_if_silent']}")
+            lines.append("")
+        notify("\n".join(lines))
 
 
 def main():
@@ -632,6 +722,12 @@ def main():
         "experiments": digest.get("experiments", {}).get("verdicts", {}),
     }
     STRATEGY_FILE.write_text(json.dumps(strategy, ensure_ascii=False, indent=1))
+
+    # ── Talk to the owner: report what was decided, ask only if unsure ──────
+    try:
+        _report_and_ask(strategy)
+    except Exception as e:
+        print(f"⚠️  owner report/ask failed (non-fatal): {e}")
 
     print(f"✅ Strategy written → {STRATEGY_FILE}")
     print(f"   focus_products: {strategy.get('focus_products')}")

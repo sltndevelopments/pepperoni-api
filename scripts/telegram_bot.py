@@ -664,6 +664,65 @@ def _cmd_fix_schema(cid: int) -> None:
         send(cid, f"❌ fix_schema: {e}", keyboard=MAIN_MENU)
 
 
+def _action_brain_questions() -> str:
+    """Show open questions the brain asked the owner."""
+    import json as _json
+    try:
+        q = _json.loads((ROOT / "data" / "brain_questions.json").read_text())
+    except Exception:
+        return "❓ Открытых вопросов от мозга нет."
+    items = [x for x in q.get("questions", []) if not x.get("answered")]
+    if not items:
+        return "❓ Открытых вопросов от мозга нет — он решает сам."
+    lines = ["❓ <b>Вопросы мозга</b>",
+             "<i>Ответь: «ответ &lt;id&gt; &lt;текст&gt;»</i>", ""]
+    for x in items:
+        lines.append(f"<b>[{x.get('id','?')}]</b> {x.get('text','')}")
+        if x.get("options"):
+            lines.append("   варианты: " + " / ".join(x["options"]))
+        lines.append("")
+    return "\n".join(lines)
+
+
+def _record_brain_answer(qid: str, answer: str, chat_id: int) -> str:
+    """Persist the owner's answer to a brain question so the next brain cycle
+    reads it from data/brain_answers.json (via telegram_notify.STATE_DIR)."""
+    import json as _json
+    from datetime import datetime, timezone
+    try:
+        from telegram_notify import STATE_DIR
+        path = Path(STATE_DIR) / "brain_answers.json"
+    except Exception:
+        path = ROOT / "data" / "brain_answers.json"
+    try:
+        data = _json.loads(path.read_text())
+    except Exception:
+        data = {"answers": []}
+    data.setdefault("answers", []).append({
+        "id": qid, "answer": answer,
+        "answered_at": datetime.now(timezone.utc).isoformat(),
+        "by": str(chat_id),
+    })
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(_json.dumps(data, ensure_ascii=False, indent=1))
+    except Exception as e:
+        return f"❌ Не смог сохранить ответ: {e}"
+    # mark the question answered in the repo-tracked questions file
+    try:
+        qf = ROOT / "data" / "brain_questions.json"
+        q = _json.loads(qf.read_text())
+        for item in q.get("questions", []):
+            if str(item.get("id")) == qid:
+                item["answered"] = True
+        qf.write_text(_json.dumps(q, ensure_ascii=False, indent=1))
+    except Exception:
+        pass
+    J.log_event("owner_answer", f"[{qid}] {answer}", who=str(chat_id))
+    return (f"✅ Записал твой ответ на вопрос <b>[{qid}]</b>. "
+            f"Мозг учтёт его в следующем цикле планирования.")
+
+
 def _make_dispatch() -> dict:
     table = [
         (("start", "меню", "menu", "главное меню"),
@@ -690,6 +749,8 @@ def _make_dispatch() -> dict:
         (("мета", "мета агент", "meta", "мета агент статус"),
          lambda cid: send(cid, action_meta_status(), keyboard=MAIN_MENU)),
         (("почини schema", "почини схему", "почини схемы", "fix schema"), _cmd_fix_schema),
+        (("вопросы", "вопросы мозга", "questions"),
+         lambda cid: send(cid, _action_brain_questions(), keyboard=MAIN_MENU)),
     ]
     return {alias: fn for aliases, fn in table for alias in aliases}
 
@@ -762,6 +823,13 @@ def handle_message(msg: dict) -> None:
     # 4) Unmatched UI tap (emoji-prefixed, no real question) → menu, not LLM.
     if not n or (not text[0].isalnum() and len(n.split()) <= 4):
         send(chat_id, "Не понял команду. Вот меню:", keyboard=MAIN_MENU)
+        return
+
+    # 4b) Answer to a brain question: "ответ <id> <текст>" / "answer <id> <текст>"
+    m = re.match(r"(?:ответ|answer)\s+(\S+)\s+(.+)", text, re.I | re.S)
+    if m:
+        send(chat_id, _record_brain_answer(m.group(1), m.group(2).strip(), chat_id),
+             keyboard=MAIN_MENU)
         return
 
     # 5) Free-form text → dialogue turn (cheap Sonnet), incl. pending brain question
