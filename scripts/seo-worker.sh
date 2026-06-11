@@ -38,6 +38,11 @@ PYEOF
 fi
 
 cd "$REPO_DIR"
+
+# Refresh Asocks HTTP proxy before LLM calls (mobile ports rotate).
+python3 scripts/sync_asocks_proxy.py >> "$LOG_FILE" 2>&1 || true
+export ANTHROPIC_PROXY="$(grep '^ANTHROPIC_PROXY=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
+
 log "=== SEO Worker tick ==="
 
 # Daily spend kill switch (claude_client.py reads this). Worker runs every 3h —

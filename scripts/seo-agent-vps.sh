@@ -55,6 +55,19 @@ else
 fi
 
 cd "$REPO_DIR"
+
+# ---- Step 0: Sync Asocks proxy (HTTP :9999, not SOCKS :443) ----
+# Keeps ANTHROPIC_PROXY fresh from api.asocks.com before any LLM calls.
+log "Step 0: Sync Asocks proxy …"
+if python3 scripts/sync_asocks_proxy.py >> "$LOG_FILE" 2>&1; then
+    export ANTHROPIC_PROXY="$(grep '^ANTHROPIC_PROXY=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
+    export ANTHROPIC_PROXY_FALLBACK="$(grep '^ANTHROPIC_PROXY_FALLBACK=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
+    export ANTHROPIC_PROXIES="$(grep '^ANTHROPIC_PROXIES=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
+    log "✅ Asocks proxy synced"
+else
+    log "⚠️  Asocks sync failed — using existing ANTHROPIC_PROXY"
+fi
+
 log "=== SEO Agent started ==="
 
 # ---- Step 1: Fetch GSC data ----

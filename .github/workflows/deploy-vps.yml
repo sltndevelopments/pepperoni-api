@@ -49,6 +49,7 @@ jobs:
           ANTHROPIC_API_KEY:       ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_PROXY:         ${{ secrets.ANTHROPIC_PROXY }}
           ANTHROPIC_PROXY_FALLBACK: ${{ secrets.ANTHROPIC_PROXY_FALLBACK }}
+          ASOCKS_API_KEY:          ${{ secrets.ASOCKS_API_KEY }}
           TELEGRAM_BOT_TOKEN:      ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:        ${{ secrets.TELEGRAM_CHAT_ID }}
           TG_PASSWORD:             ${{ secrets.TG_PASSWORD }}
@@ -62,7 +63,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,ASOCKS_API_KEY,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
@@ -73,6 +74,7 @@ jobs:
               echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY"
               echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "ANTHROPIC_PROXY_FALLBACK=${ANTHROPIC_PROXY_FALLBACK:-}"
+              echo "ASOCKS_API_KEY=${ASOCKS_API_KEY:-}"
               echo "OPUS_MONTHLY_BUDGET_USD=40"
               # Cost & quality controls (set 2026-06-11). Quality mode: no new geo
               # generation, aggressive CTR optimization of existing pages, hard
