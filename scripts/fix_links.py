@@ -116,11 +116,25 @@ def _site_paths() -> set[str]:
     return _SITE_PATHS
 
 
+OWN_HOST = "pepperoni.tatar"
+
+
 def _resolves(path: str) -> bool:
     if path in ("/", ""):
         return (PUBLIC / "index.html").exists()
-    if path.startswith(BACKEND_PREFIXES) or path.startswith(("http://", "https://",
-                                                             "#", "mailto:", "tel:")):
+    if path.startswith(("#", "mailto:", "tel:", "javascript:", "data:")):
+        return True
+    # Absolute URLs: external → assume valid; OWN domain → check the local file
+    # (so a dead absolute link to our own missing page is still caught & fixed).
+    if path.startswith(("http://", "https://")):
+        from urllib.parse import urlparse
+        pu = urlparse(path)
+        if pu.netloc and OWN_HOST not in pu.netloc:
+            return True
+        if "api." + OWN_HOST in pu.netloc:
+            return True
+        path = pu.path or "/"
+    if path.startswith(BACKEND_PREFIXES):
         return True
     rel = path.split("#")[0].split("?")[0].strip("/")
     if not rel:
@@ -136,6 +150,13 @@ def _suggest(path: str) -> str | None:
       - common typo: missing 's' (sosiki→sosiski) or extra segment
     Returns a resolving path or None (caller then unwraps the dead link).
     """
+    # normalise an own-domain absolute URL down to its path first
+    if path.startswith(("http://", "https://")):
+        from urllib.parse import urlparse
+        pu = urlparse(path)
+        if pu.netloc and OWN_HOST not in pu.netloc:
+            return None
+        path = pu.path or "/"
     base = path.split("#")[0].split("?")[0]
     # 1) collapse duplicated /en/en/, /ar/ar/ etc.
     dedup = re.sub(r"^/([a-z]{2})/\1/", r"/\1/", base)
