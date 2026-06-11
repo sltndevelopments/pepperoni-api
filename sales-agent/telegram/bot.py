@@ -45,8 +45,8 @@ POLL_TIMEOUT = 50
 MAIN_MENU = [
     ["📊 Статус", "🔥 Горячие"],
     ["📋 Лиды", "📥 Инбокс"],
-    ["🔄 Цикл", "🧠 Стратег"],
-    ["💬 Спросить", "💰 Бюджет"],
+    ["🔄 Цикл", "🧠 Стратегия Стива"],
+    ["💬 Спросить Стива", "💰 Бюджет"],
 ]
 
 
@@ -247,36 +247,67 @@ def action_budget() -> str:
             sales_lines.append(f"  • {name[6:]}: ${usd:.3f} ({node.get('calls', 0)} вызовов)")
 
     saved_pct = (1 - total / baseline) * 100 if baseline > 0 else 0
+    try:
+        from core.budget import summary as steve_budget
+        sb = steve_budget()
+    except Exception:
+        sb = {"budget_usd": 20, "spent_usd": sales_usd, "remaining_usd": 20 - sales_usd}
     lines = [
-        "<b>💰 Бюджет LLM (месяц)</b>",
-        f"Всего по проекту: <b>${total:.2f}</b> (без оптимизаций было бы ${baseline:.2f}, −{saved_pct:.0f}%)",
-        f"Sales-agent: <b>${sales_usd:.3f}</b>",
+        "<b>💰 Бюджет Стива (месяц)</b>",
+        f"Кошелёк Стива: <b>${sb['spent_usd']:.3f}</b> из ${sb['budget_usd']:.0f} "
+        f"(осталось ${sb['remaining_usd']:.2f})",
     ]
     if sales_lines:
         lines += sales_lines
-    lines.append(f"\nОстаток общего бюджета: ${remaining_budget():.2f}")
+    lines += [
+        "",
+        f"<i>Контекст: всего по проекту ${total:.2f} "
+        f"(без оптимизаций ${baseline:.2f}, −{saved_pct:.0f}%)</i>",
+    ]
     return "\n".join(lines)
 
 
-def talk_sonnet(chat_id: int, question: str) -> str:
+def talk_steve(chat_id: int, question: str) -> str:
+    """Живой диалог голосом Стива (персона + память). Ответ — Sonnet под личностью."""
     if not brain_available():
         return "💬 LLM недоступен: нет ключа или бюджет исчерпан."
+
+    # «запомни …» от владельца → принцип в память Стива
+    try:
+        from core.memory import maybe_capture_principle
+        cap = maybe_capture_principle(question, by="owner")
+    except Exception:
+        cap = None
+
     kb = KnowledgeBase()
     store = Store()
     stats = store.stats()
+    try:
+        from core.persona import block as persona_block
+        persona = persona_block()
+    except Exception:
+        persona = "Ты Стив, зам по продажам Казанских Деликатесов."
+
     system = (
-        "Ты B2B-ассистент менеджера продаж Казанских Деликатесы. "
-        "Не публикуй kam@ и личный телефон в чате — только в email-черновиках. "
-        "Цены из каталога можно, с оговоркой «согласовать с Ринатом».\n\n"
-        f"{kb.sales_context(8)}\n\nСтатистика: {stats}"
+        f"{persona}\n\n"
+        "В ЧАТЕ: не публикуй личные kam@/телефон владельца — они идут только в "
+        "подписи писем клиентам. Цены из каталога — с оговоркой «согласовать с "
+        "Ринатом».\n\n"
+        f"{kb.sales_context(8)}\n\nСтатистика воронки: {stats}"
     )
     try:
         reply, usage = call_sonnet(question, system=system, max_tokens=1200)
     except Exception as e:
-        return f"Ошибка Sonnet: {e}"
+        return f"Ошибка: {e}"
     cost = usage.get("cost_usd", 0)
-    store.audit(str(chat_id), "sonnet_chat", detail={"q": question[:200], "cost": cost})
-    return f"💬 {reply}\n\n<i>Sonnet ${cost:.4f} · бюджет ${usage.get('budget_remaining_usd', 0):.2f}</i>"
+    store.audit(str(chat_id), "steve_chat", detail={"q": question[:200], "cost": cost})
+    prefix = f"<i>📌 запомнил: {cap}</i>\n\n" if cap and "added" in str(cap) else ""
+    from core.budget import remaining as steve_remaining
+    return f"{prefix}{reply}\n\n<i>Стив · ${cost:.4f} · бюджет Стива ${steve_remaining():.2f}/20</i>"
+
+
+# обратная совместимость со старыми вызовами
+talk_sonnet = talk_steve
 
 
 def talk_strategy(chat_id: int) -> str:
@@ -292,24 +323,28 @@ def talk_strategy(chat_id: int) -> str:
         by_region[r] = by_region.get(r, 0) + 1
 
     prompt = (
-        f"Данные контура продаж:\n"
+        f"Данные воронки:\n"
         f"Всего лидов: {len(leads)}, Tier S: {len(tier_s)}\n"
         f"Кластеры Tier S по регионам: {by_region}\n"
         f"Аппрувы в очереди: {store.stats()['pending_approvals']}\n\n"
-        "Дай стратегию на 2 недели: куда бить, что пилотировать, "
-        "как загрузить фикс-базу Астрахани. 5-8 пунктов, конкретно."
+        "Дай свою стратегию на 2 недели как зам по продажам: куда бить, кого "
+        "атаковать в первую очередь, как наполнять базу нужными ЛПР, что "
+        "пилотировать. 5–8 пунктов, конкретно, с прицелом на деньги."
     )
-    system = (
-        "Ты стратегический мозг B2B продаж halal-производителя мяса и выпечки. "
-        "Opus-уровень: глубоко, но без воды.\n\n" + kb.context_for_prompt(12)
-    )
+    try:
+        from core.persona import block as persona_block
+        persona = persona_block()
+    except Exception:
+        persona = "Ты Стив, зам по продажам Казанских Деликатесов."
+    system = persona + "\n\n" + kb.context_for_prompt(12)
     try:
         reply, usage = call_opus(prompt, system=system, max_tokens=2500, effort="medium")
     except Exception as e:
-        return f"Ошибка Opus: {e}"
-    store.add_signal("strategist", "opus_plan", {"text": reply[:2000], "by": str(chat_id)})
+        return f"Ошибка: {e}"
+    store.add_signal("strategist", "steve_plan", {"text": reply[:2000], "by": str(chat_id)})
     cost = usage.get("cost_usd", 0)
-    return f"🧠 <b>Стратегия (Opus)</b>\n\n{reply}\n\n<i>Opus ${cost:.4f}</i>"
+    from core.budget import remaining as steve_remaining
+    return f"🧠 <b>Стратегия Стива</b>\n\n{reply}\n\n<i>${cost:.4f} · бюджет Стива ${steve_remaining():.2f}/20</i>"
 
 
 def handle_message(msg: dict) -> None:
@@ -356,26 +391,23 @@ def handle_message(msg: dict) -> None:
     elif text in ("🔄 Цикл", "/cycle"):
         send(chat_id, "🔄 Запускаю цикл…")
         send(chat_id, action_cycle(), keyboard=MAIN_MENU)
-    elif text in ("🧠 Стратег", "/strategy"):
-        send(chat_id, "🧠 Opus думает…")
+    elif text in ("🧠 Стратегия Стива", "🧠 Стратег", "/strategy"):
+        send(chat_id, "🧠 Стив думает…")
         send(chat_id, talk_strategy(chat_id), keyboard=MAIN_MENU)
     elif text in ("💰 Бюджет", "/budget"):
         send(chat_id, action_budget(), keyboard=MAIN_MENU)
-    elif text in ("💬 Спросить", "/ask"):
-        set_pending(chat_id, "ask_sonnet")
-        send(chat_id, "Напиши вопрос — отвечу через Sonnet.")
+    elif text in ("💬 Спросить Стива", "💬 Спросить", "/ask"):
+        set_pending(chat_id, "ask_steve")
+        send(chat_id, "Спрашивай — отвечу как есть. (А скажешь «запомни …» — запишу в память.)")
     else:
         try:
             d = json.loads(PENDING_FILE.read_text(encoding="utf-8"))
         except Exception:
             d = {}
-        if d.get(str(chat_id), {}).get("kind") == "ask_sonnet":
+        if d.get(str(chat_id), {}).get("kind") in ("ask_steve", "ask_sonnet"):
             pop_pending(chat_id)
-            send(chat_id, "💬 Думаю…")
-            send(chat_id, talk_sonnet(chat_id, text), keyboard=MAIN_MENU)
-        else:
-            send(chat_id, "💬 Думаю…")
-            send(chat_id, talk_sonnet(chat_id, text), keyboard=MAIN_MENU)
+        send(chat_id, "💬 Думаю…")
+        send(chat_id, talk_steve(chat_id, text), keyboard=MAIN_MENU)
 
 
 def main() -> int:

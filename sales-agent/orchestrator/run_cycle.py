@@ -110,6 +110,60 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     except Exception as e:
         summary["crm_sync"] = {"skipped": str(e)[:200]}
 
+    # Стив-стратег: думает голосом своей личности (бюджет-гейт $20), пишет память,
+    # предлагает себе инструменты. Затем toolsmith строит/прогоняет их в песочнице.
+    def _steve_thought_today() -> bool:
+        """Стив делает глубокую стратегию раз в сутки, не на каждом 2-часовом цикле."""
+        from datetime import date
+        marker = ROOT / "data" / "steve_last_think.txt"
+        today = date.today().isoformat()
+        try:
+            if marker.read_text(encoding="utf-8").strip() == today:
+                return True
+        except Exception:
+            pass
+        try:
+            marker.write_text(today, encoding="utf-8")
+        except Exception:
+            pass
+        return False
+
+    try:
+        from core.budget import brain_allowed
+        if brain_allowed() and not _steve_thought_today():
+            from strategist.insights import think as steve_think
+            steve_plan = steve_think(store=store)
+            summary["steve_strategy"] = steve_plan
+            try:
+                from brain.toolsmith import main as toolsmith_main
+                import io
+                from contextlib import redirect_stdout
+                buf = io.StringIO()
+                with redirect_stdout(buf):
+                    toolsmith_main()
+                summary["toolsmith"] = buf.getvalue()[:1000]
+            except Exception as e:
+                summary["toolsmith"] = {"skipped": str(e)[:160]}
+            # отчёт Стива владельцу
+            report = (steve_plan or {}).get("report_to_owner")
+            if report:
+                try:
+                    from telegram.notify import notify
+                    notify(f"🧠 <b>Стив:</b>\n{report[:3500]}")
+                except Exception:
+                    pass
+        else:
+            summary["steve_strategy"] = {"skipped": "already_thought_today_or_budget"}
+    except Exception as e:
+        summary["steve_strategy"] = {"skipped": str(e)[:200]}
+
+    # Стив сам пишет владельцу, если есть важный повод (с анти-спам кулдауном)
+    try:
+        from orchestrator.proactive import run as proactive_run
+        summary["proactive"] = proactive_run(store=store)
+    except Exception as e:
+        summary["proactive"] = {"skipped": str(e)[:200]}
+
     return summary
 
 

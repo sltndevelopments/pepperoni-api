@@ -40,6 +40,7 @@ sales-intel/data/*.xlsx
 # Sales agent runtime (isolated from public/ site)
 sales-agent/data/*
 !sales-agent/data/.gitkeep
+!sales-agent/data/sales_memory.json
 sales-agent/data/sales_tg_authorized.json
 sales-agent/data/sales_tg_pending.json
 sales-agent/data/email_send_log.jsonl

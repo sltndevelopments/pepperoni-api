@@ -432,6 +432,20 @@ class Store:
             ).fetchall()
         return [dict(r) for r in rows]
 
+    def recent_audit(self, actor: str, action: str, *, limit: int = 20,
+                     hours: int = 24) -> list[dict]:
+        """Свежие записи аудита по actor+action за последние `hours` часов."""
+        from datetime import datetime, timedelta, timezone
+        since = (datetime.now(timezone.utc) - timedelta(hours=hours)).isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                """SELECT * FROM audit_log
+                   WHERE actor=? AND action=? AND created_at>=?
+                   ORDER BY created_at DESC LIMIT ?""",
+                (actor, action, since, limit),
+            ).fetchall()
+        return [dict(r) for r in rows]
+
     def save_orchestrator_run(self, phase: str, plan: dict, result: dict) -> str:
         rid = _new_id()
         with self._conn() as conn:
