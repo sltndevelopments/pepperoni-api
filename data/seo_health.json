@@ -1,0 +1,5512 @@
+{
+ "ts": "2026-06-11T06:31:18.868877+00:00",
+ "local": {
+  "scanned": 249,
+  "pages_with_issues": [
+   {
+    "page": "en/pepperoni.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/pizzeria.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-001.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-002.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-003.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-004.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-005.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-006.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-007.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-011.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-013.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-015.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-021.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-028.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-032.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-033.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "en/products/kd-046.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "pepperoni.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "pizzeria.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-001.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-002.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-003.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-004.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-005.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-006.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-007.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-011.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-013.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-015.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-021.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-028.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-032.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-033.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   },
+   {
+    "page": "products/kd-046.html",
+    "problems": [
+     "invalid GTIN '46+7 987 217-02-02'"
+    ]
+   }
+  ],
+  "issue_counts": {
+   "invalid GTIN '…'": 34
+  }
+ },
+ "gsc": {
+  "checked": 12,
+  "findings": [
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "ERROR",
+    "message": "Missing field \"image\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"description\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/en/",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/pepperoni",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-001",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-001",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-001",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"returnShippingFeesAmount\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-002",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-002",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-002",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-002",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-003",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-003",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-003",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-003",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-004",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-004",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-004",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"shippingDetails\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-004",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"hasMerchantReturnPolicy\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-006",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-006",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-006",
+    "type": "Merchant listings",
+    "severity": "WARNING",
+    "message": "Missing field \"returnShippingFeesAmount\""
+   }
+  ]
+ }
+}
