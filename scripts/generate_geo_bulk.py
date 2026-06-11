@@ -647,6 +647,11 @@ def generate_batch(tasks: list) -> list:
     try:
         batch_out = call_claude_batch(items)
     except Exception as exc:
+        # Daily budget kill switch: stop immediately, don't burn the cap on a
+        # pointless per-page sync fallback that would just re-raise.
+        if exc.__class__.__name__ == "BudgetExceeded":
+            print(f"🛑 {exc}", file=sys.stderr)
+            raise
         print(f"⚠️  batch failed ({exc}) — falling back to sync generation",
               file=sys.stderr)
         return results + [generate_one_page(p["task"]) for p in preps.values()]

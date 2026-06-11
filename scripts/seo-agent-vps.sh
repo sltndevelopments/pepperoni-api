@@ -13,6 +13,12 @@ REPO_DIR="/var/www/pepperoni/repo"
 ENV_FILE="/var/www/pepperoni/seo-agent.env"
 LOG_DIR="$REPO_DIR/data/logs"
 
+# Hard daily spend cap (kill switch in claude_client.py). Once today's logged
+# Anthropic cost crosses this, every LLM call raises BudgetExceeded so a runaway
+# loop can't drain the balance like the 630-page run on 2026-06-10. Override in
+# seo-agent.env; set to 0 to disable.
+export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-5}"
+
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/agent-$(date +%Y%m%d-%H%M%S).log"
 

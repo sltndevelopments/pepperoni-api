@@ -1,25 +1,16 @@
 {
  "2026-06": {
-  "usd": 11.281357,
-  "usd_baseline": 19.273921,
+  "usd": 8.788256,
+  "usd_baseline": 15.221519,
   "days": {
    "2026-06-10": {
-    "calls": 145,
-    "in": 336689,
-    "out": 908348,
-    "cache_w": 6765,
-    "cache_r": 0,
-    "usd": 8.666167,
-    "usd_baseline": 15.088588
-   },
-   "2026-06-11": {
-    "calls": 32,
-    "in": 38876,
-    "out": 221944,
-    "cache_w": 75558,
-    "cache_r": 3970,
-    "usd": 2.615192,
-    "usd_baseline": 4.185333
+    "calls": 151,
+    "in": 351187,
+    "out": 911912,
+    "cache_w": 9588,
+    "cache_r": 2823,
+    "usd": 8.788256,
+    "usd_baseline": 15.221519
    }
   },
   "scripts": {
@@ -33,49 +24,49 @@
     "usd_baseline": 0.96549
    },
    "generate_geo_bulk": {
-    "calls": 117,
-    "in": 142258,
-    "out": 1004138,
-    "cache_w": 55928,
-    "cache_r": 0,
-    "usd": 7.646707,
-    "usd_baseline": 15.251452
-   },
-   "escalate_brain": {
-    "calls": 2,
-    "in": 29755,
-    "out": 7258,
-    "cache_w": 6988,
-    "cache_r": 0,
-    "usd": 0.7478,
-    "usd_baseline": 0.73033
-   },
-   "build_landing": {
-    "calls": 2,
-    "in": 15775,
-    "out": 12386,
+    "calls": 97,
+    "in": 133513,
+    "out": 834949,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.664011,
-    "usd_baseline": 0.664011
+    "usd": 6.259804,
+    "usd_baseline": 12.519598
+   },
+   "escalate_brain": {
+    "calls": 1,
+    "in": 11807,
+    "out": 3749,
+    "cache_w": 2962,
+    "cache_r": 0,
+    "usd": 0.342545,
+    "usd_baseline": 0.33514
+   },
+   "build_landing": {
+    "calls": 1,
+    "in": 7877,
+    "out": 5910,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.318849,
+    "usd_baseline": 0.318849
    },
    "generate_from_strategy": {
-    "calls": 13,
-    "in": 5755,
-    "out": 50880,
-    "cache_w": 13619,
+    "calls": 6,
+    "in": 2867,
+    "out": 23364,
+    "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.41577,
-    "usd_baseline": 0.821322
+    "usd": 0.179532,
+    "usd_baseline": 0.359061
    },
    "generate_content": {
-    "calls": 12,
-    "in": 4657,
-    "out": 30440,
-    "cache_w": 1985,
-    "cache_r": 3970,
-    "usd": 0.479206,
-    "usd_baseline": 0.488436
+    "calls": 9,
+    "in": 3260,
+    "out": 15186,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.23757,
+    "usd_baseline": 0.23757
    },
    "seo_brain": {
     "calls": 1,
@@ -85,44 +76,62 @@
     "cache_r": 0,
     "usd": 0.362387,
     "usd_baseline": 0.35288
+   },
+   "sales:unknown": {
+    "calls": 4,
+    "in": 410,
+    "out": 1297,
+    "cache_w": 2823,
+    "cache_r": 2823,
+    "usd": 0.05329,
+    "usd_baseline": 0.064132
+   },
+   "brief_account": {
+    "calls": 2,
+    "in": 14088,
+    "out": 2267,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.068799,
+    "usd_baseline": 0.068799
    }
   },
   "models": {
    "pplx-agent": {
-    "calls": 30,
-    "in": 159675,
-    "out": 22431,
+    "calls": 31,
+    "in": 171363,
+    "out": 23931,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.96549,
-    "usd_baseline": 0.96549
+    "usd": 1.028054,
+    "usd_baseline": 1.028054
    },
    "claude-sonnet-4-6": {
-    "calls": 139,
-    "in": 161532,
-    "out": 1058709,
-    "cache_w": 71532,
-    "cache_r": 3970,
-    "usd": 9.104391,
-    "usd_baseline": 17.022633
+    "calls": 110,
+    "in": 140718,
+    "out": 841342,
+    "cache_w": 1650,
+    "cache_r": 1650,
+    "usd": 6.917498,
+    "usd_baseline": 13.258752
    },
    "claude-fable-5": {
-    "calls": 3,
-    "in": 47445,
-    "out": 10017,
-    "cache_w": 10791,
-    "cache_r": 0,
-    "usd": 1.110187,
-    "usd_baseline": 1.08321
+    "calls": 4,
+    "in": 29793,
+    "out": 6737,
+    "cache_w": 7938,
+    "cache_r": 1173,
+    "usd": 0.735178,
+    "usd_baseline": 0.72589
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 5,
-    "in": 6913,
-    "out": 39135,
+    "calls": 6,
+    "in": 9313,
+    "out": 39902,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.101295,
-    "usd_baseline": 0.202588
+    "usd": 0.10753,
+    "usd_baseline": 0.208823
    }
   }
  }

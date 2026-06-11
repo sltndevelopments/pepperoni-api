@@ -106,6 +106,40 @@ DATA_DIR = Path(__file__).parent.parent / "data"
 LEDGER = DATA_DIR / "llm_costs.json"
 _SCRIPT = os.path.basename(sys.argv[0] or "unknown").replace(".py", "") or "unknown"
 
+# ── Daily budget kill switch ──────────────────────────────────────────────────
+# Hard cap on Anthropic spend per UTC day. Once today's logged cost crosses this,
+# every new call raises BudgetExceeded BEFORE hitting the API — so a runaway loop
+# (like the 630-page geo run on 2026-06-10) can never silently drain the balance
+# again. Override with LLM_DAILY_BUDGET_USD; set to 0 to disable the guard.
+LLM_DAILY_BUDGET_USD = float(os.environ.get("LLM_DAILY_BUDGET_USD", "5"))
+
+
+class BudgetExceeded(RuntimeError):
+    """Raised when today's logged LLM spend exceeds LLM_DAILY_BUDGET_USD."""
+
+
+def today_spend_usd() -> float:
+    """Anthropic USD logged for the current UTC day (0.0 on any error)."""
+    try:
+        led = json.loads(LEDGER.read_text())
+        month = led.get(date.today().strftime("%Y-%m"), {})
+        return float(month.get("days", {}).get(date.today().isoformat(), {})
+                     .get("usd", 0.0))
+    except Exception:
+        return 0.0
+
+
+def _budget_guard() -> None:
+    if LLM_DAILY_BUDGET_USD <= 0:
+        return
+    spent = today_spend_usd()
+    if spent >= LLM_DAILY_BUDGET_USD:
+        raise BudgetExceeded(
+            f"Дневной лимит LLM исчерпан: ${spent:.2f} >= "
+            f"${LLM_DAILY_BUDGET_USD:.2f}. Генерация остановлена "
+            f"(LLM_DAILY_BUDGET_USD). Завтра счётчик обнулится."
+        )
+
 
 def _usage_cost(model: str, usage: dict, batch: bool) -> tuple[float, float]:
     """Returns (actual_usd, baseline_usd). Baseline = no cache, no batch."""
@@ -335,6 +369,7 @@ def call_claude(
     global _ADVISOR_BROKEN
     if not ANTHROPIC_API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY not set")
+    _budget_guard()
 
     model = model or DEFAULT_MODEL
     use_advisor = (advisor and ADVISOR_ENABLE and not _ADVISOR_BROKEN
@@ -439,6 +474,7 @@ def call_claude_batch(
     """
     if not ANTHROPIC_API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY not set")
+    _budget_guard()
     if not items:
         return {}
 
