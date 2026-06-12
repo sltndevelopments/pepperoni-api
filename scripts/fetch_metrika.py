@@ -130,7 +130,12 @@ def _leads(token: str, d1: str, d2: str) -> dict:
         name = (row["dimensions"][0].get("name") or "").strip()
         reaches = int(row["metrics"][0])
         by_goal[name] = reaches
-        if any(k in name.lower() for k in ("phone", "тел", "email", "почт", "mail")):
+        # A "lead" = any direct contact intent: phone, email, or messenger
+        # (WhatsApp/Telegram) — all strong B2B signals for a wholesale buyer.
+        if any(k in name.lower() for k in (
+                "phone", "тел", "номер", "email", "почт", "mail",
+                "мессенджер", "messenger", "whatsapp", "ватсап", "telegram",
+                "телеграм", "заявк", "форм", "form")):
             total_leads += reaches
     return {"total_leads": total_leads, "by_goal": by_goal}
 
