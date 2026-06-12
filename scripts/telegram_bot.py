@@ -571,6 +571,51 @@ def _site_inventory(max_chars: int = 1200) -> str:
     return "\n".join(lines)[:max_chars]
 
 
+def _live_data_snapshot(max_chars: int = 1800) -> str:
+    """Compact snapshot of REAL site data the brain already has (GSC, CTR,
+    positions, health, demand gaps). Without this the chat-voice wrongly claims
+    it is 'blind' and asks the owner to connect Search Console — which is in fact
+    already connected. Mirrors the cycle digest, kept small for chat cost."""
+    import importlib
+    parts: list[str] = []
+    try:
+        sb = importlib.import_module("seo_brain")
+        dh = sb.data_health_digest()
+        parts.append(
+            "GSC (Search Console ПОДКЛЮЧЕН, данные свежие): "
+            f"данные на {dh.get('gsc_latest_date','?')} "
+            f"(возраст {dh.get('gsc_data_age_days','?')} дн), "
+            f"30 дней: {dh.get('site_30d_impressions','?')} показов, "
+            f"{dh.get('site_30d_clicks','?')} кликов, "
+            f"CTR {dh.get('site_30d_ctr_pct','?')}%."
+        )
+        if dh.get("ctr_critically_low"):
+            parts.append("⚠ CTR критически низкий — показы есть, кликов почти нет.")
+        if dh.get("yandex_dark"):
+            parts.append("⚠ В Яндексе нас почти не видно (0 показов).")
+        try:
+            opp = sb.opportunities() or {}
+            top = (opp.get("commercial") or [])[:4] or (opp.get("quick_growth") or [])[:4]
+            if top:
+                parts.append("Горячие коммерческие запросы (из GSC): "
+                             + "; ".join(
+                                 f"{o.get('query','?')} ({o.get('impressions','?')} показов, "
+                                 f"поз {round(o.get('position',0),1)})" for o in top))
+        except Exception:
+            pass
+        try:
+            sh = sb.site_health_digest()
+            parts.append(
+                f"Тех.здоровье: битых ссылок {sh.get('broken_links_total','?')}, "
+                f"дубль-canonical {sh.get('duplicate_canonical_clusters','?')}, "
+                f"тонких стр. {sh.get('thin_pages_total','?')}.")
+        except Exception:
+            pass
+    except Exception as e:
+        parts.append(f"(срез данных недоступен: {e})")
+    return "\n".join(parts)[:max_chars]
+
+
 def talk_to_brain(chat_id: int, question: str) -> str:
     """
     Tiered dialogue (cost-safe):
@@ -597,15 +642,25 @@ def talk_to_brain(chat_id: int, question: str) -> str:
     voice_system = (
         persona + "\n\n"
         "Сейчас ты ОБЩАЕШЬСЯ с владельцем в чате. Отвечай как живой человек-зам: "
-        "кратко, по-русски, по делу, с опорой на стратегию, память и журнал. "
-        "Помни ваши прошлые договорённости (раздел ПАМЯТЬ). Если владелец просит "
-        "что-то запомнить навсегда (принцип, договорённость) — подтверди, что "
-        "запомнил (это сохранится в память). Стратегические РЕШЕНИЯ глубокого "
-        "уровня (перестройка плана) ты выносишь в полный цикл: если вопрос этого "
-        "требует — начни ответ строго со строки '[ESCALATE]' и кратко поясни почему. "
-        "Иначе отвечай обычно. У тебя есть ФАКТИЧЕСКИЙ инвентарь страниц сайта "
-        "(ниже): на вопросы «есть ли у нас страница/лендинг X» отвечай по нему и "
-        "НИКОГДА не говори, что у тебя нет доступа к сайту.\n\n"
+        "кратко, по-русски, по делу, с опорой на стратегию, память, журнал и "
+        "ЖИВЫЕ ДАННЫЕ ниже. Помни ваши прошлые договорённости (раздел ПАМЯТЬ). "
+        "Если владелец просит что-то запомнить навсегда — подтверди, что запомнил.\n\n"
+        "ВАЖНО О ТВОИХ ВОЗМОЖНОСТЯХ (не говори иначе!):\n"
+        "- Google Search Console УЖЕ ПОДКЛЮЧЁН — у тебя есть данные по показам, "
+        "кликам, CTR и позициям (см. ЖИВЫЕ ДАННЫЕ). НИКОГДА не говори «работаю "
+        "вслепую» или «подключи Search Console» — это уже сделано.\n"
+        "- У тебя ЕСТЬ руки: ты сам управляешь агентами (генерация гео/блога/"
+        "лендингов, перелинковка, оптимизация title/meta, починка schema и ссылок), "
+        "сам правишь их код, создаёшь инструменты и ведёшь долговременную память. "
+        "Сайт статический, деплоится из git-репозитория автоматически — отдельная "
+        "CMS не нужна, публикация идёт через твоих агентов. НЕ говори «нет ключей "
+        "от офиса» / «нет доступа к CMS» — у тебя полный контроль через пайплайн.\n"
+        "- Чего у тебя пока правда нет: GA4/Метрика в реальном времени и данные "
+        "из отдела продаж (какие заявки реально закрылись). Об этом сказать можно.\n\n"
+        "Стратегические РЕШЕНИЯ глубокого уровня (перестройка плана) выноси в "
+        "полный цикл: если вопрос этого требует — начни ответ строго со строки "
+        "'[ESCALATE]' и кратко поясни почему. Иначе отвечай обычно.\n\n"
+        f"=== ЖИВЫЕ ДАННЫЕ САЙТА (актуальны) ===\n{_live_data_snapshot()}\n\n"
         f"ИНВЕНТАРЬ САЙТА:\n{_site_inventory()}\n\n"
         f"ТЕКУЩАЯ СТРАТЕГИЯ: {strategy}\n\nЖУРНАЛ:\n{context}"
     )
