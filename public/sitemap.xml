@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pepperoni.tatar/</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -10314,7 +10314,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-derbent</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -11159,6 +11159,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-orsk</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-osh</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -11249,6 +11255,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-semey</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-serpukhov</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -11257,6 +11269,12 @@
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-severodvinsk</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-shatura</loc>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -11328,12 +11346,18 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-tartu</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/geo/pepperoni-tartu"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/geo/pepperoni-tartu"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/geo/pepperoni-tartu"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-tashkent</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-tbilisi</loc>
@@ -11381,12 +11405,6 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-ulyanovsk</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-uralsk</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -11395,12 +11413,6 @@
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-ussuriysk</loc>
     <lastmod>2026-06-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-ust-kamenogorsk</loc>
-    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -17937,7 +17949,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/vypechka-tatarskaya-komsomolsk-na-amure</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -18223,12 +18235,6 @@
   <url>
     <loc>https://pepperoni.tatar/geo/vypechka-tatarskaya-sochi</loc>
     <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/vypechka-tatarskaya-stavropol</loc>
-    <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -19458,7 +19464,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/ar/geo/makhbuzat-tatariya-halal-salalah</loc>
-    <lastmod>2026-06-11</lastmod>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -22556,6 +22562,12 @@
     <priority>0.60</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-antalya</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-armenia</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -22670,6 +22682,18 @@
     <priority>0.60</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-johannesburg</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-johor-bahru</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-kano</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -22756,6 +22780,12 @@
   <url>
     <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-medina</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-mombasa</loc>
+    <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -28736,61 +28766,19 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-shatura-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/pepperoni-seversk-ru-a/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/halal-pepperoni-johor-bahru-en-a/</loc>
+    <loc>https://pepperoni.tatar/geo/halal-pepperoni-dubai-en-a/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/halal-pepperoni-johannesburg-en-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/babbroni-halal-doha-ar-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/halal-pepperoni-antalya-en-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-tashkent-ru-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-semey-ru-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-orsk-ru-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/halal-pepperoni-mombasa-en-a/</loc>
-    <lastmod>2026-06-12</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/babbroni-halal-kuwait-city-ar-a/</loc>
+    <loc>https://pepperoni.tatar/geo/pepperoni-podolsk-ru-a/</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
