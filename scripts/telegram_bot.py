@@ -611,6 +611,21 @@ def _live_data_snapshot(max_chars: int = 1800) -> str:
                 f"тонких стр. {sh.get('thin_pages_total','?')}.")
         except Exception:
             pass
+        try:
+            beh = sb.metrika_digest()
+            if beh.get("status") == "unavailable":
+                parts.append("Поведение (Метрика): пока не подключена "
+                             "(нужен токен metrika:read) — по визитам/лидам "
+                             "не выдумывай цифры.")
+            elif beh:
+                parts.append(
+                    f"Поведение (Яндекс.Метрика, {beh.get('days','?')} дн): "
+                    f"{beh.get('visits','?')} визитов, "
+                    f"{beh.get('users','?')} польз., "
+                    f"отказы {beh.get('bounce_rate_pct','?')}%, "
+                    f"ЛИДОВ (клики тел/почта) {beh.get('leads_total','?')}.")
+        except Exception:
+            pass
     except Exception as e:
         parts.append(f"(срез данных недоступен: {e})")
     return "\n".join(parts)[:max_chars]

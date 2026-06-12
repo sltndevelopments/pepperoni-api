@@ -78,6 +78,10 @@ python3 scripts/fetch_gsc_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  GSC fet
 log "Step 2: Fetching Yandex queries …"
 python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex fetch failed (non-fatal)"
 
+# ---- Step 2.1: Fetch Yandex Metrika (behaviour + leads) — Fable's on-site eyes ----
+log "Step 2.1: Fetching Yandex Metrika (visits/sources/leads) …"
+python3 scripts/fetch_metrika.py >> "$LOG_FILE" 2>&1 || log "⚠️  Metrika fetch failed (non-fatal)"
+
 # ---- Step 2.5: ANOMALY-GUARD — watch for sudden traffic/position drops ----
 # Runs right after data fetch so a drop (algo update / breakage / deindex) fires
 # an instant Telegram alert before anything else. Keeps a git-tracked baseline.
@@ -248,6 +252,7 @@ git add data/fable_memory.json 2>/dev/null || true
 # LLM cost telemetry + monthly market research (both feed the bot/brain).
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
+git add data/metrika.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true
