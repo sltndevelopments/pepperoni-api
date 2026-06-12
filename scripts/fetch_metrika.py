@@ -75,7 +75,8 @@ def _totals(token: str, d1: str, d2: str) -> dict:
                    "ym:s:pageDepth,ym:s:avgVisitDurationSeconds",
         "accuracy": "full",
     })
-    t = (data.get("totals") or [[0, 0, 0, 0, 0]])[0]
+    # Metrika returns top-level "totals" as a FLAT list of numbers.
+    t = data.get("totals") or [0, 0, 0, 0, 0]
     return {
         "visits": int(t[0]), "users": int(t[1]),
         "bounce_rate_pct": round(t[2], 1), "page_depth": round(t[3], 2),
