@@ -551,10 +551,15 @@ loadCatalog();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
 document.addEventListener('click',function(e){{
   var link=e.target.closest('a');if(!link)return;
-  var href=link.getAttribute('href')||'';
-  if(href.indexOf('tel:')===0)typeof ym==='function'&&ym(107064141,'reachGoal','click_phone');
-  if(href.indexOf('mailto:')===0)typeof ym==='function'&&ym(107064141,'reachGoal','click_email');
+  var href=link.getAttribute('href')||'';var g=function(n){{typeof ym==='function'&&ym(107064141,'reachGoal',n);}};
+  if(href.indexOf('tel:')===0)g('click_phone');
+  if(href.indexOf('mailto:')===0)g('click_email');
+  if(/wa\.me|whatsapp|t\.me\//i.test(href))g('click_messenger');
+  if(/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
 }});
+document.addEventListener('submit',function(e){{
+  if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
+}},true);
 </script>
 </body>
 </html>"""

@@ -612,6 +612,20 @@ def _live_data_snapshot(max_chars: int = 1800) -> str:
         except Exception:
             pass
         try:
+            li = sb.leads_digest()
+            if li.get("status") == "unavailable":
+                pass  # listener not connected yet — stay silent, don't invent
+            elif li:
+                ch = ", ".join(f"{k}:{v}" for k, v in
+                               sorted(li.get("by_channel", {}).items(),
+                                      key=lambda x: -x[1])[:5]) or "—"
+                parts.append(
+                    f"РЕАЛЬНЫЕ ЗАЯВКИ (все каналы): всего {li.get('total_tracked',0)}, "
+                    f"коммерческих {li.get('by_intent',{}).get('commercial',0)}. "
+                    f"По каналам: {ch}.")
+        except Exception:
+            pass
+        try:
             beh = sb.metrika_digest()
             if beh.get("status") == "unavailable":
                 parts.append("Поведение (Метрика): пока не подключена "

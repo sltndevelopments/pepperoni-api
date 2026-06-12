@@ -253,6 +253,7 @@ git add data/fable_memory.json 2>/dev/null || true
 git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
 git add data/metrika.json 2>/dev/null || true
+git add data/leads.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true

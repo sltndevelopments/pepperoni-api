@@ -587,6 +587,8 @@ document.addEventListener("click",function(e){
   var href=link.getAttribute("href")||"";
   if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
   if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
+  if(/wa\.me|whatsapp|t\.me\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
+  if(/price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
