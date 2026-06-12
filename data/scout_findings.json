@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-11T20:20:21.180954+00:00",
+  "generated_at": "2026-06-12T03:49:47.902165+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 142,
+      "impr": 147,
       "clk": 2,
-      "pos": 33.4,
+      "pos": 32.5,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -26,9 +26,9 @@
     },
     {
       "query": "пеперони халяль",
-      "impr": 43,
+      "impr": 44,
       "clk": 0,
-      "pos": 6.9,
+      "pos": 7.0,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -39,10 +39,17 @@
       "page": "https://pepperoni.tatar/"
     },
     {
-      "query": "пепперони халяль или нет",
-      "impr": 20,
+      "query": "kazan delicacies halal pepperoni",
+      "impr": 24,
       "clk": 0,
-      "pos": 7.6,
+      "pos": 6.0,
+      "page": "https://pepperoni.tatar/en/"
+    },
+    {
+      "query": "пепперони халяль или нет",
+      "impr": 24,
+      "clk": 0,
+      "pos": 7.8,
       "page": "https://pepperoni.tatar/"
     }
   ]
