@@ -135,7 +135,8 @@ def _leads(token: str, d1: str, d2: str) -> dict:
         if any(k in name.lower() for k in (
                 "phone", "тел", "номер", "email", "почт", "mail",
                 "мессенджер", "messenger", "whatsapp", "ватсап", "telegram",
-                "телеграм", "заявк", "форм", "form", "прайс", "price", "download")):
+                "телеграм", "заявк", "форм", "form", "прайс", "price", "download",
+                "скачив", "файл", "оставить заявку")):
             total_leads += reaches
     return {"total_leads": total_leads, "by_goal": by_goal}
 
