@@ -13,7 +13,7 @@ routing:
 
   strategy:
     tier: brain
-    model: claude-fable-5   # env OPUS_MODEL
+    model: claude-opus-4-8   # env OPUS_MODEL (Fable 5 suspended 2026-06-12)
     fallback: claude-sonnet-4-6
     tasks: [weekly_plan, cluster_insight, win_loss_pattern, tender_forecast, outbound_gate]
 

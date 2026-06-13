@@ -58,17 +58,19 @@ except Exception:
     _HAS_REQUESTS = False
 
 # Model is configurable so you can switch brain versions without code changes.
-# Default: Claude Fable 5 — Anthropic's most capable GA model (since 2026-06-09).
-OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-fable-5")
+# Default: Claude Opus 4.8 — Fable 5 was suspended for all customers by a US
+# government export-control directive on 2026-06-12 (returns HTTP 404, recommends
+# Opus 4.8). Switch back to claude-fable-5 via OPUS_MODEL if/when it returns.
+OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-8")
 
 # Monthly hard cap in USD. Default 40; override with OPUS_MONTHLY_BUDGET_USD.
 MONTHLY_BUDGET_USD = float(os.environ.get("OPUS_MONTHLY_BUDGET_USD", "40"))
 
-# Pricing (USD per 1M tokens) for Fable 5. Override via env if prices change.
-PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "10"))   # fresh input
-PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "50"))   # output
-PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "12.50"))# cache creation
-PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "1.00")) # cache hit
+# Pricing (USD per 1M tokens) for Opus 4.8 (half of Fable 5). Override via env.
+PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "5"))    # fresh input
+PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "25"))   # output
+PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")) # cache creation
+PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "0.50")) # cache hit
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -79,11 +81,11 @@ BUDGET_FILE = DATA / "opus_budget.json"
 # "micro" (Haiku, cheap classification). Prices USD per 1M tokens.
 MODELS = {
     "brain": {
-        "model": os.environ.get("OPUS_MODEL", "claude-fable-5"),
-        "in": float(os.environ.get("OPUS_PRICE_INPUT", "10")),
-        "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "50")),
-        "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "12.50")),
-        "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "1.00")),
+        "model": os.environ.get("OPUS_MODEL", "claude-opus-4-8"),
+        "in": float(os.environ.get("OPUS_PRICE_INPUT", "5")),
+        "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "25")),
+        "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")),
+        "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "0.50")),
     },
     "voice": {
         "model": os.environ.get("SONNET_MODEL", "claude-sonnet-4-6"),
