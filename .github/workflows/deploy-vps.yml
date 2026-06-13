@@ -84,6 +84,10 @@ jobs:
               # Dedicated monthly budget for the BRAIN (Fable + escalations),
               # tracked separately from the "hands" via data/opus_budget.json.
               echo "OPUS_MONTHLY_BUDGET_USD=30"
+              # Brain model. Fable 5 was suspended for all Anthropic customers by
+              # a US gov export-control directive (2026-06-12); using Opus 4.8
+              # (half the price). Set to claude-fable-5 here if/when it returns.
+              echo "OPUS_MODEL=claude-opus-4-8"
               # Cost & quality controls (set 2026-06-11). Quality mode: no new geo
               # generation, aggressive CTR optimization of existing pages, hard
               # daily spend cap. See scripts/claude_client.py:_budget_guard.
