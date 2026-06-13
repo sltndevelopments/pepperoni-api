@@ -376,9 +376,19 @@ def build_digest() -> dict:
         "toolbox": toolbox_digest(),
         "behaviour": metrika_digest(),
         "leads_inbox": leads_digest(),
+        "agent_bus": bus_digest(),
         "memory": memory_digest(),
         "owner_answers": _load_owner_answers()[-10:],
     }
+
+
+def bus_digest() -> dict:
+    """Tasks on the shared agent bus addressed to Fable (Orchestrator-Worker)."""
+    try:
+        import agent_bus
+        return agent_bus.digest(agent="fable")
+    except Exception:
+        return {"open_for_me": [], "by_status": {}, "stuck_count": 0}
 
 
 def leads_digest() -> dict:
@@ -504,6 +514,15 @@ generate_geo_bulk, fix_links, generate_content и т.д.), а не только 
 который думает о деньгах компании. Система защитит пайплайн авто-откатом, но за
 халяль-целостность, бренд и качество отвечаешь ТЫ. Не спрашивай разрешения —
 сообщай о важном через report_to_owner / proactive_message.
+
+★ ОБЩАЯ ШИНА ЗАДАЧ (блок "agent_bus" в дайджесте): это нервная система компании.
+Ты работаешь в паре с Стивом (зам по продажам) и воркерами по схеме
+Оркестратор-Воркер. В "agent_bus.open_for_me" — задачи, адресованные ТЕБЕ
+(напр. "strengthen_landing" — по живому коммерческому лиду усилить страницу/оффер
+кластера). Учитывай их в стратегии этого цикла как приоритет (живой лид важнее
+догадок из GSC). Если видишь, что задача относится к продажам (звонок, КП,
+переговоры) — это зона Стива, не дублируй. by_status и stuck_count показывают
+здоровье потока: если stuck_count растёт — что-то застряло, отметь в отчёте.
 
 ★ ПАМЯТЬ (поле memory_ops): у тебя есть долговременная память (блок "memory" в
 дайджесте): принципы владельца, ваши решения, твои цели (OKR), факты. ВЕДИ её
@@ -894,6 +913,16 @@ def _report_and_ask(strategy: dict) -> None:
             print("🧠 memory:", "; ".join(res))
         except Exception as e:
             print(f"⚠️  memory_ops failed: {e}")
+
+    # Acknowledge bus tasks addressed to Fable: a planning cycle ran, so any
+    # pending "strengthen_landing" handoffs are now folded into the strategy.
+    try:
+        import agent_bus
+        for t in agent_bus.inbox("fable", status="pending"):
+            agent_bus.update(t["id"], "done",
+                             note="учтено в стратегии цикла")
+    except Exception as e:
+        print(f"⚠️  bus ack failed: {e}")
 
     # Proactive, deputy-initiated message — only when Fable judged it important.
     proactive = (strategy.get("proactive_message") or "").strip()

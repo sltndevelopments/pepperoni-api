@@ -102,6 +102,31 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
             r = scan_tenders(store)
             results.append({"worker": w, **r})
 
+        elif w == "handle_warm_leads":
+            # Warm leads handed off by Fable/listener via the shared bus.
+            handled = 0
+            try:
+                import sys as _sys
+                _sys.path.insert(0, str(ROOT.parent / "scripts"))
+                import agent_bus
+                for tid in task.get("bus_task_ids", []):
+                    if not agent_bus.claim(tid, "steve"):
+                        continue
+                    tinfo = next((x for x in agent_bus.inbox("steve", "in_progress")
+                                  if x["id"] == tid), None)
+                    pl = (tinfo or {}).get("payload", {})
+                    text = pl.get("text") or "Входящий коммерческий лид"
+                    chan = pl.get("channel", "unknown")
+                    # Feed into Steve's normal inbound pipeline so it gets a draft.
+                    store.add_inbound(chan, text, meta={"source": "agent_bus",
+                                                        "phone": pl.get("phone", "")})
+                    agent_bus.update(tid, "done", note="принят в воронку Стива")
+                    handled += 1
+            except Exception as e:
+                results.append({"worker": w, "error": str(e)[:160]})
+            else:
+                results.append({"worker": w, "handled": handled})
+
     # Исполнить одобренные (dry_run по умолчанию)
     sent = gate.execute_approved(dry_run=dry_run_send)
     if sent:

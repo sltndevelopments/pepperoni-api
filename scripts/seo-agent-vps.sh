@@ -82,6 +82,14 @@ python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yand
 log "Step 2.1: Fetching Yandex Metrika (visits/sources/leads) …"
 python3 scripts/fetch_metrika.py >> "$LOG_FILE" 2>&1 || log "⚠️  Metrika fetch failed (non-fatal)"
 
+# ---- Step 2.2: Lead listener + handoff routing (Orchestrator-Worker bus) ----
+# Pull any fresh leads, then route them across the agent bus (commercial lead →
+# Steve; cluster-matched lead → Fable). Finally escalate anything stuck.
+log "Step 2.2: Lead listener + handoff routing …"
+python3 scripts/lead_listener.py >> "$LOG_FILE" 2>&1 || log "⚠️  Lead listener failed (non-fatal)"
+python3 scripts/handoff_rules.py >> "$LOG_FILE" 2>&1 || log "⚠️  Handoff routing failed (non-fatal)"
+python3 scripts/agent_bus.py --escalate >> "$LOG_FILE" 2>&1 || true
+
 # ---- Step 2.5: ANOMALY-GUARD — watch for sudden traffic/position drops ----
 # Runs right after data fetch so a drop (algo update / breakage / deindex) fires
 # an instant Telegram alert before anything else. Keeps a git-tracked baseline.
@@ -254,6 +262,7 @@ git add data/llm_costs.json data/market_pulse.json 2>/dev/null || true
 git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/null || true
 git add data/metrika.json 2>/dev/null || true
 git add data/leads.json 2>/dev/null || true
+git add data/agent_bus.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true
