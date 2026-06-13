@@ -135,6 +135,11 @@ def cmd_enrich(args: argparse.Namespace) -> None:
     print(json.dumps(enrich_leads(limit=args.limit), ensure_ascii=False, indent=2))
 
 
+def cmd_recover_bounces(args: argparse.Namespace) -> None:
+    from prospecting.bounce_recovery import recover
+    print(json.dumps(recover(limit=args.limit), ensure_ascii=False, indent=2))
+
+
 def cmd_fetch_mail(_: argparse.Namespace) -> None:
     from channels.imap_inbox import fetch_inbox
     print(json.dumps(fetch_inbox(), ensure_ascii=False, indent=2))
@@ -250,6 +255,10 @@ def main() -> None:
     pen = sub.add_parser("enrich", help="Обогащение контактов лидов без email (по ИНН)")
     pen.add_argument("--limit", type=int, default=30)
     pen.set_defaults(func=cmd_enrich)
+
+    prb = sub.add_parser("recover-bounces", help="Hard bounce → найти новый адрес, вернуть в очередь")
+    prb.add_argument("--limit", type=int, default=20)
+    prb.set_defaults(func=cmd_recover_bounces)
 
     sub.add_parser("fetch-mail", help="Забрать входящие IMAP sales@").set_defaults(func=cmd_fetch_mail)
 

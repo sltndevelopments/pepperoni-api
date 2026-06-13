@@ -158,11 +158,13 @@ def _save_seen(seen: set[str]) -> None:
 def _find_lead_by_email(store: Store, sender: str) -> dict | None:
     if not sender:
         return None
+    sender = sender.strip().lower()
     domain = sender.split("@", 1)[1] if "@" in sender else ""
-    for lead in store.list_leads(limit=500):
+    for lead in store.list_leads(limit=600):
         p = lead.get("profile") or {}
         emails = str(p.get("emails") or p.get("email") or "").lower()
-        if sender in emails:
+        # точное вхождение адреса (в т.ч. в списке через запятую/с пробелами)
+        if sender and sender in emails:
             return lead
         # домен компании (не free-mail)
         if domain and domain not in (

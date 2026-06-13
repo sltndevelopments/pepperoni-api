@@ -41,6 +41,14 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     except Exception as e:
         imap_result = {"error": str(e)[:200]}
 
+    # Bounce-recovery: hard bounce → ресёрч нового адреса → обратно в очередь.
+    # Лимит маленький (вежливость к источнику + бюджет времени цикла).
+    try:
+        from prospecting.bounce_recovery import recover as recover_bounces
+        recovery_result = recover_bounces(store=store, limit=5)
+    except Exception as e:
+        recovery_result = {"skipped": str(e)[:200]}
+
     signals = store.unprocessed_signals()
     outreach_pending = outreach_candidates(store, limit=max_drafts * 4)
     pending = store.list_approvals("pending")
@@ -101,6 +109,7 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
 
     summary = reflect(tasks, results)
     summary["imap"] = imap_result
+    summary["bounce_recovery"] = recovery_result
     store.save_orchestrator_run("full_cycle", {"tasks": tasks}, summary)
     store.audit("orchestrator", "cycle_complete", detail=summary)
 
