@@ -10169,8 +10169,20 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/geo/pepperoni-armenia"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-arzamas</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-ashgabat</loc>
     <lastmod>2026-06-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-astana</loc>
+    <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -11058,6 +11070,12 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/geo/pepperoni-miks-uzbekistan"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/geo/pepperoni-miks-uzbekistan"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/geo/pepperoni-miks-uzbekistan"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/pepperoni-minsk</loc>
+    <lastmod>2026-06-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-mogilev</loc>
@@ -28856,19 +28874,19 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-minsk-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/babbroni-halal-sharm-el-sheikh-ar-a/</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-astana-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/pepperoni-kaluga-ru-a/</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-arzamas-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/pepperoni-tambov-ru-a/</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
