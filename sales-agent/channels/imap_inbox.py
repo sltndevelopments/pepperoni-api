@@ -27,7 +27,21 @@ IMAP_PORT = int(os.environ.get("IMAP_PORT", "993"))
 IMAP_USER = os.environ.get("IMAP_USER", "") or os.environ.get("SMTP_USER", "")
 IMAP_PASSWORD = os.environ.get("IMAP_PASSWORD", "") or os.environ.get("SMTP_PASSWORD", "")
 
+# Доп. ящик info@ — ТОЛЬКО приём входящих заявок (с него не шлём).
+INFO_USER = os.environ.get("INFO_IMAP_USER", "")
+INFO_PASSWORD = os.environ.get("INFO_IMAP_PASSWORD", "")
+
 SEEN_FILE = ROOT / "data" / "imap_seen.json"
+
+
+def _accounts() -> list[dict]:
+    """Список почтовых ящиков для приёма. sales@ — основной, info@ — приёмный."""
+    accts = []
+    if IMAP_USER and IMAP_PASSWORD:
+        accts.append({"user": IMAP_USER, "password": IMAP_PASSWORD, "box": "sales"})
+    if INFO_USER and INFO_PASSWORD:
+        accts.append({"user": INFO_USER, "password": INFO_PASSWORD, "box": "info"})
+    return accts
 
 # Авторассылки и сервисные письма — не лиды
 SKIP_FROM = re.compile(
@@ -98,7 +112,7 @@ def _handle_bounce(store: Store, msg: email.message.Message, body: str) -> dict 
 
 
 def imap_configured() -> bool:
-    return bool(IMAP_USER and IMAP_PASSWORD)
+    return bool(_accounts())
 
 
 def _decode(value: str | None) -> str:
@@ -174,43 +188,34 @@ def _find_lead_by_email(store: Store, sender: str) -> dict | None:
     return None
 
 
-def fetch_inbox(*, store: Store | None = None, limit: int = 50) -> dict:
-    """Забрать непрочитанные → agent.db inbox. Возвращает счётчики."""
-    if not imap_configured():
-        return {"ok": False, "error": "imap_not_configured"}
-
-    store = store or Store()
-    store.init()
-    seen = _load_seen()
-
+def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
+    """Обработать один ящик. box: 'sales' (приём+bounce) или 'info' (приём заявок)."""
+    box = acct["box"]
     imap = imaplib.IMAP4_SSL(IMAP_HOST, IMAP_PORT)
+    fetched = skipped = matched = bounces = 0
     try:
-        imap.login(IMAP_USER, IMAP_PASSWORD)
+        imap.login(acct["user"], acct["password"])
         imap.select("INBOX")
         status, data = imap.search(None, "UNSEEN")
         if status != "OK":
-            return {"ok": False, "error": f"search_failed:{status}"}
+            return {"ok": False, "box": box, "error": f"search_failed:{status}"}
 
-        ids = data[0].split()[:limit]
-        fetched = 0
-        skipped = 0
-        matched = 0
-        bounces = 0
-
-        for num in ids:
+        for num in data[0].split()[:limit]:
             status, msg_data = imap.fetch(num, "(RFC822)")
             if status != "OK" or not msg_data or not msg_data[0]:
                 continue
             msg = email.message_from_bytes(msg_data[0][1])
-            msg_id = msg.get("Message-ID", "").strip() or f"imap-{num.decode()}"
+            msg_id = msg.get("Message-ID", "").strip() or f"imap-{box}-{num.decode()}"
             if msg_id in seen:
                 continue
             seen.add(msg_id)
 
-            bounce = _handle_bounce(store, msg, _body_text(msg)[:6000])
-            if bounce is not None:
-                bounces += 1
-                continue
+            # bounce-логика актуальна только для sales@ (с info@ мы не шлём)
+            if box == "sales":
+                bounce = _handle_bounce(store, msg, _body_text(msg)[:6000])
+                if bounce is not None:
+                    bounces += 1
+                    continue
 
             sender = _sender_email(msg)
             if SKIP_FROM.search(sender) or SKIP_FROM.search(_decode(msg.get("From", ""))):
@@ -223,11 +228,11 @@ def fetch_inbox(*, store: Store | None = None, limit: int = 50) -> dict:
             lead_id = lead["id"] if lead else None
             if lead:
                 matched += 1
-                # сниппет ответа в профиль — подхватит scan_contacted_for_replies
                 profile = dict(lead.get("profile") or {})
                 profile["reply_snippet"] = body[:800]
                 profile["reply_from"] = sender
                 profile["reply_at"] = datetime.now(timezone.utc).isoformat()
+                profile["reply_box"] = box
                 store.upsert_lead(
                     lead["name"], lead_id=lead_id, inn=lead.get("inn"),
                     region=lead.get("region"), tier=lead.get("tier"),
@@ -236,27 +241,50 @@ def fetch_inbox(*, store: Store | None = None, limit: int = 50) -> dict:
                     source=lead.get("source"), profile=profile,
                 )
 
+            # входящие на info@ — это, как правило, новые заявки (горячий вход)
+            channel = "email_info" if box == "info" else "email"
             store.add_inbound(
-                "email",
-                body,
-                subject=subject,
-                lead_id=lead_id,
-                external_id=msg_id,
-                meta={"from": sender, "matched_lead": bool(lead)},
+                channel, body, subject=subject, lead_id=lead_id, external_id=msg_id,
+                meta={"from": sender, "matched_lead": bool(lead), "box": box},
             )
             fetched += 1
 
-        _save_seen(seen)
         store.audit("imap", "fetched", detail={
-            "fetched": fetched, "matched": matched, "skipped": skipped, "bounces": bounces,
+            "box": box, "fetched": fetched, "matched": matched,
+            "skipped": skipped, "bounces": bounces,
         })
-        return {"ok": True, "fetched": fetched, "matched_leads": matched,
+        return {"ok": True, "box": box, "fetched": fetched, "matched_leads": matched,
                 "skipped": skipped, "bounces": bounces}
     finally:
         try:
             imap.logout()
         except Exception:
             pass
+
+
+def fetch_inbox(*, store: Store | None = None, limit: int = 50) -> dict:
+    """Забрать непрочитанные со всех ящиков (sales@ + info@) → agent.db inbox."""
+    accts = _accounts()
+    if not accts:
+        return {"ok": False, "error": "imap_not_configured"}
+
+    store = store or Store()
+    store.init()
+    seen = _load_seen()
+
+    per_box = []
+    agg = {"fetched": 0, "matched_leads": 0, "skipped": 0, "bounces": 0}
+    for acct in accts:
+        try:
+            r = _fetch_one(acct, store=store, seen=seen, limit=limit)
+        except Exception as e:
+            r = {"ok": False, "box": acct["box"], "error": str(e)[:160]}
+        per_box.append(r)
+        for k in agg:
+            agg[k] += r.get(k, 0) or 0
+
+    _save_seen(seen)
+    return {"ok": True, **agg, "boxes": per_box}
 
 
 if __name__ == "__main__":
