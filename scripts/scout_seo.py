@@ -36,6 +36,14 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 STATE_PATH    = DATA / "scout_state.json"
 FINDINGS_PATH = DATA / "scout_findings.json"
+# Memory of what was already pushed to Telegram, so the same coverage gap is not
+# re-announced every run. {query: {"pos": <last reported pos>, "at": <iso>}}
+SENT_PATH     = DATA / "scout_sent.json"
+
+# Re-announce an already-reported signal only if it has been quiet this long…
+SCOUT_RESEND_DAYS = float(os.environ.get("SCOUT_RESEND_DAYS", "7"))
+# …or if its position changed by at least this much (real movement worth a ping).
+SCOUT_RESEND_POS_DELTA = float(os.environ.get("SCOUT_RESEND_POS_DELTA", "5"))
 
 # Thresholds (env-tunable)
 SCOUT_MIN_IMPR     = int(os.environ.get("SCOUT_MIN_IMPR", "10"))     # min impressions to care
@@ -190,10 +198,49 @@ def _queue_strong_gaps(gap_q: list) -> None:
         )
 
 
+def _dedup_for_telegram(findings: dict) -> dict:
+    """Drop signals already announced recently with no real change.
+
+    Without this, coverage gaps (which carry no baseline of their own) get
+    re-sent every single run — the daily Scout spam the owner complained about.
+    A signal is re-sent only if it is brand new, has been silent for
+    SCOUT_RESEND_DAYS, or its position moved by SCOUT_RESEND_POS_DELTA+.
+    """
+    sent = load_json(SENT_PATH, {})
+    now = datetime.now(timezone.utc)
+    fresh = {"new_queries": [], "rising_queries": [], "coverage_gaps": []}
+
+    def _is_fresh(e: dict) -> bool:
+        q = e["query"].lower().strip()
+        prev = sent.get(q)
+        if not prev:
+            return True
+        try:
+            quiet_days = (now - datetime.fromisoformat(prev["at"])).total_seconds() / 86400
+        except Exception:
+            quiet_days = 999
+        if quiet_days >= SCOUT_RESEND_DAYS:
+            return True
+        if abs(e.get("pos", 0) - prev.get("pos", 0)) >= SCOUT_RESEND_POS_DELTA:
+            return True
+        return False
+
+    for key in fresh:
+        for e in findings.get(key, []):
+            if _is_fresh(e):
+                fresh[key].append(e)
+                sent[e["query"].lower().strip()] = {"pos": e.get("pos", 0),
+                                                    "at": now.isoformat()}
+    save_json(SENT_PATH, sent)
+    return fresh
+
+
 def _maybe_send_digest(f: dict) -> None:
+    # Only announce genuinely new/changed signals (kills daily repeat spam).
+    f = _dedup_for_telegram(f)
     notable = f["new_queries"] or f["rising_queries"] or f["coverage_gaps"]
     if not notable:
-        print("· scout: nothing notable, skipping Telegram")
+        print("· scout: nothing new since last digest, skipping Telegram")
         return
     lines = ["<b>🛰 Scout — новые сигналы спроса</b>"]
     if f["new_queries"]:

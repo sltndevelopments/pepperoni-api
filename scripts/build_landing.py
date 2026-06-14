@@ -29,6 +29,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import time
 import re
 import sys
 from datetime import datetime, timezone
@@ -370,12 +371,27 @@ def escape_attr(s: str) -> str:
     return (s or "").replace('"', "&quot;").replace("<", "&lt;").replace(">", "&gt;")
 
 
-def build_one(query: str, conn) -> dict:
+LANDING_REBUILD_DAYS = float(os.environ.get("LANDING_REBUILD_DAYS", "21"))
+
+
+def build_one(query: str, conn, force: bool = False) -> dict:
     slug = slugify(query)
     if not slug:
         return {"status": "error", "query": query, "error": "empty slug"}
     out_path = LANDING_DIR / f"{slug}.html"
     url = f"https://pepperoni.tatar/landing/{slug}"
+
+    # Idempotency guard: rebuilding the same landing from scratch on every
+    # re-queue burns the Opus-advisor budget for no gain (rankings don't move
+    # from identical regeneration). Skip if it already exists and is recent.
+    if not force and out_path.exists():
+        try:
+            age_days = (time.time() - out_path.stat().st_mtime) / 86400
+        except OSError:
+            age_days = 0
+        if age_days < LANDING_REBUILD_DAYS:
+            return {"status": "skipped_fresh", "query": query, "slug": slug,
+                    "url": url, "age_days": round(age_days, 1)}
 
     system, prompt = build_prompt(query)
     # Flagship content: Opus advisor coaches the Sonnet executor (beta).
@@ -505,7 +521,7 @@ def main():
 
     if args.query:
         print(f"🏗 ad-hoc landing: «{args.query}»")
-        results.append(build_one(args.query, conn))
+        results.append(build_one(args.query, conn, force=True))
     else:
         try:
             import approvals
