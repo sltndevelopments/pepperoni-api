@@ -33,8 +33,10 @@ from seo_db import get_conn  # noqa: E402
 EXPERIMENTS = DATA / "experiments.json"
 OUTCOMES = DATA / "outcomes.json"
 
-# A change needs time to be re-crawled & re-ranked before we judge it.
-MATURE_DAYS = float(os.environ.get("OUTCOME_MATURE_DAYS", "5"))
+# A change needs SOME time to be re-crawled before we can fairly judge it, but
+# we don't wait a week: 2 days is enough to catch not-indexed/regressions while
+# avoiding false "not indexed" on pages the crawler simply hasn't revisited yet.
+MATURE_DAYS = float(os.environ.get("OUTCOME_MATURE_DAYS", "2"))
 # Position improvement (places) we consider a real win / real loss.
 WIN_DELTA = float(os.environ.get("OUTCOME_WIN_DELTA", "3"))
 # GSC window to read the "current" position from.
