@@ -6,8 +6,10 @@ const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
 const SHEETS = [
-  { gid: '1087942289', section: 'Заморозка', type: 'standard' },
-  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard' },
+  // Заморозка — 30 cols, есть колонка «Цена за 1 шт» (C=2).
+  { gid: '1087942289', section: 'Заморозка', type: 'standard', hasPiecePrice: true },
+  // Охлаждённая — 29 cols, колонки «Цена за 1 шт» НЕТ; всё после B сдвинуто на -1.
+  { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard', hasPiecePrice: false },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
 
@@ -300,20 +302,53 @@ function extractQtyFromName(name) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function buildStandard(lines, section, startIdx) {
+function validateProduct(p) {
+  const ep = p.offers?.exportPrices;
+  if (ep) {
+    if (ep.USD !== undefined && !(ep.USD > 0.1 && ep.USD < 10000)) {
+      console.warn(`[products] ${p.sku} invalid USD=${ep.USD}, dropping`);
+      delete ep.USD;
+    }
+  }
+  if (p.hsCode && !/^\d{6,10}$/.test(String(p.hsCode).replace(/\s/g, ''))) {
+    console.warn(`[products] ${p.sku} invalid hsCode="${p.hsCode}", clearing`);
+    p.hsCode = '';
+  }
+  if (p.storage && p.storage !== '' && !p.storage.includes('°') && !p.storage.includes('˚')) {
+    console.warn(`[products] ${p.sku} storage missing °C: "${p.storage}"`);
+  }
+  if (p.shelfLife && p.shelfLife !== '' && !/сут|дн/.test(p.shelfLife)) {
+    console.warn(`[products] ${p.sku} shelfLife unexpected: "${p.shelfLife}"`);
+  }
+}
+
+function buildStandard(lines, section, startIdx, hasPiecePrice = true) {
   let category = '';
   const products = [];
   let idx = startIdx;
+
+  // Заморозка (hasPiecePrice=true) — 30 cols:
+  //   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 PriceVAT, E=4 NoVAT,
+  //   F=5 ShelfLife, G=6 Storage, H=7 HS, I-N=8-13 currencies
+  // Охлаждённая (hasPiecePrice=false) — 29 cols, нет C; всё после B сдвинуто на -1:
+  //   A=0 Name, B=1 Weight, C=2 PriceVAT, D=3 NoVAT,
+  //   E=4 ShelfLife, F=5 Storage, G=6 HS, H-M=7-12 currencies
+  const colPriceVat = hasPiecePrice ? 3 : 2;
+  const colPriceNoVat = hasPiecePrice ? 4 : 3;
+  const colPricePiece = hasPiecePrice ? 2 : null;
+  const post = hasPiecePrice ? 0 : -1;
+  const cell = (cols, i) => {
+    const j = i + post;
+    return (j >= 0 && j < cols.length) ? (cols[j] || '') : '';
+  };
 
   for (const cols of lines) {
     if (!cols || cols.length < 3) continue;
     const name = cols[0];
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
-    // New B2B mapping: C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage, H=7 HS, I-N=8-13 currencies
-    const pricePerPieceVal = toNumber(cols[2]);
-    const priceVAT = toNumber(cols[3]) || toNumber(cols[2]);
-    const priceNoVAT = toNumber(cols[4]) || toNumber(cols[3]);
+    const priceVAT = toNumber(cols[colPriceVat]);
+    const priceNoVAT = toNumber(cols[colPriceNoVat]);
 
     if (priceVAT === 0 && priceNoVAT === 0) {
       if (name && !cols[1]) category = name;
@@ -322,18 +357,17 @@ function buildStandard(lines, section, startIdx) {
 
     idx++;
     const weight = cols[1] || '';
-    const shelfLife = cols[5] || '';
-    const storage = cols[6] || '';
-    const hsCode = cols[7] || '';
+    const shelfLife = cell(cols, 5);
+    const storage = cell(cols, 6);
+    const hsCode = cell(cols, 7);
     const qty = extractQtyFromName(name);
 
+    const curList = ['USD', 'KZT', 'UZS', 'KGS', 'BYN', 'AZN'];
     const prices = {};
-    if (toNumber(cols[8])) prices.USD = toNumber(cols[8]);
-    if (toNumber(cols[9])) prices.KZT = toNumber(cols[9]);
-    if (toNumber(cols[10])) prices.UZS = toNumber(cols[10]);
-    if (toNumber(cols[11])) prices.KGS = toNumber(cols[11]);
-    if (toNumber(cols[12])) prices.BYN = toNumber(cols[12]);
-    if (toNumber(cols[13])) prices.AZN = toNumber(cols[13]);
+    for (let i = 0; i < curList.length; i++) {
+      const v = toNumber(cols[8 + post + i]);
+      if (v) prices[curList[i]] = v;
+    }
 
     const offers = {
       url: 'https://pepperoni.tatar',
@@ -344,13 +378,19 @@ function buildStandard(lines, section, startIdx) {
       exportPrices: prices,
       deliveryTerms: 'EXW Kazan Russia',
     };
-    if (qty > 1) {
-      offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
-    } else if (pricePerPieceVal) {
-      offers.pricePerPiece = pricePerPieceVal.toFixed(2);
+
+    if (colPricePiece !== null) {
+      const pricePerPieceVal = toNumber(cols[colPricePiece]);
+      if (qty > 1) {
+        offers.pricePerPiece = (pricePerPieceVal || priceVAT / qty).toFixed(2);
+      } else if (pricePerPieceVal) {
+        offers.pricePerPiece = pricePerPieceVal.toFixed(2);
+      }
+    } else if (qty > 1 && priceVAT) {
+      offers.pricePerPiece = (priceVAT / qty).toFixed(2);
     }
 
-    products.push({
+    const product = {
       name,
       sku: `KD-${String(idx).padStart(3, '0')}`,
       section,
@@ -362,7 +402,9 @@ function buildStandard(lines, section, startIdx) {
       shelfLife,
       storage,
       hsCode,
-    });
+    };
+    validateProduct(product);
+    products.push(product);
   }
 
   return { products, nextIdx: idx };
@@ -459,7 +501,7 @@ export default async function handler(req, res) {
       if (sheet.type === 'bakery') {
         result = buildBakery(lines, sheet.section, idx);
       } else {
-        result = buildStandard(lines, sheet.section, idx);
+        result = buildStandard(lines, sheet.section, idx, sheet.hasPiecePrice !== false);
       }
 
       allProducts = allProducts.concat(result.products.map(p => addPhoto(enrich(p))));
@@ -550,7 +592,7 @@ export default async function handler(req, res) {
     };
 
     res.setHeader('Content-Type', 'application/json; charset=utf-8');
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+    res.setHeader('Cache-Control', 's-maxage=600, stale-while-revalidate=60');
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.status(200).json(result);
   } catch (err) {
