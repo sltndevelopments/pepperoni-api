@@ -1,12 +1,63 @@
 ---
-description: Pepperoni.tatar infrastructure context (v2.0)
+description: Pepperoni.tatar — архитектура, целостность данных и правила против дрейфа (v3.0)
 alwaysApply: true
 ---
 
-# Pepperoni.tatar Infrastructure (v2.0, Headless)
+# Pepperoni.tatar — Архитектура и анти-дрейф (v3.0)
 
-- **api.pepperoni.tatar** (Data & AI): JSON, llms.txt, OpenAPI. VPS nginx. <100ms.
-- **pepperoni.tatar** (Presentation): HTML, маркетинг, каталог. Vercel.
-- **Правило:** Frontend fetch только из `https://api.pepperoni.tatar/api/products` (не Sheets).
-- **Data Flow:** Google Sheets → VPS cron 10m → `products.json`. Sync: `scripts/sync-vps.sh`.
-- **Deployment:** GitHub Actions → VPS `/repo` (rsync excludes `data/`).
+## Два слоя, один продукт
+- **api.pepperoni.tatar** (данные и AI): JSON, `llms.txt`, OpenAPI, MCP. VPS + nginx.
+- **pepperoni.tatar** (презентация): HTML, маркетинг, каталог. Vercel.
+
+## Каталог: ровно ОДИН источник и ОДИН эндпоинт
+- Источник правды — Google Sheets (CSV, 3 листа). Цены и товары меняются только там.
+- Канонический эндпоинт — `https://api.pepperoni.tatar/api/products` + статический
+  `/products.json` (с полем `lastSynced`).
+- **Запрещено держать второй парсер каталога.** `api/products.js` на Vercel НЕ должен
+  самостоятельно парсить Sheets — он либо удаляется, либо становится тонким прокси на
+  канонический эндпоинт. (Сейчас он расходится: отдаёт устаревший кэш и сломанные
+  экспортные цены — это и есть источник бага `USD = 160100`.)
+- Фронтенд фетчит каталог только с `api.pepperoni.tatar`, никогда напрямую из Sheets.
+
+## Целостность данных (обязательно)
+- Парсить лист **по названию колонки (заголовку), а не по индексу.** Жёсткие индексы
+  (`cols[6]`, `cols[7]`) ломаются при любом сдвиге колонок: именно так HS-код (160100)
+  попадает в поле `USD`, а `shelfLife / storage / hsCode` съезжают на соседние.
+- После каждого `sync` прогонять валидатор и **падать** при нарушении:
+  - `offers.exportPrices.USD` — число ~0.1…10000 (а не код ТН ВЭД и не пусто).
+  - `hsCode` — 6–10 цифр.
+  - `storage` — содержит «°C».
+  - `shelfLife` — содержит «сут» или «дн».
+- Канон схемы товара:
+  `name, sku (KD-NNN), articleNumber, section, category, weight, brand,
+   offers{ priceCurrency, price, priceExclVAT, availability,
+           exportPrices{ USD, KZT, UZS, KGS, BYN, AZN }, deliveryTerms },
+   shelfLife, storage, hsCode`.
+
+## Страницы: одна страница = одна задача
+- Перед созданием новой страницы свериться с реестром `docs/PAGES.md` (вести его).
+  Не плодить дубли (например `oem` vs `private-label`, `blog` vs `news`).
+- `public/1`…`public/5` и брошенные локали — кандидаты на архив. В новой работе их не
+  трогать и не копировать как образец.
+
+## Языки
+- Канонические локали: RU (корень) + EN (`/en`). Экспортные гео-лендинги — по факту спроса.
+- Не плодить новые локали LLM-генерацией без явного решения. Непроверенные локали — в
+  архив и вне `sitemap`, не в индекс.
+- Принять решение по `zh` / `/china`: либо вести полноценно, либо убрать из выдачи.
+
+## Границы репозитория
+- `sales-agent/`, `sales-intel/`, SEO-«мозг» в `scripts/` — отдельные продукты.
+  Не смешивать их зависимости и сборку с сайтом. Целевое состояние — отдельные репозитории.
+
+## Бренд и халяль
+- Источник — `pepperoni-brand.mdc` + `public/brand.txt` (`brand_block()`). Не дублировать
+  факты бренда/контактов/сертификатов в код страниц или генераторов.
+
+## Дисциплина изменений
+- Менять мелкими шагами; сначала озвучить план, потом править.
+- Не трогать то, что не входит в задачу; явно перечислять затронутые файлы.
+- После правок данных — проверить канонический эндпоинт + валидатор.
+  После правок страниц — `fix_pages.py` → `qa_pages.py`.
+- `AGENTS.md` и эти правила — правда о проекте. Если код расходится — синхронизировать,
+  а не игнорировать.
