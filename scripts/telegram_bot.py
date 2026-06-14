@@ -645,6 +645,43 @@ def _live_data_snapshot(max_chars: int = 1800) -> str:
     return "\n".join(parts)[:max_chars]
 
 
+_MEM_RE = re.compile(r"\[\[MEM\]\]\s*(\{.*?\})\s*$", re.S | re.M)
+
+
+def _extract_and_store_memory(reply: str, question: str, persisted: bool = False) -> str:
+    """Parse Fable's hidden [[MEM]] trailer, persist the directive, strip it.
+
+    Bulletproof: any parse/storage failure just returns the reply unchanged with
+    the marker stripped — the owner never sees raw markers, and a bad marker
+    never breaks the chat. `persisted` avoids double-saving when the explicit
+    keyword safety-net already stored this turn.
+    """
+    if not reply or "[[MEM]]" not in reply:
+        return reply
+    m = _MEM_RE.search(reply)
+    # Always strip everything from the first marker onward, even if malformed,
+    # so the owner never sees a raw/broken marker.
+    clean = reply[:reply.index("[[MEM]]")].rstrip()
+    if m and not persisted:
+        raw = m.group(1)
+        try:
+            import json as _json
+            import fable_memory
+            data = _json.loads(raw)
+            text = (data.get("text") or "").strip()
+            kind = data.get("kind", "principle")
+            if text:
+                if kind == "decision":
+                    fable_memory.apply_ops([{
+                        "action": "add", "section": "decisions",
+                        "text": text, "why": "указание владельца в чате"}])
+                else:
+                    fable_memory.add_principle(text, by="owner")
+        except Exception:
+            pass  # never let memory-parsing break the reply
+    return clean
+
+
 def talk_to_brain(chat_id: int, question: str) -> str:
     """
     Tiered dialogue (cost-safe):
@@ -689,13 +726,26 @@ def talk_to_brain(chat_id: int, question: str) -> str:
         "Стратегические РЕШЕНИЯ глубокого уровня (перестройка плана) выноси в "
         "полный цикл: если вопрос этого требует — начни ответ строго со строки "
         "'[ESCALATE]' и кратко поясни почему. Иначе отвечай обычно.\n\n"
+        "★ ПАМЯТЬ ОБ УКАЗАНИЯХ: владелец общается с тобой как с замом. Если его "
+        "сообщение — это УКАЗАНИЕ, директива, приоритет, договорённость, запрет "
+        "или предпочтение (а НЕ просто вопрос «как дела / покажи цифры»), ты "
+        "ОБЯЗАН запомнить это навсегда. Для этого в САМОМ КОНЦЕ ответа добавь "
+        "ОТДЕЛЬНОЙ последней строкой служебный маркер строго в формате:\n"
+        "[[MEM]] {\"kind\":\"principle|decision\",\"text\":\"<суть указания "
+        "одним предложением, от первого лица: что я должен делать/не делать>\"}\n"
+        "Пиши маркер ТОЛЬКО когда есть что запомнить; для обычных вопросов НЕ "
+        "добавляй его. Маркер пользователю не показывается — это служебная мета. "
+        "В видимом ответе НЕ упоминай маркер и НЕ пиши «запомнил» отдельно.\n\n"
         f"=== ЖИВЫЕ ДАННЫЕ САЙТА (актуальны) ===\n{_live_data_snapshot()}\n\n"
         f"ИНВЕНТАРЬ САЙТА:\n{_site_inventory()}\n\n"
         f"ТЕКУЩАЯ СТРАТЕГИЯ: {strategy}\n\nЖУРНАЛ:\n{context}"
     )
-    # If the owner asks Fable to remember something, persist it as a principle.
+    # Safety-net: explicit "remember this" wording always persists, even if the
+    # model forgets the [[MEM]] marker below.
     low = question.lower()
-    if any(k in low for k in ("запомни", "запиши", "на будущее", "впредь", "всегда", "никогда")):
+    explicit_remember = any(
+        k in low for k in ("запомни", "запиши", "на будущее", "впредь", "всегда", "никогда"))
+    if explicit_remember:
         try:
             import fable_memory
             fable_memory.add_principle(question.strip(), by="owner")
@@ -706,6 +756,10 @@ def talk_to_brain(chat_id: int, question: str) -> str:
     except Exception as e:
         return f"Ошибка диалога: {e}"
     J.log_event("user_cmd", question, who=str(chat_id))
+
+    # Auto-memory: Fable decides if the owner's message is a directive and emits
+    # a hidden "[[MEM]] {...}" trailer. Parse + strip it, persist silently.
+    reply = _extract_and_store_memory(reply, question, persisted=explicit_remember)
 
     if reply.strip().startswith("[ESCALATE]"):
         reason = reply.strip()[len("[ESCALATE]"):].strip()[:200]
