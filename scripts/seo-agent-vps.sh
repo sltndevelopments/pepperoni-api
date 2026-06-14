@@ -272,6 +272,7 @@ git add data/metrika.json 2>/dev/null || true
 git add data/leads.json 2>/dev/null || true
 git add data/agent_bus.json 2>/dev/null || true
 git add data/outcomes.json data/scout_sent.json 2>/dev/null || true
+git add data/fable_websearch.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true
