@@ -152,6 +152,14 @@ python3 scripts/market_pulse.py >> "$LOG_FILE" 2>&1 || log "⚠️  Market pulse
 log "Step 3.3: Scout — discovering demand signals …"
 python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log "⚠️  Scout failed (non-fatal)"
 
+# ---- Step 3.3b: OUTCOMES — grade past changes, auto-repair, hand misses to Fable ----
+# Accountability loop: did each change actually move rankings? Resubmit
+# not-indexed pages, queue failing pages for Fable. Runs BEFORE the brain so the
+# strategy is forced to face its own misses (outcomes.failing in the digest).
+log "Step 3.3b: Outcomes — grading results + auto-repair …"
+python3 scripts/outcome_tracker.py >> "$LOG_FILE" 2>&1 || log "⚠️  Outcome tracker failed (non-fatal)"
+python3 scripts/repair_outcomes.py >> "$LOG_FILE" 2>&1 || log "⚠️  Repair failed (non-fatal)"
+
 # ---- Step 3.4: OPTIMIZER — measure past experiments, then optimize titles/meta ----
 # Data-driven core: success = clicks, not page count. Measures matured
 # experiments (auto-reverts regressions), then rewrites near-page-1 low-CTR
@@ -263,6 +271,7 @@ git add data/site_health.json data/cwv.json data/brain_questions.json 2>/dev/nul
 git add data/metrika.json 2>/dev/null || true
 git add data/leads.json 2>/dev/null || true
 git add data/agent_bus.json 2>/dev/null || true
+git add data/outcomes.json data/scout_sent.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true
