@@ -29,6 +29,9 @@ SITEMAP = ROOT / "public" / "sitemap.xml"
 
 # Daily ceiling so we never blow the Yandex recrawl quota in one run.
 MAX_REINDEX = int(os.environ.get("REPAIR_MAX_REINDEX", "10"))
+# Pages to actively strengthen (LLM title/meta rewrite) per run. Small = cheap,
+# but it runs every 30 min, so misses get re-worked fast instead of waiting.
+MAX_STRENGTHEN = int(os.environ.get("REPAIR_MAX_STRENGTHEN", "3"))
 
 
 def _load_failing() -> list:
@@ -58,6 +61,65 @@ def _indexnow(urls: list) -> int:
     except Exception as e:
         print(f"⚠️  indexnow failed: {e}")
         return 0
+
+
+def _strengthen_pages(failing: list) -> int:
+    """Immediately rewrite title/meta of failing pages (don't wait for a crawl).
+
+    A weak/not-indexed page won't fix itself by re-pinging — its snippet must
+    actually match the query intent. Reuse the optimizer's safe rewrite (backup,
+    HTML validation, experiment logging) so the next outcome cycle re-grades it.
+    """
+    if not failing:
+        return 0
+    try:
+        opt = _load_hyphenated("optimize_seo", "optimize_seo.py")
+        from seo_db import get_conn
+        from datetime import datetime, timezone
+        import json as _json
+    except Exception as e:
+        print(f"⚠️  strengthen unavailable: {e}")
+        return 0
+
+    conn = get_conn()
+    ledger_path = DATA / "experiments.json"
+    try:
+        ledger = _json.loads(ledger_path.read_text(encoding="utf-8"))
+    except Exception:
+        ledger = []
+    done = 0
+    for f in failing:
+        if done >= MAX_STRENGTHEN:
+            break
+        page, query = f.get("page"), (f.get("query") or "").strip()
+        if not page or not query:
+            continue
+        path = opt.url_to_path(page)
+        if not path or not path.exists():
+            continue
+        lang = "en" if "/en/" in page else "ru"
+        cur_title, cur_desc = opt.get_title(path), opt.get_description(path)
+        pos = f.get("pos") or f.get("current_pos") or 50.0
+        new = opt.rewrite_title_meta(query, cur_title, cur_desc, float(pos), lang)
+        if not new or new.get("title") == cur_title:
+            continue
+        opt.set_title_meta_h1(path, new["title"], new["description"])
+        if not opt.is_valid_html(path):
+            opt.set_title_meta_h1(path, cur_title, cur_desc)  # revert
+            continue
+        ledger.append({
+            "applied_at": datetime.now(timezone.utc).isoformat(),
+            "change_type": "strengthen_failing",
+            "page": page, "file_path": str(path.relative_to(ROOT)),
+            "query": query, "before_pos": float(pos),
+            "before_title": cur_title, "before_desc": cur_desc,
+        })
+        done += 1
+    if done:
+        ledger_path.write_text(_json.dumps(ledger, ensure_ascii=False, indent=2),
+                               encoding="utf-8")
+    conn.close()
+    return done
 
 
 def _in_sitemap(url: str) -> bool:
@@ -114,13 +176,18 @@ def repair() -> dict:
     except Exception as e:
         print(f"⚠️  bus handoff failed: {e}")
 
-    return {"reindexed": reindexed, "queued_for_fable": queued_fable,
+    # 3) Immediate content strengthening — rewrite snippets NOW, don't wait.
+    strengthened = _strengthen_pages(not_indexed + need_optimise)
+
+    return {"reindexed": reindexed, "strengthened": strengthened,
+            "queued_for_fable": queued_fable,
             "missing_from_sitemap": missing_sitemap}
 
 
 def main() -> int:
     r = repair()
     print(f"🔧 repair: reindexed {r['reindexed']} · "
+          f"strengthened {r.get('strengthened', 0)} · "
           f"→fable {r['queued_for_fable']} · "
           f"missing_sitemap {len(r['missing_from_sitemap'])}")
     for u in r["missing_from_sitemap"]:
