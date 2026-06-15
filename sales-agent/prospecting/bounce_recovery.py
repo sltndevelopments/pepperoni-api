@@ -62,22 +62,48 @@ def _bounced_addr(lead: dict) -> str:
 
 
 def find_bounced(store: Store) -> list[dict]:
-    """Лиды с hard bounce + те, чей email в блэклисте (на случай несхваченных).
+    """Лиды, которым нужен ресёрч нового email. Три категории:
+
+    1. Hard bounce — статус bounced/bounced_need_research или profile._agent.bounce.hard.
+    2. Все emails в блэклисте (missed bounces).
+    3. email_mx_failed=True — домен мёртвый; лид никогда не слали, но и не пошлём
+       пока не найдём живой адрес. Подхватываем для deep-ресёрча.
 
     Исключает переданных менеджеру (profile._agent.handed_off).
     """
     from channels.deliverability import is_blacklisted
-    out = []
+    out: list[dict] = []
+    seen: set[int] = set()
+
     for l in store.list_leads(limit=600):
         p = l.get("profile") or {}
         if ap.is_handed_off(p):
             continue
+        lid = l["id"]
+
         if _is_bounced(l):
-            out.append(l)
+            if lid not in seen:
+                out.append(l)
+                seen.add(lid)
             continue
-        emails = [e.strip().lower() for e in str(p.get("emails") or p.get("email") or "").replace(";", ",").split(",") if e.strip()]
+
+        emails = [e.strip().lower() for e in
+                  str(p.get("emails") or p.get("email") or "").replace(";", ",").split(",")
+                  if e.strip()]
         if emails and all(is_blacklisted(e) for e in emails):
-            out.append(l)
+            if lid not in seen:
+                out.append(l)
+                seen.add(lid)
+            continue
+
+        # Категория 3: мёртвый домен, лид в статусе new (ни разу не слали)
+        # — в очередь аутрича не попадёт из-за фильтра email_mx_failed в outreach.py,
+        #   но нужен ресёрч чтобы найти живой адрес
+        if ap.get(p, "email_mx_failed") and (l.get("status") or "new") == "new":
+            if lid not in seen:
+                out.append(l)
+                seen.add(lid)
+
     out.sort(key=lambda x: x.get("fit_score") or 0, reverse=True)
     return out
 
@@ -141,7 +167,7 @@ def recover(*, store: Store | None = None, limit: int = 20,
                 email_verified=research.get("verified", False),
                 email_mx_failed=research.get("mx_failed", False),
             )
-            if research.get("site"):
+            if research.get("site") and research.get("site_confirmed"):
                 ap.set(p, "contact_site", research["site"])
                 if not p.get("website"):
                     p["website"] = research["site"]
@@ -168,7 +194,7 @@ def recover(*, store: Store | None = None, limit: int = 20,
                 "site": (research.get("site") or p.get("website") or ""),
                 "mx_failed": research.get("mx_failed", False),
             })
-            if research.get("site") and not p.get("website"):
+            if research.get("site") and research.get("site_confirmed") and not p.get("website"):
                 p["website"] = research["site"]
             store.upsert_lead(
                 lead["name"], lead_id=lead["id"], inn=lead.get("inn"),

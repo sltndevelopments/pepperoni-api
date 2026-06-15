@@ -63,6 +63,9 @@ def main():
         verified = ap.get(p, "email_verified")
         mx_failed = ap.get(p, "email_mx_failed")
         site = ap.get(p, "contact_site") or p.get("website") or "—"
+        site_confirmed = ap.get(p, "site_confirmed")
+        site_ownership = ap.get(p, "site_ownership") or {}
+        ownership_reason = site_ownership.get("reason") or ("confirmed" if site_confirmed else "—")
         researched_at = ap.get(p, "contact_researched_at") or "—"
 
         if verified is True:
@@ -70,9 +73,16 @@ def main():
         elif mx_failed is True:
             mx_status = "❌ dead"
         elif verified is False and mx_failed is False:
-            mx_status = "⏳ not checked"
+            mx_status = "⏳ notchk"
         else:
-            mx_status = "⏳ not checked"
+            mx_status = "⏳ notchk"
+
+        if site_confirmed is True:
+            site_ok = "✅"
+        elif site_confirmed is False and site != "—":
+            site_ok = "❌"
+        else:
+            site_ok = "—"
 
         changed = (
             email_best != "—"
@@ -82,28 +92,31 @@ def main():
         rows.append({
             "tier": l.get("tier") or "—",
             "fit": l.get("fit_score") or 0,
-            "name": (l.get("name") or "")[:45],
+            "name": (l.get("name") or "")[:35],
             "inn": l.get("inn") or "—",
-            "egrul_email": egrul_email[:45],
-            "email_best": email_best[:45],
+            "egrul_email": egrul_email[:30],
+            "email_best": email_best[:30],
             "changed": "→" if changed else "=",
             "quality": quality,
             "mx": mx_status,
-            "site": site[:40],
+            "site_ok": site_ok,
+            "own_reason": ownership_reason[:10],
+            "site": site[:35],
             "researched": researched_at[:10] if researched_at != "—" else "—",
         })
 
     # Header
     col = {
-        "tier": 4, "fit": 3, "name": 30, "inn": 12, "egrul_email": 30,
-        "changed": 1, "email_best": 30, "quality": 11, "mx": 12,
-        "site": 35, "researched": 10,
+        "tier": 4, "fit": 3, "name": 35, "inn": 12, "egrul_email": 30,
+        "changed": 1, "email_best": 30, "quality": 11, "mx": 8,
+        "site_ok": 2, "own_reason": 10, "site": 30, "researched": 10,
     }
     header = (
         f"{'Tir':<{col['tier']}} {'Fit':<{col['fit']}} {'Компания':<{col['name']}} "
         f"{'ИНН':<{col['inn']}} {'ЕГРЮЛ email':<{col['egrul_email']}} "
         f"{'C':<{col['changed']}} {'email_best':<{col['email_best']}} "
         f"{'quality':<{col['quality']}} {'MX':<{col['mx']}} "
+        f"{'S':<{col['site_ok']}} {'own':<{col['own_reason']}} "
         f"{'Сайт':<{col['site']}} {'researched':<{col['researched']}}"
     )
     sep = "-" * len(header)
@@ -116,18 +129,23 @@ def main():
             f"{r['inn']:<{col['inn']}} {r['egrul_email']:<{col['egrul_email']}} "
             f"{r['changed']:<{col['changed']}} {r['email_best']:<{col['email_best']}} "
             f"{r['quality']:<{col['quality']}} {r['mx']:<{col['mx']}} "
+            f"{r['site_ok']:<{col['site_ok']}} {r['own_reason']:<{col['own_reason']}} "
             f"{r['site']:<{col['site']}} {r['researched']:<{col['researched']}}"
         )
     print(sep)
     print(f"Итого: {len(rows)} лидов показано")
+    print("Колонка S: ✅ = сайт подтверждён (ИНН/название/город найдены на сайте), ❌ = не подтверждён, — = не проверялся")
 
     # Сводка
     verified_count = sum(1 for r in rows if "✅" in r["mx"])
     dead_count = sum(1 for r in rows if "❌" in r["mx"])
     unchecked = sum(1 for r in rows if "⏳" in r["mx"])
     improved = sum(1 for r in rows if r["changed"] == "→")
-    print(f"  MX verified: {verified_count} | dead: {dead_count} | unchecked: {unchecked}")
+    site_confirmed_count = sum(1 for r in rows if r["site_ok"] == "✅")
+    site_rejected_count = sum(1 for r in rows if r["site_ok"] == "❌")
+    print(f"  MX: verified={verified_count} dead={dead_count} unchecked={unchecked}")
     print(f"  Email улучшен: {improved} | без изменений: {len(rows) - improved}")
+    print(f"  Сайт подтверждён: {site_confirmed_count} | отклонён: {site_rejected_count}")
 
 
 if __name__ == "__main__":

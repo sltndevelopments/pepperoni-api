@@ -154,37 +154,123 @@ def enrich_by_inn(inn: str) -> dict | None:
 # Scraping реального сайта компании
 # ---------------------------------------------------------------------------
 
+def _emails_from_html(html: str) -> list[str]:
+    """Вытащить email из уже скачанного HTML (без лишних запросов)."""
+    emails: list[str] = []
+    for em in EMAIL_RE.finditer(html):
+        e = em.group().lower()
+        if e not in emails and not any(x in e for x in SKIP_EMAIL):
+            if not re.search(r"\.(png|jpg|svg|gif|webp|css|js)$", e):
+                emails.append(e)
+        if len(emails) >= 5:
+            break
+    return emails
+
+
+def _fetch_contact_page(site: str, main_html: str) -> str | None:
+    """Найти и скачать страницу контактов сайта."""
+    m = re.search(r'href="([^"]*(?:contact|kontakt|контакт|about)[^"]*)"', main_html, re.I)
+    if not m:
+        return None
+    href = m.group(1)
+    if href.startswith("http"):
+        return _fetch(href, timeout=15)
+    elif href.startswith("/"):
+        base = re.match(r"(https?://[^/]+)", site)
+        return _fetch(base.group(1) + href, timeout=15) if base else None
+    return None
+
+
 def emails_from_site(site: str) -> list[str]:
     """Зайти на сайт компании (+ страницу контактов), вытащить email.
 
     Ищет /contacts или /kontakty, читает и основную страницу и контактную.
+    Публичный API — используется внешними модулями.
     """
-    emails: list[str] = []
     html = _fetch(site, timeout=20)
     if not html:
-        return emails
-    pages_to_scan = [html]
-    m = re.search(r'href="([^"]*(?:contact|kontakt|контакт|about)[^"]*)"', html, re.I)
-    if m:
-        href = m.group(1)
-        if href.startswith("http"):
-            contact_html = _fetch(href, timeout=15)
-        elif href.startswith("/"):
-            base = re.match(r"(https?://[^/]+)", site)
-            contact_html = _fetch(base.group(1) + href, timeout=15) if base else None
-        else:
-            contact_html = None
-        if contact_html:
-            pages_to_scan.append(contact_html)
-    for page_html in pages_to_scan:
-        for em in EMAIL_RE.finditer(page_html):
-            e = em.group().lower()
-            if e not in emails and not any(x in e for x in SKIP_EMAIL):
-                if not re.search(r"\.(png|jpg|svg|gif|webp|css|js)$", e):
-                    emails.append(e)
+        return []
+    emails = _emails_from_html(html)
+    contact_html = _fetch_contact_page(site, html)
+    if contact_html:
+        for e in _emails_from_html(contact_html):
+            if e not in emails:
+                emails.append(e)
             if len(emails) >= 5:
-                return emails
+                break
     return emails
+
+
+# ---------------------------------------------------------------------------
+# Верификация принадлежности сайта компании
+# ---------------------------------------------------------------------------
+
+def verify_site_ownership(
+    site: str,
+    lead: dict,
+    *,
+    fetch_html: str | None = None,
+) -> dict:
+    """Проверить, что сайт действительно принадлежит этой компании.
+
+    Стратегия «доверяй, но проверяй»: считаем сайт подтверждённым, если
+    на странице встречается хотя бы один из:
+      - ИНН компании (самый сильный сигнал)
+      - Точное юридическое название (или его ключевые слова)
+      - Город из region компании
+
+    Если ни одно из трёх не найдено — сайт «неподтверждён»: может быть
+    другая организация, агрегатор или Perplexity-ошибка.
+
+    Returns:
+        {
+            "confirmed": bool,
+            "reason":    "inn" | "legal_name" | "city" | "not_found" | "fetch_error",
+            "site":      str (исходный url)
+        }
+    """
+    if not site:
+        return {"confirmed": False, "reason": "no_site", "site": site}
+
+    # Получаем HTML (или используем уже скачанный)
+    html = fetch_html
+    if html is None:
+        html = _fetch(site, timeout=15) or ""
+
+    if not html:
+        return {"confirmed": False, "reason": "fetch_error", "site": site}
+
+    html_lower = html.lower()
+
+    # --- Сигнал 1: ИНН ---
+    inn = (lead.get("inn") or "").strip()
+    if inn and len(inn) >= 10 and inn in html:
+        return {"confirmed": True, "reason": "inn", "site": site}
+
+    # --- Сигнал 2: юридическое название ---
+    legal_name = (lead.get("name") or "").strip()
+    if legal_name:
+        # Убираем организационно-правовую форму (ООО, АО, ЗАО...) и кавычки
+        core_name = re.sub(
+            r'^(?:ООО|АО|ЗАО|ОАО|ПАО|ИП|ПК|СП|НКО)\s*[«""]?|[»""]',
+            "", legal_name, flags=re.I,
+        ).strip().lower()
+        # Берём значимые слова (>=4 символа), ищем совпадение хотя бы 2 из них
+        words = [w for w in re.split(r'[\s\-_/]+', core_name) if len(w) >= 4]
+        if words:
+            matches = sum(1 for w in words if w in html_lower)
+            if matches >= min(2, len(words)):
+                return {"confirmed": True, "reason": "legal_name", "site": site}
+
+    # --- Сигнал 3: город из region ---
+    region = (lead.get("region") or "").strip().lower()
+    if region:
+        # Берём первое слово региона (обычно город: "Казань", "Уфа"...)
+        city = re.split(r'[\s,]+', region)[0].strip()
+        if len(city) >= 4 and city in html_lower:
+            return {"confirmed": True, "reason": "city", "site": site}
+
+    return {"confirmed": False, "reason": "not_found", "site": site}
 
 
 # ---------------------------------------------------------------------------
@@ -470,30 +556,51 @@ def research_contacts(
     }
 
     all_emails: list[str] = []
+    # Флаг: подтверждён ли сайт как принадлежащий этой компании
+    result["site_confirmed"] = False
 
     # --- DEEP: Perplexity → реальный сайт бренда ---
     if deep and _research_due(profile):
         _brand, pplx_site = find_company_site(lead)
-        if pplx_site and not result["site"]:
-            result["site"] = pplx_site
         time.sleep(pause_sec)
 
-        # Email с реального сайта
         if pplx_site:
-            site_emails = emails_from_site(pplx_site)
-            all_emails.extend(site_emails)
-            time.sleep(pause_sec)
+            # Скачиваем один раз — используем и для верификации, и для email
+            site_html = _fetch(pplx_site, timeout=15) or ""
+            ownership = verify_site_ownership(pplx_site, lead, fetch_html=site_html)
+            result["site_ownership"] = ownership
 
-        # Если сайт не нашёл email — спросить Perplexity напрямую
+            if ownership["confirmed"]:
+                result["site"] = pplx_site
+                result["site_confirmed"] = True
+                # Email с подтверждённого сайта
+                site_emails = _emails_from_html(site_html)
+                # Проверяем страницу контактов (второй запрос)
+                contact_html = _fetch_contact_page(pplx_site, site_html) or ""
+                if contact_html:
+                    site_emails.extend(_emails_from_html(contact_html))
+                all_emails.extend(e for e in site_emails if e not in all_emails)
+                time.sleep(pause_sec)
+            else:
+                # Сайт не подтверждён — НЕ берём с него email, НЕ принимаем как contact_site
+                # Логируем для прозрачности
+                result["site_ownership"] = ownership
+                # pplx_site НЕ записываем в result["site"]
+
+        # Если подтверждённый сайт не нашёл email — спросить Perplexity напрямую
         if not all_emails:
             pplx_email, pplx_site2 = _find_emails_via_pplx(lead, banned)
             if pplx_email:
                 all_emails.append(pplx_email)
-            if pplx_site2 and not result["site"]:
-                result["site"] = pplx_site2
-                if not all_emails:
-                    site_emails2 = emails_from_site(pplx_site2)
-                    all_emails.extend(site_emails2)
+            # Второй URL от Perplexity — тоже проверяем
+            if pplx_site2 and pplx_site2 != pplx_site and not result["site_confirmed"]:
+                ownership2 = verify_site_ownership(pplx_site2, lead)
+                if ownership2["confirmed"]:
+                    result["site"] = pplx_site2
+                    result["site_confirmed"] = True
+                    if not all_emails:
+                        site_emails2 = emails_from_site(pplx_site2)
+                        all_emails.extend(site_emails2)
             time.sleep(pause_sec)
 
     # --- ZCB (всегда — cheap path) ---
@@ -584,8 +691,10 @@ def apply_research_to_lead(
         email_quality=research.get("quality"),
         email_verified=research.get("verified", False),
         email_mx_failed=research.get("mx_failed", False),
+        site_confirmed=research.get("site_confirmed", False),
     )
-    if research.get("site"):
+    # Записываем contact_site только если сайт прошёл верификацию принадлежности
+    if research.get("site") and research.get("site_confirmed"):
         ap.set(profile, "contact_site", research["site"])
     if deep:
         ap.set(profile, "contact_researched_at", _now())
@@ -602,7 +711,8 @@ def apply_research_to_lead(
             existing.remove(best)
         profile["emails"] = ",".join([best] + existing)
 
-    if research.get("site") and not profile.get("website"):
+    # website в профиле обновляем только из подтверждённого источника
+    if research.get("site") and research.get("site_confirmed") and not profile.get("website"):
         profile["website"] = research["site"]
 
     if store:
