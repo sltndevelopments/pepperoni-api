@@ -118,8 +118,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 <div class="price-block">$0.90<span style="font-size:.85rem;color:#767676;font-weight:400"> /pc</span></div>
 <div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>
-<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>$43.35</b> (48 pcs)</div>
-<h2 class="section-title" style="margin-top:20px">Export Prices</h2><div class="export-prices"><span><b>3120.00</b> ₽ <small style="color:#767676">excl. VAT</small></span><span><b>43.35</b> $</span><span><b>21101.12</b> ₸</span><span><b>518891.69</b> UZS</span><span><b>3790.9</b> KGS</span><span><b>119.25</b> BYN</span><span><b>73.69</b> AZN</span></div>
+<div style="margin-top:8px;font-size:.9rem;color:#444">Price per box: <b>$43.04</b> (48 pcs)</div>
+<h2 class="section-title" style="margin-top:20px">Export Prices</h2><div class="export-prices"><span><b>3120.00</b> ₽ <small style="color:#767676">excl. VAT</small></span><span><b>43.04</b> $</span><span><b>21041.64</b> ₸</span><span><b>515361.49</b> UZS</span><span><b>3763.45</b> KGS</span><span><b>119.06</b> BYN</span><span><b>73.16</b> AZN</span></div>
 <div class="cta-box">
 <h3 style="margin:0 0 8px">Order</h3>
 <p style="color:#444;margin-bottom:12px">Wholesale, export, Private Label</p>
@@ -166,6 +166,8 @@ document.addEventListener("click",function(e){
   var href=link.getAttribute("href")||"";
   if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
   if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
+  if(/wa\.me|whatsapp|t\.me\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
+  if(/price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){

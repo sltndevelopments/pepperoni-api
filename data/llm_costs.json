@@ -1,7 +1,7 @@
 {
  "2026-06": {
-  "usd": 10.8688,
-  "usd_baseline": 17.994862,
+  "usd": 11.93213,
+  "usd_baseline": 19.7726,
   "days": {
    "2026-06-10": {
     "calls": 151,
@@ -29,6 +29,15 @@
     "cache_r": 16168,
     "usd": 1.516348,
     "usd_baseline": 2.215969
+   },
+   "2026-06-15": {
+    "calls": 28,
+    "in": 6785,
+    "out": 112008,
+    "cache_w": 29895,
+    "cache_r": 7596,
+    "usd": 1.063329,
+    "usd_baseline": 1.777738
    }
   },
   "scripts": {
@@ -42,13 +51,13 @@
     "usd_baseline": 0.96549
    },
    "generate_geo_bulk": {
-    "calls": 107,
-    "in": 137966,
-    "out": 919866,
-    "cache_w": 22172,
-    "cache_r": 5598,
-    "usd": 6.945773,
-    "usd_baseline": 13.890022
+    "calls": 117,
+    "in": 142333,
+    "out": 1007531,
+    "cache_w": 49809,
+    "cache_r": 8678,
+    "usd": 7.662092,
+    "usd_baseline": 15.310249
    },
    "escalate_brain": {
     "calls": 1,
@@ -78,13 +87,13 @@
     "usd_baseline": 0.359061
    },
    "generate_content": {
-    "calls": 12,
-    "in": 4651,
-    "out": 30988,
-    "cache_w": 1985,
-    "cache_r": 3970,
-    "usd": 0.487407,
-    "usd_baseline": 0.496638
+    "calls": 15,
+    "in": 6041,
+    "out": 46178,
+    "cache_w": 4243,
+    "cache_r": 8486,
+    "usd": 0.729249,
+    "usd_baseline": 0.74898
    },
    "seo_brain": {
     "calls": 2,
@@ -148,6 +157,15 @@
     "cache_r": 0,
     "usd": 0.007182,
     "usd_baseline": 0.007182
+   },
+   "aio_visibility": {
+    "calls": 15,
+    "in": 1028,
+    "out": 9153,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.105169,
+    "usd_baseline": 0.105169
    }
   },
   "models": {
@@ -161,13 +179,13 @@
     "usd_baseline": 1.028054
    },
    "claude-sonnet-4-6": {
-    "calls": 138,
-    "in": 155868,
-    "out": 953466,
-    "cache_w": 29107,
-    "cache_r": 24418,
-    "usd": 8.307541,
-    "usd_baseline": 15.375645
+    "calls": 158,
+    "in": 162274,
+    "out": 1060156,
+    "cache_w": 59002,
+    "cache_r": 32014,
+    "usd": 9.325172,
+    "usd_baseline": 17.107686
    },
    "claude-fable-5": {
     "calls": 7,
@@ -195,6 +213,15 @@
     "cache_r": 0,
     "usd": 0.01787,
     "usd_baseline": 0.01787
+   },
+   "pplx-sonar": {
+    "calls": 8,
+    "in": 379,
+    "out": 5318,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.045697,
+    "usd_baseline": 0.045697
    }
   }
  }

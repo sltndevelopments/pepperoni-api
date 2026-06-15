@@ -1,0 +1,66 @@
+{
+ "generated_at": "2026-06-15T05:31:45.256174+00:00",
+ "summary": {
+  "improved": 1,
+  "flat": 10,
+  "worse": 3,
+  "not_indexed": 2,
+  "pending": 3
+ },
+ "failing": [
+  {
+   "query": "how to identify halal certified products",
+   "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
+   "change": "title_meta",
+   "before_pos": 8.19,
+   "current_pos": null,
+   "impr": 0,
+   "age_days": 6.9,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "russia halal market size 2026 trillion rubles",
+   "page": "https://pepperoni.tatar/en/blog/rynok-halyal-rossiya",
+   "change": "title_meta",
+   "before_pos": 3.08,
+   "current_pos": null,
+   "impr": 0,
+   "age_days": 3.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "new_landing",
+   "before_pos": 34.34,
+   "current_pos": 57.9,
+   "impr": 56,
+   "age_days": 5.0,
+   "delta": -23.6,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "new_landing",
+   "before_pos": 33.39,
+   "current_pos": 57.9,
+   "impr": 56,
+   "age_days": 4.0,
+   "delta": -24.5,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "new_landing",
+   "before_pos": 32.46,
+   "current_pos": 57.9,
+   "impr": 56,
+   "age_days": 3.0,
+   "delta": -25.4,
+   "verdict": "worse"
+  }
+ ],
+ "graded_total": 16
+}
