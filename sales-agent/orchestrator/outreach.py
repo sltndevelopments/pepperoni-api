@@ -66,6 +66,11 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
         if require_email and not pick_recipient(lead.get("profile") or {}):
             continue
 
+        # Мёртвый домен (нет MX и нет A) — в очередь не идёт НИКОГДА,
+        # независимо от require_verified. Это клинически мёртвые адреса.
+        if ap.get(lead.get("profile") or {}, "email_mx_failed"):
+            continue
+
         candidates.append({**lead, "_lookalike": la, "_sort": la * 2 + fit})
 
     candidates.sort(key=lambda x: x["_sort"], reverse=True)

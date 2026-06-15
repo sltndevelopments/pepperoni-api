@@ -78,7 +78,21 @@ def send_email(
 
 
 def pick_recipient(profile: dict) -> str | None:
-    """Корпоративный email предпочтительнее; иначе первый валидный."""
+    """Выбрать получателя.
+
+    Приоритет:
+    1. _agent.email_best (исследованный, отранжированный email)
+    2. Первый корпоративный (не freemail) из profile.emails
+    3. Первый любой из profile.emails
+    """
+    try:
+        from core import agent_profile as ap
+        best = ap.get(profile, "email_best")
+        if best and "@" in best:
+            return best.strip().lower()
+    except Exception:
+        pass
+
     raw = profile.get("emails") or profile.get("email") or ""
     emails = [p.strip().lower() for p in str(raw).replace(";", ",").split(",") if "@" in p]
     free = ("@mail.ru", "@yandex.ru", "@gmail.com", "@bk.ru", "@inbox.ru")
