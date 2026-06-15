@@ -116,6 +116,13 @@ CREATE TABLE IF NOT EXISTS orchestrator_runs (
     result      TEXT DEFAULT '{}',
     created_at  TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS notifications (
+    key          TEXT PRIMARY KEY,
+    content_hash TEXT,
+    sent_at      TEXT NOT NULL,
+    count        INTEGER DEFAULT 1
+);
 """
 
 
@@ -494,6 +501,56 @@ class Store:
             "inbox_messages": inbox_n,
             "unprocessed_signals": signals,
         }
+
+    # ------------------------------------------------------------------ #
+    #  Журнал уведомлений — дедупликация проактивных пушей                #
+    # ------------------------------------------------------------------ #
+
+    def should_notify(
+        self,
+        key: str,
+        content_hash: str,
+        cooldown_hours: float = 24.0,
+    ) -> bool:
+        """True если нужно слать уведомление.
+
+        Логика (три условия, любое достаточно):
+          1. Ключа ещё нет в журнале (первый раз).
+          2. content_hash изменился — есть что-то новое.
+          3. Прошло ≥ cooldown_hours с последней отправки.
+        Если cooldown_hours == 0 — проверяется только хэш (без временного лимита).
+        """
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT content_hash, sent_at FROM notifications WHERE key=?",
+                (key,),
+            ).fetchone()
+        if row is None:
+            return True
+        if row["content_hash"] != content_hash:
+            return True
+        if cooldown_hours <= 0:
+            return False
+        try:
+            prev = datetime.fromisoformat(row["sent_at"])
+        except Exception:
+            return True
+        elapsed = (datetime.now(timezone.utc) - prev).total_seconds()
+        return elapsed >= cooldown_hours * 3600
+
+    def record_notification(self, key: str, content_hash: str) -> None:
+        """UPSERT по key — обновить хэш, время и счётчик."""
+        now = _now()
+        with self._conn() as conn:
+            conn.execute(
+                """INSERT INTO notifications (key, content_hash, sent_at, count)
+                   VALUES (?, ?, ?, 1)
+                   ON CONFLICT(key) DO UPDATE SET
+                     content_hash = excluded.content_hash,
+                     sent_at      = excluded.sent_at,
+                     count        = notifications.count + 1""",
+                (key, content_hash, now),
+            )
 
 
 def _parse_json_field(val: str | None) -> dict:

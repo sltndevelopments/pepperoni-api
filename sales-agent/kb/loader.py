@@ -129,6 +129,23 @@ class KnowledgeBase:
         ]
         return "\n".join(lines)
 
+    def catalog_by_section(self) -> str:
+        """Полный каталог, сгруппированный по секциям — чтобы Стив видел ВЕСЬ
+        ассортимент (мясо, выпечка, заморозка), а не первые N SKU."""
+        cat = self.load_catalog()
+        sections: dict[str, list[str]] = {}
+        for p in cat.get("products", []):
+            sec = p.get("section") or "Прочее"
+            sections.setdefault(sec, []).append(
+                f"{p.get('sku')}: {p.get('name')}"
+            )
+        lines = [f"ПОЛНЫЙ КАТАЛОГ ({self.product_count()} SKU, с сайта pepperoni.tatar):"]
+        for sec, items in sections.items():
+            lines.append(f"\n[{sec}] — {len(items)} поз.:")
+            for it in items:
+                lines.append(f"  {it}")
+        return "\n".join(lines)
+
     def find_skus_by_keyword(self, keyword: str) -> list[dict]:
         kw = keyword.lower()
         return [

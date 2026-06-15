@@ -57,3 +57,35 @@ def notify(text: str) -> int:
         except Exception:
             pass
     return sent
+
+
+def notify_with_handoff(text: str) -> int:
+    """Отправить сообщение с инлайн-кнопкой «✅ Передал менеджеру».
+
+    Нажатие кнопки вызывает callback_data='handoff_bounced', который
+    telegram/bot.py обрабатывает: помечает все tier S/A bounced_need_research
+    лиды как handed_off.
+    """
+    if not API:
+        return 0
+    sent = 0
+    keyboard = json.dumps({
+        "inline_keyboard": [[
+            {"text": "✅ Передал менеджеру", "callback_data": "handoff_bounced"}
+        ]]
+    })
+    for chat_id in get_recipients():
+        try:
+            data = urllib.parse.urlencode({
+                "chat_id": chat_id,
+                "text": text[:4000],
+                "parse_mode": "HTML",
+                "reply_markup": keyboard,
+            }).encode()
+            req = urllib.request.Request(f"{API}/sendMessage", data=data)
+            with urllib.request.urlopen(req, timeout=15) as r:
+                if json.loads(r.read()).get("ok"):
+                    sent += 1
+        except Exception:
+            pass
+    return sent

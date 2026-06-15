@@ -40,8 +40,40 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
     """Проверить входящие, эскалировать заинтересованных."""
     store = store or Store()
     results = []
+    # Каналы пассивного сбора: группа лидов и info@. Их Стив копит для
+    # аналитики и НЕ дёргает владельца, кроме настоящего покупательского
+    # интента к нашей продукции (цена/образец/опт/сосиски в тесте).
+    ANALYTICS_CHANNELS = {"telegram_group", "email_info"}
+    BUYING_INTENTS = {"price_request", "sample_request", "sausage_in_dough"}
+
     for msg in store.inbox(limit, unprocessed_interest=True):
         triage = triage_inbound(msg, store)
+
+        channel = msg.get("channel") or ""
+
+        # Форм-заявка с сайта — это прямое обращение клиента: всегда поднимаем
+        # владельцу (даже если в тексте нет ключевых слов).
+        if channel == "email_form" and triage.get("temperature") != "reject":
+            lead_id = msg.get("lead_id")
+            body = (msg.get("body") or "")[:800]
+            if lead_id:
+                r = escalate_to_owner(lead_id, "📝 заявка с сайта", context=body, store=store)
+            else:
+                r = _escalate_unknown(body, "📝 заявка с сайта (форма)", triage, store)
+            results.append({"message_id": msg.get("id"), "triage": triage, **r})
+            if msg.get("id"):
+                store.patch_message_meta(msg["id"], {"interest_scanned": True})
+            continue
+
+        if channel in ANALYTICS_CHANNELS:
+            intents = set(triage.get("intents") or [])
+            # нет явного интереса купить НАШЕ — молча в аналитику, не беспокоим
+            if not (intents & BUYING_INTENTS) or triage.get("temperature") == "reject":
+                store.add_signal("analytics", f"inbound_{channel}", {"body": (msg.get("body") or "")[:500], "triage": triage})
+                if msg.get("id"):
+                    store.patch_message_meta(msg["id"], {"interest_scanned": True, "analytics_only": True})
+                continue
+
         if not _is_interested_triage(triage):
             continue
 

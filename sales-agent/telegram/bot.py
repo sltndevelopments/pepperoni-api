@@ -267,10 +267,74 @@ def action_budget() -> str:
     return "\n".join(lines)
 
 
+def _maybe_send_test_email(chat_id: int, question: str) -> str | None:
+    """Если владелец просит прислать/отправить письмо на конкретный адрес —
+    Стив пишет боевое письмо и реально отправляет (не переспрашивает по кругу)."""
+    import re as _re
+    em = _re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", question)
+    send_intent = _re.search(r"пришл|отправ|напиш.* на|тестов\w* письм|шли\b", question, _re.I)
+    if not (em and send_intent):
+        return None
+
+    to = em.group(0)
+    kb = KnowledgeBase()
+    store = Store()
+    try:
+        from core.persona import block as persona_block
+        persona = persona_block()
+    except Exception:
+        persona = "Ты Стив, зам по продажам Казанских Деликатесов."
+
+    system = (
+        f"{persona}\n\n"
+        "Сейчас задача: написать ГОТОВОЕ холодное B2B-письмо (тема + тело), "
+        "которое сразу уйдёт получателю. Не задавай вопросов — пиши боевое "
+        "письмо по вводным из задачи и каталогу. Формат ответа СТРОГО:\n"
+        "SUBJECT: <тема>\n"
+        "---\n"
+        "<тело письма, 3-4 абзаца, один CTA, без прайса в первом касании>\n\n"
+        "Подпись: имя владельца/телефон НЕ вставляй в тело — система добавит сама.\n\n"
+        f"{kb.catalog_by_section()}\n\n{kb.sales_context(0)}"
+    )
+    try:
+        reply, usage = call_sonnet(question, system=system, max_tokens=1200)
+    except Exception as e:
+        return f"Ошибка генерации письма: {e}"
+
+    subject, _, body = reply.partition("---")
+    subject = subject.replace("SUBJECT:", "").strip() or "Казанские Деликатесы — предложение"
+    body = body.strip() or reply.strip()
+
+    import os
+    sig = (
+        f"\n\n--\n{os.environ.get('OWNER_NAME', 'Ринат Султанов')}\n"
+        f"Казанские Деликатесы\n{os.environ.get('OWNER_PHONE', '')}\n"
+        f"{os.environ.get('OWNER_EMAIL', '')}"
+    )
+    from channels.email import send_email
+    res = send_email(to, subject[:200], body + sig)
+    cost = usage.get("cost_usd", 0)
+    store.audit(str(chat_id), "steve_test_email", detail={"to": to, "subject": subject[:120], "ok": res.get("ok")})
+    from core.budget import remaining as steve_remaining
+    if res.get("ok"):
+        head = f"✅ Отправил письмо на <code>{to}</code>\n\n<b>Тема:</b> {subject}\n\n{body[:1500]}"
+    else:
+        head = f"⚠️ Не смог отправить ({res.get('error')}). Вот текст письма:\n\n<b>Тема:</b> {subject}\n\n{body[:1500]}"
+    return f"{head}\n\n<i>Стив · ${cost:.4f} · бюджет Стива ${steve_remaining():.2f}/20</i>"
+
+
 def talk_steve(chat_id: int, question: str) -> str:
     """Живой диалог голосом Стива (персона + память). Ответ — Sonnet под личностью."""
     if not brain_available():
         return "💬 LLM недоступен: нет ключа или бюджет исчерпан."
+
+    # Прямая команда «пришли письмо на X@Y» → Стив пишет и реально отправляет
+    try:
+        sent = _maybe_send_test_email(chat_id, question)
+        if sent is not None:
+            return sent
+    except Exception as e:
+        print(f"[sales-tg] test-email error: {e}", file=sys.stderr)
 
     # «запомни …» от владельца → принцип в память Стива
     try:
@@ -290,10 +354,21 @@ def talk_steve(chat_id: int, question: str) -> str:
 
     system = (
         f"{persona}\n\n"
+        "ДОСТУП К КАТАЛОГУ: у тебя ЕСТЬ полный каталог продукции с сайта "
+        "pepperoni.tatar (ниже). Это твой боевой ассортимент — НИКОГДА не "
+        "говори «у меня нет доступа к сайту». Если клиент спрашивает про "
+        "выпечку (эчпочмак, самса, губадия, чак-чак и т.д.), мясо или "
+        "заморозку — бери из каталога и предлагай конкретные SKU.\n\n"
+        "ДЕЙСТВУЙ, А НЕ ТОЛЬКО СПРАШИВАЙ: если владелец дал задачу (написать "
+        "клиенту, прислать письмо) и базовых вводных достаточно — выполняй "
+        "сразу. Можно задать максимум ОДИН уточняющий вопрос, но если ответа "
+        "нет или вводных хватает — делай и показывай результат, а не "
+        "переспрашивай по кругу.\n\n"
         "В ЧАТЕ: не публикуй личные kam@/телефон владельца — они идут только в "
         "подписи писем клиентам. Цены из каталога — с оговоркой «согласовать с "
         "Ринатом».\n\n"
-        f"{kb.sales_context(8)}\n\nСтатистика воронки: {stats}"
+        f"{kb.catalog_by_section()}\n\n"
+        f"{kb.sales_context(0)}\n\nСтатистика воронки: {stats}"
     )
     try:
         reply, usage = call_sonnet(question, system=system, max_tokens=1200)
@@ -347,7 +422,112 @@ def talk_strategy(chat_id: int) -> str:
     return f"🧠 <b>Стратегия Стива</b>\n\n{reply}\n\n<i>${cost:.4f} · бюджет Стива ${steve_remaining():.2f}/20</i>"
 
 
+def action_handoff() -> str:
+    """Пометить все tier S/A лиды в bounced_need_research → handed_off.
+
+    Флаг хранится в profile._agent.handed_off — переживает CRM-pull.
+    Статус тоже ставим handed_off, но именно флаг — источник правды.
+    """
+    from core import agent_profile as ap
+    store = Store()
+    n = 0
+    for lead in store.list_leads(limit=500):
+        if (lead.get("status") or "") in ("bounced_need_research", "bounced", "handed_off") \
+                and lead.get("tier") in ("S", "A"):
+            pr = dict(lead.get("profile") or {})
+            if ap.is_handed_off(pr):
+                continue  # уже помечен
+            ap.mark_handed_off(pr)
+            store.upsert_lead(
+                lead["name"], lead_id=lead["id"], inn=lead.get("inn"),
+                region=lead.get("region"), tier=lead.get("tier"),
+                fit_score=lead.get("fit_score") or 0,
+                status="handed_off", source=lead.get("source"), profile=pr,
+            )
+            n += 1
+    if n:
+        return (
+            f"✅ Принято. {n} лидов tier S/A помечены «передано менеджеру» (handed_off).\n"
+            "Флаг в профиле — переживёт синхронизацию с таблицей. "
+            "Больше не буду поднимать эти компании — слежу за новыми."
+        )
+    return "ℹ️ Нет tier S/A лидов со статусом bounce — нечего закрывать."
+
+
+def handle_callback(callback: dict) -> None:
+    """Обработка нажатий инлайн-кнопок."""
+    query_id = callback.get("id")
+    chat_id = (callback.get("message") or {}).get("chat", {}).get("id")
+    data = callback.get("data", "")
+
+    # Подтвердить получение нажатия (убирает «часики» на кнопке)
+    try:
+        _api("answerCallbackQuery", {"callback_query_id": query_id})
+    except Exception:
+        pass
+
+    if data == "handoff_bounced":
+        if chat_id and is_authorized(chat_id):
+            reply = action_handoff()
+            send(chat_id, reply, keyboard=MAIN_MENU)
+        elif chat_id:
+            send(chat_id, "🔒 Нет доступа.")
+
+
+def _ingest_group_lead(msg: dict) -> None:
+    """Сообщение в группе лидов (заявки с Тильды/сайта в pepperoni factory).
+
+    Бот-админ видит все сообщения группы. Каждое складываем во входящие
+    (channel telegram_group) — Стив триажит их в цикле и поднимает тёплых тебе.
+    Сообщения самого Стива и команды — игнорируем.
+    """
+    text = (msg.get("text") or msg.get("caption") or "").strip()
+    if not text:
+        return
+    frm = msg.get("from") or {}
+    # не реагируем на свои же сообщения и на команды
+    if frm.get("is_bot"):
+        return
+    if text.startswith("/"):
+        return
+
+    store = Store()
+    store.init()
+    sender = frm.get("username") or frm.get("first_name") or str(frm.get("id", "?"))
+    msg_id = f"tg-{msg['chat']['id']}-{msg.get('message_id')}"
+
+    # привязка к лиду по телефону/email из текста заявки
+    lead_id = None
+    try:
+        import re as _re
+        em = _re.search(r"[\w.+-]+@[\w-]+\.[\w.-]+", text)
+        if em:
+            from channels.imap_inbox import _find_lead_by_email
+            lead = _find_lead_by_email(store, em.group(0).lower())
+            lead_id = lead["id"] if lead else None
+    except Exception:
+        pass
+
+    store.add_inbound(
+        "telegram_group", text[:4000],
+        subject=f"Заявка из группы от {sender}"[:120],
+        lead_id=lead_id, external_id=msg_id,
+        meta={"from": sender, "chat_id": msg["chat"]["id"], "source": "lead_group"},
+    )
+
+
 def handle_message(msg: dict) -> None:
+    chat = msg.get("chat") or {}
+    chat_type = chat.get("type", "private")
+
+    # Групповые сообщения — это поток заявок, а не диалог с владельцем.
+    if chat_type in ("group", "supergroup"):
+        try:
+            _ingest_group_lead(msg)
+        except Exception as e:
+            print(f"[sales-tg] group ingest error: {e}", file=sys.stderr)
+        return
+
     chat_id = msg["chat"]["id"]
     name = msg["chat"].get("first_name", "user")
     text = (msg.get("text") or "").strip()
@@ -399,6 +579,8 @@ def handle_message(msg: dict) -> None:
     elif text in ("💬 Спросить Стива", "💬 Спросить", "/ask"):
         set_pending(chat_id, "ask_steve")
         send(chat_id, "Спрашивай — отвечу как есть. (А скажешь «запомни …» — запишу в память.)")
+    elif text in ("/handoff", "передал менеджеру", "передал"):
+        send(chat_id, action_handoff(), keyboard=MAIN_MENU)
     else:
         try:
             d = json.loads(PENDING_FILE.read_text(encoding="utf-8"))
@@ -418,9 +600,18 @@ def main() -> int:
     print("🤖 KDSalesManagerBot started (long-poll).")
     offset = 0
     while True:
-        resp = _api("getUpdates", {"timeout": POLL_TIMEOUT, "offset": offset})
+        resp = _api("getUpdates", {
+            "timeout": POLL_TIMEOUT,
+            "offset": offset,
+            "allowed_updates": json.dumps(["message", "edited_message", "callback_query"]),
+        })
         for upd in resp.get("result", []):
             offset = upd["update_id"] + 1
+            if "callback_query" in upd:
+                try:
+                    handle_callback(upd["callback_query"])
+                except Exception as e:
+                    print(f"[sales-tg] callback error: {e}", file=sys.stderr)
             msg = upd.get("message") or upd.get("edited_message")
             if msg and "chat" in msg:
                 try:

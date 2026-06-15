@@ -49,6 +49,26 @@ SKIP_FROM = re.compile(
     re.I,
 )
 
+# Форм-заявки с сайта (Tilda шлёт с noreply@tilda.ws) — это ГОРЯЧИЙ лид,
+# имеет приоритет над SKIP_FROM. Отправитель ИЛИ тема выдают форму.
+FORM_FROM = re.compile(r"tilda\.ws|tildacdn|@.*\.tilda|forms?@", re.I)
+FORM_SUBJECT = re.compile(
+    r"заявк|форм[аы]|с сайта|новое сообщение|new lead|new order|обратн\w* связь|"
+    r"заказ звонк|оставил\w* заявк", re.I,
+)
+# Служебные письма самой Тильды (коды активации, подключение) — не лиды
+TILDA_SERVICE = re.compile(r"код активации|activation code|подключени\w* приёмщик|подтверд", re.I)
+
+
+def _is_form_lead(sender: str, from_raw: str, subject: str) -> bool:
+    if TILDA_SERVICE.search(subject):
+        return False
+    if FORM_FROM.search(sender) or FORM_FROM.search(from_raw):
+        return True
+    if FORM_SUBJECT.search(subject):
+        return True
+    return False
+
 # Bounce-детект (mailer-daemon): обрабатываем ДО skip — это сигнал доставляемости
 BOUNCE_FROM = re.compile(r"mailer-daemon|postmaster|mail delivery", re.I)
 BOUNCE_SUBJECT = re.compile(
@@ -196,12 +216,24 @@ def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
     try:
         imap.login(acct["user"], acct["password"])
         imap.select("INBOX")
-        status, data = imap.search(None, "UNSEEN")
+        # info@ читают люди → письмо может стать «прочитанным» раньше Стива.
+        # Поэтому для info@ берём по дате (последние дни), а не UNSEEN.
+        # Дедуп по Message-ID (imap_seen.json) не даёт обработать дважды.
+        if box == "info":
+            from datetime import timedelta
+            since = (datetime.now(timezone.utc) - timedelta(days=3)).strftime("%d-%b-%Y")
+            status, data = imap.search(None, f'(SINCE {since})')
+        else:
+            status, data = imap.search(None, "UNSEEN")
         if status != "OK":
             return {"ok": False, "box": box, "error": f"search_failed:{status}"}
 
-        for num in data[0].split()[:limit]:
-            status, msg_data = imap.fetch(num, "(RFC822)")
+        # самые свежие — первыми; ограничиваем объём
+        nums = data[0].split()
+        nums = list(reversed(nums))[:limit]
+        for num in nums:
+            # BODY.PEEK не меняет флаг \Seen — не «крадём» прочтение у людей
+            status, msg_data = imap.fetch(num, "(BODY.PEEK[])")
             if status != "OK" or not msg_data or not msg_data[0]:
                 continue
             msg = email.message_from_bytes(msg_data[0][1])
@@ -218,11 +250,15 @@ def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
                     continue
 
             sender = _sender_email(msg)
-            if SKIP_FROM.search(sender) or SKIP_FROM.search(_decode(msg.get("From", ""))):
+            from_raw = _decode(msg.get("From", ""))
+            subject = _decode(msg.get("Subject", ""))
+            is_form = _is_form_lead(sender, from_raw, subject)
+
+            # форм-заявка с сайта имеет приоритет над SKIP_FROM (noreply@tilda)
+            if not is_form and (SKIP_FROM.search(sender) or SKIP_FROM.search(from_raw)):
                 skipped += 1
                 continue
 
-            subject = _decode(msg.get("Subject", ""))
             body = _body_text(msg)[:4000]
             lead = _find_lead_by_email(store, sender)
             lead_id = lead["id"] if lead else None
@@ -241,11 +277,16 @@ def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
                     source=lead.get("source"), profile=profile,
                 )
 
-            # входящие на info@ — это, как правило, новые заявки (горячий вход)
-            channel = "email_info" if box == "info" else "email"
+            # форм-заявка с сайта — горячий вход; info@ — приёмный; sales@ — переписка
+            if is_form:
+                channel = "email_form"
+            elif box == "info":
+                channel = "email_info"
+            else:
+                channel = "email"
             store.add_inbound(
                 channel, body, subject=subject, lead_id=lead_id, external_id=msg_id,
-                meta={"from": sender, "matched_lead": bool(lead), "box": box},
+                meta={"from": sender, "matched_lead": bool(lead), "box": box, "form": is_form},
             )
             fetched += 1
 

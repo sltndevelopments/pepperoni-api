@@ -32,6 +32,9 @@ def triage_inbound(message: dict, store: Store | None = None) -> dict:
             intents.append(name)
 
     temperature = "cold"
+    # Группа лидов и info@ — это пассивный сбор для аналитики Стива, НЕ повод
+    # писать владельцу. Температуру по самому факту канала не поднимаем —
+    # эскалация только если в тексте реальный покупательский интент (ниже).
     if "price_request" in intents or "sample_request" in intents:
         temperature = "warm"
     if "sausage_in_dough" in intents:

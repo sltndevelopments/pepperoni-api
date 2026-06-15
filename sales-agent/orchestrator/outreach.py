@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from channels.email import pick_recipient
+from core import agent_profile as ap
 from core.exclusions import is_excluded
 from core.store import Store
 from prospecting.lookalike import score_lookalike
@@ -26,7 +27,7 @@ def _cfg() -> dict:
 
 def _lookalike_score(lead: dict) -> int:
     p = lead.get("profile") or {}
-    la = p.get("lookalike")
+    la = ap.get(p, "lookalike") or p.get("lookalike")
     if isinstance(la, dict) and la.get("lookalike_score"):
         return int(la["lookalike_score"])
     return score_lookalike(lead)["lookalike_score"]
@@ -47,6 +48,8 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
         if lead["id"] in drafted:
             continue
         if (lead.get("status") or "new") not in statuses:
+            continue
+        if ap.is_handed_off(lead.get("profile") or {}):
             continue
         if is_excluded(lead)[0]:
             continue

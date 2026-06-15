@@ -97,9 +97,10 @@ def _profile_field(profile: dict, key: str) -> str:
 
 
 def _lead_row_from_db(lead: dict, schema: dict) -> list[str]:
+    from core import agent_profile as ap
     p = lead.get("profile") or {}
-    agent = p.get("agent") or {}
-    lookalike = p.get("lookalike") or {}
+    agent = ap.get(p, "agent") or p.get("agent") or {}
+    lookalike = ap.get(p, "lookalike") or p.get("lookalike") or {}
     human = p.get("crm") or {}
 
     values: dict[str, str] = {
@@ -354,10 +355,27 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
                 old_profile = json.loads(existing.get("profile") or "{}")
             except Exception:
                 old_profile = {}
-            # сохраняем агентские поля, которых нет в таблице
-            for k in ("agent", "lookalike", "sausage_evidence", "score_reasons"):
-                if k in old_profile and k not in profile:
-                    profile[k] = old_profile[k]
+
+            from core import agent_profile as ap
+
+            # Мигрируем legacy верхнеуровневые ключи аналитики в _agent,
+            # чтобы они тоже жили под единым namespace и не выпали при pull.
+            _migrate_keys = ("agent", "lookalike", "sausage_evidence", "score_reasons")
+            if any(k in old_profile for k in _migrate_keys):
+                agent_ns = old_profile.setdefault("_agent", {})
+                for k in _migrate_keys:
+                    if k in old_profile and k not in agent_ns:
+                        agent_ns[k] = old_profile[k]
+
+            # Сохраняем весь _agent целиком — единственное, что нужно защитить от pull.
+            # Никакого whitelist: любой новый флаг автоматически переживёт синхронизацию.
+            if "_agent" in old_profile:
+                profile["_agent"] = old_profile["_agent"]
+
+            # Если лид был передан менеджеру — не сбрасывать статус
+            if ap.is_handed_off(old_profile):
+                status = "handed_off"
+
         crm_patch = {k: (row.get(k) or "").strip() for k in human_cols if row.get(k)}
         if crm_patch:
             profile["crm"] = crm_patch

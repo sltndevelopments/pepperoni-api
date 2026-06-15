@@ -178,12 +178,19 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
                 summary["toolsmith"] = buf.getvalue()[:1000]
             except Exception as e:
                 summary["toolsmith"] = {"skipped": str(e)[:160]}
-            # отчёт Стива владельцу
+            # Дайджест Стива — слать только когда появилось что-то новое
+            # (горячие лиды или аппрувы), или раз в 20ч.
+            # hash только по hot+approvals — touched растёт каждый цикл и не должен
+            # триггерить повтор дайджеста на каждый отправленный email.
             report = (steve_plan or {}).get("report_to_owner")
             if report:
                 try:
-                    from telegram.notify import notify
-                    notify(f"🧠 <b>Стив:</b>\n{report[:3500]}")
+                    _st = store.stats()
+                    _digest_hash = f"{_st.get('hot_leads', 0)}:{_st.get('pending_approvals', 0)}"
+                    if store.should_notify("daily_digest", _digest_hash, cooldown_hours=20):
+                        from telegram.notify import notify
+                        notify(f"🧠 <b>Стив:</b>\n{report[:3500]}")
+                        store.record_notification("daily_digest", _digest_hash)
                 except Exception:
                     pass
         else:

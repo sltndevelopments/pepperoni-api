@@ -27,8 +27,9 @@ HOLD_MARKERS = re.compile(
 
 
 def _lookalike_of(lead: dict) -> int:
+    from core import agent_profile as _ap
     p = lead.get("profile") or {}
-    la = p.get("lookalike")
+    la = _ap.get(p, "lookalike") or p.get("lookalike")
     if isinstance(la, dict) and la.get("lookalike_score"):
         try:
             return int(float(str(la["lookalike_score"]).replace(",", ".")))
