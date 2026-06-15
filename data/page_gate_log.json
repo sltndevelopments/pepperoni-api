@@ -1,0 +1,45 @@
+[
+ {
+  "ts": "2026-06-15T18:36:53.487183+00:00",
+  "path": "public/tmpxewocsqd.html",
+  "verdict": "pass",
+  "reasons": [],
+  "error": ""
+ },
+ {
+  "ts": "2026-06-15T18:36:53.489472+00:00",
+  "path": "public/tmp5bpd8i4t.html",
+  "verdict": "reject",
+  "reasons": [
+   "нет H1"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-06-15T18:36:53.490732+00:00",
+  "path": "public/tmps2vqnm32.html",
+  "verdict": "hold",
+  "reasons": [
+   "reviewer unavailable: timeout"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-06-15T18:36:53.492122+00:00",
+  "path": "public/tmpzsqkc8qx.html",
+  "verdict": "hold",
+  "reasons": [
+   "LLM non-JSON response — held"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-06-15T18:36:53.492868+00:00",
+  "path": "public/tmprb1_xkx8.html",
+  "verdict": "reject",
+  "reasons": [
+   "тонкая страница: 1 слов < 300"
+  ],
+  "error": ""
+ }
+]

@@ -61,8 +61,13 @@ PROTECTED_AGENTS = {
     # Autonomy infrastructure (brain, budget, proxy, notifications)
     "seo_brain", "opus_brain_client", "claude_client", "brain_toolsmith",
     "telegram_bot", "telegram_notify", "sync_asocks_proxy", "send_report",
-    # Publication gate — owner must approve new pages (fail-closed)
-    "approvals", "generate_geo_bulk", "generate_from_strategy", "build_landing",
+    # Publication gate — fail-closed automatic reviewer (the sole gatekeeper;
+    # brain must never patch the judge that grades its own output)
+    "page_reviewer",
+    # Generators wired to the gate
+    "generate_geo_bulk", "generate_from_strategy", "build_landing",
+    # Legacy approval queue (still used by Steve's sales flow)
+    "approvals",
     # Quality gate — thin/dup/halal check before git commit
     "qa_pages", "fix_pages",
     # Brand & halal guardrails — single source of truth, never editable by brain

@@ -240,6 +240,32 @@ python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || log "⚠️  qa_
 # Product overrides QA (halal/structure) — report only, overrides are durable.
 python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log "⚠️  qa_overrides found issues (see log)"
 
+# ---- Step 4e: Gate summary — send published/quarantined/held counts to Telegram ----
+# Runs after all generators are done (geo, strategy, landing). Informational only —
+# owner sees "X published, Y quarantined, Z held" in the daily summary.
+log "Step 4e: Gate summary → Telegram …"
+python3 - << 'GATE_SUMMARY_EOF' >> "$LOG_FILE" 2>&1 || log "⚠️  gate summary failed (non-fatal)"
+import sys, json
+sys.path.insert(0, "scripts")
+try:
+    import page_reviewer
+    s = page_reviewer.gate_summary()
+    if s["published"] + s["quarantined"] + s["held"] == 0:
+        print("gate: no new pages in last 25h")
+    else:
+        from telegram_notify import notify
+        reasons = "; ".join(s["sample_reasons"]) if s["sample_reasons"] else "—"
+        msg = (f"📋 Гейт страниц (последние 25ч):\n"
+               f"✅ Опубликовано: {s['published']}\n"
+               f"🚧 Карантин: {s['quarantined']}\n"
+               f"⏸ Удержано (рецензент упал): {s['held']}\n"
+               f"Причины: {reasons[:200]}")
+        notify(msg)
+        print(msg)
+except Exception as e:
+    print(f"gate summary error: {e}")
+GATE_SUMMARY_EOF
+
 # ---- Step 5: Git commit & push generated content ----
 log "Step 5: Committing and pushing generated content …"
 
@@ -273,6 +299,7 @@ git add data/leads.json 2>/dev/null || true
 git add data/agent_bus.json 2>/dev/null || true
 git add data/outcomes.json data/scout_sent.json 2>/dev/null || true
 git add data/fable_websearch.json 2>/dev/null || true
+git add data/page_gate_log.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
 git add data/brain_tools.json 2>/dev/null || true
 git add 'scripts/brain_tools/*.py' 2>/dev/null || true

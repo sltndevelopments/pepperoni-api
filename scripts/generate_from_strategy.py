@@ -139,11 +139,49 @@ Requirements:
 
 
 def _write_page(prep: dict, html: str) -> bool:
+    """Write page and run the quality gate synchronously. Returns True only if published.
+
+    Gate is SYNCHRONOUS and FAIL-CLOSED: any error in page_reviewer → page held
+    (not published), never silently pass. File is written to disk first so the
+    reviewer can inspect it, then moved to quarantine if rejected/held.
+    """
     html = clean_html(html)
     if "<html" not in html.lower():
         return False
     prep["out"].parent.mkdir(parents=True, exist_ok=True)
     prep["out"].write_text(html, encoding="utf-8")
+
+    # ── Quality gate (synchronous — before git add sees this file) ────────────
+    try:
+        import page_reviewer
+        review = page_reviewer.review_page(
+            prep["out"],
+            meta={"label": prep.get("label", ""), "action": prep.get("action", "")},
+        )
+    except Exception as _rev_exc:
+        # Reviewer module crashed — fail-closed: quarantine the file.
+        try:
+            import page_reviewer as _pr
+            _pr._alert(f"🚨 Рецензент упал (strategy): {_rev_exc}\n"
+                       f"Страница {prep['out'].name} удержана.")
+            _pr._log(prep["out"], "hold", [], error=str(_rev_exc))
+            import shutil
+            _q = ROOT / "data" / "quarantine"
+            _rel = prep["out"].relative_to(ROOT / "public")
+            _dest = _q / _rel
+            _dest.parent.mkdir(parents=True, exist_ok=True)
+            shutil.move(str(prep["out"]), str(_dest))
+        except Exception:
+            prep["out"].unlink(missing_ok=True)
+        print(f"  🚨 {prep['label']}: рецензент упал — удержан", file=sys.stderr)
+        return False
+
+    if review["verdict"] != "pass":
+        # review_page() already called quarantine() which did shutil.move
+        reasons = "; ".join(review["reasons"][:2])
+        print(f"  🚧 {prep['label']}: {review['verdict']} — {reasons}")
+        return False
+
     print(f"  ✓ {prep['label']}")
     return True
 
@@ -178,34 +216,15 @@ def main():
 
     print(f"🛠  Executing strategy ({strat.get('generated_at','?')})")
 
-    # ── Phase 0: build pages the owner already approved ───────────────────────
-    try:
-        import approvals as _appr
-        for action in ("blog_post", "pl_page"):
-            approved = _appr.get_approved_new_pages(action=action)
-            for entry in approved:
-                pl = entry.get("payload") or {}
-                out_path = Path(pl.get("out_path", ""))
-                if not out_path or out_path.exists():
-                    continue
-                # Reconstruct prep from stored payload so we can generate.
-                topic = pl.get("topic") or {}
-                prep = (prep_blog(topic) if action == "blog_post" else prep_pl(topic))
-                if prep:
-                    print(f"  🔓 Building approved: {entry.get('title','')}")
-                    _write_page(prep, _generate_one(prep))
-    except Exception as _e:
-        print(f"⚠️  approved-strategy phase failed (non-fatal): {_e}")
-
-    # ── Phase 1: collect candidates from current strategy ─────────────────────
-    all_preps = []
+    # Pages are gated automatically by page_reviewer (fail-closed) inside
+    # _write_page(). No human approval step needed.
+    preps = []
     for t in (strat.get("new_blog_topics") or [])[:MAX_BLOG]:
         try:
             p = prep_blog(t)
             if p:
                 p["action"] = "blog_post"
-                p["topic"] = t
-                all_preps.append(p)
+                preps.append(p)
         except Exception as e:
             print(f"  ✗ blog prep error: {e}", file=sys.stderr)
     for t in (strat.get("pl_oem_topics") or [])[:MAX_PL]:
@@ -213,55 +232,16 @@ def main():
             p = prep_pl(t)
             if p:
                 p["action"] = "pl_page"
-                p["topic"] = t
-                all_preps.append(p)
+                preps.append(p)
         except Exception as e:
             print(f"  ✗ PL prep error: {e}", file=sys.stderr)
 
-    if not all_preps:
+    if not preps:
         print("✅ Strategy executor done: nothing new to generate")
         return 0
 
-    # ── Phase 2: gate — queue unapproved pages, keep approved ones ────────────
-    preps = []
-    queued_count = 0
-    try:
-        import approvals as _appr
-        for p in all_preps:
-            key    = _approval_key(p)
-            action = p.get("action", "new_page")
-            status = _appr.request_new_page(
-                key=key,
-                title=p.get("label", key),
-                detail=f"action={action}",
-                action=action,
-                payload={"out_path": str(p["out"]), "topic": p.get("topic", {})},
-                requested_by="strategy_executor",
-            )
-            if status == "approved":
-                preps.append(p)
-            elif status in ("queued", "pending"):
-                queued_count += 1
-            # "rejected" → silently skip
-        if queued_count:
-            print(f"⏳ {queued_count} strategy page(s) queued for owner approval")
-    except Exception as _e:
-        import traceback as _tb
-        msg = f"🚨 Гейт одобрения strategy_executor упал — новые страницы НЕ создаются.\n<code>{_e}</code>"
-        print(f"🚨 approval gate FAILED (fail-closed — no new pages): {_e}", file=sys.stderr)
-        _tb.print_exc()
-        try:
-            from telegram_notify import notify
-            notify(msg)
-        except Exception:
-            pass
-        preps = []   # fail-closed: no new pages if gate is broken
-
-    if not preps:
-        print("✅ Strategy executor done: all pages pending or rejected")
-        return 0
-
     made = 0
+    quarantined = 0
     # Cron job, nobody waits → Batch API (−50%). Fall back to sync calls.
     use_batch = os.environ.get("WORKER_BATCH", "1") != "0" and len(preps) >= 2
     if use_batch:
@@ -275,11 +255,15 @@ def main():
             for i, p in enumerate(preps):
                 res = out.get(f"w{i}") or {}
                 if res.get("ok"):
-                    made += 1 if _write_page(p, res["text"]) else 0
+                    if _write_page(p, res["text"]):
+                        made += 1
+                    else:
+                        quarantined += 1
                 else:
                     print(f"  ✗ {p['label']}: {res.get('error','no result')}",
                           file=sys.stderr)
-            print(f"✅ Strategy executor done (batch): {made} new pages")
+            print(f"✅ Strategy executor done (batch): {made} published, "
+                  f"{quarantined} quarantined/held by gate")
             return 0
         except Exception as e:
             print(f"⚠️  batch failed ({e}) — falling back to sync", file=sys.stderr)
@@ -288,11 +272,15 @@ def main():
         try:
             html, _ = call_claude(p["prompt"], system=p["system"],
                                   max_tokens=MAX_TOKENS, effort="medium")
-            made += 1 if _write_page(p, html) else 0
+            if _write_page(p, html):
+                made += 1
+            else:
+                quarantined += 1
         except Exception as e:
             print(f"  ✗ {p['label']}: {e}", file=sys.stderr)
 
-    print(f"✅ Strategy executor done: {made} new pages")
+    print(f"✅ Strategy executor done: {made} published, "
+          f"{quarantined} quarantined/held by gate")
     return 0
 
 

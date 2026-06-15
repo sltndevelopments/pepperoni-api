@@ -184,6 +184,28 @@ CERT_BLOCK_AR = (
     "بدون نيتريت الصوديوم. تسمية نظيفة. الإنتاج بالعلامة التجارية الخاصة.**"
 )
 
+# For markets where export docs are still in process (docs_status=in_process):
+# We have full Russian certs; export-market certification is being arranged.
+# Pages should say we're ready to cooperate, NOT claim ready export certs.
+CERT_BLOCK_RU_IN_PROCESS = (
+    "**Сертификаты на производстве: Халяль (ДУМ РТ №614A/2024), HACCP, "
+    "ISO 22000:2018, ТР ТС 021/2011. Продукция без нитрита натрия, без ГМО. "
+    "Экспортная документация: в процессе оформления. "
+    "Открыты к переговорам и пилотным поставкам.**"
+)
+CERT_BLOCK_EN_IN_PROCESS = (
+    "**On-site certifications: Halal (DUM RT #614A/2024), HACCP, ISO 22000:2018. "
+    "No sodium nitrite. Clean label — no GMO. "
+    "Export documentation: being arranged for your market. "
+    "Open to negotiations and pilot shipments.**"
+)
+CERT_BLOCK_AR_IN_PROCESS = (
+    "**الشهادات في المصنع: حلال (DUM RT رقم 614A/2024)، HACCP، ISO 22000:2018. "
+    "بدون نيتريت الصوديوم، بدون معدلات وراثية. "
+    "وثائق التصدير: قيد الإعداد لأسواقكم. "
+    "مستعدون للتفاوض وشحنات تجريبية.**"
+)
+
 LANG_PROMPTS = {
     "ru": {
         "system_note": "Пиши только на русском языке.",
@@ -299,22 +321,40 @@ TEMPLATE_PROMPTS = {
 }
 
 
-def build_system_prompt(lang: str) -> str:
+def build_system_prompt(lang: str, docs_status: str = "ready") -> str:
     """Stable per-language instruction block.
 
     Sent as the `system` parameter so Anthropic prompt caching reuses it across
     every page of the same language in a run (cache reads cost 10% of input).
-    Keep page-specific values OUT of here — they go in the user prompt."""
+    Keep page-specific values OUT of here — they go in the user prompt.
+
+    docs_status='in_process': markets where export certs are still being arranged.
+    Cert block is honest — no overclaiming of completed export certification.
+    """
     from brand_system import brand_block
     lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
+
+    # Honest cert block: never overclaim for markets where docs are in-process
+    if docs_status == "in_process":
+        if lang == "ar":
+            cert_block = CERT_BLOCK_AR_IN_PROCESS
+        elif lang == "ru":
+            cert_block = CERT_BLOCK_RU_IN_PROCESS
+        else:
+            cert_block = CERT_BLOCK_EN_IN_PROCESS
+        cert_directive = "СЕРТИФИКАТЫ — упомяни честно (оформление ведётся для этого рынка):"
+    else:
+        cert_block = lang_cfg["cert_block"]
+        cert_directive = "СЕРТИФИКАТЫ (упомяни ВСЕ):"
+
     return brand_block(lang) + f"""
 
 {lang_cfg['system_note']}
 
 Ты эксперт по B2B продажам халяль мясной продукции. По параметрам из сообщения пользователя пишешь уникальную SEO-оптимизированную HTML landing page для указанных страны и города.
 
-СЕРТИФИКАТЫ (упомяни ВСЕ):
-{lang_cfg['cert_block']}
+{cert_directive}
+{cert_block}
 
 ТРЕБОВАНИЯ К HTML:
 1. Верни ТОЛЬКО валидный HTML, начиная с <!DOCTYPE html>
@@ -325,7 +365,7 @@ def build_system_prompt(lang: str) -> str:
    - H1 с городом и продуктом
    - Вступление (2-3 предложения) — уникальный контекст города
    - Блок преимуществ (6 карточек) — конкретные цифры и факты
-   - Таблица сертификатов (Халяль ДУМ РТ, HACCP, ISO 22000:2018, ТР ТС 021/2011, Ветеринарные свидетельства)
+   - Блок сертификатов (только те, что указаны выше — не выдумывай лишних)
    - FAQ блок (5 вопросов специфичных для этого города/региона)
    - CTA секция с формой заявки (имя, компания, телефон, email, сообщение)
    - Блок доставки в указанный город
@@ -554,12 +594,13 @@ def prepare_task(task: dict) -> dict:
                          lang, template_id, str(file_path), 0)
         return {"status": "already_exists", "slug": page_slug}
 
+    docs_status = task.get("docs_status", "ready")
     return {
         "status": "ready",
         "task": task,
         "page_slug": page_slug,
         "file_path": file_path,
-        "system": build_system_prompt(lang),
+        "system": build_system_prompt(lang, docs_status=docs_status),
         "user": build_user_prompt(product, task["city_name"], task["city_context"],
                                   lang, template_id, task["country_name"]),
     }
@@ -582,6 +623,34 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
                     "error": "incomplete/invalid HTML — not saved"}
 
         prep["file_path"].write_text(html_content, encoding="utf-8")
+
+        # ── Quality gate (synchronous, before git add ever sees the file) ──
+        # Fail-closed: any exception in the reviewer = hold = not published.
+        try:
+            import page_reviewer
+            review = page_reviewer.review_page(
+                prep["file_path"],
+                meta={"slug": page_slug, "lang": task["lang"],
+                      "product": product["name_ru"], "city": task["city_name"]},
+            )
+        except Exception as _rev_exc:
+            # reviewer module itself crashed — treat as hold
+            try:
+                import page_reviewer as _pr
+                _pr._alert(f"🚨 Рецензент упал (import/call): {_rev_exc}\n"
+                           f"Страница {page_slug} удержана.")
+                _pr._log(prep["file_path"], "hold", [], error=str(_rev_exc))
+            except Exception:
+                pass
+            prep["file_path"].unlink(missing_ok=True)
+            return {"status": "held", "slug": page_slug,
+                    "error": f"reviewer crashed: {_rev_exc}"}
+
+        if review["verdict"] != "pass":
+            # File already moved to quarantine by review_page(); just report.
+            return {"status": "quarantined", "slug": page_slug,
+                    "reasons": review["reasons"]}
+
         save_page_record(page_slug, product["id"], task["city_slug"],
                          task["country_code"], task["lang"], task["template_id"],
                          str(prep["file_path"]), tokens)
@@ -669,101 +738,220 @@ def generate_batch(tasks: list) -> list:
     return results
 
 
+# ── Goals-driven market index ─────────────────────────────────────────────────
+def _load_market_index() -> list[dict]:
+    """Return target markets from goals.json sorted by market_priority (A→D).
+
+    Each entry includes docs_status and content_langs from goals.json (single
+    source of truth). Russia (market_group=RU) is excluded — it is scout-driven
+    and handled via --mode=russia only.
+
+    Also resolves the matching cities_world entry so we have actual city lists.
+    """
+    try:
+        goals_data = json.loads((DATA / "goals.json").read_text(encoding="utf-8"))
+    except Exception:
+        return []
+
+    # 2-letter ISO → country entry from cities_world
+    world_by_2 = {}
+    for c in COUNTRIES_WORLD:
+        world_by_2[c["code"].lower()] = c
+
+    # 3-letter ISO (goals.json) → 2-letter ISO (cities_world): heuristic match
+    # by country name substring (fast, no external libs).
+    def _find_world(goals_entry: dict):
+        code3 = goals_entry.get("code", "").lower()
+        name  = goals_entry.get("country", "").lower()
+        # Direct 2-letter guesses based on known ISO-3166 pairs
+        _MAP = {
+            "rus": "ru", "kaz": "kz", "kgz": "kg", "uzb": "uz", "tjk": "tj",
+            "geo": "ge", "aze": "az", "are": "ae", "sau": "sa", "kwt": "kw",
+            "bhr": "bh", "omn": "om", "qat": "qa", "egy": "eg", "yem": "ye",
+            "blr": "by", "arm": "am", "mys": "my", "idn": "id", "tur": "tr",
+        }
+        code2 = _MAP.get(code3)
+        if code2 and code2 in world_by_2:
+            return world_by_2[code2]
+        # Fallback: substring match on name
+        for c in COUNTRIES_WORLD:
+            cname = (c.get("name_ru") or c.get("name_en") or "").lower()
+            if name[:4] in cname or cname[:4] in name:
+                return c
+        return None
+
+    markets = []
+    for c in goals_data.get("countries", []):
+        if c.get("market_group") == "RU" or c.get("market_priority") == 0:
+            continue  # Russia is scout-driven, not cold-start
+        mp = c.get("market_priority")
+        if mp is None:
+            continue  # legacy entry without priority — skip
+        world_entry = _find_world(c)
+        markets.append({
+            "code":          c.get("code", ""),
+            "name":          c.get("country", ""),
+            "group":         c.get("market_group", ""),
+            "market_priority": mp,
+            "docs_status":   c.get("docs_status", "ready"),
+            "langs":         c.get("content_langs", ["ru"]),
+            "world_entry":   world_entry,  # may be None for markets not in cities_world
+        })
+
+    markets.sort(key=lambda m: m["market_priority"])
+    return markets
+
+
 # ── Task queue builder ────────────────────────────────────────────────────────
 def build_task_queue(
-    mode: str = "russia",
+    mode: str = "coverage",
     max_pages: int = 100,
     langs: list[str] | None = None,
     product_ids: list[str] | None = None,
     focus_products: list[str] | None = None,
 ) -> list[dict]:
-    """
-    Build a prioritized list of page generation tasks.
-    mode: 'russia' | 'world' | 'all'
-    """
-    tasks = []
+    """Build a prioritized list of page generation tasks.
 
-    def add_tasks_for_city(city_slug, city_name, city_context, country_code, country_name, country_langs):
-        for product in PRODUCTS:
-            if product_ids and product["id"] not in product_ids:
+    mode:
+      'coverage' (default) — iterate target markets from goals.json in order
+                  A→D (market_priority), never Russia. Languages from goals.
+                  Category order from focus_products or default cat_priority.
+                  This is the autonomous, brain-directed mode.
+      'russia'   — iterate Russian cities (CITIES_RU). Only for scout-driven
+                  requests or manual --mode russia runs.
+      'world'    — iterate cities_world (all 37 countries, unsorted). Legacy.
+      'all'      — Russia + world. Legacy.
+    """
+    # Category priority order (commercial first) — mirrors coverage_gaps()
+    _CAT_PRIORITY = [
+        "private-label", "pepperoni", "kolbasnye", "sosiki-hotdog",
+        "kotlety-burgery", "vetchina", "kazylyk-premium", "kopchenye",
+        "farsh", "toppings-pizza", "pelmeni",
+        "vypechka-tatarskaya", "vypechka-klassicheskaya", "sosiki-v-teste",
+        "syroje-myaso",
+    ]
+
+    def _cat_rank(pid: str) -> int:
+        try:
+            return _CAT_PRIORITY.index(pid)
+        except ValueError:
+            return len(_CAT_PRIORITY)
+
+    # Effective product list, optionally filtered and sorted
+    products_sorted = sorted(
+        [p for p in PRODUCTS if not product_ids or p["id"] in product_ids],
+        key=lambda p: _cat_rank(p["id"]),
+    )
+    if focus_products:
+        fp_rank = {pid: i for i, pid in enumerate(focus_products)}
+        products_sorted.sort(key=lambda p: fp_rank.get(p["id"], _cat_rank(p["id"]) + len(fp_rank)))
+
+    tasks: list[dict] = []
+
+    def _add_city_tasks(city, country_entry, market_langs, country_code, country_name,
+                        docs_status="ready", market_group=""):
+        """Emit one task per (product, lang) for a given city."""
+        city_ctx = dict(city)
+        city_ctx["halal_note"] = city_ctx.get("halal_note_ru", country_entry.get("halal_note_ru", ""))
+        city_ctx["delivery"]   = country_entry.get("logistics", "")
+        city_ctx["muslim_pct"] = country_entry.get("halal_note_ru", "")[:50]
+        city_name = city.get("name_ru", city.get("name_en", ""))
+        city_slug_val = city.get("slug", slugify(city_name))
+        for lang in market_langs:
+            if langs and lang not in langs:
                 continue
-            for lang in country_langs:
-                if langs and lang not in langs:
-                    continue
-                # One canonical page per product×city. Template variants
-                # (-b/-c/-d/-f) were self-canonicalizing duplicates with 0 clicks
-                # in GSC, so we only ever emit the base template "A".
-                template_id = "A"
-                lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS["ru"])
+            lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS.get("ru"))
+            if not lang_cfg:
+                continue
+            for product in products_sorted:
                 tasks.append({
-                    "product": product,
-                    "city_slug": city_slug,
-                    "city_name": city_name,
-                    "city_context": city_context,
-                    "lang": lang,
-                    "template_id": template_id,
+                    "product":      product,
+                    "city_slug":    city_slug_val,
+                    "city_name":    city_name,
+                    "city_context": city_ctx,
+                    "lang":         lang,
+                    "template_id":  "A",
                     "country_code": country_code,
                     "country_name": country_name,
-                    "output_dir": lang_cfg["output_dir"],
+                    "output_dir":   lang_cfg["output_dir"],
+                    "docs_status":  docs_status,
+                    "market_group": market_group,
                 })
+
+    if mode == "coverage":
+        # Primary mode: markets in A→D order from goals.json
+        for market in _load_market_index():
+            world_entry = market.get("world_entry")
+            if not world_entry:
+                # Market in goals.json but no cities_world entry: create a
+                # single representative task using the country capital.
+                # The city_context will be sparse — generator uses country name.
+                synthetic_city = {
+                    "name_ru": market["name"],
+                    "name_en": market["name"],
+                    "slug":    slugify(market["name"]),
+                    "population": "", "horeca": "", "halal_note_ru": "",
+                    "delivery": "", "muslim_pct": "",
+                }
+                synthetic_country = {"halal_note_ru": "", "logistics": ""}
+                _add_city_tasks(
+                    synthetic_city, synthetic_country,
+                    market["langs"],
+                    market["code"], market["name"],
+                    docs_status=market["docs_status"],
+                    market_group=market["group"],
+                )
+                continue
+            for city in world_entry.get("cities", []):
+                _add_city_tasks(
+                    city, world_entry,
+                    market["langs"],
+                    world_entry["code"], world_entry.get("name_ru", world_entry.get("name_en", "")),
+                    docs_status=market["docs_status"],
+                    market_group=market["group"],
+                )
 
     if mode in ("russia", "all"):
         for city in CITIES_RU:
-            add_tasks_for_city(
-                city["slug"], city["name"], city,
-                "ru", "Россия", ["ru"]
+            _add_city_tasks(
+                city, {},
+                ["ru"],
+                "ru", "Россия",
+                docs_status="ready",
+                market_group="RU",
             )
 
     if mode in ("world", "all"):
         for country in COUNTRIES_WORLD:
-            for city in country["cities"]:
-                city_ctx = dict(city)
-                city_ctx["halal_note"] = city_ctx.get("halal_note_ru", country.get("halal_note_ru", ""))
-                city_ctx["delivery"] = country.get("logistics", "")
-                city_ctx["muslim_pct"] = country.get("halal_note_ru", "")[:50]
-                city_name = city.get("name_ru", city.get("name_en", ""))
-                for lang in country["langs"]:
-                    if langs and lang not in langs:
-                        continue
-                    lang_cfg = LANG_PROMPTS.get(lang, LANG_PROMPTS.get("en", LANG_PROMPTS["ru"]))
-                    for product in PRODUCTS:
-                        if product_ids and product["id"] not in product_ids:
-                            continue
-                        template_id = "A"  # base only — no duplicate variants
-                        tasks.append({
-                            "product": product,
-                            "city_slug": city["slug"],
-                            "city_name": city_name,
-                            "city_context": city_ctx,
-                            "lang": lang,
-                            "template_id": template_id,
-                            "country_code": country["code"],
-                            "country_name": country.get("name_ru", country.get("name_en", "")),
-                            "output_dir": lang_cfg["output_dir"],
-                        })
+            country_langs = country.get("langs", ["ru"])
+            for city in country.get("cities", []):
+                _add_city_tasks(
+                    city, country,
+                    country_langs,
+                    country["code"], country.get("name_ru", country.get("name_en", "")),
+                    docs_status="ready",
+                    market_group="",
+                )
 
-    # Shuffle to avoid patterns, filter already done, limit
-    random.shuffle(tasks)
-
-    if focus_products:
-        rank = {pid: i for i, pid in enumerate(focus_products)}
-        tasks.sort(key=lambda t: rank.get(t["product"]["id"], len(rank) + 1))
-
-    filtered = []
+    # Dedup: filter already-existing pages, cap at max_pages
+    filtered: list[dict] = []
+    seen_slugs: set[str] = set()
     for task in tasks:
-        prod_slug = task["product"].get(f"slug_{task['lang']}", task["product"].get("slug_ru", task["product"]["id"]))
-        page_slug = f"{prod_slug}-{task['city_slug']}-{task['lang']}-{task['template_id'].lower()}"
+        lang = task["lang"]
+        product = task["product"]
+        prod_slug = product.get(f"slug_{lang}", product.get("slug_ru", product["id"]))
+        page_slug = f"{prod_slug}-{task['city_slug']}-{lang}-{task['template_id'].lower()}"
+        if page_slug in seen_slugs:
+            continue
+        seen_slugs.add(page_slug)
         if page_exists(page_slug):
             continue
-        # Also skip if the HTML file already exists on disk (legacy pages
-        # generated before geo_pages DB existed) — backfill the DB record
-        # so we never regenerate or waste a daily slot on them.
         tmpl = task["template_id"]
-        fname = f"{prod_slug}-{task['city_slug']}.html" if tmpl == "A" \
-            else f"{prod_slug}-{task['city_slug']}-{tmpl.lower()}.html"
+        fname = (f"{prod_slug}-{task['city_slug']}.html" if tmpl == "A"
+                 else f"{prod_slug}-{task['city_slug']}-{tmpl.lower()}.html")
         disk_path = PUBLIC / task["output_dir"] / fname
         if disk_path.exists():
-            save_page_record(page_slug, task["product"]["id"], task["city_slug"],
+            save_page_record(page_slug, product["id"], task["city_slug"],
                              task["country_code"], task["lang"], tmpl,
                              str(disk_path), 0)
             continue
@@ -777,8 +965,14 @@ def build_task_queue(
 # ── Main ──────────────────────────────────────────────────────────────────────
 def main():
     parser = argparse.ArgumentParser(description="Bulk geo page generator")
-    parser.add_argument("--mode", choices=["russia", "world", "all"], default="all",
-                        help="Which cities to process")
+    parser.add_argument("--mode",
+                        choices=["coverage", "russia", "world", "all"],
+                        default="coverage",
+                        help=(
+                            "coverage (default): priority markets A→D from goals.json; "
+                            "russia: Russian cities only (scout-driven); "
+                            "world/all: legacy city-grid iteration"
+                        ))
     parser.add_argument("--max-pages", type=int, default=MAX_PAGES_PER_RUN,
                         help="Max pages to generate this run")
     parser.add_argument("--workers", type=int, default=MAX_WORKERS,
@@ -828,42 +1022,9 @@ def main():
     print(f"   Mode: {args.mode} | Max pages: {args.max_pages} | Workers: {args.workers}")
     print("=" * 60)
 
-    # ── Phase 0: build pages that the owner already approved ──────────────────
-    # These were previously queue-d via request_new_page() and the owner typed
-    # /approve <key> in Telegram. We build them first, before queuing new ones.
-    try:
-        import approvals as _appr
-        approved_geo = _appr.get_approved_new_pages(action="geo_page")
-        if approved_geo:
-            print(f"✅ {len(approved_geo)} owner-approved geo page(s) to build:")
-            for entry in approved_geo:
-                pl = entry.get("payload") or {}
-                query = pl.get("query", "")
-                slug  = pl.get("slug", "")
-                lang  = pl.get("lang", "ru")
-                product_id = pl.get("product_id")
-                city_slug  = pl.get("city_slug", "")
-                if not (query or slug):
-                    continue
-                # Re-create the task dict from the stored payload and generate.
-                task = {
-                    "slug": slug or slugify(query),
-                    "lang": lang,
-                    "city_slug": city_slug,
-                    "city_name": pl.get("city_name", city_slug),
-                    "country_code": pl.get("country_code", "RU"),
-                    "template_id": pl.get("template_id", "a"),
-                    "product": {"id": product_id, "name_ru": pl.get("product_name", query)},
-                }
-                result = generate_one_page(task)
-                if result.get("status") == "generated":
-                    print(f"  ✓ Built approved: {result.get('slug')}")
-                else:
-                    print(f"  ✗ Failed approved: {result.get('slug')} — {result.get('error','?')}")
-    except Exception as _e:
-        print(f"⚠️  approved-geo phase failed (non-fatal): {_e}")
-
-    # ── Phase 1: build task queue for new candidates ──────────────────────────
+    # ── Build task queue ───────────────────────────────────────────────────────
+    # Pages are now gated automatically by page_reviewer (fail-closed) inside
+    # finalize_page(). No human approval step — the reviewer is the barrier.
     tasks = build_task_queue(
         mode=args.mode,
         max_pages=args.max_pages,
@@ -883,62 +1044,8 @@ def main():
         print("✅ All requested pages already exist. Nothing to generate.")
         return
 
-    # ── Phase 2: gate — queue pending approval, skip building unapproved ──────
-    # Each candidate is submitted to the owner-approval gate. If already approved
-    # (shouldn't happen — Phase 0 consumed them), build it. If pending/queued,
-    # skip this run and wait. If rejected, skip permanently.
-    try:
-        import approvals as _appr
-        gated_tasks = []
-        queued_count = 0
-        for task in tasks:
-            slug = task.get("slug", "")
-            key  = f"geo:{slug}"
-            product_name = (task.get("product") or {}).get("name_ru", "")
-            city_name    = task.get("city_name", "")
-            lang         = task.get("lang", "ru")
-            status = _appr.request_new_page(
-                key=key,
-                title=f"Создать гео-страницу: {product_name} / {city_name} [{lang}]",
-                detail=f"Slug: {slug}",
-                action="geo_page",
-                payload={
-                    "slug": slug,
-                    "lang": lang,
-                    "city_slug": task.get("city_slug", ""),
-                    "city_name": city_name,
-                    "country_code": task.get("country_code", "RU"),
-                    "template_id": task.get("template_id", "a"),
-                    "product_id": (task.get("product") or {}).get("id"),
-                    "product_name": product_name,
-                    "query": f"{product_name} {city_name}",
-                },
-                requested_by="geo_bulk",
-            )
-            if status == "approved":
-                gated_tasks.append(task)   # already approved in a prior cycle
-            elif status in ("queued", "pending"):
-                queued_count += 1           # waiting for owner — skip this run
-            # "rejected" → silently skip
-        if queued_count:
-            print(f"⏳ {queued_count} new page(s) queued for owner approval — check Telegram")
-        tasks = gated_tasks
-        if not tasks:
-            print("✅ No approved geo tasks to execute this pass.")
-            return
-    except Exception as _e:
-        import traceback as _tb
-        msg = f"🚨 Гейт одобрения geo_bulk упал — новые страницы НЕ создаются.\n<code>{_e}</code>"
-        print(f"🚨 approval gate FAILED (fail-closed — no new pages): {_e}", file=sys.stderr)
-        _tb.print_exc()
-        try:
-            from telegram_notify import notify
-            notify(msg)
-        except Exception:
-            pass
-        return  # fail-closed: создавать ничего не будем
-
     generated = 0
+    quarantined = 0
     errors = 0
     total_tokens = 0
     new_urls = []
@@ -949,7 +1056,7 @@ def main():
     use_batch = os.environ.get("GEO_BATCH", "1") != "0" and len(tasks) >= 3
 
     def handle(result):
-        nonlocal generated, errors, total_tokens
+        nonlocal generated, quarantined, errors, total_tokens
         status = result.get("status")
         if status == "generated":
             generated += 1
@@ -958,6 +1065,10 @@ def main():
             if generated % 10 == 0 or generated <= 5:
                 print(f"  ✓ [{generated}] [{result.get('lang','')}] "
                       f"{result.get('product','')} / {result.get('city','')}")
+        elif status in ("quarantined", "held"):
+            quarantined += 1
+            print(f"  🚧 [{status}] {result.get('slug')} — "
+                  f"{'; '.join(result.get('reasons', [result.get('error','?')]))[:100]}")
         elif status == "error":
             errors += 1
             print(f"  ✗ ERROR: {result.get('slug')} — {result.get('error', '')[:100]}", file=sys.stderr)
@@ -979,6 +1090,7 @@ def main():
 
     print(f"\n{'='*60}")
     print(f"✅ Generated: {generated} pages")
+    print(f"🚧 Quarantined/held by gate: {quarantined}")
     print(f"❌ Errors: {errors}")
     print(f"🔤 Total tokens used: {total_tokens:,}")
     print(f"📍 New sitemap URLs: {len(new_urls)}")

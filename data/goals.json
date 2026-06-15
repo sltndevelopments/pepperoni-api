@@ -274,6 +274,10 @@
   {
    "country": "Россия",
    "code": "rus",
+   "market_group": "RU",
+   "market_priority": 0,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
    "impressions_28d": 2566,
    "clicks_28d": 5,
    "position_28d": 23.7
@@ -281,41 +285,43 @@
   {
    "country": "Казахстан",
    "code": "kaz",
+   "market_group": "A",
+   "market_priority": 1,
+   "docs_status": "ready",
+   "content_langs": ["ru", "kk"],
    "impressions_28d": 60,
    "clicks_28d": 0,
    "position_28d": 8.9
   },
   {
-   "country": "Беларусь",
-   "code": "blr",
-   "impressions_28d": 22,
-   "clicks_28d": 0,
-   "position_28d": 10.5
-  },
-  {
-   "country": "Армения",
-   "code": "arm",
-   "impressions_28d": 31,
-   "clicks_28d": 0,
-   "position_28d": 9.6
-  },
-  {
-   "country": "Азербайджан",
-   "code": "aze",
-   "impressions_28d": 20,
-   "clicks_28d": 1,
-   "position_28d": 4.5
-  },
-  {
    "country": "Кыргызстан",
    "code": "kgz",
+   "market_group": "A",
+   "market_priority": 1,
+   "docs_status": "ready",
+   "content_langs": ["ru", "kk"],
    "impressions_28d": 12,
    "clicks_28d": 0,
    "position_28d": 9.2
   },
   {
+   "country": "Узбекистан",
+   "code": "uzb",
+   "market_group": "A",
+   "market_priority": 1,
+   "docs_status": "ready",
+   "content_langs": ["ru", "uz"],
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
    "country": "Таджикистан",
    "code": "tjk",
+   "market_group": "A",
+   "market_priority": 1,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
    "impressions_28d": 4,
    "clicks_28d": 0,
    "position_28d": 6.5
@@ -323,13 +329,32 @@
   {
    "country": "Грузия",
    "code": "geo",
+   "market_group": "B",
+   "market_priority": 2,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
    "impressions_28d": 8,
    "clicks_28d": 0,
    "position_28d": 9.2
   },
   {
+   "country": "Азербайджан",
+   "code": "aze",
+   "market_group": "B",
+   "market_priority": 2,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
+   "impressions_28d": 20,
+   "clicks_28d": 1,
+   "position_28d": 4.5
+  },
+  {
    "country": "ОАЭ",
    "code": "are",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 30,
    "clicks_28d": 0,
    "position_28d": 14.9
@@ -337,6 +362,10 @@
   {
    "country": "Сауд. Аравия",
    "code": "sau",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 28,
    "clicks_28d": 0,
    "position_28d": 9.0
@@ -344,6 +373,10 @@
   {
    "country": "Кувейт",
    "code": "kwt",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 2,
    "clicks_28d": 0,
    "position_28d": 9.0
@@ -351,6 +384,10 @@
   {
    "country": "Бахрейн",
    "code": "bhr",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 0,
    "clicks_28d": 0,
    "position_28d": null
@@ -358,20 +395,21 @@
   {
    "country": "Оман",
    "code": "omn",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 3,
    "clicks_28d": 0,
    "position_28d": 7.0
   },
   {
-   "country": "Йемен",
-   "code": "yem",
-   "impressions_28d": 0,
-   "clicks_28d": 0,
-   "position_28d": null
-  },
-  {
    "country": "Катар",
    "code": "qat",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 2,
    "clicks_28d": 0,
    "position_28d": 16.0
@@ -379,9 +417,46 @@
   {
    "country": "Египет",
    "code": "egy",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
    "impressions_28d": 21,
    "clicks_28d": 0,
    "position_28d": 8.1
+  },
+  {
+   "country": "Йемен",
+   "code": "yem",
+   "market_group": "C",
+   "market_priority": 3,
+   "docs_status": "in_process",
+   "content_langs": ["ar", "en"],
+   "impressions_28d": 0,
+   "clicks_28d": 0,
+   "position_28d": null
+  },
+  {
+   "country": "Беларусь",
+   "code": "blr",
+   "market_group": "D",
+   "market_priority": 4,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
+   "impressions_28d": 22,
+   "clicks_28d": 0,
+   "position_28d": 10.5
+  },
+  {
+   "country": "Армения",
+   "code": "arm",
+   "market_group": "D",
+   "market_priority": 4,
+   "docs_status": "ready",
+   "content_langs": ["ru"],
+   "impressions_28d": 31,
+   "clicks_28d": 0,
+   "position_28d": 9.6
   }
  ]
 }
