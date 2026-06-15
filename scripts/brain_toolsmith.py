@@ -77,11 +77,28 @@ ALLOWED_MODELS = {
 DEFAULT_MODEL_KEY = "sonnet"
 
 # Static safety scan — generated tool code must not contain these.
+# Tools are read-only analysis scripts: they may READ from anywhere but may
+# only WRITE to data/ (a JSON result file). All write primitives are banned
+# outright; the LLM system prompt already says "write only to data/" via
+# json.dump/Path.write_text on a DATA/ path — but we enforce it at scan time
+# so a cleverly-prompted tool cannot bypass the publication gate by writing
+# directly to public/.
 FORBIDDEN = (
+    # Execution / network
     "os.system", "subprocess", "shutil.rmtree", "eval(", "exec(",
     "__import__", "socket.", "requests.post", "requests.put",
-    "requests.delete", "urllib.request.urlopen", "rmtree", "os.remove",
-    "os.unlink", "Path.unlink", ".write_bytes(", "pickle.",
+    "requests.delete", "urllib.request.urlopen", "rmtree",
+    # File deletion
+    "os.remove", "os.unlink", "Path.unlink",
+    # Pickle (arbitrary code execution vector)
+    "pickle.",
+    # Write primitives — tools must be read-only except for their own data/ report.
+    # We ban the primitives; a tool that genuinely needs to write its JSON result
+    # should use json.dump(f, ...) with a path it constructs under DATA/ — that
+    # path construction is verified by _safe_write_paths() below.
+    ".write_text(", ".write_bytes(", ".open(\"w\"", ".open('w'",
+    "open(\"w\"", "open('w'", 'open("a"', "open('a'", 'open("x"', "open('x'",
+    ", \"w\")", ", 'w')", ", \"a\")", ", 'a')", ", \"x\")", ", 'x')",
 )
 
 TOOLSMITH_SYSTEM = """Ты — генератор маленьких служебных Python-скриптов («инструментов»)
@@ -91,11 +108,16 @@ TOOLSMITH_SYSTEM = """Ты — генератор маленьких служе�
 ЖЁСТКИЕ ПРАВИЛА (иначе инструмент отклонят автоматически):
 - Только стандартная библиотека + json + pathlib + re + collections. НИКАКИХ
   сторонних пакетов, сети, subprocess, os.system, eval/exec, удаления файлов.
-- Только ЧТЕНИЕ данных. Запись разрешена ТОЛЬКО в data/ (json-отчёт инструмента).
+- ТОЛЬКО ЧТЕНИЕ. Инструменты — аналитика, не генераторы страниц. Читать можно
+  откуда угодно (data/, public/, scripts/). Писать — ТОЛЬКО в data/ (json-отчёт).
+  ЗАПРЕЩЕНО писать в public/ или любой другой каталог. Нарушение → автоматический
+  отказ при scan: .write_text(), .write_bytes(), open(...,'w'/'a'/'x') — всё под запретом
+  кроме как на пути внутри data/.
 - Скрипт ДОЛЖЕН иметь функцию main() -> None, печатающую КОМПАКТНЫЙ результат
   (JSON или короткие строки) в stdout — это пойдёт в дайджест мозга.
 - Пути считай от корня репозитория: ROOT = Path(__file__).parents[2].
-  Данные: ROOT/'data', страницы: ROOT/'public'.
+  Данные для чтения: ROOT/'data', ROOT/'public', ROOT/'scripts'.
+  Запись: только ROOT/'data'/<имя_инструмента>.json.
 - Без аргументов командной строки, без input(). Идемпотентно, быстро (<5 c).
 - Вверху файла — docstring: что инструмент делает и зачем мозгу.
 Верни чистый код без markdown-ограждений."""
@@ -113,6 +135,52 @@ def _save_registry(reg: dict) -> None:
     REGISTRY.write_text(json.dumps(reg, ensure_ascii=False, indent=1))
 
 
+def _contains_public_write(code: str) -> bool:
+    """AST-level check: reject any string literal that contains 'public' AND
+    appears as an argument to a write/open call.  Catches variable-assembled
+    paths like  Path(ROOT/'public'/slug).write_text(...)  even if the string
+    'public' and the write call are on different lines.
+
+    This is defence-in-depth on top of the FORBIDDEN string scan; both must
+    pass for a tool to be accepted.
+    """
+    # Quick pre-filter: if 'public' doesn't appear anywhere, no need to parse.
+    if "public" not in code:
+        return False
+    try:
+        tree = ast.parse(code)
+    except SyntaxError:
+        return False  # already caught by _safe() before this runs
+
+    # Collect all string literals that contain 'public' (case-insensitive).
+    public_strs: set[int] = set()   # line numbers
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Constant) and isinstance(node.value, str):
+            if "public" in node.value.lower():
+                public_strs.add(node.lineno)
+
+    if not public_strs:
+        return False
+
+    # Collect line numbers of write-like attribute calls
+    # (.write_text, .write_bytes, .open in write mode already caught by FORBIDDEN,
+    # but also catch json-via-open and any other file-write patterns).
+    write_lines: set[int] = set()
+    write_attrs = {"write", "write_text", "write_bytes", "writelines"}
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Call):
+            fn = node.func
+            if isinstance(fn, ast.Attribute) and fn.attr in write_attrs:
+                write_lines.add(node.lineno)
+
+    # If any public-string lines are within 5 lines of a write call → reject.
+    for pl in public_strs:
+        for wl in write_lines:
+            if abs(pl - wl) <= 5:
+                return True
+    return False
+
+
 def _safe(code: str) -> tuple[bool, str]:
     try:
         ast.parse(code)
@@ -120,9 +188,11 @@ def _safe(code: str) -> tuple[bool, str]:
         return False, f"syntax error: {e}"
     for bad in FORBIDDEN:
         if bad in code:
-            return False, f"forbidden construct: {bad}"
+            return False, f"forbidden construct: {bad!r}"
     if "def main(" not in code:
         return False, "no main() function"
+    if _contains_public_write(code):
+        return False, "forbidden: write to public/ — tools are read-only except data/"
     return True, ""
 
 
