@@ -71,7 +71,18 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
         if ap.get(lead.get("profile") or {}, "email_mx_failed"):
             continue
 
-        candidates.append({**lead, "_lookalike": la, "_sort": la * 2 + fit})
+        # email_quality бонус: корп. почта идёт раньше freemail
+        # procurement=+15, corporate=+10, generic=+5, freemail/None=0
+        _quality_bonus = {
+            "procurement": 15,
+            "corporate":   10,
+            "generic":      5,
+        }
+        eq = ap.get(lead.get("profile") or {}, "email_quality") or ""
+        quality_bonus = _quality_bonus.get(eq, 0)
+
+        candidates.append({**lead, "_lookalike": la,
+                            "_sort": la * 2 + fit + quality_bonus})
 
     candidates.sort(key=lambda x: x["_sort"], reverse=True)
     return candidates[:limit]

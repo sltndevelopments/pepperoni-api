@@ -111,12 +111,28 @@ def find_bounced(store: Store) -> list[dict]:
 
 
 def _research_due(p: dict, cooldown_days: int = 7) -> bool:
-    """True если с последнего ресёрча прошло больше cooldown_days (или ещё не было)."""
+    """True если с последнего bounce-ресёрча прошло больше cooldown_days."""
     br = ap.get(p, "bounce_research")
     if not isinstance(br, dict):
         return True
     try:
         prev = datetime.fromisoformat(br["at"])
+        return (datetime.now(timezone.utc) - prev).total_seconds() > cooldown_days * 86400
+    except Exception:
+        return True
+
+
+def _contact_research_due(p: dict, cooldown_days: int = 30) -> bool:
+    """True если глубокий contact-ресёрч ещё не проводился или прошло > cooldown_days.
+
+    Используется как дополнительный гейт для mx_failed-лидов чтобы Perplexity
+    не дёргался на каждом цикле по перманентно мёртвым доменам.
+    """
+    ts = ap.get(p, "contact_researched_at")
+    if not ts:
+        return True
+    try:
+        prev = datetime.fromisoformat(str(ts))
         return (datetime.now(timezone.utc) - prev).total_seconds() > cooldown_days * 86400
     except Exception:
         return True
@@ -136,10 +152,22 @@ def recover(*, store: Store | None = None, limit: int = 20,
     for lead in targets:
         p = dict(lead.get("profile") or {})
 
-        # Не повторять дорогой ресёрч чаще раза в 7 дней
-        if not _research_due(p):
-            skipped_cooldown += 1
-            continue
+        # mx_failed-лиды (status=new, никогда не слали) гейтим через contact_researched_at
+        # 30-дневный кулдаун, чтобы Perplexity не дёргался на каждом цикле.
+        is_mx_failed_new = (
+            ap.get(p, "email_mx_failed")
+            and (lead.get("status") or "new") == "new"
+            and not _is_bounced(lead)
+        )
+        if is_mx_failed_new:
+            if not _contact_research_due(p, cooldown_days=30):
+                skipped_cooldown += 1
+                continue
+        else:
+            # Обычные bounce-лиды — 7-дневный кулдаун по bounce_research.at
+            if not _research_due(p):
+                skipped_cooldown += 1
+                continue
 
         banned = {e.strip().lower() for e in
                   str(p.get("emails") or p.get("email") or "").replace(";", ",").split(",")
@@ -171,7 +199,7 @@ def recover(*, store: Store | None = None, limit: int = 20,
                 ap.set(p, "contact_site", research["site"])
                 if not p.get("website"):
                     p["website"] = research["site"]
-            if deep:
+            if deep or is_mx_failed_new:
                 from prospecting.contact_research import _now as _cr_now
                 ap.set(p, "contact_researched_at", _cr_now())
             # снимаем bounce-флаг из _agent (адрес восстановлен)
@@ -196,11 +224,18 @@ def recover(*, store: Store | None = None, limit: int = 20,
             })
             if research.get("site") and research.get("site_confirmed") and not p.get("website"):
                 p["website"] = research["site"]
+            # Записываем contact_researched_at для mx_failed пути — гейтит 30д кулдаун
+            if is_mx_failed_new:
+                from prospecting.contact_research import _now as _cr_now
+                ap.set(p, "contact_researched_at", _cr_now())
+            # mx_failed-new не переводим в bounced_need_research — они остаются new,
+            # просто помечены как исследованные без результата
+            next_status = "bounced_need_research" if not is_mx_failed_new else lead.get("status", "new")
             store.upsert_lead(
                 lead["name"], lead_id=lead["id"], inn=lead.get("inn"),
                 region=lead.get("region"), tier=lead.get("tier"),
                 fit_score=lead.get("fit_score") or 0,
-                status="bounced_need_research", source=lead.get("source"), profile=p,
+                status=next_status, source=lead.get("source"), profile=p,
             )
             store.audit("bounce_recovery", "need_research", entity_id=lead["id"], detail={
                 "lead": lead["name"][:60], "inn": lead.get("inn"),
