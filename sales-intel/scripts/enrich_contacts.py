@@ -123,70 +123,92 @@ def parse_company(html: str) -> dict:
             "sites": ",".join(sites)}
 
 
-def main():
-    _resolve_paths(sys.argv[1:])
-    top_n = 80
-    for a in sys.argv[1:]:
-        if a.startswith("TOP_N="):
-            top_n = int(a.split("=", 1)[1])
+def enrich(
+    in_path: Path | str | None = None,
+    out_path: Path | str | None = None,
+    top_n: int = 80,
+) -> dict:
+    """Programmatic entry point — вызывается из feed_agent.py без sys.argv."""
+    src = Path(in_path) if in_path else IN
+    dst = Path(out_path) if out_path else OUT
 
-    if not IN.exists():
-        print(f"! Missing {IN} — run score_and_export.py first")
-        return
+    if not src.exists():
+        return {"error": f"file not found: {src}", "enriched": 0, "skipped": 0}
 
-    rows = list(csv.DictReader(IN.open()))
-    print(f"Loaded {len(rows)} leads. Enriching top {top_n}...")
+    rows = list(csv.DictReader(src.open(encoding="utf-8-sig")))
+    if not rows:
+        return {"error": "empty input", "enriched": 0, "skipped": 0}
+
     to_enrich = rows[:top_n]
+    print(f"[enrich] {len(rows)} leads, enriching top {top_n}…")
 
     # Resume support
-    already = {}
-    if OUT.exists():
-        for r in csv.DictReader(OUT.open()):
-            already[r["inn"]] = r
-        print(f"Resuming — {len(already)} already done")
+    already: dict[str, dict] = {}
+    if dst.exists():
+        for r in csv.DictReader(dst.open(encoding="utf-8-sig")):
+            already[r.get("inn", "")] = r
+        print(f"[enrich] resuming — {len(already)} already done")
 
-    # Open for write (re-build full file fresh each run)
-    fieldnames = list(rows[0].keys()) + ["phones", "emails", "sites", "enriched_at"]
-    with OUT.open("w", newline="") as out_f:
-        w = csv.DictWriter(out_f, fieldnames=fieldnames)
+    fieldnames = list(rows[0].keys())
+    for f in ("phones", "emails", "sites", "enriched_at"):
+        if f not in fieldnames:
+            fieldnames.append(f)
+
+    enriched_n = 0
+    skipped_n = 0
+
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    with dst.open("w", newline="", encoding="utf-8") as out_f:
+        w = csv.DictWriter(out_f, fieldnames=fieldnames, extrasaction="ignore")
         w.writeheader()
 
         for i, r in enumerate(to_enrich, 1):
-            inn = r["inn"]
+            inn = r.get("inn", "")
             if inn in already and already[inn].get("phones"):
                 w.writerow(already[inn])
-                print(f"[{i:>3}/{top_n}] {r['name_short'][:45]:<45}  (cached)")
+                skipped_n += 1
                 continue
 
             t0 = time.time()
             search_url = f"{ZCB}/search?query={urllib.parse.quote(inn)}"
             shtml = fetch(search_url, timeout=15)
-            enriched = {"phones": "", "emails": "", "sites": ""}
+            contacts = {"phones": "", "emails": "", "sites": ""}
             if shtml:
                 link = find_company_link(shtml)
                 if link:
                     time.sleep(0.5)
                     chtml = fetch(ZCB + link, timeout=30)
                     if chtml:
-                        enriched = parse_company(chtml)
+                        contacts = parse_company(chtml)
 
             dt = time.time() - t0
-            out_row = {**r, **enriched, "enriched_at": time.strftime("%Y-%m-%d")}
+            out_row = {**r, **contacts, "enriched_at": time.strftime("%Y-%m-%d")}
             w.writerow(out_row)
             out_f.flush()
 
-            found = "✓" if (enriched["phones"] or enriched["emails"]) else "·"
-            print(f"[{i:>3}/{top_n}] {found} {r['name_short'][:45]:<45}  "
-                  f"ph={len(enriched['phones'].split(',')) if enriched['phones'] else 0:<1} "
-                  f"em={len(enriched['emails'].split(',')) if enriched['emails'] else 0:<1} "
+            found = "✓" if (contacts["phones"] or contacts["emails"]) else "·"
+            print(f"[enrich {i:>3}/{top_n}] {found} {r.get('name_short','')[:40]:<40} "
+                  f"ph={contacts['phones'].count(',')+1 if contacts['phones'] else 0} "
+                  f"em={contacts['emails'].count(',')+1 if contacts['emails'] else 0} "
                   f"({dt:.1f}s)")
+            enriched_n += 1
             time.sleep(1.0)
 
-        # Also carry over the rest of leads without enrichment
         for r in rows[top_n:]:
             w.writerow({**r, "phones": "", "emails": "", "sites": "", "enriched_at": ""})
 
-    print(f"\n✓ Output: {OUT}")
+    print(f"[enrich] ✓ {dst}")
+    return {"enriched": enriched_n, "skipped": skipped_n, "out": str(dst)}
+
+
+def main():
+    _resolve_paths(sys.argv[1:])
+    top_n = 80
+    for a in sys.argv[1:]:
+        if a.startswith("TOP_N="):
+            top_n = int(a.split("=", 1)[1])
+    result = enrich(IN, OUT, top_n)
+    print(result)
 
 
 if __name__ == "__main__":

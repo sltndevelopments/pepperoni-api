@@ -45,6 +45,10 @@ PERIODS = ["2025", "2024"]  # сначала свежий; потом добир
 PAGE_SIZE = 2000  # сервер молча обрезает до 2000
 SLEEP_BETWEEN = 0.3
 
+# Env KD_FEED_MAX_PAGES=1 позволяет feed_agent ограничить прогон для теста.
+import os as _os
+MAX_PAGES = int(_os.environ.get("KD_FEED_MAX_PAGES", "0")) or None  # None = без лимита
+
 
 def _get_json(path: str, params: dict) -> dict:
     url = BASE + path + "?" + urllib.parse.urlencode(params)
@@ -156,6 +160,9 @@ def main():
                 print(f"  okved={okved} period={period} page={page:>2} rows={len(rows):>4} "
                       f"total={total:>5} new={new:>4} upd={upd:>4} ({dt:>4.1f}s)")
                 if fetched >= (total or 0) or len(rows) < PAGE_SIZE:
+                    break
+                if MAX_PAGES and page + 1 >= MAX_PAGES:
+                    print(f"  [limit] MAX_PAGES={MAX_PAGES} reached")
                     break
                 page += 1
                 time.sleep(SLEEP_BETWEEN)
