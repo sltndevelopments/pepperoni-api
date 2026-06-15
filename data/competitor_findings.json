@@ -1,127 +1,316 @@
 {
-  "generated_at": "2026-06-08T07:40:40.907970+00:00",
+  "generated_at": "2026-06-15T13:22:55.440621+00:00",
   "window_days": 30,
-  "enriched": false,
+  "enriched": true,
   "losing_queries": [
     {
       "query": "пепперони халяль",
-      "impressions": 132,
-      "clicks": 1,
-      "our_position": 35.3,
+      "impressions": 177,
+      "clicks": 3,
+      "our_position": 39.4,
       "our_best_position": 1.0,
-      "lost_score": 466.5
+      "lost_score": 696.9,
+      "competitor": {
+        "url": "https://kazandelikates.tatar/pepperoni-halal",
+        "words": 501,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/",
+        "words": 2068,
+        "schema": [
+          "ContactPoint",
+          "EducationalOccupationalCredential",
+          "EntryPoint",
+          "Organization",
+          "PostalAddress",
+          "SearchAction",
+          "WebSite"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "why_they_win": []
     },
     {
       "query": "казылык это",
-      "impressions": 317,
+      "impressions": 530,
       "clicks": 0,
-      "our_position": 10.3,
-      "our_best_position": 7.0,
-      "lost_score": 325.7
+      "our_position": 10.6,
+      "our_best_position": 1.0,
+      "lost_score": 562.0,
+      "competitor": {
+        "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B7%D1%8B-%D0%BA%D0%B0%D1%80%D1%82%D0%B0",
+        "words": 986,
+        "schema": [
+          "Article",
+          "ImageObject",
+          "Organization"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/blog/what-is-kazylyk",
+        "words": 588,
+        "schema": [
+          "Answer",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage",
+          "ImageObject",
+          "ListItem",
+          "Organization",
+          "Question",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": true
+      },
+      "why_they_win": [
+        "длиннее контент (986 vs 588 слов)"
+      ]
     },
     {
       "query": "сосиски для хот догов оптом",
-      "impressions": 68,
+      "impressions": 110,
       "clicks": 0,
-      "our_position": 39.0,
+      "our_position": 52.3,
       "our_best_position": 2.0,
-      "lost_score": 265.5
+      "lost_score": 440.0,
+      "competitor": {
+        "url": "https://food-market.pro/catalog/hot_dogs/",
+        "words": 1868,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/blog/sosiki-dlya-hotdog-optom",
+        "words": 608,
+        "schema": [
+          "Answer",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage",
+          "ImageObject",
+          "ListItem",
+          "Organization",
+          "Person",
+          "Question",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": true
+      },
+      "why_they_win": [
+        "длиннее контент (1868 vs 608 слов)"
+      ]
     },
     {
       "query": "халяль сосиски для хот догов",
-      "impressions": 64,
+      "impressions": 91,
       "clicks": 1,
-      "our_position": 58.4,
-      "our_best_position": 3.7,
-      "lost_score": 256.0
+      "our_position": 64.2,
+      "our_best_position": 3.0,
+      "lost_score": 364.0,
+      "competitor": {
+        "url": "https://kazandelikates.tatar/sosiski-dlya-hot-dogov-halal",
+        "words": 1463,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-sochi",
+        "words": 392,
+        "schema": [
+          "Answer",
+          "Brand",
+          "BreadcrumbList",
+          "DefinedRegion",
+          "FAQPage",
+          "ListItem",
+          "MerchantReturnPolicy",
+          "MonetaryAmount",
+          "Offer",
+          "OfferShippingDetails",
+          "Product",
+          "PropertyValue",
+          "QuantitativeValue",
+          "Question",
+          "ShippingDeliveryTime"
+        ],
+        "has_reviews": false,
+        "has_faq": true
+      },
+      "why_they_win": [
+        "длиннее контент (1463 vs 392 слов)"
+      ]
     },
     {
       "query": "халяльные сосиски для хот догов",
-      "impressions": 56,
+      "impressions": 74,
       "clicks": 0,
-      "our_position": 52.0,
-      "our_best_position": 14.5,
-      "lost_score": 224.0
+      "our_position": 54.6,
+      "our_best_position": 4.0,
+      "lost_score": 296.0
     },
     {
-      "query": "котлеты для бургеров купить оптом",
-      "impressions": 55,
+      "query": "казылык",
+      "impressions": 297,
       "clicks": 0,
-      "our_position": 39.8,
-      "our_best_position": 2.0,
-      "lost_score": 219.1
-    },
-    {
-      "query": "котлеты для гамбургеров оптом",
-      "impressions": 68,
-      "clicks": 0,
-      "our_position": 29.6,
-      "our_best_position": 29.6,
-      "lost_score": 201.1
+      "our_position": 9.3,
+      "our_best_position": 1.0,
+      "lost_score": 276.9,
+      "competitor": {
+        "url": "https://ottatar.ru/",
+        "words": 892,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/blog/what-is-kazylyk",
+        "words": 588,
+        "schema": [
+          "Answer",
+          "Article",
+          "BreadcrumbList",
+          "FAQPage",
+          "ImageObject",
+          "ListItem",
+          "Organization",
+          "Question",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": true
+      },
+      "why_they_win": [
+        "длиннее контент (892 vs 588 слов)"
+      ]
     },
     {
       "query": "пепперони халяль купить",
-      "impressions": 46,
+      "impressions": 60,
       "clicks": 0,
-      "our_position": 45.2,
-      "our_best_position": 11.0,
-      "lost_score": 184.0
+      "our_position": 39.9,
+      "our_best_position": 2.0,
+      "lost_score": 239.2,
+      "competitor": {
+        "url": "https://www.ozon.ru/category/peperoni-kolbasa/",
+        "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an "
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/",
+        "words": 2068,
+        "schema": [
+          "ContactPoint",
+          "EducationalOccupationalCredential",
+          "EntryPoint",
+          "Organization",
+          "PostalAddress",
+          "SearchAction",
+          "WebSite"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "why_they_win": []
     },
     {
-      "query": "пепперони халяль колбаса",
-      "impressions": 45,
+      "query": "котлеты для бургеров купить оптом",
+      "impressions": 62,
       "clicks": 0,
-      "our_position": 41.5,
+      "our_position": 38.4,
+      "our_best_position": 2.0,
+      "lost_score": 238.3,
+      "competitor": {
+        "url": "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kotlety-dlya-burgerov",
+        "words": 677,
+        "schema": [
+          "BreadcrumbList",
+          "ListItem",
+          "Organization",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/blog/kotlety-dlya-burgerov-optom",
+        "words": 744,
+        "schema": [
+          "Article",
+          "BreadcrumbList",
+          "ImageObject",
+          "ListItem",
+          "Organization",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "why_they_win": []
+    },
+    {
+      "query": "kazylyk",
+      "impressions": 342,
+      "clicks": 1,
+      "our_position": 6.9,
       "our_best_position": 1.0,
-      "lost_score": 180.0
+      "lost_score": 236.3
     },
     {
-      "query": "котлеты для бургеров оптом",
-      "impressions": 57,
+      "query": "котлеты для гамбургеров оптом",
+      "impressions": 76,
       "clicks": 0,
-      "our_position": 31.2,
-      "our_best_position": 31.2,
-      "lost_score": 177.6
-    },
-    {
-      "query": "котлеты для бургеров опт",
-      "impressions": 47,
-      "clicks": 0,
-      "our_position": 29.6,
-      "our_best_position": 29.6,
-      "lost_score": 138.9
+      "our_position": 27.6,
+      "our_best_position": 15.0,
+      "lost_score": 209.9
     },
     {
       "query": "сосиски для хот догов купить оптом в москве",
-      "impressions": 41,
+      "impressions": 67,
       "clicks": 0,
-      "our_position": 29.1,
-      "our_best_position": 27.7,
-      "lost_score": 119.5
+      "our_position": 30.9,
+      "our_best_position": 13.0,
+      "lost_score": 207.2
     },
     {
-      "query": "пепперони говядина",
+      "query": "котлеты для бургеров оптом",
+      "impressions": 66,
+      "clicks": 0,
+      "our_position": 29.8,
+      "our_best_position": 23.0,
+      "lost_score": 196.7
+    },
+    {
+      "query": "пепперони халяль колбаса",
       "impressions": 47,
       "clicks": 0,
-      "our_position": 25.1,
-      "our_best_position": 2.0,
-      "lost_score": 117.8
-    },
-    {
-      "query": "ветчина это халал",
-      "impressions": 57,
-      "clicks": 0,
-      "our_position": 11.1,
-      "our_best_position": 8.3,
-      "lost_score": 63.0
-    },
-    {
-      "query": "что такое казылык",
-      "impressions": 46,
-      "clicks": 0,
-      "our_position": 10.7,
+      "our_position": 41.1,
       "our_best_position": 1.0,
-      "lost_score": 49.4
+      "lost_score": 188.0
+    },
+    {
+      "query": "echpochmak",
+      "impressions": 183,
+      "clicks": 0,
+      "our_position": 9.2,
+      "our_best_position": 1.0,
+      "lost_score": 167.6
+    },
+    {
+      "query": "котлеты для бургеров опт",
+      "impressions": 52,
+      "clicks": 0,
+      "our_position": 29.2,
+      "our_best_position": 24.5,
+      "lost_score": 151.7
     }
   ]
 }

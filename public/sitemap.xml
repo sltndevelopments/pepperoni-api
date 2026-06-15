@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/products</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -723,7 +723,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/products</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -1604,6 +1604,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/chto-takoe-halyal-pepperoni"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/blog/chto-takoe-kazylyk</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/blog/cooked-beef-sausage-halal</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -2312,6 +2318,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/blog/kupit-kotlety-dlya-burgerov-optom</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/blog/kurica-halyal-optom</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -2901,6 +2913,12 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/tatar-bakery-wholesale"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/tatar-bakery-wholesale"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/tatar-bakery-wholesale"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/blog/tatar-cuisine</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://pepperoni.tatar/blog/tatar-cuisine-restaurant-menu</loc>
@@ -10170,7 +10188,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-arzamas</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -10223,12 +10241,6 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/pepperoni-barnaul</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-belarus</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -10239,7 +10251,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-belgorod</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -11079,7 +11091,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-minsk</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -11196,7 +11208,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/geo/pepperoni-oktyabrsky</loc>
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -12314,6 +12326,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-abakan</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-aktau</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -12446,6 +12464,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-bryansk</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-cheboksary</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -12536,6 +12560,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-fergana</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-ganja</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -12571,6 +12601,12 @@
   <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-gyumri</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-hasavyurt</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -12767,6 +12803,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/geo/sosiki-dlya-hotdog-moskva"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-murmansk</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-mytishchi</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -12857,6 +12899,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-nukus</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-oktyabrsky</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
@@ -12877,6 +12925,12 @@
   <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-orsk</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-osh</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -12970,6 +13024,12 @@
   <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-salavat</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-salekhard</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -13192,6 +13252,12 @@
   <url>
     <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-vologda</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-yakutsk</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -18546,7 +18612,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/ar</loc>
-    <lastmod>2026-06-15</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -20053,6 +20119,18 @@
   <url>
     <loc>https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-mecca</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-medina</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-rabat</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -21920,6 +21998,12 @@
     <priority>0.60</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-hot-dog-sausages-ashgabat</loc>
+    <lastmod>2026-06-15</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/en/geo/halal-hot-dog-sausages-bandar-seri-begawan</loc>
     <lastmod>2026-06-11</lastmod>
     <changefreq>monthly</changefreq>
@@ -21952,6 +22036,12 @@
   <url>
     <loc>https://pepperoni.tatar/en/geo/halal-hot-dog-sausages-doha</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/geo/halal-hot-dog-sausages-dubai</loc>
+    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -22762,12 +22852,6 @@
   <url>
     <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-doha</loc>
     <lastmod>2026-06-10</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/geo/halal-pepperoni-dubai</loc>
-    <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -28910,61 +28994,19 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-nukus-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-elista-ru-a/</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/sujuk-hotdog-halal-medina-ar-a/</loc>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-achinsk-ru-a/</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-hasavyurt-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-murmansk-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/halal-hot-dog-sausages-dubai-en-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-osh-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-salekhard-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-yakutsk-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-fergana-ru-a/</loc>
-    <lastmod>2026-06-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-abakan-ru-a/</loc>
+    <loc>https://pepperoni.tatar/geo/sosiki-dlya-hotdog-baku-ru-a/</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
