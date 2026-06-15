@@ -63,6 +63,11 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
             continue
         if la < min_lookalike and tier != "S":
             continue
+        # Именные цели (Поток 2) — только через эскалацию, не автоотправка
+        if ap.get(lead.get("profile") or {}, "named_target") or \
+                (lead.get("profile") or {}).get("named_target"):
+            continue
+
         if require_email and not pick_recipient(lead.get("profile") or {}):
             continue
 
@@ -86,3 +91,30 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
 
     candidates.sort(key=lambda x: x["_sort"], reverse=True)
     return candidates[:limit]
+
+
+def named_escalation_candidates(store: Store, *, limit: int = 20) -> list[dict]:
+    """Именные лиды (Поток 2), которых Стив должен исследовать и передать владельцу.
+
+    Критерии:
+    - profile._agent.named_target=True (или profile.named_target=True)
+    - status not in escalated/hot/handed_off/contacted (ещё не обработаны)
+    - не исключены (is_excluded)
+    Стив по ним не шлёт автоматически — ищет ЛПР через Perplexity и эскалирует.
+    """
+    result: list[dict] = []
+    _skip_statuses = {"hot", "escalated", "handed_off", "contacted", "bounced", "won"}
+
+    for lead in store.list_leads(limit=500):
+        p = lead.get("profile") or {}
+        is_named = ap.get(p, "named_target") or p.get("named_target")
+        if not is_named:
+            continue
+        if (lead.get("status") or "new") in _skip_statuses:
+            continue
+        if is_excluded(lead)[0]:
+            continue
+        result.append(lead)
+
+    result.sort(key=lambda x: x.get("fit_score") or 0, reverse=True)
+    return result[:limit]

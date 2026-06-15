@@ -26,6 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from core.store import Store
+from core import agent_profile as ap
 
 CFG = ROOT / "config" / "named_targets.yaml"
 
@@ -58,15 +59,17 @@ def import_named(*, store: Store | None = None, dry_run: bool = False) -> dict:
 
         tier = t.get("tier", "A")
         fit = _TIER_FIT.get(tier, 80)
-        profile = {
+        profile: dict = {
             "segment": t.get("segment", ""),
-            "named_target": True,
+            "named_target": True,       # верхний уровень — для обратной совместимости
             "pitch_hint": t.get("pitch", ""),
             "halal_relevant": t.get("halal", False),
             "notes": t.get("notes", ""),
             "brand": t.get("brand", ""),
             "legal_name": t.get("name", ""),
         }
+        # _agent namespace — переживёт CRM-pull и гейтит outreach
+        ap.set(profile, "named_target", True)
 
         # Проверяем, есть ли уже такой лид
         existing = None
@@ -91,6 +94,7 @@ def import_named(*, store: Store | None = None, dry_run: bool = False) -> dict:
                 ep = dict(existing.get("profile") or {})
                 ep.update({k: v for k, v in profile.items() if k not in ep or not ep[k]})
                 ep["named_target"] = True
+                ap.set(ep, "named_target", True)   # в _agent — для гейта
                 store.upsert_lead(
                     name, lead_id=existing["id"],
                     tier=new_tier, fit_score=new_fit,

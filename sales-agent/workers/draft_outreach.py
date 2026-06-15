@@ -138,9 +138,17 @@ def draft_cold_email(
         return None
 
     from core.exclusions import is_excluded
+    from core import agent_profile as _ap
     excl, why = is_excluded(lead)
     if excl:
         store.audit("draft_worker", "excluded", "lead", lead_id, {"reason": why})
+        return None
+
+    # Именные лиды (Поток 2) — только эскалация, НЕ автодрафт
+    _lp = lead.get("profile") or {}
+    if _ap.get(_lp, "named_target") or _lp.get("named_target"):
+        store.audit("draft_worker", "named_target_skip", "lead", lead_id,
+                    {"reason": "named_target → escalation path, not cold draft"})
         return None
 
     fit_score = lead.get("fit_score") or 0
