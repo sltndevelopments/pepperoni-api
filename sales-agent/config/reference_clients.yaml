@@ -62,11 +62,38 @@ references:
     revenue_band: [medium, large]  # 100 млн — 10 млрд
     signals: [sausage_in_dough_on_site, hot_dog]
 
+  # ── Новые эталоны: сети готовой еды ─────────────────────────────────────
+  - id: readyfood_delivery
+    name: "Паттерн: Самокат / ВкусВилл / Купер / Яндекс Лавка"
+    segment: online_retail_readyfood
+    products: [замороженная_выпечка, сосиска_в_тесте, эчпочмак, полуфабрикаты]
+    okved: ["47.11", "47.19", "56.10"]
+    revenue_band: [large, giant]
+    signals: [readyfood_on_site]
+
+  - id: dark_kitchen_mealkit
+    name: "Паттерн: Кухня на районе / Grow Food / тёмная кухня"
+    segment: dark_kitchen
+    products: [полуфабрикаты, котлеты_гриль, выпечка_компонент]
+    okved: ["56.10", "56.29", "10.85"]
+    revenue_band: [medium, large]
+    signals: [readyfood_on_site]
+
+  - id: readyfood_producer
+    name: "Паттерн: производитель готовых блюд (10.85)"
+    segment: readyfood_producer
+    products: [готовые_блюда, полуфабрикаты, кулинария]
+    okved: ["10.85"]
+    revenue_band: [medium, large, giant]
+
 okved_weights:
   "10.71": 40
   "10.71.1": 45
   "10.71.2": 45
   "10.72": 35
+  "10.85": 38   # готовые блюда — прямой product-fit
   "10.13": 30
   "46.39": 25
   "47.11": 15
+  "56.10": 20   # общепит/доставка — важен для сетей готовой еды
+  "56.29": 18   # столовые/кейтеринг

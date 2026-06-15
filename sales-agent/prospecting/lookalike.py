@@ -55,12 +55,32 @@ def _okved(lead: dict) -> str:
     return (p.get("okved_main") or p.get("okved_top") or "")[:10]
 
 
+_READYFOOD_KEYWORDS = re.compile(
+    r"готов.еда|готов.блюд|кулинари|сосиска.в.тест|хот.дог|эчпочмак|беляш|"
+    r"тёмн.кухн|темн.кухн|dark.kitchen|мил.кит|meal.kit|разогрей|навынос|"
+    r"выпечка.навынос|уличная.еда|фудкорт|food.court|доставка.еды|"
+    r"вкусвилл|самокат|кухня.на.район|grow.food",
+    re.I,
+)
+
+
 def _has_signal(lead: dict, signal: str) -> bool:
     p = lead.get("profile") or {}
     if signal == "sausage_in_dough_on_site":
         return bool(p.get("sausage_evidence") or p.get("evidence_label") == "sausage_in_dough")
     if signal == "hot_dog":
         return "hot_dog" in (p.get("evidence_label") or "")
+    if signal == "readyfood_on_site":
+        # Ищем сигнал в: evidence_label, description, name, profile.notes
+        haystack = " ".join(filter(None, [
+            p.get("evidence_label") or "",
+            p.get("description") or "",
+            p.get("notes") or "",
+            lead.get("name") or "",
+            p.get("pitch_hint") or "",
+            p.get("segment") or "",
+        ]))
+        return bool(_READYFOOD_KEYWORDS.search(haystack))
     return False
 
 
@@ -116,6 +136,18 @@ def score_lookalike(lead: dict) -> dict:
         if seg == "meat_plant_stm" and any(x in name_l for x in ("мяс", "колбас", "омпк")):
             pts += 20
             ref_reasons.append("+20 мясокомбинат")
+
+        # Новые сегменты: сети готовой еды
+        if seg in ("online_retail_readyfood", "dark_kitchen", "readyfood_producer"):
+            for sig in ref.get("signals", []):
+                if _has_signal(lead, sig):
+                    pts += 35
+                    ref_reasons.append(f"+35 сигнал {sig}")
+            # named_target флаг — всегда высокий балл для именного списка
+            p = lead.get("profile") or {}
+            if p.get("named_target"):
+                pts += 40
+                ref_reasons.append("+40 именной список (Поток 2)")
 
         if pts > best_score:
             best_score = pts

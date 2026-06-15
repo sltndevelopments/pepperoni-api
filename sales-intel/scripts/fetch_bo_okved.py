@@ -40,7 +40,34 @@ OUT.parent.mkdir(parents=True, exist_ok=True)
 #           хранения (пекарни, комбинаты, сети собственных точек).
 #   10.72 — производство сухарей, печенья, прочих мучных кондитерских
 #           длительного хранения (промышленные производители выпечки).
-OKVEDS = ["10.71", "10.72"]
+#   10.85 — производство готовых блюд и полуфабрикатов (прямое попадание
+#           под сосиску в тесте / замороженную выпечку / кулинарию).
+#   56.10 — деятельность ресторанов и услуги по доставке питания
+#           (тёмные кухни, кейтеринг, фудкорты — розничный канал).
+#   56.29 — деятельность столовых и прочего питания (корпоративные кейтеры,
+#           производственные столовые, сети доставки готовой еды).
+#   47.11 — розничная торговля в неспециализированных магазинах с
+#           преобладанием продуктов питания (только крупные сети, высокий
+#           порог выручки — иначе утонем в ИП-магазинах).
+#
+# Лимит страниц на «большие» ОКВЭД — защита от переполнения:
+#   10.71/10.72/10.85 — без лимита (компаний немного, качество высокое)
+#   56.10/56.29/47.11 — MAX_SEGMENT_PAGES страниц (защита от тысяч мелочей)
+OKVEDS = ["10.71", "10.72", "10.85", "56.10", "56.29", "47.11"]
+
+# Потолок страниц для «объёмных» ОКВЭД — берём только топ по выручке
+# (bo.nalog.gov.ru сортирует по убыванию gainSum внутри страниц)
+# None = без лимита. Переопределяется через KD_FEED_MAX_PAGES (глобально)
+# или KD_FEED_MAX_PAGES_<OKVED> (per-OKVED, например KD_FEED_MAX_PAGES_4711=2)
+_SEGMENT_PAGE_LIMITS: dict[str, int | None] = {
+    "10.71": None,
+    "10.72": None,
+    "10.85": None,
+    "56.10": 3,    # ≤6000 компаний, берём топ по выручке
+    "56.29": 3,
+    "47.11": 2,    # очень объёмный ОКВЭД — берём только топ-4000
+}
+
 PERIODS = ["2025", "2024"]  # сначала свежий; потом добираем тех, у кого ещё нет 2025
 PAGE_SIZE = 2000  # сервер молча обрезает до 2000
 SLEEP_BETWEEN = 0.3
@@ -116,12 +143,27 @@ def normalize(row: dict) -> dict:
     }
 
 
+def _max_pages_for(okved: str) -> int | None:
+    """Эффективный лимит страниц: глобальный MAX_PAGES побеждает per-OKVED."""
+    if MAX_PAGES:
+        return MAX_PAGES
+    # per-OKVED override через env: KD_FEED_MAX_PAGES_1085=1 и т.п.
+    env_key = "KD_FEED_MAX_PAGES_" + okved.replace(".", "")
+    per_env = int(_os.environ.get(env_key, "0")) or None
+    if per_env:
+        return per_env
+    return _SEGMENT_PAGE_LIMITS.get(okved)
+
+
 def main():
     # inn -> best record (наибольшая выручка среди периодов)
     seen: dict[str, dict] = {}
     empty_bfo = 0
+    stats_by_okved: dict[str, int] = {}
 
     for okved in OKVEDS:
+        okved_new = 0
+        max_pg = _max_pages_for(okved)
         for period in PERIODS:
             page = 0
             total = None
@@ -148,6 +190,7 @@ def main():
                     if prev is None:
                         seen[n["inn"]] = n
                         new += 1
+                        okved_new += 1
                     else:
                         # keep record with highest revenue; if equal keep newer period
                         a = prev.get("revenue_tsd_rub") or 0
@@ -157,23 +200,28 @@ def main():
                             upd += 1
                 fetched += len(rows)
                 dt = time.time() - t0
+                limit_note = f" [cap={max_pg}p]" if max_pg else ""
                 print(f"  okved={okved} period={period} page={page:>2} rows={len(rows):>4} "
-                      f"total={total:>5} new={new:>4} upd={upd:>4} ({dt:>4.1f}s)")
+                      f"total={total:>5} new={new:>4} upd={upd:>4} ({dt:>4.1f}s){limit_note}")
                 if fetched >= (total or 0) or len(rows) < PAGE_SIZE:
                     break
-                if MAX_PAGES and page + 1 >= MAX_PAGES:
-                    print(f"  [limit] MAX_PAGES={MAX_PAGES} reached")
+                if max_pg and page + 1 >= max_pg:
+                    print(f"  [limit] page cap={max_pg} reached for okved={okved}")
                     break
                 page += 1
                 time.sleep(SLEEP_BETWEEN)
+        stats_by_okved[okved] = okved_new
 
     with OUT.open("w") as f:
         for v in seen.values():
             f.write(json.dumps(v, ensure_ascii=False) + "\n")
 
     print()
-    print(f"✓ Unique orgs across OKVED 10.71/10.72: {len(seen)}")
-    print(f"✓ Records without revenue in bfo:      {empty_bfo}")
+    print(f"✓ Unique orgs total: {len(seen)}")
+    print(f"✓ Records without revenue in bfo: {empty_bfo}")
+    for ok, n in stats_by_okved.items():
+        lim = _max_pages_for(ok)
+        print(f"  {ok}: {n} new orgs" + (f" (capped at {lim} pages)" if lim else ""))
     print(f"✓ Saved: {OUT}")
 
 

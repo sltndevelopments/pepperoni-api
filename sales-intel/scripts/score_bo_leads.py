@@ -1,17 +1,18 @@
 """
 score_bo_leads.py — фильтрует и скорит лиды, собранные fetch_bo_okved.py.
 
-Логика v2 (по-другому, чем в score_and_export.py):
-    - Баллы от выручки — главный фактор (ранее его не было).
-    - Скоринг имени — второстепенный (это и был фейл: ООО Альтернатива получает
-      0 за нейтральное имя, но её выручка 2.2 млрд перебивает всё).
-    - ОКВЭД 10.71 (короткое хранение — выпечка/пекарня) > 10.72 (сухари/печенье).
+Логика v3:
+    - Баллы от выручки — главный фактор.
+    - Скоринг имени — второстепенный.
+    - ОКВЭД-бонусы: 10.71/10.85 наверх, общепит/ритейл ниже.
+    - Сегментные пороги выручки: для 47.11 (розница) — 1 млрд,
+      для 56.x (общепит) — 300 млн, для остальных — min_revenue_mln (100).
     - Регион — халяль-плотный / лог.хаб — мелкий бонус.
 
 Выход: data/bakery-leads-okved.csv — отсортировано по score desc, с колонкой
        revenue_mln_rub — чтобы в топе не оказывались мелочи.
 
-Порог: --min-revenue-mln 100 (по умолчанию).
+Порог: --min-revenue-mln 100 (по умолчанию, но сегментные пороги строже).
 """
 from __future__ import annotations
 
@@ -41,6 +42,24 @@ LOGISTICS = re.compile(
     r"ростовск|краснодар|воронежск|челябинск|новосибирск|пермск|тюменск", re.I)
 
 
+# Сегментные пороги выручки (млн руб) — строже общего --min-revenue-mln
+# 47.11 (крупная розница): минимум 1 млрд, иначе тонем в магазинах у дома
+# 56.10/56.29 (общепит): минимум 300 млн — отсекаем маленькие кафе
+# Остальные (10.xx): применяется общий --min-revenue-mln (100 по умолчанию)
+SEGMENT_REVENUE_FLOORS: dict[str, float] = {
+    "47.11": 1_000.0,   # млн руб
+    "56.10": 300.0,
+    "56.29": 300.0,
+}
+
+
+def _segment_floor(okved: str) -> float:
+    for prefix, floor in SEGMENT_REVENUE_FLOORS.items():
+        if okved.startswith(prefix):
+            return floor
+    return 0.0   # применяется общий --min-revenue-mln
+
+
 def score(r: dict) -> tuple[int, list[str]]:
     pts = 0
     reasons: list[str] = []
@@ -60,14 +79,26 @@ def score(r: dict) -> tuple[int, list[str]]:
         else:
             reasons.append(f"+{rev_pts} выручка {rev_mln:.0f} млн ₽")
 
-    # === ОКВЭД ===
+    # === ОКВЭД — бонус за «продуктовый» сегмент ===
     okved = (r.get("okved2") or "").strip()
     if okved.startswith("10.71"):
         pts += 15
-        reasons.append("+15 ОКВЭД 10.71 (короткое хранение, основная цель)")
+        reasons.append("+15 ОКВЭД 10.71 (выпечка/пекарня, основная цель)")
+    elif okved.startswith("10.85"):
+        pts += 12
+        reasons.append("+12 ОКВЭД 10.85 (готовые блюда — прямой product-fit)")
     elif okved.startswith("10.72"):
         pts += 5
-        reasons.append("+5 ОКВЭД 10.72 (длительное хранение, второстепенно)")
+        reasons.append("+5 ОКВЭД 10.72 (длительное хранение)")
+    elif okved.startswith("56.10"):
+        pts += 8
+        reasons.append("+8 ОКВЭД 56.10 (общепит/доставка — сети готовой еды)")
+    elif okved.startswith("56.29"):
+        pts += 6
+        reasons.append("+6 ОКВЭД 56.29 (столовые/кейтеринг)")
+    elif okved.startswith("47.11"):
+        pts += 3
+        reasons.append("+3 ОКВЭД 47.11 (крупная розница)")
 
     # === Регион ===
     reg = (r.get("region_name") or "")
@@ -95,9 +126,14 @@ def score(r: dict) -> tuple[int, list[str]]:
     elif re.search(r"пекарн|бейкер|бейкери|кондитер|булочн|выпечк|каравай", low):
         pts += 5
         reasons.append("+5 профильное имя")
-    if re.search(r"сосиск|пирожк|хот.дог|чебуреч|полуфабрикат", low):
+    if re.search(r"сосиск|пирожк|хот.дог|чебуреч|полуфабрикат|готов.блюд|кулинари", low):
         pts += 10
         reasons.append("+10 продуктовый таргет в имени")
+    # Сигнал «готовая еда» — сети, которые ставят на полку разогреваемые продукты
+    if re.search(r"темн.кухн|dark.kitchen|фудкорт|food.court|кухня.на.район|доставк.еды|"
+                 r"вкусвилл|самокат|перекрёсток.впрок|лавка|meal.kit|мил.кит", low, re.I):
+        pts += 15
+        reasons.append("+15 готовая еда / тёмная кухня / мил-кит (топ-таргет)")
 
     # === Свежесть отчётности ===
     if r.get("bfo_period") == "2025":
@@ -122,7 +158,7 @@ def main():
     rows = [json.loads(l) for l in IN.read_text().splitlines() if l.strip()]
     print(f"Загружено {len(rows)} организаций из {IN.name}")
 
-    threshold_tsd = args.min_revenue_mln * 1000
+    global_threshold_tsd = args.min_revenue_mln * 1000
     filtered = []
     dropped_low = 0
     dropped_nodata = 0
@@ -134,7 +170,11 @@ def main():
             else:
                 dropped_nodata += 1
             continue
-        if rev < threshold_tsd:
+        # Сегментный порог строже общего — применяем максимум из двух
+        okved = (r.get("okved2") or "").strip()
+        seg_floor_tsd = _segment_floor(okved) * 1000
+        effective_threshold = max(global_threshold_tsd, seg_floor_tsd)
+        if rev < effective_threshold:
             dropped_low += 1
             continue
         filtered.append(r)
@@ -169,6 +209,15 @@ def main():
 
     # Summary
     print(f"\n✓ Экспорт {len(scored)} лидов → {OUT}")
+    print()
+    # Разбивка по ОКВЭД-сегменту
+    from collections import Counter
+    okved_dist = Counter()
+    for s in scored:
+        okved_dist[s.get("okved2", "?")[:5]] += 1
+    print("Распределение по ОКВЭД:")
+    for ok, cnt in sorted(okved_dist.items(), key=lambda x: -x[1]):
+        print(f"  {ok}: {cnt}")
     print()
     print("Распределение по выручке:")
     buckets = [(0.1, "100-300 млн"), (0.3, "300 млн-1 млрд"),

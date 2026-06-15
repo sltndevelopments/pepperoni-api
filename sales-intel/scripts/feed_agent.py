@@ -153,6 +153,19 @@ def step_import(
     return result
 
 
+def step_import_named(*, dry_run: bool = False) -> dict:
+    """Шаг 4b: именной список (Поток 2) → agent.db."""
+    from prospecting.import_named import import_named
+    from core.store import Store
+
+    store = None if dry_run else Store()
+    if store:
+        store.init()
+    result = import_named(store=store, dry_run=dry_run)
+    print(f"[feed_agent] import_named ✓ — {result}")
+    return result
+
+
 def step_verify(limit: int = 20) -> dict:
     """Проверка после импорта: сколько лидов с контактами и lookalike."""
     from core.store import Store
@@ -205,6 +218,8 @@ def main():
                         help="Пропустить enrich (использовать уже обогащённый CSV)")
     parser.add_argument("--pages-per-okved", type=int, default=None,
                         help="Ограничить N страниц на ОКВЭД при fetch (для теста)")
+    parser.add_argument("--named", action="store_true",
+                        help="Дополнительно импортировать именной список (named_targets.yaml)")
     args = parser.parse_args()
 
     log: dict = {"started_at": _now(), "args": vars(args)}
@@ -237,7 +252,7 @@ def main():
     else:
         print("[feed_agent] skip enrich — используем имеющийся enriched CSV")
 
-    # --- Step 4: import ---
+    # --- Step 4a: import registry leads ---
     import_result = step_import(
         limit=args.limit,
         min_score=args.min_score,
@@ -245,6 +260,11 @@ def main():
     )
     log["import"] = import_result
     print(f"\n[feed_agent] import result: {import_result}")
+
+    # --- Step 4b: named targets (Поток 2) ---
+    if args.named:
+        named_result = step_import_named(dry_run=args.dry_run)
+        log["import_named"] = named_result
 
     # --- Step 5: verify ---
     if not args.dry_run:

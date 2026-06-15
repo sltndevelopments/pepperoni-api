@@ -1,0 +1,132 @@
+# Именной список приоритетных сетей — Поток 2 (hand-research).
+# Стив берёт их штучно: Perplexity ищет категорийного менеджера
+# по готовой еде / кулинарии / замороженной выпечке.
+#
+# Формат каждой цели:
+#   name:       юридическое или торговое название (для поиска)
+#   brand:      торговый бренд (если отличается от юр. названия)
+#   segment:    категория (для lookalike-сигнала)
+#   pitch:      ключевой аргумент — что предлагаем (используется в draft)
+#   halal:      true = халяль-полка/сертификат важен
+#   tier:       S = немедленный приоритет, A = высокий
+#   status:     active | skip | contacted | hot
+#   notes:      любые заметки (редактируй вручную)
+#
+# Правь этот файл сам: убирай то, где халяль не заходит,
+# добавляй конкурентов/партнёров по итогам разговоров.
+
+targets:
+
+  # ── Крупные онлайн-ритейлеры / доставка ──────────────────────────────────
+  - name: ВкусВилл
+    brand: ВкусВилл
+    segment: online_retail_readyfood
+    pitch: "замороженная выпечка и эчпочмаки под СТМ или под брендом на полку кулинарии"
+    halal: false
+    tier: S
+    status: active
+    notes: "сильная собственная кулинария, берут нишевые региональные продукты"
+
+  - name: Самокат
+    brand: Самокат
+    segment: online_retail_readyfood
+    pitch: "сосиска в тесте / гриль-сосиски для раздела готовой еды"
+    halal: false
+    tier: S
+    status: active
+    notes: "тёмные кухни + готовая еда в формате «разогрел и съел»"
+
+  - name: Купер
+    brand: КУПЕР (Сбермаркет)
+    segment: online_retail_readyfood
+    pitch: "татарская выпечка / эчпочмаки в раздел кулинарии"
+    halal: true
+    tier: S
+    status: active
+    notes: "Сбер, хорошо берут региональные халяль-продукты"
+
+  - name: Яндекс Лавка
+    brand: Яндекс Лавка
+    segment: online_retail_readyfood
+    pitch: "полуфабрикаты быстрого разогрева: сосиска в тесте, гриль-котлеты"
+    halal: false
+    tier: S
+    status: active
+    notes: "быстрая доставка — акцент на speed food"
+
+  - name: Перекрёсток Впрок
+    brand: Перекрёсток Впрок
+    segment: online_retail_readyfood
+    pitch: "замороженная татарская выпечка как нишевый SKU в онлайн-каталог"
+    halal: false
+    tier: A
+    status: active
+
+  # ── Федеральные сети с кулинарией ─────────────────────────────────────────
+  - name: Магнит
+    brand: Магнит (кулинария / готовая еда)
+    segment: retail_chain_readyfood
+    pitch: "сосиска в тесте и эчпочмаки в отдел кулинарии / горячей еды"
+    halal: false
+    tier: A
+    status: active
+    notes: "искать категорийного менеджера кулинарии, не бакалеи"
+
+  - name: Азбука Вкуса
+    brand: Азбука Вкуса
+    segment: retail_premium_readyfood
+    pitch: "эчпочмак / самса как премиум-позиция в отдел готовой еды"
+    halal: false
+    tier: A
+    status: active
+    notes: "премиальный сегмент — акцент на аутентичность и ручное производство"
+
+  # ── Тёмные кухни / мил-кит ─────────────────────────────────────────────────
+  - name: Кухня на районе
+    brand: Кухня на районе
+    segment: dark_kitchen
+    pitch: "полуфабрикаты для кухни: гриль-котлеты, сосиски, тесто"
+    halal: false
+    tier: A
+    status: active
+
+  - name: Grow Food
+    brand: Grow Food
+    segment: meal_kit
+    pitch: "халяль-компонент в мил-кит: выпечка, котлеты, полуфабрикаты"
+    halal: true
+    tier: A
+    status: active
+
+  - name: Just Food
+    brand: Just Food
+    segment: meal_kit
+    pitch: "компонент для мил-кит: татарская выпечка как нишевый блок"
+    halal: false
+    tier: B
+    status: active
+
+  # ── АЗС-сети (расширение Татнефть-паттерна) ───────────────────────────────
+  - name: Газпромнефть АЗС
+    brand: Газпром Нефть (АЗС Нафта)
+    segment: azs_foodretail
+    pitch: "гриль-сосиски и хот-дог под СТМ для формата «Нафта» АЗС"
+    halal: false
+    tier: S
+    status: active
+
+  - name: ЛУКОЙЛ АЗС
+    brand: ЛУКОЙЛ (формат Фреш)
+    segment: azs_foodretail
+    pitch: "сосиска в тесте и гриль-позиции для фуд-стоек АЗС"
+    halal: false
+    tier: S
+    status: active
+
+  - name: Роснефть АЗС
+    brand: Роснефть (BP)
+    segment: azs_foodretail
+    pitch: "гриль-позиции для фуд-стойки АЗС"
+    halal: false
+    tier: A
+    status: active
