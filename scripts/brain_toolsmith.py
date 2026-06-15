@@ -50,9 +50,23 @@ STRATEGY = DATA / "strategy.json"
 # Core agents the brain is allowed to patch. Excludes the brain itself, the
 # toolsmith, proxy/secret handling and Telegram bot — patching those could
 # brick autonomy or leak credentials, so they stay engineer-only.
+#
+# SAFETY CORE — NEVER REMOVE THESE:
+# approvals / qa_pages / generate_geo_bulk / generate_from_strategy protect
+# the publication gate (owner approval before new pages go live). brand_system
+# carries the halal + contact + cert guardrails. These are the lock, the alarm,
+# and the brand identity — if the brain patches them it can silently undo all
+# safety invariants. Engineer-only, no exceptions.
 PROTECTED_AGENTS = {
+    # Autonomy infrastructure (brain, budget, proxy, notifications)
     "seo_brain", "opus_brain_client", "claude_client", "brain_toolsmith",
     "telegram_bot", "telegram_notify", "sync_asocks_proxy", "send_report",
+    # Publication gate — owner must approve new pages (fail-closed)
+    "approvals", "generate_geo_bulk", "generate_from_strategy", "build_landing",
+    # Quality gate — thin/dup/halal check before git commit
+    "qa_pages", "fix_pages",
+    # Brand & halal guardrails — single source of truth, never editable by brain
+    "brand_system",
 }
 
 ALLOWED_MODELS = {
