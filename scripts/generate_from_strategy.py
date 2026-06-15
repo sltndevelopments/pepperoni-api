@@ -246,8 +246,16 @@ def main():
         if queued_count:
             print(f"⏳ {queued_count} strategy page(s) queued for owner approval")
     except Exception as _e:
-        print(f"⚠️  approval gate failed — running without gate: {_e}")
-        preps = all_preps   # fall back: build everything (preserves old behaviour)
+        import traceback as _tb
+        msg = f"🚨 Гейт одобрения strategy_executor упал — новые страницы НЕ создаются.\n<code>{_e}</code>"
+        print(f"🚨 approval gate FAILED (fail-closed — no new pages): {_e}", file=sys.stderr)
+        _tb.print_exc()
+        try:
+            from telegram_notify import notify
+            notify(msg)
+        except Exception:
+            pass
+        preps = []   # fail-closed: no new pages if gate is broken
 
     if not preps:
         print("✅ Strategy executor done: all pages pending or rejected")

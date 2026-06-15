@@ -927,7 +927,16 @@ def main():
             print("✅ No approved geo tasks to execute this pass.")
             return
     except Exception as _e:
-        print(f"⚠️  approval gate failed — running without gate: {_e}")
+        import traceback as _tb
+        msg = f"🚨 Гейт одобрения geo_bulk упал — новые страницы НЕ создаются.\n<code>{_e}</code>"
+        print(f"🚨 approval gate FAILED (fail-closed — no new pages): {_e}", file=sys.stderr)
+        _tb.print_exc()
+        try:
+            from telegram_notify import notify
+            notify(msg)
+        except Exception:
+            pass
+        return  # fail-closed: создавать ничего не будем
 
     generated = 0
     errors = 0
