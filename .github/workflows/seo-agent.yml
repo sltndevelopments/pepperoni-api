@@ -205,7 +205,7 @@ jobs:
         run: |
           LANGS="${{ github.event.inputs.geo_langs }}"
           PRODUCTS="${{ github.event.inputs.geo_products }}"
-          MODE="${{ github.event.inputs.geo_mode || 'all' }}"
+          MODE="${{ github.event.inputs.geo_mode || 'coverage' }}"
           CMD="python scripts/generate_geo_bulk.py --mode $MODE --max-pages ${{ github.event.inputs.max_geo_pages || '100' }}"
           if [ -n "$LANGS" ]; then CMD="$CMD --langs $LANGS"; fi
           if [ -n "$PRODUCTS" ]; then CMD="$CMD --products $PRODUCTS"; fi

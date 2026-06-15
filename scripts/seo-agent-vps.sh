@@ -222,7 +222,7 @@ python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content 
 # ---- Step 4b: Bulk geo pages (full assortment × RU + CIS cities) ----
 log "Step 4b: Generating bulk geo pages …"
 MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
-    python3 scripts/generate_geo_bulk.py --mode all --max-pages "${MAX_GEO_PAGES:-20}" \
+    python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
     >> "$LOG_FILE" 2>&1 || log "⚠️  Geo bulk generation failed (non-fatal)"
 
 # ---- Step 4c: Schema enricher — Product JSON-LD merchant-listing fields ----

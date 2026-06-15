@@ -56,7 +56,7 @@ GEO_PER_TICK="${GEO_PER_TICK:-3}"
 
 log "Generating geo pages (strategy-driven, up to $GEO_PER_TICK) …"
 MAX_GEO_PAGES="$GEO_PER_TICK" GEO_WORKERS="${GEO_WORKERS:-4}" \
-    python3 scripts/generate_geo_bulk.py --mode all --max-pages "$GEO_PER_TICK" \
+    python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "$GEO_PER_TICK" \
     >> "$LOG_FILE" 2>&1 || log "⚠️  geo bulk failed (non-fatal)"
 
 log "Executing blog / Private-Label strategy …"
