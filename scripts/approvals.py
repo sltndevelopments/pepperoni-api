@@ -1,19 +1,29 @@
 #!/usr/bin/env python3
 """
-Shared action queue for high-impact agent actions — FULL AUTONOMY MODE.
+Shared action queue for high-impact agent actions.
 
-Historically this was a human-in-the-loop approval queue. The owner granted the
-Brain (Claude Fable) full trust, so every request is now AUTO-APPROVED at
-creation: agents queue an action, the next pipeline pass executes it via
-take_approved(). The git-tracked file (data/approvals.json) remains as an
-audit trail, and Telegram gets an informational "decided & scheduled" ping
-instead of an approval ask.
+Two modes coexist:
 
-Status lifecycle: approved → done (after execution).  ("pending"/"rejected"
-remain readable for old entries.)
+  FULL AUTONOMY (default) — request() auto-approves at creation. Used for
+  edits to existing pages (title rewrites, schema fixes, link repairs, etc.).
+  Telegram gets an informational ping, not a question.
 
-Idempotency: each request has a stable `key`; requesting the same key twice does
-not create duplicates while one is still approved-but-unexecuted.
+  NEW-PAGE GATE — request_new_page() puts the action in "pending" and sends a
+  Telegram message asking the owner to approve via /approve <key> or reject
+  via /reject <key>. Used ONLY when a new SEO page is about to be created by
+  the brain. Other agents (sales-agent uses its own SQLite store) are NOT
+  affected.
+
+  NEW_PAGE_ACTIONS — the exact action strings that trigger the gate. Everything
+  else stays auto-approved.
+
+Status lifecycle:
+  pending  → approved (owner types /approve) or rejected (/reject)
+  approved → done (after execution by a generator)
+  approved (auto) → done (auto-approved actions, no human step)
+
+Idempotency: request_new_page() returns the *current* status for an existing
+key, so generators can always check the latest state.
 """
 
 from __future__ import annotations
@@ -24,6 +34,16 @@ from pathlib import Path
 
 DATA = Path(__file__).parent.parent / "data"
 APPROVALS_FILE = DATA / "approvals.json"
+
+# Actions that require owner approval before a new page is written to disk.
+# Everything NOT in this set stays auto-approved (existing-page edits, sales-agent, etc.)
+NEW_PAGE_ACTIONS = frozenset({
+    "create_landing",
+    "geo_page",
+    "blog_post",
+    "pl_page",
+    "new_page",
+})
 
 
 def _load() -> list:
@@ -111,6 +131,115 @@ def take_approved(action: str | None = None) -> list:
     return out
 
 
+def get_status(key: str) -> str | None:
+    """Return the current status of an approval entry, or None if not found."""
+    for a in _load():
+        if a.get("key") == key:
+            return a.get("status")
+    return None
+
+
+def request_new_page(key: str, title: str, detail: str = "", action: str = "",
+                     payload: dict | None = None,
+                     requested_by: str = "agent") -> str:
+    """Queue a NEW-PAGE creation for owner approval.
+
+    Returns the current status string so the caller can decide immediately:
+      "approved"  — already approved, go build it
+      "pending"   — waiting for owner answer, skip this run
+      "rejected"  — owner said no, skip permanently
+      "queued"    — just created as pending, Telegram question sent
+
+    Idempotent: calling again for an existing key never duplicates the entry.
+    """
+    rows = _load()
+    for a in rows:
+        if a.get("key") == key:
+            return a.get("status", "pending")  # return current state, no dup
+
+    rows.append({
+        "key": key,
+        "title": title,
+        "detail": detail,
+        "action": action,
+        "payload": payload or {},
+        "risk": "medium",
+        "requested_by": requested_by,
+        "status": "pending",
+        "auto_approved": False,
+        "created_at": datetime.now(timezone.utc).isoformat(),
+    })
+    _save(rows)
+    _notify_pending_page(key, title, detail, requested_by)
+    return "queued"
+
+
+def approve(key: str) -> bool:
+    """Flip a pending entry to approved. Returns True if found and changed."""
+    rows = _load()
+    for a in rows:
+        if a.get("key") == key and a.get("status") == "pending":
+            a["status"] = "approved"
+            a["decided_at"] = datetime.now(timezone.utc).isoformat()
+            _save(rows)
+            return True
+    return False
+
+
+def reject(key: str) -> bool:
+    """Flip a pending entry to rejected. Returns True if found and changed."""
+    rows = _load()
+    for a in rows:
+        if a.get("key") == key and a.get("status") == "pending":
+            a["status"] = "rejected"
+            a["decided_at"] = datetime.now(timezone.utc).isoformat()
+            _save(rows)
+            return True
+    return False
+
+
+def get_approved_new_pages(action: str | None = None) -> list:
+    """Return approved new-page entries (optionally filtered by action) and mark done.
+
+    Mirrors take_approved() but restricted to NEW_PAGE_ACTIONS entries that went
+    through the human-approval gate (auto_approved=False).
+    """
+    rows = _load()
+    out = []
+    changed = False
+    for a in rows:
+        if a.get("status") != "approved":
+            continue
+        if a.get("auto_approved"):
+            continue  # skip auto-approved edits — handled by take_approved()
+        if action is not None and a.get("action") != action:
+            continue
+        out.append(dict(a))
+        a["status"] = "done"
+        a["executed_at"] = datetime.now(timezone.utc).isoformat()
+        changed = True
+    if changed:
+        _save(rows)
+    return out
+
+
+def _notify_pending_page(key: str, title: str, detail: str, requested_by: str) -> None:
+    """Ask the owner to approve a new page via Telegram."""
+    try:
+        from telegram_notify import notify
+    except Exception:
+        return
+    text = (
+        f"<b>📋 Новая страница ждёт одобрения</b>\n"
+        f"{title}\n"
+        f"<i>{detail[:300]}</i>\n\n"
+        f"Инициатор: {requested_by}\n\n"
+        f"✅ Одобрить: <code>/approve {key}</code>\n"
+        f"❌ Отклонить: <code>/reject {key}</code>"
+    )
+    notify(text)
+
+
 def pending() -> list:
     return [a for a in _load() if a.get("status") == "pending"]
 
@@ -129,6 +258,10 @@ if __name__ == "__main__":
     elif len(sys.argv) >= 3 and sys.argv[1] == "request":
         created = request(key=sys.argv[2], title=" ".join(sys.argv[3:]) or sys.argv[2])
         print("created" if created else "already-queued")
+    elif len(sys.argv) >= 3 and sys.argv[1] == "approve":
+        print("approved" if approve(sys.argv[2]) else "not-found-or-not-pending")
+    elif len(sys.argv) >= 3 and sys.argv[1] == "reject":
+        print("rejected" if reject(sys.argv[2]) else "not-found-or-not-pending")
     else:
         for a in _load():
             print(f"[{a['status']}] {a.get('key')}: {a.get('title')}")

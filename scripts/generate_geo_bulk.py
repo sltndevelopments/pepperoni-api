@@ -828,6 +828,42 @@ def main():
     print(f"   Mode: {args.mode} | Max pages: {args.max_pages} | Workers: {args.workers}")
     print("=" * 60)
 
+    # ── Phase 0: build pages that the owner already approved ──────────────────
+    # These were previously queue-d via request_new_page() and the owner typed
+    # /approve <key> in Telegram. We build them first, before queuing new ones.
+    try:
+        import approvals as _appr
+        approved_geo = _appr.get_approved_new_pages(action="geo_page")
+        if approved_geo:
+            print(f"✅ {len(approved_geo)} owner-approved geo page(s) to build:")
+            for entry in approved_geo:
+                pl = entry.get("payload") or {}
+                query = pl.get("query", "")
+                slug  = pl.get("slug", "")
+                lang  = pl.get("lang", "ru")
+                product_id = pl.get("product_id")
+                city_slug  = pl.get("city_slug", "")
+                if not (query or slug):
+                    continue
+                # Re-create the task dict from the stored payload and generate.
+                task = {
+                    "slug": slug or slugify(query),
+                    "lang": lang,
+                    "city_slug": city_slug,
+                    "city_name": pl.get("city_name", city_slug),
+                    "country_code": pl.get("country_code", "RU"),
+                    "template_id": pl.get("template_id", "a"),
+                    "product": {"id": product_id, "name_ru": pl.get("product_name", query)},
+                }
+                result = generate_one_page(task)
+                if result.get("status") == "generated":
+                    print(f"  ✓ Built approved: {result.get('slug')}")
+                else:
+                    print(f"  ✗ Failed approved: {result.get('slug')} — {result.get('error','?')}")
+    except Exception as _e:
+        print(f"⚠️  approved-geo phase failed (non-fatal): {_e}")
+
+    # ── Phase 1: build task queue for new candidates ──────────────────────────
     tasks = build_task_queue(
         mode=args.mode,
         max_pages=args.max_pages,
@@ -846,6 +882,52 @@ def main():
     if not tasks:
         print("✅ All requested pages already exist. Nothing to generate.")
         return
+
+    # ── Phase 2: gate — queue pending approval, skip building unapproved ──────
+    # Each candidate is submitted to the owner-approval gate. If already approved
+    # (shouldn't happen — Phase 0 consumed them), build it. If pending/queued,
+    # skip this run and wait. If rejected, skip permanently.
+    try:
+        import approvals as _appr
+        gated_tasks = []
+        queued_count = 0
+        for task in tasks:
+            slug = task.get("slug", "")
+            key  = f"geo:{slug}"
+            product_name = (task.get("product") or {}).get("name_ru", "")
+            city_name    = task.get("city_name", "")
+            lang         = task.get("lang", "ru")
+            status = _appr.request_new_page(
+                key=key,
+                title=f"Создать гео-страницу: {product_name} / {city_name} [{lang}]",
+                detail=f"Slug: {slug}",
+                action="geo_page",
+                payload={
+                    "slug": slug,
+                    "lang": lang,
+                    "city_slug": task.get("city_slug", ""),
+                    "city_name": city_name,
+                    "country_code": task.get("country_code", "RU"),
+                    "template_id": task.get("template_id", "a"),
+                    "product_id": (task.get("product") or {}).get("id"),
+                    "product_name": product_name,
+                    "query": f"{product_name} {city_name}",
+                },
+                requested_by="geo_bulk",
+            )
+            if status == "approved":
+                gated_tasks.append(task)   # already approved in a prior cycle
+            elif status in ("queued", "pending"):
+                queued_count += 1           # waiting for owner — skip this run
+            # "rejected" → silently skip
+        if queued_count:
+            print(f"⏳ {queued_count} new page(s) queued for owner approval — check Telegram")
+        tasks = gated_tasks
+        if not tasks:
+            print("✅ No approved geo tasks to execute this pass.")
+            return
+    except Exception as _e:
+        print(f"⚠️  approval gate failed — running without gate: {_e}")
 
     generated = 0
     errors = 0

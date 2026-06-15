@@ -983,6 +983,43 @@ def handle_message(msg: dict) -> None:
              keyboard=MAIN_MENU)
         return
 
+    # 4c) New-page approval gate: /approve <key> or /reject <key>
+    m = re.match(r"^/(?:approve|одобрить)\s+(\S+)", text, re.I)
+    if m:
+        key = m.group(1).strip()
+        try:
+            import approvals as _appr
+            if _appr.approve(key):
+                send(chat_id,
+                     f"✅ Одобрено: <code>{key}</code>\n"
+                     f"Страница будет создана на следующем проходе генератора.",
+                     keyboard=MAIN_MENU)
+            else:
+                send(chat_id,
+                     f"⚠️ Ключ <code>{key}</code> не найден или уже не pending.",
+                     keyboard=MAIN_MENU)
+        except Exception as e:
+            send(chat_id, f"Ошибка: {e}", keyboard=MAIN_MENU)
+        return
+
+    m = re.match(r"^/(?:reject|отклонить)\s+(\S+)", text, re.I)
+    if m:
+        key = m.group(1).strip()
+        try:
+            import approvals as _appr
+            if _appr.reject(key):
+                send(chat_id,
+                     f"❌ Отклонено: <code>{key}</code>\n"
+                     f"Страница не будет создана.",
+                     keyboard=MAIN_MENU)
+            else:
+                send(chat_id,
+                     f"⚠️ Ключ <code>{key}</code> не найден или уже не pending.",
+                     keyboard=MAIN_MENU)
+        except Exception as e:
+            send(chat_id, f"Ошибка: {e}", keyboard=MAIN_MENU)
+        return
+
     # 5) Free-form text → dialogue turn (cheap Sonnet), incl. pending brain question
     pop_pending(chat_id)
     send(chat_id, "💬 Думаю…")

@@ -88,7 +88,46 @@ def _negated(html: str, start: int, end: int) -> bool:
     return bool(NEGATION_RE.search(html[max(0, start - 250):end + 140]))
 
 
-def check_file(path: Path) -> list[str]:
+MIN_WORDS = 250          # new page must have at least this many visible words
+NEAR_DUP_UNIQUE = 40    # after stripping city/product tokens, must have this many unique words
+
+# Product card pages are intentionally compact — never flag as thin.
+_CARD_RE = re.compile(r"[/\\]products[/\\]kd-\d+\.html$")
+# Geo-page paths that the brain generates — apply thin/dup gate to these.
+_GEO_PATH_RE = re.compile(r"[/\\](?:geo|en[/\\]geo|ar[/\\]geo|kk[/\\]geo|uz[/\\]geo)[/\\]")
+
+
+def _visible_words(html: str) -> int:
+    """Count words in text visible to a user (strips tags, scripts, styles)."""
+    # Remove <script>, <style>, <head> blocks entirely.
+    cleaned = re.sub(r"<(script|style|head)[^>]*>.*?</\1>", " ", html,
+                     flags=re.I | re.S)
+    # Strip remaining tags.
+    cleaned = re.sub(r"<[^>]+>", " ", cleaned)
+    # Normalise whitespace.
+    cleaned = re.sub(r"\s+", " ", cleaned)
+    return len([w for w in cleaned.split() if len(w) > 1])
+
+
+def _near_duplicate(html: str, path: Path) -> bool:
+    """True if the page content is almost entirely boilerplate.
+
+    Heuristic: strip common city/country/product names (pulled from the slug),
+    then count unique words left in the visible body. If too few, it's a
+    template with only the city swapped in.
+    """
+    # Extract slug tokens from path (e.g. "pepperoni-halyalniy-kazan" → {"pepperoni","halyalniy","kazan"})
+    slug_tokens = set(re.split(r"[-_]", path.stem.lower())) - {"html", ""}
+
+    cleaned = re.sub(r"<(script|style|head)[^>]*>.*?</\1>", " ", html,
+                     flags=re.I | re.S)
+    cleaned = re.sub(r"<[^>]+>", " ", cleaned)
+    words = [w.lower() for w in re.split(r"\W+", cleaned) if len(w) > 3]
+    unique = {w for w in words if w not in slug_tokens}
+    return len(unique) < NEAR_DUP_UNIQUE
+
+
+def check_file(path: Path, is_new: bool = False) -> list[str]:
     try:
         html = path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError) as e:
@@ -113,11 +152,27 @@ def check_file(path: Path) -> list[str]:
         errs.append("нет <title>")
     if "</html>" not in html.lower():
         errs.append("нет </html> — страница обрезана")
+
+    # ── Value gate — only for genuinely NEW pages, never for product cards ──
+    # Applied only when is_new=True AND the path looks like a generated geo/blog page.
+    # Skips product cards (kd-*.html) and all existing pages being merely modified.
+    if is_new and not _CARD_RE.search(str(path)):
+        wc = _visible_words(html)
+        if wc < MIN_WORDS:
+            errs.append(f"тонкая страница: {wc} слов < {MIN_WORDS}")
+        elif _GEO_PATH_RE.search(str(path)) and _near_duplicate(html, path):
+            errs.append(f"шаблон-дубликат: слишком мало уникального контента")
+
     return errs
 
 
-def changed_pages() -> list[Path]:
-    """New/modified *.html under public/ according to git."""
+def changed_pages() -> list[tuple[Path, bool]]:
+    """New/modified *.html under public/ according to git.
+
+    Returns list of (path, is_new) where is_new=True means the file is
+    git-untracked or staged as Added ('??' or 'A' status) — i.e. a brand-new
+    page that hasn't been published before. Modified existing pages get False.
+    """
     try:
         out = subprocess.run(
             ["git", "status", "--porcelain", "--", "public"],
@@ -126,38 +181,49 @@ def changed_pages() -> list[Path]:
         return []
     files = []
     for line in out.splitlines():
-        st, _, rel = line[:2], line[2], line[3:].strip().strip('"')
+        st = line[:2]
+        rel = line[3:].strip().strip('"')
         if "D" in st:
             continue
-        if rel.endswith(".html"):
-            p = ROOT / rel
-            if p.exists():
-                files.append(p)
+        if not rel.endswith(".html"):
+            continue
+        p = ROOT / rel
+        if not p.exists():
+            continue
+        # '??' = untracked (new file not yet staged), 'A' = staged as Added
+        is_new = st.strip() in ("??", "A") or st[0] == "A" or st[1] == "A"
+        files.append((p, is_new))
     return files
 
 
 def main() -> int:
     args = [a for a in sys.argv[1:] if not a.startswith("--")]
     quarantine = "--quarantine" in sys.argv
+    # --new-only: apply thin/dup gate to all files (useful for testing)
+    force_new = "--new-only" in sys.argv
+
+    # Build list of (path, is_new) tuples.
     if "--all" in sys.argv:
-        files = sorted(PUBLIC.rglob("*.html"))
+        # --all checks everything but never marks as is_new (don't mass-quarantine existing).
+        pairs: list[tuple[Path, bool]] = [(f, False) for f in sorted(PUBLIC.rglob("*.html"))]
     elif args:
-        files = []
+        pairs = []
         for a in args:
             p = Path(a) if Path(a).is_absolute() else ROOT / a
-            files += sorted(p.rglob("*.html")) if p.is_dir() else [p]
+            fs = sorted(p.rglob("*.html")) if p.is_dir() else [p]
+            pairs += [(f, force_new) for f in fs]
     else:
-        files = changed_pages()
+        pairs = changed_pages()
 
-    if not files:
+    if not pairs:
         print("qa_pages: nothing to check")
         return 0
 
     failed: dict[Path, list[str]] = {}
-    for f in files:
+    for f, is_new in pairs:
         if SKIP_RE.search(str(f)):
             continue
-        errs = check_file(f)
+        errs = check_file(f, is_new=is_new)
         if errs:
             failed[f] = errs
 

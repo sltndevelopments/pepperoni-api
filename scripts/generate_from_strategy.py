@@ -148,6 +148,25 @@ def _write_page(prep: dict, html: str) -> bool:
     return True
 
 
+def _generate_one(prep: dict) -> str:
+    """Synchronous single-page generation — used for owner-approved rebuilds."""
+    try:
+        html, _ = call_claude(prep["prompt"], system=prep.get("system", ""),
+                              max_tokens=MAX_TOKENS, effort="medium")
+        return html
+    except Exception as e:
+        print(f"  ✗ _generate_one {prep.get('label','?')}: {e}", file=sys.stderr)
+        return ""
+
+
+def _approval_key(prep: dict) -> str:
+    """Stable approval key derived from the output path."""
+    label = prep.get("label", "")
+    action = prep.get("action", "new_page")
+    slug = re.sub(r"[^a-z0-9-]", "", str(prep["out"].stem).lower())[:60]
+    return f"{action}:{slug}"
+
+
 def main():
     if not (os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("DEEPSEEK_API_KEY")):
         print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
@@ -158,24 +177,80 @@ def main():
         return 0
 
     print(f"🛠  Executing strategy ({strat.get('generated_at','?')})")
-    preps = []
+
+    # ── Phase 0: build pages the owner already approved ───────────────────────
+    try:
+        import approvals as _appr
+        for action in ("blog_post", "pl_page"):
+            approved = _appr.get_approved_new_pages(action=action)
+            for entry in approved:
+                pl = entry.get("payload") or {}
+                out_path = Path(pl.get("out_path", ""))
+                if not out_path or out_path.exists():
+                    continue
+                # Reconstruct prep from stored payload so we can generate.
+                topic = pl.get("topic") or {}
+                prep = (prep_blog(topic) if action == "blog_post" else prep_pl(topic))
+                if prep:
+                    print(f"  🔓 Building approved: {entry.get('title','')}")
+                    _write_page(prep, _generate_one(prep))
+    except Exception as _e:
+        print(f"⚠️  approved-strategy phase failed (non-fatal): {_e}")
+
+    # ── Phase 1: collect candidates from current strategy ─────────────────────
+    all_preps = []
     for t in (strat.get("new_blog_topics") or [])[:MAX_BLOG]:
         try:
             p = prep_blog(t)
             if p:
-                preps.append(p)
+                p["action"] = "blog_post"
+                p["topic"] = t
+                all_preps.append(p)
         except Exception as e:
             print(f"  ✗ blog prep error: {e}", file=sys.stderr)
     for t in (strat.get("pl_oem_topics") or [])[:MAX_PL]:
         try:
             p = prep_pl(t)
             if p:
-                preps.append(p)
+                p["action"] = "pl_page"
+                p["topic"] = t
+                all_preps.append(p)
         except Exception as e:
             print(f"  ✗ PL prep error: {e}", file=sys.stderr)
 
-    if not preps:
+    if not all_preps:
         print("✅ Strategy executor done: nothing new to generate")
+        return 0
+
+    # ── Phase 2: gate — queue unapproved pages, keep approved ones ────────────
+    preps = []
+    queued_count = 0
+    try:
+        import approvals as _appr
+        for p in all_preps:
+            key    = _approval_key(p)
+            action = p.get("action", "new_page")
+            status = _appr.request_new_page(
+                key=key,
+                title=p.get("label", key),
+                detail=f"action={action}",
+                action=action,
+                payload={"out_path": str(p["out"]), "topic": p.get("topic", {})},
+                requested_by="strategy_executor",
+            )
+            if status == "approved":
+                preps.append(p)
+            elif status in ("queued", "pending"):
+                queued_count += 1
+            # "rejected" → silently skip
+        if queued_count:
+            print(f"⏳ {queued_count} strategy page(s) queued for owner approval")
+    except Exception as _e:
+        print(f"⚠️  approval gate failed — running without gate: {_e}")
+        preps = all_preps   # fall back: build everything (preserves old behaviour)
+
+    if not preps:
+        print("✅ Strategy executor done: all pages pending or rejected")
         return 0
 
     made = 0
