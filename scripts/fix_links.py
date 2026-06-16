@@ -198,8 +198,26 @@ def _suggest(path: str) -> str | None:
     return None
 
 
+_SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.I | re.S)
+
+
 def _fix_html(html: str) -> tuple[str, dict]:
+    """Repair broken/dead <a href> in rendered HTML.
+
+    <script> blocks are preserved verbatim — their template-literal strings
+    (e.g. href="${href}") must NOT be unwrapped; they are not real anchor tags.
+    """
     stats = {"placeholder": 0, "redirected": 0, "unwrapped": 0}
+
+    # Stash <script> blocks so A_TAG_RE never sees template literals inside JS.
+    scripts: list[str] = []
+
+    def _stash_script(m: re.Match) -> str:
+        placeholder = f"\x00SCRIPT{len(scripts)}\x00"
+        scripts.append(m.group(0))
+        return placeholder
+
+    html_no_scripts = _SCRIPT_RE.sub(_stash_script, html)
 
     def repl(m: re.Match) -> str:
         href = m.group(1).strip()
@@ -229,8 +247,13 @@ def _fix_html(html: str) -> tuple[str, dict]:
         stats["unwrapped"] += 1
         return inner
 
-    new = A_TAG_RE.sub(repl, html)
-    return new, stats
+    fixed = A_TAG_RE.sub(repl, html_no_scripts)
+
+    # Restore stashed <script> blocks unchanged.
+    for i, script in enumerate(scripts):
+        fixed = fixed.replace(f"\x00SCRIPT{i}\x00", script)
+
+    return fixed, stats
 
 
 def main() -> int:

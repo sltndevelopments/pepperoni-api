@@ -1082,7 +1082,7 @@ function renderGroups(allGroups){
         const mediaBlock=hasImg
           ?`<div class="product-card__media product-card__media--photo"><img src="${escAttr(imgUrl)}" data-proxy="${escAttr(proxyUrl)}" alt="${altText}" loading="${eager?'eager':'lazy'}" fetchpriority="${eager?'high':'low'}" width="400" height="300" decoding="async" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"></div>`
           :`<div class="product-card__media product-card__media--placeholder" role="img" aria-label="Фото скоро появится в карточке товара"><span class="product-card__soon" aria-hidden="true">Фото скоро будет</span></div>`;
-        html+=`<div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
+        html+=`<a class="product-card-link" href="${href}"><div class="product-card product-card--featured" itemscope itemtype="https://schema.org/Product">
           <meta itemprop="sku" content="${p.sku||''}">
           <meta itemprop="image" content="${imgForMeta}">
           <span itemprop="brand" itemscope itemtype="https://schema.org/Brand"><meta itemprop="name" content="Казанские Деликатесы"></span>
