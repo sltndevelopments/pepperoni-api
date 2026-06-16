@@ -286,5 +286,73 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-16T05:30:08.821251+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+    "file_path": "public/geo/farsh-yerevan.html",
+    "query": "farsh yerevan",
+    "before_pos": 50.0,
+    "before_title": "Farsh Yerevan — халяль фарш оптом | Pepperoni Tatar",
+    "before_desc": "Халяль фарш из говядины, курицы и индейки — оптовые поставки в Ереван. Сертификаты HACCP, ISO 22000:2018. Доставка из Казани от 72 ч. HoReCa и ретейл."
+  },
+  {
+    "applied_at": "2026-06-16T05:30:14.266112+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 62.8,
+    "before_title": "Пепперони халяль оптом — колбаса для пиццы | Pepperoni.tatar",
+    "before_desc": "Пепперони халяль от производителя в Казани: опт от 500 кг/мес, сертификат ДУМ РТ, СТМ под ваш бренд. Поставки по РФ, СНГ и ОАЭ."
+  },
+  {
+    "applied_at": "2026-06-16T05:30:17.243333+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 62.8,
+    "before_title": "Пепперони халяль оптом от производителя | Pepperoni.tatar",
+    "before_desc": "Халяль пепперони для пиццы и деликатесов: опт от 500 кг/мес, сертификат ДУМ РТ, СТМ под ваш бренд. Производство Казань, поставки по РФ, СНГ, ОАЭ."
+  },
+  {
+    "applied_at": "2026-06-16T05:30:53.992251+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+    "file_path": "public/geo/farsh-yerevan.html",
+    "query": "farsh yerevan",
+    "before_pos": 50.0,
+    "before_title": "Farsh Yerevan — халяль фарш оптом от производителя",
+    "before_desc": "Поставки халяль фарша в Ереван: говядина, курица, индейка. Производство Казань, сертификаты HACCP и ISO 22000:2018. Доставка от 72 ч. Работаем с HoReCa и ретейлом."
+  },
+  {
+    "applied_at": "2026-06-16T05:31:03.484855+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 58.7,
+    "before_title": "Пепперони халяль оптом — производитель | Pepperoni.tatar",
+    "before_desc": "Халяль пепперони собственного производства: сертификат ДУМ РТ, опт от 500 кг/мес, СТМ под ваш бренд. Поставки по РФ, СНГ и ОАЭ. Запросите прайс."
+  },
+  {
+    "applied_at": "2026-06-16T05:31:10.662771+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "file_path": "public/blog/what-is-halal-pepperoni.html",
+    "query": "пепперони халяль",
+    "before_pos": 14.67,
+    "before_ctr": 0.0,
+    "before_impr": 53,
+    "before_title": "Пепперони халяль — что это и из какого мяса: состав и применение",
+    "before_desc": "Халяльная пепперони — это колбаса из говядины и птицы или конины. Из какого мяса делают, чем отличается от классической свиной и как выбрать для пиццерии.",
+    "after_title": "Пепперони халяль — состав, виды и выбор для пиццерии",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]

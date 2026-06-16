@@ -1,236 +1,310 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Пепперони халяль: что это и где купить оптом</title>
-  <meta name="description" content="Пепперони халяль из говядины и курицы — сертификат ДУМ РТ, поставки для пиццерий и HoReCa оптом из Казани. Всё о выборе, составе и заказе.">
-  <link rel="canonical" href="https://pepperoni.tatar/blog/pepperoni-halyal">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Пепперони халяль — что это, состав и где купить оптом</title>
+  <meta name="description" content="Пепперони халяль: состав, сертификация ДУМ РТ, отличия от обычного пепперони. Оптовые поставки для пиццерий и HoReCa от производителя из Казани." />
+  <link rel="canonical" href="https://pepperoni.tatar/blog/pepperoni-halyal" />
+
+  <!-- Bootstrap 5 CDN -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+    crossorigin="anonymous"
+  />
+
+  <!-- Schema.org JSON-LD: Article -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
+    "@type": "Article",
+    "headline": "Пепперони халяль — что это, состав и где купить оптом",
+    "description": "Пепперони халяль: состав, сертификация ДУМ РТ, отличия от обычного пепперони. Оптовые поставки для пиццерий и HoReCa от производителя из Казани.",
+    "datePublished": "2026-06-16",
+    "dateModified": "2026-06-16",
+    "author": {
+      "@type": "Organization",
+      "name": "Казанские Деликатесы",
+      "url": "https://pepperoni.tatar"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Казанские Деликатесы",
+      "url": "https://pepperoni.tatar",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://pepperoni.tatar/img/logo.png"
+      }
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://pepperoni.tatar/blog/pepperoni-halyal"
+    }
+  }
+  </script>
+
+  <!-- Schema.org JSON-LD: BreadcrumbList -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
       {
-        "@type": "Article",
-        "headline": "Пепперони халяль: состав, сертификация и оптовые поставки для пиццерий",
-        "datePublished": "2026-06-12",
-        "dateModified": "2026-06-12",
-        "author": {
-          "@type": "Organization",
-          "name": "Казанские Деликатесы",
-          "url": "https://pepperoni.tatar"
-        },
-        "publisher": {
-          "@type": "Organization",
-          "name": "Казанские Деликатесы",
-          "url": "https://pepperoni.tatar",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://pepperoni.tatar/logo.png"
-          }
-        },
-        "mainEntityOfPage": {
-          "@type": "WebPage",
-          "@id": "https://pepperoni.tatar/blog/pepperoni-halyal"
-        }
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Главная",
+        "item": "https://pepperoni.tatar/"
       },
       {
-        "@type": "BreadcrumbList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "Главная",
-            "item": "https://pepperoni.tatar/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "Блог",
-            "item": "https://pepperoni.tatar/blog"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "Пепперони халяль",
-            "item": "https://pepperoni.tatar/blog/pepperoni-halyal"
-          }
-        ]
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Блог",
+        "item": "https://pepperoni.tatar/blog"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Пепперони халяль",
+        "item": "https://pepperoni.tatar/blog/pepperoni-halyal"
       }
     ]
   }
   </script>
-  <style>
-    body { font-family: 'Segoe UI', sans-serif; color: #1a1a1a; }
-    .hero-section { background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); color: #fff; padding: 56px 0 48px; }
-    .hero-section h1 { font-size: 2rem; font-weight: 700; }
-    .hero-section .lead { color: #b7e4c7; }
-    h2 { color: #1b4332; font-weight: 700; margin-top: 2rem; }
-    .badge-halal { background: #1b4332; color: #fff; font-size: 0.8rem; padding: 4px 12px; border-radius: 20px; display: inline-block; margin-bottom: 1rem; }
-    .tip-box { background: #f0faf4; border-left: 4px solid #2d6a4f; padding: 16px 20px; border-radius: 4px; margin: 1.5rem 0; }
-    .cta-section { background: #1b4332; color: #fff; padding: 48px 0; }
-    .cta-section a.btn { background: #fff; color: #1b4332; font-weight: 700; }
-    .cta-section a.btn:hover { background: #b7e4c7; color: #1b4332; }
-    footer { background: #111; color: #aaa; font-size: 0.88rem; padding: 32px 0; }
-    footer a { color: #b7e4c7; text-decoration: none; }
-    footer a:hover { text-decoration: underline; }
-    .breadcrumb-item a { color: #b7e4c7; }
-    .breadcrumb-item.active { color: #fff; }
-    .breadcrumb-item + .breadcrumb-item::before { color: #b7e4c7; }
-  </style>
 </head>
-<body>
+<body class="bg-light">
 
-  <!-- Hero -->
-  <section class="hero-section">
+  <!-- Навигация -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container">
-      <nav aria-label="breadcrumb" class="mb-3">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="/">Главная</a></li>
-          <li class="breadcrumb-item"><a href="/blog">Блог</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Пепперони халяль</li>
-        </ol>
-      </nav>
-      <span class="badge-halal">Халяль · ДУМ РТ #614A/2024</span>
-      <h1>Пепперони халяль: состав, сертификация и оптовые поставки для пиццерий</h1>
-      <p class="lead mt-3 mb-0">Полное руководство для закупщиков HoReCa, пиццерий и дистрибьюторов</p>
+      <a class="navbar-brand fw-bold" href="https://pepperoni.tatar/">Казанские Деликатесы</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navMenu">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="/pepperoni">Пепперони</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pepperoni-optom">Оптом</a></li>
+          <li class="nav-item"><a class="nav-link" href="/pepperoni-dlya-pizzerii">Для пиццерий</a></li>
+        </ul>
+      </div>
     </div>
-  </section>
+  </nav>
 
-  <!-- Main content -->
-  <main class="container my-5">
+  <!-- Хлебные крошки -->
+  <div class="container mt-3">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="https://pepperoni.tatar/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="https://pepperoni.tatar/blog">Блог</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Пепперони халяль</li>
+      </ol>
+    </nav>
+  </div>
+
+  <!-- Основной контент -->
+  <main class="container my-4">
     <div class="row justify-content-center">
       <div class="col-lg-9">
 
-        <!-- Введение -->
-        <p class="fs-5">
-          Пепперони халяль — одна из самых востребованных начинок для пиццы в сегменте халяль-общепита. Спрос на неё растёт вместе с числом мусульманских потребителей в России, СНГ и на экспортных рынках Ближнего Востока. Однако найти продукт с реальным сертификатом, стабильным составом и промышленными объёмами поставки по-прежнему непросто. В этой статье — всё, что нужно знать о выборе, сертификации и закупке пепперони халяль для пиццерии или дистрибьюторской сети.
-        </p>
+        <article>
+          <!-- H1 -->
+          <h1 class="fw-bold mb-3">Пепперони халяль: состав, сертификация и выбор для пиццерии</h1>
 
-        <!-- H2 #1 -->
-        <h2>Что такое пепперони халяль и чем он отличается от обычного</h2>
-        <p>
-          Классическое пепперони производится из смеси говядины и птицы с добавлением специй, паприки и натуральной оболочки. Халяль-версия отличается не только составом сырья — говядина и курица должны быть забиты по исламским нормам (забих) — но и полным технологическим разделением производства: отдельные линии, инструменты и хранение, исключающие контакт с несовместимыми продуктами.
-        </p>
-        <p>
-          Ключевой маркер подлинности — сертификат халяль от признанной организации. <a href="/pepperoni">Пепперони «Казанские Деликатесы»</a> сертифицировано Духовным управлением мусульман Республики Татарстан (ДУМ РТ), сертификат №&nbsp;614A/2024 — один из наиболее авторитетных в России и признаётся рядом стран-импортёров.
-        </p>
+          <!-- Введение -->
+          <p class="lead text-muted mb-4">
+            Рынок халяль-продуктов в России растёт ежегодно: всё больше пиццерий, тёмных кухонь и сетей фастфуда ищут
+            качественный <strong>пепперони халяль</strong> для включения в меню. Однако найти продукт с реальной
+            сертификацией, стабильными поставками и нужным форматом нарезки — задача не из простых. В этой статье
+            разберём, что отличает настоящий халяль-пепперони, на какие документы смотреть при закупке и как выстроить
+            бесперебойную цепочку поставок для вашего заведения или сети.
+          </p>
 
-        <!-- H2 #2 -->
-        <h2>Состав и технологические характеристики халяль-пепперони</h2>
-        <p>
-          Профессиональный закупщик оценивает пепперони не только по вкусу, но и по технологическим параметрам, которые напрямую влияют на качество готовой пиццы:
-        </p>
-        <ul>
-          <li><strong>Сырьё:</strong> говядина и/или курица халяль, без добавления нехаляльных компонентов.</li>
-          <li><strong>Нарезка:</strong> слайсы толщиной 1,5–2,5 мм, диаметр 40–70 мм — стандарт для пиццерий.</li>
-          <li><strong>Поведение при запекании:</strong> правильное пепперони «чашкуется» при температуре 280–320 °C, края загибаются, внутри собирается сок — визуальный маркер качества для конечного потребителя.</li>
-          <li><strong>Срок годности:</strong> от 30 до 90 суток в вакуумной упаковке при температуре 0…+6 °C.</li>
-          <li><strong>Фасовка:</strong> от 500 г (розничный формат) до 2,5 кг и 5 кг (HoReCa и опт).</li>
-        </ul>
+          <!-- H2 — 1 -->
+          <h2 class="h4 fw-bold mt-5 mb-3">Что такое пепперони халяль и чем он отличается от обычного</h2>
+          <p>
+            Классический пепперони — острая вяленая колбаса с характерным красным цветом и пряным вкусом. Халяль-версия
+            отличается исключительно сырьём: в производстве используется только говядина и птица (курица, индейка),
+            прошедшие забой по исламским нормам. Никакого недопустимого сырья — только 100% халяль-мясо.
+          </p>
+          <p>
+            Ключевой маркер подлинности — не просто надпись «халяль» на упаковке, а действующий сертификат
+            аккредитованного органа. В России таким органом является <strong>ДУМ РТ (Духовное управление мусульман
+            Республики Татарстан)</strong>. Именно этот сертификат признаётся дистрибьюторами GCC, ритейлерами СНГ и
+            крупными сетями HoReCa.
+          </p>
+          <p>
+            Подробнее о видах и форматах продукта читайте в разделе <a href="/pepperoni">пепперони</a> нашего сайта.
+          </p>
 
-        <div class="tip-box">
-          <strong>Совет закупщику:</strong> при первом заказе запросите образцы двух-трёх форматов нарезки и проведите тест-запекание на своём оборудовании — температурный режим конвейерных печей и дровяных печей существенно различается.
-        </div>
+          <!-- H2 — 2 -->
+          <h2 class="h4 fw-bold mt-5 mb-3">Сертификация: на что обращать внимание при закупке</h2>
+          <p>
+            При выборе поставщика халяль-пепперони проверяйте три уровня документации:
+          </p>
+          <ul>
+            <li>
+              <strong>Сертификат халяль</strong> — номер, орган-выдавший, срок действия. Например,
+              <em>сертификат ДУМ РТ №614A/2024</em> охватывает всю линейку «Казанских Деликатесов» и
+              регулярно подтверждается при плановых аудитах производства.
+            </li>
+            <li>
+              <strong>Система менеджмента безопасности пищевой продукции</strong> — наличие HACCP и
+              <strong>ISO 22000:2018</strong> гарантирует контроль на каждом этапе: от входного контроля сырья
+              до отгрузки готовой продукции.
+            </li>
+            <li>
+              <strong>Техрегламент ТР ТС 021/2011</strong> — обязательное требование для обращения продукции
+              на территории Таможенного союза (Россия, Казахстан, Беларусь и др.).
+            </li>
+          </ul>
+          <p>
+            Поставщик, не готовый предоставить эти документы по первому запросу, — серьёзный сигнал риска для вашего
+            бизнеса, особенно если вы работаете с аудиторией, для которой халяльность принципиальна.
+          </p>
 
-        <!-- H2 #3 -->
-        <h2>Сертификация халяль: на что обращать внимание при проверке</h2>
-        <p>
-          Рынок халяль-продукции в России активно растёт, и вместе с ним — число производителей с формальными или устаревшими сертификатами. При выборе поставщика проверяйте:
-        </p>
-        <ol>
-          <li><strong>Орган сертификации.</strong> ДУМ РТ, ДУМ РФ, ЦДУМ — наиболее признанные организации. Сертификаты региональных структур могут не приниматься на экспортных рынках.</li>
-          <li><strong>Срок действия.</strong> Сертификат должен быть актуальным. Сертификат ДУМ РТ №&nbsp;614A/2024 действует в течение 2024–2025 годов, плановое переоформление — в 2026 году.</li>
-          <li><strong>Область применения.</strong> Убедитесь, что сертификат распространяется именно на пепперони и колбасные изделия, а не только на отдельные виды сырья.</li>
-          <li><strong>Производственный аудит.</strong> Серьёзные производители допускают выездную проверку цеха. Это стандарт для поставок в сети и на экспорт.</li>
-        </ol>
-        <p>
-          Помимо халяль-сертификата, <a href="/pepperoni-optom">оптовые поставки пепперони</a> «Казанских Деликатесов» подтверждены сертификатами HACCP и ISO 22000:2018, а продукция соответствует требованиям технического регламента ТР ТС 021/2011 Таможенного союза.
-        </p>
+          <!-- H2 — 3 -->
+          <h2 class="h4 fw-bold mt-5 mb-3">Форматы пепперони халяль для пиццерий и HoReCa</h2>
+          <p>
+            Профессиональные кухни предъявляют конкретные требования к формату продукта. Рассмотрим основные варианты:
+          </p>
+          <div class="table-responsive my-3">
+            <table class="table table-bordered table-striped align-middle">
+              <thead class="table-dark">
+                <tr>
+                  <th>Формат</th>
+                  <th>Типичный вес упаковки</th>
+                  <th>Применение</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Нарезка ломтиками (слайсы)</td>
+                  <td>500 г / 1 кг / 2,5 кг</td>
+                  <td>Пицца, сэндвичи, пастрами-бокс</td>
+                </tr>
+                <tr>
+                  <td>Батон целиком (вакуум)</td>
+                  <td>2–3 кг</td>
+                  <td>Нарезка на производстве клиента</td>
+                </tr>
+                <tr>
+                  <td>Мини-батон (порционный)</td>
+                  <td>200–400 г</td>
+                  <td>АЗС, кафе, мини-маркеты</td>
+                </tr>
+                <tr>
+                  <td>Private Label / СТМ</td>
+                  <td>По ТЗ клиента</td>
+                  <td>Сетевые пиццерии, ритейл</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            Для крупных заказчиков доступна опция <strong>private label</strong>: рецептура, диаметр, толщина нарезки,
+            упаковка и маркировка — всё под бренд клиента. Именно по этой схеме выпускается пепперони «Аслам» для
+            ОМПК (Останкинский мясокомбинат).
+          </p>
+          <p>
+            Узнайте об условиях оптовых поставок в разделе <a href="/pepperoni-optom">пепперони оптом</a>.
+          </p>
 
-        <!-- H2 #4 -->
-        <h2>Как выбрать поставщика халяль-пепперони для пиццерии или сети</h2>
-        <p>
-          При масштабировании пиццерии или тёмной кухни стабильность поставок важнее разовой цены. Оцените поставщика по следующим критериям:
-        </p>
-        <ul>
-          <li><strong>Производственные мощности.</strong> Собственное производство в Казани позволяет «Казанским Деликатесам» обеспечивать стабильные отгрузки без посредников и ценовых скачков.</li>
-          <li><strong>Ассортиментная глубина.</strong> 77 SKU халяль-продукции — пепперони, сосиски, котлеты для бургеров, казылык, ветчина — позволяют закрыть потребности пиццерии, бургерной и кейтеринга у одного поставщика.</li>
-          <li><strong>Private Label / СТМ.</strong> Если вы развиваете собственный бренд, уточните возможность производства под вашей торговой маркой с кастомной рецептурой и упаковкой.</li>
-          <li><strong>Логистика и география.</strong> Казань — удобная точка отгрузки для Поволжья, Урала, Сибири и экспорта в страны СНГ и GCC. Условия поставки: EXW Казань.</li>
-        </ul>
+          <!-- H2 — 4 -->
+          <h2 class="h4 fw-bold mt-5 mb-3">Практические советы по выбору поставщика халяль-пепперони</h2>
+          <p>
+            Опираясь на опыт работы с пиццерийными сетями, HoReCa и дистрибьюторами, выделим пять критериев выбора:
+          </p>
+          <ol>
+            <li>
+              <strong>Проверьте реестр сертификатов ДУМ РТ.</strong> Действующий сертификат должен быть верифицирован
+              на официальном сайте органа по сертификации — не принимайте скан без проверки.
+            </li>
+            <li>
+              <strong>Запросите образцы перед крупным заказом.</strong> Цвет, аромат, жирность, поведение при
+              запекании — всё это проверяется только на реальной кухне. Добросовестный производитель отправит
+              образцы без предоплаты.
+            </li>
+            <li>
+              <strong>Уточните стабильность поставок.</strong> Для сетей критичен гарантированный еженедельный
+              объём. Уточните складской запас, производственный цикл и схему логистики до вашего склада.
+            </li>
+            <li>
+              <strong>Обсудите нарезку под вашу пиццу.</strong> Стандартный диаметр слайса 40–45 мм и толщина
+              1,5–2 мм — оптимальны для большинства пицц. Но при нестандартном диаметре основы поставщик должен
+              предложить альтернативу.
+            </li>
+            <li>
+              <strong>Изучите условия private label.</strong> Если вы строите сетевой бренд, собственная торговая
+              марка на пепперони усиливает идентичность и снижает зависимость от одного поставщика в долгосрочной
+              перспективе.
+            </li>
+          </ol>
+          <p>
+            Подробнее о специфике поставок для заведений читайте в разделе
+            <a href="/pepperoni-dlya-pizzerii">пепперони для пиццерий</a>.
+          </p>
 
-        <div class="tip-box">
-          <strong>Практический совет:</strong> для <a href="/pepperoni-dlya-pizzerii">пиццерий</a> с расходом от 50 кг пепперони в неделю экономически целесообразно переходить на прямые контракты с производителем — это снижает стоимость единицы продукта на 12–18% по сравнению с закупкой через дистрибьютора.
-        </div>
+          <!-- Заключение + CTA -->
+          <div class="bg-white border rounded p-4 mt-5">
+            <h2 class="h5 fw-bold mb-3">Итог: как найти надёжного поставщика халяль-пепперони</h2>
+            <p>
+              Пепперони халяль — это не маркетинговый ярлык, а чётко регламентированный продукт с конкретными
+              требованиями к сырью, технологии и документации. Производитель из Казани — «Казанские Деликатесы» —
+              выпускает <a href="/pepperoni">халяль-пепперони из говядины</a> под сертификатом ДУМ РТ №614A/2024,
+              в рамках ISO 22000:2018 и HACCP, с возможностью поставки в любом формате нарезки и под брендом клиента.
+              77 SKU халяль-продукции, экспорт в страны GCC и СНГ, проверенные клиенты в ритейле и HoReCa — это
+              реальная база для долгосрочного партнёрства.
+            </p>
+            <p class="mb-0">
+              <strong>Оставьте заявку на образцы или запросите прайс-лист:</strong>
+            </p>
+            <ul class="mt-2 mb-3">
+              <li>📞 <a href="tel:+79872170202">+7 987 217-02-02</a></li>
+              <li>✉️ <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></li>
+              <li>🌐 <a href="https://pepperoni.tatar/">pepperoni.tatar</a></li>
+            </ul>
+            <a href="/pepperoni-optom" class="btn btn-danger fw-semibold px-4">Получить прайс-лист</a>
+          </div>
 
-        <!-- Заключение -->
-        <h2>Заключение</h2>
-        <p>
-          Пепперони халяль — это не компромисс, а полноценная замена традиционному продукту для мусульманской аудитории и всех, кто ценит прозрачный состав и документально подтверждённое качество. Правильный выбор поставщика строится на трёх столпах: актуальный сертификат халяль от авторитетного органа, промышленные стандарты качества (HACCP, ISO 22000:2018) и надёжная логистика.
-        </p>
-        <p>
-          «Казанские Деликатесы» производят халяль-пепперони из говядины и курицы в Казани с 2022 года, поставляют продукцию пиццериям, сетям HoReCa, ритейлу и дистрибьюторам по всей России и на экспорт. Готовы предоставить образцы, коммерческое предложение и полный пакет сертификационной документации.
-        </p>
+        </article>
 
       </div>
     </div>
   </main>
 
-  <!-- CTA -->
-  <section class="cta-section">
-    <div class="container text-center">
-      <h2 class="text-white mb-3">Получите образцы и коммерческое предложение</h2>
-      <p class="text-white-50 mb-4">Пепперони халяль оптом от производителя · Казань · Сертификат ДУМ РТ #614A/2024</p>
-      <div class="d-flex flex-wrap gap-3 justify-content-center">
-        <a href="mailto:info@kazandelikates.tatar" class="btn btn-lg px-4">Написать на email</a>
-        <a href="tel:+79872170202" class="btn btn-lg px-4">+7 987 217-02-02</a>
-        <a href="/pepperoni-optom" class="btn btn-outline-light btn-lg px-4">Каталог пепперони оптом</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer>
+  <!-- Футер -->
+  <footer class="bg-dark text-white mt-5 py-4">
     <div class="container">
       <div class="row gy-3">
-        <div class="col-md-5">
-          <strong class="text-white">Казанские Деликатесы</strong><br>
-          Халяль-производитель мясных деликатесов<br>
-          г. Казань, ул. Аграрная, 2, оф. 7<br>
-          <a href="tel:+79872170202">+7 987 217-02-02</a> ·
-          <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
+        <div class="col-md-6">
+          <p class="fw-bold mb-1">Казанские Деликатесы</p>
+          <p class="small mb-1">г. Казань, ул. Аграрная, 2, оф. 7</p>
+          <p class="small mb-1">
+            <a href="tel:+79872170202" class="text-white text-decoration-none">+7 987 217-02-02</a>
+          </p>
+          <p class="small mb-0">
+            <a href="mailto:info@kazandelikates.tatar" class="text-white text-decoration-none">info@kazandelikates.tatar</a>
+          </p>
         </div>
-        <div class="col-md-4">
-          <strong class="text-white">Продукция</strong><br>
-          <a href="/pepperoni">Пепперони халяль</a><br>
-          <a href="/pepperoni-optom">Пепперони оптом</a><br>
-          <a href="/pepperoni-dlya-pizzerii">Пепперони для пиццерий</a>
-        </div>
-        <div class="col-md-3">
-          <strong class="text-white">Сертификаты</strong><br>
-          Халяль ДУМ РТ №614A/2024<br>
-          HACCP · ISO 22000:2018<br>
-          ТР ТС 021/2011
+        <div class="col-md-6 text-md-end">
+          <p class="small mb-1">Халяль сертификат ДУМ РТ №614A/2024</p>
+          <p class="small mb-1">HACCP · ISO 22000:2018 · ТР ТС 021/2011</p>
+          <p class="small mb-0">© 2022–2026 ООО «Казанские Деликатесы». Все права защищены.</p>
         </div>
       </div>
-      <hr class="border-secondary mt-4">
-      <p class="mb-0 text-center">© 2022–2026 ООО «Казанские Деликатесы» · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
     </div>
   </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<section data-linker="1" class="container my-4" style="border-top:1px solid #e5e5e5;padding-top:16px">
-  <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
-  <ul style="columns:2;font-size:.95rem">
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — колбаса для пиццы</a></li>
-    <li><a href="/blog/pepperoni-halyal-ili-net">Пепперони халяль — из чего делают и где купить оптом</a></li>
-    <li><a href="/blog/chto-takoe-halyal-pepperoni">Что такое халяль пепперони: состав и производство</a></li>
-    <li><a href="/blog/pepperoni-halyal-optom">Пепперони халяль оптом от производителя — цена и доставка</a></li>
-    <li><a href="/blog/sravnenie-halyal-pepperoni">Сравнение халяль пепперони: говядина, курица, конина</a></li>
-    <li><a href="/oem/toppings">Контрактное производство топпингов под СТМ — пепперони-нарезка для пиццы и фудсервиса халяль</a></li>
-  </ul>
-</section>
+  <!-- Bootstrap 5 JS -->
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmLSXU0OJQtGkTTLovMoFTBxbxnX"
+    crossorigin="anonymous">
+  </script>
+
 </body>
 </html>
+```

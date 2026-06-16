@@ -13,11 +13,11 @@
     "was": null,
     "_dedup": "failing:how to identify halal certified products"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «how to identify halal certified products» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-14T06:30:02.057241+00:00",
-   "updated_at": "2026-06-14T06:30:02.057250+00:00",
+   "updated_at": "2026-06-16T05:30:30.712927+00:00",
    "claimed_by": null
   },
   {
@@ -33,11 +33,11 @@
     "was": null,
     "_dedup": "failing:russia halal market size 2026 trillion rubles"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «russia halal market size 2026 trillion rubles» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-14T06:30:02.057576+00:00",
-   "updated_at": "2026-06-14T06:30:02.057581+00:00",
+   "updated_at": "2026-06-16T05:30:30.712938+00:00",
    "claimed_by": null
   },
   {
@@ -53,14 +53,94 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-14T06:30:02.057855+00:00",
-   "updated_at": "2026-06-14T06:30:02.057859+00:00",
+   "updated_at": "2026-06-16T05:30:30.712944+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260616-0004",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "farsh yerevan",
+    "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:farsh yerevan"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «farsh yerevan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-16T05:30:02.584490+00:00",
+   "updated_at": "2026-06-16T05:30:02.584500+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260616-0005",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "how to identify halal certified products",
+    "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:how to identify halal certified products"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «how to identify halal certified products» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-16T05:30:43.491782+00:00",
+   "updated_at": "2026-06-16T05:30:43.491789+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260616-0006",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "russia halal market size 2026 trillion rubles",
+    "page": "https://pepperoni.tatar/en/blog/rynok-halyal-rossiya",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:russia halal market size 2026 trillion rubles"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «russia halal market size 2026 trillion rubles» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-16T05:30:43.492344+00:00",
+   "updated_at": "2026-06-16T05:30:43.492349+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260616-0007",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пепперони халяль",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "verdict": "worse",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пепперони халяль"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-16T05:30:43.493537+00:00",
+   "updated_at": "2026-06-16T05:30:43.493541+00:00",
    "claimed_by": null
   }
  ],
- "seq": 3,
- "updated_at": "2026-06-14T06:30:02.057876+00:00"
+ "seq": 7,
+ "updated_at": "2026-06-16T05:30:43.493558+00:00"
 }

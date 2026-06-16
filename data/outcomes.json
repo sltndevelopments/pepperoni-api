@@ -1,10 +1,10 @@
 {
- "generated_at": "2026-06-15T05:31:45.256174+00:00",
+ "generated_at": "2026-06-16T05:30:42.926647+00:00",
  "summary": {
   "improved": 1,
-  "flat": 10,
+  "flat": 9,
   "worse": 3,
-  "not_indexed": 2,
+  "not_indexed": 3,
   "pending": 3
  },
  "failing": [
@@ -13,6 +13,16 @@
    "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
    "change": "title_meta",
    "before_pos": 8.19,
+   "current_pos": null,
+   "impr": 0,
+   "age_days": 7.9,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "farsh yerevan",
+   "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+   "change": "title_meta",
+   "before_pos": 9.16,
    "current_pos": null,
    "impr": 0,
    "age_days": 6.9,
@@ -25,7 +35,7 @@
    "before_pos": 3.08,
    "current_pos": null,
    "impr": 0,
-   "age_days": 3.0,
+   "age_days": 4.0,
    "verdict": "not_indexed"
   },
   {
@@ -33,10 +43,10 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 34.34,
-   "current_pos": 57.9,
-   "impr": 56,
-   "age_days": 5.0,
-   "delta": -23.6,
+   "current_pos": 58.7,
+   "impr": 55,
+   "age_days": 6.0,
+   "delta": -24.4,
    "verdict": "worse"
   },
   {
@@ -44,10 +54,10 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 33.39,
-   "current_pos": 57.9,
-   "impr": 56,
-   "age_days": 4.0,
-   "delta": -24.5,
+   "current_pos": 58.7,
+   "impr": 55,
+   "age_days": 5.0,
+   "delta": -25.3,
    "verdict": "worse"
   },
   {
@@ -55,10 +65,10 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 32.46,
-   "current_pos": 57.9,
-   "impr": 56,
-   "age_days": 3.0,
-   "delta": -25.4,
+   "current_pos": 58.7,
+   "impr": 55,
+   "age_days": 4.0,
+   "delta": -26.2,
    "verdict": "worse"
   }
  ],

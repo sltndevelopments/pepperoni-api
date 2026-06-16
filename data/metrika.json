@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-06-12T07:45:13.422716+00:00",
+ "fetched_at": "2026-06-16T05:30:03.763537+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 168,
-  "users": 139,
-  "bounce_rate_pct": 42.9,
+  "visits": 165,
+  "users": 134,
+  "bounce_rate_pct": 39.4,
   "page_depth": 1.61,
-  "avg_visit_sec": 100
+  "avg_visit_sec": 91
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 99
+   "visits": 97
   },
   {
    "source": "Search engine traffic",
-   "visits": 32
+   "visits": 33
   },
   {
    "source": "Internal traffic",
-   "visits": 31
+   "visits": 29
   },
   {
    "source": "Link traffic",
@@ -30,21 +30,21 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 144,
-   "bounce_pct": 42.4
+   "visits": 142,
+   "bounce_pct": 39.4
   },
   {
    "path": "/en/",
-   "visits": 4,
-   "bounce_pct": 50.0
-  },
-  {
-   "path": "/products/kd-001",
-   "visits": 3,
-   "bounce_pct": 0.0
+   "visits": 5,
+   "bounce_pct": 40.0
   },
   {
    "path": "/products/kd-027",
+   "visits": 2,
+   "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-059",
    "visits": 2,
    "bounce_pct": 0.0
   },
@@ -79,17 +79,17 @@
    "bounce_pct": 100.0
   },
   {
+   "path": "/products/kd-001",
+   "visits": 1,
+   "bounce_pct": 0.0
+  },
+  {
    "path": "/products/kd-006",
    "visits": 1,
    "bounce_pct": 0.0
   },
   {
    "path": "/products/kd-008",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/products/kd-015",
    "visits": 1,
    "bounce_pct": 100.0
   },
@@ -105,7 +105,7 @@
   }
  ],
  "leads": {
-  "total_leads": 3,
+  "total_leads": 4,
   "by_goal": {
    "Автоцель: клик по email": 2,
    "Автоцель: переход в мессенджер": 1,
