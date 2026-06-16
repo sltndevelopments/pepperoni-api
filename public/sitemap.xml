@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/products</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -723,7 +723,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/products</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -1652,6 +1652,12 @@
     <priority>0.70</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/blog/echpochmak-eto</loc>
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/blog/echpochmak-halyal</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
@@ -2332,6 +2338,12 @@
   <url>
     <loc>https://pepperoni.tatar/blog/kurinnoe-file-kubik-horeca</loc>
     <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/blog/kuritsa-halyal-chem-otlichaetsya</loc>
+    <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
@@ -18630,7 +18642,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/ar</loc>
-    <lastmod>2026-06-16</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
