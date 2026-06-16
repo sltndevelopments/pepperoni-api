@@ -176,7 +176,15 @@ def main() -> int:
     for f in files:
         if process_file(f):
             touched += 1
-    print(f"✅ schema: scanned {len(files)} pages, enriched {touched}")
+    summary = f"schema-fix: {len(files)} страниц просканировано, {touched} обогащено"
+    print(f"✅ {summary}")
+    try:
+        import sys as _sys
+        _sys.path.insert(0, str(Path(__file__).parent))
+        import daily_ledger
+        daily_ledger.append_event("done", summary)
+    except Exception:
+        pass
     return 0
 
 

@@ -184,11 +184,12 @@ def main():
 
     # notify first, so even if the brain call is slow the owner knows why
     try:
-        from telegram_notify import notify
-        notify("<b>⚡ Авто-эскалация в мозг</b>\nСильный сигнал — Opus пересобирает "
-               "стратегию внепланово:\n" + "\n".join(f"  • {s}" for s in signals))
+        import daily_ledger
+        daily_ledger.append_event(
+            "needs_help",
+            "⚡ Авто-эскалация в мозг: " + "; ".join(signals[:3]))
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
     print(f"🧠 escalating → running brain now (budget left ${remaining_budget():.2f})")
     try:

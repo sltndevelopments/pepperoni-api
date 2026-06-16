@@ -607,10 +607,17 @@ def prepare_task(task: dict) -> dict:
 
 
 def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
-    """Post-process generated HTML and persist the page."""
+    """Post-process generated HTML and persist the page.
+
+    Temp-file flow: write to data/tmp/ → reviewer → on pass move to public/;
+    on fail/crash delete temp so public/ is never polluted with bad content.
+    """
+    import shutil as _shutil
+    import tempfile as _tmpmod
     task = prep["task"]
     product = task["product"]
     page_slug = prep["page_slug"]
+    final_path: Path = prep["file_path"]
     try:
         html_content = clean_html(html_content)
         # Close/repair the tail BEFORE injecting links so the </body> anchor exists.
@@ -622,42 +629,51 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
             return {"status": "error", "slug": page_slug,
                     "error": "incomplete/invalid HTML — not saved"}
 
-        prep["file_path"].write_text(html_content, encoding="utf-8")
+        # Write to data/tmp/ first — public/ only gets the file after gate passes.
+        tmp_dir = DATA / "tmp"
+        tmp_dir.mkdir(parents=True, exist_ok=True)
+        tmp_path = tmp_dir / final_path.name
+        tmp_path.write_text(html_content, encoding="utf-8")
 
         # ── Quality gate (synchronous, before git add ever sees the file) ──
         # Fail-closed: any exception in the reviewer = hold = not published.
         try:
             import page_reviewer
             review = page_reviewer.review_page(
-                prep["file_path"],
+                tmp_path,
                 meta={"slug": page_slug, "lang": task["lang"],
                       "product": product["name_ru"], "city": task["city_name"]},
             )
         except Exception as _rev_exc:
-            # reviewer module itself crashed — treat as hold
+            # reviewer module itself crashed — treat as hold; delete temp
+            tmp_path.unlink(missing_ok=True)
             try:
                 import page_reviewer as _pr
                 _pr._alert(f"🚨 Рецензент упал (import/call): {_rev_exc}\n"
                            f"Страница {page_slug} удержана.")
-                _pr._log(prep["file_path"], "hold", [], error=str(_rev_exc))
+                _pr._log(tmp_path, "hold", [], error=str(_rev_exc))
             except Exception:
                 pass
-            prep["file_path"].unlink(missing_ok=True)
             return {"status": "held", "slug": page_slug,
                     "error": f"reviewer crashed: {_rev_exc}"}
 
         if review["verdict"] != "pass":
-            # File already moved to quarantine by review_page(); just report.
+            # Temp file already handled (quarantined) by review_page(); ensure it's gone.
+            tmp_path.unlink(missing_ok=True)
             return {"status": "quarantined", "slug": page_slug,
                     "reasons": review["reasons"]}
 
+        # Gate passed — move to final public/ destination.
+        final_path.parent.mkdir(parents=True, exist_ok=True)
+        _shutil.move(str(tmp_path), str(final_path))
+
         save_page_record(page_slug, product["id"], task["city_slug"],
                          task["country_code"], task["lang"], task["template_id"],
-                         str(prep["file_path"]), tokens)
+                         str(final_path), tokens)
         return {
             "status": "generated",
             "slug": page_slug,
-            "file": str(prep["file_path"]),
+            "file": str(final_path),
             "tokens": tokens,
             "city": task["city_name"],
             "product": product["name_ru"],

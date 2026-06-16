@@ -263,18 +263,19 @@ def experiments_digest() -> dict:
 
 
 def scout_digest() -> dict:
-    """New/rising/gap demand signals discovered by the Scout agent."""
+    """New/rising/gap demand signals discovered by the Scout agent.
+    Cap: 10 items per category × 4 slim fields."""
     try:
         f = json.loads((DATA / "scout_findings.json").read_text())
     except Exception:
         return {}
     def _trim(lst):
         return [{"query": e.get("query"), "impr": e.get("impr"),
-                 "pos": e.get("pos"), "page": e.get("page")} for e in (lst or [])[:12]]
+                 "pos": e.get("pos"), "page": e.get("page")} for e in (lst or [])[:10]]
     return {
-        "new_queries": _trim(f.get("new_queries")),
+        "new_queries":    _trim(f.get("new_queries")),
         "rising_queries": _trim(f.get("rising_queries")),
-        "coverage_gaps": _trim(f.get("coverage_gaps")),
+        "coverage_gaps":  _trim(f.get("coverage_gaps")),
     }
 
 
@@ -345,15 +346,41 @@ def ai_bots_digest() -> dict:
 
 
 def market_pulse_digest() -> dict:
-    """Monthly live-web market intel (market_pulse.py / Perplexity)."""
+    """Monthly live-web market intel — capped to top-5 priority markets.
+
+    Cap: 5 markets × slim fields (1 insight×80, opportunity×80, risk×40).
+    Uncapped this block alone runs ~10K tokens; capped it stays ~430 tokens.
+    """
     try:
         mp = json.loads((DATA / "market_pulse.json").read_text())
+        countries = mp.get("countries") or {}
+
+        # Sort by market_priority from goals.json (single source of truth)
+        try:
+            goals_raw = json.loads((DATA / "goals.json").read_text())
+            _MP3TO2 = {
+                "kaz": "kz", "kgz": "kg", "uzb": "uz", "tjk": "tj",
+                "geo": "ge", "aze": "az", "are": "ae", "sau": "sa",
+                "kwt": "kw", "bhr": "bh", "omn": "om", "qat": "qa",
+                "egy": "eg", "yem": "ye", "blr": "by", "arm": "am",
+            }
+            pri_map = {
+                _MP3TO2.get(c["code"], c["code"]): c.get("market_priority", 99)
+                for c in goals_raw.get("countries", [])
+            }
+        except Exception:
+            pri_map = {}
+
+        sorted_codes = sorted(countries.keys(),
+                              key=lambda c: pri_map.get(c, 99))[:5]
         out = {}
-        for code, c in (mp.get("countries") or {}).items():
+        for code in sorted_codes:
+            c = countries[code]
+            raw_insights = c.get("insights") or []
             out[c.get("name", code)] = {
-                "insights": (c.get("insights") or [])[:3],
-                "opportunity": c.get("opportunity", ""),
-                "risk": c.get("risk", ""),
+                "insight":     (raw_insights[0] if raw_insights else "")[:80],
+                "opportunity": (c.get("opportunity") or "")[:80],
+                "risk":        (c.get("risk") or "")[:40],
             }
         return {"generated_at": mp.get("generated_at", ""), "markets": out}
     except Exception:
@@ -467,7 +494,7 @@ def cwv_digest() -> dict:
 
 
 def build_digest() -> dict:
-    return {
+    digest = {
         "date": TODAY,
         "data_health": data_health_digest(),
         "site_health": site_health_digest(),
@@ -493,13 +520,52 @@ def build_digest() -> dict:
         "memory": memory_digest(),
         "owner_answers": _load_owner_answers()[-10:],
     }
+    # ── Hard size guardian (~15K token ceiling = 45K chars) ───────────────
+    # Per-block caps above should keep total well under this; the guardian is
+    # a structural backstop for any future block that exceeds its cap.
+    # Cuts by ELEMENT count (never slice a JSON string) so result stays valid.
+    _GUARDIAN_CHARS = 45_000
+    _VARIABLE_BLOCKS = (
+        "market_pulse", "agent_bus", "scout", "gate_rejections",
+        "web_search", "memory", "opportunities", "competitors",
+    )
+    _TRIM_STEPS = [10, 5, 3, 1]
+
+    raw = json.dumps(digest, ensure_ascii=False)
+    if len(raw) > _GUARDIAN_CHARS:
+        for step in _TRIM_STEPS:
+            for key in _VARIABLE_BLOCKS:
+                val = digest.get(key)
+                if isinstance(val, list):
+                    digest[key] = val[:step]
+                elif isinstance(val, dict):
+                    # Trim the longest list-valued sub-key
+                    for sub, sv in val.items():
+                        if isinstance(sv, list) and len(sv) > step:
+                            val[sub] = sv[:step]
+            raw = json.dumps(digest, ensure_ascii=False)
+            if len(raw) <= _GUARDIAN_CHARS:
+                digest["_digest_trimmed"] = True
+                break
+
+    return digest
 
 
 def websearch_digest() -> dict:
-    """Latest live web-search / AI-visibility results Fable ran for itself."""
+    """Latest live web-search / AI-visibility results Fable ran for itself.
+    Cap: 3 queries × snippet[:150] to prevent per-query blowup (~6K chars each).
+    """
     try:
         import fable_websearch
-        return fable_websearch.digest()
+        raw = fable_websearch.digest()
+        findings = raw.get("findings", [])
+        slim = [{"query":   f.get("query", "")[:100],
+                 "snippet": str(f.get("snippet") or f.get("answer") or "")[:150],
+                 "cited":   f.get("cited_us", False)}
+                for f in findings[:3]]
+        return {"ran": raw.get("ran", 0),
+                "cited_us_count": raw.get("cited_us_count", 0),
+                "findings": slim}
     except Exception:
         return {"ran": 0, "cited_us_count": 0, "findings": []}
 
@@ -515,24 +581,41 @@ def outcomes_digest() -> dict:
 
 def gate_rejections_digest() -> dict:
     """What pages did the automatic reviewer block recently? Learning loop for Fable.
-
-    Fable should use this to understand WHY pages are being rejected and improve
-    its content directives. Common patterns: thin text, dup geo, boilerplate LLM
-    phrases, missing H1/CTA, invented certs. Seeing held entries means the reviewer
-    itself had an error — investigate.
+    Cap: 10 most recent entries × slim fields (slug, verdict, reasons[0]).
     """
     try:
         import page_reviewer
-        return page_reviewer.gate_rejections_digest()
+        raw = page_reviewer.gate_rejections_digest()
+        recent = raw.get("recent", [])
+        slim = [{"slug": e.get("slug", ""), "verdict": e.get("verdict", ""),
+                 "reason": (e.get("reasons") or ["?"])[0][:80]}
+                for e in recent[:10]]
+        return {
+            "total_rejected": raw.get("total_rejected", 0),
+            "total_held":     raw.get("total_held", 0),
+            "recent":         slim,
+        }
     except Exception:
         return {"total_rejected": 0, "total_held": 0, "recent": []}
 
 
 def bus_digest() -> dict:
-    """Tasks on the shared agent bus addressed to Fable (Orchestrator-Worker)."""
+    """Tasks on the shared agent bus addressed to Fable (Orchestrator-Worker).
+    Cap: 10 tasks × slim fields (id, type, status, created_at[:10], note[:60]).
+    """
     try:
         import agent_bus
-        return agent_bus.digest(agent="fable")
+        raw = agent_bus.digest(agent="fable")
+        tasks = raw.get("open_for_me", [])
+        slim = [{"id":    t.get("id", ""),
+                 "type":  t.get("type", ""),
+                 "status": t.get("status", ""),
+                 "since": str(t.get("created_at", ""))[:10],
+                 "note":  str(t.get("note", ""))[:60]}
+                for t in tasks[:10]]
+        return {"open_for_me": slim,
+                "by_status":  raw.get("by_status", {}),
+                "stuck_count": raw.get("stuck_count", 0)}
     except Exception:
         return {"open_for_me": [], "by_status": {}, "stuck_count": 0}
 
@@ -576,10 +659,20 @@ def metrika_digest() -> dict:
 
 
 def memory_digest() -> dict:
-    """Fable's long-term memory: principles, decisions, OKR, facts."""
+    """Fable's long-term memory: principles, decisions, OKR, facts.
+    Cap: 8 entries per category, text[:120] each.
+    """
     try:
         import fable_memory
-        return fable_memory.digest()
+        raw = fable_memory.digest()
+        def _cap(lst, n=8, maxlen=120):
+            return [str(e)[:maxlen] for e in (lst or [])[:n]]
+        return {
+            "principles": _cap(raw.get("principles")),
+            "decisions":  _cap(raw.get("decisions")),
+            "okr":        _cap(raw.get("okr")),
+            "facts":      _cap(raw.get("facts")),
+        }
     except Exception:
         return {"principles": [], "decisions": [], "okr": [], "facts": []}
 
@@ -1184,34 +1277,50 @@ def _report_and_ask(strategy: dict) -> None:
     except Exception as e:
         print(f"⚠️  bus ack failed: {e}")
 
-    # Proactive, deputy-initiated message — only when Fable judged it important.
+    # Route all routine output through the daily ledger instead of direct Telegram.
+    # flush_digest() sends ONE message per day; emergencies bypass via notify_emergency().
+    try:
+        import daily_ledger
+        _ledger_ok = True
+    except Exception:
+        _ledger_ok = False
+
+    # Proactive message: if Fable flags it as needing owner action → needs_help,
+    # otherwise it's informational → done.
     proactive = (strategy.get("proactive_message") or "").strip()
     if proactive:
-        notify(f"📣 <b>Fable</b>\n\n{proactive}")
+        if _ledger_ok:
+            cat = "needs_help" if any(
+                kw in proactive.lower()
+                for kw in ("реши", "нужно", "требует", "question", "спроси", "помог")
+            ) else "done"
+            daily_ledger.append_event(cat, f"📣 Fable: {proactive[:300]}")
+        else:
+            notify(f"📣 <b>Fable</b>\n\n{proactive}")
 
     if report:
-        msg = f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}"
-        notify(msg)
+        if _ledger_ok:
+            daily_ledger.append_event("done", f"Fable цикл: {report[:300]}")
+        else:
+            notify(f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}")
 
     if questions:
-        # persist for the bot + build a single readable message
+        # Always persist questions for the Telegram bot (interactive).
         QUESTIONS_FILE.write_text(json.dumps(
             {"asked_at": datetime.now(timezone.utc).isoformat(),
              "questions": questions, "status": "open"},
             ensure_ascii=False, indent=1))
-        lines = ["❓ <b>Мозг сомневается и спрашивает тебя</b>",
-                 "<i>Ответь сообщением в бот: «ответ &lt;id&gt; &lt;текст&gt;». "
-                 "Если промолчишь — мозг примет решение сам.</i>", ""]
+        lines = ["❓ <b>Мозг спрашивает:</b> "
+                 "<i>(ответь в бот: «ответ &lt;id&gt; &lt;текст&gt;»)</i>"]
         for q in questions:
-            lines.append(f"<b>[{q.get('id','?')}]</b> {q.get('text','')}")
-            if q.get("why"):
-                lines.append(f"   <i>почему: {q['why']}</i>")
-            if q.get("options"):
-                lines.append("   варианты: " + " / ".join(q["options"]))
+            lines.append(f"• <b>[{q.get('id','?')}]</b> {q.get('text','')}")
             if q.get("default_if_silent"):
-                lines.append(f"   по умолчанию: {q['default_if_silent']}")
-            lines.append("")
-        notify("\n".join(lines))
+                lines.append(f"  по умолчанию: {q['default_if_silent']}")
+        summary = "\n".join(lines)
+        if _ledger_ok:
+            daily_ledger.append_event("needs_help", summary)
+        else:
+            notify(summary)
 
 
 def main():
@@ -1238,10 +1347,14 @@ def main():
                     f"Проверь блоки digest — это бьёт по бюджету Fable.")
             print(warn)
             try:
-                from telegram_notify import notify
-                notify(warn)
+                import daily_ledger
+                daily_ledger.append_event("needs_help", warn)
             except Exception:
-                pass
+                try:
+                    from telegram_notify import notify
+                    notify(warn)
+                except Exception:
+                    pass
     except Exception:
         pass
 

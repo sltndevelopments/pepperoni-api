@@ -496,10 +496,10 @@ def notify_built(results: list) -> None:
     lines.append("\n<i>Добавлены в sitemap и в контур экспериментов — оптимизатор "
                  "измерит прирост трафика через ~14 дней.</i>")
     try:
-        from telegram_notify import notify
-        notify("\n".join(lines))
+        import daily_ledger
+        daily_ledger.append_event("done", "\n".join(lines))
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
 
 # ---------------------------------------------------------------- main

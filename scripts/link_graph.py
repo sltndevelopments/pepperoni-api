@@ -205,13 +205,10 @@ def notify_summary(applied: int, files: int, dry: bool) -> None:
     if dry or applied == 0:
         return
     try:
-        from telegram_notify import notify
-        notify(
-            f"<b>🔗 Linker — внутренняя перелинковка</b>\n"
-            f"Обновлено страниц: {files}\n"
-            f"Всего проставлено ссылок: {applied}\n\n"
-            f"<i>Блок «Читайте также» связывает блог↔лендинги↔OEM по семантике. "
-            f"Самый дешёвый рычаг роста позиций.</i>"
+        import daily_ledger
+        daily_ledger.append_event(
+            "done",
+            f"Linker: обновлено страниц {files}, ссылок {applied}"
         )
     except Exception as e:
         print(f"· telegram unavailable: {e}", file=sys.stderr)

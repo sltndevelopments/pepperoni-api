@@ -164,10 +164,10 @@ def alert(cur: dict, messages: list[str]) -> None:
     lines.append("\n<i>Проверь: апдейт Я/Google, доступность сайта, "
                  "robots/sitemap, недавние изменения. Возможен сбой индексации.</i>")
     try:
-        from telegram_notify import notify
-        notify("\n".join(lines))
+        import daily_ledger
+        daily_ledger.append_event("done", "\n".join(lines))
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
 
 def main():

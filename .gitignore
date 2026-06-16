@@ -58,3 +58,5 @@ data/tg_authorized.json
 data/tg_notify.json
 data/tg_pending.json
 data/brain_journal.jsonl
+data/.deploy_stamp
+data/tmp/

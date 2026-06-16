@@ -141,46 +141,51 @@ Requirements:
 def _write_page(prep: dict, html: str) -> bool:
     """Write page and run the quality gate synchronously. Returns True only if published.
 
-    Gate is SYNCHRONOUS and FAIL-CLOSED: any error in page_reviewer → page held
-    (not published), never silently pass. File is written to disk first so the
-    reviewer can inspect it, then moved to quarantine if rejected/held.
+    Temp-file flow: write to data/tmp/ → reviewer → on pass move to public/;
+    on fail/crash delete temp so public/ is never polluted with bad content.
     """
+    import shutil as _shutil
     html = clean_html(html)
     if "<html" not in html.lower():
         return False
-    prep["out"].parent.mkdir(parents=True, exist_ok=True)
-    prep["out"].write_text(html, encoding="utf-8")
+
+    # Stage in data/tmp/ until the gate approves.
+    final_out: Path = prep["out"]
+    tmp_dir = ROOT / "data" / "tmp"
+    tmp_dir.mkdir(parents=True, exist_ok=True)
+    tmp_path = tmp_dir / final_out.name
+    tmp_path.write_text(html, encoding="utf-8")
 
     # ── Quality gate (synchronous — before git add sees this file) ────────────
     try:
         import page_reviewer
         review = page_reviewer.review_page(
-            prep["out"],
+            tmp_path,
             meta={"label": prep.get("label", ""), "action": prep.get("action", "")},
         )
     except Exception as _rev_exc:
-        # Reviewer module crashed — fail-closed: quarantine the file.
+        # Reviewer module crashed — fail-closed: delete temp, never publish.
+        tmp_path.unlink(missing_ok=True)
         try:
             import page_reviewer as _pr
             _pr._alert(f"🚨 Рецензент упал (strategy): {_rev_exc}\n"
-                       f"Страница {prep['out'].name} удержана.")
-            _pr._log(prep["out"], "hold", [], error=str(_rev_exc))
-            import shutil
-            _q = ROOT / "data" / "quarantine"
-            _rel = prep["out"].relative_to(ROOT / "public")
-            _dest = _q / _rel
-            _dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(prep["out"]), str(_dest))
+                       f"Страница {final_out.name} удержана.")
+            _pr._log(tmp_path, "hold", [], error=str(_rev_exc))
         except Exception:
-            prep["out"].unlink(missing_ok=True)
+            pass
         print(f"  🚨 {prep['label']}: рецензент упал — удержан", file=sys.stderr)
         return False
 
     if review["verdict"] != "pass":
-        # review_page() already called quarantine() which did shutil.move
+        # review_page() may have already quarantined the temp; ensure it's gone.
+        tmp_path.unlink(missing_ok=True)
         reasons = "; ".join(review["reasons"][:2])
         print(f"  🚧 {prep['label']}: {review['verdict']} — {reasons}")
         return False
+
+    # Gate passed — move to final public/ destination.
+    final_out.parent.mkdir(parents=True, exist_ok=True)
+    _shutil.move(str(tmp_path), str(final_out))
 
     print(f"  ✓ {prep['label']}")
     return True

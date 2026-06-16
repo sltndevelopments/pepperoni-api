@@ -246,10 +246,10 @@ def send_report(point: dict, ledger: list) -> None:
     lines.append("\n<i>Чем чётче факты о компании (entity), FAQ и структурированные "
                  "ответы на сайте — тем выше шанс, что ИИ нас процитирует.</i>")
     try:
-        from telegram_notify import notify
-        notify("\n".join(lines))
+        import daily_ledger
+        daily_ledger.append_event("done", "\n".join(lines))
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
 
 if __name__ == "__main__":

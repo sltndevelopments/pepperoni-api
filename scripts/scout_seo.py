@@ -268,10 +268,10 @@ def _maybe_send_digest(f: dict) -> None:
     lines.append("\n<i>Мозг учтёт это при планировании. @KDSEOSiteBot → «спросить мозг».</i>")
     text = "\n".join(lines)
     try:
-        from telegram_notify import notify
-        notify(text)
+        import daily_ledger
+        daily_ledger.append_event("done", text)
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
 
 def main():

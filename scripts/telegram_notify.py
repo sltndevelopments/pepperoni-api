@@ -129,6 +129,21 @@ def notify(text: str) -> int:
     return sent
 
 
+def notify_emergency(text: str) -> int:
+    """Send an EMERGENCY alert immediately, bypassing the daily ledger buffer.
+
+    Use ONLY for the narrow ЧП whitelist:
+      - deploy failure (site not updated after push)
+      - page_reviewer unavailable (gate broken)
+      - brand / halal violation caught
+      - security issue in brain toolsmith
+
+    Everything else goes through daily_ledger.append_event().
+    """
+    prefixed = f"🚨 <b>ЧП</b>\n\n{text}"
+    return notify(prefixed)
+
+
 def register_chat(chat_id: int, name: str = "") -> None:
     """Remember a chat that contacted the bot (for push alerts before full auth)."""
     try:

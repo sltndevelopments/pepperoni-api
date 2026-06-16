@@ -103,14 +103,13 @@ def main() -> int:
     print(f"✅ market pulse: {len(countries)}/{len(COUNTRIES)} countries -> {OUT}")
 
     try:
-        from telegram_notify import notify
+        import daily_ledger
         top = list(countries.values())[:3]
-        lines = ["<b>🌐 Market Pulse (ежемесячная разведка рынков)</b>"]
+        lines = [f"Market Pulse ({len(countries)} стран):"]
         for c in top:
-            opp = c.get("opportunity", "")[:120]
-            lines.append(f"• <b>{c['name']}</b>: {opp}")
-        lines.append(f"\n<i>Всего {len(countries)} стран · полные данные ушли Мозгу</i>")
-        notify("\n".join(lines))
+            opp = c.get("opportunity", "")[:80]
+            lines.append(f"• {c['name']}: {opp}")
+        daily_ledger.append_event("done", " ".join(lines))
     except Exception:
         pass
     return 0

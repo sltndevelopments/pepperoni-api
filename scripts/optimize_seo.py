@@ -477,10 +477,10 @@ def run_report() -> None:
         print("· nothing to report to Telegram today")
         return
     try:
-        from telegram_notify import notify
-        notify(text)
+        import daily_ledger
+        daily_ledger.append_event("done", text)
     except Exception as e:
-        print(f"· telegram unavailable: {e}", file=sys.stderr)
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
 
 
 # ---------------------------------------------------------------- main

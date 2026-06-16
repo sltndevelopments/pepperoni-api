@@ -228,10 +228,10 @@ def build_report(local: dict, gsc: dict) -> str:
 
 def send_to_telegram(text: str) -> None:
     try:
-        from telegram_notify import notify
-        notify(text)
+        import daily_ledger
+        daily_ledger.append_event("done", text)
     except Exception as e:
-        print(f"⏭ telegram unavailable: {e}", file=sys.stderr)
+        print(f"⏭ ledger unavailable: {e}", file=sys.stderr)
 
 
 def main():

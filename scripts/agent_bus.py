@@ -195,8 +195,8 @@ def escalate_stuck(hours: float | None = None) -> dict:
             import sys as _sys
             if sys_path_inserted not in _sys.path:
                 _sys.path.insert(0, sys_path_inserted)
-            from telegram_notify import notify
-            notify("\n".join(lines))
+            import daily_ledger
+            daily_ledger.append_event("needs_help", "\n".join(lines))
         except Exception:
             pass
     return {"escalated": n}

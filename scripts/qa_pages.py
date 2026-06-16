@@ -241,14 +241,21 @@ def main() -> int:
             shutil.move(str(f), str(dest))
         print(f"  → {len(failed)} page(s) moved to data/quarantine/")
         try:
-            from telegram_notify import notify
-            lines = ["<b>🚧 QA-гейт: страницы в карантине</b>"]
-            for f, errs in list(failed.items())[:8]:
-                lines.append(f"• <code>{f.relative_to(PUBLIC)}</code> — {errs[0][:100]}")
-            if len(failed) > 8:
-                lines.append(f"…и ещё {len(failed) - 8}")
-            lines.append("<i>Файлы в data/quarantine/, на сайт не попали.</i>")
-            notify("\n".join(lines))
+            import daily_ledger
+            halal_violations = [
+                (f, e) for f, errs in failed.items() for e in errs
+                if any(kw in e.lower() for kw in ("халяль", "halal", "свинина", "pork", "алкогол"))
+            ]
+            if halal_violations:
+                lines = ["🚨 БРЕНД/ХАЛЯЛЬ нарушение в QA:"]
+                for f, e in halal_violations[:3]:
+                    lines.append(f"• {f.relative_to(PUBLIC)}: {e[:80]}")
+                daily_ledger.append_event("emergency", "\n".join(lines))
+            else:
+                lines = [f"QA карантин: {len(failed)} стр."]
+                for f, errs in list(failed.items())[:4]:
+                    lines.append(f"• {f.relative_to(PUBLIC)}: {errs[0][:80]}")
+                daily_ledger.append_event("done", "\n".join(lines))
         except Exception:
             pass
         return 0

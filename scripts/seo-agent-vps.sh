@@ -215,6 +215,12 @@ python3 scripts/brain_toolsmith.py >> "$LOG_FILE" 2>&1 || log "⚠️  Toolsmith
 log "Step 3.6: Worker — executing brain strategy …"
 python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log "⚠️  Strategy worker failed (non-fatal)"
 
+# ---- Step 3b: Clean up any stale temp files in public/ (should be zero, but guard) ----
+find public/ -maxdepth 3 -name "tmp*.html" -delete 2>/dev/null || true
+find public/ -maxdepth 3 -name "*.tmp" -delete 2>/dev/null || true
+# Ensure data/tmp/ workspace exists for generators
+mkdir -p data/tmp
+
 # ---- Step 4: Generate content via DeepSeek API ----
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
@@ -240,34 +246,36 @@ python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || log "⚠️  qa_
 # Product overrides QA (halal/structure) — report only, overrides are durable.
 python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log "⚠️  qa_overrides found issues (see log)"
 
-# ---- Step 4e: Gate summary — send published/quarantined/held counts to Telegram ----
-# Runs after all generators are done (geo, strategy, landing). Informational only —
-# owner sees "X published, Y quarantined, Z held" in the daily summary.
-log "Step 4e: Gate summary → Telegram …"
+# ---- Step 4e: Gate summary → daily ledger (NOT direct Telegram) ----
+# Counts go into ledger as a 'done' event — surfaced once per day in digest.
+log "Step 4e: Gate summary → ledger …"
 python3 - << 'GATE_SUMMARY_EOF' >> "$LOG_FILE" 2>&1 || log "⚠️  gate summary failed (non-fatal)"
-import sys, json
+import sys
 sys.path.insert(0, "scripts")
 try:
-    import page_reviewer
+    import page_reviewer, daily_ledger
     s = page_reviewer.gate_summary()
-    if s["published"] + s["quarantined"] + s["held"] == 0:
-        print("gate: no new pages in last 25h")
-    else:
-        from telegram_notify import notify
-        reasons = "; ".join(s["sample_reasons"]) if s["sample_reasons"] else "—"
-        msg = (f"📋 Гейт страниц (последние 25ч):\n"
-               f"✅ Опубликовано: {s['published']}\n"
-               f"🚧 Карантин: {s['quarantined']}\n"
-               f"⏸ Удержано (рецензент упал): {s['held']}\n"
-               f"Причины: {reasons[:200]}")
-        notify(msg)
+    total = s["published"] + s["quarantined"] + s["held"]
+    if total > 0:
+        reasons = "; ".join(s["sample_reasons"][:2]) if s["sample_reasons"] else "—"
+        msg = (f"Гейт страниц: ✅{s['published']} опубл / "
+               f"🚧{s['quarantined']} карантин / "
+               f"⏸{s['held']} удержано. "
+               f"Причины: {reasons[:120]}")
+        daily_ledger.append_event("done", msg)
         print(msg)
+    else:
+        print("gate: no new pages in last 25h")
 except Exception as e:
     print(f"gate summary error: {e}")
 GATE_SUMMARY_EOF
 
 # ---- Step 5: Git commit & push generated content ----
 log "Step 5: Committing and pushing generated content …"
+
+# Inject deploy-stamp into index.html BEFORE git add so the stamp lands in the
+# commit and reaches the live site. .deploy_stamp is gitignored (local only).
+python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log "⚠️  deploy stamp inject failed (non-fatal)"
 
 # Stage any new/modified HTML in geo, blog, and key pages
 git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
@@ -318,6 +326,8 @@ if ! git diff --cached --quiet 2>/dev/null; then
         git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 || log "  ⚠️  Rebase failed, push may fail"
         if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
+            # Verify stamp reaches live site (2 retries × 90s). Fires emergency if not.
+            python3 scripts/deploy_check.py --verify >> "$LOG_FILE" 2>&1 &
         else
             log "  ⚠️  Push failed — check git extraheader (re-deploy to refresh)"
         fi
@@ -341,9 +351,20 @@ python3 scripts/yandex-index.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex index
 log "Step 8: Sending daily report …"
 python3 scripts/send_report.py >> "$LOG_FILE" 2>&1 || log "⚠️  Report failed (non-fatal)"
 
-# ---- Step 8b: Optimizer digest → Telegram (only if there's activity) ----
-log "Step 8b: Optimizer Telegram digest …"
+# ---- Step 8b: Optimizer report → daily ledger (NOT direct Telegram) ----
+log "Step 8b: Optimizer report → ledger …"
 python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer report failed (non-fatal)"
+
+# ---- Step 8c: Daily digest flush (once per calendar day) ----
+# flush_digest() is guarded by last_flush_date — first run of the day sends
+# one Telegram with ✅ done / 🆘 needs_help sections; subsequent runs are no-op.
+log "Step 8c: Daily digest flush …"
+python3 -c "
+import sys; sys.path.insert(0, 'scripts')
+import daily_ledger
+sent = daily_ledger.flush_digest()
+print('digest sent' if sent else 'already flushed today — no-op')
+" >> "$LOG_FILE" 2>&1 || log "⚠️  Daily digest flush failed (non-fatal)"
 
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true

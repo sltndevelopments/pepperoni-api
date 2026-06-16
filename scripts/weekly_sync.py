@@ -135,10 +135,10 @@ def main() -> int:
     report = build_report()
     print(report)
     try:
-        from telegram_notify import notify
-        notify(report)
+        import daily_ledger
+        daily_ledger.append_event("done", report)
     except Exception as e:
-        print(f"⚠️  notify failed: {e}", file=sys.stderr)
+        print(f"⚠️  ledger failed: {e}", file=sys.stderr)
     # Keep the bus tidy on the weekly beat.
     try:
         import agent_bus

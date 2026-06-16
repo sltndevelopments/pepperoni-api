@@ -130,10 +130,11 @@ def main() -> int:
     print(text)
     try:
         sys.path.insert(0, str(Path(__file__).parent))
-        from telegram_notify import notify
-        notify(text)
+        import daily_ledger
+        cat = "emergency" if problems else "needs_help"
+        daily_ledger.append_event(cat, text)
     except Exception as e:
-        print(f"telegram unavailable: {e}", file=sys.stderr)
+        print(f"ledger unavailable: {e}", file=sys.stderr)
     return 1 if problems else 0
 
 
