@@ -1,0 +1,363 @@
+#!/usr/bin/env python3
+"""Tech-debt sweep — deterministic full-site repair + self-check.
+
+Runs ONLY deterministic, non-LLM fixers in order:
+  Phase 1: fix_pages   — invented phones/emails, GOST, ar-pork, fences, LLM preamble
+  Phase 2: fix_links   — dead/placeholder internal links (script-blocks safe)
+  Phase 3: repair_truncated_pages — unclosed </html> across whole site
+  Phase 4: rebuild_sitemap — regenerates sitemap.xml from current public/
+
+Excluded (carve-outs, separate careful tasks):
+  • canonical rewrite (3100+ pages — needs rule-validation on sample first)
+  • fix_schema/priceRange (3040 pages — needs confirmed price source)
+  • ar-pork single page is handled by fix_pages above (correct halal fix)
+
+After applying fixes, Phase 5 runs sanity_check (fail-closed):
+  (a) index.html still contains  <a class="product-card-link" href="${href}">
+      inside a <script> block — product cards intact
+  (b) Sample of 60 geo pages: all have </html>, no placeholder ${...} in <a> tags
+  (c) broken_links_after ≤ broken_links_before  (no regression)
+  → If ANY check fails: git checkout -- public/ (full rollback), emergency alert,
+    exit 2.  "Better not close the debt than break prod."
+
+Phase 6 (only on --run): deploy_check --inject then commit+push then
+  deploy_check --verify (background).
+
+Usage:
+  python3 scripts/tech_debt_sweep.py --dry-run   # measure only, no writes
+  python3 scripts/tech_debt_sweep.py --run        # apply + sanity + deploy
+  python3 scripts/tech_debt_sweep.py --sanity     # sanity only (no sweep)
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT   = Path(__file__).parent.parent
+PUBLIC = ROOT / "public"
+SCRIPTS = ROOT / "scripts"
+sys.path.insert(0, str(SCRIPTS))
+
+
+# ── helpers ──────────────────────────────────────────────────────────────────
+
+def _run(cmd: list[str], label: str) -> int:
+    """Run a subprocess, stream output, return exit code."""
+    print(f"\n{'─'*60}")
+    print(f"▶ {label}")
+    print(f"  cmd: {' '.join(cmd)}")
+    print(f"{'─'*60}")
+    result = subprocess.run(cmd, cwd=str(ROOT))
+    return result.returncode
+
+
+# ── Phase 0: measure before ───────────────────────────────────────────────────
+
+def _count_fix_pages() -> dict:
+    """Count pages that fix_pages would touch (dry-run)."""
+    from fix_pages import fix_html
+    counts: dict[str, int] = {}
+    files = total = 0
+    for f in sorted(PUBLIC.rglob("*.html")):
+        try:
+            html = f.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        total += 1
+        _, fixes = fix_html(html)
+        if fixes:
+            files += 1
+            for fx in fixes:
+                key = fx.split(" ×")[0].split(":")[0].strip()
+                counts[key] = counts.get(key, 0) + 1
+    return {"files": files, "total_scanned": total, "by_type": counts}
+
+
+def _count_truncated() -> dict:
+    """Count pages missing </html>."""
+    n = sum(
+        1 for f in PUBLIC.rglob("*.html")
+        if "</html>" not in f.read_text(encoding="utf-8", errors="ignore").lower()
+    )
+    return {"truncated": n}
+
+
+def _count_broken_links() -> int:
+    """Count placeholder + genuinely dead internal links (dry-run fix_links)."""
+    from fix_links import _fix_html, _site_paths
+    _site_paths()
+    total = 0
+    for f in sorted(PUBLIC.rglob("*.html")):
+        try:
+            html = f.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        _, s = _fix_html(html)
+        total += s["placeholder"] + s["unwrapped"]
+    return total
+
+
+def measure_before() -> dict:
+    print("\n📏 Measuring before sweep …")
+    fp = _count_fix_pages()
+    tr = _count_truncated()
+    bl = _count_broken_links()
+    sitemap_urls = sum(1 for _ in (PUBLIC / "sitemap.xml").read_text().split("<url>")) - 1 \
+        if (PUBLIC / "sitemap.xml").exists() else 0
+    snap = {
+        "fix_pages_files": fp["files"],
+        "fix_pages_by_type": fp["by_type"],
+        "truncated": tr["truncated"],
+        "broken_links": bl,
+        "sitemap_urls": sitemap_urls,
+        "total_html": fp["total_scanned"],
+    }
+    print(f"  fix_pages:  {snap['fix_pages_files']} files  {fp['by_type']}")
+    print(f"  truncated:  {snap['truncated']}")
+    print(f"  broken_links: {snap['broken_links']}")
+    print(f"  sitemap_urls: {snap['sitemap_urls']}")
+    return snap
+
+
+# ── Phase 5: sanity check ─────────────────────────────────────────────────────
+
+# The JS template literal the product-card renderer uses.  fix_links must NEVER
+# unwrap this (it lives inside a <script> block, not a real <a> tag).
+_CARD_LINK_PATTERN = re.compile(
+    r'<a\s[^>]*class=["\'][^"\']*product-card-link[^"\']*["\'][^>]*href="\$\{href\}"',
+    re.I,
+)
+
+# Simple check: <a href="${href}"> anywhere in a <script> (the JS template).
+_CARD_HREF_IN_SCRIPT = re.compile(
+    r'<script\b[^>]*>.*?href="\$\{href\}".*?</script>',
+    re.I | re.S,
+)
+
+_PLACEHOLDER_A = re.compile(r'<a\b[^>]*href=["\'][^"\']*\$\{[^}]*\}[^"\']*["\']', re.I)
+
+
+def sanity_check(before: dict) -> tuple[bool, list[str]]:
+    """Run post-sweep sanity checks. Returns (ok, list_of_failures)."""
+    failures: list[str] = []
+
+    # ── (a) index.html: product-card-link JS template still intact ────────────
+    index_html = PUBLIC / "index.html"
+    try:
+        idx = index_html.read_text(encoding="utf-8")
+        if not _CARD_HREF_IN_SCRIPT.search(idx):
+            failures.append(
+                "index.html: <a … href=\"${href}\"> missing inside <script> — "
+                "product card JS template was damaged"
+            )
+    except Exception as e:
+        failures.append(f"index.html: cannot read — {e}")
+
+    # ── (b) Sample 60 geo pages: valid HTML, no placeholder <a> in rendered HTML ──
+    geo_files = sorted((PUBLIC / "geo").rglob("*.html"))[:60] if (PUBLIC / "geo").exists() else []
+    # Also sample ar/geo if exists
+    ar_geo = sorted((PUBLIC / "ar" / "geo").rglob("*.html"))[:20] \
+        if (PUBLIC / "ar" / "geo").exists() else []
+    sample = geo_files[:40] + ar_geo[:20]
+
+    bad_html = bad_placeholder = 0
+    for f in sample:
+        try:
+            html = f.read_text(encoding="utf-8", errors="ignore")
+        except Exception:
+            continue
+        if "</html>" not in html.lower():
+            bad_html += 1
+        # Placeholder <a> tags outside <script> blocks
+        # Stash scripts first
+        scripts: list[str] = []
+        _SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.I | re.S)
+        def stash(m: re.Match) -> str:
+            scripts.append(m.group(0))
+            return ""
+        html_no_scripts = _SCRIPT_RE.sub(stash, html)
+        if _PLACEHOLDER_A.search(html_no_scripts):
+            bad_placeholder += 1
+
+    if bad_html > 0:
+        failures.append(f"geo sample: {bad_html} pages still missing </html> after repair")
+    if bad_placeholder > 0:
+        failures.append(
+            f"geo sample: {bad_placeholder} pages have unrendered template placeholders "
+            "in <a href> outside <script> — fix_links may have missed them"
+        )
+
+    # ── (c) Broken-link count must not have grown ─────────────────────────────
+    bl_after = _count_broken_links()
+    bl_before = before.get("broken_links", 0)
+    if bl_after > bl_before:
+        failures.append(
+            f"broken_links grew: {bl_before} → {bl_after} "
+            "(fix_links may have introduced new dead links)"
+        )
+
+    ok = len(failures) == 0
+    if ok:
+        print(f"\n✅ Sanity check PASSED (broken_links: {bl_before} → {bl_after})")
+    else:
+        print(f"\n🚨 Sanity check FAILED ({len(failures)} issue(s)):")
+        for f in failures:
+            print(f"  ✗ {f}")
+    return ok, failures
+
+
+# ── Rollback ──────────────────────────────────────────────────────────────────
+
+def rollback(failures: list[str]) -> None:
+    """Discard all working-tree changes to public/ via git checkout."""
+    print("\n🔄 Rolling back public/ …")
+    result = subprocess.run(
+        ["git", "checkout", "--", "public/"],
+        cwd=str(ROOT), capture_output=True, text=True,
+    )
+    if result.returncode == 0:
+        print("  ✅ public/ restored to HEAD")
+    else:
+        print(f"  ⚠️  git checkout failed: {result.stderr[:200]}")
+
+    msg = ("🚨 tech_debt_sweep: sanity FAILED — rolled back.\n"
+           + "\n".join(f"• {f}" for f in failures[:5]))
+    print(f"\n{msg}")
+    try:
+        sys.path.insert(0, str(SCRIPTS))
+        from daily_ledger import append_event
+        append_event("emergency", msg)
+    except Exception as e:
+        print(f"  ledger emergency failed: {e}")
+        try:
+            from telegram_notify import notify_emergency
+            notify_emergency(msg)
+        except Exception:
+            pass
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Tech-debt sweep (safe deterministic fixers)")
+    parser.add_argument("--dry-run", action="store_true",
+                        help="Measure only — no writes, no git, no deploy")
+    parser.add_argument("--run", action="store_true",
+                        help="Apply all phases + sanity + deploy_check")
+    parser.add_argument("--sanity", action="store_true",
+                        help="Run sanity check only (no sweep)")
+    args = parser.parse_args()
+
+    if not (args.dry_run or args.run or args.sanity):
+        parser.print_help()
+        return 1
+
+    # ── Phase 0: baseline ────────────────────────────────────────────────────
+    before = measure_before()
+
+    if args.dry_run:
+        print("\n⏸  --dry-run: no changes written.")
+        return 0
+
+    if args.sanity:
+        ok, failures = sanity_check(before)
+        return 0 if ok else 2
+
+    # ── --run: apply all phases ───────────────────────────────────────────────
+    print(f"\n{'═'*60}")
+    print("🧹 TECH-DEBT SWEEP — applying fixes")
+    print(f"{'═'*60}")
+
+    # Phase 1: fix_pages
+    rc = _run([sys.executable, str(SCRIPTS / "fix_pages.py"), "--all"], "Phase 1: fix_pages --all")
+    if rc != 0:
+        print("  ⚠️  fix_pages exited non-zero (non-fatal, continuing)")
+
+    # Phase 2: fix_links
+    rc = _run([sys.executable, str(SCRIPTS / "fix_links.py")], "Phase 2: fix_links")
+    if rc != 0:
+        print("  ⚠️  fix_links exited non-zero (non-fatal, continuing)")
+
+    # Phase 3: repair_truncated_pages (whole site, not just geo)
+    rc = _run([sys.executable, str(SCRIPTS / "repair_truncated_pages.py"), "--scope"],
+              "Phase 3: repair_truncated_pages --scope (whole site)")
+    if rc != 0:
+        print("  ⚠️  repair_truncated exited non-zero (non-fatal, continuing)")
+
+    # Phase 4: rebuild_sitemap
+    rc = _run([sys.executable, str(SCRIPTS / "rebuild_sitemap.py")], "Phase 4: rebuild_sitemap")
+    if rc != 0:
+        print("  ⚠️  rebuild_sitemap exited non-zero (non-fatal, continuing)")
+
+    # ── Phase 5: sanity check (fail-closed) ──────────────────────────────────
+    ok, failures = sanity_check(before)
+
+    if not ok:
+        rollback(failures)
+        return 2
+
+    # ── Measure after ─────────────────────────────────────────────────────────
+    print("\n📏 Measuring after sweep …")
+    after_fp = _count_fix_pages()
+    after_tr = _count_truncated()
+    after_bl = _count_broken_links()
+
+    summary = (
+        f"sweep ✅: "
+        f"fix_pages {before['fix_pages_files']}→{after_fp['files']} files, "
+        f"truncated {before['truncated']}→{after_tr['truncated']}, "
+        f"broken_links {before['broken_links']}→{after_bl}"
+    )
+    print(f"\n{summary}")
+
+    # Route to daily ledger
+    try:
+        from daily_ledger import append_event
+        append_event("done", summary)
+    except Exception:
+        pass
+
+    # ── Phase 6: deploy_check --inject → commit → push → verify ──────────────
+    print("\n🚀 Phase 6: stamp + commit + push")
+
+    # Inject deploy stamp BEFORE git add
+    subprocess.run([sys.executable, str(SCRIPTS / "deploy_check.py"), "--inject"],
+                   cwd=str(ROOT))
+
+    # Stage all changed public/ files
+    subprocess.run(["git", "add", "public/"], cwd=str(ROOT))
+
+    # Commit (only if there are staged changes)
+    status = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)
+    )
+    if status.returncode != 0:
+        msg = f"chore(sweep): tech-debt sweep — {summary}"
+        subprocess.run(["git", "commit", "-m", msg], cwd=str(ROOT))
+        push = subprocess.run(["git", "push", "origin", "HEAD:main"],
+                               cwd=str(ROOT), capture_output=True, text=True)
+        if push.returncode == 0:
+            print("  ✅ pushed — verifying stamp in background …")
+            subprocess.Popen(
+                [sys.executable, str(SCRIPTS / "deploy_check.py"), "--verify"],
+                cwd=str(ROOT),
+            )
+        else:
+            print(f"  ⚠️  push failed: {push.stderr[:200]}")
+            try:
+                from daily_ledger import append_event
+                append_event("needs_help", f"sweep push failed: {push.stderr[:120]}")
+            except Exception:
+                pass
+    else:
+        print("  ℹ️  nothing changed — no commit needed")
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

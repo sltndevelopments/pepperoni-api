@@ -221,6 +221,23 @@ find public/ -maxdepth 3 -name "*.tmp" -delete 2>/dev/null || true
 # Ensure data/tmp/ workspace exists for generators
 mkdir -p data/tmp
 
+# ---- Step 3c: Weekly tech-debt sweep (Sunday or FORCE_SWEEP=1) ----
+# Deterministic only (fix_pages, fix_links, repair_truncated, rebuild_sitemap).
+# Has its own fail-closed sanity check + rollback; does NOT run every 3h.
+# canonical/priceRange/ar-pork are EXCLUDED (separate careful tasks).
+if [ "$(date +%u)" = "7" ] || [ "${FORCE_SWEEP:-0}" = "1" ]; then
+    log "Step 3c: Tech-debt sweep (weekly/forced) …"
+    python3 scripts/tech_debt_sweep.py --run >> "$LOG_FILE" 2>&1
+    SWEEP_RC=$?
+    if [ $SWEEP_RC -eq 2 ]; then
+        log "🚨 Sweep sanity FAILED — rolled back public/; check ledger emergency"
+    elif [ $SWEEP_RC -ne 0 ]; then
+        log "⚠️  Sweep exited with code $SWEEP_RC (non-fatal)"
+    else
+        log "✅ Sweep completed — stamp+commit+push handled by sweep itself"
+    fi
+fi
+
 # ---- Step 4: Generate content via DeepSeek API ----
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
