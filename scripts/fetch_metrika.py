@@ -112,33 +112,87 @@ def _top_landing(token: str, d1: str, d2: str) -> list:
     return out
 
 
+def _is_lead_goal(name: str) -> bool:
+    """Return True if a goal name represents a direct contact/inquiry intent."""
+    return any(k in name.lower() for k in (
+        "phone", "тел", "номер", "email", "почт", "mail",
+        "мессенджер", "messenger", "whatsapp", "ватсап", "telegram",
+        "телеграм", "заявк", "форм", "form", "прайс", "price", "download",
+        "скачив", "файл", "оставить заявку",
+        # Яндекс «Автоцель» labels (real names seen in production):
+        "клик по email", "переход в мессенджер", "клик по номеру",
+        "клик по телефону",
+    ))
+
+
 def _leads(token: str, d1: str, d2: str) -> dict:
     """Goal reaches = leads. Sum the lead-type goals; also break down by page."""
-    # All goals with reaches.
     try:
         data = _api(token, {
             "ids": COUNTER, "date1": d1, "date2": d2,
-            "metrics": "ym:s:goalReaches" if False else "ym:s:sumGoalReachesAny",
+            "metrics": "ym:s:sumGoalReachesAny",
             "dimensions": "ym:s:goal",
             "sort": "-ym:s:sumGoalReachesAny", "limit": 30, "accuracy": "full",
         })
     except Exception:
         data = {}
-    by_goal = {}
+    by_goal: dict[str, int] = {}
     total_leads = 0
     for row in data.get("data", []):
         name = (row["dimensions"][0].get("name") or "").strip()
         reaches = int(row["metrics"][0])
         by_goal[name] = reaches
-        # A "lead" = any direct contact intent: phone, email, or messenger
-        # (WhatsApp/Telegram) — all strong B2B signals for a wholesale buyer.
-        if any(k in name.lower() for k in (
-                "phone", "тел", "номер", "email", "почт", "mail",
-                "мессенджер", "messenger", "whatsapp", "ватсап", "telegram",
-                "телеграм", "заявк", "форм", "form", "прайс", "price", "download",
-                "скачив", "файл", "оставить заявку")):
+        if _is_lead_goal(name):
             total_leads += reaches
     return {"total_leads": total_leads, "by_goal": by_goal}
+
+
+def _inquiries_by_page(token: str, d1_28: str, d2: str,
+                        d1_7: str) -> dict[str, dict]:
+    """Goal reaches (lead-type goals) broken down by landing page (startURLPath).
+
+    Returns: {"/geo/pepperoni-kazan": {"28d": 2, "7d": 1}, ...}
+    Only includes pages with ≥1 lead reach in either window.
+
+    Metrika API: dimensions = startURLPath + goal; we filter client-side to
+    lead-type goals and aggregate per path (same goal may fire several times).
+    """
+    def _fetch_window(d1: str) -> dict[str, int]:
+        """path → total lead reaches in window [d1, d2]."""
+        try:
+            data = _api(token, {
+                "ids": COUNTER, "date1": d1, "date2": d2,
+                "metrics": "ym:s:sumGoalReachesAny",
+                "dimensions": "ym:s:startURLPath,ym:s:goal",
+                "sort": "-ym:s:sumGoalReachesAny",
+                "limit": 100, "accuracy": "full",
+            })
+        except Exception:
+            return {}
+        agg: dict[str, int] = {}
+        for row in data.get("data", []):
+            dims = row.get("dimensions", [])
+            if len(dims) < 2:
+                continue
+            path = (dims[0].get("name") or "/").strip()
+            goal = (dims[1].get("name") or "").strip()
+            if not _is_lead_goal(goal):
+                continue
+            reaches = int(row["metrics"][0])
+            agg[path] = agg.get(path, 0) + reaches
+        return agg
+
+    agg_28 = _fetch_window(d1_28)
+    agg_7  = _fetch_window(d1_7)
+
+    all_paths = set(agg_28) | set(agg_7)
+    out: dict[str, dict] = {}
+    for path in all_paths:
+        v28 = agg_28.get(path, 0)
+        v7  = agg_7.get(path, 0)
+        if v28 > 0 or v7 > 0:
+            out[path] = {"28d": v28, "7d": v7}
+    return out
 
 
 def main() -> int:
@@ -154,12 +208,16 @@ def main() -> int:
         print("⚠️  Metrika: no token — wrote stub", file=sys.stderr)
         return 0
 
-    d1, d2 = _date_range()
+    d1_28, d2 = _date_range()
+    end = datetime.now(timezone.utc).date()
+    d1_7 = (end - timedelta(days=7)).isoformat()
     try:
-        snapshot["totals"] = _totals(token, d1, d2)
-        snapshot["sources"] = _sources(token, d1, d2)
-        snapshot["top_landing"] = _top_landing(token, d1, d2)
-        snapshot["leads"] = _leads(token, d1, d2)
+        snapshot["totals"] = _totals(token, d1_28, d2)
+        snapshot["sources"] = _sources(token, d1_28, d2)
+        snapshot["top_landing"] = _top_landing(token, d1_28, d2)
+        snapshot["leads"] = _leads(token, d1_28, d2)
+        snapshot["inquiries_by_page"] = _inquiries_by_page(
+            token, d1_28, d2, d1_7)
     except urllib.error.HTTPError as e:
         body = e.read().decode()[:300]
         snapshot["error"] = f"HTTP {e.code}: {body}"
@@ -176,8 +234,10 @@ def main() -> int:
     OUT.write_text(json.dumps(snapshot, ensure_ascii=False, indent=1))
     t = snapshot["totals"]
     leads = snapshot["leads"]["total_leads"]
+    inq_pages = len(snapshot.get("inquiries_by_page", {}))
     print(f"✅ Metrika: {t['visits']} визитов, {t['users']} польз., "
-          f"отказы {t['bounce_rate_pct']}%, лидов (тел/почта) {leads} за {DAYS_BACK}д")
+          f"отказы {t['bounce_rate_pct']}%, лидов (тел/почта) {leads} за {DAYS_BACK}д, "
+          f"страниц с заявками {inq_pages}")
     return 0
 
 

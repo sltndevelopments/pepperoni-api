@@ -31,7 +31,18 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from seo_db import get_conn  # noqa: E402
 
 EXPERIMENTS = DATA / "experiments.json"
-OUTCOMES = DATA / "outcomes.json"
+OUTCOMES    = DATA / "outcomes.json"
+METRIKA     = DATA / "metrika.json"
+
+
+def _load_inquiries_by_page() -> dict[str, int]:
+    """Return {path: inquiries_28d} from metrika.json, normalised to /path form."""
+    try:
+        m = json.loads(METRIKA.read_text(encoding="utf-8"))
+        raw = m.get("inquiries_by_page") or {}
+        return {p.rstrip("/"): v.get("28d", 0) for p, v in raw.items()}
+    except Exception:
+        return {}
 
 # A change needs SOME time to be re-crawled before we can fairly judge it, but
 # we don't wait a week: 2 days is enough to catch not-indexed/regressions while
@@ -75,8 +86,10 @@ def _age_days(iso: str) -> float:
 
 def grade() -> dict:
     conn = get_conn()
+    inq_by_page = _load_inquiries_by_page()
     graded, failing = [], []
-    counts = {"improved": 0, "flat": 0, "worse": 0, "not_indexed": 0, "pending": 0}
+    counts = {"improved": 0, "flat": 0, "worse": 0, "not_indexed": 0,
+              "pending": 0, "converted": 0}
 
     for e in _load_experiments():
         q = (e.get("query") or "").strip()
@@ -90,10 +103,23 @@ def grade() -> dict:
 
         before = e.get("before_pos")
         cur, impr = _current_pos(conn, q)
+        page = e.get("page") or ""
+        # Match page → Metrika path (GSC pages are full URLs; extract path).
+        page_path = page
+        if page_path.startswith("http"):
+            from urllib.parse import urlparse
+            page_path = urlparse(page_path).path
+        inquiries = inq_by_page.get(page_path.rstrip("/"), 0)
+
         item = {
-            "query": q, "page": e.get("page"), "change": e.get("change_type"),
-            "before_pos": before, "current_pos": cur, "impr": impr,
-            "age_days": round(age, 1),
+            "query":       q,
+            "page":        page,
+            "change":      e.get("change_type"),
+            "before_pos":  before,
+            "current_pos": cur,
+            "impr":        impr,
+            "inquiries":   inquiries,   # 28d lead touches on this page
+            "age_days":    round(age, 1),
         }
         if cur is None or impr == 0:
             item["verdict"] = "not_indexed"
@@ -108,6 +134,8 @@ def grade() -> dict:
             if delta >= WIN_DELTA:
                 item["verdict"] = "improved"
                 counts["improved"] += 1
+                if inquiries > 0:
+                    counts["converted"] += 1
             elif delta <= -WIN_DELTA:
                 item["verdict"] = "worse"
                 counts["worse"] += 1
@@ -124,11 +152,21 @@ def grade() -> dict:
     # Worst first: not-indexed, then worst current position.
     failing.sort(key=lambda x: (x.get("verdict") != "not_indexed",
                                 -(x.get("current_pos") or 999)))
+    # Pages that are both ranking well AND generating inquiries.
+    converting_pages = [
+        {"page": g["page"], "query": g["query"],
+         "pos": g["current_pos"], "inquiries": g["inquiries"]}
+        for g in graded
+        if g.get("inquiries", 0) > 0 and g.get("current_pos") is not None
+    ]
+    converting_pages.sort(key=lambda x: -x["inquiries"])
+
     out = {
-        "generated_at": datetime.now(timezone.utc).isoformat(),
-        "summary": counts,
-        "failing": failing[:25],
-        "graded_total": len(graded),
+        "generated_at":    datetime.now(timezone.utc).isoformat(),
+        "summary":         counts,
+        "failing":         failing[:25],
+        "graded_total":    len(graded),
+        "converting_pages": converting_pages[:10],
     }
     OUTCOMES.write_text(json.dumps(out, ensure_ascii=False, indent=1),
                         encoding="utf-8")
@@ -140,15 +178,18 @@ def digest() -> dict:
     try:
         d = json.loads(OUTCOMES.read_text(encoding="utf-8"))
     except Exception:
-        return {"summary": {}, "failing": []}
+        return {"summary": {}, "failing": [], "converting_pages": []}
     return {
         "summary": d.get("summary", {}),
         "failing": [
             {"query": f["query"], "verdict": f["verdict"],
              "pos": f.get("current_pos"), "was": f.get("before_pos"),
+             "inquiries": f.get("inquiries", 0),
              "age_days": f.get("age_days"), "page": f.get("page")}
             for f in d.get("failing", [])[:12]
         ],
+        # Pages with real inquiries — reinforce these first.
+        "converting_pages": d.get("converting_pages", [])[:5],
     }
 
 

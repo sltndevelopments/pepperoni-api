@@ -12,6 +12,7 @@ from __future__ import annotations
 
 import json
 import sqlite3
+from typing import Any
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
@@ -19,6 +20,12 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 DB = DATA / "seo_data.db"
 OUT = DATA / "goals.json"
+METRIKA = DATA / "metrika.json"
+
+# Thresholds for gap classification (tuned for early-stage traffic):
+CTR_GAP_MIN_IMPRESSIONS = 30   # at least 30 impressions in 28d
+CTR_GAP_MAX_CLICKS = 2         # ≤2 clicks → title/snippet problem
+CONV_GAP_MIN_CLICKS = 3        # at least 3 clicks → people arrived, didn't convert
 
 # Must-win queries: the commercial core of the business. Position here is the
 # definition of success, regardless of what GSC currently shows demand for.
@@ -78,10 +85,51 @@ def country_scoreboard(conn, cutoff: str) -> list:
     return out
 
 
+def _load_inquiries_by_page() -> dict[str, dict]:
+    """Load per-page inquiry counts from metrika.json (written by fetch_metrika.py).
+
+    Returns: {"/geo/pepperoni-kazan": {"28d": 2, "7d": 1}, ...}
+    Empty dict if metrika.json is absent or has no inquiry data yet.
+    """
+    try:
+        m = json.loads(METRIKA.read_text(encoding="utf-8"))
+        return m.get("inquiries_by_page") or {}
+    except Exception:
+        return {}
+
+
+def _match_inquiries(pages_for_query: list[str],
+                     inq: dict[str, dict]) -> int:
+    """Sum 28d inquiries across all landing pages that serve a given query.
+
+    pages_for_query: list of URLs from GSC (full URLs like https://pepperoni.tatar/foo
+                     or plain paths /foo).
+    inq: {path: {"28d": N, "7d": M}} from Metrika — paths like /foo.
+    Normalises GSC URLs → paths and matches against Metrika paths.
+    """
+    from urllib.parse import urlparse
+    total = 0
+    seen: set[str] = set()
+    for p in pages_for_query:
+        # Extract path from full URL if needed.
+        if p.startswith("http"):
+            path = urlparse(p).path
+        else:
+            path = p
+        norm = path.rstrip("/") or "/"
+        if norm in seen:
+            continue
+        seen.add(norm)
+        total += inq.get(norm, {}).get("28d", 0)
+    return total
+
+
 def main() -> int:
     goals = []
     gsc_extra = []
     countries = []
+    inq = _load_inquiries_by_page()  # {path: {"28d": N, "7d": M}}
+
     if DB.exists():
         conn = sqlite3.connect(DB)
         cutoff = (datetime.now(timezone.utc) - timedelta(days=28)).strftime("%Y-%m-%d")
@@ -107,42 +155,88 @@ def main() -> int:
                 SELECT SUM(position*impressions)/MAX(SUM(impressions),1)
                 FROM gsc_queries WHERE date >= ? AND lower(query)=lower(?)
             """, (week, q))
-            impr = (r28[0][0] if r28 else 0) or 0
-            clicks = (r28[0][1] if r28 else 0) or 0
-            pos28 = r28[0][2] if r28 and r28[0][2] else None
-            pos7 = r7[0][0] if r7 and r7[0][0] else None
+            # Landing pages that rank for this query (for inquiry matching).
+            pages_for_q = [r[0] for r in _rows(conn, """
+                SELECT DISTINCT page FROM gsc_queries
+                WHERE date >= ? AND lower(query)=lower(?) AND page IS NOT NULL
+            """, (cutoff, q))]
+
+            impr   = int((r28[0][0] if r28 else 0) or 0)
+            clicks = int((r28[0][1] if r28 else 0) or 0)
+            pos28  = r28[0][2] if r28 and r28[0][2] else None
+            pos7   = r7[0][0] if r7 and r7[0][0] else None
+            inquiries_28d = _match_inquiries(pages_for_q, inq)
+
+            # ── Gap classification ───────────────────────────────────────────
+            # ctr_gap:        impressions but almost no clicks → fix title/snippet
+            # conversion_gap: people clicked in but didn't contact → fix CTA/intent
+            ctr_gap = (
+                impr >= CTR_GAP_MIN_IMPRESSIONS
+                and clicks <= CTR_GAP_MAX_CLICKS
+            )
+            conversion_gap = (
+                clicks >= CONV_GAP_MIN_CLICKS
+                and inquiries_28d == 0
+            )
+
             goals.append({
-                "query": q,
-                "seed": q in SEED_QUERIES,
-                "impressions_28d": int(impr),
-                "clicks_28d": int(clicks),
-                "position_28d": round(pos28, 1) if pos28 else None,
-                "position_7d": round(pos7, 1) if pos7 else None,
-                "trend": (round(pos28 - pos7, 1) if pos28 and pos7 else None),  # + = improving
-                "gap_to_1": (round(max(0.0, (pos7 or pos28) - 1.0), 1)
-                             if (pos7 or pos28) else None),
-                "achieved": bool((pos7 or pos28) and (pos7 or pos28) <= 1.3),
+                "query":          q,
+                "seed":           q in SEED_QUERIES,
+                "impressions_28d": impr,
+                "clicks_28d":     clicks,
+                "inquiries_28d":  inquiries_28d,
+                "position_28d":   round(pos28, 1) if pos28 else None,
+                "position_7d":    round(pos7, 1) if pos7 else None,
+                "trend":          (round(pos28 - pos7, 1) if pos28 and pos7 else None),
+                "gap_to_1":       (round(max(0.0, (pos7 or pos28) - 1.0), 1)
+                                   if (pos7 or pos28) else None),
+                "achieved":       bool((pos7 or pos28) and (pos7 or pos28) <= 1.3),
+                "ctr_gap":        ctr_gap,
+                "conversion_gap": conversion_gap,
             })
         conn.close()
     else:
         goals = [{"query": q, "seed": True, "position_28d": None, "position_7d": None,
                   "trend": None, "gap_to_1": None, "achieved": False,
-                  "impressions_28d": 0, "clicks_28d": 0} for q in SEED_QUERIES]
+                  "impressions_28d": 0, "clicks_28d": 0,
+                  "inquiries_28d": 0, "ctr_gap": False, "conversion_gap": False}
+                 for q in SEED_QUERIES]
 
     tracked = [g for g in goals if g["gap_to_1"] is not None]
+
+    # ── Summary stats ─────────────────────────────────────────────────────────
+    ctr_gaps       = [g for g in goals if g.get("ctr_gap")]
+    conversion_gaps = [g for g in goals if g.get("conversion_gap")]
+    # Top converting: pages with ≥1 inquiry, sorted by inquiries desc.
+    top_converting = sorted(
+        [{"path": p, **v} for p, v in inq.items() if v.get("28d", 0) > 0],
+        key=lambda x: -x["28d"]
+    )[:10]
+
     out = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
-        "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами",
-        "achieved": sum(1 for g in goals if g["achieved"]),
-        "tracked": len(tracked),
-        "total": len(goals),
-        "goals": sorted(goals, key=lambda g: (g["gap_to_1"] is None,
-                                              -(g["impressions_28d"] or 0))),
-        "countries": countries,
+        "mission": ("Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) "
+                    "и цитирование ИИ-ассистентами. "
+                    "Real KPI = квалифицированные заявки (inquiries_28d)."),
+        "achieved":             sum(1 for g in goals if g["achieved"]),
+        "tracked":              len(tracked),
+        "total":                len(goals),
+        "ctr_gaps_count":       len(ctr_gaps),
+        "conversion_gaps_count": len(conversion_gaps),
+        "top_converting":       top_converting,
+        "goals":                sorted(goals, key=lambda g: (
+                                    g["gap_to_1"] is None,
+                                    -(g["impressions_28d"] or 0)
+                                )),
+        "countries":            countries,
     }
     DATA.mkdir(exist_ok=True)
     OUT.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"goals: {out['achieved']}/{out['total']} at #1, {len(tracked)} tracked -> {OUT}")
+    ctr_n  = len(ctr_gaps)
+    conv_n = len(conversion_gaps)
+    inq_total = sum(g["inquiries_28d"] for g in goals)
+    print(f"goals: {out['achieved']}/{out['total']} at #1, {len(tracked)} tracked, "
+          f"inquiries_28d={inq_total}, ctr_gaps={ctr_n}, conversion_gaps={conv_n} → {OUT}")
     return 0
 
 
