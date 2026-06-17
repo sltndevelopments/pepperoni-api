@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/products</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -723,7 +723,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/products</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -2648,6 +2648,12 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/postavki-myasnye-restorany"/>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/blog/postavschik-sosisok-dlya-hot-dogov</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/blog/private-label-kolbasnyh-izdeliy</loc>
     <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -2940,6 +2946,12 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/tatar-cuisine-restaurant-menu"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/tatar-cuisine-restaurant-menu"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/blog/tatar-cuisine-restaurant-menu"/>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/blog/tatarskaya-kolbasa-iz-koniny</loc>
+    <lastmod>2026-06-17</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
   </url>
   <url>
     <loc>https://pepperoni.tatar/blog/tatarskaya-kuhnya-restoran-menu</loc>
@@ -18642,7 +18654,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/ar</loc>
-    <lastmod>2026-06-17</lastmod>
+    <lastmod>2026-06-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
