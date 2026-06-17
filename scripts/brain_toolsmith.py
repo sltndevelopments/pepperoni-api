@@ -72,6 +72,8 @@ PROTECTED_AGENTS = {
     "qa_pages", "fix_pages",
     # Brand & halal guardrails — single source of truth, never editable by brain
     "brand_system",
+    # Anti-cycle counter — brain must not reset its own failure counts via code
+    "fix_attempts",
 }
 
 ALLOWED_MODELS = {

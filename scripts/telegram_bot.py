@@ -1006,6 +1006,55 @@ def handle_message(msg: dict) -> None:
              keyboard=MAIN_MENU)
         return
 
+    # 4d) /unblock <query> — Trigger B: manually reset an abandoned fix-attempts entry.
+    # Used after owner resolves the root cause escalated via 🆘 needs_help.
+    m = re.match(r"^/unblock\s+(.+)", text, re.I | re.S)
+    if m:
+        query = m.group(1).strip()
+        try:
+            import fix_attempts as fa
+            was_abandoned = fa.is_abandoned(query)
+            fa.reset(query, reason=f"manual /unblock by owner (chat {chat_id})")
+            if was_abandoned:
+                reply = (
+                    f"✅ Сброшено: «{query}»\n"
+                    "Следующий прогон возобновит попытки починки.\n"
+                    "Если проблема повторится {fa.MAX_FIX_ATTEMPTS} раз — "
+                    "придёт новая 🆘 эскалация."
+                )
+            else:
+                reply = (
+                    f"ℹ️ «{query}» — не находился в статусе abandoned.\n"
+                    "Счётчик сброшен на всякий случай."
+                )
+        except Exception as e:
+            reply = f"⚠️ Ошибка при сбросе: {e}"
+        send(chat_id, reply, keyboard=MAIN_MENU)
+        J.log_event("unblock", f"owner unblocked query: {query!r}", who=str(chat_id))
+        return
+
+    # 4e) /abandoned — list all currently abandoned queries
+    if re.match(r"^/abandoned\b", text, re.I):
+        try:
+            import fix_attempts as fa
+            items = fa.abandoned_list()
+        except Exception as e:
+            send(chat_id, f"⚠️ Ошибка: {e}", keyboard=MAIN_MENU)
+            return
+        if not items:
+            send(chat_id, "✅ Нет заброшенных запросов.", keyboard=MAIN_MENU)
+        else:
+            lines = [f"🔁 Заброшенные запросы ({len(items)}):\n"]
+            for it in items[:20]:
+                lines.append(
+                    f"• <code>{html.escape(it['query'])}</code> — "
+                    f"{it.get('attempts', 0)} попыток, "
+                    f"последний вердикт: {it.get('last_verdict', '?')}\n"
+                    f"  Сброс: <code>/unblock {html.escape(it['query'])}</code>"
+                )
+            send(chat_id, "\n".join(lines), keyboard=MAIN_MENU)
+        return
+
     # 5) Free-form text → dialogue turn (cheap Sonnet), incl. pending brain question
     pop_pending(chat_id)
     send(chat_id, "💬 Думаю…")

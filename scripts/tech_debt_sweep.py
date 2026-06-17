@@ -240,6 +240,130 @@ def rollback(failures: list[str]) -> None:
             pass
 
 
+# ── Phase 5b: Class-completeness check (independent detectors) ───────────────
+#
+# "Done" = broad independent detector of the problem CLASS shows zero.
+# NOT "fixer ran and its own counter returned 0" (that's tautological).
+#
+# Three classes, three detectors:
+#
+#   halal   → page_reviewer semantic scan on every AR/product page that
+#             contains خنزير (cheap pre-filter + LLM semantic verdict per page).
+#             Reason: fix_pages regex only catches its own pattern; JSON-LD
+#             oxymorons and other semantic forms are invisible to it.  The same
+#             semantic scanner found the 3 ham-page violations that regex missed.
+#
+#   links   → site_health full link-graph scan (all internal links, all pages).
+#             Reason: fix_links only fixes the patterns it knows; new 404s from
+#             renamed/deleted pages appear immediately in the graph.
+#
+#   truncated → scan ALL *.html for absent </html>.
+#               Reason: repair_truncated may only patch a subset; scanning all
+#               files is the only way to know the class is truly empty.
+#
+# If any detector finds residual problems the sweep reports "partial" (not "done")
+# and emits a needs_help event so Fable investigates the root cause.
+
+_KHANZIR_RE = re.compile(r"خنزير", re.UNICODE)
+
+
+def _class_completeness_check() -> dict:
+    """Run independent class-level completeness detectors. Returns summary dict."""
+    results: dict[str, object] = {}
+    failures: list[str] = []
+
+    # ── Halal class: semantic scan via page_reviewer on all خنزير pages ──────
+    print("\n🔍 Completeness: halal class (page_reviewer semantic scan) …")
+    try:
+        import page_reviewer as pr
+        khanzir_pages = [
+            f for f in PUBLIC.rglob("*.html")
+            if _KHANZIR_RE.search(f.read_text(encoding="utf-8", errors="ignore"))
+        ]
+        halal_violations = 0
+        for p in khanzir_pages:
+            # Pass CONTAINS_KHANZIR=true so reviewer applies extra scrutiny.
+            result = pr.review_page(p, meta={"CONTAINS_KHANZIR": True,
+                                              "completeness_check": True})
+            if result.get("verdict") in ("reject", "hold"):
+                reasons = result.get("reasons", [])
+                print(f"  ✗ HALAL VIOLATION: {p.name}  reasons={reasons}")
+                halal_violations += 1
+        results["halal_violations"] = halal_violations
+        results["halal_scanned"] = len(khanzir_pages)
+        if halal_violations > 0:
+            failures.append(
+                f"halal class: {halal_violations} semantic violation(s) remain "
+                f"after fix_pages — root cause needs investigation"
+            )
+        else:
+            print(f"  ✅ halal class: 0 violations across {len(khanzir_pages)} خنزير pages")
+    except Exception as e:
+        failures.append(f"halal completeness check failed: {e}")
+        results["halal_error"] = str(e)
+
+    # ── Links class: full site_health scan ───────────────────────────────────
+    print("\n🔍 Completeness: links class (site_health full scan) …")
+    try:
+        import site_health
+        snap = site_health.audit()
+        bl_total = snap.get("broken_links_total", 0)
+        results["broken_links_total"] = bl_total
+        if bl_total > 0:
+            # Non-blocking: broken links are an ongoing concern, not a sweep failure.
+            # Report as needs_help if count is high.
+            if bl_total > 100:
+                failures.append(
+                    f"links class: {bl_total} broken links remain after fix_links "
+                    f"(site_health full scan). Root cause: pages deleted/renamed?"
+                )
+            else:
+                print(f"  ℹ️  links class: {bl_total} residual (below threshold 100)")
+        else:
+            print("  ✅ links class: 0 broken links (site_health)")
+    except Exception as e:
+        print(f"  ⚠️  site_health unavailable: {e}")
+        results["links_error"] = str(e)
+
+    # ── Truncated class: scan ALL *.html for missing </html> ─────────────────
+    print("\n🔍 Completeness: truncated class (all *.html scan) …")
+    try:
+        truncated_all = [
+            f for f in PUBLIC.rglob("*.html")
+            if "</html>" not in f.read_text(encoding="utf-8", errors="ignore").lower()
+        ]
+        results["truncated_remaining"] = len(truncated_all)
+        if truncated_all:
+            failures.append(
+                f"truncated class: {len(truncated_all)} page(s) still missing "
+                f"</html> after repair_truncated (full site scan)"
+            )
+            for p in truncated_all[:5]:
+                print(f"  ✗ truncated: {p.relative_to(PUBLIC)}")
+        else:
+            print("  ✅ truncated class: all pages have </html>")
+    except Exception as e:
+        failures.append(f"truncated completeness check failed: {e}")
+        results["truncated_error"] = str(e)
+
+    # ── Emit needs_help if any class is not fully closed ─────────────────────
+    results["all_classes_closed"] = len(failures) == 0
+    if failures:
+        msg = "sweep partial — classes not fully closed:\n" + "\n".join(
+            f"• {f}" for f in failures
+        )
+        print(f"\n⚠️  {msg}")
+        try:
+            from daily_ledger import append_event
+            append_event("needs_help", msg)
+        except Exception:
+            pass
+    else:
+        print("\n✅ All class-completeness checks passed.")
+
+    return results
+
+
 # ── Main ──────────────────────────────────────────────────────────────────────
 
 def main() -> int:
@@ -306,18 +430,25 @@ def main() -> int:
     after_tr = _count_truncated()
     after_bl = _count_broken_links()
 
+    # ── Phase 5b: class-completeness (independent broad detectors) ────────────
+    completeness = _class_completeness_check()
+    status_tag = "✅" if completeness.get("all_classes_closed") else "⚠️ partial"
+
     summary = (
-        f"sweep ✅: "
+        f"sweep {status_tag}: "
         f"fix_pages {before['fix_pages_files']}→{after_fp['files']} files, "
         f"truncated {before['truncated']}→{after_tr['truncated']}, "
-        f"broken_links {before['broken_links']}→{after_bl}"
+        f"broken_links {before['broken_links']}→{after_bl}, "
+        f"halal_violations={completeness.get('halal_violations', '?')}, "
+        f"residual_truncated={completeness.get('truncated_remaining', '?')}"
     )
     print(f"\n{summary}")
 
     # Route to daily ledger
     try:
         from daily_ledger import append_event
-        append_event("done", summary)
+        category = "done" if completeness.get("all_classes_closed") else "needs_help"
+        append_event(category, summary)
     except Exception:
         pass
 

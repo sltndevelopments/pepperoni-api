@@ -10,6 +10,12 @@ Fixes applied here:
   • worse/flat-with-demand → post a task on the agent bus for Fable to re-optimise
     the EXISTING page (never build a new one on top — playbook rule).
 
+Anti-cycle guard (fix_attempts):
+  • Each failing verdict increments the attempt counter for that query.
+  • After MAX_FIX_ATTEMPTS consecutive failures the query is marked abandoned.
+  • Abandoned queries are NOT re-queued; a needs_help escalation is sent instead.
+  • Improved verdicts reset the counter (Trigger A also runs for abandoned entries).
+
 Reads data/outcomes.json (produced by outcome_tracker). Safe to run every cycle.
 """
 from __future__ import annotations
@@ -34,11 +40,19 @@ MAX_REINDEX = int(os.environ.get("REPAIR_MAX_REINDEX", "10"))
 MAX_STRENGTHEN = int(os.environ.get("REPAIR_MAX_STRENGTHEN", "3"))
 
 
-def _load_failing() -> list:
+def _load_outcomes() -> dict:
     try:
-        return json.loads(OUTCOMES.read_text(encoding="utf-8")).get("failing", [])
+        return json.loads(OUTCOMES.read_text(encoding="utf-8"))
     except Exception:
-        return []
+        return {}
+
+
+def _load_failing() -> list:
+    return _load_outcomes().get("failing", [])
+
+
+def _load_improved() -> list:
+    return _load_outcomes().get("graded", [])
 
 
 def _load_hyphenated(name: str, filename: str):
@@ -130,21 +144,43 @@ def _in_sitemap(url: str) -> bool:
 
 
 def repair() -> dict:
+    import fix_attempts as fa
+
     failing = _load_failing()
     reindexed, queued_fable, missing_sitemap = 0, 0, []
+    abandoned_skipped = 0
 
     not_indexed = [f for f in failing if f.get("verdict") == "not_indexed" and f.get("page")]
     need_optimise = [f for f in failing if f.get("verdict") in ("worse", "flat") and f.get("page")]
 
+    # Anti-cycle: reset counters for any queries that improved this cycle.
+    for item in _load_improved():
+        q = (item.get("query") or "").strip()
+        verdict = item.get("verdict", "")
+        if verdict == "improved" and q:
+            # Trigger A: also fires automatically inside fix_attempts.check_trigger_a
+            # but we reset explicitly here for improved verdicts.
+            fa.reset(q, reason="outcome improved (Trigger A)")
+
     # 1) Fast path: IndexNow — instant, unlimited, notifies Bing+Yandex+Seznam.
-    #    This is the primary reindex channel (no daily quota, crawls within hours).
+    #    Anti-cycle: skip abandoned queries; increment counters for failing ones.
     urls = []
     for f in not_indexed:
+        q = (f.get("query") or "").strip()
         u = f.get("page")
+        # Trigger A: check if a new experiment unblocks an abandoned entry.
+        if q:
+            fa.check_trigger_a(q)
+        if q and fa.is_abandoned(q):
+            print(f"  ⏭  skipping abandoned query: «{q}»")
+            abandoned_skipped += 1
+            continue
         if u:
             urls.append(u)
             if not _in_sitemap(u):
                 missing_sitemap.append(u)
+        if q:
+            fa.increment(q, verdict="not_indexed")
     reindexed = _indexnow(urls)
 
     # 2) Bonus path: Yandex recrawl when its small monthly quota still has room.
@@ -158,30 +194,44 @@ def repair() -> dict:
         except Exception as e:
             print(f"⚠️  yandex recrawl skipped: {e}")
 
-    # 2) Hand the hard cases (need content/intent work) to Fable via the bus —
+    # 3) Hand the hard cases (need content/intent work) to Fable via the bus —
     #    re-optimise the EXISTING page, deduped so we don't pile up tasks.
+    #    Anti-cycle: abandoned queries are NOT re-queued; emit needs_help instead.
     try:
         import agent_bus
         for f in (not_indexed + need_optimise)[:15]:
+            q = (f.get("query") or "").strip()
+            if not q:
+                continue
+            fa.check_trigger_a(q)
+            if fa.is_abandoned(q):
+                # Already emitted needs_help on the cycle it was abandoned.
+                abandoned_skipped += 1
+                continue
+            fa.increment(q, verdict=f.get("verdict", ""))
             agent_bus.post(
                 frm="outcome_tracker", to="fable", type_="fix_failing_page",
-                payload={"query": f["query"], "page": f.get("page"),
+                payload={"query": q, "page": f.get("page"),
                          "verdict": f.get("verdict"), "current_pos": f.get("pos"),
                          "was": f.get("was")},
                 trigger="outcome.failing",
-                note=f"НЕ сработало: «{f['query']}» — {f.get('verdict')} "
+                note=f"НЕ сработало: «{q}» — {f.get('verdict')} "
                      f"(поз {f.get('was')}→{f.get('pos')}). Чинить существующую страницу.",
-                dedup_key=f"failing:{f['query'].lower().strip()}")
+                dedup_key=f"failing:{q.lower().strip()}")
             queued_fable += 1
     except Exception as e:
         print(f"⚠️  bus handoff failed: {e}")
 
-    # 3) Immediate content strengthening — rewrite snippets NOW, don't wait.
-    strengthened = _strengthen_pages(not_indexed + need_optimise)
+    # 4) Immediate content strengthening — rewrite snippets NOW, don't wait.
+    #    Skip abandoned queries.
+    eligible = [f for f in (not_indexed + need_optimise)
+                if not fa.is_abandoned((f.get("query") or "").strip())]
+    strengthened = _strengthen_pages(eligible)
 
     return {"reindexed": reindexed, "strengthened": strengthened,
             "queued_for_fable": queued_fable,
-            "missing_from_sitemap": missing_sitemap}
+            "missing_from_sitemap": missing_sitemap,
+            "abandoned_skipped": abandoned_skipped}
 
 
 def main() -> int:
@@ -189,6 +239,7 @@ def main() -> int:
     print(f"🔧 repair: reindexed {r['reindexed']} · "
           f"strengthened {r.get('strengthened', 0)} · "
           f"→fable {r['queued_for_fable']} · "
+          f"abandoned_skipped {r.get('abandoned_skipped', 0)} · "
           f"missing_sitemap {len(r['missing_from_sitemap'])}")
     for u in r["missing_from_sitemap"]:
         print(f"   ⚠ not in sitemap: {u}")
