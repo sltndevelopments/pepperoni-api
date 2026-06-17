@@ -58,6 +58,22 @@ HALAL_GUARD_RU = (
     "НЕ называя запрещённые слова."
 )
 
+# Arabic-language halal guard — added to brand_block("ar") so the AR generator
+# receives the rule in its own language, preventing the semantic trap where
+# "ham" → LLM defaults to لحم خنزير (pork) instead of جامبون بقري حلال.
+HALAL_GUARD_AR = (
+    "قاعدة حلال صارمة (يجب الالتزام بها تماماً):\n"
+    "جميع منتجاتنا مصنوعة من لحم البقر والدجاج والديك الرومي ولحم الحصان — 100% حلال.\n"
+    "محظور تماماً: كتابة خنزير / لحم خنزير / لحوم خنزير / لحم الخنزير كاسم منتج "
+    "أو وصف إيجابي أو في عنوان الصفحة أو وصف JSON-LD.\n"
+    "الجامبون (ветчина/ham) بالعربية = جامبون بقري حلال فقط.\n"
+    "البيكون (бекон/bacon) بالعربية = بيكون بقري حلال فقط.\n"
+    "يُسمح بذكر خنزير فقط في سياق النفي الصريح: "
+    "«لا خنزير»، «بدون خنزير»، «خالٍ من الخنزير»، «بدون مشتقات الخنزير».\n"
+    "مثال صحيح: «جامبون بقري حلال — بدون خنزير».\n"
+    "مثال خاطئ (ممنوع): «مورد لحوم خنزير حلال» — هذا تناقض ويُضر بمصداقية العلامة التجارية."
+)
+
 _cache: dict[str, str] = {}
 
 
@@ -70,11 +86,14 @@ def brand_block(lang: str = "ru") -> str:
     except OSError:
         book = ""
     contacts = CONTACTS_EN if lang == "en" else CONTACTS_RU
+    # AR pages get the halal guard in both Russian (full rule) AND Arabic
+    # (prevents the "ham → لحم خنزير" semantic trap in Arabic-language generation).
+    extra_ar = f"\n\n{HALAL_GUARD_AR}" if lang == "ar" else ""
     block = (
         "=== БРЕНДБУК (единый источник правды о бренде) ===\n"
         f"{book}\n"
         "=== КОНЕЦ БРЕНДБУКА ===\n\n"
-        f"{HALAL_GUARD_RU}\n\n{contacts}"
+        f"{HALAL_GUARD_RU}{extra_ar}\n\n{contacts}"
     )
     _cache[lang] = block
     return block

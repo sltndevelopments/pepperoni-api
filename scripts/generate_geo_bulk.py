@@ -206,6 +206,39 @@ CERT_BLOCK_AR_IN_PROCESS = (
     "مستعدون للتفاوض وشحنات تجريبية.**"
 )
 
+# Arabic product name overrides — prevents the LLM from defaulting to لحم خنزير
+# when it sees "ham" / "ветчина". Keys are matched against product slug_ru / name_ru
+# (lowercase), values are the correct halal Arabic product names.
+_AR_PRODUCT_NAMES: dict[str, str] = {
+    "vetchina":           "جامبون بقري حلال",
+    "ветчина":            "جامبون بقري حلال",
+    "ham":                "جامبون بقري حلال",
+    "ham-halal":          "جامبون بقري حلال",
+    "djambon":            "جامبون بقري حلال",
+    "бекон":              "بيكون بقري حلال",
+    "bacon":              "بيكون بقري حلال",
+    "halal-bacon":        "بيكون بقري حلال",
+    "беконный":           "بيكون بقري حلال",
+    # sujuk / hot-dog sausages — already correct name, listed for completeness
+    "sujuk":              "سجق حلال",
+    "sosiki":             "نقانق حلال",
+    "sosiki-dlya-hotdog": "نقانق هوت دوغ حلال",
+    "pepperoni":          "بيبروني حلال",
+    "kazylyk":            "كازيليك (نقانق خيل حلال)",
+}
+
+
+def _ar_product_name(product: dict) -> str:
+    """Return the safe Arabic product name, avoiding the ham→خنزير trap."""
+    slug = (product.get("slug_ru") or product.get("id") or "").lower()
+    name_ru = (product.get("name_ru") or "").lower()
+    for key, ar_name in _AR_PRODUCT_NAMES.items():
+        if key in slug or key in name_ru:
+            return ar_name
+    # Fallback: use existing AR name if present, else transliterated RU name
+    return product.get("name_ar") or product.get("name_en") or product.get("name_ru", "")
+
+
 LANG_PROMPTS = {
     "ru": {
         "system_note": "Пиши только на русском языке.",
@@ -250,7 +283,15 @@ LANG_PROMPTS = {
         "lang_label": "AZ",
     },
     "ar": {
-        "system_note": "Write in Arabic (right-to-left). Include English version at the end.",
+        "system_note": (
+            "Write in Arabic (right-to-left). Include English version at the end.\n"
+            "CRITICAL: NEVER write خنزير / لحم خنزير / لحوم خنزير / لحم الخنزير "
+            "as a product name, JSON-LD description, heading, or any positive context. "
+            "Ham (ветчина) in Arabic = جامبون بقري حلال ONLY. "
+            "Bacon (бекон) in Arabic = بيكون بقري حلال ONLY. "
+            "Mentioning خنزير is allowed ONLY in explicit negation: "
+            "لا خنزير / بدون خنزير / خالٍ من الخنزير."
+        ),
         "cert_block": CERT_BLOCK_AR,
         "output_dir": "ar/geo",
         "lang_label": "AR",
@@ -395,7 +436,12 @@ def build_user_prompt(product: dict, city_name: str, city_context: dict,
     delivery = city_context.get("delivery", "")
     muslim_pct = city_context.get("muslim_pct", "")
 
-    product_name = product.get("name_ru", product.get("name_en", ""))
+    # For AR pages use the safe halal Arabic product name to prevent the
+    # "ham / ветчина → لحم خنزير" semantic trap in the LLM.
+    if lang == "ar":
+        product_name = _ar_product_name(product)
+    else:
+        product_name = product.get("name_ru", product.get("name_en", ""))
     usp = product.get("usp_ru", product.get("usp_en", ""))
     keywords = " | ".join(product.get("keywords_ru", product.get("keywords_en", [])))
     differentiator = product.get("differentiator", "")

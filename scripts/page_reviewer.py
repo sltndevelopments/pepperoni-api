@@ -76,6 +76,16 @@ _CRITERIA = """
      (никаких 8-800, других номеров, других email)
    - Нет свинины/сала/шпика/алкоголя в любом контексте
    - Халяль-сертификаты только наши: ДУМ РТ, HACCP, ISO 22000
+   - ARABIC HALAL RULE (critical for AR pages):
+     خنزير/pork/свинина mentioned as a PRODUCT NAME, positive offer, or JSON-LD
+     description → REJECT (халяль-нарушение).
+     خنزير in NEGATION ONLY is CORRECT and must NOT trigger rejection:
+       OK: لا خنزير / بدون خنزير / خالٍ من الخنزير / بدون مشتقات خنزير /
+           pork-free / без свинины / ❌ competitor contains pork
+       REJECT: "поставщик халяль-свинины" / "مورد لحوم خنزير حلال" /
+               "لحوم الخنزير الحلال" as product description
+     When metadata CONTAINS_KHANZIR=true is passed, apply extra scrutiny
+     to every خنزير occurrence and classify each as negation or offer.
 
 5. СТРУКТУРНАЯ ПОЛНОТА
    - Есть <title>, <meta description>, хотя бы один H1
@@ -227,6 +237,18 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
 
     # ── Fast heuristic pre-checks (no LLM) ────────────────────────────────
     fast_fails = []
+
+    # AR halal pre-flag: if خنزير is present, note it for the LLM so it
+    # scrutinises every occurrence.  The LLM (not regex) decides violation vs.
+    # legitimate negation — this is just a cheap "pay attention" signal.
+    _khanzir_flag = bool(re.search(r'خنزير', html))
+    if _khanzir_flag:
+        meta = dict(meta)   # shallow copy — don't mutate caller's dict
+        meta["CONTAINS_KHANZIR"] = (
+            "true — page contains Arabic word for pork (خنزير). "
+            "Classify EVERY occurrence: negation/comparison = OK; "
+            "product name / positive offer = REJECT (halal violation)."
+        )
 
     # Word count
     cleaned = re.sub(r"<(script|style|head)[^>]*>.*?</\1>", " ", html,
