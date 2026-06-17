@@ -1,289 +1,375 @@
 {
- "generated_at": "2026-06-16T05:30:35.696396+00:00",
- "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами",
+ "generated_at": "2026-06-17T05:30:35.487285+00:00",
+ "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 0,
  "tracked": 12,
  "total": 24,
+ "ctr_gaps_count": 11,
+ "conversion_gaps_count": 0,
+ "top_converting": [
+  {
+   "path": "/",
+   "28d": 3,
+   "7d": 0
+  },
+  {
+   "path": "/en/",
+   "28d": 1,
+   "7d": 0
+  }
+ ],
  "goals": [
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 557,
-   "clicks_28d": 0,
-   "position_28d": 10.5,
-   "position_7d": 10.0,
-   "trend": 0.5,
-   "gap_to_1": 9.0,
-   "achieved": false
+   "impressions_28d": 587,
+   "clicks_28d": 1,
+   "inquiries_28d": 0,
+   "position_28d": 10.4,
+   "position_7d": 9.7,
+   "trend": 0.7,
+   "gap_to_1": 8.7,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 315,
+   "impressions_28d": 332,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": 9.1,
    "position_7d": 8.2,
-   "trend": 1.0,
+   "trend": 0.9,
    "gap_to_1": 7.2,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "pepperoni.tatar kazan delicacies halal pepperoni",
    "seed": false,
    "impressions_28d": 208,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": 5.8,
-   "position_7d": 5.8,
-   "trend": 0.0,
-   "gap_to_1": 4.8,
-   "achieved": false
+   "position_7d": 5.6,
+   "trend": 0.2,
+   "gap_to_1": 4.6,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "echpochmak",
    "seed": false,
    "impressions_28d": 183,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": 9.2,
-   "position_7d": 9.6,
-   "trend": -0.4,
-   "gap_to_1": 8.6,
-   "achieved": false
+   "position_7d": 12.0,
+   "trend": -2.8,
+   "gap_to_1": 11.0,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "пепперони халяль",
    "seed": false,
    "impressions_28d": 174,
    "clicks_28d": 2,
+   "inquiries_28d": 3,
    "position_28d": 40.1,
-   "position_7d": 58.7,
-   "trend": -18.7,
-   "gap_to_1": 57.7,
-   "achieved": false
+   "position_7d": 64.0,
+   "trend": -23.9,
+   "gap_to_1": 63.0,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "russia halal market size 2026 trillion rubles",
    "seed": false,
    "impressions_28d": 170,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": 3.1,
    "position_7d": null,
    "trend": null,
    "gap_to_1": 2.1,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "kazylyk",
    "seed": false,
-   "impressions_28d": 153,
+   "impressions_28d": 133,
    "clicks_28d": 1,
-   "position_28d": 5.5,
-   "position_7d": 3.8,
-   "trend": 1.7,
-   "gap_to_1": 2.8,
-   "achieved": false
+   "inquiries_28d": 0,
+   "position_28d": 5.3,
+   "position_7d": 3.0,
+   "trend": 2.3,
+   "gap_to_1": 2.0,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "сосиски для хот догов оптом",
    "seed": false,
-   "impressions_28d": 106,
+   "impressions_28d": 102,
    "clicks_28d": 0,
-   "position_28d": 55.2,
-   "position_7d": 63.8,
-   "trend": -8.6,
-   "gap_to_1": 62.8,
-   "achieved": false
+   "inquiries_28d": 0,
+   "position_28d": 55.9,
+   "position_7d": 64.5,
+   "trend": -8.5,
+   "gap_to_1": 63.5,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "халяль сосиски для хот догов",
    "seed": false,
    "impressions_28d": 91,
    "clicks_28d": 1,
+   "inquiries_28d": 0,
    "position_28d": 64.2,
    "position_7d": 70.0,
    "trend": -5.7,
    "gap_to_1": 69.0,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "russia halal market size 2026",
    "seed": false,
    "impressions_28d": 87,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": 2.0,
    "position_7d": null,
    "trend": null,
    "gap_to_1": 1.0,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "котлеты для бургеров оптом",
    "seed": true,
    "impressions_28d": 60,
    "clicks_28d": 0,
-   "position_28d": 28.8,
-   "position_7d": 28.9,
-   "trend": -0.1,
-   "gap_to_1": 27.9,
-   "achieved": false
+   "inquiries_28d": 0,
+   "position_28d": 28.5,
+   "position_7d": 26.2,
+   "trend": 2.3,
+   "gap_to_1": 25.2,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
   },
   {
    "query": "халяль пепперони",
    "seed": true,
    "impressions_28d": 7,
    "clicks_28d": 0,
+   "inquiries_28d": 3,
    "position_28d": 5.7,
    "position_7d": 5.7,
    "trend": 0.0,
    "gap_to_1": 4.7,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "пепперони оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "пепперони халяль оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "сосиска в тесте оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "сосиски для хот-догов оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "казылык купить оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "халяль колбаса оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "контрактное производство мясных изделий",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "мясные полуфабрикаты под СТМ",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "татарская выпечка оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "чак-чак оптом",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "halal pepperoni wholesale",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   },
   {
    "query": "halal sausages supplier russia",
    "seed": true,
    "impressions_28d": 0,
    "clicks_28d": 0,
+   "inquiries_28d": 0,
    "position_28d": null,
    "position_7d": null,
    "trend": null,
    "gap_to_1": null,
-   "achieved": false
+   "achieved": false,
+   "ctr_gap": false,
+   "conversion_gap": false
   }
  ],
  "countries": [
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 3174,
-   "clicks_28d": 5,
-   "position_28d": 25.6
+   "impressions_28d": 3236,
+   "clicks_28d": 6,
+   "position_28d": 25.2
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 64,
+   "impressions_28d": 63,
    "clicks_28d": 0,
-   "position_28d": 8.9
+   "position_28d": 9.0
   },
   {
    "country": "Беларусь",
@@ -295,14 +381,14 @@
   {
    "country": "Армения",
    "code": "arm",
-   "impressions_28d": 32,
+   "impressions_28d": 33,
    "clicks_28d": 0,
-   "position_28d": 9.5
+   "position_28d": 9.6
   },
   {
    "country": "Азербайджан",
    "code": "aze",
-   "impressions_28d": 21,
+   "impressions_28d": 22,
    "clicks_28d": 1,
    "position_28d": 4.8
   },
@@ -311,7 +397,7 @@
    "code": "kgz",
    "impressions_28d": 10,
    "clicks_28d": 0,
-   "position_28d": 5.6
+   "position_28d": 5.4
   },
   {
    "country": "Таджикистан",
@@ -323,16 +409,16 @@
   {
    "country": "Грузия",
    "code": "geo",
-   "impressions_28d": 11,
+   "impressions_28d": 12,
    "clicks_28d": 0,
-   "position_28d": 9.1
+   "position_28d": 8.9
   },
   {
    "country": "ОАЭ",
    "code": "are",
-   "impressions_28d": 33,
+   "impressions_28d": 36,
    "clicks_28d": 0,
-   "position_28d": 17.6
+   "position_28d": 16.4
   },
   {
    "country": "Сауд. Аравия",
@@ -358,9 +444,9 @@
   {
    "country": "Оман",
    "code": "omn",
-   "impressions_28d": 2,
+   "impressions_28d": 3,
    "clicks_28d": 0,
-   "position_28d": 10.0
+   "position_28d": 9.7
   },
   {
    "country": "Йемен",
@@ -379,7 +465,7 @@
   {
    "country": "Египет",
    "code": "egy",
-   "impressions_28d": 25,
+   "impressions_28d": 24,
    "clicks_28d": 0,
    "position_28d": 7.9
   }

@@ -1,7 +1,7 @@
 {
  "2026-06": {
-  "usd": 12.211249,
-  "usd_baseline": 20.06222,
+  "usd": 12.442549,
+  "usd_baseline": 20.297924,
   "days": {
    "2026-06-10": {
     "calls": 151,
@@ -47,6 +47,15 @@
     "cache_r": 4516,
     "usd": 0.27912,
     "usd_baseline": 0.28962
+   },
+   "2026-06-17": {
+    "calls": 21,
+    "in": 6627,
+    "out": 13485,
+    "cache_w": 2258,
+    "cache_r": 2258,
+    "usd": 0.231301,
+    "usd_baseline": 0.235704
    }
   },
   "scripts": {
@@ -96,13 +105,13 @@
     "usd_baseline": 0.359061
    },
    "generate_content": {
-    "calls": 18,
-    "in": 7432,
-    "out": 61842,
-    "cache_w": 6501,
-    "cache_r": 13002,
-    "usd": 0.978203,
-    "usd_baseline": 1.008435
+    "calls": 20,
+    "in": 8375,
+    "out": 72687,
+    "cache_w": 8759,
+    "cache_r": 15260,
+    "usd": 1.152852,
+    "usd_baseline": 1.187487
    },
    "seo_brain": {
     "calls": 2,
@@ -150,13 +159,13 @@
     "usd_baseline": 0.287649
    },
    "optimize_seo": {
-    "calls": 4,
-    "in": 1094,
-    "out": 393,
+    "calls": 5,
+    "in": 1417,
+    "out": 503,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.009177,
-    "usd_baseline": 0.009177
+    "usd": 0.011796,
+    "usd_baseline": 0.011796
    },
    "brain_toolsmith": {
     "calls": 1,
@@ -177,13 +186,13 @@
     "usd_baseline": 0.105169
    },
    "repair_outcomes": {
-    "calls": 11,
-    "in": 3206,
-    "out": 1198,
+    "calls": 29,
+    "in": 8567,
+    "out": 3728,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.027588,
-    "usd_baseline": 0.027588
+    "usd": 0.081621,
+    "usd_baseline": 0.081621
    }
   },
   "models": {
@@ -197,13 +206,13 @@
     "usd_baseline": 1.028054
    },
    "claude-sonnet-4-6": {
-    "calls": 173,
-    "in": 167185,
-    "out": 1077127,
-    "cache_w": 61260,
-    "cache_r": 36530,
-    "usd": 9.604292,
-    "usd_baseline": 17.397306
+    "calls": 194,
+    "in": 173812,
+    "out": 1090612,
+    "cache_w": 63518,
+    "cache_r": 38788,
+    "usd": 9.835592,
+    "usd_baseline": 17.63301
    },
    "claude-fable-5": {
     "calls": 7,

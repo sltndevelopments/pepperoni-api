@@ -354,5 +354,23 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-06-17T05:31:02.635864+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/",
+    "file_path": "public/index.html",
+    "query": "пепперони халяль",
+    "before_pos": 8.84,
+    "before_ctr": 0.01449,
+    "before_impr": 69,
+    "before_title": "Колбаса пепперони халяль оптом — ХАССП, от производителя",
+    "before_desc": "Пепперони халяль оптом от завода «Казанские Деликатесы». Сертификат ХАССП, халяль-документы, доставка по РФ. Закажите от 1 кг — выгодные цены!",
+    "after_title": "Пепперони халяль оптом — от производителя, ХАССП",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]
