@@ -74,6 +74,8 @@ PROTECTED_AGENTS = {
     "brand_system",
     # Anti-cycle counter — brain must not reset its own failure counts via code
     "fix_attempts",
+    # Invariants registry — brain cannot weaken/remove solved invariants via code
+    "invariants",
 }
 
 ALLOWED_MODELS = {

@@ -56,9 +56,48 @@ def inject(token: str | None = None) -> str:
     """Write stamp into index.html <head> and into .deploy_stamp.
 
     Returns the token used.  Safe to call multiple times — replaces old stamp.
+
+    FAIL-CLOSED: runs structural invariant checks before writing the stamp.
+    If any invariant is violated the inject is ABORTED and an emergency alert
+    is sent — we never push broken/haram content to production.
     """
     if token is None:
         token = _generate_token()
+
+    # ── Pre-commit invariant gate (structural only — fast, no LLM) ───────────
+    try:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import invariants as inv_mod
+        violations = inv_mod.verify_invariants(semantic=False)
+        if violations:
+            msgs = []
+            for v in violations:
+                msgs.append(f"[{v['id']}]: " + "; ".join(v["violations"][:2]))
+            alert = (
+                "🚨 deploy_check: inject ABORTED — invariant violation(s):\n"
+                + "\n".join(f"• {m}" for m in msgs)
+                + "\nFix the violation before committing."
+            )
+            print(alert, file=sys.stderr)
+            try:
+                from telegram_notify import notify_emergency
+                notify_emergency(alert)
+            except Exception:
+                pass
+            # Raise so the calling shell script sees a non-zero exit
+            raise SystemExit(3)
+    except SystemExit:
+        raise
+    except Exception as e:
+        # Import or check failure: fail-closed — do not silently skip
+        alert = f"🚨 deploy_check: invariant check failed ({e}) — inject ABORTED"
+        print(alert, file=sys.stderr)
+        try:
+            from telegram_notify import notify_emergency
+            notify_emergency(alert)
+        except Exception:
+            pass
+        raise SystemExit(3)
 
     try:
         html = INDEX_HTML.read_text(encoding="utf-8")

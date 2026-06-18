@@ -346,6 +346,28 @@ def _class_completeness_check() -> dict:
         failures.append(f"truncated completeness check failed: {e}")
         results["truncated_error"] = str(e)
 
+    # ── Invariants registry check (Reflex #5) ────────────────────────────────
+    # Structural checks only here (fast, no LLM); semantic halal check already
+    # covered above by the full page_reviewer scan.  This catches code-level
+    # regressions (card-link removed, script-stash deleted, contacts drifted, etc.)
+    print("\n🔎 Completeness: invariants registry (structural) …")
+    try:
+        import invariants as inv_mod
+        inv_violations = inv_mod.verify_invariants(semantic=False)
+        results["invariant_violations"] = len(inv_violations)
+        if inv_violations:
+            for v in inv_violations:
+                failures.append(
+                    f"invariant [{v['id']}]: "
+                    + "; ".join(v["violations"][:2])
+                )
+            inv_mod._emit_violations(inv_violations, context="sweep completeness")
+        else:
+            print("  ✅ all structural invariants satisfied")
+    except Exception as e:
+        print(f"  ⚠️  invariants check failed: {e}")
+        results["invariants_error"] = str(e)
+
     # ── Emit needs_help if any class is not fully closed ─────────────────────
     results["all_classes_closed"] = len(failures) == 0
     if failures:
