@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-06-18T20:24:25.378980+00:00",
+  "generated_at": "2026-06-19T04:10:07.471089+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 176,
+      "impr": 178,
       "clk": 2,
-      "pos": 39.7,
+      "pos": 39.3,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -18,17 +18,17 @@
       "page": "https://pepperoni.tatar/"
     },
     {
-      "query": "пеперони халяль",
-      "impr": 47,
-      "clk": 0,
-      "pos": 6.8,
-      "page": "https://pepperoni.tatar/"
-    },
-    {
       "query": "пепперони халяль колбаса",
       "impr": 47,
       "clk": 0,
       "pos": 41.1,
+      "page": "https://pepperoni.tatar/"
+    },
+    {
+      "query": "пеперони халяль",
+      "impr": 46,
+      "clk": 0,
+      "pos": 6.8,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -40,9 +40,9 @@
     },
     {
       "query": "chicken ham",
-      "impr": 29,
+      "impr": 30,
       "clk": 0,
-      "pos": 6.2,
+      "pos": 6.1,
       "page": "https://pepperoni.tatar/"
     },
     {
