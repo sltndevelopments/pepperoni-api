@@ -207,11 +207,43 @@ def _check_ar_no_pork_semantic(inv: dict) -> list[str]:
 
 # ── Dispatcher ────────────────────────────────────────────────────────────────
 
+def _check_single_prod_branch(inv: dict) -> list[str]:
+    """Both catalog workflow files must target main, not any other branch."""
+    detail = inv.get("check_detail", {})
+    files = detail.get("files", [
+        ".github/workflows/update_catalog.yml",
+        ".github/workflows/sync-prices.yml",
+    ])
+    forbidden = detail.get("forbidden_pattern", r"ref:\s*STARTUP-AIO")
+    required  = detail.get("required_pattern",  r"ref:\s*main")
+
+    violations: list[str] = []
+    for rel in files:
+        fpath = ROOT / rel
+        try:
+            src = fpath.read_text(encoding="utf-8")
+        except Exception as e:
+            violations.append(f"{inv['id']}: cannot read {rel}: {e}")
+            continue
+        if re.search(forbidden, src):
+            violations.append(
+                f"{inv['id']}: {rel} still targets forbidden branch "
+                f"(pattern: {forbidden!r}). AI/SEO catalog will diverge from live."
+            )
+        elif not re.search(required, src):
+            violations.append(
+                f"{inv['id']}: {rel} does not target main "
+                f"(required: {required!r}). Check workflow checkout step."
+            )
+    return violations
+
+
 _STRUCTURAL_CHECKS: dict[str, Any] = {
     "card-link-wrapper":            _check_card_link_wrapper,
     "no-fake-reviews":              _check_no_fake_reviews,
     "fix-links-script-stash":       _check_fix_links_script_stash,
     "contacts-canonical":           _check_contacts_canonical,
+    "single-prod-branch":           _check_single_prod_branch,
 }
 
 _SEMANTIC_CHECKS: dict[str, Any] = {

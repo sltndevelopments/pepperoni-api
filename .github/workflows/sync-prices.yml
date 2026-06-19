@@ -13,10 +13,10 @@ jobs:
       contents: write
 
     steps:
-      - name: Checkout repository (STARTUP-AIO — Vercel production branch)
+      - name: Checkout repository (main — Vercel production branch)
         uses: actions/checkout@v4
         with:
-          ref: STARTUP-AIO
+          ref: main
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
