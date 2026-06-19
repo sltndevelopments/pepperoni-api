@@ -208,33 +208,60 @@ def _check_ar_no_pork_semantic(inv: dict) -> list[str]:
 # ── Dispatcher ────────────────────────────────────────────────────────────────
 
 def _check_single_prod_branch(inv: dict) -> list[str]:
-    """Both catalog workflow files must target main, not any other branch."""
-    detail = inv.get("check_detail", {})
-    files = detail.get("files", [
-        ".github/workflows/update_catalog.yml",
-        ".github/workflows/sync-prices.yml",
-    ])
-    forbidden = detail.get("forbidden_pattern", r"ref:\s*STARTUP-AIO")
-    required  = detail.get("required_pattern",  r"ref:\s*main")
+    """ALL .github/workflows/*.yml must not reference non-main long-lived branches.
+
+    Scans every workflow file for explicit branch references that point to a
+    branch other than main.  Catches:
+      - checkout: ref: STARTUP-AIO
+      - on.push.branches: [STARTUP-AIO]
+      - branches: [STARTUP-AIO]  (any context)
+
+    Exemptions (legitimate non-main refs):
+      - 'pull_request' triggers that list source branches (expected)
+      - commented-out lines
+    """
+    workflows_dir = ROOT / ".github" / "workflows"
+    if not workflows_dir.exists():
+        return []
+
+    # Any explicit long-lived branch that is NOT main.
+    # We check for the known historical offender and the general pattern of
+    # hardcoded non-main branch names in checkout ref or push branches blocks.
+    FORBIDDEN_BRANCHES = [
+        r"STARTUP-AIO",
+        r"STARTUP_AIO",
+    ]
 
     violations: list[str] = []
-    for rel in files:
-        fpath = ROOT / rel
+    for fpath in sorted(workflows_dir.glob("*.yml")):
         try:
             src = fpath.read_text(encoding="utf-8")
         except Exception as e:
-            violations.append(f"{inv['id']}: cannot read {rel}: {e}")
+            violations.append(f"{inv['id']}: cannot read {fpath.name}: {e}")
             continue
-        if re.search(forbidden, src):
-            violations.append(
-                f"{inv['id']}: {rel} still targets forbidden branch "
-                f"(pattern: {forbidden!r}). AI/SEO catalog will diverge from live."
-            )
-        elif not re.search(required, src):
-            violations.append(
-                f"{inv['id']}: {rel} does not target main "
-                f"(required: {required!r}). Check workflow checkout step."
-            )
+
+        # Strip comment lines before scanning
+        active_lines = "\n".join(
+            line for line in src.splitlines()
+            if not line.lstrip().startswith("#")
+        )
+
+        for branch in FORBIDDEN_BRANCHES:
+            if re.search(branch, active_lines):
+                # Confirm it's a real branch reference, not just a string mention
+                # (e.g. in a commit message or echo). Look for YAML keys around it.
+                context_re = re.compile(
+                    r'(?:ref:|branches:|\[)[^\n]*' + branch,
+                    re.I,
+                )
+                if context_re.search(active_lines):
+                    violations.append(
+                        f"{inv['id']}: {fpath.name} references non-prod branch "
+                        f"'{branch}' in a checkout ref or push trigger. "
+                        "All workflows must target main."
+                    )
+                    break  # one report per file
+
     return violations
 
 

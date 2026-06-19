@@ -139,6 +139,30 @@ jobs:
             cp /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/data/products.json
             echo "✅ data/products.json updated: $(python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print(len(d['products']), 'products, first price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo 'copied')"
 
+      - name: Restart partner-intake service on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # partner-intake is managed by systemd (unit already installed by
+            # deploy-partner-intake.sh). git reset --hard above updated the code;
+            # restart picks up any changes to partner-intake-server.py.
+            # Using systemctl restart (not nohup) so systemd manages restarts.
+            if systemctl is-enabled partner-intake &>/dev/null; then
+              systemctl restart partner-intake
+              sleep 2
+              if ss -tlnp | grep -q ':5001'; then
+                echo "✅ partner-intake restarted and listening on :5001"
+              else
+                echo "⚠️  partner-intake restarted but :5001 not listening — check logs"
+                journalctl -u partner-intake --no-pager -n 20
+              fi
+            else
+              echo "ℹ️  partner-intake unit not installed yet — skipping restart (run deploy-partner-intake.sh once to install)"
+            fi
+
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:

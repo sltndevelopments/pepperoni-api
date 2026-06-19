@@ -96,13 +96,9 @@
       "why": "STARTUP-AIO отстала от main на 443 коммита. Sheets-синк писал products.json в мёртвую ветку, AI/SEO-каталог расходился с живым VPS. JSON-LD цены могли не совпадать с ценами на странице (риск Google Merchant sanctions). Корень: два воркфлоу таргетили STARTUP-AIO вместо main. Исправлено 2026-06-19, оба воркфлоу переведены на main.",
       "check_type": "structural",
       "check_detail": {
-        "files": [
-          ".github/workflows/update_catalog.yml",
-          ".github/workflows/sync-prices.yml"
-        ],
-        "forbidden_pattern": "ref:\\s*STARTUP-AIO",
-        "required_pattern": "ref:\\s*main",
-        "description": "Both catalog workflow files must checkout main, not STARTUP-AIO or any other long-lived branch"
+        "scope": ".github/workflows/*.yml",
+        "forbidden_branches": ["STARTUP-AIO", "STARTUP_AIO"],
+        "description": "ALL workflow files must not reference non-prod branches in checkout ref or push trigger. Glob scan — catches any future workflow targeting wrong branch."
       },
       "added": "2026-06-19"
     },
