@@ -314,7 +314,7 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         f"Страница для рецензии (первые 6000 символов):\n"
         f"Путь: {path.name}{sim_note}\n"
         f"Мета: {json.dumps(meta, ensure_ascii=False)}\n\n"
-        f"```html\n{snippet}\n```\n\n"
+        f"НАЧАЛО HTML:\n{snippet}\nКОНЕЦ ФРАГМЕНТА\n\n"
         "Верни JSON с вердиктом и причинами по критериям."
     )
 
