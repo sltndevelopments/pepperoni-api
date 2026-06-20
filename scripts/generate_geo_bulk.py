@@ -951,7 +951,7 @@ def build_task_queue(
         city_ctx["halal_note"] = city_ctx.get("halal_note_ru", country_entry.get("halal_note_ru", ""))
         city_ctx["delivery"]   = country_entry.get("logistics", "")
         city_ctx["muslim_pct"] = country_entry.get("halal_note_ru", "")[:50]
-        city_name = city.get("name_ru", city.get("name_en", ""))
+        city_name = city.get("name_ru", city.get("name_en", city.get("name", "")))
         city_slug_val = city.get("slug", slugify(city_name))
         for lang in market_langs:
             if langs and lang not in langs:
