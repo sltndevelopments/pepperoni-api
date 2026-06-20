@@ -138,7 +138,7 @@ def save_page_record(slug, product_id, city_slug, country_code, lang, template_i
 # ── HTTP helper ───────────────────────────────────────────────────────────────
 # Delegates to the shared DeepSeek client.
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude as _shared_call_claude  # noqa: E402
+from claude_client import call_claude as _shared_call_claude, today_spend_usd  # noqa: E402
 
 
 def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
@@ -1122,6 +1122,17 @@ def main():
 
     init_db()
 
+    # ── Per-run bulk budget guard ──────────────────────────────────────────────
+    # LLM_BULK_BUDGET_USD caps spend for a single bulk run independently of the
+    # daily autonomous cap (LLM_DAILY_BUDGET_USD used by the cron agent).
+    # This lets the daily autonomous cap stay tight ($10) while bulk runs can
+    # spend more per invocation when explicitly launched by the owner.
+    # Set LLM_BULK_BUDGET_USD=0 to disable the per-run cap.
+    bulk_budget = float(os.environ.get("LLM_BULK_BUDGET_USD", "0"))
+    if bulk_budget > 0:
+        run_start_spend_init = today_spend_usd()
+        print(f"💰 Bulk budget: ${bulk_budget:.2f} per run | spend so far today: ${run_start_spend_init:.2f}")
+
     print(f"🌍 Geo Bulk Generator — {TODAY}")
     print(f"   Mode: {args.mode} | Max pages: {args.max_pages} | Workers: {args.workers}")
     print("=" * 60)
@@ -1153,6 +1164,10 @@ def main():
     errors = 0
     total_tokens = 0
     new_urls = []
+    if bulk_budget > 0:
+        run_start_spend = today_spend_usd()
+    else:
+        run_start_spend = 0.0
 
     # Batch API by default (50% off + cache hits within the batch). Set
     # GEO_BATCH=0 to use the legacy threaded sync path. Tiny runs (<3 pages)
@@ -1182,11 +1197,22 @@ def main():
         print("📦 Mode: Message Batches API (−50% cost)")
         for result in generate_batch(tasks):
             handle(result)
+            if bulk_budget > 0:
+                run_spend = today_spend_usd() - run_start_spend
+                if run_spend >= bulk_budget:
+                    print(f"\n💰 Bulk budget exhausted: ${run_spend:.2f} >= ${bulk_budget:.2f} — stopping.")
+                    break
     else:
         with ThreadPoolExecutor(max_workers=args.workers) as executor:
             futures = {executor.submit(generate_one_page, task): task for task in tasks}
             for future in as_completed(futures):
                 handle(future.result())
+                if bulk_budget > 0:
+                    run_spend = today_spend_usd() - run_start_spend
+                    if run_spend >= bulk_budget:
+                        print(f"\n💰 Bulk budget exhausted: ${run_spend:.2f} >= ${bulk_budget:.2f} — stopping.")
+                        executor.shutdown(wait=False, cancel_futures=True)
+                        break
 
     # Update sitemap
     if new_urls:
