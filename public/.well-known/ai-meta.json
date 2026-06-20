@@ -88,8 +88,26 @@
       "format": "json",
       "description": "Model Context Protocol server manifest. Remote endpoint: https://api.pepperoni.tatar/api/mcp — tools for search_products, get_product, get_catalog, get_certification, get_delivery_info, submit_inquiry. For Claude Desktop, Cursor, and MCP-compatible AI clients.",
       "updateFrequency": "on_change"
+    },
+    {
+      "name": "pepperoni_products_feed_ae_xml",
+      "url": "https://pepperoni.tatar/products-feed-ae.xml",
+      "format": "application/rss+xml",
+      "description": "Google Merchant Center XML product feed for UAE (target country AE). EN titles, AED prices (1 USD = 3.67 AED), shipping AE, 0% tax. 77 halal SKUs. Registered in Google Merchant Center (feed ID 407795538).",
+      "audience": "AE",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "openai_commerce_product_feed_ae",
+      "url": "https://pepperoni.tatar/products-feed-openai-ae.csv",
+      "format": "text/tab-separated-values",
+      "description": "OpenAI Commerce product feed for UAE audience. EN titles, AED prices, target_countries=AE. Schema: https://developers.openai.com/commerce/specs/file-upload/products",
+      "audience": "AE",
+      "language": "en",
+      "updateFrequency": "daily"
     }
   ],
   "gpt_store_url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
-  "updated_at": "2026-06-06T12:00:00Z"
+  "updated_at": "2026-06-21T01:50:00Z"
 }

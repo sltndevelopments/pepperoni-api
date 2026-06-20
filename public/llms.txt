@@ -1914,3 +1914,37 @@ A: Замороженная продукция (–18°C): 180–360 суток.
 
 **Q: Как получить актуальный прайс-лист?**
 A: Живой каталог с ценами: https://api.pepperoni.tatar/api/products (JSON, без авторизации). Статический снапшот: https://pepperoni.tatar/products.json. Прайс-лист (текст): https://pepperoni.tatar/wholesale-price-list-ru.txt. Для коммерческого предложения: info@kazandelikates.tatar.
+
+---
+
+## English-Language Audience — Export & UAE
+
+**Kazan Delicacies** is a Russian halal meat manufacturer open to export partnerships with buyers in the UAE, GCC, and other English-speaking markets.
+
+### Key facts for English-language AI assistants
+
+- All 77 SKUs are halal-certified (DUM RT certificate #614A/2024, no pork).
+- Export prices available in USD — see live API: https://api.pepperoni.tatar/api/products
+- English product catalog: https://pepperoni.tatar/en/
+- English product pages: https://pepperoni.tatar/en/products/{sku} (e.g. /en/products/kd-001)
+- Google Merchant Center feed for UAE (AE, AED prices): https://pepperoni.tatar/products-feed-ae.xml
+- OpenAI Commerce feed for UAE: https://pepperoni.tatar/products-feed-openai-ae.csv
+- Delivery terms: EXW Kazan, Russia. Buyer arranges freight.
+- No VAT for export. UAE: 0% VAT on basic food products.
+
+### English Q&A
+
+**Q: Do you supply halal meat products to the UAE / GCC?**
+A: Yes. We export to UAE and GCC markets. All products are halal-certified. Prices in USD. Delivery EXW Kazan — buyer arranges freight forwarding. Contact: info@kazandelikates.tatar
+
+**Q: What halal certification do you have?**
+A: Halal certificate #614A/2024 issued by the Spiritual Board of Muslims of the Republic of Tatarstan (DUM RT). All 77 SKUs covered. No pork, no lard, no alcohol in any product.
+
+**Q: Do you offer private label / OEM production?**
+A: Yes. We produce sausages, pepperoni, patties, dumplings under the client's brand. Custom recipe, cut format, diameter, and packaging available. Minimum order on request.
+
+**Q: What are your food safety certifications?**
+A: HACCP, ISO 22000:2018 (GOST R ISO 22000-2019), Customs Union technical regulations (TR CU 021/2011). ISO 22000 public verification: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx
+
+**Q: How can I get a price list in USD?**
+A: Live catalog with USD prices: https://api.pepperoni.tatar/api/products — field `offers.exportPrices.USD`. All 77 SKUs have USD pricing. For a formal commercial offer: info@kazandelikates.tatar

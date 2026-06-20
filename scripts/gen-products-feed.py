@@ -476,8 +476,10 @@ def derive_openai_offer_id(sku: str, price_str: str) -> str:
     return clip_openai_field(base, 100)
 
 
-def derive_openai_shipping(p: dict) -> str:
+def derive_openai_shipping(p: dict, country: str = "RU") -> str:
     """OpenAI shipping format: country:region:service_class:price"""
+    if country == "AE":
+        return "AE:::0.00 AED"
     return "RU:::0.00 RUB"
 
 
@@ -571,7 +573,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "expiration_date": derive_expiration_date(p),
         "seller_privacy_policy": safe_shopping_url("https://pepperoni.tatar/privacy"),
         "accepts_returns": "false",
-        "shipping": derive_openai_shipping(p),
+        "shipping": derive_openai_shipping(p, "RU"),
         # Compliance / context (plain text; lengths per Products spec where applicable)
         "material": mat,
         "warning": clip_openai_field(
@@ -597,6 +599,18 @@ OPENAI_FEED_FIELDNAMES = [
     "material", "warning", "age_restriction",
     "country_of_origin",
 ]
+
+
+def build_openai_row_ae(p: dict, tr: dict) -> dict:
+    """OpenAI Commerce row for UAE: AED prices, AE target, EN content."""
+    row = build_openai_row(p, tr)
+    price_aed = derive_price_aed(p)
+    if price_aed:
+        row["price"] = price_aed
+    row["target_countries"] = "AE"
+    row["store_country"] = "RU"
+    row["shipping"] = derive_openai_shipping(p, "AE")
+    return row
 
 
 def write_openai_csv(products: list, tr: dict, path: Path):
@@ -941,11 +955,24 @@ def main():
     rows_ae = [build_row_ae(p, tr) for p in products]
     write_xml_ae(rows_ae, PUBLIC / "products-feed-ae.xml")
 
-    # OpenAI Commerce CSV feed (ChatGPT product discovery)
+    # OpenAI Commerce CSV feed (ChatGPT product discovery — RU/CIS)
     try:
         write_openai_csv(products, tr, PUBLIC / "products-feed-openai.csv")
     except Exception as e:
         print(f"WARN OpenAI Commerce CSV generation failed: {e}")
+
+    # OpenAI Commerce CSV feed — UAE/AE (EN titles, AED prices)
+    try:
+        rows_openai_ae = [build_openai_row_ae(p, tr) for p in products]
+        ae_openai_path = PUBLIC / "products-feed-openai-ae.csv"
+        with ae_openai_path.open("w", encoding="utf-8", newline="") as f:
+            import csv as _csv
+            w = _csv.DictWriter(f, fieldnames=OPENAI_FEED_FIELDNAMES, delimiter="\t", extrasaction="ignore")
+            w.writeheader()
+            w.writerows(rows_openai_ae)
+        print(f"OK OpenAI CSV AE {ae_openai_path} — {len(rows_openai_ae)} rows, {ae_openai_path.stat().st_size//1024} KB")
+    except Exception as e:
+        print(f"WARN OpenAI Commerce AE CSV generation failed: {e}")
 
     # OpenAI Commerce gzip-compressed CSV (SFTP delivery)
     try:
