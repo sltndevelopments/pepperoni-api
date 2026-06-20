@@ -123,10 +123,10 @@ jobs:
             cd /var/www/pepperoni/repo
             git config user.email "seo-agent@pepperoni.tatar"
             git config user.name  "SEO Agent"
-            # Use http.extraheader with x-access-token (GitHub PAT format for git over HTTPS)
-            B64=$(echo -n "x-access-token:${GH_PAT}" | base64 -w0)
-            git config http.https://github.com/.extraheader "Authorization: Basic ${B64}"
-            git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK — agent can push"
+            # SSH deploy key (gh_deploy_key) is used for git push/pull — no PAT needed.
+            # Verify SSH remote is set and fetch works.
+            git remote set-url origin git@github.com:sltndevelopments/pepperoni-api.git
+            git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK via SSH deploy key"
 
       - name: Update API data/products.json on VPS
         uses: appleboy/ssh-action@v1.0.0

@@ -290,6 +290,15 @@ GATE_SUMMARY_EOF
 # ---- Step 5: Git commit & push generated content ----
 log "Step 5: Committing and pushing generated content …"
 
+# Pull remote changes BEFORE staging/committing so the agent builds on top
+# of the latest main (picks up code fixes, invariants.json updates, etc.).
+# --autostash tucks away any uncommitted working-tree files so the rebase
+# does not abort on a dirty tree, then re-applies them after the rebase.
+log "  git pull --rebase origin main …"
+git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 \
+    && log "  ✅ Rebased on origin/main" \
+    || log "  ⚠️  Rebase on pull failed — continuing (push may fail later)"
+
 # Inject deploy-stamp into index.html BEFORE git add so the stamp lands in the
 # commit and reaches the live site. .deploy_stamp is gitignored (local only).
 python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log "⚠️  deploy stamp inject failed (non-fatal)"
@@ -337,16 +346,12 @@ git add public/private-label/*.html 2>/dev/null || true
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then
-        # Pull remote changes first to avoid non-fast-forward rejection.
-        # --autostash tucks away auto-regenerated working-tree files (product
-        # HTML, sqlite WAL) so the rebase does not abort on a dirty tree.
-        git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 || log "  ⚠️  Rebase failed, push may fail"
         if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
             # Verify stamp reaches live site (2 retries × 90s). Fires emergency if not.
             python3 scripts/deploy_check.py --verify >> "$LOG_FILE" 2>&1 &
         else
-            log "  ⚠️  Push failed — check git extraheader (re-deploy to refresh)"
+            log "  ⚠️  Push failed"
         fi
     else
         log "  ⚠️  Commit failed"
