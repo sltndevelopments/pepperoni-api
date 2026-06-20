@@ -309,12 +309,17 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
     except Exception:
         pass
 
-    snippet = html[:6000]   # enough for structure + first screens
+    # Send visible text (no tags/CSS/JS) so the model sees actual content, not
+    # HTML boilerplate.  Prepend raw HTML head (first 1500 chars) for title/meta.
+    html_head = html[:1500]
+    visible_snippet = visible[:5000]   # already computed above
     prompt = (
-        f"Страница для рецензии (первые 6000 символов):\n"
+        f"Страница для рецензии:\n"
         f"Путь: {path.name}{sim_note}\n"
         f"Мета: {json.dumps(meta, ensure_ascii=False)}\n\n"
-        f"НАЧАЛО HTML:\n{snippet}\nКОНЕЦ ФРАГМЕНТА\n\n"
+        f"HTML HEAD (первые 1500 символов):\n{html_head}\n\n"
+        f"ВИДИМЫЙ ТЕКСТ СТРАНИЦЫ (первые 5000 символов без тегов/CSS/JS):\n"
+        f"{visible_snippet}\n\n"
         "Верни JSON с вердиктом и причинами по критериям."
     )
 
