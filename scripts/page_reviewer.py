@@ -309,6 +309,16 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
     except Exception:
         pass
 
+    # Pre-check structural facts that the LLM cannot see in plain text.
+    # Providing ground truth prevents false-positive rejections.
+    has_tldr   = 'class="tldr-answer"' in html or "class='tldr-answer'" in html
+    has_close  = "</html>" in html.lower()
+    precheck = (
+        f"PRE-CHECKS (машинная верификация до LLM):\n"
+        f"  tldr-answer class: {'ПРИСУТСТВУЕТ' if has_tldr else 'ОТСУТСТВУЕТ'}\n"
+        f"  </html> закрывающий тег: {'ПРИСУТСТВУЕТ' if has_close else 'ОТСУТСТВУЕТ'}\n"
+    )
+
     # Send visible text (no tags/CSS/JS) so the model sees actual content, not
     # HTML boilerplate.  Prepend raw HTML head (first 1500 chars) for title/meta.
     html_head = html[:1500]
@@ -317,6 +327,7 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         f"Страница для рецензии:\n"
         f"Путь: {path.name}{sim_note}\n"
         f"Мета: {json.dumps(meta, ensure_ascii=False)}\n\n"
+        f"{precheck}\n"
         f"HTML HEAD (первые 1500 символов):\n{html_head}\n\n"
         f"ВИДИМЫЙ ТЕКСТ СТРАНИЦЫ (первые 5000 символов без тегов/CSS/JS):\n"
         f"{visible_snippet}\n\n"
