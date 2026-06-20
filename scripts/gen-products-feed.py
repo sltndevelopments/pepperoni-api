@@ -821,6 +821,114 @@ def write_json(rows: list, products: list, path: Path):
     print(f"OK JSON  {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
 
 
+# ----------------------------------------------------------------------
+# UAE / AE feed — EN, AED prices, target country AE
+# ----------------------------------------------------------------------
+AED_RATE = 3.67  # 1 USD = 3.67 AED (fixed; update when rate shifts >5%)
+
+
+def derive_price_aed(p: dict) -> str:
+    """Convert USD exportPrice to AED."""
+    ep = (p.get("offers") or {}).get("exportPrices") or {}
+    usd = ep.get("USD")
+    if not usd:
+        return ""
+    try:
+        aed = float(str(usd).replace(",", ".")) * AED_RATE
+        return f"{aed:.2f} AED"
+    except (ValueError, TypeError):
+        return ""
+
+
+def build_row_ae(p: dict, tr: dict) -> dict:
+    """GMC row for UAE: EN titles, AED prices, AE shipping."""
+    google_cat_id, _ = derive_taxonomy(p)
+    price = derive_price_aed(p) or (derive_price_usd(p) or derive_price(p))
+    return {
+        "id": p.get("sku", ""),
+        "title": derive_title(p, tr),
+        "description": derive_description(p, tr),
+        "link": derive_link(p),          # /en/products/kd-NNN
+        "image_link": derive_image(p),
+        "additional_image_link": ",".join(derive_additional_images(p)),
+        "availability": "in_stock",
+        "price": price,
+        "sale_price": "",
+        "brand": BRAND,
+        "gtin": p.get("barcode", ""),
+        "mpn": p.get("articleNumber", "") or p.get("sku", ""),
+        "condition": "new",
+        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "google_product_category": google_cat_id,
+        "product_type": derive_product_type(p, tr),
+        # AE: no VAT on food, free shipping (EXW — buyer arranges)
+        "shipping": "AE:::0.00 AED",
+        "shipping_weight": normalize_weight(p.get("weight", "")),
+        "tax": "AE:0:n",
+        "multipack": p.get("qtyPerBox", ""),
+        "is_bundle": "no",
+        "age_group": "adult",
+        "adult": "no",
+        "country_of_origin": "RU",
+        "manufacturer": BRAND,
+        **derive_custom_labels(p, tr),
+    }
+
+
+def write_xml_ae(rows: list, path: Path) -> None:
+    """RSS 2.0 / GMC XML feed for UAE (EN, AED)."""
+    now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">',
+        '  <channel>',
+        '    <title>Kazan Delicacies — Halal Catalog (EN/AE)</title>',
+        f'    <link>{BASE_URL}/en/</link>',
+        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for UAE.</description>',
+        '    <language>en-us</language>',
+        f'    <pubDate>{now}</pubDate>',
+    ]
+    for r in rows:
+        addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
+        lines.append("    <item>")
+        lines.append(f"      <g:id>{escape(r['id'])}</g:id>")
+        lines.append(f"      <title>{escape(r['title'])}</title>")
+        lines.append(f"      <description>{escape(r['description'])}</description>")
+        lines.append(f"      <link>{escape(r['link'])}</link>")
+        lines.append(f"      <g:image_link>{escape(r['image_link'])}</g:image_link>")
+        for a in addl:
+            lines.append(f"      <g:additional_image_link>{escape(a)}</g:additional_image_link>")
+        lines.append(f"      <g:availability>{r['availability']}</g:availability>")
+        lines.append(f"      <g:price>{escape(r['price'])}</g:price>")
+        lines.append(f"      <g:brand>{escape(r['brand'])}</g:brand>")
+        if r["gtin"]:
+            lines.append(f"      <g:gtin>{escape(r['gtin'])}</g:gtin>")
+        if r["mpn"]:
+            lines.append(f"      <g:mpn>{escape(r['mpn'])}</g:mpn>")
+        lines.append(f"      <g:condition>{r['condition']}</g:condition>")
+        lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
+        lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
+        lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
+        lines.append(f"      <g:shipping><g:country>AE</g:country><g:price>0.00 AED</g:price></g:shipping>")
+        if r["shipping_weight"]:
+            lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
+        # UAE: no VAT on basic food
+        lines.append(f"      <g:tax><g:country>AE</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
+        if r["multipack"]:
+            lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
+        lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
+        lines.append(f"      <g:adult>{r['adult']}</g:adult>")
+        for i, key in enumerate(("custom_label_0", "custom_label_1", "custom_label_2", "custom_label_3", "custom_label_4")):
+            v = r.get(key, "")
+            if v:
+                lines.append(f"      <g:custom_label_{i}>{escape(str(v))}</g:custom_label_{i}>")
+        lines.append("    </item>")
+    lines.append("  </channel>")
+    lines.append("</rss>")
+    path.write_text("\n".join(lines), encoding="utf-8")
+    print(f"OK XML AE {path} — {len(rows)} items, {path.stat().st_size//1024} KB")
+
+
 def main():
     products, tr = load()
     rows = [build_row(p, tr) for p in products]
@@ -828,6 +936,10 @@ def main():
     write_csv(rows, PUBLIC / "products-feed.csv")
     write_xml(rows, PUBLIC / "products-feed.xml")
     write_json(rows, products, PUBLIC / "products-feed.json")
+
+    # UAE / AE feed (EN titles, AED prices)
+    rows_ae = [build_row_ae(p, tr) for p in products]
+    write_xml_ae(rows_ae, PUBLIC / "products-feed-ae.xml")
 
     # OpenAI Commerce CSV feed (ChatGPT product discovery)
     try:
