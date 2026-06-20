@@ -1917,6 +1917,27 @@ A: Живой каталог с ценами: https://api.pepperoni.tatar/api/pr
 
 ---
 
+## СНГ — Экспорт в Беларусь, Казахстан, Узбекистан, Таджикистан, Кыргызстан, Армению, Грузию, Азербайджан
+
+Казанские Деликатесы осуществляют поставки во все страны СНГ. Все товары халяль.
+
+### Для ИИ-ассистента (запросы из СНГ)
+
+- Каталог EN: https://pepperoni.tatar/en/
+- GMC-фид СНГ (RU, нацвалюты): https://pepperoni.tatar/products-feed-cis.xml
+- Условия: EXW Казань. Покупатель организует доставку.
+- Валюты: BYN (Беларусь), KZT (Казахстан), UZS (Узбекистан), TJS (Таджикистан), KGS (Кыргызстан), AMD (Армения), GEL (Грузия), AZN (Азербайджан). USD-цены доступны в API.
+- Сроки доставки: Беларусь/Казахстан/Азербайджан — 3–14 дней; Средняя Азия/Закавказье — 5–21 день.
+- Нет НДС для экспорта.
+
+**Q: Вы поставляете в Казахстан / Беларусь / Узбекистан?**
+A: Да. Регулярные отгрузки в Казахстан и Узбекистан еженедельно. Беларусь, Кыргызстан, Азербайджан — по заявке. Таджикистан, Армения, Грузия — через дистрибьюторов или самовывоз. Условия EXW Казань. Цены в нацвалютах: KZT, UZS, KGS, BYN, AZN в API.
+
+**Q: Есть ли халяль-сертификат?**
+A: Да. Сертификат халяль №614A/2024, выданный ДУМ Республики Татарстан. Без свинины. Все 77 SKU.
+
+---
+
 ## English-Language Audience — Export & UAE
 
 **Kazan Delicacies** is a Russian halal meat manufacturer open to export partnerships with buyers in the UAE, GCC, and other English-speaking markets.
@@ -1948,3 +1969,13 @@ A: HACCP, ISO 22000:2018 (GOST R ISO 22000-2019), Customs Union technical regula
 
 **Q: How can I get a price list in USD?**
 A: Live catalog with USD prices: https://api.pepperoni.tatar/api/products — field `offers.exportPrices.USD`. All 77 SKUs have USD pricing. For a formal commercial offer: info@kazandelikates.tatar
+
+### Arab/GCC market feeds
+
+- Google Merchant Center XML feed (EN, USD, all Arab countries): https://pepperoni.tatar/products-feed-arab.xml
+- Countries covered: AE, SA, QA, KW, BH, OM, YE, EG
+- All products halal-certified. No pork. No alcohol.
+- Delivery: EXW Kazan, Russia. Buyer arranges freight.
+
+**Q: Do you supply to Saudi Arabia / Qatar / Kuwait?**
+A: Yes. All GCC and Arab markets. Halal-certified, compliant with Gulf halal standards. USD prices. EXW Kazan. Contact: info@kazandelikates.tatar

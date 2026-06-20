@@ -943,6 +943,256 @@ def write_xml_ae(rows: list, path: Path) -> None:
     print(f"OK XML AE {path} — {len(rows)} items, {path.stat().st_size//1024} KB")
 
 
+# ----------------------------------------------------------------------
+# CIS feed — RU language, native currencies where available
+# Countries: BY KZ UZ TJ KG AM GE AZ
+# ----------------------------------------------------------------------
+# Approximate USD rates for countries without native currency in Sheets
+# (TJS, AMD, GEL) — update quarterly when drift > 5%
+CIS_FX = {
+    "TJS": 10.93,   # Tajikistani somoni
+    "AMD": 390.0,   # Armenian dram
+    "GEL": 2.74,    # Georgian lari
+}
+
+# Countries that already have native prices in exportPrices
+CIS_NATIVE: dict[str, str] = {
+    "BY": "BYN",
+    "KZ": "KZT",
+    "UZ": "UZS",
+    "KG": "KGS",
+    "AZ": "AZN",
+}
+
+# Countries needing FX conversion from USD
+CIS_FX_COUNTRIES: dict[str, str] = {
+    "TJ": "TJS",
+    "AM": "AMD",
+    "GE": "GEL",
+}
+
+CIS_COUNTRIES = list(CIS_NATIVE.keys()) + list(CIS_FX_COUNTRIES.keys())
+
+
+def derive_price_cis(p: dict, country: str) -> str:
+    """Return price string in native CIS currency."""
+    ep = (p.get("offers") or {}).get("exportPrices") or {}
+    if country in CIS_NATIVE:
+        cur = CIS_NATIVE[country]
+        v = ep.get(cur)
+        if v:
+            return f"{float(v):.2f} {cur}"
+    if country in CIS_FX_COUNTRIES:
+        cur = CIS_FX_COUNTRIES[country]
+        usd = ep.get("USD")
+        if usd:
+            try:
+                val = float(str(usd).replace(",", ".")) * CIS_FX[cur]
+                return f"{val:.2f} {cur}"
+            except (ValueError, TypeError):
+                pass
+    # Fallback to USD
+    usd = ep.get("USD")
+    if usd:
+        return f"{float(usd):.2f} USD"
+    return ""
+
+
+def build_row_cis(p: dict, tr: dict, country: str) -> dict:
+    """GMC row for a CIS country: RU lang, native currency, RU product links."""
+    google_cat_id, _ = derive_taxonomy(p)
+    price = derive_price_cis(p, country)
+    cur = CIS_NATIVE.get(country) or CIS_FX_COUNTRIES.get(country, "USD")
+    return {
+        "id": p.get("sku", ""),
+        # Use RU name (not translated) — CIS audience reads Russian
+        "title": p.get("name", derive_title(p, tr)),
+        "description": derive_description(p, tr),
+        "link": f"{BASE_URL}/products/{p.get('sku', '').lower()}",
+        "image_link": derive_image(p),
+        "additional_image_link": ",".join(derive_additional_images(p)),
+        "availability": "in_stock",
+        "price": price,
+        "sale_price": "",
+        "brand": BRAND,
+        "gtin": p.get("barcode", ""),
+        "mpn": p.get("articleNumber", "") or p.get("sku", ""),
+        "condition": "new",
+        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "google_product_category": google_cat_id,
+        "product_type": derive_product_type(p, tr),
+        "shipping": f"{country}:::0.00 {cur}",
+        "shipping_weight": normalize_weight(p.get("weight", "")),
+        "tax": f"{country}:0:n",
+        "multipack": p.get("qtyPerBox", ""),
+        "is_bundle": "no",
+        "age_group": "adult",
+        "adult": "no",
+        "country_of_origin": "RU",
+        "manufacturer": BRAND,
+        **derive_custom_labels(p, tr),
+    }
+
+
+def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
+    """RSS 2.0 / GMC XML feed for CIS (RU language, all 8 countries, one file)."""
+    now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    country_list = ",".join(sorted(rows_by_country.keys()))
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">',
+        '  <channel>',
+        '    <title>Казанские Деликатесы — Халяль Каталог (CIS)</title>',
+        f'    <link>{BASE_URL}/</link>',
+        '    <description>Халяль пепперони, колбасы, казылык, татарская выпечка — оптовый каталог для СНГ.</description>',
+        '    <language>ru</language>',
+        f'    <pubDate>{now}</pubDate>',
+    ]
+    # Emit each product once per country with country-specific price/shipping
+    for country, rows in sorted(rows_by_country.items()):
+        for r in rows:
+            addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
+            item_id = f"{r['id']}-{country}"
+            lines.append("    <item>")
+            lines.append(f"      <g:id>{escape(item_id)}</g:id>")
+            lines.append(f"      <title>{escape(r['title'])}</title>")
+            lines.append(f"      <description>{escape(r['description'])}</description>")
+            lines.append(f"      <link>{escape(r['link'])}</link>")
+            lines.append(f"      <g:image_link>{escape(r['image_link'])}</g:image_link>")
+            for a in addl:
+                lines.append(f"      <g:additional_image_link>{escape(a)}</g:additional_image_link>")
+            lines.append(f"      <g:availability>{r['availability']}</g:availability>")
+            lines.append(f"      <g:price>{escape(r['price'])}</g:price>")
+            lines.append(f"      <g:brand>{escape(r['brand'])}</g:brand>")
+            if r["gtin"]:
+                lines.append(f"      <g:gtin>{escape(r['gtin'])}</g:gtin>")
+            if r["mpn"]:
+                lines.append(f"      <g:mpn>{escape(r['mpn'])}</g:mpn>")
+            lines.append(f"      <g:condition>{r['condition']}</g:condition>")
+            lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
+            lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
+            lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
+            # Parse shipping field "CC:::0.00 CUR"
+            sh_parts = r["shipping"].split(":::")
+            sh_country, sh_price = (sh_parts[0], sh_parts[1]) if len(sh_parts) == 2 else (country, "0.00 USD")
+            lines.append(f"      <g:shipping><g:country>{sh_country}</g:country><g:price>{sh_price}</g:price></g:shipping>")
+            if r["shipping_weight"]:
+                lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
+            lines.append(f"      <g:tax><g:country>{sh_country}</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
+            if r["multipack"]:
+                lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
+            lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
+            lines.append(f"      <g:adult>{r['adult']}</g:adult>")
+            for i, key in enumerate(("custom_label_0", "custom_label_1", "custom_label_2", "custom_label_3", "custom_label_4")):
+                v = r.get(key, "")
+                if v:
+                    lines.append(f"      <g:custom_label_{i}>{escape(str(v))}</g:custom_label_{i}>")
+            lines.append("    </item>")
+    lines.append("  </channel>")
+    lines.append("</rss>")
+    path.write_text("\n".join(lines), encoding="utf-8")
+    total = sum(len(v) for v in rows_by_country.values())
+    print(f"OK XML CIS {path} — {total} items ({country_list}), {path.stat().st_size//1024} KB")
+
+
+# ----------------------------------------------------------------------
+# Arab feed — EN language, USD prices, all Arab/GCC countries
+# Countries: AE SA QA KW BH OM YE EG  (AE already in AE feed; reuse)
+# ----------------------------------------------------------------------
+ARAB_COUNTRIES = ["AE", "SA", "QA", "KW", "BH", "OM", "YE", "EG"]
+
+
+def build_row_arab(p: dict, tr: dict, country: str) -> dict:
+    """GMC row for Arab country: EN titles, USD prices, country-specific shipping."""
+    google_cat_id, _ = derive_taxonomy(p)
+    price = derive_price_usd(p) or derive_price(p)
+    return {
+        "id": p.get("sku", ""),
+        "title": derive_title(p, tr),
+        "description": derive_description(p, tr),
+        "link": derive_link(p),
+        "image_link": derive_image(p),
+        "additional_image_link": ",".join(derive_additional_images(p)),
+        "availability": "in_stock",
+        "price": price,
+        "sale_price": "",
+        "brand": BRAND,
+        "gtin": p.get("barcode", ""),
+        "mpn": p.get("articleNumber", "") or p.get("sku", ""),
+        "condition": "new",
+        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "google_product_category": google_cat_id,
+        "product_type": derive_product_type(p, tr),
+        "shipping": f"{country}:::0.00 USD",
+        "shipping_weight": normalize_weight(p.get("weight", "")),
+        "tax": f"{country}:0:n",
+        "multipack": p.get("qtyPerBox", ""),
+        "is_bundle": "no",
+        "age_group": "adult",
+        "adult": "no",
+        "country_of_origin": "RU",
+        "manufacturer": BRAND,
+        **derive_custom_labels(p, tr),
+    }
+
+
+def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
+    """RSS 2.0 / GMC XML feed for Arab/GCC countries (EN, USD)."""
+    now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    country_list = ",".join(sorted(rows_by_country.keys()))
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">',
+        '  <channel>',
+        '    <title>Kazan Delicacies — Halal Catalog (Arab/GCC)</title>',
+        f'    <link>{BASE_URL}/en/</link>',
+        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for Arab/GCC markets.</description>',
+        '    <language>en-us</language>',
+        f'    <pubDate>{now}</pubDate>',
+    ]
+    for country, rows in sorted(rows_by_country.items()):
+        for r in rows:
+            addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
+            item_id = f"{r['id']}-{country}"
+            lines.append("    <item>")
+            lines.append(f"      <g:id>{escape(item_id)}</g:id>")
+            lines.append(f"      <title>{escape(r['title'])}</title>")
+            lines.append(f"      <description>{escape(r['description'])}</description>")
+            lines.append(f"      <link>{escape(r['link'])}</link>")
+            lines.append(f"      <g:image_link>{escape(r['image_link'])}</g:image_link>")
+            for a in addl:
+                lines.append(f"      <g:additional_image_link>{escape(a)}</g:additional_image_link>")
+            lines.append(f"      <g:availability>{r['availability']}</g:availability>")
+            lines.append(f"      <g:price>{escape(r['price'])}</g:price>")
+            lines.append(f"      <g:brand>{escape(r['brand'])}</g:brand>")
+            if r["gtin"]:
+                lines.append(f"      <g:gtin>{escape(r['gtin'])}</g:gtin>")
+            if r["mpn"]:
+                lines.append(f"      <g:mpn>{escape(r['mpn'])}</g:mpn>")
+            lines.append(f"      <g:condition>{r['condition']}</g:condition>")
+            lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
+            lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
+            lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
+            lines.append(f"      <g:shipping><g:country>{country}</g:country><g:price>0.00 USD</g:price></g:shipping>")
+            if r["shipping_weight"]:
+                lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
+            lines.append(f"      <g:tax><g:country>{country}</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
+            if r["multipack"]:
+                lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
+            lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
+            lines.append(f"      <g:adult>{r['adult']}</g:adult>")
+            for i, key in enumerate(("custom_label_0", "custom_label_1", "custom_label_2", "custom_label_3", "custom_label_4")):
+                v = r.get(key, "")
+                if v:
+                    lines.append(f"      <g:custom_label_{i}>{escape(str(v))}</g:custom_label_{i}>")
+            lines.append("    </item>")
+    lines.append("  </channel>")
+    lines.append("</rss>")
+    path.write_text("\n".join(lines), encoding="utf-8")
+    total = sum(len(v) for v in rows_by_country.values())
+    print(f"OK XML Arab {path} — {total} items ({country_list}), {path.stat().st_size//1024} KB")
+
+
 def main():
     products, tr = load()
     rows = [build_row(p, tr) for p in products]
@@ -951,9 +1201,17 @@ def main():
     write_xml(rows, PUBLIC / "products-feed.xml")
     write_json(rows, products, PUBLIC / "products-feed.json")
 
-    # UAE / AE feed (EN titles, AED prices)
+    # UAE / AE feed (EN titles, AED prices) — kept for backward compat
     rows_ae = [build_row_ae(p, tr) for p in products]
     write_xml_ae(rows_ae, PUBLIC / "products-feed-ae.xml")
+
+    # CIS feed (RU language, native currencies: BY/KZ/UZ/TJ/KG/AM/GE/AZ)
+    cis_rows_by_country = {c: [build_row_cis(p, tr, c) for p in products] for c in CIS_COUNTRIES}
+    write_xml_cis(cis_rows_by_country, PUBLIC / "products-feed-cis.xml")
+
+    # Arab/GCC feed (EN language, USD prices: AE/SA/QA/KW/BH/OM/YE/EG)
+    arab_rows_by_country = {c: [build_row_arab(p, tr, c) for p in products] for c in ARAB_COUNTRIES}
+    write_xml_arab(arab_rows_by_country, PUBLIC / "products-feed-arab.xml")
 
     # OpenAI Commerce CSV feed (ChatGPT product discovery — RU/CIS)
     try:

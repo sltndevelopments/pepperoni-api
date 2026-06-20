@@ -106,8 +106,26 @@
       "audience": "AE",
       "language": "en",
       "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_cis_xml",
+      "url": "https://pepperoni.tatar/products-feed-cis.xml",
+      "format": "application/rss+xml",
+      "description": "Google Merchant Center XML product feed for CIS markets (BY, KZ, UZ, TJ, KG, AM, GE, AZ). RU language, native currencies (BYN/KZT/UZS/TJS/KGS/AMD/GEL/AZN). 616 items (77 SKUs × 8 countries). Registered in GMC.",
+      "audience": "BY,KZ,UZ,TJ,KG,AM,GE,AZ",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_arab_xml",
+      "url": "https://pepperoni.tatar/products-feed-arab.xml",
+      "format": "application/rss+xml",
+      "description": "Google Merchant Center XML product feed for Arab/GCC markets (AE, SA, QA, KW, BH, OM, YE, EG). EN language, USD prices. 616 items (77 SKUs × 8 countries). Registered in GMC.",
+      "audience": "AE,SA,QA,KW,BH,OM,YE,EG",
+      "language": "en",
+      "updateFrequency": "daily"
     }
   ],
   "gpt_store_url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
-  "updated_at": "2026-06-21T01:50:00Z"
+  "updated_at": "2026-06-21T02:00:00Z"
 }

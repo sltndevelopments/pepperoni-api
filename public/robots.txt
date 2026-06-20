@@ -20,6 +20,8 @@ Allow: /products-feed.csv
 Allow: /products-feed.xml
 Allow: /products-feed.json
 Allow: /products-feed-ae.xml
+Allow: /products-feed-cis.xml
+Allow: /products-feed-arab.xml
 Allow: /products-feed-openai.csv
 Allow: /products-feed-openai.csv.gz
 Allow: /products-feed-openai.tsv.gz
