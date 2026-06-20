@@ -400,18 +400,40 @@ def build_system_prompt(lang: str, docs_status: str = "ready") -> str:
 ТРЕБОВАНИЯ К HTML:
 1. Верни ТОЛЬКО валидный HTML, начиная с <!DOCTYPE html>
 2. Bootstrap 5 (CDN), Яндекс.Метрика и Schema.org JSON-LD
-3. Структура:
+3. Структура (СТРОГО В ЭТОМ ПОРЯДКЕ):
    - <title> с городом и продуктом (60 символов)
    - <meta name="description"> (155 символов)
    - H1 с городом и продуктом
+   - БЛОК ОТВЕТ-ПЕРВЫМ (ОБЯЗАТЕЛЬНЫЙ, сразу после H1, ДО вступления):
+     <div class="tldr-answer"> ... </div>
+     Содержание (~40–60 слов, язык закупщика): что именно поставляем,
+     халяль-статус (сертификат), готовность к СТМ/OEM, минимальный объём,
+     срок доставки в этот город. Прямой ответ на вопрос «кто и как поставит
+     мне X» — без воды, без прилагательных превосходной степени.
+     Пример структуры: «[Продукт] — [халяль-сертификат], производство Казань.
+     Поставка в [Город] за [срок]. Объём от [X кг/уп.]. СТМ/OEM — да.»
    - Вступление (2-3 предложения) — уникальный контекст города
+   - СЕКЦИЯ СЦЕНАРИЯ ПРИМЕНЕНИЯ (ОБЯЗАТЕЛЬНАЯ):
+     <section class="use-scenario"> ... </section>
+     Как продукт используется в реальном процессе клиента (пиццерия, HoReCa,
+     производство, АЗС, ритейл). На основе USP/differentiator из параметров.
+     Язык закупщика, не розницы: «при запекании», «в роллерном гриле»,
+     «при нарезке слайсером», «в тесте выпечки», «при хранении на складе».
+     2–4 конкретных тезиса — без превосходных степеней.
    - Блок преимуществ (6 карточек) — конкретные цифры и факты
    - Блок сертификатов (только те, что указаны выше — не выдумывай лишних)
    - FAQ блок (5 вопросов специфичных для этого города/региона)
    - CTA секция с формой заявки (имя, компания, телефон, email, сообщение)
    - Блок доставки в указанный город
 4. Schema.org JSON-LD: LocalBusiness + Product + FAQPage + BreadcrumbList
-5. Стиль: профессиональный, B2B, акцент на надёжность и сертификаты
+   ЦЕНА В JSON-LD: указывай offers/price ТОЛЬКО если цена передана в параметрах
+   продукта (поле price). Если цены нет — НЕ ДОБАВЛЯЙ offers/price вообще.
+   НИКОГДА не выдумывай цену, availability="InStock" без реальных данных.
+5. Стиль: профессиональный, B2B, акцент на надёжность и сертификаты.
+   ЗАПРЕЩЕНО: «лучший в России/мире», «выбирают нас 10+ лет», «поставки в 20+
+   стран», «партнёры рекомендуют», «пиццерия увеличила продажи» —
+   любые непроверяемые превосходные claims → нарушение. Используй цифры
+   только если они переданы в параметрах продукта.
 6. Добавь в <head> канонический тег: <link rel="canonical" href="CANONICAL из параметров">
 7. НЕ добавляй navigation header и footer — страница встраивается в существующий сайт
 8. Добавь к <body> атрибуты data-city и data-product (значения — из параметров)
@@ -446,16 +468,23 @@ def build_user_prompt(product: dict, city_name: str, city_context: dict,
     keywords = " | ".join(product.get("keywords_ru", product.get("keywords_en", [])))
     differentiator = product.get("differentiator", "")
 
+    # Verified, data-rich scenario angles — no fake reviews, no unverifiable superlatives.
+    # Removed: «отзывы партнёров из этого региона» (fake reviews — invariant no-fake-reviews),
+    #          «выбирают нас 10+ лет», «поставки в 20+ стран», «кейс: пиццерия увеличила продажи»
+    #          (unverifiable superiority claims — brand rule «no superlatives without evidence»).
     random_angle = random.choice([
-        "история бренда Pepperoni Tatar из Казани",
-        "контроль качества на производстве",
-        "почему клиенты выбирают нас уже 10+ лет",
-        "сравнение с конкурентами — в чём наше преимущество",
-        "кейс: как пиццерия увеличила продажи с нашим пепперони",
-        "технология производства без нитрита натрия",
-        "экспортный опыт: поставки в 20+ стран",
-        "отзывы партнёров из этого региона",
+        "технология производства без нитрита натрия — состав и процесс",
+        "пригодность под оборудование: роллерный гриль, слайсер, конвекционная печь",
+        "процесс СТМ/OEM-разработки: от ТЗ до серийного производства под вашим брендом",
+        "специфика халяль-сертификации: что проверяет ДУМ РТ на производстве",
+        "логистика и хранение: температурный режим, срок годности, условия транспортировки",
+        "специфика фасовки и нарезки под разные форматы HoReCa и ритейл",
+        "сырьё: говядина и курица халяль — трейсабилити и документация поставщиков",
+        "контроль качества на производстве: HACCP-точки, входной контроль сырья",
     ])
+
+    price_raw = product.get("price_rub") or product.get("price") or ""
+    price_line = f"ЦЕНА: {price_raw} руб./кг (EXW Казань)" if price_raw else "ЦЕНА: не передана — НЕ добавляй offers/price в JSON-LD"
 
     return f"""СТРАНА: {country_name}
 ГОРОД: {city_name}
@@ -463,6 +492,7 @@ def build_user_prompt(product: dict, city_name: str, city_context: dict,
 ПРОДУКТ: {product_name}
 USP: {usp}
 {f'КЛЮЧЕВОЕ ОТЛИЧИЕ: {differentiator}' if differentiator else ''}
+{price_line}
 
 КОНТЕКСТ ГОРОДА:
 - Население: {population}
@@ -552,11 +582,12 @@ def ensure_complete_html(html: str) -> str:
 
 
 def is_valid_page(html: str) -> bool:
-    """Reject pages that are too broken to publish.
+    """Reject pages that are too broken or missing mandatory GEO-format blocks.
 
-    A page is publishable when it has a real <head>, a heading, and (after
-    ensure_complete_html) a closing </html>. Also reject leftover conflict
-    markers as a last line of defense.
+    A page is publishable when:
+    - It has a real <head>, a heading, and a closing </html>
+    - It contains the mandatory <div class="tldr-answer"> block (ANSWER-FIRST)
+    - No leftover git conflict markers
     """
     low = html.lower()
     if any(m in html for m in ("<<<<<<<", "=======\n", ">>>>>>>")):
@@ -566,6 +597,9 @@ def is_valid_page(html: str) -> bool:
     if "<h1" not in low:
         return False
     if "</html>" not in low:
+        return False
+    # Mandatory GEO-format: ANSWER-FIRST block must be present
+    if 'class="tldr-answer"' not in low and "class='tldr-answer'" not in low:
         return False
     return True
 
