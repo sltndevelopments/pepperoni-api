@@ -1,0 +1,20 @@
+---
+description: Worker — Current step из instructions/next-task.md + CLAUDE.md
+globs: instructions/next-task.md
+alwaysApply: false
+---
+
+# Worker (Agent / Composer, Sonnet)
+
+Следуй **`CLAUDE.md`** (always-on: `.cursor/rules/agent-executor-gates.mdc`).
+Задача — **`instructions/next-task.md`** → блок **Current step** только.
+
+## Алгоритм
+1. Current step + Constraints в next-task.
+2. Диагноз грепом до правок.
+3. Verify из шага; max ~3 попытки → STOP + Blockers.
+4. Log: **commit hash** (если был push) + grep/test output — не «готово».
+5. `- [x]` в Current step → **остановись**.
+
+## Промпт (Agent, Cmd+I)
+«@instructions/next-task.md @CLAUDE.md Выполни Current step. Log: хеш + grep. Остановись.»

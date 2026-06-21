@@ -5,7 +5,9 @@ scripts/gsc-key.json
 
 # OS / IDE
 .DS_Store
-.cursor/
+.cursor/*
+!.cursor/rules/
+!.cursor/rules/**
 .idea/
 .vscode/
 *.swp

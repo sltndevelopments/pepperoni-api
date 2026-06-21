@@ -1,0 +1,26 @@
+---
+description: Рельсы исполнителя — гейт, grep, лимит итераций (см. CLAUDE.md)
+alwaysApply: true
+---
+
+# Agent Executor Gates
+
+Полный текст: `CLAUDE.md` в корне репо. Кратко — обязательно для каждого Agent-запуска.
+
+## Готово = origin/main, не проза
+- Доказательство: хеш коммита в `origin/main` + `git grep` / тест по полному файлу.
+- Отсутствие — только `grep -c`, никогда `head`.
+
+## Диагноз и фикс
+- Причину — строкой в коде/данных, не гипотезой.
+- Чини класс нарушений, не один экземпляр.
+- Max ~3 попытки на одну проблему → STOP, эскалация.
+
+## Не трогать
+- `page_reviewer.py`, `data/invariants.json`, `deploy_check.py` — не ослаблять.
+- VPS: `git pull --rebase` перед commit; **никогда** `reset --hard`.
+- Bulk без явного Current step в `instructions/next-task.md`.
+
+## Handoff
+- Задача: `instructions/next-task.md` → блок **Current step** только.
+- Отчёт в **Log**: Done, commit hash, grep/test output, Blockers.
