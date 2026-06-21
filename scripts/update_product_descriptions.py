@@ -16,7 +16,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL, CONTENT_MODEL
+DEEPSEEK_MODEL = CONTENT_MODEL  # DB logging alias: record actual generation model
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
 MAX_PRODUCTS = int(os.environ.get("MAX_PRODUCT_UPDATES", "5"))
@@ -24,7 +25,7 @@ TODAY        = datetime.now(timezone.utc).strftime("%Y-%m-%d")
 
 
 def call_claude(system: str, prompt: str, max_tokens: int = 2048) -> tuple[str, int]:
-    return _claude(prompt, system=system, max_tokens=max_tokens)
+    return _claude(prompt, system=system, max_tokens=max_tokens, model=CONTENT_MODEL)
 
 
 def get_top_queries_for_page(conn, page_url: str, limit: int = 5) -> list[str]:

@@ -25,7 +25,11 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL, CONTENT_MODEL
+
+# Legacy alias kept for DB logging rows that record the generation model name.
+_LOG_MODEL = CONTENT_MODEL
+DEEPSEEK_MODEL = _LOG_MODEL  # kept so existing logging rows remain consistent
 
 PUBLIC_DIR   = Path(__file__).parent.parent / "public"
 MAX_TOKENS   = 8000   # full HTML pages need headroom; 4096 truncated long pages
@@ -284,7 +288,7 @@ def call_claude(system: str, prompt: str) -> tuple[str, int]:
     # public/brand.txt). Stable across calls → prompt-cache friendly.
     from brand_system import brand_block
     return _claude(prompt, system=brand_block("ru") + "\n\n" + system,
-                   max_tokens=MAX_TOKENS)
+                   max_tokens=MAX_TOKENS, model=CONTENT_MODEL)
 
 
 _FALLBACK_FOOTER = (

@@ -28,15 +28,15 @@ PUBLIC = ROOT / "public"
 DB_PATH = DATA / "seo_data.db"
 
 # ── API ───────────────────────────────────────────────────────────────────────
-DEEPSEEK_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "") or os.environ.get("DEEPSEEK_API_KEY", "")
 from importlib import import_module as _im
 try:
-    DEEPSEEK_MODEL = _im("claude_client").DEFAULT_MODEL  # claude-sonnet-4-6
+    _cc = _im("claude_client")
+    CONTENT_MODEL = _cc.CONTENT_MODEL   # haiku by default, env-overridable
 except Exception:
-    DEEPSEEK_MODEL = "claude-sonnet-4-6"
+    CONTENT_MODEL = "claude-haiku-4-5-20251001"
 
-# GEO_MODEL: override the generation model (e.g. Haiku pilot at 1/3 the price).
-GEO_MODEL = os.environ.get("GEO_MODEL", "").strip() or DEEPSEEK_MODEL
+# GEO_MODEL: override per-run (e.g. for A/B tests). Defaults to CONTENT_MODEL.
+GEO_MODEL = os.environ.get("GEO_MODEL", "").strip() or CONTENT_MODEL
 # GEO_EFFORT: output-token spend control; templated pages don't need "high".
 GEO_EFFORT = os.environ.get("GEO_EFFORT", "medium")
 
@@ -142,8 +142,8 @@ from claude_client import call_claude as _shared_call_claude, today_spend_usd  #
 
 
 def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
-    """Call DeepSeek API via shared client. Returns (text, tokens_used)."""
-    return _shared_call_claude(prompt=prompt, model=DEEPSEEK_MODEL, max_tokens=max_tokens)
+    """Call content model via shared client. Returns (text, tokens_used)."""
+    return _shared_call_claude(prompt=prompt, model=GEO_MODEL, max_tokens=max_tokens)
 
 
 # ── Slug helpers ──────────────────────────────────────────────────────────────

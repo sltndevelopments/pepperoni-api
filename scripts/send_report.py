@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Generate a daily SEO report via DeepSeek API and send it by email.
+Generate a daily SEO report via Claude API and send it by email.
 Env: DEEPSEEK_API_KEY, REPORT_EMAIL (default: 995620@gmail.com)
 """
 
@@ -40,7 +40,7 @@ def call_claude(prompt: str) -> str:
         )
         return text
     except Exception as e:
-        return f"[DeepSeek недоступен: {e}]\n\n{prompt}"
+        return f"[Claude недоступен: {e}]\n\n{prompt}"
 
 
 def gather_stats() -> dict:
@@ -377,7 +377,7 @@ def main():
     print(f"📊 Gathering stats for {date_str} …")
     stats = gather_stats()
 
-    print("🤖 Generating report with DeepSeek …")
+    print("🤖 Generating report with Claude …")
     prompt = build_prompt(stats, date_str)
     report_text = call_claude(prompt)
 

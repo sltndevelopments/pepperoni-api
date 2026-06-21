@@ -36,7 +36,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude, DEEPSEEK_API_KEY, DEFAULT_MODEL
+from claude_client import call_claude, DEEPSEEK_API_KEY, DEFAULT_MODEL, CONTENT_MODEL
 from seo_db import get_conn, init_db
 
 ROOT = Path(__file__).parent.parent
@@ -394,8 +394,7 @@ def build_one(query: str, conn, force: bool = False) -> dict:
                     "url": url, "age_days": round(age_days, 1)}
 
     system, prompt = build_prompt(query)
-    # Flagship content: Opus advisor coaches the Sonnet executor (beta).
-    # claude_client silently falls back to a plain call if unavailable.
+    # Flagship landing: Sonnet + advisor for highest quality (not a GEO template).
     raw, tokens = call_claude(prompt, system=system, max_tokens=MAX_TOKENS,
                               advisor=True)
     data = _parse_content(raw)

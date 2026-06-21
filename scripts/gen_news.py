@@ -16,7 +16,8 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL
+from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL, CONTENT_MODEL
+DEEPSEEK_MODEL = CONTENT_MODEL  # DB logging alias: record actual generation model
 
 PUBLIC_DIR = Path(__file__).parent.parent / "public"
 NEWS_DIR   = PUBLIC_DIR / "news"
@@ -26,11 +27,7 @@ YEAR       = datetime.now().year
 FOOTER = f"""<footer class="bg-dark text-white py-4 mt-5">
   <div class="container text-center">
     <p class="mb-1">© 2022–{YEAR} Казанские Деликатесы | Производство халяль колбасных изделий</p>
-<<<<<<< HEAD
     <p class="mb-1">г. Казань, ул. Аграрная, 2 | <a href="tel:+79872170202" class="text-white">+7 987 217-02-02</a></p>
-=======
-    <p class="mb-1">г. Казань, ул. Мусина 83А | <a href="tel:+78005509076" class="text-white">+7(800)550-90-76</a></p>
->>>>>>> origin/STARTUP-AIO
     <p class="mb-0"><a href="/" class="text-white me-3">Главная</a><a href="/news/" class="text-white me-3">Новости</a><a href="/pepperoni-optom" class="text-white">Оптом</a></p>
   </div>
 </footer>"""
@@ -76,7 +73,7 @@ NEWS_TOPICS = [
 
 
 def call_claude(system: str, prompt: str) -> tuple[str, int]:
-    return _claude(prompt, system=system, max_tokens=4096)
+    return _claude(prompt, system=system, max_tokens=4096, model=CONTENT_MODEL)
 
 
 def generate_news_article(news: dict) -> tuple[Path, int]:
@@ -136,11 +133,7 @@ def generate_news_article(news: dict) -> tuple[Path, int]:
 - <p class="text-muted">Дата: {date}</p>
 - 3-4 абзаца текста по теме: {topic}
 - 2-3 H2 подзаголовка
-<<<<<<< HEAD
 - CTA блок: «Хотите стать партнёром? Звоните +7 987 217-02-02»
-=======
-- CTA блок: «Хотите стать партнёром? Звоните +7(800)550-90-76»
->>>>>>> origin/STARTUP-AIO
 - Ссылка «← Все новости» на /news/
 - Ссылка на /pepperoni-optom в тексте
 - Футер с контактами, текст 400-600 слов"""

@@ -21,7 +21,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude
+from claude_client import call_claude, CONTENT_MODEL
 
 ROOT = Path(__file__).parent.parent
 OUT = ROOT / "data" / "product_overrides"
@@ -70,7 +70,8 @@ def gen(sku: str, lang: str) -> str | None:
     )
     prompt = (f"{rules}\n\nProduct / Товар: «{name}»\nCategory / Категория: «{cat}»\n"
               f"Ingredients / Состав: {ing[:300]}")
-    raw, _ = call_claude(prompt, system=sys_p, max_tokens=2200, effort="medium")
+    raw, _ = call_claude(prompt, system=sys_p, max_tokens=2200, effort="medium",
+                         model=CONTENT_MODEL)
     html = raw.strip()
     html = re.sub(r"^```\w*\s*|\s*```$", "", html).strip()
     if "<div" not in html:

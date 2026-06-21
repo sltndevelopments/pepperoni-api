@@ -36,7 +36,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
-from claude_client import call_claude, DEEPSEEK_API_KEY, DEFAULT_MODEL
+from claude_client import call_claude, DEEPSEEK_API_KEY, DEFAULT_MODEL, CONTENT_MODEL
 
 PUBLIC_DIR = Path(__file__).parent.parent / "public"
 REPO_DIR   = Path(__file__).parent.parent

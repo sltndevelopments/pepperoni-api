@@ -17,7 +17,7 @@ import urllib.error
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from claude_client import call_claude as _call_claude, ANTHROPIC_API_KEY
+from claude_client import call_claude as _call_claude, ANTHROPIC_API_KEY, CONTENT_MODEL
 
 PUBLIC     = Path(__file__).parent.parent / "public"
 API_KEY    = ANTHROPIC_API_KEY
@@ -28,7 +28,7 @@ def call_claude(system: str, prompt: str) -> str:
     if not API_KEY:
         raise RuntimeError("ANTHROPIC_API_KEY not set")
     text, _ = _call_claude(prompt, system=system, max_tokens=MAX_TOKENS,
-                           effort="medium")
+                           effort="medium", model=CONTENT_MODEL)
     return text.strip()
 
 

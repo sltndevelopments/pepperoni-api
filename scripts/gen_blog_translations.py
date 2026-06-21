@@ -8,7 +8,7 @@ import os, sys, re, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from claude_client import call_claude
+from claude_client import call_claude, CONTENT_MODEL
 
 ROOT   = Path(__file__).parent.parent
 RU_DIR = ROOT / "public" / "blog"
@@ -144,7 +144,8 @@ Output ONLY the <main class="article-wrap">...</main> block and the <title>, <me
     text, _ = call_claude(
         system="You are an expert B2B content writer for food industry. Write in clean, professional English.",
         prompt=prompt,
-        max_tokens=3000
+        max_tokens=3000,
+        model=CONTENT_MODEL
     )
     return text
 
@@ -173,7 +174,8 @@ def generate_ru_article(en_slug, en_html, ru_slug, date):
     text, _ = call_claude(
         system="Ты эксперт по B2B контенту для пищевой промышленности. Пиши на чистом профессиональном русском языке.",
         prompt=prompt,
-        max_tokens=3000
+        max_tokens=3000,
+        model=CONTENT_MODEL
     )
     return text
 

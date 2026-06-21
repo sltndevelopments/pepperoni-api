@@ -532,13 +532,13 @@ def action_run_generation(chat_id: int) -> str:
                              capture_output=True).returncode == 0
     if running:
         return "🟢 Генерация уже идёт — дождись завершения."
-    # Launch the cheap worker tick (DeepSeek only, no LLM brain cost)
+    # Launch the cheap worker tick (Haiku executor, no LLM brain cost)
     subprocess.Popen(
         ["bash", str(ROOT / "scripts" / "seo-worker.sh")],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
     )
     J.log_event("user_cmd", "запуск генерации (worker tick)", who=str(chat_id))
-    return "🚀 Запустил рабочий цикл (DeepSeek). Через пару минут проверь 📊 Статус."
+    return "🚀 Запустил рабочий цикл. Через пару минут проверь 📊 Статус."
 
 
 def action_confirm_run_generation(chat_id: int) -> None:

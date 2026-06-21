@@ -29,7 +29,7 @@ import time
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude  # DeepSeek under the hood
+from claude_client import call_claude, CONTENT_MODEL
 
 ROOT = Path(__file__).parent.parent
 PRODUCTS_JSON = ROOT / "public" / "products.json"
@@ -148,7 +148,8 @@ def main():
         print(f"  [{i}/{len(todo)}] {sku} — {p['name'][:45]}  (missing: {', '.join(missing)})")
         try:
             raw, _tok = call_claude(build_prompt(p), system=SYSTEM,
-                                    max_tokens=1200, effort="medium")
+                                    max_tokens=1200, effort="medium",
+                                    model=CONTENT_MODEL)
         except Exception as ex:
             print(f"     ⚠️  API error: {ex}", file=sys.stderr)
             continue

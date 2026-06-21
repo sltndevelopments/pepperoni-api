@@ -15,7 +15,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude
+from claude_client import call_claude, CONTENT_MODEL
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -195,7 +195,8 @@ def _generate_one(prep: dict) -> str:
     """Synchronous single-page generation — used for owner-approved rebuilds."""
     try:
         html, _ = call_claude(prep["prompt"], system=prep.get("system", ""),
-                              max_tokens=MAX_TOKENS, effort="medium")
+                              max_tokens=MAX_TOKENS, effort="medium",
+                              model=CONTENT_MODEL)
         return html
     except Exception as e:
         print(f"  ✗ _generate_one {prep.get('label','?')}: {e}", file=sys.stderr)
@@ -276,7 +277,8 @@ def main():
     for p in preps:
         try:
             html, _ = call_claude(p["prompt"], system=p["system"],
-                                  max_tokens=MAX_TOKENS, effort="medium")
+                                  max_tokens=MAX_TOKENS, effort="medium",
+                                  model=CONTENT_MODEL)
             if _write_page(p, html):
                 made += 1
             else:
