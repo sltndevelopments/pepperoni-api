@@ -313,19 +313,20 @@ def derive_image(p: dict) -> str:
 def derive_additional_images(p: dict) -> list:
     out = []
     main = normalize_image_url(p.get("imageMain")) or normalize_image_url(p.get("image")) or ""
+    main_effective = derive_image(p)
     for k in ("imagePack", "imageSlice"):
         v = normalize_image_url(p.get(k))
-        if v and v != main:
+        if v and v != main and v != main_effective:
             out.append(v)
 
     # GMC recommends ≥2 images per offer. If we still have < 1 additional image,
     # pad with category and section OG images so the offer reaches ≥2 total.
-    total = (1 if main else 0) + len(out)
+    total = (1 if main_effective else 0) + len(out)
     if total < 2:
         cat_img = CATEGORY_FALLBACK_IMAGES.get(p.get("category", ""))
         sec_img = OG_BY_SECTION.get(p.get("section", ""))
-        for fallback in [cat_img, sec_img]:
-            if fallback and fallback not in out and fallback != main:
+        for fallback in (cat_img, sec_img):
+            if fallback and fallback not in out and fallback != main_effective:
                 out.append(fallback)
                 total += 1
                 if total >= 2:

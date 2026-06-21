@@ -545,7 +545,11 @@ def build_page(loc: dict) -> str:
     "@type": "Product",
     "name": "Халяль пепперони — {city}",
     "description": "{loc['desc']}",
-    "image": "https://pepperoni.tatar/images/pepperoni-halal.png",
+    "image": [
+      "https://pepperoni.tatar/images/pepperoni-halal.png",
+      "https://pepperoni.tatar/og-pepperoni-en.png",
+      "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+    ],
     "brand": {{"@type": "Brand", "name": "Казанские Деликатесы"}},
     "manufacturer": {{
       "@type": "Organization",

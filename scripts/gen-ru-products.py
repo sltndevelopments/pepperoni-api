@@ -10,6 +10,42 @@ OUT = "public/products"
 PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
+SECTION_OG = {
+    "Заморозка": "https://pepperoni.tatar/og-pepperoni-en.png",
+    "Охлаждённая продукция": "https://pepperoni.tatar/og-pepperoni-en.png",
+    "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
+}
+CATEGORY_OG = {
+    "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
+    "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
+    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
+    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
+    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
+    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+}
+
+
+def jsonld_image_list(main, pack, slice_img, section, category):
+    """≥2 images for GMC crawl / Merchant quality score."""
+    imgs = []
+    for u in (main, pack, slice_img):
+        if u and u not in imgs:
+            imgs.append(u)
+    if len(imgs) < 2:
+        for fb in (CATEGORY_OG.get(category or ""), SECTION_OG.get(section or "")):
+            if fb and fb not in imgs:
+                imgs.append(fb)
+            if len(imgs) >= 2:
+                break
+    if not imgs:
+        imgs = ["https://pepperoni.tatar/og-default.png"]
+    return json.dumps(imgs, ensure_ascii=False)
+
 
 def extract_qty_from_name(name):
     m = re.search(r"[×x]\s*(\d+)\s*шт", str(name or ""), re.I)
@@ -303,6 +339,10 @@ def main():
         slice_img_proxy = cloudinary_url(slice_raw, False, 800, True)
         slice_full = cloudinary_url(slice_raw, True, None, False)
         slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
+        jsonld_images = jsonld_image_list(
+            main_img or None, pack_img or None, slice_img or None,
+            p.get("section", ""), p.get("category", ""),
+        )
 
         seo_start = (p.get("seoDescriptionRU") or "")[:60]
         alt_main = (f"{name}. {seo_start}".rstrip(". ") or name).replace('"', "&quot;")
@@ -400,7 +440,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":"{main_img or 'https://pepperoni.tatar/og-default.png'}","brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{SHIPPING_DETAILS},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{SHIPPING_DETAILS},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
 </script>
 {faq_jsonld}
 <style>
