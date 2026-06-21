@@ -29,7 +29,7 @@
 
 ## Log
 - env-export в one-liner не экспортировал переменные → `ANTHROPIC_API_KEY not set`.
-  Корень: нет `set -a`. Чинится в Backlog п.1.
+  Корень: нет `set -a`. Починено в этой сессии.
 - `98ce1d562` — Haiku migration (Класс А, 11 файлов). CONTENT_MODEL = haiku-4-5-20251001
   в claude_client.py. GEO_MODEL → CONTENT_MODEL в generate_geo_bulk. Reviewer/brain
   остаются на Sonnet. aio_visibility не тронут. Сэмпл ожидает VPS.
@@ -37,6 +37,24 @@
   Скорее всего OOM (несколько Python-процессов одновременно), не наша правка.
   **TODO (watchdog):** добавить systemd watchdog или health-check скрипт + Telegram-алерт
   при недоступности SSH — чтобы не упираться в тишину вслепую. Паркую в Backlog.
+- **Haiku A/B тест `6ba58b3c`**: 40% pass vs 88% на Sonnet/DeepSeek.
+  Причины: markdown fences в HTML + игнор негативных банов на длинных промптах.
+  Вывод: слабые модели системно не держат длинные негативные инструкции — не специфика DeepSeek.
+- **CONTENT_MODEL revert `924f466d5`**: вернули на Sonnet (claude-sonnet-4-6).
+  CHEAP_MODEL=haiku сохранён как алиас для env-override A/B в будущем.
+- **fix(geo-bulk) `6ba58b3ce`**: DEEPSEEK_API_KEY guard → ANTHROPIC_API_KEY.
+
+- **Bounded-пилот 2026-06-21 (`b52eadaf`, симуляция cron-пути):**
+  - Запуск: `seo-agent-vps.sh` вручную через SSH + `MAX_GEO_PAGES=75 --mode russia --ignore-strategy`
+  - **НЕ полноценный cron**: инициирован мной вручную, не планировщиком. Метод — тот же скрипт, что запускает cron.
+  - Результат: **13 pass / 2 quarantine / 0 errors** из 15 задач в очереди (queue < 75 — coverage для russia оказалась меньше лимита)
+  - Pass rate: **87%** (13/15) — в норме, сопоставимо с прошлыми 88% на Sonnet
+  - Spend: $0.50 → $0.58 (+$0.08 за прогон) — далеко от дневного капа $10
+  - **Бюджет-guard физически активен**: строки `BudgetExceeded`/`bulk_budget` в коде = 11 вхождений (grep confirmed), `LLM_BULK_BUDGET_USD=5` выводится в лог
+  - **Гейт активен**: 2 страницы уходят в карантин по Критерию 1 (sosiki-v-teste — нет числовых данных, это known issue — ждёт данных от владельца)
+  - **verify_invariants на 3 страницах**: 6/6 критичных инвариантов ✅ (halal, fake-reviews, contacts, ar-no-pork, docs-in-process, fix-links). Единственное нарушение — `card-link-wrapper` (index.html, не geo-страница, отдельный issue)
+  - CONTENT_MODEL=Sonnet подтверждён на VPS
+  - VPS, local, origin/main синхронизированы на `b52eadaf`
 
 ## Backlog (watchdog / infra)
 - Watchdog: systemd unit с `Restart=always` для telegram_bot.py + cron-check на OOM
