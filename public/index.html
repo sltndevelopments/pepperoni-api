@@ -1212,5 +1212,20 @@ document.addEventListener('submit',function(e){
   frame.addEventListener('click',play,{once:true});
 })();
 </script>
+<!-- Google Customer Reviews badge (register at GMC → Settings → Google Customer Reviews) -->
+<script src="https://apis.google.com/js/platform.js?onload=renderBadge" async defer></script>
+<script>
+window.renderBadge = function() {
+  var ratingBadgeContainer = document.createElement("div");
+  ratingBadgeContainer.id = "google-customer-reviews-badge";
+  document.body.appendChild(ratingBadgeContainer);
+  window.gapi.load('ratingbadge', function() {
+    window.gapi.ratingbadge.render(ratingBadgeContainer, {
+      "merchant_id": 513449343,
+      "position": "BOTTOM_RIGHT"
+    });
+  });
+};
+</script>
 </body>
 </html>
