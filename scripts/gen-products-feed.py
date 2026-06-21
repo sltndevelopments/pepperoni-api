@@ -77,6 +77,22 @@ OG_BY_SECTION = {
     "Выпечка":               "https://pepperoni.tatar/og-bakery-en.png",
 }
 
+# Representative Cloudinary images per category — used as additional_image_link
+# fallback when a product has < 2 own images. GMC recommends ≥2 images per offer.
+CATEGORY_FALLBACK_IMAGES: dict[str, str] = {
+    "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+    "Котлеты для бургеров":         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
+    "Топпинги":                      "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
+    "Сосиски, сардельки":            "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
+    "Ветчины":                       "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Вареные":                       "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Копченые":                      "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
+    "Премиум Казылык":               "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
+    "Национальная татарская выпечка":"https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Классическая выпечка":          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Мясные заготовки":              "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+}
+
 
 def load():
     products = json.loads(DATA.read_text(encoding="utf-8")).get("products", [])
@@ -296,12 +312,25 @@ def derive_image(p: dict) -> str:
 
 def derive_additional_images(p: dict) -> list:
     out = []
-    main = p.get("imageMain")
-    primary = p.get("image")
+    main = normalize_image_url(p.get("imageMain")) or normalize_image_url(p.get("image")) or ""
     for k in ("imagePack", "imageSlice"):
         v = normalize_image_url(p.get(k))
-        if v and v != main and v != primary:
+        if v and v != main:
             out.append(v)
+
+    # GMC recommends ≥2 images per offer. If we still have < 1 additional image,
+    # pad with category and section OG images so the offer reaches ≥2 total.
+    total = (1 if main else 0) + len(out)
+    if total < 2:
+        cat_img = CATEGORY_FALLBACK_IMAGES.get(p.get("category", ""))
+        sec_img = OG_BY_SECTION.get(p.get("section", ""))
+        for fallback in [cat_img, sec_img]:
+            if fallback and fallback not in out and fallback != main:
+                out.append(fallback)
+                total += 1
+                if total >= 2:
+                    break
+
     return out[:10]  # GMC limit
 
 
