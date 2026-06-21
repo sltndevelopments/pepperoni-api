@@ -396,6 +396,12 @@ def main():
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div></div>'
+        else:
+            # Fallback to a section photo so catalog and detail are consistent
+            pool = SECTION_IMAGE_POOLS.get(section or "", [])
+            if pool:
+                fb = pool[0]
+                img_html = f'<div class="product-gallery"><div class="product-main-img"><img src="{fb}" alt="{html_esc(name)}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" {img_attrs}/></div></div>'
 
         specs = []
         if p.get("articleNumber") or p.get("sku"):
@@ -547,7 +553,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </ol>
 </nav>
 <div class="product-hero">
-<div>{img_html if img_html else '<div class="product-gallery"><div class="product-main-img"><span style="color:#999;font-size:.9rem">Фото не загружено</span></div></div>'}</div>
+<div>{img_html}</div>
 <div class="product-info">
 <h1 style="font-size:1.5rem;margin-bottom:10px">{name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">

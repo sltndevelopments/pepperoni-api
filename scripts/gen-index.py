@@ -443,7 +443,11 @@ function renderGroups(allGroups){{
         const propsHtml=props.length?props.join(''):'';
         const href=p.sku?`/products/${{p.sku.toLowerCase()}}`:'#';
         const altText=(p.name||'Продукт').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-        const rawImg=(p.image||'').trim();
+        let rawImg=(p.image || p.imageMain || p.imagePack || p.imageSlice || '').trim();
+        if(!rawImg){{
+          const fb = {{ "Заморозка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg", "Охлаждённая продукция": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg", "Выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg" }}[p.section||""] || "";
+          rawImg = fb;
+        }}
         const imgUrl=catalogImgDisplayUrl(rawImg);
         const proxyUrl=catalogImgProxyUrl(imgUrl);
         const imgForMeta=escAttr(rawImg||imgUrl);
@@ -522,7 +526,8 @@ async function loadCatalog(){{
       const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
-      groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''}});
+      const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
+      groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
     }}
     const icons={{'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'}};
     ALL_GROUPS=[];
@@ -538,7 +543,8 @@ async function loadCatalog(){{
         const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
         const pnv=parseFloat(p.offers?.priceExclVAT||0);
         const isBakery=!!p.offers?.pricePerUnit;
-        groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''}});
+        const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
+      groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
       }}
       const icons={{'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'}};
       ALL_GROUPS=[];
@@ -1055,7 +1061,11 @@ function renderGroups(allGroups){{
         const propsHtml=props.length?`<div class="product-sku">${{props.join('')}}</div>`:'';
         const href=p.sku?`/en/products/${{p.sku.toLowerCase()}}`:'#';
         const altText=(p.name||'Product').replace(/"/g,'&quot;').replace(/</g,'&lt;');
-        const rawImg=(p.image||'').trim();
+        let rawImg=(p.image || p.imageMain || p.imagePack || p.imageSlice || '').trim();
+        if(!rawImg){{
+          const fb = {{ "Заморозка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg", "Охлаждённая продукция": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg", "Выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg" }}[p.section||""] || "";
+          rawImg = fb;
+        }}
         const imgUrl=catalogImgDisplayUrl(rawImg);
         const proxyUrl=catalogImgProxyUrl(imgUrl);
         const imgForMeta=escAttr(rawImg||imgUrl);
@@ -1225,7 +1235,8 @@ async function loadCatalog(){{
       const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
-      groups[sec][cat].push({{name:getNameEn(p),sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||''}});
+      const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
+      groups[sec][cat].push({{name:getNameEn(p),sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
     }}
     ALL_GROUPS=[];
     for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({{section:sec,icon:SEC_ICONS[sec]||'📦',groups:cats}});
