@@ -388,6 +388,11 @@ sent = daily_ledger.flush_digest()
 print('digest sent' if sent else 'already flushed today — no-op')
 " >> "$LOG_FILE" 2>&1 || log "⚠️  Daily digest flush failed (non-fatal)"
 
+# ---- Step 8d: Status digest (once per calendar day, rich numbers) ----
+log "Step 8d: Status digest → Telegram …"
+python3 scripts/status_digest.py --daily >> "$LOG_FILE" 2>&1 \
+    || log "⚠️  Status digest failed (non-fatal)"
+
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true
 
