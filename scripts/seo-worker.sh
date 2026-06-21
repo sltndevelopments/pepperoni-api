@@ -13,6 +13,9 @@ mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/worker-$(date +%Y%m%d-%H%M%S).log"
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"; }
 
+TICK_START="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+PUSHED=0
+
 # Single-instance lock so overlapping cron ticks don't pile up.
 LOCK="/tmp/seo-worker.lock"
 exec 9>"$LOCK"
@@ -74,6 +77,7 @@ if ! git diff --cached --quiet 2>/dev/null; then
     git pull --rebase --autostash --quiet origin main >> "$LOG_FILE" 2>&1 || log "  ⚠️ rebase issue"
     if git push --quiet origin HEAD:main >> "$LOG_FILE" 2>&1; then
         log "  ✅ pushed $CHANGED files"
+        PUSHED=$CHANGED
     else
         log "  ⚠️ push failed"
     fi
@@ -82,3 +86,7 @@ else
 fi
 
 log "=== Worker tick done ==="
+
+# «Кино» в @KDSEOSiteBot — короткий ping после каждого тика (non-fatal).
+python3 scripts/worker_tick_notify.py --since "$TICK_START" --pushed "$PUSHED" \
+    >> "$LOG_FILE" 2>&1 || true
