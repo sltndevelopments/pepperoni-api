@@ -107,6 +107,25 @@ def send(chat_id: int, text: str, keyboard: list | None = None) -> None:
     _api("sendMessage", params)
 
 
+def send_inline(chat_id: int, text: str,
+                rows: list[list[tuple[str, str]]]) -> None:
+    """Inline keyboard (one tap = callback, not immediate action)."""
+    kb = [[{"text": t, "callback_data": d} for t, d in row] for row in rows]
+    _api("sendMessage", {
+        "chat_id": chat_id,
+        "text": text[:4000],
+        "parse_mode": "HTML",
+        "reply_markup": json.dumps({"inline_keyboard": kb}),
+    })
+
+
+def answer_callback(callback_id: str, text: str = "") -> None:
+    params = {"callback_query_id": callback_id}
+    if text:
+        params["text"] = text[:200]
+    _api("answerCallbackQuery", params)
+
+
 MAIN_MENU = [
     ["📊 Статус", "💰 Бюджет"],
     ["🚀 Запустить генерацию", "📜 История"],
@@ -522,6 +541,17 @@ def action_run_generation(chat_id: int) -> str:
     return "🚀 Запустил рабочий цикл (DeepSeek). Через пару минут проверь 📊 Статус."
 
 
+def action_confirm_run_generation(chat_id: int) -> None:
+    """Ask before spending LLM budget — accidental menu taps are common on mobile."""
+    send_inline(
+        chat_id,
+        "🚀 <b>Запустить рабочий цикл?</b>\n"
+        "Будет вызван <code>seo-worker.sh</code> (генерация + LLM-бюджет).\n"
+        "Подтверди, если это намеренно.",
+        [[("✅ Да, запустить", "run_gen:yes"), ("❌ Отмена", "run_gen:cancel")]],
+    )
+
+
 # ── Brain flow (costs money — confirmed) ─────────────────────────────────────────
 def set_pending(chat_id: int, kind: str, payload: str) -> None:
     d = {}
@@ -888,7 +918,7 @@ def _make_dispatch() -> dict:
         (("история", "history"),
          lambda cid: send(cid, action_history(), keyboard=MAIN_MENU)),
         (("запустить генерацию", "запустить", "run", "генерация"),
-         lambda cid: send(cid, action_run_generation(cid), keyboard=MAIN_MENU)),
+         lambda cid: action_confirm_run_generation(cid)),
         (("seo здоровье", "здоровье", "health", "seo health"), _cmd_health),
         (("эксперименты", "experiments"),
          lambda cid: send(cid, action_experiments(), keyboard=MAIN_MENU)),
@@ -911,6 +941,20 @@ _DISPATCH = _make_dispatch()
 
 
 # ── Message router ───────────────────────────────────────────────────────────────
+def handle_callback_query(cq: dict) -> None:
+    chat_id = cq["message"]["chat"]["id"]
+    if not is_authorized(chat_id):
+        answer_callback(cq["id"], "Сначала войди паролем")
+        return
+    data = cq.get("data", "")
+    if data == "run_gen:yes":
+        answer_callback(cq["id"], "Запускаю…")
+        send(chat_id, action_run_generation(chat_id), keyboard=MAIN_MENU)
+    elif data == "run_gen:cancel":
+        answer_callback(cq["id"], "Отменено")
+        send(chat_id, "Отменено.", keyboard=MAIN_MENU)
+
+
 def handle_message(msg: dict) -> None:
     chat_id = msg["chat"]["id"]
     name = msg["chat"].get("first_name", "user")
@@ -1088,6 +1132,12 @@ def main():
         resp = _api("getUpdates", {"timeout": POLL_TIMEOUT, "offset": offset})
         for upd in resp.get("result", []):
             offset = upd["update_id"] + 1
+            if "callback_query" in upd:
+                try:
+                    handle_callback_query(upd["callback_query"])
+                except Exception as e:
+                    print(f"[tg] callback error: {e}", file=sys.stderr)
+                continue
             msg = upd.get("message") or upd.get("edited_message")
             if msg and "chat" in msg:
                 try:
