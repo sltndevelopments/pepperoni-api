@@ -30,3 +30,15 @@
 ## Log
 - env-export в one-liner не экспортировал переменные → `ANTHROPIC_API_KEY not set`.
   Корень: нет `set -a`. Чинится в Backlog п.1.
+- `98ce1d562` — Haiku migration (Класс А, 11 файлов). CONTENT_MODEL = haiku-4-5-20251001
+  в claude_client.py. GEO_MODEL → CONTENT_MODEL в generate_geo_bulk. Reviewer/brain
+  остаются на Sonnet. aio_visibility не тронут. Сэмпл ожидает VPS.
+- VPS перестал отвечать по SSH после коммита `109cdc54` (auto-update catalog, ~09:53 UTC).
+  Скорее всего OOM (несколько Python-процессов одновременно), не наша правка.
+  **TODO (watchdog):** добавить systemd watchdog или health-check скрипт + Telegram-алерт
+  при недоступности SSH — чтобы не упираться в тишину вслепую. Паркую в Backlog.
+
+## Backlog (watchdog / infra)
+- Watchdog: systemd unit с `Restart=always` для telegram_bot.py + cron-check на OOM
+  (`journalctl -k | grep -i "oom\|killed"` после перезагрузки → алерт в Telegram).
+  Предотвращает повтор ситуации «SSH молчит, причина неизвестна».

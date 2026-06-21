@@ -138,7 +138,7 @@ def save_page_record(slug, product_id, city_slug, country_code, lang, template_i
 # ── HTTP helper ───────────────────────────────────────────────────────────────
 # Delegates to the shared DeepSeek client.
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude as _shared_call_claude, today_spend_usd  # noqa: E402
+from claude_client import call_claude as _shared_call_claude, today_spend_usd, ANTHROPIC_API_KEY  # noqa: E402
 
 
 def call_claude(prompt: str, max_tokens: int = 3000) -> tuple[str, int]:
@@ -1091,7 +1091,7 @@ def main():
                         help="Ignore data/strategy.json brain directives")
     args = parser.parse_args()
 
-    if not DEEPSEEK_API_KEY:
+    if not ANTHROPIC_API_KEY:
         print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         sys.exit(1)
 
