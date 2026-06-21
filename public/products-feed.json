@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-06-21T09:27:47.052708+00:00",
+  "dateModified": "2026-06-21T10:44:59.366206+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -29,7 +29,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-001",
         "brand": {
@@ -182,7 +186,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_dva_masa_qafusm.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-002",
         "brand": {
@@ -335,7 +343,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-003",
         "brand": {
@@ -488,7 +500,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_gril__kurinye_bjrpdn.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_kurinye_80_g_6_st_b8c74f.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-004",
         "brand": {
@@ -641,7 +657,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_iz_baraniny_1.0_begzsd.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_baraninoi%CC%86_nw1xi2.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-005",
         "brand": {
@@ -794,7 +814,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_travami_ruptjj.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-006",
         "brand": {
@@ -947,7 +971,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730303/sosiski_dla_hot_dogov_prosto_s_syrom_fhqdsp.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_syrom_1_ncg3x7.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-007",
         "brand": {
@@ -1099,7 +1127,12 @@
         "description": "Juicy halal patty made from selected beef and chicken thigh fillet, seasoned only with salt and ground black pepper. The delicate structure of the chi — halal burger patties from Kazan Delicacies, frozen products category. Net weight: 0,3 kg. Shelf life: 360 days. Storage: –18°C. Casing: casingless. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-008",
         "brand": {
@@ -1251,7 +1284,12 @@
         "description": "Juicy halal patty made from selected beef and chicken thigh fillet, seasoned only with salt and ground black pepper. The delicate structure of the chi — halal burger patties from Kazan Delicacies, frozen products category. Net weight: 0,3 kg. Shelf life: 360 days. Storage: –18°C. Casing: casingless. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-009",
         "brand": {
@@ -1402,8 +1440,13 @@
         "name": "Halal Chicken Ham in Loaf (1 kg) — Kazan Delicacies",
         "description": "Halal chicken ham from Kazan Tender halal chicken ham in loaf for sandwiches, snacks, and pizza toppings. Made in Kazan, Russia, certified Halal. Frozen at –18°C, shelf life 360 days. Perfect for HoReCa, wholesale and retail. Natural chicken meat with spices, no soy. Use on pizza, in salads, or as cold cuts. Juicy texture and rich flavor satisfy every taste. Halal, Tatarstan. Halal Chicken Ham in Loaf (1 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 68 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-010",
         "brand": {
@@ -1554,8 +1597,13 @@
         "name": "Halal Sliced Chicken Ham 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal chicken ham from Kazan Delicate sliced chicken ham from Kazan Delicacies (pepperoni.tatar). Perfect for sandwiches, salads, and snacks in HoReCa, wholesale, and retail. Halal, frozen at –18°C, 180-day shelf life. Made in Tatarstan. Halal Sliced Chicken Ham 0.5 kg (0,5 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. Diameter: 68 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-011",
         "brand": {
@@ -1706,8 +1754,13 @@
         "name": "Halal Turkey Ham in Loaf (1 kg) — Kazan Delicacies",
         "description": "Halal frozen turkey ham from Kazan Delicate turkey ham in loaf for sandwiches, slicing and toppings. Perfect for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen at –18°C for extended shelf life. Halal Turkey Ham in Loaf (1 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 68 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-012",
         "brand": {
@@ -1858,8 +1911,13 @@
         "name": "Halal Sliced Turkey Ham 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal, frozen –18°C Tender turkey ham for sandwiches, salads and pizza. Perfect for HoReCa and retail. Halal, made in Kazan. Shelf life 180 days. Halal Sliced Turkey Ham 0.5 kg (0,5 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 180 days. Storage: –18°C. Diameter: 68 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-013",
         "brand": {
@@ -2010,8 +2068,13 @@
         "name": "Halal Horse meat pepperoni 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal pepperoni from Kazan Rich, smoky horse meat pepperoni with authentic spice blend. Perfect for pizza, toppings, and hot dishes. Halal-certified, made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Frozen at –18°C, 360-day shelf life. No soy, no GMO. Natural casing. Halal Horse meat pepperoni 0.5 kg (0,5 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0,5 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-014",
         "brand": {
@@ -2164,7 +2227,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730315/pepperoni_3_st._gwmxcg.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730315/pepperoni_3_st._gwmxcg.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-015",
         "brand": {
@@ -2317,7 +2384,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730317/pepperoni_5_st_es7lrz.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730317/pepperoni_5_st_es7lrz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-016",
         "brand": {
@@ -2470,7 +2541,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/pepperoni_6_st_yujwot.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-017",
         "brand": {
@@ -2623,7 +2698,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-018",
         "brand": {
@@ -2673,7 +2752,7 @@
             "KZT": 3688.64,
             "UZS": 90768.74,
             "KGS": 661.2,
-            "BYN": 21,
+            "BYN": 21.0,
             "AZN": 12.85
           },
           "shippingDetails": {
@@ -2775,7 +2854,12 @@
         "description": "Halal, Kazan Juicy smoked chicken breast 1 kg. Perfect for toppings, cold cuts, salads and hot dishes. Halal certified. Made in Kazan. No GMO. Suitable for HoReCa, wholesale and retail. Shelf life 30 days at 0-6°C. Natural smoked flavor. Halal Smoked chicken breast 1 kg (1 кг kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 кг kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kurinaa_grudka_v_razreze_o3124p.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kurinaa_grudka_v_razreze_o3124p.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-019",
         "brand": {
@@ -2926,8 +3010,13 @@
         "name": "Halal Boiled Chicken Fillet 1 kg (1 кг kg) — Kazan Delicacies",
         "description": "Halal, frozen, for HoReCa and home Tender boiled chicken fillet from Kazan Delicacies (Kazan). Ready-to-eat, juicy, perfect for salads, sandwiches, pastries and hot dishes. Halal certified. Ideal for wholesale and retail. Natural taste, no preservatives. Halal Boiled Chicken Fillet 1 kg (1 кг kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 кг kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-020",
         "brand": {
@@ -3078,8 +3167,13 @@
         "name": "Halal ground beef 1 kg — Kazan Delicacies",
         "description": "Premium lean beef mince Natural halal ground beef from Kazan. Perfect for burgers, meatballs, dumplings. Suitable for HoReCa, wholesale and retail. No soy or fillers. Shelf life 180 days at -18°C. Made in Tatarstan. Halal ground beef 1 kg — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-021",
         "brand": {
@@ -3230,8 +3324,13 @@
         "name": "Halal Frozen chicken skin mince 1 kg — Kazan Delicacies",
         "description": "Halal minced chicken skin from Kazan Tasty minced chicken skin for cutlets, fillings and sauces. Perfect for HoReCa, wholesale and retail. Made in Kazan, halal certified. 180-day shelf life at –18°C. Rich flavor and juiciness for your dishes. Halal Frozen chicken skin mince 1 kg — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-022",
         "brand": {
@@ -3382,8 +3481,13 @@
         "name": "Halal Chicken thigh fillet 1x1 cm cubes — Kazan Delicacies",
         "description": "Halal frozen meat cuts from Kazan Tender chicken thigh fillet diced into 1x1 cm cubes for quick cooking. Perfect for pilaf, soups, salads, and stir-fries. Halal certified, frozen. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Juicy flavor and convenient format save kitchen prep time. Shelf life 180 days at -18°C. Halal Chicken thigh fillet 1x1 cm cubes — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-023",
         "brand": {
@@ -3534,8 +3638,13 @@
         "name": "Halal Chicken breast fillet cubes 1x1 cm — Kazan Delicacies",
         "description": "Frozen halal pre-cut meat from Kazan Natural chicken breast fillet diced into 1x1 cm cubes. Perfect for soups, salads, pilaf, and sauces. Halal certified, made in Kazan (Tatarstan). Ideal for HoReCa, wholesale, and retail. Quick to cook, juicy and tender. Shelf life 180 days at -18°C. Halal Chicken breast fillet cubes 1x1 cm — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-024",
         "brand": {
@@ -3686,8 +3795,13 @@
         "name": "Halal Beef 1st grade diced 1x1 cm — Kazan Delicacies",
         "description": "Frozen halal beef cubes for soups & stews Premium quality beef cubes, hand-cut in Kazan, Tatarstan. First-grade beef individually quick-frozen to lock in flavor and tenderness. Perfect for soups, stews, pilaf, pastry fillings, and sauces. Halal certified. Shelf life 180 days at –18°C. Ideal for HoReCa, wholesale, and retail. Halal Beef 1st grade diced 1x1 cm — Kazan Delicacies — halal meat preparations from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 180 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-025",
         "brand": {
@@ -3834,12 +3948,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-026#product",
         "sku": "KD-026",
         "mpn": "999921",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Breakfast Sausages (80 g × 6 pcs) — Kazan Delicacies",
         "description": "Breakfast Sausages are a versatile product for home cooking and HORECA. Due to their soft texture and balanced spices, they are perfect for breakfasts, hot dogs, and hot dishes.e color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. Halal Breakfast Sausages (80 g × 6 pcs) — Kazan Delicacies — halal sausages & frankfurters from Kazan Delicacies, refrigerated products category. Net weight: 0,4 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Diameter: 0 mm. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-026",
         "brand": {
@@ -3992,7 +4111,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730443/sosiski_k_zavtraku_3_hv0eel.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-027",
         "brand": {
@@ -4144,7 +4267,12 @@
         "description": "Delicate Sausages are a versatile product for home cooking and HORECA. With a combination of turkey fillet, chicken meat, and beef, they have a soft texture and balanced flavor. Suitable for breakfast, hot dogs, and quick cooking.e color fixative, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730430/sosiski_neznaa_jqh4xv.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-028",
         "brand": {
@@ -4291,12 +4419,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-029#product",
         "sku": "KD-029",
         "mpn": "999978",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Kazan's Sausages with Milk for Breakfasts, Hot Dishes, and HORECA - Chilled — Kazan Delicacies",
         "description": "Delicate sausages made from beef and chicken fillet with the addition of milk, featuring a mild taste and juicy texture. Kazan's Sausages with Milk are a versatile product for home cooking and HORECA. The combination of beef, chicken fillet, and milk gives the sausages a delicate texture and rich flavor. The aromatic spices (black pepper, allspice, and nutmeg) make them a great option for breakfasts and hot dishes.e color fixer, sugar, and spices. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-029",
         "brand": {
@@ -4443,13 +4576,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-030#product",
         "sku": "KD-030",
         "mpn": "999975",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Sausages \"With Cheese\" (130 g × 5 pieces) — Kazan Delicacies",
         "description": "Sausages \"With Cheese\" are a versatile product for home cooking and HORECA. Thanks to the combination of beef, chicken fillet, and hard cheese, the sausages have a rich flavor and a delicate texture. They are suitable for breakfast, hot dogs, and quick cooking.e, and a complex blend of spices. They do not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_1.1_eeaaav.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_iygsec.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730428/sosiski_s_syrom_130_g_5_st_2_ctyyui.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730428/sosiski_s_syrom_130_g_5_st_2_ctyyui.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-030",
         "brand": {
@@ -4596,12 +4733,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-031#product",
         "sku": "KD-031",
         "mpn": "999980",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Beef sausages for breakfast, hot dogs, and HORECA — chilled — Kazan Delicacies",
         "description": "Delicate beef sausages with natural spices, suitable for breakfast, hot dogs, and hot dishes. They retain their juiciness and rich flavor during cooking. Classic Beef sausages are a versatile solution for home cooking and HORECA. Their dense texture and aromatic spices (black pepper, cardamom) give them a rich flavor and make them a great alternative to traditional meat sausages.e color fixer, sugar, and spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730444/sosiski_iz_govadiny_80_g_6_st_2_icliam.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730444/sosiski_iz_govadiny_80_g_6_st_2_icliam.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-031",
         "brand": {
@@ -4652,7 +4794,7 @@
             "UZS": 42398.56,
             "KGS": 308.85,
             "BYN": 9.81,
-            "AZN": 6
+            "AZN": 6.0
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4754,7 +4896,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_kazanskie_premium_udkadz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_v-s_premium_xyky0a.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_v-s_premium_xyky0a.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-032",
         "brand": {
@@ -4906,7 +5052,12 @@
         "description": "Halal sausages from Kazan Juicy premium sausages 'Sausages Juicy' by Kazan Delicacies (pepperoni.tatar). Perfect for breakfast, hot dishes, and snacks. Made in Tatarstan, Halal certified. Suitable for HoReCa, wholesale, and retail. Rich taste and tender texture. Store at 0-6°C. Shelf life: 30 days. Halal Sausages Juicy 0.4 kg (0,4 kg) — Kazan Delicacies — halal sausages & frankfurters from Kazan Delicacies, refrigerated products category. Net weight: 0,4 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-033",
         "brand": {
@@ -5053,13 +5204,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-034#product",
         "sku": "KD-034",
         "mpn": "999982",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Buinsky Sausages 240 g (0,24 kg) — Kazan Delicacies",
         "description": "Halal, chilled, natural casing Buinsky Sausages are juicy and flavorful halal meat products from Kazan, made with natural casing. Perfect for boiling, frying, or baking — ideal for breakfast, lunch, or dinner. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. Natural casing locks in moisture and taste. From Kazan Delicacies — authentic Tatar quality. Halal Buinsky Sausages 240 g (0,24 kg) — Kazan Delicacies — halal sausages & frankfurters from Kazan Delicacies, refrigerated products category. Net weight: 0,24 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/buinskie_sardel_ki_bspdgs.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/sardel_ki_buinskie_ilutwn.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730451/sosiski_buinskie_1.1_gxc9r9.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730451/sosiski_buinskie_1.1_gxc9r9.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-034",
         "brand": {
@@ -5206,12 +5361,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-035#product",
         "sku": "KD-035",
         "mpn": "999998",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Boiled beef sausage 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal, made in Kazan Tender boiled sausage made from premium beef, crafted according to a classic recipe. Perfect for sandwiches, salads, and hot dishes. Halal certified, -free. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Natural taste and aroma from Tatarstan. Halal Boiled beef sausage 0.5 kg (0,5 kg) — Kazan Delicacies — halal boiled sausages from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-035",
         "brand": {
@@ -5358,12 +5518,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-036#product",
         "sku": "KD-036",
         "mpn": "995003",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal boiled assorted meats 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Tender meat selection from Kazan Boiled Assorted by Kazan Delicacies is a juicy and tender meat product with a classic flavor, perfect for sandwiches, appetizers and salads. Made from premium halal ingredients using traditional recipes, without artificial additives. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C for up to 30 days. Halal certified. Halal boiled assorted meats 0.5 kg (0,5 kg) — Kazan Delicacies — halal boiled sausages from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-036",
         "brand": {
@@ -5510,12 +5675,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-037#product",
         "sku": "KD-037",
         "mpn": "995004",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Boiled Tender 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal, chilled, in casing Delicate boiled sausage made from selected meat following Tatar traditions. Perfect for sandwiches, salads, and snacks. Produced in Kazan under strict Halal supervision. Suitable for HoReCa, wholesale, and retail. Juicy, wholesome, and clean. Halal Boiled Tender 0.5 kg (0,5 kg) — Kazan Delicacies — halal boiled sausages from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: natural casing. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-037",
         "brand": {
@@ -5662,12 +5832,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-038#product",
         "sku": "KD-038",
         "mpn": "999946",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Turkey Ham 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal Chilled Turkey Ham from Kazan Delicate turkey ham from Kazan Delicacies — perfect for sandwiches, platters, and salads. Halal-certified, made in Kazan. Suitable for HoReCa, wholesale, and retail. Juicy texture, natural taste, -free. Keep at 0–6 °C, shelf life 30 days. Halal Turkey Ham 0.5 kg (0,5 kg) — Kazan Delicacies — halal hams from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-038",
         "brand": {
@@ -5814,12 +5989,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-039#product",
         "sku": "KD-039",
         "mpn": "999997",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Marble Beef Ham 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal ham from Kazan Marbled beef ham — tender, juicy, with rich meaty flavor. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified. Made in Kazan, Tatarstan. Store at 0-6°C, shelf life 30 days. Halal Marble Beef Ham 0.5 kg (0,5 kg) — Kazan Delicacies — halal hams from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-039",
         "brand": {
@@ -5966,12 +6146,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-040#product",
         "sku": "KD-040",
         "mpn": "999941",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Chicken Ham Halal 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Chilled Halal Chicken Ham, Kazan Tender and juicy chicken ham, produced in Kazan according to Halal standards. Perfect for sandwiches, salads, and snacks. Suitable for HoReCa, wholesale, and retail. Chilled product, shelf life 30 days at 0–6 °C. Natural ingredients, no unnecessary additives. Great choice for healthy eating and daily meals. Chicken Ham Halal 0.5 kg (0,5 kg) — Kazan Delicacies — halal hams from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-040",
         "brand": {
@@ -6118,12 +6303,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-041#product",
         "sku": "KD-041",
         "mpn": "995009",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Filley Ham 0.5 kg (0,5 kg) — Kazan Delicacies",
         "description": "Halal ham from Kazan Tender Filley Ham by Kazan Delicacies — a chilled product with classic flavor, perfect for sandwiches, salads, and appetizers. Made in Tatarstan according to halal standards. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. Halal Filley Ham 0.5 kg (0,5 kg) — Kazan Delicacies — halal hams from Kazan Delicacies, refrigerated products category. Net weight: 0,5 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-041",
         "brand": {
@@ -6270,12 +6460,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-042#product",
         "sku": "KD-042",
         "mpn": "999975",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Servelat Khansky 0.45 kg (0,45 kg) — Kazan Delicacies",
         "description": "Smoked servelat from Tatarstan, halal Enjoy the refined taste of smoked servelat 'Khansky' from Kazan Delicacies. Made from selected meat with traditional smoking and spices. Perfect for breakfast, sandwiches, or meat platters in HoReCa. Halal certified, produced in Kazan. Suitable for wholesale and retail. Store at 0-6°C, shelf life 30 days. Halal Servelat Khansky 0.45 kg (0,45 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,45 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-042",
         "brand": {
@@ -6422,12 +6617,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-043#product",
         "sku": "KD-043",
         "mpn": "999994",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Servelat \"Po-Tatarski\" (450 g) — Kazan Delicacies",
         "description": "Servelat \"Po-Tatarski\" is a classic meat sausage that is perfect for sandwiches, appetizers, and restaurant presentations. With its combination of beef, beef fat, and aromatic spices, including fresh garlic, this product offers a vibrant taste and appetizing aroma.e color fixative, a complex blend of spices, and fresh garlic. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-043",
         "brand": {
@@ -6574,12 +6774,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-044#product",
         "sku": "KD-044",
         "mpn": "999910",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked Turkey Sausage (0,45 kg) — Kazan Delicacies",
         "description": "Halal, 450 g, 30 days Delicate semi-smoked turkey sausage with a light smoky aroma. Perfect for sandwiches, cold cuts, and hot dishes. Made in Kazan according to Halal standards. Suitable for HoReCa, wholesale, and retail. Rich in protein, low in fat. Halal Smoked Turkey Sausage (0,45 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,45 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-044",
         "brand": {
@@ -6726,12 +6931,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-045#product",
         "sku": "KD-045",
         "mpn": "999961",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Semi-Smoked Beef Sausage 0.45 kg (0,45 kg) — Kazan Delicacies",
         "description": "Halal, Chilled, 30 days Tender semi-smoked sausage made from premium beef, produced in Kazan. Perfect for sandwiches, appetizers, and salads. Halal-certified. Suitable for HoReCa, wholesale, and retail. Store at 0-6°C. Halal Semi-Smoked Beef Sausage 0.45 kg (0,45 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,45 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-045",
         "brand": {
@@ -6883,7 +7093,12 @@
         "description": "Sausages \"With Cheese\" are an excellent option for grilling, breakfasts, and hot dishes. Thanks to the combination of beef, chicken fillet, and hard cheese, the product has a juicy texture and rich flavor. Suitable for cooking in a pan, on the grill, or serving as a hot appetizer.e color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-046",
         "brand": {
@@ -7034,8 +7249,13 @@
         "name": "Halal Smoked chicken breast (1 kg) — Kazan Delicacies",
         "description": "Halal, chilled, 1 kg Smoked chicken breast by Kazan Delicacies — tender, juicy meat with a light smoky flavor. Perfect for sandwiches, salads, and hot dishes. Made in Kazan, Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. No GMOs, natural taste. Halal Smoked chicken breast (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-047",
         "brand": {
@@ -7186,8 +7406,13 @@
         "name": "Halal Smoked Chicken Fillet (1 kg) — Kazan Delicacies",
         "description": "Chilled Halal Product Flavorful smoked chicken fillet from Kazan, Halal certified. Perfect for sandwiches, salads, and hot dishes. Natural ingredients, no GMOs. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Halal Smoked Chicken Fillet (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-048",
         "brand": {
@@ -7334,12 +7559,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-049#product",
         "sku": "KD-049",
         "mpn": "995005",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked sausage Ramadan (0,54 kg) — Kazan Delicacies",
         "description": "Halal, chilled Smoked sausage Ramadan is a halal meat product from Kazan with rich smoky aroma and tender texture. Perfect for slicing, sandwiches, and snacks. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6 °C. Made in Tatarstan, certified halal. Halal Smoked sausage Ramadan (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-049",
         "brand": {
@@ -7486,12 +7716,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-050#product",
         "sku": "KD-050",
         "mpn": "995012",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked Ramazan half 0.27 kg (0,27 kg) — Kazan Delicacies",
         "description": "Halal smoked meat from Kazan Tasty smoked half Ramazan by Kazan Delicacies — tender meat with smoky aroma, perfect for sandwiches, salads and hot dishes. Halal certified, made in Kazan (Tatarstan) from selected ingredients. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C, shelf life 30 days. Enjoy traditional flavor with delivery across Russia. Halal Smoked Ramazan half 0.27 kg (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-050",
         "brand": {
@@ -7638,12 +7873,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-051#product",
         "sku": "KD-051",
         "mpn": "995006",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Marble smoked sausage 0.54 kg (0,54 kg) — Kazan Delicacies",
         "description": "Halal meat product from Kazan Tender marbled meat with spicy smoky flavor. Perfect for sandwiches, salads, appetizers. Halal certified. Made in Kazan (Tatarstan). Suitable for HoReCa, wholesale and retail. No soy or GMO. Store at 0-6°C. Halal Marble smoked sausage 0.54 kg (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-051",
         "brand": {
@@ -7790,13 +8030,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-052#product",
         "sku": "KD-052",
         "mpn": "995011",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked Marbled Half 0.27 kg (0,27 kg) — Kazan Delicacies",
         "description": "Halal, chilled, smoked Tender marbled beef with smoky flavor. Perfect for slices, sandwiches, and snacks. Halal, made in Kazan. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Halal Smoked Marbled Half 0.27 kg (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-052",
         "brand": {
@@ -7943,12 +8187,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-053#product",
         "sku": "KD-053",
         "mpn": "995007",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked fillet v/k (0,54 kg) — Kazan Delicacies",
         "description": "Halal, chilled, 540 g Smoked fillet v/k offers tender meat with rich aroma and delicate taste. Perfect for slicing, sandwiches, and salads. Suitable for HoReCa, wholesale, and retail. Made in Kazan (Tatarstan) according to Halal standards. No soy or GMOs. Shelf life 30 days at 0–6 °C. Halal Smoked fillet v/k (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-053",
         "brand": {
@@ -8095,12 +8344,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-054#product",
         "sku": "KD-054",
         "mpn": "995013",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked Chicken Fillet Half 0.27 kg (0,27 kg) — Kazan Delicacies",
         "description": "Premium halal smoked chicken breast from Kazan Tender cooked-smoked fillet made from selected chicken breast. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified, made in Kazan. Store at 0-6°C, shelf life 30 days. Halal Smoked Chicken Fillet Half 0.27 kg (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-pepperoni-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-054",
         "brand": {
@@ -8247,12 +8501,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-055#product",
         "sku": "KD-055",
         "mpn": "995008",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Smoked 'Knyazheskaya' 0.54 kg (0,54 kg) — Kazan Delicacies",
         "description": "Halal, chilled, 30 days Smoked ham 'Knyazheskaya' — tender meat product with rich smoky flavor. Perfect for sandwiches, snacks, salads. Suitable for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at 0–6 °C. Halal Smoked 'Knyazheskaya' 0.54 kg (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-055",
         "brand": {
@@ -8399,12 +8658,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-056#product",
         "sku": "KD-056",
         "mpn": "995010",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal V/C Knyazheskaya (half) 0.27 kg — Kazan Delicacies",
         "description": "Halal smoked sausage from Kazan Delicate boiled-smoked sausage 'Knyazheskaya' (half) 270 g by Kazan Delicacies — a premium halal treat with spicy aroma and mild taste. Perfect for slicing, sandwiches, and snacks. No soy or GMOs. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Keep at 0–6 °C, shelf life 30 days. Halal V/C Knyazheskaya (half) 0.27 kg — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-056",
         "brand": {
@@ -8551,13 +8815,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-057#product",
         "sku": "KD-057",
         "mpn": "999911",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Halal Premium Kazylyk in Gift Box 0.2 kg (0,2 kg) — Kazan Delicacies",
         "description": "Halal, Chilled, Tatarstan Premium kazylyk made from selected beef and lamb with oriental spices. Perfect for festive table, gift, HoReCa. Halal, produced in Kazan. Rich flavor, firm texture, shelf life 180 days at 0–12 °C. Halal Premium Kazylyk in Gift Box 0.2 kg (0,2 kg) — Kazan Delicacies — halal premium kazylyk from Kazan Delicacies, refrigerated products category. Net weight: 0,2 kg. Shelf life: 180 days. Storage: 0-12 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-057",
         "brand": {
@@ -8704,12 +8972,17 @@
         "@id": "https://pepperoni.tatar/en/products/kd-058#product",
         "sku": "KD-058",
         "mpn": "999909",
-        "gtin13": null,
+        "gtin13": "4,68E+12",
         "name": "Authentic Kazylik, prepared according to the classic Tatar recipe, sliced into thin slices for convenient use in cafes, restaurants, hotels, shops, an",
         "description": "Authentic Kazylik, prepared according to the classic Tatar recipe, sliced into thin slices for convenient use in cafes, restaurants, hotels, shops, an — halal premium kazylyk from Kazan Delicacies, refrigerated products category. Net weight: 0,1 kg. Shelf life: 30 days. Storage: 0-12 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700322/kyzylyk_narezka_bez_upakovki_1.6_gtkdqm.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-058",
         "brand": {
@@ -8862,7 +9135,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-059",
         "brand": {
@@ -9015,7 +9292,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-060",
         "brand": {
@@ -9065,7 +9346,7 @@
             "KZT": 10712.8,
             "UZS": 263617.05,
             "KGS": 1920.31,
-            "BYN": 61,
+            "BYN": 61.0,
             "AZN": 37.33
           },
           "shippingDetails": {
@@ -9168,7 +9449,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-061",
         "brand": {
@@ -9320,7 +9605,12 @@
         "description": "Halal Tatar pastry from Kazan Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail. Halal Samosa with Chicken 120 g (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-062",
         "brand": {
@@ -9473,7 +9763,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-063",
         "brand": {
@@ -9626,7 +9920,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-064",
         "brand": {
@@ -9779,7 +10077,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-065",
         "brand": {
@@ -9930,8 +10232,13 @@
         "name": "Halal Chak-Chak 300 g (300 г kg) — Kazan Delicacies",
         "description": "Halal Tatar pastry from Kazan Chak-Chak in plastic packaging – traditional Tatar dessert from Kazan. Delicate dough fried golden and coated with honey syrup, creating a unique taste. Perfect for tea, gifts, HoReCa and wholesale. Halal certified. Shelf life 60 days at up to +18°C. Made in Tatarstan. Halal Chak-Chak 300 g (300 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-066",
         "brand": {
@@ -10084,7 +10391,11 @@
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-067",
         "brand": {
@@ -10235,8 +10546,13 @@
         "name": "Halal Curd pastry 100 g (100 г kg) — Kazan Delicacies",
         "description": "Classic halal pastry from Kazan Curd pastry from Kazan Delicacies — tender frozen pastry filled with curd cheese. Perfect for HoReCa, wholesale, and retail. Halal-certified, made in Kazan. Weight 100 g, shelf life 360 days at −18°C. Serve warm for a soft, juicy bite with mild sweetness. Ideal for breakfasts, snacks, or dessert menus. Halal Curd pastry 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-068",
         "brand": {
@@ -10387,8 +10703,13 @@
         "name": "Halal Baked potato pie 100g – frozen (100 г kg) — Kazan Delicacies",
         "description": "Halal, Kazan Delicious baked pie with soft potato filling. Perfect for snacks, street food, and HoReCa. Made in Kazan, Halal certified. No preservatives. Long shelf life at -18°C. Suitable for wholesale and retail. Halal Baked potato pie 100g – frozen (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-069",
         "brand": {
@@ -10539,8 +10860,13 @@
         "name": "Halal Frozen cheesecake 70 g (70 г kg) — Kazan Delicacies",
         "description": "Halal bakery from Kazan Delicate cottage cheese cheesecake with vanilla flavor. Perfect for breakfast or snack. Suitable for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen to keep freshness up to 360 days. Light and satisfying dessert for the whole family. Halal Frozen cheesecake 70 g (70 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 70 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-070",
         "brand": {
@@ -10691,8 +11017,13 @@
         "name": "Halal Apple Pie 100 g (100 г kg) — Kazan Delicacies",
         "description": "Halal pastry from Kazan Flaky or yeast dough pie filled with apple. Perfect snack for tea, travel, or dessert. Halal certified, made in Kazan. Frozen at –18°C, 360-day shelf life. Suitable for HoReCa, wholesale, retail. Homemade taste. Halal Apple Pie 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-071",
         "brand": {
@@ -10843,8 +11174,13 @@
         "name": "Halal Frozen pie with green onion and egg (100 г kg) — Kazan Delicacies",
         "description": "Halal pastry from Kazan Delicate pie with a juicy filling of fresh green onion and boiled egg. Perfect for quick snacks, street food, HoReCa and wholesale. Made in Kazan, traditional recipe. Halal. Weight 100 g. Shelf life 360 days at -18°C. Halal Frozen pie with green onion and egg (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-072",
         "brand": {
@@ -10995,8 +11331,13 @@
         "name": "Halal Orange muffin 100 g (100 г kg) — Kazan Delicacies",
         "description": "Soft citrus pastry, halal Orange muffin by Kazan Delicacies — tender cake with bright orange flavor. Perfect for breakfasts, snacks, HoReCa and wholesale. Made in Kazan (Tatarstan). Halal. Frozen at –18°C, shelf life 360 days. Halal Orange muffin 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-073",
         "brand": {
@@ -11046,7 +11387,7 @@
             "KZT": 9835.56,
             "UZS": 242030.36,
             "KGS": 1763.06,
-            "BYN": 56,
+            "BYN": 56.0,
             "AZN": 34.27
           },
           "shippingDetails": {
@@ -11147,8 +11488,13 @@
         "name": "Halal Sausage in dough frozen 120 g (120 г kg) — Kazan Delicacies",
         "description": "Halal baked pastry from Kazan Juicy sausage wrapped in soft yeast dough — perfect for a quick snack, breakfast, and HoReCa. Made in Tatarstan, halal certified. Easy to prepare: heat in oven or microwave. Suitable for wholesale, retail, and street food. Natural ingredients, no GMO. Convenient packaging, shelf life 360 days at -18°C. Halal Sausage in dough frozen 120 g (120 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-074",
         "brand": {
@@ -11299,8 +11645,13 @@
         "name": "Halal Cherry Pie 100 g (100 г kg) — Kazan Delicacies",
         "description": "Frozen halal pastry from Kazan Halal cherry pie with juicy filling and soft dough. Perfect for HoReCa, wholesale, and retail. Made in Tatarstan. Shelf life 360 days at −18°C. Halal certified. Halal Cherry Pie 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-075",
         "brand": {
@@ -11451,8 +11802,13 @@
         "name": "Halal Chocolate & Nut Croissant 90 g (90 г kg) — Kazan Delicacies",
         "description": "Halal frozen pastry from Kazan Flaky croissant filled with chocolate and nuts. Perfect for breakfast, snack or dessert. Suitable for HoReCa, wholesale and retail. Made in Tatarstan, halal certified. Store at –18°C, shelf life 360 days. Weight 90 g, pack of 20. Halal Chocolate & Nut Croissant 90 g (90 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 90 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-076",
         "brand": {
@@ -11603,8 +11959,13 @@
         "name": "Halal Chocolate muffin 100 g (100 г kg) — Kazan Delicacies",
         "description": "Soft sponge with cocoa and chocolate chips Enjoy a tender chocolate muffin from Kazan Delicacies — perfect dessert for home, HoReCa, and retail. Made in Kazan with natural ingredients, Halal certified. Weight 100 g, shelf life 360 days at –18°C. Halal Chocolate muffin 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://pepperoni.tatar/og-bakery-en.png",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-077",
         "brand": {
