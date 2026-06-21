@@ -58,6 +58,21 @@ BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 API = f"https://api.telegram.org/bot{BOT_TOKEN}" if BOT_TOKEN else ""
 
 
+def telegram_proxy() -> str:
+    """VPS (RU) often blocks api.telegram.org direct — route via proxy."""
+    return (os.environ.get("TELEGRAM_PROXY") or os.environ.get("ANTHROPIC_PROXY") or "").strip()
+
+
+def open_telegram_url(req: urllib.request.Request, timeout: float = 15):
+    proxy = telegram_proxy()
+    if proxy:
+        opener = urllib.request.build_opener(
+            urllib.request.ProxyHandler({"http": proxy, "https": proxy})
+        )
+        return opener.open(req, timeout=timeout)
+    return urllib.request.urlopen(req, timeout=timeout)
+
+
 def get_recipients() -> list[int]:
     ids: list[int] = []
     for env_key in ("TELEGRAM_CHAT_ID", "TELEGRAM_LEADS_CHAT_ID"):
@@ -110,7 +125,7 @@ def send(chat_id: int, text: str, parse_mode: str = "HTML") -> bool:
     data = urllib.parse.urlencode(params).encode()
     req = urllib.request.Request(f"{API}/sendMessage", data=data)
     try:
-        with urllib.request.urlopen(req, timeout=15) as resp:
+        with open_telegram_url(req, timeout=15) as resp:
             body = json.loads(resp.read())
             return bool(body.get("ok"))
     except Exception:

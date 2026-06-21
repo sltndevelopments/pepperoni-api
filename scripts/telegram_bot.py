@@ -90,7 +90,8 @@ def _api(method: str, params: dict) -> dict:
     data = urllib.parse.urlencode(params).encode()
     req = urllib.request.Request(f"{API}/{method}", data=data)
     try:
-        with urllib.request.urlopen(req, timeout=POLL_TIMEOUT + 10) as r:
+        from telegram_notify import open_telegram_url
+        with open_telegram_url(req, timeout=POLL_TIMEOUT + 10) as r:
             return json.loads(r.read())
     except Exception as e:
         print(f"[tg] api error {method}: {e}", file=sys.stderr)
