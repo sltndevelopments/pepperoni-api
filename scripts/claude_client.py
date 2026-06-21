@@ -66,10 +66,12 @@ DEFAULT_MODEL  = "claude-sonnet-4-6"
 FALLBACK_MODEL = "claude-sonnet-4-5"   # convenience alias to latest 4.5 snapshot
 CHEAP_MODEL    = "claude-haiku-4-5-20251001"
 CHEAP_FALLBACK = "claude-sonnet-4-6"
-# Content generation model: fast/cheap executor for templated tasks where the
+# Content generation model: fast executor for templated tasks where the
 # page_reviewer (Sonnet) is the quality gate. Decoupled from DEFAULT_MODEL so
 # the reviewer, brain and other callers stay on Sonnet.
-CONTENT_MODEL  = os.environ.get("CONTENT_MODEL", CHEAP_MODEL)
+# Haiku tested 2026-06-21: 40% pass vs 88% on Sonnet — instruction-following
+# too weak for long HTML with strict negative constraints. Keeping Sonnet here.
+CONTENT_MODEL  = os.environ.get("CONTENT_MODEL", DEFAULT_MODEL)
 
 # Advisor (beta): smart model coaches the cheap executor inside one request.
 ADVISOR_MODEL = os.environ.get("ADVISOR_MODEL", "claude-opus-4-8")
