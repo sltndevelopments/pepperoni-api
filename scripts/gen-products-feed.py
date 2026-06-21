@@ -440,6 +440,8 @@ def build_row(p: dict, tr: dict) -> dict:
         "shipping": f"{COUNTRY}:::0.00 USD",
         "shipping_weight": normalize_weight(p.get("weight", "")),
         "tax": f"{COUNTRY}:20:y",
+        # Food products: returns only for defective goods (RU law art.25 ZOZPP)
+        "return_policy_label": "no-returns-food",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
         "age_group": "adult",
