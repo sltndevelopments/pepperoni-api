@@ -63,9 +63,70 @@ def telegram_proxy() -> str:
     return (os.environ.get("TELEGRAM_PROXY") or os.environ.get("ANTHROPIC_PROXY") or "").strip()
 
 
+def _proxy_chain() -> list[str]:
+    chain: list[str] = []
+    for key in ("TELEGRAM_PROXY", "ANTHROPIC_PROXY", "ANTHROPIC_PROXY_FALLBACK"):
+        p = os.environ.get(key, "").strip()
+        if p:
+            chain.append(p)
+    for p in os.environ.get("ANTHROPIC_PROXIES", "").split(","):
+        p = p.strip()
+        if p:
+            chain.append(p)
+    seen: set[str] = set()
+    out: list[str] = []
+    for p in chain:
+        if p not in seen:
+            seen.add(p)
+            out.append(p)
+    return out
+
+
+class _BytesResponse:
+    """Minimal file-like wrapper for urllib-compatible callers."""
+    def __init__(self, data: bytes):
+        self._data = data
+
+    def read(self) -> bytes:
+        return self._data
+
+    def __enter__(self):
+        return self
+
+    def __exit__(self, *args):
+        return False
+
+
 def open_telegram_url(req: urllib.request.Request, timeout: float = 15):
-    proxy = telegram_proxy()
-    if proxy:
+    """Open Telegram Bot API URL. Uses requests+SOCKS chain when proxy is set."""
+    chain = _proxy_chain()
+    if chain:
+        try:
+            import requests
+            last_exc: Exception | None = None
+            for i, proxy in enumerate(chain):
+                try:
+                    r = requests.request(
+                        req.get_method(),
+                        req.full_url,
+                        data=req.data,
+                        headers=dict(req.header_items()),
+                        timeout=timeout,
+                        proxies={"http": proxy, "https": proxy},
+                    )
+                    if r.status_code >= 400:
+                        raise urllib.error.HTTPError(
+                            req.full_url, r.status_code, r.text[:200], None, None)
+                    return _BytesResponse(r.content)
+                except Exception as exc:
+                    last_exc = exc
+                    if i + 1 < len(chain):
+                        continue
+                    raise last_exc from exc
+        except ImportError:
+            pass
+        # urllib fallback (HTTP proxies only)
+        proxy = chain[0]
         opener = urllib.request.build_opener(
             urllib.request.ProxyHandler({"http": proxy, "https": proxy})
         )
