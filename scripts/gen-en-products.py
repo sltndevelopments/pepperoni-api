@@ -16,6 +16,51 @@ SECTION_OG = {
     "Охлаждённая продукция": "https://pepperoni.tatar/og-pepperoni-en.png",
     "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
 }
+SECTION_IMAGE_POOLS = {
+    "Заморозка": [
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+    ],
+    "Охлаждённая продукция": [
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+    ],
+    "Выпечка": [
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+    ],
+}
+CATEGORY_OG = {
+    "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
+    "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
+    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
+    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
+    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
+    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
+    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+}
+
+SECTION_OG = {
+    "Заморозка": "https://pepperoni.tatar/og-pepperoni-en.png",
+    "Охлаждённая продукция": "https://pepperoni.tatar/og-pepperoni-en.png",
+    "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
+}
 CATEGORY_OG = {
     "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
     "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
@@ -32,10 +77,17 @@ CATEGORY_OG = {
 
 
 def jsonld_image_list(main, pack, slice_img, section, category):
+    """5–7 images for Превосходно."""
     imgs = []
     for u in (main, pack, slice_img):
         if u and u not in imgs:
             imgs.append(u)
+    pool = SECTION_IMAGE_POOLS.get(section or "", [])
+    for u in pool:
+        if u and u not in imgs:
+            imgs.append(u)
+        if len(imgs) >= 7:
+            break
     if len(imgs) < 2:
         for fb in (CATEGORY_OG.get(category or ""), SECTION_OG.get(section or "")):
             if fb and fb not in imgs:
