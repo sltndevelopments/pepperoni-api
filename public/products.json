@@ -360,7 +360,8 @@
       "packageType": "Вакуум",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041744/pepperoni/kd-008_slice.jpg"
     },
     {
       "name": "Котлета говяжья прожаренная (150 г × 2 шт)",
@@ -402,7 +403,8 @@
       "packageType": "Вакуум",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041746/pepperoni/kd-009_slice.jpg"
     },
     {
       "name": "Ветчина из Курицы в батоне",
@@ -441,7 +443,9 @@
       "ingredientsEN": "Ingredients: chicken meat, drinking water, salt, sugar, spices (black pepper, nutmeg), stabilizer (sodium pyrophosphate), antioxidant (sodium ascorbate), color fixative (sodium nitrite). May contain traces of dairy, eggs and soy. Allergens: gluten-free, may contain traces of milk, eggs and soy.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041748/pepperoni/kd-010_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041753/pepperoni/kd-010_slice.jpg"
     },
     {
       "name": "Ветчина из Курицы в нарезке",
@@ -479,7 +483,9 @@
       "ingredientsEN": "Ingredients: chicken meat, water, salt, sugar, stabilizer (sodium pyrophosphate), thickener (carrageenan), flavoring, spice extract, antioxidant (sodium ascorbate), color fixative (sodium nitrite). Allergens: none declared.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041755/pepperoni/kd-011_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041757/pepperoni/kd-011_slice.jpg"
     },
     {
       "name": "Ветчина из Индейки в батоне",
@@ -518,7 +524,9 @@
       "ingredientsEN": "Ingredients: turkey meat, water, salt, sugar, stabilizers (pyrophosphates, triphosphates), acidity regulator (sodium citrate), antioxidant (sodium ascorbate), flavourings, colour (carmine), nitrite salt. Allergens: free from gluten, dairy, eggs and soy.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041765/pepperoni/kd-012_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041769/pepperoni/kd-012_slice.jpg"
     },
     {
       "name": "Ветчина из Индейки в нарезке",
@@ -556,7 +564,9 @@
       "ingredientsEN": "Ingredients: turkey meat, water, salt, sugar, stabilizer (pyrophosphates), antioxidant (sodium ascorbate), flavorings, color (carmines). Allergens: none.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041772/pepperoni/kd-013_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041773/pepperoni/kd-013_slice.jpg"
     },
     {
       "name": "Пепперони варено-копченый из конины",
@@ -594,7 +604,9 @@
       "ingredientsEN": "Ingredients: horse meat, salt, sugar, spices (black pepper, paprika, garlic, coriander), antioxidant (sodium ascorbate), curing agent (sodium nitrite), starter culture. In natural casing. Allergens: none identified.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041776/pepperoni/kd-014_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041779/pepperoni/kd-014_slice.jpg"
     },
     {
       "name": "Пепперони варено-копченый классика",
@@ -836,7 +848,8 @@
       "ingredientsEN": "Ingredients: chicken fillet, drinking water, edible salt. May contain traces of dairy products (if produced on shared equipment). Allergens: does not contain major allergens, but may contain traces of dairy products.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041783/pepperoni/kd-020_pack.jpg"
     },
     {
       "name": "Фарш говяжий",
@@ -874,7 +887,8 @@
       "ingredientsEN": "Ingredients: beef, salt, black pepper. Allergens: does not contain common allergens.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041785/pepperoni/kd-021_pack.jpg"
     },
     {
       "name": "Фарш из куриной кожи",
@@ -912,7 +926,8 @@
       "ingredientsEN": "Ingredients: chicken skin, salt, black ground pepper, fresh onion. Allergens: does not contain common allergens.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041787/pepperoni/kd-022_pack.jpg"
     },
     {
       "name": "Филе бедра куриного в кубике 1х1 см",
@@ -950,7 +965,8 @@
       "ingredientsEN": "Ingredients: chicken thigh fillet. Allergens: does not contain common allergens.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041796/pepperoni/kd-023_pack.jpg"
     },
     {
       "name": "Филе грудки куриной в кубике 1х1 см",
@@ -988,7 +1004,8 @@
       "ingredientsEN": "Ingredients: chicken breast fillet. Allergens: none.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041799/pepperoni/kd-024_pack.jpg"
     },
     {
       "name": "Говядина 1 сорт в кубике 1х1 см",
@@ -1026,7 +1043,8 @@
       "ingredientsEN": "Ingredients: first-grade beef (muscle tissue). Allergens: none.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041803/pepperoni/kd-025_pack.jpg"
     },
     {
       "name": "Сосиски «К завтраку»",
@@ -1191,7 +1209,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041807/pepperoni/kd-029_slice.jpg"
     },
     {
       "name": "Сосиски «С сыром»",
@@ -1357,7 +1376,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041810/pepperoni/kd-033_pack.jpg"
     },
     {
       "name": "Сардельки «Буинские\"",
@@ -1438,7 +1458,9 @@
       "ingredientsEN": "Composition:beef,chicken fillet,water, wheat flour,color fixative, nitrite-salt mixture (salt, sodium nitrite),vegetable protein, flavor enhancer dextrose, stabilizers E450,E500,E451,thickener E407,flavor enhancer E621,gelling agent E508,antioxidants E301,E300,spice extracts (garlic,coriander, black pepper),flavors, colorant-paprika extract.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041812/pepperoni/kd-035_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041814/pepperoni/kd-035_slice.jpg"
     },
     {
       "name": "Вареная Ассорти",
@@ -1477,7 +1499,9 @@
       "ingredientsEN": "Composition:chicken breast fillet, chicken meat, beef, soy protein, potato starch, NPS (salt, color fixator (sodium nitrite)), salt, acidity regulators (pyrophosphates, triphosphates), spices, spice extracts, animal protein (beef), fiber, sugars, antioxidant (sodium ascorbate), flavor enhancer (sodium glutamate), aroma, color (ponceau 4R).",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041816/pepperoni/kd-036_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041818/pepperoni/kd-036_slice.jpg"
     },
     {
       "name": "Вареная Нежная",
@@ -1516,7 +1540,9 @@
       "ingredientsEN": "Composition:mekhobalki chicken meat,stable.protein(chicken skin,pit water),water, chicken breast fillet,beef,dry milk whey,potato starch,nps(salt,fixed coloring(sodium nitrite)),salt,live protein.(beef),reg. of acidity (triphosphates,pyrophosphates),stable.(polyphosphates),thickener (sodium alginate), spices, spice extracts,sugars,antioxidant.(ascorbic acid),usil. taste and aroma (monosodium glutamate),flavorings,yeast extract,vegetable oil.extracts.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041820/pepperoni/kd-037_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041822/pepperoni/kd-037_slice.jpg"
     },
     {
       "name": "Ветчина из Индейки",
@@ -1556,7 +1582,8 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041851/pepperoni/kd-038_pack.jpg"
     },
     {
       "name": "Ветчина Мраморная с говядиной",
@@ -1597,7 +1624,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041864/pepperoni/kd-039_pack.jpg"
     },
     {
       "name": "Ветчина из Курицы",
@@ -1638,7 +1666,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041868/pepperoni/kd-040_pack.jpg"
     },
     {
       "name": "Ветчина Филейная",
@@ -1678,7 +1707,8 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041873/pepperoni/kd-041_pack.jpg"
     },
     {
       "name": "Сервелат Ханский",
@@ -1717,7 +1747,9 @@
       "ingredientsEN": "Ingredients: beef, poultry meat, beef fat, water, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, stabilizer (phosphates), antioxidant (ascorbic acid), color fixative (sodium nitrite). Allergens: none identified.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041879/pepperoni/kd-042_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041883/pepperoni/kd-042_slice.jpg"
     },
     {
       "name": "Сервелат по-татарски в/к",
@@ -1757,7 +1789,9 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
-      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg"
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041885/pepperoni/kd-043_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041887/pepperoni/kd-043_slice.jpg"
     },
     {
       "name": "Полукопченая из Индейки",
@@ -1797,7 +1831,8 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041889/pepperoni/kd-044_pack.jpg"
     },
     {
       "name": "Полукопченая из Говядины",
@@ -1837,7 +1872,8 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041891/pepperoni/kd-045_pack.jpg"
     },
     {
       "name": "Колбаски с Сыром",
@@ -1917,7 +1953,9 @@
       "ingredientsEN": "Ingredients: chicken breast, salt, sugar, spices (including black pepper, bay leaf), stabilizer (sodium pyrophosphate), antioxidant (sodium ascorbate), colour fixative (sodium nitrite). Allergens: does not contain common allergens.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041894/pepperoni/kd-047_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041895/pepperoni/kd-047_slice.jpg"
     },
     {
       "name": "Филе куриное",
@@ -1955,7 +1993,9 @@
       "ingredientsEN": "Ingredients: chicken fillet, salt, sugar, spices (black pepper, allspice, bay leaf), natural smoke. Allergens: does not contain common allergens.",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041904/pepperoni/kd-048_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041921/pepperoni/kd-048_slice.jpg"
     },
     {
       "name": "в/к Рамазан",
@@ -1995,7 +2035,8 @@
       "nutrition": "",
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041926/pepperoni/kd-049_pack.jpg"
     },
     {
       "name": "в/к Рамазан (половинка)",
@@ -2077,7 +2118,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041943/pepperoni/kd-051_pack.jpg"
     },
     {
       "name": "в/к Мраморная (половинка)",
@@ -2158,7 +2200,9 @@
       "ingredientsEN": "Composition:chicken breast fillet,chicken meat,beef, soy protein,potato starch,nps(salt,color fixative(sodium nitrite)),salt,acidity regulators(pyrophosphates, triphosphates),spices,spice extracts,live protein.(beef), fiber, sugar,antioxidant (sodium ascorbate), flavor enhancer (monosodium glutamate), flavor, dye (ponceau 4R).",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782041966/pepperoni/kd-053_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042000/pepperoni/kd-053_slice.jpg"
     },
     {
       "name": "в/к Филейный (половинка)",
@@ -2197,7 +2241,9 @@
       "ingredientsEN": "Composition:chicken breast fillet,chicken meat,beef, soy protein,potato starch,nps(salt,color fixative(sodium nitrite)),salt,acidity regulators(pyrophosphates, triphosphates),spices,spice extracts,live protein.(beef), fiber, sugar,antioxidant (sodium ascorbate), flavor enhancer (monosodium glutamate), flavor, dye (ponceau 4R).",
       "nutrition": "",
       "packageType": "",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042028/pepperoni/kd-054_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042043/pepperoni/kd-054_slice.jpg"
     },
     {
       "name": "в/к Княжеская",
@@ -2238,7 +2284,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042045/pepperoni/kd-055_slice.jpg"
     },
     {
       "name": "в/к Княжеская (половинка)",
@@ -2279,7 +2326,8 @@
       "packageType": "",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
-      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg"
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042048/pepperoni/kd-056_slice.jpg"
     },
     {
       "name": "Казылык «Премиум» в подарочной упаковке",
@@ -2502,7 +2550,8 @@
       "seoDescriptionRU": "Самса с курицей 120 г | Халяльная татарская выпечка из Казани | Сочная самса с курицей от «Казанских Деликатесов» — нежное слоёное тесто с ароматной начинкой из куриного мяса и специй. Идеально для быстрого перекуса, кафе, ресторанов и оптовых поставок. Продукт халяль, произведён в Казани (Татарстан). Заморозка −18°C, срок хранения 360 суток. Удобная упаковка для HoReCa и розницы.",
       "seoDescriptionEN": "Samosa with Chicken 120 g | Halal Tatar pastry from Kazan | Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail.",
       "ingredientsRU": "Состав: мука пшеничная в/с, куриное мясо, вода питьевая, масло растительное, лук репчатый, яйцо куриное, соль, сахар, перец чёрный молотый, зира. Аллергены: содержит глютен, яйцо. Возможны следы молочных продуктов.",
-      "ingredientsEN": "Ingredients: wheat flour, chicken meat, drinking water, vegetable oil, onion, egg, salt, sugar, black pepper, cumin. Allergens: contains gluten, egg. May contain traces of dairy products."
+      "ingredientsEN": "Ingredients: wheat flour, chicken meat, drinking water, vegetable oil, onion, egg, salt, sugar, black pepper, cumin. Allergens: contains gluten, egg. May contain traces of dairy products.",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042055/pepperoni/kd-062_pack.jpg"
     },
     {
       "name": "Эчпочмак с говядиной и картофелем",
@@ -2639,7 +2688,9 @@
       "seoDescriptionEN": "Chak-Chak 300 g | Halal Tatar pastry from Kazan | Chak-Chak in plastic packaging – traditional Tatar dessert from Kazan. Delicate dough fried golden and coated with honey syrup, creating a unique taste. Perfect for tea, gifts, HoReCa and wholesale. Halal certified. Shelf life 60 days at up to +18°C. Made in Tatarstan.",
       "ingredientsRU": "Состав: мука пшеничная высшего сорта, яйца куриные, сахар, мед натуральный, масло растительное, соль. Аллергены: глютен, яйцо.",
       "ingredientsEN": "Ingredients: wheat flour of the highest grade, chicken eggs, sugar, natural honey, vegetable oil, salt. Allergens: gluten, eggs.",
-      "image": "https://pepperoni.tatar/images/logo.png"
+      "image": "https://pepperoni.tatar/images/logo.png",
+      "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042064/pepperoni/kd-066_pack.jpg",
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1782042102/pepperoni/kd-066_slice.jpg"
     },
     {
       "name": "Чак-Чак в крафтовой подарочной упаковке",
