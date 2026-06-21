@@ -527,7 +527,7 @@ async function loadCatalog(){{
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
       const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
-      groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
+      groups[sec][cat].push({{name:p.name,sku:p.sku||'',section:sec,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
     }}
     const icons={{'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'}};
     ALL_GROUPS=[];
@@ -544,7 +544,7 @@ async function loadCatalog(){{
         const pnv=parseFloat(p.offers?.priceExclVAT||0);
         const isBakery=!!p.offers?.pricePerUnit;
         const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
-      groups[sec][cat].push({{name:p.name,sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
+      groups[sec][cat].push({{name:p.name,sku:p.sku||'',section:sec,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
       }}
       const icons={{'Заморозка':'❄️','Охлаждённая продукция':'🧊','Выпечка':'🥐'}};
       ALL_GROUPS=[];
@@ -1236,7 +1236,7 @@ async function loadCatalog(){{
       const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
       const isBakery=!!p.offers?.pricePerUnit;
       const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
-      groups[sec][cat].push({{name:getNameEn(p),sku:p.sku||'',weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
+      groups[sec][cat].push({{name:getNameEn(p),sku:p.sku||'',section:secRu,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img}});
     }}
     ALL_GROUPS=[];
     for(const[sec,cats]of Object.entries(groups))ALL_GROUPS.push({{section:sec,icon:SEC_ICONS[sec]||'📦',groups:cats}});
