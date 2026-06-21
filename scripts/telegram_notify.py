@@ -106,11 +106,16 @@ def open_telegram_url(req: urllib.request.Request, timeout: float = 15):
             last_exc: Exception | None = None
             for i, proxy in enumerate(chain):
                 try:
+                    headers = dict(req.header_items())
+                    if req.data is not None and not any(
+                        k.lower() == "content-type" for k in headers
+                    ):
+                        headers["Content-Type"] = "application/x-www-form-urlencoded"
                     r = requests.request(
                         req.get_method(),
                         req.full_url,
                         data=req.data,
-                        headers=dict(req.header_items()),
+                        headers=headers,
                         timeout=timeout,
                         proxies={"http": proxy, "https": proxy},
                     )
