@@ -1,19 +1,25 @@
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Казылык — что это такое: состав, история, применение</title>
-  <meta name="description" content="Казылык — традиционная татарская колбаса халяль. Состав, история, отличия от других продуктов, применение в HoReCa. Всё о казылыке на pepperoni.tatar.">
-  <link rel="canonical" href="https://pepperoni.tatar/blog/kazylyk-eto">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Казылык — что это такое: история, состав, применение</title>
+  <meta name="description" content="Казылык — традиционная татарская вяленая колбаса из конины. Состав, история, халяль-сертификация и применение в HoReCa. Оптовые поставки из Казани." />
+  <link rel="canonical" href="https://pepperoni.tatar/blog/kazylyk-eto" />
 
-  <!-- Schema.org Article -->
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous" />
+
+  <!-- Schema.org JSON-LD: Article -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    "headline": "Казылык — что это такое: состав, история и применение в HoReCa",
-    "datePublished": "2026-06-10",
+    "headline": "Казылык — что это такое: история, состав, применение",
+    "description": "Казылык — традиционная татарская вяленая колбаса из конины. Состав, история, халяль-сертификация и применение в HoReCa.",
+    "datePublished": "2026-06-21",
+    "dateModified": "2026-06-21",
     "author": {
       "@type": "Organization",
       "name": "Казанские Деликатесы"
@@ -21,6 +27,7 @@
     "publisher": {
       "@type": "Organization",
       "name": "Казанские Деликатесы",
+      "url": "https://pepperoni.tatar",
       "logo": {
         "@type": "ImageObject",
         "url": "https://pepperoni.tatar/logo.png"
@@ -29,12 +36,11 @@
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": "https://pepperoni.tatar/blog/kazylyk-eto"
-    },
-    "description": "Казылык — традиционная татарская вяленая колбаса халяль из говядины и конины. Состав, история, применение в профессиональной кухне и оптовые поставки."
+    }
   }
   </script>
 
-  <!-- Schema.org BreadcrumbList -->
+  <!-- Schema.org JSON-LD: BreadcrumbList -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -62,179 +68,184 @@
   }
   </script>
 
-  <!-- Bootstrap 5 CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
-    body { font-family: 'Segoe UI', sans-serif; color: #212529; }
-    h1 { font-size: 2rem; font-weight: 700; }
-    h2 { font-size: 1.4rem; font-weight: 600; margin-top: 2rem; color: #8B0000; }
-    .lead { font-size: 1.05rem; }
-    .cta-block { background: #8B0000; color: #fff; border-radius: 8px; padding: 2rem; margin-top: 2.5rem; }
-    .cta-block a { color: #ffd700; font-weight: 600; }
-    footer { background: #212529; color: #adb5bd; font-size: 0.88rem; }
-    nav.breadcrumb-nav ol { background: transparent; padding: 0; }
-    .breadcrumb-item a { color: #8B0000; text-decoration: none; }
+    body { font-family: 'Segoe UI', sans-serif; color: #1a1a1a; }
+    .hero-section { background: linear-gradient(135deg, #1b4332 0%, #2d6a4f 100%); color: #fff; padding: 3rem 0 2.5rem; }
+    .hero-section h1 { font-size: 2rem; font-weight: 700; }
+    .hero-section .lead { font-size: 1.1rem; opacity: .9; }
+    .breadcrumb-wrapper { background: #f8f9fa; padding: .75rem 0; border-bottom: 1px solid #e9ecef; }
+    .breadcrumb { margin-bottom: 0; }
+    h2 { color: #1b4332; font-weight: 700; margin-top: 2rem; }
+    .cta-block { background: #f0fdf4; border-left: 4px solid #2d6a4f; border-radius: .5rem; padding: 1.5rem 2rem; margin-top: 2.5rem; }
+    .cta-block h3 { color: #1b4332; font-weight: 700; }
+    footer { background: #1a1a1a; color: #ccc; font-size: .875rem; }
+    footer a { color: #86efac; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    .badge-halal { background: #2d6a4f; color: #fff; font-size: .78rem; padding: .3em .7em; border-radius: 2em; }
+    .tip-list li { margin-bottom: .5rem; }
   </style>
 </head>
 <body>
 
-<!-- Навигация -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="https://pepperoni.tatar/">Казанские Деликатесы</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="/pepperoni">Пепперони</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pepperoni-optom">Оптом</a></li>
-        <li class="nav-item"><a class="nav-link" href="/pepperoni-dlya-pizzerii">Для пиццерий</a></li>
-      </ul>
+  <!-- Breadcrumb -->
+  <div class="breadcrumb-wrapper">
+    <div class="container">
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="/">Главная</a></li>
+          <li class="breadcrumb-item"><a href="/blog/">Блог</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Казылык — что это такое</li>
+        </ol>
+      </nav>
     </div>
   </div>
-</nav>
 
-<!-- Хлебные крошки -->
-<div class="container mt-3">
-  <nav class="breadcrumb-nav" aria-label="breadcrumb">
-    <ol class="breadcrumb">
-      <li class="breadcrumb-item"><a href="/">Главная</a></li>
-      <li class="breadcrumb-item"><a href="/blog/">Блог</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Казылык — что это такое</li>
-    </ol>
-  </nav>
-</div>
-
-<!-- Основной контент -->
-<main class="container my-4">
-  <article>
-
-    <h1>Казылык — что это такое: состав, история и применение</h1>
-
-    <!-- Введение -->
-    <p class="lead mt-3">
-      Казылык — это традиционная татарская и башкирская вяленая колбаса, которую готовят из говядины или конины. Продукт имеет многовековую историю и является полностью халяльным. Сегодня казылык востребован не только в домашней кулинарии, но и в сегменте HoReCa: его подают в ресторанах татарской кухни, включают в мясные тарелки и используют как самостоятельную закуску. Разберём подробно: что такое казылык, из чего его делают и почему он актуален для профессиональных закупок.
-    </p>
-
-    <!-- H2 — История и происхождение -->
-    <h2>История и происхождение казылыка</h2>
-    <p>
-      Казылык известен татарскому народу не менее семи-восьми веков. Исторически кочевые народа Поволжья и Урала нуждались в продуктах с длительным сроком хранения, пригодных для перевозки в дальних походах. Вяление и засолка мяса стали оптимальным решением задолго до появления холодильников.
-    </p>
-    <p>
-      Традиционно казылык готовили осенью, после забоя скота. Конское мясо особенно ценилось: оно жирное, питательное и хорошо переносит длительное вяление. Сегодня наряду с кониной широко используется говядина — продукт остаётся халяльным и полностью соответствует требованиям исламских стандартов питания.
-    </p>
-    <p>
-      В 2018 году казылык включён в реестр объектов нематериального культурного наследия Республики Татарстан, что подтверждает его статус как аутентичного регионального продукта.
-    </p>
-
-    <!-- H2 — Состав и технология производства -->
-    <h2>Состав и технология производства</h2>
-    <p>
-      Классический рецепт казылыка прост: говядина или конина, соль, чёрный перец, чеснок. Никаких искусственных красителей и консервантов в аутентичном продукте нет. Мясо нарезают крупными кусками или пропускают через мясорубку с крупной решёткой, набивают в натуральную кишечную оболочку и вялят на воздухе от двух недель до нескольких месяцев.
-    </p>
-    <p>
-      Ключевые параметры качественного казылыка:
-    </p>
-    <ul>
-      <li><strong>Мясо:</strong> говядина не ниже первого сорта или конина — без жил и хрящей.</li>
-      <li><strong>Оболочка:</strong> натуральная (конская или говяжья кишка) — обеспечивает правильный воздухообмен при вялении.</li>
-      <li><strong>Срок вяления:</strong> от 14 до 60 дней в зависимости от диаметра батона и условий.</li>
-      <li><strong>Влажность готового продукта:</strong> не более 30–35%, что обеспечивает плотную консистенцию и насыщенный вкус.</li>
-      <li><strong>Сертификация:</strong> продукт должен иметь халяль-сертификат признанного органа.</li>
-    </ul>
-    <p>
-      Промышленное производство дополнительно предусматривает контроль температуры вяления, микробиологический контроль и соблюдение ТУ или ГОСТ-подобных стандартов предприятия.
-    </p>
-
-    <!-- H2 — Казылык в профессиональной кухне HoReCa -->
-    <h2>Казылык в профессиональной кухне HoReCa</h2>
-    <p>
-      Для ресторанов, кафе и кейтеринговых компаний казылык — это универсальный ингредиент и самостоятельная позиция меню. Рассмотрим основные форматы использования:
-    </p>
-    <ul>
-      <li><strong>Мясная тарелка / чаркутери:</strong> нарезка казылыка в сочетании с вялеными деликатесами из говядины смотрится выигрышно и подчёркивает этнический концепт заведения.</li>
-      <li><strong>Горячие блюда:</strong> казылык добавляют в бульоны (шурпа, лагман), жаркое и плов — он отдаёт жир и аромат, обогащая вкус блюда.</li>
-      <li><strong>Пицца и выпечка:</strong> нарезанный тонкими слайсами казылык используют как топпинг для пиццы в заведениях с татарским меню — альтернатива классическому <a href="/pepperoni">пепперони</a> в халяль-формате.</li>
-      <li><strong>Закуска к напиткам:</strong> подача тонких слайсов с хлебом и зеленью — простое, но высокомаржинальное блюдо.</li>
-    </ul>
-    <p>
-      Если ваше заведение работает в халяль-сегменте и вы ищете надёжного поставщика мясных деликатесов, обратите внимание на <a href="/pepperoni-dlya-pizzerii">пепперони для пиццерий</a> нашего производства — халяль-сертифицированный продукт из говядины с доставкой по Татарстану и регионам.
-    </p>
-
-    <!-- H2 — Практические советы по выбору и хранению -->
-    <h2>Практические советы по выбору и хранению казылыка</h2>
-    <p>
-      При оптовых закупках казылыка для HoReCa учитывайте следующие критерии:
-    </p>
-    <ol>
-      <li><strong>Проверяйте сертификат халяль.</strong> Документ должен быть выдан аккредитованным органом — ДУМ РТ, ДУМ РФ или аналогичным. Убедитесь в актуальности срока действия.</li>
-      <li><strong>Оценивайте состав.</strong> Минимальный список ингредиентов — признак качества. Наличие каррагинана, крахмала или соевого белка указывает на снижение доли мяса в продукте.</li>
-      <li><strong>Уточняйте форму выпуска.</strong> Для ресторанной нарезки удобен батон диаметром 40–60 мм. Для горячих блюд подходит и более крупный формат.</li>
-      <li><strong>Соблюдайте условия хранения.</strong> Вяленый казылык хранят при температуре +2…+6 °C до 60 суток. При заморозке срок увеличивается до 6 месяцев без потери вкусовых свойств.</li>
-      <li><strong>Запрашивайте образцы.</strong> Перед крупным заказом попросите поставщика предоставить дегустационный образец — плотность среза, цвет и аромат скажут о качестве больше, чем любые описания.</li>
-    </ol>
-    <p>
-      Если вас интересуют <a href="/pepperoni-optom">оптовые поставки мясных деликатесов</a> халяль-производства, мы готовы обсудить условия сотрудничества и объёмы.
-    </p>
-
-    <!-- Заключение + CTA -->
-    <h2>Заключение</h2>
-    <p>
-      Казылык — это не просто колбаса, а живой элемент татарской гастрономической культуры с многовековой историей. Для профессионалов HoReCa это универсальный продукт: закуска, топпинг, ингредиент горячих блюд и яркий акцент этнического меню. Правильный выбор поставщика, контроль халяль-сертификации и соблюдение условий хранения — три ключа к стабильному качеству на вашей кухне.
-    </p>
-
-    <div class="cta-block">
-      <h3 class="h5 fw-bold mb-3">Нужны мясные деликатесы халяль для вашего заведения?</h3>
-      <p class="mb-2">
-        Казанские Деликатесы поставляют халяль-продукцию из говядины оптом по Татарстану и регионам России. Работаем с ресторанами, пиццериями, кейтерингом и розничными сетями.
-      </p>
-      <p class="mb-1">
-        📞 <a href="tel:+79872170202">+7 987 217-02-02</a>
-      </p>
-      <p class="mb-1">
-        ✉️ <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
-      </p>
-      <p class="mb-0">
-        📍 г. Казань, ул. Аграрная, 2, оф. 7
-      </p>
+  <!-- Hero -->
+  <section class="hero-section">
+    <div class="container">
+      <span class="badge-halal mb-3 d-inline-block">Халяль · ДУМ РТ #614A/2024</span>
+      <h1>Казылык — что это такое: история, состав и применение в HoReCa</h1>
+      <p class="lead mt-3 col-lg-8">Всё, что нужно знать о традиционной татарской колбасе: от рецептуры и технологии до оптовых поставок для ресторанов и розничных сетей.</p>
     </div>
+  </section>
 
-  </article>
-</main>
-
-<!-- Футер -->
-<footer class="py-4 mt-5">
-  <div class="container">
+  <!-- Main content -->
+  <main class="container my-5">
     <div class="row">
-      <div class="col-md-6 mb-3 mb-md-0">
-        <p class="mb-1 fw-semibold text-white">Казанские Деликатесы</p>
-        <p class="mb-1">г. Казань, ул. Аграрная, 2, оф. 7</p>
-        <p class="mb-1"><a href="tel:+79872170202" class="text-decoration-none" style="color:#adb5bd;">+7 987 217-02-02</a></p>
-        <p class="mb-0"><a href="mailto:info@kazandelikates.tatar" class="text-decoration-none" style="color:#adb5bd;">info@kazandelikates.tatar</a></p>
+      <div class="col-lg-8">
+
+        <!-- Введение -->
+        <p class="fs-5">
+          Казылык — одна из старейших колбас тюркских народов, известная на территории Поволжья и Средней Азии не одно столетие. Это вяленая или варёно-копчёная колбаса из конины, приготовленная по традиционной рецептуре без каких-либо добавок, противоречащих нормам ислама. Сегодня казылык переживает второе рождение: его включают в меню ресторанов татарской кухни, подают на фуршетах и продают как премиальный халяль-продукт в розничных сетях и HoReCa.
+        </p>
+
+        <!-- H2 #1 -->
+        <h2>История и происхождение казылыка</h2>
+        <p>
+          Слово «казылык» восходит к тюркскому корню, связанному с кониной. Исторически кочевые народы — татары, башкиры, казахи — заготавливали мясо лошади впрок: его солили, вялили на ветру и набивали в натуральную оболочку. Такой способ хранения позволял сохранять продукт месяцами без холодильника — незаменимое качество для кочевого образа жизни.
+        </p>
+        <p>
+          В Республике Татарстан казылык признан частью нематериального культурного наследия. Его подают на татарских свадьбах, праздничных столах и в качестве подарка гостям. Казань, как мусульманская столица России, стала центром возрождения этого продукта в промышленном масштабе с сохранением аутентичной рецептуры.
+        </p>
+
+        <!-- H2 #2 -->
+        <h2>Состав и технология производства</h2>
+        <p>
+          Классический казылык состоит из конины, соли, чёрного перца и чеснока. В современном промышленном производстве рецептура может дополняться паприкой, кориандром и другими натуральными специями — без глутамата, красителей и синтетических усилителей вкуса.
+        </p>
+        <p>
+          Технологический цикл включает несколько этапов:
+        </p>
+        <ol>
+          <li><strong>Подготовка сырья.</strong> Используется только конина от сертифицированных халяль-поставщиков. Туши проходят ветеринарный контроль и входной мониторинг по HACCP.</li>
+          <li><strong>Посол и созревание.</strong> Мясо выдерживается в посолочной смеси от 24 до 48 часов при контролируемой температуре.</li>
+          <li><strong>Набивка.</strong> Фарш набивается в натуральную конскую оболочку (кишку) или коллагеновую оболочку в зависимости от формата.</li>
+          <li><strong>Вяление или варка-копчение.</strong> Вяленый казылык созревает при температуре 10–14 °C от 10 до 21 суток. Варёно-копчёный проходит термическую обработку в камерах с дымом натуральной древесины.</li>
+        </ol>
+        <p>
+          Производство на предприятии «Казанские Деликатесы» сертифицировано по <strong>HACCP</strong> и <strong>ISO 22000:2018</strong>, соответствует требованиям <strong>ТР ТС 021/2011</strong>. Халяль-сертификат ДУМ РТ <strong>#614A/2024</strong> подтверждает соответствие нормам ислама на всех этапах производственной цепочки.
+        </p>
+
+        <!-- H2 #3 -->
+        <h2>Казылык в HoReCa и ритейле: форматы поставок</h2>
+        <p>
+          Для профессионального рынка «Казанские Деликатесы» предлагают несколько форматов казылыка:
+        </p>
+        <ul class="tip-list">
+          <li><strong>Целая батонная форма</strong> (~300–400 г) — для ресторанов и кейтеринга, подача на тарелке или нарезка при госте.</li>
+          <li><strong>Нарезка в вакуумной упаковке</strong> (80–150 г) — для ритейла, АЗС, корпоративных наборов.</li>
+          <li><strong>Крафтовая подарочная упаковка</strong> — для сувенирного сегмента, туристических объектов, корпоративных подарков.</li>
+          <li><strong>Private Label / СТМ</strong> — производство под брендом клиента: рецептура, оболочка, этикетка — по техническому заданию.</li>
+        </ul>
+        <p>
+          Минимальная партия для оптовых заказов уточняется у менеджера. Отгрузка — <strong>EXW Казань</strong>. Доставка по России и в страны СНГ, ОАЭ, GCC.
+        </p>
+        <p>
+          Если вы ищете <a href="/pepperoni">халяль-пепперони</a> или <a href="/pepperoni-optom">пепперони оптом</a> для пиццерии, обратите внимание: казылык отлично дополняет ассортимент татарских блюд в меню рядом с пиццей на халяль-основе.
+        </p>
+
+        <!-- H2 #4 -->
+        <h2>Практические советы по работе с казылыком</h2>
+        <p>
+          Для шеф-поваров и технологов HoReCa — несколько рекомендаций по применению казылыка:
+        </p>
+        <ul class="tip-list">
+          <li><strong>Температура подачи.</strong> Вяленый казылык раскрывает аромат при комнатной температуре (+18…+20 °C). Достаньте из холодильника за 15–20 минут до подачи.</li>
+          <li><strong>Нарезка.</strong> Тонкие слайсы (1,5–2 мм) — для холодных закусок и мясных тарелок. Более толстая нарезка (4–5 мм) — для горячих блюд, пиццы, пловов.</li>
+          <li><strong>Хранение.</strong> Вакуумная упаковка — до 60 суток при +2…+6 °C. После вскрытия — употребить в течение 5 суток.</li>
+          <li><strong>Сочетаемость.</strong> Казылык сочетается с лавашом, свежей зеленью, маринованными овощами, сырами из козьего и коровьего молока, а также с блюдами татарской кухни — эчпочмаком и чак-чаком.</li>
+          <li><strong>Применение в пицце.</strong> Слайсы казылыка на пицце дают насыщенный мясной вкус с лёгкой пряностью — интересная альтернатива стандартному <a href="/pepperoni-dlya-pizzerii">пепперони для пиццерии</a>.</li>
+        </ul>
+
+        <!-- Заключение и CTA -->
+        <div class="cta-block mt-4">
+          <h3>Заказать казылык оптом из Казани</h3>
+          <p>
+            «Казанские Деликатесы» — халяль-производитель из Казани с 2022 года. 77 SKU продукции: казылык, пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сертификат халяль ДУМ РТ #614A/2024. HACCP, ISO 22000:2018.
+          </p>
+          <p>
+            Свяжитесь с нами, чтобы получить прайс-лист, образцы и условия private label:
+          </p>
+          <ul class="list-unstyled mb-0">
+            <li>📞 <a href="tel:+79872170202">+7 987 217-02-02</a></li>
+            <li>✉️ <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></li>
+            <li>🌐 <a href="https://pepperoni.tatar" target="_blank" rel="noopener">pepperoni.tatar</a></li>
+          </ul>
+        </div>
+
       </div>
-      <div class="col-md-6 text-md-end">
-        <p class="mb-1"><a href="/pepperoni" class="text-decoration-none" style="color:#adb5bd;">Пепперони</a></p>
-        <p class="mb-1"><a href="/pepperoni-optom" class="text-decoration-none" style="color:#adb5bd;">Пепперони оптом</a></p>
-        <p class="mb-1"><a href="/pepperoni-dlya-pizzerii" class="text-decoration-none" style="color:#adb5bd;">Пепперони для пиццерий</a></p>
-        <p class="mb-0 mt-3">© 2022–2026 Казанские Деликатесы</p>
+
+      <!-- Sidebar -->
+      <aside class="col-lg-4 mt-5 mt-lg-0">
+        <div class="card border-0 shadow-sm mb-4">
+          <div class="card-body">
+            <h5 class="card-title text-success fw-bold">Быстрые факты</h5>
+            <ul class="list-unstyled small">
+              <li class="mb-2">🥩 <strong>Сырьё:</strong> конина 100% халяль</li>
+              <li class="mb-2">📜 <strong>Сертификат:</strong> ДУМ РТ #614A/2024</li>
+              <li class="mb-2">🏭 <strong>Стандарты:</strong> HACCP, ISO 22000:2018</li>
+              <li class="mb-2">📦 <strong>Форматы:</strong> целая, нарезка, крафт, СТМ</li>
+              <li class="mb-2">🌍 <strong>Экспорт:</strong> ОАЭ, GCC, СНГ</li>
+              <li class="mb-2">🏙️ <strong>Производство:</strong> Казань, Татарстан</li>
+            </ul>
+          </div>
+        </div>
+        <div class="card border-0 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title text-success fw-bold">Смотрите также</h5>
+            <ul class="list-unstyled small">
+              <li class="mb-2">→ <a href="/pepperoni">Халяль-пепперони из Казани</a></li>
+              <li class="mb-2">→ <a href="/pepperoni-optom">Пепперони оптом</a></li>
+              <li class="mb-2">→ <a href="/pepperoni-dlya-pizzerii">Пепперони для пиццерий</a></li>
+            </ul>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="py-4 mt-5">
+    <div class="container">
+      <div class="row gy-3">
+        <div class="col-md-5">
+          <p class="mb-1 fw-semibold text-white">Казанские Деликатесы</p>
+          <p class="mb-0">© 2022–2026 ООО «Казанские Деликатесы». Все права защищены.</p>
+        </div>
+        <div class="col-md-4">
+          <p class="mb-1">📍 г. Казань, ул. Аграрная, 2, оф. 7</p>
+          <p class="mb-1">📞 <a href="tel:+79872170202">+7 987 217-02-02</a></p>
+          <p class="mb-0">✉️ <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></p>
+        </div>
+        <div class="col-md-3">
+          <p class="mb-1">🌐 <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
+          <p class="mb-0 small">Халяль ДУМ РТ #614A/2024 · HACCP · ISO 22000:2018</p>
+        </div>
       </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<section data-linker="1" class="container my-4" style="border-top:1px solid #e5e5e5;padding-top:16px">
-  <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
-  <ul style="columns:2;font-size:.95rem">
-    <li><a href="/blog/echpochmak-eto">Эчпочмак — что это такое: история и состав</a></li>
-    <li><a href="/blog/kazylyk-chto-eto">Казылык — конская колбаса халяль: состав и как едят</a></li>
-    <li><a href="/blog/chto-takoe-kazylyk">Что такое казылык: традиционная татарская колбаса</a></li>
-    <li><a href="/blog/kazylyk-chto-eto-takoe">Казылык это: халяль конская колбаса</a></li>
-    <li><a href="/blog/kazylyk-iz-koniny-istoriya">Казылык из конины: история татарского деликатеса</a></li>
-    <li><a href="/blog/ecpochmak">Эчпочмак: история, рецепт и применение в HoReCa</a></li>
-  </ul>
-</section>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc4s9bIOgUxi8T/jzmERMGzFIEtPGnBYJHLq2vNAzIdd" crossorigin="anonymous"></script>
 </body>
 </html>
+```

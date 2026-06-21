@@ -1,7 +1,7 @@
 {
  "2026-06": {
-  "usd": 12.738379,
-  "usd_baseline": 20.670596,
+  "usd": 12.984647,
+  "usd_baseline": 20.933417,
   "days": {
    "2026-06-10": {
     "calls": 151,
@@ -65,6 +65,15 @@
     "cache_r": 28458,
     "usd": 0.29583,
     "usd_baseline": 0.372672
+   },
+   "2026-06-21": {
+    "calls": 4,
+    "in": 1526,
+    "out": 15413,
+    "cache_w": 2258,
+    "cache_r": 6758,
+    "usd": 0.246268,
+    "usd_baseline": 0.262821
    }
   },
   "scripts": {
@@ -114,13 +123,13 @@
     "usd_baseline": 0.359061
    },
    "generate_content": {
-    "calls": 20,
-    "in": 8375,
-    "out": 72687,
-    "cache_w": 8759,
-    "cache_r": 15260,
-    "usd": 1.152852,
-    "usd_baseline": 1.187487
+    "calls": 24,
+    "in": 9901,
+    "out": 88100,
+    "cache_w": 11017,
+    "cache_r": 22018,
+    "usd": 1.399119,
+    "usd_baseline": 1.450308
    },
    "seo_brain": {
     "calls": 2,
@@ -215,13 +224,13 @@
     "usd_baseline": 1.028054
    },
    "claude-sonnet-4-6": {
-    "calls": 212,
-    "in": 225813,
-    "out": 1099365,
-    "cache_w": 63518,
-    "cache_r": 67246,
-    "usd": 10.131422,
-    "usd_baseline": 18.005682
+    "calls": 216,
+    "in": 227339,
+    "out": 1114778,
+    "cache_w": 65776,
+    "cache_r": 74004,
+    "usd": 10.377689,
+    "usd_baseline": 18.268503
    },
    "claude-fable-5": {
     "calls": 7,
