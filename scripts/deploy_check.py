@@ -9,6 +9,9 @@ Usage (inside seo-agent-vps.sh):
   # After git push — verify stamp appears on live site (2 retries × 90s):
   python3 scripts/deploy_check.py --verify
 
+  # Check that critical homepage sections are present:
+  python3 scripts/deploy_check.py --check-sections
+
 How it works:
   --inject  Generates a short random token, writes it as an HTML comment
             <!-- kd-stamp:TOKEN --> into <head> of public/index.html, and
@@ -179,6 +182,43 @@ def verify() -> bool:
     return False
 
 
+def check_homepage_sections() -> bool:
+    """Verify that critical B2B sections exist in public/index.html.
+
+    Checks for invariant homepage-sections-intact:
+    - id="segments"  (Кому поставляем — 6 B2B segment cards)
+    - id="partners"  (С кем работаем — partner tiles)
+
+    Returns True if both present, False (+ Telegram alert) if any missing.
+    """
+    required = ['id="segments"', 'id="partners"']
+    try:
+        html = INDEX_HTML.read_text(encoding="utf-8")
+    except FileNotFoundError:
+        print("⚠️  deploy_check: index.html not found — skip section check")
+        return True
+
+    missing = [p for p in required if p not in html]
+    if not missing:
+        print("✅ deploy_check: homepage sections intact (segments + partners)")
+        return True
+
+    msg = (
+        "🚨 homepage-sections-intact нарушен!\n"
+        + "\n".join(f"  • отсутствует: {p}" for p in missing)
+        + f"\nФайл: {INDEX_HTML}\n"
+        "Секции «Кому поставляем» / «С кем работаем» пропали из index.html. "
+        "Восстановить из git history (коммит bde7e33ea / ab3669cfe)."
+    )
+    print(f"🚨 deploy_check: {msg}")
+    try:
+        from telegram_notify import notify_emergency
+        notify_emergency(msg)
+    except Exception as e:
+        print(f"  notify_emergency failed: {e}")
+    return False
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "--help"
 
@@ -206,6 +246,10 @@ if __name__ == "__main__":
         print(f"--test-verify-fail result: ok={ok} (expected False)")
         assert not ok, "FAIL: expected emergency alert for fake token"
         print("✅ --test-verify-fail PASS (emergency would have fired)")
+
+    elif cmd == "--check-sections":
+        ok = check_homepage_sections()
+        sys.exit(0 if ok else 1)
 
     else:
         print(__doc__)

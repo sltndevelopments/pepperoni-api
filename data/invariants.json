@@ -103,6 +103,22 @@
       "added": "2026-06-19"
     },
     {
+      "id": "homepage-sections-intact",
+      "description": "public/index.html должен содержать id=\"segments\" (Кому поставляем) и id=\"partners\" (С кем работаем). Эти секции критичны для B2B-конверсии и однажды уже терялись при rebase.",
+      "area": ["public/index.html"],
+      "why": "Секции пропали из main после rebase (2026-06-22) — не были закоммичены вовремя. Обнаружены только по запросу владельца. Инвариант обеспечивает механическую детекцию при следующем деплое.",
+      "check_type": "structural",
+      "check_detail": {
+        "file": "public/index.html",
+        "required_patterns": [
+          "id=\"segments\"",
+          "id=\"partners\""
+        ],
+        "description": "both section anchors must be present in public/index.html"
+      },
+      "added": "2026-06-22"
+    },
+    {
       "id": "docs-in-process-no-overclaim",
       "description": "Страницы для рынков с docs_status=in_process НЕ заявляют завершённую сертификацию под конкретный рынок. Фрейминг: 'готовы к сотрудничеству / в процессе оформления'.",
       "area": ["scripts/generate_geo_bulk.py", "scripts/brand_system.py", "scripts/page_reviewer.py"],
