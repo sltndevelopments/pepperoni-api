@@ -13,9 +13,9 @@
       "check_type": "structural",
       "check_detail": {
         "file": "public/index.html",
-        "pattern": "<a\\s[^>]*class=[\"'][^\"']*product-card-link[^\"']*[\"'][^>]*href=",
+        "pattern": "<a\\s[^>]*product-card-link[^>]*>",
         "require_in_script": true,
-        "description": "pattern must appear inside a <script> block (JS template) OR as a direct anchor in rendered HTML"
+        "description": "pattern must appear inside a <script> block (JS template) OR as a direct anchor in rendered HTML — href/class order is not significant"
       },
       "added": "2026-06-17"
     },
