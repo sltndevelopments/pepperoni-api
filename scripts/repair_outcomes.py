@@ -172,7 +172,14 @@ def repair() -> dict:
         if q:
             fa.check_trigger_a(q)
         if q and fa.is_abandoned(q):
-            print(f"  ⏭  skipping abandoned query: «{q}»")
+            # Instead of silently skipping, attempt A/B test creation.
+            impr = int(f.get("impr", 0) or 0)
+            try:
+                import ab_test_manager as _abt
+                _abt.check_trigger(q, u or "", impr)
+            except Exception as _e:
+                print(f"  ⚠️  ab_test trigger error: {_e}")
+            print(f"  ⏭  skipping abandoned query (ab_test attempted): «{q}»")
             abandoned_skipped += 1
             continue
         if u:
@@ -205,7 +212,13 @@ def repair() -> dict:
                 continue
             fa.check_trigger_a(q)
             if fa.is_abandoned(q):
-                # Already emitted needs_help on the cycle it was abandoned.
+                # Attempt A/B test creation; skip re-queuing regardless.
+                impr = int(f.get("impr", 0) or 0)
+                try:
+                    import ab_test_manager as _abt
+                    _abt.check_trigger(q, f.get("page") or "", impr)
+                except Exception as _e:
+                    print(f"  ⚠️  ab_test trigger error: {_e}")
                 abandoned_skipped += 1
                 continue
             fa.increment(q, verdict=f.get("verdict", ""))

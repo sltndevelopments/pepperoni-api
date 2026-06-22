@@ -159,6 +159,8 @@ python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log "⚠️  Scout failed (n
 log "Step 3.3b: Outcomes — grading results + auto-repair …"
 python3 scripts/outcome_tracker.py >> "$LOG_FILE" 2>&1 || log "⚠️  Outcome tracker failed (non-fatal)"
 python3 scripts/repair_outcomes.py >> "$LOG_FILE" 2>&1 || log "⚠️  Repair failed (non-fatal)"
+# A/B test measurement: check if any running tests have passed the 21-day window.
+python3 scripts/ab_test_manager.py --measure >> "$LOG_FILE" 2>&1 || log "⚠️  ab_test measure failed (non-fatal)"
 
 # ---- Step 3.4: OPTIMIZER — measure past experiments, then optimize titles/meta ----
 # Data-driven core: success = clicks, not page count. Measures matured
