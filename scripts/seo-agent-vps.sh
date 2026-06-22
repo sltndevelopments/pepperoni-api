@@ -350,6 +350,8 @@ if ! git diff --cached --quiet 2>/dev/null; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
             # Verify stamp reaches live site (2 retries × 90s). Fires emergency if not.
             python3 scripts/deploy_check.py --verify >> "$LOG_FILE" 2>&1 &
+            # Guard: critical homepage sections (segments + partners) still present.
+            python3 scripts/deploy_check.py --check-sections >> "$LOG_FILE" 2>&1 &
         else
             log "  ⚠️  Push failed"
         fi
