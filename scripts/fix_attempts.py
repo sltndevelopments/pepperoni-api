@@ -127,14 +127,55 @@ def abandoned_list() -> list[dict]:
     return out
 
 
+def mark_low_priority(query: str, reason: str = "no_search_demand") -> None:
+    """Mark a query as low_priority — brain will not touch it in autonomous mode.
+
+    Use for queries with no realistic search demand (wrong language, misspelling,
+    overly specific long-tail with zero GSC impressions over 60+ days).
+
+    Unlike abandon (3-failure anti-cycle), low_priority is a deliberate owner
+    decision — it does NOT emit needs_help and is NOT reset by Trigger A/B.
+    Removal requires explicit fix_attempts.reset() call.
+    """
+    data = _load()
+    fq = data.setdefault("failed_queries", {})
+    k = _key(query)
+    entry = fq.get(k, {})
+    entry["status"] = "low_priority"
+    entry["low_priority_reason"] = reason
+    entry["low_priority_at"] = datetime.now(timezone.utc).isoformat()
+    # Ensure it's also flagged abandoned so is_abandoned() returns True (skip in repair)
+    entry["abandoned"] = True
+    entry["abandon_reason"] = f"low_priority: {reason}"
+    fq[k] = entry
+    _save(data)
+    msg = f"⏭ low_priority: «{query}» — {reason} (не будет в авторемонте)"
+    print(msg)
+    try:
+        from daily_ledger import append_event
+        append_event("done", msg)
+    except Exception:
+        pass
+
+
+def is_low_priority(query: str) -> bool:
+    """Return True if this query is explicitly marked as low_priority."""
+    data = _load()
+    entry = data.get("failed_queries", {}).get(_key(query), {})
+    return entry.get("status") == "low_priority"
+
+
 def check_trigger_a(query: str) -> bool:
     """Trigger A: auto-reset if a newer experiment exists for this query.
 
     Call from repair_outcomes after discovering a new experiment entry.
     Returns True if the entry was reset.
+    Low_priority entries are immune to Trigger A — they require explicit /unblock.
     """
     if not is_abandoned(query):
         return False
+    if is_low_priority(query):
+        return False  # low_priority is owner decision, not auto-resettable
     data = _load()
     k = _key(query)
     entry = data.get("failed_queries", {}).get(k, {})

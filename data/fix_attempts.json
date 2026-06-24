@@ -1,3 +1,18 @@
 {
-  "failed_queries": {}
+  "failed_queries": {
+    "how to identify halal certified products": {
+      "status": "low_priority",
+      "low_priority_reason": "no_search_demand_en",
+      "low_priority_at": "2026-06-24T19:04:54.733547+00:00",
+      "abandoned": true,
+      "abandon_reason": "low_priority: no_search_demand_en"
+    },
+    "russia halal market size 2026 trillion rubles": {
+      "status": "low_priority",
+      "low_priority_reason": "no_search_demand_en",
+      "low_priority_at": "2026-06-24T19:04:54.734286+00:00",
+      "abandoned": true,
+      "abandon_reason": "low_priority: no_search_demand_en"
+    }
+  }
 }

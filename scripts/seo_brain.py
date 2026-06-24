@@ -288,6 +288,10 @@ def expert_task_digest() -> dict:
       create_expert_page   — query with impressions > 50, no dedicated page yet
       strengthen_landing   — query with impressions > 50 but page sits outside top 5
 
+    Dedup guard: skips queries that already have an active task in ab_tests.json
+    (status: ab_running) or outcomes.json (status: pending/in_progress) —
+    one task per query at a time.
+
     Brain uses this block to populate new_blog_topics / rewrite_pages / pl_oem_topics.
     Cap: expert_per_day new tasks, landing_per_day strengthen tasks (from strategy).
     """
@@ -304,6 +308,38 @@ def expert_task_digest() -> dict:
     expert_cap = int(strat.get("expert_per_day", 2))
     landing_cap = int(strat.get("landing_per_day", 2))
     IMPR_THRESHOLD = 50
+
+    # ── Dedup: build set of queries already being worked on ──────────────────
+    active_queries: set[str] = set()
+
+    # ab_tests.json: ab_running tests
+    try:
+        ab = json.loads((DATA / "ab_tests.json").read_text())
+        for t in ab.get("ab_tests", []):
+            if t.get("status") == "ab_running":
+                active_queries.add((t.get("query") or "").strip().lower())
+    except Exception:
+        pass
+
+    # outcomes.json: failing entries with pending/in_progress verdicts
+    # (not_indexed/worse are *final* verdicts, not "in progress" — don't block)
+    try:
+        out = json.loads((DATA / "outcomes.json").read_text())
+        ACTIVE_VERDICTS = {"pending", "in_progress"}
+        for item in out.get("failing", []) + out.get("converting_pages", []):
+            if item.get("verdict") in ACTIVE_VERDICTS:
+                active_queries.add((item.get("query") or "").strip().lower())
+    except Exception:
+        pass
+
+    # fix_attempts.json: low_priority queries — brain should not touch these
+    try:
+        fa = json.loads((DATA / "fix_attempts.json").read_text())
+        for q, entry in fa.get("failed_queries", {}).items():
+            if entry.get("status") == "low_priority":
+                active_queries.add(q.strip().lower())
+    except Exception:
+        pass
 
     # Collect all scout signals into a flat list with source tag
     all_signals = []
@@ -325,6 +361,9 @@ def expert_task_digest() -> dict:
 
     for s in all_signals:
         if s["impr"] < IMPR_THRESHOLD:
+            continue
+        # Skip queries already being worked on (dedup guard)
+        if s["query"].strip().lower() in active_queries:
             continue
         has_page = bool(s.get("page"))
         pos = s.get("pos")

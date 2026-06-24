@@ -16,14 +16,19 @@
       "txt": "sweep ✅: fix_pages 42→0 files, truncated 4→0, broken_links 0→0"
     },
     {
-      "ts": "2026-06-17T20:34:13+00:00",
+      "ts": "2026-06-22T09:22:40+00:00",
       "cat": "needs_help",
-      "txt": "🔁 Анти-цикл: «тест-запрос» — 3 провала подряд (вердикт: not_indexed). Авторемонт ОСТАНОВЛЕН.\nВозможные причины: технический блок, неверный интент страницы, конкурент с принципиально лучшим контентом. Сброс: /unblock тест-запрос"
+      "txt": "🚨 invariant violated [card-link-wrapper] (manual run):\n  • card-link-wrapper: product-card-link anchor missing in index.html. Product cards are not clickable."
     },
     {
-      "ts": "2026-06-17T20:34:13+00:00",
+      "ts": "2026-06-24T19:04:54+00:00",
       "cat": "done",
-      "txt": "✅ Анти-цикл сброшен: «тест-запрос» — test"
+      "txt": "⏭ low_priority: «how to identify halal certified products» — no_search_demand_en (не будет в авторемонте)"
+    },
+    {
+      "ts": "2026-06-24T19:04:54+00:00",
+      "cat": "done",
+      "txt": "⏭ low_priority: «russia halal market size 2026 trillion rubles» — no_search_demand_en (не будет в авторемонте)"
     }
   ],
   "last_flush_date": ""
