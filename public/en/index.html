@@ -107,10 +107,6 @@ a.product-card-link{text-decoration:none;color:inherit;display:block}
 .btn-dl-outline{border:2px solid var(--green);color:var(--green);background:#fff}
 .dl-price-block .btn-dl-solid{background:#0057b3!important;color:#fff!important;border:none}
 select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-size:.83rem}
-.dl-contact-wrap{margin:14px 0 16px;max-width:440px}
-.dl-contact-wrap label{display:block;font-size:.83rem;color:#444;margin-bottom:6px;font-weight:600}
-.dl-contact-wrap input{width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:.9rem;box-sizing:border-box}
-.dl-contact-hint{font-size:.78rem;color:#888;margin-top:8px;line-height:1.45;max-width:42em}
 .capabilities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px;margin-top:16px}
 .capability-card{background:var(--green-light);border-radius:var(--radius);padding:18px}
 .capability-card h3{font-size:.92rem;margin-bottom:6px}
@@ -147,13 +143,11 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <span class="nav__logo">🥩 Kazan Delicacies</span>
     <div class="nav__links">
       <a href="/en/pepperoni.html">Pepperoni</a>
-      <a href="/en/halal.html">Halal</a>
-      <a href="/en/kazylyk.html">Kazylyk</a>
-      <a href="/en/export.html">Export</a>
       <a href="/en/about.html">About</a>
       <a href="/en/blog">Blog</a>
       <a href="/en/faq.html">FAQ</a>
       <a href="/en/delivery.html">Delivery</a>
+      <a href="/openapi.yaml">API</a>
     </div>
     <div class="nav__lang"><a href="/">🇷🇺 Русский</a></div>
   </div>
@@ -177,7 +171,6 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <span class="badges__item"><span class="dot"></span>Halal Cert MSB Tatarstan #614A/2024</span>
     <span class="badges__item"><span class="dot"></span>HACCP + ISO 22000:2018</span>
     <span class="badges__item"><span class="dot"></span>ISO 22000</span>
-    <span class="badges__item"><span class="dot"></span>Made in Russia No. CC.003181</span>
     <span class="badges__item"><span class="dot"></span>EXW Kazan · Moscow Warehouse</span>
     <span class="badges__item"><span class="dot"></span>Private Label Available</span>
   </div>
@@ -188,48 +181,48 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <h2 class="section-title">Who We Serve</h2>
     <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
     <div class="segments__grid">
-      <div class="seg-card">
+      <a href="/en/for-gas-stations" class="seg-card">
         <span class="seg-card__num">01</span>
         <div class="seg-card__icon">⛽</div>
         <div class="seg-card__title">Gas Stations &amp; Street Food</div>
         <div class="seg-card__desc">Sausages, pepperoni, patties, sausage rolls for C-store hot dog stations and grab-and-go.</div>
         <div class="seg-card__case">Case: Tatneft gas station chain + SMARTEN <span class="seg-card__arrow">→</span></div>
-      </div>
-      <div class="seg-card">
+      </a>
+      <a href="/en/contract-manufacturing" class="seg-card">
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
         <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. From 500 kg/month.</div>
         <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
-      </div>
-      <div class="seg-card">
+      </a>
+      <a href="/en/for-bakeries" class="seg-card">
         <span class="seg-card__num">03</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Regional Bakeries</div>
         <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
         <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
-      </div>
-      <div class="seg-card">
+      </a>
+      <a href="/en/for-retail" class="seg-card">
         <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Retail Chains</div>
         <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
         <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
-      </div>
-      <div class="seg-card">
+      </a>
+      <a href="/en/for-horeca" class="seg-card">
         <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa &amp; Food Service</div>
         <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
         <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
-      </div>
-      <div class="seg-card">
+      </a>
+      <a href="/en/for-distributors" class="seg-card">
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>
         <div class="seg-card__desc">30-day deferred payment, own price list, full halal assortment from Tatarstan in one warehouse.</div>
         <div class="seg-card__case">Case: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
-      </div>
+      </a>
     </div>
   </div>
 </section>
@@ -328,7 +321,6 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
       <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
       <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
       <div class="cert-item"><div class="cert-item__name">🇷🇺 TR CU 021/2011</div><div class="cert-item__desc">Customs Union</div></div>
-      <div class="cert-item"><a href="/docs/made-in-russia-cc003181.pdf" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><div class="cert-item__name">🇷🇺 Made in Russia</div><div class="cert-item__desc">No. CC.003181 · to 2028</div></a></div>
       <div class="cert-item"><div class="cert-item__name">🐄 Veterinary</div><div class="cert-item__desc">RF Certificates</div></div>
     </div>
   </div>
