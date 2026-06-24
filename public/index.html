@@ -394,16 +394,11 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
         <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
       </span>
     </div>
-    <div class="dl-contact-wrap">
-      <label for="dl-contact">WhatsApp или email <span style="font-weight:400;color:#888">(необязательно)</span></label>
-      <input type="text" id="dl-contact" name="contact" autocomplete="email" inputmode="email" placeholder="+7… или info@kazandelikates.tatar" maxlength="200">
-      <p class="dl-contact-hint">Оставьте контакт — пришлём обновление прайса, когда изменятся цены.</p>
-    </div>
     <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
     <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
     <script>
       document.getElementById('dl-cur').addEventListener('change',function(){document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';});
-      async function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${vat}`:'';const el=document.getElementById('dl-contact');const raw=el?String(el.value||'').trim():'';if(raw.length>=4){try{await fetch('/api/price-lead',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({contact:raw,lang,format:fmt,currency:cur,vat:vat,page:location.href})});}catch(e){}}window.location.href=`/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${fmt}${vatParam}`;}
+      function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${vat}`:'';window.location.href=`/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${fmt}${vatParam}`;}
     </script>
   </div>
 
