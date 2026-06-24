@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-06-17T05:30:03.636144+00:00",
+ "fetched_at": "2026-06-24T05:30:03.737458+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 167,
-  "users": 134,
-  "bounce_rate_pct": 39.5,
-  "page_depth": 1.57,
-  "avg_visit_sec": 89
+  "visits": 214,
+  "users": 161,
+  "bounce_rate_pct": 37.9,
+  "page_depth": 1.42,
+  "avg_visit_sec": 81
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 99
-  },
-  {
-   "source": "Search engine traffic",
-   "visits": 33
+   "visits": 126
   },
   {
    "source": "Internal traffic",
-   "visits": 29
+   "visits": 41
+  },
+  {
+   "source": "Search engine traffic",
+   "visits": 40
   },
   {
    "source": "Link traffic",
@@ -30,17 +30,22 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 143,
-   "bounce_pct": 39.9
+   "visits": 179,
+   "bounce_pct": 37.4
+  },
+  {
+   "path": "/products/kd-027",
+   "visits": 8,
+   "bounce_pct": 25.0
   },
   {
    "path": "/en/",
    "visits": 5,
-   "bounce_pct": 40.0
+   "bounce_pct": 60.0
   },
   {
-   "path": "/products/kd-027",
-   "visits": 3,
+   "path": "/en/geo/halal-pepperoni-saudi-arabia",
+   "visits": 2,
    "bounce_pct": 0.0
   },
   {
@@ -54,12 +59,17 @@
    "bounce_pct": 100.0
   },
   {
-   "path": "/en/halal-sliced-pepperoni-for-pizza",
+   "path": "/en/products/kd-001",
    "visits": 1,
    "bounce_pct": 100.0
   },
   {
    "path": "/en/products/kd-012",
+   "visits": 1,
+   "bounce_pct": 100.0
+  },
+  {
+   "path": "/en/products/kd-051",
    "visits": 1,
    "bounce_pct": 100.0
   },
@@ -84,41 +94,26 @@
    "bounce_pct": 0.0
   },
   {
-   "path": "/products/kd-006",
+   "path": "/products/kd-002",
    "visits": 1,
    "bounce_pct": 0.0
   },
   {
-   "path": "/products/kd-008",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/products/kd-018",
-   "visits": 1,
-   "bounce_pct": 0.0
-  },
-  {
-   "path": "/products/kd-031",
+   "path": "/products/kd-004",
    "visits": 1,
    "bounce_pct": 0.0
   }
  ],
  "leads": {
-  "total_leads": 4,
+  "total_leads": 3,
   "by_goal": {
    "Автоцель: клик по email": 2,
-   "Автоцель: переход в мессенджер": 1,
    "Автоцель: клик по номеру телефона": 1
   }
  },
  "inquiries_by_page": {
   "/": {
    "28d": 3,
-   "7d": 0
-  },
-  "/en/": {
-   "28d": 1,
    "7d": 0
   }
  }

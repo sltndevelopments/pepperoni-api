@@ -1,41 +1,58 @@
 {
-  "generated_at": "2026-06-20T19:24:14.309769+00:00",
-  "new_queries": [],
-  "rising_queries": [],
+  "generated_at": "2026-06-24T05:30:17.290769+00:00",
+  "new_queries": [
+    {
+      "query": "halal certification",
+      "impr": 12,
+      "clk": 0,
+      "pos": 55.9,
+      "page": "https://pepperoni.tatar/en/halal"
+    }
+  ],
+  "rising_queries": [
+    {
+      "query": "هل الهوت دوج حلال",
+      "impr": 20,
+      "clk": 0,
+      "pos": 9.0,
+      "page": "https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-medina",
+      "from_impr": 7
+    }
+  ],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 186,
+      "impr": 216,
       "clk": 2,
-      "pos": 44.0,
+      "pos": 48.7,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль купить",
-      "impr": 62,
+      "impr": 69,
       "clk": 0,
-      "pos": 38.5,
-      "page": "https://pepperoni.tatar/"
-    },
-    {
-      "query": "пеперони халяль",
-      "impr": 51,
-      "clk": 0,
-      "pos": 6.9,
+      "pos": 38.9,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль колбаса",
-      "impr": 43,
+      "impr": 50,
       "clk": 0,
-      "pos": 37.2,
+      "pos": 36.3,
+      "page": "https://pepperoni.tatar/"
+    },
+    {
+      "query": "пеперони халяль",
+      "impr": 40,
+      "clk": 0,
+      "pos": 6.6,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "колбаса пепперони халяль",
-      "impr": 38,
+      "impr": 36,
       "clk": 1,
-      "pos": 9.1,
+      "pos": 9.2,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -44,13 +61,6 @@
       "clk": 0,
       "pos": 6.1,
       "page": "https://pepperoni.tatar/"
-    },
-    {
-      "query": "kazan delicacies halal pepperoni",
-      "impr": 21,
-      "clk": 0,
-      "pos": 5.8,
-      "page": "https://pepperoni.tatar/en/"
     }
   ]
 }

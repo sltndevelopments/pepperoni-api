@@ -93,11 +93,11 @@
     "was": null,
     "_dedup": "failing:how to identify halal certified products"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «how to identify halal certified products» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-16T05:30:43.491782+00:00",
-   "updated_at": "2026-06-16T05:30:43.491789+00:00",
+   "updated_at": "2026-06-24T05:30:07.435401+00:00",
    "claimed_by": null
   },
   {
@@ -113,11 +113,11 @@
     "was": null,
     "_dedup": "failing:russia halal market size 2026 trillion rubles"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «russia halal market size 2026 trillion rubles» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-16T05:30:43.492344+00:00",
-   "updated_at": "2026-06-16T05:30:43.492349+00:00",
+   "updated_at": "2026-06-24T05:30:07.435413+00:00",
    "claimed_by": null
   },
   {
@@ -133,11 +133,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-16T05:30:43.493537+00:00",
-   "updated_at": "2026-06-16T05:30:43.493541+00:00",
+   "updated_at": "2026-06-24T05:30:07.435418+00:00",
    "claimed_by": null
   },
   {
@@ -153,14 +153,14 @@
     "was": null,
     "_dedup": "failing:farsh yerevan"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «farsh yerevan» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-17T05:30:41.386886+00:00",
-   "updated_at": "2026-06-17T05:30:41.386896+00:00",
+   "updated_at": "2026-06-24T05:30:07.435421+00:00",
    "claimed_by": null
   }
  ],
  "seq": 8,
- "updated_at": "2026-06-17T05:30:41.386938+00:00"
+ "updated_at": "2026-06-24T05:30:07.435457+00:00"
 }

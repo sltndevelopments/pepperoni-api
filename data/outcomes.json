@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-06-17T05:30:40.604854+00:00",
+ "generated_at": "2026-06-24T05:30:17.355230+00:00",
  "summary": {
-  "improved": 3,
-  "flat": 7,
-  "worse": 3,
-  "not_indexed": 3,
-  "pending": 6,
+  "improved": 4,
+  "flat": 9,
+  "worse": 8,
+  "not_indexed": 2,
+  "pending": 0,
   "converted": 0
  },
  "failing": [
@@ -17,18 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.9,
-   "verdict": "not_indexed"
-  },
-  {
-   "query": "farsh yerevan",
-   "page": "https://pepperoni.tatar/geo/farsh-yerevan",
-   "change": "title_meta",
-   "before_pos": 9.16,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 7.9,
+   "age_days": 15.9,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 5.0,
+   "age_days": 12.0,
    "verdict": "not_indexed"
   },
   {
@@ -47,11 +36,11 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 34.34,
-   "current_pos": 64.0,
-   "impr": 50,
+   "current_pos": 69.2,
+   "impr": 66,
    "inquiries": 0,
-   "age_days": 7.0,
-   "delta": -29.7,
+   "age_days": 14.0,
+   "delta": -34.9,
    "verdict": "worse"
   },
   {
@@ -59,11 +48,11 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 33.39,
-   "current_pos": 64.0,
-   "impr": 50,
+   "current_pos": 69.2,
+   "impr": 66,
    "inquiries": 0,
-   "age_days": 6.0,
-   "delta": -30.6,
+   "age_days": 13.0,
+   "delta": -35.8,
    "verdict": "worse"
   },
   {
@@ -71,14 +60,81 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 32.46,
-   "current_pos": 64.0,
-   "impr": 50,
+   "current_pos": 69.2,
+   "impr": 66,
    "inquiries": 0,
-   "age_days": 5.0,
-   "delta": -31.5,
+   "age_days": 12.0,
+   "delta": -36.7,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "strengthen_failing",
+   "before_pos": 62.8,
+   "current_pos": 69.2,
+   "impr": 66,
+   "inquiries": 0,
+   "age_days": 8.0,
+   "delta": -6.4,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "strengthen_failing",
+   "before_pos": 62.8,
+   "current_pos": 69.2,
+   "impr": 66,
+   "inquiries": 0,
+   "age_days": 8.0,
+   "delta": -6.4,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+   "change": "strengthen_failing",
+   "before_pos": 58.7,
+   "current_pos": 69.2,
+   "impr": 66,
+   "inquiries": 0,
+   "age_days": 8.0,
+   "delta": -10.5,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+   "change": "title_meta",
+   "before_pos": 14.67,
+   "current_pos": 69.2,
+   "impr": 66,
+   "inquiries": 0,
+   "age_days": 8.0,
+   "delta": -54.5,
+   "verdict": "worse"
+  },
+  {
+   "query": "пепперони халяль",
+   "page": "https://pepperoni.tatar/",
+   "change": "title_meta",
+   "before_pos": 8.84,
+   "current_pos": 69.2,
+   "impr": 66,
+   "inquiries": 3,
+   "age_days": 7.0,
+   "delta": -60.4,
    "verdict": "worse"
   }
  ],
- "graded_total": 16,
- "converting_pages": []
+ "graded_total": 23,
+ "converting_pages": [
+  {
+   "page": "https://pepperoni.tatar/",
+   "query": "пепперони халяль",
+   "pos": 69.2,
+   "inquiries": 3
+  }
+ ]
 }
