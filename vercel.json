@@ -3,6 +3,23 @@
   "cleanUrls": true,
   "headers": [
     {
+      "source": "/docs/:file",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -305,6 +322,10 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/docs/:file.pdf",
+      "destination": "/docs/:file.pdf"
+    },
     {
       "source": "/llms.html",
       "destination": "/llms-page.html"
