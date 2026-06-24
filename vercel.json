@@ -79,6 +79,101 @@
   ],
   "redirects": [
     {
+      "source": "/geo/sosiki-:rest*",
+      "destination": "/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiki-:rest*",
+      "destination": "/blog/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/en/geo/sosiki-:rest*",
+      "destination": "/en/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/sosiki-:rest*",
+      "destination": "/en/blog/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/az/geo/sosiki-:rest*",
+      "destination": "/az/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/be/geo/sosiki-:rest*",
+      "destination": "/be/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/fr/geo/sosiki-:rest*",
+      "destination": "/fr/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/hy/geo/sosiki-:rest*",
+      "destination": "/hy/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/id/geo/sosiki-:rest*",
+      "destination": "/id/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/ka/geo/sosiki-:rest*",
+      "destination": "/ka/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/kk/geo/sosiki-:rest*",
+      "destination": "/kk/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/ky/geo/sosiki-:rest*",
+      "destination": "/ky/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/mn/geo/sosiki-:rest*",
+      "destination": "/mn/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/ms/geo/sosiki-:rest*",
+      "destination": "/ms/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/ro/geo/sosiki-:rest*",
+      "destination": "/ro/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/tg/geo/sosiki-:rest*",
+      "destination": "/tg/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/tr/geo/sosiki-:rest*",
+      "destination": "/tr/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/uz/geo/sosiki-:rest*",
+      "destination": "/uz/geo/sosiski-:rest",
+      "permanent": true
+    },
+    {
+      "source": "/geo/ru/sosiki-:rest*",
+      "destination": "/geo/ru/sosiski-:rest",
+      "permanent": true
+    },
+    {
       "source": "/geo/:slug(.*)-:variant(b|c|d|f)",
       "destination": "/geo/:slug",
       "permanent": true
