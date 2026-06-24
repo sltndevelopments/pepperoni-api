@@ -168,18 +168,18 @@
       "added": "2026-06-17"
     },
     {
-      "id": "sosiki-v-teste-no-nitrite-claim",
-      "description": "GEO-страницы sosiki-v-teste не должны содержать ложный claim «без нитрита натрия» — продукт содержит нитрит натрия (подтверждено владельцем по составу kd-074).",
+      "id": "sosiski-v-teste-no-nitrite-claim",
+      "description": "GEO-страницы sosiski-v-teste не должны содержать ложный claim «без нитрита натрия» — продукт содержит нитрит натрия (подтверждено владельцем по составу kd-074).",
       "area": [
-        "public/geo/sosiki-v-teste-*.html",
-        "public/*/geo/sosiki-v-teste-*.html"
+        "public/geo/sosiski-v-teste-*.html",
+        "public/*/geo/sosiski-v-teste-*.html"
       ],
       "why": "kd-074 (сосиска в тесте) содержит нитрит натрия в составе. Claim «без нитрита натрия» — ложь, нарушает §4 конституции (честность). Обнаружен 2026-06-24, 178 страниц заражены.",
       "check_type": "grep_absent",
       "check_detail": {
         "pattern": "без нитрита натрия",
-        "scope": "public/geo/sosiki-v-teste-*.html",
-        "description": "pattern must NOT appear in any sosiki-v-teste geo page"
+        "scope": "public/geo/sosiski-v-teste-*.html",
+        "description": "pattern must NOT appear in any sosiski-v-teste geo page"
       },
       "severity": "critical",
       "added": "2026-06-24"

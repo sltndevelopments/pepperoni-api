@@ -77,8 +77,8 @@
       "usp_ru": "Халяль пепперони из говядины, курицы и конины. Диаметры 40-75 мм. Сертификат ДУМ РТ №614A/2024, HACCP, ISO 22000:2018. Private Label / СТМ от 100 кг."
     },
     {
-      "id": "sosiki-hotdog",
-      "slug_ru": "sosiki-dlya-hotdog",
+      "id": "sosiski-hotdog",
+      "slug_ru": "sosiski-dlya-hotdog",
       "slug_en": "halal-hot-dog-sausages",
       "slug_ar": "sujuk-hotdog-halal",
       "name_ru": "Сосиски для хот-догов",
@@ -86,17 +86,17 @@
       "name_ar": "نقانق هوت دوج حلال",
       "variants": [
         {
-          "slug": "sosiki-hotdog-govyadina",
+          "slug": "sosiski-hotdog-govyadina",
           "name_ru": "Сосиски хот-дог говяжьи",
           "name_en": "Beef Hot Dog Sausages"
         },
         {
-          "slug": "sosiki-hotdog-kurica",
+          "slug": "sosiski-hotdog-kurica",
           "name_ru": "Сосиски хот-дог куриные",
           "name_en": "Chicken Hot Dog Sausages"
         },
         {
-          "slug": "sosiki-hotdog-miks",
+          "slug": "sosiski-hotdog-miks",
           "name_ru": "Сосиски хот-дог микс",
           "name_en": "Mixed Hot Dog Sausages"
         }
@@ -114,8 +114,8 @@
       "usp_ru": "Халяль сосиски для хот-догов из говядины и курицы. Диаметр 24 мм, вес 80 г/шт или 130 г/шт, фасовка 480 г (6 шт) или 650 г (5 шт). Без нитрита натрия. Срок годности 360 суток при −18°C. MOQ 8 коробок. Поставки для сетей фастфуд, уличной еды, HoReCa. HACCP, ISO 22000:2018."
     },
     {
-      "id": "sosiki-v-teste",
-      "slug_ru": "sosiki-v-teste",
+      "id": "sosiski-v-teste",
+      "slug_ru": "sosiski-v-teste",
       "slug_en": "halal-corn-dog-sausages",
       "slug_ar": "sujuk-aajin-halal",
       "name_ru": "Сосиски для сосиски в тесте",
@@ -123,12 +123,12 @@
       "name_ar": "نقانق في العجين حلال",
       "variants": [
         {
-          "slug": "sosiki-teste-govyadina",
+          "slug": "sosiski-teste-govyadina",
           "name_ru": "Сосиски в тесте говяжьи",
           "name_en": "Beef Corn Dog Sausages"
         },
         {
-          "slug": "sosiki-teste-kurica",
+          "slug": "sosiski-teste-kurica",
           "name_ru": "Сосиски в тесте куриные",
           "name_en": "Chicken Corn Dog Sausages"
         }

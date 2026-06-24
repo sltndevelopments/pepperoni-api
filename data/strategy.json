@@ -1,9 +1,9 @@
 {
  "focus_products": [
   "pepperoni",
-  "sosiki-hotdog",
+  "sosiski-hotdog",
   "kotlety-burgery",
-  "sosiki-v-teste",
+  "sosiski-v-teste",
   "vetchina",
   "kazylyk-premium"
  ],
@@ -61,11 +61,11 @@
  ],
  "rewrite_pages": [
   {
-   "path": "/sosiki-v-teste",
+   "path": "/sosiski-v-teste",
    "reason": "СОЗДАТЬ категорийную страницу (директива владельца): закрывает битые ссылки + дыру каталога"
   },
   {
-   "path": "/sosiki-dlya-hotdog",
+   "path": "/sosiski-dlya-hotdog",
    "reason": "СОЗДАТЬ категорийную страницу — спрос 'сосиски для хот догов оптом' (impr 68+, поз 39)"
   },
   {
