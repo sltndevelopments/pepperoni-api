@@ -240,7 +240,7 @@ if [ "$(date +%u)" = "7" ] || [ "${FORCE_SWEEP:-0}" = "1" ]; then
     fi
 fi
 
-# ---- Step 4: Generate content via DeepSeek API ----
+# ---- Step 4: Generate content via CONTENT_MODEL (claude-sonnet-4-6) ----
 log "Step 4: Generating content …"
 python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
 

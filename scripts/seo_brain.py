@@ -279,6 +279,84 @@ def scout_digest() -> dict:
     }
 
 
+def expert_task_digest() -> dict:
+    """Scout signals that warrant a new expert page or landing strengthening.
+
+    Reads scout_findings.json and strategy.json, then returns up to
+    expert_per_day + landing_per_day candidate tasks for the brain:
+
+      create_expert_page   — query with impressions > 50, no dedicated page yet
+      strengthen_landing   — query with impressions > 50 but page sits outside top 5
+
+    Brain uses this block to populate new_blog_topics / rewrite_pages / pl_oem_topics.
+    Cap: expert_per_day new tasks, landing_per_day strengthen tasks (from strategy).
+    """
+    try:
+        scout = json.loads((DATA / "scout_findings.json").read_text())
+    except Exception:
+        return {}
+
+    try:
+        strat = json.loads((DATA / "strategy.json").read_text())
+    except Exception:
+        strat = {}
+
+    expert_cap = int(strat.get("expert_per_day", 2))
+    landing_cap = int(strat.get("landing_per_day", 2))
+    IMPR_THRESHOLD = 50
+
+    # Collect all scout signals into a flat list with source tag
+    all_signals = []
+    for src_key in ("new_queries", "coverage_gaps", "rising_queries"):
+        for e in (scout.get(src_key) or []):
+            all_signals.append({
+                "query":  e.get("query", ""),
+                "impr":   int(e.get("impr") or 0),
+                "pos":    e.get("pos"),
+                "page":   e.get("page"),
+                "source": src_key,
+            })
+
+    # Sort by impressions descending — highest opportunity first
+    all_signals.sort(key=lambda x: -x["impr"])
+
+    expert_tasks: list[dict] = []
+    landing_tasks: list[dict] = []
+
+    for s in all_signals:
+        if s["impr"] < IMPR_THRESHOLD:
+            continue
+        has_page = bool(s.get("page"))
+        pos = s.get("pos")
+        in_top5 = pos is not None and float(pos) <= 5.0
+
+        if not has_page and len(expert_tasks) < expert_cap:
+            expert_tasks.append({
+                "type":  "create_expert_page",
+                "query": s["query"],
+                "impr":  s["impr"],
+                "source": s["source"],
+            })
+        elif has_page and not in_top5 and len(landing_tasks) < landing_cap:
+            landing_tasks.append({
+                "type":  "strengthen_landing",
+                "query": s["query"],
+                "impr":  s["impr"],
+                "page":  s["page"],
+                "pos":   pos,
+            })
+
+        if len(expert_tasks) >= expert_cap and len(landing_tasks) >= landing_cap:
+            break
+
+    return {
+        "expert_per_day":  expert_cap,
+        "landing_per_day": landing_cap,
+        "create_expert_page":  expert_tasks,
+        "strengthen_landing":  landing_tasks,
+    }
+
+
 def competitor_digest() -> dict:
     """Queries where competitors outrank us (Competitor-Scout), with why-they-win."""
     try:
@@ -535,6 +613,7 @@ def build_digest() -> dict:
         "opportunities": opportunities(),
         "experiments": experiments_digest(),
         "scout": scout_digest(),
+        "expert_tasks": expert_task_digest(),
         "competitors": competitor_digest(),
         "aio_visibility": aio_digest(),
         "web_search": websearch_digest(),
@@ -556,7 +635,7 @@ def build_digest() -> dict:
     # Cuts by ELEMENT count (never slice a JSON string) so result stays valid.
     _GUARDIAN_CHARS = 45_000
     _VARIABLE_BLOCKS = (
-        "market_pulse", "agent_bus", "scout", "gate_rejections",
+        "market_pulse", "agent_bus", "scout", "expert_tasks", "gate_rejections",
         "web_search", "memory", "opportunities", "competitors",
     )
     _TRIM_STEPS = [10, 5, 3, 1]
@@ -1094,6 +1173,11 @@ okr) и сам за них отвечаешь. Если активных OKR н�
   спрос), coverage_gaps (есть спрос, но ранжируется только главная — нужен
   отдельный лендинг). Это ВЫСШИЙ приоритет для new_blog_topics / pl_oem_topics /
   rewrite_pages: делай страницы под РЕАЛЬНЫЙ обнаруженный спрос, а не догадки.
+- ГОТОВЫЕ ЗАДАЧИ ИЗ РАЗВЕДКИ: блок "expert_tasks" уже отфильтрован кодом —
+  "create_expert_page" (запрос с impressions>50, страницы нет → нужен экспертный
+  материал) и "strengthen_landing" (страница есть, но позиция >5 → усилить).
+  Используй эти готовые задачи напрямую в new_blog_topics и rewrite_pages.
+  Лимит уже применён (expert_per_day и landing_per_day из strategy.json).
 - Не раздувай вывод. Списки короткие и конкретные.
 
 ВЕРНИ СТРОГО валидный JSON (без markdown, без комментариев) по схеме:
@@ -1150,6 +1234,9 @@ STRATEGY_SCHEMA = {
         "focus_products": {"type": "array", "items": {"type": "string"}},
         "focus_langs": {"type": "array", "items": {"type": "string"}},
         "geo_daily_target": {"type": "integer"},
+        "geo_per_day": {"type": "integer"},
+        "landing_per_day": {"type": "integer"},
+        "expert_per_day": {"type": "integer"},
         "new_blog_topics": {
             "type": "array",
             "items": {
