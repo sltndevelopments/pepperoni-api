@@ -190,25 +190,27 @@ def ask_chatgpt(q: str) -> str:
 
 
 def ask_gemini(q: str) -> str:
-    """Layer 4: Gemini (gemini-2.0-flash) knowledge-base presence. Skip if no key."""
+    """Layer 4: Gemini (gemini-2.5-flash) knowledge-base presence. Skip if no key."""
     if not GEMINI_KEY:
         return ""
     try:
-        import urllib.request as _ur
+        import httpx
         url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
                f"{GEMINI_MODEL}:generateContent?key={GEMINI_KEY}")
-        payload = json.dumps({
+        payload = {
             "contents": [{"parts": [{"text": (
                 "You are a B2B food procurement assistant. Answer concretely, "
                 "name real companies and websites if you know them.\n\n" + q
             )}]}],
             "generationConfig": {"maxOutputTokens": 600, "temperature": 0.2},
-        }).encode()
-        req = _ur.Request(url, data=payload,
-                          headers={"Content-Type": "application/json"})
-        opener = _make_opener(_PROXY)
-        with opener.open(req, timeout=30) as resp:
-            data = json.loads(resp.read())
+        }
+        client_kwargs: dict = {"timeout": 30}
+        if _PROXY:
+            client_kwargs["proxy"] = _PROXY
+        with httpx.Client(**client_kwargs) as client:
+            resp = client.post(url, json=payload)
+        resp.raise_for_status()
+        data = resp.json()
         parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])
         return parts[0].get("text", "") if parts else ""
     except Exception as e:
