@@ -205,12 +205,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="nav__links">
       <a href="/pepperoni">Пепперони</a>
       <a href="/kazylyk">Казылык</a>
+      <a href="/halal">Халяль</a>
       <a href="/bakery">Выпечка</a>
+      <a href="/export">Экспорт</a>
       <a href="/about">О компании</a>
       <a href="/faq">FAQ</a>
       <a href="/delivery">Доставка</a>
       <a href="/blog">Блог</a>
-      <a href="/openapi.yaml">API</a>
     </div>
     <div class="nav__lang"><a href="/en/">🇬🇧 English</a></div>
   </div>
@@ -708,11 +709,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <span class="nav__logo">🥩 Kazan Delicacies</span>
     <div class="nav__links">
       <a href="/en/pepperoni.html">Pepperoni</a>
+      <a href="/en/halal.html">Halal</a>
+      <a href="/en/kazylyk.html">Kazylyk</a>
+      <a href="/en/export.html">Export</a>
       <a href="/en/about.html">About</a>
       <a href="/en/blog">Blog</a>
       <a href="/en/faq.html">FAQ</a>
       <a href="/en/delivery.html">Delivery</a>
-      <a href="/openapi.yaml">API</a>
     </div>
     <div class="nav__lang"><a href="/">🇷🇺 Русский</a></div>
   </div>

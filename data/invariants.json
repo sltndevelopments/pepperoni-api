@@ -183,6 +183,28 @@
       },
       "severity": "critical",
       "added": "2026-06-24"
+    },
+    {
+      "id": "homepage-nav-links-intact",
+      "description": "public/index.html <nav> должен содержать /halal и /export. public/en/index.html <nav> — /en/halal.html, /en/kazylyk.html, /en/export.html. gen-index.py при авто-запуске сбрасывал nav к старым значениям.",
+      "area": ["public/index.html", "public/en/index.html"],
+      "why": "gen-index.py запускается при auto-update catalog и перезаписывает index.html. Если в шаблоне генератора нет правильных ссылок — они пропадают с сайта тихо. Обнаружено 2026-06-25 после очередного авто-обновления.",
+      "check_type": "structural",
+      "check_detail": {
+        "files": {
+          "public/index.html": {
+            "required_patterns": ["href=\"/halal\"", "href=\"/export\""],
+            "forbidden_patterns": ["<nav[^>]*>[\\s\\S]*?href=\"/openapi\\.yaml\"[\\s\\S]*?</nav>"],
+            "description": "RU nav must contain /halal and /export; must NOT contain /openapi.yaml in <nav>"
+          },
+          "public/en/index.html": {
+            "required_patterns": ["href=\"/en/halal.html\"", "href=\"/en/kazylyk.html\"", "href=\"/en/export.html\""],
+            "description": "EN nav must contain halal, kazylyk, export links"
+          }
+        }
+      },
+      "severity": "high",
+      "added": "2026-06-25"
     }
   ]
 }
