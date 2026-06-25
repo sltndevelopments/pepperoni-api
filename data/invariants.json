@@ -205,6 +205,23 @@
       },
       "severity": "high",
       "added": "2026-06-25"
+    },
+    {
+      "id": "cert-verification-links",
+      "description": "public/index.html должен содержать кликабельные ссылки верификации сертификатов: halalrt.ru/certificates/company/119 и iafcertsearch.org/certification/. Эти ссылки встроены в бейджи на главной и в gen-index.py.",
+      "area": ["public/index.html", "public/en/index.html"],
+      "why": "gen-index.py при авто-регенерации перезаписывает index.html. Если в генераторе не обновить бейджи — ссылки верификации пропадут. Инвариант обеспечивает детекцию. Добавлен 2026-06-25.",
+      "check_type": "structural",
+      "check_detail": {
+        "file": "public/index.html",
+        "required_patterns": [
+          "halalrt.ru/certificates/company/119",
+          "iafcertsearch.org/certification/"
+        ],
+        "description": "both certificate verification links must be present in public/index.html"
+      },
+      "severity": "high",
+      "added": "2026-06-25"
     }
   ]
 }
