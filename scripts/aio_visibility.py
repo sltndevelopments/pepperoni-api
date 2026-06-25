@@ -56,7 +56,7 @@ OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 OPENAI_MODEL = "gpt-4o-mini"
 
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = "gemini-2.0-flash"
+GEMINI_MODEL = "gemini-2.5-flash"
 
 # Use the same US proxy that already works for Anthropic (OpenAI/Gemini blocked in RU)
 _PROXY = (os.environ.get("ANTHROPIC_PROXY", "") or
