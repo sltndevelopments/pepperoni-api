@@ -7,13 +7,13 @@ question ("где купить халяль пепперони оптом"), doe
 asks a fixed panel of buyer-intent questions and detects whether the answer
 references our brand / domain / phone, scoring our "AI presence" over time.
 
-Two layers:
-  1) KNOWLEDGE-BASE PRESENCE (always, via DeepSeek) — does the model *know* us
-     from its training? Reflects long-term brand/entity presence. Free-ish, no
-     live retrieval.
+Layers:
+  1) KNOWLEDGE-BASE PRESENCE (always, via Claude Sonnet) — does the model *know*
+     us from its training? Reflects long-term brand/entity presence.
   2) LIVE CITABILITY (optional, via Perplexity online model when PPLX_API_KEY is
-     set) — does an assistant WITH live web retrieval cite us right now? This is
-     the closest proxy to ChatGPT-search / Яндекс-нейро citability.
+     set) — does an assistant WITH live web retrieval cite us right now?
+  3) ChatGPT presence (optional, OPENAI_API_KEY) — gpt-4o-mini, knowledge base.
+  4) Gemini presence (optional, GEMINI_API_KEY) — gemini-1.5-flash, free tier.
 
 Tracks a git-tracked ledger (data/aio_visibility.json): per-run score = share of
 questions where we are mentioned, plus which questions we win/lose. Sends a weekly
@@ -21,8 +21,10 @@ Telegram report and feeds the brain so it can prioritise content that earns AI
 citations (clear entity facts, FAQ, structured answers).
 
 Env:
-  DEEPSEEK_API_KEY              required for layer 1
+  ANTHROPIC_API_KEY             required for layer 1 (Claude)
   PPLX_API_KEY                  optional, enables live citability (Perplexity)
+  OPENAI_API_KEY                optional, enables ChatGPT presence check
+  GEMINI_API_KEY                optional, enables Gemini presence check
   TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID
 Usage:
   python3 scripts/aio_visibility.py
@@ -40,7 +42,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude, DEEPSEEK_API_KEY
+from claude_client import call_claude, ANTHROPIC_API_KEY
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -49,6 +51,12 @@ LEDGER = DATA / "aio_visibility.json"
 PPLX_KEY = os.environ.get("PPLX_API_KEY", "").strip()
 PPLX_URL = "https://api.perplexity.ai/chat/completions"
 PPLX_MODEL = os.environ.get("PPLX_MODEL", "sonar")
+
+OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
+OPENAI_MODEL = "gpt-4o-mini"
+
+GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
+GEMINI_MODEL = "gemini-1.5-flash"
 
 # Buyer-intent profile questions across our core lines + private label.
 QUESTIONS = [
@@ -122,15 +130,73 @@ def mentions_us(text: str) -> bool:
 # ---------------------------------------------------------------- providers
 
 def ask_deepseek(q: str) -> str:
+    """Layer 1: Claude Sonnet knowledge-base presence (named 'deepseek' for ledger compat)."""
     system = ("Ты помощник по B2B-закупкам продуктов питания в России. Отвечай "
               "конкретно: называй реальные компании, бренды и сайты, если знаешь.")
     try:
-        # Панель имитирует ассистента уровня ChatGPT/Claude — берём Sonnet,
-        # иначе замер цитируемости нерепрезентативен (раз в неделю, копейки).
         text, _ = call_claude(q, system=system, max_tokens=600)
         return text or ""
     except Exception as e:
-        print(f"· deepseek failed: {e}", file=sys.stderr)
+        print(f"· claude failed: {e}", file=sys.stderr)
+        return ""
+
+
+def ask_chatgpt(q: str) -> str:
+    """Layer 3: ChatGPT (gpt-4o-mini) knowledge-base presence. Skip if no key."""
+    if not OPENAI_KEY:
+        return ""
+    try:
+        import urllib.request as _ur
+        payload = json.dumps({
+            "model": OPENAI_MODEL,
+            "messages": [
+                {"role": "system", "content": (
+                    "You are a B2B food procurement assistant. Answer concretely: "
+                    "name real companies, brands and websites if you know them.")},
+                {"role": "user", "content": q},
+            ],
+            "max_tokens": 600,
+            "temperature": 0.2,
+        }).encode()
+        req = _ur.Request(
+            "https://api.openai.com/v1/chat/completions",
+            data=payload,
+            headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {OPENAI_KEY}",
+            },
+        )
+        with _ur.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+        return data["choices"][0]["message"]["content"] or ""
+    except Exception as e:
+        print(f"· chatgpt failed: {e}", file=sys.stderr)
+        return ""
+
+
+def ask_gemini(q: str) -> str:
+    """Layer 4: Gemini (gemini-1.5-flash) knowledge-base presence. Skip if no key."""
+    if not GEMINI_KEY:
+        return ""
+    try:
+        import urllib.request as _ur
+        url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+               f"{GEMINI_MODEL}:generateContent?key={GEMINI_KEY}")
+        payload = json.dumps({
+            "contents": [{"parts": [{"text": (
+                "You are a B2B food procurement assistant. Answer concretely, "
+                "name real companies and websites if you know them.\n\n" + q
+            )}]}],
+            "generationConfig": {"maxOutputTokens": 600, "temperature": 0.2},
+        }).encode()
+        req = _ur.Request(url, data=payload,
+                          headers={"Content-Type": "application/json"})
+        with _ur.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+        parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])
+        return parts[0].get("text", "") if parts else ""
+    except Exception as e:
+        print(f"· gemini failed: {e}", file=sys.stderr)
         return ""
 
 
@@ -153,13 +219,19 @@ def ask_perplexity(q: str) -> str:
 # ---------------------------------------------------------------- run
 
 def run_panel() -> dict:
-    results = {"deepseek": [], "perplexity": []}
+    results = {"deepseek": [], "perplexity": [], "chatgpt": [], "gemini": []}
     for q in QUESTIONS:
         ds = ask_deepseek(q)
         results["deepseek"].append({"q": q, "cited": mentions_us(ds)})
         if PPLX_KEY:
             px = ask_perplexity(q)
             results["perplexity"].append({"q": q, "cited": mentions_us(px)})
+        if OPENAI_KEY:
+            cg = ask_chatgpt(q)
+            results["chatgpt"].append({"q": q, "cited": mentions_us(cg)})
+        if GEMINI_KEY:
+            gm = ask_gemini(q)
+            results["gemini"].append({"q": q, "cited": mentions_us(gm)})
     return results
 
 
@@ -168,16 +240,20 @@ def _score(items: list) -> float:
 
 
 def main():
-    if not DEEPSEEK_API_KEY:
+    if not ANTHROPIC_API_KEY:
         print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         return 1
 
+    extras = [k for k, v in [("perplexity", PPLX_KEY), ("chatgpt", OPENAI_KEY),
+                               ("gemini", GEMINI_KEY)] if v]
     print(f"🤖 AIO-visibility: asking {len(QUESTIONS)} profile questions "
-          f"(perplexity={'on' if PPLX_KEY else 'off'}) …")
+          f"(extra: {', '.join(extras) or 'none'}) …")
     results = run_panel()
 
     ds_score = _score(results["deepseek"])
     px_score = _score(results["perplexity"]) if PPLX_KEY else None
+    cg_score = _score(results["chatgpt"]) if OPENAI_KEY else None
+    gm_score = _score(results["gemini"]) if GEMINI_KEY else None
     ds_won = [r["q"] for r in results["deepseek"] if r["cited"]]
     ds_lost = [r["q"] for r in results["deepseek"] if not r["cited"]]
 
@@ -186,6 +262,8 @@ def main():
         "ts": datetime.now(timezone.utc).isoformat(),
         "deepseek_score": ds_score,
         "perplexity_score": px_score,
+        "chatgpt_score": cg_score,
+        "gemini_score": gm_score,
         "won": ds_won,
         "lost": ds_lost,
         "questions": len(QUESTIONS),
@@ -203,10 +281,13 @@ def main():
     DATA.mkdir(parents=True, exist_ok=True)
     LEDGER.write_text(json.dumps(ledger, ensure_ascii=False, indent=2), encoding="utf-8")
 
-    print(f"📊 DeepSeek presence: {ds_score*100:.0f}% "
-          f"({len(ds_won)}/{len(QUESTIONS)} вопросов)")
+    print(f"📊 Claude presence:   {ds_score*100:.0f}% ({len(ds_won)}/{len(QUESTIONS)} вопросов)")
     if px_score is not None:
-        print(f"📊 Perplexity (live) citability: {px_score*100:.0f}%")
+        print(f"📊 Perplexity (live): {px_score*100:.0f}%")
+    if cg_score is not None:
+        print(f"📊 ChatGPT presence:  {cg_score*100:.0f}%")
+    if gm_score is not None:
+        print(f"📊 Gemini presence:   {gm_score*100:.0f}%")
     for q in ds_won:
         print(f"  ✅ {q}")
 
@@ -225,13 +306,19 @@ def send_report(point: dict, ledger: list) -> None:
 
     lines = [
         "<b>🤖 AIO-видимость — цитируют ли нас ИИ</b>",
-        f"Присутствие в знаниях ИИ (DeepSeek): "
+        f"Присутствие в знаниях ИИ (Claude): "
         f"<b>{point['deepseek_score']*100:.0f}%</b> "
         f"({len(point['won'])}/{point['questions']} вопросов){trend}",
     ]
     if point.get("perplexity_score") is not None:
         lines.append(f"Live-цитируемость (Perplexity): "
                      f"<b>{point['perplexity_score']*100:.0f}%</b>")
+    if point.get("chatgpt_score") is not None:
+        lines.append(f"Присутствие (ChatGPT gpt-4o-mini): "
+                     f"<b>{point['chatgpt_score']*100:.0f}%</b>")
+    if point.get("gemini_score") is not None:
+        lines.append(f"Присутствие (Gemini 1.5 Flash): "
+                     f"<b>{point['gemini_score']*100:.0f}%</b>")
     if point["won"]:
         lines.append("\n<b>Где нас называют:</b>")
         for q in point["won"][:4]:
@@ -240,9 +327,15 @@ def send_report(point: dict, ledger: list) -> None:
         lines.append("\n<b>Где НЕ называют (цели для усиления):</b>")
         for q in point["lost"][:5]:
             lines.append(f"  ⬜ {q}")
+    missing_keys = []
     if point.get("perplexity_score") is None:
-        lines.append("\n<i>Live-режим выключен — добавь PPLX_API_KEY (Perplexity), "
-                     "чтобы мерить цитируемость с реальным веб-поиском.</i>")
+        missing_keys.append("PPLX_API_KEY")
+    if point.get("chatgpt_score") is None:
+        missing_keys.append("OPENAI_API_KEY")
+    if point.get("gemini_score") is None:
+        missing_keys.append("GEMINI_API_KEY")
+    if missing_keys:
+        lines.append(f"\n<i>Для полной панели добавь: {', '.join(missing_keys)}</i>")
     lines.append("\n<i>Чем чётче факты о компании (entity), FAQ и структурированные "
                  "ответы на сайте — тем выше шанс, что ИИ нас процитирует.</i>")
     try:

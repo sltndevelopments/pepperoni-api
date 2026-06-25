@@ -328,5 +328,14 @@
    "Markdown-ограждений и артефактов LLM нет; закрывающий тег </html> присутствует"
   ],
   "error": ""
+ },
+ {
+  "ts": "2026-06-24T05:21:08.646621+00:00",
+  "path": "data/quarantine/geo/sosiki-dlya-hotdog-zheleznodorozhny.html",
+  "verdict": "hold",
+  "reasons": [
+   "reviewer unavailable: ANTHROPIC_API_KEY not set"
+  ],
+  "error": ""
  }
 ]

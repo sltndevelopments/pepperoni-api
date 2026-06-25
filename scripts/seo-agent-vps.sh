@@ -194,6 +194,10 @@ if [ "$(date +%u)" = "1" ]; then
     python3 scripts/aio_visibility.py >> "$LOG_FILE" 2>&1 || log "⚠️  AIO-Visibility failed (non-fatal)"
 fi
 
+# ---- Step 3.491: BRAND MENTIONS — daily external brand mention scan ----
+log "Step 3.491: Brand mentions — scanning Google News + Reddit …"
+python3 scripts/brand_mentions.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brand mentions failed (non-fatal)"
+
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 # Skipped if Step 2.6 already escalated the brain this pass (no double spend).
 if [ "$BRAIN_ESCALATED" = "1" ]; then
@@ -321,6 +325,8 @@ git add data/competitor_findings.json 2>/dev/null || true
 git add data/anomaly_baseline.json 2>/dev/null || true
 # AIO-Visibility weekly citability ledger (durable, git-tracked).
 git add data/aio_visibility.json 2>/dev/null || true
+# Brand-Mentions daily external mentions log (durable, git-tracked).
+git add data/brand_mentions.json 2>/dev/null || true
 # Brain-escalation cooldown/state (durable, git-tracked).
 git add data/escalation_state.json 2>/dev/null || true
 # Brain strategy + goals scoreboard (durable: Actions/worker must see them too).
