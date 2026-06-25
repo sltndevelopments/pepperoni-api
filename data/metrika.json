@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-06-24T05:30:03.737458+00:00",
+ "fetched_at": "2026-06-25T05:30:03.483689+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 214,
-  "users": 161,
-  "bounce_rate_pct": 37.9,
-  "page_depth": 1.42,
-  "avg_visit_sec": 81
+  "visits": 241,
+  "users": 181,
+  "bounce_rate_pct": 39.8,
+  "page_depth": 1.41,
+  "avg_visit_sec": 78
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 126
+   "visits": 146
   },
   {
    "source": "Internal traffic",
-   "visits": 41
+   "visits": 44
   },
   {
    "source": "Search engine traffic",
-   "visits": 40
+   "visits": 44
   },
   {
    "source": "Link traffic",
@@ -30,23 +30,43 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 179,
-   "bounce_pct": 37.4
+   "visits": 188,
+   "bounce_pct": 35.6
   },
   {
    "path": "/products/kd-027",
-   "visits": 8,
-   "bounce_pct": 25.0
+   "visits": 10,
+   "bounce_pct": 30.0
   },
   {
    "path": "/en/",
-   "visits": 5,
-   "bounce_pct": 60.0
+   "visits": 6,
+   "bounce_pct": 66.7
+  },
+  {
+   "path": "/products/kd-016",
+   "visits": 3,
+   "bounce_pct": 33.3
   },
   {
    "path": "/en/geo/halal-pepperoni-saudi-arabia",
    "visits": 2,
    "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-001",
+   "visits": 2,
+   "bounce_pct": 50.0
+  },
+  {
+   "path": "/products/kd-004",
+   "visits": 2,
+   "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-018",
+   "visits": 2,
+   "bounce_pct": 50.0
   },
   {
    "path": "/products/kd-059",
@@ -80,26 +100,6 @@
   },
   {
    "path": "/en/products/kd-058",
-   "visits": 1,
-   "bounce_pct": 0.0
-  },
-  {
-   "path": "/en/products/kd-067",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/products/kd-001",
-   "visits": 1,
-   "bounce_pct": 0.0
-  },
-  {
-   "path": "/products/kd-002",
-   "visits": 1,
-   "bounce_pct": 0.0
-  },
-  {
-   "path": "/products/kd-004",
    "visits": 1,
    "bounce_pct": 0.0
   }

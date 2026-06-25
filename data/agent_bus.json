@@ -159,8 +159,48 @@
    "created_at": "2026-06-17T05:30:41.386886+00:00",
    "updated_at": "2026-06-24T05:30:07.435421+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260625-0009",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "ветчина это халал",
+    "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:ветчина это халал"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «ветчина это халал» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-25T05:30:02.599960+00:00",
+   "updated_at": "2026-06-25T05:30:02.599965+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260625-0010",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пепперони халяль",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "verdict": "worse",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пепперони халяль"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-25T05:30:02.601442+00:00",
+   "updated_at": "2026-06-25T05:30:02.601447+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 8,
- "updated_at": "2026-06-24T05:30:07.435457+00:00"
+ "seq": 10,
+ "updated_at": "2026-06-25T05:30:02.601481+00:00"
 }

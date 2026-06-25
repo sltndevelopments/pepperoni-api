@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-06-24T05:30:17.355230+00:00",
+ "generated_at": "2026-06-25T05:30:19.178848+00:00",
  "summary": {
-  "improved": 4,
-  "flat": 9,
-  "worse": 8,
+  "improved": 6,
+  "flat": 8,
+  "worse": 7,
   "not_indexed": 2,
-  "pending": 0,
+  "pending": 7,
   "converted": 0
  },
  "failing": [
@@ -17,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.9,
+   "age_days": 16.9,
    "verdict": "not_indexed"
   },
   {
@@ -28,19 +28,43 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 12.0,
+   "age_days": 13.0,
    "verdict": "not_indexed"
+  },
+  {
+   "query": "ветчина это халал",
+   "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+   "change": "title_meta",
+   "before_pos": 10.12,
+   "current_pos": 62.3,
+   "impr": 9,
+   "inquiries": 0,
+   "age_days": 16.9,
+   "delta": -52.2,
+   "verdict": "worse"
+  },
+  {
+   "query": "ветчина это халал",
+   "page": "https://pepperoni.tatar/blog/vetchina-fileynaya-halyal",
+   "change": "title_meta",
+   "before_pos": 9.12,
+   "current_pos": 62.3,
+   "impr": 9,
+   "inquiries": 0,
+   "age_days": 15.9,
+   "delta": -53.2,
+   "verdict": "worse"
   },
   {
    "query": "пепперони халяль",
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 34.34,
-   "current_pos": 69.2,
-   "impr": 66,
+   "current_pos": 45.9,
+   "impr": 55,
    "inquiries": 0,
-   "age_days": 14.0,
-   "delta": -34.9,
+   "age_days": 15.0,
+   "delta": -11.6,
    "verdict": "worse"
   },
   {
@@ -48,11 +72,11 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 33.39,
-   "current_pos": 69.2,
-   "impr": 66,
+   "current_pos": 45.9,
+   "impr": 55,
    "inquiries": 0,
-   "age_days": 13.0,
-   "delta": -35.8,
+   "age_days": 14.0,
+   "delta": -12.5,
    "verdict": "worse"
   },
   {
@@ -60,47 +84,11 @@
    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
    "change": "new_landing",
    "before_pos": 32.46,
-   "current_pos": 69.2,
-   "impr": 66,
+   "current_pos": 45.9,
+   "impr": 55,
    "inquiries": 0,
-   "age_days": 12.0,
-   "delta": -36.7,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "strengthen_failing",
-   "before_pos": 62.8,
-   "current_pos": 69.2,
-   "impr": 66,
-   "inquiries": 0,
-   "age_days": 8.0,
-   "delta": -6.4,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "strengthen_failing",
-   "before_pos": 62.8,
-   "current_pos": 69.2,
-   "impr": 66,
-   "inquiries": 0,
-   "age_days": 8.0,
-   "delta": -6.4,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "strengthen_failing",
-   "before_pos": 58.7,
-   "current_pos": 69.2,
-   "impr": 66,
-   "inquiries": 0,
-   "age_days": 8.0,
-   "delta": -10.5,
+   "age_days": 13.0,
+   "delta": -13.4,
    "verdict": "worse"
   },
   {
@@ -108,11 +96,11 @@
    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
    "change": "title_meta",
    "before_pos": 14.67,
-   "current_pos": 69.2,
-   "impr": 66,
+   "current_pos": 45.9,
+   "impr": 55,
    "inquiries": 0,
-   "age_days": 8.0,
-   "delta": -54.5,
+   "age_days": 9.0,
+   "delta": -31.2,
    "verdict": "worse"
   },
   {
@@ -120,11 +108,11 @@
    "page": "https://pepperoni.tatar/",
    "change": "title_meta",
    "before_pos": 8.84,
-   "current_pos": 69.2,
-   "impr": 66,
+   "current_pos": 45.9,
+   "impr": 55,
    "inquiries": 3,
-   "age_days": 7.0,
-   "delta": -60.4,
+   "age_days": 8.0,
+   "delta": -37.1,
    "verdict": "worse"
   }
  ],
@@ -133,7 +121,7 @@
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 69.2,
+   "pos": 45.9,
    "inquiries": 3
   }
  ]
