@@ -56,7 +56,12 @@ OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 OPENAI_MODEL = "gpt-4o-mini"
 
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = "gemini-1.5-flash"
+GEMINI_MODEL = "gemini-2.0-flash"
+
+# Use the same US proxy that already works for Anthropic (OpenAI/Gemini blocked in RU)
+_PROXY = (os.environ.get("ANTHROPIC_PROXY", "") or
+          os.environ.get("HTTPS_PROXY", "") or
+          os.environ.get("HTTP_PROXY", "")).strip()
 
 # Buyer-intent profile questions across our core lines + private label.
 QUESTIONS = [
@@ -141,6 +146,15 @@ def ask_deepseek(q: str) -> str:
         return ""
 
 
+def _make_opener(proxy_url: str):
+    """Build a urllib opener that routes through the given HTTP proxy."""
+    import urllib.request as _ur
+    if not proxy_url:
+        return _ur.build_opener()
+    handler = _ur.ProxyHandler({"http": proxy_url, "https": proxy_url})
+    return _ur.build_opener(handler)
+
+
 def ask_chatgpt(q: str) -> str:
     """Layer 3: ChatGPT (gpt-4o-mini) knowledge-base presence. Skip if no key."""
     if not OPENAI_KEY:
@@ -166,7 +180,8 @@ def ask_chatgpt(q: str) -> str:
                 "Authorization": f"Bearer {OPENAI_KEY}",
             },
         )
-        with _ur.urlopen(req, timeout=30) as resp:
+        opener = _make_opener(_PROXY)
+        with opener.open(req, timeout=30) as resp:
             data = json.loads(resp.read())
         return data["choices"][0]["message"]["content"] or ""
     except Exception as e:
@@ -175,7 +190,7 @@ def ask_chatgpt(q: str) -> str:
 
 
 def ask_gemini(q: str) -> str:
-    """Layer 4: Gemini (gemini-1.5-flash) knowledge-base presence. Skip if no key."""
+    """Layer 4: Gemini (gemini-2.0-flash) knowledge-base presence. Skip if no key."""
     if not GEMINI_KEY:
         return ""
     try:
@@ -191,7 +206,8 @@ def ask_gemini(q: str) -> str:
         }).encode()
         req = _ur.Request(url, data=payload,
                           headers={"Content-Type": "application/json"})
-        with _ur.urlopen(req, timeout=30) as resp:
+        opener = _make_opener(_PROXY)
+        with opener.open(req, timeout=30) as resp:
             data = json.loads(resp.read())
         parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])
         return parts[0].get("text", "") if parts else ""
