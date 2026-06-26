@@ -232,8 +232,8 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
     <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
     <div class="hero__btns">
-      <a href="#catalog" class="btn btn-primary">Смотреть каталог</a>
-      <a href="mailto:info@kazandelikates.tatar" class="btn btn-outline">Связаться с нами</a>
+      <a href="#segments" class="btn btn-primary">Сегменты B2B</a>
+      <a href="#catalog" class="btn btn-outline">Смотреть каталог</a>
     </div>
   </div>
 </section>
@@ -245,98 +245,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <span class="badges__item"><span class="dot"></span>ТР ТС 021/2011</span>
     <span class="badges__item"><span class="dot"></span>EXW Казань · Склад Люберцы</span>
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
-  </div>
-</div>
-
-<section class="usps">
-  <div class="container">
-    <h2 class="section-title">Почему выбирают нас</h2>
-    <p class="section-sub">Производство в Татарстане. Поставки по России и на экспорт.</p>
-    <div class="usps__grid">
-      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Собственное производство</div><div class="usp-card__text">Производим в Казани с 2022 года. Полный контроль качества от сырья до отгрузки. ХАССП на всех этапах.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт EXW Казань</div><div class="usp-card__text">Поставляем в Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, таможенное оформление.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Колбасы, сосиски, котлеты, пельмени, выпечка.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины, без ГМО, без нитрита натрия. Сертификат ДУМ РТ.</div></div>
-    </div>
-  </div>
-</section>
-
-<section class="catalog-section" id="catalog">
-  <div class="container">
-    <h2 class="section-title" style="margin-top:48px">Полный каталог продукции</h2>
-    <p class="section-sub">Актуальные цены · переключайте валюту и НДС</p>
-    <div id="catalog-inner" style="min-height:400px">
-      <div id="loading" style="text-align:center;padding:40px;color:var(--muted)">Загрузка каталога...</div>
-    </div>
-  </div>
-</section>
-
-<section class="certs">
-  <div class="container">
-    <h2 class="section-title" style="margin-bottom:20px">Сертификаты и стандарты</h2>
-    <div class="certs__inner">
-      <div class="cert-item"><div class="cert-item__name">☪️ Халяль</div><div class="cert-item__desc">ДУМ РТ №614A/2024</div></div>
-      <div class="cert-item"><div class="cert-item__name">✅ ХАССП</div><div class="cert-item__desc">Hazard Analysis</div></div>
-      <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
-      <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
-      <div class="cert-item"><div class="cert-item__name">🇷🇺 ТР ТС 021/2011</div><div class="cert-item__desc">Таможенный союз</div></div>
-      <div class="cert-item"><div class="cert-item__name">🐄 Ветеринарные</div><div class="cert-item__desc">Свидетельства РФ</div></div>
-    </div>
-  </div>
-</section>
-
-<div class="container">
-  <div class="info-block" style="background:#f5f5ff;border-color:#0066cc">
-    <h2>📥 Скачать прайс-лист</h2>
-    <p>Полный каталог — откроется в Excel, Google Sheets, Numbers.</p>
-    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
-      <label for="dl-lang" style="font-size:.83rem;color:#555">Язык:</label>
-      <select id="dl-lang" class="dl-select"><option value="ru" selected>Русский</option><option value="en">English</option></select>
-      <label for="dl-cur" style="font-size:.83rem;color:#555;margin-left:8px">Валюта:</label>
-      <select id="dl-cur" class="dl-select"><option value="RUB" selected>RUB ₽</option><option value="USD">USD $</option><option value="KZT">KZT ₸</option><option value="UZS">UZS</option><option value="KGS">KGS</option><option value="BYN">BYN</option><option value="AZN">AZN</option></select>
-      <span id="dl-vat-wrap" style="margin-left:8px">
-        <label for="dl-vat" style="font-size:.83rem;color:#555">НДС:</label>
-        <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
-      </span>
-    </div>
-    <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
-    <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
-    <script>
-      document.getElementById('dl-cur').addEventListener('change',function(){{document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';}});
-      function downloadFile(fmt){{const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${{vat}}`:'';window.location.href=`/api/export?lang=${{encodeURIComponent(lang)}}&currency=${{encodeURIComponent(cur)}}&format=${{fmt}}${{vatParam}}`;}}
-    </script>
-  </div>
-
-  <div class="info-block" style="background:var(--green-light);border-color:var(--green)">
-    <h2 style="color:var(--green)">🤝 Производственные решения для HoReCa и Ритейла</h2>
-    <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
-    <div class="capabilities-grid">
-      <div class="capability-card"><h3>🏷️ Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
-      <div class="capability-card"><h3>🎯 Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
-      <div class="capability-card"><h3>✅ 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
-      <div class="capability-card"><h3>🚚 Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
-    </div>
-  </div>
-
-  <div class="info-block">
-    <h2>Связаться</h2>
-    <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
-    <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
-    <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">📧 info@kazandelikates.tatar</a>
-    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
-  </div>
-
-  <div class="info-block">
-    <h2>API для партнёров</h2>
-    <p>Интегрируйте каталог халяль товаров напрямую в ERP, 1С, iiko или МойСклад. Цены обновляются в реальном времени. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
-    <ul class="endpoint-list" style="margin-top:12px">
-      <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — актуальные цены из Google Sheets</span></li>
-      <li><a href="/products.json">/products.json</a><span class="endpoint-desc"> — статический каталог</span></li>
-      <li><a href="/openapi.yaml">/openapi.yaml</a><span class="endpoint-desc"> — OpenAPI спецификация</span></li>
-      <li><a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a><span class="endpoint-desc"> — манифест AI-плагина</span></li>
-      <li><a href="/llms.txt">/llms.txt</a><span class="endpoint-desc"> — инструкции для LLM</span></li>
-      <li><a href="/sitemap.xml">/sitemap.xml</a><span class="endpoint-desc"> — карта сайта</span></li>
-    </ul>
   </div>
 </div>
 
@@ -458,6 +366,98 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     </div>
   </div>
 </section>
+
+<section class="usps">
+  <div class="container">
+    <h2 class="section-title">Почему выбирают нас</h2>
+    <p class="section-sub">Производство в Татарстане. Поставки по России и на экспорт.</p>
+    <div class="usps__grid">
+      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Собственное производство</div><div class="usp-card__text">Производим в Казани с 2022 года. Полный контроль качества от сырья до отгрузки. ХАССП на всех этапах.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт EXW Казань</div><div class="usp-card__text">Поставляем в Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, таможенное оформление.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Колбасы, сосиски, котлеты, пельмени, выпечка.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины, без ГМО, без нитрита натрия. Сертификат ДУМ РТ.</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="catalog-section" id="catalog">
+  <div class="container">
+    <h2 class="section-title" style="margin-top:48px">Полный каталог продукции</h2>
+    <p class="section-sub">Актуальные цены · переключайте валюту и НДС</p>
+    <div id="catalog-inner" style="min-height:400px">
+      <div id="loading" style="text-align:center;padding:40px;color:var(--muted)">Загрузка каталога...</div>
+    </div>
+  </div>
+</section>
+
+<section class="certs">
+  <div class="container">
+    <h2 class="section-title" style="margin-bottom:20px">Сертификаты и стандарты</h2>
+    <div class="certs__inner">
+      <div class="cert-item"><div class="cert-item__name">☪️ Халяль</div><div class="cert-item__desc">ДУМ РТ №614A/2024</div></div>
+      <div class="cert-item"><div class="cert-item__name">✅ ХАССП</div><div class="cert-item__desc">Hazard Analysis</div></div>
+      <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
+      <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
+      <div class="cert-item"><div class="cert-item__name">🇷🇺 ТР ТС 021/2011</div><div class="cert-item__desc">Таможенный союз</div></div>
+      <div class="cert-item"><div class="cert-item__name">🐄 Ветеринарные</div><div class="cert-item__desc">Свидетельства РФ</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+  <div class="info-block" style="background:#f5f5ff;border-color:#0066cc">
+    <h2>📥 Скачать прайс-лист</h2>
+    <p>Полный каталог — откроется в Excel, Google Sheets, Numbers.</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+      <label for="dl-lang" style="font-size:.83rem;color:#555">Язык:</label>
+      <select id="dl-lang" class="dl-select"><option value="ru" selected>Русский</option><option value="en">English</option></select>
+      <label for="dl-cur" style="font-size:.83rem;color:#555;margin-left:8px">Валюта:</label>
+      <select id="dl-cur" class="dl-select"><option value="RUB" selected>RUB ₽</option><option value="USD">USD $</option><option value="KZT">KZT ₸</option><option value="UZS">UZS</option><option value="KGS">KGS</option><option value="BYN">BYN</option><option value="AZN">AZN</option></select>
+      <span id="dl-vat-wrap" style="margin-left:8px">
+        <label for="dl-vat" style="font-size:.83rem;color:#555">НДС:</label>
+        <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
+      </span>
+    </div>
+    <a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
+    <a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
+    <script>
+      document.getElementById('dl-cur').addEventListener('change',function(){{document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';}});
+      function downloadFile(fmt){{const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${{vat}}`:'';window.location.href=`/api/export?lang=${{encodeURIComponent(lang)}}&currency=${{encodeURIComponent(cur)}}&format=${{fmt}}${{vatParam}}`;}}
+    </script>
+  </div>
+
+  <div class="info-block" style="background:var(--green-light);border-color:var(--green)">
+    <h2 style="color:var(--green)">🤝 Производственные решения для HoReCa и Ритейла</h2>
+    <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
+    <div class="capabilities-grid">
+      <div class="capability-card"><h3>🏷️ Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
+      <div class="capability-card"><h3>🎯 Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
+      <div class="capability-card"><h3>✅ 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
+      <div class="capability-card"><h3>🚚 Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
+    </div>
+  </div>
+
+  <div class="info-block">
+    <h2>Связаться</h2>
+    <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
+    <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
+    <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">📧 info@kazandelikates.tatar</a>
+    <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
+  </div>
+
+  <div class="info-block">
+    <h2>API для партнёров</h2>
+    <p>Интегрируйте каталог халяль товаров напрямую в ERP, 1С, iiko или МойСклад. Цены обновляются в реальном времени. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
+    <ul class="endpoint-list" style="margin-top:12px">
+      <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — актуальные цены из Google Sheets</span></li>
+      <li><a href="/products.json">/products.json</a><span class="endpoint-desc"> — статический каталог</span></li>
+      <li><a href="/openapi.yaml">/openapi.yaml</a><span class="endpoint-desc"> — OpenAPI спецификация</span></li>
+      <li><a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a><span class="endpoint-desc"> — манифест AI-плагина</span></li>
+      <li><a href="/llms.txt">/llms.txt</a><span class="endpoint-desc"> — инструкции для LLM</span></li>
+      <li><a href="/sitemap.xml">/sitemap.xml</a><span class="endpoint-desc"> — карта сайта</span></li>
+    </ul>
+  </div>
+</div>
 
 </main>
 
