@@ -388,6 +388,50 @@ def expert_task_digest() -> dict:
         if len(expert_tasks) >= expert_cap and len(landing_tasks) >= landing_cap:
             break
 
+    # ── Persist new tasks to ab_tests.json so dedup works next cycle ──────────
+    # Without this, the same query is re-queued every cycle because ab_tests.json
+    # is read-only in the dedup guard above — tasks were never written back.
+    new_tasks = expert_tasks + landing_tasks
+    if new_tasks:
+        try:
+            ab_path = DATA / "ab_tests.json"
+            ab = json.loads(ab_path.read_text()) if ab_path.exists() else {"ab_tests": []}
+            now = datetime.now(timezone.utc)
+            now_iso = now.isoformat()
+            # Expire dedup-only entries older than 30 days (ab_test_manager entries keep own lifecycle)
+            def _is_expired(t: dict) -> bool:
+                ca = t.get("created_at", "")
+                if not ca or t.get("control_url"):  # real A/B test — don't expire
+                    return False
+                try:
+                    age = (now - datetime.fromisoformat(ca.replace("Z", "+00:00"))).days
+                    return age > 30
+                except Exception:
+                    return False
+            ab["ab_tests"] = [t for t in ab.get("ab_tests", []) if not _is_expired(t)]
+            existing_queries = {
+                (t.get("query") or "").strip().lower()
+                for t in ab.get("ab_tests", [])
+                if t.get("status") == "ab_running"
+            }
+            added = 0
+            for task in new_tasks:
+                q_key = task["query"].strip().lower()
+                if q_key not in existing_queries:
+                    ab.setdefault("ab_tests", []).append({
+                        "query":      task["query"],
+                        "type":       task["type"],
+                        "status":     "ab_running",
+                        "created_at": now_iso,
+                        "impr":       task.get("impr"),
+                    })
+                    existing_queries.add(q_key)
+                    added += 1
+            if added:
+                ab_path.write_text(json.dumps(ab, ensure_ascii=False, indent=2))
+        except Exception as _e:
+            pass  # non-fatal: dedup is best-effort
+
     return {
         "expert_per_day":  expert_cap,
         "landing_per_day": landing_cap,
