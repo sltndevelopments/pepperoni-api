@@ -203,12 +203,37 @@ def check_homepage_sections() -> bool:
         print("✅ deploy_check: homepage sections intact (segments + partners)")
         return True
 
+    # Auto-repair: regenerate index.html from gen-index.py (which now contains the sections)
+    gen_script = ROOT / "scripts" / "gen-index.py"
+    repaired = False
+    if gen_script.exists():
+        try:
+            import subprocess
+            result = subprocess.run(
+                ["python3", str(gen_script)],
+                capture_output=True, text=True, timeout=30,
+                cwd=str(ROOT)
+            )
+            if result.returncode == 0:
+                # Re-check after regeneration
+                html2 = INDEX_HTML.read_text(encoding="utf-8")
+                still_missing = [p for p in missing if p not in html2]
+                if not still_missing:
+                    print("✅ deploy_check: auto-repaired homepage sections via gen-index.py")
+                    return True
+                missing = still_missing
+                repaired = False
+            else:
+                print(f"  gen-index.py failed: {result.stderr[:200]}")
+        except Exception as e:
+            print(f"  auto-repair failed: {e}")
+
     msg = (
         "🚨 homepage-sections-intact нарушен!\n"
         + "\n".join(f"  • отсутствует: {p}" for p in missing)
         + f"\nФайл: {INDEX_HTML}\n"
-        "Секции «Кому поставляем» / «С кем работаем» пропали из index.html. "
-        "Восстановить из git history (коммит bde7e33ea / ab3669cfe)."
+        + ("Авторемонт через gen-index.py не помог. " if not repaired else "")
+        + "Секции «Кому поставляем» / «С кем работаем» пропали из index.html."
     )
     print(f"🚨 deploy_check: {msg}")
     try:

@@ -194,6 +194,14 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   .nav__links{{gap:10px;font-size:.82rem}}
   .certs__inner{{gap:16px}}
 }}
+.segments{{padding:48px 0}}.segments .section-sub{{text-align:center;color:var(--muted);font-size:.9rem;margin-bottom:24px}}
+.segments__grid{{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:6px}}
+.seg-card{{display:flex;flex-direction:column;background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-decoration:none;color:inherit;transition:box-shadow .2s,border-color .2s,transform .2s;position:relative;overflow:hidden}}
+.seg-card:hover{{box-shadow:var(--shadow);border-color:var(--green);transform:translateY(-2px)}}
+.seg-card__num{{position:absolute;top:12px;right:14px;font-size:1.6rem;font-weight:800;color:var(--green);opacity:.12;line-height:1}}
+.seg-card__icon{{font-size:1.8rem;margin-bottom:10px}}.seg-card__title{{font-size:.95rem;font-weight:700;margin-bottom:6px;color:var(--dark)}}
+.seg-card__desc{{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}}.seg-card__case{{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}}
+.seg-card__arrow{{margin-left:4px}}
 </style>
 </head>
 <body>
@@ -311,11 +319,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 
   <div class="info-block">
-    <h2>Наши партнёры</h2>
-    <p>АЗС Татнефть · EuroSpar · Бэхетле · пиццерии и HoReCa по России.</p>
-  </div>
-
-  <div class="info-block">
     <h2>Связаться</h2>
     <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
@@ -336,6 +339,126 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     </ul>
   </div>
 </div>
+
+<section class="segments" id="segments">
+  <div class="container">
+    <h2 class="section-title">Кому поставляем</h2>
+    <p class="section-sub">6 B2B-сегментов · матрица SKU, фасовка и условия под ваш канал</p>
+    <div class="segments__grid">
+      <a href="/dlya-azs" class="seg-card">
+        <span class="seg-card__num">01</span>
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">АЗС и street food</div>
+        <div class="seg-card__desc">Сосиски для хот-догов, пепперони, котлеты, сосиски в тесте для мини-кухни и витрины «с собой».</div>
+        <div class="seg-card__case">Кейс: сеть АЗС Татнефть + SMARTEN <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/kontraktnoe-proizvodstvo" class="seg-card">
+        <span class="seg-card__num">02</span>
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">СТМ / Private Label</div>
+        <div class="seg-card__desc">Колбасы, сосиски, пепперони, выпечка под вашим брендом. От 500 кг/мес.</div>
+        <div class="seg-card__case">Кейс: линейка «Аслам» для ОМПК <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-pekaren" class="seg-card">
+        <span class="seg-card__num">03</span>
+        <div class="seg-card__icon">🥐</div>
+        <div class="seg-card__title">Пекарни и выпечка</div>
+        <div class="seg-card__desc">Сосиски в тесте, фарш, начинки — стабильные ТУ и ветдоки под требования сетей.</div>
+        <div class="seg-card__case">Стабильная жирность и нарезка <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-setey" class="seg-card">
+        <span class="seg-card__num">04</span>
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Розница и федеральные сети</div>
+        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка. EAN, ветсертификаты, пакет соответствия.</div>
+        <div class="seg-card__case">EuroSpar, Бэхетле, Metro, Мираторг <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-horeca" class="seg-card">
+        <span class="seg-card__num">05</span>
+        <div class="seg-card__icon">🍽️</div>
+        <div class="seg-card__title">HoReCa и общепит</div>
+        <div class="seg-card__desc">Рестораны, отели, пиццерии, dark kitchen, кейтеринг. Форматы 0,5–5 кг для профкухни.</div>
+        <div class="seg-card__case">Кейс: GFC, SweetLife, КВЗ <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-distributorov" class="seg-card">
+        <span class="seg-card__num">06</span>
+        <div class="seg-card__icon">📦</div>
+        <div class="seg-card__title">Дистрибьюторы регионов</div>
+        <div class="seg-card__desc">Отсрочка до 30 дней, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
+        <div class="seg-card__case">Кейс: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<section class="segments" style="background:#fff;padding-bottom:48px" id="partners">
+  <div class="container">
+    <h2 class="section-title">С кем работаем</h2>
+    <p class="section-sub">Ключевые клиенты и партнёры «Казанских Деликатесов»</p>
+    <div class="segments__grid">
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">Сеть АЗС «Татнефть»</div>
+        <div class="seg-card__desc">Сосиски для хот-догов и котлеты для бургеров — на АЗС по всей сети; татарская выпечка — на отдельных объектах региона.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏷️</div>
+        <div class="seg-card__title">ОМПК (Останкино)</div>
+        <div class="seg-card__desc">СТМ: производим халяльную линейку под ТМ «Аслам» для одного из крупнейших мясокомбинатов России.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">EuroSpar (Казань)</div>
+        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка в супермаркетах сети.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Бэхетле (Казань)</div>
+        <div class="seg-card__desc">Халяльный ассортимент в премиальной розничной сети Казани.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Metro Cash &amp; Carry</div>
+        <div class="seg-card__desc">Халяльная продукция в гипермаркетах федеральной сети.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🛒</div>
+        <div class="seg-card__title">Мираторг</div>
+        <div class="seg-card__desc">Татарская выпечка (эчпочмак, перемяч, самса) на полках супермаркетов «Мираторг».</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🏭</div>
+        <div class="seg-card__title">Казанский вертолётный завод</div>
+        <div class="seg-card__desc">Халяльная продукция для корпоративного питания крупного промышленного предприятия.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">⛽</div>
+        <div class="seg-card__title">SMARTEN</div>
+        <div class="seg-card__desc">Оператор сети АЗС — халяль для магазина при АЗС и street food.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">GFC</div>
+        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — наша халяль-линейка во всех регионах присутствия.</div>
+      </div>
+      <div class="seg-card" style="cursor:default">
+        <div class="seg-card__icon">🚚</div>
+        <div class="seg-card__title">SweetLife</div>
+        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — поставки халяльной продукции в HoReCa по России.</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:24px">
+      <a href="/partnery" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Полный список партнёров →</a>
+    </div>
+    <div style="margin-top:20px;font-size:.82rem;color:var(--muted);text-align:center;line-height:1.55;max-width:52rem;margin-left:auto;margin-right:auto">
+      Проверить документы в реестрах:
+      <a href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener noreferrer">Халяль ДУМ РТ №614А/2024</a> ·
+      <a href="https://halalrt.ru/c/4hDESSiMNsDK3Jt/" target="_blank" rel="noopener noreferrer">Халяль ДУМ РТ №884А/2025</a> ·
+      <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener noreferrer">ISO 22000:2018 (IAF CertSearch, FSMS-2351/А)</a>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <footer class="footer">
