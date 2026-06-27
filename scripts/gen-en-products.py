@@ -439,10 +439,12 @@ def main():
             else:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div></div>'
         else:
-            pool = SECTION_IMAGE_POOLS.get(section or "", [])
-            if pool:
-                fb = pool[0]
-                img_html = f'<div class="product-gallery"><div class="product-main-img"><img src="{fb}" alt="{html_esc(name)}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" {img_attrs}/></div></div>'
+            img_html = (
+                f'<div class="product-gallery"><div class="product-main-img product-main-img--placeholder">'
+                f'<img src="/images/logo.png" alt="{name_esc}" class="product-img product-img--logo" '
+                f'style="width:52%;max-width:220px;height:auto;object-fit:contain;opacity:.85" '
+                f'width="320" height="320" loading="eager"/></div></div>'
+            )
 
         specs = []
         if p.get("articleNumber") or p.get("sku"):
@@ -547,6 +549,8 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-gallery{{background:transparent;border-radius:0;padding:0;box-shadow:none}}
 .product-main-img{{margin-bottom:10px;aspect-ratio:3/2;overflow:hidden;background:#f0f0f0}}
 .product-main-img img{{display:block;width:100%;height:100%;object-fit:cover;background:transparent}}
+.product-main-img--placeholder{{display:flex;align-items:center;justify-content:center;background:linear-gradient(165deg,#f0f4f0 0%,#e8ebe8 48%,#f0f4f0 100%)}}
+.product-main-img--placeholder .product-img--logo{{width:52%;max-width:220px;height:auto;object-fit:contain;opacity:.85}}
 .product-thumbs{{display:grid;grid-template-columns:1fr;gap:12px}}
 .product-thumbs img{{display:block;width:100%;max-width:none;aspect-ratio:3/2;height:auto;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
 .product-thumbs img:hover{{border-color:#1b7a3d}}
@@ -605,7 +609,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </ol>
 </nav>
 <div class="product-hero">
-<div>{img_html if img_html else '<div class="product-gallery"><div class="product-main-img"><span style="color:#999;font-size:.9rem">Photo not uploaded</span></div></div>'}</div>
+<div>{img_html}</div>
 <div class="product-info">
 <h1 style="font-size:1.5rem;margin-bottom:10px">{name}</h1>
 <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px">
