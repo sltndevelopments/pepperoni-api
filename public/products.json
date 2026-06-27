@@ -17,7 +17,7 @@
     "Охлаждённая продукция",
     "Выпечка"
   ],
-  "totalProducts": 77,
+  "totalProducts": 72,
   "products": [
     {
       "name": "Сосиски «Из говядины» (80 г × 6 шт)",
@@ -745,159 +745,8 @@
       "ingredientsEN": "Ingredients: chicken fillet, drinking water, edible salt. May contain traces of dairy products (if produced on shared equipment). Allergens: does not contain major allergens, but may contain traces of dairy products."
     },
     {
-      "name": "Фарш говяжий",
-      "sku": "KD-021",
-      "section": "Заморозка",
-      "category": "Мясные заготовки",
-      "weight": "1",
-      "brand": "Казанские Деликатесы",
-      "offers": {
-        "priceCurrency": "RUB",
-        "price": "670.00",
-        "priceExclVAT": "609.09",
-        "availability": "https://schema.org/InStock",
-        "exportPrices": {
-          "USD": 7.72,
-          "KZT": 3745.95,
-          "UZS": 92740.31,
-          "KGS": 675.0,
-          "BYN": 22.39,
-          "AZN": 13.12
-        }
-      },
-      "shelfLife": "180 суток",
-      "storage": "–18°C",
-      "hsCode": "",
-      "boxWeightGross": "200209",
-      "barcode": "4680638721049",
-      "seoDescriptionRU": "Фарш говяжий халяль 1 кг | Сочный натуральный фарш из отборной говядины | Натуральный говяжий фарш халяль от производителя из Казани. Идеален для домашних котлет, пельменей, начинок. Подходит для HoReCa, опта и розницы. Без сои и добавок. Срок хранения 180 суток при -18°C. Произведено в Татарстане.",
-      "seoDescriptionEN": "Halal ground beef 1 kg | Premium lean beef mince | Natural halal ground beef from Kazan. Perfect for burgers, meatballs, dumplings. Suitable for HoReCa, wholesale and retail. No soy or fillers. Shelf life 180 days at -18°C. Made in Tatarstan.",
-      "ingredientsRU": "Состав: говядина, соль, перец черный молотый. Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: beef, salt, black pepper. Allergens: does not contain common allergens."
-    },
-    {
-      "name": "Фарш из куриной кожи",
-      "sku": "KD-022",
-      "section": "Заморозка",
-      "category": "Мясные заготовки",
-      "weight": "1",
-      "brand": "Казанские Деликатесы",
-      "offers": {
-        "priceCurrency": "RUB",
-        "price": "82.00",
-        "priceExclVAT": "74.55",
-        "availability": "https://schema.org/InStock",
-        "exportPrices": {
-          "USD": 0.94,
-          "KZT": 458.46,
-          "UZS": 11350.31,
-          "KGS": 82.61,
-          "BYN": 2.74,
-          "AZN": 1.61
-        }
-      },
-      "shelfLife": "180 суток",
-      "storage": "–18°C",
-      "hsCode": "",
-      "boxWeightGross": "200213",
-      "seoDescriptionRU": "Фарш из куриной кожи 1 кг | Халяльный замороженный фарш из Казани | Нежный куриный фарш из кожи для котлет, начинок и соусов. Идеален для HoReCa, опта и розницы. Произведён в Казани по стандартам халяль. Срок хранения 180 суток при –18°C. Насыщенный вкус и сочность для ваших блюд.",
-      "seoDescriptionEN": "Frozen chicken skin mince 1 kg | Halal minced chicken skin from Kazan | Tasty minced chicken skin for cutlets, fillings and sauces. Perfect for HoReCa, wholesale and retail. Made in Kazan, halal certified. 180-day shelf life at –18°C. Rich flavor and juiciness for your dishes.",
-      "ingredientsRU": "Состав: куриная кожа, соль, перец черный молотый, лук репчатый свежий. Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: chicken skin, salt, black ground pepper, fresh onion. Allergens: does not contain common allergens."
-    },
-    {
-      "name": "Филе бедра куриного в кубике 1х1 см",
-      "sku": "KD-023",
-      "section": "Заморозка",
-      "category": "Мясные заготовки",
-      "weight": "1",
-      "brand": "Казанские Деликатесы",
-      "offers": {
-        "priceCurrency": "RUB",
-        "price": "520.00",
-        "priceExclVAT": "472.73",
-        "availability": "https://schema.org/InStock",
-        "exportPrices": {
-          "USD": 5.99,
-          "KZT": 2907.3,
-          "UZS": 71977.55,
-          "KGS": 523.88,
-          "BYN": 17.38,
-          "AZN": 10.18
-        }
-      },
-      "shelfLife": "180 суток",
-      "storage": "–18°C",
-      "hsCode": "",
-      "boxWeightGross": "200211",
-      "seoDescriptionRU": "Филе бедра куриного в кубике 1х1 см | Халяльные мясные заготовки из Казани | Нежное куриное филе бедра, нарезанное кубиком 1х1 см, для быстрого приготовления. Идеально для плова, супов, салатов и соте. Халяль, заморозка. Продукт произведен в Татарстане. Подходит для HoReCa, опта и розницы. Сочный вкус и удобный формат экономят время на кухне. Срок хранения 180 суток при -18°C.",
-      "seoDescriptionEN": "Chicken thigh fillet 1x1 cm cubes | Halal frozen meat cuts from Kazan | Tender chicken thigh fillet diced into 1x1 cm cubes for quick cooking. Perfect for pilaf, soups, salads, and stir-fries. Halal certified, frozen. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Juicy flavor and convenient format save kitchen prep time. Shelf life 180 days at -18°C.",
-      "ingredientsRU": "Состав: филе бедра куриного. Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: chicken thigh fillet. Allergens: does not contain common allergens."
-    },
-    {
-      "name": "Филе грудки куриной в кубике 1х1 см",
-      "sku": "KD-024",
-      "section": "Заморозка",
-      "category": "Мясные заготовки",
-      "weight": "1",
-      "brand": "Казанские Деликатесы",
-      "offers": {
-        "priceCurrency": "RUB",
-        "price": "520.00",
-        "priceExclVAT": "472.73",
-        "availability": "https://schema.org/InStock",
-        "exportPrices": {
-          "USD": 5.99,
-          "KZT": 2907.3,
-          "UZS": 71977.55,
-          "KGS": 523.88,
-          "BYN": 17.38,
-          "AZN": 10.18
-        }
-      },
-      "shelfLife": "180 суток",
-      "storage": "–18°C",
-      "hsCode": "",
-      "boxWeightGross": "200212",
-      "seoDescriptionRU": "Филе грудки куриной в кубике 1х1 см | Замороженная халяльная заготовка из Казани | Натуральное филе грудки куриной, нарезанное кубиками 1х1 см. Идеально для супов, салатов, плова и соусов. Продукт халяль, произведён в Казани (Татарстан). Подходит для HoReCa, опта и розницы. Быстрое приготовление, сочный вкус. Срок хранения 180 суток при -18°C.",
-      "seoDescriptionEN": "Chicken breast fillet cubes 1x1 cm | Frozen halal pre-cut meat from Kazan | Natural chicken breast fillet diced into 1x1 cm cubes. Perfect for soups, salads, pilaf, and sauces. Halal certified, made in Kazan (Tatarstan). Ideal for HoReCa, wholesale, and retail. Quick to cook, juicy and tender. Shelf life 180 days at -18°C.",
-      "ingredientsRU": "Состав: филе грудки куриной. Аллергены: не содержит.",
-      "ingredientsEN": "Ingredients: chicken breast fillet. Allergens: none."
-    },
-    {
-      "name": "Говядина 1 сорт в кубике 1х1 см",
-      "sku": "KD-025",
-      "section": "Заморозка",
-      "category": "Мясные заготовки",
-      "weight": "1",
-      "brand": "Казанские Деликатесы",
-      "offers": {
-        "priceCurrency": "RUB",
-        "price": "810.00",
-        "priceExclVAT": "736.36",
-        "availability": "https://schema.org/InStock",
-        "exportPrices": {
-          "USD": 9.33,
-          "KZT": 4528.69,
-          "UZS": 112118.88,
-          "KGS": 816.05,
-          "BYN": 27.07,
-          "AZN": 15.86
-        }
-      },
-      "shelfLife": "180 суток",
-      "storage": "–18°C",
-      "hsCode": "",
-      "boxWeightGross": "200210",
-      "seoDescriptionRU": "Говядина 1 сорт в кубике 1х1 см | Замороженная заготовка для супов, рагу и выпечки | Идеальная заготовка для профессиональной кухни и домашнего приготовления. Сочные кубики говядины первого сорта, нарезанные вручную в Казани. Мясо быстрой заморозки сохраняет натуральный вкус, сочность и нежность. Подходит для супов, рагу, плова, начинок для выпечки и соусов. Халяль-сертифицированный продукт. Срок хранения 180 суток при –18°C. Отличный выбор для HoReCa, опта и розницы.",
-      "seoDescriptionEN": "Beef 1st grade diced 1x1 cm | Frozen halal beef cubes for soups & stews | Premium quality beef cubes, hand-cut in Kazan, Tatarstan. First-grade beef individually quick-frozen to lock in flavor and tenderness. Perfect for soups, stews, pilaf, pastry fillings, and sauces. Halal certified. Shelf life 180 days at –18°C. Ideal for HoReCa, wholesale, and retail.",
-      "ingredientsRU": "Состав: говядина первого сорта (мышечная ткань). Аллергены: не содержит.",
-      "ingredientsEN": "Ingredients: first-grade beef (muscle tissue). Allergens: none."
-    },
-    {
       "name": "Сосиски «К завтраку»",
-      "sku": "KD-026",
+      "sku": "KD-021",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -937,7 +786,7 @@
     },
     {
       "name": "Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр",
-      "sku": "KD-027",
+      "sku": "KD-022",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "1",
@@ -966,12 +815,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730443/sosiski_k_zavtraku_3_hv0eel.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg",
-      "seoDescriptionRU": "Сосиски «К завтраку» без оболочки 45 г | Халяль, охлаждённые, для выпечки | Сочные халяльные сосиски без оболочки весом 45 г идеально подходят для приготовления сосисок в тесте. Нежный вкус, плотная текстура. Производство Казань, Татарстан. Сертификат Halal. Подходят для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.",
-      "seoDescriptionEN": "Sausages 'For Breakfast' without casing 45 g | Halal, chilled, for baking | Juicy halal skinless sausages 45 g each, perfect for dough-wrapped snacks. Delicate taste, firm texture. Made in Kazan, Tatarstan. Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C."
+      "seoDescriptionRU": "Фарш из куриной кожи 1 кг | Халяльный замороженный фарш из Казани | Нежный куриный фарш из кожи для котлет, начинок и соусов. Идеален для HoReCa, опта и розницы. Произведён в Казани по стандартам халяль. Срок хранения 180 суток при –18°C. Насыщенный вкус и сочность для ваших блюд.",
+      "seoDescriptionEN": "Frozen chicken skin mince 1 kg | Halal minced chicken skin from Kazan | Tasty minced chicken skin for cutlets, fillings and sauces. Perfect for HoReCa, wholesale and retail. Made in Kazan, halal certified. 180-day shelf life at –18°C. Rich flavor and juiciness for your dishes."
     },
     {
       "name": "Сосиски «Нежные»",
-      "sku": "KD-028",
+      "sku": "KD-023",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1006,7 +855,7 @@
     },
     {
       "name": "Сосиски «Казанские с молоком»",
-      "sku": "KD-029",
+      "sku": "KD-024",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1041,7 +890,7 @@
     },
     {
       "name": "Сосиски «С сыром»",
-      "sku": "KD-030",
+      "sku": "KD-025",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1077,7 +926,7 @@
     },
     {
       "name": "Сосиски \"Из говядины\"",
-      "sku": "KD-031",
+      "sku": "KD-026",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1112,7 +961,7 @@
     },
     {
       "name": "Сосиски в/с Премиум",
-      "sku": "KD-032",
+      "sku": "KD-027",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1143,12 +992,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_kazanskie_premium_udkadz.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_v-s_premium_xyky0a.jpg",
-      "seoDescriptionRU": "Сосиски в/с Премиум 0,4 кг | Халяль, охлаждённые, в оболочке | Сосиски высшего сорта «Премиум» от «Казанских Деликатесов» — нежные, сочные, с насыщенным мясным вкусом. Идеальны для завтрака, горячих блюд, гриля и детского меню. Подходят для HoReCa, опта и розницы. Произведены в Казани (Татарстан) по стандартам халяль. Хранить при 0–6 °C, срок годности 30 суток.",
-      "seoDescriptionEN": "Premium Sausages 0.4 kg | Halal, chilled, in casing | Premium sausages by Kazan Delicacies — tender, juicy, with rich meat flavor. Perfect for breakfast, hot dishes, grilling, and kids' meals. Suitable for HoReCa, wholesale, and retail. Made in Kazan (Tatarstan), halal certified. Store at 0–6 °C, shelf life 30 days."
+      "seoDescriptionRU": "Сосиски «К завтраку» без оболочки 45 г | Халяль, охлаждённые, для выпечки | Сочные халяльные сосиски без оболочки весом 45 г идеально подходят для приготовления сосисок в тесте. Нежный вкус, плотная текстура. Производство Казань, Татарстан. Сертификат Halal. Подходят для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.",
+      "seoDescriptionEN": "Sausages 'For Breakfast' without casing 45 g | Halal, chilled, for baking | Juicy halal skinless sausages 45 g each, perfect for dough-wrapped snacks. Delicate taste, firm texture. Made in Kazan, Tatarstan. Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C."
     },
     {
       "name": "Сосиски в/с Сочные",
-      "sku": "KD-033",
+      "sku": "KD-028",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,4",
@@ -1177,13 +1026,11 @@
       "ingredientsEN": "Ingredients: chicken meat. mekhobalki, stable. protein (pit water, chicken skin, beef), water, chicken breast fillet, beef, whey milk powder, skimmed milk powder, potato starch, nps(salt, color fixative (sodium nitrite)), acidity regulator (pyrophosphates, triphosphates), stabilizer (polyphosphates), thickener (sodium alginate), live protein (beef), spices, spices, spice extracts, sugars, antioxidant. (sodium ascorbate, sodium isoascorbate), usyl. taste and aroma (monosodium glutamate), yeast extract, flavorings.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg",
-      "seoDescriptionRU": "Сосиски Сочные 0.4 кг | Халяльные сосиски из Казани | Аппетитные сосиски высшего сорта «Сочные» от «Казанских Деликатесов» (pepperoni.tatar). Идеальны для завтрака, горячих блюд и перекусов. Произведены в Татарстане, сертифицированы Халяль. Подходят для HoReCa, опта и розницы. Сочный вкус и нежная текстура. Хранить при 0-6°C. Срок годности: 30 суток.",
-      "seoDescriptionEN": "Sausages Juicy 0.4 kg | Halal sausages from Kazan | Juicy premium sausages 'Sausages Juicy' by Kazan Delicacies (pepperoni.tatar). Perfect for breakfast, hot dishes, and snacks. Made in Tatarstan, Halal certified. Suitable for HoReCa, wholesale, and retail. Rich taste and tender texture. Store at 0-6°C. Shelf life: 30 days."
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg"
     },
     {
       "name": "Сардельки «Буинские\"",
-      "sku": "KD-034",
+      "sku": "KD-029",
       "section": "Охлаждённая продукция",
       "category": "Сосиски, сардельки",
       "weight": "0,24",
@@ -1211,15 +1058,11 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/buinskie_sardel_ki_bspdgs.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/buinskie_sardel_ki_bspdgs.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/sardel_ki_buinskie_ilutwn.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730451/sosiski_buinskie_1.1_gxc9r9.jpg",
-      "seoDescriptionRU": "Сардельки «Буинские» 240 г | Халяль, охлаждённые, с натуральной оболочкой | Сардельки «Буинские» — сочные и ароматные мясные изделия из охлаждённой категории, произведённые в Казани по стандартам халяль. Идеальны для быстрого завтрака, обеда или ужина: варка, жарка, запекание. Подходят для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Натуральная оболочка сохраняет сочность и вкус. Продукция компании «Казанские Деликатесы» — это качество и традиции Татарстана.",
-      "seoDescriptionEN": "Buinsky Sausages 240 g | Halal, chilled, natural casing | Buinsky Sausages are juicy and flavorful halal meat products from Kazan, made with natural casing. Perfect for boiling, frying, or baking — ideal for breakfast, lunch, or dinner. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. Natural casing locks in moisture and taste. From Kazan Delicacies — authentic Tatar quality.",
-      "ingredientsRU": "Состав: говядина, мясо куриное, вода, соль, специи, сахар, усилитель вкуса (глутамат натрия), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия). Аллергены: не содержит распространённых аллергенов.",
-      "ingredientsEN": "Ingredients: beef, chicken meat, water, salt, spices, sugar, flavor enhancer (monosodium glutamate), antioxidant (sodium ascorbate), color fixative (sodium nitrite). Allergens: does not contain common allergens."
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730451/sosiski_buinskie_1.1_gxc9r9.jpg"
     },
     {
       "name": "Вареная «Из Говядины»",
-      "sku": "KD-035",
+      "sku": "KD-030",
       "section": "Охлаждённая продукция",
       "category": "Вареные",
       "weight": "0,5",
@@ -1245,13 +1088,11 @@
       "barcode": "4,68E+12",
       "casing": "есть",
       "ingredientsRU": "Состав:говядина,филе куриное,вода,мука пшеничная,фиксатор окраски нитритно-посолочная смесь(соль пищевая,нитрит натрия),растительный белок,усилитель вкуса декстроза, стабилизаторы Е450,Е500,Е451,загуститель Е407,усилитель вкуса и аромата Е621,желирующий агент Е508,антиокислители Е301,Е300,экстракты специй(чеснок,кориандр,перец черный),ароматизаторы,краситель-экстракт паприки.",
-      "ingredientsEN": "Composition:beef,chicken fillet,water, wheat flour,color fixative, nitrite-salt mixture (salt, sodium nitrite),vegetable protein, flavor enhancer dextrose, stabilizers E450,E500,E451,thickener E407,flavor enhancer E621,gelling agent E508,antioxidants E301,E300,spice extracts (garlic,coriander, black pepper),flavors, colorant-paprika extract.",
-      "seoDescriptionRU": "Вареная колбаса «Из Говядины» 0,5 кг | Халяль, производство в Казани | Нежная вареная колбаса из отборной говядины, произведенная по классическому рецепту. Идеальна для бутербродов, салатов и горячих блюд. Сертифицирована халяль. Подходит для HoReCa, оптовой и розничной продажи. Срок хранения 30 суток при 0-6°C. Натуральный вкус и аромат, созданные в Татарстане.",
-      "seoDescriptionEN": "Boiled beef sausage 0.5 kg | Halal, made in Kazan | Tender boiled sausage made from premium beef, crafted according to a classic recipe. Perfect for sandwiches, salads, and hot dishes. Halal certified, -free. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Natural taste and aroma from Tatarstan."
+      "ingredientsEN": "Composition:beef,chicken fillet,water, wheat flour,color fixative, nitrite-salt mixture (salt, sodium nitrite),vegetable protein, flavor enhancer dextrose, stabilizers E450,E500,E451,thickener E407,flavor enhancer E621,gelling agent E508,antioxidants E301,E300,spice extracts (garlic,coriander, black pepper),flavors, colorant-paprika extract."
     },
     {
       "name": "Вареная Ассорти",
-      "sku": "KD-036",
+      "sku": "KD-031",
       "section": "Охлаждённая продукция",
       "category": "Вареные",
       "weight": "0,5",
@@ -1277,13 +1118,11 @@
       "barcode": "4,68E+12",
       "casing": "есть",
       "ingredientsRU": "Состав:филе куриных грудок,мясо куриное мехобвалки,говядина,белок соевый,крахмал картофельный,нпс (соль,фиксатор окраски (нитрит натрия)),соль,регуляторы кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок животный (говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),аром.,краситель (понсо 4R).",
-      "ingredientsEN": "Composition:chicken breast fillet, chicken meat, beef, soy protein, potato starch, NPS (salt, color fixator (sodium nitrite)), salt, acidity regulators (pyrophosphates, triphosphates), spices, spice extracts, animal protein (beef), fiber, sugars, antioxidant (sodium ascorbate), flavor enhancer (sodium glutamate), aroma, color (ponceau 4R).",
-      "seoDescriptionRU": "Вареная Ассорти халяль 0,5 кг | Нежная мясная нарезка из Казани | Вареная Ассорти от «Казанских Деликатесов» — это сочное и нежное мясное изделие с классическим вкусом, идеально подходящее для бутербродов, закусок и салатов. Продукт изготовлен по традиционным рецептам из отборного халяльного сырья, без искусственных добавок. Подходит для HoReCa, оптовых и розничных продаж. Хранить при 0-6 °C до 30 суток. Халяль сертифицирован.",
-      "seoDescriptionEN": "Halal boiled assorted meats 0.5 kg | Tender meat selection from Kazan | Boiled Assorted by Kazan Delicacies is a juicy and tender meat product with a classic flavor, perfect for sandwiches, appetizers and salads. Made from premium halal ingredients using traditional recipes, without artificial additives. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C for up to 30 days. Halal certified."
+      "ingredientsEN": "Composition:chicken breast fillet, chicken meat, beef, soy protein, potato starch, NPS (salt, color fixator (sodium nitrite)), salt, acidity regulators (pyrophosphates, triphosphates), spices, spice extracts, animal protein (beef), fiber, sugars, antioxidant (sodium ascorbate), flavor enhancer (sodium glutamate), aroma, color (ponceau 4R)."
     },
     {
       "name": "Вареная Нежная",
-      "sku": "KD-037",
+      "sku": "KD-032",
       "section": "Охлаждённая продукция",
       "category": "Вареные",
       "weight": "0,5",
@@ -1310,12 +1149,12 @@
       "casing": "есть",
       "ingredientsRU": "Состав:мясо куриное мехобвалки,стаб.белковый(кожа кур.,вода пит.),вода, филе грудок кур.,говядина,сыв.молочная сухая,крахмал картоф.,нпс(соль,фикс.окраски(нитрит натрия)),соль,белок жив.(говяжий),рег.кислотности(трифосфаты,пирофосфаты),стаб.(полифосфаты),загуститель(альгинат натрия),пряности, экстракты пряностей,сахара,антиокис.(аскорб. кислота),усил. вкуса и аромата(глутамат натрия),ароматизаторы,экстракт дрожжей,растит.экстракты.",
       "ingredientsEN": "Composition:mekhobalki chicken meat,stable.protein(chicken skin,pit water),water, chicken breast fillet,beef,dry milk whey,potato starch,nps(salt,fixed coloring(sodium nitrite)),salt,live protein.(beef),reg. of acidity (triphosphates,pyrophosphates),stable.(polyphosphates),thickener (sodium alginate), spices, spice extracts,sugars,antioxidant.(ascorbic acid),usil. taste and aroma (monosodium glutamate),flavorings,yeast extract,vegetable oil.extracts.",
-      "seoDescriptionRU": "Вареная Нежная 0,5 кг | Халяль, охлаждённая, в оболочке | Нежная вареная колбаса из отборного мяса по татарским рецептам. Идеальна для бутербродов, салатов и закусок. Произведена в Казани под строгим халяль-контролем. Подходит для HoReCa, опта и розницы. Сочная, полезная, без лишних добавок.",
-      "seoDescriptionEN": "Boiled Tender 0.5 kg | Halal, chilled, in casing | Delicate boiled sausage made from selected meat following Tatar traditions. Perfect for sandwiches, salads, and snacks. Produced in Kazan under strict Halal supervision. Suitable for HoReCa, wholesale, and retail. Juicy, wholesome, and clean."
+      "seoDescriptionRU": "Сосиски в/с Премиум 0,4 кг | Халяль, охлаждённые, в оболочке | Сосиски высшего сорта «Премиум» от «Казанских Деликатесов» — нежные, сочные, с насыщенным мясным вкусом. Идеальны для завтрака, горячих блюд, гриля и детского меню. Подходят для HoReCa, опта и розницы. Произведены в Казани (Татарстан) по стандартам халяль. Хранить при 0–6 °C, срок годности 30 суток.",
+      "seoDescriptionEN": "Premium Sausages 0.4 kg | Halal, chilled, in casing | Premium sausages by Kazan Delicacies — tender, juicy, with rich meat flavor. Perfect for breakfast, hot dishes, grilling, and kids' meals. Suitable for HoReCa, wholesale, and retail. Made in Kazan (Tatarstan), halal certified. Store at 0–6 °C, shelf life 30 days."
     },
     {
       "name": "Ветчина из Индейки",
-      "sku": "KD-038",
+      "sku": "KD-033",
       "section": "Охлаждённая продукция",
       "category": "Ветчины",
       "weight": "0,5",
@@ -1343,12 +1182,12 @@
       "ingredientsEN": "Ingredients: turkey meat, water, potato starch, nitrite-salting mixture (table salt, color fixer: sodium nitrite), complex spice mixture, and herbs.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg",
-      "seoDescriptionRU": "Ветчина из Индейки 0,5 кг | Халяльная охлаждённая ветчина из Казани | Нежная ветчина из индейки от «Казанских Деликатесов» — идеальный выбор для бутербродов, нарезок и салатов. Произведена в Казани по халяльным стандартам. Подходит для HoReCa, опта и розницы. Сочная текстура, натуральный вкус. Хранить при 0–6 °C, срок 30 суток.",
-      "seoDescriptionEN": "Turkey Ham 0.5 kg | Halal Chilled Turkey Ham from Kazan | Delicate turkey ham from Kazan Delicacies — perfect for sandwiches, platters, and salads. Halal-certified, made in Kazan. Suitable for HoReCa, wholesale, and retail. Juicy texture, natural taste, -free. Keep at 0–6 °C, shelf life 30 days."
+      "seoDescriptionRU": "Сосиски Сочные 0.4 кг | Халяльные сосиски из Казани | Аппетитные сосиски высшего сорта «Сочные» от «Казанских Деликатесов» (pepperoni.tatar). Идеальны для завтрака, горячих блюд и перекусов. Произведены в Татарстане, сертифицированы Халяль. Подходят для HoReCa, опта и розницы. Сочный вкус и нежная текстура. Хранить при 0-6°C. Срок годности: 30 суток.",
+      "seoDescriptionEN": "Sausages Juicy 0.4 kg | Halal sausages from Kazan | Juicy premium sausages 'Sausages Juicy' by Kazan Delicacies (pepperoni.tatar). Perfect for breakfast, hot dishes, and snacks. Made in Tatarstan, Halal certified. Suitable for HoReCa, wholesale, and retail. Rich taste and tender texture. Store at 0-6°C. Shelf life: 30 days."
     },
     {
       "name": "Ветчина Мраморная с говядиной",
-      "sku": "KD-039",
+      "sku": "KD-034",
       "section": "Охлаждённая продукция",
       "category": "Ветчины",
       "weight": "0,5",
@@ -1377,12 +1216,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
-      "seoDescriptionRU": "Ветчина Мраморная с говядиной 0,5 кг | Халяльная ветчина из Казани | Мраморная ветчина из отборной говядины — нежная, сочная, с характерным мясным вкусом. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Халяль сертифицирована. Произведено в Казани (Татарстан). Хранить при 0-6°C, срок годности 30 суток.",
-      "seoDescriptionEN": "Marble Beef Ham 0.5 kg | Halal ham from Kazan | Marbled beef ham — tender, juicy, with rich meaty flavor. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified. Made in Kazan, Tatarstan. Store at 0-6°C, shelf life 30 days."
+      "seoDescriptionRU": "Сардельки «Буинские» 240 г | Халяль, охлаждённые, с натуральной оболочкой | Сардельки «Буинские» — сочные и ароматные мясные изделия из охлаждённой категории, произведённые в Казани по стандартам халяль. Идеальны для быстрого завтрака, обеда или ужина: варка, жарка, запекание. Подходят для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Натуральная оболочка сохраняет сочность и вкус. Продукция компании «Казанские Деликатесы» — это качество и традиции Татарстана.",
+      "seoDescriptionEN": "Buinsky Sausages 240 g | Halal, chilled, natural casing | Buinsky Sausages are juicy and flavorful halal meat products from Kazan, made with natural casing. Perfect for boiling, frying, or baking — ideal for breakfast, lunch, or dinner. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. Natural casing locks in moisture and taste. From Kazan Delicacies — authentic Tatar quality."
     },
     {
       "name": "Ветчина из Курицы",
-      "sku": "KD-040",
+      "sku": "KD-035",
       "section": "Охлаждённая продукция",
       "category": "Ветчины",
       "weight": "0,5",
@@ -1411,12 +1250,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg",
-      "seoDescriptionRU": "Ветчина из Курицы Халяль 0,5 кг | Охлаждённая ветчина из курицы, Халяль, Казань | Нежная и сочная ветчина из курицы, произведённая в Казани по стандартам Халяль. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Продукт охлаждённый, хранится 30 суток при 0–6 °C. Натуральный состав, без лишних добавок. Отличный выбор для здорового питания и повседневного меню.",
-      "seoDescriptionEN": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards. Perfect for sandwiches, salads, and snacks. Suitable for HoReCa, wholesale, and retail. Chilled product, shelf life 30 days at 0–6 °C. Natural ingredients, no unnecessary additives. Great choice for healthy eating and daily meals."
+      "seoDescriptionRU": "Вареная колбаса «Из Говядины» 0,5 кг | Халяль, производство в Казани | Нежная вареная колбаса из отборной говядины, произведенная по классическому рецепту. Идеальна для бутербродов, салатов и горячих блюд. Сертифицирована халяль. Подходит для HoReCa, оптовой и розничной продажи. Срок хранения 30 суток при 0-6°C. Натуральный вкус и аромат, созданные в Татарстане.",
+      "seoDescriptionEN": "Boiled beef sausage 0.5 kg | Halal, made in Kazan | Tender boiled sausage made from premium beef, crafted according to a classic recipe. Perfect for sandwiches, salads, and hot dishes. Halal certified, -free. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Natural taste and aroma from Tatarstan."
     },
     {
       "name": "Ветчина Филейная",
-      "sku": "KD-041",
+      "sku": "KD-036",
       "section": "Охлаждённая продукция",
       "category": "Ветчины",
       "weight": "0,5",
@@ -1444,12 +1283,12 @@
       "ingredientsEN": "Ingredients: chicken thigh fillet, chicken skin, water, potato starch, nps (table salt, fix. colors: sodium nitrite),salt,acidity regulators (triphosphates, pyrophosphates, polyphosphates),spices, spice extracts, sugar, flavor enhancer (monosodium glutamate).",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
-      "seoDescriptionRU": "Ветчина Филейная 0,5 кг | Халяльная ветчина из Казани | Нежная ветчина Филейная от «Казанских Деликатесов» — охлаждённый продукт с классическим вкусом, идеальный для бутербродов, салатов и закусок. Произведена в Татарстане по стандартам халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C.",
-      "seoDescriptionEN": "Filley Ham 0.5 kg | Halal ham from Kazan | Tender Filley Ham by Kazan Delicacies — a chilled product with classic flavor, perfect for sandwiches, salads, and appetizers. Made in Tatarstan according to halal standards. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C."
+      "seoDescriptionRU": "Вареная Ассорти халяль 0,5 кг | Нежная мясная нарезка из Казани | Вареная Ассорти от «Казанских Деликатесов» — это сочное и нежное мясное изделие с классическим вкусом, идеально подходящее для бутербродов, закусок и салатов. Продукт изготовлен по традиционным рецептам из отборного халяльного сырья, без искусственных добавок. Подходит для HoReCa, оптовых и розничных продаж. Хранить при 0-6 °C до 30 суток. Халяль сертифицирован.",
+      "seoDescriptionEN": "Halal boiled assorted meats 0.5 kg | Tender meat selection from Kazan | Boiled Assorted by Kazan Delicacies is a juicy and tender meat product with a classic flavor, perfect for sandwiches, appetizers and salads. Made from premium halal ingredients using traditional recipes, without artificial additives. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C for up to 30 days. Halal certified."
     },
     {
       "name": "Сервелат Ханский",
-      "sku": "KD-042",
+      "sku": "KD-037",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,45",
@@ -1473,14 +1312,12 @@
       "hsCode": "160100",
       "articleNumber": "999975",
       "barcode": "4,68E+12",
-      "seoDescriptionRU": "Сервелат Ханский 0,45 кг | Копченый сервелат из Татарстана, халяль | Насладитесь изысканным вкусом копченого сервелата «Ханский» от «Казанских Деликатесов». Этот продукт создан по традиционным рецептам из отборного мяса, с характерным ароматом копчения и пряной ноткой. Идеален для нарезки на завтрак, в бутерброды или в составе мясных тарелок в HoReCa. Сертифицирован Халяль, произведен в Казани. Подходит для оптовых и розничных продаж. Хранить при 0-6°C, срок годности 30 суток.",
-      "seoDescriptionEN": "Servelat Khansky 0.45 kg | Smoked servelat from Tatarstan, halal | Enjoy the refined taste of smoked servelat 'Khansky' from Kazan Delicacies. Made from selected meat with traditional smoking and spices. Perfect for breakfast, sandwiches, or meat platters in HoReCa. Halal certified, produced in Kazan. Suitable for wholesale and retail. Store at 0-6°C, shelf life 30 days.",
-      "ingredientsRU": "Состав: говядина, мясо птицы, говяжий жир, вода, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), чеснок, стабилизатор (фосфаты), антиокислитель (аскорбиновая кислота), фиксатор окраски (нитрит натрия). Аллергены: не выявлены.",
-      "ingredientsEN": "Ingredients: beef, poultry meat, beef fat, water, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, stabilizer (phosphates), antioxidant (ascorbic acid), color fixative (sodium nitrite). Allergens: none identified."
+      "seoDescriptionRU": "Вареная Нежная 0,5 кг | Халяль, охлаждённая, в оболочке | Нежная вареная колбаса из отборного мяса по татарским рецептам. Идеальна для бутербродов, салатов и закусок. Произведена в Казани под строгим халяль-контролем. Подходит для HoReCa, опта и розницы. Сочная, полезная, без лишних добавок.",
+      "seoDescriptionEN": "Boiled Tender 0.5 kg | Halal, chilled, in casing | Delicate boiled sausage made from selected meat following Tatar traditions. Perfect for sandwiches, salads, and snacks. Produced in Kazan under strict Halal supervision. Suitable for HoReCa, wholesale, and retail. Juicy, wholesome, and clean."
     },
     {
       "name": "Сервелат по-татарски в/к",
-      "sku": "KD-043",
+      "sku": "KD-038",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,45",
@@ -1507,13 +1344,11 @@
       "seoDescriptionRU": "Сервелат «По-Татарски» (450 г) | Сервелат «По-Татарски» для нарезки, закусок и HORECA — охлаждённый | Ароматный сервелат из говядины с чесноком и специями, отличается насыщенным мясным вкусом и плотной текстурой. | Сервелат «По-Татарски» — классическая мясная колбаса, идеально подходящая для бутербродов, закусок и ресторанной подачи. Благодаря сочетанию говядины, говяжьего жира и ароматных специй с добавлением свежего чеснока продукт обладает ярким вкусом и аппетитным ароматом. Состав: говядина, куриное мясо механической обвалки, говяжий жир, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй, свежий чеснок. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.",
       "seoDescriptionEN": "Servelat \"Po-Tatarski\" (450 g) | Servelat \"Po-Tatarski\" for slicing, appetizers, and HORECA - chilled | A fragrant beef servelat with garlic and spices, featuring a rich meat flavor and a dense texture. | Servelat \"Po-Tatarski\" is a classic meat sausage that is perfect for sandwiches, appetizers, and restaurant presentations. With its combination of beef, beef fat, and aromatic spices, including fresh garlic, this product offers a vibrant taste and appetizing aroma. Ingredients: beef, mechanically deboned chicken meat, beef fat, vegetable protein, water, salt, sodium nitrite color fixative, a complex blend of spices, and fresh garlic. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C in vacuum packaging.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
-      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
-      "ingredientsRU": "Состав: говядина, мясо цыпленка-бройлера, вода, говяжий жир, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), чеснок, стабилизатор (пирофосфаты), антиокислитель (аскорбиновая кислота), фиксатор окраски (нитрит натрия). Аллергены: не выявлены. Возможно наличие следов горчицы, сельдерея.",
-      "ingredientsEN": "Ingredients: beef, broiler chicken meat, water, beef fat, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, stabilizer (pyrophosphates), antioxidant (ascorbic acid), color fixative (sodium nitrite). Allergens: none declared. May contain traces of mustard, celery."
+      "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg"
     },
     {
       "name": "Полукопченая из Индейки",
-      "sku": "KD-044",
+      "sku": "KD-039",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,45",
@@ -1539,14 +1374,12 @@
       "barcode": "4,68E+12",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-      "seoDescriptionRU": "Полукопченая из Индейки | Халяль, 450 г, 30 суток | Нежная полукопченая колбаса из индейки с легким ароматом дыма. Идеальна для бутербродов, нарезок и горячих блюд. Произведена в Казани по халяльным стандартам. Подходит для HoReCa, опта и розницы. Источник белка, минимум жира.",
-      "seoDescriptionEN": "Smoked Turkey Sausage | Halal, 450 g, 30 days | Delicate semi-smoked turkey sausage with a light smoky aroma. Perfect for sandwiches, cold cuts, and hot dishes. Made in Kazan according to Halal standards. Suitable for HoReCa, wholesale, and retail. Rich in protein, low in fat.",
-      "ingredientsRU": "Состав: мясо индейки, вода, говяжий жир, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), стабилизатор (фосфаты), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия). Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: turkey meat, water, beef fat, salt, sugar, spices (black pepper, allspice, nutmeg), stabilizer (phosphates), antioxidant (sodium ascorbate), color fixative (sodium nitrite). Allergens: does not contain common allergens."
+      "seoDescriptionRU": "Ветчина Мраморная с говядиной 0,5 кг | Халяльная ветчина из Казани | Мраморная ветчина из отборной говядины — нежная, сочная, с характерным мясным вкусом. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Халяль сертифицирована. Произведено в Казани (Татарстан). Хранить при 0-6°C, срок годности 30 суток.",
+      "seoDescriptionEN": "Marble Beef Ham 0.5 kg | Halal ham from Kazan | Marbled beef ham — tender, juicy, with rich meaty flavor. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified. Made in Kazan, Tatarstan. Store at 0-6°C, shelf life 30 days."
     },
     {
       "name": "Полукопченая из Говядины",
-      "sku": "KD-045",
+      "sku": "KD-040",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,45",
@@ -1572,14 +1405,12 @@
       "barcode": "4,68E+12",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg",
-      "seoDescriptionRU": "Полукопченая из Говядины 0,45 кг | Халяль, охлаждённая, 30 суток | Нежная полукопченая колбаса из отборной говядины, произведённая в Казани. Идеальна для бутербродов, закусок и салатов. Сертифицирована Халяль. Подходит для HoReCa, опта и розницы. Хранить при 0-6°C.",
-      "seoDescriptionEN": "Semi-Smoked Beef Sausage 0.45 kg | Halal, Chilled, 30 days | Tender semi-smoked sausage made from premium beef, produced in Kazan. Perfect for sandwiches, appetizers, and salads. Halal-certified. Suitable for HoReCa, wholesale, and retail. Store at 0-6°C.",
-      "ingredientsRU": "Состав: говядина, вода, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), чеснок, нитритно-посолочная смесь (соль, фиксатор окраски нитрит натрия). Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: beef, water, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, curing salt (salt, sodium nitrite). Allergens: does not contain common allergens."
+      "seoDescriptionRU": "Ветчина из Курицы Халяль 0,5 кг | Охлаждённая ветчина из курицы, Халяль, Казань | Нежная и сочная ветчина из курицы, произведённая в Казани по стандартам Халяль. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Продукт охлаждённый, хранится 30 суток при 0–6 °C. Натуральный состав, без лишних добавок. Отличный выбор для здорового питания и повседневного меню.",
+      "seoDescriptionEN": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards. Perfect for sandwiches, salads, and snacks. Suitable for HoReCa, wholesale, and retail. Chilled product, shelf life 30 days at 0–6 °C. Natural ingredients, no unnecessary additives. Great choice for healthy eating and daily meals."
     },
     {
       "name": "Колбаски с Сыром",
-      "sku": "KD-046",
+      "sku": "KD-041",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,3",
@@ -1607,13 +1438,11 @@
       "seoDescriptionEN": "Sausages \"With Cheese\" (330 g) | Sausages \"With Cheese\" for grilling, breakfasts, and HORECA - chilled | Juicy meat sausages with the addition of hard cheese, featuring a rich flavor and aroma of spices. | Sausages \"With Cheese\" are an excellent option for grilling, breakfasts, and hot dishes. Thanks to the combination of beef, chicken fillet, and hard cheese, the product has a juicy texture and rich flavor. Suitable for cooking in a pan, on the grill, or serving as a hot appetizer. Ingredients: beef, chicken fillet, hard cheese, chicken skin, wheat flour, vegetable protein, water, salt, sodium nitrite color fixer, and a complex blend of spices. Does not contain GMOs. Shelf life: up to 30 days at a temperature of 0 to +6 °C.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg",
-      "ingredientsRU": "Состав: мясо куриное, сыр, вода питьевая, соль, сахар, пряности (перец черный, паприка, чеснок), стабилизатор (фосфаты), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия). Аллергены: молочный белок (сыр).",
-      "ingredientsEN": "Ingredients: chicken meat, cheese, drinking water, salt, sugar, spices (black pepper, paprika, garlic), stabilizer (phosphates), antioxidant (sodium ascorbate), color fixative (sodium nitrite). Allergens: milk protein (cheese)."
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg"
     },
     {
       "name": "Грудка куриная",
-      "sku": "KD-047",
+      "sku": "KD-042",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "1",
@@ -1636,14 +1465,14 @@
       "storage": "0-6 ˚C",
       "hsCode": "160100",
       "articleNumber": "999931",
-      "seoDescriptionRU": "Грудка куриная копченая | Халяль, охлажденная, 1 кг | Копченая куриная грудка от «Казанских Деликатесов» — нежное, сочное мясо с легким ароматом дыма. Идеально для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Без ГМО, натуральный вкус.",
-      "seoDescriptionEN": "Smoked chicken breast | Halal, chilled, 1 kg | Smoked chicken breast by Kazan Delicacies — tender, juicy meat with a light smoky flavor. Perfect for sandwiches, salads, and hot dishes. Made in Kazan, Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. No GMOs, natural taste.",
-      "ingredientsRU": "Состав: грудка куриная, соль, сахар, пряности (в том числе перец черный, лавровый лист), стабилизатор (пирофосфат натрия), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия). Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: chicken breast, salt, sugar, spices (including black pepper, bay leaf), stabilizer (sodium pyrophosphate), antioxidant (sodium ascorbate), colour fixative (sodium nitrite). Allergens: does not contain common allergens."
+      "seoDescriptionRU": "Сервелат Ханский 0,45 кг | Копченый сервелат из Татарстана, халяль | Насладитесь изысканным вкусом копченого сервелата «Ханский» от «Казанских Деликатесов». Этот продукт создан по традиционным рецептам из отборного мяса, с характерным ароматом копчения и пряной ноткой. Идеален для нарезки на завтрак, в бутерброды или в составе мясных тарелок в HoReCa. Сертифицирован Халяль, произведен в Казани. Подходит для оптовых и розничных продаж. Хранить при 0-6°C, срок годности 30 суток.",
+      "seoDescriptionEN": "Servelat Khansky 0.45 kg | Smoked servelat from Tatarstan, halal | Enjoy the refined taste of smoked servelat 'Khansky' from Kazan Delicacies. Made from selected meat with traditional smoking and spices. Perfect for breakfast, sandwiches, or meat platters in HoReCa. Halal certified, produced in Kazan. Suitable for wholesale and retail. Store at 0-6°C, shelf life 30 days.",
+      "ingredientsRU": "Состав: говядина, мясо птицы, говяжий жир, вода, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), чеснок, стабилизатор (фосфаты), антиокислитель (аскорбиновая кислота), фиксатор окраски (нитрит натрия). Аллергены: не выявлены.",
+      "ingredientsEN": "Ingredients: beef, poultry meat, beef fat, water, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, stabilizer (phosphates), antioxidant (ascorbic acid), color fixative (sodium nitrite). Allergens: none identified."
     },
     {
       "name": "Филе куриное",
-      "sku": "KD-048",
+      "sku": "KD-043",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "1",
@@ -1665,14 +1494,12 @@
       "shelfLife": "30 суток",
       "storage": "0-6 ˚C",
       "hsCode": "160100",
-      "seoDescriptionRU": "Филе куриное копченое | Охлаждённая продукция Халяль | Ароматное копченое филе куриное – идеальный выбор для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Нежный вкус, натуральный состав, без ГМО. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.",
-      "seoDescriptionEN": "Smoked Chicken Fillet | Chilled Halal Product | Flavorful smoked chicken fillet from Kazan, Halal certified. Perfect for sandwiches, salads, and hot dishes. Natural ingredients, no GMOs. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C.",
-      "ingredientsRU": "Состав: филе куриное, соль, сахар, пряности (перец черный, перец душистый, лавровый лист), натуральный дым. Аллергены: не содержит распространенных аллергенов.",
-      "ingredientsEN": "Ingredients: chicken fillet, salt, sugar, spices (black pepper, allspice, bay leaf), natural smoke. Allergens: does not contain common allergens."
+      "ingredientsRU": "Состав: говядина, мясо цыпленка-бройлера, вода, говяжий жир, соль, сахар, пряности (перец черный, перец душистый, мускатный орех), чеснок, стабилизатор (пирофосфаты), антиокислитель (аскорбиновая кислота), фиксатор окраски (нитрит натрия). Аллергены: не выявлены. Возможно наличие следов горчицы, сельдерея.",
+      "ingredientsEN": "Ingredients: beef, broiler chicken meat, water, beef fat, salt, sugar, spices (black pepper, allspice, nutmeg), garlic, stabilizer (pyrophosphates), antioxidant (ascorbic acid), color fixative (sodium nitrite). Allergens: none declared. May contain traces of mustard, celery."
     },
     {
       "name": "в/к Рамазан",
-      "sku": "KD-049",
+      "sku": "KD-044",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,54",
@@ -1700,12 +1527,12 @@
       "ingredientsEN": "Ingredients: chicken breast fillet,chicken meat,water,dry milk whey,potato starch,nps (salt, color fixative (sodium nitrite)), salt,acidity regulator(triphosphates,pyrophosphates), stabilizer(polyphosphates),spices,extracts of spices and spices,sugar,antioxidant.(sodium ascorbate),flavor enhancer (monosodium glutamate), flavors.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
-      "seoDescriptionRU": "В/к Рамазан копченая | Халяль, охлаждённая | В/к Рамазан — копчёное халяльное мясное изделие из Казани с насыщенным ароматом дыма и нежной текстурой. Идеально для нарезки, бутербродов, закусок. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6 °C. Произведено в Татарстане с соблюдением стандартов халяль.",
-      "seoDescriptionEN": "Smoked sausage Ramadan | Halal, chilled | Smoked sausage Ramadan is a halal meat product from Kazan with rich smoky aroma and tender texture. Perfect for slicing, sandwiches, and snacks. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6 °C. Made in Tatarstan, certified halal."
+      "seoDescriptionRU": "Полукопченая из Индейки | Халяль, 450 г, 30 суток | Нежная полукопченая колбаса из индейки с легким ароматом дыма. Идеальна для бутербродов, нарезок и горячих блюд. Произведена в Казани по халяльным стандартам. Подходит для HoReCa, опта и розницы. Источник белка, минимум жира.",
+      "seoDescriptionEN": "Smoked Turkey Sausage | Halal, 450 g, 30 days | Delicate semi-smoked turkey sausage with a light smoky aroma. Perfect for sandwiches, cold cuts, and hot dishes. Made in Kazan according to Halal standards. Suitable for HoReCa, wholesale, and retail. Rich in protein, low in fat."
     },
     {
       "name": "в/к Рамазан (половинка)",
-      "sku": "KD-050",
+      "sku": "KD-045",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,27",
@@ -1734,12 +1561,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
-      "seoDescriptionRU": "В/к Рамазан (половинка) 0,27 кг | Халяльная копченая продукция из Казани | Вкусная копченая половинка Рамазан от «Казанских Деликатесов» — нежное мясо с ароматом дыма, идеально для бутербродов, салатов и горячих блюд. Продукт халяль, произведен в Казани (Татарстан) из отборного сырья. Подходит для HoReCa, опта и розницы. Хранить при 0-6 °C, срок годности 30 суток. Насладитесь традиционным вкусом с доставкой по РФ.",
-      "seoDescriptionEN": "Smoked Ramazan half 0.27 kg | Halal smoked meat from Kazan | Tasty smoked half Ramazan by Kazan Delicacies — tender meat with smoky aroma, perfect for sandwiches, salads and hot dishes. Halal certified, made in Kazan (Tatarstan) from selected ingredients. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C, shelf life 30 days. Enjoy traditional flavor with delivery across Russia."
+      "seoDescriptionRU": "Полукопченая из Говядины 0,45 кг | Халяль, охлаждённая, 30 суток | Нежная полукопченая колбаса из отборной говядины, произведённая в Казани. Идеальна для бутербродов, закусок и салатов. Сертифицирована Халяль. Подходит для HoReCa, опта и розницы. Хранить при 0-6°C.",
+      "seoDescriptionEN": "Semi-Smoked Beef Sausage 0.45 kg | Halal, Chilled, 30 days | Tender semi-smoked sausage made from premium beef, produced in Kazan. Perfect for sandwiches, appetizers, and salads. Halal-certified. Suitable for HoReCa, wholesale, and retail. Store at 0-6°C."
     },
     {
       "name": "в/к Мраморная",
-      "sku": "KD-051",
+      "sku": "KD-046",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,54",
@@ -1767,13 +1594,11 @@
       "ingredientsEN": "Ingredients: chicken breast fillet, meat.protein (drinking water, chicken skin), halal chicken meat,soy protein,potato starch,nps(salt,color fixative (sodium nitrite)), refined sunflower oil.deodorized,salt, fiber, acidity regulators(triphosphates,pyrophosphates), thickener(sodium alginate),spices,spice extracts, live protein.(beef), sugar, antioxidant (sodium ascorbate), flavor enhancer (sodium glutamate), and flavoring.",
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
-      "seoDescriptionRU": "Мраморная в/к копченая 0,54 кг | Халяльное мясное изделие из Казани | Нежное мраморное мясо с пряным ароматом копчения. Идеально для бутербродов, салатов, закусок. Сертифицировано Халяль. Произведено в Казани (Татарстан). Подходит для HoReCa, опта и розницы. Без сои и ГМО. Хранить при 0-6°C.",
-      "seoDescriptionEN": "Marble smoked sausage 0.54 kg | Halal meat product from Kazan | Tender marbled meat with spicy smoky flavor. Perfect for sandwiches, salads, appetizers. Halal certified. Made in Kazan (Tatarstan). Suitable for HoReCa, wholesale and retail. No soy or GMO. Store at 0-6°C."
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
     },
     {
       "name": "в/к Мраморная (половинка)",
-      "sku": "KD-052",
+      "sku": "KD-047",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,27",
@@ -1803,12 +1628,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
-      "seoDescriptionRU": "В/к Мраморная половинка 0,27 кг | Халяль, охлаждённая, копчёная | Нежное мраморное мясо с ароматом копчения. Идеально для нарезки, бутербродов и закусок. Халяль, произведено в Казани. Подходит для HoReCa, опта и ретейла. Срок хранения 30 суток при 0-6°C.",
-      "seoDescriptionEN": "Smoked Marbled Half 0.27 kg | Halal, chilled, smoked | Tender marbled beef with smoky flavor. Perfect for slices, sandwiches, and snacks. Halal, made in Kazan. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C."
+      "seoDescriptionRU": "Грудка куриная копченая | Халяль, охлажденная, 1 кг | Копченая куриная грудка от «Казанских Деликатесов» — нежное, сочное мясо с легким ароматом дыма. Идеально для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Без ГМО, натуральный вкус.",
+      "seoDescriptionEN": "Smoked chicken breast | Halal, chilled, 1 kg | Smoked chicken breast by Kazan Delicacies — tender, juicy meat with a light smoky flavor. Perfect for sandwiches, salads, and hot dishes. Made in Kazan, Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. No GMOs, natural taste."
     },
     {
       "name": "в/к Филейный",
-      "sku": "KD-053",
+      "sku": "KD-048",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,54",
@@ -1834,12 +1659,12 @@
       "barcode": "4,68E+12",
       "ingredientsRU": "Состав:филе куриных грудок,мясо кур.мехобвалки,говядина, белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),соль,рег.кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок жив.(говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),ароматизатор, краситель(понсо 4R).",
       "ingredientsEN": "Composition:chicken breast fillet,chicken meat,beef, soy protein,potato starch,nps(salt,color fixative(sodium nitrite)),salt,acidity regulators(pyrophosphates, triphosphates),spices,spice extracts,live protein.(beef), fiber, sugar,antioxidant (sodium ascorbate), flavor enhancer (monosodium glutamate), flavor, dye (ponceau 4R).",
-      "seoDescriptionRU": "Филейный в/к копчёный | Халяль, охлаждённый, 540 г | Филейный в/к — это нежное копчёное мясо с насыщенным ароматом и деликатным вкусом. Идеально для нарезки, бутербродов и салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани (Татарстан) по стандартам халяль. Без сои и ГМО. Срок хранения 30 суток при 0–6 °C.",
-      "seoDescriptionEN": "Smoked fillet v/k | Halal, chilled, 540 g | Smoked fillet v/k offers tender meat with rich aroma and delicate taste. Perfect for slicing, sandwiches, and salads. Suitable for HoReCa, wholesale, and retail. Made in Kazan (Tatarstan) according to Halal standards. No soy or GMOs. Shelf life 30 days at 0–6 °C."
+      "seoDescriptionRU": "Филе куриное копченое | Охлаждённая продукция Халяль | Ароматное копченое филе куриное – идеальный выбор для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Нежный вкус, натуральный состав, без ГМО. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.",
+      "seoDescriptionEN": "Smoked Chicken Fillet | Chilled Halal Product | Flavorful smoked chicken fillet from Kazan, Halal certified. Perfect for sandwiches, salads, and hot dishes. Natural ingredients, no GMOs. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C."
     },
     {
       "name": "в/к Филейный (половинка)",
-      "sku": "KD-054",
+      "sku": "KD-049",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,27",
@@ -1865,12 +1690,12 @@
       "barcode": "4,68E+12",
       "ingredientsRU": "Состав:филе куриных грудок,мясо кур.мехобвалки,говядина, белок соевый,крахмал картофельный,нпс(соль,фиксатор окраски(нитрит натрия)),соль,рег.кислотности(пирофосфаты, трифосфаты),пряности,экстракты пряностей,белок жив.(говяжий),клетчатка,сахара,антиокислитель(аскорбат натрия), усилитель вкуса и аромата(глутамат натрия),ароматизатор, краситель(понсо 4R).",
       "ingredientsEN": "Composition:chicken breast fillet,chicken meat,beef, soy protein,potato starch,nps(salt,color fixative(sodium nitrite)),salt,acidity regulators(pyrophosphates, triphosphates),spices,spice extracts,live protein.(beef), fiber, sugar,antioxidant (sodium ascorbate), flavor enhancer (monosodium glutamate), flavor, dye (ponceau 4R).",
-      "seoDescriptionRU": "В/к Филейный (половинка) 0,27 кг | Премиальная халяльная копченая куриная грудка из Казани | Нежнейший варено-копченый филейный продукт из отборного куриного филе. Идеален для нарезки на бутерброды, салаты и закуски. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам Халяль. Хранить при 0-6°C, срок 30 суток.",
-      "seoDescriptionEN": "Smoked Chicken Fillet Half 0.27 kg | Premium halal smoked chicken breast from Kazan | Tender cooked-smoked fillet made from selected chicken breast. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified, made in Kazan. Store at 0-6°C, shelf life 30 days."
+      "seoDescriptionRU": "В/к Рамазан копченая | Халяль, охлаждённая | В/к Рамазан — копчёное халяльное мясное изделие из Казани с насыщенным ароматом дыма и нежной текстурой. Идеально для нарезки, бутербродов, закусок. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6 °C. Произведено в Татарстане с соблюдением стандартов халяль.",
+      "seoDescriptionEN": "Smoked sausage Ramadan | Halal, chilled | Smoked sausage Ramadan is a halal meat product from Kazan with rich smoky aroma and tender texture. Perfect for slicing, sandwiches, and snacks. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6 °C. Made in Tatarstan, certified halal."
     },
     {
       "name": "в/к Княжеская",
-      "sku": "KD-055",
+      "sku": "KD-050",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,54",
@@ -1899,12 +1724,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg",
-      "seoDescriptionRU": "В/к Княжеская копченая 0,54 кг | Халяль, охлаждённая, 30 суток | Ветчинно-копченая «Княжеская» — нежное мясное изделие с насыщенным ароматом копчения. Идеально для бутербродов, закусок, салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам халяль. Хранить при 0–6 °C.",
-      "seoDescriptionEN": "Smoked 'Knyazheskaya' 0.54 kg | Halal, chilled, 30 days | Smoked ham 'Knyazheskaya' — tender meat product with rich smoky flavor. Perfect for sandwiches, snacks, salads. Suitable for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at 0–6 °C."
+      "seoDescriptionRU": "В/к Рамазан (половинка) 0,27 кг | Халяльная копченая продукция из Казани | Вкусная копченая половинка Рамазан от «Казанских Деликатесов» — нежное мясо с ароматом дыма, идеально для бутербродов, салатов и горячих блюд. Продукт халяль, произведен в Казани (Татарстан) из отборного сырья. Подходит для HoReCa, опта и розницы. Хранить при 0-6 °C, срок годности 30 суток. Насладитесь традиционным вкусом с доставкой по РФ.",
+      "seoDescriptionEN": "Smoked Ramazan half 0.27 kg | Halal smoked meat from Kazan | Tasty smoked half Ramazan by Kazan Delicacies — tender meat with smoky aroma, perfect for sandwiches, salads and hot dishes. Halal certified, made in Kazan (Tatarstan) from selected ingredients. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C, shelf life 30 days. Enjoy traditional flavor with delivery across Russia."
     },
     {
       "name": "в/к Княжеская (половинка)",
-      "sku": "KD-056",
+      "sku": "KD-051",
       "section": "Охлаждённая продукция",
       "category": "Копченые",
       "weight": "0,27",
@@ -1933,12 +1758,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg",
-      "seoDescriptionRU": "В/к Княжеская (половинка) 0.27 кг | Халяльная варено-копченая колбаса из Казани | Нежная варено-копченая колбаса «Княжеская» (половинка) 270 г от «Казанских Деликатесов» — изысканный халяльный деликатес с пряным ароматом и мягким вкусом. Идеально для нарезки, бутербродов и закусок. Без сои и ГМО. Произведено в Татарстане. Подходит для HoReCa, опта и розницы. Хранить при 0–6 °C, срок 30 суток.",
-      "seoDescriptionEN": "V/C Knyazheskaya (half) 0.27 kg | Halal smoked sausage from Kazan | Delicate boiled-smoked sausage 'Knyazheskaya' (half) 270 g by Kazan Delicacies — a premium halal treat with spicy aroma and mild taste. Perfect for slicing, sandwiches, and snacks. No soy or GMOs. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Keep at 0–6 °C, shelf life 30 days."
+      "seoDescriptionRU": "Мраморная в/к копченая 0,54 кг | Халяльное мясное изделие из Казани | Нежное мраморное мясо с пряным ароматом копчения. Идеально для бутербродов, салатов, закусок. Сертифицировано Халяль. Произведено в Казани (Татарстан). Подходит для HoReCa, опта и розницы. Без сои и ГМО. Хранить при 0-6°C.",
+      "seoDescriptionEN": "Marble smoked sausage 0.54 kg | Halal meat product from Kazan | Tender marbled meat with spicy smoky flavor. Perfect for sandwiches, salads, appetizers. Halal certified. Made in Kazan (Tatarstan). Suitable for HoReCa, wholesale and retail. No soy or GMO. Store at 0-6°C."
     },
     {
       "name": "Казылык «Премиум» в подарочной упаковке",
-      "sku": "KD-057",
+      "sku": "KD-052",
       "section": "Охлаждённая продукция",
       "category": "Премиум Казылык",
       "weight": "0,2",
@@ -1968,12 +1793,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
-      "seoDescriptionRU": "Казылык «Премиум» в подарочной упаковке 0,2 кг | Халяль, охлаждённый, Татарстан | Изысканный казылык из отборной говядины и баранины с восточными специями. Идеален для праздничного стола, подарка, ресторанов и отелей. Халяль, произведён в Казани. Насыщенный вкус, плотная текстура, срок хранения 180 суток при 0–12 °C.",
-      "seoDescriptionEN": "Premium Kazylyk in Gift Box 0.2 kg | Halal, Chilled, Tatarstan | Premium kazylyk made from selected beef and lamb with oriental spices. Perfect for festive table, gift, HoReCa. Halal, produced in Kazan. Rich flavor, firm texture, shelf life 180 days at 0–12 °C."
+      "seoDescriptionRU": "В/к Мраморная половинка 0,27 кг | Халяль, охлаждённая, копчёная | Нежное мраморное мясо с ароматом копчения. Идеально для нарезки, бутербродов и закусок. Халяль, произведено в Казани. Подходит для HoReCa, опта и ретейла. Срок хранения 30 суток при 0-6°C.",
+      "seoDescriptionEN": "Smoked Marbled Half 0.27 kg | Halal, chilled, smoked | Tender marbled beef with smoky flavor. Perfect for slices, sandwiches, and snacks. Halal, made in Kazan. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C."
     },
     {
       "name": "Казылык «Премиум» в нарезке в подарочной упаковке",
-      "sku": "KD-058",
+      "sku": "KD-053",
       "section": "Охлаждённая продукция",
       "category": "Премиум Казылык",
       "weight": "0,1",
@@ -2008,7 +1833,7 @@
     },
     {
       "name": "Губадия с кортом",
-      "sku": "KD-059",
+      "sku": "KD-054",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "100 г",
@@ -2036,14 +1861,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg",
-      "seoDescriptionRU": "Губадия с кортом 100 г | Татарская выпечка с творожной начинкой | Настоящая татарская губадия с нежным кортом — традиционная выпечка из Казани. Идеальна для кафе, ресторанов, оптовых закупок и розницы. Халяль. Долгий срок хранения при –18°C. Подается к чаю или как самостоятельное блюдо.",
-      "seoDescriptionEN": "Gubadiya with kort 100 g | Tatar pastry with cottage cheese filling | Authentic Tatar gubadiya with delicate kort — traditional pastry from Kazan. Perfect for HoReCa, wholesale, and retail. Halal. Long shelf life at –18°C. Serve with tea or as a standalone dish.",
-      "ingredientsRU": "Состав: мука пшеничная, масло сливочное, корт (сушеный творог), сахар, яйца, соль, разрыхлитель. Аллергены: глютен, молочные продукты, яйца.",
-      "ingredientsEN": "Ingredients: wheat flour, butter, kort (dried cottage cheese), sugar, eggs, salt, leavening agent. Allergens: gluten, dairy, eggs."
+      "seoDescriptionRU": "В/к Филейный (половинка) 0,27 кг | Премиальная халяльная копченая куриная грудка из Казани | Нежнейший варено-копченый филейный продукт из отборного куриного филе. Идеален для нарезки на бутерброды, салаты и закуски. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам Халяль. Хранить при 0-6°C, срок 30 суток.",
+      "seoDescriptionEN": "Smoked Chicken Fillet Half 0.27 kg | Premium halal smoked chicken breast from Kazan | Tender cooked-smoked fillet made from selected chicken breast. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified, made in Kazan. Store at 0-6°C, shelf life 30 days."
     },
     {
       "name": "Чебурек жареный",
-      "sku": "KD-060",
+      "sku": "KD-055",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "100 г",
@@ -2071,14 +1894,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg",
-      "seoDescriptionRU": "Чебурек жареный 100 г | Халяльная татарская выпечка из Казани | Сочный чебурек с мясом — идеальное угощение для дома, кафе и ресторанов. Замороженный полуфабрикат длительного хранения. Произведен в Татарстане с соблюдением халяльных стандартов. Хрустящее тесто, насыщенный мясной вкус. Подходит для оптовых и розничных закупок, а также для HoReCa. Удобная порция 100 г.",
-      "seoDescriptionEN": "Fried cheburek 100g | Halal Tatar pastry from Kazan | Juicy meat-filled cheburek — perfect for home, cafes, and restaurants. Frozen semi-finished product with long shelf life. Made in Tatarstan according to halal standards. Crispy dough, rich meat flavor. Suitable for wholesale, retail, and HoReCa. Convenient 100 g portion.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, вода питьевая, говядина, лук репчатый, масло растительное, соль, перец черный молотый. Аллергены: содержит глютен.",
-      "ingredientsEN": "Ingredients: wheat flour, drinking water, beef, onion, vegetable oil, salt, black pepper. Allergens: contains gluten."
+      "seoDescriptionRU": "В/к Княжеская копченая 0,54 кг | Халяль, охлаждённая, 30 суток | Ветчинно-копченая «Княжеская» — нежное мясное изделие с насыщенным ароматом копчения. Идеально для бутербродов, закусок, салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам халяль. Хранить при 0–6 °C.",
+      "seoDescriptionEN": "Smoked 'Knyazheskaya' 0.54 kg | Halal, chilled, 30 days | Smoked ham 'Knyazheskaya' — tender meat product with rich smoky flavor. Perfect for sandwiches, snacks, salads. Suitable for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at 0–6 °C."
     },
     {
       "name": "Перемяч жареный",
-      "sku": "KD-061",
+      "sku": "KD-056",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "100 г",
@@ -2106,14 +1927,12 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg",
-      "seoDescriptionRU": "Перемяч жареный 100 г | Татарская выпечка с мясом халяль | Аппетитный жареный перемяч из Казани — сочная начинка из говядины, нежное тесто. Идеален для HoReCa, опта и ретейла. Халяль, срок хранения 360 суток при -18°C. Произведено в Татарстане.",
-      "seoDescriptionEN": "Fried peremyach 100 g | Tatar pastry with halal meat | Delicious fried peremyach from Kazan — juicy beef filling, soft dough. Perfect for HoReCa, wholesale, retail. Halal, shelf life 360 days at -18°C. Made in Tatarstan.",
-      "ingredientsRU": "Состав: мука пшеничная хлебопекарная высшего сорта, говядина, лук репчатый, масло растительное, вода питьевая, соль, сахар, перец черный молотый, дрожжи хлебопекарные. Аллергены: содержит глютен.",
-      "ingredientsEN": "Ingredients: wheat flour (highest grade), beef, onion, vegetable oil, drinking water, salt, sugar, black pepper, baker's yeast. Allergens: contains gluten."
+      "seoDescriptionRU": "В/к Княжеская (половинка) 0.27 кг | Халяльная варено-копченая колбаса из Казани | Нежная варено-копченая колбаса «Княжеская» (половинка) 270 г от «Казанских Деликатесов» — изысканный халяльный деликатес с пряным ароматом и мягким вкусом. Идеально для нарезки, бутербродов и закусок. Без сои и ГМО. Произведено в Татарстане. Подходит для HoReCa, опта и розницы. Хранить при 0–6 °C, срок 30 суток.",
+      "seoDescriptionEN": "V/C Knyazheskaya (half) 0.27 kg | Halal smoked sausage from Kazan | Delicate boiled-smoked sausage 'Knyazheskaya' (half) 270 g by Kazan Delicacies — a premium halal treat with spicy aroma and mild taste. Perfect for slicing, sandwiches, and snacks. No soy or GMOs. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Keep at 0–6 °C, shelf life 30 days."
     },
     {
       "name": "Самса с курицей",
-      "sku": "KD-062",
+      "sku": "KD-057",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "120 г",
@@ -2140,14 +1959,12 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg",
-      "seoDescriptionRU": "Самса с курицей 120 г | Халяльная татарская выпечка из Казани | Сочная самса с курицей от «Казанских Деликатесов» — нежное слоёное тесто с ароматной начинкой из куриного мяса и специй. Идеально для быстрого перекуса, кафе, ресторанов и оптовых поставок. Продукт халяль, произведён в Казани (Татарстан). Заморозка −18°C, срок хранения 360 суток. Удобная упаковка для HoReCa и розницы.",
-      "seoDescriptionEN": "Samosa with Chicken 120 g | Halal Tatar pastry from Kazan | Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, куриное мясо, вода питьевая, масло растительное, лук репчатый, яйцо куриное, соль, сахар, перец чёрный молотый, зира. Аллергены: содержит глютен, яйцо. Возможны следы молочных продуктов.",
-      "ingredientsEN": "Ingredients: wheat flour, chicken meat, drinking water, vegetable oil, onion, egg, salt, sugar, black pepper, cumin. Allergens: contains gluten, egg. May contain traces of dairy products."
+      "seoDescriptionRU": "Казылык «Премиум» в подарочной упаковке 0,2 кг | Халяль, охлаждённый, Татарстан | Изысканный казылык из отборной говядины и баранины с восточными специями. Идеален для праздничного стола, подарка, ресторанов и отелей. Халяль, произведён в Казани. Насыщенный вкус, плотная текстура, срок хранения 180 суток при 0–12 °C.",
+      "seoDescriptionEN": "Premium Kazylyk in Gift Box 0.2 kg | Halal, Chilled, Tatarstan | Premium kazylyk made from selected beef and lamb with oriental spices. Perfect for festive table, gift, HoReCa. Halal, produced in Kazan. Rich flavor, firm texture, shelf life 180 days at 0–12 °C."
     },
     {
       "name": "Эчпочмак с говядиной и картофелем",
-      "sku": "KD-063",
+      "sku": "KD-058",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "100 г",
@@ -2174,15 +1991,11 @@
       "image": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg",
-      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg",
-      "seoDescriptionRU": "Эчпочмак с говядиной и картофелем | Татарская выпечка халяль из Казани | Аутентичный эчпочмак с сочной говядиной и картофелем. Идеален для кафе, ресторанов и розницы. Продукт халяль, произведён в Казани. Традиционный вкус татарской кухни. Быстрое приготовление, удобная порция 100 г. Срок хранения 360 суток при -18°C.",
-      "seoDescriptionEN": "Echpochmak with beef and potato | Halal Tatar pastry from Kazan | Authentic echpochmak filled with juicy beef and potato. Perfect for HoReCa, wholesale and retail. Halal certified, made in Kazan. Traditional Tatar taste. Easy to prepare, 100 g portion. Shelf life 360 days at -18°C.",
-      "ingredientsRU": "Состав: говядина, картофель, лук репчатый, мука пшеничная в/с, вода питьевая, масло сливочное, яйцо куриное, соль, перец черный молотый, сахар. Аллергены: глютен, молочный белок, яйцо.",
-      "ingredientsEN": "Ingredients: beef, potato, onion, wheat flour, drinking water, butter, egg, salt, black pepper, sugar. Allergens: gluten, milk, eggs."
+      "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg"
     },
     {
       "name": "Самса с говядиной",
-      "sku": "KD-064",
+      "sku": "KD-059",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "120 г",
@@ -2210,14 +2023,14 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg",
-      "seoDescriptionRU": "Самса с говядиной 120 г | Татарская выпечка халяль из Казани | Насладитесь сочной самсой с говядиной от «Казанских Деликатесов». Это традиционное татарское изделие из слоёного теста с ароматной мясной начинкой. Идеально для HoReCa, оптовых и розничных продаж. Продукт замороженный, срок хранения 360 суток при –18°C. Халяль-сертифицировано. Произведено в Казани, Татарстан. Быстрая закуска для кафе, ресторанов и домашнего меню.",
-      "seoDescriptionEN": "Samosa with beef 120 g | Tatar halal pastry from Kazan | Enjoy juicy samsa with beef from Kazan Delicacies. This traditional Tatar pastry features flaky dough filled with savory minced beef. Perfect for HoReCa, wholesale, and retail. Frozen product with 360-day shelf life at –18°C. Halal certified. Made in Kazan, Tatarstan. Quick snack for cafes, restaurants, and home meals.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, говядина, лук репчатый, масло растительное, вода питьевая, соль, перец черный молотый, специи (зира, кориандр). Аллергены: содержит глютен.",
-      "ingredientsEN": "Ingredients: wheat flour, beef, onion, vegetable oil, drinking water, salt, black pepper, spices (cumin, coriander). Allergens: contains gluten."
+      "seoDescriptionRU": "Губадия с кортом 100 г | Татарская выпечка с творожной начинкой | Настоящая татарская губадия с нежным кортом — традиционная выпечка из Казани. Идеальна для кафе, ресторанов, оптовых закупок и розницы. Халяль. Долгий срок хранения при –18°C. Подается к чаю или как самостоятельное блюдо.",
+      "seoDescriptionEN": "Gubadiya with kort 100 g | Tatar pastry with cottage cheese filling | Authentic Tatar gubadiya with delicate kort — traditional pastry from Kazan. Perfect for HoReCa, wholesale, and retail. Halal. Long shelf life at –18°C. Serve with tea or as a standalone dish.",
+      "ingredientsRU": "Состав: мука пшеничная, масло сливочное, корт (сушеный творог), сахар, яйца, соль, разрыхлитель. Аллергены: глютен, молочные продукты, яйца.",
+      "ingredientsEN": "Ingredients: wheat flour, butter, kort (dried cottage cheese), sugar, eggs, salt, leavening agent. Allergens: gluten, dairy, eggs."
     },
     {
       "name": "Элеш с курицей и картофелем",
-      "sku": "KD-065",
+      "sku": "KD-060",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "150 г",
@@ -2245,14 +2058,14 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg",
-      "seoDescriptionRU": "Элеш с курицей и картофелем | Татарская выпечка халяль, 150 г | Национальное татарское блюдо — элеш с сочной курицей и нежным картофелем. Идеально для HoReCa, опта и розницы. Произведено в Казани по халяльным стандартам. Заморозка при -18°C, срок хранения 360 суток. Насыщенный вкус и аромат домашней выпечки без консервантов. Подходит для быстрого перекуса и праздничного стола. Выбирайте качество от «Казанских Деликатесов»!",
-      "seoDescriptionEN": "Elesh with chicken and potato | Tatar halal pastry, 150 g | Traditional Tatar dish — elesh filled with juicy chicken and tender potato. Perfect for HoReCa, wholesale, and retail. Made in Kazan, halal-certified. Frozen at -18°C, shelf life 360 days. Rich homemade taste without preservatives. Ideal for quick snacks or festive meals. Choose quality from Kazan Delicacies!",
-      "ingredientsRU": "Состав: куриное мясо, картофель, лук репчатый, масло сливочное, соль, перец черный молотый, мука пшеничная, вода, яйца. Аллергены: глютен, яйцо.",
-      "ingredientsEN": "Ingredients: chicken meat, potato, onion, butter, salt, black pepper, wheat flour, water, eggs. Allergens: gluten, eggs."
+      "seoDescriptionRU": "Чебурек жареный 100 г | Халяльная татарская выпечка из Казани | Сочный чебурек с мясом — идеальное угощение для дома, кафе и ресторанов. Замороженный полуфабрикат длительного хранения. Произведен в Татарстане с соблюдением халяльных стандартов. Хрустящее тесто, насыщенный мясной вкус. Подходит для оптовых и розничных закупок, а также для HoReCa. Удобная порция 100 г.",
+      "seoDescriptionEN": "Fried cheburek 100g | Halal Tatar pastry from Kazan | Juicy meat-filled cheburek — perfect for home, cafes, and restaurants. Frozen semi-finished product with long shelf life. Made in Tatarstan according to halal standards. Crispy dough, rich meat flavor. Suitable for wholesale, retail, and HoReCa. Convenient 100 g portion.",
+      "ingredientsRU": "Состав: мука пшеничная в/с, вода питьевая, говядина, лук репчатый, масло растительное, соль, перец черный молотый. Аллергены: содержит глютен.",
+      "ingredientsEN": "Ingredients: wheat flour, drinking water, beef, onion, vegetable oil, salt, black pepper. Allergens: contains gluten."
     },
     {
       "name": "Чак-Чак в пластиковой упаковке",
-      "sku": "KD-066",
+      "sku": "KD-061",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "300 г",
@@ -2276,14 +2089,14 @@
       "shelfLife": "60 суток",
       "storage": "до +18°C",
       "hsCode": "1905",
-      "seoDescriptionRU": "Чак-Чак 300 г | Татарская выпечка халяль из Казани | Чак-Чак в пластиковой упаковке – традиционное татарское лакомство из Казани. Нежное тесто, обжаренное до золота и залитое медовым сиропом, дарит неповторимый вкус. Идеально для чаепития, подарков, HoReCa и опта. Сертифицировано халяль. Срок хранения 60 суток при температуре до +18°C. Произведено в Татарстане.",
-      "seoDescriptionEN": "Chak-Chak 300 g | Halal Tatar pastry from Kazan | Chak-Chak in plastic packaging – traditional Tatar dessert from Kazan. Delicate dough fried golden and coated with honey syrup, creating a unique taste. Perfect for tea, gifts, HoReCa and wholesale. Halal certified. Shelf life 60 days at up to +18°C. Made in Tatarstan.",
-      "ingredientsRU": "Состав: мука пшеничная высшего сорта, яйца куриные, сахар, мед натуральный, масло растительное, соль. Аллергены: глютен, яйцо.",
-      "ingredientsEN": "Ingredients: wheat flour of the highest grade, chicken eggs, sugar, natural honey, vegetable oil, salt. Allergens: gluten, eggs."
+      "seoDescriptionRU": "Перемяч жареный 100 г | Татарская выпечка с мясом халяль | Аппетитный жареный перемяч из Казани — сочная начинка из говядины, нежное тесто. Идеален для HoReCa, опта и ретейла. Халяль, срок хранения 360 суток при -18°C. Произведено в Татарстане.",
+      "seoDescriptionEN": "Fried peremyach 100 g | Tatar pastry with halal meat | Delicious fried peremyach from Kazan — juicy beef filling, soft dough. Perfect for HoReCa, wholesale, retail. Halal, shelf life 360 days at -18°C. Made in Tatarstan.",
+      "ingredientsRU": "Состав: мука пшеничная хлебопекарная высшего сорта, говядина, лук репчатый, масло растительное, вода питьевая, соль, сахар, перец черный молотый, дрожжи хлебопекарные. Аллергены: содержит глютен.",
+      "ingredientsEN": "Ingredients: wheat flour (highest grade), beef, onion, vegetable oil, drinking water, salt, sugar, black pepper, baker's yeast. Allergens: contains gluten."
     },
     {
       "name": "Чак-Чак в крафтовой подарочной упаковке",
-      "sku": "KD-067",
+      "sku": "KD-062",
       "section": "Выпечка",
       "category": "Национальная татарская выпечка",
       "weight": "300 г",
@@ -2311,14 +2124,14 @@
       "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
       "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
       "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg",
-      "seoDescriptionRU": "Чак-Чак в крафтовой упаковке 300 г | Татарский десерт халяль из Казани | Наш Чак-Чак в стильной крафтовой упаковке — это нежный, воздушный десерт из золотистых шариков теста, щедро политых медовым сиропом. Идеален для HoReCa, оптовых и розничных продаж. Произведён в Казани по традиционным рецептам, сертифицирован Халяль. Натуральные ингредиенты, без искусственных добавок. Отличный подарок и угощение к чаю.",
-      "seoDescriptionEN": "Chak-Chak in Kraft Gift Box 300 g | Halal Tatar dessert from Kazan | Our Chak-Chak in a stylish kraft box features delicate, airy dough pillows drenched in honey syrup. Perfect for HoReCa, wholesale, and retail. Made in Kazan, Halal-certified, with natural ingredients and no artificial additives. A great gift or tea-time treat.",
-      "ingredientsRU": "Состав: мука пшеничная высшего сорта, яйца куриные, сахар, мед натуральный, масло сливочное, масло растительное, соль. Аллергены: глютен, яйца, молочные продукты.",
-      "ingredientsEN": "Ingredients: wheat flour, eggs, sugar, natural honey, butter, vegetable oil, salt. Allergens: gluten, eggs, dairy."
+      "seoDescriptionRU": "Самса с курицей 120 г | Халяльная татарская выпечка из Казани | Сочная самса с курицей от «Казанских Деликатесов» — нежное слоёное тесто с ароматной начинкой из куриного мяса и специй. Идеально для быстрого перекуса, кафе, ресторанов и оптовых поставок. Продукт халяль, произведён в Казани (Татарстан). Заморозка −18°C, срок хранения 360 суток. Удобная упаковка для HoReCa и розницы.",
+      "seoDescriptionEN": "Samosa with Chicken 120 g | Halal Tatar pastry from Kazan | Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail.",
+      "ingredientsRU": "Состав: мука пшеничная в/с, куриное мясо, вода питьевая, масло растительное, лук репчатый, яйцо куриное, соль, сахар, перец чёрный молотый, зира. Аллергены: содержит глютен, яйцо. Возможны следы молочных продуктов.",
+      "ingredientsEN": "Ingredients: wheat flour, chicken meat, drinking water, vegetable oil, onion, egg, salt, sugar, black pepper, cumin. Allergens: contains gluten, egg. May contain traces of dairy products."
     },
     {
       "name": "Сочник с творогом",
-      "sku": "KD-068",
+      "sku": "KD-063",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2342,14 +2155,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Сочник с творогом 100 г | Классическая выпечка из Казани, халяль | Сочник с творогом от «Казанских Деликатесов» — это нежная выпечка с начинкой из творога, замороженная для длительного хранения. Идеален для кафе, ресторанов и розничной продажи. Продукт халяль, произведён в Казани. Вес 100 г, срок годности 360 суток при −18°C. Подавайте после разогрева — сочный, мягкий, с лёгкой сладостью. Подходит для завтраков, перекусов и десертного меню.",
-      "seoDescriptionEN": "Curd pastry 100 g | Classic halal pastry from Kazan | Curd pastry from Kazan Delicacies — tender frozen pastry filled with curd cheese. Perfect for HoReCa, wholesale, and retail. Halal-certified, made in Kazan. Weight 100 g, shelf life 360 days at −18°C. Serve warm for a soft, juicy bite with mild sweetness. Ideal for breakfasts, snacks, or dessert menus.",
-      "ingredientsRU": "Состав: мука пшеничная, творог, сахар, масло сливочное, яйца куриные, соль, разрыхлитель. Аллергены: глютен, молочные продукты, яйца.",
-      "ingredientsEN": "Ingredients: wheat flour, curd cheese, sugar, butter, eggs, salt, raising agent. Allergens: gluten, dairy, eggs."
+      "seoDescriptionRU": "Эчпочмак с говядиной и картофелем | Татарская выпечка халяль из Казани | Аутентичный эчпочмак с сочной говядиной и картофелем. Идеален для кафе, ресторанов и розницы. Продукт халяль, произведён в Казани. Традиционный вкус татарской кухни. Быстрое приготовление, удобная порция 100 г. Срок хранения 360 суток при -18°C.",
+      "seoDescriptionEN": "Echpochmak with beef and potato | Halal Tatar pastry from Kazan | Authentic echpochmak filled with juicy beef and potato. Perfect for HoReCa, wholesale and retail. Halal certified, made in Kazan. Traditional Tatar taste. Easy to prepare, 100 g portion. Shelf life 360 days at -18°C.",
+      "ingredientsRU": "Состав: говядина, картофель, лук репчатый, мука пшеничная в/с, вода питьевая, масло сливочное, яйцо куриное, соль, перец черный молотый, сахар. Аллергены: глютен, молочный белок, яйцо.",
+      "ingredientsEN": "Ingredients: beef, potato, onion, wheat flour, drinking water, butter, egg, salt, black pepper, sugar. Allergens: gluten, milk, eggs."
     },
     {
       "name": "Пирожок печеный с картофелем",
-      "sku": "KD-069",
+      "sku": "KD-064",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2373,14 +2186,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Пирожок печеный с картофелем 100 г – заморозка | Халяль, Казань | Аппетитный печеный пирожок с нежной начинкой из картофеля. Идеален для перекуса, стрит-фуда и HoReCa. Произведен в Казани, сертифицирован Халяль. Без консервантов. Длительный срок хранения при -18°C. Подходит для оптовых и розничных продаж.",
-      "seoDescriptionEN": "Baked potato pie 100g – frozen | Halal, Kazan | Delicious baked pie with soft potato filling. Perfect for snacks, street food, and HoReCa. Made in Kazan, Halal certified. No preservatives. Long shelf life at -18°C. Suitable for wholesale and retail.",
-      "ingredientsRU": "Состав: мука пшеничная, картофель, масло растительное, лук репчатый, соль, перец черный молотый, дрожжи. Аллергены: содержит глютен.",
-      "ingredientsEN": "Ingredients: wheat flour, potatoes, vegetable oil, onion, salt, black pepper, yeast. Allergens: contains gluten."
+      "seoDescriptionRU": "Самса с говядиной 120 г | Татарская выпечка халяль из Казани | Насладитесь сочной самсой с говядиной от «Казанских Деликатесов». Это традиционное татарское изделие из слоёного теста с ароматной мясной начинкой. Идеально для HoReCa, оптовых и розничных продаж. Продукт замороженный, срок хранения 360 суток при –18°C. Халяль-сертифицировано. Произведено в Казани, Татарстан. Быстрая закуска для кафе, ресторанов и домашнего меню.",
+      "seoDescriptionEN": "Samosa with beef 120 g | Tatar halal pastry from Kazan | Enjoy juicy samsa with beef from Kazan Delicacies. This traditional Tatar pastry features flaky dough filled with savory minced beef. Perfect for HoReCa, wholesale, and retail. Frozen product with 360-day shelf life at –18°C. Halal certified. Made in Kazan, Tatarstan. Quick snack for cafes, restaurants, and home meals.",
+      "ingredientsRU": "Состав: мука пшеничная в/с, говядина, лук репчатый, масло растительное, вода питьевая, соль, перец черный молотый, специи (зира, кориандр). Аллергены: содержит глютен.",
+      "ingredientsEN": "Ingredients: wheat flour, beef, onion, vegetable oil, drinking water, salt, black pepper, spices (cumin, coriander). Allergens: contains gluten."
     },
     {
       "name": "Сырник",
-      "sku": "KD-070",
+      "sku": "KD-065",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "70 г",
@@ -2404,14 +2217,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "040490",
-      "seoDescriptionRU": "Сырник 70 г замороженный | Халяльная выпечка из Казани | Нежный творожный сырник с ванильным ароматом. Идеален для завтрака или перекуса. Подходит для HoReCa, опта и розницы. Произведён в Казани по стандартам Халяль. Заморозка сохраняет свежесть до 360 дней. Лёгкий и сытный десерт для всей семьи.",
-      "seoDescriptionEN": "Frozen cheesecake 70 g | Halal bakery from Kazan | Delicate cottage cheese cheesecake with vanilla flavor. Perfect for breakfast or snack. Suitable for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen to keep freshness up to 360 days. Light and satisfying dessert for the whole family.",
-      "ingredientsRU": "Состав: творог, сахар, мука пшеничная, яйца куриные, масло сливочное, ванилин. Аллергены: содержит молочные продукты, глютен, яйцо.",
-      "ingredientsEN": "Ingredients: cottage cheese, sugar, wheat flour, chicken eggs, butter, vanillin. Allergens: contains dairy, gluten, eggs."
+      "seoDescriptionRU": "Элеш с курицей и картофелем | Татарская выпечка халяль, 150 г | Национальное татарское блюдо — элеш с сочной курицей и нежным картофелем. Идеально для HoReCa, опта и розницы. Произведено в Казани по халяльным стандартам. Заморозка при -18°C, срок хранения 360 суток. Насыщенный вкус и аромат домашней выпечки без консервантов. Подходит для быстрого перекуса и праздничного стола. Выбирайте качество от «Казанских Деликатесов»!",
+      "seoDescriptionEN": "Elesh with chicken and potato | Tatar halal pastry, 150 g | Traditional Tatar dish — elesh filled with juicy chicken and tender potato. Perfect for HoReCa, wholesale, and retail. Made in Kazan, halal-certified. Frozen at -18°C, shelf life 360 days. Rich homemade taste without preservatives. Ideal for quick snacks or festive meals. Choose quality from Kazan Delicacies!",
+      "ingredientsRU": "Состав: куриное мясо, картофель, лук репчатый, масло сливочное, соль, перец черный молотый, мука пшеничная, вода, яйца. Аллергены: глютен, яйцо.",
+      "ingredientsEN": "Ingredients: chicken meat, potato, onion, butter, salt, black pepper, wheat flour, water, eggs. Allergens: gluten, eggs."
     },
     {
       "name": "Пирожок с яблоком",
-      "sku": "KD-071",
+      "sku": "KD-066",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2435,14 +2248,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Пирожок с яблоком 100 г | Халяльная выпечка из Казани | Ароматный пирожок с яблочной начинкой из слоеного или дрожжевого теста. Идеален для перекуса, чаепития, в дорогу. Производство Казань, халяль. Заморозка –18°C, срок 360 суток. Подходит для HoReCa, опта и розницы. Натуральный вкус, домашний рецепт.",
-      "seoDescriptionEN": "Apple Pie 100 g | Halal pastry from Kazan | Flaky or yeast dough pie filled with apple. Perfect snack for tea, travel, or dessert. Halal certified, made in Kazan. Frozen at –18°C, 360-day shelf life. Suitable for HoReCa, wholesale, retail. Homemade taste.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, яблоки свежие, сахар, масло растительное, дрожжи (или маргарин для слоеного теста), соль, вода питьевая, яйцо или яичный порошок (может содержать). Аллергены: глютен, яйцо, молочные продукты (если используется маргарин/масло).",
-      "ingredientsEN": "Ingredients: wheat flour, fresh apples, sugar, vegetable oil, yeast (or margarine for puff pastry), salt, drinking water, egg or egg powder (may contain). Allergens: gluten, egg, dairy (if margarine/butter used)."
+      "seoDescriptionRU": "Чак-Чак 300 г | Татарская выпечка халяль из Казани | Чак-Чак в пластиковой упаковке – традиционное татарское лакомство из Казани. Нежное тесто, обжаренное до золота и залитое медовым сиропом, дарит неповторимый вкус. Идеально для чаепития, подарков, HoReCa и опта. Сертифицировано халяль. Срок хранения 60 суток при температуре до +18°C. Произведено в Татарстане.",
+      "seoDescriptionEN": "Chak-Chak 300 g | Halal Tatar pastry from Kazan | Chak-Chak in plastic packaging – traditional Tatar dessert from Kazan. Delicate dough fried golden and coated with honey syrup, creating a unique taste. Perfect for tea, gifts, HoReCa and wholesale. Halal certified. Shelf life 60 days at up to +18°C. Made in Tatarstan.",
+      "ingredientsRU": "Состав: мука пшеничная высшего сорта, яйца куриные, сахар, мед натуральный, масло растительное, соль. Аллергены: глютен, яйцо.",
+      "ingredientsEN": "Ingredients: wheat flour of the highest grade, chicken eggs, sugar, natural honey, vegetable oil, salt. Allergens: gluten, eggs."
     },
     {
       "name": "Пирожок с зеленым луком и яйцом",
-      "sku": "KD-072",
+      "sku": "KD-067",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2466,14 +2279,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Пирожок с зеленым луком и яйцом замороженный | Халяльная выпечка из Казани | Нежный пирожок с сочной начинкой из свежего зеленого лука и отварного яйца. Идеален для быстрого перекуса, стрит-фри, HoReCa и оптовых поставок. Произведен в Казани по традиционным рецептам. Халяль. Вес 100 г. Срок хранения 360 суток при -18°C.",
-      "seoDescriptionEN": "Frozen pie with green onion and egg | Halal pastry from Kazan | Delicate pie with a juicy filling of fresh green onion and boiled egg. Perfect for quick snacks, street food, HoReCa and wholesale. Made in Kazan, traditional recipe. Halal. Weight 100 g. Shelf life 360 days at -18°C.",
-      "ingredientsRU": "Состав: тесто (мука пшеничная, вода, масло растительное, соль, сахар, дрожжи), начинка (лук зеленый, яйцо куриное, соль, перец черный). Аллергены: глютен, яйцо.",
-      "ingredientsEN": "Ingredients: dough (wheat flour, water, vegetable oil, salt, sugar, yeast), filling (green onion, chicken egg, salt, black pepper). Allergens: gluten, egg."
+      "seoDescriptionRU": "Чак-Чак в крафтовой упаковке 300 г | Татарский десерт халяль из Казани | Наш Чак-Чак в стильной крафтовой упаковке — это нежный, воздушный десерт из золотистых шариков теста, щедро политых медовым сиропом. Идеален для HoReCa, оптовых и розничных продаж. Произведён в Казани по традиционным рецептам, сертифицирован Халяль. Натуральные ингредиенты, без искусственных добавок. Отличный подарок и угощение к чаю.",
+      "seoDescriptionEN": "Chak-Chak in Kraft Gift Box 300 g | Halal Tatar dessert from Kazan | Our Chak-Chak in a stylish kraft box features delicate, airy dough pillows drenched in honey syrup. Perfect for HoReCa, wholesale, and retail. Made in Kazan, Halal-certified, with natural ingredients and no artificial additives. A great gift or tea-time treat.",
+      "ingredientsRU": "Состав: мука пшеничная высшего сорта, яйца куриные, сахар, мед натуральный, масло сливочное, масло растительное, соль. Аллергены: глютен, яйца, молочные продукты.",
+      "ingredientsEN": "Ingredients: wheat flour, eggs, sugar, natural honey, butter, vegetable oil, salt. Allergens: gluten, eggs, dairy."
     },
     {
       "name": "Маффин апельсиновый",
-      "sku": "KD-073",
+      "sku": "KD-068",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2497,14 +2310,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Маффин апельсиновый 100 г | Сочная выпечка с цитрусовой ноткой, халяль | Апельсиновый маффин от «Казанских Деликатесов» — нежный кекс с ярким вкусом и ароматом апельсина. Идеален для завтраков, перекусов, HoReCa и опта. Произведён в Казани (Татарстан). Халяль. Заморозка –18°C, срок 360 суток.",
-      "seoDescriptionEN": "Orange muffin 100 g | Soft citrus pastry, halal | Orange muffin by Kazan Delicacies — tender cake with bright orange flavor. Perfect for breakfasts, snacks, HoReCa and wholesale. Made in Kazan (Tatarstan). Halal. Frozen at –18°C, shelf life 360 days.",
-      "ingredientsRU": "Состав: мука пшеничная, сахар, масло растительное, яйцо куриное, апельсиновый сок или пюре, разрыхлитель, ароматизатор натуральный апельсиновый. Аллергены: глютен, яйцо.",
-      "ingredientsEN": "Ingredients: wheat flour, sugar, vegetable oil, egg, orange juice or puree, raising agent, natural orange flavor. Allergens: gluten, egg."
+      "seoDescriptionRU": "Сочник с творогом 100 г | Классическая выпечка из Казани, халяль | Сочник с творогом от «Казанских Деликатесов» — это нежная выпечка с начинкой из творога, замороженная для длительного хранения. Идеален для кафе, ресторанов и розничной продажи. Продукт халяль, произведён в Казани. Вес 100 г, срок годности 360 суток при −18°C. Подавайте после разогрева — сочный, мягкий, с лёгкой сладостью. Подходит для завтраков, перекусов и десертного меню.",
+      "seoDescriptionEN": "Curd pastry 100 g | Classic halal pastry from Kazan | Curd pastry from Kazan Delicacies — tender frozen pastry filled with curd cheese. Perfect for HoReCa, wholesale, and retail. Halal-certified, made in Kazan. Weight 100 g, shelf life 360 days at −18°C. Serve warm for a soft, juicy bite with mild sweetness. Ideal for breakfasts, snacks, or dessert menus.",
+      "ingredientsRU": "Состав: мука пшеничная, творог, сахар, масло сливочное, яйца куриные, соль, разрыхлитель. Аллергены: глютен, молочные продукты, яйца.",
+      "ingredientsEN": "Ingredients: wheat flour, curd cheese, sugar, butter, eggs, salt, raising agent. Allergens: gluten, dairy, eggs."
     },
     {
       "name": "Сосиска в тесте",
-      "sku": "KD-074",
+      "sku": "KD-069",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "120 г",
@@ -2528,14 +2341,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Сосиска в тесте замороженная 120 г | Халяльная выпечка из Казани | Сочная сосиска в нежном дрожжевом тесте — идеально для перекуса, завтрака и HoReCa. Произведено в Татарстане, халяль. Быстрое приготовление: разогреть в духовке или микроволновке. Подходит для оптовых закупок, розницы и стритфуда. Натуральные ингредиенты, без ГМО. Удобная упаковка, срок хранения 360 суток при -18°C.",
-      "seoDescriptionEN": "Sausage in dough frozen 120 g | Halal baked pastry from Kazan | Juicy sausage wrapped in soft yeast dough — perfect for a quick snack, breakfast, and HoReCa. Made in Tatarstan, halal certified. Easy to prepare: heat in oven or microwave. Suitable for wholesale, retail, and street food. Natural ingredients, no GMO. Convenient packaging, shelf life 360 days at -18°C.",
-      "ingredientsRU": "Состав: сосиска (мясо куриное, говядина, вода, соль, специи, стабилизатор), тесто (мука пшеничная, вода, масло растительное, сахар, дрожжи, соль). Аллергены: глютен, молочные продукты (следы).",
-      "ingredientsEN": "Ingredients: sausage (chicken meat, beef, water, salt, spices, stabilizer), dough (wheat flour, water, vegetable oil, sugar, yeast, salt). Allergens: gluten, dairy (traces)."
+      "seoDescriptionRU": "Пирожок печеный с картофелем 100 г – заморозка | Халяль, Казань | Аппетитный печеный пирожок с нежной начинкой из картофеля. Идеален для перекуса, стрит-фуда и HoReCa. Произведен в Казани, сертифицирован Халяль. Без консервантов. Длительный срок хранения при -18°C. Подходит для оптовых и розничных продаж.",
+      "seoDescriptionEN": "Baked potato pie 100g – frozen | Halal, Kazan | Delicious baked pie with soft potato filling. Perfect for snacks, street food, and HoReCa. Made in Kazan, Halal certified. No preservatives. Long shelf life at -18°C. Suitable for wholesale and retail.",
+      "ingredientsRU": "Состав: мука пшеничная, картофель, масло растительное, лук репчатый, соль, перец черный молотый, дрожжи. Аллергены: содержит глютен.",
+      "ingredientsEN": "Ingredients: wheat flour, potatoes, vegetable oil, onion, salt, black pepper, yeast. Allergens: contains gluten."
     },
     {
       "name": "Пирожок с вишней",
-      "sku": "KD-075",
+      "sku": "KD-070",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2559,14 +2372,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Пирожок с вишней 100 г | Замороженная выпечка из Казани | Халяльный пирожок с вишней — сочная начинка, нежное тесто. Идеален для HoReCa, опта и ретейла. Производство в Татарстане. Срок хранения 360 суток при −18°C. Сертифицирован Халяль.",
-      "seoDescriptionEN": "Cherry Pie 100 g | Frozen halal pastry from Kazan | Halal cherry pie with juicy filling and soft dough. Perfect for HoReCa, wholesale, and retail. Made in Tatarstan. Shelf life 360 days at −18°C. Halal certified.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, вишня (замороженная), сахар, вода, маргарин (растительные масла, вода, эмульгаторы, краситель бета-каротин, ароматизатор), яйцо куриное, дрожжи хлебопекарные, соль, улучшитель муки (мука пшеничная, эмульгатор Е472е, антиокислитель аскорбиновая кислота, ферменты). Аллергены: глютен, яйцо.",
-      "ingredientsEN": "Ingredients: wheat flour (premium grade), cherry (frozen), sugar, water, margarine (vegetable oils, water, emulsifiers, colour beta-carotene, flavouring), chicken egg, baker's yeast, salt, flour improver (wheat flour, emulsifier E472e, antioxidant ascorbic acid, enzymes). Allergens: gluten, eggs."
+      "seoDescriptionRU": "Сырник 70 г замороженный | Халяльная выпечка из Казани | Нежный творожный сырник с ванильным ароматом. Идеален для завтрака или перекуса. Подходит для HoReCa, опта и розницы. Произведён в Казани по стандартам Халяль. Заморозка сохраняет свежесть до 360 дней. Лёгкий и сытный десерт для всей семьи.",
+      "seoDescriptionEN": "Frozen cheesecake 70 g | Halal bakery from Kazan | Delicate cottage cheese cheesecake with vanilla flavor. Perfect for breakfast or snack. Suitable for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen to keep freshness up to 360 days. Light and satisfying dessert for the whole family.",
+      "ingredientsRU": "Состав: творог, сахар, мука пшеничная, яйца куриные, масло сливочное, ванилин. Аллергены: содержит молочные продукты, глютен, яйцо.",
+      "ingredientsEN": "Ingredients: cottage cheese, sugar, wheat flour, chicken eggs, butter, vanillin. Allergens: contains dairy, gluten, eggs."
     },
     {
       "name": "Круассан с шоколадом и орехами",
-      "sku": "KD-076",
+      "sku": "KD-071",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "90 г",
@@ -2590,14 +2403,14 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Круассан с шоколадом и орехами 90 г | Замороженная выпечка халяль из Казани | Нежный слоёный круассан с начинкой из шоколада и орехов. Идеален для завтрака, перекуса или десерта. Подходит для HoReCa, оптовых и розничных продаж. Произведён в Татарстане по стандартам халяль. Хранить при –18°C до 360 суток. Вес 90 г, упаковка 20 шт.",
-      "seoDescriptionEN": "Chocolate & Nut Croissant 90 g | Halal frozen pastry from Kazan | Flaky croissant filled with chocolate and nuts. Perfect for breakfast, snack or dessert. Suitable for HoReCa, wholesale and retail. Made in Tatarstan, halal certified. Store at –18°C, shelf life 360 days. Weight 90 g, pack of 20.",
-      "ingredientsRU": "Состав: мука пшеничная, маргарин, вода, сахар, шоколадная начинка (сахар, масло растительное, какао-порошок, эмульгаторы), орехи, дрожжи, соль, яичный порошок, ароматизаторы. Аллергены: содержит глютен, орехи, яйцо и молочные продукты.",
-      "ingredientsEN": "Ingredients: wheat flour, margarine, water, sugar, chocolate filling (sugar, vegetable oil, cocoa powder, emulsifiers), nuts, yeast, salt, egg powder, flavourings. Allergens: contains gluten, nuts, eggs and dairy."
+      "seoDescriptionRU": "Пирожок с яблоком 100 г | Халяльная выпечка из Казани | Ароматный пирожок с яблочной начинкой из слоеного или дрожжевого теста. Идеален для перекуса, чаепития, в дорогу. Производство Казань, халяль. Заморозка –18°C, срок 360 суток. Подходит для HoReCa, опта и розницы. Натуральный вкус, домашний рецепт.",
+      "seoDescriptionEN": "Apple Pie 100 g | Halal pastry from Kazan | Flaky or yeast dough pie filled with apple. Perfect snack for tea, travel, or dessert. Halal certified, made in Kazan. Frozen at –18°C, 360-day shelf life. Suitable for HoReCa, wholesale, retail. Homemade taste.",
+      "ingredientsRU": "Состав: мука пшеничная в/с, яблоки свежие, сахар, масло растительное, дрожжи (или маргарин для слоеного теста), соль, вода питьевая, яйцо или яичный порошок (может содержать). Аллергены: глютен, яйцо, молочные продукты (если используется маргарин/масло).",
+      "ingredientsEN": "Ingredients: wheat flour, fresh apples, sugar, vegetable oil, yeast (or margarine for puff pastry), salt, drinking water, egg or egg powder (may contain). Allergens: gluten, egg, dairy (if margarine/butter used)."
     },
     {
       "name": "Маффин шоколадный",
-      "sku": "KD-077",
+      "sku": "KD-072",
       "section": "Выпечка",
       "category": "Классическая выпечка",
       "weight": "100 г",
@@ -2621,10 +2434,10 @@
       "shelfLife": "360 суток",
       "storage": "–18°C",
       "hsCode": "190590",
-      "seoDescriptionRU": "Маффин шоколадный 100 г | Мягкий бисквит с какао и шоколадной крошкой | Насладитесь нежным шоколадным маффином от «Казанских Деликатесов» — идеальным десертом для дома, кафе и ресторанов. Изготовлен в Казани по классическому рецепту из натуральных ингредиентов, без консервантов. Сертифицирован Халяль, подходит для оптовых и розничных закупок. Вес 100 г, срок хранения 360 суток при –18°C.",
-      "seoDescriptionEN": "Chocolate muffin 100 g | Soft sponge with cocoa and chocolate chips | Enjoy a tender chocolate muffin from Kazan Delicacies — perfect dessert for home, HoReCa, and retail. Made in Kazan with natural ingredients, Halal certified. Weight 100 g, shelf life 360 days at –18°C.",
-      "ingredientsRU": "Состав: мука пшеничная в/с, сахар, масло растительное, яйца куриные, какао-порошок, шоколадная крошка, разрыхлитель, соль, ароматизатор ванилин. Аллергены: содержит глютен, яйцо, молочные продукты (шоколадная крошка).",
-      "ingredientsEN": "Ingredients: wheat flour, sugar, vegetable oil, eggs, cocoa powder, chocolate chips, raising agent, salt, vanilla flavor. Allergens: contains gluten, eggs, dairy (chocolate chips)."
+      "seoDescriptionRU": "Пирожок с зеленым луком и яйцом замороженный | Халяльная выпечка из Казани | Нежный пирожок с сочной начинкой из свежего зеленого лука и отварного яйца. Идеален для быстрого перекуса, стрит-фри, HoReCa и оптовых поставок. Произведен в Казани по традиционным рецептам. Халяль. Вес 100 г. Срок хранения 360 суток при -18°C.",
+      "seoDescriptionEN": "Frozen pie with green onion and egg | Halal pastry from Kazan | Delicate pie with a juicy filling of fresh green onion and boiled egg. Perfect for quick snacks, street food, HoReCa and wholesale. Made in Kazan, traditional recipe. Halal. Weight 100 g. Shelf life 360 days at -18°C.",
+      "ingredientsRU": "Состав: тесто (мука пшеничная, вода, масло растительное, соль, сахар, дрожжи), начинка (лук зеленый, яйцо куриное, соль, перец черный). Аллергены: глютен, яйцо.",
+      "ingredientsEN": "Ingredients: dough (wheat flour, water, vegetable oil, salt, sugar, yeast), filling (green onion, chicken egg, salt, black pepper). Allergens: gluten, egg."
     }
   ]
 }
