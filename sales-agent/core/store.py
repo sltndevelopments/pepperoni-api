@@ -301,6 +301,49 @@ class Store:
             )
         return mid
 
+    def add_outbound(
+        self,
+        lead_id: str,
+        channel: str,
+        body: str,
+        *,
+        subject: str | None = None,
+        external_id: str | None = None,
+        meta: dict | None = None,
+    ) -> str:
+        """Сообщение в исходящий лог (после реальной отправки).
+
+        Переиспользует открытый thread по lead_id+channel, если есть,
+        иначе создаёт новый — симметрично add_inbound.
+        """
+        now = _now()
+        mid = _new_id()
+        with self._conn() as conn:
+            tid = None
+            if lead_id:
+                row = conn.execute(
+                    """SELECT id FROM threads WHERE lead_id=? AND channel=?
+                       ORDER BY last_message_at DESC LIMIT 1""",
+                    (lead_id, channel),
+                ).fetchone()
+                if row:
+                    tid = row["id"]
+            if not tid:
+                tid = _new_id()
+                conn.execute(
+                    """INSERT INTO threads (id, lead_id, channel, external_id, last_message_at, meta)
+                       VALUES (?, ?, ?, ?, ?, ?)""",
+                    (tid, lead_id, channel, external_id, now, json.dumps(meta or {}, ensure_ascii=False)),
+                )
+            else:
+                conn.execute("UPDATE threads SET last_message_at=? WHERE id=?", (now, tid))
+            conn.execute(
+                """INSERT INTO messages (id, thread_id, direction, channel, subject, body, meta, gate_status, created_at)
+                   VALUES (?, ?, 'out', ?, ?, ?, ?, 'sent', ?)""",
+                (mid, tid, channel, subject, body, json.dumps(meta or {}, ensure_ascii=False), now),
+            )
+        return mid
+
     def patch_message_meta(self, message_id: str, patch: dict) -> None:
         with self._conn() as conn:
             row = conn.execute("SELECT meta FROM messages WHERE id=?", (message_id,)).fetchone()

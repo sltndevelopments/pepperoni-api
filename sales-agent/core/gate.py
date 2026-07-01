@@ -242,6 +242,15 @@ class Gate:
             if result.get("ok"):
                 self.store.mark_draft_sent(draft_id)
                 self.store.audit("gate", "sent", "draft", draft_id, record)
+                try:
+                    self.store.add_outbound(
+                        draft.get("lead_id"), "email",
+                        draft.get("body") or "",
+                        subject=draft.get("subject"),
+                        meta={"draft_id": draft_id},
+                    )
+                except Exception as e:
+                    self.store.audit("gate", "outbound_log_failed", "draft", draft_id, {"error": str(e)[:200]})
                 if (lead.get("status") or "new") == "new":
                     self.store.upsert_lead(
                         lead["name"],
