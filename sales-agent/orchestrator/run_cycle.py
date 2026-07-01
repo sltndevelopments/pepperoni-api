@@ -49,6 +49,14 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     except Exception as e:
         recovery_result = {"skipped": str(e)[:200]}
 
+    # Именной поток (Поток 2): не более 1-2 эскалаций за цикл (owner-требование),
+    # плюс 7-дневный кулдаун внутри escalate_named_targets — не шторм из 12 досье.
+    try:
+        from workers.named_escalation import escalate_named_targets
+        named_result = escalate_named_targets(store, limit=2)
+    except Exception as e:
+        named_result = {"skipped": str(e)[:200]}
+
     signals = store.unprocessed_signals()
     outreach_pending = outreach_candidates(store, limit=max_drafts * 4)
     pending = store.list_approvals("pending")
@@ -131,6 +139,8 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     sent = gate.execute_approved(dry_run=dry_run_send)
     if sent:
         results.append({"worker": "execute_approved", "count": len(sent), "dry_run": dry_run_send})
+
+    results.append({"worker": "named_escalation", **named_result})
 
     summary = reflect(tasks, results)
     summary["imap"] = imap_result
