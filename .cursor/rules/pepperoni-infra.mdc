@@ -6,8 +6,12 @@ alwaysApply: true
 # Pepperoni.tatar — Архитектура и анти-дрейф (v3.0)
 
 ## Два слоя, один продукт
-- **api.pepperoni.tatar** (данные и AI): JSON, `llms.txt`, OpenAPI, MCP. VPS + nginx.
-- **pepperoni.tatar** (презентация): HTML, маркетинг, каталог. Vercel.
+- **api.pepperoni.tatar** (данные и AI): JSON, `llms.txt`, OpenAPI, MCP. VPS Селектел + nginx.
+- **pepperoni.tatar** (презентация): HTML, маркетинг, каталог. **VPS Селектел (`37.9.4.101`)
+  напрямую, DNS only** — не Vercel и не Cloudflare proxy. Смена схемы 2026-07-01: Cloudflare
+  proxy попал под RKN-throttling у розничных РФ-провайдеров (16 КБ cap, сайт не грузился с
+  мобильных сетей в России). Vercel остаётся только как staging/preview, без прод-доменов.
+  Подробности и обоснование: `docs/HEADLESS-ARCHITECTURE.md`.
 
 ## Каталог: ровно ОДИН источник и ОДИН эндпоинт
 - Источник правды — Google Sheets (CSV, 3 листа). Цены и товары меняются только там.
