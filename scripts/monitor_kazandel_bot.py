@@ -1,17 +1,23 @@
 #!/usr/bin/env python3
 """
-KazanDel AI Bot health monitor — watches the customer-facing lead-gen bot
-(kazandel.service on the VPS, powers the chat widget on kazandelikates.tatar
-and forwards hot leads / manager requests to Telegram).
+KazanDel AI Bot health monitor — watches BOTH customer-facing lead-gen channels:
+  1. Chat widget bot (kazandel.service on the VPS, kazandelikates.tatar)
+  2. Voice AI operator (kazandel-ai PM2 process, phone calls via MegaFon ATS +
+     Twilio SIP trunk + OpenAI Realtime, ai.pepperoni.tatar)
 
-This bot is a SEPARATE project (/root/kazandel_ai_bot/, not in this repo) but
-shares the same VPS and the same Telegram alert channel as the SEO brain, so
-this monitor lives here for a single place to watch site health.
+Both are SEPARATE projects (/root/kazandel_ai_bot/, /opt/kazandel-ai-operator/,
+not in this repo) but share the same VPS and the same Telegram alert channel
+as the SEO brain, so this monitor lives here for a single place to watch
+lead-gen health.
 
-Checks (fail-fast, catches the exact failure mode from 2026-07-01 incident):
-  1. systemd service is active (kazandel.service)
-  2. DeepSeek API key (used by the bot for every reply) is valid + has balance
+Checks (fail-fast, catches the exact failure modes from past incidents):
+  1. systemd service is active (kazandel.service) — chat widget bot
+  2. DeepSeek API key (used by the chat bot for every reply) is valid + has balance
   3. No recent crash-loop signature in the journal (network/connect errors)
+  4. PM2 process kazandel-ai is online — voice AI operator (phone calls)
+     (2026-06-26 incident: PM2 process died silently, no systemd auto-restart,
+     ~75 incoming calls over 6 days got "No Answer" before this was caught)
+  5. Voice operator /health HTTP endpoint responds
 
 Sends an alert to Telegram (same authorized chats as the SEO bot) ONLY when
 something is wrong, so it stays quiet in the good case. Run via cron every
@@ -109,6 +115,34 @@ def check_deepseek_key() -> dict:
         return {"ok": False, "error": str(e), "key_suffix": key[-4:]}
 
 
+VOICE_HEALTH_URL = "https://ai.pepperoni.tatar/health"
+
+
+def check_voice_pm2() -> dict:
+    code, out = _run(["pm2", "jlist"])
+    if code != 0:
+        return {"ok": False, "error": f"pm2 jlist failed: {out[:200]}"}
+    try:
+        procs = json.loads(out)
+    except Exception as e:
+        return {"ok": False, "error": f"pm2 jlist parse error: {e}"}
+    for p in procs:
+        if p.get("name") == "kazandel-ai":
+            status = p.get("pm2_env", {}).get("status", "unknown")
+            restarts = p.get("pm2_env", {}).get("restart_time", 0)
+            return {"ok": status == "online", "status": status, "restarts": restarts}
+    return {"ok": False, "error": "kazandel-ai process not found in pm2 list"}
+
+
+def check_voice_health() -> dict:
+    try:
+        with urllib.request.urlopen(VOICE_HEALTH_URL, timeout=10) as r:
+            data = json.loads(r.read())
+        return {"ok": data.get("status") == "ok"}
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
 def check_crash_loop() -> dict:
     code, out = _run([
         "journalctl", "-u", SERVICE_NAME, "--since", CRASH_LOOP_WINDOW,
@@ -131,19 +165,22 @@ def run_checks() -> dict:
         "service": check_service(),
         "deepseek": check_deepseek_key(),
         "crash_loop": check_crash_loop(),
+        "voice_pm2": check_voice_pm2(),
+        "voice_health": check_voice_health(),
     }
 
 
 def build_report(result: dict) -> str:
     svc, ds, cl = result["service"], result["deepseek"], result["crash_loop"]
-    all_ok = svc["ok"] and ds["ok"] and cl["ok"]
+    vpm2, vh = result["voice_pm2"], result["voice_health"]
+    all_ok = svc["ok"] and ds["ok"] and cl["ok"] and vpm2["ok"] and vh["ok"]
 
-    lines = ["<b>🤖 KazanDel AI Bot — здоровье лидогена</b>"]
+    lines = ["<b>🤖 KazanDel AI — здоровье лидогена (чат + звонки)</b>"]
 
     if svc["ok"]:
-        lines.append("✅ Сервис активен (kazandel.service)")
+        lines.append("✅ Чат-бот активен (kazandel.service)")
     else:
-        lines.append(f"🔴 Сервис НЕ активен: <b>{svc['state']}</b>")
+        lines.append(f"🔴 Чат-бот НЕ активен: <b>{svc['state']}</b>")
 
     if ds["ok"]:
         lines.append(f"✅ DeepSeek ключ рабочий (баланс ${ds.get('balance_usd','?')}, ...{ds.get('key_suffix','')})")
@@ -151,18 +188,29 @@ def build_report(result: dict) -> str:
         lines.append(f"🟡 DeepSeek баланс низкий: ${ds.get('balance_usd','?')} — пополни, иначе бот скоро встанет")
     else:
         lines.append(f"🔴 DeepSeek ключ НЕ работает: {ds.get('error','?')} "
-                      f"(...{ds.get('key_suffix','?')}) — бот не сможет отвечать клиентам!")
+                      f"(...{ds.get('key_suffix','?')}) — чат-бот не сможет отвечать клиентам!")
 
     if cl["ok"]:
-        lines.append("✅ Логи в норме, шторма ошибок нет")
+        lines.append("✅ Логи чат-бота в норме, шторма ошибок нет")
     else:
-        lines.append(f"🔴 Похоже на crash-loop: {cl.get('lines_last_hour','?')} строк/час, "
+        lines.append(f"🔴 Похоже на crash-loop чат-бота: {cl.get('lines_last_hour','?')} строк/час, "
                       f"{cl.get('error_lines_last_hour','?')} с ошибками за последний час")
 
-    if all_ok:
-        lines.append("\n<i>Всё в порядке — лиды с сайта должны доходить нормально.</i>")
+    if vpm2["ok"]:
+        lines.append(f"✅ Голосовой ИИ-оператор (звонки, PM2) online (рестартов: {vpm2.get('restarts','?')})")
     else:
-        lines.append("\n<b>⚠️ Требуется вмешательство — лиды с сайта могут теряться!</b>")
+        lines.append(f"🔴 Голосовой ИИ-оператор НЕ работает: {vpm2.get('error', vpm2.get('status','?'))} "
+                      f"— входящие звонки с телефона НЕ будут обрабатываться!")
+
+    if vh["ok"]:
+        lines.append("✅ /health звонкового сервиса отвечает")
+    else:
+        lines.append(f"🔴 /health звонкового сервиса не отвечает: {vh.get('error','?')}")
+
+    if all_ok:
+        lines.append("\n<i>Всё в порядке — лиды с сайта и звонки должны доходить нормально.</i>")
+    else:
+        lines.append("\n<b>⚠️ Требуется вмешательство — лиды или звонки могут теряться!</b>")
 
     return "\n".join(lines), all_ok
 
