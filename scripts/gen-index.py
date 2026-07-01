@@ -50,6 +50,7 @@ def gen_ru() -> str:
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+<meta http-equiv="origin-trial" content="A7pRthKieH33Kg25SFA6dnoLV9D7jcUs2zKSZ3dIEdfZu3ORO9xRZCCPBbbdt46FGArlN7qaOF/j6Rd+lf9NqwIAAAB2eyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
 <link rel="alternate" type="application/json" title="Live Product Catalog (JSON)" href="https://pepperoni.tatar/products.json">
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1b7a3d">
@@ -697,6 +698,7 @@ def gen_en() -> str:
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions">
+<meta http-equiv="origin-trial" content="A7pRthKieH33Kg25SFA6dnoLV9D7jcUs2zKSZ3dIEdfZu3ORO9xRZCCPBbbdt46FGArlN7qaOF/j6Rd+lf9NqwIAAAB2eyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies">
