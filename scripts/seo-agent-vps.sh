@@ -211,17 +211,11 @@ python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️ 
 log "Step 3.47: Linker — refreshing internal links …"
 python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Linker failed (non-fatal)"
 
-# ---- Step 3.48: COMPETITOR-SCOUT — weekly competitive intelligence (Mon) ----
-# Finds queries where competitors outrank us (+ why, if a SERP key is set).
-# Discovery only; the brain reads data/competitor_findings.json.
-if [ "$(date +%u)" = "1" ]; then
-    log "Step 3.48: Competitor-Scout — weekly competitive intelligence …"
-    python3 scripts/competitor_scout.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Competitor-Scout failed (non-fatal)"
-
-    # ---- Step 3.49: AIO-VISIBILITY — weekly AI-citability check (Mon) ----
-    log "Step 3.49: AIO-Visibility — checking AI citability …"
-    python3 scripts/aio_visibility.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  AIO-Visibility failed (non-fatal)"
-fi
+# ---- Step 3.48/3.49: COMPETITOR-SCOUT + AIO-VISIBILITY (weekly, Mon) ----
+# Moved to GitHub Actions only (Task 0.2, stop dual scheduling): these ran here
+# AND in .github/workflows/competitor-scout.yml + aio-visibility.yml every
+# Monday, double-spending LLM budget and double-committing data/*.json.
+# Canonical channel now: GitHub Actions (competitor-scout.yml, aio-visibility.yml).
 
 # ---- Step 3.491: BRAND MENTIONS — daily external brand mention scan ----
 log "Step 3.491: Brand mentions — scanning Google News + Reddit …"

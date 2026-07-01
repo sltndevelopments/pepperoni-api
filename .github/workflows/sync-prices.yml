@@ -11,6 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    # Disabled 2026-07-02 (Task 0.2, stop dual scheduling): duplicates
+    # scripts/sync-vps.sh, which already runs every 10 min on the VPS cron
+    # (the canonical catalog sync per .cursor/rules/pepperoni-infra.mdc).
+    # Running both raced on git push and risked stale-cache drift.
+    if: false
 
     steps:
       - name: Checkout repository (main — Vercel production branch)

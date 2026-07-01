@@ -54,6 +54,11 @@ permissions:
 jobs:
   agent:
     runs-on: ubuntu-latest
+    # Disabled 2026-07-02 (Task 0.2, stop dual scheduling): VPS cron
+    # (scripts/seo-agent-vps.sh, 08:30 MSK) is now the single primary channel
+    # for the daily loop. Running both raced on git push and doubled LLM spend.
+    # Re-enable only if the VPS agent is retired.
+    if: false
     steps:
       - name: Checkout
         uses: actions/checkout@v4

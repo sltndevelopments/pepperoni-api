@@ -19,6 +19,22 @@
 
 ## Log
 
+- **Задача 0.2 (dual scheduling)**: VPS cron — единственный primary канал для
+  ежедневного цикла. В GitHub Actions:
+  - `seo-agent.yml` (daily 08:30 MSK, дублировал `seo-agent-vps.sh`) → `if: false`
+  - `seo-scout.yml` (every 6h, дублировал Step 3.3 на VPS) → `if: false`
+  - `update_catalog.yml` (every 6h) и `sync-prices.yml` (daily) → `if: false`
+    (оба дублировали `sync-vps.sh`, который уже крутится каждые 10 мин на VPS —
+    канонический sync по `pepperoni-infra.mdc`)
+  - `competitor-scout.yml` и `aio-visibility.yml` (Mon) — оставлены ACTIVE как
+    единственный канал; дублирующий блок (Step 3.48/3.49, `date +%u = 1`)
+    убран из `seo-agent-vps.sh`, чтобы не было второго запуска по понедельникам.
+  - `deploy-vps.yml`, `gsc-index.yml` — не трогали (не дублируют daily loop).
+  Проверка: `grep -rln "if: false" .github/workflows/` → 4 файла
+  (`seo-agent.yml`, `seo-scout.yml`, `update_catalog.yml`, `sync-prices.yml`).
+  `grep -c "competitor_scout.py\|aio_visibility.py" scripts/seo-agent-vps.sh` → 0.
+  Все workflow YAML провалидированы `yaml.safe_load`, `bash -n` на
+  `seo-agent-vps.sh` — OK.
 - **Задача 0.1 (stop-the-line)**: `seo-agent-vps.sh` — критические шаги
   (`git pull --rebase`, `fix_pages.py`, `qa_pages.py --quarantine`) переведены
   на `fail_hard` (exit 1, пайплайн останавливается). Остальные 38 некритических
