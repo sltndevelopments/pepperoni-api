@@ -19,6 +19,16 @@
 
 ## Log
 
+- **Задача 0.1 (stop-the-line)**: `seo-agent-vps.sh` — критические шаги
+  (`git pull --rebase`, `fix_pages.py`, `qa_pages.py --quarantine`) переведены
+  на `fail_hard` (exit 1, пайплайн останавливается). Остальные 38 некритических
+  шагов (GSC/Yandex fetch, scout, optimizer, brain, аio-мониторинг и т.д.)
+  переведены на `log_degradation` — пишут счётчик + последние 50 записей в
+  `data/health.json`, пайплайн продолжается.
+  Проверка: `grep -c '|| log "' scripts/seo-agent-vps.sh` → **0** (было 41).
+  `grep -c 'fail_hard "' scripts/seo-agent-vps.sh` → **3**.
+  `grep -c 'log_degradation "' scripts/seo-agent-vps.sh` → **38**.
+  `bash -n scripts/seo-agent-vps.sh` → OK.
 - env-export в one-liner не экспортировал переменные → `ANTHROPIC_API_KEY not set`.
   Корень: нет `set -a`. Починено.
 - `98ce1d562` — Haiku migration (Класс А, 11 файлов). CONTENT_MODEL = haiku-4-5-20251001

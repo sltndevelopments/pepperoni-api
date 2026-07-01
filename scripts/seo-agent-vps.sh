@@ -24,6 +24,35 @@ LOG_FILE="$LOG_DIR/agent-$(date +%Y%m%d-%H%M%S).log"
 
 log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $*" | tee -a "$LOG_FILE"; }
 
+# Non-fatal steps still increment a durable degradation counter in
+# data/health.json so a pipeline that "finishes green" but silently failed
+# a dozen soft steps is visible in the daily digest, not just buried in logs.
+log_degradation() {
+    log "$*"
+    python3 - "$*" << 'HEALTH_EOF' >> "$LOG_FILE" 2>&1 || true
+import json, sys, pathlib, datetime
+msg = sys.argv[1] if len(sys.argv) > 1 else "unknown"
+p = pathlib.Path("data/health.json")
+try:
+    d = json.loads(p.read_text())
+except Exception:
+    d = {"degradations_total": 0, "last_degradations": []}
+d["degradations_total"] = d.get("degradations_total", 0) + 1
+d["last_degradations"] = (d.get("last_degradations", []) + [
+    {"ts": datetime.datetime.now(datetime.timezone.utc).isoformat(), "msg": msg}
+])[-50:]
+p.write_text(json.dumps(d, ensure_ascii=False, indent=1))
+HEALTH_EOF
+}
+
+# Critical steps (sync/rebase, QA gate) fail the whole pipeline hard instead
+# of limping on with a warning — a broken sync or a disabled QA gate must
+# stop-the-line, not degrade silently under `|| log`.
+fail_hard() {
+    log "🚨 FATAL: $*"
+    exit 1
+}
+
 # Load secrets from env file
 # Use python to safely parse env (handles GSC multiline base64 value)
 if [ -f "$ENV_FILE" ]; then
@@ -72,29 +101,29 @@ log "=== SEO Agent started ==="
 
 # ---- Step 1: Fetch GSC data ----
 log "Step 1: Fetching GSC queries …"
-python3 scripts/fetch_gsc_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  GSC fetch failed (non-fatal)"
+python3 scripts/fetch_gsc_queries.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  GSC fetch failed (non-fatal)"
 
 # ---- Step 2: Fetch Yandex data ----
 log "Step 2: Fetching Yandex queries …"
-python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex fetch failed (non-fatal)"
+python3 scripts/fetch_yandex_queries.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Yandex fetch failed (non-fatal)"
 
 # ---- Step 2.1: Fetch Yandex Metrika (behaviour + leads) — Fable's on-site eyes ----
 log "Step 2.1: Fetching Yandex Metrika (visits/sources/leads) …"
-python3 scripts/fetch_metrika.py >> "$LOG_FILE" 2>&1 || log "⚠️  Metrika fetch failed (non-fatal)"
+python3 scripts/fetch_metrika.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Metrika fetch failed (non-fatal)"
 
 # ---- Step 2.2: Lead listener + handoff routing (Orchestrator-Worker bus) ----
 # Pull any fresh leads, then route them across the agent bus (commercial lead →
 # Steve; cluster-matched lead → Fable). Finally escalate anything stuck.
 log "Step 2.2: Lead listener + handoff routing …"
-python3 scripts/lead_listener.py >> "$LOG_FILE" 2>&1 || log "⚠️  Lead listener failed (non-fatal)"
-python3 scripts/handoff_rules.py >> "$LOG_FILE" 2>&1 || log "⚠️  Handoff routing failed (non-fatal)"
+python3 scripts/lead_listener.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Lead listener failed (non-fatal)"
+python3 scripts/handoff_rules.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Handoff routing failed (non-fatal)"
 python3 scripts/agent_bus.py --escalate >> "$LOG_FILE" 2>&1 || true
 
 # ---- Step 2.5: ANOMALY-GUARD — watch for sudden traffic/position drops ----
 # Runs right after data fetch so a drop (algo update / breakage / deindex) fires
 # an instant Telegram alert before anything else. Keeps a git-tracked baseline.
 log "Step 2.5: Anomaly-Guard — checking for traffic/position drops …"
-python3 scripts/anomaly_guard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Anomaly-Guard failed (non-fatal)"
+python3 scripts/anomaly_guard.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Anomaly-Guard failed (non-fatal)"
 
 # ---- Step 2.6: ESCALATION — out-of-band brain re-plan on strong signals ----
 # Scout runs before this (3.3) on the previous pass; reads its findings +
@@ -115,88 +144,88 @@ fi
 
 # ---- Step 3: Analyze ----
 log "Step 3: Analyzing opportunities …"
-python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log "⚠️  Analyze failed (non-fatal)"
+python3 scripts/analyze_queries.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Analyze failed (non-fatal)"
 
 # ---- Step 3.1: GOALS — scoreboard "distance to #1" for target queries ----
 # Formalizes the mission: per target query, current position, trend and gap to
 # #1. Feeds the brain digest and the Telegram «🎯 Цели» button.
 log "Step 3.1: Goals — updating distance-to-#1 scoreboard …"
-python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log "⚠️  Goals scoreboard failed (non-fatal)"
+python3 scripts/goals_scoreboard.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Goals scoreboard failed (non-fatal)"
 
 # ---- Step 3.14b: FIX LINKS — repair broken internal links (deterministic) ----
 # Closes the "see → fix" loop: redirects geo/typo/lang-dup links to the right
 # page, removes unrendered template placeholders, unwraps genuinely-dead links.
 # Runs BEFORE site_health so the audit below reflects the repair.
 log "Step 3.14b: Fix-links — repairing broken internal links …"
-python3 scripts/fix_links.py >> "$LOG_FILE" 2>&1 || log "⚠️  Fix-links failed (non-fatal)"
+python3 scripts/fix_links.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Fix-links failed (non-fatal)"
 
 # ---- Step 3.15: SITE HEALTH — technical audit (broken links, dup canonicals) ----
 # Deterministic, no LLM. Feeds the brain digest so it fixes the broken
 # foundation (8k+ broken links) BEFORE chasing new content.
 log "Step 3.15: Site-health — technical audit …"
-python3 scripts/site_health.py >> "$LOG_FILE" 2>&1 || log "⚠️  Site-health failed (non-fatal)"
+python3 scripts/site_health.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Site-health failed (non-fatal)"
 
 # ---- Step 3.16: CORE WEB VITALS — page speed per template (self-gated 7d) ----
 log "Step 3.16: Core Web Vitals — page-speed check …"
-python3 scripts/core_web_vitals.py >> "$LOG_FILE" 2>&1 || log "⚠️  CWV failed (non-fatal)"
+python3 scripts/core_web_vitals.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  CWV failed (non-fatal)"
 
 # ---- Step 3.2: MARKET PULSE — monthly live-web research of export markets ----
 # Perplexity Agent API over the 15 target countries. Internally self-gated:
 # exits instantly unless data/market_pulse.json is older than 28 days.
 log "Step 3.2: Market pulse — monthly export-market research …"
-python3 scripts/market_pulse.py >> "$LOG_FILE" 2>&1 || log "⚠️  Market pulse failed (non-fatal)"
+python3 scripts/market_pulse.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Market pulse failed (non-fatal)"
 
 # ---- Step 3.3: SCOUT — discover new/rising queries & coverage gaps ----
 # Discovery only (no generation). Writes git-tracked findings the brain reads,
 # queues high-value landing ideas for approval, and pings Telegram.
 log "Step 3.3: Scout — discovering demand signals …"
-python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log "⚠️  Scout failed (non-fatal)"
+python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Scout failed (non-fatal)"
 
 # ---- Step 3.3b: OUTCOMES — grade past changes, auto-repair, hand misses to Fable ----
 # Accountability loop: did each change actually move rankings? Resubmit
 # not-indexed pages, queue failing pages for Fable. Runs BEFORE the brain so the
 # strategy is forced to face its own misses (outcomes.failing in the digest).
 log "Step 3.3b: Outcomes — grading results + auto-repair …"
-python3 scripts/outcome_tracker.py >> "$LOG_FILE" 2>&1 || log "⚠️  Outcome tracker failed (non-fatal)"
-python3 scripts/repair_outcomes.py >> "$LOG_FILE" 2>&1 || log "⚠️  Repair failed (non-fatal)"
+python3 scripts/outcome_tracker.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Outcome tracker failed (non-fatal)"
+python3 scripts/repair_outcomes.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Repair failed (non-fatal)"
 # A/B test measurement: check if any running tests have passed the 21-day window.
-python3 scripts/ab_test_manager.py --measure >> "$LOG_FILE" 2>&1 || log "⚠️  ab_test measure failed (non-fatal)"
+python3 scripts/ab_test_manager.py --measure >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  ab_test measure failed (non-fatal)"
 
 # ---- Step 3.4: OPTIMIZER — measure past experiments, then optimize titles/meta ----
 # Data-driven core: success = clicks, not page count. Measures matured
 # experiments (auto-reverts regressions), then rewrites near-page-1 low-CTR
 # titles. Runs BEFORE the brain so the strategy sees fresh optimizer results.
 log "Step 3.4: Optimizer — measure matured experiments …"
-python3 scripts/optimize_seo.py --measure >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer measure failed (non-fatal)"
+python3 scripts/optimize_seo.py --measure >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer measure failed (non-fatal)"
 log "Step 3.4: Optimizer — apply title/meta improvements …"
-python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer apply failed (non-fatal)"
+python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer apply failed (non-fatal)"
 
 # ---- Step 3.45: LANDING-BUILDER — build pages approved in Telegram ----
 # Closes the Scout→approval→page loop: only builds landings the owner approved.
 log "Step 3.45: Landing-Builder — building approved landings …"
-python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log "⚠️  Landing-Builder failed (non-fatal)"
+python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Landing-Builder failed (non-fatal)"
 
 # ---- Step 3.47: LINKER — semantic internal linking (blog↔landing↔OEM) ----
 # Cheapest safe ranking lever. Idempotent: refreshes the "Читайте также" block.
 # Runs after Landing-Builder so brand-new landings get linked in the same pass.
 log "Step 3.47: Linker — refreshing internal links …"
-python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log "⚠️  Linker failed (non-fatal)"
+python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Linker failed (non-fatal)"
 
 # ---- Step 3.48: COMPETITOR-SCOUT — weekly competitive intelligence (Mon) ----
 # Finds queries where competitors outrank us (+ why, if a SERP key is set).
 # Discovery only; the brain reads data/competitor_findings.json.
 if [ "$(date +%u)" = "1" ]; then
     log "Step 3.48: Competitor-Scout — weekly competitive intelligence …"
-    python3 scripts/competitor_scout.py >> "$LOG_FILE" 2>&1 || log "⚠️  Competitor-Scout failed (non-fatal)"
+    python3 scripts/competitor_scout.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Competitor-Scout failed (non-fatal)"
 
     # ---- Step 3.49: AIO-VISIBILITY — weekly AI-citability check (Mon) ----
     log "Step 3.49: AIO-Visibility — checking AI citability …"
-    python3 scripts/aio_visibility.py >> "$LOG_FILE" 2>&1 || log "⚠️  AIO-Visibility failed (non-fatal)"
+    python3 scripts/aio_visibility.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  AIO-Visibility failed (non-fatal)"
 fi
 
 # ---- Step 3.491: BRAND MENTIONS — daily external brand mention scan ----
 log "Step 3.491: Brand mentions — scanning Google News + Reddit …"
-python3 scripts/brand_mentions.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brand mentions failed (non-fatal)"
+python3 scripts/brand_mentions.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Brand mentions failed (non-fatal)"
 
 # ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
 # Skipped if Step 2.6 already escalated the brain this pass (no double spend).
@@ -204,7 +233,7 @@ if [ "$BRAIN_ESCALATED" = "1" ]; then
     log "Step 3.5: Brain — skipped (already escalated in Step 2.6)"
 else
     log "Step 3.5: Brain (Fable 5) planning strategy …"
-    python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log "⚠️  Brain failed (non-fatal)"
+    python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Brain failed (non-fatal)"
 fi
 
 # ---- Step 3.5b: TOOLSMITH — build & run tools the brain proposed for itself ----
@@ -213,13 +242,13 @@ fi
 # scripts/brain_tools/ after a static safety scan, then runs requested ones
 # read-only so their output feeds the NEXT brain digest (block "toolbox").
 log "Step 3.5b: Toolsmith — building/running brain's self-made tools …"
-python3 scripts/brain_toolsmith.py >> "$LOG_FILE" 2>&1 || log "⚠️  Toolsmith failed (non-fatal)"
+python3 scripts/brain_toolsmith.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Toolsmith failed (non-fatal)"
 
 # ---- Step 3.6: WORKER — execute the brain's strategy (closes the loop) ----
 # Reads data/strategy.json and builds what Fable decided: blog topics,
 # PL/OEM pages, rewrites. Without this step the strategy is dead paper.
 log "Step 3.6: Worker — executing brain strategy …"
-python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log "⚠️  Strategy worker failed (non-fatal)"
+python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Strategy worker failed (non-fatal)"
 
 # ---- Step 3b: Clean up any stale temp files in public/ (should be zero, but guard) ----
 find public/ -maxdepth 3 -name "tmp*.html" -delete 2>/dev/null || true
@@ -246,33 +275,33 @@ fi
 
 # ---- Step 4: Generate content via CONTENT_MODEL (claude-sonnet-4-6) ----
 log "Step 4: Generating content …"
-python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log "⚠️  Content generation failed (non-fatal)"
+python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Content generation failed (non-fatal)"
 
 # ---- Step 4b: Bulk geo pages (full assortment × RU + CIS cities) ----
 log "Step 4b: Generating bulk geo pages …"
 MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
     python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
-    >> "$LOG_FILE" 2>&1 || log "⚠️  Geo bulk generation failed (non-fatal)"
+    >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
 
 # ---- Step 4c: Schema enricher — Product JSON-LD merchant-listing fields ----
 # Deterministic (no LLM): image/description/shipping/return on every freshly
 # generated page, so GSC never sees missing Merchant-listing fields again.
 log "Step 4c: Enriching Product schemas …"
-python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log "⚠️  Schema enricher failed (non-fatal)"
+python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Schema enricher failed (non-fatal)"
 
 # ---- Step 4d: QA gate — deterministic brand-safety check on changed pages ----
 # fix_pages repairs known LLM defects (phones/emails/fences/ar-pork) in place;
 # qa_pages quarantines anything still broken so it NEVER reaches the site.
 log "Step 4d: QA gate (fix + quarantine) …"
-python3 scripts/fix_pages.py >> "$LOG_FILE" 2>&1 || log "⚠️  fix_pages failed (non-fatal)"
-python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || log "⚠️  qa_pages failed (non-fatal)"
+python3 scripts/fix_pages.py >> "$LOG_FILE" 2>&1 || fail_hard "fix_pages crashed — QA gate cannot run on unrepaired pages, refusing to commit"
+python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || fail_hard "qa_pages crashed — QA gate did not run, refusing to let ungated pages reach main"
 # Product overrides QA (halal/structure) — report only, overrides are durable.
-python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log "⚠️  qa_overrides found issues (see log)"
+python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  qa_overrides found issues (see log)"
 
 # ---- Step 4e: Gate summary → daily ledger (NOT direct Telegram) ----
 # Counts go into ledger as a 'done' event — surfaced once per day in digest.
 log "Step 4e: Gate summary → ledger …"
-python3 - << 'GATE_SUMMARY_EOF' >> "$LOG_FILE" 2>&1 || log "⚠️  gate summary failed (non-fatal)"
+python3 - << 'GATE_SUMMARY_EOF' >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  gate summary failed (non-fatal)"
 import sys
 sys.path.insert(0, "scripts")
 try:
@@ -303,11 +332,11 @@ log "Step 5: Committing and pushing generated content …"
 log "  git pull --rebase origin main …"
 git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 \
     && log "  ✅ Rebased on origin/main" \
-    || log "  ⚠️  Rebase on pull failed — continuing (push may fail later)"
+    || fail_hard "git pull --rebase failed — refusing to commit on top of a diverged/broken tree"
 
 # Inject deploy-stamp into index.html BEFORE git add so the stamp lands in the
 # commit and reaches the live site. .deploy_stamp is gitignored (local only).
-python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log "⚠️  deploy stamp inject failed (non-fatal)"
+python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  deploy stamp inject failed (non-fatal)"
 
 # Stage any new/modified HTML in geo, blog, and key pages
 git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
@@ -373,19 +402,19 @@ touch data/.last_run 2>/dev/null || true
 
 # ---- Step 6: GSC indexing ----
 log "Step 6: Submitting URLs to Google …"
-python3 scripts/gsc-index.py >> "$LOG_FILE" 2>&1 || log "⚠️  GSC indexing failed (non-fatal)"
+python3 scripts/gsc-index.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  GSC indexing failed (non-fatal)"
 
 # ---- Step 7: Yandex indexing ----
 log "Step 7: Submitting URLs to Yandex …"
-python3 scripts/yandex-index.py >> "$LOG_FILE" 2>&1 || log "⚠️  Yandex indexing failed (non-fatal)"
+python3 scripts/yandex-index.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Yandex indexing failed (non-fatal)"
 
 # ---- Step 8: Daily report ----
 log "Step 8: Sending daily report …"
-python3 scripts/send_report.py >> "$LOG_FILE" 2>&1 || log "⚠️  Report failed (non-fatal)"
+python3 scripts/send_report.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Report failed (non-fatal)"
 
 # ---- Step 8b: Optimizer report → daily ledger (NOT direct Telegram) ----
 log "Step 8b: Optimizer report → ledger …"
-python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log "⚠️  Optimizer report failed (non-fatal)"
+python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer report failed (non-fatal)"
 
 # ---- Step 8c: Daily digest flush (once per calendar day) ----
 # flush_digest() is guarded by last_flush_date — first run of the day sends
@@ -396,12 +425,12 @@ import sys; sys.path.insert(0, 'scripts')
 import daily_ledger
 sent = daily_ledger.flush_digest()
 print('digest sent' if sent else 'already flushed today — no-op')
-" >> "$LOG_FILE" 2>&1 || log "⚠️  Daily digest flush failed (non-fatal)"
+" >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Daily digest flush failed (non-fatal)"
 
 # ---- Step 8d: Status digest (once per calendar day, rich numbers) ----
 log "Step 8d: Status digest → Telegram …"
 python3 scripts/status_digest.py --daily >> "$LOG_FILE" 2>&1 \
-    || log "⚠️  Status digest failed (non-fatal)"
+    || log_degradation "⚠️  Status digest failed (non-fatal)"
 
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true
