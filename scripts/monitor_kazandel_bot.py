@@ -46,7 +46,10 @@ SERVICE_NAME = "kazandel.service"
 
 DEEPSEEK_BALANCE_URL = "https://api.deepseek.com/user/balance"
 CRASH_LOOP_WINDOW = "1 hour ago"
-CRASH_LOOP_THRESHOLD = 200  # log lines/hour in normal operation is ~360 total; error spam is 10k+/hr
+# Normal polling (getUpdates every ~10s) produces ~360 lines/hour. The 2026-06-26
+# crash-loop produced ~10,680 lines/hour (30x). Set the bar well above normal
+# noise but well below a real storm.
+CRASH_LOOP_THRESHOLD = 2000
 
 
 def _run(cmd: list) -> tuple[int, str]:
