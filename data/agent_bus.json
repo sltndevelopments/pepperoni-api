@@ -173,11 +173,11 @@
     "was": null,
     "_dedup": "failing:ветчина это халал"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «ветчина это халал» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-25T05:30:02.599960+00:00",
-   "updated_at": "2026-06-25T05:30:02.599965+00:00",
+   "updated_at": "2026-06-26T05:30:07.015254+00:00",
    "claimed_by": null
   },
   {
@@ -193,14 +193,94 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-25T05:30:02.601442+00:00",
-   "updated_at": "2026-06-25T05:30:02.601447+00:00",
+   "updated_at": "2026-06-26T05:30:07.015266+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260626-0011",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "echpochmak",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:echpochmak"
+   },
+   "status": "escalated",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «echpochmak» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-26T03:30:02.513499+00:00",
+   "updated_at": "2026-06-27T05:33:22.783811+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260630-0012",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "tatar cuisine",
+    "page": "https://pepperoni.tatar/en/blog/tatar-cuisine-restaurant-menu",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:tatar cuisine"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «tatar cuisine» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-06-30T21:30:02.692927+00:00",
+   "updated_at": "2026-06-30T21:30:02.692932+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260701-0013",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "kazylyk",
+    "page": "https://api.pepperoni.tatar/en/kazylyk",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:kazylyk"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «kazylyk» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-01T00:00:03.239358+00:00",
+   "updated_at": "2026-07-01T00:00:03.239364+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260701-0014",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "эчпочмак это",
+    "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:эчпочмак это"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «эчпочмак это» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-01T00:00:03.244063+00:00",
+   "updated_at": "2026-07-01T00:00:03.244068+00:00",
    "claimed_by": null
   }
  ],
- "seq": 10,
- "updated_at": "2026-06-25T05:30:02.601481+00:00"
+ "seq": 14,
+ "updated_at": "2026-07-01T00:00:03.244085+00:00"
 }

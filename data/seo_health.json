@@ -1,7 +1,7 @@
 {
- "ts": "2026-06-11T06:31:18.868877+00:00",
+ "ts": "2026-07-01T06:31:18.673665+00:00",
  "local": {
-  "scanned": 249,
+  "scanned": 254,
   "pages_with_issues": [
    {
     "page": "en/pepperoni.html",
@@ -11,96 +11,6 @@
    },
    {
     "page": "en/pizzeria.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-001.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-002.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-003.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-004.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-005.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-006.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-007.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-011.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-013.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-015.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-021.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-028.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-032.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-033.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "en/products/kd-046.html",
     "problems": [
      "invalid GTIN '46+7 987 217-02-02'"
     ]
@@ -116,100 +26,10 @@
     "problems": [
      "invalid GTIN '46+7 987 217-02-02'"
     ]
-   },
-   {
-    "page": "products/kd-001.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-002.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-003.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-004.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-005.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-006.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-007.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-011.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-013.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-015.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-021.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-028.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-032.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-033.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
-   },
-   {
-    "page": "products/kd-046.html",
-    "problems": [
-     "invalid GTIN '46+7 987 217-02-02'"
-    ]
    }
   ],
   "issue_counts": {
-   "invalid GTIN '…'": 34
+   "invalid GTIN '…'": 4
   }
  },
  "gsc": {
@@ -1790,12 +1610,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -1810,12 +1624,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1834,12 +1642,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1858,12 +1660,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1882,12 +1678,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1910,12 +1700,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -1930,12 +1714,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1954,12 +1732,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -1978,12 +1750,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2002,12 +1768,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2026,12 +1786,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2050,12 +1804,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2074,12 +1822,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2098,12 +1840,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2126,12 +1862,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2146,12 +1876,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2170,12 +1894,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2194,12 +1912,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2218,12 +1930,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2246,12 +1952,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2266,12 +1966,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2290,12 +1984,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2314,12 +2002,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2342,12 +2024,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2362,12 +2038,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2386,12 +2056,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2410,12 +2074,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2434,12 +2092,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2462,12 +2114,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2482,12 +2128,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2506,12 +2146,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2530,12 +2164,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2558,12 +2186,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2578,12 +2200,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2602,12 +2218,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2626,12 +2236,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2650,12 +2254,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2678,12 +2276,6 @@
    {
     "url": "https://pepperoni.tatar/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -2698,12 +2290,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2722,12 +2308,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -2746,12 +2326,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/",
@@ -4346,12 +3920,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -4366,12 +3934,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4390,12 +3952,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4414,12 +3970,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4438,12 +3988,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4466,12 +4010,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -4486,12 +4024,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4510,12 +4042,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4534,12 +4060,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4558,12 +4078,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4582,12 +4096,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4606,12 +4114,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4630,12 +4132,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4654,12 +4150,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4682,12 +4172,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -4702,12 +4186,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4726,12 +4204,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4750,12 +4222,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4774,12 +4240,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4802,12 +4262,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -4822,12 +4276,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4846,12 +4294,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4870,12 +4312,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4898,12 +4334,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -4918,12 +4348,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4942,12 +4366,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4966,12 +4384,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -4990,12 +4402,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5018,12 +4424,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -5038,12 +4438,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5062,12 +4456,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5086,12 +4474,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5114,12 +4496,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -5134,12 +4510,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5158,12 +4528,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5182,12 +4546,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5206,12 +4564,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5234,12 +4586,6 @@
    {
     "url": "https://pepperoni.tatar/en/",
     "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"description\""
    },
@@ -5254,12 +4600,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5278,12 +4618,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5302,12 +4636,6 @@
     "type": "Merchant listings",
     "severity": "WARNING",
     "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/en/",
-    "type": "Merchant listings",
-    "severity": "ERROR",
-    "message": "Missing field \"image\""
    },
    {
     "url": "https://pepperoni.tatar/en/",
@@ -5343,61 +4671,37 @@
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
+    "message": "Invalid GTIN"
    },
    {
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/pepperoni",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/pepperoni",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
-   },
-   {
-    "url": "https://pepperoni.tatar/pepperoni",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
-   },
-   {
-    "url": "https://pepperoni.tatar/pepperoni",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
-   },
-   {
-    "url": "https://pepperoni.tatar/pepperoni",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/products/kd-001",
@@ -5415,7 +4719,7 @@
     "url": "https://pepperoni.tatar/products/kd-001",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"returnShippingFeesAmount\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/products/kd-002",
@@ -5433,13 +4737,7 @@
     "url": "https://pepperoni.tatar/products/kd-002",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
-   },
-   {
-    "url": "https://pepperoni.tatar/products/kd-002",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/products/kd-003",
@@ -5457,13 +4755,7 @@
     "url": "https://pepperoni.tatar/products/kd-003",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
-   },
-   {
-    "url": "https://pepperoni.tatar/products/kd-003",
-    "type": "Merchant listings",
-    "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/products/kd-004",
@@ -5481,13 +4773,25 @@
     "url": "https://pepperoni.tatar/products/kd-004",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"shippingDetails\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
-    "url": "https://pepperoni.tatar/products/kd-004",
+    "url": "https://pepperoni.tatar/products/kd-005",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"review\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-005",
+    "type": "Product snippets",
+    "severity": "WARNING",
+    "message": "Missing field \"aggregateRating\""
+   },
+   {
+    "url": "https://pepperoni.tatar/products/kd-005",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"hasMerchantReturnPolicy\""
+    "message": "Value in property \"value\" must be positive"
    },
    {
     "url": "https://pepperoni.tatar/products/kd-006",
@@ -5505,7 +4809,7 @@
     "url": "https://pepperoni.tatar/products/kd-006",
     "type": "Merchant listings",
     "severity": "WARNING",
-    "message": "Missing field \"returnShippingFeesAmount\""
+    "message": "Value in property \"value\" must be positive"
    }
   ]
  }

@@ -1,52 +1,57 @@
 {
- "fetched_at": "2026-06-25T05:30:03.483689+00:00",
+ "fetched_at": "2026-07-01T05:30:03.965486+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 241,
-  "users": 181,
-  "bounce_rate_pct": 39.8,
-  "page_depth": 1.41,
-  "avg_visit_sec": 78
+  "visits": 281,
+  "users": 207,
+  "bounce_rate_pct": 39.1,
+  "page_depth": 1.43,
+  "avg_visit_sec": 74
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 146
-  },
-  {
-   "source": "Internal traffic",
-   "visits": 44
+   "visits": 169
   },
   {
    "source": "Search engine traffic",
-   "visits": 44
+   "visits": 57
+  },
+  {
+   "source": "Internal traffic",
+   "visits": 47
   },
   {
    "source": "Link traffic",
-   "visits": 2
+   "visits": 3
   }
  ],
  "top_landing": [
   {
    "path": "/",
-   "visits": 188,
-   "bounce_pct": 35.6
+   "visits": 217,
+   "bounce_pct": 35.9
   },
   {
    "path": "/products/kd-027",
-   "visits": 10,
-   "bounce_pct": 30.0
+   "visits": 14,
+   "bounce_pct": 28.6
   },
   {
    "path": "/en/",
-   "visits": 6,
-   "bounce_pct": 66.7
+   "visits": 7,
+   "bounce_pct": 42.9
   },
   {
    "path": "/products/kd-016",
    "visits": 3,
    "bounce_pct": 33.3
+  },
+  {
+   "path": "/en",
+   "visits": 2,
+   "bounce_pct": 100.0
   },
   {
    "path": "/en/geo/halal-pepperoni-saudi-arabia",
@@ -69,12 +74,22 @@
    "bounce_pct": 50.0
   },
   {
-   "path": "/products/kd-059",
+   "path": "/products/kd-049",
    "visits": 2,
-   "bounce_pct": 0.0
+   "bounce_pct": 50.0
   },
   {
-   "path": "/1",
+   "path": "/products/kd-062",
+   "visits": 2,
+   "bounce_pct": 50.0
+  },
+  {
+   "path": "/4",
+   "visits": 1,
+   "bounce_pct": 100.0
+  },
+  {
+   "path": "/en/geo/halal-pepperoni-uzbekistan",
    "visits": 1,
    "bounce_pct": 100.0
   },
@@ -87,34 +102,20 @@
    "path": "/en/products/kd-012",
    "visits": 1,
    "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-051",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-056",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-058",
-   "visits": 1,
-   "bounce_pct": 0.0
   }
  ],
  "leads": {
-  "total_leads": 3,
+  "total_leads": 4,
   "by_goal": {
    "Автоцель: клик по email": 2,
+   "Автоцель: переход в мессенджер": 1,
    "Автоцель: клик по номеру телефона": 1
   }
  },
  "inquiries_by_page": {
   "/": {
-   "28d": 3,
-   "7d": 0
+   "28d": 4,
+   "7d": 1
   }
  }
 }

@@ -1,48 +1,64 @@
 {
-  "generated_at": "2026-06-25T19:58:29.195489+00:00",
+  "generated_at": "2026-07-01T05:31:01.802587+00:00",
   "new_queries": [],
-  "rising_queries": [],
+  "rising_queries": [
+    {
+      "query": "is chicken ham halal",
+      "impr": 32,
+      "clk": 0,
+      "pos": 10.3,
+      "page": "https://pepperoni.tatar/en/products/kd-040",
+      "from_impr": 15
+    }
+  ],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 229,
-      "clk": 2,
-      "pos": 46.3,
+      "impr": 297,
+      "clk": 3,
+      "pos": 53.2,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль купить",
-      "impr": 71,
+      "impr": 88,
       "clk": 1,
-      "pos": 38.2,
+      "pos": 42.1,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль колбаса",
-      "impr": 50,
+      "impr": 52,
       "clk": 0,
-      "pos": 36.3,
+      "pos": 41.3,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пеперони халяль",
-      "impr": 40,
+      "impr": 38,
       "clk": 0,
-      "pos": 6.5,
+      "pos": 6.7,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "колбаса пепперони халяль",
-      "impr": 36,
+      "impr": 33,
       "clk": 1,
-      "pos": 9.2,
+      "pos": 10.1,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "chicken ham",
-      "impr": 30,
+      "impr": 29,
       "clk": 0,
       "pos": 6.1,
+      "page": "https://pepperoni.tatar/"
+    },
+    {
+      "query": "лучшие компании производители халяль колбасных изделий казань",
+      "impr": 27,
+      "clk": 0,
+      "pos": 5.0,
       "page": "https://pepperoni.tatar/"
     }
   ]

@@ -1,3 +1,28 @@
 {
-  "ab_tests": []
+  "ab_tests": [
+    {
+      "query": "ветчина это халал",
+      "control_url": "https://pepperoni.tatar/blog/vetchina-fileynaya-halyal",
+      "variant_url": "https://pepperoni.tatar/vetchina-fileynaya-halyal-v2",
+      "variant_file": "public/vetchina-fileynaya-halyal-v2.html",
+      "control_pos_at_start": 62.3,
+      "created_at": "2026-06-26T04:00:02.194993+00:00",
+      "measure_after": "2026-06-26T04:00:02.194999+00:00",
+      "status": "ab_running"
+    },
+    {
+      "query": "пепперони халяль",
+      "type": "strengthen_landing",
+      "status": "ab_running",
+      "created_at": "2026-07-01T05:30:32.356256+00:00",
+      "impr": 226
+    },
+    {
+      "query": "пепперони халяль купить",
+      "type": "strengthen_landing",
+      "status": "ab_running",
+      "created_at": "2026-07-01T05:30:32.356256+00:00",
+      "impr": 75
+    }
+  ]
 }

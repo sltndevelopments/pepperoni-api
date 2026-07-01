@@ -198,8 +198,43 @@
     },
     "risk": "medium",
     "requested_by": "scout",
-    "status": "approved",
+    "status": "done",
     "auto_approved": true,
-    "created_at": "2026-06-25T09:19:24.800427+00:00"
+    "created_at": "2026-06-25T09:19:24.800427+00:00",
+    "executed_at": "2026-06-26T05:30:28.663431+00:00"
+  },
+  {
+    "key": "landing:пепперони-халяль",
+    "title": "Создать лендинг под «пепперони халяль»",
+    "detail": "226 показов, средняя позиция 46.9, сейчас ранжируется только главная — нужен отдельный лендинг под этот запрос.",
+    "action": "create_landing",
+    "payload": {
+      "query": "пепперони халяль",
+      "impr": 226,
+      "pos": 46.9
+    },
+    "risk": "medium",
+    "requested_by": "scout",
+    "status": "done",
+    "auto_approved": true,
+    "created_at": "2026-06-27T05:41:20.032138+00:00",
+    "executed_at": "2026-06-27T06:02:03.428453+00:00"
+  },
+  {
+    "key": "landing:пепперони-халяль",
+    "title": "Создать лендинг под «пепперони халяль»",
+    "detail": "297 показов, средняя позиция 53.2, сейчас ранжируется только главная — нужен отдельный лендинг под этот запрос.",
+    "action": "create_landing",
+    "payload": {
+      "query": "пепперони халяль",
+      "impr": 297,
+      "pos": 53.2
+    },
+    "risk": "medium",
+    "requested_by": "scout",
+    "status": "done",
+    "auto_approved": true,
+    "created_at": "2026-07-01T05:31:01.822607+00:00",
+    "executed_at": "2026-07-01T05:31:35.766654+00:00"
   }
 ]

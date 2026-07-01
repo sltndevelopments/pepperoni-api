@@ -1,35 +1,15 @@
 {
   "events": [
     {
-      "ts": "2026-06-17T04:34:24+00:00",
+      "ts": "2026-07-01T06:31:18+00:00",
       "cat": "done",
-      "txt": "schema-fix: 4440 страниц просканировано, 0 обогащено"
+      "txt": "<b>🩺 SEO health — структурированные данные</b>\n\n<b>Локальная проверка</b> (254 стр.):\n  ⚠️ invalid GTIN '…' — <b>4</b> стр.\n\n<b>Google видит</b> (12 стр.):\n  🟡 WARNING: Missing field \"review\" [Product snippets] — 161\n  🟡 WARNING: Missing field \"aggregateRating\" [Product snippets] — 161\n  🟡 WARNING: Missing field \"description\" [Merchant listings] — 154\n  🟡 WARNING: Missing field \"shippingDetails\" ["
     },
     {
-      "ts": "2026-06-17T04:36:57+00:00",
+      "ts": "2026-07-01T07:30:01+00:00",
       "cat": "emergency",
-      "txt": "🚨 tech_debt_sweep: sanity FAILED — rolled back.\n• index.html: product card JS template was damaged"
-    },
-    {
-      "ts": "2026-06-17T04:37:31+00:00",
-      "cat": "done",
-      "txt": "sweep ✅: fix_pages 42→0 files, truncated 4→0, broken_links 0→0"
-    },
-    {
-      "ts": "2026-06-22T09:22:40+00:00",
-      "cat": "needs_help",
-      "txt": "🚨 invariant violated [card-link-wrapper] (manual run):\n  • card-link-wrapper: product-card-link anchor missing in index.html. Product cards are not clickable."
-    },
-    {
-      "ts": "2026-06-24T19:04:54+00:00",
-      "cat": "done",
-      "txt": "⏭ low_priority: «how to identify halal certified products» — no_search_demand_en (не будет в авторемонте)"
-    },
-    {
-      "ts": "2026-06-24T19:04:54+00:00",
-      "cat": "done",
-      "txt": "⏭ low_priority: «russia halal market size 2026 trillion rubles» — no_search_demand_en (не будет в авторемонте)"
+      "txt": "<b>🚨 Watchdog: проблемы конвейера</b>\n• strategy.json устарела (167ч) — Мозг не обновлял стратегию\n• битых внутренних ссылок: 1593 (на 1581 стр.) — чинит fix_links; Google и люди видят 404\n\nЛог: /var/log/pepperoni-seo-agent.log"
     }
   ],
-  "last_flush_date": ""
+  "last_flush_date": "2026-07-01"
 }
