@@ -63,8 +63,20 @@
   `|| log "non-fatal"`. **Фикс**: `len(files)` → `len(pairs)`.
   Проверка: `python3 -m py_compile scripts/qa_pages.py` → OK; ручной запуск
   `python3 scripts/qa_pages.py --quarantine` на VPS — без трейсбека.
-  **Третий прогон нужен**, чтобы подтвердить полное завершение пайплайна и
-  появление `data/health.json` (следующая запись в этом логе).
+  **Третий прогон** — полный успех end-to-end: Step 4d (QA gate) прошёл без
+  crash, Step 5 запушил 208 файлов в main, Step 6/7 (Google/Yandex submit),
+  Step 8 (отчёты) — всё отработало, `=== SEO Agent finished ===`.
+  Единственная деградация — `⚠️ Optimizer report failed (non-fatal)`
+  (Step 8b) — некритический шаг, как и задумано в Task 0.1, не остановил
+  пайплайн. `data/health.json` создан и содержит счётчик:
+  `{"degradations_total": 1, "last_degradations": [{"ts": "...",
+  "msg": "⚠️  Optimizer report failed (non-fatal)"}]}`.
+  **Итог по трём прогонам**: `fail_hard` подтверждён на живом дереве (не
+  просто `bash -n`) — дважды реально остановил пайплайн на настоящих багах
+  (оба от 2026-06-15, коммит `6978b33e3`), которые 17 дней тихо ломали
+  Step 4d под старым `|| log "non-fatal"`. `log_degradation`/`health.json`
+  подтверждён на живом некритическом сбое. Механизм из Task 0.1 работает
+  как задумано в обе стороны.
 - **Задача 0.4 (данные `sosiski-v-teste`, владелец)**: диагностика подтвердила
   причину карантина по `data/page_gate_log.json` (VPS): reviewer reject
   `sosiki-v-teste-zheleznogorsk.html` — «Критерий 1 (глубина): отсутствуют
