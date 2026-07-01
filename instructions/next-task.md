@@ -54,6 +54,17 @@
   раньше первого некритического `log_degradation` вызова в этом прогоне
   (все шаги до 4d либо прошли, либо их деградации не сработали). Это ожидаемо:
   health.json создаётся `log_degradation`, а не `fail_hard`.
+  **Второй прогон** (после фикса `fix_pages.py`) дошёл до `qa_pages.py` и
+  **fail_hard снова реально остановил пайплайн** на том же классе бага:
+  `NameError: name 'files' is not defined` — тот же коммит `6978b33e3`
+  (2026-06-15) переименовал переменную в `pairs` при рефакторинге
+  публикационного гейта, но забыл строку `print(f"qa_pages: {len(files)}
+  ...")`. Тоже 17 дней тихо падало в Step 4d, замаскировано
+  `|| log "non-fatal"`. **Фикс**: `len(files)` → `len(pairs)`.
+  Проверка: `python3 -m py_compile scripts/qa_pages.py` → OK; ручной запуск
+  `python3 scripts/qa_pages.py --quarantine` на VPS — без трейсбека.
+  **Третий прогон нужен**, чтобы подтвердить полное завершение пайплайна и
+  появление `data/health.json` (следующая запись в этом логе).
 - **Задача 0.4 (данные `sosiski-v-teste`, владелец)**: диагностика подтвердила
   причину карантина по `data/page_gate_log.json` (VPS): reviewer reject
   `sosiki-v-teste-zheleznogorsk.html` — «Критерий 1 (глубина): отсутствуют
