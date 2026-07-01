@@ -1643,6 +1643,14 @@ def main():
           f"budget left ${remaining_budget():.2f}")
 
     try:
+        # json_schema (structured outputs) disabled 2026-07-02 (Task 0.3):
+        # even after trimming STRATEGY_SCHEMA under Anthropic's 24-optional-
+        # param limit, the compiled constrained-decoding grammar for this
+        # schema is still too large ("compiled grammar is too large ...
+        # reduce the number of strict tools"). The system prompt already
+        # spells out the exact JSON schema and _extract_json() below is a
+        # robust fallback parser — that combination is what actually
+        # produced strategy.json for months before json_schema was added.
         text, usage = call_opus(
             prompt=user_prompt,
             system=PLAYBOOK,
@@ -1650,7 +1658,6 @@ def main():
             temperature=0.3,
             cache_system=True,
             effort=effort,
-            json_schema=STRATEGY_SCHEMA,
         )
     except Exception as e:
         print(f"⚠️  Opus call failed ({e}). Keeping existing strategy.")
