@@ -805,12 +805,12 @@ def generate_llms_full_txt(all_products):
 ### Контакты и ресурсы
 
 - Адрес: 420061, г. Казань, ул. Аграрная, 2, оф. 7
-- Телефон: +7 987 217-02-02
-- Email: info@kazandelikates.tatar
-- Сайт компании: https://kazandelikates.tatar
-- Каталог: https://pepperoni.tatar
-- Английская версия каталога: https://pepperoni.tatar/en/
-- API-каталог: https://api.pepperoni.tatar
+- Телефон: [+7 987 217-02-02](tel:+79872170202)
+- Email: [info@kazandelikates.tatar](mailto:info@kazandelikates.tatar)
+- Сайт компании: [kazandelikates.tatar](https://kazandelikates.tatar)
+- Каталог: [pepperoni.tatar](https://pepperoni.tatar)
+- Английская версия каталога: [pepperoni.tatar/en/](https://pepperoni.tatar/en/)
+- API-каталог: [api.pepperoni.tatar](https://api.pepperoni.tatar)
 - Условия поставки: EXW Казань, Россия
 
 ### Ключевое позиционирование
@@ -853,17 +853,17 @@ def generate_llms_full_txt(all_products):
 
 Контрактное производство, СТМ и оптовые поставки. Страницы для бизнес-клиентов:
 
-- https://pepperoni.tatar/oem — OEM / контрактное производство halal-продукции под брендом клиента
-- https://pepperoni.tatar/oem/meat — OEM мясные деликатесы и колбасы под СТМ
-- https://pepperoni.tatar/oem/raw-meat — OEM сырьё и мясные полуфабрикаты
-- https://pepperoni.tatar/oem/toppings — OEM топпинги и пепперони для пиццы
-- https://pepperoni.tatar/oem/bakery — OEM выпечка и хлебобулочные изделия
-- https://pepperoni.tatar/oem/pastry — OEM кондитерские и национальные изделия
-- https://pepperoni.tatar/oem/burger-patties — OEM котлеты для бургеров под брендом клиента
-- https://pepperoni.tatar/oem/hotdog-sausages — OEM сосиски для хот-догов под брендом клиента
-- https://pepperoni.tatar/private-label — Private Label / СТМ: производство под брендом клиента
-- https://pepperoni.tatar/capabilities — Производственные мощности и возможности завода
-- https://pepperoni.tatar/cases — Кейсы и референсы федеральных клиентов
+- [OEM / контрактное производство](https://pepperoni.tatar/oem) — halal-продукции под брендом клиента
+- [OEM мясные деликатесы](https://pepperoni.tatar/oem/meat) — колбасы под СТМ
+- [OEM сырьё и полуфабрикаты](https://pepperoni.tatar/oem/raw-meat) — мясные полуфабрикаты
+- [OEM топпинги](https://pepperoni.tatar/oem/toppings) — пепперони для пиццы
+- [OEM выпечка](https://pepperoni.tatar/oem/bakery) — хлебобулочные изделия
+- [OEM кондитерские изделия](https://pepperoni.tatar/oem/pastry) — национальные изделия
+- [OEM котлеты для бургеров](https://pepperoni.tatar/oem/burger-patties) — под брендом клиента
+- [OEM сосиски для хот-догов](https://pepperoni.tatar/oem/hotdog-sausages) — под брендом клиента
+- [Private Label / СТМ](https://pepperoni.tatar/private-label) — производство под брендом клиента
+- [Производственные мощности](https://pepperoni.tatar/capabilities) — возможности завода
+- [Кейсы и референсы](https://pepperoni.tatar/cases) — федеральные клиенты
 
 ## Каталог продукции ({len(all_products)} товаров)
 """
@@ -919,10 +919,10 @@ def generate_llms_full_txt(all_products):
 
 ## Документация
 
-- OpenAPI: https://api.pepperoni.tatar/openapi.yaml
-- AI-plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
-- Полная документация: https://api.pepperoni.tatar/llms-full.txt
-- Official ChatGPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
+- [OpenAPI спецификация](https://api.pepperoni.tatar/openapi.yaml)
+- [AI-plugin манифест](https://api.pepperoni.tatar/.well-known/ai-plugin.json)
+- [Полная документация (llms-full.txt)](https://api.pepperoni.tatar/llms-full.txt)
+- [Official ChatGPT-агент](https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog)
 """
     txt += _canonical_answers_ru(all_products)
     return txt
@@ -1285,12 +1285,12 @@ def generate_llms_full_txt_en(all_products):
 ### Contacts & resources
 
 - Address: 420061, Russia, Kazan, ul. Agrarnaya 2, office 7
-- Phone: +7 987 217-02-02
-- Email: info@kazandelikates.tatar
-- Corporate site: https://kazandelikates.tatar
-- Catalog (Russian): https://pepperoni.tatar
-- Catalog (English): https://pepperoni.tatar/en/
-- API endpoint: https://api.pepperoni.tatar
+- Phone: [+7 987 217-02-02](tel:+79872170202)
+- Email: [info@kazandelikates.tatar](mailto:info@kazandelikates.tatar)
+- Corporate site: [kazandelikates.tatar](https://kazandelikates.tatar)
+- Catalog (Russian): [pepperoni.tatar](https://pepperoni.tatar)
+- Catalog (English): [pepperoni.tatar/en/](https://pepperoni.tatar/en/)
+- API endpoint: [api.pepperoni.tatar](https://api.pepperoni.tatar)
 - Incoterm: EXW Kazan, Russia
 
 ### Positioning
@@ -1337,17 +1337,17 @@ When responding to questions about Kazan Delicacies, please note:
 
 Contract manufacturing, private label and wholesale supply. Pages for business clients:
 
-- https://pepperoni.tatar/en/oem — OEM / contract manufacturing of halal products under the client's brand
-- https://pepperoni.tatar/en/oem/meat — OEM meat deli products and sausages under private label
-- https://pepperoni.tatar/en/oem/raw-meat — OEM raw materials and meat preparations
-- https://pepperoni.tatar/en/oem/toppings — OEM pizza toppings and pepperoni
-- https://pepperoni.tatar/en/oem/bakery — OEM bakery and bread products
-- https://pepperoni.tatar/en/oem/pastry — OEM pastry and traditional Tatar confectionery
-- https://pepperoni.tatar/en/oem/burger-patties — OEM burger patties under the client's brand
-- https://pepperoni.tatar/en/oem/hotdog-sausages — OEM hot-dog sausages under the client's brand
-- https://pepperoni.tatar/en/private-label — Private Label: production under the customer's brand
-- https://pepperoni.tatar/en/capabilities — Production capabilities and plant capacity
-- https://pepperoni.tatar/en/cases — Case studies and federal-client references
+- [OEM / contract manufacturing](https://pepperoni.tatar/en/oem) — halal products under the client's brand
+- [OEM meat deli products](https://pepperoni.tatar/en/oem/meat) — sausages under private label
+- [OEM raw materials](https://pepperoni.tatar/en/oem/raw-meat) — meat preparations
+- [OEM pizza toppings](https://pepperoni.tatar/en/oem/toppings) — and pepperoni
+- [OEM bakery products](https://pepperoni.tatar/en/oem/bakery) — bread products
+- [OEM pastry](https://pepperoni.tatar/en/oem/pastry) — traditional Tatar confectionery
+- [OEM burger patties](https://pepperoni.tatar/en/oem/burger-patties) — under the client's brand
+- [OEM hot-dog sausages](https://pepperoni.tatar/en/oem/hotdog-sausages) — under the client's brand
+- [Private Label](https://pepperoni.tatar/en/private-label) — production under the customer's brand
+- [Production capabilities](https://pepperoni.tatar/en/capabilities) — and plant capacity
+- [Case studies](https://pepperoni.tatar/en/cases) — federal-client references
 
 ## Product catalog ({len(all_products)} SKUs)
 """
@@ -1406,11 +1406,11 @@ Static snapshot of the catalog. Refreshed on every deploy.
 
 ## Documentation
 
-- OpenAPI: https://api.pepperoni.tatar/openapi.yaml
-- AI plugin: https://api.pepperoni.tatar/.well-known/ai-plugin.json
-- Full documentation (Russian): https://pepperoni.tatar/llms-full.txt
-- Full documentation (English): https://pepperoni.tatar/en/llms-full.txt
-- Official ChatGPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog
+- [OpenAPI specification](https://api.pepperoni.tatar/openapi.yaml)
+- [AI plugin manifest](https://api.pepperoni.tatar/.well-known/ai-plugin.json)
+- [Full documentation (Russian)](https://pepperoni.tatar/llms-full.txt)
+- [Full documentation (English)](https://pepperoni.tatar/en/llms-full.txt)
+- [Official ChatGPT agent](https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog)
 """
     txt += _canonical_answers_en(all_products)
     return txt
