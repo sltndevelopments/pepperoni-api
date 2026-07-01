@@ -56,9 +56,19 @@
   проверено). Итог: 34 → **23** опциональных, под лимитом 24.
   Проверка: скрипт-подсчёт по дереву схемы → `TOTAL: 23`;
   `python3 -m py_compile scripts/seo_brain.py` → OK.
-  **Ещё не подтверждено**: реальный успешный вызов Opus с новой схемой (нужен
-  следующий прогон brain на VPS — сам вызов из диагностики использовал старую
-  схему и упал на этой же ошибке до фикса).
+  **Второй 400 после фикса схемы** (тестовый прогон `seo_brain.py` на VPS,
+  до этого коммита): `"The compiled grammar is too large ... reduce the
+  number of strict tools."` — даже 23 optional недостаточно, structured
+  outputs (`json_schema`) для этой схемы вообще не годится по размеру
+  грамматики. Системный промпт и так полностью описывает JSON-схему текстом
+  (`ВЕРНИ СТРОГО валидный JSON ... по схеме:`), и в коде уже есть надёжный
+  fallback-парсер `_extract_json()` — именно так strategy.json генерировался
+  месяцами до того, как добавили `json_schema`. **Фикс `ab82e5ee1`**: убрал
+  `json_schema=STRATEGY_SCHEMA` из вызова `call_opus()`, полагаемся на
+  текстовый промпт + `_extract_json`.
+  Проверка: `python3 -m py_compile scripts/seo_brain.py` → OK.
+  **Ещё не подтверждено**: реальный успешный вызов brain на VPS после этого
+  фикса — следующий шаг.
 - **Задача 0.2 (dual scheduling)**: VPS cron — единственный primary канал для
   ежедневного цикла. В GitHub Actions:
   - `seo-agent.yml` (daily 08:30 MSK, дублировал `seo-agent-vps.sh`) → `if: false`
