@@ -126,6 +126,20 @@
   Проверка: `python3 -m py_compile scripts/seo_brain.py` → OK.
   **Ещё не подтверждено**: реальный успешный вызов brain на VPS после этого
   фикса — следующий шаг.
+- **Страховка после отключения json_schema (по запросу владельца)**:
+  `_extract_json()` — теперь единственный парсер ответа Opus, а structured
+  outputs (schema enforcement на стороне Anthropic) больше нет. Добавлена
+  ручная валидация в `seo_brain.py` перед `STRATEGY_FILE.write_text(...)`:
+  проверка присутствия всех `STRATEGY_SCHEMA["required"]` ключей + сверка
+  типа каждого присутствующего поля с `STRATEGY_SCHEMA["properties"][key]
+  ["type"]` (array/object/string/integer). При провале — `strategy.json`
+  НЕ трогается, отправляется Telegram-алерт с списком проблем, функция
+  возвращает 0 (не валит пайплайн — это данные, не код).
+  Синтетический тест (валидный / пропущенный ключ / неверный тип):
+  `missing: [] type_errors: [] PASS`; `missing: ['geo_daily_target']`;
+  `type_errors: ['new_blog_topics: ожидался array, пришёл str']` — все три
+  сценария сработали как задумано.
+  Проверка: `python3 -m py_compile scripts/seo_brain.py` → OK.
 - **Задача 0.2 (dual scheduling)**: VPS cron — единственный primary канал для
   ежедневного цикла. В GitHub Actions:
   - `seo-agent.yml` (daily 08:30 MSK, дублировал `seo-agent-vps.sh`) → `if: false`

@@ -1669,6 +1669,37 @@ def main():
         print(f"⚠️  Could not parse strategy JSON ({e}). Keeping existing strategy.")
         return 0
 
+    # Safety net for json_schema being disabled (Task 0.3): _extract_json is
+    # now the only parser, so a malformed-but-valid-JSON reply (missing keys,
+    # wrong types) could otherwise silently overwrite a working strategy.json
+    # and the worker would tick blind again, just quieter. Validate the
+    # STRATEGY_SCHEMA-required keys' presence/type before ever writing to
+    # disk; on failure, keep the old strategy.json untouched and alert.
+    missing_keys = [k for k in STRATEGY_SCHEMA["required"] if k not in strategy]
+    type_errors = []
+    _EXPECTED_TYPES = {"array": list, "object": dict, "string": str, "integer": int}
+    for key, spec in STRATEGY_SCHEMA["properties"].items():
+        if key not in strategy:
+            continue
+        expected = _EXPECTED_TYPES.get(spec.get("type"))
+        if expected and not isinstance(strategy[key], expected):
+            type_errors.append(f"{key}: ожидался {spec['type']}, пришёл {type(strategy[key]).__name__}")
+    if missing_keys or type_errors:
+        problems = []
+        if missing_keys:
+            problems.append(f"отсутствуют обязательные поля: {missing_keys}")
+        if type_errors:
+            problems.append(f"неверные типы: {type_errors}")
+        msg = ("🚨 Brain: невалидный ответ Opus — strategy.json НЕ перезаписан.\n"
+               + "\n".join(problems))
+        print(f"⚠️  {msg}")
+        try:
+            from telegram_notify import notify
+            notify(msg)
+        except Exception as alert_err:
+            print(f"⚠️  Telegram alert failed (non-fatal): {alert_err}")
+        return 0
+
     strategy["generated_at"] = datetime.now(timezone.utc).isoformat()
     strategy["model"] = OPUS_MODEL
     strategy["digest_summary"] = {
