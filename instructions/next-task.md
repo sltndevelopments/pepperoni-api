@@ -19,6 +19,31 @@
 
 ## Log
 
+- **Задача 0.3 (strategy refresh 167ч) — диагностика на VPS логах**:
+  Не бюджет (`opus_budget.json`: $0.0054/$30 потрачено), не proxy (не
+  ProxyError — то было раньше 27-29.06, сейчас другая ошибка). Корень:
+  `⚠️ Opus call failed (Anthropic call failed: HTTP 400: ). Keeping existing
+  strategy.` — **каждый день с 20.06** (8+ прогонов подряд), но тело ошибки
+  всегда пустое `()`.
+  Причина найдена в `opus_brain_client.py`: путь через `requests` (proxy
+  chain) на 4xx/5xx создаёт `urllib.error.HTTPError(url, code, r.text, None,
+  fp=None)`. Обработчик исключения читает тело через `e.read()`, что для
+  `fp=None` кидает `KeyError('file')` внутри `tempfile.py` — это исключение
+  ловится внешним `except Exception`, теряя реальный текст ошибки Anthropic
+  и подставляя пустую строку. Отсюда "HTTP 400: ()" вместо настоящей причины
+  каждый день — brain думал, что не может ничего сделать, escalation считал
+  цикл выполненным и пропускал daily brain (Step 3.5 skip).
+  **Фикс**: тело ответа теперь кладём в `http_err.body` до `raise`, обработчик
+  читает `getattr(e, "body", None)` вместо `e.read()`. Побочный эффект: логика
+  auto-retry без `output_config` (строка "output_config" in err_body) тоже
+  была сломана тем же багом и теперь заработает, если проблема в нём.
+  Проверка: `python3 -m py_compile scripts/opus_brain_client.py` → OK;
+  синтетический воспроизводящий тест подтвердил, что тело ошибки теперь
+  доходит до `last_err` и retry-триггер срабатывает.
+  **Следующий шаг**: следующий cron-прогон (или ручной запуск `seo_brain.py`)
+  на VPS покажет настоящую причину HTTP 400 в логе — до этого момента корень
+  самого 400 (что именно Anthropic отвергает в запросе) не подтверждён,
+  только маскирующий баг починен.
 - **Задача 0.2 (dual scheduling)**: VPS cron — единственный primary канал для
   ежедневного цикла. В GitHub Actions:
   - `seo-agent.yml` (daily 08:30 MSK, дублировал `seo-agent-vps.sh`) → `if: false`

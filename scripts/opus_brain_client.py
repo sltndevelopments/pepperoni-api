@@ -248,9 +248,16 @@ def call_model(
                 if r is None:
                     raise conn_err if conn_err else RuntimeError("all proxies failed")
                 if r.status_code >= 400:
-                    raise urllib.error.HTTPError(
-                        ANTHROPIC_URL, r.status_code, r.text[:300], None, None
+                    # requests responses have no urllib `.fp` file object, so a
+                    # bare HTTPError(..., fp=None) makes the except-block's
+                    # e.read() raise KeyError('file') internally — swallowing
+                    # the real Anthropic error body and logging "HTTP 400: ()"
+                    # forever. Carry the body as an attribute instead.
+                    http_err = urllib.error.HTTPError(
+                        ANTHROPIC_URL, r.status_code, r.reason or "", None, None
                     )
+                    http_err.body = r.text[:300]
+                    raise http_err
                 raw = r.content
             else:
                 req = urllib.request.Request(ANTHROPIC_URL, data=data, headers=headers)
@@ -275,7 +282,15 @@ def call_model(
                 pass
             return text, usage
         except urllib.error.HTTPError as e:
-            err_body = e.read().decode("utf-8", "ignore")
+            # Prefer the body we stashed for requests-originated errors (fp is
+            # None there, so e.read() raises KeyError('file') and hides the
+            # real message). Fall back to a real urllib file read otherwise.
+            err_body = getattr(e, "body", None)
+            if err_body is None:
+                try:
+                    err_body = e.read().decode("utf-8", "ignore")
+                except Exception:
+                    err_body = str(e.reason or e.msg or "")
             last_err = f"HTTP {e.code}: {err_body[:300]}"
             # output_config not supported here → drop it once and retry.
             if e.code == 400 and "output_config" in err_body and "output_config" in body:
