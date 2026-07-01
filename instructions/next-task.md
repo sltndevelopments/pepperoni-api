@@ -32,6 +32,28 @@
 
 ## Log
 
+- **Тестовый прогон fail_hard (по запросу владельца после Этапа 0)**:
+  ручной запуск `bash scripts/seo-agent-vps.sh` на VPS дошёл до Step 4d и
+  **fail_hard реально остановил пайплайн**: `🚨 FATAL: fix_pages crashed —
+  QA gate cannot run on unrepaired pages, refusing to commit`, exit code
+  ненулевой, никакого коммита не было. Подтверждает, что stop-the-line из
+  Task 0.1 не просто проходит `bash -n`, а работает на живом дереве.
+  **Побочный эффект — нашли реальный баг**, который `fail_hard` впервые
+  сделал видимым: `fix_pages.py` (default no-args режим, вызывается каждый
+  день в Step 4d) падал с `AttributeError: 'tuple' object has no attribute
+  'read_text'`, потому что `qa_pages.changed_pages()` с коммита `6978b33e3`
+  (2026-06-15, "publication gate") возвращает `list[tuple[Path, bool]]`, а
+  `fix_pages.py` всё ещё итерировал по нему как по `list[Path]`. **17 дней**
+  (15.06–01.07) детерминированный ремонт в Step 4d тихо не работал —
+  замаскировано `|| log "⚠️ fix_pages failed (non-fatal)"` до Task 0.1.
+  **Фикс**: `files = [p for p, _is_new in changed_pages()]`.
+  Проверка: `python3 -m py_compile scripts/fix_pages.py` → OK; ручной запуск
+  `python3 scripts/fix_pages.py` на VPS — без трейсбека (см. запись ниже
+  после повторного прогона).
+  `data/health.json`: НЕ создан этим прогоном — пайплайн упал на Step 4d
+  раньше первого некритического `log_degradation` вызова в этом прогоне
+  (все шаги до 4d либо прошли, либо их деградации не сработали). Это ожидаемо:
+  health.json создаётся `log_degradation`, а не `fail_hard`.
 - **Задача 0.4 (данные `sosiski-v-teste`, владелец)**: диагностика подтвердила
   причину карантина по `data/page_gate_log.json` (VPS): reviewer reject
   `sosiki-v-teste-zheleznogorsk.html` — «Критерий 1 (глубина): отсутствуют

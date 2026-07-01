@@ -116,7 +116,11 @@ def main() -> int:
     else:
         sys.path.insert(0, str(Path(__file__).parent))
         from qa_pages import changed_pages
-        files = changed_pages()
+        # changed_pages() returns list[tuple[Path, is_new]] — unwrap to just
+        # the paths. This mismatch previously crashed with AttributeError
+        # ('tuple' object has no attribute 'read_text') on every default
+        # (no-args) run; only --all / explicit-path invocations worked.
+        files = [p for p, _is_new in changed_pages()]
 
     touched = 0
     for f in files:
