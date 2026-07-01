@@ -130,9 +130,10 @@ MAIN_MENU = [
     ["📊 Статус", "💰 Бюджет"],
     ["🚀 Запустить генерацию", "📜 История"],
     ["🧠 Спросить мозг", "📋 Стратегия"],
-    ["🩺 SEO здоровье", "🧪 Эксперименты"],
-    ["🛰 Разведка", "🎯 Цели"],
-    ["🤖 Мета-агент", "📒 Решения"],
+    ["🩺 SEO здоровье", "🤖 KazanDel бот"],
+    ["🧪 Эксперименты", "🛰 Разведка"],
+    ["🎯 Цели", "🤖 Мета-агент"],
+    ["📒 Решения"],
 ]
 
 
@@ -287,6 +288,23 @@ def action_seo_health() -> str:
         return "🩺 Проверка идёт дольше обычного — результат будет в логах."
     except Exception as e:
         return f"🩺 Не удалось запустить проверку: {e}"
+
+
+def action_kazandel_health() -> str:
+    """Run the KazanDel lead-gen bot health check on demand (separate service,
+    same VPS) and return its report inline."""
+    try:
+        out = subprocess.run(
+            ["python3", str(ROOT / "scripts" / "monitor_kazandel_bot.py"),
+             "--no-telegram", "--always", "--raw-report"],
+            capture_output=True, text=True, timeout=60,
+        )
+        text = (out.stdout or "").strip()
+        return text or "🤖 Проверка завершена, отчёт пуст. См. логи."
+    except subprocess.TimeoutExpired:
+        return "🤖 Проверка идёт дольше обычного — попробуй ещё раз."
+    except Exception as e:
+        return f"🤖 Не удалось запустить проверку: {e}"
 
 
 def action_experiments() -> str:
@@ -825,6 +843,11 @@ def _cmd_health(cid: int) -> None:
     send(cid, action_seo_health(), keyboard=MAIN_MENU)
 
 
+def _cmd_kazandel(cid: int) -> None:
+    send(cid, "🤖 Проверяю бот лидогена…")
+    send(cid, action_kazandel_health(), keyboard=MAIN_MENU)
+
+
 def _cmd_fix_schema(cid: int) -> None:
     """Deterministic schema fixer: enrich Product JSON-LD site-wide, commit, push."""
     send(cid, "🛠 Чиню Product-схемы по всему сайту (fix_schema.py)…")
@@ -920,6 +943,7 @@ def _make_dispatch() -> dict:
         (("запустить генерацию", "запустить", "run", "генерация"),
          lambda cid: action_confirm_run_generation(cid)),
         (("seo здоровье", "здоровье", "health", "seo health"), _cmd_health),
+        (("kazandel бот", "kazandel", "лидоген", "kazandel health"), _cmd_kazandel),
         (("эксперименты", "experiments"),
          lambda cid: send(cid, action_experiments(), keyboard=MAIN_MENU)),
         (("разведка", "scout"),
