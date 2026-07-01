@@ -1443,7 +1443,10 @@ STRATEGY_SCHEMA = {
                     "quarter": {"type": "string"},
                     "status": {"type": "string"},
                 },
-                "required": ["action", "section"],
+                # Marked required (not optional-but-empty) to stay under
+                # Anthropic's 24-optional-parameter tool-schema limit — see
+                # instructions/next-task.md Task 0.3. Model can send "" / [].
+                "required": ["action", "section", "id", "text", "why"],
             },
         },
         "proactive_message": {
@@ -1477,8 +1480,14 @@ STRATEGY_SCHEMA = {
             },
         },
     },
+    # Marked required (not left optional-but-empty) to stay under Anthropic's
+    # 24-optional-parameter tool-schema limit — see instructions/next-task.md
+    # Task 0.3. Model can send "" / [] for anything it has nothing to say.
     "required": ["focus_products", "focus_langs", "geo_daily_target",
-                 "new_blog_topics", "pl_oem_topics", "notes", "report_to_owner"],
+                 "geo_per_day", "landing_per_day", "expert_per_day",
+                 "new_blog_topics", "pl_oem_topics", "rewrite_pages",
+                 "propose_tools", "run_tools", "questions",
+                 "proactive_message", "notes", "report_to_owner"],
 }
 
 

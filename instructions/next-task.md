@@ -40,10 +40,25 @@
   Проверка: `python3 -m py_compile scripts/opus_brain_client.py` → OK;
   синтетический воспроизводящий тест подтвердил, что тело ошибки теперь
   доходит до `last_err` и retry-триггер срабатывает.
-  **Следующий шаг**: следующий cron-прогон (или ручной запуск `seo_brain.py`)
-  на VPS покажет настоящую причину HTTP 400 в логе — до этого момента корень
-  самого 400 (что именно Anthropic отвергает в запросе) не подтверждён,
-  только маскирующий баг починен.
+  **Настоящая причина 400 (подтверждена ручным запуском `seo_brain.py` на
+  VPS после фикса маскирующего бага):**
+  `"Schemas contains too many optional parameters (34), which would make
+  grammar compilation inefficient. Reduce the number of optional parameters
+  in your tool schemas (limit: 24)."` — `STRATEGY_SCHEMA` в `seo_brain.py`
+  накопила 34 опциональных поля по всем вложенным объектам (root 12 +
+  memory_ops[] 7 + остальные вложенные), Anthropic считает суммарно по схеме.
+  **Фикс**: сделал `required` часть полей в root (`geo_per_day`,
+  `landing_per_day`, `expert_per_day`, `rewrite_pages`, `propose_tools`,
+  `run_tools`, `questions`, `proactive_message`) и в `memory_ops[]` (`id`,
+  `text`, `why`) — модель по-прежнему может слать `""`/`[]`, если нечего
+  сказать; такие поля уже читаются через `.get(..., default)` в коде
+  (`expert_per_day`, `landing_per_day`, `questions`, `proactive_message` —
+  проверено). Итог: 34 → **23** опциональных, под лимитом 24.
+  Проверка: скрипт-подсчёт по дереву схемы → `TOTAL: 23`;
+  `python3 -m py_compile scripts/seo_brain.py` → OK.
+  **Ещё не подтверждено**: реальный успешный вызов Opus с новой схемой (нужен
+  следующий прогон brain на VPS — сам вызов из диагностики использовал старую
+  схему и упал на этой же ошибке до фикса).
 - **Задача 0.2 (dual scheduling)**: VPS cron — единственный primary канал для
   ежедневного цикла. В GitHub Actions:
   - `seo-agent.yml` (daily 08:30 MSK, дублировал `seo-agent-vps.sh`) → `if: false`
