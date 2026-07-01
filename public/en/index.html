@@ -530,6 +530,59 @@ function renderControls(){
 
 function setCur(c){CUR=c;VAT=c==='RUB';render()}
 
+(function registerWebMCPTools(){
+  const mc=(document.modelContext&&document.modelContext.registerTool)?document.modelContext
+    :(navigator.modelContext&&navigator.modelContext.registerTool)?navigator.modelContext:null;
+  if(!mc)return;
+  const CURS=['USD','RUB','KZT','UZS','KGS','BYN','AZN'];
+  mc.registerTool({
+    name:'set_catalog_currency',
+    description:'Switch the displayed currency of the halal meat/pastry product catalog on this page (VAT is automatically included for RUB, excluded otherwise). Use this before quoting prices to a buyer in a specific currency.',
+    inputSchema:{type:'object',properties:{
+      currency:{type:'string',enum:CURS,description:'Currency code to display prices in.'}
+    },required:['currency']},
+    annotations:{readOnlyHint:true,destructiveHint:false},
+    execute:async({currency})=>{
+      if(!CURS.includes(currency))return `Unknown currency: ${currency}`;
+      setCur(currency);
+      return `Catalog now shows prices in ${currency}${currency==='RUB'?' (VAT included)':' (VAT excluded)'}.`;
+    }
+  });
+  mc.registerTool({
+    name:'download_price_list',
+    description:'Download the full halal product price list (77 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
+    inputSchema:{type:'object',properties:{
+      language:{type:'string',enum:['ru','en'],description:'Language of the price list.'},
+      currency:{type:'string',enum:CURS},
+      vat_included:{type:'boolean',description:'Only applies when currency is RUB.'},
+      format:{type:'string',enum:['xlsx','csv'],description:'File format.'}
+    },required:['format']},
+    annotations:{readOnlyHint:false,destructiveHint:false},
+    execute:async({language,currency,vat_included,format})=>{
+      const lang=(language==='ru')?'ru':'en';
+      const cur=CURS.includes(currency)?currency:CUR;
+      const vat=(typeof vat_included==='boolean')?vat_included:VAT;
+      const vatParam=cur==='RUB'?`&vat=${vat}`:'';
+      window.location.href=`/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${format}${vatParam}`;
+      return `Started download: price list (${lang}, ${cur}, ${format}).`;
+    }
+  });
+  mc.registerTool({
+    name:'contact_via_whatsapp',
+    description:'Open a WhatsApp chat with Kazan Delicacies sales (halal pepperoni, sausages, burger patties, Tatar pastries manufacturer in Kazan, Russia), optionally with a pre-filled message describing what the buyer needs (product, quantity, destination).',
+    inputSchema:{type:'object',properties:{
+      message:{type:'string',description:'Pre-filled message text, e.g. product and quantity needed.'}
+    }},
+    annotations:{readOnlyHint:false,destructiveHint:false},
+    execute:async({message})=>{
+      const base='https://wa.me/79872170202';
+      const url=message?`${base}?text=${encodeURIComponent(message)}`:base;
+      window.open(url,'_blank');
+      return 'Opened WhatsApp chat with Kazan Delicacies sales.';
+    }
+  });
+})();
+
 function render(){
   const total=ALL_GROUPS.reduce((s,g)=>s+Object.values(g.groups).reduce((a,b)=>a+b.length,0),0);
   var c=document.getElementById('catalog-inner');
