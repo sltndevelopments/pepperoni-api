@@ -931,7 +931,7 @@ def build_task_queue(
         "private-label", "pepperoni", "kolbasnye", "sosiki-hotdog",
         "kotlety-burgery", "vetchina", "kazylyk-premium", "kopchenye",
         "farsh", "toppings-pizza", "pelmeni",
-        "vypechka-tatarskaya", "vypechka-klassicheskaya", "sosiki-v-teste",
+        "vypechka-tatarskaya", "vypechka-klassicheskaya", "sosiski-v-teste",
         "syroje-myaso",
     ]
 
