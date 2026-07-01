@@ -65,9 +65,47 @@ def _budget_ok() -> bool:
         return True  # never block solely on a budget-probe failure
 
 
-def _search_one(query: str, mode: str) -> dict:
+def _normalize_query(raw) -> str:
+    """Extract a clean non-empty string from whatever was passed as a query.
+
+    Callers sometimes pass dicts (e.g. {"query": "...", "mode": "..."}) or other
+    non-string objects instead of a plain string.  This function always returns a
+    str so that the actual text sent to Perplexity is logged and stored correctly.
+    """
+    if isinstance(raw, dict):
+        # Accept common key names in order of preference.
+        for key in ("query", "text", "q", "prompt"):
+            val = raw.get(key, "")
+            if isinstance(val, str) and val.strip():
+                return val.strip()
+        # Fallback: join all string values.
+        parts = [str(v) for v in raw.values() if v and isinstance(v, str)]
+        return " ".join(parts).strip()
+    if isinstance(raw, str):
+        return raw.strip()
+    # Last resort: coerce to string.
+    return str(raw).strip()
+
+
+def _search_one(raw_query, mode: str) -> dict:
     """One grounded web answer. mode: 'visibility' adds a buyer-intent framing."""
     from pplx_client import pplx_search
+
+    # Normalise and log the actual query string before sending.
+    query = _normalize_query(raw_query)
+    if not query:
+        return {
+            "query": repr(raw_query),
+            "mode": mode,
+            "cited_us": False,
+            "answer": "",
+            "citations": [],
+            "error": "empty query after normalisation",
+            "at": _now(),
+        }
+
+    print(f"[fable_websearch] sending query: {query!r}", flush=True)
+
     system = ("Отвечай по актуальным данным из интернета, называй конкретные "
               "компании, бренды и сайты-источники.")
     prompt = query
@@ -83,7 +121,8 @@ def _search_one(query: str, mode: str) -> dict:
         elif isinstance(c, dict):
             cites.append(c.get("url") or c.get("title") or "")
     return {
-        "query": query, "mode": mode,
+        "query": query,
+        "mode": mode,
         "cited_us": _mentions_us(text),
         "answer": text[:1200],
         "citations": [c for c in cites if c],
@@ -100,13 +139,20 @@ def search(queries: list, mode: str = "search") -> dict:
         return {"status": "budget_exhausted", "results": [], "ran": 0,
                 "note": "brain monthly budget reached — skipping web search"}
 
-    queries = [q.strip() for q in (queries or []) if q and q.strip()][:MAX_QUERIES]
-    if not queries:
+    # Normalise every element before capping; filter out empties.
+    normalised = []
+    for raw in (queries or []):
+        q = _normalize_query(raw)
+        if q:
+            normalised.append(q)
+    normalised = normalised[:MAX_QUERIES]
+
+    if not normalised:
         return {"status": "empty", "results": [], "ran": 0}
 
     started = time.time()
     results, errors = [], 0
-    for q in queries:
+    for q in normalised:
         if time.time() - started > TOTAL_WALL_S:
             break
         try:

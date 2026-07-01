@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-07-01T05:30:03.965486+00:00",
+ "fetched_at": "2026-07-01T23:17:31.375805+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 281,
-  "users": 207,
-  "bounce_rate_pct": 39.1,
-  "page_depth": 1.43,
-  "avg_visit_sec": 74
+  "visits": 301,
+  "users": 215,
+  "bounce_rate_pct": 39.9,
+  "page_depth": 1.44,
+  "avg_visit_sec": 71
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 169
+   "visits": 177
   },
   {
    "source": "Search engine traffic",
-   "visits": 57
+   "visits": 62
   },
   {
    "source": "Internal traffic",
-   "visits": 47
+   "visits": 53
   },
   {
    "source": "Link traffic",
@@ -30,8 +30,8 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 217,
-   "bounce_pct": 35.9
+   "visits": 229,
+   "bounce_pct": 36.7
   },
   {
    "path": "/products/kd-027",
@@ -42,6 +42,16 @@
    "path": "/en/",
    "visits": 7,
    "bounce_pct": 42.9
+  },
+  {
+   "path": "/products/kd-062",
+   "visits": 5,
+   "bounce_pct": 40.0
+  },
+  {
+   "path": "/products/kd-014",
+   "visits": 3,
+   "bounce_pct": 66.7
   },
   {
    "path": "/products/kd-016",
@@ -79,7 +89,7 @@
    "bounce_pct": 50.0
   },
   {
-   "path": "/products/kd-062",
+   "path": "/products/kd-070",
    "visits": 2,
    "bounce_pct": 50.0
   },
@@ -90,16 +100,6 @@
   },
   {
    "path": "/en/geo/halal-pepperoni-uzbekistan",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-001",
-   "visits": 1,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-012",
    "visits": 1,
    "bounce_pct": 100.0
   }

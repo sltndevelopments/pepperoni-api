@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-01T14:30:01.662519+00:00",
+ "generated_at": "2026-07-01T23:30:01.853069+00:00",
  "summary": {
   "improved": 4,
   "flat": 17,
@@ -17,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 23.2,
+   "age_days": 23.6,
    "verdict": "not_indexed"
   },
   {
@@ -28,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 19.4,
+   "age_days": 19.7,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +39,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 19.4,
+   "age_days": 19.7,
    "verdict": "not_indexed"
   },
   {
@@ -50,7 +50,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 7.4,
+   "age_days": 7.7,
    "verdict": "not_indexed"
   },
   {
@@ -61,7 +61,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 21.4,
+   "age_days": 21.7,
    "delta": -28.2,
    "verdict": "worse"
   },
@@ -73,7 +73,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 20.4,
+   "age_days": 20.7,
    "delta": -29.1,
    "verdict": "worse"
   },
@@ -85,7 +85,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 19.4,
+   "age_days": 19.7,
    "delta": -30.0,
    "verdict": "worse"
   },
@@ -97,7 +97,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 15.4,
+   "age_days": 15.7,
    "delta": 0.3,
    "verdict": "flat"
   },
@@ -109,7 +109,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 15.4,
+   "age_days": 15.7,
    "delta": 0.3,
    "verdict": "flat"
   },
@@ -121,7 +121,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 15.4,
+   "age_days": 15.7,
    "delta": -3.8,
    "verdict": "worse"
   },
@@ -133,7 +133,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 0,
-   "age_days": 15.4,
+   "age_days": 15.7,
    "delta": -47.8,
    "verdict": "worse"
   },
@@ -145,7 +145,7 @@
    "current_pos": 62.5,
    "impr": 97,
    "inquiries": 4,
-   "age_days": 14.4,
+   "age_days": 14.7,
    "delta": -53.7,
    "verdict": "worse"
   },
@@ -157,7 +157,7 @@
    "current_pos": 26.0,
    "impr": 1,
    "inquiries": 0,
-   "age_days": 23.4,
+   "age_days": 23.7,
    "delta": -16.9,
    "verdict": "worse"
   },
@@ -169,7 +169,7 @@
    "current_pos": 26.0,
    "impr": 1,
    "inquiries": 0,
-   "age_days": 7.4,
+   "age_days": 7.7,
    "delta": -16.9,
    "verdict": "worse"
   },
@@ -181,7 +181,7 @@
    "current_pos": 8.0,
    "impr": 1,
    "inquiries": 0,
-   "age_days": 6.4,
+   "age_days": 6.7,
    "delta": -3.7,
    "verdict": "worse"
   }

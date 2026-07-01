@@ -233,11 +233,11 @@
     "was": null,
     "_dedup": "failing:tatar cuisine"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «tatar cuisine» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-06-30T21:30:02.692927+00:00",
-   "updated_at": "2026-06-30T21:30:02.692932+00:00",
+   "updated_at": "2026-07-01T23:17:59.637586+00:00",
    "claimed_by": null
   },
   {
@@ -282,5 +282,5 @@
   }
  ],
  "seq": 14,
- "updated_at": "2026-07-01T00:00:03.244085+00:00"
+ "updated_at": "2026-07-01T23:17:59.637626+00:00"
 }
