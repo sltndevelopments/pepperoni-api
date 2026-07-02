@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pepperoni.tatar/</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -2512,6 +2512,12 @@
   <url>
     <loc>https://pepperoni.tatar/blog/pepperoni-halyal-ili-net</loc>
     <lastmod>2026-06-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/blog/pepperoni-halyal-kupit</loc>
+    <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
