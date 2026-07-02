@@ -96,6 +96,36 @@
   ],
   "redirects": [
     {
+      "source": "/pepperoni-optom",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/pepperoni-halyal-v2",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/beef-halal-pepperoni",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/halal-pepperoni-russia",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/landing/pepperoni-halyal",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/what-is-halal-pepperoni-v2",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
       "source": "/geo/sosiki-:rest*",
       "destination": "/geo/sosiski-:rest",
       "permanent": true
