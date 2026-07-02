@@ -712,7 +712,7 @@ function __analyticsTrigger(){
   loadAnalytics();
 }
 __analyticsEvents.forEach(function(ev){window.addEventListener(ev,__analyticsTrigger,{passive:true})});
-if('requestIdleCallback'in window)requestIdleCallback(loadAnalytics,{timeout:5000});else setTimeout(loadAnalytics,4000);
+if('requestIdleCallback'in window)requestIdleCallback(loadAnalytics,{timeout:12000});else setTimeout(loadAnalytics,9000);
 </script>
 </body>
 </html>
