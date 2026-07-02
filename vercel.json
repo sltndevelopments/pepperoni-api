@@ -68,6 +68,15 @@
       ]
     },
     {
+      "source": "/en/investors",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/products/(.*)",
       "headers": [
         {
@@ -95,6 +104,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/en/investment",
+      "destination": "/en/investors",
+      "permanent": true
+    },
     {
       "source": "/pepperoni-optom",
       "destination": "/pepperoni",
