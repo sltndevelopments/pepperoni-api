@@ -200,3 +200,35 @@ jobs:
               echo "ℹ️  Pipeline watchdog cron already present"
             fi
             echo "=== Current crontab ===" && crontab -l
+
+      - name: Ensure sales-agent/sales-intel cron & systemd point at repo/ (no drift copy)
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 2026-07-02: sales-agent/sales-intel used to live as a manually-copied
+            # directory NEXT TO repo/ (not a git clone) — every push landed in repo/
+            # but never reached the cron-executed copy without a manual `cp`, so code
+            # silently drifted for weeks. Fixed by running these dirs straight out of
+            # repo/ (same git clone deploy-vps.yml already updates). This step is
+            # idempotent — it only rewrites cron/systemd if they still point at the
+            # old standalone path, so re-running deploy never breaks a healthy setup.
+            if crontab -l 2>/dev/null | grep -q "cd /var/www/pepperoni/sales-agent "; then
+              crontab -l | sed 's#cd /var/www/pepperoni/sales-agent #cd /var/www/pepperoni/repo/sales-agent #g' | crontab -
+              echo "✅ crontab: sales-agent cron repointed to repo/sales-agent"
+            fi
+            if [ -f /etc/cron.d/kd-sales-intel ] && grep -q "cd /var/www/pepperoni " /etc/cron.d/kd-sales-intel; then
+              sed -i 's#cd /var/www/pepperoni #cd /var/www/pepperoni/repo #g' /etc/cron.d/kd-sales-intel
+              echo "✅ /etc/cron.d/kd-sales-intel repointed to repo/"
+            fi
+            if [ -f /etc/systemd/system/kd-sales-bot.service ] && grep -q "/var/www/pepperoni/sales-agent" /etc/systemd/system/kd-sales-bot.service; then
+              sed -i 's#/var/www/pepperoni/sales-agent#/var/www/pepperoni/repo/sales-agent#g' /etc/systemd/system/kd-sales-bot.service
+              systemctl daemon-reload
+              systemctl restart kd-sales-bot 2>/dev/null || true
+              echo "✅ kd-sales-bot.service repointed to repo/sales-agent and restarted"
+            fi
+            echo "=== sales-agent/sales-intel cron (should show repo/) ==="
+            crontab -l | grep -E "sales-agent|sales-intel" || true
+            cat /etc/cron.d/kd-sales-intel 2>/dev/null || true

@@ -50,6 +50,10 @@ sales-agent/data/email_blacklist.json
 sales-agent/.env
 sales-agent/secrets/
 !sales-agent/secrets/.gitkeep
+# Toolsmith-generated tools (Steve writes these autonomously at runtime,
+# tracked via data/steve_tools.json, not by a human) — keep untracked.
+sales-agent/agents/*.py
+!sales-agent/agents/__init__.py
 .vercel
 
 # Ops snapshots (DNS exports, secret indexes, etc.) — never commit
