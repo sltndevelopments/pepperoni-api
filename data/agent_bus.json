@@ -253,11 +253,11 @@
     "was": null,
     "_dedup": "failing:kazylyk"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «kazylyk» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-01T00:00:03.239358+00:00",
-   "updated_at": "2026-07-01T00:00:03.239364+00:00",
+   "updated_at": "2026-07-02T05:30:36.108507+00:00",
    "claimed_by": null
   },
   {
@@ -273,14 +273,14 @@
     "was": null,
     "_dedup": "failing:эчпочмак это"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «эчпочмак это» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-01T00:00:03.244063+00:00",
-   "updated_at": "2026-07-01T00:00:03.244068+00:00",
+   "updated_at": "2026-07-02T05:30:36.108520+00:00",
    "claimed_by": null
   }
  ],
  "seq": 14,
- "updated_at": "2026-07-01T23:17:59.637626+00:00"
+ "updated_at": "2026-07-02T05:30:36.108559+00:00"
 }

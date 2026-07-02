@@ -316,8 +316,8 @@
   }
  },
  "2026-07": {
-  "usd": 2.50487,
-  "usd_baseline": 2.579999,
+  "usd": 3.931725,
+  "usd_baseline": 4.142486,
   "days": {
    "2026-07-01": {
     "calls": 151,
@@ -327,6 +327,15 @@
     "cache_r": 0,
     "usd": 2.50487,
     "usd_baseline": 2.579999
+   },
+   "2026-07-02": {
+    "calls": 26,
+    "in": 49212,
+    "out": 49796,
+    "cache_w": 18474,
+    "cache_r": 13132,
+    "usd": 1.426858,
+    "usd_baseline": 1.562487
    }
   },
   "scripts": {
@@ -340,31 +349,31 @@
     "usd_baseline": 0.00288
    },
    "sales:cli": {
-    "calls": 18,
-    "in": 3552,
-    "out": 360,
-    "cache_w": 0,
-    "cache_r": 0,
-    "usd": 0.005352,
-    "usd_baseline": 0.005352
+    "calls": 29,
+    "in": 7168,
+    "out": 3711,
+    "cache_w": 3283,
+    "cache_r": 13132,
+    "usd": 0.135686,
+    "usd_baseline": 0.196187
    },
    "optimize_seo": {
-    "calls": 5,
-    "in": 1599,
-    "out": 601,
+    "calls": 7,
+    "in": 2195,
+    "out": 809,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.013812,
-    "usd_baseline": 0.013812
+    "usd": 0.01872,
+    "usd_baseline": 0.01872
    },
    "generate_content": {
-    "calls": 6,
-    "in": 8874,
-    "out": 29174,
+    "calls": 10,
+    "in": 14446,
+    "out": 44515,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.464232,
-    "usd_baseline": 0.464232
+    "usd": 0.711063,
+    "usd_baseline": 0.711063
    },
    "send_report": {
     "calls": 1,
@@ -376,13 +385,13 @@
     "usd_baseline": 0.009374
    },
    "cli": {
-    "calls": 112,
-    "in": 11986,
-    "out": 22424,
+    "calls": 114,
+    "in": 12189,
+    "out": 22832,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.932318,
-    "usd_baseline": 0.932318
+    "usd": 0.949047,
+    "usd_baseline": 0.949047
    },
    "escalate_brain": {
     "calls": 1,
@@ -394,42 +403,51 @@
     "usd_baseline": 0.659475
    },
    "brain_toolsmith": {
-    "calls": 3,
-    "in": 20221,
-    "out": 12021,
+    "calls": 5,
+    "in": 40145,
+    "out": 23751,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.228364,
-    "usd_baseline": 0.228364
+    "usd": 0.464086,
+    "usd_baseline": 0.464086
    },
    "generate_from_strategy": {
-    "calls": 4,
-    "in": 6144,
-    "out": 16384,
+    "calls": 8,
+    "in": 12288,
+    "out": 32768,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.132095,
-    "usd_baseline": 0.264192
+    "usd": 0.26419,
+    "usd_baseline": 0.528384
+   },
+   "seo_brain": {
+    "calls": 1,
+    "in": 13157,
+    "out": 2374,
+    "cache_w": 15191,
+    "cache_r": 0,
+    "usd": 0.660236,
+    "usd_baseline": 0.60327
    }
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 18,
-    "in": 36446,
-    "out": 57189,
-    "cache_w": 0,
-    "cache_r": 0,
-    "usd": 0.835077,
-    "usd_baseline": 0.967173
+    "calls": 35,
+    "in": 69386,
+    "out": 103603,
+    "cache_w": 2110,
+    "cache_r": 8440,
+    "usd": 1.508456,
+    "usd_baseline": 1.793853
    },
    "claude-haiku-4-5": {
-    "calls": 18,
-    "in": 3552,
-    "out": 360,
+    "calls": 19,
+    "in": 3670,
+    "out": 380,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.005352,
-    "usd_baseline": 0.005352
+    "usd": 0.00557,
+    "usd_baseline": 0.00557
    },
    "claude-haiku-4-5-20251001": {
     "calls": 2,
@@ -441,22 +459,31 @@
     "usd_baseline": 0.015681
    },
    "pplx-sonar-pro": {
-    "calls": 112,
-    "in": 11986,
-    "out": 22424,
+    "calls": 114,
+    "in": 12189,
+    "out": 22832,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.932318,
-    "usd_baseline": 0.932318
+    "usd": 0.949047,
+    "usd_baseline": 0.949047
    },
    "claude-opus-4-8": {
-    "calls": 1,
-    "in": 12699,
-    "out": 3215,
-    "cache_w": 15191,
+    "calls": 2,
+    "in": 25856,
+    "out": 5589,
+    "cache_w": 30382,
     "cache_r": 0,
-    "usd": 0.716441,
-    "usd_baseline": 0.659475
+    "usd": 1.376677,
+    "usd_baseline": 1.262745
+   },
+   "claude-fable-5": {
+    "calls": 5,
+    "in": 2794,
+    "out": 580,
+    "cache_w": 1173,
+    "cache_r": 4692,
+    "usd": 0.076295,
+    "usd_baseline": 0.11559
    }
   }
  }
