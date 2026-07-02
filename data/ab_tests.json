@@ -13,16 +13,18 @@
     {
       "query": "пепперони халяль",
       "type": "strengthen_landing",
-      "status": "ab_running",
+      "status": "stopped",
       "created_at": "2026-07-01T05:30:32.356256+00:00",
-      "impr": 226
+      "impr": 226,
+      "stopped_reason": "owner decision 2026-07-02: duplicate-page cannibalization fixed via 301 redirects to /pepperoni; A/B signal was invalid while 6+ competing pages existed"
     },
     {
       "query": "пепперони халяль купить",
       "type": "strengthen_landing",
-      "status": "ab_running",
+      "status": "stopped",
       "created_at": "2026-07-01T05:30:32.356256+00:00",
-      "impr": 75
+      "impr": 75,
+      "stopped_reason": "owner decision 2026-07-02: duplicate-page cannibalization fixed via 301 redirects to /pepperoni; A/B signal was invalid while 6+ competing pages existed"
     }
   ]
 }

@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-07-02T05:30:43.728034+00:00",
+ "generated_at": "2026-07-02T14:00:01.257361+00:00",
  "summary": {
   "improved": 7,
   "flat": 16,
   "worse": 7,
   "not_indexed": 4,
-  "pending": 7,
+  "pending": 8,
   "converted": 0
  },
  "failing": [
@@ -17,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 23.9,
+   "age_days": 24.2,
    "verdict": "not_indexed"
   },
   {
@@ -28,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 20.0,
+   "age_days": 20.4,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +39,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 20.0,
+   "age_days": 20.4,
    "verdict": "not_indexed"
   },
   {
@@ -50,7 +50,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.0,
+   "age_days": 8.4,
    "verdict": "not_indexed"
   },
   {
@@ -61,7 +61,7 @@
    "current_pos": 49.9,
    "impr": 62,
    "inquiries": 0,
-   "age_days": 22.0,
+   "age_days": 22.4,
    "delta": -15.6,
    "verdict": "worse"
   },
@@ -73,7 +73,7 @@
    "current_pos": 49.9,
    "impr": 62,
    "inquiries": 0,
-   "age_days": 21.0,
+   "age_days": 21.4,
    "delta": -16.5,
    "verdict": "worse"
   },
@@ -85,7 +85,7 @@
    "current_pos": 49.9,
    "impr": 62,
    "inquiries": 0,
-   "age_days": 20.0,
+   "age_days": 20.4,
    "delta": -17.4,
    "verdict": "worse"
   },
@@ -97,7 +97,7 @@
    "current_pos": 49.9,
    "impr": 62,
    "inquiries": 0,
-   "age_days": 16.0,
+   "age_days": 16.4,
    "delta": -35.2,
    "verdict": "worse"
   },
@@ -109,7 +109,7 @@
    "current_pos": 49.9,
    "impr": 62,
    "inquiries": 2,
-   "age_days": 15.0,
+   "age_days": 15.4,
    "delta": -41.1,
    "verdict": "worse"
   },
@@ -121,7 +121,7 @@
    "current_pos": 17.5,
    "impr": 2,
    "inquiries": 0,
-   "age_days": 24.0,
+   "age_days": 24.3,
    "delta": -8.4,
    "verdict": "worse"
   },
@@ -133,7 +133,7 @@
    "current_pos": 17.5,
    "impr": 2,
    "inquiries": 0,
-   "age_days": 8.0,
+   "age_days": 8.4,
    "delta": -8.4,
    "verdict": "worse"
   }
