@@ -1546,12 +1546,19 @@ def _report_and_ask(strategy: dict) -> None:
             print(f"⚠️  web_search failed: {e}")
 
     # Acknowledge bus tasks addressed to Fable: a planning cycle ran, so any
-    # pending "strengthen_landing" handoffs are now folded into the strategy.
+    # pending/escalated "strengthen_landing" / "fix_failing_page" handoffs are
+    # now folded into the strategy. Escalated tasks are included here too —
+    # escalate_stuck() (agent_bus --escalate, every tick) flips old open tasks
+    # to "escalated" purely to alert the owner; without acking them here they
+    # became permanently invisible/unresolved (14 tasks stuck since 2026-06-14,
+    # found 2026-07-02). Real unresolved work still surfaces via report_to_owner
+    # / proactive_message in this same cycle — this only closes the bus ticket.
     try:
         import agent_bus
-        for t in agent_bus.inbox("fable", status="pending"):
-            agent_bus.update(t["id"], "done",
-                             note="учтено в стратегии цикла")
+        for status in ("pending", "escalated"):
+            for t in agent_bus.inbox("fable", status=status):
+                agent_bus.update(t["id"], "done",
+                                 note="учтено в стратегии цикла")
     except Exception as e:
         print(f"⚠️  bus ack failed: {e}")
 
