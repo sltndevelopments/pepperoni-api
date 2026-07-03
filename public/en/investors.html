@@ -378,37 +378,6 @@
     letter-spacing:0.02em;
   }
   .bar-col:first-child .bar-yoy{visibility:hidden;}
-  .growth-metrics{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:16px;
-    margin-top:32px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
-  }
-  @media (max-width:768px){ .growth-metrics{grid-template-columns:1fr;} }
-  .growth-metric{
-    text-align:center;
-    padding:8px 4px;
-  }
-  .growth-metric .gm-val{
-    font-size:clamp(18px,2.5vw,22px);
-    font-weight:700;
-    font-variant-numeric:tabular-nums;
-    letter-spacing:-0.02em;
-  }
-  .growth-metric .gm-label{
-    font-size:12.5px;
-    color:var(--ink-soft);
-    margin-top:4px;
-    line-height:1.4;
-  }
-  .growth-metric .gm-delta{
-    font-size:12px;
-    font-weight:600;
-    color:var(--green);
-    margin-top:4px;
-  }
   .growth-note{
     margin-top:24px;
     font-size:12px;
@@ -673,24 +642,7 @@
           <div class="bar-yoy">+176% YoY</div>
         </div>
       </div>
-      <div class="growth-metrics">
-        <div class="growth-metric">
-          <div class="gm-val">$11.1M</div>
-          <div class="gm-label">Revenue 2025<br><span style="font-size:11px">869.1 mln ₽</span></div>
-          <div class="gm-delta">+176% vs 2024</div>
-        </div>
-        <div class="growth-metric">
-          <div class="gm-val">$0.88M</div>
-          <div class="gm-label">Net profit 2025<br><span style="font-size:11px">68.9 mln ₽</span></div>
-          <div class="gm-delta">+73% vs 2024</div>
-        </div>
-        <div class="growth-metric">
-          <div class="gm-val">$3.4M</div>
-          <div class="gm-label">Total assets 2025<br><span style="font-size:11px">266.2 mln ₽</span></div>
-          <div class="gm-delta">+81% vs 2024</div>
-        </div>
-      </div>
-      <p class="growth-note">USD equivalents at ~78 ₽/$. 2023 revenue: 58.6 mln ₽ · 2024: 313.9 mln ₽ (net profit 39.6 mln ₽ · assets 147 mln ₽). Derived ratios from third-party aggregators are excluded — full audited statements in the data room.</p>
+      <p class="growth-note">USD equivalents at ~78 ₽/$. 2023 revenue: 58.6 mln ₽ · 2024: 313.9 mln ₽. Derived ratios from third-party aggregators are excluded — full audited statements in the data room.</p>
     </div>
   </div>
 </section>
