@@ -69,6 +69,26 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
             (r'"numberOfItems":\s*\d+', '"numberOfItems": {n}'),
         ],
     ),
+    (
+        PUBLIC / ".well-known" / "ai-meta.json",
+        [
+            (r'"product_count":\s*\d+', '"product_count": {n}'),
+            (r"all \d+ SKU detail cards", "all {n} SKU detail cards"),
+            (r"\d+ halal meat products", "{n} halal meat products"),
+            (r"XML sitemap covering \d+ RU \+ \d+ EN product pages",
+             "XML sitemap covering {n} RU + {n} EN product pages"),
+            (r"\(TSV, \d+ SKUs\)", "(TSV, {n} SKUs)"),
+            (r"\d+ halal SKUs with full attribute set", "{n} halal SKUs with full attribute set"),
+            (r"\d+ halal SKUs\. Registered", "{n} halal SKUs. Registered"),
+            (r"\d+ items \(\d+ SKUs × 8 countries\)", "{n8} items ({n} SKUs × 8 countries)"),
+        ],
+    ),
+    (
+        PUBLIC / "openapi.yaml",
+        [
+            (r"\d+ products across 3 sections", "{n} products across 3 sections"),
+        ],
+    ),
 ]
 
 
@@ -101,7 +121,7 @@ def get_live_data() -> tuple[int, str]:
 
 
 def render(template: str, n: int, sections: str) -> str:
-    return template.format(n=n, ru=ru_tovar(n), sections=sections)
+    return template.format(n=n, ru=ru_tovar(n), sections=sections, n8=n * 8)
 
 
 def patch_file(path: Path, rules: list[tuple[str, str]], n: int, sections: str) -> bool:
