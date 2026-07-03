@@ -3,7 +3,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://pepperoni.tatar/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/"/>
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/products</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -723,7 +723,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/products</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-06-19</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products"/>
@@ -22713,7 +22713,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/ar</loc>
-    <lastmod>2026-07-03</lastmod>
+    <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -30294,7 +30294,7 @@
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/investors</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.60</priority>
   </url>
@@ -31979,6 +31979,12 @@
     <priority>0.60</priority>
   </url>
   <url>
+    <loc>https://pepperoni.tatar/landing/pepperoni-halyal</loc>
+    <lastmod>2026-07-03</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.60</priority>
+  </url>
+  <url>
     <loc>https://pepperoni.tatar/llms-page</loc>
     <lastmod>2026-07-02</lastmod>
     <changefreq>monthly</changefreq>
@@ -33030,11 +33036,5 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/wholesale-halal-pepperoni-supplier"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/wholesale-halal-pepperoni-supplier"/>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/landing/pepperoni-halyal</loc>
-    <lastmod>2026-07-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
 </urlset>
