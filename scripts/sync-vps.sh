@@ -25,6 +25,12 @@ python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py faile
 # context on every cron tick.
 python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
 
+# 1d. Reconcile hardcoded SKU-count text (manifest.json, ai-plugin.json,
+# mcp.json, ai.json) against the live products.json — these are static files
+# no generator touches, so without this they silently drift (audit 2026-07-03
+# found manifest/ai-plugin.json stuck at "77" while the live catalog was 72).
+python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 

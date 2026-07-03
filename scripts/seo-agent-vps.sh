@@ -335,6 +335,9 @@ python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation 
 # Stage any new/modified HTML in geo, blog, and key pages
 git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
 git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
+# SKU-count reconcile output (manifest/ai-plugin/mcp/ai.json) — patched by
+# sync-vps.sh via reconcile_sku_count.py, must reach main or the fix resets.
+git add public/manifest.json public/.well-known/ai-plugin.json public/.well-known/mcp.json public/ai.json 2>/dev/null || true
 # Optimizer edits title/meta across any existing page + its durable ledger.
 git add -u 'public/**/*.html' 2>/dev/null || true
 git add data/experiments.json 2>/dev/null || true
