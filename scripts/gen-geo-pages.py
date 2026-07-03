@@ -530,6 +530,7 @@ def build_page(loc: dict) -> str:
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="ru" href="{url}">
   <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/geo/{loc['slug']}">
+  <link rel="alternate" hreflang="x-default" href="{url}">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="{loc['title']}">

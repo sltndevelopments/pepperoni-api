@@ -114,6 +114,7 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="ru" href="{url}">
+  <link rel="alternate" hreflang="x-default" href="{url}">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="{title}">

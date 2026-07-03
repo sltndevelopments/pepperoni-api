@@ -76,6 +76,7 @@ TPL = """<!DOCTYPE html>
 <link rel="canonical" href="https://pepperoni.tatar/en/geo/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/geo/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/geo/{ru_slug}">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/geo/{slug}">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">

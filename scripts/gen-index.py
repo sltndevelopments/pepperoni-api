@@ -49,6 +49,7 @@ def gen_ru() -> str:
 <link rel="canonical" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="alternate" type="application/json" title="Live Product Catalog (JSON)" href="https://pepperoni.tatar/products.json">
@@ -406,7 +407,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <div class="container">
   <div class="info-block" style="background:#f5f5ff;border-color:#0066cc">
-    <h2>📥 Скачать прайс-лист</h2>
+    <h2><span aria-hidden="true">📥</span> Скачать прайс-лист</h2>
     <p>Полный каталог — откроется в Excel, Google Sheets, Numbers.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
       <label for="dl-lang" style="font-size:.83rem;color:#555">Язык:</label>
@@ -427,13 +428,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 
   <div class="info-block" style="background:var(--green-light);border-color:var(--green)">
-    <h2 style="color:var(--green)">🤝 Производственные решения для HoReCa и Ритейла</h2>
+    <h2 style="color:var(--green)"><span aria-hidden="true">🤝</span> Производственные решения для HoReCa и Ритейла</h2>
     <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3>🏷️ Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
-      <div class="capability-card"><h3>🎯 Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
-      <div class="capability-card"><h3>✅ 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
-      <div class="capability-card"><h3>🚚 Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
     </div>
   </div>
 
@@ -752,6 +753,7 @@ def gen_en() -> str:
 <link rel="canonical" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -1071,7 +1073,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <div class="container">
   <div class="info-block dl-price-block" style="background:#f5f5ff;border-color:#0066cc">
-    <h2>📥 Download price list</h2>
+    <h2><span aria-hidden="true">📥</span> Download price list</h2>
     <p>Full catalog — opens in Excel, Google Sheets, or Numbers.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
       <label for="dl-lang" style="font-size:.83rem;color:#555">Language:</label>
@@ -1092,13 +1094,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 
   <div class="info-block">
-    <h2>🤝 Solutions for HoReCa &amp; Retail</h2>
+    <h2><span aria-hidden="true">🤝</span> Solutions for HoReCa &amp; Retail</h2>
     <p>We don't just supply — we adapt production to your business needs.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3>🏷️ Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
-      <div class="capability-card"><h3>🎯 Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
-      <div class="capability-card"><h3>✅ 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
-      <div class="capability-card"><h3>🚚 Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
     </div>
   </div>
 
