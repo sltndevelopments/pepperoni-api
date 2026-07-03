@@ -926,42 +926,42 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <h2 class="section-title">Who We Serve</h2>
     <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
     <div class="segments__grid">
-      <a href="/en/for-gas-stations" class="seg-card">
+      <a href="/en/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
         <div class="seg-card__icon">⛽</div>
         <div class="seg-card__title">Gas Stations &amp; Street Food</div>
         <div class="seg-card__desc">Sausages, pepperoni, patties, sausage rolls for C-store hot dog stations and grab-and-go.</div>
         <div class="seg-card__case">Case: Tatneft gas station chain + SMARTEN <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/contract-manufacturing" class="seg-card">
+      <a href="/en/kontraktnoe-proizvodstvo" class="seg-card">
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
         <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. From 500 kg/month.</div>
         <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-bakeries" class="seg-card">
+      <a href="/en/dlya-pekaren" class="seg-card">
         <span class="seg-card__num">03</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Regional Bakeries</div>
         <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
         <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-retail" class="seg-card">
+      <a href="/en/dlya-setey" class="seg-card">
         <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Retail Chains</div>
         <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
         <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-horeca" class="seg-card">
+      <a href="/en/dlya-horeca" class="seg-card">
         <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa &amp; Food Service</div>
         <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
         <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-distributors" class="seg-card">
+      <a href="/en/dlya-distributorov" class="seg-card">
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>

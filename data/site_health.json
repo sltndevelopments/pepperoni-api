@@ -1,95 +1,252 @@
 {
- "generated_at": "2026-07-01T05:31:01.665900+00:00",
- "pages_scanned": 5107,
- "broken_links_total": 1593,
- "pages_with_broken_links": 1581,
- "broken_links_examples": {
-  "/llms-page.html": [
-   "/llms.html"
-  ],
-  "/blog/kazylyk-horse-meat-sausage.html": [
-   "/blog/kazylyk-konina-kolbasa",
-   "/blog/kazylyk-konina-kolbasa",
-   "/blog/kazylyk-konina-kolbasa"
-  ],
-  "/blog/kazylyk-horse-sausage-b2b.html": [
-   "/blog/kazylyk-traditsionnyy-retsept",
-   "/blog/kazylyk-traditsionnyy-retsept",
-   "/blog/kazylyk-traditsionnyy-retsept"
-  ],
-  "/blog/lamb-sausages-halal-wholesale.html": [
-   "/blog/kolbasa-iz-baraniny-halal-optom",
-   "/blog/kolbasa-iz-baraniny-halal-optom",
-   "/blog/kolbasa-iz-baraniny-halal-optom"
-  ],
-  "/blog/iso-22000-certification.html": [
-   "/blog/iso-22000-sertifikatsiya",
-   "/blog/iso-22000-sertifikatsiya",
-   "/blog/iso-22000-sertifikatsiya"
-  ],
-  "/blog/kazylyk-gift-packaging.html": [
-   "/blog/podarochnaya-upakovka-kazylyka",
-   "/blog/podarochnaya-upakovka-kazylyka",
-   "/blog/podarochnaya-upakovka-kazylyka"
-  ],
-  "/blog/how-to-identify-halal-meat.html": [
-   "/blog/kak-opredelit-halal-myaso",
-   "/blog/kak-opredelit-halal-myaso",
-   "/blog/kak-opredelit-halal-myaso"
-  ],
-  "/blog/zamorozhennaya-vs-ohlazhd-horeca.html": [
-   "/en/blog/zamorozhennaya-vs-ohlazhd-horeca"
-  ],
-  "/geo/sosiski-dlya-hotdog-petropavlovsk-kz.html": [
-   "/geo/sosiski-dlya-hotdog-petropavlovsk/"
-  ],
-  "/geo/vypechka-tatarskaya-mingachevir.html": [
-   "/geo/vypechka-tatarskaya-mingechaur/"
-  ],
-  "/geo/sosiski-v-teste-maikop.html": [
-   "/geo/sosiski-v-teste-maykop/"
-  ],
-  "/geo/vypechka-tatarskaya-ashgabat.html": [
-   "/geo/vypechka-tatarskaya-ashkhabad/"
-  ],
-  "/geo/farsh-zheleznodorozhny.html": [
-   "/geo/farsh-zheleznodorozhnyy/"
-  ],
-  "/geo/pepperoni-almetyevsk.html": [
-   "/geo/pepperoni-almetevsk/"
-  ],
-  "/geo/vypechka-tatarskaya-almetyevsk.html": [
-   "/geo/vypechka-tatarskaya-almetevsk/"
-  ]
- },
+ "generated_at": "2026-07-03T15:38:38.531312+00:00",
+ "pages_scanned": 5111,
+ "broken_links_total": 0,
+ "pages_with_broken_links": 0,
+ "broken_links_examples": {},
  "pages_without_canonical": 3,
  "no_canonical_examples": [
-  "/yandex_d0a735c825c78ddf.html",
+  "/china.html",
   "/d0a735c825c78ddf.html",
-  "/china.html"
+  "/yandex_d0a735c825c78ddf.html"
  ],
- "duplicate_canonical_clusters": 597,
+ "duplicate_canonical_clusters": 230,
  "duplicate_canonical_examples": {
   "https://pepperoni.tatar/": 6,
   "https://pepperoni.tatar/geo/private-label-stm-moskva/": 4,
-  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-riga/": 3,
-  "https://pepperoni.tatar/geo/private-label-stm-samara/": 3,
-  "https://pepperoni.tatar/geo/farsh-tallin/": 3,
-  "https://pepperoni.tatar/geo/private-label-stm-izhevsk/": 3,
-  "https://pepperoni.tatar/geo/vypechka-tatarskaya-vilnyus/": 3,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-tartu/": 3,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-daugavpils/": 3,
+  "https://pepperoni.tatar/geo/farsh-ekaterinburg/": 3,
   "https://pepperoni.tatar/geo/kazylyk-premium-kazan/": 3,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-riga/": 3,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-kaunas/": 3,
+  "https://pepperoni.tatar/geo/vetchina-tyumen/": 3,
   "https://pepperoni.tatar/geo/topping-dlya-pitstsy-riga/": 3,
-  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-vilnyus/": 3,
-  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-omsk/": 3,
-  "https://pepperoni.tatar/geo/private-label-stm-krasnodar/": 3,
   "https://pepperoni.tatar/geo/kazylyk-premium-daugavpils/": 3,
+  "https://pepperoni.tatar/geo/private-label-stm-krasnodar/": 3,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-riga/": 3,
   "https://pepperoni.tatar/geo/farsh-kaunas/": 3,
-  "https://pepperoni.tatar/geo/kopchenye-delikatesy-daugavpils/": 3
+  "https://pepperoni.tatar/geo/private-label-stm-samara/": 3,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-tartu/": 3,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-volgograd/": 3,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-daugavpils/": 3,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-kaunas/": 3,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-tyumen/": 3,
+  "https://pepperoni.tatar/geo/private-label-stm-tolyatti/": 3,
+  "https://pepperoni.tatar/geo/pelmeni-kaunas/": 3,
+  "https://pepperoni.tatar/geo/pepperoni-tartu/": 3,
+  "https://pepperoni.tatar/geo/vetchina-riga/": 3,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-riga/": 3,
+  "https://pepperoni.tatar/geo/private-label-stm-izhevsk/": 3,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-omsk/": 3,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-perm/": 3,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-bukhara/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-namangan/": 2,
+  "https://pepperoni.tatar/geo/vetchina-nukus/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-bukhara/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-tashkent/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-nukus/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-samarkand/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-tashkent/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-nukus/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-tashkent/": 2,
+  "https://pepperoni.tatar/geo/farsh-bukhara/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-tashkent/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-nukus/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-samarkand/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-fergana/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-nukus/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-tashkent/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-samarkand/": 2,
+  "https://pepperoni.tatar/geo/farsh-namangan/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-samarkand/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-bukhara/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-namangan/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-vanadzor/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-vanadzor/": 2,
+  "https://pepperoni.tatar/geo/vetchina-vanadzor/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-gyumri/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-gyumri/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-gyumri/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-vanadzor/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-minsk/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-brest/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-gomel/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-grodno/": 2,
+  "https://pepperoni.tatar/geo/vetchina-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/farsh-minsk/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-grodno/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-brest/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-gomel/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/vetchina-grodno/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-gomel/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-minsk/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-brest/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-minsk/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-minsk/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-minsk/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-minsk/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-brest/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-vitebsk/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kostanay/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-pavlodar/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-taraz/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-shymkent/": 2,
+  "https://pepperoni.tatar/geo/vetchina-aktobe/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-aktau/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-ust-kamenogorsk/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-taraz/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-aktobe/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-kostanay/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-ust-kamenogorsk/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-pavlodar/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-astana/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-pavlodar/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-atyrau/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-astana/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-aktobe/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-kyzylorda/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-astana/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-astana/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-aktobe/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-taraz/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-semey/": 2,
+  "https://pepperoni.tatar/geo/farsh-shymkent/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-kostanay/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-aktobe/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-karaganda/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-pavlodar/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-kyzylorda/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-semey/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-kostanay/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-taraz/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-almaty/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-ust-kamenogorsk/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-kyzylorda/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-aktau/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-shymkent/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-karaganda/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-pavlodar/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-kyzylorda/": 2,
+  "https://pepperoni.tatar/geo/vetchina-shymkent/": 2,
+  "https://pepperoni.tatar/geo/vetchina-aktau/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-kostanay/": 2,
+  "https://pepperoni.tatar/geo/vetchina-semey/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-kyzylorda/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-karaganda/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-aktau/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-kostanay/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-shymkent/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-uralsk/": 2,
+  "https://pepperoni.tatar/geo/vetchina-atyrau/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-kostanay/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-osh/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-bishkek/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-osh/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-bishkek/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-osh/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-darkhan/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-darkhan/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-volgograd/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-rostov-na-donu/": 2,
+  "https://pepperoni.tatar/geo/farsh-riga/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-batumi/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-kaunas/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-moskva/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-tbilisi/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-riga/": 2,
+  "https://pepperoni.tatar/geo/vetchina-krasnodar/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-tartu/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-saratov/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-baku/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-kutaisi/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-kaunas/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-kaunas/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-baku/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-chelyabinsk/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-saratov/": 2,
+  "https://pepperoni.tatar/geo/farsh-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/vetchina-ekaterinburg/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-izhevsk/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-kaunas/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-tartu/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-riga/": 2,
+  "https://pepperoni.tatar/geo/farsh-tartu/": 2,
+  "https://pepperoni.tatar/geo/kazylyk-premium-riga/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-yaroslavl/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-riga/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-kutaisi/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-batumi/": 2,
+  "https://pepperoni.tatar/geo/vetchina-tartu/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-dushanbe/": 2,
+  "https://pepperoni.tatar/geo/vetchina-omsk/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-nizhniy-novgorod/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-riga/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-kaunas/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-riga/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-tyumen/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-perm/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-kaunas/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-baku/": 2,
+  "https://pepperoni.tatar/geo/pelmeni-batumi/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-perm/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-dushanbe/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-moskva/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-novosibirsk/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-tartu/": 2,
+  "https://pepperoni.tatar/geo/vetchina-tbilisi/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/vypechka-klassicheskaya-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-rostov-na-donu/": 2,
+  "https://pepperoni.tatar/geo/vetchina-dushanbe/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/pepperoni-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/private-label-stm-kaunas/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-kemerovo/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-daugavpils/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-voronezh/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-ekaterinburg/": 2,
+  "https://pepperoni.tatar/geo/topping-dlya-pitstsy-dushanbe/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-kemerovo/": 2,
+  "https://pepperoni.tatar/geo/vypechka-tatarskaya-omsk/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-novosibirsk/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-tyumen/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-kutaisi/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-perm/": 2,
+  "https://pepperoni.tatar/geo/sosiski-v-teste-kaunas/": 2,
+  "https://pepperoni.tatar/geo/kolbasnye-izdeliya-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/sosiski-dlya-hotdog-bokhtar/": 2,
+  "https://pepperoni.tatar/geo/vetchina-saratov/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-saratov/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-samara/": 2,
+  "https://pepperoni.tatar/geo/vetchina-nizhniy-novgorod/": 2,
+  "https://pepperoni.tatar/geo/kotlety-dlya-burgerov-chelyabinsk/": 2,
+  "https://pepperoni.tatar/geo/syroje-myaso-samara/": 2,
+  "https://pepperoni.tatar/geo/kopchenye-delikatesy-tartu/": 2,
+  "https://pepperoni.tatar/blog/markirovka-myasnoy-produkcii": 2,
+  "https://pepperoni.tatar/blog/eksport-halyal-sng": 2,
+  "https://pepperoni.tatar/blog/kazylyk-premium-podark": 2,
+  "https://pepperoni.tatar/blog/vetchina-mramornaya-govyadina": 2,
+  "https://pepperoni.tatar/blog/myasnye-delikatesy-kazan": 2,
+  "https://pepperoni.tatar/blog/kak-vybrat-pepperoni-dlya-pizzerii": 2,
+  "https://pepperoni.tatar/blog/sosiski-dlya-hot-dogov-optom": 2,
+  "https://pepperoni.tatar/blog/kazylyk-optom-restorany": 2,
+  "https://pepperoni.tatar/en/investors": 2
  },
- "thin_pages_total": 124,
+ "thin_pages_total": 125,
  "thin_pages_examples": [
   {
-   "page": "/geo/topping-dlya-pitstsy-moskva.html",
+   "page": "/uz/geo/sosiski-v-teste-bukhara.html",
    "words": 0
   },
   {
@@ -101,7 +258,7 @@
    "words": 0
   },
   {
-   "page": "/uz/geo/sosiski-v-teste-bukhara.html",
+   "page": "/geo/topping-dlya-pitstsy-moskva.html",
    "words": 0
   },
   {
@@ -113,7 +270,7 @@
    "words": 0
   },
   {
-   "page": "/ar/geo/lahmeh-niya-halal-giza.html",
+   "page": "/ar/geo/sujuk-hotdog-halal-riyadh.html",
    "words": 0
   },
   {
@@ -121,16 +278,20 @@
    "words": 0
   },
   {
-   "page": "/ar/geo/sujuk-hotdog-halal-riyadh.html",
+   "page": "/ar/geo/lahmeh-niya-halal-giza.html",
    "words": 0
+  },
+  {
+   "page": "/d0a735c825c78ddf.html",
+   "words": 2
   },
   {
    "page": "/yandex_d0a735c825c78ddf.html",
    "words": 2
   },
   {
-   "page": "/d0a735c825c78ddf.html",
-   "words": 2
+   "page": "/en/investment.html",
+   "words": 5
   },
   {
    "page": "/geo/kotlety-dlya-burgerov-kostanay.html",
@@ -147,42 +308,448 @@
   {
    "page": "/ar/geo/burgir-lahmeh-halal-riyadh.html",
    "words": 48
+  },
+  {
+   "page": "/ar/geo/ham-halal-muscat.html",
+   "words": 49
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-tyumen.html",
+   "words": 50
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-krasnoyarsk.html",
+   "words": 51
+  },
+  {
+   "page": "/ar/geo/private-label-halal-ar-kuwait-city.html",
+   "words": 51
+  },
+  {
+   "page": "/en/products/index.html",
+   "words": 52
+  },
+  {
+   "page": "/geo/sosiski-v-teste-yoshkar-ola.html",
+   "words": 53
+  },
+  {
+   "page": "/geo/vypechka-tatarskaya-gyumri.html",
+   "words": 54
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-chita.html",
+   "words": 55
+  },
+  {
+   "page": "/products/index.html",
+   "words": 60
+  },
+  {
+   "page": "/geo/pelmeni-krasnodar.html",
+   "words": 60
+  },
+  {
+   "page": "/geo/pelmeni-noginsk.html",
+   "words": 62
+  },
+  {
+   "page": "/geo/farsh-kislovodsk.html",
+   "words": 63
+  },
+  {
+   "page": "/geo/kolbasnye-izdeliya-vladivostok.html",
+   "words": 64
+  },
+  {
+   "page": "/geo/vetchina-vladimir.html",
+   "words": 70
+  },
+  {
+   "page": "/geo/kazylyk-premium-engels.html",
+   "words": 73
+  },
+  {
+   "page": "/geo/vetchina-cherepovets.html",
+   "words": 74
+  },
+  {
+   "page": "/geo/kazylyk-premium-novokuznetsk.html",
+   "words": 76
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-salavat.html",
+   "words": 80
+  },
+  {
+   "page": "/geo/sosiski-v-teste-nukus.html",
+   "words": 81
+  },
+  {
+   "page": "/uz/geo/kazylyk-premium-andijan.html",
+   "words": 83
+  },
+  {
+   "page": "/geo/kolbasnye-izdeliya-engels.html",
+   "words": 83
+  },
+  {
+   "page": "/ar/geo/babbroni-halal-manama.html",
+   "words": 84
+  },
+  {
+   "page": "/geo/vetchina-irkutsk.html",
+   "words": 85
+  },
+  {
+   "page": "/geo/pelmeni-tashkent.html",
+   "words": 86
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-orenburg.html",
+   "words": 86
+  },
+  {
+   "page": "/geo/kazylyk-premium-tartu.html",
+   "words": 87
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-ashgabat.html",
+   "words": 88
+  },
+  {
+   "page": "/geo/kazylyk-premium-ryazan.html",
+   "words": 88
+  },
+  {
+   "page": "/geo/sosiski-v-teste-engels.html",
+   "words": 89
+  },
+  {
+   "page": "/geo/vetchina-bratsk.html",
+   "words": 89
+  },
+  {
+   "page": "/geo/pelmeni-blagoveshchensk.html",
+   "words": 89
+  },
+  {
+   "page": "/geo/syroje-myaso-tula.html",
+   "words": 90
+  },
+  {
+   "page": "/ar/geo/lahmeh-mafrumeh-halal-mecca.html",
+   "words": 90
+  },
+  {
+   "page": "/geo/pepperoni-kislovodsk.html",
+   "words": 91
+  },
+  {
+   "page": "/hy/geo/sosiski-v-teste-gyumri.html",
+   "words": 92
+  },
+  {
+   "page": "/id/geo/kazylyk-premium-surabaya.html",
+   "words": 92
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-dimitrovgrad.html",
+   "words": 93
+  },
+  {
+   "page": "/geo/pepperoni-volgograd.html",
+   "words": 93
+  },
+  {
+   "page": "/geo/kopchenye-delikatesy-simferopol.html",
+   "words": 93
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-shatura.html",
+   "words": 93
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-tula.html",
+   "words": 94
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-miass.html",
+   "words": 94
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-balashikha.html",
+   "words": 94
+  },
+  {
+   "page": "/geo/private-label-stm-pavlodar.html",
+   "words": 94
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-ivanovo.html",
+   "words": 95
+  },
+  {
+   "page": "/geo/vypechka-tatarskaya-mogilev.html",
+   "words": 95
+  },
+  {
+   "page": "/geo/farsh-kyzyl.html",
+   "words": 95
+  },
+  {
+   "page": "/geo/kopchenye-delikatesy-kislovodsk.html",
+   "words": 96
+  },
+  {
+   "page": "/geo/sosiski-v-teste-nazarovo.html",
+   "words": 96
+  },
+  {
+   "page": "/geo/syroje-myaso-salekhard.html",
+   "words": 96
+  },
+  {
+   "page": "/ar/geo/makhbuzat-halal-salalah.html",
+   "words": 96
+  },
+  {
+   "page": "/geo/kazylyk-premium-yakutsk.html",
+   "words": 97
+  },
+  {
+   "page": "/en/geo/halal-pepperoni-vilnius.html",
+   "words": 98
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-pereslavl-zalessky.html",
+   "words": 99
+  },
+  {
+   "page": "/geo/farsh-rostov-na-donu.html",
+   "words": 99
+  },
+  {
+   "page": "/en/geo/vypechka-klassicheskaya-tartu.html",
+   "words": 99
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-zelenodolsk.html",
+   "words": 100
+  },
+  {
+   "page": "/geo/private-label-stm-cheboksary.html",
+   "words": 100
+  },
+  {
+   "page": "/geo/vypechka-tatarskaya-abakan.html",
+   "words": 100
+  },
+  {
+   "page": "/geo/topping-dlya-pitstsy-derbent.html",
+   "words": 100
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-ufa.html",
+   "words": 101
+  },
+  {
+   "page": "/ar/geo/lahmeh-niya-halal-alexandria.html",
+   "words": 101
+  },
+  {
+   "page": "/ar/geo/sujuk-aajin-halal-riyadh.html",
+   "words": 103
+  },
+  {
+   "page": "/geo/farsh-neftekamsk.html",
+   "words": 104
+  },
+  {
+   "page": "/geo/vetchina-abakan.html",
+   "words": 104
+  },
+  {
+   "page": "/fr/geo/topping-dlya-pitstsy-dakar.html",
+   "words": 104
+  },
+  {
+   "page": "/ms/geo/sosiski-v-teste-penang.html",
+   "words": 105
+  },
+  {
+   "page": "/geo/farsh-blagoveshchensk.html",
+   "words": 105
+  },
+  {
+   "page": "/geo/sosiski-v-teste-tolyatti.html",
+   "words": 105
+  },
+  {
+   "page": "/geo/private-label-stm-kostanay.html",
+   "words": 105
+  },
+  {
+   "page": "/geo/topping-dlya-pitstsy-yanao.html",
+   "words": 106
+  },
+  {
+   "page": "/geo/private-label-stm-ulyanovsk.html",
+   "words": 106
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-bukhara.html",
+   "words": 107
+  },
+  {
+   "page": "/geo/pelmeni-perm.html",
+   "words": 107
+  },
+  {
+   "page": "/geo/farsh-vitebsk.html",
+   "words": 107
+  },
+  {
+   "page": "/geo/sosiski-v-teste-nefteyugansk.html",
+   "words": 108
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-bokhtar.html",
+   "words": 108
+  },
+  {
+   "page": "/geo/private-label-stm-tver.html",
+   "words": 109
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-biysk.html",
+   "words": 109
+  },
+  {
+   "page": "/kk/geo/topping-dlya-pitstsy-kostanay.html",
+   "words": 110
+  },
+  {
+   "page": "/geo/pelmeni-khimki.html",
+   "words": 111
+  },
+  {
+   "page": "/geo/vypechka-tatarskaya-biysk.html",
+   "words": 111
+  },
+  {
+   "page": "/geo/topping-dlya-pitstsy-ivanovo.html",
+   "words": 111
+  },
+  {
+   "page": "/en/geo/premium-kazylyk-horse-sausage-penang.html",
+   "words": 111
+  },
+  {
+   "page": "/geo/kolbasnye-izdeliya-yanao.html",
+   "words": 112
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-pavlodar.html",
+   "words": 112
+  },
+  {
+   "page": "/geo/kazylyk-premium-astana.html",
+   "words": 112
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-novosibirsk.html",
+   "words": 112
+  },
+  {
+   "page": "/geo/farsh-pskov.html",
+   "words": 112
+  },
+  {
+   "page": "/tr/geo/kazylyk-premium-istanbul.html",
+   "words": 112
+  },
+  {
+   "page": "/mn/geo/vypechka-klassicheskaya-darkhan.html",
+   "words": 113
+  },
+  {
+   "page": "/geo/topping-dlya-pitstsy-surgut.html",
+   "words": 113
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-hasavyurt.html",
+   "words": 113
+  },
+  {
+   "page": "/geo/kazylyk-premium-syktyvkar.html",
+   "words": 113
+  },
+  {
+   "page": "/tr/geo/kazylyk-premium-ankara.html",
+   "words": 113
+  },
+  {
+   "page": "/geo/kazylyk-premium-saratov.html",
+   "words": 114
+  },
+  {
+   "page": "/geo/vypechka-klassicheskaya-kaluga.html",
+   "words": 114
+  },
+  {
+   "page": "/geo/sosiski-dlya-hotdog-zheleznogorsk.html",
+   "words": 114
+  },
+  {
+   "page": "/geo/farsh-petrozavodsk.html",
+   "words": 115
+  },
+  {
+   "page": "/geo/pepperoni-salavat.html",
+   "words": 117
+  },
+  {
+   "page": "/geo/sosiski-v-teste-seversk.html",
+   "words": 117
+  },
+  {
+   "page": "/tr/geo/topping-dlya-pitstsy-ankara.html",
+   "words": 117
+  },
+  {
+   "page": "/fr/geo/pelmeni-dakar.html",
+   "words": 118
+  },
+  {
+   "page": "/en/geo/halal-hot-dog-sausages-surabaya.html",
+   "words": 118
+  },
+  {
+   "page": "/kk/geo/kazylyk-premium-kostanay.html",
+   "words": 119
+  },
+  {
+   "page": "/geo/farsh-pereslavl-zalessky.html",
+   "words": 119
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-tolyatti.html",
+   "words": 119
+  },
+  {
+   "page": "/geo/kotlety-dlya-burgerov-yuzhno-sakhalinsk.html",
+   "words": 119
+  },
+  {
+   "page": "/fr/geo/kazylyk-premium-marrakesh.html",
+   "words": 119
   }
  ],
- "broken_html_total": 20,
+ "broken_html_total": 16,
  "broken_html_examples": [
   {
-   "page": "/blog/kazylyk-chto-eto.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
-   "page": "/blog/kontrol-kachestva-myasnyh-produktov.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
    "page": "/geo/vypechka-klassicheskaya-dzerzhinsk.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
-   "page": "/geo/pepperoni-vitebsk.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
-   "page": "/geo/farsh-fergana.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
-   "page": "/geo/kazylyk-premium-petropavlovsk-kz.html",
    "issues": [
     "junk:Вот "
    ]
@@ -194,7 +761,7 @@
    ]
   },
   {
-   "page": "/geo/kotlety-dlya-burgerov-pavlodar.html",
+   "page": "/geo/pelmeni-rybinsk.html",
    "issues": [
     "junk:Вот "
    ]
@@ -206,39 +773,75 @@
    ]
   },
   {
-   "page": "/geo/vypechka-klassicheskaya-arzamas.html",
-   "issues": [
-    "junk:Вот "
-   ]
-  },
-  {
    "page": "/geo/vypechka-tatarskaya-vologda.html",
    "issues": [
     "junk:Вот "
    ]
   },
   {
-   "page": "/geo/vypechka-klassicheskaya-krasnogorsk.html",
+   "page": "/geo/vypechka-klassicheskaya-arzamas.html",
    "issues": [
     "junk:Вот "
    ]
   },
   {
-   "page": "/geo/pelmeni-rybinsk.html",
+   "page": "/blog/how-to-store-pepperoni.html",
    "issues": [
     "junk:Вот "
    ]
   },
   {
-   "page": "/en/blog/meat-products-quality-control.html",
+   "page": "/blog/kontrol-kachestva-myasnyh-produktov.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/blog/kazylyk-chto-eto.html",
+   "issues": [
+    "junk:Вот "
+   ]
+  },
+  {
+   "page": "/ar/geo/pelmeni-halal-abu-dhabi.html",
    "issues": [
     "junk:Here's"
+   ]
+  },
+  {
+   "page": "/en/geo/halal-pepperoni-amman.html",
+   "issues": [
+    "junk:Here i"
+   ]
+  },
+  {
+   "page": "/en/geo/halal-bakery-classic-jakarta.html",
+   "issues": [
+    "junk:Here i"
+   ]
+  },
+  {
+   "page": "/en/geo/halal-ham-chittagong.html",
+   "issues": [
+    "junk:Here i"
    ]
   },
   {
    "page": "/en/geo/halal-bakery-classic-daugavpils.html",
    "issues": [
     "junk:Here i"
+   ]
+  },
+  {
+   "page": "/en/geo/tatar-halal-bakery-kota-kinabalu.html",
+   "issues": [
+    "junk:Here i"
+   ]
+  },
+  {
+   "page": "/en/blog/meat-products-quality-control.html",
+   "issues": [
+    "junk:Here's"
    ]
   }
  ]
