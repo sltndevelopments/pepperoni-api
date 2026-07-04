@@ -279,8 +279,28 @@
    "created_at": "2026-07-01T00:00:03.244063+00:00",
    "updated_at": "2026-07-02T05:30:36.108520+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260704-0015",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пепперони халяль",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "verdict": "worse",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пепперони халяль"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-04T05:31:32.139070+00:00",
+   "updated_at": "2026-07-04T05:31:32.139075+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 14,
- "updated_at": "2026-07-02T05:30:36.108559+00:00"
+ "seq": 15,
+ "updated_at": "2026-07-04T05:31:32.139106+00:00"
 }
