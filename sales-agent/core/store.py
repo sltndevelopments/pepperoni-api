@@ -124,6 +124,19 @@ CREATE TABLE IF NOT EXISTS notifications (
     sent_at      TEXT NOT NULL,
     count        INTEGER DEFAULT 1
 );
+
+CREATE TABLE IF NOT EXISTS email_opens (
+    token        TEXT PRIMARY KEY,
+    draft_id     TEXT REFERENCES drafts(id),
+    lead_id      TEXT REFERENCES leads(id),
+    created_at   TEXT NOT NULL,
+    first_open_at TEXT,
+    open_count   INTEGER DEFAULT 0,
+    last_open_at TEXT,
+    last_ip      TEXT,
+    last_ua      TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_email_opens_draft ON email_opens(draft_id);
 """
 
 
@@ -645,6 +658,53 @@ class Store:
                      count        = notifications.count + 1""",
                 (key, content_hash, now),
             )
+
+    def create_email_open_token(self, draft_id: str, lead_id: str | None) -> str:
+        """Токен для трекинг-пикселя. Отдельная таблица — не путать с сутевыми данными."""
+        token = _new_id()
+        now = _now()
+        with self._conn() as conn:
+            conn.execute(
+                """INSERT INTO email_opens (token, draft_id, lead_id, created_at, open_count)
+                   VALUES (?, ?, ?, ?, 0)""",
+                (token, draft_id, lead_id, now),
+            )
+        return token
+
+    def record_email_open(self, token: str, *, ip: str | None = None, ua: str | None = None) -> bool:
+        """True если токен существует (даже при повторном открытии)."""
+        now = _now()
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT token, first_open_at FROM email_opens WHERE token=?", (token,)
+            ).fetchone()
+            if not row:
+                return False
+            conn.execute(
+                """UPDATE email_opens SET
+                     first_open_at = COALESCE(first_open_at, ?),
+                     open_count = open_count + 1,
+                     last_open_at = ?, last_ip = ?, last_ua = ?
+                   WHERE token=?""",
+                (now, now, ip, ua, token),
+            )
+        return True
+
+    def email_open_stats(self, *, since: str | None = None) -> dict:
+        """Сводка: сколько писем отправлено с трекингом vs сколько открыто."""
+        with self._conn() as conn:
+            q = "SELECT COUNT(*) c FROM email_opens"
+            args: list[Any] = []
+            if since:
+                q += " WHERE created_at >= ?"
+                args.append(since)
+            total = conn.execute(q, args).fetchone()["c"]
+            q2 = "SELECT COUNT(*) c FROM email_opens WHERE open_count > 0"
+            if since:
+                q2 += " AND created_at >= ?"
+            opened = conn.execute(q2, args).fetchone()["c"]
+        return {"total": total, "opened": opened,
+                "open_rate": round(opened / total, 3) if total else 0.0}
 
 
 def _parse_json_field(val: str | None) -> dict:

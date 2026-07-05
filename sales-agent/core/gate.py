@@ -232,11 +232,16 @@ class Gate:
                 record["error"] = "no_recipient_email"
                 self.store.audit("gate", "send_failed", "draft", draft_id, record)
                 return record
+            try:
+                track_token = self.store.create_email_open_token(draft_id, draft.get("lead_id"))
+            except Exception:
+                track_token = None
             result = send_email(
                 to,
                 draft.get("subject") or "Сотрудничество — Казанские Деликатесы",
                 draft.get("body") or "",
                 dry_run=False,
+                track_token=track_token,
             )
             record.update(result)
             if result.get("ok"):

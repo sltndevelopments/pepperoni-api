@@ -28,9 +28,21 @@ _DEEP_TIERS = {"S", "A"}
 _DEEP_LOOKALIKE_THRESHOLD = 80  # или высокий lookalike_score → тоже deep
 
 
+# Качество email из первичного impорта (ОКВЭД-реестр даёт то, что указано в
+# ЕГРЮЛ/на сайте — почти всегда общий ok@/sbyt@/lab@, не закупщик). Такое
+# «есть хоть какой-то email» раньше блокировало deep-research навсегда
+# (баг обнаружен 2026-07-05: 216 холодных писем, 0% ответов — потому что
+# письма уходили на общие ящики, которые читает секретарь/HR, а не ЛПР).
+_LOW_QUALITY = {"generic", "freemail", None}
+
+
 def _needs_enrich(lead: dict) -> bool:
+    from core import agent_profile as ap
     p = lead.get("profile") or {}
-    return "@" not in str(p.get("emails") or p.get("email") or "")
+    quality = ap.get(p, "email_quality") or p.get("email_quality")
+    if quality in ("procurement", "corporate"):
+        return False  # уже есть достаточно персональный/профильный адрес
+    return True
 
 
 def _is_deep(lead: dict) -> bool:
