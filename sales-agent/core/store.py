@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS leads (
 CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
 CREATE INDEX IF NOT EXISTS idx_leads_tier ON leads(tier);
 CREATE INDEX IF NOT EXISTS idx_leads_inn ON leads(inn);
+CREATE INDEX IF NOT EXISTS idx_leads_name_lower ON leads(name COLLATE NOCASE);
 
 CREATE TABLE IF NOT EXISTS threads (
     id              TEXT PRIMARY KEY,
@@ -176,48 +177,66 @@ class Store:
                     (name, inn, region, tier, fit_score, status, source, profile_json, now, lead_id),
                 )
                 return lead_id
+            row = None
             if inn:
                 row = conn.execute(
                     "SELECT id, name, tier, fit_score, status, profile FROM leads WHERE inn=?",
                     (inn,),
                 ).fetchone()
-                if row:
-                    lid = row["id"]
-                    # --- merge rules for discovery re-import ---
-                    # status  : never overwrite (contacted/handed_off/bounced must survive)
-                    merged_status = row["status"] or status
-                    # name    : only fill if current is empty / placeholder
-                    cur_name = (row["name"] or "").strip()
-                    merged_name = cur_name if cur_name and cur_name not in ("", "Без названия") else name
-                    # tier    : only promote, never demote
-                    _tier_rank = {"S": 4, "A": 3, "B": 2, "C": 1, "—": 0}
-                    merged_tier = (
-                        tier if _tier_rank.get(tier, 0) > _tier_rank.get(row["tier"] or "—", 0)
-                        else (row["tier"] or tier)
-                    )
-                    # fit_score: only raise
-                    merged_score = max(fit_score, row["fit_score"] or 0)
-                    # profile : merge — _agent is sacred, new fields fill gaps
-                    try:
-                        old_p = json.loads(row["profile"] or "{}")
-                    except Exception:
-                        old_p = {}
-                    new_p = dict(profile or {})
-                    # preserve _agent entirely
-                    if "_agent" in old_p:
-                        new_p["_agent"] = old_p["_agent"]
-                    # keep old values for keys not in new profile (e.g. existing contacts)
-                    for k, v in old_p.items():
-                        if k not in new_p and k != "_agent":
-                            new_p[k] = v
-                    merged_profile = json.dumps(new_p, ensure_ascii=False)
-                    conn.execute(
-                        """UPDATE leads SET name=?, region=?, tier=?, fit_score=?,
-                           status=?, source=?, profile=?, updated_at=? WHERE id=?""",
-                        (merged_name, region, merged_tier, merged_score,
-                         merged_status, source, merged_profile, now, lid),
-                    )
-                    return lid
+            if row is None and not inn and name:
+                # Без ИНН (~99.6% лидов из CRM-таблицы) дедуп по имени — иначе
+                # каждый push→pull цикл (раз в 2ч) плодит новую строку с новым id
+                # для той же компании (баг обнаружен 2026-07-05: 547k дублей,
+                # 53k только по «Самокат»). Регион уточняет совпадение, если есть.
+                if region:
+                    row = conn.execute(
+                        """SELECT id, name, tier, fit_score, status, profile FROM leads
+                           WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE AND region=?""",
+                        (name, region),
+                    ).fetchone()
+                if row is None:
+                    row = conn.execute(
+                        """SELECT id, name, tier, fit_score, status, profile FROM leads
+                           WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE""",
+                        (name,),
+                    ).fetchone()
+            if row:
+                lid = row["id"]
+                # --- merge rules for discovery re-import ---
+                # status  : never overwrite (contacted/handed_off/bounced must survive)
+                merged_status = row["status"] or status
+                # name    : only fill if current is empty / placeholder
+                cur_name = (row["name"] or "").strip()
+                merged_name = cur_name if cur_name and cur_name not in ("", "Без названия") else name
+                # tier    : only promote, never demote
+                _tier_rank = {"S": 4, "A": 3, "B": 2, "C": 1, "—": 0}
+                merged_tier = (
+                    tier if _tier_rank.get(tier, 0) > _tier_rank.get(row["tier"] or "—", 0)
+                    else (row["tier"] or tier)
+                )
+                # fit_score: only raise
+                merged_score = max(fit_score, row["fit_score"] or 0)
+                # profile : merge — _agent is sacred, new fields fill gaps
+                try:
+                    old_p = json.loads(row["profile"] or "{}")
+                except Exception:
+                    old_p = {}
+                new_p = dict(profile or {})
+                # preserve _agent entirely
+                if "_agent" in old_p:
+                    new_p["_agent"] = old_p["_agent"]
+                # keep old values for keys not in new profile (e.g. existing contacts)
+                for k, v in old_p.items():
+                    if k not in new_p and k != "_agent":
+                        new_p[k] = v
+                merged_profile = json.dumps(new_p, ensure_ascii=False)
+                conn.execute(
+                    """UPDATE leads SET name=?, region=?, tier=?, fit_score=?,
+                       status=?, source=?, profile=?, updated_at=? WHERE id=?""",
+                    (merged_name, region, merged_tier, merged_score,
+                     merged_status, source, merged_profile, now, lid),
+                )
+                return lid
             lid = lead_id or _new_id()
             conn.execute(
                 """INSERT INTO leads (id, inn, name, region, tier, fit_score, status, source, profile, created_at, updated_at)
