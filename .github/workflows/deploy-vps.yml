@@ -232,3 +232,39 @@ jobs:
             echo "=== sales-agent/sales-intel cron (should show repo/) ==="
             crontab -l | grep -E "sales-agent|sales-intel" || true
             cat /etc/cron.d/kd-sales-intel 2>/dev/null || true
+
+      - name: Ensure kd-sales-track (email open-tracking) systemd unit exists and runs
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 2026-07-05: introduced with the open-tracking pixel fix — recreate the
+            # unit if missing (fresh VPS / lost state) so deploy stays idempotent.
+            if [ ! -f /etc/systemd/system/kd-sales-track.service ]; then
+              cat > /etc/systemd/system/kd-sales-track.service << 'UNIT'
+            [Unit]
+            Description=KD Sales Email Open Tracking Server
+            After=network-online.target
+            Wants=network-online.target
+
+            [Service]
+            Type=simple
+            WorkingDirectory=/var/www/pepperoni/repo/sales-agent
+            ExecStart=/usr/bin/python3 -m channels.track_server 8081
+            Restart=always
+            RestartSec=15
+            StandardOutput=append:/var/www/pepperoni/repo/sales-agent/data/track_server.log
+            StandardError=append:/var/www/pepperoni/repo/sales-agent/data/track_server.log
+
+            [Install]
+            WantedBy=multi-user.target
+            UNIT
+              systemctl daemon-reload
+              systemctl enable kd-sales-track.service
+              echo "✅ kd-sales-track.service created"
+            fi
+            systemctl restart kd-sales-track.service
+            sleep 1
+            systemctl is-active kd-sales-track.service && echo "✅ kd-sales-track.service active"
