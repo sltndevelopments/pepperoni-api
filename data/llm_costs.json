@@ -316,8 +316,8 @@
   }
  },
  "2026-07": {
-  "usd": 7.383187,
-  "usd_baseline": 7.899765,
+  "usd": 8.776585,
+  "usd_baseline": 9.367059,
   "days": {
    "2026-07-01": {
     "calls": 151,
@@ -354,6 +354,15 @@
     "cache_r": 13132,
     "usd": 1.57053,
     "usd_baseline": 1.69319
+   },
+   "2026-07-05": {
+    "calls": 16,
+    "in": 43585,
+    "out": 38882,
+    "cache_w": 23663,
+    "cache_r": 3283,
+    "usd": 1.393399,
+    "usd_baseline": 1.467294
    }
   },
   "scripts": {
@@ -367,13 +376,13 @@
     "usd_baseline": 0.00288
    },
    "sales:cli": {
-    "calls": 70,
-    "in": 21506,
-    "out": 24783,
-    "cache_w": 23510,
-    "cache_r": 52528,
-    "usd": 0.933145,
-    "usd_baseline": 1.149204
+    "calls": 79,
+    "in": 24966,
+    "out": 32561,
+    "cache_w": 31982,
+    "cache_r": 55811,
+    "usd": 1.224568,
+    "usd_baseline": 1.439394
    },
    "optimize_seo": {
     "calls": 8,
@@ -412,31 +421,31 @@
     "usd_baseline": 0.949047
    },
    "escalate_brain": {
-    "calls": 3,
-    "in": 40971,
-    "out": 8876,
-    "cache_w": 45573,
+    "calls": 4,
+    "in": 55028,
+    "out": 12103,
+    "cache_w": 60764,
     "cache_r": 0,
-    "usd": 2.134758,
-    "usd_baseline": 1.96386
+    "usd": 2.872469,
+    "usd_baseline": 2.644605
    },
    "brain_toolsmith": {
-    "calls": 9,
-    "in": 79993,
-    "out": 47763,
+    "calls": 11,
+    "in": 99917,
+    "out": 59256,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.94381,
-    "usd_baseline": 0.94381
+    "usd": 1.175977,
+    "usd_baseline": 1.175977
    },
    "generate_from_strategy": {
-    "calls": 16,
-    "in": 24576,
-    "out": 65536,
+    "calls": 20,
+    "in": 30720,
+    "out": 81920,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.528382,
-    "usd_baseline": 1.056768
+    "usd": 0.660478,
+    "usd_baseline": 1.32096
    },
    "seo_brain": {
     "calls": 1,
@@ -459,22 +468,22 @@
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 68,
-    "in": 135990,
-    "out": 188952,
-    "cache_w": 8440,
-    "cache_r": 33760,
-    "usd": 2.967134,
-    "usd_baseline": 3.580338
+    "calls": 77,
+    "in": 163029,
+    "out": 220025,
+    "cache_w": 10550,
+    "cache_r": 35870,
+    "usd": 3.390796,
+    "usd_baseline": 4.14021
    },
    "claude-haiku-4-5": {
-    "calls": 26,
-    "in": 5904,
-    "out": 3743,
+    "calls": 29,
+    "in": 6871,
+    "out": 5831,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.024619,
-    "usd_baseline": 0.024619
+    "usd": 0.036026,
+    "usd_baseline": 0.036026
    },
    "claude-haiku-4-5-20251001": {
     "calls": 2,
@@ -495,22 +504,22 @@
     "usd_baseline": 0.949047
    },
    "claude-opus-4-8": {
-    "calls": 4,
-    "in": 54128,
-    "out": 11250,
-    "cache_w": 60764,
+    "calls": 5,
+    "in": 68185,
+    "out": 14477,
+    "cache_w": 75955,
     "cache_r": 0,
-    "usd": 2.794994,
-    "usd_baseline": 2.56713
+    "usd": 3.532705,
+    "usd_baseline": 3.247875
    },
    "claude-fable-5": {
-    "calls": 22,
-    "in": 11642,
-    "out": 6163,
-    "cache_w": 15070,
-    "cache_r": 18768,
-    "usd": 0.631711,
-    "usd_baseline": 0.76295
+    "calls": 25,
+    "in": 13164,
+    "out": 8657,
+    "cache_w": 21432,
+    "cache_r": 19941,
+    "usd": 0.85233,
+    "usd_baseline": 0.97822
    }
   }
  }
