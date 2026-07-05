@@ -43,24 +43,43 @@ def run(*, store: Store | None = None) -> dict:
     stats = store.stats()
 
     # 1) Горячие лиды — главный повод: передать владельцу.
-    # Нет cooldown — новые лиды всегда важны; hash по составу id.
+    # Уведомляем только о лидах, которых не было в предыдущей отправке —
+    # иначе apply_lookalike/named_escalation трогают profile этих же лидов
+    # каждый 2ч-цикл (даже без реального изменения статуса), updated_at
+    # "освежается", ORDER BY updated_at DESC держит их вечно в топ-5, и
+    # владелец получает один и тот же список каждые 2 часа несколько дней
+    # (баг обнаружен 2026-07-05 — Самокат/КУПЕР/Яндекс Лавка/Газпром/ЛУКОЙЛ
+    # слались каждый цикл с 02.07 без единого реального касания).
     hot = []
     try:
-        hot = store.list_hot_leads(5)
+        hot = store.list_hot_leads(20)
     except Exception:
         hot = []
     if hot:
-        hot_hash = _hash(*sorted(l["id"] for l in hot))
-        if store.should_notify("proactive:hot_leads", hot_hash, cooldown_hours=0):
+        all_ids = sorted(l["id"] for l in hot)
+        prev_ids: set[str] = set()
+        prev_hash_row = None
+        try:
+            with store._conn() as conn:
+                prev_hash_row = conn.execute(
+                    "SELECT content_hash FROM notifications WHERE key=?",
+                    ("proactive:hot_leads",),
+                ).fetchone()
+        except Exception:
+            prev_hash_row = None
+        if prev_hash_row and prev_hash_row["content_hash"]:
+            prev_ids = set((prev_hash_row["content_hash"] or "").split(","))
+        new_hot = [r for r in hot if r["id"] not in prev_ids][:5]
+        if new_hot and store.should_notify("proactive:hot_leads", ",".join(all_ids), cooldown_hours=0):
             lines = ["📣 <b>Стив:</b> есть заинтересованные — забирай на личные переговоры:"]
-            for r in hot:
+            for r in new_hot:
                 try:
                     from workers.escalate import format_contacts
                     lines.append("\n" + format_contacts(r))
                 except Exception:
                     lines.append(f"\n• {r.get('name', '?')}")
             if _push("\n".join(lines)):
-                store.record_notification("proactive:hot_leads", hot_hash)
+                store.record_notification("proactive:hot_leads", ",".join(all_ids))
                 fired.append("hot_leads")
 
     # 2) Серия hard bounce за последними циклами → доставляемость.
