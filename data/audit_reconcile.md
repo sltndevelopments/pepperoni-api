@@ -222,3 +222,138 @@ python3 scripts/fix_pages.py && python3 scripts/qa_pages.py --quarantine   # 0 F
 
 Все 19 SKU на `vyipechka-halyal.html` сверены по имени 1:1 с
 `products.json` — 100% совпадение после фикса.
+
+## 2026-07-05 — Agentic Engineering follow-up: orphan-cleanup, category-page
+## drift (systemic, не только vyipechka-halyal), invariant-детектор
+
+Продолжение работы по плану "агентная инженерия для сайта": добавить
+недостающие механические гейты вместо полагания на ручные аудиты.
+
+### 1. Автоочистка orphan product-файлов
+
+`scripts/gen-ru-products.py` и `scripts/gen-en-products.py` теперь после
+генерации сравнивают файлы на диске (`public/products/*.html`,
+`public/en/products/*.html`) с живым `products.json` и удаляют HTML-файлы
+для SKU, которых больше нет в каталоге (`remove_orphan_pages()`). Это тот
+же класс бага, что и ghost-SKU инцидент 2026-07-03 (kd-073…077) — теперь он
+не может повториться молча: каждый прогон генератора сам чистит хвосты.
+
+Побочный эффект прогона генераторов вскрыл **ещё один** класс инвариантного
+нарушения: 14 продуктовых страниц (RU+EN) содержали `gtin13`/«Штрих-код»,
+испорченный номером телефона (`46+7 987 217-02-02`) — генератор корректно
+подставил настоящий EAN-13 штрихкод из `products.json` при перегенерации.
+
+### 1b. Баг в `fix_pages.py`: `PHONE_TEXT_RE` ложно матчил штрихкоды
+
+`PHONE_TEXT_RE` (`(?:\+7|8)[\s\-‑–()]*\d(?:[\s\-‑–()]*\d){9}`) без
+границ по цифрам матчил подстроку `80638720035` внутри валидного 13-значного
+EAN-13 (`4680638720035`) и **переписывал его обратно** на канонический
+телефон — откатывая только что исправленный штрихкод. Добавлены
+`(?<!\d)`/`(?!\d)` вокруг паттерна. Без этого фикса orphan-cleanup-прогон
+выше был бы бесполезен: `fix_pages.py` откатывал бы штрихкоды на каждом
+цикле sync-vps.sh.
+
+После фикса: `fix_pages.py` перепрогнан на все изменённые страницы —
+0 repaired (баркоды больше не трогает). Дополнительно найдены и точечно
+исправлены те же испорченные штрихкоды на **18 geo-страницах**
+(`pepperoni-{city}.html`) — общий для всех шаблон, захардкоженный в
+`gen-geo-pages.py` (уже был правильным в генераторе — эти 18 файлов
+устарели относительно него).
+
+### 2. Категорийные landing-страницы: дрейф SKU↔контент — не единичный случай
+
+Сверка всех 8 страниц `gen_category_pages.py` (`sosiski-halyal`,
+`sosiski-dlya-hotdog`, `vetchina-optom`, `kolbasy-kopchyonye`,
+`kolbasy-varenye`, `kotlety-dlya-burgerov`, `vyipechka-halyal`,
+`myasnyie-zagotovki`) по именам товаров, зашитым в prose-текст каждой
+страницы (intro/features/faq), против live `products.json` показала: та же
+позиционная SKU-нумерация, что вызвала ghost-SKU инцидент, сдвинула SKU-
+привязку **на 5 из 8 страниц**, не только на `vyipechka-halyal`:
+
+| Страница | Было (SKU) | Стало (правильно) | Сдвиг |
+|---|---|---|---|
+| `sosiski-halyal` | KD-026…034 | KD-021…029 | −5 |
+| `vetchina-optom` | KD-038…041 | KD-033…036 | −5 |
+| `kolbasy-kopchyonye` | KD-042…056 | KD-037…051 | −5 |
+| `kolbasy-varenye` | KD-035…037 | KD-030…032 | −5 |
+| `vyipechka-halyal` | KD-059…077 | KD-054…072 | −5 (фикс 07-03) |
+| `sosiski-dlya-hotdog` | KD-001…007 | KD-001…007 | без изменений |
+| `kotlety-dlya-burgerov` | KD-008…009 | KD-008…009 | без изменений |
+
+Каждая карточка/JSON-LD/ссылка сверена **по имени товара 1:1** (не только
+по числу элементов) перед фиксом — например `vetchina-optom` заявляет в
+FAQ «говядины (KD-034), индейки (KD-033)…», и это должно совпадать с
+именем товара на живом сайте, а не просто с количеством SKU. Применён тот
+же single-pass regex-сдвиг (-5), что и для `vyipechka-halyal` 07-03, ко
+всем 4 файлам. `fix_pages.py`/`qa_pages.py` — 0 FAIL после фикса.
+
+`scripts/gen_category_pages.py` переведён с хардкоженных позиционных
+SKU-списков на lookup по стабильному полю `category` из `products.json`
+(`get_products_by_category()`) — устраняет источник бага на будущее для
+всех 7 оставшихся страниц. Старая `get_products_by_skus()` оставлена
+(deprecated, с комментарием) для обратной совместимости, если понадобится.
+
+### 3. `myasnyie-zagotovki` — товарная линейка снята с ассортимента
+
+`myasnyie-zagotovki` (заявлен как «фарш говяжий, фарш из куриной кожи,
+филе бедра куриного в кубике») не сдвинут — он **не существует** в живом
+`products.json` вообще (category "Мясные заготовки" отсутствует; товар
+был в каталоге ранее — 429 совпадений «фарш» в git-истории
+`products.json` — и снят с продажи). Карточки на живой странице ссылались
+на KD-021…025 (сосиски), т.е. показывали случайный чужой товар.
+
+Решение (подтверждено владельцем): страница переведена на HTTP 410 Gone
+(RU+EN) через явный `location = /myasnyie-zagotovki { return 410; }` в
+`/etc/nginx/snippets/pepperoni-static-data.conf` на VPS (до общего
+category-regex, exact-match location имеет приоритет). Убрана из
+`public/sitemap.xml` (2 url-блока), убраны прямые ссылки на неё из
+`vyipechka-halyal.html`/`en/vyipechka-halyal.html`. Блок страницы удалён
+из `PAGES` в `gen_category_pages.py` с комментарием, чтобы генератор не
+пересоздал её.
+
+**Не в скоупе (эскалировано, не тронуто):** обнаружен смежный кластер
+**560 geo-страниц** (`public/geo/farsh-*.html` ×182, `pelmeni-*.html` ×197,
+`syroje-myaso-*.html` ×181) — весь контент про тот же несуществующий товар
+«фарш». Решение по ним требует данных о трафике/индексации (Metrika/Search
+Console) прежде чем массово применять 410/редиректы — оставлено для
+отдельного захода.
+
+### 4. `scripts/check_stale_counts.py` — новый инвариант-детектор
+
+Новый самостоятельный скрипт (не встроен в защищённые `deploy_check.py`/
+`page_reviewer.py`) сканирует `public/**/*.{html,json,yaml,txt}` и
+`scripts/*.py` на числа рядом со словами-счётчиками (SKU/товар(ов)/product(s))
+и сверяет их с живым `totalProducts`. В отличие от `reconcile_sku_count.py`
+это детектор, а не автофиксер — репортит находки для ручного/агентного
+разбора, поддерживает `--check` (exit 1 при находках, для CI).
+
+Первый прогон на текущем состоянии сайта нашёл **51 реальную находку**
+хардкоженного «77», не покрытую прошлым bulk-фиксом 07-03: включая
+`scripts/gen-en-segments.py`, `scripts/gen-og-images.py`,
+`scripts/gen_export_pages.py`, `scripts/gen-products-feed.py`,
+`public/about.html`+EN, `public/en/faq.html`, `public/en/blog/production.html`,
+`public/wholesale-price-list*.txt`, `public/llm.txt`, `public/faq-ai.txt` и
+др. — не исправлялись в рамках этой сессии (отдельный bulk-фикс, требует
+подтверждения объёма аналогично прошлому разу).
+
+Подключён non-blocking в `scripts/sync-vps.sh` (шаг 1e, после
+`reconcile_sku_count.py`) — логирует warning на каждый cron-тик, не роняет
+синхронизацию.
+
+### Проверка (07-05)
+
+```
+python3 scripts/check_stale_counts.py --check   # 51 находка (см. выше), задокументировано
+python3 scripts/fix_pages.py && python3 scripts/qa_pages.py --quarantine   # 0 FAIL (52 файла)
+python3 -c "import xml.etree.ElementTree as ET; ET.parse('public/sitemap.xml')"  # valid
+curl -s -o /dev/null -w '%{http_code}' https://pepperoni.tatar/myasnyie-zagotovki      # 410
+curl -s -o /dev/null -w '%{http_code}' https://pepperoni.tatar/en/myasnyie-zagotovki   # 410
+curl -s -o /dev/null -w '%{http_code}' https://pepperoni.tatar/sosiski-halyal          # 200 (не задет)
+```
+
+### Не в скоупе / эскалировано владельцу
+
+- 560 geo-страниц про несуществующий товар «фарш» (farsh-*/pelmeni-*/
+  syroje-myaso-*) — решение отложено до данных по трафику/индексации.
+- 51 находка `check_stale_counts.py` — не исправлены, задокументированы
+  для отдельного bulk-фикса.

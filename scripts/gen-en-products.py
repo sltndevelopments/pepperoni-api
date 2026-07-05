@@ -712,6 +712,31 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
     print(f"Generated {len(products)} EN product pages in {OUT}/")
+    remove_orphan_pages(products)
+
+
+def remove_orphan_pages(products):
+    """Delete stale product HTML files for SKUs that no longer exist.
+
+    Without this, a SKU whose numeric suffix shifts (e.g. Google Sheets rows
+    reordered) leaves its old page live forever — a "ghost" product page
+    that's still linked from sitemap/category pages but absent from the
+    live catalog. See data/audit_reconcile.md (2026-07-03) for the incident
+    this fixes.
+    """
+    live_slugs = {p["sku"].lower() for p in products}
+    if not os.path.isdir(OUT):
+        return
+    removed = []
+    for fname in os.listdir(OUT):
+        if not fname.endswith(".html"):
+            continue
+        slug = fname[: -len(".html")]
+        if re.fullmatch(r"kd-\d+", slug) and slug not in live_slugs:
+            os.remove(os.path.join(OUT, fname))
+            removed.append(fname)
+    if removed:
+        print(f"Removed {len(removed)} orphan product page(s) from {OUT}/: {', '.join(sorted(removed))}")
 
 
 if __name__ == "__main__":

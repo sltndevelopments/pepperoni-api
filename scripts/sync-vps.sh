@@ -31,6 +31,12 @@ python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; k
 # found manifest/ai-plugin.json stuck at "77" while the live catalog was 72).
 python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
 
+# 1e. Detect any remaining stale product-count mentions reconcile_sku_count.py
+# doesn't know how to auto-fix (free-form prose in blog/geo/segment pages,
+# generator source files, etc). Non-blocking — logs a warning for the SEO
+# agent / a human to triage, doesn't fail the sync.
+python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_counts.py found stale product-count mentions — see output above"
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 
