@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from claude_client import call_claude, CONTENT_MODEL
+from blog_template import BLOG_ARTICLE_OUTPUT_RULES_RU, wrap_generated_blog
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -74,13 +75,13 @@ def prep_blog(topic: dict) -> dict | None:
         "без упоминания свинины."
     )
     prompt = f"""Напиши {intent} SEO-статью: «{title}».
-Верни ТОЛЬКО валидный HTML5 (lang="ru"), без объяснений.
-Требования:
-- <head>: charset, viewport, <title> (до 65 симв.), <meta description> (до 160), canonical /blog/{slug}
-- Schema.org Article JSON-LD (datePublished={TODAY}, author "Казанские Деликатесы")
-- Bootstrap 5 CDN, один <h1>, 4 подзаголовка H2, 700-900 слов, заключение с CTA
+{BLOG_ARTICLE_OUTPUT_RULES_RU.format(date=TODAY)}
+
+Требования к содержанию:
+- canonical /blog/{slug}
+- 700-900 слов, 4× H2, заключение с cta-block
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /private-label
-- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}
+- CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
 - {CONTACTS_RULE}
 - НЕ упоминать свинину"""
     return {"out": out, "label": f"blog: /blog/{slug}",
@@ -146,11 +147,12 @@ def _write_page(prep: dict, html: str) -> bool:
     """
     import shutil as _shutil
     html = clean_html(html)
-    if "<html" not in html.lower():
-        return False
-
-    # Stage in data/tmp/ until the gate approves.
     final_out: Path = prep["out"]
+    if "/blog/" in final_out.as_posix():
+        lang = "en" if "/en/blog/" in final_out.as_posix() else "ru"
+        html = wrap_generated_blog(lang, final_out.stem, html, TODAY)
+    elif "<html" not in html.lower():
+        return False
     tmp_dir = ROOT / "data" / "tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     tmp_path = tmp_dir / final_out.name

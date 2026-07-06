@@ -277,6 +277,10 @@ MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
     python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
     >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
 
+# ---- Step 4ba: Restyle off-brand blog articles (Bootstrap → brand shell) ----
+log "Step 4ba: Restyle blog articles …"
+python3 scripts/restyle_blog_articles.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Blog restyle failed (non-fatal)"
+
 # ---- Step 4bb: Rebuild blog index — keep /blog and /en/blog in sync with articles ----
 # Deterministic (no LLM). generate_content.py/generate_from_strategy.py only write
 # individual public/blog/*.html files; nothing else refreshes the public/blog.html

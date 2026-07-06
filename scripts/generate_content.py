@@ -26,6 +26,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.dirname(__file__))
 from seo_db import get_conn, init_db
 from claude_client import call_claude as _claude, DEEPSEEK_API_KEY, DEFAULT_MODEL as DEEPSEEK_MODEL, CONTENT_MODEL
+from blog_template import BLOG_ARTICLE_OUTPUT_RULES_EN, BLOG_ARTICLE_OUTPUT_RULES_RU, wrap_generated_blog
 
 # Legacy alias kept for DB logging rows that record the generation model name.
 _LOG_MODEL = CONTENT_MODEL
@@ -401,25 +402,22 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
         "Статьи без воды, с реальными фактами. Халяль тематика, без упоминания свинины."
     )
     prompt = f"""Напиши информационную SEO-статью по теме: «{topic}».
-Верни ТОЛЬКО полный валидный HTML5, без объяснений.
+{BLOG_ARTICLE_OUTPUT_RULES_RU.format(date=TODAY)}
 
-Требования:
-- <!DOCTYPE html> с lang="ru"
-- <head>: charset, viewport, оптимизированный <title> (до 65 символов), <meta description> (до 160 символов), canonical /blog/{slug}
-- Schema.org Article в JSON-LD (datePublished={TODAY}, author="Казанские Деликатесы", publisher org)
-- Bootstrap 5 CDN
+Требования к содержанию:
+- canonical /blog/{slug}
 - Один <h1> с ключевым запросом
-- Структура: введение (80-100 слов), 4 подзаголовка H2, практические советы, заключение с CTA
 - Текст 700-900 слов
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /pepperoni-dlya-pizzerii
-- Schema.org BreadcrumbList
-- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}\n- {CONTACTS_RULE}
+- CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
+- {CONTACTS_RULE}
 - НЕ упоминать свинину нигде"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     html = ensure_complete_html(html)
+    html = wrap_generated_blog("ru", slug, html, TODAY)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
@@ -434,25 +432,22 @@ def generate_article_en(topic: str, slug: str, conn) -> tuple[Path, int]:
         "No fluff, real facts. Halal theme, no mention of pork."
     )
     prompt = f"""Write an informational SEO article on the topic: «{topic}».
-Return ONLY full valid HTML5, no explanations.
+{BLOG_ARTICLE_OUTPUT_RULES_EN.format(date=TODAY)}
 
-Requirements:
-- <!DOCTYPE html> with lang="en"
-- <head>: charset, viewport, optimized <title> (max 65 chars), <meta description> (max 160 chars), canonical /en/blog/{slug}
-- Schema.org Article in JSON-LD (datePublished={TODAY}, author="Kazan Delicacies", publisher org)
-- Bootstrap 5 CDN
+Content requirements:
+- canonical /en/blog/{slug}
 - One <h1> with main keyword
-- Structure: intro (80-100 words), 4 H2 subheadings, practical tips, conclusion with CTA
 - Text 700-900 words
 - Contextual links: /en/, /pepperoni-optom (as wholesale page)
-- Schema.org BreadcrumbList
-- Footer: © 2022–{YEAR} Kazan Delicacies, {ADDR_EN}, {PHONE_DISPLAY}\n- {CONTACTS_RULE_EN}
+- CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
+- {CONTACTS_RULE_EN}
 - Do NOT mention pork anywhere"""
 
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
     html = ensure_complete_html(html)
+    html = wrap_generated_blog("en", slug, html, TODAY)
     out_path.write_text(html, encoding="utf-8")
     return out_path, tokens
 
