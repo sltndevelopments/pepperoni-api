@@ -277,6 +277,14 @@ MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
     python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
     >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
 
+# ---- Step 4bb: Rebuild blog index — keep /blog and /en/blog in sync with articles ----
+# Deterministic (no LLM). generate_content.py/generate_from_strategy.py only write
+# individual public/blog/*.html files; nothing else refreshes the public/blog.html
+# and public/en/blog.html index pages, so new articles silently became unreachable
+# from site navigation. Run right after content generation, before the QA gate.
+log "Step 4bb: Rebuild blog index …"
+python3 scripts/rebuild_blog_index.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Blog index rebuild failed (non-fatal)"
+
 # ---- Step 4c: Schema enricher — Product JSON-LD merchant-listing fields ----
 # Deterministic (no LLM): image/description/shipping/return on every freshly
 # generated page, so GSC never sees missing Merchant-listing fields again.
@@ -334,6 +342,7 @@ python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation 
 
 # Stage any new/modified HTML in geo, blog, and key pages
 git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
+git add public/blog.html public/en/blog.html 2>/dev/null || true
 git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
 # SKU-count reconcile output (manifest/ai-plugin/mcp/ai.json) — patched by
 # sync-vps.sh via reconcile_sku_count.py, must reach main or the fix resets.

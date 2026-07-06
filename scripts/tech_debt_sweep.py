@@ -439,6 +439,11 @@ def main() -> int:
     if rc != 0:
         print("  ⚠️  rebuild_sitemap exited non-zero (non-fatal, continuing)")
 
+    # Phase 4b: rebuild_blog_index — keep /blog and /en/blog listing all articles
+    rc = _run([sys.executable, str(SCRIPTS / "rebuild_blog_index.py")], "Phase 4b: rebuild_blog_index")
+    if rc != 0:
+        print("  ⚠️  rebuild_blog_index exited non-zero (non-fatal, continuing)")
+
     # ── Phase 5: sanity check (fail-closed) ──────────────────────────────────
     ok, failures = sanity_check(before)
 
