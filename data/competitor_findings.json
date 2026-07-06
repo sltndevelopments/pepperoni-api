@@ -1,18 +1,55 @@
 {
-  "generated_at": "2026-06-29T12:05:01.359777+00:00",
+  "generated_at": "2026-07-06T11:42:09.610914+00:00",
   "window_days": 30,
   "enriched": true,
   "losing_queries": [
     {
-      "query": "пепперони халяль",
-      "impressions": 299,
-      "clicks": 3,
-      "our_position": 52.9,
-      "our_best_position": 1.0,
-      "lost_score": 1196.0,
+      "query": "сосиски для хот догов оптом",
+      "impressions": 345,
+      "clicks": 0,
+      "our_position": 64.9,
+      "our_best_position": 9.0,
+      "lost_score": 1380.0,
       "competitor": {
-        "url": "https://www.ozon.ru/category/peperoni-kolbasa/",
-        "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an "
+        "url": "https://kazandelikates.tatar/sosiski-dlya-hot-dogov-halal",
+        "words": 1463,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/oem/hotdog-sausages",
+        "words": 923,
+        "schema": [
+          "Answer",
+          "BreadcrumbList",
+          "FAQPage",
+          "ListItem",
+          "Organization",
+          "PostalAddress",
+          "Question",
+          "Service"
+        ],
+        "has_reviews": false,
+        "has_faq": true
+      },
+      "why_they_win": [
+        "длиннее контент (1463 vs 923 слов)"
+      ]
+    },
+    {
+      "query": "пепперони халяль",
+      "impressions": 306,
+      "clicks": 3,
+      "our_position": 55.1,
+      "our_best_position": 1.0,
+      "lost_score": 1224.0,
+      "competitor": {
+        "url": "https://ekolmarket.ru/magazin/product/syrokopchenaya-kolbasa-peperoni-halyal-kategoriya-b-narezka-gaz",
+        "words": 484,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
       },
       "ours": {
         "url": "https://pepperoni.tatar/",
@@ -29,39 +66,12 @@
       "why_they_win": []
     },
     {
-      "query": "сосиски для хот догов оптом",
-      "impressions": 247,
-      "clicks": 0,
-      "our_position": 65.4,
-      "our_best_position": 2.0,
-      "lost_score": 988.0,
-      "competitor": {
-        "url": "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/sosiski-kolbaski/criterii-sosiski-dlya-hot-dogov",
-        "words": 501,
-        "schema": [
-          "BreadcrumbList",
-          "ListItem",
-          "Organization",
-          "WebPage"
-        ],
-        "has_reviews": false,
-        "has_faq": false
-      },
-      "ours": {
-        "url": "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-ryazan",
-        "error": "HTTP Error 404: Not Found"
-      },
-      "why_they_win": [
-        "больше schema: BreadcrumbList, ListItem, Organization, WebPage"
-      ]
-    },
-    {
       "query": "казылык это",
-      "impressions": 774,
+      "impressions": 802,
       "clicks": 1,
-      "our_position": 10.0,
+      "our_position": 9.9,
       "our_best_position": 1.0,
-      "lost_score": 771.1,
+      "lost_score": 791.7,
       "competitor": {
         "url": "https://ru.wikipedia.org/wiki/%D0%9A%D0%B0%D0%B7%D1%8B-%D0%BA%D0%B0%D1%80%D1%82%D0%B0",
         "words": 986,
@@ -96,11 +106,11 @@
     },
     {
       "query": "казылык",
-      "impressions": 495,
+      "impressions": 624,
       "clicks": 0,
-      "our_position": 8.7,
+      "our_position": 8.2,
       "our_best_position": 1.0,
-      "lost_score": 429.3,
+      "lost_score": 513.5,
       "competitor": {
         "url": "https://www.ozon.ru/category/konskaya-kolbasa-kazylyk/",
         "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an "
@@ -126,11 +136,11 @@
     },
     {
       "query": "пепперони халяль купить",
-      "impressions": 89,
-      "clicks": 1,
-      "our_position": 41.6,
+      "impressions": 111,
+      "clicks": 2,
+      "our_position": 41.4,
       "our_best_position": 2.0,
-      "lost_score": 356.0,
+      "lost_score": 444.0,
       "competitor": {
         "url": "https://www.ozon.ru/category/peperoni-kolbasa/",
         "error": "HTTP Error 307: The HTTP server returned a redirect error that would lead to an "
@@ -150,35 +160,15 @@
       "why_they_win": []
     },
     {
-      "query": "халяльные сосиски для хот догов",
-      "impressions": 88,
-      "clicks": 0,
-      "our_position": 61.2,
-      "our_best_position": 4.0,
-      "lost_score": 352.0,
-      "competitor": {
-        "url": "https://korzina-pro.ru/halal/tproduct/491257518832-sosiski-musulmanskie-halyal-dlya-hot-dog",
-        "words": 469,
-        "schema": [],
-        "has_reviews": false,
-        "has_faq": false
-      },
-      "ours": {
-        "url": "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-mahachkala",
-        "error": "HTTP Error 404: Not Found"
-      },
-      "why_they_win": []
-    },
-    {
       "query": "котлеты для гамбургеров оптом",
-      "impressions": 96,
+      "impressions": 114,
       "clicks": 0,
-      "our_position": 31.9,
-      "our_best_position": 15.0,
-      "lost_score": 306.2,
+      "our_position": 31.7,
+      "our_best_position": 11.0,
+      "lost_score": 361.7,
       "competitor": {
-        "url": "https://gfc-russia.ru/catalog/streetfood/burgers",
-        "words": 1020,
+        "url": "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kotlety-dlya-burgerov",
+        "words": 842,
         "schema": [
           "BreadcrumbList",
           "ListItem",
@@ -190,7 +180,7 @@
       },
       "ours": {
         "url": "https://pepperoni.tatar/blog/kotlety-dlya-burgerov-optom",
-        "words": 808,
+        "words": 807,
         "schema": [
           "Article",
           "BreadcrumbList",
@@ -205,12 +195,39 @@
       "why_they_win": []
     },
     {
-      "query": "халяль сосиски для хот догов",
-      "impressions": 73,
+      "query": "пепперони халяль колбаса",
+      "impressions": 77,
       "clicks": 0,
-      "our_position": 67.2,
-      "our_best_position": 3.0,
-      "lost_score": 292.0,
+      "our_position": 49.4,
+      "our_best_position": 4.0,
+      "lost_score": 308.0,
+      "competitor": {
+        "url": "https://kazandelikates.tatar/pepperoni-halal",
+        "words": 501,
+        "schema": [],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "ours": {
+        "url": "https://pepperoni.tatar/blog/pepperoni-halal-ili-net",
+        "words": 663,
+        "schema": [
+          "Article",
+          "Organization",
+          "WebPage"
+        ],
+        "has_reviews": false,
+        "has_faq": false
+      },
+      "why_they_win": []
+    },
+    {
+      "query": "халяль сосиски для хот догов",
+      "impressions": 72,
+      "clicks": 0,
+      "our_position": 68.8,
+      "our_best_position": 4.0,
+      "lost_score": 288.0,
       "competitor": {
         "url": "https://korzina-pro.ru/halal/tproduct/491257518832-sosiski-musulmanskie-halyal-dlya-hot-dog",
         "words": 469,
@@ -219,66 +236,76 @@
         "has_faq": false
       },
       "ours": {
-        "url": "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-mahachkala",
-        "error": "HTTP Error 404: Not Found"
+        "url": "https://pepperoni.tatar/sosiski-dlya-hotdog/",
+        "words": 404,
+        "schema": [
+          "Answer",
+          "BreadcrumbList",
+          "FAQPage",
+          "ItemList",
+          "ListItem",
+          "Question"
+        ],
+        "has_reviews": false,
+        "has_faq": true
       },
       "why_they_win": []
     },
     {
+      "query": "халяльные сосиски для хот догов",
+      "impressions": 65,
+      "clicks": 0,
+      "our_position": 61.5,
+      "our_best_position": 4.0,
+      "lost_score": 260.0
+    },
+    {
       "query": "котлеты для бургеров оптом",
-      "impressions": 85,
+      "impressions": 100,
       "clicks": 0,
-      "our_position": 28.0,
+      "our_position": 24.0,
       "our_best_position": 3.0,
-      "lost_score": 237.9
-    },
-    {
-      "query": "пепперони халяль колбаса",
-      "impressions": 55,
-      "clicks": 0,
-      "our_position": 39.1,
-      "our_best_position": 1.0,
-      "lost_score": 215.1
-    },
-    {
-      "query": "котлеты для бургеров купить оптом",
-      "impressions": 72,
-      "clicks": 0,
-      "our_position": 29.4,
-      "our_best_position": 2.0,
-      "lost_score": 211.8
+      "lost_score": 239.8
     },
     {
       "query": "сосиски для хот догов купить оптом в москве",
-      "impressions": 61,
+      "impressions": 63,
       "clicks": 0,
-      "our_position": 29.7,
+      "our_position": 32.2,
       "our_best_position": 13.0,
-      "lost_score": 181.0
+      "lost_score": 203.1
+    },
+    {
+      "query": "котлеты для бургеров купить оптом",
+      "impressions": 80,
+      "clicks": 0,
+      "our_position": 21.8,
+      "our_best_position": 5.0,
+      "lost_score": 174.6
     },
     {
       "query": "котлеты для бургеров опт",
-      "impressions": 53,
+      "impressions": 63,
       "clicks": 0,
-      "our_position": 31.2,
-      "our_best_position": 23.5,
-      "lost_score": 165.1
+      "our_position": 26.3,
+      "our_best_position": 8.0,
+      "lost_score": 165.9
     },
     {
       "query": "пепперони говядина",
-      "impressions": 42,
+      "impressions": 38,
       "clicks": 0,
-      "our_position": 34.3,
+      "our_position": 38.5,
       "our_best_position": 1.0,
-      "lost_score": 144.0
+      "lost_score": 146.3
     },
     {
-      "query": "татарская колбаса из конины",
-      "impressions": 59,
+      "query": "halal pepperoni",
+      "impressions": 53,
       "clicks": 0,
-      "our_position": 17.1,
-      "our_best_position": 1.0,
-      "lost_score": 101.1
+      "our_position": 24.5,
+      "our_best_position": 2.0,
+      "lost_score": 130.1
     }
   ]
 }
