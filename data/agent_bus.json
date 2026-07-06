@@ -293,14 +293,14 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-04T05:31:32.139070+00:00",
-   "updated_at": "2026-07-04T05:31:32.139075+00:00",
+   "updated_at": "2026-07-06T05:30:32.159910+00:00",
    "claimed_by": null
   }
  ],
  "seq": 15,
- "updated_at": "2026-07-04T05:31:32.139106+00:00"
+ "updated_at": "2026-07-06T05:30:32.159976+00:00"
 }
