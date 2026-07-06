@@ -13,6 +13,11 @@
       "url": "https://api.pepperoni.tatar/api/mcp",
       "description": "Remote MCP (Streamable HTTP, stateless). Works with Claude Desktop, Cursor, and other MCP clients."
     },
+    "sse": {
+      "url": "https://api.pepperoni.tatar/api/mcp/sse",
+      "message_url": "https://api.pepperoni.tatar/api/mcp/messages",
+      "description": "Legacy SSE transport for clients that connect via a dedicated /sse URL (e.g. Grok custom connectors)."
+    },
     "stdio": {
       "command": "node",
       "args": ["mcp/stdio.js"],
@@ -43,5 +48,5 @@
       }
     }
   },
-  "updated_at": "2026-06-06T00:00:00Z"
+  "updated_at": "2026-07-06T00:00:00Z"
 }
