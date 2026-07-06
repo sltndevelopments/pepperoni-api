@@ -293,7 +293,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Дистрибьюторы регионов</div>
-        <div class="seg-card__desc">Отсрочка до 30 дней, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
+        <div class="seg-card__desc">Отсрочка согласно договору, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
         <div class="seg-card__case">Кейс: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
@@ -965,7 +965,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>
-        <div class="seg-card__desc">30-day deferred payment, own price list, full halal assortment from Tatarstan in one warehouse.</div>
+        <div class="seg-card__desc">Deferred payment as per contract, own price list, full halal assortment from Tatarstan in one warehouse.</div>
         <div class="seg-card__case">Case: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
