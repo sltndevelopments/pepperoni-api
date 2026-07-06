@@ -1,0 +1,18 @@
+[Unit]
+Description=Kazan Delicacies MCP server (Streamable HTTP + SSE)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/pepperoni/repo
+Environment=MCP_PORT=8130
+Environment=PEPPERONI_API_BASE=https://api.pepperoni.tatar
+ExecStart=/usr/bin/node mcp/http-server.js
+Restart=on-failure
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
