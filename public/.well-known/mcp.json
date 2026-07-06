@@ -8,6 +8,8 @@
     "url": "https://kazandelikates.tatar",
     "email": "info@kazandelikates.tatar"
   },
+  "logo_url": "https://pepperoni.tatar/images/logo-256.png",
+  "icon_url": "https://pepperoni.tatar/images/logo-256.png",
   "transports": {
     "streamable_http": {
       "url": "https://api.pepperoni.tatar/api/mcp",

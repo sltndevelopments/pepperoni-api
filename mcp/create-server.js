@@ -26,6 +26,13 @@ export function createKazanMcpServer() {
     {
       name: 'kazan-delicacies',
       version: '1.0.0',
+      icons: [
+        {
+          src: 'https://pepperoni.tatar/images/logo-256.png',
+          mimeType: 'image/png',
+          sizes: ['256x256'],
+        },
+      ],
     },
     {
       instructions: SERVER_INSTRUCTIONS,
