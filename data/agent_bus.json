@@ -299,8 +299,48 @@
    "created_at": "2026-07-04T05:31:32.139070+00:00",
    "updated_at": "2026-07-06T05:30:32.159910+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260707-0016",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "pepperoni shelf life",
+    "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:pepperoni shelf life"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-07T03:30:02.539793+00:00",
+   "updated_at": "2026-07-07T03:30:02.539798+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260707-0017",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пепперони халяль",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "verdict": "worse",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пепперони халяль"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-07T03:30:02.545959+00:00",
+   "updated_at": "2026-07-07T03:30:02.545964+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 15,
- "updated_at": "2026-07-06T05:30:32.159976+00:00"
+ "seq": 17,
+ "updated_at": "2026-07-07T03:30:02.545984+00:00"
 }

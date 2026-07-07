@@ -711,5 +711,65 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-07-07T03:30:07.832116+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пепперони халяль оптом от производителя | Pepperoni.tatar",
+    "before_desc": "Пепперони халяль оптом от производителя из Казани. MOQ от 500 кг/мес, СТМ, экспорт в СНГ и ОАЭ. Сертификат Халяль ДУМ РТ, ХАССП, ISO 22000:2018."
+  },
+  {
+    "applied_at": "2026-07-07T03:30:10.546423+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пепперони халяль оптом — производитель | Pepperoni.tatar",
+    "before_desc": "Поставки пепперони халяль от завода в Казани: MOQ от 500 кг/мес, СТМ, экспорт в СНГ и ОАЭ. Сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. Запрос цены — за 1 час."
+  },
+  {
+    "applied_at": "2026-07-07T03:30:13.900277+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пепперони халяль оптом — завод Казань | Pepperoni.tatar",
+    "before_desc": "Производство пепперони халяль под вашу марку: MOQ от 500 кг/мес, сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. Экспорт в СНГ и ОАЭ. Цена — за 1 час."
+  },
+  {
+    "applied_at": "2026-07-07T04:00:05.434020+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пепперони халяль оптом — завод в Казани | Pepperoni.tatar",
+    "before_desc": "Пепперони халяль собственного производства: сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. MOQ от 500 кг/мес, СТМ, экспорт в СНГ и ОАЭ. Прайс — за 1 час."
+  },
+  {
+    "applied_at": "2026-07-07T04:00:08.423101+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пепперони халяль оптом — завод Казань | Pepperoni.tatar",
+    "before_desc": "Производим пепперони халяль: сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. MOQ от 500 кг/мес, СТМ, экспорт в СНГ и ОАЭ. Прайс за 1 час — звоните."
+  },
+  {
+    "applied_at": "2026-07-07T04:00:18.736221+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "file_path": "public/blog/what-is-halal-pepperoni.html",
+    "query": "пепперони халяль",
+    "before_pos": 48.3,
+    "before_title": "Пеперони из какого мяса: состав халяль для пиццерии",
+    "before_desc": "Пеперони «Казанские Деликатесы» — 100% говядина, сертификат халяль ДУМ РТ, стандарт ХАССП. Подробный состав, виды нарезки и условия оптовых поставок для пиццерий и HoReCa"
   }
 ]
