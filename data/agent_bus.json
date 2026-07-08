@@ -313,11 +313,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-07T03:30:02.539793+00:00",
-   "updated_at": "2026-07-07T03:30:02.539798+00:00",
+   "updated_at": "2026-07-08T05:30:31.192281+00:00",
    "claimed_by": null
   },
   {
@@ -333,14 +333,14 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-07T03:30:02.545959+00:00",
-   "updated_at": "2026-07-07T03:30:02.545964+00:00",
+   "updated_at": "2026-07-08T05:30:31.192317+00:00",
    "claimed_by": null
   }
  ],
  "seq": 17,
- "updated_at": "2026-07-07T03:30:02.545984+00:00"
+ "updated_at": "2026-07-08T05:30:31.192354+00:00"
 }
