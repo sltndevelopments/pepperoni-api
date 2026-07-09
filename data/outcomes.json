@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-07-08T05:31:30.276786+00:00",
+ "generated_at": "2026-07-09T05:31:48.632059+00:00",
  "summary": {
-  "improved": 9,
+  "improved": 21,
   "flat": 15,
-  "worse": 6,
+  "worse": 0,
   "not_indexed": 14,
-  "pending": 12,
+  "pending": 11,
   "converted": 0
  },
  "failing": [
@@ -17,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.0,
+   "age_days": 31.0,
    "verdict": "not_indexed"
   },
   {
@@ -28,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 29.9,
+   "age_days": 30.9,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +39,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 28.9,
+   "age_days": 29.9,
    "verdict": "not_indexed"
   },
   {
@@ -50,7 +50,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 26.0,
+   "age_days": 27.0,
    "verdict": "not_indexed"
   },
   {
@@ -61,7 +61,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 26.0,
+   "age_days": 27.0,
    "verdict": "not_indexed"
   },
   {
@@ -72,7 +72,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 22.0,
+   "age_days": 23.0,
    "verdict": "not_indexed"
   },
   {
@@ -83,7 +83,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 22.0,
+   "age_days": 23.0,
    "verdict": "not_indexed"
   },
   {
@@ -94,7 +94,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 14.0,
+   "age_days": 15.0,
    "verdict": "not_indexed"
   },
   {
@@ -105,7 +105,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 14.0,
+   "age_days": 15.0,
    "verdict": "not_indexed"
   },
   {
@@ -116,7 +116,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 12.1,
+   "age_days": 13.1,
    "verdict": "not_indexed"
   },
   {
@@ -127,7 +127,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 7.3,
+   "age_days": 8.3,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 7.3,
+   "age_days": 8.3,
    "verdict": "not_indexed"
   },
   {
@@ -149,7 +149,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 7.3,
+   "age_days": 8.3,
    "verdict": "not_indexed"
   },
   {
@@ -160,100 +160,16 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 7.0,
+   "age_days": 8.0,
    "verdict": "not_indexed"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 34.34,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 28.0,
-   "delta": -19.8,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 33.39,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 27.0,
-   "delta": -20.7,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 32.46,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 26.0,
-   "delta": -21.6,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
-   "change": "title_meta",
-   "before_pos": 14.67,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 22.0,
-   "delta": -39.4,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/",
-   "change": "title_meta",
-   "before_pos": 8.84,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 1,
-   "age_days": 21.0,
-   "delta": -45.3,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/blog/pepperoni-halal-ili-net",
-   "change": "title_meta",
-   "before_pos": 14.54,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 5.0,
-   "delta": -39.6,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 53.22,
-   "current_pos": 54.1,
-   "impr": 50,
-   "inquiries": 0,
-   "age_days": 5.0,
-   "delta": -0.9,
-   "verdict": "flat"
   }
  ],
- "graded_total": 44,
+ "graded_total": 50,
  "converting_pages": [
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 54.1,
+   "pos": 6.9,
    "inquiries": 1
   }
  ]

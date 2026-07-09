@@ -303,10 +303,53 @@ _FALLBACK_FOOTER = (
     '</div></footer>\n'
 )
 
+# ---------- HTML junk-prefix filter ----------
+
+# Matches common model preamble phrases before the actual HTML starts.
+# Examples: "Вот страница:", "Конечно, вот:", "Sure, here is the page:"
+_JUNK_PREFIX_RE = re.compile(
+    r'^[\s\S]*?(?=<!DOCTYPE|<html)',
+    re.IGNORECASE,
+)
+
+# Valid HTML opening tags that a document may start with (after stripping
+# the doctype declaration or when doctype is absent).
+_VALID_HTML_START_RE = re.compile(
+    r'^(<!DOCTYPE\s+html|<html)',
+    re.IGNORECASE,
+)
+
+
+def strip_model_junk_prefix(html: str) -> str:
+    """Remove any text before the first HTML tag produced by the model.
+
+    Models sometimes prepend conversational phrases like «Вот страница:»,
+    «Конечно!», «Sure, here is the HTML:» etc. before the actual markup.
+    This function strips everything up to (but not including) the first
+    ``<!DOCTYPE`` or ``<html`` occurrence so the file starts cleanly.
+
+    If neither marker is found the original string is returned unchanged so
+    that downstream validators can still reject it via ``is_valid_page``.
+    """
+    m = re.search(r'(<!DOCTYPE\s+html|<html)', html, re.IGNORECASE)
+    if m and m.start() > 0:
+        stripped = html[m.start():]
+        print(
+            f"  ⚠️  stripped {m.start()} junk chars before HTML "
+            f"(prefix: {html[:60]!r}…)",
+            file=sys.stderr,
+        )
+        return stripped
+    return html
+
 
 def ensure_complete_html(html: str) -> str:
-    """Close a page that the model left truncated (no </body></html>)."""
-    html = (html or "").rstrip()
+    """Close a page that the model left truncated (no </body></html>).
+
+    Also strips any model preamble text before the HTML document starts.
+    """
+    html = strip_model_junk_prefix(html or "")
+    html = html.rstrip()
     low = html.lower()
     if "</body>" in low and "</html>" in low:
         return html
@@ -328,8 +371,17 @@ def ensure_complete_html(html: str) -> str:
 
 
 def is_valid_page(html: str) -> bool:
-    """Reject pages too broken to publish (truncated or with conflict markers)."""
+    """Reject pages too broken to publish (truncated or with conflict markers).
+
+    Additionally rejects documents that do not start with a valid HTML
+    opening tag (``<!DOCTYPE html`` or ``<html``) after junk stripping —
+    this catches any residual model preamble that ``strip_model_junk_prefix``
+    could not remove (e.g. when there is no recognisable HTML marker at all).
+    """
     if any(m in html for m in ("<<<<<<<", "=======\n", ">>>>>>>")):
+        return False
+    # Validate that the document starts with a proper HTML tag.
+    if not _VALID_HTML_START_RE.match(html.lstrip()):
         return False
     low = html.lower()
     return ("</head>" in low) and ("<h1" in low) and ("</html>" in low)
@@ -443,640 +495,4 @@ Content requirements:
 - {CONTACTS_RULE_EN}
 - Do NOT mention pork anywhere"""
 
-    html, tokens = call_claude(system, prompt)
-    out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    html = ensure_complete_html(html)
-    html = wrap_generated_blog("en", slug, html, TODAY)
-    out_path.write_text(html, encoding="utf-8")
-    return out_path, tokens
-
-
-# ---------- FAQ page generator ----------
-
-def generate_faq_page(faq: dict) -> tuple[Path, int]:
-    slug = faq["slug"]
-    lang = faq["lang"]
-    title = faq["title"]
-    desc = faq["desc"]
-    questions = faq["questions"]
-
-    qa_schema = json.dumps({
-        "@context": "https://schema.org",
-        "@type": "FAQPage",
-        "mainEntity": [
-            {
-                "@type": "Question",
-                "name": q,
-                "acceptedAnswer": {"@type": "Answer", "text": a}
-            }
-            for q, a in questions
-        ]
-    }, ensure_ascii=False, indent=2)
-
-    qa_html = "\n".join(
-        f"""<div class="accordion-item">
-  <h3 class="accordion-header">
-    <button class="accordion-button {'collapsed' if i > 0 else ''}" type="button" data-bs-toggle="collapse" data-bs-target="#faq{i}">
-      {q}
-    </button>
-  </h3>
-  <div id="faq{i}" class="accordion-collapse collapse {'show' if i == 0 else ''}">
-    <div class="accordion-body">{a}</div>
-  </div>
-</div>"""
-        for i, (q, a) in enumerate(questions)
-    )
-
-    canonical = f"/faq/{slug}" if lang == "ru" else f"/en/faq/{slug}"
-    back_link = "/" if lang == "ru" else "/en/"
-    back_text = "← Главная" if lang == "ru" else "← Home"
-
-    schema_tag = f'<script type="application/ld+json">{qa_schema}</script>'
-    body = f"""
-<div class="container my-5">
-  <a href="{back_link}" class="text-muted small">{back_text}</a>
-  <h1 class="mt-3 mb-4">{title}</h1>
-  <div class="accordion" id="faqAccordion">
-    {qa_html}
-  </div>
-  <div class="mt-5 p-4 bg-light rounded">
-    <h2 class="h4">{'Нужна консультация?' if lang == 'ru' else 'Need a consultation?'}</h2>
-    <p>{'Свяжитесь с нами для получения прайс-листа и образцов продукции.' if lang == 'ru' else 'Contact us for a price list and product samples.'}</p>
-    <a href="tel:+79872170202" class="btn btn-danger">+7 987 217-02-02</a>
-  </div>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>"""
-
-    html = html_shell(lang, title, desc, canonical, body, schema_tag)
-
-    if lang == "ru":
-        out_path = PUBLIC_DIR / "faq" / f"{slug}.html"
-    else:
-        out_path = PUBLIC_DIR / "en" / "faq" / f"{slug}.html"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    html = ensure_complete_html(html)
-    out_path.write_text(html, encoding="utf-8")
-    return out_path, 0
-
-
-# ---------- Comparison page generator ----------
-
-def generate_comparison_page(comp: dict) -> tuple[Path, int]:
-    lang = comp["lang"]
-    slug = comp["slug"]
-    a_ru, a_en = comp["aspect_a"]
-    b_ru, b_en = comp["aspect_b"]
-
-    if lang == "ru":
-        system = (
-            "Ты эксперт в мясной промышленности, SEO-копирайтер для pepperoni.tatar. "
-            "Пишешь сравнительные статьи на русском языке для оптовых покупателей."
-        )
-        prompt = f"""Напиши SEO-страницу сравнения: «{a_ru}» vs «{b_ru}» для оптовых покупателей.
-Верни ТОЛЬКО полный валидный HTML5, без объяснений.
-
-Требования:
-- <!DOCTYPE html> с lang="ru"
-- <title>: {comp['title']}
-- <meta description>: {comp['desc']}
-- <link canonical href="https://pepperoni.tatar/blog/{slug}">
-- Schema.org Article + BreadcrumbList
-- Bootstrap 5 CDN
-- <h1>: {comp['h1']}
-- Таблица сравнения (состав, вкус, цена, применение, срок хранения)
-- 4 H2 секции с подробным сравнением
-- CTA с ссылкой на /pepperoni-optom
-- Текст 600-800 слов, без упоминания свинины
-- Футер с контактами"""
-    else:
-        system = (
-            "You are a meat industry expert and SEO copywriter for pepperoni.tatar. "
-            "Write comparison articles in English for wholesale buyers and HoReCa."
-        )
-        prompt = f"""Write an SEO comparison page: «{a_en}» vs «{b_en}» for wholesale buyers.
-Return ONLY full valid HTML5, no explanations.
-
-Requirements:
-- <!DOCTYPE html> with lang="en"
-- <title>: {comp['title']}
-- <meta description>: {comp['desc']}
-- <link canonical href="https://pepperoni.tatar/en/blog/{slug}">
-- Schema.org Article + BreadcrumbList
-- Bootstrap 5 CDN
-- <h1>: {comp['h1']}
-- Comparison table (ingredients, taste, price, use cases, shelf life)
-- 4 H2 sections with detailed comparison
-- CTA linking to /pepperoni-optom
-- Text 600-800 words, no mention of pork
-- Footer with contacts"""
-
-    html, tokens = call_claude(system, prompt)
-
-    if lang == "ru":
-        out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
-    else:
-        out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    html = ensure_complete_html(html)
-    out_path.write_text(html, encoding="utf-8")
-    return out_path, tokens
-
-
-# ---------- Type+Geo page generator ----------
-
-def generate_type_geo_page(type_slug: str, type_ru: str, type_en: str,
-                            city_slug: str, city_ru: str, city_en: str) -> tuple[Path, int]:
-    slug = f"{type_slug}-{city_slug}"
-    query_ru = f"{type_ru} {city_ru} оптом"
-
-    system = (
-        "Ты SEO-копирайтер для B2B сайта производителя халяль мясных изделий pepperoni.tatar. "
-        "Пишешь лаконичные посадочные страницы для оптовых покупателей на русском языке."
-    )
-    prompt = f"""Напиши посадочную страницу для запроса «{query_ru}».
-Верни ТОЛЬКО полный валидный HTML5, без объяснений.
-
-Требования:
-- <!DOCTYPE html> с lang="ru"
-- <title>: {type_ru} {city_ru} — купить оптом | Казанские Деликатесы (до 65 символов)
-- <meta description>: до 160 символов, включи запрос и USP (халяль, HACCP, доставка)
-- canonical: /geo/{slug}
-- Schema.org LocalBusiness + Product JSON-LD
-- Bootstrap 5 CDN
-- <h1>: {type_ru} в {city_ru} — оптовые поставки
-- Секции: о продукте (3 абзаца), преимущества (ul 5 пунктов), условия поставки, CTA
-- Кнопка «Получить прайс» → tel:+79872170202
-- Контекстные ссылки: /pepperoni, /pepperoni-optom
-- Футер с контактами
-- НЕ упоминать свинину, текст 400-500 слов"""
-
-    html, tokens = call_claude(system, prompt)
-    html = inject_internal_links(html, slug)
-
-    out_path = PUBLIC_DIR / "geo" / f"{slug}.html"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    html = ensure_complete_html(html)
-    out_path.write_text(html, encoding="utf-8")
-    return out_path, tokens
-
-
-# ---------- Title/Meta updater ----------
-
-def update_title_meta(file_path: Path, new_title: str, new_desc: str) -> bool:
-    try:
-        html = file_path.read_text(encoding="utf-8")
-    except FileNotFoundError:
-        return False
-    html = re.sub(r"<title>[^<]*</title>", f"<title>{new_title}</title>", html, count=1)
-    html = re.sub(
-        r'<meta\s+name=["\']description["\']\s+content=["\'][^"\']*["\']',
-        f'<meta name="description" content="{new_desc}"',
-        html, count=1, flags=re.IGNORECASE,
-    )
-    file_path.write_text(html, encoding="utf-8")
-    return True
-
-
-def get_page_title(file_path: Path) -> str:
-    try:
-        html = file_path.read_text(encoding="utf-8")
-        m = re.search(r"<title>([^<]+)</title>", html)
-        return m.group(1) if m else ""
-    except Exception:
-        return ""
-
-
-# ---------- Geo page generator (from DB opportunities) ----------
-
-def generate_geo_page(query: str, slug: str, conn) -> tuple[Path, int]:
-    city_hint = slug.replace("pepperoni-", "").replace("kotlety-dlya-burgerov-", "").replace("-", " ").strip()
-    system = (
-        "Ты опытный SEO-копирайтер для B2B сайта производителя халяль колбасных изделий "
-        "'Казанские Деликатесы' (pepperoni.tatar). "
-        "Пишешь лаконичный, убедительный текст на русском языке для оптовых покупателей. "
-        "Без воды, с конкретными выгодами: халяль сертификат, HACCP, ISO, доставка по РФ и СНГ, "
-        "Private Label (СТМ), пепперони из говядины/курицы/конины, разные диаметры."
-    )
-    prompt = f"""Напиши HTML-страницу для геозапроса «{query}» (город/регион: {city_hint}).
-Верни ТОЛЬКО полный валидный HTML5, без объяснений.
-
-Требования:
-- <!DOCTYPE html> с lang="ru"
-- <head>: charset, viewport, <title> (до 65 символов), <meta description> (до 160 символов), canonical /geo/{slug}
-- Schema.org LocalBusiness + Product JSON-LD
-- Bootstrap 5 CDN
-- <h1> с запросом «{query}»
-- Секции: краткое введение, преимущества (ul/li), ассортимент, условия поставки, CTA → tel:+79872170202
-- BreadcrumbList microdata
-- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}\n- {CONTACTS_RULE}
-- НЕ упоминать свинину
-- Ссылка «← Все продукты» на /"""
-
-    html, tokens = call_claude(system, prompt)
-    html = html.replace("<body>", f"<body>\n{GTM_SNIPPET}", 1)
-    html = inject_internal_links(html, slug)
-
-    out_path = PUBLIC_DIR / "geo" / f"{slug}.html"
-    out_path.parent.mkdir(parents=True, exist_ok=True)
-    html = ensure_complete_html(html)
-    out_path.write_text(html, encoding="utf-8")
-    return out_path, tokens
-
-
-# ---------- Blog article (legacy, from DB) ----------
-
-def generate_article(query: str, slug: str, conn) -> tuple[Path, int]:
-    return generate_article_ru(query, slug, conn)
-
-
-# ---------- Schedule: daily articles ----------
-
-def run_scheduled_articles(conn) -> int:
-    """Generate 3 RU + 3 EN blog articles per day from predefined topic list."""
-    now = datetime.now(timezone.utc).isoformat()
-    count = 0
-    new_urls = []
-
-    # Find already-generated slugs
-    done_slugs = set()
-    for f in (PUBLIC_DIR / "blog").glob("*.html"):
-        done_slugs.add(f.stem)
-    for f in (PUBLIC_DIR / "en" / "blog").glob("*.html") if (PUBLIC_DIR / "en" / "blog").exists() else []:
-        done_slugs.add(f.stem)
-
-    # RU articles
-    ru_pending = [(t, s) for t, s in BLOG_TOPICS_RU if s not in done_slugs]
-    for topic, slug in ru_pending[:MAX_ARTICLES]:
-        try:
-            print(f"  📝 [RU] {topic[:60]}")
-            out_path, tokens = generate_article_ru(topic, slug, conn)
-            conn.execute(
-                """INSERT INTO generated_content
-                   (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "article", "ru", topic, slug, str(out_path), topic, "published", DEEPSEEK_MODEL, tokens),
-            )
-            new_urls.append(f"https://pepperoni.tatar/blog/{slug}")
-            count += 1
-            print(f"     ✅ {out_path.name} ({tokens} tokens)")
-        except Exception as ex:
-            print(f"  ⚠️  RU article failed ({slug}): {ex}", file=sys.stderr)
-
-    # EN articles
-    en_pending = [(t, s) for t, s in BLOG_TOPICS_EN if s not in done_slugs]
-    for topic, slug in en_pending[:MAX_ARTICLES]:
-        try:
-            print(f"  📝 [EN] {topic[:60]}")
-            out_path, tokens = generate_article_en(topic, slug, conn)
-            conn.execute(
-                """INSERT INTO generated_content
-                   (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "article", "en", topic, slug, str(out_path), topic, "published", DEEPSEEK_MODEL, tokens),
-            )
-            new_urls.append(f"https://pepperoni.tatar/en/blog/{slug}")
-            count += 1
-            print(f"     ✅ {out_path.name} ({tokens} tokens)")
-        except Exception as ex:
-            print(f"  ⚠️  EN article failed ({slug}): {ex}", file=sys.stderr)
-
-    if new_urls:
-        add_to_sitemap(new_urls)
-
-    return count
-
-
-# ---------- Schedule: FAQ pages ----------
-
-def run_faq_pages(conn) -> int:
-    now = datetime.now(timezone.utc).isoformat()
-    count = 0
-    new_urls = []
-
-    for faq in FAQ_TOPICS:
-        slug = faq["slug"]
-        lang = faq["lang"]
-
-        if lang == "ru":
-            out_path = PUBLIC_DIR / "faq" / f"{slug}.html"
-            url = f"https://pepperoni.tatar/faq/{slug}"
-        else:
-            out_path = PUBLIC_DIR / "en" / "faq" / f"{slug}.html"
-            url = f"https://pepperoni.tatar/en/faq/{slug}"
-
-        if out_path.exists():
-            continue
-
-        try:
-            print(f"  ❓ [FAQ/{lang}] {faq['title'][:60]}")
-            out_path, tokens = generate_faq_page(faq)
-            conn.execute(
-                """INSERT INTO generated_content
-                   (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "faq_page", lang, faq["title"], slug, str(out_path),
-                 faq["title"], "published", DEEPSEEK_MODEL, tokens),
-            )
-            new_urls.append(url)
-            count += 1
-            print(f"     ✅ {out_path.name}")
-        except Exception as ex:
-            print(f"  ⚠️  FAQ failed ({slug}): {ex}", file=sys.stderr)
-
-    if new_urls:
-        add_to_sitemap(new_urls)
-
-    return count
-
-
-# ---------- Schedule: comparison pages ----------
-
-def run_comparison_pages(conn) -> int:
-    now = datetime.now(timezone.utc).isoformat()
-    count = 0
-    new_urls = []
-
-    for comp in COMPARISON_TOPICS:
-        slug = comp["slug"]
-        lang = comp["lang"]
-
-        if lang == "ru":
-            out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
-            url = f"https://pepperoni.tatar/blog/{slug}"
-        else:
-            out_path = PUBLIC_DIR / "en" / "blog" / f"{slug}.html"
-            url = f"https://pepperoni.tatar/en/blog/{slug}"
-
-        if out_path.exists():
-            continue
-
-        try:
-            print(f"  ⚖️  [Comparison/{lang}] {comp['title'][:60]}")
-            out_path, tokens = generate_comparison_page(comp)
-            conn.execute(
-                """INSERT INTO generated_content
-                   (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, "comparison", lang, comp["title"], slug, str(out_path),
-                 comp["title"], "published", DEEPSEEK_MODEL, tokens),
-            )
-            new_urls.append(url)
-            count += 1
-            print(f"     ✅ {out_path.name} ({tokens} tokens)")
-        except Exception as ex:
-            print(f"  ⚠️  Comparison failed ({slug}): {ex}", file=sys.stderr)
-
-    if new_urls:
-        add_to_sitemap(new_urls)
-
-    return count
-
-
-# ---------- Schedule: type+geo pages ----------
-
-def run_type_geo_pages(conn) -> int:
-    now = datetime.now(timezone.utc).isoformat()
-    count = 0
-    new_urls = []
-
-    for type_slug, type_ru, type_en in PRODUCT_TYPES:
-        for city_slug, city_ru, city_en in GEO_CITIES:
-            if count >= MAX_TYPEGEO:
-                break
-
-            slug = f"{type_slug}-{city_slug}"
-            out_path = PUBLIC_DIR / "geo" / f"{slug}.html"
-            if out_path.exists():
-                continue
-
-            try:
-                print(f"  🌍 [type+geo] {type_ru} × {city_ru}")
-                out_path, tokens = generate_type_geo_page(
-                    type_slug, type_ru, type_en,
-                    city_slug, city_ru, city_en,
-                )
-                conn.execute(
-                    """INSERT INTO generated_content
-                       (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                       VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                    (now, "geo_page", "ru", f"{type_ru} {city_ru} оптом", slug,
-                     str(out_path), f"{type_ru} {city_ru}", "published", DEEPSEEK_MODEL, tokens),
-                )
-                new_urls.append(f"https://pepperoni.tatar/geo/{slug}")
-                count += 1
-                print(f"     ✅ {out_path.name} ({tokens} tokens)")
-            except Exception as ex:
-                print(f"  ⚠️  type+geo failed ({slug}): {ex}", file=sys.stderr)
-
-    if new_urls:
-        add_to_sitemap(new_urls)
-
-    return count
-
-
-# ---------- Title/meta low-CTR processor ----------
-
-PAGE_SLUG_MAP = {
-    "https://pepperoni.tatar/":                    "index.html",
-    "https://pepperoni.tatar/pepperoni":           "pepperoni.html",
-    "https://pepperoni.tatar/pepperoni-optom":     "pepperoni-optom.html",
-    "https://pepperoni.tatar/pepperoni-dlya-pizzerii": "pepperoni-dlya-pizzerii.html",
-    "https://pepperoni.tatar/pepperoni-dlya-horeca":   "pepperoni-dlya-horeca.html",
-    "https://pepperoni.tatar/pepperoni-private-label": "pepperoni-private-label.html",
-    "https://pepperoni.tatar/pepperoni-v-narezke":     "pepperoni-v-narezke.html",
-}
-
-
-def process_low_ctr(opportunities: list, conn) -> int:
-    count = 0
-    now = datetime.now(timezone.utc).isoformat()
-
-    for opp in opportunities[:MAX_TITLES]:
-        page_url = opp["page"] or ""
-        query    = opp["query"]
-
-        rel_path = None
-        if page_url in PAGE_SLUG_MAP:
-            rel_path = PUBLIC_DIR / PAGE_SLUG_MAP[page_url]
-        elif "/geo/" in page_url:
-            slug = page_url.split("/geo/")[-1].rstrip("/")
-            rel_path = PUBLIC_DIR / "geo" / f"{slug}.html"
-        elif "/blog/" in page_url:
-            slug = page_url.split("/blog/")[-1].rstrip("/")
-            rel_path = PUBLIC_DIR / "blog" / f"{slug}.html"
-        elif "/faq/" in page_url:
-            slug = page_url.split("/faq/")[-1].rstrip("/")
-            rel_path = PUBLIC_DIR / "faq" / f"{slug}.html"
-
-        if not rel_path or not rel_path.exists():
-            continue
-
-        current_title = get_page_title(rel_path)
-        system = (
-            "Ты SEO-специалист. Улучшаешь <title> и <meta description> для B2B сайта "
-            "производителя халяль мясных деликатесов 'Казанские Деликатесы' (pepperoni.tatar). "
-            "Цель — повысить CTR в поиске. Пиши на русском языке."
-        )
-        prompt = f"""Целевой запрос: «{query}»
-Текущий title: «{current_title}»
-CTR страницы низкий (< 3%). Позиция: {opp["position"]:.1f}.
-
-Верни JSON:
-{{"title": "новый title (до 65 символов)", "description": "новый meta description (до 160 символов)"}}
-
-Только JSON, без комментариев. Включи запрос, USP (халяль, оптом, ХАССП), CTA-слово."""
-
-        try:
-            raw, tokens = call_claude(system, prompt)
-            m = re.search(r'\{[^{}]+\}', raw, re.DOTALL)
-            if not m:
-                continue
-            data = json.loads(m.group(0))
-            new_title = data.get("title", "")
-            new_desc  = data.get("description", "")
-            if not new_title:
-                continue
-
-            ok = update_title_meta(rel_path, new_title, new_desc)
-            if ok:
-                conn.execute(
-                    """INSERT INTO generated_content
-                       (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                       VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                    (now, "title_update", "ru", query, page_url, str(rel_path),
-                     new_title, "published", DEEPSEEK_MODEL, tokens),
-                )
-                conn.execute(
-                    "UPDATE opportunities SET status='done', notes=? WHERE id=?",
-                    (f"title→{new_title[:40]}", opp["id"]),
-                )
-                count += 1
-                print(f"  ✏️  title updated: {rel_path.name} → {new_title[:50]}")
-        except Exception as ex:
-            print(f"  ⚠️  title update failed ({query}): {ex}", file=sys.stderr)
-
-    return count
-
-
-# ---------- New pages from DB opportunities ----------
-
-def process_new_pages(opportunities: list, conn) -> int:
-    count = 0
-    now = datetime.now(timezone.utc).isoformat()
-
-    for opp in opportunities[:MAX_ARTICLES]:
-        query = opp["query"]
-        ql    = query.lower()
-
-        geo_cities_kw = [
-            "москва", "спб", "санкт-петербург", "казань", "уфа", "екатеринбург",
-            "сочи", "краснодар", "астрахань", "грозный", "махачкала", "дагестан",
-            "ямало", "янао", "казахстан", "узбекистан", "беларусь", "армения",
-            "азербайджан", "кыргызстан",
-        ]
-        is_geo     = any(city in ql for city in geo_cities_kw)
-        is_article = any(kw in ql for kw in ["что такое", "как выбрать", "зачем", "почему", "виды", "состав", "калорийн"])
-
-        slug = re.sub(r"[^a-zа-яё0-9\s-]", "", ql, flags=re.IGNORECASE)
-        slug = re.sub(r"\s+", "-", slug.strip())
-        translit = {
-            "а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"zh",
-            "з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o",
-            "п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"h","ц":"ts",
-            "ч":"ch","ш":"sh","щ":"sch","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya",
-        }
-        slug_en = "".join(translit.get(c, c) for c in slug.lower())
-        slug_en = re.sub(r"-+", "-", slug_en).strip("-")[:60]
-
-        try:
-            if is_geo:
-                out_path, tokens = generate_geo_page(query, slug_en, conn)
-                page_type = "geo_page"
-            else:
-                out_path, tokens = generate_article_ru(query, slug_en, conn)
-                page_type = "article"
-
-            conn.execute(
-                """INSERT INTO generated_content
-                   (created_at, type, lang, query, slug, file_path, title, status, claude_model, tokens_used)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
-                (now, page_type, "ru", query, slug_en, str(out_path),
-                 query, "published", DEEPSEEK_MODEL, tokens),
-            )
-            conn.execute(
-                "UPDATE opportunities SET status='done', notes=? WHERE id=?",
-                (f"generated: {out_path.name}", opp["id"]),
-            )
-            count += 1
-            print(f"  📄 Generated {page_type}: {out_path.name} ({tokens} tokens)")
-        except Exception as ex:
-            print(f"  ⚠️  Generation failed ({query}): {ex}", file=sys.stderr)
-
-    return count
-
-
-# ---------- Main ----------
-
-def main():
-    if not DEEPSEEK_API_KEY:
-        print("❌ DEEPSEEK_API_KEY not set", file=sys.stderr)
-        sys.exit(1)
-
-    init_db()
-    conn = get_conn()
-
-    print(f"🚀 SEO Content Generator — {TODAY}")
-    print("=" * 50)
-
-    # 1. Update sitemap lastmod (no Claude needed)
-    print("\n[1/7] Updating sitemap.xml lastmod …")
-    update_sitemap_lastmod()
-
-    # 2. FAQ pages (static, no Claude if already built)
-    print("\n[2/7] Generating FAQ pages …")
-    faq_done = run_faq_pages(conn)
-    print(f"  → {faq_done} FAQ pages generated")
-
-    # 3. Comparison pages
-    print("\n[3/7] Generating comparison pages …")
-    cmp_done = run_comparison_pages(conn)
-    print(f"  → {cmp_done} comparison pages generated")
-
-    # 4. Scheduled blog articles (3 RU + 3 EN)
-    print("\n[4/7] Generating scheduled blog articles …")
-    art_done = run_scheduled_articles(conn)
-    print(f"  → {art_done} articles generated")
-
-    # 5. Type+Geo pages
-    print("\n[5/7] Generating type+geo pages …")
-    tg_done = run_type_geo_pages(conn)
-    print(f"  → {tg_done} type+geo pages generated")
-
-    # 6. Low-CTR title updates (from DB)
-    low_ctr_opps = conn.execute(
-        "SELECT * FROM opportunities WHERE type='low_ctr' AND status='new' ORDER BY impressions DESC LIMIT ?",
-        (MAX_TITLES,),
-    ).fetchall()
-    print(f"\n[6/7] Updating {len(low_ctr_opps)} low-CTR titles …")
-    titles_done = process_low_ctr(list(low_ctr_opps), conn)
-    print(f"  → {titles_done} titles updated")
-
-    # 7. New pages from DB opportunities
-    new_page_opps = conn.execute(
-        "SELECT * FROM opportunities WHERE type IN ('quick_growth','new_query','commercial_gap') AND status='new' ORDER BY impressions DESC LIMIT ?",
-        (MAX_ARTICLES,),
-    ).fetchall()
-    print(f"\n[7/7] Generating {len(new_page_opps)} pages from DB opportunities …")
-    pages_done = process_new_pages(list(new_page_opps), conn)
-    print(f"  → {pages_done} pages generated")
-
-    conn.commit()
-    conn.close()
-
-    total = faq_done + cmp_done + art_done + tg_done + titles_done + pages_done
-    print(f"\n✅ Total: {total} items generated/updated")
-
-
-if __name__ == "__main__":
-    main()
+    html, tokens
