@@ -713,7 +713,7 @@ async function loadCatalog(){
     render();
   }catch(e){document.getElementById('loading').textContent='Failed to load catalog.';}
 }
-loadCatalog();
+if('requestIdleCallback'in window)requestIdleCallback(loadCatalog,{timeout:2000});else requestAnimationFrame(function(){setTimeout(loadCatalog,0)});
 </script>
 </body>
 </html>

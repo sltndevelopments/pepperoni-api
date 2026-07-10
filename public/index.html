@@ -696,7 +696,7 @@ async function loadCatalog(){
     }catch(e2){document.getElementById('loading').textContent='Ошибка загрузки каталога.';}
   }
 }
-loadCatalog();
+if('requestIdleCallback'in window)requestIdleCallback(loadCatalog,{timeout:2000});else requestAnimationFrame(function(){setTimeout(loadCatalog,0)});
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 document.addEventListener('click',function(e){
   var link=e.target.closest('a');if(!link)return;
