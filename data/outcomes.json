@@ -1,25 +1,14 @@
 {
- "generated_at": "2026-07-09T05:31:48.632059+00:00",
+ "generated_at": "2026-07-10T05:31:41.146067+00:00",
  "summary": {
-  "improved": 21,
-  "flat": 15,
-  "worse": 0,
-  "not_indexed": 14,
-  "pending": 11,
+  "improved": 28,
+  "flat": 18,
+  "worse": 3,
+  "not_indexed": 12,
+  "pending": 0,
   "converted": 0
  },
  "failing": [
-  {
-   "query": "echpochmak",
-   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
-   "change": "title_meta",
-   "before_pos": 9.14,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 31.0,
-   "verdict": "not_indexed"
-  },
   {
    "query": "how to identify halal certified products",
    "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
@@ -28,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.9,
+   "age_days": 31.9,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 29.9,
+   "age_days": 30.9,
    "verdict": "not_indexed"
   },
   {
@@ -50,7 +39,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 27.0,
+   "age_days": 28.0,
    "verdict": "not_indexed"
   },
   {
@@ -61,7 +50,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 27.0,
+   "age_days": 28.0,
    "verdict": "not_indexed"
   },
   {
@@ -72,7 +61,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 23.0,
+   "age_days": 24.0,
    "verdict": "not_indexed"
   },
   {
@@ -83,18 +72,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 23.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "query": "echpochmak",
-   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
-   "change": "title_meta",
-   "before_pos": 9.08,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 15.0,
+   "age_days": 24.0,
    "verdict": "not_indexed"
   },
   {
@@ -105,18 +83,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "query": "echpochmak",
-   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 13.1,
+   "age_days": 16.0,
    "verdict": "not_indexed"
   },
   {
@@ -127,7 +94,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.3,
+   "age_days": 9.3,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +105,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.3,
+   "age_days": 9.3,
    "verdict": "not_indexed"
   },
   {
@@ -149,7 +116,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.3,
+   "age_days": 9.3,
    "verdict": "not_indexed"
   },
   {
@@ -160,16 +127,63 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.0,
+   "age_days": 9.0,
    "verdict": "not_indexed"
+  },
+  {
+   "query": "pepperoni shelf life",
+   "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+   "change": "strengthen_failing",
+   "before_pos": 50.0,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 2.1,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 9.14,
+   "current_pos": 25.0,
+   "impr": 1,
+   "inquiries": 0,
+   "age_days": 32.0,
+   "delta": -15.9,
+   "verdict": "worse"
+  },
+  {
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 9.08,
+   "current_pos": 25.0,
+   "impr": 1,
+   "inquiries": 0,
+   "age_days": 16.0,
+   "delta": -15.9,
+   "verdict": "worse"
+  },
+  {
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 8.79,
+   "current_pos": 25.0,
+   "impr": 1,
+   "inquiries": 0,
+   "age_days": 2.0,
+   "delta": -16.2,
+   "verdict": "worse"
   }
  ],
- "graded_total": 50,
+ "graded_total": 61,
  "converting_pages": [
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 6.9,
+   "pos": 6.4,
    "inquiries": 1
   }
  ]

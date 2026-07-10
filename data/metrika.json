@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-07-09T05:30:03.558401+00:00",
+ "fetched_at": "2026-07-10T05:30:03.594182+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 322,
-  "users": 248,
-  "bounce_rate_pct": 46.6,
-  "page_depth": 1.39,
-  "avg_visit_sec": 81
+  "visits": 324,
+  "users": 249,
+  "bounce_rate_pct": 45.7,
+  "page_depth": 1.38,
+  "avg_visit_sec": 83
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 203
+   "visits": 204
   },
   {
    "source": "Search engine traffic",
-   "visits": 65
+   "visits": 69
   },
   {
    "source": "Internal traffic",
-   "visits": 46
+   "visits": 43
   },
   {
    "source": "Link traffic",
@@ -30,13 +30,13 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 221,
-   "bounce_pct": 42.1
+   "visits": 222,
+   "bounce_pct": 40.5
   },
   {
    "path": "/products/kd-027",
-   "visits": 13,
-   "bounce_pct": 30.8
+   "visits": 12,
+   "bounce_pct": 33.3
   },
   {
    "path": "/en/",
