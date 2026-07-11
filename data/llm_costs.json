@@ -316,8 +316,8 @@
   }
  },
  "2026-07": {
-  "usd": 15.571114,
-  "usd_baseline": 16.604468,
+  "usd": 15.70321,
+  "usd_baseline": 16.86866,
   "days": {
    "2026-07-01": {
     "calls": 151,
@@ -408,6 +408,15 @@
     "cache_r": 0,
     "usd": 1.473723,
     "usd_baseline": 1.667977
+   },
+   "2026-07-11": {
+    "calls": 4,
+    "in": 6144,
+    "out": 16384,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.132095,
+    "usd_baseline": 0.264192
    }
   },
   "scripts": {
@@ -484,13 +493,13 @@
     "usd_baseline": 2.336533
    },
    "generate_from_strategy": {
-    "calls": 44,
-    "in": 67584,
-    "out": 180224,
+    "calls": 48,
+    "in": 73728,
+    "out": 196608,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 1.453056,
-    "usd_baseline": 2.906112
+    "usd": 1.585153,
+    "usd_baseline": 3.170304
    },
    "seo_brain": {
     "calls": 1,
@@ -513,13 +522,13 @@
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 137,
-    "in": 301490,
-    "out": 391307,
+    "calls": 141,
+    "in": 307634,
+    "out": 407691,
     "cache_w": 10550,
     "cache_r": 35870,
-    "usd": 5.582834,
-    "usd_baseline": 7.124823
+    "usd": 5.71493,
+    "usd_baseline": 7.389015
    },
    "claude-haiku-4-5": {
     "calls": 45,

@@ -359,8 +359,48 @@
    "created_at": "2026-07-09T03:30:02.064022+00:00",
    "updated_at": "2026-07-10T05:30:31.683275+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260711-0019",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "pepperoni shelf life",
+    "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:pepperoni shelf life"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-11T06:30:02.523494+00:00",
+   "updated_at": "2026-07-11T06:30:02.523498+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260711-0020",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "echpochmak",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "verdict": "worse",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:echpochmak"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «echpochmak» — worse (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-11T06:30:02.527159+00:00",
+   "updated_at": "2026-07-11T06:30:02.527163+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 18,
- "updated_at": "2026-07-10T05:30:31.683315+00:00"
+ "seq": 20,
+ "updated_at": "2026-07-11T06:30:02.527180+00:00"
 }
