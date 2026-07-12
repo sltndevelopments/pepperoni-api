@@ -105,6 +105,16 @@
   ],
   "redirects": [
     {
+      "source": "/en",
+      "destination": "/en/",
+      "permanent": true
+    },
+    {
+      "source": "/products",
+      "destination": "/products/",
+      "permanent": true
+    },
+    {
       "source": "/en/investment",
       "destination": "/en/investors",
       "permanent": true

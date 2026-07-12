@@ -30,11 +30,58 @@ YM = (
     "<noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt=''/></div></noscript>"
 )
 
+PERF_HINTS = """<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">"""
+
+WEBSITE_RU = """<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://pepperoni.tatar/#website",
+  "url": "https://pepperoni.tatar/",
+  "name": "Казанские Деликатесы",
+  "inLanguage": "ru",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://pepperoni.tatar/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>"""
+
+WEBSITE_EN = """<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://pepperoni.tatar/#website",
+  "url": "https://pepperoni.tatar/en/",
+  "name": "Kazan Delicacies",
+  "inLanguage": "en",
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://pepperoni.tatar/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>"""
+
 
 def gen_ru() -> str:
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
+{PERF_HINTS}
 {GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -82,6 +129,7 @@ def gen_ru() -> str:
   "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar"]
 }}
 </script>
+{WEBSITE_RU}
 <style>
 :root{{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}}
 *{{margin:0;padding:0;box-sizing:border-box}}
@@ -742,6 +790,7 @@ def gen_en() -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
+{PERF_HINTS}
 {GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -779,6 +828,7 @@ def gen_en() -> str:
   "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"Muslim Spiritual Board of Tatarstan","url":"https://dumrt.ru"}}}}
 }}
 </script>
+{WEBSITE_EN}
 <style>
 :root{{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}}
 *{{margin:0;padding:0;box-sizing:border-box}}
