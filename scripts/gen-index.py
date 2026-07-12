@@ -45,15 +45,7 @@ WEBSITE_RU = """<script type="application/ld+json">
   "@id": "https://pepperoni.tatar/#website",
   "url": "https://pepperoni.tatar/",
   "name": "Казанские Деликатесы",
-  "inLanguage": "ru",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://pepperoni.tatar/search?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "ru"
 }
 </script>"""
 
@@ -64,15 +56,7 @@ WEBSITE_EN = """<script type="application/ld+json">
   "@id": "https://pepperoni.tatar/#website",
   "url": "https://pepperoni.tatar/en/",
   "name": "Kazan Delicacies",
-  "inLanguage": "en",
-  "potentialAction": {
-    "@type": "SearchAction",
-    "target": {
-      "@type": "EntryPoint",
-      "urlTemplate": "https://pepperoni.tatar/search?q={search_term_string}"
-    },
-    "query-input": "required name=search_term_string"
-  }
+  "inLanguage": "en"
 }
 </script>"""
 
