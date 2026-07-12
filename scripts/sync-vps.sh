@@ -20,6 +20,12 @@ node scripts/sync-sheets.mjs
 python3 scripts/gen-ru-products.py 2>&1 || echo "[warn] gen-ru-products.py failed; keeping previous files"
 python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py failed; keeping previous files"
 
+# 1b.1. Fail hard unless the catalog fields, stable SKU identities, and the
+# RU/EN product-page sets satisfy the catalog contract. This runs before the
+# atomic copy, so invalid Sheet data or stale/missing product pages can never
+# replace the last known-good API snapshot.
+node scripts/catalog-contract.mjs
+
 # 1c. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). This keeps AI crawlers fed with full
 # context on every cron tick.

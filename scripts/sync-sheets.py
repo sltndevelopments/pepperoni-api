@@ -1534,9 +1534,19 @@ def apply_description_overrides(products):
         return
     fields = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
     applied = 0
+    identity_mismatches = 0
     for p in products:
         ov = overrides.get(p.get("sku"))
         if not ov:
+            continue
+        same_identity = (
+            " ".join(str(ov.get("productName") or "").split())
+            == " ".join(str(p.get("name") or "").split())
+            and str(ov.get("section") or "").strip()
+            == str(p.get("section") or "").strip()
+        )
+        if not same_identity:
+            identity_mismatches += 1
             continue
         for f in fields:
             current = (p.get(f) or "").strip()
@@ -1546,6 +1556,11 @@ def apply_description_overrides(products):
                 applied += 1
     if applied:
         print(f"  📝 Применено {applied} сгенерированных полей из descriptions-overrides.json")
+    if identity_mismatches:
+        print(
+            f"  ⚠️  Пропущено {identity_mismatches} legacy/mismatched description "
+            "overrides without matching productName+section; regenerate them before use"
+        )
 
 
 def main():

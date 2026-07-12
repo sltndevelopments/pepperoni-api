@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "algorithm": "sha256",
+  "productCount": 70,
+  "digest": "86587cd1f9a93a29d26f6a5aa4e335e1e8d1f55c354127345eb85438390b8247",
+  "identityFields": [
+    "sku",
+    "section",
+    "name"
+  ],
+  "note": "Guard for the production-confirmed 2026-07-12 SKU identity sequence. Update only after explicitly reviewing product additions, removals, renames, or row reordering."
+}

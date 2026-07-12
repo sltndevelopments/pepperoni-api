@@ -3,6 +3,7 @@
 import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { assertCatalog, assertPageBijection } from './catalog-contract.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -67,6 +68,10 @@ function toNumber(s) {
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
 
+function normalizeStorage(value) {
+  return String(value || '').replace(/˚C/g, '°C');
+}
+
 /** Truncate text for meta description: 150–160 chars, word boundary,
  *  prefer sentence boundary if within ±20 chars. Appends … when cut. */
 function truncateMeta(text, maxLen = 160, minLen = 150) {
@@ -103,7 +108,6 @@ function fixBarcode(raw) {
   const s = raw.trim();
   if (/^\d+[.,]\d+E\+\d+$/i.test(s)) {
     console.warn(`     ⚠️  Barcode ${s} is in scientific notation — cannot recover GTIN. FIX Google Sheet column to PLAIN TEXT!`);
-    return '';
   }
   return s;
 }
@@ -146,7 +150,7 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
-    const name = cols[0];
+    const name = String(cols[0] || '').trim().replace(/\s+/g, ' ');
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
     const priceVAT = toNumber(cols[colPriceVat]);
@@ -204,11 +208,11 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       brand: 'Казанские Деликатесы',
       offers,
       shelfLife: cell(cols, 5),
-      storage: cell(cols, 6),
+      storage: normalizeStorage(cell(cols, 6)),
       hsCode: cell(cols, 7),
       cookingMethods: cell(cols, 14),
       minOrder: cell(cols, 15),
-      boxWeightGross: (() => { const v = cell(cols, 16); const n = parseFloat((v||'').replace(',','.')); if (!n || n > 1000) { if (n > 1000) console.warn(`     ⚠️  ${cell(cols,0)}: boxWeightGross=${v} — suspicious value, check Google Sheet columns`); return ''; } return v; })(),
+      boxWeightGross: (() => { const v = cell(cols, 16); const n = parseFloat((v||'').replace(',','.')); if (!n) return ''; if (n > 1000) console.warn(`     ⚠️  ${cell(cols,0)}: boxWeightGross=${v} — suspicious value, check Google Sheet columns`); return v; })(),
       barcode: fixBarcode(cell(cols, 18)),
       seoDescriptionRU: cell(cols, 19),
       seoDescriptionEN: cell(cols, 20),
@@ -235,7 +239,7 @@ function parseBakery(lines, section, startIdx) {
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
-    const name = cols[0];
+    const name = String(cols[0] || '').trim().replace(/\s+/g, ' ');
     if (!name || name === 'Наименование' || name.startsWith('ООО')) continue;
 
     const pricePerUnit = toNumber(cols[3]);
@@ -279,7 +283,7 @@ function parseBakery(lines, section, startIdx) {
         exportPrices: Object.keys(ep).length ? ep : undefined,
       },
       shelfLife: cols[6] || '',
-      storage: cols[7] || '',
+      storage: normalizeStorage(cols[7]),
       hsCode: cols[8] || '',
     };
     if (image) product.image = image;
@@ -804,9 +808,17 @@ function applyDescriptionOverrides(products) {
   }
   const fields = ['seoDescriptionRU', 'seoDescriptionEN', 'ingredientsRU', 'ingredientsEN'];
   let applied = 0;
+  let identityMismatches = 0;
   for (const p of products) {
     const ov = overrides[p.sku];
     if (!ov) continue;
+    const sameIdentity =
+      String(ov.productName || '').trim().replace(/\s+/g, ' ') === String(p.name || '').trim().replace(/\s+/g, ' ') &&
+      String(ov.section || '').trim() === String(p.section || '').trim();
+    if (!sameIdentity) {
+      identityMismatches++;
+      continue;
+    }
     for (const f of fields) {
       const current = (p[f] || '').toString().trim();
       const fallback = (ov[f] || '').toString().trim();
@@ -817,6 +829,9 @@ function applyDescriptionOverrides(products) {
     }
   }
   if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
+  if (identityMismatches) {
+    console.warn(`  ⚠️  Пропущено ${identityMismatches} legacy/mismatched description overrides without matching productName+section; regenerate them before use`);
+  }
 }
 
 // --- Main ---
@@ -859,6 +874,7 @@ async function main() {
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');
+  assertCatalog(allProducts);
   writeFileSync(productsPath, JSON.stringify(productsJSON, null, 2), 'utf-8');
   console.log(`✅ ${productsPath}`);
 
@@ -880,6 +896,7 @@ async function main() {
   console.log(`✅ ${rssPath}`);
 
   generateProductPages(allProducts);
+  assertPageBijection(allProducts, [join(PUBLIC, 'products')]);
   console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
   // Rebuild sitemap.xml via Python script (auto-discovers ALL HTML pages

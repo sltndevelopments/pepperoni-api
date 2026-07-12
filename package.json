@@ -6,6 +6,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "test:catalog": "node scripts/test-catalog-contract.mjs",
+    "validate:catalog": "node scripts/catalog-contract.mjs",
     "sync": "node scripts/sync-sheets.mjs",
     "sync-py": "python3 scripts/sync-sheets.py",
     "gen-ru": "python3 scripts/gen-ru-products.py",

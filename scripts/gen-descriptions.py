@@ -4,7 +4,8 @@ One-time / on-demand generator of product descriptions via DeepSeek.
 
 Reads public/products.json, and for every product MISSING
 seoDescriptionRU / seoDescriptionEN / ingredientsRU / ingredientsEN,
-generates them and stores into data/descriptions-overrides.json keyed by SKU.
+generates them and stores into data/descriptions-overrides.json keyed by SKU
+and bound to the product name + section identity.
 
 These overrides are merged back during sync-sheets (mjs + py) ONLY when the
 Google Sheet cell is empty — so the Sheet always stays the source of truth,
@@ -38,6 +39,15 @@ OVERRIDES = ROOT / "data" / "descriptions-overrides.json"
 FIELDS = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
 
 from brand_system import brand_block
+
+
+def same_identity(entry: dict, product: dict) -> bool:
+    return (
+        " ".join(str(entry.get("productName") or "").split())
+        == " ".join(str(product.get("name") or "").split())
+        and str(entry.get("section") or "").strip()
+        == str(product.get("section") or "").strip()
+    )
 
 SYSTEM = brand_block("ru") + "\n\n" + (
     "Ты — контент-маркетолог и технолог пищевого производства компании "
@@ -132,7 +142,7 @@ def main():
         if args.force:
             missing = list(FIELDS)
         # don't re-generate fields we already have in overrides (unless --force)
-        if not args.force and sku in overrides:
+        if not args.force and sku in overrides and same_identity(overrides[sku], p):
             missing = [f for f in missing if not (overrides[sku].get(f) or "").strip()]
         if missing:
             todo.append((p, missing))
@@ -157,7 +167,10 @@ def main():
         if not gen:
             print(f"     ⚠️  could not parse JSON, skipping", file=sys.stderr)
             continue
-        entry = overrides.get(sku, {})
+        existing = overrides.get(sku, {})
+        entry = existing if same_identity(existing, p) else {}
+        entry["productName"] = " ".join(str(p["name"]).split())
+        entry["section"] = str(p.get("section") or "").strip()
         for f in missing:
             val = (gen.get(f) or "").strip()
             if val:
