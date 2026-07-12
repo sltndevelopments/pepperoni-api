@@ -1,34 +1,34 @@
 {
   "source": "https://www.pepperoni.tatar",
   "organization": "Kazan Delicacies",
-  "product_count": 72,
+  "product_count": 70,
   "datasets": [
     {
       "name": "llms_full_ru",
       "url": "https://pepperoni.tatar/llms-full.txt",
       "format": "text/markdown",
-      "description": "RU full LLM context dump: company profile, all 72 SKU detail cards, FAQ, buyer-persona guide, search-query answers. Citation-ready for ChatGPT, Perplexity, Claude, Gemini, DeepSeek.",
+      "description": "RU full LLM context dump: company profile, all 70 SKU detail cards, FAQ, buyer-persona guide, search-query answers. Citation-ready for ChatGPT, Perplexity, Claude, Gemini, DeepSeek.",
       "updateFrequency": "daily"
     },
     {
       "name": "llms_full_en",
       "url": "https://pepperoni.tatar/en/llms-full.txt",
       "format": "text/markdown",
-      "description": "EN full LLM context dump: company profile (EN), all 72 SKU detail cards (EN names + EN SEO + EN ingredients), 16 FAQ entries (EN), buyer-persona guide and B2B query answers for English-language AI assistants.",
+      "description": "EN full LLM context dump: company profile (EN), all 70 SKU detail cards (EN names + EN SEO + EN ingredients), 16 FAQ entries (EN), buyer-persona guide and B2B query answers for English-language AI assistants.",
       "updateFrequency": "daily"
     },
     {
       "name": "pepperoni_products_live",
       "url": "https://api.pepperoni.tatar/api/products",
       "format": "json",
-      "description": "Live product catalog synced with Google Sheets. 72 halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
+      "description": "Live product catalog synced with Google Sheets. 70 halal meat products with prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN).",
       "updateFrequency": "hourly"
     },
     {
       "name": "pepperoni_products_static",
       "url": "https://pepperoni.tatar/products.json",
       "format": "json",
-      "description": "Static product catalog with 72 halal meat products: pepperoni, sausages, burger patties, deli meats, and Tatar pastries."
+      "description": "Static product catalog with 70 halal meat products: pepperoni, sausages, burger patties, deli meats, and Tatar pastries."
     },
     {
       "name": "pepperoni_price_list",
@@ -52,20 +52,20 @@
       "name": "pepperoni_sitemap",
       "url": "https://pepperoni.tatar/sitemap.xml",
       "format": "xml",
-      "description": "XML sitemap covering 72 RU + 72 EN product pages, 106 geo landing pages, blog posts, and segment landings."
+      "description": "XML sitemap covering 70 RU + 70 EN product pages, 106 geo landing pages, blog posts, and segment landings."
     },
     {
       "name": "pepperoni_products_feed_csv",
       "url": "https://pepperoni.tatar/products-feed.csv",
       "format": "text/tab-separated-values",
-      "description": "Google Merchant Center compatible product feed (TSV, 72 SKUs). EN titles, descriptions ≥150 chars, GTIN, MPN, google_product_category, product_type, shipping, tax, custom_label_0=halal. Ready for direct upload to Google Merchant, Bing Merchant, Yandex Market, and OpenAI Commerce ingestion.",
+      "description": "Google Merchant Center compatible product feed (TSV, 70 SKUs). EN titles, descriptions ≥150 chars, GTIN, MPN, google_product_category, product_type, shipping, tax, custom_label_0=halal. Ready for direct upload to Google Merchant, Bing Merchant, Yandex Market, and OpenAI Commerce ingestion.",
       "updateFrequency": "daily"
     },
     {
       "name": "pepperoni_products_feed_xml",
       "url": "https://pepperoni.tatar/products-feed.xml",
       "format": "application/rss+xml",
-      "description": "RSS 2.0 product feed in Google Merchant XML namespace (g:). 72 halal SKUs with full attribute set for shopping crawlers (Perplexity Shopping, Bing Shopping, ChatGPT Shopping, Brave Search Shopping).",
+      "description": "RSS 2.0 product feed in Google Merchant XML namespace (g:). 70 halal SKUs with full attribute set for shopping crawlers (Perplexity Shopping, Bing Shopping, ChatGPT Shopping, Brave Search Shopping).",
       "updateFrequency": "daily"
     },
     {
@@ -93,7 +93,7 @@
       "name": "pepperoni_products_feed_ae_xml",
       "url": "https://pepperoni.tatar/products-feed-ae.xml",
       "format": "application/rss+xml",
-      "description": "Google Merchant Center XML product feed for UAE (target country AE). EN titles, AED prices (1 USD = 3.67 AED), shipping AE, 0% tax. 72 halal SKUs. Registered in Google Merchant Center (feed ID 407795538).",
+      "description": "Google Merchant Center XML product feed for UAE (target country AE). EN titles, AED prices (1 USD = 3.67 AED), shipping AE, 0% tax. 70 halal SKUs. Registered in Google Merchant Center (feed ID 407795538).",
       "audience": "AE",
       "language": "en",
       "updateFrequency": "daily"
@@ -111,7 +111,7 @@
       "name": "pepperoni_products_feed_cis_xml",
       "url": "https://pepperoni.tatar/products-feed-cis.xml",
       "format": "application/rss+xml",
-      "description": "Google Merchant Center XML product feed for CIS markets (BY, KZ, UZ, TJ, KG, AM, GE, AZ). RU language, native currencies (BYN/KZT/UZS/TJS/KGS/AMD/GEL/AZN). 576 items (72 SKUs × 8 countries). Registered in GMC.",
+      "description": "Google Merchant Center XML product feed for CIS markets (BY, KZ, UZ, TJ, KG, AM, GE, AZ). RU language, native currencies (BYN/KZT/UZS/TJS/KGS/AMD/GEL/AZN). 560 items (70 SKUs × 8 countries). Registered in GMC.",
       "audience": "BY,KZ,UZ,TJ,KG,AM,GE,AZ",
       "language": "ru",
       "updateFrequency": "daily"
@@ -120,7 +120,7 @@
       "name": "pepperoni_products_feed_arab_xml",
       "url": "https://pepperoni.tatar/products-feed-arab.xml",
       "format": "application/rss+xml",
-      "description": "Google Merchant Center XML product feed for Arab/GCC markets (AE, SA, QA, KW, BH, OM, YE, EG). EN language, USD prices. 576 items (72 SKUs × 8 countries). Registered in GMC.",
+      "description": "Google Merchant Center XML product feed for Arab/GCC markets (AE, SA, QA, KW, BH, OM, YE, EG). EN language, USD prices. 560 items (70 SKUs × 8 countries). Registered in GMC.",
       "audience": "AE,SA,QA,KW,BH,OM,YE,EG",
       "language": "en",
       "updateFrequency": "daily"

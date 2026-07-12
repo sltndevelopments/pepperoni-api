@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-07-05">
+<yml_catalog date="2026-07-12">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -441,7 +441,7 @@
 <offer id="KD-019" available="true">
 <name>Грудка куриная варено-копченая</name>
 <url>https://pepperoni.tatar/products/kd-019</url>
-<price>370</price>
+<price>412</price>
 <currencyId>RUB</currencyId>
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -462,7 +462,7 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-020" available="true">
-<name>Филе куриное варное</name>
+<name>Филе куриное вареное</name>
 <url>https://pepperoni.tatar/products/kd-020</url>
 <price>449</price>
 <currencyId>RUB</currencyId>
@@ -969,60 +969,14 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-042" available="true">
-<name>Грудка куриная</name>
-<url>https://pepperoni.tatar/products/kd-042</url>
-<price>412</price>
-<currencyId>RUB</currencyId>
-<categoryId>10</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>999931</vendorCode>
-<description>Сервелат Ханский 0,45 кг | Копченый сервелат из Татарстана, халяль | Насладитесь изысканным вкусом копченого сервелата «Ханский» от «Казанских Деликатесов». Этот продукт создан по традиционным рецептам из отборного мяса, с характерным ароматом копчения и пряной ноткой. Идеален для нарезки на завтрак, в бутерброды или в составе мясных тарелок в HoReCa. Сертифицирован Халяль, произведен в Казани. Подходит для оптовых и розничных продаж. Хранить при 0-6°C, срок годности 30 суток.</description>
-
-
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">1</param>
-<param name="Срок годности">30 суток</param>
-<param name="Температура хранения">0-6 ˚C</param>
-<param name="ТН ВЭД">160100</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
-<offer id="KD-043" available="true">
-<name>Филе куриное</name>
-<url>https://pepperoni.tatar/products/kd-043</url>
-<price>449</price>
-<currencyId>RUB</currencyId>
-<categoryId>10</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-043</vendorCode>
-<description>Филе куриное копчёное халяль | Охлаждённое копчёное филе от «Казанские Деликатесы» | Нежное куриное филе холодного копчения с мягким дымным ароматом и насыщенным вкусом. Производится в Казани из отборного сырья халяль. Идеально для нарезки, салатов, горячих блюд. Востребовано в HoReCa, ретейле и оптовых поставках. Сертификат Халяль ДУМ РТ №614А/2024. Хранение 0–6 °C, срок годности 30 суток.</description>
-
-
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">1</param>
-<param name="Срок годности">30 суток</param>
-<param name="Температура хранения">0-6 ˚C</param>
-<param name="ТН ВЭД">160100</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
-<offer id="KD-044" available="true">
 <name>в/к Рамазан</name>
-<url>https://pepperoni.tatar/products/kd-044</url>
+<url>https://pepperoni.tatar/products/kd-042</url>
 <price>377</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995005</vendorCode>
-<description>Полукопченая из Индейки | Халяль, 450 г, 30 суток | Нежная полукопченая колбаса из индейки с легким ароматом дыма. Идеальна для бутербродов, нарезок и горячих блюд. Произведена в Казани по халяльным стандартам. Подходит для HoReCa, опта и розницы. Источник белка, минимум жира.</description>
+<description>Сервелат Ханский 0,45 кг | Копченый сервелат из Татарстана, халяль | Насладитесь изысканным вкусом копченого сервелата «Ханский» от «Казанских Деликатесов». Этот продукт создан по традиционным рецептам из отборного мяса, с характерным ароматом копчения и пряной ноткой. Идеален для нарезки на завтрак, в бутерброды или в составе мясных тарелок в HoReCa. Сертифицирован Халяль, произведен в Казани. Подходит для оптовых и розничных продаж. Хранить при 0-6°C, срок годности 30 суток.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1037,15 +991,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-045" available="true">
+<offer id="KD-043" available="true">
 <name>в/к Рамазан (половинка)</name>
-<url>https://pepperoni.tatar/products/kd-045</url>
+<url>https://pepperoni.tatar/products/kd-043</url>
 <price>188</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995012</vendorCode>
-<description>Полукопченая из Говядины 0,45 кг | Халяль, охлаждённая, 30 суток | Нежная полукопченая колбаса из отборной говядины, произведённая в Казани. Идеальна для бутербродов, закусок и салатов. Сертифицирована Халяль. Подходит для HoReCa, опта и розницы. Хранить при 0-6°C.</description>
+<description>Филе куриное копчёное халяль | Охлаждённое копчёное филе от «Казанские Деликатесы» | Нежное куриное филе холодного копчения с мягким дымным ароматом и насыщенным вкусом. Производится в Казани из отборного сырья халяль. Идеально для нарезки, салатов, горячих блюд. Востребовано в HoReCa, ретейле и оптовых поставках. Сертификат Халяль ДУМ РТ №614А/2024. Хранение 0–6 °C, срок годности 30 суток.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1060,15 +1014,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-046" available="true">
+<offer id="KD-044" available="true">
 <name>в/к Мраморная</name>
-<url>https://pepperoni.tatar/products/kd-046</url>
+<url>https://pepperoni.tatar/products/kd-044</url>
 <price>362</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995006</vendorCode>
-<description>В/к Мраморная — халяль, охлаждённая | Копчёная говяжья колбаса из Казани, 540 г | Варёно-копчёная колбаса «Мраморная» производится из отборной говядины с характерным мраморным рисунком на срезе. Нежная текстура, насыщенный аромат натурального копчения и сбалансированный вкус делают её идеальной для холодных закусок, бутербродов и банкетных нарезок. Сертификат Халяль ДУМ РТ №614А/2024. Подходит для HoReCa, ретейла и оптовых поставок. Производство — Казань, Татарстан.</description>
+<description>Полукопченая из Индейки | Халяль, 450 г, 30 суток | Нежная полукопченая колбаса из индейки с легким ароматом дыма. Идеальна для бутербродов, нарезок и горячих блюд. Произведена в Казани по халяльным стандартам. Подходит для HoReCa, опта и розницы. Источник белка, минимум жира.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1083,15 +1037,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-047" available="true">
+<offer id="KD-045" available="true">
 <name>в/к Мраморная (половинка)</name>
-<url>https://pepperoni.tatar/products/kd-047</url>
+<url>https://pepperoni.tatar/products/kd-045</url>
 <price>181</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995011</vendorCode>
-<description>Грудка куриная копченая | Халяль, охлажденная, 1 кг | Копченая куриная грудка от «Казанских Деликатесов» — нежное, сочное мясо с легким ароматом дыма. Идеально для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Без ГМО, натуральный вкус.</description>
+<description>Полукопченая из Говядины 0,45 кг | Халяль, охлаждённая, 30 суток | Нежная полукопченая колбаса из отборной говядины, произведённая в Казани. Идеальна для бутербродов, закусок и салатов. Сертифицирована Халяль. Подходит для HoReCa, опта и розницы. Хранить при 0-6°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1106,15 +1060,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-048" available="true">
+<offer id="KD-046" available="true">
 <name>в/к Филейный</name>
-<url>https://pepperoni.tatar/products/kd-048</url>
+<url>https://pepperoni.tatar/products/kd-046</url>
 <price>333</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995007</vendorCode>
-<description>Филе куриное копченое | Охлаждённая продукция Халяль | Ароматное копченое филе куриное – идеальный выбор для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Нежный вкус, натуральный состав, без ГМО. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.</description>
+<description>В/к Мраморная — халяль, охлаждённая | Копчёная говяжья колбаса из Казани, 540 г | Варёно-копчёная колбаса «Мраморная» производится из отборной говядины с характерным мраморным рисунком на срезе. Нежная текстура, насыщенный аромат натурального копчения и сбалансированный вкус делают её идеальной для холодных закусок, бутербродов и банкетных нарезок. Сертификат Халяль ДУМ РТ №614А/2024. Подходит для HoReCa, ретейла и оптовых поставок. Производство — Казань, Татарстан.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1129,15 +1083,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-049" available="true">
+<offer id="KD-047" available="true">
 <name>в/к Филейный (половинка)</name>
-<url>https://pepperoni.tatar/products/kd-049</url>
+<url>https://pepperoni.tatar/products/kd-047</url>
 <price>166</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995013</vendorCode>
-<description>В/к Рамазан копченая | Халяль, охлаждённая | В/к Рамазан — копчёное халяльное мясное изделие из Казани с насыщенным ароматом дыма и нежной текстурой. Идеально для нарезки, бутербродов, закусок. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6 °C. Произведено в Татарстане с соблюдением стандартов халяль.</description>
+<description>Грудка куриная копченая | Халяль, охлажденная, 1 кг | Копченая куриная грудка от «Казанских Деликатесов» — нежное, сочное мясо с легким ароматом дыма. Идеально для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Без ГМО, натуральный вкус.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1152,15 +1106,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-050" available="true">
+<offer id="KD-048" available="true">
 <name>в/к Княжеская</name>
-<url>https://pepperoni.tatar/products/kd-050</url>
+<url>https://pepperoni.tatar/products/kd-048</url>
 <price>362</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995008</vendorCode>
-<description>В/к Рамазан (половинка) 0,27 кг | Халяльная копченая продукция из Казани | Вкусная копченая половинка Рамазан от «Казанских Деликатесов» — нежное мясо с ароматом дыма, идеально для бутербродов, салатов и горячих блюд. Продукт халяль, произведен в Казани (Татарстан) из отборного сырья. Подходит для HoReCa, опта и розницы. Хранить при 0-6 °C, срок годности 30 суток. Насладитесь традиционным вкусом с доставкой по РФ.</description>
+<description>Филе куриное копченое | Охлаждённая продукция Халяль | Ароматное копченое филе куриное – идеальный выбор для бутербродов, салатов и горячих блюд. Произведено в Казани, сертифицировано Халяль. Нежный вкус, натуральный состав, без ГМО. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1175,15 +1129,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-051" available="true">
+<offer id="KD-049" available="true">
 <name>в/к Княжеская (половинка)</name>
-<url>https://pepperoni.tatar/products/kd-051</url>
+<url>https://pepperoni.tatar/products/kd-049</url>
 <price>181</price>
 <currencyId>RUB</currencyId>
 <categoryId>10</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>995010</vendorCode>
-<description>Мраморная в/к копченая 0,54 кг | Халяльное мясное изделие из Казани | Нежное мраморное мясо с пряным ароматом копчения. Идеально для бутербродов, салатов, закусок. Сертифицировано Халяль. Произведено в Казани (Татарстан). Подходит для HoReCa, опта и розницы. Без сои и ГМО. Хранить при 0-6°C.</description>
+<description>В/к Рамазан копченая | Халяль, охлаждённая | В/к Рамазан — копчёное халяльное мясное изделие из Казани с насыщенным ароматом дыма и нежной текстурой. Идеально для нарезки, бутербродов, закусок. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0-6 °C. Произведено в Татарстане с соблюдением стандартов халяль.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1198,15 +1152,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-052" available="true">
+<offer id="KD-050" available="true">
 <name>Казылык «Премиум» в подарочной упаковке</name>
-<url>https://pepperoni.tatar/products/kd-052</url>
+<url>https://pepperoni.tatar/products/kd-050</url>
 <price>650</price>
 <currencyId>RUB</currencyId>
 <categoryId>11</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>999911</vendorCode>
-<description>В/к Мраморная половинка 0,27 кг | Халяль, охлаждённая, копчёная | Нежное мраморное мясо с ароматом копчения. Идеально для нарезки, бутербродов и закусок. Халяль, произведено в Казани. Подходит для HoReCa, опта и ретейла. Срок хранения 30 суток при 0-6°C.</description>
+<description>В/к Рамазан (половинка) 0,27 кг | Халяльная копченая продукция из Казани | Вкусная копченая половинка Рамазан от «Казанских Деликатесов» — нежное мясо с ароматом дыма, идеально для бутербродов, салатов и горячих блюд. Продукт халяль, произведен в Казани (Татарстан) из отборного сырья. Подходит для HoReCa, опта и розницы. Хранить при 0-6 °C, срок годности 30 суток. Насладитесь традиционным вкусом с доставкой по РФ.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1221,9 +1175,9 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-053" available="true">
+<offer id="KD-051" available="true">
 <name>Казылык «Премиум» в нарезке в подарочной упаковке</name>
-<url>https://pepperoni.tatar/products/kd-053</url>
+<url>https://pepperoni.tatar/products/kd-051</url>
 <price>450</price>
 <currencyId>RUB</currencyId>
 <categoryId>11</categoryId>
@@ -1244,15 +1198,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-054" available="true">
+<offer id="KD-052" available="true">
 <name>Губадия с кортом</name>
-<url>https://pepperoni.tatar/products/kd-054</url>
+<url>https://pepperoni.tatar/products/kd-052</url>
 <price>56</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-054</vendorCode>
-<description>В/к Филейный (половинка) 0,27 кг | Премиальная халяльная копченая куриная грудка из Казани | Нежнейший варено-копченый филейный продукт из отборного куриного филе. Идеален для нарезки на бутерброды, салаты и закуски. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам Халяль. Хранить при 0-6°C, срок 30 суток.</description>
+<vendorCode>KD-052</vendorCode>
+<description>В/к Мраморная половинка 0,27 кг | Халяль, охлаждённая, копчёная | Нежное мраморное мясо с ароматом копчения. Идеально для нарезки, бутербродов и закусок. Халяль, произведено в Казани. Подходит для HoReCa, опта и ретейла. Срок хранения 30 суток при 0-6°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1267,15 +1221,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-055" available="true">
+<offer id="KD-053" available="true">
 <name>Чебурек жареный</name>
-<url>https://pepperoni.tatar/products/kd-055</url>
+<url>https://pepperoni.tatar/products/kd-053</url>
 <price>58.86</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-055</vendorCode>
-<description>В/к Княжеская копченая 0,54 кг | Халяль, охлаждённая, 30 суток | Ветчинно-копченая «Княжеская» — нежное мясное изделие с насыщенным ароматом копчения. Идеально для бутербродов, закусок, салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам халяль. Хранить при 0–6 °C.</description>
+<vendorCode>KD-053</vendorCode>
+<description>Филейный в/к копчёный | Халяль, охлаждённый, 540 г | Филейный в/к — это нежное копчёное мясо с насыщенным ароматом и деликатным вкусом. Идеально для нарезки, бутербродов и салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани (Татарстан) по стандартам халяль. Без сои и ГМО. Срок хранения 30 суток при 0–6 °C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1290,15 +1244,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-056" available="true">
+<offer id="KD-054" available="true">
 <name>Перемяч жареный</name>
-<url>https://pepperoni.tatar/products/kd-056</url>
+<url>https://pepperoni.tatar/products/kd-054</url>
 <price>59.14</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-056</vendorCode>
-<description>В/к Княжеская (половинка) 0.27 кг | Халяльная варено-копченая колбаса из Казани | Нежная варено-копченая колбаса «Княжеская» (половинка) 270 г от «Казанских Деликатесов» — изысканный халяльный деликатес с пряным ароматом и мягким вкусом. Идеально для нарезки, бутербродов и закусок. Без сои и ГМО. Произведено в Татарстане. Подходит для HoReCa, опта и розницы. Хранить при 0–6 °C, срок 30 суток.</description>
+<vendorCode>KD-054</vendorCode>
+<description>В/к Филейный (половинка) 0,27 кг | Премиальная халяльная копченая куриная грудка из Казани | Нежнейший варено-копченый филейный продукт из отборного куриного филе. Идеален для нарезки на бутерброды, салаты и закуски. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам Халяль. Хранить при 0-6°C, срок 30 суток.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1313,15 +1267,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-057" available="true">
+<offer id="KD-055" available="true">
 <name>Самса с курицей</name>
-<url>https://pepperoni.tatar/products/kd-057</url>
+<url>https://pepperoni.tatar/products/kd-055</url>
 <price>61.73</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-057</vendorCode>
-<description>Казылык «Премиум» в подарочной упаковке 0,2 кг | Халяль, охлаждённый, Татарстан | Изысканный казылык из отборной говядины и баранины с восточными специями. Идеален для праздничного стола, подарка, ресторанов и отелей. Халяль, произведён в Казани. Насыщенный вкус, плотная текстура, срок хранения 180 суток при 0–12 °C.</description>
+<vendorCode>KD-055</vendorCode>
+<description>В/к Княжеская копченая 0,54 кг | Халяль, охлаждённая, 30 суток | Ветчинно-копченая «Княжеская» — нежное мясное изделие с насыщенным ароматом копчения. Идеально для бутербродов, закусок, салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани по стандартам халяль. Хранить при 0–6 °C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1336,15 +1290,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-058" available="true">
+<offer id="KD-056" available="true">
 <name>Эчпочмак с говядиной и картофелем</name>
-<url>https://pepperoni.tatar/products/kd-058</url>
+<url>https://pepperoni.tatar/products/kd-056</url>
 <price>68.77</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-058</vendorCode>
-<description>Эчпочмак с говядиной и картофелем | Халяльная татарская выпечка от «Казанских Деликатесов» | Классический татарский треугольник с сочной начинкой из говядины и картофеля в нежном тесте. Приготовлен по традиционным рецептам Татарстана. Халяль-сертификат ДУМ РТ. Идеален для HoReCa, ретейла и оптовых поставок. Хранение при –18°C, срок годности 360 суток. Упаковка 48 шт/кор.</description>
+<vendorCode>KD-056</vendorCode>
+<description>В/к Княжеская (половинка) 0.27 кг | Халяльная варено-копченая колбаса из Казани | Нежная варено-копченая колбаса «Княжеская» (половинка) 270 г от «Казанских Деликатесов» — изысканный халяльный деликатес с пряным ароматом и мягким вкусом. Идеально для нарезки, бутербродов и закусок. Без сои и ГМО. Произведено в Татарстане. Подходит для HoReCa, опта и розницы. Хранить при 0–6 °C, срок 30 суток.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1359,15 +1313,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-059" available="true">
+<offer id="KD-057" available="true">
 <name>Самса с говядиной</name>
-<url>https://pepperoni.tatar/products/kd-059</url>
+<url>https://pepperoni.tatar/products/kd-057</url>
 <price>73.14</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-059</vendorCode>
-<description>Губадия с кортом 100 г | Татарская выпечка с творожной начинкой | Настоящая татарская губадия с нежным кортом — традиционная выпечка из Казани. Идеальна для кафе, ресторанов, оптовых закупок и розницы. Халяль. Долгий срок хранения при –18°C. Подается к чаю или как самостоятельное блюдо.</description>
+<vendorCode>KD-057</vendorCode>
+<description>Казылык «Премиум» в подарочной упаковке 0,2 кг | Халяль, охлаждённый, Татарстан | Изысканный казылык из отборной говядины и баранины с восточными специями. Идеален для праздничного стола, подарка, ресторанов и отелей. Халяль, произведён в Казани. Насыщенный вкус, плотная текстура, срок хранения 180 суток при 0–12 °C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1382,15 +1336,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-060" available="true">
+<offer id="KD-058" available="true">
 <name>Элеш с курицей и картофелем</name>
-<url>https://pepperoni.tatar/products/kd-060</url>
+<url>https://pepperoni.tatar/products/kd-058</url>
 <price>77.84</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-060</vendorCode>
-<description>Чебурек жареный 100 г | Халяльная татарская выпечка из Казани | Сочный чебурек с мясом — идеальное угощение для дома, кафе и ресторанов. Замороженный полуфабрикат длительного хранения. Произведен в Татарстане с соблюдением халяльных стандартов. Хрустящее тесто, насыщенный мясной вкус. Подходит для оптовых и розничных закупок, а также для HoReCa. Удобная порция 100 г.</description>
+<vendorCode>KD-058</vendorCode>
+<description>Эчпочмак с говядиной и картофелем | Халяльная татарская выпечка от «Казанских Деликатесов» | Классический татарский треугольник с сочной начинкой из говядины и картофеля в нежном тесте. Приготовлен по традиционным рецептам Татарстана. Халяль-сертификат ДУМ РТ. Идеален для HoReCa, ретейла и оптовых поставок. Хранение при –18°C, срок годности 360 суток. Упаковка 48 шт/кор.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1405,15 +1359,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-061" available="true">
+<offer id="KD-059" available="true">
 <name>Чак-Чак в пластиковой упаковке</name>
-<url>https://pepperoni.tatar/products/kd-061</url>
+<url>https://pepperoni.tatar/products/kd-059</url>
 <price>194.7</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-061</vendorCode>
-<description>Перемяч жареный 100 г | Татарская выпечка с мясом халяль | Аппетитный жареный перемяч из Казани — сочная начинка из говядины, нежное тесто. Идеален для HoReCa, опта и ретейла. Халяль, срок хранения 360 суток при -18°C. Произведено в Татарстане.</description>
+<vendorCode>KD-059</vendorCode>
+<description>Губадия с кортом 100 г | Татарская выпечка с творожной начинкой | Настоящая татарская губадия с нежным кортом — традиционная выпечка из Казани. Идеальна для кафе, ресторанов, оптовых закупок и розницы. Халяль. Долгий срок хранения при –18°C. Подается к чаю или как самостоятельное блюдо.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1428,15 +1382,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-062" available="true">
+<offer id="KD-060" available="true">
 <name>Чак-Чак в крафтовой подарочной упаковке</name>
-<url>https://pepperoni.tatar/products/kd-062</url>
+<url>https://pepperoni.tatar/products/kd-060</url>
 <price>271.7</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-062</vendorCode>
-<description>Самса с курицей 120 г | Халяльная татарская выпечка из Казани | Сочная самса с курицей от «Казанских Деликатесов» — нежное слоёное тесто с ароматной начинкой из куриного мяса и специй. Идеально для быстрого перекуса, кафе, ресторанов и оптовых поставок. Продукт халяль, произведён в Казани (Татарстан). Заморозка −18°C, срок хранения 360 суток. Удобная упаковка для HoReCa и розницы.</description>
+<vendorCode>KD-060</vendorCode>
+<description>Чебурек жареный 100 г | Халяльная татарская выпечка из Казани | Сочный чебурек с мясом — идеальное угощение для дома, кафе и ресторанов. Замороженный полуфабрикат длительного хранения. Произведен в Татарстане с соблюдением халяльных стандартов. Хрустящее тесто, насыщенный мясной вкус. Подходит для оптовых и розничных закупок, а также для HoReCa. Удобная порция 100 г.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1451,15 +1405,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-063" available="true">
+<offer id="KD-061" available="true">
 <name>Сочник с творогом</name>
-<url>https://pepperoni.tatar/products/kd-063</url>
+<url>https://pepperoni.tatar/products/kd-061</url>
 <price>44</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-063</vendorCode>
-<description>Эчпочмак с говядиной и картофелем | Татарская выпечка халяль из Казани | Аутентичный эчпочмак с сочной говядиной и картофелем. Идеален для кафе, ресторанов и розницы. Продукт халяль, произведён в Казани. Традиционный вкус татарской кухни. Быстрое приготовление, удобная порция 100 г. Срок хранения 360 суток при -18°C.</description>
+<vendorCode>KD-061</vendorCode>
+<description>Перемяч жареный 100 г | Татарская выпечка с мясом халяль | Аппетитный жареный перемяч из Казани — сочная начинка из говядины, нежное тесто. Идеален для HoReCa, опта и ретейла. Халяль, срок хранения 360 суток при -18°C. Произведено в Татарстане.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1474,10 +1428,56 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-064" available="true">
+<offer id="KD-062" available="true">
 <name>Пирожок печеный с картофелем</name>
-<url>https://pepperoni.tatar/products/kd-064</url>
+<url>https://pepperoni.tatar/products/kd-062</url>
 <price>44.74</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-062</vendorCode>
+<description>Самса с курицей 120 г | Халяльная татарская выпечка из Казани | Сочная самса с курицей от «Казанских Деликатесов» — нежное слоёное тесто с ароматной начинкой из куриного мяса и специй. Идеально для быстрого перекуса, кафе, ресторанов и оптовых поставок. Продукт халяль, произведён в Казани (Татарстан). Заморозка −18°C, срок хранения 360 суток. Удобная упаковка для HoReCa и розницы.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
+<param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
+<offer id="KD-063" available="true">
+<name>Сырник</name>
+<url>https://pepperoni.tatar/products/kd-063</url>
+<price>45.1</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-063</vendorCode>
+<description>Эчпочмак с говядиной и картофелем | Татарская выпечка халяль из Казани | Аутентичный эчпочмак с сочной говядиной и картофелем. Идеален для кафе, ресторанов и розницы. Продукт халяль, произведён в Казани. Традиционный вкус татарской кухни. Быстрое приготовление, удобная порция 100 г. Срок хранения 360 суток при -18°C.</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">70 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
+<param name="ТН ВЭД">040490</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
+<offer id="KD-064" available="true">
+<name>Пирожок с яблоком</name>
+<url>https://pepperoni.tatar/products/kd-064</url>
+<price>49.5</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1498,9 +1498,9 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-065" available="true">
-<name>Сырник</name>
+<name>Пирожок с зеленым луком и яйцом</name>
 <url>https://pepperoni.tatar/products/kd-065</url>
-<price>45.1</price>
+<price>58.52</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1509,10 +1509,10 @@
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">70 г</param>
+<param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
 <param name="Температура хранения">–18°C</param>
-<param name="ТН ВЭД">040490</param>
+<param name="ТН ВЭД">190590</param>
 
 
 
@@ -1521,9 +1521,9 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-066" available="true">
-<name>Пирожок с яблоком</name>
+<name>Маффин апельсиновый</name>
 <url>https://pepperoni.tatar/products/kd-066</url>
-<price>49.5</price>
+<price>67.55</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1544,9 +1544,9 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-067" available="true">
-<name>Пирожок с зеленым луком и яйцом</name>
+<name>Сосиска в тесте</name>
 <url>https://pepperoni.tatar/products/kd-067</url>
-<price>58.52</price>
+<price>69.03</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1555,7 +1555,7 @@
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">100 г</param>
+<param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
 <param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>
@@ -1567,9 +1567,9 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-068" available="true">
-<name>Маффин апельсиновый</name>
+<name>Пирожок с вишней</name>
 <url>https://pepperoni.tatar/products/kd-068</url>
-<price>67.55</price>
+<price>71.5</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1590,60 +1590,14 @@
 <param name="Халяль">Да</param>
 </offer>
 <offer id="KD-069" available="true">
-<name>Сосиска в тесте</name>
+<name>Круассан с шоколадом и орехами</name>
 <url>https://pepperoni.tatar/products/kd-069</url>
-<price>69.03</price>
+<price>72.6</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-069</vendorCode>
 <description>Пирожок печеный с картофелем 100 г – заморозка | Халяль, Казань | Аппетитный печеный пирожок с нежной начинкой из картофеля. Идеален для перекуса, стрит-фуда и HoReCa. Произведен в Казани, сертифицирован Халяль. Без консервантов. Длительный срок хранения при -18°C. Подходит для оптовых и розничных продаж.</description>
-
-
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">120 г</param>
-<param name="Срок годности">360 суток</param>
-<param name="Температура хранения">–18°C</param>
-<param name="ТН ВЭД">190590</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
-<offer id="KD-070" available="true">
-<name>Пирожок с вишней</name>
-<url>https://pepperoni.tatar/products/kd-070</url>
-<price>71.5</price>
-<currencyId>RUB</currencyId>
-<categoryId>14</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-070</vendorCode>
-<description>Сырник 70 г замороженный | Халяльная выпечка из Казани | Нежный творожный сырник с ванильным ароматом. Идеален для завтрака или перекуса. Подходит для HoReCa, опта и розницы. Произведён в Казани по стандартам Халяль. Заморозка сохраняет свежесть до 360 дней. Лёгкий и сытный десерт для всей семьи.</description>
-
-
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">100 г</param>
-<param name="Срок годности">360 суток</param>
-<param name="Температура хранения">–18°C</param>
-<param name="ТН ВЭД">190590</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
-<offer id="KD-071" available="true">
-<name>Круассан с шоколадом и орехами</name>
-<url>https://pepperoni.tatar/products/kd-071</url>
-<price>72.6</price>
-<currencyId>RUB</currencyId>
-<categoryId>14</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-071</vendorCode>
-<description>Пирожок с яблоком 100 г | Халяльная выпечка из Казани | Ароматный пирожок с яблочной начинкой из слоеного или дрожжевого теста. Идеален для перекуса, чаепития, в дорогу. Производство Казань, халяль. Заморозка –18°C, срок 360 суток. Подходит для HoReCa, опта и розницы. Натуральный вкус, домашний рецепт.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1658,15 +1612,15 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-072" available="true">
+<offer id="KD-070" available="true">
 <name>Маффин шоколадный</name>
-<url>https://pepperoni.tatar/products/kd-072</url>
+<url>https://pepperoni.tatar/products/kd-070</url>
 <price>73.64</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-072</vendorCode>
-<description>Пирожок с зеленым луком и яйцом замороженный | Халяльная выпечка из Казани | Нежный пирожок с сочной начинкой из свежего зеленого лука и отварного яйца. Идеален для быстрого перекуса, стрит-фри, HoReCa и оптовых поставок. Произведен в Казани по традиционным рецептам. Халяль. Вес 100 г. Срок хранения 360 суток при -18°C.</description>
+<vendorCode>KD-070</vendorCode>
+<description>Сырник 70 г замороженный | Халяльная выпечка из Казани | Нежный творожный сырник с ванильным ароматом. Идеален для завтрака или перекуса. Подходит для HoReCa, опта и розницы. Произведён в Казани по стандартам Халяль. Заморозка сохраняет свежесть до 360 дней. Лёгкий и сытный десерт для всей семьи.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>

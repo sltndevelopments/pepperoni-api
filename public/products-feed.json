@@ -6,14 +6,14 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-07-05T05:30:08.350976+00:00",
+  "dateModified": "2026-07-12T06:50:17.789367+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
     "url": "https://kazandelikates.tatar",
     "logo": "https://pepperoni.tatar/images/logo.png"
   },
-  "numberOfItems": 72,
+  "numberOfItems": 70,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -69,8 +69,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-001",
           "priceCurrency": "USD",
-          "price": 3.42,
-          "priceExclVAT": 2.85,
+          "price": 3.44,
+          "priceExclVAT": 2.87,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -79,12 +79,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.42,
-            "KZT": 1617.59,
-            "UZS": 40976.94,
-            "KGS": 298.84,
-            "BYN": 9.93,
-            "AZN": 5.81
+            "USD": 3.44,
+            "KZT": 1614.06,
+            "UZS": 41167.08,
+            "KGS": 299.32,
+            "BYN": 9.79,
+            "AZN": 5.82
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -226,8 +226,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-002",
           "priceCurrency": "USD",
-          "price": 3.38,
-          "priceExclVAT": 2.82,
+          "price": 3.39,
+          "priceExclVAT": 2.83,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -236,12 +236,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.38,
-            "KZT": 1595.28,
-            "UZS": 40411.74,
-            "KGS": 294.72,
-            "BYN": 9.79,
-            "AZN": 5.73
+            "USD": 3.39,
+            "KZT": 1591.8,
+            "UZS": 40599.26,
+            "KGS": 295.19,
+            "BYN": 9.65,
+            "AZN": 5.74
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -383,8 +383,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-003",
           "priceCurrency": "USD",
-          "price": 3.73,
-          "priceExclVAT": 3.11,
+          "price": 3.75,
+          "priceExclVAT": 3.12,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -393,12 +393,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.73,
-            "KZT": 1762.62,
-            "UZS": 44650.73,
-            "KGS": 325.63,
-            "BYN": 10.81,
-            "AZN": 6.33
+            "USD": 3.75,
+            "KZT": 1758.77,
+            "UZS": 44857.92,
+            "KGS": 326.15,
+            "BYN": 10.66,
+            "AZN": 6.34
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -540,8 +540,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-004",
           "priceCurrency": "USD",
-          "price": 3.38,
-          "priceExclVAT": 2.82,
+          "price": 3.39,
+          "priceExclVAT": 2.83,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -550,12 +550,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.38,
-            "KZT": 1595.28,
-            "UZS": 40411.74,
-            "KGS": 294.72,
-            "BYN": 9.79,
-            "AZN": 5.73
+            "USD": 3.39,
+            "KZT": 1591.8,
+            "UZS": 40599.26,
+            "KGS": 295.19,
+            "BYN": 9.65,
+            "AZN": 5.74
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -697,8 +697,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-005",
           "priceCurrency": "USD",
-          "price": 4.32,
-          "priceExclVAT": 3.6,
+          "price": 4.34,
+          "priceExclVAT": 3.62,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -707,12 +707,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.32,
-            "KZT": 2041.51,
-            "UZS": 51715.72,
-            "KGS": 377.16,
-            "BYN": 12.53,
-            "AZN": 7.33
+            "USD": 4.34,
+            "KZT": 2037.05,
+            "UZS": 51955.69,
+            "KGS": 377.76,
+            "BYN": 12.35,
+            "AZN": 7.34
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -854,8 +854,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-006",
           "priceCurrency": "USD",
-          "price": 5.01,
-          "priceExclVAT": 4.17,
+          "price": 5.03,
+          "priceExclVAT": 4.19,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -864,12 +864,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.01,
-            "KZT": 2365.03,
-            "UZS": 59911.11,
-            "KGS": 436.93,
-            "BYN": 14.51,
-            "AZN": 8.49
+            "USD": 5.03,
+            "KZT": 2359.86,
+            "UZS": 60189.11,
+            "KGS": 437.62,
+            "BYN": 14.31,
+            "AZN": 8.51
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1011,8 +1011,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-007",
           "priceCurrency": "USD",
-          "price": 5.37,
-          "priceExclVAT": 4.48,
+          "price": 5.4,
+          "priceExclVAT": 4.5,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1021,12 +1021,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.37,
-            "KZT": 2537.95,
-            "UZS": 64291.4,
-            "KGS": 468.87,
-            "BYN": 15.57,
-            "AZN": 9.11
+            "USD": 5.4,
+            "KZT": 2532.4,
+            "UZS": 64589.73,
+            "KGS": 469.61,
+            "BYN": 15.36,
+            "AZN": 9.13
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1168,8 +1168,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-008",
           "priceCurrency": "USD",
-          "price": 3.26,
-          "priceExclVAT": 2.72,
+          "price": 3.27,
+          "priceExclVAT": 2.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1178,12 +1178,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.26,
-            "KZT": 1539.5,
-            "UZS": 38998.74,
-            "KGS": 284.41,
-            "BYN": 9.45,
-            "AZN": 5.53
+            "USD": 3.27,
+            "KZT": 1536.14,
+            "UZS": 39179.7,
+            "KGS": 284.87,
+            "BYN": 9.31,
+            "AZN": 5.54
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1325,8 +1325,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-009",
           "priceCurrency": "USD",
-          "price": 3.26,
-          "priceExclVAT": 2.72,
+          "price": 3.27,
+          "priceExclVAT": 2.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1335,12 +1335,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.26,
-            "KZT": 1539.5,
-            "UZS": 38998.74,
-            "KGS": 284.41,
-            "BYN": 9.45,
-            "AZN": 5.53
+            "USD": 3.27,
+            "KZT": 1536.14,
+            "UZS": 39179.7,
+            "KGS": 284.87,
+            "BYN": 9.31,
+            "AZN": 5.54
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1482,8 +1482,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-010",
           "priceCurrency": "USD",
-          "price": 7.22,
-          "priceExclVAT": 6.02,
+          "price": 7.25,
+          "priceExclVAT": 6.04,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1492,12 +1492,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.22,
-            "KZT": 3408.1,
-            "UZS": 86334.16,
-            "KGS": 629.63,
-            "BYN": 20.91,
-            "AZN": 12.24
+            "USD": 7.25,
+            "KZT": 3400.65,
+            "UZS": 86734.78,
+            "KGS": 630.63,
+            "BYN": 20.62,
+            "AZN": 12.26
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1639,8 +1639,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-011",
           "priceCurrency": "USD",
-          "price": 3.84,
-          "priceExclVAT": 3.2,
+          "price": 3.86,
+          "priceExclVAT": 3.22,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1649,12 +1649,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.84,
-            "KZT": 1812.82,
-            "UZS": 45922.43,
-            "KGS": 334.91,
-            "BYN": 11.12,
-            "AZN": 6.51
+            "USD": 3.86,
+            "KZT": 1808.86,
+            "UZS": 46135.52,
+            "KGS": 335.44,
+            "BYN": 10.97,
+            "AZN": 6.52
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1796,8 +1796,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-012",
           "priceCurrency": "USD",
-          "price": 7.79,
-          "priceExclVAT": 6.49,
+          "price": 7.83,
+          "priceExclVAT": 6.53,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1806,12 +1806,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.79,
-            "KZT": 3681.42,
-            "UZS": 93257.85,
-            "KGS": 680.12,
-            "BYN": 22.59,
-            "AZN": 13.22
+            "USD": 7.83,
+            "KZT": 3673.37,
+            "UZS": 93690.59,
+            "KGS": 681.2,
+            "BYN": 22.27,
+            "AZN": 13.24
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -1953,8 +1953,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-013",
           "priceCurrency": "USD",
-          "price": 4.13,
-          "priceExclVAT": 3.44,
+          "price": 4.15,
+          "priceExclVAT": 3.46,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1963,12 +1963,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.13,
-            "KZT": 1952.27,
-            "UZS": 49454.92,
-            "KGS": 360.67,
-            "BYN": 11.98,
-            "AZN": 7.01
+            "USD": 4.15,
+            "KZT": 1948,
+            "UZS": 49684.41,
+            "KGS": 361.24,
+            "BYN": 11.81,
+            "AZN": 7.02
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2110,8 +2110,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-014",
           "priceCurrency": "USD",
-          "price": 3.72,
-          "priceExclVAT": 3.1,
+          "price": 3.74,
+          "priceExclVAT": 3.12,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2120,12 +2120,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.72,
-            "KZT": 1757.04,
-            "UZS": 44509.43,
-            "KGS": 324.6,
-            "BYN": 10.78,
-            "AZN": 6.31
+            "USD": 3.74,
+            "KZT": 1753.2,
+            "UZS": 44715.96,
+            "KGS": 325.12,
+            "BYN": 10.63,
+            "AZN": 6.32
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2267,8 +2267,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-015",
           "priceCurrency": "USD",
-          "price": 3.24,
-          "priceExclVAT": 2.7,
+          "price": 3.25,
+          "priceExclVAT": 2.71,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2277,12 +2277,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.24,
-            "KZT": 1528.35,
-            "UZS": 38716.14,
-            "KGS": 282.35,
-            "BYN": 9.38,
-            "AZN": 5.49
+            "USD": 3.25,
+            "KZT": 1525.01,
+            "UZS": 38895.79,
+            "KGS": 282.8,
+            "BYN": 9.25,
+            "AZN": 5.5
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2424,8 +2424,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-016",
           "priceCurrency": "USD",
-          "price": 5.4,
-          "priceExclVAT": 4.5,
+          "price": 5.42,
+          "priceExclVAT": 4.52,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2434,12 +2434,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.4,
-            "KZT": 2549.1,
-            "UZS": 64574,
-            "KGS": 470.93,
-            "BYN": 15.64,
-            "AZN": 9.16
+            "USD": 5.42,
+            "KZT": 2543.53,
+            "UZS": 64873.64,
+            "KGS": 471.68,
+            "BYN": 15.42,
+            "AZN": 9.17
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2581,8 +2581,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-017",
           "priceCurrency": "USD",
-          "price": 4.49,
-          "priceExclVAT": 3.74,
+          "price": 4.51,
+          "priceExclVAT": 3.76,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2591,12 +2591,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.49,
-            "KZT": 2119.6,
-            "UZS": 53693.92,
-            "KGS": 391.59,
-            "BYN": 13.01,
-            "AZN": 7.61
+            "USD": 4.51,
+            "KZT": 2114.97,
+            "UZS": 53943.07,
+            "KGS": 392.21,
+            "BYN": 12.82,
+            "AZN": 7.62
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2738,8 +2738,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-018",
           "priceCurrency": "USD",
-          "price": 7.18,
-          "priceExclVAT": 5.98,
+          "price": 7.21,
+          "priceExclVAT": 6.01,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2748,12 +2748,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 7.18,
-            "KZT": 3391.37,
-            "UZS": 85910.27,
-            "KGS": 626.54,
-            "BYN": 20.81,
-            "AZN": 12.18
+            "USD": 7.21,
+            "KZT": 3383.96,
+            "UZS": 86308.91,
+            "KGS": 627.53,
+            "BYN": 20.52,
+            "AZN": 12.2
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -2895,8 +2895,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-019",
           "priceCurrency": "USD",
-          "price": 4.37,
-          "priceExclVAT": 3.64,
+          "price": 4.89,
+          "priceExclVAT": 4.08,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2905,12 +2905,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.37,
-            "KZT": 2063.82,
-            "UZS": 52280.92,
-            "KGS": 381.28,
-            "BYN": 12.66,
-            "AZN": 7.41
+            "USD": 4.89,
+            "KZT": 2293.08,
+            "UZS": 58485.64,
+            "KGS": 425.23,
+            "BYN": 13.9,
+            "AZN": 8.27
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3052,8 +3052,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-020",
           "priceCurrency": "USD",
-          "price": 5.3,
-          "priceExclVAT": 4.42,
+          "price": 5.33,
+          "priceExclVAT": 4.44,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3062,12 +3062,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.3,
-            "KZT": 2504.48,
-            "UZS": 63443.6,
-            "KGS": 462.69,
-            "BYN": 15.37,
-            "AZN": 8.99
+            "USD": 5.33,
+            "KZT": 2499.01,
+            "UZS": 63737.99,
+            "KGS": 463.42,
+            "BYN": 15.15,
+            "AZN": 9.01
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3209,7 +3209,7 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-021",
           "priceCurrency": "USD",
-          "price": 1.59,
+          "price": 1.6,
           "priceExclVAT": 1.33,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
@@ -3219,12 +3219,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 1.59,
-            "KZT": 753.02,
-            "UZS": 19075.47,
-            "KGS": 139.12,
-            "BYN": 4.62,
-            "AZN": 2.7
+            "USD": 1.6,
+            "KZT": 751.37,
+            "UZS": 19163.98,
+            "KGS": 139.34,
+            "BYN": 4.56,
+            "AZN": 2.71
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3366,8 +3366,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-022",
           "priceCurrency": "USD",
-          "price": 2.89,
-          "priceExclVAT": 2.41,
+          "price": 2.91,
+          "priceExclVAT": 2.43,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3376,12 +3376,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.89,
-            "KZT": 1366.59,
-            "UZS": 34618.45,
-            "KGS": 252.47,
-            "BYN": 8.38,
-            "AZN": 4.91
+            "USD": 2.91,
+            "KZT": 1363.6,
+            "UZS": 34779.08,
+            "KGS": 252.87,
+            "BYN": 8.27,
+            "AZN": 4.92
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3523,8 +3523,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-023",
           "priceCurrency": "USD",
-          "price": 2.14,
-          "priceExclVAT": 1.78,
+          "price": 2.15,
+          "priceExclVAT": 1.79,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3533,11 +3533,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.14,
-            "KZT": 1009.6,
-            "UZS": 25575.26,
-            "KGS": 186.52,
-            "BYN": 6.19,
+            "USD": 2.15,
+            "KZT": 1007.39,
+            "UZS": 25693.94,
+            "KGS": 186.81,
+            "BYN": 6.11,
             "AZN": 3.63
           },
           "shippingDetails": {
@@ -3680,8 +3680,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-024",
           "priceCurrency": "USD",
-          "price": 2.78,
-          "priceExclVAT": 2.32,
+          "price": 2.79,
+          "priceExclVAT": 2.33,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3690,12 +3690,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.78,
-            "KZT": 1310.81,
-            "UZS": 33205.45,
-            "KGS": 242.16,
-            "BYN": 8.04,
-            "AZN": 4.71
+            "USD": 2.79,
+            "KZT": 1307.94,
+            "UZS": 33359.53,
+            "KGS": 242.55,
+            "BYN": 7.93,
+            "AZN": 4.72
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3837,8 +3837,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-025",
           "priceCurrency": "USD",
-          "price": 3.46,
-          "priceExclVAT": 2.88,
+          "price": 3.48,
+          "priceExclVAT": 2.9,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3847,12 +3847,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.46,
-            "KZT": 1634.33,
-            "UZS": 41400.84,
-            "KGS": 301.93,
-            "BYN": 10.03,
-            "AZN": 5.87
+            "USD": 3.48,
+            "KZT": 1630.76,
+            "UZS": 41592.94,
+            "KGS": 302.41,
+            "BYN": 9.89,
+            "AZN": 5.88
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -3994,8 +3994,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-026",
           "priceCurrency": "USD",
-          "price": 3.35,
-          "priceExclVAT": 2.79,
+          "price": 3.37,
+          "priceExclVAT": 2.81,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4004,12 +4004,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.35,
-            "KZT": 1584.12,
-            "UZS": 40129.14,
-            "KGS": 292.66,
-            "BYN": 9.72,
-            "AZN": 5.69
+            "USD": 3.37,
+            "KZT": 1580.66,
+            "UZS": 40315.35,
+            "KGS": 293.12,
+            "BYN": 9.58,
+            "AZN": 5.7
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4151,8 +4151,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-027",
           "priceCurrency": "USD",
-          "price": 1.72,
-          "priceExclVAT": 1.43,
+          "price": 1.73,
+          "priceExclVAT": 1.44,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4161,12 +4161,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 1.72,
-            "KZT": 814.37,
-            "UZS": 20629.77,
-            "KGS": 150.45,
-            "BYN": 5,
-            "AZN": 2.92
+            "USD": 1.73,
+            "KZT": 812.59,
+            "UZS": 20725.49,
+            "KGS": 150.69,
+            "BYN": 4.93,
+            "AZN": 2.93
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4308,8 +4308,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-028",
           "priceCurrency": "USD",
-          "price": 1.7,
-          "priceExclVAT": 1.42,
+          "price": 1.71,
+          "priceExclVAT": 1.43,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4318,12 +4318,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 1.7,
-            "KZT": 803.22,
-            "UZS": 20347.17,
-            "KGS": 148.39,
-            "BYN": 4.93,
-            "AZN": 2.88
+            "USD": 1.71,
+            "KZT": 801.46,
+            "UZS": 20441.58,
+            "KGS": 148.63,
+            "BYN": 4.86,
+            "AZN": 2.89
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4465,8 +4465,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-029",
           "priceCurrency": "USD",
-          "price": 1.96,
-          "priceExclVAT": 1.63,
+          "price": 1.97,
+          "priceExclVAT": 1.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4475,11 +4475,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 1.96,
-            "KZT": 925.93,
-            "UZS": 23455.76,
-            "KGS": 171.06,
-            "BYN": 5.68,
+            "USD": 1.97,
+            "KZT": 923.91,
+            "UZS": 23564.6,
+            "KGS": 171.33,
+            "BYN": 5.6,
             "AZN": 3.33
           },
           "shippingDetails": {
@@ -4622,7 +4622,7 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-030",
           "priceCurrency": "USD",
-          "price": 3.45,
+          "price": 3.46,
           "priceExclVAT": 2.88,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
@@ -4632,12 +4632,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.45,
-            "KZT": 1628.75,
-            "UZS": 41259.54,
-            "KGS": 300.9,
-            "BYN": 9.99,
-            "AZN": 5.85
+            "USD": 3.46,
+            "KZT": 1625.19,
+            "UZS": 41450.99,
+            "KGS": 301.38,
+            "BYN": 9.85,
+            "AZN": 5.86
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -4779,8 +4779,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-031",
           "priceCurrency": "USD",
-          "price": 2.33,
-          "priceExclVAT": 1.94,
+          "price": 2.34,
+          "priceExclVAT": 1.95,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4789,11 +4789,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.33,
-            "KZT": 1098.85,
-            "UZS": 27836.06,
-            "KGS": 203.01,
-            "BYN": 6.74,
+            "USD": 2.34,
+            "KZT": 1096.45,
+            "UZS": 27965.22,
+            "KGS": 203.33,
+            "BYN": 6.65,
             "AZN": 3.95
           },
           "shippingDetails": {
@@ -4936,8 +4936,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-032",
           "priceCurrency": "USD",
-          "price": 2.36,
-          "priceExclVAT": 1.97,
+          "price": 2.37,
+          "priceExclVAT": 1.98,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4946,11 +4946,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.36,
-            "KZT": 1115.58,
-            "UZS": 28259.96,
-            "KGS": 206.1,
-            "BYN": 6.84,
+            "USD": 2.37,
+            "KZT": 1113.14,
+            "UZS": 28391.09,
+            "KGS": 206.42,
+            "BYN": 6.75,
             "AZN": 4.01
           },
           "shippingDetails": {
@@ -5093,8 +5093,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-033",
           "priceCurrency": "USD",
-          "price": 4.49,
-          "priceExclVAT": 3.74,
+          "price": 4.51,
+          "priceExclVAT": 3.76,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5103,12 +5103,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.49,
-            "KZT": 2119.6,
-            "UZS": 53693.92,
-            "KGS": 391.59,
-            "BYN": 13.01,
-            "AZN": 7.61
+            "USD": 4.51,
+            "KZT": 2114.97,
+            "UZS": 53943.07,
+            "KGS": 392.21,
+            "BYN": 12.82,
+            "AZN": 7.62
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5250,8 +5250,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-034",
           "priceCurrency": "USD",
-          "price": 4.7,
-          "priceExclVAT": 3.92,
+          "price": 4.72,
+          "priceExclVAT": 3.93,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5260,12 +5260,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.7,
-            "KZT": 2220.01,
-            "UZS": 56237.31,
-            "KGS": 410.13,
-            "BYN": 13.62,
-            "AZN": 7.97
+            "USD": 4.72,
+            "KZT": 2215.16,
+            "UZS": 56498.27,
+            "KGS": 410.78,
+            "BYN": 13.43,
+            "AZN": 7.99
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5407,8 +5407,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-035",
           "priceCurrency": "USD",
-          "price": 4.13,
-          "priceExclVAT": 3.44,
+          "price": 4.15,
+          "priceExclVAT": 3.46,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5417,12 +5417,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.13,
-            "KZT": 1952.27,
-            "UZS": 49454.92,
-            "KGS": 360.67,
-            "BYN": 11.98,
-            "AZN": 7.01
+            "USD": 4.15,
+            "KZT": 1948,
+            "UZS": 49684.41,
+            "KGS": 361.24,
+            "BYN": 11.81,
+            "AZN": 7.02
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -5564,8 +5564,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-036",
           "priceCurrency": "USD",
-          "price": 2.22,
-          "priceExclVAT": 1.85,
+          "price": 2.23,
+          "priceExclVAT": 1.86,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5574,11 +5574,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.22,
-            "KZT": 1048.65,
-            "UZS": 26564.36,
-            "KGS": 193.73,
-            "BYN": 6.43,
+            "USD": 2.23,
+            "KZT": 1046.35,
+            "UZS": 26687.62,
+            "KGS": 194.04,
+            "BYN": 6.34,
             "AZN": 3.77
           },
           "shippingDetails": {
@@ -5721,8 +5721,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-037",
           "priceCurrency": "USD",
-          "price": 2.55,
-          "priceExclVAT": 2.12,
+          "price": 2.56,
+          "priceExclVAT": 2.13,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5731,11 +5731,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.55,
-            "KZT": 1204.83,
-            "UZS": 30520.75,
-            "KGS": 222.59,
-            "BYN": 7.39,
+            "USD": 2.56,
+            "KZT": 1202.19,
+            "UZS": 30662.38,
+            "KGS": 222.94,
+            "BYN": 7.29,
             "AZN": 4.33
           },
           "shippingDetails": {
@@ -5878,8 +5878,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-038",
           "priceCurrency": "USD",
-          "price": 3.52,
-          "priceExclVAT": 2.93,
+          "price": 3.54,
+          "priceExclVAT": 2.95,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5888,12 +5888,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.52,
-            "KZT": 1662.22,
-            "UZS": 42107.33,
-            "KGS": 307.09,
-            "BYN": 10.2,
-            "AZN": 5.97
+            "USD": 3.54,
+            "KZT": 1658.58,
+            "UZS": 42302.72,
+            "KGS": 307.57,
+            "BYN": 10.06,
+            "AZN": 5.98
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6035,8 +6035,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-039",
           "priceCurrency": "USD",
-          "price": 4.11,
-          "priceExclVAT": 3.43,
+          "price": 4.13,
+          "priceExclVAT": 3.44,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6045,12 +6045,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.11,
-            "KZT": 1941.11,
-            "UZS": 49172.32,
-            "KGS": 358.61,
-            "BYN": 11.91,
-            "AZN": 6.97
+            "USD": 4.13,
+            "KZT": 1936.87,
+            "UZS": 49400.49,
+            "KGS": 359.18,
+            "BYN": 11.74,
+            "AZN": 6.98
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6192,8 +6192,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-040",
           "priceCurrency": "USD",
-          "price": 4.23,
-          "priceExclVAT": 3.53,
+          "price": 4.25,
+          "priceExclVAT": 3.54,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6202,12 +6202,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.23,
-            "KZT": 1996.89,
-            "UZS": 50585.32,
-            "KGS": 368.91,
-            "BYN": 12.25,
-            "AZN": 7.17
+            "USD": 4.25,
+            "KZT": 1992.53,
+            "UZS": 50820.05,
+            "KGS": 369.5,
+            "BYN": 12.08,
+            "AZN": 7.18
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6349,8 +6349,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-041",
           "priceCurrency": "USD",
-          "price": 3.2,
-          "priceExclVAT": 2.67,
+          "price": 3.22,
+          "priceExclVAT": 2.68,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6359,12 +6359,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.2,
-            "KZT": 1511.61,
-            "UZS": 38292.24,
-            "KGS": 279.26,
-            "BYN": 9.27,
-            "AZN": 5.43
+            "USD": 3.22,
+            "KZT": 1508.31,
+            "UZS": 38469.93,
+            "KGS": 279.7,
+            "BYN": 9.15,
+            "AZN": 5.44
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6459,18 +6459,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-042#product",
         "sku": "KD-042",
-        "mpn": "999931",
+        "mpn": "995005",
         "gtin13": null,
-        "name": "Halal Servelat Khansky 0.45 kg (1 kg) — Kazan Delicacies",
-        "description": "Smoked servelat from Tatarstan, halal Enjoy the refined taste of smoked servelat 'Khansky' from Kazan Delicacies. Made from selected meat with traditional smoking and spices. Perfect for breakfast, sandwiches, or meat platters in HoReCa. Halal certified, produced in Kazan. Suitable for wholesale and retail. Store at 0-6°C, shelf life 30 days. Halal Servelat Khansky 0.45 kg (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Servelat Khansky 0.45 kg (0,54 kg) — Kazan Delicacies",
+        "description": "Smoked servelat from Tatarstan, halal Enjoy the refined taste of smoked servelat 'Khansky' from Kazan Delicacies. Made from selected meat with traditional smoking and spices. Perfect for breakfast, sandwiches, or meat platters in HoReCa. Halal certified, produced in Kazan. Suitable for wholesale and retail. Store at 0-6°C, shelf life 30 days. Halal Servelat Khansky 0.45 kg (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-042",
         "brand": {
@@ -6491,7 +6491,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Servelat Khansky 0.45 kg (1 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Servelat Khansky 0.45 kg (0,54 kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -6506,8 +6506,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-042",
           "priceCurrency": "USD",
-          "price": 4.87,
-          "priceExclVAT": 4.06,
+          "price": 4.47,
+          "priceExclVAT": 3.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6516,12 +6516,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.87,
-            "KZT": 2298.1,
-            "UZS": 58215.51,
-            "KGS": 424.56,
-            "BYN": 14.1,
-            "AZN": 8.25
+            "USD": 4.47,
+            "KZT": 2098.28,
+            "UZS": 53517.2,
+            "KGS": 389.11,
+            "BYN": 12.72,
+            "AZN": 7.56
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6584,7 +6584,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1.000 kg"
+            "value": "0.540 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6616,18 +6616,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-043#product",
         "sku": "KD-043",
-        "mpn": "KD-043",
+        "mpn": "995012",
         "gtin13": null,
-        "name": "Halal Smoked Chicken Fillet (1 kg) — Kazan Delicacies",
-        "description": "Chilled smoked chicken fillet by Kazan Delicacies Tender smoked chicken fillet with a delicate smoky aroma and rich flavour, crafted in Kazan from certified halal poultry. Perfect for cold cuts, salads and hot dishes. Suitable for HoReCa, retail and wholesale. Halal certified (DUM RT №614A/2024). Storage 0–6 °C, shelf life 30 days. Halal Smoked Chicken Fillet (1 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Smoked Chicken Fillet (0,27 kg) — Kazan Delicacies",
+        "description": "Chilled smoked chicken fillet by Kazan Delicacies Tender smoked chicken fillet with a delicate smoky aroma and rich flavour, crafted in Kazan from certified halal poultry. Perfect for cold cuts, salads and hot dishes. Suitable for HoReCa, retail and wholesale. Halal certified (DUM RT №614A/2024). Storage 0–6 °C, shelf life 30 days. Halal Smoked Chicken Fillet (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-043",
         "brand": {
@@ -6648,7 +6648,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Smoked Chicken Fillet (1 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Smoked Chicken Fillet (0,27 kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -6663,8 +6663,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-043",
           "priceCurrency": "USD",
-          "price": 5.3,
-          "priceExclVAT": 4.42,
+          "price": 2.23,
+          "priceExclVAT": 1.86,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6673,12 +6673,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 5.3,
-            "KZT": 2504.48,
-            "UZS": 63443.6,
-            "KGS": 462.69,
-            "BYN": 15.37,
-            "AZN": 8.99
+            "USD": 2.23,
+            "KZT": 1046.35,
+            "UZS": 26687.62,
+            "KGS": 194.04,
+            "BYN": 6.34,
+            "AZN": 3.77
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6741,7 +6741,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "1.000 kg"
+            "value": "0.270 kg"
           },
           {
             "@type": "PropertyValue",
@@ -6773,18 +6773,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-044#product",
         "sku": "KD-044",
-        "mpn": "995005",
+        "mpn": "995006",
         "gtin13": null,
         "name": "Halal Smoked Turkey Sausage (0,54 kg) — Kazan Delicacies",
         "description": "Halal, 450 g, 30 days Delicate semi-smoked turkey sausage with a light smoky aroma. Perfect for sandwiches, cold cuts, and hot dishes. Made in Kazan according to Halal standards. Suitable for HoReCa, wholesale, and retail. Rich in protein, low in fat. Halal Smoked Turkey Sausage (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-044",
         "brand": {
@@ -6820,8 +6820,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-044",
           "priceCurrency": "USD",
-          "price": 4.45,
-          "priceExclVAT": 3.71,
+          "price": 4.29,
+          "priceExclVAT": 3.58,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6830,12 +6830,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.45,
-            "KZT": 2102.87,
-            "UZS": 53270.02,
-            "KGS": 388.49,
-            "BYN": 12.9,
-            "AZN": 7.55
+            "USD": 4.29,
+            "KZT": 2014.79,
+            "UZS": 51387.87,
+            "KGS": 373.63,
+            "BYN": 12.22,
+            "AZN": 7.26
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -6930,18 +6930,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-045#product",
         "sku": "KD-045",
-        "mpn": "995012",
+        "mpn": "995011",
         "gtin13": null,
         "name": "Halal Semi-Smoked Beef Sausage 0.45 kg (0,27 kg) — Kazan Delicacies",
         "description": "Halal, Chilled, 30 days Tender semi-smoked sausage made from premium beef, produced in Kazan. Perfect for sandwiches, appetizers, and salads. Halal-certified. Suitable for HoReCa, wholesale, and retail. Store at 0-6°C. Halal Semi-Smoked Beef Sausage 0.45 kg (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-045",
         "brand": {
@@ -6977,8 +6977,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-045",
           "priceCurrency": "USD",
-          "price": 2.22,
-          "priceExclVAT": 1.85,
+          "price": 2.15,
+          "priceExclVAT": 1.79,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6987,12 +6987,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.22,
-            "KZT": 1048.65,
-            "UZS": 26564.36,
-            "KGS": 193.73,
-            "BYN": 6.43,
-            "AZN": 3.77
+            "USD": 2.15,
+            "KZT": 1007.39,
+            "UZS": 25693.94,
+            "KGS": 186.81,
+            "BYN": 6.11,
+            "AZN": 3.63
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7087,18 +7087,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-046#product",
         "sku": "KD-046",
-        "mpn": "995006",
+        "mpn": "995007",
         "gtin13": null,
         "name": "Marbled Cooked-Smoked Sausage — Halal, chilled (0,54 kg) — Kazan Delicacies",
         "description": "Premium halal beef sausage from Kazan, 540 g Marbled cooked-smoked sausage crafted from select halal beef, featuring a distinctive marbled cross-section. Rich natural smoke aroma, tender texture and well-balanced seasoning make it perfect for cold cuts, sandwiches and catering platters. Halal certified (DUM RT #614A/2024). Suitable for HoReCa, retail and wholesale. Made in Kazan, Tatarstan. Marbled Cooked-Smoked Sausage — Halal, chilled (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-046",
         "brand": {
@@ -7134,8 +7134,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-046",
           "priceCurrency": "USD",
-          "price": 4.28,
-          "priceExclVAT": 3.57,
+          "price": 3.95,
+          "priceExclVAT": 3.29,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7144,12 +7144,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.28,
-            "KZT": 2019.2,
-            "UZS": 51150.52,
-            "KGS": 373.04,
-            "BYN": 12.39,
-            "AZN": 7.25
+            "USD": 3.95,
+            "KZT": 1853.38,
+            "UZS": 47271.16,
+            "KGS": 343.7,
+            "BYN": 11.24,
+            "AZN": 6.68
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7244,18 +7244,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-047#product",
         "sku": "KD-047",
-        "mpn": "995011",
+        "mpn": "995013",
         "gtin13": null,
         "name": "Halal Smoked chicken breast (0,27 kg) — Kazan Delicacies",
         "description": "Halal, chilled, 1 kg Smoked chicken breast by Kazan Delicacies — tender, juicy meat with a light smoky flavor. Perfect for sandwiches, salads, and hot dishes. Made in Kazan, Halal certified. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0–6 °C. No GMOs, natural taste. Halal Smoked chicken breast (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-047",
         "brand": {
@@ -7291,8 +7291,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-047",
           "priceCurrency": "USD",
-          "price": 2.14,
-          "priceExclVAT": 1.78,
+          "price": 1.97,
+          "priceExclVAT": 1.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7301,12 +7301,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.14,
-            "KZT": 1009.6,
-            "UZS": 25575.26,
-            "KGS": 186.52,
-            "BYN": 6.19,
-            "AZN": 3.63
+            "USD": 1.97,
+            "KZT": 923.91,
+            "UZS": 23564.6,
+            "KGS": 171.33,
+            "BYN": 5.6,
+            "AZN": 3.33
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7401,18 +7401,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-048#product",
         "sku": "KD-048",
-        "mpn": "995007",
+        "mpn": "995008",
         "gtin13": null,
         "name": "Halal Smoked Chicken Fillet (0,54 kg) — Kazan Delicacies",
         "description": "Chilled Halal Product Flavorful smoked chicken fillet from Kazan, Halal certified. Perfect for sandwiches, salads, and hot dishes. Natural ingredients, no GMOs. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Halal Smoked Chicken Fillet (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-048",
         "brand": {
@@ -7448,8 +7448,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-048",
           "priceCurrency": "USD",
-          "price": 3.93,
-          "priceExclVAT": 3.28,
+          "price": 4.29,
+          "priceExclVAT": 3.58,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7458,12 +7458,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 3.93,
-            "KZT": 1857.44,
-            "UZS": 47052.83,
-            "KGS": 343.15,
-            "BYN": 11.4,
-            "AZN": 6.67
+            "USD": 4.29,
+            "KZT": 2014.79,
+            "UZS": 51387.87,
+            "KGS": 373.63,
+            "BYN": 12.22,
+            "AZN": 7.26
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7558,18 +7558,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-049#product",
         "sku": "KD-049",
-        "mpn": "995013",
+        "mpn": "995010",
         "gtin13": null,
         "name": "Halal Smoked sausage Ramadan (0,27 kg) — Kazan Delicacies",
         "description": "Halal, chilled Smoked sausage Ramadan is a halal meat product from Kazan with rich smoky aroma and tender texture. Perfect for slicing, sandwiches, and snacks. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6 °C. Made in Tatarstan, certified halal. Halal Smoked sausage Ramadan (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-049",
         "brand": {
@@ -7605,8 +7605,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-049",
           "priceCurrency": "USD",
-          "price": 1.96,
-          "priceExclVAT": 1.63,
+          "price": 2.15,
+          "priceExclVAT": 1.79,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7615,12 +7615,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 1.96,
-            "KZT": 925.93,
-            "UZS": 23455.76,
-            "KGS": 171.06,
-            "BYN": 5.68,
-            "AZN": 3.33
+            "USD": 2.15,
+            "KZT": 1007.39,
+            "UZS": 25693.94,
+            "KGS": 186.81,
+            "BYN": 6.11,
+            "AZN": 3.63
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -7715,18 +7715,18 @@
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-050#product",
         "sku": "KD-050",
-        "mpn": "995008",
+        "mpn": "999911",
         "gtin13": null,
-        "name": "Halal Smoked Ramazan half 0.27 kg (0,54 kg) — Kazan Delicacies",
-        "description": "Halal smoked meat from Kazan Tasty smoked half Ramazan by Kazan Delicacies — tender meat with smoky aroma, perfect for sandwiches, salads and hot dishes. Halal certified, made in Kazan (Tatarstan) from selected ingredients. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C, shelf life 30 days. Enjoy traditional flavor with delivery across Russia. Halal Smoked Ramazan half 0.27 kg (0,54 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,54 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Smoked Ramazan half 0.27 kg (0,2 kg) — Kazan Delicacies",
+        "description": "Halal smoked meat from Kazan Tasty smoked half Ramazan by Kazan Delicacies — tender meat with smoky aroma, perfect for sandwiches, salads and hot dishes. Halal certified, made in Kazan (Tatarstan) from selected ingredients. Suitable for HoReCa, wholesale and retail. Store at 0-6 °C, shelf life 30 days. Enjoy traditional flavor with delivery across Russia. Halal Smoked Ramazan half 0.27 kg (0,2 kg) — Kazan Delicacies — halal premium kazylyk from Kazan Delicacies, refrigerated products category. Net weight: 0,2 kg. Shelf life: 180 days. Storage: 0-12 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-050",
         "brand": {
@@ -7747,7 +7747,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Smoked Ramazan half 0.27 kg (0,54 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Premium Kazylyk > Halal Smoked Ramazan half 0.27 kg (0,2 kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -7762,8 +7762,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-050",
           "priceCurrency": "USD",
-          "price": 4.28,
-          "priceExclVAT": 3.57,
+          "price": 7.07,
+          "priceExclVAT": 5.89,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7772,326 +7772,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.28,
-            "KZT": 2019.2,
-            "UZS": 51150.52,
-            "KGS": 373.04,
-            "BYN": 12.39,
-            "AZN": 7.25
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Охлаждённая продукция"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Копченые"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "30 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "0-6 ˚C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "160100"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.540 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 51,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-051#product",
-        "sku": "KD-051",
-        "mpn": "995010",
-        "gtin13": null,
-        "name": "Halal Marble smoked sausage 0.54 kg (0,27 kg) — Kazan Delicacies",
-        "description": "Halal meat product from Kazan Tender marbled meat with spicy smoky flavor. Perfect for sandwiches, salads, appetizers. Halal certified. Made in Kazan (Tatarstan). Suitable for HoReCa, wholesale and retail. No soy or GMO. Store at 0-6°C. Halal Marble smoked sausage 0.54 kg (0,27 kg) — Kazan Delicacies — halal smoked meats from Kazan Delicacies, refrigerated products category. Net weight: 0,27 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-051",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Marble smoked sausage 0.54 kg (0,27 kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-051",
-          "priceCurrency": "USD",
-          "price": 2.14,
-          "priceExclVAT": 1.78,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 2.14,
-            "KZT": 1009.6,
-            "UZS": 25575.26,
-            "KGS": 186.52,
-            "BYN": 6.19,
-            "AZN": 3.63
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Охлаждённая продукция"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Копченые"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "30 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "0-6 ˚C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "160100"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.270 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 52,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-052#product",
-        "sku": "KD-052",
-        "mpn": "999911",
-        "gtin13": null,
-        "name": "Halal Smoked Marbled Half 0.27 kg (0,2 kg) — Kazan Delicacies",
-        "description": "Halal, chilled, smoked Tender marbled beef with smoky flavor. Perfect for slices, sandwiches, and snacks. Halal, made in Kazan. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Halal Smoked Marbled Half 0.27 kg (0,2 kg) — Kazan Delicacies — halal premium kazylyk from Kazan Delicacies, refrigerated products category. Net weight: 0,2 kg. Shelf life: 180 days. Storage: 0-12 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-052",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Premium Kazylyk > Halal Smoked Marbled Half 0.27 kg (0,2 kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-052",
-          "priceCurrency": "USD",
-          "price": 7.04,
-          "priceExclVAT": 5.87,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 7.04,
-            "KZT": 3323.5,
-            "UZS": 84191.12,
-            "KGS": 614,
-            "BYN": 20.39,
-            "AZN": 11.94
+            "USD": 7.07,
+            "KZT": 3316.24,
+            "UZS": 84581.79,
+            "KGS": 614.97,
+            "BYN": 20.11,
+            "AZN": 11.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8181,11 +7867,11 @@
     },
     {
       "@type": "ListItem",
-      "position": 53,
+      "position": 51,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-053#product",
-        "sku": "KD-053",
+        "@id": "https://pepperoni.tatar/en/products/kd-051#product",
+        "sku": "KD-051",
         "mpn": "999909",
         "gtin13": null,
         "name": "Authentic Kazylik, prepared according to the classic Tatar recipe, sliced into thin slices for convenient use in cafes, restaurants, hotels, shops, an",
@@ -8199,7 +7885,7 @@
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-053",
+        "url": "https://pepperoni.tatar/en/products/kd-051",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -8231,10 +7917,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-053",
+          "url": "https://pepperoni.tatar/en/products/kd-051",
           "priceCurrency": "USD",
-          "price": 4.87,
-          "priceExclVAT": 4.06,
+          "price": 4.89,
+          "priceExclVAT": 4.08,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8243,12 +7929,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 4.87,
-            "KZT": 2300.89,
-            "UZS": 58286.16,
-            "KGS": 425.08,
-            "BYN": 14.12,
-            "AZN": 8.26
+            "USD": 4.89,
+            "KZT": 2295.86,
+            "UZS": 58556.62,
+            "KGS": 425.75,
+            "BYN": 13.92,
+            "AZN": 8.28
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8338,6 +8024,320 @@
     },
     {
       "@type": "ListItem",
+      "position": 52,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-052#product",
+        "sku": "KD-052",
+        "mpn": "KD-052",
+        "gtin13": null,
+        "name": "Halal Smoked Marbled Half 0.27 kg (100 г kg) — Kazan Delicacies",
+        "description": "Halal, chilled, smoked Tender marbled beef with smoky flavor. Perfect for slices, sandwiches, and snacks. Halal, made in Kazan. Suitable for HoReCa, wholesale, and retail. Shelf life 30 days at 0-6°C. Halal Smoked Marbled Half 0.27 kg (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-052",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Kazan Delicacies",
+          "url": "https://kazandelikates.tatar",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2",
+            "addressLocality": "Kazan",
+            "addressRegion": "Tatarstan",
+            "postalCode": "420059",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Smoked Marbled Half 0.27 kg (100 г kg) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-052",
+          "priceCurrency": "USD",
+          "price": 31.89,
+          "priceExclVAT": 26.58,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delicacies",
+            "url": "https://kazandelikates.tatar"
+          },
+          "exportPrices": {
+            "USD": 31.89,
+            "KZT": 14960.67,
+            "UZS": 381576.8,
+            "KGS": 2774.34,
+            "BYN": 90.72,
+            "AZN": 53.93
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "RU"
+            },
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": "USD"
+            },
+            "shippingOrigin": {
+              "@type": "DefinedRegion",
+              "addressLocality": "Kazan",
+              "addressCountry": "RU"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Национальная татарская выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 53,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-053#product",
+        "sku": "KD-053",
+        "mpn": "KD-053",
+        "gtin13": null,
+        "name": "Halal Smoked fillet v/k (100 г kg) — Kazan Delicacies",
+        "description": "Halal, chilled, 540 g Smoked fillet v/k offers tender meat with rich aroma and delicate taste. Perfect for slicing, sandwiches, and salads. Suitable for HoReCa, wholesale, and retail. Made in Kazan (Tatarstan) according to Halal standards. No soy or GMOs. Shelf life 30 days at 0–6 °C. Halal Smoked fillet v/k (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-053",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Kazan Delicacies",
+          "url": "https://kazandelikates.tatar",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2",
+            "addressLocality": "Kazan",
+            "addressRegion": "Tatarstan",
+            "postalCode": "420059",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Smoked fillet v/k (100 г kg) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-053",
+          "priceCurrency": "USD",
+          "price": 20.95,
+          "priceExclVAT": 17.46,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delicacies",
+            "url": "https://kazandelikates.tatar"
+          },
+          "exportPrices": {
+            "USD": 20.95,
+            "KZT": 9827.93,
+            "UZS": 250664.5,
+            "KGS": 1822.52,
+            "BYN": 59.59,
+            "AZN": 35.43
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "RU"
+            },
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": "USD"
+            },
+            "shippingOrigin": {
+              "@type": "DefinedRegion",
+              "addressLocality": "Kazan",
+              "addressCountry": "RU"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Национальная татарская выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
       "position": 54,
       "item": {
         "@type": "Product",
@@ -8348,9 +8348,9 @@
         "name": "Halal Smoked Chicken Fillet Half 0.27 kg (100 г kg) — Kazan Delicacies",
         "description": "Premium halal smoked chicken breast from Kazan Tender cooked-smoked fillet made from selected chicken breast. Perfect for sandwiches, salads, and appetizers. Suitable for HoReCa, wholesale, and retail. Halal certified, made in Kazan. Store at 0-6°C, shelf life 30 days. Halal Smoked Chicken Fillet Half 0.27 kg (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
@@ -8390,8 +8390,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-054",
           "priceCurrency": "USD",
-          "price": 31.75,
-          "priceExclVAT": 26.46,
+          "price": 33.68,
+          "priceExclVAT": 28.07,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8400,12 +8400,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 31.75,
-            "KZT": 14993.43,
-            "UZS": 379814.37,
-            "KGS": 2769.95,
-            "BYN": 91.99,
-            "AZN": 53.85
+            "USD": 33.68,
+            "KZT": 15799.48,
+            "UZS": 402971.05,
+            "KGS": 2929.9,
+            "BYN": 95.8,
+            "AZN": 56.96
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8502,16 +8502,16 @@
         "sku": "KD-055",
         "mpn": "KD-055",
         "gtin13": null,
-        "name": "Halal Smoked 'Knyazheskaya' 0.54 kg (100 г kg) — Kazan Delicacies",
-        "description": "Halal, chilled, 30 days Smoked ham 'Knyazheskaya' — tender meat product with rich smoky flavor. Perfect for sandwiches, snacks, salads. Suitable for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at 0–6 °C. Halal Smoked 'Knyazheskaya' 0.54 kg (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Smoked 'Knyazheskaya' 0.54 kg (120 г kg) — Kazan Delicacies",
+        "description": "Halal, chilled, 30 days Smoked ham 'Knyazheskaya' — tender meat product with rich smoky flavor. Perfect for sandwiches, snacks, salads. Suitable for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at 0–6 °C. Halal Smoked 'Knyazheskaya' 0.54 kg (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-055",
         "brand": {
@@ -8532,7 +8532,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Smoked 'Knyazheskaya' 0.54 kg (100 г kg) — Kazan Delicacies",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Smoked 'Knyazheskaya' 0.54 kg (120 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -8547,8 +8547,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-055",
           "priceCurrency": "USD",
-          "price": 20.85,
-          "priceExclVAT": 17.38,
+          "price": 35.15,
+          "priceExclVAT": 29.29,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8557,12 +8557,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 20.85,
-            "KZT": 9849.45,
-            "UZS": 249506.73,
-            "KGS": 1819.63,
-            "BYN": 60.43,
-            "AZN": 35.37
+            "USD": 35.15,
+            "KZT": 16491.42,
+            "UZS": 420619.23,
+            "KGS": 3058.21,
+            "BYN": 100,
+            "AZN": 59.45
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8625,7 +8625,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0.100 kg"
+            "value": "0.120 kg"
           },
           {
             "@type": "PropertyValue",
@@ -8662,9 +8662,9 @@
         "name": "Halal V/C Knyazheskaya (half) 0.27 kg — Kazan Delicacies",
         "description": "Halal smoked sausage from Kazan Delicate boiled-smoked sausage 'Knyazheskaya' (half) 270 g by Kazan Delicacies — a premium halal treat with spicy aroma and mild taste. Perfect for slicing, sandwiches, and snacks. No soy or GMOs. Made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Keep at 0–6 °C, shelf life 30 days. Halal V/C Knyazheskaya (half) 0.27 kg — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
@@ -8704,8 +8704,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-056",
           "priceCurrency": "USD",
-          "price": 33.52,
-          "priceExclVAT": 27.93,
+          "price": 39.16,
+          "priceExclVAT": 32.63,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8714,12 +8714,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 33.52,
-            "KZT": 15834.08,
-            "UZS": 401109.8,
-            "KGS": 2925.26,
-            "BYN": 97.15,
-            "AZN": 56.87
+            "USD": 39.16,
+            "KZT": 18372.19,
+            "UZS": 468588.81,
+            "KGS": 3406.99,
+            "BYN": 111.4,
+            "AZN": 66.23
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8819,13 +8819,13 @@
         "name": "Halal Premium Kazylyk in Gift Box 0.2 kg (120 г kg) — Kazan Delicacies",
         "description": "Halal, Chilled, Tatarstan Premium kazylyk made from selected beef and lamb with oriental spices. Perfect for festive table, gift, HoReCa. Halal, produced in Kazan. Rich flavor, firm texture, shelf life 180 days at 0–12 °C. Halal Premium Kazylyk in Gift Box 0.2 kg (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg"
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
         "url": "https://pepperoni.tatar/en/products/kd-057",
         "brand": {
@@ -8861,8 +8861,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-057",
           "priceCurrency": "USD",
-          "price": 34.99,
-          "priceExclVAT": 29.16,
+          "price": 41.65,
+          "priceExclVAT": 34.71,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8871,12 +8871,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 34.99,
-            "KZT": 16527.53,
-            "UZS": 418676.47,
-            "KGS": 3053.37,
-            "BYN": 101.41,
-            "AZN": 59.36
+            "USD": 41.65,
+            "KZT": 19539.65,
+            "UZS": 498365.25,
+            "KGS": 3623.48,
+            "BYN": 118.48,
+            "AZN": 70.44
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -8973,12 +8973,12 @@
         "sku": "KD-058",
         "mpn": "KD-058",
         "gtin13": null,
-        "name": "Halal Echpochmak with Beef & Potato (100 г kg) — Kazan Delicacies",
-        "description": "Halal Tatar pastry from Kazan — wholesale & retail Traditional Tatar triangular pastry filled with seasoned beef and potato in a soft dough. Made in Kazan, Tatarstan. Halal-certified. Perfect for HoReCa, retail chains and bulk orders. Frozen at –18°C, shelf life 360 days. 48 pcs per box. Halal Echpochmak with Beef & Potato (100 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Echpochmak with Beef & Potato (150 г kg) — Kazan Delicacies",
+        "description": "Halal Tatar pastry from Kazan — wholesale & retail Traditional Tatar triangular pastry filled with seasoned beef and potato in a soft dough. Made in Kazan, Tatarstan. Halal-certified. Perfect for HoReCa, retail chains and bulk orders. Frozen at –18°C, shelf life 360 days. 48 pcs per box. Halal Echpochmak with Beef & Potato (150 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 150 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
@@ -9003,7 +9003,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Echpochmak with Beef & Potato (100 г kg) — Kazan Delicacies",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Echpochmak with Beef & Potato (150 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -9018,8 +9018,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-058",
           "priceCurrency": "USD",
-          "price": 38.98,
-          "priceExclVAT": 32.48,
+          "price": 44.33,
+          "priceExclVAT": 36.94,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9028,326 +9028,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 38.98,
-            "KZT": 18412.42,
-            "UZS": 466424.49,
-            "KGS": 3401.6,
-            "BYN": 112.97,
-            "AZN": 66.13
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Национальная татарская выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "190590"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.100 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 59,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-059#product",
-        "sku": "KD-059",
-        "mpn": "KD-059",
-        "gtin13": null,
-        "name": "Halal Gubadiya with kort 100 g (120 г kg) — Kazan Delicacies",
-        "description": "Tatar pastry with cottage cheese filling Authentic Tatar gubadiya with delicate kort — traditional pastry from Kazan. Perfect for HoReCa, wholesale, and retail. Halal. Long shelf life at –18°C. Serve with tea or as a standalone dish. Halal Gubadiya with kort 100 g (120 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-059",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Gubadiya with kort 100 g (120 г kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-059",
-          "priceCurrency": "USD",
-          "price": 41.46,
-          "priceExclVAT": 34.55,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 41.46,
-            "KZT": 19582.44,
-            "UZS": 496063.39,
-            "KGS": 3617.75,
-            "BYN": 120.15,
-            "AZN": 70.33
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Национальная татарская выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "190590"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.120 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 60,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-060#product",
-        "sku": "KD-060",
-        "mpn": "KD-060",
-        "gtin13": null,
-        "name": "Halal Fried cheburek 100g (150 г kg) — Kazan Delicacies",
-        "description": "Halal Tatar pastry from Kazan Juicy meat-filled cheburek — perfect for home, cafes, and restaurants. Frozen semi-finished product with long shelf life. Made in Tatarstan according to halal standards. Crispy dough, rich meat flavor. Suitable for wholesale, retail, and HoReCa. Convenient 100 g portion. Halal Fried cheburek 100g (150 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 150 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-060",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Fried cheburek 100g (150 г kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-060",
-          "priceCurrency": "USD",
-          "price": 44.13,
-          "priceExclVAT": 36.78,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 44.13,
-            "KZT": 20840.81,
-            "UZS": 527940.48,
-            "KGS": 3850.23,
-            "BYN": 127.87,
-            "AZN": 74.85
+            "USD": 44.33,
+            "KZT": 20795.27,
+            "UZS": 530390.25,
+            "KGS": 3856.33,
+            "BYN": 126.09,
+            "AZN": 74.97
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9437,15 +9123,15 @@
     },
     {
       "@type": "ListItem",
-      "position": 61,
+      "position": 59,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-061#product",
-        "sku": "KD-061",
-        "mpn": "KD-061",
+        "@id": "https://pepperoni.tatar/en/products/kd-059#product",
+        "sku": "KD-059",
+        "mpn": "KD-059",
         "gtin13": null,
-        "name": "Halal Fried peremyach 100 g (300 г kg) — Kazan Delicacies",
-        "description": "Tatar pastry with halal meat Delicious fried peremyach from Kazan — juicy beef filling, soft dough. Perfect for HoReCa, wholesale, retail. Halal, shelf life 360 days at -18°C. Made in Tatarstan. Halal Fried peremyach 100 g (300 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Gubadiya with kort 100 g (300 г kg) — Kazan Delicacies",
+        "description": "Tatar pastry with cottage cheese filling Authentic Tatar gubadiya with delicate kort — traditional pastry from Kazan. Perfect for HoReCa, wholesale, and retail. Halal. Long shelf life at –18°C. Serve with tea or as a standalone dish. Halal Gubadiya with kort 100 g (300 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -9455,7 +9141,7 @@
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-061",
+        "url": "https://pepperoni.tatar/en/products/kd-059",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -9474,7 +9160,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Fried peremyach 100 g (300 г kg) — Kazan Delicacies",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Gubadiya with kort 100 g (300 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -9487,10 +9173,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-061",
+          "url": "https://pepperoni.tatar/en/products/kd-059",
           "priceCurrency": "USD",
-          "price": 2.11,
-          "priceExclVAT": 1.76,
+          "price": 2.12,
+          "priceExclVAT": 1.77,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9499,11 +9185,11 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.11,
-            "KZT": 995.52,
-            "UZS": 25218.48,
-            "KGS": 183.92,
-            "BYN": 6.11,
+            "USD": 2.12,
+            "KZT": 993.34,
+            "UZS": 25335.5,
+            "KGS": 184.21,
+            "BYN": 6.02,
             "AZN": 3.58
           },
           "shippingDetails": {
@@ -9594,15 +9280,15 @@
     },
     {
       "@type": "ListItem",
-      "position": 62,
+      "position": 60,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-062#product",
-        "sku": "KD-062",
-        "mpn": "KD-062",
+        "@id": "https://pepperoni.tatar/en/products/kd-060#product",
+        "sku": "KD-060",
+        "mpn": "KD-060",
         "gtin13": null,
-        "name": "Halal Samosa with Chicken 120 g (300 г kg) — Kazan Delicacies",
-        "description": "Halal Tatar pastry from Kazan Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail. Halal Samosa with Chicken 120 g (300 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Fried cheburek 100g (300 г kg) — Kazan Delicacies",
+        "description": "Halal Tatar pastry from Kazan Juicy meat-filled cheburek — perfect for home, cafes, and restaurants. Frozen semi-finished product with long shelf life. Made in Tatarstan according to halal standards. Crispy dough, rich meat flavor. Suitable for wholesale, retail, and HoReCa. Convenient 100 g portion. Halal Fried cheburek 100g (300 г kg) — Kazan Delicacies — halal traditional tatar pastries from Kazan Delicacies, bakery category. Net weight: 300 г kg. Shelf life: 60 days. Storage: до +18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
@@ -9612,7 +9298,7 @@
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-062",
+        "url": "https://pepperoni.tatar/en/products/kd-060",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -9631,7 +9317,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Traditional Tatar Pastries > Halal Samosa with Chicken 120 g (300 г kg) — Kazan Delicacies",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Fried cheburek 100g (300 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -9644,10 +9330,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-062",
+          "url": "https://pepperoni.tatar/en/products/kd-060",
           "priceCurrency": "USD",
-          "price": 2.94,
-          "priceExclVAT": 2.45,
+          "price": 2.95,
+          "priceExclVAT": 2.46,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9656,12 +9342,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 2.94,
-            "KZT": 1389.24,
-            "UZS": 35192.41,
-            "KGS": 256.66,
-            "BYN": 8.52,
-            "AZN": 4.99
+            "USD": 2.95,
+            "KZT": 1386.21,
+            "UZS": 35355.71,
+            "KGS": 257.06,
+            "BYN": 8.41,
+            "AZN": 5
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9751,15 +9437,15 @@
     },
     {
       "@type": "ListItem",
-      "position": 63,
+      "position": 61,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-063#product",
-        "sku": "KD-063",
-        "mpn": "KD-063",
+        "@id": "https://pepperoni.tatar/en/products/kd-061#product",
+        "sku": "KD-061",
+        "mpn": "KD-061",
         "gtin13": null,
-        "name": "Halal Echpochmak with beef and potato (100 г kg) — Kazan Delicacies",
-        "description": "Halal Tatar pastry from Kazan Authentic echpochmak filled with juicy beef and potato. Perfect for HoReCa, wholesale and retail. Halal certified, made in Kazan. Traditional Tatar taste. Easy to prepare, 100 g portion. Shelf life 360 days at -18°C. Halal Echpochmak with beef and potato (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Fried peremyach 100 g (100 г kg) — Kazan Delicacies",
+        "description": "Tatar pastry with halal meat Delicious fried peremyach from Kazan — juicy beef filling, soft dough. Perfect for HoReCa, wholesale, retail. Halal, shelf life 360 days at -18°C. Made in Tatarstan. Halal Fried peremyach 100 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -9769,7 +9455,7 @@
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-063",
+        "url": "https://pepperoni.tatar/en/products/kd-061",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -9788,7 +9474,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Echpochmak with beef and potato (100 г kg) — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Fried peremyach 100 g (100 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -9801,10 +9487,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-063",
+          "url": "https://pepperoni.tatar/en/products/kd-061",
           "priceCurrency": "USD",
-          "price": 15.59,
-          "priceExclVAT": 12.99,
+          "price": 15.66,
+          "priceExclVAT": 13.05,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9813,12 +9499,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 15.59,
-            "KZT": 7362.83,
-            "UZS": 186515.71,
-            "KGS": 1360.24,
-            "BYN": 45.18,
-            "AZN": 26.44
+            "USD": 15.66,
+            "KZT": 7346.75,
+            "UZS": 187381.19,
+            "KGS": 1362.4,
+            "BYN": 44.55,
+            "AZN": 26.48
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -9908,6 +9594,320 @@
     },
     {
       "@type": "ListItem",
+      "position": 62,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-062#product",
+        "sku": "KD-062",
+        "mpn": "KD-062",
+        "gtin13": null,
+        "name": "Halal Samosa with Chicken 120 g (100 г kg) — Kazan Delicacies",
+        "description": "Halal Tatar pastry from Kazan Juicy chicken samosa by Kazan Delicacies — flaky puff pastry filled with seasoned chicken meat. Perfect for quick snacks, cafes, restaurants, and wholesale. Halal-certified, made in Kazan, Tatarstan. Frozen at −18°C, shelf life 360 days. Convenient packaging for HoReCa and retail. Halal Samosa with Chicken 120 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-062",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Kazan Delicacies",
+          "url": "https://kazandelikates.tatar",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2",
+            "addressLocality": "Kazan",
+            "addressRegion": "Tatarstan",
+            "postalCode": "420059",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Classic Pastries > Halal Samosa with Chicken 120 g (100 г kg) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-062",
+          "priceCurrency": "USD",
+          "price": 25.48,
+          "priceExclVAT": 21.23,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delicacies",
+            "url": "https://kazandelikates.tatar"
+          },
+          "exportPrices": {
+            "USD": 25.48,
+            "KZT": 11952.48,
+            "UZS": 304852.01,
+            "KGS": 2216.5,
+            "BYN": 72.48,
+            "AZN": 43.09
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "RU"
+            },
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": "USD"
+            },
+            "shippingOrigin": {
+              "@type": "DefinedRegion",
+              "addressLocality": "Kazan",
+              "addressCountry": "RU"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Классическая выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 63,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-063#product",
+        "sku": "KD-063",
+        "mpn": "KD-063",
+        "gtin13": null,
+        "name": "Halal Echpochmak with beef and potato (70 г kg) — Kazan Delicacies",
+        "description": "Halal Tatar pastry from Kazan Authentic echpochmak filled with juicy beef and potato. Perfect for HoReCa, wholesale and retail. Halal certified, made in Kazan. Traditional Tatar taste. Easy to prepare, 100 g portion. Shelf life 360 days at -18°C. Halal Echpochmak with beef and potato (70 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 70 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "image": [
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-063",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "name": "Kazan Delicacies",
+          "url": "https://kazandelikates.tatar",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2",
+            "addressLocality": "Kazan",
+            "addressRegion": "Tatarstan",
+            "postalCode": "420059",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Classic Pastries > Halal Echpochmak with beef and potato (70 г kg) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-063",
+          "priceCurrency": "USD",
+          "price": 25.68,
+          "priceExclVAT": 21.4,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@type": "Organization",
+            "name": "Kazan Delicacies",
+            "url": "https://kazandelikates.tatar"
+          },
+          "exportPrices": {
+            "USD": 25.68,
+            "KZT": 12048.66,
+            "UZS": 307305.14,
+            "KGS": 2234.34,
+            "BYN": 73.06,
+            "AZN": 43.44
+          },
+          "shippingDetails": {
+            "@type": "OfferShippingDetails",
+            "shippingDestination": {
+              "@type": "DefinedRegion",
+              "addressCountry": "RU"
+            },
+            "shippingRate": {
+              "@type": "MonetaryAmount",
+              "value": "0.00",
+              "currency": "USD"
+            },
+            "shippingOrigin": {
+              "@type": "DefinedRegion",
+              "addressLocality": "Kazan",
+              "addressCountry": "RU"
+            },
+            "deliveryTime": {
+              "@type": "ShippingDeliveryTime",
+              "handlingTime": {
+                "@type": "QuantitativeValue",
+                "minValue": 1,
+                "maxValue": 3,
+                "unitCode": "DAY"
+              }
+            }
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Классическая выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "040490"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.070 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
       "position": 64,
       "item": {
         "@type": "Product",
@@ -9960,8 +9960,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-064",
           "priceCurrency": "USD",
-          "price": 25.36,
-          "priceExclVAT": 21.13,
+          "price": 21.14,
+          "priceExclVAT": 17.62,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9970,12 +9970,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 25.36,
-            "KZT": 11978.65,
-            "UZS": 303443.96,
-            "KGS": 2212.99,
-            "BYN": 73.5,
-            "AZN": 43.02
+            "USD": 21.14,
+            "KZT": 9918.11,
+            "UZS": 252964.6,
+            "KGS": 1839.24,
+            "BYN": 60.14,
+            "AZN": 35.75
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10072,8 +10072,8 @@
         "sku": "KD-065",
         "mpn": "KD-065",
         "gtin13": null,
-        "name": "Halal Elesh with chicken and potato (70 г kg) — Kazan Delicacies",
-        "description": "Tatar halal pastry, 150 g Traditional Tatar dish — elesh filled with juicy chicken and tender potato. Perfect for HoReCa, wholesale, and retail. Made in Kazan, halal-certified. Frozen at -18°C, shelf life 360 days. Rich homemade taste without preservatives. Ideal for quick snacks or festive meals. Choose quality from Kazan Delicacies! Halal Elesh with chicken and potato (70 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 70 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Elesh with chicken and potato (100 г kg) — Kazan Delicacies",
+        "description": "Tatar halal pastry, 150 g Traditional Tatar dish — elesh filled with juicy chicken and tender potato. Perfect for HoReCa, wholesale, and retail. Made in Kazan, halal-certified. Frozen at -18°C, shelf life 360 days. Rich homemade taste without preservatives. Ideal for quick snacks or festive meals. Choose quality from Kazan Delicacies! Halal Elesh with chicken and potato (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -10102,7 +10102,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Elesh with chicken and potato (70 г kg) — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Elesh with chicken and potato (100 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -10117,8 +10117,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-065",
           "priceCurrency": "USD",
-          "price": 25.57,
-          "priceExclVAT": 21.31,
+          "price": 33.33,
+          "priceExclVAT": 27.77,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10127,12 +10127,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 25.57,
-            "KZT": 12075.05,
-            "UZS": 305885.76,
-            "KGS": 2230.8,
-            "BYN": 74.09,
-            "AZN": 43.37
+            "USD": 33.33,
+            "KZT": 15633.88,
+            "UZS": 398747.16,
+            "KGS": 2899.19,
+            "BYN": 94.8,
+            "AZN": 56.36
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10190,12 +10190,12 @@
           {
             "@type": "PropertyValue",
             "name": "hsCode",
-            "value": "040490"
+            "value": "190590"
           },
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0.070 kg"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10274,8 +10274,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-066",
           "priceCurrency": "USD",
-          "price": 21.05,
-          "priceExclVAT": 17.54,
+          "price": 19.23,
+          "priceExclVAT": 16.03,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10284,12 +10284,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 21.05,
-            "KZT": 9939.82,
-            "UZS": 251796.21,
-            "KGS": 1836.33,
-            "BYN": 60.99,
-            "AZN": 35.7
+            "USD": 19.23,
+            "KZT": 9023.15,
+            "UZS": 230138.45,
+            "KGS": 1673.28,
+            "BYN": 54.71,
+            "AZN": 32.53
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10386,8 +10386,8 @@
         "sku": "KD-067",
         "mpn": "KD-067",
         "gtin13": null,
-        "name": "Halal Chak-Chak in Kraft Gift Box 300 g (100 г kg) — Kazan Delicacies",
-        "description": "Halal Tatar dessert from Kazan Our Chak-Chak in a stylish kraft box features delicate, airy dough pillows drenched in honey syrup. Perfect for HoReCa, wholesale, and retail. Made in Kazan, Halal-certified, with natural ingredients and no artificial additives. A great gift or tea-time treat. Halal Chak-Chak in Kraft Gift Box 300 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Chak-Chak in Kraft Gift Box 300 g (120 г kg) — Kazan Delicacies",
+        "description": "Halal Tatar dessert from Kazan Our Chak-Chak in a stylish kraft box features delicate, airy dough pillows drenched in honey syrup. Perfect for HoReCa, wholesale, and retail. Made in Kazan, Halal-certified, with natural ingredients and no artificial additives. A great gift or tea-time treat. Halal Chak-Chak in Kraft Gift Box 300 g (120 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -10416,7 +10416,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Chak-Chak in Kraft Gift Box 300 g (100 г kg) — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Chak-Chak in Kraft Gift Box 300 g (120 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -10431,8 +10431,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-067",
           "priceCurrency": "USD",
-          "price": 33.17,
-          "priceExclVAT": 27.64,
+          "price": 39.31,
+          "priceExclVAT": 32.76,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10441,12 +10441,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 33.17,
-            "KZT": 15668.11,
-            "UZS": 396905.43,
-            "KGS": 2894.6,
-            "BYN": 96.13,
-            "AZN": 56.27
+            "USD": 39.31,
+            "KZT": 18441.68,
+            "UZS": 470361.13,
+            "KGS": 3419.87,
+            "BYN": 111.82,
+            "AZN": 66.48
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10509,7 +10509,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0.100 kg"
+            "value": "0.120 kg"
           },
           {
             "@type": "PropertyValue",
@@ -10588,8 +10588,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-068",
           "priceCurrency": "USD",
-          "price": 19.15,
-          "priceExclVAT": 15.96,
+          "price": 40.72,
+          "priceExclVAT": 33.93,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10598,12 +10598,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 19.15,
-            "KZT": 9042.91,
-            "UZS": 229075.48,
-            "KGS": 1670.63,
-            "BYN": 55.48,
-            "AZN": 32.48
+            "USD": 40.72,
+            "KZT": 19101.54,
+            "UZS": 487191.08,
+            "KGS": 3542.24,
+            "BYN": 115.82,
+            "AZN": 68.86
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -10700,8 +10700,8 @@
         "sku": "KD-069",
         "mpn": "KD-069",
         "gtin13": null,
-        "name": "Halal Baked potato pie 100g – frozen (120 г kg) — Kazan Delicacies",
-        "description": "Halal, Kazan Delicious baked pie with soft potato filling. Perfect for snacks, street food, and HoReCa. Made in Kazan, Halal certified. No preservatives. Long shelf life at -18°C. Suitable for wholesale and retail. Halal Baked potato pie 100g – frozen (120 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 120 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Baked potato pie 100g – frozen (90 г kg) — Kazan Delicacies",
+        "description": "Halal, Kazan Delicious baked pie with soft potato filling. Perfect for snacks, street food, and HoReCa. Made in Kazan, Halal certified. No preservatives. Long shelf life at -18°C. Suitable for wholesale and retail. Halal Baked potato pie 100g – frozen (90 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 90 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -10730,7 +10730,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Baked potato pie 100g – frozen (120 г kg) — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Baked potato pie 100g – frozen (90 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -10745,8 +10745,8 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-069",
           "priceCurrency": "USD",
-          "price": 39.13,
-          "priceExclVAT": 32.61,
+          "price": 15.79,
+          "priceExclVAT": 13.16,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10755,326 +10755,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 39.13,
-            "KZT": 18482.06,
-            "UZS": 468188.62,
-            "KGS": 3414.46,
-            "BYN": 113.4,
-            "AZN": 66.38
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Классическая выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "190590"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.120 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 70,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-070#product",
-        "sku": "KD-070",
-        "mpn": "KD-070",
-        "gtin13": null,
-        "name": "Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies",
-        "description": "Halal bakery from Kazan Delicate cottage cheese cheesecake with vanilla flavor. Perfect for breakfast or snack. Suitable for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen to keep freshness up to 360 days. Light and satisfying dessert for the whole family. Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-070",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-070",
-          "priceCurrency": "USD",
-          "price": 40.53,
-          "priceExclVAT": 33.78,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 40.53,
-            "KZT": 19143.37,
-            "UZS": 484940.84,
-            "KGS": 3536.63,
-            "BYN": 117.46,
-            "AZN": 68.75
-          },
-          "shippingDetails": {
-            "@type": "OfferShippingDetails",
-            "shippingDestination": {
-              "@type": "DefinedRegion",
-              "addressCountry": "RU"
-            },
-            "shippingRate": {
-              "@type": "MonetaryAmount",
-              "value": "0.00",
-              "currency": "USD"
-            },
-            "shippingOrigin": {
-              "@type": "DefinedRegion",
-              "addressLocality": "Kazan",
-              "addressCountry": "RU"
-            },
-            "deliveryTime": {
-              "@type": "ShippingDeliveryTime",
-              "handlingTime": {
-                "@type": "QuantitativeValue",
-                "minValue": 1,
-                "maxValue": 3,
-                "unitCode": "DAY"
-              }
-            }
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Классическая выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "190590"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.100 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 71,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-071#product",
-        "sku": "KD-071",
-        "mpn": "KD-071",
-        "gtin13": null,
-        "name": "Halal Apple Pie 100 g (90 г kg) — Kazan Delicacies",
-        "description": "Halal pastry from Kazan Flaky or yeast dough pie filled with apple. Perfect snack for tea, travel, or dessert. Halal certified, made in Kazan. Frozen at –18°C, 360-day shelf life. Suitable for HoReCa, wholesale, retail. Homemade taste. Halal Apple Pie 100 g (90 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 90 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
-        "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-071",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "name": "Kazan Delicacies",
-          "url": "https://kazandelikates.tatar",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2",
-            "addressLocality": "Kazan",
-            "addressRegion": "Tatarstan",
-            "postalCode": "420059",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Apple Pie 100 g (90 г kg) — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-071",
-          "priceCurrency": "USD",
-          "price": 15.72,
-          "priceExclVAT": 13.1,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@type": "Organization",
-            "name": "Kazan Delicacies",
-            "url": "https://kazandelikates.tatar"
-          },
-          "exportPrices": {
-            "USD": 15.72,
-            "KZT": 7424.19,
-            "UZS": 188070.01,
-            "KGS": 1371.58,
-            "BYN": 45.55,
-            "AZN": 26.66
+            "USD": 15.79,
+            "KZT": 7407.97,
+            "UZS": 188942.7,
+            "KGS": 1373.75,
+            "BYN": 44.92,
+            "AZN": 26.71
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
@@ -11164,15 +10850,15 @@
     },
     {
       "@type": "ListItem",
-      "position": 72,
+      "position": 70,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-072#product",
-        "sku": "KD-072",
-        "mpn": "KD-072",
+        "@id": "https://pepperoni.tatar/en/products/kd-070#product",
+        "sku": "KD-070",
+        "mpn": "KD-070",
         "gtin13": null,
-        "name": "Halal Frozen pie with green onion and egg (100 г kg) — Kazan Delicacies",
-        "description": "Halal pastry from Kazan Delicate pie with a juicy filling of fresh green onion and boiled egg. Perfect for quick snacks, street food, HoReCa and wholesale. Made in Kazan, traditional recipe. Halal. Weight 100 g. Shelf life 360 days at -18°C. Halal Frozen pie with green onion and egg (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
+        "name": "Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies",
+        "description": "Halal bakery from Kazan Delicate cottage cheese cheesecake with vanilla flavor. Perfect for breakfast or snack. Suitable for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen to keep freshness up to 360 days. Light and satisfying dessert for the whole family. Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies — halal classic pastries from Kazan Delicacies, bakery category. Net weight: 100 г kg. Shelf life: 360 days. Storage: –18°C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region).",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
@@ -11182,7 +10868,7 @@
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-072",
+        "url": "https://pepperoni.tatar/en/products/kd-070",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -11201,7 +10887,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Frozen pie with green onion and egg (100 г kg) — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Frozen cheesecake 70 g (100 г kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -11214,10 +10900,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-072",
+          "url": "https://pepperoni.tatar/en/products/kd-070",
           "priceCurrency": "USD",
-          "price": 20.87,
-          "priceExclVAT": 17.39,
+          "price": 20.97,
+          "priceExclVAT": 17.48,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -11226,12 +10912,12 @@
             "url": "https://kazandelikates.tatar"
           },
           "exportPrices": {
-            "USD": 20.87,
-            "KZT": 9858.16,
-            "UZS": 249727.44,
-            "KGS": 1821.24,
-            "BYN": 60.49,
-            "AZN": 35.41
+            "USD": 20.97,
+            "KZT": 9836.62,
+            "UZS": 250886.23,
+            "KGS": 1824.13,
+            "BYN": 59.65,
+            "AZN": 35.46
           },
           "shippingDetails": {
             "@type": "OfferShippingDetails",
