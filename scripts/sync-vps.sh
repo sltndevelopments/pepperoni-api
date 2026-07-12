@@ -37,6 +37,9 @@ python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.
 # agent / a human to triage, doesn't fail the sync.
 python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_counts.py found stale product-count mentions — see output above"
 
+# 1f. Keep sitemap URLs aligned with generated canonical links.
+python3 scripts/rebuild_sitemap.py
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 
