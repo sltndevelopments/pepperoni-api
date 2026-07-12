@@ -29,6 +29,8 @@ PUBLIC = ROOT / "public"
 
 PERF_MARKER = "<!-- perf-hints: preconnect -->"
 PERF_BLOCK = """<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="dns-prefetch" href="https://res.cloudinary.com">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -74,7 +76,12 @@ def normalise_ym_pixel(html: str) -> str:
     return YM_IMG_RE.sub(
         lambda m: _inject_attrs(
             m.group(0),
-            {"width": "1", "height": "1", "loading": "lazy"},
+            {
+                "width": "1",
+                "height": "1",
+                "loading": "lazy",
+                "aria-hidden": "true",
+            },
         ),
         html,
     )

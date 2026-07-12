@@ -69,7 +69,7 @@ def classify(rel: str) -> str:
 
 
 def html_to_url(path: Path) -> str:
-    """Convert public/foo/bar.html → https://pepperoni.tatar/foo/bar (clean URLs)."""
+    """Convert public/foo/bar.html to the site's canonical clean URL."""
     rel = path.relative_to(PUBLIC)
     parts = list(rel.parts)
     last = parts[-1]
@@ -79,7 +79,10 @@ def html_to_url(path: Path) -> str:
         parts[-1] = last[:-5]
     if not parts:
         return BASE + "/"
-    return BASE + "/" + "/".join(parts)
+    # Directory hubs use a trailing slash; flat HTML resources (SKU, geo,
+    # blog) keep the extensionless URL without one. This matches the
+    # canonical links emitted by the page generators.
+    return BASE + "/" + "/".join(parts) + ("/" if last == "index.html" else "")
 
 
 def mtime_iso(path: Path) -> str:
