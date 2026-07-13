@@ -31,7 +31,8 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     store.init()
     gate = Gate(store)
 
-    apply_lookalike_scores(store=store)
+    if not dry_run_send:
+        apply_lookalike_scores(store=store)
 
     # Контактный ресёрч раньше существовал только как ручная CLI-команда и
     # фактически не запускался с 09.06. Делаем небольшой бюджетный проход раз
@@ -56,14 +57,16 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
             except Exception as e:
                 enrichment_result = {"error": str(e)[:200]}
 
-    try:
-        from channels.imap_inbox import fetch_inbox, imap_configured
-        if imap_configured():
-            imap_result = fetch_inbox(store=store)
-        else:
-            imap_result = {"skipped": "imap_not_configured"}
-    except Exception as e:
-        imap_result = {"error": str(e)[:200]}
+    imap_result: dict = {"skipped": "dry_run"}
+    if not dry_run_send:
+        try:
+            from channels.imap_inbox import fetch_inbox, imap_configured
+            if imap_configured():
+                imap_result = fetch_inbox(store=store)
+            else:
+                imap_result = {"skipped": "imap_not_configured"}
+        except Exception as e:
+            imap_result = {"error": str(e)[:200]}
 
     recovered_inbound: list[dict] = []
     if not dry_run_send:
@@ -74,19 +77,23 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
 
     # Bounce-recovery: hard bounce → ресёрч нового адреса → обратно в очередь.
     # Лимит маленький (вежливость к источнику + бюджет времени цикла).
-    try:
-        from prospecting.bounce_recovery import recover as recover_bounces
-        recovery_result = recover_bounces(store=store, limit=5)
-    except Exception as e:
-        recovery_result = {"skipped": str(e)[:200]}
+    recovery_result: dict = {"skipped": "dry_run"}
+    if not dry_run_send:
+        try:
+            from prospecting.bounce_recovery import recover as recover_bounces
+            recovery_result = recover_bounces(store=store, limit=5)
+        except Exception as e:
+            recovery_result = {"skipped": str(e)[:200]}
 
     # Именной поток (Поток 2): не более 1-2 эскалаций за цикл (owner-требование),
     # плюс 7-дневный кулдаун внутри escalate_named_targets — не шторм из 12 досье.
-    try:
-        from workers.named_escalation import escalate_named_targets
-        named_result = escalate_named_targets(store, limit=2)
-    except Exception as e:
-        named_result = {"skipped": str(e)[:200]}
+    named_result: dict = {"skipped": "dry_run"}
+    if not dry_run_send:
+        try:
+            from workers.named_escalation import escalate_named_targets
+            named_result = escalate_named_targets(store, limit=2)
+        except Exception as e:
+            named_result = {"skipped": str(e)[:200]}
 
     signals = store.unprocessed_signals()
     outreach_pending = outreach_candidates(store, limit=max_drafts * 4)
@@ -123,6 +130,22 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
     obs = observe(state)
     tasks = plan(obs, max_drafts=max_drafts)
     results: list[dict] = []
+
+    if dry_run_send:
+        summary = reflect(tasks, results)
+        summary.update({
+            "dry_run": True,
+            "would_run": tasks,
+            "outreach_candidates": len(outreach_pending),
+            "followup": followup_result,
+            "imap": imap_result,
+            "bounce_recovery": recovery_result,
+            "named_escalation": named_result,
+            "external_actions": 0,
+        })
+        store.save_orchestrator_run("dry_cycle", {"tasks": tasks}, summary)
+        store.audit("orchestrator", "dry_cycle_complete", detail=summary)
+        return summary
 
     for task in tasks:
         w = task.get("worker")

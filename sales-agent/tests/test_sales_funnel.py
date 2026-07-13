@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -353,6 +354,32 @@ class SalesFunnelTest(unittest.TestCase):
         send.assert_not_called()
         self.assertTrue(result["outbound"]["send"]["dry_run"])
         self.assertNotEqual(self.store.get_draft(result["draft_id"])["status"], "sent")
+
+    def test_cycle_dry_run_has_no_external_actions(self) -> None:
+        cycle_module = importlib.import_module("orchestrator.run_cycle")
+        with patch.object(cycle_module, "Store", return_value=self.store), patch.object(
+            cycle_module, "apply_lookalike_scores"
+        ) as lookalike, patch(
+            "channels.imap_inbox.fetch_inbox"
+        ) as fetch_mail, patch(
+            "prospecting.bounce_recovery.recover"
+        ) as bounce, patch(
+            "workers.named_escalation.escalate_named_targets"
+        ) as named, patch(
+            "crm.google_sync.crm_sync"
+        ) as crm, patch(
+            "orchestrator.proactive.run"
+        ) as proactive:
+            result = cycle_module.run_cycle(dry_run_send=True, max_drafts=3)
+
+        self.assertTrue(result["dry_run"])
+        self.assertEqual(result["external_actions"], 0)
+        lookalike.assert_not_called()
+        fetch_mail.assert_not_called()
+        bounce.assert_not_called()
+        named.assert_not_called()
+        crm.assert_not_called()
+        proactive.assert_not_called()
 
 
 if __name__ == "__main__":
