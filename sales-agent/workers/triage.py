@@ -20,10 +20,25 @@ INTENT_PATTERNS = [
     ("sausage_in_dough", re.compile(r"сосис[а-я]*\s+в\s+тесте", re.I)),
     ("tender", re.compile(r"тендер|закупк|конкурс", re.I)),
     ("negative", re.compile(r"отпис|не интерес|не пишите|spam", re.I)),
+    (
+        "supplier_offer",
+        re.compile(
+            r"мы\s+(?:производим|предлагаем|поставляем)\s+"
+            r"(?:пл[её]нк|упаков|лент|оборуд|сырь|материал)|готовы\s+предложить|"
+            r"нашего\s+стенда|производител[ья]\s+(?:пл[её]нок|упаковк|лент)|"
+            r"выслать\s+техническое\s+задание",
+            re.I,
+        ),
+    ),
 ]
 
 
-def triage_inbound(message: dict, store: Store | None = None) -> dict:
+def triage_inbound(
+    message: dict,
+    store: Store | None = None,
+    *,
+    use_llm: bool = True,
+) -> dict:
     store = store or Store()
     body = (message.get("body") or "") + " " + (message.get("subject") or "")
     intents = []
@@ -41,13 +56,21 @@ def triage_inbound(message: dict, store: Store | None = None) -> dict:
         temperature = "hot"
     if "negative" in intents:
         temperature = "reject"
+    # Поставщик, который продаёт нам плёнку/скотч, не является покупателем,
+    # даже если в письме встречается «коммерческое предложение» или «прайс».
+    if "supplier_offer" in intents:
+        temperature = "cold"
+        intents = [
+            i for i in intents
+            if i not in {"price_request", "sample_request", "sausage_in_dough"}
+        ]
 
     gate_check = {"intents": intents, "temperature": temperature}
 
     # Опционально: Haiku уточняет intent (если есть ключ)
     try:
         from core.llm import brain_available, call_haiku
-        if brain_available() and body.strip():
+        if use_llm and brain_available() and body.strip():
             hint, _ = call_haiku(
                 f"Классифицируй B2B-входящее одним словом из: price, sample, halal, tender, reject, other.\n{body[:500]}",
                 max_tokens=20,

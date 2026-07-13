@@ -577,7 +577,11 @@ class Store:
         with self._conn() as conn:
             rows = conn.execute(
                 f"""SELECT * FROM leads WHERE status IN ({placeholders})
-                    ORDER BY updated_at DESC LIMIT ?""",
+                    ORDER BY
+                      CASE WHEN profile LIKE '%"interest_confirmed": true%' THEN 0 ELSE 1 END,
+                      fit_score DESC,
+                      updated_at DESC
+                    LIMIT ?""",
                 (*hot, limit),
             ).fetchall()
         return [_row_lead(r) for r in rows]

@@ -61,11 +61,34 @@ score (до 160) без тира.
 
 ## Current step
 
-Нет открытого шага. Следующий цикл `enrich`/`run_cycle` на VPS начнёт
-использовать оба фикса автоматически (deep research по 170 лидам,
-open-tracking на всех новых письмах). Через несколько дней стоит
-посмотреть `Store.email_open_stats()` — если open-rate высокий, но
-reply-rate всё равно ноль, проблема в оффере/канале, не в доставке.
-Если open-rate низкий — проблема в спам-фильтрах/теме/домене.
+Локально исправлен остановившийся sales funnel; изменения ещё не
+закоммичены и не развёрнуты на VPS.
 
-Оценка миграции на Claude Agent SDK — отложена, ждём владельца.
+После разрешения владельца на commit/push:
+1. Закоммитить только изменения `sales-agent/` из текущего шага, не захватывая
+   посторонние HTML/legal/SEO-файлы и существующий untracked
+   `sales-agent/scripts/export_hot_leads.py`.
+2. Push в `origin/main`, дождаться VPS deploy.
+3. На VPS выполнить dry-проверку селекторов, затем один штатный live-cycle.
+4. Проверить: Чизерия восстановлена как persistent inbound lead; старые 42
+   handoff не отправлены повторно; enrichment дал фактический результат;
+   outbound/follow-up пишут новые `email_opens`.
+
+## Log — 2026-07-13: локальный ремонт воронки (pending deploy)
+
+- Доказано: enrichment не запускался с 09.06 (`data/enrich.log`), cron содержал
+  только cycle/fetch-mail; queue=0 при 1850 new; follow-up 0/217; Telegram
+  notification counter достиг 95 из-за скользящего top-20.
+- Исправлено локально:
+  - ежедневный bounded enrichment (5/день, 30-дневный cooldown);
+  - очередь сканирует всю базу и допускает B, но отправляет только на
+    procurement/персональный corporate email, исключая HR/kadry/sales/info;
+  - один follow-up через 5 дней при отсутствии ответа, максимум 2 за цикл;
+  - permanent handoff dedup по lead_id+kind вместо top-20;
+  - крупный лид называется приоритетным, «заинтересован» только при реальном inbound;
+  - старые warm inbound восстанавливаются в persistent leads; supplier offers
+    больше не считаются price requests;
+  - LLM morning promises заменены дайджестом только по фактам цикла.
+- Проверка: `PYTHONPATH=. python3 -m unittest discover -s tests -v` →
+  7/7 OK; `py_compile` всех изменённых модулей → OK; `git diff --check` → OK.
+- Blocker: commit/push не выполнялись без отдельного разрешения владельца.

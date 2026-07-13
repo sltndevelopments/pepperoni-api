@@ -10,7 +10,10 @@ from __future__ import annotations
 
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -25,7 +28,18 @@ from prospecting.contact_research import research_contacts, apply_research_to_le
 
 # Тир S/A — кандидаты на глубокий ресёрч с Perplexity
 _DEEP_TIERS = {"S", "A"}
-_DEEP_LOOKALIKE_THRESHOLD = 80  # или высокий lookalike_score → тоже deep
+_OUTREACH_CFG = ROOT / "config" / "outreach.yaml"
+
+
+def _enrichment_cfg() -> dict:
+    try:
+        return (yaml.safe_load(_OUTREACH_CFG.read_text(encoding="utf-8")) or {}).get("enrichment", {})
+    except Exception:
+        return {}
+
+
+_DEEP_LOOKALIKE_THRESHOLD = int(_enrichment_cfg().get("min_lookalike_for_deep", 45))
+_ENRICH_COOLDOWN_DAYS = int(_enrichment_cfg().get("cooldown_days", 30))
 
 
 # Качество email из первичного impорта (ОКВЭД-реестр даёт то, что указано в
@@ -38,10 +52,23 @@ _LOW_QUALITY = {"generic", "freemail", None}
 
 def _needs_enrich(lead: dict) -> bool:
     from core import agent_profile as ap
+    from channels.email import pick_recipient
+    from prospecting.contact_research import is_buyer_contact
+
     p = lead.get("profile") or {}
     quality = ap.get(p, "email_quality") or p.get("email_quality")
-    if quality in ("procurement", "corporate"):
+    if is_buyer_contact(pick_recipient(p), quality):
         return False  # уже есть достаточно персональный/профильный адрес
+    # Не тратим бюджет на один и тот же плохой/отсутствующий контакт каждый
+    # цикл. Повторный поиск разрешён после cooldown.
+    checked_at = ap.get(p, "contact_enriched_at") or ap.get(p, "contact_researched_at")
+    if checked_at:
+        try:
+            checked = datetime.fromisoformat(str(checked_at))
+            if (datetime.now(timezone.utc) - checked).total_seconds() < _ENRICH_COOLDOWN_DAYS * 86400:
+                return False
+        except Exception:
+            pass
     return True
 
 
@@ -73,7 +100,7 @@ def enrich_leads(
     store.init()
 
     targets = [
-        l for l in store.list_leads(limit=500)
+        l for l in store.list_leads(limit=5000)
         if _needs_enrich(l) and l.get("inn") and (l.get("status") or "new") == "new"
     ]
     targets.sort(key=lambda x: x.get("fit_score") or 0, reverse=True)

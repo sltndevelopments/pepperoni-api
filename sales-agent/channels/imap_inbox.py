@@ -194,9 +194,14 @@ def _find_lead_by_email(store: Store, sender: str) -> dict | None:
         return None
     sender = sender.strip().lower()
     domain = sender.split("@", 1)[1] if "@" in sender else ""
-    for lead in store.list_leads(limit=600):
+    from core import agent_profile as ap
+
+    for lead in store.list_leads(limit=5000):
         p = lead.get("profile") or {}
-        emails = str(p.get("emails") or p.get("email") or "").lower()
+        emails = " ".join(
+            str(value or "")
+            for value in (ap.get(p, "email_best"), p.get("emails"), p.get("email"))
+        ).lower()
         # точное вхождение адреса (в т.ч. в списке через запятую/с пробелами)
         if sender and sender in emails:
             return lead

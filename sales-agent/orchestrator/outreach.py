@@ -14,6 +14,7 @@ from core import agent_profile as ap
 from core.exclusions import is_excluded
 from core.store import Store
 from prospecting.lookalike import score_lookalike
+from prospecting.contact_research import is_buyer_contact
 
 CFG = ROOT / "config" / "outreach.yaml"
 
@@ -39,12 +40,15 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
     min_lookalike = int(cfg.get("min_lookalike_score", 45))
     tiers = set(cfg.get("tiers", ["S", "A"]))
     require_email = bool(cfg.get("require_email", True))
+    allowed_quality = set(cfg.get("allowed_email_quality", ["procurement", "corporate"]))
     statuses = set(cfg.get("statuses", ["new"]))
 
-    drafted = {d["lead_id"] for d in store.list_drafts(limit=500)}
+    # Сканируем всю активную базу. Старый limit=500 отрезал подходящие лиды,
+    # потому что list_leads сортирует прежде всего по fit_score.
+    drafted = {d["lead_id"] for d in store.list_drafts(limit=5000)}
     candidates: list[dict] = []
 
-    for lead in store.list_leads(limit=500):
+    for lead in store.list_leads(limit=5000):
         if lead["id"] in drafted:
             continue
         if (lead.get("status") or "new") not in statuses:
@@ -68,7 +72,16 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
                 (lead.get("profile") or {}).get("named_target"):
             continue
 
-        if require_email and not pick_recipient(lead.get("profile") or {}):
+        recipient = pick_recipient(lead.get("profile") or {})
+        if require_email and not recipient:
+            continue
+
+        # Не отправляем холодное письмо на HR/общий/freemail ящик. Сначала
+        # contact enrichment должен найти закупщика или корпоративный адрес.
+        email_quality = ap.get(lead.get("profile") or {}, "email_quality")
+        if allowed_quality and email_quality not in allowed_quality:
+            continue
+        if not is_buyer_contact(recipient, email_quality):
             continue
 
         # Мёртвый домен (нет MX и нет A) — в очередь не идёт НИКОГДА,

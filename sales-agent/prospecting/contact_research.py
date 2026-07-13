@@ -62,13 +62,30 @@ SKIP_SITE = ("youtube.", "youtu.be", "rutube.", "ok.ru", "dzen.", "wikipedia.", 
 
 # Роли закупок/сбыта — лучший сигнал для приоритизации
 PROCUREMENT_PREFIXES = (
-    "zakupki", "snab", "zakaz", "opt", "sales", "commercial", "export",
-    "sbyt", "torg", "buyer", "purchase", "procurement",
+    "zakup", "snab", "buyer", "purchase", "procurement", "category",
+    "kategori", "assort", "supply",
 )
 # Общие ящики — хуже, но на корп. домене
-GENERIC_PREFIXES = ("info", "office", "mail", "contact", "hello", "reception", "admin")
+GENERIC_PREFIXES = (
+    "info", "office", "mail", "contact", "hello", "reception", "admin",
+    "hr", "kadr", "kadry", "personal", "career", "rabota", "marketing",
+    "pr", "press", "support", "service", "legal", "urist", "buh",
+    "accounting", "lab", "ok", "sekretar", "zakaz", "sales", "sbyt",
+)
 
 FREE_DOMAINS = ("@mail.ru", "@yandex.ru", "@gmail.com", "@bk.ru", "@inbox.ru", "@list.ru", "@rambler.ru")
+
+
+def is_buyer_contact(email: str | None, quality: str | None) -> bool:
+    """Высокоточный гейт: закупочная роль или персональный corporate email."""
+    if not email or "@" not in email:
+        return False
+    prefix = _email_prefix(email)
+    if quality == "procurement":
+        return any(prefix.startswith(p) for p in PROCUREMENT_PREFIXES)
+    if quality == "corporate":
+        return not any(prefix.startswith(p) for p in GENERIC_PREFIXES)
+    return False
 
 
 def _now() -> str:
@@ -692,6 +709,7 @@ def apply_research_to_lead(
         email_verified=research.get("verified", False),
         email_mx_failed=research.get("mx_failed", False),
         site_confirmed=research.get("site_confirmed", False),
+        contact_enriched_at=_now(),
     )
     # Записываем contact_site только если сайт прошёл верификацию принадлежности
     if research.get("site") and research.get("site_confirmed"):

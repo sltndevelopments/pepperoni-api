@@ -1,12 +1,25 @@
 # Очередь холодного аутрича (пилот → масштаб)
 
 queue:
-  tiers: [S, A]
-  min_fit_score: 60
+  tiers: [S, A, B]
+  min_fit_score: 80
   min_lookalike_score: 45
   require_email: true
+  allowed_email_quality: [procurement, corporate]
   statuses: [new]
 
 pilot:
   max_per_cycle: 3
   daily_cap_first_week: 15
+
+enrichment:
+  daily_limit: 5
+  min_lookalike_for_deep: 45
+  cooldown_days: 30
+
+followup:
+  enabled: true
+  min_days_after_first_email: 5
+  max_sequence_step: 1
+  max_per_cycle: 2
+  allowed_email_quality: [procurement, corporate]

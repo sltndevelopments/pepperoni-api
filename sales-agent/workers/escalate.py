@@ -15,6 +15,8 @@ from core.store import Store
 
 
 def format_contacts(lead: dict) -> str:
+    from core import agent_profile as ap
+
     p = lead.get("profile") or {}
     lines = [
         f"<b>{lead.get('name', '?')}</b>",
@@ -28,13 +30,15 @@ def format_contacts(lead: dict) -> str:
         lines.append(f"👤 {p['director']}")
     if p.get("phones"):
         lines.append(f"📞 {p['phones']}")
-    if p.get("emails"):
-        lines.append(f"✉️ {p['emails']}")
-    if p.get("sites"):
-        lines.append(f"🌐 {p['sites']}")
-    rev = p.get("revenue_mln") or p.get("gainSum") or p.get("revenue")
+    email = ap.get(p, "email_best") or p.get("emails")
+    if email:
+        lines.append(f"✉️ {email}")
+    site = ap.get(p, "contact_site") or p.get("sites") or p.get("website")
+    if site:
+        lines.append(f"🌐 {site}")
+    rev = p.get("revenue_mln_rub") or p.get("revenue_mln") or p.get("gainSum") or p.get("revenue")
     if rev:
-        lines.append(f"💰 выручка: {rev}")
+        lines.append(f"💰 выручка: {rev} млн ₽")
     if p.get("sausage_evidence"):
         lines.append(f"<i>Сигнал: {p['sausage_evidence'][:160]}</i>")
     return "\n".join(lines)
@@ -47,8 +51,9 @@ def escalate_to_owner(
     context: str = "",
     store: Store | None = None,
     force: bool = False,
+    confirmed_interest: bool = False,
 ) -> dict:
-    """Пометить лида hot и прислать контакты владельцу."""
+    """Передать лида владельцу, честно разделяя интерес и приоритет."""
     store = store or Store()
     lead = store.get_lead(lead_id)
     if not lead:
@@ -57,13 +62,16 @@ def escalate_to_owner(
     profile = dict(lead.get("profile") or {})
     now = datetime.now(timezone.utc).isoformat()
 
-    if profile.get("escalated_at") and not force:
+    interest_upgrade = confirmed_interest and not profile.get("interest_confirmed")
+    if profile.get("escalated_at") and not force and not interest_upgrade:
         return {"ok": True, "skipped": "already_escalated", "lead_id": lead_id}
 
     owner = load_autonomy().get("escalation", {}).get("owner_name", "Ринат")
     profile["escalated_at"] = now
     profile["escalation_reason"] = reason[:500]
     profile["owner"] = owner
+    if confirmed_interest:
+        profile["interest_confirmed"] = True
     if context:
         profile["last_context"] = context[:1000]
 
@@ -79,8 +87,13 @@ def escalate_to_owner(
         profile=profile,
     )
 
+    heading = (
+        "🔥 Входящий интерес — ответь сегодня"
+        if confirmed_interest
+        else "🎯 Приоритетная компания — нужен личный выход"
+    )
     text = (
-        f"<b>🔥 Заинтересован — на тебя</b>\n"
+        f"<b>{heading}</b>\n"
         f"{format_contacts(lead)}\n\n"
         f"<b>Почему:</b> {reason[:400]}"
     )
@@ -95,6 +108,9 @@ def escalate_to_owner(
             sent = notify(text)
         except Exception:
             pass
+    if sent:
+        kind = "interest" if confirmed_interest else "priority"
+        store.record_notification(f"proactive:handoff:{lead_id}:{kind}", "seen")
 
     email_fwd = {}
     try:
@@ -126,4 +142,5 @@ def escalate_to_owner(
         "telegram_sent": sent,
         "email_forwarded": email_fwd.get("ok"),
         "status": "hot",
+        "interest_confirmed": confirmed_interest,
     }
