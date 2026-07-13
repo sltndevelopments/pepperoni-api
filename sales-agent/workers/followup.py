@@ -46,8 +46,8 @@ def followup_candidates(
                    WHERE t.lead_id=l.id AND m.direction='in'
                  )
                ORDER BY d.created_at ASC
-               LIMIT ?""",
-            (cutoff, limit * 5),
+               """,
+            (cutoff,),
         ).fetchall()
 
     from core.store import _row_lead

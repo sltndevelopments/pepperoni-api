@@ -237,6 +237,29 @@ class SalesFunnelTest(unittest.TestCase):
         self.store.add_inbound("email", "Спасибо, неактуально", lead_id=lead_id)
         self.assertEqual(followup_candidates(self.store, min_days=5), [])
 
+    def test_followup_filters_quality_before_applying_limit(self) -> None:
+        oldest = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        for index in range(12):
+            lead_id = self._lead(
+                f"Low Quality {index}", quality="freemail", status="contacted"
+            )
+            draft_id = self.store.create_draft(
+                lead_id, "email", "Первое письмо", sequence_step=0, status="sent"
+            )
+            with self.store._conn() as conn:
+                conn.execute("UPDATE drafts SET created_at=? WHERE id=?", (oldest, draft_id))
+
+        good_id = self._lead("Late Buyer", quality="corporate", status="contacted")
+        good_draft = self.store.create_draft(
+            good_id, "email", "Первое письмо", sequence_step=0, status="sent"
+        )
+        later = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        with self.store._conn() as conn:
+            conn.execute("UPDATE drafts SET created_at=? WHERE id=?", (later, good_draft))
+
+        candidates = followup_candidates(self.store, min_days=5, limit=2)
+        self.assertEqual([lead["id"] for lead in candidates], [good_id])
+
     def test_recover_old_warm_inbound_skips_supplier_offer(self) -> None:
         warm_id = self.store.add_inbound(
             "email_info",
