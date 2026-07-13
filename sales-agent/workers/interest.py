@@ -22,6 +22,24 @@ POSITIVE_REPLY = re.compile(
     r"да[,!\s]|согласен|актуальн|рассмотр|хотим|нужн[оа]",
     re.I,
 )
+QUOTE_SPLIT = re.compile(
+    r"(?:\r?\n)(?:[-_]{2,}\s*(?:original|исходн)|from:|от:|"
+    r".{0,80}\bот\s+Казанские\s+Деликатесы\b)",
+    re.I,
+)
+EXPLICIT_BUYER = re.compile(
+    r"нас\s+заинтересовал|интересует\s+ваш|хотим\s+(?:с\s+вами\s+)?сотруднич|"
+    r"(?:можно|пришлите|прошу|нужен)\b.{0,40}\bпрайс|сколько\s+стоит|"
+    r"(?:дать|дайте|пришлите)\b.{0,40}\bобразец|хотим\s+(?:купить|заказать)",
+    re.I | re.S,
+)
+SELLER_OFFER = re.compile(
+    r"я\s+представляю\s+(?:компанию|инвестицион)|мы\s+(?:производим|поставляем)|"
+    r"направляю\s+(?:вам\s+)?презентац|готовы\s+предложить|"
+    r"производител[ья]\s+(?:пл[её]нок|упаковк|лент|добавок|сырья)|"
+    r"(?:нашем|нашего)\s+стенд[ае]\s+на\s+выставк",
+    re.I,
+)
 
 
 def _is_interested_triage(triage: dict) -> bool:
@@ -37,6 +55,12 @@ def _is_interested_triage(triage: dict) -> bool:
     return triage.get("suggest_escalate", False)
 
 
+def _fresh_body(body: str) -> str:
+    """Только новое сообщение, без процитированной переписки ниже."""
+    match = QUOTE_SPLIT.search(body)
+    return body[:match.start()] if match else body
+
+
 def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
     """Проверить входящие, эскалировать заинтересованных."""
     store = store or Store()
@@ -48,7 +72,8 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
     BUYING_INTENTS = {"price_request", "sample_request", "sausage_in_dough"}
 
     for msg in store.inbox(limit, unprocessed_interest=True):
-        triage = triage_inbound(msg, store)
+        fresh_body = _fresh_body(msg.get("body") or "")
+        triage = triage_inbound({**msg, "body": fresh_body}, store)
 
         channel = msg.get("channel") or ""
 
@@ -56,7 +81,7 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
         # владельцу (даже если в тексте нет ключевых слов).
         if channel == "email_form" and triage.get("temperature") != "reject":
             lead_id = msg.get("lead_id")
-            body = (msg.get("body") or "")[:800]
+            body = fresh_body[:800]
             if lead_id:
                 r = escalate_to_owner(
                     lead_id,
@@ -87,7 +112,7 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
             continue
 
         lead_id = msg.get("lead_id")
-        body = (msg.get("body") or "")[:800]
+        body = fresh_body[:800]
         reason = f"входящее: {', '.join(triage.get('intents') or [])} · {triage.get('temperature')}"
 
         if not lead_id and brain_available():
@@ -133,10 +158,13 @@ def recover_untracked_warm_inbound(
             meta = {}
         if meta.get("warm_lead_recovered"):
             continue
-        triage = triage_inbound(msg, store, use_llm=False)
+        fresh_body = _fresh_body(msg.get("body") or "")
+        if not EXPLICIT_BUYER.search(fresh_body) or SELLER_OFFER.search(fresh_body):
+            continue
+        triage = triage_inbound({**msg, "body": fresh_body}, store, use_llm=False)
         if not _is_interested_triage(triage):
             continue
-        body = (msg.get("body") or "")[:800]
+        body = fresh_body[:800]
         reason = f"восстановленное входящее: {', '.join(triage.get('intents') or [])} · {triage.get('temperature')}"
         result = _escalate_unknown(body, reason, triage, store, message=msg)
         store.patch_message_meta(

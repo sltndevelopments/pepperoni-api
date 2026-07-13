@@ -150,6 +150,11 @@ class SalesFunnelTest(unittest.TestCase):
             "Мы производим упаковочную пленку и готовы предложить коммерческое предложение.",
             meta={"from": "supplier@example.ru", "interest_scanned": True},
         )
+        self.store.add_inbound(
+            "email_info",
+            "Из Тюмени\nпятница, 10 июля от Казанские Деликатесы\nА можно по прайс?",
+            meta={"from": "reply@example.ru", "interest_scanned": True},
+        )
         with patch(
             "workers.interest.escalate_to_owner",
             return_value={"ok": True, "telegram_sent": 1},
