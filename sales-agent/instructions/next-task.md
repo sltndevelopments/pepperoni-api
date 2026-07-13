@@ -91,3 +91,35 @@ score (до 160) без тира.
     не отправил ни одного письма не-ЛПР.
 - Blockers: нет. Нулевая отправка в этом цикле — результат quality gate, а не
   остановка процесса.
+
+## Log — 2026-07-13: recovery-план проверен bounded live
+
+- Production recovery-код: `origin/main` и VPS были синхронизированы на
+  `aa830036a` после коммитов `138d476bb`, `bf41174fc`, `82bac7c0a`,
+  `ce4e0d561`, `8eeca2394`, `aa830036a`.
+- Перед live создан online backup:
+  `data/agent.db.backup-20260713T135322Z` (594 MiB).
+- Гейты:
+  - deployed `unittest discover -s tests -v` → 23/23 OK;
+  - `py_compile` всех изменённых модулей и `git diff --check` → OK;
+  - dry-cycle: `external_actions=0`, IMAP/bounce/named/CRM/Telegram не запускались.
+- Bounded live (лимит 3 первых + 2 follow-up):
+  - первых писем: 0 — buyer-contact queue осталась пустой, gate не ослаблялся;
+  - follow-up: 2 `sent`, адреса `olonetshleb@onego.ru` и `bek@znakhleba.ru`,
+    оба `corporate`, `recipient_verified=true`;
+  - `drafts sent` 217→219, outbound messages 57→59;
+  - у обоих сообщений сохранены фактический recipient, quality, `sent_at` и
+    tracking token; `email_opens`: 5 токенов, открытий пока 0.
+- Live-проверка выявила и закрыла два дополнительных корня:
+  - SQL применял per-cycle LIMIT до quality filter, поэтому 12 buyer-контактов
+    скрывались за старыми generic — теперь фильтрация идёт до лимита;
+  - два первых кандидата были в deliverability blacklist; теперь blacklist
+    проверяется selector-ом, failed-send получает статус `failed`.
+- Чизерия: lead `20623d50dc2a4684` пережил два CRM pull,
+  `source=inbound`, `status=hot`, canonical escalation reason сохранён.
+  Два последовательных inbox scan дали 0/0 handoff, notification count
+  остался 2→2.
+- Bounded enrichment: attempted=5, enriched=3, found_email=1; найденный адрес
+  не прошёл buyer gate. Текущий cold queue=0: основные причины
+  `missing_email=1515`, `email_quality=41`; следующий ежедневный enrichment
+  продолжит по 5 компаний без отправки на generic/freemail.
