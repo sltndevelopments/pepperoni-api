@@ -61,25 +61,15 @@ score (до 160) без тира.
 
 ## Current step
 
-Локально исправлен остановившийся sales funnel; изменения ещё не
-закоммичены и не развёрнуты на VPS.
+Нет открытого шага. Следующий ежедневный enrichment обработает ещё 5 компаний;
+письмо появится в очереди только если найден реальный buyer contact.
 
-После разрешения владельца на commit/push:
-1. Закоммитить только изменения `sales-agent/` из текущего шага, не захватывая
-   посторонние HTML/legal/SEO-файлы и существующий untracked
-   `sales-agent/scripts/export_hot_leads.py`.
-2. Push в `origin/main`, дождаться VPS deploy.
-3. На VPS выполнить dry-проверку селекторов, затем один штатный live-cycle.
-4. Проверить: Чизерия восстановлена как persistent inbound lead; старые 42
-   handoff не отправлены повторно; enrichment дал фактический результат;
-   outbound/follow-up пишут новые `email_opens`.
-
-## Log — 2026-07-13: локальный ремонт воронки (pending deploy)
+## Log — 2026-07-13: ремонт воронки развёрнут
 
 - Доказано: enrichment не запускался с 09.06 (`data/enrich.log`), cron содержал
   только cycle/fetch-mail; queue=0 при 1850 new; follow-up 0/217; Telegram
   notification counter достиг 95 из-за скользящего top-20.
-- Исправлено локально:
+- Исправлено:
   - ежедневный bounded enrichment (5/день, 30-дневный cooldown);
   - очередь сканирует всю базу и допускает B, но отправляет только на
     procurement/персональный corporate email, исключая HR/kadry/sales/info;
@@ -89,6 +79,15 @@ score (до 160) без тира.
   - старые warm inbound восстанавливаются в persistent leads; supplier offers
     больше не считаются price requests;
   - LLM morning promises заменены дайджестом только по фактам цикла.
-- Проверка: `PYTHONPATH=. python3 -m unittest discover -s tests -v` →
-  7/7 OK; `py_compile` всех изменённых модулей → OK; `git diff --check` → OK.
-- Blocker: commit/push не выполнялись без отдельного разрешения владельца.
+- Коммиты в `origin/main`: `903ee644c`, `1ddabee9a`, `f8a5e1959`.
+- Проверка на VPS (`HEAD=f8a5e1959`):
+  - `PYTHONPATH=. python3 -m unittest discover -s tests -v` → 8/8 OK;
+  - live-cycle завершён exit 0, `proactive.fired=[]`, старый spam-counter
+    остался 95 (не вырос);
+  - восстановлены ровно 3 явных покупателя: запрос прайса, «Чизерия», запрос
+    цены/образца ветчины; supplier/quoted-history не восстановлены;
+  - daily enrichment: attempted=5, enriched=5, found_email=5;
+  - все 5 адресов оказались freemail/generic, поэтому queue=0 и агент корректно
+    не отправил ни одного письма не-ЛПР.
+- Blockers: нет. Нулевая отправка в этом цикле — результат quality gate, а не
+  остановка процесса.
