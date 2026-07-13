@@ -6,6 +6,7 @@ queue:
   min_lookalike_score: 45
   require_email: true
   allowed_email_quality: [procurement, corporate]
+  draft_retry_days: 7
   statuses: [new]
 
 pilot:
@@ -16,6 +17,7 @@ enrichment:
   daily_limit: 5
   min_lookalike_for_deep: 45
   cooldown_days: 30
+  retry_days: 7
 
 followup:
   enabled: true

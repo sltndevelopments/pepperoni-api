@@ -221,15 +221,11 @@ def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
     try:
         imap.login(acct["user"], acct["password"])
         imap.select("INBOX")
-        # info@ читают люди → письмо может стать «прочитанным» раньше Стива.
-        # Поэтому для info@ берём по дате (последние дни), а не UNSEEN.
-        # Дедуп по Message-ID (imap_seen.json) не даёт обработать дважды.
-        if box == "info":
-            from datetime import timedelta
-            since = (datetime.now(timezone.utc) - timedelta(days=3)).strftime("%d-%b-%Y")
-            status, data = imap.search(None, f'(SINCE {since})')
-        else:
-            status, data = imap.search(None, "UNSEEN")
+        # Оба ящика могут читать люди раньше Стива. Берём последние три дня,
+        # а Message-ID в imap_seen.json обеспечивает идемпотентность.
+        from datetime import timedelta
+        since = (datetime.now(timezone.utc) - timedelta(days=3)).strftime("%d-%b-%Y")
+        status, data = imap.search(None, f'(SINCE {since})')
         if status != "OK":
             return {"ok": False, "box": box, "error": f"search_failed:{status}"}
 
@@ -309,7 +305,7 @@ def _fetch_one(acct: dict, *, store: Store, seen: set[str], limit: int) -> dict:
 
 
 def fetch_inbox(*, store: Store | None = None, limit: int = 50) -> dict:
-    """Забрать непрочитанные со всех ящиков (sales@ + info@) → agent.db inbox."""
+    """Забрать свежие письма со всех ящиков (sales@ + info@) → agent.db inbox."""
     accts = _accounts()
     if not accts:
         return {"ok": False, "error": "imap_not_configured"}

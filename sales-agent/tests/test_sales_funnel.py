@@ -6,11 +6,21 @@ from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from unittest.mock import patch
 
+from core import agent_profile as ap
+from core.gate import Gate
 from core.store import Store
-from orchestrator.outreach import outreach_candidates
+from crm.google_sync import _lead_row_from_db, load_schema
+from orchestrator.outreach import outreach_candidates, outreach_diagnostics
 from orchestrator.proactive import run as proactive_run
+from prospecting.contact_research import label_profile_emails
+from prospecting.enrich_contacts import _needs_enrich
 from workers.followup import followup_candidates
-from workers.interest import _escalate_unknown, _unknown_contact, recover_untracked_warm_inbound
+from workers.interest import (
+    _escalate_unknown,
+    _unknown_contact,
+    recover_untracked_warm_inbound,
+    scan_inbox,
+)
 from workers.escalate import escalate_to_owner
 from workers.draft_outreach import draft_cold_email
 from workers.triage import triage_inbound
@@ -64,6 +74,52 @@ class SalesFunnelTest(unittest.TestCase):
 
         self.assertEqual(ids, {good})
 
+    def test_imported_email_is_labeled_but_not_verified(self) -> None:
+        profile = {"emails": "info@example.ru,buyer@example.ru"}
+
+        self.assertTrue(label_profile_emails(profile))
+        self.assertEqual(ap.get(profile, "email_best"), "buyer@example.ru")
+        self.assertEqual(ap.get(profile, "email_quality"), "procurement")
+        self.assertFalse(ap.get(profile, "email_verified"))
+
+    def test_failed_enrichment_uses_short_retry(self) -> None:
+        recent = datetime.now(timezone.utc).isoformat()
+        old = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        lead_id = self.store.upsert_lead(
+            "Retry Bakery",
+            inn="1234567890",
+            status="new",
+            profile={
+                "emails": "info@retry.ru",
+                "_agent": {
+                    "email_best": "info@retry.ru",
+                    "email_quality": "generic",
+                    "email_verified": True,
+                    "contact_last_attempt_at": recent,
+                },
+            },
+        )
+        lead = self.store.get_lead(lead_id)
+        self.assertFalse(_needs_enrich(lead))
+        lead["profile"]["_agent"]["contact_last_attempt_at"] = old
+        self.assertTrue(_needs_enrich(lead))
+
+    def test_cancelled_draft_does_not_block_outreach(self) -> None:
+        lead_id = self._lead("Retry Draft Bakery", quality="corporate")
+        draft_id = self.store.create_draft(
+            lead_id, "email", "old", status="cancelled", sequence_step=0
+        )
+        old = (datetime.now(timezone.utc) - timedelta(days=8)).isoformat()
+        with self.store._conn() as conn:
+            conn.execute(
+                "UPDATE drafts SET created_at=?, updated_at=? WHERE id=?",
+                (old, old, draft_id),
+            )
+
+        ids = {lead["id"] for lead in outreach_candidates(self.store, limit=20)}
+        self.assertIn(lead_id, ids)
+        self.assertEqual(outreach_diagnostics(self.store)["counts"]["eligible"], 1)
+
     def test_proactive_migrates_old_handoffs_then_notifies_new_once(self) -> None:
         self._lead("Old Priority", quality="corporate", tier="S", la=100, status="hot")
         pushed: list[str] = []
@@ -94,6 +150,35 @@ class SalesFunnelTest(unittest.TestCase):
         self.assertNotIn("price_request", result["intents"])
         self.assertEqual(result["temperature"], "cold")
 
+    def test_supplier_commercial_offer_without_product_terms_stays_cold(self) -> None:
+        with patch("core.llm.brain_available", return_value=False):
+            result = triage_inbound(
+                {
+                    "id": "m2",
+                    "subject": "Коммерческое предложение",
+                    "body": "Направляем коммерческое предложение, наш прайс во вложении.",
+                },
+                self.store,
+            )
+        self.assertIn("supplier_offer", result["intents"])
+        self.assertNotIn("price_request", result["intents"])
+        self.assertEqual(result["temperature"], "cold")
+
+    def test_live_inbox_supplier_offer_is_analytics_only(self) -> None:
+        message_id = self.store.add_inbound(
+            "email",
+            "Направляем коммерческое предложение, наш прайс во вложении.",
+            meta={"from": "seller@example.ru"},
+        )
+        with patch("core.llm.brain_available", return_value=False), patch(
+            "workers.interest.escalate_to_owner"
+        ) as escalate:
+            result = scan_inbox(self.store)
+        self.assertEqual(result, [])
+        escalate.assert_not_called()
+        message = next(m for m in self.store.inbox(10) if m["id"] == message_id)
+        self.assertIn('"analytics_only": true', message["meta"])
+
     def test_unknown_warm_inbound_becomes_persistent_lead(self) -> None:
         body = (
             "Нас заинтересовала ваша продукция. Мы сеть ресторанов Чизерия.\n"
@@ -119,6 +204,13 @@ class SalesFunnelTest(unittest.TestCase):
         self.assertIsNotNone(lead)
         self.assertEqual(lead["source"], "inbound")
         self.assertTrue(lead["profile"]["interest_confirmed"])
+
+    def test_unknown_contact_accepts_single_restaurant_name(self) -> None:
+        contact = _unknown_contact(
+            "Ресторан Чизерия, пришлите прайс. Телефон 89178513364",
+            {"meta": '{"from":"olga@example.ru"}'},
+        )
+        self.assertEqual(contact["company"], "Чизерия")
 
     def test_followup_requires_quality_age_and_no_reply(self) -> None:
         lead_id = self._lead("Follow Bakery", quality="corporate", status="contacted")
@@ -185,6 +277,58 @@ class SalesFunnelTest(unittest.TestCase):
                 cooldown_hours=0,
             )
         )
+
+    def test_escalation_uses_canonical_namespace_and_deduplicates(self) -> None:
+        lead_id = self._lead("Canonical Bakery", quality="corporate")
+        with patch("telegram.notify.notify", return_value=1), patch(
+            "workers.forward_important.forward_to_owner",
+            return_value={"ok": True},
+        ):
+            first = escalate_to_owner(lead_id, "крупная компания", store=self.store)
+            second = escalate_to_owner(lead_id, "повтор", store=self.store)
+
+        profile = self.store.get_lead(lead_id)["profile"]
+        self.assertTrue(first["ok"])
+        self.assertEqual(second["skipped"], "already_escalated")
+        self.assertTrue(ap.get(profile, "owner_escalated_at"))
+        self.assertEqual(ap.get(profile, "escalation_reason"), "крупная компания")
+
+        crm_row = _lead_row_from_db(self.store.get_lead(lead_id), load_schema())
+        schema = load_schema()
+        keys = [c["key"] for c in schema["tabs"]["leads"]["columns"]]
+        self.assertEqual(crm_row[keys.index("escalation_reason")], "крупная компания")
+
+    def test_inbound_source_survives_crm_refresh(self) -> None:
+        lead_id = self.store.upsert_lead(
+            "Входящий лид: Чизерия", source="inbound", status="replied"
+        )
+        self.store.upsert_lead(
+            "Входящий лид: Чизерия",
+            lead_id=lead_id,
+            source="crm_sheet_api",
+            status="new",
+        )
+        self.assertEqual(self.store.get_lead(lead_id)["source"], "inbound")
+
+    def test_successful_send_persists_recipient_snapshot(self) -> None:
+        lead_id = self._lead("Snapshot Bakery", quality="corporate")
+        draft_id = self.store.create_draft(
+            lead_id,
+            "email",
+            "Первое письмо",
+            subject="Поставка",
+            status="approved",
+            fit_check={"ok": True, "can_proceed_to_draft": True},
+        )
+        with patch("channels.email.send_email", return_value={"ok": True}):
+            result = Gate(self.store)._send_one_draft(draft_id)
+
+        self.assertTrue(result["ok"])
+        fit = self.store.get_draft(draft_id)["fit_check"]
+        self.assertEqual(fit["recipient_email"], "buyer@snapshotbakery.ru")
+        self.assertEqual(fit["recipient_quality"], "corporate")
+        self.assertTrue(fit["sent_at"])
+        self.assertTrue(fit["track_token"])
 
     def test_cold_draft_dry_run_never_calls_smtp(self) -> None:
         lead_id = self._lead("Dry Run Bakery", quality="corporate", tier="B", la=48)

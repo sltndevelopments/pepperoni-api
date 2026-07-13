@@ -184,16 +184,28 @@ class Store:
         profile_json = json.dumps(profile or {}, ensure_ascii=False)
         with self._conn() as conn:
             if lead_id:
+                current = conn.execute(
+                    "SELECT source FROM leads WHERE id=?", (lead_id,)
+                ).fetchone()
+                current_source = current["source"] if current else None
+                merged_source = (
+                    current_source
+                    if current_source == "inbound" and source == "crm_sheet_api"
+                    else (source or current_source)
+                )
                 conn.execute(
                     """UPDATE leads SET name=?, inn=?, region=?, tier=?, fit_score=?,
                        status=?, source=?, profile=?, updated_at=? WHERE id=?""",
-                    (name, inn, region, tier, fit_score, status, source, profile_json, now, lead_id),
+                    (
+                        name, inn, region, tier, fit_score, status, merged_source,
+                        profile_json, now, lead_id,
+                    ),
                 )
                 return lead_id
             row = None
             if inn:
                 row = conn.execute(
-                    "SELECT id, name, tier, fit_score, status, profile FROM leads WHERE inn=?",
+                    "SELECT id, name, tier, fit_score, status, source, profile FROM leads WHERE inn=?",
                     (inn,),
                 ).fetchone()
             if row is None and not inn and name:
@@ -203,13 +215,13 @@ class Store:
                 # 53k только по «Самокат»). Регион уточняет совпадение, если есть.
                 if region:
                     row = conn.execute(
-                        """SELECT id, name, tier, fit_score, status, profile FROM leads
+                        """SELECT id, name, tier, fit_score, status, source, profile FROM leads
                            WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE AND region=?""",
                         (name, region),
                     ).fetchone()
                 if row is None:
                     row = conn.execute(
-                        """SELECT id, name, tier, fit_score, status, profile FROM leads
+                        """SELECT id, name, tier, fit_score, status, source, profile FROM leads
                            WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE""",
                         (name,),
                     ).fetchone()
@@ -229,6 +241,13 @@ class Store:
                 )
                 # fit_score: only raise
                 merged_score = max(fit_score, row["fit_score"] or 0)
+                # Первый входящий покупательский контакт остаётся видимым как
+                # источник, даже когда последующий CRM pull обновляет строку.
+                merged_source = (
+                    row["source"]
+                    if row["source"] == "inbound" and source == "crm_sheet_api"
+                    else (source or row["source"])
+                )
                 # profile : merge — _agent is sacred, new fields fill gaps
                 try:
                     old_p = json.loads(row["profile"] or "{}")
@@ -247,7 +266,7 @@ class Store:
                     """UPDATE leads SET name=?, region=?, tier=?, fit_score=?,
                        status=?, source=?, profile=?, updated_at=? WHERE id=?""",
                     (merged_name, region, merged_tier, merged_score,
-                     merged_status, source, merged_profile, now, lid),
+                     merged_status, merged_source, merged_profile, now, lid),
                 )
                 return lid
             lid = lead_id or _new_id()
@@ -454,6 +473,19 @@ class Store:
             conn.execute(
                 "UPDATE drafts SET status=?, updated_at=? WHERE id=?",
                 (status, _now(), draft_id),
+            )
+
+    def patch_draft_fit_check(self, draft_id: str, patch: dict) -> None:
+        """Дополнить метаданные черновика без потери результата fit-гейта."""
+        with self._conn() as conn:
+            row = conn.execute("SELECT fit_check FROM drafts WHERE id=?", (draft_id,)).fetchone()
+            if not row:
+                return
+            current = _parse_json_field(row["fit_check"])
+            current.update(patch)
+            conn.execute(
+                "UPDATE drafts SET fit_check=?, updated_at=? WHERE id=?",
+                (json.dumps(current, ensure_ascii=False), _now(), draft_id),
             )
 
     def create_approval(

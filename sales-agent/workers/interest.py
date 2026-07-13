@@ -76,6 +76,22 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
         triage = triage_inbound({**msg, "body": fresh_body}, store)
 
         channel = msg.get("channel") or ""
+        intents = set(triage.get("intents") or [])
+
+        # Поставщик продаёт нам, а не покупает у нас. Один и тот же guard
+        # действует и для live inbox, и для исторического recovery.
+        if SELLER_OFFER.search(fresh_body) or "supplier_offer" in intents:
+            store.add_signal(
+                "analytics",
+                f"inbound_{channel or 'unknown'}",
+                {"body": fresh_body[:500], "triage": triage, "seller_offer": True},
+            )
+            if msg.get("id"):
+                store.patch_message_meta(
+                    msg["id"],
+                    {"interest_scanned": True, "analytics_only": True, "seller_offer": True},
+                )
+            continue
 
         # Форм-заявка с сайта — это прямое обращение клиента: всегда поднимаем
         # владельцу (даже если в тексте нет ключевых слов).
@@ -98,7 +114,6 @@ def scan_inbox(store: Store | None = None, limit: int = 30) -> list[dict]:
             continue
 
         if channel in ANALYTICS_CHANNELS:
-            intents = set(triage.get("intents") or [])
             # нет явного интереса купить НАШЕ — молча в аналитику, не беспокоим
             if not (intents & BUYING_INTENTS) or triage.get("temperature") == "reject":
                 store.add_signal("analytics", f"inbound_{channel}", {"body": (msg.get("body") or "")[:500], "triage": triage})
@@ -215,7 +230,8 @@ def _unknown_contact(body: str, message: dict | None = None) -> dict:
     email = str(meta.get("from") or "")
     phone_match = re.search(r"(?:\+?7|8)[\s()\-]*\d[\d\s()\-]{8,16}\d", body)
     company_match = re.search(
-        r"(?:мы\s+)?сеть\s+(?:ресторанов|кафе|пекарен|магазинов)\s+"
+        r"(?:(?:мы\s+)?сеть\s+(?:ресторанов|кафе|пекарен|магазинов)|"
+        r"(?:ресторан|кафе|пекарня|магазин|компания))\s+"
         r"[«\"]?([^\n\r,.]{2,60})",
         body,
         re.I,

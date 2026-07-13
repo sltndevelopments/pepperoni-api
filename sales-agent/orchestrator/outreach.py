@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import sys
+from collections import Counter
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 import yaml
@@ -34,8 +36,40 @@ def _lookalike_score(lead: dict) -> int:
     return score_lookalike(lead)["lookalike_score"]
 
 
-def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
-    cfg = _cfg().get("queue", {})
+def _active_drafted_ids(store: Store, cfg: dict) -> set[str]:
+    """Лиды с активным или уже отправленным первым касанием.
+
+    Cancelled/rejected допускают исправленный повторный draft после cooldown.
+    """
+    blocking = {"draft", "pending", "approved", "sent"}
+    retryable = {"cancelled", "rejected"}
+    retry_days = int(cfg.get("draft_retry_days", 7))
+    cutoff = datetime.now(timezone.utc) - timedelta(days=retry_days)
+    blocked: set[str] = set()
+    for draft in store.list_drafts(limit=5000):
+        status = draft.get("status") or ""
+        if status in blocking:
+            blocked.add(draft["lead_id"])
+            continue
+        if status not in retryable:
+            continue
+        try:
+            touched = datetime.fromisoformat(draft.get("updated_at") or draft.get("created_at"))
+            if touched.tzinfo is None:
+                touched = touched.replace(tzinfo=timezone.utc)
+            if touched >= cutoff:
+                blocked.add(draft["lead_id"])
+        except Exception:
+            blocked.add(draft["lead_id"])
+    return blocked
+
+
+def _candidate_rejection(
+    lead: dict,
+    *,
+    drafted: set[str],
+    cfg: dict,
+) -> tuple[str | None, int, str | None, str | None]:
     min_fit = int(cfg.get("min_fit_score", 60))
     min_lookalike = int(cfg.get("min_lookalike_score", 45))
     tiers = set(cfg.get("tiers", ["S", "A"]))
@@ -43,50 +77,54 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
     allowed_quality = set(cfg.get("allowed_email_quality", ["procurement", "corporate"]))
     statuses = set(cfg.get("statuses", ["new"]))
 
-    # Сканируем всю активную базу. Старый limit=500 отрезал подходящие лиды,
-    # потому что list_leads сортирует прежде всего по fit_score.
-    drafted = {d["lead_id"] for d in store.list_drafts(limit=5000)}
+    profile = lead.get("profile") or {}
+    tier = lead.get("tier") or "—"
+    fit = lead.get("fit_score") or 0
+    la = _lookalike_score(lead)
+    recipient = pick_recipient(profile)
+    email_quality = ap.get(profile, "email_quality")
+
+    if lead["id"] in drafted:
+        return "existing_draft", la, recipient, email_quality
+    if (lead.get("status") or "new") not in statuses:
+        return "status", la, recipient, email_quality
+    if ap.is_handed_off(profile):
+        return "handed_off", la, recipient, email_quality
+    if is_excluded(lead)[0]:
+        return "excluded", la, recipient, email_quality
+    if fit < min_fit:
+        return "fit_score", la, recipient, email_quality
+    if tier not in tiers and not (tier == "S" or la >= min_lookalike + 10):
+        return "tier", la, recipient, email_quality
+    if la < min_lookalike and tier != "S":
+        return "lookalike", la, recipient, email_quality
+    if ap.get(profile, "named_target") or profile.get("named_target"):
+        return "named_target", la, recipient, email_quality
+    if require_email and not recipient:
+        return "missing_email", la, recipient, email_quality
+    if allowed_quality and email_quality not in allowed_quality:
+        return "email_quality", la, recipient, email_quality
+    if not is_buyer_contact(recipient, email_quality):
+        return "not_buyer_contact", la, recipient, email_quality
+    if not ap.get(profile, "email_verified"):
+        return "email_unverified", la, recipient, email_quality
+    if ap.get(profile, "email_mx_failed"):
+        return "email_mx_failed", la, recipient, email_quality
+    return None, la, recipient, email_quality
+
+
+def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
+    cfg = _cfg().get("queue", {})
+    drafted = _active_drafted_ids(store, cfg)
     candidates: list[dict] = []
 
+    # Сканируем всю активную базу. Старый limit=500 отрезал подходящие лиды,
+    # потому что list_leads сортирует прежде всего по fit_score.
     for lead in store.list_leads(limit=5000):
-        if lead["id"] in drafted:
-            continue
-        if (lead.get("status") or "new") not in statuses:
-            continue
-        if ap.is_handed_off(lead.get("profile") or {}):
-            continue
-        if is_excluded(lead)[0]:
-            continue
-        tier = lead.get("tier") or "—"
-        fit = lead.get("fit_score") or 0
-        la = _lookalike_score(lead)
-
-        if fit < min_fit:
-            continue
-        if tier not in tiers and not (tier == "S" or la >= min_lookalike + 10):
-            continue
-        if la < min_lookalike and tier != "S":
-            continue
-        # Именные цели (Поток 2) — только через эскалацию, не автоотправка
-        if ap.get(lead.get("profile") or {}, "named_target") or \
-                (lead.get("profile") or {}).get("named_target"):
-            continue
-
-        recipient = pick_recipient(lead.get("profile") or {})
-        if require_email and not recipient:
-            continue
-
-        # Не отправляем холодное письмо на HR/общий/freemail ящик. Сначала
-        # contact enrichment должен найти закупщика или корпоративный адрес.
-        email_quality = ap.get(lead.get("profile") or {}, "email_quality")
-        if allowed_quality and email_quality not in allowed_quality:
-            continue
-        if not is_buyer_contact(recipient, email_quality):
-            continue
-
-        # Мёртвый домен (нет MX и нет A) — в очередь не идёт НИКОГДА,
-        # независимо от require_verified. Это клинически мёртвые адреса.
-        if ap.get(lead.get("profile") or {}, "email_mx_failed"):
+        rejection, la, _recipient, email_quality = _candidate_rejection(
+            lead, drafted=drafted, cfg=cfg
+        )
+        if rejection:
             continue
 
         # email_quality бонус: корп. почта идёт раньше freemail
@@ -96,14 +134,39 @@ def outreach_candidates(store: Store, *, limit: int = 20) -> list[dict]:
             "corporate":   10,
             "generic":      5,
         }
-        eq = ap.get(lead.get("profile") or {}, "email_quality") or ""
-        quality_bonus = _quality_bonus.get(eq, 0)
+        quality_bonus = _quality_bonus.get(email_quality or "", 0)
+        fit = lead.get("fit_score") or 0
 
         candidates.append({**lead, "_lookalike": la,
                             "_sort": la * 2 + fit + quality_bonus})
 
     candidates.sort(key=lambda x: x["_sort"], reverse=True)
     return candidates[:limit]
+
+
+def outreach_diagnostics(store: Store) -> dict:
+    """Объяснить пустую очередь числом лидов на каждом отсекающем гейте."""
+    cfg = _cfg().get("queue", {})
+    drafted = _active_drafted_ids(store, cfg)
+    counts: Counter[str] = Counter()
+    eligible: list[dict] = []
+    for lead in store.list_leads(limit=5000):
+        rejection, la, recipient, quality = _candidate_rejection(
+            lead, drafted=drafted, cfg=cfg
+        )
+        if rejection:
+            counts[rejection] += 1
+        else:
+            counts["eligible"] += 1
+            if len(eligible) < 10:
+                eligible.append({
+                    "id": lead["id"],
+                    "name": lead["name"],
+                    "lookalike": la,
+                    "email": recipient,
+                    "quality": quality,
+                })
+    return {"total": sum(counts.values()), "counts": dict(counts), "eligible": eligible}
 
 
 def named_escalation_candidates(store: Store, *, limit: int = 20) -> list[dict]:

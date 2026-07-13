@@ -226,8 +226,14 @@ class Gate:
 
         channel = draft.get("channel", "")
         if channel == "email":
+            from datetime import datetime, timezone
+            from core import agent_profile as ap
+
             lead = self.store.get_lead(draft["lead_id"]) or {}
-            to = pick_recipient(lead.get("profile") or {})
+            profile = lead.get("profile") or {}
+            fit_meta = draft.get("fit_check") or {}
+            to = fit_meta.get("recipient_email") or pick_recipient(profile)
+            email_quality = ap.get(profile, "email_quality")
             if not to:
                 record["error"] = "no_recipient_email"
                 self.store.audit("gate", "send_failed", "draft", draft_id, record)
@@ -245,6 +251,17 @@ class Gate:
             )
             record.update(result)
             if result.get("ok"):
+                sent_at = datetime.now(timezone.utc).isoformat()
+                self.store.patch_draft_fit_check(
+                    draft_id,
+                    {
+                        "recipient_email": to,
+                        "recipient_quality": email_quality,
+                        "recipient_verified": bool(ap.get(profile, "email_verified")),
+                        "sent_at": sent_at,
+                        "track_token": track_token,
+                    },
+                )
                 self.store.mark_draft_sent(draft_id)
                 self.store.audit("gate", "sent", "draft", draft_id, record)
                 try:
@@ -252,7 +269,14 @@ class Gate:
                         draft.get("lead_id"), "email",
                         draft.get("body") or "",
                         subject=draft.get("subject"),
-                        meta={"draft_id": draft_id},
+                        meta={
+                            "draft_id": draft_id,
+                            "recipient_email": to,
+                            "recipient_quality": email_quality,
+                            "recipient_verified": bool(ap.get(profile, "email_verified")),
+                            "sent_at": sent_at,
+                            "track_token": track_token,
+                        },
                     )
                 except Exception as e:
                     self.store.audit("gate", "outbound_log_failed", "draft", draft_id, {"error": str(e)[:200]})

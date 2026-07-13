@@ -178,7 +178,8 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
                     pl = (tinfo or {}).get("payload", {})
                     text = pl.get("text") or "Входящий коммерческий лид"
                     chan = pl.get("channel", "unknown")
-                    # Feed into Steve's normal inbound pipeline so it gets a draft.
+                    # Feed into Steve's normal inbound pipeline; same-cycle
+                    # scan below creates a persistent lead and owner handoff.
                     store.add_inbound(chan, text, meta={"source": "agent_bus",
                                                         "phone": pl.get("phone", "")})
                     agent_bus.update(tid, "done", note="принят в воронку Стива")
@@ -186,7 +187,12 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
             except Exception as e:
                 results.append({"worker": w, "error": str(e)[:160]})
             else:
-                results.append({"worker": w, "handled": handled})
+                same_cycle_hits = scan_inbox(store, limit=max(5, handled)) if handled else []
+                results.append({
+                    "worker": w,
+                    "handled": handled,
+                    "same_cycle_escalations": len(same_cycle_hits),
+                })
 
     # Исполнить одобренные (dry_run по умолчанию)
     sent = gate.execute_approved(dry_run=dry_run_send)
@@ -222,11 +228,16 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
                 return True
         except Exception:
             pass
+        return False
+
+    def _mark_steve_thought_today() -> None:
+        """Marker ставится только после успешного think(), чтобы сбой можно было повторить."""
+        from datetime import date
+        marker = ROOT / "data" / "steve_last_think.txt"
         try:
-            marker.write_text(today, encoding="utf-8")
+            marker.write_text(date.today().isoformat(), encoding="utf-8")
         except Exception:
             pass
-        return False
 
     try:
         from core.budget import brain_allowed
@@ -234,6 +245,7 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
             from strategist.insights import think as steve_think
             steve_plan = steve_think(store=store)
             summary["steve_strategy"] = steve_plan
+            _mark_steve_thought_today()
             try:
                 from brain.toolsmith import main as toolsmith_main
                 import io

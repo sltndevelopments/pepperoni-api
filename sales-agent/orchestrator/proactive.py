@@ -111,10 +111,25 @@ def run(*, store: Store | None = None) -> dict:
     if queue is not None and queue <= 5:
         queue_hash = _hash(queue)
         if store.should_notify("proactive:queue_empty", queue_hash, cooldown_hours=24):
+            reason_text = ""
+            try:
+                from orchestrator.outreach import outreach_diagnostics
+                counts = outreach_diagnostics(store).get("counts", {})
+                top_reasons = sorted(
+                    ((k, v) for k, v in counts.items() if k != "eligible"),
+                    key=lambda item: item[1],
+                    reverse=True,
+                )[:3]
+                if top_reasons:
+                    reason_text = " Основные отсечения: " + ", ".join(
+                        f"{key}={value}" for key, value in top_reasons
+                    ) + "."
+            except Exception:
+                pass
             if _push(
                 f"📣 <b>Стив:</b> очередь на холодный аутрич почти пуста ({queue}). "
                 "Новых писем не будет, пока contact enrichment не найдёт проверенные "
-                "адреса закупок/корпоративные контакты."
+                f"адреса закупок/корпоративные контакты.{reason_text}"
             ):
                 store.record_notification("proactive:queue_empty", queue_hash)
                 fired.append("queue_empty")

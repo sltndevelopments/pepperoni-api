@@ -10,6 +10,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
+from core import agent_profile as ap
 from core.autonomy import load_autonomy
 from core.store import Store
 
@@ -63,13 +64,18 @@ def escalate_to_owner(
     now = datetime.now(timezone.utc).isoformat()
 
     interest_upgrade = confirmed_interest and not profile.get("interest_confirmed")
-    if profile.get("escalated_at") and not force and not interest_upgrade:
+    already_escalated = ap.is_escalated(profile) or bool(profile.get("escalated_at"))
+    if already_escalated and not force and not interest_upgrade:
         return {"ok": True, "skipped": "already_escalated", "lead_id": lead_id}
 
     owner = load_autonomy().get("escalation", {}).get("owner_name", "Ринат")
-    profile["escalated_at"] = now
-    profile["escalation_reason"] = reason[:500]
-    profile["owner"] = owner
+    ap.update(
+        profile,
+        owner_escalated_at=now,
+        escalated_at=now,
+        escalation_reason=reason[:500],
+        owner=owner,
+    )
     if confirmed_interest:
         profile["interest_confirmed"] = True
     if context:

@@ -29,7 +29,7 @@ def followup_candidates(
     with store._conn() as conn:
         rows = conn.execute(
             """SELECT l.*, d.id AS first_draft_id, d.subject AS first_subject,
-                      d.created_at AS first_sent_at
+                      d.created_at AS first_sent_at, d.fit_check AS first_fit_check
                FROM leads l
                JOIN drafts d ON d.lead_id=l.id
                WHERE l.status='contacted'
@@ -54,14 +54,30 @@ def followup_candidates(
 
     for row in rows:
         lead = _row_lead(row)
-        quality = ap.get(lead.get("profile") or {}, "email_quality")
+        profile = lead.get("profile") or {}
+        try:
+            import json
+            sent_meta = json.loads(row["first_fit_check"] or "{}")
+        except Exception:
+            sent_meta = {}
+        recipient = sent_meta.get("recipient_email") or pick_recipient(profile)
+        quality = sent_meta.get("recipient_quality") or ap.get(profile, "email_quality")
         if quality not in allowed_quality:
             continue
-        if not is_buyer_contact(pick_recipient(lead.get("profile") or {}), quality):
+        if not is_buyer_contact(recipient, quality):
+            continue
+        # Для старых писем нет send-time snapshot; разрешаем fallback только
+        # если текущий адрес был проверен contact research.
+        if sent_meta.get("recipient_email"):
+            if not sent_meta.get("recipient_verified"):
+                continue
+        elif not ap.get(profile, "email_verified"):
             continue
         lead["_first_draft_id"] = row["first_draft_id"]
         lead["_first_subject"] = row["first_subject"]
         lead["_first_sent_at"] = row["first_sent_at"]
+        lead["_first_recipient"] = recipient
+        lead["_first_quality"] = quality
         result.append(lead)
         if len(result) >= limit:
             break
@@ -108,7 +124,13 @@ def send_due_followups(
             subject=subject,
             sequence_step=1,
             sequence_id=lead["_first_draft_id"],
-            fit_check={"ok": True, "can_proceed_to_draft": True},
+            fit_check={
+                "ok": True,
+                "can_proceed_to_draft": True,
+                "recipient_email": lead["_first_recipient"],
+                "recipient_quality": lead["_first_quality"],
+                "recipient_verified": True,
+            },
             status="draft",
         )
         outbound = gate.process_draft_outbound(

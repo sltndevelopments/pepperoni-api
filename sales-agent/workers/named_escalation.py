@@ -152,10 +152,8 @@ def escalate_named_targets(store: Store | None = None, *, limit: int = 2) -> dic
             f"--- Draft первого касания ---\n{draft_text}"
         )
 
-        # Кулдаун пишем через agent_profile (единый namespace) — escalate_to_owner
-        # ниже пишет свой отдельный "escalated_at" на верхнем уровне (legacy),
-        # это не то же самое поле, что читает _cooldown_ok выше.
-        ap.mark_escalated(profile)
+        # Сохраняем досье до handoff; canonical escalation timestamp поставит
+        # единый escalate_to_owner только после формирования сообщения.
         store.upsert_lead(
             lead["name"], lead_id=lead["id"],
             inn=lead.get("inn"), region=lead.get("region"),
@@ -166,7 +164,7 @@ def escalate_named_targets(store: Store | None = None, *, limit: int = 2) -> dic
 
         result = escalate_to_owner(
             lead["id"], "named_target_researched",
-            context=context, store=store, force=True,
+            context=context, store=store,
         )
         # escalate_to_owner переводит статус в "hot" — вернуть на "escalated"
         # (именной поток не должен смешиваться с обычными hot-лидами по холодному аутричу).

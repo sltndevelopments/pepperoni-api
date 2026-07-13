@@ -101,6 +101,7 @@ def migrate_legacy(profile: dict) -> dict:
     """Переносит старые верхнеуровневые флаги в _agent (идемпотентно)."""
     legacy_keys = (
         "owner_escalated_at", "manual_escalated_at",
+        "escalated_at", "escalation_reason", "owner",
         "handed_off_at", "bounce", "bounce_research", "bounce_recovered",
         "outreach_sent", "last_contact_at",
     )

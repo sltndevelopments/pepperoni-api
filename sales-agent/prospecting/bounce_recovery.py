@@ -268,28 +268,33 @@ def recover(*, store: Store | None = None, limit: int = 20,
             lines.append(
                 "\n\n<i>Это разовая эскалация. Нажми кнопку ниже, когда передашь менеджеру.</i>"
             )
+            delivery_count = 0
             try:
                 from telegram.notify import notify_with_handoff
-                notify_with_handoff("\n".join(lines))
-                notified = len(to_notify)
+                delivery_count = notify_with_handoff("\n".join(lines))
             except Exception:
                 try:
                     from telegram.notify import notify
-                    notify("\n".join(lines))
-                    notified = len(to_notify)
+                    delivery_count = notify("\n".join(lines))
                 except Exception:
                     pass
 
-            # Ставим owner_escalated_at в _agent только тем, кого реально включили в текст
-            for l in to_notify:
-                pr = dict(l.get("profile") or {})
-                ap.mark_escalated(pr)
-                store.upsert_lead(
-                    l["name"], lead_id=l["id"], inn=l.get("inn"),
-                    region=l.get("region"), tier=l.get("tier"),
-                    fit_score=l.get("fit_score") or 0,
-                    status=l.get("status"), source=l.get("source"), profile=pr,
-                )
+            # Journal/флаг ставим только после реальной доставки Telegram.
+            # Иначе следующий цикл имеет право повторить попытку.
+            if delivery_count:
+                notified = len(to_notify)
+                for l in to_notify:
+                    pr = dict(l.get("profile") or {})
+                    ap.mark_escalated(pr)
+                    store.record_notification(
+                        f"proactive:handoff:{l['id']}:priority", "seen"
+                    )
+                    store.upsert_lead(
+                        l["name"], lead_id=l["id"], inn=l.get("inn"),
+                        region=l.get("region"), tier=l.get("tier"),
+                        fit_score=l.get("fit_score") or 0,
+                        status=l.get("status"), source=l.get("source"), profile=pr,
+                    )
 
     return {"targets": len(targets), "recovered": recovered,
             "need_research": need_research, "notified": notified,

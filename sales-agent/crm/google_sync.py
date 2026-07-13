@@ -20,6 +20,7 @@ import yaml
 
 from core.store import Store
 from crm.google_auth import get_access_token
+from prospecting.contact_research import label_profile_emails
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "config" / "crm_schema.yaml"
@@ -141,8 +142,8 @@ def _lead_row_from_db(lead: dict, schema: dict) -> list[str]:
         "last_email_at": agent.get("last_email_at") or "",
         "last_email_subject": agent.get("last_email_subject") or "",
         "last_draft_id": agent.get("last_draft_id") or "",
-        "escalation_reason": agent.get("escalation_reason") or "",
-        "escalated_at": agent.get("escalated_at") or "",
+        "escalation_reason": ap.get(p, "escalation_reason") or "",
+        "escalated_at": ap.get(p, "escalated_at") or ap.get(p, "owner_escalated_at") or "",
         "agent_updated_at": agent.get("updated_at") or _now(),
     }
     keys = [c["key"] for c in schema["tabs"]["leads"]["columns"]]
@@ -379,6 +380,10 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
         crm_patch = {k: (row.get(k) or "").strip() for k in human_cols if row.get(k)}
         if crm_patch:
             profile["crm"] = crm_patch
+
+        # Импортированные адреса получают дешёвую предварительную разметку.
+        # Это не верификация: email_verified остаётся False до contact research.
+        label_profile_emails(profile)
 
         store.upsert_lead(
             name or f"ИНН {inn}",
