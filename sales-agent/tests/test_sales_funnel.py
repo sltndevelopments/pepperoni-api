@@ -221,6 +221,11 @@ class SalesFunnelTest(unittest.TestCase):
             subject="Поставка",
             sequence_step=0,
             status="sent",
+            fit_check={
+                "ok": True,
+                "recipient_email": "legacy-field@example.ru",
+                "recipient_quality": "corporate",
+            },
         )
         old = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
         with self.store._conn() as conn:

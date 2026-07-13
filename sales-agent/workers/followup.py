@@ -60,15 +60,20 @@ def followup_candidates(
             sent_meta = json.loads(row["first_fit_check"] or "{}")
         except Exception:
             sent_meta = {}
-        recipient = sent_meta.get("recipient_email") or pick_recipient(profile)
-        quality = sent_meta.get("recipient_quality") or ap.get(profile, "email_quality")
+        has_send_snapshot = bool(sent_meta.get("sent_at"))
+        if has_send_snapshot:
+            recipient = sent_meta.get("recipient_email")
+            quality = sent_meta.get("recipient_quality")
+        else:
+            recipient = pick_recipient(profile)
+            quality = ap.get(profile, "email_quality")
         if quality not in allowed_quality:
             continue
         if not is_buyer_contact(recipient, quality):
             continue
         # Для старых писем нет send-time snapshot; разрешаем fallback только
         # если текущий адрес был проверен contact research.
-        if sent_meta.get("recipient_email"):
+        if has_send_snapshot:
             if not sent_meta.get("recipient_verified"):
                 continue
         elif not ap.get(profile, "email_verified"):
