@@ -42,7 +42,7 @@ def _active_drafted_ids(store: Store, cfg: dict) -> set[str]:
     Cancelled/rejected допускают исправленный повторный draft после cooldown.
     """
     blocking = {"draft", "pending", "approved", "sent"}
-    retryable = {"cancelled", "rejected"}
+    retryable = {"cancelled", "rejected", "failed"}
     retry_days = int(cfg.get("draft_retry_days", 7))
     cutoff = datetime.now(timezone.utc) - timedelta(days=retry_days)
     blocked: set[str] = set()

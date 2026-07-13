@@ -11,6 +11,7 @@ from core import agent_profile as ap
 from core.gate import Gate
 from core.store import Store
 from channels.email import pick_recipient
+from channels.deliverability import is_blacklisted
 from prospecting.contact_research import is_buyer_contact
 from workers.draft_outreach import _signature
 
@@ -39,6 +40,7 @@ def followup_candidates(
                  AND NOT EXISTS (
                    SELECT 1 FROM drafts f
                    WHERE f.lead_id=l.id AND f.sequence_step>0
+                     AND f.status IN ('draft', 'pending', 'approved', 'sent')
                  )
                  AND NOT EXISTS (
                    SELECT 1 FROM threads t
@@ -70,6 +72,8 @@ def followup_candidates(
         if quality not in allowed_quality:
             continue
         if not is_buyer_contact(recipient, quality):
+            continue
+        if is_blacklisted(recipient):
             continue
         # Для старых писем нет send-time snapshot; разрешаем fallback только
         # если текущий адрес был проверен contact research.

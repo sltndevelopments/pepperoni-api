@@ -260,6 +260,26 @@ class SalesFunnelTest(unittest.TestCase):
         candidates = followup_candidates(self.store, min_days=5, limit=2)
         self.assertEqual([lead["id"] for lead in candidates], [good_id])
 
+    def test_followup_skips_blacklisted_recipient_before_limit(self) -> None:
+        old = (datetime.now(timezone.utc) - timedelta(days=7)).isoformat()
+        lead_ids = [
+            self._lead(name, quality="corporate", status="contacted")
+            for name in ("Blocked Buyer", "Safe Buyer")
+        ]
+        for lead_id in lead_ids:
+            draft_id = self.store.create_draft(
+                lead_id, "email", "Первое письмо", sequence_step=0, status="sent"
+            )
+            with self.store._conn() as conn:
+                conn.execute("UPDATE drafts SET created_at=? WHERE id=?", (old, draft_id))
+
+        with patch(
+            "workers.followup.is_blacklisted",
+            side_effect=lambda email: email == "buyer@blockedbuyer.ru",
+        ):
+            candidates = followup_candidates(self.store, min_days=5, limit=1)
+        self.assertEqual([lead["id"] for lead in candidates], [lead_ids[1]])
+
     def test_recover_old_warm_inbound_skips_supplier_offer(self) -> None:
         warm_id = self.store.add_inbound(
             "email_info",
@@ -389,6 +409,24 @@ class SalesFunnelTest(unittest.TestCase):
         self.assertEqual(fit["recipient_quality"], "corporate")
         self.assertTrue(fit["sent_at"])
         self.assertTrue(fit["track_token"])
+
+    def test_failed_send_marks_draft_failed(self) -> None:
+        lead_id = self._lead("Failed Send Bakery", quality="corporate")
+        draft_id = self.store.create_draft(
+            lead_id,
+            "email",
+            "Письмо",
+            status="approved",
+            fit_check={"ok": True, "can_proceed_to_draft": True},
+        )
+        with patch(
+            "channels.email.send_email",
+            return_value={"ok": False, "error": "blacklisted"},
+        ):
+            result = Gate(self.store)._send_one_draft(draft_id)
+
+        self.assertFalse(result["ok"])
+        self.assertEqual(self.store.get_draft(draft_id)["status"], "failed")
 
     def test_cold_draft_dry_run_never_calls_smtp(self) -> None:
         lead_id = self._lead("Dry Run Bakery", quality="corporate", tier="B", la=48)

@@ -293,6 +293,7 @@ class Gate:
                         profile=lead.get("profile"),
                     )
             else:
+                self.store.update_draft_status(draft_id, "failed")
                 self.store.audit("gate", "send_failed", "draft", draft_id, record)
             return record
 
