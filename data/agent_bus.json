@@ -373,11 +373,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-11T06:30:02.523494+00:00",
-   "updated_at": "2026-07-11T06:30:02.523498+00:00",
+   "updated_at": "2026-07-13T05:30:31.942463+00:00",
    "claimed_by": null
   },
   {
@@ -393,14 +393,54 @@
     "was": null,
     "_dedup": "failing:echpochmak"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «echpochmak» — worse (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-11T06:30:02.527159+00:00",
-   "updated_at": "2026-07-11T06:30:02.527163+00:00",
+   "updated_at": "2026-07-13T05:30:31.942474+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260713-0021",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "is pepperoni halal in pakistan",
+    "page": "https://pepperoni.tatar/en/geo/halal-pizza-toppings-lahore",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:is pepperoni halal in pakistan"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «is pepperoni halal in pakistan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-13T03:30:02.111192+00:00",
+   "updated_at": "2026-07-13T03:30:02.111197+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260713-0022",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пепперони халяль",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "verdict": "flat",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пепперони халяль"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пепперони халяль» — flat (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-13T03:30:02.114029+00:00",
+   "updated_at": "2026-07-13T03:30:02.114034+00:00",
    "claimed_by": null
   }
  ],
- "seq": 20,
- "updated_at": "2026-07-11T06:30:02.527180+00:00"
+ "seq": 22,
+ "updated_at": "2026-07-13T05:30:31.942513+00:00"
 }
