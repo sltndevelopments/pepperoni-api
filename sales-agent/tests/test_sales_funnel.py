@@ -12,6 +12,7 @@ from orchestrator.proactive import run as proactive_run
 from workers.followup import followup_candidates
 from workers.interest import _escalate_unknown, _unknown_contact, recover_untracked_warm_inbound
 from workers.escalate import escalate_to_owner
+from workers.draft_outreach import draft_cold_email
 from workers.triage import triage_inbound
 
 
@@ -179,6 +180,25 @@ class SalesFunnelTest(unittest.TestCase):
                 cooldown_hours=0,
             )
         )
+
+    def test_cold_draft_dry_run_never_calls_smtp(self) -> None:
+        lead_id = self._lead("Dry Run Bakery", quality="corporate", tier="B", la=48)
+        with patch(
+            "workers.draft_outreach._llm_draft",
+            return_value=("Тест", "Безопасный тестовый текст"),
+        ), patch("core.auto_gate.brain_available", return_value=False), patch(
+            "channels.email.send_email"
+        ) as send:
+            result = draft_cold_email(
+                lead_id,
+                store=self.store,
+                auto_submit=True,
+                dry_run=True,
+            )
+
+        send.assert_not_called()
+        self.assertTrue(result["outbound"]["send"]["dry_run"])
+        self.assertNotEqual(self.store.get_draft(result["draft_id"])["status"], "sent")
 
 
 if __name__ == "__main__":

@@ -146,7 +146,12 @@ def run_cycle(*, dry_run_send: bool | None = None, max_drafts: int = 5) -> dict:
             count = task.get("count", 1)
             drafted = 0
             for lead in outreach_pending[:count]:
-                r = draft_cold_email(lead["id"], store=store, auto_submit=True)
+                r = draft_cold_email(
+                    lead["id"],
+                    store=store,
+                    auto_submit=True,
+                    dry_run=bool(dry_run_send),
+                )
                 if r:
                     drafted += 1
             results.append({"worker": w, "drafted": drafted})

@@ -130,6 +130,7 @@ def draft_cold_email(
     store: Store | None = None,
     auto_submit: bool = False,
     channel: str = "email",
+    dry_run: bool = False,
 ) -> dict | None:
     store = store or Store()
     gate = Gate(store)
@@ -177,7 +178,7 @@ def draft_cold_email(
 
     outbound = None
     if auto_submit and fit_check.get("can_proceed_to_draft", True):
-        outbound = gate.process_draft_outbound(draft_id, send_now=True, dry_run=False)
+        outbound = gate.process_draft_outbound(draft_id, send_now=True, dry_run=dry_run)
 
     return {
         "draft_id": draft_id,
