@@ -262,6 +262,26 @@ class SalesFunnelTest(unittest.TestCase):
         self.assertEqual(len(recovered), 1)
         self.assertEqual(recovered[0]["message_id"], warm_id)
 
+    def test_recover_retries_stale_missing_lead_reference(self) -> None:
+        message_id = self.store.add_inbound(
+            "email_info",
+            "Мы сеть ресторанов Чизерия. Хотим сотрудничать, пришлите прайс. 89178513364",
+            meta={
+                "from": "olga@example.ru",
+                "interest_scanned": True,
+                "warm_lead_recovered": True,
+                "recovered_lead_id": "missing-lead",
+            },
+        )
+        with patch(
+            "workers.interest.escalate_to_owner",
+            return_value={"ok": True, "telegram_sent": 1},
+        ):
+            recovered = recover_untracked_warm_inbound(self.store)
+
+        self.assertEqual([item["message_id"] for item in recovered], [message_id])
+        self.assertIsNotNone(self.store.get_lead(recovered[0]["lead_id"]))
+
     def test_direct_escalation_marks_proactive_handoff_seen(self) -> None:
         lead_id = self._lead("Interested Bakery", quality="corporate")
         with patch("telegram.notify.notify", return_value=1), patch(
@@ -303,6 +323,17 @@ class SalesFunnelTest(unittest.TestCase):
         schema = load_schema()
         keys = [c["key"] for c in schema["tabs"]["leads"]["columns"]]
         self.assertEqual(crm_row[keys.index("escalation_reason")], "крупная компания")
+
+    def test_legacy_escalation_fields_migrate_before_crm_pull(self) -> None:
+        profile = {
+            "escalated_at": "2026-07-01T10:00:00+00:00",
+            "escalation_reason": "старый handoff",
+            "owner_escalated_at": "2026-07-01T10:00:00+00:00",
+        }
+        ap.migrate_legacy(profile)
+
+        self.assertEqual(ap.get(profile, "escalation_reason"), "старый handoff")
+        self.assertTrue(ap.is_escalated(profile))
 
     def test_inbound_source_survives_crm_refresh(self) -> None:
         lead_id = self.store.upsert_lead(

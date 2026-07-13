@@ -359,6 +359,11 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
 
             from core import agent_profile as ap
 
+            # Сначала канонизируем весь legacy escalation/handoff state.
+            # Иначе последующий pull защищает только уже существующий _agent,
+            # а старые верхнеуровневые поля навсегда теряются.
+            ap.migrate_legacy(old_profile)
+
             # Мигрируем legacy верхнеуровневые ключи аналитики в _agent,
             # чтобы они тоже жили под единым namespace и не выпали при pull.
             _migrate_keys = ("agent", "lookalike", "sausage_evidence", "score_reasons")
@@ -392,7 +397,11 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
             tier=tier,
             fit_score=max(score, (existing or {}).get("fit_score") or 0),
             status=status,
-            source="crm_sheet_api",
+            source=(
+                "inbound"
+                if profile.get("inbound_reason") or profile.get("interest_confirmed")
+                else "crm_sheet_api"
+            ),
             profile=profile,
         )
         imported += 1

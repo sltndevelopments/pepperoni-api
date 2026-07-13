@@ -172,7 +172,9 @@ def recover_untracked_warm_inbound(
         except Exception:
             meta = {}
         if meta.get("warm_lead_recovered"):
-            continue
+            recovered_lead_id = meta.get("recovered_lead_id")
+            if recovered_lead_id and store.get_lead(recovered_lead_id):
+                continue
         fresh_body = _fresh_body(msg.get("body") or "")
         if not EXPLICIT_BUYER.search(fresh_body) or SELLER_OFFER.search(fresh_body):
             continue
