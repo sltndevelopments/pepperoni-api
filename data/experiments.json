@@ -1078,5 +1078,83 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-07-14T03:30:05.790039+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "file_path": "public/blog/what-is-halal-pepperoni.html",
+    "query": "пеперони из какого мяса",
+    "before_pos": 50.0,
+    "before_title": "Пепперони халяль — говяжья колбаса оптом | Казанские Деликатесы",
+    "before_desc": "Пепперони из 100% говядины с сертификатом ДУМ РТ и ХАССП. Слайсерная и блочная нарезка. Оптовые поставки для пиццерий и HoReCa. Запрос цены — на pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-14T03:30:09.164522+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/geo/halal-pizza-toppings-lahore",
+    "file_path": "public/en/geo/halal-pizza-toppings-lahore.html",
+    "query": "is pepperoni halal in pakistan",
+    "before_pos": 50.0,
+    "before_title": "Is Pepperoni Halal in Pakistan? Certified Beef Bulk B2B",
+    "before_desc": "Is pepperoni halal in Pakistan? Yes — if it"
+  },
+  {
+    "applied_at": "2026-07-14T03:30:12.377096+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 34.5,
+    "before_title": "Пепперони халяль — опт от производителя | pepperoni.tatar",
+    "before_desc": "Халяль пепперони собственного производства в Казани. Сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. MOQ от 500 кг/мес, СТМ, поставки в СНГ и ОАЭ. Запросите прайс."
+  },
+  {
+    "applied_at": "2026-07-14T04:00:05.400836+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
+    "file_path": "public/landing/pepperoni-halyal.html",
+    "query": "пепперони халяль",
+    "before_pos": 34.5,
+    "before_title": "Пепперони халяль — оптовые поставки от производителя",
+    "before_desc": "Халяль пепперони из Казани: сертификаты ДУМ РТ, ХАССП, ISO 22000:2018. MOQ от 500 кг/мес, СТМ под вашим брендом, отгрузка в СНГ и ОАЭ. Запросите прайс."
+  },
+  {
+    "applied_at": "2026-07-14T04:00:18.075757+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "file_path": "public/blog/what-is-halal-pepperoni.html",
+    "query": "пепперони халяль",
+    "before_pos": 34.5,
+    "before_title": "Пеперони из какого мяса — говядина халяль | Казанские Деликатесы",
+    "before_desc": "Пеперони «Казанские Деликатесы» — 100% говядина, сертификат ДУМ РТ и ХАССП. Слайсерная и блочная нарезка для пиццерий и HoReCa. Оптовые поставки — pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-14T04:00:20.978432+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/",
+    "file_path": "public/index.html",
+    "query": "пепперони халяль",
+    "before_pos": 34.5,
+    "before_title": "Пепперони халяль оптом от производителя | Казанские Деликатесы",
+    "before_desc": "Халяль пепперони собственного производства в Казани. Поставки в HoReCa, ретейл, СНГ. Сертификат ДУМ РТ, ХАССП, ISO 22000:2018. Условия отгрузки EXW — уточните у менеджера"
+  },
+  {
+    "applied_at": "2026-07-14T05:31:40.912725+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/en/products/kd-011",
+    "file_path": "public/en/products/kd-011.html",
+    "query": "chicken ham halal",
+    "before_pos": 9.4,
+    "before_ctr": 0.0,
+    "before_impr": 25,
+    "before_title": "Chicken Ham (sliced) — Kazan Delicacies | Halal",
+    "before_desc": "Sliced Chicken Ham 0.5 kg | Halal chicken ham from Kazan | Delicate sliced chicken ham from Kazan Delicacies (pepperoni.tatar). Perfect for sandwiches, salads,…",
+    "after_title": "Chicken Ham Halal — Sliced, 0.5 kg | Kazan Delicacies",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null
   }
 ]

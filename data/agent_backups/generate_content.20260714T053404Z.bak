@@ -328,16 +328,9 @@ def strip_model_junk_prefix(html: str) -> str:
     This function strips everything up to (but not including) the first
     ``<!DOCTYPE`` or ``<html`` occurrence so the file starts cleanly.
 
-    As a secondary pass it also strips any text that appears before the
-    very first ``<`` character in the output — this catches cases where
-    the model emits a preamble that contains no recognisable HTML marker
-    at all (e.g. plain-text sentences followed by a bare ``<html>`` tag
-    without a doctype).
-
     If neither marker is found the original string is returned unchanged so
     that downstream validators can still reject it via ``is_valid_page``.
     """
-    # Primary pass: look for <!DOCTYPE or <html
     m = re.search(r'(<!DOCTYPE\s+html|<html)', html, re.IGNORECASE)
     if m and m.start() > 0:
         stripped = html[m.start():]
@@ -347,20 +340,6 @@ def strip_model_junk_prefix(html: str) -> str:
             file=sys.stderr,
         )
         return stripped
-
-    # Secondary pass: strip any non-HTML text that precedes the first '<'.
-    # This handles outputs like "Вот страница:\n<html>…" where there is no
-    # doctype but the HTML tag is still present.
-    first_lt = html.find('<')
-    if first_lt > 0:
-        stripped = html[first_lt:]
-        print(
-            f"  ⚠️  stripped {first_lt} junk chars before first '<' "
-            f"(prefix: {html[:60]!r}…)",
-            file=sys.stderr,
-        )
-        return stripped
-
     return html
 
 
@@ -398,19 +377,13 @@ def is_valid_page(html: str) -> bool:
     opening tag (``<!DOCTYPE html`` or ``<html``) after junk stripping —
     this catches any residual model preamble that ``strip_model_junk_prefix``
     could not remove (e.g. when there is no recognisable HTML marker at all).
-
-    The check is performed on the *stripped* version of the document so that
-    leading whitespace does not cause false negatives.
     """
     if any(m in html for m in ("<<<<<<<", "=======\n", ">>>>>>>")):
         return False
-    # Apply junk-prefix stripping before validating the opening tag so that
-    # any residual preamble that survived earlier passes is also removed here.
-    cleaned = strip_model_junk_prefix(html)
     # Validate that the document starts with a proper HTML tag.
-    if not _VALID_HTML_START_RE.match(cleaned.lstrip()):
+    if not _VALID_HTML_START_RE.match(html.lstrip()):
         return False
-    low = cleaned.lower()
+    low = html.lower()
     return ("</head>" in low) and ("<h1" in low) and ("</html>" in low)
 
 
@@ -495,4 +468,31 @@ def generate_article_ru(topic: str, slug: str, conn) -> tuple[Path, int]:
     html, tokens = call_claude(system, prompt)
     out_path = PUBLIC_DIR / "blog" / f"{slug}.html"
     out_path.parent.mkdir(parents=True, exist_ok=True)
-    html
+    html = ensure_complete_html(html)
+    html = wrap_generated_blog("ru", slug, html, TODAY)
+    out_path.write_text(html, encoding="utf-8")
+    return out_path, tokens
+
+
+# ---------- Blog article generator (EN) ----------
+
+def generate_article_en(topic: str, slug: str, conn) -> tuple[Path, int]:
+    system = (
+        "You are an expert in meat industry and SEO copywriting for pepperoni.tatar — "
+        "a B2B halal meat products manufacturer from Russia. "
+        "Write expert, informative articles in English for HoReCa and wholesale buyers. "
+        "No fluff, real facts. Halal theme, no mention of pork."
+    )
+    prompt = f"""Write an informational SEO article on the topic: «{topic}».
+{BLOG_ARTICLE_OUTPUT_RULES_EN.format(date=TODAY)}
+
+Content requirements:
+- canonical /en/blog/{slug}
+- One <h1> with main keyword
+- Text 700-900 words
+- Contextual links: /en/, /pepperoni-optom (as wholesale page)
+- CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
+- {CONTACTS_RULE_EN}
+- Do NOT mention pork anywhere"""
+
+    html, tokens

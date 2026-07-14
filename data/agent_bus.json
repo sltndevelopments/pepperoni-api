@@ -413,11 +413,11 @@
     "was": null,
     "_dedup": "failing:is pepperoni halal in pakistan"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «is pepperoni halal in pakistan» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-13T03:30:02.111192+00:00",
-   "updated_at": "2026-07-13T03:30:02.111197+00:00",
+   "updated_at": "2026-07-14T05:30:31.928384+00:00",
    "claimed_by": null
   },
   {
@@ -433,14 +433,54 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пепперони халяль» — flat (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-13T03:30:02.114029+00:00",
-   "updated_at": "2026-07-13T03:30:02.114034+00:00",
+   "updated_at": "2026-07-14T05:30:31.928394+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260714-0023",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "пеперони из какого мяса",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:пеперони из какого мяса"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «пеперони из какого мяса» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-14T03:30:02.781704+00:00",
+   "updated_at": "2026-07-14T03:30:02.781710+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260714-0024",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "pepperoni shelf life",
+    "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:pepperoni shelf life"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-14T03:30:02.784010+00:00",
+   "updated_at": "2026-07-14T03:30:02.784014+00:00",
    "claimed_by": null
   }
  ],
- "seq": 22,
- "updated_at": "2026-07-13T05:30:31.942513+00:00"
+ "seq": 24,
+ "updated_at": "2026-07-14T05:30:31.928429+00:00"
 }
