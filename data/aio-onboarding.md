@@ -18,17 +18,27 @@
 
 ## 1) Perplexity Merchants
 
-Заявка: https://www.perplexity.ai/hub/blog/introducing-the-perplexity-merchant-program  
-(или актуальный portal: https://perplexity.ai/merchants)
+**Заявка (живая форма, проверено 2026-07-15):**  
+https://perplexity.typeform.com/to/oIcfT8U3  
+«Perplexity Merchant Program Interest Form» — Typeform (`isFormClosed: false`). Поля: Merchant URL, contact name/email, shopping vertical.
+
+**Официальный анонс (не форма):**  
+https://www.perplexity.ai/hub/blog/shop-like-a-pro  
+(старый slug `/hub/blog/introducing-the-perplexity-merchant-program` — 404; отдельного portal `perplexity.ai/merchants` / `merchant.perplexity.ai` нет.)
+
+**ToS / post-accept ingest:**  
+https://www.perplexity.ai/hub/legal/merchant-program-terms-of-service  
+После одобрения доступ к API / SFTP / CSV→S3 запрашивают у `taz@perplexity.ai`. Feed — Google Shopping–совместимый CSV/XML (наш GMC XML подходит как база).
+
+**Альтернативы без формы:** US Shopify / PayPal / BigCommerce syndication (для нас не основной путь — B2B EXW Kazan, не US DTC).
 
 ### Что указать в форме
 
-- **Domain:** pepperoni.tatar (verified)
-- **Feed URL (HTTPS):** `https://pepperoni.tatar/products-feed.xml`
-- **Alt feeds:** CIS / AE / Arab XML (см. ai-meta.json)
-- **Merchant Center ID:** 513449343
-- **Contact:** info@kazandelikates.tatar · +7 987 217-02-02
-- **Business model:** B2B wholesale / EXW Kazan / halal manufacturer
+- **Merchant URL / Domain:** pepperoni.tatar (verified)
+- **Contact name / email:** (владелец) · info@kazandelikates.tatar
+- **Shopping vertical:** food / halal meat / wholesale deli
+- В follow-up (после ответа Perplexity): **Feed URL** `https://pepperoni.tatar/products-feed.xml`, GMC ID `513449343`, тел. +7 987 217-02-02
+- **Business model:** B2B wholesale / EXW Kazan / halal manufacturer — честно указать; программа ориентирована на US retail shipping
 
 ### Блокер (честно)
 
@@ -36,14 +46,15 @@
 |---|---|---|
 | SKU | ~70 | ≥100 (часто) |
 | GTIN coverage | ~23% (16/70) | ≥80% |
+| US ship-to | нет (EXW Kazan) | программа для продавцов в US |
 
-Подать можно; одобрение могут задержать из‑за GTIN/SKU count.  
+Подать можно; одобрение могут задержать из‑за GTIN/SKU и отсутствия US shipping.  
 Следующий продуктовый шаг: добить штрихкоды в Google Sheets (колонка barcode).
 
 ### После одобрения
 
-1. Подтвердить, что они тянут наш XML (не нужен отдельный формат).
-2. Следить, что `products-feed.xml` остаётся RUB + RU shipping.
+1. Написать `taz@perplexity.ai` за SFTP/API credentials; отдать HTTPS XML или CSV по их схеме.
+2. Следить, что `products-feed.xml` остаётся актуальным (RUB + RU shipping — может не пройти Buy with Pro; discovery всё равно цель).
 3. Прогнать `scripts/aio_visibility.py` с `PPLX_API_KEY` (citability).
 
 ---
@@ -100,6 +111,6 @@ Instant Checkout / Apps SDK — не цель (B2B EXW). Цель: discovery в 
 
 ## Порядок действий владельца (коротко)
 
-1. [ ] Заполнить форму Perplexity Merchants (feed XML выше).
+1. [ ] Заполнить Typeform Perplexity Merchants: https://perplexity.typeform.com/to/oIcfT8U3 (feed XML — в follow-up).
 2. [ ] Заполнить форму OpenAI Commerce partner; положить SFTP env на VPS.
 3. [ ] (Опционально) Добить GTIN в Sheets → поднять покрытие для Perplexity.
