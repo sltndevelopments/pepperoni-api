@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-07-12T06:50:17.789367+00:00",
+  "dateModified": "2026-07-15T20:14:25.399433+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -68,9 +68,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-001",
-          "priceCurrency": "USD",
-          "price": 3.44,
-          "priceExclVAT": 2.87,
+          "priceCurrency": "RUB",
+          "price": 290.0,
+          "priceExclVAT": 263.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -95,7 +95,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -225,9 +225,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-002",
-          "priceCurrency": "USD",
-          "price": 3.39,
-          "priceExclVAT": 2.83,
+          "priceCurrency": "RUB",
+          "price": 286.0,
+          "priceExclVAT": 260.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -252,7 +252,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -382,9 +382,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-003",
-          "priceCurrency": "USD",
-          "price": 3.75,
-          "priceExclVAT": 3.12,
+          "priceCurrency": "RUB",
+          "price": 316.0,
+          "priceExclVAT": 287.27,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -409,7 +409,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -539,9 +539,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-004",
-          "priceCurrency": "USD",
-          "price": 3.39,
-          "priceExclVAT": 2.83,
+          "priceCurrency": "RUB",
+          "price": 286.0,
+          "priceExclVAT": 260.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -566,7 +566,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -696,9 +696,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-005",
-          "priceCurrency": "USD",
-          "price": 4.34,
-          "priceExclVAT": 3.62,
+          "priceCurrency": "RUB",
+          "price": 366.0,
+          "priceExclVAT": 332.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -723,7 +723,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -853,9 +853,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-006",
-          "priceCurrency": "USD",
-          "price": 5.03,
-          "priceExclVAT": 4.19,
+          "priceCurrency": "RUB",
+          "price": 424.0,
+          "priceExclVAT": 385.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -880,7 +880,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1010,9 +1010,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-007",
-          "priceCurrency": "USD",
-          "price": 5.4,
-          "priceExclVAT": 4.5,
+          "priceCurrency": "RUB",
+          "price": 455.0,
+          "priceExclVAT": 413.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1037,7 +1037,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1167,9 +1167,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-008",
-          "priceCurrency": "USD",
-          "price": 3.27,
-          "priceExclVAT": 2.73,
+          "priceCurrency": "RUB",
+          "price": 276.0,
+          "priceExclVAT": 250.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1194,7 +1194,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1324,9 +1324,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-009",
-          "priceCurrency": "USD",
-          "price": 3.27,
-          "priceExclVAT": 2.73,
+          "priceCurrency": "RUB",
+          "price": 276.0,
+          "priceExclVAT": 250.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1351,7 +1351,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1481,9 +1481,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-010",
-          "priceCurrency": "USD",
-          "price": 7.25,
-          "priceExclVAT": 6.04,
+          "priceCurrency": "RUB",
+          "price": 611.0,
+          "priceExclVAT": 555.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1508,7 +1508,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1638,9 +1638,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-011",
-          "priceCurrency": "USD",
-          "price": 3.86,
-          "priceExclVAT": 3.22,
+          "priceCurrency": "RUB",
+          "price": 325.0,
+          "priceExclVAT": 295.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1665,7 +1665,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1795,9 +1795,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-012",
-          "priceCurrency": "USD",
-          "price": 7.83,
-          "priceExclVAT": 6.53,
+          "priceCurrency": "RUB",
+          "price": 660.0,
+          "priceExclVAT": 600.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1822,7 +1822,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -1952,9 +1952,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-013",
-          "priceCurrency": "USD",
-          "price": 4.15,
-          "priceExclVAT": 3.46,
+          "priceCurrency": "RUB",
+          "price": 350.0,
+          "priceExclVAT": 318.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -1979,7 +1979,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2109,9 +2109,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-014",
-          "priceCurrency": "USD",
-          "price": 3.74,
-          "priceExclVAT": 3.12,
+          "priceCurrency": "RUB",
+          "price": 315.0,
+          "priceExclVAT": 286.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2136,7 +2136,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2266,9 +2266,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-015",
-          "priceCurrency": "USD",
-          "price": 3.25,
-          "priceExclVAT": 2.71,
+          "priceCurrency": "RUB",
+          "price": 274.0,
+          "priceExclVAT": 249.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2293,7 +2293,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2423,9 +2423,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-016",
-          "priceCurrency": "USD",
-          "price": 5.42,
-          "priceExclVAT": 4.52,
+          "priceCurrency": "RUB",
+          "price": 457.0,
+          "priceExclVAT": 415.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2450,7 +2450,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2580,9 +2580,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-017",
-          "priceCurrency": "USD",
-          "price": 4.51,
-          "priceExclVAT": 3.76,
+          "priceCurrency": "RUB",
+          "price": 380.0,
+          "priceExclVAT": 345.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2607,7 +2607,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2737,9 +2737,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-018",
-          "priceCurrency": "USD",
-          "price": 7.21,
-          "priceExclVAT": 6.01,
+          "priceCurrency": "RUB",
+          "price": 608.0,
+          "priceExclVAT": 552.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2764,7 +2764,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -2894,9 +2894,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-019",
-          "priceCurrency": "USD",
-          "price": 4.89,
-          "priceExclVAT": 4.08,
+          "priceCurrency": "RUB",
+          "price": 412.0,
+          "priceExclVAT": 374.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -2921,7 +2921,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3051,9 +3051,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-020",
-          "priceCurrency": "USD",
-          "price": 5.33,
-          "priceExclVAT": 4.44,
+          "priceCurrency": "RUB",
+          "price": 449.0,
+          "priceExclVAT": 408.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3078,7 +3078,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3208,9 +3208,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-021",
-          "priceCurrency": "USD",
-          "price": 1.6,
-          "priceExclVAT": 1.33,
+          "priceCurrency": "RUB",
+          "price": 135.0,
+          "priceExclVAT": 122.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3235,7 +3235,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3365,9 +3365,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-022",
-          "priceCurrency": "USD",
-          "price": 2.91,
-          "priceExclVAT": 2.43,
+          "priceCurrency": "RUB",
+          "price": 245.0,
+          "priceExclVAT": 222.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3392,7 +3392,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3522,9 +3522,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-023",
-          "priceCurrency": "USD",
-          "price": 2.15,
-          "priceExclVAT": 1.79,
+          "priceCurrency": "RUB",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3549,7 +3549,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3679,9 +3679,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-024",
-          "priceCurrency": "USD",
-          "price": 2.79,
-          "priceExclVAT": 2.33,
+          "priceCurrency": "RUB",
+          "price": 235.0,
+          "priceExclVAT": 213.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3706,7 +3706,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3836,9 +3836,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-025",
-          "priceCurrency": "USD",
-          "price": 3.48,
-          "priceExclVAT": 2.9,
+          "priceCurrency": "RUB",
+          "price": 293.0,
+          "priceExclVAT": 266.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -3863,7 +3863,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -3993,9 +3993,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-026",
-          "priceCurrency": "USD",
-          "price": 3.37,
-          "priceExclVAT": 2.81,
+          "priceCurrency": "RUB",
+          "price": 284.0,
+          "priceExclVAT": 258.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4020,7 +4020,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4150,9 +4150,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-027",
-          "priceCurrency": "USD",
-          "price": 1.73,
-          "priceExclVAT": 1.44,
+          "priceCurrency": "RUB",
+          "price": 146.0,
+          "priceExclVAT": 132.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4177,7 +4177,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4307,9 +4307,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-028",
-          "priceCurrency": "USD",
-          "price": 1.71,
-          "priceExclVAT": 1.43,
+          "priceCurrency": "RUB",
+          "price": 144.0,
+          "priceExclVAT": 130.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4334,7 +4334,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4464,9 +4464,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-029",
-          "priceCurrency": "USD",
-          "price": 1.97,
-          "priceExclVAT": 1.64,
+          "priceCurrency": "RUB",
+          "price": 166.0,
+          "priceExclVAT": 150.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4491,7 +4491,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4621,9 +4621,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-030",
-          "priceCurrency": "USD",
-          "price": 3.46,
-          "priceExclVAT": 2.88,
+          "priceCurrency": "RUB",
+          "price": 292.0,
+          "priceExclVAT": 265.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4648,7 +4648,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4778,9 +4778,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-031",
-          "priceCurrency": "USD",
-          "price": 2.34,
-          "priceExclVAT": 1.95,
+          "priceCurrency": "RUB",
+          "price": 197.0,
+          "priceExclVAT": 179.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4805,7 +4805,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -4935,9 +4935,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-032",
-          "priceCurrency": "USD",
-          "price": 2.37,
-          "priceExclVAT": 1.98,
+          "priceCurrency": "RUB",
+          "price": 200.0,
+          "priceExclVAT": 181.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -4962,7 +4962,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5092,9 +5092,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-033",
-          "priceCurrency": "USD",
-          "price": 4.51,
-          "priceExclVAT": 3.76,
+          "priceCurrency": "RUB",
+          "price": 380.0,
+          "priceExclVAT": 345.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5119,7 +5119,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5249,9 +5249,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-034",
-          "priceCurrency": "USD",
-          "price": 4.72,
-          "priceExclVAT": 3.93,
+          "priceCurrency": "RUB",
+          "price": 398.0,
+          "priceExclVAT": 361.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5276,7 +5276,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5406,9 +5406,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-035",
-          "priceCurrency": "USD",
-          "price": 4.15,
-          "priceExclVAT": 3.46,
+          "priceCurrency": "RUB",
+          "price": 350.0,
+          "priceExclVAT": 318.18,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5433,7 +5433,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5563,9 +5563,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-036",
-          "priceCurrency": "USD",
-          "price": 2.23,
-          "priceExclVAT": 1.86,
+          "priceCurrency": "RUB",
+          "price": 188.0,
+          "priceExclVAT": 170.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5590,7 +5590,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5720,9 +5720,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-037",
-          "priceCurrency": "USD",
-          "price": 2.56,
-          "priceExclVAT": 2.13,
+          "priceCurrency": "RUB",
+          "price": 216.0,
+          "priceExclVAT": 196.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5747,7 +5747,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -5877,9 +5877,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-038",
-          "priceCurrency": "USD",
-          "price": 3.54,
-          "priceExclVAT": 2.95,
+          "priceCurrency": "RUB",
+          "price": 298.0,
+          "priceExclVAT": 270.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -5904,7 +5904,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6034,9 +6034,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-039",
-          "priceCurrency": "USD",
-          "price": 4.13,
-          "priceExclVAT": 3.44,
+          "priceCurrency": "RUB",
+          "price": 348.0,
+          "priceExclVAT": 316.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6061,7 +6061,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6191,9 +6191,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-040",
-          "priceCurrency": "USD",
-          "price": 4.25,
-          "priceExclVAT": 3.54,
+          "priceCurrency": "RUB",
+          "price": 358.0,
+          "priceExclVAT": 325.45,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6218,7 +6218,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6348,9 +6348,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-041",
-          "priceCurrency": "USD",
-          "price": 3.22,
-          "priceExclVAT": 2.68,
+          "priceCurrency": "RUB",
+          "price": 271.0,
+          "priceExclVAT": 246.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6375,7 +6375,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6505,9 +6505,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-042",
-          "priceCurrency": "USD",
-          "price": 4.47,
-          "priceExclVAT": 3.73,
+          "priceCurrency": "RUB",
+          "price": 377.0,
+          "priceExclVAT": 342.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6532,7 +6532,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6662,9 +6662,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-043",
-          "priceCurrency": "USD",
-          "price": 2.23,
-          "priceExclVAT": 1.86,
+          "priceCurrency": "RUB",
+          "price": 188.0,
+          "priceExclVAT": 170.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6689,7 +6689,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6819,9 +6819,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-044",
-          "priceCurrency": "USD",
-          "price": 4.29,
-          "priceExclVAT": 3.58,
+          "priceCurrency": "RUB",
+          "price": 362.0,
+          "priceExclVAT": 329.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -6846,7 +6846,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -6976,9 +6976,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-045",
-          "priceCurrency": "USD",
-          "price": 2.15,
-          "priceExclVAT": 1.79,
+          "priceCurrency": "RUB",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7003,7 +7003,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7133,9 +7133,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-046",
-          "priceCurrency": "USD",
-          "price": 3.95,
-          "priceExclVAT": 3.29,
+          "priceCurrency": "RUB",
+          "price": 333.0,
+          "priceExclVAT": 302.73,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7160,7 +7160,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7290,9 +7290,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-047",
-          "priceCurrency": "USD",
-          "price": 1.97,
-          "priceExclVAT": 1.64,
+          "priceCurrency": "RUB",
+          "price": 166.0,
+          "priceExclVAT": 150.91,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7317,7 +7317,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7447,9 +7447,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-048",
-          "priceCurrency": "USD",
-          "price": 4.29,
-          "priceExclVAT": 3.58,
+          "priceCurrency": "RUB",
+          "price": 362.0,
+          "priceExclVAT": 329.09,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7474,7 +7474,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7604,9 +7604,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-049",
-          "priceCurrency": "USD",
-          "price": 2.15,
-          "priceExclVAT": 1.79,
+          "priceCurrency": "RUB",
+          "price": 181.0,
+          "priceExclVAT": 164.55,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7631,7 +7631,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7761,9 +7761,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-050",
-          "priceCurrency": "USD",
-          "price": 7.07,
-          "priceExclVAT": 5.89,
+          "priceCurrency": "RUB",
+          "price": 650.0,
+          "priceExclVAT": 541.67,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7788,7 +7788,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -7918,9 +7918,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-051",
-          "priceCurrency": "USD",
-          "price": 4.89,
-          "priceExclVAT": 4.08,
+          "priceCurrency": "RUB",
+          "price": 450.0,
+          "priceExclVAT": 375.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7945,7 +7945,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8075,9 +8075,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-052",
-          "priceCurrency": "USD",
-          "price": 31.89,
-          "priceExclVAT": 26.58,
+          "priceCurrency": "RUB",
+          "price": 56.0,
+          "priceExclVAT": 2443.64,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8102,7 +8102,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8232,9 +8232,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-053",
-          "priceCurrency": "USD",
-          "price": 20.95,
-          "priceExclVAT": 17.46,
+          "priceCurrency": "RUB",
+          "price": 58.86,
+          "priceExclVAT": 1605.27,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8259,7 +8259,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8389,9 +8389,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-054",
-          "priceCurrency": "USD",
-          "price": 33.68,
-          "priceExclVAT": 28.07,
+          "priceCurrency": "RUB",
+          "price": 59.14,
+          "priceExclVAT": 2580.65,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8416,7 +8416,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8546,9 +8546,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-055",
-          "priceCurrency": "USD",
-          "price": 35.15,
-          "priceExclVAT": 29.29,
+          "priceCurrency": "RUB",
+          "price": 61.73,
+          "priceExclVAT": 2693.67,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8573,7 +8573,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8703,9 +8703,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-056",
-          "priceCurrency": "USD",
-          "price": 39.16,
-          "priceExclVAT": 32.63,
+          "priceCurrency": "RUB",
+          "price": 68.77,
+          "priceExclVAT": 3000.87,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8730,7 +8730,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -8860,9 +8860,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-057",
-          "priceCurrency": "USD",
-          "price": 41.65,
-          "priceExclVAT": 34.71,
+          "priceCurrency": "RUB",
+          "price": 73.14,
+          "priceExclVAT": 3191.56,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -8887,7 +8887,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9017,9 +9017,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-058",
-          "priceCurrency": "USD",
-          "price": 44.33,
-          "priceExclVAT": 36.94,
+          "priceCurrency": "RUB",
+          "price": 77.84,
+          "priceExclVAT": 3396.65,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9044,7 +9044,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9174,9 +9174,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-059",
-          "priceCurrency": "USD",
-          "price": 2.12,
-          "priceExclVAT": 1.77,
+          "priceCurrency": "RUB",
+          "price": 194.7,
+          "priceExclVAT": 162.25,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9201,7 +9201,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9331,9 +9331,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-060",
-          "priceCurrency": "USD",
-          "price": 2.95,
-          "priceExclVAT": 2.46,
+          "priceCurrency": "RUB",
+          "price": 271.7,
+          "priceExclVAT": 226.42,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9358,7 +9358,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9488,9 +9488,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-061",
-          "priceCurrency": "USD",
-          "price": 15.66,
-          "priceExclVAT": 13.05,
+          "priceCurrency": "RUB",
+          "price": 44.0,
+          "priceExclVAT": 1200.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9515,7 +9515,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9645,9 +9645,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-062",
-          "priceCurrency": "USD",
-          "price": 25.48,
-          "priceExclVAT": 21.23,
+          "priceCurrency": "RUB",
+          "price": 44.74,
+          "priceExclVAT": 1952.29,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9672,7 +9672,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9802,9 +9802,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-063",
-          "priceCurrency": "USD",
-          "price": 25.68,
-          "priceExclVAT": 21.4,
+          "priceCurrency": "RUB",
+          "price": 45.1,
+          "priceExclVAT": 1968.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9829,7 +9829,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -9959,9 +9959,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-064",
-          "priceCurrency": "USD",
-          "price": 21.14,
-          "priceExclVAT": 17.62,
+          "priceCurrency": "RUB",
+          "price": 49.5,
+          "priceExclVAT": 1620.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -9986,7 +9986,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10116,9 +10116,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-065",
-          "priceCurrency": "USD",
-          "price": 33.33,
-          "priceExclVAT": 27.77,
+          "priceCurrency": "RUB",
+          "price": 58.52,
+          "priceExclVAT": 2553.6,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10143,7 +10143,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10273,9 +10273,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-066",
-          "priceCurrency": "USD",
-          "price": 19.23,
-          "priceExclVAT": 16.03,
+          "priceCurrency": "RUB",
+          "price": 67.55,
+          "priceExclVAT": 1473.82,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10300,7 +10300,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10430,9 +10430,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-067",
-          "priceCurrency": "USD",
-          "price": 39.31,
-          "priceExclVAT": 32.76,
+          "priceCurrency": "RUB",
+          "price": 69.03,
+          "priceExclVAT": 3012.22,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10457,7 +10457,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10587,9 +10587,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-068",
-          "priceCurrency": "USD",
-          "price": 40.72,
-          "priceExclVAT": 33.93,
+          "priceCurrency": "RUB",
+          "price": 71.5,
+          "priceExclVAT": 3120.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10614,7 +10614,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10744,9 +10744,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-069",
-          "priceCurrency": "USD",
-          "price": 15.79,
-          "priceExclVAT": 13.16,
+          "priceCurrency": "RUB",
+          "price": 72.6,
+          "priceExclVAT": 1210.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10771,7 +10771,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",
@@ -10901,9 +10901,9 @@
         "offers": {
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-070",
-          "priceCurrency": "USD",
-          "price": 20.97,
-          "priceExclVAT": 17.48,
+          "priceCurrency": "RUB",
+          "price": 73.64,
+          "priceExclVAT": 1606.69,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -10928,7 +10928,7 @@
             "shippingRate": {
               "@type": "MonetaryAmount",
               "value": "0.00",
-              "currency": "USD"
+              "currency": "RUB"
             },
             "shippingOrigin": {
               "@type": "DefinedRegion",

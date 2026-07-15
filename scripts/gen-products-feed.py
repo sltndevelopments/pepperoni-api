@@ -458,6 +458,9 @@ def derive_custom_labels(p: dict, tr: dict) -> dict:
 
 
 def build_row(p: dict, tr: dict) -> dict:
+    # Primary GMC feed targets RU — currency MUST be RUB (Google Merchant
+    # answer/160637). USD+RU was the root cause of ~1.1k "invalid currency"
+    # disapprovals in account 513449343.
     google_cat_id, google_cat_path = derive_taxonomy(p)
     return {
         "id": p.get("sku", ""),
@@ -467,7 +470,7 @@ def build_row(p: dict, tr: dict) -> dict:
         "image_link": derive_image(p),
         "additional_image_link": ",".join(derive_additional_images(p)),
         "availability": "in_stock",
-        "price": derive_price_usd(p) or derive_price(p),
+        "price": derive_price(p),
         "sale_price": "",
         "brand": BRAND,
         "gtin": p.get("barcode", ""),
@@ -476,7 +479,7 @@ def build_row(p: dict, tr: dict) -> dict:
         "identifier_exists": "yes" if p.get("barcode") else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{COUNTRY}:::0.00 USD",
+        "shipping": f"{COUNTRY}:::0.00 {CURRENCY}",
         "shipping_weight": normalize_weight(p.get("weight", "")),
         "tax": f"{COUNTRY}:20:y",
         # Food products: returns only for defective goods (RU law art.25 ZOZPP)
@@ -576,7 +579,8 @@ def build_openai_row(p: dict, tr: dict) -> dict:
     sku_raw = str(p.get("sku", "") or "").strip()
     sku_id = derive_openai_item_id(p)
     offers = p.get("offers") or {}
-    price_str = derive_price_usd(p) or derive_price(p)
+    # OpenAI RU/CIS feed: store_country=RU → RUB (matches shipping currency).
+    price_str = derive_price(p)
 
     # OpenAI availability: in_stock, out_of_stock, pre_order, backorder, unknown
     avail = "in_stock"
@@ -765,7 +769,7 @@ def write_xml(rows: list, path: Path):
         lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
         lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
         lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-        lines.append(f"      <g:shipping><g:country>RU</g:country><g:price>0.00 USD</g:price></g:shipping>")
+        lines.append(f"      <g:shipping><g:country>RU</g:country><g:price>0.00 {CURRENCY}</g:price></g:shipping>")
         if r["shipping_weight"]:
             lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
         lines.append(f"      <g:tax><g:country>RU</g:country><g:rate>20</g:rate><g:tax_ship>y</g:tax_ship></g:tax>")
@@ -791,12 +795,13 @@ def write_json(rows: list, products: list, path: Path):
     item_list = []
     for r, p in zip(rows, products):
         offer = (p.get("offers") or {})
-        price_str = derive_price_usd(p) or derive_price(p)
+        # Match the primary RU GMC feed: RUB prices for RU destination.
+        price_str = derive_price(p)
         try:
             price_val = float(str(price_str).replace(",", ".").split()[0]) if price_str else None
         except (ValueError, IndexError):
             price_val = None
-        price_excl = derive_price_usd_no_vat(p) or derive_price_no_vat(p)
+        price_excl = derive_price_no_vat(p)
         try:
             price_excl_val = float(str(price_excl).replace(",", ".").split()[0]) if price_excl else None
         except (ValueError, IndexError):
@@ -840,7 +845,7 @@ def write_json(rows: list, products: list, path: Path):
             "offers": {
                 "@type": "Offer",
                 "url": r["link"],
-                "priceCurrency": "USD",
+                "priceCurrency": CURRENCY,
                 "price": price_val,
                 "priceExclVAT": price_excl_val,
                 "availability": offer.get("availability", "https://schema.org/InStock"),
@@ -850,7 +855,7 @@ def write_json(rows: list, products: list, path: Path):
                 "shippingDetails": {
                     "@type": "OfferShippingDetails",
                     "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
-                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": "USD"},
+                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": CURRENCY},
                     "shippingOrigin": {
                         "@type": "DefinedRegion",
                         "addressLocality": "Kazan",
@@ -1162,16 +1167,54 @@ def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
 
 
 # ----------------------------------------------------------------------
-# Arab feed — EN language, USD prices, all Arab/GCC countries
-# Countries: AE SA QA KW BH OM YE EG  (AE already in AE feed; reuse)
+# Arab feed — EN language, LOCAL currencies (Google Merchant answer/160637)
+# Countries: AE SA QA KW BH OM YE EG
+# USD was rejected as "invalid currency" for these targets; convert from
+# exportPrices.USD via fixed rates (same pattern as CIS_FX). Update when
+# peg/float drifts >5%. AE also has a dedicated products-feed-ae.xml.
 # ----------------------------------------------------------------------
 ARAB_COUNTRIES = ["AE", "SA", "QA", "KW", "BH", "OM", "YE", "EG"]
 
+# Units of local currency per 1 USD
+ARAB_FX: dict[str, tuple[str, float]] = {
+    "AE": ("AED", AED_RATE),   # pegged
+    "SA": ("SAR", 3.75),       # pegged
+    "QA": ("QAR", 3.64),       # pegged
+    "KW": ("KWD", 0.307),      # pegged-band
+    "BH": ("BHD", 0.376),      # pegged
+    "OM": ("OMR", 0.385),      # pegged
+    "EG": ("EGP", 48.50),      # float — update quarterly
+    "YE": ("YER", 250.0),      # float — update quarterly
+}
+
+
+def derive_price_arab(p: dict, country: str) -> str:
+    """Return price string in the local currency for an Arab/GCC country."""
+    cur, rate = ARAB_FX.get(country, ("USD", 1.0))
+    if country == "AE":
+        # Prefer the shared AED helper (same rate) for consistency with AE feed
+        aed = derive_price_aed(p)
+        if aed:
+            return aed
+    ep = (p.get("offers") or {}).get("exportPrices") or {}
+    usd = ep.get("USD")
+    if usd is None:
+        return ""
+    try:
+        val = float(str(usd).replace(",", ".")) * rate
+        # KWD/BHD/OMR are high-value: keep 3 decimals; others 2
+        if cur in ("KWD", "BHD", "OMR"):
+            return f"{val:.3f} {cur}"
+        return f"{val:.2f} {cur}"
+    except (ValueError, TypeError):
+        return ""
+
 
 def build_row_arab(p: dict, tr: dict, country: str) -> dict:
-    """GMC row for Arab country: EN titles, USD prices, country-specific shipping."""
+    """GMC row for Arab country: EN titles, local currency, country shipping."""
     google_cat_id, _ = derive_taxonomy(p)
-    price = derive_price_usd(p) or derive_price(p)
+    price = derive_price_arab(p, country)
+    cur = ARAB_FX.get(country, ("USD", 1.0))[0]
     return {
         "id": p.get("sku", ""),
         "title": derive_title(p, tr),
@@ -1189,7 +1232,7 @@ def build_row_arab(p: dict, tr: dict, country: str) -> dict:
         "identifier_exists": "yes" if p.get("barcode") else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{country}:::0.00 USD",
+        "shipping": f"{country}:::0.00 {cur}",
         "shipping_weight": normalize_weight(p.get("weight", "")),
         "tax": f"{country}:0:n",
         "multipack": p.get("qtyPerBox", ""),
@@ -1203,7 +1246,7 @@ def build_row_arab(p: dict, tr: dict, country: str) -> dict:
 
 
 def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
-    """RSS 2.0 / GMC XML feed for Arab/GCC countries (EN, USD)."""
+    """RSS 2.0 / GMC XML feed for Arab/GCC countries (EN, local currencies)."""
     now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
     country_list = ",".join(sorted(rows_by_country.keys()))
     lines = [
@@ -1217,6 +1260,7 @@ def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
         f'    <pubDate>{now}</pubDate>',
     ]
     for country, rows in sorted(rows_by_country.items()):
+        cur = ARAB_FX.get(country, ("USD", 1.0))[0]
         for r in rows:
             addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
             item_id = f"{r['id']}-{country}"
@@ -1239,7 +1283,7 @@ def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
             lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
             lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
             lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-            lines.append(f"      <g:shipping><g:country>{country}</g:country><g:price>0.00 USD</g:price></g:shipping>")
+            lines.append(f"      <g:shipping><g:country>{country}</g:country><g:price>0.00 {cur}</g:price></g:shipping>")
             if r["shipping_weight"]:
                 lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
             lines.append(f"      <g:tax><g:country>{country}</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
