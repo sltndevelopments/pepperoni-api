@@ -49,7 +49,7 @@ https://www.perplexity.ai/hub/legal/merchant-program-terms-of-service
 | US ship-to | нет (EXW Kazan) | программа для продавцов в US |
 
 Подать можно; одобрение могут задержать из‑за GTIN/SKU и отсутствия US shipping.  
-Следующий продуктовый шаг: добить штрихкоды в Google Sheets (колонка barcode).
+Следующий продуктовый шаг: добить реальные GTIN/EAN в Google Sheets (колонка **Barcode** / «Штрихкод»; в `products.json` → поле `barcode` → в фидах `gtin`). Сейчас ~23% (16/70). Не выдумывать коды — только с упаковки / GS1. После заполнения: cron `sync-vps.sh` сам прогонит `sync-sheets.mjs` → `gen-products-feed.py` (или вручную те же скрипты).
 
 ### После одобрения
 
@@ -72,8 +72,11 @@ https://www.perplexity.ai/hub/legal/merchant-program-terms-of-service
 
 ### Что нужно от владельца (один раз)
 
-1. Подать заявку партнёра: https://developers.openai.com/commerce/guides/get-started  
-2. Получить SFTP host / user / remote path / key от OpenAI.
+1. **Подать заявку (форма, живая 2026-07-15):** https://chatgpt.com/merchants  
+   («Apply to share your product feed» — Product Feed / discovery).  
+   Официальный гайд (ссылка «here» → форма выше): https://developers.openai.com/commerce/guides/get-started  
+   Хаб: https://developers.openai.com/commerce/
+2. После одобрения получить SFTP host / user / remote path / key от OpenAI.
 3. На VPS создать файл (не в git):
 
 ```bash
@@ -112,5 +115,5 @@ Instant Checkout / Apps SDK — не цель (B2B EXW). Цель: discovery в 
 ## Порядок действий владельца (коротко)
 
 1. [ ] Заполнить Typeform Perplexity Merchants: https://perplexity.typeform.com/to/oIcfT8U3 (feed XML — в follow-up).
-2. [ ] Заполнить форму OpenAI Commerce partner; положить SFTP env на VPS.
-3. [ ] (Опционально) Добить GTIN в Sheets → поднять покрытие для Perplexity.
+2. [ ] Заполнить форму OpenAI: https://chatgpt.com/merchants (гайд: https://developers.openai.com/commerce/guides/get-started); после одобрения — SFTP env на VPS.
+3. [ ] Добить GTIN в Sheets (колонка Barcode) → sync поднимет покрытие в фидах.
