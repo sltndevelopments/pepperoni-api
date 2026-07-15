@@ -1,0 +1,53 @@
+{
+  "ucp": {
+    "version": "2026-04-08",
+    "services": {
+      "dev.ucp.shopping": [
+        {
+          "version": "2026-04-08",
+          "spec": "https://ucp.dev/specification/overview",
+          "transport": "mcp",
+          "endpoint": "https://api.pepperoni.tatar/api/mcp",
+          "schema": "https://pepperoni.tatar/.well-known/mcp.json"
+        }
+      ]
+    },
+    "capabilities": {},
+    "payment_handlers": {},
+    "notes": {
+      "model": "b2b_wholesale_exw",
+      "checkout": "not_supported",
+      "inquiry": "use MCP tool submit_inquiry or https://wa.me/79872170202",
+      "catalog_feeds": [
+        "https://pepperoni.tatar/products-feed.xml",
+        "https://pepperoni.tatar/products-feed-ae.xml",
+        "https://pepperoni.tatar/products-feed-cis.xml",
+        "https://pepperoni.tatar/products-feed-arab.xml",
+        "https://pepperoni.tatar/openai-commerce-kazan-delicacies.tsv.gz"
+      ],
+      "merchant_center_id": "513449343",
+      "halal_cert": "614A/2024 DUM RT"
+    }
+  },
+  "business": {
+    "name": "Kazan Delicacies / Казанские Деликатесы",
+    "legal_name": "ООО «Казанские Деликатесы»",
+    "url": "https://pepperoni.tatar",
+    "email": "info@kazandelikates.tatar",
+    "phone": "+79872170202",
+    "address": {
+      "streetAddress": "ул. Аграрная, 2, оф. 7",
+      "addressLocality": "Казань",
+      "addressCountry": "RU"
+    }
+  },
+  "related": {
+    "mcp_manifest": "https://pepperoni.tatar/.well-known/mcp.json",
+    "ai_meta": "https://pepperoni.tatar/.well-known/ai-meta.json",
+    "ai_plugin": "https://pepperoni.tatar/.well-known/ai-plugin.json",
+    "llms_full": "https://pepperoni.tatar/llms-full.txt",
+    "openapi": "https://api.pepperoni.tatar/openapi.yaml",
+    "products_live": "https://api.pepperoni.tatar/api/products"
+  },
+  "updated_at": "2026-07-15T00:00:00Z"
+}
