@@ -91,21 +91,25 @@ def list_feeds(service) -> list[dict]:
 
 
 def update_feed_url(service, feed: dict, new_url: str, *, dry_run: bool) -> bool:
+    """Update fetchSchedule.fetchUrl only.
+
+    Content API returns 409 if `fileName` changes after insert — keep the
+    original fileName (often the old multi-country URL) and retarget fetchUrl.
+    """
     feed_id = feed["id"]
     body = dict(feed)
-    body["fileName"] = new_url
+    # Do NOT change fileName — immutable after create (HTTP 409 conflict).
     fs = dict(body.get("fetchSchedule") or {})
     fs["fetchUrl"] = new_url
-    # Keep a minimal schedule if missing
     fs.setdefault("hour", 4)
     fs.setdefault("timeZone", "Europe/Moscow")
     body["fetchSchedule"] = fs
-    # Content API update wants the full resource; strip read-only-ish noise if present
     for k in ("kind",):
         body.pop(k, None)
     print(f"  UPDATE id={feed_id} name={feed.get('name')!r}")
-    print(f"    old: {current_fetch_url(feed)}")
-    print(f"    new: {new_url}")
+    print(f"    old fetchUrl: {current_fetch_url(feed)}")
+    print(f"    new fetchUrl: {new_url}")
+    print(f"    fileName (unchanged): {body.get('fileName')}")
     if dry_run:
         return True
     service.datafeeds().update(
