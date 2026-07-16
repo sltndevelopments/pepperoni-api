@@ -111,7 +111,7 @@
       "name": "pepperoni_products_feed_cis_xml",
       "url": "https://pepperoni.tatar/products-feed-cis.xml",
       "format": "application/rss+xml",
-      "description": "Google Merchant Center XML product feed for CIS markets (BY, KZ, UZ, TJ, KG, AM, GE, AZ). RU language, native currencies (BYN/KZT/UZS/TJS/KGS/AMD/GEL/AZN). 576 items (72 SKUs × 8 countries). Registered in GMC.",
+      "description": "Multi-country CIS aggregate (BY/KZ/UZ/TJ/KG/AM/GE/AZ). NOT for single-country GMC datafeeds — use products-feed-{cc}.xml instead (invalid_currency_for_country if registered per-country).",
       "audience": "BY,KZ,UZ,TJ,KG,AM,GE,AZ",
       "language": "ru",
       "updateFrequency": "daily"
@@ -120,9 +120,144 @@
       "name": "pepperoni_products_feed_arab_xml",
       "url": "https://pepperoni.tatar/products-feed-arab.xml",
       "format": "application/rss+xml",
-      "description": "Google Merchant Center XML product feed for Arab/GCC markets (AE, SA, QA, KW, BH, OM, YE, EG). EN language, local currencies (AED/SAR/QAR/KWD/BHD/OMR/YER/EGP). 576 items (72 SKUs × 8 countries). Registered in GMC.",
+      "description": "Multi-country Arab/GCC aggregate (AE/SA/QA/KW/BH/OM/YE/EG). NOT for single-country GMC datafeeds — use products-feed-{cc}.xml instead (invalid_currency_for_country if registered per-country).",
       "audience": "AE,SA,QA,KW,BH,OM,YE,EG",
       "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_sa_xml",
+      "url": "https://pepperoni.tatar/products-feed-sa.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Saudi Arabia: SAR prices, offer ids *-SA only.",
+      "audience": "SA",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_kw_xml",
+      "url": "https://pepperoni.tatar/products-feed-kw.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Kuwait: KWD prices, offer ids *-KW only.",
+      "audience": "KW",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_om_xml",
+      "url": "https://pepperoni.tatar/products-feed-om.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Oman: OMR prices, offer ids *-OM only.",
+      "audience": "OM",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_eg_xml",
+      "url": "https://pepperoni.tatar/products-feed-eg.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Egypt: EGP prices, offer ids *-EG only.",
+      "audience": "EG",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_bh_xml",
+      "url": "https://pepperoni.tatar/products-feed-bh.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Bahrain: BHD prices, offer ids *-BH only.",
+      "audience": "BH",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_qa_xml",
+      "url": "https://pepperoni.tatar/products-feed-qa.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Qatar: QAR prices, offer ids *-QA only.",
+      "audience": "QA",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_ye_xml",
+      "url": "https://pepperoni.tatar/products-feed-ye.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Yemen: YER prices, offer ids *-YE only.",
+      "audience": "YE",
+      "language": "en",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_by_xml",
+      "url": "https://pepperoni.tatar/products-feed-by.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Belarus: BYN prices, offer ids *-BY only.",
+      "audience": "BY",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_kz_xml",
+      "url": "https://pepperoni.tatar/products-feed-kz.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Kazakhstan: KZT prices, offer ids *-KZ only.",
+      "audience": "KZ",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_uz_xml",
+      "url": "https://pepperoni.tatar/products-feed-uz.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Uzbekistan: UZS prices, offer ids *-UZ only.",
+      "audience": "UZ",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_ge_xml",
+      "url": "https://pepperoni.tatar/products-feed-ge.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Georgia: GEL prices, offer ids *-GE only.",
+      "audience": "GE",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_kg_xml",
+      "url": "https://pepperoni.tatar/products-feed-kg.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Kyrgyzstan: KGS prices, offer ids *-KG only.",
+      "audience": "KG",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_az_xml",
+      "url": "https://pepperoni.tatar/products-feed-az.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Azerbaijan: AZN prices, offer ids *-AZ only.",
+      "audience": "AZ",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_tj_xml",
+      "url": "https://pepperoni.tatar/products-feed-tj.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Tajikistan: TJS prices, offer ids *-TJ only.",
+      "audience": "TJ",
+      "language": "ru",
+      "updateFrequency": "daily"
+    },
+    {
+      "name": "pepperoni_products_feed_am_xml",
+      "url": "https://pepperoni.tatar/products-feed-am.xml",
+      "format": "application/rss+xml",
+      "description": "GMC single-country feed for Armenia: AMD prices, offer ids *-AM only.",
+      "audience": "AM",
+      "language": "ru",
       "updateFrequency": "daily"
     },
     {
@@ -134,5 +269,5 @@
     }
   ],
   "gpt_store_url": "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog",
-  "updated_at": "2026-07-15T00:00:00Z"
+  "updated_at": "2026-07-16T00:00:00Z"
 }

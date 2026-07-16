@@ -91,5 +91,12 @@ jobs:
           git add public/products/*.html
           git add public/en/products/*.html
           git add public/products-feed.csv public/products-feed.xml public/products-feed.json
+          git add public/products-feed-ae.xml public/products-feed-arab.xml public/products-feed-cis.xml
+          git add public/products-feed-sa.xml public/products-feed-kw.xml public/products-feed-om.xml
+          git add public/products-feed-eg.xml public/products-feed-bh.xml public/products-feed-qa.xml
+          git add public/products-feed-ye.xml
+          git add public/products-feed-by.xml public/products-feed-kz.xml public/products-feed-uz.xml
+          git add public/products-feed-ge.xml public/products-feed-kg.xml public/products-feed-az.xml
+          git add public/products-feed-tj.xml public/products-feed-am.xml
           git commit -m "🔄 Auto-sync prices + regenerate product pages [$(date -u +%Y-%m-%d)]"
           git push

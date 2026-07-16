@@ -3,8 +3,12 @@
 
 Outputs:
   public/products-feed.csv   — GMC CSV (tab-separated, GMC standard)
-  public/products-feed.xml   — RSS 2.0 / Google Merchant XML feed
+  public/products-feed.xml   — RSS 2.0 / Google Merchant XML feed (RU / RUB)
   public/products-feed.json  — Schema.org ItemList for AI crawlers (Bing, Perplexity, ChatGPT)
+  public/products-feed-ae.xml — UAE single-country GMC feed (AED)
+  public/products-feed-{cc}.xml — per-country GMC feeds (SA/KW/…, BY/KZ/…); PRIMARY for GMC
+  public/products-feed-arab.xml / products-feed-cis.xml — multi-country aggregates (NOT for
+    single-country GMC datafeeds; importing them into one country causes invalid_currency)
   public/products-feed-openai.csv / .csv.gz / .tsv.gz — OpenAI Commerce (tab-separated UTF-8; .tsv.gz per file-upload overview)
   public/openai-commerce-kazan-delicacies.tsv.gz — stable snapshot path (same bytes; SFTP overwrite per overview)
 
@@ -1105,8 +1109,91 @@ def build_row_cis(p: dict, tr: dict, country: str) -> dict:
     }
 
 
+def write_xml_single_country(
+    rows: list,
+    path: Path,
+    *,
+    country: str,
+    currency: str,
+    title: str,
+    description: str,
+    language: str,
+    channel_link: str,
+    id_suffix: bool = True,
+) -> None:
+    """RSS 2.0 / GMC XML with ONLY one country's items (matching currency).
+
+    Primary path for GMC single-country datafeeds. Multi-country aggregates
+    (arab/cis) must NOT be registered as a single-country feed — Google imports
+    every row into that country and rejects foreign currencies
+    (invalid_currency_for_country).
+    """
+    now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
+    lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss xmlns:g="http://base.google.com/ns/1.0" version="2.0">',
+        '  <channel>',
+        f'    <title>{escape(title)}</title>',
+        f'    <link>{escape(channel_link)}</link>',
+        f'    <description>{escape(description)}</description>',
+        f'    <language>{language}</language>',
+        f'    <pubDate>{now}</pubDate>',
+    ]
+    for r in rows:
+        addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
+        item_id = f"{r['id']}-{country}" if id_suffix else r["id"]
+        sh_parts = r["shipping"].split(":::")
+        sh_country, sh_price = (
+            (sh_parts[0], sh_parts[1]) if len(sh_parts) == 2 else (country, f"0.00 {currency}")
+        )
+        lines.append("    <item>")
+        lines.append(f"      <g:id>{escape(item_id)}</g:id>")
+        lines.append(f"      <title>{escape(r['title'])}</title>")
+        lines.append(f"      <description>{escape(r['description'])}</description>")
+        lines.append(f"      <link>{escape(r['link'])}</link>")
+        lines.append(f"      <g:image_link>{escape(r['image_link'])}</g:image_link>")
+        for a in addl:
+            lines.append(f"      <g:additional_image_link>{escape(a)}</g:additional_image_link>")
+        lines.append(f"      <g:availability>{r['availability']}</g:availability>")
+        lines.append(f"      <g:price>{escape(r['price'])}</g:price>")
+        lines.append(f"      <g:brand>{escape(r['brand'])}</g:brand>")
+        if r["gtin"]:
+            lines.append(f"      <g:gtin>{escape(r['gtin'])}</g:gtin>")
+        if r["mpn"]:
+            lines.append(f"      <g:mpn>{escape(r['mpn'])}</g:mpn>")
+        lines.append(f"      <g:condition>{r['condition']}</g:condition>")
+        lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
+        lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
+        lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
+        lines.append(
+            f"      <g:shipping><g:country>{escape(sh_country)}</g:country>"
+            f"<g:price>{escape(sh_price)}</g:price></g:shipping>"
+        )
+        if r["shipping_weight"]:
+            lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
+        lines.append(
+            f"      <g:tax><g:country>{escape(sh_country)}</g:country>"
+            f"<g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>"
+        )
+        if r["multipack"]:
+            lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
+        lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
+        lines.append(f"      <g:adult>{r['adult']}</g:adult>")
+        for i, key in enumerate(
+            ("custom_label_0", "custom_label_1", "custom_label_2", "custom_label_3", "custom_label_4")
+        ):
+            v = r.get(key, "")
+            if v:
+                lines.append(f"      <g:custom_label_{i}>{escape(str(v))}</g:custom_label_{i}>")
+        lines.append("    </item>")
+    lines.append("  </channel>")
+    lines.append("</rss>")
+    path.write_text("\n".join(lines), encoding="utf-8")
+    print(f"OK XML {country} {path} — {len(rows)} items ({currency}), {path.stat().st_size//1024} KB")
+
+
 def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
-    """RSS 2.0 / GMC XML feed for CIS (RU language, all 8 countries, one file)."""
+    """Multi-country CIS aggregate (NOT for single-country GMC datafeeds)."""
     now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
     country_list = ",".join(sorted(rows_by_country.keys()))
     lines = [
@@ -1115,7 +1202,7 @@ def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
         '  <channel>',
         '    <title>Казанские Деликатесы — Халяль Каталог (CIS)</title>',
         f'    <link>{BASE_URL}/</link>',
-        '    <description>Халяль пепперони, колбасы, казылык, татарская выпечка — оптовый каталог для СНГ.</description>',
+        '    <description>Халяль пепперони, колбасы, казылык, татарская выпечка — оптовый каталог для СНГ. Multi-country aggregate — use products-feed-{cc}.xml for GMC.</description>',
         '    <language>ru</language>',
         f'    <pubDate>{now}</pubDate>',
     ]
@@ -1246,7 +1333,7 @@ def build_row_arab(p: dict, tr: dict, country: str) -> dict:
 
 
 def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
-    """RSS 2.0 / GMC XML feed for Arab/GCC countries (EN, local currencies)."""
+    """Multi-country Arab/GCC aggregate (NOT for single-country GMC datafeeds)."""
     now = datetime.now(timezone.utc).strftime("%a, %d %b %Y %H:%M:%S GMT")
     country_list = ",".join(sorted(rows_by_country.keys()))
     lines = [
@@ -1255,7 +1342,7 @@ def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
         '  <channel>',
         '    <title>Kazan Delicacies — Halal Catalog (Arab/GCC)</title>',
         f'    <link>{BASE_URL}/en/</link>',
-        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for Arab/GCC markets.</description>',
+        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for Arab/GCC markets. Multi-country aggregate — use products-feed-{cc}.xml for GMC.</description>',
         '    <language>en-us</language>',
         f'    <pubDate>{now}</pubDate>',
     ]
@@ -1315,13 +1402,46 @@ def main():
     rows_ae = [build_row_ae(p, tr) for p in products]
     write_xml_ae(rows_ae, PUBLIC / "products-feed-ae.xml")
 
-    # CIS feed (RU language, native currencies: BY/KZ/UZ/TJ/KG/AM/GE/AZ)
+    # CIS: multi-country aggregate (non-GMC) + per-country GMC feeds
     cis_rows_by_country = {c: [build_row_cis(p, tr, c) for p in products] for c in CIS_COUNTRIES}
     write_xml_cis(cis_rows_by_country, PUBLIC / "products-feed-cis.xml")
+    for country, crows in cis_rows_by_country.items():
+        cur = CIS_NATIVE.get(country) or CIS_FX_COUNTRIES.get(country, "USD")
+        write_xml_single_country(
+            crows,
+            PUBLIC / f"products-feed-{country.lower()}.xml",
+            country=country,
+            currency=cur,
+            title=f"Казанские Деликатесы — Халяль Каталог ({country})",
+            description=(
+                f"Халяль пепперони, колбасы, казылык, татарская выпечка — "
+                f"оптовый каталог для {country} ({cur})."
+            ),
+            language="ru",
+            channel_link=f"{BASE_URL}/",
+        )
 
-    # Arab/GCC feed (EN language, USD prices: AE/SA/QA/KW/BH/OM/YE/EG)
+    # Arab/GCC: multi-country aggregate (non-GMC) + per-country GMC feeds.
+    # AE keeps dedicated products-feed-ae.xml (no -AE id suffix) — skip overwrite.
     arab_rows_by_country = {c: [build_row_arab(p, tr, c) for p in products] for c in ARAB_COUNTRIES}
     write_xml_arab(arab_rows_by_country, PUBLIC / "products-feed-arab.xml")
+    for country, arows in arab_rows_by_country.items():
+        if country == "AE":
+            continue  # products-feed-ae.xml already written above
+        cur = ARAB_FX[country][0]
+        write_xml_single_country(
+            arows,
+            PUBLIC / f"products-feed-{country.lower()}.xml",
+            country=country,
+            currency=cur,
+            title=f"Kazan Delicacies — Halal Catalog ({country})",
+            description=(
+                f"Halal pepperoni, sausages, kazylyk, Tatar pastries — "
+                f"wholesale catalog for {country} ({cur})."
+            ),
+            language="en-us",
+            channel_link=f"{BASE_URL}/en/",
+        )
 
     # OpenAI Commerce CSV feed (ChatGPT product discovery — RU/CIS)
     try:
