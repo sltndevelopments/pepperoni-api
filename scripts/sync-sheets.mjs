@@ -1,8 +1,16 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import {
+  loadRegistry,
+  saveRegistry,
+  bootstrapFromProducts,
+  assignSku,
+  retireMissing,
+  productKey,
+} from './sku_registry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
@@ -122,10 +130,9 @@ function extractQtyFromName(name) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
+function parseStandard(lines, section, reg, hasPiecePrice = true) {
   let category = '';
   const products = [];
-  let idx = startIdx;
 
   // Frozen (hasPiecePrice=true) — 30 cols:
   //   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
@@ -157,7 +164,6 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       continue;
     }
 
-    idx++;
     const qty = extractQtyFromName(name);
     const offers = {
       priceCurrency: 'RUB',
@@ -187,7 +193,8 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
     if (Object.keys(ep).length) offers.exportPrices = ep;
 
     const articleFromSheet = (cell(cols, 17) || '').trim();
-    const sku = `KD-${String(idx).padStart(3, '0')}`;
+    const weight = cols[1] || '';
+    const sku = assignSku(reg, name, weight);
 
     const mainPhoto = driveToDirectUrl(cell(cols, 27));
     const packPhoto = driveToDirectUrl(cell(cols, 28));
@@ -200,7 +207,7 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       articleNumber: articleFromSheet || undefined,
       section,
       category: category || section,
-      weight: cols[1] || '',
+      weight,
       brand: 'Казанские Деликатесы',
       offers,
       shelfLife: cell(cols, 5),
@@ -225,13 +232,12 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
     });
   }
 
-  return { products, nextIdx: idx };
+  return { products };
 }
 
-function parseBakery(lines, section, startIdx) {
+function parseBakery(lines, section, reg) {
   let category = '';
   const products = [];
-  let idx = startIdx;
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
@@ -245,8 +251,6 @@ function parseBakery(lines, section, startIdx) {
       if (name && !cols[1]) category = name;
       continue;
     }
-
-    idx++;
 
     const ep = {};
     if (toNumber(cols[9])) ep.USD = toNumber(cols[9]);
@@ -262,12 +266,13 @@ function parseBakery(lines, section, startIdx) {
     const slicePhoto = driveToDirectUrl((cols[30] || '').trim());
     const image = mainPhoto || packPhoto || slicePhoto || undefined;
 
+    const weight = cols[1] ? `${cols[1]} г` : '';
     const product = {
       name,
-      sku: `KD-${String(idx).padStart(3, '0')}`,
+      sku: assignSku(reg, name, weight),
       section,
       category: category || section,
-      weight: cols[1] ? `${cols[1]} г` : '',
+      weight,
       qtyPerBox: cols[2] || '',
       brand: 'Казанские Деликатесы',
       offers: {
@@ -290,7 +295,26 @@ function parseBakery(lines, section, startIdx) {
     products.push(product);
   }
 
-  return { products, nextIdx: idx };
+  return { products };
+}
+
+function removeOrphanProductPages(allProducts) {
+  const live = new Set(allProducts.map((p) => p.sku.toLowerCase()));
+  for (const dir of [join(PUBLIC, 'products'), join(PUBLIC, 'en', 'products')]) {
+    if (!existsSync(dir)) continue;
+    const removed = [];
+    for (const fname of readdirSync(dir)) {
+      if (!/^kd-\d+\.html$/i.test(fname)) continue;
+      const slug = fname.replace(/\.html$/i, '');
+      if (!live.has(slug)) {
+        unlinkSync(join(dir, fname));
+        removed.push(fname);
+      }
+    }
+    if (removed.length) {
+      console.log(`  🗑  Removed ${removed.length} orphan page(s) from ${dir}: ${removed.sort().join(', ')}`);
+    }
+  }
 }
 
 // --- Generate products.json ---
@@ -824,6 +848,9 @@ function applyDescriptionOverrides(products) {
 async function main() {
   console.log('📥 Загрузка данных из Google Sheets...');
 
+  // Stable SKUs: deleting/reordering rows must NOT reshuffle /products/kd-NNN
+  let reg = bootstrapFromProducts(loadRegistry());
+
   const csvs = await Promise.all(
     SHEETS.map((s) =>
       fetch(`${BASE_URL}&gid=${s.gid}`)
@@ -835,7 +862,6 @@ async function main() {
   );
 
   let allProducts = [];
-  let idx = 0;
 
   for (let i = 0; i < SHEETS.length; i++) {
     const lines = parseCSV(csvs[i]);
@@ -843,15 +869,18 @@ async function main() {
     let result;
 
     if (sheet.type === 'bakery') {
-      result = parseBakery(lines, sheet.section, idx);
+      result = parseBakery(lines, sheet.section, reg);
     } else {
-      result = parseStandard(lines, sheet.section, idx, sheet.hasPiecePrice !== false);
+      result = parseStandard(lines, sheet.section, reg, sheet.hasPiecePrice !== false);
     }
 
     console.log(`  ✅ ${sheet.section}: ${result.products.length} товаров`);
     allProducts = allProducts.concat(result.products);
-    idx = result.nextIdx;
   }
+
+  const liveKeys = allProducts.map((p) => productKey(p.name, p.weight));
+  retireMissing(reg, liveKeys);
+  saveRegistry(reg);
 
   console.log(`\n📊 Всего: ${allProducts.length} товаров\n`);
 
@@ -880,6 +909,7 @@ async function main() {
   console.log(`✅ ${rssPath}`);
 
   generateProductPages(allProducts);
+  removeOrphanProductPages(allProducts);
   console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
   // Rebuild sitemap.xml via Python script (auto-discovers ALL HTML pages

@@ -18,6 +18,15 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 SUBMISSION = ROOT / "submission"
 
+from sku_registry import (  # noqa: E402
+    assign_sku,
+    bootstrap_from_products,
+    load_registry,
+    product_key,
+    retire_missing,
+    save_registry,
+)
+
 # ── Data quality helpers ──
 
 def _is_scientific_notation(val) -> bool:
@@ -82,16 +91,17 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
-def parse_standard(lines, section, start_idx, has_piece_price=True):
+def parse_standard(lines, section, reg, has_piece_price=True):
     """Parse 'standard' B2B sheet (Frozen or Chilled).
 
     Frozen has separate 'Цена за 1 шт' column → hasPiecePrice=True.
     Chilled does NOT have it → hasPiecePrice=False, every column after B
     is effectively shifted left by 1.
+
+    SKUs come from data/sku_registry.json (stable across row deletes).
     """
     category = ""
     products = []
-    idx = start_idx
 
     if has_piece_price:
         col_price_piece = 2
@@ -121,7 +131,6 @@ def parse_standard(lines, section, start_idx, has_piece_price=True):
                 category = name
             continue
 
-        idx += 1
         qty = extract_qty_from_name(name)
         offers = {
             "priceCurrency": "RUB",
@@ -152,7 +161,8 @@ def parse_standard(lines, section, start_idx, has_piece_price=True):
             offers["exportPrices"] = ep
 
         article = (cols[17 + post] or "").strip() if len(cols) > 17 + post else ""
-        sku = f"KD-{idx:03d}"
+        weight = cols[1] if len(cols) > 1 else ""
+        sku = assign_sku(reg, name, weight)
 
         main_photo = (cols[27 + post] or "").strip() if len(cols) > 27 + post else ""
         pack_photo = (cols[28 + post] or "").strip() if len(cols) > 28 + post else ""
@@ -168,7 +178,7 @@ def parse_standard(lines, section, start_idx, has_piece_price=True):
             "sku": sku,
             "section": section,
             "category": category or section,
-            "weight": cols[1] if len(cols) > 1 else "",
+            "weight": weight,
             "brand": "Казанские Деликатесы",
             "offers": offers,
             "shelfLife": cell(5),
@@ -212,13 +222,12 @@ def parse_standard(lines, section, start_idx, has_piece_price=True):
 
         products.append(p)
 
-    return {"products": products, "next_idx": idx}
+    return {"products": products}
 
 
-def parse_bakery(lines, section, start_idx):
+def parse_bakery(lines, section, reg):
     category = ""
     products = []
-    idx = start_idx
 
     reader = csv.reader(io.StringIO(lines))
     for cols in reader:
@@ -236,7 +245,6 @@ def parse_bakery(lines, section, start_idx):
                 category = name
             continue
 
-        idx += 1
         ep = {}
         for i, cur in enumerate(["USD", "KZT", "UZS", "KGS", "BYN", "AZN"]):
             if len(cols) > 9 + i:
@@ -250,12 +258,13 @@ def parse_bakery(lines, section, start_idx):
         slice_photo = (cols[30] or "").strip() if len(cols) > 30 else ""
         image = main_photo or pack_photo or slice_photo
 
+        weight = f"{cols[1]} г" if cols[1] else ""
         p = {
             "name": name,
-            "sku": f"KD-{idx:03d}",
+            "sku": assign_sku(reg, name, weight),
             "section": section,
             "category": category or section,
-            "weight": f"{cols[1]} г" if cols[1] else "",
+            "weight": weight,
             "qtyPerBox": (cols[2] or "").strip(),
             "brand": "Казанские Деликатесы",
             "offers": {
@@ -281,7 +290,7 @@ def parse_bakery(lines, section, start_idx):
 
         products.append(p)
 
-    return {"products": products, "next_idx": idx}
+    return {"products": products}
 
 
 def generate_products_json(all_products):
@@ -1551,8 +1560,8 @@ def apply_description_overrides(products):
 def main():
     print("📥 Загрузка данных из Google Sheets...")
 
+    reg = bootstrap_from_products(load_registry())
     all_products = []
-    idx = 0
 
     for sheet in SHEETS:
         url = f"{BASE_URL}&gid={sheet['gid']}"
@@ -1561,13 +1570,15 @@ def main():
             text = r.read().decode("utf-8")
 
         if sheet["type"] == "bakery":
-            result = parse_bakery(text, sheet["section"], idx)
+            result = parse_bakery(text, sheet["section"], reg)
         else:
-            result = parse_standard(text, sheet["section"], idx, sheet.get("hasPiecePrice", True))
+            result = parse_standard(text, sheet["section"], reg, sheet.get("hasPiecePrice", True))
 
         print(f"  ✅ {sheet['section']}: {len(result['products'])} товаров")
         all_products.extend(result["products"])
-        idx = result["next_idx"]
+
+    retire_missing(reg, [product_key(p["name"], p.get("weight", "")) for p in all_products])
+    save_registry(reg)
 
     print(f"\n📊 Всего: {len(all_products)} товаров\n")
 
