@@ -1,0 +1,14 @@
+{
+  "generated_at": "2026-07-16T05:43:19.604840+00:00",
+  "counts": {
+    "blog_ru": 189,
+    "blog_en": 129,
+    "clusters_ru": 0,
+    "clusters_en": 0,
+    "redirect_candidates_ru": 0,
+    "redirect_candidates_en": 0
+  },
+  "clusters_ru": [],
+  "clusters_en": [],
+  "notes": "Canonical picked by: spelling penalty, text length, earliest datePublished, shorter slug. Apply via scripts/apply_blog_canonicals.py."
+}
