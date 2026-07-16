@@ -87,8 +87,20 @@ img{max-width:100%;height:auto}
 .hero h1{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:14px;max-width:750px;margin-left:auto;margin-right:auto}
 .hero__sub{font-size:1rem;opacity:.88;max-width:560px;margin:0 auto 28px}
 .hero__btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.hero-video{background:#111;line-height:0}
-.hero-video video{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;max-height:min(72vh,720px)}
+.video-band{background:#f3f5f3;padding:36px 0 40px;border-bottom:1px solid var(--border)}
+.video-player{position:relative;max-width:860px;margin:0 auto;border-radius:14px;overflow:hidden;background:#111;aspect-ratio:16/9;box-shadow:0 10px 36px rgba(0,0,0,.12)}
+.video-player__poster{display:block;width:100%;height:100%;object-fit:cover}
+.video-player__video{display:none;width:100%;height:100%;object-fit:cover;background:#000}
+.video-player.is-playing .video-player__video{display:block}
+.video-player.is-playing .video-player__poster,
+.video-player.is-playing .video-player__play{display:none}
+.video-player__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;border:0;background:rgba(10,30,18,.28);cursor:pointer;color:#fff;transition:background .2s}
+.video-player__play:hover{background:rgba(10,30,18,.4)}
+.video-player__play:focus-visible{outline:3px solid #fff;outline-offset:-6px}
+.video-player__icon{width:72px;height:72px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.35);transition:transform .2s,background .2s}
+.video-player__play:hover .video-player__icon{transform:scale(1.06);background:var(--green-dark)}
+.video-player__icon svg{width:28px;height:28px;margin-left:3px;fill:#fff}
+.video-player__label{font-size:.92rem;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.45)}
 .btn{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;font-size:.92rem;cursor:pointer;transition:all .2s}
 .btn-primary{background:#fff;color:var(--green)}
 .btn-primary:hover{background:var(--green-light);transform:translateY(-1px)}
@@ -223,11 +235,35 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   </div>
 </section>
 
-<section class="hero-video" aria-label="Видео производства">
-  <video autoplay muted loop playsinline preload="metadata" poster="/videos/hero-ru-poster.jpg" aria-label="Производство халяль продукции Казанские Деликатесы">
-    <source src="/videos/hero-ru.mp4" type="video/mp4">
-  </video>
+<section class="video-band" aria-label="Видео производства">
+  <div class="container">
+    <div class="video-player" data-src="/videos/hero-ru.mp4">
+      <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" loading="lazy" decoding="async">
+      <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
+        <span class="video-player__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="video-player__label">Смотреть видео</span>
+      </button>
+      <video class="video-player__video" playsinline controls preload="none" title="Производство халяль продукции Казанские Деликатесы"></video>
+    </div>
+  </div>
 </section>
+<script>
+(function(){
+  document.querySelectorAll('.video-player').forEach(function(player){
+    var btn=player.querySelector('.video-player__play');
+    var video=player.querySelector('.video-player__video');
+    if(!btn||!video||!player.dataset.src) return;
+    btn.addEventListener('click',function(){
+      if(player.classList.contains('is-playing')) return;
+      video.src=player.dataset.src;
+      player.classList.add('is-playing');
+      video.play().catch(function(){});
+    });
+  });
+})();
+</script>
 
 <div class="badges">
   <div class="container badges__inner">
