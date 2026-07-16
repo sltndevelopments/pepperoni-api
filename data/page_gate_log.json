@@ -936,5 +936,45 @@
    "страница обрезана (нет </html>)"
   ],
   "error": ""
+ },
+ {
+  "ts": "2026-07-16T05:37:31.746215+00:00",
+  "path": "data/tmp/sosiki-v-teste-optom.html",
+  "verdict": "reject",
+  "reasons": [
+   "тонкая страница: 253 слов < 300",
+   "страница обрезана (нет </html>)"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-07-16T05:37:31.770310+00:00",
+  "path": "data/tmp/farsh-halyal-optom.html",
+  "verdict": "reject",
+  "reasons": [
+   "тонкая страница: 273 слов < 300",
+   "страница обрезана (нет </html>)"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-07-16T05:37:31.794176+00:00",
+  "path": "data/tmp/kazylyk-premium-optom.html",
+  "verdict": "reject",
+  "reasons": [
+   "тонкая страница: 249 слов < 300",
+   "страница обрезана (нет </html>)"
+  ],
+  "error": ""
+ },
+ {
+  "ts": "2026-07-16T05:37:31.818318+00:00",
+  "path": "data/tmp/private-label-kolbasy-halyal.html",
+  "verdict": "reject",
+  "reasons": [
+   "тонкая страница: 239 слов < 300",
+   "страница обрезана (нет </html>)"
+  ],
+  "error": ""
  }
 ]

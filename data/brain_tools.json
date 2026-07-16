@@ -8,7 +8,7 @@
    "spec": "Читает данные GSC и список страниц public/, фильтрует запросы по коммерческим маркерам, сопоставляет ранжируемую страницу со словами запроса, печатает топ-20 пар query/impr/pos/page с пометкой 'нет лендинга'",
    "updated_at": "2026-06-12T05:32:16.738985+00:00",
    "last_result": "{\"error\": \"No GSC data found\", \"gaps\": []}",
-   "last_run_at": "2026-07-15T05:35:12.465519+00:00"
+   "last_run_at": "2026-07-16T05:35:25.384550+00:00"
   },
   "cannibalization_finder": {
    "status": "ready",
@@ -112,6 +112,13 @@
     "model": "sonnet",
     "result": "rolled_back",
     "error": "syntax: unterminated triple-quoted f-string literal (detected at line 501) (<unknown>, line 499)"
+   },
+   {
+    "at": "20260716T053419Z",
+    "change": "Запретить в выводе служебные префиксы модели ('Вот', 'Вот страница:', 'Конечно' и т.п.) в начале HTML — они попадают в прод как junk (20 страниц заражены). Добавить пост-фильтр: срезать любой текст до первого '<' и валидировать, что документ начинается с валидного HTML-тега.",
+    "model": "sonnet",
+    "result": "rolled_back",
+    "error": "syntax: unterminated string literal (detected at line 507) (<unknown>, line 507)"
    }
   ],
   "fable_websearch": [
@@ -201,6 +208,13 @@
    },
    {
     "at": "20260715T053510Z",
+    "change": "Web-поиск сломан: в findings улетел query='a' (буква алфавита) вместо реального запроса. Проверить формирование запроса — берётся некорректное поле/пустая строка обрезается до 1 символа. Логировать фактический отправленный query.",
+    "model": "sonnet",
+    "result": "rolled_back",
+    "error": "syntax: invalid character '—' (U+2014) (<unknown>, line 1)"
+   },
+   {
+    "at": "20260716T053523Z",
     "change": "Web-поиск сломан: в findings улетел query='a' (буква алфавита) вместо реального запроса. Проверить формирование запроса — берётся некорректное поле/пустая строка обрезается до 1 символа. Логировать фактический отправленный query.",
     "model": "sonnet",
     "result": "rolled_back",
