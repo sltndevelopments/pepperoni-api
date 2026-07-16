@@ -267,9 +267,10 @@ if [ "$(date +%u)" = "7" ] || [ "${FORCE_SWEEP:-0}" = "1" ]; then
     fi
 fi
 
-# ---- Step 4: Generate content via CONTENT_MODEL (claude-sonnet-4-6) ----
-log "Step 4: Generating content …"
-python3 scripts/generate_content.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Content generation failed (non-fatal)"
+# ---- Step 4: Legacy generate_content.py DISABLED ----
+# Truncated (no main) and topic list exhausted. Sole blog publisher is
+# generate_from_strategy.py (Step 3.6) + blog_topic_dedup near-dup gate.
+log "Step 4: skipped — legacy generate_content.py disabled (use strategy executor)"
 
 # ---- Step 4b: Bulk geo pages (full assortment × RU + CIS cities) ----
 log "Step 4b: Generating bulk geo pages …"

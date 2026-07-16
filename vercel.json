@@ -363,6 +363,201 @@
       "source": "/pepperoni-dlya-distribyutorov",
       "destination": "/dlya-distributorov",
       "permanent": true
+    },
+    {
+      "source": "/blog/chto-takoe-halyal-pepperoni",
+      "destination": "/blog/what-is-halal-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/blog/chto-takoe-kazylyk",
+      "destination": "/blog/kazylyk",
+      "permanent": true
+    },
+    {
+      "source": "/blog/echpochmak-eto",
+      "destination": "/blog/echpochmak",
+      "permanent": true
+    },
+    {
+      "source": "/blog/ecpochmak",
+      "destination": "/blog/echpochmak",
+      "permanent": true
+    },
+    {
+      "source": "/blog/gubadiya-chto-eto",
+      "destination": "/blog/gubadiya-eto",
+      "permanent": true
+    },
+    {
+      "source": "/blog/halal-sosiski-dlya-hot-dogov-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/halyal-sosiski-dlya-hot-dogov-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/iso-22000-sertifikaciya",
+      "destination": "/blog/iso-22000-certification",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kazylyk-chto-eto",
+      "destination": "/blog/kazylyk",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kazylyk-eto",
+      "destination": "/blog/kazylyk",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kazylyk-premium-podark",
+      "destination": "/blog/kazylyk-premium-gift",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kotlety-dlya-burgerov-kupit-optom",
+      "destination": "/blog/kotlety-dlya-burgerov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kotlety-dlya-burgerov-optom-gid",
+      "destination": "/blog/kotlety-dlya-burgerov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kotlety-dlya-burgerov-optom-halal",
+      "destination": "/blog/kotlety-dlya-burgerov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kotlety-dlya-gamburgerov-optom",
+      "destination": "/blog/kotlety-dlya-burgerov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/kupit-kotlety-dlya-burgerov-optom",
+      "destination": "/blog/kotlety-dlya-burgerov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/meat-delicacies-kazan",
+      "destination": "/blog/myasnye-delikatesy-kazan",
+      "permanent": true
+    },
+    {
+      "source": "/blog/peperoni-iz-kakogo-myasa",
+      "destination": "/blog/pepperoni-iz-kakogo-myasa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halal-kupit-optom",
+      "destination": "/blog/pepperoni-halyal-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halal-optom",
+      "destination": "/blog/pepperoni-halyal-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halyal",
+      "destination": "/blog/pepperoni-halyal-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halyal-ili-net",
+      "destination": "/blog/pepperoni-halal-ili-net",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halyal-kupit",
+      "destination": "/blog/pepperoni-halyal-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/postavschik-sosisok-dlya-hot-dogov",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiki-dlya-hotdog-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiski-dlya-hot-dogov-kupit-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiski-dlya-hot-dogov-kupit-optom-v-moskve",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiski-dlya-hot-dogov-optom-halal",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/sosiski-dlya-hotdog-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-echpochmak",
+      "destination": "/blog/echpochmak",
+      "permanent": true
+    },
+    {
+      "source": "/blog/what-is-kazylyk",
+      "destination": "/blog/kazylyk",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/chto-takoe-halyal-pepperoni",
+      "destination": "/en/blog/what-is-halal-pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/gubadiya-chto-eto",
+      "destination": "/blog/gubadiya-eto",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/iso-22000-sertifikaciya",
+      "destination": "/en/blog/iso-22000-certification",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/meat-delicacies-kazan",
+      "destination": "/blog/myasnye-delikatesy-kazan",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/pepperoni-halyal",
+      "destination": "/blog/pepperoni-halyal-optom",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/sosiski-dlya-hotdog-optom",
+      "destination": "/blog/sosiski-dlya-hot-dogov-optom",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/what-is-echpochmak",
+      "destination": "/blog/echpochmak",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/what-is-kazylyk",
+      "destination": "/blog/kazylyk",
+      "permanent": true
     }
   ],
   "rewrites": [

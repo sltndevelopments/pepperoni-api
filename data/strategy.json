@@ -12,7 +12,24 @@
   "en"
  ],
  "geo_daily_target": 0,
- "new_blog_topics": [],
+ "blog_weekly_target": 3,
+ "new_blog_topics": [
+  {
+   "slug": "halyal-farsh-dlya-pekaren-optom",
+   "title_ru": "Фарш халяль для пекарен оптом: ТУ, сроки, поставка из Казани",
+   "intent": "коммерческий"
+  },
+  {
+   "slug": "sosiski-v-teste-dlya-shkol-optom",
+   "title_ru": "Сосиски в тесте для школ оптом: халяль, документы, логистика",
+   "intent": "коммерческий"
+  },
+  {
+   "slug": "pepperoni-dlya-dark-kitchen-optom",
+   "title_ru": "Пепперони для dark kitchen оптом: калибр, срок, стабильность топпинга",
+   "intent": "коммерческий"
+  }
+ ],
  "pl_oem_topics": [
   {
    "slug": "sosiki-v-teste-optom",
@@ -87,7 +104,7 @@
  ],
  "prompt_tweaks": {
   "geo": "СТОП новым гео. Фундамент сломан: 1593 битых ссылки, 597 дублей canonical, 124 тонких, 20 junk-страниц.",
-  "blog": "Не плодить инфо-статьи. Только починка not_indexed + перелинковка на коммерч. категории.",
+  "blog": "Ритм 2–3 коммерческих RU/нед из blog_topic_queue. Near-dup (halyal/halal, optom/kupit) запрещён. Инфо — только с перелинковкой на канон. После дедупа кластеров — не воскрешать _removed_ slug'и.",
   "pl": "Категорийные страницы = приоритет №1 (директива владельца, закрывают битые ссылки). Обязательно: H1, ≥400 слов, тех.характеристики продукта (вес, состав, упаковка, сроки), цена/прайс-CTA, форма заявки, FAQ, schema Organization+Breadcrumb. Без overclaim по сертификатам. Это устранит reject-паттерны (нет H1, тонкая, нет тех.характеристик)."
  },
  "propose_tools": [

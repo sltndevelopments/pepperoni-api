@@ -58,6 +58,17 @@ def load_strategy() -> dict:
         return {}
 
 
+_BLOG_EXISTING_CACHE: list[dict] | None = None
+
+
+def _blog_existing() -> list[dict]:
+    global _BLOG_EXISTING_CACHE
+    if _BLOG_EXISTING_CACHE is None:
+        from blog_topic_dedup import scan_blog
+        _BLOG_EXISTING_CACHE = scan_blog("ru")
+    return _BLOG_EXISTING_CACHE
+
+
 def prep_blog(topic: dict) -> dict | None:
     """Build a batch-ready request for one blog topic (None → skip)."""
     slug = topic.get("slug") or slugify(topic.get("title_ru", ""))
@@ -67,6 +78,13 @@ def prep_blog(topic: dict) -> dict | None:
     if out.exists():
         return None
     title = topic.get("title_ru", slug)
+    # Near-duplicate gate (normalized slug / commercial key / title overlap)
+    from blog_topic_dedup import is_near_duplicate
+    is_dup, reason = is_near_duplicate(slug, title, _blog_existing())
+    if is_dup:
+        print(f"  ⏭ blog skip near-dup /blog/{slug}: {reason}")
+        _mark_queue(slug, "skipped_dup")
+        return None
     intent = topic.get("intent", "информационный")
     from brand_system import brand_block
     system = brand_block("ru") + "\n\n" + (
@@ -139,6 +157,27 @@ Requirements:
             "system": system, "prompt": prompt}
 
 
+def _mark_queue(slug: str, status: str) -> None:
+    """Mark a blog_topic_queue entry done/skipped_dup after executor runs."""
+    qpath = DATA / "blog_topic_queue.json"
+    if not qpath.exists() or not slug:
+        return
+    try:
+        q = json.loads(qpath.read_text(encoding="utf-8"))
+        changed = False
+        for t in q.get("topics") or []:
+            if t.get("slug") == slug and t.get("status") == "pending":
+                t["status"] = status
+                t["updated_at"] = TODAY
+                changed = True
+        if changed:
+            q["updated_at"] = datetime.now(timezone.utc).isoformat()
+            qpath.write_text(json.dumps(q, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+    except Exception as e:
+        print(f"  ⚠️  queue update {slug}: {e}", file=sys.stderr)
+
+
 def _write_page(prep: dict, html: str) -> bool:
     """Write page and run the quality gate synchronously. Returns True only if published.
 
@@ -190,6 +229,8 @@ def _write_page(prep: dict, html: str) -> bool:
     _shutil.move(str(tmp_path), str(final_out))
 
     print(f"  ✓ {prep['label']}")
+    if prep.get("action") == "blog_post":
+        _mark_queue(final_out.stem, "done")
     return True
 
 
