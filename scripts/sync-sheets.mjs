@@ -116,6 +116,67 @@ function fixBarcode(raw) {
   return s;
 }
 
+/** Normalize sheet header for matching (case/whitespace insensitive). */
+function normalizeHeader(h) {
+  return String(h || '')
+    .toLowerCase()
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Logical column → header aliases (matched by exact normalized name or includes). */
+const HEADER_ALIASES = {
+  barcode: ['штрих-код', 'штрихкод', 'barcode', 'gtin', 'ean'],
+  article: ['артикул'],
+  seoRU: ['seo описание ru'],
+  seoEN: ['seo описание en'],
+  diameter: ['диаметр'],
+  casing: ['оболочка'],
+  ingredientsRU: ['состав ru'],
+  ingredientsEN: ['состав en'],
+  nutrition: ['кбжу'],
+  packageType: ['тип упаковки'],
+  boxWeightGross: ['вес коробки брутто'],
+  mainPhoto: ['главное фото'],
+  packPhoto: ['фото упаковки'],
+  slicePhoto: ['фото среза'],
+  params: ['параметры товара'],
+  quantum: ['квант'],
+};
+
+function findHeaderRowIndex(lines) {
+  const n = Math.min(lines.length, 12);
+  for (let i = 0; i < n; i++) {
+    const first = normalizeHeader(lines[i]?.[0]);
+    if (first === 'наименование' || first === 'номенклатура') return i;
+  }
+  return -1;
+}
+
+/** Build { logicalKey: columnIndex } from a header row. */
+function buildColIndex(headerRow) {
+  const idx = {};
+  const norms = (headerRow || []).map(normalizeHeader);
+  for (const [key, aliases] of Object.entries(HEADER_ALIASES)) {
+    for (let j = 0; j < norms.length; j++) {
+      const h = norms[j];
+      if (!h) continue;
+      if (aliases.some((a) => h === a || h.includes(a))) {
+        idx[key] = j;
+        break;
+      }
+    }
+  }
+  return idx;
+}
+
+function cellBy(cols, colIndex, key) {
+  const j = colIndex[key];
+  if (j == null || j < 0 || j >= cols.length) return '';
+  return cols[j] || '';
+}
+
 /** Convert Google Drive view link to direct image URL */
 function driveToDirectUrl(url) {
   if (!url || typeof url !== 'string') return '';
@@ -134,14 +195,16 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
   let category = '';
   const products = [];
 
+  // Price/currency layout still differs by sheet type (frozen has "Цена за 1 шт").
+  // Metadata (barcode, SEO, photos…) is resolved by header name — not hard index —
+  // so a column shift cannot silently drop GTIN again (bakery lesson).
+  //
   // Frozen (hasPiecePrice=true) — 30 cols:
   //   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
-  //   H=7 HS, I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 Article,
-  //   S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN, V=21 Diameter, W=22 Casing, X=23 IngrRU,
-  //   Y=24 IngrEN, Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+  //   H=7 HS, I-N=8-13 currencies, then header-mapped: Params, Quantum, Box, Article, Barcode…
   //
   // Chilled (hasPiecePrice=false) — 29 cols, NO "Цена за 1 шт";
-  //   everything after B shifts left by 1 (post=-1).
+  //   everything after B shifts left by 1 (post=-1) for price/HS/currency indices only.
   const colPriceVat = hasPiecePrice ? 3 : 2;
   const colPriceNoVat = hasPiecePrice ? 4 : 3;
   const colPricePiece = hasPiecePrice ? 2 : null;
@@ -150,6 +213,14 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
     const j = i + post;
     return j >= 0 && j < cols.length ? (cols[j] || '') : '';
   };
+
+  const headerRowIdx = findHeaderRowIndex(lines);
+  const colIndex = headerRowIdx >= 0 ? buildColIndex(lines[headerRowIdx]) : {};
+  if (colIndex.barcode == null) {
+    console.warn(`     ⚠️  ${section}: колонка «Штрих-код» не найдена в заголовке CSV`);
+  } else {
+    console.log(`     ↪ ${section}: Штрих-код = колонка [${colIndex.barcode}]`);
+  }
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
@@ -192,14 +263,26 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
     }
     if (Object.keys(ep).length) offers.exportPrices = ep;
 
-    const articleFromSheet = (cell(cols, 17) || '').trim();
+    const articleFromSheet = (cellBy(cols, colIndex, 'article') || cell(cols, 17) || '').trim();
     const weight = cols[1] || '';
     const sku = assignSku(reg, name, weight);
 
-    const mainPhoto = driveToDirectUrl(cell(cols, 27));
-    const packPhoto = driveToDirectUrl(cell(cols, 28));
-    const slicePhoto = driveToDirectUrl(cell(cols, 29));
+    const mainPhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'mainPhoto') || cell(cols, 27)
+    );
+    const packPhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'packPhoto') || cell(cols, 28)
+    );
+    const slicePhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'slicePhoto') || cell(cols, 29)
+    );
     const image = mainPhoto || packPhoto || slicePhoto || '';
+
+    const boxRaw = cellBy(cols, colIndex, 'boxWeightGross') || cell(cols, 16);
+    const boxN = parseFloat((boxRaw || '').replace(',', '.'));
+    let boxWeightGross = '';
+    if (boxN && boxN <= 1000) boxWeightGross = boxRaw;
+    else if (boxN > 1000) console.warn(`     ⚠️  ${name}: boxWeightGross=${boxRaw} — suspicious value, check Google Sheet columns`);
 
     products.push({
       name,
@@ -213,18 +296,20 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
       shelfLife: cell(cols, 5),
       storage: cell(cols, 6),
       hsCode: cell(cols, 7),
-      cookingMethods: cell(cols, 14),
-      minOrder: cell(cols, 15),
-      boxWeightGross: (() => { const v = cell(cols, 16); const n = parseFloat((v||'').replace(',','.')); if (!n || n > 1000) { if (n > 1000) console.warn(`     ⚠️  ${cell(cols,0)}: boxWeightGross=${v} — suspicious value, check Google Sheet columns`); return ''; } return v; })(),
-      barcode: fixBarcode(cell(cols, 18)),
-      seoDescriptionRU: cell(cols, 19),
-      seoDescriptionEN: cell(cols, 20),
-      diameter: cell(cols, 21),
-      casing: cell(cols, 22),
-      ingredientsRU: cell(cols, 23),
-      ingredientsEN: cell(cols, 24),
-      nutrition: cell(cols, 25),
-      packageType: cell(cols, 26),
+      cookingMethods: cellBy(cols, colIndex, 'params') || cell(cols, 14),
+      minOrder: cellBy(cols, colIndex, 'quantum') || cell(cols, 15),
+      boxWeightGross,
+      barcode: fixBarcode(
+        (cellBy(cols, colIndex, 'barcode') || cell(cols, 18) || '').trim()
+      ),
+      seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cell(cols, 19),
+      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cell(cols, 20),
+      diameter: cellBy(cols, colIndex, 'diameter') || cell(cols, 21),
+      casing: cellBy(cols, colIndex, 'casing') || cell(cols, 22),
+      ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cell(cols, 23),
+      ingredientsEN: cellBy(cols, colIndex, 'ingredientsEN') || cell(cols, 24),
+      nutrition: cellBy(cols, colIndex, 'nutrition') || cell(cols, 25),
+      packageType: cellBy(cols, colIndex, 'packageType') || cell(cols, 26),
       image,
       imageMain: mainPhoto || undefined,
       imagePack: packPhoto || undefined,
@@ -238,6 +323,17 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
 function parseBakery(lines, section, reg) {
   let category = '';
   const products = [];
+
+  // Bakery price layout: 0 Name, 1 Weight g, 2 Qty/box, 3 Price/pc, 4 Box VAT,
+  //   5 Box noVAT, 6 Shelf, 7 Storage, 8 HS, 9-14 currencies.
+  // Metadata (barcode/SEO/photos…) — by header name.
+  const headerRowIdx = findHeaderRowIndex(lines);
+  const colIndex = headerRowIdx >= 0 ? buildColIndex(lines[headerRowIdx]) : {};
+  if (colIndex.barcode == null) {
+    console.warn(`     ⚠️  ${section}: колонка «Штрих-код» не найдена в заголовке CSV`);
+  } else {
+    console.log(`     ↪ ${section}: Штрих-код = колонка [${colIndex.barcode}]`);
+  }
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
@@ -260,16 +356,29 @@ function parseBakery(lines, section, reg) {
     if (toNumber(cols[13])) ep.BYN = toNumber(cols[13]);
     if (toNumber(cols[14])) ep.AZN = toNumber(cols[14]);
 
-    // Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
-    const mainPhoto = driveToDirectUrl((cols[28] || '').trim());
-    const packPhoto = driveToDirectUrl((cols[29] || '').trim());
-    const slicePhoto = driveToDirectUrl((cols[30] || '').trim());
+    const mainPhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'mainPhoto') || cols[28] || '').trim()
+    );
+    const packPhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'packPhoto') || cols[29] || '').trim()
+    );
+    const slicePhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'slicePhoto') || cols[30] || '').trim()
+    );
     const image = mainPhoto || packPhoto || slicePhoto || undefined;
 
     const weight = cols[1] ? `${cols[1]} г` : '';
+    const articleFromSheet = (cellBy(cols, colIndex, 'article') || cols[18] || '').trim();
+    const boxRaw = (cellBy(cols, colIndex, 'boxWeightGross') || cols[17] || '').trim();
+    const boxN = parseFloat(boxRaw.replace(',', '.'));
+    let boxWeightGross = '';
+    if (boxN && boxN <= 1000) boxWeightGross = boxRaw;
+    else if (boxN > 1000) console.warn(`     ⚠️  ${name}: boxWeightGross=${boxRaw} — suspicious value`);
+
     const product = {
       name,
       sku: assignSku(reg, name, weight),
+      articleNumber: articleFromSheet || undefined,
       section,
       category: category || section,
       weight,
@@ -286,6 +395,18 @@ function parseBakery(lines, section, reg) {
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
       hsCode: cols[8] || '',
+      boxWeightGross,
+      barcode: fixBarcode(
+        (cellBy(cols, colIndex, 'barcode') || cols[19] || '').trim()
+      ),
+      seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cols[20] || '',
+      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cols[21] || '',
+      diameter: cellBy(cols, colIndex, 'diameter') || cols[22] || '',
+      casing: cellBy(cols, colIndex, 'casing') || cols[23] || '',
+      ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cols[24] || '',
+      ingredientsEN: cellBy(cols, colIndex, 'ingredientsEN') || cols[25] || '',
+      nutrition: cellBy(cols, colIndex, 'nutrition') || cols[26] || '',
+      packageType: cellBy(cols, colIndex, 'packageType') || cols[27] || '',
     };
     if (image) product.image = image;
     if (mainPhoto) product.imageMain = mainPhoto;
@@ -614,7 +735,7 @@ function generateGoogleFeed(allProducts) {
 <g:condition>new</g:condition>
 <g:brand>Kazan Delicacies</g:brand>
 <g:product_type>${escapeXml(p.section + ' > ' + p.category)}</g:product_type>
-${p.hsCode ? `<g:gtin>${escapeXml(p.hsCode)}</g:gtin>` : ''}
+${p.barcode ? `<g:gtin>${escapeXml(p.barcode)}</g:gtin>` : ''}
 </item>
 `;
   }
@@ -874,7 +995,10 @@ async function main() {
       result = parseStandard(lines, sheet.section, reg, sheet.hasPiecePrice !== false);
     }
 
-    console.log(`  ✅ ${sheet.section}: ${result.products.length} товаров`);
+    const withBarcode = result.products.filter((p) => p.barcode).length;
+    console.log(
+      `  ✅ ${sheet.section}: ${result.products.length} товаров (GTIN: ${withBarcode}/${result.products.length})`
+    );
     allProducts = allProducts.concat(result.products);
   }
 
