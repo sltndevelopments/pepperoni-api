@@ -6,8 +6,22 @@
 
 ## Current step
 
-**GEO answer-first backfill — DONE (2026-07-17).** Карантин 0.4 — всё ещё
-блокер (нет SSH на VPS + нет локального `ANTHROPIC_API_KEY`).
+**Задача 0.4 — закрытие карантина БЕЗ Anthropic (template fill) — DONE partial.**
+
+- SSH: хост `pepperoni-vps` (`IdentityFile ~/.ssh/pepperoni_vps`), не bare IP.
+- Anthropic batch/sync жёг бюджет и вис — **остановлен** (spend ~$2.43).
+- Вместо LLM: `scripts/generate_geo_template.py` — детерминированная подстановка
+  города в проверенные HTML-шеллы (`sosiski-v-teste-korolev`,
+  `sosiski-dlya-hotdog-aktobe`). Гейт: только `is_valid_page`, без
+  `page_reviewer` / Claude.
+- Результат: **46 новых** страниц `ru`+`en` из очереди 102; 2 уже были;
+  остальные языки (ar/fr/ms/id/tr/…) **не генерировались** (нет шеллов,
+  не плодим локали).
+- Задачи: `data/geo_0.4_tasks.json`.
+
+---
+
+**Архив: GEO answer-first backfill — DONE (2026-07-17).**
 
 - Добавлен `scripts/backfill_geo_tldr.py`: детерминированно вставляет
   `<div class="tldr-answer">` из `data/products_geo.json` + город
@@ -154,6 +168,11 @@
 
 ## Log
 
+- **2026-07-17 задача 0.4 без Anthropic (владелец: не жги токены / composer?)**:
+  Done: `scripts/generate_geo_template.py` → 46 HTML (`public/geo` +
+  `public/en/geo`), `is_valid_page` 48/48 ok. Anthropic не вызывался.
+  Blockers: non-ru/en хвост очереди (~54) без шаблонов; LLM-reviewer не
+  использовали намеренно. Batch `msgbatch_01Bvs1bE…` был в canceling.
 - **2026-07-17 GEO answer-first backfill (владелец: «дополни для GEO / делай»)**:
   Done: `scripts/backfill_geo_tldr.py` + прогон по geo-локалям.
   До: RU `579–663` с tldr из ~2975; EN/AR/KK ≈ 0.
