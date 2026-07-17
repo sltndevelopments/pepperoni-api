@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-07-16">
+<yml_catalog date="2026-07-17">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -195,7 +195,7 @@
 <vendorCode>999888</vendorCode>
 <description>Профессиональные сосиски гриль «Из конины» Халяль — отличное решение для HORECA, стритфуда и хот-догов. Благодаря термостабильной рецептуре продукт не ужаривается, сохраняет сочность и аппетитный внешний вид при приготовлении. Насыщенный вкус конины в сочетании с ароматными специями делает сосиски идеальными для гриля и быстрого приготовления. Состав: конина, говядина, мясо птицы (кур), кожа кур, вода, мука пшеничная, клетчатка растительная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), сахар, перец черный, кардамон молотый, регуляторы кислотности (Е223, Е262), антиокислитель (Е301). Может содержать следы молока, яичного белка, соевого белка. Пищевая ценность на 100 г продукта: белки — 14 г, жиры — 21 г, углеводы — 3,6 г. Энергетическая ценность: 1086,06 кДж / 259,4 ккал. Без оболочки. Срок годности: 360 суток при температуре не выше –18 °C.</description>
 <barcode>4680638721452</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,48</param>
 <param name="Срок годности">360 суток</param>
@@ -392,29 +392,6 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-017" available="true">
-<name>Сосиски «К завтраку»</name>
-<url>https://pepperoni.tatar/products/kd-017</url>
-<price>135</price>
-<currencyId>RUB</currencyId>
-<categoryId>7</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>999921</vendorCode>
-<description>Сосиски «К завтраку» — универсальный продукт для домашней кухни и HORECA. Благодаря мягкой текстуре и сбалансированным специям они отлично подходят для завтраков, хот-догов и горячих блюд. Состав: мясо куриное механической обвалки, говядина, куриные яйца, растительный белок, манная крупа, картофельный крахмал, сливки, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
-
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg</picture>
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">0,4</param>
-<param name="Срок годности">30 суток</param>
-<param name="Температура хранения">0-6 ˚C</param>
-<param name="ТН ВЭД">160100</param>
-<param name="Диаметр, мм">0</param>
-<param name="Оболочка">есть</param>
-
-<param name="Мин. заказ, коробов">0</param>
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
 <offer id="KD-018" available="true">
 <name>Сосиски «К завтраку» (без оболочки) 
  для «Сосиски в тесте» 45 гр</name>
@@ -436,6 +413,29 @@
 <param name="Оболочка">без оболоччки</param>
 
 
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
+<offer id="KD-017" available="true">
+<name>Сосиски «К завтраку»</name>
+<url>https://pepperoni.tatar/products/kd-017</url>
+<price>135</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>999921</vendorCode>
+<description>Сосиски «К завтраку» — универсальный продукт для домашней кухни и HORECA. Благодаря мягкой текстуре и сбалансированным специям они отлично подходят для завтраков, хот-догов и горячих блюд. Состав: мясо куриное механической обвалки, говядина, куриные яйца, растительный белок, манная крупа, картофельный крахмал, сливки, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C в вакуумной упаковке.</description>
+
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,4</param>
+<param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
+<param name="ТН ВЭД">160100</param>
+<param name="Диаметр, мм">0</param>
+<param name="Оболочка">есть</param>
+
+<param name="Мин. заказ, коробов">0</param>
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
@@ -577,6 +577,29 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
+<offer id="KD-035" available="true">
+<name>Колбаски с Сыром</name>
+<url>https://pepperoni.tatar/products/kd-035</url>
+<price>271</price>
+<currencyId>RUB</currencyId>
+<categoryId>7</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>999964</vendorCode>
+<description>Колбаски «С сыром» — отличный вариант для гриля, завтраков и горячих блюд. Благодаря сочетанию говядины, куриного филе и твёрдого сыра продукт имеет сочную текстуру и насыщенный вкус. Подходят для приготовления на сковороде, гриле или подаче в качестве горячей закуски. Состав: говядина, куриное филе, твердый сыр, куриная кожа, пшеничная мука, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C.</description>
+<barcode>4680638720455</barcode>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg</picture>
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">0,3</param>
+<param name="Срок годности">30 суток</param>
+<param name="Температура хранения">0-6 ˚C</param>
+<param name="ТН ВЭД">160100</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
 <offer id="KD-025" available="true">
 <name>Вареная «Из Говядины»</name>
 <url>https://pepperoni.tatar/products/kd-025</url>
@@ -656,7 +679,7 @@
 <vendorCode>999946</vendorCode>
 <description>Сосиски Сочные в/с — халяль, Казань | Нежные говяжьи сосиски высшего сорта, 0,4 кг | Сосиски «Сочные» высшего сорта от «Казанских Деликатесов» — мягкая, сочная текстура и насыщенный мясной вкус благодаря отборной говядине и натуральным специям. Идеальны для завтрака, горячих блюд и сэндвичей. Подходят для ретейла, HoReCa и оптовых поставок. Сертификат Халяль ДУМ РТ №614А/2024. Произведено в Казани, Татарстан.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/vetcina_iz_indei%CC%86ki_v_batone_cnqrbt.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1784227277/%D0%B2%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%B8%D0%BD%D0%B4%D0%B5%D0%B8%CC%86%D0%BA%D0%B8_1_znbt38.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,5</param>
 <param name="Срок годности">30 суток</param>
@@ -771,7 +794,7 @@
 <vendorCode>999910</vendorCode>
 <description>Сосиски Сочные 0.4 кг | Халяльные сосиски из Казани | Аппетитные сосиски высшего сорта «Сочные» от «Казанских Деликатесов» (pepperoni.tatar). Идеальны для завтрака, горячих блюд и перекусов. Произведены в Татарстане, сертифицированы Халяль. Подходят для HoReCa, опта и розницы. Сочный вкус и нежная текстура. Хранить при 0-6°C. Срок годности: 30 суток.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/kolbasa_polukopcenaa_iz_indei%CC%86ki_ptvshr.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,45</param>
 <param name="Срок годности">30 суток</param>
@@ -794,32 +817,9 @@
 <vendorCode>999961</vendorCode>
 <description>Сардельки «Буинские» 240 г | Халяль, охлаждённые, с натуральной оболочкой | Сардельки «Буинские» — сочные и ароматные мясные изделия из охлаждённой категории, произведённые в Казани по стандартам халяль. Идеальны для быстрого завтрака, обеда или ужина: варка, жарка, запекание. Подходят для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C. Натуральная оболочка сохраняет сочность и вкус. Продукция компании «Казанские Деликатесы» — это качество и традиции Татарстана.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,45</param>
-<param name="Срок годности">30 суток</param>
-<param name="Температура хранения">0-6 ˚C</param>
-<param name="ТН ВЭД">160100</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
-<offer id="KD-035" available="true">
-<name>Колбаски с Сыром</name>
-<url>https://pepperoni.tatar/products/kd-035</url>
-<price>271</price>
-<currencyId>RUB</currencyId>
-<categoryId>10</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>999964</vendorCode>
-<description>Колбаски «С сыром» — отличный вариант для гриля, завтраков и горячих блюд. Благодаря сочетанию говядины, куриного филе и твёрдого сыра продукт имеет сочную текстуру и насыщенный вкус. Подходят для приготовления на сковороде, гриле или подаче в качестве горячей закуски. Состав: говядина, куриное филе, твердый сыр, куриная кожа, пшеничная мука, растительный белок, вода, соль, фиксатор окраски — нитрит натрия, комплексная смесь специй. Не содержит ГМО. Срок годности: до 30 суток при температуре от 0 до +6 °C.</description>
-<barcode>4680638720455</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg</picture>
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">0,3</param>
 <param name="Срок годности">30 суток</param>
 <param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
@@ -840,7 +840,7 @@
 <vendorCode>995005</vendorCode>
 <description>Вареная Ассорти халяль 0,5 кг | Нежная мясная нарезка из Казани | Вареная Ассорти от «Казанских Деликатесов» — это сочное и нежное мясное изделие с классическим вкусом, идеально подходящее для бутербродов, закусок и салатов. Продукт изготовлен по традиционным рецептам из отборного халяльного сырья, без искусственных добавок. Подходит для HoReCa, оптовых и розничных продаж. Хранить при 0-6 °C до 30 суток. Халяль сертифицирован.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/bol_saa_kolbasa_vareno-kopcenaa_ramazan_pp6qug.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -909,7 +909,7 @@
 <vendorCode>995011</vendorCode>
 <description>Ветчина Мраморная с говядиной 0,5 кг | Халяльная ветчина из Казани | Мраморная ветчина из отборной говядины — нежная, сочная, с характерным мясным вкусом. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Халяль сертифицирована. Произведено в Казани (Татарстан). Хранить при 0-6°C, срок годности 30 суток.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730379/mramornaa_1.0_yuogey.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramornaa_cdopdr.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -932,7 +932,7 @@
 <vendorCode>995007</vendorCode>
 <description>Ветчина из Курицы Халяль 0,5 кг | Охлаждённая ветчина из курицы, Халяль, Казань | Нежная и сочная ветчина из курицы, произведённая в Казани по стандартам Халяль. Идеальна для бутербродов, салатов и закусок. Подходит для HoReCa, опта и розницы. Продукт охлаждённый, хранится 30 суток при 0–6 °C. Натуральный состав, без лишних добавок. Отличный выбор для здорового питания и повседневного меню.</description>
 
-
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_soi%CC%86_servelat_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_lnnvru.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -955,7 +955,7 @@
 <vendorCode>995013</vendorCode>
 <description>Ветчина Филейная 0,5 кг | Халяльная ветчина из Казани | Нежная ветчина Филейная от «Казанских Деликатесов» — охлаждённый продукт с классическим вкусом, идеальный для бутербродов, салатов и закусок. Произведена в Татарстане по стандартам халяль. Подходит для HoReCa, опта и розницы. Срок хранения 30 суток при 0–6 °C.</description>
 
-
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1784228206/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%B2%D0%B0%D1%80%D0%B5%D0%BD%D0%BE_%D0%BA%D0%BE%D0%BF%D1%87%D0%B5%D0%BD%D1%8B%D0%B8%CC%86_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_bb0jum.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -978,7 +978,7 @@
 <vendorCode>995008</vendorCode>
 <description>Сервелат Ханский 0,45 кг | Копченый сервелат из Татарстана, халяль | Насладитесь изысканным вкусом копченого сервелата «Ханский» от «Казанских Деликатесов». Этот продукт создан по традиционным рецептам из отборного мяса, с характерным ароматом копчения и пряной ноткой. Идеален для нарезки на завтрак, в бутерброды или в составе мясных тарелок в HoReCa. Сертифицирован Халяль, произведен в Казани. Подходит для оптовых и розничных продаж. Хранить при 0-6°C, срок годности 30 суток.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730381/knazeskaa_vse_vidy_narezki_1.0_sfq4h3.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,54</param>
 <param name="Срок годности">30 суток</param>
@@ -1001,7 +1001,7 @@
 <vendorCode>995010</vendorCode>
 <description>Филе куриное копчёное халяль | Охлаждённое копчёное филе от «Казанские Деликатесы» | Нежное куриное филе холодного копчения с мягким дымным ароматом и насыщенным вкусом. Производится в Казани из отборного сырья халяль. Идеально для нарезки, салатов, горячих блюд. Востребовано в HoReCa, ретейле и оптовых поставках. Сертификат Халяль ДУМ РТ №614А/2024. Хранение 0–6 °C, срок годности 30 суток.</description>
 
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/v-k_knazeskaa_j5y8ot.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">0,27</param>
 <param name="Срок годности">30 суток</param>
@@ -1231,7 +1231,7 @@
 <vendorCode>KD-053</vendorCode>
 <description>Филейный в/к копчёный | Халяль, охлаждённый, 540 г | Филейный в/к — это нежное копчёное мясо с насыщенным ароматом и деликатным вкусом. Идеально для нарезки, бутербродов и салатов. Подходит для HoReCa, опта и розницы. Произведено в Казани (Татарстан) по стандартам халяль. Без сои и ГМО. Срок хранения 30 суток при 0–6 °C.</description>
 
-
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1784228782/%D1%87%D0%B0%D0%BA-%D1%87%D0%B0%D0%BA_%D0%B2_%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B5jpg_op5mvt.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">300 г</param>
 <param name="Срок годности">60 суток</param>

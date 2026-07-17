@@ -25,16 +25,17 @@ python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py faile
 # context on every cron tick.
 python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
 
-# 1d. Reconcile hardcoded SKU-count text (manifest.json, ai-plugin.json,
-# mcp.json, ai.json) against the live products.json — these are static files
-# no generator touches, so without this they silently drift (audit 2026-07-03
-# found manifest/ai-plugin.json stuck at "77" while the live catalog was 72).
+# 1d. Reconcile hardcoded SKU-count text (manifest, about, faq-ai, llm, rss,
+# ai-plugin, mcp, ai.json) against live products.json. Assortment source of
+# truth is Google Sheets only — do not edit product counts in HTML by hand.
 python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
 
-# 1e. Detect any remaining stale product-count mentions reconcile_sku_count.py
-# doesn't know how to auto-fix (free-form prose in blog/geo/segment pages,
-# generator source files, etc). Non-blocking — logs a warning for the SEO
-# agent / a human to triage, doesn't fail the sync.
+# 1d2. Rewrite stale whole-catalog counts (72/77/previous → live N) across
+# blog/geo/segment HTML so adds/removes in Sheets stay reflected in prose.
+python3 scripts/bulk_fix_stale_content.py --fix-sku-text 2>&1 || echo "[warn] bulk_fix_stale_content failed; SKU prose may be stale"
+
+# 1e. Detect any remaining stale product-count mentions. Non-blocking —
+# logs a warning for the SEO agent / a human to triage, doesn't fail the sync.
 python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_counts.py found stale product-count mentions — see output above"
 
 # 2. Копируем во временный файл

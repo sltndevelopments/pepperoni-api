@@ -61,11 +61,16 @@ def get_live_sku_count() -> int:
     return n
 
 
-def iter_html_files():
-    # Skip node_modules-style noise and quarantine (quarantined pages are not
-    # live and are regenerated separately — touching them here would just be
-    # discarded by the next generation pass).
+def iter_content_files():
+    # HTML + a few text surfaces that still bake in whole-catalog counts.
+    # Skip quarantine (regenerated separately).
     for p in PUBLIC.rglob("*.html"):
+        if "_quarantine" in p.parts or p.name.startswith("_removed_"):
+            continue
+        yield p
+    for p in PUBLIC.rglob("*.txt"):
+        if "_quarantine" in p.parts:
+            continue
         yield p
 
 
@@ -82,26 +87,56 @@ def ru_tovar(n: int) -> str:
     return f"{n} товаров"
 
 
+STATE_FILE = ROOT / "data" / "sku_count_state.json"
+# Historic whole-catalog totals that still appear in published HTML.
+BASE_STALE_COUNTS = {72, 77}
+
+
+def stale_counts(live_n: int) -> list[int]:
+    """Counts to rewrite → live_n. Excludes the live total itself."""
+    olds = set(BASE_STALE_COUNTS)
+    if STATE_FILE.exists():
+        try:
+            st = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+            for key in ("previous", "current"):
+                v = st.get(key)
+                if isinstance(v, int) and v > 0:
+                    olds.add(v)
+        except Exception:
+            pass
+    olds.discard(live_n)
+    return sorted(olds, reverse=True)
+
+
+def _naimenovanie(n: int) -> str:
+    n10, n100 = n % 10, n % 100
+    if n10 == 1 and n100 != 11:
+        return f"{n} наименование"
+    if 2 <= n10 <= 4 and not (12 <= n100 <= 14):
+        return f"{n} наименования"
+    return f"{n} наименований"
+
+
 def sku_text_rules(n: int) -> list[tuple[re.Pattern, str]]:
-    """Narrow, whole-word patterns for the OLD hardcoded count only.
+    """Narrow patterns for stale whole-catalog counts (72/77/previous).
+
     Deliberately does NOT use a generic \\d+ SKU pattern — that would also
-    rewrite unrelated numbers (e.g. "308 kg per SKU" MOQ figures found in the
-    audit scan). Every pattern below anchors on the literal old count so a
-    future run against a different stale number requires updating OLD below
-    (or re-deriving it from git blame / previous products.json snapshots).
+    rewrite unrelated numbers (e.g. MOQ "308 kg per SKU").
     """
-    OLD = 77
-    return [
-        (re.compile(rf"\b{OLD}\+?\s*SKUs?\b"), f"{n} SKU" if False else f"{n} SKUs"),
-        (re.compile(rf"\b{OLD}-SKU\b"), f"{n}-SKU"),
-        (re.compile(rf"\b{OLD}\s*halal SKU\b", re.I), f"{n} halal SKU"),
-        (re.compile(rf"\b{OLD}\s*Halal SKU\b"), f"{n} Halal SKU"),
-        (re.compile(rf"\b{OLD}\s*SKU\s*халяль"), f"{n} SKU халяль"),
-        (re.compile(rf"\b{OLD}\s*SKU\s*өнімдер"), f"{n} SKU өнімдер"),
-        (re.compile(rf"\b{OLD}\s+товар(?:ов|а)?\b"), ru_tovar(n)),
-        (re.compile(rf"\b{OLD}\s+наименован(?:ий|ия)\b"), f"{n} наименований" if n % 10 not in (1, 2, 3, 4) or n % 100 in (11, 12, 13, 14) else (f"{n} наименование" if n % 10 == 1 else f"{n} наименования")),
-        (re.compile(rf"\b{OLD}\s*SKU\b"), f"{n} SKU"),
-    ]
+    rules: list[tuple[re.Pattern, str]] = []
+    for old in stale_counts(n):
+        rules.extend([
+            (re.compile(rf"\b{old}\+?\s*SKUs?\b"), f"{n} SKUs"),
+            (re.compile(rf"\b{old}-SKU\b"), f"{n}-SKU"),
+            (re.compile(rf"\b{old}\s*halal SKU\b", re.I), f"{n} halal SKU"),
+            (re.compile(rf"\b{old}\s*Halal SKU\b"), f"{n} Halal SKU"),
+            (re.compile(rf"\b{old}\s*SKU\s*халяль"), f"{n} SKU халяль"),
+            (re.compile(rf"\b{old}\s*SKU\s*өнімдер"), f"{n} SKU өнімдер"),
+            (re.compile(rf"\b{old}\s+товар(?:ов|а)?\b"), ru_tovar(n)),
+            (re.compile(rf"\b{old}\s+наименован(?:ий|ия|ие)\b"), _naimenovanie(n)),
+            (re.compile(rf"\b{old}\s*SKU\b"), f"{n} SKU"),
+        ])
+    return rules
 
 
 def scan_sku_text(files) -> dict[Path, int]:
@@ -195,10 +230,11 @@ def main() -> int:
         return 1
 
     n = get_live_sku_count()
-    print(f"Live SKU count: {n}\n")
+    print(f"Live SKU count: {n}")
+    print(f"Stale counts to rewrite: {stale_counts(n)}\n")
 
-    files = list(iter_html_files())
-    print(f"Scanning {len(files)} HTML files under public/ …\n")
+    files = list(iter_content_files())
+    print(f"Scanning {len(files)} files under public/ …\n")
 
     if args.dry_run or args.fix_sku_text:
         hits = scan_sku_text(files)
