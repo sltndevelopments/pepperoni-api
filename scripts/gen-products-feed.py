@@ -13,7 +13,7 @@ Outputs:
   public/openai-commerce-kazan-delicacies.tsv.gz — stable snapshot path (same bytes; SFTP overwrite per overview)
 
 Sources:
-  public/products.json        — live catalog (77 SKUs)
+  public/products.json        — live catalog (SKU count from Sheets)
   scripts/translations.json   — RU → EN translation map for names, categories, sections
 """
 from __future__ import annotations
@@ -886,12 +886,17 @@ def write_json(rows: list, products: list, path: Path):
             ],
         })
 
+    n = len(item_list)
     out = {
         "@context": "https://schema.org",
         "@type": "ItemList",
         "@id": f"{BASE_URL}/products-feed.json",
         "name": "Kazan Delicacies — Halal Product Catalog Feed",
-        "description": "Machine-readable feed of 77 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
+        "description": (
+            f"Machine-readable feed of {n} halal SKUs (sausages, pepperoni, kazylyk, ham, "
+            "Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, "
+            "OpenAI Commerce, Bing Shopping, Perplexity Shopping."
+        ),
         "url": f"{BASE_URL}/products-feed.json",
         "inLanguage": "en",
         "dateModified": datetime.now(timezone.utc).isoformat(),
@@ -901,13 +906,90 @@ def write_json(rows: list, products: list, path: Path):
             "url": "https://kazandelikates.tatar",
             "logo": "https://pepperoni.tatar/images/logo.png",
         },
-        "numberOfItems": len(item_list),
+        "numberOfItems": n,
         "itemListElement": [
             {"@type": "ListItem", "position": i + 1, "item": p} for i, p in enumerate(item_list)
         ],
     }
     path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
-    print(f"OK JSON  {path} — {len(item_list)} products, {path.stat().st_size//1024} KB")
+    print(f"OK JSON  {path} — {n} products, {path.stat().st_size//1024} KB")
+
+
+def write_json_ru(products: list, path: Path):
+    """RU Schema.org ItemList — always rebuilt from live products.json (no stale SKUs)."""
+    item_list = []
+    for p in products:
+        sku = p.get("sku") or ""
+        offer = p.get("offers") or {}
+        price = offer.get("price")
+        price_excl = offer.get("priceExclVAT")
+        images = []
+        for key in ("imageMain", "imagePack", "imageSlice", "image"):
+            u = p.get(key)
+            if u and u not in images:
+                images.append(u)
+        for u in p.get("images") or []:
+            if u and u not in images:
+                images.append(u)
+        url = f"{BASE_URL}/products/{sku.lower()}"
+        item_list.append({
+            "@type": "Product",
+            "@id": f"{url}#product",
+            "sku": sku,
+            "mpn": p.get("articleNumber") or sku,
+            "gtin13": p.get("barcode") or None,
+            "name": p.get("name") or sku,
+            "description": (p.get("description") or p.get("name") or "")[:5000],
+            "image": images or [DEFAULT_IMAGE],
+            "url": url,
+            "brand": {"@type": "Brand", "name": "Казанские Деликатесы"},
+            "manufacturer": {
+                "@type": "Organization",
+                "name": "Казанские Деликатесы",
+                "url": "https://kazandelikates.tatar",
+            },
+            "countryOfOrigin": "RU",
+            "category": f"{p.get('section', '')} > {p.get('category', '')}".strip(" >"),
+            "offers": {
+                "@type": "Offer",
+                "url": url,
+                "priceCurrency": CURRENCY,
+                "price": price,
+                "priceExclVAT": price_excl,
+                "availability": offer.get("availability", "https://schema.org/InStock"),
+                "itemCondition": "https://schema.org/NewCondition",
+                "exportPrices": offer.get("exportPrices"),
+            },
+        })
+    n = len(item_list)
+    out = {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        "@id": f"{BASE_URL}/ru/products-feed.json",
+        "name": "Казанские Деликатесы — Каталог халяль продукции",
+        "description": (
+            f"Машиночитаемый каталог {n} халяль SKU (пепперони, сосиски, казылык, ветчина, "
+            "татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, "
+            "OpenAI Commerce, Bing Shopping, Perplexity Shopping."
+        ),
+        "url": f"{BASE_URL}/ru/products-feed.json",
+        "inLanguage": "ru",
+        "dateModified": datetime.now(timezone.utc).isoformat(),
+        "publisher": {
+            "@type": "Organization",
+            "name": "Казанские Деликатесы",
+            "url": "https://kazandelikates.tatar",
+            "logo": "https://pepperoni.tatar/images/logo.png",
+        },
+        "numberOfItems": n,
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1, "item": item}
+            for i, item in enumerate(item_list)
+        ],
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(out, ensure_ascii=False, indent=2), encoding="utf-8")
+    print(f"OK JSON RU {path} — {n} products, {path.stat().st_size//1024} KB")
 
 
 # ----------------------------------------------------------------------
@@ -1397,6 +1479,7 @@ def main():
     write_csv(rows, PUBLIC / "products-feed.csv")
     write_xml(rows, PUBLIC / "products-feed.xml")
     write_json(rows, products, PUBLIC / "products-feed.json")
+    write_json_ru(products, PUBLIC / "ru" / "products-feed.json")
 
     # UAE / AE feed (EN titles, AED prices) — kept for backward compat
     rows_ae = [build_row_ae(p, tr) for p in products]
