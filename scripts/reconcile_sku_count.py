@@ -96,13 +96,14 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
     (
         PUBLIC / "manifest.json",
         [
-            (r"\d+ товаров\. Актуальные цены", "{ru}. Актуальные цены"),
+            # Match any RU inflection: товар / товара / товаров
+            (r"\d+ товар(?:а|ов)?\. Актуальные цены", "{ru}. Актуальные цены"),
         ],
     ),
     (
         PUBLIC / ".well-known" / "ai-plugin.json",
         [
-            (r"Казанских Деликатесов: \d+ товаров —", "Казанских Деликатесов: {ru} —"),
+            (r"Казанских Деликатесов: \d+ товар(?:а|ов)? —", "Казанских Деликатесов: {ru} —"),
             (r"catalog contains \d+ SKUs across", "catalog contains {n} SKUs across"),
             (
                 r"frozen meats \(\d+ SKUs\), refrigerated/chilled meats \(\d+ SKUs\), and bakery \(\d+ SKUs\)",
@@ -220,6 +221,38 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
              "Sections: Frozen ({frozen}), Refrigerated ({chilled}), Bakery ({bakery})"),
         ],
     ),
+    (
+        PUBLIC / "wholesale-price-list-ru.txt",
+        [
+            (r"\*\*\d+ халяль-сертифицированных SKU\*\*",
+             "**{n} халяль-сертифицированных SKU**"),
+            (r"\[Заморозка\]\(#заморозка\) — \d+ SKU",
+             "[Заморозка](#заморозка) — {frozen} SKU"),
+            (r"\[Охлаждённая продукция\]\(#охлаждённая-продукция\) — \d+ SKU",
+             "[Охлаждённая продукция](#охлаждённая-продукция) — {chilled} SKU"),
+            (r"\[Выпечка\]\(#выпечка\) — \d+ SKU",
+             "[Выпечка](#выпечка) — {bakery} SKU"),
+        ],
+    ),
+    (
+        PUBLIC / "wholesale-price-list.txt",
+        [
+            (r"\*\*\d+ halal-certified SKUs\*\*", "**{n} halal-certified SKUs**"),
+            (r"\[Frozen Products\]\(#frozen-products\) — \d+ SKUs",
+             "[Frozen Products](#frozen-products) — {frozen} SKUs"),
+            (r"\[Refrigerated Products\]\(#refrigerated-products\) — \d+ SKUs",
+             "[Refrigerated Products](#refrigerated-products) — {chilled} SKUs"),
+            (r"\[Bakery\]\(#bakery\) — \d+ SKUs",
+             "[Bakery](#bakery) — {bakery} SKUs"),
+        ],
+    ),
+    (
+        # Legacy path; canonical feed is public/products-feed.json
+        PUBLIC / "ru" / "products-feed.json",
+        [
+            (r'"numberOfItems":\s*\d+', '"numberOfItems": {n}'),
+        ],
+    ),
 ]
 
 
@@ -287,6 +320,30 @@ def save_state(n: int) -> None:
     )
 
 
+# After rules fire (or claim OK), these substrings must appear — catches
+# inflection bugs where a too-narrow regex silently no-ops on «товара» vs «товаров».
+MUST_CONTAIN: list[tuple[Path, list[str]]] = [
+    (PUBLIC / "manifest.json", ["{ru}. Актуальные цены"]),
+    (PUBLIC / ".well-known" / "ai-plugin.json", ["Казанских Деликатесов: {ru} —", "catalog contains {n} SKUs across"]),
+    (PUBLIC / "faq.html", ["о всех {n} товарах в формате JSON"]),
+    (PUBLIC / "en" / "faq.html", ["produces {n} product items:", "on all {n} products in JSON format"]),
+    (PUBLIC / ".well-known" / "llms.txt", ["# {n} halal meat products", "Sections: Frozen ({frozen}), Refrigerated ({chilled}), Bakery ({bakery})"]),
+]
+
+
+def verify_contains(ctx: dict) -> list[str]:
+    errors: list[str] = []
+    for path, needles in MUST_CONTAIN:
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8")
+        for needle_t in needles:
+            needle = render(needle_t, ctx)
+            if needle not in text:
+                errors.append(f"{path.relative_to(ROOT)}: missing {needle!r}")
+    return errors
+
+
 def main() -> int:
     check_only = "--check" in sys.argv
     ctx = get_live_data()
@@ -307,12 +364,20 @@ def main() -> int:
     if not check_only:
         save_state(ctx["n"])
 
+    contain_errors = verify_contains(ctx)
+    for err in contain_errors:
+        print(f"  [MISSING] {err}")
+
     if check_only:
-        if any_mismatch:
+        if any_mismatch or contain_errors:
             print("reconcile_sku_count --check: mismatches found")
             return 1
         print("reconcile_sku_count --check: all files in sync")
         return 0
+
+    if contain_errors:
+        print("reconcile_sku_count: ERROR — expected live-count phrases still missing after patch")
+        return 1
 
     if any_changed:
         print("reconcile_sku_count: patched drifted file(s)")
