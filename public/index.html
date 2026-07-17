@@ -21,7 +21,7 @@
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="/videos/hero-ru-poster.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-ru-poster-720.webp" imagesrcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Пепперони халяль оптом — производитель | Казанские Деликатесы</title>
@@ -241,7 +241,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   <div class="container">
     <div class="video-player" data-src="/videos/hero-ru.mp4">
       <picture>
-        <source srcset="/videos/hero-ru-poster.webp" type="image/webp" width="960" height="540">
+        <source type="image/webp" srcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
         <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
@@ -752,7 +752,19 @@ async function loadCatalog(){
     }catch(e2){document.getElementById('loading').textContent='Ошибка загрузки каталога.';}
   }
 }
-if('requestIdleCallback'in window)requestIdleCallback(loadCatalog,{timeout:2000});else requestAnimationFrame(function(){setTimeout(loadCatalog,0)});
+(function scheduleCatalog(){
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){
+    var io=new IntersectionObserver(function(entries){
+      if(entries.some(function(e){return e.isIntersecting;})){io.disconnect();loadCatalog();}
+    },{rootMargin:'240px 0px'});
+    io.observe(el);
+  }else if(document.readyState==='complete'){
+    setTimeout(loadCatalog,1500);
+  }else{
+    window.addEventListener('load',function(){setTimeout(loadCatalog,1500);});
+  }
+})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{});
 document.addEventListener('click',function(e){
   var link=e.target.closest('a');if(!link)return;
@@ -772,13 +784,18 @@ function loadAnalytics(){
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
   ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
-var __analyticsEvents=['scroll','mousemove','keydown','touchstart','click'];
-function __analyticsTrigger(){
-  __analyticsEvents.forEach(function(ev){window.removeEventListener(ev,__analyticsTrigger,{passive:true})});
-  loadAnalytics();
+function armAnalytics(){
+  var events=['scroll','keydown','touchstart','click'];
+  function trigger(){
+    events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
+    loadAnalytics();
+  }
+  events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
+  if('requestIdleCallback'in window)requestIdleCallback(loadAnalytics,{timeout:15000});
+  else setTimeout(loadAnalytics,10000);
 }
-__analyticsEvents.forEach(function(ev){window.addEventListener(ev,__analyticsTrigger,{passive:true})});
-if('requestIdleCallback'in window)requestIdleCallback(loadAnalytics,{timeout:12000});else setTimeout(loadAnalytics,9000);
+if(document.readyState==='complete')armAnalytics();
+else window.addEventListener('load',armAnalytics);
 </script>
 </body>
 </html>

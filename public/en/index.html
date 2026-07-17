@@ -4,7 +4,7 @@
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="/videos/hero-en-poster.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-en-poster-720.webp" imagesrcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
 <meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
@@ -189,7 +189,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   <div class="container">
     <div class="video-player" data-src="/videos/hero-en.mp4">
       <picture>
-        <source srcset="/videos/hero-en-poster.webp" type="image/webp" width="960" height="540">
+        <source type="image/webp" srcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
         <img class="video-player__poster" src="/videos/hero-en-poster.jpg" alt="Kazan Delicacies halal production" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <button type="button" class="video-player__play" aria-label="Play production video">
@@ -762,7 +762,19 @@ async function loadCatalog(){
     render();
   }catch(e){document.getElementById('loading').textContent='Failed to load catalog.';}
 }
-if('requestIdleCallback'in window)requestIdleCallback(loadCatalog,{timeout:2000});else requestAnimationFrame(function(){setTimeout(loadCatalog,0)});
+(function scheduleCatalog(){
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){
+    var io=new IntersectionObserver(function(entries){
+      if(entries.some(function(e){return e.isIntersecting;})){io.disconnect();loadCatalog();}
+    },{rootMargin:'240px 0px'});
+    io.observe(el);
+  }else if(document.readyState==='complete'){
+    setTimeout(loadCatalog,1500);
+  }else{
+    window.addEventListener('load',function(){setTimeout(loadCatalog,1500);});
+  }
+})();
 </script>
 </body>
 </html>

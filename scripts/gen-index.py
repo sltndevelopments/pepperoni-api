@@ -37,7 +37,7 @@ def gen_ru() -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="/videos/hero-ru-poster.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-ru-poster-720.webp" imagesrcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
@@ -258,7 +258,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="container">
     <div class="video-player" data-src="/videos/hero-ru.mp4">
       <picture>
-        <source srcset="/videos/hero-ru-poster.webp" type="image/webp" width="960" height="540">
+        <source type="image/webp" srcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
         <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
@@ -769,7 +769,19 @@ async function loadCatalog(){{
     }}catch(e2){{document.getElementById('loading').textContent='Ошибка загрузки каталога.';}}
   }}
 }}
-loadCatalog();
+(function scheduleCatalog(){{
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){{
+    var io=new IntersectionObserver(function(entries){{
+      if(entries.some(function(e){{return e.isIntersecting;}})){{io.disconnect();loadCatalog();}}
+    }},{{rootMargin:'240px 0px'}});
+    io.observe(el);
+  }}else if(document.readyState==='complete'){{
+    setTimeout(loadCatalog,1500);
+  }}else{{
+    window.addEventListener('load',function(){{setTimeout(loadCatalog,1500);}});
+  }}
+}})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
 document.addEventListener('click',function(e){{
   var link=e.target.closest('a');if(!link)return;
@@ -793,7 +805,7 @@ def gen_en() -> str:
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preload" as="image" href="/videos/hero-en-poster.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-en-poster-720.webp" imagesrcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
 <meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
@@ -979,7 +991,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="container">
     <div class="video-player" data-src="/videos/hero-en.mp4">
       <picture>
-        <source srcset="/videos/hero-en-poster.webp" type="image/webp" width="960" height="540">
+        <source type="image/webp" srcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
         <img class="video-player__poster" src="/videos/hero-en-poster.jpg" alt="Kazan Delicacies halal production" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
       </picture>
       <button type="button" class="video-player__play" aria-label="Play production video">
@@ -1552,7 +1564,19 @@ async function loadCatalog(){{
     render();
   }}catch(e){{document.getElementById('loading').textContent='Failed to load catalog.';}}
 }}
-loadCatalog();
+(function scheduleCatalog(){{
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){{
+    var io=new IntersectionObserver(function(entries){{
+      if(entries.some(function(e){{return e.isIntersecting;}})){{io.disconnect();loadCatalog();}}
+    }},{{rootMargin:'240px 0px'}});
+    io.observe(el);
+  }}else if(document.readyState==='complete'){{
+    setTimeout(loadCatalog,1500);
+  }}else{{
+    window.addEventListener('load',function(){{setTimeout(loadCatalog,1500);}});
+  }}
+}})();
 </script>
 </body>
 </html>"""
