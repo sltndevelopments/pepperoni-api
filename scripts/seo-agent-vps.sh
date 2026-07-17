@@ -296,6 +296,13 @@ python3 scripts/rebuild_blog_index.py >> "$LOG_FILE" 2>&1 || log_degradation "�
 log "Step 4c: Enriching Product schemas …"
 python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Schema enricher failed (non-fatal)"
 
+# ---- Step 4c2: Strip MYR Product offers from geo (GMC crawl ghosts) ----
+# Geo landings are not SKU cards; shoppable MYR Offers get ingested as
+# «Found by Google» junk (frh-ipoh-2024 etc.). Keep after fix_schema.
+log "Step 4c2: Stripping geo MYR merchant offers …"
+python3 scripts/strip_geo_merchant_offers.py --currencies MYR >> "$LOG_FILE" 2>&1 \
+  || log_degradation "⚠️  Geo MYR offer strip failed (non-fatal)"
+
 # ---- Step 4d: QA gate — deterministic brand-safety check on changed pages ----
 # fix_pages repairs known LLM defects (phones/emails/fences/ar-pork) in place;
 # qa_pages quarantines anything still broken so it NEVER reaches the site.
