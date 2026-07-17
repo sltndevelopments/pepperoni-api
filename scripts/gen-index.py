@@ -79,7 +79,7 @@ def gen_ru() -> str:
     {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
     {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
   ],
-  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar"]
+  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar","https://www.youtube.com/@kazandelikates"]
 }}
 </script>
 <style>
@@ -543,6 +543,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar">pepperoni.tatar</a> &nbsp;·&nbsp;
+      <a href="https://www.youtube.com/@kazandelikates">YouTube</a> &nbsp;·&nbsp;
       Халяль · ХАССП · ISO 22000:2018 · EXW Казань
     </div>
   </div>
@@ -1250,6 +1251,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a> &nbsp;·&nbsp;
+      <a href="https://www.youtube.com/@kazandelikates">YouTube</a> &nbsp;·&nbsp;
       Halal · HACCP · ISO 22000:2018 · EXW Kazan
     </div>
   </div>
