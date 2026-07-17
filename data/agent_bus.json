@@ -533,11 +533,11 @@
     "was": null,
     "_dedup": "failing:пеперони из какого мяса"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «пеперони из какого мяса» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-16T03:30:02.333573+00:00",
-   "updated_at": "2026-07-16T03:30:02.333578+00:00",
+   "updated_at": "2026-07-17T05:30:42.831699+00:00",
    "claimed_by": null
   },
   {
@@ -553,14 +553,14 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "pending",
+   "status": "escalated",
    "trigger": "outcome.failing",
    "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
    "created_at": "2026-07-16T03:30:02.335362+00:00",
-   "updated_at": "2026-07-16T03:30:02.335367+00:00",
+   "updated_at": "2026-07-17T05:30:42.831711+00:00",
    "claimed_by": null
   }
  ],
  "seq": 28,
- "updated_at": "2026-07-16T05:30:34.189694+00:00"
+ "updated_at": "2026-07-17T05:30:42.831767+00:00"
 }

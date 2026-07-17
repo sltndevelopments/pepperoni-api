@@ -316,8 +316,8 @@
   }
  },
  "2026-07": {
-  "usd": 21.764841,
-  "usd_baseline": 23.195519,
+  "usd": 23.589293,
+  "usd_baseline": 25.172901,
   "days": {
    "2026-07-01": {
     "calls": 151,
@@ -453,35 +453,44 @@
     "cache_r": 0,
     "usd": 1.397699,
     "usd_baseline": 1.459856
+   },
+   "2026-07-17": {
+    "calls": 51,
+    "in": 67761,
+    "out": 53299,
+    "cache_w": 25602,
+    "cache_r": 6449,
+    "usd": 1.824452,
+    "usd_baseline": 1.977382
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 57,
-    "in": 18823,
-    "out": 7665,
+    "calls": 75,
+    "in": 24336,
+    "out": 9697,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.171444,
-    "usd_baseline": 0.171444
+    "usd": 0.218463,
+    "usd_baseline": 0.218463
    },
    "sales:cli": {
-    "calls": 122,
-    "in": 43973,
-    "out": 84887,
-    "cache_w": 81966,
-    "cache_r": 58157,
-    "usd": 3.331929,
-    "usd_baseline": 3.446602
+    "calls": 129,
+    "in": 47296,
+    "out": 92437,
+    "cache_w": 90449,
+    "cache_r": 61444,
+    "usd": 3.637784,
+    "usd_baseline": 3.7512
    },
    "optimize_seo": {
-    "calls": 31,
-    "in": 9550,
-    "out": 3488,
+    "calls": 34,
+    "in": 10505,
+    "out": 3820,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.08097,
-    "usd_baseline": 0.08097
+    "usd": 0.088815,
+    "usd_baseline": 0.088815
    },
    "generate_content": {
     "calls": 13,
@@ -502,40 +511,40 @@
     "usd_baseline": 0.009374
    },
    "cli": {
-    "calls": 134,
-    "in": 14217,
-    "out": 26909,
+    "calls": 144,
+    "in": 15211,
+    "out": 29204,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 1.116286,
-    "usd_baseline": 1.116286
+    "usd": 1.203693,
+    "usd_baseline": 1.203693
    },
    "escalate_brain": {
-    "calls": 13,
-    "in": 184146,
-    "out": 39514,
-    "cache_w": 197483,
+    "calls": 14,
+    "in": 210004,
+    "out": 42608,
+    "cache_w": 213021,
     "cache_r": 0,
-    "usd": 9.428543,
-    "usd_baseline": 8.687985
+    "usd": 10.3398,
+    "usd_baseline": 9.540975
    },
    "brain_toolsmith": {
-    "calls": 29,
-    "in": 238587,
-    "out": 165542,
+    "calls": 31,
+    "in": 250509,
+    "out": 177423,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 3.186277,
-    "usd_baseline": 3.186277
+    "usd": 3.400258,
+    "usd_baseline": 3.400258
    },
    "generate_from_strategy": {
-    "calls": 64,
-    "in": 98304,
-    "out": 262144,
-    "cache_w": 0,
-    "cache_r": 0,
-    "usd": 2.11354,
-    "usd_baseline": 4.227072
+    "calls": 74,
+    "in": 117500,
+    "out": 288259,
+    "cache_w": 1581,
+    "cache_r": 3162,
+    "usd": 2.364625,
+    "usd_baseline": 4.690614
    },
    "seo_brain": {
     "calls": 1,
@@ -558,13 +567,13 @@
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 228,
-    "in": 409423,
-    "out": 542806,
-    "cache_w": 12660,
-    "cache_r": 35870,
-    "usd": 7.795195,
-    "usd_baseline": 9.996081
+    "calls": 265,
+    "in": 448671,
+    "out": 588382,
+    "cache_w": 16358,
+    "cache_r": 41149,
+    "usd": 8.406927,
+    "usd_baseline": 10.824396
    },
    "claude-haiku-4-5": {
     "calls": 52,
@@ -585,31 +594,31 @@
     "usd_baseline": 0.015681
    },
    "pplx-sonar-pro": {
-    "calls": 134,
-    "in": 14217,
-    "out": 26909,
+    "calls": 144,
+    "in": 15211,
+    "out": 29204,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 1.116286,
-    "usd_baseline": 1.116286
+    "usd": 1.203693,
+    "usd_baseline": 1.203693
    },
    "claude-opus-4-8": {
-    "calls": 14,
-    "in": 197303,
-    "out": 41888,
-    "cache_w": 212674,
+    "calls": 15,
+    "in": 223161,
+    "out": 44982,
+    "cache_w": 228212,
     "cache_r": 0,
-    "usd": 10.088779,
-    "usd_baseline": 9.291255
+    "usd": 11.000037,
+    "usd_baseline": 10.144245
    },
    "claude-fable-5": {
-    "calls": 37,
-    "in": 19045,
-    "out": 31009,
-    "cache_w": 69306,
-    "cache_r": 22287,
-    "usd": 2.629512,
-    "usd_baseline": 2.65683
+    "calls": 40,
+    "in": 20706,
+    "out": 33343,
+    "cache_w": 75672,
+    "cache_r": 23457,
+    "usd": 2.843567,
+    "usd_baseline": 2.8655
    }
   }
  }

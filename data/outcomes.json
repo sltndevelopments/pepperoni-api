@@ -1,12 +1,12 @@
 {
- "generated_at": "2026-07-16T05:31:47.245678+00:00",
+ "generated_at": "2026-07-17T05:31:51.416375+00:00",
  "summary": {
-  "improved": 22,
-  "flat": 28,
-  "worse": 11,
-  "not_indexed": 17,
-  "pending": 27,
-  "converted": 0
+  "improved": 47,
+  "flat": 27,
+  "worse": 6,
+  "not_indexed": 19,
+  "pending": 23,
+  "converted": 1
  },
  "failing": [
   {
@@ -17,7 +17,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 37.9,
+   "age_days": 38.9,
    "verdict": "not_indexed"
   },
   {
@@ -28,7 +28,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.9,
+   "age_days": 37.9,
    "verdict": "not_indexed"
   },
   {
@@ -39,7 +39,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 34.0,
+   "age_days": 35.0,
    "verdict": "not_indexed"
   },
   {
@@ -50,7 +50,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 34.0,
+   "age_days": 35.0,
    "verdict": "not_indexed"
   },
   {
@@ -61,7 +61,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.0,
+   "age_days": 31.0,
    "verdict": "not_indexed"
   },
   {
@@ -72,7 +72,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.0,
+   "age_days": 31.0,
    "verdict": "not_indexed"
   },
   {
@@ -83,7 +83,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 22.0,
+   "age_days": 23.0,
    "verdict": "not_indexed"
   },
   {
@@ -94,7 +94,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.3,
+   "age_days": 16.3,
    "verdict": "not_indexed"
   },
   {
@@ -105,7 +105,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.3,
+   "age_days": 16.3,
    "verdict": "not_indexed"
   },
   {
@@ -116,7 +116,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.3,
+   "age_days": 16.3,
    "verdict": "not_indexed"
   },
   {
@@ -127,7 +127,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.0,
+   "age_days": 16.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 15.0,
+   "age_days": 16.0,
    "verdict": "not_indexed"
   },
   {
@@ -149,7 +149,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 14.0,
+   "age_days": 15.0,
    "verdict": "not_indexed"
   },
   {
@@ -160,7 +160,29 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 8.1,
+   "age_days": 9.1,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "is pepperoni halal in pakistan",
+   "page": "https://pepperoni.tatar/en/geo/halal-pizza-toppings-lahore",
+   "change": "strengthen_failing",
+   "before_pos": 50.0,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 4.1,
+   "verdict": "not_indexed"
+  },
+  {
+   "query": "пеперони из какого мяса",
+   "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+   "change": "strengthen_failing",
+   "before_pos": 50.0,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 3.1,
    "verdict": "not_indexed"
   },
   {
@@ -197,120 +219,96 @@
    "verdict": "not_indexed"
   },
   {
-   "query": "пепперони халяль купить",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal-kupit",
-   "change": "new_landing",
-   "before_pos": 41.76,
-   "current_pos": 52.1,
-   "impr": 19,
-   "inquiries": 0,
-   "age_days": 3.0,
-   "delta": -10.3,
-   "verdict": "worse"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 34.34,
-   "current_pos": 35.2,
-   "impr": 47,
-   "inquiries": 0,
-   "age_days": 36.0,
-   "delta": -0.9,
-   "verdict": "flat"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 33.39,
-   "current_pos": 35.2,
-   "impr": 47,
-   "inquiries": 0,
-   "age_days": 35.0,
-   "delta": -1.8,
-   "verdict": "flat"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "new_landing",
-   "before_pos": 32.46,
-   "current_pos": 35.2,
-   "impr": 47,
-   "inquiries": 0,
-   "age_days": 34.0,
-   "delta": -2.7,
-   "verdict": "flat"
-  },
-  {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+   "query": "halal pepperoni",
+   "page": "https://pepperoni.tatar/en/pepperoni",
    "change": "title_meta",
-   "before_pos": 14.67,
-   "current_pos": 35.2,
-   "impr": 47,
+   "before_pos": 17.81,
+   "current_pos": 27.0,
+   "impr": 11,
    "inquiries": 0,
-   "age_days": 30.0,
-   "delta": -20.5,
+   "age_days": 4.0,
+   "delta": -9.2,
    "verdict": "worse"
   },
   {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/",
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
    "change": "title_meta",
-   "before_pos": 8.84,
-   "current_pos": 35.2,
-   "impr": 47,
-   "inquiries": 3,
-   "age_days": 29.0,
-   "delta": -26.4,
+   "before_pos": 9.14,
+   "current_pos": 18.7,
+   "impr": 3,
+   "inquiries": 0,
+   "age_days": 39.0,
+   "delta": -9.6,
    "verdict": "worse"
   },
   {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/blog/pepperoni-halal-ili-net",
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
    "change": "title_meta",
-   "before_pos": 14.54,
-   "current_pos": 35.2,
-   "impr": 47,
+   "before_pos": 9.08,
+   "current_pos": 18.7,
+   "impr": 3,
    "inquiries": 0,
-   "age_days": 13.0,
-   "delta": -20.7,
+   "age_days": 23.0,
+   "delta": -9.6,
    "verdict": "worse"
   },
   {
-   "query": "пепперони халяль",
-   "page": "https://pepperoni.tatar/landing/pepperoni-halyal",
-   "change": "strengthen_failing",
-   "before_pos": 34.6,
-   "current_pos": 35.2,
-   "impr": 47,
+   "query": "echpochmak",
+   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 8.79,
+   "current_pos": 18.7,
+   "impr": 3,
    "inquiries": 0,
-   "age_days": 3.1,
-   "delta": -0.6,
-   "verdict": "flat"
+   "age_days": 9.0,
+   "delta": -9.9,
+   "verdict": "worse"
+  },
+  {
+   "query": "что такое эчпочмак",
+   "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 11.05,
+   "current_pos": 16.7,
+   "impr": 9,
+   "inquiries": 0,
+   "age_days": 21.0,
+   "delta": -5.6,
+   "verdict": "worse"
+  },
+  {
+   "query": "что такое эчпочмак",
+   "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 10.9,
+   "current_pos": 16.7,
+   "impr": 9,
+   "inquiries": 0,
+   "age_days": 7.0,
+   "delta": -5.8,
+   "verdict": "worse"
   }
  ],
- "graded_total": 78,
+ "graded_total": 99,
  "converting_pages": [
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 35.2,
+   "pos": 7.2,
    "inquiries": 3
   },
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 35.2,
+   "pos": 7.2,
    "inquiries": 3
   },
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 35.2,
+   "pos": 7.2,
    "inquiries": 3
   }
  ]
