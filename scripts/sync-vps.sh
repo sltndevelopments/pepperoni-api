@@ -20,15 +20,15 @@ node scripts/sync-sheets.mjs
 python3 scripts/gen-ru-products.py 2>&1 || echo "[warn] gen-ru-products.py failed; keeping previous files"
 python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py failed; keeping previous files"
 
-# 1c. Regenerate rich llms.txt for RU and EN (overrides the thin one
-# that sync-sheets.mjs writes). This keeps AI crawlers fed with full
-# context on every cron tick.
-python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
-
-# 1d. Reconcile hardcoded SKU-count text (manifest, about, faq-ai, llm, rss,
-# ai-plugin, mcp, ai.json) against live products.json. Assortment source of
-# truth is Google Sheets only — do not edit product counts in HTML by hand.
+# 1c. Reconcile hardcoded SKU-count text (manifest, about, faq, faq-ai, llm,
+# rss, ai-plugin, mcp, .well-known/llms.txt) against live products.json BEFORE
+# gen-llms-full — that step copies FAQ answers from faq.html into llms.txt.
+# Assortment source of truth is Google Sheets only — do not edit counts by hand.
 python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
+
+# 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one
+# that sync-sheets.mjs writes). Pulls live catalog + reconciled FAQ.
+python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"
 
 # 1d2. Rewrite stale whole-catalog counts (72/77/previous → live N) across
 # blog/geo/segment HTML so adds/removes in Sheets stay reflected in prose.

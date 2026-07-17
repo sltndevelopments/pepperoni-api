@@ -132,8 +132,10 @@ def sku_text_rules(n: int) -> list[tuple[re.Pattern, str]]:
             (re.compile(rf"\b{old}\s*Halal SKU\b"), f"{n} Halal SKU"),
             (re.compile(rf"\b{old}\s*SKU\s*халяль"), f"{n} SKU халяль"),
             (re.compile(rf"\b{old}\s*SKU\s*өнімдер"), f"{n} SKU өнімдер"),
-            (re.compile(rf"\b{old}\s+товар(?:ов|а)?\b"), ru_tovar(n)),
+            (re.compile(rf"\b{old}\s+товар(?:ов|а|ах)?\b"), ru_tovar(n)),
             (re.compile(rf"\b{old}\s+наименован(?:ий|ия|ие)\b"), _naimenovanie(n)),
+            (re.compile(rf"\b{old}\s+product items\b"), f"{n} product items"),
+            (re.compile(rf"\b{old}\s+products\b"), f"{n} products"),
             (re.compile(rf"\b{old}\s*SKU\b"), f"{n} SKU"),
         ])
     return rules

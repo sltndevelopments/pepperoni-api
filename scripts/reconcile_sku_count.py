@@ -169,6 +169,7 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
             (r'("name": "Bakery", "numberOfItems": )\d+', r"\g<1>{bakery}"),
             (r"\d+ SKUs · 7 currencies", "{n} SKUs · 7 currencies"),
             (r"\d+ SKUs total,", "{n} SKUs total,"),
+            (r"\d+ halal SKUs · HACCP", "{n} halal SKUs · HACCP"),
             (r"(<span class=\"num\">)\d+(</span>)", r"\g<1>{n}\2"),
         ],
     ),
@@ -192,6 +193,31 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
             # Only the channel description line — not product prices containing 72/77.
             (r"(<description>Каталог халяль продукции: )\d+ товаров( —)",
              r"\g<1>{ru}\2"),
+        ],
+    ),
+    (
+        PUBLIC / "faq.html",
+        [
+            # Prepositional: «о всех N товарах» (not genitive «товаров»).
+            (r"о всех \d+ товарах в формате JSON", "о всех {n} товарах в формате JSON"),
+            (r"производит \d+ наименовани[яй]", "производит {ru_name}"),
+        ],
+    ),
+    (
+        PUBLIC / "en" / "faq.html",
+        [
+            (r"produces \d+ product items:", "produces {n} product items:"),
+            (r"on all \d+ products in JSON format", "on all {n} products in JSON format"),
+        ],
+    ),
+    (
+        PUBLIC / ".well-known" / "llms.txt",
+        [
+            (r"# \d+ halal meat products and Tatar pastries\.",
+             "# {n} halal meat products and Tatar pastries."),
+            (r"- \d+ products: pepperoni,", "- {n} products: pepperoni,"),
+            (r"Sections: Frozen \(\d+\), Refrigerated \(\d+\), Bakery \(\d+\)",
+             "Sections: Frozen ({frozen}), Refrigerated ({chilled}), Bakery ({bakery})"),
         ],
     ),
 ]

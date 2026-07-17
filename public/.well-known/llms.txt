@@ -1,5 +1,5 @@
 # Kazan Delicacies — Halal Product Catalog API
-# 77 halal meat products and Tatar pastries. Live prices in 7 currencies.
+# 64 halal meat products and Tatar pastries. Live prices in 7 currencies.
 
 ## Endpoints (no auth required)
 - Search: https://api.pepperoni.tatar/api/search?q={query}&lang=en&limit=10
@@ -10,8 +10,8 @@
 - Static catalog: https://api.pepperoni.tatar/products.json
 
 ## Data
-- 77 products: pepperoni, sausages, ham, smoked meats, kazylyk, Tatar pastries
-- Sections: Frozen (25), Refrigerated (33), Bakery (19)
+- 64 products: pepperoni, sausages, ham, smoked meats, kazylyk, Tatar pastries
+- Sections: Frozen (16), Refrigerated (29), Bakery (19)
 - Currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN
 - Filters: ?search, ?section, ?category, ?sku, ?lang=en
 - Halal certified #614A/2024 (DUM RT). HACCP. Private Label available.
