@@ -29,6 +29,17 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://pepperoni.tatar/#organization","name":"Казань Деликатес","url":"https://pepperoni.tatar","telephone":"+79872170202","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"Костанай"},"description":"Производитель и поставщик халяль мясной продукции для HoReCa и ретейла. Котлеты для бургеров оптом с доставкой в Костанай.","hasCredential":["Халяль ДУМ РТ №614A/2024","HACCP","ISO 22000:2018","ТР ТС 021/2011"]},{"@type":"Product","@id":"https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kostanay/#product","name":"Котлеты для бургеров халяль IQF","description":"Котлеты для бургеров из говядины и курицы. Форматы 90–180г. IQF заморозка. Халяль сертификат ДУМ РТ №614A/2024, HACCP, ISO 22000:2018. Без нитрита натрия, ГМО и красителей.","brand":{"@type":"Brand","name":"Казань Деликатес"},"offers":{"@type":"Offer","priceCurrency":"KZT","availability":"https://schema.org/InStock","seller":{"@id":"https://pepperoni.tatar/#organization"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"KZT"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"KZT"}}},"hasCertification":[{"@type":"Certification","name":"Халяль ДУМ РТ №614A/2024"},{"@type":"Certification","name":"ISO 22000:2018"},{"@type":"Certification","name":"HACCP"}],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Есть ли у вас халяль сертификат, признанный в Казахстане?","acceptedAnswer":{"@type":"Answer","text":"Да. Наш халяль сертификат выдан ДУМ РТ (Духовным управлением мусульман Республики Татарстан), №614A/2024. Он признаётся торговыми сетями и ресторанными сетями Казахстана. Документ предоставляем по запросу вместе с пакетом ветеринарных свидетельств РФ."}},{"@type":"Question","name":"Как организована доставка котлет для бургеров в Костанай?","acceptedAnswer":{"@type":"Answer","text":"Доставляем автотранспортом по маршруту Казань–Костанай (около 2500 км). Срок в пути 48–72 часа в рефрижераторе при температуре −18°C. Минимальная партия — от 100 кг. Отгрузка 2–3 раза в неделю."}},{"@type":"Question","name":"Подходят ли ваши котлеты для бургерных формата стрит-фуд в Костанае?","acceptedAnswer":{"@type":"Answer","text":"Да, форматы 90г и 120г — оптимальны для стрит-фуд бургерных. IQF заморозка позволяет брать ровно столько котлет, сколько нужно на смену, без разморозки всей упаковки. Это снижает списания и ускоряет работу на кухне."}},{"@type":"Question","name":"Можно ли заказать котлеты под собственной торговой маркой для сети в Костанае?","acceptedAnswer":{"@type":"Answer","text":"Да, мы работаем по схеме Private Label / СТМ. Разрабатываем состав под ваш рецептурный запрос, печатаем упаковку с вашим брендом. Минимальный тираж для СТМ обсуждается индивидуально."}},{"@type":"Question","name":"Есть ли у вас опыт поставок в сети Казахстана?","acceptedAnswer":{"@type":"Answer","text":"Да. Мы поставляем продукцию в HoReCa и ретейл Казахстана. Вся документация оформлена в соответствии с требованиями ТР ТС 021/2011 и казахстанским ветеринарным законодательством. Готовы предоставить референс-лист по запросу."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Котлеты для бургеров","item":"https://pepperoni.tatar/kotlety-dlya-burgerov/"},{"@type":"ListItem","position":3,"name":"Котлеты для бургеров в Костанай","item":"https://pepperoni.tatar/geo/kotlety-dlya-burgerov-kostanay/"}]}]}</script>
 
   <style>
+
+    .tldr-answer {
+      background: #eaf4ee;
+      border-left: 4px solid #1a6b3a;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
     :root {
       --green: #1a7a3c;
       --green-light: #e8f5ed;
@@ -629,6 +640,10 @@
   <!-- ─── HERO ─── -->
   <section class="hero-section">
     <div class="container">
+  <div class="tldr-answer">
+    <strong>Котлеты для бургеров</strong> — Котлеты для бургеров из говядины и курицы. Форматы 90-180г. Производство Казань. Поставка в Костанай транспортными компаниями с соблюдением холодовой цепи. СТМ/Private Label — доступно. Заявка: <a href="tel:+79872170202">+7 987 217-02-02</a>.
+  </div>
+
       <div class="row align-items-center">
         <div class="col-lg-8">
           <div class="hero-badge">

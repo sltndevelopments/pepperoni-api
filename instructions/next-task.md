@@ -6,7 +6,24 @@
 
 ## Current step
 
-**Задача 0.4 продолжение — регенерация карантинных страниц: в процессе (Batch API).**
+**GEO answer-first backfill — DONE (2026-07-17).** Карантин 0.4 — всё ещё
+блокер (нет SSH на VPS + нет локального `ANTHROPIC_API_KEY`).
+
+- Добавлен `scripts/backfill_geo_tldr.py`: детерминированно вставляет
+  `<div class="tldr-answer">` из `data/products_geo.json` + город
+  (`data-city` или slug из имени файла). Без LLM, без выдуманных claim'ов.
+- Покрытие после прогона: **4113 / 4119** geo HTML (99.85%) с tldr-answer
+  (`public/geo`, `en/geo`, `ar/geo`, `kk/geo`). Было ~663/2975 на RU.
+- Осталось 6 битых stub-файлов без `<body>` (некуда вставить блок) —
+  нужна полная регенерация, не backfill.
+- Задача 0.4 (карантин `sosiski-v-teste` / `sosiski-hotdog`): локально
+  `ssh root@37.9.4.101` → Permission denied; `ANTHROPIC_API_KEY` в среде
+  агента пуст. Команда на VPS после восстановления доступа — та же, что
+  ниже в архиве 0.4, с `export LLM_BULK_BUDGET_USD=3` перед батчем.
+
+---
+
+**Архив: Задача 0.4 продолжение — регенерация карантинных страниц (Batch API).**
 
 - SSH-доступ восстановлен 2026-07-03 (ключ `cursor-agent-pepperoni-vps` добавлен
   владельцем в `authorized_keys`).
@@ -137,6 +154,13 @@
 
 ## Log
 
+- **2026-07-17 GEO answer-first backfill (владелец: «дополни для GEO / делай»)**:
+  Done: `scripts/backfill_geo_tldr.py` + прогон по geo-локалям.
+  До: RU `579–663` с tldr из ~2975; EN/AR/KK ≈ 0.
+  После: `4113/4119` (99.85%). `grep -c tldr-answer` по выборке — см. коммит.
+  Blockers: SSH VPS publickey denied; нет локального Anthropic key → карантин
+  0.4 не продолжал (бюджетные LLM-батчи без доступа). 6 stub HTML без body
+  оставлены без tldr намеренно.
 - **Тестовый прогон fail_hard (по запросу владельца после Этапа 0)**:
   ручной запуск `bash scripts/seo-agent-vps.sh` на VPS дошёл до Step 4d и
   **fail_hard реально остановил пайплайн**: `🚨 FATAL: fix_pages crashed —
