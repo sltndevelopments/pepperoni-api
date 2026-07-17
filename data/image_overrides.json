@@ -1,0 +1,10 @@
+{
+  "_comment": "SKU → Cloudinary/Drive URL when Sheets photo columns are empty. Sync merges only if imageMain/image are blank.",
+  "KD-025": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
+  "KD-059": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-059.jpg",
+  "KD-060": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-060.jpg",
+  "KD-061": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-061.jpg",
+  "KD-062": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-062.jpg",
+  "KD-063": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-063.jpg",
+  "KD-064": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-064.jpg"
+}

@@ -964,6 +964,86 @@ function applyDescriptionOverrides(products) {
   if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
 }
 
+const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
+
+async function urlExists(url) {
+  try {
+    const r = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+    return r.ok;
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Attach photos for SKUs that still have empty Sheets photo columns.
+ * 1) data/image_overrides.json (manual / discovered Cloudinary paths)
+ * 2) Convention: products/{sku}.jpg|.jpeg|.png|.webp on Cloudinary
+ */
+async function applyImageFallbacks(products) {
+  const path = join(ROOT, 'data', 'image_overrides.json');
+  let overrides = {};
+  if (existsSync(path)) {
+    try {
+      overrides = JSON.parse(readFileSync(path, 'utf-8'));
+    } catch (e) {
+      console.warn(`  ⚠️  image_overrides.json unreadable: ${e.message}`);
+    }
+  }
+  let fromOverride = 0;
+  let fromCloudinary = 0;
+  for (const p of products) {
+    if (p.imageMain || p.image) continue;
+    const sku = (p.sku || '').trim();
+    if (!sku) continue;
+    let url = (overrides[sku] || overrides[sku.toLowerCase()] || '').toString().trim();
+    if (!url.startsWith('http')) url = '';
+    if (url) {
+      p.image = url;
+      p.imageMain = url;
+      fromOverride++;
+      continue;
+    }
+    const slug = sku.toLowerCase();
+    for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+      const candidate = `${CLOUDINARY_BASE}/products/${slug}.${ext}`;
+      if (await urlExists(candidate)) {
+        p.image = candidate;
+        p.imageMain = candidate;
+        fromCloudinary++;
+        // Persist discovery so next sync is instant and Sheets can be filled later.
+        overrides[sku] = candidate;
+        break;
+      }
+    }
+  }
+  if (fromOverride || fromCloudinary) {
+    console.log(
+      `  🖼️  Фото для пустых колонок: overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
+    );
+  }
+  if (fromCloudinary && existsSync(path)) {
+    try {
+      const { _comment, ...rest } = overrides;
+      const out = { _comment: _comment || overrides._comment, ...rest };
+      // Keep comment first
+      const ordered = {};
+      if (overrides._comment) ordered._comment = overrides._comment;
+      for (const [k, v] of Object.entries(overrides)) {
+        if (k === '_comment') continue;
+        if (typeof v === 'string' && v.startsWith('http')) ordered[k] = v;
+      }
+      writeFileSync(path, JSON.stringify(ordered, null, 2) + '\n', 'utf-8');
+    } catch {
+      /* non-fatal */
+    }
+  }
+  const still = products.filter((p) => !p.imageMain && !p.image).map((p) => p.sku);
+  if (still.length) {
+    console.log(`  ⚠️  Без фото после fallback (${still.length}): ${still.join(', ')}`);
+  }
+}
+
 // --- Main ---
 
 async function main() {
@@ -1009,6 +1089,7 @@ async function main() {
   console.log(`\n📊 Всего: ${allProducts.length} товаров\n`);
 
   applyDescriptionOverrides(allProducts);
+  await applyImageFallbacks(allProducts);
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');
