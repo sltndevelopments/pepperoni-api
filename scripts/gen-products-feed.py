@@ -81,56 +81,10 @@ OG_BY_SECTION = {
     "Выпечка":               "https://pepperoni.tatar/og-bakery-en.png",
 }
 
-# Rich per-section image pools (6–8 high-quality distinct images).
-# Used to push every offer to 5–8 images for GMC "Превосходно" rating.
-SECTION_IMAGE_POOLS: dict[str, list[str]] = {
-    "Заморозка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730300/sosiski_dla_hot_dogov_t.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730326/sosiski_gril__kurinye_b.jpg",
-    ],
-    "Охлаждённая продукция": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730460/kazanskie_molocnye_sosi.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730462/kazanskie_socnye_sosisk.jpg",
-    ],
-    "Выпечка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667342/products/kd-061.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602964/products/peremyach-v-ra.jpg",
-    ],
-}
-
-# Representative Cloudinary images per category — used as additional_image_link
-# fallback when a product has < 2 own images. GMC recommends ≥2 images per offer.
-CATEGORY_FALLBACK_IMAGES: dict[str, str] = {
-    "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-    "Котлеты для бургеров":         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
-    "Топпинги":                      "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
-    "Сосиски, сардельки":            "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
-    "Ветчины":                       "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Вареные":                       "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Копченые":                      "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
-    "Премиум Казылык":               "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
-    "Национальная татарская выпечка":"https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Классическая выпечка":          "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Мясные заготовки":              "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-}
+# NOTE: Do NOT pad offers with shared section/category photo pools.
+# GMC "click potential" and image diagnostics punish reused/broken
+# additional_image_link (404s + same sausage shot on unrelated SKUs).
+# Only the product's own Sheets photos go into the feed; empty → OG hero.
 
 
 def load():
@@ -174,6 +128,38 @@ def parse_seo(s: str):
     return parts[0], parts[1], parts[2], parts[3]
 
 
+def format_weight_en(weight: str) -> str:
+    """Human weight for EN titles/descriptions. Never emit '100 г kg'."""
+    if not weight:
+        return ""
+    w = str(weight).strip()
+    w = re.sub(r"\s+", " ", w)
+    # Already has a unit (RU or EN)
+    if re.search(r"(?i)\b(kg|g|кг|г)\b", w):
+        w = re.sub(r"(?i)\bкг\b", "kg", w)
+        w = re.sub(r"(?i)\bг\b", "g", w)
+        return w
+    # Bare number: Sheets frozen/cooled use kg (0,48); bakery uses grams as "100 г"
+    try:
+        val = float(w.replace(",", "."))
+    except ValueError:
+        return w
+    if val >= 10:  # e.g. 80 without unit → grams pack size
+        return f"{int(val) if val == int(val) else val} g"
+    # 0.48 / 1.2 → kilograms
+    s = f"{val:.3f}".rstrip("0").rstrip(".")
+    return f"{s} kg"
+
+
+def title_already_has_weight(title: str) -> bool:
+    return bool(
+        re.search(
+            r"(?i)\d+([.,]\d+)?\s*(g|kg|г|кг)\b|\d+\s*[×x]\s*\d+|\b\d+\s*(pcs|pieces|шт)\b",
+            title or "",
+        )
+    )
+
+
 def derive_title(p: dict, tr: dict) -> str:
     """Build a GMC-compliant title (≤150 chars, EN).
 
@@ -183,16 +169,17 @@ def derive_title(p: dict, tr: dict) -> str:
     seo_title, _, _, _ = parse_seo(p.get("seoDescriptionEN", ""))
     name_en = seo_title or t_product(p.get("name", ""), tr)
     name_en = re.sub(r"\s+", " ", name_en).strip()
+    # Scrub legacy bad suffix if SEO/title ever contained it
+    name_en = re.sub(r"\s*\(\s*[\d.,]+\s*г\s*kg\s*\)", "", name_en, flags=re.I)
+    name_en = re.sub(r"\s+г\s*kg\b", " g", name_en, flags=re.I)
 
     # Halal prefix (skip if already present)
     halal_prefix = "" if re.search(r"\bhalal\b", name_en, re.I) else "Halal "
     title = f"{halal_prefix}{name_en}"
 
-    # If still short, append weight and section
-    weight = p.get("weight", "")
-    needs_weight = weight and weight not in title and "(" not in title
-    if len(title) < 60 and needs_weight:
-        title = f"{title} ({weight} kg)"
+    weight_fmt = format_weight_en(p.get("weight", ""))
+    if weight_fmt and not title_already_has_weight(title) and len(title) < 70:
+        title = f"{title} ({weight_fmt})"
 
     # Append brand suffix unless already obviously branded
     brand_suffix = f" — {BRAND}"
@@ -242,7 +229,8 @@ def derive_description(p: dict, tr: dict) -> str:
             f"{name_en} — halal {cat_en.lower()} from Kazan Delicacies, {sec_en.lower()} category."
         )
         if weight:
-            chunks.append(f"Net weight: {weight} kg.")
+            w_fmt = format_weight_en(weight)
+            chunks.append(f"Net weight: {w_fmt}." if w_fmt else f"Net weight: {weight}.")
         if shelf:
             shelf_clean = shelf.replace("суток", "days").replace("сутки", "days").replace("месяцев", "months")
             chunks.append(f"Shelf life: {shelf_clean}.")
@@ -335,31 +323,64 @@ def normalize_weight(weight: str) -> str:
 def normalize_image_url(url: str) -> str | None:
     if not url or url == "0":
         return None
-    if url.startswith("http://") or url.startswith("https://"):
-        return url
-    if url.startswith("v") and "/" in url:
-        return f"https://res.cloudinary.com/duygfl3vz/image/upload/{url}"
-    return None
+    u = str(url).strip()
+    if u.startswith("v") and "/" in u and not u.startswith("http"):
+        u = f"https://res.cloudinary.com/duygfl3vz/image/upload/{u}"
+    if not (u.startswith("http://") or u.startswith("https://")):
+        return None
+    # Prefer canonical Cloudinary delivery without w_800 — truncated
+    # public_ids under /upload/w_800/v…/… often 404 in GMC diagnostics.
+    if "res.cloudinary.com" in u and "/upload/w_800/" in u:
+        u = u.replace("/upload/w_800/", "/upload/")
+    return u
 
 
-def get_product_images(p: dict, target: int = 7) -> list[str]:
-    """Return up to `target` distinct, high-quality image URLs for GMC (aim 5–8 for Превосходно)."""
-    imgs: list[str] = []
-    for key in ("imageMain", "image", "imagePack", "imageSlice"):
+def get_product_images(p: dict, target: int = 7, *, allow_og_fallback: bool = True) -> list[str]:
+    """Own product photos only (imageMain/image/imagePack/imageSlice).
+
+    Do not pad with unrelated category shots — that tanks GMC click potential
+    and triggers image_link_broken on broken pool URLs. If the SKU has no
+    photos, optionally fall back to a single section OG for image_link only.
+
+    If Sheets put another SKU's `products/kd-XXX.jpg` into imageMain, prefer
+    pack/slice URLs that don't embed a foreign KD number.
+    """
+    sku = (p.get("sku") or "").upper()
+    sku_num = sku.replace("KD-", "").lstrip("0") or "0"
+
+    def foreign_sku_penalty(url: str) -> int:
+        m = re.search(r"(?i)(?:^|/)kd-0*(\d{1,3})(?:\D|$)", url)
+        if not m:
+            return 0
+        other = m.group(1).lstrip("0") or "0"
+        return 1 if other != sku_num else 0
+
+    keyed: list[tuple[int, str]] = []  # (field_order, url)
+    for idx, key in enumerate(("imageMain", "image", "imagePack", "imageSlice")):
         u = normalize_image_url(p.get(key))
-        if u and u not in imgs:
-            imgs.append(u)
-
-    # Fill from rich section pool (different real shots + visuals)
-    pool = SECTION_IMAGE_POOLS.get(p.get("section", ""), [])
-    for u in pool:
+        if not u:
+            continue
+        # Drop Sheets mistakes: another SKU's kd-XXX file on this row
+        if foreign_sku_penalty(u):
+            continue
+        keyed.append((idx, u))
+    # Prefer pack/slice when main was dropped as foreign: re-order by idx still ok
+    imgs: list[str] = []
+    for _, u in keyed:
         if u not in imgs:
             imgs.append(u)
         if len(imgs) >= target:
             break
-
-    # Last resort
+    # If everything was foreign/empty, retry without the foreign filter (last resort)
     if not imgs:
+        for key in ("imageMain", "image", "imagePack", "imageSlice"):
+            u = normalize_image_url(p.get(key))
+            if u and u not in imgs:
+                imgs.append(u)
+            if len(imgs) >= target:
+                break
+
+    if not imgs and allow_og_fallback:
         fallback = OG_BY_SECTION.get(p.get("section", "")) or DEFAULT_IMAGE
         imgs = [fallback]
 
@@ -367,13 +388,13 @@ def get_product_images(p: dict, target: int = 7) -> list[str]:
 
 
 def derive_image(p: dict) -> str:
-    imgs = get_product_images(p, target=1)
+    imgs = get_product_images(p, target=1, allow_og_fallback=True)
     return imgs[0] if imgs else (OG_BY_SECTION.get(p.get("section"), "") or DEFAULT_IMAGE)
 
 
 def derive_additional_images(p: dict) -> list:
-    imgs = get_product_images(p, target=7)
-    # First one is the main image_link; return the rest as additional
+    # Only extras from the same SKU — never OG/section fillers as "additional".
+    imgs = get_product_images(p, target=7, allow_og_fallback=False)
     return imgs[1:] if len(imgs) > 1 else []
 
 
@@ -1561,13 +1582,24 @@ def main():
     # Sanity stats
     short_titles = sum(1 for r in rows if len(r["title"]) < 30)
     short_descs = sum(1 for r in rows if len(r["description"]) < 500)
-    no_image = sum(1 for r in rows if r["image_link"] in ("", DEFAULT_IMAGE, ""))
+    bad_weight_title = sum(1 for r in rows if re.search(r"(?i)г\s*kg", r["title"]))
+    no_image = sum(
+        1
+        for r in rows
+        if r["image_link"] in ("", DEFAULT_IMAGE) or r["image_link"] in OG_BY_SECTION.values()
+    )
+    addl_counts = [
+        len([x for x in (r.get("additional_image_link") or "").split(",") if x.strip()])
+        for r in rows
+    ]
     no_gtin = sum(1 for r in rows if not r["gtin"])
     no_price = sum(1 for r in rows if not r["price"])
     print(f"\nFeed health:")
     print(f"  Short titles (<30 char): {short_titles}/{len(rows)}")
+    print(f"  Bad 'г kg' titles         : {bad_weight_title}/{len(rows)}")
     print(f"  Short descs  (<500 char): {short_descs}/{len(rows)}")
-    print(f"  Missing image  (fallback): {no_image}/{len(rows)}")
+    print(f"  Missing own image (OG)  : {no_image}/{len(rows)}")
+    print(f"  Additional images/offer : min={min(addl_counts)} med={sorted(addl_counts)[len(addl_counts)//2]} max={max(addl_counts)}")
     print(f"  Missing GTIN              : {no_gtin}/{len(rows)}")
     print(f"  Missing price             : {no_price}/{len(rows)}")
 
