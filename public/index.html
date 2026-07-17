@@ -21,6 +21,7 @@
   
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" href="/videos/hero-ru-poster.webp" type="image/webp" fetchpriority="high">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Пепперони халяль оптом — производитель | Казанские Деликатесы</title>
@@ -239,7 +240,10 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 <section class="video-band" aria-label="Видео производства">
   <div class="container">
     <div class="video-player" data-src="/videos/hero-ru.mp4">
-      <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" loading="lazy" decoding="async">
+      <picture>
+        <source srcset="/videos/hero-ru-poster.webp" type="image/webp" width="960" height="540">
+        <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
       <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
         <span class="video-player__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>

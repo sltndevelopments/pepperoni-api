@@ -35,9 +35,9 @@ def gen_ru() -> str:
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
-{GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" href="/videos/hero-ru-poster.webp" type="image/webp" fetchpriority="high">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
@@ -218,6 +218,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .seg-card__desc{{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}}.seg-card__case{{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}}
 .seg-card__arrow{{margin-left:4px}}
 </style>
+{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -256,7 +257,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <section class="video-band" aria-label="Видео производства">
   <div class="container">
     <div class="video-player" data-src="/videos/hero-ru.mp4">
-      <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" loading="lazy" decoding="async">
+      <picture>
+        <source srcset="/videos/hero-ru-poster.webp" type="image/webp" width="960" height="540">
+        <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
       <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
         <span class="video-player__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
@@ -787,9 +791,9 @@ def gen_en() -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-{GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" href="/videos/hero-en-poster.webp" type="image/webp" fetchpriority="high">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
 <meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
@@ -936,6 +940,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 @media(max-width:600px){{.hero{{padding:40px 0 32px}}.usps{{padding:32px 0 0}}.nav__links{{gap:10px;font-size:.82rem}}.certs__inner{{gap:16px}}}}
 </style>
+{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -973,7 +978,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <section class="video-band" aria-label="Production video">
   <div class="container">
     <div class="video-player" data-src="/videos/hero-en.mp4">
-      <img class="video-player__poster" src="/videos/hero-en-poster.jpg" alt="Kazan Delicacies halal production" width="1280" height="720" loading="lazy" decoding="async">
+      <picture>
+        <source srcset="/videos/hero-en-poster.webp" type="image/webp" width="960" height="540">
+        <img class="video-player__poster" src="/videos/hero-en-poster.jpg" alt="Kazan Delicacies halal production" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
       <button type="button" class="video-player__play" aria-label="Play production video">
         <span class="video-player__icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
