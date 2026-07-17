@@ -1,0 +1,944 @@
+{
+  "closed_at": "2026-07-17",
+  "status": "closed",
+  "resolution": "ru+en published via generate_geo_template.py (no Anthropic). non-ru/en dropped from active queue — do not mass-generate locales.",
+  "published_langs": [
+    "ru",
+    "en"
+  ],
+  "published_count": 48,
+  "dropped_non_canonical_locale_count": 54,
+  "dropped_langs": [
+    "ar",
+    "az",
+    "fr",
+    "id",
+    "ka",
+    "kk",
+    "lt",
+    "ms",
+    "tr"
+  ],
+  "published_tasks": [
+    {
+      "lang": "ru",
+      "city": "Павлодар",
+      "city_slug": "pavlodar",
+      "country": "kz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Усть-Каменогорск",
+      "city_slug": "ust-kamenogorsk",
+      "country": "kz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Усть-Каменогорск",
+      "city_slug": "ust-kamenogorsk",
+      "country": "kz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Уральск",
+      "city_slug": "uralsk",
+      "country": "kz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Атырау",
+      "city_slug": "atyrau",
+      "country": "kz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Актау",
+      "city_slug": "aktau",
+      "country": "kz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Кызылорда",
+      "city_slug": "kyzylorda",
+      "country": "kz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Гомель",
+      "city_slug": "gomel",
+      "country": "by",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Самарканд",
+      "city_slug": "samarkand",
+      "country": "uz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Бухара",
+      "city_slug": "bukhara",
+      "country": "uz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Баку",
+      "city_slug": "baku",
+      "country": "az",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Гянджа",
+      "city_slug": "ganja",
+      "country": "az",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Сумгаит",
+      "city_slug": "sumqayit",
+      "country": "az",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Гюмри",
+      "city_slug": "gyumri",
+      "country": "am",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Тбилиси",
+      "city_slug": "tbilisi",
+      "country": "ge",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Батуми",
+      "city_slug": "batumi",
+      "country": "ge",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Бишкек",
+      "city_slug": "bishkek",
+      "country": "kg",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Бэлць",
+      "city_slug": "balti",
+      "country": "md",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Таллин",
+      "city_slug": "tallinn",
+      "country": "ee",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Тарту",
+      "city_slug": "tartu",
+      "country": "ee",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Вильнюс",
+      "city_slug": "vilnius",
+      "country": "lt",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Вильнюс",
+      "city_slug": "vilnius",
+      "country": "lt",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Каунас",
+      "city_slug": "kaunas",
+      "country": "lt",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Каунас",
+      "city_slug": "kaunas",
+      "country": "lt",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Абу-Даби",
+      "city_slug": "abu-dhabi",
+      "country": "ae",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Джидда",
+      "city_slug": "jeddah",
+      "country": "sa",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Александрия",
+      "city_slug": "alexandria",
+      "country": "eg",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Гиза",
+      "city_slug": "giza",
+      "country": "eg",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Ипох",
+      "city_slug": "ipoh",
+      "country": "my",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Кота-Кинабалу",
+      "city_slug": "kota-kinabalu",
+      "country": "my",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Джакарта",
+      "city_slug": "jakarta",
+      "country": "id",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Сурабая",
+      "city_slug": "surabaya",
+      "country": "id",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Бандунг",
+      "city_slug": "bandung",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Медан",
+      "city_slug": "medan",
+      "country": "id",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Макассар",
+      "city_slug": "makassar",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Карачи",
+      "city_slug": "karachi",
+      "country": "pk",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Лахор",
+      "city_slug": "lahore",
+      "country": "pk",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Исламабад",
+      "city_slug": "islamabad",
+      "country": "pk",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Исламабад",
+      "city_slug": "islamabad",
+      "country": "pk",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Дакка",
+      "city_slug": "dhaka",
+      "country": "bd",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Дакка",
+      "city_slug": "dhaka",
+      "country": "bd",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Читтагонг",
+      "city_slug": "chittagong",
+      "country": "bd",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Стамбул",
+      "city_slug": "istanbul",
+      "country": "tr",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Анталья",
+      "city_slug": "antalya",
+      "country": "tr",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Лагос",
+      "city_slug": "lagos",
+      "country": "ng",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Лагос",
+      "city_slug": "lagos",
+      "country": "ng",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "en",
+      "city": "Хартум",
+      "city_slug": "khartoum",
+      "country": "sd",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ru",
+      "city": "Ашхабад",
+      "city_slug": "ashgabat",
+      "country": "tm",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    }
+  ],
+  "dropped_tasks": [
+    {
+      "lang": "kk",
+      "city": "Усть-Каменогорск",
+      "city_slug": "ust-kamenogorsk",
+      "country": "kz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "az",
+      "city": "Сумгаит",
+      "city_slug": "sumqayit",
+      "country": "az",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ka",
+      "city": "Тбилиси",
+      "city_slug": "tbilisi",
+      "country": "ge",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "lt",
+      "city": "Каунас",
+      "city_slug": "kaunas",
+      "country": "lt",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Дубай",
+      "city_slug": "dubai",
+      "country": "ae",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Дубай",
+      "city_slug": "dubai",
+      "country": "ae",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Шарджа",
+      "city_slug": "sharjah",
+      "country": "ae",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Шарджа",
+      "city_slug": "sharjah",
+      "country": "ae",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Джидда",
+      "city_slug": "jeddah",
+      "country": "sa",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Мекка",
+      "city_slug": "mecca",
+      "country": "sa",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Даммам",
+      "city_slug": "dammam",
+      "country": "sa",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Доха",
+      "city_slug": "doha",
+      "country": "qa",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Эль-Кувейт",
+      "city_slug": "kuwait-city",
+      "country": "kw",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Манама",
+      "city_slug": "manama",
+      "country": "bh",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Маскат",
+      "city_slug": "muscat",
+      "country": "om",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Салала",
+      "city_slug": "salalah",
+      "country": "om",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Каир",
+      "city_slug": "cairo",
+      "country": "eg",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Гиза",
+      "city_slug": "giza",
+      "country": "eg",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Куала-Лумпур",
+      "city_slug": "kuala-lumpur",
+      "country": "my",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Куала-Лумпур",
+      "city_slug": "kuala-lumpur",
+      "country": "my",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Джохор-Бару",
+      "city_slug": "johor-bahru",
+      "country": "my",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Джохор-Бару",
+      "city_slug": "johor-bahru",
+      "country": "my",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Ипох",
+      "city_slug": "ipoh",
+      "country": "my",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ms",
+      "city": "Кота-Кинабалу",
+      "city_slug": "kota-kinabalu",
+      "country": "my",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Джакарта",
+      "city_slug": "jakarta",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Сурабая",
+      "city_slug": "surabaya",
+      "country": "id",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Сурабая",
+      "city_slug": "surabaya",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Бандунг",
+      "city_slug": "bandung",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Медан",
+      "city_slug": "medan",
+      "country": "id",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "id",
+      "city": "Макассар",
+      "city_slug": "makassar",
+      "country": "id",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Стамбул",
+      "city_slug": "istanbul",
+      "country": "tr",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Анкара",
+      "city_slug": "ankara",
+      "country": "tr",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Анкара",
+      "city_slug": "ankara",
+      "country": "tr",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Измир",
+      "city_slug": "izmir",
+      "country": "tr",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Измир",
+      "city_slug": "izmir",
+      "country": "tr",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "tr",
+      "city": "Анталья",
+      "city_slug": "antalya",
+      "country": "tr",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Касабланка",
+      "city_slug": "casablanca",
+      "country": "ma",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Касабланка",
+      "city_slug": "casablanca",
+      "country": "ma",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Касабланка",
+      "city_slug": "casablanca",
+      "country": "ma",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Касабланка",
+      "city_slug": "casablanca",
+      "country": "ma",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Рабат",
+      "city_slug": "rabat",
+      "country": "ma",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Рабат",
+      "city_slug": "rabat",
+      "country": "ma",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Марракеш",
+      "city_slug": "marrakesh",
+      "country": "ma",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Марракеш",
+      "city_slug": "marrakesh",
+      "country": "ma",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Алжир",
+      "city_slug": "algiers",
+      "country": "dz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Алжир",
+      "city_slug": "algiers",
+      "country": "dz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Алжир",
+      "city_slug": "algiers",
+      "country": "dz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Оран",
+      "city_slug": "oran",
+      "country": "dz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Оран",
+      "city_slug": "oran",
+      "country": "dz",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Оран",
+      "city_slug": "oran",
+      "country": "dz",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "fr",
+      "city": "Тунис",
+      "city_slug": "tunis",
+      "country": "tn",
+      "product_id": "sosiski-hotdog",
+      "product_name": "Сосиски для хот-догов",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Тунис",
+      "city_slug": "tunis",
+      "country": "tn",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Хартум",
+      "city_slug": "khartoum",
+      "country": "sd",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    },
+    {
+      "lang": "ar",
+      "city": "Амман",
+      "city_slug": "amman",
+      "country": "jo",
+      "product_id": "sosiski-v-teste",
+      "product_name": "Сосиски для сосиски в тесте",
+      "template_id": "A"
+    }
+  ]
+}

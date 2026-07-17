@@ -241,6 +241,7 @@ def main() -> int:
 
     counts: dict[str, int] = {}
     written = []
+    new_urls: list[str] = []
     for t in tasks:
         status = process_task(t, products, args.dry_run)
         key = status.split(":")[0]
@@ -248,6 +249,18 @@ def main() -> int:
         if status.startswith("wrote:") or status.startswith("would-write:"):
             written.append(status)
             print(status)
+            rel = status.split(":", 1)[1]
+            # public/geo/foo.html → https://pepperoni.tatar/geo/foo/
+            url_path = "/" + rel.replace("public/", "").replace(".html", "/")
+            new_urls.append("https://pepperoni.tatar" + url_path)
+
+    if new_urls and not args.dry_run:
+        try:
+            from generate_geo_bulk import update_sitemap
+
+            update_sitemap(new_urls)
+        except Exception as exc:
+            print(f"[warn] sitemap update skipped: {exc}")
 
     print("---")
     for k, v in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])):

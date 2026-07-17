@@ -6,20 +6,21 @@
 
 ## Current step
 
-**Задача 0.4 — закрытие карантина БЕЗ Anthropic (template fill) — DONE partial.**
+**Нет активного шага.** Задача 0.4 закрыта (2026-07-17).
 
-- SSH: хост `pepperoni-vps` (`IdentityFile ~/.ssh/pepperoni_vps`), не bare IP.
-- Anthropic batch/sync жёг бюджет и вис — **остановлен** (spend ~$2.43).
-- Вместо LLM: `scripts/generate_geo_template.py` — детерминированная подстановка
-  города в проверенные HTML-шеллы (`sosiski-v-teste-korolev`,
-  `sosiski-dlya-hotdog-aktobe`). Гейт: только `is_valid_page`, без
-  `page_reviewer` / Claude.
-- Результат: **46 новых** страниц `ru`+`en` из очереди 102; 2 уже были;
-  остальные языки (ar/fr/ms/id/tr/…) **не генерировались** (нет шеллов,
-  не плодим локали).
-- Задачи: `data/geo_0.4_tasks.json`.
+Ждать новой постановки Architect / владельца. Не запускать Anthropic
+geo-bulk без явного запроса и `LLM_BULK_BUDGET_USD`.
 
 ---
+
+**Архив: Задача 0.4 CLOSED (2026-07-17).**
+
+- RU+EN по `sosiski-v-teste` / `sosiski-hotdog` опубликованы шаблоном
+  (`scripts/generate_geo_template.py`), без Anthropic.
+- Очередь: `data/geo_0.4_tasks.json` очищена; архив —
+  `data/geo_0.4_closed.json` (48 published, 54 non-ru/en dropped).
+- Sitemap пересобран: `python3 scripts/rebuild_sitemap.py` → 5127 URL.
+- SSH: `pepperoni-vps` (`~/.ssh/pepperoni_vps`).
 
 **Архив: GEO answer-first backfill — DONE (2026-07-17).**
 
@@ -168,6 +169,12 @@
 
 ## Log
 
+- **2026-07-17 закрытие 0.4 (владелец: «делай как будет лучше»)**:
+  Done: `rebuild_sitemap.py` → 5127 URL (pavlodar/aktobe/jakarta в sitemap);
+  `geo_0.4_tasks.json` → `[]`; архив `data/geo_0.4_closed.json`;
+  Current step = нет активного шага. Anthropic не вызывался.
+  Blockers: нет. Рекомендация владельцу — ротировать Anthropic key (светился
+  в чате).
 - **2026-07-17 задача 0.4 без Anthropic (владелец: не жги токены / composer?)**:
   Done: `scripts/generate_geo_template.py` → 46 HTML (`public/geo` +
   `public/en/geo`), `is_valid_page` 48/48 ok. Anthropic не вызывался.
