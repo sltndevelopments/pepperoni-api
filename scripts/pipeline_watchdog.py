@@ -65,10 +65,19 @@ def main() -> int:
         age = (datetime.now(timezone.utc) - generated).total_seconds() / 3600
     except Exception:
         pass
-    if age is None:
-        problems.append("strategy.json отсутствует — Мозг (Fable) не рулит")
-    elif age > 8 * 24:
-        problems.append(f"strategy.json устарела ({age:.0f}ч) — Мозг не обновлял стратегию")
+    try:
+        operator_state = json.loads(
+            (DATA / "operator_state.json").read_text(encoding="utf-8")
+        )
+    except Exception:
+        operator_state = {}
+    if operator_state.get("mode") != "repair":
+        if age is None:
+            problems.append("strategy.json отсутствует — Мозг (Fable) не рулит")
+        elif age > 8 * 24:
+            problems.append(
+                f"strategy.json устарела ({age:.0f}ч) — Мозг не обновлял стратегию"
+            )
 
     age = _age_hours(DATA / "goals.json")
     if age is None or age > 48:
