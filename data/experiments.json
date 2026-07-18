@@ -708,11 +708,12 @@
     "before_title": "(none — homepage only)",
     "before_desc": "",
     "after_title": "landing:пепперони халяль",
-    "verdict": "pending",
-    "measured_at": null,
+    "verdict": "neutral",
+    "measured_at": "2026-07-18T05:31:34.686173+00:00",
     "after_pos": null,
     "after_ctr": null,
-    "after_impr": null
+    "after_impr": null,
+    "notes": "no-after-data"
   },
   {
     "applied_at": "2026-07-07T03:30:07.832116+00:00",
@@ -1683,5 +1684,25 @@
     "after_pos": null,
     "after_ctr": null,
     "after_impr": null
+  },
+  {
+    "applied_at": "2026-07-18T03:30:05.326448+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/pepperoni",
+    "file_path": "public/en/pepperoni.html",
+    "query": "halal pepperoni",
+    "before_pos": 30.6,
+    "before_title": "Halal Pepperoni — Beef & Chicken | B2B Supply, Kazan",
+    "before_desc": "Halal pepperoni in beef and chicken variants for HoReCa and food manufacturers. Thermostable, GMO-free. Halal Cert #614A/2024, HACCP. Private Label available."
+  },
+  {
+    "applied_at": "2026-07-18T04:00:04.639657+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/pepperoni",
+    "file_path": "public/en/pepperoni.html",
+    "query": "halal pepperoni",
+    "before_pos": 30.6,
+    "before_title": "Halal Pepperoni — Beef & Chicken, B2B Wholesale | Kazan",
+    "before_desc": "Halal pepperoni for HoReCa & food manufacturers. Beef and chicken variants, thermostable, GMO-free. Halal Cert #614A/2024, HACCP. Private Label available."
   }
 ]

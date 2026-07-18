@@ -559,8 +559,28 @@
    "created_at": "2026-07-16T03:30:02.335362+00:00",
    "updated_at": "2026-07-17T05:30:42.831711+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260718-0029",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "pepperoni shelf life",
+    "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:pepperoni shelf life"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-07-18T03:30:02.775058+00:00",
+   "updated_at": "2026-07-18T03:30:02.775064+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 28,
- "updated_at": "2026-07-17T05:30:42.831767+00:00"
+ "seq": 29,
+ "updated_at": "2026-07-18T03:30:02.775094+00:00"
 }
