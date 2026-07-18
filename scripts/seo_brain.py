@@ -1518,11 +1518,49 @@ STRATEGY_SCHEMA = {
     # 24-optional-parameter tool-schema limit — see instructions/next-task.md
     # Task 0.3. Model can send "" / [] for anything it has nothing to say.
     "required": ["focus_products", "focus_langs", "geo_daily_target",
-                 "geo_per_day", "landing_per_day", "expert_per_day",
-                 "blog_weekly_target", "new_blog_topics", "pl_oem_topics", "rewrite_pages",
-                 "propose_tools", "run_tools", "questions",
+                 "blog_weekly_target", "new_blog_topics", "pl_oem_topics", "questions",
                  "proactive_message", "notes", "report_to_owner"],
 }
+
+# Contract coverage: every accepted field is either consumed by a named runtime
+# path or deliberately downgraded to a non-executing engineering proposal.
+STRATEGY_CONSUMED_FIELDS = {
+    "focus_products", "focus_langs", "geo_daily_target", "geo_per_day",
+    "landing_per_day", "expert_per_day", "blog_weekly_target",
+    "new_blog_topics", "pl_oem_topics", "web_queries", "memory_ops",
+    "proactive_message", "notes", "report_to_owner", "questions",
+}
+STRATEGY_ENGINEERING_FIELDS = {
+    "rewrite_pages", "prompt_tweaks", "propose_tools", "run_tools", "edit_agents",
+}
+
+
+def strategy_contract_errors(strategy: object) -> list[str]:
+    """Return deterministic schema errors without mutating last-known-good."""
+    if not isinstance(strategy, dict):
+        return ["корень ответа не объект"]
+    errors: list[str] = []
+    required = STRATEGY_SCHEMA.get("required", [])
+    missing = [k for k in required if k not in strategy]
+    if missing:
+        errors.append(f"отсутствуют обязательные поля: {missing}")
+    type_map = {"array": list, "integer": int, "string": str, "object": dict}
+    type_errors = []
+    for key, spec in STRATEGY_SCHEMA["properties"].items():
+        if key not in strategy:
+            continue
+        expected = type_map.get(spec.get("type"))
+        if expected and not isinstance(strategy[key], expected):
+            type_errors.append(
+                f"{key}: ожидался {spec['type']}, пришёл "
+                f"{type(strategy[key]).__name__}"
+            )
+    if type_errors:
+        errors.append(f"неверные типы: {type_errors}")
+    unknown = sorted(set(strategy) - set(STRATEGY_SCHEMA["properties"]))
+    if unknown:
+        errors.append(f"неизвестные поля: {unknown}")
+    return errors
 
 
 def _extract_json(text: str) -> dict:
@@ -1543,7 +1581,7 @@ def _report_and_ask(strategy: dict) -> None:
     Questions are persisted to brain_questions.json so the Telegram bot can show
     them and route the owner's reply back into brain_answers.json for next cycle.
     """
-    from telegram_notify import notify
+    from notification_router import emit
 
     report = (strategy.get("report_to_owner") or "").strip()
     questions = strategy.get("questions") or []
@@ -1615,13 +1653,16 @@ def _report_and_ask(strategy: dict) -> None:
             ) else "done"
             daily_ledger.append_event(cat, f"📣 Fable: {proactive[:300]}")
         else:
-            notify(f"📣 <b>Fable</b>\n\n{proactive}")
+            emit("info", "brain_proactive", f"📣 <b>Fable</b>\n\n{proactive}",
+                 dedupe_key=f"brain-proactive:{strategy.get('generated_at','')[:10]}")
 
     if report:
         if _ledger_ok:
             daily_ledger.append_event("done", f"Fable цикл: {report[:300]}")
         else:
-            notify(f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}")
+            emit("info", "brain_report",
+                 f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}",
+                 dedupe_key=f"brain-report:{strategy.get('generated_at','')[:10]}")
 
     if questions:
         # Always persist questions for the Telegram bot (interactive).
@@ -1639,7 +1680,8 @@ def _report_and_ask(strategy: dict) -> None:
         if _ledger_ok:
             daily_ledger.append_event("needs_help", summary)
         else:
-            notify(summary)
+            emit("action", "brain_question", summary,
+                 dedupe_key=f"brain-questions:{strategy.get('generated_at','')[:10]}")
 
 
 def main():
@@ -1649,7 +1691,7 @@ def main():
         else:
             print(f"⚠️  Opus monthly budget exhausted (${remaining_budget():.2f} left). "
                   "Keeping existing strategy.")
-        return 0
+        return 2
 
     digest = build_digest()
     user_prompt = build_user_prompt(digest)
@@ -1670,8 +1712,8 @@ def main():
                 daily_ledger.append_event("needs_help", warn)
             except Exception:
                 try:
-                    from telegram_notify import notify
-                    notify(warn)
+                    from notification_router import emit
+                    emit("action", "brain_cost", warn, dedupe_key="brain-digest-too-large")
                 except Exception:
                     pass
     except Exception:
@@ -1702,13 +1744,13 @@ def main():
         )
     except Exception as e:
         print(f"⚠️  Opus call failed ({e}). Keeping existing strategy.")
-        return 0
+        return 2
 
     try:
         strategy = _extract_json(text)
     except Exception as e:
         print(f"⚠️  Could not parse strategy JSON ({e}). Keeping existing strategy.")
-        return 0
+        return 2
 
     # Safety net for json_schema being disabled (Task 0.3): _extract_json is
     # now the only parser, so a malformed-but-valid-JSON reply (missing keys,
@@ -1716,30 +1758,18 @@ def main():
     # and the worker would tick blind again, just quieter. Validate the
     # STRATEGY_SCHEMA-required keys' presence/type before ever writing to
     # disk; on failure, keep the old strategy.json untouched and alert.
-    missing_keys = [k for k in STRATEGY_SCHEMA["required"] if k not in strategy]
-    type_errors = []
-    _EXPECTED_TYPES = {"array": list, "object": dict, "string": str, "integer": int}
-    for key, spec in STRATEGY_SCHEMA["properties"].items():
-        if key not in strategy:
-            continue
-        expected = _EXPECTED_TYPES.get(spec.get("type"))
-        if expected and not isinstance(strategy[key], expected):
-            type_errors.append(f"{key}: ожидался {spec['type']}, пришёл {type(strategy[key]).__name__}")
-    if missing_keys or type_errors:
-        problems = []
-        if missing_keys:
-            problems.append(f"отсутствуют обязательные поля: {missing_keys}")
-        if type_errors:
-            problems.append(f"неверные типы: {type_errors}")
+    problems = strategy_contract_errors(strategy)
+    if problems:
         msg = ("🚨 Brain: невалидный ответ Opus — strategy.json НЕ перезаписан.\n"
                + "\n".join(problems))
         print(f"⚠️  {msg}")
         try:
-            from telegram_notify import notify
-            notify(msg)
+            from notification_router import emit
+            emit("emergency", "brain_contract", msg,
+                 dedupe_key="brain-invalid-contract")
         except Exception as alert_err:
             print(f"⚠️  Telegram alert failed (non-fatal): {alert_err}")
-        return 0
+        return 2
 
     # Enforce weekly blog cadence cap (default 3). Prefer queue topics if brain
     # left new_blog_topics empty without P0 repair signal.
@@ -1757,6 +1787,28 @@ def main():
             strategy["new_blog_topics"] = nxt[:weekly]
             print(f"   ℹ️  filled new_blog_topics from queue ({len(strategy['new_blog_topics'])})")
 
+    # Advice may mention tooling/code changes, but production agents never
+    # execute those mutations autonomously. Preserve them as an owner-visible
+    # engineering proposal and strip all dead/non-executable directives.
+    proposals = {
+        k: strategy.get(k)
+        for k in STRATEGY_ENGINEERING_FIELDS
+        if strategy.get(k)
+    }
+    for key in STRATEGY_ENGINEERING_FIELDS:
+        strategy.pop(key, None)
+    if proposals:
+        strategy["engineering_proposals"] = proposals
+        try:
+            import daily_ledger
+            daily_ledger.append_event(
+                "needs_help",
+                "Site Brain предложил инженерные изменения; они не исполнялись "
+                "автоматически и ждут review.",
+            )
+        except Exception:
+            pass
+
     strategy["generated_at"] = datetime.now(timezone.utc).isoformat()
     strategy["model"] = OPUS_MODEL
     strategy["digest_summary"] = {
@@ -1764,7 +1816,10 @@ def main():
         "opportunities_counts": {k: len(v) for k, v in digest["opportunities"].items()},
         "experiments": digest.get("experiments", {}).get("verdicts", {}),
     }
-    STRATEGY_FILE.write_text(json.dumps(strategy, ensure_ascii=False, indent=1))
+    tmp = STRATEGY_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(strategy, ensure_ascii=False, indent=1) + "\n",
+                   encoding="utf-8")
+    tmp.replace(STRATEGY_FILE)
 
     # ── Talk to the owner: report what was decided, ask only if unsure ──────
     try:

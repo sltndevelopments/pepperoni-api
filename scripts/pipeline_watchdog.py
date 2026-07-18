@@ -8,7 +8,7 @@ silent mid-pipeline death (like the set -e / exit-10 bug) is never silent again.
 
 Checks:
   1. data/.pipeline_ok older than 26h  -> pipeline did not finish today
-  2. data/strategy.json missing/older than 48h -> brain is not steering
+  2. strategy generated_at missing/older than 8d -> weekly brain is not steering
   3. data/goals.json missing/older than 48h    -> scoreboard stale (warn only)
 """
 from __future__ import annotations
@@ -55,10 +55,19 @@ def main() -> int:
     elif age > 26:
         problems.append(f"конвейер не завершался {age:.0f}ч — ежедневный цикл оборвался")
 
-    age = _age_hours(DATA / "strategy.json")
+    age = None
+    try:
+        import json
+        strategy = json.loads((DATA / "strategy.json").read_text(encoding="utf-8"))
+        generated = datetime.fromisoformat(
+            str(strategy.get("generated_at", "")).replace("Z", "+00:00")
+        )
+        age = (datetime.now(timezone.utc) - generated).total_seconds() / 3600
+    except Exception:
+        pass
     if age is None:
         problems.append("strategy.json отсутствует — Мозг (Fable) не рулит")
-    elif age > 48:
+    elif age > 8 * 24:
         problems.append(f"strategy.json устарела ({age:.0f}ч) — Мозг не обновлял стратегию")
 
     age = _age_hours(DATA / "goals.json")

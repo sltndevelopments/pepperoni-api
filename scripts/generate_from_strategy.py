@@ -27,7 +27,7 @@ YEAR = datetime.now().year
 
 MAX_BLOG = int(os.environ.get("MAX_STRATEGY_BLOG", "4"))
 MAX_PL   = int(os.environ.get("MAX_STRATEGY_PL", "4"))
-MAX_TOKENS = int(os.environ.get("STRATEGY_MAX_TOKENS", "4096"))
+MAX_TOKENS = int(os.environ.get("STRATEGY_MAX_TOKENS", "7000"))
 
 # Canonical contacts (single source of truth; never invent others)
 PHONE_DISPLAY = "+7 987 217-02-02"
@@ -102,7 +102,7 @@ def prep_blog(topic: dict) -> dict | None:
 - CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
 - {CONTACTS_RULE}
 - НЕ упоминать свинину"""
-    return {"out": out, "label": f"blog: /blog/{slug}",
+    return {"out": out, "label": f"blog: /blog/{slug}", "query": title,
             "system": system, "prompt": prompt}
 
 
@@ -136,7 +136,8 @@ def prep_pl(topic: dict) -> dict | None:
 - Контекстные ссылки: /private-label, /pepperoni-optom, /dlya-distributorov
 - Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}
 - {CONTACTS_RULE}
-- НЕ упоминать свинину, 600-800 слов"""
+- НЕ упоминать свинину, 450-650 слов
+- ОБЯЗАТЕЛЬНО закончи документ тегами </body></html>; сократи FAQ, если не хватает лимита"""
     else:
         system = brand_block("en") + "\n\n" + (
             "You are a B2B expert in contract manufacturing (Private Label / White "
@@ -152,8 +153,10 @@ Requirements:
 - Bootstrap 5 CDN, <h1>, sections: what is OEM/White Label, capabilities (sausages, meat, ALL bakery), launch steps, MOQ/lead time, certifications (Halal DUM RT, HACCP, ISO 22000), cases, FAQ (5), CTA form
 - "Request OEM quote" button → tel:{PHONE_TEL}
 - Footer with contacts: {PHONE_DISPLAY}, {EMAIL}
-- Use EXACTLY these contacts, never invent others. No pork mentions. 600-800 words"""
+- Use EXACTLY these contacts, never invent others. No pork mentions. 450-650 words
+- You MUST finish with </body></html>; shorten the FAQ if the token limit is near."""
     return {"out": out, "label": f"PL/OEM [{lang}]: /private-label/{slug}",
+            "query": title,
             "system": system, "prompt": prompt}
 
 
@@ -227,6 +230,19 @@ def _write_page(prep: dict, html: str) -> bool:
     # Gate passed — move to final public/ destination.
     final_out.parent.mkdir(parents=True, exist_ok=True)
     _shutil.move(str(tmp_path), str(final_out))
+    try:
+        from experiment_registry import start
+        start(
+            query=prep.get("query") or final_out.stem.replace("-", " "),
+            page="/" + final_out.relative_to(PUBLIC).as_posix().removesuffix(".html"),
+            hypothesis="Approved demand-backed page should gain commercial clicks or inquiries",
+            change_type=f"new_{prep.get('action', 'page')}",
+            baseline={"position": None, "impressions": 0, "clicks": 0, "inquiries": 0},
+        )
+    except Exception as e:
+        # Publication is already gated and approved; registry failure is visible
+        # but must not corrupt or silently delete the page.
+        print(f"  ⚠️ experiment registry: {e}", file=sys.stderr)
 
     print(f"  ✓ {prep['label']}")
     if prep.get("action") == "blog_post":
@@ -262,6 +278,15 @@ def main():
     if not strat:
         print("ℹ️  No strategy.json — nothing to execute.")
         return 0
+    try:
+        from strategy_control import generation_allowed
+        allowed, blockers = generation_allowed()
+        if not allowed:
+            print("⏸ Strategy executor blocked: " + "; ".join(blockers))
+            return 0
+    except Exception as e:
+        print(f"⏸ Strategy executor fail-closed: control plane unavailable ({e})")
+        return 0
 
     print(f"🛠  Executing strategy ({strat.get('generated_at','?')})")
 
@@ -285,6 +310,26 @@ def main():
         except Exception as e:
             print(f"  ✗ PL prep error: {e}", file=sys.stderr)
 
+    # Every new page requires explicit owner approval before any LLM spend.
+    from approvals import request_new_page
+    approved_preps = []
+    for prep in preps[:3]:
+        key = _approval_key(prep)
+        prep["approval_key"] = key
+        status = request_new_page(
+            key=key,
+            title=prep["label"],
+            detail="Новая коммерческая/экспертная страница из outcome-очереди",
+            action=prep.get("action", "new_page"),
+            payload={"path": str(prep["out"].relative_to(ROOT))},
+            requested_by="site-brain",
+        )
+        if status == "approved":
+            approved_preps.append(prep)
+        else:
+            print(f"  ⏳ {prep['label']}: approval={status}")
+    preps = approved_preps
+
     if not preps:
         print("✅ Strategy executor done: nothing new to generate")
         return 0
@@ -306,8 +351,15 @@ def main():
                 if res.get("ok"):
                     if _write_page(p, res["text"]):
                         made += 1
+                        from approvals import mark_executed
+                        mark_executed(p["approval_key"], success=True)
                     else:
                         quarantined += 1
+                        from approvals import mark_executed
+                        mark_executed(
+                            p["approval_key"], success=False,
+                            note="rejected or held by page gate",
+                        )
                 else:
                     print(f"  ✗ {p['label']}: {res.get('error','no result')}",
                           file=sys.stderr)
@@ -324,8 +376,15 @@ def main():
                                   model=CONTENT_MODEL)
             if _write_page(p, html):
                 made += 1
+                from approvals import mark_executed
+                mark_executed(p["approval_key"], success=True)
             else:
                 quarantined += 1
+                from approvals import mark_executed
+                mark_executed(
+                    p["approval_key"], success=False,
+                    note="rejected or held by page gate",
+                )
         except Exception as e:
             print(f"  ✗ {p['label']}: {e}", file=sys.stderr)
 

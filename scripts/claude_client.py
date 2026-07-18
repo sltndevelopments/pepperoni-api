@@ -117,7 +117,7 @@ _SCRIPT = os.path.basename(sys.argv[0] or "unknown").replace(".py", "") or "unkn
 # every new call raises BudgetExceeded BEFORE hitting the API — so a runaway loop
 # (like the 630-page geo run on 2026-06-10) can never silently drain the balance
 # again. Override with LLM_DAILY_BUDGET_USD; set to 0 to disable the guard.
-LLM_DAILY_BUDGET_USD = float(os.environ.get("LLM_DAILY_BUDGET_USD", "5"))
+LLM_DAILY_BUDGET_USD = float(os.environ.get("LLM_DAILY_BUDGET_USD", "1"))
 
 
 class BudgetExceeded(RuntimeError):

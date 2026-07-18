@@ -4,9 +4,8 @@ Shared action queue for high-impact agent actions.
 
 Two modes coexist:
 
-  FULL AUTONOMY (default) — request() auto-approves at creation. Used for
-  edits to existing pages (title rewrites, schema fixes, link repairs, etc.).
-  Telegram gets an informational ping, not a question.
+  TECHNICAL FIXES — request() auto-approves reversible edits to existing pages.
+  They pass QA and are included in the weekly Owner Brief.
 
   NEW-PAGE GATE — request_new_page() puts the action in "pending" and sends a
   Telegram message asking the owner to approve via /approve <key> or reject
@@ -83,24 +82,10 @@ def request(key: str, title: str, detail: str = "", action: str = "",
     return True
 
 
-def auto_approve_pending() -> int:
-    """One-time migration: flip any legacy 'pending' entries to 'approved'."""
-    rows = _load()
-    n = 0
-    for a in rows:
-        if a.get("status") == "pending":
-            a["status"] = "approved"
-            a["auto_approved"] = True
-            n += 1
-    if n:
-        _save(rows)
-    return n
-
-
 def _notify_auto_decision(title: str, detail: str, risk: str, requested_by: str) -> None:
-    """Informational ping: the system decided and will execute on the next pass."""
+    """Buffer an informational decision; routine auto-fixes never ping directly."""
     try:
-        from telegram_notify import notify
+        from notification_router import emit
     except Exception:
         return
     text = (
@@ -109,7 +94,7 @@ def _notify_auto_decision(title: str, detail: str, risk: str, requested_by: str)
         f"<i>{detail[:300]}</i>\n\n"
         f"Инициатор: {requested_by}. Выполнится автоматически в ближайший цикл."
     )
-    notify(text)
+    emit("info", "auto_decision", text, dedupe_key=f"auto:{title}")
 
 
 def take_approved(action: str | None = None) -> list:
@@ -198,6 +183,21 @@ def reject(key: str) -> bool:
     return False
 
 
+def mark_executed(key: str, *, success: bool, note: str = "") -> bool:
+    """Finalize an approved action only after the caller actually executed it."""
+    rows = _load()
+    for a in rows:
+        if a.get("key") != key or a.get("status") != "approved":
+            continue
+        a["status"] = "done" if success else "failed"
+        a["executed_at"] = datetime.now(timezone.utc).isoformat()
+        if note:
+            a["execution_note"] = note[:300]
+        _save(rows)
+        return True
+    return False
+
+
 def get_approved_new_pages(action: str | None = None) -> list:
     """Return approved new-page entries (optionally filtered by action) and mark done.
 
@@ -226,7 +226,7 @@ def get_approved_new_pages(action: str | None = None) -> list:
 def _notify_pending_page(key: str, title: str, detail: str, requested_by: str) -> None:
     """Ask the owner to approve a new page via Telegram."""
     try:
-        from telegram_notify import notify
+        from notification_router import emit
     except Exception:
         return
     text = (
@@ -237,7 +237,7 @@ def _notify_pending_page(key: str, title: str, detail: str, requested_by: str) -
         f"✅ Одобрить: <code>/approve {key}</code>\n"
         f"❌ Отклонить: <code>/reject {key}</code>"
     )
-    notify(text)
+    emit("action", "new_page", text, dedupe_key=f"approval:{key}")
 
 
 def pending() -> list:
@@ -245,10 +245,10 @@ def pending() -> list:
 
 
 def notify_pending() -> int:
-    """Full-autonomy mode: flip legacy pendings to approved, no asks sent."""
-    n = auto_approve_pending()
-    print(f"auto-approved {n} legacy pending item(s); approvals are autonomous now")
-    return 0
+    """Report pending owner decisions without changing their status."""
+    n = len(pending())
+    print(f"{n} new-page approval(s) pending owner decision")
+    return n
 
 
 if __name__ == "__main__":

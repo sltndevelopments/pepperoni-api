@@ -33,6 +33,7 @@ from seo_db import get_conn  # noqa: E402
 EXPERIMENTS = DATA / "experiments.json"
 OUTCOMES    = DATA / "outcomes.json"
 METRIKA     = DATA / "metrika.json"
+LEADS       = DATA / "leads.json"
 
 
 def _load_inquiries_by_page() -> dict[str, int]:
@@ -44,10 +45,25 @@ def _load_inquiries_by_page() -> dict[str, int]:
     except Exception:
         return {}
 
-# A change needs SOME time to be re-crawled before we can fairly judge it, but
-# we don't wait a week: 2 days is enough to catch not-indexed/regressions while
-# avoiding false "not indexed" on pages the crawler simply hasn't revisited yet.
-MATURE_DAYS = float(os.environ.get("OUTCOME_MATURE_DAYS", "2"))
+
+def _load_inquiries_by_experiment() -> dict[str, int]:
+    try:
+        data = json.loads(LEADS.read_text(encoding="utf-8"))
+        counts: dict[str, int] = {}
+        seen = set()
+        for lead in data.get("leads", []):
+            exp_id = lead.get("experiment_id")
+            lead_id = (lead.get("chat_id"), lead.get("msg_id"))
+            if not exp_id or lead_id in seen:
+                continue
+            seen.add(lead_id)
+            counts[exp_id] = counts.get(exp_id, 0) + 1
+        return counts
+    except Exception:
+        return {}
+
+# All verdicts use one comparable 21-day window.
+MATURE_DAYS = float(os.environ.get("OUTCOME_MATURE_DAYS", "21"))
 # Position improvement (places) we consider a real win / real loss.
 WIN_DELTA = float(os.environ.get("OUTCOME_WIN_DELTA", "3"))
 # GSC window to read the "current" position from.
@@ -55,21 +71,49 @@ WINDOW_DAYS = int(os.environ.get("OUTCOME_WINDOW_DAYS", "7"))
 
 
 def _load_experiments() -> list:
+    rows = []
     try:
         d = json.loads(EXPERIMENTS.read_text(encoding="utf-8"))
-        return d if isinstance(d, list) else d.get("experiments", [])
+        rows.extend(d if isinstance(d, list) else d.get("experiments", []))
     except Exception:
-        return []
+        pass
+    try:
+        op = json.loads((DATA / "operator_experiments.json").read_text(encoding="utf-8"))
+        if isinstance(op, dict):
+            op = op.get("experiments", [])
+        for row in op:
+            if row.get("status") not in {"approved", "running", "measuring"}:
+                continue
+            baseline = row.get("baseline") or {}
+            rows.append({
+                "query": row.get("query"),
+                "page": row.get("page"),
+                "change_type": row.get("change_type"),
+                "applied_at": row.get("started_at"),
+                "before_pos": baseline.get("position"),
+                "operator_experiment_id": row.get("id"),
+            })
+    except Exception:
+        pass
+    return rows
 
 
-def _current_pos(conn, query: str) -> tuple[float | None, int]:
-    """(weighted avg position, impressions) for a query in the recent window."""
+def _current_pos(conn, query: str, page: str) -> tuple[float | None, int]:
+    """Weighted position for this exact query+page, never site-wide."""
+    pages = [page]
+    if page.startswith("/"):
+        pages.extend([
+            f"https://pepperoni.tatar{page}",
+            f"https://pepperoni.tatar{page}/",
+        ])
+    placeholders = ",".join("?" for _ in pages)
     row = conn.execute(
         """SELECT SUM(position*impressions)*1.0/NULLIF(SUM(impressions),0) AS pos,
                   SUM(impressions) AS impr
            FROM gsc_queries
-           WHERE query = ? AND date >= date('now','-'||?||' days')""",
-        (query, WINDOW_DAYS),
+           WHERE query = ? AND page IN (""" + placeholders + """)
+             AND date >= date('now','-'||?||' days')""",
+        (query, *pages, WINDOW_DAYS),
     ).fetchone()
     if not row or row[0] is None:
         return None, 0
@@ -87,6 +131,7 @@ def _age_days(iso: str) -> float:
 def grade() -> dict:
     conn = get_conn()
     inq_by_page = _load_inquiries_by_page()
+    inq_by_experiment = _load_inquiries_by_experiment()
     graded, failing = [], []
     counts = {"improved": 0, "flat": 0, "worse": 0, "not_indexed": 0,
               "pending": 0, "converted": 0}
@@ -102,14 +147,18 @@ def grade() -> dict:
             continue
 
         before = e.get("before_pos")
-        cur, impr = _current_pos(conn, q)
         page = e.get("page") or ""
+        cur, impr = _current_pos(conn, q, page)
         # Match page → Metrika path (GSC pages are full URLs; extract path).
         page_path = page
         if page_path.startswith("http"):
             from urllib.parse import urlparse
             page_path = urlparse(page_path).path
-        inquiries = inq_by_page.get(page_path.rstrip("/"), 0)
+        exp_id = e.get("operator_experiment_id")
+        inquiries = (
+            inq_by_experiment.get(exp_id, 0)
+            if exp_id else inq_by_page.get(page_path.rstrip("/"), 0)
+        )
 
         item = {
             "query":       q,
@@ -147,18 +196,32 @@ def grade() -> dict:
                 if cur >= 20 and impr >= 20:
                     failing.append(item)
         graded.append(item)
+        if e.get("operator_experiment_id"):
+            try:
+                from experiment_registry import finish
+                mapped = {"improved": "win"}.get(item["verdict"], item["verdict"])
+                finish(
+                    e["operator_experiment_id"], mapped,
+                    {"position": cur, "impressions": impr, "inquiries": inquiries},
+                )
+            except Exception as exc:
+                print(f"⚠️ operator experiment finish failed: {exc}", file=sys.stderr)
 
     conn.close()
     # Worst first: not-indexed, then worst current position.
     failing.sort(key=lambda x: (x.get("verdict") != "not_indexed",
                                 -(x.get("current_pos") or 999)))
     # Pages that are both ranking well AND generating inquiries.
-    converting_pages = [
-        {"page": g["page"], "query": g["query"],
-         "pos": g["current_pos"], "inquiries": g["inquiries"]}
-        for g in graded
-        if g.get("inquiries", 0) > 0 and g.get("current_pos") is not None
-    ]
+    converting_by_key = {}
+    for g in graded:
+        if g.get("inquiries", 0) <= 0 or g.get("current_pos") is None:
+            continue
+        key = (g["page"], g["query"])
+        converting_by_key[key] = {
+            "page": g["page"], "query": g["query"],
+            "pos": g["current_pos"], "inquiries": g["inquiries"],
+        }
+    converting_pages = list(converting_by_key.values())
     converting_pages.sort(key=lambda x: -x["inquiries"])
 
     out = {

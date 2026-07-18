@@ -14,7 +14,7 @@ Runs as a long-poll loop (stdlib only). Managed by systemd (see install docs).
 
 Env:
   TELEGRAM_BOT_TOKEN   — from @BotFather (required)
-  TG_PASSWORD          — first-login password (default: Namaz2015!)
+  TG_PASSWORD          — first-login password (required; no default)
   ANTHROPIC_API_KEY    — for the "ask brain" flow (optional)
 """
 
@@ -46,11 +46,12 @@ PUBLIC = ROOT / "public"
 from telegram_notify import STATE_DIR as TG_STATE
 AUTH_FILE = TG_STATE / "tg_authorized.json"
 PENDING_FILE = TG_STATE / "tg_pending.json"   # pending confirmations
+AUTH_ATTEMPTS_FILE = TG_STATE / "tg_auth_attempts.json"
 APPROVALS_FILE = DATA / "approvals.json"  # high-impact actions awaiting human OK
 
 BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
 API = f"https://api.telegram.org/bot{BOT_TOKEN}"
-PASSWORD = os.environ.get("TG_PASSWORD", "Namaz2015!")
+PASSWORD = os.environ.get("TG_PASSWORD", "")
 SALT = os.environ.get("TG_SALT", "pepperoni-brain-salt-v1")
 
 POLL_TIMEOUT = 50
@@ -71,7 +72,7 @@ def load_authorized() -> dict:
 
 
 def save_authorized(d: dict) -> None:
-    DATA.mkdir(exist_ok=True)
+    AUTH_FILE.parent.mkdir(parents=True, exist_ok=True)
     AUTH_FILE.write_text(json.dumps(d, ensure_ascii=False, indent=1))
 
 
@@ -83,6 +84,42 @@ def authorize(chat_id: int, name: str) -> None:
     d = load_authorized()
     d[str(chat_id)] = {"name": name, "since": datetime.now(timezone.utc).isoformat()}
     save_authorized(d)
+    try:
+        from telegram_notify import register_chat
+        register_chat(chat_id, name)
+    except Exception:
+        pass
+
+
+def auth_rate_limited(chat_id: int) -> bool:
+    """Allow at most five failed passwords per chat in fifteen minutes."""
+    now = datetime.now(timezone.utc)
+    try:
+        state = json.loads(AUTH_ATTEMPTS_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        state = {}
+    recent = []
+    for raw in state.get(str(chat_id), []):
+        try:
+            at = datetime.fromisoformat(raw)
+            if (now - at).total_seconds() < 900:
+                recent.append(raw)
+        except Exception:
+            pass
+    state[str(chat_id)] = recent
+    AUTH_ATTEMPTS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    AUTH_ATTEMPTS_FILE.write_text(json.dumps(state, indent=1), encoding="utf-8")
+    return len(recent) >= 5
+
+
+def record_auth_failure(chat_id: int) -> None:
+    try:
+        state = json.loads(AUTH_ATTEMPTS_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        state = {}
+    state.setdefault(str(chat_id), []).append(datetime.now(timezone.utc).isoformat())
+    AUTH_ATTEMPTS_FILE.parent.mkdir(parents=True, exist_ok=True)
+    AUTH_ATTEMPTS_FILE.write_text(json.dumps(state, indent=1), encoding="utf-8")
 
 
 # ── Telegram API helpers ────────────────────────────────────────────────────────
@@ -849,24 +886,13 @@ def _cmd_kazandel(cid: int) -> None:
 
 
 def _cmd_fix_schema(cid: int) -> None:
-    """Deterministic schema fixer: enrich Product JSON-LD site-wide, commit, push."""
-    send(cid, "🛠 Чиню Product-схемы по всему сайту (fix_schema.py)…")
-    try:
-        r = subprocess.run([sys.executable, str(ROOT / "scripts" / "fix_schema.py")],
-                           capture_output=True, text=True, timeout=600, cwd=str(ROOT))
-        tail = "\n".join((r.stdout or r.stderr or "—").strip().splitlines()[-10:])
-        changed = "enriched" in (r.stdout or "")
-        if changed:
-            subprocess.run(["git", "add", "-A", "public"], cwd=str(ROOT), timeout=60)
-            c = subprocess.run(["git", "commit", "-m", "fix(schema): enrich Product JSON-LD (via bot)"],
-                               cwd=str(ROOT), capture_output=True, text=True, timeout=60)
-            if c.returncode == 0:
-                subprocess.run(["git", "push", "origin", "main"], cwd=str(ROOT),
-                               capture_output=True, timeout=120)
-        send(cid, "<pre>" + html.escape(tail)[:3500] + "</pre>", keyboard=MAIN_MENU)
-        J.log_event("system", "fix_schema run via bot", who=str(cid))
-    except Exception as e:
-        send(cid, f"❌ fix_schema: {e}", keyboard=MAIN_MENU)
+    """Mutating git from Telegram is deliberately disabled."""
+    send(
+        cid,
+        "🔒 Массовая правка и push из Telegram отключены. "
+        "Создайте инженерную задачу в Cursor; изменения пройдут diff, QA и review.",
+        keyboard=MAIN_MENU,
+    )
 
 
 def _action_brain_questions() -> str:
@@ -984,16 +1010,15 @@ def handle_message(msg: dict) -> None:
     name = msg["chat"].get("first_name", "user")
     text = (msg.get("text") or "").strip()
 
-    # Remember this chat for agent push notifications (even before password auth).
-    try:
-        from telegram_notify import register_chat
-        register_chat(chat_id, name)
-    except Exception:
-        pass
-
     # 1) Auth gate
     if not is_authorized(chat_id):
-        if text == PASSWORD or _pw_hash(text) == PASSWORD_HASH:
+        if not PASSWORD:
+            send(chat_id, "🔒 Бот не настроен: TG_PASSWORD обязателен.")
+            return
+        if auth_rate_limited(chat_id):
+            send(chat_id, "🔒 Слишком много попыток. Повторите через 15 минут.")
+            return
+        if hmac.compare_digest(_pw_hash(text), PASSWORD_HASH):
             authorize(chat_id, name)
             J.log_event("system", f"authorized {name} ({chat_id})", who="bot")
             send(chat_id,
@@ -1001,11 +1026,8 @@ def handle_message(msg: dict) -> None:
                  f"chat_id: <code>{chat_id}</code>",
                  keyboard=MAIN_MENU)
         else:
-            send(chat_id,
-                 f"🔒 Введите пароль для доступа к мозгу сайта.\n\n"
-                 f"<i>Ваш chat_id: <code>{chat_id}</code> — добавьте в "
-                 f"TELEGRAM_CHAT_ID (GitHub Secrets / seo-agent.env), "
-                 f"чтобы агенты слали уведомления без входа.</i>")
+            record_auth_failure(chat_id)
+            send(chat_id, "🔒 Введите пароль для доступа к мозгу сайта.")
         return
 
     # 2) Pending confirmation (e.g. brain question)
@@ -1052,27 +1074,26 @@ def handle_message(msg: dict) -> None:
              keyboard=MAIN_MENU)
         return
 
-    # 4c) /approve and /reject are no longer needed — the automatic page_reviewer
-    # gates all new pages without human approval. These commands are kept as stubs
-    # so old Telegram notifications don't produce confusing "unknown command" errors.
     m = re.match(r"^/(?:approve|одобрить)\s*(\S*)", text, re.I)
     if m:
-        send(chat_id,
-             "ℹ️ Ручное одобрение страниц больше не требуется.\n"
-             "Рецензент <code>page_reviewer</code> автоматически пропускает или "
-             "отклоняет каждую страницу перед публикацией. "
-             "Результаты приходят в дневной сводке.",
-             keyboard=MAIN_MENU)
+        key = m.group(1)
+        if not key:
+            send(chat_id, "Использование: <code>/approve KEY</code>", keyboard=MAIN_MENU)
+            return
+        from approvals import approve
+        send(chat_id, "✅ Одобрено." if approve(key) else
+             "Не найдено pending-решение с таким ключом.", keyboard=MAIN_MENU)
         return
 
     m = re.match(r"^/(?:reject|отклонить)\s*(\S*)", text, re.I)
     if m:
-        send(chat_id,
-             "ℹ️ Ручное отклонение страниц больше не требуется.\n"
-             "Рецензент <code>page_reviewer</code> автоматически пропускает или "
-             "отклоняет каждую страницу перед публикацией. "
-             "Отклонённые страницы попадают в карантин, Fable видит причины в дайджесте.",
-             keyboard=MAIN_MENU)
+        key = m.group(1)
+        if not key:
+            send(chat_id, "Использование: <code>/reject KEY</code>", keyboard=MAIN_MENU)
+            return
+        from approvals import reject
+        send(chat_id, "❌ Отклонено." if reject(key) else
+             "Не найдено pending-решение с таким ключом.", keyboard=MAIN_MENU)
         return
 
     # 4d) /unblock <query> — Trigger B: manually reset an abandoned fix-attempts entry.

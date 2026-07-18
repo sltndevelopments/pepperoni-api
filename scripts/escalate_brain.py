@@ -192,14 +192,24 @@ def main():
         print(f"· ledger unavailable: {e}", file=sys.stderr)
 
     print(f"🧠 escalating → running brain now (budget left ${remaining_budget():.2f})")
+    before = None
+    try:
+        before = _load(DATA / "strategy.json", {}).get("generated_at")
+    except Exception:
+        pass
     try:
         # Escalations are triggered by strong signals → full reasoning depth
         # (daily ticks default to BRAIN_EFFORT=medium).
         os.environ["BRAIN_EFFORT"] = os.environ.get("BRAIN_EFFORT_ESCALATED", "high")
         import seo_brain
-        seo_brain.main()
+        rc = seo_brain.main()
     except Exception as e:
         print(f"⚠️  brain run failed: {e}", file=sys.stderr)
+        return 2
+    after = _load(DATA / "strategy.json", {}).get("generated_at")
+    if rc != 0 or not after or after == before:
+        print("⚠️ brain did not atomically write a fresh strategy", file=sys.stderr)
+        return 2
     record_escalation(signals)
     # exit code 10 signals "brain was escalated this pass" to the orchestrator,
     # so the regular daily brain step can be skipped (no double Opus spend).

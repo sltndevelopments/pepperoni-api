@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Telegram «кино» после seo-worker tick — короткий ping в @KDSEOSiteBot.
-
-Routine ticks: immediate notify (не daily_ledger — тот раз в день).
-ЧП по-прежнему через notify_emergency / daily_ledger emergency.
+"""Emit only actionable worker outcomes; green ticks stay silent.
 
 Usage (from seo-worker.sh):
     python3 scripts/worker_tick_notify.py --since 2026-06-21T15:00:00+00:00 --pushed 4
@@ -94,12 +91,23 @@ def main() -> int:
         print(msg)
         return 0
 
+    gate = _gate_since(args.since)
+    spent, cap = _today_spend()
+    if args.pushed <= 0 and gate["reject"] == 0 and gate["hold"] == 0 and spent < cap * 0.8:
+        print("⏭ worker_tick_notify: green/no-result tick suppressed")
+        return 0
+
     try:
-        from telegram_notify import notify
-        n = notify(msg)
-        if n == 0:
-            print("⏭ worker_tick_notify: no recipients (open @KDSEOSiteBot on VPS once)")
-            return 0
+        from notification_router import emit
+        if gate["hold"] > 0:
+            emit("emergency", "reviewer_hold", msg,
+                 dedupe_key=f"worker-hold:{datetime.now(timezone.utc):%Y-%m-%d}")
+        elif gate["reject"] > 0 or spent >= cap * 0.8:
+            emit("action", "worker_attention", msg,
+                 dedupe_key=f"worker-action:{datetime.now(timezone.utc):%Y-%m-%d}")
+        else:
+            emit("result", "worker_publish", msg,
+                 dedupe_key=f"worker-result:{args.since}")
         return 0
     except Exception as e:
         print(f"⚠️ worker_tick_notify failed: {e}", file=sys.stderr)

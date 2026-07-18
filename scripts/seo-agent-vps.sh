@@ -17,7 +17,7 @@ LOG_DIR="$REPO_DIR/data/logs"
 # Anthropic cost crosses this, every LLM call raises BudgetExceeded so a runaway
 # loop can't drain the balance like the 630-page run on 2026-06-10. Override in
 # seo-agent.env; set to 0 to disable.
-export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-5}"
+export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-1}"
 
 mkdir -p "$LOG_DIR"
 LOG_FILE="$LOG_DIR/agent-$(date +%Y%m%d-%H%M%S).log"
@@ -221,14 +221,19 @@ python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Li
 log "Step 3.491: Brand mentions — scanning Google News + Reddit …"
 python3 scripts/brand_mentions.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Brand mentions failed (non-fatal)"
 
-# ---- Step 3.5: BRAIN — Opus decides strategy (once/day; budget-capped) ----
-# Skipped if Step 2.6 already escalated the brain this pass (no double spend).
+# ---- Step 3.5: BRAIN — weekly strategy refresh (or successful escalation) ----
 if [ "$BRAIN_ESCALATED" = "1" ]; then
     log "Step 3.5: Brain — skipped (already escalated in Step 2.6)"
+elif python3 scripts/strategy_control.py --needs-brain >> "$LOG_FILE" 2>&1; then
+    log "Step 3.5: Brain (weekly outcome planning) …"
+    python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 \
+      || log_degradation "⚠️  Brain failed; no new operator work will start"
 else
-    log "Step 3.5: Brain (Fable 5) planning strategy …"
-    python3 scripts/seo_brain.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Brain failed (non-fatal)"
+    log "Step 3.5: Brain — weekly strategy still fresh, skipped"
 fi
+
+# After the repair window, activation still requires every mechanical gate.
+python3 scripts/strategy_control.py --activate-if-ready >> "$LOG_FILE" 2>&1 || true
 
 # ---- Step 3.5b: TOOLSMITH — build & run tools the brain proposed for itself ----
 # The brain can request its own analysis tools (propose_tools/run_tools in
@@ -236,13 +241,20 @@ fi
 # scripts/brain_tools/ after a static safety scan, then runs requested ones
 # read-only so their output feeds the NEXT brain digest (block "toolbox").
 log "Step 3.5b: Toolsmith — building/running brain's self-made tools …"
-python3 scripts/brain_toolsmith.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Toolsmith failed (non-fatal)"
+log "  ⏸ autonomous code/tool mutation disabled; proposals require engineering review"
 
 # ---- Step 3.6: WORKER — execute the brain's strategy (closes the loop) ----
 # Reads data/strategy.json and builds what Fable decided: blog topics,
 # PL/OEM pages, rewrites. Without this step the strategy is dead paper.
 log "Step 3.6: Worker — executing brain strategy …"
-python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Strategy worker failed (non-fatal)"
+GENERATION_ALLOWED=0
+if python3 scripts/strategy_control.py --check-generation >> "$LOG_FILE" 2>&1; then
+    GENERATION_ALLOWED=1
+    python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 \
+      || log_degradation "⚠️  Strategy worker failed (non-fatal)"
+else
+    log "  ⏸ New content frozen by operator control plane"
+fi
 
 # ---- Step 3b: Clean up any stale temp files in public/ (should be zero, but guard) ----
 find public/ -maxdepth 3 -name "tmp*.html" -delete 2>/dev/null || true
@@ -274,9 +286,13 @@ log "Step 4: skipped — legacy generate_content.py disabled (use strategy execu
 
 # ---- Step 4b: Bulk geo pages (full assortment × RU + CIS cities) ----
 log "Step 4b: Generating bulk geo pages …"
-MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
-    python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
-    >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
+if [ "$GENERATION_ALLOWED" = "1" ]; then
+    MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
+        python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
+        >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
+else
+    log "  ⏸ Geo generation frozen by operator control plane"
+fi
 
 # ---- Step 4ba: Restyle off-brand blog articles (Bootstrap → brand shell) ----
 log "Step 4ba: Restyle blog articles …"
@@ -434,21 +450,16 @@ python3 scripts/send_report.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  R
 log "Step 8b: Optimizer report → ledger …"
 python3 scripts/optimize_seo.py --report >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer report failed (non-fatal)"
 
-# ---- Step 8c: Daily digest flush (once per calendar day) ----
-# flush_digest() is guarded by last_flush_date — first run of the day sends
-# one Telegram with ✅ done / 🆘 needs_help sections; subsequent runs are no-op.
-log "Step 8c: Daily digest flush …"
+# ---- Step 8c: Weekly Owner Brief (safe to call daily; 7-day guard) ----
+log "Step 8c: Weekly Owner Brief flush …"
 python3 -c "
 import sys; sys.path.insert(0, 'scripts')
 import daily_ledger
 sent = daily_ledger.flush_digest()
-print('digest sent' if sent else 'already flushed today — no-op')
+print('owner brief sent' if sent else 'weekly brief not due — no-op')
 " >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Daily digest flush failed (non-fatal)"
 
-# ---- Step 8d: Status digest (once per calendar day, rich numbers) ----
-log "Step 8d: Status digest → Telegram …"
-python3 scripts/status_digest.py --daily >> "$LOG_FILE" 2>&1 \
-    || log_degradation "⚠️  Status digest failed (non-fatal)"
+# Standalone daily status digest disabled: it duplicated the Owner Brief.
 
 # ---- Rotate old logs (keep 30 days) ----
 find "$LOG_DIR" -name "agent-*.log" -mtime +30 -delete 2>/dev/null || true

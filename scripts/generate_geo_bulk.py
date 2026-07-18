@@ -703,6 +703,7 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
     import shutil as _shutil
     import tempfile as _tmpmod
     task = prep["task"]
+    approval_key = task.get("_approval_key", "")
     product = task["product"]
     page_slug = prep["page_slug"]
     final_path: Path = prep["file_path"]
@@ -715,6 +716,7 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
 
         if not is_valid_page(html_content):
             return {"status": "error", "slug": page_slug,
+                    "approval_key": approval_key,
                     "error": "incomplete/invalid HTML — not saved"}
 
         # Write to data/tmp/ first — public/ only gets the file after gate passes.
@@ -743,12 +745,14 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
             except Exception:
                 pass
             return {"status": "held", "slug": page_slug,
+                    "approval_key": approval_key,
                     "error": f"reviewer crashed: {_rev_exc}"}
 
         if review["verdict"] != "pass":
             # Temp file already handled (quarantined) by review_page(); ensure it's gone.
             tmp_path.unlink(missing_ok=True)
             return {"status": "quarantined", "slug": page_slug,
+                    "approval_key": approval_key,
                     "reasons": review["reasons"]}
 
         # Gate passed — move to final public/ destination.
@@ -758,9 +762,22 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
         save_page_record(page_slug, product["id"], task["city_slug"],
                          task["country_code"], task["lang"], task["template_id"],
                          str(final_path), tokens)
+        try:
+            from experiment_registry import start
+            start(
+                query=f"{product['name_ru']} {task['city_name']} оптом",
+                page="/" + final_path.relative_to(PUBLIC).as_posix().removesuffix(".html"),
+                hypothesis="Approved commercial geo demand should gain clicks or inquiries",
+                change_type="new_geo",
+                baseline={"position": None, "impressions": 0,
+                          "clicks": 0, "inquiries": 0},
+            )
+        except Exception as e:
+            print(f"  ⚠️ experiment registry: {e}", file=sys.stderr)
         return {
             "status": "generated",
             "slug": page_slug,
+            "approval_key": approval_key,
             "file": str(final_path),
             "tokens": tokens,
             "city": task["city_name"],
@@ -768,7 +785,8 @@ def finalize_page(prep: dict, html_content: str, tokens: int) -> dict:
             "lang": task["lang"],
         }
     except Exception as exc:
-        return {"status": "error", "slug": page_slug, "error": str(exc)}
+        return {"status": "error", "slug": page_slug,
+                "approval_key": approval_key, "error": str(exc)}
 
 
 def generate_one_page(task: dict) -> dict:
@@ -785,7 +803,9 @@ def generate_one_page(task: dict) -> dict:
             model=GEO_MODEL, max_tokens=9000, effort=GEO_EFFORT)
         return finalize_page(prep, html_content, tokens)
     except Exception as exc:
-        return {"status": "error", "slug": prep["page_slug"], "error": str(exc)}
+        return {"status": "error", "slug": prep["page_slug"],
+                "approval_key": task.get("_approval_key", ""),
+                "error": str(exc)}
 
 
 def generate_batch(tasks: list) -> list:
@@ -833,11 +853,13 @@ def generate_batch(tasks: list) -> list:
         res = batch_out.get(cid)
         if res is None:
             results.append({"status": "error", "slug": prep["page_slug"],
+                            "approval_key": prep["task"].get("_approval_key", ""),
                             "error": "missing from batch results"})
         elif res.get("ok"):
             results.append(finalize_page(prep, res["text"], res.get("tokens", 0)))
         else:
             results.append({"status": "error", "slug": prep["page_slug"],
+                            "approval_key": prep["task"].get("_approval_key", ""),
                             "error": res.get("error", "batch item failed")})
     return results
 
@@ -1094,6 +1116,16 @@ def main():
     if not ANTHROPIC_API_KEY:
         print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
         sys.exit(1)
+    if not args.dry_run:
+        try:
+            from strategy_control import generation_allowed
+            allowed, blockers = generation_allowed()
+            if not allowed:
+                print("⏸ Geo generator blocked: " + "; ".join(blockers))
+                return
+        except Exception as e:
+            print(f"⏸ Geo generator fail-closed: control plane unavailable ({e})")
+            return
 
     strat = {} if args.ignore_strategy else load_strategy()
     focus_products = strat.get("focus_products") or None
@@ -1138,8 +1170,6 @@ def main():
     print("=" * 60)
 
     # ── Build task queue ───────────────────────────────────────────────────────
-    # Pages are now gated automatically by page_reviewer (fail-closed) inside
-    # finalize_page(). No human approval step — the reviewer is the barrier.
     tasks = build_task_queue(
         mode=args.mode,
         max_pages=args.max_pages,
@@ -1155,8 +1185,41 @@ def main():
             print(f"  → [{t['lang']}|{t['template_id']}] {t['product']['name_ru']} / {t['city_name']} ({t['country_code']})")
         return
 
+    # QA protects quality; owner approval protects the index from page sprawl.
+    # Queue at most three concrete candidates and generate only approved ones.
+    from approvals import request_new_page
+    approved_tasks = []
+    for task in tasks[:3]:
+        product_slug = task["product"].get("slug_ru") or task["product"]["id"]
+        key = (
+            f"geo_page:{product_slug}-{task['city_slug']}-"
+            f"{task['lang']}-{task['template_id'].lower()}"
+        )
+        status = request_new_page(
+            key=key,
+            title=(
+                f"Geo [{task['lang']}]: {task['product']['name_ru']} / "
+                f"{task['city_name']}"
+            ),
+            detail="Новая geo-страница; требуется доказанный коммерческий спрос",
+            action="geo_page",
+            payload={
+                "product_id": task["product"]["id"],
+                "city_slug": task["city_slug"],
+                "lang": task["lang"],
+                "template_id": task["template_id"],
+            },
+            requested_by="site-brain",
+        )
+        task["_approval_key"] = key
+        if status == "approved":
+            approved_tasks.append(task)
+        else:
+            print(f"  ⏳ {key}: approval={status}")
+    tasks = approved_tasks
+
     if not tasks:
-        print("✅ All requested pages already exist. Nothing to generate.")
+        print("✅ No approved geo pages to generate.")
         return
 
     generated = 0
@@ -1177,6 +1240,7 @@ def main():
     def handle(result):
         nonlocal generated, quarantined, errors, total_tokens
         status = result.get("status")
+        approval_key = result.get("approval_key")
         if status == "generated":
             generated += 1
             total_tokens += result.get("tokens", 0)
@@ -1184,12 +1248,24 @@ def main():
             if generated % 10 == 0 or generated <= 5:
                 print(f"  ✓ [{generated}] [{result.get('lang','')}] "
                       f"{result.get('product','')} / {result.get('city','')}")
+            if approval_key:
+                from approvals import mark_executed
+                mark_executed(approval_key, success=True)
         elif status in ("quarantined", "held"):
             quarantined += 1
+            if approval_key:
+                from approvals import mark_executed
+                mark_executed(approval_key, success=False, note=f"{status} by page gate")
             print(f"  🚧 [{status}] {result.get('slug')} — "
                   f"{'; '.join(result.get('reasons', [result.get('error','?')]))[:100]}")
         elif status == "error":
             errors += 1
+            if approval_key:
+                from approvals import mark_executed
+                mark_executed(
+                    approval_key, success=False,
+                    note=result.get("error", "generation error"),
+                )
             print(f"  ✗ ERROR: {result.get('slug')} — {result.get('error', '')[:100]}", file=sys.stderr)
         # skipped/already_exists — silent
 

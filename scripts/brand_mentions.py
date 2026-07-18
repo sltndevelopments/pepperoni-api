@@ -172,7 +172,7 @@ def notify(new_items: list[dict]) -> None:
         return
     try:
         sys.path.insert(0, os.path.dirname(__file__))
-        import telegram_notify
+        from notification_router import emit
         lines = [f"<b>📰 Новые упоминания бренда ({len(new_items)})</b>"]
         for item in new_items[:8]:
             src = item.get("source_name", "")
@@ -181,7 +181,8 @@ def notify(new_items: list[dict]) -> None:
             lines.append(f"• [{src}] <a href='{url}'>{title}</a>")
         if len(new_items) > 8:
             lines.append(f"  ...и ещё {len(new_items) - 8}")
-        telegram_notify.notify("\n".join(lines))
+        emit("info", "brand_mentions", "\n".join(lines),
+             dedupe_key=f"brand-mentions:{datetime.now(timezone.utc):%Y-%m-%d}")
     except Exception as e:
         print(f"· telegram notify failed: {e}", file=sys.stderr)
 

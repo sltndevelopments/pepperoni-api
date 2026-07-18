@@ -1,0 +1,11 @@
+{
+  "mode": "repair",
+  "repair_started_at": "2026-07-19T00:00:00+00:00",
+  "repair_until": "2026-08-02T00:00:00+00:00",
+  "max_active_experiments": 3,
+  "daily_budget_usd": 1.0,
+  "monthly_budget_usd": 30.0,
+  "quarantine_baseline": 12,
+  "auto_activate_when_eligible": true,
+  "note": "New LLM content is frozen during the 14-day control-plane repair phase."
+}

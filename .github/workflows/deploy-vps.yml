@@ -107,7 +107,7 @@ jobs:
               echo "OPT_MAX_CTR=0.02"
               echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN"
               echo "TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}"
-              echo "TG_PASSWORD=${TG_PASSWORD:-Namaz2015!}"
+              echo "TG_PASSWORD=${TG_PASSWORD:-}"
               echo "PPLX_API_KEY=${PPLX_API_KEY:-}"
               echo "YANDEX_SEARCH_API_KEY=${YANDEX_SEARCH_API_KEY:-}"
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"

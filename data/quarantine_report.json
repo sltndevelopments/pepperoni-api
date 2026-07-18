@@ -1,0 +1,153 @@
+{
+  "current_files": 12,
+  "temporary_files": 0,
+  "named_page_count": 12,
+  "historical_gate_events": 95,
+  "historical_reject_hold_events": 77,
+  "unique_rejected_paths": 13,
+  "reason_events": {
+    "technical_other": 10,
+    "temporary_hold": 3,
+    "thin_duplicate": 70,
+    "truncated_html": 69
+  },
+  "named_pages": [
+    {
+      "path": "ar/geo/kazylyk-faakhir-doha.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "ar/geo/kazylyk-faakhir-dubai.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "ar/geo/topping-pizza-halal-alexandria.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "en/geo/halal-pelmeni-dumplings-johannesburg.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/pelmeni-tver.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/ru/vypechka-tatarskaya-kyzylorda.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/topping-dlya-pitstsy-abakan.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/topping-dlya-pitstsy-kovrov.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/topping-dlya-pitstsy-spb.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "geo/topping-dlya-pitstsy-ufa.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "kk/geo/topping-dlya-pitstsy-astana.html",
+      "category": "technical_other",
+      "disposition": "kept_closed_pending_demand_evidence"
+    },
+    {
+      "path": "sosiki-dlya-hotdog-zheleznodorozhny.html",
+      "category": "temporary_hold",
+      "disposition": "kept_closed_pending_demand_evidence"
+    }
+  ],
+  "temporary_files_removed": 0,
+  "before_cleanup": {
+    "current_files": 12,
+    "temporary_files": 0,
+    "named_page_count": 12,
+    "historical_gate_events": 95,
+    "historical_reject_hold_events": 77,
+    "unique_rejected_paths": 13,
+    "reason_events": {
+      "technical_other": 10,
+      "temporary_hold": 3,
+      "thin_duplicate": 70,
+      "truncated_html": 69
+    },
+    "named_pages": [
+      {
+        "path": "ar/geo/kazylyk-faakhir-doha.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "ar/geo/kazylyk-faakhir-dubai.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "ar/geo/topping-pizza-halal-alexandria.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "en/geo/halal-pelmeni-dumplings-johannesburg.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/pelmeni-tver.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/ru/vypechka-tatarskaya-kyzylorda.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/topping-dlya-pitstsy-abakan.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/topping-dlya-pitstsy-kovrov.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/topping-dlya-pitstsy-spb.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "geo/topping-dlya-pitstsy-ufa.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "kk/geo/topping-dlya-pitstsy-astana.html",
+        "category": "technical_other",
+        "disposition": "kept_closed_pending_demand_evidence"
+      },
+      {
+        "path": "sosiki-dlya-hotdog-zheleznodorozhny.html",
+        "category": "temporary_hold",
+        "disposition": "kept_closed_pending_demand_evidence"
+      }
+    ]
+  }
+}
