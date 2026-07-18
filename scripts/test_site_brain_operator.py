@@ -125,6 +125,7 @@ class ExperimentRegistryTests(unittest.TestCase):
             "(date('now'), 'pepperoni', '/b', 50, 100)"
         )
         pos, impressions = outcome_tracker._current_pos(conn, "pepperoni", "/a")
+        conn.close()
         self.assertEqual((5.0, 10), (pos, impressions))
 
 
