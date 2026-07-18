@@ -45,15 +45,6 @@
       "title": "Сработались настолько, что теперь одно целое 😂 | 2025-10-16 #Shorts",
       "is_short": true
     },
-    "56": {
-      "tg_id": 56,
-      "tg_url": "https://t.me/KazanDelikates/56",
-      "tg_date": "2025-10-17",
-      "id": "-cJwqMYT1DE",
-      "url": "https://www.youtube.com/watch?v=-cJwqMYT1DE",
-      "title": "Теперь наша продукция есть и в EUROSPAR 🎉 | 2025-10-17 #Shorts",
-      "is_short": true
-    },
     "58": {
       "tg_id": 58,
       "tg_url": "https://t.me/KazanDelikates/58",
@@ -84,5 +75,12 @@
   },
   "failed": {
     "61": "<HttpError 400 when requesting None returned \"The user has exceeded the number of videos they may upload.\". Details: \"[{'message': 'The user has exceeded the number of videos they may upload.', 'domain': 'youtube.video', 'reason': 'uploadLimitExceeded'}]\">"
+  },
+  "deleted": {
+    "56": {
+      "id": "-cJwqMYT1DE",
+      "reason": "exiting EUROSPAR",
+      "date": "2026-07-18"
+    }
   }
 }
