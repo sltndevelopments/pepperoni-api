@@ -14,6 +14,8 @@ ROOT = SCRIPTS.parent
 sys.path.insert(0, str(SCRIPTS))
 
 import experiment_registry
+import agent_bus
+import escalate_brain
 import fix_attempts
 import notification_router
 import outcome_tracker
@@ -43,6 +45,18 @@ class StrategyContractTests(unittest.TestCase):
         self.assertEqual([], seo_brain.strategy_contract_errors(valid))
         valid.pop("geo_daily_target")
         self.assertTrue(seo_brain.strategy_contract_errors(valid))
+
+    def test_optional_narrative_fields_are_defaulted(self):
+        strategy = self.valid_strategy()
+        strategy.pop("questions")
+        strategy.pop("report_to_owner")
+        normalized = seo_brain.normalize_strategy_payload(strategy)
+        self.assertEqual([], seo_brain.strategy_contract_errors(normalized))
+        self.assertEqual([], normalized["questions"])
+
+    def test_digest_hard_cap(self):
+        digest = seo_brain.build_digest()
+        self.assertLessEqual(len(json.dumps(digest, ensure_ascii=False)), 24_000)
 
     def test_executor_coverage(self):
         accepted = set(seo_brain.STRATEGY_SCHEMA["properties"])
@@ -82,6 +96,34 @@ class ControlPlaneTests(unittest.TestCase):
             self.assertLess(gate, source.index("generate_geo_bulk.py"))
         geo = (ROOT / "scripts/generate_geo_bulk.py").read_text()
         self.assertIn('geo_daily_target", "")).strip() == "0"', geo)
+
+    def test_repair_mode_disables_escalation_and_closes_legacy_bus_tasks(self):
+        with tempfile.TemporaryDirectory() as td:
+            data = Path(td)
+            (data / "operator_state.json").write_text(json.dumps({"mode": "repair"}))
+            bus = data / "agent_bus.json"
+            bus.write_text(json.dumps({
+                "tasks": [{
+                    "id": "t-1", "from": "outcome_tracker", "to": "fable",
+                    "type": "fix_failing_page", "status": "pending",
+                    "updated_at": "2026-01-01T00:00:00+00:00",
+                    "note": "legacy", "payload": {},
+                }],
+                "seq": 1, "updated_at": "2026-01-01T00:00:00+00:00",
+            }))
+            with (
+                mock.patch.object(escalate_brain, "DATA", data),
+                mock.patch.object(sys, "argv", ["escalate_brain.py"]),
+            ):
+                self.assertEqual(0, escalate_brain.main())
+            with (
+                mock.patch.object(agent_bus, "DATA", data),
+                mock.patch.object(agent_bus, "BUS", bus),
+            ):
+                result = agent_bus.escalate_stuck(hours=0)
+            self.assertEqual(0, result["escalated"])
+            self.assertEqual(1, result["closed_legacy_repairs"])
+            self.assertEqual("failed", json.loads(bus.read_text())["tasks"][0]["status"])
 
 
 class ExperimentRegistryTests(unittest.TestCase):

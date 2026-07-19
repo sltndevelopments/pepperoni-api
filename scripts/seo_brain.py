@@ -67,7 +67,7 @@ def inventory() -> dict:
     # Slug/title inventory for near-dup prevention (compact)
     try:
         from blog_topic_dedup import blog_inventory_for_digest
-        inv["blog_dedup"] = blog_inventory_for_digest(limit=80)
+        inv["blog_dedup"] = blog_inventory_for_digest(limit=20)
     except Exception as e:
         inv["blog_dedup"] = {"error": str(e)[:120]}
     # Topic queue (approved unique themes)
@@ -741,10 +741,11 @@ def build_digest() -> dict:
     # Per-block caps above should keep total well under this; the guardian is
     # a structural backstop for any future block that exceeds its cap.
     # Cuts by ELEMENT count (never slice a JSON string) so result stays valid.
-    _GUARDIAN_CHARS = 45_000
+    _GUARDIAN_CHARS = 24_000
     _VARIABLE_BLOCKS = (
-        "market_pulse", "agent_bus", "scout", "expert_tasks", "gate_rejections",
-        "web_search", "memory", "opportunities", "competitors",
+        "inventory", "market_pulse", "agent_bus", "scout", "expert_tasks",
+        "gate_rejections", "web_search", "memory", "opportunities",
+        "competitors", "experiments", "outcomes", "goals", "coverage",
     )
     _TRIM_STEPS = [10, 5, 3, 1]
 
@@ -760,6 +761,19 @@ def build_digest() -> dict:
                     for sub, sv in val.items():
                         if isinstance(sv, list) and len(sv) > step:
                             val[sub] = sv[:step]
+            raw = json.dumps(digest, ensure_ascii=False)
+            if len(raw) <= _GUARDIAN_CHARS:
+                digest["_digest_trimmed"] = True
+                break
+
+    # Final deterministic backstop. Keep operational truth; collapse the least
+    # critical context blocks instead of sending an oversized paid prompt.
+    if len(raw) > _GUARDIAN_CHARS:
+        for key in (
+            "inventory", "market_pulse", "competitors", "memory", "toolbox",
+            "expert_tasks", "web_search", "coverage", "opportunities",
+        ):
+            digest[key] = {"trimmed": True}
             raw = json.dumps(digest, ensure_ascii=False)
             if len(raw) <= _GUARDIAN_CHARS:
                 digest["_digest_trimmed"] = True
@@ -1535,6 +1549,18 @@ STRATEGY_ENGINEERING_FIELDS = {
 }
 
 
+def normalize_strategy_payload(strategy: object) -> object:
+    if not isinstance(strategy, dict):
+        return strategy
+    normalized = dict(strategy)
+    normalized.setdefault("questions", [])
+    normalized.setdefault(
+        "report_to_owner",
+        normalized.get("proactive_message") or normalized.get("notes") or "",
+    )
+    return normalized
+
+
 def strategy_contract_errors(strategy: object) -> list[str]:
     """Return deterministic schema errors without mutating last-known-good."""
     if not isinstance(strategy, dict):
@@ -1705,17 +1731,9 @@ def main():
             print(f"📏 digest size: {n:,} input tokens")
         if n > 30_000:
             warn = (f"⚠️ Дайджест Мозга распух: {n:,} токенов (>30K). "
-                    f"Проверь блоки digest — это бьёт по бюджету Fable.")
+                    f"Вызов отменён fail-closed; требуется инженерное сокращение.")
             print(warn)
-            try:
-                import daily_ledger
-                daily_ledger.append_event("needs_help", warn)
-            except Exception:
-                try:
-                    from notification_router import emit
-                    emit("action", "brain_cost", warn, dedupe_key="brain-digest-too-large")
-                except Exception:
-                    pass
+            return 2
     except Exception:
         pass
 
@@ -1751,6 +1769,10 @@ def main():
     except Exception as e:
         print(f"⚠️  Could not parse strategy JSON ({e}). Keeping existing strategy.")
         return 2
+
+    # Narrative/reporting fields are optional model conveniences, not control
+    # directives. Missing them must not invalidate an otherwise executable plan.
+    strategy = normalize_strategy_payload(strategy)
 
     # Safety net for json_schema being disabled (Task 0.3): _extract_json is
     # now the only parser, so a malformed-but-valid-JSON reply (missing keys,

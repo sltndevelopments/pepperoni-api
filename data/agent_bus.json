@@ -13,11 +13,11 @@
     "was": null,
     "_dedup": "failing:how to identify halal certified products"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «how to identify halal certified products» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-14T06:30:02.057241+00:00",
-   "updated_at": "2026-06-16T05:30:30.712927+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -33,11 +33,11 @@
     "was": null,
     "_dedup": "failing:russia halal market size 2026 trillion rubles"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «russia halal market size 2026 trillion rubles» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-14T06:30:02.057576+00:00",
-   "updated_at": "2026-06-16T05:30:30.712938+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -53,11 +53,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-14T06:30:02.057855+00:00",
-   "updated_at": "2026-06-16T05:30:30.712944+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -73,11 +73,11 @@
     "was": null,
     "_dedup": "failing:farsh yerevan"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «farsh yerevan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-16T05:30:02.584490+00:00",
-   "updated_at": "2026-06-17T05:30:32.605425+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -93,11 +93,11 @@
     "was": null,
     "_dedup": "failing:how to identify halal certified products"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «how to identify halal certified products» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-16T05:30:43.491782+00:00",
-   "updated_at": "2026-06-24T05:30:07.435401+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -113,11 +113,11 @@
     "was": null,
     "_dedup": "failing:russia halal market size 2026 trillion rubles"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «russia halal market size 2026 trillion rubles» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-16T05:30:43.492344+00:00",
-   "updated_at": "2026-06-24T05:30:07.435413+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -133,11 +133,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-16T05:30:43.493537+00:00",
-   "updated_at": "2026-06-24T05:30:07.435418+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -153,11 +153,11 @@
     "was": null,
     "_dedup": "failing:farsh yerevan"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «farsh yerevan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-17T05:30:41.386886+00:00",
-   "updated_at": "2026-06-24T05:30:07.435421+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -173,11 +173,11 @@
     "was": null,
     "_dedup": "failing:ветчина это халал"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «ветчина это халал» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-25T05:30:02.599960+00:00",
-   "updated_at": "2026-06-26T05:30:07.015254+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -193,11 +193,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-25T05:30:02.601442+00:00",
-   "updated_at": "2026-06-26T05:30:07.015266+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -213,11 +213,11 @@
     "was": null,
     "_dedup": "failing:echpochmak"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «echpochmak» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-26T03:30:02.513499+00:00",
-   "updated_at": "2026-06-27T05:33:22.783811+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -233,11 +233,11 @@
     "was": null,
     "_dedup": "failing:tatar cuisine"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «tatar cuisine» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-06-30T21:30:02.692927+00:00",
-   "updated_at": "2026-07-01T23:17:59.637586+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -253,11 +253,11 @@
     "was": null,
     "_dedup": "failing:kazylyk"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «kazylyk» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-01T00:00:03.239358+00:00",
-   "updated_at": "2026-07-02T05:30:36.108507+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -273,11 +273,11 @@
     "was": null,
     "_dedup": "failing:эчпочмак это"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «эчпочмак это» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-01T00:00:03.244063+00:00",
-   "updated_at": "2026-07-02T05:30:36.108520+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -293,11 +293,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-04T05:31:32.139070+00:00",
-   "updated_at": "2026-07-06T05:30:32.159910+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -313,11 +313,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-07T03:30:02.539793+00:00",
-   "updated_at": "2026-07-08T05:30:31.192281+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -333,11 +333,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-07T03:30:02.545959+00:00",
-   "updated_at": "2026-07-08T05:30:31.192317+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -353,11 +353,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-09T03:30:02.064022+00:00",
-   "updated_at": "2026-07-10T05:30:31.683275+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -373,11 +373,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-11T06:30:02.523494+00:00",
-   "updated_at": "2026-07-13T05:30:31.942463+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -393,11 +393,11 @@
     "was": null,
     "_dedup": "failing:echpochmak"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «echpochmak» — worse (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-11T06:30:02.527159+00:00",
-   "updated_at": "2026-07-13T05:30:31.942474+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -413,11 +413,11 @@
     "was": null,
     "_dedup": "failing:is pepperoni halal in pakistan"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «is pepperoni halal in pakistan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-13T03:30:02.111192+00:00",
-   "updated_at": "2026-07-14T05:30:31.928384+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -433,11 +433,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — flat (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-13T03:30:02.114029+00:00",
-   "updated_at": "2026-07-14T05:30:31.928394+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -453,11 +453,11 @@
     "was": null,
     "_dedup": "failing:пеперони из какого мяса"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пеперони из какого мяса» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-14T03:30:02.781704+00:00",
-   "updated_at": "2026-07-15T05:30:36.467572+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -473,11 +473,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-14T03:30:02.784010+00:00",
-   "updated_at": "2026-07-15T05:30:36.467584+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -493,11 +493,11 @@
     "was": null,
     "_dedup": "failing:is pepperoni halal in pakistan"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «is pepperoni halal in pakistan» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-15T03:30:02.293551+00:00",
-   "updated_at": "2026-07-16T05:30:34.189644+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -513,11 +513,11 @@
     "was": null,
     "_dedup": "failing:пепперони халяль"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пепперони халяль» — flat (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-15T03:30:02.297005+00:00",
-   "updated_at": "2026-07-16T05:30:34.189657+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -533,11 +533,11 @@
     "was": null,
     "_dedup": "failing:пеперони из какого мяса"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «пеперони из какого мяса» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-16T03:30:02.333573+00:00",
-   "updated_at": "2026-07-17T05:30:42.831699+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -553,11 +553,11 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-16T03:30:02.335362+00:00",
-   "updated_at": "2026-07-17T05:30:42.831711+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   },
   {
@@ -573,14 +573,14 @@
     "was": null,
     "_dedup": "failing:pepperoni shelf life"
    },
-   "status": "escalated",
+   "status": "failed",
    "trigger": "outcome.failing",
-   "note": "НЕ сработало: «pepperoni shelf life» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "note": "Закрыто ремонтным режимом: legacy outcome не является задачей или решением владельца.",
    "created_at": "2026-07-18T03:30:02.775058+00:00",
-   "updated_at": "2026-07-19T05:30:32.335480+00:00",
+   "updated_at": "2026-07-19T07:45:38.477685+00:00",
    "claimed_by": null
   }
  ],
  "seq": 29,
- "updated_at": "2026-07-19T05:30:32.335528+00:00"
+ "updated_at": "2026-07-19T07:45:38.477685+00:00"
 }
