@@ -161,6 +161,11 @@ def grade() -> dict:
         )
 
         item = {
+            "experiment_id": (
+                e.get("operator_experiment_id")
+                or e.get("id")
+                or f"{applied}|{q}|{page}|{e.get('change_type', '')}"
+            ),
             "query":       q,
             "page":        page,
             "change":      e.get("change_type"),

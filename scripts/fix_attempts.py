@@ -27,7 +27,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 ATTEMPTS_FILE = DATA / "fix_attempts.json"
 
-MAX_FIX_ATTEMPTS = 3
+MAX_FIX_ATTEMPTS = 2
 
 
 def _load() -> dict:
@@ -49,20 +49,25 @@ def _key(query: str) -> str:
     return query.strip().lower()
 
 
-def increment(query: str, verdict: str = "") -> dict:
-    """Increment failure counter for query. Returns the updated entry.
+def increment(query: str, verdict: str = "", failure_id: str = "") -> dict:
+    """Count one distinct failed experiment for a query.
 
-    If attempts reaches MAX_FIX_ATTEMPTS the entry is marked abandoned=True
-    and a needs_help event is appended to the daily_ledger.
+    Re-reading the same outcome is idempotent when ``failure_id`` is supplied.
     """
     data = _load()
     fq = data.setdefault("failed_queries", {})
     k = _key(query)
     entry = fq.get(k, {})
+    seen = entry.setdefault("seen_failure_ids", [])
+    if failure_id and failure_id in seen:
+        return dict(entry)
 
     entry["attempts"] = entry.get("attempts", 0) + 1
     entry["last_verdict"] = verdict
     entry["last_attempt"] = datetime.now(timezone.utc).isoformat()
+    if failure_id:
+        seen.append(failure_id)
+        entry["seen_failure_ids"] = seen[-20:]
 
     newly_abandoned = False
     if entry["attempts"] >= MAX_FIX_ATTEMPTS and not entry.get("abandoned"):

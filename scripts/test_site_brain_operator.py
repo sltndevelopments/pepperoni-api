@@ -14,8 +14,10 @@ ROOT = SCRIPTS.parent
 sys.path.insert(0, str(SCRIPTS))
 
 import experiment_registry
+import fix_attempts
 import notification_router
 import outcome_tracker
+import repair_outcomes
 import seo_brain
 import strategy_control
 import worker_tick_notify
@@ -127,6 +129,39 @@ class ExperimentRegistryTests(unittest.TestCase):
         pos, impressions = outcome_tracker._current_pos(conn, "pepperoni", "/a")
         conn.close()
         self.assertEqual((5.0, 10), (pos, impressions))
+
+    def test_same_failure_is_counted_once(self):
+        with tempfile.TemporaryDirectory() as td:
+            attempts = Path(td) / "fix_attempts.json"
+            with mock.patch.object(fix_attempts, "ATTEMPTS_FILE", attempts):
+                first = fix_attempts.increment(
+                    "pepperoni halal", "not_indexed", failure_id="exp-1"
+                )
+                second = fix_attempts.increment(
+                    "pepperoni halal", "not_indexed", failure_id="exp-1"
+                )
+            self.assertEqual(1, first["attempts"])
+            self.assertEqual(1, second["attempts"])
+
+    def test_repair_mode_does_not_create_repair_actions(self):
+        with tempfile.TemporaryDirectory() as td:
+            data = Path(td)
+            outcomes = data / "outcomes.json"
+            outcomes.write_text(json.dumps({
+                "failing": [{
+                    "query": "pepperoni halal",
+                    "page": "https://pepperoni.tatar/pepperoni",
+                    "verdict": "not_indexed",
+                }]
+            }))
+            (data / "operator_state.json").write_text(json.dumps({"mode": "repair"}))
+            with (
+                mock.patch.object(repair_outcomes, "DATA", data),
+                mock.patch.object(repair_outcomes, "OUTCOMES", outcomes),
+            ):
+                result = repair_outcomes.repair()
+            self.assertEqual(1, result["repair_mode_skipped"])
+            self.assertEqual(0, result["queued_for_fable"])
 
 
 class NotificationTests(unittest.TestCase):
