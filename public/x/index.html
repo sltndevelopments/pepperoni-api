@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эксперимент /x — Казанские Деликатесы</title>
+<meta name="description" content="Тестовая главная pepperoni.tatar/x. Не для SEO — песочница нового UX.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://pepperoni.tatar/x/">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --forest: #0b1f14;
+  --forest-mid: #123222;
+  --green: #1b7a3d;
+  --green-bright: #2db35a;
+  --cream: #f3f0e8;
+  --ink: #e8ebe6;
+  --muted: rgba(232, 235, 230, 0.72);
+  --line: rgba(232, 235, 230, 0.16);
+  --accent: #c8f071;
+  --radius: 6px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: Sora, sans-serif;
+  background: var(--forest);
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 16px;
+  overflow-x: hidden;
+}
+a { color: inherit; text-decoration: none; }
+img, video { display: block; max-width: 100%; }
+button { font: inherit; cursor: pointer; border: 0; background: none; color: inherit; }
+
+.exp-bar {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  background: rgba(11, 31, 20, 0.92);
+  border-bottom: 1px solid var(--line);
+  backdrop-filter: blur(10px);
+  font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.exp-bar a { color: var(--accent); font-weight: 600; }
+.exp-bar span { color: var(--muted); }
+
+.nav {
+  position: absolute;
+  top: 44px;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 28px;
+  mix-blend-mode: difference;
+}
+.nav__brand {
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.nav__actions { display: flex; gap: 10px; align-items: center; }
+.nav__link {
+  font-size: 0.82rem;
+  font-weight: 500;
+  opacity: 0.85;
+  transition: opacity 0.2s;
+}
+.nav__link:hover { opacity: 1; }
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 28px 56px;
+  overflow: hidden;
+}
+.hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__media video,
+.hero__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(11,31,20,0.35) 0%, rgba(11,31,20,0.15) 40%, rgba(11,31,20,0.88) 100%),
+    radial-gradient(ellipse 80% 60% at 70% 40%, transparent 0%, rgba(11,31,20,0.45) 100%);
+  z-index: 1;
+}
+.hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  animation: rise 0.9s var(--ease) both;
+}
+.hero__brand {
+  font-size: clamp(2.4rem, 7vw, 4.8rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+}
+.hero__brand em {
+  font-style: normal;
+  color: var(--accent);
+}
+.hero h1 {
+  font-size: clamp(1.15rem, 2.4vw, 1.55rem);
+  font-weight: 500;
+  line-height: 1.35;
+  max-width: 28ch;
+  margin-bottom: 12px;
+  color: var(--ink);
+}
+.hero__sub {
+  color: var(--muted);
+  font-size: 0.95rem;
+  max-width: 38ch;
+  margin-bottom: 28px;
+}
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 0.92rem;
+  transition: transform 0.2s var(--ease), background 0.2s, color 0.2s, border-color 0.2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary {
+  background: var(--accent);
+  color: var(--forest);
+}
+.btn-primary:hover { background: #d8f88f; }
+.btn-ghost {
+  border: 1px solid rgba(232,235,230,0.45);
+  color: var(--ink);
+  background: rgba(11,31,20,0.25);
+}
+.btn-ghost:hover {
+  border-color: rgba(232,235,230,0.8);
+  background: rgba(11,31,20,0.4);
+}
+
+.segment {
+  padding: 64px 28px 40px;
+  border-bottom: 1px solid var(--line);
+}
+.segment__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+.segment__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 28px;
+}
+.segment__tab {
+  padding: 10px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--muted);
+  transition: all 0.2s var(--ease);
+}
+.segment__tab:hover { color: var(--ink); border-color: rgba(232,235,230,0.35); }
+.segment__tab[aria-selected="true"] {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+.segment__panel {
+  display: none;
+  animation: rise 0.45s var(--ease) both;
+}
+.segment__panel.is-active { display: grid; gap: 20px; }
+@media (min-width: 800px) {
+  .segment__panel.is-active {
+    grid-template-columns: 1.2fr 1fr;
+    align-items: end;
+  }
+}
+.segment__title {
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 10px;
+}
+.segment__text {
+  color: var(--muted);
+  max-width: 42ch;
+  margin-bottom: 20px;
+}
+.segment__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.segment__meta strong {
+  display: block;
+  color: var(--ink);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.segment__case {
+  border-left: 2px solid var(--accent);
+  padding: 8px 0 8px 16px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.segment__case b { color: var(--ink); font-weight: 600; }
+
+.proof {
+  padding: 56px 28px;
+  border-bottom: 1px solid var(--line);
+}
+.proof__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+@media (min-width: 800px) {
+  .proof__grid { grid-template-columns: repeat(4, 1fr); }
+}
+.proof__item strong {
+  display: block;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+.proof__item span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.partners {
+  padding: 20px 28px 56px;
+}
+.partners__label {
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+.partners__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.partners__row span { opacity: 0.85; }
+
+.products {
+  padding: 56px 28px;
+  background: linear-gradient(180deg, var(--forest-mid), var(--forest));
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.products__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: end;
+  margin-bottom: 28px;
+}
+.products__head h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.products__head p { color: var(--muted); max-width: 36ch; font-size: 0.95rem; }
+.products__grid {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 800px) {
+  .products__grid { grid-template-columns: repeat(3, 1fr); }
+}
+.product {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 22px;
+  background: rgba(255,255,255,0.02);
+  transition: border-color 0.25s, transform 0.25s var(--ease);
+}
+.product:hover {
+  border-color: rgba(200, 240, 113, 0.35);
+  transform: translateY(-2px);
+}
+.product__kicker {
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.product h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.product p { color: var(--muted); font-size: 0.9rem; }
+
+.cta {
+  padding: 72px 28px;
+  text-align: left;
+}
+.cta__inner { max-width: 640px; }
+.cta h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.cta p {
+  color: var(--muted);
+  margin-bottom: 28px;
+  max-width: 40ch;
+}
+.cta__contacts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.cta__contacts a { color: var(--ink); border-bottom: 1px solid var(--line); }
+
+.footer {
+  padding: 24px 28px 40px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.footer a:hover { color: var(--ink); }
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  html { scroll-behavior: auto; }
+}
+</style>
+</head>
+<body>
+  <div class="exp-bar">
+    <span>Эксперимент · pepperoni.tatar/x · noindex</span>
+    <a href="/">← К текущей главной</a>
+  </div>
+
+  <header class="nav">
+    <a class="nav__brand" href="/x/">Казанские Деликатесы</a>
+    <div class="nav__actions">
+      <a class="nav__link" href="#price">Прайс</a>
+      <a class="nav__link" href="https://wa.me/79872170202">WhatsApp</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero__media" aria-hidden="true">
+      <video
+        autoplay
+        muted
+        loop
+        playsinline
+        poster="/videos/hero-ru-poster.webp"
+      >
+        <source src="/videos/hero-ru.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero__shade"></div>
+    <div class="hero__content">
+      <div class="hero__brand">Казанские<br><em>Деликатесы</em></div>
+      <h1>Халяль для HoReCa и ретейла — без сюрпризов по качеству</h1>
+      <p class="hero__sub">Пепперони, сосиски, котлеты и татарская выпечка. Производство в Казани. EXW · СНГ · Ближний Восток.</p>
+      <div class="hero__ctas">
+        <a class="btn btn-primary" id="price" href="/api/export?lang=ru&currency=RUB&format=xlsx&vat=true">Получить прайс</a>
+        <a class="btn btn-ghost" href="https://wa.me/79872170202?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B5%D1%81%D1%83%D0%B5%D1%82%20%D0%BE%D0%BF%D1%82%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0">Запросить поставку</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="segment" aria-label="Сегменты">
+    <div class="segment__label">Ваш канал</div>
+    <div class="segment__tabs" role="tablist" aria-label="B2B сегменты">
+      <button class="segment__tab" role="tab" aria-selected="true" data-seg="azs">АЗС</button>
+      <button class="segment__tab" role="tab" aria-selected="false" data-seg="horeca">HoReCa</button>
+      <button class="segment__tab" role="tab" aria-selected="false" data-seg="retail">Розница</button>
+      <button class="segment__tab" role="tab" aria-selected="false" data-seg="stm">СТМ</button>
+      <button class="segment__tab" role="tab" aria-selected="false" data-seg="export">Экспорт</button>
+    </div>
+
+    <div class="segment__panel is-active" data-panel="azs" role="tabpanel">
+      <div>
+        <h2 class="segment__title">Street food на АЗС без простоев</h2>
+        <p class="segment__text">Сосиски для хот-догов, котлеты для бургеров, пепперони и сосиски в тесте — стабильная матрица под мини-кухню и витрину «с собой».</p>
+        <a class="btn btn-primary" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%90%D0%97%D0%A1">Заявка на АЗС</a>
+      </div>
+      <div>
+        <div class="segment__meta">
+          <div><strong>Фасовка</strong>под гриль и хот-дог</div>
+          <div><strong>Халяль</strong>ДУМ РТ №614A/2024</div>
+        </div>
+        <p class="segment__case" style="margin-top:20px"><b>Кейс:</b> сеть АЗС «Татнефть» и SMARTEN — сосиски и котлеты по объектам сети.</p>
+      </div>
+    </div>
+
+    <div class="segment__panel" data-panel="horeca" role="tabpanel">
+      <div>
+        <h2 class="segment__title">Профкухня: пицца, бургеры, отели</h2>
+        <p class="segment__text">Форматы 0,5–5 кг, нарезка под печь 350°C, стабильная жирность. Для ресторанов, dark kitchen и кейтеринга.</p>
+        <a class="btn btn-primary" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20HoReCa">Заявка HoReCa</a>
+      </div>
+      <div>
+        <div class="segment__meta">
+          <div><strong>Канал</strong>GFC · SweetLife · КВЗ</div>
+          <div><strong>Срок</strong>под меню сети</div>
+        </div>
+        <p class="segment__case" style="margin-top:20px"><b>Кейс:</b> поставки в федеральный фудсервис и корпоративное питание.</p>
+      </div>
+    </div>
+
+    <div class="segment__panel" data-panel="retail" role="tabpanel">
+      <div>
+        <h2 class="segment__title">Халяль-полка для сетей</h2>
+        <p class="segment__text">Пепперони, казылык, сосиски, выпечка. EAN, ветсертификаты, пакет соответствия под федеральный ретейл.</p>
+        <a class="btn btn-primary" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D1%80%D0%BE%D0%B7%D0%BD%D0%B8%D1%86%D0%B0">Заявка в розницу</a>
+      </div>
+      <div>
+        <div class="segment__meta">
+          <div><strong>Сети</strong>EuroSpar · Бэхетле · Metro</div>
+          <div><strong>Выпечка</strong>Мираторг</div>
+        </div>
+        <p class="segment__case" style="margin-top:20px"><b>Кейс:</b> халяльный ассортимент и татарская выпечка на полках федеральных сетей.</p>
+      </div>
+    </div>
+
+    <div class="segment__panel" data-panel="stm" role="tabpanel">
+      <div>
+        <h2 class="segment__title">Private Label под ваш бренд</h2>
+        <p class="segment__text">Колбасы, сосиски, пепперони, выпечка — от рецептуры до упаковки. От 500 кг/мес.</p>
+        <a class="btn btn-primary" href="https://wa.me/79872170202?text=%D0%91%D1%80%D0%B8%D1%84%20%D0%BD%D0%B0%20%D0%A1%D0%A2%D0%9C">Бриф на СТМ</a>
+      </div>
+      <div>
+        <div class="segment__meta">
+          <div><strong>Минимум</strong>от 500 кг/мес</div>
+          <div><strong>Контроль</strong>ХАССП · ISO 22000</div>
+        </div>
+        <p class="segment__case" style="margin-top:20px"><b>Кейс:</b> линейка «Аслам» для ОМПК (Останкино).</p>
+      </div>
+    </div>
+
+    <div class="segment__panel" data-panel="export" role="tabpanel">
+      <div>
+        <h2 class="segment__title">Экспорт из Казани</h2>
+        <p class="segment__text">Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, EXW Казань / DAP по запросу.</p>
+        <a class="btn btn-primary" href="https://wa.me/79872170202?text=%D0%AD%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81">Экспорт-запрос</a>
+      </div>
+      <div>
+        <div class="segment__meta">
+          <div><strong>Условия</strong>EXW · DAP</div>
+          <div><strong>Склад</strong>Казань · Люберцы</div>
+        </div>
+        <p class="segment__case" style="margin-top:20px"><b>Документы:</b> Халяль ДУМ РТ, ISO 22000:2018, ТР ТС 021/2011.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof">
+    <div class="proof__grid">
+      <div class="proof__item"><strong>2022</strong><span>год запуска производства в Казани</span></div>
+      <div class="proof__item"><strong>100%</strong><span>халяль · без свинины и нитрита натрия</span></div>
+      <div class="proof__item"><strong>ISO</strong><span>22000:2018 · ХАССП на всех этапах</span></div>
+      <div class="proof__item"><strong>СНГ+</strong><span>поставки по России и на экспорт</span></div>
+    </div>
+  </section>
+
+  <section class="partners">
+    <div class="partners__label">С кем работаем</div>
+    <div class="partners__row">
+      <span>Татнефть</span>
+      <span>ОМПК / Аслам</span>
+      <span>EuroSpar</span>
+      <span>Бэхетле</span>
+      <span>Metro</span>
+      <span>Мираторг</span>
+      <span>GFC</span>
+      <span>SweetLife</span>
+      <span>SMARTEN</span>
+    </div>
+  </section>
+
+  <section class="products">
+    <div class="products__head">
+      <div>
+        <h2>Линейка, которая закрывает канал</h2>
+      </div>
+      <p>Не витрина «всего сразу» — три опоры ассортимента. Полный каталог и цены — в прайсе.</p>
+    </div>
+    <div class="products__grid">
+      <article class="product">
+        <div class="product__kicker">Для пиццы</div>
+        <h3>Пепперони халяль</h3>
+        <p>Говядина, курица, конина — батоны и нарезка. Под печь и стабильный выход жира.</p>
+      </article>
+      <article class="product">
+        <div class="product__kicker">Street food</div>
+        <h3>Сосиски и котлеты</h3>
+        <p>Хот-доги и бургеры для АЗС и мини-кухни. Повторяемый вкус от партии к партии.</p>
+      </article>
+      <article class="product">
+        <div class="product__kicker">Ретейл</div>
+        <h3>Татарская выпечка</h3>
+        <p>Эчпочмак, перемяч, самса — под полку сетей и витрину пекарен.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="cta" id="contact">
+    <div class="cta__inner">
+      <h2>Обсудим поставку за один звонок</h2>
+      <p>Опт, СТМ, экспорт — ответим с матрицей SKU и условиями отгрузки под ваш канал.</p>
+      <div class="hero__ctas">
+        <a class="btn btn-primary" href="https://wa.me/79872170202">Написать в WhatsApp</a>
+        <a class="btn btn-ghost" href="tel:+79872170202">+7 987 217-02-02</a>
+      </div>
+      <div class="cta__contacts">
+        <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
+        <span>г. Казань, ул. Аграрная, 2</span>
+        <a href="/">Вернуться на текущую главную</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div>© 2022–2026 ООО «Казанские Деликатесы» · тест /x</div>
+    <div>
+      <a href="/">Главная</a> ·
+      <a href="/api/products">API</a> ·
+      <a href="/halal">Халяль</a>
+    </div>
+  </footer>
+
+<script>
+(function () {
+  const tabs = Array.from(document.querySelectorAll('.segment__tab'));
+  const panels = Array.from(document.querySelectorAll('.segment__panel'));
+
+  function activate(seg) {
+    tabs.forEach((tab) => {
+      const on = tab.dataset.seg === seg;
+      tab.setAttribute('aria-selected', on ? 'true' : 'false');
+    });
+    panels.forEach((panel) => {
+      panel.classList.toggle('is-active', panel.dataset.panel === seg);
+    });
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => activate(tab.dataset.seg));
+  });
+
+  // Subtle hero video fade-in after metadata
+  const video = document.querySelector('.hero__media video');
+  if (video) {
+    video.style.opacity = '0';
+    video.style.transition = 'opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1)';
+    const show = () => { video.style.opacity = '1'; };
+    if (video.readyState >= 2) show();
+    else video.addEventListener('loadeddata', show, { once: true });
+  }
+})();
+</script>
+</body>
+</html>
