@@ -1,21 +1,13 @@
 {
-  "generated_at": "2026-07-19T05:36:04.621222+00:00",
-  "new_queries": [
-    {
-      "query": "купить ветчину оптом",
-      "impr": 10,
-      "clk": 0,
-      "pos": 9.7,
-      "page": "https://pepperoni.tatar/geo/vetchina-khabarovsk/"
-    }
-  ],
+  "generated_at": "2026-07-20T05:30:38.902486+00:00",
+  "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 263,
+      "impr": 265,
       "clk": 2,
-      "pos": 41.4,
+      "pos": 41.1,
       "page": "https://pepperoni.tatar/"
     },
     {

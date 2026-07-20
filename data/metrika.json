@@ -1,18 +1,18 @@
 {
- "fetched_at": "2026-07-19T05:30:03.964726+00:00",
+ "fetched_at": "2026-07-20T05:30:02.956728+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 338,
-  "users": 251,
-  "bounce_rate_pct": 42.0,
-  "page_depth": 1.42,
-  "avg_visit_sec": 86
+  "visits": 331,
+  "users": 247,
+  "bounce_rate_pct": 42.6,
+  "page_depth": 1.41,
+  "avg_visit_sec": 84
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 216
+   "visits": 210
   },
   {
    "source": "Search engine traffic",
@@ -20,7 +20,7 @@
   },
   {
    "source": "Internal traffic",
-   "visits": 47
+   "visits": 46
   },
   {
    "source": "Link traffic",
@@ -30,18 +30,18 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 233,
-   "bounce_pct": 34.8
-  },
-  {
-   "path": "/products/kd-027",
-   "visits": 11,
-   "bounce_pct": 36.4
+   "visits": 228,
+   "bounce_pct": 35.1
   },
   {
    "path": "/en/",
    "visits": 10,
    "bounce_pct": 50.0
+  },
+  {
+   "path": "/products/kd-027",
+   "visits": 8,
+   "bounce_pct": 25.0
   },
   {
    "path": "/en",
@@ -52,6 +52,11 @@
    "path": "/products/kd-062",
    "visits": 6,
    "bounce_pct": 33.3
+  },
+  {
+   "path": "/en/products/kd-012",
+   "visits": 3,
+   "bounce_pct": 100.0
   },
   {
    "path": "/en/products/kd-052",
@@ -69,29 +74,19 @@
    "bounce_pct": 66.7
   },
   {
+   "path": "/en/geo/halal-pepperoni-qatar",
+   "visits": 2,
+   "bounce_pct": 100.0
+  },
+  {
    "path": "/en/geo/halal-pepperoni-saudi-arabia",
    "visits": 2,
    "bounce_pct": 0.0
   },
   {
-   "path": "/en/products/kd-001",
-   "visits": 2,
-   "bounce_pct": 50.0
-  },
-  {
-   "path": "/en/products/kd-012",
-   "visits": 2,
-   "bounce_pct": 100.0
-  },
-  {
    "path": "/products/kd-001",
    "visits": 2,
    "bounce_pct": 50.0
-  },
-  {
-   "path": "/products/kd-002",
-   "visits": 2,
-   "bounce_pct": 0.0
   },
   {
    "path": "/products/kd-016",
@@ -102,6 +97,11 @@
    "path": "/products/kd-020",
    "visits": 2,
    "bounce_pct": 100.0
+  },
+  {
+   "path": "/products/kd-049",
+   "visits": 2,
+   "bounce_pct": 50.0
   }
  ],
  "leads": {
@@ -113,7 +113,7 @@
  "inquiries_by_page": {
   "/": {
    "28d": 3,
-   "7d": 2
+   "7d": 0
   }
  }
 }
