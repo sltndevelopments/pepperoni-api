@@ -117,11 +117,21 @@ def _channel(text: str, sender: str) -> str:
     return "unknown"
 
 
+EXPERIMENT_RE = re.compile(r"(exp-\d{14}-\d+)")
+
+
 def _landing_and_experiment(text: str) -> tuple[str, str]:
     match = URL_RE.search(text)
     landing = (match.group(1).rstrip("/") or "/") if match else ""
+    # 1) Explicit experiment id carried by the site form ("🧪 Эксперимент: exp-…")
+    #    is the most reliable signal — trust it even if the page later leaves the
+    #    active registry.
+    explicit = EXPERIMENT_RE.search(text)
+    if explicit:
+        return landing, explicit.group(1)
     if not landing:
         return "", ""
+    # 2) Otherwise map the landing URL to a currently active experiment.
     try:
         from experiment_registry import active, normalize_page
         linked = [

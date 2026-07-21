@@ -275,19 +275,57 @@
 </section>
 
 <!-- CTA -->
-<section class="py-5 cta-block">
-  <div class="container text-center">
-    <h2 class="fw-bold mb-3">Получите расчёт стоимости СТМ</h2>
-    <p class="mb-4">Укажите объём, рецептуру и формат упаковки — подготовим коммерческое предложение в течение 1 рабочего дня.</p>
-    <a href="tel:+79872170202" class="btn btn-lg me-2 mb-2">📞 +7 987 217-02-02</a>
-    <a href="mailto:info@kazandelikates.tatar" class="btn btn-outline-light btn-lg mb-2">✉️ info@kazandelikates.tatar</a>
-    <div class="mt-4">
+<section class="py-5 cta-block" id="zayavka">
+  <div class="container">
+    <div class="text-center">
+      <h2 class="fw-bold mb-3">Получите расчёт стоимости СТМ</h2>
+      <p class="mb-4">Укажите объём, рецептуру и формат упаковки — подготовим коммерческое предложение в течение 1 рабочего дня.</p>
+      <a href="tel:+79872170202" class="btn btn-lg me-2 mb-2">📞 +7 987 217-02-02</a>
+      <a href="mailto:info@kazandelikates.tatar" class="btn btn-outline-light btn-lg mb-2">✉️ info@kazandelikates.tatar</a>
+    </div>
+
+    <div class="row justify-content-center mt-4">
+      <div class="col-lg-7">
+        <form class="lead-form bg-white text-dark rounded-3 p-4 shadow-sm"
+              data-experiment-id="exp-20260721081827-1" novalidate>
+          <h3 class="h6 fw-bold mb-3 text-success">Оставьте заявку — перезвоним</h3>
+          <div class="row g-2">
+            <div class="col-md-6">
+              <input type="text" name="name" class="form-control" placeholder="Ваше имя" autocomplete="name">
+            </div>
+            <div class="col-md-6">
+              <input type="tel" name="phone" class="form-control" required placeholder="Телефон *" autocomplete="tel">
+            </div>
+            <div class="col-12">
+              <textarea name="message" class="form-control" rows="2" placeholder="Объём, рецептура, город"></textarea>
+            </div>
+            <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+            <div class="col-12">
+              <div class="form-check small">
+                <input class="form-check-input" type="checkbox" name="consent" id="consent1" required>
+                <label class="form-check-label text-muted" for="consent1">
+                  Согласен на обработку персональных данных согласно
+                  <a href="/privacy" target="_blank" rel="noopener">политике конфиденциальности</a> (152-ФЗ).
+                </label>
+              </div>
+            </div>
+            <div class="col-12 d-grid d-sm-block">
+              <button type="submit" class="btn btn-success fw-bold">Отправить заявку</button>
+              <p class="lead-form__status small mb-0 mt-2" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div class="mt-4 text-center">
       <a href="/private-label" class="text-warning me-3">← Все услуги Private Label</a>
       <a href="/pepperoni-optom" class="text-warning me-3">Пепперони оптом</a>
       <a href="/dlya-distributorov" class="text-warning">Для дистрибьюторов</a>
     </div>
   </div>
 </section>
+<script src="/assets/lead-form.js" defer></script>
 
 <footer class="py-4">
   <div class="container text-center">
