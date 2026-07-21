@@ -35,8 +35,9 @@ def main() -> int:
         return 1
     lines = path.read_text(encoding="utf-8").splitlines()
     set_value(lines, "OPENAI_API_KEY", key)
+    set_value(lines, "LLM_PROVIDER", "openai")
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
-    print(f"Saved OPENAI_API_KEY to {path}.")
+    print(f"Saved OPENAI_API_KEY and enabled OpenAI in {path}.")
     print("Restart: systemctl restart pepperoni-avito-worker")
     return 0
 
