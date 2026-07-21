@@ -6,6 +6,7 @@ import sqlite3
 import sys
 import tempfile
 import unittest
+from datetime import datetime, timezone
 from pathlib import Path
 from unittest import mock
 
@@ -102,6 +103,31 @@ class ControlPlaneTests(unittest.TestCase):
             ):
                 blockers = strategy_control.activation_blockers()
             self.assertTrue(any("quarantine grew" in b for b in blockers))
+
+    def test_execution_ignores_full_queue_but_generation_does_not(self):
+        with tempfile.TemporaryDirectory() as td:
+            base = Path(td)
+            state = base / "operator_state.json"
+            strategy = base / "strategy.json"
+            experiments = base / "operator_experiments.json"
+            state.write_text(json.dumps({"mode": "operator"}))
+            strategy.write_text(json.dumps(
+                {"generated_at": datetime.now(timezone.utc).isoformat()}
+            ))
+            experiments.write_text(json.dumps([
+                {"status": "measuring", "key": f"q{i}|/p{i}"} for i in range(3)
+            ]))
+            with (
+                mock.patch.object(strategy_control, "STATE", state),
+                mock.patch.object(strategy_control, "STRATEGY", strategy),
+                mock.patch.object(strategy_control, "EXPERIMENTS", experiments),
+                mock.patch.object(strategy_control, "gsc_age_days", return_value=1),
+            ):
+                gen_ok, gen_block = strategy_control.generation_allowed()
+                exe_ok, exe_block = strategy_control.execution_allowed()
+            self.assertFalse(gen_ok)
+            self.assertTrue(any("active experiments" in b for b in gen_block))
+            self.assertTrue(exe_ok, f"execution should be allowed: {exe_block}")
 
     def test_repair_mode_blocks_generation(self):
 

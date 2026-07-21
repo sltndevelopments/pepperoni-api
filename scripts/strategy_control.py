@@ -68,7 +68,9 @@ def active_experiment_count() -> int:
     return sum(1 for row in rows if row.get("status") in {"approved", "running", "measuring"})
 
 
-def generation_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
+def _base_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
+    """Guards that apply to BOTH starting new experiments and executing the
+    already-registered queue: mode, strategy freshness, GSC freshness."""
     state = operator_state()
     blockers: list[str] = []
     if state.get("mode") != "operator":
@@ -87,7 +89,14 @@ def generation_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
         blockers.append("GSC freshness unknown")
     elif gsc_age > 5:
         blockers.append(f"GSC stale ({gsc_age}d)")
+    return blockers
 
+
+def generation_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
+    """Blockers for STARTING new work. Includes the experiment-queue cap:
+    once the queue is full no *additional* experiment may be opened."""
+    blockers = _base_blockers(max_strategy_age_days=max_strategy_age_days)
+    state = operator_state()
     active = active_experiment_count()
     limit = int(state.get("max_active_experiments", 3))
     if active >= limit:
@@ -95,8 +104,20 @@ def generation_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
     return blockers
 
 
+def execution_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
+    """Blockers for EXECUTING the already-registered queue (materialising pages
+    for experiments that were deliberately opened). The queue-full cap does NOT
+    apply here — otherwise registered experiments could never produce a page."""
+    return _base_blockers(max_strategy_age_days=max_strategy_age_days)
+
+
 def generation_allowed() -> tuple[bool, list[str]]:
     blockers = generation_blockers()
+    return not blockers, blockers
+
+
+def execution_allowed() -> tuple[bool, list[str]]:
+    blockers = execution_blockers()
     return not blockers, blockers
 
 
@@ -175,6 +196,8 @@ def brain_refresh_needed(max_age_days: int = 6) -> bool:
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check-generation", action="store_true")
+    ap.add_argument("--check-execution", action="store_true",
+                    help="Gate for materialising the already-registered queue")
     ap.add_argument("--status", action="store_true")
     ap.add_argument("--needs-brain", action="store_true")
     ap.add_argument("--activate-if-ready", action="store_true")
@@ -188,6 +211,11 @@ def main() -> int:
         needed = brain_refresh_needed()
         print("brain refresh needed" if needed else "brain strategy still fresh")
         return 0 if needed else 4
+    if args.check_execution:
+        allowed, blockers = execution_allowed()
+        print("execution allowed" if allowed
+              else "execution blocked: " + "; ".join(blockers))
+        return 0 if allowed else 3
     allowed, blockers = generation_allowed()
     payload = {
         "allowed": allowed,

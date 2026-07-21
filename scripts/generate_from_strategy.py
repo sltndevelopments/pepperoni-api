@@ -279,8 +279,8 @@ def main():
         print("ℹ️  No strategy.json — nothing to execute.")
         return 0
     try:
-        from strategy_control import generation_allowed
-        allowed, blockers = generation_allowed()
+        from strategy_control import execution_allowed
+        allowed, blockers = execution_allowed()
         if not allowed:
             print("⏸ Strategy executor blocked: " + "; ".join(blockers))
             return 0
