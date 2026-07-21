@@ -38,11 +38,20 @@ def _gate_since(since_iso: str) -> dict:
     }
 
 
-def _quarantine_count() -> int:
+def _quarantine_snapshot() -> dict:
     try:
-        return len(list(QUARANTINE.glob("*.html")))
+        from quarantine_report import build_report
+        report = build_report()
+        return {
+            "current": report["current_files"],
+            "historical_rejects": report["historical_reject_hold_events"],
+        }
     except Exception:
-        return 0
+        try:
+            return {"current": len(list(QUARANTINE.rglob("*.html"))),
+                    "historical_rejects": 0}
+        except Exception:
+            return {"current": 0, "historical_rejects": 0}
 
 
 def _today_spend() -> tuple[float, float]:
@@ -56,19 +65,22 @@ def _today_spend() -> tuple[float, float]:
 def build_message(*, since: str, pushed: int, log_hint: str = "") -> str:
     g = _gate_since(since)
     spent, cap = _today_spend()
-    q = _quarantine_count()
+    q = _quarantine_snapshot()
     now = datetime.now(timezone.utc).strftime("%H:%M UTC")
 
+    # Green/no-ship ticks are suppressed in main(); if we get here there is
+    # either a ship or a gate/budget signal — never a bare "без коммитов" ping.
     if pushed > 0:
         ship = f"📄 <b>+{pushed}</b> → main"
     else:
-        ship = "📄 без новых коммитов"
+        ship = "📄 тик без публикации (есть сигнал гейта/бюджета)"
 
     lines = [
         f"⚙️ <b>Worker tick</b> {now}",
         ship,
         f"🚦 гейт (тик): ✅{g['pass']} / 🚧{g['reject']} / ⏸{g['hold']}",
-        f"📦 карантин: {q} стр.",
+        f"📦 карантин сейчас: {q['current']} "
+        f"(reject за период {q['historical_rejects']})",
         f"💰 ${spent:.2f} сегодня (лимит ${cap:.0f})",
     ]
     if g["sample_reasons"]:

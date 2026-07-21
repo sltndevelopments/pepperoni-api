@@ -206,7 +206,58 @@ class ExperimentRegistryTests(unittest.TestCase):
             self.assertEqual(0, result["queued_for_fable"])
 
 
+class QuarantineTriageTests(unittest.TestCase):
+    def test_published_duplicates_are_removed_not_republished(self):
+        import quarantine_report
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            data = root / "data"
+            public = root / "public" / "geo"
+            quarantine = data / "quarantine"
+            public.mkdir(parents=True)
+            quarantine.mkdir(parents=True)
+            (public / "pepperoni-kazan.html").write_text(
+                "<html><body>live</body></html>", encoding="utf-8"
+            )
+            (quarantine / "pepperoni-kazan.html").write_text(
+                "<html><body>old reject</body></html>", encoding="utf-8"
+            )
+            (quarantine / "unique-hold.html").write_text(
+                "<html><body>" + ("слово " * 400) + "</body></html>",
+                encoding="utf-8",
+            )
+            (quarantine / "tmp123.html").write_text("tmp", encoding="utf-8")
+            (data / "page_gate_log.json").write_text("[]", encoding="utf-8")
+            with (
+                mock.patch.object(quarantine_report, "ROOT", root),
+                mock.patch.object(quarantine_report, "DATA", data),
+                mock.patch.object(quarantine_report, "PUBLIC", root / "public"),
+                mock.patch.object(quarantine_report, "QUARANTINE", quarantine),
+                mock.patch.object(quarantine_report, "GATE_LOG",
+                                  data / "page_gate_log.json"),
+                mock.patch.object(quarantine_report, "REPORT",
+                                  data / "quarantine_report.json"),
+                mock.patch.object(quarantine_report, "OPERATOR_STATE",
+                                  data / "operator_state.json"),
+            ):
+                before = quarantine_report.build_report()
+                self.assertEqual(3, before["current_files"])
+                self.assertEqual(1, before["published_duplicates"])
+                removed = quarantine_report.clean_published_duplicates()
+                removed_temp = quarantine_report.clean_temp()
+                after = quarantine_report.build_report()
+                quarantine_report.sync_baseline(after["current_files"])
+            self.assertEqual(["pepperoni-kazan.html"], removed)
+            self.assertEqual(1, removed_temp)
+            self.assertEqual(1, after["current_files"])
+            self.assertEqual(0, after["published_duplicates"])
+            self.assertEqual(1, after["kept_closed"])
+            state = json.loads((data / "operator_state.json").read_text())
+            self.assertEqual(1, state["quarantine_baseline"])
+
+
 class NotificationTests(unittest.TestCase):
+
     def test_empty_worker_tick_sends_nothing(self):
         with (
             mock.patch.object(worker_tick_notify, "_gate_since",

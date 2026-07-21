@@ -232,6 +232,13 @@ else
     log "Step 3.5: Brain — weekly strategy still fresh, skipped"
 fi
 
+# ---- Step 3.55: Quarantine debt — classify + drop proven duplicates only ----
+# Never mass-publish from quarantine. tmp* and public/ twins may be deleted;
+# everything else stays closed and sets the activation baseline.
+log "Step 3.55: Quarantine triage (no mass publish) …"
+python3 scripts/quarantine_report.py --clean-temp --clean-duplicates --sync-baseline \
+  >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Quarantine triage failed (non-fatal)"
+
 # After the repair window, activation still requires every mechanical gate.
 python3 scripts/strategy_control.py --activate-if-ready >> "$LOG_FILE" 2>&1 || true
 

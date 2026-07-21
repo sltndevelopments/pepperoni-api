@@ -5,7 +5,6 @@
   "max_active_experiments": 3,
   "daily_budget_usd": 1.0,
   "monthly_budget_usd": 30.0,
-  "quarantine_baseline": 12,
   "auto_activate_when_eligible": true,
-  "note": "New LLM content is frozen during the 14-day control-plane repair phase."
+  "note": "New LLM content is frozen during the 14-day control-plane repair phase. quarantine_baseline is set on the VPS by quarantine_report.py --sync-baseline after each triage."
 }

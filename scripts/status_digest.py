@@ -36,11 +36,28 @@ def _count_geo_pages() -> int:
     return n
 
 
-def _quarantine_count() -> int:
+def _quarantine_snapshot() -> dict:
+    """Live queue vs historical rejects — never conflate the two."""
     try:
-        return len(list(QUARANTINE.glob("*.html")))
+        from quarantine_report import build_report, summary_line
+        report = build_report()
+        return {
+            "current": report["current_files"],
+            "historical_rejects": report["historical_reject_hold_events"],
+            "unique_paths": report["unique_rejected_paths"],
+            "summary": summary_line(report),
+        }
     except Exception:
-        return 0
+        try:
+            current = len(list(QUARANTINE.rglob("*.html")))
+        except Exception:
+            current = 0
+        return {
+            "current": current,
+            "historical_rejects": 0,
+            "unique_paths": 0,
+            "summary": f"карантин сейчас {current}",
+        }
 
 
 def _gate_period(hours: int = 24) -> dict:
@@ -132,7 +149,7 @@ def _bot_info() -> str:
 def build_digest() -> str:
     today = date.today().isoformat()
     geo_total = _count_geo_pages()
-    q = _quarantine_count()
+    q = _quarantine_snapshot()
     gate = _gate_period(24)
     spent, cap = _budget_today()
     outcomes = _outcomes_summary()
@@ -144,7 +161,9 @@ def build_digest() -> str:
         f"📊 <b>Статус pepperoni.tatar</b> · {today}",
         "",
         f"🌍 GEO опубликовано: <b>{geo_total}</b> стр.",
-        f"📦 Карантин: <b>{q}</b> стр.",
+        f"📦 Карантин сейчас: <b>{q['current']}</b> "
+        f"(reject за период {q['historical_rejects']}, "
+        f"уник. {q['unique_paths']})",
         f"🚦 Гейт 24ч: ✅{gate['pass']} / 🚧{gate['reject']} / ⏸{gate['hold']}",
         f"💰 LLM сегодня: <b>${spent:.2f}</b> / ${cap:.0f}",
     ]
