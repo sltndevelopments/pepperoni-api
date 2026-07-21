@@ -33,10 +33,6 @@ def main() -> int:
     if not key:
         print("Empty key; nothing changed.", file=sys.stderr)
         return 1
-    if not key.startswith("sk-"):
-        print("The key does not look like an OpenAI API key; nothing changed.", file=sys.stderr)
-        return 1
-
     lines = path.read_text(encoding="utf-8").splitlines()
     set_value(lines, "OPENAI_API_KEY", key)
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
