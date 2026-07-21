@@ -38,7 +38,18 @@ existing `LEADS_GROUP_ID` group.
 
 ## LLM provider
 
-For a new provider, use:
+The preferred model is `gpt-4.1-mini`: it is fast enough for short sales chats,
+follows instructions more reliably than the low-cost nano tier, and is still
+inexpensive. Set its key without placing it in a shell history or chat:
+
+```bash
+cd /var/www/pepperoni/repo
+python3 scripts/set_avito_openai_key.py
+systemctl restart pepperoni-avito-worker
+```
+
+The worker selects OpenAI automatically when `OPENAI_API_KEY` exists. For an
+explicit override or another compatible provider, use:
 
 ```dotenv
 LLM_API_KEY=...
@@ -46,5 +57,5 @@ LLM_BASE_URL=https://api.openai.com/v1
 LLM_MODEL=gpt-4.1-mini
 ```
 
-Until those variables are set, the worker uses the legacy `DEEPSEEK_*`
-variables already available in the production environment.
+Until `OPENAI_API_KEY` or `LLM_API_KEY` is set, the worker uses the legacy
+`DEEPSEEK_*` variables already available in the production environment.

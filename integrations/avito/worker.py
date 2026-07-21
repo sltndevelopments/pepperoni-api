@@ -355,9 +355,20 @@ class Catalog:
 
 class Llm:
     def __init__(self) -> None:
-        self.key = _env("LLM_API_KEY") or _env("DEEPSEEK_API_KEY")
-        self.base = (_env("LLM_BASE_URL") or _env("DEEPSEEK_BASE_URL") or "https://api.deepseek.com/v1").rstrip("/")
-        self.model = _env("LLM_MODEL") or _env("DEEPSEEK_MODEL") or "deepseek-v4-flash"
+        openai_key = _env("OPENAI_API_KEY")
+        explicit_key = _env("LLM_API_KEY")
+        if explicit_key:
+            self.key = explicit_key
+            self.base = _env("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+            self.model = _env("LLM_MODEL", "gpt-4.1-mini")
+        elif openai_key:
+            self.key = openai_key
+            self.base = "https://api.openai.com/v1"
+            self.model = "gpt-4.1-mini"
+        else:
+            self.key = _env("DEEPSEEK_API_KEY")
+            self.base = _env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
+            self.model = _env("DEEPSEEK_MODEL", "deepseek-v4-flash")
 
     def reply(self, history: list[dict[str, str]], catalog_context: str) -> str:
         if not self.key:
