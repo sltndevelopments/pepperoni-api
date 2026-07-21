@@ -1723,5 +1723,43 @@
     "after_ctr": null,
     "after_impr": null,
     "operator_experiment_id": "exp-20260719053608-1"
+  },
+  {
+    "applied_at": "2026-07-21T05:30:39.621985+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/en/blog",
+    "file_path": "public/en/blog.html",
+    "query": "what is halal pepperoni made from",
+    "before_pos": 10.68,
+    "before_ctr": 0.0,
+    "before_impr": 28,
+    "before_title": "Blog — Halal Meat Production & Pepperoni Guide | Kazan Delicacies",
+    "before_desc": "Articles about halal meat production, pepperoni for HoReCa, quality standards, export and wholesale supply from Kazan Delicacies.",
+    "after_title": "What Is Halal Pepperoni Made From | Kazan Delicacies",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null,
+    "operator_experiment_id": "exp-20260721053045-1"
+  },
+  {
+    "applied_at": "2026-07-21T05:30:39.621985+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/geo/vetchina-belgorod/",
+    "file_path": "public/geo/vetchina-belgorod.html",
+    "query": "скинфлоу",
+    "before_pos": 6.88,
+    "before_ctr": 0.0,
+    "before_impr": 26,
+    "before_title": "Ветчина халяль оптом Белгород | Без нитрита, HACCP",
+    "before_desc": "Оптовая поставка халяль ветчины из говядины, индейки, курицы в Белгород. Без нитрита натрия. Сертификаты Халяль ДУМ РТ, HACCP, ISO 22000. Доставка 30 ч.",
+    "after_title": "Скинфлоу халяль оптом | Ветчина без нитрита, HACCP",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null,
+    "operator_experiment_id": "exp-20260721053048-2"
   }
 ]
