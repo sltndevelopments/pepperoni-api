@@ -27,6 +27,8 @@ QUARANTINE = DATA / "quarantine"
 GATE_LOG = DATA / "page_gate_log.json"
 REPORT = DATA / "quarantine_report.json"
 OPERATOR_STATE = DATA / "operator_state.json"
+# Runtime-only — survives git reset --hard on the VPS.
+BASELINE_FILE = DATA / "quarantine_baseline.json"
 
 
 def classify_reason(reason: str) -> str:
@@ -172,19 +174,43 @@ def clean_published_duplicates() -> list[str]:
     return removed
 
 
-def sync_baseline(current_files: int) -> None:
+def read_baseline() -> int | None:
     try:
-        state = json.loads(OPERATOR_STATE.read_text(encoding="utf-8"))
+        raw = json.loads(BASELINE_FILE.read_text(encoding="utf-8"))
+        return int(raw["quarantine_baseline"])
     except Exception:
-        state = {}
-    state["quarantine_baseline"] = current_files
-    state["quarantine_baseline_synced_at"] = __import__(
-        "datetime"
-    ).datetime.now(__import__("datetime").timezone.utc).isoformat()
-    tmp = OPERATOR_STATE.with_suffix(".json.tmp")
-    tmp.write_text(json.dumps(state, ensure_ascii=False, indent=2) + "\n",
+        try:
+            state = json.loads(OPERATOR_STATE.read_text(encoding="utf-8"))
+            value = state.get("quarantine_baseline")
+            return int(value) if value is not None else None
+        except Exception:
+            return None
+
+
+def sync_baseline(current_files: int, *, force: bool = False) -> dict:
+    """Persist baseline used by activation growth checks.
+
+    First successful sync (or ``force``) writes the number. Later cleanups do
+    **not** silently raise the baseline — otherwise growth can never block
+    operator activation. Stored in a runtime file so VPS ``git reset --hard``
+    does not wipe the watermark.
+    """
+    previous = read_baseline()
+    if previous is not None and not force:
+        return {"wrote": False, "baseline": previous, "previous": previous,
+                "current": current_files}
+    payload = {
+        "quarantine_baseline": current_files,
+        "synced_at": __import__("datetime").datetime.now(
+            __import__("datetime").timezone.utc
+        ).isoformat(),
+    }
+    BASELINE_FILE.parent.mkdir(parents=True, exist_ok=True)
+    tmp = BASELINE_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
                    encoding="utf-8")
-    tmp.replace(OPERATOR_STATE)
+    tmp.replace(BASELINE_FILE)
+    return {"wrote": True, "baseline": current_files, "previous": previous}
 
 
 def summary_line(report: dict) -> str:
@@ -208,7 +234,12 @@ def main() -> int:
     ap.add_argument(
         "--sync-baseline",
         action="store_true",
-        help="Write current_files into operator_state.quarantine_baseline",
+        help="Write current_files into data/quarantine_baseline.json (first time only)",
+    )
+    ap.add_argument(
+        "--force-baseline",
+        action="store_true",
+        help="Overwrite quarantine baseline even if one already exists",
     )
     args = ap.parse_args()
 
@@ -224,9 +255,14 @@ def main() -> int:
         "published_duplicates": before["published_duplicates"],
         "temporary_files": before["temporary_files"],
     }
-    if args.sync_baseline:
-        sync_baseline(report["current_files"])
-        report["quarantine_baseline"] = report["current_files"]
+    if args.sync_baseline or args.force_baseline:
+        sync_info = sync_baseline(
+            report["current_files"], force=bool(args.force_baseline)
+        )
+        report["baseline_sync"] = sync_info
+        report["quarantine_baseline"] = sync_info["baseline"]
+    else:
+        report["quarantine_baseline"] = read_baseline()
     report["summary"] = summary_line(report)
     REPORT.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n",
                       encoding="utf-8")

@@ -68,7 +68,43 @@ class StrategyContractTests(unittest.TestCase):
 
 
 class ControlPlaneTests(unittest.TestCase):
+    def test_activation_blocks_when_quarantine_grows(self):
+        import quarantine_report
+        with tempfile.TemporaryDirectory() as td:
+            base = Path(td)
+            data = base / "data"
+            data.mkdir()
+            state = data / "operator_state.json"
+            strategy = data / "strategy.json"
+            experiments = data / "operator_experiments.json"
+            baseline = data / "quarantine_baseline.json"
+            quarantine = data / "quarantine"
+            quarantine.mkdir()
+            (quarantine / "a.html").write_text("<html></html>")
+            (quarantine / "b.html").write_text("<html></html>")
+            state.write_text(json.dumps({
+                "mode": "repair",
+                "repair_until": "2020-01-01T00:00:00+00:00",
+            }))
+            strategy.write_text(json.dumps({
+                "generated_at": "2099-01-01T00:00:00+00:00",
+            }))
+            experiments.write_text("[]")
+            baseline.write_text(json.dumps({"quarantine_baseline": 1}))
+            with (
+                mock.patch.object(strategy_control, "STATE", state),
+                mock.patch.object(strategy_control, "STRATEGY", strategy),
+                mock.patch.object(strategy_control, "EXPERIMENTS", experiments),
+                mock.patch.object(strategy_control, "DATA", data),
+                mock.patch.object(strategy_control, "gsc_age_days", return_value=0),
+                mock.patch.object(quarantine_report, "BASELINE_FILE", baseline),
+                mock.patch.object(quarantine_report, "OPERATOR_STATE", state),
+            ):
+                blockers = strategy_control.activation_blockers()
+            self.assertTrue(any("quarantine grew" in b for b in blockers))
+
     def test_repair_mode_blocks_generation(self):
+
         with tempfile.TemporaryDirectory() as td:
             base = Path(td)
             state = base / "operator_state.json"
@@ -239,6 +275,8 @@ class QuarantineTriageTests(unittest.TestCase):
                                   data / "quarantine_report.json"),
                 mock.patch.object(quarantine_report, "OPERATOR_STATE",
                                   data / "operator_state.json"),
+                mock.patch.object(quarantine_report, "BASELINE_FILE",
+                                  data / "quarantine_baseline.json"),
             ):
                 before = quarantine_report.build_report()
                 self.assertEqual(3, before["current_files"])
@@ -246,14 +284,18 @@ class QuarantineTriageTests(unittest.TestCase):
                 removed = quarantine_report.clean_published_duplicates()
                 removed_temp = quarantine_report.clean_temp()
                 after = quarantine_report.build_report()
-                quarantine_report.sync_baseline(after["current_files"])
+                first = quarantine_report.sync_baseline(after["current_files"])
+                second = quarantine_report.sync_baseline(99)
             self.assertEqual(["pepperoni-kazan.html"], removed)
             self.assertEqual(1, removed_temp)
             self.assertEqual(1, after["current_files"])
             self.assertEqual(0, after["published_duplicates"])
             self.assertEqual(1, after["kept_closed"])
-            state = json.loads((data / "operator_state.json").read_text())
-            self.assertEqual(1, state["quarantine_baseline"])
+            self.assertTrue(first["wrote"])
+            self.assertFalse(second["wrote"])
+            self.assertEqual(1, second["baseline"])
+            baseline = json.loads((data / "quarantine_baseline.json").read_text())
+            self.assertEqual(1, baseline["quarantine_baseline"])
 
 
 class NotificationTests(unittest.TestCase):

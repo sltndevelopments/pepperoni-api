@@ -126,8 +126,18 @@ def activation_blockers() -> list[str]:
         blockers.append("duplicate active experiments")
     quarantine = DATA / "quarantine"
     current_q = len(list(quarantine.rglob("*.html"))) if quarantine.exists() else 0
-    if current_q > int(state.get("quarantine_baseline", current_q)):
-        blockers.append(f"quarantine grew ({current_q})")
+    baseline = state.get("quarantine_baseline")
+    try:
+        from quarantine_report import read_baseline
+        runtime = read_baseline()
+        if runtime is not None:
+            baseline = runtime
+    except Exception:
+        pass
+    if baseline is None:
+        blockers.append("quarantine baseline missing")
+    elif current_q > int(baseline):
+        blockers.append(f"quarantine grew ({current_q}>{baseline})")
     return blockers
 
 

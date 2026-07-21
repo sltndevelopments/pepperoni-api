@@ -36,6 +36,9 @@ __pycache__/
 
 # QA quarantine — broken pages held back by qa_pages.py, regenerated each run
 data/quarantine/
+# Runtime watermark for quarantine growth checks (must survive VPS git reset)
+data/quarantine_baseline.json
+data/quarantine_baseline.json.tmp
 # Proxy lock + transient runtime artifacts
 data/llm_costs.json.lock
 
