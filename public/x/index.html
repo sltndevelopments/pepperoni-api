@@ -23,10 +23,6 @@
   --weathered: #3f4d3f;
   --sage: #b7c4b2;
   --pistachio: #a9b48b;
-  --cream: #f3ecdf;
-  --cream-deep: #e4d8c6;
-  --clay: #cc7044;
-  --clay-bright: #df8658;
   --brass: #c9a86c;
   --brass-bright: #ddc08a;
   --ink: #e8ebe4;
@@ -46,6 +42,7 @@ body {
   line-height: 1.5;
   font-size: 16px;
   overflow-x: hidden;
+  padding-bottom: 72px;
 }
 a { color: inherit; text-decoration: none; }
 img, video { display: block; max-width: 100%; }
@@ -96,9 +93,6 @@ button { border: 0; background: none; color: inherit; }
 @media (min-width: 860px) {
   .nav__links { display: flex; }
 }
-@media (max-width: 620px) {
-  .nav__cta { display: none; }
-}
 
 .btn {
   display: inline-flex;
@@ -114,10 +108,10 @@ button { border: 0; background: none; color: inherit; }
 }
 .btn:hover { transform: translateY(-1px); }
 .btn-primary {
-  background: var(--clay);
-  color: #fffaf4;
+  background: var(--brass);
+  color: #1a1408;
 }
-.btn-primary:hover { background: var(--clay-bright); }
+.btn-primary:hover { background: var(--brass-bright); }
 .btn-moorland {
   background: var(--moorland);
   color: #f2f7f4;
@@ -135,125 +129,87 @@ button { border: 0; background: none; color: inherit; }
 
 .hero {
   position: relative;
-  min-height: min(860px, 100svh);
+  min-height: 100svh;
   display: flex;
-  align-items: center;
-  padding: calc(var(--nav-h) + 54px) 24px 64px;
+  align-items: flex-end;
+  padding: 0 24px 52px;
   overflow: hidden;
   margin-top: calc(-1 * var(--nav-h));
+  padding-top: var(--nav-h);
+}
+.hero__media { position: absolute; inset: 0; z-index: 0; }
+.hero__media video,
+.hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.hero__shade {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   background:
-    radial-gradient(circle at 82% 18%, rgba(78, 91, 60, 0.34), transparent 34%),
-    linear-gradient(145deg, #0a100d 0%, #0f241b 58%, #0f5e4f 140%);
-}
-.hero__inner {
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: 42px;
-  width: 100%;
-  max-width: 1180px;
-  margin: 0 auto;
-  align-items: center;
-}
-@media (min-width: 860px) {
-  .hero__inner { grid-template-columns: minmax(0, 0.95fr) minmax(420px, 1.05fr); }
+    linear-gradient(180deg, rgba(10,16,13,0.45) 0%, rgba(10,16,13,0.12) 38%, rgba(10,16,13,0.92) 100%),
+    radial-gradient(ellipse 70% 55% at 75% 35%, transparent 0%, rgba(15, 94, 79, 0.28) 100%);
 }
 .hero__content {
-  min-width: 0;
-  max-width: 640px;
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
   animation: rise 0.9s var(--ease) both;
 }
-.hero__kicker {
+.hero__brand {
+  font-size: clamp(2.35rem, 7vw, 4.6rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
   margin-bottom: 16px;
+}
+.hero__brand em {
+  font-style: normal;
   color: var(--pistachio);
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
 }
 .hero h1 {
-  font-size: clamp(2.25rem, 5.8vw, 4.5rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.045em;
-  max-width: 13ch;
-  margin-bottom: 20px;
+  font-size: clamp(1.12rem, 2.3vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.35;
+  max-width: 34ch;
+  margin-bottom: 12px;
 }
 .hero__sub {
   color: var(--muted);
-  font-size: clamp(0.95rem, 1.5vw, 1.08rem);
-  max-width: 48ch;
-  margin-bottom: 28px;
+  font-size: 0.95rem;
+  max-width: 44ch;
+  margin-bottom: 26px;
 }
 .hero__ctas { display: flex; flex-wrap: wrap; gap: 12px; }
-.hero__visual {
-  position: relative;
-  min-width: 0;
-  padding: clamp(16px, 3vw, 28px);
-  border-radius: 24px;
-  background: var(--cream);
-  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
-  transform: rotate(1.2deg);
-  animation: rise 0.9s 0.12s var(--ease) both;
-}
-.hero__visual::before {
-  content: "";
-  position: absolute;
-  inset: 14px;
-  border: 1px solid rgba(10, 16, 13, 0.1);
-  border-radius: 16px;
-  pointer-events: none;
-}
-.hero__product {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 14px;
-  transform: rotate(-1.2deg);
-}
-.hero__caption {
+
+.specs {
   display: flex;
-  justify-content: space-between;
-  gap: 18px;
-  padding: 18px 6px 2px;
-  color: #243128;
+  gap: 0;
+  overflow-x: auto;
+  border-bottom: 1px solid var(--line);
+  background: var(--surface);
+  scrollbar-width: none;
+}
+.specs::-webkit-scrollbar { display: none; }
+.specs a,
+.specs span {
+  flex: 1 0 auto;
+  min-width: 160px;
+  padding: 18px 20px;
+  border-right: 1px solid var(--line);
   font-size: 0.78rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition: background 0.2s, color 0.2s;
 }
-.hero__caption strong {
+.specs a:hover { background: var(--surface-2); color: var(--ink); }
+.specs strong {
   display: block;
-  margin-bottom: 3px;
-  font-size: 0.95rem;
-}
-.text-link {
-  display: inline-flex;
-  align-items: center;
-  min-height: 48px;
-  padding: 0 6px;
-  color: var(--sage);
-  font-weight: 600;
+  color: var(--pistachio);
   font-size: 0.9rem;
-  border-bottom: 1px solid transparent;
-}
-.text-link:hover { color: var(--ink); border-bottom-color: var(--sage); }
-@media (max-width: 859px) {
-  .hero { min-height: auto; padding-top: calc(var(--nav-h) + 34px); }
-  .hero__inner { min-width: 0; gap: 34px; }
-  .hero__visual { max-width: 620px; }
-  .hero h1 { max-width: 15ch; }
-}
-@media (max-width: 440px) {
-  .hero { padding-left: 18px; padding-right: 18px; }
-  .hero__inner { width: calc(100vw - 36px); max-width: calc(100vw - 36px); }
-  .hero__content,
-  .hero h1,
-  .hero__sub { width: 100%; max-width: 100%; }
-  .hero h1 { font-size: 2rem; }
-  .hero__sub { font-size: 0.9rem; }
-  .hero__visual { width: 100%; padding: 12px; }
-  .hero__ctas { gap: 6px 12px; }
-  .hero__ctas .btn { padding: 0 16px; }
-  .hero__ctas .text-link { font-size: 0.82rem; }
+  letter-spacing: 0.02em;
+  text-transform: none;
+  margin-bottom: 4px;
+  font-weight: 700;
 }
 
 .wrap { padding: 0 24px; max-width: 1180px; margin: 0 auto; }
@@ -342,30 +298,6 @@ button { border: 0; background: none; color: inherit; }
   margin-top: 18px;
 }
 .segment__case b { color: var(--ink); font-weight: 600; }
-.segment__visual {
-  position: relative;
-  overflow: hidden;
-  min-height: 270px;
-  border-radius: 14px;
-  background: var(--cream);
-  border: 1px solid rgba(201, 168, 108, 0.24);
-}
-.segment__visual img {
-  width: 100%;
-  height: 270px;
-  object-fit: cover;
-}
-.segment__visual-copy {
-  position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  padding: 14px;
-  border-radius: 9px;
-  background: rgba(10, 16, 13, 0.84);
-  backdrop-filter: blur(10px);
-}
-.segment__visual-copy .segment__meta { margin-bottom: 0; }
 
 .proof__grid {
   display: grid;
@@ -557,68 +489,6 @@ button { border: 0; background: none; color: inherit; }
   font-weight: 600;
 }
 
-#segments,
-#catalog,
-#faq {
-  background: var(--cream);
-  color: #1d2a21;
-  border-bottom-color: rgba(29, 42, 33, 0.14);
-}
-#segments .section__label,
-#catalog .section__label,
-#faq .section__label { color: #a94f2f; }
-#segments .section__sub,
-#catalog .section__sub,
-#faq .section__sub { color: #617064; }
-#segments .segment__tabs {
-  background: var(--cream-deep);
-  border-color: rgba(29, 42, 33, 0.14);
-}
-#segments .segment__tab { color: #526158; }
-#segments .segment__tab[aria-selected="true"] {
-  color: #fffaf4;
-  background: var(--moorland);
-}
-#segments .segment__panel {
-  border-color: rgba(29, 42, 33, 0.14);
-  background: #fffaf3;
-}
-#segments .segment__text,
-#segments .segment__meta div { color: #617064; }
-#segments .segment__meta strong,
-#segments .text-link { color: var(--moorland); }
-#catalog .catalog-toolbar,
-#catalog .product-card,
-#faq details {
-  background: #fffaf3;
-  border-color: rgba(29, 42, 33, 0.14);
-}
-#catalog .catalog-toolbar label,
-#catalog .catalog-meta,
-#catalog .product-sku,
-#catalog .product-price-vat,
-#catalog .catalog-empty { color: #617064; }
-#catalog .catalog-search {
-  background: #fff;
-  border-color: rgba(29, 42, 33, 0.18);
-  color: #1d2a21;
-}
-#catalog .catalog-search::placeholder { color: #879287; }
-#catalog .chip {
-  border-color: rgba(29, 42, 33, 0.18);
-  color: #526158;
-}
-#catalog .chip:hover,
-#catalog .catalog-section-title,
-#catalog .product-name { color: #1d2a21; }
-#catalog .catalog-cat,
-#catalog .product-avail { color: var(--moorland); }
-#catalog .product-card__media { background: var(--cream-deep); }
-#catalog .product-price { color: #a94f2f; }
-#catalog .product-sku .prop { border-color: rgba(29, 42, 33, 0.14); }
-#faq details { color: #1d2a21; }
-#faq details p { color: #617064; }
-
 .price-box {
   display: grid;
   gap: 20px;
@@ -636,7 +506,194 @@ button { border: 0; background: none; color: inherit; }
   margin-bottom: 8px;
 }
 .price-box p { color: var(--muted); font-size: 0.92rem; margin-bottom: 16px; }
+.dl-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.dl-select {
+  appearance: none;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  padding: 8px 12px;
+  border-radius: var(--radius);
+  font-size: 0.85rem;
+}
 .dl-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.solutions {
+  display: grid;
+  gap: 12px;
+}
+@media (min-width: 800px) {
+  .solutions { grid-template-columns: repeat(3, 1fr); }
+}
+.solution {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  transition: border-color 0.25s, transform 0.25s var(--ease);
+}
+.solution:hover {
+  border-color: rgba(15, 94, 79, 0.55);
+  transform: translateY(-2px);
+}
+.solution__kicker {
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--brass);
+  margin-bottom: 10px;
+  font-weight: 600;
+}
+.solution h3 {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.solution p { color: var(--muted); font-size: 0.9rem; }
+
+.process {
+  display: grid;
+  gap: 12px;
+  counter-reset: step;
+}
+@media (min-width: 800px) {
+  .process { grid-template-columns: repeat(4, 1fr); }
+}
+.process__step {
+  position: relative;
+  min-height: 180px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  counter-increment: step;
+}
+.process__step::before {
+  content: "0" counter(step);
+  display: block;
+  margin-bottom: 34px;
+  color: var(--brass);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.process__step h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+.process__step p {
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.lead-layout {
+  display: grid;
+  gap: 28px;
+}
+@media (min-width: 900px) {
+  .lead-layout {
+    grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
+    align-items: start;
+  }
+}
+.lead-card {
+  padding: clamp(20px, 4vw, 32px);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background:
+    linear-gradient(145deg, rgba(15, 94, 79, 0.18), transparent 48%),
+    var(--surface);
+}
+.lead-grid {
+  display: grid;
+  gap: 14px;
+}
+@media (min-width: 620px) {
+  .lead-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.field { display: flex; flex-direction: column; gap: 7px; }
+.field--wide { grid-column: 1 / -1; }
+.field label {
+  font-size: 0.78rem;
+  color: var(--sage);
+  font-weight: 600;
+}
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--ink);
+  outline: none;
+}
+.field textarea {
+  min-height: 104px;
+  resize: vertical;
+}
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
+}
+.field input::placeholder,
+.field textarea::placeholder { color: rgba(183, 196, 178, 0.45); }
+.lead-consent {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin: 16px 0;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+.lead-consent input {
+  width: 16px;
+  height: 16px;
+  margin-top: 2px;
+  accent-color: var(--moorland);
+}
+.lead-consent a { color: var(--pistachio); text-decoration: underline; }
+.lead-status {
+  min-height: 24px;
+  margin-top: 12px;
+  color: var(--pistachio);
+  font-size: 0.84rem;
+}
+.lead-points {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+.lead-point {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+.lead-point__mark {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(201, 168, 108, 0.38);
+  border-radius: 50%;
+  color: var(--brass-bright);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.lead-point strong { display: block; margin-bottom: 3px; font-size: 0.9rem; }
+.lead-point span { color: var(--muted); font-size: 0.82rem; }
 
 .faq { display: grid; gap: 8px; max-width: 840px; }
 .faq details {
@@ -710,6 +767,28 @@ button { border: 0; background: none; color: inherit; }
 }
 .footer a:hover { color: var(--ink); }
 
+.dock {
+  position: fixed;
+  left: 12px;
+  right: 12px;
+  bottom: 12px;
+  z-index: 280;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  background: rgba(10, 16, 13, 0.92);
+  border: 1px solid var(--line);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35);
+}
+.dock .btn { min-height: 44px; width: 100%; }
+@media (min-width: 860px) {
+  .dock { display: none; }
+  body { padding-bottom: 0; }
+}
+
 @keyframes rise {
   from { opacity: 0; transform: translateY(16px); }
   to { opacity: 1; transform: translateY(0); }
@@ -727,33 +806,55 @@ button { border: 0; background: none; color: inherit; }
       <a href="#segments">Решения</a>
       <a href="#catalog">Каталог</a>
       <a href="#price">Прайс</a>
+      <a href="#request">Заявка</a>
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav__cta">
-      <a class="btn btn-primary" href="mailto:info@kazandelikates.tatar?subject=Запрос%20оптового%20предложения">Написать</a>
+      <a class="btn btn-ghost" href="tel:+79872170202" style="display:none" id="nav-phone">Позвонить</a>
+      <a class="btn btn-primary" href="#price">Получить прайс</a>
     </div>
   </header>
 
   <section class="hero">
-    <div class="hero__inner">
-      <div class="hero__content">
-        <div class="hero__kicker">Халяльное производство · Казань</div>
-        <h1>Деликатесы<br>для меню и полки</h1>
-        <p class="hero__sub">Пепперони, сосиски, котлеты и татарская выпечка для HoReCa, ретейла и СТМ. Контроль HACCP, ISO 22000:2018 и сертификат Халяль ДУМ РТ.</p>
-        <div class="hero__ctas">
-          <a class="btn btn-primary" href="#catalog">Смотреть каталог</a>
-          <a class="text-link" href="mailto:info@kazandelikates.tatar?subject=Запрос%20оптового%20предложения">Написать на почту →</a>
-        </div>
+    <div class="hero__media" aria-hidden="true">
+      <video autoplay muted loop playsinline poster="/videos/hero-ru-poster.webp">
+        <source src="/videos/hero-ru.mp4" type="video/mp4">
+      </video>
+    </div>
+    <div class="hero__shade"></div>
+    <div class="hero__content">
+      <div class="hero__brand">Казанские<br><em>Деликатесы</em></div>
+      <h1>Халяль с HACCP и ISO 22000 — для сетей, HoReCa и экспорта</h1>
+      <p class="hero__sub">Пепперони, сосиски, котлеты и татарская выпечка. Сертификат ДУМ РТ, ТР ТС 021/2011, EXW Казань и склад в Люберцах. Private Label от 500 кг/мес.</p>
+      <div class="hero__ctas">
+        <a class="btn btn-primary" href="#price">Получить прайс</a>
+        <a class="btn btn-ghost" href="https://wa.me/79872170202?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20%D0%9D%D1%83%D0%B6%D0%BD%D0%B0%20%D0%BE%D0%BF%D1%82%D0%BE%D0%B2%D0%B0%D1%8F%20%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0">Запросить поставку</a>
       </div>
-      <figure class="hero__visual">
-        <img class="hero__product" src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_1000,c_fill,ar_4:3/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg" alt="Халяль пепперони Казанские Деликатесы" width="1000" height="750" fetchpriority="high">
-        <figcaption class="hero__caption">
-          <span><strong>Пепперони халяль</strong>Нарезка и целый батон</span>
-          <span><strong>Для бизнеса</strong>HoReCa · ретейл · СТМ</span>
-        </figcaption>
-      </figure>
     </div>
   </section>
+
+  <div class="specs" aria-label="Сертификаты и условия">
+    <a href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener noreferrer">
+      <strong>Халяль ДУМ РТ</strong>
+      №614A/2024 · реестр
+    </a>
+    <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener noreferrer">
+      <strong>HACCP + ISO 22000</strong>
+      FSMS-2351/А · IAF
+    </a>
+    <span>
+      <strong>ТР ТС 021/2011</strong>
+      Таможенный союз
+    </span>
+    <span>
+      <strong>EXW · DAP</strong>
+      Казань · Люберцы
+    </span>
+    <span>
+      <strong>Private Label</strong>
+      от 500 кг/мес
+    </span>
+  </div>
 
   <section class="section" id="segments">
     <div class="wrap">
@@ -774,16 +875,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Street food на АЗС без простоев</h3>
           <p class="segment__text">Сосиски для хот-догов, котлеты, пепперони и сосиски в тесте — стабильная матрица под мини-кухню и витрину «с собой».</p>
-          <a class="text-link" href="/dlya-azs">Решения для АЗС →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D0%BD%D0%B0%20%D0%90%D0%97%D0%A1">Заявка на АЗС</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg" alt="Хот-дог с халяльной сосиской для АЗС" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>Халяль + HACCP</strong>под аудит сети</div>
-              <div><strong>Фасовка</strong>гриль · хот-дог</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>Халяль + HACCP</strong>под аудит сети</div>
+            <div><strong>Фасовка</strong>гриль · хот-дог</div>
           </div>
+          <p class="segment__case"><b>Кейс:</b> сеть АЗС «Татнефть» и SMARTEN.</p>
         </div>
       </div>
 
@@ -791,16 +890,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Профкухня: пицца, бургеры, отели</h3>
           <p class="segment__text">Форматы 0,5–5 кг, нарезка под печь, стабильный выход. Для ресторанов, dark kitchen и кейтеринга.</p>
-          <a class="text-link" href="/dlya-horeca">Решения для HoReCa →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20HoReCa">Заявка HoReCa</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg" alt="Пепперони для профессиональной кухни и пиццы" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>ISO 22000</strong>пищевая безопасность</div>
-              <div><strong>Канал</strong>GFC · SweetLife · КВЗ</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>ISO 22000</strong>пищевая безопасность</div>
+            <div><strong>Канал</strong>GFC · SweetLife · КВЗ</div>
           </div>
+          <p class="segment__case"><b>Кейс:</b> федеральный фудсервис и корпоративное питание.</p>
         </div>
       </div>
 
@@ -808,16 +905,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Халяль-полка для сетей</h3>
           <p class="segment__text">Пепперони, казылык, сосиски, выпечка. EAN, ветсертификаты, пакет соответствия под федеральный ретейл.</p>
-          <a class="text-link" href="/dlya-setey">Решения для сетей →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%97%D0%B0%D1%8F%D0%B2%D0%BA%D0%B0%20%D1%80%D0%BE%D0%B7%D0%BD%D0%B8%D1%86%D0%B0">Заявка в розницу</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772730312/pepperoni_3_stuki_zpezfy.jpg" alt="Упаковка халяльной пепперони для розничных сетей" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>Сети</strong>EuroSpar · Бэхетле · Metro</div>
-              <div><strong>Выпечка</strong>Мираторг</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>Сети</strong>EuroSpar · Бэхетле · Metro</div>
+            <div><strong>Выпечка</strong>Мираторг</div>
           </div>
+          <p class="segment__case"><b>Кейс:</b> халяльный ассортимент на полках федеральных сетей.</p>
         </div>
       </div>
 
@@ -825,16 +920,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Private Label под ваш бренд</h3>
           <p class="segment__text">От рецептуры до упаковки. Колбасы, сосиски, пепперони, выпечка. От 500 кг/мес — с HACCP и халяль-сертификацией.</p>
-          <a class="text-link" href="/kontraktnoe-proizvodstvo">Подробнее о СТМ →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%91%D1%80%D0%B8%D1%84%20%D0%BD%D0%B0%20%D0%A1%D0%A2%D0%9C">Бриф на СТМ</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772730328/pepperoni_ikic7r.jpg" alt="Пепперони для производства под собственной торговой маркой" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>Минимум</strong>от 500 кг/мес</div>
-              <div><strong>Контроль</strong>HACCP · ISO 22000</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>Минимум</strong>от 500 кг/мес</div>
+            <div><strong>Контроль</strong>HACCP · ISO 22000</div>
           </div>
+          <p class="segment__case"><b>Кейс:</b> линейка «Аслам» для ОМПК (Останкино).</p>
         </div>
       </div>
 
@@ -842,16 +935,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Экспорт из Казани</h3>
           <p class="segment__text">Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, ТР ТС, EXW Казань / DAP по запросу. Прайс в USD и валютах СНГ.</p>
-          <a class="text-link" href="/export">Условия экспорта →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%AD%D0%BA%D1%81%D0%BF%D0%BE%D1%80%D1%82%20%D0%B7%D0%B0%D0%BF%D1%80%D0%BE%D1%81">Экспорт-запрос</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg" alt="Халяльная пепперони для экспортных поставок" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>Документы</strong>вет · халяль · ISO</div>
-              <div><strong>Цены</strong>RUB · USD · KZT · UZS…</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>Документы</strong>вет · халяль · ISO</div>
+            <div><strong>Цены</strong>RUB · USD · KZT · UZS…</div>
           </div>
+          <p class="segment__case"><b>Плюс:</b> живой каталог и Excel-прайс под валюту покупателя.</p>
         </div>
       </div>
 
@@ -859,16 +950,14 @@ button { border: 0; background: none; color: inherit; }
         <div>
           <h3 class="segment__title">Дистрибьюторам регионов</h3>
           <p class="segment__text">Полная халяль-матрица с одного склада, свой прайс, отсрочка по договору. API каталога для ERP / 1С / iiko.</p>
-          <a class="text-link" href="/dlya-distributorov">Условия дистрибуции →</a>
+          <a class="btn btn-moorland" href="https://wa.me/79872170202?text=%D0%94%D0%B8%D1%81%D1%82%D1%80%D0%B8%D0%B1%D1%8C%D1%8E%D1%82%D0%BE%D1%80">Стать партнёром</a>
         </div>
-        <div class="segment__visual">
-          <img src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_900,c_fill,ar_16:9/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg" alt="Фасованная халяльная продукция для дистрибьюторов" loading="lazy">
-          <div class="segment__visual-copy">
-            <div class="segment__meta">
-              <div><strong>Склад</strong>Казань · Люберцы</div>
-              <div><strong>Матрица</strong>весь ассортимент</div>
-            </div>
+        <div>
+          <div class="segment__meta">
+            <div><strong>Склад</strong>Казань · Люберцы</div>
+            <div><strong>API</strong>/api/products LIVE</div>
           </div>
+          <p class="segment__case"><b>Кейс:</b> GFC и SweetLife — федеральный фудсервис.</p>
         </div>
       </div>
     </div>
@@ -923,17 +1012,186 @@ button { border: 0; background: none; color: inherit; }
       <div class="price-box">
         <div>
           <div class="section__label">Прайс-лист</div>
-          <h3>Актуальный каталог в CSV</h3>
-          <p>Рабочая выгрузка полного ассортимента для Excel, Google Sheets, 1С и закупочной аналитики.</p>
+          <h3>Скачайте полный каталог за один клик</h3>
+          <p>Excel или CSV · RU/EN · RUB и экспортные валюты. Откроется в Sheets, Numbers, 1С.</p>
+          <div class="dl-row">
+            <label for="dl-lang">Язык</label>
+            <select id="dl-lang" class="dl-select">
+              <option value="ru" selected>Русский</option>
+              <option value="en">English</option>
+            </select>
+            <label for="dl-cur">Валюта</label>
+            <select id="dl-cur" class="dl-select">
+              <option value="RUB" selected>RUB ₽</option>
+              <option value="USD">USD $</option>
+              <option value="KZT">KZT ₸</option>
+              <option value="UZS">UZS</option>
+              <option value="KGS">KGS</option>
+              <option value="BYN">BYN</option>
+              <option value="AZN">AZN</option>
+            </select>
+            <span id="dl-vat-wrap">
+              <label for="dl-vat">НДС</label>
+              <select id="dl-vat" class="dl-select">
+                <option value="true" selected>С НДС</option>
+                <option value="false">Без НДС</option>
+              </select>
+            </span>
+          </div>
           <div class="dl-actions">
-            <a class="btn btn-primary" href="/products-feed.csv" download>Скачать CSV</a>
+            <button type="button" class="btn btn-primary" id="dl-xlsx">Скачать Excel</button>
+            <button type="button" class="btn btn-ghost" id="dl-csv">Скачать CSV</button>
           </div>
         </div>
         <div>
-          <div class="section__label">Персональный расчёт</div>
-          <h3>Нужен Excel или экспортный прайс?</h3>
-          <p>Напишите канал, страну и ориентировочный объём — отправим подходящую матрицу и условия поставки.</p>
-          <a class="text-link" href="mailto:info@kazandelikates.tatar?subject=Запрос%20прайс-листа">Запросить по email →</a>
+          <div class="section__label">Интеграции</div>
+          <p style="color:var(--muted);font-size:0.92rem;margin-bottom:14px">Актуальные данные для дистрибьюторов, ERP, 1С, iiko и внутренних систем.</p>
+          <div style="display:flex;flex-direction:column;gap:8px;font-size:0.88rem">
+            <a href="/api/products" style="color:var(--pistachio)">/api/products · LIVE</a>
+            <a href="/products.json" style="color:var(--pistachio)">/products.json</a>
+            <a href="/openapi.yaml" style="color:var(--pistachio)">/openapi.yaml</a>
+            <a href="/llms.txt" style="color:var(--pistachio)">/llms.txt</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="solutions">
+    <div class="wrap">
+      <div class="section__label">Производственные решения</div>
+      <h2 class="section__title">Не просто поставка — адаптация под канал</h2>
+      <p class="section__sub">Три опоры ассортимента и сервиса — одна задача на блок.</p>
+      <div class="solutions">
+        <article class="solution">
+          <div class="solution__kicker">СТМ</div>
+          <h3>Private Label</h3>
+          <p>Рецептура, фасовка, упаковка под ваш бренд. Халяль и HACCP в комплекте.</p>
+        </article>
+        <article class="solution">
+          <div class="solution__kicker">Меню</div>
+          <h3>Кастомизация</h3>
+          <p>Пепперони из говядины, курицы или конины — острота, диаметр, нарезка под печь.</p>
+        </article>
+        <article class="solution">
+          <div class="solution__kicker">Логистика</div>
+          <h3>Экспорт и холод</h3>
+          <p>EXW / DAP, температурный режим до РЦ, ветдокументы и сертификаты для таможни.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="process">
+    <div class="wrap">
+      <div class="section__label">Начало работы</div>
+      <h2 class="section__title">От запроса до первой отгрузки</h2>
+      <p class="section__sub">Понятный процесс для закупщика: ассортимент, документы и условия согласуются до запуска поставки.</p>
+      <div class="process">
+        <article class="process__step">
+          <h3>Получаем задачу</h3>
+          <p>Канал, продукты, объём, фасовка и география поставки.</p>
+        </article>
+        <article class="process__step">
+          <h3>Подбираем матрицу</h3>
+          <p>Предлагаем SKU, цены, упаковку и формат логистики.</p>
+        </article>
+        <article class="process__step">
+          <h3>Согласуем документы</h3>
+          <p>Сертификаты, спецификация, договор и требования вашей сети.</p>
+        </article>
+        <article class="process__step">
+          <h3>Отгружаем</h3>
+          <p>EXW Казань или согласованная доставка с температурным режимом.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="request">
+    <div class="wrap">
+      <div class="lead-layout">
+        <div>
+          <div class="section__label">Коммерческое предложение</div>
+          <h2 class="section__title">Получите подборку под ваш канал</h2>
+          <p class="section__sub">Оставьте базовые параметры — менеджер подготовит подходящие SKU, цены и условия поставки.</p>
+          <div class="lead-points">
+            <div class="lead-point">
+              <span class="lead-point__mark">01</span>
+              <div><strong>Без длинного брифа</strong><span>Только данные, которые нужны для первого предложения.</span></div>
+            </div>
+            <div class="lead-point">
+              <span class="lead-point__mark">02</span>
+              <div><strong>Документы вместе с предложением</strong><span>Халяль, HACCP, ISO 22000:2018 и спецификации.</span></div>
+            </div>
+            <div class="lead-point">
+              <span class="lead-point__mark">03</span>
+              <div><strong>Цены под вашу задачу</strong><span>RUB с НДС или экспортная валюта.</span></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="lead-card">
+          <form id="lead-form">
+            <div class="lead-grid">
+              <div class="field">
+                <label for="lead-company">Компания *</label>
+                <input id="lead-company" name="company" type="text" autocomplete="organization" placeholder="ООО «Ваша компания»" required>
+              </div>
+              <div class="field">
+                <label for="lead-name">Контактное лицо *</label>
+                <input id="lead-name" name="contact_name" type="text" autocomplete="name" placeholder="Имя и фамилия" required>
+              </div>
+              <div class="field">
+                <label for="lead-phone">Телефон / WhatsApp *</label>
+                <input id="lead-phone" name="phone" type="tel" autocomplete="tel" placeholder="Телефон с кодом страны" required>
+              </div>
+              <div class="field">
+                <label for="lead-email">Email</label>
+                <input id="lead-email" name="email" type="email" autocomplete="email" placeholder="Рабочий email">
+              </div>
+              <div class="field">
+                <label for="lead-channel">Канал *</label>
+                <select id="lead-channel" name="channel" required>
+                  <option value="" selected disabled>Выберите канал</option>
+                  <option>АЗС и street food</option>
+                  <option>HoReCa и общепит</option>
+                  <option>Розница и сети</option>
+                  <option>СТМ / Private Label</option>
+                  <option>Экспорт</option>
+                  <option>Дистрибуция</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="lead-volume">Плановый объём</label>
+                <select id="lead-volume" name="volume">
+                  <option value="">Пока не определён</option>
+                  <option>до 500 кг/мес</option>
+                  <option>500–1 000 кг/мес</option>
+                  <option>1–5 тонн/мес</option>
+                  <option>более 5 тонн/мес</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="lead-location">Город / страна *</label>
+                <input id="lead-location" name="location" type="text" placeholder="Казань / Казахстан" required>
+              </div>
+              <div class="field">
+                <label for="lead-product">Что интересует</label>
+                <input id="lead-product" name="product" type="text" placeholder="Пепперони, сосиски, СТМ…">
+              </div>
+              <div class="field field--wide">
+                <label for="lead-description">Комментарий</label>
+                <textarea id="lead-description" name="description" placeholder="Фасовка, требования сети, срок запуска или другие детали"></textarea>
+              </div>
+            </div>
+            <label class="lead-consent">
+              <input type="checkbox" name="consent" required>
+              <span>Согласен на обработку данных и обратную связь по заявке. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.</span>
+            </label>
+            <button class="btn btn-primary" type="submit" id="lead-submit">Получить предложение в WhatsApp</button>
+            <div class="lead-status" id="lead-status" role="status" aria-live="polite"></div>
+          </form>
         </div>
       </div>
     </div>
@@ -972,13 +1230,15 @@ button { border: 0; background: none; color: inherit; }
   <section class="cta-band" id="contact">
     <div class="wrap">
       <div class="section__label">Контакт</div>
-      <h2>Напишите — подготовим предложение</h2>
-      <p>Укажите канал, интересующие продукты, город или страну и ориентировочный объём. В ответ пришлём матрицу SKU, документы и условия поставки.</p>
+      <h2>Обсудим поставку за один звонок</h2>
+      <p>Опт, СТМ, экспорт — пришлём матрицу SKU, сертификаты и условия отгрузки под ваш канал.</p>
       <div class="hero__ctas">
-        <a class="btn btn-primary" href="mailto:info@kazandelikates.tatar?subject=Запрос%20оптового%20предложения">info@kazandelikates.tatar</a>
+        <a class="btn btn-primary" href="https://wa.me/79872170202">WhatsApp</a>
+        <a class="btn btn-ghost" href="tel:+79872170202">+7 987 217-02-02</a>
+        <a class="btn btn-moorland" href="#price">Скачать прайс</a>
       </div>
       <div class="cta-contacts">
-        <a href="tel:+79872170202">+7 987 217-02-02</a>
+        <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
         <span>г. Казань, ул. Аграрная, 2, оф. 7</span>
         <a href="/">Текущая главная</a>
       </div>
@@ -990,9 +1250,15 @@ button { border: 0; background: none; color: inherit; }
     <div>
       <a href="/">Главная</a> ·
       <a href="/halal">Халяль</a> ·
-      <a href="/export">Экспорт</a>
+      <a href="/export">Экспорт</a> ·
+      <a href="/api/products">API</a>
     </div>
   </footer>
+
+  <div class="dock" aria-label="Быстрые действия">
+    <a class="btn btn-primary" href="#price">Прайс</a>
+    <a class="btn btn-moorland" href="https://wa.me/79872170202">WhatsApp</a>
+  </div>
 
 <script>
 (function () {
@@ -1011,6 +1277,60 @@ button { border: 0; background: none; color: inherit; }
     trackAction('segment_select', { segment: seg });
   }
   tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.seg)));
+
+  const video = document.querySelector('.hero__media video');
+  if (video) {
+    video.style.opacity = '0';
+    video.style.transition = 'opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1)';
+    const show = () => { video.style.opacity = '1'; };
+    if (video.readyState >= 2) show();
+    else video.addEventListener('loadeddata', show, { once: true });
+  }
+
+  const curEl = document.getElementById('dl-cur');
+  const vatWrap = document.getElementById('dl-vat-wrap');
+  curEl.addEventListener('change', function () {
+    vatWrap.style.display = this.value === 'RUB' ? '' : 'none';
+  });
+  function downloadFile(fmt) {
+    const lang = document.getElementById('dl-lang').value;
+    const cur = curEl.value;
+    const vat = document.getElementById('dl-vat').value;
+    const vatParam = cur === 'RUB' ? `&vat=${vat}` : '';
+    window.location.href = `/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${fmt}${vatParam}`;
+  }
+  document.getElementById('dl-xlsx').addEventListener('click', () => downloadFile('xlsx'));
+  document.getElementById('dl-csv').addEventListener('click', () => downloadFile('csv'));
+
+  const leadForm = document.getElementById('lead-form');
+  const leadStatus = document.getElementById('lead-status');
+  leadForm.addEventListener('submit', function (event) {
+    event.preventDefault();
+    const company = document.getElementById('lead-company').value.trim();
+    const contact = document.getElementById('lead-name').value.trim();
+    const phone = document.getElementById('lead-phone').value.trim();
+    const email = document.getElementById('lead-email').value.trim() || 'не указан';
+    const channel = document.getElementById('lead-channel').value;
+    const volume = document.getElementById('lead-volume').value || 'не указан';
+    const location = document.getElementById('lead-location').value.trim();
+    const product = document.getElementById('lead-product').value || 'не указан';
+    const description = document.getElementById('lead-description').value.trim() || 'нет';
+    const message = [
+      'Здравствуйте! Нужна оптовая поставка.',
+      `Компания: ${company}`,
+      `Контакт: ${contact}`,
+      `Телефон: ${phone}`,
+      `Email: ${email}`,
+      `Канал: ${channel}`,
+      `Продукт: ${product}`,
+      `Объём: ${volume}`,
+      `География: ${location}`,
+      `Комментарий: ${description}`
+    ].join('\n');
+    leadStatus.textContent = 'Открываем WhatsApp с заполненной заявкой. Проверьте сообщение и нажмите «Отправить».';
+    trackAction('lead_submit', { channel: channel, volume: volume });
+    window.open(`https://wa.me/79872170202?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
+  });
 })();
 
 function trackAction(eventName, params) {
@@ -1233,6 +1553,11 @@ async function loadCatalog() {
   }
 })();
 
+if (window.matchMedia('(min-width: 860px)').matches) {
+  const phone = document.getElementById('nav-phone');
+  if (phone) phone.style.display = 'inline-flex';
+}
+
 document.addEventListener('click', function (event) {
   const link = event.target.closest('a');
   if (!link) return;
@@ -1240,6 +1565,7 @@ document.addEventListener('click', function (event) {
   if (link.dataset.catalogProduct) trackAction('catalog_product_open', { sku: link.dataset.catalogProduct });
   if (href.startsWith('tel:')) trackAction('click_phone');
   if (href.startsWith('mailto:')) trackAction('click_email');
+  if (/wa\.me|whatsapp/i.test(href)) trackAction('click_messenger');
   if (/прайс|price|\.(xlsx?|csv)(\?|$)/i.test(href) || /прайс|price/i.test(link.textContent || '')) {
     trackAction('download_price');
   }
