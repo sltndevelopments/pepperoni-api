@@ -1,0 +1,18 @@
+[Unit]
+Description=Kazan Delicacies Avito product-chat worker
+After=network-online.target pepperoni-lead-intake.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/pepperoni/repo
+EnvironmentFile=/var/www/pepperoni/seo-agent.env
+ExecStart=/usr/bin/python3 -m integrations.avito.worker
+Restart=always
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

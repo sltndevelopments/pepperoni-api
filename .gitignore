@@ -24,6 +24,9 @@ client_secret*.json
 
 # SEO Agent runtime data (SQLite DB + logs)
 data/seo_data.db
+data/avito-worker.sqlite3
+data/avito-worker.sqlite3-wal
+data/avito-worker.sqlite3-shm
 data/*.db-wal
 data/*.db-shm
 data/logs/

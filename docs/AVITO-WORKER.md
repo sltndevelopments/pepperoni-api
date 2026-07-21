@@ -1,0 +1,50 @@
+# Avito product-chat worker
+
+`integrations.avito.worker` processes only product chats, answers using the
+canonical Pepperoni catalog, and posts each captured phone lead into the
+existing `LEADS_GROUP_ID` group.
+
+## Guarantees
+
+- The worker ignores recruitment chats whose listing URL contains `vakansii`.
+- It inspects the last messages in a product chat together, so a phone sent
+  before a follow-up city/name message is not lost.
+- A phone lead is saved in SQLite before it is sent to Telegram.
+- Telegram failures leave the lead in `pending` and are retried on every poll.
+- The customer receives `Спасибо! Сейчас с вами свяжется менеджер.` only after
+  Telegram confirms delivery.
+- The LLM receives matched catalog entries from
+  `https://api.pepperoni.tatar/api/products`; it is instructed not to invent
+  facts or claim a manager has received a lead.
+
+## Production migration
+
+1. Add values from `deploy/avito-worker.env.example` to
+   `/var/www/pepperoni/seo-agent.env`. The existing `LEADS_BOT_TOKEN` and
+   `LEADS_GROUP_ID` are reused.
+2. Install `deploy/pepperoni-avito-worker.service` under
+   `/etc/systemd/system/`, then run `systemctl daemon-reload`.
+3. Stop the legacy `avito-bot.service` before starting the new service. Never
+   run both: they can send duplicate Avito replies and duplicate leads.
+4. Start `pepperoni-avito-worker.service` and verify:
+
+   ```bash
+   systemctl status pepperoni-avito-worker
+   journalctl -u pepperoni-avito-worker -f
+   ```
+
+5. Keep the old `/opt/avito` service disabled for rollback. Restore it only
+   after stopping the new service.
+
+## LLM provider
+
+For a new provider, use:
+
+```dotenv
+LLM_API_KEY=...
+LLM_BASE_URL=https://api.openai.com/v1
+LLM_MODEL=gpt-4.1-mini
+```
+
+Until those variables are set, the worker uses the legacy `DEEPSEEK_*`
+variables already available in the production environment.
