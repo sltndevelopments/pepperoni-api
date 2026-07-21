@@ -78,3 +78,7 @@ data/tmp/
 *.session
 *.session-journal
 tg-state/
+
+# Leads mirror — synced from leadbot droplet at runtime (MTProto userbot).
+# Never commit: runtime state, would be wiped by deploy git reset otherwise.
+data/leads.json
