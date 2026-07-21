@@ -74,3 +74,7 @@ data/tg_pending.json
 data/brain_journal.jsonl
 data/.deploy_stamp
 data/tmp/
+# Telethon userbot session — SECRET (full account access). Never commit.
+*.session
+*.session-journal
+tg-state/
