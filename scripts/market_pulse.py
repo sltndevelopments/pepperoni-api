@@ -7,7 +7,7 @@ written to data/market_pulse.json which feeds the Brain (Fable) digest, so the
 monthly strategy reflects what is actually happening in each market — not just
 our own GSC mirror.
 
-Cost: ~15 pro-search agent calls once a month (≈ $0.5). The daily pipeline
+Cost: ~15 Agent API `low` calls once a month (≈ $0.5). The daily pipeline
 calls this script every day, but it exits instantly unless the data is older
 than MARKET_PULSE_DAYS (default 28) — no cron change needed.
 """
@@ -75,7 +75,8 @@ def main() -> int:
                 f"Рынок халяль мясной продукции в стране: {name}. "
                 f"Что важно знать экспортёру из России прямо сейчас "
                 f"(импорт, сертификация, спрос HoReCa/ритейл, конкуренты)?",
-                instructions=INSTRUCTIONS, max_steps=3, max_output_tokens=2000,
+                instructions=INSTRUCTIONS, preset="low",
+                max_steps=3, max_output_tokens=2000,
                 json_schema={
                     "type": "object",
                     "properties": {

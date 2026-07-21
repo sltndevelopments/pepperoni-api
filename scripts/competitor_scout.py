@@ -255,7 +255,7 @@ def enrich_google(findings: list[dict]) -> bool:
                     "why_ranks — 1 фраза (контент/авторитет/коммерция). "
                     "gap_for_us — что конкретно добавить на pepperoni.tatar, "
                     "чтобы обойти их. Без markdown."),
-                max_steps=3, max_output_tokens=900)
+                preset="low", max_steps=3, max_output_tokens=900)
             if brief.get("top"):
                 f["google_serp"] = brief["top"][:3]
                 f["google_gap"] = brief.get("gap_for_us", "")

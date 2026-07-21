@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 """Perplexity API client — live web intelligence for the agent system.
 
-Perplexity is used where it beats Anthropic: real-time web search. Two entry
-points:
+Hybrid policy (keep both APIs):
 
-  pplx_search(prompt)  — Chat Completions with the `sonar`/`sonar-pro` online
-                         models. One question → grounded answer + citations.
-  pplx_agent(input)    — Agent API (/v1/agent): multi-step research loop with
-                         web_search tooling and presets (fast-search /
-                         pro-search / deep-research). Use for structured
-                         competitive intel and market research.
+  pplx_search(prompt)  — Sonar Chat Completions (`sonar` / `sonar-pro`).
+                         Use for one-shot lookups: AIO citability, anomaly
+                         context, LPR/site discovery, Fable web_queries.
+  pplx_agent(input)    — Agent API (`/v1/agent`) with tier presets.
+                         Use for multi-step research: competitor SERP,
+                         market pulse, account briefs, structured JSON.
 
-All usage is logged into the shared LLM cost ledger (data/llm_costs.json) via
-claude_client, so the Telegram «💰 Бюджет» button shows Anthropic + Perplexity
-spend in one place.
+Do NOT migrate every Sonar call to Agent — Agent is better on research but
+slower/costlier per request. Sonar stays the cheap boolean/lookup path.
 
-Env: PPLX_API_KEY (required), PPLX_AGENT_PRESET (default pro-search).
+Agent presets (2026 rename):
+  fast-search → fast, pro-search → low, deep-research → medium,
+  advanced-deep-research → high, ultra → xhigh.
+
+Env: PPLX_API_KEY (required), PPLX_MODEL (default sonar-pro),
+     PPLX_AGENT_PRESET (default low).
 """
 
 import json
@@ -32,8 +35,22 @@ CHAT_URL = f"{PPLX_BASE}/chat/completions"
 AGENT_URL = f"{PPLX_BASE}/v1/agent"
 
 DEFAULT_SEARCH_MODEL = os.environ.get("PPLX_MODEL", "sonar-pro")
-DEFAULT_AGENT_PRESET = os.environ.get("PPLX_AGENT_PRESET", "pro-search")
+DEFAULT_AGENT_PRESET = os.environ.get("PPLX_AGENT_PRESET", "low")
 SEARCH_FEE_USD = 0.005  # ≈ $5 per 1K search requests
+
+# Legacy preset names still appear in older env/docs — normalize before POST.
+_PRESET_ALIASES = {
+    "fast-search": "fast",
+    "pro-search": "low",
+    "deep-research": "medium",
+    "advanced-deep-research": "high",
+    "ultra": "xhigh",
+}
+
+
+def normalize_preset(preset: str | None) -> str:
+    raw = (preset or DEFAULT_AGENT_PRESET).strip().lower()
+    return _PRESET_ALIASES.get(raw, raw)
 
 
 def _ledger(model: str, usage: dict, extra_usd: float = 0.0) -> None:
@@ -97,8 +114,9 @@ def pplx_agent(input_text: str, instructions: str = "", preset: str = None,
 
     json_schema: when given, requests structured output validated against the
     schema — eliminates truncated/malformed JSON from free-text answers."""
+    resolved_preset = normalize_preset(preset)
     payload = {
-        "preset": preset or DEFAULT_AGENT_PRESET,
+        "preset": resolved_preset,
         "input": input_text,
         "max_output_tokens": max_output_tokens,
     }
@@ -119,7 +137,7 @@ def pplx_agent(input_text: str, instructions: str = "", preset: str = None,
     searches = (u.get("num_search_queries")
                 or sum(1 for it in data.get("output", [])
                        if isinstance(it, dict) and "search" in str(it.get("type", ""))))
-    _ledger("pplx-agent",
+    _ledger(f"pplx-agent-{resolved_preset}",
             {"input_tokens": u.get("input_tokens", u.get("prompt_tokens", 0)),
              "output_tokens": u.get("output_tokens", u.get("completion_tokens", 0))},
             extra_usd=max(searches, 1) * SEARCH_FEE_USD)
@@ -170,6 +188,9 @@ def _repair_json(s: str) -> str:
 
 if __name__ == "__main__":
     print(f"PPLX key set: {bool(PPLX_KEY)}")
+    assert normalize_preset("pro-search") == "low"
+    assert normalize_preset("fast") == "fast"
+    print(f"default agent preset: {normalize_preset(None)}")
     if PPLX_KEY:
         try:
             text, cites = pplx_search("Кто крупнейшие производители халяль колбасы в России? Кратко.")
@@ -177,8 +198,10 @@ if __name__ == "__main__":
         except Exception as e:
             print(f"❌ search: {e}")
         try:
-            t = pplx_agent("Top-3 Google results for 'halal pepperoni wholesale'? One line each.",
-                           max_steps=2, max_output_tokens=500)
+            t = pplx_agent(
+                "Top-3 Google results for 'halal pepperoni wholesale'? One line each.",
+                preset="fast", max_steps=1, max_output_tokens=500,
+            )
             print(f"✅ agent: {t[:200]}…")
         except Exception as e:
             print(f"❌ agent: {e}")

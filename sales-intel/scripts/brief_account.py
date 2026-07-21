@@ -10,7 +10,7 @@
           угол захода, риски, 3 вопроса для звонка.
 Выход: sales-intel/data/briefs/<inn>.md + текст в stdout.
 
-Стоимость: ~$0.01–0.02 на лида (1 pplx pro-search + 1 Haiku).
+Стоимость: ~$0.02–0.05 на лида (1 Agent API medium + 1 Haiku).
 Запуск:  python3 sales-intel/scripts/brief_account.py 7723801936
          python3 sales-intel/scripts/brief_account.py "БонтьеР"
          python3 sales-intel/scripts/brief_account.py --top 5
@@ -53,7 +53,7 @@ def top_leads(n: int) -> list[dict]:
 
 
 def research(lead: dict) -> str:
-    """Live-web интел через Perplexity (pro-search)."""
+    """Live-web интел через Perplexity Agent API (medium = multi-hop research)."""
     from pplx_client import pplx_agent
     name = lead.get("name_full") or lead.get("name_short", "")
     region = lead.get("region_name", "")
@@ -66,7 +66,7 @@ def research(lead: dict) -> str:
         "халяль-ассортимента или мусульманской аудитории в регионе; 5) ЛПР/закупки "
         "если упоминаются публично. Кратко, фактами, по-русски.",
         instructions="Ты B2B-аналитик. Только проверяемые факты с указанием источников.",
-        max_steps=4, max_output_tokens=1500)
+        preset="medium", max_steps=4, max_output_tokens=1500)
 
 
 def compose_brief(lead: dict, intel: str) -> str:
