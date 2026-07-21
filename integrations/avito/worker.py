@@ -400,13 +400,34 @@ class Llm:
         }
         if "deepseek" in self.base or "deepseek" in self.model:
             body["thinking"] = {"type": "disabled"}
-        status, payload = Http().request(
-            f"{self.base}/chat/completions",
-            method="POST",
-            data=body,
-            headers={"Authorization": f"Bearer {self.key}"},
-            timeout=60,
-        )
+        headers = {"Authorization": f"Bearer {self.key}"}
+        socks_proxy = _env("LLM_SOCKS5_PROXY")
+        if socks_proxy:
+            try:
+                import requests
+
+                response = requests.post(
+                    f"{self.base}/chat/completions",
+                    json=body,
+                    headers=headers,
+                    proxies={"http": socks_proxy, "https": socks_proxy},
+                    timeout=60,
+                )
+                status = response.status_code
+                try:
+                    payload = response.json()
+                except ValueError:
+                    payload = response.text
+            except Exception as exc:
+                raise RuntimeError(f"LLM SOCKS5 request failed: {exc}") from exc
+        else:
+            status, payload = Http().request(
+                f"{self.base}/chat/completions",
+                method="POST",
+                data=body,
+                headers=headers,
+                timeout=60,
+            )
         if status >= 400 or not isinstance(payload, dict):
             raise RuntimeError(f"LLM HTTP {status}")
         choices = payload.get("choices") or []

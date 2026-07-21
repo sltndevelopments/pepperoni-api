@@ -8,7 +8,7 @@ import getpass
 import sys
 from pathlib import Path
 
-DEFAULT_ENV = "/var/www/pepperoni/seo-agent.env"
+DEFAULT_ENV = "/etc/pepperoni-avito-worker.env"
 
 
 def set_value(lines: list[str], key: str, value: str) -> None:

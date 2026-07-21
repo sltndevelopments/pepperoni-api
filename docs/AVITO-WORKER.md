@@ -19,9 +19,9 @@ existing `LEADS_GROUP_ID` group.
 
 ## Production migration
 
-1. Add values from `deploy/avito-worker.env.example` to
-   `/var/www/pepperoni/seo-agent.env`. The existing `LEADS_BOT_TOKEN` and
-   `LEADS_GROUP_ID` are reused.
+1. Save values from `deploy/avito-worker.env.example` in
+   `/etc/pepperoni-avito-worker.env` with mode `600`. The existing
+   `LEADS_BOT_TOKEN` and `LEADS_GROUP_ID` are reused.
 2. Install `deploy/pepperoni-avito-worker.service` under
    `/etc/systemd/system/`, then run `systemctl daemon-reload`.
 3. Stop the legacy `avito-bot.service` before starting the new service. Never
@@ -66,6 +66,8 @@ LLM_PROVIDER=deepseek
 
 Then point `LLM_BASE_URL` at the phone assistant's supported-region,
 OpenAI-compatible endpoint before changing `LLM_PROVIDER` back to `openai`.
+For a SOCKS5 egress proxy, set `LLM_SOCKS5_PROXY` to its full
+`socks5h://user:password@host:port` URL.
 
 Without an OpenAI/explicit provider configuration, the worker uses the legacy
 `DEEPSEEK_*` variables already available in the production environment.
