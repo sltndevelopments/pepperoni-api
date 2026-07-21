@@ -1,10 +1,12 @@
 {
-  "mode": "repair",
+  "mode": "operator",
   "repair_started_at": "2026-07-19T00:00:00+00:00",
   "repair_until": "2026-08-02T00:00:00+00:00",
+  "activated_at": "2026-07-21T08:20:00+00:00",
+  "activated_by": "owner_decision_2026-07-21",
   "max_active_experiments": 3,
   "daily_budget_usd": 1.0,
   "monthly_budget_usd": 30.0,
   "auto_activate_when_eligible": true,
-  "note": "New LLM content is frozen during the 14-day control-plane repair phase. Quarantine growth watermark lives in data/quarantine_baseline.json (runtime, gitignored)."
+  "note": "Owner lifted the freeze early on 2026-07-21 to launch the data-driven commercial strategy. Repair-phase safeguards (fail-closed generation gates, experiment cap, quarantine growth watermark) stay active. Quarantine growth watermark lives in data/quarantine_baseline.json (runtime, gitignored)."
 }
