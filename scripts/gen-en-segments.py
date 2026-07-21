@@ -66,7 +66,7 @@ SEGMENTS = [
         "items_note": "Current prices live at <a href=\"/en/\" style=\"color:#0066cc\">/en/</a>. Private-label and custom-format quotations on request.",
         "logistics_heading": "Logistics & terms for pizza chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy (Moscow region)"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly or bi-weekly per schedule"),
             ("Payment", "As per contract after pilot"),
@@ -126,7 +126,7 @@ SEGMENTS = [
             ("❄️", "360-day frozen shelf life", "Order once every 2-4 weeks without sorting-out risk."),
             ("📋", "Full document pack per shipment", "EAEU declaration, Mercury VSD, Halal — no DC hold-ups."),
             ("☪️", "Halal & «for everyone»", "Same product fits the Muslim and the non-Muslim guest — no double matrix."),
-            ("🚚", "Logistics across Russia", "EXW Kazan or Lyubertsy DC. Regular runs to Volga, Central, Urals."),
+            ("🚚", "Logistics across Russia", "EXW Kazan. Regular runs to Volga, Central, Urals."),
         ],
         "items_heading": "SKUs that work at fuel stations",
         "items": [
@@ -140,7 +140,7 @@ SEGMENTS = [
         "items_note": "Live prices in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private label (network-branded hot dog or sausage roll) we put together a separate proposal.",
         "logistics_heading": "Logistics & terms for fuel-station chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy (Moscow region)"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly or bi-weekly per schedule"),
             ("Payment", "As per contract after pilot"),
@@ -214,7 +214,7 @@ SEGMENTS = [
         "items_note": "Current price list in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private-label fillings or pastries — bespoke quotation.",
         "logistics_heading": "Logistics & terms for bakery chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
             ("Payment", "As per contract after pilot"),
@@ -273,7 +273,7 @@ SEGMENTS = [
             ("📦", "77 SKU matrix", "Frozen + chilled + bakery + ready pastries — one supplier, one DC route."),
             ("❄️", "Long shelf life", "Frozen 180-360 days; chilled 30 days; bakery 60-360 days."),
             ("☪️", "Halal-default", "Opens Muslim audience and works for the general shopper too."),
-            ("🚚", "Logistics", "EXW Kazan or Lyubertsy DC. Federal weekly cadence."),
+            ("🚚", "Logistics", "EXW Kazan. Federal weekly cadence."),
         ],
         "items_heading": "Top retail SKUs",
         "items": [
@@ -287,7 +287,7 @@ SEGMENTS = [
         "items_note": "All 77 SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
         "logistics_heading": "Logistics & terms for retail chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
             ("Payment", "As per contract after pilot"),
@@ -433,7 +433,7 @@ SEGMENTS = [
         "items_note": "Full HoReCa matrix in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Portion-pack sizes and private-label HoReCa packs — bespoke quotation.",
         "logistics_heading": "Logistics & terms for HoReCa",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
             ("Payment", "As per contract after pilot"),
@@ -508,7 +508,7 @@ SEGMENTS = [
         "logistics": [
             ("Pilot minimum", "~500 kg / month per SKU"),
             ("Spec → first shipment", "4-6 weeks (recipe approval included)"),
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy · CIS export available"),
+            ("Incoterm", "EXW Kazan · CIS export available"),
             ("Payment", "50% prepayment for the first pilot batch, payment terms as per contract thereafter"),
             ("Documents", "Issued under your brand: EAEU · Mercury VSD · Halal · GTIN · nutrition panel"),
             ("IP", "Your recipe is your recipe — NDA on request, exclusivity per category & region available"),
@@ -650,7 +650,7 @@ footer a{{color:#888;text-decoration:none}}
 <span class="badge">HALAL #614A/2024</span>
 <span class="badge badge-outline">HACCP + ISO 22000:2018</span>
 <span class="badge badge-outline">Weekly shipments</span>
-<span class="badge badge-outline">EXW Kazan / Lyubertsy DC</span>
+<span class="badge badge-outline">EXW Kazan</span>
 
 <p>{intro}</p>
 

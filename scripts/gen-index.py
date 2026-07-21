@@ -292,7 +292,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <a href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>Сертификат Халяль ДУМ РТ №614A/2024 ✓</span></a>
     <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>ХАССП + ISO 22000:2018 ✓</span></a>
     <span class="badges__item"><span class="dot"></span>ТР ТС 021/2011</span>
-    <span class="badges__item"><span class="dot"></span>EXW Казань · Склад Люберцы</span>
+    <span class="badges__item"><span class="dot"></span>EXW Казань</span>
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
   </div>
 </div>
@@ -526,9 +526,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
-        <div class="footer__col-title">Склад и отгрузка</div>
-        <p>Москва (Люберцы) — наш склад</p>
+        <div class="footer__col-title">Отгрузка</div>
         <p>EXW Казань</p>
+        <p>г. Казань, ул. Аграрная, 2</p>
         <p>Отгрузка: Пн–Пт 9:00–18:00</p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
@@ -1252,9 +1252,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
-        <div class="footer__col-title">Warehouse &amp; Shipment</div>
-        <p>Moscow (Lyubertsy) — our warehouse</p>
+        <div class="footer__col-title">Shipment</div>
         <p>EXW Kazan</p>
+        <p>Kazan, ul. Agrarnaya, 2</p>
         <p>Mon–Fri 9:00–18:00 MSK</p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>

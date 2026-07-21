@@ -250,7 +250,7 @@ def derive_description(p: dict, tr: dict) -> str:
         "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
         "HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats "
         "(beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. "
-        "Shipment options: EXW Kazan warehouse or DC Lyubertsy (Moscow region)."
+        "Shipment options: EXW Kazan warehouse."
     )
     desc = " ".join(c for c in chunks if c).strip()
     # Clean double-spaces and ensure 500-5000 char window

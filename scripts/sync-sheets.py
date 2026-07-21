@@ -665,7 +665,7 @@ def _canonical_answers_ru(products: list) -> str:
 
 ### Условия поставки
 
-- **Инкотермс:** EXW Казань, Россия (возможен DC Люберцы, Московская обл.)
+- **Инкотермс:** EXW Казань, Россия
 - **Минимальный заказ:** от 8 коробов (зависит от SKU, см. карточки товаров)
 - **Оплата:** Безналичный расчёт, 50% предоплата / 50% перед отгрузкой
 - **Экспортные рынки:** Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан, Армения, ОАЭ, страны GCC
@@ -753,7 +753,7 @@ def _canonical_answers_en(products: list) -> str:
 
 - **Price range:** ${min_usd} – ${max_usd}
 - **Currencies available:** {currencies_list}
-- **Incoterm:** EXW Kazan, Russia (DC Lyubertsy, Moscow region — optional)
+- **Incoterm:** EXW Kazan, Russia
 
 ### Shipping & Ordering
 

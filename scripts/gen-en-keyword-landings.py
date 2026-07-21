@@ -157,7 +157,7 @@ PAGES = [
             ("Oven behaviour", "Stable at 280–320 °C; no curling; no grease bleed"),
             ("Halal", "Certificate #614A/2024, DUM RT — all SKUs"),
             ("Federal references", "Aslam (OMPK / Ostankino), EuroSpar, Bahetle, Metro, Miratorg, Tatneft AZS"),
-            ("Logistics", "EXW Kazan or DC Lyubertsy (Moscow region)"),
+            ("Logistics", "EXW Kazan"),
             ("MOQ", "1 pallet for pilot, 500 kg/mo for private label"),
             ("Lead time", "1–2 weeks stock, 4–6 weeks private label"),
         ],
@@ -251,7 +251,7 @@ PAGES = [
             ("Food safety", "HACCP + ISO 22000:2018"),
             ("Production facility", "20 000 m² in Kazan, dedicated halal line, no pork on premises"),
             ("Federal-scale references", "Aslam (OMPK / Ostankino), Tatneft, SMARTEN, EuroSpar, Bahetle, Metro, Miratorg"),
-            ("Logistics", "EXW Kazan · CIS export via Lyubertsy DC"),
+            ("Logistics", "EXW Kazan · CIS export"),
         ],
         "faqs": [
             ("Why Kazan specifically?", "Kazan is the historic capital of the Republic of Tatarstan — home to the largest Muslim community in central Russia (≈ 2 million) and the seat of the Russian Muslim Spiritual Board. Halal food production has been an unbroken tradition here for centuries; the regulatory and supply infrastructure for halal meat is the most mature in Russia."),
