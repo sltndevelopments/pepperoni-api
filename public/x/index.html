@@ -593,108 +593,6 @@ button { border: 0; background: none; color: inherit; }
   font-size: 0.86rem;
 }
 
-.lead-layout {
-  display: grid;
-  gap: 28px;
-}
-@media (min-width: 900px) {
-  .lead-layout {
-    grid-template-columns: minmax(0, 0.82fr) minmax(520px, 1.18fr);
-    align-items: start;
-  }
-}
-.lead-card {
-  padding: clamp(20px, 4vw, 32px);
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background:
-    linear-gradient(145deg, rgba(15, 94, 79, 0.18), transparent 48%),
-    var(--surface);
-}
-.lead-grid {
-  display: grid;
-  gap: 14px;
-}
-@media (min-width: 620px) {
-  .lead-grid { grid-template-columns: repeat(2, 1fr); }
-}
-.field { display: flex; flex-direction: column; gap: 7px; }
-.field--wide { grid-column: 1 / -1; }
-.field label {
-  font-size: 0.78rem;
-  color: var(--sage);
-  font-weight: 600;
-}
-.field input,
-.field select,
-.field textarea {
-  width: 100%;
-  min-height: 46px;
-  padding: 11px 13px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--bg);
-  color: var(--ink);
-  outline: none;
-}
-.field textarea {
-  min-height: 104px;
-  resize: vertical;
-}
-.field input:focus,
-.field select:focus,
-.field textarea:focus {
-  border-color: var(--brass);
-  box-shadow: 0 0 0 3px rgba(201, 168, 108, 0.12);
-}
-.field input::placeholder,
-.field textarea::placeholder { color: rgba(183, 196, 178, 0.45); }
-.lead-consent {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  margin: 16px 0;
-  color: var(--muted);
-  font-size: 0.76rem;
-}
-.lead-consent input {
-  width: 16px;
-  height: 16px;
-  margin-top: 2px;
-  accent-color: var(--moorland);
-}
-.lead-consent a { color: var(--pistachio); text-decoration: underline; }
-.lead-status {
-  min-height: 24px;
-  margin-top: 12px;
-  color: var(--pistachio);
-  font-size: 0.84rem;
-}
-.lead-points {
-  display: grid;
-  gap: 14px;
-  margin-top: 24px;
-}
-.lead-point {
-  display: grid;
-  grid-template-columns: 34px 1fr;
-  gap: 12px;
-  align-items: start;
-}
-.lead-point__mark {
-  display: grid;
-  place-items: center;
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(201, 168, 108, 0.38);
-  border-radius: 50%;
-  color: var(--brass-bright);
-  font-size: 0.78rem;
-  font-weight: 700;
-}
-.lead-point strong { display: block; margin-bottom: 3px; font-size: 0.9rem; }
-.lead-point span { color: var(--muted); font-size: 0.82rem; }
-
 .faq { display: grid; gap: 8px; max-width: 840px; }
 .faq details {
   border: 1px solid var(--line);
@@ -806,7 +704,6 @@ button { border: 0; background: none; color: inherit; }
       <a href="#segments">Решения</a>
       <a href="#catalog">Каталог</a>
       <a href="#price">Прайс</a>
-      <a href="#request">Заявка</a>
       <a href="#contact">Контакт</a>
     </nav>
     <div class="nav__cta">
@@ -1108,95 +1005,6 @@ button { border: 0; background: none; color: inherit; }
     </div>
   </section>
 
-  <section class="section" id="request">
-    <div class="wrap">
-      <div class="lead-layout">
-        <div>
-          <div class="section__label">Коммерческое предложение</div>
-          <h2 class="section__title">Получите подборку под ваш канал</h2>
-          <p class="section__sub">Оставьте базовые параметры — менеджер подготовит подходящие SKU, цены и условия поставки.</p>
-          <div class="lead-points">
-            <div class="lead-point">
-              <span class="lead-point__mark">01</span>
-              <div><strong>Без длинного брифа</strong><span>Только данные, которые нужны для первого предложения.</span></div>
-            </div>
-            <div class="lead-point">
-              <span class="lead-point__mark">02</span>
-              <div><strong>Документы вместе с предложением</strong><span>Халяль, HACCP, ISO 22000:2018 и спецификации.</span></div>
-            </div>
-            <div class="lead-point">
-              <span class="lead-point__mark">03</span>
-              <div><strong>Цены под вашу задачу</strong><span>RUB с НДС или экспортная валюта.</span></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="lead-card">
-          <form id="lead-form">
-            <div class="lead-grid">
-              <div class="field">
-                <label for="lead-company">Компания *</label>
-                <input id="lead-company" name="company" type="text" autocomplete="organization" placeholder="ООО «Ваша компания»" required>
-              </div>
-              <div class="field">
-                <label for="lead-name">Контактное лицо *</label>
-                <input id="lead-name" name="contact_name" type="text" autocomplete="name" placeholder="Имя и фамилия" required>
-              </div>
-              <div class="field">
-                <label for="lead-phone">Телефон / WhatsApp *</label>
-                <input id="lead-phone" name="phone" type="tel" autocomplete="tel" placeholder="Телефон с кодом страны" required>
-              </div>
-              <div class="field">
-                <label for="lead-email">Email</label>
-                <input id="lead-email" name="email" type="email" autocomplete="email" placeholder="Рабочий email">
-              </div>
-              <div class="field">
-                <label for="lead-channel">Канал *</label>
-                <select id="lead-channel" name="channel" required>
-                  <option value="" selected disabled>Выберите канал</option>
-                  <option>АЗС и street food</option>
-                  <option>HoReCa и общепит</option>
-                  <option>Розница и сети</option>
-                  <option>СТМ / Private Label</option>
-                  <option>Экспорт</option>
-                  <option>Дистрибуция</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="lead-volume">Плановый объём</label>
-                <select id="lead-volume" name="volume">
-                  <option value="">Пока не определён</option>
-                  <option>до 500 кг/мес</option>
-                  <option>500–1 000 кг/мес</option>
-                  <option>1–5 тонн/мес</option>
-                  <option>более 5 тонн/мес</option>
-                </select>
-              </div>
-              <div class="field">
-                <label for="lead-location">Город / страна *</label>
-                <input id="lead-location" name="location" type="text" placeholder="Казань / Казахстан" required>
-              </div>
-              <div class="field">
-                <label for="lead-product">Что интересует</label>
-                <input id="lead-product" name="product" type="text" placeholder="Пепперони, сосиски, СТМ…">
-              </div>
-              <div class="field field--wide">
-                <label for="lead-description">Комментарий</label>
-                <textarea id="lead-description" name="description" placeholder="Фасовка, требования сети, срок запуска или другие детали"></textarea>
-              </div>
-            </div>
-            <label class="lead-consent">
-              <input type="checkbox" name="consent" required>
-              <span>Согласен на обработку данных и обратную связь по заявке. <a href="/privacy" target="_blank">Политика конфиденциальности</a>.</span>
-            </label>
-            <button class="btn btn-primary" type="submit" id="lead-submit">Получить предложение в WhatsApp</button>
-            <div class="lead-status" id="lead-status" role="status" aria-live="polite"></div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="faq">
     <div class="wrap">
       <div class="section__label">Частые вопросы</div>
@@ -1301,36 +1109,6 @@ button { border: 0; background: none; color: inherit; }
   }
   document.getElementById('dl-xlsx').addEventListener('click', () => downloadFile('xlsx'));
   document.getElementById('dl-csv').addEventListener('click', () => downloadFile('csv'));
-
-  const leadForm = document.getElementById('lead-form');
-  const leadStatus = document.getElementById('lead-status');
-  leadForm.addEventListener('submit', function (event) {
-    event.preventDefault();
-    const company = document.getElementById('lead-company').value.trim();
-    const contact = document.getElementById('lead-name').value.trim();
-    const phone = document.getElementById('lead-phone').value.trim();
-    const email = document.getElementById('lead-email').value.trim() || 'не указан';
-    const channel = document.getElementById('lead-channel').value;
-    const volume = document.getElementById('lead-volume').value || 'не указан';
-    const location = document.getElementById('lead-location').value.trim();
-    const product = document.getElementById('lead-product').value || 'не указан';
-    const description = document.getElementById('lead-description').value.trim() || 'нет';
-    const message = [
-      'Здравствуйте! Нужна оптовая поставка.',
-      `Компания: ${company}`,
-      `Контакт: ${contact}`,
-      `Телефон: ${phone}`,
-      `Email: ${email}`,
-      `Канал: ${channel}`,
-      `Продукт: ${product}`,
-      `Объём: ${volume}`,
-      `География: ${location}`,
-      `Комментарий: ${description}`
-    ].join('\n');
-    leadStatus.textContent = 'Открываем WhatsApp с заполненной заявкой. Проверьте сообщение и нажмите «Отправить».';
-    trackAction('lead_submit', { channel: channel, volume: volume });
-    window.open(`https://wa.me/79872170202?text=${encodeURIComponent(message)}`, '_blank', 'noopener');
-  });
 })();
 
 function trackAction(eventName, params) {
