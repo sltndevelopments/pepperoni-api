@@ -57,5 +57,15 @@ LLM_BASE_URL=https://api.openai.com/v1
 LLM_MODEL=gpt-4.1-mini
 ```
 
-Until `OPENAI_API_KEY` or `LLM_API_KEY` is set, the worker uses the legacy
+If direct access to OpenAI is unavailable from the worker host, keep customer
+replies available with:
+
+```dotenv
+LLM_PROVIDER=deepseek
+```
+
+Then point `LLM_BASE_URL` at the phone assistant's supported-region,
+OpenAI-compatible endpoint before changing `LLM_PROVIDER` back to `openai`.
+
+Without an OpenAI/explicit provider configuration, the worker uses the legacy
 `DEEPSEEK_*` variables already available in the production environment.

@@ -355,9 +355,18 @@ class Catalog:
 
 class Llm:
     def __init__(self) -> None:
+        provider = _env("LLM_PROVIDER").lower()
         openai_key = _env("OPENAI_API_KEY")
         explicit_key = _env("LLM_API_KEY")
-        if explicit_key:
+        if provider == "openai":
+            self.key = openai_key or explicit_key
+            self.base = _env("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
+            self.model = _env("LLM_MODEL", "gpt-4.1-mini")
+        elif provider == "deepseek":
+            self.key = _env("DEEPSEEK_API_KEY")
+            self.base = _env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
+            self.model = _env("DEEPSEEK_MODEL", "deepseek-v4-flash")
+        elif explicit_key:
             self.key = explicit_key
             self.base = _env("LLM_BASE_URL", "https://api.openai.com/v1").rstrip("/")
             self.model = _env("LLM_MODEL", "gpt-4.1-mini")
