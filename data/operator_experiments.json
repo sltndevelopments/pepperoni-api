@@ -1,9 +1,9 @@
 [
   {
     "id": "exp-20260721081827-1",
-    "key": "котлеты для бургеров оптом|/kotlety-dlya-burgerov-optom",
+    "key": "котлеты для бургеров оптом|/private-label/kotlety-dlya-burgerov-optom",
     "query": "котлеты для бургеров оптом",
-    "page": "/kotlety-dlya-burgerov-optom",
+    "page": "/private-label/kotlety-dlya-burgerov-optom",
     "hypothesis": "Кластерная коммерческая страница (цена/MOQ/CTA/FAQ) поднимет позицию с ~23 в топ-10 и даст B2B-заявки. Спрос доказан: 4 варианта запроса ~700 показов.",
     "change_type": "new_commercial_page",
     "primary_metric": "qualified_inquiries",
@@ -21,9 +21,9 @@
   },
   {
     "id": "exp-20260721081827-2",
-    "key": "сосиски для хот догов оптом|/sosiski-dlya-hotdog-optom",
+    "key": "сосиски для хот догов оптом|/private-label/sosiski-dlya-hotdog-optom",
     "query": "сосиски для хот догов оптом",
-    "page": "/sosiski-dlya-hotdog-optom",
+    "page": "/private-label/sosiski-dlya-hotdog-optom",
     "hypothesis": "Своя коммерческая страница для HoReCa/dark kitchen обгонит текущие pos 29 и перехватит спрос у kazan (kazan pos 6.9/415). Каннибализации нет — у pepperoni страницы не было.",
     "change_type": "new_commercial_page",
     "primary_metric": "qualified_inquiries",
@@ -41,9 +41,9 @@
   },
   {
     "id": "exp-20260721081827-3",
-    "key": "казылык|/kazylyk-premium-optom",
+    "key": "казылык|/private-label/kazylyk-premium-optom",
     "query": "казылык",
-    "page": "/kazylyk-premium-optom",
+    "page": "/private-label/kazylyk-premium-optom",
     "hypothesis": "pepperoni уже ранжируется в топ-10 по 'казылык'/'kazylyk' (1470+337 показов). Коммерческая страница + перелинковка с блога дожмёт в топ-5 с B2B-CTA. Kazan тут почти не конкурирует.",
     "change_type": "new_commercial_page",
     "primary_metric": "qualified_inquiries",
