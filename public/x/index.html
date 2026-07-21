@@ -1050,8 +1050,34 @@ button { border: 0; background: none; color: inherit; }
         <span>г. Казань, ул. Аграрная, 2, оф. 7</span>
         <a href="/">Текущая главная</a>
       </div>
+
+      <style>
+        .lead-form-x{margin-top:28px;max-width:460px;display:grid;gap:12px;text-align:left}
+        .lead-form-x input,.lead-form-x textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);font-size:.95rem}
+        .lead-form-x input::placeholder,.lead-form-x textarea::placeholder{color:var(--muted)}
+        .lead-form-x input:focus,.lead-form-x textarea:focus{outline:none;border-color:var(--moorland-bright)}
+        .lead-form-x .consent{display:flex;gap:9px;align-items:flex-start;font-size:.8rem;color:var(--muted);line-height:1.45}
+        .lead-form-x .consent a{color:var(--brass-bright);text-decoration:underline}
+        .lead-form-x button{justify-self:start;cursor:pointer;border:none}
+        .lead-form-x .lead-form__status{font-size:.85rem;margin:0;min-height:1.2em}
+      </style>
+      <form class="lead-form lead-form-x" id="leadFormX" data-experiment-id="page-x-redesign" novalidate>
+        <div class="section__label" style="margin-top:8px">Заявка</div>
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name">
+        <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel">
+        <textarea name="message" rows="2" placeholder="Товар, объём, город"></textarea>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label class="consent">
+          <input type="checkbox" name="consent" required style="margin-top:3px;flex:none">
+          <span>Согласен на обработку персональных данных согласно
+            <a href="/privacy" target="_blank" rel="noopener">политике конфиденциальности</a> (152-ФЗ).</span>
+        </label>
+        <button type="submit" class="btn btn-primary">Отправить заявку</button>
+        <p class="lead-form__status" role="status" aria-live="polite"></p>
+      </form>
     </div>
   </section>
+  <script src="/assets/lead-form.js" defer></script>
 
   <footer class="footer">
     <div>© 2022–2026 ООО «Казанские Деликатесы»</div>

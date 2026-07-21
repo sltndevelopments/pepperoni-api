@@ -474,13 +474,37 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     </div>
   </div>
 
-  <div class="info-block">
+  <div class="info-block" id="zayavka">
     <h2>Связаться</h2>
     <p>Оптовые поставки, экспорт, Private Label — обсудим условия.</p>
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:var(--green);color:var(--green)">💬 WhatsApp</a>
+
+    <form class="lead-form" id="leadForm" novalidate style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px">
+      <p style="font-size:.9rem;color:var(--text);font-weight:600;margin-bottom:10px">Или оставьте заявку — перезвоним:</p>
+      <div style="display:grid;gap:10px;max-width:440px">
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem">
+        <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem">
+        <textarea name="message" rows="2" placeholder="Что интересует (товар, объём, город)"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;resize:vertical"></textarea>
+        <!-- honeypot: hidden from humans, bots fill it -->
+        <input type="text" name="company" tabindex="-1" autocomplete="off"
+               style="position:absolute;left:-9999px" aria-hidden="true">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--muted);line-height:1.4">
+          <input type="checkbox" name="consent" required style="margin-top:3px;flex:none">
+          <span>Я согласен на обработку персональных данных в соответствии с
+            <a href="/privacy" target="_blank" rel="noopener">политикой конфиденциальности</a>
+            (152-ФЗ).</span>
+        </label>
+        <button type="submit" class="btn-dl btn-dl-solid" style="color:#fff;border:none;justify-self:start">Отправить заявку</button>
+        <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.85rem;margin:0"></p>
+      </div>
+    </form>
   </div>
+  <script src="/assets/lead-form.js" defer></script>
 
   <div class="info-block">
     <h2>API для партнёров</h2>

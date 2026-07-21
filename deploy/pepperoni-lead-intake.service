@@ -1,0 +1,18 @@
+[Unit]
+Description=Kazan Delicacies lead-intake server (site form -> leads group)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/pepperoni/repo
+EnvironmentFile=/var/www/pepperoni/seo-agent.env
+Environment=LEAD_INTAKE_PORT=5002
+ExecStart=/usr/bin/python3 infra/scripts/lead-intake-server.py
+Restart=on-failure
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target
