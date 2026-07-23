@@ -24,6 +24,11 @@
         "at": "2026-07-23T08:20:00+00:00",
         "type": "geo_cleanup_bulk",
         "note": "Deleted 2318 geo (410) + 466 geo→301 to parents; removed myasnyie-zagotovki; sitemap 5130→2264. Domain-level crawl hygiene; not a direct edit of experiment pages."
+      },
+      {
+        "at": "2026-07-23T08:55:00+00:00",
+        "type": "en_geo_cleanup_bulk",
+        "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
       }
     ]
   },
@@ -52,6 +57,11 @@
         "at": "2026-07-23T08:20:00+00:00",
         "type": "geo_cleanup_bulk",
         "note": "Deleted 2318 geo (410) + 466 geo→301 to parents; removed myasnyie-zagotovki; sitemap 5130→2264. Domain-level crawl hygiene; not a direct edit of experiment pages."
+      },
+      {
+        "at": "2026-07-23T08:55:00+00:00",
+        "type": "en_geo_cleanup_bulk",
+        "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
       }
     ]
   },
@@ -80,6 +90,11 @@
         "at": "2026-07-23T08:20:00+00:00",
         "type": "geo_cleanup_bulk",
         "note": "Deleted 2318 geo (410) + 466 geo→301 to parents; removed myasnyie-zagotovki; sitemap 5130→2264. Domain-level crawl hygiene; not a direct edit of experiment pages."
+      },
+      {
+        "at": "2026-07-23T08:55:00+00:00",
+        "type": "en_geo_cleanup_bulk",
+        "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
       }
     ]
   }
