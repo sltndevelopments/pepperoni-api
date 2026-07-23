@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-23T12:40:20.875206+00:00",
+  "generated_at": "2026-07-23T12:55:14.234297+00:00",
   "source_mode": "psi+key",
   "has_api_key": true,
   "field_origin": {
@@ -106,46 +106,14 @@
     "product": {
       "url": "https://pepperoni.tatar/products/kd-001",
       "source": "psi",
-      "perf_score": 85,
-      "LCP_ms": 3938,
+      "perf_score": 98,
+      "LCP_ms": 2499,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
-      "flags": [
-        "slow_LCP"
-      ],
-      "field_url": {
-        "overall": "AVERAGE",
-        "LCP": {
-          "p75": 1236,
-          "category": "FAST"
-        },
-        "INP": null,
-        "CLS": {
-          "p75": 0,
-          "category": "FAST"
-        },
-        "FCP": {
-          "p75": 1199,
-          "category": "FAST"
-        }
-      },
-      "field_origin": {
-        "overall": "AVERAGE",
-        "LCP": {
-          "p75": 1236,
-          "category": "FAST"
-        },
-        "INP": null,
-        "CLS": {
-          "p75": 0,
-          "category": "FAST"
-        },
-        "FCP": {
-          "p75": 1199,
-          "category": "FAST"
-        }
-      }
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
     },
     "commercial": {
       "url": "https://pepperoni.tatar/private-label/kotlety-dlya-burgerov-optom",
