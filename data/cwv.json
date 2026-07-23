@@ -1,116 +1,403 @@
 {
-  "generated_at": "2026-07-23T09:19:30.492657+00:00",
-  "source_mode": "psi-anon|lighthouse-fallback",
-  "has_api_key": false,
-  "field_origin": null,
+  "generated_at": "2026-07-23T12:40:20.875206+00:00",
+  "source_mode": "psi+key",
+  "has_api_key": true,
+  "field_origin": {
+    "overall": "AVERAGE",
+    "LCP": {
+      "p75": 1236,
+      "category": "FAST"
+    },
+    "INP": null,
+    "CLS": {
+      "p75": 0,
+      "category": "FAST"
+    },
+    "FCP": {
+      "p75": 1199,
+      "category": "FAST"
+    }
+  },
   "templates": {
     "home": {
       "url": "https://pepperoni.tatar/",
-      "source": "lighthouse",
+      "source": "psi",
       "perf_score": 100,
-      "LCP_ms": 1382,
+      "LCP_ms": 1253,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "catalog": {
       "url": "https://pepperoni.tatar/pepperoni",
-      "source": "lighthouse",
+      "source": "psi",
       "perf_score": 100,
-      "LCP_ms": 1000,
+      "LCP_ms": 782,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "product": {
       "url": "https://pepperoni.tatar/products/kd-001",
-      "source": "lighthouse",
-      "perf_score": 98,
-      "LCP_ms": 1895,
+      "source": "psi",
+      "perf_score": 85,
+      "LCP_ms": 3938,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
-      "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "flags": [
+        "slow_LCP"
+      ],
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "commercial": {
       "url": "https://pepperoni.tatar/private-label/kotlety-dlya-burgerov-optom",
-      "source": "lighthouse",
-      "perf_score": 99,
-      "LCP_ms": 1707,
+      "source": "psi",
+      "perf_score": 100,
+      "LCP_ms": 1531,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "blog": {
       "url": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
-      "source": "lighthouse",
-      "perf_score": 100,
-      "LCP_ms": 977,
+      "source": "psi",
+      "perf_score": 97,
+      "LCP_ms": 780,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "geo_keep": {
       "url": "https://pepperoni.tatar/geo/kazylyk-premium-kazan",
-      "source": "lighthouse",
-      "perf_score": 99,
-      "LCP_ms": 1712,
+      "source": "psi",
+      "perf_score": 100,
+      "LCP_ms": 1531,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "export": {
       "url": "https://pepperoni.tatar/export/uae",
-      "source": "lighthouse",
+      "source": "psi",
       "perf_score": 100,
-      "LCP_ms": 999,
+      "LCP_ms": 774,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "oem": {
       "url": "https://pepperoni.tatar/dlya-distributorov",
-      "source": "lighthouse",
-      "perf_score": 100,
-      "LCP_ms": 1013,
+      "source": "psi",
+      "perf_score": 94,
+      "LCP_ms": 2254,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     },
     "experiment_x": {
       "url": "https://pepperoni.tatar/x",
-      "source": "lighthouse",
-      "perf_score": 98,
-      "LCP_ms": 1330,
+      "source": "psi",
+      "perf_score": 100,
+      "LCP_ms": 1204,
       "CLS": 0,
       "INP_ms": null,
       "unsized_images_ok": true,
       "flags": [],
-      "field_url": null,
-      "field_origin": null
+      "field_url": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      },
+      "field_origin": {
+        "overall": "AVERAGE",
+        "LCP": {
+          "p75": 1236,
+          "category": "FAST"
+        },
+        "INP": null,
+        "CLS": {
+          "p75": 0,
+          "category": "FAST"
+        },
+        "FCP": {
+          "p75": 1199,
+          "category": "FAST"
+        }
+      }
     }
   },
   "thresholds": {
