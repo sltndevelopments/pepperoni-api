@@ -120,7 +120,19 @@
   "ai_discovery": {
     "version": "1.0",
     "spec": "https://ai-discovery-files.org/",
+    "commercial_canon": {
+      "halal_pepperoni": "https://pepperoni.tatar/pepperoni",
+      "pepperoni_for_pizzerias": "https://pepperoni.tatar/pepperoni-dlya-pizzerii",
+      "halal_pepperoni_en": "https://pepperoni.tatar/en/pepperoni"
+    },
     "datasets": [
+      {
+        "name": "pepperoni_money_hub",
+        "url": "https://pepperoni.tatar/pepperoni",
+        "format": "text/html",
+        "language": "ru",
+        "updateFrequency": "on_change"
+      },
       {
         "name": "llms_ru",
         "url": "https://pepperoni.tatar/llms.txt",

@@ -25,6 +25,8 @@ alwaysApply: true
 - Любая публикация: новые/изменённые money-URL, title/canonical, 301, sitemap —
   **сразу** на VPS: `bash scripts/nudge_google_after_seo.sh`
   (Google sitemap + Indexing API `--hot`, Yandex `--hot`, Bing/IndexNow `--hot`).
+- Если менялся коммерческий канон пепперони: `python3 scripts/gen-llms-full.py`
+  (llms.txt / feeds) **до** nudge; в llms обязан быть `/pepperoni` money hub.
 - В отчёте — вывод nudge (ok/fail), не «можно потом».
 
 ## Handoff

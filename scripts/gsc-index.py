@@ -110,7 +110,16 @@ def _abs(url_or_path: str) -> str:
 
 def load_hot_urls() -> list[str]:
     """Money/commercial URLs that must be re-crawled after SEO edits."""
-    out: list[str] = [f"{ORIGIN}/", f"{ORIGIN}/pepperoni", f"{ORIGIN}/pepperoni-dlya-pizzerii"]
+    out: list[str] = [
+        f"{ORIGIN}/",
+        f"{ORIGIN}/pepperoni",
+        f"{ORIGIN}/pepperoni-dlya-pizzerii",
+        f"{ORIGIN}/llms.txt",
+        f"{ORIGIN}/llms-full.txt",
+        f"{ORIGIN}/en/llms.txt",
+        f"{ORIGIN}/.well-known/llms.txt",
+        f"{ORIGIN}/en/pepperoni",
+    ]
     try:
         data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
         for it in data.get("items") or []:
