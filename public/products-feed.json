@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 64 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-07-19T05:31:09.519991+00:00",
+  "dateModified": "2026-07-23T08:08:52.781909+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Kazan Delicacies",
@@ -1703,8 +1703,8 @@
         "sku": "KD-012",
         "mpn": "KD-012",
         "gtin13": null,
-        "name": "Halal Turkey Ham in Loaf (0.5 kg) — Kazan Delicacies",
-        "description": "Halal frozen turkey ham from Kazan Delicate turkey ham in loaf for sandwiches, slicing and toppings. Perfect for HoReCa, wholesale and retail. Made in Kazan according to Halal standards. Frozen at –18°C for extended shelf life. Halal Turkey Ham in Loaf (0.5 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0.5 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Cooked-smoked horse meat pepperoni 0.5 kg — Kazan Delicacies",
+        "description": "Halal, 50–55 mm, frozen –18°C Cooked-smoked horse meat pepperoni for pizza, hot dogs and snacks. Made by Kazan Delicacies in Kazan. Halal DUM RT. Shelf life 360 days at –18°C. Halal Cooked-smoked horse meat pepperoni 0.5 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0.5 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
@@ -1729,7 +1729,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Turkey Ham in Loaf (0.5 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-smoked horse meat pepperoni 0.5 kg — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1856,8 +1856,8 @@
         "sku": "KD-013",
         "mpn": "KD-013",
         "gtin13": "4680638720318",
-        "name": "Halal Sliced Turkey Ham 0.5 kg — Kazan Delicacies",
-        "description": "Halal, frozen –18°C Tender turkey ham for sandwiches, salads and pizza. Perfect for HoReCa and retail. Halal, made in Kazan. Shelf life 180 days. Halal Sliced Turkey Ham 0.5 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0.5 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Cooked-smoked chicken pepperoni 0.5 kg — Kazan Delicacies",
+        "description": "Halal, 50–55 mm, frozen –18°C Cooked-smoked chicken pepperoni for pizza, sandwiches and HoReCa. Kazan Delicacies, Kazan. Halal DUM RT. Shelf life 360 days at –18°C. Halal Cooked-smoked chicken pepperoni 0.5 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 0.5 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
@@ -1882,7 +1882,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Sliced Turkey Ham 0.5 kg — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-smoked chicken pepperoni 0.5 kg — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2009,8 +2009,8 @@
         "sku": "KD-014",
         "mpn": "KD-014",
         "gtin13": null,
-        "name": "Halal Horse meat pepperoni 0.5 kg — Kazan Delicacies",
-        "description": "Halal pepperoni from Kazan Rich, smoky horse meat pepperoni with authentic spice blend. Perfect for pizza, toppings, and hot dishes. Halal-certified, made in Tatarstan. Suitable for HoReCa, wholesale, and retail. Frozen at –18°C, 360-day shelf life. No soy, no GMO. Natural casing. Halal Horse meat pepperoni 0.5 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Cooked-smoked chicken pepperoni whole stick 1 kg — Kazan Delicacies",
+        "description": "Halal, 50–55 mm, frozen –18°C Whole stick of cooked-smoked chicken pepperoni for pizza and slicing. Kazan Delicacies, Kazan. Halal DUM RT. Shelf life 360 days at –18°C. Halal Cooked-smoked chicken pepperoni whole stick 1 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 360 days. Storage: –18°C. Diameter: 50-55 mm. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
@@ -2035,7 +2035,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Horse meat pepperoni 0.5 kg — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-smoked chicken pepperoni whole stick 1 kg — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2162,8 +2162,8 @@
         "sku": "KD-015",
         "mpn": "KD-015",
         "gtin13": null,
-        "name": "Halal Pepperoni cooked-smoked classic (1 kg) — Kazan Delicacies",
-        "description": "Halal, 0.5 kg, for pizza and baking Our classic cooked-smoked pepperoni, diameter 50–55 mm, is perfect for pizza, sandwiches, and hot dishes. Made in Kazan according to Halal standards. No soy or GMOs. Ideal for HoReCa chefs, wholesale, and retail. Shelf life 360 days at –18°C. Enjoy rich smoked flavor. Halal Pepperoni cooked-smoked classic (1 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Cooked-smoked chicken breast 1 kg — Kazan Delicacies",
+        "description": "Halal, chilled 0–6°C Juicy cooked-smoked chicken breast for cold cuts, salads and hot dishes. Kazan Delicacies, Kazan. Halal DUM RT. Shelf life 30 days at 0–6°C. Halal Cooked-smoked chicken breast 1 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kurinaa_grudka_v_razreze_o3124p.jpg"
@@ -2187,7 +2187,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Pepperoni cooked-smoked classic (1 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-smoked chicken breast 1 kg — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2314,8 +2314,8 @@
         "sku": "KD-016",
         "mpn": "KD-016",
         "gtin13": null,
-        "name": "Halal Classic cooked-smoked pepperoni whole stick (1 kg) — Kazan Delicacies",
-        "description": "Halal meat product from Kazan Whole stick of classic cooked-smoked pepperoni. Perfect for pizza, sandwiches, and snacks. Halal-certified, made in Kazan. Suitable for HoReCa, wholesale, and retail. Store at -18°C up to 360 days. Rich flavor, firm texture. Halal Classic cooked-smoked pepperoni whole stick (1 kg) — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Boiled chicken fillet 1 kg — Kazan Delicacies",
+        "description": "Halal, chilled 0–6°C Ready-to-eat boiled chicken fillet for salads, sandwiches and fillings. Kazan Delicacies, Kazan. Halal DUM RT. Shelf life 30 days at 0–6°C. Halal Boiled chicken fillet 1 kg — Kazan Delicacies — halal toppings from Kazan Delicacies, frozen products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
@@ -2338,7 +2338,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Classic cooked-smoked pepperoni whole stick (1 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Boiled chicken fillet 1 kg — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2465,8 +2465,8 @@
         "sku": "KD-018",
         "mpn": "KD-018",
         "gtin13": null,
-        "name": "Halal Pepperoni whole smoked stick 1 kg — Kazan Delicacies",
-        "description": "Halal, –18°C, 360 days Whole pepperoni stick for pizza and snacks. Spicy, rich flavor, firm texture. Perfect for HoReCa, wholesale and retail. Made in Kazan, halal certified. Store at –18°C. Halal Pepperoni whole smoked stick 1 kg — Kazan Delicacies — halal sausages & frankfurters from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: casingless. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
+        "name": "Halal Breakfast sausages skinless for pastry wrap 45 g — Kazan Delicacies",
+        "description": "Halal, chilled 0–6°C Skinless 45 g sausages for dough-wrapped snacks. Kazan Delicacies, Kazan. Halal DUM RT. Shelf life 30 days at 0–6°C. Halal Breakfast sausages skinless for pastry wrap 45 g — Kazan Delicacies — halal sausages & frankfurters from Kazan Delicacies, refrigerated products category. Net weight: 1 kg. Shelf life: 30 days. Storage: 0-6 ˚C. Casing: casingless. HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats (beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. Shipment options: EXW Kazan warehouse.",
         "image": [
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
           "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730443/sosiski_k_zavtraku_3_hv0eel.jpg",
@@ -2491,7 +2491,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Pepperoni whole smoked stick 1 kg — Kazan Delicacies",
+        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Breakfast sausages skinless for pastry wrap 45 g — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
