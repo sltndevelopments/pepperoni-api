@@ -292,10 +292,21 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
         thumb_size = "w_640,h_427,c_fill,g_auto"
     else:
         thumb_size = "w_800,h_533,c_fill,g_auto"
-    thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    # LCP main (≤640): no text overlay — cold transforms of 6k masters + l_text
+    # cost multi-second TTFB in PSI lab. Watermark stays on full lightbox + lazy thumbs.
+    thumb_lcp = f"f_auto,q_auto,{thumb_size}/"
+    thumb_wm = (
+        f"f_auto,q_auto,{thumb_size}/"
+        f"l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    )
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
-    transform = full if is_full else thumb
-    remote = f"{base}{transform}{pid}?v=3"
+    if is_full:
+        transform = full
+    elif thumb_w <= 640:
+        transform = thumb_lcp
+    else:
+        transform = thumb_wm
+    remote = f"{base}{transform}{pid}?v=4"
     if via_proxy:
         return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
     return remote
