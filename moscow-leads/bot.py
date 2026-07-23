@@ -28,15 +28,17 @@ from tg import (  # noqa: E402
     api,
     configured,
     edit_message,
+    group_chat_ids,
     recipient_ids,
     send_message,
+    send_to_arbi,
 )
 
 POLL_TIMEOUT = 50
 
 
 def arbi_chats() -> list[int]:
-    return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID") or recipient_ids("TELEGRAM_LEADS_CHAT_ID")
+    return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID") + group_chat_ids()
 
 
 def owner_chats() -> list[int]:
@@ -44,12 +46,7 @@ def owner_chats() -> list[int]:
 
 
 def notify_arbi(text: str, *, reply_markup: dict | None = None) -> int:
-    sent = 0
-    for chat_id in arbi_chats():
-        r = send_message(chat_id, text, reply_markup=reply_markup)
-        if r.get("ok"):
-            sent += 1
-    return sent
+    return send_to_arbi(text, reply_markup=reply_markup)
 
 
 def notify_lead_card(lead: dict) -> int:

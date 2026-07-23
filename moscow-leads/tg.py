@@ -77,3 +77,50 @@ def recipient_ids(env_key: str) -> list[int]:
         if part.lstrip("-").isdigit():
             ids.append(int(part))
     return ids
+
+
+def group_chat_ids() -> list[int]:
+    """Группа лидов — запасной канал, пока Арби не нажал /start у бота."""
+    return (
+        recipient_ids("MOSCOW_LEAD_GROUP_CHAT_ID")
+        or recipient_ids("TELEGRAM_LEADS_CHAT_ID")
+    )
+
+
+def send_to_arbi(
+    text: str,
+    *,
+    reply_markup: dict | None = None,
+    owner_on_fallback: bool = True,
+) -> int:
+    """Личка Арби; при 403/ошибке — в группу лидов + короткий пинг владельцу."""
+    primary = recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID")
+    fallback = group_chat_ids()
+    sent = 0
+    dm_errors: list[str] = []
+
+    for chat_id in primary:
+        r = send_message(chat_id, text, reply_markup=reply_markup)
+        if r.get("ok"):
+            sent += 1
+        else:
+            dm_errors.append(str(r.get("description") or "send_failed")[:160])
+
+    if sent == 0 and fallback:
+        for chat_id in fallback:
+            r = send_message(chat_id, text, reply_markup=reply_markup)
+            if r.get("ok"):
+                sent += 1
+        if sent and owner_on_fallback and dm_errors:
+            owners = recipient_ids("MOSCOW_LEAD_OWNER_CHAT_ID") or recipient_ids(
+                "TELEGRAM_CHAT_ID"
+            )
+            tip = (
+                "⚠️ Карточка ушла в группу лидов: бот не может писать Арби в личку.\n"
+                "Арби: открыть @KDPepperoni_Bot → /start\n"
+                f"ошибка: {dm_errors[0]}"
+            )
+            for chat_id in owners:
+                send_message(chat_id, tip)
+
+    return sent

@@ -19,11 +19,7 @@ sys.path.insert(0, str(ROOT))
 from digest import build_weekly_digest  # noqa: E402
 from keyboards import format_card, main_keyboard, stuck_keyboard  # noqa: E402
 from store import Store, datetime_from_iso  # noqa: E402
-from tg import recipient_ids, send_message  # noqa: E402
-
-
-def _arbi() -> list[int]:
-    return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID") or recipient_ids("TELEGRAM_LEADS_CHAT_ID")
+from tg import recipient_ids, send_message, send_to_arbi  # noqa: E402
 
 
 def _owner() -> list[int]:
@@ -53,7 +49,7 @@ def send_due_reminders(store: Store) -> dict:
             except Exception:
                 pass
         text = f"⏰ Напоминание\n{format_card(lead)}"
-        n = _broadcast(_arbi(), text, reply_markup=main_keyboard(lead["seq"]))
+        n = send_to_arbi(text, reply_markup=main_keyboard(lead["seq"]))
         if n:
             store.set_meta(key, datetime.now(timezone.utc).isoformat())
             sent += n
@@ -81,7 +77,7 @@ def check_72h_distributor(store: Store) -> dict:
                 f"⚠️ {lead_id} у {lead.get('distributor') or '?'} "
                 f"{int(age_h)}ч без движения\n{format_card(lead)}"
             )
-            n = _broadcast(_arbi(), text, reply_markup=stuck_keyboard(lead["seq"]))
+            n = send_to_arbi(text, reply_markup=stuck_keyboard(lead["seq"]))
             if n:
                 store.set_meta(arbi_key, now.isoformat())
                 to_arbi += n
@@ -119,8 +115,8 @@ def check_72h_distributor(store: Store) -> dict:
 
 def send_friday_digest(store: Store) -> dict:
     text = build_weekly_digest(store)
-    targets = list(dict.fromkeys(_arbi() + _owner()))
-    sent = _broadcast(targets, text)
+    sent = send_to_arbi(text, owner_on_fallback=False)
+    sent += _broadcast(_owner(), text)
     store.set_meta("last_friday_digest", datetime.now(timezone.utc).isoformat())
     return {"digest_sent": sent, "chars": len(text)}
 

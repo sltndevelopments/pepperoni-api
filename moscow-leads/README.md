@@ -22,9 +22,13 @@ new → contacted → samples_sent → meeting_done → passed_to_distributor
 | Переменная | Назначение |
 |---|---|
 | `MOSCOW_LEAD_BOT_TOKEN` | токен бота (или fallback `LEADS_BOT_TOKEN`) |
-| `MOSCOW_LEAD_ARBI_CHAT_ID` | Telegram chat id Арби |
+| `MOSCOW_LEAD_ARBI_CHAT_ID` | Telegram chat id Арби (личка; нужен `/start` у бота) |
+| `MOSCOW_LEAD_GROUP_CHAT_ID` | группа лидов — fallback, если личка закрыта |
 | `MOSCOW_LEAD_OWNER_CHAT_ID` | Telegram chat id владельца |
 | `MOSCOW_LEADS_DISABLED=1` | выключить автозаведение из bridge |
+
+Арби один раз открывает `@KDPepperoni_Bot` → `/start`. Пока нет — карточки
+уходят в группу лидов, владельцу приходит предупреждение.
 
 ## Запуск
 
