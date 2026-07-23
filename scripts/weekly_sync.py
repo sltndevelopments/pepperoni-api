@@ -157,6 +157,16 @@ def _commercial_pulse_block() -> list[str]:
             f"  Лиды 7д/21д: {leads.get('7d', 0)}/{leads.get('21d', 0)} "
             f"(на exp-страницах 21д: {leads.get('on_exp_pages_21d', 0)})"
         )
+        watch = pulse.get("watchlist") or []
+        if watch:
+            lines.append("  Watch пепперони:")
+            for it in watch:
+                exact = it.get("exact") or {}
+                lines.append(
+                    f"    • {it.get('query')} → {it.get('page')} "
+                    f"pos={exact.get('position') if exact.get('position') is not None else '—'} "
+                    f"impr={exact.get('impr', 0)}"
+                )
         lines.append("")
         return lines
     except Exception as exc:

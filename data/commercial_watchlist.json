@@ -1,0 +1,29 @@
+{
+  "_comment": "North-star watch (NOT formal experiments — max 3 measuring slots reserved until 2026-08-11). Pulse only; do not edit these pages for SEO tests without promoting to operator_experiments.",
+  "items": [
+    {
+      "id": "watch-pepperoni-halal",
+      "query": "пепперони халяль",
+      "page": "/pepperoni",
+      "why": "Каталог пепперони; спрос есть (и на /). Следим, перетечёт ли commercial URL с блога/корня."
+    },
+    {
+      "id": "watch-pepperoni-buy",
+      "query": "пепперони халяль купить",
+      "page": "/",
+      "why": "Коммерческий интент уже даёт клики на главную — контроль vs kazan."
+    },
+    {
+      "id": "watch-pepperoni-pizzeria",
+      "query": "пепперони халяль",
+      "page": "/pepperoni-dlya-pizzerii",
+      "why": "B2B-лендинг под пиццерии — кандидат в следующий experiment после 11 авг."
+    },
+    {
+      "id": "watch-pepperoni-wholesale-en",
+      "query": "halal pepperoni",
+      "page": "/en/pepperoni",
+      "why": "EN commercial catalog signal."
+    }
+  ]
+}

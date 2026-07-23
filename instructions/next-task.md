@@ -18,7 +18,11 @@ experiment pages. Еженедельно: `python3 scripts/commercial_pulse.py`
 P0–P2 (гео / CWV / Speculation+VT) закрыты. WebMCP на `/`+`/en/` — не расширять.
 Owner: ограничить `PAGESPEED_API_KEY` IP `37.9.4.101` в GCP.
 
-После 2026-08-11: вердикт 3 exp → следующий near-win vs kazan / решение по `/x/`.
+Watch (не эксперимент): пепперони в `data/commercial_watchlist.json`
+(`/pepperoni`, `/`, `/pepperoni-dlya-pizzerii`, `/en/pepperoni`) — только pulse.
+
+После 2026-08-11: вердикт 3 exp → следующий near-win vs kazan (кандидат:
+pepperoni-dlya-pizzerii) / решение по `/x/`.
 
 
 ---

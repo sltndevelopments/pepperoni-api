@@ -25,6 +25,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 DB = DATA / "seo_data.db"
 EXPERIMENTS = DATA / "operator_experiments.json"
+WATCHLIST = DATA / "commercial_watchlist.json"
 LEADS = DATA / "leads.json"
 WINDOW = 28
 
@@ -38,6 +39,14 @@ def _load_experiments() -> list[dict]:
     if isinstance(rows, dict):
         rows = rows.get("experiments", [])
     return [r for r in rows if r.get("status") == "measuring"]
+
+
+def _load_watchlist() -> list[dict]:
+    try:
+        data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
+        return list(data.get("items") or [])
+    except Exception:
+        return []
 
 
 def _gsc_conn() -> sqlite3.Connection | None:
@@ -137,10 +146,66 @@ def _leads_stats(experiment_pages: set[str]) -> dict:
     }
 
 
+def _score_item(
+    conn: sqlite3.Connection | None,
+    *,
+    query: str,
+    page: str,
+    baseline: dict | None = None,
+    measure_at: str = "",
+    item_id: str = "",
+    kind: str = "experiment",
+    why: str = "",
+) -> dict:
+    baseline = baseline or {}
+    try:
+        mdt = datetime.fromisoformat(measure_at.replace("Z", "+00:00"))
+        days_left = max(0, int((mdt - _now()).total_seconds() // 86400))
+    except Exception:
+        days_left = None
+
+    exact = {"impr": 0, "clicks": 0, "position": None}
+    sitewide: list[dict] = []
+    if conn and query:
+        exact = _gsc_query_page(conn, query, page)
+        sitewide = _gsc_query_sitewide(conn, query)
+
+    base_pos = baseline.get("position")
+    delta = None
+    if exact.get("position") is not None and base_pos is not None:
+        delta = round(float(base_pos) - float(exact["position"]), 1)
+
+    if exact["impr"] == 0:
+        flag = "not_ranking_yet"
+    elif delta is not None and delta >= 3:
+        flag = "improved"
+    elif delta is not None and delta <= -3:
+        flag = "worse"
+    else:
+        flag = "watching"
+
+    return {
+        "id": item_id,
+        "kind": kind,
+        "query": query,
+        "page": page,
+        "why": why,
+        "days_left": days_left,
+        "measure_at": (measure_at or "")[:10],
+        "baseline_position": base_pos,
+        "baseline_impr_90d": baseline.get("impr_90d"),
+        "exact": exact,
+        "delta_vs_baseline": delta,
+        "sitewide_top": sitewide,
+        "flag": flag,
+    }
+
+
 def build_pulse() -> dict:
     exps = _load_experiments()
+    watch = _load_watchlist()
     conn = _gsc_conn()
-    pages = {e.get("page", "") for e in exps}
+    pages = {e.get("page", "") for e in exps} | {w.get("page", "") for w in watch}
     leads = _leads_stats(pages)
     gsc_max = None
     if conn:
@@ -149,48 +214,29 @@ def build_pulse() -> dict:
         except Exception:
             pass
 
-    items = []
-    for e in exps:
-        query = e.get("query") or ""
-        page = e.get("page") or ""
-        baseline = e.get("baseline") or {}
-        measure_at = e.get("measure_at") or ""
-        try:
-            mdt = datetime.fromisoformat(measure_at.replace("Z", "+00:00"))
-            days_left = max(0, int((mdt - _now()).total_seconds() // 86400))
-        except Exception:
-            days_left = None
-
-        exact = {"impr": 0, "clicks": 0, "position": None}
-        sitewide: list[dict] = []
-        if conn and query:
-            exact = _gsc_query_page(conn, query, page)
-            sitewide = _gsc_query_sitewide(conn, query)
-
-        base_pos = baseline.get("position")
-        delta = None
-        if exact.get("position") is not None and base_pos is not None:
-            delta = round(float(base_pos) - float(exact["position"]), 1)
-
-        items.append({
-            "id": e.get("id"),
-            "query": query,
-            "page": page,
-            "days_left": days_left,
-            "measure_at": measure_at[:10],
-            "baseline_position": base_pos,
-            "baseline_impr_90d": baseline.get("impr_90d"),
-            "exact": exact,
-            "delta_vs_baseline": delta,
-            "sitewide_top": sitewide,
-            "flag": (
-                "not_ranking_yet"
-                if exact["impr"] == 0
-                else ("improved" if (delta is not None and delta >= 3)
-                      else ("worse" if (delta is not None and delta <= -3)
-                            else "watching"))
-            ),
-        })
+    items = [
+        _score_item(
+            conn,
+            query=e.get("query") or "",
+            page=e.get("page") or "",
+            baseline=e.get("baseline") or {},
+            measure_at=e.get("measure_at") or "",
+            item_id=e.get("id") or "",
+            kind="experiment",
+        )
+        for e in exps
+    ]
+    watch_items = [
+        _score_item(
+            conn,
+            query=w.get("query") or "",
+            page=w.get("page") or "",
+            item_id=w.get("id") or "",
+            kind="watch",
+            why=w.get("why") or "",
+        )
+        for w in watch
+    ]
 
     if conn:
         conn.close()
@@ -201,6 +247,7 @@ def build_pulse() -> dict:
         "window_days": WINDOW,
         "leads": leads,
         "experiments": items,
+        "watchlist": watch_items,
         "north_star": "leads + commercial GSC vs kazandelikates; no geo farm",
     }
 
@@ -238,7 +285,29 @@ def format_report(pulse: dict) -> str:
                 f"pos={top['position']} impr={top['impr']}"
             )
         lines.append("")
-    lines.append("Не трогать exp-страницы до measure_at. Max 3 эксперимента.")
+    if pulse.get("watchlist"):
+        lines.append("<b>Watch — пепперони (не эксперимент)</b>")
+        for it in pulse["watchlist"]:
+            exact = it["exact"]
+            flag = {
+                "not_ranking_yet": "⏳ нет в выдаче",
+                "watching": "👀",
+                "improved": "✅",
+                "worse": "⚠",
+            }.get(it["flag"], it["flag"])
+            lines.append(
+                f"• {flag} <b>{it['query']}</b> → <code>{it['page']}</code> "
+                f"pos={exact['position'] if exact['position'] is not None else '—'} "
+                f"impr={exact['impr']} clk={exact['clicks']}"
+            )
+            top = (it.get("sitewide_top") or [{}])[0]
+            if top.get("page") and top.get("page") != it["page"]:
+                lines.append(
+                    f"  спрос ещё на: <code>{top['page']}</code> "
+                    f"(pos={top.get('position')}, impr={top.get('impr')})"
+                )
+        lines.append("")
+    lines.append("Не трогать exp-страницы до measure_at. Max 3 эксперимента. Watch ≠ experiment.")
     return "\n".join(lines)
 
 
