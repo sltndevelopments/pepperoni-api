@@ -50,10 +50,17 @@ GEO_SLUG_ALIASES = {
     "pepperoni": "/pepperoni",
     "halal-pepperoni": "/pepperoni",
     "babbroni-halal": "/pepperoni",
+    "pepperoni-govyadina": "/pepperoni",
+    "pepperoni-konina": "/pepperoni",
+    "pepperoni-kurica": "/pepperoni",
+    "pepperoni-miks": "/pepperoni",
+    # Historical typo keys (sosiki) kept for old content; canonical spelling is sosiski.
     "sosiki-dlya-hotdog": "/sosiski-dlya-hotdog",
+    "sosiski-dlya-hotdog": "/sosiski-dlya-hotdog",
     "halal-hot-dog-sausages": "/sosiski-dlya-hotdog",
     "sujuk-hotdog-halal": "/sosiski-dlya-hotdog",
-    "sosiki-v-teste": "/sosiski-dlya-hotdog",  # closest existing category
+    "sosiki-v-teste": "/sosiska-v-teste",
+    "sosiski-v-teste": "/sosiska-v-teste",
     "halal-corn-dog-sausages": "/sosiski-dlya-hotdog",
     "sujuk-aajin-halal": "/sosiski-dlya-hotdog",
     "vetchina": "/vetchina-optom",
@@ -67,11 +74,12 @@ GEO_SLUG_ALIASES = {
     "kolbasnye-izdeliya": "/kolbasy-varenye",
     "vypechka-klassicheskaya": "/vyipechka-halyal",
     "vypechka-tatarskaya": "/vyipechka-halyal",
-    "farsh": "/myasnyie-zagotovki",
-    "syroje-myaso": "/myasnyie-zagotovki",
-    # direct category-page links that don't exist yet → nearest existing page
+    # Owner 2026-07-22: мясные заготовки discontinued; /myasnyie-zagotovki → 410.
+    # Remap to nearest live commercial page so fix_links never points at a gone URL.
+    "farsh": "/pepperoni",
+    "syroje-myaso": "/pepperoni",
+    "pelmeni": "/pepperoni",
     "horeca": "/dlya-horeca",
-    "pelmeni": "/myasnyie-zagotovki",
     "private-label-stm": "/oem",
     "topping-dlya-pitstsy": "/pepperoni-v-narezke",
 }
