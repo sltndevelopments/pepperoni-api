@@ -4,6 +4,8 @@ import json
 import os
 import re
 import urllib.parse
+import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
 OUT = "public/products"
@@ -330,9 +332,34 @@ def load_products():
     return []
 
 
+def warm_lcp_images(urls):
+    """Prime Cloudinary CDN for LCP thumbs. Cold transforms of 6k masters are multi-second."""
+    urls = [u for u in dict.fromkeys(urls) if u.startswith("https://res.cloudinary.com/")]
+    if not urls:
+        return
+
+    def _one(u):
+        try:
+            req = urllib.request.Request(u, headers={"User-Agent": "pepperoni-lcp-warm/1"})
+            with urllib.request.urlopen(req, timeout=90) as resp:
+                resp.read(64)
+            return True
+        except Exception:
+            return False
+
+    ok = 0
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futs = {pool.submit(_one, u): u for u in urls}
+        for fut in as_completed(futs):
+            if fut.result():
+                ok += 1
+    print(f"Warmed {ok}/{len(urls)} Cloudinary LCP thumbs")
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
+    lcp_urls = []
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -391,7 +418,7 @@ def main():
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="async" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -439,7 +466,13 @@ def main():
             with open(override_path, encoding="utf-8") as _ovf:
                 deep_html = deep_html + "\n" + _ovf.read()
 
-        preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
+        # No crossorigin on Cloudinary preconnect — <img>/image preload are no-cors;
+        # crossorigin would open a separate connection pool and waste the hint.
+        preload_main = (
+            f'<link rel="preconnect" href="https://res.cloudinary.com">'
+            f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
+            if main_img else ""
+        )
 
         suffix_ru = " — Казанские Деликатесы | Халяль"
         max_name_len = 70 - len(suffix_ru)
@@ -476,8 +509,6 @@ def main():
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
-<script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
@@ -667,13 +698,19 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
   });
 });
 </script>
+<!-- Analytics deferred past LCP (match homepage) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
+<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});</script>
 </body>
 </html>'''
         path = os.path.join(OUT, f"{slug}.html")
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
+        if main_img:
+            lcp_urls.append(main_img)
     print(f"Generated {len(products)} RU product pages in {OUT}/")
     remove_orphan_pages(products)
+    warm_lcp_images(lcp_urls)
 
 
 def remove_orphan_pages(products):
