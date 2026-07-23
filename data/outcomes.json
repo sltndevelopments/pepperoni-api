@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-07-22T05:31:55.765869+00:00",
+ "generated_at": "2026-07-23T05:32:03.093631+00:00",
  "summary": {
   "improved": 4,
-  "flat": 8,
+  "flat": 7,
   "worse": 1,
-  "not_indexed": 28,
-  "pending": 124,
+  "not_indexed": 30,
+  "pending": 164,
   "converted": 1
  },
  "failing": [
@@ -18,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 43.9,
+   "age_days": 44.9,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +66,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 43.9,
+   "age_days": 44.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 43.9,
+   "age_days": 44.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 42.9,
+   "age_days": 43.9,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 42.0,
+   "age_days": 43.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 41.0,
+   "age_days": 42.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +210,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +222,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 36.0,
+   "age_days": 37.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 28.0,
+   "age_days": 29.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 28.0,
+   "age_days": 29.0,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 28.0,
+   "age_days": 29.0,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 26.1,
+   "age_days": 27.1,
    "verdict": "not_indexed"
   },
   {
@@ -282,7 +282,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 26.1,
+   "age_days": 27.1,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-26T05:30:16.326807+00:00|что такое эчпочмак|https://pepperoni.tatar/blog/what-is-echpochmak|title_meta",
+   "query": "что такое эчпочмак",
+   "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 11.05,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 27.0,
    "verdict": "not_indexed"
   },
   {
@@ -294,28 +306,16 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 21.3,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-30T21:30:11.997194+00:00|курица халяль чем отличается|https://pepperoni.tatar/blog/kurica-halyal-optom|strengthen_failing",
-   "query": "курица халяль чем отличается",
-   "page": "https://pepperoni.tatar/blog/kurica-halyal-optom",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 21.3,
+   "age_days": 22.3,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 41,
+ "graded_total": 42,
  "converting_pages": [
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 3.9,
+   "pos": 3.6,
    "inquiries": 3
   }
  ]

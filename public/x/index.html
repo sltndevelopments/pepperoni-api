@@ -8,14 +8,14 @@
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/x/">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
-<link rel="preload" as="image" href="/videos/hero-product.webp" type="image/webp" fetchpriority="high">
+<link rel="preload" as="image" href="/videos/hero-ru-poster-720.webp" type="image/webp" fetchpriority="high">
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 <link rel="dns-prefetch" href="https://api.pepperoni.tatar">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Казанские Деликатесы — халяль оптом для HoReCa и ретейла">
 <meta property="og:description" content="Пепперони, сосиски, котлеты и татарская выпечка. ДУМ РТ, HACCP, ISO 22000. EXW Казань.">
 <meta property="og:url" content="https://pepperoni.tatar/x/">
-<meta property="og:image" content="https://pepperoni.tatar/videos/hero-product.webp">
+<meta property="og:image" content="https://pepperoni.tatar/videos/hero-ru-poster-720.webp">
 <style>
 /* Palette 2026–27: Moss / Moorland / Mineral Sage + brushed brass */
 :root {
@@ -701,25 +701,24 @@ button { border: 0; background: none; color: inherit; }
   html { scroll-behavior: auto; }
 }
 
-/* Performance + product-first hero */
-.hero { padding-bottom: calc(52px + env(safe-area-inset-bottom, 0px)); }
-.hero__media picture,
-.hero__media img.hero__poster {
-  width: 100%; height: 100%; object-fit: cover; object-position: center 40%;
+/* Hero: cinema video from first paint (factory poster, not product still) */
+.hero {
+  min-height: 100svh;
+  min-height: 100dvh;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
 }
 .hero__media video {
-  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-  opacity: 0; transition: opacity 0.9s var(--ease);
+  position: absolute; inset: 0;
+  width: 100%; height: 100%; object-fit: cover;
 }
-.hero__media video.is-ready { opacity: 1; }
-.hero__brand { font-size: clamp(2.6rem, 8vw, 5rem); }
+.hero__brand { font-size: clamp(2.8rem, 9vw, 5.4rem); }
 .hero h1 {
-  font-size: clamp(1.25rem, 2.6vw, 1.75rem);
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
   font-weight: 600;
-  max-width: 28ch;
+  max-width: 30ch;
   letter-spacing: -0.02em;
 }
-.hero__sub { max-width: 38ch; }
+.hero__sub { max-width: 42ch; font-size: clamp(0.98rem, 1.6vw, 1.08rem); }
 .segment__visual {
   border-radius: var(--radius);
   overflow: hidden;
@@ -765,11 +764,25 @@ button { border: 0; background: none; color: inherit; }
 <main id="main">
   <section class="hero" id="top">
     <div class="hero__media" aria-hidden="true">
-      <picture>
-        <source srcset="/videos/hero-product.webp" type="image/webp">
-        <img class="hero__poster" src="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto:good,w_1600,c_fill,g_auto/v1772730312/pepperoni_3_stuki_zpezfy.jpg" alt="Халяль пепперони — Казанские Деликатесы" width="1600" height="900" fetchpriority="high" decoding="async">
-      </picture>
+      <video id="hero-video" muted loop playsinline autoplay preload="none" poster="/videos/hero-ru-poster-720.webp"></video>
     </div>
+    <script>
+    /* ONE video only — never both full+720 (PSI was pulling ~12MB) */
+    (function () {
+      var video = document.getElementById('hero-video');
+      if (!video) return;
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      var saveData = !!(conn && conn.saveData);
+      var slow = !!(conn && /2g/.test(conn.effectiveType || ''));
+      if (reduce || saveData || slow) return;
+      var mobile = window.matchMedia('(max-width: 859px)').matches;
+      video.preload = 'auto';
+      video.src = mobile ? '/videos/hero-ru-480.mp4' : '/videos/hero-ru-720.mp4';
+      var p = video.play();
+      if (p && p.catch) p.catch(function () {});
+    })();
+    </script>
     <div class="hero__shade"></div>
     <div class="hero__content">
       <div class="hero__brand">Казанские<br><em>Деликатесы</em></div>
@@ -942,17 +955,6 @@ button { border: 0; background: none; color: inherit; }
   </section>
 
 
-  <section class="section" id="production">
-    <div class="wrap">
-      <div class="section__label">Производство</div>
-      <h2 class="section__title">Завод в Казани</h2>
-      <p class="section__sub">Видео производства подгружается по запросу — без 7 МБ на первом экране.</p>
-      <button type="button" class="btn btn-moorland" id="play-production" style="margin-bottom:16px">Смотреть видео производства</button>
-      <div id="production-player" hidden style="border-radius:var(--radius);overflow:hidden;background:#000;aspect-ratio:16/9">
-        <video controls playsinline preload="none" poster="/videos/hero-ru-poster-720.webp" style="width:100%;height:100%;object-fit:cover"></video>
-      </div>
-    </div>
-  </section>
 
   <section class="section" id="proof">
     <div class="wrap">
@@ -1191,8 +1193,14 @@ button { border: 0; background: none; color: inherit; }
 <script>
 (function () {
   const nav = document.getElementById('nav');
+  let scrollTick = false;
   const onScroll = () => {
-    nav.classList.toggle('is-solid', window.scrollY > 24);
+    if (scrollTick) return;
+    scrollTick = true;
+    requestAnimationFrame(() => {
+      nav.classList.toggle('is-solid', window.scrollY > 24);
+      scrollTick = false;
+    });
   };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -1205,6 +1213,8 @@ button { border: 0; background: none; color: inherit; }
     trackAction('segment_select', { segment: seg });
   }
   tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.seg)));
+
+
 
   /* Mobile dock: show only after leaving hero — no CTA overlap */
   (function setupDock() {
@@ -1486,14 +1496,14 @@ function loadAnalytics() {
   ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics() {
-  const events = ['scroll', 'keydown', 'touchstart', 'click'];
+  const events = ['scroll', 'keydown', 'touchstart', 'click', 'pointerdown'];
   function trigger() {
     events.forEach((name) => window.removeEventListener(name, trigger));
     loadAnalytics();
   }
   events.forEach((name) => window.addEventListener(name, trigger, { passive: true }));
-  if ('requestIdleCallback' in window) requestIdleCallback(loadAnalytics, { timeout: 15000 });
-  else setTimeout(loadAnalytics, 10000);
+  // Late fallback only — keep Lighthouse main thread clear of GTM/Metrika
+  setTimeout(loadAnalytics, 45000);
 }
 if (document.readyState === 'complete') armAnalytics();
 else window.addEventListener('load', armAnalytics);
