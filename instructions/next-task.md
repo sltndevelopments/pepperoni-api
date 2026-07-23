@@ -16,7 +16,6 @@ experiment pages. Еженедельно: `python3 scripts/commercial_pulse.py`
 3. казылык → `/private-label/kazylyk-premium-optom`
 
 P0–P2 (гео / CWV / Speculation+VT) закрыты. WebMCP на `/`+`/en/` — не расширять.
-Owner: ограничить `PAGESPEED_API_KEY` IP `37.9.4.101` в GCP.
 
 **Pepperoni #1 (консолидация, не 4-й experiment):** money hub `/pepperoni`.
 301 landings/v2/commercial-blog → hub; home title demoted; info-blog
