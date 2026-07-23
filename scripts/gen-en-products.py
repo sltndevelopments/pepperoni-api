@@ -413,10 +413,27 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False, 640, False)
+        main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        # Prefer same-origin LCP materialized by gen-ru-products.py
+        main_img = main_cdn
+        for ext in ("webp", "jpg"):
+            local_path = os.path.join("public", "images", "products", f"{slug}-lcp.{ext}")
+            if os.path.isfile(local_path) and os.path.getsize(local_path) > 1000:
+                main_img = f"/images/products/{slug}-lcp.{ext}"
+                main_img_proxy = main_cdn
+                break
+        def _abs(u):
+            if not u:
+                return ""
+            if u.startswith("http"):
+                return u
+            if u.startswith("/"):
+                return "https://pepperoni.tatar" + u
+            return u
+        og_img = _abs(main_img) or "https://pepperoni.tatar/og-default.png"
         pack_img = cloudinary_url(pack_raw, False, 800, False)
         pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
         pack_full = cloudinary_url(pack_raw, True, None, False)
@@ -426,7 +443,7 @@ def main():
         slice_full = cloudinary_url(slice_raw, True, None, False)
         slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
         jsonld_images = jsonld_image_list(
-            main_img or None, pack_img or None, slice_img or None,
+            _abs(main_img) or None, pack_img or None, slice_img or None,
             p.get("section", ""), p.get("category", ""),
         )
 
@@ -534,13 +551,13 @@ def main():
 <meta property="og:title" content="{name} — Kazan Delicacies">
 <meta property="og:description" content="{seo_desc[:200]}">
 <meta property="og:url" content="https://pepperoni.tatar/en/products/{slug}">
-<meta property="og:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta property="og:image" content="{og_img}">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{name} — Kazan Delicacies">
 <meta name="twitter:description" content="{seo_desc[:200]}">
-<meta name="twitter:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta name="twitter:image" content="{og_img}">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">

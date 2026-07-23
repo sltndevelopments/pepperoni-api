@@ -5,10 +5,10 @@ import os
 import re
 import urllib.parse
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime
 
 OUT = "public/products"
+LCP_IMG_DIR = "public/images/products"
 PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
@@ -343,34 +343,44 @@ def load_products():
     return []
 
 
-def warm_lcp_images(urls):
-    """Prime Cloudinary CDN for LCP thumbs. Cold transforms of 6k masters are multi-second."""
-    urls = [u for u in dict.fromkeys(urls) if u.startswith("https://res.cloudinary.com/")]
-    if not urls:
-        return
-
-    def _one(u):
-        try:
-            req = urllib.request.Request(u, headers={"User-Agent": "pepperoni-lcp-warm/1"})
-            with urllib.request.urlopen(req, timeout=90) as resp:
-                resp.read(64)
-            return True
-        except Exception:
-            return False
-
-    ok = 0
-    with ThreadPoolExecutor(max_workers=8) as pool:
-        futs = {pool.submit(_one, u): u for u in urls}
-        for fut in as_completed(futs):
-            if fut.result():
-                ok += 1
-    print(f"Warmed {ok}/{len(urls)} Cloudinary LCP thumbs")
+def materialize_lcp_image(slug, cloudinary_url):
+    """Download LCP thumb to same-origin /images/products/ — avoids multi-second Cloudinary cold TTFB in PSI."""
+    if not cloudinary_url or not cloudinary_url.startswith("https://res.cloudinary.com/"):
+        return cloudinary_url
+    os.makedirs(LCP_IMG_DIR, exist_ok=True)
+    # Prefer webp path; rewrite if Cloudinary returns jpeg
+    dest_webp = os.path.join(LCP_IMG_DIR, f"{slug}-lcp.webp")
+    dest_jpg = os.path.join(LCP_IMG_DIR, f"{slug}-lcp.jpg")
+    for existing in (dest_webp, dest_jpg):
+        if os.path.isfile(existing) and os.path.getsize(existing) > 1000:
+            return "/" + existing.replace("\\", "/").split("public/", 1)[-1]
+    try:
+        req = urllib.request.Request(
+            cloudinary_url, headers={"User-Agent": "pepperoni-lcp-materialize/1"}
+        )
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            data = resp.read()
+            ctype = (resp.headers.get("Content-Type") or "").lower()
+        if not data or len(data) < 500:
+            return cloudinary_url
+        if "jpeg" in ctype or "jpg" in ctype:
+            dest = dest_jpg
+            local = f"/images/products/{slug}-lcp.jpg"
+        else:
+            dest = dest_webp
+            local = f"/images/products/{slug}-lcp.webp"
+        with open(dest, "wb") as f:
+            f.write(data)
+        return local
+    except Exception as e:
+        print(f"  warn: LCP materialize failed for {slug}: {e}")
+        return cloudinary_url
 
 
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
-    lcp_urls = []
+    materialized = 0
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -400,10 +410,24 @@ def main():
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
 
-        main_img = cloudinary_url(main_raw, False, 640, False)
+        main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        main_img = materialize_lcp_image(slug, main_cdn)
+        if main_img.startswith("/images/products/"):
+            materialized += 1
+            # Same-origin LCP; keep CDN as onerror fallback
+            main_img_proxy = main_cdn
+        def _abs(u):
+            if not u:
+                return ""
+            if u.startswith("http"):
+                return u
+            if u.startswith("/"):
+                return "https://pepperoni.tatar" + u
+            return u
+        og_img = _abs(main_img) or "https://pepperoni.tatar/og-default.png"
         pack_img = cloudinary_url(pack_raw, False, 800, False)
         pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
         pack_full = cloudinary_url(pack_raw, True, None, False)
@@ -413,7 +437,7 @@ def main():
         slice_full = cloudinary_url(slice_raw, True, None, False)
         slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
         jsonld_images = jsonld_image_list(
-            main_img or None, pack_img or None, slice_img or None,
+            _abs(main_img) or None, pack_img or None, slice_img or None,
             p.get("section", ""), p.get("category", ""),
         )
 
@@ -511,12 +535,12 @@ def main():
 <meta property="og:title" content="{name} — Казанские Деликатесы">
 <meta property="og:description" content="{seo_desc[:200]}">
 <meta property="og:url" content="https://pepperoni.tatar/products/{slug}">
-<meta property="og:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta property="og:image" content="{og_img}">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{name} — Казанские Деликатесы">
 <meta name="twitter:description" content="{seo_desc[:200]}">
-<meta name="twitter:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta name="twitter:image" content="{og_img}">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
@@ -717,11 +741,9 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
         path = os.path.join(OUT, f"{slug}.html")
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
-        if main_img:
-            lcp_urls.append(main_img)
     print(f"Generated {len(products)} RU product pages in {OUT}/")
+    print(f"Materialized {materialized} same-origin LCP images in {LCP_IMG_DIR}/")
     remove_orphan_pages(products)
-    warm_lcp_images(lcp_urls)
 
 
 def remove_orphan_pages(products):
