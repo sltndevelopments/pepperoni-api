@@ -351,6 +351,12 @@ figure{margin:0}
   }]
 }
 </script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <script>document.documentElement.classList.add('js');</script>

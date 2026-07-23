@@ -26,12 +26,11 @@ SECTION_IMAGE_POOLS = {
         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
     ],
     "Охлаждённая продукция": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
     ],
     "Выпечка": [
         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
@@ -46,10 +45,10 @@ CATEGORY_OG = {
     "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
     "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
     "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
-    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
-    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
+    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
+    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
+    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
+    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
     "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
     "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
     "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
@@ -60,19 +59,6 @@ SECTION_OG = {
     "Заморозка": "https://pepperoni.tatar/og-pepperoni-en.png",
     "Охлаждённая продукция": "https://pepperoni.tatar/og-pepperoni-en.png",
     "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
-}
-CATEGORY_OG = {
-    "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
-    "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
-    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
-    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
-    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
-    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
 }
 
 
@@ -254,20 +240,29 @@ def category_deep_content(category, name):
     return common + faq_html, faq
 
 
+def _cloudinary_public_id(url_or_pid: str) -> str:
+    """Extract Cloudinary public_id, preserving folders like products/kd-059.jpg."""
+    pid = str(url_or_pid).strip()
+    if "cloudinary.com" not in pid or "/upload/" not in pid:
+        return pid
+    try:
+        last_part = pid.split("/upload/")[-1].split("?")[0]
+        segs = [s for s in last_part.split("/") if s]
+        while segs and (
+            "," in segs[0]
+            or re.match(r"^(f_|q_|w_|h_|c_|g_|l_|fl_|e_|dpr_|b_|t_|a_|r_|o_)", segs[0])
+        ):
+            segs.pop(0)
+        return "/".join(segs) if segs else last_part.split("/")[-1]
+    except Exception:
+        return pid
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
     if not pid or not str(pid).strip():
         return ""
-    pid = str(pid).strip()
-    # Если пришла полная ссылка — вытащим ID (v123/name.jpg или name.jpg)
-    if "cloudinary.com" in pid:
-        try:
-            parts = pid.split("/upload/")
-            last_part = parts[-1].split("?")[0]
-            m = re.search(r"(v\d+/.+)|([^/]+\.(?:jpg|jpeg|png|webp))", last_part)
-            pid = m.group(1) or m.group(2) if m else last_part.split("/")[-1]
-        except Exception:
-            return pid
+    pid = _cloudinary_public_id(pid)
     if not pid:
         return ""
     # Добавляем .jpg если нет расширения
@@ -412,6 +407,11 @@ def main():
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
+        if not main_raw:
+            main_raw = CATEGORY_OG.get(p.get("category") or "") or ""
+            if not main_raw:
+                pool = SECTION_IMAGE_POOLS.get(p.get("section") or "", [])
+                main_raw = pool[0] if pool else ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
