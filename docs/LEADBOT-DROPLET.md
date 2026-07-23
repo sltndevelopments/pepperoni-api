@@ -64,3 +64,10 @@ and any local safety) — same rule as the VPS producer node in `CLAUDE.md §6`.
 The VPS watchdog (`scripts/lead_pipeline_watchdog.py`, cron every 10 min) checks
 `systemctl is-active leadbot.service` on this droplet over SSH and alerts the
 owner (Telegram emergency) if it is down.
+
+## Related: Moscow field CRM (`moscow-leads/`)
+
+Inbound cards from this group are also bridged into `moscow-leads/` (Arbi
+status buttons, 72h distributor rule, Friday digest). That package runs on the
+**VPS** (`deploy/moscow-lead-bot.service`), not on this droplet. See
+`moscow-leads/README.md`.

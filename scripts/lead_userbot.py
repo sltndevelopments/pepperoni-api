@@ -81,6 +81,16 @@ def _to_botapi_msg(m) -> dict:
     }
 
 
+def _moscow_bridge(text: str) -> None:
+    """Автозаведение LEAD в московский контур (не ломает SEO-зеркало)."""
+    try:
+        sys.path.insert(0, str(ROOT / "moscow-leads"))
+        from bridge import maybe_create_from_text  # type: ignore
+        maybe_create_from_text(text)
+    except Exception as e:
+        print(f"⚠️  moscow-leads bridge: {e}", file=sys.stderr)
+
+
 def _record(d: dict, messages) -> int:
     seen = {(l.get("chat_id"), l.get("msg_id")) for l in d["leads"]}
     new = 0
@@ -95,6 +105,7 @@ def _record(d: dict, messages) -> int:
         d["leads"].append(lead)
         seen.add((lead["chat_id"], lead["msg_id"]))
         new += 1
+        _moscow_bridge(lead.get("text") or m.message or "")
     return new
 
 

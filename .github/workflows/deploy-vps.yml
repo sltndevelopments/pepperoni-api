@@ -276,6 +276,37 @@ jobs:
             sleep 1
             systemctl is-active kd-sales-track.service && echo "✅ kd-sales-track.service active"
 
+      - name: Ensure moscow-leads bot + Friday digest cron
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pepperoni/repo/moscow-leads/data
+            # systemd unit (starts only when token is configured)
+            cp /var/www/pepperoni/repo/deploy/moscow-lead-bot.service /etc/systemd/system/moscow-lead-bot.service
+            systemctl daemon-reload
+            if [ -f /var/www/pepperoni/moscow-leads.env ] && grep -qE '^MOSCOW_LEAD_BOT_TOKEN=.+' /var/www/pepperoni/moscow-leads.env; then
+              systemctl enable moscow-lead-bot.service
+              systemctl restart moscow-lead-bot.service
+              sleep 1
+              systemctl is-active moscow-lead-bot.service && echo "✅ moscow-lead-bot.service active"
+            else
+              echo "ℹ️  moscow-leads.env / MOSCOW_LEAD_BOT_TOKEN not set — bot unit installed but not started"
+            fi
+            # hourly tick (deadlines + 72h) and Friday 17:00 MSK digest
+            TICK='5 * * * * cd /var/www/pepperoni/repo/moscow-leads && PYTHONPATH=. python3 scheduler.py tick >> data/scheduler.log 2>&1'
+            DIGEST='0 14 * * 5 cd /var/www/pepperoni/repo/moscow-leads && PYTHONPATH=. python3 scheduler.py digest >> data/scheduler.log 2>&1'
+            if ! crontab -l 2>/dev/null | grep -q "moscow-leads && PYTHONPATH=. python3 scheduler.py tick"; then
+              (crontab -l 2>/dev/null; echo "$TICK") | crontab -
+              echo "✅ moscow-leads tick cron installed"
+            fi
+            if ! crontab -l 2>/dev/null | grep -q "moscow-leads && PYTHONPATH=. python3 scheduler.py digest"; then
+              (crontab -l 2>/dev/null; echo "$DIGEST") | crontab -
+              echo "✅ moscow-leads Friday digest cron installed (17:00 MSK)"
+            fi
+
       - name: Nudge Google index (sitemap + hot URLs / 301s)
         uses: appleboy/ssh-action@v1.0.0
         with:

@@ -16,7 +16,8 @@
 - **api.pepperoni.tatar** — слой данных и AI. JSON-каталог, `llms.txt`, OpenAPI, MCP.
   Деплой: тот же VPS + nginx, обновление по cron.
 
-> ⚠️ В репозитории также лежат **отдельные продукты**: `sales-agent/`, `sales-intel/`
+> ⚠️ В репозитории также лежат **отдельные продукты**: `sales-agent/`, `sales-intel/`,
+> `moscow-leads/` (полевой контур Арби: статусы/кнопки/72ч/пятничный дайджест)
 > и SEO-автоматизация в `scripts/` (`seo_brain.py`, `fable_*`, `opus_brain_client.py`).
 > Это НЕ часть сайта. См. «Границы репозитория» в `.cursor/rules/pepperoni-infra.mdc`.
 

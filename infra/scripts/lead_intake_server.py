@@ -31,10 +31,12 @@ import json
 import logging
 import os
 import re
+import sys
 import time
 import urllib.parse
 import urllib.request
 from collections import deque
+from pathlib import Path
 
 from flask import Flask, jsonify, request
 
@@ -162,6 +164,16 @@ def lead_submit():
 
     if not _send_to_group(text):
         return _cors_headers(jsonify(ok=False, error="delivery_failed")), 502
+
+    # Московский контур: сразу LEAD со статусом new (без участия человека).
+    try:
+        repo_root = Path(__file__).resolve().parents[2]
+        sys.path.insert(0, str(repo_root / "moscow-leads"))
+        from bridge import maybe_create_from_text  # type: ignore
+        # ingest парсит plain-text поля; HTML-теги в заголовке ему не мешают.
+        maybe_create_from_text(text.replace("<b>", "").replace("</b>", ""))
+    except Exception as exc:
+        log.warning("moscow-leads bridge skipped: %s", exc)
 
     log.info("Lead delivered: phone=%s page=%s exp=%s", phone, page, experiment_id)
     return _cors_headers(jsonify(ok=True)), 200
