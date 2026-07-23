@@ -1,29 +1,121 @@
 {
- "generated_at": "2026-06-11T06:35:48.978504+00:00",
- "templates": {
-  "home": {
-   "url": "https://pepperoni.tatar/",
-   "error": "HTTP Error 429: Too Many Requests"
+  "generated_at": "2026-07-23T09:19:30.492657+00:00",
+  "source_mode": "psi-anon|lighthouse-fallback",
+  "has_api_key": false,
+  "field_origin": null,
+  "templates": {
+    "home": {
+      "url": "https://pepperoni.tatar/",
+      "source": "lighthouse",
+      "perf_score": 100,
+      "LCP_ms": 1382,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "catalog": {
+      "url": "https://pepperoni.tatar/pepperoni",
+      "source": "lighthouse",
+      "perf_score": 100,
+      "LCP_ms": 1000,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "product": {
+      "url": "https://pepperoni.tatar/products/kd-001",
+      "source": "lighthouse",
+      "perf_score": 98,
+      "LCP_ms": 1895,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "commercial": {
+      "url": "https://pepperoni.tatar/private-label/kotlety-dlya-burgerov-optom",
+      "source": "lighthouse",
+      "perf_score": 99,
+      "LCP_ms": 1707,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "blog": {
+      "url": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
+      "source": "lighthouse",
+      "perf_score": 100,
+      "LCP_ms": 977,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "geo_keep": {
+      "url": "https://pepperoni.tatar/geo/kazylyk-premium-kazan",
+      "source": "lighthouse",
+      "perf_score": 99,
+      "LCP_ms": 1712,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "export": {
+      "url": "https://pepperoni.tatar/export/uae",
+      "source": "lighthouse",
+      "perf_score": 100,
+      "LCP_ms": 999,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "oem": {
+      "url": "https://pepperoni.tatar/dlya-distributorov",
+      "source": "lighthouse",
+      "perf_score": 100,
+      "LCP_ms": 1013,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    },
+    "experiment_x": {
+      "url": "https://pepperoni.tatar/x",
+      "source": "lighthouse",
+      "perf_score": 98,
+      "LCP_ms": 1330,
+      "CLS": 0,
+      "INP_ms": null,
+      "unsized_images_ok": true,
+      "flags": [],
+      "field_url": null,
+      "field_origin": null
+    }
   },
-  "product": {
-   "url": "https://pepperoni.tatar/products/kd-001",
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "blog": {
-   "url": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "geo": {
-   "url": "https://pepperoni.tatar/geo/sosiki-dlya-hotdog-moskva",
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "export": {
-   "url": "https://pepperoni.tatar/export/uae",
-   "error": "HTTP Error 429: Too Many Requests"
-  },
-  "oem": {
-   "url": "https://pepperoni.tatar/dlya-distributorov.html",
-   "error": "HTTP Error 429: Too Many Requests"
+  "thresholds": {
+    "LCP": 2500,
+    "CLS": 0.1,
+    "INP": 200
   }
- }
 }
