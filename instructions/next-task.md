@@ -6,10 +6,20 @@
 
 ## Current step
 
-**Нет активного шага.** Задача 0.4 закрыта (2026-07-17).
+**North star measuring window (до 2026-08-11).** Не править 3 commercial
+experiment pages. Еженедельно: `python3 scripts/commercial_pulse.py`
+(+ уже в `weekly_sync.py` по понедельникам).
 
-Ждать новой постановки Architect / владельца. Не запускать Anthropic
-geo-bulk без явного запроса и `LLM_BULK_BUDGET_USD`.
+Активные эксперименты (measuring → measure_at 2026-08-11):
+1. котлеты для бургеров оптом → `/private-label/kotlety-dlya-burgerov-optom`
+2. сосиски для хот догов оптом → `/private-label/sosiski-dlya-hotdog-optom`
+3. казылык → `/private-label/kazylyk-premium-optom`
+
+P0–P2 (гео / CWV / Speculation+VT) закрыты. WebMCP на `/`+`/en/` — не расширять.
+Owner: ограничить `PAGESPEED_API_KEY` IP `37.9.4.101` в GCP.
+
+После 2026-08-11: вердикт 3 exp → следующий near-win vs kazan / решение по `/x/`.
+
 
 ---
 

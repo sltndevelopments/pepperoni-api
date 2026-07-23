@@ -121,6 +121,48 @@ def _commercial_clicks() -> int:
     return total
 
 
+def _commercial_pulse_block() -> list[str]:
+    """Embed north-star experiment pulse (measuring window until ~Aug 11)."""
+    try:
+        import commercial_pulse
+        pulse = commercial_pulse.build_pulse()
+        (DATA / "commercial_pulse.json").write_text(
+            json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        lines = ["<b>North star — 3 коммерческих эксперимента</b>",
+                 f"  GSC data → {pulse.get('gsc_data_through') or '—'}"]
+        for it in pulse.get("experiments") or []:
+            exact = it.get("exact") or {}
+            flag = it.get("flag")
+            note = {
+                "not_ranking_yet": "ещё не в выдаче по запросу",
+                "improved": "лучше baseline",
+                "worse": "хуже baseline",
+                "watching": "смотрим",
+            }.get(flag, flag)
+            lines.append(
+                f"  • {it.get('query')} → {it.get('page')} "
+                f"({it.get('days_left')}д) {note}; "
+                f"exact pos={exact.get('position') if exact.get('position') is not None else '—'} "
+                f"impr={exact.get('impr', 0)}"
+            )
+            top = (it.get("sitewide_top") or [{}])[0]
+            if top.get("page"):
+                lines.append(
+                    f"    сейчас спрос на: {top['page']} "
+                    f"(pos={top.get('position')}, impr={top.get('impr')})"
+                )
+        leads = pulse.get("leads") or {}
+        lines.append(
+            f"  Лиды 7д/21д: {leads.get('7d', 0)}/{leads.get('21d', 0)} "
+            f"(на exp-страницах 21д: {leads.get('on_exp_pages_21d', 0)})"
+        )
+        lines.append("")
+        return lines
+    except Exception as exc:
+        return [f"<b>North star pulse</b>", f"  ⚠ unavailable: {exc}", ""]
+
+
 def build_report() -> str:
     week, comm, by_ch = _leads_week()
     spend = _spend_month()
@@ -139,6 +181,7 @@ def build_report() -> str:
     lines += ["<b>Заявки за неделю</b>",
               f"  Всего: {week}  ·  коммерческих: {comm}",
               f"  По каналам: {ch}", ""]
+    lines += _commercial_pulse_block()
     lines += ["<b>Бюджет LLM (месяц)</b>",
               f"  Потрачено: ${spend['total_usd']} "
               f"(без оптимизаций было бы ${spend['baseline_usd']})",
@@ -176,6 +219,10 @@ def build_report() -> str:
         attention.append("За неделю нет заявок — проверить каналы/трекинг")
     if not okr:
         attention.append("Не заданы OKR — агенты работают без квартальных целей")
+    attention.append(
+        "PSI key: ограничить IP 37.9.4.101 в GCP Credentials "
+        "(ключ светился в чате)"
+    )
     lines += ["<b>Требует твоего внимания</b>"]
     lines += [f"  • {a}" for a in attention] if attention else ["  ✅ Всё штатно"]
     return "\n".join(lines)

@@ -18,7 +18,7 @@
     "started_at": "2026-07-21T08:18:27.415468+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
-    "attribution_note": "Заявки не атрибутируются автоматически: на сайте нет формы (только tel:/mailto:), MTProto Telegram заблокирован с VPS. Вердикт по позиции GSC; заявки сверяются вручную.",
+    "attribution_note": "Атрибуция: формы на /, /x/, 3 commercial PL → POST /lead-submit → Telegram (lead-intake) + droplet userbot → data/leads.json. Вердикт 2026-08-11: GSC exact query+page + лиды с landing_page; не править exp-страницы до measure_at.",
     "interventions": [
       {
         "at": "2026-07-23T08:20:00+00:00",
@@ -29,6 +29,11 @@
         "at": "2026-07-23T08:55:00+00:00",
         "type": "en_geo_cleanup_bulk",
         "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
+      },
+      {
+        "at": "2026-07-23T13:20:00+00:00",
+        "type": "commercial_pulse_tooling",
+        "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
     ]
   },
@@ -51,7 +56,7 @@
     "started_at": "2026-07-21T08:18:27.416146+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
-    "attribution_note": "Заявки не атрибутируются автоматически: на сайте нет формы (только tel:/mailto:), MTProto Telegram заблокирован с VPS. Вердикт по позиции GSC; заявки сверяются вручную.",
+    "attribution_note": "Атрибуция: формы на /, /x/, 3 commercial PL → POST /lead-submit → Telegram (lead-intake) + droplet userbot → data/leads.json. Вердикт 2026-08-11: GSC exact query+page + лиды с landing_page; не править exp-страницы до measure_at.",
     "interventions": [
       {
         "at": "2026-07-23T08:20:00+00:00",
@@ -62,6 +67,11 @@
         "at": "2026-07-23T08:55:00+00:00",
         "type": "en_geo_cleanup_bulk",
         "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
+      },
+      {
+        "at": "2026-07-23T13:20:00+00:00",
+        "type": "commercial_pulse_tooling",
+        "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
     ]
   },
@@ -84,7 +94,7 @@
     "started_at": "2026-07-21T08:18:27.416435+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
-    "attribution_note": "Заявки не атрибутируются автоматически: на сайте нет формы (только tel:/mailto:), MTProto Telegram заблокирован с VPS. Вердикт по позиции GSC; заявки сверяются вручную.",
+    "attribution_note": "Атрибуция: формы на /, /x/, 3 commercial PL → POST /lead-submit → Telegram (lead-intake) + droplet userbot → data/leads.json. Вердикт 2026-08-11: GSC exact query+page + лиды с landing_page; не править exp-страницы до measure_at.",
     "interventions": [
       {
         "at": "2026-07-23T08:20:00+00:00",
@@ -95,6 +105,11 @@
         "at": "2026-07-23T08:55:00+00:00",
         "type": "en_geo_cleanup_bulk",
         "note": "Deleted 806 EN geo (all confirmed-zero in GSC); hold 26 young; sitemap 2264→1457. Domain crawl hygiene."
+      },
+      {
+        "at": "2026-07-23T13:20:00+00:00",
+        "type": "commercial_pulse_tooling",
+        "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
     ]
   }
