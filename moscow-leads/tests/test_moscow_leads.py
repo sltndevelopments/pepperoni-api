@@ -118,12 +118,12 @@ class MoscowLeadsTest(unittest.TestCase):
                 "status_changed_at=?, updated_at=? WHERE id=?",
                 (old, old, lead["id"]),
             )
-        with patch("scheduler.send_to_arbi", return_value=1) as to_arbi, patch(
+        with patch("scheduler.send_to_work_chat", return_value=1) as to_work, patch(
             "scheduler._broadcast", return_value=1
         ) as broadcast:
             r1 = check_72h_distributor(self.store)
             self.assertEqual(r1["arbi_alerts"], 1)
-            # сразу повтор — не дублируем Арби
+            # сразу повтор — не дублируем
             r2 = check_72h_distributor(self.store)
             self.assertEqual(r2["arbi_alerts"], 0)
             # состарить пинг на 25ч → владелец
@@ -133,7 +133,7 @@ class MoscowLeadsTest(unittest.TestCase):
             )
             r3 = check_72h_distributor(self.store)
             self.assertEqual(r3["owner_alerts"], 1)
-        self.assertEqual(to_arbi.call_count, 1)
+        self.assertEqual(to_work.call_count, 1)
         self.assertGreaterEqual(broadcast.call_count, 1)
 
     def test_digest_contains_sections(self) -> None:

@@ -1,7 +1,7 @@
 """Telegram-бот контура Москва: напоминания + inline-статусы для Арби.
 
   PYTHONPATH=. python3 bot.py
-  MOSCOW_LEAD_BOT_TOKEN=... MOSCOW_LEAD_ARBI_CHAT_ID=... python3 bot.py
+  MOSCOW_LEAD_BOT_TOKEN=... MOSCOW_LEAD_GROUP_CHAT_ID=... python3 bot.py
 """
 from __future__ import annotations
 
@@ -28,29 +28,25 @@ from tg import (  # noqa: E402
     api,
     configured,
     edit_message,
-    group_chat_ids,
     recipient_ids,
     send_message,
-    send_to_arbi,
+    send_to_work_chat,
+    work_chat_ids,
 )
 
 POLL_TIMEOUT = 50
-
-
-def arbi_chats() -> list[int]:
-    return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID") + group_chat_ids()
 
 
 def owner_chats() -> list[int]:
     return recipient_ids("MOSCOW_LEAD_OWNER_CHAT_ID") or recipient_ids("TELEGRAM_CHAT_ID")
 
 
-def notify_arbi(text: str, *, reply_markup: dict | None = None) -> int:
-    return send_to_arbi(text, reply_markup=reply_markup)
+def notify_work_chat(text: str, *, reply_markup: dict | None = None) -> int:
+    return send_to_work_chat(text, reply_markup=reply_markup)
 
 
 def notify_lead_card(lead: dict) -> int:
-    return notify_arbi(format_card(lead), reply_markup=main_keyboard(lead["seq"]))
+    return notify_work_chat(format_card(lead), reply_markup=main_keyboard(lead["seq"]))
 
 
 def handle_callback(store: Store, cb: dict) -> None:
@@ -152,14 +148,14 @@ def handle_message(store: Store, msg: dict) -> None:
     created = ingest_text(text, store=store, actor="telegram")
     if created:
         notify_lead_card(created)
-        if chat_id not in arbi_chats():
+        if chat_id not in work_chat_ids():
             send_message(chat_id, f"Создан {created['id']} · статус new")
         return
 
     if text.startswith("/start"):
         send_message(
             chat_id,
-            "Контур Москва. Статусы только кнопками в карточке лида.\n"
+            "Контур Москва — карточки и статусы в рабочей группе.\n"
             "Команды: /leads — активные, /digest — дайджест сейчас.",
         )
         return
