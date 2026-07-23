@@ -9,6 +9,7 @@ New page → appears in Bing/Yandex within hours.
 Env: INDEXNOW_KEY (optional, defaults to value below)
 """
 
+import argparse
 import json
 import os
 import sys
@@ -24,6 +25,8 @@ SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 HOST         = "pepperoni.tatar"
 BATCH_SIZE   = 100  # IndexNow supports up to 10 000 per batch
+WATCHLIST = Path(__file__).resolve().parent.parent / "data" / "commercial_watchlist.json"
+ORIGIN = "https://pepperoni.tatar"
 
 
 def load_sitemap_urls() -> list[str]:
@@ -69,23 +72,69 @@ def submit_batch(urls: list[str], endpoint: str) -> str:
         return f"⚠️  {e}"
 
 
+def _abs(u: str) -> str:
+    u = (u or "").strip()
+    if not u:
+        return ""
+    if u.startswith("http"):
+        return u
+    if not u.startswith("/"):
+        u = "/" + u
+    return ORIGIN + u
+
+
+def load_hot_urls() -> list[str]:
+    out = [f"{ORIGIN}/", f"{ORIGIN}/pepperoni", f"{ORIGIN}/pepperoni-dlya-pizzerii"]
+    try:
+        data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
+        for it in data.get("items") or []:
+            page = it.get("page") or ""
+            if page:
+                out.append(_abs(page))
+    except Exception:
+        pass
+    seen: set[str] = set()
+    uniq = []
+    for u in out:
+        if u and u not in seen:
+            seen.add(u)
+            uniq.append(u)
+    return uniq
+
+
 def main():
-    urls = load_sitemap_urls()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hot", action="store_true", help="Only money/watchlist URLs")
+    ap.add_argument("--url", action="append", default=[], help="Extra URL/path")
+    args = ap.parse_args()
+
+    if args.hot or args.url:
+        urls = load_hot_urls() if args.hot else []
+        for u in args.url:
+            urls.append(_abs(u))
+        seen: set[str] = set()
+        uniq = []
+        for u in urls:
+            if u and u not in seen:
+                seen.add(u)
+                uniq.append(u)
+        urls = uniq
+    else:
+        urls = load_sitemap_urls()
     if not urls:
         print("❌ No URLs to submit")
         sys.exit(1)
 
     print(f"\n📤 Submitting {len(urls)} URLs via IndexNow...\n")
 
-    # IndexNow endpoints (one submission notifies all participating engines)
     endpoints = [
-        "https://api.indexnow.org/indexnow",  # notifies Bing, Yandex, Seznam, Naver
+        "https://api.indexnow.org/indexnow",  # Bing, Yandex, Seznam, Naver
+        "https://www.bing.com/indexnow",
     ]
 
     total_ok = 0
     for endpoint in endpoints:
         print(f"  → {endpoint}")
-        # Send in batches
         for i in range(0, len(urls), BATCH_SIZE):
             batch = urls[i : i + BATCH_SIZE]
             result = submit_batch(batch, endpoint)
@@ -94,8 +143,8 @@ def main():
                 total_ok += len(batch)
             time.sleep(1)
 
-    print(f"\n✅ IndexNow done: {total_ok}/{len(urls)} URLs submitted")
-    print("ℹ️  Bing, Yandex, Seznam will start crawling within hours")
+    print(f"\n✅ IndexNow done: {total_ok} batch-oks across endpoints ({len(urls)} URLs)")
+    print("ℹ️  Bing / Yandex IndexNow partners crawl within hours")
 
 
 if __name__ == "__main__":

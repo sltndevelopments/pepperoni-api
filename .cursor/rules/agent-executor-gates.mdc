@@ -24,7 +24,7 @@ alwaysApply: true
 ## После SEO (по умолчанию, не ждать просьбы)
 - Любая публикация: новые/изменённые money-URL, title/canonical, 301, sitemap —
   **сразу** на VPS: `bash scripts/nudge_google_after_seo.sh`
-  (sitemap → GSC + Indexing API `--hot`: hub + URL_DELETED для редиректов).
+  (Google sitemap + Indexing API `--hot`, Yandex `--hot`, Bing/IndexNow `--hot`).
 - В отчёте — вывод nudge (ok/fail), не «можно потом».
 
 ## Handoff

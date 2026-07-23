@@ -10,6 +10,7 @@ Rotates through all pages over multiple days automatically.
 Env: YANDEX_WM_TOKEN (OAuth token)
 """
 
+import argparse
 import json
 import os
 import sys
@@ -24,6 +25,8 @@ USER_ID      = os.environ.get("YANDEX_USER_ID", "238539242")
 HOST_ID      = os.environ.get("YANDEX_HOST_ID", "https:pepperoni.tatar:443")
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
+WATCHLIST = Path(__file__).resolve().parent.parent / "data" / "commercial_watchlist.json"
+ORIGIN = "https://pepperoni.tatar"
 
 
 def priority_score(url: str) -> int:
@@ -144,7 +147,42 @@ def submit_sitemap(token: str) -> str:
         return f"⚠️  Sitemap {e.code}: {e.read().decode()[:100]}"
 
 
+def _abs(u: str) -> str:
+    u = (u or "").strip()
+    if not u:
+        return ""
+    if u.startswith("http"):
+        return u
+    if not u.startswith("/"):
+        u = "/" + u
+    return ORIGIN + u
+
+
+def load_hot_urls() -> list[str]:
+    out = [f"{ORIGIN}/", f"{ORIGIN}/pepperoni", f"{ORIGIN}/pepperoni-dlya-pizzerii"]
+    try:
+        data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
+        for it in data.get("items") or []:
+            page = it.get("page") or ""
+            if page:
+                out.append(_abs(page))
+    except Exception:
+        pass
+    seen: set[str] = set()
+    uniq = []
+    for u in out:
+        if u and u not in seen:
+            seen.add(u)
+            uniq.append(u)
+    return uniq
+
+
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--hot", action="store_true", help="Only money/watchlist URLs + sitemap recrawl")
+    ap.add_argument("--url", action="append", default=[], help="Extra URL/path to recrawl")
+    args = ap.parse_args()
+
     token = os.environ.get("YANDEX_WM_TOKEN")
     if not token:
         print("❌ YANDEX_WM_TOKEN not set")
@@ -163,19 +201,30 @@ def main():
         print("⛔ No quota remaining. Sitemap submitted — Yandex will crawl from it.")
         sys.exit(0)
 
-    # Load all URLs from sitemap
-    all_urls = load_sitemap_urls()
-    if not all_urls:
-        print("❌ No URLs to submit")
-        sys.exit(1)
+    if args.hot or args.url:
+        all_urls = load_hot_urls() if args.hot else []
+        for u in args.url:
+            all_urls.append(_abs(u))
+        # unique
+        seen: set[str] = set()
+        uniq = []
+        for u in all_urls:
+            if u and u not in seen:
+                seen.add(u)
+                uniq.append(u)
+        all_urls = uniq
+    else:
+        all_urls = load_sitemap_urls()
+        if not all_urls:
+            print("❌ No URLs to submit")
+            sys.exit(1)
+        all_urls.sort(key=priority_score, reverse=True)
 
-    # Sort by priority, submit up to quota
-    all_urls.sort(key=priority_score, reverse=True)
     to_submit = all_urls[:quota]
-    skipped   = len(all_urls) - len(to_submit)
+    skipped = len(all_urls) - len(to_submit)
 
-    print(f"\n📊 Total in sitemap: {len(all_urls)} | Submitting: {len(to_submit)} | Skipped: {skipped}")
-    print(f"\n📤 Submitting to Yandex recrawl queue...\n")
+    print(f"\n📊 Candidates: {len(all_urls)} | Submitting: {len(to_submit)} | Skipped: {skipped}")
+    print("\n📤 Submitting to Yandex recrawl queue...\n")
 
     ok = fail = 0
     for url in to_submit:
@@ -191,7 +240,7 @@ def main():
         time.sleep(0.3)
 
     print(f"\n{'✅' if fail == 0 else '⚠️ '} Done: {ok} submitted, {fail} errors")
-    if skipped:
+    if skipped and not args.hot:
         print(f"ℹ️  {skipped} URLs will rotate in on subsequent days (150/day limit)")
 
 
