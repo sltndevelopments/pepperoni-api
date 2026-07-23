@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="tg">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Фарши ҳалол оптом Душанбе | Говядина, курица, индейка</title>
@@ -38,6 +44,24 @@
         .underline-accent { text-decoration: underline #c0392b 2px; text-underline-offset: 5px; }
         .city-context { background: #e8f0fe; border-left: 4px solid #c0392b; padding: 1.5rem; border-radius: 0.75rem; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Душанбе" data-product="farsh">
 

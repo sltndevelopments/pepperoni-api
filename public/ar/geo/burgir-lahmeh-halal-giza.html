@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كوتليتات برجر هالال للـ HoReCa في الجيزة | IQF 90-180g</title>
@@ -22,7 +28,7 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"كوتليتات برجر هالال (لحم بقري / دجاج) 90-180g IQF","description":"كوتليتات برجر هالال معتمدة، بدون نيتريت الصوديوم، تسمية نظيفة. إنتاج تحت العلامة التجارية الخاصة. للجيزة، مصر.","brand":{"@type":"Brand","name":"Kazan Delikates"},"sku":"KOTLET-BURGER-HALAL-GIZA","category":"لحوم مجمدة / كوتليتات برجر","offers":{"@type":"Offer","priceCurrency":"EGP","price":"0","priceValidUntil":"2026-12-31","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"Kazan Delikates"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","name":"الجيزة، مصر"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":"PT2D","transitTime":"PT8D"}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"EGP"}}},"certifications":["حلال DUM RT رقم 614A/2024","HACCP","ISO 22000:2018","TR TS 021/2011","الشهادات البيطرية"],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
@@ -245,6 +251,24 @@
             .hero .lead { font-size: 1rem; }
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Гиза" data-product="kotlety-burgery">
 

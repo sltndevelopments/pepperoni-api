@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>لحم مفروم حلال بالجملة دبي | مورد لحوم البقر والدواجن</title>
@@ -22,7 +28,7 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","name":"Kazan Delikates — مورد لحم مفروم حلال دبي","description":"مورد لحوم مفرومة حلال (بقر، دجاج، رومي) للمطاعم والفنادق في دبي. حاصل على شهادات حلال DUM RT, HACCP, ISO 22000:2018.","url":"https://pepperoni.tatar/ar/geo/lahmeh-mafrumeh-halal-dubai","telephone":"+79872170202","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"شارع أغرارنايا، 2، مكتب 7","addressLocality":"قازان","addressRegion":"تتارستان","addressCountry":"RU"},"areaServed":{"@type":"City","name":"دبي","sameAs":"https://en.wikipedia.org/wiki/Dubai"}},{"@type":"Product","name":"لحم مفروم حلال — بقر، دجاج، رومي","description":"لحم مفروم حلال طازج ومجمد. خالٍ من نتريت الصوديوم، تسمية نظيفة. مناسب للهوريكا والتجزئة.","brand":{"@type":"Brand","name":"Kazan Delikates"},"category":"لحم مفروم حلال","sku":"FD-2024-HALAL","offers":{"@type":"AggregateOffer","priceCurrency":"AED","availability":"https://schema.org/InStock","itemCondition":"https://schema.org/NewCondition","areaServed":"AE"},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل اللحم المفروم حلال معتمد من هيئة دبي؟","acceptedAnswer":{"@type":"Answer","text":"نعم، جميع منتجاتنا معتمدة من الإدارة الدينية لمسلمي تتارستان (DUM RT رقم 614A/2024)، المعترف بها في الإمارات. كما نقدم شهادة تحليل حلال لكل شحنة."}},{"@type":"Question","name":"كم تستغرق الشحنة الجوية من قازان إلى دبي؟","acceptedAnswer":{"@type":"Answer","text":"الشحن الجوي المباشر من قازان إلى دبي يستغرق 5 ساعات فقط. نستخدم شركات طيران معتمدة للنقل المبرد، مما يضمن وصول المنتج بدرجة حرارة -18°C."}},{"@type":"Question","name":"هل تقدمون عينات للمطاعم قبل الطلب بالجملة؟","acceptedAnswer":{"@type":"Answer","text":"بالتأكيد. نرسل عينات مجمدة أو مبردة إلى مطبخك في دبي خلال 48 ساعة. يمكنك اختبار الجودة والالتزام بالمواصفات."}},{"@type":"Question","name":"ما هي شهادات السلامة الغذائية التي تحملونها؟","acceptedAnswer":{"@type":"Answer","text":"لدينا HACCP، ISO 22000:2018، TR CU 021/2011، وشهادة حلال DUM RT. جميع المنتجات خالية من نتريت الصوديوم وتحت تسمية نظيفة."}},{"@type":"Question","name":"هل يمكن تخصيص التغليف بالعلامة التجارية الخاصة؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نقدم خدمة الإنتاج بالعلامة التجارية الخاصة (Private Label) مع تغليف احترافي مناسب للهوريكا. الحد الأدنى للطلب: 500 كجم."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"لحم مفروم حلال دبي","item":"https://pepperoni.tatar/ar/geo/lahmeh-mafrumeh-halal-dubai"}]}]}</script>
     <style>
@@ -156,6 +162,24 @@
             .stat-number { font-size: 1.6rem; }
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="دبي" data-product="farsh">
     <div class="container py-4">

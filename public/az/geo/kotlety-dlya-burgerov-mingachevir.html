@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Burger kotletləri Mingəçevir – halal, IQF, B2B</title>
@@ -97,7 +103,7 @@
       webvisor:true
     });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
   <style>
     body { background-color: #f8f9fa; font-family: 'Segoe UI', Roboto, system-ui, sans-serif; }
     .b2b-hero { background: linear-gradient(145deg, #1e2a3a 0%, #2c3e50 100%); color: white; padding: 3rem 0; }
@@ -115,6 +121,24 @@
     .stat-number { font-weight: 800; color: #e67e22; }
     .delivery-route { background: #2c3e50; color: white; border-radius: 2rem; padding: 0.5rem 1.5rem; display: inline-block; }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Мингечаур" data-product="kotlety-burgery">
 

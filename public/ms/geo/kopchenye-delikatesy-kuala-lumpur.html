@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ms-MY">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kopai Halal Daging Salai Asli Kuala Lumpur | Pembekal B2B</title>
@@ -17,7 +23,7 @@
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
         ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
     {
@@ -74,6 +80,24 @@
         .benefit-card { transition: transform 0.2s; }
         .benefit-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Куала-Лумпур" data-product="kopchenye">
     <div class="container py-5">

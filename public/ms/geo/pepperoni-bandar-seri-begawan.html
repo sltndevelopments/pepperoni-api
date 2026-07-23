@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peperoni Halal Borong Bandar Seri Begawan | Pembekal Brunei</title>
@@ -22,7 +28,7 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","name":"Kazan Delikates — Peperoni Halal","telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","addressLocality":"Kazan","streetAddress":"ul. Agrarnaya, 2, of. 7","addressCountry":"RU"},"url":"https://pepperoni.tatar/ms/geo/pepperoni-bandar-seri-begawan","areaServed":{"@type":"City","name":"Bandar Seri Begawan","addressCountry":"BN"}},{"@type":"Product","name":"Peperoni Halal Daging Lembu, Ayam & Kuda","description":"Peperoni premium halal, diameter 40-75 mm. Pensijilan Halal DUM RT #614A, HACCP, ISO 22000:2018. Tanpa sodium nitrit, tanpa GMO, warna tiruan. Private label tersedia.","brand":{"@type":"Brand","name":"Kazan Delikates"},"offers":{"@type":"Offer","priceCurrency":"BND","availability":"https://schema.org/InStock","price":"0","url":"https://pepperoni.tatar/ms/geo/pepperoni-bandar-seri-begawan","shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"BND"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"BND"}}},"category":"Meat Product","sku":"PEP-BRU-001","image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Adakah peperoni ini diiktiraf oleh Kementerian Hal Ehwal Ugama Brunei?","acceptedAnswer":{"@type":"Answer","text":"Pensijilan Halal DUM RT #614A diiktiraf oleh Jabatan Kemajuan Islam Malaysia (JAKIM) dan kebanyakan badan halal ASEAN. Kami sedang dalam proses pendaftaran dengan Bahagian Kawalan Halal Brunei, dan dokumen sokongan penuh disediakan."}},{"@type":"Question","name":"Berapa lama masa penghantaran ke Bandar Seri Begawan?","acceptedAnswer":{"@type":"Answer","text":"Penghantaran melalui Singapura (udara/laut) mengambil masa 7-10 hari bekerja. Kami menggunakan gudang sejuk beku di Pelabuhan Muara. Kos penghantaran dikira berdasarkan berat dan volum."}},{"@type":"Question","name":"Bolehkah saya mendapatkan sampel sebelum pesanan pukal?","acceptedAnswer":{"@type":"Answer","text":"Ya, kami hantar sampel peperoni diameter 40mm dan 75mm ke alamat perniagaan anda di Brunei. Sampel percuma untuk pelanggan berdaftar, caj penghantaran ditanggung bersama."}},{"@type":"Question","name":"Apakah suhu penyimpanan yang disyorkan untuk peperoni?","acceptedAnswer":{"@type":"Answer","text":"Peperoni kami dihantar dalam keadaan beku (-18°C). Selepas dibuka, simpan pada suhu 2-4°C dan gunakan dalam masa 14 hari. Jangka hayat produk beku adalah 18 bulan."}},{"@type":"Question","name":"Adakah anda menyediakan perkhidmatan private label untuk rangkaian pizza di Brunei?","acceptedAnswer":{"@type":"Answer","text":"Sudah tentu. Kami menawarkan private label dengan reka bentuk pembungkusan khusus, pelekat halal, dan kod bar. Kuantiti pesanan minimum (MOQ) ialah 200kg."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Laman Utama","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Peperoni Halal Brunei","item":"https://pepperoni.tatar/ms/geo/pepperoni-bandar-seri-begawan"}]}]}</script>
     <style>
@@ -79,6 +85,24 @@
             color: #6c757d;
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Бандар-Сери-Бегаван" data-product="pepperoni">
 

@@ -13,6 +13,10 @@ What it adds/normalises:
 2. `width="1" height="1"` and `loading="lazy"` on the Yandex Metrica
    tracking pixel <img>. Prevents tiny CLS regressions if the tracker
    ever gets re-positioned and ensures it never competes with LCP.
+3. Chrome Speculation Rules (`prerender`, eagerness: moderate) for
+   same-origin document links. Hover ~200ms / pointerdown → near-instant
+   next navigation on Chromium. Excludes lead-ingest endpoints and
+   download / .no-prerender links. Unsupported browsers ignore the tag.
 
 Ideally generators would emit these tags directly, but a post-processor
 is cheaper than duplicating the snippet across 8+ generators and lets us
@@ -35,7 +39,31 @@ PERF_BLOCK = """<!-- perf-hints: preconnect -->
 <link rel="dns-prefetch" href="https://mc.yandex.ru">
 """
 
+SPECULATION_MARKER = "<!-- perf-hints: speculation-rules -->"
+# Document rules + moderate eagerness: Chrome prerenders on hover (~200ms)
+# or pointerdown; caps concurrent prerenders (~2, FIFO). Static MPA-safe.
+SPECULATION_BLOCK = """<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+"""
+
 HEAD_RE = re.compile(r"<head(?:\s[^>]*)?>", re.IGNORECASE)
+HEAD_CLOSE_RE = re.compile(r"</head\s*>", re.IGNORECASE)
 YM_IMG_RE = re.compile(
     r'<img\b[^>]*src=["\']https?://mc\.yandex\.ru/watch/\d+["\'][^>]*/?\s*>',
     re.IGNORECASE,
@@ -49,6 +77,19 @@ def add_preconnects(html: str) -> str:
     if not m:
         return html
     return html[: m.end()] + "\n" + PERF_BLOCK + html[m.end():]
+
+
+def add_speculation_rules(html: str) -> str:
+    if SPECULATION_MARKER in html:
+        return html
+    m = HEAD_CLOSE_RE.search(html)
+    if m:
+        return html[: m.start()] + SPECULATION_BLOCK + html[m.start():]
+    # Fallback: append before </body> or at end
+    body_close = re.search(r"</body\s*>", html, re.IGNORECASE)
+    if body_close:
+        return html[: body_close.start()] + SPECULATION_BLOCK + html[body_close.start():]
+    return html + "\n" + SPECULATION_BLOCK
 
 
 def _inject_attrs(tag: str, attrs: dict[str, str]) -> str:
@@ -86,6 +127,7 @@ def process(path: Path) -> bool:
     except Exception:
         return False
     new = add_preconnects(src)
+    new = add_speculation_rules(new)
     new = normalise_ym_pixel(new)
     if new != src:
         path.write_text(new, encoding="utf-8")

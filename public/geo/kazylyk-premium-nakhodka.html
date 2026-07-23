@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Казылык оптом Находка | Конская колбаса халяль от Pepperoni Tatar</title>
@@ -16,7 +22,7 @@
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
         ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
 
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">
@@ -89,6 +95,24 @@
         .city-context { background: #f3efe8; border-radius: 32px; padding: 1.8rem; }
         @media (max-width: 576px) { .b2b-section { padding: 1.5rem; } }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Находка" data-product="kazylyk-premium">
 

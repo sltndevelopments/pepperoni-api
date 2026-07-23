@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <!-- kd-stamp:e741d73fa9 -->
   
   
@@ -209,6 +215,24 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .seg-card__desc{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}.seg-card__case{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}
 .seg-card__arrow{margin-left:4px}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -567,7 +591,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
   </div>
 </footer>
 
-<noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt=''/></div></noscript>
+<noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt='' width="1" height="1" loading="lazy" /></div></noscript>
 <script>
 const CUR_SYM={RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'};
 let CUR='RUB',VAT=true,ALL_GROUPS=[];

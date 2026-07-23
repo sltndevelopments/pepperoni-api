@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Классическая халяль выпечка оптом Кызылорда | Pepperoni</title>
@@ -109,6 +115,24 @@
         .stat-number { font-weight: 700; font-size: 1.9rem; color: #1d6b2c; }
         .footer-note { font-size: 0.85rem; color: #6c6a64; border-top: 1px solid #ddd6cb; padding-top: 1.5rem; margin-top: 2.5rem; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Кызылорда" data-product="vypechka-klassicheskaya">
 

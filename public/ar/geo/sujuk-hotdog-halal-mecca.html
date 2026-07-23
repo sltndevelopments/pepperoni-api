@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>سجق هت دوج حلال مكة – B2B جملة | توريد للحلال</title>
@@ -23,7 +29,7 @@
       webvisor:true
     });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">
   {
@@ -160,6 +166,24 @@
       font-size: 0.9rem;
     }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Мекка" data-product="sosiki-hotdog">
   <div class="container-fluid px-0">

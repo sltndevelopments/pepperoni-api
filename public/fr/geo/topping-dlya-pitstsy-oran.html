@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Topings halal pizza Oran | Pepperoni, bacon, saucisses B2B</title>
@@ -95,7 +101,7 @@
     (window, document, 'script', 'https://mc.yandex.ru/metrika/tag.js', 'ym');
     ym(98765432, 'init', { clickmap:true, trackLinks:true, accurateTrackBounce:true, webvisor:true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="Yandex Metrika"></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="Yandex Metrika" width="1" height="1" loading="lazy"></div></noscript>
     <style>
         body { background: #f8f6f2; color: #1e2a3a; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         .hero { background: linear-gradient(145deg, #1e3c2c 0%, #2a5a3a 100%); color: white; padding: 3rem 0; }
@@ -115,6 +121,24 @@
         .small-note { color: #5c6b7a; font-size: 0.9rem; }
         .highlight-oran { background: #f0ede6; padding: 0.2rem 0.6rem; border-radius: 30px; font-weight: 500; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Оран" data-product="toppings-pizza">
 

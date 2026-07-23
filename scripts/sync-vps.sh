@@ -20,6 +20,10 @@ node scripts/sync-sheets.mjs
 python3 scripts/gen-ru-products.py 2>&1 || echo "[warn] gen-ru-products.py failed; keeping previous files"
 python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py failed; keeping previous files"
 
+# 1b2. Perf hints (preconnect + Speculation Rules) — idempotent. Re-apply after
+# product generators rewrite HTML so Chromium keeps moderate prerender on hover.
+python3 scripts/add-perf-hints.py 2>&1 || echo "[warn] add-perf-hints.py failed; pages may miss speculationrules"
+
 # 1c. Reconcile hardcoded SKU-count text (manifest, about, faq, faq-ai, llm,
 # rss, ai-plugin, mcp, .well-known/llms.txt) against live products.json BEFORE
 # gen-llms-full — that step copies FAQ answers from faq.html into llms.txt.

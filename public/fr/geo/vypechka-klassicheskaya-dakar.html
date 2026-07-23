@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Viennoiserie halal Dakar | Pâtisserie classique B2B</title>
@@ -87,7 +93,7 @@
       webvisor:true
     });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/93847562" style="position:absolute; left:-9999px;" alt=""/></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/93847562" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
   <style>
     body { background-color: #f6f4f1; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
     .card { border: none; border-radius: 1.25rem; box-shadow: 0 0.5rem 1.5rem rgba(0,0,0,0.05); }
@@ -103,6 +109,24 @@
     .faq-item { border-bottom: 1px solid #dee2e6; padding: 1rem 0; }
     .faq-item:last-child { border-bottom: none; }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Дакар" data-product="vypechka-klassicheskaya">
   <div class="container py-5">

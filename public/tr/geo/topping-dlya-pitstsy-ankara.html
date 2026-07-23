@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pizza Toppingları Toptan Ankara | Helal Pepperoni</title>
@@ -18,7 +24,7 @@
     (window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");
     ym(96543210,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvisor:true});
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/96543210" style="position:absolute;left:-9999px;" alt=""/></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/96543210" style="position:absolute;left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
 
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://pepperoni.tatar/#organization","name":"Kazan Delikates","url":"https://pepperoni.tatar","telephone":"+79872170202","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ul. Agrarnaya, 2, of. 7","addressLocality":"Kazan","addressCountry":"RU"},"areaServed":{"@type":"City","name":"Ankara","addressCountry":"TR"},"description":"Türkiye'deki pizzacılar ve HoReCa işletmeleri için helal pizza toppingları toptan tedarikçisi"},{"@type":"Product","@id":"https://pepperoni.tatar/tr/geo/topping-dlya-pitstsy-ankara#product","name":"Helal Pizza Toppingları — Pepperoni, Jambon, Sosis, Sığır Pastırması","description":"Dilimleyici ile kalibre edilmiş kesim, termal stabilite, fırında kurumaz. Ankara pizzacıları ve HoReCa segmenti için toptan tedarik.","brand":{"@type":"Brand","name":"Kazan Delikates"},"certification":["Helal DUM RT #614A/2024","HACCP","ISO 22000:2018","TR CU 021/2011"],"offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","seller":{"@id":"https://pepperoni.tatar/#organization"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"USD"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"USD"}}},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","@id":"https://pepperoni.tatar/tr/geo/topping-dlya-pitstsy-ankara#faq","mainEntity":[{"@type":"Question","name":"Ankara'ya minimum sipariş miktarı nedir?","acceptedAnswer":{"@type":"Answer","text":"Türkiye'ye ihracat için minimum sipariş miktarı 100 kg'dır. Ankara'daki büyük pizzacı zincirleri ve HoReCa tedarikçileri için esnek koşullar sunuyoruz."}},{"@type":"Question","name":"Ürünler Türk gümrüğünden geçiyor mu?","acceptedAnswer":{"@type":"Answer","text":"Evet. Tüm ürünlerimiz Rusya veteriner sertifikalarına sahiptir ve TR CU 021/2011 standartlarına uygundur. Türk gümrük mevzuatıyla tam uyumlu belgeler sunuyoruz."}},{"@type":"Question","name":"Ankara'ya teslimat süresi ne kadar?","acceptedAnswer":{"@type":"Answer","text":"Novorossiysk–Samsun feribot hattı üzerinden 2-4 gün, ardından Samsun'dan Ankara'ya kara yoluyla 3-5 saat. Toplam teslimat süresi 3-5 iş günüdür."}},{"@type":"Question","name":"Helal sertifikası Türkiye'de geçerli mi?","acceptedAnswer":{"@type":"Answer","text":"Ürünlerimiz DUM RT #614A/2024 numaralı Helal sertifikasına sahiptir. Tataristan Müslümanları Dini İdaresi tarafından verilen bu sertifika, Türkiye dahil Orta Doğu ülkelerinde tanınmaktadır."}},{"@type":"Question","name":"Ankara'daki pizzacılar için özel etiket (Private Label) mümkün mü?","acceptedAnswer":{"@type":"Answer","text":"Evet, Private Label hizmeti sunuyoruz. Ankara'daki zincir pizzacılar ve büyük HoReCa grupları kendi markalarıyla ürün siparişi verebilir. Minimum hacim ve tasarım gereksinimleri için bizimle iletişime geçin."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Ana Sayfa","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Coğrafi Sayfalar","item":"https://pepperoni.tatar/geo/"},{"@type":"ListItem","position":3,"name":"Pizza Toppingları Ankara","item":"https://pepperoni.tatar/tr/geo/topping-dlya-pitstsy-ankara"}]}]}</script>
@@ -489,6 +495,24 @@
       .form-card { padding: 24px 16px; }
     }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Анкара" data-product="toppings-pizza">
 

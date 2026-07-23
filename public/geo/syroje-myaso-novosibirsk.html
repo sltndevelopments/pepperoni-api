@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Халяль мясо оптом Новосибирск | говядина, курица, конина</title>
@@ -17,7 +23,7 @@
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
         ym(98765432, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Сырое халяль мясо (говядина, курица, конина, индейка)","description":"Сертифицированное халяль мясо для HoReCa, производств и ретейла. Без нитрита натрия, ГМО, красителей.","brand":{"@type":"Organization","name":"Казанские деликатесы"},"offers":{"@type":"AggregateOffer","priceCurrency":"RUB","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"Казанские деликатесы"}},"countryOfOrigin":"Россия","image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
@@ -108,6 +114,24 @@
       line-height: 1.6;
     }
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Новосибирск" data-product="syroje-myaso" class="bg-light">
     <main class="container py-5">

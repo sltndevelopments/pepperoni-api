@@ -119,6 +119,24 @@ footer a:hover{color:#fff;text-decoration:none}
 <meta name="twitter:title" content="Fried Peremyach: Traditional Tatar Pastry for Fast Food and Catering">
 <meta name="twitter:description" content="Fried peremyach — Tatar alternative to cheburek for HoReCa. Wholesale supply in Kazan.">
 <meta name="twitter:image" content="https://res.cloudinary.com/duygfl3vz/image/upload/f_auto,q_auto,w_1200,h_630,c_fill/v1/og-blog-default.jpg">
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Татарская выпечка оптом Челябинск | Эчпочмак халяль для HoReCa</title>
@@ -20,7 +26,7 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","name":"Kazan Delikates — татарская выпечка оптом","description":"Производство аутентичной татарской выпечки в Казани. Халяль, HACCP, ISO 22000:2018. Доставка в Челябинск.","url":"https://pepperoni.tatar/geo/vypechka-tatarskaya-chelyabinsk/","telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"Челябинск"}},{"@type":"Product","name":"Татарская выпечка оптом (эчпочмак, перемяч, губадия, казылык)","description":"Аутентичная татарская выпечка для HoReCa. Халяль, без нитрита натрия, без ГМО. Срок хранения до 14 суток.","brand":"Kazan Delikates","offers":{"@type":"AggregateOffer","priceCurrency":"RUB","availability":"https://schema.org/InStock","areaServed":"Челябинск"},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Как быстро доставляете выпечку в Челябинск?","acceptedAnswer":{"@type":"Answer","text":"Доставка осуществляется в течение 48 часов с момента заказа. Отгружаем напрямую из Казани рефрижераторным транспортом."}},{"@type":"Question","name":"Есть ли у вас продукция для ресторанов татарской кухни?","acceptedAnswer":{"@type":"Answer","text":"Да, мы специализируемся на аутентичной татарской выпечке: эчпочмак, перемяч, губадия, казылык. Вся продукция халяль, сертифицирована ДУМ РТ."}},{"@type":"Question","name":"Какие сертификаты подтверждают качество?","acceptedAnswer":{"@type":"Answer","text":"Халяль (ДУМ РТ №614A/2024), HACCP, ISO 22000:2018, ТР ТС 021/2011, ветеринарные свидетельства РФ."}},{"@type":"Question","name":"Вы работаете с частными лицами или только с юрлицами?","acceptedAnswer":{"@type":"Answer","text":"Работаем с юридическими лицами и ИП: рестораны, кафе, столовые, фастфуд. Минимальная партия — 10 кг."}},{"@type":"Question","name":"Можно ли заказать продукцию под собственной маркой (СТМ)?","acceptedAnswer":{"@type":"Answer","text":"Да, мы производим Private Label / СТМ. Разработаем дизайн упаковки и адаптируем рецептуру под ваш бренд."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"Татарская выпечка в Челябинск","item":"https://pepperoni.tatar/geo/vypechka-tatarskaya-chelyabinsk/"}]}]}</script>
     <style>
@@ -52,6 +58,24 @@
         .stat-label { font-size: 0.9rem; color: #495057; }
         hr { opacity: 0.2; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Челябинск" data-product="vypechka-tatarskaya">
 

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>فارش حلال بالجملة لتونس | مطاعم وكافيهات | Kazan Delikates</title>
@@ -63,6 +69,24 @@
   </script>
   <!-- Schema.org JSON-LD -->
   <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","name":"Kazan Delikates — فارش حلال بالجملة","url":"https://pepperoni.tatar/ar/geo/lahmeh-mafrumeh-halal-tunis","telephone":"+79872170202","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"تونس"},"description":"مورد فارش حلال بالجملة للمطاعم والكافيهات وقطاع التجزئة في تونس. شهادات HACCP وISO 22000:2018 وحلال DUM RT.","hasOfferCatalog":{"@type":"OfferCatalog","name":"فارش حلال بالجملة"}},{"@type":"Product","name":"فارش حلال بالجملة — لحم بقري، دجاج، ديك رومي","description":"فارش حلال مجمد ومبرد من لحم البقر والدجاج وديك الرومي للمطاعم والكافيهات وقطاع التجزئة في تونس.","brand":{"@type":"Brand","name":"Kazan Delikates"},"offers":{"@type":"Offer","priceCurrency":"USD","availability":"https://schema.org/InStock","seller":{"@type":"Organization","name":"Kazan Delikates"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"USD"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"USD"}}},"certification":["حلال DUM RT رقم 614A/2024","HACCP","ISO 22000:2018"],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل الفارش مناسب لمعايير الحلال في تونس؟","acceptedAnswer":{"@type":"Answer","text":"نعم. نحمل شهادة حلال DUM RT رقم 614A/2024 المعترف بها دولياً. جميع المنتجات تُذبح وفق الشريعة الإسلامية ومعتمدة للتصدير إلى الأسواق ذات الأغلبية المسلمة."}},{"@type":"Question","name":"ما هي مدة التوصيل إلى ميناء تونس؟","acceptedAnswer":{"@type":"Answer","text":"الشحن البحري المبرد من كازان إلى ميناء تونس يستغرق 15 إلى 22 يوماً. نوفر وثائق التصدير الكاملة وشهادات بيطرية تتوافق مع اشتراطات الاستيراد التونسية."}},{"@type":"Question","name":"هل يمكن التوريد للمطاعم والفنادق في تونس العاصمة؟","acceptedAnswer":{"@type":"Answer","text":"بالتأكيد. نعمل مع موزعين محليين في تونس العاصمة ونوفر تغليفاً احترافياً مناسباً لمتطلبات المطابخ الكبرى والفنادق وسلاسل الفاست فود."}},{"@type":"Question","name":"ما الحد الأدنى للطلب؟","acceptedAnswer":{"@type":"Answer","text":"الحد الأدنى للطلب للشحن الدولي هو طن متري واحد (1000 كغ). نقدم تشكيلة مختلطة من أنواع الفارش ضمن نفس الشحنة بناءً على احتياجات العميل."}},{"@type":"Question","name":"هل تقدمون خدمة العلامة التجارية الخاصة (Private Label)؟","acceptedAnswer":{"@type":"Answer","text":"نعم. نوفر إنتاجاً كاملاً بعلامتك التجارية الخاصة بما يشمل التصميم والتغليف والملصقات باللغة العربية والفرنسية لمتطلبات السوق التونسية."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"توريد دولي","item":"https://pepperoni.tatar/geo/"},{"@type":"ListItem","position":3,"name":"فارش حلال — تونس","item":"https://pepperoni.tatar/ar/geo/lahmeh-mafrumeh-halal-tunis"}]}]}</script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Тунис" data-product="farsh">
 

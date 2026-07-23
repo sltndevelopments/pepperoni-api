@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пепперони халяль оптом Ижевск | Единственный производитель</title>
@@ -22,7 +28,7 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
     <!-- Schema.org JSON-LD -->
     <script type="application/ld+json">{"@context":"https://schema.org","@type":"Product","name":"Пепперони халяль (говядина, курица, конина)","description":"Единственное в России халяль пепперони из говядины, курицы и конины. Без нитрита натрия. Диаметр 40-75 мм. HACCP, ISO 22000:2018, Халяль ДУМ РТ.","brand":{"@type":"Brand","name":"Kazan Delikates"},"offers":{"@type":"AggregateOffer","priceCurrency":"RUB","availability":"https://schema.org/InStock","areaServed":{"@type":"City","name":"Ижевск"}},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
@@ -199,6 +205,24 @@
             color: #3e4f44;
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
 </head>
 <body data-city="Ижевск" data-product="pepperoni">
 
