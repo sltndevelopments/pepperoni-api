@@ -1,0 +1,188 @@
+{
+  "generated_at": "2026-07-23T13:56:06.729743+00:00",
+  "gsc_data_through": "2026-03-09",
+  "window_days": 28,
+  "leads": {
+    "7d": 0,
+    "21d": 0,
+    "commercial_7d": 0,
+    "on_exp_pages_21d": 0,
+    "last_at": null
+  },
+  "experiments": [
+    {
+      "id": "exp-20260721081827-1",
+      "kind": "experiment",
+      "query": "котлеты для бургеров оптом",
+      "page": "/private-label/kotlety-dlya-burgerov-optom",
+      "why": "",
+      "days_left": 18,
+      "measure_at": "2026-08-11",
+      "baseline_position": 23.4,
+      "baseline_impr_90d": 704,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "exp-20260721081827-2",
+      "kind": "experiment",
+      "query": "сосиски для хот догов оптом",
+      "page": "/private-label/sosiski-dlya-hotdog-optom",
+      "why": "",
+      "days_left": 18,
+      "measure_at": "2026-08-11",
+      "baseline_position": 29.4,
+      "baseline_impr_90d": 201,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "exp-20260721081827-3",
+      "kind": "experiment",
+      "query": "казылык",
+      "page": "/private-label/kazylyk-premium-optom",
+      "why": "",
+      "days_left": 18,
+      "measure_at": "2026-08-11",
+      "baseline_position": 8.8,
+      "baseline_impr_90d": 1811,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    }
+  ],
+  "watchlist": [
+    {
+      "id": "watch-pepperoni-halal",
+      "kind": "watch",
+      "query": "пепперони халяль",
+      "page": "/pepperoni",
+      "why": "Money hub. Must become sitewide top URL (not blog, not /).",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "watch-pepperoni-buy",
+      "kind": "watch",
+      "query": "пепперони халяль купить",
+      "page": "/pepperoni",
+      "why": "Buy intent — intercept from / after home title demote.",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "watch-pepperoni-optom",
+      "kind": "watch",
+      "query": "пепперони оптом",
+      "page": "/pepperoni",
+      "why": "Wholesale head — hub ownership.",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "watch-pepperoni-pizzeria",
+      "kind": "watch",
+      "query": "пепперони для пиццерии",
+      "page": "/pepperoni-dlya-pizzerii",
+      "why": "B2B satellite for pizzeria intent.",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "watch-pepperoni-kolbasa",
+      "kind": "watch",
+      "query": "пепперони халяль колбаса",
+      "page": "/pepperoni",
+      "why": "Head variant where kazan/pepperoni-halal competes.",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    },
+    {
+      "id": "watch-pepperoni-wholesale-en",
+      "kind": "watch",
+      "query": "halal pepperoni",
+      "page": "/en/pepperoni",
+      "why": "EN commercial catalog signal (secondary).",
+      "days_left": null,
+      "measure_at": "",
+      "baseline_position": null,
+      "baseline_impr_90d": null,
+      "exact": {
+        "impr": 0,
+        "clicks": 0,
+        "position": null
+      },
+      "delta_vs_baseline": null,
+      "sitewide_top": [],
+      "flag": "not_ranking_yet"
+    }
+  ],
+  "north_star": "leads + commercial GSC vs kazandelikates; no geo farm"
+}

@@ -1,29 +1,43 @@
 {
-  "_comment": "North-star watch (NOT formal experiments — max 3 measuring slots reserved until 2026-08-11). Pulse only; do not edit these pages for SEO tests without promoting to operator_experiments.",
+  "_comment": "North-star Pepperoni #1 watch (NOT formal experiments — max 3 measuring slots until 2026-08-11). Success: /pepperoni wins sitewide for head query vs blog/home; beat kazan/pepperoni-halal.",
+  "goal": "Runet #1 commercial pepperoni by 2026-09-30",
+  "money_hub": "/pepperoni",
   "items": [
     {
       "id": "watch-pepperoni-halal",
       "query": "пепперони халяль",
       "page": "/pepperoni",
-      "why": "Каталог пепперони; спрос есть (и на /). Следим, перетечёт ли commercial URL с блога/корня."
+      "why": "Money hub. Must become sitewide top URL (not blog, not /)."
     },
     {
       "id": "watch-pepperoni-buy",
       "query": "пепперони халяль купить",
-      "page": "/",
-      "why": "Коммерческий интент уже даёт клики на главную — контроль vs kazan."
+      "page": "/pepperoni",
+      "why": "Buy intent — intercept from / after home title demote."
+    },
+    {
+      "id": "watch-pepperoni-optom",
+      "query": "пепперони оптом",
+      "page": "/pepperoni",
+      "why": "Wholesale head — hub ownership."
     },
     {
       "id": "watch-pepperoni-pizzeria",
-      "query": "пепперони халяль",
+      "query": "пепперони для пиццерии",
       "page": "/pepperoni-dlya-pizzerii",
-      "why": "B2B-лендинг под пиццерии — кандидат в следующий experiment после 11 авг."
+      "why": "B2B satellite for pizzeria intent."
+    },
+    {
+      "id": "watch-pepperoni-kolbasa",
+      "query": "пепперони халяль колбаса",
+      "page": "/pepperoni",
+      "why": "Head variant where kazan/pepperoni-halal competes."
     },
     {
       "id": "watch-pepperoni-wholesale-en",
       "query": "halal pepperoni",
       "page": "/en/pepperoni",
-      "why": "EN commercial catalog signal."
+      "why": "EN commercial catalog signal (secondary)."
     }
   ]
 }

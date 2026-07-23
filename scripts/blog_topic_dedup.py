@@ -218,17 +218,9 @@ def _parse_date(s: str) -> datetime | None:
 
 
 # Force-merge known near-duplicate slug sets (applied after auto-clustering).
+# Commercial pepperoni blog cluster is NOT merged here — nginx 301s those
+# slugs to money hub /pepperoni (deploy/nginx/pepperoni-halyal-redirects.conf).
 HARD_CLUSTERS = [
-    {
-        "canonical": "pepperoni-halyal-optom",
-        "members": [
-            "pepperoni-halyal-optom",
-            "pepperoni-halal-optom",
-            "pepperoni-halyal",
-            "pepperoni-halyal-kupit",
-            "pepperoni-halal-kupit-optom",
-        ],
-    },
     {
         "canonical": "sosiski-dlya-hot-dogov-optom",
         "members": [
@@ -258,11 +250,7 @@ HARD_CLUSTERS = [
 
 # Explicit preferred canons for known high-value clusters (override heuristics).
 PREFERRED_CANON = {
-    "pepperoni-halal-optom": "pepperoni-halyal-optom",
-    "pepperoni-halyal-optom": "pepperoni-halyal-optom",
-    "pepperoni-halyal": "pepperoni-halyal-optom",
-    "pepperoni-halyal-kupit": "pepperoni-halyal-optom",
-    "pepperoni-halal-kupit-optom": "pepperoni-halyal-optom",
+    # pepperoni-halyal* commercial → /pepperoni via nginx, not blog canon
     "sosiski-dlya-hot-dogov": "sosiski-dlya-hot-dogov-optom",
     "sosiski-dlya-hot-dogov-optom": "sosiski-dlya-hot-dogov-optom",
     "kotlety-dlya-burgerov": "kotlety-dlya-burgerov-optom",

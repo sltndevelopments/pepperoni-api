@@ -286,7 +286,9 @@ def format_report(pulse: dict) -> str:
             )
         lines.append("")
     if pulse.get("watchlist"):
-        lines.append("<b>Watch — пепперони (не эксперимент)</b>")
+        lines.append("<b>Pepperoni #1 (watch, не эксперимент)</b>")
+        hub_wins = 0
+        hub_checks = 0
         for it in pulse["watchlist"]:
             exact = it["exact"]
             flag = {
@@ -301,13 +303,27 @@ def format_report(pulse: dict) -> str:
                 f"impr={exact['impr']} clk={exact['clicks']}"
             )
             top = (it.get("sitewide_top") or [{}])[0]
-            if top.get("page") and top.get("page") != it["page"]:
-                lines.append(
-                    f"  спрос ещё на: <code>{top['page']}</code> "
-                    f"(pos={top.get('position')}, impr={top.get('impr')})"
-                )
+            if top.get("page"):
+                hub_checks += 1
+                target = (it.get("page") or "").rstrip("/")
+                top_page = (top.get("page") or "").rstrip("/")
+                if top_page == target or top_page.endswith(target):
+                    hub_wins += 1
+                    lines.append("  sitewide winner = целевой URL ✓")
+                else:
+                    lines.append(
+                        f"  спрос ещё на: <code>{top['page']}</code> "
+                        f"(pos={top.get('position')}, impr={top.get('impr')})"
+                    )
+        if hub_checks:
+            lines.append(
+                f"  Hub ownership: {hub_wins}/{hub_checks} запросов с целевым URL #1 sitewide"
+            )
         lines.append("")
-    lines.append("Не трогать exp-страницы до measure_at. Max 3 эксперимента. Watch ≠ experiment.")
+    lines.append(
+        "Не трогать exp-страницы до measure_at. Max 3 эксперимента. "
+        "Pepperoni #1 = consolidation watch, не 4-й experiment."
+    )
     return "\n".join(lines)
 
 

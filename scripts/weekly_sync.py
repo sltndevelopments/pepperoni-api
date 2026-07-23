@@ -159,7 +159,7 @@ def _commercial_pulse_block() -> list[str]:
         )
         watch = pulse.get("watchlist") or []
         if watch:
-            lines.append("  Watch пепперони:")
+            lines.append("  Pepperoni #1 (watch):")
             for it in watch:
                 exact = it.get("exact") or {}
                 lines.append(

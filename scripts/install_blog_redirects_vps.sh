@@ -4,7 +4,7 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="$ROOT/deploy/nginx/pepperoni-blog-redirects.conf"
-HOST="${VPS_HOST:-root@37.9.4.101}"
+HOST="${VPS_HOST:-pepperoni-vps}"
 REMOTE_SNIPPET="/etc/nginx/snippets/pepperoni-blog-redirects.conf"
 SITE_CONF="${NGINX_SITE:-/etc/nginx/sites-enabled/pepperoni.tatar}"
 
@@ -13,11 +13,11 @@ if [[ ! -f "$SRC" ]]; then
   exit 1
 fi
 
-scp "$SRC" "$HOST:$REMOTE_SNIPPET"
+ssh "$HOST" "cat > /tmp/pepperoni-blog-redirects.conf" < "$SRC"
 ssh "$HOST" bash -s <<EOF
 set -euo pipefail
+cp /tmp/pepperoni-blog-redirects.conf "$REMOTE_SNIPPET"
 if ! grep -q 'pepperoni-blog-redirects.conf' "$SITE_CONF"; then
-  # Insert include near other pepperoni snippets if present, else before first server block end
   if grep -q 'pepperoni-halyal-redirects.conf' "$SITE_CONF"; then
     sed -i 's|include /etc/nginx/snippets/pepperoni-halyal-redirects.conf;|include /etc/nginx/snippets/pepperoni-halyal-redirects.conf;\n    include /etc/nginx/snippets/pepperoni-blog-redirects.conf;|' "$SITE_CONF"
   else

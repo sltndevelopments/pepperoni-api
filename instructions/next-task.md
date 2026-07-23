@@ -18,11 +18,15 @@ experiment pages. Еженедельно: `python3 scripts/commercial_pulse.py`
 P0–P2 (гео / CWV / Speculation+VT) закрыты. WebMCP на `/`+`/en/` — не расширять.
 Owner: ограничить `PAGESPEED_API_KEY` IP `37.9.4.101` в GCP.
 
-Watch (не эксперимент): пепперони в `data/commercial_watchlist.json`
-(`/pepperoni`, `/`, `/pepperoni-dlya-pizzerii`, `/en/pepperoni`) — только pulse.
+**Pepperoni #1 (консолидация, не 4-й experiment):** money hub `/pepperoni`.
+301 landings/v2/commercial-blog → hub; home title demoted; info-blog
+`pepperoni-halal-ili-net` без commercial title. Pulse:
+`data/commercial_watchlist.json` + блок «Pepperoni #1» в
+`scripts/commercial_pulse.py`. Success gate 21д: `/pepperoni` = sitewide
+top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и выше kazan/pepperoni-halal.
 
-После 2026-08-11: вердикт 3 exp → следующий near-win vs kazan (кандидат:
-pepperoni-dlya-pizzerii) / решение по `/x/`.
+После 2026-08-11: вердикт 3 exp → при необходимости promote `/pepperoni`
+в `operator_experiments` / решение по `/x/`.
 
 
 ---

@@ -456,17 +456,17 @@
     },
     {
       "source": "/blog/pepperoni-halal-kupit-optom",
-      "destination": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
       "permanent": true
     },
     {
       "source": "/blog/pepperoni-halal-optom",
-      "destination": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
       "permanent": true
     },
     {
       "source": "/blog/pepperoni-halyal",
-      "destination": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
       "permanent": true
     },
     {
@@ -476,7 +476,7 @@
     },
     {
       "source": "/blog/pepperoni-halyal-kupit",
-      "destination": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
       "permanent": true
     },
     {
@@ -541,7 +541,7 @@
     },
     {
       "source": "/en/blog/pepperoni-halyal",
-      "destination": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
       "permanent": true
     },
     {
@@ -557,6 +557,21 @@
     {
       "source": "/en/blog/what-is-kazylyk",
       "destination": "/blog/kazylyk",
+      "permanent": true
+    },
+    {
+      "source": "/landing/pepperoni-halyal-kupit",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pepperoni-halyal-optom",
+      "destination": "/pepperoni",
+      "permanent": true
+    },
+    {
+      "source": "/halal-pepperoni-for-pizzerias",
+      "destination": "/pepperoni-dlya-pizzerii",
       "permanent": true
     }
   ],
