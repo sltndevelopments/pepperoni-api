@@ -66,6 +66,11 @@
 Автономия = задача + исполнение + **механический гейт** + лимит итераций + эскалация.
 Где есть гейт — действуй сам. Где гейта нет — ты не гейт, эскалируй.
 
+## 9. После SEO — индексирование по умолчанию
+- После push SEO-изменений (title/canonical/301/sitemap/money-страницы) на VPS
+  сразу: `bash scripts/nudge_google_after_seo.sh` (нужен `seo-agent.env`).
+- Не ждать просьбы владельца. В отчёт — вывод скрипта.
+
 ## Handoff задачи
 - Architect пишет **один** шаг в `instructions/next-task.md` (блок Current step).
 - Worker читает `CLAUDE.md` + `instructions/next-task.md`, выполняет шаг, в Log даёт

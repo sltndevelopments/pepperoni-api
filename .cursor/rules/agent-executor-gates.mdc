@@ -21,6 +21,12 @@ alwaysApply: true
 - VPS: `git pull --rebase` перед commit; **никогда** `reset --hard`.
 - Bulk без явного Current step в `instructions/next-task.md`.
 
+## После SEO (по умолчанию, не ждать просьбы)
+- Любая публикация: новые/изменённые money-URL, title/canonical, 301, sitemap —
+  **сразу** на VPS: `bash scripts/nudge_google_after_seo.sh`
+  (sitemap → GSC + Indexing API `--hot`: hub + URL_DELETED для редиректов).
+- В отчёте — вывод nudge (ok/fail), не «можно потом».
+
 ## Handoff
 - Задача: `instructions/next-task.md` → блок **Current step** только.
 - Отчёт в **Log**: Done, commit hash, grep/test output, Blockers.
