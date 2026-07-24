@@ -259,7 +259,11 @@ def _cloudinary_public_id(url_or_pid: str) -> str:
 
 
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
-    """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
+    """Build Cloudinary URL.
+
+    via_proxy=True used to return /api/health?u=… — that falls through nginx to
+    Vercel and returns a 403 challenge (not an image). Fallback is plain CDN.
+    """
     if not pid or not str(pid).strip():
         return ""
     pid = _cloudinary_public_id(pid)
@@ -286,16 +290,17 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
         f"l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     )
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    full_plain = "f_auto,q_auto,w_1920,c_limit/"
+    if via_proxy:
+        transform = full_plain if is_full else thumb_lcp
+        return f"{base}{transform}{pid}?v=4"
     if is_full:
         transform = full
     elif thumb_w <= 640:
         transform = thumb_lcp
     else:
         transform = thumb_wm
-    remote = f"{base}{transform}{pid}?v=4"
-    if via_proxy:
-        return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
-    return remote
+    return f"{base}{transform}{pid}?v=4"
 
 
 def load_translations():
@@ -407,11 +412,9 @@ def main():
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
+        # Prefer pack over slice (slice public_ids often duplicate kd-059…064).
         if not main_raw:
-            main_raw = CATEGORY_OG.get(p.get("category") or "") or ""
-            if not main_raw:
-                pool = SECTION_IMAGE_POOLS.get(p.get("section") or "", [])
-                main_raw = pool[0] if pool else ""
+            main_raw = pack_raw or slice_raw or ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)

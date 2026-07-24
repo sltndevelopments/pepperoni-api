@@ -975,10 +975,18 @@ async function urlExists(url) {
   }
 }
 
+/** If URL is products/kd-NNN.*, return KD-NNN; else null (named assets keep). */
+function skuFromProductImageUrl(url) {
+  const m = String(url || '').match(/\/products\/kd-(\d{3})\.(?:jpe?g|png|webp)(?:\?|$)/i);
+  return m ? `KD-${m[1]}` : null;
+}
+
 /**
  * Attach photos for SKUs that still have empty Sheets photo columns.
- * 1) data/image_overrides.json (manual / discovered Cloudinary paths)
- * 2) Convention: products/{sku}.jpg|.jpeg|.png|.webp on Cloudinary
+ * 0) Drop cross-SKU products/kd-NNN mains (Sheets paste of wrong Cloudinary path)
+ * 1) Promote imagePack / imageSlice when main empty
+ * 2) data/image_overrides.json (manual / discovered Cloudinary paths)
+ * 3) Convention: products/{sku}.jpg|.jpeg|.png|.webp on Cloudinary
  */
 async function applyImageFallbacks(products) {
   const path = join(ROOT, 'data', 'image_overrides.json');
@@ -990,12 +998,32 @@ async function applyImageFallbacks(products) {
       console.warn(`  ⚠️  image_overrides.json unreadable: ${e.message}`);
     }
   }
+  let clearedCross = 0;
+  let fromPack = 0;
   let fromOverride = 0;
   let fromCloudinary = 0;
   for (const p of products) {
-    if (p.imageMain || p.image) continue;
-    const sku = (p.sku || '').trim();
+    const sku = (p.sku || '').trim().toUpperCase();
     if (!sku) continue;
+    for (const key of ['imageMain', 'image']) {
+      const found = skuFromProductImageUrl(p[key]);
+      if (found && found !== sku) {
+        delete p[key];
+        clearedCross++;
+      }
+    }
+    if (!(p.imageMain || p.image)) {
+      // Prefer pack (often *-v-razreze): named slice assets were duplicated onto
+      // classic-bakery kd-059…064 public_ids in Cloudinary (byte-identical).
+      const alt = (p.imagePack || p.imageSlice || '').toString().trim();
+      if (alt.startsWith('http')) {
+        p.image = alt;
+        p.imageMain = alt;
+        fromPack++;
+        continue;
+      }
+    }
+    if (p.imageMain || p.image) continue;
     let url = (overrides[sku] || overrides[sku.toLowerCase()] || '').toString().trim();
     if (!url.startsWith('http')) url = '';
     if (url) {
@@ -1017,9 +1045,9 @@ async function applyImageFallbacks(products) {
       }
     }
   }
-  if (fromOverride || fromCloudinary) {
+  if (clearedCross || fromPack || fromOverride || fromCloudinary) {
     console.log(
-      `  🖼️  Фото для пустых колонок: overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
+      `  🖼️  Фото: cleared-cross-sku=${clearedCross}, pack/slice=${fromPack}, overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
     );
   }
   if (fromCloudinary && existsSync(path)) {

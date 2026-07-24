@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-07-19">
+<yml_catalog date="2026-07-24">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -285,7 +285,7 @@
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-012</vendorCode>
-<description>Ветчина из Индейки в батоне | Халяльная замороженная ветчина из Татарстана | Нежная ветчина из индейки в батоне для бутербродов, нарезки и топпингов. Идеальна для HoReCa, опта и розницы. Произведена в Казани по стандартам халяль. Заморозка при –18°C обеспечивает длительный срок хранения.</description>
+<description>Пепперони варено-копченый из конины 0,5 кг | Халяль, диаметр 50–55 мм, заморозка –18°C | Варено-копчёная пепперони из конины для пиццы, хот-догов и закусок. Производство «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -308,7 +308,7 @@
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-013</vendorCode>
-<description>Ветчина из Индейки в нарезке 0,5 кг | Халяль, заморозка –18°C | Нежная ветчина из индейки для бутербродов, салатов и пиццы. Идеально для HoReCa и ретейла. Халяль, произведено в Казани. Срок хранения 180 суток.</description>
+<description>Пепперони варено-копченый куриный 0,5 кг | Халяль, диаметр 50–55 мм, заморозка –18°C | Варено-копчёная пепперони из куриного мяса для пиццы, сэндвичей и HoReCa. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
 <barcode>4680638720318</barcode>
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -331,7 +331,7 @@
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-014</vendorCode>
-<description>Пепперони из конины варено-копченое 0,5 кг | Халяльная пепперони из Татарстана | Аппетитная пепперони из конины с насыщенным вкусом и ароматом копчения. Идеально для пиццы, горячих блюд и закусок. Произведено в Казани по стандартам халяль. Подходит для HoReCa, опта и розницы. Заморозка –18°C, срок хранения 360 суток. Без сои и ГМО. Натуральное мясо, пряности, натуральная оболочка.</description>
+<description>Пепперони варено-копченый куриный целый батон 1 кг | Халяль, диаметр 50–55 мм, заморозка –18°C | Целый батон куриной варено-копчёной пепперони для пиццы и нарезки. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -354,7 +354,7 @@
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-015</vendorCode>
-<description>Пепперони варено-копченый классика | Халяль, 0,5 кг, для пиццы и выпечки | Наша пепперони — классическое варено-копченое мясное изделие диаметром 50–55 мм. Идеально подходит для пиццы, сэндвичей и горячих блюд. Произведено в Казани по стандартам халяль. Без сои и ГМО. Оценят шеф-повара HoReCa, оптовики и розничные покупатели. Срок хранения 360 суток при –18°C. Наслаждайтесь насыщенным вкусом и ароматом копчения.</description>
+<description>Грудка куриная варено-копченая 1 кг | Халяль, охлаждение 0–6°C | Сочная варено-копчёная куриная грудка для нарезки, салатов и горячих блюд. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -377,7 +377,7 @@
 <categoryId>4</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-016</vendorCode>
-<description>Пепперони варено-копченый классика целый батон | Халяльное мясное изделие из Казани | Целый батон пепперони классической варено-копченой обработки. Идеально для пиццы, сэндвичей и закусок. Произведено в Казани по стандартам халяль. Подходит для HoReCa, опта и розницы. Хранить при -18°C до 360 суток. Насыщенный вкус, плотная текстура.</description>
+<description>Филе куриное варёное 1 кг | Халяль, охлаждение 0–6°C | Готовое варёное куриное филе для салатов, бутербродов и начинок. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
 
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -401,7 +401,7 @@
 <categoryId>7</categoryId>
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-018</vendorCode>
-<description>Пепперони сырокопчёный целый батон 1 кг | Халяль, –18°C, 360 суток | Цельный батон пепперони для пиццы и закусок. Острый, насыщенный вкус, плотная текстура. Идеален для HoReCa, опта и ретейла. Произведён в Казани, халяль. Хранить при –18°C.</description>
+<description>Сосиски «К завтраку» без оболочки для «Сосиски в тесте» 45 г | Халяль, охлаждение 0–6°C | Сосиски без оболочки формата 45 г под выпечку «сосиска в тесте». «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
 
 <picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
@@ -1070,7 +1070,7 @@
 <vendorCode>KD-046</vendorCode>
 <description>Губадия с кортом 100 г | Татарская выпечка халяль, заморозка –18°C | Классическая губадия с нежным кортом от «Казанских Деликатесов». Традиционная выпечка из Казани для кафе, ресторанов, опта и розницы. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
 <barcode>4680638720844</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1093,7 +1093,7 @@
 <vendorCode>KD-047</vendorCode>
 <description>Чебурек жареный 100 г | Татарская выпечка халяль, заморозка –18°C | Сочный жареный чебурек с мясной начинкой — полуфабрикат для разогрева. Подходит для HoReCa, стрит-фуда и розницы. Производство «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Хранить 360 суток при –18°C.</description>
 <barcode>4680638721032</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1116,7 +1116,7 @@
 <vendorCode>KD-048</vendorCode>
 <description>Перемяч жареный 100 г | Татарская выпечка с мясом халяль | Жареный перемяч — круглая татарская выпечка с мясной начинкой. Удобный формат для кафе, столовых и опта. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Заморозка, срок хранения 360 суток при –18°C.</description>
 <barcode>4680638720851</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1139,7 +1139,7 @@
 <vendorCode>KD-049</vendorCode>
 <description>Самса с курицей 120 г | Слоёная выпечка халяль, заморозка | Самса с куриной начинкой в слоёном тесте. Для пекарен, кафе, опта и розницы. Произведено в Казани, «Казанские Деликатесы». Халяль ДУМ РТ. Хранить 360 суток при –18°C.</description>
 <barcode>4680638720813</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1162,7 +1162,7 @@
 <vendorCode>KD-050</vendorCode>
 <description>Эчпочмак с говядиной и картофелем 100 г | Классический татарский треугольник халяль | Эчпочмак с начинкой из говядины и картофеля. Традиционная выпечка для HoReCa и розницы. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Заморозка, 360 суток при –18°C.</description>
 <barcode>4680638720660</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">100 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1185,7 +1185,7 @@
 <vendorCode>KD-051</vendorCode>
 <description>Самса с говядиной 120 г | Слоёная выпечка халяль, заморозка | Самса с говяжьей начинкой в слоёном тесте. Формат для кафе, пекарен и оптовых поставок. Производство «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Хранить 360 суток при –18°C.</description>
 <barcode>4680638720790</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">120 г</param>
 <param name="Срок годности">360 суток</param>
@@ -1208,7 +1208,7 @@
 <vendorCode>KD-052</vendorCode>
 <description>Элеш с курицей и картофелем 150 г | Татарская выпечка халяль 150 г | Элеш с начинкой из курицы и картофеля — сытный формат для обеденного меню. Подходит для HoReCa, опта и розницы. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Заморозка, 360 суток при –18°C.</description>
 <barcode>4680638720677</barcode>
-<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg</picture>
+<picture>https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">150 г</param>
 <param name="Срок годности">360 суток</param>

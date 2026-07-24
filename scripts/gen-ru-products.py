@@ -280,7 +280,13 @@ def _cloudinary_public_id(url_or_pid: str) -> str:
 
 
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
-    """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
+    """Build Cloudinary URL.
+
+    via_proxy=True used to return /api/health?u=… as onerror fallback. That path
+    falls through nginx try_files → @vercel and returns a 403 Vercel challenge
+    (not an image), so catalog photos broke when the primary URL failed.
+    Fallback is now a plain Cloudinary URL without text overlay.
+    """
     if not pid or not str(pid).strip():
         return ""
     pid = _cloudinary_public_id(pid)
@@ -313,16 +319,18 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
         f"l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
     )
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    full_plain = "f_auto,q_auto,w_1920,c_limit/"
+    if via_proxy:
+        # Plain CDN fallback — never /api/health (broken Vercel 403).
+        transform = full_plain if is_full else thumb_lcp
+        return f"{base}{transform}{pid}?v=4"
     if is_full:
         transform = full
     elif thumb_w <= 640:
         transform = thumb_lcp
     else:
         transform = thumb_wm
-    remote = f"{base}{transform}{pid}?v=4"
-    if via_proxy:
-        return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
-    return remote
+    return f"{base}{transform}{pid}?v=4"
 
 
 # Honest Merchant-listing fields. The business is B2B/EXW Казань (Incoterms 2020):
@@ -422,12 +430,11 @@ def main():
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
-        # Empty Sheets image → category/section pool (honest placeholder, not invented product photo)
+        # Prefer own pack/slice. Pack first: several named slice public_ids are
+        # byte-identical to classic-bakery kd-059…064 on Cloudinary.
+        # Never use CATEGORY_OG as gallery main (wrong product photos).
         if not main_raw:
-            main_raw = CATEGORY_OG.get(p.get("category") or "") or ""
-            if not main_raw:
-                pool = SECTION_IMAGE_POOLS.get(p.get("section") or "", [])
-                main_raw = pool[0] if pool else ""
+            main_raw = pack_raw or slice_raw or ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)

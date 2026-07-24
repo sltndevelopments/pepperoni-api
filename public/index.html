@@ -635,9 +635,10 @@ function catalogImgDisplayUrl(url){
   return url.slice(0,i+m.length)+'f_auto,q_auto:eco,w_480,c_limit/'+rest;
 }
 function catalogImgProxyUrl(url){
-  if(!url||typeof url!=='string')return '';
-  if(!url.includes('res.cloudinary.com'))return '';
-  return '/api/health?u='+encodeURIComponent(url);
+  // Disabled: /api/health?u= used to proxy via Vercel; on Selectel nginx that
+  // path falls through to @vercel and returns a 403 challenge (not an image).
+  // Primary src is already Cloudinary — no second hop needed.
+  return '';
 }
 function renderGroups(allGroups){
   let html='';
