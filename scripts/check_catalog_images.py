@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
-"""Гейт каталожных фото: products.json должен точно соответствовать
-data/image_manifest.json, а каждый URL — отвечать HTTP 200.
+"""Гейт каталожных фото. Источник правды — Google Sheets; sync валидирует
+ссылки и снапшотит принятые в data/image_manifest.json. Здесь проверяем, что:
+  - products.json совпадает со снапшотом (sync отработал корректно);
+  - ни одно поле не ссылается на чужой файл kd-NNN (старая нумерация);
+  - каждый URL отвечает HTTP 200.
 
 Запуск: python3 scripts/check_catalog_images.py
 Выход 1 = нарушение (не публиковать). Используется вручную/в CI после sync.
@@ -44,11 +47,11 @@ def main() -> int:
         actual = {k: p.get(k) or None for k in IMG_KEYS}
 
         if pin == "__missing__":
-            errors.append(f"{sku}: отсутствует в image_manifest.json — закрепить фото или null")
+            errors.append(f"{sku}: нет в image_manifest.json — прогнать npm run sync (снапшот отстал)")
         elif pin is None:
             got = [k for k, v in actual.items() if v]
             if got:
-                errors.append(f"{sku}: закреплён «без фото», но в products.json есть {got}")
+                errors.append(f"{sku}: в снапшоте «без фото», а в products.json есть {got} — прогнать sync")
         else:
             for k in IMG_KEYS:
                 want = pin.get(k) or None

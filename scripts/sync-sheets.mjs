@@ -998,18 +998,20 @@ function imageBasename(url) {
 }
 
 /**
- * Каталожные фото: data/image_manifest.json — единственный источник правды.
+ * Каталожные фото: источник правды — Google Sheets, страховка — манифест.
  *
- * Почему не эвристики: ячейки фото в Sheets регулярно съезжают, а имена файлов
- * kd-NNN.jpg на Cloudinary отражают СТАРУЮ нумерацию SKU (до remap) —
- * любой «умный» подбор по именам уже дважды ломал каталог. Поэтому:
- *   - SKU есть в манифесте (объект)  → фото берутся ТОЛЬКО из манифеста;
- *   - SKU в манифесте = null         → честно без фото (плейсхолдер),
- *     даже если Sheets/Cloudinary что-то предлагают;
- *   - SKU нет в манифесте (новый)    → берём из Sheets как есть (с нормализацией
- *     и защитой от чужого kd-NNN), пробуем products/{sku}.jpg — и громко просим
- *     закрепить в манифесте.
- * Расхождения Sheets↔manifest не применяются, а логируются (видимый дрейф).
+ * Рабочий процесс владельца: залил фото на Cloudinary → вставил ссылку в
+ * Sheets → после ближайшего sync она на сайте. Никаких эвристик подбора.
+ *
+ * Ссылка из Sheets отклоняется ТОЛЬКО за явный брак:
+ *   - чужой файл kd-NNN другого SKU (файлы kd-059..064.jpg на Cloudinary
+ *     названы по СТАРОЙ нумерации: kd-059 = губадия, kd-061 = перемяч);
+ *   - URL не отвечает HTTP 200.
+ * В этих случаях остаётся последнее известное хорошее фото из
+ * data/image_manifest.json (авто-снапшот: sync записывает туда каждое
+ * принятое значение). Пустая ячейка = «оставить как было», не «удалить» —
+ * съехавшие ячейки не должны стирать каталог; удалить фото совсем можно,
+ * убрав его и из Sheets, и из манифеста.
  */
 async function applyImageManifest(products) {
   const path = join(ROOT, 'data', 'image_manifest.json');
@@ -1022,75 +1024,84 @@ async function applyImageManifest(products) {
     }
   }
 
-  const drift = [];
-  const unpinned = [];
-  let pinned = 0;
+  const rejected = [];
+  const accepted = [];
+  let manifestDirty = false;
 
   for (const p of products) {
     const sku = (p.sku || '').trim().toUpperCase();
     if (!sku) continue;
 
-    for (const key of ['imageMain', 'image', 'imagePack', 'imageSlice']) {
-      const fixed = driveToDirectUrl(p[key]);
-      if (!fixed) delete p[key];
-      else p[key] = fixed;
-    }
-    const sheetMain = p.imageMain || p.image || '';
+    const pin = manifest[sku] && typeof manifest[sku] === 'object' ? manifest[sku] : {};
+    const next = {};
 
-    if (Object.prototype.hasOwnProperty.call(manifest, sku)) {
-      const pin = manifest[sku];
-      if (pin === null) {
-        if (sheetMain) {
-          drift.push(`${sku}: Sheets даёт ${imageBasename(sheetMain)}, но SKU закреплён «без фото»`);
-        }
-        delete p.image;
-        delete p.imageMain;
-        delete p.imagePack;
-        delete p.imageSlice;
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      const sheetUrl = driveToDirectUrl(key === 'imageMain' ? p.imageMain || p.image : p[key]);
+      const lastGood = pin[key] || '';
+
+      if (!sheetUrl) {
+        if (lastGood) next[key] = lastGood;
+        continue;
+      }
+      const foreign = skuFromProductImageUrl(sheetUrl);
+      if (foreign && foreign !== sku) {
+        rejected.push(`${sku}.${key}: ${imageBasename(sheetUrl)} — файл чужого SKU (${foreign}, старая нумерация)`);
+        if (lastGood) next[key] = lastGood;
+        continue;
+      }
+      if (sheetUrl === lastGood) {
+        next[key] = lastGood; // уже проверялась при первом появлении
+        continue;
+      }
+      if (await urlExists(sheetUrl)) {
+        next[key] = sheetUrl;
+        accepted.push(`${sku}.${key}: ${imageBasename(sheetUrl)}`);
       } else {
-        if (sheetMain && imageBasename(sheetMain) !== imageBasename(pin.imageMain)) {
-          drift.push(`${sku}: Sheets даёт ${imageBasename(sheetMain)}, манифест — ${imageBasename(pin.imageMain)}`);
-        }
-        p.imageMain = pin.imageMain;
-        p.image = pin.imageMain;
-        if (pin.imagePack) p.imagePack = pin.imagePack;
-        else delete p.imagePack;
-        if (pin.imageSlice) p.imageSlice = pin.imageSlice;
-        else delete p.imageSlice;
-      }
-      pinned++;
-      continue;
-    }
-
-    // Новый SKU без записи в манифесте: Sheets как есть + защита от чужого kd-NNN.
-    for (const key of ['imageMain', 'image', 'imagePack', 'imageSlice']) {
-      const found = skuFromProductImageUrl(p[key]);
-      if (found && found !== sku) delete p[key];
-    }
-    if (!p.imageMain && !p.image) {
-      for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
-        const candidate = `${CLOUDINARY_BASE}/products/${sku.toLowerCase()}.${ext}`;
-        if (await urlExists(candidate)) {
-          p.image = candidate;
-          p.imageMain = candidate;
-          break;
-        }
+        rejected.push(`${sku}.${key}: ${imageBasename(sheetUrl)} — не отвечает HTTP 200`);
+        if (lastGood) next[key] = lastGood;
       }
     }
-    unpinned.push(sku);
+
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      if (next[key]) p[key] = next[key];
+      else delete p[key];
+    }
+    if (next.imageMain) p.image = next.imageMain;
+    else delete p.image;
+
+    const snap = Object.keys(next).length ? next : null;
+    if (JSON.stringify(manifest[sku] ?? null) !== JSON.stringify(snap)) {
+      manifest[sku] = snap;
+      manifestDirty = true;
+    }
   }
 
-  console.log(`  🖼️  Фото из манифеста: ${pinned} SKU закреплено`);
-  if (drift.length) {
-    console.log(`  📌 Дрейф Sheets↔manifest (манифест побеждает, НЕ авто-применяется):`);
-    for (const d of drift) console.log(`     ${d}`);
+  if (accepted.length) {
+    console.log(`  📸 Новые фото из Sheets (${accepted.length}):`);
+    for (const a of accepted) console.log(`     ${a}`);
   }
-  if (unpinned.length) {
-    console.log(`  ⚠️  Не закреплены в image_manifest.json (${unpinned.length}): ${unpinned.join(', ')} — закрепить осознанно`);
+  if (rejected.length) {
+    console.log(`  🚫 Отклонённые ссылки из Sheets (показано последнее хорошее фото):`);
+    for (const r of rejected) console.log(`     ${r}`);
   }
   const still = products.filter((p) => !p.imageMain && !p.image).map((p) => p.sku);
   if (still.length) {
     console.log(`  ℹ️  Без фото — плейсхолдер (${still.length}): ${still.join(', ')}`);
+  }
+
+  if (manifestDirty) {
+    const out = {
+      _comment:
+        'Авто-снапшот последних хороших фото (SKU -> {imageMain,imagePack,imageSlice} | null). ' +
+        'Источник правды — Google Sheets: sync принимает оттуда валидные ссылки (HTTP 200, ' +
+        'не чужой kd-NNN) и записывает их сюда; при браке/пустой ячейке показывается значение отсюда. ' +
+        'Руками не редактировать без нужды. Гейт: scripts/check_catalog_images.py.',
+    };
+    for (const k of Object.keys(manifest).filter((k) => k !== '_comment').sort()) {
+      out[k] = manifest[k];
+    }
+    writeFileSync(path, JSON.stringify(out, null, 2) + '\n', 'utf-8');
+    console.log(`  💾 image_manifest.json обновлён (снапшот последних хороших фото)`);
   }
 }
 
