@@ -59,6 +59,44 @@ def _load_image_sources():
 IMAGE_SOURCES = _load_image_sources()
 
 
+# Общие слова маркетингового шаблона overrides — не считаются идентификацией товара.
+_OVERRIDE_STOPWORDS = {
+    "применение", "применения", "сегменте", "сегментах", "сегмент", "опт", "оптовой",
+    "оптовых", "оптовом", "торговле", "торговли", "horeca", "стм", "продукт", "продукта",
+    "продукции", "использование", "использования", "категории", "категория",
+    "профессиональной", "кухне", "кухни", "описание", "формат", "форматы", "форматах",
+    "целевая", "аудитория", "решение", "поставок", "поставках", "поставки", "закупках",
+    "закупки", "каналах", "каналы", "сфера", "сферы", "универсальное", "premium", "premуim",
+    "application", "wholesale", "buyers", "culinary", "versatility", "suitability", "use",
+    "cases", "product", "menu", "integration", "who", "suits", "смоked", "smoked", "for",
+    "and", "the", "half", "delicacy", "boiled", "sausage",
+    "халяль", "казань", "казанские", "деликатесы", "мясные", "заготовки",
+    "татарская", "национальная", "выпечка", "классическая", "копченые", "копченый",
+}
+
+
+def _ident_tokens(text: str) -> set:
+    """Значимые токены названия (без общих шаблонных слов)."""
+    text = (text or "").lower().replace("ё", "е")
+    return {t for t in re.findall(r"[a-zа-я0-9]{3,}", text) if t not in _OVERRIDE_STOPWORDS}
+
+
+def override_matches_product(override_html: str, product_name_ru: str) -> bool:
+    """True, если override действительно про этот товар.
+
+    После перенумерации SKU файлы data/product_overrides/kd-NNN «съехали» на
+    чужие товары (эчпочмак с текстом про в/к Рамазан и т.п.). Проверяем: хотя бы
+    один значимый токен названия товара встречается в первых заголовках override.
+    Если нет — считаем override чужим и НЕ подключаем (лучше без блока, чем ложь).
+    """
+    want = _ident_tokens(product_name_ru)
+    if not want:
+        return False
+    heads = " ".join(re.findall(r"<h[12][^>]*>(.*?)</h[12]>", override_html[:1200], re.I | re.S))
+    have = _ident_tokens(re.sub(r"<[^>]+>", " ", heads))
+    return bool(want & have)
+
+
 def gallery_thumb_label(url: str, fallback: str) -> str:
     """Label from filename — Sheets pack/slice columns are often swapped for bakery."""
     key = _cloudinary_asset_key(url)
@@ -416,6 +454,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
     materialized = 0
+    skipped_overrides = []
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -559,7 +598,13 @@ def main():
         override_path = os.path.join("data", "product_overrides", f"{p['sku'].lower()}.html")
         if os.path.exists(override_path):
             with open(override_path, encoding="utf-8") as _ovf:
-                deep_html = deep_html + "\n" + _ovf.read()
+                _ov_html = _ovf.read()
+            # SKU-remap оставил overrides привязанными к старым номерам → часть
+            # описывает чужой товар. Подключаем только если override про этот SKU.
+            if override_matches_product(_ov_html, str(p.get("name") or "")):
+                deep_html = deep_html + "\n" + _ov_html
+            else:
+                skipped_overrides.append(p["sku"])
 
         # Галерея целиком same-origin (зеркала) — preconnect к Cloudinary нужен
         # только если зеркалирование не удалось и src остался внешним.
@@ -830,6 +875,9 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
             f.write(html)
     print(f"Generated {len(products)} RU product pages in {OUT}/")
     print(f"Materialized {materialized} same-origin LCP images in {LCP_IMG_DIR}/")
+    if skipped_overrides:
+        print(f"Пропущено чужих overrides (SKU-remap, не про этот товар): "
+              f"{len(skipped_overrides)}: {', '.join(skipped_overrides)}")
     remove_orphan_pages(products)
 
 

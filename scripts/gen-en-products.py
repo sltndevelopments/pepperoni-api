@@ -45,6 +45,40 @@ def _cloudinary_asset_key(url: str) -> str:
     return path.split("/")[-1].lower()
 
 
+_OVERRIDE_STOPWORDS = {
+    "применение", "применения", "сегменте", "сегментах", "сегмент", "опт", "оптовой",
+    "оптовых", "оптовом", "торговле", "торговли", "horeca", "стм", "продукт", "продукта",
+    "продукции", "использование", "использования", "категории", "категория",
+    "профессиональной", "кухне", "кухни", "описание", "формат", "форматы", "форматах",
+    "целевая", "аудитория", "решение", "поставок", "поставках", "поставки", "закупках",
+    "закупки", "каналах", "каналы", "сфера", "сферы", "универсальное", "premium",
+    "application", "wholesale", "buyers", "culinary", "versatility", "suitability", "use",
+    "cases", "product", "menu", "integration", "who", "suits", "smoked", "for",
+    "and", "the", "half", "delicacy", "boiled", "sausage",
+    "халяль", "казань", "казанские", "деликатесы", "мясные", "заготовки",
+    "татарская", "национальная", "выпечка", "классическая", "копченые", "копченый",
+}
+
+
+def _ident_tokens(text: str) -> set:
+    text = (text or "").lower().replace("ё", "е")
+    return {t for t in re.findall(r"[a-zа-я0-9]{3,}", text) if t not in _OVERRIDE_STOPWORDS}
+
+
+def override_matches_product(override_html: str, product_name_ru: str) -> bool:
+    """True if override is really about this product.
+
+    .en.html overrides carry Russian product names in their headings, so we match
+    against the RU name. After SKU remap files drifted onto other products; skip
+    mismatches instead of appending foreign content."""
+    want = _ident_tokens(product_name_ru)
+    if not want:
+        return False
+    heads = " ".join(re.findall(r"<h[12][^>]*>(.*?)</h[12]>", override_html[:1200], re.I | re.S))
+    have = _ident_tokens(re.sub(r"<[^>]+>", " ", heads))
+    return bool(want & have)
+
+
 def _load_image_sources():
     """SKU -> source Cloudinary URLs from data/image_manifest.json.
 
@@ -372,6 +406,7 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
     tr = load_translations()
+    skipped_overrides = []
     for p in products:
         sku = p["sku"]
         slug = sku.lower()
@@ -552,7 +587,11 @@ def main():
         override_path = os.path.join("data", "product_overrides", f"{sku.lower()}.en.html")
         if os.path.exists(override_path):
             with open(override_path, encoding="utf-8") as _ovf:
-                deep_html = deep_html + "\n" + _ovf.read()
+                _ov_html = _ovf.read()
+            if override_matches_product(_ov_html, str(p.get("name") or "")):
+                deep_html = deep_html + "\n" + _ov_html
+            else:
+                skipped_overrides.append(sku)
 
         # Gallery is fully same-origin (mirrors) — preconnect to Cloudinary only
         # if mirroring failed and the src stayed external.
@@ -832,6 +871,9 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
     print(f"Generated {len(products)} EN product pages in {OUT}/")
+    if skipped_overrides:
+        print(f"Skipped foreign overrides (SKU-remap, not this product): "
+              f"{len(skipped_overrides)}: {', '.join(skipped_overrides)}")
     remove_orphan_pages(products)
 
 
