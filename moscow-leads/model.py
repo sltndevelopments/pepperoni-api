@@ -64,9 +64,103 @@ LOST_REASON_TO_STATUS: dict[str, str] = {
 
 SOURCES: tuple[str, ...] = ("call", "site", "avito", "manual", "telegram")
 
+# --- Территориальный контур: точки / АКБ / контакты / sell-out ---
+
+POINT_SEGMENTS: tuple[str, ...] = (
+    "пиццерия",
+    "фастфуд",
+    "кафе",
+    "столовая",
+    "магазин",
+    "пекарня",
+)
+
+POINT_DISTRIBUTORS: tuple[str, ...] = ("GFC", "SweetLife", "оба", "direct")
+
+# Статусы точки (вычисляемые от даты последнего заказа).
+POINT_STATUS_ACTIVE = "active"       # ≤30 дней
+POINT_STATUS_AT_RISK = "at_risk"     # 31–60
+POINT_STATUS_CHURNED = "churned"     # >60
+POINT_STATUSES: tuple[str, ...] = (
+    POINT_STATUS_ACTIVE,
+    POINT_STATUS_AT_RISK,
+    POINT_STATUS_CHURNED,
+)
+
+CONTACT_TYPES: tuple[str, ...] = ("call", "visit")
+CONTACT_TYPE_LABELS: dict[str, str] = {
+    "call": "📞 звонок",
+    "visit": "🚶 визит",
+}
+
+CONTACT_RESULTS: tuple[str, ...] = ("order", "thinking", "refuse", "not_lpr")
+CONTACT_RESULT_LABELS: dict[str, str] = {
+    "order": "заказ",
+    "thinking": "думает",
+    "refuse": "отказ",
+    "not_lpr": "не ЛПР",
+}
+
+# Результативный контакт = разговор с ЛПР (не «не ЛПР»).
+PRODUCTIVE_CONTACT_RESULTS: frozenset[str] = frozenset({"order", "thinking", "refuse"})
+
+DAILY_CONTACT_TARGET_MIN = 8
+DAILY_CONTACT_TARGET_MAX = 12
+WEEKLY_CONTACT_TARGET = 40  # ориентир ~8×5
+
+SELLOUT_DISTRIBUTORS: tuple[str, ...] = ("GFC", "SweetLife")
+
 
 def utcnow() -> datetime:
     return datetime.now(timezone.utc)
+
+
+def fmt_point_id(seq: int) -> str:
+    return f"POINT-{seq:05d}"
+
+
+def parse_point_id(point_id: str) -> int | None:
+    text = (point_id or "").strip().upper()
+    if not text.startswith("POINT-"):
+        return None
+    try:
+        return int(text.split("-", 1)[1])
+    except ValueError:
+        return None
+
+
+def point_status_from_last_order(last_order_at: str | None, *, now: datetime | None = None) -> str:
+    """≤30 = active, 31–60 = at_risk, >60 или нет заказа = churned."""
+    now = now or utcnow()
+    if not last_order_at:
+        return POINT_STATUS_CHURNED
+    try:
+        raw = last_order_at
+        if "T" in raw:
+            dt = datetime.fromisoformat(raw)
+        else:
+            dt = datetime.fromisoformat(raw + "T00:00:00+00:00")
+        if dt.tzinfo is None:
+            dt = dt.replace(tzinfo=timezone.utc)
+    except ValueError:
+        return POINT_STATUS_CHURNED
+    days = (now - dt).total_seconds() / 86400
+    if days <= 30:
+        return POINT_STATUS_ACTIVE
+    if days <= 60:
+        return POINT_STATUS_AT_RISK
+    return POINT_STATUS_CHURNED
+
+
+def format_actor(from_user: dict | None) -> str:
+    """telegram:<user_id>:<username|noname> — кто нажал кнопку."""
+    if not from_user:
+        return "telegram"
+    uid = from_user.get("id")
+    uname = (from_user.get("username") or "").strip() or "noname"
+    if uid is None:
+        return f"telegram:?:{uname}"
+    return f"telegram:{uid}:{uname}"
 
 
 def fmt_lead_id(seq: int) -> str:

@@ -14,6 +14,13 @@ BOT_TOKEN = (
 )
 API = f"https://api.telegram.org/bot{BOT_TOKEN}" if BOT_TOKEN else ""
 
+# Кто может менять статусы / жать кнопки. Пусто = все (dev), в проде задать явно.
+ALLOWED_USER_IDS: frozenset[int] = frozenset(
+    int(x)
+    for x in os.environ.get("MOSCOW_LEAD_ALLOWED_USER_IDS", "").replace(" ", "").split(",")
+    if x.lstrip("-").isdigit()
+)
+
 
 def configured() -> bool:
     return bool(BOT_TOKEN)
@@ -80,7 +87,7 @@ def recipient_ids(env_key: str) -> list[int]:
 
 
 def work_chat_ids() -> list[int]:
-    """Рабочая группа контура (карточки/кнопки/напоминания) — не личка."""
+    """Рабочая группа — только дайджест (не карточки/кнопки)."""
     return (
         recipient_ids("MOSCOW_LEAD_GROUP_CHAT_ID")
         or recipient_ids("TELEGRAM_LEADS_CHAT_ID")
@@ -91,12 +98,25 @@ def work_chat_ids() -> list[int]:
 group_chat_ids = work_chat_ids
 
 
+def arbi_chat_ids_from_env() -> list[int]:
+    return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID")
+
+
+def user_allowed(user_id: int | None) -> bool:
+    """Если белый список пуст — разрешаем всем (локальная отладка)."""
+    if not ALLOWED_USER_IDS:
+        return True
+    if user_id is None:
+        return False
+    return int(user_id) in ALLOWED_USER_IDS
+
+
 def send_to_work_chat(
     text: str,
     *,
     reply_markup: dict | None = None,
 ) -> int:
-    """Карточки и напоминания только в рабочую группу — процесс виден всем."""
+    """Дайджест / общие уведомления в группу."""
     sent = 0
     for chat_id in work_chat_ids():
         if send_message(chat_id, text, reply_markup=reply_markup).get("ok"):
@@ -104,6 +124,31 @@ def send_to_work_chat(
     return sent
 
 
-# alias for older call sites / tests
-def send_to_arbi(text: str, *, reply_markup: dict | None = None, **_kwargs) -> int:
-    return send_to_work_chat(text, reply_markup=reply_markup)
+def send_to_arbi(
+    text: str,
+    *,
+    reply_markup: dict | None = None,
+    store=None,
+) -> int:
+    """Карточки и напоминания — в личку Арби (после /start или env)."""
+    ids: list[int] = []
+    if store is not None:
+        raw = store.get_meta("arbi_dm_chat_id")
+        if raw and raw.lstrip("-").isdigit():
+            ids.append(int(raw))
+    ids.extend(arbi_chat_ids_from_env())
+    # уникальные, сохраняя порядок
+    seen: set[int] = set()
+    uniq: list[int] = []
+    for i in ids:
+        if i not in seen:
+            seen.add(i)
+            uniq.append(i)
+    sent = 0
+    for chat_id in uniq:
+        if send_message(chat_id, text, reply_markup=reply_markup).get("ok"):
+            sent += 1
+    # fallback: если личка не настроена — в группу (чтобы не потерять карточку)
+    if sent == 0:
+        sent = send_to_work_chat(text, reply_markup=reply_markup)
+    return sent

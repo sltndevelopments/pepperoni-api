@@ -1,7 +1,15 @@
 """Inline-клавиатуры: статус в два тапа, без свободного ввода."""
 from __future__ import annotations
 
-from model import DISTRIBUTORS, LOST_REASONS, STATUS_LABELS
+from model import (
+    CONTACT_RESULT_LABELS,
+    CONTACT_TYPE_LABELS,
+    DISTRIBUTORS,
+    LOST_REASONS,
+    POINT_SEGMENTS,
+    SELLOUT_DISTRIBUTORS,
+    STATUS_LABELS,
+)
 
 
 def _btn(text: str, data: str) -> dict:
@@ -31,6 +39,67 @@ def main_keyboard(seq: int) -> dict:
             [
                 _btn("🏆 Выигран", f"{p}:won"),
             ],
+        ]
+    }
+
+
+def contact_points_keyboard(points: list[dict]) -> dict:
+    """Выбор точки или «новая» для фиксации контакта."""
+    rows = []
+    for p in points[:20]:
+        seq = p["seq"]
+        label = (p.get("name") or p["id"])[:40]
+        rows.append([_btn(f"📍 {label}", f"mc:pt:{seq}")])
+    rows.append([_btn("➕ Новая точка", "mc:new")])
+    rows.append([_btn("« Отмена", "mc:cancel")])
+    return {"inline_keyboard": rows}
+
+
+def contact_type_keyboard(point_ref: str) -> dict:
+    """point_ref = pt:<seq> | new:<token>."""
+    return {
+        "inline_keyboard": [[
+            _btn(CONTACT_TYPE_LABELS["call"], f"mc:{point_ref}:call"),
+            _btn(CONTACT_TYPE_LABELS["visit"], f"mc:{point_ref}:visit"),
+        ], [_btn("« Отмена", "mc:cancel")]]
+    }
+
+
+def contact_result_keyboard(point_ref: str, contact_type: str) -> dict:
+    return {
+        "inline_keyboard": [
+            [
+                _btn(CONTACT_RESULT_LABELS["order"], f"mc:{point_ref}:{contact_type}:order"),
+                _btn(CONTACT_RESULT_LABELS["thinking"], f"mc:{point_ref}:{contact_type}:thinking"),
+            ],
+            [
+                _btn(CONTACT_RESULT_LABELS["refuse"], f"mc:{point_ref}:{contact_type}:refuse"),
+                _btn(CONTACT_RESULT_LABELS["not_lpr"], f"mc:{point_ref}:{contact_type}:not_lpr"),
+            ],
+            [_btn("« Отмена", "mc:cancel")],
+        ]
+    }
+
+
+def segment_keyboard() -> dict:
+    rows = []
+    row: list[dict] = []
+    for seg in POINT_SEGMENTS:
+        row.append(_btn(seg, f"mc:seg:{seg}"))
+        if len(row) == 2:
+            rows.append(row)
+            row = []
+    if row:
+        rows.append(row)
+    rows.append([_btn("« Отмена", "mc:cancel")])
+    return {"inline_keyboard": rows}
+
+
+def sellout_distributor_keyboard() -> dict:
+    return {
+        "inline_keyboard": [
+            [_btn(d, f"so:dist:{d}") for d in SELLOUT_DISTRIBUTORS],
+            [_btn("« Отмена", "so:cancel")],
         ]
     }
 

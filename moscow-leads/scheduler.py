@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 from digest import build_weekly_digest  # noqa: E402
 from keyboards import format_card, main_keyboard, stuck_keyboard  # noqa: E402
 from store import Store, datetime_from_iso  # noqa: E402
-from tg import recipient_ids, send_message, send_to_work_chat  # noqa: E402
+from tg import recipient_ids, send_message, send_to_arbi, send_to_work_chat  # noqa: E402
 
 
 def _owner() -> list[int]:
@@ -35,7 +35,7 @@ def _broadcast(chat_ids: list[int], text: str, *, reply_markup: dict | None = No
 
 
 def send_due_reminders(store: Store) -> dict:
-    """Арби: карточка с кнопками по просроченным дедлайнам (не чаще раза в 20ч на лид)."""
+    """Арби (личка): карточка с кнопками по просроченным дедлайнам (не чаще раза в 20ч на лид)."""
     sent = 0
     skipped = 0
     for lead in store.due_reminders():
@@ -49,7 +49,7 @@ def send_due_reminders(store: Store) -> dict:
             except Exception:
                 pass
         text = f"⏰ Напоминание\n{format_card(lead)}"
-        n = send_to_work_chat(text, reply_markup=main_keyboard(lead["seq"]))
+        n = send_to_arbi(text, reply_markup=main_keyboard(lead["seq"]), store=store)
         if n:
             store.set_meta(key, datetime.now(timezone.utc).isoformat())
             sent += n
@@ -77,7 +77,7 @@ def check_72h_distributor(store: Store) -> dict:
                 f"⚠️ {lead_id} у {lead.get('distributor') or '?'} "
                 f"{int(age_h)}ч без движения\n{format_card(lead)}"
             )
-            n = send_to_work_chat(text, reply_markup=stuck_keyboard(lead["seq"]))
+            n = send_to_arbi(text, reply_markup=stuck_keyboard(lead["seq"]), store=store)
             if n:
                 store.set_meta(arbi_key, now.isoformat())
                 to_arbi += n
@@ -115,9 +115,10 @@ def check_72h_distributor(store: Store) -> dict:
 
 def send_friday_digest(store: Store) -> dict:
     text = build_weekly_digest(store)
-    # Дайджест в рабочую группу (видно всем) + копия владельцу.
+    # Дайджест: группа + владелец + личка Арби.
     sent = send_to_work_chat(text)
     sent += _broadcast(_owner(), text)
+    sent += send_to_arbi(text, store=store)
     store.set_meta("last_friday_digest", datetime.now(timezone.utc).isoformat())
     return {"digest_sent": sent, "chars": len(text)}
 

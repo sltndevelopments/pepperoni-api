@@ -30,7 +30,7 @@ def maybe_create_from_text(text: str, *, notify: bool = True) -> dict | None:
         ):
             try:
                 from bot import notify_lead_card
-                notify_lead_card(lead)
+                notify_lead_card(store, lead)
             except Exception:
                 pass
         return lead

@@ -8,11 +8,22 @@ from pathlib import Path
 from typing import Any, Iterator
 
 from model import (
+    CONTACT_RESULTS,
+    CONTACT_TYPES,
     DISTRIBUTORS,
     LOST_REASON_TO_STATUS,
+    POINT_DISTRIBUTORS,
+    POINT_SEGMENTS,
+    POINT_STATUS_ACTIVE,
+    POINT_STATUS_AT_RISK,
+    POINT_STATUS_CHURNED,
+    PRODUCTIVE_CONTACT_RESULTS,
+    SELLOUT_DISTRIBUTORS,
     STATUSES,
     fmt_lead_id,
+    fmt_point_id,
     next_business_deadline,
+    point_status_from_last_order,
     utcnow,
     validate_status,
 )
@@ -61,6 +72,51 @@ CREATE TABLE IF NOT EXISTS meta (
     key   TEXT PRIMARY KEY,
     value TEXT NOT NULL
 );
+
+CREATE TABLE IF NOT EXISTS points (
+    seq              INTEGER PRIMARY KEY AUTOINCREMENT,
+    id               TEXT NOT NULL UNIQUE,
+    name             TEXT NOT NULL DEFAULT '',
+    segment          TEXT NOT NULL DEFAULT '',
+    address          TEXT NOT NULL DEFAULT '',
+    city             TEXT NOT NULL DEFAULT '',
+    contact_lpr      TEXT NOT NULL DEFAULT '',
+    phone            TEXT NOT NULL DEFAULT '',
+    distributor      TEXT,
+    first_order_at   TEXT,
+    last_order_at    TEXT,
+    orders_count     INTEGER NOT NULL DEFAULT 0,
+    lead_id          TEXT,
+    created_at       TEXT NOT NULL,
+    updated_at       TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_points_last_order ON points(last_order_at);
+CREATE INDEX IF NOT EXISTS idx_points_name ON points(name);
+
+CREATE TABLE IF NOT EXISTS contacts (
+    id           INTEGER PRIMARY KEY AUTOINCREMENT,
+    point_id     TEXT,
+    lead_id      TEXT,
+    at           TEXT NOT NULL,
+    actor        TEXT NOT NULL,
+    contact_type TEXT NOT NULL,
+    result       TEXT NOT NULL,
+    detail       TEXT NOT NULL DEFAULT '{}'
+);
+CREATE INDEX IF NOT EXISTS idx_contacts_at ON contacts(at);
+CREATE INDEX IF NOT EXISTS idx_contacts_point ON contacts(point_id);
+
+CREATE TABLE IF NOT EXISTS sellout (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    distributor   TEXT NOT NULL,
+    month         TEXT NOT NULL,
+    kg            REAL NOT NULL,
+    points_count  INTEGER NOT NULL DEFAULT 0,
+    actor         TEXT NOT NULL DEFAULT '',
+    created_at    TEXT NOT NULL,
+    UNIQUE(distributor, month)
+);
+CREATE INDEX IF NOT EXISTS idx_sellout_month ON sellout(month);
 """
 
 
@@ -87,6 +143,13 @@ class Store:
         if not row:
             return None
         return dict(row)
+
+    def _point_row(self, row: sqlite3.Row | None, *, now=None) -> dict | None:
+        if not row:
+            return None
+        d = dict(row)
+        d["status"] = point_status_from_last_order(d.get("last_order_at"), now=now)
+        return d
 
     def create_lead(
         self,
@@ -241,7 +304,13 @@ class Store:
                     ),
                 ),
             )
-        return self.get(lead_id)  # type: ignore[return-value]
+        updated = self.get(lead_id)  # type: ignore[return-value]
+        # Первый заказ → точка в справочнике АКБ.
+        if status == "first_shipment" and updated:
+            self.ensure_point_from_lead(updated, actor=actor, record_order=True)
+        elif status == "repeat_shipment" and updated:
+            self.ensure_point_from_lead(updated, actor=actor, record_order=True)
+        return updated
 
     def apply_lost_reason(self, lead_id: str, reason_key: str, *, actor: str = "arbi") -> dict:
         status = LOST_REASON_TO_STATUS.get(reason_key)
@@ -414,6 +483,346 @@ class Store:
         return round(100.0 * first / created, 1)
 
 
+    # --- Точки (АКБ) ---
+
+    def create_point(
+        self,
+        *,
+        name: str,
+        segment: str = "",
+        address: str = "",
+        city: str = "",
+        contact_lpr: str = "",
+        phone: str = "",
+        distributor: str | None = None,
+        lead_id: str | None = None,
+        first_order_at: str | None = None,
+        last_order_at: str | None = None,
+        orders_count: int = 0,
+        actor: str = "system",
+    ) -> dict:
+        if segment and segment not in POINT_SEGMENTS:
+            raise ValueError(f"invalid segment: {segment}")
+        if distributor and distributor not in POINT_DISTRIBUTORS:
+            raise ValueError(f"invalid distributor: {distributor}")
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO points
+                   (id, name, segment, address, city, contact_lpr, phone, distributor,
+                    first_order_at, last_order_at, orders_count, lead_id, created_at, updated_at)
+                   VALUES ('',?,?,?,?,?,?,?,?,?,?,?,?,?)""",
+                (
+                    name, segment, address, city, contact_lpr, phone, distributor,
+                    first_order_at, last_order_at, orders_count, lead_id, now, now,
+                ),
+            )
+            seq = int(cur.lastrowid)
+            point_id = fmt_point_id(seq)
+            conn.execute("UPDATE points SET id=? WHERE seq=?", (point_id, seq))
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (
+                    lead_id or point_id,
+                    now,
+                    actor,
+                    "point_created",
+                    json.dumps({"point_id": point_id, "name": name}, ensure_ascii=False),
+                ),
+            )
+            row = conn.execute("SELECT * FROM points WHERE seq=?", (seq,)).fetchone()
+        return self._point_row(row)  # type: ignore[return-value]
+
+    def get_point(self, point_id: str) -> dict | None:
+        with self._conn() as conn:
+            return self._point_row(
+                conn.execute("SELECT * FROM points WHERE id=?", (point_id,)).fetchone()
+            )
+
+    def get_point_by_seq(self, seq: int) -> dict | None:
+        with self._conn() as conn:
+            return self._point_row(
+                conn.execute("SELECT * FROM points WHERE seq=?", (seq,)).fetchone()
+            )
+
+    def find_point_by_name(self, name: str, city: str = "") -> dict | None:
+        name = (name or "").strip()
+        if not name:
+            return None
+        with self._conn() as conn:
+            if city:
+                row = conn.execute(
+                    "SELECT * FROM points WHERE lower(name)=lower(?) AND lower(city)=lower(?) LIMIT 1",
+                    (name, city),
+                ).fetchone()
+            else:
+                row = conn.execute(
+                    "SELECT * FROM points WHERE lower(name)=lower(?) LIMIT 1",
+                    (name,),
+                ).fetchone()
+        return self._point_row(row)
+
+    def list_points(self, *, limit: int = 500) -> list[dict]:
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM points ORDER BY COALESCE(last_order_at,'') DESC, name ASC LIMIT ?",
+                (limit,),
+            ).fetchall()
+        return [self._point_row(r) for r in rows]  # type: ignore[misc]
+
+    def record_order_on_point(
+        self,
+        point_id: str,
+        *,
+        order_at: str | None = None,
+        actor: str = "system",
+        distributor: str | None = None,
+    ) -> dict:
+        point = self.get_point(point_id)
+        if not point:
+            raise KeyError(point_id)
+        now = order_at or utcnow().isoformat()
+        first = point.get("first_order_at") or now
+        fields: dict[str, Any] = {
+            "last_order_at": now,
+            "first_order_at": first,
+            "orders_count": int(point.get("orders_count") or 0) + 1,
+            "updated_at": utcnow().isoformat(),
+        }
+        if distributor and distributor in POINT_DISTRIBUTORS:
+            fields["distributor"] = distributor
+        sets = ", ".join(f"{k}=?" for k in fields)
+        with self._conn() as conn:
+            conn.execute(
+                f"UPDATE points SET {sets} WHERE id=?",
+                (*fields.values(), point_id),
+            )
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (
+                    point.get("lead_id") or point_id,
+                    fields["updated_at"],
+                    actor,
+                    "point_order",
+                    json.dumps({"point_id": point_id, "order_at": now}, ensure_ascii=False),
+                ),
+            )
+        return self.get_point(point_id)  # type: ignore[return-value]
+
+    def ensure_point_from_lead(
+        self,
+        lead: dict,
+        *,
+        actor: str = "system",
+        record_order: bool = False,
+        segment: str = "",
+    ) -> dict:
+        """Лид при первом заказе → точка. Идемпотентно по имени+городу или lead_id."""
+        name = (lead.get("company") or lead.get("contact") or lead["id"]).strip()
+        city = (lead.get("city") or "").strip()
+        with self._conn() as conn:
+            by_lead = conn.execute(
+                "SELECT * FROM points WHERE lead_id=?", (lead["id"],)
+            ).fetchone()
+        existing = self._point_row(by_lead) if by_lead else self.find_point_by_name(name, city)
+        dist = lead.get("distributor")
+        if dist == "direct":
+            dist_pt = "direct"
+        elif dist in ("GFC", "SweetLife"):
+            dist_pt = dist
+        else:
+            dist_pt = dist if dist in POINT_DISTRIBUTORS else None
+
+        if existing:
+            if record_order:
+                return self.record_order_on_point(
+                    existing["id"], actor=actor, distributor=dist_pt
+                )
+            return existing
+
+        order_at = utcnow().isoformat() if record_order else None
+        return self.create_point(
+            name=name,
+            segment=segment if segment in POINT_SEGMENTS else "",
+            city=city,
+            contact_lpr=lead.get("contact") or "",
+            phone=lead.get("phone") or "",
+            distributor=dist_pt,
+            lead_id=lead["id"],
+            first_order_at=order_at,
+            last_order_at=order_at,
+            orders_count=1 if record_order else 0,
+            actor=actor,
+        )
+
+    def akb_snapshot(self, *, now=None) -> dict[str, Any]:
+        """АКБ / at_risk / churned + списки названий."""
+        points = self.list_points(limit=5000)
+        active, at_risk, churned = [], [], []
+        for p in points:
+            st = p.get("status") or point_status_from_last_order(p.get("last_order_at"), now=now)
+            if st == POINT_STATUS_ACTIVE:
+                active.append(p)
+            elif st == POINT_STATUS_AT_RISK:
+                at_risk.append(p)
+            else:
+                churned.append(p)
+        return {
+            "akb": len(active),
+            "at_risk": len(at_risk),
+            "churned": len(churned),
+            "active_points": active,
+            "at_risk_points": at_risk,
+            "churned_points": churned,
+            "total_points": len(points),
+        }
+
+    def new_points_since(self, since_iso: str) -> list[dict]:
+        with self._conn() as conn:
+            rows = conn.execute(
+                """SELECT * FROM points
+                   WHERE first_order_at IS NOT NULL AND first_order_at>=?
+                   ORDER BY first_order_at DESC""",
+                (since_iso,),
+            ).fetchall()
+        return [self._point_row(r) for r in rows]  # type: ignore[misc]
+
+    def akb_count_as_of(self, as_of_iso: str) -> int:
+        """Сколько точек были active на дату as_of (last_order в [as_of-30d, as_of])."""
+        from datetime import datetime, timedelta, timezone
+
+        try:
+            as_of = datetime.fromisoformat(as_of_iso)
+            if as_of.tzinfo is None:
+                as_of = as_of.replace(tzinfo=timezone.utc)
+        except ValueError:
+            return 0
+        window_start = (as_of - timedelta(days=30)).isoformat()
+        with self._conn() as conn:
+            n = conn.execute(
+                """SELECT COUNT(*) AS n FROM points
+                   WHERE last_order_at IS NOT NULL
+                     AND last_order_at>=? AND last_order_at<=?""",
+                (window_start, as_of.isoformat()),
+            ).fetchone()["n"]
+        return int(n)
+
+    # --- Контакты (поле) ---
+
+    def log_contact(
+        self,
+        *,
+        contact_type: str,
+        result: str,
+        actor: str,
+        point_id: str | None = None,
+        lead_id: str | None = None,
+        detail: dict | None = None,
+    ) -> dict:
+        if contact_type not in CONTACT_TYPES:
+            raise ValueError(f"invalid contact_type: {contact_type}")
+        if result not in CONTACT_RESULTS:
+            raise ValueError(f"invalid result: {result}")
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO contacts (point_id, lead_id, at, actor, contact_type, result, detail)
+                   VALUES (?,?,?,?,?,?,?)""",
+                (
+                    point_id,
+                    lead_id,
+                    now,
+                    actor,
+                    contact_type,
+                    result,
+                    json.dumps(detail or {}, ensure_ascii=False),
+                ),
+            )
+            cid = int(cur.lastrowid)
+        if result == "order" and point_id:
+            self.record_order_on_point(point_id, actor=actor)
+        return {
+            "id": cid,
+            "point_id": point_id,
+            "lead_id": lead_id,
+            "at": now,
+            "actor": actor,
+            "contact_type": contact_type,
+            "result": result,
+            "productive": result in PRODUCTIVE_CONTACT_RESULTS,
+        }
+
+    def count_contacts_since(self, since_iso: str, *, productive_only: bool = True) -> int:
+        with self._conn() as conn:
+            if productive_only:
+                placeholders = ",".join("?" * len(PRODUCTIVE_CONTACT_RESULTS))
+                n = conn.execute(
+                    f"""SELECT COUNT(*) AS n FROM contacts
+                        WHERE at>=? AND result IN ({placeholders})""",
+                    (since_iso, *PRODUCTIVE_CONTACT_RESULTS),
+                ).fetchone()["n"]
+            else:
+                n = conn.execute(
+                    "SELECT COUNT(*) AS n FROM contacts WHERE at>=?", (since_iso,)
+                ).fetchone()["n"]
+        return int(n)
+
+    # --- Sell-out дистрибьюторов ---
+
+    def upsert_sellout(
+        self,
+        *,
+        distributor: str,
+        month: str,
+        kg: float,
+        points_count: int = 0,
+        actor: str = "arbi",
+    ) -> dict:
+        if distributor not in SELLOUT_DISTRIBUTORS:
+            raise ValueError(f"distributor must be one of {SELLOUT_DISTRIBUTORS}")
+        if len(month) != 7 or month[4] != "-":
+            raise ValueError("month must be YYYY-MM")
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                """INSERT INTO sellout (distributor, month, kg, points_count, actor, created_at)
+                   VALUES (?,?,?,?,?,?)
+                   ON CONFLICT(distributor, month) DO UPDATE SET
+                     kg=excluded.kg,
+                     points_count=excluded.points_count,
+                     actor=excluded.actor,
+                     created_at=excluded.created_at""",
+                (distributor, month, float(kg), int(points_count), actor, now),
+            )
+            row = conn.execute(
+                "SELECT * FROM sellout WHERE distributor=? AND month=?",
+                (distributor, month),
+            ).fetchone()
+        return dict(row)
+
+    def get_sellout(self, distributor: str, month: str) -> dict | None:
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM sellout WHERE distributor=? AND month=?",
+                (distributor, month),
+            ).fetchone()
+        return dict(row) if row else None
+
+    def latest_sellout_month(self) -> str | None:
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT month FROM sellout ORDER BY month DESC LIMIT 1"
+            ).fetchone()
+        return row["month"] if row else None
+
+    def sellout_for_month(self, month: str) -> dict[str, dict]:
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM sellout WHERE month=?", (month,)
+            ).fetchall()
+        return {r["distributor"]: dict(r) for r in rows}
+
+
 def datetime_from_iso(value: str):
     from datetime import datetime, timezone
 
@@ -428,3 +837,6 @@ assert set(STATUSES) >= {
     "new", "contacted", "samples_sent", "meeting_done", "passed_to_distributor",
     "first_shipment", "repeat_shipment", "won", "lost", "no_demand",
 }
+assert POINT_STATUS_ACTIVE == "active"
+assert POINT_STATUS_AT_RISK == "at_risk"
+assert POINT_STATUS_CHURNED == "churned"
