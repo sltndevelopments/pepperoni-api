@@ -77,7 +77,10 @@ def main() -> int:
                 f = MIRROR_DIR / fname
                 if not f.is_file() or f.stat().st_size < 1000:
                     errors.append(f"{sku}.{k}: зеркало {fname} отсутствует/битое в public/images/products/")
-                src = mirror_map.get(fname)
+                src = mirror_map.get(fname) or ""
+                # Кэш-ключ зеркала: "wm1|<cloudinary-url>" (версия трансформа) или голый URL.
+                if "|" in src:
+                    src = src.split("|", 1)[1]
                 want = (pin or {}).get(k) if isinstance(pin, dict) else None
                 if want and src and src != want:
                     errors.append(f"{sku}.{k}: зеркало {fname} собрано из '{basename(src)}', а в манифесте '{basename(want)}'")

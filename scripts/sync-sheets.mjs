@@ -1137,11 +1137,17 @@ async function applyImageManifest(products) {
 const SITE_ORIGIN = 'https://pepperoni.tatar';
 const MIRROR_DIR = join(PUBLIC, 'images', 'products');
 const MIRROR_MAP_PATH = join(ROOT, 'data', 'image_mirror.json');
-// main — как прежний LCP-кроп без вотермарки; pack/slice — как прежние миниатюры с вотермаркой.
+// Все слоты — с водяным знаком. Раньше main был без него (LCP/PSI cold TTFB
+// на Cloudinary-трансформе); теперь файлы same-origin, трансформ запекается
+// при зеркалировании — штрафа нет, а каталог/герои без знака оставались голыми.
+// MIRROR_T_VER бампится при смене трансформа → кэш зеркал инвалидируется.
+const MIRROR_T_VER = 'wm1';
+const MIRROR_WM =
+  'l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center';
 const MIRROR_T = {
-  main: 'f_jpg,q_auto:good,w_640,h_427,c_fill,g_auto',
-  pack: 'f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center',
-  slice: 'f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center',
+  main: `f_jpg,q_auto:good,w_640,h_427,c_fill,g_auto/${MIRROR_WM}`,
+  pack: `f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/${MIRROR_WM}`,
+  slice: `f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/${MIRROR_WM}`,
 };
 
 async function mirrorCatalogImages(products) {
@@ -1173,7 +1179,10 @@ async function mirrorCatalogImages(products) {
       const dest = join(MIRROR_DIR, name);
       const hasFile = () => existsSync(dest) && statSync(dest).size > 1000;
 
-      if (map[name] === src && hasFile()) {
+      // Ключ кэша = source + версия трансформа. Смена MIRROR_T_VER (например
+      // добавили водяной знак) перекачивает все зеркала, а не оставляет старые.
+      const cacheKey = `${MIRROR_T_VER}|${src}`;
+      if (map[name] === cacheKey && hasFile()) {
         reused++;
       } else {
         const dl = src.replace('/image/upload/', `/image/upload/${MIRROR_T[suffix]}/`);
@@ -1183,7 +1192,7 @@ async function mirrorCatalogImages(products) {
           const buf = Buffer.from(await r.arrayBuffer());
           if (buf.length < 1000) throw new Error(`слишком маленький ответ (${buf.length} B)`);
           writeFileSync(dest, buf);
-          map[name] = src;
+          map[name] = cacheKey;
           downloaded++;
         } catch (e) {
           if (hasFile()) {
@@ -1194,7 +1203,7 @@ async function mirrorCatalogImages(products) {
           }
         }
       }
-      const ver = createHash('md5').update(src).digest('hex').slice(0, 8);
+      const ver = createHash('md5').update(cacheKey).digest('hex').slice(0, 8);
       p[field] = `${SITE_ORIGIN}/images/products/${name}?v=${ver}`;
     }
     if (p.imageMain) p.image = p.imageMain;
