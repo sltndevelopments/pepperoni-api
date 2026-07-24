@@ -21,11 +21,10 @@ SECTION_OG = {
 SECTION_IMAGE_POOLS = {
     "Заморозка": [
         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg",
         "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg",
     ],
     "Охлаждённая продукция": [
         "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
@@ -35,48 +34,62 @@ SECTION_IMAGE_POOLS = {
         "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
     ],
     "Выпечка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya-v-razreze.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/cheburek-v-razreze.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/cheburek.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-059.jpg",
+        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-060.jpg",
     ],
 }
 
 CATEGORY_OG = {
     "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
+    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
     "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
     "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
     "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
     "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
     "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
-    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
-    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
+    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya-v-razreze.jpg",
+    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-059.jpg",
     "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
 }
 
 
+def _cloudinary_asset_key(url: str) -> str:
+    """Basename of Cloudinary public_id for dedupe/labels (ignores transforms)."""
+    if not url:
+        return ""
+    path = urllib.parse.unquote(str(url).split("?")[0]).rstrip("/")
+    return path.split("/")[-1].lower()
+
+
+def gallery_thumb_label(url: str, fallback: str) -> str:
+    """Label from filename — Sheets pack/slice columns are often swapped for bakery."""
+    key = _cloudinary_asset_key(url)
+    if any(x in key for x in ("razrez", "v-raz", "srez", "narezk", "razreze")):
+        return "В разрезе"
+    if any(x in key for x in ("upakov", "pack", "box", "kraft")):
+        return "Упаковка"
+    # Don't trust column name when filename doesn't match (e.g. whole pie in «срез»).
+    if fallback in ("В разрезе", "Упаковка"):
+        return "Фото"
+    return fallback
+
+
 def jsonld_image_list(main, pack, slice_img, section, category):
-    """5–7 images for GMC Превосходно (Изображений на предложение)."""
+    """Own product images only — never pad with other SKUs (caused 404 + wrong photos)."""
     imgs = []
     for u in (main, pack, slice_img):
         if u and u not in imgs:
             imgs.append(u)
-    # Add rich section visuals
-    pool = SECTION_IMAGE_POOLS.get(section or "", []) if "SECTION_IMAGE_POOLS" in globals() else []
-    for u in pool:
-        if u and u not in imgs:
-            imgs.append(u)
-        if len(imgs) >= 7:
-            break
-    if len(imgs) < 2:
+    if not imgs:
         for fb in (CATEGORY_OG.get(category or ""), SECTION_OG.get(section or "")):
             if fb and fb not in imgs:
                 imgs.append(fb)
-            if len(imgs) >= 2:
+            if imgs:
                 break
     if not imgs:
         imgs = ["https://pepperoni.tatar/og-default.png"]
@@ -473,9 +486,28 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
-        for label, url, proxy, full, full_proxy in [("Упаковка", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
-            if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
+        main_keys = {
+            _cloudinary_asset_key(main_raw),
+            _cloudinary_asset_key(main_cdn),
+            _cloudinary_asset_key(main_img),
+        }
+        main_keys.discard("")
+        for fallback_label, raw, url, proxy, full, full_proxy in [
+            ("Упаковка", pack_raw, pack_img, pack_img_proxy, pack_full, pack_full_proxy),
+            ("В разрезе", slice_raw, slice_img, slice_img_proxy, slice_full, slice_full_proxy),
+        ]:
+            if not url:
+                continue
+            key = _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
+            if key and key in main_keys:
+                continue  # same asset as hero — skip duplicate thumb
+            label = gallery_thumb_label(raw or url, fallback_label)
+            thumbs.append(
+                f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" '
+                f'data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">'
+                f'<img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" '
+                f'class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>'
+            )
 
         img_html = ""
         if main_img:
@@ -675,6 +707,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if pp:
                 pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
                 html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
+        # Bakery: pricePerBoxExclVAT is box wholesale, not an "export" currency.
+        if is_bakery and p["offers"].get("pricePerBoxExclVAT"):
+            box_ex = p["offers"]["pricePerBoxExclVAT"]
+            try:
+                box_ex_fmt = f"{float(box_ex):,.2f}".replace(",", " ").replace(".", ",")
+            except (TypeError, ValueError):
+                box_ex_fmt = str(box_ex)
+            html += (
+                f'<div style="margin-top:6px;font-size:.9rem;color:#444">'
+                f'Цена за коробку без НДС: <b>{box_ex_fmt} ₽</b></div>\n'
+            )
+            price_no_vat = p["offers"].get("priceExclVAT") or ""
         if price_no_vat or ep:
             html += '<h2 class="section-title" style="margin-top:20px">Экспортные цены</h2><div class="export-prices">'
             if price_no_vat:
