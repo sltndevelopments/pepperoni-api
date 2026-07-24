@@ -15,6 +15,7 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const PUBLIC = join(ROOT, 'public');
+const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
 
 const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
@@ -177,11 +178,19 @@ function cellBy(cols, colIndex, key) {
   return cols[j] || '';
 }
 
-/** Convert Google Drive view link to direct image URL */
+/** Convert Google Drive / bare Cloudinary public_id to a usable https URL */
 function driveToDirectUrl(url) {
   if (!url || typeof url !== 'string') return '';
-  const m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  return m ? `https://drive.google.com/uc?export=view&id=${m[1]}` : url;
+  let u = url.trim();
+  if (!u || u === '0') return '';
+  const m = u.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  if (u.startsWith('http://') || u.startsWith('https://')) return u;
+  // Sheets sometimes stores Cloudinary as "v1234/path.jpg" without host
+  if (/^v\d+\//.test(u) || u.startsWith('products/')) {
+    return `${CLOUDINARY_BASE}/${u.replace(/^\//, '')}`;
+  }
+  return u;
 }
 
 // --- Parsers for each sheet type ---
@@ -964,8 +973,6 @@ function applyDescriptionOverrides(products) {
   if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
 }
 
-const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
-
 async function urlExists(url) {
   try {
     const r = await fetch(url, { method: 'HEAD', redirect: 'follow' });
@@ -981,12 +988,83 @@ function skuFromProductImageUrl(url) {
   return m ? `KD-${m[1]}` : null;
 }
 
+function imageBasename(url) {
+  if (!url) return '';
+  try {
+    return decodeURIComponent(String(url).split('?')[0].split('/').pop() || '').toLowerCase();
+  } catch {
+    return (String(url).split('?')[0].split('/').pop() || '').toLowerCase();
+  }
+}
+
+function isCutawayUrl(url) {
+  return /razrez|v-raz|srez|narezk/i.test(imageBasename(url));
+}
+
+function isGenericShotUrl(url) {
+  // Lifestyle / shared props — never promote over a product-specific shot.
+  return /hot_dog|feli4477|0413-|pizza_s_/i.test(imageBasename(url));
+}
+
+/** Score how well an image filename matches the product name (meat/type tokens). */
+function scoreProductImage(url, productName, section) {
+  const u = driveToDirectUrl(url);
+  if (!u.startsWith('http')) return -999;
+  const key = imageBasename(u);
+  if (!key || key === '0') return -999;
+  const name = String(productName || '').toLowerCase();
+  let s = 0;
+  if (isGenericShotUrl(u)) s -= 10;
+
+  const pairs = [
+    [/трав/, /trav/],
+    [/говяд/, /govad|govyad/],
+    [/конин/, /konin/],
+    [/курин|цыпл|грудк/, /kurin|kuric|chicken|grudk/],
+    [/баран/, /baran/],
+    [/инде/, /inde/],
+    [/пепперони|pepperoni/, /pepperoni/],
+    [/казыл|kyzylyk/, /kyzylyk|kazyl/],
+    [/котлет/, /kotlet/],
+    [/ветчин/, /vetcin/],
+    [/сервелат/, /servelat/],
+    [/два\s*мяс/, /dva_masa|2_masa/],
+    [/три\s*перц/, /tri_perza|perza_s_syr/],
+    [/губади/, /gubadi/],
+    [/чебурек/, /cheburek/],
+    [/перемяч/, /peremyach/],
+    [/самса/, /samsa/],
+    [/эчпочмак/, /echpochmak/],
+    [/элеш/, /elesh/],
+    [/чак.?чак|chak/, /cak|чак/],
+    [/сыр/, /syr|cheese|syrom/],
+  ];
+  for (const [nameRe, fileRe] of pairs) {
+    const nameHit = nameRe.test(name);
+    const fileHit = fileRe.test(key);
+    if (nameHit && fileHit) s += 6;
+    else if (!nameHit && fileHit) {
+      // Filename claims a different product family than the name.
+      if (/govad|govyad|konin|kurin|baran|trav|pepperoni|kyzylyk|kotlet|vetcin|gubadi|cheburek/.test(key)) {
+        s -= 6;
+      }
+    }
+  }
+
+  // Bakery: prefer whole product over *-v-razreze for hero.
+  if (section === 'Выпечка') {
+    if (isCutawayUrl(u)) s -= 3;
+    else s += 2;
+  } else if (isCutawayUrl(u)) {
+    // Meat cutaway of the matching product is a fine hero.
+    s += 1;
+  }
+  return s;
+}
+
 /**
- * Attach photos for SKUs that still have empty Sheets photo columns.
- * 0) Drop cross-SKU products/kd-NNN mains (Sheets paste of wrong Cloudinary path)
- * 1) Promote imagePack / imageSlice when main empty
- * 2) data/image_overrides.json (manual / discovered Cloudinary paths)
- * 3) Convention: products/{sku}.jpg|.jpeg|.png|.webp on Cloudinary
+ * Normalize Sheets photo cells: fix bare Cloudinary paths, drop garbage,
+ * pick hero by name↔filename score (not blind «cutaway bad»), force overrides.
  */
 async function applyImageFallbacks(products) {
   const path = join(ROOT, 'data', 'image_overrides.json');
@@ -999,56 +1077,98 @@ async function applyImageFallbacks(products) {
     }
   }
   let clearedCross = 0;
-  let fromPack = 0;
+  let clearedConflict = 0;
+  let repicked = 0;
   let fromOverride = 0;
   let fromCloudinary = 0;
+
   for (const p of products) {
     const sku = (p.sku || '').trim().toUpperCase();
     if (!sku) continue;
-    for (const key of ['imageMain', 'image']) {
+
+    for (const key of ['imageMain', 'image', 'imagePack', 'imageSlice']) {
+      const fixed = driveToDirectUrl(p[key]);
+      if (!fixed) delete p[key];
+      else p[key] = fixed;
+    }
+
+    for (const key of ['imageMain', 'image', 'imagePack', 'imageSlice']) {
       const found = skuFromProductImageUrl(p[key]);
       if (found && found !== sku) {
         delete p[key];
         clearedCross++;
       }
     }
-    // Demote cutaway-as-main when a non-cut beauty shot exists in imageSlice.
-    {
-      const isCut = (u) => /razrez|v-raz|srez|narezk/i.test(String(u || ''));
-      const main = (p.imageMain || p.image || '').toString().trim();
-      const slice = (p.imageSlice || '').toString().trim();
-      if (main.startsWith('http') && isCut(main) && slice.startsWith('http') && !isCut(slice)) {
-        if (!(p.imagePack || '').toString().trim()) p.imagePack = main;
-        p.imageMain = slice;
-        p.image = slice;
+
+    // Drop secondaries that strongly conflict with the product name (e.g. kazylyk←hot-dog).
+    for (const key of ['imagePack', 'imageSlice']) {
+      if (!p[key]) continue;
+      if (scoreProductImage(p[key], p.name, p.section) <= -5) {
+        delete p[key];
+        clearedConflict++;
       }
     }
-    if (!(p.imageMain || p.image)) {
-      // Hero = whole product, not cutaway. Bakery Sheets often store the beauty
-      // shot in «фото среза» and *-v-razreze in «фото упаковки» (columns swapped).
-      const slice = (p.imageSlice || '').toString().trim();
-      const pack = (p.imagePack || '').toString().trim();
-      const isCut = (u) => /razrez|v-raz|srez|narezk/i.test(u);
-      let alt = '';
-      if (slice.startsWith('http') && !isCut(slice)) alt = slice;
-      else if (pack.startsWith('http') && !isCut(pack)) alt = pack;
-      else alt = (slice.startsWith('http') && slice) || (pack.startsWith('http') && pack) || '';
-      if (alt) {
-        p.image = alt;
-        p.imageMain = alt;
-        fromPack++;
-        continue;
-      }
-    }
-    if (p.imageMain || p.image) continue;
-    let url = (overrides[sku] || overrides[sku.toLowerCase()] || '').toString().trim();
-    if (!url.startsWith('http')) url = '';
-    if (url) {
-      p.image = url;
-      p.imageMain = url;
+
+    const keepAsSecondary = (prev, hero) => {
+      if (!prev || prev === hero) return;
+      if (scoreProductImage(prev, p.name, p.section) <= -5) return;
+      if (!p.imagePack || p.imagePack === hero) p.imagePack = prev;
+      else if (!p.imageSlice || p.imageSlice === hero) p.imageSlice = prev;
+    };
+
+    // Force override wins (Sheets cells are often shifted / wrong meat).
+    // String → imageMain; object → imageMain/imagePack/imageSlice fields.
+    const ovRaw = overrides[sku] || overrides[sku.toLowerCase()];
+    if (typeof ovRaw === 'string' && ovRaw.startsWith('http')) {
+      keepAsSecondary(p.imageMain || p.image || '', ovRaw);
+      p.image = ovRaw;
+      p.imageMain = ovRaw;
       fromOverride++;
-      continue;
+    } else if (ovRaw && typeof ovRaw === 'object') {
+      for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+        const u = driveToDirectUrl(ovRaw[key]);
+        if (u.startsWith('http')) p[key] = u;
+      }
+      if (p.imageMain) {
+        p.image = p.imageMain;
+        fromOverride++;
+      }
+    } else {
+      // Pick best hero among main/pack/slice by score.
+      const cands = [
+        p.imageMain || p.image || '',
+        p.imagePack || '',
+        p.imageSlice || '',
+      ].filter((u) => String(u).startsWith('http'));
+      if (cands.length) {
+        let best = cands[0];
+        let bestScore = scoreProductImage(best, p.name, p.section);
+        for (const u of cands.slice(1)) {
+          const sc = scoreProductImage(u, p.name, p.section);
+          if (sc > bestScore) {
+            best = u;
+            bestScore = sc;
+          }
+        }
+        // Reject hero that still conflicts badly (wrong meat) — better empty than lie.
+        if (bestScore <= -5) {
+          delete p.imageMain;
+          delete p.image;
+          clearedConflict++;
+        } else {
+          const prev = p.imageMain || p.image || '';
+          if (prev !== best) {
+            repicked++;
+            keepAsSecondary(prev, best);
+          }
+          p.imageMain = best;
+          p.image = best;
+        }
+      }
     }
+
+    if (p.imageMain || p.image) continue;
+
     const slug = sku.toLowerCase();
     for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
       const candidate = `${CLOUDINARY_BASE}/products/${slug}.${ext}`;
@@ -1056,27 +1176,26 @@ async function applyImageFallbacks(products) {
         p.image = candidate;
         p.imageMain = candidate;
         fromCloudinary++;
-        // Persist discovery so next sync is instant and Sheets can be filled later.
         overrides[sku] = candidate;
         break;
       }
     }
   }
-  if (clearedCross || fromPack || fromOverride || fromCloudinary) {
+
+  if (clearedCross || clearedConflict || repicked || fromOverride || fromCloudinary) {
     console.log(
-      `  🖼️  Фото: cleared-cross-sku=${clearedCross}, pack/slice=${fromPack}, overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
+      `  🖼️  Фото: cleared-cross-sku=${clearedCross}, cleared-conflict=${clearedConflict}, ` +
+        `repicked-hero=${repicked}, overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
     );
   }
   if (fromCloudinary && existsSync(path)) {
     try {
-      const { _comment, ...rest } = overrides;
-      const out = { _comment: _comment || overrides._comment, ...rest };
-      // Keep comment first
       const ordered = {};
       if (overrides._comment) ordered._comment = overrides._comment;
       for (const [k, v] of Object.entries(overrides)) {
         if (k === '_comment') continue;
         if (typeof v === 'string' && v.startsWith('http')) ordered[k] = v;
+        else if (v && typeof v === 'object') ordered[k] = v;
       }
       writeFileSync(path, JSON.stringify(ordered, null, 2) + '\n', 'utf-8');
     } catch {

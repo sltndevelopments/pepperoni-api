@@ -448,18 +448,30 @@ def main():
             k = _cloudinary_asset_key(u)
             return any(x in k for x in ("razrez", "v-raz", "srez", "narezk", "razreze"))
 
-        # Hero = whole product. Bakery Sheets put beauty shot in «срез» and
-        # *-v-razreze in «упаковка». If main is a cutaway but slice is not — swap.
-        if main_raw and _is_cut(main_raw) and slice_raw and not _is_cut(slice_raw):
+        def _is_generic(u):
+            k = _cloudinary_asset_key(u)
+            return bool(re.search(r"hot_dog|feli4477|0413-|pizza_s_", k))
+
+        # Bakery only: Sheets put beauty in «срез» and *-v-razreze in «упаковка».
+        # Never do this for meat — cutaway of matching SKU is a valid hero
+        # (blind swap turned «С травами» into a generic hot-dog shot).
+        if (
+            section == "Выпечка"
+            and main_raw
+            and _is_cut(main_raw)
+            and slice_raw
+            and not _is_cut(slice_raw)
+            and not _is_generic(slice_raw)
+        ):
             if not pack_raw:
-                pack_raw = main_raw  # keep cutaway as secondary
+                pack_raw = main_raw
             main_raw = slice_raw
         elif not main_raw:
-            if slice_raw and not _is_cut(slice_raw):
-                main_raw = slice_raw
-            elif pack_raw and not _is_cut(pack_raw):
-                main_raw = pack_raw
-            else:
+            for cand in (slice_raw, pack_raw):
+                if cand and not _is_generic(cand):
+                    main_raw = cand
+                    break
+            if not main_raw:
                 main_raw = slice_raw or pack_raw or ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
