@@ -57,7 +57,14 @@ Google Sheets (опубликованный CSV, 3 листа: Заморозк�
 или чужой файл `kd-NNN` (файлы `kd-059..064.jpg` на Cloudinary названы по СТАРОЙ
 нумерации SKU: kd-059 = губадия, kd-061 = перемяч). При браке/пустой ячейке показывается
 последнее хорошее фото из `data/image_manifest.json` (авто-снапшот, пишется sync'ом —
-руками не редактировать). Гейт: `python3 scripts/check_catalog_images.py`.
+руками не редактировать).
+
+**Показ фото — только same-origin.** `res.cloudinary.com` живёт за Cloudflare, который
+RKN душит у розничных РФ-провайдеров (у части посетителей каталог был вообще без фото).
+Sync зеркалирует каждое принятое фото в `public/images/products/kd-NNN-{main,pack,slice}.jpg`
+(источники — в `data/image_mirror.json`), и в `products.json`/страницах живут только URL
+`pepperoni.tatar/images/products/…`. Cloudinary — хранилище-источник, не CDN показа.
+Гейт: `python3 scripts/check_catalog_images.py`.
 
 Не править ассортимент / число SKU в HTML вручную: после синка
 `reconcile_sku_count.py` + `bulk_fix_stale_content.py --fix-sku-text`
