@@ -7,6 +7,23 @@
  */
 (function () {
   "use strict";
+
+  // Google Tag (AW-18346189266) for Google Ads conversion tracking
+  if (!window.__gtagAdsLoaded) {
+    window.__gtagAdsLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    if (typeof window.gtag !== "function") {
+      window.gtag = function () { window.dataLayer.push(arguments); };
+    }
+    window.gtag("js", new Date());
+    window.gtag("config", "AW-18346189266");
+
+    var gScript = document.createElement("script");
+    gScript.async = true;
+    gScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-18346189266";
+    document.head.appendChild(gScript);
+  }
+
   var forms = document.querySelectorAll("form.lead-form");
   if (!forms.length) return;
 
@@ -74,8 +91,11 @@
                 event_action: "submit",
                 page: window.location.pathname
               });
-              if (typeof gtag === "function") {
-                gtag("event", "generate_lead", {
+              if (typeof window.gtag === "function") {
+                window.gtag("event", "conversion", {
+                  send_to: "AW-18346189266"
+                });
+                window.gtag("event", "generate_lead", {
                   event_category: "lead",
                   event_label: window.location.pathname
                 });
