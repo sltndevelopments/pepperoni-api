@@ -316,8 +316,8 @@
   }
  },
  "2026-07": {
-  "usd": 29.762589,
-  "usd_baseline": 31.258749,
+  "usd": 30.856259,
+  "usd_baseline": 32.281162,
   "days": {
    "2026-07-01": {
     "calls": 151,
@@ -509,33 +509,42 @@
     "usd_baseline": 1.02765
    },
    "2026-07-23": {
-    "calls": 46,
-    "in": 22072,
-    "out": 18254,
+    "calls": 70,
+    "in": 28702,
+    "out": 20606,
     "cache_w": 20734,
     "cache_r": 0,
-    "usd": 1.085977,
-    "usd_baseline": 1.014719
+    "usd": 1.141147,
+    "usd_baseline": 1.069889
+   },
+   "2026-07-24": {
+    "calls": 195,
+    "in": 45454,
+    "out": 18151,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.0385,
+    "usd_baseline": 0.967243
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 213,
-    "in": 59930,
-    "out": 24827,
+    "calls": 276,
+    "in": 77313,
+    "out": 31047,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.552195,
-    "usd_baseline": 0.552195
+    "usd": 0.697644,
+    "usd_baseline": 0.697644
    },
    "sales:cli": {
-    "calls": 284,
-    "in": 79800,
-    "out": 123873,
-    "cache_w": 119716,
+    "calls": 437,
+    "in": 105498,
+    "out": 132273,
+    "cache_w": 124912,
     "cache_r": 61444,
-    "usd": 4.852932,
-    "usd_baseline": 4.896885
+    "usd": 5.098386,
+    "usd_baseline": 5.129349
    },
    "optimize_seo": {
     "calls": 42,
@@ -574,13 +583,13 @@
     "usd_baseline": 1.368176
    },
    "escalate_brain": {
-    "calls": 25,
-    "in": 278945,
-    "out": 64385,
-    "cache_w": 275173,
+    "calls": 28,
+    "in": 287948,
+    "out": 70268,
+    "cache_w": 290711,
     "cache_r": 0,
-    "usd": 13.504086,
-    "usd_baseline": 12.472193
+    "usd": 14.206853,
+    "usd_baseline": 13.116693
    },
    "brain_toolsmith": {
     "calls": 33,
@@ -630,22 +639,22 @@
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 430,
-    "in": 522354,
-    "out": 655253,
+    "calls": 493,
+    "in": 539737,
+    "out": 661473,
     "cache_w": 20056,
     "cache_r": 44311,
-    "usd": 9.438125,
-    "usd_baseline": 12.06909
+    "usd": 9.583574,
+    "usd_baseline": 12.214539
    },
    "claude-haiku-4-5": {
-    "calls": 194,
-    "in": 39238,
-    "out": 28374,
+    "calls": 346,
+    "in": 64227,
+    "out": 34409,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.181108,
-    "usd_baseline": 0.181108
+    "usd": 0.236272,
+    "usd_baseline": 0.236272
    },
    "claude-haiku-4-5-20251001": {
     "calls": 2,
@@ -657,31 +666,31 @@
     "usd_baseline": 0.015681
    },
    "pplx-sonar-pro": {
-    "calls": 170,
-    "in": 17578,
-    "out": 45087,
+    "calls": 172,
+    "in": 17713,
+    "out": 47974,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 1.579039,
-    "usd_baseline": 1.579039
+    "usd": 1.632749,
+    "usd_baseline": 1.632749
    },
    "claude-opus-4-8": {
-    "calls": 19,
-    "in": 291641,
-    "out": 55127,
-    "cache_w": 290364,
+    "calls": 20,
+    "in": 300509,
+    "out": 58123,
+    "cache_w": 305902,
     "cache_r": 0,
-    "usd": 13.953461,
-    "usd_baseline": 12.8646
+    "usd": 14.602519,
+    "usd_baseline": 13.45539
    },
    "claude-fable-5": {
-    "calls": 46,
-    "in": 24429,
-    "out": 44662,
-    "cache_w": 102822,
+    "calls": 47,
+    "in": 25138,
+    "out": 47027,
+    "cache_w": 108018,
     "cache_r": 23457,
-    "usd": 3.786122,
-    "usd_baseline": 3.74018
+    "usd": 3.976412,
+    "usd_baseline": 3.91748
    },
    "pplx-agent": {
     "calls": 15,

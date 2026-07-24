@@ -1,34 +1,27 @@
 {
-  "generated_at": "2026-07-23T05:32:02.991471+00:00",
+  "generated_at": "2026-07-24T05:31:39.179835+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 249,
+      "impr": 254,
       "clk": 2,
-      "pos": 43.2,
+      "pos": 42.5,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль купить",
-      "impr": 106,
+      "impr": 101,
       "clk": 1,
-      "pos": 42.0,
+      "pos": 42.5,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пеперони халяль",
-      "impr": 56,
+      "impr": 55,
       "clk": 1,
-      "pos": 6.6,
-      "page": "https://pepperoni.tatar/"
-    },
-    {
-      "query": "лучшие компании производители халяль колбасных изделий казань",
-      "impr": 27,
-      "clk": 0,
-      "pos": 5.0,
+      "pos": 6.5,
       "page": "https://pepperoni.tatar/"
     }
   ]
