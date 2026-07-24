@@ -1,9 +1,15 @@
 #!/usr/bin/env python3
-"""Гейт каталожных фото. Источник правды — Google Sheets; sync валидирует
-ссылки и снапшотит принятые в data/image_manifest.json. Здесь проверяем, что:
-  - products.json совпадает со снапшотом (sync отработал корректно);
-  - ни одно поле не ссылается на чужой файл kd-NNN (старая нумерация);
-  - каждый URL отвечает HTTP 200.
+"""Гейт каталожных фото.
+
+Схема: Google Sheets (источник правды) → sync валидирует ссылки и снапшотит
+принятые в data/image_manifest.json → sync зеркалирует файлы с Cloudinary в
+public/images/products/ (same-origin: Cloudinary за Cloudflare недоступен части
+РФ-провайдеров) → products.json отдаёт ссылки pepperoni.tatar/images/products/.
+
+Проверяем:
+  - каждое поле в products.json — same-origin зеркало, и файл лежит локально;
+  - зеркало собрано из того же источника, что в манифесте (image_mirror.json);
+  - исходники в манифесте живые (HTTP 200) и не ссылаются на чужой kd-NNN.
 
 Запуск: python3 scripts/check_catalog_images.py
 Выход 1 = нарушение (не публиковать). Используется вручную/в CI после sync.
@@ -17,6 +23,8 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+MIRROR_DIR = ROOT / "public" / "images" / "products"
+MIRROR_PREFIX = "https://pepperoni.tatar/images/products/"
 IMG_KEYS = ("imageMain", "imagePack", "imageSlice")
 
 
@@ -38,50 +46,61 @@ def head_ok(url: str) -> bool:
 def main() -> int:
     products = json.loads((ROOT / "public" / "products.json").read_text())["products"]
     manifest = json.loads((ROOT / "data" / "image_manifest.json").read_text())
+    try:
+        mirror_map = json.loads((ROOT / "data" / "image_mirror.json").read_text())
+    except Exception:
+        mirror_map = {}
     errors = []
+    source_urls = set()
 
-    urls = set()
     for p in products:
         sku = p["sku"]
-        pin = manifest.get(sku, "__missing__")
-        actual = {k: p.get(k) or None for k in IMG_KEYS}
-
-        if pin == "__missing__":
-            errors.append(f"{sku}: нет в image_manifest.json — прогнать npm run sync (снапшот отстал)")
-        elif pin is None:
-            got = [k for k, v in actual.items() if v]
-            if got:
-                errors.append(f"{sku}: в снапшоте «без фото», а в products.json есть {got} — прогнать sync")
-        else:
+        pin = manifest.get(sku)
+        if isinstance(pin, dict):
             for k in IMG_KEYS:
-                want = pin.get(k) or None
-                if (actual[k] or None) != want:
-                    errors.append(f"{sku}.{k}: '{basename(actual[k])}' != манифест '{basename(want)}'")
+                src = pin.get(k)
+                if not src:
+                    continue
+                source_urls.add(src)
+                m = re.search(r"/products/kd-(\d{3})\.(?:jpe?g|png|webp)$", src, re.I)
+                if m and f"KD-{m.group(1)}" != sku:
+                    errors.append(f"{sku}.{k} (источник): чужой файл kd-{m.group(1)} (старая нумерация)")
 
         for k in IMG_KEYS:
             u = p.get(k)
             if not u:
+                if isinstance(pin, dict) and pin.get(k):
+                    errors.append(f"{sku}.{k}: в манифесте есть источник, в products.json пусто — прогнать sync")
                 continue
-            m = re.search(r"/products/kd-(\d{3})\.(?:jpe?g|png|webp)$", u, re.I)
-            if m and f"KD-{m.group(1)}" != sku:
-                errors.append(f"{sku}.{k}: чужой файл kd-{m.group(1)} (перепутанная нумерация)")
-            urls.add(u)
+            if u.startswith(MIRROR_PREFIX):
+                fname = basename(u)
+                f = MIRROR_DIR / fname
+                if not f.is_file() or f.stat().st_size < 1000:
+                    errors.append(f"{sku}.{k}: зеркало {fname} отсутствует/битое в public/images/products/")
+                src = mirror_map.get(fname)
+                want = (pin or {}).get(k) if isinstance(pin, dict) else None
+                if want and src and src != want:
+                    errors.append(f"{sku}.{k}: зеркало {fname} собрано из '{basename(src)}', а в манифесте '{basename(want)}'")
+            elif u.startswith("https://res.cloudinary.com/"):
+                errors.append(f"{sku}.{k}: не зазеркалено, отдаётся Cloudinary напрямую ({basename(u)}) — часть РФ не увидит")
+            else:
+                errors.append(f"{sku}.{k}: неожиданный URL {u[:80]}")
 
     with ThreadPoolExecutor(max_workers=16) as ex:
-        for u, ok in zip(urls, ex.map(head_ok, urls)):
+        for u, ok in zip(source_urls, ex.map(head_ok, source_urls)):
             if not ok:
-                errors.append(f"HTTP не-200: {u}")
+                errors.append(f"Источник не отвечает 200: {u}")
 
     no_photo = sorted(p["sku"] for p in products if not any(p.get(k) for k in IMG_KEYS))
-    print(f"Проверено: {len(products)} SKU, {len(urls)} уникальных URL")
+    print(f"Проверено: {len(products)} SKU, {len(source_urls)} исходников на Cloudinary")
     if no_photo:
-        print(f"Без фото (плейсхолдер, ок по манифесту): {len(no_photo)}: {', '.join(no_photo)}")
+        print(f"Без фото (плейсхолдер): {len(no_photo)}: {', '.join(no_photo)}")
     if errors:
         print(f"\nНАРУШЕНИЯ ({len(errors)}):")
         for e in errors:
             print(f"  ✗ {e}")
         return 1
-    print("OK: фото каталога соответствуют манифесту, все URL живые")
+    print("OK: все фото зазеркалены на pepperoni.tatar, исходники живые")
     return 0
 
 

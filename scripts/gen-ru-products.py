@@ -42,6 +42,23 @@ def _cloudinary_asset_key(url: str) -> str:
     return path.split("/")[-1].lower()
 
 
+def _load_image_sources():
+    """SKU -> исходные Cloudinary-URL из data/image_manifest.json.
+
+    В products.json лежат зеркальные kd-NNN-pack.jpg (имя слота, не содержимого),
+    поэтому подписи миниатюр берём из исходных имён файлов."""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "image_manifest.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            m = json.load(f)
+        return {k: v for k, v in m.items() if isinstance(v, dict)}
+    except Exception:
+        return {}
+
+
+IMAGE_SOURCES = _load_image_sources()
+
+
 def gallery_thumb_label(url: str, fallback: str) -> str:
     """Label from filename — Sheets pack/slice columns are often swapped for bakery."""
     key = _cloudinary_asset_key(url)
@@ -278,6 +295,11 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """
     if not pid or not str(pid).strip():
         return ""
+    s = str(pid).strip()
+    # Same-origin зеркало (sync скачал файл в public/images/products/) —
+    # отдаём как есть: Cloudinary за Cloudflare недоступен части РФ-провайдеров.
+    if s.startswith("https://pepperoni.tatar/images/") or s.startswith("/images/"):
+        return s if s.startswith("http") else "https://pepperoni.tatar" + s
     pid = _cloudinary_public_id(pid)
     if not pid:
         return ""
@@ -355,6 +377,9 @@ def load_products():
 
 def materialize_lcp_image(slug, cloudinary_url):
     """Download LCP thumb to same-origin /images/products/ — avoids multi-second Cloudinary cold TTFB in PSI."""
+    if cloudinary_url and cloudinary_url.startswith("https://pepperoni.tatar/images/"):
+        # Уже same-origin зеркало из sync — просто относительный путь.
+        return cloudinary_url[len("https://pepperoni.tatar"):]
     if not cloudinary_url or not cloudinary_url.startswith("https://res.cloudinary.com/"):
         return cloudinary_url
     os.makedirs(LCP_IMG_DIR, exist_ok=True)
@@ -461,22 +486,24 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
+        srcs = IMAGE_SOURCES.get(p["sku"].upper()) or {}
         main_keys = {
+            _cloudinary_asset_key(srcs.get("imageMain", "")),
             _cloudinary_asset_key(main_raw),
             _cloudinary_asset_key(main_cdn),
             _cloudinary_asset_key(main_img),
         }
         main_keys.discard("")
-        for fallback_label, raw, url, proxy, full, full_proxy in [
-            ("Упаковка", pack_raw, pack_img, pack_img_proxy, pack_full, pack_full_proxy),
-            ("В разрезе", slice_raw, slice_img, slice_img_proxy, slice_full, slice_full_proxy),
+        for fallback_label, raw, src_u, url, proxy, full, full_proxy in [
+            ("Упаковка", pack_raw, srcs.get("imagePack", ""), pack_img, pack_img_proxy, pack_full, pack_full_proxy),
+            ("В разрезе", slice_raw, srcs.get("imageSlice", ""), slice_img, slice_img_proxy, slice_full, slice_full_proxy),
         ]:
             if not url:
                 continue
-            key = _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
+            key = _cloudinary_asset_key(src_u) or _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
             if key and key in main_keys:
                 continue  # same asset as hero — skip duplicate thumb
-            label = gallery_thumb_label(raw or url, fallback_label)
+            label = gallery_thumb_label(src_u or raw or url, fallback_label)
             thumbs.append(
                 f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" '
                 f'data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">'
@@ -534,11 +561,12 @@ def main():
             with open(override_path, encoding="utf-8") as _ovf:
                 deep_html = deep_html + "\n" + _ovf.read()
 
-        # No crossorigin on Cloudinary preconnect — <img>/image preload are no-cors;
-        # crossorigin would open a separate connection pool and waste the hint.
+        # Галерея целиком same-origin (зеркала) — preconnect к Cloudinary нужен
+        # только если зеркалирование не удалось и src остался внешним.
+        _needs_cdn = "res.cloudinary.com" in (main_img or "")
         preload_main = (
-            f'<link rel="preconnect" href="https://res.cloudinary.com">'
-            f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
+            (f'<link rel="preconnect" href="https://res.cloudinary.com">' if _needs_cdn else "")
+            + f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
             if main_img else ""
         )
 

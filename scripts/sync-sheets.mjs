@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { createHash } from 'crypto';
 import {
   loadRegistry,
   saveRegistry,
@@ -1035,8 +1036,19 @@ async function applyImageManifest(products) {
     const pin = manifest[sku] && typeof manifest[sku] === 'object' ? manifest[sku] : {};
     const next = {};
 
+    // Один и тот же кадр в нескольких ячейках → считаем повторы пустыми.
+    const sheetUrls = {};
+    const seenSheet = new Set();
     for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
-      const sheetUrl = driveToDirectUrl(key === 'imageMain' ? p.imageMain || p.image : p[key]);
+      let u = driveToDirectUrl(key === 'imageMain' ? p.imageMain || p.image : p[key]);
+      const b = imageBasename(u);
+      if (b && seenSheet.has(b)) u = '';
+      else if (b) seenSheet.add(b);
+      sheetUrls[key] = u;
+    }
+
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      const sheetUrl = sheetUrls[key];
       const lastGood = pin[key] || '';
 
       if (!sheetUrl) {
@@ -1060,6 +1072,15 @@ async function applyImageManifest(products) {
         rejected.push(`${sku}.${key}: ${imageBasename(sheetUrl)} — не отвечает HTTP 200`);
         if (lastGood) next[key] = lastGood;
       }
+    }
+
+    // Повторы, оставшиеся от прежних снапшотов, тоже схлопываем.
+    const seenChosen = new Set();
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      const b = imageBasename(next[key] || '');
+      if (!b) continue;
+      if (seenChosen.has(b)) delete next[key];
+      else seenChosen.add(b);
     }
 
     for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
@@ -1102,6 +1123,89 @@ async function applyImageManifest(products) {
     }
     writeFileSync(path, JSON.stringify(out, null, 2) + '\n', 'utf-8');
     console.log(`  💾 image_manifest.json обновлён (снапшот последних хороших фото)`);
+  }
+}
+
+/**
+ * Зеркалирование фото на свой домен. res.cloudinary.com живёт за Cloudflare,
+ * который RKN душит у розничных РФ-провайдеров (та же причина, по которой сайт
+ * ушёл с Cloudflare-прокси, см. docs/HEADLESS-ARCHITECTURE.md) — у части
+ * посетителей из России карточки без фото. Поэтому display-URL в products.json
+ * всегда same-origin (pepperoni.tatar раздаётся напрямую с VPS), а Cloudinary —
+ * только хранилище-источник, из которого sync скачивает файлы.
+ */
+const SITE_ORIGIN = 'https://pepperoni.tatar';
+const MIRROR_DIR = join(PUBLIC, 'images', 'products');
+const MIRROR_MAP_PATH = join(ROOT, 'data', 'image_mirror.json');
+// main — как прежний LCP-кроп без вотермарки; pack/slice — как прежние миниатюры с вотермаркой.
+const MIRROR_T = {
+  main: 'f_jpg,q_auto:good,w_640,h_427,c_fill,g_auto',
+  pack: 'f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center',
+  slice: 'f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center',
+};
+
+async function mirrorCatalogImages(products) {
+  let map = {};
+  if (existsSync(MIRROR_MAP_PATH)) {
+    try {
+      map = JSON.parse(readFileSync(MIRROR_MAP_PATH, 'utf-8'));
+    } catch {
+      map = {};
+    }
+  }
+  mkdirSync(MIRROR_DIR, { recursive: true });
+
+  let downloaded = 0;
+  let reused = 0;
+  const fails = [];
+
+  for (const p of products) {
+    const sku = (p.sku || '').trim().toLowerCase();
+    if (!sku) continue;
+    for (const [field, suffix] of [
+      ['imageMain', 'main'],
+      ['imagePack', 'pack'],
+      ['imageSlice', 'slice'],
+    ]) {
+      const src = p[field];
+      if (!src || !src.startsWith('https://res.cloudinary.com/')) continue;
+      const name = `${sku}-${suffix}.jpg`;
+      const dest = join(MIRROR_DIR, name);
+      const hasFile = () => existsSync(dest) && statSync(dest).size > 1000;
+
+      if (map[name] === src && hasFile()) {
+        reused++;
+      } else {
+        const dl = src.replace('/image/upload/', `/image/upload/${MIRROR_T[suffix]}/`);
+        try {
+          const r = await fetch(dl);
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          const buf = Buffer.from(await r.arrayBuffer());
+          if (buf.length < 1000) throw new Error(`слишком маленький ответ (${buf.length} B)`);
+          writeFileSync(dest, buf);
+          map[name] = src;
+          downloaded++;
+        } catch (e) {
+          if (hasFile()) {
+            fails.push(`${name}: ${e.message} — оставлен прежний локальный файл`);
+          } else {
+            fails.push(`${name}: ${e.message} — временно отдаём Cloudinary напрямую`);
+            continue; // p[field] остаётся Cloudinary-URL
+          }
+        }
+      }
+      const ver = createHash('md5').update(src).digest('hex').slice(0, 8);
+      p[field] = `${SITE_ORIGIN}/images/products/${name}?v=${ver}`;
+    }
+    if (p.imageMain) p.image = p.imageMain;
+    else delete p.image;
+  }
+
+  writeFileSync(MIRROR_MAP_PATH, JSON.stringify(map, null, 2) + '\n', 'utf-8');
+  console.log(`  🪞 Зеркала фото: скачано ${downloaded}, актуальных ${reused}`);
+  if (fails.length) {
+    console.log(`  ⚠️  Проблемы зеркалирования:`);
+    for (const f of fails) console.log(`     ${f}`);
   }
 }
 
@@ -1151,6 +1255,7 @@ async function main() {
 
   applyDescriptionOverrides(allProducts);
   await applyImageManifest(allProducts);
+  await mirrorCatalogImages(allProducts);
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');

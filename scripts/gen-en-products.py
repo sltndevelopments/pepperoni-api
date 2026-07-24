@@ -45,6 +45,23 @@ def _cloudinary_asset_key(url: str) -> str:
     return path.split("/")[-1].lower()
 
 
+def _load_image_sources():
+    """SKU -> source Cloudinary URLs from data/image_manifest.json.
+
+    products.json now carries mirrored kd-NNN-pack.jpg (slot name, not content),
+    so thumb labels must come from the source filenames."""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "image_manifest.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            m = json.load(f)
+        return {k: v for k, v in m.items() if isinstance(v, dict)}
+    except Exception:
+        return {}
+
+
+IMAGE_SOURCES = _load_image_sources()
+
+
 def gallery_thumb_label(url: str, fallback: str) -> str:
     key = _cloudinary_asset_key(url)
     if any(x in key for x in ("razrez", "v-raz", "srez", "narezk", "razreze")):
@@ -254,6 +271,11 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     """
     if not pid or not str(pid).strip():
         return ""
+    s = str(pid).strip()
+    # Same-origin mirror (sync downloaded into public/images/products/) —
+    # pass through: Cloudinary sits behind Cloudflare, throttled for many RU ISPs.
+    if s.startswith("https://pepperoni.tatar/images/") or s.startswith("/images/"):
+        return s if s.startswith("http") else "https://pepperoni.tatar" + s
     pid = _cloudinary_public_id(pid)
     if not pid:
         return ""
@@ -409,14 +431,15 @@ def main():
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
-        # Prefer same-origin LCP materialized by gen-ru-products.py
         main_img = main_cdn
-        for ext in ("webp", "jpg"):
-            local_path = os.path.join("public", "images", "products", f"{slug}-lcp.{ext}")
-            if os.path.isfile(local_path) and os.path.getsize(local_path) > 1000:
-                main_img = f"/images/products/{slug}-lcp.{ext}"
-                main_img_proxy = main_cdn
-                break
+        if not main_cdn.startswith("https://pepperoni.tatar/images/"):
+            # Legacy: same-origin LCP materialized by gen-ru-products.py
+            for ext in ("webp", "jpg"):
+                local_path = os.path.join("public", "images", "products", f"{slug}-lcp.{ext}")
+                if os.path.isfile(local_path) and os.path.getsize(local_path) > 1000:
+                    main_img = f"/images/products/{slug}-lcp.{ext}"
+                    main_img_proxy = main_cdn
+                    break
         def _abs(u):
             if not u:
                 return ""
@@ -446,22 +469,24 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
+        srcs = IMAGE_SOURCES.get(sku.upper()) or {}
         main_keys = {
+            _cloudinary_asset_key(srcs.get("imageMain", "")),
             _cloudinary_asset_key(main_raw),
             _cloudinary_asset_key(main_cdn),
             _cloudinary_asset_key(main_img),
         }
         main_keys.discard("")
-        for fallback_label, raw, url, proxy, full, full_proxy in [
-            ("Pack", pack_raw, pack_img, pack_img_proxy, pack_full, pack_full_proxy),
-            ("Slice", slice_raw, slice_img, slice_img_proxy, slice_full, slice_full_proxy),
+        for fallback_label, raw, src_u, url, proxy, full, full_proxy in [
+            ("Pack", pack_raw, srcs.get("imagePack", ""), pack_img, pack_img_proxy, pack_full, pack_full_proxy),
+            ("Slice", slice_raw, srcs.get("imageSlice", ""), slice_img, slice_img_proxy, slice_full, slice_full_proxy),
         ]:
             if not url:
                 continue
-            key = _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
+            key = _cloudinary_asset_key(src_u) or _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
             if key and key in main_keys:
                 continue
-            label = gallery_thumb_label(raw or url, fallback_label)
+            label = gallery_thumb_label(src_u or raw or url, fallback_label)
             thumbs.append(
                 f'<span class="lightbox-trigger" data-alt="{name_esc} — {label}" '
                 f'data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">'
@@ -529,10 +554,12 @@ def main():
             with open(override_path, encoding="utf-8") as _ovf:
                 deep_html = deep_html + "\n" + _ovf.read()
 
-        # No crossorigin — image preload/<img> are no-cors (see gen-ru-products).
+        # Gallery is fully same-origin (mirrors) — preconnect to Cloudinary only
+        # if mirroring failed and the src stayed external.
+        _needs_cdn = "res.cloudinary.com" in (main_img or "")
         preload_main = (
-            f'<link rel="preconnect" href="https://res.cloudinary.com">'
-            f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
+            (f'<link rel="preconnect" href="https://res.cloudinary.com">' if _needs_cdn else "")
+            + f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
             if main_img else ""
         )
 
