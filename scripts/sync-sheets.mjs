@@ -1012,11 +1012,28 @@ async function applyImageFallbacks(products) {
         clearedCross++;
       }
     }
+    // Demote cutaway-as-main when a non-cut beauty shot exists in imageSlice.
+    {
+      const isCut = (u) => /razrez|v-raz|srez|narezk/i.test(String(u || ''));
+      const main = (p.imageMain || p.image || '').toString().trim();
+      const slice = (p.imageSlice || '').toString().trim();
+      if (main.startsWith('http') && isCut(main) && slice.startsWith('http') && !isCut(slice)) {
+        if (!(p.imagePack || '').toString().trim()) p.imagePack = main;
+        p.imageMain = slice;
+        p.image = slice;
+      }
+    }
     if (!(p.imageMain || p.image)) {
-      // Prefer pack (often *-v-razreze): named slice assets were duplicated onto
-      // classic-bakery kd-059…064 public_ids in Cloudinary (byte-identical).
-      const alt = (p.imagePack || p.imageSlice || '').toString().trim();
-      if (alt.startsWith('http')) {
+      // Hero = whole product, not cutaway. Bakery Sheets often store the beauty
+      // shot in «фото среза» and *-v-razreze in «фото упаковки» (columns swapped).
+      const slice = (p.imageSlice || '').toString().trim();
+      const pack = (p.imagePack || '').toString().trim();
+      const isCut = (u) => /razrez|v-raz|srez|narezk/i.test(u);
+      let alt = '';
+      if (slice.startsWith('http') && !isCut(slice)) alt = slice;
+      else if (pack.startsWith('http') && !isCut(pack)) alt = pack;
+      else alt = (slice.startsWith('http') && slice) || (pack.startsWith('http') && pack) || '';
+      if (alt) {
         p.image = alt;
         p.imageMain = alt;
         fromPack++;

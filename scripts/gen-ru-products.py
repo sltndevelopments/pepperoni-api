@@ -443,11 +443,24 @@ def main():
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
-        # Prefer own pack/slice. Pack first: several named slice public_ids are
-        # byte-identical to classic-bakery kd-059…064 on Cloudinary.
-        # Never use CATEGORY_OG as gallery main (wrong product photos).
-        if not main_raw:
-            main_raw = pack_raw or slice_raw or ""
+
+        def _is_cut(u):
+            k = _cloudinary_asset_key(u)
+            return any(x in k for x in ("razrez", "v-raz", "srez", "narezk", "razreze"))
+
+        # Hero = whole product. Bakery Sheets put beauty shot in «срез» and
+        # *-v-razreze in «упаковка». If main is a cutaway but slice is not — swap.
+        if main_raw and _is_cut(main_raw) and slice_raw and not _is_cut(slice_raw):
+            if not pack_raw:
+                pack_raw = main_raw  # keep cutaway as secondary
+            main_raw = slice_raw
+        elif not main_raw:
+            if slice_raw and not _is_cut(slice_raw):
+                main_raw = slice_raw
+            elif pack_raw and not _is_cut(pack_raw):
+                main_raw = pack_raw
+            else:
+                main_raw = slice_raw or pack_raw or ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
