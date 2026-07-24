@@ -997,90 +997,34 @@ function imageBasename(url) {
   }
 }
 
-function isCutawayUrl(url) {
-  return /razrez|v-raz|srez|narezk/i.test(imageBasename(url));
-}
-
-function isGenericShotUrl(url) {
-  // Lifestyle / shared props — never promote over a product-specific shot.
-  return /hot_dog|feli4477|0413-|pizza_s_/i.test(imageBasename(url));
-}
-
-/** Score how well an image filename matches the product name (meat/type tokens). */
-function scoreProductImage(url, productName, section) {
-  const u = driveToDirectUrl(url);
-  if (!u.startsWith('http')) return -999;
-  const key = imageBasename(u);
-  if (!key || key === '0') return -999;
-  const name = String(productName || '').toLowerCase();
-  let s = 0;
-  if (isGenericShotUrl(u)) s -= 10;
-
-  const pairs = [
-    [/трав/, /trav/],
-    [/говяд/, /govad|govyad/],
-    [/конин/, /konin/],
-    [/курин|цыпл|грудк/, /kurin|kuric|chicken|grudk/],
-    [/баран/, /baran/],
-    [/инде/, /inde/],
-    [/пепперони|pepperoni/, /pepperoni/],
-    [/казыл|kyzylyk/, /kyzylyk|kazyl/],
-    [/котлет/, /kotlet/],
-    [/ветчин/, /vetcin/],
-    [/сервелат/, /servelat/],
-    [/два\s*мяс/, /dva_masa|2_masa/],
-    [/три\s*перц/, /tri_perza|perza_s_syr/],
-    [/губади/, /gubadi/],
-    [/чебурек/, /cheburek/],
-    [/перемяч/, /peremyach/],
-    [/самса/, /samsa/],
-    [/эчпочмак/, /echpochmak/],
-    [/элеш/, /elesh/],
-    [/чак.?чак|chak/, /cak|чак/],
-    [/сыр/, /syr|cheese|syrom/],
-  ];
-  for (const [nameRe, fileRe] of pairs) {
-    const nameHit = nameRe.test(name);
-    const fileHit = fileRe.test(key);
-    if (nameHit && fileHit) s += 6;
-    else if (!nameHit && fileHit) {
-      // Filename claims a different product family than the name.
-      if (/govad|govyad|konin|kurin|baran|trav|pepperoni|kyzylyk|kotlet|vetcin|gubadi|cheburek/.test(key)) {
-        s -= 6;
-      }
-    }
-  }
-
-  // Bakery: prefer whole product over *-v-razreze for hero.
-  if (section === 'Выпечка') {
-    if (isCutawayUrl(u)) s -= 3;
-    else s += 2;
-  } else if (isCutawayUrl(u)) {
-    // Meat cutaway of the matching product is a fine hero.
-    s += 1;
-  }
-  return s;
-}
-
 /**
- * Normalize Sheets photo cells: fix bare Cloudinary paths, drop garbage,
- * pick hero by name↔filename score (not blind «cutaway bad»), force overrides.
+ * Каталожные фото: data/image_manifest.json — единственный источник правды.
+ *
+ * Почему не эвристики: ячейки фото в Sheets регулярно съезжают, а имена файлов
+ * kd-NNN.jpg на Cloudinary отражают СТАРУЮ нумерацию SKU (до remap) —
+ * любой «умный» подбор по именам уже дважды ломал каталог. Поэтому:
+ *   - SKU есть в манифесте (объект)  → фото берутся ТОЛЬКО из манифеста;
+ *   - SKU в манифесте = null         → честно без фото (плейсхолдер),
+ *     даже если Sheets/Cloudinary что-то предлагают;
+ *   - SKU нет в манифесте (новый)    → берём из Sheets как есть (с нормализацией
+ *     и защитой от чужого kd-NNN), пробуем products/{sku}.jpg — и громко просим
+ *     закрепить в манифесте.
+ * Расхождения Sheets↔manifest не применяются, а логируются (видимый дрейф).
  */
-async function applyImageFallbacks(products) {
-  const path = join(ROOT, 'data', 'image_overrides.json');
-  let overrides = {};
+async function applyImageManifest(products) {
+  const path = join(ROOT, 'data', 'image_manifest.json');
+  let manifest = {};
   if (existsSync(path)) {
     try {
-      overrides = JSON.parse(readFileSync(path, 'utf-8'));
+      manifest = JSON.parse(readFileSync(path, 'utf-8'));
     } catch (e) {
-      console.warn(`  ⚠️  image_overrides.json unreadable: ${e.message}`);
+      console.warn(`  ⚠️  image_manifest.json unreadable: ${e.message}`);
     }
   }
-  let clearedCross = 0;
-  let clearedConflict = 0;
-  let repicked = 0;
-  let fromOverride = 0;
-  let fromCloudinary = 0;
+
+  const drift = [];
+  const unpinned = [];
+  let pinned = 0;
 
   for (const p of products) {
     const sku = (p.sku || '').trim().toUpperCase();
@@ -1091,120 +1035,62 @@ async function applyImageFallbacks(products) {
       if (!fixed) delete p[key];
       else p[key] = fixed;
     }
+    const sheetMain = p.imageMain || p.image || '';
 
+    if (Object.prototype.hasOwnProperty.call(manifest, sku)) {
+      const pin = manifest[sku];
+      if (pin === null) {
+        if (sheetMain) {
+          drift.push(`${sku}: Sheets даёт ${imageBasename(sheetMain)}, но SKU закреплён «без фото»`);
+        }
+        delete p.image;
+        delete p.imageMain;
+        delete p.imagePack;
+        delete p.imageSlice;
+      } else {
+        if (sheetMain && imageBasename(sheetMain) !== imageBasename(pin.imageMain)) {
+          drift.push(`${sku}: Sheets даёт ${imageBasename(sheetMain)}, манифест — ${imageBasename(pin.imageMain)}`);
+        }
+        p.imageMain = pin.imageMain;
+        p.image = pin.imageMain;
+        if (pin.imagePack) p.imagePack = pin.imagePack;
+        else delete p.imagePack;
+        if (pin.imageSlice) p.imageSlice = pin.imageSlice;
+        else delete p.imageSlice;
+      }
+      pinned++;
+      continue;
+    }
+
+    // Новый SKU без записи в манифесте: Sheets как есть + защита от чужого kd-NNN.
     for (const key of ['imageMain', 'image', 'imagePack', 'imageSlice']) {
       const found = skuFromProductImageUrl(p[key]);
-      if (found && found !== sku) {
-        delete p[key];
-        clearedCross++;
-      }
+      if (found && found !== sku) delete p[key];
     }
-
-    // Drop secondaries that strongly conflict with the product name (e.g. kazylyk←hot-dog).
-    for (const key of ['imagePack', 'imageSlice']) {
-      if (!p[key]) continue;
-      if (scoreProductImage(p[key], p.name, p.section) <= -5) {
-        delete p[key];
-        clearedConflict++;
-      }
-    }
-
-    const keepAsSecondary = (prev, hero) => {
-      if (!prev || prev === hero) return;
-      if (scoreProductImage(prev, p.name, p.section) <= -5) return;
-      if (!p.imagePack || p.imagePack === hero) p.imagePack = prev;
-      else if (!p.imageSlice || p.imageSlice === hero) p.imageSlice = prev;
-    };
-
-    // Force override wins (Sheets cells are often shifted / wrong meat).
-    // String → imageMain; object → imageMain/imagePack/imageSlice fields.
-    const ovRaw = overrides[sku] || overrides[sku.toLowerCase()];
-    if (typeof ovRaw === 'string' && ovRaw.startsWith('http')) {
-      keepAsSecondary(p.imageMain || p.image || '', ovRaw);
-      p.image = ovRaw;
-      p.imageMain = ovRaw;
-      fromOverride++;
-    } else if (ovRaw && typeof ovRaw === 'object') {
-      for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
-        const u = driveToDirectUrl(ovRaw[key]);
-        if (u.startsWith('http')) p[key] = u;
-      }
-      if (p.imageMain) {
-        p.image = p.imageMain;
-        fromOverride++;
-      }
-    } else {
-      // Pick best hero among main/pack/slice by score.
-      const cands = [
-        p.imageMain || p.image || '',
-        p.imagePack || '',
-        p.imageSlice || '',
-      ].filter((u) => String(u).startsWith('http'));
-      if (cands.length) {
-        let best = cands[0];
-        let bestScore = scoreProductImage(best, p.name, p.section);
-        for (const u of cands.slice(1)) {
-          const sc = scoreProductImage(u, p.name, p.section);
-          if (sc > bestScore) {
-            best = u;
-            bestScore = sc;
-          }
-        }
-        // Reject hero that still conflicts badly (wrong meat) — better empty than lie.
-        if (bestScore <= -5) {
-          delete p.imageMain;
-          delete p.image;
-          clearedConflict++;
-        } else {
-          const prev = p.imageMain || p.image || '';
-          if (prev !== best) {
-            repicked++;
-            keepAsSecondary(prev, best);
-          }
-          p.imageMain = best;
-          p.image = best;
+    if (!p.imageMain && !p.image) {
+      for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
+        const candidate = `${CLOUDINARY_BASE}/products/${sku.toLowerCase()}.${ext}`;
+        if (await urlExists(candidate)) {
+          p.image = candidate;
+          p.imageMain = candidate;
+          break;
         }
       }
     }
-
-    if (p.imageMain || p.image) continue;
-
-    const slug = sku.toLowerCase();
-    for (const ext of ['jpg', 'jpeg', 'png', 'webp']) {
-      const candidate = `${CLOUDINARY_BASE}/products/${slug}.${ext}`;
-      if (await urlExists(candidate)) {
-        p.image = candidate;
-        p.imageMain = candidate;
-        fromCloudinary++;
-        overrides[sku] = candidate;
-        break;
-      }
-    }
+    unpinned.push(sku);
   }
 
-  if (clearedCross || clearedConflict || repicked || fromOverride || fromCloudinary) {
-    console.log(
-      `  🖼️  Фото: cleared-cross-sku=${clearedCross}, cleared-conflict=${clearedConflict}, ` +
-        `repicked-hero=${repicked}, overrides=${fromOverride}, cloudinary-auto=${fromCloudinary}`
-    );
+  console.log(`  🖼️  Фото из манифеста: ${pinned} SKU закреплено`);
+  if (drift.length) {
+    console.log(`  📌 Дрейф Sheets↔manifest (манифест побеждает, НЕ авто-применяется):`);
+    for (const d of drift) console.log(`     ${d}`);
   }
-  if (fromCloudinary && existsSync(path)) {
-    try {
-      const ordered = {};
-      if (overrides._comment) ordered._comment = overrides._comment;
-      for (const [k, v] of Object.entries(overrides)) {
-        if (k === '_comment') continue;
-        if (typeof v === 'string' && v.startsWith('http')) ordered[k] = v;
-        else if (v && typeof v === 'object') ordered[k] = v;
-      }
-      writeFileSync(path, JSON.stringify(ordered, null, 2) + '\n', 'utf-8');
-    } catch {
-      /* non-fatal */
-    }
+  if (unpinned.length) {
+    console.log(`  ⚠️  Не закреплены в image_manifest.json (${unpinned.length}): ${unpinned.join(', ')} — закрепить осознанно`);
   }
   const still = products.filter((p) => !p.imageMain && !p.image).map((p) => p.sku);
   if (still.length) {
-    console.log(`  ⚠️  Без фото после fallback (${still.length}): ${still.join(', ')}`);
+    console.log(`  ℹ️  Без фото — плейсхолдер (${still.length}): ${still.join(', ')}`);
   }
 }
 
@@ -1253,7 +1139,7 @@ async function main() {
   console.log(`\n📊 Всего: ${allProducts.length} товаров\n`);
 
   applyDescriptionOverrides(allProducts);
-  await applyImageFallbacks(allProducts);
+  await applyImageManifest(allProducts);
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');

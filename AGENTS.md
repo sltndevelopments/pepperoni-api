@@ -52,6 +52,11 @@ Google Sheets (опубликованный CSV, 3 листа: Заморозк�
 Единственный канонический эндпоинт — `api.pepperoni.tatar`.
 Фронтенд фетчит каталог только оттуда, никогда напрямую из Sheets.**
 
+**Исключение — фото товаров: источник правды `data/image_manifest.json`**, не ячейки
+Sheets (они съезжают, а файлы `kd-NNN.jpg` на Cloudinary названы по СТАРОЙ нумерации SKU).
+Sync применяет манифест поверх Sheets и логирует дрейф; новые фото добавлять правкой
+манифеста, гейт — `python3 scripts/check_catalog_images.py` (соответствие + HTTP 200).
+
 Не править ассортимент / число SKU в HTML вручную: после синка
 `reconcile_sku_count.py` + `bulk_fix_stale_content.py --fix-sku-text`
 (в `sync-vps.sh`) подставляют актуальный count из `products.json`.

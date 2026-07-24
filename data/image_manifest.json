@@ -1,0 +1,230 @@
+{
+  "_comment": "Закреплённые фото каталога: SKU -> {imageMain,imagePack,imageSlice} или null (честно без фото). Единственный источник правды для картинок; sync применяет манифест поверх Sheets и логирует дрейф. Новые фото добавлять сюда осознанно. kd-059..064.jpg на Cloudinary = национальная выпечка под старыми номерами SKU, для KD-059..064 НЕ использовать.",
+  "KD-001": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
+  },
+  "KD-002": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_dva_masa_qafusm.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+  },
+  "KD-003": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+  },
+  "KD-004": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_gril__kurinye_bjrpdn.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_kurinye_80_g_6_st_b8c74f.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+  },
+  "KD-005": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_iz_baraniny_1.0_begzsd.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_baraninoi%CC%86_nw1xi2.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+  },
+  "KD-006": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_travami_ruptjj.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+  },
+  "KD-007": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730303/sosiski_dla_hot_dogov_prosto_s_syrom_fhqdsp.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_syrom_1_ncg3x7.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+  },
+  "KD-008": null,
+  "KD-009": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg"
+  },
+  "KD-010": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg"
+  },
+  "KD-011": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730388/vetcina_filei%CC%86naa_1.1_aenzt8.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700189/pizza_s_vetcinoi%CC%86_1.0_dwljhl.jpg"
+  },
+  "KD-012": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+  },
+  "KD-013": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+  },
+  "KD-014": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+  },
+  "KD-015": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kurinaa_grudka_v_razreze_o3124p.jpg"
+  },
+  "KD-016": null,
+  "KD-017": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+  },
+  "KD-018": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730443/sosiski_k_zavtraku_3_hv0eel.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+  },
+  "KD-019": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730430/sosiski_neznaa_jqh4xv.jpg"
+  },
+  "KD-020": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg"
+  },
+  "KD-021": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_1.1_eeaaav.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_iygsec.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730428/sosiski_s_syrom_130_g_5_st_2_ctyyui.jpg"
+  },
+  "KD-022": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730444/sosiski_iz_govadiny_80_g_6_st_2_icliam.jpg"
+  },
+  "KD-023": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_kazanskie_premium_udkadz.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_v-s_premium_xyky0a.jpg"
+  },
+  "KD-024": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg"
+  },
+  "KD-025": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg"
+  },
+  "KD-026": null,
+  "KD-027": null,
+  "KD-028": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227277/%D0%B2%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%B8%D0%BD%D0%B4%D0%B5%D0%B8%CC%86%D0%BA%D0%B8_1_znbt38.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227446/%D0%92%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%98%D0%BD%D0%B4%D0%B5%D0%B8%CC%86%D0%BA%D0%B8_skd9x0.jpg"
+  },
+  "KD-029": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+  },
+  "KD-030": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227502/%D0%92%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%9A%D1%83%D1%80%D0%B8%D1%86%D1%8B_dmnuw8.jpg"
+  },
+  "KD-031": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784213103/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%85%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B8%CC%86_jlvpkw.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784213226/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%A5%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B8%CC%86_2_evybfe.jpg"
+  },
+  "KD-032": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227655/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%BF%D0%BE-%D1%82%D0%B0%D1%82%D0%B0%D1%80%D1%81%D0%BA%D0%B8_%D0%B2-%D0%BA_wfffod.jpg"
+  },
+  "KD-033": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/kolbasa_polukopcenaa_iz_indei%CC%86ki_ptvshr.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_indei%CC%86ki_2_yny2x2.jpg"
+  },
+  "KD-034": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg"
+  },
+  "KD-035": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg"
+  },
+  "KD-036": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/bol_saa_kolbasa_vareno-kopcenaa_ramazan_pp6qug.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+  },
+  "KD-037": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+  },
+  "KD-038": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+  },
+  "KD-039": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramornaa_cdopdr.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+  },
+  "KD-040": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_soi%CC%86_servelat_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_lnnvru.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730383/dlinnaa_servelat_filei%CC%86nyi%CC%86_fbplzi.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228298/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_%D0%B2%D1%81%D0%B5_%D0%B2%D0%B8%D0%B4%D1%8B_%D0%BD%D0%B0%D1%80%D0%B5%D0%B7%D0%BA%D0%B8_gyhivb.jpg"
+  },
+  "KD-041": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228206/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%B2%D0%B0%D1%80%D0%B5%D0%BD%D0%BE_%D0%BA%D0%BE%D0%BF%D1%87%D0%B5%D0%BD%D1%8B%D0%B8%CC%86_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_bb0jum.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228304/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_vqdd44.jpg"
+  },
+  "KD-042": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg"
+  },
+  "KD-043": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg"
+  },
+  "KD-044": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg"
+  },
+  "KD-045": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700322/kyzylyk_narezka_bez_upakovki_1.6_gtkdqm.jpg"
+  },
+  "KD-046": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg"
+  },
+  "KD-047": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg"
+  },
+  "KD-048": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg"
+  },
+  "KD-049": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg"
+  },
+  "KD-050": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg"
+  },
+  "KD-051": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg"
+  },
+  "KD-052": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg"
+  },
+  "KD-053": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228782/%D1%87%D0%B0%D0%BA-%D1%87%D0%B0%D0%BA_%D0%B2_%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B5jpg_op5mvt.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228570/%D1%87%D0%B0%D0%BA_%D1%87%D0%B0%D0%BA_%D0%B1%D0%B5%D0%B7_%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B8_1_szmxgv.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228564/%D1%87%D0%B0%D0%BA-%D1%87%D0%B0%D0%BA_%D0%B1%D0%B5%D0%B7_%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B8_%D1%81%D0%B1%D0%BE%D0%BA%D1%83_o4o8kp.jpg"
+  },
+  "KD-054": {
+    "imageMain": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
+    "imagePack": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
+    "imageSlice": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg"
+  },
+  "KD-055": null,
+  "KD-056": null,
+  "KD-057": null,
+  "KD-058": null,
+  "KD-059": null,
+  "KD-060": null,
+  "KD-061": null,
+  "KD-062": null,
+  "KD-063": null,
+  "KD-064": null
+}

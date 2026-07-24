@@ -18,31 +18,6 @@ SECTION_OG = {
     "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
 }
 
-SECTION_IMAGE_POOLS = {
-    "Заморозка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg",
-    ],
-    "Охлаждённая продукция": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
-    ],
-    "Выпечка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya-v-razreze.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/cheburek-v-razreze.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/cheburek.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-059.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-060.jpg",
-    ],
-}
-
 CATEGORY_OG = {
     "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
     "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
@@ -53,7 +28,8 @@ CATEGORY_OG = {
     "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
     "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
     "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya-v-razreze.jpg",
-    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/kd-059.jpg",
+    # «Классическая выпечка» намеренно отсутствует: kd-059..064.jpg на Cloudinary —
+    # фото национальной выпечки под старой нумерацией SKU; fallback = SECTION_OG.
     "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
 }
 
@@ -440,39 +416,13 @@ def main():
         gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
         article = p.get("articleNumber") or p["sku"]
 
+        # Порядок фото задан data/image_manifest.json (применяется в sync) —
+        # генератор ничего не переставляет и не «улучшает».
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
-
-        def _is_cut(u):
-            k = _cloudinary_asset_key(u)
-            return any(x in k for x in ("razrez", "v-raz", "srez", "narezk", "razreze"))
-
-        def _is_generic(u):
-            k = _cloudinary_asset_key(u)
-            return bool(re.search(r"hot_dog|feli4477|0413-|pizza_s_", k))
-
-        # Bakery only: Sheets put beauty in «срез» and *-v-razreze in «упаковка».
-        # Never do this for meat — cutaway of matching SKU is a valid hero
-        # (blind swap turned «С травами» into a generic hot-dog shot).
-        if (
-            section == "Выпечка"
-            and main_raw
-            and _is_cut(main_raw)
-            and slice_raw
-            and not _is_cut(slice_raw)
-            and not _is_generic(slice_raw)
-        ):
-            if not pack_raw:
-                pack_raw = main_raw
-            main_raw = slice_raw
-        elif not main_raw:
-            for cand in (slice_raw, pack_raw):
-                if cand and not _is_generic(cand):
-                    main_raw = cand
-                    break
-            if not main_raw:
-                main_raw = slice_raw or pack_raw or ""
+        if not main_raw:
+            main_raw = pack_raw or slice_raw or ""
 
         main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
