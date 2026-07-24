@@ -447,7 +447,29 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
     <a href="tel:+79872170202" class="btn-dl btn-dl-solid" style="color:#fff">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar" class="btn-dl btn-dl-outline">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202" class="btn-dl btn-dl-outline" style="border-color:#1a9e4a;color:#1a9e4a">💬 WhatsApp</a>
+
+    <form class="lead-form" id="leadFormEn" novalidate style="margin-top:18px;border-top:1px solid var(--border);padding-top:16px">
+      <p style="font-size:.9rem;color:var(--text);font-weight:600;margin-bottom:10px">Or leave a request — we'll get back to you:</p>
+      <div style="display:grid;gap:10px;max-width:440px">
+        <input type="text" name="name" placeholder="Your name" autocomplete="name"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem">
+        <input type="tel" name="phone" required placeholder="Phone / WhatsApp *" autocomplete="tel"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem">
+        <textarea name="message" rows="2" placeholder="Product, quantity, country/city"
+               style="padding:11px 14px;border:1px solid var(--border);border-radius:7px;font-size:.9rem;resize:vertical"></textarea>
+        <!-- honeypot: hidden from humans, bots fill it -->
+        <input type="text" name="company" tabindex="-1" autocomplete="off"
+               style="position:absolute;left:-9999px" aria-hidden="true">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:var(--muted);line-height:1.4">
+          <input type="checkbox" name="consent" required style="margin-top:3px;flex:none">
+          <span>I consent to data processing for inquiry response.</span>
+        </label>
+        <button type="submit" class="btn-dl btn-dl-solid" style="color:#fff;border:none;justify-self:start">Submit Inquiry</button>
+        <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.85rem;margin:0"></p>
+      </div>
+    </form>
   </div>
+  <script src="/assets/lead-form.js" defer></script>
 
   <div class="info-block">
     <h2>API for Partners</h2>
@@ -531,9 +553,8 @@ function catalogImgDisplayUrl(url){
   return url.slice(0,i+m.length)+'f_auto,q_auto:eco,w_480,c_limit/'+rest;
 }
 function catalogImgProxyUrl(url){
-  if(!url||typeof url!=='string')return '';
-  if(!url.includes('res.cloudinary.com'))return '';
-  return '/api/health?u='+encodeURIComponent(url);
+  // Disabled: /api/health?u= falls through nginx → Vercel 403 challenge (not an image).
+  return '';
 }
 
 function fmtWeight(w){return String(w).replace(/кг/,'kg').replace(/г/,'g')}
