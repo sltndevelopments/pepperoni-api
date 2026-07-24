@@ -66,6 +66,21 @@
           if (res.ok && res.data && res.data.ok) {
             form.reset();
             setStatus("Спасибо! Заявка отправлена — мы свяжемся с вами.", "ok");
+            try {
+              window.dataLayer = window.dataLayer || [];
+              window.dataLayer.push({
+                event: "generate_lead",
+                event_category: "lead",
+                event_action: "submit",
+                page: window.location.pathname
+              });
+              if (typeof gtag === "function") {
+                gtag("event", "generate_lead", {
+                  event_category: "lead",
+                  event_label: window.location.pathname
+                });
+              }
+            } catch (err) {}
           } else {
             var err = (res.data && res.data.error) || "unknown";
             var msg =
