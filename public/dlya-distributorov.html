@@ -209,6 +209,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>Стать дистрибьютором</h2>
     <p>Напишите — пришлём прайс-лист для дистрибьюторов, маркетинг-кит и проект договора.</p>
+
+    <div style="background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;margin:16px 0 24px">
+      <h3 style="margin:0 0 8px;color:#1b7a3d;font-size:1.1rem">Запросить дистрибьюторский прайс</h3>
+      <p style="font-size:.85rem;color:#666;margin:0 0 14px">Оставьте заявку — направим коммерческое предложение и закрепим территорию.</p>
+      <form class="lead-form" novalidate style="display:grid;gap:10px">
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
+        <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
+        <textarea name="message" rows="2" placeholder="Компания / регион дистрибуции / каналы сбыта" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem;resize:vertical"></textarea>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#666;line-height:1.4">
+          <input type="checkbox" name="consent" required style="margin-top:3px;flex:none">
+          <span>Согласен на обработку персональных данных (<a href="/privacy" target="_blank" style="color:#1b7a3d">152-ФЗ</a>).</span>
+        </label>
+        <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:12px 20px;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;justify-self:start">Отправить заявку</button>
+        <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.85rem;margin:0"></p>
+      </form>
+      <script src="/assets/lead-form.js" defer></script>
+    </div>
+
     <a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar?subject=Стать%20дистрибьютором" class="cta cta-outline">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202?text=Здравствуйте!%20Хотим%20стать%20дистрибьютором%20в%20регионе" class="cta cta-outline">💬 WhatsApp</a>

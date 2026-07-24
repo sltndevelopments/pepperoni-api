@@ -686,6 +686,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="https://wa.me/79872170202" target="_blank" rel="noopener" class="wa-order-btn">{wa_svg}WhatsApp</a>
 <a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject={subj}" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
+
+<form class="lead-form" novalidate style="margin-top:16px;border-top:1px solid #cce3cc;padding-top:14px;display:grid;gap:8px">
+  <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem">
+  <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem">
+  <textarea name="message" rows="2" placeholder="Объём (кг), город, заведение" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem;resize:vertical"></textarea>
+  <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+  <label style="display:flex;gap:6px;align-items:flex-start;font-size:.75rem;color:#555;line-height:1.3;margin:4px 0">
+    <input type="checkbox" name="consent" required style="margin-top:2px;flex:none">
+    <span>Согласен на обработку персональных данных (<a href="/privacy" target="_blank" style="color:#1b7a3d">152-ФЗ</a>).</span>
+  </label>
+  <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:10px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer">Запросить прайс</button>
+  <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.8rem;margin:0"></p>
+</form>
+<script src="/assets/lead-form.js" defer></script>
 </div>
 </div>
 </div>
