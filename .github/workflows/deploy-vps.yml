@@ -37,6 +37,20 @@ jobs:
               cp -f public/videos/* /var/www/pepperoni/media/videos/
             fi
 
+      - name: Apply Content-Security-Policy (allow YouTube embeds)
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # The previous CSP allowed only googletagmanager.com in frame-src.
+            # Brave/Chrome then showed «Этот контент заблокирован» for the
+            # youtube-nocookie iframes on /pepperoni. Canonical policy lives in
+            # deploy/nginx/security-headers.csp.snippet.
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
+
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:

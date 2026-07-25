@@ -129,6 +129,7 @@ CSS = """
   --shadow:0 1px 2px rgba(17,22,20,.04),0 8px 24px rgba(17,22,20,.06);
 }
 html{scroll-behavior:smooth}
+html,body{overflow-x:clip}
 body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
   color:var(--ink);background:#fff;line-height:1.65;-webkit-font-smoothing:antialiased}
 img{max-width:100%;height:auto;display:block}
@@ -214,10 +215,12 @@ h3{font-size:1.05rem;font-weight:700;margin-bottom:8px}
 /* video */
 .videos{display:grid;grid-template-columns:1.45fr .55fr;gap:22px;margin-top:26px;align-items:start}
 .vid{background:#0d100e;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
-.vid__frame{position:relative;cursor:pointer;background:#0d100e}
+.vid__frame{position:relative;cursor:pointer;background:#0d100e;overflow:hidden}
 .vid__frame[data-video-short="1"]{aspect-ratio:9/16}
 .vid__frame:not([data-video-short="1"]){aspect-ratio:16/9}
-.vid__frame img{width:100%;height:100%;object-fit:cover;opacity:.86;transition:opacity .2s,transform .3s}
+/* Safari: % height inside aspect-ratio collapses the <img> to 0 without absolute fill. */
+.vid__frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.86;
+  transition:opacity .2s,transform .3s}
 .vid__frame:hover img{opacity:1;transform:scale(1.02)}
 .vid__frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .vid__play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;pointer-events:none}
@@ -323,10 +326,14 @@ footer a:hover{text-decoration:underline}
 
 /* sticky mobile bar */
 .stickybar{display:none}
-@media(max-width:900px){
-  .prod,.pricebox,.formgrid,.videos{grid-template-columns:1fr}
-  .hero__grid{grid-template-columns:1fr;grid-template-areas:"copy" "media" "actions";gap:22px}
+@media(max-width:1100px){
+  /* Tall Shorts card next to a 16:9 frame overflows narrow Safari windows. */
+  .videos{grid-template-columns:1fr}
   .videos .vid__frame[data-video-short="1"]{aspect-ratio:16/9}
+}
+@media(max-width:900px){
+  .prod,.pricebox,.formgrid{grid-template-columns:1fr}
+  .hero__grid{grid-template-columns:1fr;grid-template-areas:"copy" "media" "actions";gap:22px}
   .trust,.cards,.steps{grid-template-columns:repeat(2,1fr)}
   .countries{grid-template-columns:repeat(2,1fr)}
   .foot{grid-template-columns:1fr 1fr}
