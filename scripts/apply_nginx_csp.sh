@@ -77,18 +77,23 @@ nginx -t
 systemctl reload nginx
 echo "✅ nginx reloaded with YouTube-capable CSP"
 
-# Prove the live header now allows YouTube.
-live=$(curl -sI --max-time 5 https://127.0.0.1/pepperoni -H 'Host: pepperoni.tatar' \
-  --resolve pepperoni.tatar:443:127.0.0.1 2>/dev/null \
-  | tr -d '\r' | grep -i '^content-security-policy:' || true)
-if [[ -z "$live" ]]; then
-  # Fallback: plain HTTP local or just dump from config.
-  live=$(grep -h 'Content-Security-Policy' "${TARGETS[@]}" | head -1)
-fi
-echo "CSP sample: ${live:0:200}…"
-if echo "$live" | grep -q 'youtube-nocookie.com'; then
-  echo "✅ youtube-nocookie.com present in CSP"
-else
-  echo "⚠️  youtube-nocookie.com NOT found in live CSP — check manually"
+# Prove the live header allows YouTube on BOTH the RU hub (snippet location)
+# and a locale path that only gets the server-level add_header (sites-enabled).
+# Earlier bug: snippet was patched, sites-enabled was not → /az/pepperoni still blocked.
+fail=0
+for path in /pepperoni /az/pepperoni /kk/pepperoni /uz/pepperoni; do
+  live=$(curl -sI --max-time 5 -H 'Host: pepperoni.tatar' \
+    --resolve pepperoni.tatar:443:127.0.0.1 "https://pepperoni.tatar${path}" 2>/dev/null \
+    | tr -d '\r' | grep -i '^content-security-policy:' || true)
+  frame=$(echo "$live" | grep -oE 'frame-src[^;]+' | head -1 || true)
+  if echo "$live" | grep -q 'youtube-nocookie.com'; then
+    echo "✅ ${path}: ${frame}"
+  else
+    echo "❌ ${path}: youtube-nocookie.com missing (frame-src=${frame:-none})"
+    fail=1
+  fi
+done
+if [[ "$fail" -ne 0 ]]; then
+  echo "⚠️  CSP apply incomplete — locale pages may still block YouTube iframes"
   exit 1
 fi

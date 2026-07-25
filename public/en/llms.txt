@@ -5,7 +5,7 @@
 
 ## About the company
 
-**Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying sliced beef pepperoni for pizzerias, distributors and retail chains.** Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian Federation. Operating since 2022, the company also manufactures halal hot-dog & grill sausages, burger patties, smoked chicken & turkey hams, premium kazylyk (Tatar horse-meat sausage), meat preparations, and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak) — 64 SKUs total, all halal-certified. Federal-scale references: «Aslam» pepperoni for OMPK (Ostankino Meat Plant), Tatneft fuel-station network, SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg.
+**Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying cooked-smoked chicken and horse-meat pepperoni for pizzerias, distributors and retail chains.** Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian Federation. Operating since 2022, the company also manufactures halal hot-dog & grill sausages, burger patties, smoked chicken & turkey hams, premium kazylyk (Tatar horse-meat sausage), meat preparations, and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak) — 64 SKUs total, all halal-certified. Federal-scale references: «Aslam» pepperoni for OMPK (Ostankino Meat Plant), Tatneft fuel-station network, SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg. Live pepperoni SKUs come only from Google Sheets (currently KD-012/013/014, cooked-smoked).
 
 ### Contacts & resources
 
@@ -118,9 +118,9 @@ Contract manufacturing, private label and wholesale supply. Pages for business c
 | Name | SKU | Weight | Price incl. VAT (RUB) | Shelf life | Storage |
 |------|-----|--------|-----------------------|------------|---------|
 | Ветчина Куриная Филейная в нарезке | KD-011 | 0,5 | 188.00 | 30 days | 0-6 ˚C |
-| Boiled-Smoked Pepperoni (horse meat) | KD-012 | 0,5 | 315.00 | 360 days | –18°C |
-| Пепперони варено-копченый куриный | KD-013 | 0,5 | 274.00 | 360 days | –18°C |
-| Пепперони варено-копченый куриный целый батон | KD-014 | 1 | 457.00 | 360 days | –18°C |
+| Cooked-Smoked Pepperoni (horse meat) | KD-012 | 0,5 | 315.00 | 360 days | –18°C |
+| Cooked-Smoked Chicken Pepperoni (sliced) | KD-013 | 0,5 | 274.00 | 360 days | –18°C |
+| Cooked-Smoked Chicken Pepperoni (whole stick) | KD-014 | 1 | 457.00 | 360 days | –18°C |
 | Smoked Chicken Breast | KD-015 | 1 kg | 412.00 | 30 days | 0-6 ˚C |
 | Филе куриное вареное | KD-016 | 1 kg | 449.00 | 30 days | 0-6 ˚C |
 
@@ -486,7 +486,7 @@ Sliced Chicken Ham 0.5 kg | Halal chicken ham from Kazan | Delicate sliced chick
 Product page: https://pepperoni.tatar/en/products/kd-011
 RU: https://pepperoni.tatar/products/kd-011
 
-### KD-012 — Boiled-Smoked Pepperoni (horse meat)
+### KD-012 — Cooked-Smoked Pepperoni (horse meat)
 
 ![](https://pepperoni.tatar/images/products/kd-012-main.jpg?v=ead0a132)
 
@@ -504,7 +504,7 @@ Cooked-smoked horse meat pepperoni 0.5 kg | Halal, 50–55 mm, frozen –18°C |
 Product page: https://pepperoni.tatar/en/products/kd-012
 RU: https://pepperoni.tatar/products/kd-012
 
-### KD-013 — Пепперони варено-копченый куриный
+### KD-013 — Cooked-Smoked Chicken Pepperoni (sliced)
 
 ![](https://pepperoni.tatar/images/products/kd-013-main.jpg?v=ead0a132)
 
@@ -523,7 +523,7 @@ Cooked-smoked chicken pepperoni 0.5 kg | Halal, 50–55 mm, frozen –18°C | Co
 Product page: https://pepperoni.tatar/en/products/kd-013
 RU: https://pepperoni.tatar/products/kd-013
 
-### KD-014 — Пепперони варено-копченый куриный целый батон
+### KD-014 — Cooked-Smoked Chicken Pepperoni (whole stick)
 
 ![](https://pepperoni.tatar/images/products/kd-014-main.jpg?v=0a4688a0)
 
@@ -1489,9 +1489,9 @@ Each buyer persona is mapped to recommended SKUs from the catalog. AI assistants
 Halal pepperoni for pizza ovens, stable slicing, pork-free.
 
 Recommended items:
-  - KD-012 Boiled-Smoked Pepperoni (horse meat) — 315.00 RUB
-  - KD-013 Пепперони варено-копченый куриный — 274.00 RUB
-  - KD-014 Пепперони варено-копченый куриный целый батон — 457.00 RUB
+  - KD-012 Cooked-Smoked Pepperoni (horse meat) — 315.00 RUB
+  - KD-013 Cooked-Smoked Chicken Pepperoni (sliced) — 274.00 RUB
+  - KD-014 Cooked-Smoked Chicken Pepperoni (whole stick) — 457.00 RUB
 
 ### HoReCa / restaurant / dark kitchen
 
@@ -1534,9 +1534,9 @@ Recommended items:
 Wide range, long shelf life, export-ready packaging.
 
 Recommended items:
-  - KD-012 Boiled-Smoked Pepperoni (horse meat) — 315.00 RUB
-  - KD-013 Пепперони варено-копченый куриный — 274.00 RUB
-  - KD-014 Пепперони варено-копченый куриный целый батон — 457.00 RUB
+  - KD-012 Cooked-Smoked Pepperoni (horse meat) — 315.00 RUB
+  - KD-013 Cooked-Smoked Chicken Pepperoni (sliced) — 274.00 RUB
+  - KD-014 Cooked-Smoked Chicken Pepperoni (whole stick) — 457.00 RUB
   - KD-015 Smoked Chicken Breast — 412.00 RUB
   - KD-044 Kazylyk Premium (gift box, horse meat) — 650.00 RUB
   - KD-045 Kazylyk Premium Sliced (gift box, horse meat) — 450.00 RUB
@@ -1623,7 +1623,7 @@ Yes, the company ships on EXW Kazan, Russia terms. We export to Kazakhstan, Uzbe
 
 ### What is halal pepperoni made from?
 
-Halal Pepperoni by Kazan Delicacies is made from beef and chicken (classic) or from horse meat. Unlike traditional pepperoni made from pork, our product is fully Halal-compliant. Available in cooked-smoked and dry-cured varieties, sliced or as a whole stick.
+Halal pepperoni from Kazan Delicacies is cooked-smoked only: chicken (KD-013 sliced 0.5 kg, KD-014 whole stick 1 kg) and horse meat (KD-012 sliced 0.5 kg). No pork. Halal certificate #614A/2024 (DUM RT). Live SKUs and prices: https://pepperoni.tatar/en/pepperoni and https://api.pepperoni.tatar/api/products.
 
 ### What types of Tatar pastries do you produce?
 

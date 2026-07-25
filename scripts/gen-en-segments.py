@@ -57,11 +57,9 @@ SEGMENTS = [
         ],
         "items_heading": "Pepperoni SKUs for pizzerias",
         "items": [
-            ("Classic Pepperoni (beef & chicken), sliced", "0.5 kg", "274 ₽"),
-            ("Classic Pepperoni (beef & chicken), whole stick", "1 kg", "457 ₽"),
-            ("Horse-meat Pepperoni, sliced", "0.5 kg", "315 ₽"),
-            ("Dry-Cured Pepperoni, sliced", "0.5 kg", "by request"),
-            ("Dry-Cured Pepperoni, whole stick", "1 kg", "by request"),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
+            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
         ],
         "items_note": "Current prices live at <a href=\"/en/\" style=\"color:#0066cc\">/en/</a>. Private-label and custom-format quotations on request.",
         "logistics_heading": "Logistics & terms for pizza chains",
@@ -350,10 +348,10 @@ SEGMENTS = [
         ],
         "items_heading": "Distribution-friendly SKUs",
         "items": [
-            ("Boiled-Smoked Pepperoni, whole stick", "1 kg", "457 ₽"),
-            ("Dry-Cured Pepperoni, whole stick", "1 kg", "by request"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
+            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
             ("Kazylyk «Premium» (gift box)", "200 g", "650 ₽"),
-            ("Smoked Chicken Breast", "1 kg", "370 ₽"),
             ("Cheese sausages", "0.65 kg × 5", "455 ₽"),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
         ],
@@ -483,7 +481,7 @@ SEGMENTS = [
         ],
         "second_case": {
             "title": "Private-label categories we run",
-            "body": "Sausages (hot-dog, grill, casingless, breakfast), pepperoni (boiled-smoked, dry-cured), hams (chicken, turkey, beef), boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak.",
+            "body": "Sausages (hot-dog, grill, casingless, breakfast), cooked-smoked pepperoni (chicken KD-013/014, horse KD-012), hams, boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak. Assortment follows the live Google Sheets catalog only.",
         },
         "features_heading": "What we customise",
         "features": [

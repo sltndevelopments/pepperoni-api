@@ -57,7 +57,7 @@ TAXONOMY = {
 CATEGORY_TAXONOMY = {
     "Пепперони (вар-коп, конина, сырокоп)": ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
     "Пепперони вар-коп":                    ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
-    "Пепперони сырокопчёный":               ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
+    "Пепперони варено-копченый куриный":    ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
     "Пепперони":                            ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
     "Сосиски, сардельки":                   ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),
     "Сосиски гриль для хот-догов":          ("5740", "Food, Beverages & Tobacco > Food Items > Meat & Poultry > Sausages"),

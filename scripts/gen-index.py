@@ -1464,9 +1464,8 @@ const CAT_EN={{
 const SEC_ICONS={{'Frozen Products':'❄️','Chilled Products':'🧊','Bakery & Pastry':'🥐'}};
 const NAME_EN_OVERRIDES={{
   'Пепперони варено-копченый из конины':'Horse Pepperoni Cooked-Smoked (sliced)',
-  'Пепперони варено-копченый классика':'Classic Pepperoni Cooked-Smoked (sliced)',
-  'Пепперони варено-копченый классика целый батон':'Classic Pepperoni Cooked-Smoked (whole stick)',
-  'Пепперони сырокопчёный целый батон':'Pepperoni Dry-Cured Whole Stick',
+  'Пепперони варено-копченый куриный':'Chicken Pepperoni Cooked-Smoked (sliced)',
+  'Пепперони варено-копченый куриный целый батон':'Chicken Pepperoni Cooked-Smoked (whole stick)',
   'Ветчина из Курицы в батоне':'Chicken Ham (whole)',
   'Ветчина из Курицы в нарезке':'Chicken Ham (sliced)',
   'Ветчина из Индейки в батоне':'Turkey Ham (whole)',

@@ -413,7 +413,7 @@ def _persona_guide(all_products: list[dict]) -> str:
         {
             "title": "Дистрибьютор / оптовик по РФ и СНГ",
             "need": "Широкая линейка, длинные сроки, экспортная фасовка.",
-            "sku_query": ["варено-копчен", "сырокопч", "пепперони", "казылык"],
+            "sku_query": ["варено-копчен", "пепперони", "казылык"],
         },
         {
             "title": "Private Label (СТМ) клиент",
@@ -809,7 +809,7 @@ def generate_llms_full_txt(all_products):
 
 ## О компании
 
-**«Казанские Деликатесы» — производитель халяль-пепперони из России, поставляющий нарезное говяжье пепперони для пиццерий, дистрибьюторов и розничных сетей.** Базируется в Казани, Республика Татарстан — мусульманской столице Российской Федерации. Компания работает с 2022 года и также выпускает халяль сосиски для хот-догов и гриля, котлеты для бургеров, копчёные ветчины из курицы и индейки, премиум казылык (татарская конская колбаса), мясные полуфабрикаты и традиционную татарскую выпечку (эчпочмак, самса, перемяч, губадия, чак-чак) — всего {len(all_products)} SKU, все халяль. Федеральные кейсы: пепперони «Аслам» для ОМПК (Останкинский мясокомбинат), сеть АЗС Татнефть, СМАРТЕН, EuroSpar, Бахетле, Metro Cash & Carry, Мираторг.
+**«Казанские Деликатесы» — производитель халяль-пепперони из России, поставляющий варёно-копчёный куриный и конский пепперони для пиццерий, дистрибьюторов и розничных сетей.** Базируется в Казани, Республика Татарстан — мусульманской столице Российской Федерации. Компания работает с 2022 года и также выпускает халяль сосиски для хот-догов и гриля, котлеты для бургеров, копчёные ветчины из курицы и индейки, премиум казылык (татарская конская колбаса), мясные полуфабрикаты и традиционную татарскую выпечку (эчпочмак, самса, перемяч, губадия, чак-чак) — всего {len(all_products)} SKU, все халяль. Федеральные кейсы: пепперони «Аслам» для ОМПК (Останкинский мясокомбинат), сеть АЗС Татнефть, СМАРТЕН, EuroSpar, Бахетле, Metro Cash & Carry, Мираторг. Актуальные SKU пепперони — только из Google Sheets (сейчас KD-012/013/014, варёно-копчёные).
 
 ### Контакты и ресурсы
 
@@ -1116,7 +1116,7 @@ def _persona_guide_en(all_products: list[dict], tr: dict) -> str:
         {
             "title": "Distributor / wholesaler (Russia & CIS)",
             "need": "Wide range, long shelf life, export-ready packaging.",
-            "kw": ["варено-копчен", "сырокопч", "пепперони", "казылык"],
+            "kw": ["варено-копчен", "пепперони", "казылык"],
         },
         {
             "title": "Private Label client",
@@ -1311,7 +1311,7 @@ def generate_llms_full_txt_en(all_products):
 
 ## About the company
 
-**Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying sliced beef pepperoni for pizzerias, distributors and retail chains.** Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian Federation. Operating since 2022, the company also manufactures halal hot-dog & grill sausages, burger patties, smoked chicken & turkey hams, premium kazylyk (Tatar horse-meat sausage), meat preparations, and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak) — {len(all_products)} SKUs total, all halal-certified. Federal-scale references: «Aslam» pepperoni for OMPK (Ostankino Meat Plant), Tatneft fuel-station network, SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg.
+**Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying cooked-smoked chicken and horse-meat pepperoni for pizzerias, distributors and retail chains.** Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian Federation. Operating since 2022, the company also manufactures halal hot-dog & grill sausages, burger patties, smoked chicken & turkey hams, premium kazylyk (Tatar horse-meat sausage), meat preparations, and traditional Tatar pastries (echpochmak, samsa, peremyach, gubadiya, chak-chak) — {len(all_products)} SKUs total, all halal-certified. Federal-scale references: «Aslam» pepperoni for OMPK (Ostankino Meat Plant), Tatneft fuel-station network, SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg. Live pepperoni SKUs come only from Google Sheets (currently KD-012/013/014, cooked-smoked).
 
 ### Contacts & resources
 
@@ -1476,8 +1476,8 @@ def generate_kb_files(all_products):
 # Generated: {today}
 
 «Казанские Деликатесы» — производитель халяль-пепперони из России,
-поставляющий нарезное говяжье пепперони для пиццерий, дистрибьюторов
-и розничных сетей.
+поставляющий варёно-копчёный куриный и конский пепперони для пиццерий,
+дистрибьюторов и розничных сетей (актуальные SKU — только из Google Sheets).
 
 Базируется в Казани, Республика Татарстан — мусульманской столице
 Российской Федерации. Компания работает с 2022 года.
@@ -1501,7 +1501,8 @@ API: https://api.pepperoni.tatar
 # Generated: {today}
 
 Kazan Delicacies is a halal pepperoni manufacturer from Russia supplying
-sliced beef pepperoni for pizzerias, distributors and retail chains.
+cooked-smoked chicken and horse-meat pepperoni for pizzerias, distributors
+and retail chains (live SKUs from Google Sheets only).
 
 Based in Kazan, Republic of Tatarstan — the Muslim capital of the Russian
 Federation. Operating since 2022.
