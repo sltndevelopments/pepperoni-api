@@ -59,6 +59,13 @@ LOCALE_COUNTRY = {
     "ru": "ru", "en": "int", "kk": "kz", "uz": "uz",
     "az": "az", "hy": "am", "ka": "ge", "ky": "kg", "tg": "tj",
 }
+# The phone hint is derived from the page's country, never from the translation:
+# two locales came back with our own number in that field, and "+7 …" on the
+# Georgian or Armenian page reads as "Russian numbers only".
+COUNTRY_DIAL = {
+    "ru": "+7", "kz": "+7", "uz": "+998", "kg": "+996", "by": "+375",
+    "az": "+994", "am": "+374", "ge": "+995", "tj": "+992", "int": "+",
+}
 COUNTRY_ENDONYM = {
     "kz": "\u049aаза\u049bстан", "uz": "O\u2018zbekiston", "kg": "Кыргызстан",
     "by": "Беларусь", "az": "Az\u0259rbaycan", "am": "\u0540\u0561\u0575\u0561\u057d\u057f\u0561\u0576",
@@ -777,7 +784,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label for="lf-name">{esc(F["name"])}</label>
       <input id="lf-name" type="text" name="name" placeholder="{esc(F["name_ph"])}" autocomplete="name">
       <label for="lf-phone">{esc(F["phone"])} *</label>
-      <input id="lf-phone" type="tel" name="phone" required placeholder="{esc(F["phone_ph"])}" autocomplete="tel">
+      <input id="lf-phone" type="tel" name="phone" required
+             placeholder="{COUNTRY_DIAL[country_of_page]}\u2009…" autocomplete="tel">
       <label for="lf-msg">{esc(F["msg"])}</label>
       <textarea id="lf-msg" name="message" rows="3" placeholder="{esc(F["msg_ph"])}"></textarea>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"
