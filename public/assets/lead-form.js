@@ -84,20 +84,49 @@
             form.reset();
             setStatus("Спасибо! Заявка отправлена — мы свяжемся с вами.", "ok");
             try {
+              // Enhanced Conversions: prepare user_data
+              var userData = {};
+              if (payload.phone) {
+                var cleanPhone = payload.phone.replace(/[^\d+]/g, "");
+                if (cleanPhone.indexOf("+") !== 0) {
+                  if (cleanPhone.length === 11 && cleanPhone.indexOf("7") === 0) {
+                    cleanPhone = "+" + cleanPhone;
+                  } else if (cleanPhone.length === 11 && cleanPhone.indexOf("8") === 0) {
+                    cleanPhone = "+7" + cleanPhone.substring(1);
+                  } else if (cleanPhone.length === 10) {
+                    cleanPhone = "+7" + cleanPhone;
+                  }
+                }
+                if (cleanPhone.length >= 10) {
+                  userData.phone_number = cleanPhone;
+                }
+              }
+              if (payload.name) {
+                var nameParts = payload.name.trim().split(/\s+/);
+                if (nameParts[0]) userData.first_name = nameParts[0];
+                if (nameParts[1]) userData.last_name = nameParts[1];
+              }
+
               window.dataLayer = window.dataLayer || [];
               window.dataLayer.push({
                 event: "generate_lead",
                 event_category: "lead",
                 event_action: "submit",
-                page: window.location.pathname
+                page: window.location.pathname,
+                user_data: userData
               });
               if (typeof window.gtag === "function") {
+                if (Object.keys(userData).length > 0) {
+                  window.gtag("set", "user_data", userData);
+                }
                 window.gtag("event", "conversion", {
-                  send_to: "AW-18346189266"
+                  send_to: "AW-18346189266",
+                  user_data: userData
                 });
                 window.gtag("event", "generate_lead", {
                   event_category: "lead",
-                  event_label: window.location.pathname
+                  event_label: window.location.pathname,
+                  user_data: userData
                 });
               }
             } catch (err) {}
@@ -128,4 +157,36 @@
         });
     });
   });
+
+  // Global interaction tracking for tel:, mailto:, messengers, and price downloads
+  if (!window.__interactionTrackerLoaded) {
+    window.__interactionTrackerLoaded = true;
+    document.addEventListener("click", function (e) {
+      var link = e.target.closest("a");
+      if (!link) return;
+      var href = link.getAttribute("href") || "";
+      var text = link.textContent || "";
+      var sendEvt = function (eventName, cat) {
+        if (typeof ym === "function") ym(107064141, "reachGoal", eventName);
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: eventName,
+          event_category: cat || "interaction",
+          event_label: href,
+          page: window.location.pathname
+        });
+        if (typeof window.gtag === "function") {
+          window.gtag("event", eventName, {
+            event_category: cat || "interaction",
+            event_label: href,
+            page: window.location.pathname
+          });
+        }
+      };
+      if (href.indexOf("tel:") === 0) sendEvt("click_phone", "contact");
+      if (href.indexOf("mailto:") === 0) sendEvt("click_email", "contact");
+      if (/wa\.me|whatsapp|t\.me\//i.test(href)) sendEvt("click_messenger", "contact");
+      if (/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href) || /прайс|price/i.test(text)) sendEvt("download_price", "engagement");
+    });
+  }
 })();
