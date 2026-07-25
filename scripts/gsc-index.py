@@ -119,6 +119,10 @@ def load_hot_urls() -> list[str]:
         f"{ORIGIN}/en/llms.txt",
         f"{ORIGIN}/.well-known/llms.txt",
         f"{ORIGIN}/en/pepperoni",
+        # Localised money hubs for the export markets we advertise in — these are
+        # Google Ads destinations, so they cannot wait for the sitemap rotation.
+        *(f"{ORIGIN}/{lang}/pepperoni"
+          for lang in ("kk", "uz", "az", "hy", "ka", "ky", "tg")),
     ]
     try:
         data = json.loads(WATCHLIST.read_text(encoding="utf-8"))

@@ -27,9 +27,27 @@
   var forms = document.querySelectorAll("form.lead-form");
   if (!forms.length) return;
 
+  // Status strings default to Russian and can be overridden per form with
+  // data-msg-* attributes, so the localised export landings answer the visitor
+  // in their own language without a second copy of this handler.
+  var FALLBACK_MSG = {
+    sending: "Отправляем…",
+    ok: "Спасибо! Заявка отправлена — мы свяжемся с вами.",
+    "err-phone": "Укажите телефон.",
+    "err-phone-invalid": "Проверьте номер телефона.",
+    "err-consent": "Необходимо согласие на обработку данных.",
+    "err-rate": "Слишком много попыток. Попробуйте позже.",
+    "err-generic": "Не удалось отправить. Позвоните нам: +7 987 217-02-02.",
+    "err-network": "Сеть недоступна. Позвоните нам: +7 987 217-02-02.",
+  };
+
   forms.forEach(function (form) {
     var statusEl = form.querySelector(".lead-form__status");
     var btn = form.querySelector('button[type="submit"]');
+
+    function msg(key) {
+      return form.getAttribute("data-msg-" + key) || FALLBACK_MSG[key];
+    }
 
     function setStatus(msg, kind) {
       if (!statusEl) return;
@@ -44,18 +62,27 @@
       var phone = (form.querySelector('[name="phone"]') || {}).value || "";
       var consent = form.querySelector('[name="consent"]');
       if (!phone.trim()) {
-        setStatus("Укажите телефон.", "error");
+        setStatus(msg("err-phone"), "error");
         return;
       }
       if (consent && !consent.checked) {
-        setStatus("Необходимо согласие на обработку данных.", "error");
+        setStatus(msg("err-consent"), "error");
         return;
+      }
+
+      var message = (form.querySelector('[name="message"]') || {}).value || "";
+      // Carry the ad click attribution into the lead card itself: the intake
+      // server forwards `message` verbatim to the sales group, so the person who
+      // calls back can see which campaign and country the buyer came from.
+      if (typeof window.peppAttributionLine === "function") {
+        var attrLine = window.peppAttributionLine();
+        if (attrLine) message = (message ? message + "\n" : "") + "— " + attrLine;
       }
 
       var payload = {
         name: (form.querySelector('[name="name"]') || {}).value || "",
         phone: phone,
-        message: (form.querySelector('[name="message"]') || {}).value || "",
+        message: message.slice(0, 1000),
         company: (form.querySelector('[name="company"]') || {}).value || "", // honeypot
         consent: consent ? consent.checked : false,
         page: window.location.pathname,
@@ -65,9 +92,9 @@
       if (btn) {
         btn.disabled = true;
         btn.dataset.label = btn.textContent;
-        btn.textContent = "Отправляем…";
+        btn.textContent = msg("sending");
       }
-      setStatus("Отправляем…", "info");
+      setStatus(msg("sending"), "info");
 
       fetch("/lead-submit", {
         method: "POST",
@@ -82,7 +109,7 @@
         .then(function (res) {
           if (res.ok && res.data && res.data.ok) {
             form.reset();
-            setStatus("Спасибо! Заявка отправлена — мы свяжемся с вами.", "ok");
+            setStatus(msg("ok"), "ok");
             try {
               // Enhanced Conversions: prepare user_data
               var userData = {};
@@ -108,13 +135,19 @@
               }
 
               window.dataLayer = window.dataLayer || [];
-              window.dataLayer.push({
+              var leadEvent = {
                 event: "generate_lead",
                 event_category: "lead",
                 event_action: "submit",
                 page: window.location.pathname,
+                page_lang: document.body.getAttribute("data-lang") || document.documentElement.lang || "",
+                page_country: document.body.getAttribute("data-country") || "",
                 user_data: userData
-              });
+              };
+              if (typeof window.peppAttribution === "function") {
+                leadEvent.attribution = window.peppAttribution();
+              }
+              window.dataLayer.push(leadEvent);
               if (typeof window.gtag === "function") {
                 if (Object.keys(userData).length > 0) {
                   window.gtag("set", "user_data", userData);
@@ -132,22 +165,19 @@
             } catch (err) {}
           } else {
             var err = (res.data && res.data.error) || "unknown";
-            var msg =
+            var key =
               err === "invalid_phone"
-                ? "Проверьте номер телефона."
+                ? "err-phone-invalid"
                 : err === "consent_required"
-                ? "Необходимо согласие на обработку данных."
+                ? "err-consent"
                 : err === "rate_limited"
-                ? "Слишком много попыток. Попробуйте позже."
-                : "Не удалось отправить. Позвоните нам: +7 987 217-02-02.";
-            setStatus(msg, "error");
+                ? "err-rate"
+                : "err-generic";
+            setStatus(msg(key), "error");
           }
         })
         .catch(function () {
-          setStatus(
-            "Сеть недоступна. Позвоните нам: +7 987 217-02-02.",
-            "error"
-          );
+          setStatus(msg("err-network"), "error");
         })
         .finally(function () {
           if (btn) {

@@ -36,6 +36,7 @@
 | `npm run dev` | Локальный статик-сервер `public/` на :3000 |
 | `npm run sync` | `scripts/sync-sheets.mjs`: Google Sheets → `public/products.json` + страницы |
 | `npm run gen-cards` | Перегенерация RU+EN карточек товаров |
+| `python3 scripts/gen_pepperoni_landing.py` | Money hub `/pepperoni` в 9 локалях (Google Ads лендинг для экспорта). Копия — `data/pepperoni_landing_i18n*.json`, цены/фото — из `products.json`. См. `docs/GOOGLE-ADS-PEPPERONI-LANDING.md` |
 | `npm run mcp` | MCP-сервер (stdio) |
 | `bash scripts/sync-vps.sh` | Полный прод-цикл на VPS: sync → gen-ru/en → gen-llms → атомарная подмена `products.json` |
 

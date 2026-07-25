@@ -52,7 +52,12 @@ API = f"https://api.telegram.org/bot{TOKEN}"
 GROUP_ID = os.environ.get("LEADS_GROUP_ID", "").strip()
 MAX_LEADS = 2000
 
-PHONE_RE = re.compile(r"(?:\+7|8|7)[\s\-(]*\d{3}[\s\-)]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}")
+# RU/KZ (+7/8 + 10 digits) plus the CIS export dial codes used on the /pepperoni
+# landings, so export leads keep their phone in data/leads.json for attribution.
+PHONE_RE = re.compile(
+    r"(?:\+7|8|7)[\s\-(]*\d{3}[\s\-)]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}"
+    r"|\+?(?:375|374|992|994|995|996|998)[\s\-()]*(?:\d[\s\-()]*){7,9}\d"
+)
 URL_RE = re.compile(r"https?://(?:www\.)?pepperoni\.tatar(/[^\s?#]*)", re.I)
 COMMERCIAL = ("опт", "оптом", "цена", "прайс", "поставщ", "производит", "заказ",
               "b2b", "oem", "стм", "private label", "пиццери", "horeca", "хорека",

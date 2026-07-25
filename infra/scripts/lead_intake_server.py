@@ -50,9 +50,26 @@ ALLOWED_ORIGINS = {
     "https://api.pepperoni.tatar",
 }
 
-# Minimal RU phone validator: +7/8 followed by 10 digits with optional separators.
-PHONE_RE = re.compile(r"(?:\+7|8|7)[\s\-()]*\d{3}[\s\-()]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}")
+# Country codes of the export markets the /pepperoni landings advertise in.
+# Without them a RU-only validator answers `invalid_phone` to every buyer from
+# Uzbekistan, Georgia, Armenia etc. and the lead is lost before it is delivered.
+EXPORT_DIAL_CODES = ("375", "374", "992", "994", "995", "996", "998")
 MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64}
+
+
+def phone_ok(raw: str) -> bool:
+    """Accept RU/KZ numbers and the CIS export markets we run ads in."""
+    digits = re.sub(r"\D", "", raw or "")
+    if digits.startswith("00"):
+        digits = digits[2:]
+    if len(digits) == 11 and digits[0] in "78":  # +7…/8… — Russia, Kazakhstan
+        return True
+    if len(digits) == 10 and digits[0] == "9":  # RU mobile typed without +7
+        return True
+    return any(
+        digits.startswith(code) and 11 <= len(digits) <= 13
+        for code in EXPORT_DIAL_CODES
+    )
 
 logging.basicConfig(level=logging.INFO,
                     format="%(asctime)s [%(levelname)s] %(message)s")
@@ -141,7 +158,7 @@ def lead_submit():
     page = _clip(payload.get("page", ""), "page")
     experiment_id = _clip(payload.get("experiment_id", ""), "experiment_id")
 
-    if not phone or not PHONE_RE.search(phone):
+    if not phone_ok(phone):
         return _cors_headers(jsonify(ok=False, error="invalid_phone")), 400
 
     # Build the group message. Include the source URL so the userbot's

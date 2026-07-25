@@ -6,7 +6,7 @@
   "description": "Машиночитаемый каталог 64 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
   "url": "https://pepperoni.tatar/ru/products-feed.json",
   "inLanguage": "ru",
-  "dateModified": "2026-07-23T14:37:32.047369+00:00",
+  "dateModified": "2026-07-25T10:39:04.560133+00:00",
   "publisher": {
     "@type": "Organization",
     "name": "Казанские Деликатесы",
@@ -27,9 +27,9 @@
         "name": "Сосиски «Из говядины» (80 г × 6 шт)",
         "description": "Сосиски «Из говядины» (80 г × 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_iz_govadiny_1_o1qjh8.jpg",
-          "v1772700262/zakrytyi_hot_dog_1.1_wus1jd.jpg"
+          "https://pepperoni.tatar/images/products/kd-001-main.jpg?v=2a0a28ae",
+          "https://pepperoni.tatar/images/products/kd-001-pack.jpg?v=d62ce70b",
+          "https://pepperoni.tatar/images/products/kd-001-slice.jpg?v=517e6c32"
         ],
         "url": "https://pepperoni.tatar/products/kd-001",
         "brand": {
@@ -52,12 +52,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.37,
-            "KZT": 1594.46,
-            "UZS": 40517.03,
-            "KGS": 295.11,
-            "BYN": 9.76,
-            "AZN": 5.74
+            "USD": 3.4,
+            "KZT": 1613.81,
+            "UZS": 41076.49,
+            "KGS": 296.91,
+            "BYN": 9.74,
+            "AZN": 5.77
           }
         }
       }
@@ -74,9 +74,9 @@
         "name": "Сосиски «Два мяса» (80 г × 6 шт)",
         "description": "Сосиски «Два мяса» (80 г × 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730310/sosiski_2_masa_1.2_c1zz9d.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_dla_hot_dogov_dva_masa_qafusm.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://pepperoni.tatar/images/products/kd-002-main.jpg?v=a9a9cbd6",
+          "https://pepperoni.tatar/images/products/kd-002-pack.jpg?v=977edba3",
+          "https://pepperoni.tatar/images/products/kd-002-slice.jpg?v=02299761"
         ],
         "url": "https://pepperoni.tatar/products/kd-002",
         "brand": {
@@ -99,12 +99,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.32,
-            "KZT": 1572.47,
-            "UZS": 39958.18,
-            "KGS": 291.04,
-            "BYN": 9.63,
-            "AZN": 5.66
+            "USD": 3.35,
+            "KZT": 1591.55,
+            "UZS": 40509.92,
+            "KGS": 292.82,
+            "BYN": 9.6,
+            "AZN": 5.69
           }
         }
       }
@@ -121,9 +121,9 @@
         "name": "Сосиски «Три перца с сыром» (80 г × 6 шт)",
         "description": "Сосиски «Три перца с сыром» (80 г × 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730316/sosiski_tri_perza_s_syrom_80_g_6_st_gjatow.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://pepperoni.tatar/images/products/kd-003-main.jpg?v=773139fa",
+          "https://pepperoni.tatar/images/products/kd-003-pack.jpg?v=52538cc1",
+          "https://pepperoni.tatar/images/products/kd-003-slice.jpg?v=02299761"
         ],
         "url": "https://pepperoni.tatar/products/kd-003",
         "brand": {
@@ -146,12 +146,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.67,
-            "KZT": 1737.41,
-            "UZS": 44149.6,
-            "KGS": 321.56,
-            "BYN": 10.64,
-            "AZN": 6.25
+            "USD": 3.7,
+            "KZT": 1758.49,
+            "UZS": 44759.21,
+            "KGS": 323.53,
+            "BYN": 10.61,
+            "AZN": 6.29
           }
         }
       }
@@ -168,9 +168,9 @@
         "name": "Сосиски «Куриные» (80 г × 6 шт)",
         "description": "Сосиски «Куриные» (80 г × 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_gril__kurinye_bjrpdn.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/sosiski_kurinye_80_g_6_st_b8c74f.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://pepperoni.tatar/images/products/kd-004-main.jpg?v=f67020c2",
+          "https://pepperoni.tatar/images/products/kd-004-pack.jpg?v=9ecbea4f",
+          "https://pepperoni.tatar/images/products/kd-004-slice.jpg?v=02299761"
         ],
         "url": "https://pepperoni.tatar/products/kd-004",
         "brand": {
@@ -193,12 +193,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.32,
-            "KZT": 1572.47,
-            "UZS": 39958.18,
-            "KGS": 291.04,
-            "BYN": 9.63,
-            "AZN": 5.66
+            "USD": 3.35,
+            "KZT": 1591.55,
+            "UZS": 40509.92,
+            "KGS": 292.82,
+            "BYN": 9.6,
+            "AZN": 5.69
           }
         }
       }
@@ -215,9 +215,9 @@
         "name": "Сосиски «С бараниной» (80 г × 6 шт)",
         "description": "Сосиски «С бараниной» (80 г × 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_iz_baraniny_1.0_begzsd.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_baraninoi%CC%86_nw1xi2.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700280/0413-FELI4477_mluz2n.jpg"
+          "https://pepperoni.tatar/images/products/kd-005-main.jpg?v=ab871483",
+          "https://pepperoni.tatar/images/products/kd-005-pack.jpg?v=6992f4b4",
+          "https://pepperoni.tatar/images/products/kd-005-slice.jpg?v=02299761"
         ],
         "url": "https://pepperoni.tatar/products/kd-005",
         "brand": {
@@ -240,12 +240,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.25,
-            "KZT": 2012.32,
-            "UZS": 51135.29,
-            "KGS": 372.44,
-            "BYN": 12.32,
-            "AZN": 7.24
+            "USD": 4.29,
+            "KZT": 2036.74,
+            "UZS": 51841.36,
+            "KGS": 374.72,
+            "BYN": 12.29,
+            "AZN": 7.28
           }
         }
       }
@@ -262,9 +262,9 @@
         "name": "Сосиски «С травами» (130 г × 5 шт)",
         "description": "Сосиски «С травами» (130 г × 5 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730306/sosiski_v_razreze_s_travami_vc0nyj.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_travami_ruptjj.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+          "https://pepperoni.tatar/images/products/kd-006-main.jpg?v=866fa4f8",
+          "https://pepperoni.tatar/images/products/kd-006-pack.jpg?v=424b65a2",
+          "https://pepperoni.tatar/images/products/kd-006-slice.jpg?v=5a0e9726"
         ],
         "url": "https://pepperoni.tatar/products/kd-006",
         "brand": {
@@ -287,12 +287,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.92,
-            "KZT": 2331.21,
-            "UZS": 59238.7,
-            "KGS": 431.47,
-            "BYN": 14.27,
-            "AZN": 8.39
+            "USD": 4.96,
+            "KZT": 2359.5,
+            "UZS": 60056.66,
+            "KGS": 434.11,
+            "BYN": 14.23,
+            "AZN": 8.44
           }
         }
       }
@@ -309,9 +309,9 @@
         "name": "Сосиски «С сыром» (130 г × 5 шт)",
         "description": "Сосиски «С сыром» (130 г × 5 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730303/sosiski_dla_hot_dogov_prosto_s_syrom_fhqdsp.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730302/sosiski_dla_hot_dogov_s_syrom_1_ncg3x7.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700248/zakrytyi%CC%86_hot_dog_1_aub6tl.jpg"
+          "https://pepperoni.tatar/images/products/kd-007-main.jpg?v=dd2f328f",
+          "https://pepperoni.tatar/images/products/kd-007-pack.jpg?v=1ef0d1d8",
+          "https://pepperoni.tatar/images/products/kd-007-slice.jpg?v=5a0e9726"
         ],
         "url": "https://pepperoni.tatar/products/kd-007",
         "brand": {
@@ -334,12 +334,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 5.28,
-            "KZT": 2501.66,
-            "UZS": 63569.83,
-            "KGS": 463.01,
-            "BYN": 15.32,
-            "AZN": 9
+            "USD": 5.33,
+            "KZT": 2532.01,
+            "UZS": 64447.6,
+            "KGS": 465.84,
+            "BYN": 15.27,
+            "AZN": 9.06
           }
         }
       }
@@ -356,7 +356,7 @@
         "name": "Сосиски Из конины\" (80 г х 6 шт)",
         "description": "Сосиски Из конины\" (80 г х 6 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg"
+          "https://pepperoni.tatar/images/products/kd-008-main.jpg?v=2a0a28ae"
         ],
         "url": "https://pepperoni.tatar/products/kd-008",
         "brand": {
@@ -379,12 +379,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.67,
-            "KZT": 1737.41,
-            "UZS": 44149.6,
-            "KGS": 321.56,
-            "BYN": 10.64,
-            "AZN": 6.25
+            "USD": 3.7,
+            "KZT": 1758.49,
+            "UZS": 44759.21,
+            "KGS": 323.53,
+            "BYN": 10.61,
+            "AZN": 6.29
           }
         }
       }
@@ -401,8 +401,8 @@
         "name": "Котлета говяжья прожаренная (100 г × 3 шт)",
         "description": "Котлета говяжья прожаренная (100 г × 3 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730318/kotlety_iz_govadiny_gotovye_x1c0ov.jpg"
+          "https://pepperoni.tatar/images/products/kd-009-main.jpg?v=5346141e",
+          "https://pepperoni.tatar/images/products/kd-009-pack.jpg?v=6cce804f"
         ],
         "url": "https://pepperoni.tatar/products/kd-009",
         "brand": {
@@ -425,12 +425,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.21,
-            "KZT": 1517.49,
-            "UZS": 38561.04,
-            "KGS": 280.86,
-            "BYN": 9.29,
-            "AZN": 5.46
+            "USD": 3.23,
+            "KZT": 1535.9,
+            "UZS": 39093.49,
+            "KGS": 282.58,
+            "BYN": 9.27,
+            "AZN": 5.49
           }
         }
       }
@@ -447,8 +447,8 @@
         "name": "Котлета говяжья прожаренная (150 г × 2 шт)",
         "description": "Котлета говяжья прожаренная (150 г × 2 шт)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730323/kotleta_gotovaa_1.0_l9kaas.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730324/gotovye_kotlety_iz_govadiny_qdi2mt.jpg"
+          "https://pepperoni.tatar/images/products/kd-010-main.jpg?v=7c5b42da",
+          "https://pepperoni.tatar/images/products/kd-010-pack.jpg?v=98d7583f"
         ],
         "url": "https://pepperoni.tatar/products/kd-010",
         "brand": {
@@ -471,12 +471,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.21,
-            "KZT": 1517.49,
-            "UZS": 38561.04,
-            "KGS": 280.86,
-            "BYN": 9.29,
-            "AZN": 5.46
+            "USD": 3.23,
+            "KZT": 1535.9,
+            "UZS": 39093.49,
+            "KGS": 282.58,
+            "BYN": 9.27,
+            "AZN": 5.49
           }
         }
       }
@@ -493,9 +493,9 @@
         "name": "Ветчина Куриная Филейная в нарезке",
         "description": "Ветчина Куриная Филейная в нарезке",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730389/vetcina_filei%CC%86naa_2_asnyoi.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730388/vetcina_filei%CC%86naa_1.1_aenzt8.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700189/pizza_s_vetcinoi%CC%86_1.0_dwljhl.jpg"
+          "https://pepperoni.tatar/images/products/kd-011-main.jpg?v=ba1ac336",
+          "https://pepperoni.tatar/images/products/kd-011-pack.jpg?v=4b8daa83",
+          "https://pepperoni.tatar/images/products/kd-011-slice.jpg?v=640348f0"
         ],
         "url": "https://pepperoni.tatar/products/kd-011",
         "brand": {
@@ -518,12 +518,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.18,
-            "KZT": 1033.65,
-            "UZS": 26266.22,
-            "KGS": 191.31,
-            "BYN": 6.33,
-            "AZN": 3.72
+            "USD": 2.2,
+            "KZT": 1046.19,
+            "UZS": 26628.9,
+            "KGS": 192.48,
+            "BYN": 6.31,
+            "AZN": 3.74
           }
         }
       }
@@ -540,9 +540,9 @@
         "name": "Пепперони варено-копченый из конины",
         "description": "Пепперони варено-копченый из конины",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+          "https://pepperoni.tatar/images/products/kd-012-main.jpg?v=ead0a132",
+          "https://pepperoni.tatar/images/products/kd-012-pack.jpg?v=74fb72be",
+          "https://pepperoni.tatar/images/products/kd-012-slice.jpg?v=bc0061ef"
         ],
         "url": "https://pepperoni.tatar/products/kd-012",
         "brand": {
@@ -565,12 +565,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.66,
-            "KZT": 1731.92,
-            "UZS": 44009.88,
-            "KGS": 320.55,
-            "BYN": 10.6,
-            "AZN": 6.23
+            "USD": 3.69,
+            "KZT": 1752.93,
+            "UZS": 44617.57,
+            "KGS": 322.51,
+            "BYN": 10.57,
+            "AZN": 6.27
           }
         }
       }
@@ -587,9 +587,9 @@
         "name": "Пепперони варено-копченый куриный",
         "description": "Пепперони варено-копченый куриный",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730326/pepperoni_narezka_bol_saa_azeom7.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730312/pepperoni_3_stuki_zpezfy.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+          "https://pepperoni.tatar/images/products/kd-013-main.jpg?v=ead0a132",
+          "https://pepperoni.tatar/images/products/kd-013-pack.jpg?v=74fb72be",
+          "https://pepperoni.tatar/images/products/kd-013-slice.jpg?v=bc0061ef"
         ],
         "url": "https://pepperoni.tatar/products/kd-013",
         "brand": {
@@ -612,12 +612,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.18,
-            "KZT": 1506.49,
-            "UZS": 38281.61,
-            "KGS": 278.82,
-            "BYN": 9.22,
-            "AZN": 5.42
+            "USD": 3.21,
+            "KZT": 1524.77,
+            "UZS": 38810.2,
+            "KGS": 280.53,
+            "BYN": 9.2,
+            "AZN": 5.45
           }
         }
       }
@@ -634,9 +634,9 @@
         "name": "Пепперони варено-копченый куриный целый батон",
         "description": "Пепперони варено-копченый куриный целый батон",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_zel_naa_t8rfjn.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730328/pepperoni_ikic7r.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700231/pepperoni_vid_sverhu_j0nucc.jpg"
+          "https://pepperoni.tatar/images/products/kd-014-main.jpg?v=0a4688a0",
+          "https://pepperoni.tatar/images/products/kd-014-pack.jpg?v=ff0e301b",
+          "https://pepperoni.tatar/images/products/kd-014-slice.jpg?v=bc0061ef"
         ],
         "url": "https://pepperoni.tatar/products/kd-014",
         "brand": {
@@ -659,12 +659,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 5.31,
-            "KZT": 2512.65,
-            "UZS": 63849.26,
-            "KGS": 465.05,
-            "BYN": 15.38,
-            "AZN": 9.04
+            "USD": 5.35,
+            "KZT": 2543.14,
+            "UZS": 64730.88,
+            "KGS": 467.89,
+            "BYN": 15.34,
+            "AZN": 9.1
           }
         }
       }
@@ -681,8 +681,8 @@
         "name": "Грудка куриная варено-копченая",
         "description": "Грудка куриная варено-копченая",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kurinaa_grudka_1_bl8203.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kurinaa_grudka_v_razreze_o3124p.jpg"
+          "https://pepperoni.tatar/images/products/kd-015-main.jpg?v=5f3dbc90",
+          "https://pepperoni.tatar/images/products/kd-015-pack.jpg?v=cb9dceda"
         ],
         "url": "https://pepperoni.tatar/products/kd-015",
         "brand": {
@@ -705,12 +705,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.79,
-            "KZT": 2265.24,
-            "UZS": 57562.13,
-            "KGS": 419.25,
-            "BYN": 13.87,
-            "AZN": 8.15
+            "USD": 4.82,
+            "KZT": 2292.72,
+            "UZS": 58356.94,
+            "KGS": 421.82,
+            "BYN": 13.83,
+            "AZN": 8.2
           }
         }
       }
@@ -750,12 +750,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 5.21,
-            "KZT": 2468.67,
-            "UZS": 62731.55,
-            "KGS": 456.91,
-            "BYN": 15.11,
-            "AZN": 8.88
+            "USD": 5.26,
+            "KZT": 2498.62,
+            "UZS": 63597.74,
+            "KGS": 459.7,
+            "BYN": 15.07,
+            "AZN": 8.94
           }
         }
       }
@@ -772,9 +772,9 @@
         "name": "Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр",
         "description": "Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730442/sosiski_k_zavtraku_2_unjwfb.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730443/sosiski_k_zavtraku_3_hv0eel.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+          "https://pepperoni.tatar/images/products/kd-018-main.jpg?v=c5791103",
+          "https://pepperoni.tatar/images/products/kd-018-pack.jpg?v=d59e38ba",
+          "https://pepperoni.tatar/images/products/kd-018-slice.jpg?v=6dcaedab"
         ],
         "url": "https://pepperoni.tatar/products/kd-018",
         "brand": {
@@ -797,12 +797,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.85,
-            "KZT": 1347.05,
-            "UZS": 34229.91,
-            "KGS": 249.31,
-            "BYN": 8.25,
-            "AZN": 4.85
+            "USD": 2.87,
+            "KZT": 1363.39,
+            "UZS": 34702.55,
+            "KGS": 250.84,
+            "BYN": 8.22,
+            "AZN": 4.88
           }
         }
       }
@@ -819,9 +819,8 @@
         "name": "Сосиски «К завтраку»",
         "description": "Сосиски «К завтраку»",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
-          "0",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730441/sosiski_k_zavtraku_4_twgspu.jpg"
+          "https://pepperoni.tatar/images/products/kd-017-main.jpg?v=b494e1b2",
+          "https://pepperoni.tatar/images/products/kd-017-slice.jpg?v=6dcaedab"
         ],
         "url": "https://pepperoni.tatar/products/kd-017",
         "brand": {
@@ -844,12 +843,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.57,
-            "KZT": 742.25,
-            "UZS": 18861.38,
-            "KGS": 137.38,
-            "BYN": 4.54,
-            "AZN": 2.67
+            "USD": 1.58,
+            "KZT": 751.26,
+            "UZS": 19121.81,
+            "KGS": 138.22,
+            "BYN": 4.53,
+            "AZN": 2.69
           }
         }
       }
@@ -866,8 +865,8 @@
         "name": "Сосиски «Нежные»",
         "description": "Сосиски «Нежные»",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_neznye_apvsmk.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730430/sosiski_neznaa_jqh4xv.jpg"
+          "https://pepperoni.tatar/images/products/kd-019-main.jpg?v=ec984c90",
+          "https://pepperoni.tatar/images/products/kd-019-slice.jpg?v=f604bdc6"
         ],
         "url": "https://pepperoni.tatar/products/kd-019",
         "brand": {
@@ -890,12 +889,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.1,
-            "KZT": 995.16,
-            "UZS": 25288.22,
-            "KGS": 184.19,
-            "BYN": 6.09,
-            "AZN": 3.58
+            "USD": 2.12,
+            "KZT": 1007.24,
+            "UZS": 25637.4,
+            "KGS": 185.31,
+            "BYN": 6.08,
+            "AZN": 3.6
           }
         }
       }
@@ -912,8 +911,8 @@
         "name": "Сосиски «Казанские с молоком»",
         "description": "Сосиски «Казанские с молоком»",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730460/kazanskie_molocnye_sosiski_zl1ifo.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730462/kazanskie_socnye_sosiski_c4q1cm.jpg"
+          "https://pepperoni.tatar/images/products/kd-020-main.jpg?v=d4914aed",
+          "https://pepperoni.tatar/images/products/kd-020-pack.jpg?v=b0764067"
         ],
         "url": "https://pepperoni.tatar/products/kd-020",
         "brand": {
@@ -936,12 +935,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.73,
-            "KZT": 1292.06,
-            "UZS": 32832.77,
-            "KGS": 239.14,
-            "BYN": 7.91,
-            "AZN": 4.65
+            "USD": 2.75,
+            "KZT": 1307.74,
+            "UZS": 33286.12,
+            "KGS": 240.6,
+            "BYN": 7.89,
+            "AZN": 4.68
           }
         }
       }
@@ -958,9 +957,9 @@
         "name": "Сосиски «С сыром»",
         "description": "Сосиски «С сыром»",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_1.1_eeaaav.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730434/sosiski_kazanskie_s_syrom_iygsec.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730428/sosiski_s_syrom_130_g_5_st_2_ctyyui.jpg"
+          "https://pepperoni.tatar/images/products/kd-021-main.jpg?v=035fd35d",
+          "https://pepperoni.tatar/images/products/kd-021-pack.jpg?v=2b701481",
+          "https://pepperoni.tatar/images/products/kd-021-slice.jpg?v=23b3d285"
         ],
         "url": "https://pepperoni.tatar/products/kd-021",
         "brand": {
@@ -983,12 +982,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.4,
-            "KZT": 1610.96,
-            "UZS": 40936.18,
-            "KGS": 298.16,
-            "BYN": 9.86,
-            "AZN": 5.8
+            "USD": 3.43,
+            "KZT": 1630.5,
+            "UZS": 41501.42,
+            "KGS": 299.98,
+            "BYN": 9.84,
+            "AZN": 5.83
           }
         }
       }
@@ -1005,8 +1004,8 @@
         "name": "Сосиски \"Из говядины\"",
         "description": "Сосиски \"Из говядины\"",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_iz_govadiny_80_g_6_st_outyte.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730444/sosiski_iz_govadiny_80_g_6_st_2_icliam.jpg"
+          "https://pepperoni.tatar/images/products/kd-022-main.jpg?v=d309cae9",
+          "https://pepperoni.tatar/images/products/kd-022-slice.jpg?v=0814dbbf"
         ],
         "url": "https://pepperoni.tatar/products/kd-022",
         "brand": {
@@ -1029,12 +1028,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.3,
-            "KZT": 1561.47,
-            "UZS": 39678.75,
-            "KGS": 289,
-            "BYN": 9.56,
-            "AZN": 5.62
+            "USD": 3.32,
+            "KZT": 1580.42,
+            "UZS": 40226.63,
+            "KGS": 290.77,
+            "BYN": 9.53,
+            "AZN": 5.65
           }
         }
       }
@@ -1051,9 +1050,9 @@
         "name": "Сосиски в/с Премиум",
         "description": "Сосиски в/с Премиум",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_premium_srebyg.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730455/sosiski_kazanskie_premium_udkadz.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730429/sosiski_v-s_premium_xyky0a.jpg"
+          "https://pepperoni.tatar/images/products/kd-023-main.jpg?v=af801b47",
+          "https://pepperoni.tatar/images/products/kd-023-pack.jpg?v=31c50f56",
+          "https://pepperoni.tatar/images/products/kd-023-slice.jpg?v=9411fbae"
         ],
         "url": "https://pepperoni.tatar/products/kd-023",
         "brand": {
@@ -1076,12 +1075,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.7,
-            "KZT": 802.73,
-            "UZS": 20398.23,
-            "KGS": 148.57,
-            "BYN": 4.91,
-            "AZN": 2.89
+            "USD": 1.71,
+            "KZT": 812.47,
+            "UZS": 20679.89,
+            "KGS": 149.48,
+            "BYN": 4.9,
+            "AZN": 2.91
           }
         }
       }
@@ -1098,8 +1097,8 @@
         "name": "Сосиски в/с Сочные",
         "description": "Сосиски в/с Сочные",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730454/sosiski_kazanskie_socnye_vntchs.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730458/kazanskie_socnye_fw2ptj.jpg"
+          "https://pepperoni.tatar/images/products/kd-024-main.jpg?v=804a83c7",
+          "https://pepperoni.tatar/images/products/kd-024-slice.jpg?v=b813f517"
         ],
         "url": "https://pepperoni.tatar/products/kd-024",
         "brand": {
@@ -1122,12 +1121,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.67,
-            "KZT": 791.73,
-            "UZS": 20118.8,
-            "KGS": 146.54,
-            "BYN": 4.85,
-            "AZN": 2.85
+            "USD": 1.69,
+            "KZT": 801.34,
+            "UZS": 20396.6,
+            "KGS": 147.43,
+            "BYN": 4.83,
+            "AZN": 2.87
           }
         }
       }
@@ -1144,8 +1143,8 @@
         "name": "Колбаски с Сыром",
         "description": "Колбаски с Сыром",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730361/kolbaski_s_syrom_2_lmewes.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbaski_s_syrom_v_razreze_vyd7il.jpg"
+          "https://pepperoni.tatar/images/products/kd-035-main.jpg?v=672fd6db",
+          "https://pepperoni.tatar/images/products/kd-035-slice.jpg?v=12e8def1"
         ],
         "url": "https://pepperoni.tatar/products/kd-035",
         "brand": {
@@ -1168,12 +1167,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.15,
-            "KZT": 1490,
-            "UZS": 37862.47,
-            "KGS": 275.77,
-            "BYN": 9.12,
-            "AZN": 5.36
+            "USD": 3.17,
+            "KZT": 1508.08,
+            "UZS": 38385.27,
+            "KGS": 277.46,
+            "BYN": 9.1,
+            "AZN": 5.39
           }
         }
       }
@@ -1190,7 +1189,7 @@
         "name": "Вареная «Из Говядины»",
         "description": "Вареная «Из Говядины»",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg"
+          "https://pepperoni.tatar/images/products/kd-025-main.jpg?v=9c105228"
         ],
         "url": "https://pepperoni.tatar/products/kd-025",
         "brand": {
@@ -1213,12 +1212,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.39,
-            "KZT": 1605.46,
-            "UZS": 40796.46,
-            "KGS": 297.14,
-            "BYN": 9.83,
-            "AZN": 5.78
+            "USD": 3.42,
+            "KZT": 1624.94,
+            "UZS": 41359.78,
+            "KGS": 298.96,
+            "BYN": 9.8,
+            "AZN": 5.81
           }
         }
       }
@@ -1258,12 +1257,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.29,
-            "KZT": 1083.13,
-            "UZS": 27523.64,
-            "KGS": 200.47,
-            "BYN": 6.63,
-            "AZN": 3.9
+            "USD": 2.31,
+            "KZT": 1096.28,
+            "UZS": 27903.68,
+            "KGS": 201.7,
+            "BYN": 6.61,
+            "AZN": 3.92
           }
         }
       }
@@ -1303,12 +1302,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.32,
-            "KZT": 1099.63,
-            "UZS": 27942.78,
-            "KGS": 203.52,
-            "BYN": 6.73,
-            "AZN": 3.96
+            "USD": 2.34,
+            "KZT": 1112.97,
+            "UZS": 28328.61,
+            "KGS": 204.77,
+            "BYN": 6.71,
+            "AZN": 3.98
           }
         }
       }
@@ -1325,8 +1324,8 @@
         "name": "Ветчина из Индейки",
         "description": "Ветчина из Индейки",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227277/%D0%B2%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%B8%D0%BD%D0%B4%D0%B5%D0%B8%CC%86%D0%BA%D0%B8_1_znbt38.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227446/%D0%92%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%98%D0%BD%D0%B4%D0%B5%D0%B8%CC%86%D0%BA%D0%B8_skd9x0.jpg"
+          "https://pepperoni.tatar/images/products/kd-028-main.jpg?v=10d50419",
+          "https://pepperoni.tatar/images/products/kd-028-pack.jpg?v=766f0dc1"
         ],
         "url": "https://pepperoni.tatar/products/kd-028",
         "brand": {
@@ -1349,12 +1348,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.41,
-            "KZT": 2089.29,
-            "UZS": 53091.29,
-            "KGS": 386.69,
-            "BYN": 12.79,
-            "AZN": 7.52
+            "USD": 4.45,
+            "KZT": 2114.65,
+            "UZS": 53824.37,
+            "KGS": 389.06,
+            "BYN": 12.76,
+            "AZN": 7.56
           }
         }
       }
@@ -1371,8 +1370,8 @@
         "name": "Ветчина Мраморная с говядиной",
         "description": "Ветчина Мраморная с говядиной",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/mramornaa_govaz_a_vetcina_f8phhh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/vetcina_mramornaa3_lnhk65.jpg"
+          "https://pepperoni.tatar/images/products/kd-029-main.jpg?v=4027d1dc",
+          "https://pepperoni.tatar/images/products/kd-029-pack.jpg?v=417260e8"
         ],
         "url": "https://pepperoni.tatar/products/kd-029",
         "brand": {
@@ -1395,12 +1394,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.62,
-            "KZT": 2188.26,
-            "UZS": 55606.14,
-            "KGS": 405.01,
-            "BYN": 13.4,
-            "AZN": 7.87
+            "USD": 4.66,
+            "KZT": 2214.81,
+            "UZS": 56373.94,
+            "KGS": 407.49,
+            "BYN": 13.36,
+            "AZN": 7.92
           }
         }
       }
@@ -1417,8 +1416,8 @@
         "name": "Ветчина из Курицы",
         "description": "Ветчина из Курицы",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227502/%D0%92%D0%B5%D1%82%D1%87%D0%B8%D0%BD%D0%B0_%D0%B8%D0%B7_%D0%9A%D1%83%D1%80%D0%B8%D1%86%D1%8B_dmnuw8.jpg"
+          "https://pepperoni.tatar/images/products/kd-030-main.jpg?v=7faf7faf",
+          "https://pepperoni.tatar/images/products/kd-030-pack.jpg?v=2069a0c2"
         ],
         "url": "https://pepperoni.tatar/products/kd-030",
         "brand": {
@@ -1441,12 +1440,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.06,
-            "KZT": 1924.35,
-            "UZS": 48899.87,
-            "KGS": 356.16,
-            "BYN": 11.78,
-            "AZN": 6.92
+            "USD": 4.1,
+            "KZT": 1947.7,
+            "UZS": 49575.07,
+            "KGS": 358.34,
+            "BYN": 11.75,
+            "AZN": 6.97
           }
         }
       }
@@ -1463,8 +1462,8 @@
         "name": "Сервелат Ханский",
         "description": "Сервелат Ханский",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784213103/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%85%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B8%CC%86_jlvpkw.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784213226/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%A5%D0%B0%D0%BD%D1%81%D0%BA%D0%B8%D0%B8%CC%86_2_evybfe.jpg"
+          "https://pepperoni.tatar/images/products/kd-031-main.jpg?v=9bff5ec7",
+          "https://pepperoni.tatar/images/products/kd-031-pack.jpg?v=3ecde64e"
         ],
         "url": "https://pepperoni.tatar/products/kd-031",
         "brand": {
@@ -1487,12 +1486,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.51,
-            "KZT": 1187.6,
-            "UZS": 30178.21,
-            "KGS": 219.8,
-            "BYN": 7.27,
-            "AZN": 4.27
+            "USD": 2.53,
+            "KZT": 1202.01,
+            "UZS": 30594.9,
+            "KGS": 221.15,
+            "BYN": 7.25,
+            "AZN": 4.3
           }
         }
       }
@@ -1509,8 +1508,8 @@
         "name": "Сервелат по-татарски в/к",
         "description": "Сервелат по-татарски в/к",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730372/bol_soi%CC%86_servelat_po_tatarski_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_fluqsp.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784227655/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%BF%D0%BE-%D1%82%D0%B0%D1%82%D0%B0%D1%80%D1%81%D0%BA%D0%B8_%D0%B2-%D0%BA_wfffod.jpg"
+          "https://pepperoni.tatar/images/products/kd-032-main.jpg?v=a3eaf761",
+          "https://pepperoni.tatar/images/products/kd-032-pack.jpg?v=5fe9854d"
         ],
         "url": "https://pepperoni.tatar/products/kd-032",
         "brand": {
@@ -1533,12 +1532,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.46,
-            "KZT": 1638.45,
-            "UZS": 41634.75,
-            "KGS": 303.25,
-            "BYN": 10.03,
-            "AZN": 5.9
+            "USD": 3.49,
+            "KZT": 1658.33,
+            "UZS": 42209.63,
+            "KGS": 305.1,
+            "BYN": 10,
+            "AZN": 5.93
           }
         }
       }
@@ -1555,8 +1554,8 @@
         "name": "Полукопченая из Индейки",
         "description": "Полукопченая из Индейки",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730380/kolbasa_polukopcenaa_iz_indei%CC%86ki_ptvshr.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_indei%CC%86ki_2_yny2x2.jpg"
+          "https://pepperoni.tatar/images/products/kd-033-main.jpg?v=97c8a31d",
+          "https://pepperoni.tatar/images/products/kd-033-slice.jpg?v=4e1bae41"
         ],
         "url": "https://pepperoni.tatar/products/kd-033",
         "brand": {
@@ -1579,12 +1578,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.04,
-            "KZT": 1913.35,
-            "UZS": 48620.44,
-            "KGS": 354.13,
-            "BYN": 11.71,
-            "AZN": 6.88
+            "USD": 4.07,
+            "KZT": 1936.57,
+            "UZS": 49291.79,
+            "KGS": 356.29,
+            "BYN": 11.68,
+            "AZN": 6.93
           }
         }
       }
@@ -1601,8 +1600,8 @@
         "name": "Полукопченая из Говядины",
         "description": "Полукопченая из Говядины",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/polukopcenaa_iz_govadiny_2_zllh0c.jpg"
+          "https://pepperoni.tatar/images/products/kd-034-main.jpg?v=725ebc01",
+          "https://pepperoni.tatar/images/products/kd-034-slice.jpg?v=1438cb10"
         ],
         "url": "https://pepperoni.tatar/products/kd-034",
         "brand": {
@@ -1625,12 +1624,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.16,
-            "KZT": 1968.34,
-            "UZS": 50017.58,
-            "KGS": 364.3,
-            "BYN": 12.05,
-            "AZN": 7.08
+            "USD": 4.19,
+            "KZT": 1992.22,
+            "UZS": 50708.22,
+            "KGS": 366.53,
+            "BYN": 12.02,
+            "AZN": 7.13
           }
         }
       }
@@ -1647,8 +1646,8 @@
         "name": "в/к Рамазан",
         "description": "в/к Рамазан",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730391/bol_saa_kolbasa_vareno-kopcenaa_ramazan_pp6qug.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+          "https://pepperoni.tatar/images/products/kd-036-main.jpg?v=72b9acb1",
+          "https://pepperoni.tatar/images/products/kd-036-slice.jpg?v=e6079c2b"
         ],
         "url": "https://pepperoni.tatar/products/kd-036",
         "brand": {
@@ -1671,12 +1670,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.38,
-            "KZT": 2072.8,
-            "UZS": 52672.15,
-            "KGS": 383.64,
-            "BYN": 12.69,
-            "AZN": 7.46
+            "USD": 4.41,
+            "KZT": 2097.95,
+            "UZS": 53399.44,
+            "KGS": 385.99,
+            "BYN": 12.66,
+            "AZN": 7.5
           }
         }
       }
@@ -1693,8 +1692,8 @@
         "name": "в/к Рамазан (половинка)",
         "description": "в/к Рамазан (половинка)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730365/kolbas_vvareno-kopcenaa_ramazan_sliauh.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730376/ramazan_vse_vidy_narezki.1_gcmke9.jpg"
+          "https://pepperoni.tatar/images/products/kd-037-main.jpg?v=884c8517",
+          "https://pepperoni.tatar/images/products/kd-037-slice.jpg?v=e6079c2b"
         ],
         "url": "https://pepperoni.tatar/products/kd-037",
         "brand": {
@@ -1717,12 +1716,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.18,
-            "KZT": 1033.65,
-            "UZS": 26266.22,
-            "KGS": 191.31,
-            "BYN": 6.33,
-            "AZN": 3.72
+            "USD": 2.2,
+            "KZT": 1046.19,
+            "UZS": 26628.9,
+            "KGS": 192.48,
+            "BYN": 6.31,
+            "AZN": 3.74
           }
         }
       }
@@ -1739,8 +1738,8 @@
         "name": "в/к Мраморная",
         "description": "в/к Мраморная",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730386/bol_saa_kolbasa_vareno-kopcenaa_mramornaa_blre06.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+          "https://pepperoni.tatar/images/products/kd-038-main.jpg?v=40304091",
+          "https://pepperoni.tatar/images/products/kd-038-slice.jpg?v=ada87c69"
         ],
         "url": "https://pepperoni.tatar/products/kd-038",
         "brand": {
@@ -1763,12 +1762,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.2,
-            "KZT": 1990.33,
-            "UZS": 50576.44,
-            "KGS": 368.37,
-            "BYN": 12.19,
-            "AZN": 7.16
+            "USD": 4.24,
+            "KZT": 2014.48,
+            "UZS": 51274.79,
+            "KGS": 370.63,
+            "BYN": 12.15,
+            "AZN": 7.2
           }
         }
       }
@@ -1785,9 +1784,9 @@
         "name": "в/к Мраморная (половинка)",
         "description": "в/к Мраморная (половинка)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramornaa_cdopdr.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_vareno-kopcenaa_mramor_qurfln.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730378/mramornaa_vse_vidy_narezki_yrxuek.jpg"
+          "https://pepperoni.tatar/images/products/kd-039-main.jpg?v=3f5f733b",
+          "https://pepperoni.tatar/images/products/kd-039-pack.jpg?v=bbf0cd3d",
+          "https://pepperoni.tatar/images/products/kd-039-slice.jpg?v=ada87c69"
         ],
         "url": "https://pepperoni.tatar/products/kd-039",
         "brand": {
@@ -1810,12 +1809,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.1,
-            "KZT": 995.16,
-            "UZS": 25288.22,
-            "KGS": 184.19,
-            "BYN": 6.09,
-            "AZN": 3.58
+            "USD": 2.12,
+            "KZT": 1007.24,
+            "UZS": 25637.4,
+            "KGS": 185.31,
+            "BYN": 6.08,
+            "AZN": 3.6
           }
         }
       }
@@ -1832,9 +1831,9 @@
         "name": "в/к Филейный",
         "description": "в/к Филейный",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_soi%CC%86_servelat_vareno-kopcenyi%CC%86_filei%CC%86nyi%CC%86_lnnvru.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730383/dlinnaa_servelat_filei%CC%86nyi%CC%86_fbplzi.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228298/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_%D0%B2%D1%81%D0%B5_%D0%B2%D0%B8%D0%B4%D1%8B_%D0%BD%D0%B0%D1%80%D0%B5%D0%B7%D0%BA%D0%B8_gyhivb.jpg"
+          "https://pepperoni.tatar/images/products/kd-040-main.jpg?v=1c224d29",
+          "https://pepperoni.tatar/images/products/kd-040-pack.jpg?v=f3661c6e",
+          "https://pepperoni.tatar/images/products/kd-040-slice.jpg?v=1b40cfc1"
         ],
         "url": "https://pepperoni.tatar/products/kd-040",
         "brand": {
@@ -1857,12 +1856,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.87,
-            "KZT": 1830.88,
-            "UZS": 46524.73,
-            "KGS": 338.86,
-            "BYN": 11.21,
-            "AZN": 6.59
+            "USD": 3.9,
+            "KZT": 1853.1,
+            "UZS": 47167.14,
+            "KGS": 340.94,
+            "BYN": 11.18,
+            "AZN": 6.63
           }
         }
       }
@@ -1879,8 +1878,8 @@
         "name": "в/к Филейный (половинка)",
         "description": "в/к Филейный (половинка)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228206/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D0%B2%D0%B0%D1%80%D0%B5%D0%BD%D0%BE_%D0%BA%D0%BE%D0%BF%D1%87%D0%B5%D0%BD%D1%8B%D0%B8%CC%86_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_bb0jum.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228304/%D0%A1%D0%B5%D1%80%D0%B2%D0%B5%D0%BB%D0%B0%D1%82_%D1%84%D0%B8%D0%BB%D0%B5%D0%B8%CC%86%D0%BD%D1%8B%D0%B8%CC%86_vqdd44.jpg"
+          "https://pepperoni.tatar/images/products/kd-041-main.jpg?v=6c7fdeac",
+          "https://pepperoni.tatar/images/products/kd-041-pack.jpg?v=0f0d111a"
         ],
         "url": "https://pepperoni.tatar/products/kd-041",
         "brand": {
@@ -1903,12 +1902,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.93,
-            "KZT": 912.69,
-            "UZS": 23192.51,
-            "KGS": 168.92,
-            "BYN": 5.59,
-            "AZN": 3.28
+            "USD": 1.94,
+            "KZT": 923.77,
+            "UZS": 23512.75,
+            "KGS": 169.96,
+            "BYN": 5.57,
+            "AZN": 3.3
           }
         }
       }
@@ -1925,7 +1924,7 @@
         "name": "в/к Княжеская",
         "description": "в/к Княжеская",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730371/bol_saa_kolbasa_vareno-kopcenaa_knazeskaa_tlteyj.jpg"
+          "https://pepperoni.tatar/images/products/kd-042-main.jpg?v=bdd7515b"
         ],
         "url": "https://pepperoni.tatar/products/kd-042",
         "brand": {
@@ -1948,12 +1947,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.2,
-            "KZT": 1990.33,
-            "UZS": 50576.44,
-            "KGS": 368.37,
-            "BYN": 12.19,
-            "AZN": 7.16
+            "USD": 4.24,
+            "KZT": 2014.48,
+            "UZS": 51274.79,
+            "KGS": 370.63,
+            "BYN": 12.15,
+            "AZN": 7.2
           }
         }
       }
@@ -1970,7 +1969,7 @@
         "name": "в/к Княжеская (половинка)",
         "description": "в/к Княжеская (половинка)",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730362/kolbasa_vareno-kopcenaa_knazeskaa_g5prfg.jpg"
+          "https://pepperoni.tatar/images/products/kd-043-main.jpg?v=9fe364da"
         ],
         "url": "https://pepperoni.tatar/products/kd-043",
         "brand": {
@@ -1993,12 +1992,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.1,
-            "KZT": 995.16,
-            "UZS": 25288.22,
-            "KGS": 184.19,
-            "BYN": 6.09,
-            "AZN": 3.58
+            "USD": 2.12,
+            "KZT": 1007.24,
+            "UZS": 25637.4,
+            "KGS": 185.31,
+            "BYN": 6.08,
+            "AZN": 3.6
           }
         }
       }
@@ -2015,9 +2014,9 @@
         "name": "Казылык «Премиум» в подарочной упаковке",
         "description": "Казылык «Премиум» в подарочной упаковке",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700370/kyzylyk_i_upakovka_1.0_vi99ww.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730300/sosiski_dla_hot_dogov_tri_perza_s_syrom_v7sbbt.jpg"
+          "https://pepperoni.tatar/images/products/kd-044-main.jpg?v=6333ee16",
+          "https://pepperoni.tatar/images/products/kd-044-pack.jpg?v=8ffdb0db",
+          "https://pepperoni.tatar/images/products/kd-044-slice.jpg?v=52538cc1"
         ],
         "url": "https://pepperoni.tatar/products/kd-044",
         "brand": {
@@ -2040,12 +2039,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 6.92,
-            "KZT": 3275.98,
-            "UZS": 83246.21,
-            "KGS": 606.32,
-            "BYN": 20.06,
-            "AZN": 11.79
+            "USD": 6.98,
+            "KZT": 3315.73,
+            "UZS": 84395.66,
+            "KGS": 610.03,
+            "BYN": 20,
+            "AZN": 11.86
           }
         }
       }
@@ -2062,7 +2061,7 @@
         "name": "Казылык «Премиум» в нарезке в подарочной упаковке",
         "description": "Казылык «Премиум» в нарезке в подарочной упаковке",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700322/kyzylyk_narezka_bez_upakovki_1.6_gtkdqm.jpg"
+          "https://pepperoni.tatar/images/products/kd-045-main.jpg?v=b4f119e6"
         ],
         "url": "https://pepperoni.tatar/products/kd-045",
         "brand": {
@@ -2085,12 +2084,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.79,
-            "KZT": 2267.98,
-            "UZS": 57631.99,
-            "KGS": 419.76,
-            "BYN": 13.89,
-            "AZN": 8.16
+            "USD": 4.83,
+            "KZT": 2295.5,
+            "UZS": 58427.77,
+            "KGS": 422.33,
+            "BYN": 13.85,
+            "AZN": 8.21
           }
         }
       }
@@ -2107,9 +2106,8 @@
         "name": "Губадия с кортом",
         "description": "Губадия с кортом",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667339/products/kd-059.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602962/products/gubadiya-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602961/products/gubadiya.jpg"
+          "https://pepperoni.tatar/images/products/kd-046-main.jpg?v=6947f458",
+          "https://pepperoni.tatar/images/products/kd-046-pack.jpg?v=9c0aef3e"
         ],
         "url": "https://pepperoni.tatar/products/kd-046",
         "brand": {
@@ -2132,12 +2130,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 31.22,
-            "KZT": 14779.03,
-            "UZS": 375551.56,
-            "KGS": 2735.33,
-            "BYN": 90.48,
-            "AZN": 53.17
+            "USD": 31.47,
+            "KZT": 14957.48,
+            "UZS": 380714.96,
+            "KGS": 2751.91,
+            "BYN": 90.23,
+            "AZN": 53.5
           }
         }
       }
@@ -2154,9 +2152,8 @@
         "name": "Чебурек жареный",
         "description": "Чебурек жареный",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667341/products/kd-060.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604348/products/cheburek-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604346/products/cheburek.jpg"
+          "https://pepperoni.tatar/images/products/kd-047-main.jpg?v=3fc8f620",
+          "https://pepperoni.tatar/images/products/kd-047-pack.jpg?v=d189ac0e"
         ],
         "url": "https://pepperoni.tatar/products/kd-047",
         "brand": {
@@ -2179,12 +2176,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 20.51,
-            "KZT": 9708.61,
-            "UZS": 246706.41,
-            "KGS": 1796.89,
-            "BYN": 59.44,
-            "AZN": 34.93
+            "USD": 20.67,
+            "KZT": 9825.83,
+            "UZS": 250098.34,
+            "KGS": 1807.78,
+            "BYN": 59.28,
+            "AZN": 35.14
           }
         }
       }
@@ -2201,9 +2198,8 @@
         "name": "Перемяч жареный",
         "description": "Перемяч жареный",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667342/products/kd-061.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602964/products/peremyach-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602963/products/peremyach.jpg"
+          "https://pepperoni.tatar/images/products/kd-048-main.jpg?v=7386481c",
+          "https://pepperoni.tatar/images/products/kd-048-pack.jpg?v=3ef44184"
         ],
         "url": "https://pepperoni.tatar/products/kd-048",
         "brand": {
@@ -2226,12 +2222,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 32.97,
-            "KZT": 15607.66,
-            "UZS": 396607.98,
-            "KGS": 2888.7,
-            "BYN": 95.55,
-            "AZN": 56.16
+            "USD": 33.23,
+            "KZT": 15796.12,
+            "UZS": 402060.89,
+            "KGS": 2906.2,
+            "BYN": 95.29,
+            "AZN": 56.5
           }
         }
       }
@@ -2248,8 +2244,7 @@
         "name": "Самса с курицей",
         "description": "Самса с курицей",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667343/products/kd-062.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602968/products/samsa-kurica.jpg"
+          "https://pepperoni.tatar/images/products/kd-049-main.jpg?v=233ca81f"
         ],
         "url": "https://pepperoni.tatar/products/kd-049",
         "brand": {
@@ -2272,12 +2267,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 34.41,
-            "KZT": 16291.2,
-            "UZS": 413977.49,
-            "KGS": 3015.21,
-            "BYN": 99.74,
-            "AZN": 58.61
+            "USD": 34.69,
+            "KZT": 16487.91,
+            "UZS": 419669.21,
+            "KGS": 3033.48,
+            "BYN": 99.47,
+            "AZN": 58.97
           }
         }
       }
@@ -2294,9 +2289,8 @@
         "name": "Эчпочмак с говядиной и картофелем",
         "description": "Эчпочмак с говядиной и картофелем",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-063.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604350/products/echpochmak-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604349/products/echpochmak.jpg"
+          "https://pepperoni.tatar/images/products/kd-050-main.jpg?v=343ea601",
+          "https://pepperoni.tatar/images/products/kd-050-pack.jpg?v=56dbb770"
         ],
         "url": "https://pepperoni.tatar/products/kd-050",
         "brand": {
@@ -2319,12 +2313,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 38.34,
-            "KZT": 18149.14,
-            "UZS": 461189.62,
-            "KGS": 3359.08,
-            "BYN": 111.11,
-            "AZN": 65.3
+            "USD": 38.64,
+            "KZT": 18368.28,
+            "UZS": 467530.45,
+            "KGS": 3379.44,
+            "BYN": 110.81,
+            "AZN": 65.7
           }
         }
       }
@@ -2341,9 +2335,8 @@
         "name": "Самса с говядиной",
         "description": "Самса с говядиной",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667344/products/kd-064.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602967/products/samsa-govyadina-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778602965/products/samsa-govyadina.jpg"
+          "https://pepperoni.tatar/images/products/kd-051-main.jpg?v=db052759",
+          "https://pepperoni.tatar/images/products/kd-051-pack.jpg?v=37384d07"
         ],
         "url": "https://pepperoni.tatar/products/kd-051",
         "brand": {
@@ -2366,12 +2359,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 40.77,
-            "KZT": 19302.42,
-            "UZS": 490495.87,
-            "KGS": 3572.53,
-            "BYN": 118.18,
-            "AZN": 69.45
+            "USD": 41.1,
+            "KZT": 19535.49,
+            "UZS": 497239.63,
+            "KGS": 3594.18,
+            "BYN": 117.85,
+            "AZN": 69.87
           }
         }
       }
@@ -2388,9 +2381,8 @@
         "name": "Элеш с курицей и картофелем",
         "description": "Элеш с курицей и картофелем",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778667345/products/kd-065.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604354/products/elesh-v-razreze.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1778604353/products/elesh.jpg"
+          "https://pepperoni.tatar/images/products/kd-052-main.jpg?v=e4983f90",
+          "https://pepperoni.tatar/images/products/kd-052-pack.jpg?v=b95472cf"
         ],
         "url": "https://pepperoni.tatar/products/kd-052",
         "brand": {
@@ -2413,12 +2405,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 43.39,
-            "KZT": 20542.8,
-            "UZS": 522015.19,
-            "KGS": 3802.1,
-            "BYN": 125.77,
-            "AZN": 73.91
+            "USD": 43.74,
+            "KZT": 20790.84,
+            "UZS": 529192.3,
+            "KGS": 3825.15,
+            "BYN": 125.42,
+            "AZN": 74.36
           }
         }
       }
@@ -2435,9 +2427,9 @@
         "name": "Чак-Чак в пластиковой упаковке",
         "description": "Чак-Чак в пластиковой упаковке",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228782/%D1%87%D0%B0%D0%BA-%D1%87%D0%B0%D0%BA_%D0%B2_%D0%BF%D0%BB%D0%B0%D1%81%D1%82%D0%B8%D0%BA%D0%B5jpg_op5mvt.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228570/%D1%87%D0%B0%D0%BA_%D1%87%D0%B0%D0%BA_%D0%B1%D0%B5%D0%B7_%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B8_1_szmxgv.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1784228564/%D1%87%D0%B0%D0%BA-%D1%87%D0%B0%D0%BA_%D0%B1%D0%B5%D0%B7_%D1%83%D0%BF%D0%B0%D0%BA%D0%BE%D0%B2%D0%BA%D0%B8_%D1%81%D0%B1%D0%BE%D0%BA%D1%83_o4o8kp.jpg"
+          "https://pepperoni.tatar/images/products/kd-053-main.jpg?v=3a3fac5b",
+          "https://pepperoni.tatar/images/products/kd-053-pack.jpg?v=49299708",
+          "https://pepperoni.tatar/images/products/kd-053-slice.jpg?v=6f9b9bf2"
         ],
         "url": "https://pepperoni.tatar/products/kd-053",
         "brand": {
@@ -2460,12 +2452,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.07,
-            "KZT": 981.28,
-            "UZS": 24935.44,
-            "KGS": 181.62,
-            "BYN": 6.01,
-            "AZN": 3.53
+            "USD": 2.09,
+            "KZT": 993.13,
+            "UZS": 25278.27,
+            "KGS": 182.72,
+            "BYN": 5.99,
+            "AZN": 3.55
           }
         }
       }
@@ -2482,9 +2474,9 @@
         "name": "Чак-Чак в крафтовой подарочной упаковке",
         "description": "Чак-Чак в крафтовой подарочной упаковке",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700144/cak_cak_2_cglafu.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700155/cak_cak_1.3_yi2jjb.jpg",
-          "https://res.cloudinary.com/duygfl3vz/image/upload/v1772700143/cak_cak_bez_upakovki_1.3_pcru1r.jpg"
+          "https://pepperoni.tatar/images/products/kd-054-main.jpg?v=b6ca7c06",
+          "https://pepperoni.tatar/images/products/kd-054-pack.jpg?v=37b8ba6d",
+          "https://pepperoni.tatar/images/products/kd-054-slice.jpg?v=6a4fbd2a"
         ],
         "url": "https://pepperoni.tatar/products/kd-054",
         "brand": {
@@ -2507,12 +2499,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.89,
-            "KZT": 1369.38,
-            "UZS": 34797.43,
-            "KGS": 253.45,
-            "BYN": 8.38,
-            "AZN": 4.93
+            "USD": 2.92,
+            "KZT": 1385.91,
+            "UZS": 35275.85,
+            "KGS": 254.98,
+            "BYN": 8.36,
+            "AZN": 4.96
           }
         }
       }
@@ -2552,12 +2544,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 15.33,
-            "KZT": 7257.55,
-            "UZS": 184422.37,
-            "KGS": 1343.24,
-            "BYN": 44.43,
-            "AZN": 26.11
+            "USD": 15.45,
+            "KZT": 7345.18,
+            "UZS": 186957.96,
+            "KGS": 1351.38,
+            "BYN": 44.31,
+            "AZN": 26.27
           }
         }
       }
@@ -2597,12 +2589,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 24.94,
-            "KZT": 11807.37,
-            "UZS": 300038.28,
-            "KGS": 2185.33,
-            "BYN": 72.29,
-            "AZN": 42.48
+            "USD": 25.14,
+            "KZT": 11949.94,
+            "UZS": 304163.47,
+            "KGS": 2198.58,
+            "BYN": 72.09,
+            "AZN": 42.74
           }
         }
       }
@@ -2642,12 +2634,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 25.14,
-            "KZT": 11902.38,
-            "UZS": 302452.68,
-            "KGS": 2202.92,
-            "BYN": 72.87,
-            "AZN": 42.82
+            "USD": 25.34,
+            "KZT": 12046.1,
+            "UZS": 306611.06,
+            "KGS": 2216.27,
+            "BYN": 72.67,
+            "AZN": 43.08
           }
         }
       }
@@ -2687,12 +2679,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 20.7,
-            "KZT": 9797.69,
-            "UZS": 248970.19,
-            "KGS": 1813.38,
-            "BYN": 59.98,
-            "AZN": 35.25
+            "USD": 20.86,
+            "KZT": 9915.99,
+            "UZS": 252393.25,
+            "KGS": 1824.37,
+            "BYN": 59.82,
+            "AZN": 35.47
           }
         }
       }
@@ -2709,7 +2701,7 @@
         "name": "Пирожок с зеленым луком и яйцом",
         "description": "Пирожок с зеленым луком и яйцом",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-059.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-059",
         "brand": {
@@ -2732,12 +2724,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 32.62,
-            "KZT": 15444.07,
-            "UZS": 392450.79,
-            "KGS": 2858.42,
-            "BYN": 94.55,
-            "AZN": 55.57
+            "USD": 32.88,
+            "KZT": 15630.55,
+            "UZS": 397846.54,
+            "KGS": 2875.74,
+            "BYN": 94.29,
+            "AZN": 55.9
           }
         }
       }
@@ -2754,7 +2746,7 @@
         "name": "Маффин апельсиновый",
         "description": "Маффин апельсиновый",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-060.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-060",
         "brand": {
@@ -2777,12 +2769,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 18.83,
-            "KZT": 8913.6,
-            "UZS": 226504.48,
-            "KGS": 1649.75,
-            "BYN": 54.57,
-            "AZN": 32.07
+            "USD": 18.98,
+            "KZT": 9021.23,
+            "UZS": 229618.65,
+            "KGS": 1659.75,
+            "BYN": 54.42,
+            "AZN": 32.26
           }
         }
       }
@@ -2799,7 +2791,7 @@
         "name": "Сосиска в тесте",
         "description": "Сосиска в тесте",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-061.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-061",
         "brand": {
@@ -2822,12 +2814,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 38.48,
-            "KZT": 18217.78,
-            "UZS": 462933.95,
-            "KGS": 3371.78,
-            "BYN": 111.53,
-            "AZN": 65.55
+            "USD": 38.79,
+            "KZT": 18437.75,
+            "UZS": 469298.76,
+            "KGS": 3392.22,
+            "BYN": 111.23,
+            "AZN": 65.94
           }
         }
       }
@@ -2844,7 +2836,7 @@
         "name": "Пирожок с вишней",
         "description": "Пирожок с вишней",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-062.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-062",
         "brand": {
@@ -2867,12 +2859,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 39.86,
-            "KZT": 18869.63,
-            "UZS": 479498.15,
-            "KGS": 3492.43,
-            "BYN": 115.53,
-            "AZN": 67.89
+            "USD": 40.18,
+            "KZT": 19097.47,
+            "UZS": 486090.7,
+            "KGS": 3513.59,
+            "BYN": 115.21,
+            "AZN": 68.3
           }
         }
       }
@@ -2889,7 +2881,7 @@
         "name": "Круассан с шоколадом и орехами",
         "description": "Круассан с шоколадом и орехами",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-063.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-063",
         "brand": {
@@ -2912,12 +2904,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 15.46,
-            "KZT": 7318.03,
-            "UZS": 185959.22,
-            "KGS": 1354.44,
-            "BYN": 44.8,
-            "AZN": 26.33
+            "USD": 15.58,
+            "KZT": 7406.39,
+            "UZS": 188515.94,
+            "KGS": 1362.64,
+            "BYN": 44.68,
+            "AZN": 26.49
           }
         }
       }
@@ -2934,7 +2926,7 @@
         "name": "Маффин шоколадный",
         "description": "Маффин шоколадный",
         "image": [
-          "https://res.cloudinary.com/duygfl3vz/image/upload/products/kd-064.jpg"
+          "https://pepperoni.tatar/images/logo.png"
         ],
         "url": "https://pepperoni.tatar/products/kd-064",
         "brand": {
@@ -2957,12 +2949,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 20.53,
-            "KZT": 9717.19,
-            "UZS": 246924.64,
-            "KGS": 1798.48,
-            "BYN": 59.49,
-            "AZN": 34.96
+            "USD": 20.69,
+            "KZT": 9834.52,
+            "UZS": 250319.57,
+            "KGS": 1809.38,
+            "BYN": 59.33,
+            "AZN": 35.17
           }
         }
       }

@@ -170,6 +170,31 @@ jobs:
               echo "ℹ️  partner-intake unit not installed yet — skipping restart (run deploy-partner-intake.sh once to install)"
             fi
 
+      - name: Restart lead-intake service on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # gunicorn runs lead_intake_server from the repo working tree, so the
+            # git reset above changes the file but the workers keep the old code
+            # in memory until restarted. Without this step a fix to the form
+            # handler (e.g. phone validation) silently never reaches production.
+            UNIT=pepperoni-lead-intake
+            if systemctl is-enabled "$UNIT" &>/dev/null; then
+              systemctl restart "$UNIT"
+              sleep 2
+              if curl -fsS --max-time 5 http://127.0.0.1:5002/lead-health | grep -q '"ok"'; then
+                echo "✅ $UNIT restarted, /lead-health ok"
+              else
+                echo "⚠️  $UNIT restarted but /lead-health not ok — check logs"
+                journalctl -u "$UNIT" --no-pager -n 20
+              fi
+            else
+              echo "ℹ️  $UNIT unit not installed — skipping restart"
+            fi
+
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:

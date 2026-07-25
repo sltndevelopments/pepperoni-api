@@ -1,0 +1,501 @@
+{
+  "_readme": "Источник строк для scripts/gen_pepperoni_landing.py (лендинг /pepperoni для Google Ads по экспортным странам). RU и EN — источник правды; остальные локали переводятся с них. Факты (сертификаты, цены, спецификация) НЕ править здесь — они берутся из _facts и public/products.json.",
+
+  "_facts": {
+    "sku": "KD-013",
+    "product_url": "https://pepperoni.tatar/products/kd-013",
+    "phone_display": "+7 987 217-02-02",
+    "phone_href": "tel:+79872170202",
+    "whatsapp": "79274297220",
+    "email": "info@kazandelikates.tatar",
+    "halal_cert": "№ 614A/2024",
+    "halal_body_ru": "Комитет по стандарту «Халяль» ДУМ РТ",
+    "tu": "ТУ 10.13.14-001-54503631-2022",
+    "eaeu_decl": "ЕАЭС N RU D-RU.PA07.V.69731/23",
+    "vetis": "28c3cbc5-b6c1-4dcd-bccc-0f78f80ebb12",
+    "barcode": "4680638720318",
+    "hs_code": "1601 00",
+    "diameter": "50–55",
+    "net_weight": "0,5",
+    "storage_temp": "–18°C",
+    "shelf_life_days": "360",
+    "slices_10_weight": "26–30",
+    "box_units": "6",
+    "box_weight": "2,5",
+    "box_size": "260 × 235 × 180",
+    "incoterms": "EXW Казань",
+    "video_plant": "7nlZ98U9T3Y",
+    "video_making": "zLPjxLpweK0"
+  },
+
+  "_countries": [
+    {"code": "kz", "flag": "🇰🇿", "currency": "KZT", "primary": "ru", "alt": "kk"},
+    {"code": "uz", "flag": "🇺🇿", "currency": "UZS", "primary": "uz", "alt": "ru"},
+    {"code": "kg", "flag": "🇰🇬", "currency": "KGS", "primary": "ru", "alt": "ky"},
+    {"code": "by", "flag": "🇧🇾", "currency": "BYN", "primary": "ru", "alt": "ru"},
+    {"code": "az", "flag": "🇦🇿", "currency": "AZN", "primary": "az", "alt": "ru"},
+    {"code": "am", "flag": "🇦🇲", "currency": "USD", "primary": "hy", "alt": "ru"},
+    {"code": "ge", "flag": "🇬🇪", "currency": "USD", "primary": "ka", "alt": "en"},
+    {"code": "tj", "flag": "🇹🇯", "currency": "USD", "primary": "ru", "alt": "tg"}
+  ],
+
+  "_locales": {
+    "ru": {"name": "Русский", "og": "ru_RU", "path": "pepperoni.html"},
+    "en": {"name": "English", "og": "en_US", "path": "en/pepperoni.html"},
+    "kk": {"name": "Қазақша", "og": "kk_KZ", "path": "kk/pepperoni.html"},
+    "uz": {"name": "O‘zbekcha", "og": "uz_UZ", "path": "uz/pepperoni.html"},
+    "az": {"name": "Azərbaycanca", "og": "az_AZ", "path": "az/pepperoni.html"},
+    "hy": {"name": "Հայերեն", "og": "hy_AM", "path": "hy/pepperoni.html"},
+    "ka": {"name": "ქართული", "og": "ka_GE", "path": "ka/pepperoni.html"},
+    "ky": {"name": "Кыргызча", "og": "ky_KG", "path": "ky/pepperoni.html"},
+    "tg": {"name": "Тоҷикӣ", "og": "tg_TJ", "path": "tg/pepperoni.html"}
+  },
+
+  "ru": {
+    "meta": {
+      "title": "Пепперони халяль оптом — производитель из Казани | Экспорт в СНГ",
+      "description": "Пепперони халяль варено-копчёный куриный 0,5 кг оптом от производителя. Диаметр 50–55 мм, не скручивается в печи, срок хранения 360 суток при –18°C. HALAL ДУМ РТ №614A/2024, HACCP, ISO 22000:2018. Экспорт в Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан, Армению, Грузию, Таджикистан. Прайс и образцы.",
+      "keywords": "пепперони халяль оптом, halal pepperoni, пепперони для пиццы оптом, пепперони куриный, экспорт пепперони, пепперони Казахстан, пепперони Узбекистан, private label пепперони, термостабильный пепперони",
+      "og_title": "Пепперони халяль оптом — Казанские Деликатесы",
+      "og_description": "Термостабильный халяль пепперони для пиццерий и HoReCa. Экспорт в 8 стран СНГ. Прайс, образцы, документы."
+    },
+    "nav": {
+      "catalog": "Каталог",
+      "current": "Пепперони",
+      "about": "О компании",
+      "delivery": "Доставка",
+      "faq": "FAQ",
+      "lang_switch": "Язык"
+    },
+    "hero": {
+      "eyebrow": "Производитель · Казань, Татарстан · Экспорт в СНГ",
+      "h1": "Пепперони халяль оптом от производителя",
+      "sub": "Варено-копчёный куриный пепперони для пиццерий, HoReCa и дистрибуции. Диаметр 50–55 мм, ровные слайсы, не скручивается в печи. Срок хранения 360 суток при –18°C — удобно для экспортных плеч.",
+      "cta_primary": "Получить прайс и образцы",
+      "cta_wa": "Написать в WhatsApp",
+      "cta_video": "Смотреть производство",
+      "note": "Отвечаем в рабочее время в течение часа. Пришлём прайс, спецификацию и полный пакет документов для импорта."
+    },
+    "trust": {
+      "h2": "Документы и стандарты",
+      "items": [
+        {"label": "Халяль-сертификат", "value": "ДУМ РТ № 614A/2024"},
+        {"label": "Пищевая безопасность", "value": "HACCP · ISO 22000:2018"},
+        {"label": "Технический регламент", "value": "ТР ТС 021/2011"},
+        {"label": "Декларация ЕАЭС", "value": "RU D-RU.PA07.V.69731/23"},
+        {"label": "Код ТН ВЭД", "value": "1601 00"},
+        {"label": "ФГИС «Меркурий»", "value": "Прослеживаемость партий"}
+      ]
+    },
+    "video": {
+      "h2": "Посмотрите, как это сделано",
+      "sub": "Два коротких видео вместо длинного письма: производство целиком и участок, где делают пепперони.",
+      "v1_title": "Предприятие «Казанские Деликатесы»",
+      "v1_desc": "Обзор производства: цеха, оборудование, контроль качества, халяль-процесс.",
+      "v2_title": "Как мы делаем пепперони",
+      "v2_desc": "От фарша до готового батона и нарезки — короткое видео с линии.",
+      "play": "Смотреть видео",
+      "loading": "Загружаем видео…"
+    },
+    "product": {
+      "h2": "Продукт: пепперони варено-копчёный куриный",
+      "sku_label": "Артикул",
+      "name": "Пепперони варено-копчёный куриный, 0,5 кг",
+      "lead": "Нарезка сервировочной формы: ровные круглые слайсы одинакового диаметра. Продукт термостабильный — при запекании держит форму, не скручивается «лодочкой» и не расплывается по пицце. Без свинины, без ГМО, без трансглютаминазы.",
+      "gallery_h3": "Фотографии продукта",
+      "alt_main": "Пепперони халяль варено-копчёный куриный — общий вид батона",
+      "alt_pack": "Вакуумная упаковка пепперони халяль 0,5 кг «Казанские Деликатесы»",
+      "alt_slice": "Нарезка пепперони халяль — ровные слайсы диаметром 50–55 мм для пиццы",
+      "specs_h3": "Спецификация",
+      "specs": [
+        ["Наименование", "Пепперони варено-копчёный куриный"],
+        ["Сырьё", "Мясо куриное (халяль)"],
+        ["Диаметр батона", "50–55 мм"],
+        ["Формат", "Нарезка / целый батон"],
+        ["Масса 10 слайсов", "26–30 г"],
+        ["Фасовка", "Вакуум, 0,5 кг"],
+        ["В коробке", "6 упаковок · 2,5 кг"],
+        ["Размер короба", "260 × 235 × 180 мм"],
+        ["Температура хранения", "–18°C"],
+        ["Срок хранения", "360 суток"],
+        ["Штрихкод", "4680638720318"],
+        ["Код ТН ВЭД", "1601 00"]
+      ],
+      "composition_h3": "Состав",
+      "composition": "Мясо куриное, вода, соль, сахар, пряности (перец чёрный, паприка, чеснок), стабилизатор (пирофосфаты), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия).",
+      "composition_note": "Без свинины и свиного жира. Без ГМО. Без трансглютаминазы (мясной клей не используется). Аллергены — уточняйте в спецификации партии.",
+      "nutrition_h3": "Пищевая ценность на 100 г",
+      "nutrition": [
+        ["Белки", "15 г"],
+        ["Жиры", "25 г"],
+        ["Углеводы", "0,96 г"],
+        ["Энергетическая ценность", "290 ккал / 1190 кДж"]
+      ],
+      "storage_h3": "Хранение и разморозка",
+      "storage": [
+        ["Замороженный", "360 суток при –18°C"],
+        ["После разморозки, упаковка не вскрыта", "120 часов при +4°C"],
+        ["После вскрытия", "72 часа при +4°C"],
+        ["Режим разморозки", "2–6 часов при температуре до +4°C"]
+      ],
+      "cta": "Запросить спецификацию"
+    },
+    "why": {
+      "h2": "Почему берут именно этот пепперони",
+      "items": [
+        {"icon": "🔥", "title": "Не скручивается в печи", "text": "Плотность и оболочка подобраны так, что слайс остаётся плоским при запекании и не превращается в «чашечку»."},
+        {"icon": "⚖️", "title": "Предсказуемый фудкост", "text": "10 слайсов = 26–30 г. Порция считается точно, повар не «на глаз» раскладывает топпинг."},
+        {"icon": "🕌", "title": "Халяль без оговорок", "text": "Сертификат Комитета по стандарту «Халяль» ДУМ РТ № 614A/2024. Свинина и алкоголь не используются на производстве."},
+        {"icon": "📦", "title": "360 суток срока", "text": "Длинный срок хранения при –18°C выдерживает долгое транспортное плечо и таможенное оформление без потери остатка срока."},
+        {"icon": "🏷️", "title": "Private Label", "text": "Тот же продукт под вашей торговой маркой: рецептура, острота, толщина нарезки, фасовка и этикетка — под ваш бренд."},
+        {"icon": "📄", "title": "Пакет документов для импорта", "text": "Халяль-сертификат, декларация ЕАЭС, ветеринарные документы, спецификация, этикетка на языке рынка."}
+      ]
+    },
+    "price": {
+      "h2": "Цена и условия отгрузки",
+      "sub": "Цена указана за упаковку 0,5 кг на условиях EXW Казань. Финальная цена зависит от объёма, формата нарезки и маршрута — считаем под ваш заказ.",
+      "per_pack": "за упаковку 0,5 кг",
+      "excl_vat": "без НДС",
+      "rub_label": "Цена в РФ",
+      "your_currency": "Ориентир в вашей валюте",
+      "on_request": "Цена по запросу",
+      "terms": [
+        ["Базис поставки", "EXW Казань (другие базисы — по согласованию)"],
+        ["Минимальный заказ", "Обсуждаем под ваш объём и маршрут"],
+        ["Оплата", "Безналичный расчёт, внешнеторговый контракт"],
+        ["Тара", "Гофрокороб, палетирование под запрос"]
+      ],
+      "note": "Ориентиры в национальных валютах пересчитаны от базовой цены и меняются вместе с курсом — актуальную цену подтверждаем в счёте.",
+      "cta": "Запросить актуальный прайс"
+    },
+    "export": {
+      "h2": "Экспорт: страны и как это работает",
+      "sub": "Работаем с импортёрами, дистрибьюторами, сетями пиццерий и производителями полуфабрикатов. Выберите страну — пришлём условия и документы под её требования.",
+      "steps_h3": "Как проходит первая поставка",
+      "steps": [
+        {"n": "1", "title": "Заявка и объём", "text": "Вы говорите город, формат (нарезка или батон) и планируемый объём в месяц."},
+        {"n": "2", "title": "Прайс и образцы", "text": "Присылаем прайс, спецификацию и образцы для теста в вашей печи и меню."},
+        {"n": "3", "title": "Документы", "text": "Готовим халяль-сертификат, декларацию ЕАЭС, ветеринарные документы, этикетку."},
+        {"n": "4", "title": "Контракт и отгрузка", "text": "Внешнеторговый контракт, счёт, отгрузка с температурным режимом –18°C."}
+      ],
+      "docs_h3": "Что входит в пакет документов",
+      "docs": [
+        "Сертификат «Халяль» ДУМ РТ № 614A/2024",
+        "Декларация соответствия ЕАЭС N RU D-RU.PA07.V.69731/23",
+        "Технические условия ТУ 10.13.14-001-54503631-2022",
+        "Ветеринарные сопроводительные документы (ФГИС «Меркурий»)",
+        "Спецификация продукта и протоколы испытаний партии",
+        "Этикетка и маркировка под требования страны-импортёра"
+      ]
+    },
+    "usage": {
+      "h2": "Где применяют",
+      "items": [
+        {"icon": "🍕", "title": "Пицца", "desc": "Основной топпинг: держит форму, даёт ровный рисунок и вытопку жира."},
+        {"icon": "🥪", "title": "Сэндвичи и шаверма", "desc": "Пикантный мясной слой, готов к употреблению из упаковки."},
+        {"icon": "🍔", "title": "Бургеры", "desc": "Дополнительный слой вкуса под сыром."},
+        {"icon": "🌯", "title": "Роллы, тако, врапы", "desc": "Хорошо сочетается с овощами и острыми соусами."},
+        {"icon": "🍳", "title": "Завтраки и паста", "desc": "Омлеты, фриттаты, паста, запечённые блюда."},
+        {"icon": "🛒", "title": "Розница и HoReCa-дистрибуция", "desc": "Готовая нарезка в вакууме для полки и для профессиональной кухни."}
+      ]
+    },
+    "pl": {
+      "h2": "Private Label — пепперони под вашим брендом",
+      "lead": "Производим тот же продукт под вашей торговой маркой. Подходит сетям пиццерий, дистрибьюторам и розничным сетям, которым нужна собственная линейка халяль-топпингов.",
+      "items": [
+        "Сырьё: курица, говядина, конина или миксы",
+        "Острота: mild / medium / spicy",
+        "Возможен вариант без нитрита натрия (по запросу)",
+        "Нарезка: индивидуальный диаметр и толщина слайса",
+        "Фасовка: от 0,5 до 5 кг, вакуум или лоток",
+        "Этикетка и состав — на языке вашего рынка"
+      ],
+      "cta": "Обсудить Private Label"
+    },
+    "faq": {
+      "h2": "Частые вопросы",
+      "items": [
+        {"q": "Пепперони действительно халяль?", "a": "Да. Производство сертифицировано Комитетом по стандарту «Халяль» ДУМ РТ, сертификат № 614A/2024. Свинина, свиной жир и алкоголь на производстве не используются. Копию сертификата присылаем вместе с прайсом."},
+        {"q": "Из какого мяса сделан этот пепперони?", "a": "Основа — мясо куриное халяль. В ассортименте также есть пепперони из говядины и из конины: если нужен другой вид сырья, укажите это в заявке."},
+        {"q": "Скручивается ли пепперони при запекании?", "a": "Нет. Продукт термостабильный: плотность фарша и оболочка подобраны так, чтобы слайс оставался плоским и не превращался в «чашечку». Это ключевое требование пиццерий, и мы предлагаем протестировать образцы в вашей печи до контракта."},
+        {"q": "Какой срок хранения и температура?", "a": "360 суток при –18°C в замороженном виде. После разморозки невскрытая упаковка хранится 120 часов при +4°C, после вскрытия — 72 часа при +4°C. Разморозка: 2–6 часов при температуре до +4°C."},
+        {"q": "Вы поставляете в мою страну?", "a": "Работаем с импортёрами в Казахстане, Узбекистане, Кыргызстане, Беларуси, Азербайджане, Армении, Грузии и Таджикистане. Базис по умолчанию — EXW Казань, другие условия обсуждаем. Маршрут и сроки считаем под конкретный город."},
+        {"q": "Какой минимальный заказ?", "a": "Минимальный объём зависит от страны, маршрута и формата нарезки — обсуждаем индивидуально. Для теста возможна пробная партия и отправка образцов."},
+        {"q": "Можно ли выпускать под нашей маркой?", "a": "Да, доступен Private Label. Меняем состав мяса, уровень остроты, диаметр и толщину нарезки, фасовку от 0,5 до 5 кг, этикетку и маркировку под ваш бренд."},
+        {"q": "Какие документы вы предоставляете для импорта?", "a": "Халяль-сертификат ДУМ РТ, декларацию соответствия ЕАЭС, технические условия, ветеринарные сопроводительные документы через ФГИС «Меркурий», спецификацию продукта и маркировку под требования страны-импортёра."}
+      ]
+    },
+    "form": {
+      "h2": "Получить прайс, образцы и документы",
+      "sub": "Оставьте телефон — свяжемся в рабочее время и пришлём прайс, спецификацию и пакет документов. Или напишите сразу в WhatsApp, если удобнее.",
+      "name": "Имя",
+      "name_ph": "Как к вам обращаться",
+      "phone": "Телефон или WhatsApp",
+      "phone_ph": "+7 …",
+      "msg": "Город, объём, формат",
+      "msg_ph": "Например: Алматы, пиццерия, 60 кг в месяц, нарезка",
+      "consent_pre": "Согласен на обработку персональных данных согласно ",
+      "consent_link": "политике конфиденциальности",
+      "consent_post": ".",
+      "submit": "Отправить заявку",
+      "sending": "Отправляем…",
+      "ok": "Спасибо! Заявка отправлена — свяжемся с вами.",
+      "err_phone": "Укажите телефон.",
+      "err_consent": "Необходимо согласие на обработку данных.",
+      "err_rate": "Слишком много попыток. Попробуйте позже.",
+      "err_generic": "Не удалось отправить. Позвоните нам: +7 987 217-02-02.",
+      "err_network": "Сеть недоступна. Позвоните нам: +7 987 217-02-02.",
+      "or_call": "Позвонить",
+      "or_email": "Написать на email"
+    },
+    "contacts": {
+      "h2": "Контакты",
+      "company": "ООО «Казанские Деликатесы»",
+      "address": "г. Казань, ул. Аграрная, 2, оф. 7",
+      "phone_label": "Телефон и WhatsApp",
+      "email_label": "Email",
+      "hours": "Рабочее время: будни, 9:00–18:00 (МСК, UTC+3)"
+    },
+    "footer": {
+      "links_label": "Разделы",
+      "catalog": "Каталог продукции",
+      "product": "Карточка KD-013",
+      "pizzeria": "Пепперони для пиццерий",
+      "oem": "Контрактное производство",
+      "api": "API для дистрибьюторов",
+      "privacy": "Политика конфиденциальности",
+      "rights": "Пепперони халяль оптом от производителя. Казань, Республика Татарстан.",
+      "extra_links": [
+        {"label": "Пепперони в нарезке", "href": "/pepperoni-v-narezke"},
+        {"label": "Для HoReCa", "href": "/dlya-horeca"},
+        {"label": "Для пекарен и сетей", "href": "/dlya-setey"},
+        {"label": "Все вопросы и ответы", "href": "/faq"}
+      ]
+    },
+    "sticky": {"lead": "Заявка", "wa": "WhatsApp", "call": "Позвонить"}
+  },
+
+  "en": {
+    "meta": {
+      "title": "Halal Pepperoni Wholesale — Manufacturer from Kazan | CIS Export",
+      "description": "Halal cooked-smoked chicken pepperoni 0.5 kg wholesale, direct from the manufacturer. 50–55 mm diameter, stays flat in the oven, 360-day shelf life at –18°C. HALAL DUM RT #614A/2024, HACCP, ISO 22000:2018. Export to Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, Georgia, Tajikistan. Price list and samples.",
+      "keywords": "halal pepperoni wholesale, halal pepperoni supplier, pepperoni for pizza wholesale, chicken pepperoni, pepperoni export, halal pepperoni Kazakhstan, private label pepperoni, heat-stable pepperoni",
+      "og_title": "Halal Pepperoni Wholesale — Kazan Delicacies",
+      "og_description": "Heat-stable halal pepperoni for pizzerias and HoReCa. Export to 8 CIS countries. Price list, samples, documents."
+    },
+    "nav": {
+      "catalog": "Catalogue",
+      "current": "Pepperoni",
+      "about": "About us",
+      "delivery": "Delivery",
+      "faq": "FAQ",
+      "lang_switch": "Language"
+    },
+    "hero": {
+      "eyebrow": "Manufacturer · Kazan, Tatarstan · CIS export",
+      "h1": "Halal pepperoni wholesale, direct from the manufacturer",
+      "sub": "Cooked-smoked chicken pepperoni for pizzerias, HoReCa and distribution. 50–55 mm diameter, even slices, stays flat in the oven. 360-day shelf life at –18°C — comfortable for long export routes.",
+      "cta_primary": "Get price list and samples",
+      "cta_wa": "Message us on WhatsApp",
+      "cta_video": "Watch the production",
+      "note": "We reply within an hour during business hours and send the price list, product specification and the full import document package."
+    },
+    "trust": {
+      "h2": "Documents and standards",
+      "items": [
+        {"label": "Halal certificate", "value": "DUM RT #614A/2024"},
+        {"label": "Food safety", "value": "HACCP · ISO 22000:2018"},
+        {"label": "Technical regulation", "value": "TR CU 021/2011"},
+        {"label": "EAEU declaration", "value": "RU D-RU.PA07.V.69731/23"},
+        {"label": "HS code", "value": "1601 00"},
+        {"label": "Veterinary traceability", "value": "Batch-level tracking"}
+      ]
+    },
+    "video": {
+      "h2": "See how it is made",
+      "sub": "Two short videos instead of a long email: the whole plant, and the line where pepperoni is made.",
+      "v1_title": "Kazan Delicacies plant",
+      "v1_desc": "Production overview: workshops, equipment, quality control, halal process.",
+      "v2_title": "How we make pepperoni",
+      "v2_desc": "From the meat mix to the finished stick and slices — a short clip from the line.",
+      "play": "Play video",
+      "loading": "Loading video…"
+    },
+    "product": {
+      "h2": "Product: cooked-smoked chicken pepperoni",
+      "sku_label": "SKU",
+      "name": "Cooked-smoked chicken pepperoni, 0.5 kg",
+      "lead": "Serving-cut slices: even, round, consistent diameter. The product is heat-stable — slices keep their shape in the oven, they do not cup and do not spread across the pizza. No pork, no GMO, no transglutaminase.",
+      "gallery_h3": "Product photos",
+      "alt_main": "Halal cooked-smoked chicken pepperoni — whole stick",
+      "alt_pack": "Vacuum pack of halal pepperoni 0.5 kg by Kazan Delicacies",
+      "alt_slice": "Sliced halal pepperoni — even 50–55 mm slices for pizza",
+      "specs_h3": "Specification",
+      "specs": [
+        ["Product name", "Cooked-smoked chicken pepperoni"],
+        ["Raw material", "Chicken meat (halal)"],
+        ["Stick diameter", "50–55 mm"],
+        ["Format", "Sliced / whole stick"],
+        ["Weight of 10 slices", "26–30 g"],
+        ["Pack", "Vacuum, 0.5 kg"],
+        ["Per case", "6 packs · 2.5 kg"],
+        ["Case dimensions", "260 × 235 × 180 mm"],
+        ["Storage temperature", "–18°C"],
+        ["Shelf life", "360 days"],
+        ["Barcode", "4680638720318"],
+        ["HS code", "1601 00"]
+      ],
+      "composition_h3": "Ingredients",
+      "composition": "Chicken meat, water, salt, sugar, spices (black pepper, paprika, garlic), stabiliser (pyrophosphates), antioxidant (sodium ascorbate), colour fixative (sodium nitrite).",
+      "composition_note": "No pork and no pork fat. No GMO. No transglutaminase (no meat glue). Allergens — confirm on the batch specification.",
+      "nutrition_h3": "Nutrition per 100 g",
+      "nutrition": [
+        ["Protein", "15 g"],
+        ["Fat", "25 g"],
+        ["Carbohydrates", "0.96 g"],
+        ["Energy", "290 kcal / 1190 kJ"]
+      ],
+      "storage_h3": "Storage and defrosting",
+      "storage": [
+        ["Frozen", "360 days at –18°C"],
+        ["Defrosted, pack unopened", "120 hours at +4°C"],
+        ["After opening", "72 hours at +4°C"],
+        ["Defrosting", "2–6 hours at up to +4°C"]
+      ],
+      "cta": "Request the specification"
+    },
+    "why": {
+      "h2": "Why buyers choose this pepperoni",
+      "items": [
+        {"icon": "🔥", "title": "Stays flat in the oven", "text": "Density and casing are tuned so the slice stays flat while baking instead of curling into a cup."},
+        {"icon": "⚖️", "title": "Predictable food cost", "text": "10 slices = 26–30 g. Portions are countable, the chef does not estimate the topping by eye."},
+        {"icon": "🕌", "title": "Halal with no caveats", "text": "Certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. No pork and no alcohol at the plant."},
+        {"icon": "📦", "title": "360-day shelf life", "text": "A long shelf life at –18°C survives long transport legs and customs clearance without burning the remaining shelf life."},
+        {"icon": "🏷️", "title": "Private label", "text": "The same product under your brand: recipe, heat level, slice thickness, pack size and label to your specification."},
+        {"icon": "📄", "title": "Import document package", "text": "Halal certificate, EAEU declaration, veterinary documents, product specification, label in the language of your market."}
+      ]
+    },
+    "price": {
+      "h2": "Price and shipping terms",
+      "sub": "The price is per 0.5 kg pack, EXW Kazan. The final price depends on volume, slicing format and route — we calculate it for your order.",
+      "per_pack": "per 0.5 kg pack",
+      "excl_vat": "excl. VAT",
+      "rub_label": "Price in Russia",
+      "your_currency": "Reference in your currency",
+      "on_request": "Price on request",
+      "terms": [
+        ["Delivery basis", "EXW Kazan (other terms by agreement)"],
+        ["Minimum order", "Agreed for your volume and route"],
+        ["Payment", "Bank transfer, foreign trade contract"],
+        ["Packaging", "Corrugated case, palletising on request"]
+      ],
+      "note": "Reference prices in national currencies are converted from the base price and move with the exchange rate — the valid price is confirmed on the invoice.",
+      "cta": "Request the current price list"
+    },
+    "export": {
+      "h2": "Export: countries and how it works",
+      "sub": "We work with importers, distributors, pizzeria chains and food manufacturers. Pick your country — we will send terms and documents matched to its requirements.",
+      "steps_h3": "How the first shipment works",
+      "steps": [
+        {"n": "1", "title": "Enquiry and volume", "text": "You tell us the city, the format (sliced or whole stick) and the planned monthly volume."},
+        {"n": "2", "title": "Price and samples", "text": "We send the price list, the specification and samples to test in your oven and menu."},
+        {"n": "3", "title": "Documents", "text": "We prepare the halal certificate, EAEU declaration, veterinary documents and the label."},
+        {"n": "4", "title": "Contract and shipment", "text": "Foreign trade contract, invoice, shipment under the –18°C temperature regime."}
+      ],
+      "docs_h3": "What the document package includes",
+      "docs": [
+        "Halal certificate DUM RT #614A/2024",
+        "EAEU declaration of conformity N RU D-RU.PA07.V.69731/23",
+        "Technical specification TU 10.13.14-001-54503631-2022",
+        "Veterinary accompanying documents (state traceability system)",
+        "Product specification and batch test reports",
+        "Label and marking adapted to the importing country"
+      ]
+    },
+    "usage": {
+      "h2": "Where it is used",
+      "items": [
+        {"icon": "🍕", "title": "Pizza", "desc": "The core topping: keeps its shape, gives an even pattern and fat render."},
+        {"icon": "🥪", "title": "Sandwiches and shawarma", "desc": "A spicy meat layer, ready to eat straight from the pack."},
+        {"icon": "🍔", "title": "Burgers", "desc": "An extra flavour layer under the cheese."},
+        {"icon": "🌯", "title": "Wraps, tacos, rolls", "desc": "Works well with vegetables and hot sauces."},
+        {"icon": "🍳", "title": "Breakfast and pasta", "desc": "Omelettes, frittatas, pasta and baked dishes."},
+        {"icon": "🛒", "title": "Retail and HoReCa distribution", "desc": "Ready vacuum-packed slices for the shelf and for professional kitchens."}
+      ]
+    },
+    "pl": {
+      "h2": "Private label — pepperoni under your brand",
+      "lead": "We produce the same product under your trademark. It suits pizzeria chains, distributors and retail chains that need their own halal topping line.",
+      "items": [
+        "Raw material: chicken, beef, horse meat or blends",
+        "Heat level: mild / medium / spicy",
+        "A sodium-nitrite-free version is possible on request",
+        "Slicing: custom diameter and slice thickness",
+        "Pack: from 0.5 to 5 kg, vacuum or tray",
+        "Label and ingredients in the language of your market"
+      ],
+      "cta": "Discuss private label"
+    },
+    "faq": {
+      "h2": "Frequently asked questions",
+      "items": [
+        {"q": "Is the pepperoni really halal?", "a": "Yes. The plant is certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. There is no pork, no pork fat and no alcohol anywhere in the production. We send a copy of the certificate together with the price list."},
+        {"q": "What meat is this pepperoni made from?", "a": "The base is halal chicken meat. Beef and horse meat pepperoni are also available: state your preferred raw material in the enquiry."},
+        {"q": "Does the pepperoni curl when baked?", "a": "No. The product is heat-stable: the meat density and the casing are tuned so the slice stays flat instead of cupping. This is a key pizzeria requirement, and we offer to test samples in your own oven before any contract."},
+        {"q": "What is the shelf life and storage temperature?", "a": "360 days at –18°C frozen. Once defrosted, an unopened pack keeps for 120 hours at +4°C, and 72 hours at +4°C after opening. Defrost for 2–6 hours at up to +4°C."},
+        {"q": "Do you ship to my country?", "a": "We work with importers in Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, Georgia and Tajikistan. The default basis is EXW Kazan, other terms are negotiable. Route and lead time are calculated for your specific city."},
+        {"q": "What is the minimum order?", "a": "The minimum volume depends on the country, the route and the slicing format — it is agreed individually. A trial batch and free samples are possible for testing."},
+        {"q": "Can you produce under our own brand?", "a": "Yes, private label is available. We adjust the meat composition, heat level, slice diameter and thickness, pack size from 0.5 to 5 kg, and the label and marking to your brand."},
+        {"q": "Which documents do you provide for import?", "a": "The DUM RT halal certificate, the EAEU declaration of conformity, technical specifications, veterinary accompanying documents, the product specification and marking adapted to the importing country's requirements."}
+      ]
+    },
+    "form": {
+      "h2": "Get the price list, samples and documents",
+      "sub": "Leave your phone number — we will get in touch during business hours and send the price list, specification and document package. Or message us on WhatsApp if that is easier.",
+      "name": "Name",
+      "name_ph": "How should we address you",
+      "phone": "Phone or WhatsApp",
+      "phone_ph": "+7 …",
+      "msg": "City, volume, format",
+      "msg_ph": "For example: Almaty, pizzeria, 60 kg per month, sliced",
+      "consent_pre": "I consent to the processing of my personal data in accordance with the ",
+      "consent_link": "privacy policy",
+      "consent_post": ".",
+      "submit": "Send enquiry",
+      "sending": "Sending…",
+      "ok": "Thank you! Your enquiry has been sent — we will be in touch.",
+      "err_phone": "Please enter a phone number.",
+      "err_consent": "Consent to data processing is required.",
+      "err_rate": "Too many attempts. Please try again later.",
+      "err_generic": "Could not send. Please call us: +7 987 217-02-02.",
+      "err_network": "Network unavailable. Please call us: +7 987 217-02-02.",
+      "or_call": "Call us",
+      "or_email": "Send an email"
+    },
+    "contacts": {
+      "h2": "Contacts",
+      "company": "Kazan Delicacies LLC",
+      "address": "Agrarnaya str. 2, office 7, Kazan, Russia",
+      "phone_label": "Phone and WhatsApp",
+      "email_label": "Email",
+      "hours": "Business hours: weekdays, 9:00–18:00 (Moscow time, UTC+3)"
+    },
+    "footer": {
+      "links_label": "Sections",
+      "catalog": "Product catalogue",
+      "product": "KD-013 product page",
+      "pizzeria": "Pepperoni for pizzerias",
+      "oem": "Contract manufacturing",
+      "api": "API for distributors",
+      "privacy": "Privacy policy",
+      "rights": "Halal pepperoni wholesale from the manufacturer. Kazan, Republic of Tatarstan.",
+      "extra_links": [
+        {"label": "Sliced pepperoni", "href": "/en/pepperoni-v-narezke"},
+        {"label": "For HoReCa", "href": "/en/dlya-horeca"},
+        {"label": "For chains and bakeries", "href": "/en/dlya-setey"},
+        {"label": "All questions and answers", "href": "/en/faq"}
+      ]
+    },
+    "sticky": {"lead": "Enquiry", "wa": "WhatsApp", "call": "Call"}
+  }
+}
