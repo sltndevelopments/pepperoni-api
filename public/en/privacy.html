@@ -15,15 +15,15 @@
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
 <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
-<title>Privacy Policy — Pepperoni.tatar | Kazan Delicacies</title>
-<meta name="description" content="Privacy policy for pepperoni.tatar and api.pepperoni.tatar — what data we collect, how we use it, how to request deletion.">
+<title>Personal Data Processing Policy — Pepperoni.tatar | Kazan Delicacies</title>
+<meta name="description" content="Personal data processing policy of Kazan Delicacies LLC for pepperoni.tatar and api.pepperoni.tatar (Russian Federal Law 152-FZ).">
 <link rel="canonical" href="https://pepperoni.tatar/en/privacy">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/privacy">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/privacy">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/privacy">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Privacy Policy — Pepperoni.tatar">
-<meta property="og:description" content="Transparent data-handling rules. Version 1.0, effective 11 May 2026.">
+<meta property="og:title" content="Personal Data Processing Policy — Pepperoni.tatar">
+<meta property="og:description" content="152-FZ aligned personal data policy. Version 2.0, effective 25 July 2026.">
 <meta property="og:url" content="https://pepperoni.tatar/en/privacy">
 <meta property="og:image" content="https://pepperoni.tatar/og-default-en.png">
 <meta property="og:locale" content="en_US">
@@ -33,12 +33,17 @@ body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;b
 .container{max-width:760px;margin:0 auto;padding:40px 24px}
 h1{font-size:1.8rem;margin-bottom:8px}
 .meta{color:#888;font-size:.85rem;margin-bottom:24px}
-h2{font-size:1.2rem;margin:30px 0 10px;color:#1b7a3d}
+h2{font-size:1.15rem;margin:28px 0 10px;color:#1b7a3d}
+h3{font-size:1rem;margin:18px 0 8px;color:#333}
 p,li{margin-bottom:8px}
-ul{margin:8px 0 14px 24px}
+ul,ol{margin:8px 0 14px 24px}
 a{color:#0066cc}
 nav{font-size:.85rem;margin-bottom:18px}
 footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;padding-top:18px}
+.note{background:#f0f7f0;border:1px solid #d5e8d5;border-radius:8px;padding:12px 14px;font-size:.92rem;margin:14px 0}
+table{width:100%;border-collapse:collapse;font-size:.92rem;margin:10px 0 16px}
+th,td{border:1px solid #e5e5e5;padding:8px 10px;text-align:left;vertical-align:top}
+th{background:#f5f5f5;font-weight:600}
 </style>
 <!-- perf-hints: speculation-rules -->
 <script type="speculationrules">
@@ -68,52 +73,144 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 <body>
 <div class="container">
 <nav><a href="/en/">← Home</a> · <a href="/privacy" style="float:right">🇷🇺 RU</a></nav>
-<h1>Privacy Policy</h1>
-<div class="meta">Version 1.0 · effective 11 May 2026</div>
+<h1>Personal Data Processing Policy</h1>
+<div class="meta">Version 2.0 · effective 25 July 2026 · replaces Version 1.0 of 11 May 2026</div>
 
-<p>This policy describes the handling of personal data on <strong>pepperoni.tatar</strong> and <strong>api.pepperoni.tatar</strong>, operated by <strong>Kazan Delicacies LLC</strong> (TIN 1655504520, Kazan, Agrarnaya St. 2, Russia). Compliant with Russian Federal Law 152-FZ "On Personal Data".</p>
+<p>This Policy describes how personal data (“PD”) is processed on <strong>https://pepperoni.tatar</strong>, <strong>https://api.pepperoni.tatar</strong> and related services (lead forms, catalog, API, public AI files).</p>
 
-<h2>1. What we collect</h2>
+<p>The Policy is prepared in accordance with:</p>
 <ul>
-  <li><strong>Contact data</strong> you voluntarily submit via price-request or contact forms: name, phone/Telegram/email, company name.</li>
-  <li><strong>Technical data</strong>: IP address, User-Agent, referrer, page visits (via Google Tag Manager and Yandex Metrica).</li>
-  <li><strong>API requests</strong> to <code>api.pepperoni.tatar</code> are logged for analytics and abuse prevention (logs retained for 30 days).</li>
+  <li>Federal Law No.&nbsp;152-FZ of 27 July 2006 “On Personal Data”;</li>
+  <li>Federal Law No.&nbsp;149-FZ of 27 July 2006 “On Information, Information Technologies and Information Protection”;</li>
+  <li>other applicable Russian regulations on personal data.</li>
 </ul>
 
-<h2>2. How we use it</h2>
+<div class="note">
+By using the website and/or submitting a lead form, you confirm that you have read this Policy. Form submission is possible only with an explicit consent checkbox.
+</div>
+
+<p><strong>Governing text.</strong> If there is any discrepancy, the Russian version at <a href="https://pepperoni.tatar/privacy">https://pepperoni.tatar/privacy</a> prevails.</p>
+
+<h2>1. Personal data operator</h2>
+<table>
+  <tr><th>Full legal name</th><td>Kazan Delicacies Limited Liability Company (ООО «Казанские Деликатесы»)</td></tr>
+  <tr><th>TIN / KPP / OGRN</th><td>1686021074 / 168601001 / 1221600096893</td></tr>
+  <tr><th>Registered address</th><td>420061, Russian Federation, Republic of Tatarstan, Kazan, 2 Agrarnaya St., office&nbsp;7</td></tr>
+  <tr><th>PD request email</th><td><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a> (subject: “Personal Data Request”)</td></tr>
+  <tr><th>Phone</th><td><a href="tel:+79872170202">+7&nbsp;987&nbsp;217-02-02</a></td></tr>
+</table>
+
+<h2>2. Terms</h2>
+<p>The terms “personal data”, “operator”, “processing”, “personal data subject”, “consent” and “destruction” are used as defined in Article&nbsp;3 of Federal Law No.&nbsp;152-FZ.</p>
+
+<h2>3. Data subjects and PD categories</h2>
+<h3>3.1. Website visitors and form submitters</h3>
 <ul>
-  <li>To contact you in response to a price-list or commercial-proposal request.</li>
-  <li>To improve the site and catalog (aggregated analytics).</li>
-  <li>To fulfil legal obligations (accounting, shipment paperwork).</li>
+  <li>name (if provided);</li>
+  <li>phone number (required);</li>
+  <li>message text (product interest, volume, city, or other details you enter);</li>
+  <li>page URL from which the form was sent;</li>
+  <li>optional experiment/landing technical ID;</li>
+  <li>fact and time of consent;</li>
+  <li>submitter IP address (anti-abuse / rate limiting).</li>
+</ul>
+<p>The form field “company” is an anti-spam honeypot and is not intended for human input. Email, Telegram handle or company name are processed <strong>only if you type them into the message or phone field yourself</strong>.</p>
+
+<h3>3.2. Technical data of visitors</h3>
+<ul>
+  <li>IP address, User-Agent, referrer;</li>
+  <li>pages visited, click and conversion events;</li>
+  <li>cookies and similar identifiers set by analytics/ads tools (see Section&nbsp;8).</li>
 </ul>
 
-<h2>3. Who we share with</h2>
+<h3>3.3. Public API consumers</h3>
+<p>The API at <code>api.pepperoni.tatar</code> is public and does not require registration. Server access logs may store IP address, User-Agent, request URL, response code and timestamp for security and abuse prevention. No API user account is created. The product catalog does not contain customer PD.</p>
+
+<h3>3.4. Special categories</h3>
+<p>The Operator does <strong>not intentionally collect</strong> special categories of PD (health, ethnicity, political views, etc.) or biometric PD. Please do not submit such information via website forms.</p>
+
+<h2>4. Purposes</h2>
+<table>
+  <tr><th>Purpose</th><th>Data</th></tr>
+  <tr><td>Handle inquiries, price lists, commercial proposals, prepare supply contracts</td><td>Form data, submitter IP</td></tr>
+  <tr><td>Negotiate and perform contracts with counterparties</td><td>Contact details, correspondence</td></tr>
+  <tr><td>Website analytics and catalog improvement</td><td>Technical data, cookies, analytics events</td></tr>
+  <tr><td>Advertising performance measurement (Google Ads)</td><td>Technical IDs, conversion events</td></tr>
+  <tr><td>Security, anti-spam, incident investigation</td><td>IP addresses, request logs</td></tr>
+  <tr><td>Compliance with Russian law (e.g. accounting where a contract exists)</td><td>Data required by law</td></tr>
+</table>
+
+<h2>5. Legal bases (Art.&nbsp;6 of 152-FZ)</h2>
 <ul>
-  <li>We do <strong>not</strong> sell or share data with third parties for marketing purposes.</li>
-  <li>We use Google (Tag Manager) and Yandex (Metrica) — data is processed according to those services' own policies.</li>
-  <li>The <code>api.pepperoni.tatar</code> API is public and unauthenticated — <strong>no personal data of API consumers is collected or stored</strong>.</li>
+  <li><strong>subject consent</strong> — form checkbox; analytics/ads cookies to the extent allowed by browser settings and applicable law;</li>
+  <li><strong>entering into / performing a contract</strong> with the subject;</li>
+  <li><strong>legal duties</strong> of the Operator under Russian law;</li>
+  <li><strong>security and protection of the Operator’s rights</strong> for technical logs in the necessary scope.</li>
+</ul>
+<p>Consent via the form is specific, informed and conscious. Submissions without consent are blocked client-side and server-side.</p>
+
+<h2>6. Processing operations</h2>
+<p>The Operator may collect, record, systematize, accumulate, store, update, extract, use, transfer (provide / grant access), depersonalize, block, delete and destroy PD — using automated means and/or without them.</p>
+
+<h2>7. Recipients and cross-border transfer</h2>
+<p>The Operator does <strong>not sell</strong> PD and does not share it with third parties for their independent marketing.</p>
+<table>
+  <tr><th>Recipient</th><th>What is shared</th><th>Why</th></tr>
+  <tr><td>Telegram (messaging service; infrastructure outside the Russian Federation)</td><td>Name, phone, message, page URL</td><td>Deliver leads to managers in a work chat</td></tr>
+  <tr><td>YANDEX LLC (Yandex Metrica)</td><td>Technical data, cookies, site events</td><td>Web analytics</td></tr>
+  <tr><td>Google LLC / Google Ireland (Google Tag Manager, Google Ads)</td><td>Technical data, cookies, conversion events</td><td>Tag management and ads conversion tracking</td></tr>
+  <tr><td>Website hosting / VPS in the Russian Federation</td><td>Server logs and form processing data</td><td>Operate the site and API</td></tr>
+  <tr><td>Russian public authorities</td><td>As legally required</td><td>Statutory requests</td></tr>
+</table>
+<p><strong>Cross-border transfer.</strong> Using Telegram and Google may involve transfer of PD outside the Russian Federation. By submitting a form and/or continuing to use the site with analytics/ads cookies enabled, you consent to such transfer to the extent necessary for the purposes above (Art.&nbsp;12 of 152-FZ). Those services also apply their own privacy policies.</p>
+<p>Public catalog and AI files do <strong>not</strong> contain website-user PD. Third-party AI tools reading the catalog receive product information only.</p>
+
+<h2>8. Cookies, analytics and ads IDs</h2>
+<ul>
+  <li>Yandex Metrica (counter <code>107064141</code>);</li>
+  <li>Google Tag Manager (<code>GTM-W2Q5S8HF</code>);</li>
+  <li>Google Ads (<code>AW-18346189266</code>), including conversion events on form submit.</li>
+</ul>
+<p>You may restrict or delete cookies in your browser. Disabling analytics/ads cookies does not cancel processing of data you voluntarily submit via the form.</p>
+
+<h2>9. Storage location</h2>
+<p>Core website/API systems are hosted on infrastructure in the Russian Federation. Part of processing (Telegram, Google) uses infrastructure outside the Russian Federation — see Section&nbsp;7.</p>
+
+<h2>10. Retention and destruction</h2>
+<table>
+  <tr><th>Category</th><th>Retention</th></tr>
+  <tr><td>Website leads (contacts and message)</td><td>up to 3 years from receipt, or until consent is withdrawn / deletion is requested — whichever is earlier, unless longer retention is required by contract or law</td></tr>
+  <tr><td>API / web server logs</td><td>up to 30 days, unless needed longer for a security investigation</td></tr>
+  <tr><td>Analytics data (Yandex/Google)</td><td>per those services’ policies and settings</td></tr>
+  <tr><td>Supply-contract records</td><td>per Russian accounting and archival rules</td></tr>
+</table>
+
+<h2>11. Security measures</h2>
+<ul>
+  <li>role-based internal access to PD;</li>
+  <li>HTTPS;</li>
+  <li>explicit consent checkbox plus server-side consent check;</li>
+  <li>anti-spam controls (honeypot, IP rate limiting);</li>
+  <li>reasonable backup and availability monitoring of critical services.</li>
 </ul>
 
-<h2>4. Retention</h2>
-<p>Contact requests — 3 years or until consent is withdrawn. Technical logs — 30 days. Analytics — per Google and Yandex policies.</p>
+<h2>12. Your rights</h2>
+<p>Under Arts.&nbsp;14–15 and 20–21 of 152-FZ you may request information about processing, correction, blocking or destruction of PD, withdraw consent, and complain to Roskomnadzor or a court.</p>
+<p>Email <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a> with subject <strong>“Personal Data Request”</strong>, your name (or the name used in the lead), a reply contact and your request. The Operator responds within the timelines of Art.&nbsp;20 of 152-FZ (as a rule, within <strong>10 business days</strong>, extendable as permitted by law).</p>
+<p>Withdrawal of consent does not affect the lawfulness of processing performed before withdrawal and does not stop processing that must continue on other legal bases (contract, law).</p>
 
-<h2>5. Your rights</h2>
-<ul>
-  <li>Request a copy of your data.</li>
-  <li>Request correction or deletion.</li>
-  <li>Withdraw consent for processing.</li>
-</ul>
-<p>To exercise these rights, write to <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a> with subject "Personal Data Request". Response within 10 working days.</p>
+<h2>13. Public content and AI</h2>
+<p>Site content (HTML, JSON, <code>llms.txt</code>, etc.) may be freely cited by AI models with attribution to <code>pepperoni.tatar</code>. Public files include <code>/.well-known/ai-plugin.json</code>, <code>/openapi.yaml</code>, <code>/llms.txt</code>, <code>/llms-full.txt</code>, <code>/en/llms.txt</code>, <code>/en/llms-full.txt</code>, <code>/products.json</code>, <code>/api/products</code>. These materials describe products/company and are <strong>not</strong> a personal-data database of website users.</p>
 
-<h2>6. AI Content (llms.txt, GPTs, ChatGPT plugins)</h2>
-<p>Site content (HTML, JSON, llms.txt) is <strong>intended for free citation by AI models</strong> (ChatGPT, Perplexity, Claude, Gemini, DeepSeek, etc.) with attribution to <code>pepperoni.tatar</code>. The files <code>/.well-known/ai-plugin.json</code>, <code>/openapi.yaml</code>, <code>/llms.txt</code>, <code>/llms-full.txt</code>, <code>/en/llms.txt</code>, <code>/en/llms-full.txt</code>, <code>/products.json</code>, <code>/api/products</code> are all public.</p>
-<p>Third-party AI services (including custom GPTs in the OpenAI GPT Store) that consume our API <strong>do not receive any personal user data</strong> — only the product catalog.</p>
+<h2>14. Policy updates</h2>
+<p>The Operator may update this Policy. The current version is always at <a href="https://pepperoni.tatar/en/privacy">https://pepperoni.tatar/en/privacy</a> (Russian governing text: <a href="https://pepperoni.tatar/privacy">/privacy</a>).</p>
 
-<h2>7. Contact</h2>
+<h2>15. Contacts</h2>
 <p>Kazan Delicacies LLC<br>
-Address: 420059, Kazan, Agrarnaya St. 2, Russia<br>
+420061, Kazan, 2 Agrarnaya St., office&nbsp;7, Russia<br>
 Email: <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><br>
-Phone: <a href="tel:+79872170202">+7 987 217-02-02</a></p>
+Phone: <a href="tel:+79872170202">+7&nbsp;987&nbsp;217-02-02</a></p>
+<p>Supervisory authority for personal data in Russia: Roskomnadzor — <a href="https://rkn.gov.ru/" rel="noopener">rkn.gov.ru</a>.</p>
 
 <footer>
   <p>© <a href="https://kazandelikates.tatar">Kazan Delicacies</a> · <a href="/en/">Home</a> · <a href="/en/terms">Terms of Use</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a></p>
