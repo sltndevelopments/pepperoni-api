@@ -1,27 +1,27 @@
 {
-  "generated_at": "2026-07-25T05:31:53.668346+00:00",
+  "generated_at": "2026-07-26T05:31:30.147763+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 225,
-      "clk": 2,
-      "pos": 35.0,
+      "impr": 173,
+      "clk": 1,
+      "pos": 28.1,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пепперони халяль купить",
-      "impr": 117,
+      "impr": 90,
       "clk": 1,
-      "pos": 44.2,
+      "pos": 41.3,
       "page": "https://pepperoni.tatar/"
     },
     {
       "query": "пеперони халяль",
-      "impr": 59,
+      "impr": 53,
       "clk": 1,
-      "pos": 6.6,
+      "pos": 6.5,
       "page": "https://pepperoni.tatar/"
     }
   ]
