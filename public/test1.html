@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сосиски «Из говядины» — тест лендинга | Казанские Деликатесы</title>
+<meta name="description" content="Тестовая продуктовая страница: сосиски «Из говядины» KD-001 — термостабильные халяль-сосиски для хот-догов и HoReCa.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://pepperoni.tatar/test1">
+<link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/images/products/kd-001-slice.jpg?v=517e6c32" fetchpriority="high">
+<style>
+:root {
+  --hero: #3a1412;
+  --hero-mid: #4a1c18;
+  --cream: #f3e6df;
+  --cream-dim: #d9c4ba;
+  --ink: #16110f;
+  --paper: #faf6f2;
+  --paper-2: #efe6df;
+  --accent: #b8452f;
+  --accent-deep: #8f3423;
+  --line: rgba(22, 17, 15, 0.12);
+  --nav-h: 64px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: "Outfit", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; border: 0; background: none; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* —— Nav —— */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  height: var(--nav-h);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 40px);
+  background: var(--cream);
+  border-bottom: 1px solid rgba(58, 20, 18, 0.08);
+}
+.nav__brand {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  color: var(--ink);
+}
+.nav__links {
+  display: none; gap: 28px; list-style: none;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.nav__links a { text-decoration: none; opacity: 0.78; transition: opacity .2s; }
+.nav__links a:hover { opacity: 1; }
+.nav__cta {
+  display: inline-flex; align-items: center;
+  padding: 10px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 999px;
+  font-size: 0.78rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none;
+  transition: background .25s var(--ease), color .25s var(--ease);
+}
+.nav__cta:hover { background: var(--ink); color: var(--cream); }
+@media (min-width: 900px) {
+  .nav__links { display: flex; }
+}
+
+/* —— Hero —— */
+.hero {
+  position: relative;
+  min-height: calc(100svh - var(--nav-h));
+  background:
+    radial-gradient(120% 80% at 50% 110%, rgba(184, 69, 47, 0.35) 0%, transparent 55%),
+    linear-gradient(180deg, var(--hero-mid) 0%, var(--hero) 55%, #2a0f0d 100%);
+  color: var(--cream);
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center;
+  padding: clamp(16px, 3vh, 28px) 20px 0;
+  overflow: hidden;
+}
+.hero__eyebrow {
+  font-size: 0.72rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--cream-dim);
+  opacity: 0; transform: translateY(12px);
+  animation: rise .8s var(--ease) .1s forwards;
+}
+.hero__brand {
+  margin-top: 6px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(1.55rem, 3.6vw, 2.35rem);
+  letter-spacing: 0.14em;
+  opacity: 0; transform: translateY(14px);
+  animation: rise .85s var(--ease) .18s forwards;
+}
+.hero__tabs {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 8px;
+  margin: 14px 0 4px;
+  opacity: 0; transform: translateY(12px);
+  animation: rise .8s var(--ease) .28s forwards;
+}
+.hero__tab {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(243, 230, 223, 0.35);
+  color: var(--cream-dim);
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  text-decoration: none;
+  transition: background .25s, color .25s, border-color .25s;
+}
+.hero__tab.is-active,
+.hero__tab:hover {
+  background: var(--cream);
+  color: var(--hero);
+  border-color: var(--cream);
+}
+.hero__title {
+  margin-top: 4px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(4.2rem, 16vw, 9.5rem);
+  line-height: 0.88;
+  letter-spacing: 0.02em;
+  color: var(--cream);
+  opacity: 0; transform: translateY(28px) scale(0.98);
+  animation: rise-scale 1s var(--ease) .35s forwards;
+}
+.hero__sub {
+  max-width: 32rem;
+  margin: 12px auto 0;
+  font-size: clamp(0.95rem, 2vw, 1.08rem);
+  color: var(--cream-dim);
+  opacity: 0; transform: translateY(12px);
+  animation: rise .85s var(--ease) .5s forwards;
+}
+.hero__actions {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+  margin-top: 14px;
+  opacity: 0; transform: translateY(12px);
+  animation: rise .85s var(--ease) .6s forwards;
+}
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 48px; padding: 12px 22px;
+  border-radius: 999px;
+  font-size: 0.9rem; font-weight: 600;
+  text-decoration: none;
+  transition: transform .2s var(--ease), background .2s, color .2s, border-color .2s;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn--solid {
+  background: var(--cream); color: var(--hero);
+}
+.btn--solid:hover { background: #fff; }
+.btn--ghost {
+  border: 1.5px solid rgba(243, 230, 223, 0.55);
+  color: var(--cream);
+}
+.btn--ghost:hover { border-color: var(--cream); background: rgba(243, 230, 223, 0.08); }
+.btn--dark {
+  background: var(--ink); color: var(--cream);
+}
+.btn--dark:hover { background: #000; }
+.btn--outline-dark {
+  border: 1.5px solid var(--ink); color: var(--ink);
+}
+.btn--outline-dark:hover { background: var(--ink); color: var(--cream); }
+
+.hero__visual {
+  position: relative;
+  width: min(680px, 92%);
+  margin-top: auto;
+  padding-top: 10px;
+  opacity: 0; transform: translateY(48px);
+  animation: rise 1.1s var(--ease) .7s forwards;
+}
+.hero__visual::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(to top, #2a0f0d 0%, transparent 34%),
+    linear-gradient(to bottom, var(--hero) 0%, transparent 26%),
+    radial-gradient(90% 70% at 50% 70%, transparent 35%, rgba(42, 15, 13, 0.55) 100%);
+}
+.hero__visual img {
+  width: 100%;
+  height: clamp(180px, 28vh, 320px);
+  object-fit: cover;
+  object-position: center 40%;
+  filter: saturate(1.05) contrast(1.04);
+}
+
+@keyframes rise {
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes rise-scale {
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* —— Sections —— */
+.section {
+  padding: clamp(64px, 10vw, 112px) clamp(16px, 5vw, 48px);
+}
+.section--hero-tone {
+  background: var(--hero);
+  color: var(--cream);
+}
+.section--paper { background: var(--paper); }
+.section--paper-2 { background: var(--paper-2); }
+.section__inner { max-width: 1120px; margin: 0 auto; }
+.kicker {
+  font-size: 0.78rem; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 14px;
+}
+.section--hero-tone .kicker { color: var(--cream-dim); }
+.display {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.8rem, 8vw, 5.6rem);
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  max-width: 14ch;
+}
+.lede {
+  margin-top: 18px;
+  max-width: 38rem;
+  font-size: 1.05rem;
+  color: color-mix(in srgb, currentColor 78%, transparent);
+}
+
+.dream {
+  text-align: center;
+}
+.dream .display { margin: 0 auto; max-width: 16ch; }
+.dream .lede { margin-left: auto; margin-right: auto; }
+
+.gallery {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin-top: 48px;
+}
+.gallery figure {
+  overflow: hidden;
+  background: #ddd;
+  aspect-ratio: 4 / 3;
+}
+.gallery img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transition: transform 1.1s var(--ease);
+}
+.gallery figure:hover img { transform: scale(1.04); }
+@media (min-width: 800px) {
+  .gallery { grid-template-columns: 1.15fr 0.85fr; }
+}
+
+.why-grid {
+  display: grid;
+  gap: clamp(32px, 5vw, 56px);
+  margin-top: 40px;
+}
+@media (min-width: 900px) {
+  .why-grid { grid-template-columns: 1fr 1fr; align-items: start; }
+}
+.why-copy h3 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  letter-spacing: 0.03em;
+  margin-bottom: 12px;
+}
+.why-copy p { color: #4a3b36; max-width: 36rem; }
+.why-list {
+  list-style: none;
+  display: grid;
+  gap: 18px;
+  margin-top: 8px;
+}
+.why-list li {
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.why-list strong {
+  display: block;
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.why-list span { color: #5a4a44; font-size: 0.98rem; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  margin-top: 40px;
+}
+.stat {
+  background: var(--paper);
+  padding: clamp(22px, 4vw, 36px);
+}
+.stat b {
+  display: block;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--accent-deep);
+}
+.stat span {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: #5a4a44;
+}
+@media (min-width: 800px) {
+  .stats { grid-template-columns: repeat(4, 1fr); }
+}
+
+.facts {
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 900px) {
+  .facts { grid-template-columns: 0.9fr 1.1fr; align-items: start; }
+}
+.facts__media {
+  overflow: hidden;
+  background: #ddd;
+  aspect-ratio: 4 / 5;
+}
+.facts__media img { width: 100%; height: 100%; object-fit: cover; }
+.specs {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  font-size: 0.95rem;
+}
+.specs tr { border-bottom: 1px solid var(--line); }
+.specs th, .specs td { padding: 14px 0; text-align: left; font-weight: 500; }
+.specs th { color: #6b5750; font-weight: 500; width: 42%; }
+
+.accordion { margin-top: 28px; border-top: 1px solid var(--line); }
+.accordion details { border-bottom: 1px solid var(--line); }
+.accordion summary {
+  list-style: none;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: 18px 0;
+  font-weight: 600;
+  cursor: pointer;
+}
+.accordion summary::-webkit-details-marker { display: none; }
+.accordion summary::after {
+  content: "+";
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--accent);
+  transition: transform .25s var(--ease);
+}
+.accordion details[open] summary::after { content: "−"; }
+.accordion .acc-body {
+  padding: 0 0 18px;
+  color: #5a4a44;
+  max-width: 40rem;
+}
+
+.cta-band {
+  display: grid;
+  gap: 28px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .cta-band { grid-template-columns: 1.2fr 0.8fr; gap: 48px; }
+}
+.cta-band .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.lead-form {
+  display: grid; gap: 10px;
+  padding: 24px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(243, 230, 223, 0.18);
+}
+.lead-form input,
+.lead-form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(243, 230, 223, 0.28);
+  border-radius: 8px;
+  background: rgba(0,0,0,0.18);
+  color: var(--cream);
+  font: inherit;
+}
+.lead-form input::placeholder,
+.lead-form textarea::placeholder { color: rgba(243, 230, 223, 0.45); }
+.lead-form label {
+  display: flex; gap: 8px; align-items: flex-start;
+  font-size: 0.78rem; color: var(--cream-dim); line-height: 1.35;
+}
+.lead-form label a { color: var(--cream); text-decoration: underline; }
+.lead-form button[type="submit"] {
+  min-height: 48px;
+  border-radius: 999px;
+  background: var(--cream);
+  color: var(--hero);
+  font-weight: 600;
+}
+.lead-form__status { font-size: 0.85rem; min-height: 1.2em; }
+
+.related {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+  margin-top: 36px;
+}
+.related a {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  text-decoration: none;
+  color: inherit;
+}
+.related .thumb {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: #ddd;
+}
+.related img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .8s var(--ease);
+}
+.related a:hover img { transform: scale(1.05); }
+.related h3 {
+  margin-top: 14px;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.7rem;
+  letter-spacing: 0.03em;
+}
+.related p { color: #5a4a44; font-size: 0.95rem; margin-top: 4px; }
+@media (min-width: 800px) {
+  .related { grid-template-columns: repeat(3, 1fr); }
+}
+
+.footer {
+  padding: 36px clamp(16px, 5vw, 48px) 48px;
+  background: #120d0c;
+  color: rgba(243, 230, 223, 0.72);
+  font-size: 0.88rem;
+  text-align: center;
+}
+.footer a { color: var(--cream); text-decoration: none; }
+.footer a:hover { text-decoration: underline; }
+.footer__links { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px 22px; margin-bottom: 14px; }
+.footer__note { opacity: 0.7; font-size: 0.8rem; }
+
+/* reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .9s var(--ease), transform .9s var(--ease);
+}
+.reveal.is-in { opacity: 1; transform: translateY(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero__eyebrow, .hero__brand, .hero__tabs, .hero__title,
+  .hero__sub, .hero__actions, .hero__visual {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  .gallery img, .related img { transition: none; }
+}
+</style>
+</head>
+<body>
+<a class="sr-only" href="#main">Перейти к содержимому</a>
+
+<header class="nav">
+  <a class="nav__brand" href="/">Казанские Деликатесы</a>
+  <ul class="nav__links">
+    <li><a href="/">Каталог</a></li>
+    <li><a href="/pepperoni">Пепперони</a></li>
+    <li><a href="/dlya-horeca">HoReCa</a></li>
+    <li><a href="/about">О компании</a></li>
+  </ul>
+  <a class="nav__cta" href="#order">Заказать</a>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <p class="hero__eyebrow">Сосиски гриль для хот-догов · KD-001</p>
+    <p class="hero__brand">Казанские Деликатесы</p>
+    <nav class="hero__tabs" aria-label="Линейка сосисок">
+      <a class="hero__tab is-active" href="/test1" aria-current="page">Из говядины</a>
+      <a class="hero__tab" href="/products/kd-002">Два мяса</a>
+      <a class="hero__tab" href="/products/kd-003">Три перца</a>
+      <a class="hero__tab" href="/products/kd-004">Куриные</a>
+    </nav>
+    <h1 id="hero-title" class="hero__title">ИЗ&nbsp;ГОВЯДИНЫ<br>СОСИСКИ</h1>
+    <p class="hero__sub">Термостабильные халяль-сосиски 80&nbsp;г ×&nbsp;6&nbsp;шт для гриля, ролика и потока HoReCa. Без оболочки — держат форму и сочность.</p>
+    <div class="hero__actions">
+      <a class="btn btn--solid" href="#order">Запросить прайс</a>
+      <a class="btn btn--ghost" href="https://t.me/KazanDel_Bot?start=KD-001" target="_blank" rel="noopener">Telegram</a>
+    </div>
+    <div class="hero__visual">
+      <img
+        src="/images/products/kd-001-slice.jpg?v=517e6c32"
+        alt="Французский хот-дог с сосиской «Из говядины» Казанские Деликатесы"
+        width="1200" height="750"
+        fetchpriority="high" decoding="async">
+    </div>
+  </section>
+
+  <section class="section section--hero-tone dream">
+    <div class="section__inner reveal">
+      <p class="kicker">Для потока, а не для витрины</p>
+      <h2 class="display">Хот-дог мечты<br>на гриле и в ролике</h2>
+      <p class="lede">Плотная текстура, кардамон и чёрный перец, фасовка 6&nbsp;шт по&nbsp;80&nbsp;г. Не ужариваются сверх нормы и не лопаются в часы пик — на АЗС, в фудтраке и на линии завтраков.</p>
+      <div class="gallery">
+        <figure>
+          <img src="/images/products/kd-001-pack.jpg?v=d62ce70b" alt="Вакуумная упаковка сосисок «Из говядины» 6 шт" width="900" height="675" loading="lazy">
+        </figure>
+        <figure>
+          <img src="/images/products/kd-001-main.jpg?v=2a0a28ae" alt="Сосиски «Из говядины»: целые и в разрезе" width="900" height="675" loading="lazy">
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="section__inner reveal">
+      <p class="kicker">Почему эти сосиски</p>
+      <h2 class="display">Стабильная порция<br>в часы пик</h2>
+      <div class="why-grid">
+        <div class="why-copy">
+          <h3>Термостабильность</h3>
+          <p>Гриль, роликовый аппарат, решётка или сковорода — сосиски сохраняют форму и сок при длительном прогреве. Удобно, когда очередь не ждёт.</p>
+        </div>
+        <ul class="why-list">
+          <li>
+            <strong>Халяль ДУМ РТ №614А/2024</strong>
+            <span>Говядина и мясо птицы. Свинина и алкоголь в продукции отсутствуют.</span>
+          </li>
+          <li>
+            <strong>Фасовка под хот-дог</strong>
+            <span>80&nbsp;г ×&nbsp;6&nbsp;шт, вакуум, диаметр 24&nbsp;мм, без оболочки.</span>
+          </li>
+          <li>
+            <strong>Срок и хранение</strong>
+            <span>360 суток при −18°C. Мин. заказ и коробка — по запросу оптом.</span>
+          </li>
+          <li>
+            <strong>Цена ориентир</strong>
+            <span>290&nbsp;₽ с НДС за упаковку · ≈48,33&nbsp;₽ за шт.</span>
+          </li>
+        </ul>
+      </div>
+      <div class="stats" aria-label="Пищевая ценность на 100 г">
+        <div class="stat"><b>226</b><span>ккал на 100&nbsp;г</span></div>
+        <div class="stat"><b>10,4</b><span>белки, г</span></div>
+        <div class="stat"><b>20,1</b><span>жиры, г</span></div>
+        <div class="stat"><b>1,2</b><span>углеводы, г</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--paper-2">
+    <div class="section__inner facts reveal">
+      <div class="facts__media">
+        <img src="/images/products/kd-001-pack.jpg?v=d62ce70b" alt="Упаковка KD-001 крупным планом" width="800" height="1000" loading="lazy">
+      </div>
+      <div>
+        <p class="kicker">Состав и спецификация</p>
+        <h2 class="display">Что внутри<br>и как хранить</h2>
+        <p class="lede">Состав: говядина высокого качества, мясо птицы, вода, мука, растительное волокно, смесь для засолки (поваренная соль, нитрит натрия), смесь приправ (сахар, чёрный перец, молотый кардамон). Без ГМО. Аллергены: растительное волокно, чёрный перец.</p>
+        <table class="specs">
+          <tbody>
+            <tr><th scope="row">SKU</th><td>KD-001 · арт. 999969</td></tr>
+            <tr><th scope="row">Штрих-код</th><td>4680638720608</td></tr>
+            <tr><th scope="row">Вес / фасовка</th><td>0,48 кг · 80 г × 6 шт</td></tr>
+            <tr><th scope="row">Диаметр / оболочка</th><td>24 мм · без оболочки</td></tr>
+            <tr><th scope="row">Упаковка</th><td>Вакуум</td></tr>
+            <tr><th scope="row">Хранение</th><td>−18°C · 360 суток</td></tr>
+            <tr><th scope="row">Коробка брутто</th><td>4,8 кг</td></tr>
+            <tr><th scope="row">Сертификация</th><td>Халяль, HACCP, ISO 22000:2018, ТР ТС 021/2011</td></tr>
+          </tbody>
+        </table>
+        <div class="accordion">
+          <details>
+            <summary>Как готовить</summary>
+            <div class="acc-body">Гриль, роликовый гриль, жарка на решётке или сковороде. После разморозки в холодильнике используйте в цикле разморозка → приготовление → реализация в течение суток.</div>
+          </details>
+          <details>
+            <summary>Кому подходит</summary>
+            <div class="acc-body">Фудтраки, АЗС, киоски, фуд-корты, сетевой общепит, линии завтраков. Также Private Label / OEM при объёме по договорённости.</div>
+          </details>
+          <details>
+            <summary>Опт и экспорт</summary>
+            <div class="acc-body">Поставки по РФ и на экспорт. Экспортные ориентиры: от ~3,37&nbsp;$ за упаковку. Минимальный заказ, логистику и прайс фиксируем индивидуально.</div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--hero-tone" id="order">
+    <div class="section__inner cta-band reveal">
+      <div>
+        <p class="kicker">Заказ</p>
+        <h2 class="display">Опт, HoReCa,<br>Private Label</h2>
+        <p class="lede">Напишите объём, город и формат точки — пришлём актуальный прайс по KD-001 и соседним SKU линейки.</p>
+        <div class="actions">
+          <a class="btn btn--solid" href="https://t.me/KazanDel_Bot?start=KD-001" target="_blank" rel="noopener">Telegram</a>
+          <a class="btn btn--ghost" href="https://wa.me/79872170202" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn btn--ghost" href="tel:+79872170202">+7 987 217-02-02</a>
+        </div>
+      </div>
+      <form class="lead-form" novalidate>
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name">
+        <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel">
+        <textarea name="message" rows="3" placeholder="Объём (кг), город, заведение"></textarea>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label>
+          <input type="checkbox" name="consent" required>
+          <span>Согласен на обработку персональных данных (<a href="/privacy" target="_blank">152-ФЗ</a>).</span>
+        </label>
+        <button type="submit">Запросить прайс</button>
+        <p class="lead-form__status" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </section>
+
+  <section class="section section--paper">
+    <div class="section__inner reveal">
+      <p class="kicker">Ещё из линейки</p>
+      <h2 class="display">Другие сосиски<br>для гриля</h2>
+      <div class="related">
+        <a href="/products/kd-002">
+          <div class="thumb"><img src="/images/products/kd-002-main.jpg?v=a9a9cbd6" alt="Сосиски «Два мяса»" width="640" height="480" loading="lazy"></div>
+          <h3>Два мяса</h3>
+          <p>KD-002 · 80 г × 6 шт</p>
+        </a>
+        <a href="/products/kd-003">
+          <div class="thumb"><img src="/images/products/kd-003-main.jpg?v=773139fa" alt="Сосиски «Три перца с сыром»" width="640" height="480" loading="lazy"></div>
+          <h3>Три перца с сыром</h3>
+          <p>KD-003 · 80 г × 6 шт</p>
+        </a>
+        <a href="/products/kd-004">
+          <div class="thumb"><img src="/images/products/kd-004-main.jpg?v=f67020c2" alt="Сосиски «Куриные»" width="640" height="480" loading="lazy"></div>
+          <h3>Куриные</h3>
+          <p>KD-004 · 80 г × 6 шт</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="footer__links">
+    <a href="/products/kd-001">Карточка KD-001</a>
+    <a href="/">Каталог</a>
+    <a href="/about">О компании</a>
+    <a href="/delivery">Доставка</a>
+    <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
+  </div>
+  <p>© Казанские Деликатесы · г. Казань, ул. Аграрная, 2, оф. 7</p>
+  <p class="footer__note">Тестовая страница /test1 · noindex · не для выдачи</p>
+</footer>
+
+<script src="/assets/lead-form.js" defer></script>
+<script>
+(function () {
+  var nodes = document.querySelectorAll(".reveal");
+  if (!nodes.length) return;
+  if (!("IntersectionObserver" in window)) {
+    nodes.forEach(function (n) { n.classList.add("is-in"); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) {
+        e.target.classList.add("is-in");
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+  nodes.forEach(function (n) { io.observe(n); });
+})();
+</script>
+</body>
+</html>
