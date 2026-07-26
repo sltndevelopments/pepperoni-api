@@ -153,7 +153,9 @@
                   window.gtag("set", "user_data", userData);
                 }
                 window.gtag("event", "conversion", {
-                  send_to: "AW-18346189266",
+                  send_to: "AW-18346189266/dznsCLar19UcENLDkqxE",
+                  value: 1.0,
+                  currency: "USD",
                   user_data: userData
                 });
                 window.gtag("event", "generate_lead", {
