@@ -591,8 +591,15 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .saga__copy {
   position: absolute; inset: 0; z-index: 4;
   display: grid; place-items: center;
-  padding: clamp(80px, 14vh, 140px) clamp(16px, 5vw, 48px) clamp(72px, 12vh, 110px);
+  padding: clamp(72px, 12vh, 120px) clamp(14px, 4vw, 40px) clamp(56px, 10vh, 96px);
   text-align: center; pointer-events: none;
+}
+.saga__chapter[data-ch="5"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-height: calc(100svh - 140px);
 }
 .saga__chapter {
   grid-area: 1 / 1;
@@ -642,36 +649,40 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 }
 .saga__big {
   font-family: "Lilita One", sans-serif;
-  font-size: clamp(5rem, 22vw, 14rem);
-  line-height: 0.85; color: var(--red);
+  font-size: clamp(3.6rem, 16vw, 9rem);
+  line-height: 0.9; color: var(--red);
   letter-spacing: -0.02em;
 }
 .saga__words {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35em 0.65em;
-  margin-top: 22px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.3em 0.45em;
+  margin-top: 14px;
   font-family: "Lilita One", sans-serif;
-  font-size: clamp(1.35rem, 4.8vw, 2.5rem);
+  font-size: clamp(0.95rem, 3.4vw, 1.55rem);
   text-transform: uppercase;
+  max-width: 34rem;
+  margin-left: auto; margin-right: auto;
 }
 .saga__words span {
   display: inline-block; opacity: 0; transform: scale(0.6) rotate(-6deg);
-  padding: 0.12em 0.35em; border-radius: 999px;
+  padding: 0.2em 0.55em; border-radius: 999px;
   background: rgba(227,24,55,0.1);
 }
+/* Stats live inside finale chapter — never absolute-overlay the pills */
 .saga__stats {
-  position: absolute; left: 0; right: 0; bottom: 18%;
-  z-index: 4; display: flex; justify-content: center; gap: clamp(24px, 8vw, 80px);
+  display: flex; justify-content: center; gap: clamp(28px, 10vw, 72px);
+  margin: 14px auto 0;
   opacity: 0; pointer-events: none; color: #1a0a0c;
 }
-.saga__stat { text-align: center; }
+.saga__stat { text-align: center; min-width: 5.5rem; }
 .saga__stat b {
   display: block;
   font-family: "Lilita One", sans-serif;
-  font-size: clamp(3rem, 10vw, 6rem); line-height: 1; color: var(--red);
+  font-size: clamp(1.8rem, 6vw, 2.8rem); line-height: 1; color: var(--red);
 }
 .saga__stat span {
   display: block; margin-top: 4px;
-  font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  font-size: 0.65rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase;
+  max-width: 9ch; margin-left: auto; margin-right: auto;
 }
 .saga__dots {
   position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
@@ -832,16 +843,15 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">вкусов.</span></span>
             <span class="line"><em><span class="word">Халяль.</span></em></span>
           </h2>
+          <div class="saga__stats" data-saga-stats aria-hidden="true">
+            <div class="saga__stat"><b data-n="360">0</b><span>суток · −18°C</span></div>
+            <div class="saga__stat"><b data-n="8">0</b><span>SKU в линейке</span></div>
+          </div>
           <div class="saga__words" data-saga-words>
             <span>Говядина</span><span>Два мяса</span><span>Перец</span><span>Курица</span>
             <span>Баранина</span><span>Травы</span><span>Сыр</span><span>Конина</span>
           </div>
         </div>
-      </div>
-
-      <div class="saga__stats" data-saga-stats aria-hidden="true">
-        <div class="saga__stat"><b data-n="360">0</b><span>суток · −18°C</span></div>
-        <div class="saga__stat"><b data-n="8">0</b><span>SKU в линейке</span></div>
       </div>
 
       <div class="saga__dots" data-saga-dots aria-hidden="true">
