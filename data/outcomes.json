@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-07-26T05:31:30.257800+00:00",
+ "generated_at": "2026-07-27T05:32:14.284813+00:00",
  "summary": {
   "improved": 8,
   "flat": 5,
   "worse": 1,
   "not_indexed": 30,
-  "pending": 364,
+  "pending": 423,
   "converted": 1
  },
  "failing": [
@@ -18,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 47.9,
+   "age_days": 48.9,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +66,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 47.9,
+   "age_days": 48.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 47.9,
+   "age_days": 48.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 46.9,
+   "age_days": 47.9,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 46.0,
+   "age_days": 47.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 45.0,
+   "age_days": 46.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 44.0,
+   "age_days": 45.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +210,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +222,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 32.0,
+   "age_days": 33.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 32.0,
+   "age_days": 33.0,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 32.0,
+   "age_days": 33.0,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 32.0,
+   "age_days": 33.0,
    "verdict": "not_indexed"
   },
   {
@@ -282,7 +282,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.1,
+   "age_days": 31.1,
    "verdict": "not_indexed"
   },
   {
@@ -294,7 +294,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 30.1,
+   "age_days": 31.1,
    "verdict": "not_indexed"
   },
   {
@@ -306,7 +306,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 25.3,
+   "age_days": 26.3,
    "verdict": "not_indexed"
   }
  ],
@@ -315,7 +315,7 @@
   {
    "page": "https://pepperoni.tatar/",
    "query": "пепперони халяль",
-   "pos": 4.1,
+   "pos": 4.0,
    "inquiries": 3
   }
  ]
