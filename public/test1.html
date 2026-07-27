@@ -317,22 +317,54 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   border: 2px solid var(--ink);
   border-radius: 18px;
   overflow: hidden;
-  transition: transform .2s var(--ease), box-shadow .2s, border-color .2s;
+  opacity: 0;
+  transform: translateY(28px) scale(0.97);
+  transition: transform .45s var(--ease), box-shadow .35s, border-color .25s, opacity .5s var(--ease);
+}
+.sku-card.is-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 .sku-card:hover,
 .sku-card.is-active {
-  transform: translateY(-3px);
+  transform: translateY(-8px) scale(1.02);
   border-color: var(--red);
-  box-shadow: 0 10px 0 rgba(227, 24, 55, 0.15);
+  box-shadow: 0 18px 0 rgba(227, 24, 55, 0.18);
 }
 .sku-card__media {
-  background: var(--sand);
+  position: relative;
+  background: linear-gradient(160deg, #fff7f0 0%, #f3ebe3 100%);
   aspect-ratio: 1 / 1;
   overflow: hidden;
 }
 .sku-card__media img {
+  position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  padding: 8%;
+  transition: opacity .45s var(--ease), transform .7s var(--ease);
+}
+.sku-card__media img.sku-card__pack {
+  opacity: 0;
+  transform: scale(1.08);
+}
+.sku-card:hover .sku-card__main,
+.sku-card.is-active .sku-card__main {
+  opacity: 0;
+  transform: scale(1.06);
+}
+.sku-card:hover .sku-card__pack,
+.sku-card.is-active .sku-card__pack {
+  opacity: 1;
+  transform: scale(1);
+}
+.sku-card__badge {
+  position: absolute; top: 10px; left: 10px; z-index: 2;
+  background: var(--red); color: #fff;
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 5px 9px; border-radius: 999px;
 }
 .sku-card__body { padding: 14px 14px 16px; }
 .sku-card__sku {
@@ -346,6 +378,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   font-weight: 800;
   line-height: 1.25;
   overflow-wrap: break-word;
+}
+.sku-card__desc {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1.4;
 }
 .sku-card__row {
   margin-top: 8px;
@@ -376,7 +415,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   border-radius: 999px;
   font-size: 0.72rem; font-weight: 800;
   letter-spacing: 0.05em; text-transform: uppercase;
+  transition: transform .25s var(--ease), background .2s;
 }
+.sku-card:hover .sku-card__cta { transform: translateX(4px); background: var(--red-deep); }
 
 /* —— Split lifestyle —— */
 .split {
@@ -417,6 +458,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 
 /* —— Active SKU panel —— */
 .active-sku {
+  display: grid;
+  gap: 16px;
+  align-items: center;
   margin-top: 18px;
   background: #fff;
   color: var(--ink);
@@ -424,6 +468,62 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   border: 2px solid var(--ink);
   padding: 18px;
   text-align: left;
+}
+@media (min-width: 720px) {
+  .active-sku { grid-template-columns: 180px 1fr; gap: 22px; }
+}
+.active-sku__shot {
+  margin: 0;
+  border: 2px solid var(--ink);
+  border-radius: 18px;
+  overflow: hidden;
+  background: #fff;
+  aspect-ratio: 1;
+}
+.active-sku__shot img {
+  width: 100%; height: 100%;
+  object-fit: contain;
+  padding: 10%;
+  transition: transform 1.2s var(--ease);
+}
+.active-sku:hover .active-sku__shot img { transform: scale(1.06) rotate(-1deg); }
+.active-sku__copy { min-width: 0; }
+.flavor {
+  transition: transform .25s var(--ease), background .2s, color .2s, border-color .2s;
+}
+.flavor:hover { transform: translateY(-2px) scale(1.04); }
+.flavor.is-active { transform: translateY(-2px) scale(1.06); }
+.claim {
+  transition: transform .35s var(--ease), box-shadow .35s;
+}
+.claim.is-in { animation: claimPop .7s var(--ease) both; }
+@keyframes claimPop {
+  from { opacity: 0; transform: translateY(24px) rotate(-1.5deg); }
+  to { opacity: 1; transform: none; }
+}
+.claim:nth-child(2).is-in { animation-delay: .08s; }
+.claim:nth-child(3).is-in { animation-delay: .16s; }
+.hero {
+  position: relative;
+}
+.hero::after {
+  content: "";
+  position: absolute; inset: auto -20% -40% -20%;
+  height: 55%;
+  background: radial-gradient(ellipse at center, rgba(255,255,255,0.18), transparent 65%);
+  pointer-events: none;
+  animation: heroGlow 4.5s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  from { opacity: 0.35; transform: translateY(0); }
+  to { opacity: 0.8; transform: translateY(-12px); }
+}
+.hero__title {
+  animation: heroTitleIn .9s var(--ease) both;
+}
+@keyframes heroTitleIn {
+  from { opacity: 0; transform: translateY(40px) scale(0.94); }
+  to { opacity: 1; transform: none; }
 }
 .active-sku h3 {
   font-family: "Lilita One", sans-serif;
@@ -759,9 +859,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
-    <p class="hero__kicker">Реальная порция · реальный поток</p>
+    <p class="hero__kicker">Реальная порция · реальный поток · халяль</p>
     <h1 id="hero-title" class="hero__title">Хот-дог без лишней драмы</h1>
-    <p class="hero__sub">Термостабильные халяль-сосиски для гриля и ролика. 8 вкусов — от говядины до конины. Для АЗС, фудтраков и HoReCa.</p>
+    <p class="hero__sub">Термостабильные халяль-сосиски без оболочки для гриля и french-ролика. 8 SKU — от говядины до конины. Держат форму на точке: АЗС, фудтрак, HoReCa. EXW Казань · −18°C · 360 суток.</p>
     <div class="hero__actions">
       <a class="btn btn--white" href="#story">Листать историю</a>
       <a class="btn btn--outline" href="#lineup">К линейке</a>
@@ -802,7 +902,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">От&nbsp;сосиски</span></span>
             <span class="line"><em><span class="word">к&nbsp;хот-догу</span></em></span>
           </h2>
-          <p class="saga__sub">Листайте — увидите открытый и закрытый формат.</p>
+          <p class="saga__sub">Листайте историю: открытый хот-дог, закрытый french-ролик и вся линейка из 8 вкусов.</p>
         </div>
         <div class="saga__chapter" data-ch="1" data-tone="light">
           <p class="saga__kicker">Boom · открытый</p>
@@ -810,7 +910,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">Без&nbsp;оболочки.</span></span>
             <span class="line"><em><span class="word">Держит&nbsp;форму.</span></em></span>
           </h2>
-          <p class="saga__sub">Термостабильность на гриле и ролике.</p>
+          <p class="saga__sub">Термостабильные халяль-сосиски: ровный срез, стабильная форма на гриле — меньше брака на точке.</p>
         </div>
         <div class="saga__chapter" data-ch="2" data-tone="light">
           <p class="saga__kicker">Вкус</p>
@@ -818,7 +918,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">Соус.</span> <span class="word">Лук.</span></span>
             <span class="line"><em><span class="word">Аппетит.</span></em></span>
           </h2>
-          <p class="saga__sub">То, что останавливает взгляд на прикассе.</p>
+          <p class="saga__sub">Картинка, которая останавливает взгляд у прилавка АЗС и в ленте — без выдуманных рейтингов.</p>
         </div>
         <div class="saga__chapter" data-ch="3" data-tone="light">
           <p class="saga__kicker">Поток</p>
@@ -826,7 +926,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">В&nbsp;руке</span></span>
             <span class="line"><em><span class="word">гостя</span></em></span>
           </h2>
-          <p class="saga__sub">АЗС, фудтрак, часы пик — без драмы.</p>
+          <p class="saga__sub">АЗС, фудтрак, часы пик: один SKU — понятный процесс для персонала и быстрый чек.</p>
         </div>
         <div class="saga__chapter" data-ch="4" data-tone="light">
           <p class="saga__kicker">Flip · закрытый</p>
@@ -834,7 +934,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
             <span class="line"><span class="word">French</span></span>
             <span class="line"><em><span class="word">ролик</span></em></span>
           </h2>
-          <p class="saga__sub">Тот же SKU. Другая подача.</p>
+          <p class="saga__sub">Тот же продукт, другая подача: ролик на витрине без смены поставщика и склада.</p>
         </div>
         <div class="saga__chapter" data-ch="5" data-tone="cream">
           <p class="saga__kicker">Финал</p>
@@ -884,11 +984,11 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     <div class="inner reveal">
       <p class="eyebrow">Почему берут</p>
       <h2 class="display">Простые факты.<br>Без сахара в обещаниях.</h2>
-      <p class="lede">Не выдумываем КБЖУ ради заголовка. Держим то, что проверяется на точке и в сертификате.</p>
+      <p class="lede">Не выдумываем КБЖУ и «№1 в отрасли». Держим то, что проверяется: сертификат халяль, срок при −18°C, формат порции под хот-дог и ролик, поставка с производства в Казани.</p>
       <div class="claims">
-        <div class="claim"><b>Халяль</b><span>ДУМ РТ №614A/2024 · без свинины и алкоголя</span></div>
-        <div class="claim"><b>360 суток</b><span>Хранение при −18°C · EXW Казань</span></div>
-        <div class="claim"><b>8 SKU</b><span>80 г × 6 и 130 г × 5 · без оболочки</span></div>
+        <div class="claim reveal"><b>Халяль</b><span>ДУМ РТ №614A/2024 · без свинины и алкоголя · HACCP / ISO 22000</span></div>
+        <div class="claim reveal"><b>360 суток</b><span>Хранение при −18°C · термостабильность на гриле и ролике</span></div>
+        <div class="claim reveal"><b>8 SKU</b><span>80 г × 6 и 130 г × 5 · без оболочки · EXW Казань</span></div>
       </div>
     </div>
   </section>
@@ -900,17 +1000,23 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
           <p class="eyebrow">Shop the line</p>
           <h2 class="display">Вся линейка гриль</h2>
         </div>
-        <p class="shop-meta">Цены с НДС · в наличии · опт от производителя</p>
+        <p class="shop-meta">8 SKU · фото без водяного знака · цены с НДС · опт EXW Казань</p>
       </div>
 
       <div class="active-sku" id="active-sku" aria-live="polite">
-        <h3 data-sku-title>Из говядины</h3>
-        <p data-sku-sub>Классика для хот-дога: термостабильные халяль-сосиски без оболочки.</p>
-        <div class="active-sku__meta">
-          <span class="chip"><span data-sku-price>290 ₽</span> с НДС</span>
-          <span class="chip" data-sku-pack>80 г × 6 · 0,48 кг</span>
-          <span class="chip">−18°C</span>
-          <span class="chip">360 суток</span>
+        <figure class="active-sku__shot">
+          <img data-sku-img src="/images/test1/cards/kd-001-main.jpg" alt="Сосиски Из говядины" width="640" height="640">
+        </figure>
+        <div class="active-sku__copy">
+          <h3 data-sku-title>Из говядины</h3>
+          <p data-sku-sub>Классика для хот-дога: термостабильные халяль-сосиски без оболочки.</p>
+          <div class="active-sku__meta">
+            <span class="chip"><span data-sku-price>290 ₽</span> с НДС</span>
+            <span class="chip" data-sku-pack>80 г × 6 · 0,48 кг</span>
+            <span class="chip">−18°C</span>
+            <span class="chip">360 суток</span>
+            <span class="chip">Халяль</span>
+          </div>
         </div>
       </div>
 
@@ -935,7 +1041,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       <div>
         <p class="eyebrow">Where to order</p>
         <h2 class="display">Прайс. Объём. Город.</h2>
-        <p class="lede">Напишите, сколько кг в неделю и какие вкусы — пришлём актуальный прайс по линейке гриль-сосисок.</p>
+        <p class="lede">Напишите объём (кг/неделя), город и нужные SKU — пришлём актуальный прайс по гриль-линейке. Контакт: +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7.</p>
         <div class="actions">
           <a class="btn btn--white" href="https://t.me/KazanDel_Bot?start=grill" target="_blank" rel="noopener">Telegram</a>
           <a class="btn btn--outline" href="https://wa.me/79872170202" target="_blank" rel="noopener">WhatsApp</a>
@@ -972,25 +1078,79 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 <script src="/assets/lead-form.js" defer></script>
 <script>
 (function () {
-  var THUMBS = [
-    "/images/test1/hero-open.jpg",
-    "/images/test1/hero-closed.jpg",
-    "/images/test1/hero-open-onions.jpg",
-    "/images/test1/hero-closed-alt.jpg",
-    "/images/test1/gallery-open-hand.jpg",
-    "/images/test1/hero-open.jpg",
-    "/images/test1/hero-closed.jpg",
-    "/images/test1/hero-open-onions.jpg"
-  ];
   var SKUS = [
-    { sku: "KD-001", short: "Из говядины", title: "Из говядины", name: "Сосиски «Из говядины» (80 г × 6 шт)", price: "290", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-001", img: THUMBS[0], sub: "Классика для хот-дога: термостабильные халяль-сосиски без оболочки." },
-    { sku: "KD-002", short: "Два мяса", title: "Два мяса", name: "Сосиски «Два мяса» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-002", img: THUMBS[1], sub: "Смесь мяса для насыщенного вкуса на гриле и в ролике." },
-    { sku: "KD-003", short: "Три перца", title: "Три перца с сыром", name: "Сосиски «Три перца с сыром» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-003", img: THUMBS[2], sub: "Перец и сыр — для гостя, который хочет ярче классики." },
-    { sku: "KD-004", short: "Куриные", title: "Куриные", name: "Сосиски «Куриные» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-004", img: THUMBS[3], sub: "Лёгкий куриный профиль для сети и street food." },
-    { sku: "KD-005", short: "С бараниной", title: "С бараниной", name: "Сосиски «С бараниной» (80 г × 6 шт)", price: "366", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-005", img: THUMBS[4], sub: "Премиальный вкус с бараниной — дифференциал на прикассе." },
-    { sku: "KD-006", short: "С травами", title: "С травами", name: "Сосиски «С травами» (130 г × 5 шт)", price: "424", pack: "130 г × 5 · 0,65 кг", href: "/products/kd-006", img: THUMBS[5], sub: "Порция 130 г — для сытного хот-дога и гриль-меню." },
-    { sku: "KD-007", short: "С сыром", title: "С сыром", name: "Сосиски «С сыром» (130 г × 5 шт)", price: "455", pack: "130 г × 5 · 0,65 кг", href: "/products/kd-007", img: THUMBS[6], sub: "Сыр внутри, формат 130 г — выше чек на точке." },
-    { sku: "KD-008", short: "Из конины", title: "Из конины", name: "Сосиски «Из конины» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг", href: "/products/kd-008", img: THUMBS[7], sub: "Конина — узнаваемый халяль-SKU для Татарстана и экспорта." }
+    {
+      sku: "KD-001", short: "Из говядины", title: "Из говядины",
+      name: "Сосиски «Из говядины» (80 г × 6 шт)", price: "290", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-001",
+      img: "/images/test1/cards/kd-001-main.jpg", packImg: "/images/test1/cards/kd-001-pack.jpg",
+      badge: "Хит АЗС",
+      sub: "Базовый халяль-SKU для хот-дога: говядина, без оболочки, держит форму на гриле и french-ролике. Порция 80 г — привычный формат точки. Хранение −18°C до 360 суток, EXW Казань.",
+      blurb: "Классика потока: ровная форма, стабильный вкус, халяль ДУМ РТ."
+    },
+    {
+      sku: "KD-002", short: "Два мяса", title: "Два мяса",
+      name: "Сосиски «Два мяса» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-002",
+      img: "/images/test1/cards/kd-002-main.jpg", packImg: "/images/test1/cards/kd-002-pack.jpg",
+      badge: "Насыщенный",
+      sub: "Смесь мяса для более плотного вкуса на гриле. Тот же формат 80 г × 6 — удобно крутить ассортимент рядом с «Из говядины». Без оболочки, термостабильные, халяль.",
+      blurb: "Когда гостю нужна «плотнее классики» — без смены оборудования."
+    },
+    {
+      sku: "KD-003", short: "Три перца", title: "Три перца с сыром",
+      name: "Сосиски «Три перца с сыром» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-003",
+      img: "/images/test1/cards/kd-003-main.jpg", packImg: "/images/test1/cards/kd-003-pack.jpg",
+      badge: "Ярче",
+      sub: "Перец и сыр внутри — для гостя, которому мало «просто мясной». Формат 80 г × 6, без оболочки. Хорошо читается на меню АЗС и street food как «острый/сырный» апселл.",
+      blurb: "Апселл к классике: заметный вкус, тот же гриль-процесс."
+    },
+    {
+      sku: "KD-004", short: "Куриные", title: "Куриные",
+      name: "Сосиски «Куриные» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-004",
+      img: "/images/test1/cards/kd-004-main.jpg", packImg: "/images/test1/cards/kd-004-pack.jpg",
+      badge: "Лёгкие",
+      sub: "Куриный профиль для сети и фудтрака: мягче по восприятию, тот же термостабильный формат без оболочки. Удобно держать как «лёгкий» пункт в линейке из 8 SKU.",
+      blurb: "Светлее по цвету и вкусу — расширяет полку без новой логистики."
+    },
+    {
+      sku: "KD-005", short: "С бараниной", title: "С бараниной",
+      name: "Сосиски «С бараниной» (80 г × 6 шт)", price: "366", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-005",
+      img: "/images/test1/cards/kd-005-main.jpg", packImg: "/images/test1/cards/kd-005-pack.jpg",
+      badge: "Премиум",
+      sub: "Баранина в составе — заметный дифференциал на прикассе и в халяль-меню. Формат 80 г × 6, без оболочки, для гриля и ролика. Цена выше классики — выше чек при том же оборудовании.",
+      blurb: "Премиальный вкус линейки: для гостя, который выбирает «не обычные»."
+    },
+    {
+      sku: "KD-006", short: "С травами", title: "С травами",
+      name: "Сосиски «С травами» (130 г × 5 шт)", price: "424", pack: "130 г × 5 · 0,65 кг",
+      href: "/products/kd-006",
+      img: "/images/test1/cards/kd-006-main.jpg", packImg: "/images/test1/cards/kd-006-pack.jpg",
+      badge: "130 г",
+      sub: "Увеличенная порция 130 г × 5 — для сытного хот-дога и гриль-меню. Травы в профиле, без оболочки, термостабильные. Когда точка хочет «больше мяса в булочке» без смены поставщика.",
+      blurb: "Крупный формат: выше насыщение и средний чек."
+    },
+    {
+      sku: "KD-007", short: "С сыром", title: "С сыром",
+      name: "Сосиски «С сыром» (130 г × 5 шт)", price: "455", pack: "130 г × 5 · 0,65 кг",
+      href: "/products/kd-007",
+      img: "/images/test1/cards/kd-007-main.jpg", packImg: "/images/test1/cards/kd-007-pack.jpg",
+      badge: "Сыр · 130 г",
+      sub: "Сыр внутри + порция 130 г — сильный апселл на точке. Без оболочки, халяль, для гриля и ролика. Логично ставить рядом с «С травами» как пару крупного формата.",
+      blurb: "Сырный крупный SKU: заметно в меню и в чеке."
+    },
+    {
+      sku: "KD-008", short: "Из конины", title: "Из конины",
+      name: "Сосиски «Из конины» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
+      href: "/products/kd-008",
+      img: "/images/test1/cards/kd-008-main.jpg", packImg: "/images/test1/cards/kd-008-pack.jpg",
+      badge: "Конина",
+      sub: "Конина — узнаваемый халяль-SKU для Татарстана и экспортных запросов. Формат 80 г × 6, без оболочки, как у говяжьей классики (внешне близки — фото продукта KD-001). Термостабильность на гриле и ролике.",
+      blurb: "Региональный сигнал: конина в линейке рядом с говядиной."
+    }
   ];
 
   var grid = document.getElementById("sku-grid");
@@ -999,20 +1159,26 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
   var subEl = document.querySelector("[data-sku-sub]");
   var priceEl = document.querySelector("[data-sku-price]");
   var packEl = document.querySelector("[data-sku-pack]");
+  var imgEl = document.querySelector("[data-sku-img]");
 
   function renderGrid() {
     if (!grid) return;
-    grid.innerHTML = SKUS.map(function (s) {
+    grid.innerHTML = SKUS.map(function (s, i) {
       return (
-        '<a class="sku-card" id="sku-' + s.sku + '" href="' + s.href + '" data-sku="' + s.sku + '">' +
-          '<div class="sku-card__media"><img src="' + s.img + '" alt="' + s.name.replace(/"/g, "&quot;") + '" width="640" height="640" loading="lazy"></div>' +
+        '<a class="sku-card" id="sku-' + s.sku + '" href="' + s.href + '" data-sku="' + s.sku + '" style="transition-delay:' + (i * 0.05) + 's">' +
+          '<div class="sku-card__media">' +
+            (s.badge ? '<span class="sku-card__badge">' + s.badge + "</span>" : "") +
+            '<img class="sku-card__main" src="' + s.img + '" alt="' + s.name.replace(/"/g, "&quot;") + '" width="640" height="640" loading="lazy">' +
+            '<img class="sku-card__pack" src="' + s.packImg + '" alt="" width="640" height="640" loading="lazy" aria-hidden="true">' +
+          "</div>" +
           '<div class="sku-card__body">' +
             '<div class="sku-card__sku">' + s.sku + "</div>" +
             '<div class="sku-card__name">' + s.name + "</div>" +
-            '<div class="sku-card__row">' + s.pack + " · −18°C · 360 суток</div>" +
+            '<p class="sku-card__desc">' + s.blurb + "</p>" +
+            '<div class="sku-card__row">' + s.pack + " · −18°C · 360 суток · халяль</div>" +
             '<div class="sku-card__price">' + s.price + " ₽</div>" +
             '<div class="sku-card__stock">✓ В наличии</div>' +
-            '<span class="sku-card__cta">Подробнее</span>' +
+            '<span class="sku-card__cta">Смотреть карточку</span>' +
           "</div></a>"
       );
     }).join("");
@@ -1027,6 +1193,10 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     if (subEl) subEl.textContent = s.sub;
     if (priceEl) priceEl.textContent = s.price + " ₽";
     if (packEl) packEl.textContent = s.pack;
+    if (imgEl) {
+      imgEl.src = s.img;
+      imgEl.alt = s.name;
+    }
     document.querySelectorAll(".sku-card").forEach(function (c) {
       c.classList.toggle("is-active", c.getAttribute("data-sku") === s.sku);
     });
@@ -1052,7 +1222,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     });
   });
 
-  var nodes = document.querySelectorAll(".reveal");
+  var nodes = document.querySelectorAll(".reveal, .sku-card, .claim");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -1187,8 +1357,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 
     function punchFlash(at) {
       if (!flash) return;
-      tl.fromTo(flash, { opacity: 0 }, { opacity: 0.55, duration: 0.08, ease: "none" }, at);
-      tl.to(flash, { opacity: 0, duration: 0.35, ease: "power2.out" }, at + 0.08);
+      tl.fromTo(flash, { opacity: 0 }, { opacity: 0.72, duration: 0.06, ease: "none" }, at);
+      tl.to(flash, { opacity: 0, duration: 0.42, ease: "power2.out" }, at + 0.06);
     }
 
     gsap.set(chapters, { opacity: 0, visibility: "hidden" });
@@ -1209,7 +1379,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
         start: "top top",
         end: "+=780%",
         pin: true,
-        scrub: 0.85,
+        scrub: 0.7,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
