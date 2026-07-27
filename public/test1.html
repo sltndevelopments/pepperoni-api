@@ -511,9 +511,134 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   transition: opacity .7s var(--ease), transform .7s var(--ease);
 }
 .reveal.is-in { opacity: 1; transform: none; }
+
+/* —— Scroll story (savor.it–style pin + scrub) —— */
+.story {
+  --story-nav: 58px;
+  background: #1a0a0c;
+  color: #fff;
+}
+.story__track {
+  position: relative;
+  height: 320vh;
+}
+.story__pin {
+  position: sticky;
+  top: var(--story-nav);
+  height: calc(100svh - var(--story-nav));
+  min-height: 480px;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+.story__stage {
+  position: relative;
+  width: min(1100px, 100%);
+  height: 100%;
+  padding: 20px clamp(14px, 4vw, 28px) 28px;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  gap: 12px;
+}
+.story__eyebrow {
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: rgba(255,255,255,0.65);
+  text-align: center;
+}
+.story__frames {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  background: #2a1215;
+  border: 2px solid rgba(255,255,255,0.12);
+  min-height: 0;
+}
+.story__frame {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transform: scale(1.04);
+  will-change: opacity, transform;
+}
+.story__copy {
+  position: absolute;
+  left: 50%; bottom: 18px; z-index: 2;
+  transform: translateX(-50%);
+  width: min(92%, 34rem);
+  text-align: center;
+  pointer-events: none;
+  display: grid;
+}
+.story__copy::before {
+  content: "";
+  position: absolute; inset: -40% -10% -20%;
+  background: linear-gradient(to top, rgba(10,4,5,0.88) 20%, transparent 85%);
+  z-index: -1;
+  border-radius: 20px;
+}
+.story__step {
+  grid-area: 1 / 1;
+  display: grid; align-content: end; gap: 6px;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .35s var(--ease), transform .35s var(--ease);
+  padding: 0 8px 4px;
+  pointer-events: none;
+}
+.story__step.is-on {
+  opacity: 1;
+  transform: none;
+}
+.story__step b {
+  display: block;
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(1.7rem, 6vw, 3rem);
+  line-height: 0.98;
+  text-transform: uppercase;
+  text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+}
+.story__step span {
+  display: block;
+  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
+  font-weight: 700;
+  color: rgba(255,255,255,0.88);
+}
+.story__progress {
+  height: 4px;
+  background: rgba(255,255,255,0.18);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.story__progress > i {
+  display: block; height: 100%; width: 0%;
+  background: var(--red);
+  border-radius: inherit;
+}
+.story__hint {
+  text-align: center;
+  font-size: 0.72rem; font-weight: 800;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+}
+.story__frame[data-i="0"] { opacity: 1; transform: scale(1); }
+@media (max-width: 640px) {
+  .story__track { height: 280vh; }
+  .story__pin { min-height: 420px; }
+  .story__copy { bottom: 12px; }
+}
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .story__track { height: auto; }
+  .story__pin { position: relative; top: 0; height: auto; min-height: 0; }
+  .story__stage { padding-bottom: 24px; }
+  .story__frames { aspect-ratio: 4 / 3; min-height: 220px; }
+  .story__frame { transition: none; }
+  .story__step { transition: none; }
+  .story__hint { display: none; }
 }
 </style>
 </head>
@@ -557,6 +682,42 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
         <img src="/images/test1/hero-closed.jpg" alt="Закрытый французский хот-дог" width="1024" height="682" loading="eager" decoding="async">
         <figcaption>Закрытый</figcaption>
       </figure>
+    </div>
+  </section>
+
+  <section class="story" id="story" aria-label="История продукта по скроллу">
+    <div class="story__track" data-story-track>
+      <div class="story__pin">
+        <div class="story__stage">
+          <p class="story__eyebrow">Scroll story</p>
+          <div class="story__frames" data-story-frames>
+            <img class="story__frame is-on" data-i="0" src="/images/test1/hero-open.jpg" alt="" width="1024" height="682" decoding="async">
+            <img class="story__frame" data-i="1" src="/images/test1/hero-open-onions.jpg" alt="" width="1024" height="682" loading="lazy" decoding="async">
+            <img class="story__frame" data-i="2" src="/images/test1/gallery-open-hand.jpg" alt="" width="701" height="1024" loading="lazy" decoding="async">
+            <img class="story__frame" data-i="3" src="/images/test1/hero-closed.jpg" alt="" width="1024" height="682" loading="lazy" decoding="async">
+          </div>
+          <div class="story__copy" data-story-copy aria-live="polite">
+            <p class="story__step is-on" data-i="0">
+              <b>Сначала — сосиска</b>
+              <span>Халяль, без оболочки, держит форму на гриле.</span>
+            </p>
+            <p class="story__step" data-i="1">
+              <b>Потом — вкус</b>
+              <span>Открытый хот-дог: соусы, лук, огурец — аппетит на прикассе.</span>
+            </p>
+            <p class="story__step" data-i="2">
+              <b>В руке гостя</b>
+              <span>Порция, которую удобно взять и съесть в потоке АЗС.</span>
+            </p>
+            <p class="story__step" data-i="3">
+              <b>Или french-ролик</b>
+              <span>Закрытый формат — тот же SKU, другая подача.</span>
+            </p>
+          </div>
+          <div class="story__progress" aria-hidden="true"><i data-story-bar></i></div>
+          <p class="story__hint">Листайте вниз</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -782,6 +943,86 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   } else {
     nodes.forEach(function (n) { n.classList.add("is-in"); });
   }
+
+  /* Scroll story — pin + scrub (savor.it mid-tier) */
+  (function initStory() {
+    var track = document.querySelector("[data-story-track]");
+    var frames = document.querySelectorAll("[data-story-frames] .story__frame");
+    var steps = document.querySelectorAll("[data-story-copy] .story__step");
+    var bar = document.querySelector("[data-story-bar]");
+    if (!track || !frames.length) return;
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var n = frames.length;
+    var last = -1;
+    var ticking = false;
+
+    function setIndex(i) {
+      if (i === last) return;
+      last = i;
+      frames.forEach(function (el, idx) {
+        el.classList.toggle("is-on", idx === i);
+      });
+      steps.forEach(function (el, idx) {
+        el.classList.toggle("is-on", idx === i);
+      });
+    }
+
+    function progress() {
+      if (reduce) {
+        /* static: show all as stacked fallback — keep first frame + sync by hash only */
+        setIndex(0);
+        if (bar) bar.style.width = "100%";
+        return;
+      }
+      var rect = track.getBoundingClientRect();
+      var total = Math.max(track.offsetHeight - window.innerHeight, 1);
+      var scrolled = Math.min(Math.max(-rect.top, 0), total);
+      var p = scrolled / total;
+      if (bar) bar.style.width = (p * 100).toFixed(1) + "%";
+
+      /* soft crossfade between frames via opacity */
+      var x = p * (n - 1);
+      var i0 = Math.floor(x);
+      var i1 = Math.min(i0 + 1, n - 1);
+      var t = x - i0;
+      frames.forEach(function (el, idx) {
+        var op = 0;
+        var sc = 1.06;
+        if (idx === i0) { op = 1 - t; sc = 1 + 0.06 * t; }
+        if (idx === i1 && i1 !== i0) { op = t; sc = 1.06 - 0.06 * t; }
+        if (idx === i0 && i0 === i1) { op = 1; sc = 1; }
+        el.style.opacity = String(op);
+        el.style.transform = "scale(" + sc.toFixed(3) + ")";
+        el.classList.toggle("is-on", op > 0.5);
+      });
+      var stepIdx = Math.min(n - 1, Math.round(x));
+      if (stepIdx !== last) {
+        last = stepIdx;
+        steps.forEach(function (el, idx) {
+          el.classList.toggle("is-on", idx === stepIdx);
+        });
+      }
+    }
+
+    function onScroll() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(function () {
+        progress();
+        ticking = false;
+      });
+    }
+
+    if (reduce) {
+      progress();
+      return;
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    progress();
+  })();
 })();
 </script>
 </body>
