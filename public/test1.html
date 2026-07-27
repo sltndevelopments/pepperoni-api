@@ -515,7 +515,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 }
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* —— Full-viewport scroll saga (savor.it–like) —— */
+/* —— Full-viewport WOW saga —— */
 .saga {
   position: relative;
   background: #f4e7a4;
@@ -527,152 +527,186 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   height: 100svh;
   min-height: 560px;
   overflow: hidden;
+  isolation: isolate;
 }
 .saga__bg {
   position: absolute; inset: 0;
   background: #f4e7a4;
   z-index: 0;
-  will-change: background-color;
 }
-.saga__media {
-  position: absolute; inset: 0;
-  z-index: 1;
+.saga__noise {
+  position: absolute; inset: 0; z-index: 5;
+  pointer-events: none; opacity: 0.07;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
 }
+.saga__flash {
+  position: absolute; inset: 0; z-index: 6;
+  background: #fff; opacity: 0; pointer-events: none;
+}
+.saga__stage {
+  position: absolute; inset: 0; z-index: 1;
+  clip-path: circle(0% at 50% 55%);
+  will-change: clip-path, transform;
+}
+.saga__media { position: absolute; inset: 0; }
 .saga__img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: cover;
-  object-position: center;
+  object-fit: cover; object-position: center;
   opacity: 0;
-  transform: scale(1.12);
-  will-change: opacity, transform;
+  transform: scale(1.2);
+  will-change: opacity, transform, filter;
+  filter: saturate(1.05) contrast(1.04);
 }
+.saga__img.is-live { opacity: 1; }
 .saga__veil {
-  position: absolute; inset: 0;
-  z-index: 2;
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background:
-    radial-gradient(80% 60% at 50% 45%, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.62) 100%);
+    linear-gradient(180deg, rgba(10,4,6,0.35) 0%, transparent 35%, transparent 55%, rgba(10,4,6,0.72) 100%),
+    radial-gradient(70% 55% at 50% 40%, transparent 0%, rgba(0,0,0,0.35) 100%);
   opacity: 0;
-  will-change: opacity;
-  pointer-events: none;
+}
+.saga__marquee {
+  position: absolute; left: -10%; right: -10%; top: 18%;
+  z-index: 2; overflow: hidden; pointer-events: none;
+  opacity: 0; white-space: nowrap;
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(3rem, 14vw, 9rem);
+  line-height: 1; letter-spacing: 0.02em;
+  text-transform: uppercase; color: rgba(227,24,55,0.12);
+}
+.saga__marquee span { display: inline-block; padding-right: 0.6em; }
+.saga__orbit {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  display: grid; place-items: center; opacity: 0;
+}
+.saga__orbit img {
+  width: min(58vw, 420px); height: auto;
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  transform: rotate(-8deg) scale(0.7);
 }
 .saga__copy {
-  position: absolute; inset: 0;
-  z-index: 3;
-  display: grid;
-  place-items: center;
-  padding: clamp(72px, 12vh, 120px) clamp(16px, 5vw, 48px) clamp(56px, 10vh, 96px);
-  text-align: center;
-  pointer-events: none;
+  position: absolute; inset: 0; z-index: 4;
+  display: grid; place-items: center;
+  padding: clamp(80px, 14vh, 140px) clamp(16px, 5vw, 48px) clamp(72px, 12vh, 110px);
+  text-align: center; pointer-events: none;
 }
 .saga__chapter {
   grid-area: 1 / 1;
-  width: min(920px, 100%);
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(40px);
-  will-change: opacity, transform;
+  width: min(960px, 100%);
+  opacity: 0; visibility: hidden;
   color: #fff;
-  text-shadow: 0 2px 28px rgba(0,0,0,0.35);
+  text-shadow: 0 4px 40px rgba(0,0,0,0.4);
 }
 .saga__chapter[data-tone="cream"] {
-  color: #1a0a0c;
-  text-shadow: none;
+  color: #1a0a0c; text-shadow: none;
 }
-.saga__chapter.is-on {
-  visibility: visible;
-}
+.saga__chapter.is-on { visibility: visible; }
 .saga__kicker {
   font-size: clamp(0.7rem, 2vw, 0.85rem);
-  font-weight: 800;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  margin-bottom: 14px;
-  opacity: 0.75;
+  font-weight: 800; letter-spacing: 0.18em; text-transform: uppercase;
+  margin-bottom: 12px; opacity: 0.7;
 }
 .saga__title {
   font-family: "Lilita One", sans-serif;
-  font-size: clamp(2.8rem, 12vw, 7rem);
-  line-height: 0.92;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  overflow-wrap: anywhere;
+  font-size: clamp(2.6rem, 11.5vw, 7.2rem);
+  line-height: 0.9; letter-spacing: 0.01em; text-transform: uppercase;
+}
+.saga__title .line { display: block; overflow: hidden; padding-bottom: 0.06em; }
+.saga__title .word {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform, opacity;
 }
 .saga__title em {
-  font-style: normal;
-  display: block;
-  color: #ffe28a;
+  font-style: normal; display: block; color: #ffe28a;
 }
 .saga__chapter[data-tone="cream"] .saga__title em { color: var(--red); }
 .saga__sub {
-  margin: 16px auto 0;
-  max-width: 28rem;
-  font-size: clamp(1rem, 2.8vw, 1.35rem);
-  font-weight: 700;
-  line-height: 1.35;
-  opacity: 0.9;
+  margin: 16px auto 0; max-width: 28rem;
+  font-size: clamp(1rem, 2.8vw, 1.3rem);
+  font-weight: 700; line-height: 1.35; opacity: 0;
+}
+.saga__big {
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(5rem, 22vw, 14rem);
+  line-height: 0.85; color: var(--red);
+  letter-spacing: -0.02em;
 }
 .saga__words {
-  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25em 0.55em;
-  margin-top: 18px;
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.35em 0.65em;
+  margin-top: 22px;
   font-family: "Lilita One", sans-serif;
-  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  font-size: clamp(1.35rem, 4.8vw, 2.5rem);
   text-transform: uppercase;
-  line-height: 1;
 }
 .saga__words span {
-  opacity: 0.22;
-  transform: translateY(10px);
-  display: inline-block;
+  display: inline-block; opacity: 0; transform: scale(0.6) rotate(-6deg);
+  padding: 0.12em 0.35em; border-radius: 999px;
+  background: rgba(227,24,55,0.1);
 }
+.saga__stats {
+  position: absolute; left: 0; right: 0; bottom: 18%;
+  z-index: 4; display: flex; justify-content: center; gap: clamp(24px, 8vw, 80px);
+  opacity: 0; pointer-events: none; color: #1a0a0c;
+}
+.saga__stat { text-align: center; }
+.saga__stat b {
+  display: block;
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(3rem, 10vw, 6rem); line-height: 1; color: var(--red);
+}
+.saga__stat span {
+  display: block; margin-top: 4px;
+  font-size: 0.78rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.saga__dots {
+  position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+  z-index: 7; display: grid; gap: 8px;
+}
+.saga__dot {
+  width: 8px; height: 8px; border-radius: 999px;
+  background: rgba(0,0,0,0.2); border: 0; padding: 0;
+}
+.saga__dot.is-on { background: var(--red); transform: scale(1.35); }
+.saga[data-tone="dark"] .saga__dot { background: rgba(255,255,255,0.28); }
+.saga[data-tone="dark"] .saga__dot.is-on { background: #fff; }
 .saga__bar {
-  position: absolute;
-  left: 50%; bottom: 22px;
-  transform: translateX(-50%);
-  z-index: 4;
-  width: min(220px, 40vw);
-  height: 3px;
-  background: rgba(0,0,0,0.15);
-  border-radius: 999px;
-  overflow: hidden;
+  position: absolute; left: 50%; bottom: 18px; transform: translateX(-50%);
+  z-index: 7; width: min(240px, 46vw); height: 3px;
+  background: rgba(0,0,0,0.14); border-radius: 999px; overflow: hidden;
 }
-.saga__bar > i {
-  display: block; height: 100%; width: 0%;
-  background: var(--red);
-}
-.saga[data-tone="dark"] .saga__bar { background: rgba(255,255,255,0.22); }
+.saga__bar > i { display: block; height: 100%; width: 0%; background: var(--red); }
+.saga[data-tone="dark"] .saga__bar { background: rgba(255,255,255,0.2); }
 .saga[data-tone="dark"] .saga__bar > i { background: #fff; }
 .saga__hint {
-  position: absolute;
-  left: 50%; bottom: 36px;
-  transform: translateX(-50%);
-  z-index: 4;
-  font-size: 0.68rem; font-weight: 800;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  opacity: 0.45;
+  position: absolute; left: 50%; bottom: 34px; transform: translateX(-50%);
+  z-index: 7; font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.5;
 }
-body.saga-on .nav {
-  background: rgba(255,255,255,0.82);
-  backdrop-filter: blur(8px);
-}
+body.saga-on .nav { background: rgba(255,255,255,0.82); backdrop-filter: blur(8px); }
 body.saga-on[data-saga-tone="dark"] .nav {
-  background: rgba(20,8,10,0.55);
-  border-bottom-color: rgba(255,255,255,0.08);
+  background: rgba(20,8,10,0.5); border-bottom-color: rgba(255,255,255,0.08);
 }
 body.saga-on[data-saga-tone="dark"] .nav__logo { background: #fff; color: var(--red); }
 body.saga-on[data-saga-tone="dark"] .nav__ghost,
 body.saga-on[data-saga-tone="dark"] .nav__cta { color: #fff; }
-body.saga-on[data-saga-tone="dark"] .nav__cta {
-  background: #fff; color: var(--red);
+body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--red); }
+@media (max-width: 700px) {
+  .saga__dots { right: 8px; }
+  .saga__orbit img { width: min(72vw, 300px); }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
   .saga__viewport { height: auto; min-height: 0; }
-  .saga__chapter { position: relative; opacity: 1 !important; visibility: visible !important; transform: none !important; padding: 48px 16px; }
+  .saga__chapter { position: relative; opacity: 1 !important; visibility: visible !important; padding: 40px 16px; }
   .saga__copy { display: block; position: relative; padding: 0; }
-  .saga__media, .saga__veil, .saga__bar, .saga__hint { display: none; }
-  .saga__bg { position: relative; min-height: 0; }
+  .saga__stage { clip-path: none !important; position: relative; min-height: 50vh; }
+  .saga__media, .saga__veil, .saga__bar, .saga__hint, .saga__noise, .saga__marquee, .saga__orbit, .saga__dots, .saga__flash { display: none; }
+  .saga__title .word { transform: none; }
 }
 </style>
 <script src="/vendor/gsap.min.js" defer></script>
@@ -716,51 +750,99 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
   <section class="saga" id="story" aria-label="История продукта" data-tone="light">
     <div class="saga__viewport" data-saga-pin>
       <div class="saga__bg" data-saga-bg></div>
-      <div class="saga__media" aria-hidden="true">
-        <img class="saga__img" data-img="0" src="/images/test1/hero-open.jpg" alt="" width="1024" height="682" fetchpriority="high" decoding="async">
-        <img class="saga__img" data-img="1" src="/images/test1/hero-open-onions.jpg" alt="" width="1024" height="682" decoding="async">
-        <img class="saga__img" data-img="2" src="/images/test1/gallery-open-hand.jpg" alt="" width="701" height="1024" decoding="async">
-        <img class="saga__img" data-img="3" src="/images/test1/hero-closed.jpg" alt="" width="1024" height="682" decoding="async">
-        <img class="saga__img" data-img="4" src="/images/test1/hero-closed-alt.jpg" alt="" width="1024" height="682" decoding="async">
+      <div class="saga__noise" aria-hidden="true"></div>
+      <div class="saga__flash" data-saga-flash aria-hidden="true"></div>
+
+      <div class="saga__marquee" data-saga-marquee aria-hidden="true">
+        <span>Халяль · Гриль · Поток · Хот-дог · АЗС · Ролик · Халяль · Гриль · Поток ·</span>
+        <span>Халяль · Гриль · Поток · Хот-дог · АЗС · Ролик · Халяль · Гриль · Поток ·</span>
+      </div>
+
+      <div class="saga__orbit" data-saga-orbit aria-hidden="true">
+        <img src="/images/test1/hero-open.jpg" alt="" width="420" height="280" decoding="async">
+      </div>
+
+      <div class="saga__stage" data-saga-stage>
+        <div class="saga__media" aria-hidden="true">
+          <img class="saga__img" data-img="0" src="/images/test1/hero-open.jpg" alt="" width="1024" height="682" fetchpriority="high" decoding="async">
+          <img class="saga__img" data-img="1" src="/images/test1/hero-open-onions.jpg" alt="" width="1024" height="682" decoding="async">
+          <img class="saga__img" data-img="2" src="/images/test1/gallery-open-hand.jpg" alt="" width="701" height="1024" decoding="async">
+          <img class="saga__img" data-img="3" src="/images/test1/hero-closed.jpg" alt="" width="1024" height="682" decoding="async">
+          <img class="saga__img" data-img="4" src="/images/test1/hero-closed-alt.jpg" alt="" width="1024" height="682" decoding="async">
+        </div>
       </div>
       <div class="saga__veil" data-saga-veil></div>
+
       <div class="saga__copy">
         <div class="saga__chapter is-on" data-ch="0" data-tone="cream">
           <p class="saga__kicker">Казанские Деликатесы</p>
-          <h2 class="saga__title">От сосиски<em>к хот-догу</em></h2>
-          <p class="saga__sub">Одна линейка. Два формата подачи. Реальный поток на точке.</p>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">От&nbsp;сосиски</span></span>
+            <span class="line"><em><span class="word">к&nbsp;хот-догу</span></em></span>
+          </h2>
+          <p class="saga__sub">Листайте — увидите открытый и закрытый формат.</p>
         </div>
         <div class="saga__chapter" data-ch="1" data-tone="light">
-          <p class="saga__kicker">Открытый</p>
-          <h2 class="saga__title">Без оболочки.<em>Держит форму.</em></h2>
-          <p class="saga__sub">Термостабильные халяль-сосиски для гриля и ролика.</p>
+          <p class="saga__kicker">Boom · открытый</p>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">Без&nbsp;оболочки.</span></span>
+            <span class="line"><em><span class="word">Держит&nbsp;форму.</span></em></span>
+          </h2>
+          <p class="saga__sub">Термостабильность на гриле и ролике.</p>
         </div>
         <div class="saga__chapter" data-ch="2" data-tone="light">
-          <p class="saga__kicker">Вкус на прикассе</p>
-          <h2 class="saga__title">Соус. Лук.<em>Аппетит.</em></h2>
-          <p class="saga__sub">Открытый хот-дог, который продаёт себя с первого взгляда.</p>
+          <p class="saga__kicker">Вкус</p>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">Соус.</span> <span class="word">Лук.</span></span>
+            <span class="line"><em><span class="word">Аппетит.</span></em></span>
+          </h2>
+          <p class="saga__sub">То, что останавливает взгляд на прикассе.</p>
         </div>
         <div class="saga__chapter" data-ch="3" data-tone="light">
-          <p class="saga__kicker">АЗС · street food</p>
-          <h2 class="saga__title">В руке<em>гостя</em></h2>
-          <p class="saga__sub">Порция, которую удобно взять в часы пик.</p>
+          <p class="saga__kicker">Поток</p>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">В&nbsp;руке</span></span>
+            <span class="line"><em><span class="word">гостя</span></em></span>
+          </h2>
+          <p class="saga__sub">АЗС, фудтрак, часы пик — без драмы.</p>
         </div>
         <div class="saga__chapter" data-ch="4" data-tone="light">
-          <p class="saga__kicker">Закрытый</p>
-          <h2 class="saga__title">French<em>ролик</em></h2>
-          <p class="saga__sub">Тот же SKU — другая подача для сети и фудтрака.</p>
+          <p class="saga__kicker">Flip · закрытый</p>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">French</span></span>
+            <span class="line"><em><span class="word">ролик</span></em></span>
+          </h2>
+          <p class="saga__sub">Тот же SKU. Другая подача.</p>
         </div>
         <div class="saga__chapter" data-ch="5" data-tone="cream">
-          <p class="saga__kicker">Линейка</p>
-          <h2 class="saga__title">8 вкусов.<em>Халяль.</em></h2>
+          <p class="saga__kicker">Финал</p>
+          <div class="saga__big" data-saga-count>0</div>
+          <h2 class="saga__title" data-split>
+            <span class="line"><span class="word">вкусов.</span></span>
+            <span class="line"><em><span class="word">Халяль.</span></em></span>
+          </h2>
           <div class="saga__words" data-saga-words>
             <span>Говядина</span><span>Два мяса</span><span>Перец</span><span>Курица</span>
             <span>Баранина</span><span>Травы</span><span>Сыр</span><span>Конина</span>
           </div>
         </div>
       </div>
+
+      <div class="saga__stats" data-saga-stats aria-hidden="true">
+        <div class="saga__stat"><b data-n="360">0</b><span>суток · −18°C</span></div>
+        <div class="saga__stat"><b data-n="8">0</b><span>SKU в линейке</span></div>
+      </div>
+
+      <div class="saga__dots" data-saga-dots aria-hidden="true">
+        <button type="button" class="saga__dot is-on" data-dot="0" tabindex="-1"></button>
+        <button type="button" class="saga__dot" data-dot="1" tabindex="-1"></button>
+        <button type="button" class="saga__dot" data-dot="2" tabindex="-1"></button>
+        <button type="button" class="saga__dot" data-dot="3" tabindex="-1"></button>
+        <button type="button" class="saga__dot" data-dot="4" tabindex="-1"></button>
+        <button type="button" class="saga__dot" data-dot="5" tabindex="-1"></button>
+      </div>
       <div class="saga__bar" aria-hidden="true"><i data-saga-bar></i></div>
-      <p class="saga__hint" data-saga-hint>Scroll</p>
+      <p class="saga__hint" data-saga-hint>Scroll to explode</p>
     </div>
   </section>
 
@@ -966,9 +1048,10 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
 
 })();
 
-/* Full-viewport saga — GSAP + Lenis (savor.it–like) */
+/* Full-viewport WOW saga — bubble wipe / split words / counters */
 (function initSaga() {
   var started = false;
+
   function boot() {
     if (started) return;
     if (!window.gsap || !window.ScrollTrigger) return;
@@ -977,22 +1060,30 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
     var saga = document.querySelector(".saga");
     var pin = document.querySelector("[data-saga-pin]");
     var bg = document.querySelector("[data-saga-bg]");
+    var stage = document.querySelector("[data-saga-stage]");
     var veil = document.querySelector("[data-saga-veil]");
+    var flash = document.querySelector("[data-saga-flash]");
+    var marquee = document.querySelector("[data-saga-marquee]");
+    var orbit = document.querySelector("[data-saga-orbit]");
+    var orbitImg = orbit ? orbit.querySelector("img") : null;
     var bar = document.querySelector("[data-saga-bar]");
     var hint = document.querySelector("[data-saga-hint]");
-    var chapters = Array.prototype.slice.call(document.querySelectorAll(".saga__chapter"));
-    var imgs = Array.prototype.slice.call(document.querySelectorAll(".saga__img"));
-    var words = Array.prototype.slice.call(document.querySelectorAll("[data-saga-words] span"));
-    if (!saga || !pin) return;
+    var stats = document.querySelector("[data-saga-stats]");
+    var countEl = document.querySelector("[data-saga-count]");
+    var chapters = gsap.utils.toArray(".saga__chapter");
+    var imgs = gsap.utils.toArray(".saga__img");
+    var words = gsap.utils.toArray("[data-saga-words] span");
+    var dots = gsap.utils.toArray("[data-saga-dots] .saga__dot");
+    var statNums = gsap.utils.toArray("[data-saga-stats] [data-n]");
+    if (!saga || !pin || !stage) return;
 
-    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduce) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       chapters.forEach(function (c) {
         c.style.opacity = "1";
         c.style.visibility = "visible";
-        c.style.transform = "none";
-        c.style.position = "relative";
+        c.querySelectorAll(".word").forEach(function (w) { w.style.transform = "none"; });
       });
+      stage.style.clipPath = "none";
       return;
     }
 
@@ -1001,9 +1092,10 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
     if (window.Lenis) {
       document.documentElement.classList.add("lenis");
       var lenis = new Lenis({
-        duration: 1.2,
+        duration: 1.25,
         easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true
+        smoothWheel: true,
+        touchMultiplier: 1.1
       });
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
@@ -1011,27 +1103,73 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
     }
 
     var CREAM = "#f4e7a4";
-    var DARK = "#14080a";
+    var DARK = "#12070a";
+    var RED = "#e31837";
+    var chapterIdx = 0;
 
-    gsap.set(chapters, { opacity: 0, y: 56, visibility: "hidden" });
-    gsap.set(chapters[0], { opacity: 1, y: 0, visibility: "visible" });
-    gsap.set(imgs, { opacity: 0, scale: 1.16 });
+    function setChapter(i) {
+      chapterIdx = i;
+      chapters.forEach(function (c, idx) { c.classList.toggle("is-on", idx === i); });
+      dots.forEach(function (d, idx) { d.classList.toggle("is-on", idx === i); });
+      var tone = chapters[i].getAttribute("data-tone") === "cream" ? "light" : "dark";
+      saga.setAttribute("data-tone", tone);
+      document.body.setAttribute("data-saga-tone", tone);
+    }
+
+    function wordsOf(ch) {
+      return ch.querySelectorAll(".word");
+    }
+
+    function enterChapter(i, at) {
+      var ch = chapters[i];
+      var w = wordsOf(ch);
+      tl.set(ch, { visibility: "visible", opacity: 1 }, at);
+      tl.call(setChapter, [i], at);
+      tl.fromTo(w, { y: "110%", opacity: 0 }, {
+        y: "0%", opacity: 1, duration: 0.55, stagger: 0.07, ease: "power3.out"
+      }, at);
+      tl.fromTo(ch.querySelector(".saga__kicker"), { opacity: 0, y: 12 }, { opacity: 0.75, y: 0, duration: 0.35 }, at);
+      tl.fromTo(ch.querySelector(".saga__sub"), { opacity: 0, y: 16 }, { opacity: 0.92, y: 0, duration: 0.4 }, at + 0.15);
+    }
+
+    function exitChapter(i, at) {
+      var ch = chapters[i];
+      var w = wordsOf(ch);
+      tl.to(w, { y: "-110%", opacity: 0, duration: 0.35, stagger: 0.04, ease: "power2.in" }, at);
+      tl.to([ch.querySelector(".saga__kicker"), ch.querySelector(".saga__sub")], { opacity: 0, duration: 0.25 }, at);
+      tl.set(ch, { visibility: "hidden", opacity: 0 }, at + 0.4);
+    }
+
+    function punchFlash(at) {
+      if (!flash) return;
+      tl.fromTo(flash, { opacity: 0 }, { opacity: 0.55, duration: 0.08, ease: "none" }, at);
+      tl.to(flash, { opacity: 0, duration: 0.35, ease: "power2.out" }, at + 0.08);
+    }
+
+    gsap.set(chapters, { opacity: 0, visibility: "hidden" });
+    gsap.set(imgs, { opacity: 0, scale: 1.25, x: 0, rotate: 0 });
     gsap.set(veil, { opacity: 0 });
-    gsap.set(words, { opacity: 0.16, y: 14 });
+    gsap.set(stage, { clipPath: "circle(0% at 50% 55%)" });
+    gsap.set(marquee, { opacity: 0, x: 0 });
+    gsap.set(orbit, { opacity: 0 });
+    if (orbitImg) gsap.set(orbitImg, { rotate: -12, scale: 0.55 });
+    gsap.set(words, { opacity: 0, scale: 0.5, rotate: -8 });
+    gsap.set(stats, { opacity: 0, y: 30 });
     gsap.set(bg, { backgroundColor: CREAM });
+    if (countEl) countEl.textContent = "0";
 
     var tl = gsap.timeline({
       scrollTrigger: {
         trigger: pin,
         start: "top top",
-        end: "+=620%",
+        end: "+=780%",
         pin: true,
-        scrub: 0.8,
+        scrub: 0.85,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
           if (bar) bar.style.width = (self.progress * 100).toFixed(1) + "%";
-          if (hint) gsap.set(hint, { opacity: self.progress < 0.03 ? 0.5 : 0 });
+          if (hint) gsap.set(hint, { autoAlpha: self.progress < 0.025 ? 0.55 : 0 });
         },
         onToggle: function (self) {
           document.body.classList.toggle("saga-on", self.isActive);
@@ -1039,65 +1177,114 @@ body.saga-on[data-saga-tone="dark"] .nav__cta {
       }
     });
 
-    function showChapter(i) {
-      return function () {
-        chapters.forEach(function (c, idx) {
-          c.classList.toggle("is-on", idx === i);
-        });
-        var tone = chapters[i].getAttribute("data-tone") === "cream" ? "light" : "dark";
-        saga.setAttribute("data-tone", tone);
-        document.body.setAttribute("data-saga-tone", tone);
-      };
+    /* —— 0. Cream opener + marquee drift —— */
+    enterChapter(0, 0);
+    tl.to(marquee, { opacity: 1, duration: 0.4 }, 0.1);
+    tl.to(marquee, { x: "-18%", duration: 1.4, ease: "none" }, 0.1);
+    if (orbit && orbitImg) {
+      tl.to(orbit, { opacity: 1, duration: 0.45 }, 0.25);
+      tl.to(orbitImg, { rotate: 8, scale: 0.85, duration: 1.2, ease: "none" }, 0.25);
     }
+    tl.to({}, { duration: 0.35 });
 
-    tl.call(showChapter(0), null, 0);
+    /* —— 1. BUBBLE EXPLODE into open hot dog —— */
+    exitChapter(0, ">");
+    punchFlash(">-0.05");
+    tl.to(orbit, { opacity: 0, duration: 0.25 }, "<");
+    tl.to(marquee, { opacity: 0, duration: 0.3 }, "<");
+    tl.to(bg, { backgroundColor: DARK, duration: 0.4 }, "<");
+    tl.set(imgs[0], { opacity: 1, scale: 1.18 }, "<");
+    tl.to(stage, {
+      clipPath: "circle(160% at 50% 55%)",
+      duration: 1.15,
+      ease: "power3.inOut"
+    }, "<");
+    tl.to(veil, { opacity: 1, duration: 0.5 }, "<0.35");
+    enterChapter(1, "<0.45");
+    tl.to(imgs[0], { scale: 1.05, duration: 1.2, ease: "none" });
+    tl.to(imgs[0], { scale: 1.12, x: "2%", duration: 0.8, ease: "none" });
+
+    /* —— 2. Whip wipe to onions —— */
+    exitChapter(1, ">");
+    punchFlash(">");
+    tl.to(imgs[0], { opacity: 0, x: "-8%", scale: 1.2, duration: 0.55, ease: "power2.in" }, "<");
+    tl.fromTo(imgs[1], { opacity: 0, x: "12%", scale: 1.2 }, {
+      opacity: 1, x: "0%", scale: 1.06, duration: 0.7, ease: "power2.out"
+    }, "<0.15");
+    enterChapter(2, "<0.2");
+    tl.to(imgs[1], { scale: 1.14, duration: 1.0, ease: "none" });
+
+    /* —— 3. Zoom punch into hand —— */
+    exitChapter(2, ">");
+    tl.to(imgs[1], { opacity: 0, scale: 1.35, filter: "blur(6px)", duration: 0.55, ease: "power2.in" }, "<");
+    tl.fromTo(imgs[2], { opacity: 0, scale: 1.4, filter: "blur(8px)" }, {
+      opacity: 1, scale: 1.05, filter: "blur(0px)", duration: 0.75, ease: "power3.out"
+    }, "<0.1");
+    enterChapter(3, "<0.15");
+    tl.to(imgs[2], { scale: 1.12, duration: 1.05, ease: "none" });
+
+    /* —— 4. Flip to french (rotate Y feel via skew/x) —— */
+    exitChapter(3, ">");
+    punchFlash(">");
+    tl.to(imgs[2], { opacity: 0, x: "-20%", rotate: -4, duration: 0.45, ease: "power2.in" }, "<");
+    tl.fromTo(imgs[3], { opacity: 0, x: "22%", rotate: 5, scale: 1.15 }, {
+      opacity: 1, x: "0%", rotate: 0, scale: 1.05, duration: 0.65, ease: "power2.out"
+    }, "<0.08");
+    enterChapter(4, "<0.15");
+    tl.to(imgs[3], { scale: 1.1, duration: 0.7, ease: "none" });
+    tl.to(imgs[3], { opacity: 0, duration: 0.4 });
+    tl.fromTo(imgs[4], { opacity: 0, scale: 1.2 }, {
+      opacity: 1, scale: 1.06, duration: 0.55, ease: "power2.out"
+    }, "<");
+    tl.to(imgs[4], { scale: 1.12, duration: 0.7, ease: "none" });
+
+    /* —— 5. Bubble collapse + count-up finale —— */
+    exitChapter(4, ">");
+    tl.to(veil, { opacity: 0, duration: 0.35 }, "<");
+    tl.to([imgs[3], imgs[4]], { opacity: 0, duration: 0.4 }, "<");
+    tl.to(stage, {
+      clipPath: "circle(0% at 50% 45%)",
+      duration: 0.85,
+      ease: "power3.inOut"
+    }, "<");
+    tl.to(bg, { backgroundColor: CREAM, duration: 0.5 }, "<0.2");
+    punchFlash(">-0.1");
+
+    tl.set(chapters[5], { visibility: "visible", opacity: 1 });
+    tl.call(setChapter, [5]);
+    var finaleWords = wordsOf(chapters[5]);
+    var countObj = { v: 0 };
+    if (countEl) {
+      tl.to(countObj, {
+        v: 8,
+        duration: 0.9,
+        ease: "power2.out",
+        onUpdate: function () { countEl.textContent = String(Math.round(countObj.v)); }
+      }, ">");
+    }
+    tl.fromTo(finaleWords, { y: "110%", opacity: 0 }, {
+      y: "0%", opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out"
+    }, "<0.25");
+    tl.to(words, {
+      opacity: 1, scale: 1, rotate: 0,
+      stagger: { each: 0.06, from: "center" },
+      duration: 0.45,
+      ease: "back.out(1.6)"
+    }, "<0.2");
+    tl.to(stats, { opacity: 1, y: 0, duration: 0.45 }, "<0.15");
+    statNums.forEach(function (el) {
+      var target = parseInt(el.getAttribute("data-n"), 10) || 0;
+      var o = { v: 0 };
+      tl.to(o, {
+        v: target,
+        duration: 0.9,
+        ease: "power2.out",
+        onUpdate: function () { el.textContent = String(Math.round(o.v)); }
+      }, "<");
+    });
+    tl.to(bg, { backgroundColor: "#ffe28a", duration: 0.6 }, "<");
+    tl.to(bg, { backgroundColor: CREAM, duration: 0.6 });
     tl.to({}, { duration: 0.7 });
-
-    tl.to(chapters[0], { opacity: 0, y: -36, duration: 0.4 }, ">");
-    tl.set(chapters[0], { visibility: "hidden" });
-    tl.call(showChapter(1));
-    tl.to(bg, { backgroundColor: DARK, duration: 0.5 }, "<");
-    tl.to(imgs[0], { opacity: 1, scale: 1.02, duration: 0.8 }, "<");
-    tl.to(veil, { opacity: 1, duration: 0.5 }, "<");
-    tl.fromTo(chapters[1], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.2");
-    tl.to(imgs[0], { scale: 1.1, duration: 1.1, ease: "none" });
-
-    tl.to(chapters[1], { opacity: 0, y: -36, duration: 0.35 }, ">");
-    tl.set(chapters[1], { visibility: "hidden" });
-    tl.call(showChapter(2));
-    tl.to(imgs[0], { opacity: 0, duration: 0.55 }, "<");
-    tl.to(imgs[1], { opacity: 1, scale: 1.02, duration: 0.75 }, "<");
-    tl.fromTo(chapters[2], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
-    tl.to(imgs[1], { scale: 1.1, duration: 1.0, ease: "none" });
-
-    tl.to(chapters[2], { opacity: 0, y: -36, duration: 0.35 }, ">");
-    tl.set(chapters[2], { visibility: "hidden" });
-    tl.call(showChapter(3));
-    tl.to(imgs[1], { opacity: 0, duration: 0.55 }, "<");
-    tl.to(imgs[2], { opacity: 1, scale: 1.02, duration: 0.75 }, "<");
-    tl.fromTo(chapters[3], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
-    tl.to(imgs[2], { scale: 1.1, duration: 1.0, ease: "none" });
-
-    tl.to(chapters[3], { opacity: 0, y: -36, duration: 0.35 }, ">");
-    tl.set(chapters[3], { visibility: "hidden" });
-    tl.call(showChapter(4));
-    tl.to(imgs[2], { opacity: 0, duration: 0.55 }, "<");
-    tl.to(imgs[3], { opacity: 1, scale: 1.02, duration: 0.7 }, "<");
-    tl.fromTo(chapters[4], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
-    tl.to(imgs[3], { scale: 1.08, duration: 0.7, ease: "none" });
-    tl.to(imgs[3], { opacity: 0, duration: 0.5 });
-    tl.to(imgs[4], { opacity: 1, scale: 1.03, duration: 0.65 }, "<");
-    tl.to(imgs[4], { scale: 1.08, duration: 0.55, ease: "none" });
-
-    tl.to(chapters[4], { opacity: 0, y: -36, duration: 0.35 }, ">");
-    tl.set(chapters[4], { visibility: "hidden" });
-    tl.call(showChapter(5));
-    tl.to([imgs[3], imgs[4]], { opacity: 0, duration: 0.5 }, "<");
-    tl.to(veil, { opacity: 0, duration: 0.45 }, "<");
-    tl.to(bg, { backgroundColor: CREAM, duration: 0.55 }, "<");
-    tl.fromTo(chapters[5], { opacity: 0, y: 48, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.12");
-    tl.to(words, { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: "power2.out" }, "<0.2");
-    tl.to({}, { duration: 0.85 });
   }
 
   function wait() {
