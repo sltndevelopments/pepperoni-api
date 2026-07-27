@@ -1055,6 +1055,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 /* Full-viewport WOW saga — bubble wipe / split words / counters */
 (function initSaga() {
   var started = false;
+  var waitStarted = Date.now();
 
   function boot() {
     if (started) return;
@@ -1093,7 +1094,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 
     gsap.registerPlugin(ScrollTrigger);
 
-    if (window.Lenis) {
+    function attachLenis() {
+      if (!window.Lenis || window.__sagaLenis) return !!window.__sagaLenis;
       document.documentElement.classList.add("lenis");
       var lenis = new Lenis({
         duration: 1.25,
@@ -1104,6 +1106,15 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       lenis.on("scroll", ScrollTrigger.update);
       gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
       gsap.ticker.lagSmoothing(0);
+      window.__sagaLenis = lenis;
+      return true;
+    }
+    if (!attachLenis()) {
+      var lenisTries = 0;
+      var lenisRetry = setInterval(function () {
+        lenisTries += 1;
+        if (attachLenis() || lenisTries > 40) clearInterval(lenisRetry);
+      }, 50);
     }
 
     var CREAM = "#f4e7a4";
@@ -1127,27 +1138,29 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       var kicker = ch.querySelector(".saga__kicker");
       var sub = ch.querySelector(".saga__sub");
       tl.set(ch, { visibility: "visible", opacity: 1 }, at);
-      tl.call(setChapter, [i], at);
       /* Scrubbed timelines sit at FROM-state at progress=0 — chapter 0 must be instant. */
       if (opts && opts.instant) {
+        tl.call(setChapter, [i], at);
         tl.set(w, { y: "0%", opacity: 1 }, at);
         if (kicker) tl.set(kicker, { opacity: 0.75, y: 0 }, at);
         if (sub) tl.set(sub, { opacity: 0.92, y: 0 }, at);
         return;
       }
-      tl.fromTo(w, { y: "110%", opacity: 0 }, {
-        y: "0%", opacity: 1, duration: 0.55, stagger: 0.07, ease: "power3.out"
+      /* Crossfade: flip is-on only after words are readable (avoids blank is-on frames). */
+      tl.fromTo(w, { y: "55%", opacity: 0 }, {
+        y: "0%", opacity: 1, duration: 0.45, stagger: 0.05, ease: "power3.out"
       }, at);
-      if (kicker) tl.fromTo(kicker, { opacity: 0, y: 12 }, { opacity: 0.75, y: 0, duration: 0.35 }, at);
-      if (sub) tl.fromTo(sub, { opacity: 0, y: 16 }, { opacity: 0.92, y: 0, duration: 0.4 }, at + 0.15);
+      tl.call(setChapter, [i], at + 0.2);
+      if (kicker) tl.fromTo(kicker, { opacity: 0, y: 10 }, { opacity: 0.75, y: 0, duration: 0.3 }, at);
+      if (sub) tl.fromTo(sub, { opacity: 0, y: 12 }, { opacity: 0.92, y: 0, duration: 0.35 }, at + 0.1);
     }
 
     function exitChapter(i, at) {
       var ch = chapters[i];
       var w = wordsOf(ch);
-      tl.to(w, { y: "-110%", opacity: 0, duration: 0.35, stagger: 0.04, ease: "power2.in" }, at);
-      tl.to([ch.querySelector(".saga__kicker"), ch.querySelector(".saga__sub")], { opacity: 0, duration: 0.25 }, at);
-      tl.set(ch, { visibility: "hidden", opacity: 0 }, at + 0.4);
+      tl.to(w, { y: "-40%", opacity: 0, duration: 0.4, stagger: 0.03, ease: "power2.in" }, at);
+      tl.to([ch.querySelector(".saga__kicker"), ch.querySelector(".saga__sub")], { opacity: 0, duration: 0.3 }, at);
+      tl.set(ch, { visibility: "hidden", opacity: 0 }, at + 0.55);
     }
 
     function punchFlash(at) {
@@ -1198,50 +1211,50 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     tl.to({}, { duration: 0.2 });
 
     /* —— 1. BUBBLE EXPLODE into open hot dog —— */
-    exitChapter(0, ">");
-    punchFlash(">-0.05");
+    punchFlash(">");
     tl.to(orbit, { opacity: 0, duration: 0.25 }, "<");
     tl.to(marquee, { opacity: 0, duration: 0.3 }, "<");
     tl.to(bg, { backgroundColor: DARK, duration: 0.4 }, "<");
     tl.set(imgs[0], { opacity: 1, scale: 1.18 }, "<");
-    /* Overlap bubble with text exit — less empty cream gap */
     tl.to(stage, {
       clipPath: "circle(160% at 50% 55%)",
       duration: 1.15,
       ease: "power3.inOut"
     }, "<0.05");
     tl.to(veil, { opacity: 1, duration: 0.5 }, "<0.3");
-    enterChapter(1, "<0.35");
+    /* Enter next BEFORE exiting current — no blank text gap */
+    enterChapter(1, "<0.15");
+    exitChapter(0, "<");
     tl.to(imgs[0], { scale: 1.05, duration: 1.2, ease: "none" });
     tl.to(imgs[0], { scale: 1.12, x: "2%", duration: 0.8, ease: "none" });
 
     /* —— 2. Whip wipe to onions —— */
-    exitChapter(1, ">");
     punchFlash(">");
     tl.to(imgs[0], { opacity: 0, x: "-8%", scale: 1.2, duration: 0.55, ease: "power2.in" }, "<");
     tl.fromTo(imgs[1], { opacity: 0, x: "12%", scale: 1.2 }, {
       opacity: 1, x: "0%", scale: 1.06, duration: 0.7, ease: "power2.out"
     }, "<0.15");
-    enterChapter(2, "<0.2");
+    enterChapter(2, "<0.1");
+    exitChapter(1, "<");
     tl.to(imgs[1], { scale: 1.14, duration: 1.0, ease: "none" });
 
     /* —— 3. Zoom punch into hand —— */
-    exitChapter(2, ">");
-    tl.to(imgs[1], { opacity: 0, scale: 1.35, filter: "blur(6px)", duration: 0.55, ease: "power2.in" }, "<");
+    tl.to(imgs[1], { opacity: 0, scale: 1.35, filter: "blur(6px)", duration: 0.55, ease: "power2.in" }, ">");
     tl.fromTo(imgs[2], { opacity: 0, scale: 1.4, filter: "blur(8px)" }, {
       opacity: 1, scale: 1.05, filter: "blur(0px)", duration: 0.75, ease: "power3.out"
     }, "<0.1");
-    enterChapter(3, "<0.15");
+    enterChapter(3, "<0.1");
+    exitChapter(2, "<");
     tl.to(imgs[2], { scale: 1.12, duration: 1.05, ease: "none" });
 
     /* —— 4. Flip to french —— */
-    exitChapter(3, ">");
     punchFlash(">");
     tl.to(imgs[2], { opacity: 0, x: "-20%", rotate: -4, duration: 0.45, ease: "power2.in" }, "<");
     tl.fromTo(imgs[3], { opacity: 0, x: "22%", rotate: 5, scale: 1.15 }, {
       opacity: 1, x: "0%", rotate: 0, scale: 1.05, duration: 0.65, ease: "power2.out"
     }, "<0.08");
-    enterChapter(4, "<0.15");
+    enterChapter(4, "<0.1");
+    exitChapter(3, "<");
     tl.to(imgs[3], { scale: 1.1, duration: 0.7, ease: "none" });
     tl.to(imgs[3], { opacity: 0, duration: 0.4 });
     tl.fromTo(imgs[4], { opacity: 0, scale: 1.2 }, {
@@ -1250,8 +1263,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     tl.to(imgs[4], { scale: 1.12, duration: 0.7, ease: "none" });
 
     /* —— 5. Bubble collapse + count-up finale —— */
-    exitChapter(4, ">");
-    tl.to(veil, { opacity: 0, duration: 0.35 }, "<");
+    tl.to(veil, { opacity: 0, duration: 0.35 }, ">");
     tl.to([imgs[3], imgs[4]], { opacity: 0, duration: 0.4 }, "<");
     tl.to(stage, {
       clipPath: "circle(0% at 50% 45%)",
@@ -1262,7 +1274,6 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     punchFlash(">-0.1");
 
     tl.set(chapters[5], { visibility: "visible", opacity: 1 });
-    tl.call(setChapter, [5]);
     var finaleWords = wordsOf(chapters[5]);
     var countObj = { v: 0 };
     if (countEl) {
@@ -1273,9 +1284,11 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
         onUpdate: function () { countEl.textContent = String(Math.round(countObj.v)); }
       }, ">");
     }
-    tl.fromTo(finaleWords, { y: "110%", opacity: 0 }, {
+    tl.fromTo(finaleWords, { y: "55%", opacity: 0 }, {
       y: "0%", opacity: 1, duration: 0.5, stagger: 0.08, ease: "power3.out"
-    }, "<0.25");
+    }, "<0.15");
+    tl.call(setChapter, [5], "<0.2");
+    exitChapter(4, "<");
     tl.to(words, {
       opacity: 1, scale: 1, rotate: 0,
       stagger: { each: 0.06, from: "center" },
@@ -1298,7 +1311,6 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     tl.to({}, { duration: 0.7 });
   }
 
-  var waitStarted = Date.now();
   function wait() {
     var hasCore = !!(window.gsap && window.ScrollTrigger);
     var hasLenis = !!window.Lenis;

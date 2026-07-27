@@ -51,6 +51,16 @@ jobs:
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
 
+      - name: Apply /test1 X-Robots-Tag noindex
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh /var/www/pepperoni/repo
+
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
