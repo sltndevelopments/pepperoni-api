@@ -620,6 +620,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   transform: translateY(110%);
   will-change: transform, opacity;
 }
+/* Chapter 0 must be readable before/at scrub progress=0 */
+.saga__chapter[data-ch="0"] .word { transform: none; opacity: 1; }
+.saga__chapter[data-ch="0"] .saga__kicker { opacity: 0.75; }
+.saga__chapter[data-ch="0"] .saga__sub { opacity: 0.92; }
 .saga__title em {
   font-style: normal; display: block; color: #ffe28a;
 }
@@ -1104,11 +1108,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 
     var CREAM = "#f4e7a4";
     var DARK = "#12070a";
-    var RED = "#e31837";
-    var chapterIdx = 0;
 
     function setChapter(i) {
-      chapterIdx = i;
       chapters.forEach(function (c, idx) { c.classList.toggle("is-on", idx === i); });
       dots.forEach(function (d, idx) { d.classList.toggle("is-on", idx === i); });
       var tone = chapters[i].getAttribute("data-tone") === "cream" ? "light" : "dark";
@@ -1120,16 +1121,25 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       return ch.querySelectorAll(".word");
     }
 
-    function enterChapter(i, at) {
+    function enterChapter(i, at, opts) {
       var ch = chapters[i];
       var w = wordsOf(ch);
+      var kicker = ch.querySelector(".saga__kicker");
+      var sub = ch.querySelector(".saga__sub");
       tl.set(ch, { visibility: "visible", opacity: 1 }, at);
       tl.call(setChapter, [i], at);
+      /* Scrubbed timelines sit at FROM-state at progress=0 — chapter 0 must be instant. */
+      if (opts && opts.instant) {
+        tl.set(w, { y: "0%", opacity: 1 }, at);
+        if (kicker) tl.set(kicker, { opacity: 0.75, y: 0 }, at);
+        if (sub) tl.set(sub, { opacity: 0.92, y: 0 }, at);
+        return;
+      }
       tl.fromTo(w, { y: "110%", opacity: 0 }, {
         y: "0%", opacity: 1, duration: 0.55, stagger: 0.07, ease: "power3.out"
       }, at);
-      tl.fromTo(ch.querySelector(".saga__kicker"), { opacity: 0, y: 12 }, { opacity: 0.75, y: 0, duration: 0.35 }, at);
-      tl.fromTo(ch.querySelector(".saga__sub"), { opacity: 0, y: 16 }, { opacity: 0.92, y: 0, duration: 0.4 }, at + 0.15);
+      if (kicker) tl.fromTo(kicker, { opacity: 0, y: 12 }, { opacity: 0.75, y: 0, duration: 0.35 }, at);
+      if (sub) tl.fromTo(sub, { opacity: 0, y: 16 }, { opacity: 0.92, y: 0, duration: 0.4 }, at + 0.15);
     }
 
     function exitChapter(i, at) {
@@ -1178,14 +1188,14 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     });
 
     /* —— 0. Cream opener + marquee drift —— */
-    enterChapter(0, 0);
+    enterChapter(0, 0, { instant: true });
     tl.to(marquee, { opacity: 1, duration: 0.4 }, 0.1);
     tl.to(marquee, { x: "-18%", duration: 1.4, ease: "none" }, 0.1);
     if (orbit && orbitImg) {
       tl.to(orbit, { opacity: 1, duration: 0.45 }, 0.25);
       tl.to(orbitImg, { rotate: 8, scale: 0.85, duration: 1.2, ease: "none" }, 0.25);
     }
-    tl.to({}, { duration: 0.35 });
+    tl.to({}, { duration: 0.2 });
 
     /* —— 1. BUBBLE EXPLODE into open hot dog —— */
     exitChapter(0, ">");
@@ -1194,13 +1204,14 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     tl.to(marquee, { opacity: 0, duration: 0.3 }, "<");
     tl.to(bg, { backgroundColor: DARK, duration: 0.4 }, "<");
     tl.set(imgs[0], { opacity: 1, scale: 1.18 }, "<");
+    /* Overlap bubble with text exit — less empty cream gap */
     tl.to(stage, {
       clipPath: "circle(160% at 50% 55%)",
       duration: 1.15,
       ease: "power3.inOut"
-    }, "<");
-    tl.to(veil, { opacity: 1, duration: 0.5 }, "<0.35");
-    enterChapter(1, "<0.45");
+    }, "<0.05");
+    tl.to(veil, { opacity: 1, duration: 0.5 }, "<0.3");
+    enterChapter(1, "<0.35");
     tl.to(imgs[0], { scale: 1.05, duration: 1.2, ease: "none" });
     tl.to(imgs[0], { scale: 1.12, x: "2%", duration: 0.8, ease: "none" });
 
@@ -1223,7 +1234,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     enterChapter(3, "<0.15");
     tl.to(imgs[2], { scale: 1.12, duration: 1.05, ease: "none" });
 
-    /* —— 4. Flip to french (rotate Y feel via skew/x) —— */
+    /* —— 4. Flip to french —— */
     exitChapter(3, ">");
     punchFlash(">");
     tl.to(imgs[2], { opacity: 0, x: "-20%", rotate: -4, duration: 0.45, ease: "power2.in" }, "<");
@@ -1287,8 +1298,12 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
     tl.to({}, { duration: 0.7 });
   }
 
+  var waitStarted = Date.now();
   function wait() {
-    if (window.gsap && window.ScrollTrigger) boot();
+    var hasCore = !!(window.gsap && window.ScrollTrigger);
+    var hasLenis = !!window.Lenis;
+    var timedOut = (Date.now() - waitStarted) > 800;
+    if (hasCore && (hasLenis || timedOut)) boot();
     else setTimeout(wait, 30);
   }
   wait();
