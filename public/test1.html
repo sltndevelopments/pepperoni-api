@@ -28,7 +28,8 @@
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html.lenis, html.lenis body { height: auto; }
+html:not(.lenis) { scroll-behavior: smooth; }
 body {
   font-family: "Nunito", system-ui, sans-serif;
   color: var(--ink);
@@ -119,8 +120,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   background: var(--red);
   color: #fff;
   text-align: center;
-  padding: clamp(28px, 6vw, 56px) clamp(14px, 4vw, 28px) 0;
+  padding: clamp(36px, 8vw, 72px) clamp(14px, 4vw, 28px) clamp(40px, 8vw, 72px);
   overflow: hidden;
+  min-height: min(78svh, 720px);
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
 }
 .hero__kicker {
   font-size: clamp(0.72rem, 2.5vw, 0.85rem);
@@ -512,135 +515,169 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 }
 .reveal.is-in { opacity: 1; transform: none; }
 
-/* —— Scroll story (savor.it–style pin + scrub) —— */
-.story {
-  --story-nav: 58px;
-  background: #1a0a0c;
-  color: #fff;
-}
-.story__track {
+/* —— Full-viewport scroll saga (savor.it–like) —— */
+.saga {
   position: relative;
-  height: 320vh;
+  background: #f4e7a4;
+  color: #1a0a0c;
 }
-.story__pin {
-  position: sticky;
-  top: var(--story-nav);
-  height: calc(100svh - var(--story-nav));
-  min-height: 480px;
+.saga__viewport {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 560px;
   overflow: hidden;
-  display: grid;
-  place-items: center;
 }
-.story__stage {
-  position: relative;
-  width: min(1100px, 100%);
-  height: 100%;
-  padding: 20px clamp(14px, 4vw, 28px) 28px;
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: 12px;
+.saga__bg {
+  position: absolute; inset: 0;
+  background: #f4e7a4;
+  z-index: 0;
+  will-change: background-color;
 }
-.story__eyebrow {
-  font-size: 0.72rem; font-weight: 800;
-  letter-spacing: 0.14em; text-transform: uppercase;
-  color: rgba(255,255,255,0.65);
-  text-align: center;
+.saga__media {
+  position: absolute; inset: 0;
+  z-index: 1;
 }
-.story__frames {
-  position: relative;
-  border-radius: 22px;
-  overflow: hidden;
-  background: #2a1215;
-  border: 2px solid rgba(255,255,255,0.12);
-  min-height: 0;
-}
-.story__frame {
+.saga__img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
   object-fit: cover;
   object-position: center;
   opacity: 0;
-  transform: scale(1.04);
+  transform: scale(1.12);
   will-change: opacity, transform;
 }
-.story__copy {
-  position: absolute;
-  left: 50%; bottom: 18px; z-index: 2;
-  transform: translateX(-50%);
-  width: min(92%, 34rem);
+.saga__veil {
+  position: absolute; inset: 0;
+  z-index: 2;
+  background:
+    radial-gradient(80% 60% at 50% 45%, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.45) 70%, rgba(0,0,0,0.62) 100%);
+  opacity: 0;
+  will-change: opacity;
+  pointer-events: none;
+}
+.saga__copy {
+  position: absolute; inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  padding: clamp(72px, 12vh, 120px) clamp(16px, 5vw, 48px) clamp(56px, 10vh, 96px);
   text-align: center;
   pointer-events: none;
-  display: grid;
 }
-.story__copy::before {
-  content: "";
-  position: absolute; inset: -40% -10% -20%;
-  background: linear-gradient(to top, rgba(10,4,5,0.88) 20%, transparent 85%);
-  z-index: -1;
-  border-radius: 20px;
-}
-.story__step {
+.saga__chapter {
   grid-area: 1 / 1;
-  display: grid; align-content: end; gap: 6px;
+  width: min(920px, 100%);
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity .35s var(--ease), transform .35s var(--ease);
-  padding: 0 8px 4px;
-  pointer-events: none;
+  visibility: hidden;
+  transform: translateY(40px);
+  will-change: opacity, transform;
+  color: #fff;
+  text-shadow: 0 2px 28px rgba(0,0,0,0.35);
 }
-.story__step.is-on {
-  opacity: 1;
-  transform: none;
+.saga__chapter[data-tone="cream"] {
+  color: #1a0a0c;
+  text-shadow: none;
 }
-.story__step b {
-  display: block;
-  font-family: "Lilita One", sans-serif;
-  font-size: clamp(1.7rem, 6vw, 3rem);
-  line-height: 0.98;
+.saga__chapter.is-on {
+  visibility: visible;
+}
+.saga__kicker {
+  font-size: clamp(0.7rem, 2vw, 0.85rem);
+  font-weight: 800;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  text-shadow: 0 2px 18px rgba(0,0,0,0.35);
+  margin-bottom: 14px;
+  opacity: 0.75;
 }
-.story__step span {
+.saga__title {
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(2.8rem, 12vw, 7rem);
+  line-height: 0.92;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+.saga__title em {
+  font-style: normal;
   display: block;
-  font-size: clamp(0.9rem, 2.8vw, 1.05rem);
-  font-weight: 700;
-  color: rgba(255,255,255,0.88);
+  color: #ffe28a;
 }
-.story__progress {
-  height: 4px;
-  background: rgba(255,255,255,0.18);
+.saga__chapter[data-tone="cream"] .saga__title em { color: var(--red); }
+.saga__sub {
+  margin: 16px auto 0;
+  max-width: 28rem;
+  font-size: clamp(1rem, 2.8vw, 1.35rem);
+  font-weight: 700;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+.saga__words {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.25em 0.55em;
+  margin-top: 18px;
+  font-family: "Lilita One", sans-serif;
+  font-size: clamp(1.4rem, 5vw, 2.6rem);
+  text-transform: uppercase;
+  line-height: 1;
+}
+.saga__words span {
+  opacity: 0.22;
+  transform: translateY(10px);
+  display: inline-block;
+}
+.saga__bar {
+  position: absolute;
+  left: 50%; bottom: 22px;
+  transform: translateX(-50%);
+  z-index: 4;
+  width: min(220px, 40vw);
+  height: 3px;
+  background: rgba(0,0,0,0.15);
   border-radius: 999px;
   overflow: hidden;
 }
-.story__progress > i {
+.saga__bar > i {
   display: block; height: 100%; width: 0%;
   background: var(--red);
-  border-radius: inherit;
 }
-.story__hint {
-  text-align: center;
-  font-size: 0.72rem; font-weight: 800;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.45);
+.saga[data-tone="dark"] .saga__bar { background: rgba(255,255,255,0.22); }
+.saga[data-tone="dark"] .saga__bar > i { background: #fff; }
+.saga__hint {
+  position: absolute;
+  left: 50%; bottom: 36px;
+  transform: translateX(-50%);
+  z-index: 4;
+  font-size: 0.68rem; font-weight: 800;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  opacity: 0.45;
 }
-.story__frame[data-i="0"] { opacity: 1; transform: scale(1); }
-@media (max-width: 640px) {
-  .story__track { height: 280vh; }
-  .story__pin { min-height: 420px; }
-  .story__copy { bottom: 12px; }
+body.saga-on .nav {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(8px);
+}
+body.saga-on[data-saga-tone="dark"] .nav {
+  background: rgba(20,8,10,0.55);
+  border-bottom-color: rgba(255,255,255,0.08);
+}
+body.saga-on[data-saga-tone="dark"] .nav__logo { background: #fff; color: var(--red); }
+body.saga-on[data-saga-tone="dark"] .nav__ghost,
+body.saga-on[data-saga-tone="dark"] .nav__cta { color: #fff; }
+body.saga-on[data-saga-tone="dark"] .nav__cta {
+  background: #fff; color: var(--red);
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
-  .story__track { height: auto; }
-  .story__pin { position: relative; top: 0; height: auto; min-height: 0; }
-  .story__stage { padding-bottom: 24px; }
-  .story__frames { aspect-ratio: 4 / 3; min-height: 220px; }
-  .story__frame { transition: none; }
-  .story__step { transition: none; }
-  .story__hint { display: none; }
+  .saga__viewport { height: auto; min-height: 0; }
+  .saga__chapter { position: relative; opacity: 1 !important; visibility: visible !important; transform: none !important; padding: 48px 16px; }
+  .saga__copy { display: block; position: relative; padding: 0; }
+  .saga__media, .saga__veil, .saga__bar, .saga__hint { display: none; }
+  .saga__bg { position: relative; min-height: 0; }
 }
 </style>
+<script src="/vendor/gsap.min.js" defer></script>
+<script src="/vendor/ScrollTrigger.min.js" defer></script>
+<script src="/vendor/lenis.min.js" defer></script>
 </head>
 <body>
 <a class="sr-only" href="#main">Перейти к содержимому</a>
@@ -670,54 +707,60 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
     <h1 id="hero-title" class="hero__title">Хот-дог без лишней драмы</h1>
     <p class="hero__sub">Термостабильные халяль-сосиски для гриля и ролика. 8 вкусов — от говядины до конины. Для АЗС, фудтраков и HoReCa.</p>
     <div class="hero__actions">
-      <a class="btn btn--white" href="#lineup">Смотреть линейку</a>
-      <a class="btn btn--outline" href="#order">Запросить прайс</a>
+      <a class="btn btn--white" href="#story">Листать историю</a>
+      <a class="btn btn--outline" href="#lineup">К линейке</a>
     </div>
-    <div class="hero__visual">
-      <figure>
-        <img src="/images/test1/hero-open.jpg" alt="Открытый хот-дог с сосиской гриль" width="1024" height="682" fetchpriority="high" decoding="async">
-        <figcaption>Открытый</figcaption>
-      </figure>
-      <figure>
-        <img src="/images/test1/hero-closed.jpg" alt="Закрытый французский хот-дог" width="1024" height="682" loading="eager" decoding="async">
-        <figcaption>Закрытый</figcaption>
-      </figure>
-    </div>
+    <p style="margin-top:18px;font-size:0.72rem;font-weight:800;letter-spacing:0.14em;text-transform:uppercase;opacity:.55">↓ Scroll</p>
   </section>
 
-  <section class="story" id="story" aria-label="История продукта по скроллу">
-    <div class="story__track" data-story-track>
-      <div class="story__pin">
-        <div class="story__stage">
-          <p class="story__eyebrow">Scroll story</p>
-          <div class="story__frames" data-story-frames>
-            <img class="story__frame is-on" data-i="0" src="/images/test1/hero-open.jpg" alt="" width="1024" height="682" decoding="async">
-            <img class="story__frame" data-i="1" src="/images/test1/hero-open-onions.jpg" alt="" width="1024" height="682" loading="lazy" decoding="async">
-            <img class="story__frame" data-i="2" src="/images/test1/gallery-open-hand.jpg" alt="" width="701" height="1024" loading="lazy" decoding="async">
-            <img class="story__frame" data-i="3" src="/images/test1/hero-closed.jpg" alt="" width="1024" height="682" loading="lazy" decoding="async">
+  <section class="saga" id="story" aria-label="История продукта" data-tone="light">
+    <div class="saga__viewport" data-saga-pin>
+      <div class="saga__bg" data-saga-bg></div>
+      <div class="saga__media" aria-hidden="true">
+        <img class="saga__img" data-img="0" src="/images/test1/hero-open.jpg" alt="" width="1024" height="682" fetchpriority="high" decoding="async">
+        <img class="saga__img" data-img="1" src="/images/test1/hero-open-onions.jpg" alt="" width="1024" height="682" decoding="async">
+        <img class="saga__img" data-img="2" src="/images/test1/gallery-open-hand.jpg" alt="" width="701" height="1024" decoding="async">
+        <img class="saga__img" data-img="3" src="/images/test1/hero-closed.jpg" alt="" width="1024" height="682" decoding="async">
+        <img class="saga__img" data-img="4" src="/images/test1/hero-closed-alt.jpg" alt="" width="1024" height="682" decoding="async">
+      </div>
+      <div class="saga__veil" data-saga-veil></div>
+      <div class="saga__copy">
+        <div class="saga__chapter is-on" data-ch="0" data-tone="cream">
+          <p class="saga__kicker">Казанские Деликатесы</p>
+          <h2 class="saga__title">От сосиски<em>к хот-догу</em></h2>
+          <p class="saga__sub">Одна линейка. Два формата подачи. Реальный поток на точке.</p>
+        </div>
+        <div class="saga__chapter" data-ch="1" data-tone="light">
+          <p class="saga__kicker">Открытый</p>
+          <h2 class="saga__title">Без оболочки.<em>Держит форму.</em></h2>
+          <p class="saga__sub">Термостабильные халяль-сосиски для гриля и ролика.</p>
+        </div>
+        <div class="saga__chapter" data-ch="2" data-tone="light">
+          <p class="saga__kicker">Вкус на прикассе</p>
+          <h2 class="saga__title">Соус. Лук.<em>Аппетит.</em></h2>
+          <p class="saga__sub">Открытый хот-дог, который продаёт себя с первого взгляда.</p>
+        </div>
+        <div class="saga__chapter" data-ch="3" data-tone="light">
+          <p class="saga__kicker">АЗС · street food</p>
+          <h2 class="saga__title">В руке<em>гостя</em></h2>
+          <p class="saga__sub">Порция, которую удобно взять в часы пик.</p>
+        </div>
+        <div class="saga__chapter" data-ch="4" data-tone="light">
+          <p class="saga__kicker">Закрытый</p>
+          <h2 class="saga__title">French<em>ролик</em></h2>
+          <p class="saga__sub">Тот же SKU — другая подача для сети и фудтрака.</p>
+        </div>
+        <div class="saga__chapter" data-ch="5" data-tone="cream">
+          <p class="saga__kicker">Линейка</p>
+          <h2 class="saga__title">8 вкусов.<em>Халяль.</em></h2>
+          <div class="saga__words" data-saga-words>
+            <span>Говядина</span><span>Два мяса</span><span>Перец</span><span>Курица</span>
+            <span>Баранина</span><span>Травы</span><span>Сыр</span><span>Конина</span>
           </div>
-          <div class="story__copy" data-story-copy aria-live="polite">
-            <p class="story__step is-on" data-i="0">
-              <b>Сначала — сосиска</b>
-              <span>Халяль, без оболочки, держит форму на гриле.</span>
-            </p>
-            <p class="story__step" data-i="1">
-              <b>Потом — вкус</b>
-              <span>Открытый хот-дог: соусы, лук, огурец — аппетит на прикассе.</span>
-            </p>
-            <p class="story__step" data-i="2">
-              <b>В руке гостя</b>
-              <span>Порция, которую удобно взять и съесть в потоке АЗС.</span>
-            </p>
-            <p class="story__step" data-i="3">
-              <b>Или french-ролик</b>
-              <span>Закрытый формат — тот же SKU, другая подача.</span>
-            </p>
-          </div>
-          <div class="story__progress" aria-hidden="true"><i data-story-bar></i></div>
-          <p class="story__hint">Листайте вниз</p>
         </div>
       </div>
+      <div class="saga__bar" aria-hidden="true"><i data-saga-bar></i></div>
+      <p class="saga__hint" data-saga-hint>Scroll</p>
     </div>
   </section>
 
@@ -781,29 +824,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
           <a href="/products/kd-008">KD-008</a>
         </p>
       </noscript>
-    </div>
-  </section>
-
-  <section class="section section--red">
-    <div class="inner split reveal">
-      <div class="split__media">
-        <figure>
-          <img src="/images/test1/hero-open-onions.jpg" alt="Открытый хот-дог с луком" width="1024" height="682" loading="lazy">
-        </figure>
-        <figure>
-          <img src="/images/test1/gallery-open-hand.jpg" alt="Хот-дог в руке" width="701" height="1024" loading="lazy">
-        </figure>
-      </div>
-      <div class="split__copy">
-        <p class="eyebrow">Open &amp; closed</p>
-        <h2 class="display">Один SKU — два формата подачи</h2>
-        <p class="lede">Классический открытый хот-дог или french-ролик. Сосиска держит форму на гриле и в потоке пиковых часов.</p>
-        <ul class="pill-list">
-          <li>Термостабильность на ролике</li>
-          <li>Халяль для сетей и АЗС</li>
-          <li>Фасовка под порцию хот-дога</li>
-        </ul>
-      </div>
     </div>
   </section>
 
@@ -944,85 +964,150 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
     nodes.forEach(function (n) { n.classList.add("is-in"); });
   }
 
-  /* Scroll story — pin + scrub (savor.it mid-tier) */
-  (function initStory() {
-    var track = document.querySelector("[data-story-track]");
-    var frames = document.querySelectorAll("[data-story-frames] .story__frame");
-    var steps = document.querySelectorAll("[data-story-copy] .story__step");
-    var bar = document.querySelector("[data-story-bar]");
-    if (!track || !frames.length) return;
+})();
+
+/* Full-viewport saga — GSAP + Lenis (savor.it–like) */
+(function initSaga() {
+  var started = false;
+  function boot() {
+    if (started) return;
+    if (!window.gsap || !window.ScrollTrigger) return;
+    started = true;
+
+    var saga = document.querySelector(".saga");
+    var pin = document.querySelector("[data-saga-pin]");
+    var bg = document.querySelector("[data-saga-bg]");
+    var veil = document.querySelector("[data-saga-veil]");
+    var bar = document.querySelector("[data-saga-bar]");
+    var hint = document.querySelector("[data-saga-hint]");
+    var chapters = Array.prototype.slice.call(document.querySelectorAll(".saga__chapter"));
+    var imgs = Array.prototype.slice.call(document.querySelectorAll(".saga__img"));
+    var words = Array.prototype.slice.call(document.querySelectorAll("[data-saga-words] span"));
+    if (!saga || !pin) return;
 
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    var n = frames.length;
-    var last = -1;
-    var ticking = false;
-
-    function setIndex(i) {
-      if (i === last) return;
-      last = i;
-      frames.forEach(function (el, idx) {
-        el.classList.toggle("is-on", idx === i);
-      });
-      steps.forEach(function (el, idx) {
-        el.classList.toggle("is-on", idx === i);
-      });
-    }
-
-    function progress() {
-      if (reduce) {
-        /* static: show all as stacked fallback — keep first frame + sync by hash only */
-        setIndex(0);
-        if (bar) bar.style.width = "100%";
-        return;
-      }
-      var rect = track.getBoundingClientRect();
-      var total = Math.max(track.offsetHeight - window.innerHeight, 1);
-      var scrolled = Math.min(Math.max(-rect.top, 0), total);
-      var p = scrolled / total;
-      if (bar) bar.style.width = (p * 100).toFixed(1) + "%";
-
-      /* soft crossfade between frames via opacity */
-      var x = p * (n - 1);
-      var i0 = Math.floor(x);
-      var i1 = Math.min(i0 + 1, n - 1);
-      var t = x - i0;
-      frames.forEach(function (el, idx) {
-        var op = 0;
-        var sc = 1.06;
-        if (idx === i0) { op = 1 - t; sc = 1 + 0.06 * t; }
-        if (idx === i1 && i1 !== i0) { op = t; sc = 1.06 - 0.06 * t; }
-        if (idx === i0 && i0 === i1) { op = 1; sc = 1; }
-        el.style.opacity = String(op);
-        el.style.transform = "scale(" + sc.toFixed(3) + ")";
-        el.classList.toggle("is-on", op > 0.5);
-      });
-      var stepIdx = Math.min(n - 1, Math.round(x));
-      if (stepIdx !== last) {
-        last = stepIdx;
-        steps.forEach(function (el, idx) {
-          el.classList.toggle("is-on", idx === stepIdx);
-        });
-      }
-    }
-
-    function onScroll() {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(function () {
-        progress();
-        ticking = false;
-      });
-    }
-
     if (reduce) {
-      progress();
+      chapters.forEach(function (c) {
+        c.style.opacity = "1";
+        c.style.visibility = "visible";
+        c.style.transform = "none";
+        c.style.position = "relative";
+      });
       return;
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
-    progress();
-  })();
+    gsap.registerPlugin(ScrollTrigger);
+
+    if (window.Lenis) {
+      document.documentElement.classList.add("lenis");
+      var lenis = new Lenis({
+        duration: 1.2,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true
+      });
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    var CREAM = "#f4e7a4";
+    var DARK = "#14080a";
+
+    gsap.set(chapters, { opacity: 0, y: 56, visibility: "hidden" });
+    gsap.set(chapters[0], { opacity: 1, y: 0, visibility: "visible" });
+    gsap.set(imgs, { opacity: 0, scale: 1.16 });
+    gsap.set(veil, { opacity: 0 });
+    gsap.set(words, { opacity: 0.16, y: 14 });
+    gsap.set(bg, { backgroundColor: CREAM });
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: pin,
+        start: "top top",
+        end: "+=620%",
+        pin: true,
+        scrub: 0.8,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          if (bar) bar.style.width = (self.progress * 100).toFixed(1) + "%";
+          if (hint) gsap.set(hint, { opacity: self.progress < 0.03 ? 0.5 : 0 });
+        },
+        onToggle: function (self) {
+          document.body.classList.toggle("saga-on", self.isActive);
+        }
+      }
+    });
+
+    function showChapter(i) {
+      return function () {
+        chapters.forEach(function (c, idx) {
+          c.classList.toggle("is-on", idx === i);
+        });
+        var tone = chapters[i].getAttribute("data-tone") === "cream" ? "light" : "dark";
+        saga.setAttribute("data-tone", tone);
+        document.body.setAttribute("data-saga-tone", tone);
+      };
+    }
+
+    tl.call(showChapter(0), null, 0);
+    tl.to({}, { duration: 0.7 });
+
+    tl.to(chapters[0], { opacity: 0, y: -36, duration: 0.4 }, ">");
+    tl.set(chapters[0], { visibility: "hidden" });
+    tl.call(showChapter(1));
+    tl.to(bg, { backgroundColor: DARK, duration: 0.5 }, "<");
+    tl.to(imgs[0], { opacity: 1, scale: 1.02, duration: 0.8 }, "<");
+    tl.to(veil, { opacity: 1, duration: 0.5 }, "<");
+    tl.fromTo(chapters[1], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.2");
+    tl.to(imgs[0], { scale: 1.1, duration: 1.1, ease: "none" });
+
+    tl.to(chapters[1], { opacity: 0, y: -36, duration: 0.35 }, ">");
+    tl.set(chapters[1], { visibility: "hidden" });
+    tl.call(showChapter(2));
+    tl.to(imgs[0], { opacity: 0, duration: 0.55 }, "<");
+    tl.to(imgs[1], { opacity: 1, scale: 1.02, duration: 0.75 }, "<");
+    tl.fromTo(chapters[2], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
+    tl.to(imgs[1], { scale: 1.1, duration: 1.0, ease: "none" });
+
+    tl.to(chapters[2], { opacity: 0, y: -36, duration: 0.35 }, ">");
+    tl.set(chapters[2], { visibility: "hidden" });
+    tl.call(showChapter(3));
+    tl.to(imgs[1], { opacity: 0, duration: 0.55 }, "<");
+    tl.to(imgs[2], { opacity: 1, scale: 1.02, duration: 0.75 }, "<");
+    tl.fromTo(chapters[3], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
+    tl.to(imgs[2], { scale: 1.1, duration: 1.0, ease: "none" });
+
+    tl.to(chapters[3], { opacity: 0, y: -36, duration: 0.35 }, ">");
+    tl.set(chapters[3], { visibility: "hidden" });
+    tl.call(showChapter(4));
+    tl.to(imgs[2], { opacity: 0, duration: 0.55 }, "<");
+    tl.to(imgs[3], { opacity: 1, scale: 1.02, duration: 0.7 }, "<");
+    tl.fromTo(chapters[4], { opacity: 0, y: 56, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.15");
+    tl.to(imgs[3], { scale: 1.08, duration: 0.7, ease: "none" });
+    tl.to(imgs[3], { opacity: 0, duration: 0.5 });
+    tl.to(imgs[4], { opacity: 1, scale: 1.03, duration: 0.65 }, "<");
+    tl.to(imgs[4], { scale: 1.08, duration: 0.55, ease: "none" });
+
+    tl.to(chapters[4], { opacity: 0, y: -36, duration: 0.35 }, ">");
+    tl.set(chapters[4], { visibility: "hidden" });
+    tl.call(showChapter(5));
+    tl.to([imgs[3], imgs[4]], { opacity: 0, duration: 0.5 }, "<");
+    tl.to(veil, { opacity: 0, duration: 0.45 }, "<");
+    tl.to(bg, { backgroundColor: CREAM, duration: 0.55 }, "<");
+    tl.fromTo(chapters[5], { opacity: 0, y: 48, visibility: "visible" }, { opacity: 1, y: 0, duration: 0.5 }, "<0.12");
+    tl.to(words, { opacity: 1, y: 0, stagger: 0.07, duration: 0.4, ease: "power2.out" }, "<0.2");
+    tl.to({}, { duration: 0.85 });
+  }
+
+  function wait() {
+    if (window.gsap && window.ScrollTrigger) boot();
+    else setTimeout(wait, 30);
+  }
+  wait();
+  window.addEventListener("load", function () {
+    if (window.ScrollTrigger) ScrollTrigger.refresh();
+  });
 })();
 </script>
 </body>
