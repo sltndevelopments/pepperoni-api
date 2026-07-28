@@ -374,7 +374,11 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   z-index: 0;
   opacity: 0;
   transform: scale(1.14) translateY(12px);
-  object-position: center 48%;
+  object-fit: contain;
+  object-position: center;
+  padding: 10% 12%;
+  filter: saturate(1.12) contrast(1.08) brightness(1.06);
+  background: radial-gradient(circle at 50% 45%, #2a1a14 0%, #140c0a 70%);
 }
 .sku-card:hover .sku-card__main,
 .sku-card.is-flipped .sku-card__main {
@@ -1180,8 +1184,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «Из говядины» (80 г × 6 шт)", price: "290", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-001",
       img: "/images/test1/cards/kd-001-main.jpg",
-      altImg: "/images/hero/hotdog-classic.jpg",
-      altHint: "Хот-дог",
+      altImg: "/images/test1/cards/kd-001-pack.jpg",
+      altHint: "Пачка",
       badge: "Хит АЗС",
       sub: "Базовый халяль-SKU для хот-дога: говядина, без оболочки, держит форму на гриле и french-ролике. Порция 80 г — привычный формат точки. Хранение −18°C до 360 суток, EXW Казань.",
       blurb: "Классика потока: ровная форма, стабильный вкус, халяль ДУМ РТ."
@@ -1191,8 +1195,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «Два мяса» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-002",
       img: "/images/test1/cards/kd-002-main.jpg",
-      altImg: "/images/hero/hotdog-onions.jpg",
-      altHint: "На гриле",
+      altImg: "/images/test1/cards/kd-002-pack.jpg",
+      altHint: "Пачка",
       badge: "Насыщенный",
       sub: "Смесь мяса для более плотного вкуса на гриле. Тот же формат 80 г × 6 — удобно крутить ассортимент рядом с «Из говядины». Без оболочки, термостабильные, халяль.",
       blurb: "Когда гостю нужна «плотнее классики» — без смены оборудования."
@@ -1202,8 +1206,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «Три перца с сыром» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-003",
       img: "/images/test1/cards/kd-003-main.jpg",
-      altImg: "/images/hero/hotdog-french.jpg",
-      altHint: "French",
+      altImg: "/images/test1/cards/kd-003-pack.jpg",
+      altHint: "Пачка",
       badge: "Ярче",
       sub: "Перец и сыр внутри — для гостя, которому мало «просто мясной». Формат 80 г × 6, без оболочки. Хорошо читается на меню АЗС и street food как «острый/сырный» апселл.",
       blurb: "Апселл к классике: заметный вкус, тот же гриль-процесс."
@@ -1213,8 +1217,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «Куриные» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-004",
       img: "/images/test1/cards/kd-004-main.jpg",
-      altImg: "/images/test1/hero-open.jpg",
-      altHint: "В разрезе",
+      altImg: "/images/test1/cards/kd-004-pack.jpg",
+      altHint: "Пачка",
       badge: "Лёгкие",
       sub: "Куриный профиль для сети и фудтрака: мягче по восприятию, тот же термостабильный формат без оболочки. Удобно держать как «лёгкий» пункт в линейке из 8 SKU.",
       blurb: "Светлее по цвету и вкусу — расширяет полку без новой логистики."
@@ -1224,8 +1228,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «С бараниной» (80 г × 6 шт)", price: "366", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-005",
       img: "/images/test1/cards/kd-005-main.jpg",
-      altImg: "/images/hero/hotdog-french-vertical.jpg",
-      altHint: "Подача",
+      altImg: "/images/test1/cards/kd-005-pack.jpg",
+      altHint: "Пачка",
       badge: "Премиум",
       sub: "Баранина в составе — заметный дифференциал на прикассе и в халяль-меню. Формат 80 г × 6, без оболочки, для гриля и ролика. Цена выше классики — выше чек при том же оборудовании.",
       blurb: "Премиальный вкус линейки: для гостя, который выбирает «не обычные»."
@@ -1236,7 +1240,7 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       href: "/products/kd-006",
       img: "/images/test1/cards/kd-006-main.jpg",
       altImg: "/images/test1/cards/kd-006-pack.jpg",
-      altHint: "Упаковка",
+      altHint: "Пачка",
       badge: "130 г",
       sub: "Увеличенная порция 130 г × 5 — для сытного хот-дога и гриль-меню. Травы в профиле, без оболочки, термостабильные. Когда точка хочет «больше мяса в булочке» без смены поставщика.",
       blurb: "Крупный формат: выше насыщение и средний чек."
@@ -1246,8 +1250,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «С сыром» (130 г × 5 шт)", price: "455", pack: "130 г × 5 · 0,65 кг",
       href: "/products/kd-007",
       img: "/images/test1/cards/kd-007-main.jpg",
-      altImg: "/images/test1/gallery-open-hand.jpg",
-      altHint: "В руке",
+      altImg: "/images/test1/cards/kd-007-pack.jpg",
+      altHint: "Пачка",
       badge: "Сыр · 130 г",
       sub: "Сыр внутри + порция 130 г — сильный апселл на точке. Без оболочки, халяль, для гриля и ролика. Логично ставить рядом с «С травами» как пару крупного формата.",
       blurb: "Сырный крупный SKU: заметно в меню и в чеке."
@@ -1257,8 +1261,8 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       name: "Сосиски «Из конины» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-008",
       img: "/images/test1/cards/kd-008-main.jpg",
-      altImg: "/images/test1/hero-closed.jpg",
-      altHint: "Крупный план",
+      altImg: "/images/test1/cards/kd-008-pack.jpg",
+      altHint: "Пачка",
       badge: "Конина",
       sub: "Конина — узнаваемый халяль-SKU для Татарстана и экспортных запросов. Формат 80 г × 6, без оболочки, как у говяжьей классики (внешне близки — фото продукта KD-001). Термостабильность на гриле и ролике.",
       blurb: "Региональный сигнал: конина в линейке рядом с говядиной."
