@@ -1,0 +1,114 @@
+{
+  "version": "2026-07-26",
+  "status": "proxy_abc_pending_1c",
+  "note": "ABC без выгрузки 1С: ранг A/B по канальному fit (АЗС/HoReCa/PL) и плану Catch Chomps. Финансы обязаны заменить proxy на фактическую выручку/маржу за последние 12 мес.",
+  "target": {
+    "shareOfRevenuePct": 70,
+    "horizon": "2028"
+  },
+  "money12": [
+    {
+      "sku": "KD-001",
+      "tier": "A",
+      "role": "azs_core",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Термостабильность", "80 г × 6"]
+    },
+    {
+      "sku": "KD-002",
+      "tier": "A",
+      "role": "azs_core",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Термостабильность", "80 г × 6"]
+    },
+    {
+      "sku": "KD-003",
+      "tier": "A",
+      "role": "azs_premium",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Сыр + перец", "80 г × 6"]
+    },
+    {
+      "sku": "KD-004",
+      "tier": "A",
+      "role": "azs_core",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Курица", "80 г × 6"]
+    },
+    {
+      "sku": "KD-005",
+      "tier": "B",
+      "role": "azs_premium",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Баранина", "80 г × 6"]
+    },
+    {
+      "sku": "KD-006",
+      "tier": "B",
+      "role": "azs_premium",
+      "channels": ["azs", "horeca"],
+      "pitch3": ["Халяль", "Травы", "130 г × 5"]
+    },
+    {
+      "sku": "KD-007",
+      "tier": "B",
+      "role": "azs_premium",
+      "channels": ["azs", "horeca"],
+      "pitch3": ["Халяль", "С сыром", "130 г × 5"]
+    },
+    {
+      "sku": "KD-008",
+      "tier": "A",
+      "role": "azs_diff",
+      "channels": ["azs", "horeca", "pl", "retail"],
+      "pitch3": ["Халяль", "Конина", "80 г × 6"]
+    },
+    {
+      "sku": "KD-009",
+      "tier": "A",
+      "role": "burger_core",
+      "channels": ["azs", "horeca", "pl"],
+      "pitch3": ["Халяль", "Патти 100 г", "3 шт"]
+    },
+    {
+      "sku": "KD-012",
+      "tier": "A",
+      "role": "pepperoni_horeca",
+      "channels": ["horeca", "pl", "retail"],
+      "pitch3": ["Халяль", "Конина", "Топпинг пиццы"]
+    },
+    {
+      "sku": "KD-013",
+      "tier": "A",
+      "role": "pepperoni_horeca",
+      "channels": ["horeca", "pl", "retail", "azs"],
+      "pitch3": ["Халяль", "Курица", "Топпинг пиццы"]
+    },
+    {
+      "sku": "KD-044",
+      "tier": "B",
+      "role": "gift_retail",
+      "channels": ["retail", "horeca", "export"],
+      "pitch3": ["Халяль", "Казылык Premium", "Подарок / полка"]
+    }
+  ],
+  "nearMoney": [
+    {
+      "sku": "KD-010",
+      "note": "Бургер 150 г — парный к KD-009 для PL/меню"
+    },
+    {
+      "sku": "KD-014",
+      "note": "Пепперони целый батон — пиццерии / нарезка на точке"
+    },
+    {
+      "sku": "KD-045",
+      "note": "Казылык нарезка — ритейл-подарок"
+    }
+  ],
+  "excludedFromHeroNarrative": {
+    "bakerySkuCount": 19,
+    "rule": "Выпечка остаётся в каталоге и PL, но не в Money 12 и не в главном hero pepperoni.tatar"
+  },
+  "salesRule": "Hunter-pitch только Money 12 + 8 PL-конструкторов. Long-tail — по запросу."
+}

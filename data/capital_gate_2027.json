@@ -1,0 +1,73 @@
+{
+  "version": "2026-07-26",
+  "decisionId": "capital-gate-2027",
+  "decisionWindow": {
+    "earliest": "2027-10-01",
+    "latest": "2027-12-31"
+  },
+  "question": "Go/No-Go по долгу или equity-инвесту под мощность и оборотный капитал для траектории $150–200M к 2030",
+  "context": {
+    "organicCeilingUsd": "40–50M company revenue без внешнего капитала (оценка плана Catch Chomps)",
+    "chompsParallel": "Chomps взял ~$80M minority на стадии ~$100M+ run-rate после ~10 лет bootstrap",
+    "kd2025": 9.7,
+    "kd2026Plan": 20
+  },
+  "goCriteria": {
+    "allRequired": [
+      {
+        "id": "cagr",
+        "metric": "YoY company revenue CAGR 2026→2027",
+        "operator": ">",
+        "threshold": 0.8,
+        "note": "CAGR >80%"
+      },
+      {
+        "id": "money12",
+        "metric": "Money 12 share of revenue",
+        "operator": ">=",
+        "threshold": 0.55,
+        "note": "Концентрация работает"
+      },
+      {
+        "id": "margin",
+        "metric": "Gross margin Money SKU or company EBITDA/net",
+        "operator": ">=",
+        "threshold": 0.07,
+        "note": "Не расти в убыток"
+      },
+      {
+        "id": "anchor",
+        "metric": "Anchor AZS or retail/PL contracts",
+        "operator": ">=",
+        "threshold": 2,
+        "note": "Минимум 2 якорных объёмных контракта live"
+      },
+      {
+        "id": "capacity",
+        "metric": "Capacity utilization or order backlog",
+        "operator": "bottleneck",
+        "threshold": "true",
+        "note": "Есть явный потолок мощности/склада/оборотки"
+      }
+    ]
+  },
+  "noGoIf": [
+    "CAGR <50% при уже раздутом штате",
+    "Money 12 <40% выручки (распыление ассортимента)",
+    "Нет якорных контрактов — капитал сожжётся на hunter без pipeline",
+    "ЗОЖ-линейка без lab/claim-гейта уже в рекламе (репутационный стоп)"
+  ],
+  "useOfProceedsIfGo": [
+    "Производственная мощность / линия под sticks + grill volume",
+    "Холодный склад и оборотный капитал под сети",
+    "Упаковка/маркировка под ритейл multipack",
+    "Не: раздувание SEO-локалей и long-tail SKU"
+  ],
+  "owners": {
+    "preparePack": "CEO + CFO (финмодель 3yr, unit economics Money 12)",
+    "decide": "Владелец / совет",
+    "artifact": "docs/CATCH-CHOMPS-STRATEGY.md § Capital gate"
+  },
+  "status": "scheduled",
+  "nextReview": "2027-Q4 board / owner meeting"
+}

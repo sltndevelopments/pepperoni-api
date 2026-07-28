@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KD Photo Moodboard — Punch vs Catalog</title>
+<style>
+:root{--ink:#1a1210;--cream:#f3e6df;--bg:#120d0c;--g:#1b7a3d;--line:#3a2a26}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--cream);line-height:1.5;padding:32px 20px 64px}
+.wrap{max-width:1100px;margin:0 auto}
+h1{font-size:clamp(1.6rem,4vw,2.4rem);margin-bottom:8px}
+.lead{color:#c9b2a6;max-width:40rem;margin-bottom:28px}
+h2{font-size:1.2rem;margin:36px 0 12px;color:#fff}
+.grid{display:grid;gap:16px}
+@media(min-width:800px){.grid-2{grid-template-columns:1fr 1fr}}
+.card{background:#1c1412;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.card img{width:100%;display:block;background:#000}
+.card .cap{padding:12px 14px;font-size:.88rem;color:#c9b2a6}
+.card .cap strong{display:block;color:#fff;margin-bottom:4px}
+.pill{display:inline-block;padding:4px 10px;border-radius:999px;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;border:1px solid #5a4038;margin-bottom:8px}
+.pill.ok{border-color:var(--g);color:#8fd4a8}
+.pill.no{border-color:#a35;color:#f0a090}
+table{width:100%;border-collapse:collapse;font-size:.9rem;margin:12px 0 24px}
+td,th{padding:10px 12px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+th{color:#8fd4a8;font-weight:600}
+a{color:#8fd4a8}
+.note{font-size:.85rem;color:#9a8478;margin-top:24px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Moodboard: каталог → punch</h1>
+  <p class="lead">«Модность» = жёстче свет + чистый фон + selective color + смелый crop. Ниже — ваши кадры до/после пресета KD Punch v2 и правила.</p>
+
+  <h2>До / после (ваши файлы)</h2>
+  <div class="grid">
+    <div class="card">
+      <img src="before-after/hero-1-onions-compare.jpg" alt="hero-1 onions before after">
+      <div class="cap"><strong>Hero 1 — с луком</strong>Больше punch в красном/жёлтом, белее фон, текстура лука.</div>
+    </div>
+    <div class="card">
+      <img src="before-after/hero-2-classic-compare.jpg" alt="hero-2 classic before after">
+      <div class="cap"><strong>Hero 2 — classic side</strong>Кетчуп/горчица ярче, без оранжевого «мыла».</div>
+    </div>
+    <div class="card">
+      <img src="before-after/hero-3-french-compare.jpg" alt="hero-3 french before after">
+      <div class="cap"><strong>Hero 3 — french diagonal</strong>Соус и колбаса читаются сильнее; фон чище.</div>
+    </div>
+    <div class="card">
+      <img src="before-after/hero-4-vertical-compare.jpg" alt="hero-4 vertical before after">
+      <div class="cap"><strong>Hero 4 — french vertical</strong>Кандидат на burgundy-фон при пересъёмке.</div>
+    </div>
+  </div>
+
+  <h2>Что даёт «модность»</h2>
+  <table>
+    <tr><th>Рычаг</th><th>Каталог (было)</th><th>Punch (цель)</th></tr>
+    <tr><td>Свет</td><td>Мягкий со всех сторон</td><td>Ключ сбоку + блик + тень</td></tr>
+    <tr><td>Фон</td><td>Серо-белый</td><td>#FFF или brand color</td></tr>
+    <tr><td>Цвет</td><td>Neutral / muted</td><td>HSL: Red/Yellow/Green +</td></tr>
+    <tr><td>Crop</td><td>Много воздуха</td><td>Крупнее, diagonal / macro</td></tr>
+    <tr><td>Стайлинг</td><td>Сухо, идеально</td><td>Сок, живой соус, хруст лука</td></tr>
+  </table>
+
+  <div class="grid grid-2">
+    <div class="card" style="padding:16px">
+      <span class="pill no">Не цель</span>
+      <p>Перегретый оранжевый фильтр, грязный вырез фона, «Instagram soap» по всему кадру.</p>
+    </div>
+    <div class="card" style="padding:16px">
+      <span class="pill ok">Цель</span>
+      <p>Чистый punch: красный кетчуп, жёлтая горчица, читаемая тень, бренд-системный фон.</p>
+    </div>
+  </div>
+
+  <h2>Документы</h2>
+  <ul style="margin:8px 0 0 1.2rem;color:#c9b2a6">
+    <li><a href="KD-PUNCH-PRESET.md">KD-PUNCH-PRESET.md</a> — значения Lightroom / Capture One</li>
+    <li><a href="SHOOT-BRIEF.md">SHOOT-BRIEF.md</a> — бриф на пересъёмку 1 день</li>
+    <li><a href="KD-Punch-Hotdog-v1.xmp">KD-Punch-Hotdog-v1.xmp</a> — импорт в Lightroom (базовый)</li>
+  </ul>
+
+  <p class="note">Открыть локально: <code>open docs/photo-retouch/moodboard.html</code>. After-файлы — в <code>before-after/*-after.jpg</code>.</p>
+</div>
+</body>
+</html>
