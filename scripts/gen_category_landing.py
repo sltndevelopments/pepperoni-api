@@ -721,7 +721,6 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
 
 <script src="/vendor/gsap.min.js" defer></script>
 <script src="/vendor/ScrollTrigger.min.js" defer></script>
-<script src="/vendor/lenis.min.js" defer></script>
 <script src="/assets/gmp-track.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
 <script src="/assets/category-landing.js?v={js_rev}" defer></script>

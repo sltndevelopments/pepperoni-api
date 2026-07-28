@@ -410,23 +410,6 @@
     saga.dataset.sagaReady = "1";
     gsap.registerPlugin(ScrollTrigger);
 
-    function attachLenis() {
-      if (!window.Lenis || window.__clLenis) return !!window.__clLenis;
-      document.documentElement.classList.add("lenis");
-      var lenis = new Lenis({
-        duration: 1.2,
-        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
-        smoothWheel: true,
-        touchMultiplier: 1.05,
-      });
-      lenis.on("scroll", ScrollTrigger.update);
-      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
-      gsap.ticker.lagSmoothing(0);
-      window.__clLenis = lenis;
-      return true;
-    }
-    attachLenis();
-
     var CREAM = "#f4e7a4";
     var DARK = "#12070a";
     var endPct = Number(saga.getAttribute("data-end-percent") || DATA.sagaEndPercent || 300);
@@ -497,7 +480,7 @@
         start: "top top",
         end: "+=" + endPct + "%",
         pin: true,
-        scrub: 0.65,
+        scrub: 0.2,
         anticipatePin: 1,
         invalidateOnRefresh: true,
         onUpdate: function (self) {
