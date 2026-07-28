@@ -306,16 +306,17 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
 .sku-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 14px;
+  gap: 16px;
 }
-@media (min-width: 560px) { .sku-grid { grid-template-columns: 1fr 1fr; } }
-@media (min-width: 960px) { .sku-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 560px) { .sku-grid { grid-template-columns: 1fr 1fr; gap: 18px; } }
+@media (min-width: 900px) { .sku-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 1280px) { .sku-grid { grid-template-columns: repeat(4, 1fr); } }
 .sku-card {
   display: grid;
   grid-template-rows: auto 1fr;
   background: #fff;
   border: 2px solid var(--ink);
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   opacity: 0;
   transform: translateY(28px) scale(0.97);
@@ -326,90 +327,178 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   transform: translateY(0) scale(1);
 }
 .sku-card:hover,
-.sku-card.is-active {
-  transform: translateY(-8px) scale(1.02);
+.sku-card.is-flipped {
+  transform: translateY(-10px) scale(1.015);
   border-color: var(--red);
-  box-shadow: 0 18px 0 rgba(227, 24, 55, 0.18);
+  box-shadow: 0 22px 0 rgba(227, 24, 55, 0.16);
+}
+.sku-card.is-active:not(:hover):not(.is-flipped) {
+  border-color: var(--red);
+  box-shadow: 0 10px 0 rgba(227, 24, 55, 0.1);
 }
 .sku-card__media {
   position: relative;
-  background: linear-gradient(160deg, #fff7f0 0%, #f3ebe3 100%);
-  aspect-ratio: 1 / 1;
+  background:
+    radial-gradient(120% 80% at 50% 20%, #3a2218 0%, #1a100c 55%, #0e0908 100%);
+  aspect-ratio: 4 / 5;
   overflow: hidden;
+  isolation: isolate;
+}
+.sku-card__media::after {
+  content: "";
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background: linear-gradient(180deg, rgba(0,0,0,0.08) 0%, transparent 35%, rgba(0,0,0,0.28) 100%);
+  opacity: 0.85;
+  transition: opacity .4s var(--ease);
+}
+.sku-card:hover .sku-card__media::after,
+.sku-card.is-flipped .sku-card__media::after {
+  opacity: 0.45;
 }
 .sku-card__media img {
   position: absolute; inset: 0;
   width: 100%; height: 100%;
-  object-fit: contain;
-  object-position: center;
-  padding: 8%;
-  transition: opacity .45s var(--ease), transform .7s var(--ease);
+  object-fit: cover;
+  object-position: center 42%;
+  padding: 0;
+  filter: saturate(1.22) contrast(1.12) brightness(1.04);
+  transition: opacity .55s var(--ease), transform .85s var(--ease), filter .55s var(--ease);
+  will-change: opacity, transform;
 }
-.sku-card__media img.sku-card__pack {
+.sku-card__main {
+  z-index: 0;
+  transform: scale(1.02);
+  animation: skuKen 14s ease-in-out infinite alternate;
+}
+.sku-card__alt {
+  z-index: 0;
   opacity: 0;
-  transform: scale(1.08);
+  transform: scale(1.14) translateY(12px);
+  object-position: center 48%;
 }
 .sku-card:hover .sku-card__main,
-.sku-card.is-active .sku-card__main {
+.sku-card.is-flipped .sku-card__main {
   opacity: 0;
-  transform: scale(1.06);
+  transform: scale(1.12);
+  filter: saturate(1.22) contrast(1.12) brightness(1.04) blur(3px);
+  animation: none;
 }
-.sku-card:hover .sku-card__pack,
-.sku-card.is-active .sku-card__pack {
+.sku-card:hover .sku-card__alt,
+.sku-card.is-flipped .sku-card__alt {
   opacity: 1;
-  transform: scale(1);
+  transform: scale(1.02);
+}
+@keyframes skuKen {
+  from { transform: scale(1.02) translate3d(0, 0, 0); }
+  to { transform: scale(1.1) translate3d(0, -2%, 0); }
 }
 .sku-card__badge {
-  position: absolute; top: 10px; left: 10px; z-index: 2;
+  position: absolute; top: 12px; left: 12px; z-index: 3;
   background: var(--red); color: #fff;
-  font-size: 0.62rem; font-weight: 800;
+  font-size: 0.66rem; font-weight: 800;
   letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 5px 9px; border-radius: 999px;
+  padding: 6px 10px; border-radius: 999px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
 }
-.sku-card__body { padding: 14px 14px 16px; }
+.sku-card__hint {
+  position: absolute; bottom: 12px; right: 12px; z-index: 3;
+  display: inline-flex; align-items: center; gap: 6px;
+  background: rgba(255,255,255,0.92);
+  color: var(--ink);
+  font-size: 0.62rem; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 6px 10px; border-radius: 999px;
+  border: 1.5px solid var(--ink);
+  opacity: 0.92;
+  transform: translateY(0);
+  transition: opacity .3s, transform .35s var(--ease), background .25s;
+  pointer-events: none;
+}
+.sku-card__hint::before {
+  content: "";
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 0 0 rgba(227, 24, 55, 0.55);
+  animation: skuPulse 1.6s ease-out infinite;
+}
+.sku-card:hover .sku-card__hint,
+.sku-card.is-flipped .sku-card__hint {
+  opacity: 1;
+  background: var(--red);
+  color: #fff;
+  border-color: var(--red);
+  transform: translateY(-2px);
+}
+.sku-card:hover .sku-card__hint::before,
+.sku-card.is-flipped .sku-card__hint::before {
+  background: #fff;
+  animation: none;
+}
+@keyframes skuPulse {
+  0% { box-shadow: 0 0 0 0 rgba(227, 24, 55, 0.55); }
+  70% { box-shadow: 0 0 0 8px rgba(227, 24, 55, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(227, 24, 55, 0); }
+}
+.sku-card__body {
+  padding: 12px 14px 14px;
+  display: grid;
+  align-content: start;
+}
 .sku-card__sku {
-  font-size: 0.7rem; font-weight: 800;
+  font-size: 0.68rem; font-weight: 800;
   letter-spacing: 0.08em; text-transform: uppercase;
   color: var(--red);
 }
 .sku-card__name {
-  margin-top: 4px;
-  font-size: 0.98rem;
+  margin-top: 3px;
+  font-size: 0.95rem;
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.22;
   overflow-wrap: break-word;
 }
 .sku-card__desc {
-  margin-top: 8px;
-  font-size: 0.8rem;
+  margin-top: 6px;
+  font-size: 0.78rem;
   font-weight: 600;
   color: var(--muted);
-  line-height: 1.4;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .sku-card__row {
-  margin-top: 8px;
-  font-size: 0.78rem;
+  margin-top: 6px;
+  font-size: 0.72rem;
   font-weight: 700;
   color: var(--muted);
-  line-height: 1.35;
+  line-height: 1.3;
   overflow-wrap: anywhere;
 }
-.sku-card__price {
+.sku-card__meta {
   margin-top: 10px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.sku-card__price {
   font-family: "Lilita One", sans-serif;
-  font-size: 1.35rem;
+  font-size: 1.4rem;
   color: var(--ink);
+  line-height: 1;
 }
 .sku-card__stock {
-  margin-top: 4px;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 800;
   color: var(--green);
+  white-space: nowrap;
 }
 .sku-card__cta {
   margin-top: 12px;
-  display: inline-flex;
-  min-height: 38px; padding: 0 14px;
+  display: flex;
+  width: 100%;
+  min-height: 40px; padding: 0 14px;
   align-items: center; justify-content: center;
   background: var(--red); color: #fff;
   border-radius: 999px;
@@ -417,7 +506,11 @@ button { font: inherit; cursor: pointer; border: 0; background: none; }
   letter-spacing: 0.05em; text-transform: uppercase;
   transition: transform .25s var(--ease), background .2s;
 }
-.sku-card:hover .sku-card__cta { transform: translateX(4px); background: var(--red-deep); }
+.sku-card:hover .sku-card__cta,
+.sku-card.is-flipped .sku-card__cta { transform: translateY(-1px); background: var(--red-deep); }
+@media (hover: none) {
+  .sku-card__hint { opacity: 1; }
+}
 
 /* —— Split lifestyle —— */
 .split {
@@ -823,6 +916,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; transition: none; }
+  .sku-card__main { animation: none; }
+  .sku-card__hint::before { animation: none; }
+  .sku-card__media img { transition: opacity .2s ease; }
   .saga__viewport { height: auto; min-height: 0; }
   .saga__chapter { position: relative; opacity: 1 !important; visibility: visible !important; padding: 40px 16px; }
   .saga__copy { display: block; position: relative; padding: 0; }
@@ -1083,7 +1179,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-001", short: "Из говядины", title: "Из говядины",
       name: "Сосиски «Из говядины» (80 г × 6 шт)", price: "290", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-001",
-      img: "/images/test1/cards/kd-001-main.jpg", packImg: "/images/test1/cards/kd-001-pack.jpg",
+      img: "/images/test1/cards/kd-001-main.jpg",
+      altImg: "/images/hero/hotdog-classic.jpg",
+      altHint: "Хот-дог",
       badge: "Хит АЗС",
       sub: "Базовый халяль-SKU для хот-дога: говядина, без оболочки, держит форму на гриле и french-ролике. Порция 80 г — привычный формат точки. Хранение −18°C до 360 суток, EXW Казань.",
       blurb: "Классика потока: ровная форма, стабильный вкус, халяль ДУМ РТ."
@@ -1092,7 +1190,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-002", short: "Два мяса", title: "Два мяса",
       name: "Сосиски «Два мяса» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-002",
-      img: "/images/test1/cards/kd-002-main.jpg", packImg: "/images/test1/cards/kd-002-pack.jpg",
+      img: "/images/test1/cards/kd-002-main.jpg",
+      altImg: "/images/hero/hotdog-onions.jpg",
+      altHint: "На гриле",
       badge: "Насыщенный",
       sub: "Смесь мяса для более плотного вкуса на гриле. Тот же формат 80 г × 6 — удобно крутить ассортимент рядом с «Из говядины». Без оболочки, термостабильные, халяль.",
       blurb: "Когда гостю нужна «плотнее классики» — без смены оборудования."
@@ -1101,7 +1201,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-003", short: "Три перца", title: "Три перца с сыром",
       name: "Сосиски «Три перца с сыром» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-003",
-      img: "/images/test1/cards/kd-003-main.jpg", packImg: "/images/test1/cards/kd-003-pack.jpg",
+      img: "/images/test1/cards/kd-003-main.jpg",
+      altImg: "/images/hero/hotdog-french.jpg",
+      altHint: "French",
       badge: "Ярче",
       sub: "Перец и сыр внутри — для гостя, которому мало «просто мясной». Формат 80 г × 6, без оболочки. Хорошо читается на меню АЗС и street food как «острый/сырный» апселл.",
       blurb: "Апселл к классике: заметный вкус, тот же гриль-процесс."
@@ -1110,7 +1212,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-004", short: "Куриные", title: "Куриные",
       name: "Сосиски «Куриные» (80 г × 6 шт)", price: "286", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-004",
-      img: "/images/test1/cards/kd-004-main.jpg", packImg: "/images/test1/cards/kd-004-pack.jpg",
+      img: "/images/test1/cards/kd-004-main.jpg",
+      altImg: "/images/test1/hero-open.jpg",
+      altHint: "В разрезе",
       badge: "Лёгкие",
       sub: "Куриный профиль для сети и фудтрака: мягче по восприятию, тот же термостабильный формат без оболочки. Удобно держать как «лёгкий» пункт в линейке из 8 SKU.",
       blurb: "Светлее по цвету и вкусу — расширяет полку без новой логистики."
@@ -1119,7 +1223,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-005", short: "С бараниной", title: "С бараниной",
       name: "Сосиски «С бараниной» (80 г × 6 шт)", price: "366", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-005",
-      img: "/images/test1/cards/kd-005-main.jpg", packImg: "/images/test1/cards/kd-005-pack.jpg",
+      img: "/images/test1/cards/kd-005-main.jpg",
+      altImg: "/images/hero/hotdog-french-vertical.jpg",
+      altHint: "Подача",
       badge: "Премиум",
       sub: "Баранина в составе — заметный дифференциал на прикассе и в халяль-меню. Формат 80 г × 6, без оболочки, для гриля и ролика. Цена выше классики — выше чек при том же оборудовании.",
       blurb: "Премиальный вкус линейки: для гостя, который выбирает «не обычные»."
@@ -1128,7 +1234,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-006", short: "С травами", title: "С травами",
       name: "Сосиски «С травами» (130 г × 5 шт)", price: "424", pack: "130 г × 5 · 0,65 кг",
       href: "/products/kd-006",
-      img: "/images/test1/cards/kd-006-main.jpg", packImg: "/images/test1/cards/kd-006-pack.jpg",
+      img: "/images/test1/cards/kd-006-main.jpg",
+      altImg: "/images/test1/cards/kd-006-pack.jpg",
+      altHint: "Упаковка",
       badge: "130 г",
       sub: "Увеличенная порция 130 г × 5 — для сытного хот-дога и гриль-меню. Травы в профиле, без оболочки, термостабильные. Когда точка хочет «больше мяса в булочке» без смены поставщика.",
       blurb: "Крупный формат: выше насыщение и средний чек."
@@ -1137,7 +1245,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-007", short: "С сыром", title: "С сыром",
       name: "Сосиски «С сыром» (130 г × 5 шт)", price: "455", pack: "130 г × 5 · 0,65 кг",
       href: "/products/kd-007",
-      img: "/images/test1/cards/kd-007-main.jpg", packImg: "/images/test1/cards/kd-007-pack.jpg",
+      img: "/images/test1/cards/kd-007-main.jpg",
+      altImg: "/images/test1/gallery-open-hand.jpg",
+      altHint: "В руке",
       badge: "Сыр · 130 г",
       sub: "Сыр внутри + порция 130 г — сильный апселл на точке. Без оболочки, халяль, для гриля и ролика. Логично ставить рядом с «С травами» как пару крупного формата.",
       blurb: "Сырный крупный SKU: заметно в меню и в чеке."
@@ -1146,7 +1256,9 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
       sku: "KD-008", short: "Из конины", title: "Из конины",
       name: "Сосиски «Из конины» (80 г × 6 шт)", price: "316", pack: "80 г × 6 · 0,48 кг",
       href: "/products/kd-008",
-      img: "/images/test1/cards/kd-008-main.jpg", packImg: "/images/test1/cards/kd-008-pack.jpg",
+      img: "/images/test1/cards/kd-008-main.jpg",
+      altImg: "/images/test1/hero-closed.jpg",
+      altHint: "Крупный план",
       badge: "Конина",
       sub: "Конина — узнаваемый халяль-SKU для Татарстана и экспортных запросов. Формат 80 г × 6, без оболочки, как у говяжьей классики (внешне близки — фото продукта KD-001). Термостабильность на гриле и ролике.",
       blurb: "Региональный сигнал: конина в линейке рядом с говядиной."
@@ -1163,25 +1275,52 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 
   function renderGrid() {
     if (!grid) return;
+    var touchHint = window.matchMedia("(hover: none)").matches;
     grid.innerHTML = SKUS.map(function (s, i) {
+      var hint = touchHint ? ("Тап · " + (s.altHint || "фото")) : ("Наведите · " + (s.altHint || "фото"));
+      var alt = s.altImg || s.packImg || s.img;
       return (
         '<a class="sku-card" id="sku-' + s.sku + '" href="' + s.href + '" data-sku="' + s.sku + '" style="transition-delay:' + (i * 0.05) + 's">' +
           '<div class="sku-card__media">' +
             (s.badge ? '<span class="sku-card__badge">' + s.badge + "</span>" : "") +
-            '<img class="sku-card__main" src="' + s.img + '" alt="' + s.name.replace(/"/g, "&quot;") + '" width="640" height="640" loading="lazy">' +
-            '<img class="sku-card__pack" src="' + s.packImg + '" alt="" width="640" height="640" loading="lazy" aria-hidden="true">' +
+            '<span class="sku-card__hint">' + hint + "</span>" +
+            '<img class="sku-card__main" src="' + s.img + '" alt="' + s.name.replace(/"/g, "&quot;") + '" width="800" height="1000" loading="lazy">' +
+            '<img class="sku-card__alt" src="' + alt + '" alt="" width="800" height="1000" loading="lazy" aria-hidden="true">' +
           "</div>" +
           '<div class="sku-card__body">' +
             '<div class="sku-card__sku">' + s.sku + "</div>" +
             '<div class="sku-card__name">' + s.name + "</div>" +
             '<p class="sku-card__desc">' + s.blurb + "</p>" +
-            '<div class="sku-card__row">' + s.pack + " · −18°C · 360 суток · халяль</div>" +
-            '<div class="sku-card__price">' + s.price + " ₽</div>" +
-            '<div class="sku-card__stock">✓ В наличии</div>' +
+            '<div class="sku-card__row">' + s.pack + " · −18°C · халяль</div>" +
+            '<div class="sku-card__meta">' +
+              '<div class="sku-card__price">' + s.price + " ₽</div>" +
+              '<div class="sku-card__stock">✓ В наличии</div>' +
+            "</div>" +
             '<span class="sku-card__cta">Смотреть карточку</span>' +
           "</div></a>"
       );
     }).join("");
+  }
+
+  function bindSkuCardInteractions() {
+    var canHover = window.matchMedia("(hover: hover)").matches;
+    document.querySelectorAll(".sku-card").forEach(function (c) {
+      c.addEventListener("mouseenter", function () {
+        selectSku(c.getAttribute("data-sku"), false);
+      });
+      if (!canHover) {
+        c.addEventListener("click", function (e) {
+          if (!c.classList.contains("is-flipped")) {
+            e.preventDefault();
+            document.querySelectorAll(".sku-card.is-flipped").forEach(function (other) {
+              if (other !== c) other.classList.remove("is-flipped");
+            });
+            c.classList.add("is-flipped");
+            selectSku(c.getAttribute("data-sku"), false);
+          }
+        });
+      }
+    });
   }
 
   function selectSku(sku, scrollCard) {
@@ -1207,18 +1346,13 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
   }
 
   renderGrid();
+  bindSkuCardInteractions();
   selectSku("KD-001", false);
 
   tabs.forEach(function (t) {
     t.addEventListener("click", function (e) {
       e.preventDefault();
       selectSku(t.getAttribute("data-sku"), true);
-    });
-  });
-
-  document.querySelectorAll(".sku-card").forEach(function (c) {
-    c.addEventListener("mouseenter", function () {
-      selectSku(c.getAttribute("data-sku"), false);
     });
   });
 
