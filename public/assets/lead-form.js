@@ -89,6 +89,23 @@
         experiment_id: form.getAttribute("data-experiment-id") || "",
       };
 
+      // Optional B2B category-landing fields (ignored by older intake builds;
+      // also folded into `message` by category-landing.js for the sales group).
+      ["category", "to", "mgr", "city", "shortlist", "calc_snapshot"].forEach(function (key) {
+        var el = form.querySelector('[name="' + key + '"]');
+        if (!el || !el.value) return;
+        var val = el.value;
+        if (key === "shortlist" || key === "calc_snapshot") {
+          try {
+            payload[key] = JSON.parse(val);
+          } catch (err) {
+            payload[key] = val;
+          }
+        } else {
+          payload[key] = String(val).slice(0, 200);
+        }
+      });
+
       if (btn) {
         btn.disabled = true;
         btn.dataset.label = btn.textContent;
