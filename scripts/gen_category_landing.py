@@ -12,6 +12,7 @@ data/category_landing/{slug}.json.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -25,6 +26,14 @@ CONFIG_DIR = ROOT / "data" / "category_landing"
 MANAGERS_PATH = CONFIG_DIR / "managers.json"
 
 PIECES_RE = re.compile(r"(\d+)\s*шт", re.IGNORECASE)
+
+
+def asset_revision(rel: str) -> str:
+    """Content hash for cache-busting shared landing assets."""
+    path = PUBLIC / rel
+    if not path.is_file():
+        raise ValueError(f"missing shared landing asset: {path}")
+    return hashlib.sha256(path.read_bytes()).hexdigest()[:12]
 
 
 def esc(s: object) -> str:
@@ -479,6 +488,9 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
         "Расчёт ориентировочный: не учитывает логистику, аренду, налоги и потери. "
         "Актуальность цен подтверждает менеджер."
     )
+    fonts_rev = asset_revision("fonts/category-landing-fonts.css")
+    css_rev = asset_revision("assets/category-landing.css")
+    js_rev = asset_revision("assets/category-landing.js")
 
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -501,8 +513,8 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
 <link rel="icon" type="image/png" sizes="32x32" href="/images/icon-32.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="preload" as="image" href="{esc(hero["image"])}" fetchpriority="high">
-<link rel="stylesheet" href="/fonts/category-landing-fonts.css">
-<link rel="stylesheet" href="/assets/category-landing.css">
+<link rel="stylesheet" href="/fonts/category-landing-fonts.css?v={fonts_rev}">
+<link rel="stylesheet" href="/assets/category-landing.css?v={css_rev}">
 <script type="application/json" id="cl-runtime">{runtime_json}</script>
 </head>
 <body class="cl-page" data-category-slug="{esc(slug)}">
@@ -712,7 +724,7 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
 <script src="/vendor/lenis.min.js" defer></script>
 <script src="/assets/gmp-track.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
-<script src="/assets/category-landing.js" defer></script>
+<script src="/assets/category-landing.js?v={js_rev}" defer></script>
 </body>
 </html>
 """
