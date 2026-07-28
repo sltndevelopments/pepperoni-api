@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-07-27T05:32:11.951063+00:00",
+ "generated_at": "2026-07-28T05:31:36.936827+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 0,
  "tracked": 13,
@@ -20,6 +20,11 @@
   {
    "path": "/pepperoni-dlya-pizzerii",
    "28d": 1,
+   "7d": 0
+  },
+  {
+   "path": "/products/kd-055",
+   "28d": 1,
    "7d": 1
   }
  ],
@@ -27,13 +32,13 @@
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 619,
+   "impressions_28d": 607,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 9.1,
-   "position_7d": 8.8,
-   "trend": 0.3,
-   "gap_to_1": 7.8,
+   "position_28d": 9.2,
+   "position_7d": 9.4,
+   "trend": -0.2,
+   "gap_to_1": 8.4,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -41,13 +46,13 @@
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 513,
+   "impressions_28d": 472,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 8.6,
-   "position_7d": 9.3,
-   "trend": -0.6,
-   "gap_to_1": 8.3,
+   "position_28d": 8.7,
+   "position_7d": 9.6,
+   "trend": -0.9,
+   "gap_to_1": 8.6,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -55,13 +60,13 @@
   {
    "query": "сосиски для хот догов оптом",
    "seed": false,
-   "impressions_28d": 253,
+   "impressions_28d": 251,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 51.8,
-   "position_7d": 32.6,
-   "trend": 19.2,
-   "gap_to_1": 31.6,
+   "position_28d": 52.1,
+   "position_7d": 35.7,
+   "trend": 16.5,
+   "gap_to_1": 34.7,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -70,12 +75,26 @@
    "query": "пепперони халяль",
    "seed": false,
    "impressions_28d": 166,
-   "clicks_28d": 1,
+   "clicks_28d": 2,
    "inquiries_28d": 3,
-   "position_28d": 29.0,
-   "position_7d": 7.9,
-   "trend": 21.1,
-   "gap_to_1": 6.9,
+   "position_28d": 28.9,
+   "position_7d": 7.2,
+   "trend": 21.8,
+   "gap_to_1": 6.2,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "pepperoni.tatar",
+   "seed": false,
+   "impressions_28d": 122,
+   "clicks_28d": 2,
+   "inquiries_28d": 3,
+   "position_28d": 45.3,
+   "position_7d": 64.4,
+   "trend": -19.1,
+   "gap_to_1": 63.4,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -83,27 +102,13 @@
   {
    "query": "котлеты для гамбургеров оптом",
    "seed": false,
-   "impressions_28d": 125,
+   "impressions_28d": 121,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 27.4,
-   "position_7d": 32.8,
-   "trend": -5.4,
-   "gap_to_1": 31.8,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "ببروني حلال",
-   "seed": false,
-   "impressions_28d": 104,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 8.7,
-   "position_7d": 8.6,
-   "trend": 0.1,
-   "gap_to_1": 7.6,
+   "position_28d": 27.5,
+   "position_7d": 34.5,
+   "trend": -7.1,
+   "gap_to_1": 33.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -111,27 +116,27 @@
   {
    "query": "пепперони из какого мяса",
    "seed": false,
-   "impressions_28d": 103,
+   "impressions_28d": 105,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 8.1,
-   "position_7d": 9.1,
-   "trend": -1.0,
-   "gap_to_1": 8.1,
+   "position_28d": 8.2,
+   "position_7d": 8.6,
+   "trend": -0.4,
+   "gap_to_1": 7.6,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
   },
   {
-   "query": "котлеты для бургеров оптом",
-   "seed": true,
-   "impressions_28d": 98,
+   "query": "ببروني حلال",
+   "seed": false,
+   "impressions_28d": 101,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 17.1,
-   "position_7d": 30.8,
-   "trend": -13.8,
-   "gap_to_1": 29.8,
+   "position_28d": 8.7,
+   "position_7d": 8.3,
+   "trend": 0.4,
+   "gap_to_1": 7.3,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -139,13 +144,27 @@
   {
    "query": "пепперони халяль купить",
    "seed": false,
-   "impressions_28d": 92,
+   "impressions_28d": 91,
    "clicks_28d": 1,
    "inquiries_28d": 3,
-   "position_28d": 40.5,
+   "position_28d": 40.9,
    "position_7d": 46.8,
-   "trend": -6.4,
+   "trend": -6.0,
    "gap_to_1": 45.8,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "котлеты для бургеров оптом",
+   "seed": true,
+   "impressions_28d": 89,
+   "clicks_28d": 0,
+   "inquiries_28d": 0,
+   "position_28d": 17.1,
+   "position_7d": 29.9,
+   "trend": -12.8,
+   "gap_to_1": 28.9,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -156,24 +175,10 @@
    "impressions_28d": 85,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 12.6,
-   "position_7d": 25.1,
-   "trend": -12.5,
-   "gap_to_1": 24.1,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "pepperoni.tatar",
-   "seed": false,
-   "impressions_28d": 79,
-   "clicks_28d": 2,
-   "inquiries_28d": 3,
-   "position_28d": 34.9,
-   "position_7d": null,
-   "trend": null,
-   "gap_to_1": 33.9,
+   "position_28d": 14.6,
+   "position_7d": 29.6,
+   "trend": -15.0,
+   "gap_to_1": 28.6,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -365,44 +370,44 @@
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 4091,
-   "clicks_28d": 11,
-   "position_28d": 21.7
+   "impressions_28d": 3984,
+   "clicks_28d": 10,
+   "position_28d": 21.9
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 74,
+   "impressions_28d": 71,
    "clicks_28d": 0,
-   "position_28d": 8.2
+   "position_28d": 8.3
   },
   {
    "country": "Беларусь",
    "code": "blr",
-   "impressions_28d": 49,
+   "impressions_28d": 47,
    "clicks_28d": 0,
-   "position_28d": 17.5
+   "position_28d": 17.9
   },
   {
    "country": "Армения",
    "code": "arm",
-   "impressions_28d": 5,
+   "impressions_28d": 4,
    "clicks_28d": 0,
-   "position_28d": 11.6
+   "position_28d": 13.2
   },
   {
    "country": "Азербайджан",
    "code": "aze",
-   "impressions_28d": 209,
+   "impressions_28d": 210,
    "clicks_28d": 1,
-   "position_28d": 7.3
+   "position_28d": 7.2
   },
   {
    "country": "Кыргызстан",
    "code": "kgz",
-   "impressions_28d": 20,
+   "impressions_28d": 21,
    "clicks_28d": 0,
-   "position_28d": 7.5
+   "position_28d": 7.1
   },
   {
    "country": "Таджикистан",
@@ -414,44 +419,44 @@
   {
    "country": "Грузия",
    "code": "geo",
-   "impressions_28d": 13,
+   "impressions_28d": 14,
    "clicks_28d": 0,
-   "position_28d": 5.8
+   "position_28d": 6.4
   },
   {
    "country": "ОАЭ",
    "code": "are",
-   "impressions_28d": 64,
+   "impressions_28d": 63,
    "clicks_28d": 0,
-   "position_28d": 14.4
+   "position_28d": 14.5
   },
   {
    "country": "Сауд. Аравия",
    "code": "sau",
-   "impressions_28d": 66,
+   "impressions_28d": 62,
    "clicks_28d": 0,
-   "position_28d": 10.2
+   "position_28d": 10.7
   },
   {
    "country": "Кувейт",
    "code": "kwt",
-   "impressions_28d": 29,
+   "impressions_28d": 28,
    "clicks_28d": 0,
-   "position_28d": 8.7
+   "position_28d": 8.5
   },
   {
    "country": "Бахрейн",
    "code": "bhr",
-   "impressions_28d": 22,
+   "impressions_28d": 21,
    "clicks_28d": 0,
-   "position_28d": 10.0
+   "position_28d": 10.4
   },
   {
    "country": "Оман",
    "code": "omn",
-   "impressions_28d": 23,
+   "impressions_28d": 24,
    "clicks_28d": 0,
-   "position_28d": 7.9
+   "position_28d": 8.7
   },
   {
    "country": "Йемен",
@@ -470,9 +475,9 @@
   {
    "country": "Египет",
    "code": "egy",
-   "impressions_28d": 53,
+   "impressions_28d": 48,
    "clicks_28d": 0,
-   "position_28d": 8.0
+   "position_28d": 8.2
   }
  ]
 }

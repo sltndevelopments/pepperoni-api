@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-07-27T05:32:14.175713+00:00",
+  "generated_at": "2026-07-28T05:31:39.082570+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
       "impr": 171,
-      "clk": 1,
-      "pos": 28.4,
+      "clk": 2,
+      "pos": 28.3,
       "page": "https://pepperoni.tatar/"
     },
     {
@@ -19,9 +19,9 @@
     },
     {
       "query": "пеперони халяль",
-      "impr": 51,
+      "impr": 50,
       "clk": 1,
-      "pos": 6.6,
+      "pos": 6.7,
       "page": "https://pepperoni.tatar/"
     }
   ]

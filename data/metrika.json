@@ -1,30 +1,30 @@
 {
- "fetched_at": "2026-07-27T05:30:03.313532+00:00",
+ "fetched_at": "2026-07-28T05:30:03.202387+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 2182,
-  "users": 1467,
-  "bounce_rate_pct": 37.9,
-  "page_depth": 1.08,
-  "avg_visit_sec": 57
+  "visits": 2862,
+  "users": 1890,
+  "bounce_rate_pct": 38.4,
+  "page_depth": 1.06,
+  "avg_visit_sec": 55
  },
  "sources": [
   {
    "source": "Ad traffic",
-   "visits": 1788
+   "visits": 2444
   },
   {
    "source": "Direct traffic",
-   "visits": 211
+   "visits": 221
   },
   {
    "source": "Internal traffic",
-   "visits": 97
+   "visits": 96
   },
   {
    "source": "Search engine traffic",
-   "visits": 56
+   "visits": 57
   },
   {
    "source": "Link traffic",
@@ -38,48 +38,53 @@
  "top_landing": [
   {
    "path": "/products/kd-046",
-   "visits": 514,
-   "bounce_pct": 33.3
-  },
-  {
-   "path": "/products/kd-048",
-   "visits": 313,
-   "bounce_pct": 37.1
-  },
-  {
-   "path": "/products/kd-061",
-   "visits": 304,
-   "bounce_pct": 38.8
-  },
-  {
-   "path": "/",
-   "visits": 258,
-   "bounce_pct": 38.8
-  },
-  {
-   "path": "/products/kd-013",
-   "visits": 156,
-   "bounce_pct": 41.7
-  },
-  {
-   "path": "/products/kd-059",
-   "visits": 99,
-   "bounce_pct": 43.4
-  },
-  {
-   "path": "/products/kd-006",
-   "visits": 98,
+   "visits": 656,
    "bounce_pct": 35.7
   },
   {
+   "path": "/products/kd-061",
+   "visits": 462,
+   "bounce_pct": 37.9
+  },
+  {
+   "path": "/products/kd-048",
+   "visits": 454,
+   "bounce_pct": 37.4
+  },
+  {
+   "path": "/",
+   "visits": 279,
+   "bounce_pct": 40.5
+  },
+  {
+   "path": "/products/kd-013",
+   "visits": 221,
+   "bounce_pct": 39.8
+  },
+  {
+   "path": "/products/kd-059",
+   "visits": 101,
+   "bounce_pct": 43.6
+  },
+  {
+   "path": "/products/kd-006",
+   "visits": 100,
+   "bounce_pct": 35.0
+  },
+  {
    "path": "/products/kd-054",
-   "visits": 44,
-   "bounce_pct": 54.5
+   "visits": 92,
+   "bounce_pct": 48.9
   },
   {
    "path": "/products/kd-057",
-   "visits": 36,
-   "bounce_pct": 41.7
+   "visits": 44,
+   "bounce_pct": 45.5
+  },
+  {
+   "path": "/products/kd-060",
+   "visits": 40,
+   "bounce_pct": 20.0
   },
   {
    "path": "/pepperoni-dlya-pizzerii",
@@ -88,34 +93,29 @@
   },
   {
    "path": "/products/kd-003",
-   "visits": 24,
-   "bounce_pct": 58.3
-  },
-  {
-   "path": "/products/kd-060",
-   "visits": 20,
-   "bounce_pct": 15.0
+   "visits": 25,
+   "bounce_pct": 56.0
   },
   {
    "path": "/products/kd-041",
-   "visits": 18,
-   "bounce_pct": 22.2
-  },
-  {
-   "path": "/products/kd-064",
-   "visits": 17,
-   "bounce_pct": 29.4
+   "visits": 23,
+   "bounce_pct": 21.7
   },
   {
    "path": "/products/kd-017",
-   "visits": 14,
-   "bounce_pct": 28.6
+   "visits": 20,
+   "bounce_pct": 20.0
+  },
+  {
+   "path": "/products/kd-014",
+   "visits": 17,
+   "bounce_pct": 41.2
   }
  ],
  "leads": {
-  "total_leads": 6,
+  "total_leads": 7,
   "by_goal": {
-   "Автоцель: переход в мессенджер": 4,
+   "Автоцель: переход в мессенджер": 5,
    "Автоцель: клик по номеру телефона": 1,
    "Оставить заявку": 1
   }
@@ -125,13 +125,17 @@
    "28d": 3,
    "7d": 0
   },
-  "/pepperoni-dlya-pizzerii": {
-   "28d": 1,
-   "7d": 1
-  },
   "/products/kd-003": {
    "28d": 2,
    "7d": 2
+  },
+  "/pepperoni-dlya-pizzerii": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-055": {
+   "28d": 1,
+   "7d": 1
   }
  }
 }
