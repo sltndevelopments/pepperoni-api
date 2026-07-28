@@ -562,8 +562,6 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
     </div>
   </section>
 
-  {render_bands(cfg, 0, 1)}
-
   <section class="cl-section cl-section--cream" id="calc">
     <div class="cl-wrap">
       <p class="cl-mono cl-eyebrow">Экономика точки</p>

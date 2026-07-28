@@ -10,7 +10,8 @@
   --pt-red: #e31837;
   --pt-red-deep: #b8142c;
   --pt-green: #1f7a3a;
-  --pt-font-display: "Lilita One", Georgia, serif;
+  /* Lilita One has no Cyrillic glyphs; Nunito ExtraBold keeps RU display bold. */
+  --pt-font-display: "Nunito", system-ui, -apple-system, sans-serif;
   --pt-font-sans: "Nunito", system-ui, -apple-system, sans-serif;
   --pt-font-mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
   --pt-track-mono: 0.14em;
@@ -64,6 +65,7 @@ button, input, select, textarea { font: inherit; }
 .cl-eyebrow { margin-bottom: var(--pt-2); }
 .cl-h1 {
   font-family: var(--pt-font-display);
+  font-weight: 800;
   font-size: clamp(2.2rem, 6vw, 3.8rem);
   line-height: 1.05;
   letter-spacing: -0.02em;
@@ -71,6 +73,7 @@ button, input, select, textarea { font: inherit; }
 }
 .cl-h2 {
   font-family: var(--pt-font-display);
+  font-weight: 800;
   font-size: clamp(1.7rem, 4vw, 2.6rem);
   line-height: 1.1;
   letter-spacing: -0.02em;
@@ -118,6 +121,7 @@ button, input, select, textarea { font: inherit; }
 }
 .cl-topbar__logo {
   font-family: var(--pt-font-display);
+  font-weight: 800;
   font-size: clamp(1.05rem, 2.4vw, 1.35rem);
   line-height: 1.1;
   white-space: nowrap;
@@ -240,7 +244,7 @@ body.cl-saga-on .cl-saga__jump {
 .cl-saga__mobile {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(78%, 420px);
+  grid-auto-columns: minmax(86%, 420px);
   gap: var(--pt-3);
   overflow-x: auto;
   padding: var(--pt-8) var(--pt-4) var(--pt-7);
@@ -249,8 +253,10 @@ body.cl-saga-on .cl-saga__jump {
   background: #120c0a;
 }
 .cl-saga__slide {
+  position: relative;
   scroll-snap-align: start;
   margin: 0;
+  min-height: min(118vw, 520px);
   border-radius: var(--pt-radius);
   overflow: hidden;
   background: #1c1210;
@@ -259,14 +265,21 @@ body.cl-saga-on .cl-saga__jump {
 }
 .cl-saga__slide img {
   width: 100%;
-  aspect-ratio: 4/3;
-  height: auto;
+  height: 100%;
+  aspect-ratio: 4/5;
   object-fit: cover;
 }
-.cl-saga__slide figcaption { padding: var(--pt-4); }
+.cl-saga__slide figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  padding: var(--pt-7) var(--pt-4) var(--pt-4);
+  background: linear-gradient(180deg, transparent, rgba(12, 5, 6, .92));
+}
 .cl-saga__slide h3 {
   font-family: var(--pt-font-display);
-  font-size: 1.45rem;
+  font-weight: 800;
+  font-size: clamp(1.55rem, 8vw, 2.2rem);
   margin: 6px 0 var(--pt-2);
   text-transform: none;
 }
@@ -302,6 +315,7 @@ body.cl-saga-on .cl-saga__jump {
     z-index: 1; overflow: hidden; pointer-events: none;
     opacity: 0; white-space: nowrap;
     font-family: var(--pt-font-display);
+    font-weight: 800;
     font-size: clamp(2.2rem, 9vw, 5.5rem);
     line-height: 1; letter-spacing: 0.02em;
     text-transform: uppercase; color: rgba(227,24,55,0.12);
@@ -362,6 +376,7 @@ body.cl-saga-on .cl-saga__jump {
   }
   .cl-saga__title {
     font-family: var(--pt-font-display);
+    font-weight: 800;
     font-size: clamp(2rem, 7.5vw, 4.4rem);
     line-height: 1.05;
     letter-spacing: -0.02em;
@@ -546,21 +561,25 @@ body.cl-saga-on .cl-saga__jump {
   object-fit: cover;
   object-position: center center;
   padding: 0;
-  transform: scale(1.1);
+  /* Source pack shots include white studio margins; crop them for impact. */
+  transform: scale(1.5);
   background: #1a100c;
 }
 .cl-card:hover .cl-card__main,
-.cl-card:focus-within .cl-card__main {
+.cl-card:focus-within .cl-card__main,
+.cl-card.is-flipped .cl-card__main {
   opacity: 0;
   transform: scale(1.08);
 }
 .cl-card:hover .cl-card__alt,
-.cl-card:focus-within .cl-card__alt {
+.cl-card:focus-within .cl-card__alt,
+.cl-card.is-flipped .cl-card__alt {
   opacity: 1;
-  transform: scale(1.02);
+  transform: scale(1.36);
 }
 .cl-card:hover .cl-card__hint,
-.cl-card:focus-within .cl-card__hint {
+.cl-card:focus-within .cl-card__hint,
+.cl-card.is-flipped .cl-card__hint {
   background: var(--pt-red);
   color: #fff;
   border-color: var(--pt-red);
@@ -595,7 +614,7 @@ body.cl-saga-on .cl-saga__jump {
   margin-top: 12px; display: flex; justify-content: space-between; align-items: baseline; gap: 8px;
 }
 .cl-card__price {
-  font-family: var(--pt-font-display); font-size: 1.45rem;
+  font-family: var(--pt-font-display); font-weight: 800; font-size: 1.45rem;
 }
 .cl-card__moq { margin: 8px 0 12px; }
 .cl-card .cl-btn { width: 100%; }

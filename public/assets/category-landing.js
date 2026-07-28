@@ -159,7 +159,7 @@
       portions_per_day: inp.portions,
       sell_price: inp.sell,
       extras: inp.extras,
-      price_per_piece: s.price,
+      price_per_piece: s.pricePerPiece,
       pricePerPiece: s.pricePerPiece,
       pieces: s.pieces,
       cost_per_portion: Math.round(cost * 100) / 100,
@@ -357,6 +357,25 @@
       rows.forEach(function (r) { tbody.appendChild(r); });
     });
   });
+
+  /* Product photo → pack shot: hover on desktop, first tap on touch. */
+  if (window.matchMedia("(hover: none)").matches) {
+    document.querySelectorAll(".cl-card").forEach(function (card) {
+      var media = card.querySelector(".cl-card__media");
+      var hint = card.querySelector(".cl-card__hint");
+      if (hint) hint.textContent = "Тап · Пачка";
+      if (!media) return;
+      media.addEventListener("click", function (e) {
+        if (!card.classList.contains("is-flipped")) {
+          e.preventDefault();
+          document.querySelectorAll(".cl-card.is-flipped").forEach(function (other) {
+            if (other !== card) other.classList.remove("is-flipped");
+          });
+          card.classList.add("is-flipped");
+        }
+      });
+    });
+  }
 
   /* PDF track */
   document.querySelectorAll('[data-track="pdf_download"]').forEach(function (a) {
