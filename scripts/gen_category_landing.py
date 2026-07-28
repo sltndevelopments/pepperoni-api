@@ -306,23 +306,99 @@ def render_table_rows(skus: list[dict]) -> str:
     return "\n".join(parts)
 
 
-def render_saga(cfg: dict) -> str:
+def title_words_html(title: str) -> str:
+    words = [w for w in (title or "").split() if w]
+    if not words:
+        return ""
+    mid = max(1, (len(words) + 1) // 2)
+    lines = [words[:mid], words[mid:]] if len(words) > 3 else [words]
+    out = []
+    for line in lines:
+        if not line:
+            continue
+        spans = " ".join(f'<span class="word">{esc(w)}</span>' for w in line)
+        out.append(f'<span class="line">{spans}</span>')
+    return "\n".join(out)
+
+
+def saga_chapters(cfg: dict) -> list[dict]:
     chapters = (cfg.get("saga") or {}).get("chapters") or []
-    if len(chapters) > 3:
-        chapters = chapters[:3]
+    return chapters[:3]
+
+
+def render_saga_mobile(cfg: dict) -> str:
     slides = []
-    for i, ch in enumerate(chapters):
+    for i, ch in enumerate(saga_chapters(cfg)):
         slides.append(
             f"""
 <figure class="cl-saga__slide" data-saga-slide="{i}">
-  {picture_html(ch["image"], "", width=1200, height=800, eager=(i == 0), sizes="(max-width:768px) 85vw, 100vw")}
+  {picture_html(ch["image"], "", width=1200, height=800, eager=(i == 0), sizes="85vw")}
   <figcaption>
+    <p class="cl-mono">{esc(ch.get("kicker") or "")}</p>
     <h3>{esc(ch["title"])}</h3>
     <p>{esc(ch["body"])}</p>
   </figcaption>
 </figure>"""
         )
     return "\n".join(slides)
+
+
+def render_saga_desktop(cfg: dict) -> str:
+    """Full-viewport scrub saga (test1-style): bubble wipe + whip slides."""
+    chapters = saga_chapters(cfg)
+    saga = cfg.get("saga") or {}
+    marquee = saga.get("marquee") or "ХАЛЯЛЬ · ГРИЛЬ · EXW КАЗАНЬ · "
+    marquee_row = esc(marquee) * 4
+
+    imgs = []
+    for i, ch in enumerate(chapters):
+        eager = i == 0
+        loading = 'fetchpriority="high" loading="eager"' if eager else 'loading="lazy"'
+        imgs.append(
+            f'<img class="cl-saga__img" data-img="{i}" src="{esc(local_img(ch["image"]))}" '
+            f'alt="" width="1200" height="800" {loading} decoding="async">'
+        )
+
+    ch_html = []
+    for i, ch in enumerate(chapters):
+        tone = ch.get("tone") or ("cream" if i == 0 else "dark")
+        on = " is-on" if i == 0 else ""
+        ch_html.append(
+            f"""
+        <div class="cl-saga__chapter{on}" data-ch="{i}" data-tone="{esc(tone)}">
+          <p class="cl-saga__kicker">{esc(ch.get("kicker") or "")}</p>
+          <h2 class="cl-saga__title">{title_words_html(ch["title"])}</h2>
+          <p class="cl-saga__sub">{esc(ch["body"])}</p>
+        </div>"""
+        )
+
+    dots = "".join(
+        f'<button type="button" class="cl-saga__dot{" is-on" if i == 0 else ""}" '
+        f'data-dot="{i}" aria-label="Глава {i + 1}"></button>'
+        for i in range(len(chapters))
+    )
+
+    return f"""
+    <div class="cl-saga__viewport" data-saga-pin>
+      <div class="cl-saga__bg" data-saga-bg></div>
+      <div class="cl-saga__noise" aria-hidden="true"></div>
+      <div class="cl-saga__flash" data-saga-flash aria-hidden="true"></div>
+      <div class="cl-saga__marquee" data-saga-marquee aria-hidden="true">
+        <span>{marquee_row}</span>
+      </div>
+      <div class="cl-saga__stage" data-saga-stage>
+        <div class="cl-saga__media" aria-hidden="true">
+          {"".join(imgs)}
+        </div>
+        <div class="cl-saga__veil" data-saga-veil></div>
+      </div>
+      <div class="cl-saga__copy">
+        {"".join(ch_html)}
+      </div>
+      <div class="cl-saga__bar" aria-hidden="true"><i data-saga-bar></i></div>
+      <div class="cl-saga__dots" data-saga-dots>{dots}</div>
+      <p class="cl-saga__hint" data-saga-hint>Листайте ↓</p>
+    </div>"""
 
 
 def render_calc_options(skus: list[dict], default_sku: str) -> str:
@@ -478,15 +554,11 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
     </div>
   </section>
 
-  <section class="cl-section cl-saga" id="saga" data-cl-saga data-end-percent="{(cfg.get("saga") or {}).get("end_percent", 300)}">
+  <section class="cl-saga" id="saga" data-cl-saga data-end-percent="{(cfg.get("saga") or {}).get("end_percent", 300)}" data-tone="cream" aria-label="История линейки">
     <a class="cl-saga__jump" href="#lineup">К линейке ↓</a>
-    <div class="cl-saga__pin" data-saga-pin>
-      <div class="cl-saga__track">
-        {render_saga(cfg)}
-      </div>
-    </div>
-    <div class="cl-saga__mobile" data-saga-mobile aria-label="Галерея">
-      {render_saga(cfg)}
+    {render_saga_desktop(cfg)}
+    <div class="cl-saga__mobile" data-saga-mobile aria-label="Галерея на мобильном">
+      {render_saga_mobile(cfg)}
     </div>
   </section>
 

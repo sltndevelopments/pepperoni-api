@@ -363,23 +363,26 @@
     a.addEventListener("click", function () { track("pdf_download"); });
   });
 
-  /* —— Saga (desktop pin + crossfade; mobile = swipe gallery) —— */
-  function initSaga() {
+  /* —— Saga: test1-style bubble wipe + whip slides (3 chapters / ~300%) —— */
+  function initSagaWow() {
     var saga = document.querySelector("[data-cl-saga]");
-    if (!saga || saga.dataset.sagaReady === "1") return;
+    if (!saga || saga.dataset.sagaReady === "1") return true;
     var pin = saga.querySelector("[data-saga-pin]");
-    var slides = pin ? Array.prototype.slice.call(pin.querySelectorAll("[data-saga-slide]")) : [];
-    if (!pin || !slides.length) return;
+    var stage = saga.querySelector("[data-saga-stage]");
+    var bg = saga.querySelector("[data-saga-bg]");
+    var veil = saga.querySelector("[data-saga-veil]");
+    var flash = saga.querySelector("[data-saga-flash]");
+    var marquee = saga.querySelector("[data-saga-marquee]");
+    var bar = saga.querySelector("[data-saga-bar]");
+    var hint = saga.querySelector("[data-saga-hint]");
+    var chapters = saga.querySelectorAll(".cl-saga__chapter");
+    var imgs = saga.querySelectorAll(".cl-saga__img");
+    var dots = saga.querySelectorAll("[data-saga-dots] .cl-saga__dot");
+    if (!pin || !stage || !chapters.length || !imgs.length) return true;
 
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var desktop = window.matchMedia("(min-width: 768px)").matches;
-
-    // Always show first slide so desktop never looks empty before GSAP boots.
-    slides.forEach(function (s, i) {
-      s.classList.toggle("is-on", i === 0);
-    });
-
-    if (reduce || !desktop) return;
+    if (reduce || !desktop) return true;
 
     var gsap = window.gsap;
     var ScrollTrigger = window.ScrollTrigger;
@@ -388,53 +391,180 @@
     saga.dataset.sagaReady = "1";
     gsap.registerPlugin(ScrollTrigger);
 
+    function attachLenis() {
+      if (!window.Lenis || window.__clLenis) return !!window.__clLenis;
+      document.documentElement.classList.add("lenis");
+      var lenis = new Lenis({
+        duration: 1.2,
+        easing: function (t) { return Math.min(1, 1.001 - Math.pow(2, -10 * t)); },
+        smoothWheel: true,
+        touchMultiplier: 1.05,
+      });
+      lenis.on("scroll", ScrollTrigger.update);
+      gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
+      gsap.ticker.lagSmoothing(0);
+      window.__clLenis = lenis;
+      return true;
+    }
+    attachLenis();
+
+    var CREAM = "#f4e7a4";
+    var DARK = "#12070a";
     var endPct = Number(saga.getAttribute("data-end-percent") || DATA.sagaEndPercent || 300);
     var completed = false;
-    var lastIdx = 0;
 
-    ScrollTrigger.create({
-      trigger: saga,
-      start: "top top",
-      end: "+=" + endPct + "%",
-      pin: true,
-      pinSpacing: true,
-      scrub: 0.35,
-      anticipatePin: 1,
-      onToggle: function (self) {
-        saga.classList.toggle("is-pinned", self.isActive);
-      },
-      onUpdate: function (self) {
-        var idx = Math.min(
-          slides.length - 1,
-          Math.floor(self.progress * slides.length + 0.0001)
-        );
-        if (idx !== lastIdx) {
-          lastIdx = idx;
-          slides.forEach(function (s, i) {
-            s.classList.toggle("is-on", i === idx);
-          });
-        }
-        if (self.progress > 0.92 && !completed) {
-          completed = true;
-          track("saga_complete");
-        }
+    function setChapter(i) {
+      chapters.forEach(function (c, idx) {
+        var on = idx === i;
+        c.classList.toggle("is-on", on);
+        if (!on) gsap.set(c, { opacity: 0, visibility: "hidden" });
+      });
+      dots.forEach(function (d, idx) { d.classList.toggle("is-on", idx === i); });
+      var tone = chapters[i].getAttribute("data-tone") === "cream" ? "cream" : "dark";
+      saga.setAttribute("data-tone", tone);
+      document.body.setAttribute("data-saga-tone", tone === "cream" ? "light" : "dark");
+    }
+
+    function wordsOf(ch) {
+      return ch.querySelectorAll(".word");
+    }
+
+    function enterChapter(tl, i, at, opts) {
+      var ch = chapters[i];
+      var w = wordsOf(ch);
+      var kicker = ch.querySelector(".cl-saga__kicker");
+      var sub = ch.querySelector(".cl-saga__sub");
+      tl.call(setChapter, [i], at);
+      tl.set(ch, { visibility: "visible", opacity: 1 }, at);
+      if (opts && opts.instant) {
+        tl.set(w, { y: "0%", opacity: 1 }, at);
+        if (kicker) tl.set(kicker, { opacity: 0.75, y: 0 }, at);
+        if (sub) tl.set(sub, { opacity: 0.92, y: 0 }, at);
+        return;
+      }
+      tl.fromTo(w, { y: "45%", opacity: 0 }, {
+        y: "0%", opacity: 1, duration: 0.4, stagger: 0.045, ease: "power3.out",
+      }, at);
+      if (kicker) tl.fromTo(kicker, { opacity: 0, y: 8 }, { opacity: 0.75, y: 0, duration: 0.28 }, at);
+      if (sub) tl.fromTo(sub, { opacity: 0, y: 10 }, { opacity: 0.92, y: 0, duration: 0.32 }, at + 0.08);
+    }
+
+    function exitChapter(tl, i, at) {
+      var ch = chapters[i];
+      var w = wordsOf(ch);
+      tl.to(w, { y: "-28%", opacity: 0, duration: 0.22, stagger: 0.02, ease: "power2.in" }, at);
+      tl.to([ch.querySelector(".cl-saga__kicker"), ch.querySelector(".cl-saga__sub")], {
+        opacity: 0, duration: 0.18,
+      }, at);
+      tl.set(ch, { visibility: "hidden", opacity: 0 }, at + 0.22);
+    }
+
+    function punchFlash(tl, at) {
+      if (!flash) return;
+      tl.fromTo(flash, { opacity: 0 }, { opacity: 0.7, duration: 0.06, ease: "none" }, at);
+      tl.to(flash, { opacity: 0, duration: 0.4, ease: "power2.out" }, at + 0.06);
+    }
+
+    gsap.set(chapters, { opacity: 0, visibility: "hidden" });
+    gsap.set(imgs, { opacity: 0, scale: 1.25, x: 0, rotate: 0, filter: "blur(0px)" });
+    if (veil) gsap.set(veil, { opacity: 0 });
+    gsap.set(stage, { clipPath: "circle(0% at 50% 55%)" });
+    if (marquee) gsap.set(marquee, { opacity: 0, x: 0 });
+    if (bg) gsap.set(bg, { backgroundColor: CREAM });
+
+    var tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: pin,
+        start: "top top",
+        end: "+=" + endPct + "%",
+        pin: true,
+        scrub: 0.65,
+        anticipatePin: 1,
+        invalidateOnRefresh: true,
+        onUpdate: function (self) {
+          if (bar) bar.style.width = (self.progress * 100).toFixed(1) + "%";
+          if (hint) gsap.set(hint, { autoAlpha: self.progress < 0.04 ? 0.55 : 0 });
+          if (self.progress > 0.92 && !completed) {
+            completed = true;
+            track("saga_complete");
+          }
+        },
+        onToggle: function (self) {
+          document.body.classList.toggle("cl-saga-on", self.isActive);
+        },
       },
     });
+
+    /* 0 — cream opener + chapter 0 + marquee */
+    enterChapter(tl, 0, 0, { instant: true });
+    if (marquee) {
+      tl.to(marquee, { opacity: 1, duration: 0.35 }, 0.08);
+      tl.to(marquee, { x: "-16%", duration: 1.15, ease: "none" }, 0.08);
+    }
+    tl.to({}, { duration: 0.2 });
+
+    /* Bubble explode → photo 0, chapter 0 becomes dark over image */
+    punchFlash(tl, ">");
+    if (marquee) tl.to(marquee, { opacity: 0, duration: 0.28 }, "<");
+    if (bg) tl.to(bg, { backgroundColor: DARK, duration: 0.4 }, "<");
+    tl.call(function () {
+      chapters[0].setAttribute("data-tone", "dark");
+      setChapter(0);
+    }, null, "<");
+    tl.set(imgs[0], { opacity: 1, scale: 1.2 }, "<");
+    tl.to(stage, {
+      clipPath: "circle(160% at 50% 55%)",
+      duration: 1.15,
+      ease: "power3.inOut",
+    }, "<0.05");
+    if (veil) tl.to(veil, { opacity: 1, duration: 0.45 }, "<0.25");
+    tl.to(imgs[0], { scale: 1.06, duration: 0.95, ease: "none" });
+    tl.to(imgs[0], { scale: 1.12, x: "2%", duration: 0.65, ease: "none" });
+
+    /* Whip → photo 1 + chapter 1 */
+    if (imgs[1] && chapters[1]) {
+      punchFlash(tl, ">");
+      tl.to(imgs[0], { opacity: 0, x: "-12%", scale: 1.22, duration: 0.5, ease: "power2.in" }, "<");
+      tl.fromTo(imgs[1], { opacity: 0, x: "16%", scale: 1.24, rotate: 2 }, {
+        opacity: 1, x: "0%", scale: 1.06, rotate: 0, duration: 0.7, ease: "power2.out",
+      }, "<0.12");
+      enterChapter(tl, 1, "<0.1");
+      exitChapter(tl, 0, "<");
+      tl.to(imgs[1], { scale: 1.13, duration: 0.85, ease: "none" });
+    }
+
+    /* Zoom punch → photo 2 + chapter 2 */
+    if (imgs[2] && chapters[2]) {
+      tl.to(imgs[1], {
+        opacity: 0, scale: 1.32, filter: "blur(6px)", duration: 0.5, ease: "power2.in",
+      }, ">");
+      tl.fromTo(imgs[2], { opacity: 0, scale: 1.4, filter: "blur(8px)" }, {
+        opacity: 1, scale: 1.05, filter: "blur(0px)", duration: 0.7, ease: "power3.out",
+      }, "<0.1");
+      enterChapter(tl, 2, "<0.1");
+      exitChapter(tl, 1, "<");
+      tl.to(imgs[2], { scale: 1.12, duration: 0.85, ease: "none" });
+    }
+
+    tl.to({}, { duration: 0.4 });
     return true;
   }
 
   function bootSaga(attempts) {
-    var left = typeof attempts === "number" ? attempts : 40;
-    var ok = initSaga();
+    var left = typeof attempts === "number" ? attempts : 50;
+    var ok = initSagaWow();
     if (ok === false && left > 0) {
-      setTimeout(function () { bootSaga(left - 1); }, 50);
+      setTimeout(function () { bootSaga(left - 1); }, 40);
     }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () { bootSaga(40); });
+    document.addEventListener("DOMContentLoaded", function () { bootSaga(50); });
   } else {
-    bootSaga(40);
+    bootSaga(50);
   }
-  window.addEventListener("load", function () { bootSaga(10); });
+  window.addEventListener("load", function () {
+    bootSaga(12);
+    if (window.ScrollTrigger) window.ScrollTrigger.refresh();
+  });
 })();
