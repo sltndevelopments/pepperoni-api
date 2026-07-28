@@ -174,6 +174,13 @@ def build_sku_payload(cfg: dict, products: dict[str, dict]) -> list[dict]:
         img_main = local_img(p.get("imageMain") or p.get("image"))
         img_pack = local_img(p.get("imagePack"))
         pack_fallbacks = cfg.get("pack_fallbacks") or {}
+        # Prefer larger same-origin card assets when present (catalog thumbs are tiny).
+        card_main = f"/images/test1/cards/{sku.lower()}-main.jpg"
+        card_pack = f"/images/test1/cards/{sku.lower()}-pack.jpg"
+        if (PUBLIC / card_main.lstrip("/")).is_file():
+            img_main = card_main
+        if (PUBLIC / card_pack.lstrip("/")).is_file():
+            img_pack = card_pack
         if not img_pack:
             # Same-origin convention, then optional per-SKU fallback from config.
             candidate = f"/images/products/{sku.lower()}-pack.jpg"
@@ -427,7 +434,7 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
 
 <header class="cl-topbar">
   <div class="cl-topbar__inner">
-    <a class="cl-topbar__logo" href="/">Казанские</a>
+    <a class="cl-topbar__logo" href="/">Казанские Деликатесы</a>
     <nav class="cl-topbar__nav">
       <a href="/">Каталог</a>
       <a class="cl-mono" href="tel:+79872170202" data-cl-phone>+7 987 217-02-02</a>

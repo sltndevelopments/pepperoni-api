@@ -363,51 +363,78 @@
     a.addEventListener("click", function () { track("pdf_download"); });
   });
 
-  /* —— Saga (desktop pin, mobile static) —— */
+  /* —— Saga (desktop pin + crossfade; mobile = swipe gallery) —— */
   function initSaga() {
     var saga = document.querySelector("[data-cl-saga]");
-    if (!saga) return;
+    if (!saga || saga.dataset.sagaReady === "1") return;
     var pin = saga.querySelector("[data-saga-pin]");
-    var slides = pin ? pin.querySelectorAll("[data-saga-slide]") : [];
+    var slides = pin ? Array.prototype.slice.call(pin.querySelectorAll("[data-saga-slide]")) : [];
     if (!pin || !slides.length) return;
 
     var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     var desktop = window.matchMedia("(min-width: 768px)").matches;
-    if (reduce || !desktop || !window.gsap || !window.ScrollTrigger) {
-      return;
-    }
 
-    window.gsap.registerPlugin(window.ScrollTrigger);
+    // Always show first slide so desktop never looks empty before GSAP boots.
     slides.forEach(function (s, i) {
-      if (i === 0) s.classList.add("is-on");
+      s.classList.toggle("is-on", i === 0);
     });
+
+    if (reduce || !desktop) return;
+
+    var gsap = window.gsap;
+    var ScrollTrigger = window.ScrollTrigger;
+    if (!gsap || !ScrollTrigger) return false;
+
+    saga.dataset.sagaReady = "1";
+    gsap.registerPlugin(ScrollTrigger);
 
     var endPct = Number(saga.getAttribute("data-end-percent") || DATA.sagaEndPercent || 300);
     var completed = false;
-    window.ScrollTrigger.create({
+    var lastIdx = 0;
+
+    ScrollTrigger.create({
       trigger: saga,
       start: "top top",
       end: "+=" + endPct + "%",
-      pin: pin,
-      scrub: true,
+      pin: true,
+      pinSpacing: true,
+      scrub: 0.35,
+      anticipatePin: 1,
+      onToggle: function (self) {
+        saga.classList.toggle("is-pinned", self.isActive);
+      },
       onUpdate: function (self) {
-        var idx = Math.min(slides.length - 1, Math.floor(self.progress * slides.length));
-        slides.forEach(function (s, i) {
-          s.classList.toggle("is-on", i === idx);
-        });
+        var idx = Math.min(
+          slides.length - 1,
+          Math.floor(self.progress * slides.length + 0.0001)
+        );
+        if (idx !== lastIdx) {
+          lastIdx = idx;
+          slides.forEach(function (s, i) {
+            s.classList.toggle("is-on", i === idx);
+          });
+        }
         if (self.progress > 0.92 && !completed) {
           completed = true;
           track("saga_complete");
         }
       },
     });
+    return true;
+  }
+
+  function bootSaga(attempts) {
+    var left = typeof attempts === "number" ? attempts : 40;
+    var ok = initSaga();
+    if (ok === false && left > 0) {
+      setTimeout(function () { bootSaga(left - 1); }, 50);
+    }
   }
 
   if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", function () {
-      setTimeout(initSaga, 50);
-    });
+    document.addEventListener("DOMContentLoaded", function () { bootSaga(40); });
   } else {
-    setTimeout(initSaga, 50);
+    bootSaga(40);
   }
+  window.addEventListener("load", function () { bootSaga(10); });
 })();
