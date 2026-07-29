@@ -847,11 +847,11 @@
     "before_title": "Казылык это — вяленая конская колбаса халяль | Казанские Деликатесы",
     "before_desc": "Казылык — традиционная татарская колбаса из конины холодного вяления. Состав, вкус, применение в ресторанном меню. Прямые поставки от производителя.",
     "after_title": "Казылык — что это: вяленая конская колбаса халяль",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "neutral",
+    "measured_at": "2026-07-29T05:32:01.299457+00:00",
+    "after_pos": 8.94,
+    "after_ctr": 0.0,
+    "after_impr": 200
   },
   {
     "applied_at": "2026-07-08T05:31:30.618752+00:00",
@@ -865,11 +865,11 @@
     "before_title": "Казылык это — традиционная халяль конская колбаса",
     "before_desc": "Казылык — вяленая конская колбаса с богатой историей в татарской кухне. Состав, технология производства и применение в ресторанном меню. Поставки B2B от производителя.",
     "after_title": "Казылык это — вяленая конская колбаса халяль | B2B",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "neutral",
+    "measured_at": "2026-07-29T05:32:01.299457+00:00",
+    "after_pos": 9.62,
+    "after_ctr": 0.0,
+    "after_impr": 16
   },
   {
     "applied_at": "2026-07-08T05:31:30.618752+00:00",
@@ -883,11 +883,11 @@
     "before_title": "Губадия с халяль-мясом — состав, рецепт, заказ оптом | КД",
     "before_desc": "Губадия — татарский пирог с говядиной халяль. Узнайте состав, слои и традиционный рецепт. Поставки оптом, сертификат ХАССП. Заказать: +7 987 217-02-02",
     "after_title": "Губадия — что это: татарский пирог, состав, заказ оптом | КД",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "reverted",
+    "measured_at": "2026-07-29T05:32:01.299457+00:00",
+    "after_pos": 12.0,
+    "after_ctr": 0.0,
+    "after_impr": 2
   },
   {
     "applied_at": "2026-07-08T05:31:30.618752+00:00",
@@ -901,11 +901,12 @@
     "before_title": "Semi-Smoked Beef Sausage — Kazan Delicacies | Halal",
     "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…",
     "after_title": "Chicken Ham Halal — Wholesale Supply | Kazan Delicacies",
-    "verdict": "pending",
-    "measured_at": null,
+    "verdict": "neutral",
+    "measured_at": "2026-07-29T05:32:01.299457+00:00",
     "after_pos": null,
     "after_ctr": null,
-    "after_impr": null
+    "after_impr": null,
+    "notes": "no-after-data"
   },
   {
     "applied_at": "2026-07-08T05:31:30.618752+00:00",
@@ -919,11 +920,12 @@
     "before_title": "Echpochmak – Halal Tatar Triangular Pies | B2B Wholesale",
     "before_desc": "Echpochmak: certified halal beef & potato triangular pies from Kazan. Bulk supply for restaurants, food service and retail. Order direct from manufacturer.",
     "after_title": "Echpochmak – Halal Tatar Pies | B2B Wholesale from Kazan",
-    "verdict": "pending",
-    "measured_at": null,
+    "verdict": "neutral",
+    "measured_at": "2026-07-29T05:32:01.299457+00:00",
     "after_pos": null,
     "after_ctr": null,
-    "after_impr": null
+    "after_impr": null,
+    "notes": "no-after-data"
   },
   {
     "applied_at": "2026-07-10T05:31:41.482795+00:00",
@@ -5641,5 +5643,1055 @@
     "before_pos": 50.0,
     "before_title": "Chicken Ham Halal — B2B Supply | Kazan Delicacies",
     "before_desc": "Certified halal chicken ham produced in Kazan. Chilled, tender fillet cuts available for wholesale. Stable supply, verified halal documentation. pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T08:30:05.281365+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Manufactured in Kazan. Stable supply for HoReCa and retail. Request a wholesale quote at pepperoni.t"
+  },
+  {
+    "applied_at": "2026-07-28T08:30:11.331000+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T09:00:04.617133+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Produced in Kazan. Consistent B2B supply for HoReCa and retail chains. Request a quote at pepperoni."
+  },
+  {
+    "applied_at": "2026-07-28T09:00:10.553500+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T09:30:05.393878+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato, produced in Kazan. Stable B2B supply for HoReCa and retail. Request a quote at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-28T09:30:15.392064+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T10:00:04.997065+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato from Kazan. Consistent B2B supply for HoReCa and retail chains. Request a quote at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-28T10:00:11.081228+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T10:30:05.443848+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato, produced in Kazan. Stable wholesale supply for HoReCa and retail. Request a quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T10:30:08.509902+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог | Казанские Деликатесы",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм и говядина. Классический состав, история блюда и промышленная рецептура от халяль-производителя peppero"
+  },
+  {
+    "applied_at": "2026-07-28T10:30:11.749588+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T11:00:15.143373+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T11:30:09.236528+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог | pepperoni.tatar",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. История блюда, классический состав и халяль-рецептура от производителя «Казански"
+  },
+  {
+    "applied_at": "2026-07-28T11:30:16.350707+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T12:00:05.987992+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato from Kazan. Consistent wholesale supply for HoReCa and retail chains. Request a quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T12:00:09.934237+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с мясом | pepperoni.tatar",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: слои риса, корта, яиц, изюма и говядины. Классический состав, история блюда и халяль-рецептура от производителя «Казанские Де"
+  },
+  {
+    "applied_at": "2026-07-28T12:00:13.487665+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T12:30:04.912593+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato, produced in Kazan. Stable wholesale supply for HoReCa and retail. Request a quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T12:30:07.943688+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с мясом и кортом",
+    "before_desc": "Губадия — праздничное блюдо татарской кухни: слои риса, корта, яиц, изюма и говядины в сдобном тесте. Состав, история и халяль-рецептура от производителя «Казанские Делик"
+  },
+  {
+    "applied_at": "2026-07-28T12:30:13.389133+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T13:00:09.061932+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и рецептура",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины в сдобном тесте. Узнайте состав, историю и халяль-рецептуру от «Казанских Деликат"
+  },
+  {
+    "applied_at": "2026-07-28T13:00:13.055794+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T13:30:09.314322+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и история",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: слои риса, корта, яиц, изюма и говядины в сдобном тесте. Классическая рецептура и халяль-ингредиенты от «Казанских Деликатесо"
+  },
+  {
+    "applied_at": "2026-07-28T13:30:12.538664+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T14:00:08.485850+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, история",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины в сдобном тесте. Халяль-ингредиенты от «Казанских Деликатесов» — для ресторанов и"
+  },
+  {
+    "applied_at": "2026-07-28T14:00:13.753205+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T14:30:08.444152+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и рецепт",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: слои риса, корта, яиц, изюма и говядины в сдобном тесте. Халяль-ингредиенты для ресторанов и кейтеринга — «Казанские Деликате"
+  },
+  {
+    "applied_at": "2026-07-28T14:30:13.970434+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T15:00:06.178411+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato from Kazan. Consistent wholesale supply for HoReCa and retail chains. Request a quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T15:00:09.634248+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и традиции",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Халяль-ингредиенты для ресторанов и кейтеринга — «Казанские Деликатесы»."
+  },
+  {
+    "applied_at": "2026-07-28T15:00:12.856166+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T15:30:06.858479+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato, produced in Kazan. Stable wholesale supply for HoReCa and retail. Request a quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T15:30:09.890416+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, слои, традиции",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Узнайте классический состав и где взять халяль-ингредиенты для ресторана или кей"
+  },
+  {
+    "applied_at": "2026-07-28T15:30:13.229826+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T16:00:12.205175+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и слои",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм и говядина. Классический состав, порядок слоёв и халяль-ингредиенты для ресторана и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T16:00:15.487049+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T16:30:11.000855+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с мясом и кортом",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм, говядина. Разбираем состав, порядок слоёв и халяль-ингредиенты для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T16:30:14.484994+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T17:00:04.873288+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Manufactured in Kazan, stable wholesale supply for HoReCa & retail. Request a quote at pepperoni.tat"
+  },
+  {
+    "applied_at": "2026-07-28T17:00:08.027405+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и слои",
+    "before_desc": "Губадия — праздничный пирог татарской кухни с рисом, кортом, яйцами, изюмом и говядиной. Разбираем порядок слоёв и халяль-ингредиенты для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T17:00:11.125377+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T17:30:05.979553+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Manufactured in Kazan — stable supply for HoReCa & retail. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T17:30:09.331571+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и рецептура",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм, говядина. Разбираем порядок слоёв, халяль-состав и применение в ресторанном и кейтеринговом меню."
+  },
+  {
+    "applied_at": "2026-07-28T17:30:12.222808+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T18:00:05.350727+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Produced in Kazan, stable B2B supply for HoReCa & retail. Request a quote at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-28T18:00:11.420288+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T18:30:04.768892+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale, Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable wholesale supply from Kazan for HoReCa & retail. Request a quote at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-28T18:30:07.729252+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и слои",
+    "before_desc": "Губадия — праздничный пирог татарской кухни с рисом, кортом, яйцами, изюмом и говядиной. Разбираем порядок слоёв, халяль-состав и форматы подачи в ресторанном и кейтеринг"
+  },
+  {
+    "applied_at": "2026-07-28T18:30:14.271598+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T19:00:10.906787+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Reliable B2B supply from Kazan for HoReCa & retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T19:00:21.310169+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, слои, рецептура",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм, говядина. Разбираем порядок слоёв, халяль-состав и форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T19:00:32.500451+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T19:30:05.441541+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T19:30:12.844681+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T20:00:04.768979+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T20:00:15.101348+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и слои",
+    "before_desc": "Губадия — праздничный пирог татарской кухни с рисом, кортом, яйцами, изюмом и говядиной. Разбираем порядок слоёв, халяль-состав и форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T20:00:21.305752+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T20:30:06.001630+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T20:30:12.125470+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с мясом и кортом",
+    "before_desc": "Губадия: праздничный пирог татарской кухни из риса, корта, яиц, изюма и говядины. Разбираем состав, порядок слоёв и халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T20:30:15.462091+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T21:00:18.901962+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T21:30:06.385110+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies B2B Wholesale | Kazan Delicacies",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T21:30:12.996488+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T22:00:05.747154+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies for B2B Wholesale | Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T22:00:08.471559+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и слои",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм и говядина. Разбираем классический состав, порядок слоёв и халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T22:00:11.349500+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T22:30:05.147566+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T22:30:07.901268+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и рецептура",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Разбираем классический состав и халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-28T22:30:11.013912+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T23:00:05.847945+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-28T23:00:11.418930+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-28T23:30:05.804256+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale, Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-07-28T23:30:13.714509+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T00:00:06.591442+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperoni.ta"
+  },
+  {
+    "applied_at": "2026-07-29T00:00:09.706250+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм и говядина. Узнайте классический состав и готовые халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-29T00:00:12.734235+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T00:30:05.233637+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale, Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperon"
+  },
+  {
+    "applied_at": "2026-07-29T00:30:12.384059+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Классический рецепт и халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-29T00:30:15.595150+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T01:00:05.635699+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-29T01:00:08.529807+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Узнайте классический состав и готовые халяль-форматы для ресторанов и кейтеринга"
+  },
+  {
+    "applied_at": "2026-07-29T01:00:12.245836+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T01:30:05.923443+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale, Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply from Kazan for HoReCa and retail chains. Request a wholesale quote at pepperon"
+  },
+  {
+    "applied_at": "2026-07-29T01:30:09.153204+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: рис, корт, яйца, изюм, говядина. Классический рецепт, халяль-состав и готовые форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-29T01:30:13.510932+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T02:00:05.576351+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Certified Halal Tatar Pies | B2B Wholesale",
+    "before_desc": "Echpochmak: authentic triangular Tatar pies with beef & potato, halal-certified. Stable B2B supply from Kazan for HoReCa and retail. Request a wholesale quote at pepperon"
+  },
+  {
+    "applied_at": "2026-07-29T02:00:08.653156+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Узнайте классический состав и готовые халяль-форматы для ресторанов и кейтеринга"
+  },
+  {
+    "applied_at": "2026-07-29T02:00:11.411033+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T02:30:05.136554+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale from Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent wholesale supply for HoReCa and retail chains. Request B2B pricing at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-29T02:30:07.921816+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: слои риса, корта, яиц, изюма и говядины. Классический рецепт, состав и готовые халяль-форматы для ресторанов и кейтеринга — «"
+  },
+  {
+    "applied_at": "2026-07-29T02:30:13.534463+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T03:00:05.522427+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale, Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Stable wholesale supply for HoReCa and retail chains. Request B2B pricing at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-29T03:00:08.612116+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав и начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Узнайте состав и закажите готовые халяль-форматы для ресторанов и кейтеринга."
+  },
+  {
+    "applied_at": "2026-07-29T03:00:12.961300+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T03:30:09.515903+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог: состав, начинки",
+    "before_desc": "Губадия — праздничный пирог татарской кухни со слоями риса, корта, яиц, изюма и говядины. Узнайте классический состав и форматы поставки для ресторанов и кейтеринга от «К"
+  },
+  {
+    "applied_at": "2026-07-29T03:30:13.868296+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T04:00:06.532097+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | B2B Wholesale Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato. Consistent B2B supply for HoReCa and retail chains. Request wholesale pricing at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-29T04:00:12.698635+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T04:30:06.282010+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies | Wholesale B2B Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato filling. Stable B2B supply for HoReCa and retail. Request wholesale pricing at pepperoni.tatar."
+  },
+  {
+    "applied_at": "2026-07-29T04:30:10.459366+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог | Казанские Деликатесы",
+    "before_desc": "Губадия — праздничный пирог татарской кухни: слои риса, корта, яйца, изюма и говядины. Халяль-производство, поставки для ресторанов и кейтеринга. Узнайте состав и условия"
+  },
+  {
+    "applied_at": "2026-07-29T04:30:13.697246+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T05:00:07.812790+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с мясом | Казанские Деликатесы",
+    "before_desc": "Губадия — традиционный татарский пирог со слоями риса, корта, яйца, изюма и говядины. Халяль-производство. Поставки для ресторанов и кейтеринга — узнайте состав и условия"
+  },
+  {
+    "applied_at": "2026-07-29T05:00:10.699636+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T05:30:10.890881+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-07-29T05:32:01.118091+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Chicken Ham Halal | Wholesale Supplier — Kazan Delicacies",
+    "before_desc": "Certified halal chicken ham from Kazan Delicacies. Chilled, tender fillet product for B2B buyers. Stable supply, bulk orders, manufacturer pricing."
   }
 ]
