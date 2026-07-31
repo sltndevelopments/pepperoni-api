@@ -161,6 +161,11 @@ def main():
     dry = "--dry-run" in args
     force = "--force" in args
 
+    operator = _load(DATA / "operator_state.json", {})
+    if operator.get("mode") == "repair":
+        print("· repair mode — brain escalation disabled")
+        return 0
+
     signals = detect_signals()
     if not signals:
         print("· no strong signals — brain runs on its normal daily cycle")
@@ -187,25 +192,34 @@ def main():
         print(f"[dry-run] would escalate (budget left ${remaining_budget():.2f})")
         return 0
 
-    # notify first, so even if the brain call is slow the owner knows why
-    try:
-        import daily_ledger
-        daily_ledger.append_event(
-            "needs_help",
-            "⚡ Авто-эскалация в мозг: " + "; ".join(signals[:3]))
-    except Exception as e:
-        print(f"· ledger unavailable: {e}", file=sys.stderr)
-
     print(f"🧠 escalating → running brain now (budget left ${remaining_budget():.2f})")
+    before = None
+    try:
+        before = _load(DATA / "strategy.json", {}).get("generated_at")
+    except Exception:
+        pass
     try:
         # Escalations are triggered by strong signals → full reasoning depth
         # (daily ticks default to BRAIN_EFFORT=medium).
         os.environ["BRAIN_EFFORT"] = os.environ.get("BRAIN_EFFORT_ESCALATED", "high")
         import seo_brain
-        seo_brain.main()
+        rc = seo_brain.main()
     except Exception as e:
         print(f"⚠️  brain run failed: {e}", file=sys.stderr)
+        return 2
+    after = _load(DATA / "strategy.json", {}).get("generated_at")
+    if rc != 0 or not after or after == before:
+        print("⚠️ brain did not atomically write a fresh strategy", file=sys.stderr)
+        return 2
     record_escalation(signals)
+    try:
+        import daily_ledger
+        daily_ledger.append_event(
+            "done",
+            "Мозг обновил стратегию по сильному сигналу: " + "; ".join(signals[:3]),
+        )
+    except Exception as e:
+        print(f"· ledger unavailable: {e}", file=sys.stderr)
     # exit code 10 signals "brain was escalated this pass" to the orchestrator,
     # so the regular daily brain step can be skipped (no double Opus spend).
     return 10

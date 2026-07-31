@@ -167,6 +167,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -230,7 +254,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
   <p>Запрашивайте сторонний лабораторный анализ для крупных заказов или новых поставщиков. Микробиологические испытания должны охватывать общее микробное число, наличие патогенных бактерий (сальмонелла, E. coli, листерия) и индикаторные микроорганизмы, такие как колиформы. Продукция, соответствующая международным стандартам, обычно показывает общее микробное число ниже 5×10⁵ КОЕ/г для сырых продуктов.</p>
 
-  <p>Химический анализ проверяет содержание белка, процент жира, уровень влажности и отсутствие несанкционированных добавок. Для <a href="/pepperoni-optom">оптовых заказов пепперони</a> подтвердите, что уровень нитрита натрия соответствует нормативам (обычно макс. 150 ppm) и проверьте отсутствие запрещённых консервантов.</p>
+  <p>Химический анализ проверяет содержание белка, процент жира, уровень влажности и отсутствие несанкционированных добавок. Для <a href="/pepperoni">оптовых заказов пепперони</a> подтвердите, что уровень нитрита натрия соответствует нормативам (обычно макс. 150 ppm) и проверьте отсутствие запрещённых консервантов.</p>
 
   <h3>Рекомендации по частоте тестирования</h3>
   <ul>

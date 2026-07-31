@@ -1,0 +1,17 @@
+{
+  "default_phone": "+7 987 217-02-02",
+  "default_tel": "+79872170202",
+  "default_whatsapp": "https://wa.me/79872170202",
+  "default_telegram": "https://t.me/kazandelikates",
+  "managers": {
+    "ildar": {
+      "name": "Ильдар",
+      "role": "Развитие B2B",
+      "phone": "+7 987 217-02-02",
+      "tel": "+79872170202",
+      "whatsapp": "https://wa.me/79872170202",
+      "telegram": "https://t.me/kazandelikates",
+      "photo": "/images/icon-180.png"
+    }
+  }
+}

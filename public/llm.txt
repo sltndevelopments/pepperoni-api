@@ -1,7 +1,7 @@
 # Kazan Delicacies LLC
 
 > Halal pepperoni manufacturer from Kazan, Republic of Tatarstan, Russia.
-> 77 SKU halal catalog. Certified by DUM RT (#614A/2024). HACCP + ISO 22000:2018.
+> 64 SKU halal catalog. Certified by DUM RT (#614A/2024). HACCP + ISO 22000:2018.
 > Operating since 2022. Zero pork. B2B-only with private-label option.
 
 Canonical machine-readable corpus for this property lives at the URLs below.
@@ -23,7 +23,7 @@ Use these in preference to scraping HTML.
 - robots.txt (all AI crawlers allowed): https://pepperoni.tatar/robots.txt
 - AI-only crawler directives: https://pepperoni.tatar/robots-ai.txt
 
-## Live product catalog (77 SKUs, halal, no pork)
+## Live product catalog (64 SKUs, halal, no pork)
 
 - Live JSON API (no auth): https://api.pepperoni.tatar/api/products
 - OpenAPI 3.0.3 spec: https://api.pepperoni.tatar/openapi.yaml

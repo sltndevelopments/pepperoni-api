@@ -167,6 +167,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -249,7 +273,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <div class="cta-block">
                 <h3>Готовы заказать оптовую халяль пепперони?</h3>
                 <p>Казанские Деликатесы поставляет премиальную халяль сертифицированную пепперони из говядины, курицы и конины для пиццерий, ресторанов и предприятий общественного питания.</p>
-                <a href="/pepperoni-optom" class="btn-cta">Запросить оптовые цены</a>
+                <a href="/pepperoni" class="btn-cta">Запросить оптовые цены</a>
             </div>
         </article>
 
@@ -267,8 +291,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/samsa-halal-foodservice">Самса Халяль: Куриная и Говяжья для Общепита</a></li>
     <li><a href="/blog/beef-vs-chicken-pepperoni">Говяжья vs куриная пепперони: ключевые различия для покупателей</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/pepperoni-halal-optom">Пепперони халяль оптом от производителя</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
     <li><a href="/blog/pepperonitatar-kazan-delicacies-halal-pepperoni">Халяль пепперони Kazan Delicacies</a></li>
     <li><a href="/blog/beef-pepperoni-wholesale">Говяжья пепперони оптом для пиццерий и HoReCa</a></li>
   </ul>

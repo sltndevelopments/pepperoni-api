@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Private Label халяль-колбасы для сетей Казахстана | СТМ OEM</title>
@@ -76,6 +82,30 @@
     footer { background: #0d3b1f; color: #ccc; padding: 28px 0; font-size: .9rem; }
     footer a { color: var(--halal-gold); text-decoration: none; }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 
@@ -177,7 +207,7 @@
       </div>
     </div>
     <div class="mt-4">
-      <a href="/pepperoni-optom" class="btn btn-outline-success me-2">Пепперони оптом</a>
+      <a href="/pepperoni" class="btn btn-outline-success me-2">Пепперони оптом</a>
       <a href="/dlya-distributorov" class="btn btn-outline-success">Для дистрибьюторов</a>
     </div>
   </div>

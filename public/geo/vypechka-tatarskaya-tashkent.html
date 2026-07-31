@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Татарская выпечка оптом Ташкент | Халяль для HoReCa</title>
@@ -9,35 +15,7 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "Product"],
-        "name": "Казанский деликатес — татарская выпечка оптом",
-        "description": "Производство аутентичной татарской выпечки (эчпочмак, перемяч, губадия, казылык) халяль с сертификатами ДУМ РТ, HACCP, ISO 22000. Доставка в Ташкент 72ч.",
-        "url": "https://pepperoni.tatar/geo/vypechka-tatarskaya-tashkent/",
-        "telephone": "+7 987 217-02-02",
-        "email": "info@kazandelikates.tatar",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ул. Аграрная, 2, оф. 7",
-            "addressLocality": "Казань",
-            "addressCountry": "RU"
-        },
-        "areaServed": {
-            "@type": "City",
-            "name": "Ташкент",
-            "sameAs": "https://ru.wikipedia.org/wiki/Ташкент"
-        },
-        "product": {
-            "@type": "Product",
-            "name": "Татарская выпечка халяль (эчпочмак, перемяч, губадия, казылык)",
-            "brand": "Казанский деликатес",
-            "category": "Мясная выпечка",
-            "certification": "Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018"
-        }
-    }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Казанский деликатес — татарская выпечка оптом","description":"Производство аутентичной татарской выпечки (эчпочмак, перемяч, губадия, казылык) халяль с сертификатами ДУМ РТ, HACCP, ISO 22000. Доставка в Ташкент 72ч.","url":"https://pepperoni.tatar/geo/vypechka-tatarskaya-tashkent/","telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"Ташкент","sameAs":"https://ru.wikipedia.org/wiki/Ташкент"},"product":{"@type":"Product","name":"Татарская выпечка халяль (эчпочмак, перемяч, губадия, казылык)","brand":"Казанский деликатес","category":"Мясная выпечка","certification":"Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018"},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -82,6 +60,17 @@
     }
     </script>
     <style>
+
+    .tldr-answer {
+      background: #eaf4ee;
+      border-left: 4px solid #1a6b3a;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
         body {
             font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
             background: #fcfaf7;
@@ -153,6 +142,30 @@
         .h1-custom { font-weight: 600; letter-spacing: -0.02em; }
         .text-muted { color: #5e5e5e !important; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Ташкент" data-product="vypechka-tatarskaya">
     <div class="container py-4 py-lg-5">
@@ -166,6 +179,11 @@
         <!-- H1 + вступление -->
         <div class="b2b-section mt-2">
             <h1 class="h1-custom display-6 fw-bold">Татарская выпечка оптом в Ташкент<br><span class="text-secondary" style="color:#b48c6a !important;">эчпочмак, перемяч, губадия, казылык</span></h1>
+
+  <div class="tldr-answer">
+    <strong>Выпечка татарская</strong> — Аутентичная татарская выпечка — эчпочмак, перемяч, губадия, казылык. Производство в Казани. Производство Казань. Поставка в Ташкент транспортными компаниями с соблюдением холодовой цепи. СТМ/Private Label — доступно. Заявка: <a href="tel:+79872170202">+7 987 217-02-02</a>.
+  </div>
+
             <p class="lead mt-3" style="max-width: 900px;">
             Ташкент — город с 2,8 млн населения и <strong>более 12 000 заведений HoReCa</strong>. 
             96% мусульманское население формирует колоссальный спрос на халяль. 
@@ -346,14 +364,14 @@
             webvisor:true
         });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
     <!-- Bootstrap JS (опционально) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <section class="related-pages py-4 bg-light mt-5">
   <div class="container">
     <h6 class="text-muted mb-3">Другие продукты для Tashkent:</h6>
-    <div><a href="/pepperoni" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiski-dlya-hotdog-tashkent/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiski-v-teste-tashkent/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-tashkent/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+    <div><a href="/pepperoni" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/sosiski-dlya-hotdog" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/sosiska-v-teste" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-tashkent/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
   </div>
 </section>
 

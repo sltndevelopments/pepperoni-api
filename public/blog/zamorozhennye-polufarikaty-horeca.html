@@ -163,6 +163,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -197,7 +221,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
 <p>Второй важный момент — оптимизация работы кухни. Готовые нарезки, порционированное мясо и колбасные изделия, такие как <a href="/pepperoni">пепперони халяль</a>, позволяют сократить время на подготовку ингредиентов на 60-70%. Это особенно критично в пиковые часы загрузки.</p>
 
-<p>Экономическая составляющая также играет роль. При закупке <a href="/pepperoni-optom">пепперони оптом</a> замороженной продукции снижаются потери от порчи — срок хранения составляет 6-12 месяцев при соблюдении температурного режима −18°C. Отходы от зачистки и обработки сырья минимальны, калькуляция блюда становится точнее.</p>
+<p>Экономическая составляющая также играет роль. При закупке <a href="/pepperoni">пепперони оптом</a> замороженной продукции снижаются потери от порчи — срок хранения составляет 6-12 месяцев при соблюдении температурного режима −18°C. Отходы от зачистки и обработки сырья минимальны, калькуляция блюда становится точнее.</p>
 
 <h2>Критерии выбора поставщика замороженных полуфабрикатов</h2>
 

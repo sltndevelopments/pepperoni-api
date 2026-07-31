@@ -144,7 +144,14 @@ def stuck(hours: float | None = None) -> list:
 
 
 def digest(agent: str | None = None) -> dict:
-    """Compact view for an agent's prompt: open work + recent flow + health."""
+    """Compact view for an agent's prompt: open work + recent flow + health.
+
+    "escalated" tasks are deliberately included alongside "pending"/"in_progress":
+    escalate_stuck() flips old open tasks to "escalated" purely to alert the owner
+    via Telegram, but that must not make the task invisible to the very agent
+    (Fable) who is supposed to resolve it — otherwise it rots forever with no one
+    watching (found 2026-07-02: 14 tasks stuck "escalated" since 2026-06-14).
+    """
     d = _load()
     tasks = d["tasks"]
     open_for = [
@@ -153,7 +160,7 @@ def digest(agent: str | None = None) -> dict:
          "payload": {k: v for k, v in t.get("payload", {}).items() if k != "_dedup"}}
         for t in tasks
         if (agent is None or t.get("to") == agent)
-        and t.get("status") in ("pending", "in_progress")
+        and t.get("status") in ("pending", "in_progress", "escalated")
     ][-15:]
     by_status: dict = {}
     for t in tasks:
@@ -173,6 +180,31 @@ def escalate_stuck(hours: float | None = None) -> dict:
     the threshold is surfaced to the human instead of silently rotting. Each
     task is escalated only once (status flips to 'escalated').
     """
+    try:
+        operator = json.loads(
+            (DATA / "operator_state.json").read_text(encoding="utf-8")
+        )
+    except Exception:
+        operator = {}
+    if operator.get("mode") == "repair":
+        d = _load()
+        closed = 0
+        for task in d["tasks"]:
+            if (
+                task.get("type") == "fix_failing_page"
+                and task.get("status") in ("pending", "in_progress", "escalated")
+            ):
+                task["status"] = "failed"
+                task["updated_at"] = _now()
+                task["note"] = (
+                    "Закрыто ремонтным режимом: legacy outcome не является "
+                    "задачей или решением владельца."
+                )
+                closed += 1
+        if closed:
+            _save(d)
+        return {"escalated": 0, "closed_legacy_repairs": closed}
+
     items = stuck(hours)
     if not items:
         return {"escalated": 0}

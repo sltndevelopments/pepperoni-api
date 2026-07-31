@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru" data-direction="ornament">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
 <meta charset="UTF-8">
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
@@ -230,6 +236,30 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
   .footer__grid{grid-template-columns:1fr}
 }
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -270,7 +300,7 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
     <span class="badges__item"><span class="dot"></span>Сертификат Халяль ДУМ РТ №614A/2024</span>
     <span class="badges__item"><span class="dot"></span>ХАССП + ISO 22000:2018</span>
     <span class="badges__item"><span class="dot"></span>ТР ТС 021/2011</span>
-    <span class="badges__item"><span class="dot"></span>EXW Казань · Склад Люберцы</span>
+    <span class="badges__item"><span class="dot"></span>EXW Казань</span>
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
   </div>
 </div>
@@ -319,7 +349,7 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Дистрибьюторы регионов</div>
-        <div class="seg-card__desc">Отсрочка до 30 дней, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
+        <div class="seg-card__desc">отсрочка согласно договору, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
         <div class="seg-card__case">Кейс: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
@@ -420,7 +450,7 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
       <h3>Татарская выпечка оптом</h3>
       <p>Национальная татарская выпечка по традиционным рецептам: губадия с кортом, бэлиш с мясом, эчпочмак, кыстыбый, треугольники, вак-бэлиш. Глубокая шоковая заморозка сохраняет вкус и текстуру. Поставляем выпечку оптом для кафе, кулинарий, столовых, розничных точек и кейтеринга. Ингредиенты халяльные, мука высшего сорта, начинки из говядины и курицы. Минимальный заказ — от 1 коробки любой позиции.</p>
       <h3>Условия поставки и Private Label (СТМ)</h3>
-      <p>Работаем по всей России и на экспорт в страны СНГ и ОАЭ. Отгрузка EXW Казань или доставка через распределительный склад в Люберцах. Принимаем заказы от 1 коробки на любую позицию каталога. Индивидуальные условия для дистрибьюторов, оптовых покупателей и розничных сетей. Private Label (СТМ) — произведём колбасные изделия и выпечку под вашим брендом: от разработки рецептуры и ТУ до серийного выпуска в вашей упаковке. Полный цикл контрактного производства халяльной продукции на собственном заводе в Казани.</p>
+      <p>Работаем по всей России и на экспорт в страны СНГ и ОАЭ. Отгрузка EXW Казань или доставка через распределительный отгрузка из Казани. Принимаем заказы от 1 коробки на любую позицию каталога. Индивидуальные условия для дистрибьюторов, оптовых покупателей и розничных сетей. Private Label (СТМ) — произведём колбасные изделия и выпечку под вашим брендом: от разработки рецептуры и ТУ до серийного выпуска в вашей упаковке. Полный цикл контрактного производства халяльной продукции на собственном заводе в Казани.</p>
       <p>Продукция «Казанских Деликатесов» уже представлена в розничных сетях Татарстана и соседних регионов. Экспортируем в Казахстан, Беларусь, Узбекистан, Кыргызстан, Азербайджан и ОАЭ. Для экспортных поставок оформляем полный пакет документов: ветеринарные сертификаты, свидетельства Халяль, декларации ТР ТС. Свяжитесь с отделом продаж для получения актуального прайс-листа и расчёта стоимости доставки до вашего города.</p>
     </div>
     </details>
@@ -787,74 +817,74 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
             <div class="product-price">3510.72 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
           </div></a>
-          <a href="/products/kd-065" class="product-card-link"><div class="product-card">
+          <div class="product-card">
             <div class="product-name">Элеш с курицей и картофелем</div>
             <div class="product-price">3736.32 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-066" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Чак-Чак в пластиковой упаковке</div>
             <div class="product-price">194.70 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-067" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Чак-Чак в крафтовой подарочной упаковке</div>
             <div class="product-price">271.70 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
+          </div>
         </div>
         <h3 class="category-title">Классическая выпечка</h3>
         <div class="products-grid">
-          <a href="/products/kd-068" class="product-card-link"><div class="product-card">
+          <div class="product-card">
             <div class="product-name">Сочник с творогом</div>
             <div class="product-price">1320.00 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-069" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Пирожок печеный с картофелем</div>
             <div class="product-price">2147.52 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-070" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Сырник</div>
             <div class="product-price">2164.80 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-071" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Пирожок с яблоком</div>
             <div class="product-price">1782.00 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-072" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Пирожок с зеленым луком и яйцом</div>
             <div class="product-price">2808.96 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-073" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Маффин апельсиновый</div>
             <div class="product-price">1621.20 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-074" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Сосиска в тесте</div>
             <div class="product-price">3313.44 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-075" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Пирожок с вишней</div>
             <div class="product-price">3432.00 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-076" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Круассан с шоколадом и орехами</div>
             <div class="product-price">1452.00 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
-          <a href="/products/kd-077" class="product-card-link"><div class="product-card">
+          </div>
+          <div class="product-card">
             <div class="product-name">Маффин шоколадный</div>
             <div class="product-price">1767.36 ₽ <span class="product-price-vat">с НДС</span></div>
             <div class="product-avail">✓ В наличии</div>
-          </div></a>
+          </div>
         </div>
       </noscript>
       <div id="loading" style="text-align:center;padding:40px;color:var(--muted)">Загрузка каталога...</div>
@@ -958,8 +988,8 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
-        <div class="footer__col-title">Склад и отгрузка</div>
-        <p>Москва (Люберцы) — наш склад</p>
+        <div class="footer__col-title">Отгрузка</div>
+        <p>г. Казань, ул. Аграрная, 2</p>
         <p>EXW Казань</p>
         <p>Отгрузка: Пн–Пт 9:00–18:00</p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
@@ -984,7 +1014,7 @@ select.dl-select{padding:6px 10px;border:1px solid var(--pt-rule);font-family:va
   </div>
 </footer>
 
-<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});</script><noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt=''/></div></noscript>
+<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});</script><noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt='' width="1" height="1" loading="lazy" /></div></noscript>
 <script>
 const CATALOG_API='https://api.pepperoni.tatar/api/products';
 const CUR_SYM={RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'};

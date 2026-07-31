@@ -1,0 +1,127 @@
+{
+  "slug": "sosiski",
+  "category": "Сосиски гриль для хот-догов",
+  "sku_order": [
+    "KD-001",
+    "KD-002",
+    "KD-003",
+    "KD-004",
+    "KD-005",
+    "KD-006",
+    "KD-007",
+    "KD-008"
+  ],
+  "default_min_order": 8,
+  "shortlist_storage_key": "kd_shortlist_sosiski",
+  "pack_fallbacks": {
+    "KD-008": "/images/test1/cards/kd-008-pack.jpg"
+  },
+  "meta": {
+    "title": "Сосиски гриль для хот-догов — коммерческое предложение | Казанские Деликатесы",
+    "description": "8 SKU халяль-сосисок для АЗС, фудтраков и HoReCa. Цены с НДС, EXW Казань. Запросите прайс по выбранным позициям.",
+    "og_image": "/images/hero/hotdog-classic.jpg",
+    "canonical": "https://pepperoni.tatar/sosiski",
+    "robots": "noindex, nofollow"
+  },
+  "hero": {
+    "eyebrow": "Производитель · Казань",
+    "headline": "Сосиски гриль для хот-догов",
+    "sub": "Линейка из 8 SKU для АЗС, фудтраков и HoReCa. Халяль ДУМ РТ, заморозка −18 °C, срок 360 суток. Цены и фасовка — ниже.",
+    "image": "/images/hero/hotdog-classic.jpg",
+    "anchors": [
+      { "value": "8", "label": "SKU в линейке" },
+      { "value": "360", "label": "суток хранения" },
+      { "value": "−18 °C", "label": "температура" }
+    ],
+    "cta_primary": { "label": "К линейке", "href": "#lineup" },
+    "cta_secondary": { "label": "Скачать прайс PDF", "href": "/api/export?lang=ru&currency=RUB&format=pdf&vat=true", "track": "pdf_download" }
+  },
+  "saga": {
+    "end_percent": 300,
+    "marquee": "8 SKU · ХАЛЯЛЬ · ГРИЛЬ · EXW КАЗАНЬ · ",
+    "chapters": [
+      {
+        "kicker": "Линейка",
+        "title": "Один формат — восемь вкусов",
+        "body": "Термостабильные халяль-сосиски без оболочки для гриля и french-ролика. Порции 80 г и 130 г — под меню точки.",
+        "image": "/images/hero/hotdog-onions.jpg",
+        "tone": "cream"
+      },
+      {
+        "kicker": "Экономика",
+        "title": "Считается в деньгах точки",
+        "body": "Калькулятор ниже: себестоимость порции из прайса, ваша цена продажи, маржа в день и в месяц.",
+        "image": "/images/hero/hotdog-french.jpg",
+        "tone": "dark"
+      },
+      {
+        "kicker": "Заявка",
+        "title": "Прайс по выбранным SKU",
+        "body": "Отметьте позиции в линейке — менеджер получит шорт-лист и контекст расчёта.",
+        "image": "/images/test1/hero-open.jpg",
+        "tone": "dark"
+      }
+    ]
+  },
+  "band_images": [
+    {
+      "src": "/images/hero/hotdog-french.jpg",
+      "alt": "Хот-дог на french-ролике"
+    },
+    {
+      "src": "/images/test1/hero-open-onions.jpg",
+      "alt": "Сосиска гриль в разрезе"
+    }
+  ],
+  "badges": {
+    "KD-001": "Хит АЗС",
+    "KD-002": "Насыщенный",
+    "KD-003": "Ярче",
+    "KD-004": "Лёгкие",
+    "KD-005": "Премиум",
+    "KD-006": "130 г",
+    "KD-007": "Сыр · 130 г",
+    "KD-008": "Конина"
+  },
+  "blurbs": {
+    "KD-001": "Базовый SKU потока: ровная форма на гриле, привычная порция 80 г.",
+    "KD-002": "Плотнее по вкусу при том же формате и оборудовании.",
+    "KD-003": "Апселл: перец и сыр внутри, тот же гриль-процесс.",
+    "KD-004": "Куриный профиль — мягче по восприятию в меню.",
+    "KD-005": "Баранина для гостя, который выбирает не обычные.",
+    "KD-006": "Крупная порция 130 г — выше насыщение и чек.",
+    "KD-007": "Сыр + 130 г: заметный апселл на точке.",
+    "KD-008": "Конина — региональный халяль-сигнал рядом с говядиной."
+  },
+  "calc_defaults": {
+    "sku": "KD-001",
+    "portions_per_day": 60,
+    "sell_price": 180,
+    "extras": 25,
+    "portions_min": 20,
+    "portions_max": 400,
+    "portions_step": 10,
+    "sell_min": 100,
+    "sell_max": 350,
+    "sell_step": 10
+  },
+  "trust": {
+    "title": "Документы и условия",
+    "items": [
+      "Халяль ДУМ РТ №614A/2024",
+      "HACCP",
+      "ISO 22000:2018",
+      "ТР ТС 021/2011",
+      "Отгрузка EXW Казань",
+      "Пакет документов по запросу"
+    ],
+    "photo": "/images/test1/hero-closed.jpg",
+    "photo_alt": "Продукция Казанские Деликатесы"
+  },
+  "form": {
+    "title": "Запросить прайс",
+    "subtitle": "Укажите контакты — менеджер подтвердит цены и наличие по выбранным SKU.",
+    "experiment_id": "category-sosiski-v1"
+  },
+  "footer_note": "B2B-предложение по категории · noindex до утверждения"
+}

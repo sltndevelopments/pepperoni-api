@@ -166,6 +166,30 @@ footer a:hover{color:#fff;text-decoration:none}
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/blog/halal-chicken-ham-wholesale">
   <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -227,8 +251,8 @@ footer a:hover{color:#fff;text-decoration:none}
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/vetchina-fileynaya-halyal">Ветчина халяль — что это такое</a></li>
     <li><a href="/blog/vetchina-iz-indeyki-halyal">Ветчина из индейки халяль оптом для HoReCa</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/pepperoni-halyal">Пепперони халяль — что это, состав и где купить оптом</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
     <li><a href="/blog/vetchina-eto-halal">Ветчина халяль: что это и как выбрать</a></li>
     <li><a href="/blog/chto-takoe-halyal-pepperoni">Что такое халяль пепперони: состав и производство</a></li>
   </ul>

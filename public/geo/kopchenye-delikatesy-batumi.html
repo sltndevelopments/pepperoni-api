@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Копчёные халяль деликатесы оптом Батуми | Без нитрита</title>
@@ -87,6 +93,17 @@
     }
     </script>
     <style>
+
+    .tldr-answer {
+      background: #eaf4ee;
+      border-left: 4px solid #1a6b3a;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
         body { background-color: #f8f9fa; color: #212529; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
         .section-title { border-left: 5px solid #b8860b; padding-left: 1rem; font-weight: 700; margin-bottom: 2rem; }
         .card-benefit { border: none; border-radius: 12px; background: white; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.2s; }
@@ -102,6 +119,30 @@
         .contact-line { font-weight: 500; }
         hr { opacity: 0.3; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Батуми" data-product="kopchenye">
 
@@ -109,6 +150,11 @@
 
     <!-- H1 -->
     <h1 class="display-5 fw-bold mb-3">Копчёные халяль деликатесы оптом в Батуми<br><span class="text-muted fs-4">натуральное копчение без нитрита натрия</span></h1>
+
+  <div class="tldr-answer">
+    <strong>Копчёные деликатесы</strong> — Копчёные халяль деликатесы натурального копчения: говядина, курица, колбасы. Без нитрита натрия, чистый состав, халяль ДУМ РТ, HACCP. Производство Казань. Поставка в Батуми транспортными компаниями с соблюдением холодовой цепи. СТМ/Private Label — доступно. Заявка: <a href="tel:+79872170202">+7 987 217-02-02</a>.
+  </div>
+
 
     <!-- Вступление — контекст Батуми -->
     <div class="row mb-5">

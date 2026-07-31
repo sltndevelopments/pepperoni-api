@@ -162,6 +162,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -179,7 +203,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
 <h2>Стандарты диаметра и калибровка продукта</h2>
 
-<p>Коммерческий <a href="/pepperoni-optom">диаметр пепперони</a> варьируется от 38 мм до 80 мм. Стандартная пиццерийная пепперони — 45-55 мм. Крупноформатная (60-80 мм) — для премиальных пиццерий. Малоформатная (38-45 мм) — для персональных пицц и закусок.</p>
+<p>Коммерческий <a href="/pepperoni">диаметр пепперони</a> варьируется от 38 мм до 80 мм. Стандартная пиццерийная пепперони — 45-55 мм. Крупноформатная (60-80 мм) — для премиальных пиццерий. Малоформатная (38-45 мм) — для персональных пицц и закусок.</p>
 
 <div class="info-box">
 <p><strong>Техническое примечание:</strong> Расчет слайсов на килограмм: (1000 г / средний вес слайса), где вес = π × (диаметр/2)² × толщина × плотность (примерно 1,05 г/см³).</p>
@@ -209,7 +233,7 @@ footer a:hover{color:#fff;text-decoration:none}
 <section data-linker="1" class="container my-4" style="border-top:1px solid #e5e5e5;padding-top:16px">
   <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
   <ul style="columns:2;font-size:.95rem">
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/pepperoni-dlya-sushi">Пепперони для суши: особенности нарезки</a></li>
     <li><a href="/blog/halal-pepperoni-guide">Халяль пепперони: ингредиенты, производство и B2B руководство</a></li>
     <li><a href="/blog/cooked-vs-dry-pepperoni">Варёно-копчёная vs сыровяленая пепперони: руководство для покупателя</a></li>

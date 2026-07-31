@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -69,6 +75,30 @@
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.dir-grid,.grid-2,.stats{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -109,7 +139,7 @@
     </div>
 
         <h2>Capacity &amp; parameters</h2>
-    <div class="card"><table><tbody><tr><td>MOQ</td><td class="spec-value">500 kg/mo (pilot), 2–5 t/mo (serial)</td></tr><tr><td>Sample development</td><td class="spec-value">7–14 business days</td></tr><tr><td>Brief to first shipment</td><td class="spec-value">4–8 weeks</td></tr><tr><td>Raw materials</td><td class="spec-value">Halal beef, lamb, horse, turkey, chicken — no GMO</td></tr><tr><td>Delivery</td><td class="spec-value">EXW Kazan · Lyubertsy warehouse · export CIS and UAE</td></tr><tr><td>Currencies</td><td class="spec-value">RUB, USD, KZT, UZS, KGS, BYN, AZN</td></tr></tbody></table></div>
+    <div class="card"><table><tbody><tr><td>MOQ</td><td class="spec-value">500 kg/mo (pilot), 2–5 t/mo (serial)</td></tr><tr><td>Sample development</td><td class="spec-value">7–14 business days</td></tr><tr><td>Brief to first shipment</td><td class="spec-value">4–8 weeks</td></tr><tr><td>Raw materials</td><td class="spec-value">Halal beef, lamb, horse, turkey, chicken — no GMO</td></tr><tr><td>Delivery</td><td class="spec-value">EXW Kazan · Kazan warehouse · export CIS and UAE</td></tr><tr><td>Currencies</td><td class="spec-value">RUB, USD, KZT, UZS, KGS, BYN, AZN</td></tr></tbody></table></div>
 
     <h2>R&amp;D and recipe development</h2>
     <div class="card card-accent"><p style="margin:0">Technologists and R&amp;D build the product for your task: from adapting an existing recipe to creating a new SKU from scratch (Co-development). We tune composition, spice level (mild / medium / spicy), slice size and calibre, weight and pack format (0.5 to 5 kg). The result is a stable recipe fixed in the spec and a consistent taste batch to batch.</p></div>

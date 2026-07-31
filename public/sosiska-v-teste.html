@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -69,6 +75,30 @@
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -90,7 +120,7 @@
     <span class="badge badge-outline">ХАССП + ISO 22000:2018</span>
     <span class="badge badge-outline">срок до 360 суток</span>
 
-    <p>Если вы ищете, где <strong>купить сосиску в тесте оптом от производителя</strong>, у нас закрыта вся цепочка: мы выпускаем и <strong>готовую замороженную сосиску в тесте</strong> для доготовки, и отдельную <strong>сосиску специально для сосиски в тесте</strong> — без оболочки, чтобы пекарни и производители замороженной выпечки делали изделие сами. Вся продукция <strong>100% халяль</strong>, произведена по стандартам халяль из мяса птицы и говядины. <strong>Производитель из Казани</strong> — отгрузка по всей России и на экспорт, со склада в Люберцах можно <strong>заказать оптом в Москве</strong>.</p>
+    <p>Если вы ищете, где <strong>купить сосиску в тесте оптом от производителя</strong>, у нас закрыта вся цепочка: мы выпускаем и <strong>готовую замороженную сосиску в тесте</strong> для доготовки, и отдельную <strong>сосиску специально для сосиски в тесте</strong> — без оболочки, чтобы пекарни и производители замороженной выпечки делали изделие сами. Вся продукция <strong>100% халяль</strong>, произведена по стандартам халяль из мяса птицы и говядины. <strong>Производитель из Казани</strong> — отгрузка по всей России и на экспорт, по России можно <strong>заказать оптом в Москве</strong>.</p>
 
     <h2>Два продукта под одну задачу</h2>
     <p>«Сосиска в тесте» бывает в продаже как готовое изделие и как пара компонентов — поэтому мы держим оба формата. Это и делает нас удобным <strong>поставщиком сосиски в тесте оптом</strong>: вам не нужно искать сосиску у одного производителя, а тесто — у другого.</p>
@@ -125,7 +155,7 @@
 
     <h2>Оптовые условия, логистика и экономика порции</h2>
     <div class="card">
-      <p style="margin-top:0">Поставку сосиски в тесте оптом мы строим под ваш объём. Для пилота достаточно 500 кг в месяц — этого хватает, чтобы протестировать изделие в продаже и собрать обратную связь. При выходе на серию 2–5 т/мес фиксируем цену и график отгрузок, что защищает вашу себестоимость от рыночных колебаний. Отгружаем замороженными коробками с фиксированной фасовкой EXW Казань и со склада в Люберцах — по всей России и на экспорт в СНГ и ОАЭ, с соблюдением холодовой цепи.</p>
+      <p style="margin-top:0">Поставку сосиски в тесте оптом мы строим под ваш объём. Для пилота достаточно 500 кг в месяц — этого хватает, чтобы протестировать изделие в продаже и собрать обратную связь. При выходе на серию 2–5 т/мес фиксируем цену и график отгрузок, что защищает вашу себестоимость от рыночных колебаний. Отгружаем замороженными коробками с фиксированной фасовкой EXW Казань — по всей России и на экспорт в СНГ и ОАЭ, с соблюдением холодовой цепи.</p>
       <p>Чтобы посчитать экономику, отталкивайтесь от веса и цены изделия (или сосиски, если печёте сами): фиксированный вес и калибр дают точную себестоимость порции и убирают потери на перевесе. Сосиска без оболочки исключает брак из-за разрыва в тесте, а стабильный вес — жалобы на разный размер. Под СТМ адаптируем рецептуру теста и сосиски, вес изделия и упаковку — от флоупака до гофрокороба с вашим дизайном.</p>
     </div>
 
@@ -163,7 +193,7 @@
 
     <h2>Смотрите также</h2>
     <div class="grid-2">
-      <a href="/products/kd-074" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Сосиска в тесте (KD-074)</strong><br><span style="color:#666;font-size:.82rem">Готовая замороженная</span></a>
+      <strong>Сосиска в тесте (KD-069)</strong><br><span style="color:#666;font-size:.82rem">Готовая замороженная</span>
       <a href="/products/kd-027" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Сосиска «К завтраку» (KD-027)</strong><br><span style="color:#666;font-size:.82rem">Без оболочки, для сосиски в тесте</span></a>
       <a href="/oem/hotdog-sausages" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Сосиски для хот-догов оптом</strong><br><span style="color:#666;font-size:.82rem">Под СТМ</span></a>
       <a href="/oem/bakery" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Выпечка под СТМ</strong><br><span style="color:#666;font-size:.82rem">Замороженная, оптом</span></a>

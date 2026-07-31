@@ -163,6 +163,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -175,7 +199,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             <h1>Пепперони оптом: как найти надёжного поставщика</h1>
             
             <div class="lead my-4">
-                <p>Выбор поставщика <a href="/pepperoni-optom">пепперони оптом</a> критически важен для стабильной работы пиццерии или ресторана. Надёжный партнёр обеспечивает бесперебойные поставки качественной продукции, соблюдение температурного режима и гибкие условия сотрудничества. От правильного выбора зависят вкусовые характеристики готовых блюд, репутация заведения и экономическая эффективность бизнеса. Рассмотрим ключевые критерии оценки поставщиков халяльных мясных деликатесов.</p>
+                <p>Выбор поставщика <a href="/pepperoni">пепперони оптом</a> критически важен для стабильной работы пиццерии или ресторана. Надёжный партнёр обеспечивает бесперебойные поставки качественной продукции, соблюдение температурного режима и гибкие условия сотрудничества. От правильного выбора зависят вкусовые характеристики готовых блюд, репутация заведения и экономическая эффективность бизнеса. Рассмотрим ключевые критерии оценки поставщиков халяльных мясных деликатесов.</p>
             </div>
 
             <h2>Проверка документации и сертификатов</h2>
@@ -241,8 +265,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/source-halal-pepperoni-pizzeria">Как найти поставщика халяльной пепперони для пиццерий</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/pepperoni-halal-optom">Пепперони халяль оптом от производителя</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
     <li><a href="/blog/pepperoni-halyal-optom">Пепперони халяль оптом от производителя — цена и доставка</a></li>
     <li><a href="/blog/pepperoni-halal-kupit-optom">Пепперони халяль оптом — производитель из Казани</a></li>
     <li><a href="/blog/vetchina-optom-horeca-2026">Ветчина оптом для HoReCa: выбор поставщика 2026</a></li>

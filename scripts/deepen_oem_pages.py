@@ -33,7 +33,7 @@ RU = {
         "цвет среза и выход на всех поставках, иначе сеть теряет узнаваемость продукта. Поэтому "
         "фиксируйте рецептуру и спецификацию в договоре и запрашивайте контроль партий.",
         "Поставку колбасных изделий оптом строим под объём: пилот от 500 кг/мес, серия 2–5 т/мес с "
-        "фиксированной ценой и графиком. Отгрузка EXW Казань и со склада в Люберцах по всей России "
+        "фиксированной ценой и графиком. Отгрузка EXW Казань и из Казани по всей России "
         "и на экспорт в СНГ и ОАЭ. Под собственной маркой адаптируем рецептуру, фасовку (батон, "
         "нарезка, газовая среда) и оформление под канал — ретейл, HoReCa, дистрибуция."),
     "raw-meat": (
@@ -43,7 +43,7 @@ RU = {
         "Калибровка и шоковая заморозка сохраняют свежесть и убирают потери на размораживании.",
         "Сырое мясное оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. Шоковая "
         "заморозка, фиксированная фракция и жирность под вашу рецептуру. Отгрузка EXW Казань и со "
-        "склада в Люберцах по РФ и на экспорт. Под СТМ адаптируем фасовку и оформление — для "
+        "Казани по РФ и на экспорт. Под СТМ адаптируем фасовку и оформление — для "
         "ретейла, HoReCa и дистрибуции."),
     "toppings": (
         "Когда вы выбираете, где <strong>купить топпинги для пиццы оптом</strong> (пепперони-топпинг, "
@@ -52,7 +52,7 @@ RU = {
         "сборку и даёт одинаковый вид пиццы на всех точках сети.",
         "Топпинги оптом поставляем нарезкой в фиксированной фасовке, пилот от 500 кг/мес, серия "
         "2–5 т/мес. Под СТМ подбираем толщину нарезки, диаметр и упаковку под вашу линию сборки. "
-        "Отгрузка EXW Казань и со склада в Люберцах по РФ и на экспорт — для пиццерий, "
+        "Отгрузка EXW Казань и со Казани по РФ и на экспорт — для пиццерий, "
         "производителей замороженной пиццы и HoReCa."),
     "bakery": (
         "Если вы ищете, где <strong>купить замороженную выпечку оптом</strong> под свою марку "
@@ -61,7 +61,7 @@ RU = {
         "слоёные и дрожжевые изделия под СТМ должны иметь предсказуемый вес и время доготовки.",
         "Замороженную выпечку оптом поставляем коробками с фиксированной фасовкой, пилот от "
         "500 кг/мес, серия 2–5 т/мес. Под собственной маркой адаптируем рецептуру, вес изделия и "
-        "упаковку. Отгрузка EXW Казань и со склада в Люберцах по РФ и на экспорт — для пекарен, "
+        "упаковку. Отгрузка EXW Казань и со Казани по РФ и на экспорт — для пекарен, "
         "кафе татарской кухни, столовых и стрит-фуда."),
     "pastry": (
         "Когда вы ищете, где <strong>купить кондитерские изделия оптом</strong> под свою марку "
@@ -70,7 +70,7 @@ RU = {
         "фиксируйте спецификацию и условия хранения заранее.",
         "Кондитерские изделия оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. "
         "Под собственной маркой подбираем рецептуру, порцию и упаковку. Отгрузка EXW Казань и со "
-        "склада в Люберцах по РФ и на экспорт — для кофеен, кафе, ретейла и HoReCa."),
+        "Казани по РФ и на экспорт — для кофеен, кафе, ретейла и HoReCa."),
 }
 
 EN = {
@@ -81,7 +81,7 @@ EN = {
         "taste, slice colour and yield across every delivery, or the chain loses product "
         "recognition. Lock the recipe and specification into the contract and ask for batch control.",
         "We build wholesale sausage supply around volume: a pilot from 500 kg/month, a series of "
-        "2–5 t/month with a fixed price and schedule. Shipping EXW Kazan and from our Lyubertsy "
+        "2–5 t/month with a fixed price and schedule. Shipping EXW Kazan "
         "warehouse across Russia and for export to the CIS and the UAE. Under your own brand we "
         "adapt recipe, format (baton, sliced, modified-atmosphere) and design to the channel — "
         "retail, HoReCa, distribution."),
@@ -93,7 +93,7 @@ EN = {
         "freshness and remove thawing losses.",
         "We supply raw-meat wholesale by volume: a pilot from 500 kg/month, a series of 2–5 "
         "t/month. Blast freezing, fixed grind and fat content to your recipe. Shipping EXW Kazan "
-        "and from Lyubertsy across Russia and for export. Under private label we adapt format and "
+        "and from Kazan across Russia and for export. Under private label we adapt format and "
         "design — for retail, HoReCa and distribution."),
     "toppings": (
         "When you choose where to <strong>buy pizza toppings wholesale</strong> (pepperoni "
@@ -102,7 +102,7 @@ EN = {
         "speeds assembly and gives identical pizzas across all points of the chain.",
         "We supply toppings wholesale sliced in fixed packs, a pilot from 500 kg/month, a series "
         "of 2–5 t/month. Under private label we tune slice thickness, diameter and packaging to "
-        "your assembly line. Shipping EXW Kazan and from Lyubertsy across Russia and for export — "
+        "your assembly line. Shipping EXW Kazan and from Kazan across Russia and for export — "
         "for pizzerias, frozen-pizza producers and HoReCa."),
     "bakery": (
         "If you look for where to <strong>buy frozen pastry wholesale</strong> under your own "
@@ -111,7 +111,7 @@ EN = {
         "under private label must have a predictable weight and finishing time.",
         "We supply frozen pastry wholesale in fixed-pack cases, a pilot from 500 kg/month, a "
         "series of 2–5 t/month. Under your own brand we adapt recipe, item weight and packaging. "
-        "Shipping EXW Kazan and from Lyubertsy across Russia and for export — for bakeries, Tatar "
+        "Shipping EXW Kazan and from Kazan across Russia and for export — for bakeries, Tatar "
         "cuisine cafes, canteens and street food."),
     "pastry": (
         "When you look for where to <strong>buy confectionery wholesale</strong> under your own "
@@ -120,7 +120,7 @@ EN = {
         "appearance, so fix the specification and storage conditions in advance.",
         "We supply confectionery wholesale by volume: a pilot from 500 kg/month, a series of 2–5 "
         "t/month. Under your own brand we tune recipe, portion and packaging. Shipping EXW Kazan "
-        "and from Lyubertsy across Russia and for export — for coffee shops, cafes, retail and "
+        "and from Kazan across Russia and for export — for coffee shops, cafes, retail and "
         "HoReCa."),
 }
 

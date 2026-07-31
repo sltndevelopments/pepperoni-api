@@ -40,6 +40,30 @@ a{color:#0066cc}
 nav{font-size:.85rem;margin-bottom:18px}
 footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;padding-top:18px}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -47,7 +71,7 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 <h1>Условия возврата и обмена</h1>
 <div class="meta">Версия 1.0 · действует с 13 мая 2026 года</div>
 
-<p>Настоящие условия регулируют возврат и обмен продукции <strong>ООО «Казанские Деликатесы»</strong> (ИНН 1655504520, г. Казань, ул. Аграрная, д. 2). Мы — производитель халяль мясной продукции и выпечки, работаем с оптовыми покупателями (HoReCa, розничные сети, дистрибьюторы).</p>
+<p>Настоящие условия регулируют возврат и обмен продукции <strong>ООО «Казанские Деликатесы»</strong> (ИНН 1686021074, г.&nbsp;Казань, ул.&nbsp;Аграрная, д.&nbsp;2, офис&nbsp;7). Мы — производитель халяль мясной продукции и выпечки, работаем с оптовыми покупателями (HoReCa, розничные сети, дистрибьюторы).</p>
 
 <h2>1. Общие положения</h2>
 <p>Согласно Постановлению Правительства РФ № 2463 от 31.12.2020, продовольственные товары надлежащего качества <strong>возврату не подлежат</strong>. Возврат возможен только при выявлении производственного брака или несоответствия заявленным характеристикам.</p>
@@ -78,8 +102,8 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 <ul>
   <li>Email: <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></li>
   <li>Телефон: <a href="tel:+79872170202">+7 (987) 217-02-02</a></li>
-  <li>Адрес: г. Казань, ул. Аграрная, д. 2</li>
-  <li>ИНН: 1655504520</li>
+  <li>Адрес: 420061, г.&nbsp;Казань, ул.&nbsp;Аграрная, д.&nbsp;2, офис&nbsp;7</li>
+  <li>ИНН: 1686021074</li>
 </ul>
 
 <footer>

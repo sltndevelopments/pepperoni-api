@@ -147,6 +147,37 @@ def repair() -> dict:
     import fix_attempts as fa
 
     failing = _load_failing()
+    try:
+        operator = json.loads(
+            (DATA / "operator_state.json").read_text(encoding="utf-8")
+        )
+    except Exception:
+        operator = {}
+    if operator.get("mode") == "repair":
+        # Repair phase is observation-only: legacy misses must not create new
+        # tasks, LLM rewrites, or owner decisions.
+        return {
+            "reindexed": 0,
+            "strengthened": 0,
+            "queued_for_fable": 0,
+            "missing_from_sitemap": [],
+            "abandoned_skipped": 0,
+            "repair_mode_skipped": len(failing),
+        }
+
+    deduped = []
+    seen = set()
+    for item in failing:
+        key = (
+            str(item.get("query", "")).strip().casefold(),
+            str(item.get("page", "")).rstrip("/"),
+            item.get("verdict"),
+        )
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped.append(item)
+    failing = deduped
     reindexed, queued_fable, missing_sitemap = 0, 0, []
     abandoned_skipped = 0
 
@@ -163,7 +194,6 @@ def repair() -> dict:
             fa.reset(q, reason="outcome improved (Trigger A)")
 
     # 1) Fast path: IndexNow — instant, unlimited, notifies Bing+Yandex+Seznam.
-    #    Anti-cycle: skip abandoned queries; increment counters for failing ones.
     urls = []
     for f in not_indexed:
         q = (f.get("query") or "").strip()
@@ -186,8 +216,6 @@ def repair() -> dict:
             urls.append(u)
             if not _in_sitemap(u):
                 missing_sitemap.append(u)
-        if q:
-            fa.increment(q, verdict="not_indexed")
     reindexed = _indexnow(urls)
 
     # 2) Bonus path: Yandex recrawl when its small monthly quota still has room.
@@ -221,7 +249,14 @@ def repair() -> dict:
                     print(f"  ⚠️  ab_test trigger error: {_e}")
                 abandoned_skipped += 1
                 continue
-            fa.increment(q, verdict=f.get("verdict", ""))
+            fa.increment(
+                q,
+                verdict=f.get("verdict", ""),
+                failure_id=str(
+                    f.get("experiment_id")
+                    or f"{q}|{f.get('page')}|{f.get('verdict')}"
+                ),
+            )
             agent_bus.post(
                 frm="outcome_tracker", to="fable", type_="fix_failing_page",
                 payload={"query": q, "page": f.get("page"),
@@ -249,6 +284,12 @@ def repair() -> dict:
 
 def main() -> int:
     r = repair()
+    if r.get("repair_mode_skipped") is not None:
+        print(
+            "🔧 repair mode: observation-only; "
+            f"{r['repair_mode_skipped']} legacy failures produced no actions"
+        )
+        return 0
     print(f"🔧 repair: reindexed {r['reindexed']} · "
           f"strengthened {r.get('strengthened', 0)} · "
           f"→fable {r['queued_for_fable']} · "

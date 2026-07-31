@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Контрактное производство халяль выпечки СТМ — Казанские Деликатесы</title>
@@ -62,6 +68,30 @@
     .faq-item { border-bottom: 1px solid #e0e0e0; padding: 16px 0; }
     .faq-q { font-weight: 600; color: var(--green); }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 
@@ -148,7 +178,7 @@
             <li>Ветчина говяжья / куриная</li>
             <li>Колбасы варёные и копчёные</li>
           </ul>
-          <a href="/pepperoni-optom" class="btn btn-outline-success btn-sm mt-3">Подробнее о пепперони оптом</a>
+          <a href="/pepperoni" class="btn btn-outline-success btn-sm mt-3">Подробнее о пепперони оптом</a>
         </div>
       </div>
       <div class="col-md-6">
@@ -223,7 +253,7 @@
       </div>
       <div class="col-md-4">
         <div class="card border-0 shadow-sm h-100 p-4 text-center">
-          <div class="fs-1 fw-bold text-success">77 SKU</div>
+          <div class="fs-1 fw-bold text-success">64 SKUs</div>
           <p class="mt-2">Готовых позиций в ассортименте — основа для быстрого старта Private Label</p>
         </div>
 </div>

@@ -316,93 +316,453 @@
   }
  },
  "2026-07": {
-  "usd": 0.264272,
-  "usd_baseline": 0.264272,
+  "usd": 39.726874,
+  "usd_baseline": 40.652976,
   "days": {
    "2026-07-01": {
-    "calls": 27,
-    "in": 11383,
-    "out": 17305,
+    "calls": 151,
+    "in": 67214,
+    "out": 85818,
+    "cache_w": 15191,
+    "cache_r": 0,
+    "usd": 2.50487,
+    "usd_baseline": 2.579999
+   },
+   "2026-07-02": {
+    "calls": 39,
+    "in": 53274,
+    "out": 53314,
+    "cache_w": 21757,
+    "cache_r": 26264,
+    "usd": 1.556793,
+    "usd_baseline": 1.752923
+   },
+   "2026-07-03": {
+    "calls": 23,
+    "in": 53629,
+    "out": 45966,
+    "cache_w": 23663,
+    "cache_r": 13132,
+    "usd": 1.750995,
+    "usd_baseline": 1.873653
+   },
+   "2026-07-04": {
+    "calls": 23,
+    "in": 48267,
+    "out": 50472,
+    "cache_w": 23663,
+    "cache_r": 13132,
+    "usd": 1.57053,
+    "usd_baseline": 1.69319
+   },
+   "2026-07-05": {
+    "calls": 16,
+    "in": 43585,
+    "out": 38882,
+    "cache_w": 23663,
+    "cache_r": 3283,
+    "usd": 1.393399,
+    "usd_baseline": 1.467294
+   },
+   "2026-07-06": {
+    "calls": 13,
+    "in": 43993,
+    "out": 40633,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.320859,
+    "usd_baseline": 1.383016
+   },
+   "2026-07-07": {
+    "calls": 19,
+    "in": 43611,
+    "out": 37332,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.342302,
+    "usd_baseline": 1.404459
+   },
+   "2026-07-08": {
+    "calls": 23,
+    "in": 45385,
+    "out": 38562,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.302081,
+    "usd_baseline": 1.364237
+   },
+   "2026-07-09": {
+    "calls": 13,
+    "in": 42411,
+    "out": 37868,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.355563,
+    "usd_baseline": 1.41772
+   },
+   "2026-07-10": {
+    "calls": 18,
+    "in": 41186,
+    "out": 55004,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.473723,
+    "usd_baseline": 1.667977
+   },
+   "2026-07-11": {
+    "calls": 4,
+    "in": 6144,
+    "out": 16384,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.264272,
-    "usd_baseline": 0.264272
+    "usd": 0.132095,
+    "usd_baseline": 0.264192
+   },
+   "2026-07-13": {
+    "calls": 22,
+    "in": 45903,
+    "out": 45272,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.742309,
+    "usd_baseline": 1.804465
+   },
+   "2026-07-14": {
+    "calls": 32,
+    "in": 40503,
+    "out": 41239,
+    "cache_w": 23663,
+    "cache_r": 2346,
+    "usd": 1.472036,
+    "usd_baseline": 1.550792
+   },
+   "2026-07-15": {
+    "calls": 46,
+    "in": 44422,
+    "out": 41026,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.449589,
+    "usd_baseline": 1.511746
+   },
+   "2026-07-16": {
+    "calls": 25,
+    "in": 37803,
+    "out": 38385,
+    "cache_w": 20380,
+    "cache_r": 0,
+    "usd": 1.397699,
+    "usd_baseline": 1.459856
+   },
+   "2026-07-17": {
+    "calls": 51,
+    "in": 67761,
+    "out": 53299,
+    "cache_w": 25602,
+    "cache_r": 6449,
+    "usd": 1.824452,
+    "usd_baseline": 1.977382
+   },
+   "2026-07-18": {
+    "calls": 42,
+    "in": 64643,
+    "out": 51904,
+    "cache_w": 25602,
+    "cache_r": 3162,
+    "usd": 1.717003,
+    "usd_baseline": 1.856317
+   },
+   "2026-07-19": {
+    "calls": 19,
+    "in": 99203,
+    "out": 36789,
+    "cache_w": 15538,
+    "cache_r": 0,
+    "usd": 1.676905,
+    "usd_baseline": 1.618638
+   },
+   "2026-07-20": {
+    "calls": 15,
+    "in": 3535,
+    "out": 8256,
+    "cache_w": 5196,
+    "cache_r": 0,
+    "usd": 0.317465,
+    "usd_baseline": 0.304475
+   },
+   "2026-07-21": {
+    "calls": 20,
+    "in": 6415,
+    "out": 7554,
+    "cache_w": 5196,
+    "cache_r": 0,
+    "usd": 0.277039,
+    "usd_baseline": 0.264049
+   },
+   "2026-07-22": {
+    "calls": 216,
+    "in": 49734,
+    "out": 22939,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.098908,
+    "usd_baseline": 1.02765
+   },
+   "2026-07-23": {
+    "calls": 70,
+    "in": 28702,
+    "out": 20606,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.141147,
+    "usd_baseline": 1.069889
+   },
+   "2026-07-24": {
+    "calls": 397,
+    "in": 83256,
+    "out": 26097,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.193972,
+    "usd_baseline": 1.122715
+   },
+   "2026-07-25": {
+    "calls": 262,
+    "in": 63128,
+    "out": 26652,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.239686,
+    "usd_baseline": 1.168429
+   },
+   "2026-07-26": {
+    "calls": 79,
+    "in": 29355,
+    "out": 20763,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.140566,
+    "usd_baseline": 1.069308
+   },
+   "2026-07-27": {
+    "calls": 222,
+    "in": 50788,
+    "out": 21680,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.153522,
+    "usd_baseline": 1.082264
+   },
+   "2026-07-28": {
+    "calls": 474,
+    "in": 99752,
+    "out": 30873,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.288417,
+    "usd_baseline": 1.21716
+   },
+   "2026-07-29": {
+    "calls": 329,
+    "in": 80739,
+    "out": 31054,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.335572,
+    "usd_baseline": 1.264314
+   },
+   "2026-07-30": {
+    "calls": 369,
+    "in": 91525,
+    "out": 39754,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.472867,
+    "usd_baseline": 1.401609
+   },
+   "2026-07-31": {
+    "calls": 57,
+    "in": 24190,
+    "out": 18464,
+    "cache_w": 20734,
+    "cache_r": 0,
+    "usd": 1.084515,
+    "usd_baseline": 1.013258
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 1,
-    "in": 330,
-    "out": 126,
+    "calls": 1061,
+    "in": 291891,
+    "out": 117687,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.00288,
-    "usd_baseline": 0.00288
+    "usd": 2.640978,
+    "usd_baseline": 2.640978
    },
    "sales:cli": {
-    "calls": 18,
-    "in": 3552,
-    "out": 360,
-    "cache_w": 0,
-    "cache_r": 0,
-    "usd": 0.005352,
-    "usd_baseline": 0.005352
+    "calls": 1607,
+    "in": 299032,
+    "out": 187218,
+    "cache_w": 161284,
+    "cache_r": 61444,
+    "usd": 6.869928,
+    "usd_baseline": 6.809961
    },
    "optimize_seo": {
-    "calls": 4,
-    "in": 1273,
-    "out": 487,
+    "calls": 42,
+    "in": 13026,
+    "out": 4948,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.011124,
-    "usd_baseline": 0.011124
+    "usd": 0.113298,
+    "usd_baseline": 0.113298
    },
    "generate_content": {
-    "calls": 3,
-    "in": 4419,
-    "out": 14819,
+    "calls": 13,
+    "in": 18901,
+    "out": 59759,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.235542,
-    "usd_baseline": 0.235542
+    "usd": 0.953088,
+    "usd_baseline": 0.953088
    },
    "send_report": {
-    "calls": 1,
-    "in": 1809,
-    "out": 1513,
+    "calls": 3,
+    "in": 5445,
+    "out": 4850,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.009374,
-    "usd_baseline": 0.009374
+    "usd": 0.029695,
+    "usd_baseline": 0.029695
+   },
+   "cli": {
+    "calls": 172,
+    "in": 18024,
+    "out": 35606,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 1.448162,
+    "usd_baseline": 1.448162
+   },
+   "escalate_brain": {
+    "calls": 56,
+    "in": 352572,
+    "out": 120381,
+    "cache_w": 399477,
+    "cache_r": 0,
+    "usd": 19.262288,
+    "usd_baseline": 17.764254
+   },
+   "brain_toolsmith": {
+    "calls": 33,
+    "in": 262431,
+    "out": 188932,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 3.608659,
+    "usd_baseline": 3.608659
+   },
+   "generate_from_strategy": {
+    "calls": 84,
+    "in": 136792,
+    "out": 314705,
+    "cache_w": 3162,
+    "cache_r": 6324,
+    "usd": 2.618337,
+    "usd_baseline": 5.159409
+   },
+   "seo_brain": {
+    "calls": 1,
+    "in": 13157,
+    "out": 2374,
+    "cache_w": 15191,
+    "cache_r": 0,
+    "usd": 0.660236,
+    "usd_baseline": 0.60327
+   },
+   "build_landing": {
+    "calls": 2,
+    "in": 15863,
+    "out": 12362,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.713151,
+    "usd_baseline": 0.713151
+   },
+   "market_pulse": {
+    "calls": 15,
+    "in": 72922,
+    "out": 34019,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.809051,
+    "usd_baseline": 0.809051
    }
   },
   "models": {
    "claude-sonnet-4-6": {
-    "calls": 8,
-    "in": 6022,
-    "out": 15432,
-    "cache_w": 0,
-    "cache_r": 0,
-    "usd": 0.249546,
-    "usd_baseline": 0.249546
+    "calls": 1282,
+    "in": 757066,
+    "out": 756305,
+    "cache_w": 20056,
+    "cache_r": 44311,
+    "usd": 11.658041,
+    "usd_baseline": 14.289006
    },
    "claude-haiku-4-5": {
-    "calls": 18,
-    "in": 3552,
-    "out": 360,
+    "calls": 1505,
+    "in": 249401,
+    "out": 65368,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.005352,
-    "usd_baseline": 0.005352
+    "usd": 0.576241,
+    "usd_baseline": 0.576241
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 1,
-    "in": 1809,
-    "out": 1513,
+    "calls": 4,
+    "in": 6167,
+    "out": 5967,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.009374,
-    "usd_baseline": 0.009374
+    "usd": 0.036002,
+    "usd_baseline": 0.036002
+   },
+   "pplx-sonar-pro": {
+    "calls": 202,
+    "in": 19882,
+    "out": 80152,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 2.271926,
+    "usd_baseline": 2.271926
+   },
+   "claude-opus-4-8": {
+    "calls": 27,
+    "in": 363871,
+    "out": 78209,
+    "cache_w": 414668,
+    "cache_r": 0,
+    "usd": 19.098761,
+    "usd_baseline": 17.54376
+   },
+   "claude-fable-5": {
+    "calls": 54,
+    "in": 30747,
+    "out": 62821,
+    "cache_w": 144390,
+    "cache_r": 23457,
+    "usd": 5.276852,
+    "usd_baseline": 5.12699
+   },
+   "pplx-agent": {
+    "calls": 15,
+    "in": 72922,
+    "out": 34019,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.809051,
+    "usd_baseline": 0.809051
    }
   }
  }

@@ -255,7 +255,7 @@ def enrich_google(findings: list[dict]) -> bool:
                     "why_ranks — 1 фраза (контент/авторитет/коммерция). "
                     "gap_for_us — что конкретно добавить на pepperoni.tatar, "
                     "чтобы обойти их. Без markdown."),
-                max_steps=3, max_output_tokens=900)
+                preset="low", max_steps=3, max_output_tokens=900)
             if brief.get("top"):
                 f["google_serp"] = brief["top"][:3]
                 f["google_gap"] = brief.get("gap_for_us", "")
@@ -289,8 +289,9 @@ def telegram_report(findings: list[dict], enriched: bool) -> None:
                      "(Yandex Cloud Search API v2), чтобы видеть причины (длина, schema, отзывы).</i>")
     lines.append("\n<i>Это кандидаты на усиление контента/перелинковки/лендингов.</i>")
     try:
-        from telegram_notify import notify
-        notify("\n".join(lines))
+        from notification_router import emit
+        emit("info", "competitor_scout", "\n".join(lines),
+             dedupe_key=f"competitor-scout:{datetime.now(timezone.utc):%Y-%m-%d}")
     except Exception as e:
         print(f"· telegram unavailable: {e}", file=sys.stderr)
 

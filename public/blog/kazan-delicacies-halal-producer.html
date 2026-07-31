@@ -167,6 +167,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -192,7 +216,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
 <p>Наша основная линейка продукции сосредоточена на <a href="/pepperoni">халяль пепперони</a> и мясных деликатесах, специально разработанных для пиццерий, ресторанов, отелей и кейтеринговых компаний. Мы понимаем уникальные требования профессиональных кухонь и разработали наши продукты для стабильной работы в условиях высокотемпературного приготовления.</p>
 
-<p>Линейка <a href="/pepperoni-optom">оптовой пепперони</a> включает различные профили специй и соотношения жира для разных кулинарных применений. Каждая рецептура тщательно протестирована в партнёрстве с клиентами HoReCa для обеспечения оптимальных характеристик нарезки, высвобождения вкуса при запекании и визуальной привлекательности готовых блюд.</p>
+<p>Линейка <a href="/pepperoni">оптовой пепперони</a> включает различные профили специй и соотношения жира для разных кулинарных применений. Каждая рецептура тщательно протестирована в партнёрстве с клиентами HoReCa для обеспечения оптимальных характеристик нарезки, высвобождения вкуса при запекании и визуальной привлекательности готовых блюд.</p>
 
 <p>Помимо пепперони, мы производим разнообразные халяль колбасы, копчёности и деликатесные продукты. Все рецептуры используют тщательно отобранную говядину и птицу от сертифицированных халяль поставщиков. Мы избегаем искусственных добавок везде, где возможно, предпочитая натуральные специи и традиционные методы обработки.</p>
 
@@ -244,10 +268,10 @@ footer a:hover{color:#fff;text-decoration:none}
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/pepperonitatar-kazan-delicacies-halal-pepperoni">Халяль пепперони Kazan Delicacies</a></li>
     <li><a href="/blog/halal-meat-production-kazan">Производство халяльного мяса в Казани: стандарты, технологии и контроль качества</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
     <li><a href="/blog/pepperoni-halal-kupit-optom">Пепперони халяль оптом — производитель из Казани</a></li>
     <li><a href="/blog/halal-meat-export-cis">Экспорт халяльного мяса в СНГ: Казахстан, Узбекистан, Беларусь</a></li>
     <li><a href="/blog/halal-meat-export-russia">Экспорт халяльного мяса из России: мультистрановая дистрибуция и валютная гибкость</a></li>
+    <li><a href="/blog/halal-meat-production-standards">Стандарты производства халяльного мяса: требования к качеству для B2B покупателей</a></li>
   </ul>
 </section>
 </body>

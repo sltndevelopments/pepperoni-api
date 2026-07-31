@@ -16,6 +16,10 @@ permissions:
 jobs:
   scout:
     runs-on: ubuntu-latest
+    # Disabled 2026-07-02 (Task 0.2, stop dual scheduling): scout_seo.py already
+    # runs daily on the VPS (seo-agent-vps.sh Step 3.3). Running it here too
+    # every 6h duplicated GSC fetches and state commits/races on top of VPS.
+    if: false
     steps:
       - uses: actions/checkout@v4
         with:

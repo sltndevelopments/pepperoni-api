@@ -1,0 +1,69 @@
+{
+  "updated_at": "2026-07-16T05:00:00+00:00",
+  "notes": "Approved unique RU blog topics. Brain pulls pending into new_blog_topics (2–3/week). Executor marks done/skipped_dup. Do not add near-synonyms of covered norms.",
+  "topics": [
+    {
+      "slug": "halyal-farsh-dlya-pekaren-optom",
+      "title_ru": "Фарш халяль для пекарен оптом: ТУ, сроки, поставка из Казани",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Commercial bakers need mince specs; distinct from hot-dog/kotlety clusters"
+    },
+    {
+      "slug": "sosiski-v-teste-dlya-shkol-optom",
+      "title_ru": "Сосиски в тесте для школ оптом: халяль, документы, логистика",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "School/canteen channel — not hot-dog sausages cluster"
+    },
+    {
+      "slug": "haccp-halyal-proizvodstvo-myasa",
+      "title_ru": "HACCP на халяль-производстве мяса: что проверяет закупщик",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Compliance angle for B2B buyers; not ISO-22000 duplicate if focused on HACCP ops"
+    },
+    {
+      "slug": "pepperoni-dlya-dark-kitchen-optom",
+      "title_ru": "Пепперони для dark kitchen оптом: калибр, срок, стабильность топпинга",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Segment angle (dark kitchen) distinct from generic pepperoni-halyal-optom"
+    },
+    {
+      "slug": "elesh-optom-dlya-horeca",
+      "title_ru": "Элеш оптом для HoReCa: заморозка, разогрев, халяль-сертификат",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Bakery SKU underrepresented vs echpochmak/gubadiya"
+    },
+    {
+      "slug": "eksport-halyal-v-kazakhstan-dokumenty",
+      "title_ru": "Экспорт халяль в Казахстан: документы, упаковка, Incoterms для мяса",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Market A priority; not CIS typo-slug cluster"
+    },
+    {
+      "slug": "private-label-vypechka-halyal-start",
+      "title_ru": "Private Label халяль-выпечка: как запустить СТМ за 60–90 дней",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "PL bakery — complements PL pages, unique blog angle"
+    },
+    {
+      "slug": "srok-godnosti-halyal-kolbas-optom",
+      "title_ru": "Срок годности халяль-колбас оптом: заморозка vs охлаждение для сетей",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "Retail buyer FAQ with commercial intent; not pepperoni-shelf-life clone if multi-SKU"
+    },
+    {
+      "slug": "postavka-halyal-na-azs",
+      "title_ru": "Поставка халяль на АЗС: сосиски, пепперони, логистика street food",
+      "intent": "коммерческий",
+      "status": "pending",
+      "why": "AZS segment page support; distinct from generic hot-dog blog"
+    }
+  ]
+}

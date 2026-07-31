@@ -40,6 +40,30 @@ a{color:#0066cc}
 nav{font-size:.85rem;margin-bottom:18px}
 footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;padding-top:18px}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -47,7 +71,7 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 <h1>Terms of Use</h1>
 <div class="meta">Version 1.0 · effective 1 June 2026</div>
 
-<p>These Terms govern the use of the <strong>pepperoni.tatar</strong> and <strong>api.pepperoni.tatar</strong> websites (the "Site"). The owner and operator is <strong>Kazan Delicacies LLC</strong> (INN 1655504520, Kazan, ul. Agrarnaya 2, Russia). By using the Site you agree to these Terms.</p>
+<p>These Terms govern the use of the <strong>pepperoni.tatar</strong> and <strong>api.pepperoni.tatar</strong> websites (the "Site"). The owner and operator is <strong>Kazan Delicacies LLC</strong> (TIN 1686021074, OGRN 1221600096893, Kazan, 2 Agrarnaya St., office&nbsp;7, Russia). By using the Site you agree to these Terms.</p>
 
 <h2>1. Purpose of the Site</h2>
 <p>The Site is an informational catalog resource of a halal product manufacturer, intended for wholesale buyers, distributors, HoReCa and retail segments, and export partners. It provides the product catalog, specifications, prices, and contact details.</p>
@@ -84,7 +108,7 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 
 <h2>8. Contact</h2>
 <p>Kazan Delicacies LLC<br>
-Address: 420059, Kazan, ul. Agrarnaya 2, Russia<br>
+Address: 420061, Kazan, 2 Agrarnaya St., office&nbsp;7, Russia<br>
 Email: <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><br>
 Phone: <a href="tel:+79872170202">+7 987 217-02-02</a></p>
 

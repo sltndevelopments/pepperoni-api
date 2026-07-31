@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="uz" data-lang="uz">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Халяль топпинглар Нукус | Пепперони, ветчина, колбаса – Pepperoni Tatar</title>
@@ -9,42 +15,7 @@
     <!-- Bootstrap 5 -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "Product"],
-        "name": "Pepperoni Tatar — Халяль топпинглар Нукус",
-        "description": "Термостабил халяль топпинглар: пепперони, ветчина, колбаса, говяжий бекон. Оптом ва чакана. Сертификатлар: Халяль, HACCP, ISO 22000.",
-        "url": "https://pepperoni.tatar/geo/topping-dlya-pitstsy-nukus/",
-        "telephone": "+7 987 217-02-02",
-        "email": "info@kazandelikates.tatar",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ул. Аграрная, 2, оф. 7",
-            "addressLocality": "Казань",
-            "addressCountry": "RU"
-        },
-        "areaServed": {
-            "@type": "City",
-            "name": "Нукус"
-        },
-        "productID": "toppings-pizza",
-        "brand": {
-            "@type": "Brand",
-            "name": "Pepperoni Tatar"
-        },
-        "offers": {
-            "@type": "Offer",
-            "availability": "https://schema.org/InStock",
-            "priceCurrency": "UZS",
-            "price": "0",
-            "eligibleRegion": {
-                "@type": "City",
-                "name": "Нукус"
-            }
-        }
-    }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Pepperoni Tatar — Халяль топпинглар Нукус","description":"Термостабил халяль топпинглар: пепперони, ветчина, колбаса, говяжий бекон. Оптом ва чакана. Сертификатлар: Халяль, HACCP, ISO 22000.","url":"https://pepperoni.tatar/geo/topping-dlya-pitstsy-nukus/","telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"Нукус"},"productID":"toppings-pizza","brand":{"@type":"Brand","name":"Pepperoni Tatar"},"offers":{"@type":"Offer","availability":"https://schema.org/InStock","priceCurrency":"UZS","price":"0","eligibleRegion":{"@type":"City","name":"Нукус"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"UZS"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"UZS"}}},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -191,6 +162,30 @@
             color: #7c6b5a;
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Нукус" data-product="toppings-pizza">
 
@@ -375,7 +370,7 @@
 <section class="related-pages py-4 bg-light mt-5">
   <div class="container">
     <h6 class="text-muted mb-3">Другие продукты для Nukus:</h6>
-    <div><a href="/geo/pepperoni-nukus/" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a>Сосиски для хот-догов<a href="/geo/sosiski-v-teste-nukus/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-nukus/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+    <div><a href="/pepperoni" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a>Сосиски для хот-догов<a href="/sosiska-v-teste" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/vetchina-optom" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
   </div>
 </section>
 

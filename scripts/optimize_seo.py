@@ -20,7 +20,7 @@ Env:
   OPT_MIN_IMPR            min 30-day impressions to consider a page (default 25)
   OPT_POS_LOW/OPT_POS_HIGH ranking band to target (default 5..15)
   OPT_MAX_CTR             only pages below this CTR are candidates (default 0.02)
-  OPT_MATURE_DAYS         min days before measuring an experiment (default 14)
+  OPT_MATURE_DAYS         min days before measuring an experiment (default 21)
 """
 
 from __future__ import annotations
@@ -47,12 +47,12 @@ REPO_DIR   = Path(__file__).parent.parent
 # git-tracked JSON ledger committed alongside the HTML changes.
 LEDGER_PATH = REPO_DIR / "data" / "experiments.json"
 
-OPT_MAX_CHANGES = int(os.environ.get("OPT_MAX_CHANGES", "8"))
+OPT_MAX_CHANGES = int(os.environ.get("OPT_MAX_CHANGES", "3"))
 OPT_MIN_IMPR    = int(os.environ.get("OPT_MIN_IMPR",    "25"))
 OPT_POS_LOW     = float(os.environ.get("OPT_POS_LOW",   "5"))
 OPT_POS_HIGH    = float(os.environ.get("OPT_POS_HIGH",  "15"))
 OPT_MAX_CTR     = float(os.environ.get("OPT_MAX_CTR",   "0.02"))
-OPT_MATURE_DAYS = int(os.environ.get("OPT_MATURE_DAYS", "14"))
+OPT_MATURE_DAYS = int(os.environ.get("OPT_MATURE_DAYS", "21"))
 OPT_WINDOW_DAYS = int(os.environ.get("OPT_WINDOW_DAYS", "30"))
 
 # Verdict thresholds (relative to before): a "win" needs CTR up or position up.
@@ -311,6 +311,15 @@ def run_apply(conn) -> int:
         if not path:
             print(f"  · skip (no file): {c['page']}")
             continue
+        try:
+            from experiment_registry import can_start
+            allowed, reason = can_start(c["query"], c["page"], max_active=3)
+            if not allowed:
+                print(f"  · skip experiment: {reason} — {c['query']}")
+                continue
+        except Exception as e:
+            print(f"  ⏸ registry unavailable, fail-closed: {e}", file=sys.stderr)
+            break
         lang = "en" if "/en/" in c["page"] else "ru"
         cur_title = get_title(path)
         cur_desc  = get_description(path)
@@ -327,6 +336,19 @@ def run_apply(conn) -> int:
             continue
 
         rel = str(path.relative_to(REPO_DIR))
+        from experiment_registry import start
+        operator_exp = start(
+            query=c["query"],
+            page=c["page"],
+            hypothesis="Intent-matched title/meta should improve commercial CTR or position",
+            change_type="title_meta",
+            primary_metric="commercial_clicks",
+            baseline={
+                "position": round(c["pos"], 2),
+                "ctr": round(c["ctr"], 5),
+                "impressions": int(c["impr"]),
+            },
+        )
         ledger.append({
             "applied_at": now,
             "change_type": "title_meta",
@@ -344,6 +366,7 @@ def run_apply(conn) -> int:
             "after_pos": None,
             "after_ctr": None,
             "after_impr": None,
+            "operator_experiment_id": operator_exp["id"],
         })
         changed += 1
         print(f"  ✏️  {path.name}: «{c['query']}» pos{c['pos']:.0f} ctr{c['ctr']:.1%}")
@@ -405,6 +428,15 @@ def run_measure(conn) -> int:
             exp["measured_at"] = now
             exp["notes"] = "no-after-data"
             neutral += 1
+            if exp.get("operator_experiment_id"):
+                try:
+                    from experiment_registry import finish
+                    finish(
+                        exp["operator_experiment_id"], "not_indexed",
+                        {"impressions": 0}, note="no-after-data",
+                    )
+                except Exception as e:
+                    print(f"  ⚠️ registry finish: {e}", file=sys.stderr)
             continue
 
         d_ctr = m["ctr"] - (exp.get("before_ctr") or 0)
@@ -424,6 +456,18 @@ def run_measure(conn) -> int:
         exp["after_pos"] = round(m["pos"], 2)
         exp["after_ctr"] = round(m["ctr"], 5)
         exp["after_impr"] = m["impr"]
+        if exp.get("operator_experiment_id"):
+            try:
+                from experiment_registry import finish
+                mapped = {"neutral": "flat", "regression": "worse"}.get(verdict, verdict)
+                finish(
+                    exp["operator_experiment_id"], mapped,
+                    {"position": round(m["pos"], 2),
+                     "ctr": round(m["ctr"], 5),
+                     "impressions": m["impr"]},
+                )
+            except Exception as e:
+                print(f"  ⚠️ registry finish: {e}", file=sys.stderr)
         print(f"  {verdict:10s} {Path(exp['file_path']).name}: "
               f"ctr {(exp.get('before_ctr') or 0):.1%}→{m['ctr']:.1%}, "
               f"pos {(exp.get('before_pos') or 0):.1f}→{m['pos']:.1f}")

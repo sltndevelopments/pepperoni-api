@@ -1,0 +1,21 @@
+[Unit]
+Description=Kazan Delicacies lead-intake server (site form -> leads group)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/var/www/pepperoni/repo/infra/scripts
+EnvironmentFile=/var/www/pepperoni/seo-agent.env
+Environment=LEAD_INTAKE_PORT=5002
+# Production WSGI server (gunicorn), 2 workers, bound to localhost; nginx proxies.
+ExecStart=/usr/bin/gunicorn --workers 2 --bind 127.0.0.1:5002 \
+    --timeout 30 --access-logfile - --error-logfile - \
+    lead_intake_server:app
+Restart=on-failure
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

@@ -1,46 +1,21 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>B2B: Tartar pastry borong Kota Kinabalu – Halal, HACCP</title>
     <meta name="description" content="Bekalan borong tartar pastry asli Kazan: echpochmak, peremyach, gubadia. Halal JAKIM, HACCP, ISO 22000. Penghantaran ke Kota Kinabalu. Untuk restoran & kafe.">
-    <link rel="canonical" href="https://pepperoni.tatar/geo/vypechka-tatarskaya-kota-kinabalu/">
+    <link rel="canonical" href="https://pepperoni.tatar/ms/geo/vypechka-tatarskaya-kota-kinabalu">
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Schema JSON-LD akan dimasukkan di head -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": ["LocalBusiness", "Product"],
-      "name": "Kazan Delikates – Tartar pastry borong",
-      "description": "Bekalan borong tartar pastry asli untuk HoReCa. Halal, HACCP, ISO 22000.",
-      "url": "https://pepperoni.tatar/geo/vypechka-tatarskaya-kota-kinabalu/",
-      "telephone": "+7 987 217-02-02",
-      "email": "info@kazandelikates.tatar",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "ул. Аграрная, 2, оф. 7",
-        "addressLocality": "Kazan",
-        "addressCountry": "RU"
-      },
-      "productID": "tartar-pastry-borong",
-      "brand": "Kazan Delikates",
-      "offers": {
-        "@type": "Offer",
-        "availability": "https://schema.org/InStock",
-        "priceCurrency": "MYR",
-        "price": "0",
-        "description": "Pesanan borong – hubungi untuk senarai harga"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "bestRating": "5",
-        "ratingCount": "47"
-      }
-    }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Kazan Delikates – Tartar pastry borong","description":"Bekalan borong tartar pastry asli untuk HoReCa. Halal, HACCP, ISO 22000.","url":"https://pepperoni.tatar/ms/geo/vypechka-tatarskaya-kota-kinabalu","telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Kazan","addressCountry":"RU"},"productID":"tartar-pastry-borong","brand":"Kazan Delikates","image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -95,10 +70,34 @@
       "@type": "BreadcrumbList",
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Laman utama", "item": "https://pepperoni.tatar/" },
-        { "@type": "ListItem", "position": 2, "name": "Kota Kinabalu", "item": "https://pepperoni.tatar/geo/vypechka-tatarskaya-kota-kinabalu/" }
+        { "@type": "ListItem", "position": 2, "name": "Kota Kinabalu", "item": "https://pepperoni.tatar/ms/geo/vypechka-tatarskaya-kota-kinabalu" }
       ]
     }
     </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Кота-Кинабалу" data-product="vypechka-tatarskaya">
     <div class="container py-5">

@@ -57,13 +57,38 @@ def _count(glob_dir: Path, pattern: str = "*.html") -> int:
 
 
 def inventory() -> dict:
-    return {
+    inv = {
         "geo_ru": _count(PUBLIC / "geo"),
         "geo_en": _count(PUBLIC / "en/geo"),
         "blog_ru": _count(PUBLIC / "blog"),
         "blog_en": _count(PUBLIC / "en/blog"),
         "products": _count(PUBLIC / "products"),
     }
+    # Slug/title inventory for near-dup prevention (compact)
+    try:
+        from blog_topic_dedup import blog_inventory_for_digest
+        inv["blog_dedup"] = blog_inventory_for_digest(limit=20)
+    except Exception as e:
+        inv["blog_dedup"] = {"error": str(e)[:120]}
+    # Topic queue (approved unique themes)
+    try:
+        qpath = DATA / "blog_topic_queue.json"
+        if qpath.exists():
+            q = json.loads(qpath.read_text(encoding="utf-8"))
+            pending = [t for t in (q.get("topics") or []) if t.get("status") == "pending"]
+            inv["blog_topic_queue"] = {
+                "pending": len(pending),
+                "next": [
+                    {"slug": t.get("slug"), "title_ru": t.get("title_ru"),
+                     "intent": t.get("intent", "коммерческий")}
+                    for t in pending[:6]
+                ],
+                "rule": "Бери new_blog_topics из blog_topic_queue.next (pending). "
+                        "Не выдумывай синонимы к уже покрытым нормам.",
+            }
+    except Exception:
+        pass
+    return inv
 
 
 def coverage_gaps() -> dict:
@@ -716,10 +741,11 @@ def build_digest() -> dict:
     # Per-block caps above should keep total well under this; the guardian is
     # a structural backstop for any future block that exceeds its cap.
     # Cuts by ELEMENT count (never slice a JSON string) so result stays valid.
-    _GUARDIAN_CHARS = 45_000
+    _GUARDIAN_CHARS = 24_000
     _VARIABLE_BLOCKS = (
-        "market_pulse", "agent_bus", "scout", "expert_tasks", "gate_rejections",
-        "web_search", "memory", "opportunities", "competitors",
+        "inventory", "market_pulse", "agent_bus", "scout", "expert_tasks",
+        "gate_rejections", "web_search", "memory", "opportunities",
+        "competitors", "experiments", "outcomes", "goals", "coverage",
     )
     _TRIM_STEPS = [10, 5, 3, 1]
 
@@ -735,6 +761,19 @@ def build_digest() -> dict:
                     for sub, sv in val.items():
                         if isinstance(sv, list) and len(sv) > step:
                             val[sub] = sv[:step]
+            raw = json.dumps(digest, ensure_ascii=False)
+            if len(raw) <= _GUARDIAN_CHARS:
+                digest["_digest_trimmed"] = True
+                break
+
+    # Final deterministic backstop. Keep operational truth; collapse the least
+    # critical context blocks instead of sending an oversized paid prompt.
+    if len(raw) > _GUARDIAN_CHARS:
+        for key in (
+            "inventory", "market_pulse", "competitors", "memory", "toolbox",
+            "expert_tasks", "web_search", "coverage", "opportunities",
+        ):
+            digest[key] = {"trimmed": True}
             raw = json.dumps(digest, ensure_ascii=False)
             if len(raw) <= _GUARDIAN_CHARS:
                 digest["_digest_trimmed"] = True
@@ -915,6 +954,13 @@ KPI — приток ЦЕЛЕВЫХ (КОММЕРЧЕСКИХ) клиентов,
   усиливают E-E-A-T/AIO-цитируемость. НЕ трать на них основной объём.
 - В new_blog_topics ВСЕГДА помечай intent. Держи перекос в сторону коммерческих:
   на каждую информационную тему — минимум 2-3 коммерческие.
+- РИТМ БЛОГА: blog_weekly_target = 2..3 новых RU-статей в неделю. Не оставляй
+  new_blog_topics пустым неделями, кроме активного P0 (mass broken links /
+  not_indexed burst). Потолок за цикл — blog_weekly_target (не 3–8 «на всякий»).
+- АНТИ-ДУБЛИ БЛОГА: смотри inventory.blog_dedup (existing_norms_sample,
+  existing_posts_sample). Синонимы slug (halyal/halal, sosiki/sosiski,
+  peperoni/pepperoni, «купить/опт/gid») = ДУБЛЬ — не предлагай. Если есть
+  inventory.blog_topic_queue.next — бери темы оттуда.
 - №1 ВО ВСЕХ ЦЕЛЕВЫХ СТРАНАХ: список рынков — в goals.countries (market_group A→E,
   docs_status, content_langs). Цель — первое место по коммерческим запросам в КАЖДОЙ.
   Блок "coverage" в дайджесте показывает матрицу категория×рынок×язык, отсортированную
@@ -1268,7 +1314,8 @@ okr) и сам за них отвечаешь. Если активных OKR н�
   "focus_products": ["product_id", ...],        // 3-6 продуктов в порядке приоритета
   "focus_langs": ["ru","en","ar","ms","id","tr","fr","kk",...], // языки под целевые рынки
   "geo_daily_target": 80,                        // гео-страниц/день (равномерно по категориям и странам)
-  "new_blog_topics": [                           // 3-8 новых статей
+  "blog_weekly_target": 3,                       // новых RU-статей/неделю (2..3). Repair-P0 → 0, иначе ≥2
+  "new_blog_topics": [                           // ≤ blog_weekly_target; UNIQUE only (см. inventory.blog_dedup)
     {"slug":"...", "title_ru":"...", "intent":"информационный|коммерческий"}
   ],
   "pl_oem_topics": [                             // 3-8 страниц по Private Label/OEM
@@ -1320,6 +1367,7 @@ STRATEGY_SCHEMA = {
         "geo_per_day": {"type": "integer"},
         "landing_per_day": {"type": "integer"},
         "expert_per_day": {"type": "integer"},
+        "blog_weekly_target": {"type": "integer"},
         "new_blog_topics": {
             "type": "array",
             "items": {
@@ -1443,7 +1491,10 @@ STRATEGY_SCHEMA = {
                     "quarter": {"type": "string"},
                     "status": {"type": "string"},
                 },
-                "required": ["action", "section"],
+                # Marked required (not optional-but-empty) to stay under
+                # Anthropic's 24-optional-parameter tool-schema limit — see
+                # instructions/next-task.md Task 0.3. Model can send "" / [].
+                "required": ["action", "section", "id", "text", "why"],
             },
         },
         "proactive_message": {
@@ -1477,9 +1528,65 @@ STRATEGY_SCHEMA = {
             },
         },
     },
+    # Marked required (not left optional-but-empty) to stay under Anthropic's
+    # 24-optional-parameter tool-schema limit — see instructions/next-task.md
+    # Task 0.3. Model can send "" / [] for anything it has nothing to say.
     "required": ["focus_products", "focus_langs", "geo_daily_target",
-                 "new_blog_topics", "pl_oem_topics", "notes", "report_to_owner"],
+                 "blog_weekly_target", "new_blog_topics", "pl_oem_topics", "questions",
+                 "proactive_message", "notes", "report_to_owner"],
 }
+
+# Contract coverage: every accepted field is either consumed by a named runtime
+# path or deliberately downgraded to a non-executing engineering proposal.
+STRATEGY_CONSUMED_FIELDS = {
+    "focus_products", "focus_langs", "geo_daily_target", "geo_per_day",
+    "landing_per_day", "expert_per_day", "blog_weekly_target",
+    "new_blog_topics", "pl_oem_topics", "web_queries", "memory_ops",
+    "proactive_message", "notes", "report_to_owner", "questions",
+}
+STRATEGY_ENGINEERING_FIELDS = {
+    "rewrite_pages", "prompt_tweaks", "propose_tools", "run_tools", "edit_agents",
+}
+
+
+def normalize_strategy_payload(strategy: object) -> object:
+    if not isinstance(strategy, dict):
+        return strategy
+    normalized = dict(strategy)
+    normalized.setdefault("questions", [])
+    normalized.setdefault(
+        "report_to_owner",
+        normalized.get("proactive_message") or normalized.get("notes") or "",
+    )
+    return normalized
+
+
+def strategy_contract_errors(strategy: object) -> list[str]:
+    """Return deterministic schema errors without mutating last-known-good."""
+    if not isinstance(strategy, dict):
+        return ["корень ответа не объект"]
+    errors: list[str] = []
+    required = STRATEGY_SCHEMA.get("required", [])
+    missing = [k for k in required if k not in strategy]
+    if missing:
+        errors.append(f"отсутствуют обязательные поля: {missing}")
+    type_map = {"array": list, "integer": int, "string": str, "object": dict}
+    type_errors = []
+    for key, spec in STRATEGY_SCHEMA["properties"].items():
+        if key not in strategy:
+            continue
+        expected = type_map.get(spec.get("type"))
+        if expected and not isinstance(strategy[key], expected):
+            type_errors.append(
+                f"{key}: ожидался {spec['type']}, пришёл "
+                f"{type(strategy[key]).__name__}"
+            )
+    if type_errors:
+        errors.append(f"неверные типы: {type_errors}")
+    unknown = sorted(set(strategy) - set(STRATEGY_SCHEMA["properties"]))
+    if unknown:
+        errors.append(f"неизвестные поля: {unknown}")
+    return errors
 
 
 def _extract_json(text: str) -> dict:
@@ -1500,7 +1607,7 @@ def _report_and_ask(strategy: dict) -> None:
     Questions are persisted to brain_questions.json so the Telegram bot can show
     them and route the owner's reply back into brain_answers.json for next cycle.
     """
-    from telegram_notify import notify
+    from notification_router import emit
 
     report = (strategy.get("report_to_owner") or "").strip()
     questions = strategy.get("questions") or []
@@ -1537,12 +1644,19 @@ def _report_and_ask(strategy: dict) -> None:
             print(f"⚠️  web_search failed: {e}")
 
     # Acknowledge bus tasks addressed to Fable: a planning cycle ran, so any
-    # pending "strengthen_landing" handoffs are now folded into the strategy.
+    # pending/escalated "strengthen_landing" / "fix_failing_page" handoffs are
+    # now folded into the strategy. Escalated tasks are included here too —
+    # escalate_stuck() (agent_bus --escalate, every tick) flips old open tasks
+    # to "escalated" purely to alert the owner; without acking them here they
+    # became permanently invisible/unresolved (14 tasks stuck since 2026-06-14,
+    # found 2026-07-02). Real unresolved work still surfaces via report_to_owner
+    # / proactive_message in this same cycle — this only closes the bus ticket.
     try:
         import agent_bus
-        for t in agent_bus.inbox("fable", status="pending"):
-            agent_bus.update(t["id"], "done",
-                             note="учтено в стратегии цикла")
+        for status in ("pending", "escalated"):
+            for t in agent_bus.inbox("fable", status=status):
+                agent_bus.update(t["id"], "done",
+                                 note="учтено в стратегии цикла")
     except Exception as e:
         print(f"⚠️  bus ack failed: {e}")
 
@@ -1565,13 +1679,16 @@ def _report_and_ask(strategy: dict) -> None:
             ) else "done"
             daily_ledger.append_event(cat, f"📣 Fable: {proactive[:300]}")
         else:
-            notify(f"📣 <b>Fable</b>\n\n{proactive}")
+            emit("info", "brain_proactive", f"📣 <b>Fable</b>\n\n{proactive}",
+                 dedupe_key=f"brain-proactive:{strategy.get('generated_at','')[:10]}")
 
     if report:
         if _ledger_ok:
             daily_ledger.append_event("done", f"Fable цикл: {report[:300]}")
         else:
-            notify(f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}")
+            emit("info", "brain_report",
+                 f"🧠 <b>Fable — отчёт за цикл</b>\n\n{report}",
+                 dedupe_key=f"brain-report:{strategy.get('generated_at','')[:10]}")
 
     if questions:
         # Always persist questions for the Telegram bot (interactive).
@@ -1589,7 +1706,8 @@ def _report_and_ask(strategy: dict) -> None:
         if _ledger_ok:
             daily_ledger.append_event("needs_help", summary)
         else:
-            notify(summary)
+            emit("action", "brain_question", summary,
+                 dedupe_key=f"brain-questions:{strategy.get('generated_at','')[:10]}")
 
 
 def main():
@@ -1599,7 +1717,7 @@ def main():
         else:
             print(f"⚠️  Opus monthly budget exhausted (${remaining_budget():.2f} left). "
                   "Keeping existing strategy.")
-        return 0
+        return 2
 
     digest = build_digest()
     user_prompt = build_user_prompt(digest)
@@ -1613,17 +1731,9 @@ def main():
             print(f"📏 digest size: {n:,} input tokens")
         if n > 30_000:
             warn = (f"⚠️ Дайджест Мозга распух: {n:,} токенов (>30K). "
-                    f"Проверь блоки digest — это бьёт по бюджету Fable.")
+                    f"Вызов отменён fail-closed; требуется инженерное сокращение.")
             print(warn)
-            try:
-                import daily_ledger
-                daily_ledger.append_event("needs_help", warn)
-            except Exception:
-                try:
-                    from telegram_notify import notify
-                    notify(warn)
-                except Exception:
-                    pass
+            return 2
     except Exception:
         pass
 
@@ -1634,6 +1744,14 @@ def main():
           f"budget left ${remaining_budget():.2f}")
 
     try:
+        # json_schema (structured outputs) disabled 2026-07-02 (Task 0.3):
+        # even after trimming STRATEGY_SCHEMA under Anthropic's 24-optional-
+        # param limit, the compiled constrained-decoding grammar for this
+        # schema is still too large ("compiled grammar is too large ...
+        # reduce the number of strict tools"). The system prompt already
+        # spells out the exact JSON schema and _extract_json() below is a
+        # robust fallback parser — that combination is what actually
+        # produced strategy.json for months before json_schema was added.
         text, usage = call_opus(
             prompt=user_prompt,
             system=PLAYBOOK,
@@ -1641,17 +1759,77 @@ def main():
             temperature=0.3,
             cache_system=True,
             effort=effort,
-            json_schema=STRATEGY_SCHEMA,
         )
     except Exception as e:
         print(f"⚠️  Opus call failed ({e}). Keeping existing strategy.")
-        return 0
+        return 2
 
     try:
         strategy = _extract_json(text)
     except Exception as e:
         print(f"⚠️  Could not parse strategy JSON ({e}). Keeping existing strategy.")
-        return 0
+        return 2
+
+    # Narrative/reporting fields are optional model conveniences, not control
+    # directives. Missing them must not invalidate an otherwise executable plan.
+    strategy = normalize_strategy_payload(strategy)
+
+    # Safety net for json_schema being disabled (Task 0.3): _extract_json is
+    # now the only parser, so a malformed-but-valid-JSON reply (missing keys,
+    # wrong types) could otherwise silently overwrite a working strategy.json
+    # and the worker would tick blind again, just quieter. Validate the
+    # STRATEGY_SCHEMA-required keys' presence/type before ever writing to
+    # disk; on failure, keep the old strategy.json untouched and alert.
+    problems = strategy_contract_errors(strategy)
+    if problems:
+        msg = ("🚨 Brain: невалидный ответ Opus — strategy.json НЕ перезаписан.\n"
+               + "\n".join(problems))
+        print(f"⚠️  {msg}")
+        try:
+            from notification_router import emit
+            emit("emergency", "brain_contract", msg,
+                 dedupe_key="brain-invalid-contract")
+        except Exception as alert_err:
+            print(f"⚠️  Telegram alert failed (non-fatal): {alert_err}")
+        return 2
+
+    # Enforce weekly blog cadence cap (default 3). Prefer queue topics if brain
+    # left new_blog_topics empty without P0 repair signal.
+    weekly = strategy.get("blog_weekly_target")
+    if not isinstance(weekly, int) or weekly < 0:
+        weekly = 3
+        strategy["blog_weekly_target"] = weekly
+    topics = strategy.get("new_blog_topics") or []
+    if isinstance(topics, list) and len(topics) > weekly:
+        strategy["new_blog_topics"] = topics[:weekly]
+    if weekly > 0 and not (strategy.get("new_blog_topics") or []):
+        qinfo = (digest.get("inventory") or {}).get("blog_topic_queue") or {}
+        nxt = qinfo.get("next") or []
+        if nxt:
+            strategy["new_blog_topics"] = nxt[:weekly]
+            print(f"   ℹ️  filled new_blog_topics from queue ({len(strategy['new_blog_topics'])})")
+
+    # Advice may mention tooling/code changes, but production agents never
+    # execute those mutations autonomously. Preserve them as an owner-visible
+    # engineering proposal and strip all dead/non-executable directives.
+    proposals = {
+        k: strategy.get(k)
+        for k in STRATEGY_ENGINEERING_FIELDS
+        if strategy.get(k)
+    }
+    for key in STRATEGY_ENGINEERING_FIELDS:
+        strategy.pop(key, None)
+    if proposals:
+        strategy["engineering_proposals"] = proposals
+        try:
+            import daily_ledger
+            daily_ledger.append_event(
+                "needs_help",
+                "Site Brain предложил инженерные изменения; они не исполнялись "
+                "автоматически и ждут review.",
+            )
+        except Exception:
+            pass
 
     strategy["generated_at"] = datetime.now(timezone.utc).isoformat()
     strategy["model"] = OPUS_MODEL
@@ -1660,7 +1838,10 @@ def main():
         "opportunities_counts": {k: len(v) for k, v in digest["opportunities"].items()},
         "experiments": digest.get("experiments", {}).get("verdicts", {}),
     }
-    STRATEGY_FILE.write_text(json.dumps(strategy, ensure_ascii=False, indent=1))
+    tmp = STRATEGY_FILE.with_suffix(".json.tmp")
+    tmp.write_text(json.dumps(strategy, ensure_ascii=False, indent=1) + "\n",
+                   encoding="utf-8")
+    tmp.replace(STRATEGY_FILE)
 
     # ── Talk to the owner: report what was decided, ask only if unsure ──────
     try:
@@ -1671,6 +1852,7 @@ def main():
     print(f"✅ Strategy written → {STRATEGY_FILE}")
     print(f"   focus_products: {strategy.get('focus_products')}")
     print(f"   geo_daily_target: {strategy.get('geo_daily_target')}")
+    print(f"   blog_weekly_target: {strategy.get('blog_weekly_target')}")
     print(f"   blog topics: {len(strategy.get('new_blog_topics', []))} | "
           f"PL/OEM: {len(strategy.get('pl_oem_topics', []))} | "
           f"rewrites: {len(strategy.get('rewrite_pages', []))}")

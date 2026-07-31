@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Пепперони халяль оптом Семей | Өндірушіден тікелей</title>
@@ -9,36 +15,7 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "Product"],
-        "name": "Kazan Delikates — Халяль пепперони өндірушісі",
-        "description": "Жалғыз халяль пепперони өндірушісі (сиыр, тауық, жылқы еті). HACCP, ISO 22000:2018, Халяль ДУМ РТ. Семейге 48-72 сағ жеткізу.",
-        "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "Аграрная көш., 2, оф. 7",
-            "addressLocality": "Қазан",
-            "addressRegion": "Татарстан",
-            "addressCountry": "RU"
-        },
-        "telephone": "+7 987 217-02-02",
-        "email": "info@kazandelikates.tatar",
-        "areaServed": {
-            "@type": "City",
-            "name": "Семей",
-            "sameAs": "https://ru.wikipedia.org/wiki/Семей"
-        },
-        "product": {
-            "@type": "Product",
-            "name": "Пепперони халяль (сиыр, тауық, жылқы еті)",
-            "description": "Диаметр 40-75 мм. Нитрит натрийсіз, ГМО-сыз, таза құрам. HACCP, ISO 22000:2018, Халяль ДУМ РТ №614A/2024",
-            "brand": "Kazan Delikates",
-            "sku": "PEP-HALAL-SEM"
-        },
-        "sameAs": ["https://kazandelikates.tatar/"]
-    }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Kazan Delikates — Халяль пепперони өндірушісі","description":"Жалғыз халяль пепперони өндірушісі (сиыр, тауық, жылқы еті). HACCP, ISO 22000:2018, Халяль ДУМ РТ. Семейге 48-72 сағ жеткізу.","address":{"@type":"PostalAddress","streetAddress":"Аграрная көш., 2, оф. 7","addressLocality":"Қазан","addressRegion":"Татарстан","addressCountry":"RU"},"telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","areaServed":{"@type":"City","name":"Семей","sameAs":"https://ru.wikipedia.org/wiki/Семей"},"product":{"@type":"Product","name":"Пепперони халяль (сиыр, тауық, жылқы еті)","description":"Диаметр 40-75 мм. Нитрит натрийсіз, ГМО-сыз, таза құрам. HACCP, ISO 22000:2018, Халяль ДУМ РТ №614A/2024","brand":"Kazan Delikates","sku":"PEP-HALAL-SEM"},"sameAs":["https://kazandelikates.tatar/"],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -104,8 +81,19 @@
         (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
         ym(98765432, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
     </script>
-    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+    <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
     <style>
+
+    .tldr-answer {
+      background: #eaf4ee;
+      border-left: 4px solid #1a6b3a;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
         body { background-color: #f9f6f0; font-family: 'Inter', system-ui, -apple-system, sans-serif; }
         .b2b-section { background: #ffffff; border-radius: 24px; box-shadow: 0 12px 30px rgba(0,0,0,0.05); padding: 2.5rem; margin-bottom: 2rem; }
         .h1-custom { font-weight: 700; color: #1e2a3a; letter-spacing: -0.02em; }
@@ -128,6 +116,30 @@
         .footer-note { font-size: 0.8rem; color: #8a9aa8; text-align: center; margin-top: 3rem; border-top: 1px solid #ddd8cf; padding-top: 1.5rem; }
         .product-diameters { background: #f0ede6; border-radius: 40px; padding: 0.3rem 1.2rem; display: inline-block; }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Семей" data-product="pepperoni">
     <div class="container py-4 py-lg-5">
@@ -136,6 +148,11 @@
             <div class="col-12">
                 <span class="badge-halal mb-2 d-inline-block">✓ Халяль ДУМ РТ №614A/2024</span>
                 <h1 class="h1-custom display-5 fw-bold">Пепперони халяль оптом — Семейге тікелей жеткізу</h1>
+
+  <div class="tldr-answer">
+    <strong>Пепперони</strong> — Халяль пепперони из говядины, курицы и конины. Диаметры 40-75 мм. Производство Казань. Поставка в Семей транспортными компаниями с соблюдением холодовой цепи. СТМ/Private Label — доступно. Заявка: <a href="tel:+79872170202">+7 987 217-02-02</a>.
+  </div>
+
                 <p class="lead text-secondary fs-5 mt-3">Семей — 340 000 халқы бар, 95% мұсылман қаласы. Мұнда 1300-ден астам HoReCa нысаны халяль өнімдерін талап етеді. Біз — <strong>Ресейдегі жалғыз халяль пепперони өндірушісі</strong> (сиыр, тауық, жылқы еті). Диаметрі 40-75 мм, HACCP, ISO 22000:2018, ДУМ РТ сертификаты. Семейге 48-72 сағатта жеткіземіз.</p>
             </div>
         </div>
@@ -298,7 +315,7 @@
 <section class="related-pages py-4 bg-light mt-5">
   <div class="container">
     <h6 class="text-muted mb-3">Другие продукты для Semey:</h6>
-    <div><a href="/geo/sosiski-dlya-hotdog-semey/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiski-v-teste-semey/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/geo/vetchina-semey/" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+    <div><a href="/sosiski-dlya-hotdog" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/sosiska-v-teste" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/vetchina-optom" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
   </div>
 </section>
 

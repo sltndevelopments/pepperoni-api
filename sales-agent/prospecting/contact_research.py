@@ -62,13 +62,30 @@ SKIP_SITE = ("youtube.", "youtu.be", "rutube.", "ok.ru", "dzen.", "wikipedia.", 
 
 # Роли закупок/сбыта — лучший сигнал для приоритизации
 PROCUREMENT_PREFIXES = (
-    "zakupki", "snab", "zakaz", "opt", "sales", "commercial", "export",
-    "sbyt", "torg", "buyer", "purchase", "procurement",
+    "zakup", "snab", "buyer", "purchase", "procurement", "category",
+    "kategori", "assort", "supply",
 )
 # Общие ящики — хуже, но на корп. домене
-GENERIC_PREFIXES = ("info", "office", "mail", "contact", "hello", "reception", "admin")
+GENERIC_PREFIXES = (
+    "info", "office", "mail", "contact", "hello", "reception", "admin",
+    "hr", "kadr", "kadry", "personal", "career", "rabota", "marketing",
+    "pr", "press", "support", "service", "legal", "urist", "buh",
+    "accounting", "lab", "ok", "sekretar", "zakaz", "sales", "sbyt",
+)
 
 FREE_DOMAINS = ("@mail.ru", "@yandex.ru", "@gmail.com", "@bk.ru", "@inbox.ru", "@list.ru", "@rambler.ru")
+
+
+def is_buyer_contact(email: str | None, quality: str | None) -> bool:
+    """Высокоточный гейт: закупочная роль или персональный corporate email."""
+    if not email or "@" not in email:
+        return False
+    prefix = _email_prefix(email)
+    if quality == "procurement":
+        return any(prefix.startswith(p) for p in PROCUREMENT_PREFIXES)
+    if quality == "corporate":
+        return not any(prefix.startswith(p) for p in GENERIC_PREFIXES)
+    return False
 
 
 def _now() -> str:
@@ -427,6 +444,40 @@ def rank_emails(
     return [(e, q) for e, q, _ in ranked]
 
 
+def label_profile_emails(profile: dict) -> bool:
+    """Разметить уже импортированные email без сети и затрат на LLM.
+
+    Это только предварительная классификация. Адрес не считается проверенным:
+    перед отправкой contact research всё равно обязан подтвердить MX/A.
+    Возвращает True, если namespace профиля был дополнен.
+    """
+    from core import agent_profile as ap
+
+    if ap.get(profile, "email_best") and ap.get(profile, "email_quality"):
+        return False
+
+    raw = str(profile.get("emails") or profile.get("email") or "")
+    candidates = [
+        value.strip().lower()
+        for value in raw.replace(";", ",").split(",")
+        if value.strip() and "@" in value
+    ]
+    ranked = rank_emails(candidates)
+    if not ranked:
+        return False
+
+    best_email, quality = ranked[0]
+    ap.update(
+        profile,
+        email_best=best_email,
+        email_quality=quality,
+        email_verified=False,
+        email_mx_failed=False,
+        contact_labeled_at=_now(),
+    )
+    return True
+
+
 # ---------------------------------------------------------------------------
 # MX / A верификация домена
 # ---------------------------------------------------------------------------
@@ -685,22 +736,34 @@ def apply_research_to_lead(
     from core import agent_profile as ap
 
     profile = dict(lead.get("profile") or {})
+    attempted_at = _now()
+    best_email = research.get("best_email")
+    quality = research.get("quality")
+    verified = bool(research.get("verified", False))
+    buyer_contact = verified and is_buyer_contact(best_email, quality)
 
     ap.update(profile,
-        email_best=research.get("best_email"),
-        email_quality=research.get("quality"),
-        email_verified=research.get("verified", False),
+        email_best=best_email,
+        email_quality=quality,
+        email_verified=verified,
         email_mx_failed=research.get("mx_failed", False),
         site_confirmed=research.get("site_confirmed", False),
+        contact_last_attempt_at=attempted_at,
     )
+    if buyer_contact:
+        ap.set(profile, "contact_enriched_at", attempted_at)
+    else:
+        # Старое успешное значение не должно навсегда скрывать новый провал.
+        ap.set(profile, "contact_enriched_at", None)
+        ap.set(profile, "contact_failed_at", attempted_at)
     # Записываем contact_site только если сайт прошёл верификацию принадлежности
     if research.get("site") and research.get("site_confirmed"):
         ap.set(profile, "contact_site", research["site"])
     if deep:
-        ap.set(profile, "contact_researched_at", _now())
+        ap.set(profile, "contact_researched_at", attempted_at)
 
     # Поставить лучший email первым в profile.emails (pick_recipient возьмёт автоматически)
-    best = research.get("best_email")
+    best = best_email
     if best:
         existing = [
             e.strip().lower()

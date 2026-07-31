@@ -166,6 +166,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -204,7 +228,7 @@ Mixed pepperoni combining beef and chicken has become a strategic choice for HoR
 
 <h2>Cost-Performance Analysis for Wholesale Buyers</h2>
 <p>Mixed pepperoni delivers measurable economic advantages for high-volume purchasers. Chicken inclusion reduces raw material costs by 15-25% compared to all-beef formulations while maintaining acceptable organoleptic properties for most foodservice applications.</p>
-<p>For <a href="/pepperoni-optom">wholesale pepperoni orders</a> exceeding 500 kg monthly, mixed composition offers:</p>
+<p>For <a href="/pepperoni">wholesale pepperoni orders</a> exceeding 500 kg monthly, mixed composition offers:</p>
 <ul>
 <li>Purchase price reduction of 12-18% versus pure beef variants</li>
 <li>Stable pricing with lower exposure to beef market volatility</li>

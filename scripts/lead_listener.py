@@ -52,7 +52,13 @@ API = f"https://api.telegram.org/bot{TOKEN}"
 GROUP_ID = os.environ.get("LEADS_GROUP_ID", "").strip()
 MAX_LEADS = 2000
 
-PHONE_RE = re.compile(r"(?:\+7|8|7)[\s\-(]*\d{3}[\s\-)]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}")
+# RU/KZ (+7/8 + 10 digits) plus the CIS export dial codes used on the /pepperoni
+# landings, so export leads keep their phone in data/leads.json for attribution.
+PHONE_RE = re.compile(
+    r"(?:\+7|8|7)[\s\-(]*\d{3}[\s\-)]*\d{3}[\s\-]*\d{2}[\s\-]*\d{2}"
+    r"|\+?(?:375|374|992|994|995|996|998)[\s\-()]*(?:\d[\s\-()]*){7,9}\d"
+)
+URL_RE = re.compile(r"https?://(?:www\.)?pepperoni\.tatar(/[^\s?#]*)", re.I)
 COMMERCIAL = ("опт", "оптом", "цена", "прайс", "поставщ", "производит", "заказ",
               "b2b", "oem", "стм", "private label", "пиццери", "horeca", "хорека",
               "общепит", "купить", "сколько стоит", "коммерч", "дистрибь")
@@ -116,6 +122,32 @@ def _channel(text: str, sender: str) -> str:
     return "unknown"
 
 
+EXPERIMENT_RE = re.compile(r"(exp-\d{14}-\d+)")
+
+
+def _landing_and_experiment(text: str) -> tuple[str, str]:
+    match = URL_RE.search(text)
+    landing = (match.group(1).rstrip("/") or "/") if match else ""
+    # 1) Explicit experiment id carried by the site form ("🧪 Эксперимент: exp-…")
+    #    is the most reliable signal — trust it even if the page later leaves the
+    #    active registry.
+    explicit = EXPERIMENT_RE.search(text)
+    if explicit:
+        return landing, explicit.group(1)
+    if not landing:
+        return "", ""
+    # 2) Otherwise map the landing URL to a currently active experiment.
+    try:
+        from experiment_registry import active, normalize_page
+        linked = [
+            row for row in active()
+            if normalize_page(row.get("page", "")) == normalize_page(landing)
+        ]
+        return landing, linked[0].get("id", "") if linked else ""
+    except Exception:
+        return landing, ""
+
+
 def _parse_lead(msg: dict) -> dict | None:
     text = msg.get("text") or msg.get("caption") or ""
     if not text.strip():
@@ -123,12 +155,15 @@ def _parse_lead(msg: dict) -> dict | None:
     frm = msg.get("from", {}) or {}
     sender = (frm.get("username") or frm.get("first_name") or "")
     phones = PHONE_RE.findall(text)
+    landing, experiment_id = _landing_and_experiment(text)
     return {
         "at": datetime.fromtimestamp(msg.get("date", 0), timezone.utc).isoformat(),
         "channel": _channel(text, sender),
         "phone": phones[0] if phones else "",
         "text": text.strip()[:500],
         "intent": _classify(text),
+        "landing_page": landing,
+        "experiment_id": experiment_id,
         "msg_id": msg.get("message_id"),
         "chat_id": (msg.get("chat") or {}).get("id"),
         "from_bot": bool(frm.get("is_bot")),

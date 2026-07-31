@@ -166,6 +166,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -206,7 +230,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                         <li>Train staff on storage rules: separate zone in the refrigerator, prevent contact with other products</li>
                         <li>Monitor storage temperature daily — a deviation of 2-3°C reduces shelf life by 25-30%</li>
                         <li>Use FIFO technique (first in — first out) for stock rotation</li>
-                        <li>Conclude contracts with deferred payment of 14-21 days to optimize cash flow</li>
+                        <li>Conclude contracts with deferred payment as per contract to optimize cash flow</li>
                     </ul>
                 </div>
 

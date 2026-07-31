@@ -17,8 +17,16 @@ scripts/gsc-key.json
 .env.*
 !.env.example
 
+# Google OAuth / YouTube client secrets (never commit)
+client_secret*.json
+**/youtube-oauth*.json
+**/google-oauth*.json
+
 # SEO Agent runtime data (SQLite DB + logs)
 data/seo_data.db
+data/avito-worker.sqlite3
+data/avito-worker.sqlite3-wal
+data/avito-worker.sqlite3-shm
 data/*.db-wal
 data/*.db-shm
 data/logs/
@@ -31,6 +39,9 @@ __pycache__/
 
 # QA quarantine — broken pages held back by qa_pages.py, regenerated each run
 data/quarantine/
+# Runtime watermark for quarantine growth checks (must survive VPS git reset)
+data/quarantine_baseline.json
+data/quarantine_baseline.json.tmp
 # Proxy lock + transient runtime artifacts
 data/llm_costs.json.lock
 
@@ -50,6 +61,10 @@ sales-agent/data/email_blacklist.json
 sales-agent/.env
 sales-agent/secrets/
 !sales-agent/secrets/.gitkeep
+# Toolsmith-generated tools (Steve writes these autonomously at runtime,
+# tracked via data/steve_tools.json, not by a human) — keep untracked.
+sales-agent/agents/*.py
+!sales-agent/agents/__init__.py
 .vercel
 
 # Ops snapshots (DNS exports, secret indexes, etc.) — never commit
@@ -62,3 +77,14 @@ data/tg_pending.json
 data/brain_journal.jsonl
 data/.deploy_stamp
 data/tmp/
+# Telethon userbot session — SECRET (full account access). Never commit.
+*.session
+*.session-journal
+tg-state/
+
+# Leads mirror — synced from leadbot droplet at runtime (MTProto userbot).
+# Never commit: runtime state, would be wiped by deploy git reset otherwise.
+data/leads.json
+
+.venv-img/
+.venv*/

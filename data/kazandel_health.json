@@ -1,0 +1,27 @@
+{
+ "ts": "2026-07-02T14:07:01.271923+00:00",
+ "service": {
+  "ok": true,
+  "state": "active"
+ },
+ "deepseek": {
+  "ok": true,
+  "available": true,
+  "balance_usd": "16.17",
+  "low_balance": false,
+  "key_suffix": "1526"
+ },
+ "crash_loop": {
+  "ok": true,
+  "lines_last_hour": 358,
+  "error_lines_last_hour": 0
+ },
+ "voice_pm2": {
+  "ok": true,
+  "status": "online",
+  "restarts": 0
+ },
+ "voice_health": {
+  "ok": true
+ }
+}

@@ -40,6 +40,30 @@ a{color:#0066cc}
 nav{font-size:.85rem;margin-bottom:18px}
 footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;padding-top:18px}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -47,7 +71,7 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 <h1>Условия использования</h1>
 <div class="meta">Версия 1.0 · действует с 1 июня 2026 года</div>
 
-<p>Настоящие Условия регулируют использование сайтов <strong>pepperoni.tatar</strong> и <strong>api.pepperoni.tatar</strong> (далее — «Сайт»). Владелец и оператор — <strong>ООО «Казанские Деликатесы»</strong> (ИНН 1655504520, г. Казань, ул. Аграрная, д. 2). Используя Сайт, вы соглашаетесь с этими Условиями.</p>
+<p>Настоящие Условия регулируют использование сайтов <strong>pepperoni.tatar</strong> и <strong>api.pepperoni.tatar</strong> (далее — «Сайт»). Владелец и оператор — <strong>ООО «Казанские Деликатесы»</strong> (ИНН 1686021074, ОГРН 1221600096893, г.&nbsp;Казань, ул.&nbsp;Аграрная, д.&nbsp;2, офис&nbsp;7). Используя Сайт, вы соглашаетесь с этими Условиями.</p>
 
 <h2>1. Назначение сайта</h2>
 <p>Сайт является информационно-каталожным ресурсом производителя халяльной продукции и предназначен для оптовых покупателей, дистрибьюторов, сегментов HoReCa и ретейла, а также для экспортных партнёров. Сайт предоставляет каталог продукции, технические характеристики, цены и контактные данные.</p>
@@ -84,7 +108,7 @@ footer{margin-top:36px;color:#888;font-size:.85rem;border-top:1px solid #eee;pad
 
 <h2>8. Контакт</h2>
 <p>ООО «Казанские Деликатесы»<br>
-Адрес: 420059, Казань, ул. Аграрная, 2<br>
+Адрес: 420061, г.&nbsp;Казань, ул.&nbsp;Аграрная, д.&nbsp;2, офис&nbsp;7<br>
 Email: <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><br>
 Тел.: <a href="tel:+79872170202">+7 987 217-02-02</a></p>
 

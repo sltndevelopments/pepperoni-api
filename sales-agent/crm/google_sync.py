@@ -20,6 +20,7 @@ import yaml
 
 from core.store import Store
 from crm.google_auth import get_access_token
+from prospecting.contact_research import label_profile_emails
 
 ROOT = Path(__file__).resolve().parent.parent
 SCHEMA_PATH = ROOT / "config" / "crm_schema.yaml"
@@ -141,8 +142,8 @@ def _lead_row_from_db(lead: dict, schema: dict) -> list[str]:
         "last_email_at": agent.get("last_email_at") or "",
         "last_email_subject": agent.get("last_email_subject") or "",
         "last_draft_id": agent.get("last_draft_id") or "",
-        "escalation_reason": agent.get("escalation_reason") or "",
-        "escalated_at": agent.get("escalated_at") or "",
+        "escalation_reason": ap.get(p, "escalation_reason") or "",
+        "escalated_at": ap.get(p, "escalated_at") or ap.get(p, "owner_escalated_at") or "",
         "agent_updated_at": agent.get("updated_at") or _now(),
     }
     keys = [c["key"] for c in schema["tabs"]["leads"]["columns"]]
@@ -358,6 +359,11 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
 
             from core import agent_profile as ap
 
+            # Сначала канонизируем весь legacy escalation/handoff state.
+            # Иначе последующий pull защищает только уже существующий _agent,
+            # а старые верхнеуровневые поля навсегда теряются.
+            ap.migrate_legacy(old_profile)
+
             # Мигрируем legacy верхнеуровневые ключи аналитики в _agent,
             # чтобы они тоже жили под единым namespace и не выпали при pull.
             _migrate_keys = ("agent", "lookalike", "sausage_evidence", "score_reasons")
@@ -380,6 +386,10 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
         if crm_patch:
             profile["crm"] = crm_patch
 
+        # Импортированные адреса получают дешёвую предварительную разметку.
+        # Это не верификация: email_verified остаётся False до contact research.
+        label_profile_emails(profile)
+
         store.upsert_lead(
             name or f"ИНН {inn}",
             inn=inn,
@@ -387,7 +397,11 @@ def pull_leads(*, store: Store | None = None, limit: int | None = None) -> dict:
             tier=tier,
             fit_score=max(score, (existing or {}).get("fit_score") or 0),
             status=status,
-            source="crm_sheet_api",
+            source=(
+                "inbound"
+                if profile.get("inbound_reason") or profile.get("interest_confirmed")
+                else "crm_sheet_api"
+            ),
             profile=profile,
         )
         imported += 1

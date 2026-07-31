@@ -65,6 +65,17 @@ def _leads_week() -> tuple[int, int, dict]:
         by_ch[l.get("channel", "?")] = by_ch.get(l.get("channel", "?"), 0) + 1
         if l.get("intent") == "commercial":
             comm += 1
+    if week == 0:
+        # Lead listener may be empty while Metrika still records real contact
+        # actions. Use the 7-day landing attribution as a transparent fallback.
+        metrika = _read(DATA / "metrika.json") or {}
+        touches = sum(
+            int(periods.get("7d", 0))
+            for periods in (metrika.get("inquiries_by_page") or {}).values()
+        )
+        if touches:
+            week = comm = touches
+            by_ch = {"metrika_contact": touches}
     return week, comm, by_ch
 
 
@@ -88,10 +99,86 @@ def _bus_health() -> dict:
         return {"by_status": {}, "stuck": 0, "total": 0}
 
 
+def _operator_outcomes() -> dict:
+    try:
+        from experiment_registry import weekly_summary
+        return weekly_summary()
+    except Exception:
+        return {"active": 0, "verdicts": {}, "cost_usd": 0.0,
+                "next_actions": []}
+
+
+def _commercial_clicks() -> int:
+    goals = _read(DATA / "goals.json") or {}
+    seen = set()
+    total = 0
+    for row in goals.get("goals", []):
+        query = str(row.get("query", "")).casefold()
+        if query in seen:
+            continue
+        seen.add(query)
+        total += int(row.get("clicks_28d", 0))
+    return total
+
+
+def _commercial_pulse_block() -> list[str]:
+    """Embed north-star experiment pulse (measuring window until ~Aug 11)."""
+    try:
+        import commercial_pulse
+        pulse = commercial_pulse.build_pulse()
+        (DATA / "commercial_pulse.json").write_text(
+            json.dumps(pulse, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+        )
+        lines = ["<b>North star — 3 коммерческих эксперимента</b>",
+                 f"  GSC data → {pulse.get('gsc_data_through') or '—'}"]
+        for it in pulse.get("experiments") or []:
+            exact = it.get("exact") or {}
+            flag = it.get("flag")
+            note = {
+                "not_ranking_yet": "ещё не в выдаче по запросу",
+                "improved": "лучше baseline",
+                "worse": "хуже baseline",
+                "watching": "смотрим",
+            }.get(flag, flag)
+            lines.append(
+                f"  • {it.get('query')} → {it.get('page')} "
+                f"({it.get('days_left')}д) {note}; "
+                f"exact pos={exact.get('position') if exact.get('position') is not None else '—'} "
+                f"impr={exact.get('impr', 0)}"
+            )
+            top = (it.get("sitewide_top") or [{}])[0]
+            if top.get("page"):
+                lines.append(
+                    f"    сейчас спрос на: {top['page']} "
+                    f"(pos={top.get('position')}, impr={top.get('impr')})"
+                )
+        leads = pulse.get("leads") or {}
+        lines.append(
+            f"  Лиды 7д/21д: {leads.get('7d', 0)}/{leads.get('21d', 0)} "
+            f"(на exp-страницах 21д: {leads.get('on_exp_pages_21d', 0)})"
+        )
+        watch = pulse.get("watchlist") or []
+        if watch:
+            lines.append("  Pepperoni #1 (watch):")
+            for it in watch:
+                exact = it.get("exact") or {}
+                lines.append(
+                    f"    • {it.get('query')} → {it.get('page')} "
+                    f"pos={exact.get('position') if exact.get('position') is not None else '—'} "
+                    f"impr={exact.get('impr', 0)}"
+                )
+        lines.append("")
+        return lines
+    except Exception as exc:
+        return [f"<b>North star pulse</b>", f"  ⚠ unavailable: {exc}", ""]
+
+
 def build_report() -> str:
     week, comm, by_ch = _leads_week()
     spend = _spend_month()
     bus = _bus_health()
+    outcomes = _operator_outcomes()
+    commercial_clicks = _commercial_clicks()
     okr = _okr_lines()
 
     cost_per_lead = (f"${spend['total_usd'] / comm:.2f}" if comm
@@ -104,10 +191,26 @@ def build_report() -> str:
     lines += ["<b>Заявки за неделю</b>",
               f"  Всего: {week}  ·  коммерческих: {comm}",
               f"  По каналам: {ch}", ""]
+    lines += _commercial_pulse_block()
     lines += ["<b>Бюджет LLM (месяц)</b>",
               f"  Потрачено: ${spend['total_usd']} "
               f"(без оптимизаций было бы ${spend['baseline_usd']})",
               f"  Стоимость заявки: {cost_per_lead}", ""]
+    verdicts = outcomes["verdicts"]
+    lines += ["<b>Outcome-эксперименты</b>",
+              f"  Активно: {outcomes['active']} / 3",
+              f"  Win: {verdicts.get('win', 0)} · Flat: {verdicts.get('flat', 0)} · "
+              f"Worse/revert: {verdicts.get('worse', 0) + verdicts.get('reverted', 0)}",
+              f"  Коммерческие клики (28д): {commercial_clicks}", ""]
+    lines += ["<b>Следующие задачи (макс. 3)</b>"]
+    if outcomes.get("next_actions"):
+        lines += [
+            f"  • {row['query']} → {row['page']} (замер {row['measure_at']})"
+            for row in outcomes["next_actions"]
+        ]
+    else:
+        lines.append("  • Новые задачи заморожены или очередь пуста")
+    lines.append("")
     by_status = bus["by_status"]
     lines += ["<b>Координация (шина задач)</b>",
               f"  Задач всего: {bus['total']}  ·  "
@@ -126,6 +229,10 @@ def build_report() -> str:
         attention.append("За неделю нет заявок — проверить каналы/трекинг")
     if not okr:
         attention.append("Не заданы OKR — агенты работают без квартальных целей")
+    attention.append(
+        "PSI key: ограничить IP 37.9.4.101 в GCP Credentials "
+        "(ключ светился в чате)"
+    )
     lines += ["<b>Требует твоего внимания</b>"]
     lines += [f"  • {a}" for a in attention] if attention else ["  ✅ Всё штатно"]
     return "\n".join(lines)
@@ -134,11 +241,6 @@ def build_report() -> str:
 def main() -> int:
     report = build_report()
     print(report)
-    try:
-        import daily_ledger
-        daily_ledger.append_event("done", report)
-    except Exception as e:
-        print(f"⚠️  ledger failed: {e}", file=sys.stderr)
     # Keep the bus tidy on the weekly beat.
     try:
         import agent_bus

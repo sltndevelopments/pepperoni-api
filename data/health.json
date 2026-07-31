@@ -1,0 +1,9 @@
+{
+ "degradations_total": 1,
+ "last_degradations": [
+  {
+   "ts": "2026-07-01T23:32:57.655220+00:00",
+   "msg": "⚠️  Optimizer report failed (non-fatal)"
+  }
+ ]
+}

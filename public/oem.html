@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -107,6 +113,30 @@
     footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.dir-grid,.stats{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -177,7 +207,7 @@
           <tr><td>Сертификаты</td><td class="spec-value">HALAL № 614A/2024, № 884А/2025 · ХАССП · ISO 22000:2018 · ТР ТС 021/2011</td></tr>
           <tr><td>Сырьё</td><td class="spec-value">Халяль говядина, баранина, конина, птица — без ГМО</td></tr>
           <tr><td>Документы</td><td class="spec-value">Декларация ЕАЭС, сертификат халяль, ВСД «Меркурий», протоколы испытаний</td></tr>
-          <tr><td>Отгрузка</td><td class="spec-value">EXW Казань · склад Люберцы · экспорт в СНГ и ОАЭ</td></tr>
+          <tr><td>Отгрузка</td><td class="spec-value">EXW Казань · экспорт в СНГ и ОАЭ</td></tr>
         </tbody>
       </table>
     </div>

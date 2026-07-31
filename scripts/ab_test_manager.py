@@ -339,14 +339,15 @@ def _notify_owner(test: dict) -> None:
     """Add large-delta notification to daily digest."""
     try:
         sys.path.insert(0, str(SCRIPTS))
-        from telegram_notify import notify
+        from notification_router import emit
         msg = (
             f"📈 A/B тест завершён — значительный выигрыш варианта!\n"
             f"Запрос: <b>{test['query']}</b>\n"
             f"Вариант выиграл на <b>{test['delta_pos']:.0f} позиций</b>\n"
             f"Победитель: {test['winner']}"
         )
-        notify(msg)
+        emit("result", "ab_test_win", msg,
+             dedupe_key=f"ab-win:{test.get('query')}:{test.get('winner')}")
     except Exception as e:
         print(f"  ab_test notify failed: {e}")
 

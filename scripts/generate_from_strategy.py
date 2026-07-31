@@ -16,6 +16,7 @@ from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
 from claude_client import call_claude, CONTENT_MODEL
+from blog_template import BLOG_ARTICLE_OUTPUT_RULES_RU, wrap_generated_blog
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
@@ -33,7 +34,8 @@ MAX_PL   = int(os.environ.get("MAX_STRATEGY_PL", "4"))
 # output alone, and on Sonnet 5 `max_tokens` also has to cover thinking. Bumped
 # to 8000 (matches build_landing.py's flagship budget) so generation actually
 # finishes before the reviewer ever sees it — this was paid-for-and-rejected
-# spend, not a quality tradeoff.
+# spend, not a quality tradeoff. (main independently bumped to 7000 in the
+# meantime; 8000 keeps the larger, tested-safe headroom.)
 MAX_TOKENS = int(os.environ.get("STRATEGY_MAX_TOKENS", "8000"))
 
 # Canonical contacts (single source of truth; never invent others)
@@ -65,6 +67,17 @@ def load_strategy() -> dict:
         return {}
 
 
+_BLOG_EXISTING_CACHE: list[dict] | None = None
+
+
+def _blog_existing() -> list[dict]:
+    global _BLOG_EXISTING_CACHE
+    if _BLOG_EXISTING_CACHE is None:
+        from blog_topic_dedup import scan_blog
+        _BLOG_EXISTING_CACHE = scan_blog("ru")
+    return _BLOG_EXISTING_CACHE
+
+
 def prep_blog(topic: dict) -> dict | None:
     """Build a batch-ready request for one blog topic (None → skip)."""
     slug = topic.get("slug") or slugify(topic.get("title_ru", ""))
@@ -74,6 +87,13 @@ def prep_blog(topic: dict) -> dict | None:
     if out.exists():
         return None
     title = topic.get("title_ru", slug)
+    # Near-duplicate gate (normalized slug / commercial key / title overlap)
+    from blog_topic_dedup import is_near_duplicate
+    is_dup, reason = is_near_duplicate(slug, title, _blog_existing())
+    if is_dup:
+        print(f"  ⏭ blog skip near-dup /blog/{slug}: {reason}")
+        _mark_queue(slug, "skipped_dup")
+        return None
     intent = topic.get("intent", "информационный")
     from brand_system import brand_block
     system = brand_block("ru") + "\n\n" + (
@@ -82,16 +102,16 @@ def prep_blog(topic: dict) -> dict | None:
         "без упоминания свинины."
     )
     prompt = f"""Напиши {intent} SEO-статью: «{title}».
-Верни ТОЛЬКО валидный HTML5 (lang="ru"), без объяснений.
-Требования:
-- <head>: charset, viewport, <title> (до 65 симв.), <meta description> (до 160), canonical /blog/{slug}
-- Schema.org Article JSON-LD (datePublished={TODAY}, author "Казанские Деликатесы")
-- Bootstrap 5 CDN, один <h1>, 4 подзаголовка H2, 700-900 слов, заключение с CTA
+{BLOG_ARTICLE_OUTPUT_RULES_RU.format(date=TODAY)}
+
+Требования к содержанию:
+- canonical /blog/{slug}
+- 700-900 слов, 4× H2, заключение с cta-block
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /private-label
-- Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}
+- CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
 - {CONTACTS_RULE}
 - НЕ упоминать свинину"""
-    return {"out": out, "label": f"blog: /blog/{slug}",
+    return {"out": out, "label": f"blog: /blog/{slug}", "query": title,
             "system": system, "prompt": prompt}
 
 
@@ -120,12 +140,18 @@ def prep_pl(topic: dict) -> dict | None:
 Требования:
 - <head>: <title> (до 65 симв.), <meta description> (до 160), canonical /private-label/{slug}
 - Schema.org Service + Organization JSON-LD
-- Bootstrap 5 CDN, <h1> с услугой, секции: что такое СТМ/OEM, что можем (колбасы, мясо, ВСЯ выпечка), этапы запуска, MOQ/сроки, сертификаты (Халяль ДУМ РТ, HACCP, ISO 22000), кейсы, FAQ (5), CTA-форма
+- Bootstrap 5 CDN, <h1> с услугой
+- ОБЯЗАТЕЛЬНО первым видимым блоком после <h1> вставь прямой ответ закупщику:
+  <div class="tldr-answer"> … 2-3 предложения: что это за продукт/услуга, для кого, ключевые условия (MOQ, сроки, халяль-сертификат). Это первые ~150 слов страницы. …</div>
+- Секции: что такое СТМ/OEM, что можем (колбасы, мясо, ВСЯ выпечка), этапы запуска, MOQ/сроки, сертификаты (Халяль ДУМ РТ #614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011), FAQ (5), CTA-форма
+- ОБЯЗАТЕЛЬНА секция «Сценарий применения»: как покупатель использует сам ПРОДУКТ в своём процессе (например для котлет — жарка на гриле/контактном гриле, роллерный гриль, конвектомат, слайсер; для сосисок — роллер, гриль, фритюр; для казылыка — нарезка слайсером, подача, хранение). Описывай применение продукта у клиента, НЕ только запуск СТМ.
 - Кнопка «Получить расчёт СТМ» → tel:{PHONE_TEL}
 - Контекстные ссылки: /private-label, /pepperoni-optom, /dlya-distributorov
 - Футер: © 2022–{YEAR} Казанские Деликатесы, {ADDR_RU}, {PHONE_DISPLAY}
 - {CONTACTS_RULE}
-- НЕ упоминать свинину, 600-800 слов"""
+- ЗАПРЕЩЕНО: анонимные «кейсы партнёров» и любые непроверяемые цифры результата (проценты экономии, «топ продаж», сроки вывода, число точек), если нет названия компании и подтверждения. Не выдумывай кейсы, отзывы, рейтинги, награды. Вместо кейсов — фактические условия сотрудничества.
+- НЕ упоминать свинину, 450-650 слов
+- ОБЯЗАТЕЛЬНО закончи документ тегами </body></html>; сократи FAQ, если не хватает лимита"""
     else:
         system = brand_block("en") + "\n\n" + (
             "You are a B2B expert in contract manufacturing (Private Label / White "
@@ -141,9 +167,32 @@ Requirements:
 - Bootstrap 5 CDN, <h1>, sections: what is OEM/White Label, capabilities (sausages, meat, ALL bakery), launch steps, MOQ/lead time, certifications (Halal DUM RT, HACCP, ISO 22000), cases, FAQ (5), CTA form
 - "Request OEM quote" button → tel:{PHONE_TEL}
 - Footer with contacts: {PHONE_DISPLAY}, {EMAIL}
-- Use EXACTLY these contacts, never invent others. No pork mentions. 600-800 words"""
+- Use EXACTLY these contacts, never invent others. No pork mentions. 450-650 words
+- You MUST finish with </body></html>; shorten the FAQ if the token limit is near."""
     return {"out": out, "label": f"PL/OEM [{lang}]: /private-label/{slug}",
+            "query": title,
             "system": system, "prompt": prompt}
+
+
+def _mark_queue(slug: str, status: str) -> None:
+    """Mark a blog_topic_queue entry done/skipped_dup after executor runs."""
+    qpath = DATA / "blog_topic_queue.json"
+    if not qpath.exists() or not slug:
+        return
+    try:
+        q = json.loads(qpath.read_text(encoding="utf-8"))
+        changed = False
+        for t in q.get("topics") or []:
+            if t.get("slug") == slug and t.get("status") == "pending":
+                t["status"] = status
+                t["updated_at"] = TODAY
+                changed = True
+        if changed:
+            q["updated_at"] = datetime.now(timezone.utc).isoformat()
+            qpath.write_text(json.dumps(q, ensure_ascii=False, indent=2) + "\n",
+                             encoding="utf-8")
+    except Exception as e:
+        print(f"  ⚠️  queue update {slug}: {e}", file=sys.stderr)
 
 
 def _write_page(prep: dict, html: str) -> bool:
@@ -154,11 +203,12 @@ def _write_page(prep: dict, html: str) -> bool:
     """
     import shutil as _shutil
     html = clean_html(html)
-    if "<html" not in html.lower():
-        return False
-
-    # Stage in data/tmp/ until the gate approves.
     final_out: Path = prep["out"]
+    if "/blog/" in final_out.as_posix():
+        lang = "en" if "/en/blog/" in final_out.as_posix() else "ru"
+        html = wrap_generated_blog(lang, final_out.stem, html, TODAY)
+    elif "<html" not in html.lower():
+        return False
     tmp_dir = ROOT / "data" / "tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     tmp_path = tmp_dir / final_out.name
@@ -194,8 +244,23 @@ def _write_page(prep: dict, html: str) -> bool:
     # Gate passed — move to final public/ destination.
     final_out.parent.mkdir(parents=True, exist_ok=True)
     _shutil.move(str(tmp_path), str(final_out))
+    try:
+        from experiment_registry import start
+        start(
+            query=prep.get("query") or final_out.stem.replace("-", " "),
+            page="/" + final_out.relative_to(PUBLIC).as_posix().removesuffix(".html"),
+            hypothesis="Approved demand-backed page should gain commercial clicks or inquiries",
+            change_type=f"new_{prep.get('action', 'page')}",
+            baseline={"position": None, "impressions": 0, "clicks": 0, "inquiries": 0},
+        )
+    except Exception as e:
+        # Publication is already gated and approved; registry failure is visible
+        # but must not corrupt or silently delete the page.
+        print(f"  ⚠️ experiment registry: {e}", file=sys.stderr)
 
     print(f"  ✓ {prep['label']}")
+    if prep.get("action") == "blog_post":
+        _mark_queue(final_out.stem, "done")
     return True
 
 
@@ -227,6 +292,15 @@ def main():
     if not strat:
         print("ℹ️  No strategy.json — nothing to execute.")
         return 0
+    try:
+        from strategy_control import execution_allowed
+        allowed, blockers = execution_allowed()
+        if not allowed:
+            print("⏸ Strategy executor blocked: " + "; ".join(blockers))
+            return 0
+    except Exception as e:
+        print(f"⏸ Strategy executor fail-closed: control plane unavailable ({e})")
+        return 0
 
     print(f"🛠  Executing strategy ({strat.get('generated_at','?')})")
 
@@ -250,6 +324,26 @@ def main():
         except Exception as e:
             print(f"  ✗ PL prep error: {e}", file=sys.stderr)
 
+    # Every new page requires explicit owner approval before any LLM spend.
+    from approvals import request_new_page
+    approved_preps = []
+    for prep in preps[:3]:
+        key = _approval_key(prep)
+        prep["approval_key"] = key
+        status = request_new_page(
+            key=key,
+            title=prep["label"],
+            detail="Новая коммерческая/экспертная страница из outcome-очереди",
+            action=prep.get("action", "new_page"),
+            payload={"path": str(prep["out"].relative_to(ROOT))},
+            requested_by="site-brain",
+        )
+        if status == "approved":
+            approved_preps.append(prep)
+        else:
+            print(f"  ⏳ {prep['label']}: approval={status}")
+    preps = approved_preps
+
     if not preps:
         print("✅ Strategy executor done: nothing new to generate")
         return 0
@@ -271,8 +365,15 @@ def main():
                 if res.get("ok"):
                     if _write_page(p, res["text"]):
                         made += 1
+                        from approvals import mark_executed
+                        mark_executed(p["approval_key"], success=True)
                     else:
                         quarantined += 1
+                        from approvals import mark_executed
+                        mark_executed(
+                            p["approval_key"], success=False,
+                            note="rejected or held by page gate",
+                        )
                 else:
                     print(f"  ✗ {p['label']}: {res.get('error','no result')}",
                           file=sys.stderr)
@@ -289,8 +390,15 @@ def main():
                                   model=CONTENT_MODEL)
             if _write_page(p, html):
                 made += 1
+                from approvals import mark_executed
+                mark_executed(p["approval_key"], success=True)
             else:
                 quarantined += 1
+                from approvals import mark_executed
+                mark_executed(
+                    p["approval_key"], success=False,
+                    note="rejected or held by page gate",
+                )
         except Exception as e:
             print(f"  ✗ {p['label']}: {e}", file=sys.stderr)
 

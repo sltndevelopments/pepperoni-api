@@ -42,26 +42,46 @@ def run(*, store: Store | None = None) -> dict:
 
     stats = store.stats()
 
-    # 1) Горячие лиды — главный повод: передать владельцу.
-    # Нет cooldown — новые лиды всегда важны; hash по составу id.
-    hot = []
+    # 1) Handoff владельцу. Дедуп — навсегда по lead_id + типу события,
+    # а не по скользящему top-20: CRM обновляет updated_at и переставляет
+    # старые лиды в окне, хотя нового события не было.
+    hot_statuses = {"hot", "escalated", "replied", "meeting", "proposal"}
     try:
-        hot = store.list_hot_leads(5)
+        hot = [
+            lead for lead in store.list_leads(limit=5000)
+            if (lead.get("status") or "") in hot_statuses
+        ]
     except Exception:
         hot = []
-    if hot:
-        hot_hash = _hash(*sorted(l["id"] for l in hot))
-        if store.should_notify("proactive:hot_leads", hot_hash, cooldown_hours=0):
-            lines = ["📣 <b>Стив:</b> есть заинтересованные — забирай на личные переговоры:"]
-            for r in hot:
-                try:
-                    from workers.escalate import format_contacts
-                    lines.append("\n" + format_contacts(r))
-                except Exception:
-                    lines.append(f"\n• {r.get('name', '?')}")
-            if _push("\n".join(lines)):
-                store.record_notification("proactive:hot_leads", hot_hash)
-                fired.append("hot_leads")
+
+    marker_key = "proactive:handoff_v2_initialized"
+    initialized = not store.should_notify(marker_key, "1", cooldown_hours=0)
+    if not initialized:
+        # Миграция без повторной рассылки уже переданных 42 лидов.
+        for lead in hot:
+            kind = "interest" if (lead.get("profile") or {}).get("interest_confirmed") else "priority"
+            store.record_notification(f"proactive:handoff:{lead['id']}:{kind}", "seen")
+        store.record_notification(marker_key, "1")
+    else:
+        new_hot = []
+        for lead in hot:
+            kind = "interest" if (lead.get("profile") or {}).get("interest_confirmed") else "priority"
+            key = f"proactive:handoff:{lead['id']}:{kind}"
+            if store.should_notify(key, "seen", cooldown_hours=0):
+                new_hot.append((lead, kind, key))
+        for lead, kind, key in new_hot[:5]:
+            if kind == "interest":
+                title = "📣 <b>Стив:</b> новый входящий интерес — нужен ответ сегодня:"
+            else:
+                title = "📣 <b>Стив:</b> новая приоритетная компания — нужен личный выход:"
+            try:
+                from workers.escalate import format_contacts
+                body = title + "\n\n" + format_contacts(lead)
+            except Exception:
+                body = title + f"\n\n• {lead.get('name', '?')}"
+            if _push(body):
+                store.record_notification(key, "seen")
+                fired.append("confirmed_interest" if kind == "interest" else "priority_handoff")
 
     # 2) Серия hard bounce за последними циклами → доставляемость.
     recent_bounces = 0
@@ -91,9 +111,25 @@ def run(*, store: Store | None = None) -> dict:
     if queue is not None and queue <= 5:
         queue_hash = _hash(queue)
         if store.should_notify("proactive:queue_empty", queue_hash, cooldown_hours=24):
+            reason_text = ""
+            try:
+                from orchestrator.outreach import outreach_diagnostics
+                counts = outreach_diagnostics(store).get("counts", {})
+                top_reasons = sorted(
+                    ((k, v) for k, v in counts.items() if k != "eligible"),
+                    key=lambda item: item[1],
+                    reverse=True,
+                )[:3]
+                if top_reasons:
+                    reason_text = " Основные отсечения: " + ", ".join(
+                        f"{key}={value}" for key, value in top_reasons
+                    ) + "."
+            except Exception:
+                pass
             if _push(
                 f"📣 <b>Стив:</b> очередь на холодный аутрич почти пуста ({queue}). "
-                "Беру свежие сегменты из реестров — но дай знать, если есть приоритет по нишам/сетям."
+                "Новых писем не будет, пока contact enrichment не найдёт проверенные "
+                f"адреса закупок/корпоративные контакты.{reason_text}"
             ):
                 store.record_notification("proactive:queue_empty", queue_hash)
                 fired.append("queue_empty")

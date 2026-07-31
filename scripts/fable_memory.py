@@ -134,6 +134,14 @@ def apply_ops(ops: list) -> list:
         # action == "add"
         rec = {k: v for k, v in op.items() if k not in ("action", "section")}
         rec.setdefault("at", _now())
+        identity_field = "objective" if section == "okr" else "text"
+        identity = " ".join(str(rec.get(identity_field, "")).casefold().split())
+        if identity and any(
+            " ".join(str(item.get(identity_field, "")).casefold().split()) == identity
+            for item in items
+        ):
+            results.append(f"duplicate-skip {section}")
+            continue
         if section == "principles":
             rec.setdefault("by", "fable")
             rec.setdefault("weight", 4)

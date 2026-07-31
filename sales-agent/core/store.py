@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS leads (
 CREATE INDEX IF NOT EXISTS idx_leads_status ON leads(status);
 CREATE INDEX IF NOT EXISTS idx_leads_tier ON leads(tier);
 CREATE INDEX IF NOT EXISTS idx_leads_inn ON leads(inn);
+CREATE INDEX IF NOT EXISTS idx_leads_name_lower ON leads(name COLLATE NOCASE);
 
 CREATE TABLE IF NOT EXISTS threads (
     id              TEXT PRIMARY KEY,
@@ -123,6 +124,19 @@ CREATE TABLE IF NOT EXISTS notifications (
     sent_at      TEXT NOT NULL,
     count        INTEGER DEFAULT 1
 );
+
+CREATE TABLE IF NOT EXISTS email_opens (
+    token        TEXT PRIMARY KEY,
+    draft_id     TEXT REFERENCES drafts(id),
+    lead_id      TEXT REFERENCES leads(id),
+    created_at   TEXT NOT NULL,
+    first_open_at TEXT,
+    open_count   INTEGER DEFAULT 0,
+    last_open_at TEXT,
+    last_ip      TEXT,
+    last_ua      TEXT
+);
+CREATE INDEX IF NOT EXISTS idx_email_opens_draft ON email_opens(draft_id);
 """
 
 
@@ -170,54 +184,91 @@ class Store:
         profile_json = json.dumps(profile or {}, ensure_ascii=False)
         with self._conn() as conn:
             if lead_id:
+                current = conn.execute(
+                    "SELECT source FROM leads WHERE id=?", (lead_id,)
+                ).fetchone()
+                current_source = current["source"] if current else None
+                merged_source = (
+                    current_source
+                    if current_source == "inbound" and source == "crm_sheet_api"
+                    else (source or current_source)
+                )
                 conn.execute(
                     """UPDATE leads SET name=?, inn=?, region=?, tier=?, fit_score=?,
                        status=?, source=?, profile=?, updated_at=? WHERE id=?""",
-                    (name, inn, region, tier, fit_score, status, source, profile_json, now, lead_id),
+                    (
+                        name, inn, region, tier, fit_score, status, merged_source,
+                        profile_json, now, lead_id,
+                    ),
                 )
                 return lead_id
+            row = None
             if inn:
                 row = conn.execute(
-                    "SELECT id, name, tier, fit_score, status, profile FROM leads WHERE inn=?",
+                    "SELECT id, name, tier, fit_score, status, source, profile FROM leads WHERE inn=?",
                     (inn,),
                 ).fetchone()
-                if row:
-                    lid = row["id"]
-                    # --- merge rules for discovery re-import ---
-                    # status  : never overwrite (contacted/handed_off/bounced must survive)
-                    merged_status = row["status"] or status
-                    # name    : only fill if current is empty / placeholder
-                    cur_name = (row["name"] or "").strip()
-                    merged_name = cur_name if cur_name and cur_name not in ("", "Без названия") else name
-                    # tier    : only promote, never demote
-                    _tier_rank = {"S": 4, "A": 3, "B": 2, "C": 1, "—": 0}
-                    merged_tier = (
-                        tier if _tier_rank.get(tier, 0) > _tier_rank.get(row["tier"] or "—", 0)
-                        else (row["tier"] or tier)
-                    )
-                    # fit_score: only raise
-                    merged_score = max(fit_score, row["fit_score"] or 0)
-                    # profile : merge — _agent is sacred, new fields fill gaps
-                    try:
-                        old_p = json.loads(row["profile"] or "{}")
-                    except Exception:
-                        old_p = {}
-                    new_p = dict(profile or {})
-                    # preserve _agent entirely
-                    if "_agent" in old_p:
-                        new_p["_agent"] = old_p["_agent"]
-                    # keep old values for keys not in new profile (e.g. existing contacts)
-                    for k, v in old_p.items():
-                        if k not in new_p and k != "_agent":
-                            new_p[k] = v
-                    merged_profile = json.dumps(new_p, ensure_ascii=False)
-                    conn.execute(
-                        """UPDATE leads SET name=?, region=?, tier=?, fit_score=?,
-                           status=?, source=?, profile=?, updated_at=? WHERE id=?""",
-                        (merged_name, region, merged_tier, merged_score,
-                         merged_status, source, merged_profile, now, lid),
-                    )
-                    return lid
+            if row is None and not inn and name:
+                # Без ИНН (~99.6% лидов из CRM-таблицы) дедуп по имени — иначе
+                # каждый push→pull цикл (раз в 2ч) плодит новую строку с новым id
+                # для той же компании (баг обнаружен 2026-07-05: 547k дублей,
+                # 53k только по «Самокат»). Регион уточняет совпадение, если есть.
+                if region:
+                    row = conn.execute(
+                        """SELECT id, name, tier, fit_score, status, source, profile FROM leads
+                           WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE AND region=?""",
+                        (name, region),
+                    ).fetchone()
+                if row is None:
+                    row = conn.execute(
+                        """SELECT id, name, tier, fit_score, status, source, profile FROM leads
+                           WHERE (inn IS NULL OR inn='') AND name=? COLLATE NOCASE""",
+                        (name,),
+                    ).fetchone()
+            if row:
+                lid = row["id"]
+                # --- merge rules for discovery re-import ---
+                # status  : never overwrite (contacted/handed_off/bounced must survive)
+                merged_status = row["status"] or status
+                # name    : only fill if current is empty / placeholder
+                cur_name = (row["name"] or "").strip()
+                merged_name = cur_name if cur_name and cur_name not in ("", "Без названия") else name
+                # tier    : only promote, never demote
+                _tier_rank = {"S": 4, "A": 3, "B": 2, "C": 1, "—": 0}
+                merged_tier = (
+                    tier if _tier_rank.get(tier, 0) > _tier_rank.get(row["tier"] or "—", 0)
+                    else (row["tier"] or tier)
+                )
+                # fit_score: only raise
+                merged_score = max(fit_score, row["fit_score"] or 0)
+                # Первый входящий покупательский контакт остаётся видимым как
+                # источник, даже когда последующий CRM pull обновляет строку.
+                merged_source = (
+                    row["source"]
+                    if row["source"] == "inbound" and source == "crm_sheet_api"
+                    else (source or row["source"])
+                )
+                # profile : merge — _agent is sacred, new fields fill gaps
+                try:
+                    old_p = json.loads(row["profile"] or "{}")
+                except Exception:
+                    old_p = {}
+                new_p = dict(profile or {})
+                # preserve _agent entirely
+                if "_agent" in old_p:
+                    new_p["_agent"] = old_p["_agent"]
+                # keep old values for keys not in new profile (e.g. existing contacts)
+                for k, v in old_p.items():
+                    if k not in new_p and k != "_agent":
+                        new_p[k] = v
+                merged_profile = json.dumps(new_p, ensure_ascii=False)
+                conn.execute(
+                    """UPDATE leads SET name=?, region=?, tier=?, fit_score=?,
+                       status=?, source=?, profile=?, updated_at=? WHERE id=?""",
+                    (merged_name, region, merged_tier, merged_score,
+                     merged_status, merged_source, merged_profile, now, lid),
+                )
+                return lid
             lid = lead_id or _new_id()
             conn.execute(
                 """INSERT INTO leads (id, inn, name, region, tier, fit_score, status, source, profile, created_at, updated_at)
@@ -301,6 +352,49 @@ class Store:
             )
         return mid
 
+    def add_outbound(
+        self,
+        lead_id: str,
+        channel: str,
+        body: str,
+        *,
+        subject: str | None = None,
+        external_id: str | None = None,
+        meta: dict | None = None,
+    ) -> str:
+        """Сообщение в исходящий лог (после реальной отправки).
+
+        Переиспользует открытый thread по lead_id+channel, если есть,
+        иначе создаёт новый — симметрично add_inbound.
+        """
+        now = _now()
+        mid = _new_id()
+        with self._conn() as conn:
+            tid = None
+            if lead_id:
+                row = conn.execute(
+                    """SELECT id FROM threads WHERE lead_id=? AND channel=?
+                       ORDER BY last_message_at DESC LIMIT 1""",
+                    (lead_id, channel),
+                ).fetchone()
+                if row:
+                    tid = row["id"]
+            if not tid:
+                tid = _new_id()
+                conn.execute(
+                    """INSERT INTO threads (id, lead_id, channel, external_id, last_message_at, meta)
+                       VALUES (?, ?, ?, ?, ?, ?)""",
+                    (tid, lead_id, channel, external_id, now, json.dumps(meta or {}, ensure_ascii=False)),
+                )
+            else:
+                conn.execute("UPDATE threads SET last_message_at=? WHERE id=?", (now, tid))
+            conn.execute(
+                """INSERT INTO messages (id, thread_id, direction, channel, subject, body, meta, gate_status, created_at)
+                   VALUES (?, ?, 'out', ?, ?, ?, ?, 'sent', ?)""",
+                (mid, tid, channel, subject, body, json.dumps(meta or {}, ensure_ascii=False), now),
+            )
+        return mid
+
     def patch_message_meta(self, message_id: str, patch: dict) -> None:
         with self._conn() as conn:
             row = conn.execute("SELECT meta FROM messages WHERE id=?", (message_id,)).fetchone()
@@ -379,6 +473,19 @@ class Store:
             conn.execute(
                 "UPDATE drafts SET status=?, updated_at=? WHERE id=?",
                 (status, _now(), draft_id),
+            )
+
+    def patch_draft_fit_check(self, draft_id: str, patch: dict) -> None:
+        """Дополнить метаданные черновика без потери результата fit-гейта."""
+        with self._conn() as conn:
+            row = conn.execute("SELECT fit_check FROM drafts WHERE id=?", (draft_id,)).fetchone()
+            if not row:
+                return
+            current = _parse_json_field(row["fit_check"])
+            current.update(patch)
+            conn.execute(
+                "UPDATE drafts SET fit_check=?, updated_at=? WHERE id=?",
+                (json.dumps(current, ensure_ascii=False), _now(), draft_id),
             )
 
     def create_approval(
@@ -502,7 +609,11 @@ class Store:
         with self._conn() as conn:
             rows = conn.execute(
                 f"""SELECT * FROM leads WHERE status IN ({placeholders})
-                    ORDER BY updated_at DESC LIMIT ?""",
+                    ORDER BY
+                      CASE WHEN profile LIKE '%"interest_confirmed": true%' THEN 0 ELSE 1 END,
+                      fit_score DESC,
+                      updated_at DESC
+                    LIMIT ?""",
                 (*hot, limit),
             ).fetchall()
         return [_row_lead(r) for r in rows]
@@ -583,6 +694,53 @@ class Store:
                      count        = notifications.count + 1""",
                 (key, content_hash, now),
             )
+
+    def create_email_open_token(self, draft_id: str, lead_id: str | None) -> str:
+        """Токен для трекинг-пикселя. Отдельная таблица — не путать с сутевыми данными."""
+        token = _new_id()
+        now = _now()
+        with self._conn() as conn:
+            conn.execute(
+                """INSERT INTO email_opens (token, draft_id, lead_id, created_at, open_count)
+                   VALUES (?, ?, ?, ?, 0)""",
+                (token, draft_id, lead_id, now),
+            )
+        return token
+
+    def record_email_open(self, token: str, *, ip: str | None = None, ua: str | None = None) -> bool:
+        """True если токен существует (даже при повторном открытии)."""
+        now = _now()
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT token, first_open_at FROM email_opens WHERE token=?", (token,)
+            ).fetchone()
+            if not row:
+                return False
+            conn.execute(
+                """UPDATE email_opens SET
+                     first_open_at = COALESCE(first_open_at, ?),
+                     open_count = open_count + 1,
+                     last_open_at = ?, last_ip = ?, last_ua = ?
+                   WHERE token=?""",
+                (now, now, ip, ua, token),
+            )
+        return True
+
+    def email_open_stats(self, *, since: str | None = None) -> dict:
+        """Сводка: сколько писем отправлено с трекингом vs сколько открыто."""
+        with self._conn() as conn:
+            q = "SELECT COUNT(*) c FROM email_opens"
+            args: list[Any] = []
+            if since:
+                q += " WHERE created_at >= ?"
+                args.append(since)
+            total = conn.execute(q, args).fetchone()["c"]
+            q2 = "SELECT COUNT(*) c FROM email_opens WHERE open_count > 0"
+            if since:
+                q2 += " AND created_at >= ?"
+            opened = conn.execute(q2, args).fetchone()["c"]
+        return {"total": total, "opened": opened,
+                "open_rate": round(opened / total, 3) if total else 0.0}
 
 
 def _parse_json_field(val: str | None) -> dict:

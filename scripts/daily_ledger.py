@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Daily event ledger — «signal, not noise» Telegram discipline.
+"""Owner-Brief event ledger — «signal, not noise» Telegram discipline.
 
-All routine scripts call append_event() instead of notify(). Once per day
-(first pipeline run) flush_digest() assembles a single Telegram message with
+All routine scripts call append_event() instead of notify(). Once per week
+flush_digest() assembles a single Telegram message with
 two sections:
 
   ✅ Done autonomously — numbers of pages built, links fixed, schema patched, etc.
@@ -18,6 +18,7 @@ from __future__ import annotations
 
 import json
 import os
+import hashlib
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Literal
@@ -26,7 +27,7 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 LEDGER_FILE = DATA / "daily_ledger.json"
 
-Category = Literal["done", "needs_help", "emergency"]
+Category = Literal["done", "info", "needs_help", "emergency"]
 
 
 # ── Internal helpers ──────────────────────────────────────────────────────────
@@ -54,6 +55,15 @@ def append_event(category: Category, text: str) -> None:
     """
     state = _load()
     state.setdefault("events", [])
+    # Producers may retry every few hours. Keep one identical event per day.
+    today = datetime.now(timezone.utc).date().isoformat()
+    if any(
+        e.get("cat") == category
+        and e.get("txt") == text[:400]
+        and str(e.get("ts", "")).startswith(today)
+        for e in state["events"]
+    ):
+        return
     state["events"].append({
         "ts":  datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "cat": category,
@@ -66,23 +76,33 @@ def append_event(category: Category, text: str) -> None:
             notify_emergency(text)
         except Exception as e:
             print(f"⚠️  ledger emergency notify failed: {e}")
+    elif category == "needs_help":
+        try:
+            from notification_router import emit
+            digest = hashlib.sha256(text.encode("utf-8")).hexdigest()[:16]
+            emit("action", "owner_decision", text,
+                 dedupe_key=f"needs-help:{digest}")
+        except Exception as e:
+            print(f"⚠️  ledger action notify failed: {e}")
 
 
 def flush_digest() -> bool:
-    """Send the daily digest and clear the ledger.
+    """Send one weekly Owner Brief and clear delivered routine events.
 
-    Guard: only fires ONCE per calendar day (UTC).  Every subsequent call on
-    the same day returns False without sending.  This means the 3-hourly cron
-    just calls flush_digest() unconditionally — the first run sends, the rest
-    are silent no-ops.
+    The daily pipeline may call this safely; it sends only if seven days elapsed.
 
     Returns True if digest was sent, False if already sent today.
     """
     today = date.today().isoformat()
     state = _load()
 
-    if state.get("last_flush_date") == today:
-        return False  # already flushed today
+    last = state.get("last_flush_date")
+    if last:
+        try:
+            if (date.today() - date.fromisoformat(last)).days < 7:
+                return False
+        except ValueError:
+            pass
 
     events = state.get("events", [])
 
@@ -92,19 +112,25 @@ def flush_digest() -> bool:
     for ev in events:
         cat = ev.get("cat", "done")
         txt = ev.get("txt", "")
-        if cat == "done":
+        if cat in ("done", "info"):
             done_lines.append(f"• {txt}")
         elif cat == "needs_help":
             help_lines.append(f"• {txt}")
         # emergency events were already sent immediately — skip in digest
 
-    parts: list[str] = [f"📋 <b>Fable — дайджест {today}</b>", ""]
+    parts: list[str] = [f"📋 <b>KD Site Brain — недельный Owner Brief</b>", ""]
+    try:
+        from weekly_sync import build_report
+        parts.append(build_report())
+        parts.append("")
+    except Exception as e:
+        print(f"weekly report unavailable: {e}")
 
-    parts.append("✅ <b>Сделано автономно:</b>")
+    parts.append("📈 <b>Подтверждённые результаты и факты:</b>")
     if done_lines:
-        parts.extend(done_lines[:30])  # cap display at 30 lines
+        parts.extend(done_lines[:12])
     else:
-        parts.append("• Активности не было.")
+        parts.append("• Новых подтверждённых результатов нет.")
 
     parts.append("")
     parts.append("🆘 <b>Нужна помощь / решение:</b>")
@@ -123,11 +149,10 @@ def flush_digest() -> bool:
         print(f"⚠️  flush_digest send failed: {e}")
         sent = False
 
-    # Clear events, record flush date regardless of send success
-    # (avoids repeated spam if notify is temporarily broken)
-    state["events"] = []
-    state["last_flush_date"] = today
-    _save(state)
+    if sent:
+        state["events"] = []
+        state["last_flush_date"] = today
+        _save(state)
     return sent
 
 

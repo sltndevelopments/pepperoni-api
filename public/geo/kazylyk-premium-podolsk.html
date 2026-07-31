@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Казылык оптом Подольск | Премиум конская колбаса халяль</title>
@@ -97,6 +103,17 @@
     ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
     </script>
     <style>
+
+    .tldr-answer {
+      background: #eaf4ee;
+      border-left: 4px solid #1a6b3a;
+      border-radius: 6px;
+      padding: 1rem 1.25rem;
+      margin: 1.25rem 0 1.5rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
         body {
             background: #f8f6f2;
             font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -184,6 +201,30 @@
             font-weight: 500;
         }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Подольск" data-product="kazylyk-premium">
     <div class="container py-4 py-md-5">
@@ -200,6 +241,11 @@
         <div class="row mb-4">
             <div class="col-lg-10">
                 <h1 class="display-5 fw-bold" style="color: #1f3a2a;">Премиум казылык оптом в Подольск</h1>
+
+  <div class="tldr-answer">
+    <strong>Премиум Казылык (конская колбаса)</strong> — Премиум казылык — традиционная татарская конская колбаса по аутентичному рецепту. Натуральное вяление, халяль ДУМ РТ, без нитрита натрия. Производство Казань. Поставка в Подольск транспортными компаниями с соблюдением холодовой цепи. СТМ/Private Label — доступно. Заявка: <a href="tel:+79872170202">+7 987 217-02-02</a>.
+  </div>
+
                 <p class="hero-sub mt-3">Аутентичная конская колбаса по татарскому рецепту. Халяль ДУМ РТ, без нитрита натрия. Для ресторанов, кафе и мясных бутиков Подольска.</p>
                 <div class="city-context mt-4">
                     <p class="mb-0"><span class="fw-semibold">Подольск — 300 000 жителей, 1 200+ заведений HoReCa.</span> Близость к Москве формирует высокий запрос на халяль-продукты и национальные деликатесы. Мы поставляем казылык в рестораны Подольска с 2014 года — доверие шеф-поваров и стабильное качество подтверждены сертификатами.</p>
@@ -374,7 +420,7 @@
 <section class="related-pages py-4 bg-light mt-5">
   <div class="container">
     <h6 class="text-muted mb-3">Другие продукты для Podolsk:</h6>
-    <div><a href="/pepperoni" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/geo/sosiski-dlya-hotdog-podolsk/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/geo/sosiski-v-teste-podolsk/" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/vetchina-optom" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
+    <div><a href="/pepperoni" class="btn btn-outline-secondary btn-sm m-1">Пепперони</a><a href="/sosiski-dlya-hotdog" class="btn btn-outline-secondary btn-sm m-1">Сосиски для хот-догов</a><a href="/sosiska-v-teste" class="btn btn-outline-secondary btn-sm m-1">Сосиски для сосиски в тесте</a><a href="/vetchina-optom" class="btn btn-outline-secondary btn-sm m-1">Ветчины</a></div>
   </div>
 </section>
 

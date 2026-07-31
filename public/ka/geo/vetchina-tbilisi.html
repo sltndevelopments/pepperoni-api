@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ka">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ვეჩინა ჰალალ საბითუმო თბილისი | Pepperoni Tatar</title>
@@ -9,38 +15,7 @@
   <!-- Bootstrap 5 CDN -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["LocalBusiness", "Product"],
-    "name": "Pepperoni Tatar — ჰალალ ვეჩინა საბითუმო",
-    "description": "ჰალალ ვეჩინა საქონლის, ინდაურის, ქათმის ხორცისგან. ნატრიუმის ნიტრიტის გარეშე, HACCP, ISO 22000:2018, ჰალალ სერთიფიკატი DUM RT №614A/2024.",
-    "url": "https://pepperoni.tatar/geo/vetchina-tbilisi/",
-    "telephone": "+7 987 217-02-02",
-    "areaServed": "თბილისი, საქართველო",
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "თბილისი",
-      "addressCountry": "GE"
-    },
-    "brand": {
-      "@type": "Brand",
-      "name": "Pepperoni Tatar"
-    },
-    "productID": "vetchina-halal-tbilisi",
-    "category": "Meat Product",
-    "material": "საქონლის, ინდაურის, ქათმის ხორცი",
-    "color": "natural",
-    "manufacturer": "Pepperoni Tatar (ყაზანი)",
-    "certification": [
-      "Halal DUM RT №614A/2024",
-      "HACCP",
-      "ISO 22000:2018",
-      "TR TS 021/2011",
-      "Veterinary certificates RF"
-    ]
-  }
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Pepperoni Tatar — ჰალალ ვეჩინა საბითუმო","description":"ჰალალ ვეჩინა საქონლის, ინდაურის, ქათმის ხორცისგან. ნატრიუმის ნიტრიტის გარეშე, HACCP, ISO 22000:2018, ჰალალ სერთიფიკატი DUM RT №614A/2024.","url":"https://pepperoni.tatar/geo/vetchina-tbilisi/","telephone":"+7 987 217-02-02","areaServed":"თბილისი, საქართველო","address":{"@type":"PostalAddress","addressLocality":"თბილისი","addressCountry":"GE"},"brand":{"@type":"Brand","name":"Pepperoni Tatar"},"productID":"vetchina-halal-tbilisi","category":"Meat Product","material":"საქონლის, ინდაურის, ქათმის ხორცი","color":"natural","manufacturer":"Pepperoni Tatar (ყაზანი)","certification":["Halal DUM RT №614A/2024","HACCP","ISO 22000:2018","TR TS 021/2011","Veterinary certificates RF"],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -125,6 +100,30 @@
     .brand-story { background: white; padding: 2rem; border-radius: 24px; }
     @media (max-width: 768px) { .hero h1 { font-size: 1.8rem; } }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="თბილისი" data-product="vetchina">
 

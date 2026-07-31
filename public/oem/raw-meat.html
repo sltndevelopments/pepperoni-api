@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -69,6 +75,30 @@
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -126,7 +156,7 @@
     <h2>Как выбрать поставщика оптом</h2>
     <div class="card"><p style="margin-top:0">Если вы ищете, где <strong>купить фарш и мясные полуфабрикаты оптом</strong>, главное — стабильный состав, жирность и фракция помола. Фарш, формованные котлеты, тефтели, люля и заготовки под СТМ должны давать предсказуемый выход и одинаковую прожарку на потоке. Калибровка и шоковая заморозка сохраняют свежесть и убирают потери на размораживании.</p></div>
     <h2>Оптовые условия и логистика</h2>
-    <div class="card"><p style="margin-top:0">Сырое мясное оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. Шоковая заморозка, фиксированная фракция и жирность под вашу рецептуру. Отгрузка EXW Казань и со склада в Люберцах по РФ и на экспорт. Под СТМ адаптируем фасовку и оформление — для ретейла, HoReCa и дистрибуции.</p></div>
+    <div class="card"><p style="margin-top:0">Сырое мясное оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. Шоковая заморозка, фиксированная фракция и жирность под вашу рецептуру. Отгрузка EXW Казань по РФ и на экспорт. Под СТМ адаптируем фасовку и оформление — для ретейла, HoReCa и дистрибуции.</p></div>
     <h2>Документы, халяль и сроки</h2>
     <div class="card"><p style="margin-top:0">Для опта, ретейла и маркетплейсов важен полный пакет документов: декларация ЕАЭС, ХАССП, ISO 22000:2018 и действующий сертификат «Халяль». Вся продукция «Казанских Деликатесов» — халяль, произведена из говядины и/или птицы (конины) по стандартам халяль, с ВСД «Меркурий». Это снимает риски при входе в сети и даёт вам аргумент для конечного покупателя. Образец под вашу спецификацию делаем за 2–3 недели, от брифа до первой серийной отгрузки — 4–8 недель.</p></div>
 

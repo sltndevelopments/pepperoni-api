@@ -167,6 +167,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -206,7 +230,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
   <p>Once raw materials arrive at the processing facility, they undergo rigorous quality control before production begins. Temperature monitoring starts immediately, as maintaining the cold chain prevents bacterial growth and preserves meat quality. Most professional facilities operate at controlled temperatures between 0-4°C for fresh products and below -18°C for frozen items.</p>
 
-  <p>Production lines in B2B meat facilities follow standardized protocols that ensure consistency across batches. For manufactured products like sausages, salami, and <a href="/pepperoni-optom">wholesale pepperoni</a>, this includes precise formulation control, automated portioning, and continuous quality testing. HACCP (Hazard Analysis Critical Control Points) systems identify potential contamination risks at each production stage.</p>
+  <p>Production lines in B2B meat facilities follow standardized protocols that ensure consistency across batches. For manufactured products like sausages, salami, and <a href="/pepperoni">wholesale pepperoni</a>, this includes precise formulation control, automated portioning, and continuous quality testing. HACCP (Hazard Analysis Critical Control Points) systems identify potential contamination risks at each production stage.</p>
 
   <p>Quality assurance teams conduct regular testing for:</p>
   <ul>
@@ -259,7 +283,7 @@ footer a:hover{color:#fff;text-decoration:none}
     <li>Product training for kitchen staff</li>
   </ul>
 
-  <p>Payment terms in B2B meat wholesale typically include net 30-day invoicing for established customers, though smaller buyers may start with cash on delivery. Volume commitments often unlock better pricing tiers and priority allocation during supply constraints.</p>
+  <p>Payment terms in B2B meat wholesale typically include payment terms as per contract for established customers, though smaller buyers may start with cash on delivery. Volume commitments often unlock better pricing tiers and priority allocation during supply constraints.</p>
 
   <p>Crisis management protocols distinguish professional suppliers from commodity traders. When supply disruptions occur, established buyers receive priority allocation and proactive communication about alternatives. This relationship-based approach builds long-term partnerships rather than transactional exchanges.</p>
 

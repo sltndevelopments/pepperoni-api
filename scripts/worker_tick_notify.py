@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Telegram «кино» после seo-worker tick — короткий ping в @KDSEOSiteBot.
-
-Routine ticks: immediate notify (не daily_ledger — тот раз в день).
-ЧП по-прежнему через notify_emergency / daily_ledger emergency.
+"""Emit only actionable worker outcomes; green ticks stay silent.
 
 Usage (from seo-worker.sh):
     python3 scripts/worker_tick_notify.py --since 2026-06-21T15:00:00+00:00 --pushed 4
@@ -41,11 +38,20 @@ def _gate_since(since_iso: str) -> dict:
     }
 
 
-def _quarantine_count() -> int:
+def _quarantine_snapshot() -> dict:
     try:
-        return len(list(QUARANTINE.glob("*.html")))
+        from quarantine_report import build_report
+        report = build_report()
+        return {
+            "current": report["current_files"],
+            "historical_rejects": report["historical_reject_hold_events"],
+        }
     except Exception:
-        return 0
+        try:
+            return {"current": len(list(QUARANTINE.rglob("*.html"))),
+                    "historical_rejects": 0}
+        except Exception:
+            return {"current": 0, "historical_rejects": 0}
 
 
 def _today_spend() -> tuple[float, float]:
@@ -59,19 +65,22 @@ def _today_spend() -> tuple[float, float]:
 def build_message(*, since: str, pushed: int, log_hint: str = "") -> str:
     g = _gate_since(since)
     spent, cap = _today_spend()
-    q = _quarantine_count()
+    q = _quarantine_snapshot()
     now = datetime.now(timezone.utc).strftime("%H:%M UTC")
 
+    # Green/no-ship ticks are suppressed in main(); if we get here there is
+    # either a ship or a gate/budget signal — never a bare "без коммитов" ping.
     if pushed > 0:
         ship = f"📄 <b>+{pushed}</b> → main"
     else:
-        ship = "📄 без новых коммитов"
+        ship = "📄 тик без публикации (есть сигнал гейта/бюджета)"
 
     lines = [
         f"⚙️ <b>Worker tick</b> {now}",
         ship,
         f"🚦 гейт (тик): ✅{g['pass']} / 🚧{g['reject']} / ⏸{g['hold']}",
-        f"📦 карантин: {q} стр.",
+        f"📦 карантин сейчас: {q['current']} "
+        f"(reject за период {q['historical_rejects']})",
         f"💰 ${spent:.2f} сегодня (лимит ${cap:.0f})",
     ]
     if g["sample_reasons"]:
@@ -94,12 +103,23 @@ def main() -> int:
         print(msg)
         return 0
 
+    gate = _gate_since(args.since)
+    spent, cap = _today_spend()
+    if args.pushed <= 0 and gate["reject"] == 0 and gate["hold"] == 0 and spent < cap * 0.8:
+        print("⏭ worker_tick_notify: green/no-result tick suppressed")
+        return 0
+
     try:
-        from telegram_notify import notify
-        n = notify(msg)
-        if n == 0:
-            print("⏭ worker_tick_notify: no recipients (open @KDSEOSiteBot on VPS once)")
-            return 0
+        from notification_router import emit
+        if gate["hold"] > 0:
+            emit("emergency", "reviewer_hold", msg,
+                 dedupe_key=f"worker-hold:{datetime.now(timezone.utc):%Y-%m-%d}")
+        elif gate["reject"] > 0 or spent >= cap * 0.8:
+            emit("action", "worker_attention", msg,
+                 dedupe_key=f"worker-action:{datetime.now(timezone.utc):%Y-%m-%d}")
+        else:
+            emit("result", "worker_publish", msg,
+                 dedupe_key=f"worker-result:{args.since}")
         return 0
     except Exception as e:
         print(f"⚠️ worker_tick_notify failed: {e}", file=sys.stderr)

@@ -163,6 +163,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -231,7 +255,7 @@ Fusion cuisine continues to expand boundaries in modern gastronomy. Pepperoni-en
 
 <p>Successful pepperoni sushi integration requires strategic menu positioning. Entry-level fusion rolls should pair pepperoni with familiar ingredients like cucumber, cream cheese, and avocado to ease customer adoption. Advanced combinations might incorporate jalapeño, sun-dried tomatoes, or caramelized onions for sophisticated flavor profiles.</p>
 
-<p>Portion control and cost management are essential for profitability. Standard 8-piece rolls require 25-30 grams of sliced pepperoni, translating to approximately 35-40 servings per kilogram. For <a href="/pepperoni-optom">wholesale buyers</a>, bulk packaging in 5-10kg units optimizes storage efficiency and reduces per-unit costs.</p>
+<p>Portion control and cost management are essential for profitability. Standard 8-piece rolls require 25-30 grams of sliced pepperoni, translating to approximately 35-40 servings per kilogram. For <a href="/pepperoni">wholesale buyers</a>, bulk packaging in 5-10kg units optimizes storage efficiency and reduces per-unit costs.</p>
 
 <p>Menu pricing should account for pepperoni as a premium ingredient. Market analysis indicates fusion rolls command 15-25% price premium over traditional offerings, justifying ingredient costs while maintaining competitive margins. Positioning pepperoni rolls in the mid-to-upper menu range aligns with customer expectations for innovative cuisine.</p>
 

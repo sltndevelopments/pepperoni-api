@@ -167,6 +167,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -205,7 +229,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
 <h2>Анализ затрат и производительности для оптовых покупателей</h2>
 <p>Смешанное пепперони обеспечивает измеримые экономические преимущества для крупнообъёмных покупателей. Включение курицы снижает затраты на сырьё на 15-25% по сравнению с чисто говяжьими рецептурами, сохраняя приемлемые органолептические свойства для большинства применений в общепите.</p>
-<p>Для <a href="/pepperoni-optom">оптовых заказов пепперони</a> свыше 500 кг ежемесячно смешанный состав предлагает:</p>
+<p>Для <a href="/pepperoni">оптовых заказов пепперони</a> свыше 500 кг ежемесячно смешанный состав предлагает:</p>
 <ul>
 <li>Снижение закупочной цены на 12-18% по сравнению с чисто говяжьими вариантами</li>
 <li>Стабильные цены с меньшей зависимостью от волатильности рынка говядины</li>
@@ -264,8 +288,8 @@ footer a:hover{color:#fff;text-decoration:none}
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/pepperoni-miksoviy">Пепперони миксовый говядина+курица: состав и применение</a></li>
     <li><a href="/blog/sravnenie-halyal-pepperoni">Сравнение халяль пепперони: говядина, курица, конина</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/pepperoni-halyal">Пепперони халяль — что это, состав и где купить оптом</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
     <li><a href="/blog/pepperoni-for-sushi">Пепперони для суши-роллов: спецификации и применение</a></li>
     <li><a href="/blog/pepperoni-syrokopchyonyy">Пепперони сырокопчёный: технология и применение в пицце</a></li>
   </ul>

@@ -164,6 +164,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -201,7 +225,7 @@ footer a:hover{color:#fff;text-decoration:none}
 <ul>
 <li><strong>Холодильная камера:</strong> от 0°C до +6°C — для ежедневного использования в пиццериях и ресторанах</li>
 <li><strong>Морозильная камера:</strong> от -18°C до -25°C — для долгосрочного хранения партий</li>
-<li><strong>Транспортировка:</strong> не выше +6°C — обязательное условие при доставке <a href="/pepperoni-optom">пепперони оптом</a></li>
+<li><strong>Транспортировка:</strong> не выше +6°C — обязательное условие при доставке <a href="/pepperoni">пепперони оптом</a></li>
 <li><strong>Рабочая зона:</strong> максимум 2 часа при комнатной температуре во время приготовления</li>
 </ul>
 
@@ -265,9 +289,10 @@ footer a:hover{color:#fff;text-decoration:none}
 <section data-linker="1" class="container my-4" style="border-top:1px solid #e5e5e5;padding-top:16px">
   <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
   <ul style="columns:2;font-size:.95rem">
-    <li><a href="/blog/how-to-store-pepperoni">Как хранить пепперони: температура и срок годности</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
+    <li><a href="/blog/how-to-store-pepperoni">Как хранить пепперони: условия и сроки</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/kak-vybrat-pepperoni-dlya-pizzerii">Как выбрать пепперони для пиццерии: гид закупщика</a></li>
+    <li><a href="/landing/pepperoni-halyal-kupit">Пепперони халяль купить оптом — завод-производитель</a></li>
     <li><a href="/oem/toppings">Контрактное производство топпингов под СТМ — пепперони-нарезка для пиццы и фудсервиса халяль</a></li>
   </ul>
 </section>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="be">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Пеппероні халяль оптам Гомель | B2B пастаўкі для HoReCa</title>
@@ -16,40 +22,10 @@
     (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
     ym(123456789, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
   </script>
-  <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt=""></div></noscript>
+  <noscript><div><img src="https://mc.yandex.ru/watch/123456789" style="position:absolute; left:-9999px;" alt="" width="1" height="1" loading="lazy"></div></noscript>
 
   <!-- Schema.org JSON-LD -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": ["Product", "LocalBusiness"],
-    "name": "Пеппероні халяль апт (Гомель)",
-    "description": "Аптовыя пастаўкі пеппероні з ялавічыны, курыцы і каніны. Дыяметры 40-75 мм. Сертыфікаты Халяль, HACCP, ISO 22000:2018.",
-    "brand": "Pepperoni.tatar",
-    "category": "Мясная прадукцыя / Пеппероні",
-    "offers": {
-      "@type": "Offer",
-      "priceCurrency": "BYN",
-      "availability": "https://schema.org/InStock",
-      "seller": {
-        "@type": "LocalBusiness",
-        "name": "Pepperoni.tatar — Халяль пеппероні",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": "Гомель",
-          "addressRegion": "Гомельская вобласць",
-          "addressCountry": "BY"
-        },
-        "areaServed": "Гомель і Гомельская вобласць"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.9",
-      "reviewCount": "27"
-    }
-  }
-  </script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":["Product","LocalBusiness"],"name":"Пеппероні халяль апт (Гомель)","description":"Аптовыя пастаўкі пеппероні з ялавічыны, курыцы і каніны. Дыяметры 40-75 мм. Сертыфікаты Халяль, HACCP, ISO 22000:2018.","brand":"Pepperoni.tatar","category":"Мясная прадукцыя / Пеппероні","offers":{"@type":"Offer","priceCurrency":"BYN","availability":"https://schema.org/InStock","seller":{"@type":"LocalBusiness","name":"Pepperoni.tatar — Халяль пеппероні","address":{"@type":"PostalAddress","addressLocality":"Гомель","addressRegion":"Гомельская вобласць","addressCountry":"BY"},"areaServed":"Гомель і Гомельская вобласць"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"BYN"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"BYN"}}},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -87,6 +63,30 @@
     .table-cert th { background-color: #2b4b3c; color: white; font-weight: 500; }
     .table-cert td, .table-cert th { padding: 0.9rem 1rem; vertical-align: middle; }
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Гомель" data-product="pepperoni">
 

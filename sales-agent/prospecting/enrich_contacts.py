@@ -10,7 +10,10 @@ from __future__ import annotations
 
 import sys
 import time
+from datetime import datetime, timezone
 from pathlib import Path
+
+import yaml
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
@@ -25,12 +28,59 @@ from prospecting.contact_research import research_contacts, apply_research_to_le
 
 # Тир S/A — кандидаты на глубокий ресёрч с Perplexity
 _DEEP_TIERS = {"S", "A"}
-_DEEP_LOOKALIKE_THRESHOLD = 80  # или высокий lookalike_score → тоже deep
+_OUTREACH_CFG = ROOT / "config" / "outreach.yaml"
+
+
+def _enrichment_cfg() -> dict:
+    try:
+        return (yaml.safe_load(_OUTREACH_CFG.read_text(encoding="utf-8")) or {}).get("enrichment", {})
+    except Exception:
+        return {}
+
+
+_DEEP_LOOKALIKE_THRESHOLD = int(_enrichment_cfg().get("min_lookalike_for_deep", 45))
+_ENRICH_COOLDOWN_DAYS = int(_enrichment_cfg().get("cooldown_days", 30))
+_ENRICH_RETRY_DAYS = int(_enrichment_cfg().get("retry_days", 7))
+
+
+# Качество email из первичного impорта (ОКВЭД-реестр даёт то, что указано в
+# ЕГРЮЛ/на сайте — почти всегда общий ok@/sbyt@/lab@, не закупщик). Такое
+# «есть хоть какой-то email» раньше блокировало deep-research навсегда
+# (баг обнаружен 2026-07-05: 216 холодных писем, 0% ответов — потому что
+# письма уходили на общие ящики, которые читает секретарь/HR, а не ЛПР).
+_LOW_QUALITY = {"generic", "freemail", None}
 
 
 def _needs_enrich(lead: dict) -> bool:
+    from core import agent_profile as ap
+    from channels.email import pick_recipient
+    from prospecting.contact_research import is_buyer_contact
+
     p = lead.get("profile") or {}
-    return "@" not in str(p.get("emails") or p.get("email") or "")
+    quality = ap.get(p, "email_quality") or p.get("email_quality")
+    verified = bool(ap.get(p, "email_verified"))
+    buyer_contact = verified and is_buyer_contact(pick_recipient(p), quality)
+
+    # Успешный buyer-contact живёт 30 дней. Неудачный поиск (generic/freemail/
+    # ничего) повторяем через короткий retry, а не замораживаем на месяц.
+    if buyer_contact:
+        checked_at = ap.get(p, "contact_enriched_at") or ap.get(p, "contact_last_attempt_at")
+    else:
+        checked_at = (
+            ap.get(p, "contact_last_attempt_at")
+            or ap.get(p, "contact_failed_at")
+            or ap.get(p, "contact_enriched_at")
+            or ap.get(p, "contact_researched_at")
+        )
+    if checked_at:
+        try:
+            checked = datetime.fromisoformat(str(checked_at))
+            cooldown_days = _ENRICH_COOLDOWN_DAYS if buyer_contact else _ENRICH_RETRY_DAYS
+            if (datetime.now(timezone.utc) - checked).total_seconds() < cooldown_days * 86400:
+                return False
+        except Exception:
+            pass
+    return True
 
 
 def _is_deep(lead: dict) -> bool:
@@ -61,7 +111,7 @@ def enrich_leads(
     store.init()
 
     targets = [
-        l for l in store.list_leads(limit=500)
+        l for l in store.list_leads(limit=5000)
         if _needs_enrich(l) and l.get("inn") and (l.get("status") or "new") == "new"
     ]
     targets.sort(key=lambda x: x.get("fit_score") or 0, reverse=True)

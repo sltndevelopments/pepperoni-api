@@ -93,6 +93,30 @@ footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:30px;margin-top
 footer a{color:#888;text-decoration:none}
 @media(max-width:600px){.product-card{flex-direction:column}.product-card .photo{width:100%;flex:none}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -159,7 +183,7 @@ footer a{color:#888;text-decoration:none}
 <h2>Смотрите также</h2>
 <div class="grid-2">
   <a href="/halal-pepperoni-for-pizzerias"><strong>Халяль пепперони для пиццерий</strong><span>Все форматы + кейсы</span></a>
-  <a href="/beef-halal-pepperoni"><strong>Говяжья Халяль пепперони</strong><span>Подробно о рецептуре</span></a>
+  <a href="/pepperoni"><strong>Говяжья Халяль пепперони</strong><span>Подробно о рецептуре</span></a>
   <a href="/wholesale-halal-pepperoni-supplier"><strong>Оптовый поставщик</strong><span>Условия, МОЗ, оплата</span></a>
   <a href="/products/kd-015"><strong>Карточка товара КД-015</strong><span>Полные характеристики</span></a>
   <a href="/pepperoni-dlya-pizzerii"><strong>Гайд покупателя для пиццерий</strong><span>Ассортимент, форматы, фото</span></a>

@@ -30,7 +30,11 @@ GOOD_TEL = "+79872170202"
 GOOD_EMAIL = "info@kazandelikates.tatar"
 
 TEL_HREF_RE = re.compile(r"tel:\+?[\d\-‑–\s().]{7,18}")
-PHONE_TEXT_RE = re.compile(r"(?:\+7|8)[\s\-‑–()]*\d(?:[\s\-‑–()]*\d){9}")
+# Negative digit-boundary lookaround so this doesn't false-positive inside a
+# longer digit run (e.g. a 13-digit gtin13/EAN barcode like "4680638720035"
+# contains "80638720035", which used to get misdetected as a phone number
+# and overwritten with the canonical phone — silently corrupting barcodes).
+PHONE_TEXT_RE = re.compile(r"(?<!\d)(?:\+7|8)[\s\-‑–()]*\d(?:[\s\-‑–()]*\d){9}(?!\d)")
 EMAIL_RE = re.compile(r"[\w.+-]+@[\w-]*[a-zA-Z][\w-]*\.[a-zA-Z][\w.]{1,11}")
 FENCE_RE = re.compile(r"[ \t]*```[a-zA-Z]*[ \t]*\n?")
 # LLM preamble: bare text before the first tag, e.g. «Вот HTML-код лендинга,
@@ -116,7 +120,11 @@ def main() -> int:
     else:
         sys.path.insert(0, str(Path(__file__).parent))
         from qa_pages import changed_pages
-        files = changed_pages()
+        # changed_pages() returns list[tuple[Path, is_new]] — unwrap to just
+        # the paths. This mismatch previously crashed with AttributeError
+        # ('tuple' object has no attribute 'read_text') on every default
+        # (no-args) run; only --all / explicit-path invocations worked.
+        files = [p for p, _is_new in changed_pages()]
 
     touched = 0
     for f in files:

@@ -22,7 +22,9 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -77,6 +79,11 @@ import os as _os
 MAX_PAGES = int(_os.environ.get("KD_FEED_MAX_PAGES", "0")) or None  # None = без лимита
 
 
+# Транзиентные сетевые сбои (DNS/timeout/сброс соединения) — ретраить.
+# HTTP 4xx/5xx от сервера — реальная ошибка, ретрай бессмысленен.
+_RETRY_BACKOFF_SEC = (5, 15, 30)
+
+
 def _get_json(path: str, params: dict) -> dict:
     url = BASE + path + "?" + urllib.parse.urlencode(params)
     req = urllib.request.Request(
@@ -88,8 +95,20 @@ def _get_json(path: str, params: dict) -> dict:
             "Referer": BASE + "/",
         },
     )
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.loads(r.read().decode("utf-8"))
+    last_err: Exception | None = None
+    for attempt, backoff in enumerate((0, *_RETRY_BACKOFF_SEC)):
+        if backoff:
+            time.sleep(backoff)
+        try:
+            with urllib.request.urlopen(req, timeout=60) as r:
+                return json.loads(r.read().decode("utf-8"))
+        except urllib.error.HTTPError:
+            raise  # реальный ответ сервера (4xx/5xx) — не ретраим
+        except (urllib.error.URLError, TimeoutError, OSError) as e:
+            last_err = e
+            print(f"  [retry {attempt + 1}/{len(_RETRY_BACKOFF_SEC) + 1}] "
+                  f"transient error: {e}", file=sys.stderr)
+    raise last_err  # type: ignore[misc]
 
 
 def fetch_page(okved: str, period: str, page: int) -> dict:
@@ -174,6 +193,7 @@ def main():
                     res = fetch_page(okved, period, page)
                 except Exception as e:
                     print(f"! fetch error okved={okved} period={period} page={page}: {e}")
+                    print(f"FATAL_OKVED={okved} period={period} page={page} error={e}")
                     break
                 total = res.get("totalElements", 0)
                 rows = res.get("content") or []

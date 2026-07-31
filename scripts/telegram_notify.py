@@ -5,7 +5,7 @@ Lightweight Telegram notifications for SEO agents (no long-poll, no brain_journa
 Recipients (union, deduped):
   1. TELEGRAM_CHAT_ID / TELEGRAM_LEADS_CHAT_ID env — comma-separated chat IDs
      (works in GitHub Actions where tg_authorized.json does not exist).
-  2. data/tg_authorized.json — chats that logged into @KDSEOSiteBot on the VPS.
+  2. tg-state/tg_authorized.json — chats that successfully authenticated.
 
 Env: TELEGRAM_BOT_TOKEN (required to send)
 """
@@ -148,7 +148,9 @@ def get_recipients() -> list[int]:
         for part in raw.replace(" ", "").split(","):
             if part.lstrip("-").isdigit():
                 ids.append(int(part))
-    for path in (AUTH_FILE, NOTIFY_FILE):
+    # Never broadcast to pre-auth chats. NOTIFY_FILE is retained only for
+    # backward-compatible state migration and is not a recipient source.
+    for path in (AUTH_FILE,):
         try:
             raw = json.loads(path.read_text(encoding="utf-8"))
             if isinstance(raw, dict):
@@ -226,7 +228,7 @@ def notify_emergency(text: str) -> int:
 
 
 def register_chat(chat_id: int, name: str = "") -> None:
-    """Remember a chat that contacted the bot (for push alerts before full auth)."""
+    """Remember an authenticated chat for push alerts."""
     try:
         rows = json.loads(NOTIFY_FILE.read_text(encoding="utf-8"))
         if not isinstance(rows, list):

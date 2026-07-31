@@ -163,6 +163,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -184,7 +208,7 @@ footer a:hover{color:#fff;text-decoration:none}
 
 <h2>Diameter Standards and Product Calibration</h2>
 
-<p>Commercial <a href="/pepperoni-optom">pepperoni diameter</a> specifications range from 38mm to 80mm, with distinct market segments for each size category. Standard pizza-grade pepperoni measures 45-55mm diameter, providing approximately 160-180 slices per kilogram at 3mm thickness. This size delivers efficient coverage and cost-per-pizza calculation for operations.</p>
+<p>Commercial <a href="/pepperoni">pepperoni diameter</a> specifications range from 38mm to 80mm, with distinct market segments for each size category. Standard pizza-grade pepperoni measures 45-55mm diameter, providing approximately 160-180 slices per kilogram at 3mm thickness. This size delivers efficient coverage and cost-per-pizza calculation for operations.</p>
 
 <p>Large-format pepperoni (60-80mm diameter) is specified for premium pizza operations and produces 85-110 slices per kilogram. The increased surface area provides enhanced visual impact and allows for reduced slice count per pizza while maintaining coverage. Small-format varieties (38-45mm) suit personal pizzas, appetizers, and portion-controlled applications with 200-240 slices per kilogram.</p>
 

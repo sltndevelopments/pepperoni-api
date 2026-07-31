@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
@@ -67,6 +73,30 @@
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -88,7 +118,7 @@
     <span class="badge badge-outline">HACCP + ISO 22000:2018</span>
     <span class="badge badge-outline">shelf life up to 360 days</span>
 
-    <p>If you are looking for where to <strong>buy sausage rolls wholesale from the manufacturer</strong>, we cover the whole chain: we make both the <strong>ready-made frozen sausage roll</strong> for finishing and a separate <strong>sausage made specifically for sausage rolls</strong> — casing-free, so bakeries and frozen-pastry producers can make the item with their own dough. All products are <strong>100% halal</strong>, made from poultry and beef to halal standards. As a <strong>manufacturer in Kazan</strong>, we ship across Russia and for export; from our Lyubertsy warehouse you can order wholesale in Moscow.</p>
+    <p>If you are looking for where to <strong>buy sausage rolls wholesale from the manufacturer</strong>, we cover the whole chain: we make both the <strong>ready-made frozen sausage roll</strong> for finishing and a separate <strong>sausage made specifically for sausage rolls</strong> — casing-free, so bakeries and frozen-pastry producers can make the item with their own dough. All products are <strong>100% halal</strong>, made from poultry and beef to halal standards. As a <strong>manufacturer in Kazan</strong>, we ship across Russia and for export; from Kazan you can order wholesale in Moscow.</p>
 
     <h2>Two products for one job</h2>
     <p>A "sausage roll" is sold both as a finished item and as a pair of components — which is why we keep both formats. That makes us a convenient <strong>wholesale sausage-roll supplier</strong>: you don't have to source the sausage from one producer and the dough from another.</p>
@@ -123,7 +153,7 @@
 
     <h2>Wholesale terms, logistics and portion economics</h2>
     <div class="card">
-      <p style="margin-top:0">We build wholesale sausage-roll supply around your volume. A pilot of 500 kg per month is enough to test the item in sales and gather feedback. Moving to a 2–5 t/month series, we fix the price and delivery schedule, protecting your cost base from market swings. We ship frozen in fixed-pack cases EXW Kazan and from our Lyubertsy warehouse — across Russia and for export to the CIS and the UAE, with full cold-chain control.</p>
+      <p style="margin-top:0">We build wholesale sausage-roll supply around your volume. A pilot of 500 kg per month is enough to test the item in sales and gather feedback. Moving to a 2–5 t/month series, we fix the price and delivery schedule, protecting your cost base from market swings. We ship frozen in fixed-pack cases EXW Kazan and from Kazan — across Russia and for export to the CIS and the UAE, with full cold-chain control.</p>
       <p>To calculate economics, start from the weight and price of the item (or the sausage, if you bake yourself): a fixed weight and caliber give an exact cost per portion and remove over-weight losses. A casing-free sausage eliminates waste from bursting in the dough, and a stable weight prevents complaints about inconsistent size. Under private label we adapt the dough and sausage recipe, item weight and packaging — from flow-pack to a corrugated case with your design.</p>
     </div>
 
@@ -147,7 +177,7 @@
 
     <h2>See also</h2>
     <div class="grid-2">
-      <a href="/en/products/kd-074" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Sausage roll (KD-074)</strong><br><span style="color:#666;font-size:.82rem">Ready-made frozen</span></a>
+      <strong>Sausage roll (KD-074)</strong><br><span style="color:#666;font-size:.82rem">Ready-made frozen</span>
       <a href="/en/products/kd-027" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Breakfast sausage (KD-027)</strong><br><span style="color:#666;font-size:.82rem">Casing-free, for sausage rolls</span></a>
       <a href="/en/oem/hotdog-sausages" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Hot-dog sausages wholesale</strong><br><span style="color:#666;font-size:.82rem">Under private label</span></a>
       <a href="/en/oem/bakery" style="display:block;background:#fff;border:1px solid #e5e5e5;border-radius:8px;padding:14px;text-decoration:none;color:#1a1a1a;font-size:.9rem"><strong>Bakery under private label</strong><br><span style="color:#666;font-size:.82rem">Frozen, wholesale</span></a>

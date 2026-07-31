@@ -35,9 +35,9 @@ def gen_ru() -> str:
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
-{GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-ru-poster-720.webp" imagesrcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
@@ -49,6 +49,7 @@ def gen_ru() -> str:
 <link rel="canonical" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="alternate" type="application/json" title="Live Product Catalog (JSON)" href="https://pepperoni.tatar/products.json">
@@ -78,7 +79,7 @@ def gen_ru() -> str:
     {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
     {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
   ],
-  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar"]
+  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar","https://www.youtube.com/@kazandelikates"]
 }}
 </script>
 <style>
@@ -104,6 +105,20 @@ img{{max-width:100%;height:auto}}
 .hero h1{{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:14px;max-width:750px;margin-left:auto;margin-right:auto}}
 .hero__sub{{font-size:1rem;opacity:.88;max-width:560px;margin:0 auto 28px}}
 .hero__btns{{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}}
+.video-band{{background:#f3f5f3;padding:36px 0 40px;border-bottom:1px solid var(--border)}}
+.video-player{{position:relative;max-width:860px;margin:0 auto;border-radius:14px;overflow:hidden;background:#111;aspect-ratio:16/9;box-shadow:0 10px 36px rgba(0,0,0,.12)}}
+.video-player__poster{{display:block;width:100%;height:100%;object-fit:cover}}
+.video-player__video{{display:none;width:100%;height:100%;object-fit:cover;background:#000}}
+.video-player.is-playing .video-player__video{{display:block}}
+.video-player.is-playing .video-player__poster,
+.video-player.is-playing .video-player__play{{display:none}}
+.video-player__play{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;border:0;background:rgba(10,30,18,.28);cursor:pointer;color:#fff;transition:background .2s}}
+.video-player__play:hover{{background:rgba(10,30,18,.4)}}
+.video-player__play:focus-visible{{outline:3px solid #fff;outline-offset:-6px}}
+.video-player__icon{{width:72px;height:72px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.35);transition:transform .2s,background .2s}}
+.video-player__play:hover .video-player__icon{{transform:scale(1.06);background:var(--green-dark)}}
+.video-player__icon svg{{width:28px;height:28px;margin-left:3px;fill:#fff}}
+.video-player__label{{font-size:.92rem;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.45)}}
 .btn{{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;font-size:.92rem;cursor:pointer;transition:all .2s}}
 .btn-primary{{background:#fff;color:var(--green)}}
 .btn-primary:hover{{background:var(--green-light);transform:translateY(-1px)}}
@@ -203,6 +218,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .seg-card__desc{{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}}.seg-card__case{{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}}
 .seg-card__arrow{{margin-left:4px}}
 </style>
+{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -238,12 +254,45 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 </section>
 
+<section class="video-band" aria-label="Видео производства">
+  <div class="container">
+    <div class="video-player" data-src="/videos/hero-ru.mp4">
+      <picture>
+        <source type="image/webp" srcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
+        <img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
+      <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
+        <span class="video-player__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="video-player__label">Смотреть видео</span>
+      </button>
+      <video class="video-player__video" playsinline controls preload="none" title="Производство халяль продукции Казанские Деликатесы"></video>
+    </div>
+  </div>
+</section>
+<script>
+(function(){{
+  document.querySelectorAll('.video-player').forEach(function(player){{
+    var btn=player.querySelector('.video-player__play');
+    var video=player.querySelector('.video-player__video');
+    if(!btn||!video||!player.dataset.src) return;
+    btn.addEventListener('click',function(){{
+      if(player.classList.contains('is-playing')) return;
+      video.src=player.dataset.src;
+      player.classList.add('is-playing');
+      video.play().catch(function(){{}});
+    }});
+  }});
+}})();
+</script>
+
 <div class="badges">
   <div class="container badges__inner">
     <a href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>Сертификат Халяль ДУМ РТ №614A/2024 ✓</span></a>
     <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>ХАССП + ISO 22000:2018 ✓</span></a>
     <span class="badges__item"><span class="dot"></span>ТР ТС 021/2011</span>
-    <span class="badges__item"><span class="dot"></span>EXW Казань · Склад Люберцы</span>
+    <span class="badges__item"><span class="dot"></span>EXW Казань</span>
     <span class="badges__item"><span class="dot"></span>Private Label / СТМ</span>
   </div>
 </div>
@@ -292,7 +341,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Дистрибьюторы регионов</div>
-        <div class="seg-card__desc">Отсрочка до 30 дней, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
+        <div class="seg-card__desc">Отсрочка согласно договору, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
         <div class="seg-card__case">Кейс: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
@@ -406,7 +455,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <div class="container">
   <div class="info-block" style="background:#f5f5ff;border-color:#0066cc">
-    <h2>📥 Скачать прайс-лист</h2>
+    <h2><span aria-hidden="true">📥</span> Скачать прайс-лист</h2>
     <p>Полный каталог — откроется в Excel, Google Sheets, Numbers.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
       <label for="dl-lang" style="font-size:.83rem;color:#555">Язык:</label>
@@ -427,13 +476,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 
   <div class="info-block" style="background:var(--green-light);border-color:var(--green)">
-    <h2 style="color:var(--green)">🤝 Производственные решения для HoReCa и Ритейла</h2>
+    <h2 style="color:var(--green)"><span aria-hidden="true">🤝</span> Производственные решения для HoReCa и Ритейла</h2>
     <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3>🏷️ Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
-      <div class="capability-card"><h3>🎯 Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
-      <div class="capability-card"><h3>✅ 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
-      <div class="capability-card"><h3>🚚 Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
     </div>
   </div>
 
@@ -477,9 +526,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
-        <div class="footer__col-title">Склад и отгрузка</div>
-        <p>Москва (Люберцы) — наш склад</p>
+        <div class="footer__col-title">Отгрузка</div>
         <p>EXW Казань</p>
+        <p>г. Казань, ул. Аграрная, 2</p>
         <p>Отгрузка: Пн–Пт 9:00–18:00</p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
@@ -498,6 +547,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar">pepperoni.tatar</a> &nbsp;·&nbsp;
+      <a href="https://www.youtube.com/@kazandelikates">YouTube</a> &nbsp;·&nbsp;
       Халяль · ХАССП · ISO 22000:2018 · EXW Казань
     </div>
   </div>
@@ -637,7 +687,7 @@ function setVAT(v){{VAT=v;render()}}
   }});
   mc.registerTool({{
     name:'download_price_list',
-    description:'Download the full halal product price list (77 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
+    description:'Download the full halal product price list (72 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
     inputSchema:{{type:'object',properties:{{
       language:{{type:'string',enum:['ru','en'],description:'Language of the price list.'}},
       currency:{{type:'string',enum:CURS}},
@@ -719,7 +769,19 @@ async function loadCatalog(){{
     }}catch(e2){{document.getElementById('loading').textContent='Ошибка загрузки каталога.';}}
   }}
 }}
-loadCatalog();
+(function scheduleCatalog(){{
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){{
+    var io=new IntersectionObserver(function(entries){{
+      if(entries.some(function(e){{return e.isIntersecting;}})){{io.disconnect();loadCatalog();}}
+    }},{{rootMargin:'240px 0px'}});
+    io.observe(el);
+  }}else if(document.readyState==='complete'){{
+    setTimeout(loadCatalog,1500);
+  }}else{{
+    window.addEventListener('load',function(){{setTimeout(loadCatalog,1500);}});
+  }}
+}})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
 document.addEventListener('click',function(e){{
   var link=e.target.closest('a');if(!link)return;
@@ -741,9 +803,9 @@ def gen_en() -> str:
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
-{GTM}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-en-poster-720.webp" imagesrcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
 <meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
@@ -752,6 +814,7 @@ def gen_en() -> str:
 <link rel="canonical" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
@@ -796,6 +859,20 @@ img{{max-width:100%;height:auto}}
 .hero h1{{font-size:clamp(1.5rem,3.5vw,2.4rem);font-weight:800;line-height:1.2;margin-bottom:14px;max-width:750px;margin-left:auto;margin-right:auto}}
 .hero__sub{{font-size:1rem;opacity:.88;max-width:560px;margin:0 auto 28px}}
 .hero__btns{{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}}
+.video-band{{background:#f3f5f3;padding:36px 0 40px;border-bottom:1px solid var(--border)}}
+.video-player{{position:relative;max-width:860px;margin:0 auto;border-radius:14px;overflow:hidden;background:#111;aspect-ratio:16/9;box-shadow:0 10px 36px rgba(0,0,0,.12)}}
+.video-player__poster{{display:block;width:100%;height:100%;object-fit:cover}}
+.video-player__video{{display:none;width:100%;height:100%;object-fit:cover;background:#000}}
+.video-player.is-playing .video-player__video{{display:block}}
+.video-player.is-playing .video-player__poster,
+.video-player.is-playing .video-player__play{{display:none}}
+.video-player__play{{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;border:0;background:rgba(10,30,18,.28);cursor:pointer;color:#fff;transition:background .2s}}
+.video-player__play:hover{{background:rgba(10,30,18,.4)}}
+.video-player__play:focus-visible{{outline:3px solid #fff;outline-offset:-6px}}
+.video-player__icon{{width:72px;height:72px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 28px rgba(0,0,0,.35);transition:transform .2s,background .2s}}
+.video-player__play:hover .video-player__icon{{transform:scale(1.06);background:var(--green-dark)}}
+.video-player__icon svg{{width:28px;height:28px;margin-left:3px;fill:#fff}}
+.video-player__label{{font-size:.92rem;font-weight:600;letter-spacing:.02em;text-shadow:0 1px 8px rgba(0,0,0,.45)}}
 .btn{{display:inline-block;padding:12px 26px;border-radius:8px;font-weight:600;font-size:.92rem;cursor:pointer;transition:all .2s}}
 .btn-primary{{background:#fff;color:var(--green)}}
 .btn-primary:hover{{background:var(--green-light);transform:translateY(-1px)}}
@@ -875,6 +952,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 @media(max-width:600px){{.hero{{padding:40px 0 32px}}.usps{{padding:32px 0 0}}.nav__links{{gap:10px;font-size:.82rem}}.certs__inner{{gap:16px}}}}
 </style>
+{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -909,6 +987,39 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 </section>
 
+<section class="video-band" aria-label="Production video">
+  <div class="container">
+    <div class="video-player" data-src="/videos/hero-en.mp4">
+      <picture>
+        <source type="image/webp" srcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
+        <img class="video-player__poster" src="/videos/hero-en-poster.jpg" alt="Kazan Delicacies halal production" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+      </picture>
+      <button type="button" class="video-player__play" aria-label="Play production video">
+        <span class="video-player__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
+        </span>
+        <span class="video-player__label">Watch video</span>
+      </button>
+      <video class="video-player__video" playsinline controls preload="none" title="Kazan Delicacies halal production"></video>
+    </div>
+  </div>
+</section>
+<script>
+(function(){{
+  document.querySelectorAll('.video-player').forEach(function(player){{
+    var btn=player.querySelector('.video-player__play');
+    var video=player.querySelector('.video-player__video');
+    if(!btn||!video||!player.dataset.src) return;
+    btn.addEventListener('click',function(){{
+      if(player.classList.contains('is-playing')) return;
+      video.src=player.dataset.src;
+      player.classList.add('is-playing');
+      video.play().catch(function(){{}});
+    }});
+  }});
+}})();
+</script>
+
 <div class="badges">
   <div class="container badges__inner">
     <a href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>Halal Cert MSB Tatarstan #614A/2024 ✓</span></a>
@@ -924,46 +1035,46 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <h2 class="section-title">Who We Serve</h2>
     <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
     <div class="segments__grid">
-      <a href="/en/for-gas-stations" class="seg-card">
+      <a href="/en/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
         <div class="seg-card__icon">⛽</div>
         <div class="seg-card__title">Gas Stations &amp; Street Food</div>
         <div class="seg-card__desc">Sausages, pepperoni, patties, sausage rolls for C-store hot dog stations and grab-and-go.</div>
         <div class="seg-card__case">Case: Tatneft gas station chain + SMARTEN <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/contract-manufacturing" class="seg-card">
+      <a href="/en/kontraktnoe-proizvodstvo" class="seg-card">
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
         <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. From 500 kg/month.</div>
         <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-bakeries" class="seg-card">
+      <a href="/en/dlya-pekaren" class="seg-card">
         <span class="seg-card__num">03</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Regional Bakeries</div>
         <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
         <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-retail" class="seg-card">
+      <a href="/en/dlya-setey" class="seg-card">
         <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Retail Chains</div>
         <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
         <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-horeca" class="seg-card">
+      <a href="/en/dlya-horeca" class="seg-card">
         <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa &amp; Food Service</div>
         <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
         <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/for-distributors" class="seg-card">
+      <a href="/en/dlya-distributorov" class="seg-card">
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>
-        <div class="seg-card__desc">30-day deferred payment, own price list, full halal assortment from Tatarstan in one warehouse.</div>
+        <div class="seg-card__desc">Deferred payment as per contract, own price list, full halal assortment from Tatarstan in one warehouse.</div>
         <div class="seg-card__case">Case: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
@@ -1071,7 +1182,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <div class="container">
   <div class="info-block dl-price-block" style="background:#f5f5ff;border-color:#0066cc">
-    <h2>📥 Download price list</h2>
+    <h2><span aria-hidden="true">📥</span> Download price list</h2>
     <p>Full catalog — opens in Excel, Google Sheets, or Numbers.</p>
     <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
       <label for="dl-lang" style="font-size:.83rem;color:#555">Language:</label>
@@ -1092,13 +1203,13 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 
   <div class="info-block">
-    <h2>🤝 Solutions for HoReCa &amp; Retail</h2>
+    <h2><span aria-hidden="true">🤝</span> Solutions for HoReCa &amp; Retail</h2>
     <p>We don't just supply — we adapt production to your business needs.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3>🏷️ Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
-      <div class="capability-card"><h3>🎯 Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
-      <div class="capability-card"><h3>✅ 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
-      <div class="capability-card"><h3>🚚 Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
     </div>
   </div>
 
@@ -1141,9 +1252,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
-        <div class="footer__col-title">Warehouse &amp; Shipment</div>
-        <p>Moscow (Lyubertsy) — our warehouse</p>
+        <div class="footer__col-title">Shipment</div>
         <p>EXW Kazan</p>
+        <p>Kazan, ul. Agrarnaya, 2</p>
         <p>Mon–Fri 9:00–18:00 MSK</p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
@@ -1160,6 +1271,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <div class="footer__bottom">
       <a href="https://kazandelikates.tatar">kazandelikates.tatar</a> &nbsp;·&nbsp;
       <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a> &nbsp;·&nbsp;
+      <a href="https://www.youtube.com/@kazandelikates">YouTube</a> &nbsp;·&nbsp;
       Halal · HACCP · ISO 22000:2018 · EXW Kazan
     </div>
   </div>
@@ -1290,7 +1402,7 @@ function setCur(c){{CUR=c;VAT=c==='RUB';render()}}
   }});
   mc.registerTool({{
     name:'download_price_list',
-    description:'Download the full halal product price list (77 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
+    description:'Download the full halal product price list (72 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
     inputSchema:{{type:'object',properties:{{
       language:{{type:'string',enum:['ru','en'],description:'Language of the price list.'}},
       currency:{{type:'string',enum:CURS}},
@@ -1352,9 +1464,8 @@ const CAT_EN={{
 const SEC_ICONS={{'Frozen Products':'❄️','Chilled Products':'🧊','Bakery & Pastry':'🥐'}};
 const NAME_EN_OVERRIDES={{
   'Пепперони варено-копченый из конины':'Horse Pepperoni Cooked-Smoked (sliced)',
-  'Пепперони варено-копченый классика':'Classic Pepperoni Cooked-Smoked (sliced)',
-  'Пепперони варено-копченый классика целый батон':'Classic Pepperoni Cooked-Smoked (whole stick)',
-  'Пепперони сырокопчёный целый батон':'Pepperoni Dry-Cured Whole Stick',
+  'Пепперони варено-копченый куриный':'Chicken Pepperoni Cooked-Smoked (sliced)',
+  'Пепперони варено-копченый куриный целый батон':'Chicken Pepperoni Cooked-Smoked (whole stick)',
   'Ветчина из Курицы в батоне':'Chicken Ham (whole)',
   'Ветчина из Курицы в нарезке':'Chicken Ham (sliced)',
   'Ветчина из Индейки в батоне':'Turkey Ham (whole)',
@@ -1452,7 +1563,19 @@ async function loadCatalog(){{
     render();
   }}catch(e){{document.getElementById('loading').textContent='Failed to load catalog.';}}
 }}
-loadCatalog();
+(function scheduleCatalog(){{
+  var el=document.getElementById('catalog')||document.getElementById('catalog-inner');
+  if('IntersectionObserver'in window&&el){{
+    var io=new IntersectionObserver(function(entries){{
+      if(entries.some(function(e){{return e.isIntersecting;}})){{io.disconnect();loadCatalog();}}
+    }},{{rootMargin:'240px 0px'}});
+    io.observe(el);
+  }}else if(document.readyState==='complete'){{
+    setTimeout(loadCatalog,1500);
+  }}else{{
+    window.addEventListener('load',function(){{setTimeout(loadCatalog,1500);}});
+  }}
+}})();
 </script>
 </body>
 </html>"""

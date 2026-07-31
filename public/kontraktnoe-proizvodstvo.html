@@ -94,6 +94,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2,.stats{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -155,7 +179,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <li><strong>Бриф и ТУ</strong><small>Вы описываете продукт: формат, вес, состав, требования сети, упаковка. Подписываем NDA.</small></li>
       <li><strong>Образцы и дегустация</strong><small>Производим 2–3 варианта рецептуры, передаём образцы. Ваш технолог и закупщик согласовывают финальный.</small></li>
       <li><strong>Этикетка и документы</strong><small>Ваш дизайнер готовит макет под наш формат. Мы готовим декларацию ЕАЭС, сертификат халяль (если нужно), протоколы.</small></li>
-      <li><strong>Промышленный тираж</strong><small>Первый тираж от 500 кг/мес. Отгрузка EXW Казань или на склад Люберцы. ВСД ФГИС «Меркурий».</small></li>
+      <li><strong>Промышленный тираж</strong><small>Первый тираж от 500 кг/мес. Отгрузка EXW Казань. ВСД ФГИС «Меркурий».</small></li>
       <li><strong>Серийные поставки</strong><small>Фиксируем график и контракт на 6–12 месяцев. Стабильная рецептура, единая цена, единый вкус.</small></li>
     </ol>
 
@@ -181,7 +205,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <tr><td>Минимальный тираж</td><td class="spec-value">500 кг/мес (пилот), 2–5 т/мес (серия)</td></tr>
           <tr><td>Срок разработки</td><td class="spec-value">4–8 недель от брифа до первой отгрузки</td></tr>
           <tr><td>Документы</td><td class="spec-value">Декларация ЕАЭС, сертификат халяль, ВСД, протоколы испытаний</td></tr>
-          <tr><td>Отгрузка</td><td class="spec-value">EXW Казань · склад Люберцы · экспорт в СНГ и ОАЭ</td></tr>
+          <tr><td>Отгрузка</td><td class="spec-value">EXW Казань · экспорт в СНГ и ОАЭ</td></tr>
         </tbody>
       </table>
     </div>
@@ -210,6 +234,25 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     <h2>Обсудить СТМ / контрактное производство</h2>
     <p>Напишите нам — подпишем NDA, обсудим ТУ и график. Первый образец — в течение 2–3 недель.</p>
+
+    <div style="background:#fff;border:1px solid #e5e5e5;border-radius:10px;padding:20px;margin:16px 0 24px">
+      <h3 style="margin:0 0 8px;color:#1b7a3d;font-size:1.1rem">Запросить условия СТМ и аудит</h3>
+      <p style="font-size:.85rem;color:#666;margin:0 0 14px">Оставьте заявку — свяжемся для обсуждения рецептуры, минимальных объёмов и упаковки.</p>
+      <form class="lead-form" novalidate style="display:grid;gap:10px">
+        <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
+        <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
+        <textarea name="message" rows="2" placeholder="Компания / бренд, желаемый объём, SKU" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem;resize:vertical"></textarea>
+        <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+        <label style="display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#666;line-height:1.4">
+          <input type="checkbox" name="consent" required style="margin-top:3px;flex:none">
+          <span>Согласен на обработку персональных данных (<a href="/privacy" target="_blank" style="color:#1b7a3d">152-ФЗ</a>).</span>
+        </label>
+        <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:12px 20px;border-radius:8px;font-weight:600;font-size:.9rem;cursor:pointer;justify-self:start">Отправить заявку</button>
+        <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.85rem;margin:0"></p>
+      </form>
+      <script src="/assets/lead-form.js" defer></script>
+    </div>
+
     <a href="tel:+79872170202" class="cta">📞 +7 987 217-02-02</a>
     <a href="mailto:info@kazandelikates.tatar?subject=Контрактное%20производство%20/%20СТМ" class="cta cta-outline">📧 info@kazandelikates.tatar</a>
     <a href="https://wa.me/79872170202?text=Здравствуйте!%20Интересует%20контрактное%20производство%20под%20наш%20бренд" class="cta cta-outline">💬 WhatsApp</a>

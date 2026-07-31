@@ -114,6 +114,7 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="ru" href="{url}">
+  <link rel="alternate" hreflang="x-default" href="{url}">
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="{title}">
@@ -165,12 +166,11 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
 OPTOM_BODY = """    <p>«Казанские Деликатесы» — производитель халяль пепперони в Татарстане. Работаем <strong>напрямую с оптовыми покупателями</strong>: дистрибьюторами, торговыми сетями, агрегаторами HoReCa. Никаких посредников — цена производителя, стабильные отгрузки, полный пакет документов.</p>
 
     <h2>Ассортимент для оптовых поставок</h2>
+    <p style="font-size:.9rem;color:#555">Актуальные SKU из Google Sheets — <a href="/pepperoni">/pepperoni</a>.</p>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп из конины</div><div class="weight">Нарезка 0,5 кг</div><div class="price">315 ₽</div></div>
-      <div class="price-card"><div class="name">Сырокопчёный</div><div class="weight">Нарезка 0,5 кг</div><div class="price">380 ₽</div></div>
-      <div class="price-card"><div class="name">Сырокопчёный</div><div class="weight">Батон 1 кг</div><div class="price">608 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп из конины KD-012</div><div class="weight">Нарезка 0,5 кг</div><div class="price">315 ₽</div></div>
     </div>
     <p style="font-size:.85rem;color:#888">Цены указаны без НДС. Объёмные скидки — по запросу. Экспортные цены в USD, KZT, UZS, KGS, BYN, AZN — на странице <a href="/pepperoni">пепперони</a>.</p>
 
@@ -242,10 +242,9 @@ PIZZA_BODY = """    <p>Пепперони — самый популярный т
       <table>
         <thead><tr><th>Вид</th><th>Состав</th><th>Особенность</th></tr></thead>
         <tbody>
-          <tr><td>Варёно-копчёный классика</td><td>Говядина + курица</td><td>Нежный вкус, умеренная острота</td></tr>
-          <tr><td>Варёно-копчёный из конины</td><td>Конина</td><td>Насыщенный вкус, халяльная экзотика</td></tr>
-          <tr><td>Сырокопчёный</td><td>Говядина + курица</td><td>Выраженный аромат копчения</td></tr>
-          <tr><td>Миксы (Private Label)</td><td>По рецептуре заказчика</td><td>Любой состав и острота под запрос</td></tr>
+          <tr><td>Варёно-копчёный куриный</td><td>Курица (KD-013 / KD-014)</td><td>Термостабильный топпинг для пиццы</td></tr>
+          <tr><td>Варёно-копчёный из конины</td><td>Конина (KD-012)</td><td>Насыщенный вкус</td></tr>
+          <tr><td>Private Label</td><td>По рецептуре заказчика</td><td>Состав и острота под запрос (не в базовом каталоге)</td></tr>
         </tbody>
       </table>
     </div>
@@ -300,10 +299,9 @@ HORECA_BODY = """    <p>HoReCa — отели, рестораны, кейтер�
 
     <h2>Ассортимент для HoReCa</h2>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп из конины</div><div class="weight">Нарезка 0,5 кг</div><div class="price">315 ₽</div></div>
-      <div class="price-card"><div class="name">Сырокопчёный</div><div class="weight">Нарезка 0,5 кг</div><div class="price">380 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп из конины KD-012</div><div class="weight">Нарезка 0,5 кг</div><div class="price">315 ₽</div></div>
     </div>
 
     <h2>Логистика для HoReCa</h2>
@@ -399,9 +397,8 @@ NAREZKA_BODY = """    <p>Нарезка пепперони — самый удо
 
     <h2>Виды нарезки в ассортименте</h2>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Говядина + курица, 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп из конины</div><div class="weight">Конина, 0,5 кг</div><div class="price">315 ₽</div></div>
-      <div class="price-card"><div class="name">Сырокопчёный</div><div class="weight">Говядина + курица, 0,5 кг</div><div class="price">380 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Курица, 0,5 кг</div><div class="price">274 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп из конины KD-012</div><div class="weight">Конина, 0,5 кг</div><div class="price">315 ₽</div></div>
     </div>
 
     <h2>Нарезка vs батон: как выбрать</h2>
@@ -429,8 +426,7 @@ NAREZKA_BODY = """    <p>Нарезка пепперони — самый удо
     <h2>Также доступны батоны</h2>
     <p>Если вы используете собственный слайсер — выгоднее брать <strong>целые батоны 1 кг</strong>. Нарезка под нужную толщину, цена ниже за грамм.</p>
     <div class="prices-grid">
-      <div class="price-card"><div class="name">Вар-коп классика</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
-      <div class="price-card"><div class="name">Сырокопчёный</div><div class="weight">Батон 1 кг</div><div class="price">608 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
     </div>"""
 
 
@@ -438,7 +434,7 @@ PAGES = [
     {
         "slug": "pepperoni-optom",
         "title": "Халяль пепперони оптом — поставки от производителя | Казанские Деликатесы",
-        "desc": "Пепперони халяль оптом от производителя в Казани. Говядина, курица, конина, миксы. Нарезка и батоны. Private Label. EXW Казань. Экспорт в СНГ. ХАССП. Halal № 614A/2024.",
+        "desc": "Пепперони халяль оптом от производителя в Казани. Куриный KD-013/014 и из конины KD-012. Нарезка и батоны. Private Label. EXW Казань. Экспорт в СНГ. ХАССП. Halal № 614A/2024.",
         "keywords": "пепперони оптом, купить пепперони оптом, пепперони от производителя, халяль пепперони оптом, пепперони производитель казань, пепперони для дистрибьюторов",
         "h1": "Халяль пепперони оптом — прямые поставки от производителя",
         "hero_sub": "EXW Казань. Декларация ЕАЭС. Экспорт в Казахстан, Узбекистан, Беларусь и СНГ.",
@@ -449,10 +445,10 @@ PAGES = [
     {
         "slug": "pepperoni-dlya-pizzerii",
         "title": "Халяль пепперони для пиццерий — не скручивается, термостабильный",
-        "desc": "Профессиональный халяль пепперони для пиццерий. Не скручивается при 350°C. Говядина, курица, конина. Нарезка и батоны. Private Label для сетей. ХАССП. Halal № 614A/2024.",
+        "desc": "Профессиональный халяль пепперони для пиццерий. Не скручивается при 350°C. Куриный KD-013/014 и из конины KD-012. Нарезка и батоны. Private Label для сетей. ХАССП. Halal № 614A/2024.",
         "keywords": "пепперони для пиццерий, пепперони для пиццы, термостабильный пепперони, пепперони не скручивается, халяль пепперони для пиццерий, пепперони поставки пиццерии",
         "h1": "Халяль пепперони для пиццерий — термостабильный, не скручивается",
-        "hero_sub": "Не скручивается при 350°C. Говядина, курица, конина. Диаметр 50–55 мм.",
+        "hero_sub": "Не скручивается при 350°C. Курица и конина (KD-012/013/014). Диаметр 50–55 мм.",
         "badges": ["HALAL № 614A/2024", "Термостабильный", "ХАССП", "Private Label"],
         "body": PIZZA_BODY,
         "breadcrumb": "Для пиццерий",
@@ -460,7 +456,7 @@ PAGES = [
     {
         "slug": "pepperoni-dlya-horeca",
         "title": "Халяль пепперони для HoReCa — рестораны, отели, кейтеринг, dark kitchen",
-        "desc": "Пепперони халяль для HoReCa: рестораны, отели, кейтеринг, dark kitchen, фастфуд. Говядина, курица, конина. Форматы 0,5–5 кг. ХАССП. Halal № 614A/2024. Стабильные поставки.",
+        "desc": "Пепперони халяль для HoReCa: рестораны, отели, кейтеринг, dark kitchen, фастфуд. Куриный и конский (KD-012/013/014). Форматы 0,5–5 кг. ХАССП. Halal № 614A/2024. Стабильные поставки.",
         "keywords": "пепперони для horeca, пепперони для ресторанов, пепперони для отелей, халяль пепперони horeca, пепперони dark kitchen, пепперони фастфуд",
         "h1": "Халяль пепперони для HoReCa — рестораны, отели, кейтеринг",
         "hero_sub": "Стабильные поставки. Полная документация. Форматы от 0,5 до 5 кг.",
@@ -471,10 +467,10 @@ PAGES = [
     {
         "slug": "pepperoni-private-label",
         "title": "Пепперони Private Label / СТМ — производство под вашим брендом | Казанские Деликатесы",
-        "desc": "Производство халяль пепперони под вашей торговой маркой (Private Label / СТМ). Кастомизация рецептуры, упаковки, состава. Говядина, курица, конина. Halal. ХАССП. Казань.",
+        "desc": "Производство халяль пепперони под вашей торговой маркой (Private Label / СТМ). Кастомизация рецептуры, упаковки, состава. Базовый каталог — курица и конина; миксы под заказ. Halal. ХАССП. Казань.",
         "keywords": "пепперони private label, пепперони СТМ, пепперони под своим брендом, производство пепперони на заказ, халяль пепперони private label, СТМ колбаса казань",
         "h1": "Пепперони Private Label — производство под вашей торговой маркой",
-        "hero_sub": "Ваш бренд, ваша рецептура, наше производство. Говядина, курица, конина, миксы.",
+        "hero_sub": "Ваш бренд, ваша рецептура, наше производство. Состав под заказ.",
         "badges": ["HALAL № 614A/2024", "ХАССП", "Кастомизация рецептуры", "СТМ / Private Label"],
         "body": PL_BODY,
         "breadcrumb": "Private Label",
@@ -482,10 +478,10 @@ PAGES = [
     {
         "slug": "pepperoni-v-narezke",
         "title": "Пепперони в нарезке халяль — готовые слайсы для пиццы и HoReCa",
-        "desc": "Халяль пепперони в нарезке: готовые слайсы диаметром 50–55 мм. Говядина, курица, конина. Вакуумная упаковка 0,5 кг. 360 суток при −18°C. ХАССП. Halal № 614A/2024.",
+        "desc": "Халяль пепперони в нарезке: готовые слайсы диаметром 50–55 мм. Куриный KD-013 и из конины KD-012. Вакуумная упаковка 0,5 кг. 360 суток при −18°C. ХАССП. Halal № 614A/2024.",
         "keywords": "пепперони в нарезке, пепперони слайсы, нарезка пепперони для пиццы, халяль пепперони нарезка, пепперони в вакуумной упаковке, купить пепперони нарезку",
         "h1": "Пепперони в нарезке — готовые слайсы для пиццы и HoReCa",
-        "hero_sub": "Диаметр 50–55 мм. Вакуум 0,5 кг. Говядина, курица, конина. 360 суток хранения.",
+        "hero_sub": "Диаметр 50–55 мм. Вакуум 0,5 кг. Курица KD-013 и конина KD-012. 360 суток хранения.",
         "badges": ["HALAL № 614A/2024", "Вакуум 0,5 кг", "ХАССП", "Диаметр 50–55 мм"],
         "body": NAREZKA_BODY,
         "breadcrumb": "Пепперони в нарезке",

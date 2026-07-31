@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="be">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сасіскі для корн-дога халяль Гродна | B2B аптовыя пастаўкі</title>
@@ -9,45 +15,7 @@
     <!-- Bootstrap 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-        "@context": "https://schema.org",
-        "@type": ["LocalBusiness", "Product"],
-        "name": "Сасіскі для сасісак у целе халяль — апт Гродна",
-        "description": "Спецыяльныя сасіскі для корн-дога і вулічнай ежы. Халяль, без нітрыту натрыю, ідэальна для фудтракаў і стрытфуда.",
-        "address": {
-            "@type": "PostalAddress",
-            "addressLocality": "Казань",
-            "streetAddress": "вул. Аграрная, 2, оф. 7"
-        },
-        "telephone": "+7 987 217-02-02",
-        "email": "info@kazandelikates.tatar",
-        "url": "https://pepperoni.tatar/geo/sosiski-v-teste-grodno/",
-        "areaServed": {
-            "@type": "City",
-            "name": "Гродна"
-        },
-        "hasCertification": [
-            "Халяль ДУМ РТ №614A/2024",
-            "HACCP",
-            "ISO 22000:2018",
-            "ТР ТС 021/2011",
-            "Ветэрынарныя пасведчанні РФ"
-        ],
-        "productID": "sosiki-v-teste-halal",
-        "brand": {
-            "@type": "Brand",
-            "name": "Kazan Delikates"
-        },
-        "offers": {
-            "@type": "Offer",
-            "priceCurrency": "BYN",
-            "availability": "https://schema.org/InStock",
-            "price": "0",
-            "description": "Аптовыя цэны для HoReCa. Звяжыцеся для разліку."
-        }
-    }
-    </script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":["LocalBusiness","Product"],"name":"Сасіскі для сасісак у целе халяль — апт Гродна","description":"Спецыяльныя сасіскі для корн-дога і вулічнай ежы. Халяль, без нітрыту натрыю, ідэальна для фудтракаў і стрытфуда.","address":{"@type":"PostalAddress","addressLocality":"Казань","streetAddress":"вул. Аграрная, 2, оф. 7"},"telephone":"+7 987 217-02-02","email":"info@kazandelikates.tatar","url":"https://pepperoni.tatar/geo/sosiski-v-teste-grodno/","areaServed":{"@type":"City","name":"Гродна"},"hasCertification":["Халяль ДУМ РТ №614A/2024","HACCP","ISO 22000:2018","ТР ТС 021/2011","Ветэрынарныя пасведчанні РФ"],"productID":"sosiki-v-teste-halal","brand":{"@type":"Brand","name":"Kazan Delikates"},"offers":{"@type":"Offer","priceCurrency":"BYN","availability":"https://schema.org/InStock","price":"0","description":"Аптовыя цэны для HoReCa. Звяжыцеся для разліку.","shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"BYN"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"BYN"}}},"image":"https://pepperoni.tatar/images/pepperoni-halal.png"}</script>
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -126,6 +94,30 @@
         .h2-custom { font-weight: 600; color: #1e3a2f; margin-top: 1.5rem; }
         @media (max-width: 768px) { .cta-section { padding: 1.5rem; } }
     </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-city="Гродно" data-product="sosiki-v-teste">
 

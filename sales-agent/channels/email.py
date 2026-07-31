@@ -21,10 +21,24 @@ SMTP_PASSWORD = os.environ.get("SMTP_PASSWORD", "")
 SMTP_FROM_NAME = os.environ.get("SMTP_FROM_NAME", "Казанские Деликатесы — Sales")
 SMTP_USE_SSL = os.environ.get("SMTP_USE_SSL", "true").lower() in ("1", "true", "yes")
 REPLY_TO = os.environ.get("OWNER_EMAIL", "kam@kazandelikates.tatar")
+TRACK_BASE_URL = os.environ.get("SALES_TRACK_BASE_URL", "https://api.pepperoni.tatar/sales-track")
 
 
 def email_configured() -> bool:
     return bool(SMTP_USER and SMTP_PASSWORD)
+
+
+def _open_tracking_html(body: str, token: str | None) -> str:
+    """Plain-текст в <pre> + невидимый 1x1 пиксель — для open-rate без смены тона письма."""
+    import html
+    escaped = html.escape(body)
+    pixel = ""
+    if token:
+        pixel = (
+            f'<img src="{TRACK_BASE_URL}/o/{token}.gif" width="1" height="1" '
+            f'style="display:none" alt="" />'
+        )
+    return f"<pre style=\"font-family:inherit;white-space:pre-wrap\">{escaped}</pre>{pixel}"
 
 
 def send_email(
@@ -34,6 +48,7 @@ def send_email(
     *,
     reply_to: str | None = None,
     dry_run: bool = False,
+    track_token: str | None = None,
 ) -> dict:
     if not to or "@" not in to:
         return {"ok": False, "error": "invalid_recipient"}
@@ -55,6 +70,7 @@ def send_email(
     msg["To"] = to
     msg["Reply-To"] = reply_to or REPLY_TO
     msg.attach(MIMEText(body, "plain", "utf-8"))
+    msg.attach(MIMEText(_open_tracking_html(body, track_token), "html", "utf-8"))
 
     try:
         if SMTP_USE_SSL:

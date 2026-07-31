@@ -1,17 +1,24 @@
 {
   "schema_version": "1.0",
   "name": "Kazan Delicacies MCP",
-  "description": "Model Context Protocol server for the halal meat catalog of Kazan Delicacies (Казанские Деликатесы). 77 SKUs, live prices in 7 currencies, halal cert #614A/2024.",
+  "description": "Model Context Protocol server for the halal meat catalog of Kazan Delicacies (Казанские Деликатесы). 64 SKUs, live prices in 7 currencies, halal cert #614A/2024.",
   "version": "1.0.0",
   "publisher": {
     "name": "Казанские Деликатесы / Kazan Delicacies",
     "url": "https://kazandelikates.tatar",
     "email": "info@kazandelikates.tatar"
   },
+  "logo_url": "https://pepperoni.tatar/images/logo-256.png",
+  "icon_url": "https://pepperoni.tatar/images/logo-256.png",
   "transports": {
     "streamable_http": {
       "url": "https://api.pepperoni.tatar/api/mcp",
       "description": "Remote MCP (Streamable HTTP, stateless). Works with Claude Desktop, Cursor, and other MCP clients."
+    },
+    "sse": {
+      "url": "https://api.pepperoni.tatar/api/mcp/sse",
+      "message_url": "https://api.pepperoni.tatar/api/mcp/messages",
+      "description": "Legacy SSE transport for clients that connect via a dedicated /sse URL (e.g. Grok custom connectors)."
     },
     "stdio": {
       "command": "node",
@@ -43,5 +50,5 @@
       }
     }
   },
-  "updated_at": "2026-06-06T00:00:00Z"
+  "updated_at": "2026-07-06T00:00:00Z"
 }

@@ -45,6 +45,28 @@ def _now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds")
 
 
+def _alert_pipeline_failed(reason: str) -> None:
+    """Один Telegram-алерт на падение discovery-пайплайна, кулдаун 24ч.
+
+    Без этого cron молча падает раз в неделю и никто не узнаёт до ручной
+    раскопки (см. 2026-06-28 DNS-сбой, замечен только 2026-07-02).
+    """
+    try:
+        from core.store import Store
+        from telegram.notify import notify
+        store = Store()
+        store.init()
+        key = "proactive:pipeline_failed"
+        content_hash = reason[:120]
+        if store.should_notify(key, content_hash, cooldown_hours=24.0):
+            notify(f"⚠️ <b>Стив: discovery-пайплайн упал</b>\n{reason[:500]}\n\n"
+                   f"Cron: воскресенье 00:00 UTC. Без ручного вмешательства — "
+                   f"следующая попытка через неделю.")
+            store.record_notification(key, content_hash)
+    except Exception as e:
+        print(f"[feed_agent] alert failed (non-fatal): {e}", file=sys.stderr)
+
+
 def _run(label: str, cmd: list[str], *, check: bool = True) -> subprocess.CompletedProcess:
     print(f"\n{'='*60}")
     print(f"[{_now()}] STEP: {label}")
@@ -53,6 +75,7 @@ def _run(label: str, cmd: list[str], *, check: bool = True) -> subprocess.Comple
     result = subprocess.run(cmd, capture_output=False, text=True)
     if check and result.returncode != 0:
         print(f"[feed_agent] ✗ {label} failed (exit {result.returncode})", file=sys.stderr)
+        _alert_pipeline_failed(f"шаг «{label}» упал с exit {result.returncode}")
         sys.exit(result.returncode)
     return result
 
@@ -233,6 +256,8 @@ def main():
             ok = step_fetch()
         if not ok:
             print("[feed_agent] Остановлен на fetch — реестр недоступен или пуст.", file=sys.stderr)
+            _alert_pipeline_failed("fetch вернул пустой файл — реестр недоступен "
+                                    "(сетевой сбой/DNS/блок по IP)")
             sys.exit(1)
     else:
         print("[feed_agent] skip fetch — используем имеющийся jsonl")

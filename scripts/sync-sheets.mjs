@@ -1,12 +1,22 @@
 #!/usr/bin/env node
 
-import { writeFileSync, readFileSync, mkdirSync, existsSync } from 'fs';
+import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync, statSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { createHash } from 'crypto';
+import {
+  loadRegistry,
+  saveRegistry,
+  bootstrapFromProducts,
+  assignSku,
+  retireMissing,
+  productKey,
+} from './sku_registry.mjs';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const PUBLIC = join(ROOT, 'public');
+const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
 
 const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
@@ -108,11 +118,80 @@ function fixBarcode(raw) {
   return s;
 }
 
-/** Convert Google Drive view link to direct image URL */
+/** Normalize sheet header for matching (case/whitespace insensitive). */
+function normalizeHeader(h) {
+  return String(h || '')
+    .toLowerCase()
+    .replace(/\u00a0/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+/** Logical column → header aliases (matched by exact normalized name or includes). */
+const HEADER_ALIASES = {
+  barcode: ['штрих-код', 'штрихкод', 'barcode', 'gtin', 'ean'],
+  article: ['артикул'],
+  seoRU: ['seo описание ru'],
+  seoEN: ['seo описание en'],
+  diameter: ['диаметр'],
+  casing: ['оболочка'],
+  ingredientsRU: ['состав ru'],
+  ingredientsEN: ['состав en'],
+  nutrition: ['кбжу'],
+  packageType: ['тип упаковки'],
+  boxWeightGross: ['вес коробки брутто'],
+  mainPhoto: ['главное фото'],
+  packPhoto: ['фото упаковки'],
+  slicePhoto: ['фото среза'],
+  params: ['параметры товара'],
+  quantum: ['квант'],
+};
+
+function findHeaderRowIndex(lines) {
+  const n = Math.min(lines.length, 12);
+  for (let i = 0; i < n; i++) {
+    const first = normalizeHeader(lines[i]?.[0]);
+    if (first === 'наименование' || first === 'номенклатура') return i;
+  }
+  return -1;
+}
+
+/** Build { logicalKey: columnIndex } from a header row. */
+function buildColIndex(headerRow) {
+  const idx = {};
+  const norms = (headerRow || []).map(normalizeHeader);
+  for (const [key, aliases] of Object.entries(HEADER_ALIASES)) {
+    for (let j = 0; j < norms.length; j++) {
+      const h = norms[j];
+      if (!h) continue;
+      if (aliases.some((a) => h === a || h.includes(a))) {
+        idx[key] = j;
+        break;
+      }
+    }
+  }
+  return idx;
+}
+
+function cellBy(cols, colIndex, key) {
+  const j = colIndex[key];
+  if (j == null || j < 0 || j >= cols.length) return '';
+  return cols[j] || '';
+}
+
+/** Convert Google Drive / bare Cloudinary public_id to a usable https URL */
 function driveToDirectUrl(url) {
   if (!url || typeof url !== 'string') return '';
-  const m = url.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || url.match(/[?&]id=([a-zA-Z0-9_-]+)/);
-  return m ? `https://drive.google.com/uc?export=view&id=${m[1]}` : url;
+  let u = url.trim();
+  if (!u || u === '0') return '';
+  const m = u.match(/\/file\/d\/([a-zA-Z0-9_-]+)/) || u.match(/[?&]id=([a-zA-Z0-9_-]+)/);
+  if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+  if (u.startsWith('http://') || u.startsWith('https://')) return u;
+  // Sheets sometimes stores Cloudinary as "v1234/path.jpg" without host
+  if (/^v\d+\//.test(u) || u.startsWith('products/')) {
+    return `${CLOUDINARY_BASE}/${u.replace(/^\//, '')}`;
+  }
+  return u;
 }
 
 // --- Parsers for each sheet type ---
@@ -122,19 +201,20 @@ function extractQtyFromName(name) {
   return m ? parseInt(m[1], 10) : 0;
 }
 
-function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
+function parseStandard(lines, section, reg, hasPiecePrice = true) {
   let category = '';
   const products = [];
-  let idx = startIdx;
 
+  // Price/currency layout still differs by sheet type (frozen has "Цена за 1 шт").
+  // Metadata (barcode, SEO, photos…) is resolved by header name — not hard index —
+  // so a column shift cannot silently drop GTIN again (bakery lesson).
+  //
   // Frozen (hasPiecePrice=true) — 30 cols:
   //   A=0 Name, B=1 Weight, C=2 Price/1pc, D=3 Price VAT, E=4 NoVAT, F=5 ShelfLife, G=6 Storage,
-  //   H=7 HS, I-N=8-13 currencies, O=14 Cooking, P=15 MinOrder, Q=16 BoxWeight, R=17 Article,
-  //   S=18 Barcode, T=19 SEO_RU, U=20 SEO_EN, V=21 Diameter, W=22 Casing, X=23 IngrRU,
-  //   Y=24 IngrEN, Z=25 Nutrition, AA=26 PkgType, AB=27 MainPhoto, AC=28 PackPhoto, AD=29 SlicePhoto
+  //   H=7 HS, I-N=8-13 currencies, then header-mapped: Params, Quantum, Box, Article, Barcode…
   //
   // Chilled (hasPiecePrice=false) — 29 cols, NO "Цена за 1 шт";
-  //   everything after B shifts left by 1 (post=-1).
+  //   everything after B shifts left by 1 (post=-1) for price/HS/currency indices only.
   const colPriceVat = hasPiecePrice ? 3 : 2;
   const colPriceNoVat = hasPiecePrice ? 4 : 3;
   const colPricePiece = hasPiecePrice ? 2 : null;
@@ -143,6 +223,14 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
     const j = i + post;
     return j >= 0 && j < cols.length ? (cols[j] || '') : '';
   };
+
+  const headerRowIdx = findHeaderRowIndex(lines);
+  const colIndex = headerRowIdx >= 0 ? buildColIndex(lines[headerRowIdx]) : {};
+  if (colIndex.barcode == null) {
+    console.warn(`     ⚠️  ${section}: колонка «Штрих-код» не найдена в заголовке CSV`);
+  } else {
+    console.log(`     ↪ ${section}: Штрих-код = колонка [${colIndex.barcode}]`);
+  }
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
@@ -157,7 +245,6 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       continue;
     }
 
-    idx++;
     const qty = extractQtyFromName(name);
     const offers = {
       priceCurrency: 'RUB',
@@ -186,13 +273,26 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
     }
     if (Object.keys(ep).length) offers.exportPrices = ep;
 
-    const articleFromSheet = (cell(cols, 17) || '').trim();
-    const sku = `KD-${String(idx).padStart(3, '0')}`;
+    const articleFromSheet = (cellBy(cols, colIndex, 'article') || cell(cols, 17) || '').trim();
+    const weight = cols[1] || '';
+    const sku = assignSku(reg, name, weight);
 
-    const mainPhoto = driveToDirectUrl(cell(cols, 27));
-    const packPhoto = driveToDirectUrl(cell(cols, 28));
-    const slicePhoto = driveToDirectUrl(cell(cols, 29));
+    const mainPhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'mainPhoto') || cell(cols, 27)
+    );
+    const packPhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'packPhoto') || cell(cols, 28)
+    );
+    const slicePhoto = driveToDirectUrl(
+      cellBy(cols, colIndex, 'slicePhoto') || cell(cols, 29)
+    );
     const image = mainPhoto || packPhoto || slicePhoto || '';
+
+    const boxRaw = cellBy(cols, colIndex, 'boxWeightGross') || cell(cols, 16);
+    const boxN = parseFloat((boxRaw || '').replace(',', '.'));
+    let boxWeightGross = '';
+    if (boxN && boxN <= 1000) boxWeightGross = boxRaw;
+    else if (boxN > 1000) console.warn(`     ⚠️  ${name}: boxWeightGross=${boxRaw} — suspicious value, check Google Sheet columns`);
 
     products.push({
       name,
@@ -200,24 +300,26 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
       articleNumber: articleFromSheet || undefined,
       section,
       category: category || section,
-      weight: cols[1] || '',
+      weight,
       brand: 'Казанские Деликатесы',
       offers,
       shelfLife: cell(cols, 5),
       storage: cell(cols, 6),
       hsCode: cell(cols, 7),
-      cookingMethods: cell(cols, 14),
-      minOrder: cell(cols, 15),
-      boxWeightGross: (() => { const v = cell(cols, 16); const n = parseFloat((v||'').replace(',','.')); if (!n || n > 1000) { if (n > 1000) console.warn(`     ⚠️  ${cell(cols,0)}: boxWeightGross=${v} — suspicious value, check Google Sheet columns`); return ''; } return v; })(),
-      barcode: fixBarcode(cell(cols, 18)),
-      seoDescriptionRU: cell(cols, 19),
-      seoDescriptionEN: cell(cols, 20),
-      diameter: cell(cols, 21),
-      casing: cell(cols, 22),
-      ingredientsRU: cell(cols, 23),
-      ingredientsEN: cell(cols, 24),
-      nutrition: cell(cols, 25),
-      packageType: cell(cols, 26),
+      cookingMethods: cellBy(cols, colIndex, 'params') || cell(cols, 14),
+      minOrder: cellBy(cols, colIndex, 'quantum') || cell(cols, 15),
+      boxWeightGross,
+      barcode: fixBarcode(
+        (cellBy(cols, colIndex, 'barcode') || cell(cols, 18) || '').trim()
+      ),
+      seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cell(cols, 19),
+      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cell(cols, 20),
+      diameter: cellBy(cols, colIndex, 'diameter') || cell(cols, 21),
+      casing: cellBy(cols, colIndex, 'casing') || cell(cols, 22),
+      ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cell(cols, 23),
+      ingredientsEN: cellBy(cols, colIndex, 'ingredientsEN') || cell(cols, 24),
+      nutrition: cellBy(cols, colIndex, 'nutrition') || cell(cols, 25),
+      packageType: cellBy(cols, colIndex, 'packageType') || cell(cols, 26),
       image,
       imageMain: mainPhoto || undefined,
       imagePack: packPhoto || undefined,
@@ -225,13 +327,23 @@ function parseStandard(lines, section, startIdx, hasPiecePrice = true) {
     });
   }
 
-  return { products, nextIdx: idx };
+  return { products };
 }
 
-function parseBakery(lines, section, startIdx) {
+function parseBakery(lines, section, reg) {
   let category = '';
   const products = [];
-  let idx = startIdx;
+
+  // Bakery price layout: 0 Name, 1 Weight g, 2 Qty/box, 3 Price/pc, 4 Box VAT,
+  //   5 Box noVAT, 6 Shelf, 7 Storage, 8 HS, 9-14 currencies.
+  // Metadata (barcode/SEO/photos…) — by header name.
+  const headerRowIdx = findHeaderRowIndex(lines);
+  const colIndex = headerRowIdx >= 0 ? buildColIndex(lines[headerRowIdx]) : {};
+  if (colIndex.barcode == null) {
+    console.warn(`     ⚠️  ${section}: колонка «Штрих-код» не найдена в заголовке CSV`);
+  } else {
+    console.log(`     ↪ ${section}: Штрих-код = колонка [${colIndex.barcode}]`);
+  }
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
@@ -246,8 +358,6 @@ function parseBakery(lines, section, startIdx) {
       continue;
     }
 
-    idx++;
-
     const ep = {};
     if (toNumber(cols[9])) ep.USD = toNumber(cols[9]);
     if (toNumber(cols[10])) ep.KZT = toNumber(cols[10]);
@@ -256,18 +366,32 @@ function parseBakery(lines, section, startIdx) {
     if (toNumber(cols[13])) ep.BYN = toNumber(cols[13]);
     if (toNumber(cols[14])) ep.AZN = toNumber(cols[14]);
 
-    // Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
-    const mainPhoto = driveToDirectUrl((cols[28] || '').trim());
-    const packPhoto = driveToDirectUrl((cols[29] || '').trim());
-    const slicePhoto = driveToDirectUrl((cols[30] || '').trim());
+    const mainPhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'mainPhoto') || cols[28] || '').trim()
+    );
+    const packPhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'packPhoto') || cols[29] || '').trim()
+    );
+    const slicePhoto = driveToDirectUrl(
+      (cellBy(cols, colIndex, 'slicePhoto') || cols[30] || '').trim()
+    );
     const image = mainPhoto || packPhoto || slicePhoto || undefined;
+
+    const weight = cols[1] ? `${cols[1]} г` : '';
+    const articleFromSheet = (cellBy(cols, colIndex, 'article') || cols[18] || '').trim();
+    const boxRaw = (cellBy(cols, colIndex, 'boxWeightGross') || cols[17] || '').trim();
+    const boxN = parseFloat(boxRaw.replace(',', '.'));
+    let boxWeightGross = '';
+    if (boxN && boxN <= 1000) boxWeightGross = boxRaw;
+    else if (boxN > 1000) console.warn(`     ⚠️  ${name}: boxWeightGross=${boxRaw} — suspicious value`);
 
     const product = {
       name,
-      sku: `KD-${String(idx).padStart(3, '0')}`,
+      sku: assignSku(reg, name, weight),
+      articleNumber: articleFromSheet || undefined,
       section,
       category: category || section,
-      weight: cols[1] ? `${cols[1]} г` : '',
+      weight,
       qtyPerBox: cols[2] || '',
       brand: 'Казанские Деликатесы',
       offers: {
@@ -281,6 +405,18 @@ function parseBakery(lines, section, startIdx) {
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
       hsCode: cols[8] || '',
+      boxWeightGross,
+      barcode: fixBarcode(
+        (cellBy(cols, colIndex, 'barcode') || cols[19] || '').trim()
+      ),
+      seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cols[20] || '',
+      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cols[21] || '',
+      diameter: cellBy(cols, colIndex, 'diameter') || cols[22] || '',
+      casing: cellBy(cols, colIndex, 'casing') || cols[23] || '',
+      ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cols[24] || '',
+      ingredientsEN: cellBy(cols, colIndex, 'ingredientsEN') || cols[25] || '',
+      nutrition: cellBy(cols, colIndex, 'nutrition') || cols[26] || '',
+      packageType: cellBy(cols, colIndex, 'packageType') || cols[27] || '',
     };
     if (image) product.image = image;
     if (mainPhoto) product.imageMain = mainPhoto;
@@ -290,7 +426,26 @@ function parseBakery(lines, section, startIdx) {
     products.push(product);
   }
 
-  return { products, nextIdx: idx };
+  return { products };
+}
+
+function removeOrphanProductPages(allProducts) {
+  const live = new Set(allProducts.map((p) => p.sku.toLowerCase()));
+  for (const dir of [join(PUBLIC, 'products'), join(PUBLIC, 'en', 'products')]) {
+    if (!existsSync(dir)) continue;
+    const removed = [];
+    for (const fname of readdirSync(dir)) {
+      if (!/^kd-\d+\.html$/i.test(fname)) continue;
+      const slug = fname.replace(/\.html$/i, '');
+      if (!live.has(slug)) {
+        unlinkSync(join(dir, fname));
+        removed.push(fname);
+      }
+    }
+    if (removed.length) {
+      console.log(`  🗑  Removed ${removed.length} orphan page(s) from ${dir}: ${removed.sort().join(', ')}`);
+    }
+  }
 }
 
 // --- Generate products.json ---
@@ -590,7 +745,7 @@ function generateGoogleFeed(allProducts) {
 <g:condition>new</g:condition>
 <g:brand>Kazan Delicacies</g:brand>
 <g:product_type>${escapeXml(p.section + ' > ' + p.category)}</g:product_type>
-${p.hsCode ? `<g:gtin>${escapeXml(p.hsCode)}</g:gtin>` : ''}
+${p.barcode ? `<g:gtin>${escapeXml(p.barcode)}</g:gtin>` : ''}
 </item>
 `;
   }
@@ -819,10 +974,257 @@ function applyDescriptionOverrides(products) {
   if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
 }
 
+async function urlExists(url) {
+  try {
+    const r = await fetch(url, { method: 'HEAD', redirect: 'follow' });
+    return r.ok;
+  } catch {
+    return false;
+  }
+}
+
+/** If URL is products/kd-NNN.*, return KD-NNN; else null (named assets keep). */
+function skuFromProductImageUrl(url) {
+  const m = String(url || '').match(/\/products\/kd-(\d{3})\.(?:jpe?g|png|webp)(?:\?|$)/i);
+  return m ? `KD-${m[1]}` : null;
+}
+
+function imageBasename(url) {
+  if (!url) return '';
+  try {
+    return decodeURIComponent(String(url).split('?')[0].split('/').pop() || '').toLowerCase();
+  } catch {
+    return (String(url).split('?')[0].split('/').pop() || '').toLowerCase();
+  }
+}
+
+/**
+ * Каталожные фото: источник правды — Google Sheets, страховка — манифест.
+ *
+ * Рабочий процесс владельца: залил фото на Cloudinary → вставил ссылку в
+ * Sheets → после ближайшего sync она на сайте. Никаких эвристик подбора.
+ *
+ * Ссылка из Sheets отклоняется ТОЛЬКО за явный брак:
+ *   - чужой файл kd-NNN другого SKU (файлы kd-059..064.jpg на Cloudinary
+ *     названы по СТАРОЙ нумерации: kd-059 = губадия, kd-061 = перемяч);
+ *   - URL не отвечает HTTP 200.
+ * В этих случаях остаётся последнее известное хорошее фото из
+ * data/image_manifest.json (авто-снапшот: sync записывает туда каждое
+ * принятое значение). Пустая ячейка = «оставить как было», не «удалить» —
+ * съехавшие ячейки не должны стирать каталог; удалить фото совсем можно,
+ * убрав его и из Sheets, и из манифеста.
+ */
+async function applyImageManifest(products) {
+  const path = join(ROOT, 'data', 'image_manifest.json');
+  let manifest = {};
+  if (existsSync(path)) {
+    try {
+      manifest = JSON.parse(readFileSync(path, 'utf-8'));
+    } catch (e) {
+      console.warn(`  ⚠️  image_manifest.json unreadable: ${e.message}`);
+    }
+  }
+
+  const rejected = [];
+  const accepted = [];
+  let manifestDirty = false;
+
+  for (const p of products) {
+    const sku = (p.sku || '').trim().toUpperCase();
+    if (!sku) continue;
+
+    const pin = manifest[sku] && typeof manifest[sku] === 'object' ? manifest[sku] : {};
+    const next = {};
+
+    // Один и тот же кадр в нескольких ячейках → считаем повторы пустыми.
+    const sheetUrls = {};
+    const seenSheet = new Set();
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      let u = driveToDirectUrl(key === 'imageMain' ? p.imageMain || p.image : p[key]);
+      const b = imageBasename(u);
+      if (b && seenSheet.has(b)) u = '';
+      else if (b) seenSheet.add(b);
+      sheetUrls[key] = u;
+    }
+
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      const sheetUrl = sheetUrls[key];
+      const lastGood = pin[key] || '';
+
+      if (!sheetUrl) {
+        if (lastGood) next[key] = lastGood;
+        continue;
+      }
+      const foreign = skuFromProductImageUrl(sheetUrl);
+      if (foreign && foreign !== sku) {
+        rejected.push(`${sku}.${key}: ${imageBasename(sheetUrl)} — файл чужого SKU (${foreign}, старая нумерация)`);
+        if (lastGood) next[key] = lastGood;
+        continue;
+      }
+      if (sheetUrl === lastGood) {
+        next[key] = lastGood; // уже проверялась при первом появлении
+        continue;
+      }
+      if (await urlExists(sheetUrl)) {
+        next[key] = sheetUrl;
+        accepted.push(`${sku}.${key}: ${imageBasename(sheetUrl)}`);
+      } else {
+        rejected.push(`${sku}.${key}: ${imageBasename(sheetUrl)} — не отвечает HTTP 200`);
+        if (lastGood) next[key] = lastGood;
+      }
+    }
+
+    // Повторы, оставшиеся от прежних снапшотов, тоже схлопываем.
+    const seenChosen = new Set();
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      const b = imageBasename(next[key] || '');
+      if (!b) continue;
+      if (seenChosen.has(b)) delete next[key];
+      else seenChosen.add(b);
+    }
+
+    for (const key of ['imageMain', 'imagePack', 'imageSlice']) {
+      if (next[key]) p[key] = next[key];
+      else delete p[key];
+    }
+    if (next.imageMain) p.image = next.imageMain;
+    else delete p.image;
+
+    const snap = Object.keys(next).length ? next : null;
+    if (JSON.stringify(manifest[sku] ?? null) !== JSON.stringify(snap)) {
+      manifest[sku] = snap;
+      manifestDirty = true;
+    }
+  }
+
+  if (accepted.length) {
+    console.log(`  📸 Новые фото из Sheets (${accepted.length}):`);
+    for (const a of accepted) console.log(`     ${a}`);
+  }
+  if (rejected.length) {
+    console.log(`  🚫 Отклонённые ссылки из Sheets (показано последнее хорошее фото):`);
+    for (const r of rejected) console.log(`     ${r}`);
+  }
+  const still = products.filter((p) => !p.imageMain && !p.image).map((p) => p.sku);
+  if (still.length) {
+    console.log(`  ℹ️  Без фото — плейсхолдер (${still.length}): ${still.join(', ')}`);
+  }
+
+  if (manifestDirty) {
+    const out = {
+      _comment:
+        'Авто-снапшот последних хороших фото (SKU -> {imageMain,imagePack,imageSlice} | null). ' +
+        'Источник правды — Google Sheets: sync принимает оттуда валидные ссылки (HTTP 200, ' +
+        'не чужой kd-NNN) и записывает их сюда; при браке/пустой ячейке показывается значение отсюда. ' +
+        'Руками не редактировать без нужды. Гейт: scripts/check_catalog_images.py.',
+    };
+    for (const k of Object.keys(manifest).filter((k) => k !== '_comment').sort()) {
+      out[k] = manifest[k];
+    }
+    writeFileSync(path, JSON.stringify(out, null, 2) + '\n', 'utf-8');
+    console.log(`  💾 image_manifest.json обновлён (снапшот последних хороших фото)`);
+  }
+}
+
+/**
+ * Зеркалирование фото на свой домен. res.cloudinary.com живёт за Cloudflare,
+ * который RKN душит у розничных РФ-провайдеров (та же причина, по которой сайт
+ * ушёл с Cloudflare-прокси, см. docs/HEADLESS-ARCHITECTURE.md) — у части
+ * посетителей из России карточки без фото. Поэтому display-URL в products.json
+ * всегда same-origin (pepperoni.tatar раздаётся напрямую с VPS), а Cloudinary —
+ * только хранилище-источник, из которого sync скачивает файлы.
+ */
+const SITE_ORIGIN = 'https://pepperoni.tatar';
+const MIRROR_DIR = join(PUBLIC, 'images', 'products');
+const MIRROR_MAP_PATH = join(ROOT, 'data', 'image_mirror.json');
+// Все слоты — с водяным знаком. Раньше main был без него (LCP/PSI cold TTFB
+// на Cloudinary-трансформе); теперь файлы same-origin, трансформ запекается
+// при зеркалировании — штрафа нет, а каталог/герои без знака оставались голыми.
+// MIRROR_T_VER бампится при смене трансформа → кэш зеркал инвалидируется.
+const MIRROR_T_VER = 'wm1';
+const MIRROR_WM =
+  'l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center';
+const MIRROR_T = {
+  main: `f_jpg,q_auto:good,w_640,h_427,c_fill,g_auto/${MIRROR_WM}`,
+  pack: `f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/${MIRROR_WM}`,
+  slice: `f_jpg,q_auto:good,w_800,h_533,c_fill,g_auto/${MIRROR_WM}`,
+};
+
+async function mirrorCatalogImages(products) {
+  let map = {};
+  if (existsSync(MIRROR_MAP_PATH)) {
+    try {
+      map = JSON.parse(readFileSync(MIRROR_MAP_PATH, 'utf-8'));
+    } catch {
+      map = {};
+    }
+  }
+  mkdirSync(MIRROR_DIR, { recursive: true });
+
+  let downloaded = 0;
+  let reused = 0;
+  const fails = [];
+
+  for (const p of products) {
+    const sku = (p.sku || '').trim().toLowerCase();
+    if (!sku) continue;
+    for (const [field, suffix] of [
+      ['imageMain', 'main'],
+      ['imagePack', 'pack'],
+      ['imageSlice', 'slice'],
+    ]) {
+      const src = p[field];
+      if (!src || !src.startsWith('https://res.cloudinary.com/')) continue;
+      const name = `${sku}-${suffix}.jpg`;
+      const dest = join(MIRROR_DIR, name);
+      const hasFile = () => existsSync(dest) && statSync(dest).size > 1000;
+
+      // Ключ кэша = source + версия трансформа. Смена MIRROR_T_VER (например
+      // добавили водяной знак) перекачивает все зеркала, а не оставляет старые.
+      const cacheKey = `${MIRROR_T_VER}|${src}`;
+      if (map[name] === cacheKey && hasFile()) {
+        reused++;
+      } else {
+        const dl = src.replace('/image/upload/', `/image/upload/${MIRROR_T[suffix]}/`);
+        try {
+          const r = await fetch(dl);
+          if (!r.ok) throw new Error(`HTTP ${r.status}`);
+          const buf = Buffer.from(await r.arrayBuffer());
+          if (buf.length < 1000) throw new Error(`слишком маленький ответ (${buf.length} B)`);
+          writeFileSync(dest, buf);
+          map[name] = cacheKey;
+          downloaded++;
+        } catch (e) {
+          if (hasFile()) {
+            fails.push(`${name}: ${e.message} — оставлен прежний локальный файл`);
+          } else {
+            fails.push(`${name}: ${e.message} — временно отдаём Cloudinary напрямую`);
+            continue; // p[field] остаётся Cloudinary-URL
+          }
+        }
+      }
+      const ver = createHash('md5').update(cacheKey).digest('hex').slice(0, 8);
+      p[field] = `${SITE_ORIGIN}/images/products/${name}?v=${ver}`;
+    }
+    if (p.imageMain) p.image = p.imageMain;
+    else delete p.image;
+  }
+
+  writeFileSync(MIRROR_MAP_PATH, JSON.stringify(map, null, 2) + '\n', 'utf-8');
+  console.log(`  🪞 Зеркала фото: скачано ${downloaded}, актуальных ${reused}`);
+  if (fails.length) {
+    console.log(`  ⚠️  Проблемы зеркалирования:`);
+    for (const f of fails) console.log(`     ${f}`);
+  }
+}
+
 // --- Main ---
 
 async function main() {
   console.log('📥 Загрузка данных из Google Sheets...');
+
+  // Stable SKUs: deleting/reordering rows must NOT reshuffle /products/kd-NNN
+  let reg = bootstrapFromProducts(loadRegistry());
 
   const csvs = await Promise.all(
     SHEETS.map((s) =>
@@ -835,7 +1237,6 @@ async function main() {
   );
 
   let allProducts = [];
-  let idx = 0;
 
   for (let i = 0; i < SHEETS.length; i++) {
     const lines = parseCSV(csvs[i]);
@@ -843,19 +1244,27 @@ async function main() {
     let result;
 
     if (sheet.type === 'bakery') {
-      result = parseBakery(lines, sheet.section, idx);
+      result = parseBakery(lines, sheet.section, reg);
     } else {
-      result = parseStandard(lines, sheet.section, idx, sheet.hasPiecePrice !== false);
+      result = parseStandard(lines, sheet.section, reg, sheet.hasPiecePrice !== false);
     }
 
-    console.log(`  ✅ ${sheet.section}: ${result.products.length} товаров`);
+    const withBarcode = result.products.filter((p) => p.barcode).length;
+    console.log(
+      `  ✅ ${sheet.section}: ${result.products.length} товаров (GTIN: ${withBarcode}/${result.products.length})`
+    );
     allProducts = allProducts.concat(result.products);
-    idx = result.nextIdx;
   }
+
+  const liveKeys = allProducts.map((p) => productKey(p.name, p.weight));
+  retireMissing(reg, liveKeys);
+  saveRegistry(reg);
 
   console.log(`\n📊 Всего: ${allProducts.length} товаров\n`);
 
   applyDescriptionOverrides(allProducts);
+  await applyImageManifest(allProducts);
+  await mirrorCatalogImages(allProducts);
 
   const productsJSON = generateProductsJSON(allProducts);
   const productsPath = join(PUBLIC, 'products.json');
@@ -880,6 +1289,7 @@ async function main() {
   console.log(`✅ ${rssPath}`);
 
   generateProductPages(allProducts);
+  removeOrphanProductPages(allProducts);
   console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
   // Rebuild sitemap.xml via Python script (auto-discovers ALL HTML pages

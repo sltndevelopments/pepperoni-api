@@ -110,6 +110,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     footer a{color:#888;text-decoration:none}
     @media(max-width:600px){table{font-size:.82rem}th,td{padding:9px 8px}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -217,7 +241,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><strong>Документы:</strong> халяль-свидетельство, ветеринарные сертификаты, декларации соответствия ЕАЭС.</li>
         <li><strong>Знак «Сделано в России» №СС.003181</strong> — действует до 23.10.2028, Российский экспортный центр. <a href="/docs/made-in-russia-cc003181.pdf" target="_blank" rel="noopener" style="color:#1b7a3d;font-weight:600">📄 Сертификат</a></li>
         <li><strong>Расчёты:</strong> в 7 валютах — RUB, USD, KZT, UZS, KGS, BYN, AZN.</li>
-        <li><strong>Продукция:</strong> 77 наименований халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.</li>
+        <li><strong>Продукция:</strong> 64 наименования халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.</li>
         <li><strong>Private Label / СТМ:</strong> экспортные поставки под маркой заказчика, от 500 кг/мес.</li>
       </ul>
     </div>

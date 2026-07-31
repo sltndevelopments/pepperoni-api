@@ -16,7 +16,8 @@
 - **api.pepperoni.tatar** — слой данных и AI. JSON-каталог, `llms.txt`, OpenAPI, MCP.
   Деплой: тот же VPS + nginx, обновление по cron.
 
-> ⚠️ В репозитории также лежат **отдельные продукты**: `sales-agent/`, `sales-intel/`
+> ⚠️ В репозитории также лежат **отдельные продукты**: `sales-agent/`, `sales-intel/`,
+> `moscow-leads/` (полевой контур Арби: статусы/кнопки/72ч/пятничный дайджест)
 > и SEO-автоматизация в `scripts/` (`seo_brain.py`, `fable_*`, `opus_brain_client.py`).
 > Это НЕ часть сайта. См. «Границы репозитория» в `.cursor/rules/pepperoni-infra.mdc`.
 
@@ -35,6 +36,7 @@
 | `npm run dev` | Локальный статик-сервер `public/` на :3000 |
 | `npm run sync` | `scripts/sync-sheets.mjs`: Google Sheets → `public/products.json` + страницы |
 | `npm run gen-cards` | Перегенерация RU+EN карточек товаров |
+| `python3 scripts/gen_pepperoni_landing.py` | Money hub `/pepperoni` в 9 локалях (Google Ads лендинг для экспорта). Копия — `data/pepperoni_landing_i18n*.json`, цены/фото — из `products.json`. См. `docs/GOOGLE-ADS-PEPPERONI-LANDING.md` |
 | `npm run mcp` | MCP-сервер (stdio) |
 | `bash scripts/sync-vps.sh` | Полный прод-цикл на VPS: sync → gen-ru/en → gen-llms → атомарная подмена `products.json` |
 
@@ -51,6 +53,24 @@ Google Sheets (опубликованный CSV, 3 листа: Заморозк�
 Единственный канонический эндпоинт — `api.pepperoni.tatar`.
 Фронтенд фетчит каталог только оттуда, никогда напрямую из Sheets.**
 
+**Фото товаров** тоже управляются из Sheets (владелец: залил на Cloudinary → вставил
+ссылку в ячейку → на сайте после sync). Sync отклоняет только явный брак — URL не-200
+или чужой файл `kd-NNN` (файлы `kd-059..064.jpg` на Cloudinary названы по СТАРОЙ
+нумерации SKU: kd-059 = губадия, kd-061 = перемяч). При браке/пустой ячейке показывается
+последнее хорошее фото из `data/image_manifest.json` (авто-снапшот, пишется sync'ом —
+руками не редактировать).
+
+**Показ фото — только same-origin.** `res.cloudinary.com` живёт за Cloudflare, который
+RKN душит у розничных РФ-провайдеров (у части посетителей каталог был вообще без фото).
+Sync зеркалирует каждое принятое фото в `public/images/products/kd-NNN-{main,pack,slice}.jpg`
+(источники — в `data/image_mirror.json`), и в `products.json`/страницах живут только URL
+`pepperoni.tatar/images/products/…`. Cloudinary — хранилище-источник, не CDN показа.
+Гейт: `python3 scripts/check_catalog_images.py`.
+
+Не править ассортимент / число SKU в HTML вручную: после синка
+`reconcile_sku_count.py` + `bulk_fix_stale_content.py --fix-sku-text`
+(в `sync-vps.sh`) подставляют актуальный count из `products.json`.
+
 ## Деплой
 
 - **Прод (pepperoni.tatar + api.pepperoni.tatar) — VPS Селектел.** `git push` в `main` →
@@ -63,6 +83,12 @@ Google Sheets (опубликованный CSV, 3 листа: Заморозк�
   (`git reset --hard`) её сотрёт без предупреждения.
 - Vercel: деплоится автоматически при push, но домены `pepperoni.tatar`/`api.pepperoni.tatar`
   к нему не привязаны — используется только для preview/staging.
+- **Lead-userbot дроплет (DigitalOcean `178.62.250.104`).** Отдельный узел: MTProto
+  заблокирован с Selectel VPS, поэтому Telethon-userbot читает группу лидов оттуда.
+  Это тоже git-узел (`/opt/leadbot/repo`), деплой — `infra/scripts/leadbot-droplet-deploy.sh`
+  (`git pull --rebase`, **не** `reset --hard`). VPS-экшен `deploy-vps.yml` его НЕ трогает:
+  после правок `lead_listener.py`/`lead_userbot.py` деплой на дроплете делать отдельно.
+  Подробности: `docs/LEADBOT-DROPLET.md`.
 
 ## Бренд, контакты, халяль
 

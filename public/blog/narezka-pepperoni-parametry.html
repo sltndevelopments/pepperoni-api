@@ -158,6 +158,30 @@ footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -301,7 +325,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/oem/toppings">Контрактное производство топпингов под СТМ — пепперони-нарезка для пиццы и фудсервиса халяль</a></li>
     <li><a href="/blog/pepperoni-narezka-vs-baton">Пепперони в нарезке или батон: что выбрать для HoReCa</a></li>
-    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом — производитель</a></li>
+    <li><a href="/landing/pepperoni-halyal">Пепперони халяль оптом</a></li>
     <li><a href="/blog/beef-pepperoni-wholesale">Говяжья пепперони оптом для пиццерий и HoReCa</a></li>
     <li><a href="/blog/pepperoni-iz-govyadiny">Пепперони из говядины: преимущества для пиццерий HoReCa</a></li>
     <li><a href="/blog/chicken-pepperoni-wholesale">Куриная пепперони оптом: спецификации, размеры и применение в HoReCa</a></li>

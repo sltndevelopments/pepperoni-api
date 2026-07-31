@@ -215,8 +215,9 @@ def _log(path: Path, verdict: str, reasons: list, error: str = "") -> None:
 
 def _alert(msg: str) -> None:
     try:
-        from telegram_notify import notify
-        notify(msg)
+        from notification_router import emit
+        emit("emergency", "reviewer_unavailable", msg,
+             dedupe_key="page-reviewer-unavailable")
     except Exception:
         pass
 

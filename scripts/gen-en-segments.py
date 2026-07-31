@@ -57,19 +57,17 @@ SEGMENTS = [
         ],
         "items_heading": "Pepperoni SKUs for pizzerias",
         "items": [
-            ("Classic Pepperoni (beef & chicken), sliced", "0.5 kg", "274 ₽"),
-            ("Classic Pepperoni (beef & chicken), whole stick", "1 kg", "457 ₽"),
-            ("Horse-meat Pepperoni, sliced", "0.5 kg", "315 ₽"),
-            ("Dry-Cured Pepperoni, sliced", "0.5 kg", "by request"),
-            ("Dry-Cured Pepperoni, whole stick", "1 kg", "by request"),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
+            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
         ],
         "items_note": "Current prices live at <a href=\"/en/\" style=\"color:#0066cc\">/en/</a>. Private-label and custom-format quotations on request.",
         "logistics_heading": "Logistics & terms for pizza chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy (Moscow region)"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly or bi-weekly per schedule"),
-            ("Payment", "Net 14–30 days after pilot"),
+            ("Payment", "As per contract after pilot"),
             ("Storage", "180-360 days at -18°C"),
             ("Thawed shelf life", "5 days at +4°C, sealed pack"),
             ("Documents", "EAEU declaration · Mercury VSD · Halal · QR traceability"),
@@ -126,7 +124,7 @@ SEGMENTS = [
             ("❄️", "360-day frozen shelf life", "Order once every 2-4 weeks without sorting-out risk."),
             ("📋", "Full document pack per shipment", "EAEU declaration, Mercury VSD, Halal — no DC hold-ups."),
             ("☪️", "Halal & «for everyone»", "Same product fits the Muslim and the non-Muslim guest — no double matrix."),
-            ("🚚", "Logistics across Russia", "EXW Kazan or Lyubertsy DC. Regular runs to Volga, Central, Urals."),
+            ("🚚", "Logistics across Russia", "EXW Kazan. Regular runs to Volga, Central, Urals."),
         ],
         "items_heading": "SKUs that work at fuel stations",
         "items": [
@@ -140,10 +138,10 @@ SEGMENTS = [
         "items_note": "Live prices in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private label (network-branded hot dog or sausage roll) we put together a separate proposal.",
         "logistics_heading": "Logistics & terms for fuel-station chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy (Moscow region)"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly or bi-weekly per schedule"),
-            ("Payment", "Net 14–30 days after pilot"),
+            ("Payment", "As per contract after pilot"),
             ("Storage", "360 days at -18°C"),
             ("Thawed shelf life", "5 days at +4°C, sealed pack"),
             ("Documents", "EAEU declaration · Mercury VSD · Halal · QR traceability"),
@@ -214,10 +212,10 @@ SEGMENTS = [
         "items_note": "Current price list in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private-label fillings or pastries — bespoke quotation.",
         "logistics_heading": "Logistics & terms for bakery chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Discussed — pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
-            ("Payment", "Net 14–30 days after pilot"),
+            ("Payment", "As per contract after pilot"),
             ("Storage", "180-360 days at -18°C"),
             ("Documents", "EAEU declaration · Mercury VSD · Halal · QR traceability"),
         ],
@@ -273,7 +271,7 @@ SEGMENTS = [
             ("📦", "77 SKU matrix", "Frozen + chilled + bakery + ready pastries — one supplier, one DC route."),
             ("❄️", "Long shelf life", "Frozen 180-360 days; chilled 30 days; bakery 60-360 days."),
             ("☪️", "Halal-default", "Opens Muslim audience and works for the general shopper too."),
-            ("🚚", "Logistics", "EXW Kazan or Lyubertsy DC. Federal weekly cadence."),
+            ("🚚", "Logistics", "EXW Kazan. Federal weekly cadence."),
         ],
         "items_heading": "Top retail SKUs",
         "items": [
@@ -287,10 +285,10 @@ SEGMENTS = [
         "items_note": "All 77 SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
         "logistics_heading": "Logistics & terms for retail chains",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
-            ("Payment", "Net 30–45 days after pilot"),
+            ("Payment", "As per contract after pilot"),
             ("Storage", "Per SKU — 30 to 360 days"),
             ("Documents", "EAEU · Mercury VSD · Halal · GTIN · QR traceability"),
         ],
@@ -350,10 +348,10 @@ SEGMENTS = [
         ],
         "items_heading": "Distribution-friendly SKUs",
         "items": [
-            ("Boiled-Smoked Pepperoni, whole stick", "1 kg", "457 ₽"),
-            ("Dry-Cured Pepperoni, whole stick", "1 kg", "by request"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
+            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
             ("Kazylyk «Premium» (gift box)", "200 g", "650 ₽"),
-            ("Smoked Chicken Breast", "1 kg", "370 ₽"),
             ("Cheese sausages", "0.65 kg × 5", "455 ₽"),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
         ],
@@ -363,7 +361,7 @@ SEGMENTS = [
             ("Incoterm", "EXW Kazan · option: buyer-arranged transit to Moscow/CIS"),
             ("Minimum batch", "Pilot from 1 pallet · ramp by region"),
             ("Cadence", "Weekly or bi-weekly"),
-            ("Payment", "Net 14–30 days after pilot · prepayment 50% for first export shipment"),
+            ("Payment", "As per contract after pilot · prepayment 50% for first export shipment"),
             ("Currencies", "RUB, USD, KZT, UZS, KGS, BYN, AZN"),
             ("Documents", "EAEU · Mercury VSD · Halal · HS codes · COA on request · QR traceability"),
         ],
@@ -433,10 +431,10 @@ SEGMENTS = [
         "items_note": "Full HoReCa matrix in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Portion-pack sizes and private-label HoReCa packs — bespoke quotation.",
         "logistics_heading": "Logistics & terms for HoReCa",
         "logistics": [
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy"),
+            ("Incoterm", "EXW Kazan"),
             ("Minimum batch", "Pilot from 1 pallet"),
             ("Cadence", "Weekly per schedule"),
-            ("Payment", "Net 14–30 days after pilot"),
+            ("Payment", "As per contract after pilot"),
             ("Storage", "Frozen 180-360 days; chilled 30 days"),
             ("Documents", "EAEU · Mercury VSD · Halal · nutrition panel · QR traceability"),
         ],
@@ -483,7 +481,7 @@ SEGMENTS = [
         ],
         "second_case": {
             "title": "Private-label categories we run",
-            "body": "Sausages (hot-dog, grill, casingless, breakfast), pepperoni (boiled-smoked, dry-cured), hams (chicken, turkey, beef), boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak.",
+            "body": "Sausages (hot-dog, grill, casingless, breakfast), cooked-smoked pepperoni (chicken KD-013/014, horse KD-012), hams, boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak. Assortment follows the live Google Sheets catalog only.",
         },
         "features_heading": "What we customise",
         "features": [
@@ -508,8 +506,8 @@ SEGMENTS = [
         "logistics": [
             ("Pilot minimum", "~500 kg / month per SKU"),
             ("Spec → first shipment", "4-6 weeks (recipe approval included)"),
-            ("Incoterm", "EXW Kazan · transit hub Lyubertsy · CIS export available"),
-            ("Payment", "50% prepayment for the first pilot batch, net 14-30 days thereafter"),
+            ("Incoterm", "EXW Kazan · CIS export available"),
+            ("Payment", "50% prepayment for the first pilot batch, payment terms as per contract thereafter"),
             ("Documents", "Issued under your brand: EAEU · Mercury VSD · Halal · GTIN · nutrition panel"),
             ("IP", "Your recipe is your recipe — NDA on request, exclusivity per category & region available"),
         ],
@@ -562,6 +560,7 @@ HEAD_TPL = """<!DOCTYPE html>
 <link rel="canonical" href="https://pepperoni.tatar/en/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/{ru_slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/{slug}">
+<link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/en/{slug}">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="{og_title}">
@@ -649,7 +648,7 @@ footer a{{color:#888;text-decoration:none}}
 <span class="badge">HALAL #614A/2024</span>
 <span class="badge badge-outline">HACCP + ISO 22000:2018</span>
 <span class="badge badge-outline">Weekly shipments</span>
-<span class="badge badge-outline">EXW Kazan / Lyubertsy DC</span>
+<span class="badge badge-outline">EXW Kazan</span>
 
 <p>{intro}</p>
 

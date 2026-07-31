@@ -36,7 +36,7 @@ GEOS = [
         "case": "Pilot shipment with Sharjah-based foodservice distributor (March 2026): 5 pallets of pepperoni KD-015/KD-016 cleared customs in 48 h with halal certificate #614A/2024 — no SFDA-equivalent registration required.",
         "hs_codes": "1601.00 (sausages of meat) — duty 5% MFN, halal-cert-driven exemption available",
         "labels": "English + Russian standard. Arabic labels available on request (2-week artwork approval).",
-        "payment": "USD or AED. 50% prepayment for first shipment, balance against shipping documents. Net 14–30 days from the second order.",
+        "payment": "USD or AED. 50% prepayment for first shipment, balance against shipping documents. Payment terms as per contract from the second order.",
         "competitor_context": "UAE imports halal beef sausage primarily from Brazil, India, Argentina. Russian halal is positioned as the premium European-style alternative with locked recipe consistency and shorter air-freight option.",
     },
     {
@@ -76,7 +76,7 @@ GEOS = [
         "case": "Weekly supply to Almaty foodservice distributor since 2024. Multi-currency invoicing in KZT (live on api.pepperoni.tatar/api/products?currency=KZT).",
         "hs_codes": "1601.00 — EAEU internal traffic, no tariff. Simplified Mercury VSD only.",
         "labels": "Russian + Kazakh required under Kazakh consumer-protection law. Kazakh labels available, 1-week artwork turnaround.",
-        "payment": "KZT or RUB. Net 14 days after pilot. Letter-of-credit not required for EAEU partners.",
+        "payment": "KZT or RUB. Payment terms as per contract after pilot. Letter-of-credit not required for EAEU partners.",
         "competitor_context": "Kazakhstan imports halal sausage primarily from Russia (50%+), Belarus and Türkiye. We compete on locked recipe and federal-scale references.",
     },
     {
@@ -96,7 +96,7 @@ GEOS = [
         "case": "Quarterly shipments to Tashkent foodservice distributor since 2025. Pricing automatically converted to UZS via /api/products?currency=UZS.",
         "hs_codes": "1601.00 — CIS preferential rate, 0–5% depending on annual quota.",
         "labels": "Russian + Uzbek (Latin script) standard. Uzbek-Cyrillic also accepted for older retail channels.",
-        "payment": "UZS, RUB or USD. Net 14–21 days after pilot.",
+        "payment": "UZS, RUB or USD. Payment terms as per contract after pilot.",
         "competitor_context": "Uzbekistan imports halal sausage primarily from Türkiye, Russia, Belarus. We compete on Eurasian recipe profile and EAEU/CIS-friendly logistics.",
     },
     {
@@ -116,7 +116,7 @@ GEOS = [
         "case": "Pilot pallet shipped to Bishkek foodservice distributor in November 2025; first repeat order received Feb 2026.",
         "hs_codes": "1601.00 — EAEU internal traffic, 0% duty.",
         "labels": "Russian standard; Kyrgyz labelling welcome on request.",
-        "payment": "KGS, RUB or USD. Net 14 days after pilot.",
+        "payment": "KGS, RUB or USD. Payment terms as per contract after pilot.",
         "competitor_context": "Kyrgyzstan imports halal sausage primarily from Kazakhstan, Russia, Türkiye. We compete on direct factory pricing.",
     },
     {
@@ -136,7 +136,7 @@ GEOS = [
         "case": "Weekly Halal pepperoni and bakery supply to a Minsk distributor since Q3 2025.",
         "hs_codes": "1601.00 — Union State internal traffic, no tariff.",
         "labels": "Russian standard; Belarusian (Belaruskaja Latinka or Cyrillic) on request.",
-        "payment": "BYN, RUB. Net 14 days after pilot.",
+        "payment": "BYN, RUB. Payment terms as per contract after pilot.",
         "competitor_context": "Belarus imports halal sausage primarily from Russia. We compete on locked recipe and federal-scale references (Aslam/OMPK).",
     },
     {
@@ -156,7 +156,7 @@ GEOS = [
         "case": "Bi-weekly Halal pepperoni supply to Baku distributor since Q4 2025. Multi-currency invoicing in AZN.",
         "hs_codes": "1601.00 — CIS preferential rate, 0–5%.",
         "labels": "Russian + Azerbaijani Latin standard.",
-        "payment": "AZN, RUB or USD. Net 14 days after pilot.",
+        "payment": "AZN, RUB or USD. Payment terms as per contract after pilot.",
         "competitor_context": "Azerbaijan imports halal sausage primarily from Türkiye, Russia, Iran. We compete on locked recipe and Eurasian flavour profile.",
     },
     {
@@ -176,7 +176,7 @@ GEOS = [
         "case": "Pilot batches shipped Q1 2026 for Russian-Armenian foodservice distributor.",
         "hs_codes": "1601.00 — EAEU internal traffic, 0% duty.",
         "labels": "Russian + Armenian on request.",
-        "payment": "USD or RUB. Net 14 days after pilot.",
+        "payment": "USD or RUB. Payment terms as per contract after pilot.",
         "competitor_context": "Armenia imports halal sausage primarily from Russia, Iran (limited). We compete on document discipline and federal-scale references.",
     },
     {

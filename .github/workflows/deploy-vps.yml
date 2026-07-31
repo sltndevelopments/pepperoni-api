@@ -31,6 +31,35 @@ jobs:
             git fetch origin main
             git reset --hard origin/main
             echo "Deployed: $(git log -1 --oneline)"
+            # nginx serves /videos/ from media/, not repo/public/videos/
+            if [ -d public/videos ]; then
+              mkdir -p /var/www/pepperoni/media/videos
+              cp -f public/videos/* /var/www/pepperoni/media/videos/
+            fi
+
+      - name: Apply Content-Security-Policy (allow YouTube embeds)
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # The previous CSP allowed only googletagmanager.com in frame-src.
+            # Brave/Chrome then showed «Этот контент заблокирован» for the
+            # youtube-nocookie iframes on /pepperoni. Canonical policy lives in
+            # deploy/nginx/security-headers.csp.snippet.
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
+
+      - name: Apply /test1 X-Robots-Tag noindex
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh /var/www/pepperoni/repo
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -62,11 +91,12 @@ jobs:
           BING_CLIENT_ID:          ${{ secrets.BING_CLIENT_ID }}
           BING_CLIENT_SECRET:      ${{ secrets.BING_CLIENT_SECRET }}
           GH_PAT:                  ${{ secrets.GH_PAT }}
+          PAGESPEED_API_KEY:       ${{ secrets.PAGESPEED_API_KEY }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,YANDEX_METRIKA_TOKEN,LEADS_BOT_TOKEN,LEADS_GROUP_ID,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,ASOCKS_API_KEY,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,YANDEX_METRIKA_TOKEN,LEADS_BOT_TOKEN,LEADS_GROUP_ID,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,ASOCKS_API_KEY,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT,PAGESPEED_API_KEY
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
@@ -109,13 +139,14 @@ jobs:
               echo "OPT_MAX_CTR=0.02"
               echo "TELEGRAM_BOT_TOKEN=$TELEGRAM_BOT_TOKEN"
               echo "TELEGRAM_CHAT_ID=${TELEGRAM_CHAT_ID:-}"
-              echo "TG_PASSWORD=${TG_PASSWORD:-Namaz2015!}"
+              echo "TG_PASSWORD=${TG_PASSWORD:-}"
               echo "PPLX_API_KEY=${PPLX_API_KEY:-}"
               echo "YANDEX_SEARCH_API_KEY=${YANDEX_SEARCH_API_KEY:-}"
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"
               echo "BING_CLIENT_ID=$BING_CLIENT_ID"
               echo "BING_CLIENT_SECRET=$BING_CLIENT_SECRET"
               echo "GITHUB_TOKEN=$GH_PAT"
+              echo "PAGESPEED_API_KEY=${PAGESPEED_API_KEY:-}"
             } > /var/www/pepperoni/seo-agent.env
             chmod 600 /var/www/pepperoni/seo-agent.env
             echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"
@@ -170,6 +201,31 @@ jobs:
               echo "ℹ️  partner-intake unit not installed yet — skipping restart (run deploy-partner-intake.sh once to install)"
             fi
 
+      - name: Restart lead-intake service on VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # gunicorn runs lead_intake_server from the repo working tree, so the
+            # git reset above changes the file but the workers keep the old code
+            # in memory until restarted. Without this step a fix to the form
+            # handler (e.g. phone validation) silently never reaches production.
+            UNIT=pepperoni-lead-intake
+            if systemctl is-enabled "$UNIT" &>/dev/null; then
+              systemctl restart "$UNIT"
+              sleep 2
+              if curl -fsS --max-time 5 http://127.0.0.1:5002/lead-health | grep -q '"ok"'; then
+                echo "✅ $UNIT restarted, /lead-health ok"
+              else
+                echo "⚠️  $UNIT restarted but /lead-health not ok — check logs"
+                journalctl -u "$UNIT" --no-pager -n 20
+              fi
+            else
+              echo "ℹ️  $UNIT unit not installed — skipping restart"
+            fi
+
       - name: Install SEO Agent cron on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -207,3 +263,116 @@ jobs:
               echo "ℹ️  Pipeline watchdog cron already present"
             fi
             echo "=== Current crontab ===" && crontab -l
+
+      - name: Ensure sales-agent/sales-intel cron & systemd point at repo/ (no drift copy)
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 2026-07-02: sales-agent/sales-intel used to live as a manually-copied
+            # directory NEXT TO repo/ (not a git clone) — every push landed in repo/
+            # but never reached the cron-executed copy without a manual `cp`, so code
+            # silently drifted for weeks. Fixed by running these dirs straight out of
+            # repo/ (same git clone deploy-vps.yml already updates). This step is
+            # idempotent — it only rewrites cron/systemd if they still point at the
+            # old standalone path, so re-running deploy never breaks a healthy setup.
+            if crontab -l 2>/dev/null | grep -q "cd /var/www/pepperoni/sales-agent "; then
+              crontab -l | sed 's#cd /var/www/pepperoni/sales-agent #cd /var/www/pepperoni/repo/sales-agent #g' | crontab -
+              echo "✅ crontab: sales-agent cron repointed to repo/sales-agent"
+            fi
+            if [ -f /etc/cron.d/kd-sales-intel ] && grep -q "cd /var/www/pepperoni " /etc/cron.d/kd-sales-intel; then
+              sed -i 's#cd /var/www/pepperoni #cd /var/www/pepperoni/repo #g' /etc/cron.d/kd-sales-intel
+              echo "✅ /etc/cron.d/kd-sales-intel repointed to repo/"
+            fi
+            if [ -f /etc/systemd/system/kd-sales-bot.service ] && grep -q "/var/www/pepperoni/sales-agent" /etc/systemd/system/kd-sales-bot.service; then
+              sed -i 's#/var/www/pepperoni/sales-agent#/var/www/pepperoni/repo/sales-agent#g' /etc/systemd/system/kd-sales-bot.service
+              systemctl daemon-reload
+              systemctl restart kd-sales-bot 2>/dev/null || true
+              echo "✅ kd-sales-bot.service repointed to repo/sales-agent and restarted"
+            fi
+            echo "=== sales-agent/sales-intel cron (should show repo/) ==="
+            crontab -l | grep -E "sales-agent|sales-intel" || true
+            cat /etc/cron.d/kd-sales-intel 2>/dev/null || true
+
+      - name: Ensure kd-sales-track (email open-tracking) systemd unit exists and runs
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # 2026-07-05: introduced with the open-tracking pixel fix — recreate the
+            # unit if missing (fresh VPS / lost state) so deploy stays idempotent.
+            if [ ! -f /etc/systemd/system/kd-sales-track.service ]; then
+              cat > /etc/systemd/system/kd-sales-track.service << 'UNIT'
+            [Unit]
+            Description=KD Sales Email Open Tracking Server
+            After=network-online.target
+            Wants=network-online.target
+
+            [Service]
+            Type=simple
+            WorkingDirectory=/var/www/pepperoni/repo/sales-agent
+            ExecStart=/usr/bin/python3 -m channels.track_server 8081
+            Restart=always
+            RestartSec=15
+            StandardOutput=append:/var/www/pepperoni/repo/sales-agent/data/track_server.log
+            StandardError=append:/var/www/pepperoni/repo/sales-agent/data/track_server.log
+
+            [Install]
+            WantedBy=multi-user.target
+            UNIT
+              systemctl daemon-reload
+              systemctl enable kd-sales-track.service
+              echo "✅ kd-sales-track.service created"
+            fi
+            systemctl restart kd-sales-track.service
+            sleep 1
+            systemctl is-active kd-sales-track.service && echo "✅ kd-sales-track.service active"
+
+      - name: Ensure moscow-leads bot + Friday digest cron
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            mkdir -p /var/www/pepperoni/repo/moscow-leads/data
+            # systemd unit (starts only when token is configured)
+            cp /var/www/pepperoni/repo/deploy/moscow-lead-bot.service /etc/systemd/system/moscow-lead-bot.service
+            systemctl daemon-reload
+            if [ -f /var/www/pepperoni/moscow-leads.env ] && grep -qE '^MOSCOW_LEAD_BOT_TOKEN=.+' /var/www/pepperoni/moscow-leads.env; then
+              systemctl enable moscow-lead-bot.service
+              systemctl restart moscow-lead-bot.service
+              sleep 1
+              systemctl is-active moscow-lead-bot.service && echo "✅ moscow-lead-bot.service active"
+            else
+              echo "ℹ️  moscow-leads.env / MOSCOW_LEAD_BOT_TOKEN not set — bot unit installed but not started"
+            fi
+            # hourly tick (deadlines + 72h) and Friday 17:00 MSK digest
+            TICK='5 * * * * cd /var/www/pepperoni/repo/moscow-leads && PYTHONPATH=. python3 scheduler.py tick >> data/scheduler.log 2>&1'
+            DIGEST='0 14 * * 5 cd /var/www/pepperoni/repo/moscow-leads && PYTHONPATH=. python3 scheduler.py digest >> data/scheduler.log 2>&1'
+            if ! crontab -l 2>/dev/null | grep -q "moscow-leads && PYTHONPATH=. python3 scheduler.py tick"; then
+              (crontab -l 2>/dev/null; echo "$TICK") | crontab -
+              echo "✅ moscow-leads tick cron installed"
+            fi
+            if ! crontab -l 2>/dev/null | grep -q "moscow-leads && PYTHONPATH=. python3 scheduler.py digest"; then
+              (crontab -l 2>/dev/null; echo "$DIGEST") | crontab -
+              echo "✅ moscow-leads Friday digest cron installed (17:00 MSK)"
+            fi
+
+      - name: Nudge Google index (sitemap + hot URLs / 301s)
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          command_timeout: 10m
+          script: |
+            set -a
+            . /var/www/pepperoni/seo-agent.env
+            set +a
+            cd /var/www/pepperoni/repo
+            bash scripts/nudge_google_after_seo.sh || echo "⚠️  indexing nudge failed (non-fatal)"

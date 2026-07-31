@@ -1,0 +1,112 @@
+{
+  "version": "2026-07-26",
+  "currency": "USD_company_revenue",
+  "fxNote": "Brief reference USD 1 = RUB 90",
+  "revenueTargets": {
+    "2025_actual": 9.7,
+    "2026_plan": 20,
+    "2028_plan": { "low": 60, "high": 80 },
+    "2030_plan": { "low": 150, "high": 200 }
+  },
+  "mixTargetsPct": {
+    "2026": {
+      "azs_street": 30,
+      "private_label": 25,
+      "horeca": 25,
+      "retail_export": 20
+    },
+    "2028": {
+      "azs_street": 37,
+      "private_label": 32,
+      "horeca": 18,
+      "retail_export": 13
+    }
+  },
+  "kpi": {
+    "money12ShareOfRevenuePct": 70,
+    "zozhShareOfRevenuePct_2028": 25,
+    "grossMarginMoneySkuPct": { "min": 25, "target": 30 },
+    "ebitdaOrNetPct": { "min": 7, "target": 10 },
+    "revenuePerEmployeeUsd_2028": { "min": 300000, "target": 400000 }
+  },
+  "anchorPipeline": [
+    {
+      "id": "azs-tatneft-expand",
+      "channel": "azs_street",
+      "account": "Татнефть АЗС (существующий)",
+      "action": "Расширить матрицу: Money grill kit + пилот ЗОЖ multipack",
+      "stage": "expand",
+      "targetClose": "2026-Q4"
+    },
+    {
+      "id": "azs-smarten-expand",
+      "channel": "azs_street",
+      "account": "СМАРТЕН",
+      "action": "Дожать SKU-кит (сосиска+котлета) на больше точек",
+      "stage": "expand",
+      "targetClose": "2026-Q4"
+    },
+    {
+      "id": "azs-federal-new",
+      "channel": "azs_street",
+      "account": "Новая федеральная/межрегиональная сеть АЗС #3",
+      "action": "Якорный пилот 1 паллета → rollout; цель ×2–3 объём money-SKU",
+      "stage": "hunt",
+      "targetClose": "2027-Q2"
+    },
+    {
+      "id": "pl-ompk-aslam",
+      "channel": "private_label",
+      "account": "ОМПК / Aslam (существующий)",
+      "action": "Удержать и расширить линейку; кейс для новых PL",
+      "stage": "expand",
+      "targetClose": "2026-Q4"
+    },
+    {
+      "id": "pl-retail-2",
+      "channel": "private_label",
+      "account": "СТМ ритейл/АЗС бренд #2",
+      "action": "Контракт от 2–5 т/мес по 8 PL-конструкторам",
+      "stage": "hunt",
+      "targetClose": "2027-Q2"
+    },
+    {
+      "id": "pl-retail-3",
+      "channel": "private_label",
+      "account": "СТМ ритейл #3",
+      "action": "Второй крупный PL; цель PL ≥30% выручки к 2028",
+      "stage": "hunt",
+      "targetClose": "2027-Q4"
+    },
+    {
+      "id": "horeca-distrib-pizza",
+      "channel": "horeca",
+      "account": "Дистрибьютор пицца/суши (пепперони KD-012/013/014)",
+      "action": "Эксклюзив/квота региона + термостабильный pitch",
+      "stage": "hunt",
+      "targetClose": "2027-Q1"
+    },
+    {
+      "id": "export-kz",
+      "channel": "retail_export",
+      "account": "Казахстан (фокус #1)",
+      "action": "Один логистический коридор + халяль-пакет; Money 12 + ЗОЖ",
+      "stage": "hunt",
+      "targetClose": "2027-Q3"
+    },
+    {
+      "id": "export-gcc",
+      "channel": "retail_export",
+      "account": "1 страна GCC (фокус #2)",
+      "action": "Не плодить локали сайта — один плечо, повторный объём",
+      "stage": "hunt",
+      "targetClose": "2028-Q2"
+    }
+  ],
+  "salesRules": [
+    "Pitch только Money 12 + 8 PL-конструкторов",
+    "Прайс фиксируется на квартал",
+    "Один якорный АЗС/ритейл контракт 2026–27 важнее десяти мелких",
+    "Экспорт = 2 фокуса (KZ + 1 GCC), не все локали сайта"
+  ]
+}

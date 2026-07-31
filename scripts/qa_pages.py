@@ -227,7 +227,7 @@ def main() -> int:
         if errs:
             failed[f] = errs
 
-    print(f"qa_pages: {len(files)} checked, {len(failed)} FAIL")
+    print(f"qa_pages: {len(pairs)} checked, {len(failed)} FAIL")
     for f, errs in failed.items():
         rel = f.relative_to(ROOT)
         for e in errs:

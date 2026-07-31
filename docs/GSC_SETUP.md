@@ -21,12 +21,15 @@ gcloud services enable webmasters.googleapis.com
 ### 2. Добавить сервис-аккаунт как пользователя в GSC
 
 1. [Google Search Console](https://search.google.com/search-console)
-2. Выбрать свойство **pepperoni.tatar** (или sc-domain:pepperoni.tatar)
+2. Выбрать свойство **Domain: pepperoni.tatar** (`sc-domain:pepperoni.tatar`)
 3. **Settings** → **Users and permissions** → **Add user**
 4. Email: `search-console-agent@pepperoni-seo.iam.gserviceaccount.com`
-5. Permission: **Restricted** или **Full** → **Add**
+5. Permission: **Full** / Owner → **Add**
 
-Повторить для **api.pepperoni.tatar**, если это отдельное свойство.
+`scripts/gsc-sitemap.py` сабмитит в `sc-domain:pepperoni.tatar` (не в
+`https://pepperoni.tatar/` — у SA нет доступа к URL-prefix property, будет 403).
+
+Повторить для **api.pepperoni.tatar** (URL-prefix), если это отдельное свойство.
 
 ## Проверка
 

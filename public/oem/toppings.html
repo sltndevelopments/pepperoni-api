@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -38,7 +44,7 @@
   </script>
   <script type="application/ld+json">
   {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
-    {"@type":"Question","name":"Пепперони — это халяль?","acceptedAnswer":{"@type":"Answer","text":"Классическое пепперони делается из свинины и халяльным не является. Пепперони «Казанских Деликатесов» — 100% халяль: из говядины и курицы (классика) или из конины по стандарту «Халяль» ДУМ Республики Татарстан (№ 614A/2024). Доступно в варёно-копчёном и сырокопчёном вариантах, в нарезке и батоном."}},
+    {"@type":"Question","name":"Пепперони — это халяль?","acceptedAnswer":{"@type":"Answer","text":"Классическое пепперони из свинины халяльным не является. Пепперони «Казанских Деликатесов» — 100% халяль: варёно-копчёный куриный (KD-013/KD-014) и из конины (KD-012) по стандарту «Халяль» ДУМ РТ (№ 614A/2024). Нарезка и целый батон. Актуальный ассортимент — в каталоге."}},
     {"@type":"Question","name":"Поставляете ли вы пепперони для пиццерий и HoReCa оптом?","acceptedAnswer":{"@type":"Answer","text":"Да. Калиброванная пепперони-нарезка под диаметр пиццы для пиццерий, dark kitchen, производителей замороженной пиццы и фудсервиса. Стабильный вес слайса, под СТМ, оптом от 500 кг/мес."}},
     {"@type":"Question","name":"Из чего сделано халяльное пепперони?","acceptedAnswer":{"@type":"Answer","text":"Из халяль-говядины и мяса птицы (классика) или из конины. Без ГМО. Термостабильное — держит форму в печи."}}
   ]}
@@ -69,6 +75,30 @@
     footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
     @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
   </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -126,7 +156,7 @@
     <h2>Как выбрать поставщика оптом</h2>
     <div class="card"><p style="margin-top:0">Когда вы выбираете, где <strong>купить топпинги для пиццы оптом</strong> (пепперони-топпинг, колбасные нарезки), важна термостабильность: топпинг не должен расплываться и пускать жир при запекании, а должен держать рисунок и форму на пицце. Калиброванная нарезка ускоряет сборку и даёт одинаковый вид пиццы на всех точках сети.</p></div>
     <h2>Оптовые условия и логистика</h2>
-    <div class="card"><p style="margin-top:0">Топпинги оптом поставляем нарезкой в фиксированной фасовке, пилот от 500 кг/мес, серия 2–5 т/мес. Под СТМ подбираем толщину нарезки, диаметр и упаковку под вашу линию сборки. Отгрузка EXW Казань и со склада в Люберцах по РФ и на экспорт — для пиццерий, производителей замороженной пиццы и HoReCa.</p></div>
+    <div class="card"><p style="margin-top:0">Топпинги оптом поставляем нарезкой в фиксированной фасовке, пилот от 500 кг/мес, серия 2–5 т/мес. Под СТМ подбираем толщину нарезки, диаметр и упаковку под вашу линию сборки. Отгрузка EXW Казань по РФ и на экспорт — для пиццерий, производителей замороженной пиццы и HoReCa.</p></div>
     <h2>Документы, халяль и сроки</h2>
     <div class="card"><p style="margin-top:0">Для опта, ретейла и маркетплейсов важен полный пакет документов: декларация ЕАЭС, ХАССП, ISO 22000:2018 и действующий сертификат «Халяль». Вся продукция «Казанских Деликатесов» — халяль, произведена из говядины и/или птицы (конины) по стандартам халяль, с ВСД «Меркурий». Это снимает риски при входе в сети и даёт вам аргумент для конечного покупателя. Образец под вашу спецификацию делаем за 2–3 недели, от брифа до первой серийной отгрузки — 4–8 недель.</p></div>
 

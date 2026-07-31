@@ -149,6 +149,30 @@ footer a{color:#aaa}footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
@@ -255,7 +279,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h2>Условия партнёрства и оплаты</h2>
       <p>Построение долгосрочного партнёрства с надёжным поставщиком мяса предполагает понимание коммерческих условий, которые поддерживают бизнес-цели обеих сторон.</p>
 
-      <p>Типичные партнёрские программы включают ценообразование в зависимости от объёма, условия оплаты от наличного расчёта до отсрочки платежа до 30 дней для постоянных клиентов и программы лояльности, поощряющие регулярные заказы. Прозрачное ценообразование без скрытых комиссий укрепляет доверие и позволяет точно прогнозировать затраты.</p>
+      <p>Типичные партнёрские программы включают ценообразование в зависимости от объёма, условия оплаты от наличного расчёта до отсрочка платежа согласно договору для постоянных клиентов и программы лояльности, поощряющие регулярные заказы. Прозрачное ценообразование без скрытых комиссий укрепляет доверие и позволяет точно прогнозировать затраты.</p>
 
       <p>При оценке потенциальных поставщиков учитывайте не только цены, но и надёжность, стабильность качества, оперативность обслуживания и гибкость в учёте специальных запросов или сезонных колебаний спроса.</p>
     </section>
@@ -288,10 +312,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <ul style="columns:2;font-size:.95rem">
     <li><a href="/blog/postavki-myasnye-restorany">Поставки мяса в рестораны: логистика и условия</a></li>
     <li><a href="/blog/kazylyk-optom-restorany">Казылык оптом для ресторанов татарской кухни — поставки</a></li>
+    <li><a href="/blog/pepperoni-iz-kakogo-myasa">Пепперони из какого мяса делают — состав и виды</a></li>
     <li><a href="/blog/peperoni-iz-kakogo-myasa">Пеперони из какого мяса делают — состав и виды</a></li>
     <li><a href="/blog/iso-22000-iaf-certsearch">ISO 22000:2018 в базе IAF CertSearch — халяль пепперони, сосиски для хот-догов, котлеты, СТМ</a></li>
     <li><a href="/blog/sosiski-dlya-hotdog-optom">Хот-дог сосиски оптом: ассортимент и условия поставки</a></li>
-    <li><a href="/blog/sosiski-dva-myasa">Сосиски «Два мяса»: говядина и курица в одной сосиске</a></li>
   </ul>
 </section>
 </body>

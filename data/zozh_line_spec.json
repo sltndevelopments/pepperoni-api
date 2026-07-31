@@ -1,0 +1,86 @@
+{
+  "version": "2026-07-26",
+  "status": "draft_pending_owner_lab",
+  "subbrandWorkingName": "CHOMPable TBD — рабочее имя не публиковать на витрине до утверждения владельцем",
+  "publicPath": "/zozh",
+  "format": {
+    "archetype": "portable_protein_stick",
+    "description": "Один формат × 4–6 вкусов (зеркало Chomps): халяль meat stick / snack-link, shelf-stable или заморозка −18°C — решение R&D",
+    "pieceWeightG": null,
+    "packOptions": ["single", "multipack_azs", "multipack_retail"],
+    "casing": "TBD (коллагеновая / без оболочки)"
+  },
+  "skuPlan": [
+    {
+      "code": "ZOZH-01",
+      "workingName": "Original Beef",
+      "protein": "говядина халяль",
+      "flavor": "классика, лёгкий перец"
+    },
+    {
+      "code": "ZOZH-02",
+      "workingName": "Spicy Beef",
+      "protein": "говядина халяль",
+      "flavor": "острый"
+    },
+    {
+      "code": "ZOZH-03",
+      "workingName": "Turkey",
+      "protein": "индейка / птица халяль",
+      "flavor": "нейтрально-копчёный"
+    },
+    {
+      "code": "ZOZH-04",
+      "workingName": "Pepperoni Seasoned",
+      "protein": "птица или говядина халяль",
+      "flavor": "пепперони-специи (без свинины)"
+    },
+    {
+      "code": "ZOZH-05",
+      "workingName": "Horse / Qazy-style",
+      "protein": "конина халяль",
+      "flavor": "национальный дифференциал",
+      "optional": true
+    },
+    {
+      "code": "ZOZH-06",
+      "workingName": "Lamb",
+      "protein": "баранина халяль",
+      "flavor": "премиум",
+      "optional": true
+    }
+  ],
+  "claimGate": {
+    "rule": "Никаких публичных цифр белка/сахара/калорий и диет-бейджей (Keto/Paleo/0g sugar) до лабораторного протокола и явного OK владельца",
+    "allowedNow": [
+      "Халяль ДУМ РТ №614A/2024",
+      "HACCP",
+      "ISO 22000:2018",
+      "ТР ТС 021/2011",
+      "без свинины и алкоголя"
+    ],
+    "blockedUntilLab": [
+      "X g protein",
+      "0g sugar",
+      "Non-UPF",
+      "grass-fed",
+      "Whole30 / Keto / Paleo"
+    ]
+  },
+  "packaging": {
+    "primary": "индивидуальная палка + прозрачный/брендированный флоу-пак",
+    "secondaryAzs": "мультипак 5–10 шт для прикассы",
+    "secondaryRetail": "короб 10/24 как у Chomps DTC-логики, но B2B first",
+    "mustShow": ["Халяль знак", "состав", "срок/температура", "контакты КД"]
+  },
+  "goToMarket": {
+    "months1to3": "R&D freeze рецептур + lab panel",
+    "months3to6": "пилот АЗС multipack (1 сеть) + PL white-label опция",
+    "months6to9": "полка ритейл + лендинг /zozh с утверждёнными 3 цифрами",
+    "revenueTargetShare2028": "≥25% company revenue from hero line"
+  },
+  "site": {
+    "untilLab": "landing /zozh = waitlist + B2B brief, no fake nutrition",
+    "afterLab": "consumer-tone page + multipack CTA + Money-hub style"
+  }
+}

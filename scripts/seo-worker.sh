@@ -48,10 +48,18 @@ export ANTHROPIC_PROXY="$(grep '^ANTHROPIC_PROXY=' "$ENV_FILE" 2>/dev/null | cut
 
 log "=== SEO Worker tick ==="
 
+# New content is fail-closed. During repair mode, with stale data/strategy, or
+# while the experiment queue is full, this frequent worker must spend $0.
+if ! python3 scripts/strategy_control.py --check-generation >> "$LOG_FILE" 2>&1; then
+    log "  ⏸ generation blocked by operator control plane"
+    log "=== Worker tick done (generation frozen) ==="
+    exit 0
+fi
+
 # Daily spend kill switch (claude_client.py reads this). Worker runs every 3h —
 # without a hard cap it generated ~240 geo pages/day (8 ticks × 30), which was
 # the real driver of the 2026-06 auto-recharge spike, not the nightly cron.
-export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-5}"
+export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-1}"
 
 # Per-tick budget. 8 ticks/day × 3 pages = max 24/day, in line with the
 # geo_daily_target=20 set by the brain. Override via GEO_PER_TICK in env.
@@ -87,6 +95,6 @@ fi
 
 log "=== Worker tick done ==="
 
-# «Кино» в @KDSEOSiteBot — короткий ping после каждого тика (non-fatal).
+# Green ticks stay silent. The notifier emits only actionable anomalies/results.
 python3 scripts/worker_tick_notify.py --since "$TICK_START" --pushed "$PUSHED" \
     >> "$LOG_FILE" 2>&1 || true

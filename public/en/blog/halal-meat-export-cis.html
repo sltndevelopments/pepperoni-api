@@ -166,6 +166,30 @@ footer a:hover{color:#fff;text-decoration:none}
   ]
 }
 </script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -249,7 +273,7 @@ footer a:hover{color:#fff;text-decoration:none}
     <li>Transport documentation confirming cold chain maintenance</li>
   </ul>
   
-  <p>Belarusian importers increasingly demand <a href="/pepperoni-optom">wholesale halal meat products</a> for retail chains like Euroopt and Sosedi, which allocate specialized sections for ethnic foods. Restaurant sector growth in Minsk creates opportunities for premium halal ingredients, particularly in Italian and Mediterranean cuisine establishments.</p>
+  <p>Belarusian importers increasingly demand <a href="/pepperoni">wholesale halal meat products</a> for retail chains like Euroopt and Sosedi, which allocate specialized sections for ethnic foods. Restaurant sector growth in Minsk creates opportunities for premium halal ingredients, particularly in Italian and Mediterranean cuisine establishments.</p>
 
   <div class="info-box">
     <p><strong>Logistics Tip:</strong> Rail transport via Russian Railways provides cost-effective delivery to all three countries, with refrigerated containers maintaining required temperatures for 7-10 day transit times from Kazan to destination cities.</p>

@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru" dir="ltr">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Халяль мясо из Казани в Казахстан | Казанские Деликатесы</title>
@@ -42,6 +48,30 @@ li{margin-bottom:8px}
 .cta a.wa{background:#25d366;color:#fff}
 footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}
 footer a{color:#888;text-decoration:none}</style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <div class="container">
@@ -59,7 +89,7 @@ footer a{color:#888;text-decoration:none}</style>
 <li>Условия поставки: EXW Казань (Incoterms 2020); иные условия — по согласованию.</li>
 <li>Документы: халяль-свидетельство, ветеринарные сертификаты, декларации соответствия ЕАЭС.</li>
 <li>Расчёты: RUB, USD, KZT, UZS, KGS, BYN, AZN.</li>
-<li>Ассортимент: 77 наименований халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.</li>
+<li>Ассортимент: 64 наименования халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.</li>
 <li>Private Label / СТМ: производство под маркой заказчика от 500 кг/мес.</li>
 <li>Страна входит в ЕАЭС — упрощённое таможенное оформление.</li>
 </ul></div>

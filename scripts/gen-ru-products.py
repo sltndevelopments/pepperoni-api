@@ -4,9 +4,11 @@ import json
 import os
 import re
 import urllib.parse
+import urllib.request
 from datetime import datetime
 
 OUT = "public/products"
+LCP_IMG_DIR = "public/images/products"
 PRODUCTS_JSON = "public/products.json"
 SYMS = {"USD": "$", "KZT": "₸", "UZS": "UZS", "KGS": "KGS", "BYN": "BYN", "AZN": "AZN"}
 
@@ -16,66 +18,109 @@ SECTION_OG = {
     "Выпечка": "https://pepperoni.tatar/og-bakery-en.png",
 }
 
-SECTION_IMAGE_POOLS = {
-    "Заморозка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_iz_gov.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730310/sosiski_2_masa_1.2_c1zz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_dla_hot_dogov_d.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700280/0413-FELI4477_mluz2n.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730316/sosiski_tri_perza_s_syr.jpg",
-    ],
-    "Охлаждённая продукция": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku_xexv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730441/sosiski_k_zavtraku_4_tw.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730442/sosiski_k_zavtraku_2_un.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730443/sosiski_k_zavtraku_3_hv.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730429/sosiski_neznye_apvsmk.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730430/sosiski_neznaa_jqh4xv.jpg",
-    ],
-    "Выпечка": [
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602962/products/gubadiya-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778602961/products/gubadiya.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667341/products/kd-060.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604348/products/cheburek-v-raz.jpg",
-        "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778604346/products/cheburek.jpg",
-    ],
-}
-
 CATEGORY_OG = {
     "Сосиски гриль для хот-догов": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
-    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.jpg",
+    "Котлеты для бургеров": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730323/kotleta_gotovaa_1.1_zthudt.jpg",
     "Топпинги": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730328/pepperoni_ikic7r.jpg",
-    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730471/sosiski_k_zavtraku.jpg",
-    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730371/vetcina_iz_indeiki.jpg",
-    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730372/servlat_bolshoi.jpg",
-    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka.jpg",
-    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
-    "Классическая выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1778667339/products/kd-059.jpg",
+    "Сосиски, сардельки": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730471/sosiski_k_zavtraku_xexvj5.jpg",
+    "Ветчины": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730359/kurinaa_vetcina_iclj6f.jpg",
+    "Вареные": "https://res.cloudinary.com/duygfl3vz/image/upload/products/kolbasa-varenaya-govyadina.jpg",
+    "Копченые": "https://res.cloudinary.com/duygfl3vz/image/upload/v1772730364/kolbasa_polukopcenaa_iz_govadiny_xkbeao.jpg",
+    "Премиум Казылык": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772700368/kyzylyk_i_upakovka_1.4_rv2hvw.jpg",
+    "Национальная татарская выпечка": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/products/gubadiya-v-razreze.jpg",
+    # «Классическая выпечка» намеренно отсутствует: kd-059..064.jpg на Cloudinary —
+    # фото национальной выпечки под старой нумерацией SKU; fallback = SECTION_OG.
     "Мясные заготовки": "https://res.cloudinary.com/duygfl3vz/image/upload/w_800/v1772730305/sosiski_v_razreze_iz_govadiny_vonrzp.jpg",
 }
 
 
+def _cloudinary_asset_key(url: str) -> str:
+    """Basename of Cloudinary public_id for dedupe/labels (ignores transforms)."""
+    if not url:
+        return ""
+    path = urllib.parse.unquote(str(url).split("?")[0]).rstrip("/")
+    return path.split("/")[-1].lower()
+
+
+def _load_image_sources():
+    """SKU -> исходные Cloudinary-URL из data/image_manifest.json.
+
+    В products.json лежат зеркальные kd-NNN-pack.jpg (имя слота, не содержимого),
+    поэтому подписи миниатюр берём из исходных имён файлов."""
+    path = os.path.join(os.path.dirname(__file__), "..", "data", "image_manifest.json")
+    try:
+        with open(path, encoding="utf-8") as f:
+            m = json.load(f)
+        return {k: v for k, v in m.items() if isinstance(v, dict)}
+    except Exception:
+        return {}
+
+
+IMAGE_SOURCES = _load_image_sources()
+
+
+# Общие слова маркетингового шаблона overrides — не считаются идентификацией товара.
+_OVERRIDE_STOPWORDS = {
+    "применение", "применения", "сегменте", "сегментах", "сегмент", "опт", "оптовой",
+    "оптовых", "оптовом", "торговле", "торговли", "horeca", "стм", "продукт", "продукта",
+    "продукции", "использование", "использования", "категории", "категория",
+    "профессиональной", "кухне", "кухни", "описание", "формат", "форматы", "форматах",
+    "целевая", "аудитория", "решение", "поставок", "поставках", "поставки", "закупках",
+    "закупки", "каналах", "каналы", "сфера", "сферы", "универсальное", "premium", "premуim",
+    "application", "wholesale", "buyers", "culinary", "versatility", "suitability", "use",
+    "cases", "product", "menu", "integration", "who", "suits", "смоked", "smoked", "for",
+    "and", "the", "half", "delicacy", "boiled", "sausage",
+    "халяль", "казань", "казанские", "деликатесы", "мясные", "заготовки",
+    "татарская", "национальная", "выпечка", "классическая", "копченые", "копченый",
+}
+
+
+def _ident_tokens(text: str) -> set:
+    """Значимые токены названия (без общих шаблонных слов)."""
+    text = (text or "").lower().replace("ё", "е")
+    return {t for t in re.findall(r"[a-zа-я0-9]{3,}", text) if t not in _OVERRIDE_STOPWORDS}
+
+
+def override_matches_product(override_html: str, product_name_ru: str) -> bool:
+    """True, если override действительно про этот товар.
+
+    После перенумерации SKU файлы data/product_overrides/kd-NNN «съехали» на
+    чужие товары (эчпочмак с текстом про в/к Рамазан и т.п.). Проверяем: хотя бы
+    один значимый токен названия товара встречается в первых заголовках override.
+    Если нет — считаем override чужим и НЕ подключаем (лучше без блока, чем ложь).
+    """
+    want = _ident_tokens(product_name_ru)
+    if not want:
+        return False
+    heads = " ".join(re.findall(r"<h[12][^>]*>(.*?)</h[12]>", override_html[:1200], re.I | re.S))
+    have = _ident_tokens(re.sub(r"<[^>]+>", " ", heads))
+    return bool(want & have)
+
+
+def gallery_thumb_label(url: str, fallback: str) -> str:
+    """Label from filename — Sheets pack/slice columns are often swapped for bakery."""
+    key = _cloudinary_asset_key(url)
+    if any(x in key for x in ("razrez", "v-raz", "srez", "narezk", "razreze")):
+        return "В разрезе"
+    if any(x in key for x in ("upakov", "pack", "box", "kraft")):
+        return "Упаковка"
+    # Don't trust column name when filename doesn't match (e.g. whole pie in «срез»).
+    if fallback in ("В разрезе", "Упаковка"):
+        return "Фото"
+    return fallback
+
+
 def jsonld_image_list(main, pack, slice_img, section, category):
-    """5–7 images for GMC Превосходно (Изображений на предложение)."""
+    """Own product images only — never pad with other SKUs (caused 404 + wrong photos)."""
     imgs = []
     for u in (main, pack, slice_img):
         if u and u not in imgs:
             imgs.append(u)
-    # Add rich section visuals
-    pool = SECTION_IMAGE_POOLS.get(section or "", []) if "SECTION_IMAGE_POOLS" in globals() else []
-    for u in pool:
-        if u and u not in imgs:
-            imgs.append(u)
-        if len(imgs) >= 7:
-            break
-    if len(imgs) < 2:
+    if not imgs:
         for fb in (CATEGORY_OG.get(category or ""), SECTION_OG.get(section or "")):
             if fb and fb not in imgs:
                 imgs.append(fb)
-            if len(imgs) >= 2:
+            if imgs:
                 break
     if not imgs:
         imgs = ["https://pepperoni.tatar/og-default.png"]
@@ -180,11 +225,11 @@ def category_deep_content(category, name, section):
              "Да, котлеты халяль из говядины и/или курицы, произведены по стандартам халяль."),
         ]
     elif "копчен" in cat or "пепперони" in nm.lower():
-        app = (f"«{nm}» — сырокопчёная/варёно-копчёная продукция для нарезки, "
+        app = (f"«{nm}» — варёно-копчёная / копчёная продукция для нарезки, "
                "пиццы и сэндвич-меню HoReCa, а также для розницы и "
                "дистрибуции. Пепперони и копчёные колбасы держат нарезку, не "
                "расплываются на пицце и дают равномерный рисунок. Поставляем "
-               "оптом; доступна нарезка газовой среде (МГС) и поставка под СТМ.")
+               "оптом; доступна нарезка в газовой среде (МГС) и поставка под СТМ.")
         faq = [
             ("Можно купить пепперони/копчёную колбасу оптом?",
              "Да, поставляем оптом для пиццерий, HoReCa и дистрибьюторов — батоном или в нарезке. Цена и минимальный заказ по запросу."),
@@ -255,20 +300,45 @@ def category_deep_content(category, name, section):
     return common + faq_html, faq
 
 
+def _cloudinary_public_id(url_or_pid: str) -> str:
+    """Extract Cloudinary public_id, preserving folders like products/kd-059.jpg.
+
+    Older regex kept only the filename and dropped `products/…`, which 404'd
+    transforms for bakery/newer uploads stored under that folder.
+    """
+    pid = str(url_or_pid).strip()
+    if "cloudinary.com" not in pid or "/upload/" not in pid:
+        return pid
+    try:
+        last_part = pid.split("/upload/")[-1].split("?")[0]
+        segs = [s for s in last_part.split("/") if s]
+        # Drop leading transform segments (comma-lists or flag prefixes).
+        while segs and (
+            "," in segs[0]
+            or re.match(r"^(f_|q_|w_|h_|c_|g_|l_|fl_|e_|dpr_|b_|t_|a_|r_|o_)", segs[0])
+        ):
+            segs.pop(0)
+        return "/".join(segs) if segs else last_part.split("/")[-1]
+    except Exception:
+        return pid
+
+
 def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
-    """Build Cloudinary URL; if via_proxy, return /api/health?u=... for fallback when direct fails."""
+    """Build Cloudinary URL.
+
+    via_proxy=True used to return /api/health?u=… as onerror fallback. That path
+    falls through nginx try_files → @vercel and returns a 403 Vercel challenge
+    (not an image), so catalog photos broke when the primary URL failed.
+    Fallback is now a plain Cloudinary URL without text overlay.
+    """
     if not pid or not str(pid).strip():
         return ""
-    pid = str(pid).strip()
-    # Если пришла полная ссылка — вытащим ID (v123/name.jpg или name.jpg)
-    if "cloudinary.com" in pid:
-        try:
-            parts = pid.split("/upload/")
-            last_part = parts[-1].split("?")[0]
-            m = re.search(r"(v\d+/.+)|([^/]+\.(?:jpg|jpeg|png|webp))", last_part)
-            pid = m.group(1) or m.group(2) if m else last_part.split("/")[-1]
-        except Exception:
-            return pid
+    s = str(pid).strip()
+    # Same-origin зеркало (sync скачал файл в public/images/products/) —
+    # отдаём как есть: Cloudinary за Cloudflare недоступен части РФ-провайдеров.
+    if s.startswith("https://pepperoni.tatar/images/") or s.startswith("/images/"):
+        return s if s.startswith("http") else "https://pepperoni.tatar" + s
+    pid = _cloudinary_public_id(pid)
     if not pid:
         return ""
     # Добавляем .jpg если нет расширения изображения
@@ -290,13 +360,26 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
         thumb_size = "w_640,h_427,c_fill,g_auto"
     else:
         thumb_size = "w_800,h_533,c_fill,g_auto"
-    thumb = f"f_auto,q_auto,{thumb_size}/l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    # LCP main (≤640): no text overlay — cold transforms of 6k masters + l_text
+    # cost multi-second TTFB in PSI lab. Watermark stays on full lightbox + lazy thumbs.
+    thumb_lcp = f"f_auto,q_auto,{thumb_size}/"
+    thumb_wm = (
+        f"f_auto,q_auto,{thumb_size}/"
+        f"l_text:Arial_50_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
+    )
     full = "f_auto,q_auto,w_1920,c_limit/l_text:Arial_100_bold:KAZAN_DELIKATES,co_rgb:FFFFFF,o_30/fl_layer_apply,g_center/"
-    transform = full if is_full else thumb
-    remote = f"{base}{transform}{pid}?v=3"
+    full_plain = "f_auto,q_auto,w_1920,c_limit/"
     if via_proxy:
-        return f"/api/health?u={urllib.parse.quote(remote, safe='')}"
-    return remote
+        # Plain CDN fallback — never /api/health (broken Vercel 403).
+        transform = full_plain if is_full else thumb_lcp
+        return f"{base}{transform}{pid}?v=4"
+    if is_full:
+        transform = full
+    elif thumb_w <= 640:
+        transform = thumb_lcp
+    else:
+        transform = thumb_wm
+    return f"{base}{transform}{pid}?v=4"
 
 
 # Honest Merchant-listing fields. The business is B2B/EXW Казань (Incoterms 2020):
@@ -330,9 +413,48 @@ def load_products():
     return []
 
 
+def materialize_lcp_image(slug, cloudinary_url):
+    """Download LCP thumb to same-origin /images/products/ — avoids multi-second Cloudinary cold TTFB in PSI."""
+    if cloudinary_url and cloudinary_url.startswith("https://pepperoni.tatar/images/"):
+        # Уже same-origin зеркало из sync — просто относительный путь.
+        return cloudinary_url[len("https://pepperoni.tatar"):]
+    if not cloudinary_url or not cloudinary_url.startswith("https://res.cloudinary.com/"):
+        return cloudinary_url
+    os.makedirs(LCP_IMG_DIR, exist_ok=True)
+    # Prefer webp path; rewrite if Cloudinary returns jpeg
+    dest_webp = os.path.join(LCP_IMG_DIR, f"{slug}-lcp.webp")
+    dest_jpg = os.path.join(LCP_IMG_DIR, f"{slug}-lcp.jpg")
+    for existing in (dest_webp, dest_jpg):
+        if os.path.isfile(existing) and os.path.getsize(existing) > 1000:
+            return "/" + existing.replace("\\", "/").split("public/", 1)[-1]
+    try:
+        req = urllib.request.Request(
+            cloudinary_url, headers={"User-Agent": "pepperoni-lcp-materialize/1"}
+        )
+        with urllib.request.urlopen(req, timeout=90) as resp:
+            data = resp.read()
+            ctype = (resp.headers.get("Content-Type") or "").lower()
+        if not data or len(data) < 500:
+            return cloudinary_url
+        if "jpeg" in ctype or "jpg" in ctype:
+            dest = dest_jpg
+            local = f"/images/products/{slug}-lcp.jpg"
+        else:
+            dest = dest_webp
+            local = f"/images/products/{slug}-lcp.webp"
+        with open(dest, "wb") as f:
+            f.write(data)
+        return local
+    except Exception as e:
+        print(f"  warn: LCP materialize failed for {slug}: {e}")
+        return cloudinary_url
+
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
+    materialized = 0
+    skipped_overrides = []
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -358,14 +480,32 @@ def main():
         gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
         article = p.get("articleNumber") or p["sku"]
 
+        # Порядок фото задан data/image_manifest.json (применяется в sync) —
+        # генератор ничего не переставляет и не «улучшает».
         main_raw = (p.get("imageMain") or p.get("image") or "").strip()
         pack_raw = (p.get("imagePack") or "").strip()
         slice_raw = (p.get("imageSlice") or "").strip()
+        if not main_raw:
+            main_raw = pack_raw or slice_raw or ""
 
-        main_img = cloudinary_url(main_raw, False, 640, False)
+        main_cdn = cloudinary_url(main_raw, False, 640, False)
         main_img_proxy = cloudinary_url(main_raw, False, 640, True)
         main_full = cloudinary_url(main_raw, True, None, False)
         main_full_proxy = cloudinary_url(main_raw, True, None, True)
+        main_img = materialize_lcp_image(slug, main_cdn)
+        if main_img.startswith("/images/products/"):
+            materialized += 1
+            # Same-origin LCP; keep CDN as onerror fallback
+            main_img_proxy = main_cdn
+        def _abs(u):
+            if not u:
+                return ""
+            if u.startswith("http"):
+                return u
+            if u.startswith("/"):
+                return "https://pepperoni.tatar" + u
+            return u
+        og_img = _abs(main_img) or "https://pepperoni.tatar/og-default.png"
         pack_img = cloudinary_url(pack_raw, False, 800, False)
         pack_img_proxy = cloudinary_url(pack_raw, False, 800, True)
         pack_full = cloudinary_url(pack_raw, True, None, False)
@@ -375,7 +515,7 @@ def main():
         slice_full = cloudinary_url(slice_raw, True, None, False)
         slice_full_proxy = cloudinary_url(slice_raw, True, None, True)
         jsonld_images = jsonld_image_list(
-            main_img or None, pack_img or None, slice_img or None,
+            _abs(main_img) or None, pack_img or None, slice_img or None,
             p.get("section", ""), p.get("category", ""),
         )
 
@@ -385,13 +525,34 @@ def main():
         img_style = "max-width:100%;height:auto;border-radius:8px;object-fit:cover;width:100%;cursor:pointer;background:transparent"
         img_attrs = 'oncontextmenu="return false;" ondragstart="return false;" onerror="if(this.dataset.proxy){this.onerror=null;this.src=this.dataset.proxy}"'
         thumbs = []
-        for label, url, proxy, full, full_proxy in [("Упаковка", pack_img, pack_img_proxy, pack_full, pack_full_proxy), ("В разрезе", slice_img, slice_img_proxy, slice_full, slice_full_proxy)]:
-            if url:
-                thumbs.append(f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button"><img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>')
+        srcs = IMAGE_SOURCES.get(p["sku"].upper()) or {}
+        main_keys = {
+            _cloudinary_asset_key(srcs.get("imageMain", "")),
+            _cloudinary_asset_key(main_raw),
+            _cloudinary_asset_key(main_cdn),
+            _cloudinary_asset_key(main_img),
+        }
+        main_keys.discard("")
+        for fallback_label, raw, src_u, url, proxy, full, full_proxy in [
+            ("Упаковка", pack_raw, srcs.get("imagePack", ""), pack_img, pack_img_proxy, pack_full, pack_full_proxy),
+            ("В разрезе", slice_raw, srcs.get("imageSlice", ""), slice_img, slice_img_proxy, slice_full, slice_full_proxy),
+        ]:
+            if not url:
+                continue
+            key = _cloudinary_asset_key(src_u) or _cloudinary_asset_key(raw) or _cloudinary_asset_key(url)
+            if key and key in main_keys:
+                continue  # same asset as hero — skip duplicate thumb
+            label = gallery_thumb_label(src_u or raw or url, fallback_label)
+            thumbs.append(
+                f'<span class="lightbox-trigger" data-alt="{html_esc(name)} — {label}" '
+                f'data-full="{full}" data-full-proxy="{full_proxy}" tabindex="0" role="button">'
+                f'<img src="{url}" data-proxy="{proxy}" alt="{html_esc(name)} — {label}" '
+                f'class="{img_class}" style="{img_style}" width="800" height="533" loading="lazy" {img_attrs}/></span>'
+            )
 
         img_html = ""
         if main_img:
-            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="sync" {img_attrs}/></span>'
+            main_tag = f'<span class="lightbox-trigger" data-alt="{alt_main}" data-full="{main_full}" data-full-proxy="{main_full_proxy}" tabindex="0" role="button"><img src="{main_img}" data-proxy="{main_img_proxy}" alt="{alt_main}" class="{img_class}" style="{img_style}" width="640" height="427" loading="eager" fetchpriority="high" decoding="async" {img_attrs}/></span>'
             if thumbs:
                 img_html = f'<div class="product-gallery"><div class="product-main-img">{main_tag}</div><div class="product-thumbs">{"".join(thumbs)}</div></div>'
             else:
@@ -437,9 +598,22 @@ def main():
         override_path = os.path.join("data", "product_overrides", f"{p['sku'].lower()}.html")
         if os.path.exists(override_path):
             with open(override_path, encoding="utf-8") as _ovf:
-                deep_html = deep_html + "\n" + _ovf.read()
+                _ov_html = _ovf.read()
+            # SKU-remap оставил overrides привязанными к старым номерам → часть
+            # описывает чужой товар. Подключаем только если override про этот SKU.
+            if override_matches_product(_ov_html, str(p.get("name") or "")):
+                deep_html = deep_html + "\n" + _ov_html
+            else:
+                skipped_overrides.append(p["sku"])
 
-        preload_main = f'<link rel="preconnect" href="https://res.cloudinary.com" crossorigin><link rel="preload" as="image" href="{main_img}" fetchpriority="high">' if main_img else ""
+        # Галерея целиком same-origin (зеркала) — preconnect к Cloudinary нужен
+        # только если зеркалирование не удалось и src остался внешним.
+        _needs_cdn = "res.cloudinary.com" in (main_img or "")
+        preload_main = (
+            (f'<link rel="preconnect" href="https://res.cloudinary.com">' if _needs_cdn else "")
+            + f'<link rel="preload" as="image" href="{main_img}" fetchpriority="high">'
+            if main_img else ""
+        )
 
         suffix_ru = " — Казанские Деликатесы | Халяль"
         max_name_len = 70 - len(suffix_ru)
@@ -467,17 +641,15 @@ def main():
 <meta property="og:title" content="{name} — Казанские Деликатесы">
 <meta property="og:description" content="{seo_desc[:200]}">
 <meta property="og:url" content="https://pepperoni.tatar/products/{slug}">
-<meta property="og:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta property="og:image" content="{og_img}">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{name} — Казанские Деликатесы">
 <meta name="twitter:description" content="{seo_desc[:200]}">
-<meta name="twitter:image" content="{main_img or 'https://pepperoni.tatar/og-default.png'}">
+<meta name="twitter:image" content="{og_img}">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
-<script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':new Date().getTime(),event:'gtm.js'}});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);}})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
-<script type="text/javascript">(function(m,e,t,r,i,k,a){{m[i]=m[i]||function(){{(m[i].a=m[i].a||[]).push(arguments)}};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){{if(document.scripts[j].src===r)return}}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);}})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"}});</script>
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
@@ -502,11 +674,11 @@ body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
 .product-thumbs img{{display:block;width:100%;max-width:none;aspect-ratio:3/2;height:auto;object-fit:cover;cursor:pointer;border:2px solid transparent;transition:border-color .2s}}
 .product-thumbs img:hover{{border-color:#1b7a3d}}
 .product-thumbs .lightbox-trigger{{display:inline-block}}
-.lightbox-trigger{{cursor:pointer}}
-.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none}}
-.lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer}}
-.lightbox img{{max-width:100%;max-height:100%;object-fit:contain;border-radius:8px;cursor:default;user-select:none;-webkit-user-drag:none}}
-.lightbox-close{{position:absolute;top:16px;right:16px;width:40px;height:40px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333}}
+.lightbox-trigger{{cursor:pointer;touch-action:manipulation;-webkit-tap-highlight-color:transparent}}
+.product-img{{max-width:100%;height:auto;border-radius:8px;object-fit:cover;user-select:none;-webkit-user-drag:none;pointer-events:none}}
+.lightbox{{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;padding:20px;cursor:pointer;-webkit-overflow-scrolling:touch}}
+.lightbox img{{max-width:100%;max-height:100%;max-height:100dvh;object-fit:contain;border-radius:8px;cursor:default;user-select:none;-webkit-user-drag:none;pointer-events:auto}}
+.lightbox-close{{position:absolute;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));width:44px;height:44px;background:#fff;border:none;border-radius:50%;cursor:pointer;font-size:24px;line-height:1;color:#333;z-index:1;touch-action:manipulation}}
 .lightbox-close:hover{{background:#eee}}
 .product-info{{background:#fff;border-radius:12px;padding:24px;box-shadow:0 1px 3px rgba(0,0,0,.08)}}
 .price-block{{font-size:1.75rem;font-weight:700;color:#1b7a3d;margin:16px 0}}
@@ -583,6 +755,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             if pp:
                 pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
                 html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
+        # Bakery: pricePerBoxExclVAT is box wholesale, not an "export" currency.
+        if is_bakery and p["offers"].get("pricePerBoxExclVAT"):
+            box_ex = p["offers"]["pricePerBoxExclVAT"]
+            try:
+                box_ex_fmt = f"{float(box_ex):,.2f}".replace(",", " ").replace(".", ",")
+            except (TypeError, ValueError):
+                box_ex_fmt = str(box_ex)
+            html += (
+                f'<div style="margin-top:6px;font-size:.9rem;color:#444">'
+                f'Цена за коробку без НДС: <b>{box_ex_fmt} ₽</b></div>\n'
+            )
+            price_no_vat = p["offers"].get("priceExclVAT") or ""
         if price_no_vat or ep:
             html += '<h2 class="section-title" style="margin-top:20px">Экспортные цены</h2><div class="export-prices">'
             if price_no_vat:
@@ -601,6 +785,20 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <a href="https://wa.me/79872170202" target="_blank" rel="noopener" class="wa-order-btn">{wa_svg}WhatsApp</a>
 <a href="tel:+79872170202" style="background:#1b7a3d;color:#fff">📞 +7 987 217-02-02</a>
 <a href="mailto:info@kazandelikates.tatar?subject={subj}" style="border:2px solid #1b7a3d;color:#1b7a3d">📧 Написать</a>
+
+<form class="lead-form" novalidate style="margin-top:16px;border-top:1px solid #cce3cc;padding-top:14px;display:grid;gap:8px">
+  <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem">
+  <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem">
+  <textarea name="message" rows="2" placeholder="Объём (кг), город, заведение" style="padding:8px 10px;border:1px solid #ccc;border-radius:6px;font:inherit;font-size:.85rem;resize:vertical"></textarea>
+  <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+  <label style="display:flex;gap:6px;align-items:flex-start;font-size:.75rem;color:#555;line-height:1.3;margin:4px 0">
+    <input type="checkbox" name="consent" required style="margin-top:2px;flex:none">
+    <span>Согласен на обработку персональных данных (<a href="/privacy" target="_blank" style="color:#1b7a3d">152-ФЗ</a>).</span>
+  </label>
+  <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:10px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer">Запросить прайс</button>
+  <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.8rem;margin:0"></p>
+</form>
+<script src="/assets/lead-form.js" defer></script>
 </div>
 </div>
 </div>
@@ -629,26 +827,82 @@ document.addEventListener("click",function(e){
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
-  el.addEventListener("click",function(){
+  function openLightbox(e){
+    if(e){e.preventDefault();e.stopPropagation();}
     var full=el.getAttribute("data-full");if(!full)return;
+    if(document.querySelector(".lightbox"))return;
     var fullProxy=el.getAttribute("data-full-proxy")||"";
     var m=document.createElement("div");m.className="lightbox";
-    var btn=document.createElement("button");btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
-    var img=document.createElement("img");img.src=full;img.alt=el.getAttribute("data-alt")||"Фото продукта";img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
+    m.setAttribute("role","dialog");m.setAttribute("aria-modal","true");
+    var btn=document.createElement("button");btn.type="button";btn.className="lightbox-close";btn.setAttribute("aria-label","Закрыть");btn.textContent="×";
+    var img=document.createElement("img");img.src=full;img.alt=el.getAttribute("data-alt")||"Фото продукта";
+    img.oncontextmenu=function(){return false};img.ondragstart=function(){return false};
     if(fullProxy){img.onerror=function(){this.onerror=null;this.src=fullProxy;};}
+    function close(){
+      if(m.parentNode)document.body.removeChild(m);
+      document.body.style.overflow="";
+      document.removeEventListener("keydown",onKey);
+    }
+    function onKey(ev){if(ev.key==="Escape")close();}
     m.appendChild(btn);m.appendChild(img);
-    m.onclick=function(ev){if(ev.target===m||ev.target===btn){document.body.removeChild(m);document.body.style.overflow="";}};
-    img.onclick=function(ev){ev.stopPropagation();};
-    document.body.style.overflow="hidden";document.body.appendChild(m);
+    // Opening tap must not hit the new overlay (iOS/Android ghost-click).
+    m.style.pointerEvents="none";
+    document.body.style.overflow="hidden";
+    document.body.appendChild(m);
+    document.addEventListener("keydown",onKey);
+    setTimeout(function(){
+      m.style.pointerEvents="";
+      m.addEventListener("click",function(ev){
+        if(ev.target===m||ev.target===btn)close();
+      });
+      btn.addEventListener("click",function(ev){ev.preventDefault();ev.stopPropagation();close();});
+      img.addEventListener("click",function(ev){ev.stopPropagation();});
+    },350);
+  }
+  el.addEventListener("click",openLightbox);
+  el.addEventListener("keydown",function(e){
+    if(e.key==="Enter"||e.key===" "){e.preventDefault();openLightbox(e);}
   });
 });
 </script>
+<!-- Analytics deferred past LCP (match homepage) -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>
+<script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});</script>
 </body>
 </html>'''
         path = os.path.join(OUT, f"{slug}.html")
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
     print(f"Generated {len(products)} RU product pages in {OUT}/")
+    print(f"Materialized {materialized} same-origin LCP images in {LCP_IMG_DIR}/")
+    if skipped_overrides:
+        print(f"Пропущено чужих overrides (SKU-remap, не про этот товар): "
+              f"{len(skipped_overrides)}: {', '.join(skipped_overrides)}")
+    remove_orphan_pages(products)
+
+
+def remove_orphan_pages(products):
+    """Delete stale product HTML files for SKUs that no longer exist.
+
+    Without this, a SKU whose numeric suffix shifts (e.g. Google Sheets rows
+    reordered) leaves its old page live forever — a "ghost" product page
+    that's still linked from sitemap/category pages but absent from the
+    live catalog. See data/audit_reconcile.md (2026-07-03) for the incident
+    this fixes.
+    """
+    live_slugs = {p["sku"].lower() for p in products}
+    if not os.path.isdir(OUT):
+        return
+    removed = []
+    for fname in os.listdir(OUT):
+        if not fname.endswith(".html"):
+            continue
+        slug = fname[: -len(".html")]
+        if re.fullmatch(r"kd-\d+", slug) and slug not in live_slugs:
+            os.remove(os.path.join(OUT, fname))
+            removed.append(fname)
+    if removed:
+        print(f"Removed {len(removed)} orphan product page(s) from {OUT}/: {', '.join(sorted(removed))}")
 
 
 if __name__ == "__main__":

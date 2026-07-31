@@ -165,15 +165,15 @@ def action_hot_leads() -> str:
     rows = store.list_hot_leads(10)
     if not rows:
         return (
-            "🔥 Горячих лидов пока нет.\n\n"
-            "<i>Агент сам шлёт холодняк (Opus). Сюда попадают заинтересованные — "
-            "с контактами для личного звонка.</i>"
+            "🎯 Переданных лидов пока нет.\n\n"
+            "<i>Входящий интерес и крупные приоритетные компании показываются отдельно.</i>"
         )
-    lines = ["<b>🔥 Заинтересованные — звони лично</b>"]
+    lines = ["<b>🎯 Передано владельцу</b>"]
     for r in rows:
         p = r.get("profile") or {}
-        reason = p.get("escalation_reason", "интерес")
-        lines.append(f"\n{format_contacts(r)}\n<i>{reason[:200]}</i>")
+        label = "🔥 подтвердил интерес" if p.get("interest_confirmed") else "🎯 приоритетная компания"
+        reason = p.get("escalation_reason", "причина не указана")
+        lines.append(f"\n<b>{label}</b>\n{format_contacts(r)}\n<i>{reason[:200]}</i>")
     return "\n".join(lines)
 
 
