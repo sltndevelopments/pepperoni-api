@@ -31,9 +31,13 @@ DB_PATH = DATA / "seo_data.db"
 from importlib import import_module as _im
 try:
     _cc = _im("claude_client")
-    CONTENT_MODEL = _cc.CONTENT_MODEL   # haiku by default, env-overridable
+    CONTENT_MODEL = _cc.CONTENT_MODEL   # Sonnet by default, env-overridable
 except Exception:
-    CONTENT_MODEL = "claude-haiku-4-5-20251001"
+    # Defensive fallback if the shared client fails to import — must match
+    # claude_client.DEFAULT_MODEL's family (Sonnet), NOT Haiku: Haiku tested
+    # 2026-06-21 at 40% page_reviewer pass rate vs 88% for Sonnet on this
+    # long-HTML/strict-negative-constraints workload.
+    CONTENT_MODEL = "claude-sonnet-5"
 
 # GEO_MODEL: override per-run (e.g. for A/B tests). Defaults to CONTENT_MODEL.
 GEO_MODEL = os.environ.get("GEO_MODEL", "").strip() or CONTENT_MODEL

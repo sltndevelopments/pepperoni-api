@@ -62,9 +62,12 @@ try:
 except Exception:
     _HAS_REQUESTS = False
 
-DEFAULT_MODEL  = "claude-sonnet-4-6"
-FALLBACK_MODEL = "claude-sonnet-4-5"   # convenience alias to latest 4.5 snapshot
+DEFAULT_MODEL  = "claude-sonnet-5"
+FALLBACK_MODEL = "claude-sonnet-4-6"   # one gen back; used if sonnet-5 404s on this account/region
 CHEAP_MODEL    = "claude-haiku-4-5-20251001"
+# Deliberately NOT bumped to a 5-gen model: this is the emergency fallback when
+# Haiku itself 404s, and we want a cheap, well-understood cost profile here,
+# not a model whose default `effort` may be "high" (see _supports_effort below).
 CHEAP_FALLBACK = "claude-sonnet-4-6"
 # Content generation model: fast executor for templated tasks where the
 # page_reviewer (Sonnet) is the quality gate. Decoupled from DEFAULT_MODEL so
@@ -74,7 +77,7 @@ CHEAP_FALLBACK = "claude-sonnet-4-6"
 CONTENT_MODEL  = os.environ.get("CONTENT_MODEL", DEFAULT_MODEL)
 
 # Advisor (beta): smart model coaches the cheap executor inside one request.
-ADVISOR_MODEL = os.environ.get("ADVISOR_MODEL", "claude-opus-4-8")
+ADVISOR_MODEL = os.environ.get("ADVISOR_MODEL", "claude-opus-5")
 ADVISOR_BETA = "advisor-tool-2026-03-01"
 ADVISOR_ENABLE = os.environ.get("ADVISOR_ENABLE", "1") != "0"
 _ADVISOR_BROKEN = False  # set True after a hard 4xx so we stop retrying it
@@ -88,10 +91,15 @@ DEEPSEEK_API_KEY = ANTHROPIC_API_KEY
 CLAUDE_API_KEY = ANTHROPIC_API_KEY
 
 # ── Pricing ($ per MTok: input, output, cache_write_5m, cache_read) ──────────
+# NOTE: Opus price fixed 2026-07-31 — was (15, 75, 18.75, 1.50), the OLD Opus
+# rate. Opus 4.8/5 actually bill at (5, 25, 6.25, 0.50) (matches
+# opus_brain_client.py's PRICE_* constants). The stale 3x rate was silently
+# inflating every Opus line in data/llm_costs.json (advisor calls, escalate
+# runs) — ledger numbers before this date overstate true Opus spend ~3x.
 PRICES = {
     "claude-sonnet": (3.0, 15.0, 3.75, 0.30),
     "claude-haiku": (1.0, 5.0, 1.25, 0.10),
-    "claude-opus": (15.0, 75.0, 18.75, 1.50),
+    "claude-opus": (5.0, 25.0, 6.25, 0.50),
     "claude-fable": (10.0, 50.0, 12.50, 1.00),
     # Perplexity (pplx_client.py logs into the same ledger):
     "pplx-sonar-pro": (3.0, 15.0, 0.0, 0.0),
@@ -314,11 +322,20 @@ def _make_request(data: bytes, headers: dict, timeout: int = None) -> bytes:
 # ── Request building / response parsing ──────────────────────────────────────
 def _supports_effort(model: str) -> bool:
     """output_config.effort is supported on Sonnet 4.6+, Opus 4.5+, Fable,
-    Mythos — but NOT on Haiku (batch items with it get invalid_request)."""
+    Mythos — but NOT on Haiku (batch items with it get invalid_request).
+
+    IMPORTANT: on the 5-gen models (claude-sonnet-5, claude-opus-5), Anthropic
+    defaults `effort` to "high" with thinking on by default — i.e. if this
+    function doesn't recognize the model, every caller that explicitly asks
+    for effort="medium" to control cost (generate_geo_bulk, generate_from_
+    strategy) silently falls back to the model's own default (high) and
+    spends MORE, not less. Any new model added to DEFAULT_MODEL/ADVISOR_MODEL
+    must be added here too."""
     return (model.startswith(("claude-fable", "claude-mythos"))
-            or model.startswith("claude-sonnet-4-6")
+            or model.startswith(("claude-sonnet-4-6", "claude-sonnet-5"))
             or model.startswith(("claude-opus-4-5", "claude-opus-4-6",
-                                 "claude-opus-4-7", "claude-opus-4-8")))
+                                 "claude-opus-4-7", "claude-opus-4-8",
+                                 "claude-opus-5")))
 
 
 def _strict_schema(schema):

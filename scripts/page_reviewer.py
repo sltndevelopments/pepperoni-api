@@ -337,7 +337,7 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
     try:
         from claude_client import call_claude
         raw, _ = call_claude(prompt, system=_CRITERIA, max_tokens=1024,
-                             model="claude-sonnet-4-6")
+                             model="claude-sonnet-5")
         # Strip markdown fences if model wrapped the JSON
         raw = re.sub(r"^```[a-z]*\n?|```$", "", raw.strip(), flags=re.M).strip()
         result = json.loads(raw)

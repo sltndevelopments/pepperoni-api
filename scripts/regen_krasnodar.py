@@ -44,7 +44,7 @@ def _call_llm(system, user):
                 kwargs["http_client"] = httpx.Client(proxies={"https://": proxy})
         client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], **kwargs)
         msg = client.messages.create(
-            model="claude-sonnet-4-5",
+            model="claude-sonnet-5",
             max_tokens=6000,
             system=system,
             messages=[{"role": "user", "content": user}],

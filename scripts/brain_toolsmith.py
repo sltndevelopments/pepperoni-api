@@ -80,8 +80,8 @@ PROTECTED_AGENTS = {
 
 ALLOWED_MODELS = {
     "haiku": "claude-haiku-4-5-20251001",
-    "sonnet": "claude-sonnet-4-6",
-    "opus": "claude-opus-4-8",
+    "sonnet": "claude-sonnet-5",
+    "opus": "claude-opus-5",
 }
 DEFAULT_MODEL_KEY = "sonnet"
 

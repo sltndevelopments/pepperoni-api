@@ -58,15 +58,17 @@ except Exception:
     _HAS_REQUESTS = False
 
 # Model is configurable so you can switch brain versions without code changes.
-# Default: Claude Opus 4.8 — Fable 5 was suspended for all customers by a US
-# government export-control directive on 2026-06-12 (returns HTTP 404, recommends
-# Opus 4.8). Switch back to claude-fable-5 via OPUS_MODEL if/when it returns.
-OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-4-8")
+# Default: Claude Opus 5 (2026-07-24 release) — Fable 5 was suspended for all
+# customers by a US government export-control directive on 2026-06-12 (returns
+# HTTP 404). Opus 5 beats Fable 5 on coding/agentic benchmarks at half the
+# price and is Anthropic's recommended default for this kind of workload.
+# Switch back to claude-fable-5 via OPUS_MODEL if/when Fable returns.
+OPUS_MODEL = os.environ.get("OPUS_MODEL", "claude-opus-5")
 
 # Monthly hard cap in USD. Default 40; override with OPUS_MONTHLY_BUDGET_USD.
 MONTHLY_BUDGET_USD = float(os.environ.get("OPUS_MONTHLY_BUDGET_USD", "40"))
 
-# Pricing (USD per 1M tokens) for Opus 4.8 (half of Fable 5). Override via env.
+# Pricing (USD per 1M tokens) for Opus 4.8/5 — same rate, half of Fable 5. Override via env.
 PRICE_INPUT       = float(os.environ.get("OPUS_PRICE_INPUT",       "5"))    # fresh input
 PRICE_OUTPUT      = float(os.environ.get("OPUS_PRICE_OUTPUT",      "25"))   # output
 PRICE_CACHE_WRITE = float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")) # cache creation
@@ -74,21 +76,29 @@ PRICE_CACHE_READ  = float(os.environ.get("OPUS_PRICE_CACHE_READ",  "0.50")) # ca
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
-BUDGET_FILE = DATA / "opus_budget.json"
+# Budget file is git-tracked and shared by every consumer of this module
+# (seo_brain, escalate_brain, telegram_bot, AND sales-agent via
+# sales-agent/core/llm.py — which uses its OWN Anthropic API key). Without
+# this override, sales-agent's local runs would increment the same counter
+# that gates the SEO brain's monthly cap (and vice versa) even though the
+# two are billed on separate accounts. sales-agent sets OPUS_BUDGET_FILE in
+# its own .env so it tracks against an independent file/cap; SEO's VPS env
+# never sets this var, so its behavior is unchanged.
+BUDGET_FILE = DATA / os.environ.get("OPUS_BUDGET_FILE", "opus_budget.json")
 
 # ── Multi-tier model registry ───────────────────────────────────────────────────
 # Three tiers: "brain" (Fable 5, strategy), "voice" (Sonnet, dialogue),
 # "micro" (Haiku, cheap classification). Prices USD per 1M tokens.
 MODELS = {
     "brain": {
-        "model": os.environ.get("OPUS_MODEL", "claude-opus-4-8"),
+        "model": os.environ.get("OPUS_MODEL", "claude-opus-5"),
         "in": float(os.environ.get("OPUS_PRICE_INPUT", "5")),
         "out": float(os.environ.get("OPUS_PRICE_OUTPUT", "25")),
         "cache_write": float(os.environ.get("OPUS_PRICE_CACHE_WRITE", "6.25")),
         "cache_read": float(os.environ.get("OPUS_PRICE_CACHE_READ", "0.50")),
     },
     "voice": {
-        "model": os.environ.get("SONNET_MODEL", "claude-sonnet-4-6"),
+        "model": os.environ.get("SONNET_MODEL", "claude-sonnet-5"),
         "in": float(os.environ.get("SONNET_PRICE_INPUT", "3")),
         "out": float(os.environ.get("SONNET_PRICE_OUTPUT", "15")),
         "cache_write": float(os.environ.get("SONNET_PRICE_CACHE_WRITE", "3.75")),
@@ -197,9 +207,10 @@ def call_model(
         "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": prompt}],
     }
-    # Models with always-on adaptive thinking (claude-fable-5, claude-opus-4-8)
+    # Models with always-on adaptive thinking (claude-fable-5, claude-opus-4-8+)
     # reject `temperature` — silently drop it for them.
-    _no_temp = cfg["model"].startswith(("claude-fable", "claude-mythos", "claude-opus-4-8"))
+    _no_temp = cfg["model"].startswith(("claude-fable", "claude-mythos",
+                                        "claude-opus-4-8", "claude-opus-5"))
     if temperature is not None and not _no_temp:
         body["temperature"] = temperature
     if sys_blocks:

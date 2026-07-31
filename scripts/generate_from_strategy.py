@@ -26,7 +26,15 @@ YEAR = datetime.now().year
 
 MAX_BLOG = int(os.environ.get("MAX_STRATEGY_BLOG", "4"))
 MAX_PL   = int(os.environ.get("MAX_STRATEGY_PL", "4"))
-MAX_TOKENS = int(os.environ.get("STRATEGY_MAX_TOKENS", "4096"))
+# Was 4096 — root cause of most page_gate_log rejects (data/page_gate_log.json:
+# "тонкая страница" + "нет </html>" fire together on the SAME page, which means
+# it's one failure mode (truncation), not two. Full PL/OEM HTML with a long
+# negative-constraints system prompt routinely needs more than 4096 tokens for
+# output alone, and on Sonnet 5 `max_tokens` also has to cover thinking. Bumped
+# to 8000 (matches build_landing.py's flagship budget) so generation actually
+# finishes before the reviewer ever sees it — this was paid-for-and-rejected
+# spend, not a quality tradeoff.
+MAX_TOKENS = int(os.environ.get("STRATEGY_MAX_TOKENS", "8000"))
 
 # Canonical contacts (single source of truth; never invent others)
 PHONE_DISPLAY = "+7 987 217-02-02"

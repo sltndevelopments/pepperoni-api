@@ -24,7 +24,7 @@ Guards:
 On escalation it runs seo_brain.main() (which respects the same budget cap) and
 pings Telegram with the reason.
 
-Env: ESC_DEMAND_IMPR(80) ESC_WIN_STREAK(3) ESC_COOLDOWN_HOURS(12)
+Env: ESC_DEMAND_IMPR(110) ESC_WIN_STREAK(4) ESC_COOLDOWN_HOURS(18)
 Usage:
   python3 scripts/escalate_brain.py            # check signals, escalate if strong
   python3 scripts/escalate_brain.py --dry-run  # report decision, don't run brain
@@ -45,9 +45,14 @@ ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 STATE = DATA / "escalation_state.json"
 
-ESC_DEMAND_IMPR    = int(os.environ.get("ESC_DEMAND_IMPR", "80"))
-ESC_WIN_STREAK     = int(os.environ.get("ESC_WIN_STREAK", "3"))
-ESC_COOLDOWN_HOURS = float(os.environ.get("ESC_COOLDOWN_HOURS", "12"))
+# Thresholds raised 2026-07-31 (was 80/3/12h): escalate_brain was the single
+# biggest line in data/llm_costs.json ($17/mo, mostly full Opus re-plans that
+# duplicate the daily brain run within the same day). Escalation is still
+# available for genuinely strong signals — it's just no longer the default
+# reaction to routine noise.
+ESC_DEMAND_IMPR    = int(os.environ.get("ESC_DEMAND_IMPR", "110"))
+ESC_WIN_STREAK     = int(os.environ.get("ESC_WIN_STREAK", "4"))
+ESC_COOLDOWN_HOURS = float(os.environ.get("ESC_COOLDOWN_HOURS", "18"))
 
 
 def _load(path: Path, default):
