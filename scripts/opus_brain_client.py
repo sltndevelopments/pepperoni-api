@@ -207,9 +207,12 @@ def call_model(
         "max_tokens": max_tokens,
         "messages": [{"role": "user", "content": prompt}],
     }
-    # Models with always-on adaptive thinking (claude-fable-5, claude-opus-4-8+)
-    # reject `temperature` — silently drop it for them.
+    # Models with always-on adaptive thinking reject `temperature` with HTTP 400
+    # ('temperature is deprecated for this model'). Keep in sync with
+    # claude_client._rejects_temperature — Sonnet 5 joined this class in prod
+    # 2026-08-01 (repair_outcomes rewrite failures).
     _no_temp = cfg["model"].startswith(("claude-fable", "claude-mythos",
+                                        "claude-sonnet-5",
                                         "claude-opus-4-8", "claude-opus-5"))
     if temperature is not None and not _no_temp:
         body["temperature"] = temperature

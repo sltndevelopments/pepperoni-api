@@ -338,6 +338,18 @@ def _supports_effort(model: str) -> bool:
                                  "claude-opus-5")))
 
 
+def _rejects_temperature(model: str) -> bool:
+    """Models with always-on adaptive thinking reject `temperature` with
+    HTTP 400 invalid_request_error ('temperature is deprecated for this model').
+
+    Seen in prod 2026-08-01 on claude-sonnet-5 (repair_outcomes rewrite path
+    via call_claude default temperature=0.7). Same class as Opus 5 / Fable —
+    omit the field entirely rather than send it."""
+    return (model.startswith(("claude-fable", "claude-mythos"))
+            or model.startswith(("claude-sonnet-5",))
+            or model.startswith(("claude-opus-4-8", "claude-opus-5")))
+
+
 def _strict_schema(schema):
     """Structured outputs require additionalProperties=false on every object."""
     if isinstance(schema, dict):
@@ -356,9 +368,10 @@ def _build_body(prompt: str, system: str, model: str, max_tokens: int,
     body = {
         "model": model,
         "max_tokens": max_tokens,
-        "temperature": temperature,
         "messages": [{"role": "user", "content": prompt}],
     }
+    if temperature is not None and not _rejects_temperature(model):
+        body["temperature"] = temperature
     if system:
         if cache_system and len(system) >= CACHE_MIN_CHARS:
             body["system"] = [{"type": "text", "text": system,
