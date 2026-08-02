@@ -453,6 +453,8 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://www.googleadservices.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googleadservices.com">
 
 <!-- Consent Mode v2 — must precede every Google tag -->
 <script>
@@ -466,6 +468,8 @@ gtag('set','url_passthrough',true);
 <!-- Google tag (gtag.js) - Google Ads: {ADS_ID} -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={ADS_ID}"></script>
 <script>gtag('js',new Date());gtag('config','{ADS_ID}');</script>
+<!-- Fallback conversion lib when googletagmanager.com DNS is blocked -->
+<script async src="https://www.googleadservices.com/pagead/conversion_async.js"></script>
 
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){{w[l]=w[l]||[];w[l].push({{'gtm.start':

@@ -8,7 +8,22 @@
 (function () {
   "use strict";
 
-  // Google Tag (AW-18346189266) for Google Ads conversion tracking
+  // Google Ads lead conversion.
+  // Primary path: googleadservices.com pixels (works when googletagmanager.com
+  // DNS is blocked — common on RU ISPs / filters). gtag/GTM is optional bonus.
+  var ADS_CONV_ID = "18346189266";
+  var ADS_CONV_LABEL = "dznsCLar19UcENLDkqxE";
+  var ADS_SEND_TO = "AW-18346189266/" + ADS_CONV_LABEL;
+
+  function loadScriptOnce(src, flag) {
+    if (window[flag]) return;
+    window[flag] = true;
+    var s = document.createElement("script");
+    s.async = true;
+    s.src = src;
+    document.head.appendChild(s);
+  }
+
   if (!window.__gtagAdsLoaded) {
     window.__gtagAdsLoaded = true;
     window.dataLayer = window.dataLayer || [];
@@ -17,12 +32,75 @@
     }
     window.gtag("js", new Date());
     window.gtag("config", "AW-18346189266");
-
-    var gScript = document.createElement("script");
-    gScript.async = true;
-    gScript.src = "https://www.googletagmanager.com/gtag/js?id=AW-18346189266";
-    document.head.appendChild(gScript);
+    // Optional — may fail with ERR_NAME_NOT_RESOLVED; conversion still fires below.
+    loadScriptOnce(
+      "https://www.googletagmanager.com/gtag/js?id=AW-18346189266",
+      "__gtagJsRequested"
+    );
+    // Classic async conversion lib — hosted on googleadservices, not GTM.
+    loadScriptOnce(
+      "https://www.googleadservices.com/pagead/conversion_async.js",
+      "__adsConvAsyncRequested"
+    );
   }
+
+  function fireAdsLeadConversion(userData) {
+    var qs =
+      "?label=" +
+      encodeURIComponent(ADS_CONV_LABEL) +
+      "&guid=ON&script=0&value=1.0&currency_code=USD&t=" +
+      Date.now();
+    var urls = [
+      "https://www.googleadservices.com/pagead/conversion/" + ADS_CONV_ID + "/" + qs,
+      "https://www.google.com/pagead/1p-conversion/" + ADS_CONV_ID + "/" + qs,
+    ];
+    urls.forEach(function (u) {
+      try {
+        var img = new Image(1, 1);
+        img.referrerPolicy = "no-referrer-when-downgrade";
+        img.src = u;
+      } catch (e1) {}
+      try {
+        if (typeof fetch === "function") {
+          fetch(u, { mode: "no-cors", credentials: "omit", keepalive: true }).catch(function () {});
+        }
+      } catch (e2) {}
+    });
+
+    if (typeof window.google_trackConversion === "function") {
+      try {
+        window.google_trackConversion({
+          google_conversion_id: Number(ADS_CONV_ID),
+          google_conversion_label: ADS_CONV_LABEL,
+          google_conversion_value: 1.0,
+          google_conversion_currency: "USD",
+          google_remarketing_only: false,
+        });
+      } catch (e3) {}
+    }
+
+    if (typeof window.gtag === "function") {
+      try {
+        if (userData && Object.keys(userData).length > 0) {
+          window.gtag("set", "user_data", userData);
+        }
+        window.gtag("event", "conversion", {
+          send_to: ADS_SEND_TO,
+          value: 1.0,
+          currency: "USD",
+          user_data: userData || {},
+        });
+        window.gtag("event", "generate_lead", {
+          event_category: "lead",
+          event_label: window.location.pathname,
+          user_data: userData || {},
+        });
+      } catch (e4) {}
+    }
+  }
+
+  // Expose for Tag Assistant / manual diagnostics.
+  window.peppFireAdsLeadConversion = fireAdsLeadConversion;
 
   var forms = document.querySelectorAll("form.lead-form");
   if (!forms.length) return;
@@ -165,33 +243,7 @@
                 leadEvent.attribution = window.peppAttribution();
               }
               window.dataLayer.push(leadEvent);
-              if (typeof window.gtag === "function") {
-                if (Object.keys(userData).length > 0) {
-                  window.gtag("set", "user_data", userData);
-                }
-                window.gtag("event", "conversion", {
-                  send_to: "AW-18346189266/dznsCLar19UcENLDkqxE",
-                  value: 1.0,
-                  currency: "USD",
-                  user_data: userData
-                });
-                window.gtag("event", "generate_lead", {
-                  event_category: "lead",
-                  event_label: window.location.pathname,
-                  user_data: userData
-                });
-              }
-              // Classic Ads pixel — backup if gtag.js stalls / is delayed.
-              // Same conversion id+label as the event snippet from Ads.
-              try {
-                var pix =
-                  "https://www.googleadservices.com/pagead/conversion/18346189266/" +
-                  "?label=dznsCLar19UcENLDkqxE&guid=ON&script=0" +
-                  "&value=1.0&currency_code=USD&t=" +
-                  Date.now();
-                var img = new Image(1, 1);
-                img.src = pix;
-              } catch (pixErr) {}
+              fireAdsLeadConversion(userData);
             } catch (err) {}
           } else {
             var err = (res.data && res.data.error) || "unknown";
