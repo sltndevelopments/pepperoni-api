@@ -1,23 +1,30 @@
-const CACHE_NAME = 'kd-catalog-v13';
+const CACHE_NAME = 'kd-catalog-v14';
 const STATIC_URLS = [
   '/',
   '/en/',
   '/products/',
   '/en/products/',
-  '/pepperoni',
   '/about',
   '/faq',
   '/delivery',
   '/kazylyk',
   '/bakery',
   '/pizzeria',
-  '/en/pepperoni',
   '/en/about',
   '/en/faq',
   '/en/delivery',
   '/products.json',
   '/manifest.json',
 ];
+
+// Ads / lead landings + their JS must never be served stale from SW cache.
+// Old cache-first /pepperoni hid the AW conversion tag and broke Tag Assistant.
+function isFreshHtmlPath(pathname) {
+  const p = pathname.replace(/\/+$/, '') || '/';
+  if (p === '/pepperoni' || p.endsWith('/pepperoni')) return true;
+  if (p === '/' || p === '/en') return true;
+  return false;
+}
 
 self.addEventListener('install', (e) => {
   e.waitUntil(
@@ -38,6 +45,18 @@ self.addEventListener('activate', (e) => {
 self.addEventListener('fetch', (e) => {
   if (e.request.method !== 'GET') return;
   const url = new URL(e.request.url);
+
+  // Never intercept third-party (Google Ads / GTM / etc.)
+  if (url.origin !== self.location.origin) return;
+
+  // Tracking / form script — always network
+  if (
+    url.pathname === '/assets/lead-form.js' ||
+    url.pathname === '/assets/gmp-track.js'
+  ) {
+    e.respondWith(fetch(e.request));
+    return;
+  }
 
   if (url.pathname.startsWith('/api/')) {
     e.respondWith(
@@ -63,9 +82,7 @@ self.addEventListener('fetch', (e) => {
   }
 
   const acceptsHtml = (e.request.headers.get('accept') || '').includes('text/html');
-  const pathNorm = (url.pathname.replace(/\/+$/, '') || '/');
-  const isHomeHtml = acceptsHtml && (pathNorm === '/' || pathNorm === '/en');
-  if (isHomeHtml) {
+  if (acceptsHtml && isFreshHtmlPath(url.pathname)) {
     e.respondWith(
       fetch(e.request)
         .then((res) => {
@@ -83,8 +100,10 @@ self.addEventListener('fetch', (e) => {
   e.respondWith(
     caches.match(e.request).then((cached) => {
       const fetched = fetch(e.request).then((res) => {
-        const clone = res.clone();
-        caches.open(CACHE_NAME).then((c) => c.put(e.request, clone));
+        if (res && res.ok) {
+          const clone = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(e.request, clone));
+        }
         return res;
       });
       return cached || fetched;
