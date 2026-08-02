@@ -181,6 +181,17 @@
                   user_data: userData
                 });
               }
+              // Classic Ads pixel — backup if gtag.js stalls / is delayed.
+              // Same conversion id+label as the event snippet from Ads.
+              try {
+                var pix =
+                  "https://www.googleadservices.com/pagead/conversion/18346189266/" +
+                  "?label=dznsCLar19UcENLDkqxE&guid=ON&script=0" +
+                  "&value=1.0&currency_code=USD&t=" +
+                  Date.now();
+                var img = new Image(1, 1);
+                img.src = pix;
+              } catch (pixErr) {}
             } catch (err) {}
           } else {
             var err = (res.data && res.data.error) || "unknown";
