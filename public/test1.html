@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Сосиски гриль для хот-догов — тест в стиле Chomps | Казанские Деликатесы</title>
@@ -934,6 +940,30 @@ body.saga-on[data-saga-tone="dark"] .nav__cta { background: #fff; color: var(--r
 <script src="/vendor/gsap.min.js" defer></script>
 <script src="/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/vendor/lenis.min.js" defer></script>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <a class="sr-only" href="#main">Перейти к содержимому</a>
