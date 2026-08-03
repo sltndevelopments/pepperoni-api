@@ -767,8 +767,8 @@
   }
  },
  "2026-08": {
-  "usd": 1.445528,
-  "usd_baseline": 1.380702,
+  "usd": 2.881804,
+  "usd_baseline": 2.797555,
   "days": {
    "2026-08-01": {
     "calls": 195,
@@ -780,13 +780,22 @@
     "usd_baseline": 0.55631
    },
    "2026-08-02": {
-    "calls": 236,
-    "in": 57074,
-    "out": 33707,
+    "calls": 356,
+    "in": 97002,
+    "out": 81113,
     "cache_w": 20734,
     "cache_r": 0,
-    "usd": 0.856804,
-    "usd_baseline": 0.824392
+    "usd": 1.687678,
+    "usd_baseline": 1.655266
+   },
+   "2026-08-03": {
+    "calls": 54,
+    "in": 26716,
+    "out": 24693,
+    "cache_w": 15538,
+    "cache_r": 0,
+    "usd": 0.605402,
+    "usd_baseline": 0.585979
    }
   },
   "scripts": {
@@ -800,22 +809,22 @@
     "usd_baseline": 0.459796
    },
    "escalate_brain": {
-    "calls": 2,
-    "in": 17878,
-    "out": 8000,
-    "cache_w": 31076,
+    "calls": 3,
+    "in": 26751,
+    "out": 12000,
+    "cache_w": 46614,
     "cache_r": 0,
-    "usd": 0.483615,
-    "usd_baseline": 0.44477
+    "usd": 0.725093,
+    "usd_baseline": 0.666825
    },
    "repair_outcomes": {
-    "calls": 68,
-    "in": 22712,
-    "out": 27200,
+    "calls": 241,
+    "in": 80483,
+    "out": 95299,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.476136,
-    "usd_baseline": 0.476136
+    "usd": 1.670934,
+    "usd_baseline": 1.670934
    }
   },
   "models": {
@@ -838,22 +847,22 @@
     "usd_baseline": 0.34207
    },
    "claude-opus-5": {
-    "calls": 2,
-    "in": 17878,
-    "out": 8000,
-    "cache_w": 31076,
+    "calls": 3,
+    "in": 26751,
+    "out": 12000,
+    "cache_w": 46614,
     "cache_r": 0,
-    "usd": 0.483615,
-    "usd_baseline": 0.44477
+    "usd": 0.725093,
+    "usd_baseline": 0.666825
    },
    "claude-sonnet-5": {
-    "calls": 68,
-    "in": 22712,
-    "out": 27200,
+    "calls": 241,
+    "in": 80483,
+    "out": 95299,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.476136,
-    "usd_baseline": 0.476136
+    "usd": 1.670934,
+    "usd_baseline": 1.670934
    }
   }
  }

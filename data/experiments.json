@@ -987,11 +987,11 @@
     "before_title": "Pepperoni Halal — beef & chicken, pork-free | Kazan Delicacies",
     "before_desc": "Halal pepperoni by Kazan Delicacies: beef and chicken, pork-free, GMO-free. For pizza, HoReCa. Thermostable. Private Label. HACCP. Halal Certificate #614A/2024.",
     "after_title": "Halal Pepperoni — Beef & Chicken | Kazan Delicacies B2B",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "reverted",
+    "measured_at": "2026-08-03T05:32:01.211964+00:00",
+    "after_pos": 33.7,
+    "after_ctr": 0.0,
+    "after_impr": 10
   },
   {
     "applied_at": "2026-07-13T05:31:35.509857+00:00",
@@ -1005,11 +1005,11 @@
     "before_title": "Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы",
     "before_desc": "Халяль пепперони, сосиски, котлеты для бургеров, татарская выпечка оптом от производителя в Казани. ХАССП, ISO 22000:2018, сертификат ДУМ РТ. EXW Казань. HoReCa, ретейл, экспорт СНГ.",
     "after_title": "Пепперони халяль оптом от производителя | Казанские Деликатесы",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "win",
+    "measured_at": "2026-08-03T05:32:01.211964+00:00",
+    "after_pos": 3.5,
+    "after_ctr": 0.1,
+    "after_impr": 10
   },
   {
     "applied_at": "2026-07-13T05:31:35.509857+00:00",
@@ -1023,11 +1023,12 @@
     "before_title": "Vetçina halal opet Bakı | təzə, təmiz tərkib",
     "before_desc": "Bakıda vetçina halal opet: mal, hinduşka, toyuq. Tərkibdə natrium nitrit yoxdur, HACCP, ISO 22000:2018. 60 saatda Kazan-Bakı çatdırma. Restoranlar üçün peşəkar qablaşdırma.",
     "after_title": "Vetçina Halal | Kazanskye Delikatesy – B2B Bakı",
-    "verdict": "pending",
-    "measured_at": null,
+    "verdict": "neutral",
+    "measured_at": "2026-08-03T05:32:01.211964+00:00",
     "after_pos": null,
     "after_ctr": null,
-    "after_impr": null
+    "after_impr": null,
+    "notes": "no-after-data"
   },
   {
     "applied_at": "2026-07-13T05:31:35.509857+00:00",
@@ -1041,11 +1042,11 @@
     "before_title": "سجق هوت دوج حلال للبيع بالجملة – مسقط، صلالة | بيبروني",
     "before_desc": "سجق هوت دوج حلال من لحم البقر والدجاج بدون نتريت الصوديوم. شحن بحري من نوفوروسيسك إلى صلالة (18 يومًا). HACCP، ISO 22000:2018، حلال DUM RT. مورد معتمد لـ HoReCa في عمان.",
     "after_title": "هل الهوت دوج حلال؟ نعم — سجق بقري بالجملة | بيبروني",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "reverted",
+    "measured_at": "2026-08-03T05:32:01.211964+00:00",
+    "after_pos": 10.22,
+    "after_ctr": 0.0,
+    "after_impr": 37
   },
   {
     "applied_at": "2026-07-13T05:31:35.509857+00:00",
@@ -1059,11 +1060,11 @@
     "before_title": "Kazylyk — Halal Air-Dried Horse Meat Sausage | Kazan Delicacies",
     "before_desc": "Kazylyk: traditional Tatar air-dried horse meat sausage. Halal certified (cert. #614A/2024). B2B supply, bulk orders, gift packaging. pepperoni.tatar",
     "after_title": "Kazylyk — Halal Horse Sausage, B2B Bulk Supply | Kazan Delicacies",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "neutral",
+    "measured_at": "2026-08-03T05:32:01.211964+00:00",
+    "after_pos": 5.67,
+    "after_ctr": 0.0,
+    "after_impr": 3
   },
   {
     "applied_at": "2026-07-13T05:33:34.337556+00:00",
@@ -8743,5 +8744,75 @@
     "before_pos": 50.0,
     "before_title": "Chicken Ham Halal — Wholesale Supply | Kazan Delicacies",
     "before_desc": "Certified halal chicken ham from Kazan Delicacies. Chilled, tender fillet product for B2B buyers. Stable supply, bulk orders, halal certificate included."
+  },
+  {
+    "applied_at": "2026-08-02T11:30:12.181807+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог | Казанские Деликатесы",
+    "before_desc": "Губадия — праздничный татарский пирог из сдобного теста с рисом, кортом, говядиной, яйцом и изюмом. Халяль, ХАССП. Оптовые поставки от производителя — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-02T17:00:07.685089+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "file_path": "public/en/blog/what-is-echpochmak.html",
+    "query": "echpochmak",
+    "before_pos": 50.0,
+    "before_title": "Echpochmak — Halal Tatar Pies, B2B Wholesale | Kazan",
+    "before_desc": "Echpochmak: certified halal triangular Tatar pies with beef & potato filling, produced in Kazan. Bulk supply for HoReCa, retail & food service. Request a quote."
+  },
+  {
+    "applied_at": "2026-08-02T18:00:12.679752+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский пирог с рисом и кортом | Казанские Деликатесы",
+    "before_desc": "Губадия — традиционный татарский слоёный пирог: рис, корт, говядина, яйцо, изюм. Халяль, ХАССП. Оптовые поставки от производителя — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-02T22:00:19.236350+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-02T23:00:13.905524+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с рисом и кортом",
+    "before_desc": "Губадия — татарское блюдо: слоёный пирог с рисом, кортом, говядиной, яйцом и изюмом. Халяль, ХАССП. Оптом от производителя — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T04:30:19.169717+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с рисом, кортом и мясом",
+    "before_desc": "Губадия — традиционный татарский пирог: слои риса, корта, говядины, яйца и изюма. Халяль, ХАССП. Поставки оптом от производителя — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T05:30:19.952496+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с рисом, кортом, мясом",
+    "before_desc": "Губадия — традиционный татарский пирог из слоёв риса, корта, мяса, яйца и изюма. Халяль, производство по ХАССП. Оптовые поставки — pepperoni.tatar"
   }
 ]

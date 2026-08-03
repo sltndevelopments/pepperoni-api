@@ -1,18 +1,18 @@
 {
- "fetched_at": "2026-08-02T05:30:02.750383+00:00",
+ "fetched_at": "2026-08-03T05:30:03.707188+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 4302,
-  "users": 2837,
-  "bounce_rate_pct": 38.7,
+  "visits": 4330,
+  "users": 2845,
+  "bounce_rate_pct": 38.6,
   "page_depth": 1.05,
   "avg_visit_sec": 55
  },
  "sources": [
   {
    "source": "Ad traffic",
-   "visits": 3854
+   "visits": 3880
   },
   {
    "source": "Direct traffic",
@@ -20,11 +20,11 @@
   },
   {
    "source": "Internal traffic",
-   "visits": 95
+   "visits": 92
   },
   {
    "source": "Search engine traffic",
-   "visits": 48
+   "visits": 49
   },
   {
    "source": "Link traffic",
@@ -38,23 +38,23 @@
  "top_landing": [
   {
    "path": "/products/kd-046",
-   "visits": 863,
-   "bounce_pct": 35.5
+   "visits": 867,
+   "bounce_pct": 35.4
   },
   {
    "path": "/products/kd-061",
-   "visits": 752,
+   "visits": 757,
    "bounce_pct": 37.6
   },
   {
    "path": "/products/kd-048",
-   "visits": 746,
-   "bounce_pct": 38.5
+   "visits": 755,
+   "bounce_pct": 38.4
   },
   {
    "path": "/",
-   "visits": 291,
-   "bounce_pct": 40.2
+   "visits": 300,
+   "bounce_pct": 40.7
   },
   {
    "path": "/products/kd-013",
@@ -78,8 +78,8 @@
   },
   {
    "path": "/products/kd-057",
-   "visits": 94,
-   "bounce_pct": 39.4
+   "visits": 96,
+   "bounce_pct": 39.6
   },
   {
    "path": "/products/kd-029",
@@ -93,13 +93,13 @@
   },
   {
    "path": "/products/kd-023",
-   "visits": 42,
-   "bounce_pct": 45.2
+   "visits": 43,
+   "bounce_pct": 44.2
   },
   {
    "path": "/products/kd-017",
-   "visits": 40,
-   "bounce_pct": 32.5
+   "visits": 41,
+   "bounce_pct": 31.7
   },
   {
    "path": "/products/kd-041",
@@ -113,40 +113,20 @@
   }
  ],
  "leads": {
-  "total_leads": 13,
+  "total_leads": 14,
   "by_goal": {
-   "Автоцель: переход в мессенджер": 7,
+   "Автоцель: переход в мессенджер": 8,
    "Автоцель: клик по номеру телефона": 2,
    "Оставить заявку": 2,
    "Автоцель: отправка формы": 2
   }
  },
  "inquiries_by_page": {
+  "/products/kd-048": {
+   "28d": 1,
+   "7d": 1
+  },
   "/products/kd-024": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/products/kd-046": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/products/kd-003": {
-   "28d": 2,
-   "7d": 0
-  },
-  "/products/kd-015": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/pepperoni-dlya-pizzerii": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-049": {
-   "28d": 2,
-   "7d": 2
-  },
-  "/products/kd-055": {
    "28d": 1,
    "7d": 1
   },
@@ -154,11 +134,35 @@
    "28d": 2,
    "7d": 0
   },
-  "/products/kd-048": {
+  "/products/kd-017": {
    "28d": 1,
    "7d": 1
   },
-  "/products/kd-017": {
+  "/products/kd-046": {
+   "28d": 1,
+   "7d": 1
+  },
+  "/products/kd-049": {
+   "28d": 2,
+   "7d": 2
+  },
+  "/products/kd-001": {
+   "28d": 1,
+   "7d": 1
+  },
+  "/products/kd-003": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/pepperoni-dlya-pizzerii": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-015": {
+   "28d": 1,
+   "7d": 1
+  },
+  "/products/kd-055": {
    "28d": 1,
    "7d": 1
   }
