@@ -1,26 +1,14 @@
 {
- "generated_at": "2026-08-03T05:31:29.394547+00:00",
+ "generated_at": "2026-08-04T05:31:25.745641+00:00",
  "summary": {
-  "improved": 9,
-  "flat": 10,
-  "worse": 2,
-  "not_indexed": 44,
-  "pending": 773,
-  "converted": 0
+  "improved": 13,
+  "flat": 12,
+  "worse": 4,
+  "not_indexed": 48,
+  "pending": 768,
+  "converted": 1
  },
  "failing": [
-  {
-   "experiment_id": "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe|title_meta",
-   "query": "казылык это",
-   "page": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
-   "change": "title_meta",
-   "before_pos": 9.95,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 56.0,
-   "verdict": "not_indexed"
-  },
   {
    "experiment_id": "2026-06-08T06:04:33.485416+00:00|echpochmak|https://pepperoni.tatar/en/blog/what-is-echpochmak|title_meta",
    "query": "echpochmak",
@@ -30,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +54,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 55.9,
+   "age_days": 56.9,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-08T08:53:48.489851+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|title_meta",
+   "query": "ветчина это халал",
+   "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+   "change": "title_meta",
+   "before_pos": 10.12,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 56.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 55.9,
+   "age_days": 56.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 54.0,
+   "age_days": 55.0,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 53.0,
+   "age_days": 54.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,19 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-24T05:30:18.224227+00:00|казылык это|https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe|title_meta",
-   "query": "казылык это",
-   "page": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
-   "change": "title_meta",
-   "before_pos": 10.09,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +210,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +222,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 40.0,
+   "age_days": 41.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +234,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 38.1,
+   "age_days": 39.1,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-26T03:30:09.100148+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|strengthen_failing",
+   "query": "ветчина это халал",
+   "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+   "change": "strengthen_failing",
+   "before_pos": 62.3,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 39.1,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 33.3,
+   "age_days": 34.3,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 33.3,
+   "age_days": 34.3,
    "verdict": "not_indexed"
   },
   {
@@ -282,7 +282,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 33.3,
+   "age_days": 34.3,
    "verdict": "not_indexed"
   },
   {
@@ -294,23 +294,23 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 33.0,
+   "age_days": 34.0,
    "verdict": "not_indexed"
   },
   {
-   "experiment_id": "2026-07-02T05:30:44.065531+00:00|is pepperoni halal in pakistan|https://pepperoni.tatar/en/geo/halal-pizza-toppings-lahore|title_meta",
-   "query": "is pepperoni halal in pakistan",
-   "page": "https://pepperoni.tatar/en/geo/halal-pizza-toppings-lahore",
+   "experiment_id": "2026-07-01T05:31:05.530092+00:00|هل الهوت دوج حلال|https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-medina|title_meta",
+   "query": "هل الهوت دوج حلال",
+   "page": "https://pepperoni.tatar/ar/geo/sujuk-hotdog-halal-medina",
    "change": "title_meta",
-   "before_pos": 9.64,
+   "before_pos": 9.54,
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 32.0,
+   "age_days": 34.0,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 65,
+ "graded_total": 77,
  "converting_pages": [
   {
    "page": "https://pepperoni.tatar/",

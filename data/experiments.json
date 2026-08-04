@@ -1078,11 +1078,11 @@
     "before_title": "(none — homepage only)",
     "before_desc": "",
     "after_title": "landing:пепперони халяль купить",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "win",
+    "measured_at": "2026-08-04T05:31:59.257770+00:00",
+    "after_pos": 22.0,
+    "after_ctr": 0.0,
+    "after_impr": 6
   },
   {
     "applied_at": "2026-07-14T03:30:05.790039+00:00",
@@ -1156,11 +1156,11 @@
     "before_title": "Chicken Ham (sliced) — Kazan Delicacies | Halal",
     "before_desc": "Sliced Chicken Ham 0.5 kg | Halal chicken ham from Kazan | Delicate sliced chicken ham from Kazan Delicacies (pepperoni.tatar). Perfect for sandwiches, salads,…",
     "after_title": "Chicken Ham Halal — Sliced, 0.5 kg | Kazan Delicacies",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null
+    "verdict": "win",
+    "measured_at": "2026-08-04T05:31:59.257770+00:00",
+    "after_pos": 5.67,
+    "after_ctr": 0.0,
+    "after_impr": 6
   },
   {
     "applied_at": "2026-07-15T03:30:05.840654+00:00",
@@ -8814,5 +8814,75 @@
     "before_pos": 50.0,
     "before_title": "Губадия — это татарский слоёный пирог с рисом, кортом, мясом",
     "before_desc": "Губадия — традиционный татарский пирог из слоёв риса, корта, мяса, яйца и изюма. Халяль, производство по ХАССП. Оптовые поставки — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T07:30:24.030056+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это традиционный татарский пирог с рисом и мясом",
+    "before_desc": "Губадия — слоёный пирог с рисом, кортом, мясом и изюмом. Халяль-производство по ХАССП, оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T09:00:30.274641+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это традиционный татарский слоёный пирог с рисом и мясом",
+    "before_desc": "Губадия — слоёный пирог с рисом, кортом, мясом, изюмом. Халяль-производство по ХАССП, оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T10:30:25.587246+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с рисом, мясом и кортом",
+    "before_desc": "Губадия — национальный татарский пирог: слои риса, мяса, корта и изюма. Халяль-рецепт, поставки оптом для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T11:00:22.957484+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский слоёный пирог с рисом и мясом",
+    "before_desc": "Губадия — это национальное блюдо: рис, мясо, корт и изюм в слоёном тесте. Халяль, оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T14:30:24.093536+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это национальный татарский пирог с рисом и мясом",
+    "before_desc": "Губадия — татарское блюдо: слоёное тесто, рис, мясо, корт, изюм. Халяль-рецептура, оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-03T17:30:06.478914+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe",
+    "file_path": "public/blog/kazylyk-chto-eto-takoe.html",
+    "query": "казылык это",
+    "before_pos": 50.0,
+    "before_title": "Казылык это — вяленая конская колбаса халяль | B2B",
+    "before_desc": "Казылык — традиционная татарская вяленая колбаса из конины. Состав, технология, ГОСТ. Оптовые поставки от производителя «Казанские Деликатесы» для ресторанов и ретейла."
+  },
+  {
+    "applied_at": "2026-08-03T18:30:27.014214+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский пирог с рисом, мясом и кортом",
+    "before_desc": "Губадия — национальное татарское блюдо: слоёное тесто, рис, мясо, корт, изюм. Халяль-рецептура, поставки для HoReCa и ритейла — pepperoni.tatar"
   }
 ]
