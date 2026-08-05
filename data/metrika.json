@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-08-04T05:30:02.751204+00:00",
+ "fetched_at": "2026-08-05T05:30:02.796860+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 4361,
-  "users": 2859,
-  "bounce_rate_pct": 38.6,
+  "visits": 4392,
+  "users": 2865,
+  "bounce_rate_pct": 38.7,
   "page_depth": 1.05,
   "avg_visit_sec": 55
  },
  "sources": [
   {
    "source": "Ad traffic",
-   "visits": 3896
+   "visits": 3918
   },
   {
    "source": "Direct traffic",
-   "visits": 243
+   "visits": 246
   },
   {
    "source": "Internal traffic",
-   "visits": 92
+   "visits": 95
   },
   {
    "source": "Search engine traffic",
@@ -38,28 +38,28 @@
  "top_landing": [
   {
    "path": "/products/kd-046",
-   "visits": 870,
-   "bounce_pct": 35.4
+   "visits": 872,
+   "bounce_pct": 35.6
   },
   {
    "path": "/products/kd-061",
-   "visits": 764,
-   "bounce_pct": 37.7
+   "visits": 776,
+   "bounce_pct": 37.5
   },
   {
    "path": "/products/kd-048",
-   "visits": 757,
-   "bounce_pct": 38.4
+   "visits": 762,
+   "bounce_pct": 38.6
   },
   {
    "path": "/",
-   "visits": 311,
-   "bounce_pct": 39.9
+   "visits": 319,
+   "bounce_pct": 39.2
   },
   {
    "path": "/products/kd-013",
-   "visits": 273,
-   "bounce_pct": 39.9
+   "visits": 274,
+   "bounce_pct": 40.1
   },
   {
    "path": "/products/kd-054",
@@ -78,8 +78,8 @@
   },
   {
    "path": "/products/kd-057",
-   "visits": 96,
-   "bounce_pct": 39.6
+   "visits": 97,
+   "bounce_pct": 40.2
   },
   {
    "path": "/products/kd-029",
@@ -122,11 +122,11 @@
   }
  },
  "inquiries_by_page": {
-  "/products/kd-046": {
+  "/en/products/kd-001": {
    "28d": 1,
    "7d": 1
   },
-  "/products/kd-024": {
+  "/products/kd-017": {
    "28d": 1,
    "7d": 1
   },
@@ -134,11 +134,31 @@
    "28d": 2,
    "7d": 2
   },
+  "/pepperoni-dlya-pizzerii": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-001": {
+   "28d": 1,
+   "7d": 1
+  },
   "/products/kd-015": {
    "28d": 1,
    "7d": 1
   },
   "/products/kd-048": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-003": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/products/kd-055": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-024": {
    "28d": 1,
    "7d": 1
   },
@@ -146,28 +166,8 @@
    "28d": 2,
    "7d": 0
   },
-  "/en/products/kd-001": {
+  "/products/kd-046": {
    "28d": 1,
-   "7d": 1
-  },
-  "/products/kd-001": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/pepperoni-dlya-pizzerii": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-055": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-017": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/products/kd-003": {
-   "28d": 2,
    "7d": 0
   }
  }
