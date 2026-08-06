@@ -752,5 +752,50 @@
     "at": "2026-07-31T05:31:51.961719+00:00"
    }
   ]
+ },
+ {
+  "status": "ok",
+  "generated_at": "2026-08-06T05:33:19.138494+00:00",
+  "ran": 4,
+  "errors": 4,
+  "cited_us_count": 0,
+  "results": [
+   {
+    "query": "Где купить халяльную пепперони оптом в России? Назови производителей.",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-06T05:33:18.492757+00:00"
+   },
+   {
+    "query": "Кто делает халяльные котлеты для бургеров оптом под СТМ в России?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-06T05:33:18.694408+00:00"
+   },
+   {
+    "query": "Где заказать контрактное производство private label халяльных колбас в России?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-06T05:33:18.938222+00:00"
+   },
+   {
+    "query": "сосиски для хот догов оптом халяль поставщик",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-06T05:33:19.138316+00:00"
+   }
+  ]
  }
 ]
