@@ -33,23 +33,12 @@ system_p = build_system_prompt("ru", "ready")
 user_p   = build_user_prompt(product, city, city_ctx, "ru", "A", country)
 
 def _call_llm(system, user):
+    """Routed through claude_client.call_claude so the stable per-language
+    system prompt gets a cache_control marker (a bare SDK call skips it)."""
     try:
-        import anthropic, httpx
-        proxy = os.environ.get("ANTHROPIC_PROXY", "")
-        kwargs = {}
-        if proxy:
-            try:
-                kwargs["http_client"] = httpx.Client(proxy=proxy)
-            except TypeError:
-                kwargs["http_client"] = httpx.Client(proxies={"https://": proxy})
-        client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], **kwargs)
-        msg = client.messages.create(
-            model="claude-sonnet-5",
-            max_tokens=6000,
-            system=system,
-            messages=[{"role": "user", "content": user}],
-        )
-        return msg.content[0].text
+        from claude_client import call_claude
+        text, _ = call_claude(prompt=user, system=system, max_tokens=6000)
+        return text
     except Exception as e:
         return f"LLM_ERROR: {e}"
 

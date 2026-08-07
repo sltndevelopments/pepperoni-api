@@ -53,26 +53,17 @@ def _find_product(products: list, hint: str) -> dict:
     return products[0]
 
 def _call_llm(system: str, user: str) -> str:
-    """Call Anthropic API. Returns raw HTML string."""
+    """Call Anthropic API via the shared client. Returns raw HTML string.
+
+    Routed through claude_client.call_claude (not a bare anthropic.Anthropic
+    call) so the stable per-language system prompt gets a cache_control
+    marker — build_system_prompt() is documented as cacheable, but a direct
+    SDK call here silently skipped it.
+    """
     try:
-        import anthropic
-        proxy = os.environ.get("ANTHROPIC_PROXY", "")
-        kwargs = {}
-        if proxy:
-            import httpx
-            # httpx ≥0.24 uses proxy= (singular), not proxies=
-            try:
-                kwargs["http_client"] = httpx.Client(proxy=proxy)
-            except TypeError:
-                kwargs["http_client"] = httpx.Client(proxies={"https://": proxy, "http://": proxy})
-        client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"], **kwargs)
-        msg = client.messages.create(
-            model="claude-sonnet-5",
-            max_tokens=6000,
-            system=system,
-            messages=[{"role": "user", "content": user}],
-        )
-        return msg.content[0].text
+        from claude_client import call_claude
+        text, _ = call_claude(prompt=user, system=system, max_tokens=6000)
+        return text
     except Exception as e:
         return f"LLM_ERROR: {e}"
 
