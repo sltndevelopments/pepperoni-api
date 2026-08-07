@@ -767,8 +767,8 @@
   }
  },
  "2026-08": {
-  "usd": 9.540551,
-  "usd_baseline": 9.378614,
+  "usd": 11.499711,
+  "usd_baseline": 11.318351,
   "days": {
    "2026-08-01": {
     "calls": 195,
@@ -816,13 +816,22 @@
     "usd_baseline": 1.94629
    },
    "2026-08-06": {
-    "calls": 67,
-    "in": 40238,
-    "out": 33962,
+    "calls": 248,
+    "in": 103453,
+    "out": 107136,
     "cache_w": 31076,
     "cache_r": 0,
-    "usd": 0.940005,
-    "usd_baseline": 0.90116
+    "usd": 2.205744,
+    "usd_baseline": 2.166899
+   },
+   "2026-08-07": {
+    "calls": 66,
+    "in": 30688,
+    "out": 29798,
+    "cache_w": 15538,
+    "cache_r": 0,
+    "usd": 0.69342,
+    "usd_baseline": 0.673998
    }
   },
   "scripts": {
@@ -836,31 +845,31 @@
     "usd_baseline": 0.459796
    },
    "escalate_brain": {
-    "calls": 6,
-    "in": 53827,
-    "out": 24000,
-    "cache_w": 93228,
+    "calls": 7,
+    "in": 62464,
+    "out": 28000,
+    "cache_w": 108766,
     "cache_r": 0,
-    "usd": 1.45181,
-    "usd_baseline": 1.335275
+    "usd": 1.692108,
+    "usd_baseline": 1.55615
    },
    "repair_outcomes": {
-    "calls": 1048,
-    "in": 359931,
-    "out": 416875,
+    "calls": 1293,
+    "in": 443379,
+    "out": 514059,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 7.332918,
-    "usd_baseline": 7.332918
+    "usd": 9.041022,
+    "usd_baseline": 9.041022
    },
    "send_report": {
-    "calls": 3,
-    "in": 5425,
-    "out": 4691,
+    "calls": 4,
+    "in": 7243,
+    "out": 6479,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.02888,
-    "usd_baseline": 0.02888
+    "usd": 0.039638,
+    "usd_baseline": 0.039638
    },
    "seo_brain": {
     "calls": 1,
@@ -892,31 +901,31 @@
     "usd_baseline": 0.34207
    },
    "claude-opus-5": {
-    "calls": 7,
-    "in": 62828,
-    "out": 27962,
-    "cache_w": 108766,
+    "calls": 8,
+    "in": 71465,
+    "out": 31962,
+    "cache_w": 124304,
     "cache_r": 0,
-    "usd": 1.692978,
-    "usd_baseline": 1.55702
+    "usd": 1.933276,
+    "usd_baseline": 1.777895
    },
    "claude-sonnet-5": {
-    "calls": 1048,
-    "in": 359931,
-    "out": 416875,
+    "calls": 1293,
+    "in": 443379,
+    "out": 514059,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 7.332918,
-    "usd_baseline": 7.332918
+    "usd": 9.041022,
+    "usd_baseline": 9.041022
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 3,
-    "in": 5425,
-    "out": 4691,
+    "calls": 4,
+    "in": 7243,
+    "out": 6479,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.02888,
-    "usd_baseline": 0.02888
+    "usd": 0.039638,
+    "usd_baseline": 0.039638
    }
   }
  }
