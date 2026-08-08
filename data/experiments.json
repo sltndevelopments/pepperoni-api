@@ -8927,5 +8927,45 @@
     "before_pos": 50.0,
     "before_title": "Губадия — это татарский пирог из риса, мяса и корта",
     "before_desc": "Губадия — национальный татарский пирог: слои риса, мяса, корта и изюма. Халяль. Оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-07T06:00:24.751504+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это татарский пирог: рис, мясо, корт, изюм",
+    "before_desc": "Губадия — традиционный татарский пирог слоями риса, мяса, корта и изюма. Халяль-производство, оптовые поставки для HoReCa и ритейла — pepperoni.tatar"
+  },
+  {
+    "applied_at": "2026-08-07T08:30:36.653401+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-07T10:30:20.678099+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия — это традиционный татарский пирог с мясом и рисом",
+    "before_desc": "Губадия — многослойный пирог из риса, мяса, корта и изюма в татарской кухне. Производим халяль-губадию оптовыми партиями для HoReCa и ритейла."
+  },
+  {
+    "applied_at": "2026-08-07T21:30:24.213622+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
   }
 ]
