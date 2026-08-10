@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-08-09T05:30:03.633186+00:00",
+ "fetched_at": "2026-08-10T05:30:02.579317+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 4434,
+  "visits": 4446,
   "users": 2860,
   "bounce_rate_pct": 38.4,
-  "page_depth": 1.05,
+  "page_depth": 1.04,
   "avg_visit_sec": 53
  },
  "sources": [
   {
    "source": "Ad traffic",
-   "visits": 3981
+   "visits": 3997
   },
   {
    "source": "Direct traffic",
-   "visits": 230
+   "visits": 223
   },
   {
    "source": "Internal traffic",
-   "visits": 98
+   "visits": 100
   },
   {
    "source": "Search engine traffic",
@@ -28,7 +28,7 @@
   },
   {
    "source": "Link traffic",
-   "visits": 7
+   "visits": 8
   },
   {
    "source": "Messenger traffic",
@@ -38,23 +38,23 @@
  "top_landing": [
   {
    "path": "/products/kd-046",
-   "visits": 882,
+   "visits": 886,
    "bounce_pct": 35.1
   },
   {
    "path": "/products/kd-061",
-   "visits": 787,
+   "visits": 792,
    "bounce_pct": 37.6
   },
   {
    "path": "/products/kd-048",
-   "visits": 776,
+   "visits": 779,
    "bounce_pct": 38.5
   },
   {
    "path": "/",
-   "visits": 300,
-   "bounce_pct": 39.7
+   "visits": 298,
+   "bounce_pct": 39.3
   },
   {
    "path": "/products/kd-013",
@@ -83,28 +83,28 @@
   },
   {
    "path": "/products/kd-029",
-   "visits": 75,
-   "bounce_pct": 32.0
+   "visits": 76,
+   "bounce_pct": 31.6
   },
   {
    "path": "/products/kd-060",
-   "visits": 48,
-   "bounce_pct": 20.8
+   "visits": 49,
+   "bounce_pct": 20.4
   },
   {
    "path": "/products/kd-023",
-   "visits": 46,
-   "bounce_pct": 41.3
+   "visits": 47,
+   "bounce_pct": 42.6
+  },
+  {
+   "path": "/products/kd-041",
+   "visits": 42,
+   "bounce_pct": 26.2
   },
   {
    "path": "/products/kd-017",
    "visits": 41,
    "bounce_pct": 31.7
-  },
-  {
-   "path": "/products/kd-041",
-   "visits": 41,
-   "bounce_pct": 26.8
   },
   {
    "path": "/products/kd-028",
@@ -126,32 +126,8 @@
    "28d": 2,
    "7d": 0
   },
-  "/products/kd-048": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-046": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-001": {
-   "28d": 1,
-   "7d": 1
-  },
   "/products/kd-017": {
    "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-055": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-024": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-049": {
-   "28d": 2,
    "7d": 0
   },
   "/pepperoni-dlya-pizzerii": {
@@ -162,11 +138,35 @@
    "28d": 2,
    "7d": 0
   },
+  "/products/kd-048": {
+   "28d": 1,
+   "7d": 0
+  },
   "/products/kd-015": {
    "28d": 1,
    "7d": 0
   },
+  "/products/kd-049": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/products/kd-046": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-024": {
+   "28d": 1,
+   "7d": 0
+  },
   "/en/products/kd-001": {
+   "28d": 1,
+   "7d": 1
+  },
+  "/products/kd-055": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-001": {
    "28d": 1,
    "7d": 1
   }

@@ -767,8 +767,8 @@
   }
  },
  "2026-08": {
-  "usd": 14.530164,
-  "usd_baseline": 14.30996,
+  "usd": 15.550578,
+  "usd_baseline": 15.330374,
   "days": {
    "2026-08-01": {
     "calls": 195,
@@ -843,13 +843,22 @@
     "usd_baseline": 1.245238
    },
    "2026-08-09": {
-    "calls": 40,
-    "in": 21505,
-    "out": 19264,
+    "calls": 149,
+    "in": 58272,
+    "out": 63270,
     "cache_w": 15538,
     "cache_r": 0,
-    "usd": 0.508361,
-    "usd_baseline": 0.488939
+    "usd": 1.261148,
+    "usd_baseline": 1.241726
+   },
+   "2026-08-10": {
+    "calls": 39,
+    "in": 12649,
+    "out": 15312,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.267627,
+    "usd_baseline": 0.267627
    }
   },
   "scripts": {
@@ -872,22 +881,22 @@
     "usd_baseline": 2.000345
    },
    "repair_outcomes": {
-    "calls": 1659,
-    "in": 564073,
-    "out": 658521,
+    "calls": 1806,
+    "in": 611672,
+    "out": 716442,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 11.570034,
-    "usd_baseline": 11.570034
+    "usd": 12.581646,
+    "usd_baseline": 12.581646
    },
    "send_report": {
-    "calls": 6,
-    "in": 10870,
-    "out": 9434,
+    "calls": 7,
+    "in": 12687,
+    "out": 10831,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.05804,
-    "usd_baseline": 0.05804
+    "usd": 0.066842,
+    "usd_baseline": 0.066842
    },
    "seo_brain": {
     "calls": 1,
@@ -928,22 +937,22 @@
     "usd_baseline": 2.22209
    },
    "claude-sonnet-5": {
-    "calls": 1659,
-    "in": 564073,
-    "out": 658521,
+    "calls": 1806,
+    "in": 611672,
+    "out": 716442,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 11.570034,
-    "usd_baseline": 11.570034
+    "usd": 12.581646,
+    "usd_baseline": 12.581646
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 6,
-    "in": 10870,
-    "out": 9434,
+    "calls": 7,
+    "in": 12687,
+    "out": 10831,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.05804,
-    "usd_baseline": 0.05804
+    "usd": 0.066842,
+    "usd_baseline": 0.066842
    }
   }
  }

@@ -1723,11 +1723,11 @@
     "before_title": "Пепперони халяль — оптовые поставки от производителя",
     "before_desc": "Производим пепперони халяль: сертификат ДУМРФ, стабильный состав, любая фасовка. Прямые оптовые поставки по России. Запросите прайс и образцы на pepperoni.tatar.",
     "after_title": "Пепперони халяль — оптом от производителя | pepperoni.tatar",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null,
+    "verdict": "neutral",
+    "measured_at": "2026-08-10T05:30:42.931039+00:00",
+    "after_pos": 7.67,
+    "after_ctr": 0.0,
+    "after_impr": 3,
     "operator_experiment_id": "exp-20260719053608-1"
   },
   {
@@ -9000,6 +9000,46 @@
   },
   {
     "applied_at": "2026-08-09T05:30:18.826258+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-09T06:00:23.816884+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-09T19:00:15.233227+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия это татарский слоёный пирог с рисом и мясом",
+    "before_desc": "Губадия — традиционный многослойный пирог: рис, мясо, корт, изюм. Халяль. Оптовые поставки для HoReCa и ритейла по всей России."
+  },
+  {
+    "applied_at": "2026-08-09T22:00:21.886441+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "file_path": "public/blog/gubadiya-chto-eto.html",
+    "query": "губадия это",
+    "before_pos": 50.0,
+    "before_title": "Губадия это традиционный татарский пирог с мясом и рисом",
+    "before_desc": "Губадия — многослойный татарский пирог из риса, мяса, корта и изюма. Халяль производство, оптовые поставки для HoReCa и ритейла по России."
+  },
+  {
+    "applied_at": "2026-08-10T02:00:19.565648+00:00",
     "change_type": "strengthen_failing",
     "page": "https://pepperoni.tatar/en/products/kd-040",
     "file_path": "public/en/products/kd-040.html",
