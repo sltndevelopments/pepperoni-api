@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-08-11T05:30:20.458359+00:00",
+ "generated_at": "2026-08-12T05:30:22.698706+00:00",
  "summary": {
-  "improved": 26,
-  "flat": 20,
-  "worse": 0,
-  "not_indexed": 82,
-  "pending": 734,
+  "improved": 30,
+  "flat": 17,
+  "worse": 6,
+  "not_indexed": 109,
+  "pending": 697,
   "converted": 0
  },
  "failing": [
@@ -18,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 63.9,
+   "age_days": 64.9,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +66,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 63.9,
+   "age_days": 64.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 63.9,
+   "age_days": 64.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 62.0,
+   "age_days": 63.0,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 61.0,
+   "age_days": 62.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
    "verdict": "not_indexed"
   },
   {
@@ -197,8 +197,8 @@
    "before_pos": 8.84,
    "current_pos": null,
    "impr": 0,
-   "inquiries": 2,
-   "age_days": 55.0,
+   "inquiries": 0,
+   "age_days": 56.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,19 +210,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-24T05:30:18.224227+00:00|губадия это|https://pepperoni.tatar/blog/gubadiya-chto-eto|title_meta",
-   "query": "губадия это",
-   "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
-   "change": "title_meta",
-   "before_pos": 11.03,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +222,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 48.0,
+   "age_days": 49.0,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 46.1,
+   "age_days": 47.1,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 46.1,
+   "age_days": 47.1,
    "verdict": "not_indexed"
   },
   {
@@ -282,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 41.3,
+   "age_days": 42.3,
    "verdict": "not_indexed"
   },
   {
@@ -294,7 +282,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 41.3,
+   "age_days": 42.3,
    "verdict": "not_indexed"
   },
   {
@@ -306,10 +294,22 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 41.3,
+   "age_days": 42.3,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-07-01T05:31:05.530092+00:00|pepperoni shelf life|https://pepperoni.tatar/en/blog/kak-hranit-pepperoni|title_meta",
+   "query": "pepperoni shelf life",
+   "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
+   "change": "title_meta",
+   "before_pos": 7.06,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 42.0,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 128,
+ "graded_total": 162,
  "converting_pages": []
 }

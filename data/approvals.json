@@ -848,5 +848,47 @@
     "auto_approved": true,
     "created_at": "2026-08-07T05:31:35.574366+00:00",
     "executed_at": "2026-08-07T05:32:11.442848+00:00"
+  },
+  {
+    "key": "blog_post:sosiski-dlya-hot-dogov-optom-postavshchik",
+    "title": "blog: /blog/sosiski-dlya-hot-dogov-optom-postavshchik",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/sosiski-dlya-hot-dogov-optom-postavshchik.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-12T05:32:46.427952+00:00"
+  },
+  {
+    "key": "blog_post:kotlety-patti-dlya-burgerov-stm-proizvodstvo",
+    "title": "blog: /blog/kotlety-patti-dlya-burgerov-stm-proizvodstvo",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/kotlety-patti-dlya-burgerov-stm-proizvodstvo.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-12T05:32:46.429913+00:00"
+  },
+  {
+    "key": "pl_page:private-label-halal-kolbasy-rossiya",
+    "title": "PL/OEM [ru]: /private-label/private-label-halal-kolbasy-rossiya",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "pl_page",
+    "payload": {
+      "path": "public/private-label/private-label-halal-kolbasy-rossiya.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-12T05:32:46.432942+00:00"
   }
 ]
