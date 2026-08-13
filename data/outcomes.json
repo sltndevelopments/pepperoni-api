@@ -1,14 +1,26 @@
 {
- "generated_at": "2026-08-12T05:30:22.698706+00:00",
+ "generated_at": "2026-08-13T05:30:21.733918+00:00",
  "summary": {
   "improved": 30,
-  "flat": 17,
-  "worse": 6,
-  "not_indexed": 109,
-  "pending": 697,
+  "flat": 15,
+  "worse": 7,
+  "not_indexed": 151,
+  "pending": 656,
   "converted": 0
  },
  "failing": [
+  {
+   "experiment_id": "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/what-is-kazylyk|title_meta",
+   "query": "казылык это",
+   "page": "https://pepperoni.tatar/blog/what-is-kazylyk",
+   "change": "title_meta",
+   "before_pos": 10.34,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 66.0,
+   "verdict": "not_indexed"
+  },
   {
    "experiment_id": "2026-06-08T06:04:33.485416+00:00|echpochmak|https://pepperoni.tatar/en/blog/what-is-echpochmak|title_meta",
    "query": "echpochmak",
@@ -18,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 65.0,
+   "age_days": 66.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 65.0,
+   "age_days": 66.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 65.0,
+   "age_days": 66.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +66,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.9,
+   "age_days": 65.9,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.9,
+   "age_days": 65.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.9,
+   "age_days": 65.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 63.0,
+   "age_days": 64.0,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 62.0,
+   "age_days": 63.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 61.0,
+   "age_days": 62.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 61.0,
+   "age_days": 62.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 61.0,
+   "age_days": 62.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 57.0,
+   "age_days": 58.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 57.0,
+   "age_days": 58.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 57.0,
+   "age_days": 58.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 57.0,
+   "age_days": 58.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +210,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 56.0,
+   "age_days": 57.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-24T05:30:18.224227+00:00|казылык это|https://pepperoni.tatar/blog/what-is-kazylyk|title_meta",
+   "query": "казылык это",
+   "page": "https://pepperoni.tatar/blog/what-is-kazylyk",
+   "change": "title_meta",
+   "before_pos": 9.75,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 50.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 49.0,
+   "age_days": 50.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 49.0,
+   "age_days": 50.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 49.0,
+   "age_days": 50.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 47.1,
+   "age_days": 48.1,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +282,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 47.1,
+   "age_days": 48.1,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +294,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 42.3,
+   "age_days": 43.3,
    "verdict": "not_indexed"
   },
   {
@@ -282,34 +306,10 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 42.3,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-30T22:00:06.638480+00:00|курица халяль чем отличается|https://pepperoni.tatar/blog/kurica-halyal-optom|strengthen_failing",
-   "query": "курица халяль чем отличается",
-   "page": "https://pepperoni.tatar/blog/kurica-halyal-optom",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 42.3,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-07-01T05:31:05.530092+00:00|pepperoni shelf life|https://pepperoni.tatar/en/blog/kak-hranit-pepperoni|title_meta",
-   "query": "pepperoni shelf life",
-   "page": "https://pepperoni.tatar/en/blog/kak-hranit-pepperoni",
-   "change": "title_meta",
-   "before_pos": 7.06,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 42.0,
+   "age_days": 43.3,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 162,
+ "graded_total": 203,
  "converting_pages": []
 }
