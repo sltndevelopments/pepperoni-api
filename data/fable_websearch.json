@@ -797,5 +797,50 @@
     "at": "2026-08-06T05:33:19.138316+00:00"
    }
   ]
+ },
+ {
+  "status": "ok",
+  "generated_at": "2026-08-14T05:33:26.437989+00:00",
+  "ran": 4,
+  "errors": 4,
+  "cited_us_count": 0,
+  "results": [
+   {
+    "query": "Где купить халяльную пепперони оптом в России? Назови производителей.",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-14T05:33:25.801725+00:00"
+   },
+   {
+    "query": "Какие компании производят халяльные сосиски для хот-догов оптом в РФ?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-14T05:33:26.030754+00:00"
+   },
+   {
+    "query": "Где заказать контрактное производство (private label) халяльных колбас в России?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-14T05:33:26.241111+00:00"
+   },
+   {
+    "query": "сосиски для хот догов оптом халяль производитель",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-08-14T05:33:26.437808+00:00"
+   }
+  ]
  }
 ]

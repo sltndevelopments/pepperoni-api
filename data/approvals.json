@@ -890,5 +890,47 @@
     "status": "pending",
     "auto_approved": false,
     "created_at": "2026-08-12T05:32:46.432942+00:00"
+  },
+  {
+    "key": "blog_post:halyal-farsh-dlya-pekaren-optom",
+    "title": "blog: /blog/halyal-farsh-dlya-pekaren-optom",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/halyal-farsh-dlya-pekaren-optom.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-14T05:33:30.014881+00:00"
+  },
+  {
+    "key": "blog_post:pepperoni-dlya-dark-kitchen-optom",
+    "title": "blog: /blog/pepperoni-dlya-dark-kitchen-optom",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/pepperoni-dlya-dark-kitchen-optom.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-14T05:33:31.054199+00:00"
+  },
+  {
+    "key": "blog_post:eksport-halyal-v-kazakhstan-dokumenty",
+    "title": "blog: /blog/eksport-halyal-v-kazakhstan-dokumenty",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/eksport-halyal-v-kazakhstan-dokumenty.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-14T05:33:31.987829+00:00"
   }
 ]

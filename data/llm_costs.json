@@ -767,8 +767,8 @@
   }
  },
  "2026-08": {
-  "usd": 17.1046,
-  "usd_baseline": 16.864974,
+  "usd": 17.49256,
+  "usd_baseline": 17.233512,
   "days": {
    "2026-08-01": {
     "calls": 195,
@@ -886,6 +886,15 @@
     "cache_r": 0,
     "usd": 0.375092,
     "usd_baseline": 0.35567
+   },
+   "2026-08-14": {
+    "calls": 20,
+    "in": 20958,
+    "out": 10942,
+    "cache_w": 15538,
+    "cache_r": 0,
+    "usd": 0.387961,
+    "usd_baseline": 0.368538
    }
   },
   "scripts": {
@@ -908,13 +917,13 @@
     "usd_baseline": 2.000345
    },
    "repair_outcomes": {
-    "calls": 1959,
-    "in": 661224,
-    "out": 777412,
+    "calls": 1962,
+    "in": 662189,
+    "out": 778612,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 13.644852,
-    "usd_baseline": 13.644852
+    "usd": 13.665747,
+    "usd_baseline": 13.665747
    },
    "send_report": {
     "calls": 8,
@@ -926,22 +935,22 @@
     "usd_baseline": 0.075997
    },
    "seo_brain": {
-    "calls": 2,
-    "in": 17753,
-    "out": 7962,
-    "cache_w": 31076,
+    "calls": 3,
+    "in": 31975,
+    "out": 11502,
+    "cache_w": 46614,
     "cache_r": 0,
-    "usd": 0.48204,
-    "usd_baseline": 0.443195
+    "usd": 0.738762,
+    "usd_baseline": 0.680495
    },
    "optimize_seo": {
-    "calls": 34,
-    "in": 12263,
-    "out": 13600,
+    "calls": 50,
+    "in": 18034,
+    "out": 19802,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.240789,
-    "usd_baseline": 0.240789
+    "usd": 0.351132,
+    "usd_baseline": 0.351132
    }
   },
   "models": {
@@ -964,22 +973,22 @@
     "usd_baseline": 0.34207
    },
    "claude-opus-5": {
-    "calls": 11,
-    "in": 97980,
-    "out": 43962,
-    "cache_w": 170918,
+    "calls": 12,
+    "in": 112202,
+    "out": 47502,
+    "cache_w": 186456,
     "cache_r": 0,
-    "usd": 2.657188,
-    "usd_baseline": 2.44354
+    "usd": 2.913911,
+    "usd_baseline": 2.68084
    },
    "claude-sonnet-5": {
-    "calls": 1993,
-    "in": 673487,
-    "out": 791012,
+    "calls": 2012,
+    "in": 680223,
+    "out": 798414,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 13.885641,
-    "usd_baseline": 13.885641
+    "usd": 14.016879,
+    "usd_baseline": 14.016879
    },
    "claude-haiku-4-5-20251001": {
     "calls": 8,
