@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-08-14T05:30:28.629571+00:00",
+ "generated_at": "2026-08-15T05:30:22.875130+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 0,
  "tracked": 13,
@@ -8,32 +8,17 @@
  "conversion_gaps_count": 0,
  "top_converting": [
   {
-   "path": "/products/kd-003",
-   "28d": 2,
-   "7d": 0
-  },
-  {
    "path": "/products/kd-049",
    "28d": 2,
    "7d": 0
   },
   {
-   "path": "/products/kd-001",
-   "28d": 1,
+   "path": "/products/kd-003",
+   "28d": 2,
    "7d": 0
   },
   {
    "path": "/en/products/kd-001",
-   "28d": 1,
-   "7d": 0
-  },
-  {
-   "path": "/products/kd-055",
-   "28d": 1,
-   "7d": 0
-  },
-  {
-   "path": "/products/kd-024",
    "28d": 1,
    "7d": 0
   },
@@ -43,17 +28,32 @@
    "7d": 0
   },
   {
+   "path": "/products/kd-055",
+   "28d": 1,
+   "7d": 0
+  },
+  {
    "path": "/products/kd-046",
    "28d": 1,
    "7d": 0
   },
   {
-   "path": "/pepperoni-dlya-pizzerii",
+   "path": "/products/kd-024",
    "28d": 1,
    "7d": 0
   },
   {
    "path": "/products/kd-048",
+   "28d": 1,
+   "7d": 0
+  },
+  {
+   "path": "/",
+   "28d": 1,
+   "7d": 1
+  },
+  {
+   "path": "/pepperoni-dlya-pizzerii",
    "28d": 1,
    "7d": 0
   }
@@ -62,13 +62,13 @@
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 549,
+   "impressions_28d": 552,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 10.4,
-   "position_7d": 10.4,
+   "position_28d": 10.5,
+   "position_7d": 10.5,
    "trend": 0.0,
-   "gap_to_1": 9.4,
+   "gap_to_1": 9.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -76,13 +76,13 @@
   {
    "query": "what is halal pepperoni made of",
    "seed": false,
-   "impressions_28d": 172,
+   "impressions_28d": 175,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 11.6,
-   "position_7d": 9.3,
-   "trend": 2.3,
-   "gap_to_1": 8.3,
+   "position_28d": 11.5,
+   "position_7d": 8.9,
+   "trend": 2.6,
+   "gap_to_1": 7.9,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -90,13 +90,13 @@
   {
    "query": "сосиски для хот догов оптом",
    "seed": false,
-   "impressions_28d": 154,
+   "impressions_28d": 152,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 31.4,
-   "position_7d": 34.2,
-   "trend": -2.8,
-   "gap_to_1": 33.2,
+   "position_28d": 30.5,
+   "position_7d": 29.5,
+   "trend": 1.0,
+   "gap_to_1": 28.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -104,27 +104,13 @@
   {
    "query": "пепперони из какого мяса",
    "seed": false,
-   "impressions_28d": 131,
+   "impressions_28d": 127,
    "clicks_28d": 0,
    "inquiries_28d": 0,
    "position_28d": 7.2,
-   "position_7d": 5.7,
-   "trend": 1.5,
-   "gap_to_1": 4.7,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "pepperoni.tatar",
-   "seed": false,
-   "impressions_28d": 129,
-   "clicks_28d": 1,
-   "inquiries_28d": 0,
-   "position_28d": 45.0,
-   "position_7d": 24.7,
-   "trend": 20.3,
-   "gap_to_1": 23.7,
+   "position_7d": 5.0,
+   "trend": 2.2,
+   "gap_to_1": 4.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -132,13 +118,13 @@
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 126,
+   "impressions_28d": 116,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 9.7,
-   "position_7d": 9.5,
-   "trend": 0.2,
-   "gap_to_1": 8.5,
+   "position_28d": 9.6,
+   "position_7d": 9.4,
+   "trend": 0.3,
+   "gap_to_1": 8.4,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -160,13 +146,27 @@
   {
    "query": "татарская колбаса из конины",
    "seed": false,
-   "impressions_28d": 98,
+   "impressions_28d": 99,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 10.4,
-   "position_7d": 10.6,
-   "trend": -0.1,
-   "gap_to_1": 9.6,
+   "position_28d": 11.2,
+   "position_7d": 14.3,
+   "trend": -3.1,
+   "gap_to_1": 13.3,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "pepperoni.tatar",
+   "seed": false,
+   "impressions_28d": 98,
+   "clicks_28d": 1,
+   "inquiries_28d": 1,
+   "position_28d": 43.9,
+   "position_7d": 24.7,
+   "trend": 19.1,
+   "gap_to_1": 23.7,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -174,13 +174,13 @@
   {
    "query": "pepperoni halal",
    "seed": false,
-   "impressions_28d": 92,
+   "impressions_28d": 97,
    "clicks_28d": 1,
    "inquiries_28d": 0,
-   "position_28d": 16.3,
-   "position_7d": 28.9,
-   "trend": -12.6,
-   "gap_to_1": 27.9,
+   "position_28d": 15.9,
+   "position_7d": 22.2,
+   "trend": -6.3,
+   "gap_to_1": 21.2,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -188,13 +188,13 @@
   {
    "query": "what is pepperoni made of halal",
    "seed": false,
-   "impressions_28d": 78,
+   "impressions_28d": 73,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 11.5,
-   "position_7d": 7.9,
-   "trend": 3.5,
-   "gap_to_1": 6.9,
+   "position_28d": 8.7,
+   "position_7d": 7.6,
+   "trend": 1.1,
+   "gap_to_1": 6.6,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -202,13 +202,13 @@
   {
    "query": "котлеты для бургеров оптом",
    "seed": true,
-   "impressions_28d": 49,
+   "impressions_28d": 47,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 33.6,
-   "position_7d": 33.0,
-   "trend": 0.6,
-   "gap_to_1": 32.0,
+   "position_28d": 34.4,
+   "position_7d": null,
+   "trend": null,
+   "gap_to_1": 33.4,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -218,7 +218,7 @@
    "seed": true,
    "impressions_28d": 5,
    "clicks_28d": 0,
-   "inquiries_28d": 0,
+   "inquiries_28d": 1,
    "position_28d": 7.2,
    "position_7d": null,
    "trend": null,
@@ -232,7 +232,7 @@
    "seed": true,
    "impressions_28d": 2,
    "clicks_28d": 0,
-   "inquiries_28d": 0,
+   "inquiries_28d": 1,
    "position_28d": 9.5,
    "position_7d": null,
    "trend": null,
@@ -400,21 +400,21 @@
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 3445,
+   "impressions_28d": 3455,
    "clicks_28d": 7,
-   "position_28d": 21.3
+   "position_28d": 21.8
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 71,
+   "impressions_28d": 72,
    "clicks_28d": 0,
-   "position_28d": 7.9
+   "position_28d": 8.0
   },
   {
    "country": "Беларусь",
    "code": "blr",
-   "impressions_28d": 53,
+   "impressions_28d": 49,
    "clicks_28d": 0,
    "position_28d": 7.9
   },
@@ -428,14 +428,14 @@
   {
    "country": "Азербайджан",
    "code": "aze",
-   "impressions_28d": 238,
+   "impressions_28d": 232,
    "clicks_28d": 1,
    "position_28d": 7.4
   },
   {
    "country": "Кыргызстан",
    "code": "kgz",
-   "impressions_28d": 22,
+   "impressions_28d": 23,
    "clicks_28d": 0,
    "position_28d": 7.5
   },
@@ -456,23 +456,23 @@
   {
    "country": "ОАЭ",
    "code": "are",
-   "impressions_28d": 54,
+   "impressions_28d": 50,
    "clicks_28d": 0,
-   "position_28d": 10.0
+   "position_28d": 11.4
   },
   {
    "country": "Сауд. Аравия",
    "code": "sau",
-   "impressions_28d": 53,
+   "impressions_28d": 52,
    "clicks_28d": 0,
-   "position_28d": 14.3
+   "position_28d": 14.2
   },
   {
    "country": "Кувейт",
    "code": "kwt",
-   "impressions_28d": 11,
+   "impressions_28d": 10,
    "clicks_28d": 0,
-   "position_28d": 14.4
+   "position_28d": 15.1
   },
   {
    "country": "Бахрейн",
@@ -484,30 +484,30 @@
   {
    "country": "Оман",
    "code": "omn",
-   "impressions_28d": 13,
+   "impressions_28d": 12,
    "clicks_28d": 0,
-   "position_28d": 9.9
+   "position_28d": 10.3
   },
   {
    "country": "Йемен",
    "code": "yem",
-   "impressions_28d": 1,
+   "impressions_28d": 0,
    "clicks_28d": 0,
-   "position_28d": 8.0
+   "position_28d": null
   },
   {
    "country": "Катар",
    "code": "qat",
-   "impressions_28d": 6,
+   "impressions_28d": 10,
    "clicks_28d": 1,
-   "position_28d": 18.3
+   "position_28d": 40.8
   },
   {
    "country": "Египет",
    "code": "egy",
-   "impressions_28d": 63,
+   "impressions_28d": 66,
    "clicks_28d": 0,
-   "position_28d": 8.3
+   "position_28d": 8.2
   }
  ]
 }

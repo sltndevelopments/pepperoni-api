@@ -9076,5 +9076,53 @@
     "after_ctr": null,
     "after_impr": null,
     "operator_experiment_id": "exp-20260814053211-4"
+  },
+  {
+    "applied_at": "2026-08-15T04:00:17.142891+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-15T05:30:45.151534+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/vetchina-fileynaya-halyal",
+    "file_path": "public/blog/vetchina-fileynaya-halyal.html",
+    "query": "ветчина это халал",
+    "before_pos": 5.33,
+    "before_ctr": 0.0,
+    "before_impr": 135,
+    "before_title": "Ветчина халяль — что это такое | Казанские Деликатесы",
+    "before_desc": "Халяль-ветчина — это деликатес из сертифицированной говядины или птицы с подтверждённым статусом халяль. Филейная премиум-ветчина для HoReCa и ритейла. Оптовые поставки.",
+    "after_title": "Ветчина это халяль — состав и сертификация | Казанские Деликатесы",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null,
+    "operator_experiment_id": "exp-20260815053103-4"
+  },
+  {
+    "applied_at": "2026-08-15T05:30:45.151534+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/kazylyk",
+    "file_path": "public/blog/kazylyk.html",
+    "query": "казылык это",
+    "before_pos": 11.51,
+    "before_ctr": 0.0,
+    "before_impr": 107,
+    "before_title": "Казылык — традиционная халяль колбаса из конины",
+    "before_desc": "Казылык: история, состав, применение в HoReCa. Халяль колбаса из конины оптом от производителя Казанские Деликатесы. Сертификат ДУМ РТ №614А/2024.",
+    "after_title": "Казылык — это традиционная халяль колбаса из конины оптом",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null,
+    "operator_experiment_id": "exp-20260815053112-5"
   }
 ]
