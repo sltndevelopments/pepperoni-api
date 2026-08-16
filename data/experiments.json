@@ -9124,5 +9124,15 @@
     "after_ctr": null,
     "after_impr": null,
     "operator_experiment_id": "exp-20260815053112-5"
+  },
+  {
+    "applied_at": "2026-08-16T04:00:21.407030+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+    "file_path": "public/blog/what-is-echpochmak.html",
+    "query": "эчпочмак это",
+    "before_pos": 50.0,
+    "before_title": "Что такое эчпочмак — татарский пирог-треугольник | КД",
+    "before_desc": "Эчпочмак — традиционный татарский пирог с говядиной, картофелем и луком. Халяль, ручная лепка, фиксированный состав. Оптовые поставки для HoReCa и розницы — pepperoni.tat"
   }
 ]

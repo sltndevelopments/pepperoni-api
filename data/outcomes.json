@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-08-15T05:30:25.068280+00:00",
+ "generated_at": "2026-08-16T05:31:47.282405+00:00",
  "summary": {
-  "improved": 33,
-  "flat": 10,
-  "worse": 7,
-  "not_indexed": 271,
-  "pending": 540,
+  "improved": 42,
+  "flat": 7,
+  "worse": 9,
+  "not_indexed": 350,
+  "pending": 456,
   "converted": 0
  },
  "failing": [
@@ -18,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 68.0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 68.0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 68.0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 68.0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +66,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 67.9,
+   "age_days": 68.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +78,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 67.9,
+   "age_days": 68.9,
    "verdict": "not_indexed"
   },
   {
@@ -87,6 +87,18 @@
    "page": "https://pepperoni.tatar/en/blog/kak-otlichit-halyal",
    "change": "title_meta",
    "before_pos": 8.19,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 68.9,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-09T08:46:55.176544+00:00|farsh yerevan|https://pepperoni.tatar/geo/farsh-yerevan|title_meta",
+   "query": "farsh yerevan",
+   "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+   "change": "title_meta",
+   "before_pos": 9.16,
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
@@ -102,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 66.0,
+   "age_days": 67.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 65.0,
+   "age_days": 66.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +150,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-12T05:30:12.659838+00:00|эчпочмак это|https://pepperoni.tatar/blog/what-is-echpochmak|title_meta",
+   "query": "эчпочмак это",
+   "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+   "change": "title_meta",
+   "before_pos": 15.57,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 65.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +174,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 64.0,
+   "age_days": 65.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-16T05:30:08.821251+00:00|farsh yerevan|https://pepperoni.tatar/geo/farsh-yerevan|strengthen_failing",
+   "query": "farsh yerevan",
+   "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+   "change": "strengthen_failing",
+   "before_pos": 50.0,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +210,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-16T05:30:53.992251+00:00|farsh yerevan|https://pepperoni.tatar/geo/farsh-yerevan|strengthen_failing",
+   "query": "farsh yerevan",
+   "page": "https://pepperoni.tatar/geo/farsh-yerevan",
+   "change": "strengthen_failing",
+   "before_pos": 50.0,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 60.0,
+   "age_days": 61.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 1,
-   "age_days": 59.0,
+   "age_days": 60.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +282,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +294,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   },
   {
@@ -258,58 +306,10 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 52.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-26T03:30:06.256481+00:00|echpochmak|https://pepperoni.tatar/en/blog/what-is-echpochmak|strengthen_failing",
-   "query": "echpochmak",
-   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 50.1,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-26T03:30:09.100148+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|strengthen_failing",
-   "query": "ветчина это халал",
-   "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
-   "change": "strengthen_failing",
-   "before_pos": 62.3,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 50.1,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-26T05:30:16.326807+00:00|что такое эчпочмак|https://pepperoni.tatar/blog/what-is-echpochmak|title_meta",
-   "query": "что такое эчпочмак",
-   "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
-   "change": "title_meta",
-   "before_pos": 11.05,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 50.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-30T21:30:07.268101+00:00|tatar cuisine|https://pepperoni.tatar/en/blog/tatar-cuisine-restaurant-menu|strengthen_failing",
-   "query": "tatar cuisine",
-   "page": "https://pepperoni.tatar/en/blog/tatar-cuisine-restaurant-menu",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 45.3,
+   "age_days": 53.0,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 321,
+ "graded_total": 408,
  "converting_pages": []
 }

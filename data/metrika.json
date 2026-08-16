@@ -1,13 +1,13 @@
 {
- "fetched_at": "2026-08-15T05:30:02.953720+00:00",
+ "fetched_at": "2026-08-16T05:30:03.366605+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 4540,
-  "users": 2921,
-  "bounce_rate_pct": 38.9,
+  "visits": 4534,
+  "users": 2925,
+  "bounce_rate_pct": 39.1,
   "page_depth": 1.04,
-  "avg_visit_sec": 53
+  "avg_visit_sec": 52
  },
  "sources": [
   {
@@ -16,7 +16,7 @@
   },
   {
    "source": "Direct traffic",
-   "visits": 270
+   "visits": 266
   },
   {
    "source": "Internal traffic",
@@ -24,7 +24,7 @@
   },
   {
    "source": "Search engine traffic",
-   "visits": 46
+   "visits": 44
   },
   {
    "source": "Link traffic",
@@ -57,8 +57,8 @@
   },
   {
    "path": "/",
-   "visits": 299,
-   "bounce_pct": 39.8
+   "visits": 290,
+   "bounce_pct": 41.0
   },
   {
    "path": "/products/kd-013",
@@ -126,39 +126,7 @@
   }
  },
  "inquiries_by_page": {
-  "/en/products/kd-001": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-049": {
-   "28d": 2,
-   "7d": 0
-  },
-  "/products/kd-017": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-055": {
-   "28d": 1,
-   "7d": 0
-  },
   "/products/kd-046": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-024": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-048": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/": {
-   "28d": 1,
-   "7d": 1
-  },
-  "/pepperoni-dlya-pizzerii": {
    "28d": 1,
    "7d": 0
   },
@@ -166,11 +134,43 @@
    "28d": 2,
    "7d": 0
   },
-  "/products/kd-001": {
+  "/products/kd-048": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-017": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/pepperoni-dlya-pizzerii": {
    "28d": 1,
    "7d": 0
   },
   "/products/kd-015": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/": {
+   "28d": 1,
+   "7d": 1
+  },
+  "/products/kd-024": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-049": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/en/products/kd-001": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-001": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-055": {
    "28d": 1,
    "7d": 0
   }
