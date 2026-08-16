@@ -51,16 +51,6 @@ jobs:
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
 
-      - name: Apply /test1 X-Robots-Tag noindex
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh
-            bash /var/www/pepperoni/repo/scripts/apply_nginx_test1_noindex.sh /var/www/pepperoni/repo
-
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -110,6 +100,7 @@ jobs:
               echo "ANTHROPIC_API_KEY=$ANTHROPIC_API_KEY"
               echo "ANTHROPIC_PROXY=$ANTHROPIC_PROXY"
               echo "ANTHROPIC_PROXY_FALLBACK=${ANTHROPIC_PROXY_FALLBACK:-}"
+              echo "ANTHROPIC_PROXY_LOCK=1"
               echo "ASOCKS_API_KEY=${ASOCKS_API_KEY:-}"
               # Dedicated monthly budget for the BRAIN (Fable + escalations),
               # tracked separately from the "hands" via data/opus_budget.json.

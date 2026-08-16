@@ -76,6 +76,13 @@ def main() -> int:
         print("ℹ️  ASOCKS_API_KEY not set — skip asocks sync", file=sys.stderr)
         return 0
     env_path = Path(os.environ.get("SEO_AGENT_ENV", str(DEFAULT_ENV)))
+    # Manual SOCKS from the Asocks dashboard (unlimited mobile) — do not
+    # overwrite with the API's HTTP :9999 port, which is a different endpoint.
+    if env_path.exists():
+        existing = env_path.read_text()
+        if re.search(r"^ANTHROPIC_PROXY_LOCK=1\s*$", existing, re.M):
+            print("ℹ️  ANTHROPIC_PROXY_LOCK=1 — skip asocks overwrite", file=sys.stderr)
+            return 0
     try:
         ports = fetch_proxies(api_key)
     except Exception as e:
