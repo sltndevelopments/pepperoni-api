@@ -77,6 +77,8 @@ jobs:
           TG_PASSWORD:             ${{ secrets.TG_PASSWORD }}
           PPLX_API_KEY:            ${{ secrets.PPLX_API_KEY }}
           GEMINI_API_KEY:          ${{ secrets.GEMINI_API_KEY }}
+          OPENAI_API_KEY:          ${{ secrets.OPENAI_API_KEY }}
+          XAI_API_KEY:             ${{ secrets.XAI_API_KEY }}
           OPENROUTER_API_KEY:      ${{ secrets.OPENROUTER_API_KEY }}
           YANDEX_SEARCH_API_KEY:   ${{ secrets.YANDEX_SEARCH_API_KEY }}
           INDEXNOW_KEY:            ${{ secrets.INDEXNOW_KEY }}
@@ -88,10 +90,20 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
-          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,YANDEX_METRIKA_TOKEN,LEADS_BOT_TOKEN,LEADS_GROUP_ID,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,ASOCKS_API_KEY,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,GEMINI_API_KEY,OPENROUTER_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT,PAGESPEED_API_KEY
+          envs: GSC_SERVICE_ACCOUNT_KEY,YANDEX_WM_TOKEN,YANDEX_METRIKA_TOKEN,LEADS_BOT_TOKEN,LEADS_GROUP_ID,DEEPSEEK_API_KEY,ANTHROPIC_API_KEY,ANTHROPIC_PROXY,ANTHROPIC_PROXY_FALLBACK,ASOCKS_API_KEY,TELEGRAM_BOT_TOKEN,TELEGRAM_CHAT_ID,TG_PASSWORD,PPLX_API_KEY,GEMINI_API_KEY,OPENAI_API_KEY,XAI_API_KEY,OPENROUTER_API_KEY,YANDEX_SEARCH_API_KEY,INDEXNOW_KEY,BING_CLIENT_ID,BING_CLIENT_SECRET,GH_PAT,PAGESPEED_API_KEY
           script: |
             # GSC key is JSON — base64-encode it so it fits on one line safely
             GSC_B64=$(echo "$GSC_SERVICE_ACCOUNT_KEY" | base64 -w0)
+            # Native ChatGPT/Grok keys: keep VPS value if GitHub Secret is still empty
+            # so a deploy cannot wipe a key the owner installed by hand.
+            if [ -f /var/www/pepperoni/seo-agent.env ]; then
+              if [ -z "${OPENAI_API_KEY:-}" ]; then
+                OPENAI_API_KEY=$(grep '^OPENAI_API_KEY=' /var/www/pepperoni/seo-agent.env | cut -d= -f2- || true)
+              fi
+              if [ -z "${XAI_API_KEY:-}" ]; then
+                XAI_API_KEY=$(grep '^XAI_API_KEY=' /var/www/pepperoni/seo-agent.env | cut -d= -f2- || true)
+              fi
+            fi
             {
               echo "GSC_SERVICE_ACCOUNT_KEY_B64=$GSC_B64"
               echo "YANDEX_WM_TOKEN=$YANDEX_WM_TOKEN"
@@ -136,6 +148,8 @@ jobs:
               echo "PPLX_API_KEY=${PPLX_API_KEY:-}"
               echo "GEMINI_API_KEY=${GEMINI_API_KEY:-}"
               echo "GEMINI_MODEL=gemini-3.7-flash"
+              echo "OPENAI_API_KEY=${OPENAI_API_KEY:-}"
+              echo "XAI_API_KEY=${XAI_API_KEY:-}"
               echo "OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}"
               echo "YANDEX_SEARCH_API_KEY=${YANDEX_SEARCH_API_KEY:-}"
               echo "INDEXNOW_KEY=$INDEXNOW_KEY"
