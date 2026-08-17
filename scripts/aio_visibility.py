@@ -13,7 +13,8 @@ Layers:
   2) LIVE CITABILITY (optional, via Perplexity online model when PPLX_API_KEY is
      set) — does an assistant WITH live web retrieval cite us right now?
   3) ChatGPT presence (optional, OPENAI_API_KEY) — gpt-4o-mini, knowledge base.
-  4) Gemini presence (optional, GEMINI_API_KEY) — gemini-1.5-flash, free tier.
+  4) Gemini presence (optional, GEMINI_API_KEY) — gemini-3.7-flash
+     (current public Flash; override with GEMINI_MODEL).
 
 Tracks a git-tracked ledger (data/aio_visibility.json): per-run score = share of
 questions where we are mentioned, plus which questions we win/lose. Sends a weekly
@@ -25,6 +26,7 @@ Env:
   PPLX_API_KEY                  optional, enables live citability (Perplexity)
   OPENAI_API_KEY                optional, enables ChatGPT presence check
   GEMINI_API_KEY                optional, enables Gemini presence check
+  GEMINI_MODEL                  optional, default gemini-3.7-flash
   TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID
 Usage:
   python3 scripts/aio_visibility.py
@@ -56,7 +58,8 @@ OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
 OPENAI_MODEL = "gpt-4o-mini"
 
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-GEMINI_MODEL = "gemini-2.5-flash"
+# Knowledge-base probe: current public Flash (GA 2026-08-13), not the stale 2.5 id.
+GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.7-flash").strip() or "gemini-3.7-flash"
 
 # Use the same US proxy that already works for Anthropic (OpenAI/Gemini blocked in RU)
 _PROXY = (os.environ.get("ANTHROPIC_PROXY", "") or
@@ -189,33 +192,84 @@ def ask_chatgpt(q: str) -> str:
         return ""
 
 
+def _gemini_proxy_chain() -> list[str]:
+    """Same US-egress chain as Anthropic: Google blocks the RU VPS by location."""
+    chain: list[str] = []
+    for raw in (
+        os.environ.get("ANTHROPIC_PROXY", ""),
+        os.environ.get("ANTHROPIC_PROXY_FALLBACK", ""),
+        *os.environ.get("ANTHROPIC_PROXIES", "").split(","),
+    ):
+        p = raw.strip()
+        if p and p not in chain:
+            chain.append(p)
+    return chain
+
+
 def ask_gemini(q: str) -> str:
-    """Layer 4: Gemini (gemini-2.5-flash) knowledge-base presence. Skip if no key."""
+    """Layer 4: Gemini knowledge-base presence. Skip if no key."""
     if not GEMINI_KEY:
         return ""
-    try:
-        import httpx
-        url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-               f"{GEMINI_MODEL}:generateContent?key={GEMINI_KEY}")
-        payload = {
-            "contents": [{"parts": [{"text": (
-                "You are a B2B food procurement assistant. Answer concretely, "
-                "name real companies and websites if you know them.\n\n" + q
-            )}]}],
-            "generationConfig": {"maxOutputTokens": 600, "temperature": 0.2},
-        }
-        client_kwargs: dict = {"timeout": 30}
-        if _PROXY:
-            client_kwargs["proxy"] = _PROXY
-        with httpx.Client(**client_kwargs) as client:
-            resp = client.post(url, json=payload)
-        resp.raise_for_status()
-        data = resp.json()
+    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+           f"{GEMINI_MODEL}:generateContent")
+    payload = {
+        "contents": [{"parts": [{"text": (
+            "You are a B2B food procurement assistant. Answer concretely, "
+            "name real companies and websites if you know them.\n\n" + q
+        )}]}],
+        # Gemini 3 defaults thinking to high; that can eat a small token
+        # budget and return empty visible text. Low is enough for "do you
+        # know this brand?"
+        "generationConfig": {
+            "maxOutputTokens": 1024,
+            "temperature": 0.2,
+            "thinkingConfig": {"thinkingLevel": "low"},
+        },
+    }
+    headers = {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_KEY,
+    }
+    last_err = None
+    proxies = _gemini_proxy_chain() or [None]
+    body = json.dumps(payload).encode()
+
+    def _parse(data: dict) -> str:
         parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])
         return parts[0].get("text", "") if parts else ""
-    except Exception as e:
-        print(f"· gemini failed: {e}", file=sys.stderr)
-        return ""
+
+    try:
+        import requests
+    except Exception:
+        requests = None  # type: ignore
+
+    if requests is not None:
+        for proxy in proxies:
+            try:
+                kw = {"timeout": 45, "headers": headers, "json": payload}
+                if proxy:
+                    kw["proxies"] = {"http": proxy, "https": proxy}
+                resp = requests.post(url, **kw)
+                if resp.status_code >= 400:
+                    last_err = f"{resp.status_code} {resp.text[:240]}"
+                    if resp.status_code == 400 and "location" in resp.text.lower():
+                        continue
+                    continue
+                return _parse(resp.json())
+            except Exception as e:
+                last_err = e
+                continue
+
+    # Direct urllib (GHA / local Mac — no SOCKS). Skip if a proxy is required.
+    if not _gemini_proxy_chain():
+        try:
+            req = urllib.request.Request(url, data=body, headers=headers)
+            with urllib.request.urlopen(req, timeout=45) as resp:
+                return _parse(json.loads(resp.read()))
+        except Exception as e:
+            last_err = e
+    print(f"· gemini failed: {last_err}", file=sys.stderr)
+    return ""
 
 
 def ask_perplexity(q: str) -> str:
@@ -282,6 +336,7 @@ def main():
         "perplexity_score": px_score,
         "chatgpt_score": cg_score,
         "gemini_score": gm_score,
+        "gemini_model": GEMINI_MODEL if GEMINI_KEY else None,
         "won": ds_won,
         "lost": ds_lost,
         "questions": len(QUESTIONS),
@@ -305,7 +360,7 @@ def main():
     if cg_score is not None:
         print(f"📊 ChatGPT presence:  {cg_score*100:.0f}%")
     if gm_score is not None:
-        print(f"📊 Gemini presence:   {gm_score*100:.0f}%")
+        print(f"📊 Gemini presence:   {gm_score*100:.0f}% ({GEMINI_MODEL})")
     for q in ds_won:
         print(f"  ✅ {q}")
 
@@ -335,7 +390,8 @@ def send_report(point: dict, ledger: list) -> None:
         lines.append(f"Присутствие (ChatGPT gpt-4o-mini): "
                      f"<b>{point['chatgpt_score']*100:.0f}%</b>")
     if point.get("gemini_score") is not None:
-        lines.append(f"Присутствие (Gemini 1.5 Flash): "
+        gm_label = point.get("gemini_model") or GEMINI_MODEL
+        lines.append(f"Присутствие (Gemini {gm_label}): "
                      f"<b>{point['gemini_score']*100:.0f}%</b>")
     if point["won"]:
         lines.append("\n<b>Где нас называют:</b>")
