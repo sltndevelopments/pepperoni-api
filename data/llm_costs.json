@@ -767,8 +767,8 @@
   }
  },
  "2026-08": {
-  "usd": 18.058357,
-  "usd_baseline": 17.799309,
+  "usd": 19.293989,
+  "usd_baseline": 19.034941,
   "days": {
    "2026-08-01": {
     "calls": 195,
@@ -913,6 +913,15 @@
     "cache_r": 0,
     "usd": 0.299937,
     "usd_baseline": 0.299937
+   },
+   "2026-08-17": {
+    "calls": 40,
+    "in": 208004,
+    "out": 24108,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 1.235632,
+    "usd_baseline": 1.235632
    }
   },
   "scripts": {
@@ -935,13 +944,13 @@
     "usd_baseline": 2.000345
    },
    "repair_outcomes": {
-    "calls": 2016,
-    "in": 680609,
-    "out": 799945,
+    "calls": 2028,
+    "in": 684741,
+    "out": 804745,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 14.041002,
-    "usd_baseline": 14.041002
+    "usd": 14.125398,
+    "usd_baseline": 14.125398
    },
    "send_report": {
     "calls": 8,
@@ -962,13 +971,22 @@
     "usd_baseline": 0.680495
    },
    "optimize_seo": {
-    "calls": 78,
-    "in": 28178,
-    "out": 30476,
+    "calls": 91,
+    "in": 32888,
+    "out": 35676,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.541674,
-    "usd_baseline": 0.541674
+    "usd": 0.633804,
+    "usd_baseline": 0.633804
+   },
+   "market_pulse": {
+    "calls": 15,
+    "in": 199162,
+    "out": 14108,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 1.059106,
+    "usd_baseline": 1.059106
    }
   },
   "models": {
@@ -1000,13 +1018,13 @@
     "usd_baseline": 2.68084
    },
    "claude-sonnet-5": {
-    "calls": 2094,
-    "in": 708787,
-    "out": 830421,
+    "calls": 2119,
+    "in": 717629,
+    "out": 840421,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 14.582676,
-    "usd_baseline": 14.582676
+    "usd": 14.759202,
+    "usd_baseline": 14.759202
    },
    "claude-haiku-4-5-20251001": {
     "calls": 8,
@@ -1016,6 +1034,15 @@
     "cache_r": 0,
     "usd": 0.075997,
     "usd_baseline": 0.075997
+   },
+   "pplx-agent-low": {
+    "calls": 15,
+    "in": 199162,
+    "out": 14108,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 1.059106,
+    "usd_baseline": 1.059106
    }
   }
  }
