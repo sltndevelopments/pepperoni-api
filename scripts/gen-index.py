@@ -79,7 +79,7 @@ def gen_ru() -> str:
     {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
     {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
   ],
-  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar","https://www.youtube.com/@kazandelikates"]
+  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar","https://www.youtube.com/@kazandelikates","https://www.wikidata.org/wiki/Q141108238"]
 }}
 </script>
 <style>
