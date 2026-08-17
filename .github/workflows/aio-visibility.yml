@@ -1,9 +1,8 @@
 name: AIO Visibility — AI citability monitor (weekly)
 
-# Asks a panel of buyer-intent profile questions and measures whether AI
-# assistants mention us: knowledge-base presence (DeepSeek) always, and live
-# citability (Perplexity) when PPLX_API_KEY is set. Tracks a git-tracked ledger
-# the brain reads + a weekly Telegram report. Discovery only — edits nothing.
+# Buyer-intent panel: memory vs live-search, never mixed.
+# Score is written only on real answers; proxy/API fail → status=fail, not 0%.
+# OPENAI_API_KEY must be a GitHub Secret (do not copy the operator key into git).
 
 on:
   schedule:
@@ -33,9 +32,15 @@ jobs:
           PPLX_API_KEY:       ${{ secrets.PPLX_API_KEY }}
           GEMINI_API_KEY:     ${{ secrets.GEMINI_API_KEY }}
           GEMINI_MODEL:       gemini-3.7-flash
+          OPENAI_API_KEY:     ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_SEARCH_MODEL: gpt-5.6
+          XAI_API_KEY:        ${{ secrets.XAI_API_KEY }}
+          MOONSHOT_API_KEY:   ${{ secrets.MOONSHOT_API_KEY }}
+          MISTRAL_API_KEY:    ${{ secrets.MISTRAL_API_KEY }}
+          ZHIPU_API_KEY:      ${{ secrets.ZHIPU_API_KEY }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/aio_visibility.py
+        run: python scripts/aio_visibility.py --core
         continue-on-error: true
 
       - name: Commit AIO visibility ledger

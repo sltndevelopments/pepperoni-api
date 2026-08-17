@@ -488,9 +488,20 @@ def aio_digest() -> dict:
     if not led:
         return {}
     last = led[-1]
-    return {"deepseek_score": last.get("deepseek_score"),
-            "perplexity_score": last.get("perplexity_score"),
-            "not_cited_for": (last.get("lost") or [])[:6]}
+    return {
+        "claude_memory_score": last.get("claude_memory_score", last.get("deepseek_score")),
+        "chatgpt_memory_score": last.get("chatgpt_memory_score"),
+        "chatgpt_search_score": last.get("chatgpt_search_score"),
+        "gemini_memory_score": last.get("gemini_memory_score", last.get("gemini_score")),
+        "perplexity_search_score": last.get(
+            "perplexity_search_score", last.get("perplexity_score")),
+        "deepseek_memory_score": last.get("deepseek_memory_score"),
+        # Legacy alias: deepseek_score was Claude memory, not DeepSeek.
+        "deepseek_score": last.get("claude_memory_score", last.get("deepseek_score")),
+        "perplexity_score": last.get(
+            "perplexity_search_score", last.get("perplexity_score")),
+        "not_cited_for": (last.get("lost") or [])[:6],
+    }
 
 
 def goals_digest() -> dict:

@@ -1,36 +1,41 @@
 #!/usr/bin/env python3
 """
-AIO-VISIBILITY — are we cited by AI assistants? (meta-agent item D, weekly)
+AIO-VISIBILITY — are we cited by AI assistants? (weekly)
 
-A metric almost nobody tracks: when a buyer asks an AI assistant a profile
-question ("где купить халяль пепперони оптом"), does it mention US? This agent
-asks a fixed panel of buyer-intent questions and detects whether the answer
-references our brand / domain / phone, scoring our "AI presence" over time.
+Two layers, never mixed:
+  memory  — weights / no live web (does the model *know* us?)
+  search  — live retrieval / grounding (does it *find* us now?)
 
-Layers:
-  1) KNOWLEDGE-BASE PRESENCE (always, via Claude Sonnet) — does the model *know*
-     us from its training? Reflects long-term brand/entity presence.
-  2) LIVE CITABILITY (optional, via Perplexity online model when PPLX_API_KEY is
-     set) — does an assistant WITH live web retrieval cite us right now?
-  3) ChatGPT presence (optional, OPENAI_API_KEY) — gpt-4o-mini, knowledge base.
-  4) Gemini presence (optional, GEMINI_API_KEY) — gemini-3.7-flash
-     (current public Flash; override with GEMINI_MODEL).
+A score is written only when the provider returned real answers.
+Proxy/API failure → status=fail, score=null. Missing key → status=skip.
+Never record 0% for an empty panel caused by a dead proxy.
 
-Tracks a git-tracked ledger (data/aio_visibility.json): per-run score = share of
-questions where we are mentioned, plus which questions we win/lose. Sends a weekly
-Telegram report and feeds the brain so it can prioritise content that earns AI
-citations (clear entity facts, FAQ, structured answers).
+Legacy ledger aliases (do not reinterpret history):
+  deepseek_score   = Claude memory (name is historical; NOT DeepSeek)
+  chatgpt_score    = ChatGPT memory
+  gemini_score     = Gemini memory
+  perplexity_score = Perplexity search
 
-Env:
-  ANTHROPIC_API_KEY             required for layer 1 (Claude)
-  PPLX_API_KEY                  optional, enables live citability (Perplexity)
-  OPENAI_API_KEY                optional, enables ChatGPT presence check
-  GEMINI_API_KEY                optional, enables Gemini presence check
-  GEMINI_MODEL                  optional, default gemini-3.7-flash
-  TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID
+Canonical fields: {provider}_{memory|search}_score + _status.
+
+Env (all optional; skip the layer if unset):
+  ANTHROPIC_API_KEY / ANTHROPIC_PROXY
+  OPENAI_API_KEY          ChatGPT memory + search
+  OPENAI_SEARCH_MODEL     default gpt-5.6
+  GEMINI_API_KEY / GEMINI_MODEL (default gemini-3.7-flash)
+  PPLX_API_KEY
+  DEEPSEEK_API_KEY        real DeepSeek (not Claude). Probe only — never a writer.
+  XAI_API_KEY             Grok
+  MOONSHOT_API_KEY / KIMI_API_KEY
+  MISTRAL_API_KEY
+  ZHIPU_API_KEY / GLM_API_KEY
+  AIO_LAYERS              comma list to restrict providers
+  AIO_CLAUDE_SEARCH=1     enable Claude web_search (off by default; cost)
+
 Usage:
   python3 scripts/aio_visibility.py
-  python3 scripts/aio_visibility.py --no-telegram
+  python3 scripts/aio_visibility.py --no-telegram --core
+  python3 scripts/aio_visibility.py --layers claude_memory,chatgpt_memory
 """
 
 from __future__ import annotations
@@ -39,35 +44,59 @@ import json
 import os
 import re
 import sys
+import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
-from claude_client import call_claude, ANTHROPIC_API_KEY
 
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 LEDGER = DATA / "aio_visibility.json"
 
 PPLX_KEY = os.environ.get("PPLX_API_KEY", "").strip()
-PPLX_URL = "https://api.perplexity.ai/chat/completions"
 PPLX_MODEL = os.environ.get("PPLX_MODEL", "sonar")
 
 OPENAI_KEY = os.environ.get("OPENAI_API_KEY", "").strip()
-OPENAI_MODEL = "gpt-4o-mini"
+OPENAI_MEMORY_MODEL = os.environ.get("OPENAI_MEMORY_MODEL", "gpt-4o-mini").strip()
+OPENAI_SEARCH_MODEL = os.environ.get("OPENAI_SEARCH_MODEL", "gpt-5.6").strip()
 
 GEMINI_KEY = os.environ.get("GEMINI_API_KEY", "").strip()
-# Knowledge-base probe: current public Flash (GA 2026-08-13), not the stale 2.5 id.
 GEMINI_MODEL = os.environ.get("GEMINI_MODEL", "gemini-3.7-flash").strip() or "gemini-3.7-flash"
 
-# Use the same US proxy that already works for Anthropic (OpenAI/Gemini blocked in RU)
+DEEPSEEK_KEY = os.environ.get("DEEPSEEK_API_KEY", "").strip()
+DEEPSEEK_MODEL = os.environ.get("DEEPSEEK_MODEL", "deepseek-v4-flash").strip()
+
+XAI_KEY = os.environ.get("XAI_API_KEY", "").strip()
+XAI_MODEL = os.environ.get("XAI_MODEL", "grok-4-1-fast").strip()
+
+KIMI_KEY = (os.environ.get("MOONSHOT_API_KEY", "") or
+            os.environ.get("KIMI_API_KEY", "")).strip()
+KIMI_MODEL = os.environ.get("KIMI_MODEL", "kimi-k2.5").strip()
+KIMI_BASE = os.environ.get("KIMI_BASE", "https://api.moonshot.ai/v1").rstrip("/")
+
+MISTRAL_KEY = os.environ.get("MISTRAL_API_KEY", "").strip()
+MISTRAL_MODEL = os.environ.get("MISTRAL_MODEL", "mistral-small-latest").strip()
+
+GLM_KEY = (os.environ.get("ZHIPU_API_KEY", "") or
+           os.environ.get("GLM_API_KEY", "")).strip()
+GLM_MODEL = os.environ.get("GLM_MODEL", "glm-4.5-flash").strip()
+
 _PROXY = (os.environ.get("ANTHROPIC_PROXY", "") or
           os.environ.get("HTTPS_PROXY", "") or
           os.environ.get("HTTP_PROXY", "")).strip()
 
-# Buyer-intent profile questions across our core lines + private label.
-QUESTIONS = [
+SYSTEM = (
+    "You are a B2B food procurement assistant. Answer concretely: "
+    "name real companies, brands and websites if you know them."
+)
+SYSTEM_RU = (
+    "Ты помощник по B2B-закупкам продуктов питания в России. Отвечай "
+    "конкретно: называй реальные компании, бренды и сайты, если знаешь."
+)
+
+CORE_QUESTIONS = [
     "Где купить халяльную пепперони оптом в России? Назови производителей.",
     "Какие компании производят халяльные сосиски для хот-догов оптом в РФ?",
     "Кто делает халяльные котлеты для бургеров (паттисы) оптом под СТМ в России?",
@@ -76,23 +105,46 @@ QUESTIONS = [
     "Кто производит казылык оптом? Назови поставщиков.",
     "Какие производители татарской выпечки (эчпочмак, чак-чак) работают оптом?",
     "Производители халяльной пепперони для пиццерий оптом в России — кого посоветуешь?",
-    # Target export markets: do AI assistants name us for Gulf/CIS buyers?
     "أين يمكن شراء بيبروني حلال بالجملة للتصدير إلى الإمارات أو السعودية؟ اذكر مصنّعين.",
     "من هم موردو اللحوم الحلال من روسيا إلى دول الخليج؟",
     "Қазақстанға халал шұжық пен пепперониді көтерме жеткізетін өндірушілер кімдер?",
     "Halal pepperoni supplier for export to UAE and Saudi Arabia — which manufacturers do you recommend?",
 ]
 
+US_PATTERNS = [
+    r"pepperoni\.tatar",
+    r"казанские\s+деликатес",
+    r"kazandelikates",
+    r"kazan\s+delicac",
+    r"пепперони\s+татар",
+    r"\+?7\s*9?87\s*217",
+    r"217-02-02",
+]
 
-def _rotating_questions(limit: int = 4) -> list:
-    """Extra questions built from real GSC demand, rotated weekly.
+# Canonical layer ids. copilot has no public probe API.
+LAYER_IDS = [
+    "claude_memory", "claude_search",
+    "chatgpt_memory", "chatgpt_search",
+    "gemini_memory", "gemini_search",
+    "perplexity_search",
+    "deepseek_memory",
+    "grok_memory", "grok_search",
+    "kimi_memory",
+    "mistral_memory",
+    "glm_memory",
+    "copilot",
+]
 
-    Keeps the 8 fixed QUESTIONS for trend continuity, and adds up to `limit`
-    questions templated from top commercial queries so AIO coverage follows
-    actual demand instead of a frozen panel."""
+
+def mentions_us(text: str) -> bool:
+    t = (text or "").lower()
+    return any(re.search(p, t, re.I) for p in US_PATTERNS)
+
+
+def _rotating_questions(limit: int = 4) -> list[str]:
     import sqlite3
-    from datetime import datetime, timedelta, timezone
-    db = Path(__file__).parent.parent / "data" / "seo_data.db"
+    from datetime import timedelta
+    db = ROOT / "data" / "seo_data.db"
     if not db.exists():
         return []
     try:
@@ -116,84 +168,16 @@ def _rotating_questions(limit: int = 4) -> list:
     return [f"{q} — посоветуй конкретных производителей или поставщиков." for q in picked]
 
 
-QUESTIONS = QUESTIONS + _rotating_questions()
-
-# Signals that the answer actually references US.
-US_PATTERNS = [
-    r"pepperoni\.tatar",
-    r"казанские\s+деликатес",
-    r"kazandelikates",
-    r"kazan\s+delicac",
-    r"пепперони\s+татар",
-    r"\+?7\s*9?87\s*217",        # our phone fragment
-    r"217-02-02",
-]
+def panel_questions(with_gsc: bool) -> list[str]:
+    qs = list(CORE_QUESTIONS)
+    if with_gsc:
+        qs.extend(_rotating_questions())
+    return qs
 
 
-def mentions_us(text: str) -> bool:
-    t = (text or "").lower()
-    return any(re.search(p, t, re.I) for p in US_PATTERNS)
+# ---------------------------------------------------------------- HTTP
 
-
-# ---------------------------------------------------------------- providers
-
-def ask_deepseek(q: str) -> str:
-    """Layer 1: Claude Sonnet knowledge-base presence (named 'deepseek' for ledger compat)."""
-    system = ("Ты помощник по B2B-закупкам продуктов питания в России. Отвечай "
-              "конкретно: называй реальные компании, бренды и сайты, если знаешь.")
-    try:
-        text, _ = call_claude(q, system=system, max_tokens=600)
-        return text or ""
-    except Exception as e:
-        print(f"· claude failed: {e}", file=sys.stderr)
-        return ""
-
-
-def _make_opener(proxy_url: str):
-    """Build a urllib opener that routes through the given HTTP proxy."""
-    import urllib.request as _ur
-    if not proxy_url:
-        return _ur.build_opener()
-    handler = _ur.ProxyHandler({"http": proxy_url, "https": proxy_url})
-    return _ur.build_opener(handler)
-
-
-def ask_chatgpt(q: str) -> str:
-    """Layer 3: ChatGPT (gpt-4o-mini) knowledge-base presence. Skip if no key."""
-    if not OPENAI_KEY:
-        return ""
-    try:
-        import urllib.request as _ur
-        payload = json.dumps({
-            "model": OPENAI_MODEL,
-            "messages": [
-                {"role": "system", "content": (
-                    "You are a B2B food procurement assistant. Answer concretely: "
-                    "name real companies, brands and websites if you know them.")},
-                {"role": "user", "content": q},
-            ],
-            "max_tokens": 600,
-            "temperature": 0.2,
-        }).encode()
-        req = _ur.Request(
-            "https://api.openai.com/v1/chat/completions",
-            data=payload,
-            headers={
-                "Content-Type": "application/json",
-                "Authorization": f"Bearer {OPENAI_KEY}",
-            },
-        )
-        opener = _make_opener(_PROXY)
-        with opener.open(req, timeout=30) as resp:
-            data = json.loads(resp.read())
-        return data["choices"][0]["message"]["content"] or ""
-    except Exception as e:
-        print(f"· chatgpt failed: {e}", file=sys.stderr)
-        return ""
-
-
-def _gemini_proxy_chain() -> list[str]:
-    """Same US-egress chain as Anthropic: Google blocks the RU VPS by location."""
+def _proxy_chain() -> list[str]:
     chain: list[str] = []
     for raw in (
         os.environ.get("ANTHROPIC_PROXY", ""),
@@ -206,38 +190,11 @@ def _gemini_proxy_chain() -> list[str]:
     return chain
 
 
-def ask_gemini(q: str) -> str:
-    """Layer 4: Gemini knowledge-base presence. Skip if no key."""
-    if not GEMINI_KEY:
-        return ""
-    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
-           f"{GEMINI_MODEL}:generateContent")
-    payload = {
-        "contents": [{"parts": [{"text": (
-            "You are a B2B food procurement assistant. Answer concretely, "
-            "name real companies and websites if you know them.\n\n" + q
-        )}]}],
-        # Gemini 3 defaults thinking to high; that can eat a small token
-        # budget and return empty visible text. Low is enough for "do you
-        # know this brand?"
-        "generationConfig": {
-            "maxOutputTokens": 1024,
-            "temperature": 0.2,
-            "thinkingConfig": {"thinkingLevel": "low"},
-        },
-    }
-    headers = {
-        "Content-Type": "application/json",
-        "x-goog-api-key": GEMINI_KEY,
-    }
+def _post_json(url: str, payload: dict, headers: dict,
+               timeout: int = 45, use_proxy: bool = True) -> tuple[dict | None, str | None]:
+    """POST JSON. Returns (data, error). error is set on HTTP/network failure."""
     last_err = None
-    proxies = _gemini_proxy_chain() or [None]
-    body = json.dumps(payload).encode()
-
-    def _parse(data: dict) -> str:
-        parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [{}])
-        return parts[0].get("text", "") if parts else ""
-
+    proxies = (_proxy_chain() or [None]) if use_proxy else [None]
     try:
         import requests
     except Exception:
@@ -246,172 +203,482 @@ def ask_gemini(q: str) -> str:
     if requests is not None:
         for proxy in proxies:
             try:
-                kw = {"timeout": 45, "headers": headers, "json": payload}
+                kw = {"timeout": timeout, "headers": headers, "json": payload}
                 if proxy:
                     kw["proxies"] = {"http": proxy, "https": proxy}
                 resp = requests.post(url, **kw)
                 if resp.status_code >= 400:
                     last_err = f"{resp.status_code} {resp.text[:240]}"
-                    if resp.status_code == 400 and "location" in resp.text.lower():
-                        continue
                     continue
-                return _parse(resp.json())
+                return resp.json(), None
             except Exception as e:
-                last_err = e
+                last_err = str(e)[:240]
                 continue
 
-    # Direct urllib (GHA / local Mac — no SOCKS). Skip if a proxy is required.
-    if not _gemini_proxy_chain():
-        try:
-            req = urllib.request.Request(url, data=body, headers=headers)
-            with urllib.request.urlopen(req, timeout=45) as resp:
-                return _parse(json.loads(resp.read()))
-        except Exception as e:
-            last_err = e
-    print(f"· gemini failed: {last_err}", file=sys.stderr)
-    return ""
-
-
-def ask_perplexity(q: str) -> str:
-    if not PPLX_KEY:
-        return ""
+    if use_proxy and _proxy_chain():
+        return None, last_err or "proxy required and requests failed"
     try:
-        # Shared client: same call, plus unified cost-ledger telemetry.
+        req = urllib.request.Request(
+            url, data=json.dumps(payload).encode(), headers=headers)
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return json.loads(resp.read()), None
+    except urllib.error.HTTPError as e:
+        body = ""
+        try:
+            body = e.read().decode()[:240]
+        except Exception:
+            body = str(e.reason or "")[:240]
+        return None, f"HTTP {e.code}: {body}"
+    except Exception as e:
+        return None, str(e)[:240]
+
+
+def _openai_compat(q: str, *, key: str, url: str, model: str,
+                   extra_body: dict | None = None,
+                   timeout: int = 45) -> tuple[str, str | None]:
+    if not key:
+        return "", "no key"
+    payload = {
+        "model": model,
+        "messages": [
+            {"role": "system", "content": SYSTEM},
+            {"role": "user", "content": q},
+        ],
+        "max_tokens": 600,
+        "temperature": 0.2,
+    }
+    if extra_body:
+        payload.update(extra_body)
+    data, err = _post_json(url, payload, {
+        "Content-Type": "application/json",
+        "Authorization": f"Bearer {key}",
+    }, timeout=timeout)
+    if err:
+        return "", err
+    try:
+        return (data["choices"][0]["message"]["content"] or ""), None
+    except Exception as e:
+        return "", f"parse: {e}"
+
+
+# ---------------------------------------------------------------- providers
+
+def ask_claude_memory(q: str) -> tuple[str, str | None]:
+    try:
+        from claude_client import call_claude, ANTHROPIC_API_KEY
+    except Exception as e:
+        return "", f"import: {e}"
+    if not ANTHROPIC_API_KEY:
+        return "", "no key"
+    try:
+        text, _ = call_claude(q, system=SYSTEM_RU, max_tokens=600)
+        return text or "", None
+    except Exception as e:
+        return "", str(e)[:240]
+
+
+def ask_chatgpt_memory(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=OPENAI_KEY,
+        url="https://api.openai.com/v1/chat/completions",
+        model=OPENAI_MEMORY_MODEL)
+
+
+def _openai_output_text(data: dict) -> str:
+    if data.get("output_text"):
+        return str(data["output_text"])
+    texts: list[str] = []
+    for item in data.get("output") or []:
+        if isinstance(item, dict) and item.get("type") == "message":
+            for c in item.get("content") or []:
+                if isinstance(c, dict) and c.get("text"):
+                    texts.append(c["text"])
+        elif isinstance(item, dict) and item.get("content"):
+            for c in item.get("content") or []:
+                if isinstance(c, dict) and c.get("text"):
+                    texts.append(c["text"])
+    return "\n".join(texts)
+
+
+def ask_chatgpt_search(q: str) -> tuple[str, str | None]:
+    if not OPENAI_KEY:
+        return "", "no key"
+    payload = {
+        "model": OPENAI_SEARCH_MODEL,
+        "input": q,
+        "tools": [{"type": "web_search"}],
+        "tool_choice": "web_search",
+    }
+    data, err = _post_json(
+        "https://api.openai.com/v1/responses", payload,
+        {"Content-Type": "application/json",
+         "Authorization": f"Bearer {OPENAI_KEY}"},
+        timeout=90)
+    if err:
+        return "", err
+    text = _openai_output_text(data or {})
+    return text, None if text else "empty output"
+
+
+def _gemini(q: str, search: bool) -> tuple[str, str | None]:
+    if not GEMINI_KEY:
+        return "", "no key"
+    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+           f"{GEMINI_MODEL}:generateContent")
+    payload: dict = {
+        "contents": [{"parts": [{"text": SYSTEM + "\n\n" + q}]}],
+        "generationConfig": {
+            "maxOutputTokens": 1024,
+            "temperature": 0.2,
+            "thinkingConfig": {"thinkingLevel": "low"},
+        },
+    }
+    if search:
+        payload["tools"] = [{"google_search": {}}]
+    data, err = _post_json(url, payload, {
+        "Content-Type": "application/json",
+        "x-goog-api-key": GEMINI_KEY,
+    }, timeout=60)
+    if err:
+        return "", err
+    try:
+        parts = data.get("candidates", [{}])[0].get("content", {}).get("parts", [])
+        text = ""
+        for p in parts:
+            if isinstance(p, dict) and p.get("text"):
+                text += p["text"]
+        return text, None if text else "empty output"
+    except Exception as e:
+        return "", f"parse: {e}"
+
+
+def ask_gemini_memory(q: str) -> tuple[str, str | None]:
+    return _gemini(q, search=False)
+
+
+def ask_gemini_search(q: str) -> tuple[str, str | None]:
+    return _gemini(q, search=True)
+
+
+def ask_perplexity_search(q: str) -> tuple[str, str | None]:
+    if not PPLX_KEY:
+        return "", "no key"
+    try:
         from pplx_client import pplx_search
         text, _cites = pplx_search(
             q, system="Отвечай по актуальным данным из интернета, "
                       "называй компании и сайты.",
             model=PPLX_MODEL, timeout=40)
-        return text
+        return text or "", None if text else "empty output"
     except Exception as e:
-        print(f"· perplexity failed: {e}", file=sys.stderr)
-        return ""
+        return "", str(e)[:240]
 
 
-# ---------------------------------------------------------------- run
-
-def run_panel() -> dict:
-    results = {"deepseek": [], "perplexity": [], "chatgpt": [], "gemini": []}
-    for q in QUESTIONS:
-        ds = ask_deepseek(q)
-        results["deepseek"].append({"q": q, "cited": mentions_us(ds)})
-        if PPLX_KEY:
-            px = ask_perplexity(q)
-            results["perplexity"].append({"q": q, "cited": mentions_us(px)})
-        if OPENAI_KEY:
-            cg = ask_chatgpt(q)
-            results["chatgpt"].append({"q": q, "cited": mentions_us(cg)})
-        if GEMINI_KEY:
-            gm = ask_gemini(q)
-            results["gemini"].append({"q": q, "cited": mentions_us(gm)})
-    return results
+def ask_deepseek_memory(q: str) -> tuple[str, str | None]:
+    if not DEEPSEEK_KEY:
+        return "", "no key"
+    if DEEPSEEK_KEY.startswith("sk-ant-"):
+        return "", "DEEPSEEK_API_KEY looks like Anthropic — skip real DeepSeek"
+    return _openai_compat(
+        q, key=DEEPSEEK_KEY,
+        url="https://api.deepseek.com/chat/completions",
+        model=DEEPSEEK_MODEL)
 
 
-def _score(items: list) -> float:
-    return round(sum(1 for i in items if i["cited"]) / len(items), 3) if items else 0.0
+def ask_grok_memory(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=XAI_KEY,
+        url="https://api.x.ai/v1/chat/completions",
+        model=XAI_MODEL)
 
 
-def main():
-    if not ANTHROPIC_API_KEY:
-        print("❌ ANTHROPIC_API_KEY not set", file=sys.stderr)
-        return 1
+def ask_grok_search(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=XAI_KEY,
+        url="https://api.x.ai/v1/chat/completions",
+        model=XAI_MODEL,
+        extra_body={"search_parameters": {"mode": "on"}},
+        timeout=90)
 
-    extras = [k for k, v in [("perplexity", PPLX_KEY), ("chatgpt", OPENAI_KEY),
-                               ("gemini", GEMINI_KEY)] if v]
-    print(f"🤖 AIO-visibility: asking {len(QUESTIONS)} profile questions "
-          f"(extra: {', '.join(extras) or 'none'}) …")
-    results = run_panel()
 
-    ds_score = _score(results["deepseek"])
-    px_score = _score(results["perplexity"]) if PPLX_KEY else None
-    cg_score = _score(results["chatgpt"]) if OPENAI_KEY else None
-    gm_score = _score(results["gemini"]) if GEMINI_KEY else None
-    ds_won = [r["q"] for r in results["deepseek"] if r["cited"]]
-    ds_lost = [r["q"] for r in results["deepseek"] if not r["cited"]]
+def ask_kimi_memory(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=KIMI_KEY,
+        url=f"{KIMI_BASE}/chat/completions",
+        model=KIMI_MODEL)
 
-    point = {
-        "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
-        "ts": datetime.now(timezone.utc).isoformat(),
-        "deepseek_score": ds_score,
-        "perplexity_score": px_score,
-        "chatgpt_score": cg_score,
-        "gemini_score": gm_score,
-        "gemini_model": GEMINI_MODEL if GEMINI_KEY else None,
-        "won": ds_won,
-        "lost": ds_lost,
-        "questions": len(QUESTIONS),
+
+def ask_mistral_memory(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=MISTRAL_KEY,
+        url="https://api.mistral.ai/v1/chat/completions",
+        model=MISTRAL_MODEL)
+
+
+def ask_glm_memory(q: str) -> tuple[str, str | None]:
+    return _openai_compat(
+        q, key=GLM_KEY,
+        url="https://open.bigmodel.cn/api/paas/v4/chat/completions",
+        model=GLM_MODEL)
+
+
+# (asker, required_key_present, model_label, skip_reason)
+def _layer_spec() -> dict[str, tuple]:
+    try:
+        from claude_client import ANTHROPIC_API_KEY as _ak
+    except Exception:
+        _ak = ""
+    claude_search_on = os.environ.get("AIO_CLAUDE_SEARCH", "").strip() == "1"
+    return {
+        "claude_memory": (ask_claude_memory, bool(_ak), "claude-sonnet",
+                          None if _ak else "no ANTHROPIC_API_KEY"),
+        "claude_search": (
+            ask_claude_memory, False, "claude-sonnet",
+            None if claude_search_on else "off (set AIO_CLAUDE_SEARCH=1); no dedicated search asker yet"),
+        "chatgpt_memory": (ask_chatgpt_memory, bool(OPENAI_KEY), OPENAI_MEMORY_MODEL,
+                           None if OPENAI_KEY else "no OPENAI_API_KEY"),
+        "chatgpt_search": (ask_chatgpt_search, bool(OPENAI_KEY), OPENAI_SEARCH_MODEL,
+                           None if OPENAI_KEY else "no OPENAI_API_KEY"),
+        "gemini_memory": (ask_gemini_memory, bool(GEMINI_KEY), GEMINI_MODEL,
+                          None if GEMINI_KEY else "no GEMINI_API_KEY"),
+        "gemini_search": (ask_gemini_search, bool(GEMINI_KEY), GEMINI_MODEL,
+                          None if GEMINI_KEY else "no GEMINI_API_KEY"),
+        "perplexity_search": (ask_perplexity_search, bool(PPLX_KEY), PPLX_MODEL,
+                              None if PPLX_KEY else "no PPLX_API_KEY"),
+        "deepseek_memory": (ask_deepseek_memory, bool(DEEPSEEK_KEY) and not DEEPSEEK_KEY.startswith("sk-ant-"),
+                            DEEPSEEK_MODEL,
+                            None if (DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-"))
+                            else ("DEEPSEEK_API_KEY looks like Anthropic" if DEEPSEEK_KEY
+                                  else "no DEEPSEEK_API_KEY")),
+        "grok_memory": (ask_grok_memory, bool(XAI_KEY), XAI_MODEL,
+                        None if XAI_KEY else "no XAI_API_KEY"),
+        "grok_search": (ask_grok_search, bool(XAI_KEY), XAI_MODEL,
+                        None if XAI_KEY else "no XAI_API_KEY"),
+        "kimi_memory": (ask_kimi_memory, bool(KIMI_KEY), KIMI_MODEL,
+                        None if KIMI_KEY else "no MOONSHOT_API_KEY / KIMI_API_KEY"),
+        "mistral_memory": (ask_mistral_memory, bool(MISTRAL_KEY), MISTRAL_MODEL,
+                           None if MISTRAL_KEY else "no MISTRAL_API_KEY"),
+        "glm_memory": (ask_glm_memory, bool(GLM_KEY), GLM_MODEL,
+                       None if GLM_KEY else "no ZHIPU_API_KEY / GLM_API_KEY"),
+        "copilot": (None, False, None,
+                    "no public probe API; Bing/IndexNow is P1"),
     }
 
+
+def run_layer(layer_id: str, questions: list[str]) -> dict:
+    spec = _layer_spec()[layer_id]
+    asker, ready, model, skip_reason = spec
+    out = {
+        "status": "skip",
+        "score": None,
+        "cited": 0,
+        "asked": len(questions),
+        "ok_n": 0,
+        "model": model,
+        "error": skip_reason,
+        "items": [],
+    }
+    if not ready or asker is None:
+        return out
+    errors: list[str] = []
+    items = []
+    for q in questions:
+        text, err = asker(q)
+        if err:
+            errors.append(err)
+            items.append({"q": q, "cited": False, "empty": True, "error": err})
+            print(f"· {layer_id} fail: {err}", file=sys.stderr)
+            continue
+        cited = mentions_us(text)
+        empty = not (text or "").strip()
+        items.append({"q": q, "cited": cited, "empty": empty, "error": None})
+        if not empty:
+            out["ok_n"] += 1
+            if cited:
+                out["cited"] += 1
+    out["items"] = [{"q": i["q"], "cited": i["cited"]} for i in items]
+    if out["ok_n"] == 0:
+        out["status"] = "fail"
+        out["score"] = None
+        out["error"] = errors[0] if errors else "all answers empty"
+        return out
+    out["status"] = "ok"
+    out["score"] = round(out["cited"] / len(questions), 3)
+    out["error"] = None
+    return out
+
+
+def _wanted_layers(cli: list[str]) -> list[str]:
+    raw = ""
+    for i, a in enumerate(cli):
+        if a == "--layers" and i + 1 < len(cli):
+            raw = cli[i + 1]
+        elif a.startswith("--layers="):
+            raw = a.split("=", 1)[1]
+    if not raw:
+        raw = os.environ.get("AIO_LAYERS", "").strip()
+    if not raw:
+        return list(LAYER_IDS)
+    wanted = [x.strip() for x in raw.split(",") if x.strip()]
+    unknown = [x for x in wanted if x not in LAYER_IDS]
+    if unknown:
+        print(f"❌ unknown layers: {unknown}", file=sys.stderr)
+        sys.exit(2)
+    return wanted
+
+
+def _score_fields(layer_id: str, result: dict) -> dict:
+    return {
+        f"{layer_id}_score": result["score"],
+        f"{layer_id}_status": result["status"],
+        f"{layer_id}_model": result.get("model"),
+        f"{layer_id}_error": result.get("error"),
+        f"{layer_id}_cited": result.get("cited"),
+        f"{layer_id}_ok_n": result.get("ok_n"),
+    }
+
+
+def _merge_point(old: dict, new: dict) -> dict:
+    """Same-date merge: an ok layer is never overwritten by skip/fail."""
+    merged = dict(old)
+    merged.update({k: v for k, v in new.items()
+                   if k not in LAYER_IDS and not any(
+                       k.startswith(lid + "_") for lid in LAYER_IDS)})
+    for lid in LAYER_IDS:
+        new_st = new.get(f"{lid}_status")
+        old_st = old.get(f"{lid}_status")
+        if new_st == "ok" or old_st != "ok":
+            for suffix in ("score", "status", "model", "error", "cited", "ok_n"):
+                key = f"{lid}_{suffix}"
+                if key in new:
+                    merged[key] = new[key]
+        if lid in new.get("layers", {}) and (
+                new.get("layers", {}).get(lid, {}).get("status") == "ok"
+                or (old.get("layers") or {}).get(lid, {}).get("status") != "ok"):
+            merged.setdefault("layers", dict(old.get("layers") or {}))
+            merged["layers"][lid] = new["layers"][lid]
+    if new.get("won"):
+        merged["won"] = new["won"]
+        merged["lost"] = new.get("lost") or []
+    merged["ts"] = new.get("ts") or old.get("ts")
+    merged["questions"] = new.get("questions") or old.get("questions")
+    _apply_legacy_aliases(merged)
+    return merged
+
+
+def _apply_legacy_aliases(point: dict) -> None:
+    # Historical name: deepseek_score was Claude memory, never DeepSeek.
+    if point.get("claude_memory_status") == "ok":
+        point["deepseek_score"] = point.get("claude_memory_score")
+    elif "deepseek_score" not in point:
+        point["deepseek_score"] = None
+    if point.get("chatgpt_memory_status") == "ok":
+        point["chatgpt_score"] = point.get("chatgpt_memory_score")
+    if point.get("gemini_memory_status") == "ok":
+        point["gemini_score"] = point.get("gemini_memory_score")
+        point["gemini_model"] = point.get("gemini_memory_model")
+    if point.get("perplexity_search_status") == "ok":
+        point["perplexity_score"] = point.get("perplexity_search_score")
+
+
+def _upsert_ledger(point: dict) -> list:
     ledger = []
     if LEDGER.exists():
         try:
             ledger = json.loads(LEDGER.read_text(encoding="utf-8"))
         except Exception:
             ledger = []
-    ledger = [p for p in ledger if p.get("date") != point["date"]]
+    existing = next((p for p in ledger if p.get("date") == point["date"]), None)
+    if existing:
+        point = _merge_point(existing, point)
+        ledger = [p for p in ledger if p.get("date") != point["date"]]
     ledger.append(point)
-    ledger = ledger[-52:]  # ~1 year of weekly points
+    ledger = ledger[-52:]
     DATA.mkdir(parents=True, exist_ok=True)
-    LEDGER.write_text(json.dumps(ledger, ensure_ascii=False, indent=2), encoding="utf-8")
+    LEDGER.write_text(json.dumps(ledger, ensure_ascii=False, indent=2),
+                      encoding="utf-8")
+    return ledger
 
-    print(f"📊 Claude presence:   {ds_score*100:.0f}% ({len(ds_won)}/{len(QUESTIONS)} вопросов)")
-    if px_score is not None:
-        print(f"📊 Perplexity (live): {px_score*100:.0f}%")
-    if cg_score is not None:
-        print(f"📊 ChatGPT presence:  {cg_score*100:.0f}%")
-    if gm_score is not None:
-        print(f"📊 Gemini presence:   {gm_score*100:.0f}% ({GEMINI_MODEL})")
-    for q in ds_won:
-        print(f"  ✅ {q}")
 
-    if "--no-telegram" not in sys.argv[1:]:
+def _fmt_layer(lid: str, point: dict) -> str:
+    st = point.get(f"{lid}_status")
+    if st is None:
+        return f"{lid}: —"
+    if st == "skip":
+        return f"{lid}: skip ({point.get(f'{lid}_error') or 'no key'})"
+    if st == "fail":
+        return f"{lid}: FAIL ({point.get(f'{lid}_error') or '?'})"
+    sc = point.get(f"{lid}_score")
+    cited = point.get(f"{lid}_cited")
+    asked = point.get("questions")
+    return f"{lid}: {sc*100:.0f}% ({cited}/{asked})"
+
+
+def main() -> int:
+    argv = sys.argv[1:]
+    with_gsc = "--with-gsc" in argv
+    questions = panel_questions(with_gsc)
+    wanted = _wanted_layers(argv)
+
+    print(f"🤖 AIO-visibility: {len(questions)} questions, "
+          f"layers={','.join(wanted)}", flush=True)
+
+    layers: dict[str, dict] = {}
+    point = {
+        "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
+        "ts": datetime.now(timezone.utc).isoformat(),
+        "questions": len(questions),
+        "panel": "core12" if not with_gsc else "core12+gsc",
+        "layers": {},
+        "won": [],
+        "lost": [],
+    }
+
+    for lid in wanted:
+        print(f"→ {lid} …", flush=True)
+        result = run_layer(lid, questions)
+        layers[lid] = result
+        point["layers"][lid] = {
+            "status": result["status"],
+            "score": result["score"],
+            "cited": result["cited"],
+            "ok_n": result["ok_n"],
+            "model": result.get("model"),
+            "error": result.get("error"),
+        }
+        point.update(_score_fields(lid, result))
+        print(f"  {_fmt_layer(lid, point)}", flush=True)
+        if lid == "claude_memory" and result["status"] == "ok":
+            point["won"] = [r["q"] for r in result["items"] if r["cited"]]
+            point["lost"] = [r["q"] for r in result["items"] if not r["cited"]]
+
+    _apply_legacy_aliases(point)
+    ledger = _upsert_ledger(point)
+
+    print("📊 panel")
+    for lid in LAYER_IDS:
+        if f"{lid}_status" in point:
+            print(f"  {_fmt_layer(lid, point)}")
+
+    if "--no-telegram" not in argv:
         send_report(point, ledger)
     return 0
 
 
 def send_report(point: dict, ledger: list) -> None:
-    prev = ledger[-2] if len(ledger) >= 2 else None
-    trend = ""
-    if prev is not None and prev.get("deepseek_score") is not None:
-        d = point["deepseek_score"] - prev["deepseek_score"]
-        if abs(d) >= 0.01:
-            trend = f" ({'+' if d > 0 else ''}{d*100:.0f} п.п. к прошл.)"
-
-    lines = [
-        "<b>🤖 AIO-видимость — цитируют ли нас ИИ</b>",
-        f"Присутствие в знаниях ИИ (Claude): "
-        f"<b>{point['deepseek_score']*100:.0f}%</b> "
-        f"({len(point['won'])}/{point['questions']} вопросов){trend}",
-    ]
-    if point.get("perplexity_score") is not None:
-        lines.append(f"Live-цитируемость (Perplexity): "
-                     f"<b>{point['perplexity_score']*100:.0f}%</b>")
-    if point.get("chatgpt_score") is not None:
-        lines.append(f"Присутствие (ChatGPT gpt-4o-mini): "
-                     f"<b>{point['chatgpt_score']*100:.0f}%</b>")
-    if point.get("gemini_score") is not None:
-        gm_label = point.get("gemini_model") or GEMINI_MODEL
-        lines.append(f"Присутствие (Gemini {gm_label}): "
-                     f"<b>{point['gemini_score']*100:.0f}%</b>")
-    if point["won"]:
-        lines.append("\n<b>Где нас называют:</b>")
+    lines = ["<b>🤖 AIO-видимость — search vs memory</b>"]
+    for lid in LAYER_IDS:
+        if point.get(f"{lid}_status"):
+            lines.append(_fmt_layer(lid, point))
+    if point.get("won"):
+        lines.append("\n<b>Claude memory — называют:</b>")
         for q in point["won"][:4]:
             lines.append(f"  ✅ {q}")
-    if point["lost"]:
-        lines.append("\n<b>Где НЕ называют (цели для усиления):</b>")
+    if point.get("lost") and point.get("claude_memory_status") == "ok":
+        lines.append("\n<b>Claude memory — не называют:</b>")
         for q in point["lost"][:5]:
             lines.append(f"  ⬜ {q}")
-    missing_keys = []
-    if point.get("perplexity_score") is None:
-        missing_keys.append("PPLX_API_KEY")
-    if point.get("chatgpt_score") is None:
-        missing_keys.append("OPENAI_API_KEY")
-    if point.get("gemini_score") is None:
-        missing_keys.append("GEMINI_API_KEY")
-    if missing_keys:
-        lines.append(f"\n<i>Для полной панели добавь: {', '.join(missing_keys)}</i>")
-    lines.append("\n<i>Чем чётче факты о компании (entity), FAQ и структурированные "
-                 "ответы на сайте — тем выше шанс, что ИИ нас процитирует.</i>")
+    lines.append("\n<i>0% пишется только при живых ответах. fail ≠ нас нет в весах.</i>")
     try:
         import daily_ledger
         daily_ledger.append_event("done", "\n".join(lines))

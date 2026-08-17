@@ -457,11 +457,15 @@ def action_meta_status() -> str:
     aio = _read("aio_visibility.json", [])
     if aio:
         a = aio[-1]
-        ds = a.get("deepseek_score")
-        px = a.get("perplexity_score")
+        ds = a.get("claude_memory_score")
+        if ds is None:
+            ds = a.get("deepseek_score")
+        px = a.get("perplexity_search_score")
+        if px is None:
+            px = a.get("perplexity_score")
         extra = f" · live {px*100:.0f}%" if px is not None else ""
-        lines.append(f"🤖 <b>AIO-видимость</b>: ИИ знает нас в "
-                     f"{(ds or 0)*100:.0f}% вопросов{extra}")
+        mem = f"{ds*100:.0f}%" if ds is not None else "n/a"
+        lines.append(f"🤖 <b>AIO-видимость</b>: memory {mem}{extra}")
     else:
         lines.append("🤖 <b>AIO-видимость</b>: нет данных (запускается по пн)")
 
