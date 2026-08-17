@@ -43,6 +43,7 @@ jobs:
           MOONSHOT_API_KEY:   ${{ secrets.MOONSHOT_API_KEY }}
           MISTRAL_API_KEY:    ${{ secrets.MISTRAL_API_KEY }}
           ZHIPU_API_KEY:      ${{ secrets.ZHIPU_API_KEY }}
+          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           AIO_LAYERS:         ${{ github.event.inputs.layers }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}

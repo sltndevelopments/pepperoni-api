@@ -29,6 +29,9 @@ Env (all optional; skip the layer if unset):
   MOONSHOT_API_KEY / KIMI_API_KEY
   MISTRAL_API_KEY
   ZHIPU_API_KEY / GLM_API_KEY
+  OPENROUTER_API_KEY      fallback for Grok/Kimi/Mistral/GLM (and DeepSeek
+                          if DEEPSEEK_API_KEY is missing). Not a substitute
+                          for native ChatGPT/Gemini/Perplexity search.
   AIO_LAYERS              comma list to restrict providers
   AIO_CLAUDE_SEARCH=1     enable Claude web_search (off by default; cost)
 
@@ -82,6 +85,17 @@ MISTRAL_MODEL = os.environ.get("MISTRAL_MODEL", "mistral-small-latest").strip()
 GLM_KEY = (os.environ.get("ZHIPU_API_KEY", "") or
            os.environ.get("GLM_API_KEY", "")).strip()
 GLM_MODEL = os.environ.get("GLM_MODEL", "glm-4.5-flash").strip()
+
+OPENROUTER_KEY = os.environ.get("OPENROUTER_API_KEY", "").strip()
+OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions"
+# Public slugs on openrouter.ai/api/v1/models (2026-08-17).
+OR_GROK = os.environ.get("OPENROUTER_GROK_MODEL", "x-ai/grok-4.6").strip()
+OR_KIMI = os.environ.get("OPENROUTER_KIMI_MODEL", "moonshotai/kimi-k2.5").strip()
+OR_MISTRAL = os.environ.get("OPENROUTER_MISTRAL_MODEL",
+                            "mistralai/mistral-small-2603").strip()
+OR_GLM = os.environ.get("OPENROUTER_GLM_MODEL", "z-ai/glm-4.7-flash").strip()
+OR_DEEPSEEK = os.environ.get("OPENROUTER_DEEPSEEK_MODEL",
+                             "deepseek/deepseek-v4-flash").strip()
 
 _PROXY = (os.environ.get("ANTHROPIC_PROXY", "") or
           os.environ.get("HTTPS_PROXY", "") or
@@ -233,8 +247,19 @@ def _post_json(url: str, payload: dict, headers: dict,
         return None, str(e)[:240]
 
 
+def _message_text(msg: dict) -> str:
+    c = (msg or {}).get("content")
+    if isinstance(c, str):
+        return c
+    if isinstance(c, list):
+        return "".join(
+            (p.get("text") or "") for p in c if isinstance(p, dict))
+    return ""
+
+
 def _openai_compat(q: str, *, key: str, url: str, model: str,
                    extra_body: dict | None = None,
+                   extra_headers: dict | None = None,
                    timeout: int = 45) -> tuple[str, str | None]:
     if not key:
         return "", "no key"
@@ -249,16 +274,36 @@ def _openai_compat(q: str, *, key: str, url: str, model: str,
     }
     if extra_body:
         payload.update(extra_body)
-    data, err = _post_json(url, payload, {
+    headers = {
         "Content-Type": "application/json",
         "Authorization": f"Bearer {key}",
-    }, timeout=timeout)
+    }
+    if extra_headers:
+        headers.update(extra_headers)
+    data, err = _post_json(url, payload, headers, timeout=timeout)
     if err:
         return "", err
+    if data.get("error"):
+        return "", str(data["error"])[:240]
     try:
-        return (data["choices"][0]["message"]["content"] or ""), None
+        return _message_text(data["choices"][0]["message"]) or "", None
     except Exception as e:
         return "", f"parse: {e}"
+
+
+def _openrouter(q: str, model: str, search: bool = False,
+                timeout: int = 60) -> tuple[str, str | None]:
+    extra = {}
+    if search:
+        extra["tools"] = [{"type": "openrouter:web_search"}]
+        timeout = max(timeout, 90)
+    return _openai_compat(
+        q, key=OPENROUTER_KEY, url=OPENROUTER_URL, model=model,
+        extra_body=extra or None, timeout=timeout,
+        extra_headers={
+            "HTTP-Referer": "https://pepperoni.tatar",
+            "X-Title": "pepperoni-aio-visibility",
+        })
 
 
 # ---------------------------------------------------------------- providers
@@ -375,51 +420,74 @@ def ask_perplexity_search(q: str) -> tuple[str, str | None]:
 
 
 def ask_deepseek_memory(q: str) -> tuple[str, str | None]:
-    if not DEEPSEEK_KEY:
-        return "", "no key"
+    native = DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-")
+    if native:
+        return _openai_compat(
+            q, key=DEEPSEEK_KEY,
+            url="https://api.deepseek.com/chat/completions",
+            model=DEEPSEEK_MODEL)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_DEEPSEEK)
     if DEEPSEEK_KEY.startswith("sk-ant-"):
         return "", "DEEPSEEK_API_KEY looks like Anthropic — skip real DeepSeek"
-    return _openai_compat(
-        q, key=DEEPSEEK_KEY,
-        url="https://api.deepseek.com/chat/completions",
-        model=DEEPSEEK_MODEL)
+    return "", "no key"
 
 
 def ask_grok_memory(q: str) -> tuple[str, str | None]:
-    return _openai_compat(
-        q, key=XAI_KEY,
-        url="https://api.x.ai/v1/chat/completions",
-        model=XAI_MODEL)
+    if XAI_KEY:
+        return _openai_compat(
+            q, key=XAI_KEY,
+            url="https://api.x.ai/v1/chat/completions",
+            model=XAI_MODEL)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_GROK)
+    return "", "no key"
 
 
 def ask_grok_search(q: str) -> tuple[str, str | None]:
-    return _openai_compat(
-        q, key=XAI_KEY,
-        url="https://api.x.ai/v1/chat/completions",
-        model=XAI_MODEL,
-        extra_body={"search_parameters": {"mode": "on"}},
-        timeout=90)
+    if XAI_KEY:
+        return _openai_compat(
+            q, key=XAI_KEY,
+            url="https://api.x.ai/v1/chat/completions",
+            model=XAI_MODEL,
+            extra_body={"search_parameters": {"mode": "on"}},
+            timeout=90)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_GROK, search=True)
+    return "", "no key"
 
 
 def ask_kimi_memory(q: str) -> tuple[str, str | None]:
-    return _openai_compat(
-        q, key=KIMI_KEY,
-        url=f"{KIMI_BASE}/chat/completions",
-        model=KIMI_MODEL)
+    if KIMI_KEY:
+        return _openai_compat(
+            q, key=KIMI_KEY,
+            url=f"{KIMI_BASE}/chat/completions",
+            model=KIMI_MODEL)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_KIMI)
+    return "", "no key"
 
 
 def ask_mistral_memory(q: str) -> tuple[str, str | None]:
-    return _openai_compat(
-        q, key=MISTRAL_KEY,
-        url="https://api.mistral.ai/v1/chat/completions",
-        model=MISTRAL_MODEL)
+    if MISTRAL_KEY:
+        return _openai_compat(
+            q, key=MISTRAL_KEY,
+            url="https://api.mistral.ai/v1/chat/completions",
+            model=MISTRAL_MODEL)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_MISTRAL)
+    return "", "no key"
 
 
 def ask_glm_memory(q: str) -> tuple[str, str | None]:
-    return _openai_compat(
-        q, key=GLM_KEY,
-        url="https://open.bigmodel.cn/api/paas/v4/chat/completions",
-        model=GLM_MODEL)
+    if GLM_KEY:
+        return _openai_compat(
+            q, key=GLM_KEY,
+            url="https://open.bigmodel.cn/api/paas/v4/chat/completions",
+            model=GLM_MODEL)
+    if OPENROUTER_KEY:
+        return _openrouter(q, OR_GLM)
+    return "", "no key"
 
 
 # (asker, required_key_present, model_label, skip_reason)
@@ -445,21 +513,38 @@ def _layer_spec() -> dict[str, tuple]:
                           None if GEMINI_KEY else "no GEMINI_API_KEY"),
         "perplexity_search": (ask_perplexity_search, bool(PPLX_KEY), PPLX_MODEL,
                               None if PPLX_KEY else "no PPLX_API_KEY"),
-        "deepseek_memory": (ask_deepseek_memory, bool(DEEPSEEK_KEY) and not DEEPSEEK_KEY.startswith("sk-ant-"),
-                            DEEPSEEK_MODEL,
-                            None if (DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-"))
-                            else ("DEEPSEEK_API_KEY looks like Anthropic" if DEEPSEEK_KEY
-                                  else "no DEEPSEEK_API_KEY")),
-        "grok_memory": (ask_grok_memory, bool(XAI_KEY), XAI_MODEL,
-                        None if XAI_KEY else "no XAI_API_KEY"),
-        "grok_search": (ask_grok_search, bool(XAI_KEY), XAI_MODEL,
-                        None if XAI_KEY else "no XAI_API_KEY"),
-        "kimi_memory": (ask_kimi_memory, bool(KIMI_KEY), KIMI_MODEL,
-                        None if KIMI_KEY else "no MOONSHOT_API_KEY / KIMI_API_KEY"),
-        "mistral_memory": (ask_mistral_memory, bool(MISTRAL_KEY), MISTRAL_MODEL,
-                           None if MISTRAL_KEY else "no MISTRAL_API_KEY"),
-        "glm_memory": (ask_glm_memory, bool(GLM_KEY), GLM_MODEL,
-                       None if GLM_KEY else "no ZHIPU_API_KEY / GLM_API_KEY"),
+        "deepseek_memory": (
+            ask_deepseek_memory,
+            bool((DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-"))
+                 or OPENROUTER_KEY),
+            DEEPSEEK_MODEL if (DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-"))
+            else f"openrouter:{OR_DEEPSEEK}",
+            None if (DEEPSEEK_KEY and not DEEPSEEK_KEY.startswith("sk-ant-")) or OPENROUTER_KEY
+            else ("DEEPSEEK_API_KEY looks like Anthropic" if DEEPSEEK_KEY
+                  else "no DEEPSEEK_API_KEY / OPENROUTER_API_KEY")),
+        "grok_memory": (
+            ask_grok_memory, bool(XAI_KEY or OPENROUTER_KEY),
+            XAI_MODEL if XAI_KEY else f"openrouter:{OR_GROK}",
+            None if (XAI_KEY or OPENROUTER_KEY) else "no XAI_API_KEY / OPENROUTER_API_KEY"),
+        "grok_search": (
+            ask_grok_search, bool(XAI_KEY or OPENROUTER_KEY),
+            XAI_MODEL if XAI_KEY else f"openrouter:{OR_GROK}+web",
+            None if (XAI_KEY or OPENROUTER_KEY) else "no XAI_API_KEY / OPENROUTER_API_KEY"),
+        "kimi_memory": (
+            ask_kimi_memory, bool(KIMI_KEY or OPENROUTER_KEY),
+            KIMI_MODEL if KIMI_KEY else f"openrouter:{OR_KIMI}",
+            None if (KIMI_KEY or OPENROUTER_KEY)
+            else "no MOONSHOT_API_KEY / OPENROUTER_API_KEY"),
+        "mistral_memory": (
+            ask_mistral_memory, bool(MISTRAL_KEY or OPENROUTER_KEY),
+            MISTRAL_MODEL if MISTRAL_KEY else f"openrouter:{OR_MISTRAL}",
+            None if (MISTRAL_KEY or OPENROUTER_KEY)
+            else "no MISTRAL_API_KEY / OPENROUTER_API_KEY"),
+        "glm_memory": (
+            ask_glm_memory, bool(GLM_KEY or OPENROUTER_KEY),
+            GLM_MODEL if GLM_KEY else f"openrouter:{OR_GLM}",
+            None if (GLM_KEY or OPENROUTER_KEY)
+            else "no ZHIPU_API_KEY / OPENROUTER_API_KEY"),
         "copilot": (None, False, None,
                     "no public probe API; Bing/IndexNow is P1"),
     }
