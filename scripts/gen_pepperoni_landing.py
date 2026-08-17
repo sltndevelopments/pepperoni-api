@@ -391,10 +391,22 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
         "image": [f"{SITE}{IMG_PACK}", f"{SITE}{IMG_SLICES}", f"{SITE}{IMG_PIZZA}"],
         "brand": {"@type": "Brand", "name": "Kazan Delicacies"},
         "manufacturer": {
-            "@type": "Organization", "name": L["contacts"]["company"],
+            "@type": "Organization",
+            "@id": f"{SITE}/#organization",
+            "name": L["contacts"]["company"],
+            "legalName": "ООО «Казанские Деликатесы»",
+            "alternateName": ["Kazan Delicacies", "Kazan Delicacies LLC"],
             "url": SITE,
-            "address": {"@type": "PostalAddress", "addressLocality": "Kazan",
-                        "addressRegion": "Tatarstan", "addressCountry": "RU"},
+            "sameAs": [
+                "https://kazandelikates.tatar",
+                "https://www.youtube.com/@kazandelikates",
+            ],
+            "address": {"@type": "PostalAddress",
+                        "streetAddress": "ul. Agrarnaya 2, office 7",
+                        "addressLocality": "Kazan",
+                        "addressRegion": "Tatarstan",
+                        "postalCode": "420061",
+                        "addressCountry": "RU"},
             "telephone": facts["phone_display"], "email": facts["email"],
         },
         "additionalProperty": [
@@ -415,6 +427,35 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
             {"@type": "ListItem", "position": 1, "name": L["nav"]["catalog"], "item": SITE + ("" if lang == "ru" else f"/{lang}")},
             {"@type": "ListItem", "position": 2, "name": L["nav"]["current"], "item": url},
         ],
+    }
+    org_ld = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "@id": f"{SITE}/#organization",
+        "name": "Казанские Деликатесы",
+        "legalName": "ООО «Казанские Деликатесы»",
+        "alternateName": ["Kazan Delicacies", "Kazan Delicacies LLC"],
+        "url": SITE,
+        "logo": f"{SITE}/images/icon-180.png",
+        "email": facts["email"],
+        "telephone": facts["phone_display"],
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU",
+        },
+        "sameAs": [
+            "https://kazandelikates.tatar",
+            "https://www.youtube.com/@kazandelikates",
+        ],
+        "description": (
+            "Halal meat manufacturer in Kazan, Tatarstan. Catalog https://pepperoni.tatar, "
+            "corporate https://kazandelikates.tatar. Not kazandelikates.ru "
+            "(that hostname does not resolve and is not this company)."
+        ),
     }
     itemlist_ld = {
         "@context": "https://schema.org", "@type": "ItemList",
@@ -511,6 +552,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <link rel="preload" as="image" href="{IMG_PIZZA}" fetchpriority="high">
 
+{ld(org_ld)}
 {ld(product_ld)}
 {ld(itemlist_ld)}
 {ld(breadcrumb_ld)}
@@ -616,6 +658,18 @@ def build_body(lang: str, L: dict, i18n: dict, family: dict[str, dict], prices: 
         f'<details><summary>{esc(i["q"])}</summary><p>{esc(i["a"])}</p></details>'
         for i in L["faq"]["items"]
     )
+    entity = L.get("entity") or {}
+    if entity:
+        entity_items = "".join(f"<li>{esc(x)}</li>" for x in entity.get("items") or [])
+        entity_html = (
+            f'<section class="section" id="entity" data-track-section="entity"><div class="wrap">'
+            f'<h2>{esc(entity["h2"])}</h2>'
+            f'<p class="lede">{esc(entity["lead"])}</p>'
+            f'<ul class="checklist">{entity_items}</ul>'
+            f'</div></section>\n'
+        )
+    else:
+        entity_html = ""
 
     # Each country card leads to the landing written in that country's main
     # language; when that is the current page it just scrolls to the form.
@@ -708,7 +762,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <h2>{esc(L["trust"]["h2"])}</h2>
   <div class="trust">{trust}</div>
 </div></section>
-
+{entity_html}
 <section class="section" id="video" data-track-section="video"><div class="wrap">
   <h2>{esc(L["video"]["h2"])}</h2>
   <p class="lede">{esc(L["video"]["sub"])}</p>
