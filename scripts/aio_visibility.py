@@ -538,25 +538,44 @@ def _score_fields(layer_id: str, result: dict) -> dict:
     }
 
 
+def _layer_blob(point: dict, lid: str) -> dict | None:
+    if not point.get(f"{lid}_status"):
+        return None
+    return {
+        "status": point.get(f"{lid}_status"),
+        "score": point.get(f"{lid}_score"),
+        "cited": point.get(f"{lid}_cited"),
+        "ok_n": point.get(f"{lid}_ok_n"),
+        "model": point.get(f"{lid}_model"),
+        "error": point.get(f"{lid}_error"),
+    }
+
+
 def _merge_point(old: dict, new: dict) -> dict:
     """Same-date merge: an ok layer is never overwritten by skip/fail."""
+    skip_meta = {"layers", "won", "lost"}
     merged = dict(old)
     merged.update({k: v for k, v in new.items()
-                   if k not in LAYER_IDS and not any(
+                   if k not in skip_meta and k not in LAYER_IDS and not any(
                        k.startswith(lid + "_") for lid in LAYER_IDS)})
+    layers = dict(old.get("layers") or {})
     for lid in LAYER_IDS:
         new_st = new.get(f"{lid}_status")
         old_st = old.get(f"{lid}_status")
-        if new_st == "ok" or old_st != "ok":
+        take_new = new_st == "ok" or (new_st and old_st != "ok")
+        if take_new:
             for suffix in ("score", "status", "model", "error", "cited", "ok_n"):
                 key = f"{lid}_{suffix}"
                 if key in new:
                     merged[key] = new[key]
-        if lid in new.get("layers", {}) and (
-                new.get("layers", {}).get(lid, {}).get("status") == "ok"
-                or (old.get("layers") or {}).get(lid, {}).get("status") != "ok"):
-            merged.setdefault("layers", dict(old.get("layers") or {}))
-            merged["layers"][lid] = new["layers"][lid]
+            blob = (new.get("layers") or {}).get(lid) or _layer_blob(new, lid)
+            if blob:
+                layers[lid] = blob
+        elif lid not in layers:
+            blob = _layer_blob(merged, lid)
+            if blob:
+                layers[lid] = blob
+    merged["layers"] = layers
     if new.get("won"):
         merged["won"] = new["won"]
         merged["lost"] = new.get("lost") or []
