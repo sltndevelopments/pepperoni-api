@@ -34,14 +34,16 @@ CATALOG_PAGES = {
     "pepperoni.html", "pepperoni-optom.html", "pepperoni-dlya-pizzerii.html",
     "pepperoni-dlya-horeca.html", "pepperoni-private-label.html",
     "pepperoni-v-narezke.html", "kazylyk.html", "bakery.html",
-    "pizzeria.html", "blog.html",
+    "pizzeria.html", "blog.html", "jerky.html",
     "en/pepperoni.html", "en/kazylyk.html", "en/bakery.html",
-    "en/blog.html", "en/pizzeria.html",
+    "en/blog.html", "en/pizzeria.html", "en/jerky.html",
 }
 
 SKIP_FILES = {
     "yandex_d0a735c825c78ddf.html",
     "d0a735c825c78ddf.html",
+    "jerks.html",
+    "dzherki.html",
 }
 
 # Directory names whose index.html we skip (duplicate homepages, noindex pages, etc.)

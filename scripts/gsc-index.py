@@ -119,6 +119,8 @@ def load_hot_urls() -> list[str]:
         f"{ORIGIN}/en/llms.txt",
         f"{ORIGIN}/.well-known/llms.txt",
         f"{ORIGIN}/en/pepperoni",
+        f"{ORIGIN}/jerky",
+        f"{ORIGIN}/en/jerky",
         # Localised money hubs for the export markets we advertise in — these are
         # Google Ads destinations, so they cannot wait for the sitemap rotation.
         *(f"{ORIGIN}/{lang}/pepperoni"
