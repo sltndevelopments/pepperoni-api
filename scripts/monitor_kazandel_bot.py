@@ -11,18 +11,19 @@ as the SEO brain, so this monitor lives here for a single place to watch
 lead-gen health.
 
 Checks (fail-fast, catches the exact failure modes from past incidents):
-  1. systemd service is active (kazandel.service) — chat widget bot
+  1. systemd service is active (kazandel.service) — Telegram @KazanDel_Bot
   2. DeepSeek API key (used by the chat bot for every reply) is valid + has balance
   3. No recent crash-loop signature in the journal (network/connect errors)
   4. PM2 process kazandel-ai is online — voice AI operator (phone calls)
-     (2026-06-26 incident: PM2 process died silently, no systemd auto-restart,
-     ~75 incoming calls over 6 days got "No Answer" before this was caught)
-  5. Voice operator /health HTTP endpoint responds
+  5. Voice /health: status=ok AND openai.ok (Realtime via SOCKS, not just TCP)
+  6. Voice watchdog heartbeat file is fresh (<15 min) — operator itself is probing
+  7. Recent calls are not a mute streak (phone up, no speech, no lead)
 
-Sends an alert to Telegram (same authorized chats as the SEO bot) ONLY when
-something is wrong, so it stays quiet in the good case. Run via cron every
-hour — the 2026-07-01 incident went undetected for ~12 days because nothing
-was watching this bot at all.
+Primary voice alerts go from the operator into the leads Telegram group.
+This script is the SEO-bot backup + watcher-of-watchers.
+
+Sends an alert to Telegram (SEO authorized chats) ONLY when something is wrong.
+Cron: every 5 minutes (was hourly; hourly missed a 7-day silent-phone outage).
 
 Usage:
     python3 scripts/monitor_kazandel_bot.py             # check + alert on Telegram
@@ -37,7 +38,7 @@ import subprocess
 import sys
 import urllib.error
 import urllib.request
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(__file__))
@@ -116,6 +117,11 @@ def check_deepseek_key() -> dict:
 
 
 VOICE_HEALTH_URL = "https://ai.pepperoni.tatar/health"
+VOICE_HEARTBEAT = Path("/opt/kazandel-ai-operator/data/voice-watchdog-heartbeat.json")
+VOICE_CALLS_DB = Path("/opt/kazandel-ai-operator/data/calls.db")
+HEARTBEAT_MAX_AGE_SEC = 15 * 60
+MUTE_STREAK = 3
+MUTE_MAX_SEC = 20
 
 
 def check_voice_pm2() -> dict:
@@ -136,11 +142,82 @@ def check_voice_pm2() -> dict:
 
 def check_voice_health() -> dict:
     try:
-        with urllib.request.urlopen(VOICE_HEALTH_URL, timeout=10) as r:
+        with urllib.request.urlopen(VOICE_HEALTH_URL, timeout=12) as r:
             data = json.loads(r.read())
-        return {"ok": data.get("status") == "ok"}
+        openai = data.get("openai") or {}
+        openai_ok = bool(openai.get("ok"))
+        status_ok = data.get("status") == "ok"
+        err = openai.get("lastError")
+        return {
+            "ok": status_ok and openai_ok,
+            "status": data.get("status"),
+            "openai_ok": openai_ok,
+            "http_ok": openai.get("httpOk"),
+            "ws_ok": openai.get("wsOk"),
+            "error": None if status_ok and openai_ok else (err or f"status={data.get('status')}"),
+        }
     except Exception as e:
         return {"ok": False, "error": str(e)}
+
+
+def check_voice_heartbeat() -> dict:
+    if not VOICE_HEARTBEAT.exists():
+        return {"ok": False, "error": f"{VOICE_HEARTBEAT} missing — watchdog not running"}
+    try:
+        data = json.loads(VOICE_HEARTBEAT.read_text())
+        ts = data.get("ts")
+        age = None
+        if ts:
+            dt = datetime.fromisoformat(ts.replace("Z", "+00:00"))
+            if dt.tzinfo is None:
+                dt = dt.replace(tzinfo=timezone.utc)
+            age = (datetime.now(timezone.utc) - dt).total_seconds()
+        stale = age is None or age > HEARTBEAT_MAX_AGE_SEC
+        return {
+            "ok": not stale and bool(data.get("openaiOk", True)),
+            "age_sec": None if age is None else int(age),
+            "openai_ok": data.get("openaiOk"),
+            "error": (
+                f"heartbeat stale {int(age)}s" if stale and age is not None
+                else ("heartbeat ts missing" if stale else data.get("lastError"))
+            ),
+        }
+    except Exception as e:
+        return {"ok": False, "error": str(e)}
+
+
+def check_voice_mute() -> dict:
+    if not VOICE_CALLS_DB.exists():
+        return {"ok": True, "note": "calls.db missing, skipped"}
+    try:
+        import sqlite3
+        since = (datetime.now(timezone.utc) - timedelta(hours=2)).isoformat()
+        con = sqlite3.connect(str(VOICE_CALLS_DB))
+        rows = list(con.execute(
+            """
+            SELECT duration_seconds, language, order_json
+            FROM calls
+            WHERE timestamp >= ?
+            ORDER BY timestamp DESC
+            LIMIT ?
+            """,
+            (since, MUTE_STREAK),
+        ))
+        con.close()
+        if len(rows) < MUTE_STREAK:
+            return {"ok": True, "recent": len(rows), "mute": 0}
+        mute = 0
+        for dur, lang, order in rows:
+            if (dur or 0) <= MUTE_MAX_SEC and (not lang or lang == "unknown") and not order:
+                mute += 1
+        return {
+            "ok": mute < MUTE_STREAK,
+            "recent": len(rows),
+            "mute": mute,
+            "error": None if mute < MUTE_STREAK else f"{mute}/{len(rows)} last calls mute (≤{MUTE_MAX_SEC}s, no speech)",
+        }
+    except Exception as e:
+        return {"ok": True, "note": f"mute check skipped: {e}"}
 
 
 def check_crash_loop() -> dict:
@@ -167,13 +244,20 @@ def run_checks() -> dict:
         "crash_loop": check_crash_loop(),
         "voice_pm2": check_voice_pm2(),
         "voice_health": check_voice_health(),
+        "voice_heartbeat": check_voice_heartbeat(),
+        "voice_mute": check_voice_mute(),
     }
 
 
 def build_report(result: dict) -> str:
     svc, ds, cl = result["service"], result["deepseek"], result["crash_loop"]
     vpm2, vh = result["voice_pm2"], result["voice_health"]
-    all_ok = svc["ok"] and ds["ok"] and cl["ok"] and vpm2["ok"] and vh["ok"]
+    vhb = result.get("voice_heartbeat") or {"ok": True}
+    vmute = result.get("voice_mute") or {"ok": True}
+    all_ok = (
+        svc["ok"] and ds["ok"] and cl["ok"] and vpm2["ok"]
+        and vh["ok"] and vhb["ok"] and vmute["ok"]
+    )
 
     lines = ["<b>🤖 KazanDel AI — здоровье лидогена (чат + звонки)</b>"]
 
@@ -203,9 +287,22 @@ def build_report(result: dict) -> str:
                       f"— входящие звонки с телефона НЕ будут обрабатываться!")
 
     if vh["ok"]:
-        lines.append("✅ /health звонкового сервиса отвечает")
+        lines.append("✅ Голос: /health + OpenAI Realtime через SOCKS живы")
     else:
-        lines.append(f"🔴 /health звонкового сервиса не отвечает: {vh.get('error','?')}")
+        lines.append(
+            f"🔴 Голос: путь до OpenAI сломан: {vh.get('error','?')} "
+            f"(http={vh.get('http_ok')} ws={vh.get('ws_ok')}) — клиент слышит тишину"
+        )
+
+    if vhb["ok"]:
+        lines.append(f"✅ Сторож голоса пишет heartbeat (возраст {vhb.get('age_sec','?')}с)")
+    else:
+        lines.append(f"🔴 Сторож голоса молчит: {vhb.get('error','?')}")
+
+    if vmute["ok"]:
+        lines.append("✅ Последние звонки не выглядят как немой автоответ")
+    else:
+        lines.append(f"🔴 {vmute.get('error','немые звонки')} — трубка берётся, голоса нет")
 
     if all_ok:
         lines.append("\n<i>Всё в порядке — лиды с сайта и звонки должны доходить нормально.</i>")
@@ -216,6 +313,14 @@ def build_report(result: dict) -> str:
 
 
 def send_to_telegram(text: str) -> None:
+    sent = 0
+    try:
+        import telegram_notify as tn
+        sent = tn.notify(text)
+    except Exception as e:
+        print(f"⏭ telegram_notify failed: {e}", file=sys.stderr)
+    if sent:
+        return
     try:
         import telegram_bot as tg
     except Exception as e:
