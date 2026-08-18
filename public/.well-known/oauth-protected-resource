@@ -1,6 +1,6 @@
 {
-  "resource": "https://api.pepperoni.tatar/",
-  "resource_name": "Kazan Delicacies catalog API",
+  "resource": "https://pepperoni.tatar/",
+  "resource_name": "Kazan Delicacies site and catalog",
   "authorization_servers": ["https://pepperoni.tatar"],
   "scopes_supported": ["catalog.read", "inquiry.write"],
   "bearer_methods_supported": ["header"],

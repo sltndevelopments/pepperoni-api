@@ -2,12 +2,28 @@
 # DNS-AID (draft-mozleywilliams-dnsop-dnsaid) — DNS only, proxied=false.
 set -euo pipefail
 
-TOKEN="${CLOUDFLARE_API_TOKEN:?set CLOUDFLARE_API_TOKEN}"
-ZONE="${CLOUDFLARE_ZONE_ID:?set CLOUDFLARE_ZONE_ID}"
+TOKEN="${CLOUDFLARE_API_TOKEN:-}"
+EMAIL="${CLOUDFLARE_EMAIL:-}"
+KEY="${CLOUDFLARE_API_KEY:-}"
+ZONE="${CLOUDFLARE_ZONE_ID:-}"
+
+if [[ -z "$TOKEN" && ( -z "$EMAIL" || -z "$KEY" ) ]]; then
+  echo "set CLOUDFLARE_API_TOKEN or CLOUDFLARE_EMAIL+CLOUDFLARE_API_KEY" >&2
+  exit 1
+fi
 
 api() {
-  curl -sf -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" "$@"
+  if [[ -n "$TOKEN" ]]; then
+    curl -sf -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" "$@"
+  else
+    curl -sf -H "X-Auth-Email: $EMAIL" -H "X-Auth-Key: $KEY" -H "Content-Type: application/json" "$@"
+  fi
 }
+
+if [[ -z "$ZONE" ]]; then
+  ZONE=$(api "https://api.cloudflare.com/client/v4/zones?name=pepperoni.tatar" \
+    | python3 -c "import json,sys; d=json.load(sys.stdin); print(d['result'][0]['id'])")
+fi
 
 upsert_svcb() {
   local name="$1" target="$2" value="$3" type="${4:-SVCB}"
@@ -50,15 +66,17 @@ upsert_txt() {
   fi
 }
 
-PARAMS='alpn="h2,mcp" port=443'
-A2A='alpn="h2,a2a" port=443'
+# Scanner checks SVCB (type 64) and HTTPS (type 65). Spec wants HTTPS ServiceMode
+# with alpn + port. Keep DNS-only (proxied=false). Do not orange-cloud apex.
+INDEX='alpn="h3,h2" port=443'
+MCP='alpn="h3,h2" port=443 mandatory="alpn,port"'
 
-upsert_svcb "_index._agents.pepperoni.tatar" "api.pepperoni.tatar" "$PARAMS" SVCB
-upsert_svcb "_index._agents.pepperoni.tatar" "api.pepperoni.tatar" "$PARAMS" HTTPS
-upsert_svcb "_mcp._agents.pepperoni.tatar" "api.pepperoni.tatar" "$PARAMS" SVCB
-upsert_svcb "_mcp._agents.pepperoni.tatar" "api.pepperoni.tatar" "$PARAMS" HTTPS
-upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$A2A" SVCB
-upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$A2A" HTTPS
+upsert_svcb "_index._agents.pepperoni.tatar" "pepperoni.tatar" "$INDEX" HTTPS
+upsert_svcb "_index._agents.pepperoni.tatar" "pepperoni.tatar" "$INDEX" SVCB
+upsert_svcb "_mcp._agents.pepperoni.tatar" "api.pepperoni.tatar" "$MCP" HTTPS
+upsert_svcb "_mcp._agents.pepperoni.tatar" "api.pepperoni.tatar" "$MCP" SVCB
+upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$MCP" HTTPS
+upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$MCP" SVCB
 upsert_txt "_index._agents.pepperoni.tatar" "mcp=https://api.pepperoni.tatar/api/mcp a2a=https://pepperoni.tatar/.well-known/agent-card.json"
 
 echo "Verify:"

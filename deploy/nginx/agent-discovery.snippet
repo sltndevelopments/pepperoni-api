@@ -1,40 +1,51 @@
-# server-context. Keep this file location-light: the live vhost already
-# has location = / and /en/. Conflicts there abort nginx -t.
+# server-context. Homepage is location = / in pepperoni-static-data.conf
+# (own add_header + security-headers). Link lives in security-headers, not here.
+# Do not redefine /llms.txt — it already exists in static-data.
 
-add_header Link "</.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/mcp.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/mcp/server-card.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/agent-card.json>; rel=\"describedby\"; type=\"application/json\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.yaml>; rel=\"service-desc\"; type=\"application/yaml\", </.well-known/agent-skills/index.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/oauth-protected-resource>; rel=\"describedby\"" always;
-
-# Markdown negotiation without stealing location = /
 if ($pepperoni_wants_markdown) {
     rewrite ^/$ /llms.txt last;
     rewrite ^/en/?$ /en/llms.txt last;
 }
 
-location = /llms.txt {
-    default_type "text/markdown; charset=utf-8";
-}
-
-location = /en/llms.txt {
-    default_type "text/markdown; charset=utf-8";
-}
-
-location = /llms-full.txt {
-    default_type "text/markdown; charset=utf-8";
-}
-
-location = /en/llms-full.txt {
-    default_type "text/markdown; charset=utf-8";
-}
-
 location = /.well-known/api-catalog {
+    root /var/www/pepperoni/repo/public;
     default_type "application/linkset+json";
     add_header Access-Control-Allow-Origin "*" always;
+    add_header Cache-Control "public, max-age=300" always;
+    try_files $uri =404;
 }
 
-location = /auth.md {
-    default_type "text/markdown; charset=utf-8";
+location = /.well-known/oauth-protected-resource {
+    root /var/www/pepperoni/repo/public;
+    default_type "application/json; charset=utf-8";
+    add_header Access-Control-Allow-Origin "*" always;
+    try_files $uri =404;
+}
+
+location = /.well-known/oauth-authorization-server {
+    root /var/www/pepperoni/repo/public;
+    default_type "application/json; charset=utf-8";
+    add_header Access-Control-Allow-Origin "*" always;
+    try_files $uri =404;
+}
+
+location = /.well-known/openid-configuration {
+    root /var/www/pepperoni/repo/public;
+    default_type "application/json; charset=utf-8";
+    add_header Access-Control-Allow-Origin "*" always;
+    try_files $uri =404;
 }
 
 location = /.well-known/http-message-signatures-directory {
+    root /var/www/pepperoni/repo/public;
     default_type "application/http-message-signatures-directory+json";
     add_header Access-Control-Allow-Origin "*" always;
+    try_files $uri =404;
+}
+
+location = /auth.md {
+    root /var/www/pepperoni/repo/public;
+    default_type "text/markdown; charset=utf-8";
+    add_header Access-Control-Allow-Origin "*" always;
+    try_files $uri =404;
 }
