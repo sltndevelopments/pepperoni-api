@@ -1,0 +1,55 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.pepperoni.tatar/api/products",
+      "service-desc": [
+        {
+          "href": "https://api.pepperoni.tatar/openapi.yaml",
+          "type": "application/yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://pepperoni.tatar/llms.txt",
+          "type": "text/markdown"
+        }
+      ],
+      "service-meta": [
+        {
+          "href": "https://pepperoni.tatar/.well-known/ai-meta.json",
+          "type": "application/json"
+        }
+      ]
+    },
+    {
+      "anchor": "https://api.pepperoni.tatar/api/mcp",
+      "service-desc": [
+        {
+          "href": "https://pepperoni.tatar/.well-known/mcp.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://pepperoni.tatar/llms-full.txt",
+          "type": "text/markdown"
+        }
+      ]
+    },
+    {
+      "anchor": "https://pepperoni.tatar/products.json",
+      "service-desc": [
+        {
+          "href": "https://api.pepperoni.tatar/openapi.yaml",
+          "type": "application/yaml"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://pepperoni.tatar/llms.txt",
+          "type": "text/markdown"
+        }
+      ]
+    }
+  ]
+}

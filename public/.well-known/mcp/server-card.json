@@ -1,0 +1,66 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+  "version": "1.0",
+  "protocolVersion": "2025-06-18",
+  "serverInfo": {
+    "name": "kazan-delicacies",
+    "title": "Kazan Delicacies MCP",
+    "version": "1.0.0"
+  },
+  "description": "Halal meat catalog of Kazan Delicacies (Казанские Деликатесы). Live wholesale prices, certificates, EXW Kazan inquiry.",
+  "url": "https://api.pepperoni.tatar/api/mcp",
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://api.pepperoni.tatar/api/mcp"
+  },
+  "authentication": {
+    "required": false
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": true,
+    "prompts": false
+  },
+  "tools": [
+    {
+      "name": "search_products",
+      "title": "Search products",
+      "description": "Search the halal catalog by name, category, SKU, or meat type",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "q": { "type": "string" } },
+        "required": ["q"]
+      }
+    },
+    {
+      "name": "get_product",
+      "title": "Get product",
+      "description": "Full product card by SKU",
+      "inputSchema": {
+        "type": "object",
+        "properties": { "sku": { "type": "string" } },
+        "required": ["sku"]
+      }
+    },
+    {
+      "name": "get_catalog",
+      "title": "Get catalog",
+      "description": "Live catalog with optional filters"
+    },
+    {
+      "name": "get_certification",
+      "title": "Certification",
+      "description": "Halal ДУМ РТ #614A/2024, HACCP, ISO 22000"
+    },
+    {
+      "name": "get_delivery_info",
+      "title": "Delivery",
+      "description": "EXW Kazan, currencies, HS codes"
+    },
+    {
+      "name": "submit_inquiry",
+      "title": "Inquiry",
+      "description": "B2B wholesale or export inquiry"
+    }
+  ]
+}

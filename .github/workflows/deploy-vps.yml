@@ -50,6 +50,8 @@ jobs:
             # deploy/nginx/security-headers.csp.snippet.
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh /var/www/pepperoni/repo
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0

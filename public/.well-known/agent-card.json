@@ -1,0 +1,45 @@
+{
+  "name": "Kazan Delicacies",
+  "description": "B2B halal meat manufacturer in Kazan. Wholesale pepperoni, sausages, patties, Tatar bakery. EXW Kazan. Live catalog via MCP.",
+  "version": "1.0.0",
+  "iconUrl": "https://pepperoni.tatar/images/logo-256.png",
+  "documentationUrl": "https://pepperoni.tatar/llms.txt",
+  "provider": {
+    "organization": "ООО «Казанские Деликатесы» / Kazan Delicacies",
+    "url": "https://kazandelikates.tatar"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://api.pepperoni.tatar/api/mcp",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": ["text/plain", "application/json"],
+  "defaultOutputModes": ["application/json", "text/plain"],
+  "skills": [
+    {
+      "id": "halal-catalog",
+      "name": "Halal catalog",
+      "description": "Look up SKUs and live wholesale prices",
+      "tags": ["catalog", "halal", "wholesale"]
+    },
+    {
+      "id": "halal-certification",
+      "name": "Halal certification",
+      "description": "ДУМ РТ #614A/2024, HACCP, ISO 22000:2018",
+      "tags": ["halal", "compliance"]
+    },
+    {
+      "id": "wholesale-inquiry",
+      "name": "Wholesale inquiry",
+      "description": "Send a B2B EXW Kazan inquiry",
+      "tags": ["sales", "export"]
+    }
+  ]
+}

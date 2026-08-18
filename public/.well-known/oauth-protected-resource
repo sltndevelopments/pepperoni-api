@@ -1,0 +1,9 @@
+{
+  "resource": "https://api.pepperoni.tatar/",
+  "resource_name": "Kazan Delicacies catalog API",
+  "authorization_servers": ["https://pepperoni.tatar"],
+  "scopes_supported": ["catalog.read", "inquiry.write"],
+  "bearer_methods_supported": ["header"],
+  "resource_documentation": "https://pepperoni.tatar/llms.txt",
+  "resource_policy_uri": "https://pepperoni.tatar/auth.md"
+}

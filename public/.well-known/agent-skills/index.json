@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "halal-catalog",
+      "type": "skill-md",
+      "description": "Look up Kazan Delicacies halal SKUs, live wholesale prices, and export currencies. Use when a buyer asks for pepperoni, sausages, patties, kazylyk, or Tatar bakery from pepperoni.tatar.",
+      "url": "/.well-known/agent-skills/halal-catalog/SKILL.md",
+      "digest": "sha256:c98e8c5b3939927d627793fb6bb9028a9c978a9160d0a8e80b3ed27ccef260da"
+    },
+    {
+      "name": "halal-certification",
+      "type": "skill-md",
+      "description": "Answer whether Kazan Delicacies products are halal and which certificates exist. Use for «пепперони халяль?», pork/alcohol questions, or export compliance.",
+      "url": "/.well-known/agent-skills/halal-certification/SKILL.md",
+      "digest": "sha256:606a8bed1b1d63cdc6ada34718a8a336826ac01948e433b85893fe09d9f2b5f5"
+    },
+    {
+      "name": "wholesale-inquiry",
+      "type": "skill-md",
+      "description": "Open a B2B wholesale or export inquiry to Kazan Delicacies. Use when the user wants a price list, MOQ, private label, or EXW Kazan shipment — not consumer checkout.",
+      "url": "/.well-known/agent-skills/wholesale-inquiry/SKILL.md",
+      "digest": "sha256:e011e3795c47d86ded981e6f4270bbc79dee2a842abd1d4b412c5f433e96ca48"
+    }
+  ]
+}

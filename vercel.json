@@ -20,6 +20,43 @@
       ]
     },
     {
+      "source": "/.well-known/http-message-signatures-directory",
+      "headers": [
+        { "key": "Content-Type", "value": "application/http-message-signatures-directory+json" }
+      ]
+    },
+    {
+      "source": "/.well-known/api-catalog",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/linkset+json"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/auth.md",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        }
+      ]
+    },
+    {
+      "source": "/llms.txt",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/markdown; charset=utf-8"
+        }
+      ]
+    },
+    {
       "source": "/(.*)",
       "headers": [
         {
@@ -33,6 +70,10 @@
         {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "Link",
+          "value": "</.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/mcp.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/mcp/server-card.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/agent-card.json>; rel=\"describedby\"; type=\"application/json\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.yaml>; rel=\"service-desc\"; type=\"application/yaml\", </.well-known/agent-skills/index.json>; rel=\"describedby\"; type=\"application/json\""
         },
         {
           "key": "Content-Security-Policy",

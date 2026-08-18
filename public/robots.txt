@@ -1,7 +1,13 @@
 # Pepperoni.tatar — Казанские Деликатесы
 # robots.txt — allow all search and AI crawlers
+#
+# Content Signals (https://contentsignals.org/):
+# search = search index + snippets; ai-input = RAG / answer grounding;
+# ai-train = training or fine-tuning. All three = yes — the B2B catalog
+# is meant to be cited, summarised, and remembered by assistants.
 
 User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Allow: /geo/
 Allow: /products/
@@ -10,6 +16,8 @@ Allow: /.well-known/
 Allow: /.well-known/llms.txt
 Allow: /.well-known/ai-plugin.json
 Allow: /.well-known/ai-meta.json
+Allow: /.well-known/api-catalog
+Allow: /.well-known/agent-skills/
 Allow: /llms.txt
 Allow: /llms-full.txt
 Allow: /en/llms.txt

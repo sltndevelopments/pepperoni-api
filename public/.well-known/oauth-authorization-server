@@ -1,0 +1,34 @@
+{
+  "issuer": "https://pepperoni.tatar",
+  "authorization_endpoint": "https://pepperoni.tatar/oauth/authorize",
+  "token_endpoint": "https://pepperoni.tatar/oauth/token",
+  "jwks_uri": "https://pepperoni.tatar/oauth/jwks.json",
+  "revocation_endpoint": "https://pepperoni.tatar/oauth/revoke",
+  "registration_endpoint": "https://pepperoni.tatar/oauth/register",
+  "grant_types_supported": [
+    "urn:ietf:params:oauth:grant-type:jwt-bearer",
+    "urn:workos:agent-auth:grant-type:claim"
+  ],
+  "response_types_supported": ["token", "none"],
+  "scopes_supported": ["catalog.read", "inquiry.write"],
+  "token_endpoint_auth_methods_supported": ["none"],
+  "code_challenge_methods_supported": ["S256"],
+  "agent_auth": {
+    "skill": "https://pepperoni.tatar/auth.md",
+    "register_uri": "https://pepperoni.tatar/oauth/register",
+    "identity_endpoint": "https://pepperoni.tatar/oauth/identity",
+    "claim_endpoint": "https://pepperoni.tatar/oauth/claim",
+    "claim_uri": "https://pepperoni.tatar/oauth/claim",
+    "revocation_uri": "https://pepperoni.tatar/oauth/revoke",
+    "events_endpoint": "https://pepperoni.tatar/oauth/events",
+    "identity_types_supported": ["anonymous"],
+    "anonymous": {
+      "credential_types_supported": ["none"],
+      "claim_uri": "https://pepperoni.tatar/oauth/claim"
+    },
+    "identity_assertion": {
+      "assertion_types_supported": []
+    },
+    "events_supported": []
+  }
+}

@@ -1,7 +1,8 @@
 # Kazan Delicacies LLC — AI / LLM crawler directives
 # AI / LLM crawler directives — explicit grant of access for citation & answer generation
-# Last updated: 2026-05-26
+# Last updated: 2026-08-18
 # Spec: https://ai-discovery-files.org/ · companion to /robots.txt and /ai.txt
+# Content Signals: https://contentsignals.org/
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Policy: ALL major AI crawlers are explicitly ALLOWED to index, retrieve,
@@ -10,6 +11,10 @@
 # channel for our B2B catalog. No content on this property is paywalled or
 # private. Training-use is permitted.
 # ─────────────────────────────────────────────────────────────────────────────
+
+User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Allow: /
 
 # ── OpenAI ──
 User-agent: GPTBot
