@@ -1,33 +1,12 @@
-# server-context: RFC 8288 Link headers + Markdown Accept + well-known types.
-# Included from the pepperoni.tatar server block.
-# Do not orange-cloud this host — Link/markdown run on the Selectel origin.
+# server-context. Keep this file location-light: the live vhost already
+# has location = / and /en/. Conflicts there abort nginx -t.
 
 add_header Link "</.well-known/api-catalog>; rel=\"api-catalog\", </.well-known/mcp.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/mcp/server-card.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/agent-card.json>; rel=\"describedby\"; type=\"application/json\", </llms.txt>; rel=\"alternate\"; type=\"text/markdown\", </openapi.yaml>; rel=\"service-desc\"; type=\"application/yaml\", </.well-known/agent-skills/index.json>; rel=\"describedby\"; type=\"application/json\", </.well-known/oauth-protected-resource>; rel=\"describedby\"" always;
 
-# WebMCP on every HTML page even if a generator has not been re-run.
-sub_filter_types text/html;
-sub_filter '</head>' '<script src="/js/webmcp.js"></script></head>';
-sub_filter_once on;
-
-location = / {
-    if ($pepperoni_wants_markdown) {
-        rewrite ^ /llms.txt last;
-    }
-    try_files /index.html =404;
-}
-
-location = /en {
-    if ($pepperoni_wants_markdown) {
-        rewrite ^ /en/llms.txt last;
-    }
-    try_files /en/index.html =404;
-}
-
-location = /en/ {
-    if ($pepperoni_wants_markdown) {
-        rewrite ^ /en/llms.txt last;
-    }
-    try_files /en/index.html =404;
+# Markdown negotiation without stealing location = /
+if ($pepperoni_wants_markdown) {
+    rewrite ^/$ /llms.txt last;
+    rewrite ^/en/?$ /en/llms.txt last;
 }
 
 location = /llms.txt {
@@ -49,7 +28,6 @@ location = /en/llms-full.txt {
 location = /.well-known/api-catalog {
     default_type "application/linkset+json";
     add_header Access-Control-Allow-Origin "*" always;
-    add_header Link "</.well-known/api-catalog>; rel=\"api-catalog\"" always;
 }
 
 location = /auth.md {
@@ -59,36 +37,4 @@ location = /auth.md {
 location = /.well-known/http-message-signatures-directory {
     default_type "application/http-message-signatures-directory+json";
     add_header Access-Control-Allow-Origin "*" always;
-}
-
-location = /.well-known/oauth-protected-resource {
-    default_type application/json;
-}
-
-location = /.well-known/oauth-authorization-server {
-    default_type application/json;
-}
-
-location = /.well-known/openid-configuration {
-    default_type application/json;
-}
-
-location = /.well-known/agent-card.json {
-    default_type application/json;
-}
-
-location = /.well-known/acp.json {
-    default_type application/json;
-}
-
-location = /.well-known/mcp/server-card.json {
-    default_type application/json;
-}
-
-location ^~ /oauth/ {
-    default_type application/json;
-}
-
-location = /oauth/authorize {
-    default_type "text/html; charset=utf-8";
 }

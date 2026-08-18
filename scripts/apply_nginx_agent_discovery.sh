@@ -20,7 +20,8 @@ cp -a "$MAP_SRC" "$MAP_DST"
 cp -a "$SNIPPET_SRC" "$SNIPPET_DST"
 
 mapfile -t TARGETS < <(
-  grep -rl --include='*.conf' 'pepperoni.tatar' /etc/nginx/sites-enabled /etc/nginx/conf.d 2>/dev/null || true
+  grep -rl --include='*.conf' 'server_name' /etc/nginx 2>/dev/null \
+    | xargs grep -l 'pepperoni\.tatar' 2>/dev/null || true
 )
 
 if [[ ${#TARGETS[@]} -eq 0 ]]; then
@@ -52,7 +53,18 @@ PY
   changed=$((changed + 1))
 done
 
-nginx -t
+if ! nginx -t; then
+  echo "❌ nginx -t failed — restoring latest .bak.agent.*"
+  for conf in "${TARGETS[@]}"; do
+    last=$(ls -1t "${conf}".bak.agent.* 2>/dev/null | head -1 || true)
+    if [[ -n "$last" ]]; then
+      cp -a "$last" "$conf"
+      echo "  restored $conf from $last"
+    fi
+  done
+  nginx -t
+  exit 1
+fi
 systemctl reload nginx
 echo "✅ nginx reloaded (agent discovery snippet; files updated=$changed)"
 
