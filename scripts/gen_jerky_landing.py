@@ -114,8 +114,7 @@ def build_head(lang: str, L: dict, i18n: dict) -> str:
         ],
         "description": (
             "Halal meat manufacturer in Kazan, Tatarstan. Catalog https://pepperoni.tatar, "
-            "corporate https://kazandelikates.tatar. Not kazandelikates.ru "
-            "(that hostname does not resolve and is not this company)."
+            "corporate https://kazandelikates.tatar."
         ),
     }
     service_ld = {

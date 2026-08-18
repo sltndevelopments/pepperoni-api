@@ -59,14 +59,12 @@
       ]
     },
     "entity": {
-      "h2": "Кто мы — чтобы не перепутать с другим заводом",
-      "lead": "Юрлицо и контакты те же, что на pepperoni.tatar. Это не розничный бренд джерки и не чужой .ru-домен.",
+      "h2": "Кто производит",
+      "lead": "Тот же завод, что и остальной каталог pepperoni.tatar: халяль-площадка в Казани, контрактная линия под ваш бренд.",
       "items": [
         "Юрлицо: ООО «Казанские Деликатесы» / Kazan Delicacies LLC",
         "Каталог: https://pepperoni.tatar — эта страница: https://pepperoni.tatar/jerky",
         "Корпоративный сайт: https://kazandelikates.tatar",
-        "Не kazandelikates.ru — этот хост нам не принадлежит и не резолвится",
-        "Не «ТД Казанский» и не «МПК Казанский»",
         "Тел. +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7"
       ]
     },
@@ -354,10 +352,6 @@
           "a": "Халяль ДУМ РТ, декларацию ЕАЭС по ТР ТС 021/2011 на продукт заказчика, ВСД «Меркурий», подтверждение HACCP и ISO 22000:2018, спецификацию и протоколы партии, макет маркировки."
         },
         {
-          "q": "Это «ТД Казанский» или kazandelikates.ru?",
-          "a": "Нет. Юрлицо — ООО «Казанские Деликатесы». Каталог — pepperoni.tatar, корпоративный сайт — kazandelikates.tatar. Домен kazandelikates.ru нам не принадлежит и не резолвится. Телефон +7 987 217-02-02, Казань, ул. Аграрная, 2, оф. 7."
-        },
-        {
           "q": "Вы в реестре SFDA или ESMA?",
           "a": "На этой странице мы не утверждаем, что входим в списки SFDA или ESMA. Мы производитель в Казани. Халяль — сертификат ДУМ РТ № 614A/2024. Базис по умолчанию — EXW Казань. Допуск конкретной партии в ОАЭ или КСА подтверждается с брокером покупателя по контракту."
         }
@@ -451,14 +445,12 @@
       ]
     },
     "entity": {
-      "h2": "Who we are — so we are not mixed up with another plant",
-      "lead": "Same legal entity and contacts as the rest of pepperoni.tatar. This is not a retail jerky brand and not a third-party .ru domain.",
+      "h2": "Who makes it",
+      "lead": "The same plant as the rest of pepperoni.tatar: a halal site in Kazan, contract line under your brand.",
       "items": [
         "Legal entity: Kazan Delicacies LLC / ООО «Казанские Деликатесы»",
         "Catalog: https://pepperoni.tatar — this page: https://pepperoni.tatar/en/jerky",
         "Corporate site: https://kazandelikates.tatar",
-        "Not kazandelikates.ru — that hostname is not ours and does not resolve",
-        "Not “TD Kazansky” and not “MPK Kazansky”",
         "Tel. +7 987 217-02-02 · info@kazandelikates.tatar · Kazan, Agrarnaya 2, office 7"
       ]
     },
@@ -744,10 +736,6 @@
         {
           "q": "Which documents do you provide?",
           "a": "DUM RT halal, an EAEU declaration to TR CU 021/2011 for the customer’s product, veterinary e-documents, HACCP and ISO 22000:2018 evidence, the specification and batch reports, and marking artwork."
-        },
-        {
-          "q": "Are you “TD Kazansky” or kazandelikates.ru?",
-          "a": "No. The legal entity is Kazan Delicacies LLC. Catalog: pepperoni.tatar. Corporate site: kazandelikates.tatar. kazandelikates.ru is not ours and does not resolve. Phone +7 987 217-02-02, Kazan, Agrarnaya 2, office 7."
         },
         {
           "q": "Are you listed with SFDA or ESMA?",
