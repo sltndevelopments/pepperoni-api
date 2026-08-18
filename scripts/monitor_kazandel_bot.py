@@ -23,7 +23,7 @@ Primary voice alerts go from the operator into the leads Telegram group.
 This script is the SEO-bot backup + watcher-of-watchers.
 
 Sends an alert to Telegram (SEO authorized chats) ONLY when something is wrong.
-Cron: every 5 minutes (was hourly; hourly missed a 7-day silent-phone outage).
+Cron: hourly. In-call fail still alerts immediately from the operator.
 
 Usage:
     python3 scripts/monitor_kazandel_bot.py             # check + alert on Telegram
@@ -119,7 +119,7 @@ def check_deepseek_key() -> dict:
 VOICE_HEALTH_URL = "https://ai.pepperoni.tatar/health"
 VOICE_HEARTBEAT = Path("/opt/kazandel-ai-operator/data/voice-watchdog-heartbeat.json")
 VOICE_CALLS_DB = Path("/opt/kazandel-ai-operator/data/calls.db")
-HEARTBEAT_MAX_AGE_SEC = 15 * 60
+HEARTBEAT_MAX_AGE_SEC = 75 * 60
 MUTE_STREAK = 3
 MUTE_MAX_SEC = 20
 
