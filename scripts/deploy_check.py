@@ -232,6 +232,8 @@ def _homepage_lcp_errors(html: str) -> list[str]:
     head = html.split("</head>", 1)[0] if "</head>" in html else html
     if "gtag/js?id=" in head or "gtm.js?id=" in head:
         errors.append("gtag.js or GTM script in <head> (must load via delayed loadAnalytics)")
+    if "var(\u2014" in html or ":root{\u2014" in html:
+        errors.append("CSS custom properties broken (em-dash instead of --)")
     if re.search(r'video-player__poster[^>]*loading=["\']lazy["\']', html):
         errors.append('hero poster has loading="lazy"')
     if not re.search(r'video-player__poster[^>]*loading=["\']eager["\']', html):

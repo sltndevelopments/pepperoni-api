@@ -51,6 +51,11 @@ AR_HAM_RE = re.compile(r"لحم خنزير حلال|لحم الخنزير الح
 AR_SUB_RE = re.compile(r"لحم خنزير بديل")
 AR_PORK_RE = re.compile(r"لحم الخنزير المدخن|لحم الخنزير|لحم خنزير")
 KOSHER_RE = re.compile(r"кошерно для мусульман", re.I)
+# Typographer turned CSS/BEM `--` into em-dash U+2014. `var(—green)` makes
+# the whole `background: linear-gradient(..., var(—green), ...)` invalid →
+# white hero on white page (pepperoni.tatar homepage 2026-08-19).
+CSS_VAR_EMDASH_RE = re.compile(r"(?<=[{;(])\u2014(?=[A-Za-z])")
+BEM_EMDASH_RE = re.compile(r"(?<=[A-Za-z0-9])\u2014(?=[A-Za-z])")
 
 
 def fix_html(html: str) -> tuple[str, list[str]]:
@@ -98,6 +103,14 @@ def fix_html(html: str) -> tuple[str, list[str]]:
     html = sub(AR_SUB_RE, "بدائل حلال", "ar-substitute", html)
     html = sub(AR_PORK_RE, "اللحم البقري المدخن", "ar-pork", html)
     html = sub(KOSHER_RE, "халяль для мусульман", "kosher-copy", html)
+    html = sub(CSS_VAR_EMDASH_RE, "--", "css-emdash-var", html)
+    html = sub(BEM_EMDASH_RE, "--", "css-emdash-bem", html)
+    if "<!—" in html:
+        html = html.replace("<!—" , "<!--")
+        fixes.append("html-comment-open-emdash")
+    if "—>" in html:
+        html = html.replace("—>", "-->")
+        fixes.append("html-comment-close-emdash")
     # Collapse doubled HACCP from «ХАССП (ХАССП (HACCP))» if template already had it
     html = html.replace("ХАССП (ХАССП (HACCP))", "ХАССП (HACCP)")
     # Truncated generation (old max_tokens cap): close the document so crawlers
