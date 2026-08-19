@@ -47,8 +47,8 @@ GEOS = [
         "currency_label": "Saudi Riyal",
         "city": "Jeddah, Riyadh, Dammam",
         "h1": "Halal Pepperoni in Saudi Arabia — Russian Manufacturer Direct",
-        "lede": "DAP Jeddah / DAP Dammam, cold chain. Halal certificate accepted by SFDA after agent registration. Multi-currency invoicing (SAR/USD).",
-        "halal_authority": "SFDA (Saudi Food & Drug Authority) — accepts DUM RT halal certificate after local agent registration (standard 30–45-day process)",
+        "lede": "DAP Jeddah / DAP Dammam, cold chain. Halal #614A/2024 — destination-market recognition confirmed with the importer. Multi-currency invoicing (SAR/USD).",
+        "halal_authority": "We hold DUM RT certificate #614A/2024. SFDA / local-agent steps are confirmed with the importer before shipment — we do not claim a public SFDA listing.",
         "import_route": "Sea via Novorossiysk → Jeddah (18–22 days) or via Bandar Abbas → Dammam (combined sea + truck, 22–28 days)",
         "transit": "18–22 days port-to-port via Jeddah",
         "agents": "We refer buyers to a vetted Riyadh-based licensed importer that handles SFDA registration in batches — 30–45 days lead time for first shipment.",
@@ -137,7 +137,7 @@ GEOS = [
         "hs_codes": "1601.00 — Union State internal traffic, no tariff.",
         "labels": "Russian standard; Belarusian (Belaruskaja Latinka or Cyrillic) on request.",
         "payment": "BYN, RUB. Payment terms as per contract after pilot.",
-        "competitor_context": "Belarus imports halal sausage primarily from Russia. We compete on locked recipe and federal-scale references (Aslam/OMPK).",
+        "competitor_context": "Belarus imports halal sausage primarily from Russia. We compete on locked recipe and federal-scale references.",
     },
     {
         "slug": "halal-pepperoni-azerbaijan",
@@ -247,14 +247,14 @@ GEOS = [
         "currency_label": "Malaysian Ringgit",
         "city": "Kuala Lumpur, Penang, Johor Bahru",
         "h1": "Halal Pepperoni in Malaysia — Russian Halal Manufacturer",
-        "lede": "DAP Port Klang cold-chain, 25–30 days port-to-port. JAKIM-recognised halal certificate. USD invoicing.",
-        "halal_authority": "Malaysian JAKIM (Department of Islamic Development) recognises DUM RT halal certificate under MOU signed in 2018.",
+        "lede": "DAP Port Klang cold-chain, 25–30 days port-to-port. Halal #614A/2024 — destination-market recognition confirmed with the importer. USD invoicing.",
+        "halal_authority": "We hold DUM RT certificate #614A/2024. JAKIM listing is not claimed here — recognition is confirmed with the Malaysian importer before shipment.",
         "import_route": "Sea via Novorossiysk → Singapore → Port Klang (25–30 days). Air via KUL possible for samples.",
         "transit": "25–30 days port-to-port via Port Klang",
         "agents": "Kuala Lumpur-based foodservice agent handles JAKIM registration and last-mile to Malaysian pizza / HoReCa chains.",
         "buyer_profiles": "Pizza chains in KL (Domino's Malaysia, Pizza Hut Malaysia), 5-star hotels in Penang and Langkawi, halal-default supermarkets (Aeon, Mydin, Tesco Malaysia).",
-        "case": "JAKIM recognition allows direct route to MY retail; pilot inquiries from KL foodservice agent Q1 2026.",
-        "hs_codes": "1601.00 — Malaysia tariff 20% MFN; JAKIM-recognised origin can unlock preferential treatment via specific bilateral channels.",
+        "case": "Pilot inquiries from a KL foodservice agent Q1 2026 — commercial terms and local registration confirmed with the importer.",
+        "hs_codes": "1601.00 — Malaysia tariff 20% MFN. Preferential treatment, if any, is confirmed with the importer — not assumed.",
         "labels": "Bahasa Malaysia + English + Arabic mandatory under JAKIM standards.",
         "payment": "USD or MYR. 50% prepayment first shipment, LC for orders ≥ $50k.",
         "competitor_context": "Malaysia is the world's largest halal certification market. Russian halal is a niche premium alternative to Brazilian, Australian, NZ halal beef.",
@@ -405,8 +405,8 @@ footer a{{color:#888;text-decoration:none}}
   <details><summary>Will my halal authority accept your certificate?</summary><p>{halal_authority}</p></details>
   <details><summary>What's the transit time to {city}?</summary><p>{transit}.</p></details>
   <details><summary>Can you invoice in {currency}?</summary><p>Yes — {currency} ({currency_label}) pricing is live in our API at api.pepperoni.tatar/api/products?currency={currency}. We can also invoice in USD or RUB depending on your accounting setup.</p></details>
-  <details><summary>What's the minimum first order?</summary><p>1 pallet (≈500 kg of mixed SKUs) for a pilot. Subsequent orders scale per agreed cadence (weekly / bi-weekly / monthly).</p></details>
-  <details><summary>Can you handle private label for {country}?</summary><p>Yes — from 500 kg/month per SKU. Recipe, casing, diameter, packaging, brand fully customisable. Federal-scale reference: «Aslam» pepperoni for OMPK / Ostankino.</p></details>
+  <details><summary>What's the minimum first order?</summary><p>Minimum order agreed per contract, depends on logistics. Pilot shipment available. Subsequent orders scale per agreed cadence (weekly / bi-weekly / monthly).</p></details>
+  <details><summary>Can you handle private label for {country}?</summary><p>Yes — volume agreed per contract, depends on logistics. Recipe, casing, diameter, packaging, brand fully customisable. Federal-scale reference: traditional «Aslam» sausages for OMPK (customer recipes, not pepperoni).</p></details>
 </div>
 
 <h2>Get a quote for {country}</h2>
@@ -498,9 +498,9 @@ def build_faq_jsonld(geo):
             {"@type": "Question", "name": f"Can you invoice in {geo['currency']}?",
              "acceptedAnswer": {"@type": "Answer", "text": f"Yes — {geo['currency']} ({geo['currency_label']}) pricing is live in our API at api.pepperoni.tatar/api/products?currency={geo['currency']}. USD and RUB also available."}},
             {"@type": "Question", "name": "What's the minimum first order?",
-             "acceptedAnswer": {"@type": "Answer", "text": "1 pallet (≈500 kg of mixed SKUs) for a pilot. Subsequent orders scale per agreed cadence."}},
+             "acceptedAnswer": {"@type": "Answer", "text": "Minimum order agreed per contract, depends on logistics. Pilot shipment available. Subsequent orders scale per agreed cadence."}},
             {"@type": "Question", "name": f"Can you handle private label for {geo['country']}?",
-             "acceptedAnswer": {"@type": "Answer", "text": "Yes — from 500 kg/month per SKU. Recipe, casing, diameter, packaging, brand customisable. Federal-scale reference: «Aslam» pepperoni for OMPK / Ostankino."}},
+             "acceptedAnswer": {"@type": "Answer", "text": "Yes — volume agreed per contract, depends on logistics. Recipe, casing, diameter, packaging, brand customisable. Federal-scale reference: traditional «Aslam» sausages for OMPK (customer recipes, not pepperoni)."}},
         ],
     }, ensure_ascii=False)
 

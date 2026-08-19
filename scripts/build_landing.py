@@ -259,7 +259,7 @@ def build_prompt(query: str) -> tuple[str, str]:
 }}
 
 ТРЕБОВАНИЯ К КОНТЕНТУ:
-- 4-6 секций: преимущества, ассортимент/спецификации, условия поставки (MOQ от 500 кг/мес),
+- 4-6 секций: преимущества, ассортимент/спецификации, условия поставки (минимальный заказ — по договорённости, зависит от логистики),
   сертификаты (Халяль ДУМ РТ № 614A/2024 и № 884А/2025, ХАССП, ISO 22000:2018), кому подходит.
 - 4-5 пунктов FAQ под запрос «{query}».
 - Контакты НЕ вставляй в секции (их добавит шаблон). Не выдумывай 8-800.
@@ -353,7 +353,7 @@ def _assemble(query: str, slug: str, data: dict) -> str:
     <p class="hero-subtitle">{subtitle}</p>
     <span class="badge">HALAL № 614A/2024</span>
     <span class="badge badge-outline">ХАССП + ISO 22000:2018</span>
-    <span class="badge badge-outline">от 500 кг/мес</span>
+    <span class="badge badge-outline">по договорённости</span>
 
     <p>{intro}</p>
 

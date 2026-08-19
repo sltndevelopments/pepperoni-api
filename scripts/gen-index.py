@@ -51,6 +51,8 @@ def gen_ru() -> str:
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
+<link rel="alternate" type="text/markdown" href="/llms.txt" title="Markdown for agents">
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="alternate" type="application/json" title="Live Product Catalog (JSON)" href="https://pepperoni.tatar/products.json">
 <link rel="manifest" href="/manifest.json">
@@ -313,7 +315,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">СТМ / Private Label</div>
-        <div class="seg-card__desc">Колбасы, сосиски, пепперони, выпечка под вашим брендом. От 500 кг/мес.</div>
+        <div class="seg-card__desc">Колбасы, сосиски, пепперони, выпечка под вашим брендом. Объём — по договору.</div>
         <div class="seg-card__case">Кейс: линейка «Аслам» для ОМПК <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-pekaren" class="seg-card">
@@ -361,7 +363,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="seg-card" style="cursor:default">
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">ОМПК (Останкино)</div>
-        <div class="seg-card__desc">СТМ: производим халяльную линейку под ТМ «Аслам» для одного из крупнейших мясокомбинатов России.</div>
+        <div class="seg-card__desc">СТМ: традиционные колбасы под ТМ «Аслам» для ОМПК — по рецептуре заказчика, без пепперони.</div>
       </div>
       <div class="seg-card" style="cursor:default">
         <div class="seg-card__icon">🛒</div>
@@ -424,7 +426,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Собственное производство</div><div class="usp-card__text">Производим в Казани с 2022 года. Полный контроль качества от сырья до отгрузки. ХАССП на всех этапах.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт EXW Казань</div><div class="usp-card__text">Поставляем в Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, таможенное оформление.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Колбасы, сосиски, котлеты, пельмени, выпечка.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины, без ГМО, без нитрита натрия. Сертификат ДУМ РТ.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины. Сертификат ДУМ РТ. Состав каждой позиции — в карточке SKU.</div></div>
     </div>
   </div>
 </section>
@@ -795,6 +797,7 @@ document.addEventListener('submit',function(e){{
   if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
 }},true);
 </script>
+<script src="/js/webmcp.js" defer></script>
 </body>
 </html>"""
 
@@ -816,6 +819,8 @@ def gen_en() -> str:
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
 <link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions">
+<link rel="alternate" type="text/markdown" href="/en/llms.txt" title="Markdown for agents">
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta property="og:type" content="website">
@@ -1046,7 +1051,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
-        <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. From 500 kg/month.</div>
+        <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. Volume agreed per contract.</div>
         <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-pekaren" class="seg-card">
@@ -1094,7 +1099,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="seg-card" style="cursor:default">
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">OMPK (Ostankino)</div>
-        <div class="seg-card__desc">Private Label: we manufacture the halal product line under the "Aslam" trademark for one of Russia's largest meat processing plants.</div>
+        <div class="seg-card__desc">Private label: traditional «Aslam» sausages for OMPK to the customer's recipes — not pepperoni.</div>
       </div>
       <div class="seg-card" style="cursor:default">
         <div class="seg-card__icon">🛒</div>
@@ -1151,7 +1156,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Own Manufacturing</div><div class="usp-card__text">We produce in Kazan since 2022. Full quality control from raw materials to shipment. HACCP at every stage.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Export EXW Kazan</div><div class="usp-card__text">We supply to Kazakhstan, Belarus, Uzbekistan, UAE, Saudi Arabia. Veterinary certificates included.</div></div>
       <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (OEM)</div><div class="usp-card__text">Production under your brand. Sausages, hot dogs, burger patties, dumplings, pastries.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Strict Halal Standard</div><div class="usp-card__text">Only beef, chicken, horse meat, turkey. No pork, no GMO, no sodium nitrite. Certified by Muslim Spiritual Board of Tatarstan.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Strict Halal Standard</div><div class="usp-card__text">Only beef, chicken, horse meat, turkey. No pork. Certified by Muslim Spiritual Board of Tatarstan. Ingredients are listed per SKU card.</div></div>
     </div>
   </div>
 </section>
@@ -1577,6 +1582,7 @@ async function loadCatalog(){{
   }}
 }})();
 </script>
+<script src="/js/webmcp.js" defer></script>
 </body>
 </html>"""
 

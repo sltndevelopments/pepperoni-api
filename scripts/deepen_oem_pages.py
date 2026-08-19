@@ -32,7 +32,7 @@ RU = {
         "сырокопчёные колбасы, сосиски, ветчины и деликатесы под СТМ должны иметь одинаковый вкус, "
         "цвет среза и выход на всех поставках, иначе сеть теряет узнаваемость продукта. Поэтому "
         "фиксируйте рецептуру и спецификацию в договоре и запрашивайте контроль партий.",
-        "Поставку колбасных изделий оптом строим под объём: пилот от 500 кг/мес, серия 2–5 т/мес с "
+        "Поставку колбасных изделий оптом строим под объём: минимальный заказ — по договорённости, зависит от логистики; серия 2–5 т/мес с "
         "фиксированной ценой и графиком. Отгрузка EXW Казань и из Казани по всей России "
         "и на экспорт в СНГ и ОАЭ. Под собственной маркой адаптируем рецептуру, фасовку (батон, "
         "нарезка, газовая среда) и оформление под канал — ретейл, HoReCa, дистрибуция."),
@@ -41,7 +41,7 @@ RU = {
         "стабильный состав, жирность и фракция помола. Фарш, формованные котлеты, тефтели, люля и "
         "заготовки под СТМ должны давать предсказуемый выход и одинаковую прожарку на потоке. "
         "Калибровка и шоковая заморозка сохраняют свежесть и убирают потери на размораживании.",
-        "Сырое мясное оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. Шоковая "
+        "Сырое мясное оптом поставляем под объём: минимальный заказ — по договорённости, зависит от логистики; серия 2–5 т/мес. Шоковая "
         "заморозка, фиксированная фракция и жирность под вашу рецептуру. Отгрузка EXW Казань и со "
         "Казани по РФ и на экспорт. Под СТМ адаптируем фасовку и оформление — для "
         "ретейла, HoReCa и дистрибуции."),
@@ -50,7 +50,7 @@ RU = {
         "колбасные нарезки), важна термостабильность: топпинг не должен расплываться и пускать жир "
         "при запекании, а должен держать рисунок и форму на пицце. Калиброванная нарезка ускоряет "
         "сборку и даёт одинаковый вид пиццы на всех точках сети.",
-        "Топпинги оптом поставляем нарезкой в фиксированной фасовке, пилот от 500 кг/мес, серия "
+        "Топпинги оптом поставляем нарезкой в фиксированной фасовке, объём — по договорённости, зависит от логистики; серия "
         "2–5 т/мес. Под СТМ подбираем толщину нарезки, диаметр и упаковку под вашу линию сборки. "
         "Отгрузка EXW Казань и со Казани по РФ и на экспорт — для пиццерий, "
         "производителей замороженной пиццы и HoReCa."),
@@ -59,8 +59,8 @@ RU = {
         "(татарская и классическая), главное — стабильная доготовка из заморозки без "
         "размораживания и одинаковый результат на любой печи. Эчпочмаки, перемячи, самса, "
         "слоёные и дрожжевые изделия под СТМ должны иметь предсказуемый вес и время доготовки.",
-        "Замороженную выпечку оптом поставляем коробками с фиксированной фасовкой, пилот от "
-        "500 кг/мес, серия 2–5 т/мес. Под собственной маркой адаптируем рецептуру, вес изделия и "
+        "Замороженную выпечку оптом поставляем коробками с фиксированной фасовкой, объём — по договорённости, зависит от логистики; "
+        "серия 2–5 т/мес. Под собственной маркой адаптируем рецептуру, вес изделия и "
         "упаковку. Отгрузка EXW Казань и со Казани по РФ и на экспорт — для пекарен, "
         "кафе татарской кухни, столовых и стрит-фуда."),
     "pastry": (
@@ -68,7 +68,7 @@ RU = {
         "(торты, пирожные, десерты), важны стабильная рецептура, внешний вид и срок годности. "
         "Кондитерка под СТМ должна выдерживать логистику и витрину без потери вида, поэтому "
         "фиксируйте спецификацию и условия хранения заранее.",
-        "Кондитерские изделия оптом поставляем под объём: пилот от 500 кг/мес, серия 2–5 т/мес. "
+        "Кондитерские изделия оптом поставляем под объём: минимальный заказ — по договорённости, зависит от логистики; серия 2–5 т/мес. "
         "Под собственной маркой подбираем рецептуру, порцию и упаковку. Отгрузка EXW Казань и со "
         "Казани по РФ и на экспорт — для кофеен, кафе, ретейла и HoReCa."),
 }
@@ -80,7 +80,7 @@ EN = {
         "smoked and dry-cured sausages, hams and delicacies under private label must have the same "
         "taste, slice colour and yield across every delivery, or the chain loses product "
         "recognition. Lock the recipe and specification into the contract and ask for batch control.",
-        "We build wholesale sausage supply around volume: a pilot from 500 kg/month, a series of "
+        "We build wholesale sausage supply around volume: minimum order agreed per contract, depends on logistics; a series of "
         "2–5 t/month with a fixed price and schedule. Shipping EXW Kazan "
         "warehouse across Russia and for export to the CIS and the UAE. Under your own brand we "
         "adapt recipe, format (baton, sliced, modified-atmosphere) and design to the channel — "
@@ -91,7 +91,7 @@ EN = {
         "formed patties, meatballs, lula and prepared items under private label must give a "
         "predictable yield and even cooking on the line. Calibration and blast freezing keep "
         "freshness and remove thawing losses.",
-        "We supply raw-meat wholesale by volume: a pilot from 500 kg/month, a series of 2–5 "
+        "We supply raw-meat wholesale by volume: minimum order agreed per contract, depends on logistics; a series of 2–5 "
         "t/month. Blast freezing, fixed grind and fat content to your recipe. Shipping EXW Kazan "
         "and from Kazan across Russia and for export. Under private label we adapt format and "
         "design — for retail, HoReCa and distribution."),
@@ -100,7 +100,7 @@ EN = {
         "topping, sausage slices), heat stability matters: the topping must not spread or release "
         "fat when baked and must hold its pattern and shape on the pizza. Calibrated slicing "
         "speeds assembly and gives identical pizzas across all points of the chain.",
-        "We supply toppings wholesale sliced in fixed packs, a pilot from 500 kg/month, a series "
+        "We supply toppings wholesale sliced in fixed packs, volume agreed per contract, depends on logistics; a series "
         "of 2–5 t/month. Under private label we tune slice thickness, diameter and packaging to "
         "your assembly line. Shipping EXW Kazan and from Kazan across Russia and for export — "
         "for pizzerias, frozen-pizza producers and HoReCa."),
@@ -109,7 +109,7 @@ EN = {
         "brand (Tatar and classic), the key is consistent finishing from frozen with no thawing "
         "and the same result in any oven. Echpochmak, peremech, samsa, puff and yeast products "
         "under private label must have a predictable weight and finishing time.",
-        "We supply frozen pastry wholesale in fixed-pack cases, a pilot from 500 kg/month, a "
+        "We supply frozen pastry wholesale in fixed-pack cases, volume agreed per contract, depends on logistics; a "
         "series of 2–5 t/month. Under your own brand we adapt recipe, item weight and packaging. "
         "Shipping EXW Kazan and from Kazan across Russia and for export — for bakeries, Tatar "
         "cuisine cafes, canteens and street food."),
@@ -118,7 +118,7 @@ EN = {
         "brand (cakes, pastries, desserts), consistent recipe, appearance and shelf life matter. "
         "Private-label confectionery must withstand logistics and the display case without losing "
         "appearance, so fix the specification and storage conditions in advance.",
-        "We supply confectionery wholesale by volume: a pilot from 500 kg/month, a series of 2–5 "
+        "We supply confectionery wholesale by volume: minimum order agreed per contract, depends on logistics; a series of 2–5 "
         "t/month. Under your own brand we tune recipe, portion and packaging. Shipping EXW Kazan "
         "and from Kazan across Russia and for export — for coffee shops, cafes, retail and "
         "HoReCa."),

@@ -644,7 +644,7 @@ def _canonical_answers_ru(products: list) -> str:
 ### Основные факты
 
 - **Компания:** ООО «Казанские Деликатесы» (Kazan Delicacies LLC)
-- **ИНН:** 1655504520
+- **ИНН:** 1686021074
 - **Адрес:** 420059, Россия, г. Казань, ул. Аграрная, д. 2, оф. 7
 - **Телефон:** +7 987 217-02-02 (WhatsApp, Telegram)
 - **Email:** info@kazandelikates.tatar
@@ -738,7 +738,7 @@ def _canonical_answers_en(products: list) -> str:
 ### Key Facts
 
 - **Company:** Kazan Delicacies LLC (ООО «Казанские Деликатесы»)
-- **TIN:** 1655504520
+- **TIN:** 1686021074
 - **Address:** 420059, Russia, Kazan, ul. Agrarnaya 2, office 7
 - **Phone:** +7 987 217-02-02 (WhatsApp, Telegram)
 - **Email:** info@kazandelikates.tatar
@@ -773,7 +773,7 @@ A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog
 A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing depends on SKU — see the live catalog: https://pepperoni.tatar/en/. All prices available in {currencies_list}. Live API: https://api.pepperoni.tatar/api/products.
 
 **Q: Do you ship to UAE / Kazakhstan / Uzbekistan / Saudi Arabia?**
-A: Yes. EXW Kazan, buyer arranges transport. Weekly shipments to Kazakhstan and Uzbekistan. Multi-currency invoicing (USD, KZT, UZS). Halal certificate accepted for all GCC and CIS markets.
+A: Yes. EXW Kazan, buyer arranges transport. Weekly shipments to Kazakhstan and Uzbekistan. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
 
 **Q: Is all your production halal-certified?**
 A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). No pork in any product. Production supervised by the DUM RT Halal Standards Committee.

@@ -143,7 +143,7 @@ def prep_pl(topic: dict) -> dict | None:
 - Bootstrap 5 CDN, <h1> с услугой
 - ОБЯЗАТЕЛЬНО первым видимым блоком после <h1> вставь прямой ответ закупщику:
   <div class="tldr-answer"> … 2-3 предложения: что это за продукт/услуга, для кого, ключевые условия (MOQ, сроки, халяль-сертификат). Это первые ~150 слов страницы. …</div>
-- Секции: что такое СТМ/OEM, что можем (колбасы, мясо, ВСЯ выпечка), этапы запуска, MOQ/сроки, сертификаты (Халяль ДУМ РТ #614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011), FAQ (5), CTA-форма
+- Секции: что такое СТМ/OEM, что можем (колбасы, мясо, ВСЯ выпечка), этапы запуска, MOQ/сроки (минимальный заказ — по договорённости, зависит от логистики; НЕ указывай 100/300/500 кг), сертификаты (Халяль ДУМ РТ #614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011), FAQ (5), CTA-форма
 - ОБЯЗАТЕЛЬНА секция «Сценарий применения»: как покупатель использует сам ПРОДУКТ в своём процессе (например для котлет — жарка на гриле/контактном гриле, роллерный гриль, конвектомат, слайсер; для сосисок — роллер, гриль, фритюр; для казылыка — нарезка слайсером, подача, хранение). Описывай применение продукта у клиента, НЕ только запуск СТМ.
 - Кнопка «Получить расчёт СТМ» → tel:{PHONE_TEL}
 - Контекстные ссылки: /private-label, /pepperoni-optom, /dlya-distributorov
@@ -164,7 +164,7 @@ Return ONLY valid HTML5 (lang="{lang}"), no explanations.
 Requirements:
 - <head>: <title> (<=65 chars), <meta description> (<=160), canonical /{lang}/private-label/{slug}
 - Schema.org Service + Organization JSON-LD
-- Bootstrap 5 CDN, <h1>, sections: what is OEM/White Label, capabilities (sausages, meat, ALL bakery), launch steps, MOQ/lead time, certifications (Halal DUM RT, HACCP, ISO 22000), cases, FAQ (5), CTA form
+- Bootstrap 5 CDN, <h1>, sections: what is OEM/White Label, capabilities (sausages, meat, ALL bakery), launch steps, MOQ/lead time (minimum order agreed per contract, depends on logistics; never invent 100/300/500 kg), certifications (Halal DUM RT, HACCP, ISO 22000), cases, FAQ (5), CTA form
 - "Request OEM quote" button → tel:{PHONE_TEL}
 - Footer with contacts: {PHONE_DISPLAY}, {EMAIL}
 - Use EXACTLY these contacts, never invent others. No pork mentions. 450-650 words
