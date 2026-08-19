@@ -199,35 +199,74 @@ def check_homepage_sections() -> bool:
         return True
 
     missing = [p for p in required if p not in html]
-    if not missing:
-        print("✅ deploy_check: homepage sections intact (segments + partners)")
-        return True
+    if missing:
+        html = _repair_homepage_sections(html, missing)
+        missing = [p for p in required if p not in html]
+        if missing:
+            _alert_homepage_sections(missing, repaired=False)
+            return False
 
-    # Auto-repair: regenerate index.html from gen-index.py (which now contains the sections)
-    gen_script = ROOT / "scripts" / "gen-index.py"
-    repaired = False
-    if gen_script.exists():
+    lcp_errors = _homepage_lcp_errors(html)
+    if lcp_errors:
+        msg = (
+            "🚨 homepage LCP/analytics gate:\n"
+            + "\n".join(f"  • {e}" for e in lcp_errors)
+            + "\nНе чинить через gen-index.py (сотрёт контент главной). "
+            "Постер — eager+preload; gtag.js/GTM не в <head>."
+        )
+        print(f"🚨 deploy_check: {msg}")
         try:
-            import subprocess
-            result = subprocess.run(
-                ["python3", str(gen_script)],
-                capture_output=True, text=True, timeout=30,
-                cwd=str(ROOT)
-            )
-            if result.returncode == 0:
-                # Re-check after regeneration
-                html2 = INDEX_HTML.read_text(encoding="utf-8")
-                still_missing = [p for p in missing if p not in html2]
-                if not still_missing:
-                    print("✅ deploy_check: auto-repaired homepage sections via gen-index.py")
-                    return True
-                missing = still_missing
-                repaired = False
-            else:
-                print(f"  gen-index.py failed: {result.stderr[:200]}")
+            from telegram_notify import notify_emergency
+            notify_emergency(msg)
         except Exception as e:
-            print(f"  auto-repair failed: {e}")
+            print(f"  notify_emergency failed: {e}")
+        return False
 
+    print("✅ deploy_check: homepage sections intact (segments + partners); LCP poster eager, analytics delayed")
+    return True
+
+
+def _homepage_lcp_errors(html: str) -> list[str]:
+    """gtag.js in <head> + lazy hero poster were the Aug 2026 PSI drop."""
+    errors = []
+    head = html.split("</head>", 1)[0] if "</head>" in html else html
+    if "gtag/js?id=" in head or "gtm.js?id=" in head:
+        errors.append("gtag.js or GTM script in <head> (must load via delayed loadAnalytics)")
+    if re.search(r'video-player__poster[^>]*loading=["\']lazy["\']', html):
+        errors.append('hero poster has loading="lazy"')
+    if not re.search(r'video-player__poster[^>]*loading=["\']eager["\']', html):
+        errors.append('hero poster missing loading="eager"')
+    if "hero-ru-poster" in html and not re.search(
+        r'rel="preload"[^>]*hero-ru-poster', html
+    ):
+        errors.append("missing <link rel=preload> for hero-ru-poster")
+    return errors
+
+
+def _repair_homepage_sections(html: str, missing: list[str]) -> str:
+    gen_script = ROOT / "scripts" / "gen-index.py"
+    if not gen_script.exists():
+        return html
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["python3", str(gen_script)],
+            capture_output=True, text=True, timeout=30,
+            cwd=str(ROOT)
+        )
+        if result.returncode == 0:
+            html2 = INDEX_HTML.read_text(encoding="utf-8")
+            still = [p for p in missing if p not in html2]
+            if not still:
+                print("✅ deploy_check: auto-repaired homepage sections via gen-index.py")
+            return html2
+        print(f"  gen-index.py failed: {result.stderr[:200]}")
+    except Exception as e:
+        print(f"  auto-repair failed: {e}")
+    return html
+
+
+def _alert_homepage_sections(missing: list[str], repaired: bool) -> None:
     msg = (
         "🚨 homepage-sections-intact нарушен!\n"
         + "\n".join(f"  • отсутствует: {p}" for p in missing)
@@ -241,7 +280,6 @@ def check_homepage_sections() -> bool:
         notify_emergency(msg)
     except Exception as e:
         print(f"  notify_emergency failed: {e}")
-    return False
 
 
 if __name__ == "__main__":

@@ -10,6 +10,7 @@ function gtag(){dataLayer.push(arguments);}
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-ru-poster-720.webp" imagesrcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Казанские Деликатесы — халяль колбасы и выпечка оптом | производитель в Казани</title>
@@ -280,7 +281,10 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 <section class="video-band" aria-label="Видео производства">
 <div class="container">
 <div class="video-player" data-src="/videos/hero-ru.mp4">
-<img class="video-player__poster" src="/videos/hero-ru-poster-720.webp" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="low" loading="lazy" decoding="async">
+<picture>
+<source type="image/webp" srcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" sizes="(max-width: 960px) 92vw, 920px">
+<img class="video-player__poster" src="/videos/hero-ru-poster.jpg" alt="Производство халяль продукции Казанские Деликатесы" width="1280" height="720" fetchpriority="high" loading="eager" decoding="async">
+</picture>
 <button type="button" class="video-player__play" aria-label="Смотреть видео производства">
 <span class="video-player__icon" aria-hidden="true">
 <svg viewBox="0 0 24 24" focusable="false"><path d="M8 5v14l11-7z"/></svg>
@@ -723,10 +727,6 @@ if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'rea
 
 function loadAnalytics(){
 if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
-var ads=document.createElement('script');ads.async=true;ads.src='https://www.googletagmanager.com/gtag/js?id=AW-18346189266';
-document.head.appendChild(ads);
-gtag('js', new Date());
-gtag('config', 'AW-18346189266');
 (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
 ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});

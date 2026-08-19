@@ -13,22 +13,29 @@ PUBLIC = ROOT / "public"
 
 YEAR = datetime.now().year
 
-GTM = (
-    "<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':"
-    "new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],"
-    "j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src="
-    "'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);"
-    "})(window,document,'script','dataLayer','GTM-W2Q5S8HF');</script>"
-)
-
-YM = (
-    "<script>(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};"
-    "m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}"
-    "k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);"
-    "})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');"
-    "ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});</script>"
-    "<noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt=''/></div></noscript>"
-)
+# GTM + Metrika after first interaction (or 45s). Never in <head>: gtag.js in
+# head was ~350 KiB unused JS and the July→August PSI drop (lab 100 → 72).
+DELAYED_ANALYTICS = """<script>
+function loadAnalytics(){
+  if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+  ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
+}
+function armAnalytics(){
+  var events=['scroll','keydown','touchstart','click','pointerdown'];
+  function trigger(){
+    events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
+    loadAnalytics();
+  }
+  events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
+  setTimeout(loadAnalytics,45000);
+}
+if(document.readyState==='complete')armAnalytics();
+else window.addEventListener('load',armAnalytics);
+</script>
+<noscript><div><img src='https://mc.yandex.ru/watch/107064141' style='position:absolute;left:-9999px' alt='' width='1' height='1' loading='lazy'/></div></noscript>
+"""
 
 
 def gen_ru() -> str:
@@ -220,7 +227,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .seg-card__desc{{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}}.seg-card__case{{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}}
 .seg-card__arrow{{margin-left:4px}}
 </style>
-{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -555,7 +561,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 </footer>
 
-{YM}
+{DELAYED_ANALYTICS}
 <script>
 const CUR_SYM={{RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'}};
 let CUR='RUB',VAT=true,ALL_GROUPS=[];
@@ -957,7 +963,6 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 .footer__bottom{{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}}
 @media(max-width:600px){{.hero{{padding:40px 0 32px}}.usps{{padding:32px 0 0}}.nav__links{{gap:10px;font-size:.82rem}}.certs__inner{{gap:16px}}}}
 </style>
-{GTM}
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -1282,7 +1287,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   </div>
 </footer>
 
-{YM}
+{DELAYED_ANALYTICS}
 <script>
 const CUR_SYM={{RUB:'₽',USD:'$',KZT:'₸',UZS:'сум',KGS:'сом',BYN:'Br',AZN:'₼'}};
 let CUR='USD',VAT=false,ALL_GROUPS=[];
