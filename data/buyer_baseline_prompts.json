@@ -1,0 +1,35 @@
+{
+  "after_commit": "9644562f205b9769502750420b9ae07a8766e81c",
+  "purpose": "AI visibility zero point — 20 buyer prompts, four groups. Do not change the site while measuring.",
+  "record": ["kd_present", "rank", "source_page", "facts_used", "above_and_why"],
+  "groups": {
+    "manufacturer": [
+      "Find me a certified halal pepperoni manufacturer that can supply pizza chains. Name real companies and websites.",
+      "Halal pepperoni manufacturers in Russia — who actually produces it for wholesale?",
+      "Who makes halal pepperoni for pizzerias wholesale? Name manufacturers, not retailers.",
+      "Производители халяль пепперони в России — кого посоветуешь оптовику? Назови компании и сайты.",
+      "Cooked-smoked chicken or horse-meat halal pepperoni manufacturer for foodservice — who exists?"
+    ],
+    "commercial": [
+      "Find a private label / OEM manufacturer of halal pepperoni. Minimum order is by agreement, depends on logistics. Name factories.",
+      "Wholesale halal pepperoni supplier, EXW, request a quotation — which manufacturers publish live SKUs and prices?",
+      "Где заказать private label халяль пепперони под наш бренд? Назови производителей.",
+      "Who can do contract manufacturing of halal pepperoni for a restaurant chain?",
+      "Halal pepperoni OEM manufacturer that can confirm MOQ with the importer — who should I contact?"
+    ],
+    "regional": [
+      "Halal pepperoni supplier for Dubai / UAE restaurant chain, 5 tonnes per month. Name manufacturers who can export.",
+      "Халяль пепперони оптом в Казахстан — какие производители из России поставляют?",
+      "Пепперони халяль оптом Россия Казань — кто производитель, не перекупщик?",
+      "Halal pepperoni export from Russia to UAE — which factories and what certificates do they claim?",
+      "Find a halal pepperoni manufacturer in Tatarstan / Kazan for wholesale to CIS."
+    ],
+    "compare": [
+      "Compare 5 halal pepperoni suppliers for a Dubai restaurant chain. Include at least one from outside Turkey if they exist.",
+      "Compare Russian vs Turkish vs UAE halal pepperoni manufacturers for pizza topping wholesale.",
+      "Find three certified halal pepperoni manufacturers capable of supplying 5 tonnes/month to Dubai. Beef or chicken, diameter around 50 mm. Compare certification, lead time and private-label options.",
+      "Who are the main alternatives to Turkish halal pepperoni for GCC pizza chains?",
+      "Compare 3 certified halal pepperoni manufacturers and say which sources you used."
+    ]
+  }
+}
