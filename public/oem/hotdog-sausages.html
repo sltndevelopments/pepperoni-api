@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!— perf-hints: preconnect —>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
+<!-- perf-hints: preconnect -->
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -65,7 +71,7 @@ ul{margin:8px 0 14px 24px}li{margin-bottom:4px}.spec-value{font-weight:600;color
 footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top:32px;border-top:1px solid #eee}footer a{color:#888;text-decoration:none}
 @media(max-width:600px){.grid-2{grid-template-columns:1fr}}
 </style>
-<!— perf-hints: speculation-rules —>
+<!-- perf-hints: speculation-rules -->
 <script type="speculationrules">
 {
 "prerender": [{
@@ -83,10 +89,34 @@ footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top
 }]
 }
 </script>
-<!— perf-hints: view-transitions —>
+<!-- perf-hints: view-transitions -->
 <style>
 @media (prefers-reduced-motion: no-preference) {
 @view-transition { navigation: auto; }
+}
+</style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
 }
 </style>
 </head>
@@ -204,15 +234,15 @@ footer{text-align:center;color:#aaa;font-size:.85rem;padding-top:32px;margin-top
 </footer>
 </div>
 <section data-linker="1" class="container my-4" style="border-top:1px solid #e5e5e5;padding-top:16px">
-<h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
-<ul style="columns:2;font-size:.95rem">
-<li><a href="/blog/iso-22000-iaf-certsearch">ISO 22000:2018 в базе IAF CertSearch — халяль пепперони, сосиски для хот-догов, котлеты, СТМ</a></li>
-<li><a href="/blog/hot-dog-sausages-wholesale">Сосиски для хот-догов оптом: как выбрать поставщика</a></li>
-<li><a href="/blog/beef-hotdog-sausages-halal">Говяжьи сосиски хот-дог халяль: спецификации для профессиональных кухонь</a></li>
-<li><a href="/blog/halal-sosiski-dlya-hot-dogov-optom">Халяльные сосиски для хот-догов оптом</a></li>
-<li><a href="/blog/halyal-sosiski-dlya-hot-dogov-optom">Халяльные сосиски для хот-догов оптом</a></li>
-<li><a href="/blog/postavschik-sosisok-dlya-hot-dogov">Поставщик сосисок для хот-догов — оптовые поставки халяль</a></li>
-</ul>
+  <h2 class="h6" style="color:#1b7a3d">Читайте также</h2>
+  <ul style="columns:2;font-size:.95rem">
+    <li><a href="/blog/iso-22000-iaf-certsearch">ISO 22000:2018 в базе IAF CertSearch — халяль пепперони, сосиски для хот-догов, котлеты, СТМ</a></li>
+    <li><a href="/blog/hot-dog-sausages-wholesale">Сосиски для хот-догов оптом: как выбрать поставщика</a></li>
+    <li><a href="/blog/beef-hotdog-sausages-halal">Говяжьи сосиски хот-дог халяль: спецификации для профессиональных кухонь</a></li>
+    <li><a href="/blog/halal-sosiski-dlya-hot-dogov-optom">Халяльные сосиски для хот-догов оптом</a></li>
+    <li><a href="/blog/halyal-sosiski-dlya-hot-dogov-optom">Халяльные сосиски для хот-догов оптом</a></li>
+    <li><a href="/blog/postavschik-sosisok-dlya-hot-dogov">Поставщик сосисок для хот-догов — оптовые поставки халяль</a></li>
+  </ul>
 </section>
 </body>
 </html>
