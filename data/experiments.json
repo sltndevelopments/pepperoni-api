@@ -9153,5 +9153,15 @@
     "after_ctr": null,
     "after_impr": null,
     "operator_experiment_id": "exp-20260818053150-4"
+  },
+  {
+    "applied_at": "2026-08-21T05:31:06.268106+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+    "file_path": "public/blog/what-is-echpochmak.html",
+    "query": "эчпочмак это",
+    "before_pos": 50.0,
+    "before_title": "Эчпочмак — это татарский пирог-треугольник с мясом | Казанские Деликат",
+    "before_desc": "Эчпочмак — это традиционный татарский пирог с мясом и картофелем. Халяль-производство, оптовые поставки для HoReCa и ритейла по России."
   }
 ]

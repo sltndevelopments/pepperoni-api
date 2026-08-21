@@ -1,13 +1,22 @@
 {
-  "generated_at": "2026-08-20T05:30:25.797565+00:00",
+  "generated_at": "2026-08-21T05:30:41.797258+00:00",
   "new_queries": [],
-  "rising_queries": [],
+  "rising_queries": [
+    {
+      "query": "is chicken pepperoni halal",
+      "impr": 26,
+      "clk": 0,
+      "pos": 27.4,
+      "page": "https://pepperoni.tatar/en/pepperoni",
+      "from_impr": 12
+    }
+  ],
   "coverage_gaps": [
     {
       "query": "пепперони халяль",
-      "impr": 58,
+      "impr": 53,
       "clk": 1,
-      "pos": 23.3,
+      "pos": 24.8,
       "page": "https://pepperoni.tatar/"
     }
   ]
