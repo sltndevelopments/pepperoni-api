@@ -1,7 +1,31 @@
-# 1С УНФ — OData клиент
+# 1С УНФ — OData клиент (только чтение)
 
 Читающий клиент к `http://192.168.11.40/unf/odata/standard.odata/` (OData 3.0,
 HTTP Basic, realm `1C:Enterprise 8.5`).
+
+## Только чтение — механически, не на словах
+
+1С — источник данных, не приёмник. В базу ничего не пишется, ничего не
+проводится, никакие файлы не трогаются. Это закреплено гейтом в тестах, а не
+договорённостью:
+
+| Тест | Что ловит |
+|---|---|
+| `test_transport_issues_get` | реальный `Request` уходит как GET и без тела |
+| `test_every_request_is_get_without_body` | по AST: любой `Request` — GET, без `data=` |
+| `test_no_write_verb_literals_in_module` | появление литерала POST/PUT/PATCH/DELETE/MERGE |
+| `test_public_api_has_no_mutating_methods` | публичный метод вида `create*`/`update*`/`delete*`/`save*` |
+| `test_module_never_writes_to_disk` | по AST: `open()`, `os.remove`, `write_text`, … |
+
+Гейт проверен мутациями: подмена `GET`→`POST`, добавление `data=` в запрос,
+публичный `delete_row()` и запись на диск — каждая роняет тесты.
+
+Если чтения окажется мало и понадобится запись — это отдельное решение
+владельца, а не правка клиента: снимать гейт молча нельзя.
+
+Рекомендация по доступу: у учётной записи `Odata.user` в 1С стоит оставить
+только право чтения. Тогда запись невозможна и на стороне сервера, а не только
+на стороне клиента.
 
 ## Требование к сети
 
@@ -69,11 +93,14 @@ client.get("Catalog_Номенклатура", filter="DeletionMark eq false", t
 поправить константы. До сверки числа из этих выборок в отчёты не пускать.
 
 ```bash
-python3 - <<'PY'
+python3 -c "
 from integrations.onec.odata import ODataClient
-open('/tmp/unf-metadata.xml', 'w').write(ODataClient().metadata())
-PY
+print(ODataClient().metadata())
+" > unf-metadata.xml
 ```
+
+Клиент печатает `$metadata` в stdout; файл создаёт редирект, то есть вы, а не
+код.
 
 ## Тесты
 
@@ -81,4 +108,4 @@ PY
 python3 -m unittest integrations.onec.tests.test_odata
 ```
 
-35 тестов на моках, сеть не нужна.
+40 тестов на моках, сеть не нужна. Из них 5 — гейт «только чтение».

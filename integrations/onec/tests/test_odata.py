@@ -1,6 +1,8 @@
 from __future__ import annotations
 
+import ast
 import base64
+import inspect
 import json
 import os
 import sys
@@ -10,7 +12,7 @@ import urllib.parse
 import urllib.request
 from datetime import datetime
 from pathlib import Path
-from unittest.mock import patch
+from unittest.mock import MagicMock, patch
 
 ROOT = Path(__file__).resolve().parents[3]
 sys.path.insert(0, str(ROOT))
@@ -307,6 +309,88 @@ class DomainHelperTest(unittest.TestCase):
             )
         )
         self.assertIn("RecordType eq 'Receipt'", urllib.parse.unquote(transport.calls[0]))
+
+
+class ReadOnlyTest(unittest.TestCase):
+    """1С — источник данных, не приёмник. Запись сюда добавлять нельзя.
+
+    Это механический гейт, а не договорённость: тесты падают, если в модуле
+    появится любой записывающий вызов, даже в ветке, которую никто не дёргает.
+    """
+
+    WRITE_VERBS = {"POST", "PUT", "PATCH", "DELETE", "MERGE"}
+
+    def _tree(self) -> ast.Module:
+        return ast.parse(Path(inspect.getfile(odata)).read_text(encoding="utf-8"))
+
+    def test_transport_issues_get(self) -> None:
+        transport = HttpTransport()
+        captured: list[urllib.request.Request] = []
+        response = MagicMock()
+        response.status = 200
+        response.read.return_value = b'{"value": []}'
+        response.__enter__ = lambda s: s
+        response.__exit__ = lambda s, *a: False
+
+        def fake_open(req, timeout=None):
+            captured.append(req)
+            return response
+
+        with patch.object(transport._opener, "open", side_effect=fake_open):
+            transport.request("http://h/x", headers={}, timeout=1)
+
+        self.assertEqual(captured[0].get_method(), "GET")
+        self.assertIsNone(captured[0].data, "GET-запрос не должен нести тело")
+
+    def test_no_write_verb_literals_in_module(self) -> None:
+        found = {
+            node.value.upper()
+            for node in ast.walk(self._tree())
+            if isinstance(node, ast.Constant)
+            and isinstance(node.value, str)
+            and node.value.upper() in self.WRITE_VERBS
+        }
+        self.assertEqual(found, set(), f"в модуле появился записывающий метод: {found}")
+
+    def test_every_request_is_get_without_body(self) -> None:
+        calls = [
+            node
+            for node in ast.walk(self._tree())
+            if isinstance(node, ast.Call)
+            and isinstance(node.func, ast.Attribute)
+            and node.func.attr == "Request"
+        ]
+        self.assertTrue(calls, "не найден ни один urllib Request — тест устарел")
+        for call in calls:
+            kwargs = {kw.arg: kw.value for kw in call.keywords}
+            self.assertNotIn("data", kwargs, "Request не должен нести тело")
+            method = kwargs.get("method")
+            self.assertIsInstance(method, ast.Constant, "method должен быть литералом")
+            self.assertEqual(method.value, "GET")
+
+    def test_public_api_has_no_mutating_methods(self) -> None:
+        banned = ("create", "update", "delete", "post", "put", "patch", "save", "write")
+        offenders = [
+            name
+            for name in dir(ODataClient)
+            if not name.startswith("_") and name.lower().startswith(banned)
+        ]
+        self.assertEqual(offenders, [])
+
+    def test_module_never_writes_to_disk(self) -> None:
+        # По AST, а не по подстроке: `self._opener.open(...)` — это HTTP,
+        # а не файл, и грубый поиск "open(" даёт ложное срабатывание.
+        writing = {"remove", "unlink", "rmtree", "write_text", "write_bytes", "mkdir"}
+        offenders: list[str] = []
+        for node in ast.walk(self._tree()):
+            if not isinstance(node, ast.Call):
+                continue
+            func = node.func
+            if isinstance(func, ast.Name) and func.id == "open":
+                offenders.append("builtins.open")
+            elif isinstance(func, ast.Attribute) and func.attr in writing:
+                offenders.append(func.attr)
+        self.assertEqual(offenders, [], f"модуль пишет на диск: {offenders}")
 
 
 class ProxyBypassTest(unittest.TestCase):
