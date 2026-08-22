@@ -38,26 +38,11 @@ path.write_text(text + link_line + "\n", encoding="utf-8")
 print(f"✅ Link in {path}")
 PY
 
+STATIC_BAK=""
 if [[ -f "$STATIC" ]]; then
-  python3 - "$STATIC" <<'PY'
-from pathlib import Path
-import re, sys
-p = Path(sys.argv[1])
-text = p.read_text(encoding="utf-8")
-new_block = """location = /llms.txt {
-    alias /var/www/pepperoni/repo/public/llms.txt;
-    add_header Cache-Control "public, max-age=300" always;
-    add_header Access-Control-Allow-Origin "*" always;
-    types { text/markdown txt; }
-    default_type "text/markdown; charset=utf-8";
-}"""
-text2, n = re.subn(r"location = /llms\.txt \{[^}]+\}", new_block, text, count=1)
-if n:
-    p.write_text(text2, encoding="utf-8")
-    print(f"✅ llms.txt type → text/markdown in {p}")
-else:
-    print("⚠️ could not patch /llms.txt default_type")
-PY
+  STATIC_BAK="${STATIC}.bak.agent.$(date -u +%Y%m%d%H%M%S)"
+  cp -a "$STATIC" "$STATIC_BAK"
+  python3 "$REPO/scripts/patch_llms_txt_location.py" "$STATIC"
 fi
 
 python3 - "$VHOST" "$INCLUDE_LINE" <<'PY'
@@ -86,11 +71,15 @@ print(f"✅ included snippet after CSP in {path}")
 PY
 
 if ! nginx -t; then
-  echo "❌ nginx -t failed — restoring vhost backup"
+  echo "❌ nginx -t failed — restoring backups"
   last=$(ls -1t "${VHOST}".bak.agent.* 2>/dev/null | head -1 || true)
   if [[ -n "${last}" ]]; then
     cp -a "$last" "$VHOST"
     echo "  restored $VHOST from $last"
+  fi
+  if [[ -n "${STATIC_BAK}" && -f "${STATIC_BAK}" ]]; then
+    cp -a "$STATIC_BAK" "$STATIC"
+    echo "  restored $STATIC from $STATIC_BAK"
   fi
   nginx -t || true
   exit 1
