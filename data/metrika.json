@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-08-21T05:30:02.627778+00:00",
+ "fetched_at": "2026-08-22T05:30:02.717519+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 4556,
-  "users": 2939,
+  "visits": 4561,
+  "users": 2943,
   "bounce_rate_pct": 39.0,
   "page_depth": 1.04,
   "avg_visit_sec": 53
@@ -12,11 +12,11 @@
  "sources": [
   {
    "source": "Ad traffic",
-   "visits": 4047
+   "visits": 4049
   },
   {
    "source": "Direct traffic",
-   "visits": 276
+   "visits": 275
   },
   {
    "source": "Internal traffic",
@@ -24,26 +24,22 @@
   },
   {
    "source": "Search engine traffic",
-   "visits": 49
+   "visits": 52
   },
   {
    "source": "Link traffic",
-   "visits": 12
+   "visits": 14
   },
   {
    "source": "Social network traffic",
-   "visits": 1
-  },
-  {
-   "source": "Messenger traffic",
    "visits": 1
   }
  ],
  "top_landing": [
   {
    "path": "/products/kd-046",
-   "visits": 896,
-   "bounce_pct": 35.0
+   "visits": 898,
+   "bounce_pct": 35.1
   },
   {
    "path": "/products/kd-061",
@@ -57,8 +53,8 @@
   },
   {
    "path": "/",
-   "visits": 306,
-   "bounce_pct": 41.2
+   "visits": 307,
+   "bounce_pct": 40.7
   },
   {
    "path": "/products/kd-013",
@@ -126,31 +122,7 @@
   }
  },
  "inquiries_by_page": {
-  "/": {
-   "28d": 5,
-   "7d": 5
-  },
-  "/products/kd-055": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-049": {
-   "28d": 2,
-   "7d": 0
-  },
-  "/products/kd-003": {
-   "28d": 2,
-   "7d": 0
-  },
-  "/products/kd-046": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-015": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-048": {
+  "/en/products/kd-001": {
    "28d": 1,
    "7d": 0
   },
@@ -158,17 +130,41 @@
    "28d": 1,
    "7d": 0
   },
-  "/products/kd-017": {
-   "28d": 1,
-   "7d": 0
-  },
   "/products/kd-001": {
    "28d": 1,
    "7d": 0
   },
-  "/en/products/kd-001": {
+  "/products/kd-046": {
    "28d": 1,
    "7d": 0
+  },
+  "/products/kd-017": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-048": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-049": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/products/kd-055": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-015": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-003": {
+   "28d": 2,
+   "7d": 0
+  },
+  "/": {
+   "28d": 5,
+   "7d": 4
   }
  }
 }
