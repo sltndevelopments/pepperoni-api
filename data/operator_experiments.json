@@ -14,7 +14,7 @@
       "position": 23.4
     },
     "cost_usd": 0.0,
-    "status": "measuring",
+    "status": "reverted",
     "started_at": "2026-07-21T08:18:27.415468+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
@@ -35,7 +35,10 @@
         "type": "commercial_pulse_tooling",
         "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
-    ]
+    ],
+    "revert_action": "noindex,nofollow",
+    "finished_at": "2026-08-11T09:15:05+00:00",
+    "note": "Вердикт вынесен и ИСПОЛНЕН 2026-08-11: registry признал результат worse и проставил noindex,nofollow (коммит 58862ec91). Запись статуса потерялась — data/operator_experiments.json не входил в git add агента, и деплойный git reset --hard вернул status=measuring. Статус восстановлен по коммиту-следствию. Метрики result не восстанавливаю: исходных чисел нет."
   },
   {
     "id": "exp-20260721081827-2",

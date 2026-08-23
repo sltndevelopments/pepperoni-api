@@ -411,6 +411,15 @@ git add data/metrika.json 2>/dev/null || true
 git add data/leads.json 2>/dev/null || true
 git add data/agent_bus.json 2>/dev/null || true
 git add data/outcomes.json data/scout_sent.json 2>/dev/null || true
+# Experiment control plane. These record verdicts whose side effects ARE
+# committed (a "worse" verdict noindexes the page), so leaving the verdict
+# uncommitted makes the pair inconsistent by design: the deploy's
+# `git reset --hard` restores status="measuring" while the page stays hidden.
+# That is what happened to /private-label/kotlety-dlya-burgerov-optom — judged
+# worse and noindexed on 2026-08-11 (58862ec91), still "measuring" 12 days
+# later, blocking new operator work on an experiment already decided.
+git add data/operator_experiments.json data/operator_state.json 2>/dev/null || true
+git add data/commercial_pulse.json data/fix_attempts.json 2>/dev/null || true
 git add data/fable_websearch.json 2>/dev/null || true
 git add data/page_gate_log.json 2>/dev/null || true
 # Brain's self-made tools registry + the generated tool scripts (durable).
