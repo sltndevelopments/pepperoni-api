@@ -12,10 +12,13 @@ Features:
 Run: python scripts/rebuild_sitemap.py
 """
 
+import re
 from datetime import date, datetime, timezone
 from pathlib import Path
 
-PUBLIC  = Path(__file__).parent.parent / "public"
+ROOT    = Path(__file__).parent.parent
+PUBLIC  = ROOT / "public"
+NGINX   = ROOT / "deploy" / "nginx"
 BASE    = "https://pepperoni.tatar"
 TODAY   = date.today().isoformat()
 
@@ -52,6 +55,44 @@ SKIP_DIRS = {
     "search", "en/search",            # noindex (X-Robots-Tag)
     "china",                          # noindex
 }
+
+# The stale .html file of a 301'd URL stays on disk and keeps a self-canonical,
+# so neither the filesystem nor the canonical tells us it is dead — only nginx
+# does. Read the redirect maps instead of maintaining a hand-written skip list:
+# a URL that answers 301 must never be advertised in the sitemap, and any
+# redirect added later is excluded automatically.
+_LOC_EXACT = re.compile(r"location\s*=\s*(\S+)\s*\{([^}]*)\}", re.S)
+_ROBOTS_META = re.compile(
+    r"""<meta[^>]+name=["']robots["'][^>]*content=["'][^"']*noindex""", re.I
+)
+
+
+def redirect_sources() -> set[str]:
+    """Exact-match paths that nginx 301s, taken from deploy/nginx/*redirects.conf.
+
+    Only `location = /exact` blocks count. The `location ^~ /geo/` blocks in the
+    *gone.conf files are try_files fallbacks that still serve surviving files.
+    """
+    paths: set[str] = set()
+    for conf in sorted(NGINX.glob("*redirects.conf")):
+        text = conf.read_text(encoding="utf-8", errors="replace")
+        for path, body in _LOC_EXACT.findall(text):
+            if "return 30" in body:
+                paths.add(path.strip().strip('"').rstrip("/") or "/")
+    return paths
+
+
+def has_noindex(path: Path) -> bool:
+    """True when the page carries a robots noindex meta.
+
+    Pages are noindexed on purpose — e.g. experiment_registry.py reverts a
+    losing new page that way. Listing them in the sitemap turns a deliberate
+    revert into a Search Console error ("submitted URL marked noindex").
+    """
+    try:
+        return bool(_ROBOTS_META.search(path.read_text(encoding="utf-8", errors="replace")))
+    except OSError:
+        return False
 
 
 def classify(rel: str) -> str:
@@ -105,6 +146,8 @@ def pair_key(rel: str) -> str:
 
 
 def build_entries() -> list:
+    redirected = redirect_sources()
+    dropped = {"redirect": 0, "noindex": 0}
     pages = []
     for path in sorted(PUBLIC.rglob("*.html")):
         fname = path.name
@@ -125,7 +168,18 @@ def build_entries() -> list:
             clean = clean[:-5]
         if clean in SKIP_DIRS:
             continue
+        if "/" + clean in redirected:
+            dropped["redirect"] += 1
+            continue
+        if has_noindex(path):
+            dropped["noindex"] += 1
+            continue
         pages.append((path, rel))
+
+    print(
+        f"excluded: {dropped['redirect']} redirected (301), "
+        f"{dropped['noindex']} noindex"
+    )
 
     by_key: dict[str, dict[str, Path]] = {}
     for path, rel in pages:
