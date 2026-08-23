@@ -19,6 +19,15 @@ jobs:
       # silently destroying the brain's strategy and the SEO database whenever
       # a push raced the daily pipeline. git reset --hard updates tracked files
       # and leaves untracked runtime state alone.
+      #
+      # "Untracked" is the load-bearing word: the spend ledgers below ARE
+      # tracked, so reset --hard rolls them back to whatever the last push
+      # contained. That silently rewinds the counters that enforce
+      # LLM_DAILY_BUDGET_USD / OPUS_MONTHLY_BUDGET_USD — the budget guard fails
+      # open, which is how a $5/day cap once allowed $8.94. Observed again on
+      # 2026-08-23: opus_budget.json reverted to a July snapshot mid-month.
+      # The VPS is the only writer and these counters only move forward, so
+      # carry them across the reset.
       - name: Deploy via git sync
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -28,8 +37,17 @@ jobs:
           script: |
             set -e
             cd /var/www/pepperoni/repo
+            LEDGERS="data/daily_ledger.json data/opus_budget.json data/llm_costs.json data/health.json"
+            KEEP=$(mktemp -d)
+            for f in $LEDGERS; do
+              if [ -f "$f" ]; then install -D "$f" "$KEEP/$f"; fi
+            done
             git fetch origin main
             git reset --hard origin/main
+            for f in $LEDGERS; do
+              if [ -f "$KEEP/$f" ]; then cp -a "$KEEP/$f" "$f"; fi
+            done
+            rm -rf "$KEEP"
             echo "Deployed: $(git log -1 --oneline)"
             # nginx serves /videos/ from media/, not repo/public/videos/
             if [ -d public/videos ]; then
