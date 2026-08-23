@@ -6,9 +6,15 @@
 
 ## Current step
 
-**North star measuring window (до 2026-08-11).** Не править 3 commercial
-experiment pages. Еженедельно: `python3 scripts/commercial_pulse.py`
-(+ уже в `weekly_sync.py` по понедельникам).
+**30-дневный эксперимент внешнего авторитета (не SEO).** Сайт заморожен.
+Контроль: `52f963634`. Журнал узлов: `data/external_authority_30d.json`.
+Цель к 2026-09-18: **+5 независимых B2B-узлов, из них ≥1 GCC/UAE**.
+Повтор тех же 20 промптов (PPLX+Gemini+ChatGPT Search). Не выдумывать
+JAKIM/GCC. Новые номера ДУМ с реестра — не на сайт без решения владельца.
+VPS/redsocks не трогать. После окна — класс «СТМ от 500 кг».
+
+Старый measuring window 3 commercial exp (до 2026-08-11) — истёк; pulse
+как был: `python3 scripts/commercial_pulse.py`.
 
 Активные эксперименты (measuring → measure_at 2026-08-11):
 1. котлеты для бургеров оптом → `/private-label/kotlety-dlya-burgerov-optom`
@@ -186,6 +192,81 @@ top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и вы
 
 ## Log
 
+- **2026-08-23 деплой лежал 5 дней + гигиена sitemap** (владелец: «разберись
+  что не так, найди дыры, чтобы сайт лучше индексировался»):
+  Done:
+  - `a5f30b1e3` — корень падения `Deploy to VPS`. `apply_nginx_agent_discovery.sh`
+    ловил блок `/llms.txt` регексом `\{[^}]+\}`, который останавливается на
+    внутренней `}` строки `types { text/markdown txt; }`, добавленной этим же
+    патчем. Каждый деплой оставлял хвост `default_type ...; }`; накопилось **29**
+    → `nginx -t`: `[emerg] unexpected "}" in
+    /etc/nginx/snippets/pepperoni-static-data.conf:45`. Замена по подсчёту скобок
+    + вычистка накопленных хвостов + no-op, если блок уже верен.
+    Проверка на копии прод-файла: `removed orphans: 29`, скобки `open 36 close 36`,
+    прогоны 2 и 3 → `· already correct` (идемпотентность).
+    На проде: `nginx -t ... test is successful`, `✅ / has Link api-catalog`,
+    `✅ markdown negotiation`.
+  - Тот же коммит: шаг nginx-заголовков перенесён в **конец** job'а. GitHub
+    пропускает все шаги после упавшего, поэтому косметический патч заголовков
+    убивал `Nudge Google index`. Последний зелёный деплой до фикса — **2026-08-18
+    12:26**, за 60 последних прогонов `success 26 / failure 34`.
+    Побочный урон: `gsc-index.yml` висит на `workflow_run` с
+    `conclusion == 'success'` → все запуски по деплою были `skipped`
+    (выживал только push-триггер по `public/sitemap.xml`).
+    После фикса run `32626126442` — все 13 шагов `success`.
+  - `0258c683f` — `rebuild_sitemap.py` больше не рекламирует мёртвые URL.
+    У 301-страницы файл остаётся на диске с self-canonical, поэтому ни ФС, ни
+    canonical о смерти не сообщают — только nginx. Теперь парсим
+    `location = /exact` из `deploy/nginx/*redirects.conf` (префиксные `^~` из
+    `*gone.conf` не трогаем — там `try_files`) и пропускаем страницы с robots
+    `noindex`. Вывод: `excluded: 47 redirected (301), 7 noindex`. Число 47
+    совпало с независимым живым замером всех 1472 URL sitemap
+    (`1425 × 200`, `47 × 301`).
+  - `c014de1fc` — `/x` («experimental homepage», `77653a74c`) убран из sitemap:
+    `index, follow`, self-canonical, ниоткуда не слинкован, title совпадает с
+    `/5`. Соседи `/1`..`/5` были исключены, `/x` пропустили.
+  - `fa31da24f` — sitemap пересобран: **1472 → 1417**. Контроль всех 1417 URL
+    против прода: `1417 × 200`, non-200 нет.
+  - Nudge выполнен (`scripts/nudge_google_after_seo.sh`): Google sitemaps ✅ ×2
+    (`sc-domain:pepperoni.tatar`, `api.pepperoni.tatar`); IndexNow/Bing ✅ 200,
+    8 URL; Indexing API `⛔ QUOTA_EXCEEDED` и Яндекс `0/150` — дневную квоту
+    съели три моих деплоя за сегодня, не баг.
+  - Ложная тревога снята: `<!—` вместо `<!--` (невалидный комментарий, съедает
+    содержимое до первого `>`) — правило ремонта в `fix_pages.py` от `02bcbc7aa`
+    (2026-08-19), sweep `40a90ddc2` дочистил 887 файлов. Сейчас
+    `grep -rl "<!—" public --include=*.html | wc -l` → **0**, закрытых `—>` → **0**.
+    `fix_pages` стоит в пайплайне под `fail_hard`, класс закрыт.
+  Blockers / решения владельца (сам не делал — bulk + окно измерения):
+  1. **683 из 1417 URL sitemap (48%) — ноль показов за 28 дней** (GSC
+     Search Analytics, окно 2026-07-25..08-21). Разбивка ровно по непроверенным
+     локалям: `ar 209, kk 67, fr 33, uz 28, be 26, ms 21, id 19, az 13, tr 12,
+     tg 10, ky 9, ro 9, hy 7` ≈ 463 URL. `pepperoni-infra.mdc` уже говорит
+     «непроверенные локали — вне sitemap, не в индекс»; исполнять не стал:
+     это bulk на 463+ страниц внутри 30-дневного окна.
+     Итог 28д: 21 532 показа / 257 кликов (CTR 1.19%).
+  2. **3 commercial experiment просрочены на 12 дней** — `measure_at
+     2026-08-11`, статус всё ещё `measuring` в `data/operator_experiments.json`.
+     В логе агента: `⚠️ Brain failed; no new operator work will start`,
+     `⚠️ Optimizer report failed (non-fatal)`.
+  3. **Страница эксперимента №1** `/private-label/kotlety-dlya-burgerov-optom`
+     несёт `<meta name="robots" content="noindex,nofollow">` (вставлено
+     `experiment_registry._noindex_new_page` перед `</head>`, коммит `58862ec91`),
+     при том что строка эксперимента живёт в статусе `measuring` без
+     `revert_action`. Запрос «котлеты для бургеров оптом» = 704 показа/90д,
+     pos 23.4. Гейт сам не ослаблял — noindex не снимал.
+  4. `git reset --hard` в деплое стирает **отслеживаемое** runtime-состояние.
+     Комментарий в workflow верен только для untracked. Мой деплой снёс
+     `data/{daily_ledger,agent_bus,commercial_pulse,experiments}.json`,
+     `data/.pipeline_ok` (были ` M`, не закоммичены). `daily_ledger` — учёт
+     бюджета, то есть предохранитель.
+- **2026-08-19 baseline commit + два Restarting контейнера**:
+  Done: `52f963634` на origin/main — только
+  `data/buyer_baseline_{prompts,2026-08-19}.json` + `scripts/buyer_baseline_20.py`.
+  Чужой хвост не в коммите. camera-monitor + gateway: диск → overlay fail в
+  05:07 UTC; точечный restart, оба healthy. selectel-egress после диска:
+  `bind: address already in use` на :12345 — порт держит redsocks 8 дней;
+  контейнер stop + restart=no. Docker/gost/VPN не рестартили.
+  Blockers: нет. Snap Chromium / архив 620 МБ не трогал.
 - **2026-07-17 закрытие 0.4 (владелец: «делай как будет лучше»)**:
   Done: `rebuild_sitemap.py` → 5127 URL (pavlodar/aktobe/jakarta в sitemap);
   `geo_0.4_tasks.json` → `[]`; архив `data/geo_0.4_closed.json`;
