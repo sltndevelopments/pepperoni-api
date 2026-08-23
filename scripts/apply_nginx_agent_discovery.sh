@@ -51,12 +51,47 @@ new_block = """location = /llms.txt {
     types { text/markdown txt; }
     default_type "text/markdown; charset=utf-8";
 }"""
-text2, n = re.subn(r"location = /llms\.txt \{[^}]+\}", new_block, text, count=1)
-if n:
-    p.write_text(text2, encoding="utf-8")
-    print(f"✅ llms.txt type → text/markdown in {p}")
+
+start = text.find("location = /llms.txt {")
+if start < 0:
+    print("⚠️ no /llms.txt location block found")
+    raise SystemExit(0)
+
+# Brace-count to the real end of the block. A naive [^}]+ stops at the inner
+# "}" of `types { ... }` and leaves an orphan `default_type ...; }` tail behind
+# on every run — that tail accumulated 29 times and broke `nginx -t`.
+depth, end = 0, None
+for i in range(text.index("{", start), len(text)):
+    if text[i] == "{":
+        depth += 1
+    elif text[i] == "}":
+        depth -= 1
+        if depth == 0:
+            end = i + 1
+            break
+if end is None:
+    print("⚠️ unbalanced braces around /llms.txt — not touching the file")
+    raise SystemExit(0)
+
+rest = text[end:]
+# Repair: drop any orphan tails a previous buggy run appended.
+orphan = re.compile(r'^[ \t]*\n?[ \t]*default_type[ \t]+"text/markdown; charset=utf-8";[ \t]*\n[ \t]*\}[ \t]*\n')
+removed = 0
+while True:
+    rest, n = orphan.subn("", rest, count=1)
+    if not n:
+        break
+    removed += 1
+
+if not rest.startswith("\n"):
+    rest = "\n" + rest
+updated = text[:start] + new_block + rest
+if updated == text:
+    print(f"· /llms.txt block already correct in {p}")
 else:
-    print("⚠️ could not patch /llms.txt default_type")
+    p.write_text(updated, encoding="utf-8")
+    extra = f", removed {removed} orphan tail(s)" if removed else ""
+    print(f"✅ llms.txt type → text/markdown in {p}{extra}")
 PY
 fi
 

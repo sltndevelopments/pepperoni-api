@@ -37,22 +37,6 @@ jobs:
               cp -f public/videos/* /var/www/pepperoni/media/videos/
             fi
 
-      - name: Apply Content-Security-Policy (allow YouTube embeds)
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: root
-          key: ${{ secrets.VPS_SSH_KEY }}
-          script: |
-            # The previous CSP allowed only googletagmanager.com in frame-src.
-            # Brave/Chrome then showed «Этот контент заблокирован» for the
-            # youtube-nocookie iframes on /pepperoni. Canonical policy lives in
-            # deploy/nginx/security-headers.csp.snippet.
-            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
-            bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
-            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh
-            bash /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh /var/www/pepperoni/repo
-
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -320,3 +304,25 @@ jobs:
             set +a
             cd /var/www/pepperoni/repo
             bash scripts/nudge_google_after_seo.sh || echo "⚠️  indexing nudge failed (non-fatal)"
+
+      # Runs LAST on purpose. These scripts only polish nginx headers and are
+      # idempotent; on failure they restore the previous vhost, so the site keeps
+      # serving. When this step sat before the deploy body, one bad snippet
+      # (an orphan `}` accumulated by the llms.txt patch) failed the step and
+      # GitHub skipped everything after it — including the index nudge. A header
+      # tweak must never be able to cancel indexing.
+      - name: Apply Content-Security-Policy + agent discovery headers
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # The previous CSP allowed only googletagmanager.com in frame-src.
+            # Brave/Chrome then showed «Этот контент заблокирован» for the
+            # youtube-nocookie iframes on /pepperoni. Canonical policy lives in
+            # deploy/nginx/security-headers.csp.snippet.
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_csp.sh /var/www/pepperoni/repo
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_agent_discovery.sh /var/www/pepperoni/repo
