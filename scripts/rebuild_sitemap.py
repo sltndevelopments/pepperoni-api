@@ -52,6 +52,7 @@ SKIP_FILES = {
 # Directory names whose index.html we skip (duplicate homepages, noindex pages, etc.)
 SKIP_DIRS = {
     "1", "2", "3", "4", "5",          # duplicate homepages
+    "x",                              # experimental homepage (77653a74c)
     "search", "en/search",            # noindex (X-Robots-Tag)
     "china",                          # noindex
 }
