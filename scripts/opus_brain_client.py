@@ -283,6 +283,11 @@ def call_model(
             parts = obj.get("content", [])
             text = "".join(p.get("text", "") for p in parts if p.get("type") == "text")
             usage = obj.get("usage", {}) or {}
+            # A reply cut off at max_tokens still arrives as a normal 200, and
+            # the truncated JSON then dies in the caller's parser with a
+            # misleading syntax error. Carry the reason so callers can tell
+            # "model wrote bad JSON" apart from "we did not let it finish".
+            usage["stop_reason"] = obj.get("stop_reason")
             cost = _record_spend(usage, prices)
             usage["cost_usd"] = round(cost, 4)
             usage["budget_remaining_usd"] = round(remaining_budget(), 4)

@@ -1600,6 +1600,25 @@ def strategy_contract_errors(strategy: object) -> list[str]:
     return errors
 
 
+def _dump_raw_reply(text: str, usage: dict, err: Exception) -> str:
+    """Persist an unparseable Opus reply for post-mortem; return its path."""
+    from datetime import datetime, timezone
+    out = ROOT / "data" / "logs" / "brain_last_raw.txt"
+    try:
+        out.parent.mkdir(parents=True, exist_ok=True)
+        header = (
+            f"# {datetime.now(timezone.utc).isoformat()}\n"
+            f"# error: {err}\n"
+            f"# stop_reason: {usage.get('stop_reason')}\n"
+            f"# output_tokens: {usage.get('output_tokens')}\n"
+            f"# chars: {len(text)}\n\n"
+        )
+        out.write_text(header + text, encoding="utf-8")
+        return str(out)
+    except Exception as dump_err:
+        return f"(dump failed: {dump_err})"
+
+
 def _extract_json(text: str) -> dict:
     text = text.strip()
     if text.startswith("```"):
@@ -1763,10 +1782,17 @@ def main():
         # spells out the exact JSON schema and _extract_json() below is a
         # robust fallback parser — that combination is what actually
         # produced strategy.json for months before json_schema was added.
+        # max_tokens caps thinking + visible output together, and adaptive
+        # thinking eats most of it: at 4000 the model burned ~2600 tokens
+        # reasoning and got cut off after 2.8 KB of a strategy that needs
+        # ~10 KB of Cyrillic JSON. rfind("}") then sliced the truncated reply
+        # into something that failed as "Expecting ',' delimiter", so every
+        # run since 2026-07-18 paid for Opus and discarded the answer.
+        # A cap is not a charge — we still only pay for tokens produced.
         text, usage = call_opus(
             prompt=user_prompt,
             system=PLAYBOOK,
-            max_tokens=4000,
+            max_tokens=int(os.environ.get("BRAIN_MAX_TOKENS", "16000")),
             temperature=0.3,
             cache_system=True,
             effort=effort,
@@ -1778,7 +1804,16 @@ def main():
     try:
         strategy = _extract_json(text)
     except Exception as e:
+        # The reply is a paid Opus call. Throwing it away undiagnosed is how
+        # this failed silently every day since 2026-07-18: the log carried a
+        # column number and nothing to compare it against. Keep the raw text
+        # (data/logs/ is gitignored, so a deploy reset cannot erase it).
+        dump = _dump_raw_reply(text, usage, e)
         print(f"⚠️  Could not parse strategy JSON ({e}). Keeping existing strategy.")
+        print(f"   stop_reason={usage.get('stop_reason')} "
+              f"output_tokens={usage.get('output_tokens')} → raw reply: {dump}")
+        if usage.get("stop_reason") == "max_tokens":
+            print("   ⚠️  reply hit max_tokens — JSON is truncated, not malformed.")
         return 2
 
     # Narrative/reporting fields are optional model conveniences, not control
