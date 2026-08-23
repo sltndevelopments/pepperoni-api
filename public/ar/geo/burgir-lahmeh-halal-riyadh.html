@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
 <link rel="dns-prefetch" href="https://mc.yandex.ru">
 
-<!— perf-hints: preconnect —>
+<!-- perf-hints: preconnect -->
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
@@ -49,13 +49,13 @@ line-height: 1.6;
 body {
 font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
 background-color: #ffffff;
-color: var(—text-dark);
+color: var(--text-dark);
 direction: rtl;
 text-align: right;
 }
 
 /* ===== HERO ===== */.hero-section {
-background: linear-gradient(135deg, var(—green-dark) 0%, #0d2e1a 40%, #1a3d28 100%);
+background: linear-gradient(135deg, var(--green-dark) 0%, #0d2e1a 40%, #1a3d28 100%);
 color: #fff;
 padding: 80px 0 60px;
 position: relative;
@@ -77,8 +77,8 @@ border-radius: 50%;
 }.hero-badge {
 display: inline-block;
 background: rgba(201,168,76,0.2);
-border: 1px solid var(—gold);
-color: var(—gold-light);
+border: 1px solid var(--gold);
+color: var(--gold-light);
 border-radius: 50px;
 padding: 6px 20px;
 font-size: 0.85rem;
@@ -92,7 +92,7 @@ line-height: 1.25;
 margin-bottom: 20px;
 color: #fff;
 }.hero-title span {
-color: var(—gold-light);
+color: var(--gold-light);
 }.hero-subtitle {
 font-size: 1.1rem;
 color: rgba(255,255,255,0.85);
@@ -113,14 +113,14 @@ min-width: 130px;
 }.hero-stat-num {
 font-size: 1.7rem;
 font-weight: 900;
-color: var(—gold-light);
+color: var(--gold-light);
 display: block;
 }.hero-stat-label {
 font-size: 0.78rem;
 color: rgba(255,255,255,0.7);
 margin-top: 2px;
 }.hero-cta-btn {
-background: linear-gradient(135deg, var(—gold) 0%, #a07830 100%);
+background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
 color: #fff;
 border: none;
 border-radius: 50px;
@@ -140,37 +140,37 @@ color: #fff;
 }
 
 /* ===== INTRO ===== */.intro-section {
-background: var(—cream);
+background: var(--cream);
 padding: 60px 0;
-border-bottom: 1px solid var(—border-light);
+border-bottom: 1px solid var(--border-light);
 }.intro-section p {
 font-size: 1.08rem;
 line-height: 2;
-color: var(—text-dark);
+color: var(--text-dark);
 }.intro-highlight {
 background: linear-gradient(135deg, #e8f5ee, #f0faf4);
-border-right: 4px solid var(—green-mid);
+border-right: 4px solid var(--green-mid);
 border-radius: 8px;
 padding: 20px 24px;
 margin-top: 24px;
 font-size: 1rem;
-color: var(—green-dark);
+color: var(--green-dark);
 font-weight: 600;
 }
 
 /* ===== SECTION TITLES ===== */.section-title {
 font-size: clamp(1.6rem, 3.5vw, 2.2rem);
 font-weight: 900;
-color: var(—green-dark);
+color: var(--green-dark);
 margin-bottom: 8px;
 }.section-subtitle {
-color: var(—text-muted);
+color: var(--text-muted);
 font-size: 1rem;
 margin-bottom: 40px;
 }.title-line {
 width: 60px;
 height: 4px;
-background: linear-gradient(90deg, var(—gold), var(—green-mid));
+background: linear-gradient(90deg, var(--gold), var(--green-mid));
 border-radius: 2px;
 margin: 12px 0 16px;
 }
@@ -180,7 +180,7 @@ padding: 70px 0;
 background: #fff;
 }.adv-card {
 background: #fff;
-border: 1px solid var(—border-light);
+border: 1px solid var(--border-light);
 border-radius: 16px;
 padding: 28px 24px;
 height: 100%;
@@ -192,14 +192,14 @@ content: '';
 position: absolute;
 top: 0; right: 0;
 width: 100%; height: 4px;
-background: linear-gradient(90deg, var(—green-light), var(—gold));
+background: linear-gradient(90deg, var(--green-light), var(--gold));
 transform: scaleX(0);
 transform-origin: right;
 transition: transform 0.3s;
 }.adv-card:hover::before { transform: scaleX(1); }.adv-card:hover {
 box-shadow: 0 12px 40px rgba(45,122,79,0.12);
 transform: translateY(-4px);
-border-color: var(—green-light);
+border-color: var(--green-light);
 }.adv-icon {
 width: 60px; height: 60px;
 background: linear-gradient(135deg, #e8f5ee, #d0ead8);
@@ -212,15 +212,15 @@ margin-bottom: 18px;
 }.adv-title {
 font-size: 1.05rem;
 font-weight: 700;
-color: var(—green-dark);
+color: var(--green-dark);
 margin-bottom: 10px;
 }.adv-text {
 font-size: 0.9rem;
-color: var(—text-muted);
+color: var(--text-muted);
 line-height: 1.8;
 }.adv-badge {
 display: inline-block;
-background: linear-gradient(135deg, var(—green-dark), var(—green-mid));
+background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
 color: #fff;
 border-radius: 50px;
 padding: 4px 14px;
@@ -230,31 +230,31 @@ margin-top: 12px;
 }
 
 /* ===== PRODUCT FORMATS ===== */.formats-section {
-background: var(—cream);
+background: var(--cream);
 padding: 70px 0;
 }.format-card {
 background: #fff;
 border-radius: 16px;
 padding: 30px 24px;
 text-align: center;
-border: 2px solid var(—border-light);
+border: 2px solid var(--border-light);
 transition: all 0.3s;
 height: 100%;
 }.format-card:hover {
-border-color: var(—gold);
+border-color: var(--gold);
 box-shadow: 0 8px 30px rgba(201,168,76,0.2);
 }.format-icon { font-size: 3rem; margin-bottom: 16px; }.format-weight {
 font-size: 2rem;
 font-weight: 900;
-color: var(—green-dark);
+color: var(--green-dark);
 }.format-label {
 font-size: 0.85rem;
-color: var(—text-muted);
+color: var(--text-muted);
 margin-top: 6px;
 }.format-use {
 margin-top: 14px;
 font-size: 0.88rem;
-color: var(—green-mid);
+color: var(--green-mid);
 font-weight: 600;
 }
 
@@ -269,7 +269,7 @@ border-radius: 16px;
 overflow: hidden;
 box-shadow: 0 4px 24px rgba(0,0,0,0.08);
 }.cert-table thead tr {
-background: linear-gradient(135deg, var(—green-dark), var(—green-mid));
+background: linear-gradient(135deg, var(--green-dark), var(--green-mid));
 color: #fff;
 }.cert-table thead th {
 padding: 16px 20px;
@@ -281,11 +281,11 @@ transition: background 0.2s;
 }.cert-table tbody tr:nth-child(even) { background: #f8fdf9; }.cert-table tbody tr:hover { background: #e8f5ee; }.cert-table tbody td {
 padding: 14px 20px;
 font-size: 0.9rem;
-border-bottom: 1px solid var(—border-light);
+border-bottom: 1px solid var(--border-light);
 vertical-align: middle;
 }.cert-badge-green {
 background: #e8f5ee;
-color: var(—green-dark);
+color: var(--green-dark);
 border-radius: 50px;
 padding: 4px 14px;
 font-size: 0.8rem;
@@ -300,13 +300,13 @@ font-size: 0.8rem;
 font-weight: 700;
 display: inline-block;
 }.checkmark {
-color: var(—green-mid);
+color: var(--green-mid);
 font-size: 1.2rem;
 font-weight: 700;
 }
 
 /* ===== DELIVERY ===== */.delivery-section {
-background: linear-gradient(135deg, #0d2e1a 0%, var(—green-dark) 100%);
+background: linear-gradient(135deg, #0d2e1a 0%, var(--green-dark) 100%);
 padding: 70px 0;
 color: #fff;
 }.delivery-card {
@@ -318,14 +318,14 @@ height: 100%;
 transition: all 0.3s;
 }.delivery-card:hover {
 background: rgba(255,255,255,0.12);
-border-color: var(—gold);
+border-color: var(--gold);
 }.delivery-icon {
 font-size: 2.5rem;
 margin-bottom: 14px;
 }.delivery-title {
 font-size: 1.05rem;
 font-weight: 700;
-color: var(—gold-light);
+color: var(--gold-light);
 margin-bottom: 10px;
 }.delivery-text {
 font-size: 0.88rem;
@@ -334,37 +334,37 @@ line-height: 1.8;
 }.delivery-time {
 font-size: 1.5rem;
 font-weight: 900;
-color: var(—gold-light);
+color: var(--gold-light);
 margin-top: 10px;
 }
 
 /* ===== FAQ ===== */.faq-section {
 padding: 70px 0;
-background: var(—cream);
+background: var(--cream);
 }.accordion-button {
 font-family: 'Cairo', sans-serif;
 font-weight: 700;
 font-size: 1rem;
-color: var(—green-dark);
+color: var(--green-dark);
 background: #fff;
 border-radius: 12px !important;
 direction: rtl;
 text-align: right;
 }.accordion-button:not(.collapsed) {
-color: var(—green-dark);
+color: var(--green-dark);
 background: #e8f5ee;
 box-shadow: none;
 }.accordion-button::after {
 margin-right: auto;
 margin-left: 0;
 }.accordion-item {
-border: 1px solid var(—border-light);
+border: 1px solid var(--border-light);
 border-radius: 12px !important;
 margin-bottom: 12px;
 overflow: hidden;
 }.accordion-body {
 font-size: 0.95rem;
-color: var(—text-muted);
+color: var(--text-muted);
 line-height: 1.9;
 direction: rtl;
 text-align: right;
@@ -374,7 +374,7 @@ text-align: right;
 padding: 70px 0;
 background: #fff;
 }.form-wrapper {
-background: linear-gradient(135deg, var(—green-dark) 0%, #1a4a2e 100%);
+background: linear-gradient(135deg, var(--green-dark) 0%, #1a4a2e 100%);
 border-radius: 24px;
 padding: 50px 40px;
 color: #fff;
@@ -394,11 +394,11 @@ direction: rtl;
 text-align: right;
 }.form-wrapper.form-control::placeholder { color: rgba(255,255,255,0.45); }.form-wrapper.form-control:focus,.form-wrapper.form-select:focus {
 background: rgba(255,255,255,0.15);
-border-color: var(—gold);
+border-color: var(--gold);
 box-shadow: 0 0 0 3px rgba(201,168,76,0.25);
 color: #fff;
 }.form-wrapper.form-select option { color: #000; background: #fff; }.submit-btn {
-background: linear-gradient(135deg, var(—gold) 0%, #a07830 100%);
+background: linear-gradient(135deg, var(--gold) 0%, #a07830 100%);
 color: #fff;
 border: none;
 border-radius: 50px;
@@ -418,7 +418,7 @@ border: 1px solid rgba(255,255,255,0.15);
 border-radius: 14px;
 padding: 20px;
 margin-bottom: 16px;
-}.form-info-icon { font-size: 1.4rem; margin-left: 10px; }.form-info-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }.form-info-value { font-size: 0.95rem; font-weight: 700; color: #fff; margin-top: 2px; }.form-info-value a { color: var(—gold-light); text-decoration: none; }.form-info-value a:hover { text-decoration: underline; }
+}.form-info-icon { font-size: 1.4rem; margin-left: 10px; }.form-info-label { font-size: 0.78rem; color: rgba(255,255,255,0.6); }.form-info-value { font-size: 0.95rem; font-weight: 700; color: #fff; margin-top: 2px; }.form-info-value a { color: var(--gold-light); text-decoration: none; }.form-info-value a:hover { text-decoration: underline; }
 
 /* ===== TRUST BAR ===== */.trust-bar {
 background: #f0faf4;
@@ -431,7 +431,7 @@ align-items: center;
 gap: 10px;
 font-size: 0.88rem;
 font-weight: 600;
-color: var(—green-dark);
+color: var(--green-dark);
 }.trust-item-icon { font-size: 1.3rem; }
 
 /* ===== RESPONSIVE ===== */
@@ -439,7 +439,7 @@ color: var(—green-dark);
 }
 </style>
 
-<!— Yandex.Metrika —>
+<!-- Yandex.Metrika -->
 <script type="text/javascript">
 (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
 m[i].l=1*new Date();
@@ -450,9 +450,9 @@ ym(98765432,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
 </script>
 <noscript><div><img src="https://mc.yandex.ru/watch/98765432" style="position:absolute;left:-9999px;" alt="" width="1" height="1" loading="lazy" /></div></noscript>
 
-<!— Schema.org JSON-LD —>
+<!-- Schema.org JSON-LD -->
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://pepperoni.tatar/#business","name":"Kazandelikates – كازان ديليكاتس","description":"مورد متخصص لكتلات البرغر الحلال بالجملة للرياض والمملكة العربية السعودية. إنتاج في كازان، روسيا. شهادات حلال HACCP ISO 22000:2018.","url":"https://pepperoni.tatar/ar/geo/burgir-lahmeh-halal-riyadh","telephone":"+79872170202","email":"info@kazandelikates.tatar","address":{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","addressCountry":"RU"},"areaServed":{"@type":"City","name":"الرياض","containedInPlace":{"@type":"Country","name":"المملكة العربية السعودية"}},"hasOfferCatalog":{"@type":"OfferCatalog","name":"كتلات البرغر الحلال"}},{"@type":"Product","@id":"https://pepperoni.tatar/ar/geo/burgir-lahmeh-halal-riyadh#product","name":"كتلات البرغر الحلال – لحم البقر والدجاج (90-180 جم)","description":"كتلات برغر حلال مجمدة IQF من لحم البقر والدجاج. أوزان 90-180 جم. شهادات حلال DUM RT رقم 614A/2024، HACCP، ISO 22000:2018. للمطاعم وقطاع HoReCa والتجزئة في الرياض.","brand":{"@type":"Brand","name":"Kazandelikates"},"manufacturer":{"@type":"Organization","name":"Kazandelikates","address":{"@type":"PostalAddress","addressLocality":"Казань","addressCountry":"RU"}},"category":"منتجات اللحوم الحلال","offers":{"@type":"Offer","availability":"https://schema.org/InStock","priceCurrency":"SAR","seller":{"@type":"Organization","name":"Kazandelikates"},"shippingDetails":{"@type":"OfferShippingDetails","shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"SAR"},"deliveryTime":{"@type":"ShippingDeliveryTime","handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}},"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy","applicableCountry":"RU","returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow","merchantReturnDays":14,"returnMethod":"https://schema.org/ReturnByMail","returnFees":"https://schema.org/ReturnShippingFees","returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"SAR"}}},"hasCertification":[{"@type":"Certification","name":"حلال DUM RT رقم 614A/2024"},{"@type":"Certification","name":"HACCP"},{"@type":"Certification","name":"ISO 22000:2018"}],"image":"https://pepperoni.tatar/images/pepperoni-halal.png"},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"هل كتلات البرغر معتمدة حلال للاستيراد إلى المملكة العربية السعودية؟","acceptedAnswer":{"@type":"Answer","text":"نعم، منتجاتنا حاصلة على شهادة حلال من مجلس المسلمين في تتارستان (DUM RT رقم 614A/2024)، وهي شهادة معترف بها من قِبل الجهات الرقابية السعودية. كما نوفر جميع الوثائق البيطرية المطلوبة للاستيراد إلى المملكة العربية السعودية."}},{"@type":"Question","name":"ما هي الحد الأدنى لكمية الطلب للشحن إلى الرياض؟","acceptedAnswer":{"@type":"Answer","text":"الحد الأدنى لكمية الطلب هو 500 كيلوجرام (حاوية LCL). للشحن الكامل بالحاوية (FCL) نوصي بـ 5 أطنان فأكثر لتحقيق أفضل سعر للكيلوجرام. نعمل مع المطاعم والسلاسل وتجار الجملة في الرياض."}},{"@type":"Question","name":"كم يستغرق الشحن من كازان إلى الرياض؟","acceptedAnswer":{"@type":"Answer","text":"الشحن البحري عبر ميناء نوفوروسيسك إلى جدة يستغرق 12-15 يوماً، ثم شحن بري إلى الرياض. الشحن الجوي من كازان إلى الرياض مباشرة 5 ساعات طيران، مع وقت تخليص جمركي 2-3 أيام."}},{"@type":"Question","name":"هل يمكنكم توفير العبوات بعلامتنا التجارية الخاصة (Private Label)؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نوفر خدمة الإنتاج بالعلامة التجارية الخاصة (Private Label) بالكامل. يمكننا تصميم العبوة وطباعتها بشعارك وألوانك مع الحفاظ على جميع الشهادات. نعمل مع سلاسل البرغر والموزعين في أكثر من 20 دولة."}},{"@type":"Question","name":"ما هي شروط التخزين والصلاحية لكتلات البرغر IQF؟","acceptedAnswer":{"@type":"Answer","text":"كتلات البرغر مجمدة بتقنية IQF (التجميد الفردي السريع) عند -18 درجة مئوية. مدة الصلاحية 18 شهراً من تاريخ الإنتاج. تصل إلى الرياض في حاويات مبردة مع الحفاظ الكامل على سلسلة التبريد. مناسبة لمخازن المطاعم والمستودعات الباردة."}}]},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"الرئيسية","item":"https://pepperoni.tatar/"},{"@type":"ListItem","position":2,"name":"المنتجات","item":"https://pepperoni.tatar/products/"},{"@type":"ListItem","position":3,"name":"كتلات البرغر","item":"https://pepperoni.tatar/products/burger-patties/"},{"@type":"ListItem","position":4,"name":"كتلات البرغر – الرياض","item":"https://pepperoni.tatar/ar/geo/burgir-lahmeh-halal-riyadh"}]}]}</script>
-<!— perf-hints: speculation-rules —>
+<!-- perf-hints: speculation-rules -->
 <script type="speculationrules">
 {
 "prerender": [{
@@ -470,7 +470,7 @@ ym(98765432,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
 }]
 }
 </script>
-<!— perf-hints: view-transitions —>
+<!-- perf-hints: view-transitions -->
 <style>
 @media (prefers-reduced-motion: no-preference) {
 @view-transition { navigation: auto; }
@@ -504,7 +504,7 @@ ym(98765432,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,webvi
 
 <body data-city="Эр-Рияд" data-product="kotlety-burgery">
 
-<!— ===== HERO SECTION ===== —>
+<!-- ===== HERO SECTION ===== -->
 <section class="hero-section">
 <div class="container">
 <div class="tldr-answer">
