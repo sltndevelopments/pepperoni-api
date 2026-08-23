@@ -1,9 +1,9 @@
 {
  "focus_products": [
-  "private-label-stm",
   "pepperoni",
   "sosiki-dlya-hotdog",
   "kotlety-dlya-burgerov",
+  "private-label-stm",
   "kazylyk-premium",
   "vypechka-tatarskaya"
  ],
@@ -12,42 +12,49 @@
   "en"
  ],
  "geo_daily_target": 0,
- "blog_weekly_target": 3,
+ "blog_weekly_target": 2,
  "new_blog_topics": [
   {
-   "slug": "halyal-farsh-dlya-pekaren-optom",
-   "title_ru": "Фарш халяль для пекарен оптом: ТУ, сроки, поставка из Казани",
+   "slug": "kazylyk-optom-ot-proizvoditelya",
+   "title_ru": "Казылык оптом от производителя: цены, фасовка, поставка по РФ",
    "intent": "коммерческий"
   },
   {
-   "slug": "pepperoni-dlya-dark-kitchen-optom",
-   "title_ru": "Пепперони для dark kitchen оптом: калибр, срок, стабильность топпинга",
-   "intent": "коммерческий"
-  },
-  {
-   "slug": "eksport-halyal-v-kazakhstan-dokumenty",
-   "title_ru": "Экспорт халяль в Казахстан: документы, упаковка, Incoterms для мяса",
+   "slug": "pattisy-dlya-burgerov-stm-proizvodstvo",
+   "title_ru": "Халяльные котлеты (паттисы) для бургеров под СТМ: производство от 500 кг",
    "intent": "коммерческий"
   }
  ],
  "pl_oem_topics": [
   {
-   "slug": "private-label",
-   "title": "Контрактное производство халяль-колбас и выпечки под СТМ",
+   "slug": "sosiski-dlya-hotdog",
+   "title": "Сосиски для хот-догов оптом — халяль, от производителя",
    "lang": "ru",
-   "angle": "УСИЛИТЬ существующую страницу под живой лид: минимальный тираж, сроки запуска SKU, этапы (бриф→рецептура→образцы→ТУ→этикетка→серия), документы, форма запроса КП вверху и внизу"
+   "angle": "Категорийный хаб под запрос 370 показов/поз.62.9. Обязательно ≥1800 слов: линейка калибров, цены за кг, фасовка, условия для сетей/фудтраков, FAQ, схема поставки. Конкурент выигрывает объёмом контента"
   },
   {
-   "slug": "private-label-kazakhstan",
-   "title": "Private Label халяль для сетей Казахстана: СТМ от завода в Казани",
+   "slug": "private-label-stm",
+   "title": "Контрактное производство (Private Label / СТМ) халяльных мясных изделий",
    "lang": "ru",
-   "angle": "Magnum/Small и опт: логистика, документы ЕАЭС, минимальная партия. docs=ready, говорим прямо"
+   "angle": "Главный хаб OEM: минимальный тираж, сроки, разработка рецептуры, упаковка под бренд клиента, halal-сертификация. Живая заявка на private label уже была — страницы-приёмника нет"
   },
   {
-   "slug": "en/private-label-halal-oem",
-   "title": "Halal Private Label & OEM Manufacturing — Kazan, Russia",
+   "slug": "kazylyk-premium",
+   "title": "Казылык оптом — конская колбаса халяль от производителя в Казани",
+   "lang": "ru",
+   "angle": "Коммерческий хаб под кластер 'казылык' (664 показа). Информационную статью what-is-kazylyk перелинковать сюда"
+  },
+  {
+   "slug": "vypechka-tatarskaya",
+   "title": "Татарская выпечка оптом: эчпочмак, элеш, перемячи — заморозка для HoReCa",
+   "lang": "ru",
+   "angle": "Категорийный хаб выпечки, закрывает дыру каталога и сотни гео-ссылок"
+  },
+  {
+   "slug": "en/private-label-halal-meat",
+   "title": "Private Label & OEM Halal Meat Manufacturing in Russia",
    "lang": "en",
-   "angle": "экспортный байер: capacity, MOQ, lead time, halal certification, sample process"
+   "angle": "Экспортный байер: MOQ, halal certification, packaging, export docs. Фрейм честный — по Заливу документы в процессе оформления"
   }
  ],
  "web_queries": [
@@ -56,464 +63,88 @@
    "mode": "visibility"
   },
   {
-   "query": "Какие компании производят халяльные сосиски для хот-догов оптом в РФ?",
-   "mode": "visibility"
-  },
-  {
-   "query": "Где заказать контрактное производство (private label) халяльных колбас в России?",
+   "query": "Кто производит казылык оптом? Назови поставщиков.",
    "mode": "visibility"
   },
   {
    "query": "сосиски для хот догов оптом халяль производитель",
    "mode": "search"
+  },
+  {
+   "query": "контрактное производство private label халяльных колбас Россия",
+   "mode": "visibility"
   }
  ],
  "memory_ops": [
   {
    "action": "add",
    "section": "decisions",
-   "text": "Гео держим на 0, весь цикл — на чистку фундамента: 27 пустых ar/uz гео-страниц удалить, junk-'Вот' вычистить, 173 битые ссылки закрыть категорийными страницами.",
-   "why": "1482 страницы, 191 not_indexed и CTR 0.26% — Google не доверяет домену; лить новое на мусор бессмысленно."
-  },
-  {
-   "action": "add",
-   "section": "decisions",
-   "text": "Усиление /private-label — приоритет №1 по контенту: по нему пришёл живой коммерческий лид (СТМ), плюс это самый маржинальный продукт.",
-   "why": "Реальная заявка сильнее любого сигнала GSC."
+   "text": "P0 цикла 23.08: остановил генерацию гео (target=0). Корень провала — не контент, а гигиена индекса: 808 not_indexed, 125 страниц с 0 слов, 230 кластеров дублей canonical, 16 junk-страниц на 5111 сканированных. Ставлю индекс-гигиену + 5 категорийных хабов выше любого нового объёма.",
+   "why": "Google не индексирует домен, забитый пустыми клонами; новые страницы на таком фундаменте тонут вместе с ним"
   },
   {
    "action": "add",
    "section": "facts",
-   "text": "Поисковый трафик — всего 42 визита из 4508 за 30 дней; 89% визитов из рекламы. Заявки (204 коммерческих) идут в основном с телефона и Авито, не с SEO.",
-   "why": "SEO-канал пока не даёт заявок — измеряю рост именно поисковых заявок."
+   "text": "Живой спрос по заявкам (авг-2026): Авито даёт лиды по 'Пепперони халяль опт' и 'Котлеты из говядины для бургера халяль опт'; был звонок по контрактному производству/private label. Сайтовых заявок всего 23 из 713 — сайт пока слабое звено в потоке.",
+   "why": "Определяет, какие категорийные хабы строим первыми"
   }
  ],
- "proactive_message": "",
- "notes": "Фундамент важнее объёма: 191 страница не в индексе, CTR 0.26% и 27 пустых страниц — это сигнал недоверия домена, поэтому гео на нуле, чистим мусор и удаляем пустышки. Деньги идут в /private-label (живой лид по СТМ) и в три коммерческих запроса с реальным спросом: сосиски для хот-догов оптом (370 показов, мы на 63-м), пепперони халяль (72 показа, ранжируется главная), котлеты для бургеров оптом. Отдельно бью по нулевой AI-видимости — ни один ассистент нас не называет, усиливаем entity-факты и FAQ на коммерческих страницах.",
+ "proactive_message": "Нашёл корень, почему сайт не растёт в поиске. Из 5111 страниц у нас 125 полностью пустых, 16 с мусором от генератора и 230 групп страниц-клонов — и как следствие 808 страниц Google просто не берёт в индекс. Это не проблема текстов, это проблема доверия к домену. Останавливаю штамповку новых гео-страниц до нуля и разворачиваю цикл на чистку + 5 нормальных категорийных страниц (сосиски для хот-догов, частная марка/СТМ, казылык, татарская выпечка, английский private label) — именно под них уже идут живые заявки с Авито и звонки. Бюджет спокойный: 24$ из 200$ за месяц.",
+ "notes": "Приоритет цикла — фундамент, а не объём: чистим индекс, убиваем junk и пустышки, строим 5 сильных коммерческих хабов под категории, по которым реально звонят. Параллельно чиню CTR у 'казылык' (664 показа, 0 кликов) и /en/pepperoni (позиция 2.7, 0 кликов) — это самые дешёвые клики на сайте. Гео = 0, пока индекс не оздоровится.",
  "questions": [],
- "report_to_owner": "Фундамент важнее объёма: 191 страница не в индексе, CTR 0.26% и 27 пустых страниц — это сигнал недоверия домена, поэтому гео на нуле, чистим мусор и удаляем пустышки. Деньги идут в /private-label (живой лид по СТМ) и в три коммерческих запроса с реальным спросом: сосиски для хот-догов оптом (370 показов, мы на 63-м), пепперони халяль (72 показа, ранжируется главная), котлеты для бургеров оптом. Отдельно бью по нулевой AI-видимости — ни один ассистент нас не называет, усиливаем entity-факты и FAQ на коммерческих страницах.",
+ "report_to_owner": "Нашёл корень, почему сайт не растёт в поиске. Из 5111 страниц у нас 125 полностью пустых, 16 с мусором от генератора и 230 групп страниц-клонов — и как следствие 808 страниц Google просто не берёт в индекс. Это не проблема текстов, это проблема доверия к домену. Останавливаю штамповку новых гео-страниц до нуля и разворачиваю цикл на чистку + 5 нормальных категорийных страниц (сосиски для хот-догов, частная марка/СТМ, казылык, татарская выпечка, английский private label) — именно под них уже идут живые заявки с Авито и звонки. Бюджет спокойный: 24$ из 200$ за месяц.",
  "engineering_proposals": {
   "run_tools": [
    "cannibalization_finder"
   ],
+  "rewrite_pages": [
+   {
+    "path": "/blog/what-is-kazylyk",
+    "reason": "664 показа, позиция 9.6, ноль кликов + not_indexed 76 дней. Переписать title/description в коммерческий формат по паттерну-победителю ('Казылык — что это и где купить оптом | Казанские Деликатесы'), добавить блок цены/CTA и ссылку на новый хаб /kazylyk-premium, пингануть IndexNow"
+   },
+   {
+    "path": "/blog/kotlety-dlya-burgerov-kupit-optom",
+    "reason": "103 показа, позиция 19.8, 0 кликов — при этом по котлетам идут живые лиды с Авито. Усилить: цены, минимальная партия, СТМ-блок, FAQ, внутренние ссылки"
+   },
+   {
+    "path": "/en/pepperoni",
+    "reason": "позиция 2.7, CTR 0% на 28 показов — title/meta не цепляет. Применить выигравший паттерн: 'Halal Pepperoni — B2B Wholesale Supply | Kazan Delicacies'"
+   },
+   {
+    "path": "/",
+    "reason": "Главная ранжируется по 'пепперони халяль колбаса' (поз 43.9) вместо лендинга — каннибализация. Перелинковать на коммерческий лендинг пепперони, снять конкуренцию"
+   },
+   {
+    "path": "/geo/vypechka-klassicheskaya-dzerzhinsk.html",
+    "reason": "junk 'Вот ' в HTML — чистка всех 16 заражённых страниц"
+   }
+  ],
   "propose_tools": [
    {
-    "name": "junk_and_thin_sweeper",
-    "purpose": "Найти ВСЕ страницы с LLM-мусором и пустышки, чтобы закрыть класс целиком, а не по 5 примеров",
-    "spec": "Сканирует public/**/*.html: (1) первые 200 символов body на префиксы 'Вот','Вот страница','Конечно',\"Here's\",'Sure'; (2) число слов в основном контенте <150; печатает два списка путей + итоговые счётчики, отсортированные по языку/разделу",
-    "model": "haiku",
+    "name": "index_hygiene_auditor",
+    "purpose": "Найти корень 808 not_indexed: какие страницы в sitemap имеют 0-300 слов, junk-префиксы или дублирующий canonical",
+    "spec": "Сканирует public/**/*.html + sitemap: считает слова основного текста, ловит junk-префиксы ('Вот', 'Конечно', '```'), группирует по canonical. Печатает: топ-30 кластеров дублей с числом страниц, список страниц <300 слов в sitemap (кол-во + примеры по шаблону), список junk-страниц. Итог — рекомендация: удалить/noindex/дополнить, с числом страниц в каждой корзине",
+    "model": "sonnet",
     "version": 1
    }
   ],
   "prompt_tweaks": {
-   "geo": "Гео-генерация остановлена. Вместо неё: 27 thin-страниц с 0 слов (/ar/geo/*, /uz/geo/*) — удалить из sitemap и с сайта, они топят домен. Никаких новых город×товар без scout-сигнала.",
-   "blog": "Только коммерческий тон: конкретика (калибр, вес, МОQ, срок годности, формат поставки), таблица параметров, FAQ-блок 5 вопросов + FAQPage schema, минимум 1200 слов, 3+ внутренние ссылки на товарные/PL-страницы. Никаких выдуманных сертификатов и отзывов. Title по паттерну-победителю: «[Товар] халяль — оптом от производителя | Казань».",
-   "pl": "Страницы PL/OEM пишем как коммерческое предложение закупщику: этапы запуска СТМ, сроки, минимальный тираж, что нужно от клиента, готовность к экспорту. Для рынков с docs_status=in_process — формулировка «оформляем экспортные документы», без заявлений о готовых разрешениях."
+   "geo": "Генерация гео ОСТАНОВЛЕНА до очистки индекса. Ни одной новой страницы 'товар×город' в этом цикле.",
+   "blog": "Только коммерческий интент. Минимум 1200 слов, обязательны: цена/от какой партии, условия поставки, halal-сертификат (без выдуманных номеров), FAQ 5+ вопросов, ссылка на категорийный хаб и на форму заявки. Title по паттерну-победителю: продукт + интент (оптом/B2B/wholesale) + бренд в конце.",
+   "pl": "Категорийные хабы — самый длинный и сильный контент на сайте: ≥1800 слов, таблица SKU/калибров/фасовки, блок цен и MOQ, схема работы по СТМ, отгрузка и логистика, FAQ, Product/FAQPage schema. Никаких aggregateRating. Для экспортных рынков без готовых документов формулировка — 'готовы к сотрудничеству, экспортные документы в стадии оформления'."
   },
-  "rewrite_pages": [
-   {
-    "path": "/",
-    "reason": "«пепперони халяль» 72 показа, поз.19.4 ранжируется главная — нужен коммерческий интент в title/H1 и жирная ссылка на /pepperoni; закрыть strengthen_landing"
-   },
-   {
-    "path": "/blog/sosiski-dlya-hot-dogov-optom",
-    "reason": "«сосиски для хот догов оптом» 370 показов, наша поз.62.9, конкурент вдвое длиннее — расширить до 1800+ слов, добавить калибры/цены/FAQ/Schema"
-   },
-   {
-    "path": "/blog/what-is-kazylyk",
-    "reason": "not_indexed 67 дней при 549 показах по «казылык это» — переписать/усилить, пропинговать IndexNow, свести каннибализацию с kazylyk-eto/chto-takoe-kazylyk"
-   },
-   {
-    "path": "/en/pepperoni",
-    "reason": "поз.2.7, CTR 0 при 28 показах — переписать title/description по выигрышному паттерну «X Halal — B2B Supply»"
-   },
-   {
-    "path": "/blog/kotlety-dlya-burgerov-kupit-optom",
-    "reason": "103 показа, поз.19.8, 0 кликов — коммерческий title с ценой/МОQ, усилить CTA"
-   },
-   {
-    "path": "/blog/how-to-store-pepperoni",
-    "reason": "junk-префикс «Вот» в HTML — вычистить"
-   },
-   {
-    "path": "/blog/kazylyk-chto-eto.html",
-    "reason": "junk-префикс «Вот» — вычистить"
-   },
-   {
-    "path": "/blog/kontrol-kachestva-myasnyh-produktov.html",
-    "reason": "junk-префикс «Вот» — вычистить"
-   },
-   {
-    "path": "/en/blog/meat-products-quality-control.html",
-    "reason": "junk «Here's» — вычистить"
-   },
-   {
-    "path": "/geo/vypechka-klassicheskaya-simferopol.html",
-    "reason": "junk «Вот» — вычистить"
-   }
-  ],
   "edit_agents": [
    {
     "agent": "generate_content",
-    "change": "Добавить пост-фильтр вывода модели ПЕРЕД записью файла: если результат начинается с преамбулы вида 'Вот', 'Вот страница', 'Конечно', \"Here's\", 'Sure,' — отрезать всё до первого '<' (первого HTML-тега). Только strip префикса, никакой другой логики не менять."
+    "change": "Пост-обработка вывода модели: перед сохранением HTML отрезать всё, что идёт до первого символа '<' (служебные префиксы 'Вот', 'Вот страница:', 'Конечно', 'Готово:'), а также снимать обрамляющие ```html/``` фенсы. Точечно, одной функцией _strip_model_preamble(text) на выходе генерации — без изменения промптов и остальной логики. Причина: 16 прод-страниц заражены junk 'Вот '."
    }
   ]
  },
- "generated_at": "2026-08-14T05:33:25.534893+00:00",
+ "generated_at": "2026-08-23T10:35:45.804561+00:00",
  "model": "claude-opus-5",
  "digest_summary": {
   "inventory": {
-   "geo_ru": 130,
-   "geo_en": 26,
-   "blog_ru": 220,
-   "blog_en": 137,
-   "products": 65,
-   "blog_dedup": {
-    "blog_ru": 220,
-    "blog_en": 137,
-    "near_dup_clusters_ru": 12,
-    "existing_norms_sample": [
-     "api",
-     "api-catalog-for-developers",
-     "b2b-meat-postavki",
-     "b2b-meat-products-supply",
-     "b2b-myasnaya-produkciya",
-     "bakery",
-     "beef-hot-dog-sausages-halal",
-     "beef-pepperoni-wholesale",
-     "beef-vs-chicken-pepperoni",
-     "burger-patties-100g-vs-150g",
-     "burger-patties-wholesale-halal",
-     "chakchak-optom",
-     "chakchak-wholesale-gifts",
-     "cheburek-halal-fastfood",
-     "cheburek-halal-optom",
-     "chicken-ham-halal",
-     "chicken-pepperoni-wholesale",
-     "chicken-skin-mince-industrial",
-     "cooked-beef-sausage-halal",
-     "cooked-vs-dry-pepperoni",
-     "diced-chicken-fillet-horeca",
-     "dual-meat-sausages-horeca",
-     "echpochmak",
-     "echpochmak-halal",
-     "eksport-halal-sng",
-     "eksport-halal-snг",
-     "elesh-s-kuricey",
-     "elesh-tatar-pie-restaurant",
-     "export",
-     "farsh-iz-kurinoy-kozhi",
-     "frozen-meat-products-horeca",
-     "govyadina-kubik-promyshlennost",
-     "govyazhiy-farsh-optom",
-     "govyazhya-kotleta-burger-halal",
-     "grudka-kurinnaya-vareno-kopch",
-     "gubadia-tatar-pie-catering",
-     "gubadiya",
-     "haccp-iso-meat-production",
-     "haccp-iso-myasnoe-proizvodstvo",
-     "halal-beef-burger-patties",
-     "halal-burger-menyu-restoran",
-     "halal-certification-myasa",
-     "halal-certification-russia",
-     "halal-cervelat-wholesale",
-     "halal-chicken-ham-wholesale",
-     "halal-chicken-wholesale",
-     "halal-chocolate-croissant",
-     "halal-fillet-ham-catering",
-     "halal-food-market-russia",
-     "halal-ground-beef-wholesale",
-     "halal-ham-wholesale-guide-2026",
-     "halal-kolbasa-optom",
-     "halal-meat-export-cis",
-     "halal-meat-export-russia",
-     "halal-meat-production-kazan",
-     "halal-meat-production-standards",
-     "halal-muffins-coffee-shops",
-     "halal-pepperoni",
-     "halal-pepperoni-comparison",
-     "halal-pepperoni-guide",
-     "halal-pirozhki-wholesale",
-     "halal-production",
-     "halal-sausages-wholesale",
-     "halal-sosiski-dlya-hot-dogov-optom",
-     "halal-turkey-ham-wholesale",
-     "halal-vypechka-obshchepit",
-     "horse-meat-pepperoni",
-     "hot-dog-sausages-wholesale",
-     "how-to-choose-pepperoni-pizzeria",
-     "how-to-identify-halal-meat",
-     "how-to-store-pepperoni",
-     "is-chicken-ham-halal",
-     "is-pepperoni-halal-in-pakistan",
-     "iso-22000-certification",
-     "iso-22000-iaf-certsearch",
-     "kak-hranit-pepperoni",
-     "kak-otlichit-halal",
-     "kak-vybrat-pepperoni-dlya-pizzerii",
-     "kazan-delicacies-halal-producer",
-     "kazylyk",
-     "kazylyk-chto-eto-takoe",
-     "kazylyk-gift-packaging",
-     "kazylyk-horse-meat-sausage",
-     "kazylyk-horse-sausage-b2b",
-     "kazylyk-iz-koniny-istoriya",
-     "kazylyk-kupit-optom",
-     "kazylyk-kupit-optom-proizvoditel",
-     "kazylyk-optom-restorany",
-     "kazylyk-premium-gift",
-     "kazylyk-suvenirnaya-upakovka",
-     "kazylyk-wholesale-restaurants",
-     "kolbaski-s-syrom-kopchyonye",
-     "konskaya-kolbasa-halal",
-     "kontraktnoe-proizvodstvo-myaso",
-     "kontrol-kachestva-meat-izdeliya",
-     "kontrol-kachestva-myasnyh-produktov",
-     "kopchyonye-kolbasy-halal",
-     "kotlety-100g-vs-150g",
-     "kotlety-dlya-burgerov-kupit-optom",
-     "kotlety-dlya-burgerov-optom",
-     "kotlety-dlya-burgerov-optom-gid",
-     "kotlety-dlya-burgerov-optom-halal",
-     "kruassan-shokolad-halal",
-     "kupit-kotlety-dlya-burgerov-optom",
-     "kurica-halal-optom",
-     "kurinnoe-file-kubik-horeca",
-     "kuritsa-halal-chem-otlichaetsya",
-     "labeling-meat-products",
-     "lamb-sausages-halal-wholesale",
-     "maffiny-halal-kofeyni",
-     "marbled-beef-ham-halal",
-     "meat-delicacies-kazan",
-     "meat-product-labeling",
-     "meat-zagotovki-tsepochka",
-     "narezka-pepperoni-parametry",
-     "pepperoni-dlya-pizzy-diametr",
-     "pepperoni-dlya-sushi",
-     "pepperoni-for-pizzeria-horeca",
-     "pepperoni-for-sushi",
-     "pepperoni-govyadina-vs-kurica",
-     "pepperoni-halal",
-     "pepperoni-halal-ili-net",
-     "pepperoni-halal-kupit",
-     "pepperoni-halal-kupit-optom",
-     "pepperoni-halal-optom",
-     "pepperoni-iz-govyadiny",
-     "pepperoni-iz-kakogo-myasa",
-     "pepperoni-iz-koniny",
-     "pepperoni-kuriniy",
-     "pepperoni-made-of-halal",
-     "pepperoni-miksoviy",
-     "pepperoni-narezka-vs-baton",
-     "pepperoni-optom-postavshchik",
-     "pepperoni-pizzeria",
-     "pepperoni-shelf-life",
-     "pepperoni-slices-vs-log",
-     "pepperoni-slicing-specs",
-     "pepperoni-smeshannoe-govyadina-kuritsa",
-     "pepperoni-syrokopchyonyy",
-     "pepperoni-vareno-vs-syrokopch",
-     "pepperonitatar-kazan-delicacies-halal-pepperoni",
-     "peremyach-zharenyy",
-     "pirozhki-halal-optom",
-     "pizzeriya-sebestoimost-ingredienty",
-     "polukopchenaya-iz-indeyki",
-     "postavki-meat-restorany",
-     "postavki-myasa-restorany-horeca",
-     "postavschik-sosiski-dlya-hot-dogov",
-     "private-label-kolbasnyh-izdeliy",
-     "private-label-meat-products",
-     "production",
-     "razmery-pepperoni-dlya-pitstsy",
-     "russia-halal-market-size-trillion-rubles",
-     "rynok-halal-rossiya",
-     "samsa-halal-foodservice",
-     "samsa-halal-optom",
-     "sardeli-halal-optom",
-     "sausage-roll-halal-catering",
-     "sausages-roller-grill-guide",
-     "sausages-with-cheese-halal",
-     "semi-smoked-turkey-sausage",
-     "servelat-halal-optom",
-     "servelat-po-tatarski",
-     "shaurma-myaso-optom",
-     "smoked-chicken-breast-halal",
-     "smoked-halal-sausages",
-     "sosiska-v-teste-halal",
-     "sosiska-v-teste-optom-dlya-pekaren",
-     "sosiski-dlya-hot-dog-optom",
-     "sosiski-dlya-hot-dogov-kupit-optom",
-     "sosiski-dlya-hot-dogov-kupit-optom-v-moskve",
-     "sosiski-dlya-hot-dogov-optom",
-     "sosiski-dlya-hot-dogov-optom-halal",
-     "sosiski-dlya-rolikovogo-grilya",
-     "sosiski-dva-myasa",
-     "sosiski-halal-optom",
-     "sosiski-iz-govyadiny-halal",
-     "sosiski-s-baraninoy",
-     "sosiski-s-syrom-halal",
-     "source-halal-pepperoni-pizzeria",
-     "sravnenie-halal-pepperoni",
-     "stm-myasnaya-otrasl",
-     "syrnik-halal-breakfast",
-     "syrnik-halal-horeca",
-     "tatar-bakery-wholesale",
-     "tatar-cuisine",
-     "tatar-cuisine-restaurant-menu",
-     "tatar-food",
-     "tatarskaya-kolbasa",
-     "tatarskaya-kolbasa-iz-koniny",
-     "tatarskaya-kuhnya-restoran-menu",
-     "tatarskaya-vypechka-optom",
-     "varionaya-kolbasa-halal-obzor",
-     "vetchina-eto-halal",
-     "vetchina-fileynaya-halal",
-     "vetchina-iz-indeyki-halal",
-     "vetchina-iz-kuricy-halal",
-     "vetchina-mramornaya-govyadina",
-     "vetchina-optom-horeca-2026",
-     "wholesale-pepperoni-russia-export"
-    ],
-    "existing_posts_sample": [
-     {
-      "slug": "kotlety-dlya-burgerov-kupit-optom",
-      "title": "Котлеты для бургеров оптом — завод халяль, Казань",
-      "norm": "kotlety-dlya-burgerov-kupit-optom"
-     },
-     {
-      "slug": "is-pepperoni-halal-in-pakistan",
-      "title": "Халяль пепперони в Пакистане: что нужно знать",
-      "norm": "is-pepperoni-halal-in-pakistan"
-     },
-     {
-      "slug": "how-to-store-pepperoni",
-      "title": "Как хранить пепперони: условия и сроки | pepperoni.tatar",
-      "norm": "how-to-store-pepperoni"
-     },
-     {
-      "slug": "pepperoni-iz-kakogo-myasa",
-      "title": "Пепперони из какого мяса делают — состав и виды",
-      "norm": "pepperoni-iz-kakogo-myasa"
-     },
-     {
-      "slug": "pepperoni-shelf-life",
-      "title": "Срок хранения пепперони: условия и рекомендации",
-      "norm": "pepperoni-shelf-life"
-     },
-     {
-      "slug": "sosiski-dlya-hot-dogov-optom",
-      "title": "Сосиски для хот-догов оптом — халяль от производителя",
-      "norm": "sosiski-dlya-hot-dogov-optom"
-     },
-     {
-      "slug": "tatarskaya-kolbasa",
-      "title": "Татарская колбаса: традиции, виды и выбор для HoReCa",
-      "norm": "tatarskaya-kolbasa"
-     },
-     {
-      "slug": "echpochmak-eto",
-      "title": "Эчпочмак — что это такое: история и состав",
-      "norm": "echpochmak"
-     },
-     {
-      "slug": "pepperonitatar-kazan-delicacies-halal-pepperoni",
-      "title": "Халяль пепперони Kazan Delicacies — pepperoni.tatar",
-      "norm": "pepperonitatar-kazan-delicacies-halal-pepperoni"
-     },
-     {
-      "slug": "peperoni-iz-kakogo-myasa",
-      "title": "Пеперони из какого мяса делают — состав и виды",
-      "norm": "pepperoni-iz-kakogo-myasa"
-     },
-     {
-      "slug": "tatarskaya-kolbasa-iz-koniny",
-      "title": "Татарская колбаса из конины — традиции и производство",
-      "norm": "tatarskaya-kolbasa-iz-koniny"
-     },
-     {
-      "slug": "gubadiya-eto",
-      "title": "Губадия — что это такое: татарский пирог с историей",
-      "norm": "gubadiya"
-     },
-     {
-      "slug": "echpochmak",
-      "title": "Эчпочмак: татарский пирожок с историей | Казанские Деликатесы",
-      "norm": "echpochmak"
-     },
-     {
-      "slug": "kazylyk-eto",
-      "title": "Казылык — что это такое: история, состав, применение",
-      "norm": "kazylyk"
-     },
-     {
-      "slug": "pepperoni-halyal",
-      "title": "Пепперони халяль — что это, состав и где купить оптом",
-      "norm": "pepperoni-halal"
-     },
-     {
-      "slug": "chto-takoe-kazylyk",
-      "title": "Что такое казылык: традиционная татарская колбаса",
-      "norm": "kazylyk"
-     },
-     {
-      "slug": "ecpochmak",
-      "title": "Эчпочмак — что это: татарский пирожок для HoReCa",
-      "norm": "echpochmak"
-     },
-     {
-      "slug": "halyal-sosiski-dlya-hot-dogov-optom",
-      "title": "Халяльные сосиски для хот-догов оптом | Казанские Деликатесы",
-      "norm": "halal-sosiski-dlya-hot-dogov-optom"
-     },
-     {
-      "slug": "kazylyk-kupit-optom",
-      "title": "Казылык купить оптом от производителя из Казани",
-      "norm": "kazylyk-kupit-optom"
-     },
-     {
-      "slug": "kotlety-dlya-burgerov-optom-gid",
-      "title": "Котлеты для бургеров оптом (халяль): гид для кафе и QSR",
-      "norm": "kotlety-dlya-burgerov-optom-gid"
-     }
-    ],
-    "dedup_rule": "НЕ предлагай new_blog_topics чей slug/norm совпадает с existing_norms_sample или title overlap ≥0.72 с existing_posts_sample. Синонимы (halyal/halal, sosiki/sosiski, peperoni/pepperoni) = дубль."
-   },
-   "blog_topic_queue": {
-    "pending": 9,
-    "next": [
-     {
-      "slug": "halyal-farsh-dlya-pekaren-optom",
-      "title_ru": "Фарш халяль для пекарен оптом: ТУ, сроки, поставка из Казани",
-      "intent": "коммерческий"
-     },
-     {
-      "slug": "sosiski-v-teste-dlya-shkol-optom",
-      "title_ru": "Сосиски в тесте для школ оптом: халяль, документы, логистика",
-      "intent": "коммерческий"
-     },
-     {
-      "slug": "haccp-halyal-proizvodstvo-myasa",
-      "title_ru": "HACCP на халяль-производстве мяса: что проверяет закупщик",
-      "intent": "коммерческий"
-     },
-     {
-      "slug": "pepperoni-dlya-dark-kitchen-optom",
-      "title_ru": "Пепперони для dark kitchen оптом: калибр, срок, стабильность топпинга",
-      "intent": "коммерческий"
-     },
-     {
-      "slug": "elesh-optom-dlya-horeca",
-      "title_ru": "Элеш оптом для HoReCa: заморозка, разогрев, халяль-сертификат",
-      "intent": "коммерческий"
-     },
-     {
-      "slug": "eksport-halyal-v-kazakhstan-dokumenty",
-      "title_ru": "Экспорт халяль в Казахстан: документы, упаковка, Incoterms для мяса",
-      "intent": "коммерческий"
-     }
-    ],
-    "rule": "Бери new_blog_topics из blog_topic_queue.next (pending). Не выдумывай синонимы к уже покрытым нормам."
-   }
+   "trimmed": true
   },
   "opportunities_counts": {
    "low_ctr": 1,
@@ -524,7 +155,7 @@
    "neutral": 36,
    "reverted": 5,
    "win": 15,
-   "pending": 804
+   "pending": 817
   }
  }
 }
