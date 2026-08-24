@@ -14,36 +14,12 @@
       "abandoned": true,
       "abandon_reason": "low_priority: no_search_demand_en"
     },
-    "echpochmak": {
-      "attempts": 3,
-      "last_verdict": "not_indexed",
-      "last_attempt": "2026-06-26T04:00:01.512381+00:00",
-      "abandoned": true,
-      "abandon_date": "2026-06-26T04:00:01.512400+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
-    },
     "farsh yerevan": {
       "attempts": 3,
       "last_verdict": "not_indexed",
       "last_attempt": "2026-06-26T03:30:01.754116+00:00",
       "abandoned": true,
       "abandon_date": "2026-06-26T03:30:01.754125+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
-    },
-    "ветчина это халал": {
-      "attempts": 3,
-      "last_verdict": "worse",
-      "last_attempt": "2026-06-26T04:00:02.192691+00:00",
-      "abandoned": true,
-      "abandon_date": "2026-06-26T04:00:02.192704+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
-    },
-    "пепперони халяль": {
-      "attempts": 3,
-      "last_verdict": "not_indexed",
-      "last_attempt": "2026-06-30T21:30:01.284220+00:00",
-      "abandoned": true,
-      "abandon_date": "2026-06-30T21:30:01.284228+00:00",
       "abandon_reason": "3 consecutive failing repairs — needs owner decision"
     },
     "tatar cuisine": {
@@ -63,28 +39,76 @@
       "abandon_reason": "3 consecutive failing repairs — needs owner decision"
     },
     "казылык это": {
-      "attempts": 3,
+      "seen_failure_ids": [
+        "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/what-is-kazylyk|title_meta"
+      ],
+      "attempts": 1,
       "last_verdict": "not_indexed",
-      "last_attempt": "2026-07-01T00:00:01.168192+00:00",
-      "abandoned": true,
-      "abandon_date": "2026-07-01T00:00:01.168200+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
+      "last_attempt": "2026-08-24T00:30:02.819832+00:00"
+    },
+    "echpochmak": {
+      "seen_failure_ids": [
+        "2026-06-08T06:04:33.485416+00:00|echpochmak|https://pepperoni.tatar/en/blog/what-is-echpochmak|title_meta"
+      ],
+      "attempts": 1,
+      "last_verdict": "not_indexed",
+      "last_attempt": "2026-08-24T00:30:02.848765+00:00"
     },
     "kazylyk": {
-      "attempts": 3,
+      "seen_failure_ids": [
+        "2026-06-08T06:14:37.687441+00:00|kazylyk|https://api.pepperoni.tatar/en/kazylyk|title_meta",
+        "2026-06-08T06:14:37.687441+00:00|kazylyk|https://pepperoni.tatar/en/blog/kazylyk-gift-packaging|title_meta"
+      ],
+      "attempts": 2,
       "last_verdict": "not_indexed",
-      "last_attempt": "2026-07-01T00:00:03.238514+00:00",
+      "last_attempt": "2026-08-24T00:30:02.957408+00:00",
       "abandoned": true,
-      "abandon_date": "2026-07-01T00:00:03.238528+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
+      "abandon_date": "2026-08-24T00:30:02.957422+00:00",
+      "abandon_reason": "2 consecutive failing repairs — needs owner decision"
+    },
+    "пепперони халяль": {
+      "seen_failure_ids": [
+        "2026-06-08T07:18:29.566348+00:00|пепперони халяль|https://pepperoni.tatar/landing/pepperoni-halyal|new_landing",
+        "2026-06-16T05:31:10.662771+00:00|пепперони халяль|https://pepperoni.tatar/blog/what-is-halal-pepperoni|title_meta"
+      ],
+      "attempts": 2,
+      "last_verdict": "not_indexed",
+      "last_attempt": "2026-08-24T00:30:03.115418+00:00",
+      "abandoned": true,
+      "abandon_date": "2026-08-24T00:30:03.115430+00:00",
+      "abandon_reason": "2 consecutive failing repairs — needs owner decision"
+    },
+    "ветчина это халал": {
+      "seen_failure_ids": [
+        "2026-06-08T08:53:48.489851+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|title_meta"
+      ],
+      "attempts": 1,
+      "last_verdict": "not_indexed",
+      "last_attempt": "2026-08-24T00:30:03.064154+00:00"
     },
     "эчпочмак это": {
-      "attempts": 3,
+      "seen_failure_ids": [
+        "2026-06-12T05:30:12.659838+00:00|эчпочмак это|https://pepperoni.tatar/blog/what-is-echpochmak|title_meta"
+      ],
+      "attempts": 1,
       "last_verdict": "not_indexed",
-      "last_attempt": "2026-07-01T00:30:01.387972+00:00",
-      "abandoned": true,
-      "abandon_date": "2026-07-01T00:30:01.387988+00:00",
-      "abandon_reason": "3 consecutive failing repairs — needs owner decision"
+      "last_attempt": "2026-08-24T00:30:03.092776+00:00"
+    },
+    "губадия это": {
+      "seen_failure_ids": [
+        "2026-06-24T05:30:18.224227+00:00|губадия это|https://pepperoni.tatar/blog/gubadiya-chto-eto|title_meta"
+      ],
+      "attempts": 1,
+      "last_verdict": "not_indexed",
+      "last_attempt": "2026-08-24T00:30:03.141816+00:00"
+    },
+    "chicken ham halal": {
+      "seen_failure_ids": [
+        "2026-06-24T05:30:18.224227+00:00|chicken ham halal|https://pepperoni.tatar/en/products/kd-040|title_meta"
+      ],
+      "attempts": 1,
+      "last_verdict": "not_indexed",
+      "last_attempt": "2026-08-24T00:30:03.164752+00:00"
     }
   }
 }

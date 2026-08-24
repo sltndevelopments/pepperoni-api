@@ -932,5 +932,47 @@
     "status": "pending",
     "auto_approved": false,
     "created_at": "2026-08-14T05:33:31.987829+00:00"
+  },
+  {
+    "key": "blog_post:kazylyk-optom-ot-proizvoditelya",
+    "title": "blog: /blog/kazylyk-optom-ot-proizvoditelya",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/kazylyk-optom-ot-proizvoditelya.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-24T03:15:02.272409+00:00"
+  },
+  {
+    "key": "blog_post:pattisy-dlya-burgerov-stm-proizvodstvo",
+    "title": "blog: /blog/pattisy-dlya-burgerov-stm-proizvodstvo",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "blog_post",
+    "payload": {
+      "path": "public/blog/pattisy-dlya-burgerov-stm-proizvodstvo.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-24T03:15:02.274454+00:00"
+  },
+  {
+    "key": "pl_page:sosiski-dlya-hotdog",
+    "title": "PL/OEM [ru]: /private-label/sosiski-dlya-hotdog",
+    "detail": "Новая коммерческая/экспертная страница из outcome-очереди",
+    "action": "pl_page",
+    "payload": {
+      "path": "public/private-label/sosiski-dlya-hotdog.html"
+    },
+    "risk": "medium",
+    "requested_by": "site-brain",
+    "status": "pending",
+    "auto_approved": false,
+    "created_at": "2026-08-24T03:15:02.275719+00:00"
   }
 ]

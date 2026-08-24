@@ -55,7 +55,7 @@
       "position": 29.4
     },
     "cost_usd": 0.0,
-    "status": "measuring",
+    "status": "not_indexed",
     "started_at": "2026-07-21T08:18:27.416146+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
@@ -76,7 +76,13 @@
         "type": "commercial_pulse_tooling",
         "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
-    ]
+    ],
+    "result": {
+      "position": null,
+      "impressions": 0,
+      "inquiries": 1
+    },
+    "finished_at": "2026-08-24T00:30:01.661378+00:00"
   },
   {
     "id": "exp-20260721081827-3",
@@ -93,7 +99,7 @@
       "position": 8.8
     },
     "cost_usd": 0.0,
-    "status": "measuring",
+    "status": "not_indexed",
     "started_at": "2026-07-21T08:18:27.416435+00:00",
     "measure_at": "2026-08-11T08:18:27+00:00",
     "maturity_days": 21,
@@ -114,6 +120,12 @@
         "type": "commercial_pulse_tooling",
         "note": "Added scripts/commercial_pulse.py + weekly_sync north-star block. Hygiene P0–P2 closed; measuring window unchanged."
       }
-    ]
+    ],
+    "result": {
+      "position": null,
+      "impressions": 0,
+      "inquiries": 1
+    },
+    "finished_at": "2026-08-24T00:30:01.662396+00:00"
   }
 ]
