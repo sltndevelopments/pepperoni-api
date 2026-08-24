@@ -29,18 +29,15 @@ SITE = "https://pepperoni.tatar"
 
 IMG_HERO = "/images/jerky/jerky-hero.jpg"
 IMG_FLOW = "/images/jerky/jerky-flowpack.jpg"
-IMG_POULTRY = "/images/jerky/jerky-poultry.jpg"
 IMG_STICKS = "/images/jerky/jerky-sticks.jpg"
 IMG_DOY = "/images/jerky/jerky-doypack.jpg"
 IMG_VAC = "/images/jerky/jerky-vacuum.jpg"
-IMG_LAMB = "/images/jerky/jerky-lamb.jpg"
 
 EXTRA_CSS = """
 .visnote{font-size:.82rem;color:var(--muted);margin-top:12px;max-width:70ch}
 .meatgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:26px}
-.meat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;display:flex;flex-direction:column}
-.meat img{width:100%;aspect-ratio:4/3;object-fit:cover}
-.meat__b{padding:14px 16px;flex:1}
+.meat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.meat__b{height:100%}
 .meat__b p{color:var(--muted);font-size:.86rem}
 .packgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .pack{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
@@ -51,6 +48,8 @@ EXTRA_CSS = """
 .formatgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:26px}
 .cards--2{grid-template-columns:repeat(2,1fr)}
 .tbl + .lede{margin-top:14px}
+.crumbs{padding:14px 20px 0;max-width:1120px;margin:0 auto;font-size:.8rem;color:var(--muted)}
+.crumbs a{color:var(--muted);text-decoration:none}
 @media(max-width:1100px){.meatgrid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){
   .split,.formatgrid{grid-template-columns:1fr}
@@ -78,7 +77,7 @@ def build_head(lang: str, L: dict, i18n: dict) -> str:
         f'<link rel="alternate" hreflang="{code}" href="{page_url(code)}">'
         for code in locales
     )
-    alternates += f'\n  <link rel="alternate" hreflang="x-default" href="{page_url("en")}">'
+    alternates += f'\n  <link rel="alternate" hreflang="x-default" href="{page_url("ru")}">'
 
     faq_ld = {
         "@context": "https://schema.org", "@type": "FAQPage",
@@ -120,14 +119,35 @@ def build_head(lang: str, L: dict, i18n: dict) -> str:
     service_ld = {
         "@context": "https://schema.org",
         "@type": "Service",
+        "@id": f"{url}#service",
         "name": L["schema"]["service_name"],
         "serviceType": "OEM / Private Label / White Label / Co-development",
         "description": meta["description"],
         "url": url,
+        "mainEntityOfPage": {"@id": f"{url}#webpage"},
         "image": [f"{SITE}{IMG_HERO}", f"{SITE}{IMG_FLOW}", f"{SITE}{IMG_VAC}"],
         "areaServed": ["RU", "KZ", "UZ", "KG", "BY", "AZ", "AM", "GE", "TJ"],
         "provider": {"@id": f"{SITE}/#organization"},
         "brand": {"@type": "Brand", "name": "Kazan Delicacies"},
+        "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": L["schema"]["catalog_name"],
+            "itemListElement": [
+                {"@type": "Offer", "itemOffered": {"@type": "Service", "name": item["title"]}}
+                for item in (L["meats"]["items"] + L["forms"]["items"] + L["pack"]["items"])
+            ],
+        },
+    }
+    webpage_ld = {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "@id": f"{url}#webpage",
+        "url": url,
+        "name": meta["title"],
+        "description": meta["description"],
+        "inLanguage": lang,
+        "about": {"@id": f"{url}#service"},
+        "primaryImageOfPage": {"@type": "ImageObject", "url": f"{SITE}{IMG_HERO}"},
     }
     breadcrumb_ld = {
         "@context": "https://schema.org", "@type": "BreadcrumbList",
@@ -139,15 +159,6 @@ def build_head(lang: str, L: dict, i18n: dict) -> str:
             {"@type": "ListItem", "position": 3, "name": L["nav"]["current"], "item": url},
         ],
     }
-    video_ld = {
-        "@context": "https://schema.org", "@type": "VideoObject",
-        "name": L["video"]["v1_title"], "description": L["video"]["v1_desc"],
-        "thumbnailUrl": f"{SITE}/images/video/pepperoni-plant.jpg",
-        "uploadDate": "2025-11-18",
-        "embedUrl": f"https://www.youtube-nocookie.com/embed/{facts['video_plant']}",
-        "contentUrl": f"https://youtu.be/{facts['video_plant']}",
-    }
-
     def ld(obj) -> str:
         return ('<script type="application/ld+json">'
                 + json.dumps(obj, ensure_ascii=False, separators=(",", ":"))
@@ -188,7 +199,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <title>{esc(meta["title"])}</title>
 <meta name="description" content="{esc(meta["description"])}">
-<meta name="keywords" content="{esc(meta["keywords"])}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta http-equiv="content-language" content="{lang}">
 <link rel="canonical" href="{url}">
@@ -208,19 +218,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:image" content="{SITE}{IMG_HERO}">
 <meta property="og:image:width" content="1400">
 <meta property="og:image:height" content="933">
+<meta property="og:image:alt" content="{esc(L["hero"]["img_alt"])}">
 <meta property="og:locale" content="{locales[lang]["og"]}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(meta["og_title"])}">
 <meta name="twitter:description" content="{esc(meta["og_description"])}">
 <meta name="twitter:image" content="{SITE}{IMG_HERO}">
+<meta name="twitter:image:alt" content="{esc(L["hero"]["img_alt"])}">
 
 <link rel="preload" as="image" href="{IMG_HERO}" fetchpriority="high">
 
 {ld(org_ld)}
+{ld(webpage_ld)}
 {ld(service_ld)}
 {ld(breadcrumb_ld)}
 {ld(faq_ld)}
-{ld(video_ld)}
 
 <style>{pep.CSS}{EXTRA_CSS}</style>
 </head>"""
@@ -251,24 +263,12 @@ def build_body(lang: str, L: dict, i18n: dict) -> str:
         for i in L["trust"]["items"]
     )
 
-    def video_block(vid: str, poster: str, title: str, desc: str) -> str:
-        return (
-            f'<div class="vid"><div class="vid__frame" data-video-id="{vid}" '
-            f'data-video-title="{esc(title)}" data-video-short="0" '
-            f'role="button" tabindex="0" aria-label="{esc(L["video"]["play"])}: {esc(title)}">'
-            f'<img src="{poster}" alt="{esc(title)}" width="1280" height="720" '
-            f'loading="lazy" decoding="async">'
-            f'<span class="vid__play"><span>{pep.PLAY_SVG}</span></span></div>'
-            f'<div class="vid__cap"><b>{esc(title)}</b><p>{esc(desc)}</p></div></div>'
-        )
-
     def rows(pairs) -> str:
         return "".join(f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>" for k, v in pairs)
 
     meats = "".join(
-        f'<article class="meat"><img src="{m["img"]}" alt="{esc(m["title"])}" '
-        f'width="1000" height="666" loading="lazy" decoding="async">'
-        f'<div class="meat__b"><h3>{esc(m["title"])}</h3><p>{esc(m["text"])}</p></div></article>'
+        f'<article class="meat"><div class="meat__b"><h3>{esc(m["title"])}</h3>'
+        f'<p>{esc(m["text"])}</p></div></article>'
         for m in L["meats"]["items"]
     )
     forms = "".join(
@@ -297,18 +297,12 @@ def build_body(lang: str, L: dict, i18n: dict) -> str:
         f'<h3>{esc(s["title"])}</h3><p>{esc(s["text"])}</p></div>'
         for s in L["flow"]["steps"]
     )
-    coop = "".join(
-        f'<div class="card"><h3>{esc(c["title"])}</h3><p>{esc(c["text"])}</p></div>'
-        for c in L["coop"]["items"]
-    )
     docs = "".join(f"<li>{esc(d)}</li>" for d in L["docs"]["items"])
     pl_items = "".join(f"<li>{esc(x)}</li>" for x in L["pl"]["items"])
     faq = "".join(
         f'<details><summary>{esc(i["q"])}</summary><p>{esc(i["a"])}</p></details>'
         for i in L["faq"]["items"]
     )
-    entity = L["entity"]
-    entity_items = "".join(f"<li>{esc(x)}</li>" for x in entity["items"])
     label_rows = rows(L["label"]["specs"])
     terms_rows = rows(L["terms"]["rows"])
 
@@ -340,7 +334,7 @@ def build_body(lang: str, L: dict, i18n: dict) -> str:
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <header class="topbar"><div class="wrap topbar__in">
-  <a class="brand" href="{prefix or "/"}">Kazan<span>Delikates</span></a>
+  <a class="brand" href="{prefix or "/"}">Kazan <span>Delicacies</span></a>
   <nav class="topnav" aria-label="{esc(L["nav"]["catalog"])}">
     <a href="{prefix or "/"}">{esc(L["nav"]["catalog"])}</a>
     <a href="{local("/oem")}">{esc(L["nav"]["oem"])}</a>
@@ -357,6 +351,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div></header>
 
 <main>
+<nav class="crumbs" aria-label="Breadcrumb">
+  <a href="{prefix or "/"}">{esc(L["nav"]["catalog"])}</a> /
+  <a href="{local("/oem")}">{esc(L["nav"]["oem"])}</a> /
+  <span aria-current="page">{esc(L["nav"]["current"])}</span>
+</nav>
 <section class="hero" data-track-section="hero"><div class="wrap hero__grid">
   <div class="hero__copy">
     <p class="eyebrow">{esc(L["hero"]["eyebrow"])}</p>
@@ -379,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="btn-row">
       <a class="btn btn--primary" href="#zayavka">{esc(L["hero"]["cta_primary"])}</a>
       <a class="btn btn--wa" href="{wa}" target="_blank" rel="noopener">{esc(L["hero"]["cta_wa"])}</a>
-      <a class="btn btn--ghost" href="#video">{esc(L["hero"]["cta_video"])}</a>
+      <a class="btn btn--ghost" href="#formats">{esc(L["hero"]["cta_details"])}</a>
     </div>
     <p class="hero__note">{esc(L["hero"]["note"])}</p>
   </div>
@@ -388,21 +387,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--soft" data-track-section="trust"><div class="wrap">
   <h2>{esc(L["trust"]["h2"])}</h2>
   <div class="trust">{trust}</div>
-</div></section>
-
-<section class="section" id="entity" data-track-section="entity"><div class="wrap">
-  <h2>{esc(entity["h2"])}</h2>
-  <p class="lede">{esc(entity["lead"])}</p>
-  <ul class="checklist">{entity_items}</ul>
-</div></section>
-
-<section class="section section--soft" id="video" data-track-section="video"><div class="wrap">
-  <h2>{esc(L["video"]["h2"])}</h2>
-  <p class="lede">{esc(L["video"]["sub"])}</p>
-  <div class="videos" style="grid-template-columns:1fr">
-    {video_block(facts["video_plant"], "/images/video/pepperoni-plant.jpg",
-                 L["video"]["v1_title"], L["video"]["v1_desc"])}
-  </div>
 </div></section>
 
 <section class="section" id="product" data-track-section="product"><div class="wrap">
@@ -455,10 +439,12 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <div class="cards">{why}</div>
 </div></section>
 
-<section class="section section--soft" data-track-section="coop"><div class="wrap">
-  <h2>{esc(L["coop"]["h2"])}</h2>
-  <p class="lede">{esc(L["coop"]["lead"])}</p>
-  <div class="formatgrid">{coop}</div>
+<section class="section section--soft" data-track-section="private_label"><div class="wrap">
+  <h2>{esc(L["pl"]["h2"])}</h2>
+  <p class="lede">{esc(L["pl"]["lead"])}</p>
+  <ul class="checklist">{pl_items}</ul>
+  <div class="btn-row"><a class="btn btn--primary" href="#zayavka">{esc(L["pl"]["cta"])}</a>
+    <a class="btn btn--ghost" href="{local("/oem/meat")}">{esc(L["footer"]["meat_oem"])}</a></div>
 </div></section>
 
 <section class="section" data-track-section="flow"><div class="wrap">
@@ -472,15 +458,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <section class="section section--soft" data-track-section="usage"><div class="wrap">
   <h2>{esc(L["usage"]["h2"])}</h2>
   <div class="cards">{usage}</div>
-</div></section>
-
-<section class="section" data-track-section="private_label"><div class="wrap">
-  <h2>{esc(L["pl"]["h2"])}</h2>
-  <p class="lede">{esc(L["pl"]["lead"])}</p>
-  <ul class="checklist">{pl_items}</ul>
-  <div class="btn-row"><a class="btn btn--primary" href="#zayavka">{esc(L["pl"]["cta"])}</a>
-    <a class="btn btn--ghost" href="{local("/oem")}">{esc(L["footer"]["oem"])}</a>
-    <a class="btn btn--ghost" href="{local("/kazylyk")}">{esc(L["footer"]["kazylyk"])}</a></div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">

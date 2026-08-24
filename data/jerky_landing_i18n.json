@@ -17,14 +17,15 @@
 
 "ru": {
 "meta": {
-"title": "Джерки халяль под СТМ — производство и упаковка | Казань",
-"description": "Халяль-джерки под вашей маркой: говядина, курица, индейка, баранина, конина. Флоупак, дойпак, вакуум, мясные палочки. OEM / Private Label. HALAL ДУМ РТ №614A/2024, HACCP, ISO 22000. Минимальный заказ — по договорённости, зависит от логистики. Казань.",
+"title": "Производство джерков под СТМ — халяль мясные снеки",
+"description": "Контрактное производство халяль-джерков под вашей маркой: 5 видов мяса, рецептура, флоупак, дойпак, вакуум, маркировка и образец. Казань.",
 "keywords": "джерки оптом, jerky private label, джерки СТМ, халяль джерки, OEM джерки, мясные снеки под брендом, флоупак джерки, производство джерки Казань",
-"og_title": "Джерки халяль под СТМ — Казанские Деликатесы",
-"og_description": "Производство и упаковка халяль-джерки под вашей маркой. Говядина, птица, баранина, конина. Флоупак, дойпак, вакуум. Образец по брифу."
+"og_title": "Производство халяль-джерков под СТМ",
+"og_description": "Джерки и мясные снеки под вашей маркой: 5 видов мяса, разработка рецептуры, упаковка и маркировка."
 },
 "schema": {
-"service_name": "OEM / Private Label производство халяль-джерки"
+"service_name": "Контрактное производство халяль-джерков под СТМ",
+"catalog_name": "Джерки и мясные снеки под маркой заказчика"
 },
 "nav": {
 "catalog": "Каталог",
@@ -36,19 +37,19 @@
 },
 "hero": {
 "eyebrow": "OEM · Private Label · СТМ · Казань, Татарстан",
-"h1": "Джерки халяль под вашим брендом",
-"sub": "Производим и упаковываем мясные джерки (jerky) для сетей, АЗС, маркетплейсов и экспорта. Сырьё — халяль говядина, курица, индейка, баранина и конина. Рецептура, вес, плёнка и этикетка — под вашу спецификацию.",
+"h1": "Производство джерков под СТМ",
+"sub": "Разрабатываем и выпускаем халяль-джерки и мясные снеки для сетей, АЗС, маркетплейсов и экспорта. Говядина, курица, индейка, баранина или конина; рецептура, формат, вес пачки и этикетка — под ваш бренд.",
 "cta_primary": "Запросить бриф и образец",
 "cta_wa": "Написать в WhatsApp",
-"cta_video": "Смотреть производство",
-"note": "Отвечаем в рабочее время в течение часа. Пришлём условия, список упаковочных форматов и чек-лист брифа. Серийного SKU джерки в открытом каталоге нет — направление контрактное.",
+"cta_details": "Форматы и упаковка",
+"note": "Для расчёта нужны вид мяса, формат снека, упаковка, объём в месяц и город отгрузки. Ответим условиями и сроком образца.",
 "tag": "OEM / СТМ",
 "badge_moq": "по договорённости",
 "badge_pack": "флоупак · дойпак · вакуум",
 "img_alt": "Визуализация говяжьих джерки: сушёные полоски мяса"
 },
 "trust": {
-"h2": "Документы и рамка производства",
+"h2": "Ключевые условия",
 "items": [
 {"label": "Халяль", "value": "ДУМ РТ № 614A/2024"},
 {"label": "Безопасность", "value": "HACCP · ISO 22000:2018"},
@@ -58,27 +59,10 @@
 {"label": "Базис", "value": "EXW Казань"}
 ]
 },
-"entity": {
-"h2": "Кто производит",
-"lead": "Тот же завод, что и остальной каталог pepperoni.tatar: халяль-площадка в Казани, контрактная линия под ваш бренд.",
-"items": [
-"Юрлицо: ООО «Казанские Деликатесы» / Kazan Delicacies LLC",
-"Каталог: https://pepperoni.tatar — эта страница: https://pepperoni.tatar/jerky",
-"Корпоративный сайт: https://kazandelikates.tatar",
-"Тел. +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7"
-]
-},
-"video": {
-"h2": "Площадка, на которой будет ваш снек",
-"sub": "Обзор предприятия: цеха, оборудование, контроль качества, халяль-процесс. Это видео завода, не линии конкретного SKU джерки.",
-"play": "Смотреть",
-"v1_title": "Предприятие «Казанские Деликатесы»",
-"v1_desc": "Казань, полный цикл. Халяль ДУМ РТ, HACCP, ISO 22000:2018."
-},
 "about": {
-"h2": "Что мы делаем под маркой заказчика",
-"lead": "Джерки — сыровяленый или сушёный мясной снек: полоски, чипсы, палочки. Для закупщика это SKU с вашей этикеткой, прослеживаемым халяль-сырьём и упаковкой под канал продаж. Свинина, свиной жир и алкоголь на производстве не используются.",
-"specs_h3": "Рамка, которую фиксируем в спецификации",
+"h2": "Джерки под вашей маркой: от рецептуры до короба",
+"lead": "Выпускаем сушёные мясные снеки в формате полосок, чипсов и палочек. Подбираем сырьё, вкус, геометрию и упаковку под канал продаж; согласованные параметры закрепляем в спецификации.",
+"specs_h3": "Что входит в проект",
 "specs": [
 ["Сырьё", "Халяль говядина, курица, индейка, баранина, конина"],
 ["Формат снека", "Полоски (strips), мясные чипсы, мясные палочки"],
@@ -87,46 +71,46 @@
 ["Пилот / серия", "по договорённости, зависит от логистики → 2–5 т/мес на позицию"],
 ["Срок запуска", "Образец 7–14 дней · бриф → отгрузка 4–8 недель"],
 ["Базис", "EXW Казань; другие условия — по договору"],
-["Каталожный SKU", "В открытом прайсе отдельного артикула джерки нет"]
+["Модель", "White Label, СТМ / Private Label, OEM, совместная разработка"]
 ],
-"note": "Вес пачки, влажность, острота, копчение и срок хранения зависят от выбранной упаковки и ТУ заказчика — не публикуем «универсальную» цифру, которой нет в спецификации.",
+"note": "Срок хранения и условия хранения подтверждаются для выбранной рецептуры и упаковки после испытаний.",
 "cta": "Прислать бриф",
-"visnote": "Фото на странице — визуализация форматов (полоски, флоупак, вакуум, палочки). Это не съёмка серийного SKU из каталога."
+"visnote": "Изображения показывают возможные форматы продукта и упаковки."
 },
 "meats": {
-"h2": "Пять видов сырья — один халяль-контур",
-"lead": "Сырьё принимаем по ВСД ФГИС «Меркурий». На площадке нет свиной линии: один и тот же снек можно ставить и в халяль-полку, и в обычную гастрономию. Индейка и курица — из направления птицы, которое уже есть в колбасах и ветчинах; конина — из той же экспертизы, что казылык.",
+"h2": "Джерки из пяти видов мяса",
+"lead": "Работаем только с халяль-сырьём и принимаем его по ВСД ФГИС «Меркурий». Для одной линейки можно разработать несколько вкусов и видов мяса.",
 "items": [
 {
 "img": "/images/jerky/jerky-hero.jpg",
 "title": "Говядина",
-"text": "Базовый вкус для ретейла и экспорта. Плотное волокно, копчение и перец под вашу матрицу."
+"text": "Классические мясные полоски с плотной текстурой; профиль специй и копчения согласуем по образцу."
 },
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Курица",
-"text": "Более светлый снек, ниже себестоимость на полке. Удобен для АЗС и детских/семейных линеек без остроты."
+"text": "Светлый мясной снек для мягких и пряных вкусов; подходит для полосок, чипсов и палочек."
 },
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Индейка",
-"text": "Птица с нейтральным профилем. Часто просят как «более премиальную» альтернативу курице в той же упаковке."
+"text": "Нейтральный профиль позволяет строить отдельную линейку с травами, перцем или мягким копчением."
 },
 {
 "img": "/images/jerky/jerky-lamb.jpg",
 "title": "Баранина",
-"text": "Для рынков, где баранина читается как халяль «по умолчанию». Специи и степень жирности согласуем в образце."
+"text": "Выраженный мясной профиль для халяль-ассортимента; жирность и специи фиксируем после дегустации."
 },
 {
 "img": "/images/jerky/jerky-vacuum.jpg",
 "title": "Конина",
-"text": "Татарстанская экспертиза: рядом в каталоге уже есть казылык. Джерки из конины — отдельная спецификация, не нарезка казылыка."
+"text": "Отдельная рецептура мясного снека из конины с параметрами сушки и нарезки под спецификацию."
 }
 ]
 },
 "forms": {
-"h2": "Форматы снека",
-"lead": "Не три разных завода, а три геометрии на одной контрактной рамке. Канал продаж задаёт формат: полоска в дойпаке для полки, палочка во флоупаке для кассы, чипсы для микса.",
+"h2": "Форматы джерков и мясных снеков",
+"lead": "Геометрию выбираем под канал продаж: полоски в дойпаке для полки, палочки во флоупаке для кассы, чипсы для снековой линейки.",
 "items": [
 {
 "icon": "🥩",
@@ -146,23 +130,13 @@
 {
 "icon": "🔥",
 "title": "Профиль вкуса",
-"text": "Копчение, перец, томат, травы. Алкогольные маринады не используем. Острота: mild / medium / spicy — как на других СТМ-линейках."
-},
-{
-"icon": "🧪",
-"title": "Co-development",
-"text": "Если нужен новый вкус или другая геометрия — R&D собирает образец, вы дегустируете, фиксируем ТУ."
-},
-{
-"icon": "🏷️",
-"title": "White Label vs СТМ",
-"text": "White Label — быстрее, если стартуем от согласованного внутреннего образца. Private Label / OEM — ваша рецептура и упаковка с нуля."
+"text": "Копчение, перец, томат и травы; мягкий, средний или острый вкус. Алкогольные маринады не используем."
 }
 ]
 },
 "pack": {
-"h2": "Упаковка — то, что видит покупатель",
-"lead": "На заводе уже есть вакуум, модифицированная газовая среда (МГС/MAP), флоупак, скин и гофрокороб. Для джерки это означает: розничная пачка под ваш дизайн и оптовая транспортная тара в одной поставке.",
+"h2": "Упаковка джерков под ваш бренд",
+"lead": "Подбираем розничный пакет и транспортную тару под продукт, срок хранения и канал продаж. Макет, язык маркировки и раскладка в коробе согласуются до запуска.",
 "items": [
 {
 "img": "/images/jerky/jerky-flowpack.jpg",
@@ -188,7 +162,7 @@
 },
 "label": {
 "h3": "Этикетка и маркировка под бренд",
-"lead": "Печатаем и наносим вашу графику. Состав, аллергены и знак халяль — по правилам ЕАЭС и ДУМ РТ, не «как нарисовал дизайнер».",
+"lead": "Печатаем и наносим вашу графику. Состав, аллергены, условия хранения и знак халяль приводим в соответствие требованиям ЕАЭС и ДУМ РТ.",
 "specs": [
 ["Дизайн", "Ваш макет или адаптация нашего шаблона"],
 ["Языки", "RU / EN и язык рынка сбыта"],
@@ -199,7 +173,7 @@
 },
 "terms": {
 "h3": "Сроки, MOQ, расчёт",
-"lead": "Цифры те же, что на страницах OEM и мощностей: не отдельный «джерки-тариф», а общая контрактная рамка завода.",
+"lead": "Финальные условия зависят от рецептуры, упаковки, объёма и логистики.",
 "rows": [
 ["Пилот", "по договорённости, зависит от логистики"],
 ["Серия", "2–5 тонн в месяц на SKU"],
@@ -210,65 +184,33 @@
 ]
 },
 "why": {
-"h2": "Зачем контрактный халяль-завод, а не «просто фасовка»",
+"h2": "Почему «Казанские Деликатесы»",
 "items": [
 {
 "icon": "🕌",
 "title": "Халяль на всей площадке",
-"text": "Сертификат ДУМ РТ № 614A/2024. Свинина на производстве не используется — не нужно вести отдельную «мусульманскую» матрицу."
+"text": "Сертификат ДУМ РТ № 614A/2024. Свинина, свиной жир и алкоголь на производстве не используются."
 },
 {
 "icon": "🐴",
-"title": "Конина и баранина как норма",
-"text": "Не экзотика «под заказ из другого цеха». Казылык уже в каталоге; джерки из конины собираем той же мясной экспертизой."
+"title": "Пять видов мяса",
+"text": "Говядина, курица, индейка, баранина и конина позволяют собрать линейку под разные ценовые и вкусовые сегменты."
 },
 {
 "icon": "📦",
-"title": "Упаковка в том же контуре",
-"text": "Флоупак, дойпак, вакуум, МГС, короб — не отдаём фасовку третьей площадке без прослеживаемости."
+"title": "Производство и упаковка",
+"text": "Рецептура, выпуск, флоупак, дойпак, вакуум и транспортный короб — в рамках одного контрактного проекта."
 },
 {
 "icon": "📄",
-"title": "Документы под ввоз и сеть",
-"text": "Декларация ЕАЭС по ТР ТС 021/2011 на продукт заказчика, халяль, ВСД «Меркурий», протоколы партии."
-},
-{
-"icon": "🏭",
-"title": "СТМ уже делаем",
-"text": "Кейс «Aslam» для АО «ОМПК» (Останкино) — традиционные колбасы, не джерки. Это про умение выпускать чужой бренд, а не про готовый снек Останкино."
-},
-{
-"icon": "🔬",
-"title": "Без ГМО и мясного клея",
-"text": "На площадке не используем ГМО и трансглютаминазу. Для снека это простой ответ закупщику сети."
-}
-]
-},
-"coop": {
-"h2": "Четыре формата сотрудничества",
-"lead": "Те же, что на /oem и /private-label. Для джерки чаще всего стартуют с образца и сразу идут в Private Label.",
-"items": [
-{
-"title": "White Label",
-"text": "Согласованный внутренний образец + ваша этикетка. Самый короткий путь на полку, если не нужна уникальная рецептура."
-},
-{
-"title": "Private Label / СТМ",
-"text": "Рецептура, вес, плёнка и дизайн под сеть. Ваш бренд на пачке, наше производство и пакет документов."
-},
-{
-"title": "OEM",
-"text": "Полный цикл по вашим ТУ, в том числе давальческое сырьё. Подходит, если рецептура уже есть."
-},
-{
-"title": "Co-development",
-"text": "Совместная разработка: дегустации, выход, себестоимость, стабильность от партии к партии."
+"title": "Документы для сети",
+"text": "Халяль, декларация ЕАЭС на продукт заказчика, ВСД «Меркурий», спецификация и протоколы партии."
 }
 ]
 },
 "flow": {
 "h2": "Как проходит первый запуск",
-"sub": "Та же последовательность, что у остального контрактного мяса: бриф → образец → ТУ и этикетка → пилот → серия.",
+"sub": "Бриф → образец → спецификация и этикетка → пилотная партия → серийный выпуск.",
 "steps": [
 {"n": "1", "title": "Бриф", "text": "Сырьё, формат снека, канал (ретейл / АЗС / опт), ориентир веса пачки, язык этикетки, объём на месяц."},
 {"n": "2", "title": "Образец", "text": "7–14 рабочих дней. Дегустация у вас: текстура, солёность, копчение, как пачка ведёт себя в логистике."},
@@ -288,19 +230,17 @@
 ]
 },
 "usage": {
-"h2": "Кому это нужно на практике",
+"h2": "Для каких каналов выпускаем",
 "items": [
 {"icon": "🛒", "title": "Ретейл и СТМ сети", "desc": "Своя халяль-полка снеков без запуска цеха. Дойпак с логотипом сети."},
 {"icon": "⛽", "title": "АЗС и стритфуд", "desc": "Флоупак у кассы: палочки и порционные полоски, узнаваемый бренд АЗС."},
-{"icon": "📦", "title": "Маркетплейсы", "desc": "Лёгкая пачка, ваша карточка товара, документы для кабинета продавца."},
-{"icon": "🏋️", "title": "Спортивный и travel-канал", "desc": "Высокобелковый снек без свинины — для зала, дороги, халяль-ассортимента."},
-{"icon": "🍽️", "title": "HoReCa и цеха", "desc": "Вакуумный опт: кухня режет или кладёт в боул / салат / бортпаёк сама."},
-{"icon": "🌍", "title": "Экспорт СНГ", "desc": "Базис EXW Казань. Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан, Армения, Грузия, Таджикистан — как на других экспортных поставках."}
+{"icon": "📦", "title": "Маркетплейсы и travel", "desc": "Порционная пачка, мультипак и документы для карточки товара."},
+{"icon": "🌍", "title": "HoReCa и экспорт", "desc": "Розничная или оптовая упаковка; базис EXW Казань, другие условия — по договору."}
 ]
 },
 "pl": {
-"h2": "Что можно менять под бренд",
-"lead": "Ниже — рычаги, которые реально обсуждаем в брифе. Нет обещания «любой вкус за неделю» и нет выдуманного прайса за грамм.",
+"h2": "Что настраиваем под СТМ",
+"lead": "Проект можно начать с согласованного образца White Label или разработать продукт по вашей спецификации в формате Private Label / OEM.",
 "items": [
 "Вид мяса: говядина, курица, индейка, баранина, конина или комбинация линейки",
 "Геометрия: полоски, чипсы, палочки",
@@ -324,14 +264,6 @@
 "a": "Говядина, курица, индейка, баранина и конина — всё халяль. Вид сырья, жирность и специи фиксируем в спецификации после образца."
 },
 {
-"q": "Есть ли готовый артикул в каталоге pepperoni.tatar?",
-"a": "В открытом каталоге серийного SKU джерки сейчас нет. Это контрактное направление: образец и этикетка собираются под бренд заказчика. Рядом в каталоге — казылык и сыровяленые/колбасные позиции, которые подтверждают мясную и упаковочную экспертизу."
-},
-{
-"q": "Чем джерки отличаются от казылыка и бастурмы?",
-"a": "Казылык — конская колбаса (у нас есть подарочные SKU). Бастурма — цельномышечный деликатес. Джерки — снек: тонкие полоски, чипсы или палочки в розничной пачке. Рецептуры не подменяют друг друга."
-},
-{
 "q": "Какой минимальный заказ?",
 "a": "Минимальный заказ — по договорённости, зависит от логистики. Серия — 2–5 тонн в месяц. Несколько SKU (например говядина + курица) можно комбинировать в графике, это обсуждается отдельно."
 },
@@ -341,7 +273,7 @@
 },
 {
 "q": "Какой срок хранения?",
-"a": "Его нельзя честно назвать одной цифрой без ТУ и типа пакета. Срок и температуру фиксируем в спецификации под выбранную упаковку и влажность продукта. На странице нет выдуманного «12 месяцев для всех джерки»."
+"a": "Срок и температуру хранения подтверждаем после выбора рецептуры, влажности продукта и типа упаковки. Результат фиксируется в спецификации и маркировке."
 },
 {
 "q": "Можно ли выпускать под нашей маркой?",
@@ -350,10 +282,6 @@
 {
 "q": "Какие документы вы даёте?",
 "a": "Халяль ДУМ РТ, декларацию ЕАЭС по ТР ТС 021/2011 на продукт заказчика, ВСД «Меркурий», подтверждение HACCP и ISO 22000:2018, спецификацию и протоколы партии, макет маркировки."
-},
-{
-"q": "Вы в реестре SFDA или ESMA?",
-"a": "На этой странице мы не утверждаем, что входим в списки SFDA или ESMA. Мы производитель в Казани. Халяль — сертификат ДУМ РТ № 614A/2024. Базис по умолчанию — EXW Казань. Допуск конкретной партии в ОАЭ или КСА подтверждается с брокером покупателя по контракту."
 }
 ]
 },
@@ -394,6 +322,7 @@
 "cap": "Мощности и сертификаты",
 "pepperoni": "Пепперони халяль",
 "kazylyk": "Казылык",
+"meat_oem": "Другие мясные продукты под СТМ",
 "api": "API для дистрибьюторов",
 "privacy": "Политика конфиденциальности",
 "rights": "Халяль-джерки под СТМ: производство и упаковка. Казань, Республика Татарстан."
@@ -403,14 +332,15 @@
 
 "en": {
 "meta": {
-"title": "Halal jerky private label — manufacturing & packing | Kazan",
-"description": "Halal jerky under your brand: beef, chicken, turkey, lamb, horse. Flowpack, doypack, vacuum, meat sticks. OEM / private label. HALAL DUM RT #614A/2024, HACCP, ISO 22000. Minimum order agreed per contract, depends on logistics. Kazan.",
+"title": "Private label halal jerky manufacturing | Kazan",
+"description": "Contract manufacturing of halal jerky under your brand: five meats, recipe development, flowpack, doypack, vacuum, labelling and samples. Kazan.",
 "keywords": "halal jerky private label, OEM jerky manufacturer, beef jerky contract packing, halal meat snacks, jerky flowpack, Kazan Delicacies",
-"og_title": "Halal jerky private label — Kazan Delicacies",
-"og_description": "Contract manufacturing and packing of halal jerky under your brand. Beef, poultry, lamb, horse. Flowpack, doypack, vacuum. Samples from a brief."
+"og_title": "Private label halal jerky manufacturing",
+"og_description": "Jerky and meat snacks under your brand: five meats, recipe development, packaging and labelling."
 },
 "schema": {
-"service_name": "OEM / private-label halal jerky manufacturing"
+"service_name": "Private label halal jerky contract manufacturing",
+"catalog_name": "Jerky and meat snacks under the customer’s brand"
 },
 "nav": {
 "catalog": "Catalog",
@@ -422,19 +352,19 @@
 },
 "hero": {
 "eyebrow": "OEM · Private Label · Kazan, Tatarstan",
-"h1": "Halal jerky under your brand",
-"sub": "We make and pack meat jerky for retail, petrol stations, marketplaces and export. Raw materials: halal beef, chicken, turkey, lamb and horse. Recipe, fill weight, film and label follow your specification.",
+"h1": "Private label halal jerky manufacturing",
+"sub": "We develop and manufacture halal jerky and meat snacks for retail, petrol stations, marketplaces and export. Beef, chicken, turkey, lamb or horse; recipe, format, fill weight and label follow your brand.",
 "cta_primary": "Request a brief and a sample",
 "cta_wa": "WhatsApp",
-"cta_video": "See the plant",
-"note": "We reply within an hour in business time. We send terms, packing options and a brief checklist. There is no serial jerky SKU in the public catalogue — this is a contract line.",
+"cta_details": "Formats and packaging",
+"note": "For a quote, send the meat, snack format, pack, monthly volume and destination city. We will reply with terms and a sample date.",
 "tag": "OEM / private label",
 "badge_moq": "agreed per contract",
 "badge_pack": "flowpack · doypack · vacuum",
 "img_alt": "Visualisation of beef jerky strips"
 },
 "trust": {
-"h2": "Documents and plant frame",
+"h2": "Key terms",
 "items": [
 {"label": "Halal", "value": "DUM RT #614A/2024"},
 {"label": "Safety", "value": "HACCP · ISO 22000:2018"},
@@ -444,27 +374,10 @@
 {"label": "Basis", "value": "EXW Kazan"}
 ]
 },
-"entity": {
-"h2": "Who makes it",
-"lead": "The same plant as the rest of pepperoni.tatar: a halal site in Kazan, contract line under your brand.",
-"items": [
-"Legal entity: Kazan Delicacies LLC / ООО «Казанские Деликатесы»",
-"Catalog: https://pepperoni.tatar — this page: https://pepperoni.tatar/en/jerky",
-"Corporate site: https://kazandelikates.tatar",
-"Tel. +7 987 217-02-02 · info@kazandelikates.tatar · Kazan, Agrarnaya 2, office 7"
-]
-},
-"video": {
-"h2": "The plant that will run your snack",
-"sub": "Factory overview: halls, equipment, quality control, the halal process. This is a plant film, not a clip of a serial jerky SKU.",
-"play": "Play",
-"v1_title": "Kazan Delicacies plant",
-"v1_desc": "Kazan, full cycle. Halal DUM RT, HACCP, ISO 22000:2018."
-},
 "about": {
-"h2": "What we make under the customer’s mark",
-"lead": "Jerky is a dried meat snack: strips, chips, sticks. For a buyer that means a SKU with your label, traceable halal meat and packing matched to the sales channel. There is no pork, no pork fat and no alcohol anywhere in the production.",
-"specs_h3": "What we lock in the specification",
+"h2": "Jerky under your brand: recipe to shipping case",
+"lead": "We manufacture dried meat snacks as strips, chips and sticks. Meat, taste, geometry and packaging are selected for the sales channel and fixed in the approved specification.",
+"specs_h3": "What the project includes",
 "specs": [
 ["Raw material", "Halal beef, chicken, turkey, lamb, horse"],
 ["Snack format", "Strips, meat chips, meat sticks"],
@@ -473,46 +386,46 @@
 ["Pilot / serial", "agreed per contract, depends on logistics → 2–5 t/month per item"],
 ["Lead time", "Sample in 7–14 days · brief to shipment 4–8 weeks"],
 ["Basis", "EXW Kazan; other terms by contract"],
-["Catalogue SKU", "No public jerky article in the open price list"]
+["Model", "White label, private label, OEM or joint development"]
 ],
-"note": "Pack weight, moisture, heat level, smoking and shelf life depend on the film and the customer’s spec — we do not publish a one-size-fits-all number that is not in a specification.",
+"note": "Shelf life and storage conditions are confirmed for the selected recipe and packaging after testing.",
 "cta": "Send a brief",
-"visnote": "Photographs on this page visualise formats (strips, flowpack, vacuum, sticks). They are not shots of a serial catalogue SKU."
+"visnote": "Images show possible product and packaging formats."
 },
 "meats": {
-"h2": "Five meats — one halal contour",
-"lead": "Incoming meat is accepted against state veterinary e-documents. There is no pork line on site, so the same snack can sit on a halal shelf and in a general grocery set. Chicken and turkey come from the poultry work we already do in sausages and ham; horse meat comes from the same expertise as kazylyk.",
+"h2": "Jerky from five meats",
+"lead": "We use halal raw materials accepted against state veterinary e-documents. One range can combine several meats and flavour profiles.",
 "items": [
 {
 "img": "/images/jerky/jerky-hero.jpg",
 "title": "Beef",
-"text": "The default taste for retail and export. Firm fibre; smoke and pepper follow your matrix."
+"text": "Classic strips with a firm texture; spice and smoke profiles are agreed on the sample."
 },
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Chicken",
-"text": "A lighter snack and a lower shelf cost. Useful for petrol stations and mild family lines."
+"text": "A lighter meat snack for mild or savoury flavours, suitable for strips, chips and sticks."
 },
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Turkey",
-"text": "Poultry with a neutral profile. Often requested as a more premium twin of chicken in the same pack."
+"text": "A neutral profile for a separate line with herbs, pepper or gentle smoke."
 },
 {
 "img": "/images/jerky/jerky-lamb.jpg",
 "title": "Lamb",
-"text": "For markets where lamb reads as halal by default. Spices and fat level are agreed on the sample."
+"text": "A pronounced meat profile for halal assortments; fat level and spices are fixed after tasting."
 },
 {
 "img": "/images/jerky/jerky-vacuum.jpg",
 "title": "Horse",
-"text": "Tatarstan expertise: kazylyk is already in the catalogue. Horse jerky is a separate spec, not sliced kazylyk."
+"text": "A dedicated horse-meat snack recipe with drying and slicing parameters set in the specification."
 }
 ]
 },
 "forms": {
-"h2": "Snack formats",
-"lead": "Three geometries on one contract frame. The sales channel picks the shape: strips in a doypack for the shelf, a stick in flowpack at the till, chips in a mix.",
+"h2": "Jerky and meat-snack formats",
+"lead": "Geometry follows the sales channel: strips in a doypack for the shelf, sticks in flowpack at the till, or chips for a snack range.",
 "items": [
 {
 "icon": "🥩",
@@ -532,23 +445,13 @@
 {
 "icon": "🔥",
 "title": "Flavour profile",
-"text": "Smoke, pepper, tomato, herbs. No alcohol marinades. Heat: mild / medium / spicy, as on other private-label lines."
-},
-{
-"icon": "🧪",
-"title": "Co-development",
-"text": "If you need a new taste or geometry, R&D builds a sample, you taste it, we freeze the spec."
-},
-{
-"icon": "🏷️",
-"title": "White label vs private label",
-"text": "White label is faster if we start from an agreed internal sample. Private label / OEM is your recipe and pack from scratch."
+"text": "Smoke, pepper, tomato and herbs; mild, medium or spicy. All marinades follow halal requirements."
 }
 ]
 },
 "pack": {
-"h2": "Packing — what the shopper actually sees",
-"lead": "The plant already runs vacuum, modified atmosphere (MAP), flowpack, skin and corrugated cases. For jerky that means a retail pack in your design and a transport case in the same shipment.",
+"h2": "Jerky packaging under your brand",
+"lead": "We select the retail pouch and transport case for the product, shelf life and sales channel. Artwork, label language and case layout are approved before launch.",
 "items": [
 {
 "img": "/images/jerky/jerky-flowpack.jpg",
@@ -574,7 +477,7 @@
 },
 "label": {
 "h3": "Label and marking under your brand",
-"lead": "We print and apply your artwork. Ingredients, allergens and the halal mark follow EAEU and DUM RT rules, not “whatever the designer drew”.",
+"lead": "We print and apply your artwork. Ingredients, allergens, storage conditions and the halal mark follow EAEU and DUM RT requirements.",
 "specs": [
 ["Artwork", "Your file or an adaptation of our template"],
 ["Languages", "RU / EN and the language of the sales market"],
@@ -585,7 +488,7 @@
 },
 "terms": {
 "h3": "Lead time, MOQ, settlement",
-"lead": "The same figures as on the OEM and capabilities pages: not a special “jerky tariff”, the plant’s contract frame.",
+"lead": "Final terms depend on the recipe, packaging, volume and logistics.",
 "rows": [
 ["Pilot", "agreed per contract, depends on logistics"],
 ["Serial", "2–5 tonnes per month per SKU"],
@@ -596,65 +499,33 @@
 ]
 },
 "why": {
-"h2": "Why a contract halal plant, not “just a packer”",
+"h2": "Why Kazan Delicacies",
 "items": [
 {
 "icon": "🕌",
 "title": "Halal across the site",
-"text": "DUM RT certificate #614A/2024. There is no pork in production — you do not need a separate “Muslim” matrix."
+"text": "The entire site follows DUM RT halal requirements under certificate #614A/2024."
 },
 {
 "icon": "🐴",
-"title": "Horse and lamb as normal",
-"text": "Not an exotic subcontract. Kazylyk is already in the catalogue; horse jerky uses the same meat expertise."
+"title": "Five meats",
+"text": "Beef, chicken, turkey, lamb and horse allow a range for different taste and price segments."
 },
 {
 "icon": "📦",
-"title": "Packing in the same contour",
-"text": "Flowpack, doypack, vacuum, MAP, case — we do not send filling to a third site without traceability."
+"title": "Manufacturing and packaging",
+"text": "Recipe, production, flowpack, doypack, vacuum and transport case form one contract project."
 },
 {
 "icon": "📄",
-"title": "Papers for import and retail",
-"text": "EAEU declaration to TR CU 021/2011 for the customer’s product, halal, veterinary e-documents, batch reports."
-},
-{
-"icon": "🏭",
-"title": "We already run private label",
-"text": "The Aslam line for OMPK (Ostankino) is traditional sausage, not jerky. It shows we can ship someone else’s brand, not that Ostankino has a jerky SKU here."
-},
-{
-"icon": "🔬",
-"title": "No GMO, no meat glue",
-"text": "The plant does not use GMO or transglutaminase. A short answer for a retail QA questionnaire."
-}
-]
-},
-"coop": {
-"h2": "Four ways to work",
-"lead": "The same formats as /oem and /private-label. Jerky usually starts with a sample and goes straight into private label.",
-"items": [
-{
-"title": "White Label",
-"text": "An agreed internal sample plus your label. The shortest path to the shelf if you do not need a unique recipe."
-},
-{
-"title": "Private Label",
-"text": "Recipe, weight, film and design for the chain. Your brand on the pack, our plant and document set."
-},
-{
-"title": "OEM",
-"text": "Full cycle to your specification, including toll raw material. Fits when the recipe already exists."
-},
-{
-"title": "Co-development",
-"text": "Joint development: tastings, yield, cost, batch-to-batch stability."
+"title": "Documents for retail",
+"text": "Halal, an EAEU declaration for the customer’s product, veterinary e-documents, specification and batch reports."
 }
 ]
 },
 "flow": {
 "h2": "How the first run works",
-"sub": "The same sequence as other contract meat: brief → sample → spec and label → pilot → serial.",
+"sub": "Brief → sample → specification and label → pilot batch → serial production.",
 "steps": [
 {"n": "1", "title": "Brief", "text": "Meat, snack format, channel (retail / petrol / wholesale), pack-weight target, label language, monthly volume."},
 {"n": "2", "title": "Sample", "text": "7–14 working days. You taste texture, salt, smoke and how the pack behaves in logistics."},
@@ -674,23 +545,21 @@
 ]
 },
 "usage": {
-"h2": "Who this is for in practice",
+"h2": "Sales channels",
 "items": [
 {"icon": "🛒", "title": "Retail private label", "desc": "Your own halal snack bay without building a plant. A doypack with the chain’s mark."},
 {"icon": "⛽", "title": "Petrol and street food", "desc": "Flowpack at the till: sticks and portioned strips under the station brand."},
-{"icon": "📦", "title": "Marketplaces", "desc": "A light pack, your product card, documents for the seller cabinet."},
-{"icon": "🏋️", "title": "Sports and travel", "desc": "A high-protein snack with no pork — gym, road, halal assortment."},
-{"icon": "🍽️", "title": "Foodservice", "desc": "Vacuum bulk: the kitchen slices or adds it to bowls, salads or meal kits."},
-{"icon": "🌍", "title": "CIS export", "desc": "EXW Kazan. Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, Georgia, Tajikistan — the same export set as our other lines."}
+{"icon": "📦", "title": "Marketplaces and travel", "desc": "A portion pack, multipack and documents for the product listing."},
+{"icon": "🌍", "title": "Foodservice and export", "desc": "Retail or bulk packaging; EXW Kazan, with other terms by contract."}
 ]
 },
 "pl": {
-"h2": "What we can change for the brand",
-"lead": "These are the levers we actually discuss in the brief. No promise of “any flavour in a week” and no invented price per gram.",
+"h2": "What we customise for private label",
+"lead": "Start from an approved white-label sample or develop a product to your private-label / OEM specification.",
 "items": [
 "Meat: beef, chicken, turkey, lamb, horse, or a line mix",
 "Geometry: strips, chips, sticks",
-"Heat and smoke with no alcohol marinades",
+"Heat, smoke and seasoning profiles compliant with halal requirements",
 "Film: flowpack, doypack, vacuum, MAP",
 "Retail fill weight and case layout",
 "Label, language, EAN, halal mark",
@@ -703,19 +572,11 @@
 "items": [
 {
 "q": "Will the jerky be halal?",
-"a": "Yes. The plant is certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. There is no pork, no pork fat and no alcohol anywhere in the production. We send a copy of the certificate with the terms."
+"a": "Yes. The entire plant follows the requirements of the Halal Standard Committee of DUM RT under certificate #614A/2024. We send a copy of the certificate with the commercial terms."
 },
 {
 "q": "Which meats do you use?",
 "a": "Beef, chicken, turkey, lamb and horse — all halal. Species, fat level and spices are locked in the specification after the sample."
-},
-{
-"q": "Is there a ready article in the pepperoni.tatar catalogue?",
-"a": "There is no serial jerky SKU in the open catalogue. This is a contract line: sample and label are built for the customer’s brand. Nearby in the catalogue are kazylyk and other dry-cured / sausage items that show the meat and packing expertise."
-},
-{
-"q": "How is jerky different from kazylyk or basturma?",
-"a": "Kazylyk is horse sausage (we have gift SKUs). Basturma is a whole-muscle delicacy. Jerky is a snack: thin strips, chips or sticks in a retail pack. The recipes are not interchangeable."
 },
 {
 "q": "What is the minimum order?",
@@ -727,7 +588,7 @@
 },
 {
 "q": "What is the shelf life?",
-"a": "It cannot be stated honestly as one number without a spec and a pack type. Shelf life and temperature are locked in the specification for the chosen film and product moisture. This page does not invent “12 months for all jerky”."
+"a": "Shelf life and storage temperature are confirmed after selecting the recipe, product moisture and packaging type. The result is fixed in the specification and label."
 },
 {
 "q": "Can you pack under our brand?",
@@ -736,10 +597,6 @@
 {
 "q": "Which documents do you provide?",
 "a": "DUM RT halal, an EAEU declaration to TR CU 021/2011 for the customer’s product, veterinary e-documents, HACCP and ISO 22000:2018 evidence, the specification and batch reports, and marking artwork."
-},
-{
-"q": "Are you listed with SFDA or ESMA?",
-"a": "This page does not claim an SFDA or ESMA listing. We are a manufacturer in Kazan. Halal certificate: DUM RT #614A/2024. Default terms: EXW Kazan. Import approval for a given shipment to the UAE or KSA is confirmed per contract with the buyer’s broker."
 }
 ]
 },
@@ -780,6 +637,7 @@
 "cap": "Capabilities",
 "pepperoni": "Halal pepperoni",
 "kazylyk": "Kazylyk",
+"meat_oem": "Other private-label meat products",
 "api": "API for distributors",
 "privacy": "Privacy policy",
 "rights": "Halal jerky private label: manufacturing and packing. Kazan, Tatarstan."
