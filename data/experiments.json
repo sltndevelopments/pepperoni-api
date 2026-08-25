@@ -9233,5 +9233,34 @@
     "before_pos": 50.0,
     "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
     "before_desc": "Chicken Ham Halal 0.5 kg | Chilled Halal Chicken Ham, Kazan | Tender and juicy chicken ham, produced in Kazan according to Halal standards.…"
+  },
+  {
+    "applied_at": "2026-08-25T04:30:17.101889+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+    "file_path": "public/blog/vetchina-iz-kuricy-halyal.html",
+    "query": "ветчина это халал",
+    "before_pos": 50.0,
+    "before_title": "Ветчина это халяль: сертификат DIN CERTCO, состав",
+    "before_desc": "Ветчина «Казанских Деликатесов» — халяль: цельномышечная курица, сертификат DIN CERTCO, контроль по ГОСТ. Опт для сетей и HoReCa."
+  },
+  {
+    "applied_at": "2026-08-25T05:31:27.469482+00:00",
+    "change_type": "title_meta",
+    "page": "https://pepperoni.tatar/blog/what-is-halal-pepperoni",
+    "file_path": "public/blog/what-is-halal-pepperoni.html",
+    "query": "пепперони из какого мяса",
+    "before_pos": 8.22,
+    "before_ctr": 0.0,
+    "before_impr": 59,
+    "before_title": "Пепперони халяль — опт от производителя | pepperoni.tatar",
+    "before_desc": "Пепперони из говядины собственного производства. Сертификаты ДУМ РТ и ХАССП. Слайсерная и блочная нарезка для пиццерий и HoReCa. Запросите прайс и условия поставки.",
+    "after_title": "Пепперони из какого мяса — из говядины, халяль | pepperoni.tatar",
+    "verdict": "pending",
+    "measured_at": null,
+    "after_pos": null,
+    "after_ctr": null,
+    "after_impr": null,
+    "operator_experiment_id": "exp-20260825053204-4"
   }
 ]

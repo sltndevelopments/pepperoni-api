@@ -127,5 +127,24 @@
       "inquiries": 1
     },
     "finished_at": "2026-08-24T00:30:01.662396+00:00"
+  },
+  {
+    "id": "exp-20260825053204-4",
+    "key": "пепперони из какого мяса|/blog/what-is-halal-pepperoni",
+    "query": "пепперони из какого мяса",
+    "page": "/blog/what-is-halal-pepperoni",
+    "hypothesis": "Intent-matched title/meta should improve commercial CTR or position",
+    "change_type": "title_meta",
+    "primary_metric": "commercial_clicks",
+    "baseline": {
+      "position": 8.22,
+      "ctr": 0.0,
+      "impressions": 59
+    },
+    "cost_usd": 0.0,
+    "status": "measuring",
+    "started_at": "2026-08-25T05:32:04.804731+00:00",
+    "measure_at": "2026-09-15T05:32:04+00:00",
+    "maturity_days": 21
   }
 ]
