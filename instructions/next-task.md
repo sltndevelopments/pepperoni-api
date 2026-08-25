@@ -192,6 +192,20 @@ top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и вы
 
 ## Log
 
+- **2026-08-25 — `/pepperoni` + `/jerky` discovery/citation contour**:
+  commit `02e29a912` on branch `cursor/accelerate-money-page-indexing-3afd`
+  (PR #9). Centralized the Google/Yandex/IndexNow hot URL list; both RU/EN
+  money-page pairs now appear in the regular sitemap, AI sitemap,
+  `.well-known` LLM/agent manifests, and homepage internal links. Added links
+  to the official DUM RT certificate registry and repaired the corrupted CSS
+  custom properties on `/pepperoni`. Gates: `check_money_page_discovery.py`
+  OK; hot URL regression 17/17 unique; `fix_pages.py` 6 scanned/0 repaired;
+  `qa_pages.py` 6 checked/0 FAIL; JSON/XML parsing OK; IndexNow HTTP 200 from
+  both endpoints for all 17 URLs. Blocker: credentialed Google Search Console
+  and Yandex Webmaster nudge could not run from Cloud VM (credentials only on
+  VPS; VPS SSH rejected this run's key). Run the standard production nudge
+  after merge/deploy.
+
 - **2026-08-23 брейн был мёртв 5 недель; чинил корни, не симптомы** (владелец:
   «делай всё по очереди»):
   Done:
