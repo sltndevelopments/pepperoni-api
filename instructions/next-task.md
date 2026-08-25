@@ -193,7 +193,8 @@ top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и вы
 ## Log
 
 - **2026-08-25 — `/pepperoni` + `/jerky` discovery/citation contour**:
-  commit `02e29a912` on branch `cursor/accelerate-money-page-indexing-3afd`
+  commits `02e29a912`, `8308a660c` on branch
+  `cursor/accelerate-money-page-indexing-3afd`
   (PR #9). Centralized the Google/Yandex/IndexNow hot URL list; both RU/EN
   money-page pairs now appear in the regular sitemap, AI sitemap,
   `.well-known` LLM/agent manifests, and homepage internal links. Added links
@@ -205,6 +206,11 @@ top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и вы
   and Yandex Webmaster nudge could not run from Cloud VM (credentials only on
   VPS; VPS SSH rejected this run's key). Run the standard production nudge
   after merge/deploy.
+  Audit follow-up: sitemap now emits the full 9-locale pepperoni hreflang
+  cluster with EN `x-default`; unchanged pages preserve prior `lastmod`;
+  `/jerky.html`, `/jerky/` and EN variants 301 to clean canonicals; dedicated
+  RU/EN jerky citation blocks and generated keywords metadata added. Gates:
+  hreflang unit OK; sitemap idempotence OK; four money pages QA 0 FAIL.
 
 - **2026-08-23 брейн был мёртв 5 недель; чинил корни, не симптомы** (владелец:
   «делай всё по очереди»):
