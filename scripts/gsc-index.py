@@ -23,11 +23,12 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from indexing_hot_urls import absolute, load_hot_urls
+
 ROOT = Path(__file__).resolve().parent.parent
 SUBMITTED_FILE = ROOT / "data" / "gsc_submitted.json"
 SITEMAP_URL = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = ROOT / "public" / "sitemap.xml"
-WATCHLIST = ROOT / "data" / "commercial_watchlist.json"
 DAILY_LIMIT = 180
 ORIGIN = "https://pepperoni.tatar"
 
@@ -97,56 +98,6 @@ def load_sitemap_urls() -> list[str]:
         return []
 
 
-def _abs(url_or_path: str) -> str:
-    u = (url_or_path or "").strip()
-    if not u:
-        return ""
-    if u.startswith("http://") or u.startswith("https://"):
-        return u
-    if not u.startswith("/"):
-        u = "/" + u
-    return ORIGIN + u
-
-
-def load_hot_urls() -> list[str]:
-    """Money/commercial URLs that must be re-crawled after SEO edits."""
-    out: list[str] = [
-        f"{ORIGIN}/",
-        f"{ORIGIN}/pepperoni",
-        f"{ORIGIN}/pepperoni-dlya-pizzerii",
-        f"{ORIGIN}/llms.txt",
-        f"{ORIGIN}/llms-full.txt",
-        f"{ORIGIN}/en/llms.txt",
-        f"{ORIGIN}/.well-known/llms.txt",
-        f"{ORIGIN}/en/pepperoni",
-        f"{ORIGIN}/jerky",
-        f"{ORIGIN}/en/jerky",
-        # Localised money hubs for the export markets we advertise in — these are
-        # Google Ads destinations, so they cannot wait for the sitemap rotation.
-        *(f"{ORIGIN}/{lang}/pepperoni"
-          for lang in ("kk", "uz", "az", "hy", "ka", "ky", "tg")),
-    ]
-    try:
-        data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
-        for it in data.get("items") or []:
-            page = it.get("page") or ""
-            if page:
-                out.append(_abs(page))
-        hub = data.get("money_hub")
-        if hub:
-            out.append(_abs(hub))
-    except Exception:
-        pass
-    # unique, preserve order
-    seen: set[str] = set()
-    uniq = []
-    for u in out:
-        if u and u not in seen:
-            seen.add(u)
-            uniq.append(u)
-    return uniq
-
-
 def parse_nginx_redirects(paths: list[Path]) -> tuple[list[str], list[str]]:
     """Return (updated_destinations, deleted_sources) from nginx return 301 blocks."""
     loc_re = re.compile(r"location\s+=\s+(\S+)\s*\{")
@@ -166,8 +117,8 @@ def parse_nginx_redirects(paths: list[Path]) -> tuple[list[str], list[str]]:
             m = ret_re.search(line)
             if m and current_loc:
                 dest = m.group(1).rstrip(";")
-                deleted.append(_abs(current_loc))
-                updated.append(_abs(dest) if dest.startswith("http") else _abs(dest))
+                deleted.append(absolute(current_loc))
+                updated.append(absolute(dest))
                 current_loc = None
     # unique
     def uniq(xs: list[str]) -> list[str]:
@@ -305,9 +256,9 @@ def main() -> int:
                 items.append((u, "URL_UPDATED"))
             args.from_redirects = True
         for u in args.url:
-            items.append((_abs(u), "URL_UPDATED"))
+            items.append((absolute(u), "URL_UPDATED"))
         for u in args.delete:
-            items.append((_abs(u), "URL_DELETED"))
+            items.append((absolute(u), "URL_DELETED"))
         if args.from_redirects:
             confs = sorted((ROOT / "deploy" / "nginx").glob("*redirects*.conf"))
             updated, deleted = parse_nginx_redirects(confs)

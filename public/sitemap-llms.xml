@@ -37,6 +37,28 @@
     <priority>1.0</priority>
   </url>
 
+  <!-- Canonical commercial pages that AI search should cite -->
+  <url>
+    <loc>https://pepperoni.tatar/pepperoni</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/pepperoni</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/jerky</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://pepperoni.tatar/en/jerky</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
   <!-- AI crawler discovery manifest (ai.txt-spec.org convention) -->
   <url>
     <loc>https://pepperoni.tatar/ai.txt</loc>

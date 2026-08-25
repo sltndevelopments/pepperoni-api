@@ -236,6 +236,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <span class="nav__logo">🥩 Казанские Деликатесы</span>
     <div class="nav__links">
       <a href="/pepperoni">Пепперони</a>
+      <a href="/jerky">Джерки СТМ</a>
       <a href="/kazylyk">Казылык</a>
       <a href="/halal">Халяль</a>
       <a href="/bakery">Выпечка</a>
@@ -308,7 +309,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <section class="segments" id="segments">
   <div class="container">
     <h2 class="section-title">Кому поставляем</h2>
-    <p class="section-sub">6 B2B-сегментов · матрица SKU, фасовка и условия под ваш канал</p>
+    <p class="section-sub">7 B2B-сегментов · матрица SKU, фасовка и условия под ваш канал</p>
     <div class="segments__grid">
       <a href="/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
@@ -324,29 +325,36 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <div class="seg-card__desc">Колбасы, сосиски, пепперони, выпечка под вашим брендом. Объём — по договору.</div>
         <div class="seg-card__case">Кейс: линейка «Аслам» для ОМПК <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/dlya-pekaren" class="seg-card">
+      <a href="/jerky" class="seg-card">
         <span class="seg-card__num">03</span>
+        <div class="seg-card__icon">🥩</div>
+        <div class="seg-card__title">Халяль-джерки под СТМ</div>
+        <div class="seg-card__desc">Мясные снеки из говядины, птицы, баранины или конины: рецептура, дойпак, флоупак и маркировка под вашим брендом.</div>
+        <div class="seg-card__case">OEM · Private Label · образец по брифу <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/dlya-pekaren" class="seg-card">
+        <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Пекарни и выпечка</div>
         <div class="seg-card__desc">Сосиски в тесте, фарш, начинки — стабильные ТУ и ветдоки под требования сетей.</div>
         <div class="seg-card__case">Стабильная жирность и нарезка <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-setey" class="seg-card">
-        <span class="seg-card__num">04</span>
+        <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Розница и федеральные сети</div>
         <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка. EAN, ветсертификаты, пакет соответствия.</div>
         <div class="seg-card__case">EuroSpar, Бэхетле, Metro, Мираторг <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-horeca" class="seg-card">
-        <span class="seg-card__num">05</span>
+        <span class="seg-card__num">06</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa и общепит</div>
         <div class="seg-card__desc">Рестораны, отели, пиццерии, dark kitchen, кейтеринг. Форматы 0,5–5 кг для профкухни.</div>
         <div class="seg-card__case">Кейс: GFC, SweetLife, КВЗ <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-distributorov" class="seg-card">
-        <span class="seg-card__num">06</span>
+        <span class="seg-card__num">07</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Дистрибьюторы регионов</div>
         <div class="seg-card__desc">Отсрочка согласно договору, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
@@ -543,6 +551,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="footer__col">
         <div class="footer__col-title">Разделы</div>
         <a href="/pepperoni">Пепперони</a>
+        <a href="/jerky">Джерки под СТМ</a>
         <a href="/kazylyk">Казылык</a>
         <a href="/bakery">Выпечка</a>
         <a href="/faq">FAQ</a>
@@ -972,6 +981,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <span class="nav__logo">🥩 Kazan Delicacies</span>
     <div class="nav__links">
       <a href="/en/pepperoni.html">Pepperoni</a>
+      <a href="/en/jerky">Private Label Jerky</a>
       <a href="/en/halal.html">Halal</a>
       <a href="/en/kazylyk.html">Kazylyk</a>
       <a href="/en/export.html">Export</a>
@@ -1043,7 +1053,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <section class="segments" id="segments">
   <div class="container">
     <h2 class="section-title">Who We Serve</h2>
-    <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
+    <p class="section-sub">7 B2B segments · tailored product matrix, packaging, and terms for each</p>
     <div class="segments__grid">
       <a href="/en/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
@@ -1059,29 +1069,36 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. Volume agreed per contract.</div>
         <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/dlya-pekaren" class="seg-card">
+      <a href="/en/jerky" class="seg-card">
         <span class="seg-card__num">03</span>
+        <div class="seg-card__icon">🥩</div>
+        <div class="seg-card__title">Private Label Halal Jerky</div>
+        <div class="seg-card__desc">Beef, poultry, lamb or horse-meat snacks: recipe, doypack, flowpack and compliant labelling under your brand.</div>
+        <div class="seg-card__case">OEM · Private Label · sample from your brief <span class="seg-card__arrow">→</span></div>
+      </a>
+      <a href="/en/dlya-pekaren" class="seg-card">
+        <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Regional Bakeries</div>
         <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
         <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-setey" class="seg-card">
-        <span class="seg-card__num">04</span>
+        <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Retail Chains</div>
         <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
         <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-horeca" class="seg-card">
-        <span class="seg-card__num">05</span>
+        <span class="seg-card__num">06</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa &amp; Food Service</div>
         <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
         <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-distributorov" class="seg-card">
-        <span class="seg-card__num">06</span>
+        <span class="seg-card__num">07</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>
         <div class="seg-card__desc">Deferred payment as per contract, own price list, full halal assortment from Tatarstan in one warehouse.</div>
@@ -1271,6 +1288,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="footer__col">
         <div class="footer__col-title">Navigation</div>
         <a href="/en/pepperoni.html">Pepperoni</a>
+        <a href="/en/jerky">Private Label Jerky</a>
         <a href="/en/blog">Blog</a>
         <a href="/en/faq.html">FAQ</a>
         <a href="/en/delivery.html">Delivery</a>

@@ -591,11 +591,22 @@ def build_body(lang: str, L: dict, i18n: dict, family: dict[str, dict], prices: 
         lang_menu += (f'<a href="{page_url(code, locales)}"{current}>'
                       f'{locales[code]["name"]}</a>')
 
-    trust = "".join(
-        f'<div class="trust__i"><div class="trust__l">{esc(i["label"])}</div>'
-        f'<div class="trust__v">{esc(i["value"])}</div></div>'
-        for i in L["trust"]["items"]
-    )
+    trust_parts = []
+    for index, item in enumerate(L["trust"]["items"]):
+        value = esc(item["value"])
+        if index == 0:
+            value = (
+                '<a href="https://halalrt.ru/certificates/company/119/'
+                'kazanskiye-delikatesy/" target="_blank" rel="noopener">'
+                f"{value}</a>"
+            )
+        trust_parts.append(
+            f'<div class="trust__i"><div class="trust__l">{esc(item["label"])}</div>'
+            f'<div class="trust__v">{value}</div></div>'
+        )
+    trust = "".join(trust_parts)
+    jerky_href = "/en/jerky" if lang == "en" else "/jerky"
+    jerky_label = "Private Label Halal Jerky" if lang == "en" else "Халяль-джерки под СТМ"
 
     def video_block(vid: str, poster: str, title: str, desc: str, short: bool) -> str:
         return (
@@ -897,6 +908,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/products/kd-013">{esc(L["footer"]["product"])}</a></li>
         <li><a href="{local("/pepperoni-dlya-pizzerii")}">{esc(L["footer"]["pizzeria"])}</a></li>
         <li><a href="{local("/oem")}">{esc(L["footer"]["oem"])}</a></li>
+        <li><a href="{jerky_href}">{jerky_label}</a></li>
         {"".join(f'<li><a href="{x["href"]}">{esc(x["label"])}</a></li>' for x in L["footer"].get("extra_links", []))}
       </ul>
     </div>
