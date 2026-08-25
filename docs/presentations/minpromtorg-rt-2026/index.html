@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ООО «Казанские Деликатесы» — презентация для Минпромторга РТ</title>
+<style>
+  :root {
+    --ink: #12241b;
+    --muted: #5a6b60;
+    --green: #1b5e3b;
+    --green-deep: #0c2418;
+    --green-mid: #247048;
+    --gold: #c9a227;
+    --gold-soft: #e8d48a;
+    --cream: #f6f1e6;
+    --paper: #fffdf8;
+    --line: rgba(18, 36, 27, 0.12);
+    --shadow: 0 18px 50px rgba(12, 36, 24, 0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    height: 100%;
+    background: #1a1a1a;
+    color: var(--ink);
+    font-family: "Segoe UI", "PT Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+  .stage {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 18px 56px;
+  }
+  .deck {
+    width: min(96vw, 1440px);
+    aspect-ratio: 16 / 9;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    background: var(--paper);
+  }
+  .slide {
+    position: absolute;
+    inset: 0;
+    display: none;
+    padding: 48px 64px 56px;
+    background:
+      radial-gradient(1200px 500px at 110% -10%, rgba(201, 162, 39, 0.12), transparent 50%),
+      linear-gradient(180deg, #fffdf8 0%, #f4efe4 100%);
+  }
+  .slide.on { display: flex; flex-direction: column; }
+  .slide.dark {
+    background:
+      radial-gradient(900px 420px at 85% 10%, rgba(201, 162, 39, 0.22), transparent 55%),
+      linear-gradient(155deg, #0c2418 0%, #163527 48%, #0a1c14 100%);
+    color: #f6f1e6;
+  }
+  .kicker {
+    font-size: 13px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--green);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .dark .kicker { color: var(--gold-soft); }
+  h1 {
+    font-size: 46px;
+    line-height: 1.12;
+    font-weight: 750;
+    letter-spacing: -0.03em;
+    max-width: 16ch;
+  }
+  h2 {
+    font-size: 34px;
+    line-height: 1.15;
+    letter-spacing: -0.025em;
+    margin-bottom: 8px;
+  }
+  .lead { font-size: 20px; color: var(--muted); max-width: 46ch; margin-top: 14px; }
+  .dark .lead { color: rgba(246, 241, 230, 0.78); }
+  .row { display: grid; gap: 16px; margin-top: 28px; }
+  .row-4 { grid-template-columns: repeat(4, 1fr); }
+  .row-3 { grid-template-columns: repeat(3, 1fr); }
+  .row-2 { grid-template-columns: 1.15fr 0.85fr; }
+  .row-2eq { grid-template-columns: 1fr 1fr; }
+  .card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 20px 22px;
+  }
+  .dark .card {
+    background: rgba(255, 253, 248, 0.06);
+    border-color: rgba(246, 241, 230, 0.12);
+  }
+  .num {
+    font-size: 36px;
+    font-weight: 750;
+    letter-spacing: -0.04em;
+    color: var(--green);
+    line-height: 1;
+  }
+  .dark .num { color: var(--gold-soft); }
+  .lbl { margin-top: 8px; font-size: 14px; color: var(--muted); line-height: 1.35; }
+  .dark .lbl { color: rgba(246, 241, 230, 0.7); }
+  .delta { display: inline-block; margin-top: 8px; font-size: 13px; font-weight: 700; color: var(--green-mid); }
+  table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 16px; }
+  th, td { text-align: left; padding: 11px 10px; border-bottom: 1px solid var(--line); }
+  th { font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  td.r, th.r { text-align: right; font-variant-numeric: tabular-nums; }
+  td.strong { font-weight: 700; }
+  .bars { display: flex; align-items: flex-end; gap: 28px; height: 250px; margin-top: 18px; padding: 0 8px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%; justify-content: flex-end; }
+  .bar {
+    width: 100%;
+    max-width: 110px;
+    border-radius: 10px 10px 4px 4px;
+    background: linear-gradient(180deg, #2f8a55, #1b5e3b);
+    position: relative;
+  }
+  .bar.plan {
+    background: repeating-linear-gradient(135deg, #c9a227, #c9a227 8px, #dfc36a 8px, #dfc36a 16px);
+  }
+  .bar-val {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-weight: 750;
+    font-size: 15px;
+    white-space: nowrap;
+    color: var(--ink);
+  }
+  .bar-year { margin-top: 10px; font-size: 14px; color: var(--muted); font-weight: 600; }
+  .note { margin-top: auto; padding-top: 16px; font-size: 12px; color: var(--muted); }
+  .list { list-style: none; display: grid; gap: 10px; margin-top: 18px; }
+  .list li {
+    padding: 12px 14px 12px 16px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--green);
+    border-radius: 10px;
+    font-size: 17px;
+  }
+  .ask {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .ask b {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--green);
+    color: #fff;
+    display: grid;
+    place-items: center;
+    font-size: 15px;
+  }
+  .brandline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .brandline img { width: 52px; height: 52px; object-fit: contain; background: #fff; border-radius: 10px; }
+  .brandline span { font-size: 15px; font-weight: 650; }
+  .footer {
+    position: absolute;
+    left: 64px; right: 64px; bottom: 18px;
+    display: flex; justify-content: space-between;
+    font-size: 12px; color: var(--muted);
+  }
+  .dark .footer { color: rgba(246, 241, 230, 0.45); }
+  .nav {
+    position: fixed; left: 0; right: 0; bottom: 10px;
+    display: flex; justify-content: center; gap: 6px; z-index: 5;
+  }
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: #666; border: 0; cursor: pointer;
+  }
+  .dot.on { background: #e8d48a; transform: scale(1.25); }
+  .help {
+    position: fixed; top: 12px; right: 16px; color: #bbb; font-size: 12px; z-index: 5;
+  }
+  @media print {
+    @page { size: landscape; margin: 0; }
+    html, body, .stage { height: auto; background: #fff; }
+    .stage { display: block; padding: 0; }
+    .deck { width: 100%; aspect-ratio: auto; box-shadow: none; border-radius: 0; }
+    .slide { position: relative; display: flex !important; page-break-after: always; height: 100vh; }
+    .nav, .help { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="help">← → пробел · P — печать в PDF</div>
+<div class="stage">
+<div class="deck">
+
+<section class="slide dark on" data-n="1">
+  <div class="brandline">
+    <img src="logo.png" alt="Казанские Деликатесы">
+    <span>ООО «Казанские Деликатесы»</span>
+  </div>
+  <div class="kicker">Для Министерства промышленности и торговли Республики Татарстан</div>
+  <h1>Производство халяльной мясной продукции. Роботизация линий.</h1>
+  <p class="lead">Казань, Агропромышленный парк. Выступление по проекту модернизации и мерам поддержки 2026 года.</p>
+  <div class="row row-4" style="margin-top:auto">
+    <div><div class="num">869 млн ₽</div><div class="lbl">выручка 2025, БФО ФНС</div></div>
+    <div><div class="num">&gt; 1 млрд ₽</div><div class="lbl">прогноз оборота 2026</div></div>
+    <div><div class="num">110</div><div class="lbl">сотрудников сейчас</div></div>
+    <div><div class="num">3 600 м²</div><div class="lbl">производство, склад, холод</div></div>
+  </div>
+</section>
+
+<section class="slide" data-n="2">
+  <div class="kicker">Снимок предприятия</div>
+  <h2>Что мы имеем сегодня</h2>
+  <p class="lead">Действующий завод полного цикла в Казани. Цифры площадей и штата — текущий факт, август 2026.</p>
+  <div class="row row-4">
+    <div class="card"><div class="num">110</div><div class="lbl">человек в штате<br>ССЧ ФНС 2025: 64</div></div>
+    <div class="card"><div class="num">2 000 м²</div><div class="lbl">производственные помещения</div></div>
+    <div class="card"><div class="num">1 300 м²</div><div class="lbl">холодильные камеры</div></div>
+    <div class="card"><div class="num">300 м²</div><div class="lbl">складские помещения</div></div>
+  </div>
+  <div class="row row-3">
+    <div class="card"><div class="num">64 SKU</div><div class="lbl">пепперони, сосиски, ветчины, казылык, татарская выпечка</div></div>
+    <div class="card"><div class="num">2022</div><div class="lbl">год регистрации. В 2023 производство посетил Раис РТ Р. Н. Минниханов</div></div>
+    <div class="card"><div class="num">ОСНО</div><div class="lbl">ИНН 1686021074 · ОКВЭД 10.13 · Агропромпарк «Казань»</div></div>
+  </div>
+</section>
+
+<section class="slide" data-n="3">
+  <div class="kicker">О компании</div>
+  <h2>Халяльный производитель Республики Татарстан</h2>
+  <div class="row row-2">
+    <div>
+      <ul class="list">
+        <li>ООО «Казанские Деликатесы». Гендиректор — Адаева Г. Н.</li>
+        <li>Сырьё: говядина, конина, курица, индейка. Свинины нет.</li>
+        <li>Халяль ДУМ РТ № 614A/2024. HACCP. ISO 22000:2018. ТР ТС 021/2011.</li>
+        <li>Контрактное производство / СТМ: линейка Aslam для АО «ОМПК».</li>
+        <li>Поставки: Татарстан, федеральные сети, АЗС, HoReCa, экспорт ЕАЭС.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="kicker">Реквизиты</div>
+      <p style="font-size:17px;line-height:1.7;margin-top:8px">
+        ИНН 1686021074<br>
+        ОГРН 1221600096893<br>
+        420061, Казань, ул. Аграрная, 2, оф. 7<br>
+        +7 987 217-02-02<br>
+        info@kazandelikates.tatar<br>
+        kazandelikates.tatar
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-n="4">
+  <div class="kicker">Финансы · выручка</div>
+  <h2>От 59 млн до 869 млн за три отчётных года</h2>
+  <div class="bars" aria-hidden="true">
+    <div class="bar-col"><div class="bar" style="height:16%"><span class="bar-val">58,6</span></div><div class="bar-year">2023</div></div>
+    <div class="bar-col"><div class="bar" style="height:36%"><span class="bar-val">313,9</span></div><div class="bar-year">2024 · +435%</div></div>
+    <div class="bar-col"><div class="bar" style="height:80%"><span class="bar-val">869,1</span></div><div class="bar-year">2025 · +177%</div></div>
+    <div class="bar-col"><div class="bar plan" style="height:92%"><span class="bar-val">&gt; 1 000</span></div><div class="bar-year">2026 прогноз</div></div>
+  </div>
+  <p class="note">млн ₽, стр. 2110 БФО. 2023–2025 — ФНС / ГИР БО. 2026 — прогноз собственника: превысить 1 млрд ₽. 1 кв. 2026 (управленка): 229 млн ₽.</p>
+</section>
+
+<section class="slide" data-n="5">
+  <div class="kicker">Финансы · результат</div>
+  <h2>Прибыль растёт вместе с масштабом</h2>
+  <table>
+    <thead>
+      <tr><th>Показатель</th><th class="r">2023</th><th class="r">2024</th><th class="r">2025</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Выручка</td><td class="r">58,6 млн</td><td class="r">313,9 млн</td><td class="r strong">869,1 млн</td></tr>
+      <tr><td>Чистая прибыль</td><td class="r">0,13 млн</td><td class="r">39,6 млн</td><td class="r strong">68,9 млн</td></tr>
+      <tr><td>Норма чистой прибыли</td><td class="r">0,2%</td><td class="r">12,6%</td><td class="r">7,9%</td></tr>
+      <tr><td>Активы на 31 декабря</td><td class="r">—</td><td class="r">146 млн*</td><td class="r strong">266 млн</td></tr>
+      <tr><td>Собственный капитал</td><td class="r">0,14 млн</td><td class="r">39,8 млн</td><td class="r strong">96,2 млн</td></tr>
+      <tr><td>Основные средства</td><td class="r">—</td><td class="r">38,7 млн*</td><td class="r">68,9 млн</td></tr>
+      <tr><td>ССЧ, ФНС</td><td class="r">9</td><td class="r">32</td><td class="r">64</td></tr>
+    </tbody>
+  </table>
+  <p class="note">Источник: БФО ФНС. *2024 активы и ОС восстановлены из темпов Checko 2025 (+82% активы, +78% ОС). Рентабельность продаж 2024 — 15,9%, выше ¾ сопоставимых предприятий отрасли 10.13 (TestFirm).</p>
+</section>
+
+<section class="slide" data-n="6">
+  <div class="kicker">Налоги и взносы</div>
+  <h2>45 млн ₽ в бюджет и фонды за 2025 год</h2>
+  <div class="row row-2">
+    <div>
+      <table>
+        <thead><tr><th>Платёж ФНС, 2025</th><th class="r">Сумма</th></tr></thead>
+        <tbody>
+          <tr><td>Налог на прибыль</td><td class="r strong">19,4 млн ₽</td></tr>
+          <tr><td>НДС</td><td class="r">6,5 млн ₽</td></tr>
+          <tr><td>Страховые взносы (СФР)</td><td class="r">19,0 млн ₽</td></tr>
+          <tr><td>Транспортный налог</td><td class="r">0,04 млн ₽</td></tr>
+          <tr><td class="strong">Итого уплачено</td><td class="r strong">44,9 млн ₽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="card">
+        <div class="num">×3,6</div>
+        <div class="lbl">оценка роста налоговых платежей и взносов 2024 → 2025. ФНС: налоги +304%, взносы +218%. 2024 всего ≈ 12,4 млн ₽ (реконструкция по темпам, разбивка 2023 в открытых данных не опубликована).</div>
+      </div>
+      <div class="card" style="margin-top:16px">
+        <div class="num">ОСНО</div>
+        <div class="lbl">Плательщик налога на прибыль и НДС. Не просим льготу «вместо» налогов — просим инструмент под рост производства.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="slide" data-n="7">
+  <div class="kicker">Производственная база</div>
+  <h2>Площадка готова к следующему шагу мощности</h2>
+  <div class="row row-3">
+    <div class="card"><div class="num">2 000 м²</div><div class="lbl">Производство: термообработка, копчение, сыровяление, формовка, нарезка, выпечка, шоковая заморозка.</div></div>
+    <div class="card"><div class="num">1 300 м²</div><div class="lbl">Холодильный контур. Без него не держатся ни сети, ни экспорт, ни рост SKU.</div></div>
+    <div class="card"><div class="num">300 м²</div><div class="lbl">Склад готовой продукции. Узкое место при росте отгрузок в сети и на АЗС.</div></div>
+  </div>
+  <div class="row row-2eq">
+    <div class="card"><div class="num">110 человек</div><div class="lbl">Текущий штат. ССЧ ФНС: 9 → 32 → 64 (2023–2025). Рост людей уже не догоняет рост тонн — нужна автоматизация упаковки и палетирования.</div></div>
+    <div class="card"><div class="num">68,9 млн ₽</div><div class="lbl">Основные средства на 31.12.2025. Лизинг уже используем (10 сообщений на Федресурсе). Следующий контур — роботы + Variovac.</div></div>
+  </div>
+</section>
+
+<section class="slide" data-n="8">
+  <div class="kicker">Продукция и качество</div>
+  <h2>Три линейки, один халяльный контур</h2>
+  <div class="row row-3">
+    <div class="card"><div class="num">Заморозка</div><div class="lbl" style="margin-top:12px">Сосиски гриль для хот-догов, котлеты для бургеров, пепперони и топпинги, мясные заготовки. Срок до 360 суток при −18 °C.</div></div>
+    <div class="card"><div class="num">Охлаждёнка</div><div class="lbl" style="margin-top:12px">Сосиски и сардельки, варёные и копчёные колбасы, ветчины, казылык. Срок 30 суток, 0–6 °C. Фасовка в том числе по 8 шт.</div></div>
+    <div class="card"><div class="num">Выпечка</div><div class="lbl" style="margin-top:12px">Эчпочмак, губадия, перемяч, самса, чак-чак, сосиска в тесте, классическая выпечка для АЗС и ритейла.</div></div>
+  </div>
+  <ul class="list">
+    <li>Сертификаты только подтверждённые: Халяль ДУМ РТ № 614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011.</li>
+    <li>Прослеживаемость партий, ВСД «Меркурий», входной контроль сырья. Без ГМО и трансглютаминазы.</li>
+  </ul>
+</section>
+
+<section class="slide" data-n="9">
+  <div class="kicker">Рынок</div>
+  <h2>Якорные каналы уже федеральные</h2>
+  <div class="row row-2eq">
+    <ul class="list">
+      <li>АЗС «Татнефть» — сосиски и котлеты по сети.</li>
+      <li>СМАРТЕН — халяль в прикассовой зоне АЗС.</li>
+      <li>АО «ОМПК» — СТМ Aslam, традиционные колбасы.</li>
+      <li>Ритейл: EuroSpar, Бэхетле, Metro, Мираторг.</li>
+    </ul>
+    <ul class="list">
+      <li>HoReCa: GFC, «СвитЛайф»; корпоративное питание КВЗ.</li>
+      <li>Отгрузка EXW Казань, регулярные плечи по РФ.</li>
+      <li>Экспортные валюты: RUB, USD, KZT, UZS, KGS, BYN, AZN.</li>
+      <li>1 кв. 2026: 229 млн ₽ оборота — темп к 1 млрд.</li>
+    </ul>
+  </div>
+  <p class="note">По итогам 2025 года выручка 869 млн ₽ — выход за порог малого предприятия (800 млн ₽ по 209-ФЗ). Категория: среднее предприятие. Цель 2026 — оборот свыше 1 млрд ₽.</p>
+</section>
+
+<section class="slide" data-n="10">
+  <div class="kicker">Проект</div>
+  <h2>Роботизация линий: четыре контура</h2>
+  <div class="row row-2eq">
+    <div class="card"><div class="num">01</div><div class="lbl" style="font-size:17px;color:var(--ink);margin-top:10px"><b>Палетоукладчики.</b> Снять ручной штабель с охлаждёнки и заморозки. Прямой эффект — тонны в смену и снижение травматизма.</div></div>
+    <div class="card"><div class="num">02</div><div class="lbl" style="font-size:17px;color:var(--ink);margin-top:10px"><b>Раскладка сосисок 8 шт.</b> Автомат на машинах «Вариовак». Это горлышко фасовки, не рецептуры.</div></div>
+    <div class="card"><div class="num">03</div><div class="lbl" style="font-size:17px;color:var(--ink);margin-top:10px"><b>Машинное зрение.</b> Контроль геометрии, дефекта оболочки, комплектности упаковки — вместо выборочного ручного осмотра.</div></div>
+    <div class="card"><div class="num">04</div><div class="lbl" style="font-size:17px;color:var(--ink);margin-top:10px"><b>Линия Variovac.</b> Упаковочный контур, к которому крепятся робот раскладки и зрение. Без линии роботы не дают такта.</div></div>
+  </div>
+  <p class="note">Проект вписывается в цель РТ: 145 роботов на 10 000 работников к 2030 году. Мы даём конкретные единицы на действующем пищевом производстве.</p>
+</section>
+
+<section class="slide" data-n="11">
+  <div class="kicker">Барьер</div>
+  <h2>Железо компенсируют. Интеграцию — почти нет</h2>
+  <div class="row row-2">
+    <div class="card">
+      <div class="num">×3</div>
+      <div class="lbl" style="font-size:18px;color:var(--ink);margin-top:12px;line-height:1.45">Затраты на интеграцию роботов в действующее производство могут втрое превышать стоимость самих машин: инженерия, оснастка, синхронизация с Variovac, безопасность, простой линии, обучение.</div>
+    </div>
+    <ul class="list">
+      <li>Льготный заём РФРП — до 200 млн ₽, 3–5%, до 5 лет.</li>
+      <li>Нацпроект «Производительность труда»: ФРП от 3% + экспертиза РЦК.</li>
+      <li>Региональные субсидии на оборудование: 3 млрд ₽ в бюджете РТ на 2026.</li>
+      <li>Льготный лизинг: до 40 млн ₽, 9,5% / 11,5%.</li>
+    </ul>
+  </div>
+  <p class="note">Для среднего предприятия единовременная оплата полного контура — барьер. Просим считать проектом не «покупку робота», а внедрение линии.</p>
+</section>
+
+<section class="slide" data-n="12">
+  <div class="kicker">Просьба к Минпромторгу РТ</div>
+  <h2>Три поручения, которые двигают проект</h2>
+  <div style="display:grid;gap:14px;margin-top:22px">
+    <div class="ask"><b>1</b><div>Подтвердить применимость перечисленных мер к нашему проекту — включая интеграцию, а не только CAPEX на манипуляторы. Письмо Председателю Правительства РТ А. В. Песошину направлено.</div></div>
+    <div class="ask"><b>2</b><div>Организовать консультацию РЦК и Центра развития промышленной робототехники (Университет Иннополис) — дорожная карта внедрения на нашей площадке.</div></div>
+    <div class="ask"><b>3</b><div>Посадить за один стол Минпромторг, Минэкономики и Минсельхоз РТ: условия займа РФРП и субсидии 2026 года под конкретный перечень оборудования и работ.</div></div>
+  </div>
+  <p class="note">Уже пользовались мерами поддержки МСП: 3,5 млн ₽, 23 меры, 0 нарушений. Готовы к контуру промышленной модернизации.</p>
+</section>
+
+<section class="slide dark" data-n="13">
+  <div class="brandline">
+    <img src="logo.png" alt="">
+    <span>Казанские Деликатесы</span>
+  </div>
+  <div class="kicker">Готовы к следующей встрече на площадке</div>
+  <h1>869 млн уже есть.<br>1 млрд — следующий такт,<br>если линия не останется ручной.</h1>
+  <div class="row row-3" style="margin-top:auto">
+    <div><div class="num">+7 987 217-02-02</div><div class="lbl">Адаева Гульнара Нурхаматовна</div></div>
+    <div><div class="num" style="font-size:22px;padding-top:10px">info@kazandelikates.tatar</div><div class="lbl">kazandelikates.tatar · pepperoni.tatar</div></div>
+    <div><div class="num" style="font-size:22px;padding-top:10px">Казань, Аграрная, 2</div><div class="lbl">Агропромышленный парк «Казань»</div></div>
+  </div>
+</section>
+
+<div class="footer">
+  <span>ООО «Казанские Деликатесы» · ИНН 1686021074 · конфиденциально, для служебного пользования</span>
+  <span class="pg"></span>
+</div>
+</div>
+</div>
+
+<div class="nav" id="nav"></div>
+<script>
+  const slides = [...document.querySelectorAll('.slide')];
+  const nav = document.getElementById('nav');
+  const pg = document.querySelector('.pg');
+  let i = 0;
+  slides.forEach((_, n) => {
+    const b = document.createElement('button');
+    b.className = 'dot' + (n === 0 ? ' on' : '');
+    b.onclick = () => go(n);
+    nav.appendChild(b);
+  });
+  function go(n) {
+    i = (n + slides.length) % slides.length;
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    [...nav.children].forEach((d, k) => d.classList.toggle('on', k === i));
+    pg.textContent = (i + 1) + ' / ' + slides.length;
+  }
+  go(0);
+  document.addEventListener('keydown', (e) => {
+    if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(e.key)) { e.preventDefault(); go(i + 1); }
+    if (['ArrowLeft', 'PageUp', 'Backspace'].includes(e.key)) { e.preventDefault(); go(i - 1); }
+    if (e.key === 'Home') go(0);
+    if (e.key === 'End') go(slides.length - 1);
+    if (e.key === 'p' || e.key === 'P') window.print();
+  });
+</script>
+</body>
+</html>
