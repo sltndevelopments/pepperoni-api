@@ -70,53 +70,47 @@ const formatNumber = (value, lang) => new Intl.NumberFormat(lang === "ru" ? "ru-
 }).format(value);
 const grams = (lang) => lang === "ru" ? "г" : "g";
 
-const nutritionText = {
-  ru: {
-    kicker: "Nutrition Facts",
-    title: "Пищевая ценность",
-    basis: "На 100 г",
-    energy: "Энергетическая ценность",
-    calories: "Калории",
-    fat: "Жиры",
-    saturated: "Насыщенные жиры",
-    carbs: "Углеводы",
-    protein: "Белки",
-    note: "Расчёт по текущей рецептуре; не лабораторный протокол."
-  },
-  en: {
-    kicker: "Nutrition Facts",
-    title: "Nutrition Facts",
-    basis: "Per 100 g",
-    energy: "Energy",
-    calories: "Calories",
-    fat: "Total Fat",
-    saturated: "Saturated Fat",
-    carbs: "Total Carbohydrate",
-    protein: "Protein",
-    note: "Calculated from the current recipe; not laboratory-tested."
-  }
-};
+const dailyValue = { protein: 75, fat: 83, saturatedFat: 20, carbs: 365 };
+
+function dailyPercent(value, key) {
+  return `${Math.round((Number(value) / dailyValue[key]) * 100)}%`;
+}
 
 function nutritionFacts(product, lang, compact = false) {
-  const copy = nutritionText[lang];
-  const nutrition = product.nutrition;
-  const kcal = formatNumber(nutrition.caloriesKcal, lang);
-  const kj = formatNumber(Math.round(nutrition.caloriesKcal * 4.184), lang);
-  const amount = (value) => `${formatNumber(value, lang)} ${grams(lang)}`;
-  return `<aside class="nutrition-facts${compact ? " nutrition-facts--compact" : ""}" aria-label="${h(copy.title)}">
-<div class="nutrition-facts__kicker">${h(copy.kicker)}</div>
-<div class="nutrition-facts__title">${h(copy.title)}</div>
-<div class="nutrition-facts__basis">${h(copy.basis)}</div>
-<div class="nutrition-facts__rule nutrition-facts__rule--heavy"></div>
-<div class="nutrition-facts__energy"><span>${h(copy.energy)}</span><strong>${kcal} ${t[lang].kcal} / ${kj} kJ</strong></div>
-<div class="nutrition-facts__calories"><span>${h(copy.calories)}</span><strong>${kcal}</strong></div>
-<div class="nutrition-facts__rule nutrition-facts__rule--medium"></div>
-<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.fat)}</span><strong>${amount(nutrition.fatGrams)}</strong></div>
-<div class="nutrition-facts__row nutrition-facts__row--indent"><span>${h(copy.saturated)}</span><strong>${amount(nutrition.saturatedFatGrams)}</strong></div>
-<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.carbs)}</span><strong>${amount(nutrition.carbohydrateGrams)}</strong></div>
-<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.protein)}</span><strong>${amount(nutrition.proteinGrams)}</strong></div>
-<div class="nutrition-facts__rule nutrition-facts__rule--medium"></div>
-<p class="nutrition-facts__note">${h(copy.note)}</p>
+  const n = product.nutrition;
+  const ru = lang === "ru";
+  const kcal = formatNumber(n.caloriesKcal, lang);
+  const kj = formatNumber(Math.round(n.caloriesKcal * 4.184), lang);
+  const g = grams(lang);
+  const protein = formatNumber(n.proteinGrams, lang);
+  const fat = formatNumber(n.fatGrams, lang);
+  const sat = formatNumber(n.saturatedFatGrams, lang);
+  const carbs = formatNumber(n.carbohydrateGrams, lang);
+  const net = `${formatNumber(product.netWeight.value, lang)} ${g}`;
+  const composition = h(product.ingredients[lang]).replace(/\.+$/, "");
+  return `<aside class="nf-wrap${compact ? " nf-wrap--compact" : ""}" aria-label="${ru ? "Пищевая ценность" : "Nutrition Facts"}">
+<div class="nf-name">${h(product.name[lang])}</div>
+<div class="nf-card">
+<p class="nf-card-title">${ru ? "Пищевая ценность" : "Nutrition Facts"}</p>
+<p class="nf-basis">${ru ? "на 100 г" : "Per 100 g"}</p>
+<div class="nf-net"><span>${ru ? "Масса нетто" : "Net Wt."}</span><span>${net}</span></div>
+<div class="nf-line-10"></div>
+<p class="nf-energy-cap">${ru ? "Калорийность / Энергетическая ценность" : "Calories / Energy"}</p>
+<p class="nf-energy-line">${kcal} ${ru ? "ккал" : "kcal"} / ${kj} ${ru ? "кДж" : "kJ"}</p>
+<div class="nf-cal-row"><span class="nf-cal-label">${ru ? "Калории" : "Calories"}</span><span class="nf-cal-val">${kcal}</span></div>
+<div class="nf-line-5"></div>
+<div class="nf-dv-head">${ru ? "% от суточной нормы*" : "% Daily Value*"}</div>
+<div class="nf-row bold"><span>${ru ? `Белки ≥ ${protein} ${g}` : `Protein ${protein} ${g}`}</span><span>${dailyPercent(n.proteinGrams, "protein")}</span></div>
+<div class="nf-row bold"><span>${ru ? `Всего жиров ≤ ${fat} ${g}` : `Total Fat ${fat} ${g}`}</span><span>${dailyPercent(n.fatGrams, "fat")}</span></div>
+<div class="nf-row indent"><span>${ru ? `Насыщенные жиры ${sat} ${g}` : `Saturated Fat ${sat} ${g}`}</span><span>${dailyPercent(n.saturatedFatGrams, "saturatedFat")}</span></div>
+<div class="nf-row bold"><span>${ru ? `Углеводы ≤ ${carbs} ${g}` : `Total Carbohydrate ${carbs} ${g}`}</span><span>${dailyPercent(n.carbohydrateGrams, "carbs")}</span></div>
+<div class="nf-line-5"></div>
+<p class="nf-foot">${ru ? "* % от рекомендуемого уровня суточного потребления по ТР ТС 022/2011. 2500 ккал для общих рекомендаций. Расчёт по текущей рецептуре, не лабораторный протокол." : "* Percent of the recommended daily intake under TR CU 022/2011. 2500 kcal general reference. Calculated from the current recipe, not laboratory-tested."}</p>
+<div class="nf-line-1"></div>
+<p class="nf-ing-title">${ru ? "Состав" : "Ingredients"}</p>
+<p class="nf-ing-text"><b>${ru ? "Состав:" : "Ingredients:"}</b> ${composition}.</p>
+<p class="nf-ing-extra"><b>${ru ? "Содержит:" : "Contains:"}</b> ${h(product.allergens[lang])}</p>
+</div>
 </aside>`;
 }
 

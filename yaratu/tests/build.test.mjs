@@ -80,17 +80,17 @@ test("visible units and decimal separators follow locale", async () => {
   const ru = await readFile(join(dist, "products/vetchina/index.html"), "utf8");
   const en = await readFile(join(dist, "en/products/vetchina/index.html"), "utf8");
   assert.match(ru, /150 г/);
-  assert.match(ru, /<span>Белки<\/span><strong>16,7 г<\/strong>/);
-  assert.doesNotMatch(ru, /<span>Белки<\/span><strong>16\.7 г<\/strong>/);
+  assert.match(ru, /Белки ≥ 16,7 г/);
+  assert.doesNotMatch(ru, /Белки ≥ 16\.7 г/);
   assert.match(en, /150 g/);
-  assert.match(en, /<span>Protein<\/span><strong>16\.7 g<\/strong>/);
+  assert.match(en, /Protein 16\.7 g/);
 });
 
 test("static Nutrition Facts labels are visible on home and product pages", async () => {
   const homeRu = await readFile(join(dist, "index.html"), "utf8");
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
-  assert.equal((homeRu.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
-  assert.equal((homeEn.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
+  assert.equal((homeRu.match(/nf-wrap nf-wrap--compact/g) || []).length, 5);
+  assert.equal((homeEn.match(/nf-wrap nf-wrap--compact/g) || []).length, 5);
   assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
   assert.match(homeRu, /Ярату — мясной бренд ООО «Казанские Деликатесы»/);
   assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
@@ -98,14 +98,15 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.match(homeRu, /id="faq"/);
   assert.match(homeRu, /Публичного потребительского прайса нет/);
   assert.doesNotMatch(homeRu, /fetchpriority="high"/);
-  assert.match(homeRu, /Nutrition Facts[\s\S]*Пищевая ценность/);
-  assert.match(homeEn, /Nutrition Facts[\s\S]*Calculated from the current recipe/);
+  assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
+  assert.match(homeEn, /Nutrition Facts[\s\S]*% Daily Value/);
+  assert.doesNotMatch(homeRu, /Транс-жиры 0|Холестерин 0|Волокна 0/);
 
   for (const path of ["products/vetchina/index.html", "en/products/vetchina/index.html"]) {
     const html = await readFile(join(dist, path), "utf8");
-    assert.match(html, /class="nutrition-facts"/);
-    assert.match(html, /nutrition-facts__calories/);
-    assert.match(html, /nutrition-facts__row--major/);
+    assert.match(html, /class="nf-card"/);
+    assert.match(html, /nf-cal-val/);
+    assert.match(html, /nf-dv-head/);
     assert.match(html, /fetchpriority="high"/);
     assert.doesNotMatch(html, /<script[^>]+src=/);
   }
