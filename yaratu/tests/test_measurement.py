@@ -159,18 +159,6 @@ class NudgeTests(unittest.TestCase):
                 200,
                 None,
             ),
-            (
-                {
-                    "sitemaps": [
-                        {
-                            "sitemap_id": "sm-new",
-                            "sitemap_url": "https://yaratu.com/sitemap.xml",
-                        }
-                    ]
-                },
-                200,
-                None,
-            ),
         ]
         with (
             mock.patch.object(nudge, "_get_json", side_effect=listings),

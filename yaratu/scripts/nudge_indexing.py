@@ -192,9 +192,29 @@ def submit_gsc_sitemap(
             "add it as owner of sc-domain:yaratu.com or https://yaratu.com/"
         )
         last["accessible_sites"] = sites
+        last["service_account"] = _service_account_email(credentials_file)
         if sites_error:
             last["sites_error"] = sites_error
     return last
+
+
+def _service_account_email(credentials_file: str | None) -> str | None:
+    raw = os.environ.get("GSC_SERVICE_ACCOUNT_KEY", "").strip()
+    raw_b64 = os.environ.get("GSC_SERVICE_ACCOUNT_KEY_B64", "").strip()
+    try:
+        if raw:
+            info = json.loads(raw)
+        elif raw_b64:
+            import base64
+            info = json.loads(base64.b64decode(raw_b64).decode("utf-8"))
+        elif credentials_file:
+            info = json.loads(Path(credentials_file).read_text(encoding="utf-8"))
+        else:
+            return None
+        email = info.get("client_email")
+        return str(email) if email else None
+    except Exception:
+        return None
 
 
 def submit_google_hot(urls: list[str], credentials_file: str | None) -> dict:
@@ -260,16 +280,19 @@ def _yandex_sitemap_items(*payloads: dict | None) -> list[dict]:
     return items
 
 
+def _yandex_sitemap_url(item: dict) -> str:
+    if item.get("sitemap_url"):
+        return str(item["sitemap_url"])
+    data = item.get("sitemap_data")
+    if isinstance(data, dict) and data.get("url"):
+        return str(data["url"])
+    return ""
+
+
 def _yandex_sitemap_id(items: list[dict], sitemap_url: str) -> str | None:
     for item in items:
-        if item.get("sitemap_url") == sitemap_url and item.get("sitemap_id"):
+        if _yandex_sitemap_url(item) == sitemap_url and item.get("sitemap_id"):
             return str(item["sitemap_id"])
-    for item in items:
-        sitemap_id = item.get("sitemap_id")
-        if sitemap_id and str(sitemap_id).endswith("sitemap.xml"):
-            return str(sitemap_id)
-    if items and items[0].get("sitemap_id"):
-        return str(items[0]["sitemap_id"])
     return None
 
 
@@ -336,21 +359,48 @@ def submit_yandex_sitemap(
             )
             return _entry(status, http_status=code, error=reason)
 
+    processed_id = _yandex_sitemap_id(_yandex_sitemap_items(discovered), sitemap_url)
+    if not processed_id:
+        discovered, code, error = _get_json(f"{base}/sitemaps", headers=headers)
+        processed_id = _yandex_sitemap_id(_yandex_sitemap_items(discovered), sitemap_url)
+    if not processed_id:
+        return {
+            **_entry(
+                "ok",
+                http_status=code,
+                error="sitemap registered; Yandex has not processed it for recrawl yet",
+            ),
+            "registered": True,
+            "sitemap_id": sitemap_id,
+        }
+
     recrawl_url = (
-        f"{base}/sitemaps/{urllib.parse.quote(str(sitemap_id), safe='')}/recrawl"
+        f"{base}/sitemaps/{urllib.parse.quote(str(processed_id), safe='')}/recrawl"
     )
     recrawl_code, recrawl_error = _request("POST", recrawl_url, headers=headers)
-    if recrawl_code == 409:
-        return _entry(
-            "skip",
+    if recrawl_code in (404, 409):
+        return {
+            **_entry(
+                "skip",
+                http_status=recrawl_code,
+                error=(
+                    "sitemap recrawl is already pending"
+                    if recrawl_code == 409
+                    else "sitemap registered; recrawl id is not ready"
+                ),
+            ),
+            "registered": True,
+            "sitemap_id": processed_id,
+        }
+    return {
+        **_entry(
+            "ok" if recrawl_code and 200 <= recrawl_code < 300 else "fail",
             http_status=recrawl_code,
-            error="sitemap recrawl is already pending",
-        )
-    return _entry(
-        "ok" if recrawl_code and 200 <= recrawl_code < 300 else "fail",
-        http_status=recrawl_code,
-        error=recrawl_error,
-    )
+            error=recrawl_error,
+        ),
+        "registered": True,
+        "sitemap_id": processed_id,
+    }
 
 
 def submit_indexnow(domain: str, key: str, key_location: str, urls: list[str]) -> dict:
