@@ -73,6 +73,21 @@ if grep -q '__YARATU_' "$RENDERED"; then
 fi
 
 if command -v nginx >/dev/null 2>&1 && command -v openssl >/dev/null 2>&1; then
+  # GitHub-hosted runners execute this gate without root. Keep the production
+  # template unchanged, but validate it on unprivileged ports so modern nginx
+  # builds that bind during `nginx -t` do not fail with EACCES.
+  python3 - "$RENDERED" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+text = path.read_text(encoding="utf-8")
+text = text.replace("listen 80;", "listen 8080;")
+text = text.replace("listen [::]:80;", "listen [::]:8080;")
+text = text.replace("listen 443 ssl;", "listen 8443 ssl;")
+text = text.replace("listen [::]:443 ssl;", "listen [::]:8443 ssl;")
+path.write_text(text, encoding="utf-8")
+PY
   mkdir -p "$TMP/nginx-prefix"
   HARNESS="$TMP/nginx-test.conf"
   cat > "$HARNESS" <<EOF
