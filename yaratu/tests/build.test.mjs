@@ -91,6 +91,9 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
   assert.equal((homeRu.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
   assert.equal((homeEn.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
+  assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
+  assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
+  assert.match(homeRu, /fetchpriority="high"/);
   assert.match(homeRu, /Nutrition Facts[\s\S]*Пищевая ценность/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*Calculated from the current recipe/);
 
@@ -175,7 +178,11 @@ test("AI and crawler discovery files have complete parity", async () => {
   assert.match(robots, /Sitemap: https:\/\/yaratu\.com\/sitemap\.xml/);
   assert.match(robots, /Sitemap: https:\/\/yaratu\.com\/sitemap-llms\.xml/);
   assert.match(robotsAi, /Content-Signal: ai-train=yes, search=yes, ai-input=yes/);
-  assert.match(llms, /https:\/\/yaratu\.com\/data\/products\.json/);
+  assert.match(llms, /^# Yaratu \/ Ярату/m);
+  assert.match(llms, /\[Ветчина филейная\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
+  assert.match(llms, /\[Canonical JSON\]\(https:\/\/yaratu\.com\/data\/products\.json\)/);
+  assert.match(full, /^# Yaratu full RU\+EN dataset/m);
+  assert.match(full, /\[RU\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
   assert.match(full, /Halal status: not-claimed/);
   assert.equal(wellKnown, full);
   assert.equal(identity.url, "https://yaratu.com/");

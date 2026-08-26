@@ -10,8 +10,9 @@
   --cream-dim: #f5e4c4;
   --white: #ffffff;
   --gold: #a17513;
+  --gold-ink: #6b4e0c;
   --ink: #2f391c;
-  --muted: rgba(47, 57, 28, 0.68);
+  --muted: #3d4626;
   --line: rgba(47, 57, 28, 0.14);
   --radius: 0;
   --max: 1120px;
@@ -52,7 +53,7 @@ a {
 }
 
 a:hover {
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .skip-link {
@@ -842,12 +843,12 @@ section {
 .facts article > span {
   display: block;
   margin-bottom: 0.65rem;
-  color: var(--gold);
+  color: var(--gold-ink);
   font-family: var(--font-display);
   font-size: 1.35rem;
 }
 
-.facts h3 {
+.facts h2 {
   margin-bottom: 0.5rem;
 }
 
@@ -1043,7 +1044,7 @@ section {
   font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.18em;
-  color: var(--gold);
+  color: var(--gold-ink);
 }
 
 .product__intro h3 {

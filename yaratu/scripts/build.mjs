@@ -178,6 +178,7 @@ function shell({ lang, slug = "", title, description, body, structured }) {
 <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
 <meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${h(title)}"><meta property="og:description" content="${h(description)}"><meta property="og:image" content="${SITE}/assets/logo/logo-horizontal.png">
+<link rel="preload" href="/styles.css" as="style">
 <link rel="stylesheet" href="/styles.css">${schemas(structured || [])}</head>
 <body><a class="skip-link" href="#main">${lang === "ru" ? "К содержанию" : "Skip to content"}</a>
 <header class="nav"><div class="wrap nav__inner"><a class="nav__logo" href="${pagePath(lang)}"><img src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"></a>
@@ -185,7 +186,7 @@ function shell({ lang, slug = "", title, description, body, structured }) {
 <details class="nav__menu"><summary>${lang === "ru" ? "Меню" : "Menu"}</summary><nav aria-label="${lang === "ru" ? "Мобильное меню" : "Mobile menu"}"><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang, "ingredients")}">${L.ingredients}</a><a href="${pagePath(lang, "without-sodium-nitrite")}">${L.nitrite}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></nav></details>
 <a class="nav__cta" href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></div></header>
 <main id="main">${body}</main>
-<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
+<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
 }
 
 const org = {
@@ -197,7 +198,8 @@ const brand = {"@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", al
 
 function card(product, lang, index) {
   const L = t[lang];
-  return `<article class="product"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800" loading="lazy"></div>
+  const eager = index === 0;
+  return `<article class="product"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></div>
 <div class="product__intro"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span></div></div>
 <h3>${h(product.name[lang])}</h3><p>${h(product.summary[lang])}</p>
 <a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
@@ -223,8 +225,8 @@ function home(lang) {
       ["03", "Product-specific halal", "Halal status is shown per product, never assumed range-wide."]
     ];
   const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><span class="hero__star hero__star--a"></span><span class="hero__star hero__star--b"></span><span class="hero__star hero__star--c"></span><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
-<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
-<section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h3>${h(title)}</h3><p>${h(text)}</p></article>`).join("")}</div></div></section>
+<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
+<section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
 <section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div><div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>`;
   return shell({lang, title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite", description: L.lead, body, structured});
 }
@@ -355,9 +357,9 @@ await output("robots-ai.txt", `# Yaratu AI crawler directives\nUser-agent: *\nCo
 await output("ai.txt", `Yaratu permits indexing of public pages and feeds for search and AI retrieval.\nCanonical product data: ${SITE}/data/products.json\nHuman-readable summary: ${SITE}/llms.txt\n`);
 await output("989787de78c652b55e6887550582b6f6.txt", "989787de78c652b55e6887550582b6f6\n");
 
-const productLines = products.map((p) => `- ${p.name.ru} / ${p.name.en}: ${SITE}/products/${p.id}/ | ${SITE}/en/products/${p.id}/`).join("\n");
-await output("llms.txt", `# Yaratu / Ярату\n\n> RU+EN product range with disclosed ingredients. Nutrition is calculated, not laboratory-tested. Halal is product-specific; no halal claim is made for Mramornaya.\n\n${productLines}\n\n- RU retail: ${SITE}/retail/\n- EN retail: ${SITE}/en/retail/\n- Canonical JSON: ${SITE}/data/products.json\n- Non-merchant feeds: ${SITE}/feeds/products.json, ${SITE}/feeds/products.csv, ${SITE}/feeds/products.xml\n`);
-const full = products.map((p) => `## ${p.name.ru} / ${p.name.en}\nURL: ${SITE}/products/${p.id}/\nEN: ${SITE}/en/products/${p.id}/\nRU ingredients: ${p.ingredients.ru}\nEN ingredients: ${p.ingredients.en}\nNutrition status: ${p.status.nutrition}; ${p.nutrition.caloriesKcal} kcal, protein ${p.nutrition.proteinGrams} g, fat ${p.nutrition.fatGrams} g, carbohydrate ${p.nutrition.carbohydrateGrams} g per 100 g raw recipe.\nHalal status: ${p.status.halal}.\n`).join("\n");
+const productLines = products.map((p) => `- [${p.name.ru}](${SITE}/products/${p.id}/) / [${p.name.en}](${SITE}/en/products/${p.id}/)`).join("\n");
+await output("llms.txt", `# Yaratu / Ярату\n\nRU+EN product range with disclosed ingredients. Nutrition is calculated, not laboratory-tested. Halal is product-specific; no halal claim is made for Mramornaya.\n\n${productLines}\n\n- [RU retail](${SITE}/retail/)\n- [EN retail](${SITE}/en/retail/)\n- [Canonical JSON](${SITE}/data/products.json)\n- [JSON feed](${SITE}/feeds/products.json), [CSV feed](${SITE}/feeds/products.csv), [XML feed](${SITE}/feeds/products.xml)\n`);
+const full = products.map((p) => `## ${p.name.ru} / ${p.name.en}\n- [RU](${SITE}/products/${p.id}/)\n- [EN](${SITE}/en/products/${p.id}/)\n\nRU ingredients: ${p.ingredients.ru}\nEN ingredients: ${p.ingredients.en}\nNutrition status: ${p.status.nutrition}; ${p.nutrition.caloriesKcal} kcal, protein ${p.nutrition.proteinGrams} g, fat ${p.nutrition.fatGrams} g, carbohydrate ${p.nutrition.carbohydrateGrams} g per 100 g raw recipe.\nHalal status: ${p.status.halal}.\n`).join("\n");
 const richLlms = `# Yaratu full RU+EN dataset\n\n${catalog.nutritionBasis.ru}\n${catalog.nutritionBasis.en}\n\n${full}`;
 await output("llms-full.txt", richLlms);
 await output(".well-known/llms.txt", richLlms);
