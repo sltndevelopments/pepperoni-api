@@ -1,0 +1,100 @@
+{
+  "version": 1,
+  "locked_at": "2026-08-26",
+  "purpose": "Pre-publication baseline for the 213-URL SEO and AI trust reset.",
+  "search": {
+    "google_search_console": {
+      "window": {
+        "start": "2026-07-27",
+        "end": "2026-08-23",
+        "days": 28
+      },
+      "clicks": 12,
+      "impressions": 6318,
+      "ctr": 0.001899,
+      "weighted_position": 18.35,
+      "distinct_queries": 826,
+      "distinct_pages": 302,
+      "scope": "non-anonymized query×page×country×device rows returned by the GSC API",
+      "caveat": "Do not compare this partial query-level total with the aggregate Search Console UI total."
+    },
+    "yandex_webmaster": {
+      "window_end": "2026-08-24",
+      "window_days": 30,
+      "clicks": 464,
+      "impressions": 28210,
+      "ctr": 0.016448,
+      "distinct_queries": 2035,
+      "scope": "popular-query aggregate for the exact verified https://pepperoni.tatar host"
+    }
+  },
+  "analytics": {
+    "window_days": 30,
+    "fetched_at": "2026-08-26T18:51:29.081956+00:00",
+    "visits": 2717,
+    "search_visits": 54,
+    "all_site_goal_completions": 15,
+    "qualified_organic_b2b_leads": null,
+    "attribution_status": "Not yet measurable: auto-goal completions are not equivalent to qualified organic B2B enquiries."
+  },
+  "ai_search": {
+    "captured_at": "2026-08-26T19:52:02.458487+00:00",
+    "panel": "fixed 20 buyer prompts; search-grounded layers only",
+    "layers": {
+      "perplexity_search": {
+        "prompts": 20,
+        "ok": 20,
+        "errors": 0,
+        "hits": 19,
+        "hit_rate": 0.95,
+        "top3": 17,
+        "rank1": 17,
+        "average_rank_when_present": 1.47
+      },
+      "gemini_search": {
+        "prompts": 20,
+        "ok": 20,
+        "errors": 0,
+        "hits": 13,
+        "hit_rate": 0.65,
+        "top3": 5,
+        "rank1": 2,
+        "average_rank_when_present": 8.15
+      },
+      "chatgpt_search": {
+        "prompts": 20,
+        "ok": 17,
+        "errors": 3,
+        "hits": 14,
+        "hit_rate": 0.8235,
+        "top3": 6,
+        "rank1": 1,
+        "average_rank_when_present": 5.79
+      }
+    },
+    "source_file": "data/buyer_baseline_2026-08-26.json"
+  },
+  "index_policy": {
+    "keep": 213,
+    "retired": 1276,
+    "redirect_301": 112,
+    "gone_410": 1115,
+    "noindex": 49,
+    "city_product_indexable": 0,
+    "languages_indexable": [
+      "ru",
+      "en"
+    ]
+  },
+  "experiments": {
+    "active": [],
+    "active_count": 0,
+    "max_active": 3
+  },
+  "authority": {
+    "cycle": "2026-08-27_2026-09-25",
+    "new_domains_published": 0,
+    "target": 5,
+    "international_target": 1
+  }
+}

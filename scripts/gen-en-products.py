@@ -4,7 +4,6 @@ import json
 import os
 import re
 import urllib.parse
-from datetime import datetime
 
 OUT = "public/en/products"
 PRODUCTS_JSON = "public/products.json"
@@ -43,40 +42,6 @@ def _cloudinary_asset_key(url: str) -> str:
         return ""
     path = urllib.parse.unquote(str(url).split("?")[0]).rstrip("/")
     return path.split("/")[-1].lower()
-
-
-_OVERRIDE_STOPWORDS = {
-    "применение", "применения", "сегменте", "сегментах", "сегмент", "опт", "оптовой",
-    "оптовых", "оптовом", "торговле", "торговли", "horeca", "стм", "продукт", "продукта",
-    "продукции", "использование", "использования", "категории", "категория",
-    "профессиональной", "кухне", "кухни", "описание", "формат", "форматы", "форматах",
-    "целевая", "аудитория", "решение", "поставок", "поставках", "поставки", "закупках",
-    "закупки", "каналах", "каналы", "сфера", "сферы", "универсальное", "premium",
-    "application", "wholesale", "buyers", "culinary", "versatility", "suitability", "use",
-    "cases", "product", "menu", "integration", "who", "suits", "smoked", "for",
-    "and", "the", "half", "delicacy", "boiled", "sausage",
-    "халяль", "казань", "казанские", "деликатесы", "мясные", "заготовки",
-    "татарская", "национальная", "выпечка", "классическая", "копченые", "копченый",
-}
-
-
-def _ident_tokens(text: str) -> set:
-    text = (text or "").lower().replace("ё", "е")
-    return {t for t in re.findall(r"[a-zа-я0-9]{3,}", text) if t not in _OVERRIDE_STOPWORDS}
-
-
-def override_matches_product(override_html: str, product_name_ru: str) -> bool:
-    """True if override is really about this product.
-
-    .en.html overrides carry Russian product names in their headings, so we match
-    against the RU name. After SKU remap files drifted onto other products; skip
-    mismatches instead of appending foreign content."""
-    want = _ident_tokens(product_name_ru)
-    if not want:
-        return False
-    heads = " ".join(re.findall(r"<h[12][^>]*>(.*?)</h[12]>", override_html[:1200], re.I | re.S))
-    have = _ident_tokens(re.sub(r"<[^>]+>", " ", heads))
-    return bool(want & have)
 
 
 def _load_image_sources():
@@ -203,71 +168,32 @@ def _faq_jsonld(pairs):
 
 
 def category_deep_content(category, name):
-    """Substantive, query-targeted B2B/HoReCa/wholesale content per category (EN)."""
-    cat = (category or "").lower()
+    """Shared evidence-safe catalog copy; SKU facts stay in products.json."""
     nm = name or "product"
-    if "hot" in cat or "grill" in cat or "sausage" in cat:
-        app = (f"\u201c{nm}\u201d are heat-stable grill sausages for hot dogs, built "
-               "for HoReCa throughput: food trucks, gas stations, kiosks, food "
-               "courts and chain foodservice. They hold their shape on the grill "
-               "and roller, stay juicy and deliver a consistent serve at peak "
-               "hours. Sold wholesale in fixed-pack cases.")
-        faq = [("Can I order hot-dog sausages wholesale?",
-                "Yes. We supply grill sausages for hot dogs wholesale in fixed-pack cases for HoReCa, gas stations, food trucks and chains. Minimum order and pricing on request."),
-               ("Are the sausages halal?",
-                "Yes, all products are halal, made from beef and/or chicken to halal standards.")]
-    elif "patt" in cat or "burger" in cat or "cutlet" in cat:
-        app = (f"\u201c{nm}\u201d are halal burger patties for HoReCa and private "
-               "label. Calibrated weight and diameter give even cooking and a "
-               "stable portion yield. Supplied frozen in cases; recipe, format "
-               "and packaging can be adapted to your brand (private label / OEM).")
-        faq = [("Are burger patties available wholesale?",
-                "Yes, burger patties are supplied frozen in cases for HoReCa and chains. Pricing and minimum order on request."),
-               ("Can patties be produced under our own brand (private label / OEM)?",
-                "Yes. We produce burger patties under private label: weight, diameter, recipe and packaging are adapted to your brand.")]
-    elif "smoked" in cat or "pepperoni" in nm.lower():
-        app = (f"\u201c{nm}\u201d is dry/semi-smoked product for slicing, pizza and "
-               "sandwich menus in HoReCa, plus retail and distribution. "
-               "Pepperoni holds slicing and keeps its pattern on pizza without "
-               "spreading. Supplied wholesale, batons or sliced, and under "
-               "private label.")
-        faq = [("Can I buy pepperoni / smoked sausage wholesale?",
-                "Yes, we supply wholesale to pizzerias, HoReCa and distributors \u2014 baton or sliced. Pricing and minimum order on request."),
-               ("Is it suitable for pizza?",
-                "Yes, the pepperoni is heat-stable for baking: it keeps its shape and pattern and does not spread on pizza.")]
-    elif "ham" in cat:
-        app = (f"\u201c{nm}\u201d is cooked ham for slicing, sandwiches and hot "
-               "dishes in HoReCa and retail. Dense structure holds a thin slice. "
-               "Supplied wholesale, baton or sliced.")
-        faq = [("Is the ham halal?",
-                "Yes, the ham is halal, made from chicken and/or beef to halal standards.")]
-    elif "bak" in cat or "pastr" in cat or "tatar" in cat:
-        app = (f"\u201c{nm}\u201d is frozen pastry for finishing in HoReCa, bakeries "
-               "and street food. Supplied in cases, cooked from frozen with no "
-               "thawing \u2014 consistent result and fast serve.")
-        faq = [("Is the pastry supplied frozen wholesale?",
-                "Yes, pastry is supplied frozen in cases for HoReCa, bakeries and street food, cooked from frozen.")]
-    else:
-        app = (f"\u201c{nm}\u201d is a product for HoReCa, wholesale and distribution "
-               "from Kazan Delicacies. Supplied in fixed-pack cases; private "
-               "label (OEM) supply is available.")
-        faq = [("Can I order wholesale?",
-                "Yes, we supply wholesale in cases for HoReCa, retail and distribution. Minimum order and pricing on request.")]
+    app = (
+        f"\u201c{nm}\u201d is a current Kazan Delicacies catalog item. "
+        "Use the specification on this page for ingredients, weight, storage, "
+        "packaging and price; suitability for a particular menu or process "
+        "must be confirmed against the buyer's technical brief."
+    )
+    faq = [
+        ("Can I order wholesale?",
+         "Yes. Request the current case packing, minimum order, availability and logistics for this SKU."),
+        ("How is halal status verified?",
+         "Kazan Delicacies uses Halal certification by DUM RT. Request the current certificate and SKU documents for supplier qualification."),
+    ]
 
     common = (
         "<div class=\"section-block\"><h2 class=\"section-title\">Application & wholesale</h2>"
         f"<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0 0 12px\">{app}</p>"
         "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
-        "We work with HoReCa, retail chains, distributors and export. Wholesale "
-        "prices, minimum order and logistics are agreed individually. Private "
-        "Label / OEM supply is available: recipe, format and packaging adapted "
-        "to your brand.</p></div>"
+        "Commercial terms and any private-label changes are confirmed only "
+        "after the SKU and buyer specification are reviewed.</p></div>"
         "<div class=\"section-block\"><h2 class=\"section-title\">Halal & quality</h2>"
         "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
-        "All Kazan Delicacies products are halal, made from beef and/or chicken "
-        "to halal standards. Raw-material and production control meet halal "
-        "certification requirements, documented for wholesale and export "
-        "partners.</p></div>"
+        "Halal status is supported by DUM RT certificate No. 614A/2024. "
+        "Request the current certificate and product documents for the proposed "
+        "order.</p></div>"
     )
     faq_html = ("<div class=\"section-block\"><h2 class=\"section-title\">FAQ</h2>"
                 + "".join(
@@ -369,31 +295,6 @@ def translate(t, key, kind="products"):
     return key
 
 
-# Honest Merchant-listing fields. B2B / EXW Kazan (Incoterms 2020): buyer arranges
-# shipping, returns by agreement. Factual data — not fabricated ratings — so it
-# satisfies Google's recommended fields without policy risk.
-def _shipping_details(currency: str) -> str:
-    return (
-        '"shippingDetails":{"@type":"OfferShippingDetails",'
-        '"shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},'
-        '"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"' + currency + '"},'
-        '"deliveryTime":{"@type":"ShippingDeliveryTime",'
-        '"handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},'
-        '"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":14,"unitCode":"DAY"}}}'
-    )
-
-
-RETURN_POLICY = (
-    '"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy",'
-    '"applicableCountry":"RU",'
-    '"returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",'
-    '"merchantReturnDays":14,'
-    '"returnMethod":"https://schema.org/ReturnByMail",'
-    '"returnFees":"https://schema.org/ReturnShippingFees",'
-    '"returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"USD"}}'
-)
-
-
 def load_products():
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
     if os.path.exists(p):
@@ -406,7 +307,6 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
     tr = load_translations()
-    skipped_overrides = []
     for p in products:
         sku = p["sku"]
         slug = sku.lower()
@@ -435,14 +335,14 @@ def main():
         ep = p["offers"].get("exportPrices") or {}
         pr = float(price_rub) if price_rub else 0
         pr_usd = float(price_usd) if price_usd else 0
-        if pr_usd > 0:
-            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: ${pr_usd:.2f}."
-        else:
-            desc = f"{name}. {category or section}. Halal products by Kazan Delicacies. Price: {price_rub} ₽."
-        seo_desc = truncate_meta(p.get("seoDescriptionEN") or desc)
-        if len(seo_desc) < 120:
-            seo_desc = (seo_desc + " Halal wholesale catalog. Export, HACCP, Private Label.")
-            seo_desc = truncate_meta(seo_desc)
+        price_text = f"${pr_usd:.2f}" if pr_usd > 0 else f"{price_rub} RUB"
+        desc = (
+            f"{name}. {category or section}. "
+            f"Weight: {weight or 'see specification'}; "
+            f"storage: {storage or 'see specification'}. "
+            f"Current catalog price: {price_text}."
+        )
+        seo_desc = truncate_meta(desc)
         seo_desc = seo_desc.replace('"', "&quot;")
         name_esc = name.replace("\\", "\\\\").replace('"', '\\"')
         seo_desc_esc = seo_desc.replace("\\", "\\\\").replace('"', '\\"')
@@ -450,8 +350,6 @@ def main():
         barcode = p.get("barcode", "")
         gtin = valid_gtin(barcode)
         gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
-        offer_currency = "USD" if pr_usd > 0 else "RUB"
-        shipping_details = _shipping_details(offer_currency)
         article = p.get("articleNumber") or sku
 
         # Photo order is pinned by data/image_manifest.json (applied in sync) —
@@ -583,16 +481,6 @@ def main():
         deep_html, _faq_pairs = category_deep_content(p.get("category"), name)
         faq_jsonld = _faq_jsonld(_faq_pairs)
 
-        # Per-SKU deep override (EN): data/product_overrides/<sku>.en.html
-        override_path = os.path.join("data", "product_overrides", f"{sku.lower()}.en.html")
-        if os.path.exists(override_path):
-            with open(override_path, encoding="utf-8") as _ovf:
-                _ov_html = _ovf.read()
-            if override_matches_product(_ov_html, str(p.get("name") or "")):
-                deep_html = deep_html + "\n" + _ov_html
-            else:
-                skipped_overrides.append(sku)
-
         # Gallery is fully same-origin (mirrors) — preconnect to Cloudinary only
         # if mirroring failed and the src stayed external.
         _needs_cdn = "res.cloudinary.com" in (main_img or "")
@@ -617,7 +505,6 @@ def main():
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
 <meta http-equiv="content-language" content="en">
 <title>{title_en}</title>
 <meta name="description" content="{seo_desc}">
@@ -642,7 +529,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{shipping_details},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Kazan Delicacies","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{{"@type":"Organization","@id":"https://pepperoni.tatar/#organization","name":"Казанские Деликатесы","alternateName":"Kazan Delicacies","legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}}}
 </script>
 {faq_jsonld}
 <style>
@@ -819,8 +706,8 @@ document.addEventListener("click",function(e){
   var href=link.getAttribute("href")||"";
   if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
   if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
-  if(/wa\.me|whatsapp|t\.me\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
-  if(/price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
+if(/wa\\.me|whatsapp|t\\.me\\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
+  if(/price|\\.(pdf|xlsx?|csv)(\\?|$)/i.test(href)||/price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
@@ -871,9 +758,6 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
         with open(path, "w", encoding="utf-8") as f:
             f.write(html)
     print(f"Generated {len(products)} EN product pages in {OUT}/")
-    if skipped_overrides:
-        print(f"Skipped foreign overrides (SKU-remap, not this product): "
-              f"{len(skipped_overrides)}: {', '.join(skipped_overrides)}")
     remove_orphan_pages(products)
 
 

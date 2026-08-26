@@ -1,5 +1,5 @@
 {
-  "mode": "operator",
+  "mode": "trust_reset",
   "repair_started_at": "2026-07-19T00:00:00+00:00",
   "repair_until": "2026-08-02T00:00:00+00:00",
   "activated_at": "2026-07-21T08:20:00+00:00",
@@ -7,6 +7,8 @@
   "max_active_experiments": 3,
   "daily_budget_usd": 1.0,
   "monthly_budget_usd": 30.0,
-  "auto_activate_when_eligible": true,
-  "note": "Owner lifted the freeze early on 2026-07-21 to launch the data-driven commercial strategy. Repair-phase safeguards (fail-closed generation gates, experiment cap, quarantine growth watermark) stay active. Quarantine growth watermark lives in data/quarantine_baseline.json (runtime, gitignored)."
+  "auto_activate_when_eligible": false,
+  "generation_frozen_at": "2026-08-26T18:49:00+00:00",
+  "generation_freeze_reason": "SEO and AI trust reset: index is an explicit 180–250 URL allowlist; autonomous geo/blog/page generation is disabled.",
+  "note": "Measurement, catalog synchronization, deterministic repair and QA remain active. New indexable pages require owner-reviewed evidence and an index-manifest change."
 }

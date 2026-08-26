@@ -11,6 +11,7 @@ from pathlib import Path
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
+MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
 GTM = """<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -125,30 +126,65 @@ def faq_html(pairs):
 
 
 def build_page(cfg):
-    """cfg keys: slug, title, desc, h1, subtitle, keywords, categories (or
-    legacy skus), intro, features, faq_pairs, related_links"""
+    """Build a catalog-backed category hub.
+
+    Category copy is deliberately derived here instead of accepted from page
+    config. This prevents fixed MOQ, delivery, shelf-life and composition
+    claims from drifting away from the approved catalog.
+    """
     if "categories" in cfg:
         products = get_products_by_category(cfg["categories"])
     else:
         products = get_products_by_skus(cfg["skus"])
     cards = "\n".join(product_card_html(p) for p in products)
 
-    offers_json = []
-    for p in products:
-        offers_json.append(f'''    {{
-      "@type": "Offer",
-      "name": {json.dumps(p["name"], ensure_ascii=False)},
-      "priceCurrency": "RUB",
-      "availability": "https://schema.org/InStock",
-      "url": "https://pepperoni.tatar/products/{p["sku"].lower()}/"
-    }}''')
-    offers_str = "[\n" + ",\n".join(offers_json) + "\n  ]"
-
-    faq_pairs = cfg["faq_pairs"]
+    label = cfg["label"]
+    title = f"{label} оптом — каталог Казанских Деликатесов"
+    desc = (
+        f"{label}: {len(products)} SKU в актуальном каталоге. "
+        "Масса, состав, хранение и срок годности указаны в карточках товаров; "
+        "условия оптового заказа подтверждает отдел продаж."
+    )
+    h1 = f"{label} — оптовый каталог"
+    intro = (
+        f"В категории «{label}» опубликованы {len(products)} позиций из "
+        "актуального каталога. Ниже приведены SKU и характеристики из "
+        "products.json; коммерческие условия согласуются для конкретного запроса."
+    )
+    features = [
+        f"{len(products)} SKU из синхронизированного каталога",
+        "Масса, состав, хранение и срок годности — в карточке каждого SKU",
+        "Халяль ДУМ РТ № 614A/2024; HACCP; ISO 22000:2018",
+        "MOQ, наличие, документы и логистика подтверждаются для запроса",
+    ]
+    faq_pairs = [
+        (
+            f"Какие позиции входят в категорию «{label}»?",
+            f"На странице показаны {len(products)} актуальных SKU. "
+            "Список формируется из products.json и обновляется вместе с каталогом.",
+        ),
+        (
+            "Где проверить состав и срок хранения?",
+            "Точные состав, масса, условия хранения и срок годности указаны "
+            "в карточке каждого SKU и на маркировке продукта.",
+        ),
+        (
+            "Как подтверждается статус халяль?",
+            "Организация указана в реестре Комитета по стандарту «Халяль» "
+            "ДУМ РТ, сертификат № 614A/2024. Актуальный комплект документов "
+            "для выбранного SKU предоставляется по запросу.",
+        ),
+        (
+            "Как оформить оптовый запрос?",
+            "Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, "
+            "документы и логистику подтвердит отдел продаж: "
+            "info@kazandelikates.tatar, +7 987 217-02-02.",
+        ),
+    ]
     faq_ld = faq_schema(faq_pairs)
     faq_block = faq_html(faq_pairs)
 
-    features_html = "\n".join(f"<li>{f}</li>" for f in cfg.get("features", []))
+    features_html = "\n".join(f"<li>{f}</li>" for f in features)
 
     related_html = ""
     if cfg.get("related_links"):
@@ -164,8 +200,8 @@ def build_page(cfg):
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-language" content="ru">
-  <title>{cfg["title"]}</title>
-  <meta name="description" content="{cfg["desc"]}">
+  <title>{title}</title>
+  <meta name="description" content="{desc}">
   <meta name="keywords" content="{cfg["keywords"]}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
@@ -173,24 +209,24 @@ def build_page(cfg):
   <link rel="alternate" hreflang="x-default" href="{url}">
 
   <meta property="og:type" content="product.group">
-  <meta property="og:title" content="{cfg["title"]}">
-  <meta property="og:description" content="{cfg["desc"]}">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{url}">
   <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="Pepperoni.tatar — Казанские деликатесы">
 
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="{cfg["title"]}">
-  <meta name="twitter:description" content="{cfg["desc"]}">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{desc}">
   <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 
   <script type="application/ld+json">
   {{
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": {json.dumps(cfg["h1"], ensure_ascii=False)},
-    "description": {json.dumps(cfg["desc"], ensure_ascii=False)},
+    "name": {json.dumps(h1, ensure_ascii=False)},
+    "description": {json.dumps(desc, ensure_ascii=False)},
     "url": "{url}",
     "numberOfItems": {len(products)},
     "itemListElement": [{", ".join(f'{{"@type":"ListItem","position":{i+1},"url":"https://pepperoni.tatar/products/{p["sku"].lower()}/","name":{json.dumps(p["name"],ensure_ascii=False)}}}' for i, p in enumerate(products))}]
@@ -211,7 +247,7 @@ def build_page(cfg):
     "@type": "BreadcrumbList",
     "itemListElement": [
       {{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/"}},
-      {{"@type": "ListItem", "position": 2, "name": {json.dumps(cfg["h1"], ensure_ascii=False)}, "item": "{url}"}}
+      {{"@type": "ListItem", "position": 2, "name": {json.dumps(h1, ensure_ascii=False)}, "item": "{url}"}}
     ]
   }}
   </script>
@@ -223,14 +259,13 @@ def build_page(cfg):
 <div class="container">
   <nav><a href="/">← Все продукты</a></nav>
 
-  <p class="hero-subtitle">{cfg["subtitle"]}</p>
-  <h1>{cfg["h1"]}</h1>
+  <p class="hero-subtitle">Казанские Деликатесы · данные актуального каталога</p>
+  <h1>{h1}</h1>
   <span class="badge">Халяль ДУМ РТ</span>
   <span class="badge badge-outline">ХАССП / ISO 22000</span>
-  <span class="badge badge-outline">Без ГМО</span>
   <span class="badge badge-outline">Оптовые поставки</span>
 
-  <p>{cfg["intro"]}</p>
+  <p>{intro}</p>
 
   <h2>Ассортимент ({len(products)} SKU)</h2>
   <div class="products-grid">
@@ -243,9 +278,9 @@ def build_page(cfg):
   </ul>
 
   <h2>Заказать оптом</h2>
-  <p>Минимальная партия — от 20 кг. Доставка по России и СНГ. Все сертификаты прилагаются.</p>
-  <a class="cta" href="mailto:info@pepperoni.tatar">Запросить прайс</a>
-  <a class="cta cta-outline" href="tel:+78432030339">+7 (843) 203-03-39</a>
+  <p>Условия заказа, наличие, логистика и доступные документы подтверждаются отделом продаж для выбранных SKU.</p>
+  <a class="cta" href="mailto:info@kazandelikates.tatar">Запросить условия</a>
+  <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a>
 
   {related_html}
 
@@ -255,7 +290,7 @@ def build_page(cfg):
   </section>
 
   <footer>
-    <p>© 2026 ООО «Казанские Деликатесы» · <a href="/">pepperoni.tatar</a> · Казань, ул. Аграрная, 2 · <a href="tel:+78432030339">+7 (843) 203-03-39</a></p>
+    <p>ООО «Казанские Деликатесы» · <a href="/">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href="tel:+79872170202">+7 987 217-02-02</a></p>
   </footer>
 </div>
 </body>
@@ -265,6 +300,7 @@ def build_page(cfg):
 PAGES = [
     {
         "slug": "sosiski-halyal",
+        "label": "Сосиски халяль",
         "title": "Сосиски халяль оптом — купить халяльные сосиски из Казани | pepperoni.tatar",
         "desc": "Сосиски халяль оптом от производителя в Казани. 9 видов: к завтраку, нежные, с сыром, казанские, из говядины. Сертификат ДУМ РТ, ХАССП, без ГМО. Доставка по России и СНГ.",
         "h1": "Сосиски халяль — купить оптом от производителя",
@@ -293,6 +329,7 @@ PAGES = [
     },
     {
         "slug": "sosiski-dlya-hotdog",
+        "label": "Сосиски для хот-догов халяль",
         "title": "Сосиски для хот-догов халяль оптом — гриль-сосиски из Казани | pepperoni.tatar",
         "desc": "Сосиски для хот-догов халяль оптом. 7 видов гриль-сосисок из говядины, курицы, баранины. Срок хранения 360 суток. Сертификат ДУМ РТ. Доставка по России и СНГ.",
         "h1": "Сосиски для хот-догов халяль — гриль, 360 суток хранения",
@@ -321,6 +358,7 @@ PAGES = [
     },
     {
         "slug": "vetchina-optom",
+        "label": "Ветчина халяль",
         "title": "Ветчина халяль оптом — купить ветчину из говядины и индейки | pepperoni.tatar",
         "desc": "Ветчина халяль оптом от производителя: из индейки, говядины, курицы, мраморная. 4 SKU. Сертификат ДУМ РТ, ХАССП. Производство Казань, доставка по России и СНГ.",
         "h1": "Ветчина халяль оптом — из говядины, индейки, курицы",
@@ -349,6 +387,7 @@ PAGES = [
     },
     {
         "slug": "kolbasy-kopchyonye",
+        "label": "Копчёные колбасы халяль",
         "title": "Копчёные колбасы халяль оптом — сервелат, в/к колбасы из Казани | pepperoni.tatar",
         "desc": "Копчёные колбасы халяль оптом: 15 SKU — сервелат Ханский, по-татарски, Рамазан, Мраморная, Филейный, Княжеская. Без свинины. Сертификат ДУМ РТ. Доставка по России.",
         "h1": "Копчёные колбасы халяль — 15 SKU оптом",
@@ -366,7 +405,7 @@ PAGES = [
         "faq_pairs": [
             ("Какие виды копчёных колбас есть?", "Сервелаты: KD-042 Ханский, KD-043 По-татарски. Полукопчёные: KD-044 из Индейки, KD-045 из Говядины, KD-046 Колбаски с Сыром. Варено-копчёные: Рамазан, Мраморная, Филейный, Княжеская — каждая в целом батоне (~0,54 кг) и половинке (~0,27 кг)."),
             ("Колбасы из чего сделаны?", "Из говядины, индейки или курицы. Без свинины, без ГМО, без антибиотиков. Состав каждого SKU — в карточке продукта."),
-            ("Как организовать оптовую поставку?", "Email info@pepperoni.tatar или телефон +7 (843) 203-03-39. Минимум 20 кг, доставка 2–5 дней по России."),
+            ("Как организовать оптовый запрос?", "Укажите нужные SKU, объём и пункт назначения. Актуальные наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02."),
             ("Есть ли продукт в нарезке?", "Да, часть SKU доступна в нарезке. Уточните при оформлении заказа."),
         ],
         "related_links": [
@@ -377,6 +416,7 @@ PAGES = [
     },
     {
         "slug": "kolbasy-varenye",
+        "label": "Варёные колбасы халяль",
         "title": "Варёные колбасы халяль оптом — купить вареную колбасу из говядины | pepperoni.tatar",
         "desc": "Варёные колбасы халяль оптом: 3 SKU — «Из Говядины», «Ассорти», «Нежная». Без свинины. Сертификат ДУМ РТ. Производство Казань. Доставка по России и СНГ.",
         "h1": "Варёные колбасы халяль — купить оптом",
@@ -405,6 +445,7 @@ PAGES = [
     },
     {
         "slug": "kotlety-dlya-burgerov",
+        "label": "Котлеты для бургеров халяль",
         "title": "Котлеты для бургеров халяль оптом — говяжьи котлеты из Казани | pepperoni.tatar",
         "desc": "Котлеты для бургеров халяль оптом: 100 г × 3 шт и 150 г × 2 шт. Говяжьи, прожаренные. Сертификат ДУМ РТ. Производство Казань. Доставка по России и СНГ.",
         "h1": "Котлеты для бургеров халяль — говяжьи, оптом",
@@ -433,6 +474,7 @@ PAGES = [
     },
     {
         "slug": "vyipechka-halyal",
+        "label": "Выпечка халяль",
         "title": "Выпечка халяль оптом — татарская и классическая выпечка из Казани | pepperoni.tatar",
         "desc": "Выпечка халяль оптом: 19 SKU — губадия, чебурек, перемяч, сочник, пирожки. Национальная татарская и классическая выпечка. Сертификат ДУМ РТ. Доставка по России.",
         "h1": "Выпечка халяль — татарская и классическая, оптом",
@@ -467,9 +509,21 @@ PAGES = [
 
 
 def main():
+    if not MANIFEST_PATH.exists():
+        raise SystemExit("index manifest is required before category generation")
+    manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
+    approved = {
+        entry["file"]
+        for entry in manifest.get("entries", [])
+        if entry.get("status") == "keep"
+    }
     created = 0
     for cfg in PAGES:
         out = PUBLIC / f'{cfg["slug"]}.html'
+        rel = out.relative_to(PUBLIC).as_posix()
+        if rel not in approved:
+            print(f"⏭️  {out.name} skipped (not in index allowlist)")
+            continue
         html = build_page(cfg)
         out.write_text(html, encoding="utf-8")
         n_skus = len(get_products_by_category(cfg["categories"])) if "categories" in cfg else len(cfg["skus"])

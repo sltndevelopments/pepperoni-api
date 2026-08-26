@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
-"""Deterministic Product JSON-LD enricher (no LLM).
+"""Deterministic Product JSON-LD repair (no LLM).
 
-Fixes the GSC «Merchant listings / Product snippets» issues at the source:
+Keeps fields backed by the canonical catalog and removes merchant policies that
+were previously invented to silence optional GSC warnings:
   ERROR   Missing field "image"                    → page og:image / brand fallback
   WARNING Missing field "description"              → page meta description
-  WARNING Missing field "shippingDetails"          → factual EXW-Kazan block
-  WARNING Missing field "hasMerchantReturnPolicy"  → factual 14-day policy
-  WARNING Missing field "returnShippingFeesAmount" → explicit 0 amount
+  REMOVE  shippingDetails / hasMerchantReturnPolicy → buyer-specific, not facts
   WARNING Missing field "priceCurrency" (in offers)
           → Product.offers / AggregateOffer: add priceCurrency (default RUB)
           → OfferCatalog thin Offer{itemOffered:Product} without price:
             convert to ListItem (not a shoppable Offer — no invented prices;
             GSC was flagging these catalog wrappers as Product offers)
+  REMOVE  invalid gtin/gtin8/gtin12/gtin13/gtin14 values
 
 review/aggregateRating are intentionally NOT touched: we have no real review
 corpus and fabricated ratings violate Google policy (manual-action risk).
 Those two warnings are cosmetic (rich-result enhancement unavailable), not errors.
 
-Idempotent: re-running on an already-enriched page changes nothing. Designed to
+Idempotent: re-running on an already-repaired page changes nothing. Designed to
 run after every generation step in seo-agent-vps.sh and via the bot command
 «почини schema».
 """
@@ -40,35 +40,6 @@ OG_IMAGE_RE = re.compile(r'property=["\']og:image["\'][^>]*content=["\']([^"\']+
 OG_IMAGE_RE2 = re.compile(r'content=["\']([^"\']+)["\'][^>]*property=["\']og:image', re.I)
 META_DESC_RE = re.compile(r'name=["\']description["\'][^>]*content=["\']([^"\']+)', re.I)
 META_DESC_RE2 = re.compile(r'content=["\']([^"\']+)["\'][^>]*name=["\']description', re.I)
-
-
-def shipping_details(currency: str) -> dict:
-    """Factual B2B terms: EXW Казань (Incoterms 2020) — no fabricated data."""
-    return {
-        "@type": "OfferShippingDetails",
-        "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
-        "shippingRate": {"@type": "MonetaryAmount", "value": "0", "currency": currency},
-        "deliveryTime": {
-            "@type": "ShippingDeliveryTime",
-            "handlingTime": {"@type": "QuantitativeValue", "minValue": 0,
-                             "maxValue": 2, "unitCode": "DAY"},
-            "transitTime": {"@type": "QuantitativeValue", "minValue": 1,
-                            "maxValue": 7, "unitCode": "DAY"},
-        },
-    }
-
-
-def return_policy(currency: str) -> dict:
-    return {
-        "@type": "MerchantReturnPolicy",
-        "applicableCountry": "RU",
-        "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-        "merchantReturnDays": 14,
-        "returnMethod": "https://schema.org/ReturnByMail",
-        "returnFees": "https://schema.org/ReturnShippingFees",
-        "returnShippingFeesAmount": {"@type": "MonetaryAmount", "value": "0",
-                                     "currency": currency},
-    }
 
 
 def _absolutize(url: str) -> str:
@@ -96,8 +67,31 @@ def _iter_offer_dicts(offers):
             yield o
 
 
+def _valid_gtin(value, expected_length: int | None = None) -> bool:
+    digits = str(value or "").strip()
+    if not digits.isdigit():
+        return False
+    allowed = {expected_length} if expected_length else {8, 12, 13, 14}
+    if len(digits) not in allowed:
+        return False
+    payload = [int(char) for char in digits]
+    check = payload.pop()
+    total = sum(
+        digit * (3 if (len(payload) - index) % 2 else 1)
+        for index, digit in enumerate(payload)
+    )
+    return (10 - total % 10) % 10 == check
+
+
 def enrich_product(node: dict, page_image: str, page_desc: str) -> bool:
     changed = False
+    for key, length in (
+        ("gtin", None), ("gtin8", 8), ("gtin12", 12),
+        ("gtin13", 13), ("gtin14", 14),
+    ):
+        if key in node and not _valid_gtin(node[key], length):
+            node.pop(key, None)
+            changed = True
     img = node.get("image")
     if not img or (isinstance(img, list) and not any(img)):
         if page_image:
@@ -110,18 +104,11 @@ def enrich_product(node: dict, page_image: str, page_desc: str) -> bool:
         node["description"] = page_desc
         changed = True
     for offer in _iter_offer_dicts(node.get("offers")):
-        currency = offer.get("priceCurrency") or "RUB"
-        if "shippingDetails" not in offer:
-            offer["shippingDetails"] = shipping_details(currency)
+        if "shippingDetails" in offer:
+            offer.pop("shippingDetails", None)
             changed = True
-        rp = offer.get("hasMerchantReturnPolicy")
-        if not isinstance(rp, dict):
-            offer["hasMerchantReturnPolicy"] = return_policy(currency)
-            changed = True
-        elif (rp.get("returnFees") == "https://schema.org/ReturnShippingFees"
-              and "returnShippingFeesAmount" not in rp):
-            rp["returnShippingFeesAmount"] = {"@type": "MonetaryAmount",
-                                              "value": "0", "currency": currency}
+        if "hasMerchantReturnPolicy" in offer:
+            offer.pop("hasMerchantReturnPolicy", None)
             changed = True
     return changed
 

@@ -1,0 +1,858 @@
+{
+  "version": 1,
+  "updated_at": "2026-08-26",
+  "files": {
+    "index.html": {
+      "sha256": "39fe9caa2c6926c9ec8fb74a4431fee618802eb65268dfe387700f3452d12b1c",
+      "lastmod": "2026-08-26"
+    },
+    "about.html": {
+      "sha256": "57671720f7082fb465d0ca9e711661688ddb0d4d39e9b0fca30fddb6f4b7a0ec",
+      "lastmod": "2026-08-26"
+    },
+    "blog.html": {
+      "sha256": "4ef5a377563413c276ca0e4a439394813e646f00ec1a398a3fbf4e616d36a6e4",
+      "lastmod": "2026-08-26"
+    },
+    "blog/echpochmak.html": {
+      "sha256": "9213f5118b4b581525e085317cefe092c77b8e181f63397a844571b7aad4ce93",
+      "lastmod": "2026-08-26"
+    },
+    "blog/halal-certification-russia.html": {
+      "sha256": "770008b667a098c6e71a22c09f4e5463276fd6fc029880aa1726020498b0715d",
+      "lastmod": "2026-08-26"
+    },
+    "blog/iso-22000-iaf-certsearch.html": {
+      "sha256": "da1373a18a9aeb6835331735428f3b13df4c1819b71be6a6f5d845fea0045316",
+      "lastmod": "2026-08-26"
+    },
+    "blog/kak-hranit-pepperoni.html": {
+      "sha256": "9417016aac1d0800750849dbe7712117897d4bd239762b30c2129afd68b74191",
+      "lastmod": "2026-08-26"
+    },
+    "blog/karmin-e120-haram.html": {
+      "sha256": "88777ff8b1e6159da23cf0752e5f261219eb102ffc640b686841a529c44c98b8",
+      "lastmod": "2026-08-26"
+    },
+    "blog/kazylyk.html": {
+      "sha256": "b130380fd66522fa0b89dab956167a1d7c0245fd2391e2cafc6fef410c60ecbd",
+      "lastmod": "2026-08-26"
+    },
+    "blog/kotlety-dlya-burgerov-optom.html": {
+      "sha256": "43f58d1488e23adb1980eea53c055689939ef99dabb45320463f73828e79c6e0",
+      "lastmod": "2026-08-26"
+    },
+    "blog/narezka-pepperoni-parametry.html": {
+      "sha256": "eaa274a21670847ccb5a55cd1786c28e7272840cc698cfa83a433b92a6686af7",
+      "lastmod": "2026-08-26"
+    },
+    "blog/pepperoni-for-pizzeria-horeca.html": {
+      "sha256": "9cec9dacda754a67f42ca713852d06ec30939521526676ec6826c7c01f71dd50",
+      "lastmod": "2026-08-26"
+    },
+    "blog/pepperoni-iz-kakogo-myasa.html": {
+      "sha256": "0af4035d86b40ca9d7beb290797c97d083ff82060fa8ab202a69c0ee2569cc0c",
+      "lastmod": "2026-08-26"
+    },
+    "blog/private-label-kolbasnyh-izdeliy.html": {
+      "sha256": "56f7a89ac7f4defbe96b09b0a1689b143125744d413e69e3ffa18034087e94cc",
+      "lastmod": "2026-08-26"
+    },
+    "blog/sosiski-dlya-hot-dogov-optom.html": {
+      "sha256": "1405f436e3f86b9bf56c66e8c69461aac692b0ea51e4447abc608d1cdc450d72",
+      "lastmod": "2026-08-26"
+    },
+    "blog/tatarskaya-vypechka-optom.html": {
+      "sha256": "deefc01d876299a4d14f518a2e1427fb863c76a342bf4f720be268cdc5d1bbc4",
+      "lastmod": "2026-08-26"
+    },
+    "blog/what-is-halal-pepperoni.html": {
+      "sha256": "e3f308a113a150a0df8d6843906daaa9fdf4c79d7811c03838474e92ee952b06",
+      "lastmod": "2026-08-26"
+    },
+    "capabilities.html": {
+      "sha256": "2c5e35fad016c94272c12438e3d58289b92eaea5ca48117d28dacccc85212616",
+      "lastmod": "2026-08-26"
+    },
+    "cases.html": {
+      "sha256": "27fb0c2fba071a007d9d063f66c8aec1561d3ca69c52904fbc2b362ca11b61b0",
+      "lastmod": "2026-08-26"
+    },
+    "certificates.html": {
+      "sha256": "0189a9ada625893a613d536c06bd1b051bb249d188052cdc7aa9e4bc36f2f2c7",
+      "lastmod": "2026-08-26"
+    },
+    "delivery.html": {
+      "sha256": "75f70d0bd0d361b0623f421efc7bf9fced469df46c017759633c113f77d91ea8",
+      "lastmod": "2026-08-26"
+    },
+    "dlya-azs.html": {
+      "sha256": "8e2a769a205c9db41d960a994473f585026d1217ce2a2965a5a3d921b97b33bf",
+      "lastmod": "2026-08-26"
+    },
+    "dlya-distributorov.html": {
+      "sha256": "176b34822d7308a081f49ad2b02c777ca18e06fb97d03f64311062d4b2b83f04",
+      "lastmod": "2026-08-26"
+    },
+    "dlya-horeca.html": {
+      "sha256": "710cae2cf0f5f7130d144790bb0079a910e70d21c211f5591d156b4edd9b17cc",
+      "lastmod": "2026-08-26"
+    },
+    "dlya-pekaren.html": {
+      "sha256": "e1de40040e1e516f3125226ba1ec6129301f877da7ba9459df1bfa8e0b01f015",
+      "lastmod": "2026-08-26"
+    },
+    "dlya-setey.html": {
+      "sha256": "eb604328a8ab91476963f3032523745fb624dbfeb15e3497ef4c4f3736f60688",
+      "lastmod": "2026-08-26"
+    },
+    "editorial-policy.html": {
+      "sha256": "e4edfe8bd4922ecdf889e68571612f0b1cc45b92a62ad9cfb84d7930325cf598",
+      "lastmod": "2026-08-26"
+    },
+    "en/index.html": {
+      "sha256": "d11c5fec8c947ebb167d20f85041e5d7e1d2f4210026d508afebced6eb47e78c",
+      "lastmod": "2026-08-26"
+    },
+    "en/about.html": {
+      "sha256": "f3cb0798de008b1cf72fbac42452f276a9d08df5e8c8d61c8e5aa10fcf4563e2",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog.html": {
+      "sha256": "a15a2e422b6b5b459276d68af7da14968c344fd7c2946df619e3327be5ab7c4b",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/beef-hotdog-sausages-halal.html": {
+      "sha256": "bb503279a6cdf5137d281f11f93351fd9866b13e27fb347b958c3ca36c4e8b8b",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/burger-patties-wholesale-halal.html": {
+      "sha256": "bb3a37c8062c6b0333bce4dba8759151492152596b55e4e87d430e5885f60561",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/echpochmak-halyal.html": {
+      "sha256": "00b199be910cb55e851f220f4977d13081f65b0c6d34eedec61ddca2057b5610",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/halal-certification-russia.html": {
+      "sha256": "1d958163a32239aa01c4e8a64585a09ae76e973bc24aba16e6645e9e15e80f93",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/kazylyk-horse-meat-sausage.html": {
+      "sha256": "55e42c3e56f757638c00f36e4c824af0a1a07f5e097503121d9049548888c488",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/pepperoni-for-pizzeria-horeca.html": {
+      "sha256": "b931ab24ec17693d92e7a1484d14e158a30e13d9abc6267ecb20c0336c7f80a2",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/pepperoni-slicing-specs.html": {
+      "sha256": "e6227377b76c22e9d87d098cda17b1962bc6c3bb7ebd21963cc82713319bee4c",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/private-label-meat-products.html": {
+      "sha256": "6d2afc58727f20d1e258e62b2fd768a82bae4d74e95093a4aca68d517e9d56de",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/tatar-bakery-wholesale.html": {
+      "sha256": "45820537a9ec878c7e0bd5a4310d376d55bc8083e98b86fe9eb771962a5f4f79",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/what-is-halal-pepperoni.html": {
+      "sha256": "1b7fc7fb9ed5b91e92f4f22b47045926766e17e53ffcab2709153ba5aeaa2af0",
+      "lastmod": "2026-08-26"
+    },
+    "en/blog/wholesale-pepperoni-russia-export.html": {
+      "sha256": "43b900d2b63f99be9af388bbfb19a69e818401cc2b448f135a270a0c9f81cc08",
+      "lastmod": "2026-08-26"
+    },
+    "en/capabilities.html": {
+      "sha256": "3400f19752c819e74e488570a4daad4aed65a32210a3c292aa6d4ca1f0cc19e8",
+      "lastmod": "2026-08-26"
+    },
+    "en/cases.html": {
+      "sha256": "a093ce4474c1b62d7f496358b3045b243bf40ba6eb9847a36d379241022e9a0c",
+      "lastmod": "2026-08-26"
+    },
+    "en/certificates.html": {
+      "sha256": "2ee4d77add6c7a194373620fa8173145417a007b107ecdd30ddf5a92aab0c870",
+      "lastmod": "2026-08-26"
+    },
+    "en/delivery.html": {
+      "sha256": "f5b4f1dfd8e87ad7d33bfc5dc9f61f99304dc2281e0ea1fef2a82ec0d07d7c0c",
+      "lastmod": "2026-08-26"
+    },
+    "en/dlya-azs.html": {
+      "sha256": "380ba2315d4f73b05f987b2fdf7a811fb11cb653b32d6c5efd2dfba6e804c045",
+      "lastmod": "2026-08-26"
+    },
+    "en/dlya-distributorov.html": {
+      "sha256": "e34bd04b83830292451882007032a2debbe23eb29ca9d7988169afc7ef361e61",
+      "lastmod": "2026-08-26"
+    },
+    "en/dlya-horeca.html": {
+      "sha256": "581c13260438b5de250aabe14fac66d2caa2e81b3a7479d38c6367000f304796",
+      "lastmod": "2026-08-26"
+    },
+    "en/dlya-pekaren.html": {
+      "sha256": "70995792b1b3ac2cf1c90ceb74a07c9266cf2dd3f0ff667d1b86c7c29ef0fc0f",
+      "lastmod": "2026-08-26"
+    },
+    "en/dlya-setey.html": {
+      "sha256": "c84a33efd2a56022ddcb0965df338d447cb599e6fcea7f1e2624c8d2d279e527",
+      "lastmod": "2026-08-26"
+    },
+    "en/editorial-policy.html": {
+      "sha256": "ab4239c34b2440984b90e5eeae4c08da58e46d4092a3bda12805faa05707d8cf",
+      "lastmod": "2026-08-26"
+    },
+    "en/export.html": {
+      "sha256": "9ebf5cab3138483cd48818d5b8212462396d3af0aab114e842b8a05475f99e97",
+      "lastmod": "2026-08-26"
+    },
+    "en/faq.html": {
+      "sha256": "d939128fd49b9154ca08c2cd22b0498aa4c342a8c43260d133b17fc65a0b9f7d",
+      "lastmod": "2026-08-26"
+    },
+    "en/halal.html": {
+      "sha256": "547cb036ba467500254124790e1c5d65d8da4d8df54045e9fcb9ce4091958cf2",
+      "lastmod": "2026-08-26"
+    },
+    "en/kazylyk.html": {
+      "sha256": "b8e852cf014e05f026b16180627546979b1be6f42a52535e79b9ff1a90da5f21",
+      "lastmod": "2026-08-26"
+    },
+    "en/kolbasy-kopchyonye.html": {
+      "sha256": "a4965eb249fbf79cac7543ed8035921f95e82214bd0f4d7be8c28b0610925253",
+      "lastmod": "2026-08-26"
+    },
+    "en/kolbasy-varenye.html": {
+      "sha256": "ccfe384198c17ad7107baba72a26adc8301a0f890ebbc3c449939fd6ede85da7",
+      "lastmod": "2026-08-26"
+    },
+    "en/kotlety-dlya-burgerov.html": {
+      "sha256": "159b1459e7ed76c6711e07ba80f4aea586a112268800a0dd93a56a89fb9cf1a1",
+      "lastmod": "2026-08-26"
+    },
+    "en/pepperoni.html": {
+      "sha256": "be99b94d6002e9a4a5e72ea43b292294e8b26c1a89b7bf9a20e6856a91ed8fb7",
+      "lastmod": "2026-08-26"
+    },
+    "en/pepperoni-dlya-pizzerii.html": {
+      "sha256": "4f1f526c6856593824efbd6bf927c1cbab64b3e562f47f5c18fa11179bfeda1c",
+      "lastmod": "2026-08-26"
+    },
+    "en/pepperoni-v-narezke.html": {
+      "sha256": "33a58fceca4827b79226d4c71a0db640a2850bb70db6a9b1812ee159615ed7d9",
+      "lastmod": "2026-08-26"
+    },
+    "en/pizzeria.html": {
+      "sha256": "d174013f1ab82912bae92b72d70f4e427760b0ded9449e5512594c0b8ac719e4",
+      "lastmod": "2026-08-26"
+    },
+    "en/private-label.html": {
+      "sha256": "485c6abb257940fda1f549f3144bc6423472334529ca3428190afeee66b92dc6",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/index.html": {
+      "sha256": "163c381bea89a964c9fc39fd776d37a2cdf9ecf5b43920f297ef61532fdbc6ff",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-001.html": {
+      "sha256": "a33a7386d5bafd9a08134a902b79e60c823510f7d452b4a965254fa764b35888",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-002.html": {
+      "sha256": "8d16b8431909a72aa53e301dff1322a97b05d25f96b256d9425818b0bce2c379",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-003.html": {
+      "sha256": "723c0dd2a2d26684a5b089bb02da8561ff20ae9921116029aa64c5b01aa599cb",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-004.html": {
+      "sha256": "7edef882ecff9a7cb5d722350789f2bff40608bb3ddd1d41b61cdf0207379c8b",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-005.html": {
+      "sha256": "4ce7797869d25c22d21af4e05c0b13e77f4631af2ae38133ee4966cc19b598de",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-006.html": {
+      "sha256": "742e09f2f4248c990cc26a0d8d73f43c9c19bacae1513d2256a59c31935313b8",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-007.html": {
+      "sha256": "3418855938186ca8194f94bf40070881063fc85ad1abc1bd706303648b5d4023",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-008.html": {
+      "sha256": "7ead3270b94ef11e16ee1107f5c8187323d9ef4564ac0efd9222bad37228bd7e",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-009.html": {
+      "sha256": "29ad135690516da53ac89ec9040a3f857d52e52b1f1361b6d2fb433c0dac37d6",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-010.html": {
+      "sha256": "e36a09257768d4751dfae19c2208c4d1913c10782078eabb8f15c956ad79452c",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-011.html": {
+      "sha256": "788a5054e2a1ec8580ee0c8893e9e97dd5a8932fe5268edfc37dfa0218eec05a",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-012.html": {
+      "sha256": "13f2d67f33628d7801bc929982f2fd9c092955bc6f5cfe8c97c006f6b98d0957",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-013.html": {
+      "sha256": "bb5cc9a8d1cb06beda514868edd242a49cb4c42f3537e8b91dfe92ef2a512ba5",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-014.html": {
+      "sha256": "ec7fe62e4cb8c9c9b64279214d4252cb37551ab330f471dfa79c155327a76a2b",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-015.html": {
+      "sha256": "4828a24a2d02de1d7341562fca13488310c6f02269a2205c0a3f70b053aae96e",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-016.html": {
+      "sha256": "d0f4cc6dac8bcf5a98a2f407135ae53f47095df92f6188552714f9173b92c05a",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-017.html": {
+      "sha256": "92bd871284ea7bf2a28160e9015b6a848b2fbabf0eb868f3a040f48e625061c1",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-018.html": {
+      "sha256": "532b3ecd1b4a304df1c80d36f39b833d7ed0f941c2a30ee960c54c52fd7a9dfe",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-019.html": {
+      "sha256": "70fb136cdcb0ca3550d612814becf847ba8c98b95224d39971d1d67aef8dcc54",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-020.html": {
+      "sha256": "2129ff1809209d9f9411cfbd1c31b9893ef60b8ab8e8ebdaba5b75e8595d42e1",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-021.html": {
+      "sha256": "9a86120a9c7dfda61824b1d8b82cc79e3c2da2be2f6a94f3119c2553e97b744c",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-022.html": {
+      "sha256": "2ae06872a99140a0e0cd06e2ec3c6c4921d619c6d343e3c496ce23e6a621c775",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-023.html": {
+      "sha256": "70c1ad66701fc47685d1cd29ec9846cdbbafa21e521160db345addf024b1c191",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-024.html": {
+      "sha256": "d4d7d0826dcd465a841506d247abd614b93c00e8f1155dac7b0e807e83af6ac7",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-025.html": {
+      "sha256": "b14dc0f7a81e96af5208b4c1df45d1f666ed6360968c39c765788181c4751e74",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-026.html": {
+      "sha256": "5644f414f680cdac94241545c4335e373e4d7082832244b15ce3377019f71030",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-027.html": {
+      "sha256": "f53099ffd795942d43c4c70ff110011e3467ba7fcdcd3bb3cbbe8d84dd5ea835",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-028.html": {
+      "sha256": "59ce77ab9d57ac0649b40b2ef82522a1dd37f6c41af7c13e524736d4e778b081",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-029.html": {
+      "sha256": "dfcbe296f3c62602cf099934a89f695e5ebdf222e28e6032d35e899c467a0506",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-030.html": {
+      "sha256": "76e58b3a1f3a56058a7a3a6246260ed7f11bdd242bed4c6d680815bd03b5166d",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-031.html": {
+      "sha256": "c6d9478c921dc1d632de52e4f4c3354cd2f43d891dbda0b01c929ee889129a06",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-032.html": {
+      "sha256": "14d11b303516e47012d033239fd454c01b551135bcb6d72115750d1dc9035fd8",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-033.html": {
+      "sha256": "9092f2e056ba3b212b361af86a9bd9d118478be8f421a9f11835fa24a8de01fe",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-034.html": {
+      "sha256": "83e4e7d5d93ece0be7ed87fd9273c215abd6703313de08b9bd9aaf5a6b93e173",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-035.html": {
+      "sha256": "5d31e22a5e55f1321644c7283120aef69d97313199fc35facc8e6f8794029a2c",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-036.html": {
+      "sha256": "096da494c879dc458dfbebccfa07293208261faf52b63177eccf691cbb9eb8d0",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-037.html": {
+      "sha256": "de9ab558ff7ee55effc4ea4601fa635a6faf44f5d20dc06f742123e3184b4936",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-038.html": {
+      "sha256": "64fd978e9b77b8a2c7e1315d6c4a7048bf8d62d57e2cb653ef2e8802785655af",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-039.html": {
+      "sha256": "45b3d0a803d56b7dba1ede118b034390e38cb81099ece77e94a37c29eba6b6a4",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-040.html": {
+      "sha256": "13ff03a215222abf69729a171fe300d903f2098ca158b7034b90cffec1aafceb",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-041.html": {
+      "sha256": "15fc390767374be2db7d0c227ec5338350e5e6e3c624c68a4faade4d4532d61d",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-042.html": {
+      "sha256": "143f0fc495885297e9a4ec35495b084c221658e704311a3d2420089092a9eba9",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-043.html": {
+      "sha256": "89532d2f68d41dd21592afd8aedca9f0d8dd4ad468afd1529734783654231bda",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-044.html": {
+      "sha256": "8b6eaac15c30ae1b8cc1bd742dca0c9b2004c6c67d3ad7010ae6bf1c51460c8e",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-045.html": {
+      "sha256": "003e753edb01338445d7553cf831b5fb753b94aee17a5d7609c503206482f496",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-046.html": {
+      "sha256": "6bd85b403512a7719094f217414331ec91a9a64ed5d019e20d0882261b646f69",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-047.html": {
+      "sha256": "69441f65547f1dab08ad5c2e4b816e49720c8b6b4db6b58d6ad444e2811a5d08",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-048.html": {
+      "sha256": "ed1af7a9e783688e47c969fb8d2eb70ad9b65f3f34ca0162d47e8f75b94ae533",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-049.html": {
+      "sha256": "2d7b17667f33de2cba16c2e88931c92d62b0cbcd9ac22679d157634da22fc921",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-050.html": {
+      "sha256": "ed749c4330bcc11ea974f850f48ebb30c3e1d4826d18bde3d007d8db049269ca",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-051.html": {
+      "sha256": "33d67fca546eaebeebaf850447f96eaab1dc333bf61914b114f284301d5b7496",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-052.html": {
+      "sha256": "da43d6af0543b76eb830b2c5db00ee4d2567706377594e92e9cac8fd18ae9ef9",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-053.html": {
+      "sha256": "898d240552e3c0353cc3f3053d021e5e3916d7c28eb626c8a4192e80a751b355",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-054.html": {
+      "sha256": "c845d7e38029bdca7d4fd56a0a464f86d4c93c10034e075e0cb0662519cdbb70",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-055.html": {
+      "sha256": "2eaf80b7dbee8aaa966cd3316657f147e2958617138d0574bc500f77267f4f69",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-056.html": {
+      "sha256": "b330aef0355fefbd132b165d931ffd8b53082508c39296e3b1d7722a2515b9e8",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-057.html": {
+      "sha256": "a3f95e7d2a83d0e962bc316cf146abeeda0db341f1195b7da76a93a2ee537114",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-058.html": {
+      "sha256": "0922134b28c159bdd177c93c76704d92e59518b65f3395fdc936e004a05cc7cb",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-059.html": {
+      "sha256": "62a3e30cfe7a15a1375fbdbe24f1c2bd1f6790a62c85ecdf5aae48a6808182a5",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-060.html": {
+      "sha256": "15070e916ff63f871d0264de9349d7e34de5dae728cffa3b239ab2e7757b86c7",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-061.html": {
+      "sha256": "272ffd14948ac588291affd064493a55e397bc2aecdf3159df9d11f2088cf661",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-062.html": {
+      "sha256": "d009d49472d3055d711206d3123ba536aba24ea60881b457109d19449328f212",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-063.html": {
+      "sha256": "121b15d393295fe0473c6bb123b8b141d594262895cf37a57d45e3c6ae6fc144",
+      "lastmod": "2026-08-26"
+    },
+    "en/products/kd-064.html": {
+      "sha256": "54ae09f4ec166a292d020597e535cbf20440c8a36e3779492423c441a76707db",
+      "lastmod": "2026-08-26"
+    },
+    "en/sosiska-v-teste.html": {
+      "sha256": "b7569345dfa574860625056918620e6f7553a54f3bec1cf2913610f563217f03",
+      "lastmod": "2026-08-26"
+    },
+    "en/sosiski-dlya-hotdog.html": {
+      "sha256": "fb177d163b790e898fe7c7b8637f11871ab312a669a5d2129193f1274f817e2b",
+      "lastmod": "2026-08-26"
+    },
+    "en/vetchina-optom.html": {
+      "sha256": "9fe39b05b00db2459c6277297ba34f5e7540ba472fccb1ad786c3c4ca668bbe0",
+      "lastmod": "2026-08-26"
+    },
+    "en/vyipechka-halyal.html": {
+      "sha256": "57618b7574d20bb3da41ab75896b4226bfb153ea503da807177a544cf50f2d89",
+      "lastmod": "2026-08-26"
+    },
+    "export.html": {
+      "sha256": "58c99fef17800f09c928876bc4b79570a8d2d8260a32d904cee214f570f14f45",
+      "lastmod": "2026-08-26"
+    },
+    "faq.html": {
+      "sha256": "f4eafa8da20afbe72768bab70628df2017905a6b39fbcaf7814620abe27c8c2b",
+      "lastmod": "2026-08-26"
+    },
+    "halal.html": {
+      "sha256": "1f315912b9e82d0eed0e83fede7b2fbbb2daed13d560a7a00da50aa90c19b4e2",
+      "lastmod": "2026-08-26"
+    },
+    "kazylyk.html": {
+      "sha256": "78c574cffcec06d22064f25b5c604ba97a26fa25e7f6954e1212bcc37e1188bc",
+      "lastmod": "2026-08-26"
+    },
+    "kolbasy-kopchyonye.html": {
+      "sha256": "8d8a2132ac4e0e0cc6942557f613ea0390605528942eb8f6b90a70b5221f77c4",
+      "lastmod": "2026-08-26"
+    },
+    "kolbasy-varenye.html": {
+      "sha256": "debb3c26d0d6d0c232f20445652345f709333c2070e5f17f2199539f715bdbda",
+      "lastmod": "2026-08-26"
+    },
+    "kontraktnoe-proizvodstvo.html": {
+      "sha256": "961df682a8a3d0946a4e0be94f1bb226191d6e62ba862e0d7363494fb6c57868",
+      "lastmod": "2026-08-26"
+    },
+    "kotlety-dlya-burgerov.html": {
+      "sha256": "6a266d29ef93885a0e0506f290f73848cffa458307eaf6ac68daf16f1aaccc4f",
+      "lastmod": "2026-08-26"
+    },
+    "pepperoni.html": {
+      "sha256": "bae256bc7d514d0ece8ae95fa1179dda7d4c78e76e63ade9ff14f5d80f17e017",
+      "lastmod": "2026-08-26"
+    },
+    "pepperoni-dlya-pizzerii.html": {
+      "sha256": "46c45e86387908e05718b1b4bf6a14f0aea7e68b58c7a78d118f0c8cabf15921",
+      "lastmod": "2026-08-26"
+    },
+    "pepperoni-v-narezke.html": {
+      "sha256": "04a3e60b9fa55c69428f17bd9745ad11851ea8072a63f9e3b25deb89512133a5",
+      "lastmod": "2026-08-26"
+    },
+    "pizzeria.html": {
+      "sha256": "96ccf8760d9a45695300d8731d9ec2cf541c4a9a89bf5fc5ded298ad9c213e11",
+      "lastmod": "2026-08-26"
+    },
+    "products/index.html": {
+      "sha256": "64cc5922a0bbdbed10ded6438cbfc08d3e2601c5852d0e8a762f65b71f29807b",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-001.html": {
+      "sha256": "1151f1914fac256663da5a3c935e555e9aaa4b4fce4b663d2f514640aa851817",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-002.html": {
+      "sha256": "8b7a1241d8a2dee5355258b853d9159b563be294d5340d83914fdbe80ba049b3",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-003.html": {
+      "sha256": "1d64afb8ac871c7293882bf21c153b14bcbc39e891e4bfede7d3fe9d3e5f02eb",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-004.html": {
+      "sha256": "dadade59da9a8d454db3f0d34abd1f8f8c2838257c02bcf6840f21378ebe6bab",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-005.html": {
+      "sha256": "6175bf9c5c5e67808e7aebff39ff441b4421cac52cc9d9d38db72f4ea940620b",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-006.html": {
+      "sha256": "4429073d2927855012654230663cd07758869e365f425f2476b4dd97ce08c1b3",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-007.html": {
+      "sha256": "26525f7b90a1f2afb652c79c8c673ee509ebda9e5c88385b1300e6ba6c686de1",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-008.html": {
+      "sha256": "2c4e02ab6d69d4214b138961be033ba285bbb20024267c0a12c6f0e530ca789d",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-009.html": {
+      "sha256": "a21eb9eea6066c7af344b8e0befdb7293cbede2a78d7c4481aabd64ae16f6f45",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-010.html": {
+      "sha256": "382d5518be140b2c56ce3da8d8c1b0cd5716b22b16ecaeeb71a93118d0dc86a9",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-011.html": {
+      "sha256": "186f7b35d1f6b1ed82d27f5f83a21d55df1c39a76432407b0c83428749214738",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-012.html": {
+      "sha256": "c2c155111b65b3a6d5432ff82e3af79348708f02c7b7659d79264d1e143f1ce8",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-013.html": {
+      "sha256": "498193afdb1d590d6c3143a3089aa988f48ab1259934c288b37fc8530fb554ae",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-014.html": {
+      "sha256": "683b8e7397ad3d51bed1a41be499f243acce941dad6440611638605e2900fa3d",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-015.html": {
+      "sha256": "ca92a5a0ced45aa5e6336f881fcea50f44fe61357994f08ca941238bf6e650c9",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-016.html": {
+      "sha256": "d7800214214a10defa0aa3cc59cf690ead434fd4b5c7286855e0fd3ecd5521cc",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-017.html": {
+      "sha256": "aecd752e36b5051d1636b2860314a23ebee721585a19ec839232e07ac6d51af6",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-018.html": {
+      "sha256": "c7f401b9844c17f4b8d18746bdb23f40318d51777d1a3f5f3541da30adbb3fd8",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-019.html": {
+      "sha256": "7a6cbf5e4dff0c69751124f306679bd8efd8c5ff2f91441cc6d05fd18117947b",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-020.html": {
+      "sha256": "556c79163b6a80aa79cadd6233f571ebc5afea8c7cd8c56d85f53a73befe221f",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-021.html": {
+      "sha256": "fc0104906ae0c477d5ff987d36273f19aeab74991f1e0e09d361200b471f9ca6",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-022.html": {
+      "sha256": "655439e764d27addffce0a504dc539aae8aa918279875e68e360cab8819cca8c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-023.html": {
+      "sha256": "d798461a40b4a692f32a4927936394655423530f778532015da3a78dd41aa79f",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-024.html": {
+      "sha256": "66e8be99c639a10b5b4fcc61a6255c639e93a864ed9db2589c326880ec983fb5",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-025.html": {
+      "sha256": "19e7c8556d7900b2554e7952213a746e422aae25656987d40f072f862bbdc764",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-026.html": {
+      "sha256": "ceb7dc71beace9b216ff054eb15b912263860f29c923fcc21fcbd4703ed98ac3",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-027.html": {
+      "sha256": "28dd41193a51d9433d6ce13774d95559b6d8631c73177899d6c11995c1e3e7ab",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-028.html": {
+      "sha256": "d9ffa7066fe22f2d79259524cc34951b6adf8e0d10224906aca5ddb52047a478",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-029.html": {
+      "sha256": "f4f5f027bedde9160022b94f3f1a20cfed8bb6f7c81a44f2b19c73b52329d6a7",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-030.html": {
+      "sha256": "5027823bc5ac14c2124309d87c701e835ac189d9ba4e2e9b2fdad09be48d6122",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-031.html": {
+      "sha256": "bccb4fe6db062713de7053910a9a7405674a7e53e3bbea62c97a72fd9e177eac",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-032.html": {
+      "sha256": "1b14f33cfbf78596a7da0837cce739b85bf2f6d4646973e7e1e2387a11fa1d6a",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-033.html": {
+      "sha256": "bd7004443dd037c10a0c653687779e6b91b9f958e095f690dfe7c3663c4dfdc5",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-034.html": {
+      "sha256": "d70a6270f35231c43ca2917a07320e211cd6ca115dbf179d8dcdda13abe153a0",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-035.html": {
+      "sha256": "60fec76c4b6351d0b08b7912dc63c44df5de5754b8ae205a941222fb890b09dd",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-036.html": {
+      "sha256": "2137f3c490d4cc52291c456670aa9fa537f904d549afb6dcbca4731fc0af153e",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-037.html": {
+      "sha256": "b5696bc2cf120d3c281c8575518923150d12dd6443746d7fa046a4bfdc57bca3",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-038.html": {
+      "sha256": "3211ca747e60e457dbef610abdfdc245db91dbbf54f5a9388cf93a516e36e1f4",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-039.html": {
+      "sha256": "b6b4357de53b600b716cffcc5cb986f5ec7526939aaad922fb7971c00cca8b41",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-040.html": {
+      "sha256": "21915e4a211edf103db7e2f58ebcb9cd8b7a5d96926ad737178c3d450cc1d8e4",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-041.html": {
+      "sha256": "98dc73497c57e5fdb3e7ba17d1781817eccf93ee7e5970c5c2df5652104d383c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-042.html": {
+      "sha256": "e822e6e081b264625ceaa8f2a86b8ee07dbdf1a094ec6a471436a439ef9cfc54",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-043.html": {
+      "sha256": "0a2de4c7b66931d68e87c7c6ad24d2e56bd5596d579ebc37aec7695a69d0d82c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-044.html": {
+      "sha256": "ee9f6d2b262ced2c56b824680aff6ff09cb0d528e4b224ebb03f70aab9882866",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-045.html": {
+      "sha256": "d401b7fdc1f7276b9697df8bcb5cd82c2c04f18d97700488c758d7c7f5a4e028",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-046.html": {
+      "sha256": "30427e6ccf84a8ef7d5e1daf363b246ad59bd56d1911a0960e03c39daa373a14",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-047.html": {
+      "sha256": "b6592e38af14fbbcdb0b7ed24a97e897f9ed7d52ca07c77b5ae8bcacc22b9959",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-048.html": {
+      "sha256": "6d66009ac9dcbfe08f309a9df6b0c9a301f92e5531a81370f9e214754b2eea75",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-049.html": {
+      "sha256": "81d48ce551dfacbb7ee4ef2e3dc3e5bb076a8f5c9a215bb61bd7ffa7d11e2638",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-050.html": {
+      "sha256": "50810f7613cd0fdfda1d9f32863cdaa897eed0438f9f7936b7db2125ef694721",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-051.html": {
+      "sha256": "4c4ec56351d4b174ca130fdc1a34baa0b6037e7c566f495c65ecb57f224e5b74",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-052.html": {
+      "sha256": "20020673197683842d68afa88972c75e2522d632b56245f25a50be03762ea6f2",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-053.html": {
+      "sha256": "fd9cc1802804bcc72eb490e53af1035d2882cfcbbf19a8a8dd96d6a5be95c42e",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-054.html": {
+      "sha256": "7d532fd674be3301ef84a9e4da2c19e56de2fc7df702d3b52647219d16699b8c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-055.html": {
+      "sha256": "6ce7994c18953117680475ab8a15b2ef8b640aaf9940a4da9abdfb37b3e0e2c3",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-056.html": {
+      "sha256": "140fd80231e2fd66706945255e780721ebb64de10f5922cca281d36980895daf",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-057.html": {
+      "sha256": "363ec72c697949ea258d13d42327170543767bc731ab9fbc1f4d4e385619d69c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-058.html": {
+      "sha256": "bc2982053fd42adfdbc41ed5c73ebc9028e587f43e7f836588f8c954b7a37817",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-059.html": {
+      "sha256": "69ce897a28c5acf16255f35415feabd6dcda294a4d8b19a90e9dfbfa7bb8d8bf",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-060.html": {
+      "sha256": "bc8db31c64cc547fff7691b819d4e479536fe00ce088a9fc21b79290ee3caed0",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-061.html": {
+      "sha256": "9bb1de9663fabd18365aec899fbd89224996fe425d45140c5dafe80c758cdd9f",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-062.html": {
+      "sha256": "8fcc41b890a82ceeba611a6e6414206ddff5342e947086dfe0eaebc3188350ea",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-063.html": {
+      "sha256": "fa1f3227a73e5dc52b3ab83f8690f725596d1cc67b4a046c34d1be1c8d8a3b4c",
+      "lastmod": "2026-08-26"
+    },
+    "products/kd-064.html": {
+      "sha256": "23269d5bcede2446daa19940a2e8bdc0d04fcaf1e895b4c1e255d2ad9483fe2e",
+      "lastmod": "2026-08-26"
+    },
+    "sosiska-v-teste.html": {
+      "sha256": "0b81747a4e2c8cb8632cc3121441f3fb8f2393a36f5dd717d72cba9fce6ca193",
+      "lastmod": "2026-08-26"
+    },
+    "sosiski-dlya-hotdog.html": {
+      "sha256": "2ab3639666083a72dd20a0ad15688402c1c2cfabf8ad66673a729e49ba821f25",
+      "lastmod": "2026-08-26"
+    },
+    "vetchina-optom.html": {
+      "sha256": "f50be7f4aaad267007ef7f19457a5cf496a8712c7904b958f20e2e3be33b0bbd",
+      "lastmod": "2026-08-26"
+    },
+    "vyipechka-halyal.html": {
+      "sha256": "efa986ceddeb3e1667365e9eda19a1f931829004e97ea6db4b156a8bf09d86ec",
+      "lastmod": "2026-08-26"
+    }
+  }
+}

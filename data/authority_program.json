@@ -1,0 +1,140 @@
+{
+  "version": 1,
+  "status": "active",
+  "launched_at": "2026-08-26",
+  "cycle": {
+    "id": "2026-08-27_2026-09-25",
+    "starts_at": "2026-08-27",
+    "ends_at": "2026-09-25",
+    "review_every_days": 7
+  },
+  "goal": {
+    "new_independent_domains": 5,
+    "international_domains_min": 1,
+    "published_nodes_required": 5,
+    "existing_domain_updates_do_not_count_as_new_domains": true
+  },
+  "entity_template": {
+    "legal_name_ru": "ООО «Казанские Деликатесы»",
+    "name_en": "Kazan Delicacies LLC",
+    "location": "Kazan, Republic of Tatarstan, Russia",
+    "positioning_ru": "производитель халяльных мясных продуктов и татарской выпечки; пепперони, HoReCa и контрактное производство по техническому заданию",
+    "positioning_en": "halal meat products and Tatar bakery manufacturer; pepperoni, foodservice and specification-led contract manufacturing",
+    "catalog_url": "https://pepperoni.tatar/",
+    "corporate_url": "https://kazandelikates.tatar/",
+    "phone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar"
+  },
+  "claim_boundaries": [
+    "Do not claim a customer, distributor, importer, shipment or listing before the third party publishes it.",
+    "Do not publish a fixed MOQ, lead time, capacity, delivery promise or country approval without a dated source.",
+    "Do not claim JAKIM, SFDA, GSO or GCC-wide recognition.",
+    "Do not buy reviews, fabricate testimonials or create promotional Wikipedia content.",
+    "One domain counts once per cycle, regardless of how many SKU pages it publishes."
+  ],
+  "workstreams": [
+    {
+      "id": "registry-dum-rt-update",
+      "class": "certification_registry",
+      "owner": "management",
+      "target_domain": "halalrt.ru",
+      "candidate_url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "status": "ready_for_owner_outreach",
+      "international": false,
+      "counts_as_new_domain": false,
+      "ask": [
+        "Add the English name Kazan Delicacies LLC.",
+        "Add https://pepperoni.tatar/ as the B2B catalog.",
+        "Use a factual manufacturer description without market-access claims."
+      ],
+      "acceptance": "The public company record shows the English name and catalog URL."
+    },
+    {
+      "id": "distributor-domain-1",
+      "class": "distributor_product_listing",
+      "owner": "sales",
+      "target_domain": "foodservice.dalimo.ru",
+      "candidate_url": "http://foodservice.dalimo.ru/",
+      "status": "requires_commercial_relationship_confirmation",
+      "international": false,
+      "counts_as_new_domain": true,
+      "ask": [
+        "Proceed only if the distributor actually carries or is onboarding a current SKU.",
+        "Publish brand, SKU, pack, storage, halal status and a product image from the approved catalog.",
+        "Link to the matching pepperoni.tatar SKU or catalog page."
+      ],
+      "acceptance": "A public, crawlable product or brand record exists on this domain."
+    },
+    {
+      "id": "distributor-domain-2",
+      "class": "b2b_retail_listing",
+      "owner": "sales",
+      "target_domain": "b2b.lenta.com",
+      "candidate_url": "https://b2b.lenta.com/",
+      "status": "requires_commercial_relationship_confirmation",
+      "international": false,
+      "counts_as_new_domain": true,
+      "ask": [
+        "Proceed only after sales confirms a real listing or onboarding route.",
+        "Use current SKU and pack facts from public/products.json.",
+        "Do not present an application or negotiation as an existing listing."
+      ],
+      "acceptance": "A public, crawlable product or supplier record exists on this domain."
+    },
+    {
+      "id": "industry-evidence-article",
+      "class": "independent_trade_media",
+      "owner": "management_editorial",
+      "target_domain": "sfera.fm",
+      "candidate_url": "https://sfera.fm/articles/myasnaya/",
+      "status": "requires_owned_dataset_or_editorial_hook",
+      "international": false,
+      "counts_as_new_domain": true,
+      "ask": [
+        "Pitch an expert article built around a real test, document update or disclosed catalog dataset.",
+        "Request an author/company bio with the entity template and catalog URL.",
+        "No advertorial superlatives or unverifiable market claims."
+      ],
+      "acceptance": "An editorial page with independent review, a factual company identity and a source link is published."
+    },
+    {
+      "id": "international-importer-catalog",
+      "class": "international_foodservice_importer",
+      "owner": "business_development",
+      "target_domain": "bidfoodme.com",
+      "candidate_url": "https://www.bidfoodme.com/get-in-touch?form=become-a-supplier",
+      "status": "requires_supplier_application_and_market_documents",
+      "international": true,
+      "counts_as_new_domain": true,
+      "ask": [
+        "Submit a supplier application only with the current specification and available documents.",
+        "Do not describe the application as an importer agreement or UAE availability.",
+        "A node counts only after a public supplier or SKU page is published."
+      ],
+      "acceptance": "A public supplier/SKU record or confirmed importer catalog page exists on this domain."
+    },
+    {
+      "id": "international-industry-article",
+      "class": "international_trade_media",
+      "owner": "management_editorial",
+      "target_domain": "foodbusinessmea.com",
+      "candidate_url": "https://www.foodbusinessmea.com/contributors/",
+      "status": "requires_owned_dataset_or_confirmed_export_event",
+      "international": true,
+      "counts_as_new_domain": true,
+      "ask": [
+        "Pitch only a sourced technical article or a confirmed company event.",
+        "Use the English entity template and link to the evidence-backed catalog.",
+        "Do not imply GCC approval, importer stock or completed shipments."
+      ],
+      "acceptance": "An independently published article or contributor page with a factual citation exists."
+    }
+  ],
+  "scoreboard": {
+    "new_domains_published": 0,
+    "international_domains_published": 0,
+    "published_nodes": [],
+    "last_reviewed_at": "2026-08-26",
+    "next_review_at": "2026-09-02"
+  }
+}

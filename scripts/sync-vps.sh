@@ -42,6 +42,15 @@ python3 scripts/bulk_fix_stale_content.py --fix-sku-text 2>&1 || echo "[warn] bu
 # logs a warning for the SEO agent / a human to triage, doesn't fail the sync.
 python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_counts.py found stale product-count mentions — see output above"
 
+# 1e. The sitemap is an explicit allowlist. Product sync may add/remove a real
+# SKU, so expand the manifest from products.json before rebuilding it.
+python3 scripts/build_index_manifest.py
+python3 scripts/rebuild_sitemap.py
+python3 scripts/fix_pages.py --all
+python3 scripts/fix_schema.py
+python3 scripts/qa_pages.py --all
+python3 scripts/index_policy_check.py
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 

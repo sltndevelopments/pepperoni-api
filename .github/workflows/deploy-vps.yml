@@ -12,6 +12,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Validate trust-reset policy
+        run: |
+          python3 scripts/index_policy_check.py
+          python3 scripts/authority_program_check.py
+          python3 scripts/measurement_governance_check.py
+
       # Deploy = git sync, NOT rsync --delete. The VPS repo is a live git clone
       # whose untracked files are runtime state the agents create between
       # commits (sqlite DB, strategy.json, freshly generated pages). The old
@@ -308,6 +314,16 @@ jobs:
               (crontab -l 2>/dev/null; echo "$DIGEST") | crontab -
               echo "✅ moscow-leads Friday digest cron installed (17:00 MSK)"
             fi
+
+      - name: Apply SEO trust-reset redirects and 410 policy
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_trust_reset.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_trust_reset.sh /var/www/pepperoni/repo
 
       - name: Nudge Google index (sitemap + hot URLs / 301s)
         uses: appleboy/ssh-action@v1.0.0

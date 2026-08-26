@@ -1,16 +1,51 @@
-# Implements: AI Discovery Files Specification v1.7.0 (https://www.ai-visibility.org.uk/specifications/)
-# Brand Guidelines — Kazan Delicacies / Казанские Деликатесы
+# Brand and fact system — Казанские Деликатесы / Kazan Delicacies
 
 Primary name (RU): Казанские Деликатесы
 Primary name (EN): Kazan Delicacies
 Legal name: ООО «Казанские Деликатесы»
-Short form: КД (RU), KD (EN)
-Domain: pepperoni.tatar
-Catalog domain: pepperoni.tatar
-Corporate domain: kazandelikates.tatar
+Catalog domain: https://pepperoni.tatar
+Corporate domain: https://kazandelikates.tatar
+Canonical entity ID: https://pepperoni.tatar/#organization
 
-Do NOT use: Kazan Delicates, Казанские Деликатности, КазДел
-Product brand: pepperoni.tatar (catalog), Казанские Деликатесы (manufacturer)
-Halal cert reference: ДУМ РТ №614А/2024
+Contact:
+- Phone: +7 987 217-02-02
+- Phone link: tel:+79872170202
+- Email: info@kazandelikates.tatar
+- Address: 420061, Республика Татарстан, г. Казань, ул. Аграрная, 2, оф. 7
 
-YouTube: https://www.youtube.com/@kazandelikates
+Verified certifications and controls:
+- Халяль ДУМ РТ №614А/2024
+- ISO 22000:2018
+- HACCP
+- ТР ТС 021/2011
+
+Catalog facts:
+- The only source for current assortment, SKU, ingredients, weights, storage,
+  shelf life, prices and availability is public/products.json, synchronized
+  from the approved Google Sheets catalog.
+- Product pages may repeat the shared catalog template. They must not invent
+  unique recipes, capabilities, logistics, market access or customer results.
+
+Allowed positioning:
+- RU: производитель халяльных мясных продуктов и татарской выпечки в Казани
+- EN: halal meat products and Tatar bakery manufacturer in Kazan, Russia
+- Capabilities may mention HoReCa and private-label/contract manufacturing
+  without promising an unverified MOQ, lead time, country approval or volume.
+
+Evidence policy:
+- Claims beyond this file require an active entry in data/evidence_registry.json.
+- Country, importer, distributor, customer, shipment, award, capacity and
+  performance claims require a dated source and an owner.
+- If a fact has no approved source, omit it or state that it must be confirmed
+  for the buyer's specification.
+
+Do not use:
+- Kazan Delicates, Казанские Деликатности, КазДел, КД or KD in customer copy
+- pork, lard, alcohol or non-halal bacon; Arabic pork wording is prohibited
+- kosher certification (none is claimed)
+- invented 8-800 numbers, addresses, GOSTs, awards, clients or reviews
+- "best", "only", "number one", unsupported market leadership or city figures
+- GCC, JAKIM, SFDA, GSO or country approval without a public source
+
+Official profile:
+- YouTube: https://www.youtube.com/@kazandelikates

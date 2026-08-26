@@ -153,7 +153,7 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID:   ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: python scripts/link_graph.py
+        run: echo "Autonomous linker disabled by explicit index-manifest policy"
         continue-on-error: true
 
       # ── Step 3: Generate content (OPT-IN ONLY) ─────────────────
@@ -161,7 +161,7 @@ jobs:
       # pages that hurt the domain. Enable per-run via the generate_pages input.
 
       - name: Generate content via DeepSeek API
-        if: github.event.inputs.generate_pages == 'true'
+        if: false
         env:
           DEEPSEEK_API_KEY:       ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
@@ -169,37 +169,34 @@ jobs:
           MAX_ARTICLES:         ${{ github.event.inputs.max_articles || '3' }}
           MAX_TITLES:           ${{ github.event.inputs.max_titles   || '10' }}
           MAX_TYPEGEO:          ${{ github.event.inputs.max_typegeo  || '3' }}
-        run: python scripts/generate_content.py
+        run: echo "Autonomous content generation retired by SEO trust reset"
         continue-on-error: true
 
       - name: Update product descriptions via GSC data
-        if: github.event.inputs.generate_pages == 'true'
+        if: false
         env:
           DEEPSEEK_API_KEY:          ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
           MAX_PRODUCT_UPDATES:     ${{ github.event.inputs.max_product_updates || '5' }}
-        run: python scripts/update_product_descriptions.py
+        run: echo "LLM product-description mutation disabled; Sheets is canonical"
         continue-on-error: true
 
       - name: Generate news articles
-        if: github.event.inputs.generate_pages == 'true' && github.event.inputs.run_news == 'true'
+        if: false
         env:
           DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
           ANTHROPIC_PROXY:        ${{ secrets.ANTHROPIC_PROXY }}
-        run: python scripts/gen_news.py
+        run: echo "Autonomous news generation retired by SEO trust reset"
         continue-on-error: true
 
       - name: Create geo output directories
-        if: github.event.inputs.generate_pages == 'true'
-        run: |
-          for d in geo en/geo ar/geo kk/geo uz/geo ky/geo tg/geo az/geo ka/geo mn/geo ro/geo hy/geo be/geo; do
-            mkdir -p "public/$d"
-          done
+        if: false
+        run: echo "Geo output retired"
 
       - name: Generate bulk geo pages
-        if: github.event.inputs.generate_pages == 'true'
+        if: false
         env:
           DEEPSEEK_API_KEY:   ${{ secrets.DEEPSEEK_API_KEY }}
           ANTHROPIC_API_KEY:      ${{ secrets.ANTHROPIC_API_KEY }}
@@ -207,14 +204,7 @@ jobs:
           MAX_GEO_PAGES:    ${{ github.event.inputs.max_geo_pages || '100' }}
           GEO_WORKERS:      "5"
           GEO_SLEEP:        "0.5"
-        run: |
-          LANGS="${{ github.event.inputs.geo_langs }}"
-          PRODUCTS="${{ github.event.inputs.geo_products }}"
-          MODE="${{ github.event.inputs.geo_mode || 'coverage' }}"
-          CMD="python scripts/generate_geo_bulk.py --mode $MODE --max-pages ${{ github.event.inputs.max_geo_pages || '100' }}"
-          if [ -n "$LANGS" ]; then CMD="$CMD --langs $LANGS"; fi
-          if [ -n "$PRODUCTS" ]; then CMD="$CMD --products $PRODUCTS"; fi
-          eval $CMD
+        run: echo "City-product generation retired by SEO trust reset"
         continue-on-error: true
 
       # ── Step 5: Commit & push all changes ──────────────────────

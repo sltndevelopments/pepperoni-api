@@ -185,9 +185,8 @@ python3 scripts/scout_seo.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Sco
 # Accountability loop: did each change actually move rankings? Resubmit
 # not-indexed pages, queue failing pages for Fable. Runs BEFORE the brain so the
 # strategy is forced to face its own misses (outcomes.failing in the digest).
-log "Step 3.3b: Outcomes — grading results + auto-repair …"
+log "Step 3.3b: Outcomes — grading results (mutation disabled) …"
 python3 scripts/outcome_tracker.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Outcome tracker failed (non-fatal)"
-python3 scripts/repair_outcomes.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Repair failed (non-fatal)"
 # A/B test measurement: check if any running tests have passed the 21-day window.
 python3 scripts/ab_test_manager.py --measure >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  ab_test measure failed (non-fatal)"
 
@@ -197,19 +196,16 @@ python3 scripts/ab_test_manager.py --measure >> "$LOG_FILE" 2>&1 || log_degradat
 # titles. Runs BEFORE the brain so the strategy sees fresh optimizer results.
 log "Step 3.4: Optimizer — measure matured experiments …"
 python3 scripts/optimize_seo.py --measure >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer measure failed (non-fatal)"
-log "Step 3.4: Optimizer — apply title/meta improvements …"
-python3 scripts/optimize_seo.py --apply >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Optimizer apply failed (non-fatal)"
+log "Step 3.4: ⏸ optimizer apply disabled; one canonical URL per approved experiment"
 
 # ---- Step 3.45: LANDING-BUILDER — build pages approved in Telegram ----
 # Closes the Scout→approval→page loop: only builds landings the owner approved.
-log "Step 3.45: Landing-Builder — building approved landings …"
-python3 scripts/build_landing.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Landing-Builder failed (non-fatal)"
+log "Step 3.45: ⏸ landing builder disabled; manifest review is required"
 
 # ---- Step 3.47: LINKER — semantic internal linking (blog↔landing↔OEM) ----
 # Cheapest safe ranking lever. Idempotent: refreshes the "Читайте также" block.
 # Runs after Landing-Builder so brand-new landings get linked in the same pass.
-log "Step 3.47: Linker — refreshing internal links …"
-python3 scripts/link_graph.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Linker failed (non-fatal)"
+log "Step 3.47: ⏸ autonomous linker disabled during canonical consolidation"
 
 # ---- Step 3.48/3.49: COMPETITOR-SCOUT + AIO-VISIBILITY (weekly, Mon) ----
 # Moved to GitHub Actions only (Task 0.2, stop dual scheduling): these ran here
@@ -250,18 +246,11 @@ python3 scripts/strategy_control.py --activate-if-ready >> "$LOG_FILE" 2>&1 || t
 log "Step 3.5b: Toolsmith — building/running brain's self-made tools …"
 log "  ⏸ autonomous code/tool mutation disabled; proposals require engineering review"
 
-# ---- Step 3.6: WORKER — execute the brain's strategy (closes the loop) ----
-# Reads data/strategy.json and builds what Fable decided: blog topics,
-# PL/OEM pages, rewrites. Without this step the strategy is dead paper.
-log "Step 3.6: Worker — executing brain strategy …"
+# ---- Step 3.6: Autonomous content generation retired ----
+# The trust reset keeps measurement and deterministic catalog work active, but
+# an indexable page now requires an explicit manifest change and evidence review.
+log "Step 3.6: ⏸ strategy page execution disabled by index allowlist policy"
 GENERATION_ALLOWED=0
-if python3 scripts/strategy_control.py --check-generation >> "$LOG_FILE" 2>&1; then
-    GENERATION_ALLOWED=1
-    python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 \
-      || log_degradation "⚠️  Strategy worker failed (non-fatal)"
-else
-    log "  ⏸ New content frozen by operator control plane"
-fi
 
 # ---- Step 3b: Clean up any stale temp files in public/ (should be zero, but guard) ----
 find public/ -maxdepth 3 -name "tmp*.html" -delete 2>/dev/null || true
@@ -287,24 +276,15 @@ if [ "$(date +%u)" = "7" ] || [ "${FORCE_SWEEP:-0}" = "1" ]; then
 fi
 
 # ---- Step 4: Legacy generate_content.py DISABLED ----
-# Truncated (no main) and topic list exhausted. Sole blog publisher is
-# generate_from_strategy.py (Step 3.6, CONTENT_MODEL=claude-sonnet-5) +
-# blog_topic_dedup near-dup gate.
-log "Step 4: skipped — legacy generate_content.py disabled (use strategy executor)"
+# New indexable pages require an owner-reviewed evidence entry and an explicit
+# data/index_manifest.json change.
+log "Step 4: skipped — autonomous content publishing retired by trust reset"
 
-# ---- Step 4b: Bulk geo pages (full assortment × RU + CIS cities) ----
-log "Step 4b: Generating bulk geo pages …"
-if [ "$GENERATION_ALLOWED" = "1" ]; then
-    MAX_GEO_PAGES="${MAX_GEO_PAGES:-20}" GEO_WORKERS="${GEO_WORKERS:-4}" \
-        python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "${MAX_GEO_PAGES:-20}" \
-        >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Geo bulk generation failed (non-fatal)"
-else
-    log "  ⏸ Geo generation frozen by operator control plane"
-fi
+# ---- Step 4b: Bulk geo pages permanently disabled ----
+log "Step 4b: ⏸ city × product generation retired by SEO trust reset"
 
 # ---- Step 4ba: Restyle off-brand blog articles (Bootstrap → brand shell) ----
-log "Step 4ba: Restyle blog articles …"
-python3 scripts/restyle_blog_articles.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Blog restyle failed (non-fatal)"
+log "Step 4ba: ⏸ bulk blog restyle disabled; cornerstone pages are owner-reviewed"
 
 # ---- Step 4bb: Rebuild blog index — keep /blog and /en/blog in sync with articles ----
 # Deterministic (no LLM). generate_content.py/generate_from_strategy.py only write
@@ -314,10 +294,10 @@ python3 scripts/restyle_blog_articles.py >> "$LOG_FILE" 2>&1 || log_degradation 
 log "Step 4bb: Rebuild blog index …"
 python3 scripts/rebuild_blog_index.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Blog index rebuild failed (non-fatal)"
 
-# ---- Step 4c: Schema enricher — Product JSON-LD merchant-listing fields ----
-# Deterministic (no LLM): image/description/shipping/return on every freshly
-# generated page, so GSC never sees missing Merchant-listing fields again.
-log "Step 4c: Enriching Product schemas …"
+# ---- Step 4c: Schema repair — catalog-backed Product fields only ----
+# Deterministic (no LLM): repairs image/description/currency, removes invalid
+# GTIN and unsupported merchant policy fields.
+log "Step 4c: Repairing Product schemas …"
 python3 scripts/fix_schema.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  Schema enricher failed (non-fatal)"
 
 # ---- Step 4c2: Strip MYR Product offers from geo (GMC crawl ghosts) ----
@@ -335,6 +315,14 @@ python3 scripts/fix_pages.py >> "$LOG_FILE" 2>&1 || fail_hard "fix_pages crashed
 python3 scripts/qa_pages.py --quarantine >> "$LOG_FILE" 2>&1 || fail_hard "qa_pages crashed — QA gate did not run, refusing to let ungated pages reach main"
 # Product overrides QA (halal/structure) — report only, overrides are durable.
 python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  qa_overrides found issues (see log)"
+
+# ---- Step 4d2: Explicit-index and governance gates ----
+log "Step 4d2: Trust-reset index and governance gates …"
+python3 scripts/build_index_manifest.py >> "$LOG_FILE" 2>&1 || fail_hard "index manifest build failed"
+python3 scripts/rebuild_sitemap.py >> "$LOG_FILE" 2>&1 || fail_hard "allowlist sitemap build failed"
+python3 scripts/index_policy_check.py >> "$LOG_FILE" 2>&1 || fail_hard "index/evidence policy failed"
+python3 scripts/authority_program_check.py >> "$LOG_FILE" 2>&1 || fail_hard "authority program policy failed"
+python3 scripts/measurement_governance_check.py >> "$LOG_FILE" 2>&1 || fail_hard "measurement governance failed"
 
 # ---- Step 4e: Gate summary → daily ledger (NOT direct Telegram) ----
 # Counts go into ledger as a 'done' event — surfaced once per day in digest.

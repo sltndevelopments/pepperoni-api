@@ -207,61 +207,45 @@ def cleanse_description(text: str) -> str:
 
 
 def derive_description(p: dict, tr: dict) -> str:
-    """Build a GMC-compliant description (≥150, ≤5000 chars, EN)."""
-    seo_title, headline, tagline, long_desc = parse_seo(p.get("seoDescriptionEN", ""))
-    chunks = []
-    if long_desc and len(long_desc) >= 50:
-        chunks.append(long_desc)
-    elif headline and tagline:
-        chunks.append(headline)
-        chunks.append(tagline)
-    # Add structured attributes when SEO description is thin
-    if sum(len(c) for c in chunks) < 500:
-        name_en = derive_title(p, tr)
-        cat_en = t_category(p.get("category", ""), tr)
-        sec_en = t_section(p.get("section", ""), tr)
-        weight = p.get("weight", "")
-        shelf = p.get("shelfLife", "")
-        storage = p.get("storage", "")
-        diameter = p.get("diameter", "")
-        casing = p.get("casing", "")
+    """Build an evidence-safe description from canonical catalog fields only."""
+    title = derive_title(p, tr)
+    chunks = [f"{title}."]
+    sku = str(p.get("sku") or "").strip()
+    article = str(p.get("articleNumber") or "").strip()
+    section = t_section(str(p.get("section") or ""), tr)
+    category = t_category(str(p.get("category") or ""), tr)
+    if sku:
+        chunks.append(f"SKU: {sku}.")
+    if article and article != sku:
+        chunks.append(f"Article: {article}.")
+    if section or category:
         chunks.append(
-            f"{name_en} — halal {cat_en.lower()} from Kazan Delicacies, {sec_en.lower()} category."
+            "Catalog classification: "
+            + " / ".join(value for value in (section, category) if value)
+            + "."
         )
-        if weight:
-            w_fmt = format_weight_en(weight)
-            chunks.append(f"Net weight: {w_fmt}." if w_fmt else f"Net weight: {weight}.")
-        if shelf:
-            shelf_clean = shelf.replace("суток", "days").replace("сутки", "days").replace("месяцев", "months")
-            chunks.append(f"Shelf life: {shelf_clean}.")
-        if storage:
-            chunks.append(f"Storage: {storage}.")
-        if diameter:
-            chunks.append(f"Diameter: {diameter} mm.")
-        if casing:
-            casing_en = casing.lower().strip()
-            if casing_en in ("без оболочки", "без оболоччки"):
-                casing_en = "casingless"
-            elif casing_en == "есть":
-                casing_en = "natural casing"
-            chunks.append(f"Casing: {casing_en}.")
-    # Halal + sourcing pitch — always include for AI parsing
+    weight = format_weight_en(str(p.get("weight") or ""))
+    if weight:
+        chunks.append(f"Net weight: {weight}.")
+    if p.get("packageType"):
+        chunks.append(f"Package type: {p['packageType']}.")
+    if p.get("shelfLife"):
+        chunks.append(f"Shelf life: {p['shelfLife']}.")
+    if p.get("storage"):
+        chunks.append(f"Storage: {p['storage']}.")
+    if p.get("diameter"):
+        chunks.append(f"Diameter: {p['diameter']} mm.")
+    if p.get("casing"):
+        chunks.append(f"Casing: {p['casing']}.")
+    if p.get("hsCode"):
+        chunks.append(f"HS code: {p['hsCode']}.")
     chunks.append(
-        "HALAL certified #614A/2024 by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). "
-        "HACCP and ISO 22000 certified production facility. 100% pork-free, made from premium halal meats "
-        "(beef, turkey, chicken, horse). Wholesale manufacturer direct from Kazan, Tatarstan, Russia. "
-        "Shipment options: EXW Kazan warehouse."
+        "Manufacturer: Kazan Delicacies LLC, Kazan, Russia. "
+        "Halal certificate DUM RT No. 614A/2024. "
+        "Current availability, commercial terms, destination requirements and "
+        "supporting documents are confirmed for the selected SKU on request."
     )
-    desc = " ".join(c for c in chunks if c).strip()
-    # Clean double-spaces and ensure 500-5000 char window
-    desc = re.sub(r"\s+", " ", desc)
-    desc = cleanse_description(desc)
-    if len(desc) < 500:
-        desc += (" Suitable for pizzerias, HoReCa, gas-station street food concepts, retail chains, "
-                 "cash-and-carry distributors, and foodservice operators. Ideal for hot dogs, pizza toppings, "
-                 "sandwiches, burgers, and national cuisine applications. Wholesale pricing available. "
-                 "Live prices and export quotes at api.pepperoni.tatar.")
-    return desc[:5000]
+    return cleanse_description(re.sub(r"\s+", " ", " ".join(chunks)))[:5000]
 
 
 def derive_link(p: dict) -> str:
@@ -482,6 +466,20 @@ def derive_custom_labels(p: dict, tr: dict) -> dict:
     }
 
 
+def sanitize_gtin(barcode) -> str:
+    """Return a checksum-valid GTIN-8/12/13/14 or an empty string."""
+    digits = re.sub(r"\D", "", str(barcode or ""))
+    if len(digits) not in {8, 12, 13, 14}:
+        return ""
+    payload = [int(char) for char in digits]
+    check = payload.pop()
+    total = sum(
+        digit * (3 if (len(payload) - index) % 2 else 1)
+        for index, digit in enumerate(payload)
+    )
+    return digits if (10 - total % 10) % 10 == check else ""
+
+
 def build_row(p: dict, tr: dict) -> dict:
     # Primary GMC feed targets RU — currency MUST be RUB (Google Merchant
     # answer/160637). USD+RU was the root cause of ~1.1k "invalid currency"
@@ -498,17 +496,13 @@ def build_row(p: dict, tr: dict) -> dict:
         "price": derive_price(p),
         "sale_price": "",
         "brand": BRAND,
-        "gtin": p.get("barcode", ""),
+        "gtin": sanitize_gtin(p.get("barcode")),
         "mpn": p.get("articleNumber", "") or p.get("sku", ""),
         "condition": "new",
-        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "identifier_exists": "yes" if sanitize_gtin(p.get("barcode")) else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{COUNTRY}:::0.00 {CURRENCY}",
         "shipping_weight": normalize_weight(p.get("weight", "")),
-        "tax": f"{COUNTRY}:20:y",
-        # Food products: returns only for defective goods (RU law art.25 ZOZPP)
-        "return_policy_label": "no-returns-food",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
         "age_group": "adult",
@@ -529,13 +523,8 @@ OPENAI_COMMERCE_STABLE_TSV_GZ = "openai-commerce-kazan-delicacies.tsv.gz"
 
 
 def sanitize_openai_gtin(barcode) -> str:
-    """OpenAI Products: GTIN 8–14 digits, no dashes or spaces."""
-    if not barcode:
-        return ""
-    digits = re.sub(r"\D", "", str(barcode))
-    if 8 <= len(digits) <= 14:
-        return digits
-    return ""
+    """OpenAI Products: checksum-valid GTIN, digits only."""
+    return sanitize_gtin(barcode)
 
 
 def clip_openai_field(s: str, max_len: int) -> str:
@@ -574,31 +563,6 @@ def derive_openai_offer_id(sku: str, price_str: str) -> str:
     return clip_openai_field(base, 100)
 
 
-def derive_openai_shipping(p: dict, country: str = "RU") -> str:
-    """OpenAI shipping format: country:region:service_class:price"""
-    if country == "AE":
-        return "AE:::0.00 AED"
-    return "RU:::0.00 RUB"
-
-
-def derive_expiration_date(p: dict) -> str:
-    """Derive expiration date from shelf life (for food products)."""
-    shelf = p.get("shelfLife", "")
-    if not shelf:
-        return ""
-    m = re.match(r"(\d+)\s*(суток|сутки|дней|день|месяцев|месяца|месяц)", shelf.lower())
-    if not m:
-        return ""
-    num = int(m.group(1))
-    unit = m.group(2)
-    if unit in ("месяцев", "месяца", "месяц"):
-        days = num * 30
-    else:
-        days = num
-    exp = datetime.now(timezone.utc) + timedelta(days=days)
-    return exp.strftime("%Y-%m-%d")
-
-
 def build_openai_row(p: dict, tr: dict) -> dict:
     """Build a row matching OpenAI Commerce product schema."""
     sku_raw = str(p.get("sku", "") or "").strip()
@@ -631,10 +595,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
     mpn = clip_openai_field(str(p.get("articleNumber", "") or sku_raw or sku_id), 70)
     avail_date = derive_openai_availability_date(p, avail)
     offer_id = derive_openai_offer_id(sku_id, price_str)
-    mat = clip_openai_field(
-        "halal meat, natural spices, no pork",
-        100,
-    )
+    storage = str(p.get("storage") or "").strip()
 
     return {
         # OpenAI required
@@ -652,7 +613,7 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "seller_name": clip_openai_field(BRAND, 70),
         "seller_url": safe_shopping_url("https://kazandelikates.tatar"),
         "return_policy": safe_shopping_url("https://pepperoni.tatar/returns"),
-        "target_countries": "RU,KZ,BY,UZ,KG,AZ",
+        "target_countries": "RU",
         "store_country": "RU",
         # OpenAI recommended / optional
         "gtin": gtin,
@@ -665,14 +626,18 @@ def build_openai_row(p: dict, tr: dict) -> dict:
         "additional_image_urls": ",".join(addl),
         "item_weight_unit": "kg",
         "weight": weight_str,
-        "expiration_date": derive_expiration_date(p),
+        # A batch expiry date cannot be derived from catalog shelf life.
+        "expiration_date": "",
         "seller_privacy_policy": safe_shopping_url("https://pepperoni.tatar/privacy"),
-        "accepts_returns": "false",
-        "shipping": derive_openai_shipping(p, "RU"),
+        "accepts_returns": "",
+        # Shipping is project-specific; account-level settings or a quote must
+        # supply it. EXW does not mean free shipping.
+        "shipping": "",
         # Compliance / context (plain text; lengths per Products spec where applicable)
-        "material": mat,
+        "material": "",
         "warning": clip_openai_field(
-            "Contains meat. Keep frozen -18C or refrigerated. Halal certified.",
+            f"Follow the SKU storage requirement: {storage}."
+            if storage else "Confirm the SKU storage requirement before ordering.",
             500,
         ),
         "age_restriction": "",
@@ -704,7 +669,7 @@ def build_openai_row_ae(p: dict, tr: dict) -> dict:
         row["price"] = price_aed
     row["target_countries"] = "AE"
     row["store_country"] = "RU"
-    row["shipping"] = derive_openai_shipping(p, "AE")
+    row["shipping"] = ""
     return row
 
 
@@ -715,8 +680,9 @@ def write_openai_csv(products: list, tr: dict, path: Path):
         return
     fieldnames = OPENAI_FEED_FIELDNAMES
     with path.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
-                           quoting=csv.QUOTE_MINIMAL)
+        w = csv.DictWriter(
+            f, fieldnames=fieldnames, delimiter="\t",
+            quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
         w.writeheader()
         for r in rows:
             r2 = {k: re.sub(r"[\r\n\t]+", " ", str(v)) for k, v in r.items()}
@@ -731,8 +697,9 @@ def write_openai_csv_gz(products: list, tr: dict, path: Path):
         return
     fieldnames = OPENAI_FEED_FIELDNAMES
     with gzip.open(path, "wt", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
-                           quoting=csv.QUOTE_MINIMAL)
+        w = csv.DictWriter(
+            f, fieldnames=fieldnames, delimiter="\t",
+            quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
         w.writeheader()
         for r in rows:
             r2 = {k: re.sub(r"[\r\n\t]+", " ", str(v)) for k, v in r.items()}
@@ -748,8 +715,9 @@ def write_csv(rows: list, path: Path):
         return
     fieldnames = list(rows[0].keys())
     with path.open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fieldnames, delimiter="\t",
-                           quoting=csv.QUOTE_MINIMAL)
+        w = csv.DictWriter(
+            f, fieldnames=fieldnames, delimiter="\t",
+            quoting=csv.QUOTE_MINIMAL, lineterminator="\n")
         w.writeheader()
         for r in rows:
             # GMC discourages newlines in description
@@ -794,10 +762,8 @@ def write_xml(rows: list, path: Path):
         lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
         lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
         lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-        lines.append(f"      <g:shipping><g:country>RU</g:country><g:price>0.00 {CURRENCY}</g:price></g:shipping>")
         if r["shipping_weight"]:
             lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
-        lines.append(f"      <g:tax><g:country>RU</g:country><g:rate>20</g:rate><g:tax_ship>y</g:tax_ship></g:tax>")
         if r["multipack"]:
             lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
         lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
@@ -844,14 +810,16 @@ def write_json(rows: list, products: list, path: Path):
             "brand": {"@type": "Brand", "name": BRAND},
             "manufacturer": {
                 "@type": "Organization",
+                "@id": f"{BASE_URL}/#organization",
                 "name": BRAND,
-                "url": "https://kazandelikates.tatar",
+                "legalName": "ООО «Казанские Деликатесы»",
+                "url": f"{BASE_URL}/",
                 "address": {
                     "@type": "PostalAddress",
-                    "streetAddress": "ul. Agrarnaya, 2",
+                    "streetAddress": "ul. Agrarnaya, 2, office 7",
                     "addressLocality": "Kazan",
-                    "addressRegion": "Tatarstan",
-                    "postalCode": "420059",
+                    "addressRegion": "Republic of Tatarstan",
+                    "postalCode": "420061",
                     "addressCountry": "RU",
                 },
             },
@@ -875,22 +843,8 @@ def write_json(rows: list, products: list, path: Path):
                 "priceExclVAT": price_excl_val,
                 "availability": offer.get("availability", "https://schema.org/InStock"),
                 "itemCondition": "https://schema.org/NewCondition",
-                "seller": {"@type": "Organization", "name": BRAND, "url": "https://kazandelikates.tatar"},
+                "seller": {"@id": f"{BASE_URL}/#organization"},
                 "exportPrices": offer.get("exportPrices"),
-                "shippingDetails": {
-                    "@type": "OfferShippingDetails",
-                    "shippingDestination": {"@type": "DefinedRegion", "addressCountry": "RU"},
-                    "shippingRate": {"@type": "MonetaryAmount", "value": "0.00", "currency": CURRENCY},
-                    "shippingOrigin": {
-                        "@type": "DefinedRegion",
-                        "addressLocality": "Kazan",
-                        "addressCountry": "RU",
-                    },
-                    "deliveryTime": {
-                        "@type": "ShippingDeliveryTime",
-                        "handlingTime": {"@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY"},
-                    },
-                },
             },
             "additionalProperty": [
                 {"@type": "PropertyValue", "name": "halal", "value": True},
@@ -906,6 +860,8 @@ def write_json(rows: list, products: list, path: Path):
                 {"@type": "PropertyValue", "name": "packageType", "value": p.get("packageType", "")},
             ],
         })
+        if not r["gtin"]:
+            item_list[-1].pop("gtin13", None)
 
     n = len(item_list)
     out = {
@@ -915,16 +871,17 @@ def write_json(rows: list, products: list, path: Path):
         "name": "Kazan Delicacies — Halal Product Catalog Feed",
         "description": (
             f"Machine-readable feed of {n} halal SKUs (sausages, pepperoni, kazylyk, ham, "
-            "Tatar pastries) from Kazan Delicacies LLC. Compatible with Google Merchant Center, "
-            "OpenAI Commerce, Bing Shopping, Perplexity Shopping."
+            "Tatar pastries) from Kazan Delicacies LLC."
         ),
         "url": f"{BASE_URL}/products-feed.json",
         "inLanguage": "en",
         "dateModified": datetime.now(timezone.utc).isoformat(),
         "publisher": {
             "@type": "Organization",
+            "@id": f"{BASE_URL}/#organization",
             "name": BRAND,
-            "url": "https://kazandelikates.tatar",
+            "legalName": "ООО «Казанские Деликатесы»",
+            "url": f"{BASE_URL}/",
             "logo": "https://pepperoni.tatar/images/logo.png",
         },
         "numberOfItems": n,
@@ -958,7 +915,7 @@ def write_json_ru(products: list, path: Path):
             "@id": f"{url}#product",
             "sku": sku,
             "mpn": p.get("articleNumber") or sku,
-            "gtin13": p.get("barcode") or None,
+            "gtin13": sanitize_gtin(p.get("barcode")) or None,
             "name": p.get("name") or sku,
             "description": (p.get("description") or p.get("name") or "")[:5000],
             "image": images or [DEFAULT_IMAGE],
@@ -966,8 +923,10 @@ def write_json_ru(products: list, path: Path):
             "brand": {"@type": "Brand", "name": "Казанские Деликатесы"},
             "manufacturer": {
                 "@type": "Organization",
+                "@id": f"{BASE_URL}/#organization",
                 "name": "Казанские Деликатесы",
-                "url": "https://kazandelikates.tatar",
+                "legalName": "ООО «Казанские Деликатесы»",
+                "url": f"{BASE_URL}/",
             },
             "countryOfOrigin": "RU",
             "category": f"{p.get('section', '')} > {p.get('category', '')}".strip(" >"),
@@ -982,6 +941,8 @@ def write_json_ru(products: list, path: Path):
                 "exportPrices": offer.get("exportPrices"),
             },
         })
+        if not sanitize_gtin(p.get("barcode")):
+            item_list[-1].pop("gtin13", None)
     n = len(item_list)
     out = {
         "@context": "https://schema.org",
@@ -990,16 +951,17 @@ def write_json_ru(products: list, path: Path):
         "name": "Казанские Деликатесы — Каталог халяль продукции",
         "description": (
             f"Машиночитаемый каталог {n} халяль SKU (пепперони, сосиски, казылык, ветчина, "
-            "татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, "
-            "OpenAI Commerce, Bing Shopping, Perplexity Shopping."
+            "татарская выпечка) от ООО «Казанские Деликатесы»."
         ),
         "url": f"{BASE_URL}/ru/products-feed.json",
         "inLanguage": "ru",
         "dateModified": datetime.now(timezone.utc).isoformat(),
         "publisher": {
             "@type": "Organization",
+            "@id": f"{BASE_URL}/#organization",
             "name": "Казанские Деликатесы",
-            "url": "https://kazandelikates.tatar",
+            "legalName": "ООО «Казанские Деликатесы»",
+            "url": f"{BASE_URL}/",
             "logo": "https://pepperoni.tatar/images/logo.png",
         },
         "numberOfItems": n,
@@ -1014,7 +976,7 @@ def write_json_ru(products: list, path: Path):
 
 
 # ----------------------------------------------------------------------
-# UAE / AE feed — EN, AED prices, target country AE
+# UAE / AE price-preview feed — no market-access or delivery claim
 # ----------------------------------------------------------------------
 AED_RATE = 3.67  # 1 USD = 3.67 AED (fixed; update when rate shifts >5%)
 
@@ -1033,7 +995,7 @@ def derive_price_aed(p: dict) -> str:
 
 
 def build_row_ae(p: dict, tr: dict) -> dict:
-    """GMC row for UAE: EN titles, AED prices, AE shipping."""
+    """Buyer-qualification row with EN titles and indicative AED prices."""
     google_cat_id, _ = derive_taxonomy(p)
     price = derive_price_aed(p) or (derive_price_usd(p) or derive_price(p))
     return {
@@ -1047,16 +1009,13 @@ def build_row_ae(p: dict, tr: dict) -> dict:
         "price": price,
         "sale_price": "",
         "brand": BRAND,
-        "gtin": p.get("barcode", ""),
+        "gtin": sanitize_gtin(p.get("barcode")),
         "mpn": p.get("articleNumber", "") or p.get("sku", ""),
         "condition": "new",
-        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "identifier_exists": "yes" if sanitize_gtin(p.get("barcode")) else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        # AE: no VAT on food, free shipping (EXW — buyer arranges)
-        "shipping": "AE:::0.00 AED",
         "shipping_weight": normalize_weight(p.get("weight", "")),
-        "tax": "AE:0:n",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
         "age_group": "adult",
@@ -1076,7 +1035,7 @@ def write_xml_ae(rows: list, path: Path) -> None:
         '  <channel>',
         '    <title>Kazan Delicacies — Halal Catalog (EN/AE)</title>',
         f'    <link>{BASE_URL}/en/</link>',
-        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for UAE.</description>',
+        '    <description>Catalog price data in AED for buyer qualification. Market access, importer, availability and delivery are confirmed per request.</description>',
         '    <language>en-us</language>',
         f'    <pubDate>{now}</pubDate>',
     ]
@@ -1101,11 +1060,8 @@ def write_xml_ae(rows: list, path: Path) -> None:
         lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
         lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
         lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-        lines.append(f"      <g:shipping><g:country>AE</g:country><g:price>0.00 AED</g:price></g:shipping>")
         if r["shipping_weight"]:
             lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
-        # UAE: no VAT on basic food
-        lines.append(f"      <g:tax><g:country>AE</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
         if r["multipack"]:
             lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
         lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
@@ -1180,7 +1136,6 @@ def build_row_cis(p: dict, tr: dict, country: str) -> dict:
     """GMC row for a CIS country: RU lang, native currency, RU product links."""
     google_cat_id, _ = derive_taxonomy(p)
     price = derive_price_cis(p, country)
-    cur = CIS_NATIVE.get(country) or CIS_FX_COUNTRIES.get(country, "USD")
     return {
         "id": p.get("sku", ""),
         # Use RU name (not translated) — CIS audience reads Russian
@@ -1193,15 +1148,13 @@ def build_row_cis(p: dict, tr: dict, country: str) -> dict:
         "price": price,
         "sale_price": "",
         "brand": BRAND,
-        "gtin": p.get("barcode", ""),
+        "gtin": sanitize_gtin(p.get("barcode")),
         "mpn": p.get("articleNumber", "") or p.get("sku", ""),
         "condition": "new",
-        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "identifier_exists": "yes" if sanitize_gtin(p.get("barcode")) else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{country}:::0.00 {cur}",
         "shipping_weight": normalize_weight(p.get("weight", "")),
-        "tax": f"{country}:0:n",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
         "age_group": "adult",
@@ -1245,10 +1198,6 @@ def write_xml_single_country(
     for r in rows:
         addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
         item_id = f"{r['id']}-{country}" if id_suffix else r["id"]
-        sh_parts = r["shipping"].split(":::")
-        sh_country, sh_price = (
-            (sh_parts[0], sh_parts[1]) if len(sh_parts) == 2 else (country, f"0.00 {currency}")
-        )
         lines.append("    <item>")
         lines.append(f"      <g:id>{escape(item_id)}</g:id>")
         lines.append(f"      <title>{escape(r['title'])}</title>")
@@ -1268,16 +1217,8 @@ def write_xml_single_country(
         lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
         lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
         lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-        lines.append(
-            f"      <g:shipping><g:country>{escape(sh_country)}</g:country>"
-            f"<g:price>{escape(sh_price)}</g:price></g:shipping>"
-        )
         if r["shipping_weight"]:
             lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
-        lines.append(
-            f"      <g:tax><g:country>{escape(sh_country)}</g:country>"
-            f"<g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>"
-        )
         if r["multipack"]:
             lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
         lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
@@ -1305,7 +1246,7 @@ def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
         '  <channel>',
         '    <title>Казанские Деликатесы — Халяль Каталог (CIS)</title>',
         f'    <link>{BASE_URL}/</link>',
-        '    <description>Халяль пепперони, колбасы, казылык, татарская выпечка — оптовый каталог для СНГ. Multi-country aggregate — use products-feed-{cc}.xml for GMC.</description>',
+        '    <description>Ценовые данные каталога для квалификации запросов из СНГ. Возможность поставки, документы, импортёр и логистика подтверждаются отдельно.</description>',
         '    <language>ru</language>',
         f'    <pubDate>{now}</pubDate>',
     ]
@@ -1333,13 +1274,8 @@ def write_xml_cis(rows_by_country: dict[str, list], path: Path) -> None:
             lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
             lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
             lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-            # Parse shipping field "CC:::0.00 CUR"
-            sh_parts = r["shipping"].split(":::")
-            sh_country, sh_price = (sh_parts[0], sh_parts[1]) if len(sh_parts) == 2 else (country, "0.00 USD")
-            lines.append(f"      <g:shipping><g:country>{sh_country}</g:country><g:price>{sh_price}</g:price></g:shipping>")
             if r["shipping_weight"]:
                 lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
-            lines.append(f"      <g:tax><g:country>{sh_country}</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
             if r["multipack"]:
                 lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
             lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
@@ -1401,10 +1337,9 @@ def derive_price_arab(p: dict, country: str) -> str:
 
 
 def build_row_arab(p: dict, tr: dict, country: str) -> dict:
-    """GMC row for Arab country: EN titles, local currency, country shipping."""
+    """Buyer-qualification row with EN titles and indicative local prices."""
     google_cat_id, _ = derive_taxonomy(p)
     price = derive_price_arab(p, country)
-    cur = ARAB_FX.get(country, ("USD", 1.0))[0]
     return {
         "id": p.get("sku", ""),
         "title": derive_title(p, tr),
@@ -1416,15 +1351,13 @@ def build_row_arab(p: dict, tr: dict, country: str) -> dict:
         "price": price,
         "sale_price": "",
         "brand": BRAND,
-        "gtin": p.get("barcode", ""),
+        "gtin": sanitize_gtin(p.get("barcode")),
         "mpn": p.get("articleNumber", "") or p.get("sku", ""),
         "condition": "new",
-        "identifier_exists": "yes" if p.get("barcode") else "no",
+        "identifier_exists": "yes" if sanitize_gtin(p.get("barcode")) else "no",
         "google_product_category": google_cat_id,
         "product_type": derive_product_type(p, tr),
-        "shipping": f"{country}:::0.00 {cur}",
         "shipping_weight": normalize_weight(p.get("weight", "")),
-        "tax": f"{country}:0:n",
         "multipack": p.get("qtyPerBox", ""),
         "is_bundle": "no",
         "age_group": "adult",
@@ -1445,12 +1378,11 @@ def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
         '  <channel>',
         '    <title>Kazan Delicacies — Halal Catalog (Arab/GCC)</title>',
         f'    <link>{BASE_URL}/en/</link>',
-        '    <description>Halal pepperoni, sausages, kazylyk, Tatar pastries — wholesale catalog for Arab/GCC markets. Multi-country aggregate — use products-feed-{cc}.xml for GMC.</description>',
+        '    <description>Catalog price data for buyer qualification. Market access, importer, availability and delivery are confirmed for each destination request.</description>',
         '    <language>en-us</language>',
         f'    <pubDate>{now}</pubDate>',
     ]
     for country, rows in sorted(rows_by_country.items()):
-        cur = ARAB_FX.get(country, ("USD", 1.0))[0]
         for r in rows:
             addl = [x.strip() for x in r["additional_image_link"].split(",") if x.strip()]
             item_id = f"{r['id']}-{country}"
@@ -1473,10 +1405,8 @@ def write_xml_arab(rows_by_country: dict[str, list], path: Path) -> None:
             lines.append(f"      <g:identifier_exists>{r['identifier_exists']}</g:identifier_exists>")
             lines.append(f"      <g:google_product_category>{r['google_product_category']}</g:google_product_category>")
             lines.append(f"      <g:product_type>{escape(r['product_type'])}</g:product_type>")
-            lines.append(f"      <g:shipping><g:country>{country}</g:country><g:price>0.00 {cur}</g:price></g:shipping>")
             if r["shipping_weight"]:
                 lines.append(f"      <g:shipping_weight>{escape(r['shipping_weight'])}</g:shipping_weight>")
-            lines.append(f"      <g:tax><g:country>{country}</g:country><g:rate>0</g:rate><g:tax_ship>n</g:tax_ship></g:tax>")
             if r["multipack"]:
                 lines.append(f"      <g:multipack>{escape(str(r['multipack']))}</g:multipack>")
             lines.append(f"      <g:age_group>{r['age_group']}</g:age_group>")
@@ -1518,8 +1448,8 @@ def main():
             currency=cur,
             title=f"Казанские Деликатесы — Халяль Каталог ({country})",
             description=(
-                f"Халяль пепперони, колбасы, казылык, татарская выпечка — "
-                f"оптовый каталог для {country} ({cur})."
+                f"Ценовые данные каталога в {cur} для квалификации запроса "
+                f"по направлению {country}; поставка и документы подтверждаются отдельно."
             ),
             language="ru",
             channel_link=f"{BASE_URL}/",
@@ -1540,8 +1470,8 @@ def main():
             currency=cur,
             title=f"Kazan Delicacies — Halal Catalog ({country})",
             description=(
-                f"Halal pepperoni, sausages, kazylyk, Tatar pastries — "
-                f"wholesale catalog for {country} ({cur})."
+                f"Catalog price data in {cur} for a {country} buyer enquiry; "
+                "market access, importer, availability and delivery are confirmed separately."
             ),
             language="en-us",
             channel_link=f"{BASE_URL}/en/",
@@ -1559,7 +1489,13 @@ def main():
         ae_openai_path = PUBLIC / "products-feed-openai-ae.csv"
         with ae_openai_path.open("w", encoding="utf-8", newline="") as f:
             import csv as _csv
-            w = _csv.DictWriter(f, fieldnames=OPENAI_FEED_FIELDNAMES, delimiter="\t", extrasaction="ignore")
+            w = _csv.DictWriter(
+                f,
+                fieldnames=OPENAI_FEED_FIELDNAMES,
+                delimiter="\t",
+                extrasaction="ignore",
+                lineterminator="\n",
+            )
             w.writeheader()
             w.writerows(rows_openai_ae)
         print(f"OK OpenAI CSV AE {ae_openai_path} — {len(rows_openai_ae)} rows, {ae_openai_path.stat().st_size//1024} KB")

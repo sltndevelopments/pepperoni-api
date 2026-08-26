@@ -5,13 +5,16 @@ Halal B2B landing pages for pepperoni.tatar — Kazan Delicacies.
 Usage: python3 scripts/gen-index.py
 """
 
-from pathlib import Path
 from datetime import datetime
+import json
+from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
 
 YEAR = datetime.now().year
+SKU_COUNT = len(json.loads((PUBLIC / "products.json").read_text(
+    encoding="utf-8"))["products"])
 
 # GTM + Metrika after first interaction (or 45s). Never in <head>: gtag.js in
 # head was ~350 KiB unused JS and the July→August PSI drop (lab 100 → 72).
@@ -48,7 +51,7 @@ def gen_ru() -> str:
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta http-equiv="content-language" content="ru">
 <title>Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы</title>
-<meta name="description" content="Халяль пепперони, сосиски, котлеты для бургеров, татарская выпечка оптом от производителя в Казани. ХАССП, ISO 22000:2018, сертификат ДУМ РТ. EXW Казань. HoReCa, ретейл, экспорт СНГ.">
+<meta name="description" content="Каталог халяльной продукции «Казанские Деликатесы»: пепперони, сосиски, котлеты, колбасы и татарская выпечка. Характеристики, цены и документы для B2B-запроса.">
 <meta name="keywords" content="халяль пепперони оптом, сосиски халяль, котлеты для бургеров халяль, татарская выпечка, мясные изделия казань, производитель халяль, ХАССП, ISO 22000:2018">
 <meta name="author" content="Казанские Деликатесы">
 <meta name="robots" content="index, follow">
@@ -57,7 +60,6 @@ def gen_ru() -> str:
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
-<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 <link rel="alternate" type="text/markdown" href="/llms.txt" title="Markdown for agents">
 <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
@@ -66,29 +68,28 @@ def gen_ru() -> str:
 <meta name="theme-color" content="#1b7a3d">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
-<meta property="og:description" content="Халяль пепперони, сосиски, котлеты, выпечка оптом. ХАССП, ISO 22000:2018, ДУМ РТ. Экспорт. EXW Казань.">
+<meta property="og:description" content="B2B-каталог халяльной продукции из Казани: актуальные SKU, характеристики, цены и проверяемые документы.">
 <meta property="og:url" content="https://pepperoni.tatar/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
-<meta name="twitter:description" content="Пепперони, сосиски, котлеты, выпечка. 100% Халяль. EXW Казань.">
+<meta name="twitter:description" content="Актуальные SKU, характеристики, цены и документы для B2B-запроса.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
 {{
-  "@context":"https://schema.org","@type":"Organization",
-  "name":"Казанские Деликатесы","alternateName":["Kazan Delicacies","ООО «Казанские Деликатесы»"],
-  "legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar",
+  "@context":"https://schema.org","@type":"Organization","@id":"https://pepperoni.tatar/#organization",
+  "name":"Казанские Деликатесы","alternateName":"Kazan Delicacies",
+  "legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/",
   "logo":"https://pepperoni.tatar/images/logo.png",
   "email":"info@kazandelikates.tatar","telephone":"+79872170202",
   "description":"Производитель халяль мясных изделий в Татарстане. Пепперони, сосиски, котлеты для бургеров, татарская выпечка. ХАССП, ISO 22000:2018. СТМ.",
-  "address":{{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2","addressLocality":"Казань","postalCode":"420059","addressRegion":"Татарстан","addressCountry":"RU"}},
-  "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"ДУМ РТ","url":"https://dumrt.ru"}}}},
+  "address":{{"@type":"PostalAddress","streetAddress":"ул. Аграрная, 2, оф. 7","addressLocality":"Казань","postalCode":"420061","addressRegion":"Республика Татарстан","addressCountry":"RU"}},
   "contactPoint":[
-    {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","areaServed":["RU","KZ","UZ","BY","AM","AZ","KG"],"availableLanguage":["Russian","English"]}},
-    {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","areaServed":"RU","availableLanguage":"Russian"}}
+    {{"@type":"ContactPoint","telephone":"+79872170202","contactType":"sales","availableLanguage":["Russian","English"]}},
+    {{"@type":"ContactPoint","url":"https://wa.me/79872170202","contactType":"customer support","availableLanguage":"Russian"}}
   ],
-  "sameAs":["https://pepperoni.tatar","https://kazandelikates.tatar","https://www.youtube.com/@kazandelikates","https://www.wikidata.org/wiki/Q141108238"]
+  "sameAs":["https://kazandelikates.tatar/","https://www.youtube.com/@kazandelikates"]
 }}
 </script>
 <style>
@@ -252,9 +253,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <main>
 <section class="hero">
   <div class="container">
-    <div class="hero__badge">🌿 100% ХАЛЯЛЬ · ХАССП · ISO 22000:2018</div>
+    <div class="hero__badge">🌿 ХАЛЯЛЬ ДУМ РТ · ХАССП · ISO 22000:2018</div>
     <h1>Производитель халяль колбасных изделий и выпечки для HoReCa и ретейла</h1>
-    <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров, татарская выпечка. Сделано в Казани. Экспорт по СНГ и Ближнему Востоку.</p>
+    <p class="hero__sub">Пепперони, сосиски, котлеты для бургеров и татарская выпечка из актуального B2B-каталога.</p>
     <div class="hero__btns">
       <a href="#segments" class="btn btn-primary">Сегменты B2B</a>
       <a href="#catalog" class="btn btn-outline">Смотреть каталог</a>
@@ -307,50 +308,50 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <section class="segments" id="segments">
   <div class="container">
-    <h2 class="section-title">Кому поставляем</h2>
-    <p class="section-sub">6 B2B-сегментов · матрица SKU, фасовка и условия под ваш канал</p>
+    <h2 class="section-title">Для каких B2B-задач собран каталог</h2>
+    <p class="section-sub">SKU и фасовка берутся из каталога; коммерческие условия подтверждаются по запросу.</p>
     <div class="segments__grid">
       <a href="/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
         <div class="seg-card__icon">⛽</div>
         <div class="seg-card__title">АЗС и street food</div>
         <div class="seg-card__desc">Сосиски для хот-догов, пепперони, котлеты, сосиски в тесте для мини-кухни и витрины «с собой».</div>
-        <div class="seg-card__case">Кейс: сеть АЗС Татнефть + SMARTEN <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__case">Подобрать SKU по техническому заданию <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/kontraktnoe-proizvodstvo" class="seg-card">
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">СТМ / Private Label</div>
         <div class="seg-card__desc">Колбасы, сосиски, пепперони, выпечка под вашим брендом. Объём — по договору.</div>
-        <div class="seg-card__case">Кейс: линейка «Аслам» для ОМПК <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__case">Оценить проект по техническому заданию <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-pekaren" class="seg-card">
         <span class="seg-card__num">03</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Пекарни и выпечка</div>
-        <div class="seg-card__desc">Сосиски в тесте, фарш, начинки — стабильные ТУ и ветдоки под требования сетей.</div>
-        <div class="seg-card__case">Стабильная жирность и нарезка <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Сосиски в тесте, мясные продукты и выпечка — характеристики каждой позиции указаны в карточке SKU.</div>
+        <div class="seg-card__case">Сверить состав, массу и хранение <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-setey" class="seg-card">
         <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Розница и федеральные сети</div>
-        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка. EAN, ветсертификаты, пакет соответствия.</div>
-        <div class="seg-card__case">EuroSpar, Бэхетле, Metro, Мираторг <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Пепперони, казылык, сосиски и выпечка. Артикулы, штрихкоды и доступные документы — по выбранному SKU.</div>
+        <div class="seg-card__case">Открыть ассортимент для сетей <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-horeca" class="seg-card">
         <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa и общепит</div>
-        <div class="seg-card__desc">Рестораны, отели, пиццерии, dark kitchen, кейтеринг. Форматы 0,5–5 кг для профкухни.</div>
-        <div class="seg-card__case">Кейс: GFC, SweetLife, КВЗ <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Пиццерии, рестораны, dark kitchen и кейтеринг. Форматы и хранение сверяются по карточкам SKU.</div>
+        <div class="seg-card__case">Открыть ассортимент HoReCa <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/dlya-distributorov" class="seg-card">
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Дистрибьюторы регионов</div>
-        <div class="seg-card__desc">Отсрочка согласно договору, свой прайс, полная халяль-матрица из Татарстана с одного склада.</div>
-        <div class="seg-card__case">Кейс: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Каталог с артикулами, ценами, хранением и экспортными валютами для первичной оценки ассортимента.</div>
+        <div class="seg-card__case">Открыть данные для дистрибьютора <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
   </div>
@@ -358,81 +359,29 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <section class="segments" style="background:#fff;padding-bottom:48px" id="partners">
   <div class="container">
-    <h2 class="section-title">С кем работаем</h2>
-    <p class="section-sub">Ключевые клиенты и партнёры «Казанских Деликатесов»</p>
+    <h2 class="section-title">Независимые подтверждения</h2>
+    <p class="section-sub">Публичные страницы подтверждают только прямо указанные на них факты.</p>
     <div class="segments__grid">
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">⛽</div>
-        <div class="seg-card__title">Сеть АЗС «Татнефть»</div>
-        <div class="seg-card__desc">Сосиски для хот-догов и котлеты для бургеров — на АЗС по всей сети; татарская выпечка — на отдельных объектах региона.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🏷️</div>
-        <div class="seg-card__title">ОМПК (Останкино)</div>
-        <div class="seg-card__desc">СТМ: традиционные колбасы под ТМ «Аслам» для ОМПК — по рецептуре заказчика, без пепперони.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">EuroSpar (Казань)</div>
-        <div class="seg-card__desc">Халяль-полка: пепперони, казылык, сосиски, выпечка в супермаркетах сети.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Бэхетле (Казань)</div>
-        <div class="seg-card__desc">Халяльный ассортимент в премиальной розничной сети Казани.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Metro Cash &amp; Carry</div>
-        <div class="seg-card__desc">Халяльная продукция в гипермаркетах федеральной сети.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Мираторг</div>
-        <div class="seg-card__desc">Татарская выпечка (эчпочмак, перемяч, самса) на полках супермаркетов «Мираторг».</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🏭</div>
-        <div class="seg-card__title">Казанский вертолётный завод</div>
-        <div class="seg-card__desc">Халяльная продукция для корпоративного питания крупного промышленного предприятия.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">⛽</div>
-        <div class="seg-card__title">SMARTEN</div>
-        <div class="seg-card__desc">Оператор сети АЗС — халяль для магазина при АЗС и street food.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🚚</div>
-        <div class="seg-card__title">GFC</div>
-        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — наша халяль-линейка во всех регионах присутствия.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🚚</div>
-        <div class="seg-card__title">SweetLife</div>
-        <div class="seg-card__desc">Федеральный фудсервис-дистрибьютор — поставки халяльной продукции в HoReCa по России.</div>
-      </div>
+      <a class="seg-card" href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">Реестр ДУМ РТ</div><div class="seg-card__desc">Карточка компании и халяль-сертификации во внешнем реестре.</div></a>
+      <a class="seg-card" href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">IAF CertSearch</div><div class="seg-card__desc">Публичная запись ISO 22000:2018 FSMS-2351/А.</div></a>
+      <a class="seg-card" href="https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kolbasy-vetchina-bekon/240111-kolbasa-pepperoni-halyal-narezka-v-k-zam-kazanskie-delikatesy-500gr-10sht-kor" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">GFC</div><div class="seg-card__desc">Внешняя карточка халяльной пепперони бренда.</div></a>
+      <a class="seg-card" href="https://swlife.ru/118665" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">Свит Лайф</div><div class="seg-card__desc">Внешняя товарная карточка пепперони бренда.</div></a>
     </div>
     <div style="text-align:center;margin-top:24px">
-      <a href="/partnery" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Полный список партнёров →</a>
-    </div>
-    <div style="margin-top:20px;font-size:.82rem;color:var(--muted);text-align:center;line-height:1.55;max-width:52rem;margin-left:auto;margin-right:auto">
-      Проверить документы в реестрах:
-      <a href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener noreferrer">Халяль ДУМ РТ №614А/2024</a> ·
-      <a href="https://halalrt.ru/c/4hDESSiMNsDK3Jt/" target="_blank" rel="noopener noreferrer">Халяль ДУМ РТ №884А/2025</a> ·
-      <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener noreferrer">ISO 22000:2018 (IAF CertSearch, FSMS-2351/А)</a>
+      <a href="/cases" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Все публичные подтверждения →</a>
     </div>
   </div>
 </section>
 
 <section class="usps">
   <div class="container">
-    <h2 class="section-title">Почему выбирают нас</h2>
-    <p class="section-sub">Производство в Татарстане. Поставки по России и на экспорт.</p>
+    <h2 class="section-title">Что можно проверить до запроса</h2>
+    <p class="section-sub">Каталог, документы и условия проекта имеют явный источник.</p>
     <div class="usps__grid">
-      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Собственное производство</div><div class="usp-card__text">Производим в Казани с 2022 года. Полный контроль качества от сырья до отгрузки. ХАССП на всех этапах.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт EXW Казань</div><div class="usp-card__text">Поставляем в Казахстан, Беларусь, Узбекистан, ОАЭ. Ветеринарные сертификаты, таможенное оформление.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Производим под вашим брендом. Колбасы, сосиски, котлеты, пельмени, выпечка.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Строгий стандарт Халяль</div><div class="usp-card__text">Только говядина, курица, конина, индейка. Без свинины. Сертификат ДУМ РТ. Состав каждой позиции — в карточке SKU.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Производитель в Казани</div><div class="usp-card__text">Юридическое лицо, адрес и производственный профиль сверяются по независимым реестрам на странице «О компании».</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Экспорт по спецификации</div><div class="usp-card__text">Базис каталога — EXW Казань. Требования рынка, документы и маршрут подтверждаются для конкретного запроса.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (СТМ)</div><div class="usp-card__text">Проект оценивается по техническому заданию; MOQ, срок и формат упаковки подтверждаются после проверки.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Халяль ДУМ РТ</div><div class="usp-card__text">Сертификат №614A/2024 и состав каждой позиции можно проверить по реестру и карточке SKU.</div></div>
     </div>
   </div>
 </section>
@@ -487,10 +436,10 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
     <h2 style="color:var(--green)"><span aria-hidden="true">🤝</span> Производственные решения для HoReCa и Ритейла</h2>
     <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (СТМ)</h3><p>Технологическая возможность и коммерческие условия определяются после проверки технического задания.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Спецификация закупщика</h3><p>Состав, диаметр, масса и упаковка сначала сверяются с действующим каталогом и требованиями проекта.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> Халяль и контроль безопасности</h3><p>Сертификат ДУМ РТ, ISO 22000:2018 и доступные документы собраны на странице сертификатов.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Экспортный запрос</h3><p>Базис EXW Казань; страна назначения, документы и логистика проверяются для каждой планируемой поставки.</p></div>
     </div>
   </div>
 
@@ -504,7 +453,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
   <div class="info-block">
     <h2>API для партнёров</h2>
-    <p>Интегрируйте каталог халяль товаров напрямую в ERP, 1С, iiko или МойСклад. Цены обновляются в реальном времени. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
+    <p>Интегрируйте каталог халяль товаров напрямую в ERP, 1С, iiko или МойСклад. Цены синхронизируются из утверждённого каталога Google Sheets. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
     <ul class="endpoint-list" style="margin-top:12px">
       <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — актуальные цены из Google Sheets</span></li>
       <li><a href="/products.json">/products.json</a><span class="endpoint-desc"> — статический каталог</span></li>
@@ -524,27 +473,27 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="footer__col">
         <div class="footer__col-title">Казанские Деликатесы</div>
         <p>Производитель халяль мясных изделий в Татарстане.</p>
-        <p>© 2022–{YEAR} ООО «Казанские Деликатесы»</p>
+        <p>© {YEAR} ООО «Казанские Деликатесы»</p>
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Производство</div>
-        <p>г. Казань, ул. Аграрная, 2</p>
-        <p>Татарстан, 420061</p>
+        <p>г. Казань, ул. Аграрная, 2, оф. 7</p>
+        <p>Республика Татарстан, 420061</p>
         <a href="tel:+79872170202">+7 987 217-02-02</a>
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Отгрузка</div>
         <p>EXW Казань</p>
-        <p>г. Казань, ул. Аграрная, 2</p>
-        <p>Отгрузка: Пн–Пт 9:00–18:00</p>
+        <p>г. Казань, ул. Аграрная, 2, оф. 7</p>
+        <p><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Разделы</div>
         <a href="/pepperoni">Пепперони</a>
         <a href="/kazylyk">Казылык</a>
-        <a href="/bakery">Выпечка</a>
+        <a href="/vyipechka-halyal">Выпечка</a>
         <a href="/faq">FAQ</a>
         <a href="/delivery">Доставка</a>
         <a href="/blog">Блог</a>
@@ -574,9 +523,9 @@ function getPrice(p){{
   return v;
 }}
 function fmtPrice(v){{if(!v)return'—';return v.toLocaleString('ru-RU',{{minimumFractionDigits:v<10?2:0,maximumFractionDigits:2}})}}
-const fmtWeight=w=>{{if(!w)return'';const s=String(w).trim();return/[\s]*(г|g|кг|kg)\s*$/i.test(s)?s:s+' кг'}};
-const fmtQty=q=>{{if(!q)return'';const s=String(q).trim();return/\d+\s*шт/i.test(s)?s:s+' шт/кор'}};
-const looksLikePrice=v=>/^\d{{2,}}[.,]\d{{2}}$/.test(String(v||'').trim());
+const fmtWeight=w=>{{if(!w)return'';const s=String(w).trim();return/[\\s]*(г|g|кг|kg)\\s*$/i.test(s)?s:s+' кг'}};
+const fmtQty=q=>{{if(!q)return'';const s=String(q).trim();return/\\d+\\s*шт/i.test(s)?s:s+' шт/кор'}};
+const looksLikePrice=v=>/^\\d{{2,}}[.,]\\d{{2}}$/.test(String(v||'').trim());
 
 function escAttr(s){{return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}}
 function catalogImgDisplayUrl(url){{
@@ -695,7 +644,7 @@ function setVAT(v){{VAT=v;render()}}
   }});
   mc.registerTool({{
     name:'download_price_list',
-    description:'Download the full halal product price list (72 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
+    description:'Download the full halal product price list ({SKU_COUNT} SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
     inputSchema:{{type:'object',properties:{{
       language:{{type:'string',enum:['ru','en'],description:'Language of the price list.'}},
       currency:{{type:'string',enum:CURS}},
@@ -796,8 +745,8 @@ document.addEventListener('click',function(e){{
   var href=link.getAttribute('href')||'';var g=function(n){{typeof ym==='function'&&ym(107064141,'reachGoal',n);}};
   if(href.indexOf('tel:')===0)g('click_phone');
   if(href.indexOf('mailto:')===0)g('click_email');
-  if(/wa\.me|whatsapp|t\.me\//i.test(href))g('click_messenger');
-  if(/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
+  if(/wa\\.me|whatsapp|t\\.me\\//i.test(href))g('click_messenger');
+  if(/прайс|price|\\.(pdf|xlsx?|csv)(\\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
 }});
 document.addEventListener('submit',function(e){{
   if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
@@ -817,38 +766,37 @@ def gen_en() -> str:
 <link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-en-poster-720.webp" imagesrcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <title>Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies</title>
-<meta name="description" content="Halal pepperoni, sausages, burger patties, Tatar pastries wholesale from the manufacturer in Kazan, Russia. HACCP, ISO 22000:2018, Halal certified by Muslim Spiritual Board of Tatarstan. Export available (EXW Kazan). HoReCa and retail.">
+<meta name="description" content="Kazan Delicacies B2B catalog: halal pepperoni, sausages, burger patties, meat products and Tatar bakery with current SKU specifications, prices and verifiable documents.">
 <meta name="keywords" content="halal pepperoni wholesale, halal meat manufacturer Russia, halal sausages supplier, burger patties halal, Tatar bakery wholesale, HACCP ISO 22000:2018">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/">
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/">
-<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions">
 <link rel="alternate" type="text/markdown" href="/en/llms.txt" title="Markdown for agents">
 <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
 <meta http-equiv="origin-trial" content="Au3Sa1hILsCrTgbfqpPGEmtKgQgvDP3biYD4OGJMRtsGTMWso2vhJJFdfXCVf4RqKdzJkzrfhGziq7Jot26c5wwAAABieyJvcmlnaW4iOiJodHRwczovL3BlcHBlcm9uaS50YXRhcjo0NDMiLCJmZWF0dXJlIjoiV2ViTUNQIiwiZXhwaXJ5IjoxNzk0ODczNjAwLCJpc1N1YmRvbWFpbiI6dHJ1ZX0=">
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Halal Sausage Products &amp; Pastries Wholesale Manufacturer | Kazan Delicacies">
-<meta property="og:description" content="Halal pepperoni, sausages, burger patties wholesale from manufacturer. HACCP, ISO 22000:2018. Export (EXW Kazan).">
+<meta property="og:description" content="Current halal-product SKU specifications, prices and verifiable documents for B2B buyers.">
 <meta property="og:url" content="https://pepperoni.tatar/en/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="en_US">
 <meta property="og:locale:alternate" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Halal Sausage Products &amp; Pastries Manufacturer | Kazan Delicacies">
-<meta name="twitter:description" content="Halal pepperoni, sausages, patties wholesale. HACCP, ISO 22000:2018. Export EXW Kazan.">
+<meta name="twitter:description" content="Current halal-product SKU specifications, prices and verifiable documents for B2B buyers.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
 {{
-  "@context":"https://schema.org","@type":"Organization",
-  "name":"Kazan Delicacies","alternateName":"Казанские Деликатесы",
-  "url":"https://pepperoni.tatar/en/",
+  "@context":"https://schema.org","@type":"Organization","@id":"https://pepperoni.tatar/#organization",
+  "name":"Казанские Деликатесы","alternateName":"Kazan Delicacies",
+  "legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/",
   "logo":"https://pepperoni.tatar/images/logo.png",
   "email":"info@kazandelikates.tatar","telephone":"+79872170202",
-  "address":{{"@type":"PostalAddress","streetAddress":"ul. Agrarnaya, 2","addressLocality":"Kazan","postalCode":"420059","addressRegion":"Tatarstan","addressCountry":"RU"}},
-  "hasCredential":{{"@type":"EducationalOccupationalCredential","name":"Halal","identifier":"614A/2024","recognizedBy":{{"@type":"Organization","name":"Muslim Spiritual Board of Tatarstan","url":"https://dumrt.ru"}}}}
+  "address":{{"@type":"PostalAddress","streetAddress":"2 Agrarnaya Street, office 7","addressLocality":"Kazan","postalCode":"420061","addressRegion":"Republic of Tatarstan","addressCountry":"RU"}},
+  "sameAs":["https://kazandelikates.tatar/","https://www.youtube.com/@kazandelikates"]
 }}
 </script>
 <style>
@@ -987,9 +935,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 <main>
 <section class="hero">
   <div class="container">
-    <div class="hero__badge">🌿 100% HALAL · HACCP · ISO 22000:2018</div>
+    <div class="hero__badge">🌿 DUM RT HALAL · HACCP · ISO 22000:2018</div>
     <h1>Halal Sausage Products &amp; Pastries Manufacturer for HoReCa &amp; Retail</h1>
-    <p class="hero__sub">Pepperoni, sausages, burger patties, traditional Tatar pastries — made in Kazan, Russia. Export to CIS and Middle East.</p>
+    <p class="hero__sub">Pepperoni, sausages, burger patties and traditional Tatar bakery from the current B2B catalog.</p>
     <div class="hero__btns">
       <a href="#segments" class="btn btn-primary">Select Segment</a>
       <a href="#catalog" class="btn btn-outline">View Catalog</a>
@@ -1034,58 +982,58 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
   <div class="container badges__inner">
     <a href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>Halal Cert MSB Tatarstan #614A/2024 ✓</span></a>
     <a href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener" style="text-decoration:none;color:inherit"><span class="badges__item"><span class="dot"></span>HACCP + ISO 22000:2018 ✓</span></a>
-    <span class="badges__item"><span class="dot"></span>ISO 22000</span>
-    <span class="badges__item"><span class="dot"></span>EXW Kazan · Moscow Warehouse</span>
+    <span class="badges__item"><span class="dot"></span>TR CU 021/2011</span>
+    <span class="badges__item"><span class="dot"></span>EXW Kazan</span>
     <span class="badges__item"><span class="dot"></span>Private Label Available</span>
   </div>
 </div>
 
 <section class="segments" id="segments">
   <div class="container">
-    <h2 class="section-title">Who We Serve</h2>
-    <p class="section-sub">6 B2B segments · tailored product matrix, packaging, and terms for each</p>
+    <h2 class="section-title">B2B tasks covered by the catalog</h2>
+    <p class="section-sub">SKU and pack data come from the catalog; commercial terms are confirmed per enquiry.</p>
     <div class="segments__grid">
       <a href="/en/dlya-azs" class="seg-card">
         <span class="seg-card__num">01</span>
         <div class="seg-card__icon">⛽</div>
         <div class="seg-card__title">Gas Stations &amp; Street Food</div>
         <div class="seg-card__desc">Sausages, pepperoni, patties, sausage rolls for C-store hot dog stations and grab-and-go.</div>
-        <div class="seg-card__case">Case: Tatneft gas station chain + SMARTEN <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__case">Select SKU against a technical brief <span class="seg-card__arrow">→</span></div>
       </a>
-      <a href="/en/kontraktnoe-proizvodstvo" class="seg-card">
+      <a href="/en/private-label" class="seg-card">
         <span class="seg-card__num">02</span>
         <div class="seg-card__icon">🏷️</div>
         <div class="seg-card__title">Contract Manufacturing (Private Label)</div>
         <div class="seg-card__desc">Halal sausages, franks, pepperoni, pastries under your brand. Volume agreed per contract.</div>
-        <div class="seg-card__case">Case: "Aslam" for OMPK <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__case">Evaluate a specification-led project <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-pekaren" class="seg-card">
         <span class="seg-card__num">03</span>
         <div class="seg-card__icon">🥐</div>
         <div class="seg-card__title">Regional Bakeries</div>
-        <div class="seg-card__desc">Sausages for rolls, meat fillings, minced meat. Consistent specs and HACCP for chain requirements.</div>
-        <div class="seg-card__case">Veterinary certs &amp; stable fat content <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Sausage rolls, meat products and bakery items; each SKU record lists its current specification.</div>
+        <div class="seg-card__case">Check ingredients, weight and storage <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-setey" class="seg-card">
         <span class="seg-card__num">04</span>
         <div class="seg-card__icon">🛒</div>
         <div class="seg-card__title">Retail Chains</div>
-        <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries. EAN, veterinary docs, full compliance package.</div>
-        <div class="seg-card__case">EuroSpar, Bakhetle, Metro, Miratorg <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Pepperoni, kazylyk, sausages and bakery. Article numbers, barcodes and available documents are confirmed by SKU.</div>
+        <div class="seg-card__case">Open the retail assortment <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-horeca" class="seg-card">
         <span class="seg-card__num">05</span>
         <div class="seg-card__icon">🍽️</div>
         <div class="seg-card__title">HoReCa &amp; Food Service</div>
-        <div class="seg-card__desc">Restaurants, hotels, pizzerias, dark kitchens, catering. 0.5–5 kg formats for professional kitchens.</div>
-        <div class="seg-card__case">Case: GFC, SweetLife, KVZ <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Pizzerias, restaurants, dark kitchens and catering. Packs and storage are listed in each SKU record.</div>
+        <div class="seg-card__case">Open the food-service assortment <span class="seg-card__arrow">→</span></div>
       </a>
       <a href="/en/dlya-distributorov" class="seg-card">
         <span class="seg-card__num">06</span>
         <div class="seg-card__icon">📦</div>
         <div class="seg-card__title">Regional Distributors</div>
-        <div class="seg-card__desc">Deferred payment as per contract, own price list, full halal assortment from Tatarstan in one warehouse.</div>
-        <div class="seg-card__case">Case: GFC, SweetLife <span class="seg-card__arrow">→</span></div>
+        <div class="seg-card__desc">Catalog data with article numbers, prices, storage and export currencies for initial assortment review.</div>
+        <div class="seg-card__case">Open distributor data <span class="seg-card__arrow">→</span></div>
       </a>
     </div>
   </div>
@@ -1093,75 +1041,29 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
 <section class="segments" style="background:#fff" id="partners">
   <div class="container">
-    <h2 class="section-title">Who We Work With</h2>
-    <p class="section-sub">Key clients and partners of Kazan Delicacies</p>
+    <h2 class="section-title">Independent proof</h2>
+    <p class="section-sub">Each public page supports only the facts stated on that page.</p>
     <div class="segments__grid">
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">⛽</div>
-        <div class="seg-card__title">Tatneft Gas Station Chain</div>
-        <div class="seg-card__desc">Hot dog sausages and burger patties — at all gas stations in the network. Tatar pastries — at select locations in the region.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🏷️</div>
-        <div class="seg-card__title">OMPK (Ostankino)</div>
-        <div class="seg-card__desc">Private label: traditional «Aslam» sausages for OMPK to the customer's recipes — not pepperoni.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">EuroSpar (Kazan)</div>
-        <div class="seg-card__desc">Halal shelf: pepperoni, kazylyk, sausages, pastries in the chain's supermarkets.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Bakhetle (Kazan)</div>
-        <div class="seg-card__desc">Halal assortment in Kazan's premium supermarket chain.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Metro Cash &amp; Carry</div>
-        <div class="seg-card__desc">Halal products in wholesale hypermarkets of the federal chain.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🛒</div>
-        <div class="seg-card__title">Miratorg</div>
-        <div class="seg-card__desc">Our Tatar pastries (echpochmak, peremyach, samsa) on the shelves of Miratorg supermarkets.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🏭</div>
-        <div class="seg-card__title">Kazan Helicopter Plant</div>
-        <div class="seg-card__desc">Halal products for corporate catering at a major industrial enterprise.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">⛽</div>
-        <div class="seg-card__title">SMARTEN</div>
-        <div class="seg-card__desc">Gas station network operator — halal products for C-store and street food.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🚚</div>
-        <div class="seg-card__title">GFC</div>
-        <div class="seg-card__desc">Federal food service distributor — our halal product line in all regions of presence.</div>
-      </div>
-      <div class="seg-card" style="cursor:default">
-        <div class="seg-card__icon">🚚</div>
-        <div class="seg-card__title">SweetLife</div>
-        <div class="seg-card__desc">Federal food service distributor — halal product supply to HoReCa across Russia.</div>
-      </div>
+      <a class="seg-card" href="https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">DUM RT registry</div><div class="seg-card__desc">External company and halal-certification record.</div></a>
+      <a class="seg-card" href="https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">IAF CertSearch</div><div class="seg-card__desc">Public ISO 22000:2018 record FSMS-2351/A.</div></a>
+      <a class="seg-card" href="https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kolbasy-vetchina-bekon/240111-kolbasa-pepperoni-halyal-narezka-v-k-zam-kazanskie-delikatesy-500gr-10sht-kor" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">GFC</div><div class="seg-card__desc">External listing for the brand's halal pepperoni.</div></a>
+      <a class="seg-card" href="https://swlife.ru/118665" target="_blank" rel="noopener noreferrer"><div class="seg-card__title">Sweet Life</div><div class="seg-card__desc">External product listing for the brand's pepperoni.</div></a>
     </div>
     <div style="text-align:center;margin-top:24px">
-      <a href="/en/partnery" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Full Partner List →</a>
+      <a href="/en/cases" style="display:inline-block;padding:12px 28px;background:var(--green);color:#fff;border-radius:8px;text-decoration:none;font-weight:600">Open all public proof →</a>
     </div>
   </div>
 </section>
 
 <section class="usps">
   <div class="container">
-    <h2 class="section-title">Why Choose Us</h2>
-    <p class="section-sub">Production in Tatarstan, Russia. Delivery across Russia and export worldwide.</p>
+    <h2 class="section-title">What buyers can verify</h2>
+    <p class="section-sub">Catalog data, documents and project terms have explicit sources.</p>
     <div class="usps__grid">
-      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Own Manufacturing</div><div class="usp-card__text">We produce in Kazan since 2022. Full quality control from raw materials to shipment. HACCP at every stage.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Export EXW Kazan</div><div class="usp-card__text">We supply to Kazakhstan, Belarus, Uzbekistan, UAE, Saudi Arabia. Veterinary certificates included.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (OEM)</div><div class="usp-card__text">Production under your brand. Sausages, hot dogs, burger patties, dumplings, pastries.</div></div>
-      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">Strict Halal Standard</div><div class="usp-card__text">Only beef, chicken, horse meat, turkey. No pork. Certified by Muslim Spiritual Board of Tatarstan. Ingredients are listed per SKU card.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏭</div><div class="usp-card__title">Manufacturer in Kazan</div><div class="usp-card__text">The legal entity, address and manufacturing profile are linked to independent records on the About page.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🌍</div><div class="usp-card__title">Specification-led export</div><div class="usp-card__text">The catalog basis is EXW Kazan. Destination requirements, documents and route are confirmed per enquiry.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">🏷️</div><div class="usp-card__title">Private Label (OEM)</div><div class="usp-card__text">Projects are evaluated against a technical brief; MOQ, timing and packaging are confirmed after review.</div></div>
+      <div class="usp-card"><div class="usp-card__icon">☪️</div><div class="usp-card__title">DUM RT Halal</div><div class="usp-card__text">Certificate No. 614A/2024 and each product's ingredients can be checked through the registry and SKU record.</div></div>
     </div>
   </div>
 </section>
@@ -1183,9 +1085,7 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="cert-item"><div class="cert-item__name">☪️ Halal</div><div class="cert-item__desc">MSB Tatarstan #614A/2024</div></div>
       <div class="cert-item"><div class="cert-item__name">✅ HACCP</div><div class="cert-item__desc">Hazard Analysis</div></div>
       <div class="cert-item"><div class="cert-item__name">🏆 ISO 22000:2018</div><div class="cert-item__desc">Food Safety</div></div>
-      <div class="cert-item"><div class="cert-item__name">📋 ISO 22000</div><div class="cert-item__desc">Food Management</div></div>
       <div class="cert-item"><div class="cert-item__name">🇷🇺 TR CU 021/2011</div><div class="cert-item__desc">Customs Union</div></div>
-      <div class="cert-item"><div class="cert-item__name">🐄 Veterinary</div><div class="cert-item__desc">RF Certificates</div></div>
     </div>
   </div>
 </section>
@@ -1214,12 +1114,12 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
   <div class="info-block">
     <h2><span aria-hidden="true">🤝</span> Solutions for HoReCa &amp; Retail</h2>
-    <p>We don't just supply — we adapt production to your business needs.</p>
+    <p>Project scope is confirmed only after the current SKU data and buyer brief are reviewed.</p>
     <div class="capabilities-grid">
-      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
-      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (OEM)</h3><p>Technical feasibility and commercial terms are assessed against the buyer's specification.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🎯</span> Buyer specification</h3><p>Composition, diameter, unit weight and packaging are checked against the current catalog and project requirements.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">✅</span> Halal &amp; food-safety controls</h3><p>DUM RT Halal, ISO 22000:2018 and available qualification documents are listed on the Certificates page.</p></div>
+      <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Export enquiry</h3><p>Catalog basis: EXW Kazan. Destination documents and logistics are verified for each proposed shipment.</p></div>
     </div>
   </div>
 
@@ -1233,9 +1133,9 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
 
   <div class="info-block">
     <h2>API for Partners</h2>
-    <p>Integrate the halal product catalog directly into your ERP, 1C, iiko, or MoySklad. Prices update in real time. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
+    <p>Integrate the halal product catalog directly into your ERP, 1C, iiko, or MoySklad. Prices are synchronized from the approved Google Sheets catalog. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
     <ul class="endpoint-list" style="margin-top:12px">
-      <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — real-time prices from Google Sheets</span></li>
+      <li><a href="/api/products">/api/products</a><span class="live-badge">LIVE</span><span class="endpoint-desc"> — current prices synchronized from Google Sheets</span></li>
       <li><a href="/products.json">/products.json</a><span class="endpoint-desc"> — static catalog</span></li>
       <li><a href="/openapi.yaml">/openapi.yaml</a><span class="endpoint-desc"> — OpenAPI specification</span></li>
       <li><a href="/.well-known/ai-plugin.json">/.well-known/ai-plugin.json</a><span class="endpoint-desc"> — AI plugin manifest</span></li>
@@ -1252,20 +1152,20 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="footer__col">
         <div class="footer__col-title">Kazan Delicacies</div>
         <p>Halal meat products manufacturer in Tatarstan, Russia.</p>
-        <p>© 2022–{YEAR} Kazan Delicacies LLC</p>
+        <p>© {YEAR} Kazan Delicacies LLC</p>
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Production</div>
-        <p>Kazan, ul. Agrarnaya, 2</p>
-        <p>Tatarstan, 420059, Russia</p>
+        <p>2 Agrarnaya Street, office 7</p>
+        <p>Kazan, Republic of Tatarstan, 420061, Russia</p>
         <a href="tel:+79872170202">+7 987 217-02-02</a>
         <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
       </div>
       <div class="footer__col">
         <div class="footer__col-title">Shipment</div>
         <p>EXW Kazan</p>
-        <p>Kazan, ul. Agrarnaya, 2</p>
-        <p>Mon–Fri 9:00–18:00 MSK</p>
+        <p>2 Agrarnaya Street, office 7</p>
+        <p><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></p>
         <a href="https://wa.me/79872170202">WhatsApp: +7 987 217-02-02</a>
       </div>
       <div class="footer__col">
@@ -1300,7 +1200,7 @@ function getPrice(p){{
   return v;
 }}
 function fmtPrice(v){{if(!v)return'—';return v.toLocaleString('en-US',{{minimumFractionDigits:2,maximumFractionDigits:2}})}}
-const looksLikePrice=v=>/^\d{{2,}}[.,]\d{{2}}$/.test(String(v||'').trim());
+const looksLikePrice=v=>/^\\d{{2,}}[.,]\\d{{2}}$/.test(String(v||'').trim());
 
 function escAttr(s){{return String(s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;');}}
 function catalogImgDisplayUrl(url){{
@@ -1337,7 +1237,7 @@ function renderGroups(allGroups){{
         const props=[];
         if(p.weight&&!looksLikePrice(p.weight))props.push(`<span class="prop" title="Weight">${{fmtWeight(p.weight)}}</span>`);
         if(p.isBakery&&p.qty)props.push(`<span class="prop" title="Box qty">${{fmtQty(p.qty)}}</span>`);
-        if(p.shelf&&!looksLikePrice(p.shelf))props.push(`<span class="prop" title="Shelf life">${{p.shelf.replace(/суток/,'days').replace(/сутки/,'days').replace(/сут\./,'days')}}</span>`);
+        if(p.shelf&&!looksLikePrice(p.shelf))props.push(`<span class="prop" title="Shelf life">${{p.shelf.replace(/суток/,'days').replace(/сутки/,'days').replace(/сут\\./,'days')}}</span>`);
         if(p.storage&&!looksLikePrice(p.storage))props.push(`<span class="prop" title="Storage">${{p.storage}}</span>`);
         if(p.hsCode)props.push(`<span class="prop" title="HS Code">${{p.hsCode}}</span>`);
         const propsHtml=props.length?`<div class="product-sku">${{props.join('')}}</div>`:'';
@@ -1412,7 +1312,7 @@ function setCur(c){{CUR=c;VAT=c==='RUB';render()}}
   }});
   mc.registerTool({{
     name:'download_price_list',
-    description:'Download the full halal product price list (72 SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
+    description:'Download the full halal product price list ({SKU_COUNT} SKUs: pepperoni, sausages, burger patties, kazylyk, Tatar pastries) as a spreadsheet file, in the chosen language, currency and format.',
     inputSchema:{{type:'object',properties:{{
       language:{{type:'string',enum:['ru','en'],description:'Language of the price list.'}},
       currency:{{type:'string',enum:CURS}},

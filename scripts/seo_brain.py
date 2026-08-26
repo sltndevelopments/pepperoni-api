@@ -321,6 +321,20 @@ def expert_task_digest() -> dict:
     Cap: expert_per_day new tasks, landing_per_day strengthen tasks (from strategy).
     """
     try:
+        from strategy_control import generation_allowed
+        allowed, blockers = generation_allowed()
+    except Exception as exc:
+        allowed, blockers = False, [f"generation gate unavailable: {exc}"]
+    if not allowed:
+        return {
+            "expert_per_day": 0,
+            "landing_per_day": 0,
+            "create_expert_page": [],
+            "strengthen_landing": [],
+            "blocked": blockers,
+        }
+
+    try:
         scout = json.loads((DATA / "scout_findings.json").read_text())
     except Exception:
         return {}

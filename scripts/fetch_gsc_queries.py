@@ -108,27 +108,34 @@ def fetch_queries(token: str, start_date: str, end_date: str) -> list:
         f"https://www.googleapis.com/webmasters/v3/sites/"
         f"{urllib.parse.quote(SITE_URL, safe='')}/searchAnalytics/query"
     )
-    body = json.dumps({
-        "startDate": start_date,
-        "endDate": end_date,
-        "dimensions": ["date", "query", "page", "country", "device"],
-        "rowLimit": ROW_LIMIT,
-        "startRow": 0,
-    }).encode()
-    req = urllib.request.Request(
-        url,
-        data=body,
-        headers={
-            "Authorization": f"Bearer {token}",
-            "Content-Type": "application/json",
-        },
-    )
-    try:
-        with urllib.request.urlopen(req) as resp:
-            return json.loads(resp.read()).get("rows", [])
-    except urllib.error.HTTPError as e:
-        print(f"  GSC API error {e.code}: {e.read().decode()}", file=sys.stderr)
-        return []
+    rows = []
+    start_row = 0
+    while True:
+        body = json.dumps({
+            "startDate": start_date,
+            "endDate": end_date,
+            "dimensions": ["date", "query", "page", "country", "device"],
+            "rowLimit": ROW_LIMIT,
+            "startRow": start_row,
+        }).encode()
+        req = urllib.request.Request(
+            url,
+            data=body,
+            headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+            },
+        )
+        try:
+            with urllib.request.urlopen(req) as resp:
+                batch = json.loads(resp.read()).get("rows", [])
+        except urllib.error.HTTPError as e:
+            print(f"  GSC API error {e.code}: {e.read().decode()}", file=sys.stderr)
+            return []
+        rows.extend(batch)
+        if len(batch) < ROW_LIMIT:
+            return rows
+        start_row += ROW_LIMIT
 
 
 def save_rows(rows: list, fetched_at: str, start_date: str):
@@ -146,10 +153,16 @@ def save_rows(rows: list, fetched_at: str, start_date: str):
         device  = keys[4] if len(keys) > 4 else ""
         try:
             conn.execute(
-                """INSERT OR IGNORE INTO gsc_queries
+                """INSERT INTO gsc_queries
                    (fetched_at, date, query, page, country, device,
                     clicks, impressions, ctr, position)
-                   VALUES (?,?,?,?,?,?,?,?,?,?)""",
+                   VALUES (?,?,?,?,?,?,?,?,?,?)
+                   ON CONFLICT(date, query, page, country, device) DO UPDATE SET
+                     fetched_at=excluded.fetched_at,
+                     clicks=excluded.clicks,
+                     impressions=excluded.impressions,
+                     ctr=excluded.ctr,
+                     position=excluded.position""",
                 (
                     fetched_at, row_date, query, page, country, device,
                     row.get("clicks", 0),

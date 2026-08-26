@@ -1,0 +1,453 @@
+{
+  "experiment": "external-authority-30d",
+  "control_commit": "52f963634",
+  "started": "2026-08-19",
+  "remeasure_on": "2026-09-18",
+  "site_frozen": false,
+  "status": "interrupted_by_strategy_reset",
+  "closed_at": "2026-08-26",
+  "outcome": null,
+  "closure": {
+    "verdict": "not_evaluated",
+    "reason": "The owner approved an aggressive SEO and AI trust reset before the 30-day window matured. The site freeze and attribution window are therefore invalid.",
+    "must_not_be_reported_as": [
+      "win",
+      "loss",
+      "completed 30-day experiment"
+    ],
+    "locked_baselines": [
+      "data/buyer_baseline_2026-08-19.json",
+      "data/buyer_baseline_2026-08-26.json",
+      "data/metrika.json",
+      "data/seo_data.db"
+    ]
+  },
+  "goal": "+5 new independent B2B nodes in 30 days; at least 1 international/GCC. Do not change pepperoni.tatar HTML during the window.",
+  "success_signal": "Gemini compare 1/5 → ≥3/5 and/or new DUM/distributor/UAE URLs appear in citations on the same 20 prompts.",
+  "remeasure": {
+    "prompts": "data/buyer_baseline_prompts.json",
+    "wording": "verbatim",
+    "layers": ["perplexity_search", "gemini_search", "chatgpt_search"],
+    "metrics": ["hit_rate", "avg_rank", "top3", "rank1", "compare_only", "citations"]
+  },
+  "do_not": [
+    "Invent JAKIM / GSO / SFDA / all-GCC recognition",
+    "Publish new DUM certificate numbers on pepperoni.tatar until the owner approves (registry now lists four; site constitution still names #614A/2024 only)",
+    "Count extra SKUs on the same distributor host as new nodes",
+    "Restart Docker / touch redsocks for selectel-egress cosmetics"
+  ],
+  "target_template": "Kazan Delicacies LLC → Kazan, Russia → halal pepperoni manufacturer → HoReCa/private label → pepperoni.tatar",
+  "outreach": {
+    "dum_rt": {
+      "to": "info@halalrt.com",
+      "page": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "ask": [
+        "English name: Kazan Delicacies LLC",
+        "Line: halal pepperoni / meat products manufacturer",
+        "Link: https://pepperoni.tatar"
+      ],
+      "do_not_ask": "GCC / JAKIM / SFDA / ESMA listing",
+      "draft_ru": "Здравствуйте.\n\nПросьба при возможности дополнить карточку ООО «Казанские Деликатесы» в реестре (https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/):\n\n1) английское название: Kazan Delicacies LLC;\n2) формулировка: halal pepperoni / meat products manufacturer;\n3) сайт: https://pepperoni.tatar\n\nНовых заявлений о признании в GCC / JAKIM / SFDA не нужно.\n\nКонтакт: +7 987 217-02-02, info@kazandelikates.tatar.\nС уважением,\nКазанские Деликатесы"
+    }
+  },
+  "nodes": [
+    {
+      "id": "dum-rt-119",
+      "class": "cert_registry",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "host": "halalrt.ru",
+      "what_ai_can_cite": [
+        "ООО «Казанские Деликатесы»",
+        "Казань, ул. Аграрная, 2, оф. 7",
+        "+79872170202",
+        "действующие свидетельства 976А/2026, 614А/2024, 1002/2026, 884А/2025"
+      ],
+      "gaps": [
+        "нет Kazan Delicacies LLC",
+        "нет pepperoni.tatar",
+        "нет формулировки halal pepperoni manufacturer"
+      ],
+      "next": "письмо в Комитет — см. outreach.dum_rt"
+    },
+    {
+      "id": "dum-rt-en-recognition",
+      "class": "cert_body_policy",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://halalrt.ru/en/",
+      "host": "halalrt.ru",
+      "what_ai_can_cite": [
+        "EN page lists recognition in Oman and Kyrgyzstan only",
+        "SMIIC accreditation shown",
+        "not a KD product page"
+      ],
+      "gaps": ["не карточка KD; не доказательство all-GCC"],
+      "next": "не просить GCC claims"
+    },
+    {
+      "id": "gfc-pepperoni-sku",
+      "class": "distributor_sku",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kolbasy-vetchina-bekon/240111-kolbasa-pepperoni-halyal-narezka-v-k-zam-kazanskie-delikatesy-500gr-10sht-kor",
+      "host": "gfc-russia.ru",
+      "what_ai_can_cite": [
+        "бренд Казанские Деликатесы",
+        "категория колбаса пепперони",
+        "Халяль = Да",
+        "500 г, короб ~5 кг",
+        "хранение −18…−20 °C",
+        "срок 90 дней",
+        "страна Россия"
+      ],
+      "gaps": ["один хост; не международный"],
+      "next": "не плодить ещё SKU на GFC — искать другие дистрибьюторы"
+    },
+    {
+      "id": "gfc-brand-hub",
+      "class": "distributor_brand",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://gfc-russia.ru/catalog/brend-kazanskie-delikatesy",
+      "host": "gfc-russia.ru",
+      "what_ai_can_cite": [
+        "бренд-хаб GFC: пепперони, сосиски для гриля, котлеты"
+      ],
+      "gaps": ["тот же хост, что gfc-pepperoni-sku"],
+      "next": "образец для запросов к другим клиентам"
+    },
+    {
+      "id": "swlife-pepperoni-118665",
+      "class": "distributor_sku",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://swlife.ru/118665",
+      "host": "swlife.ru",
+      "what_ai_can_cite": [
+        "Колбаса в/к Казанские Деликатесы Пепперони Халяль Зам 500г",
+        "артикул 118665",
+        "цена и мин. заказ 2 шт",
+        "вкладка Сертификаты",
+        "независимый HoReCa-дистрибьютор Свит Лайф"
+      ],
+      "gaps": [
+        "описание общее, без температуры хранения и страны в карточке",
+        "не международный",
+        "уже существовал до окна — не +1 к цели"
+      ],
+      "next": "не плодить SKU на swlife.ru; просить такие же карточки у других хостов"
+    },
+    {
+      "id": "prodexpo-2025",
+      "class": "exhibition",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://icatalog.expocentr.ru/ru/exhibitions/b5cf5aaa-3c26-11ee-80ce-a0d3c1fab97f/exhibitors/367862?stand=83B01",
+      "host": "icatalog.expocentr.ru",
+      "what_ai_can_cite": [
+        "КАЗАНСКИЕ ДЕЛИКАТЕСЫ, ООО",
+        "Казань, Аграрная 2",
+        "+7 (987) 217-0202",
+        "kazandelikates.tatar",
+        "производитель халяльных продуктов"
+      ],
+      "gaps": [
+        "сайт kazandelikates.tatar, не pepperoni.tatar",
+        "в описании нет pepperoni / Kazan Delicacies LLC"
+      ],
+      "next": "на следующей выставке один шаблон сущности"
+    },
+    {
+      "id": "gulfood-russia-profile",
+      "class": "exhibition",
+      "status": "exists",
+      "counts_toward_plus5": false,
+      "verified": "2026-08-19",
+      "url": "https://gulfood-russia.com/tpost/tucvkt6sk1-kazan-delicacies-llc",
+      "host": "gulfood-russia.com",
+      "what_ai_can_cite": [
+        "KAZAN DELICACIES LLC",
+        "Kazan, Agrarnaya 2",
+        "halal meat producer",
+        "pepperoni line listed",
+        "Made in Russia certified",
+        "kazandelikates.tatar"
+      ],
+      "gaps": [
+        "это профиль выставки, не UAE importer",
+        "нет pepperoni.tatar"
+      ],
+      "next": "не считать UAE commercial node"
+    }
+  ],
+  "targets": [
+    {
+      "id": "ru-metro-cc",
+      "market": "RU",
+      "priority": 1,
+      "url": "https://online.metro-cc.ru/",
+      "why": "Публичные карточки C&C. В халяль-колбасе Эколь/Пестречинка есть, KD не найден. Если товар реально в Metro — просить карточку как у GFC.",
+      "class": "wholesale_retail_sku"
+    },
+    {
+      "id": "ru-lenta-pro",
+      "market": "RU",
+      "priority": 2,
+      "url": "https://b2b.lenta.com/",
+      "why": "Лента PRO — B2B/HoReCa витрина. Карточка бренда сильнее Pulscen/TIU.",
+      "class": "horeca_catalog"
+    },
+    {
+      "id": "ru-dalimo-prodly",
+      "market": "RU",
+      "priority": 2,
+      "url": "http://foodservice.dalimo.ru/",
+      "why": "Федеральный HoReCa-дистрибьютор с открытой категорией «пиццерия / пепперони». Третий хост после GFC и Sweet Life.",
+      "class": "distributor_sku"
+    },
+    {
+      "id": "uae-bidfood",
+      "market": "AE",
+      "priority": 1,
+      "international": true,
+      "url": "https://www.bidfoodme.com/get-in-touch?form=become-a-supplier",
+      "catalog": "https://www.bidfoodme.com/products",
+      "why": "Главный аналог GFC в GCC: 15k клиентов, myBidfood, публичные product guides. Один SKU здесь = UAE commercial node.",
+      "class": "uae_presence"
+    },
+    {
+      "id": "uae-sidco",
+      "market": "AE",
+      "priority": 2,
+      "international": true,
+      "url": "https://www.sidcofoods.ae/",
+      "why": "Дубайский импортёр/дистрибьютор заморозки с публичным wholesale-каталогом. Проще, чем Bidfood, как первый публичный SKU.",
+      "class": "uae_presence"
+    },
+    {
+      "id": "uae-almaya",
+      "market": "AE",
+      "priority": 2,
+      "international": true,
+      "url": "https://www.almaya.ae/",
+      "why": "Дистрибуция modern trade + HoReCa по ОАЭ/GCC. Нужен листинг, не статья.",
+      "class": "uae_presence"
+    },
+    {
+      "id": "kz-magnumopt",
+      "market": "KZ",
+      "priority": 1,
+      "url": "https://magnumopt.kz/catalog/1622-gastronomiya/",
+      "why": "Оптовый каталог Magnum уже продаёт чужую пепперони (Das). Публичная карточка KD = узел для запросов «в Казахстан».",
+      "class": "wholesale_retail_sku"
+    },
+    {
+      "id": "kz-metro",
+      "market": "KZ",
+      "priority": 2,
+      "url": "https://www.metro-kz.com/",
+      "why": "METRO KZ — C&C для HoReCa. Тот же класс, что Metro RU.",
+      "class": "wholesale_retail_sku"
+    },
+    {
+      "id": "kz-produkty-pitaniya",
+      "market": "KZ",
+      "priority": 3,
+      "url": "https://produkty-pitaniya.kz/",
+      "why": "Локальный дистрибьютор заморозки/HoReCa с халяль в заявленных документах. Имеет смысл, если реально возят.",
+      "class": "distributor_sku"
+    },
+    {
+      "id": "uz-korzinka-biznes",
+      "market": "UZ",
+      "priority": 1,
+      "url": "https://korzinka.uz/",
+      "why": "Крупнейшая сеть + Korzinka Biznes для HoReCa. Публичная карточка важнее агрегаторов.",
+      "class": "wholesale_retail_sku"
+    },
+    {
+      "id": "uz-makro",
+      "market": "UZ",
+      "priority": 2,
+      "url": "https://makromarket.uz/",
+      "why": "Вторая сеть Узбекистана. Карточка на полке/сайте.",
+      "class": "wholesale_retail_sku"
+    }
+  ],
+  "article_targets": [
+    {
+      "market": "RU",
+      "priority": 1,
+      "title": "Sfera.fm / Мясная Сфера",
+      "url": "https://sfera.fm/articles/myasnaya/",
+      "how": "Отраслевой журнал. Экспертная статья, не реклама «лучший завод».",
+      "fit": "мясопереработка, сертификаты, HoReCa-форматы"
+    },
+    {
+      "market": "RU",
+      "priority": 1,
+      "title": "Meatinfo + Foodretail",
+      "url": "https://meatinfo.ru/",
+      "how": "Платное размещение статьи на meatinfo.ru и foodretail.ru.",
+      "fit": "B2B-закупщики мяса; AI часто цитирует такие порталы"
+    },
+    {
+      "market": "RU",
+      "priority": 2,
+      "title": "Ресторановед",
+      "url": "https://restoranoved.ru/",
+      "how": "HoReCa-издание. Кейс для пиццерии/общепита, не суперлативы.",
+      "fit": "compare-запросы про поставщиков для кухни"
+    },
+    {
+      "market": "RU",
+      "priority": 2,
+      "title": "Агроинвестор",
+      "url": "https://www.agroinvestor.ru/",
+      "how": "Редакция, не витрина. Нужен информационный повод (экспорт, сертификация, объём), не натив «купите нас».",
+      "fit": "высокий вес цитирования"
+    },
+    {
+      "market": "AE",
+      "priority": 1,
+      "title": "Caterer Middle East",
+      "url": "https://www.caterermiddleeast.com/contact",
+      "how": "ITP. Аудитория F&B / procurement GCC. Коммерческий отдел + editorial.",
+      "fit": "единственное СМИ, которое реально читает закупщик отеля в Дубае"
+    },
+    {
+      "market": "AE",
+      "priority": 1,
+      "title": "Food Business Middle East & Africa",
+      "url": "https://www.foodbusinessmea.com/contributors/",
+      "how": "Открытый call for contributors, press@fwafrica.net, за статью не берут плату.",
+      "fit": "факты про halal pepperoni manufacturer / export, без all-GCC"
+    },
+    {
+      "market": "AE",
+      "priority": 2,
+      "title": "Hotelier Middle East",
+      "url": "https://www.hoteliermiddleeast.com/",
+      "how": "Сестра Caterer (ITP). Имеет смысл, если есть кейс для отелей.",
+      "fit": "procurement hotels"
+    },
+    {
+      "market": "AE",
+      "priority": 2,
+      "title": "Zawya press-release",
+      "url": "https://www.zawya.com/",
+      "how": "Лента пресс-релизов GCC. Только если есть факт: поставка, импортёр, выставка.",
+      "fit": "индексируется, AI подхватывает как «источник»"
+    },
+    {
+      "market": "KZ",
+      "priority": 1,
+      "title": "Kapital.kz",
+      "url": "https://kapital.kz/",
+      "how": "Платный натив / интервью. Есть прайс на PR-статьи.",
+      "fit": "деловая аудитория Алматы/Астана, поставки в КЗ"
+    },
+    {
+      "market": "KZ",
+      "priority": 1,
+      "title": "Forbes Kazakhstan",
+      "url": "https://forbes.kz/",
+      "how": "Пишут про халяль и ритейл. Редакция или коммерческий спецпроект.",
+      "fit": "выше вес, чем отраслевой мелкий сайт"
+    },
+    {
+      "market": "KZ",
+      "priority": 2,
+      "title": "Kursiv.kz",
+      "url": "https://kz.kursiv.media/",
+      "how": "Деловые новости. Нужен повод: экспорт, партнёр, сертификация.",
+      "fit": "новость, не advertorial"
+    },
+    {
+      "market": "UZ",
+      "priority": 1,
+      "title": "Spot.uz",
+      "url": "https://www.spot.uz/",
+      "how": "Деловое издание. Публикуют выставки (UzFood) и пищевые компании.",
+      "fit": "экспорт в Узбекистан / партнёр / UzFood"
+    },
+    {
+      "market": "UZ",
+      "priority": 2,
+      "title": "Gazeta.uz",
+      "url": "https://www.gazeta.uz/",
+      "how": "Новость с поводом, не «мы лучшие». Пишут про халяль-сертификацию в УЗ.",
+      "fit": "широкий индекс, слабее как B2B"
+    }
+  ],
+  "skip": [
+    "russianemirates.com — RU-медиа/PR, не фудсервис",
+    "Pulscen / TIU / Avito / Яндекс Маркет — доски объявлений, не закупщик Gemini",
+    "Ещё SKU на gfc-russia.ru и swlife.ru — тот же хост",
+    "Статьи «лучший производитель»"
+  ],
+  "needed": [
+    {
+      "id": "need-dum-en-fields",
+      "class": "cert_registry_update",
+      "status": "todo",
+      "counts_toward_plus5": true,
+      "owner": "human",
+      "why": "Самый сильный независимый узел уже есть; не хватает английской сущности и pepperoni.tatar."
+    },
+    {
+      "id": "need-distributor-cards-3",
+      "class": "distributor_sku",
+      "status": "todo",
+      "counts_toward_plus5": true,
+      "target": 3,
+      "owner": "sales",
+      "why": "Повторить модель GFC на других хостах: бренд + пепперони + Halal=yes + фасовка + наличие.",
+      "not": "статьи «лучший производитель»"
+    },
+    {
+      "id": "need-uae-commercial-node",
+      "class": "uae_presence",
+      "status": "todo",
+      "counts_toward_plus5": true,
+      "international": true,
+      "owner": "bd",
+      "why": "Единственный рычаг Gemini compare 1/5: importer / foodservice listing / stock / published supplier card / confirmed delivery.",
+      "not": "PR-ссылка или GEO-страница"
+    },
+    {
+      "id": "need-entity-unification",
+      "class": "exhibition_profile",
+      "status": "todo",
+      "counts_toward_plus5": true,
+      "owner": "human",
+      "why": "Будущие карточки выставок — один шаблон сущности, не новый SEO-текст."
+    }
+  ],
+  "log": [
+    {
+      "date": "2026-08-19",
+      "event": "window_open",
+      "note": "Verified five starting URLs. Site frozen. Baseline 52f963634."
+    },
+    {
+      "date": "2026-08-19",
+      "event": "node_verified",
+      "url": "https://swlife.ru/118665",
+      "note": "Sweet Life HoReCa SKU — same class as GFC. Starting inventory, not +1."
+    },
+    {
+      "date": "2026-08-26",
+      "event": "interrupted_by_strategy_reset",
+      "note": "Closed without win/loss verdict. Fresh GSC, Metrika and three-layer AI baselines were locked before publishing the trust reset."
+    }
+  ]
+}

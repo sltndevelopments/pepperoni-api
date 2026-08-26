@@ -142,9 +142,12 @@
       "impressions": 59
     },
     "cost_usd": 0.0,
-    "status": "measuring",
+    "status": "interrupted_by_strategy_reset",
     "started_at": "2026-08-25T05:32:04.804731+00:00",
     "measure_at": "2026-09-15T05:32:04+00:00",
-    "maturity_days": 21
+    "maturity_days": 21,
+    "finished_at": "2026-08-26T19:15:00+00:00",
+    "result": null,
+    "note": "Closed without win/loss verdict: the site-wide trust reset invalidated the fixed-URL attribution window before maturity."
   }
 ]

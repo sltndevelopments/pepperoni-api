@@ -56,6 +56,31 @@ KOSHER_RE = re.compile(r"кошерно для мусульман", re.I)
 # white hero on white page (pepperoni.tatar homepage 2026-08-19).
 CSS_VAR_EMDASH_RE = re.compile(r"(?<=[{;(])\u2014(?=[A-Za-z])")
 BEM_EMDASH_RE = re.compile(r"(?<=[A-Za-z0-9])\u2014(?=[A-Za-z])")
+UNSUPPORTED_COMMERCIAL_COPY = {
+    "Минимум 20 кг, доставка 2–5 дней по России.": (
+        "Минимальный заказ, наличие и логистика подтверждаются для выбранных SKU."
+    ),
+    "Minimum 20 kg, delivery 2–5 days across Russia.": (
+        "Minimum order, availability and logistics are confirmed for the selected SKU."
+    ),
+    (
+        "Minimum order quantities generally start from full pallet loads "
+        "(approximately 500-800 kg depending on packaging format), making "
+        "Russian suppliers suitable for medium to large-scale importers."
+    ): (
+        "Minimum order and packaging are confirmed against the selected SKU, "
+        "destination and buyer specification."
+    ),
+    (
+        "<p><strong>Export Timeline:</strong> From order confirmation to delivery "
+        "in Middle Eastern markets typically requires 12-18 days, including "
+        "production time, quality checks, and refrigerated transport. European "
+        "destinations generally see 8-14 day lead times.</p>"
+    ): (
+        "<p><strong>Export timing:</strong> Production, document preparation and "
+        "transit time are confirmed for the selected SKU, destination and route.</p>"
+    ),
+}
 
 
 def fix_html(html: str) -> tuple[str, list[str]]:
@@ -105,6 +130,11 @@ def fix_html(html: str) -> tuple[str, list[str]]:
     html = sub(KOSHER_RE, "халяль для мусульман", "kosher-copy", html)
     html = sub(CSS_VAR_EMDASH_RE, "--", "css-emdash-var", html)
     html = sub(BEM_EMDASH_RE, "--", "css-emdash-bem", html)
+    for unsupported, evidence_safe in UNSUPPORTED_COMMERCIAL_COPY.items():
+        if unsupported in html:
+            count = html.count(unsupported)
+            html = html.replace(unsupported, evidence_safe)
+            fixes.append(f"unsupported-commercial-copy ×{count}")
     if "<!—" in html:
         html = html.replace("<!—" , "<!--")
         fixes.append("html-comment-open-emdash")

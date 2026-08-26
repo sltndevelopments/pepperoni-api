@@ -1,0 +1,244 @@
+{
+  "version": 1,
+  "updated_at": "2026-08-26",
+  "organization": {
+    "@id": "https://pepperoni.tatar/#organization",
+    "name": "Казанские Деликатесы",
+    "alternateName": "Kazan Delicacies",
+    "legalName": "ООО «Казанские Деликатесы»",
+    "url": "https://pepperoni.tatar/",
+    "corporateUrl": "https://kazandelikates.tatar/",
+    "telephone": "+79872170202",
+    "email": "info@kazandelikates.tatar",
+    "address": {
+      "streetAddress": "ул. Аграрная, 2, оф. 7",
+      "addressLocality": "Казань",
+      "addressRegion": "Республика Татарстан",
+      "postalCode": "420061",
+      "addressCountry": "RU"
+    },
+    "sameAs": [
+      "https://kazandelikates.tatar/",
+      "https://www.youtube.com/@kazandelikates"
+    ]
+  },
+  "claims": [
+    {
+      "id": "organization_identity",
+      "claim_ru": "ООО «Казанские Деликатесы» — производитель халяльных мясных продуктов и татарской выпечки в Казани.",
+      "claim_en": "Kazan Delicacies LLC is a halal meat products and Tatar bakery manufacturer in Kazan, Russia.",
+      "source_type": "independent_registry",
+      "source_url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "verified_at": "2026-08-26",
+      "valid_until": null,
+      "owner": "management",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/",
+        "/about",
+        "/capabilities",
+        "/certificates",
+        "/halal",
+        "/en/",
+        "/en/about",
+        "/en/capabilities",
+        "/en/certificates",
+        "/en/halal"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "halal_dum_rt_614a_2024",
+      "claim_ru": "Халяль ДУМ РТ №614А/2024.",
+      "claim_en": "Halal certification by the Spiritual Administration of Muslims of the Republic of Tatarstan, certificate No. 614A/2024.",
+      "source_type": "certification_registry",
+      "source_url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "verified_at": "2026-08-26",
+      "valid_until": "2027-02-16",
+      "owner": "quality",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/certificates",
+        "/halal",
+        "/about",
+        "/en/certificates",
+        "/en/halal",
+        "/en/about"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "iso_22000_2018",
+      "claim_ru": "Система менеджмента безопасности пищевой продукции сертифицирована по ISO 22000:2018; публичная запись — FSMS-2351/А.",
+      "claim_en": "The food safety management system is certified to ISO 22000:2018; public record FSMS-2351/A.",
+      "source_type": "accredited_certificate_database",
+      "source_url": "https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx",
+      "verified_at": "2026-05-13",
+      "valid_until": null,
+      "owner": "quality",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/certificates",
+        "/capabilities",
+        "/about",
+        "/blog/iso-22000-iaf-certsearch",
+        "/en/certificates",
+        "/en/capabilities",
+        "/en/about",
+        "/en/blog/iso-22000-iaf-certsearch"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "haccp_controls",
+      "claim_ru": "На производстве применяется система HACCP.",
+      "claim_en": "HACCP controls are applied at the production site.",
+      "source_type": "owner_document",
+      "source_url": null,
+      "verified_at": "2026-08-26",
+      "valid_until": null,
+      "owner": "quality",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/certificates",
+        "/capabilities",
+        "/en/certificates",
+        "/en/capabilities"
+      ],
+      "status": "active",
+      "public_note": "A copy for supplier qualification is available from the company on request."
+    },
+    {
+      "id": "tr_ts_021_2011",
+      "claim_ru": "Контур безопасности пищевой продукции учитывает требования ТР ТС 021/2011.",
+      "claim_en": "The food safety control framework accounts for TR CU 021/2011 requirements.",
+      "source_type": "owner_document",
+      "source_url": null,
+      "verified_at": "2026-08-26",
+      "valid_until": null,
+      "owner": "quality",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/certificates",
+        "/capabilities",
+        "/en/certificates",
+        "/en/capabilities"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "private_label_capability",
+      "claim_ru": "Компания рассматривает контрактное производство и СТМ по техническому заданию заказчика.",
+      "claim_en": "The company evaluates contract-manufacturing and private-label projects against the buyer's specification.",
+      "source_type": "owner_capability_record",
+      "source_url": "https://pepperoni.tatar/kontraktnoe-proizvodstvo",
+      "verified_at": "2026-08-26",
+      "valid_until": null,
+      "owner": "sales",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/kontraktnoe-proizvodstvo",
+        "/capabilities",
+        "/en/private-label",
+        "/en/capabilities"
+      ],
+      "status": "active",
+      "restrictions": [
+        "Do not publish an MOQ, lead time, recipe, packaging format or country approval unless it is confirmed for the specific project."
+      ]
+    }
+  ],
+  "independent_nodes": [
+    {
+      "id": "dum_rt_company_119",
+      "type": "certification_registry",
+      "url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/",
+      "verified_at": "2026-08-26",
+      "supports": [
+        "organization_identity",
+        "halal certification",
+        "address",
+        "phone"
+      ]
+    },
+    {
+      "id": "iaf_fsms_2351_a",
+      "type": "accredited_certificate_database",
+      "url": "https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx",
+      "verified_at": "2026-05-13",
+      "supports": [
+        "ISO 22000:2018",
+        "production site identity"
+      ]
+    },
+    {
+      "id": "gfc_pepperoni_240111",
+      "type": "distributor_product",
+      "url": "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kolbasy-vetchina-bekon/240111-kolbasa-pepperoni-halyal-narezka-v-k-zam-kazanskie-delikatesy-500gr-10sht-kor",
+      "verified_at": "2026-08-26",
+      "supports": [
+        "brand sold through an independent HoReCa distributor",
+        "halal sliced pepperoni product"
+      ]
+    },
+    {
+      "id": "sweet_life_pepperoni_118665",
+      "type": "distributor_product",
+      "url": "https://swlife.ru/118665",
+      "verified_at": "2026-08-26",
+      "supports": [
+        "brand sold through an independent HoReCa distributor",
+        "halal pepperoni product"
+      ]
+    },
+    {
+      "id": "prodexpo_2025_profile",
+      "type": "exhibition_profile",
+      "url": "https://icatalog.expocentr.ru/ru/exhibitions/b5cf5aaa-3c26-11ee-80ce-a0d3c1fab97f/exhibitors/367862?stand=83B01",
+      "verified_at": "2026-08-26",
+      "supports": [
+        "company identity",
+        "Kazan address",
+        "halal manufacturer positioning"
+      ]
+    },
+    {
+      "id": "gulfood_russia_profile",
+      "type": "export_promotion_profile",
+      "url": "https://gulfood-russia.com/tpost/tucvkt6sk1-kazan-delicacies-llc",
+      "verified_at": "2026-08-26",
+      "supports": [
+        "Kazan Delicacies LLC English name",
+        "pepperoni product line",
+        "Made in Russia profile"
+      ]
+    }
+  ],
+  "people": [],
+  "people_publication_rule": "Do not publish a Person author or reviewer until the owner supplies the person's full name, role, consent and review scope.",
+  "prohibited_claims": [
+    "best, only or number-one manufacturer",
+    "GCC-wide, JAKIM, SFDA, GSO or country approval without an active public source",
+    "specific importer, customer, shipment, capacity, MOQ or lead time without evidence",
+    "invented reviews, awards, locations, phone numbers or certificates",
+    "kosher certification"
+  ]
+}

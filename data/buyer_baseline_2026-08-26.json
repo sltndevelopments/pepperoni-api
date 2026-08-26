@@ -1,0 +1,947 @@
+{
+  "date": "2026-08-26",
+  "ts": "2026-08-26T19:52:02.458487+00:00",
+  "after_commit": "9644562f205b9769502750420b9ae07a8766e81c",
+  "note": "Trust-reset baseline before publishing the 213-URL allowlist; ChatGPT Search uses required web search.",
+  "layers": [
+    "perplexity_search",
+    "gemini_search",
+    "chatgpt_search"
+  ],
+  "rows": [
+    {
+      "group": "manufacturer",
+      "q": "Find me a certified halal pepperoni manufacturer that can supply pizza chains. Name real companies and websites.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [],
+          "excerpt": "Here are **real halal pepperoni manufacturers** with websites that indicate they can supply **pizza chains / foodservice / wholesale**:\n\n| Company | Website | What they offer |\n|---|---|---|\n| **Kazan Delicacies** | `pepperoni.tatar` / `kazandelikates.tatar` | Certified halal pepperoni for **pizzerias, restaurants, distributors, and dark kitchens**; the site says they supply wholesale and list halal certification **DUM RT #614A/2024** and HACCP/ISO 22000. [1][2][4][7] |\n| **Midamar** | `midamar.com` / `midamarhalal.com` | Halal food manufacturer selling **halal beef pepperoni** and other pizza toppings; the company says it offers “Italian style Halal beef pepperoni” and other halal products. [12][18] |\n| **Beechgrove Country Foods** | `beechgrovefoods.com` | Lists a **full line of halal certified pizza topping products**, including **cooked pepperoni** and other meat toppings for foodser"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Several established B2B manufacturers and suppliers specialize in certified Halal pepperoni (beef or poultry) tailored for commercial pizzerias, food service distributors, and regional pizza chains:\n\n---\n\n### 1. **Midamar Corporation** (North America / Global Export)\n* **Website:** [midamarwholesale.com](https://www.midamarwholesale.com) / [midamar.com](https://www.midamar.com)\n* **Overview:** A pioneer and leader in the Halal food supply chain in the United States, Midamar supplies broadline distributors (US Foods, Sysco, etc.) and chain restaurants.\n* **Pepperoni Specs:** 100% Zabiha Halal dry-aged beef pepperoni, pre-sliced (bulk food service packs), designed specifically for commercial pizza conveyor and deck ovens without burning or excessive grease separation.\n\n---\n\n### 2. **Salimah Foods** (Europe & International)\n* **Website:** [salimah.be](https://salimah.be)\n* **Overview:** Sal"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "## Best U.S. option for a pizza chain\n\n### 1. **Hormel Foodservice**\n**Website:** [hormelfoodservice.com/products/halal](https://www.hormelfoodservice.com/products/halal/)\n\n- **Product:** HORMEL® Halal Pepperoni\n- **SKU 114488:** 14 slices/oz, **2 × 12.5-lb packages per case**\n- Made from chicken, beef and turkey—not pork.\n- Fully cooked, sliced and specifically marketed for pizza and foodservice.\n- Hormel has national foodservice distribution and a sales/sample-request process, making it the strongest candidate for a multi-location U.S. chain. ([hormelfoodservice.com](https://www.hormelfoodservice.com/products/halal/?utm_source=openai))\n\n**Recommendation:** Start here if you need dependable national volume and distributor integration.\n\n## Other legitimate manufacturers/suppliers\n\n### 2. **Midamar Corporation — Iowa, USA**\n**Website:** [midamar.com/pizza](https://www.midamar.com/pizza)  "
+        }
+      }
+    },
+    {
+      "group": "manufacturer",
+      "q": "Halal pepperoni manufacturers in Russia — who actually produces it for wholesale?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "In Russia, the **clearest wholesale manufacturer of halal pepperoni** in the search results is **Kazan Delicacies LLC / ООО «Казанские Деликатесы»** in **Kazan, Tatarstan**.[2][3][5]\n\nWhat the results show:\n\n- The company presents itself as a **halal pepperoni wholesale manufacturer** and says it makes pepperoni in **Kazan, Russia** for **HoReCa, pizzerias, distributors, retail chains, and private label** clients.[1][2][5][16]\n- It states the product is **cooked-smoked chicken pepperoni** for wholesale and that the raw material is **halal chicken meat**.[2]\n- The company also says it produces **beef, chicken, horse, and turkey** halal meat products and exports to the **CIS and Middle East**.[1][6]\n- A LinkedIn company profile identifies **Kazan Delicacies** as a **halal meat manufacturer and B2B supplier from Kazan**, with halal certification and food-safety systems listed.[4]\n\nIf you ne"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 5,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 5"
+          ],
+          "excerpt": "Several meat processing enterprises in Russia produce certified **Halal pepperoni** (made exclusively from beef, poultry/chicken, or turkey with zero pork/pork lard) specifically formulated for B2B/HoReCa pizza toppings and foodservice distribution:\n\n---\n\n### **1. Kazan Delicacies (ООО «Казанские Деликатесы»)**\n* **Focus:** Specializes specifically in Halal processed meat products for HoReCa (pizzerias, burger shops) and private label (STM).\n* **Product:** Halal Pepperoni salami (cooked-smoked / dry-cured), formulated specifically not to curl or scorch in high-heat pizza ovens. Available in logs or pre-sliced format (0.5 kg to 5 kg packs).\n* **Base Meats:** Beef, poultry, turkey, or custom blends.\n* **Certification:** Halal Committee of the Spiritual Administration of Muslims of the Republic of Tatarstan (DUM RT).\n* **Website / Contact:** [kazandelikates.tatar](https://kazandelikates.tat"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 6,
+          "source_page": [
+            "https://pepperoni.tatar/about?utm_source=openai",
+            "https://pepperoni.tatar/"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar",
+            "exw"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 6"
+          ],
+          "excerpt": "Yes—there are several **actual Russian processors**, but only a few clearly offer pepperoni in a format suitable for wholesale pizza production.\n\n## Best-verified manufacturers\n\n| Manufacturer | Production location | Product / wholesale suitability | Assessment |\n|---|---|---|---|\n| **ООО «Казанские Деликатесы»** | Kazan, Tatarstan | Halal pepperoni made from beef, chicken or horse meat; whole sticks and sliced formats; professional packs of roughly 0.5–5 kg; diameter, heat resistance and spiciness can be customized. Supplies HoReCa and distributors and offers private-label production. | **Strongest direct match for pizzerias and industrial buyers.** |\n| **АГРОСИЛА / ООО «Челны-Бройлер»** | Tatarstan | The holding specifically lists halal sliced **“Pepperoni” for pizza** among its HoReCa products. It has produced halal-certified products since 2005 and sells into food service, retail and"
+        }
+      }
+    },
+    {
+      "group": "manufacturer",
+      "q": "Who makes halal pepperoni for pizzerias wholesale? Name manufacturers, not retailers.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "If you need **manufacturers** of halal pepperoni for pizzerias at **wholesale** level, the clearest matches in the results are **Kazan Delicacies** and **Midamar**.[1][4][5][17]\n\n- **Kazan Delicacies LLC** — a direct halal pepperoni manufacturer in Kazan, Russia, explicitly offering wholesale supply for **pizzerias, restaurants, distributors, and HoReCa**.[1][4][7]\n- **Midamar** — a halal meat manufacturer/processor that sells **halal sliced beef pepperoni** through its wholesale channels.[5][16][17]\n\nOther manufacturer-type options in the results:\n- **Food Master Asia** — states that it **produces** halal processed meat products including **pepperoni**.[12]\n- **Hargreaves Quality Foods Ltd / Hargioni Tasty Tops** — offers halal pepperoni for commercial pizza production in the UK market.[15]\n- **Springer’s Meats** — mentioned as a halal pepperoni producer in a secondary source, though th"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Foodservice meat manufacturers and dedicated Halal processors that produce wholesale Halal pepperoni (bulk, sliced, and log formats) for pizzerias and restaurant operations include:\n\n---\n\n### 1. Dedicated Halal Meat Processors & Manufacturers\n* **Midamar Corporation**\n  * **Website:** [midamarfoodservice.com](https://www.midamarfoodservice.com) / [midamar.com](https://www.midamar.com)\n  * **Details:** One of the oldest and largest USDA-inspected Halal meat processors in the United States. They manufacture pre-sliced, dry-aged 100% Halal beef pepperoni specifically formulated for pizza operators and foodservice applications.\n* **Sharifa Halal (Saad Wholesale Meats)**\n  * **Website:** [saadmeats.com](https://saadmeats.com) / [sharifahalal.com](https://sharifahalal.com)\n  * **Details:** A Michigan-based USDA processor manufacturing bulk sliced Halal beef pepperoni and other Halal pizza meat"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 18,
+          "source_page": [
+            "https://pepperoni.tatar/en/?utm_source=openai"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Here are **actual manufacturers/processors** offering halal pepperoni suitable for pizzerias—not restaurant-supply retailers:\n\n### U.S. manufacturers\n\n- **Hormel Foods / Hormel Foodservice — Minnesota**  \n  Manufactures halal pepperoni from chicken, beef and turkey. Foodservice SKUs include **#114488, 2 × 12.5-lb cases**, and **#137666, 2 × 5-lb cases**, sliced at approximately 14 slices per ounce. ([hormelfoodservice.com](https://www.hormelfoodservice.com/products/halal/?utm_source=openai))\n\n- **Devanco Foods / Gridley Meats — Carol Stream, Illinois**  \n  Manufactures halal beef pepperoni in a pork-free, halal-certified facility. **Gridley item GM3016** is a bulk beef pepperoni pizza topping packed **4 × 2.5 lb per case**. ([devancofoods.com](https://www.devancofoods.com/food-service/halal?utm_source=openai))\n\n- **Midamar Corporation — Cedar Rapids, Iowa**  \n  Produces **Zabiha-halal, a"
+        }
+      }
+    },
+    {
+      "group": "manufacturer",
+      "q": "Производители халяль пепперони в России — кого посоветуешь оптовику? Назови компании и сайты.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [],
+          "excerpt": "Если нужен **оптовый поставщик халяль пепперони в России**, самый очевидный кандидат по актуальным данным — **ООО «Казанские Деликатесы»**: у них есть отдельная линейка **halal pepperoni**, оптовые продажи по России и позиционирование именно под **HoReCa, пиццерии, дистрибьюторов и розницу**.[1][3][4]\n\n- **Казанские Деликатесы** — основной производитель, которого я бы первым рассматривал оптовику; у компании есть сайт **kazandelikates.tatar** и брендовый сайт **pepperoni.tatar**.[1][2]\n- Они прямо указывают, что производят **халяль пепперони из говядины**, делают поставки **по всей России**, и у них есть контакт для опта: **+7 (987) 217-02-02**, **info@kazandelikates.tatar**.[1][6]\n- На их сайте есть отдельные страницы под **«пепперони халяль оптом»**, включая вариант с доставкой и нарезкой; это хороший знак, что продукт адаптирован под b2b-заказы.[3][4][11]\n\nЕще один вариант, но уже ско"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 5,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 5"
+          ],
+          "excerpt": "Для оптовых закупок пепперони «Халяль» (для сектора HoReCa, пиццерий и дистрибуции) в России стоит обратить внимание на следующих производителей и профильные бренды:\n\n---\n\n### 1. ООО «Казанские Деликатесы» (Татарстан)\n* **Специализация:** Производство халяльной мясной гастрономии, полуфабрикатов и топпингов для пиццерий.\n* **Продукция:** Пепперони халяль (из говядины и мяса птицы) в нарезке нужного калибра специально для запекания в пицце.\n* **Плюсы:** Работают напрямую с оптовиками и HoReCa, организуют доставку по регионам России и на экспорт.\n* **Сайт:** [kazandelikates.tatar](https://kazandelikates.tatar)\n\n---\n\n### 2. ООО «Эколь» / ГК «Оптимум» (Москва / Подмосковье)\n* **Специализация:** Один из крупнейших и старейших халяль-брендов в РФ.\n* **Продукция:** Сырокопченые и полукопченые колбасы, включая специализированную нарезку пепперони «Халяль» из говядины/птицы для ресторанов и фастф"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 2,
+          "source_page": [
+            "https://pepperoni.tatar",
+            "https://kazandelikates.tatar",
+            "https://pepperoni.tatar/?utm_source=openai"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 2"
+          ],
+          "excerpt": "Для оптовой закупки я бы составил такой шорт-лист. Российский рынок **именно халяльной пепперони для пиццы** довольно узкий, поэтому уверенно рекомендую прежде всего двух производителей.\n\n### 1. «Казанские Деликатесы» — основной кандидат\n\n**Сайт:** https://pepperoni.tatar  \nДополнительный каталог: https://kazandelikates.tatar\n\nПроизводство находится в Казани. Есть пепперони из говядины, курицы и конины, поставки батонами и готовой нарезкой, фасовка для HoReCa. Производитель предлагает изменение диаметра, остроты и рецептуры, выпуск СТМ/Private Label и доставку по России. На сайте заявлены HACCP, ISO 22000 и сертификация ДУМ РТ. Продукция присутствует у федеральных HoReCa-дистрибьюторов GFC и SweetLife. ([pepperoni.tatar](https://pepperoni.tatar/?utm_source=openai))\n\n**Кому подходит:** пиццерии, федеральные и региональные дистрибьюторы, производство под собственной маркой.\n\n**Моя оценка:*"
+        }
+      }
+    },
+    {
+      "group": "manufacturer",
+      "q": "Cooked-smoked chicken or horse-meat halal pepperoni manufacturer for foodservice — who exists?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "Yes — at least one clear manufacturer in the results is **Kazan Delicacies LLC / Kazan Delikates** in Kazan, Russia, which states that it makes **cooked-smoked chicken pepperoni** and also offers **horse-meat pepperoni** for pizzerias, HoReCa, and distribution.[1][3][4]\n\nWhat the results show:\n\n- **Kazan Delicacies LLC (Kazan Delikates)**: halal manufacturer of pepperoni and other meat products; specifically lists **cooked-smoked chicken pepperoni** and says **beef and horse meat pepperoni are also available**.[1][2][3][4]\n- The company says the products are **Halal-certified** by the Halal Standards Committee of DUM RT, certificate **#614A/2024**, and that there is **no pork or alcohol** in production.[1][2][4]\n- It appears to be set up for **foodservice / wholesale / private label**, explicitly mentioning **pizzerias, HoReCa, distributors, and brand owners**.[1][3][5]\n\nOther companies "
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "For foodservice procurement of **Halal-certified cooked-smoked chicken pepperoni** and **horse-meat charcuterie/pepperoni equivalents**, options are categorized by meat profile and regional availability:\n\n---\n\n### 1. Halal Cooked / Smoked Poultry & Chicken Pepperoni (Foodservice Slicing & Toppings)\n\n* **Kazan Delicacies (Kazan Delikates)**\n  * **Product:** Cooked-smoked chicken pepperoni sticks (50–55 mm caliber, frozen/IQF for pizza and deli slicing) as well as beef/poultry blends.\n  * **Markets:** CIS, MENA export, and global HoReCa wholesale.\n  * **Website:** [kazandelikates.tatar](https://kazandelikates.tatar) / [kazandelicacies.com](https://kazandelicacies.com)\n* **Hormel Foodservice (Fontanini / Hormel Brands)**\n  * **Product:** Hormel Halal Sliced Pepperoni & Fontanini Halal Chicken/Beef blends (specifically engineered for pizza baking performance and foodservice distribution).\n  "
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 3,
+          "source_page": [
+            "https://pepperoni.tatar/en/pepperoni-v-narezke?utm_source=openai"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 3"
+          ],
+          "excerpt": "Yes. The market is small, but several credible manufacturers exist.\n\n## Exact or close-to-exact matches\n\n| Manufacturer | Location | Product fit | Foodservice details |\n|---|---|---|---|\n| **Kazan Delicacies LLC** | Kazan, Tatarstan, Russia | **Exact:** cooked-smoked, chicken-only halal pepperoni; also a **horse-meat pepperoni** version | Chicken SKU KD-013: sliced, 50–55 mm, 0.5-kg vacuum packs, frozen. Horse version is also listed in 0.5-kg foodservice packs. Offers logs, custom diameters, private label and pilot orders. Manufacturer claims DUM RT Halal #614A/2024, HACCP and ISO 22000. ([pepperoni.tatar](https://pepperoni.tatar/en/pepperoni-v-narezke?utm_source=openai)) |\n| **Miami Food Products / Miami Butcher House** | Penang, Malaysia | **Exact:** halal **smoked chicken pepperoni for pizza**, block or sliced | Malaysia’s official JAKIM directory lists “Smoked Chicken Pepperoni Pizza"
+        }
+      }
+    },
+    {
+      "group": "commercial",
+      "q": "Find a private label / OEM manufacturer of halal pepperoni. Minimum order is by agreement, depends on logistics. Name factories.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "moq_kg_number"
+          ],
+          "above_and_why": [],
+          "excerpt": "Here are the **private label / OEM manufacturers of halal pepperoni** I could verify from the search results, with their factories and minimum order notes where available.\n\n| Company / factory | Location | Halal pepperoni private label / OEM | Minimum order / MOQ | Notes |\n|---|---:|---|---:|---|\n| **Kazan Delicacies LLC** / **ООО “Kazan Delicacies”** | **Kazan, Tatarstan, Russia** (Agrarnaya 2) | Yes — they state **private label / OEM** for halal pepperoni under your brand | **From 500 kg/month** per SKU for pilot; another page says **minimum order discussed individually**; wholesale page also shows **from 1 box (2.5 kg)** for wholesale buying | Halal cert **#614A/2024**, HACCP, ISO 22000:2018; custom recipe, packaging, labeling; factory brand **“Aslam”** for OMPK JSC[1][2][3][5][6][7][8][11][15] |\n| **Springer’s Meats** | Canada (site shows contact in Hamilton, Ontario) | Yes — offers "
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 21,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Below is a vetted list of specialized B2B meat processors and manufacturers capable of **OEM, contract manufacturing, and private label production of Halal Pepperoni** (pure beef, beef/chicken blends, or turkey), categorized by region.\n\n---\n\n### 1. North American Manufacturers\n\n* **Midamar Corporation**\n  * **Headquarters/Plant:** Cedar Rapids, Iowa, USA\n  * **Website:** [midamarhalal.com](https://www.midamarhalal.com) / [midamar.com](https://www.midamar.com)\n  * **Capabilities:** One of the oldest USDA-inspected and Halal-certified meat processors in North America. They produce sliced, frozen, and dry-cured Halal beef pepperoni for foodservice and retail, and offer comprehensive private label/OEM co-packing and global export capabilities.\n  * **MOQ & Terms:** Negotiable based on container load, pallet configurations, or freight lanes.\n\n* **Granna’s LLC**\n  * **Headquarters/Plant:** USA "
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 3,
+          "source_page": [
+            "https://pepperoni.tatar/en/"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar",
+            "exw",
+            "moq_agreement"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 3"
+          ],
+          "excerpt": "## Halal pepperoni OEM / private-label factories\n\n| Factory | Location | Capability | MOQ / contact |\n|---|---|---|---|\n| **Gridley Meat Products LLC** | Gridley, Illinois, USA | USDA meat plant producing halal beef products, including beef pepperoni. Offers private-label manufacturing, custom packaging, recipe development and small-batch production. Strongest U.S. candidate. ([linkedin.com](https://www.linkedin.com/company/gridley-meat-products-llc)) | MOQ by quotation. Factory address: 205 E. 3rd St., Gridley, IL 61744. |\n| **Dombrovski Craft Meats** | Foley, Minnesota, USA | Meat manufacturer serving foodservice and frozen-food companies. Lists a certified-halal line, all-beef pepperoni and private labeling. Confirm that the current halal certificate specifically covers your chosen pepperoni formula and production line. ([dombrovskimeats.com](https://dombrovskimeats.com/pages/wholesal"
+        }
+      }
+    },
+    {
+      "group": "commercial",
+      "q": "Wholesale halal pepperoni supplier, EXW, request a quotation — which manufacturers publish live SKUs and prices?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar",
+            "exw"
+          ],
+          "above_and_why": [],
+          "excerpt": "The clearest match is **Kazan Delicacies / pepperoni.tatar**: they publish **live SKUs and prices**, offer **EXW Kazan** by default, and explicitly provide a **request-a-quote** flow for wholesale buyers.[1][3][10][15] Among the results you gave, **Midamar Wholesale** also publishes an online SKU and price for halal beef pepperoni, but the result shown is a retail/wholesale product page rather than an EXW manufacturer quotation page.[8][16]\n\nWhat’s publicly visible right now:\n\n- **Kazan Delicacies / pepperoni.tatar** — manufacturer, wholesale, **live catalog**, prices in multiple currencies, **EXW Kazan**, and a published API/live price list for distributors.[1][3][10][15]\n- **Midamar Wholesale** — publishes a product SKU (**MBPEP03**) and a price (**$99.00**) for halal sliced beef pepperoni.[8][16]\n- **Halal Foundry** — has a wholesale halal beef pepperoni product page, but the result s"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [
+            "exw"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "In primary food manufacturing (especially meat and cold cuts), **pure manufacturers rarely publish public, real-time bulk pricing** due to volatile raw-meat market commodities and volume-tier scales. \n\nHowever, several primary processors, direct B2B master distributors, and wholesale platforms maintain **live/public SKUs**, online quotation portals, and upfront pricing models:\n\n---\n\n### 1. Direct Manufacturers & Processors (Live SKUs + RFQ Portals)\nThese companies produce halal pepperoni at scale and handle **EXW (Ex Works)** freight pickup from their cold-storage facilities via RFQ (Request for Quotation):\n\n*   **Midamar Halal (Midamar Corporation)**\n    *   **Website:** `midamarhalal.com` / `midamarwholesale.com`\n    *   **Key SKUs:** *MBPEP03* (Halal Sliced Beef Pepperoni, Bulk Cases), *MBPEP01* (Stick/Chub format).\n    *   **Model:** Publishes explicit SKU lists and technical specs. "
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 3,
+          "source_page": [
+            "https://pepperoni.tatar/api/products"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar",
+            "exw",
+            "moq_kg_number",
+            "api_products"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "## Short answer\n\nAs of **August 26, 2026**, I found **one clear manufacturer publishing genuinely live SKU-level pricing together with explicit EXW terms**, plus one U.S. branded supplier publishing a current wholesale SKU and case price:\n\n| Supplier | Public SKU / pack | Published price | EXW status | Assessment |\n|---|---|---:|---|---|\n| **Kazan Delicacies, Russia** | KD-012 horse pepperoni, 0.5 kg; KD-013 chicken pepperoni, 0.5 kg; KD-014 chicken stick, 1 kg | KD-012 **US$3.46/pack**; KD-013 **US$3.01/pack**; KD-014 **US$5.03/pack** | **EXW Kazan, Incoterms 2020** | **Best literal match:** manufacturer, live API, SKUs, availability and export prices |\n| **Midamar, Iowa, USA** | MBPEP03 sliced all-beef pepperoni, 2 × 5-lb case | **US$99/case — $9.90/lb** | Not published; request pickup/EXW-equivalent quote | Best public-price U.S. option |\n\nKazan’s API reported **64 products**, was las"
+        }
+      }
+    },
+    {
+      "group": "commercial",
+      "q": "Где заказать private label халяль пепперони под наш бренд? Назови производителей.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "Если вам нужен **private label халяль пепперони под ваш бренд**, по найденным данным самый явный производитель — **ООО «Казанские Деликатесы»**: они прямо пишут, что работают как **contract manufacturer полного цикла** и делают продукцию под торговой маркой заказчика в форматах **OEM / Private Label / White Label / Co-development**.[1][2]\n\n**Кого можно рассмотреть:**\n- **ООО «Казанские Деликатесы» / Kazan Delikates** — халяль пепперони из говядины, есть гибкая рецептура, адаптация маркировки под бренд заказчика и опции private label; контакты: **info@kazandelikates.tatar**, **+7 (987) 217-02-02**, адрес: Казань, ул. Аграрная, 2.[1][3][9]\n- **ООО «Дуслык» / DUSLYK x Salamat** — в результатах есть готовый **халяльный пепперони** и колбаски пепперони; в карточке указан **изготовитель: ООО ДУСЛЫК**, но по найденным данным не подтверждено, что они явно предлагают private label под ваш бренд.["
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 2,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [
+            "US/IFANCA",
+            "RU peer"
+          ],
+          "excerpt": "Производство **халяль пепперони под СТМ (Private Label)** — это узкий сегмент, так как классическая рецептура свиная, а для халяль-рынка требуется сырье из говядины, птицы (индейка/курица) или конины с жестким аудитом линий на отсутствие контаминации.\n\n---\n\n### Производители в РФ (с фокусом на контрактное производство / B2B)\n\n1. **ООО «Казанские Деликатесы» (Kazan Delikates)**\n   * **Профиль:** Специализированное халяльное производство колбас, деликатесов и HoReCa-нарезки в Татарстане. Имеют отдельное направление контрактного производства (СТМ) для сетей и пиццерий.\n   * **Специфика:** Производят пепперони из говядины/птицы в батонах и нарезке (слайсинг, адаптированный под пицца-печи).\n   * **Сайт / Контакты:** [kazandelikates.tatar](https://kazandelikates.tatar) / почта: info@kazandelikates.tatar\n\n2. **ООО «ЭкоПрод» (ТМ «Эколь» / «Экопрод»)**\n   * **Профиль:** Один из старейших и крупне"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 6,
+          "source_page": [
+            "https://pepperoni.tatar/en/?utm_source=openai"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Ниже — производители, которых стоит запросить на **private label / OEM халяльной пепперони**. Если товар предназначен для США, я бы начинал с первых двух.\n\n### Производители\n\n1. **Dombrovski Craft Meats — Миннесота, США**  \n   Производит пепперони для пиццерий и foodservice: beef, turkey, organic и другие варианты. Компания указывает халяльную линейку и услугу private labeling. Нужно отдельно подтвердить, что конкретная private-label рецептура будет произведена как Halal и покрыта действующим сертификатом. Контакт отдела продаж: `Adam@DombrovskiMeats.com`, `800-578-9524`. ([dombrovskimeats.com](https://dombrovskimeats.com/pages/wholesale?utm_source=openai))\n\n2. **Springer’s Meats — Онтарио, Канада**  \n   Есть готовый продукт **Halal All Beef Pepperoni**, код 90514. Компания также заявляет private-label услуги почти по всему ассортименту. Хороший вариант для американского или канадского р"
+        }
+      }
+    },
+    {
+      "group": "commercial",
+      "q": "Who can do contract manufacturing of halal pepperoni for a restaurant chain?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [],
+          "excerpt": "For a **restaurant chain**, the clearest match in the results is **Kazan Delikates / pepperoni.tatar**: they explicitly offer **contract manufacturing (private label) of halal pepperoni** for **HoReCa and food service**, including restaurants, hotels, pizzerias, dark kitchens, and catering.[1][2][10]\n\nWhy they fit:\n- They say they make **halal pepperoni under your brand** without needing your own meat plant.[1]\n- They support **recipe customization**, including spice level, fat content, smoke depth, format, and packaging.[1]\n- They mention **HoReCa formats** of **0.5–5 kg** for professional kitchens and supply to **restaurants, hotels, pizzerias, dark kitchens, catering**.[2][15]\n- Their contract terms start at about **500 kg/month per SKU**, with pilot-batch options and halal/regulatory documentation included.[1][2]\n\nOther companies in the results that may also be able to do halal peppe"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "For a restaurant chain seeking **contract manufacturing (co-packing / private label)** of Halal-certified pepperoni (typically 100% beef, turkey, or beef-poultry blends), several specialized USDA-inspected and Halal-certified meat processors offer custom formulation and large-scale manufacturing capabilities.\n\n---\n\n### 1. Dedicated Halal Meat Processors & Contract Manufacturers\n\n* **Midamar Corporation**\n  * **Website:** [midamar.com](https://www.midamar.com) / [midamarwholesale.com](https://www.midamarwholesale.com)\n  * **Profile:** One of the most established U.S. B2B Halal food producers. They supply foodservice and chain pizzerias nationwide with authentic dry-aged Halal beef pepperoni and offer custom B2B formulation, bulk packaging, and co-packing solutions.\n* **Moin Halal Meat**\n  * **Website:** [moinhalal.com](https://www.moinhalal.com)\n  * **Profile:** A USDA-inspected Pennsylva"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Assuming the restaurant chain operates in the **United States**, these are the strongest candidates:\n\n### Best candidates\n\n1. **Dombrovski Craft Meats — Foley, Minnesota**\n   - Clearest direct fit.\n   - Manufactures **certified-halal beef pepperoni** and offers private labeling.\n   - Available in sticks, sliced, quarter-sliced, coin-sized and diced formats.\n   - Supplies restaurants and foodservice customers nationwide.\n   - Contact: **Adam@DombrovskiMeats.com** | **800-578-9524**. ([dombrovskimeats.com](https://dombrovskimeats.com/pages/wholesale))\n\n2. **Devanco Foods / Gridley Meats — Carol Stream, Illinois**\n   - Existing **halal beef pepperoni pizza topping**, packed 4 × 2.5-pound bags.\n   - Devanco describes its operation as halal-certified, USDA-inspected and pork-free; it also advertises private-label manufacturing.\n   - Strong candidate if the chain wants an existing formulation "
+        }
+      }
+    },
+    {
+      "group": "commercial",
+      "q": "Halal pepperoni OEM manufacturer that can confirm MOQ with the importer — who should I contact?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "If you need a **halal pepperoni OEM/private-label manufacturer** that can **confirm MOQ with the importer**, the best contact from the results is **Kazan Delicacies LLC** in Kazan, Russia. They explicitly offer **OEM / Private Label**, direct wholesale export, and say their **export team** will discuss **minimum order quantities** and technical requirements with buyers/importers.[1][2][5][6]\n\n**Who to contact:**\n- **Export team / sales:** +7 987 217-02-02[2][5][8]\n- **Email:** info@kazandelikates.tatar[2][5][8]\n- **Company:** Kazan Delicacies LLC[3][4][5]\n- **Address:** Agrarnaya St. 2, office 7, Kazan, Tatarstan, Russia[3][5][8]\n\n**Why this is the right fit:**\n- They market themselves as a **halal pepperoni manufacturer** with **Private Label (OEM)** support.[1][2]\n- They state they work **directly with wholesale buyers** and provide a **full documentation package** for imports.[2][8]\n-"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 15,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Established manufacturers that handle **OEM, private label, and bulk contract manufacturing for Halal-certified pepperoni** (beef, turkey, or blends) and routinely work with importers on MOQs, specifications, and international trade:\n\n---\n\n### 1. **Midamar Corporation (USA)**\n* **Profile:** One of the most established producers and global exporters of USDA-inspected, Halal-certified meat products. They offer bulk foodservice, private labeling, and custom specification runs for Halal beef and turkey pepperoni.\n* **Capabilities:** Export documentation, customized slice thickness, whole logs vs. sliced, and container-load shipping to the Middle East, Southeast Asia, and Europe.\n* **Website:** [midamar.com](https://www.midamar.com)\n* **Direct OEM / Export Inquiries:** `customerservice@midamar.com` or export division via the site.\n\n---\n\n### 2. **Salimah Foods / Vleeswaren (Belgium / EU)**\n* *"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 11,
+          "source_page": [
+            "https://pepperoni.tatar/en/"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar",
+            "exw"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 11"
+          ],
+          "excerpt": "## Best first contact\n\n**Beechgrove Country Foods — Toronto, Canada**  \nThey manufacture halal-certified pepperoni, customize formulations, co-pack for brands, and already distribute into the United States.\n\n- **Commercial/MOQ:** Barbara Moules — `barbara@beechgrovefoods.com`\n- **Halal/regulatory documents:** Jenifer Edwards — `jenifer@beechgrovefoods.com`\n- **Phone:** +1 800-279-2015  \nAsk Barbara to confirm the MOQ directly with your importer, copying Jenifer for certification and import documentation. ([beechgrovefoods.com](https://www.beechgrovefoods.com/))\n\n## Other manufacturers to contact\n\n1. **Dombrovski Craft Meats — Minnesota, USA**  \n   Offers private labeling, certified-halal products and all-beef pepperoni. Ask whether its current halal certificate specifically covers the pepperoni proposed for your project.\n   - Adam: `Adam@DombrovskiMeats.com`\n   - +1 800-578-9524 ([dombro"
+        }
+      }
+    },
+    {
+      "group": "regional",
+      "q": "Halal pepperoni supplier for Dubai / UAE restaurant chain, 5 tonnes per month. Name manufacturers who can export.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "For a **Dubai/UAE restaurant chain needing ~5 tonnes/month**, the most clearly export-ready manufacturers in the search results are **Kazan Delicacies LLC (Russia)**, **Diamond Meat Processing L.L.C. (UAE)**, and **Amana Food Industries Company LLC (UAE)**; all are described as manufacturers/suppliers of halal processed meats including pepperoni or similar deli meat products.[3][6][8]\n\n**Best-fit manufacturers to contact first**\n- **Kazan Delicacies LLC** — explicitly markets **halal pepperoni wholesale for the UAE**, says it exports to Dubai/Sharjah/Abu Dhabi, and states it is a dedicated halal pepperoni manufacturer with **HACCP + ISO 22000** and halal certificate **#614A/2024**.[1][3][5][20]\n- **Diamond Meat Processing L.L.C.** — listed in UAE business directories as an **ISO 9001 & HACCP certified** manufacturer with a range including **pepperonis**, and it is based in Dubai.[8]\n- **"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "TR brand",
+            "BR packer",
+            "UAE/MENA",
+            "US/IFANCA"
+          ],
+          "excerpt": "At **5 metric tonnes per month** (~60 tonnes/year), you are operating at commercial FCL/LCL food service volumes. Sourcing halal pepperoni for Dubai requires suppliers who comply with **ESMA / MoIAT Halal standards** and have approved slaughterhouse/processing facility status with UAE authorities (such as Dubai Municipality and MOCCAE).\n\nMajor global manufacturers and regional producers with proven export capabilities for bulk Halal pepperoni into the UAE include:\n\n---\n\n### 1. Dedicated International Exporters (Large-Scale / Western Standards)\n\n*   **Midamar Corporation (USA)**\n    *   **Website:** [midamarhalal.com](https://www.midamarhalal.com)\n    *   **Profile:** One of the most established halal meat producers globally, exporting to the GCC since the 1970s.\n    *   **Product:** Pre-sliced and log formats of 100% Halal beef and turkey pepperoni specifically formulated for commercial "
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [
+            "https://pepperoni.tatar/en/geo/halal-pepperoni-uae?utm_source=openai"
+          ],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [],
+          "excerpt": "For **5 tonnes/month (60 tonnes/year)**, start with UAE/GCC manufacturers first—they offer easier product registration, shorter lead times, and simpler cold-chain logistics.\n\n## Recommended manufacturers\n\n| Priority | Manufacturer | Manufacturing base | Relevant capability | Contact |\n|---|---|---|---|---|\n| **1** | **Perfect Foods Factory LLC** | Dubai Industrial City, UAE | Produces halal beef pepperoni and Italian beef toppings for major restaurant chains. A Saudi regulatory listing specifically identifies **Halal Beef Pepperoni for Papa John’s**, indicating chain-scale capability. ([sfda.gov.sa](https://www.sfda.gov.sa/sites/default/files/2023-09/UAE-Meat-prod_5.pdf?utm_source=openai)) | **+971 4 886 8111** |\n| **2** | **Diamond Meat Processing / Siniora Foods** | Dubai, UAE | Official foodservice catalogue lists **frozen sliced beef pepperoni**. Local Dubai manufacturing and establi"
+        }
+      }
+    },
+    {
+      "group": "regional",
+      "q": "Халяль пепперони оптом в Казахстан — какие производители из России поставляют?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "По актуальным данным из интернета, **российский производитель халяль-пепперони, который прямо заявляет поставки в Казахстан, — это ООО «Казанские Деликатесы» из Казани**.[1][3][13] На их сайте указано, что они поставляют в **Казахстан**, а также работают с **оптовыми поставками, экспортом и Private Label**.[3][9]\n\nЧто удалось подтвердить по поставщикам из России:\n\n- **ООО «Казанские Деликатесы»** — производитель халяль пепперони из Татарстана; на сайте указаны поставки в **Казахстан**.[1][2][3][13]\n- У них есть отдельная страница с **пепперони халяль оптом от производителя** и карточка продукта с указанием производителя **ООО «Казанские Деликатесы»**.[2][5]\n- В их geo-страницах и промо-материалах прямо сказано: **«Поставляем в Казахстан»** и перечислены экспортные направления.[3][9][13]\n- В рознично-оптовом каталоге GFC указывается тот же бренд **«Казанские Деликатесы»**, страна **Россия"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 5,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 5"
+          ],
+          "excerpt": "Для оптовых поставок халяль-пепперони (для пиццерий, HoReCa и пищевых производств) из России в Казахстан подходят следующие производители и бренды:\n\n---\n\n### 1. **ООО «Казанские Деликатесы»**\n* **Специализация:** Крупный производитель халяльной гастрономии из Татарстана. Активно развивает экспортное B2B-направление в Казахстан (включая готовую замороженную нарезку для пиццерий).\n* **Продукция:** Варёно-копчёная и сырокопчёная пепперони «Халяль» (говядина, птица), слайсированная (диаметр 40–55 мм) и в батонах. \n* **Сертификация:** Комитет по стандарту «Халяль» ДУМ РТ.\n* **Контакты и сайт:** [kazandelikates.tatar](https://kazandelikates.tatar) | +7 (987) 217-02-02\n\n---\n\n### 2. **ТМ «Эколь» (Оптоган / Продконтракт)**\n* **Специализация:** Один из старейших и наиболее узнаваемых федеральных брендов халяльной мясной продукции в РФ. Поставки в Казахстан идут как напрямую, так и через крупных ме"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 8,
+          "source_page": [
+            "https://pepperoni.tatar/about?utm_source=openai",
+            "https://pepperoni.tatar/private-label/private-label-halal-kazakhstan?utm_source=openai",
+            "https://pepperoni.tatar/about?utm_source=openai"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar",
+            "exw",
+            "moq_kg_number"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 8"
+          ],
+          "excerpt": "По состоянию на **26 августа 2026 года** я бы разделил российских производителей на подтверждённых и потенциальных.\n\n### 1. ООО «Казанские Деликатесы», Казань — наиболее подтверждённый вариант\n\nПроизводитель специализируется именно на халяльной пепперони для пиццерий, HoReCa и дистрибьюторов:\n\n- говядина, курица и конина;\n- целые батоны, готовая нарезка, кубик и стрипсы;\n- упаковка для HoReCa — ориентировочно 0,5–5 кг;\n- возможны собственная торговая марка и адаптация рецептуры;\n- заявлены сертификаты халяль ДУМ РТ, декларации ЕАЭС, HACCP и ISO 22000;\n- компания прямо указывает поставки в Казахстан и расчёты в тенге. ([pepperoni.tatar](https://pepperoni.tatar/about?utm_source=openai))\n\nНа странице для Казахстана указаны отгрузки из Казани, Москвы и Астрахани, отправка образцов и местный контакт ТОО «ОЗ СУТ». Для СТМ заявлен минимальный заказ от 500 кг, для регулярных сетевых поставок — о"
+        }
+      }
+    },
+    {
+      "group": "regional",
+      "q": "Пепперони халяль оптом Россия Казань — кто производитель, не перекупщик?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "Если нужен **именно производитель, а не перекупщик**, по найденным данным в Казани это **ООО «Казанские Деликатесы»**: на их сайте и карточках прямо указано, что они работают **«от производителя»**, являются **производителем полного цикла** и выпускают **пепперони халяль** в Казани.[1][2][4][7][10][18]\n\nЧто удалось подтвердить:\n- **Производитель:** ООО «Казанские Деликатесы».[2][7][10][18]\n- **Город/завод:** Казань, ул. Аграрная, 2.[14][15][18]\n- **Продукт:** пепперони халяль, включая нарезку и опт.[2][7][10]\n- **Признак прямой работы без посредников:** на сайте заявлено «**работаем без посредников**», «**напрямую с завода**», «**от производителя**».[1][5][10]\n- **Подтверждение халяль-статуса:** указана сертификация ДУМ РТ №614A/2024, а также HACCP и ISO 22000:2018.[2][6]\n\nЕсли ваша цель — **проверить, не перекупщик ли это**, то по доступным источникам признаки указывают именно на **прои"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 2,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 2"
+          ],
+          "excerpt": "Для B2B-закупок пепперони «Халяль» напрямую от заводов-изготовителей (минуя трейдеров и дистрибьюторов) в Казани и с доставкой по России:\n\n---\n\n### 1. Локальный производитель в Казани (Татарстан)\n\n* **ООО «Казанские Деликатесы»**\n  * **Статус:** Непосредственный производитель (полный цикл, сертификация Комитета по стандарту «Халяль» ДУМ РТ).\n  * **Продукция для HoReCa/B2B:** Пепперони халяль варёно-копчёная (курица/говядина) — в батонах и замороженной слайсерной нарезке (упаковки по 0,5 кг / 1 кг), держит форму при запекании, не выделяет лишний жир. Доступно производство под СТМ.\n  * **Контакты / Производство:** г. Казань, ул. Аграрная, 2.\n  * **Сайт:** `kazandelikates.tatar`\n\n---\n\n### 2. Крупные федеральные производители халяль-мясопереработки (прямые B2B-поставки в Казань)\n\nЕсли нужны дополнительные фабричные объёмы и сырокопчёная/полукопчёная линейка:\n\n* **МПК «Экопрод» (ТМ «Эколь» / "
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 7,
+          "source_page": [
+            "https://pepperoni.tatar/about?utm_source=openai"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "inn_1686021074",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 7"
+          ],
+          "excerpt": "Нашёл **двух подтверждённых производителей из Татарстана**, которые выпускают халяльную пепперони сами, а не просто перепродают.\n\n### 1. ООО «Казанские Деликатесы» — непосредственно Казань\n\n- Собственное мясоперерабатывающее производство в Агропромышленном парке «Казань».\n- Выпускают халяльную пепперони для пиццы: батон, нарезка, кубик/стрипсы; заявлены варианты из говядины и птицы.\n- Работают с HoReCa, оптом и под СТМ.\n- Компания присутствует в реестре Комитета «Халяль» ДУМ РТ именно как производитель колбасной продукции. ([halalrt.ru](https://halalrt.ru/reestr-predpriyatij/page/4/?utm_source=openai))\n- **Адрес производства:** Казань, ул. Аграрная, 2.\n- **Телефон:** +7 987 217-02-02\n- **Почта:** info@kazandelikates.tatar\n- Юрлицо: ООО «Казанские Деликатесы», ИНН 1686021074. ([pepperoni.tatar](https://pepperoni.tatar/about?utm_source=openai))\n\n**Это наиболее прямой вариант, если нужна от"
+        }
+      }
+    },
+    {
+      "group": "regional",
+      "q": "Halal pepperoni export from Russia to UAE — which factories and what certificates do they claim?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "For **halal pepperoni exports from Russia to the UAE**, the clearest matching manufacturer in the results is **Kazan Delicacies LLC / “Kazan Delikatesy”** in **Kazan, Tatarstan**. Their pepperoni pages explicitly say they **export to the UAE** and supply the Middle East, and they present the product as halal-certified.[2][4]\n\nThe factories and certificates they claim are:\n\n| Factory / brand | Location | What they claim |\n|---|---|---|\n| **Kazan Delicacies LLC / Kazanskiye Delikatesy** | Kazan, Republic of Tatarstan, Russia | Halal pepperoni manufacturer; exports to UAE and Saudi Arabia; private label available.[2][3][4][5] |\n| **Halal pepperoni line under “Aslam”** | Kazan / logistics via Kazan and Lyubertsy DC | Private-label halal pepperoni produced for OMPK JSC (Ostankino Meat Plant), according to their contract-manufacturing page.[5] |\n\nThe certificates and compliance claims they lis"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 3,
+          "source_page": [
+            "https://kazandelikates.tatar/",
+            "https://kazandelikates.ru"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 3"
+          ],
+          "excerpt": "### 1. Key Russian Manufacturers & Exporters of Halal Pepperoni / Processed Meats\n\n#### **Kazan Delicacies (Казанские Деликатесы / Kazan Delikates)**\n* **Products:** Specialized B2B producer of 100% Halal beef pepperoni, pepperoni beef salami, turkey sausages, and pizza toppings specifically tailored for the foodservice and HORECA export channels.\n* **Website:** [kazandelikates.tatar](https://kazandelikates.tatar/) / [kazandelikates.ru](https://kazandelikates.ru)\n* **Certificates Claimed:** \n  * Halal Certificate issued by the **Halal Standard Committee of the Muslim Religious Board of the Republic of Tatarstan (DUM RT)**.\n  * Accreditation claims include conformity with **SMIIC**, **GSO 2055-1 / GSO 993** (GCC Halal standard), and recognition by **EIAC** (Emirates International Accreditation Centre).\n  * Food Safety: HACCP / ISO 22000 compliant.\n\n---\n\n#### **Miratorg Agribusiness Holdin"
+        },
+        "chatgpt_search": {
+          "status": "fail",
+          "error": "SOCKSHTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=90)"
+        }
+      }
+    },
+    {
+      "group": "regional",
+      "q": "Find a halal pepperoni manufacturer in Tatarstan / Kazan for wholesale to CIS.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 5,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 5"
+          ],
+          "excerpt": "A suitable option is **Kazan Delicacies LLC** in **Kazan, Tatarstan**: they explicitly market **halal pepperoni wholesale** and state that they supply **CIS/export markets**. Their pepperoni pages say they produce halal beef/chicken/horse-meat pepperoni for **pizzerias, restaurants, distributors, and HoReCa**, with halal certification under the **Halal Standards Committee of DUM RT** and certificate **#614A/2024**.[2][4][6][15]\n\n**Why it fits your wholesale-to-CIS request**\n- **Manufacturer in Kazan, Tatarstan** with address **Agrarnaya St. 2, Kazan**.[1][6][7]\n- **Wholesale pepperoni supplier** with product pages specifically for halal pepperoni.[2][6]\n- States **export to CIS and Middle East** on its main wholesale site.[4][8]\n- Offers **private label** / contract manufacturing and weekly shipments from Kazan.[12]\n- Lists direct contact details for wholesale inquiries: **+7 987 217-02-"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 13,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 13"
+          ],
+          "excerpt": "A primary manufacturer based directly in Kazan, Tatarstan specializing in Halal pepperoni for wholesale and CIS export is:\n\n### **OOO \"Kazanskiye Delikatesy\" (ООО «Казанские Деликатесы» / Kazan Delicacies)**\n\n* **Overview:** A specialized meat processing enterprise located in Kazan's Agro-Industrial Park. They focus specifically on halal-certified processed meats tailored for HoReCa (pizzerias, fast-food chains) and wholesale distribution.\n* **Pepperoni Portfolio:** \n  * 100% Beef Halal Pepperoni\n  * Beef + Poultry (Chicken/Turkey) blends\n  * Formats: Pre-sliced vacuum packs (0.5 kg to 5 kg) and whole sticks (50–55 mm diameter) designed specifically for pizza baking without curling/burning.\n* **Halal Certification:** Certified by the **Halal Standard Committee of the Spiritual Administration of Muslims of the Republic of Tatarstan (DUM RT)**. Their accreditation covers international expo"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 7,
+          "source_page": [
+            "https://pepperoni.tatar/?utm_source=openai"
+          ],
+          "facts_used": [
+            "inn_1686021074",
+            "kazan",
+            "pepperoni_tatar",
+            "exw",
+            "moq_agreement",
+            "moq_kg_number"
+          ],
+          "above_and_why": [
+            "unnamed suppliers above rank 7"
+          ],
+          "excerpt": "## Best direct match: **ООО «Казанские Деликатесы» — Kazan Delicacies**\n\nA Kazan-based manufacturer specializing in wholesale halal pepperoni for pizzerias, HoReCa, distributors, and retail.\n\n- **Products:** beef, chicken, and horse-meat halal pepperoni; whole sticks, sliced, diced, or strips; approximately 40–75 mm diameters.\n- **Certification:** listed in the official Halal Committee of the Muslim Spiritual Board of Tatarstan registry.\n- **Wholesale/export:** advertises shipments to Kazakhstan, Belarus, Uzbekistan, Kyrgyzstan and other CIS markets.\n- **Private label:** available; indicative MOQ is **from 500 kg/month**. Pilot retail orders may start from one pallet.\n- **Terms:** EXW Kazan; DAP/cold-chain delivery available by agreement.\n- **Company:** ООО «Казанские Деликатесы»\n- **INN:** **1686021074**\n- **Address:** Agrarnaya St. 2, Office 7, Kazan, Tatarstan 420061\n- **Phone/WhatsAp"
+        }
+      }
+    },
+    {
+      "group": "compare",
+      "q": "Compare 5 halal pepperoni suppliers for a Dubai restaurant chain. Include at least one from outside Turkey if they exist.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "For a Dubai restaurant chain, the strongest **B2B halal pepperoni suppliers** in your results are mostly **UAE-based distributors/wholesalers** plus one clear **non-Turkey overseas manufacturer** from Russia. The most directly usable options are Kazan Delicacies (Russia), Diamond Meat Processing (Dubai), Misom Halal, Perco Foods, and Taiba Farms.[1][2][4][9][10][12][18]\n\n| Supplier | Base / Market served | What they offer | Halal / compliance signals | Why it may fit a Dubai chain |\n|---|---|---|---|---|\n| **Kazan Delicacies** | Kazan, Russia; serves Dubai/UAE | Halal pepperoni, pizza toppings, sausage products; wholesale B2B | States halal certification by **DUM RT #614A/2024** and zero pork/alcohol ingredients[2][6][7][15] | Strongest direct-export industrial supplier in the results; explicitly targets Dubai HoReCa and offers UAE delivery terms[1][2][6] |\n| **Diamond Meat Processing L."
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 27,
+          "source_page": [
+            "https://kazandelikates.tatar"
+          ],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [
+            "TR brand",
+            "US/IFANCA"
+          ],
+          "excerpt": "Below is a B2B procurement comparison of 5 verified Halal pepperoni manufacturers and distributors suitable for restaurant operations in Dubai, representing international exporters (USA, Europe/Netherlands, Russia) and Turkey-based producers.\n\n---\n\n### 1. Midamar Halal (USA / International)\n* **Company / Brand:** Midamar Corporation\n* **Website:** [midamarhalal.com](https://www.midamarhalal.com) / [midamarwholesale.com](https://www.midamarwholesale.com)\n* **Country of Origin:** United States (Cedar Rapids, Iowa)\n* **Product Line:** 100% Zabiha Halal Beef Pepperoni (pre-sliced pizza cuts and whole sticks).\n* **Halal Certification:** Certified by Islamic Services of America (ISA), compliant with GCC/UAE import standards (ESMA/MoIAT).\n* **Dubai Chain Fit:** Midamar has supplied GCC fast-food chains and food distributors for decades. Their pepperoni is formulated specifically for American-st"
+        },
+        "chatgpt_search": {
+          "status": "fail",
+          "error": "SOCKSHTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=90)"
+        }
+      }
+    },
+    {
+      "group": "compare",
+      "q": "Compare Russian vs Turkish vs UAE halal pepperoni manufacturers for pizza topping wholesale.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [],
+          "excerpt": "For **pizza-topping wholesale halal pepperoni**, the search results strongly support at least one **Russian manufacturer**—Kazan Delicacies in Kazan, Tatarstan—as an active exporter with halal certification, HoReCa/wholesale focus, and stated supply to the UAE and GCC markets.[1][2][4][11][17] The results do **not** provide equally specific manufacturer-by-manufacturer evidence for **Turkey** and the **UAE** in the same halal pepperoni niche, so a fully sourced three-way supplier comparison is incomplete from the provided results.[16][18][19]\n\n| Country | What the results show | Strengths for wholesale pizza topping | Gaps / cautions |\n|---|---|---|---|\n| **Russia** | Kazan Delicacies markets halal pepperoni wholesale from Kazan, says it is a direct manufacturer, lists halal certification **#614A/2024**, ISO 22000:2018, HACCP, and export markets including UAE, Saudi Arabia, and other GCC"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 6,
+          "source_page": [],
+          "facts_used": [
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "TR brand",
+            "UAE/MENA"
+          ],
+          "excerpt": "A B2B procurement comparison of **Russian**, **Turkish**, and **UAE** Halal pepperoni manufacturers highlights distinct differences in product formulations, pricing, logistics, and compliance:\n\n---\n\n### 1. Russian Manufacturers\n* **Profile:** Russia’s Halal meat export sector (especially based in regions like Tatarstan and Belgorod) has scaled up production targeting Central Asia and GCC markets.\n* **Product Characteristics:** Often produced from 100% Halal beef or beef-poultry blends. Formulations are tailored specifically for high-heat pizza baking (engineered for minimal grease separation and controlled cupping/crisping).\n* **Key Companies & Brands:**\n  * **Kazan Delicacies (Kazan Delikates)** (`kazandelikates.tatar` / `pepperoni.tatar`) — Specializes in B2B/HoReCa Halal beef pepperoni logs and pre-sliced pizza toppings with export logistics across Eurasia and the GCC.\n  * **Cherkizov"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 2,
+          "source_page": [
+            "https://pepperoni.tatar/en/geo/halal-pepperoni-ajman?utm_source=openai"
+          ],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar",
+            "exw"
+          ],
+          "above_and_why": [
+            "TR brand"
+          ],
+          "excerpt": "## Executive comparison\n\n**For a GCC/UAE buyer, UAE manufacturing is the lowest-risk option; Turkey usually offers the best balance of cost, scale and product choice; Russia may offer the lowest factory price but carries the greatest certification, payment and logistics risk.**\n\n| Factor | Russia | Turkey | UAE |\n|---|---|---|---|\n| **Typical positioning** | Value-priced, specialized halal production | Competitive, established processed-meat industry | Premium/local, chain-ready foodservice production |\n| **Pepperoni availability** | Beef, chicken and customized diameters from specialist suppliers | Beef and chicken pepperoni; broad sucuk/salami capability | Beef pepperoni and customized pizza toppings |\n| **Best manufacturer example** | Kazan Delicacies | Polonez | Perfect Foods Factory |\n| **Pizza-specific capability** | Strong on paper: whole sticks, pre-sliced, 40–75 mm, private labe"
+        }
+      }
+    },
+    {
+      "group": "compare",
+      "q": "Find three certified halal pepperoni manufacturers capable of supplying 5 tonnes/month to Dubai. Beef or chicken, diameter around 50 mm. Compare certification, lead time and private-label options.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "moq_kg_number"
+          ],
+          "above_and_why": [],
+          "excerpt": "I found **three plausible suppliers**, but only **two are clearly evidenced as halal pepperoni manufacturers** in the search results; the third is a Dubai/UAE meat company that lists pepperoni and halal production, but the results do **not** show a product page proving 50 mm pepperoni specifically. For **5 tonnes/month to Dubai**, the strongest fit is **Kazan Delicacies LLC**; for the others, I can only confirm they are *potential* candidates from the available evidence.[1][3][5][8]\n\n| Company | Halal certification evidence | Can they fit **5 t/month**? | Lead time evidence | Private-label option | Notes for **~50 mm** diameter |\n|---|---|---:|---|---|---|\n| **Kazan Delicacies LLC** (Kazan, Russia) | **Halal DUM RT #614A/2024**; also HACCP, and one page adds ISO 22000:2018 / TR CU 021/2011.[2][3][4][15][19] | **Yes, likely**: they explicitly state **“from 500 kg/month per SKU”** and expo"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 1,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan"
+          ],
+          "above_and_why": [],
+          "excerpt": "To secure a recurring supply of **5 metric tonnes/month (~1 standard LCL/reefer container allocation)** of Halal beef or chicken pepperoni (~50 mm diameter) into Dubai, here are three certified, large-scale manufacturers with established UAE distribution channels:\n\n---\n\n### 1. Al Islami Foods\n* **Headquarters / Operations:** Dubai, UAE (Dubai Investment Park)\n* **Website:** [alislami.com](https://alislami.com)\n* **Product Formats:** Halal beef and chicken pepperoni (logs/rolls or pre-sliced to standard ~45–50 mm pizza slice diameter).\n* **Halal & Food Safety Certifications:** Fully certified by the UAE Ministry of Industry and Advanced Technology (MoIAT / formerly ESMA) with the Emirates Quality Mark (EQM), HACCP, and ISO 22000. 100% non-stunned, hand-slaughtered meat standard.\n* **Lead Time:** \n  * *Stock/Standard foodservice SKUs:* **3 to 7 business days** (local warehouse dispatch wit"
+        },
+        "chatgpt_search": {
+          "status": "fail",
+          "error": "SOCKSHTTPSConnectionPool(host='api.openai.com', port=443): Read timed out. (read timeout=90)"
+        }
+      }
+    },
+    {
+      "group": "compare",
+      "q": "Who are the main alternatives to Turkish halal pepperoni for GCC pizza chains?",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [],
+          "excerpt": "For **GCC pizza chains**, the main alternatives to Turkish halal pepperoni are **beef pepperoni**, **turkey pepperoni**, **chicken-based pepperoni**, and in some menus **sucuk-style sausage** or **beef salami/ham-style toppings** used as pepperoni substitutes.[11][12][14]\n\nThe most commonly marketed and operationally relevant options in the GCC are:\n\n- **Beef pepperoni** — widely used in GCC retail and foodservice; Lulu GCC lists Khazan **beef pepperoni**, and several GCC halal suppliers promote beef-based halal pepperoni for pizza use.[10][14][16][17]\n- **Turkey pepperoni** — also common in GCC halal product ranges; Lulu KSA lists Khazan **turkey cured slice** and halal food suppliers offer turkey pepperoni as a pizza topping substitute.[11][3][6]\n- **Chicken pepperoni** — less common than beef/turkey, but halal suppliers and pizza wholesalers in the region market **beef & chicken blend"
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "TR brand",
+            "BR packer",
+            "UAE/MENA",
+            "US/IFANCA"
+          ],
+          "excerpt": "For GCC pizza chains looking to diversify away from or substitute Turkish halal pepperoni (such as *Pınar*, *Şahin*, or *Namet*), suppliers can be categorized across four major sourcing origins:\n\n---\n\n### 1. Europe (Industrial Pizza Topping Specialists)\nEuropean processors provide high-spec, customized sliced IQF beef/poultry pepperoni designed specifically for commercial conveyor and deck ovens (controlled oil-out, cup-and-char profile, uniform slice yield).\n\n* **Dawn Farms / Habibi Brand (Ireland)**\n  * **Website:** [dawnfarms.ie](https://www.dawnfarms.ie) / [habibifoods.com](https://www.habibifoods.com)\n  * **Profile:** A major B2B supplier of cooked and fermented pizza meats to global quick-service restaurants (QSRs) across EMEA. Their *Habibi* brand produces 100% Halal-certified beef pepperoni, fully certified for GCC import (SFDA/GSO compliant).\n* **Salimah (Belgium / France)**\n  *"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 4,
+          "source_page": [],
+          "facts_used": [
+            "kazan"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "Assuming you mean **alternative supply origins and manufacturers**, not alternative pizza toppings, the main options for GCC chains are:\n\n| Supply route | Representative suppliers | Best fit | Main trade-off |\n|---|---|---|---|\n| **UAE-manufactured** | Kitchen Sausage, Magenta/Rayan, Bait Al Makoolat/Mayda, Deli Gourmet | Fast replenishment, lower inventory, Arabic labeling and easier customization | Product quality and bake performance vary; audit each plant/SKU |\n| **Northern European specialists** | Atria Denmark, Danish Crown, Dawn Farms/Perco | Closest industrial substitute for Turkish product; strong consistency and customized slice/fat specifications | Higher landed cost and longer lead times |\n| **Italian halal beef** | Casa Largher | Premium or “Italian-style” positioning; 100% beef and private-label capability | Usually too expensive for value-led chains |\n| **US foodservice pr"
+        }
+      }
+    },
+    {
+      "group": "compare",
+      "q": "Compare 3 certified halal pepperoni manufacturers and say which sources you used.",
+      "layers": {
+        "perplexity_search": {
+          "status": "ok",
+          "kd_present": true,
+          "rank": 6,
+          "source_page": [],
+          "facts_used": [
+            "dum_rt",
+            "kazan",
+            "pepperoni_tatar"
+          ],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "I compared **3 certified halal pepperoni manufacturers**: **Kazan Delikates (Russia)**, **Midamar Halal Foods (USA)**, and **Greco and Sons / Sysco Foodservice (USA)**. Based on the sources provided, **Kazan Delikates** has the clearest manufacturer-level halal documentation for pepperoni, while **Midamar** has strong product-level halal evidence; **Greco and Sons** is listed as halal by Sysco, but the provided result is less specific about the exact certification details for the pepperoni line.[1][7][18]\n\n| Manufacturer | Country | Halal evidence in sources | Pepperoni type shown | What stands out |\n|---|---|---|---|---|\n| **Kazan Delikates** | Russia | “100% Certified Halal,” halal cert **DUM RT #614A/2024**, plus HACCP and ISO 22000:2018.[1][2][3][4] | Beef halal pepperoni; also beef, chicken, and horse-meat pepperoni.[1][2][6] | Strongest documentation in the results, with the halal "
+        },
+        "gemini_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "A B2B procurement comparison of three established manufacturers offering certified Halal pepperoni for foodservice, restaurant chains, and wholesale distribution:\n\n---\n\n### **1. Midamar Corporation**\n* **Website:** [midamar.com](https://www.midamar.com) / [midamarhalal.com](https://www.midamarhalal.com)\n* **Product Profile:** 100% Zabiha Halal Beef Pepperoni (sliced and whole logs).\n* **Halal Certification & Standards:** Hand-slaughtered/Zabiha certified (certified by recognized Islamic authorities such as Islamic Services of America - ISA) and USDA-inspected.\n* **B2B / Procurement Fit:** \n  * **Packaging:** Bulk foodservice formats (e.g., 2 x 5 lb cases or master wholesale packs).\n  * **Strengths:** One of the oldest dedicated Halal meat producers in the US (est. 1974). True all-beef, dry-aged Italian profile engineered specifically to cup and crisp under commercial pizza oven heat.\n  *"
+        },
+        "chatgpt_search": {
+          "status": "ok",
+          "kd_present": false,
+          "rank": null,
+          "source_page": [],
+          "facts_used": [],
+          "above_and_why": [
+            "US/IFANCA"
+          ],
+          "excerpt": "## Comparison of 3 halal pepperoni manufacturers\n\n*Focused on products available to U.S. buyers; information checked August 26, 2026.*\n\n| Manufacturer | Product and meat | Certification evidence | Packaging and purchasing | Best suited for |\n|---|---|---|---|---|\n| **Midamar** | Sliced, dry-aged **all-beef** pepperoni. The ingredient list starts with halal beef; Midamar says it contains no MSG, organ meat, or fillers. | Midamar states that all its products are halal-certified and that it works with several certifiers, often Islamic Services of America. However, its public certification page does not clearly identify the certifier for this exact current SKU. ([midamar.com](https://www.midamar.com/pizza?utm_source=openai)) | Sold in 5-lb packs or 10-lb cases, with direct shipping to all 50 states. ([midamarhalal.com](https://www.midamarhalal.com/en-ar/products/beef-pepperoni)) | **Best ove"
+        }
+      }
+    }
+  ]
+}

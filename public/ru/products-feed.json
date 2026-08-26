@@ -3,14 +3,16 @@
   "@type": "ItemList",
   "@id": "https://pepperoni.tatar/ru/products-feed.json",
   "name": "Казанские Деликатесы — Каталог халяль продукции",
-  "description": "Машиночитаемый каталог 64 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы». Совместим с Google Merchant Center, OpenAI Commerce, Bing Shopping, Perplexity Shopping.",
+  "description": "Машиночитаемый каталог 64 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы».",
   "url": "https://pepperoni.tatar/ru/products-feed.json",
   "inLanguage": "ru",
-  "dateModified": "2026-08-23T05:30:23.115325+00:00",
+  "dateModified": "2026-08-26T20:09:45.314373+00:00",
   "publisher": {
     "@type": "Organization",
+    "@id": "https://pepperoni.tatar/#organization",
     "name": "Казанские Деликатесы",
-    "url": "https://kazandelikates.tatar",
+    "legalName": "ООО «Казанские Деликатесы»",
+    "url": "https://pepperoni.tatar/",
     "logo": "https://pepperoni.tatar/images/logo.png"
   },
   "numberOfItems": 64,
@@ -38,8 +40,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -85,8 +89,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -132,8 +138,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -179,8 +187,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -226,8 +236,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -273,8 +285,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -320,8 +334,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -365,8 +381,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Сосиски гриль для хот-догов",
@@ -411,8 +429,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Котлеты для бургеров",
@@ -457,8 +477,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Котлеты для бургеров",
@@ -504,8 +526,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -536,7 +560,6 @@
         "@id": "https://pepperoni.tatar/products/kd-012#product",
         "sku": "KD-012",
         "mpn": "KD-012",
-        "gtin13": null,
         "name": "Пепперони варено-копченый из конины",
         "description": "Пепперони варено-копченый из конины",
         "image": [
@@ -551,8 +574,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -598,8 +623,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -630,7 +657,6 @@
         "@id": "https://pepperoni.tatar/products/kd-014#product",
         "sku": "KD-014",
         "mpn": "KD-014",
-        "gtin13": null,
         "name": "Пепперони варено-копченый куриный целый батон",
         "description": "Пепперони варено-копченый куриный целый батон",
         "image": [
@@ -645,8 +671,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -677,7 +705,6 @@
         "@id": "https://pepperoni.tatar/products/kd-015#product",
         "sku": "KD-015",
         "mpn": "KD-015",
-        "gtin13": null,
         "name": "Грудка куриная варено-копченая",
         "description": "Грудка куриная варено-копченая",
         "image": [
@@ -691,8 +718,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -723,7 +752,6 @@
         "@id": "https://pepperoni.tatar/products/kd-016#product",
         "sku": "KD-016",
         "mpn": "KD-016",
-        "gtin13": null,
         "name": "Филе куриное вареное",
         "description": "Филе куриное вареное",
         "image": [
@@ -736,8 +764,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Заморозка > Топпинги",
@@ -768,7 +798,6 @@
         "@id": "https://pepperoni.tatar/products/kd-018#product",
         "sku": "KD-018",
         "mpn": "KD-018",
-        "gtin13": null,
         "name": "Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр",
         "description": "Сосиски «К завтраку» (без оболочки) \n для «Сосиски в тесте» 45 гр",
         "image": [
@@ -783,8 +812,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -829,8 +860,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -875,8 +908,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -921,8 +956,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -968,8 +1005,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -1014,8 +1053,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -1061,8 +1102,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -1107,8 +1150,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -1153,8 +1198,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Сосиски, сардельки",
@@ -1198,8 +1245,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Вареные",
@@ -1243,8 +1292,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Вареные",
@@ -1288,8 +1339,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Вареные",
@@ -1334,8 +1387,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Ветчины",
@@ -1380,8 +1435,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Ветчины",
@@ -1426,8 +1483,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Ветчины",
@@ -1458,7 +1517,6 @@
         "@id": "https://pepperoni.tatar/products/kd-031#product",
         "sku": "KD-031",
         "mpn": "999975",
-        "gtin13": "4680638720285",
         "name": "Сервелат Ханский",
         "description": "Сервелат Ханский",
         "image": [
@@ -1472,8 +1530,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1518,8 +1578,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1564,8 +1626,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1610,8 +1674,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1656,8 +1722,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1702,8 +1770,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1748,8 +1818,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1795,8 +1867,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1842,8 +1916,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1888,8 +1964,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1933,8 +2011,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -1978,8 +2058,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Копченые",
@@ -2025,8 +2107,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Премиум Казылык",
@@ -2070,8 +2154,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Охлаждённая продукция > Премиум Казылык",
@@ -2116,8 +2202,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2162,8 +2250,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2208,8 +2298,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2253,8 +2345,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2299,8 +2393,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2345,8 +2441,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2391,8 +2489,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2438,8 +2538,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2485,8 +2587,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Национальная татарская выпечка",
@@ -2530,8 +2634,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2575,8 +2681,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2620,8 +2728,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2665,8 +2775,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2710,8 +2822,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2755,8 +2869,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2800,8 +2916,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2845,8 +2963,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2890,8 +3010,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",
@@ -2935,8 +3057,10 @@
         },
         "manufacturer": {
           "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
           "name": "Казанские Деликатесы",
-          "url": "https://kazandelikates.tatar"
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/"
         },
         "countryOfOrigin": "RU",
         "category": "Выпечка > Классическая выпечка",

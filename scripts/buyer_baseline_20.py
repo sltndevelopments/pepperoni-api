@@ -28,7 +28,7 @@ from aio_visibility import (  # noqa: E402
 )
 
 PROMPTS = json.loads((ROOT / "data" / "buyer_baseline_prompts.json").read_text())
-COMMIT = PROMPTS["after_commit"]
+COMMIT = os.environ.get("BASELINE_COMMIT", PROMPTS["after_commit"]).strip()
 OUT = ROOT / os.environ.get(
     "BASELINE_OUT", "data/buyer_baseline_2026-08-19.json")
 

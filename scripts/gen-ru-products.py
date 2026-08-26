@@ -5,7 +5,6 @@ import os
 import re
 import urllib.parse
 import urllib.request
-from datetime import datetime
 
 OUT = "public/products"
 LCP_IMG_DIR = "public/images/products"
@@ -57,44 +56,6 @@ def _load_image_sources():
 
 
 IMAGE_SOURCES = _load_image_sources()
-
-
-# Общие слова маркетингового шаблона overrides — не считаются идентификацией товара.
-_OVERRIDE_STOPWORDS = {
-    "применение", "применения", "сегменте", "сегментах", "сегмент", "опт", "оптовой",
-    "оптовых", "оптовом", "торговле", "торговли", "horeca", "стм", "продукт", "продукта",
-    "продукции", "использование", "использования", "категории", "категория",
-    "профессиональной", "кухне", "кухни", "описание", "формат", "форматы", "форматах",
-    "целевая", "аудитория", "решение", "поставок", "поставках", "поставки", "закупках",
-    "закупки", "каналах", "каналы", "сфера", "сферы", "универсальное", "premium", "premуim",
-    "application", "wholesale", "buyers", "culinary", "versatility", "suitability", "use",
-    "cases", "product", "menu", "integration", "who", "suits", "смоked", "smoked", "for",
-    "and", "the", "half", "delicacy", "boiled", "sausage",
-    "халяль", "казань", "казанские", "деликатесы", "мясные", "заготовки",
-    "татарская", "национальная", "выпечка", "классическая", "копченые", "копченый",
-}
-
-
-def _ident_tokens(text: str) -> set:
-    """Значимые токены названия (без общих шаблонных слов)."""
-    text = (text or "").lower().replace("ё", "е")
-    return {t for t in re.findall(r"[a-zа-я0-9]{3,}", text) if t not in _OVERRIDE_STOPWORDS}
-
-
-def override_matches_product(override_html: str, product_name_ru: str) -> bool:
-    """True, если override действительно про этот товар.
-
-    После перенумерации SKU файлы data/product_overrides/kd-NNN «съехали» на
-    чужие товары (эчпочмак с текстом про в/к Рамазан и т.п.). Проверяем: хотя бы
-    один значимый токен названия товара встречается в первых заголовках override.
-    Если нет — считаем override чужим и НЕ подключаем (лучше без блока, чем ложь).
-    """
-    want = _ident_tokens(product_name_ru)
-    if not want:
-        return False
-    heads = " ".join(re.findall(r"<h[12][^>]*>(.*?)</h[12]>", override_html[:1200], re.I | re.S))
-    have = _ident_tokens(re.sub(r"<[^>]+>", " ", heads))
-    return bool(want & have)
 
 
 def gallery_thumb_label(url: str, fallback: str) -> str:
@@ -184,109 +145,32 @@ def _faq_jsonld(pairs):
 
 
 def category_deep_content(category, name, section):
-    """Substantive, query-targeted B2B/HoReCa/опт content per category.
-
-    Adds depth (wholesale terms, HoReCa application, storage/logistics, halal,
-    private label) so product pages compete on the commercial 'опт' queries
-    where thin pages lose. Returns (html_block, faq_pairs).
-    """
-    cat = (category or "").lower()
+    """Общий доказательный блок; характеристики SKU берутся из products.json."""
     nm = name or "продукт"
-
-    # Category-specific application + commercial angle.
-    if "хот-дог" in cat or "гриль" in cat:
-        app = (f"«{nm}» — это термостабильные сосиски гриль для хот-догов, "
-               "рассчитанные на поток HoReCa: фудтраки, АЗС, киоски, фуд-корты и "
-               "сетевой общепит. Они держат форму на гриле и в ролике, не "
-               "лопаются и дают стабильную подачу в часы пик. Оптовые партии "
-               "поставляем коробками с фиксированной фасовкой — удобно для "
-               "точек с прогнозируемым расходом.")
-        faq = [
-            ("Можно ли заказать сосиски для хот-догов оптом?",
-             "Да. Мы поставляем сосиски гриль для хот-догов оптом коробками по фиксированной фасовке — для HoReCa, АЗС, фудтраков и сетей. Минимальный заказ и цена по запросу в Telegram или по телефону."),
-            ("Сосиски халяльные?",
-             "Да, вся продукция халяль и произведена по стандартам халяль из говядины и/или курицы."),
-            ("Подходят ли для гриля и роликового аппарата?",
-             "Да, сосиски термостабильные: держат форму на гриле и в роликовом аппарате, не теряют сок и форму при длительном прогреве."),
-        ]
-    elif "котлет" in cat or "бургер" in cat:
-        app = (f"«{nm}» — халяльные котлеты (паттисы) для бургеров под HoReCa и "
-               "СТМ. Калиброванный вес и диаметр обеспечивают одинаковую "
-               "прожарку и стабильный выход порции, что критично для бургерных "
-               "и сетей быстрого питания. Поставляем оптом замороженными "
-               "коробками; возможна фасовка и рецептура под собственную "
-               "торговую марку (private label).")
-        faq = [
-            ("Котлеты для бургеров продаются оптом?",
-             "Да, котлеты (паттисы) для бургеров поставляются оптом замороженными коробками для HoReCa и сетей. Цена и минимальный заказ — по запросу."),
-            ("Можно ли заказать котлеты под собственной маркой (СТМ/OEM)?",
-             "Да. Производим бургерные паттисы под private label: вес, диаметр, рецептуру и упаковку адаптируем под ваш бренд."),
-            ("Котлеты халяльные?",
-             "Да, котлеты халяль из говядины и/или курицы, произведены по стандартам халяль."),
-        ]
-    elif "копчен" in cat or "пепперони" in nm.lower():
-        app = (f"«{nm}» — варёно-копчёная / копчёная продукция для нарезки, "
-               "пиццы и сэндвич-меню HoReCa, а также для розницы и "
-               "дистрибуции. Пепперони и копчёные колбасы держат нарезку, не "
-               "расплываются на пицце и дают равномерный рисунок. Поставляем "
-               "оптом; доступна нарезка в газовой среде (МГС) и поставка под СТМ.")
-        faq = [
-            ("Можно купить пепперони/копчёную колбасу оптом?",
-             "Да, поставляем оптом для пиццерий, HoReCa и дистрибьюторов — батоном или в нарезке. Цена и минимальный заказ по запросу."),
-            ("Продукция халяльная?",
-             "Да, вся копчёная продукция халяль из говядины и/или курицы (конины) по стандартам халяль."),
-            ("Подходит ли пепперони для пиццы?",
-             "Да, пепперони термостабильна для запекания: держит форму и рисунок, не расплывается на пицце."),
-        ]
-    elif "ветчин" in cat:
-        app = (f"«{nm}» — варёная ветчина для нарезки, сэндвичей и горячих блюд "
-               "HoReCa, а также для розничной нарезки. Плотная структура держит "
-               "тонкий слайс. Поставляем оптом батоном и в нарезке.")
-        faq = [
-            ("Ветчина халяльная?",
-             "Да, ветчина халяль из курицы и/или говядины, произведена по стандартам халяль."),
-            ("Есть ли оптовая поставка ветчины?",
-             "Да, поставляем ветчину оптом батоном и в нарезке для HoReCa и розницы. Условия — по запросу."),
-        ]
-    elif "выпечк" in cat or "татарск" in cat or section == "Выпечка":
-        app = (f"«{nm}» — замороженная выпечка для доготовки в HoReCa, пекарнях "
-               "и точках стрит-фуда. Поставляется коробками, готовится из "
-               "заморозки без размораживания — стабильный результат и быстрая "
-               "подача. Подходит для кафе татарской кухни, столовых и "
-               "корпоративного питания.")
-        faq = [
-            ("Выпечка продаётся оптом замороженной?",
-             "Да, выпечка поставляется оптом замороженной коробками для HoReCa, пекарен и стрит-фуда. Доготавливается из заморозки."),
-            ("Выпечка халяльная?",
-             "Да, вся выпечка халяль и произведена по стандартам халяль."),
-        ]
-    else:
-        app = (f"«{nm}» — продукт для HoReCa, опта и дистрибуции от "
-               "«Казанских Деликатесов». Поставляем коробками с фиксированной "
-               "фасовкой; возможна поставка под собственной торговой маркой "
-               "(private label).")
-        faq = [
-            ("Можно заказать оптом?",
-             "Да, поставляем оптом коробками для HoReCa, розницы и дистрибуции. Минимальный заказ и цена — по запросу."),
-            ("Продукт халяльный?",
-             "Да, вся продукция халяль и произведена по стандартам халяль."),
-        ]
+    app = (
+        f"«{nm}» — актуальная позиция каталога «Казанских Деликатесов». "
+        "Состав, масса, хранение, упаковка и цена указаны в карточке из "
+        "утверждённого каталога. Применимость для конкретного меню или процесса "
+        "подтверждается по техническому заданию закупщика."
+    )
+    faq = [
+        ("Можно заказать оптом?",
+         "Да. Запросите актуальную коробочную фасовку, минимальный заказ, наличие и логистику для этого SKU."),
+        ("Как подтверждается халяль?",
+         "Компания использует сертификацию ДУМ РТ. Для квалификации поставщика запросите актуальный сертификат и документы на SKU."),
+    ]
 
     common = (
         "<div class=\"section-block\"><h2 class=\"section-title\">Применение и опт</h2>"
         f"<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0 0 12px\">{app}</p>"
         "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
-        "Работаем с HoReCa, розничными сетями, дистрибьюторами и экспортом. "
-        "Оптовые цены, минимальный заказ и логистику обсуждаем индивидуально — "
-        "напишите в Telegram или позвоните. Возможна поставка под собственной "
-        "торговой маркой (Private Label / OEM): рецептуру, фасовку и оформление "
-        "адаптируем под ваш бренд.</p></div>"
+        "Коммерческие условия и любые изменения под СТМ подтверждаются только "
+        "после проверки SKU и технического задания.</p></div>"
         "<div class=\"section-block\"><h2 class=\"section-title\">Халяль и качество</h2>"
         "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
-        "Вся продукция «Казанских Деликатесов» — халяль, произведена по "
-        "стандартам халяль из говядины и/или курицы (конины). Контроль сырья и "
-        "производства соответствует требованиям халяль-сертификации, что "
-        "подтверждается документами для оптовых и экспортных партнёров.</p></div>"
+        "Халяль-статус подтверждается сертификатом ДУМ РТ №614А/2024. "
+        "Запросите актуальный сертификат и документы на товар для планируемого "
+        "заказа.</p></div>"
     )
 
     faq_html = ("<div class=\"section-block\"><h2 class=\"section-title\">Частые вопросы</h2>"
@@ -382,28 +266,6 @@ def cloudinary_url(pid, is_full=False, width=None, via_proxy=False):
     return f"{base}{transform}{pid}?v=4"
 
 
-# Honest Merchant-listing fields. The business is B2B/EXW Казань (Incoterms 2020):
-# buyer arranges shipping, returns by agreement. These are factual, NOT fabricated
-# ratings — so they satisfy Google's recommended fields without policy risk.
-SHIPPING_DETAILS = (
-    '"shippingDetails":{"@type":"OfferShippingDetails",'
-    '"shippingDestination":{"@type":"DefinedRegion","addressCountry":"RU"},'
-    '"shippingRate":{"@type":"MonetaryAmount","value":"0","currency":"RUB"},'
-    '"deliveryTime":{"@type":"ShippingDeliveryTime",'
-    '"handlingTime":{"@type":"QuantitativeValue","minValue":0,"maxValue":2,"unitCode":"DAY"},'
-    '"transitTime":{"@type":"QuantitativeValue","minValue":1,"maxValue":7,"unitCode":"DAY"}}}'
-)
-RETURN_POLICY = (
-    '"hasMerchantReturnPolicy":{"@type":"MerchantReturnPolicy",'
-    '"applicableCountry":"RU",'
-    '"returnPolicyCategory":"https://schema.org/MerchantReturnFiniteReturnWindow",'
-    '"merchantReturnDays":14,'
-    '"returnMethod":"https://schema.org/ReturnByMail",'
-    '"returnFees":"https://schema.org/ReturnShippingFees",'
-    '"returnShippingFeesAmount":{"@type":"MonetaryAmount","value":"0","currency":"RUB"}}'
-)
-
-
 def load_products():
     """Load from products.json (source of truth). API may have stale/wrong column mapping."""
     p = os.path.join(os.path.dirname(__file__), "..", PRODUCTS_JSON)
@@ -454,7 +316,6 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     products = load_products()
     materialized = 0
-    skipped_overrides = []
     for p in products:
         slug = p["sku"].lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
@@ -470,11 +331,20 @@ def main():
         pr = float(price_rub) if price_rub else 0
         name = " ".join(str(p["name"] or "").split())  # collapse newlines/spaces for meta
         section = p.get("section", "")
-        seo_desc = p.get("seoDescriptionRU") or f"Купить {name} оптом от производителя. 100% Халяль, ХАССП. {p.get('category','')}. {('Вес: ' + weight + '. ') if weight else ''}Цена: {price_rub} ₽. Доставка по РФ и СНГ."
-        seo_desc = seo_desc[:160].rsplit(" ", 1)[0] if len(seo_desc) > 160 else seo_desc
-        if len(seo_desc) < 120:
-            seo_desc = (seo_desc + " Каталог халяль продукции. Экспорт, опт, Private Label.")
-        seo_desc = seo_desc[:160].replace('"', "&quot;")
+        desc_parts = [
+            f"{name} — халяльный продукт «Казанские Деликатесы»",
+            f"артикул {p.get('articleNumber') or p['sku']}",
+        ]
+        if weight:
+            desc_parts.append(f"масса {weight}{weight_suffix}")
+        if p.get("storage"):
+            desc_parts.append(f"хранение {p['storage']}")
+        if p.get("shelfLife"):
+            desc_parts.append(f"срок годности {p['shelfLife']}")
+        seo_desc = ". ".join(desc_parts) + "."
+        if len(seo_desc) > 160:
+            seo_desc = seo_desc[:157].rsplit(" ", 1)[0].rstrip(".,;:") + "…"
+        seo_desc = seo_desc.replace('"', "&quot;")
         barcode = p.get("barcode", "")
         gtin = valid_gtin(barcode)
         gtin_field = f'"gtin13":"{gtin}",' if gtin else ""
@@ -592,20 +462,6 @@ def main():
         deep_html, _faq_pairs = category_deep_content(p.get("category"), name, section)
         faq_jsonld = _faq_jsonld(_faq_pairs)
 
-        # Per-SKU deep override: if data/product_overrides/<sku>.html exists, its
-        # HTML is appended after the category block. Lets top SKUs carry bespoke
-        # 1500+ word content that survives regeneration.
-        override_path = os.path.join("data", "product_overrides", f"{p['sku'].lower()}.html")
-        if os.path.exists(override_path):
-            with open(override_path, encoding="utf-8") as _ovf:
-                _ov_html = _ovf.read()
-            # SKU-remap оставил overrides привязанными к старым номерам → часть
-            # описывает чужой товар. Подключаем только если override про этот SKU.
-            if override_matches_product(_ov_html, str(p.get("name") or "")):
-                deep_html = deep_html + "\n" + _ov_html
-            else:
-                skipped_overrides.append(p["sku"])
-
         # Галерея целиком same-origin (зеркала) — preconnect к Cloudinary нужен
         # только если зеркалирование не удалось и src остался внешним.
         _needs_cdn = "res.cloudinary.com" in (main_img or "")
@@ -630,7 +486,6 @@ def main():
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 <meta http-equiv="content-language" content="ru">
 <title>{title_ru}</title>
 <meta name="description" content="{seo_desc}">
@@ -654,7 +509,7 @@ def main():
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"https://schema.org/InStock","priceValidUntil":"{datetime.now().year + 1}-12-31",{SHIPPING_DETAILS},{RETURN_POLICY}}},"manufacturer":{{"@type":"Organization","name":"Казанские Деликатесы","url":"https://kazandelikates.tatar"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{{"@type":"Organization","@id":"https://pepperoni.tatar/#organization","name":"Казанские Деликатесы","url":"https://pepperoni.tatar/"}}}}
 </script>
 {faq_jsonld}
 <style>
@@ -822,8 +677,8 @@ document.addEventListener("click",function(e){
   var href=link.getAttribute("href")||"";
   if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
   if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
-  if(/wa\.me|whatsapp|t\.me\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
-  if(/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
+if(/wa\\.me|whatsapp|t\\.me\\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
+  if(/прайс|price|\\.(pdf|xlsx?|csv)(\\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){
@@ -875,9 +730,6 @@ document.querySelectorAll(".lightbox-trigger").forEach(function(el){
             f.write(html)
     print(f"Generated {len(products)} RU product pages in {OUT}/")
     print(f"Materialized {materialized} same-origin LCP images in {LCP_IMG_DIR}/")
-    if skipped_overrides:
-        print(f"Пропущено чужих overrides (SKU-remap, не про этот товар): "
-              f"{len(skipped_overrides)}: {', '.join(skipped_overrides)}")
     remove_orphan_pages(products)
 
 

@@ -149,13 +149,40 @@ class ControlPlaneTests(unittest.TestCase):
             self.assertFalse(allowed)
             self.assertTrue(any("mode=repair" in b for b in blockers))
 
-    def test_both_cron_contours_gate_before_generators(self):
+    def test_trust_reset_blocks_generation(self):
+        with tempfile.TemporaryDirectory() as td:
+            base = Path(td)
+            state = base / "operator_state.json"
+            strategy = base / "strategy.json"
+            experiments = base / "operator_experiments.json"
+            state.write_text(json.dumps({
+                "mode": "trust_reset",
+                "auto_activate_when_eligible": False,
+            }))
+            strategy.write_text(json.dumps({"generated_at": "2099-01-01T00:00:00+00:00"}))
+            experiments.write_text("[]")
+            with (
+                mock.patch.object(strategy_control, "STATE", state),
+                mock.patch.object(strategy_control, "STRATEGY", strategy),
+                mock.patch.object(strategy_control, "EXPERIMENTS", experiments),
+                mock.patch.object(strategy_control, "gsc_age_days", return_value=0),
+            ):
+                allowed, blockers = strategy_control.generation_allowed()
+            self.assertFalse(allowed)
+            self.assertTrue(any("mode=trust_reset" in b for b in blockers))
+
+    def test_both_cron_contours_have_no_active_generators(self):
         worker = (ROOT / "scripts/seo-worker.sh").read_text()
         daily = (ROOT / "scripts/seo-agent-vps.sh").read_text()
         for source in (worker, daily):
-            gate = source.index("strategy_control.py --check-generation")
-            self.assertLess(gate, source.index("generate_from_strategy.py"))
-            self.assertLess(gate, source.index("generate_geo_bulk.py"))
+            active = "\n".join(
+                line.strip()
+                for line in source.splitlines()
+                if line.strip() and not line.lstrip().startswith("#")
+            )
+            self.assertNotIn("python3 scripts/generate_from_strategy.py", active)
+            self.assertNotIn("python3 scripts/generate_geo_bulk.py", active)
+            self.assertNotIn("python3 scripts/generate_content.py", active)
         geo = (ROOT / "scripts/generate_geo_bulk.py").read_text()
         self.assertIn('geo_daily_target", "")).strip() == "0"', geo)
 

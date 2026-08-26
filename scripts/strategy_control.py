@@ -18,6 +18,7 @@ DATA = ROOT / "data"
 STRATEGY = DATA / "strategy.json"
 STATE = DATA / "operator_state.json"
 EXPERIMENTS = DATA / "operator_experiments.json"
+AB_TESTS = DATA / "ab_tests.json"
 
 DEFAULT_STATE = {
     "mode": "repair",
@@ -65,7 +66,16 @@ def active_experiment_count() -> int:
     rows = _read(EXPERIMENTS, [])
     if isinstance(rows, dict):
         rows = rows.get("experiments", [])
-    return sum(1 for row in rows if row.get("status") in {"approved", "running", "measuring"})
+    operator_active = sum(
+        1 for row in rows
+        if row.get("status") in {"approved", "running", "measuring"}
+    )
+    legacy = _read(AB_TESTS, {})
+    legacy_rows = legacy.get("ab_tests", []) if isinstance(legacy, dict) else []
+    legacy_active = sum(
+        1 for row in legacy_rows if row.get("status") == "ab_running"
+    )
+    return operator_active + legacy_active
 
 
 def _base_blockers(*, max_strategy_age_days: int = 8) -> list[str]:
@@ -124,6 +134,10 @@ def execution_allowed() -> tuple[bool, list[str]]:
 def activation_blockers() -> list[str]:
     state = operator_state()
     blockers: list[str] = []
+    if state.get("mode") == "trust_reset":
+        blockers.append("trust-reset generation freeze is active")
+    if not state.get("auto_activate_when_eligible", False):
+        blockers.append("automatic activation disabled")
     try:
         until = datetime.fromisoformat(str(state.get("repair_until", "")))
         if datetime.now(timezone.utc) < until:
@@ -141,7 +155,7 @@ def activation_blockers() -> list[str]:
     rows = _read(EXPERIMENTS, [])
     active_rows = [r for r in rows if r.get("status") in {"approved", "running", "measuring"}]
     keys = [r.get("key") for r in active_rows]
-    if len(active_rows) > int(state.get("max_active_experiments", 3)):
+    if active_experiment_count() > int(state.get("max_active_experiments", 3)):
         blockers.append("too many active experiments")
     if len(keys) != len(set(keys)):
         blockers.append("duplicate active experiments")

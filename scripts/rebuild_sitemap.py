@@ -1,17 +1,14 @@
 #!/usr/bin/env python3
-"""
-Rebuild sitemap.xml covering every HTML page under public/.
+"""Build sitemap.xml strictly from data/index_manifest.json.
 
-Features:
-- <lastmod> uses file mtime (real content freshness, not today's date).
-- Priority + changefreq assigned per page type.
-- Adds <xhtml:link rel="alternate" hreflang="..."> for RU↔EN pairs so
-  Google/Yandex can serve the correct language variant in SERP.
-- Emits sitemap.xml as a single urlset (works up to 50 000 URLs).
-
-Run: python scripts/rebuild_sitemap.py
+The filesystem is not an index policy.  Unknown HTML, retired URLs and
+noindexed advertising pages are never discovered into the sitemap.  Lastmod is
+content-hash based, so a generator touching a file without changing its bytes
+does not advertise false freshness.
 """
 
+import hashlib
+import json
 import re
 from datetime import date, datetime, timezone
 from pathlib import Path
@@ -19,6 +16,8 @@ from pathlib import Path
 ROOT    = Path(__file__).parent.parent
 PUBLIC  = ROOT / "public"
 NGINX   = ROOT / "deploy" / "nginx"
+MANIFEST = ROOT / "data" / "index_manifest.json"
+CONTENT_STATE = ROOT / "data" / "sitemap_content_state.json"
 BASE    = "https://pepperoni.tatar"
 TODAY   = date.today().isoformat()
 
@@ -27,7 +26,9 @@ RULES = {
     "root":     (1.00, "weekly"),
     "catalog":  (0.70, "weekly"),
     "product":  (0.80, "weekly"),
-    "geo":      (0.70, "monthly"),
+    "home":     (1.00, "weekly"),
+    "guide":    (0.70, "monthly"),
+    "hub":      (0.80, "monthly"),
     "blog":     (0.70, "monthly"),
     "static":   (0.60, "monthly"),
     "en_index": (0.90, "weekly"),
@@ -135,6 +136,37 @@ def mtime_iso(path: Path) -> str:
         return TODAY
 
 
+def content_lastmods(paths: list[Path]) -> dict[str, str]:
+    """Return stable lastmod values and persist hashes for the next run."""
+    try:
+        previous = json.loads(CONTENT_STATE.read_text(encoding="utf-8"))
+    except (OSError, ValueError, TypeError):
+        previous = {}
+    old_files = previous.get("files", {}) if isinstance(previous, dict) else {}
+    new_files: dict[str, dict[str, str]] = {}
+    out: dict[str, str] = {}
+    for path in paths:
+        rel = str(path.relative_to(PUBLIC))
+        digest = hashlib.sha256(path.read_bytes()).hexdigest()
+        old = old_files.get(rel, {})
+        lastmod = (
+            old.get("lastmod")
+            if old.get("sha256") == digest and old.get("lastmod")
+            else mtime_iso(path)
+        )
+        out[rel] = lastmod
+        new_files[rel] = {"sha256": digest, "lastmod": lastmod}
+    CONTENT_STATE.write_text(
+        json.dumps(
+            {"version": 1, "updated_at": TODAY, "files": new_files},
+            ensure_ascii=False,
+            indent=2,
+        ) + "\n",
+        encoding="utf-8",
+    )
+    return out
+
+
 def pair_key(rel: str) -> str:
     """Canonical key shared by RU↔EN versions of the same page."""
     if rel.startswith("en/"):
@@ -147,53 +179,72 @@ def pair_key(rel: str) -> str:
 
 
 def build_entries() -> list:
-    redirected = redirect_sources()
-    dropped = {"redirect": 0, "noindex": 0}
-    pages = []
-    for path in sorted(PUBLIC.rglob("*.html")):
-        fname = path.name
-        rel = str(path.relative_to(PUBLIC))
-        if fname in SKIP_FILES:
-            continue
-        if rel.startswith("faq/") or rel.startswith("en/faq/"):
-            continue
-        # Skip directories containing duplicate/noindex pages
-        parts = set(Path(rel).parent.parts)
-        if parts & SKIP_DIRS:
-            continue
-        # Also skip any file/dir whose clean URL path matches a SKIP_DIR entry
-        clean = rel
-        if clean.endswith("/index.html"):
-            clean = clean[:-11]
-        elif clean.endswith(".html"):
-            clean = clean[:-5]
-        if clean in SKIP_DIRS:
-            continue
-        if "/" + clean in redirected:
-            dropped["redirect"] += 1
-            continue
-        if has_noindex(path):
-            dropped["noindex"] += 1
-            continue
-        pages.append((path, rel))
+    if not MANIFEST.exists():
+        raise SystemExit(
+            "index manifest missing; run python3 scripts/build_index_manifest.py")
+    manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    keep_rows = [
+        row for row in manifest.get("entries", [])
+        if row.get("status") == "keep"
+    ]
+    minimum = int(manifest.get("policy", {}).get("indexable_min", 180))
+    maximum = int(manifest.get("policy", {}).get("indexable_max", 250))
+    if not minimum <= len(keep_rows) <= maximum:
+        raise SystemExit(
+            f"manifest keep count {len(keep_rows)} outside {minimum}..{maximum}")
 
-    print(
-        f"excluded: {dropped['redirect']} redirected (301), "
-        f"{dropped['noindex']} noindex"
-    )
+    redirected = redirect_sources()
+    pages: list[tuple[Path, str, dict]] = []
+    errors: list[str] = []
+    seen_urls: set[str] = set()
+    for row in keep_rows:
+        rel = str(row.get("file") or "")
+        url_path = str(row.get("url") or "")
+        path = PUBLIC / rel
+        if not rel or not url_path.startswith("/"):
+            errors.append(f"invalid manifest row: {row}")
+            continue
+        if url_path in seen_urls:
+            errors.append(f"duplicate manifest URL: {url_path}")
+        seen_urls.add(url_path)
+        if not path.is_file():
+            errors.append(f"missing keep file: {rel}")
+            continue
+        if row.get("language") not in {"ru", "en"}:
+            errors.append(f"unsupported language for {url_path}: {row.get('language')}")
+        expected_lang = "en" if rel.startswith("en/") else "ru"
+        if row.get("language") != expected_lang:
+            errors.append(
+                f"language/file mismatch for {url_path}: "
+                f"{row.get('language')} != {expected_lang}")
+        clean = url_path.rstrip("/") or "/"
+        if clean in redirected:
+            errors.append(f"keep URL is redirected by nginx: {url_path}")
+        if has_noindex(path):
+            errors.append(f"keep URL carries noindex: {url_path}")
+        pages.append((path, rel, row))
+    if errors:
+        raise SystemExit("sitemap allowlist errors:\n" + "\n".join(errors))
 
     by_key: dict[str, dict[str, Path]] = {}
-    for path, rel in pages:
+    for path, rel, _row in pages:
         key = pair_key(rel)
         lang = "en" if rel.startswith("en/") else "ru"
         by_key.setdefault(key, {})[lang] = path
 
+    lastmods = content_lastmods([path for path, _rel, _row in pages])
     entries = []
-    for path, rel in pages:
+    for path, rel, row in pages:
         key = pair_key(rel)
         url = html_to_url(path)
-        kind = classify(rel)
-        pri, freq = RULES[kind]
+        expected = BASE + row["url"]
+        if row["url"] == "/":
+            expected = BASE + "/"
+        if url.rstrip("/") != expected.rstrip("/"):
+            raise SystemExit(
+                f"manifest URL/file mismatch: {row['url']} != {url} ({rel})")
+        kind = str(row.get("kind") or classify(rel))
+        pri, freq = RULES.get(kind, RULES["static"])
         lang = "en" if rel.startswith("en/") else "ru"
 
         alternates = []
@@ -207,10 +258,11 @@ def build_entries() -> list:
 
         entries.append({
             "url":        url,
-            "lastmod":    mtime_iso(path),
+            "lastmod":    lastmods[rel],
             "changefreq": freq,
             "priority":   pri,
             "alternates": alternates,
+            "kind":       kind,
         })
 
     entries.sort(key=lambda e: (-e["priority"], e["url"]))
@@ -247,12 +299,7 @@ def main():
     print(f"✅ sitemap.xml rebuilt: {len(entries)} URLs → {out}")
 
     from collections import Counter
-    kinds = Counter(
-        classify(str(p.relative_to(PUBLIC)))
-        for p in PUBLIC.rglob("*.html")
-        if p.name not in SKIP_FILES
-        and not str(p.relative_to(PUBLIC)).startswith(("faq/", "en/faq/"))
-    )
+    kinds = Counter(e["kind"] for e in entries)
     print("\nBreakdown:")
     for k, v in sorted(kinds.items(), key=lambda x: -x[1]):
         print(f"  {k:12} {v:4} pages")

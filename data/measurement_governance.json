@@ -1,0 +1,142 @@
+{
+  "version": 1,
+  "program": "seo_ai_trust_reset",
+  "started_at": "2026-08-26",
+  "baseline": "data/trust_reset_baseline_2026-08-26.json",
+  "canvas": "/Users/rinatsultan/.cursor/projects/Users-rinatsultan-pepperoni-api/canvases/seo-ai-trust-reset-control.canvas.tsx",
+  "checkpoints": [
+    {
+      "day": 30,
+      "date": "2026-09-25",
+      "objectives": [
+        {
+          "metric": "index_policy_live",
+          "target": "213 sitemap URLs; 0 city×product URLs; every retired URL returns its recorded 301, 410 or noindex state"
+        },
+        {
+          "metric": "unsupported_claim_gate",
+          "target": 0
+        },
+        {
+          "metric": "near_duplicate_pairs_at_threshold_0_72",
+          "target": 0
+        },
+        {
+          "metric": "new_independent_domains_published",
+          "target": 5,
+          "constraint": "at least one international; one domain counts once"
+        },
+        {
+          "metric": "chatgpt_search_measurement",
+          "target": "20/20 prompts return a technical result or a recorded provider error; no invalid tool_choice failures"
+        },
+        {
+          "metric": "qualified_organic_b2b_attribution",
+          "target": "baseline established with landing page, source and qualification status"
+        }
+      ]
+    },
+    {
+      "day": 60,
+      "date": "2026-10-25",
+      "objectives": [
+        {
+          "metric": "allowlisted_pages_with_impressions_28d",
+          "target": "at least 70% of the 213-page allowlist"
+        },
+        {
+          "metric": "new_independent_domains_published_cumulative",
+          "target": 10,
+          "constraint": "at least two international domains cumulative"
+        },
+        {
+          "metric": "gemini_search_top3",
+          "target": "increase by at least 3 prompts versus the locked baseline on the unchanged panel"
+        },
+        {
+          "metric": "chatgpt_search_top3",
+          "target": "at least 9 of 20 prompts in the top 3, with no invalid tool_choice failures and no more than one provider error"
+        },
+        {
+          "metric": "qualified_organic_b2b_leads",
+          "target": "at least 25% above the validated day-30 baseline"
+        }
+      ]
+    },
+    {
+      "day": 90,
+      "date": "2026-11-24",
+      "objectives": [
+        {
+          "metric": "allowlisted_pages_indexed",
+          "target": "at least 85%"
+        },
+        {
+          "metric": "new_independent_domains_published_cumulative",
+          "target": 15,
+          "constraint": "at least three international domains cumulative"
+        },
+        {
+          "metric": "money_hubs_in_google_top10",
+          "target": "at least one of /pepperoni, /kontraktnoe-proizvodstvo or /sosiski-dlya-hotdog"
+        },
+        {
+          "metric": "qualified_organic_b2b_leads",
+          "target": "at least 50% above the validated day-30 baseline"
+        },
+        {
+          "metric": "policy_regressions",
+          "target": 0,
+          "includes": [
+            "unsupported claims",
+            "near duplicates",
+            "city×product index URLs",
+            "unapproved locales",
+            "fabricated Person, Review or merchant-policy schema"
+          ]
+        }
+      ]
+    }
+  ],
+  "measurement_methods": {
+    "google": "GSC API query×page rows for diagnosis; Search Console aggregate export for total clicks; URL Inspection/coverage sample for indexation.",
+    "yandex": "Yandex Webmaster popular-query API for the exact verified https://pepperoni.tatar host; Metrika for sessions and conversions.",
+    "ai_search": "The unchanged 20 buyer prompts across Perplexity Search, Gemini Search and ChatGPT Search. Record provider errors separately from zero visibility.",
+    "business": "Qualified B2B enquiry with source, landing URL, product/service intent and sales qualification. Auto-goal clicks are not qualified leads.",
+    "authority": "Public crawlable third-party URL on a unique registrable domain; applications and negotiations do not count."
+  },
+  "experiment_policy": {
+    "max_active": 3,
+    "auto_activation": false,
+    "allowed_scope": [
+      "one canonical page",
+      "one query cluster",
+      "one title/lead/CTA/internal-link hypothesis",
+      "one external-authority cohort"
+    ],
+    "forbidden_scope": [
+      "bulk page generation",
+      "new city×product pages",
+      "unreviewed locale generation",
+      "overlapping URL or query cohorts",
+      "changing the primary metric after start"
+    ],
+    "required_fields": [
+      "owner",
+      "hypothesis",
+      "cohort",
+      "primary_metric",
+      "baseline",
+      "started_at",
+      "measure_at",
+      "stop_or_revert_rule"
+    ],
+    "valid_end_states": [
+      "won",
+      "lost",
+      "inconclusive",
+      "interrupted_by_strategy_reset",
+      "reverted"
+    ]
+  }
+}

@@ -6,32 +6,23 @@
 
 ## Current step
 
-**30-дневный эксперимент внешнего авторитета (не SEO).** Сайт заморожен.
-Контроль: `52f963634`. Журнал узлов: `data/external_authority_30d.json`.
-Цель к 2026-09-18: **+5 независимых B2B-узлов, из них ≥1 GCC/UAE**.
-Повтор тех же 20 промптов (PPLX+Gemini+ChatGPT Search). Не выдумывать
-JAKIM/GCC. Новые номера ДУМ с реестра — не на сайт без решения владельца.
-VPS/redsocks не трогать. После окна — класс «СТМ от 500 кг».
+**SEO and AI trust reset — approved aggressive consolidation.**
 
-Старый measuring window 3 commercial exp (до 2026-08-11) — истёк; pulse
-как был: `python3 scripts/commercial_pulse.py`.
-
-Активные эксперименты (measuring → measure_at 2026-08-11):
-1. котлеты для бургеров оптом → `/private-label/kotlety-dlya-burgerov-optom`
-2. сосиски для хот догов оптом → `/private-label/sosiski-dlya-hotdog-optom`
-3. казылык → `/private-label/kazylyk-premium-optom`
-
-P0–P2 (гео / CWV / Speculation+VT) закрыты. WebMCP на `/`+`/en/` — не расширять.
-
-**Pepperoni #1 (консолидация, не 4-й experiment):** money hub `/pepperoni`.
-301 landings/v2/commercial-blog → hub; home title demoted; info-blog
-`pepperoni-halal-ili-net` без commercial title. Pulse:
-`data/commercial_watchlist.json` + блок «Pepperoni #1» в
-`scripts/commercial_pulse.py`. Success gate 21д: `/pepperoni` = sitewide
-top по «пепперони халяль»; к 2026-09-30 — pos ≤3 и выше kazan/pepperoni-halal.
-
-После 2026-08-11: вердикт 3 exp → при необходимости promote `/pepperoni`
-в `operator_experiments` / решение по `/x/`.
+- Freeze autonomous geo/blog/landing generation; measurement and catalog sync
+  stay active.
+- Build the explicit `data/index_manifest.json` allowlist and keep 180–250
+  canonical RU/EN URLs.
+- Bulk retire city × product, unsupported locale and duplicate editorial URLs
+  through `data/url_consolidation_map.json`: equivalent URLs with signals → 301,
+  unsupported/zero-value URLs → 410, active non-organic landings → noindex.
+- Do not redirect unrelated pages to the homepage.
+- Preserve every real SKU from Google Sheets in RU and EN.
+- Replace volume with evidence from `data/evidence_registry.json`; never invent
+  people, importers, MOQ, delivery times, GCC/JAKIM/SFDA recognition or reviews.
+- Before push: `fix_pages.py`, `qa_pages.py`, index-policy/similarity gates,
+  sitemap and redirect validation. After push: regenerate llms/feed files,
+  deploy nginx snippets, run indexing nudge and verify live HTTP states.
+- Record commit, tests and blockers in the Log below.
 
 
 ---

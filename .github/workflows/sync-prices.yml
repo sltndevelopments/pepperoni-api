@@ -58,8 +58,10 @@ jobs:
       - name: Regenerate EN product pages
         run: python3 scripts/gen-en-products.py
 
-      - name: Rebuild comprehensive sitemap.xml (covers blog, geo, EN landings)
-        run: python3 scripts/rebuild_sitemap.py
+      - name: Rebuild allowlisted sitemap
+        run: |
+          python3 scripts/build_index_manifest.py
+          python3 scripts/rebuild_sitemap.py
 
       - name: Lint — fail if any canonical points to api.pepperoni.tatar
         run: |

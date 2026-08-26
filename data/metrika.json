@@ -1,10 +1,10 @@
 {
- "fetched_at": "2026-08-26T05:30:02.581578+00:00",
+ "fetched_at": "2026-08-26T18:51:29.081956+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 2713,
-  "users": 1867,
+  "visits": 2717,
+  "users": 1871,
   "bounce_rate_pct": 39.7,
   "page_depth": 1.05,
   "avg_visit_sec": 56
@@ -16,11 +16,11 @@
   },
   {
    "source": "Direct traffic",
-   "visits": 247
+   "visits": 249
   },
   {
    "source": "Search engine traffic",
-   "visits": 52
+   "visits": 54
   },
   {
    "source": "Internal traffic",
@@ -53,8 +53,8 @@
   },
   {
    "path": "/",
-   "visits": 254,
-   "bounce_pct": 37.8
+   "visits": 258,
+   "bounce_pct": 37.2
   },
   {
    "path": "/products/kd-054",
@@ -122,23 +122,15 @@
   }
  },
  "inquiries_by_page": {
+  "/products/kd-015": {
+   "28d": 1,
+   "7d": 0
+  },
   "/products/kd-055": {
    "28d": 1,
    "7d": 0
   },
-  "/products/kd-001": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/products/kd-024": {
-   "28d": 1,
-   "7d": 0
-  },
-  "/": {
-   "28d": 5,
-   "7d": 2
-  },
-  "/products/kd-015": {
+  "/products/kd-046": {
    "28d": 1,
    "7d": 0
   },
@@ -150,7 +142,7 @@
    "28d": 1,
    "7d": 0
   },
-  "/products/kd-048": {
+  "/products/kd-024": {
    "28d": 1,
    "7d": 0
   },
@@ -158,7 +150,15 @@
    "28d": 2,
    "7d": 0
   },
-  "/products/kd-046": {
+  "/": {
+   "28d": 5,
+   "7d": 2
+  },
+  "/products/kd-001": {
+   "28d": 1,
+   "7d": 0
+  },
+  "/products/kd-048": {
    "28d": 1,
    "7d": 0
   }

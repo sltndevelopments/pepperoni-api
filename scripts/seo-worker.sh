@@ -24,77 +24,9 @@ if ! flock -n 9; then
     exit 0
 fi
 
-# Load secrets
-if [ -f "$ENV_FILE" ]; then
-    eval "$(python3 - "$ENV_FILE" << 'PYEOF'
-import sys
-with open(sys.argv[1]) as f:
-    for line in f:
-        line = line.rstrip('\n')
-        if '=' not in line or line.startswith('#'):
-            continue
-        key, val = line.split('=', 1)
-        val_escaped = val.strip().replace("'", "'\\''")
-        print(f"export {key.strip()}='{val_escaped}'")
-PYEOF
-)"
-fi
-
 cd "$REPO_DIR"
-
-# Refresh Asocks HTTP proxy before LLM calls (mobile ports rotate).
-python3 scripts/sync_asocks_proxy.py >> "$LOG_FILE" 2>&1 || true
-export ANTHROPIC_PROXY="$(grep '^ANTHROPIC_PROXY=' "$ENV_FILE" 2>/dev/null | cut -d= -f2- || true)"
-
 log "=== SEO Worker tick ==="
-
-# New content is fail-closed. During repair mode, with stale data/strategy, or
-# while the experiment queue is full, this frequent worker must spend $0.
-if ! python3 scripts/strategy_control.py --check-generation >> "$LOG_FILE" 2>&1; then
-    log "  ⏸ generation blocked by operator control plane"
-    log "=== Worker tick done (generation frozen) ==="
-    exit 0
-fi
-
-# Daily spend kill switch (claude_client.py reads this). Worker runs every 3h —
-# without a hard cap it generated ~240 geo pages/day (8 ticks × 30), which was
-# the real driver of the 2026-06 auto-recharge spike, not the nightly cron.
-export LLM_DAILY_BUDGET_USD="${LLM_DAILY_BUDGET_USD:-1}"
-
-# Per-tick budget. 8 ticks/day × 3 pages = max 24/day, in line with the
-# geo_daily_target=20 set by the brain. Override via GEO_PER_TICK in env.
-GEO_PER_TICK="${GEO_PER_TICK:-3}"
-
-log "Generating geo pages (strategy-driven, up to $GEO_PER_TICK) …"
-MAX_GEO_PAGES="$GEO_PER_TICK" GEO_WORKERS="${GEO_WORKERS:-4}" \
-    python3 scripts/generate_geo_bulk.py --mode coverage --max-pages "$GEO_PER_TICK" \
-    >> "$LOG_FILE" 2>&1 || log "⚠️  geo bulk failed (non-fatal)"
-
-log "Executing blog / Private-Label strategy …"
-python3 scripts/generate_from_strategy.py >> "$LOG_FILE" 2>&1 || log "⚠️  strategy exec failed (non-fatal)"
-
-# Commit & push whatever was produced
-shopt -s nullglob
-STAGE=(public/geo/*.html public/*/geo/*.html public/blog/*.html public/*/blog/*.html public/private-label/*.html public/*/private-label/*.html public/sitemap.xml)
-shopt -u nullglob
-[ ${#STAGE[@]} -gt 0 ] && git add "${STAGE[@]}" 2>/dev/null || true
-
-if ! git diff --cached --quiet 2>/dev/null; then
-    CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
-    git commit -q -m "chore(seo-worker): +$CHANGED pages $(date '+%H:%M')" >> "$LOG_FILE" 2>&1 || true
-    git pull --rebase --autostash --quiet origin main >> "$LOG_FILE" 2>&1 || log "  ⚠️ rebase issue"
-    if git push --quiet origin HEAD:main >> "$LOG_FILE" 2>&1; then
-        log "  ✅ pushed $CHANGED files"
-        PUSHED=$CHANGED
-    else
-        log "  ⚠️ push failed"
-    fi
-else
-    log "  ℹ️ nothing new this tick"
-fi
-
-log "=== Worker tick done ==="
-
-# Green ticks stay silent. The notifier emits only actionable anomalies/results.
-python3 scripts/worker_tick_notify.py --since "$TICK_START" --pushed "$PUSHED" \
-    >> "$LOG_FILE" 2>&1 || true
+log "⏸ autonomous page generation retired by SEO trust reset"
+log "Catalog sync, measurement and deterministic QA run through the daily pipeline."
+log "=== Worker tick done (no mutation) ==="
+exit 0
