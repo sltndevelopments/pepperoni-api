@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-26",
+  "records": {
+    "recipe-current": {
+      "type": "recipe",
+      "status": "internal-reviewed",
+      "scope": ["vetchina", "mramornaya", "brokkoli", "molochnye", "slivochnaya"],
+      "supports": ["composition", "without-sodium-nitrite", "calculated-nutrition"],
+      "note": {
+        "ru": "Текущие рецептуры и спецификации ингредиентов; публичный сайт раскрывает выводы, но не внутренние документы.",
+        "en": "Current recipes and ingredient specifications; the public site discloses conclusions, not internal documents."
+      }
+    },
+    "halal-614a-2024": {
+      "type": "certificate",
+      "status": "verified",
+      "issuer": "ДУМ Республики Татарстан",
+      "identifier": "614А/2024",
+      "scope": ["vetchina", "brokkoli", "molochnye", "slivochnaya"],
+      "supports": ["halal"],
+      "note": {
+        "ru": "Продуктовый scope ограничен перечисленными позициями. «Мраморная» не включена.",
+        "en": "Product scope is limited to the listed items. Mramornaya is not included."
+      }
+    }
+  }
+}

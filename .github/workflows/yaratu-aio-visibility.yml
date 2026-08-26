@@ -1,0 +1,98 @@
+name: Yaratu — weekly AIO visibility
+
+on:
+  schedule:
+    - cron: "20 4 * * 1"
+  workflow_dispatch:
+    inputs:
+      run_indexing:
+        description: "Manually submit sitemap/recrawl/IndexNow nudge"
+        type: boolean
+        required: true
+        default: false
+      hot_urls:
+        description: "HTTPS yaratu.com URLs, one per line"
+        type: string
+        required: true
+        default: "https://yaratu.com/"
+
+permissions:
+  contents: read
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install validation and Google auth dependencies
+        run: python -m pip install --disable-pip-version-check jsonschema google-auth
+
+      - name: Run deterministic tests
+        run: python -m unittest discover -s yaratu/tests -v
+
+      - name: Measure fixed Yaratu panel
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PPLX_API_KEY: ${{ secrets.PPLX_API_KEY }}
+        run: |
+          python yaratu/scripts/aio_visibility.py \
+            --snapshot-type weekly \
+            --output "$RUNNER_TEMP/yaratu-aio-weekly.json"
+
+      - name: Validate weekly snapshot contract
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          import jsonschema
+
+          root = Path(os.environ["GITHUB_WORKSPACE"])
+          schema = json.loads((root / "yaratu/data/aio_baseline.schema.json").read_text())
+          snapshot = json.loads((Path(os.environ["RUNNER_TEMP"]) / "yaratu-aio-weekly.json").read_text())
+          jsonschema.validate(snapshot, schema)
+          print("weekly snapshot contract: OK")
+          PY
+
+      - name: Prepare hot URL list
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_indexing == 'true' }}
+        env:
+          HOT_URLS: ${{ github.event.inputs.hot_urls }}
+        run: printf '%s\n' "$HOT_URLS" > "$RUNNER_TEMP/yaratu-hot-urls.txt"
+
+      - name: Submit owner-requested indexing nudge
+        if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_indexing == 'true' }}
+        env:
+          GSC_SERVICE_ACCOUNT_KEY_B64: ${{ secrets.YARATU_GSC_SERVICE_ACCOUNT_KEY_B64 }}
+          YANDEX_WM_USER_ID: ${{ secrets.YARATU_YANDEX_WM_USER_ID }}
+          YANDEX_WM_HOST_ID: ${{ secrets.YARATU_YANDEX_WM_HOST_ID }}
+          YANDEX_WM_TOKEN: ${{ secrets.YARATU_YANDEX_WM_TOKEN }}
+          INDEXNOW_KEY: ${{ secrets.YARATU_INDEXNOW_KEY }}
+        run: |
+          python yaratu/scripts/nudge_indexing.py \
+            --domain yaratu.com \
+            --gsc-property sc-domain:yaratu.com \
+            --sitemap-url https://yaratu.com/sitemap.xml \
+            --hot-urls-file "$RUNNER_TEMP/yaratu-hot-urls.txt" \
+            --output "$RUNNER_TEMP/yaratu-indexing.json"
+
+      - name: Upload measurement and indexing reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yaratu-visibility-${{ github.run_id }}
+          path: |
+            ${{ runner.temp }}/yaratu-aio-weekly.json
+            ${{ runner.temp }}/yaratu-indexing.json
+          if-no-files-found: warn
+          retention-days: 90
+
+      # Measurement/indexing only. This workflow must never generate, edit,
+      # commit or publish content. Scheduled runs measure only; every indexing
+      # channel is behind workflow_dispatch + run_indexing=true.

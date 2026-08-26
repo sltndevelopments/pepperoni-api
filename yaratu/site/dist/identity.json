@@ -1,0 +1,16 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Brand",
+  "@id": "https://yaratu.com/#brand",
+  "name": "Ярату",
+  "alternateName": "Yaratu",
+  "url": "https://yaratu.com/",
+  "logo": "https://yaratu.com/assets/logo/logo-horizontal.png",
+  "parentOrganization": {
+    "@id": "https://yaratu.com/#organization"
+  },
+  "sameAs": [
+    "https://yaratu.com/identity.json",
+    "https://yaratu.com/ai.json"
+  ]
+}

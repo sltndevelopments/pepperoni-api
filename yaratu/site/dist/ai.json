@@ -1,0 +1,18 @@
+{
+  "version": "1.0",
+  "name": "Yaratu",
+  "canonical": "https://yaratu.com/",
+  "identity": "https://yaratu.com/identity.json",
+  "llms": "https://yaratu.com/llms.txt",
+  "llmsFull": "https://yaratu.com/llms-full.txt",
+  "wellKnownLlms": "https://yaratu.com/.well-known/llms.txt",
+  "products": "https://yaratu.com/data/products.json",
+  "evidenceSummary": "https://yaratu.com/data/evidence-summary.json",
+  "sitemap": "https://yaratu.com/sitemap.xml",
+  "llmsSitemap": "https://yaratu.com/sitemap-llms.xml",
+  "robotsAi": "https://yaratu.com/robots-ai.txt",
+  "languages": {
+    "ru": "https://yaratu.com/",
+    "en": "https://yaratu.com/en/"
+  }
+}

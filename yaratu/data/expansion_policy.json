@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "policy_id": "yaratu-gated-expansion-v1",
+  "principle": "Measurement makes a change eligible; a named human approval is still required. No gate autonomously generates or publishes content.",
+  "global_requirements": {
+    "minimum_aio_provider_success_rate": 0.8,
+    "minimum_conversion_contract_valid_rate": 0.95,
+    "maximum_critical_technical_errors": 0,
+    "manual_approval_required": true,
+    "rollback_plan_required": true
+  },
+  "gates": {
+    "content": {
+      "earliest_day": 30,
+      "thresholds": {
+        "minimum_gsc_impressions": 100,
+        "minimum_distinct_queries": 10,
+        "minimum_product_views": 20,
+        "minimum_search_aio_score": 0.05
+      },
+      "scope_limit": "At most 2 evidence-backed RU/EN pages per approved cycle; no city-product matrix."
+    },
+    "geo": {
+      "earliest_day": 60,
+      "thresholds": {
+        "minimum_geo_query_impressions": 50,
+        "minimum_distinct_geo_queries": 5,
+        "minimum_geo_conversions": 3,
+        "minimum_target_market_source_share": 0.1
+      },
+      "scope_limit": "One proven market and one language per approved cycle; no synthetic city expansion."
+    },
+    "merchant": {
+      "earliest_day": 60,
+      "thresholds": {
+        "minimum_active_products": 3,
+        "minimum_products_with_price_and_availability_rate": 1.0,
+        "minimum_products_with_stable_id_rate": 1.0,
+        "maximum_feed_validation_errors": 0
+      },
+      "scope_limit": "Submit only verified sellable products; unavailable or price-less products remain excluded."
+    },
+    "openapi": {
+      "earliest_day": 90,
+      "thresholds": {
+        "minimum_b2b_high_intent_conversions": 10,
+        "minimum_distinct_integration_requests": 3,
+        "minimum_catalog_field_completeness_rate": 0.98,
+        "maximum_contract_test_failures": 0
+      },
+      "scope_limit": "Read-only catalog/specification endpoints first; no write operations."
+    },
+    "mcp": {
+      "earliest_day": 90,
+      "depends_on": ["openapi"],
+      "thresholds": {
+        "minimum_openapi_uptime_rate": 0.995,
+        "minimum_successful_openapi_requests": 100,
+        "minimum_named_mcp_pilot_users": 2,
+        "maximum_grounding_fact_errors": 0
+      },
+      "scope_limit": "Read-only tools over approved OpenAPI fields; no purchasing, messaging or content mutation."
+    }
+  },
+  "failure_rule": {
+    "missing_metric": "hold",
+    "provider_status_skip": "exclude provider from averages and hold if success-rate gate fails",
+    "provider_status_fail": "score remains null; investigate and rerun, never coerce to zero",
+    "threshold_not_met": "hold",
+    "approval_missing": "hold"
+  }
+}

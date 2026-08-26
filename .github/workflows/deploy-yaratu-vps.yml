@@ -1,0 +1,74 @@
+name: Deploy Yaratu to VPS
+
+on:
+  # Sequence behind the primary deploy so this job never runs a competing
+  # git reset. The VPS script verifies that this exact SHA is still main.
+  workflow_run:
+    workflows: ["Deploy to VPS"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      expected_sha:
+        description: "Full main commit SHA already synchronized on the VPS"
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: yaratu-vps
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (github.event.workflow_run.conclusion == 'success' &&
+       github.event.workflow_run.event == 'push' &&
+       github.event.workflow_run.head_branch == 'main')
+    runs-on: ubuntu-latest
+    outputs:
+      expected_sha: ${{ steps.sha.outputs.expected_sha }}
+    steps:
+      - name: Select synchronized commit
+        id: sha
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          DISPATCH_SHA: ${{ inputs.expected_sha }}
+          WORKFLOW_SHA: ${{ github.event.workflow_run.head_sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "workflow_dispatch" ]]; then
+            SHA="$DISPATCH_SHA"
+          else
+            SHA="$WORKFLOW_SHA"
+          fi
+          [[ "$SHA" =~ ^[0-9a-f]{40}$ ]] || {
+            echo "Expected a full 40-character commit SHA" >&2
+            exit 1
+          }
+          echo "expected_sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout synchronized commit
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.sha.outputs.expected_sha }}
+
+      - name: Run Yaratu static infrastructure tests
+        run: bash scripts/test-yaratu-infra.sh
+
+  deploy:
+    needs: validate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy allowlisted Yaratu release
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: root
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            set -euo pipefail
+            cd /var/www/pepperoni/repo
+            bash scripts/deploy-yaratu-vps.sh '${{ needs.validate.outputs.expected_sha }}'

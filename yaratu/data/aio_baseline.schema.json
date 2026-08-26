@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yaratu.com/schemas/aio-baseline-v1.json",
+  "title": "Yaratu AIO baseline snapshot",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "snapshot_type",
+    "panel_id",
+    "panel_version",
+    "captured_at",
+    "date",
+    "domain",
+    "question_count",
+    "dry_run",
+    "layers"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "snapshot_type": { "enum": ["baseline", "weekly"] },
+    "panel_id": { "const": "yaratu-ru-en-b2c-b2b-v1" },
+    "panel_version": { "type": "integer", "minimum": 1 },
+    "captured_at": { "type": "string", "format": "date-time" },
+    "date": { "type": "string", "format": "date" },
+    "domain": { "const": "yaratu.com" },
+    "question_count": { "const": 20 },
+    "dry_run": { "type": "boolean" },
+    "layers": {
+      "type": "object",
+      "minProperties": 1,
+      "additionalProperties": { "$ref": "#/$defs/layer" }
+    }
+  },
+  "$defs": {
+    "layer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "status",
+        "score",
+        "cited",
+        "answered",
+        "asked",
+        "model",
+        "error",
+        "items"
+      ],
+      "properties": {
+        "mode": { "enum": ["memory", "search"] },
+        "status": { "enum": ["ok", "skip", "fail"] },
+        "score": {
+          "oneOf": [
+            { "type": "number", "minimum": 0, "maximum": 1 },
+            { "type": "null" }
+          ]
+        },
+        "cited": {
+          "oneOf": [
+            { "type": "integer", "minimum": 0, "maximum": 20 },
+            { "type": "null" }
+          ]
+        },
+        "answered": { "type": "integer", "minimum": 0, "maximum": 20 },
+        "asked": { "const": 20 },
+        "model": { "type": "string", "minLength": 1 },
+        "error": { "type": ["string", "null"] },
+        "items": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/item" }
+        }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "status": { "const": "ok" } } },
+          "then": {
+            "properties": {
+              "score": { "type": "number" },
+              "cited": { "type": "integer" },
+              "answered": { "const": 20 },
+              "error": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "status": { "enum": ["skip", "fail"] } } },
+          "then": {
+            "properties": {
+              "score": { "type": "null" },
+              "cited": { "type": "null" }
+            }
+          }
+        }
+      ]
+    },
+    "item": {
+      "type": "object",
+      "required": ["question_id", "status", "cited", "sources", "error"],
+      "properties": {
+        "question_id": { "type": "string" },
+        "status": { "enum": ["ok", "fail"] },
+        "cited": { "type": ["boolean", "null"] },
+        "sources": {
+          "type": "array",
+          "items": { "type": "string", "format": "uri" }
+        },
+        "error": { "type": ["string", "null"] },
+        "excerpt": { "type": "string", "maxLength": 800 }
+      }
+    }
+  }
+}

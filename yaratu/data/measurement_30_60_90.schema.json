@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yaratu.com/schemas/measurement-30-60-90-v1.json",
+  "title": "Yaratu 30/60/90-day measurement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "baseline_date", "domain", "windows"],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "baseline_date": { "type": "string", "format": "date" },
+    "domain": { "const": "yaratu.com" },
+    "windows": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "prefixItems": [
+        { "$ref": "#/$defs/day30" },
+        { "$ref": "#/$defs/day60" },
+        { "$ref": "#/$defs/day90" }
+      ],
+      "items": false
+    }
+  },
+  "$defs": {
+    "nullableNumber": { "type": ["number", "null"], "minimum": 0 },
+    "metrics": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gsc_clicks",
+        "gsc_impressions",
+        "gsc_ctr",
+        "gsc_average_position",
+        "indexed_urls",
+        "aio_memory_score",
+        "aio_search_score",
+        "aio_ok_layers",
+        "organic_sessions",
+        "product_view",
+        "availability_request",
+        "phone",
+        "WhatsApp",
+        "price",
+        "spec",
+        "sample"
+      ],
+      "properties": {
+        "gsc_clicks": { "$ref": "#/$defs/nullableNumber" },
+        "gsc_impressions": { "$ref": "#/$defs/nullableNumber" },
+        "gsc_ctr": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "gsc_average_position": { "$ref": "#/$defs/nullableNumber" },
+        "indexed_urls": { "$ref": "#/$defs/nullableNumber" },
+        "aio_memory_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "aio_search_score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "aio_ok_layers": { "type": "integer", "minimum": 0 },
+        "organic_sessions": { "$ref": "#/$defs/nullableNumber" },
+        "product_view": { "$ref": "#/$defs/nullableNumber" },
+        "availability_request": { "$ref": "#/$defs/nullableNumber" },
+        "phone": { "$ref": "#/$defs/nullableNumber" },
+        "WhatsApp": { "$ref": "#/$defs/nullableNumber" },
+        "price": { "$ref": "#/$defs/nullableNumber" },
+        "spec": { "$ref": "#/$defs/nullableNumber" },
+        "sample": { "$ref": "#/$defs/nullableNumber" }
+      }
+    },
+    "window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "day",
+        "period_start",
+        "period_end",
+        "status",
+        "metrics",
+        "data_quality",
+        "decision"
+      ],
+      "properties": {
+        "day": { "enum": [30, 60, 90] },
+        "period_start": { "type": "string", "format": "date" },
+        "period_end": { "type": "string", "format": "date" },
+        "status": { "enum": ["pending", "measured", "invalid"] },
+        "metrics": { "$ref": "#/$defs/metrics" },
+        "data_quality": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["complete_days", "aio_provider_success_rate", "conversion_contract_valid_rate"],
+          "properties": {
+            "complete_days": { "type": "integer", "minimum": 0 },
+            "aio_provider_success_rate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+            "conversion_contract_valid_rate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+          }
+        },
+        "decision": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gate", "eligible", "reasons", "approved_by"],
+          "properties": {
+            "gate": { "enum": ["hold", "content", "geo", "merchant", "openapi", "mcp"] },
+            "eligible": { "type": "boolean" },
+            "reasons": { "type": "array", "items": { "type": "string" } },
+            "approved_by": { "type": ["string", "null"] }
+          }
+        }
+      }
+    },
+    "day30": {
+      "allOf": [
+        { "$ref": "#/$defs/window" },
+        { "properties": { "day": { "const": 30 } } }
+      ]
+    },
+    "day60": {
+      "allOf": [
+        { "$ref": "#/$defs/window" },
+        { "properties": { "day": { "const": 60 } } }
+      ]
+    },
+    "day90": {
+      "allOf": [
+        { "$ref": "#/$defs/window" },
+        { "properties": { "day": { "const": 90 } } }
+      ]
+    }
+  }
+}

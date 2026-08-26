@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "snapshot_type": "baseline",
+  "panel_id": "yaratu-ru-en-b2c-b2b-v1",
+  "panel_version": 1,
+  "captured_at": "2026-08-26T19:12:08.715402+00:00",
+  "date": "2026-08-26",
+  "domain": "yaratu.com",
+  "question_count": 20,
+  "dry_run": true,
+  "layers": {
+    "openai_memory": {
+      "mode": "memory",
+      "status": "skip",
+      "score": null,
+      "cited": null,
+      "answered": 0,
+      "asked": 20,
+      "model": "gpt-4o-mini",
+      "error": "dry-run",
+      "items": []
+    },
+    "openai_search": {
+      "mode": "search",
+      "status": "skip",
+      "score": null,
+      "cited": null,
+      "answered": 0,
+      "asked": 20,
+      "model": "gpt-5",
+      "error": "dry-run",
+      "items": []
+    },
+    "gemini_memory": {
+      "mode": "memory",
+      "status": "skip",
+      "score": null,
+      "cited": null,
+      "answered": 0,
+      "asked": 20,
+      "model": "gemini-2.5-flash",
+      "error": "dry-run",
+      "items": []
+    },
+    "gemini_search": {
+      "mode": "search",
+      "status": "skip",
+      "score": null,
+      "cited": null,
+      "answered": 0,
+      "asked": 20,
+      "model": "gemini-2.5-flash",
+      "error": "dry-run",
+      "items": []
+    },
+    "perplexity_search": {
+      "mode": "search",
+      "status": "skip",
+      "score": null,
+      "cited": null,
+      "answered": 0,
+      "asked": 20,
+      "model": "sonar",
+      "error": "dry-run",
+      "items": []
+    }
+  }
+}

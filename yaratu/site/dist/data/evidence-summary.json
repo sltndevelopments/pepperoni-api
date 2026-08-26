@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "lastModified": "2026-08-26",
+  "products": [
+    {
+      "id": "vetchina",
+      "nutrition": "calculated",
+      "composition": "recipe-sourced",
+      "halal": "verified",
+      "evidence": "internal-reviewed"
+    },
+    {
+      "id": "mramornaya",
+      "nutrition": "calculated",
+      "composition": "recipe-sourced",
+      "halal": "not-claimed",
+      "evidence": "internal-reviewed"
+    },
+    {
+      "id": "brokkoli",
+      "nutrition": "calculated",
+      "composition": "recipe-sourced",
+      "halal": "verified",
+      "evidence": "internal-reviewed"
+    },
+    {
+      "id": "molochnye",
+      "nutrition": "calculated",
+      "composition": "recipe-sourced",
+      "halal": "verified",
+      "evidence": "internal-reviewed"
+    },
+    {
+      "id": "slivochnaya",
+      "nutrition": "calculated",
+      "composition": "recipe-sourced",
+      "halal": "verified",
+      "evidence": "internal-reviewed"
+    }
+  ]
+}

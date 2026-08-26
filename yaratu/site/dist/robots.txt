@@ -1,0 +1,13 @@
+User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+
+Sitemap: https://yaratu.com/sitemap.xml
+Sitemap: https://yaratu.com/sitemap-llms.xml

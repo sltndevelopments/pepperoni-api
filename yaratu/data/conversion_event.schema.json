@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://yaratu.com/schemas/conversion-event-v1.json",
+  "title": "Yaratu conversion event contract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_name",
+    "occurred_at",
+    "session_id",
+    "page_url",
+    "language",
+    "audience",
+    "source"
+  ],
+  "properties": {
+    "schema_version": { "const": 1 },
+    "event_id": { "type": "string", "minLength": 8, "maxLength": 128 },
+    "event_name": {
+      "enum": [
+        "product_view",
+        "availability_request",
+        "phone",
+        "WhatsApp",
+        "price",
+        "spec",
+        "sample"
+      ]
+    },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "session_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+    "page_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://yaratu\\.com/"
+    },
+    "language": { "enum": ["ru", "en"] },
+    "audience": { "enum": ["b2c", "b2b", "unknown"] },
+    "product_id": { "type": ["string", "null"], "maxLength": 128 },
+    "cta_location": { "type": ["string", "null"], "maxLength": 128 },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["channel"],
+      "properties": {
+        "channel": {
+          "enum": ["direct", "organic", "paid", "referral", "email", "social", "unknown"]
+        },
+        "referrer": { "type": ["string", "null"], "format": "uri" },
+        "utm_source": { "type": ["string", "null"], "maxLength": 128 },
+        "utm_medium": { "type": ["string", "null"], "maxLength": 128 },
+        "utm_campaign": { "type": ["string", "null"], "maxLength": 128 }
+      }
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "analytics": { "type": "boolean" },
+        "marketing": { "type": "boolean" }
+      }
+    }
+  }
+}

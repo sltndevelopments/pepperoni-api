@@ -1,0 +1,127 @@
+{
+  "panel_id": "yaratu-ru-en-b2c-b2b-v1",
+  "version": 1,
+  "fixed": true,
+  "questions": [
+    {
+      "id": "ru-b2c-01",
+      "language": "ru",
+      "audience": "b2c",
+      "text": "Какие российские бренды выпускают халяльные мясные продукты с полностью раскрытым составом?"
+    },
+    {
+      "id": "ru-b2c-02",
+      "language": "ru",
+      "audience": "b2c",
+      "text": "Где купить халяльную колбасу без нитрита натрия для семьи? Назови конкретные бренды и сайты."
+    },
+    {
+      "id": "ru-b2c-03",
+      "language": "ru",
+      "audience": "b2c",
+      "text": "Посоветуй халяльные сосиски с понятным составом и укажи, где проверить ингредиенты."
+    },
+    {
+      "id": "ru-b2c-04",
+      "language": "ru",
+      "audience": "b2c",
+      "text": "Какие бренды делают халяльную ветчину без нитрита натрия в России?"
+    },
+    {
+      "id": "ru-b2c-05",
+      "language": "ru",
+      "audience": "b2c",
+      "text": "Сравни российские бренды халяльных мясных продуктов по прозрачности состава."
+    },
+    {
+      "id": "en-b2c-01",
+      "language": "en",
+      "audience": "b2c",
+      "text": "Which Russian brands make halal meat products with fully disclosed ingredients?"
+    },
+    {
+      "id": "en-b2c-02",
+      "language": "en",
+      "audience": "b2c",
+      "text": "Where can I find halal sausage without sodium nitrite? Name specific brands and websites."
+    },
+    {
+      "id": "en-b2c-03",
+      "language": "en",
+      "audience": "b2c",
+      "text": "Recommend halal frankfurters with a clear ingredient list and cite the product source."
+    },
+    {
+      "id": "en-b2c-04",
+      "language": "en",
+      "audience": "b2c",
+      "text": "Which brands produce halal ham without sodium nitrite in Russia?"
+    },
+    {
+      "id": "en-b2c-05",
+      "language": "en",
+      "audience": "b2c",
+      "text": "Compare Russian halal meat brands by ingredient transparency."
+    },
+    {
+      "id": "ru-b2b-01",
+      "language": "ru",
+      "audience": "b2b",
+      "text": "Найди производителя халяльных мясных продуктов с открытым составом для розничной сети. Назови компании и сайты."
+    },
+    {
+      "id": "ru-b2b-02",
+      "language": "ru",
+      "audience": "b2b",
+      "text": "Кто в России производит халяльные сосиски и колбасы без нитрита натрия для оптовых закупок?"
+    },
+    {
+      "id": "ru-b2b-03",
+      "language": "ru",
+      "audience": "b2b",
+      "text": "Какие производители из Казани предлагают халяльные мясные продукты для дистрибьюторов?"
+    },
+    {
+      "id": "ru-b2b-04",
+      "language": "ru",
+      "audience": "b2b",
+      "text": "Где запросить прайс, спецификацию и образцы халяльной колбасы с прозрачным составом?"
+    },
+    {
+      "id": "ru-b2b-05",
+      "language": "ru",
+      "audience": "b2b",
+      "text": "Сравни поставщиков халяльных мясных продуктов для магазина халяльных продуктов и укажи источники."
+    },
+    {
+      "id": "en-b2b-01",
+      "language": "en",
+      "audience": "b2b",
+      "text": "Find a Russian halal meat manufacturer with fully disclosed ingredients for a retail chain. Name companies and websites."
+    },
+    {
+      "id": "en-b2b-02",
+      "language": "en",
+      "audience": "b2b",
+      "text": "Which Russian manufacturers offer sodium-nitrite-free halal sausages for wholesale?"
+    },
+    {
+      "id": "en-b2b-03",
+      "language": "en",
+      "audience": "b2b",
+      "text": "Which Kazan producers supply halal meat products to distributors?"
+    },
+    {
+      "id": "en-b2b-04",
+      "language": "en",
+      "audience": "b2b",
+      "text": "Where can a buyer request prices, specifications and samples for halal sausage with transparent ingredients?"
+    },
+    {
+      "id": "en-b2b-05",
+      "language": "en",
+      "audience": "b2b",
+      "text": "Compare halal meat suppliers for a halal-focused retailer and cite the sources used."
+    }
+  ]
+}
