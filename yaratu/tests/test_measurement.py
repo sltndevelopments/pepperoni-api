@@ -194,6 +194,7 @@ class WorkflowTests(unittest.TestCase):
         ).read_text(encoding="utf-8")
         self.assertIn("run_measure:", workflow)
         self.assertIn("default: true", workflow)
+        self.assertIn("google-auth requests", workflow)
         condition = (
             "github.event_name == 'schedule' || "
             "github.event.inputs.run_measure != 'false'"
