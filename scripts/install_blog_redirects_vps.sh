@@ -4,8 +4,10 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 SRC="$ROOT/deploy/nginx/pepperoni-blog-redirects.conf"
+KARMIN_SRC="$ROOT/deploy/nginx/karmin-e120-redirects.conf"
 HOST="${VPS_HOST:-pepperoni-vps}"
 REMOTE_SNIPPET="/etc/nginx/snippets/pepperoni-blog-redirects.conf"
+KARMIN_REMOTE="/etc/nginx/snippets/karmin-e120-redirects.conf"
 SITE_CONF="${NGINX_SITE:-/etc/nginx/sites-enabled/pepperoni.tatar}"
 
 if [[ ! -f "$SRC" ]]; then
@@ -14,14 +16,27 @@ if [[ ! -f "$SRC" ]]; then
 fi
 
 ssh "$HOST" "cat > /tmp/pepperoni-blog-redirects.conf" < "$SRC"
+if [[ -f "$KARMIN_SRC" ]]; then
+  ssh "$HOST" "cat > /tmp/karmin-e120-redirects.conf" < "$KARMIN_SRC"
+fi
 ssh "$HOST" bash -s <<EOF
 set -euo pipefail
 cp /tmp/pepperoni-blog-redirects.conf "$REMOTE_SNIPPET"
+if [[ -f /tmp/karmin-e120-redirects.conf ]]; then
+  cp /tmp/karmin-e120-redirects.conf "$KARMIN_REMOTE"
+fi
 if ! grep -q 'pepperoni-blog-redirects.conf' "$SITE_CONF"; then
   if grep -q 'pepperoni-halyal-redirects.conf' "$SITE_CONF"; then
     sed -i 's|include /etc/nginx/snippets/pepperoni-halyal-redirects.conf;|include /etc/nginx/snippets/pepperoni-halyal-redirects.conf;\n    include /etc/nginx/snippets/pepperoni-blog-redirects.conf;|' "$SITE_CONF"
   else
     echo "WARNING: add manually: include $REMOTE_SNIPPET;  inside server{} for pepperoni.tatar"
+  fi
+fi
+if [[ -f "$KARMIN_REMOTE" ]] && ! grep -q 'karmin-e120-redirects.conf' "$SITE_CONF"; then
+  if grep -q 'pepperoni-blog-redirects.conf' "$SITE_CONF"; then
+    sed -i 's|include /etc/nginx/snippets/pepperoni-blog-redirects.conf;|include /etc/nginx/snippets/pepperoni-blog-redirects.conf;\n    include /etc/nginx/snippets/karmin-e120-redirects.conf;|' "$SITE_CONF"
+  else
+    echo "WARNING: add manually: include $KARMIN_REMOTE;  inside server{} for pepperoni.tatar"
   fi
 fi
 nginx -t

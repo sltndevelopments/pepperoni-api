@@ -632,6 +632,26 @@
       "source": "/halal-pepperoni-for-pizzerias",
       "destination": "/pepperoni-dlya-pizzerii",
       "permanent": true
+    },
+    {
+      "source": "/blog/karmin-e120-halyal",
+      "destination": "/blog/karmin-e120-haram",
+      "permanent": true
+    },
+    {
+      "source": "/blog/karmin-e120-halyal.html",
+      "destination": "/blog/karmin-e120-haram",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/karmin-e120-halyal",
+      "destination": "/en/blog/karmin-e120-haram",
+      "permanent": true
+    },
+    {
+      "source": "/en/blog/karmin-e120-halyal.html",
+      "destination": "/en/blog/karmin-e120-haram",
+      "permanent": true
     }
   ],
   "rewrites": [
