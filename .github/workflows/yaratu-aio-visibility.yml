@@ -13,6 +13,11 @@ on:
         options:
           - baseline
           - weekly
+      run_measure:
+        description: "Run the paid AIO visibility panel"
+        type: boolean
+        required: true
+        default: true
       run_indexing:
         description: "Manually submit sitemap/recrawl/IndexNow nudge"
         type: boolean
@@ -44,6 +49,7 @@ jobs:
         run: python -m unittest discover -s yaratu/tests -v
 
       - name: Measure fixed Yaratu panel
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.run_measure != 'false' }}
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
@@ -55,6 +61,7 @@ jobs:
             --output "$RUNNER_TEMP/yaratu-aio-weekly.json"
 
       - name: Validate weekly snapshot contract
+        if: ${{ github.event_name == 'schedule' || github.event.inputs.run_measure != 'false' }}
         run: |
           python - <<'PY'
           import json
@@ -103,5 +110,5 @@ jobs:
           retention-days: 90
 
       # Measurement/indexing only. This workflow must never generate, edit,
-      # commit or publish content. Scheduled runs measure only; every indexing
-      # channel is behind workflow_dispatch + run_indexing=true.
+      # commit or publish content. Scheduled runs measure only. Manual indexing
+      # can set run_measure=false, so a recrawl does not spend provider tokens.

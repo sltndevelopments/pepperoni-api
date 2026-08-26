@@ -188,6 +188,18 @@ class WorkflowTests(unittest.TestCase):
             workflow,
         )
 
+    def test_manual_indexing_can_skip_paid_measurement(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "yaratu-aio-visibility.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("run_measure:", workflow)
+        self.assertIn("default: true", workflow)
+        condition = (
+            "github.event_name == 'schedule' || "
+            "github.event.inputs.run_measure != 'false'"
+        )
+        self.assertEqual(2, workflow.count(condition))
+
 
 if __name__ == "__main__":
     unittest.main()
