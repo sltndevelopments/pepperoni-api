@@ -1,0 +1,25 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://yaratu.com/data/products.json",
+      "service-desc": [
+        {
+          "href": "https://yaratu.com/feeds/products.json",
+          "type": "application/json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://yaratu.com/llms.txt",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://yaratu.com/ai.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

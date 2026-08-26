@@ -1,0 +1,41 @@
+{
+  "specVersion": "0.1",
+  "host": {
+    "name": "Yaratu",
+    "url": "https://yaratu.com/"
+  },
+  "entries": [
+    {
+      "id": "urn:air:yaratu.com:docs:llms",
+      "displayName": "Yaratu product summary",
+      "type": "text/markdown",
+      "url": "https://yaratu.com/llms.txt",
+      "representativeQueries": [
+        "What products does Yaratu make?",
+        "Какие продукты есть у Ярату?",
+        "Does Yaratu use sodium nitrite?"
+      ]
+    },
+    {
+      "id": "urn:air:yaratu.com:data:products",
+      "displayName": "Yaratu canonical product catalog",
+      "type": "application/json",
+      "url": "https://yaratu.com/data/products.json",
+      "representativeQueries": [
+        "Yaratu ingredients and allergens",
+        "Yaratu calculated nutrition per 100 g",
+        "Which Yaratu products are halal?"
+      ]
+    },
+    {
+      "id": "urn:air:yaratu.com:docs:retail",
+      "displayName": "Yaratu retailer contact",
+      "type": "text/html",
+      "url": "https://yaratu.com/retail/",
+      "representativeQueries": [
+        "How do I request Yaratu specifications?",
+        "Yaratu distributor contact in Kazan"
+      ]
+    }
+  ]
+}

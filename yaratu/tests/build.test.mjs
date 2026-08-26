@@ -130,6 +130,36 @@ test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
   assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="x-default"/g) || []).length, 18);
 });
 
+test("agent discovery files exist without fake auth, MCP or commerce", async () => {
+  const catalog = JSON.parse(await readFile(join(dist, ".well-known/api-catalog"), "utf8"));
+  const ard = JSON.parse(await readFile(join(dist, ".well-known/ai-catalog.json"), "utf8"));
+  const skills = JSON.parse(await readFile(join(dist, ".well-known/agent-skills/index.json"), "utf8"));
+  const homeMd = await readFile(join(dist, "index.md"), "utf8");
+  const homeHtml = await readFile(join(dist, "index.html"), "utf8");
+  const robots = await readFile(join(dist, "robots.txt"), "utf8");
+  assert.equal(catalog.linkset[0].anchor, "https://yaratu.com/data/products.json");
+  assert.equal(catalog.linkset[0]["service-doc"][0].type, "text/markdown");
+  assert.equal(ard.host.url, "https://yaratu.com/");
+  assert.ok(ard.entries.every((entry) => entry.url.startsWith("https://yaratu.com/")));
+  assert.equal(skills.skills.length, 3);
+  for (const skill of skills.skills) {
+    assert.match(skill.digest, /^sha256:[0-9a-f]{64}$/);
+    assert.ok((await files(dist)).includes(skill.url.slice(1)));
+  }
+  assert.match(homeMd, /Пять продуктов/);
+  assert.match(homeHtml, /rel="alternate" type="text\/markdown" href="\/index\.md"/);
+  assert.match(homeHtml, /rel="api-catalog"/);
+  assert.match(homeHtml, /rel="ai-catalog"/);
+  assert.match(robots, /Agentmap: https:\/\/yaratu\.com\/\.well-known\/ai-catalog\.json/);
+  assert.match(robots, /ChatGPT-User/);
+  const built = await files(dist);
+  assert.equal(built.some((path) => path.includes("oauth")), false);
+  assert.equal(built.some((path) => path.includes("mcp")), false);
+  assert.equal(built.includes("auth.md"), false);
+  assert.equal(built.includes(".well-known/ucp"), false);
+  assert.equal(built.includes(".well-known/acp.json"), false);
+});
+
 test("AI and crawler discovery files have complete parity", async () => {
   const robots = await readFile(join(dist, "robots.txt"), "utf8");
   const robotsAi = await readFile(join(dist, "robots-ai.txt"), "utf8");

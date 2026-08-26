@@ -75,6 +75,18 @@ if ! grep -Fq 'try_files $uri/index.html $uri =404;' "$RENDERED"; then
   echo "FAIL: clean directory URLs are not mapped to index.html" >&2
   exit 22
 fi
+if ! grep -Fq 'rel="api-catalog"' "$RENDERED"; then
+  echo "FAIL: homepage Link api-catalog header is missing" >&2
+  exit 23
+fi
+if ! grep -Fq 'rewrite ^/$ /index.md last;' "$RENDERED"; then
+  echo "FAIL: markdown negotiation rewrite is missing" >&2
+  exit 24
+fi
+if ! grep -Fq 'application/linkset+json' "$RENDERED"; then
+  echo "FAIL: api-catalog media type is missing" >&2
+  exit 25
+fi
 
 if command -v nginx >/dev/null 2>&1 && command -v openssl >/dev/null 2>&1; then
   # GitHub-hosted runners execute this gate without root. Keep the production

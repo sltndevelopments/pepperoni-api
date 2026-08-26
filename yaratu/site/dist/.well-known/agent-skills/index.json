@@ -1,0 +1,26 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "yaratu-catalog",
+      "type": "skill-md",
+      "description": "Look up the five Yaratu products, calculated nutrition, allergens and product-specific halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
+      "url": "/.well-known/agent-skills/yaratu-catalog/SKILL.md",
+      "digest": "sha256:f3e284759c7d4a40df5cbc25814e63c8c17e9146219a3de4a7720d1b67e64aba"
+    },
+    {
+      "name": "yaratu-ingredients",
+      "type": "skill-md",
+      "description": "Explain Yaratu disclosed ingredient lists and the without-sodium-nitrite recipe status. Use when a buyer asks what is in a mix or whether E250 is used.",
+      "url": "/.well-known/agent-skills/yaratu-ingredients/SKILL.md",
+      "digest": "sha256:bca69d21237be0b709adebcbb21e214e4ef28507316369135f092b387a980e9e"
+    },
+    {
+      "name": "yaratu-retail",
+      "type": "skill-md",
+      "description": "Open a B2B specification or supply request for Yaratu. Use for retailers and distributors, not consumer checkout.",
+      "url": "/.well-known/agent-skills/yaratu-retail/SKILL.md",
+      "digest": "sha256:ca5137c611421da812c7c50f28720468d27374fc3711be2214979e22eb6a1128"
+    }
+  ]
+}

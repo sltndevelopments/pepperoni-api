@@ -1,10 +1,18 @@
 User-agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
+Allow: /.well-known/api-catalog
+Allow: /.well-known/ai-catalog.json
+Allow: /.well-known/agent-skills/
+Agentmap: https://yaratu.com/.well-known/ai-catalog.json
 
 User-agent: GPTBot
 Allow: /
+User-agent: ChatGPT-User
+Allow: /
 User-agent: ClaudeBot
+Allow: /
+User-agent: PerplexityBot
 Allow: /
 User-agent: Google-Extended
 Allow: /

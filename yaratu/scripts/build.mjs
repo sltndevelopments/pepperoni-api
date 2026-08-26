@@ -1,3 +1,4 @@
+import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -119,6 +120,41 @@ function nutritionFacts(product, lang, compact = false) {
 </aside>`;
 }
 
+function markdownPath(lang, slug = "") {
+  if (!slug) return lang === "ru" ? "/index.md" : "/en/index.md";
+  return lang === "ru" ? `/${slug}.md` : `/en/${slug}.md`;
+}
+
+function homeMarkdown(lang) {
+  const L = t[lang];
+  const lines = products.map((p) => {
+    const n = p.nutrition;
+    return `- [${p.name[lang]}](${absolute(pagePath(lang, `products/${p.id}`))}): ${p.summary[lang]} ${formatNumber(n.caloriesKcal, lang)} ${L.kcal}, ${formatNumber(n.proteinGrams, lang)} ${grams(lang)} ${L.protein}. ${p.claims.halal ? L.halal : L.noHalal}.`;
+  });
+  return `# ${L.hero}\n\n${L.lead}\n\n## ${L.range}\n\n${L.nutritionNote}\n\n${lines.join("\n")}\n\n- [${L.ingredients}](${absolute(pagePath(lang, "ingredients"))})\n- [${L.nitrite}](${absolute(pagePath(lang, "without-sodium-nitrite"))})\n- [${L.retail}](${absolute(pagePath(lang, "retail"))})\n- [llms.txt](${SITE}/llms.txt)\n- [products.json](${SITE}/data/products.json)\n`;
+}
+
+function productMarkdown(product, lang) {
+  const L = t[lang];
+  const n = product.nutrition;
+  return `# ${product.name[lang]}\n\n${product.summary[lang]}\n\n- ${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}\n- ${product.claims.halal ? L.halal : L.noHalal}\n- ${L.nitrite}\n\n## ${L.composition}\n\n${product.ingredients[lang]}\n\n**${L.allergens}:** ${product.allergens[lang]}\n\n## ${L.nutrition}\n\n- ${L.kcal}: ${formatNumber(n.caloriesKcal, lang)}\n- ${L.protein}: ${formatNumber(n.proteinGrams, lang)} ${grams(lang)}\n- ${L.fat}: ${formatNumber(n.fatGrams, lang)} ${grams(lang)}\n- ${L.carbs}: ${formatNumber(n.carbohydrateGrams, lang)} ${grams(lang)}\n\n${L.nutritionNote}\n`;
+}
+
+function pageMarkdown(lang, kind) {
+  if (kind === "retail") {
+    return lang === "ru"
+      ? `# Yaratu для магазинов и дистрибьюторов\n\nЗапросите актуальные спецификации, фасовки, документы и условия поставки напрямую у производителя.\n\n- ООО «Казанские Деликатесы»\n- г. Казань, ул. Аграрная, д. 2, оф. 7\n- +7 987 217-02-02\n- info@kazandelikates.tatar\n`
+      : `# Yaratu for retailers and distributors\n\nRequest current specifications, pack formats, documents and supply terms directly from the manufacturer.\n\n- Kazan Delicacies LLC\n- 2 Agrarnaya Street, office 7, Kazan, Russia\n- +7 987 217-02-02\n- info@kazandelikates.tatar\n`;
+  }
+  return lang === "ru"
+    ? (kind === "ingredients"
+      ? `# Что значит раскрытый состав?\n\nРаскрытый состав перечисляет не только название комплексной смеси, но и входящие в неё ингредиенты. Статус состава — recipe-sourced; маркировка партии остаётся приоритетным источником.\n`
+      : `# Что значит «без нитрита натрия»?\n\nВ текущих рецептурах пяти продуктов Yaratu нитрит натрия E250 не используется. Это статус рецептуры, не лабораторное утверждение.\n`)
+    : (kind === "ingredients"
+      ? `# What does a disclosed ingredient list mean?\n\nA disclosed list names the ingredients inside compound mixes instead of showing only a trade name. The pack label remains the primary source for a purchased batch.\n`
+      : `# What does “without sodium nitrite” mean?\n\nSodium nitrite E250 is not used in the current recipes of the five Yaratu products. Nutrition figures are calculated, not laboratory-tested.\n`);
+}
+
 function alternates(slug) {
   const ru = pagePath("ru", slug);
   const en = pagePath("en", slug);
@@ -138,6 +174,9 @@ function shell({ lang, slug = "", title, description, body, structured }) {
 <title>${h(title)}</title><meta name="description" content="${h(description)}"><meta name="theme-color" content="#2F391C">
 <meta name="yandex-verification" content="1817223863cbfebb">
 <link rel="canonical" href="${canonical}">${alternates(slug)}
+<link rel="alternate" type="text/markdown" href="${markdownPath(lang, slug)}" title="Markdown for agents">
+<link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+<link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
 <meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${h(title)}"><meta property="og:description" content="${h(description)}"><meta property="og:image" content="${SITE}/assets/logo/logo-horizontal.png">
 <link rel="stylesheet" href="/styles.css">${schemas(structured || [])}</head>
 <body><a class="skip-link" href="#main">${lang === "ru" ? "К содержанию" : "Skip to content"}</a>
@@ -259,11 +298,16 @@ function retailPage(lang) {
 
 for (const lang of ["ru", "en"]) {
   await output(lang === "ru" ? "index.html" : "en/index.html", home(lang));
+  await output(lang === "ru" ? "index.md" : "en/index.md", homeMarkdown(lang));
   await output(`${lang === "ru" ? "" : "en/"}retail/index.html`, retailPage(lang));
+  await output(`${lang === "ru" ? "" : "en/"}retail.md`, pageMarkdown(lang, "retail"));
   await output(`${lang === "ru" ? "" : "en/"}ingredients/index.html`, answerPage(lang, "ingredients"));
+  await output(`${lang === "ru" ? "" : "en/"}ingredients.md`, pageMarkdown(lang, "ingredients"));
   await output(`${lang === "ru" ? "" : "en/"}without-sodium-nitrite/index.html`, answerPage(lang, "nitrite"));
+  await output(`${lang === "ru" ? "" : "en/"}without-sodium-nitrite.md`, pageMarkdown(lang, "nitrite"));
   for (const product of products) {
     await output(`${lang === "ru" ? "" : "en/"}products/${product.id}/index.html`, productPage(product, lang));
+    await output(`${lang === "ru" ? "" : "en/"}products/${product.id}.md`, productMarkdown(product, lang));
   }
 }
 
@@ -306,7 +350,7 @@ const sitemapEntries = ["ru", "en"].flatMap((lang) => urls.map((slug) => {
   return `  <url><loc>${absolute(url)}</loc><lastmod>${lastmod}</lastmod><xhtml:link rel="alternate" hreflang="ru" href="${ru}"/><xhtml:link rel="alternate" hreflang="en" href="${en}"/><xhtml:link rel="alternate" hreflang="x-default" href="${ru}"/></url>`;
 }));
 await output("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join("\n")}\n</urlset>\n`);
-await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
+await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\nAllow: /.well-known/api-catalog\nAllow: /.well-known/ai-catalog.json\nAllow: /.well-known/agent-skills/\nAgentmap: ${SITE}/.well-known/ai-catalog.json\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("robots-ai.txt", `# Yaratu AI crawler directives\nUser-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\n\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("ai.txt", `Yaratu permits indexing of public pages and feeds for search and AI retrieval.\nCanonical product data: ${SITE}/data/products.json\nHuman-readable summary: ${SITE}/llms.txt\n`);
 await output("989787de78c652b55e6887550582b6f6.txt", "989787de78c652b55e6887550582b6f6\n");
@@ -334,6 +378,95 @@ const aiDiscovery = {
   languages: {ru: `${SITE}/`, en: `${SITE}/en/`}
 };
 await output("ai.json", `${JSON.stringify(aiDiscovery, null, 2)}\n`);
+
+const apiCatalog = {
+  linkset: [
+    {
+      anchor: `${SITE}/data/products.json`,
+      "service-desc": [{ href: `${SITE}/feeds/products.json`, type: "application/json" }],
+      "service-doc": [{ href: `${SITE}/llms.txt`, type: "text/markdown" }],
+      status: [{ href: `${SITE}/ai.json`, type: "application/json" }]
+    }
+  ]
+};
+await output(".well-known/api-catalog", `${JSON.stringify(apiCatalog, null, 2)}\n`);
+
+const aiCatalog = {
+  specVersion: "0.1",
+  host: { name: "Yaratu", url: `${SITE}/` },
+  entries: [
+    {
+      id: "urn:air:yaratu.com:docs:llms",
+      displayName: "Yaratu product summary",
+      type: "text/markdown",
+      url: `${SITE}/llms.txt`,
+      representativeQueries: [
+        "What products does Yaratu make?",
+        "Какие продукты есть у Ярату?",
+        "Does Yaratu use sodium nitrite?"
+      ]
+    },
+    {
+      id: "urn:air:yaratu.com:data:products",
+      displayName: "Yaratu canonical product catalog",
+      type: "application/json",
+      url: `${SITE}/data/products.json`,
+      representativeQueries: [
+        "Yaratu ingredients and allergens",
+        "Yaratu calculated nutrition per 100 g",
+        "Which Yaratu products are halal?"
+      ]
+    },
+    {
+      id: "urn:air:yaratu.com:docs:retail",
+      displayName: "Yaratu retailer contact",
+      type: "text/html",
+      url: `${SITE}/retail/`,
+      representativeQueries: [
+        "How do I request Yaratu specifications?",
+        "Yaratu distributor contact in Kazan"
+      ]
+    }
+  ]
+};
+await output(".well-known/ai-catalog.json", `${JSON.stringify(aiCatalog, null, 2)}\n`);
+
+function skillFile(name, description, body) {
+  const text = `---\nname: ${name}\ndescription: ${description}\n---\n\n${body}`;
+  return {
+    name,
+    type: "skill-md",
+    description,
+    url: `/.well-known/agent-skills/${name}/SKILL.md`,
+    digest: `sha256:${createHash("sha256").update(text).digest("hex")}`,
+    text
+  };
+}
+
+const skills = [
+  skillFile(
+    "yaratu-catalog",
+    "Look up the five Yaratu products, calculated nutrition, allergens and product-specific halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
+    `# Yaratu catalog\n\nPublic brand of ООО «Казанские Деликатесы». No live checkout. Nutrition is calculated, not laboratory-tested. Halal is product-specific; do not claim it for Mramornaya.\n\n## Prefer machine endpoints over scraping HTML\n\n1. Canonical JSON: ${SITE}/data/products.json\n2. Markdown dump: ${SITE}/llms.txt\n3. Full dataset: ${SITE}/llms-full.txt\n\nContacts: +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7.\n`
+  ),
+  skillFile(
+    "yaratu-ingredients",
+    "Explain Yaratu disclosed ingredient lists and the without-sodium-nitrite recipe status. Use when a buyer asks what is in a mix or whether E250 is used.",
+    `# Yaratu ingredients\n\nDisclosed composition lists the ingredients inside compound mixes, not only a trade name. The pack label remains the source for a purchased batch.\n\n- Ingredients: ${SITE}/ingredients/\n- Without sodium nitrite: ${SITE}/without-sodium-nitrite/\n- Canonical JSON: ${SITE}/data/products.json\n`
+  ),
+  skillFile(
+    "yaratu-retail",
+    "Open a B2B specification or supply request for Yaratu. Use for retailers and distributors, not consumer checkout.",
+    `# Yaratu retail inquiry\n\nThere is no cart and no agentic checkout. Send the buyer to the manufacturer.\n\n- RU: ${SITE}/retail/\n- EN: ${SITE}/en/retail/\n- Email: info@kazandelikates.tatar\n- Phone: +7 987 217-02-02\n`
+  )
+];
+for (const skill of skills) {
+  await output(skill.url.slice(1), skill.text);
+}
+await output(".well-known/agent-skills/index.json", `${JSON.stringify({
+  $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  skills: skills.map(({ text, ...rest }) => rest)
+}, null, 2)}\n`);
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
 await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n`);
 await output("_routes.json", `${JSON.stringify({version: 1, include: ["/*"], exclude: ["/assets/*", "/packshots/*", "/styles.css", "/robots.txt", "/sitemap.xml"]}, null, 2)}\n`);
