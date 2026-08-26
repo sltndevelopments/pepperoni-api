@@ -979,6 +979,47 @@ section {
 }
 
 /* Products — 3 layers: stage → intro+KBJU → passport */
+.range-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 2.5rem;
+  font-size: 0.95rem;
+}
+
+.range-table caption {
+  text-align: left;
+  margin-bottom: 0.7rem;
+  color: var(--muted);
+}
+
+.range-table th,
+.range-table td {
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem 0.6rem;
+  text-align: left;
+  vertical-align: top;
+}
+
+.faq {
+  display: grid;
+  gap: 0.6rem;
+}
+
+.faq details {
+  border: 1px solid var(--line);
+  background: var(--white);
+  padding: 0.85rem 1rem;
+}
+
+.faq summary {
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.faq details p {
+  margin: 0.7rem 0 0;
+}
+
 .products {
   display: grid;
   gap: clamp(3.5rem, 7vw, 6rem);

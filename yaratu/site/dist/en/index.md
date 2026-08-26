@@ -1,6 +1,6 @@
 # Love begins with taste
 
-Meat products made without sodium nitrite. Compound ingredients are disclosed ingredient by ingredient.
+Yaratu is the meat brand of Kazan Delicacies: five cooked products from Kazan without sodium nitrite, with every compound mix listed ingredient by ingredient. For retailers and shoppers who need a checkable recipe.
 
 ## Five products. No ingredient-list shortcuts.
 

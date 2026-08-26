@@ -40,7 +40,7 @@ const t = {
   ru: {
     home: "Главная", products: "Продукты", retail: "Для закупщиков", ingredients: "Раскрытый состав",
     nitrite: "Без нитрита", hero: "Любовь начинается со вкуса",
-    lead: "Мясные продукты без нитрита натрия. Комплексные добавки раскрыты до отдельных ингредиентов.",
+    lead: "Ярату — мясной бренд ООО «Казанские Деликатесы»: пять варёных продуктов из Казани без нитрита натрия, с комплексными добавками, раскрытыми до отдельных ингредиентов. Для магазинов и покупателей, которым нужен проверяемый состав.",
     range: "Пять продуктов. Состав без сокращений.", see: "Смотреть продукт", calculated: "Расчётные КБЖУ",
     halal: "Халяль подтверждён", noHalal: "Халяль не заявлен", weight: "Масса нетто",
     composition: "Состав", allergens: "Аллергены", nutrition: "КБЖУ на 100 г",
@@ -53,7 +53,7 @@ const t = {
   en: {
     home: "Home", products: "Products", retail: "For retailers", ingredients: "Disclosed ingredients",
     nitrite: "Without nitrite", hero: "Love begins with taste",
-    lead: "Meat products made without sodium nitrite. Compound ingredients are disclosed ingredient by ingredient.",
+    lead: "Yaratu is the meat brand of Kazan Delicacies: five cooked products from Kazan without sodium nitrite, with every compound mix listed ingredient by ingredient. For retailers and shoppers who need a checkable recipe.",
     range: "Five products. No ingredient-list shortcuts.", see: "View product", calculated: "Calculated nutrition",
     halal: "Halal verified", noHalal: "No halal claim", weight: "Net weight",
     composition: "Ingredients", allergens: "Allergens", nutrition: "Nutrition per 100 g",
@@ -196,15 +196,24 @@ ${extraHead}<link rel="stylesheet" href="/styles.css">${schemas(structured || []
 <details class="nav__menu"><summary>${lang === "ru" ? "Меню" : "Menu"}</summary><nav aria-label="${lang === "ru" ? "Мобильное меню" : "Mobile menu"}"><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang, "ingredients")}">${L.ingredients}</a><a href="${pagePath(lang, "without-sodium-nitrite")}">${L.nitrite}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></nav></details>
 <a class="nav__cta" href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></div></header>
 <main id="main">${body}</main>
-<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
+<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="/privacy.html">${lang === "ru" ? "Политика ПДн" : "Privacy"}</a><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
 }
 
+const officialProfiles = [
+  "https://pepperoni.tatar/",
+  "https://kazandelikates.tatar/",
+  "https://www.youtube.com/@kazandelikates"
+];
 const org = {
   "@type": "Organization", "@id": `${SITE}/#organization`, name: "ООО «Казанские Деликатесы»",
   alternateName: "Kazan Delicacies LLC", url: "https://pepperoni.tatar/", email: "info@kazandelikates.tatar",
-  telephone: "+79872170202", address: {"@type": "PostalAddress", streetAddress: "ул. Аграрная, д. 2, оф. 7", addressLocality: "Казань", postalCode: "420061", addressCountry: "RU"}
+  telephone: "+79872170202", brand: {"@id": `${SITE}/#brand`}, sameAs: officialProfiles,
+  address: {"@type": "PostalAddress", streetAddress: "ул. Аграрная, д. 2, оф. 7", addressLocality: "Казань", postalCode: "420061", addressCountry: "RU"}
 };
-const brand = {"@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", alternateName: "Yaratu", logo: `${SITE}/assets/logo/logo-horizontal.png`};
+const brand = {
+  "@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", alternateName: "Yaratu",
+  url: `${SITE}/`, logo: `${SITE}/assets/logo/logo-horizontal.png`, sameAs: officialProfiles
+};
 
 function card(product, lang, index) {
   const L = t[lang];
@@ -215,12 +224,32 @@ function card(product, lang, index) {
 <div class="product__passport"><div class="product__passport-copy"><span class="product__passport-eyebrow">${L.composition}</span><p class="product__compose">${h(product.ingredients[lang])}</p><p class="product__allergens"><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><div class="product__label">${nutritionFacts(product, lang, true)}</div></div></article>`;
 }
 
+function homeFaqs(lang) {
+  return lang === "ru" ? [
+    ["Что такое Ярату?", "Ярату — мясной бренд ООО «Казанские Деликатесы»: пять варёных продуктов из Казани без нитрита натрия и с составом, раскрытым до ингредиентов."],
+    ["Для кого эта линейка?", "Для магазинов, дистрибьюторов и покупателей, которым нужен проверяемый состав, а не лозунг «чистый продукт»."],
+    ["Где цены?", "Публичного потребительского прайса нет. Актуальные спецификации, фасовки и условия поставки запрашивают у производителя."],
+    ["Вся линейка халяль?", "Нет. Халяль показывается по каждому SKU. На «Мраморной» халяль не заявлен."],
+    ["КБЖУ лабораторные?", "Нет. Это расчёт по текущей рецептуре на 100 г сырьевой массы, не протокол испытаний."],
+    ["Как запросить поставку?", "Напишите на info@kazandelikates.tatar или позвоните +7 987 217-02-02. Производитель в Казани, ул. Аграрная, 2, оф. 7."]
+  ] : [
+    ["What is Yaratu?", "Yaratu is the meat brand of Kazan Delicacies: five cooked products from Kazan without sodium nitrite and with compound mixes listed ingredient by ingredient."],
+    ["Who is it for?", "Retailers, distributors and shoppers who need a checkable recipe rather than a clean-label slogan."],
+    ["Where is the pricing?", "There is no public consumer price list. Specifications, pack formats and supply terms are provided by the manufacturer on request."],
+    ["Is the whole range halal?", "No. Halal is shown per SKU. Mramornaya has no halal claim."],
+    ["Is nutrition laboratory-tested?", "No. Figures are calculated from the current recipe per 100 g of raw mass, not a lab protocol."],
+    ["How do I request supply?", "Email info@kazandelikates.tatar or call +7 987 217-02-02. The manufacturer is in Kazan, 2 Agrarnaya Street, office 7."]
+  ];
+}
+
 function home(lang) {
   const L = t[lang];
   const items = products.map((p, i) => ({"@type": "ListItem", position: i + 1, url: absolute(pagePath(lang, `products/${p.id}`)), name: p.name[lang]}));
+  const faqs = homeFaqs(lang);
+  const faqPage = {"@type": "FAQPage", mainEntity: faqs.map(([name, text]) => ({"@type": "Question", name, acceptedAnswer: {"@type": "Answer", text}}))};
   const structured = {"@context": "https://schema.org", "@graph": [
     {"@type": "WebSite", "@id": `${SITE}/#website`, url: `${SITE}/`, name: "Yaratu", inLanguage: lang},
-    org, brand, {"@type": "ItemList", name: L.range, itemListElement: items}
+    org, brand, faqPage, {"@type": "ItemList", name: L.range, itemListElement: items}
   ]};
   const facts = lang === "ru"
     ? [
@@ -236,7 +265,10 @@ function home(lang) {
   const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><span class="hero__star hero__star--a"></span><span class="hero__star hero__star--b"></span><span class="hero__star hero__star--c"></span><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
 <div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
 <section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
-<section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div><div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>`;
+<section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div>
+<table class="range-table"><caption>${lang === "ru" ? "Ассортимент без розничных цен" : "Range without consumer prices"}</caption><thead><tr><th>${lang === "ru" ? "Продукт" : "Product"}</th><th>${L.weight}</th><th>${L.nitrite}</th><th>${lang === "ru" ? "Халяль" : "Halal"}</th></tr></thead><tbody>${products.map((p) => `<tr><td><a href="${pagePath(lang, `products/${p.id}`)}">${h(p.name[lang])}</a></td><td>${formatNumber(p.netWeight.value, lang)} ${grams(lang)}</td><td>${lang === "ru" ? "Не используется" : "Not used"}</td><td>${p.claims.halal ? L.halal : L.noHalal}</td></tr>`).join("")}</tbody></table>
+<div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>
+<section id="faq"><div class="wrap"><div class="section-head"><span class="eyebrow">FAQ</span><h2>${lang === "ru" ? "Короткие ответы" : "Short answers"}</h2><p>${lang === "ru" ? "Цены и оферта на сайте не публикуются." : "No prices or offers are published on this site."}</p></div><div class="faq">${faqs.map(([q, a]) => `<details><summary>${h(q)}</summary><p>${h(a)}</p></details>`).join("")}</div></div></section>`;
   return shell({
     lang,
     title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite",
@@ -313,6 +345,32 @@ function retailPage(lang) {
   return shell({lang, slug, title, description: answer, body, structured: breadcrumb});
 }
 
+function privacyPage() {
+  const body = `<section class="page-legal"><div class="wrap"><span class="eyebrow">Документы</span><h1>Политика обработки персональных данных</h1>
+<p class="note">Оператор — ООО «Казанские Деликатесы». Сайт yaratu.com — суббрендовый ресурс того же юридического лица, что и pepperoni.tatar. Обработка ведётся по 152-ФЗ.</p>
+<table class="range-table"><tbody>
+<tr><th>Полное наименование</th><td>Общество с ограниченной ответственностью «Казанские Деликатесы»</td></tr>
+<tr><th>ИНН / КПП / ОГРН</th><td>1686021074 / 168601001 / 1221600096893</td></tr>
+<tr><th>Адрес</th><td>420061, г. Казань, ул. Аграрная, д. 2, оф. 7</td></tr>
+<tr><th>Email</th><td><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a></td></tr>
+<tr><th>Телефон</th><td><a href="tel:+79872170202">+7 987 217-02-02</a></td></tr>
+</tbody></table>
+<h2>Какие данные обрабатываются</h2>
+<p>При обращении по телефону или email могут обрабатываться имя, телефон, почта, текст обращения и технические журналы в объёме, нужном для ответа.</p>
+<h2>Цели</h2>
+<ul class="checklist"><li>запросы о продукции и поставках Ярату;</li><li>договоры и требования закона;</li><li>работоспособность сайта.</li></ul>
+<h2>Права</h2>
+<p>Запрос на уточнение, блокирование или удаление данных — на info@kazandelikates.tatar с темой «Запрос на ПДн».</p>
+</div></section>`;
+  return shell({
+    lang: "ru",
+    title: "Политика обработки персональных данных — Ярату",
+    description: "Политика обработки персональных данных ООО «Казанские Деликатесы» для сайта yaratu.com.",
+    body,
+    extraHead: `<meta name="robots" content="noindex,follow">\n`
+  }).replace('<link rel="canonical" href="https://yaratu.com/">', '<link rel="canonical" href="https://yaratu.com/privacy.html">');
+}
+
 for (const lang of ["ru", "en"]) {
   await output(lang === "ru" ? "index.html" : "en/index.html", home(lang));
   await output(lang === "ru" ? "index.md" : "en/index.md", homeMarkdown(lang));
@@ -327,6 +385,7 @@ for (const lang of ["ru", "en"]) {
     await output(`${lang === "ru" ? "" : "en/"}products/${product.id}.md`, productMarkdown(product, lang));
   }
 }
+await output("privacy.html", privacyPage());
 
 const publicProducts = {
   schemaVersion: catalog.schemaVersion, lastModified: lastmod,
@@ -383,7 +442,7 @@ const identity = {
   "@context": "https://schema.org", "@type": "Brand", "@id": `${SITE}/#brand`,
   name: "Ярату", alternateName: "Yaratu", url: `${SITE}/`, logo: `${SITE}/assets/logo/logo-horizontal.png`,
   parentOrganization: {"@id": `${SITE}/#organization`},
-  sameAs: [`${SITE}/identity.json`, `${SITE}/ai.json`]
+  sameAs: officialProfiles
 };
 await output("identity.json", `${JSON.stringify(identity, null, 2)}\n`);
 const aiDiscovery = {

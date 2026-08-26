@@ -92,7 +92,11 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.equal((homeRu.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
   assert.equal((homeEn.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
   assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
+  assert.match(homeRu, /Ярату — мясной бренд ООО «Казанские Деликатесы»/);
   assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
+  assert.match(homeRu, /<table class="range-table">/);
+  assert.match(homeRu, /id="faq"/);
+  assert.match(homeRu, /Публичного потребительского прайса нет/);
   assert.doesNotMatch(homeRu, /fetchpriority="high"/);
   assert.match(homeRu, /Nutrition Facts[\s\S]*Пищевая ценность/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*Calculated from the current recipe/);
@@ -115,6 +119,12 @@ test("schema types are present without commerce or rating markup", async () => {
   }
   assert.doesNotMatch(all, /"@type":"Offer"/);
   assert.doesNotMatch(all, /aggregateRating|reviewRating|priceCurrency/);
+  assert.match(all, /youtube\.com\/@kazandelikates/);
+  const home = await readFile(join(dist, "index.html"), "utf8");
+  assert.match(home, /"@type":"FAQPage"/);
+  const privacy = await readFile(join(dist, "privacy.html"), "utf8");
+  assert.match(privacy, /152-ФЗ|персональных данных/);
+  assert.match(home, /href="\/privacy.html"/);
 });
 
 test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
