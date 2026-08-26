@@ -32,7 +32,7 @@ const copyAllowlist = [
   "assets/logo/logo-horizontal-black.svg",
   "assets/logo/logo-horizontal-white.svg",
   "assets/logo/sign-white.svg",
-  ...products.map((p) => p.image.slice(1))
+  ...products.flatMap((p) => [p.image.slice(1), p.image.replace(/\.jpg$/, "-800.jpg").slice(1)])
 ];
 for (const file of copyAllowlist) await copy(file);
 
@@ -165,7 +165,15 @@ function schemas(items) {
   return `<script type="application/ld+json">${jsonLd(items)}</script>`;
 }
 
-function shell({ lang, slug = "", title, description, body, structured }) {
+function cardImage(product) {
+  return product.image.replace(/\.jpg$/, "-800.jpg");
+}
+
+function packshot(product, lang, extra = "") {
+  return `<img src="${cardImage(product)}" srcset="${cardImage(product)} 800w, ${product.image} 1400w" sizes="(max-width: 860px) 92vw, 560px" alt="${h(product.name[lang])}" width="800" height="1285"${extra}>`;
+}
+
+function shell({ lang, slug = "", title, description, body, structured, extraHead = "" }) {
   const L = t[lang];
   const canonical = absolute(pagePath(lang, slug));
   const other = lang === "ru" ? pagePath("en", slug) : pagePath("ru", slug);
@@ -179,7 +187,7 @@ function shell({ lang, slug = "", title, description, body, structured }) {
 <link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
 <meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:title" content="${h(title)}"><meta property="og:description" content="${h(description)}"><meta property="og:image" content="${SITE}/assets/logo/logo-horizontal.png">
 <link rel="preload" href="/styles.css" as="style">
-<link rel="stylesheet" href="/styles.css">${schemas(structured || [])}</head>
+${extraHead}<link rel="stylesheet" href="/styles.css">${schemas(structured || [])}</head>
 <body><a class="skip-link" href="#main">${lang === "ru" ? "К содержанию" : "Skip to content"}</a>
 <header class="nav"><div class="wrap nav__inner"><a class="nav__logo" href="${pagePath(lang)}"><img src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"></a>
 <nav class="nav__links" aria-label="${L.products}"><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang, "ingredients")}">${L.ingredients}</a><a href="${pagePath(lang, "without-sodium-nitrite")}">${L.nitrite}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a></nav>
@@ -199,7 +207,7 @@ const brand = {"@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", al
 function card(product, lang, index) {
   const L = t[lang];
   const eager = index === 0;
-  return `<article class="product"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></div>
+  return `<article class="product"><div class="product__stage">${packshot(product, lang, eager ? ' fetchpriority="high"' : ' loading="lazy"')}</div>
 <div class="product__intro"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span></div></div>
 <h3>${h(product.name[lang])}</h3><p>${h(product.summary[lang])}</p>
 <a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
@@ -228,7 +236,14 @@ function home(lang) {
 <div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
 <section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
 <section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div><div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>`;
-  return shell({lang, title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite", description: L.lead, body, structured});
+  return shell({
+    lang,
+    title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite",
+    description: L.lead,
+    body,
+    structured,
+    extraHead: `<link rel="preload" as="image" href="${cardImage(products[0])}" imagesrcset="${cardImage(products[0])} 800w, ${products[0].image} 1400w" imagesizes="(max-width: 860px) 92vw, 560px" fetchpriority="high">\n`
+  });
 }
 
 function productPage(product, lang) {
@@ -244,7 +259,7 @@ function productPage(product, lang) {
     {"@type": "ListItem", position: 2, name: L.products, item: `${absolute(pagePath(lang))}#products`},
     {"@type": "ListItem", position: 3, name: product.name[lang], item: absolute(pagePath(lang, slug))}
   ]};
-  const body = `<section class="product-page-hero"><div class="wrap split"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800"></div><div class="section-head"><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p class="lede">${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span><span class="tag">${L.nitrite}</span></div><a class="btn btn--olive" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>
+  const body = `<section class="product-page-hero"><div class="wrap split"><div class="product__stage">${packshot(product, lang, ' fetchpriority="high"')}</div><div class="section-head"><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p class="lede">${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span><span class="tag">${L.nitrite}</span></div><a class="btn btn--olive" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>
 <section class="band-dim"><div class="wrap nutrition-layout"><div class="nutrition-layout__copy"><div class="section-head"><span class="eyebrow">${L.composition}</span><h2>${L.composition}</h2><p>${h(product.ingredients[lang])}</p><p><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><p class="note">${L.nutritionNote}</p></div><div class="product__label product__label--large">${nutritionFacts(product, lang)}</div></div></section>
 <section><div class="wrap"><div class="section-head"><span class="eyebrow">${L.status}</span><h2>${L.calculated}</h2><p>${L.evidence}</p><p><strong>nutrition:</strong> calculated · <strong>composition:</strong> recipe-sourced · <strong>halal:</strong> ${product.status.halal}</p></div></div></section>`;
   return shell({lang, slug, title: `${product.name[lang]} — Yaratu`, description: product.summary[lang], body, structured: {"@context": "https://schema.org", "@graph": [org, brand, productSchema, breadcrumb]}});
@@ -352,7 +367,7 @@ const sitemapEntries = ["ru", "en"].flatMap((lang) => urls.map((slug) => {
   return `  <url><loc>${absolute(url)}</loc><lastmod>${lastmod}</lastmod><xhtml:link rel="alternate" hreflang="ru" href="${ru}"/><xhtml:link rel="alternate" hreflang="en" href="${en}"/><xhtml:link rel="alternate" hreflang="x-default" href="${ru}"/></url>`;
 }));
 await output("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join("\n")}\n</urlset>\n`);
-await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\nAllow: /.well-known/api-catalog\nAllow: /.well-known/ai-catalog.json\nAllow: /.well-known/agent-skills/\nAgentmap: ${SITE}/.well-known/ai-catalog.json\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
+await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\nAllow: /.well-known/api-catalog\nAllow: /.well-known/ai-catalog.json\nAllow: /.well-known/agent-skills/\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("robots-ai.txt", `# Yaratu AI crawler directives\nUser-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\n\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("ai.txt", `Yaratu permits indexing of public pages and feeds for search and AI retrieval.\nCanonical product data: ${SITE}/data/products.json\nHuman-readable summary: ${SITE}/llms.txt\n`);
 await output("989787de78c652b55e6887550582b6f6.txt", "989787de78c652b55e6887550582b6f6\n");

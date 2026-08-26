@@ -154,8 +154,10 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.match(homeHtml, /rel="alternate" type="text\/markdown" href="\/index\.md"/);
   assert.match(homeHtml, /rel="api-catalog"/);
   assert.match(homeHtml, /rel="ai-catalog"/);
-  assert.match(robots, /Agentmap: https:\/\/yaratu\.com\/\.well-known\/ai-catalog\.json/);
+  assert.doesNotMatch(robots, /Agentmap/);
+  assert.match(robots, /Content-Signal: ai-train=yes, search=yes, ai-input=yes/);
   assert.match(robots, /ChatGPT-User/);
+  assert.match(homeHtml, /srcset="\/packshots\/sku-vetchina-f7a3c1-800\.jpg 800w/);
   const built = await files(dist);
   assert.equal(built.some((path) => path.includes("oauth")), false);
   assert.equal(built.some((path) => path.includes("mcp")), false);

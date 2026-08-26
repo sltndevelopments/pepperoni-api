@@ -4,7 +4,6 @@ Allow: /
 Allow: /.well-known/api-catalog
 Allow: /.well-known/ai-catalog.json
 Allow: /.well-known/agent-skills/
-Agentmap: https://yaratu.com/.well-known/ai-catalog.json
 
 User-agent: GPTBot
 Allow: /
