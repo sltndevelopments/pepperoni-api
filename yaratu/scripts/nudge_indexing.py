@@ -19,14 +19,14 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-def _request(
+def _request_json(
     method: str,
     url: str,
     *,
     headers: dict | None = None,
     payload: dict | None = None,
     timeout: int = 45,
-) -> tuple[int | None, str | None]:
+) -> tuple[int | None, dict | None, str | None]:
     data = None if payload is None else json.dumps(payload).encode("utf-8")
     req = urllib.request.Request(
         url,
@@ -36,16 +36,31 @@ def _request(
     )
     try:
         with urllib.request.urlopen(req, timeout=timeout) as response:
-            response.read()
-            return response.status, None
+            raw = response.read().decode("utf-8")
+            parsed = json.loads(raw) if raw.strip() else {}
+            return response.status, parsed if isinstance(parsed, dict) else {}, None
     except urllib.error.HTTPError as exc:
         try:
             body = exc.read().decode("utf-8")[:300]
         except Exception:
             body = str(exc.reason)[:300]
-        return exc.code, body
+        return exc.code, None, body
     except Exception as exc:
-        return None, str(exc)[:300]
+        return None, None, str(exc)[:300]
+
+
+def _request(
+    method: str,
+    url: str,
+    *,
+    headers: dict | None = None,
+    payload: dict | None = None,
+    timeout: int = 45,
+) -> tuple[int | None, str | None]:
+    code, _payload, error = _request_json(
+        method, url, headers=headers, payload=payload, timeout=timeout
+    )
+    return code, error
 
 
 def _get_json(url: str, *, headers: dict, timeout: int = 45) -> tuple[dict | None, int | None, str | None]:
@@ -100,19 +115,86 @@ def _entry(status: str, *, http_status: int | None = None, error: str | None = N
     return {"status": status, "http_status": http_status, "error": error}
 
 
-def submit_gsc_sitemap(property_id: str, sitemap_url: str, credentials_file: str | None) -> dict:
+def gsc_property_candidates(property_id: str, domain: str | None = None) -> list[str]:
+    candidates = [property_id]
+    host = (domain or "").strip().lower()
+    if host:
+        candidates.extend(
+            [
+                f"sc-domain:{host}",
+                f"https://{host}/",
+                f"https://www.{host}/",
+            ]
+        )
+    seen: set[str] = set()
+    unique: list[str] = []
+    for item in candidates:
+        if item and item not in seen:
+            seen.add(item)
+            unique.append(item)
+    return unique
+
+
+def list_gsc_sites(credentials_file: str | None) -> tuple[list[str], str | None]:
+    token, error = _google_token(
+        "https://www.googleapis.com/auth/webmasters", credentials_file
+    )
+    if error:
+        return [], error
+    data, _code, list_error = _get_json(
+        "https://www.googleapis.com/webmasters/v3/sites",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    if list_error:
+        return [], list_error
+    return [
+        str(entry.get("siteUrl"))
+        for entry in (data or {}).get("siteEntry", [])
+        if entry.get("siteUrl")
+    ], None
+
+
+def submit_gsc_sitemap(
+    property_id: str,
+    sitemap_url: str,
+    credentials_file: str | None,
+    *,
+    domain: str | None = None,
+) -> dict:
     token, error = _google_token(
         "https://www.googleapis.com/auth/webmasters", credentials_file
     )
     if error:
         return _entry("skip", error=error)
-    endpoint = (
-        "https://www.googleapis.com/webmasters/v3/sites/"
-        f"{urllib.parse.quote(property_id, safe='')}/sitemaps/"
-        f"{urllib.parse.quote(sitemap_url, safe='')}"
-    )
-    code, error = _request("PUT", endpoint, headers={"Authorization": f"Bearer {token}"})
-    return _entry("ok" if code and 200 <= code < 300 else "fail", http_status=code, error=error)
+    last = _entry("fail", error="no GSC property candidates")
+    for candidate in gsc_property_candidates(property_id, domain):
+        endpoint = (
+            "https://www.googleapis.com/webmasters/v3/sites/"
+            f"{urllib.parse.quote(candidate, safe='')}/sitemaps/"
+            f"{urllib.parse.quote(sitemap_url, safe='')}"
+        )
+        code, item_error = _request(
+            "PUT", endpoint, headers={"Authorization": f"Bearer {token}"}
+        )
+        last = _entry(
+            "ok" if code and 200 <= code < 300 else "fail",
+            http_status=code,
+            error=item_error,
+        )
+        last["property"] = candidate
+        if last["status"] == "ok":
+            return last
+    sites, sites_error = list_gsc_sites(credentials_file)
+    if last.get("http_status") == 403:
+        last["status"] = "skip"
+        last["error"] = (
+            "service account has no permission on the Yaratu GSC property; "
+            "add it as owner of sc-domain:yaratu.com or https://yaratu.com/"
+        )
+        last["accessible_sites"] = sites
+        if sites_error:
+            last["sites_error"] = sites_error
+    return last
 
 
 def submit_google_hot(urls: list[str], credentials_file: str | None) -> dict:
@@ -166,6 +248,31 @@ def submit_yandex_hot(user_id: str, host_id: str, token: str, urls: list[str]) -
     return {**_entry(status), "items": items}
 
 
+def _yandex_sitemap_items(*payloads: dict | None) -> list[dict]:
+    items: list[dict] = []
+    for payload in payloads:
+        if not payload:
+            continue
+        for key in ("sitemaps", "user_added_sitemaps"):
+            value = payload.get(key)
+            if isinstance(value, list):
+                items.extend(item for item in value if isinstance(item, dict))
+    return items
+
+
+def _yandex_sitemap_id(items: list[dict], sitemap_url: str) -> str | None:
+    for item in items:
+        if item.get("sitemap_url") == sitemap_url and item.get("sitemap_id"):
+            return str(item["sitemap_id"])
+    for item in items:
+        sitemap_id = item.get("sitemap_id")
+        if sitemap_id and str(sitemap_id).endswith("sitemap.xml"):
+            return str(sitemap_id)
+    if items and items[0].get("sitemap_id"):
+        return str(items[0]["sitemap_id"])
+    return None
+
+
 def submit_yandex_sitemap(
     user_id: str,
     host_id: str,
@@ -183,29 +290,51 @@ def submit_yandex_sitemap(
         f"{urllib.parse.quote(host_id, safe='')}"
     )
     headers = {"Authorization": f"OAuth {token}"}
-    data, code, error = _get_json(f"{base}/sitemaps", headers=headers)
-    if error:
-        status = "skip" if code == 404 else "fail"
-        reason = (
-            "Yandex host is not registered or is inaccessible"
-            if code == 404 else error
-        )
-        return _entry(status, http_status=code, error=reason)
-
-    registered = next(
-        (
-            item for item in (data or {}).get("sitemaps", [])
-            if item.get("sitemap_url") == sitemap_url
-        ),
-        None,
+    discovered, code, error = _get_json(f"{base}/sitemaps", headers=headers)
+    if error and code not in (404,):
+        return _entry("fail", http_status=code, error=error)
+    added, _added_code, _added_error = _get_json(
+        f"{base}/user-added-sitemaps", headers=headers
     )
-    sitemap_id = (registered or {}).get("sitemap_id")
+    sitemap_id = _yandex_sitemap_id(
+        _yandex_sitemap_items(discovered, added), sitemap_url
+    )
+    registered = bool(sitemap_id)
     if not sitemap_id:
-        return _entry(
-            "skip",
-            http_status=code,
-            error=f"sitemap is not registered in Yandex Webmaster: {sitemap_url}",
+        register_code, register_payload, register_error = _request_json(
+            "POST",
+            f"{base}/user-added-sitemaps",
+            headers=headers,
+            payload={"url": sitemap_url},
         )
+        if register_code == 409:
+            registered = True
+        elif register_code and 200 <= register_code < 300:
+            registered = True
+            if register_payload and register_payload.get("sitemap_id"):
+                sitemap_id = str(register_payload["sitemap_id"])
+        elif register_error:
+            return _entry(
+                "fail",
+                http_status=register_code,
+                error=register_error,
+            )
+        if not sitemap_id:
+            discovered, code, error = _get_json(f"{base}/sitemaps", headers=headers)
+            added, _added_code, _added_error = _get_json(
+                f"{base}/user-added-sitemaps", headers=headers
+            )
+            sitemap_id = _yandex_sitemap_id(
+                _yandex_sitemap_items(discovered, added), sitemap_url
+            )
+        if not sitemap_id:
+            status = "ok" if registered else "skip"
+            reason = (
+                "sitemap registered; Yandex has not assigned a recrawl id yet"
+                if registered
+                else f"sitemap is not registered in Yandex Webmaster: {sitemap_url}"
+            )
+            return _entry(status, http_status=code, error=reason)
 
     recrawl_url = (
         f"{base}/sitemaps/{urllib.parse.quote(str(sitemap_id), safe='')}/recrawl"
@@ -317,7 +446,10 @@ def main(argv: list[str] | None = None) -> int:
     else:
         results = {
             "gsc_sitemap": submit_gsc_sitemap(
-                args.gsc_property, args.sitemap_url, args.google_credentials_file
+                args.gsc_property,
+                args.sitemap_url,
+                args.google_credentials_file,
+                domain=args.domain,
             ),
             "google_indexing": (
                 submit_google_hot(urls, args.google_credentials_file)

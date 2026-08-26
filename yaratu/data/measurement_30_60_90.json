@@ -1,0 +1,118 @@
+{
+  "schema_version": 1,
+  "baseline_date": "2026-08-26",
+  "domain": "yaratu.com",
+  "windows": [
+    {
+      "day": 30,
+      "period_start": "2026-08-26",
+      "period_end": "2026-09-24",
+      "status": "pending",
+      "metrics": {
+        "gsc_clicks": null,
+        "gsc_impressions": null,
+        "gsc_ctr": null,
+        "gsc_average_position": null,
+        "indexed_urls": null,
+        "aio_memory_score": null,
+        "aio_search_score": null,
+        "aio_ok_layers": 0,
+        "organic_sessions": null,
+        "product_view": null,
+        "availability_request": null,
+        "phone": null,
+        "WhatsApp": null,
+        "price": null,
+        "spec": null,
+        "sample": null
+      },
+      "data_quality": {
+        "complete_days": 0,
+        "aio_provider_success_rate": null,
+        "conversion_contract_valid_rate": null
+      },
+      "decision": {
+        "gate": "hold",
+        "eligible": false,
+        "reasons": [
+          "Window is open; do not score before 2026-09-24."
+        ],
+        "approved_by": null
+      }
+    },
+    {
+      "day": 60,
+      "period_start": "2026-08-26",
+      "period_end": "2026-10-24",
+      "status": "pending",
+      "metrics": {
+        "gsc_clicks": null,
+        "gsc_impressions": null,
+        "gsc_ctr": null,
+        "gsc_average_position": null,
+        "indexed_urls": null,
+        "aio_memory_score": null,
+        "aio_search_score": null,
+        "aio_ok_layers": 0,
+        "organic_sessions": null,
+        "product_view": null,
+        "availability_request": null,
+        "phone": null,
+        "WhatsApp": null,
+        "price": null,
+        "spec": null,
+        "sample": null
+      },
+      "data_quality": {
+        "complete_days": 0,
+        "aio_provider_success_rate": null,
+        "conversion_contract_valid_rate": null
+      },
+      "decision": {
+        "gate": "hold",
+        "eligible": false,
+        "reasons": [
+          "Window is open; do not score before 2026-10-24."
+        ],
+        "approved_by": null
+      }
+    },
+    {
+      "day": 90,
+      "period_start": "2026-08-26",
+      "period_end": "2026-11-23",
+      "status": "pending",
+      "metrics": {
+        "gsc_clicks": null,
+        "gsc_impressions": null,
+        "gsc_ctr": null,
+        "gsc_average_position": null,
+        "indexed_urls": null,
+        "aio_memory_score": null,
+        "aio_search_score": null,
+        "aio_ok_layers": 0,
+        "organic_sessions": null,
+        "product_view": null,
+        "availability_request": null,
+        "phone": null,
+        "WhatsApp": null,
+        "price": null,
+        "spec": null,
+        "sample": null
+      },
+      "data_quality": {
+        "complete_days": 0,
+        "aio_provider_success_rate": null,
+        "conversion_contract_valid_rate": null
+      },
+      "decision": {
+        "gate": "hold",
+        "eligible": false,
+        "reasons": [
+          "Window is open; do not score before 2026-11-23."
+        ],
+        "approved_by": null
+      }
+    }
+  ]
+}

@@ -143,16 +143,66 @@ class NudgeTests(unittest.TestCase):
         self.assertEqual("ok", result["status"])
         self.assertTrue(request.call_args.args[1].endswith("/sitemaps/sm-1/recrawl"))
 
-    def test_yandex_sitemap_skips_when_not_registered(self):
+    def test_yandex_sitemap_registers_when_missing(self):
+        listings = [
+            ({"sitemaps": []}, 200, None),
+            ({"sitemaps": []}, 200, None),
+            (
+                {
+                    "sitemaps": [
+                        {
+                            "sitemap_id": "sm-new",
+                            "sitemap_url": "https://yaratu.com/sitemap.xml",
+                        }
+                    ]
+                },
+                200,
+                None,
+            ),
+            (
+                {
+                    "sitemaps": [
+                        {
+                            "sitemap_id": "sm-new",
+                            "sitemap_url": "https://yaratu.com/sitemap.xml",
+                        }
+                    ]
+                },
+                200,
+                None,
+            ),
+        ]
         with (
-            mock.patch.object(nudge, "_get_json", return_value=({"sitemaps": []}, 200, None)),
-            mock.patch.object(nudge, "_request", side_effect=AssertionError("must not submit")),
+            mock.patch.object(nudge, "_get_json", side_effect=listings),
+            mock.patch.object(
+                nudge, "_request_json", return_value=(201, {"sitemap_id": "sm-new"}, None)
+            ) as register,
+            mock.patch.object(nudge, "_request", return_value=(202, None)) as recrawl,
         ):
             result = nudge.submit_yandex_sitemap(
                 "42", "https:yaratu.com:443", "token", "https://yaratu.com/sitemap.xml"
             )
+        self.assertEqual("ok", result["status"])
+        self.assertTrue(register.call_args.args[1].endswith("/user-added-sitemaps"))
+        self.assertTrue(recrawl.call_args.args[1].endswith("/sitemaps/sm-new/recrawl"))
+
+    def test_gsc_403_is_owner_skip_not_hard_fail(self):
+        with (
+            mock.patch.object(nudge, "_google_token", return_value=("token", None)),
+            mock.patch.object(nudge, "_request", return_value=(403, "no permission")),
+            mock.patch.object(
+                nudge, "list_gsc_sites", return_value=(["sc-domain:pepperoni.tatar"], None)
+            ),
+        ):
+            result = nudge.submit_gsc_sitemap(
+                "sc-domain:yaratu.com",
+                "https://yaratu.com/sitemap.xml",
+                None,
+                domain="yaratu.com",
+            )
         self.assertEqual("skip", result["status"])
-        self.assertIn("not registered", result["error"])
+        self.assertEqual(["sc-domain:pepperoni.tatar"], result["accessible_sites"])
+        self.assertIn("add it as owner", result["error"])
 
     def test_rejects_cross_domain_hot_url(self):
         code = nudge.main([
@@ -169,9 +219,18 @@ class NudgeTests(unittest.TestCase):
             "aio_baseline.schema.json",
             "conversion_event.schema.json",
             "measurement_30_60_90.schema.json",
+            "measurement_30_60_90.json",
             "expansion_policy.json",
         ):
             json.loads((ROOT / "yaratu" / "data" / name).read_text(encoding="utf-8"))
+        snapshot = json.loads(
+            (ROOT / "yaratu" / "data" / "measurement_30_60_90.json").read_text(
+                encoding="utf-8"
+            )
+        )
+        self.assertEqual("yaratu.com", snapshot["domain"])
+        self.assertEqual("2026-08-26", snapshot["baseline_date"])
+        self.assertEqual(["pending", "pending", "pending"], [w["status"] for w in snapshot["windows"]])
 
 
 class WorkflowTests(unittest.TestCase):
@@ -187,6 +246,17 @@ class WorkflowTests(unittest.TestCase):
             "github.event.inputs.run_indexing == 'true'",
             workflow,
         )
+
+    def test_dedicated_index_workflow_has_no_model_keys(self):
+        workflow = (
+            ROOT / ".github" / "workflows" / "yaratu-index.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("python yaratu/scripts/nudge_indexing.py", workflow)
+        self.assertNotIn("--google-indexing", workflow)
+        self.assertNotIn("OPENAI_API_KEY", workflow)
+        self.assertNotIn("GEMINI_API_KEY", workflow)
+        self.assertNotIn("PPLX_API_KEY", workflow)
+        self.assertNotIn("aio_visibility.py", workflow)
 
     def test_manual_indexing_can_skip_paid_measurement(self):
         workflow = (

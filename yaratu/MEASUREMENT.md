@@ -60,7 +60,14 @@ for URL types eligible under Google's policy; the workflow never enables it.
 
 Scheduled workflow runs perform measurement only and do not invoke the indexing
 script, including dry-run. A real sitemap/recrawl/IndexNow nudge is available
-only through manual workflow dispatch with `run_indexing=true`.
+through the dedicated `Yaratu — indexing nudge` workflow, or through the AIO
+workflow with `run_indexing=true` and `run_measure=false`. Neither path calls
+model APIs.
+
+The 30/60/90 measurement contract starts from `data/measurement_30_60_90.json`
+(`baseline_date=2026-08-26`). Windows stay `pending` until each end date. GSC
+metrics require the Search Console service account to be added as owner of
+`sc-domain:yaratu.com` or `https://yaratu.com/`.
 
 ## Conversion and expansion
 

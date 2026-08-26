@@ -1,0 +1,64 @@
+name: Yaratu — indexing nudge
+
+on:
+  workflow_dispatch:
+    inputs:
+      hot_urls:
+        description: "HTTPS yaratu.com URLs, one per line"
+        type: string
+        required: true
+        default: |
+          https://yaratu.com/
+          https://yaratu.com/products/vetchina/
+          https://yaratu.com/products/mramornaya/
+          https://yaratu.com/products/brokkoli/
+          https://yaratu.com/products/molochnye/
+          https://yaratu.com/products/slivochnaya/
+
+permissions:
+  contents: read
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Google auth dependencies
+        run: python -m pip install --disable-pip-version-check google-auth requests
+
+      - name: Run indexing tests
+        run: python -m unittest yaratu.tests.test_measurement.NudgeTests -v
+
+      - name: Prepare hot URL list
+        env:
+          HOT_URLS: ${{ inputs.hot_urls }}
+        run: printf '%s\n' "$HOT_URLS" > "$RUNNER_TEMP/yaratu-hot-urls.txt"
+
+      - name: Submit GSC, Yandex and IndexNow
+        env:
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+          YANDEX_WM_USER_ID: "238539242"
+          YANDEX_WM_HOST_ID: "https:yaratu.com:443"
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+          INDEXNOW_KEY: "989787de78c652b55e6887550582b6f6"
+        run: |
+          python yaratu/scripts/nudge_indexing.py \
+            --domain yaratu.com \
+            --gsc-property sc-domain:yaratu.com \
+            --sitemap-url https://yaratu.com/sitemap.xml \
+            --hot-urls-file "$RUNNER_TEMP/yaratu-hot-urls.txt" \
+            --output "$RUNNER_TEMP/yaratu-indexing.json"
+
+      - name: Upload indexing report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: yaratu-index-${{ github.run_id }}
+          path: ${{ runner.temp }}/yaratu-indexing.json
+          if-no-files-found: warn
+          retention-days: 90

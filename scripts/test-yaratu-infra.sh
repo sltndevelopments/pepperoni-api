@@ -110,8 +110,14 @@ else
 fi
 
 if command -v ruby >/dev/null 2>&1; then
-  ruby -e 'require "yaml"; YAML.load_file(ARGV.fetch(0)); puts "Yaratu workflow YAML: OK"' \
-    "$REPO_ROOT/.github/workflows/deploy-yaratu-vps.yml"
+  ruby -e '
+    require "yaml"
+    ARGV.each { |path| YAML.load_file(path) }
+    puts "Yaratu workflow YAML: OK"
+  ' \
+    "$REPO_ROOT/.github/workflows/deploy-yaratu-vps.yml" \
+    "$REPO_ROOT/.github/workflows/yaratu-aio-visibility.yml" \
+    "$REPO_ROOT/.github/workflows/yaratu-index.yml"
 else
   echo "Yaratu workflow YAML: SKIP (ruby unavailable)"
 fi
