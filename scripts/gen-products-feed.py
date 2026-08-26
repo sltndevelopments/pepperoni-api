@@ -206,6 +206,12 @@ def cleanse_description(text: str) -> str:
     return text.strip()
 
 
+def sanitize_hs_code(value) -> str:
+    """Return only a canonical 6–10 digit HS code."""
+    code = str(value or "").strip()
+    return code if re.fullmatch(r"\d{6,10}", code) else ""
+
+
 def derive_description(p: dict, tr: dict) -> str:
     """Build an evidence-safe description from canonical catalog fields only."""
     title = derive_title(p, tr)
@@ -237,8 +243,9 @@ def derive_description(p: dict, tr: dict) -> str:
         chunks.append(f"Diameter: {p['diameter']} mm.")
     if p.get("casing"):
         chunks.append(f"Casing: {p['casing']}.")
-    if p.get("hsCode"):
-        chunks.append(f"HS code: {p['hsCode']}.")
+    hs_code = sanitize_hs_code(p.get("hsCode"))
+    if hs_code:
+        chunks.append(f"HS code: {hs_code}.")
     chunks.append(
         "Manufacturer: Kazan Delicacies LLC, Kazan, Russia. "
         "Halal certificate DUM RT No. 614A/2024. "
@@ -852,7 +859,7 @@ def write_json(rows: list, products: list, path: Path):
                 {"@type": "PropertyValue", "name": "category", "value": p.get("category", "")},
                 {"@type": "PropertyValue", "name": "shelfLife", "value": p.get("shelfLife", "")},
                 {"@type": "PropertyValue", "name": "storage", "value": p.get("storage", "")},
-                {"@type": "PropertyValue", "name": "hsCode", "value": p.get("hsCode", "")},
+                {"@type": "PropertyValue", "name": "hsCode", "value": sanitize_hs_code(p.get("hsCode"))},
                 {"@type": "PropertyValue", "name": "weight_kg", "value": normalize_weight(p.get("weight", ""))},
                 {"@type": "PropertyValue", "name": "minOrder_boxes", "value": p.get("minOrder", "")},
                 {"@type": "PropertyValue", "name": "diameter_mm", "value": p.get("diameter", "")},
