@@ -71,6 +71,10 @@ if grep -q '__YARATU_' "$RENDERED"; then
   echo "FAIL: unrendered nginx placeholder" >&2
   exit 21
 fi
+if ! grep -Fq 'try_files $uri/index.html $uri =404;' "$RENDERED"; then
+  echo "FAIL: clean directory URLs are not mapped to index.html" >&2
+  exit 22
+fi
 
 if command -v nginx >/dev/null 2>&1 && command -v openssl >/dev/null 2>&1; then
   # GitHub-hosted runners execute this gate without root. Keep the production
