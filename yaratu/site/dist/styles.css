@@ -856,6 +856,11 @@ section {
   color: var(--muted);
 }
 
+.trust {
+  padding-block: clamp(1.25rem, 3vw, 2rem);
+  background: var(--cream);
+}
+
 @media (min-width: 760px) {
   .facts {
     grid-template-columns: repeat(3, 1fr);
@@ -1217,6 +1222,168 @@ section {
   display: block;
 }
 
+.product__label .nutrition-facts {
+  width: 100%;
+  max-width: 330px;
+}
+
+.product__label--large .nutrition-facts {
+  max-width: 390px;
+}
+
+.nutrition-layout {
+  display: grid;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: start;
+}
+
+.nutrition-layout__copy .section-head {
+  margin-bottom: 1.25rem;
+}
+
+@media (min-width: 820px) {
+  .nutrition-layout {
+    grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+  }
+}
+
+/* Nutrition Facts — static, bilingual, recipe-calculated values only */
+.nutrition-facts {
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0.75rem 0.85rem 0.9rem;
+  border: 3px solid #111;
+  background: #fff;
+  color: #111;
+  font-family: Arial, Helvetica, sans-serif;
+  line-height: 1.08;
+  box-shadow: 0.5rem 0.5rem 0 rgba(47, 57, 28, 0.12);
+}
+
+.nutrition-facts *,
+.nutrition-facts *::before,
+.nutrition-facts *::after {
+  box-sizing: border-box;
+}
+
+.nutrition-facts__kicker {
+  margin-bottom: 0.2rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nutrition-facts__title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-weight: 950;
+  letter-spacing: -0.07em;
+  line-height: 0.92;
+}
+
+.nutrition-facts__basis {
+  margin-top: 0.35rem;
+  font-size: 0.86rem;
+  font-weight: 700;
+}
+
+.nutrition-facts__rule {
+  margin-block: 0.35rem;
+  border-bottom-style: solid;
+  border-bottom-color: #111;
+}
+
+.nutrition-facts__rule--heavy {
+  border-bottom-width: 0.7rem;
+}
+
+.nutrition-facts__rule--medium {
+  border-bottom-width: 0.3rem;
+}
+
+.nutrition-facts__energy {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0.2rem 0.75rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.nutrition-facts__calories {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 0.15rem;
+}
+
+.nutrition-facts__calories span {
+  font-size: clamp(1.35rem, 3vw, 1.9rem);
+  font-weight: 950;
+  letter-spacing: -0.04em;
+}
+
+.nutrition-facts__calories strong {
+  font-size: clamp(2.1rem, 4.5vw, 3rem);
+  font-weight: 950;
+  letter-spacing: -0.05em;
+  line-height: 0.88;
+}
+
+.nutrition-facts__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.34rem 0;
+  border-bottom: 1px solid #111;
+  font-size: 0.86rem;
+}
+
+.nutrition-facts__row--major span,
+.nutrition-facts__row--major strong {
+  font-weight: 900;
+}
+
+.nutrition-facts__row--indent {
+  padding-left: 1rem;
+}
+
+.nutrition-facts__note {
+  margin: 0.45rem 0 0;
+  font-size: 0.66rem;
+  line-height: 1.3;
+}
+
+.nutrition-facts--compact {
+  max-width: 300px;
+  padding: 0.6rem 0.68rem 0.7rem;
+  border-width: 2px;
+  box-shadow: 0.35rem 0.35rem 0 rgba(47, 57, 28, 0.1);
+}
+
+.nutrition-facts--compact .nutrition-facts__title {
+  font-size: clamp(1.65rem, 3vw, 2.15rem);
+}
+
+.nutrition-facts--compact .nutrition-facts__calories span {
+  font-size: 1.25rem;
+}
+
+.nutrition-facts--compact .nutrition-facts__calories strong {
+  font-size: 2rem;
+}
+
+.nutrition-facts--compact .nutrition-facts__row {
+  padding-block: 0.25rem;
+  font-size: 0.76rem;
+}
+
+.nutrition-facts--compact .nutrition-facts__note {
+  font-size: 0.61rem;
+}
+
 .product__label-miss {
   margin: 0;
   font-size: 0.85rem;
@@ -1265,6 +1432,14 @@ section {
 
   .product__intro h3 {
     font-size: 1.8rem;
+  }
+
+  .product__passport {
+    padding: 1rem;
+  }
+
+  .product__label .nutrition-facts {
+    max-width: 100%;
   }
 
   .product__details > summary {

@@ -80,10 +80,27 @@ test("visible units and decimal separators follow locale", async () => {
   const ru = await readFile(join(dist, "products/vetchina/index.html"), "utf8");
   const en = await readFile(join(dist, "en/products/vetchina/index.html"), "utf8");
   assert.match(ru, /150 г/);
-  assert.match(ru, />16,7<\/strong><span>белки, г</);
-  assert.doesNotMatch(ru, />16\.7<\/strong><span>белки/);
+  assert.match(ru, /<span>Белки<\/span><strong>16,7 г<\/strong>/);
+  assert.doesNotMatch(ru, /<span>Белки<\/span><strong>16\.7 г<\/strong>/);
   assert.match(en, /150 g/);
-  assert.match(en, />16\.7<\/strong><span>protein, g</);
+  assert.match(en, /<span>Protein<\/span><strong>16\.7 g<\/strong>/);
+});
+
+test("static Nutrition Facts labels are visible on home and product pages", async () => {
+  const homeRu = await readFile(join(dist, "index.html"), "utf8");
+  const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
+  assert.equal((homeRu.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
+  assert.equal((homeEn.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
+  assert.match(homeRu, /Nutrition Facts[\s\S]*Пищевая ценность/);
+  assert.match(homeEn, /Nutrition Facts[\s\S]*Calculated from the current recipe/);
+
+  for (const path of ["products/vetchina/index.html", "en/products/vetchina/index.html"]) {
+    const html = await readFile(join(dist, path), "utf8");
+    assert.match(html, /class="nutrition-facts"/);
+    assert.match(html, /nutrition-facts__calories/);
+    assert.match(html, /nutrition-facts__row--major/);
+    assert.doesNotMatch(html, /<script[^>]+src=/);
+  }
 });
 
 test("schema types are present without commerce or rating markup", async () => {

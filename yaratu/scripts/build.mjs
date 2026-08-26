@@ -69,6 +69,56 @@ const formatNumber = (value, lang) => new Intl.NumberFormat(lang === "ru" ? "ru-
 }).format(value);
 const grams = (lang) => lang === "ru" ? "г" : "g";
 
+const nutritionText = {
+  ru: {
+    kicker: "Nutrition Facts",
+    title: "Пищевая ценность",
+    basis: "На 100 г",
+    energy: "Энергетическая ценность",
+    calories: "Калории",
+    fat: "Жиры",
+    saturated: "Насыщенные жиры",
+    carbs: "Углеводы",
+    protein: "Белки",
+    note: "Расчёт по текущей рецептуре; не лабораторный протокол."
+  },
+  en: {
+    kicker: "Nutrition Facts",
+    title: "Nutrition Facts",
+    basis: "Per 100 g",
+    energy: "Energy",
+    calories: "Calories",
+    fat: "Total Fat",
+    saturated: "Saturated Fat",
+    carbs: "Total Carbohydrate",
+    protein: "Protein",
+    note: "Calculated from the current recipe; not laboratory-tested."
+  }
+};
+
+function nutritionFacts(product, lang, compact = false) {
+  const copy = nutritionText[lang];
+  const nutrition = product.nutrition;
+  const kcal = formatNumber(nutrition.caloriesKcal, lang);
+  const kj = formatNumber(Math.round(nutrition.caloriesKcal * 4.184), lang);
+  const amount = (value) => `${formatNumber(value, lang)} ${grams(lang)}`;
+  return `<aside class="nutrition-facts${compact ? " nutrition-facts--compact" : ""}" aria-label="${h(copy.title)}">
+<div class="nutrition-facts__kicker">${h(copy.kicker)}</div>
+<div class="nutrition-facts__title">${h(copy.title)}</div>
+<div class="nutrition-facts__basis">${h(copy.basis)}</div>
+<div class="nutrition-facts__rule nutrition-facts__rule--heavy"></div>
+<div class="nutrition-facts__energy"><span>${h(copy.energy)}</span><strong>${kcal} ${t[lang].kcal} / ${kj} kJ</strong></div>
+<div class="nutrition-facts__calories"><span>${h(copy.calories)}</span><strong>${kcal}</strong></div>
+<div class="nutrition-facts__rule nutrition-facts__rule--medium"></div>
+<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.fat)}</span><strong>${amount(nutrition.fatGrams)}</strong></div>
+<div class="nutrition-facts__row nutrition-facts__row--indent"><span>${h(copy.saturated)}</span><strong>${amount(nutrition.saturatedFatGrams)}</strong></div>
+<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.carbs)}</span><strong>${amount(nutrition.carbohydrateGrams)}</strong></div>
+<div class="nutrition-facts__row nutrition-facts__row--major"><span>${h(copy.protein)}</span><strong>${amount(nutrition.proteinGrams)}</strong></div>
+<div class="nutrition-facts__rule nutrition-facts__rule--medium"></div>
+<p class="nutrition-facts__note">${h(copy.note)}</p>
+</aside>`;
+}
+
 function alternates(slug) {
   const ru = pagePath("ru", slug);
   const en = pagePath("en", slug);
@@ -107,12 +157,12 @@ const org = {
 const brand = {"@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", alternateName: "Yaratu", logo: `${SITE}/assets/logo/logo-horizontal.png`};
 
 function card(product, lang, index) {
-  const L = t[lang], n = product.nutrition;
+  const L = t[lang];
   return `<article class="product"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800" loading="lazy"></div>
 <div class="product__intro"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span></div></div>
 <h3>${h(product.name[lang])}</h3><p>${h(product.summary[lang])}</p>
-<div class="kbju"><div><strong>${formatNumber(n.caloriesKcal, lang)}</strong><span>${L.kcal}</span></div><div><strong>${formatNumber(n.proteinGrams, lang)}</strong><span>${L.protein}, ${grams(lang)}</span></div><div><strong>${formatNumber(n.fatGrams, lang)}</strong><span>${L.fat}, ${grams(lang)}</span></div><div><strong>${formatNumber(n.carbohydrateGrams, lang)}</strong><span>${L.carbs}, ${grams(lang)}</span></div></div>
-<a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div></article>`;
+<a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
+<div class="product__passport"><div class="product__passport-copy"><span class="product__passport-eyebrow">${L.composition}</span><p class="product__compose">${h(product.ingredients[lang])}</p><p class="product__allergens"><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><div class="product__label">${nutritionFacts(product, lang, true)}</div></div></article>`;
 }
 
 function home(lang) {
@@ -122,14 +172,26 @@ function home(lang) {
     {"@type": "WebSite", "@id": `${SITE}/#website`, url: `${SITE}/`, name: "Yaratu", inLanguage: lang},
     org, brand, {"@type": "ItemList", name: L.range, itemListElement: items}
   ]};
-  const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
-<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div></div></div></section>
+  const facts = lang === "ru"
+    ? [
+      ["01", "Без нитрита натрия", "Статус относится к пяти проверенным текущим рецептурам."],
+      ["02", "Состав без сокращений", "Комплексные смеси раскрыты до входящих ингредиентов."],
+      ["03", "Халяль — по продукту", "Статус показывается отдельно и не переносится на весь ассортимент."]
+    ]
+    : [
+      ["01", "No sodium nitrite", "The status applies to the five reviewed current recipes."],
+      ["02", "No ingredient shortcuts", "Compound mixes are disclosed ingredient by ingredient."],
+      ["03", "Product-specific halal", "Halal status is shown per product, never assumed range-wide."]
+    ];
+  const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><span class="hero__star hero__star--a"></span><span class="hero__star hero__star--b"></span><span class="hero__star hero__star--c"></span><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
+<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
+<section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h3>${h(title)}</h3><p>${h(text)}</p></article>`).join("")}</div></div></section>
 <section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div><div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>`;
   return shell({lang, title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite", description: L.lead, body, structured});
 }
 
 function productPage(product, lang) {
-  const L = t[lang], n = product.nutrition, slug = `products/${product.id}`;
+  const L = t[lang], slug = `products/${product.id}`;
   const productSchema = {
     "@type": "Product", "@id": `${absolute(pagePath(lang, slug))}#product`, name: product.name[lang],
     description: product.summary[lang], image: absolute(product.image), brand: {"@id": `${SITE}/#brand`},
@@ -141,9 +203,8 @@ function productPage(product, lang) {
     {"@type": "ListItem", position: 2, name: L.products, item: `${absolute(pagePath(lang))}#products`},
     {"@type": "ListItem", position: 3, name: product.name[lang], item: absolute(pagePath(lang, slug))}
   ]};
-  const body = `<section><div class="wrap split"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800"></div><div class="section-head"><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p>${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span><span class="tag">${L.nitrite}</span></div></div></div></section>
-<section class="band-dim"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.composition}</span><h2>${L.composition}</h2><p>${h(product.ingredients[lang])}</p><p><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div>
-<div class="contact-box"><h3>${L.nutrition}</h3><div class="kbju"><div><strong>${formatNumber(n.caloriesKcal, lang)}</strong><span>${L.kcal}</span></div><div><strong>${formatNumber(n.proteinGrams, lang)}</strong><span>${L.protein}, ${grams(lang)}</span></div><div><strong>${formatNumber(n.fatGrams, lang)}</strong><span>${L.fat}, ${grams(lang)}</span></div><div><strong>${formatNumber(n.carbohydrateGrams, lang)}</strong><span>${L.carbs}, ${grams(lang)}</span></div></div><p class="note">${L.nutritionNote}</p></div></div></section>
+  const body = `<section class="product-page-hero"><div class="wrap split"><div class="product__stage"><img src="${product.image}" alt="${h(product.name[lang])}" width="1200" height="800"></div><div class="section-head"><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p class="lede">${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span><span class="tag">${L.nitrite}</span></div><a class="btn btn--olive" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>
+<section class="band-dim"><div class="wrap nutrition-layout"><div class="nutrition-layout__copy"><div class="section-head"><span class="eyebrow">${L.composition}</span><h2>${L.composition}</h2><p>${h(product.ingredients[lang])}</p><p><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><p class="note">${L.nutritionNote}</p></div><div class="product__label product__label--large">${nutritionFacts(product, lang)}</div></div></section>
 <section><div class="wrap"><div class="section-head"><span class="eyebrow">${L.status}</span><h2>${L.calculated}</h2><p>${L.evidence}</p><p><strong>nutrition:</strong> calculated · <strong>composition:</strong> recipe-sourced · <strong>halal:</strong> ${product.status.halal}</p></div></div></section>`;
   return shell({lang, slug, title: `${product.name[lang]} — Yaratu`, description: product.summary[lang], body, structured: {"@context": "https://schema.org", "@graph": [org, brand, productSchema, breadcrumb]}});
 }
