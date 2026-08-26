@@ -10,7 +10,7 @@ This is B2B EXW Kazan. There is no cart, no x402 paywall, and no agent checkout.
 ## Required facts
 
 - Company name and country
-- SKU or product family (pepperoni / sausages / patties / bakery / private label)
+- SKU or product family (pepperoni / private-label jerky / sausages / patties / bakery)
 - Volume (kg or cases) and Incoterms if they have a preference (default EXW Kazan)
 - Contact: email or WhatsApp/phone
 

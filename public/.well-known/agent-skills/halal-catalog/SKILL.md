@@ -1,6 +1,6 @@
 ---
 name: halal-catalog
-description: Look up Kazan Delicacies halal SKUs, live wholesale prices, and export currencies. Use when a buyer asks for pepperoni, sausages, patties, kazylyk, or Tatar bakery from pepperoni.tatar.
+description: Look up Kazan Delicacies halal SKUs, commercial pages, live wholesale prices, and export currencies. Use when a buyer asks for pepperoni, private-label jerky, sausages, patties, kazylyk, or Tatar bakery from pepperoni.tatar.
 ---
 
 # Halal catalog (Kazan Delicacies)
@@ -18,6 +18,12 @@ Manufacturer: ООО «Казанские Деликатесы» / Kazan Delicac
 - RU money hub: https://pepperoni.tatar/pepperoni
 - Pizzerias: https://pepperoni.tatar/pepperoni-dlya-pizzerii
 - EN: https://pepperoni.tatar/en/pepperoni
+- Private-label halal jerky (RU): https://pepperoni.tatar/jerky
+- Private-label halal jerky (EN): https://pepperoni.tatar/en/jerky
+
+Jerky is a contract-manufacturing service, not a live catalog SKU. Use its
+commercial page for capabilities and submit an inquiry for a specification;
+do not invent a catalog price.
 
 Do not cite `kazandelikates.ru`. Legal site is `kazandelikates.tatar`. Do not invent GOSTs, awards, client names, or SFDA/UAE approvals.
 

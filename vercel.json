@@ -164,6 +164,26 @@
   ],
   "redirects": [
     {
+      "source": "/jerky.html",
+      "destination": "/jerky",
+      "permanent": true
+    },
+    {
+      "source": "/jerky/",
+      "destination": "/jerky",
+      "permanent": true
+    },
+    {
+      "source": "/en/jerky.html",
+      "destination": "/en/jerky",
+      "permanent": true
+    },
+    {
+      "source": "/en/jerky/",
+      "destination": "/en/jerky",
+      "permanent": true
+    },
+    {
       "source": "/en/investment",
       "destination": "/en/investors",
       "permanent": true

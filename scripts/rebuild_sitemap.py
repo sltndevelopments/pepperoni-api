@@ -13,6 +13,8 @@ Run: python scripts/rebuild_sitemap.py
 """
 
 import re
+import subprocess
+import xml.etree.ElementTree as ET
 from datetime import date, datetime, timezone
 from pathlib import Path
 
@@ -41,6 +43,10 @@ CATALOG_PAGES = {
     "en/pepperoni.html", "en/kazylyk.html", "en/bakery.html",
     "en/blog.html", "en/pizzeria.html", "en/jerky.html",
 }
+
+PEPPERONI_HREFLANGS = (
+    "ru", "en", "kk", "uz", "az", "hy", "ka", "ky", "tg",
+)
 
 SKIP_FILES = {
     "yandex_d0a735c825c78ddf.html",
@@ -79,7 +85,10 @@ def redirect_sources() -> set[str]:
         text = conf.read_text(encoding="utf-8", errors="replace")
         for path, body in _LOC_EXACT.findall(text):
             if "return 30" in body:
-                paths.add(path.strip().strip('"').rstrip("/") or "/")
+                # Exact `/foo/` and `/foo` are different nginx locations.
+                # Stripping the slash removed canonical `/foo` from the sitemap
+                # whenever only its trailing-slash variant redirected.
+                paths.add(path.strip().strip('"') or "/")
     return paths
 
 
@@ -126,8 +135,55 @@ def html_to_url(path: Path) -> str:
     return BASE + "/" + "/".join(parts)
 
 
-def mtime_iso(path: Path) -> str:
-    """W3C-datetime lastmod from file mtime; falls back to today."""
+def existing_lastmods() -> dict[str, str]:
+    """Preserve dates for unchanged files; checkout mtimes are not content dates."""
+    sitemap = PUBLIC / "sitemap.xml"
+    if not sitemap.exists():
+        return {}
+    try:
+        root = ET.parse(sitemap).getroot()
+    except (ET.ParseError, OSError):
+        return {}
+    ns = "{http://www.sitemaps.org/schemas/sitemap/0.9}"
+    result = {}
+    for node in root.findall(f"{ns}url"):
+        loc = node.find(f"{ns}loc")
+        lastmod = node.find(f"{ns}lastmod")
+        if loc is not None and loc.text and lastmod is not None and lastmod.text:
+            result[loc.text.strip()] = lastmod.text.strip()
+    return result
+
+
+def changed_public_paths() -> set[Path]:
+    """Paths changed against HEAD, including untracked files."""
+    try:
+        result = subprocess.run(
+            ["git", "status", "--porcelain", "--untracked-files=all", "--", "public"],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=True,
+        )
+    except (OSError, subprocess.CalledProcessError):
+        return set(PUBLIC.rglob("*.html"))
+    paths = set()
+    for line in result.stdout.splitlines():
+        raw = line[3:]
+        if " -> " in raw:
+            raw = raw.rsplit(" -> ", 1)[1]
+        paths.add((ROOT / raw.strip('"')).resolve())
+    return paths
+
+
+def mtime_iso(
+    path: Path,
+    url: str,
+    previous: dict[str, str],
+    changed: set[Path],
+) -> str:
+    """W3C lastmod: preserve unchanged URL dates, refresh changed content."""
+    if path.resolve() not in changed and url in previous:
+        return previous[url]
     try:
         ts = path.stat().st_mtime
         return datetime.fromtimestamp(ts, tz=timezone.utc).strftime("%Y-%m-%d")
@@ -146,8 +202,29 @@ def pair_key(rel: str) -> str:
     return rel
 
 
+def pepperoni_alternates(rel: str) -> list[tuple[str, str]]:
+    """Full locale cluster emitted by gen_pepperoni_landing.py, if applicable."""
+    clean = rel[:-5] if rel.endswith(".html") else rel
+    expected = {
+        "pepperoni" if lang == "ru" else f"{lang}/pepperoni"
+        for lang in PEPPERONI_HREFLANGS
+    }
+    if clean not in expected:
+        return []
+    alternates = [
+        (lang, f"{BASE}/pepperoni" if lang == "ru" else f"{BASE}/{lang}/pepperoni")
+        for lang in PEPPERONI_HREFLANGS
+    ]
+    # Keep this aligned with gen_pepperoni_landing.py: the international EN
+    # page is the language-neutral fallback, not the RU domestic page.
+    alternates.append(("x-default", f"{BASE}/en/pepperoni"))
+    return alternates
+
+
 def build_entries() -> list:
     redirected = redirect_sources()
+    previous_lastmod = existing_lastmods()
+    changed = changed_public_paths()
     dropped = {"redirect": 0, "noindex": 0}
     pages = []
     for path in sorted(PUBLIC.rglob("*.html")):
@@ -196,18 +273,19 @@ def build_entries() -> list:
         pri, freq = RULES[kind]
         lang = "en" if rel.startswith("en/") else "ru"
 
-        alternates = []
-        partners = by_key.get(key, {})
-        if len(partners) >= 2 or (lang == "en" and "ru" in partners) or (lang == "ru" and "en" in partners):
-            for l in ("ru", "en"):
-                if l in partners:
-                    alternates.append((l, html_to_url(partners[l])))
-            x_default = html_to_url(partners.get("ru") or partners.get("en"))
-            alternates.append(("x-default", x_default))
+        alternates = pepperoni_alternates(rel)
+        if not alternates:
+            partners = by_key.get(key, {})
+            if len(partners) >= 2 or (lang == "en" and "ru" in partners) or (lang == "ru" and "en" in partners):
+                for l in ("ru", "en"):
+                    if l in partners:
+                        alternates.append((l, html_to_url(partners[l])))
+                x_default = html_to_url(partners.get("ru") or partners.get("en"))
+                alternates.append(("x-default", x_default))
 
         entries.append({
             "url":        url,
-            "lastmod":    mtime_iso(path),
+            "lastmod":    mtime_iso(path, url, previous_lastmod, changed),
             "changefreq": freq,
             "priority":   pri,
             "alternates": alternates,

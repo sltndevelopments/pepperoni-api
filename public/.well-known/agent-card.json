@@ -1,6 +1,6 @@
 {
   "name": "Kazan Delicacies",
-  "description": "B2B halal meat manufacturer in Kazan. Wholesale pepperoni, sausages, patties, Tatar bakery. EXW Kazan. Live catalog via MCP.",
+  "description": "B2B halal meat manufacturer in Kazan. Wholesale pepperoni, private-label jerky, sausages, patties and Tatar bakery. EXW Kazan. Live catalog via MCP.",
   "version": "1.0.0",
   "iconUrl": "https://pepperoni.tatar/images/logo-256.png",
   "documentationUrl": "https://pepperoni.tatar/llms.txt",
@@ -38,8 +38,8 @@
     {
       "id": "wholesale-inquiry",
       "name": "Wholesale inquiry",
-      "description": "Send a B2B EXW Kazan inquiry",
-      "tags": ["sales", "export"]
+      "description": "Send a B2B EXW Kazan inquiry, including private-label jerky projects",
+      "tags": ["sales", "export", "private-label", "jerky"]
     }
   ]
 }

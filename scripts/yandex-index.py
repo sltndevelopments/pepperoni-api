@@ -21,11 +21,12 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+from indexing_hot_urls import absolute, load_hot_urls
+
 USER_ID      = os.environ.get("YANDEX_USER_ID", "238539242")
 HOST_ID      = os.environ.get("YANDEX_HOST_ID", "https:pepperoni.tatar:443")
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
-WATCHLIST = Path(__file__).resolve().parent.parent / "data" / "commercial_watchlist.json"
 ORIGIN = "https://pepperoni.tatar"
 
 
@@ -147,45 +148,6 @@ def submit_sitemap(token: str) -> str:
         return f"⚠️  Sitemap {e.code}: {e.read().decode()[:100]}"
 
 
-def _abs(u: str) -> str:
-    u = (u or "").strip()
-    if not u:
-        return ""
-    if u.startswith("http"):
-        return u
-    if not u.startswith("/"):
-        u = "/" + u
-    return ORIGIN + u
-
-
-def load_hot_urls() -> list[str]:
-    out = [
-        f"{ORIGIN}/",
-        f"{ORIGIN}/pepperoni",
-        f"{ORIGIN}/pepperoni-dlya-pizzerii",
-        f"{ORIGIN}/llms.txt",
-        f"{ORIGIN}/llms-full.txt",
-        f"{ORIGIN}/en/llms.txt",
-        f"{ORIGIN}/.well-known/llms.txt",
-        f"{ORIGIN}/en/pepperoni",
-    ]
-    try:
-        data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
-        for it in data.get("items") or []:
-            page = it.get("page") or ""
-            if page:
-                out.append(_abs(page))
-    except Exception:
-        pass
-    seen: set[str] = set()
-    uniq = []
-    for u in out:
-        if u and u not in seen:
-            seen.add(u)
-            uniq.append(u)
-    return uniq
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--hot", action="store_true", help="Only money/watchlist URLs + sitemap recrawl")
@@ -213,7 +175,7 @@ def main():
     if args.hot or args.url:
         all_urls = load_hot_urls() if args.hot else []
         for u in args.url:
-            all_urls.append(_abs(u))
+            all_urls.append(absolute(u))
         # unique
         seen: set[str] = set()
         uniq = []

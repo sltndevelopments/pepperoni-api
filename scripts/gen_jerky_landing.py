@@ -199,6 +199,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 <title>{esc(meta["title"])}</title>
 <meta name="description" content="{esc(meta["description"])}">
+<meta name="keywords" content="{esc(meta["keywords"])}">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <meta http-equiv="content-language" content="{lang}">
 <link rel="canonical" href="{url}">
@@ -257,11 +258,21 @@ def build_body(lang: str, L: dict, i18n: dict) -> str:
         current = ' aria-current="page"' if code == lang else ""
         lang_menu += f'<a href="{page_url(code)}"{current}>{locales[code]["name"]}</a>'
 
-    trust = "".join(
-        f'<div class="trust__i"><div class="trust__l">{esc(i["label"])}</div>'
-        f'<div class="trust__v">{esc(i["value"])}</div></div>'
-        for i in L["trust"]["items"]
-    )
+    trust_parts = []
+    for index, item in enumerate(L["trust"]["items"]):
+        value = esc(item["value"])
+        if index == 0:
+            suffix = " — verify" if lang == "en" else " — проверить"
+            value = (
+                '<a href="https://halalrt.ru/certificates/company/119/'
+                'kazanskiye-delikatesy/" target="_blank" rel="noopener">'
+                f"{value}{suffix}</a>"
+            )
+        trust_parts.append(
+            f'<div class="trust__i"><div class="trust__l">{esc(item["label"])}</div>'
+            f'<div class="trust__v">{value}</div></div>'
+        )
+    trust = "".join(trust_parts)
 
     def rows(pairs) -> str:
         return "".join(f"<tr><td>{esc(k)}</td><td>{esc(v)}</td></tr>" for k, v in pairs)
