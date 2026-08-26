@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "lastModified": "2026-08-26",
-  "source": "checked-in-snapshot",
+  "source": "google-sheets",
   "nutritionBasis": {
     "ru": "Расчётный ориентир на 100 г сырьевой массы; не лабораторное значение.",
     "en": "Calculated estimate per 100 g of raw recipe; not a laboratory value."
@@ -9,88 +9,252 @@
   "products": [
     {
       "id": "vetchina",
-      "name": {"ru": "Ветчина филейная", "en": "Chicken fillet ham"},
-      "kind": {"ru": "Ветчина", "en": "Chicken ham"},
-      "summary": {"ru": "Куриная ветчина с мягким вкусом и полностью раскрытым составом.", "en": "Mild chicken ham with a fully disclosed ingredient list."},
-      "netWeight": {"value": 150, "unit": "g"},
+      "name": {
+        "ru": "Ветчина филейная",
+        "en": "Chicken fillet ham"
+      },
+      "kind": {
+        "ru": "Ветчина",
+        "en": "Chicken ham"
+      },
+      "summary": {
+        "ru": "Куриная ветчина с мягким вкусом и полностью раскрытым составом.",
+        "en": "Mild chicken ham with a fully disclosed ingredient list."
+      },
+      "netWeight": {
+        "value": 150,
+        "unit": "g"
+      },
       "image": "/packshots/sku-vetchina-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, филе грудки куриной, вода питьевая, молочный белок, сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, соль поваренная пищевая, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, экстракты пряностей (чеснок, перец чёрный, мускатный орех), ароматизатор, мальтодекстрин.",
         "en": "Chicken thigh fillet, chicken breast fillet, drinking water, milk protein, whey protein, milk powder, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, table salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), glucose, spice extracts (garlic, black pepper, nutmeg), flavouring, maltodextrin."
       },
-      "allergens": {"ru": "Молоко", "en": "Milk"},
-      "nutrition": {"basisGrams": 100, "caloriesKcal": 125, "proteinGrams": 16.7, "fatGrams": 6.0, "carbohydrateGrams": 0.4, "saturatedFatGrams": 2.1},
-      "claims": {"withoutSodiumNitrite": true, "halal": true},
-      "status": {"nutrition": "calculated", "composition": "recipe-sourced", "halal": "verified", "evidence": "internal-reviewed"},
-      "evidence": ["recipe-current", "halal-614a-2024"]
+      "allergens": {
+        "ru": "Молоко",
+        "en": "Milk"
+      },
+      "nutrition": {
+        "basisGrams": 100,
+        "caloriesKcal": 125,
+        "proteinGrams": 16.7,
+        "fatGrams": 6,
+        "carbohydrateGrams": 0.4,
+        "saturatedFatGrams": 2.1
+      },
+      "claims": {
+        "withoutSodiumNitrite": true,
+        "halal": true
+      },
+      "status": {
+        "nutrition": "calculated",
+        "composition": "recipe-sourced",
+        "halal": "verified",
+        "evidence": "internal-reviewed"
+      },
+      "evidence": [
+        "recipe-current",
+        "halal-614a-2024"
+      ]
     },
     {
       "id": "mramornaya",
-      "name": {"ru": "Колбаса варёно-копчёная «Мраморная»", "en": "Mramornaya cooked smoked sausage"},
-      "kind": {"ru": "Колбаса варёно-копчёная", "en": "Cooked smoked sausage"},
-      "summary": {"ru": "Колбаса из курицы и говядины с пряным мясным профилем.", "en": "Chicken and beef sausage with a savoury spiced profile."},
-      "netWeight": {"value": 500, "unit": "g"},
+      "name": {
+        "ru": "Колбаса варёно-копчёная «Мраморная»",
+        "en": "Mramornaya cooked smoked sausage"
+      },
+      "kind": {
+        "ru": "Колбаса варёно-копчёная",
+        "en": "Cooked smoked sausage"
+      },
+      "summary": {
+        "ru": "Колбаса из курицы и говядины с пряным мясным профилем.",
+        "en": "Chicken and beef sausage with a savoury spiced profile."
+      },
+      "netWeight": {
+        "value": 500,
+        "unit": "g"
+      },
       "image": "/packshots/sku-mramornaya-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, кожа птицы, говядина, жир говяжий, вода питьевая, соль поваренная пищевая, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, виноградный сахар, мальтодекстрин, сухой глюкозный сироп, дрожжевой экстракт, ароматизатор со вкусом мяса, экстракт барбадосской вишни, сухой лимонный сок, пряности и их экстракты (чёрный и белый перец, мускатный орех, чеснок, душистый перец), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, ароматизатор типа «мясо», экстракты мускатного ореха, имбиря и кориандра, ароматизатор типа «мясо» с ароматом говядины.",
         "en": "Chicken thigh fillet, poultry skin, beef, beef fat, drinking water, table salt, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, grape sugar, maltodextrin, dried glucose syrup, yeast extract, meat-flavour flavouring, Barbados cherry extract, dried lemon juice, spices and extracts (black and white pepper, nutmeg, garlic, allspice), citrus extracts (lemon, lime, orange, pomelo), glucose, meat-type flavouring, nutmeg, ginger and coriander extracts, beef-flavour meat-type flavouring."
       },
-      "allergens": {"ru": "Не заявлены в текущей рецептуре", "en": "None declared in the current recipe"},
-      "nutrition": {"basisGrams": 100, "caloriesKcal": 264, "proteinGrams": 14.9, "fatGrams": 21.9, "carbohydrateGrams": 0.5, "saturatedFatGrams": 7.7},
-      "claims": {"withoutSodiumNitrite": true, "halal": false},
-      "status": {"nutrition": "calculated", "composition": "recipe-sourced", "halal": "not-claimed", "evidence": "internal-reviewed"},
-      "evidence": ["recipe-current"]
+      "allergens": {
+        "ru": "Не заявлены в текущей рецептуре",
+        "en": "None declared in the current recipe"
+      },
+      "nutrition": {
+        "basisGrams": 100,
+        "caloriesKcal": 264,
+        "proteinGrams": 14.9,
+        "fatGrams": 21.9,
+        "carbohydrateGrams": 0.5,
+        "saturatedFatGrams": 7.7
+      },
+      "claims": {
+        "withoutSodiumNitrite": true,
+        "halal": false
+      },
+      "status": {
+        "nutrition": "calculated",
+        "composition": "recipe-sourced",
+        "halal": "not-claimed",
+        "evidence": "internal-reviewed"
+      },
+      "evidence": [
+        "recipe-current"
+      ]
     },
     {
       "id": "brokkoli",
-      "name": {"ru": "Сосиски с брокколи", "en": "Sausages with broccoli"},
-      "kind": {"ru": "Сосиски", "en": "Sausages"},
-      "summary": {"ru": "Сосиски из курицы и говядины с брокколи и мягким пряным вкусом.", "en": "Chicken and beef sausages with broccoli and gentle spices."},
-      "netWeight": {"value": 400, "unit": "g"},
+      "name": {
+        "ru": "Сосиски с брокколи",
+        "en": "Sausages with broccoli"
+      },
+      "kind": {
+        "ru": "Сосиски",
+        "en": "Sausages"
+      },
+      "summary": {
+        "ru": "Сосиски из курицы и говядины с брокколи и мягким пряным вкусом.",
+        "en": "Chicken and beef sausages with broccoli and gentle spices."
+      },
+      "netWeight": {
+        "value": 400,
+        "unit": "g"
+      },
       "image": "/packshots/sku-brokkoli-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе голени куриное, вода питьевая, жир говяжий, говядина, филе куриное, кожа птицы, брокколи, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), сахар, пряности и их экстракты (чёрный перец, мускатный орех, душистый перец), соль поваренная пищевая, мальтодекстрин, глюкоза, крахмал кукурузный, ароматизатор.",
         "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, broccoli, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring."
       },
-      "allergens": {"ru": "Молоко, яйца", "en": "Milk, eggs"},
-      "nutrition": {"basisGrams": 100, "caloriesKcal": 230, "proteinGrams": 13.0, "fatGrams": 19.0, "carbohydrateGrams": 1.5, "saturatedFatGrams": 6.6},
-      "claims": {"withoutSodiumNitrite": true, "halal": true},
-      "status": {"nutrition": "calculated", "composition": "recipe-sourced", "halal": "verified", "evidence": "internal-reviewed"},
-      "evidence": ["recipe-current", "halal-614a-2024"]
+      "allergens": {
+        "ru": "Молоко, яйца",
+        "en": "Milk, eggs"
+      },
+      "nutrition": {
+        "basisGrams": 100,
+        "caloriesKcal": 230,
+        "proteinGrams": 13,
+        "fatGrams": 19,
+        "carbohydrateGrams": 1.5,
+        "saturatedFatGrams": 6.6
+      },
+      "claims": {
+        "withoutSodiumNitrite": true,
+        "halal": true
+      },
+      "status": {
+        "nutrition": "calculated",
+        "composition": "recipe-sourced",
+        "halal": "verified",
+        "evidence": "internal-reviewed"
+      },
+      "evidence": [
+        "recipe-current",
+        "halal-614a-2024"
+      ]
     },
     {
       "id": "molochnye",
-      "name": {"ru": "Сосиски «Молочные»", "en": "Molochnye milk sausages"},
-      "kind": {"ru": "Сосиски", "en": "Sausages"},
-      "summary": {"ru": "Классический мягкий профиль и состав, раскрытый до ингредиентов добавок.", "en": "A mild classic profile with compound ingredients fully disclosed."},
-      "netWeight": {"value": 500, "unit": "g"},
+      "name": {
+        "ru": "Сосиски «Молочные»",
+        "en": "Molochnye milk sausages"
+      },
+      "kind": {
+        "ru": "Сосиски",
+        "en": "Sausages"
+      },
+      "summary": {
+        "ru": "Классический мягкий профиль и состав, раскрытый до ингредиентов добавок.",
+        "en": "A mild classic profile with compound ingredients fully disclosed."
+      },
+      "netWeight": {
+        "value": 500,
+        "unit": "g"
+      },
       "image": "/packshots/sku-molochnye-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе голени куриное, вода питьевая, жир говяжий, говядина, филе куриное, кожа птицы, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), сахар, пряности и их экстракты (чёрный перец, мускатный орех, душистый перец), соль поваренная пищевая, мальтодекстрин, глюкоза, крахмал кукурузный, ароматизатор.",
         "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring."
       },
-      "allergens": {"ru": "Молоко, яйца", "en": "Milk, eggs"},
-      "nutrition": {"basisGrams": 100, "caloriesKcal": 239, "proteinGrams": 13.5, "fatGrams": 19.9, "carbohydrateGrams": 1.2, "saturatedFatGrams": 7.0},
-      "claims": {"withoutSodiumNitrite": true, "halal": true},
-      "status": {"nutrition": "calculated", "composition": "recipe-sourced", "halal": "verified", "evidence": "internal-reviewed"},
-      "evidence": ["recipe-current", "halal-614a-2024"]
+      "allergens": {
+        "ru": "Молоко, яйца",
+        "en": "Milk, eggs"
+      },
+      "nutrition": {
+        "basisGrams": 100,
+        "caloriesKcal": 239,
+        "proteinGrams": 13.5,
+        "fatGrams": 19.9,
+        "carbohydrateGrams": 1.2,
+        "saturatedFatGrams": 7
+      },
+      "claims": {
+        "withoutSodiumNitrite": true,
+        "halal": true
+      },
+      "status": {
+        "nutrition": "calculated",
+        "composition": "recipe-sourced",
+        "halal": "verified",
+        "evidence": "internal-reviewed"
+      },
+      "evidence": [
+        "recipe-current",
+        "halal-614a-2024"
+      ]
     },
     {
       "id": "slivochnaya",
-      "name": {"ru": "Колбаса варёная «Сливочная»", "en": "Slivochnaya cooked sausage"},
-      "kind": {"ru": "Колбаса варёная", "en": "Cooked sausage"},
-      "summary": {"ru": "Нежный сливочный профиль с полностью раскрытым составом.", "en": "A gentle creamy profile with a fully disclosed ingredient list."},
-      "netWeight": {"value": 400, "unit": "g"},
+      "name": {
+        "ru": "Колбаса варёная «Сливочная»",
+        "en": "Slivochnaya cooked sausage"
+      },
+      "kind": {
+        "ru": "Колбаса варёная",
+        "en": "Cooked sausage"
+      },
+      "summary": {
+        "ru": "Нежный сливочный профиль с полностью раскрытым составом.",
+        "en": "A gentle creamy profile with a fully disclosed ingredient list."
+      },
+      "netWeight": {
+        "value": 400,
+        "unit": "g"
+      },
       "image": "/packshots/sku-slivochnaya-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, вода питьевая, говядина, филе куриное, кожа птицы, жир говяжий, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, глюкоза, экстракты пряностей (чёрный перец, мускатный орех, имбирь), ароматизатор типа «сливки», дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), соль поваренная пищевая, мальтодекстрин, крахмал кукурузный, ароматизатор.",
         "en": "Chicken thigh fillet, drinking water, beef, chicken fillet, poultry skin, beef fat, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, glucose, spice extracts (black pepper, nutmeg, ginger), cream-type flavouring, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), table salt, maltodextrin, corn starch, flavouring."
       },
-      "allergens": {"ru": "Молоко, яйца", "en": "Milk, eggs"},
-      "nutrition": {"basisGrams": 100, "caloriesKcal": 174, "proteinGrams": 14.4, "fatGrams": 12.2, "carbohydrateGrams": 0.7, "saturatedFatGrams": 4.3},
-      "claims": {"withoutSodiumNitrite": true, "halal": true},
-      "status": {"nutrition": "calculated", "composition": "recipe-sourced", "halal": "verified", "evidence": "internal-reviewed"},
-      "evidence": ["recipe-current", "halal-614a-2024"]
+      "allergens": {
+        "ru": "Молоко, яйца",
+        "en": "Milk, eggs"
+      },
+      "nutrition": {
+        "basisGrams": 100,
+        "caloriesKcal": 174,
+        "proteinGrams": 14.4,
+        "fatGrams": 12.2,
+        "carbohydrateGrams": 0.7,
+        "saturatedFatGrams": 4.3
+      },
+      "claims": {
+        "withoutSodiumNitrite": true,
+        "halal": true
+      },
+      "status": {
+        "nutrition": "calculated",
+        "composition": "recipe-sourced",
+        "halal": "verified",
+        "evidence": "internal-reviewed"
+      },
+      "evidence": [
+        "recipe-current",
+        "halal-614a-2024"
+      ]
     }
   ]
 }
