@@ -183,6 +183,24 @@
 
 ## Log
 
+- **2026-08-26 SEO and AI trust reset — DONE.**
+  - Implementation commit: `38c0d01e5d1c6b41e632a9e633e263abb0119a99`
+    (`origin/main`, same hash verified on VPS).
+  - Index policy: **213 keep**, **112 → 301**, **1115 → 410**,
+    **49 → noindex**, city×product indexable = **0**.
+  - Gates: `qa_pages: 264 checked, 0 FAIL`; `similarity audit: OK`;
+    `index policy: OK`; `authority program: OK`;
+    `measurement governance: OK`; 17 operator tests = `OK`;
+    sitemap = **213 URL**; `nginx -t` successful.
+  - Live checks: `/certificates` → 200; retired Omsk/Istanbul geo pages → 410;
+    duplicate pepperoni pages → 301 `/pepperoni`.
+  - Nudge: Google sitemaps submitted ✅; IndexNow Bing+Yandex 200/200 ✅;
+    Google Indexing API daily quota and Yandex Webmaster quota exhausted
+    (sitemap remains submitted; no retry loop).
+  - Blockers: **external authority remains 0/5 published domains** for the first
+    cycle; this requires real distributor/editorial/importer publication and
+    cannot be fabricated by the site.
+
 - **2026-08-23 брейн был мёртв 5 недель; чинил корни, не симптомы** (владелец:
   «делай всё по очереди»):
   Done:
