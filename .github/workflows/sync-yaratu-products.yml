@@ -1,0 +1,55 @@
+name: Sync Yaratu products
+
+on:
+  schedule:
+    - cron: "17 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: yaratu-products-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Refresh from current main
+        run: git pull --rebase origin main
+
+      - name: Sync private canonical Sheet and run gates
+        env:
+          YARATU_GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+        run: |
+          set -euo pipefail
+          [[ -n "$YARATU_GOOGLE_SERVICE_ACCOUNT_JSON" ]] || {
+            echo "Missing GSC_SERVICE_ACCOUNT_KEY" >&2
+            exit 1
+          }
+          cd yaratu
+          npm run sync
+          npm run check
+
+      - name: Commit reviewed snapshot when changed
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- yaratu/data/products.json yaratu/site/dist; then
+            echo "Yaratu canonical snapshot is current."
+            exit 0
+          fi
+          git config user.name "yaratu-sync"
+          git config user.email "yaratu-sync@users.noreply.github.com"
+          git add -- yaratu/data/products.json yaratu/site/dist
+          git commit -m "Sync Yaratu canonical product snapshot"
+          git pull --rebase origin main
+          git push origin HEAD:main

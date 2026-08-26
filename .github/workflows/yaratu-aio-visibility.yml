@@ -5,6 +5,14 @@ on:
     - cron: "20 4 * * 1"
   workflow_dispatch:
     inputs:
+      snapshot_type:
+        description: "Measurement snapshot type"
+        type: choice
+        required: true
+        default: "weekly"
+        options:
+          - baseline
+          - weekly
       run_indexing:
         description: "Manually submit sitemap/recrawl/IndexNow nudge"
         type: boolean
@@ -40,9 +48,10 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PPLX_API_KEY: ${{ secrets.PPLX_API_KEY }}
+          SNAPSHOT_TYPE: ${{ github.event_name == 'workflow_dispatch' && inputs.snapshot_type || 'weekly' }}
         run: |
           python yaratu/scripts/aio_visibility.py \
-            --snapshot-type weekly \
+            --snapshot-type "$SNAPSHOT_TYPE" \
             --output "$RUNNER_TEMP/yaratu-aio-weekly.json"
 
       - name: Validate weekly snapshot contract
@@ -69,11 +78,11 @@ jobs:
       - name: Submit owner-requested indexing nudge
         if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.run_indexing == 'true' }}
         env:
-          GSC_SERVICE_ACCOUNT_KEY_B64: ${{ secrets.YARATU_GSC_SERVICE_ACCOUNT_KEY_B64 }}
-          YANDEX_WM_USER_ID: ${{ secrets.YARATU_YANDEX_WM_USER_ID }}
-          YANDEX_WM_HOST_ID: ${{ secrets.YARATU_YANDEX_WM_HOST_ID }}
-          YANDEX_WM_TOKEN: ${{ secrets.YARATU_YANDEX_WM_TOKEN }}
-          INDEXNOW_KEY: ${{ secrets.YARATU_INDEXNOW_KEY }}
+          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
+          YANDEX_WM_USER_ID: "238539242"
+          YANDEX_WM_HOST_ID: "https:yaratu.com:443"
+          YANDEX_WM_TOKEN: ${{ secrets.YANDEX_WM_TOKEN }}
+          INDEXNOW_KEY: "989787de78c652b55e6887550582b6f6"
         run: |
           python yaratu/scripts/nudge_indexing.py \
             --domain yaratu.com \

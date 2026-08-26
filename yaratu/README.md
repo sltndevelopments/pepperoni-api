@@ -28,3 +28,7 @@ Public fallback:
 `data/sheets_template.csv` is the import template and current fully reviewed export.
 Sync fails closed if any row is unpublished, contains `REQUIRED`, lacks the required
 review/provenance statuses, or has inconsistent halal evidence.
+
+`.github/workflows/sync-yaratu-products.yml` checks the private Sheet hourly. It
+commits `data/products.json` and the gated `site/dist` artifact to `main` only when
+the validated snapshot changes; production deployment continues from `origin/main`.
