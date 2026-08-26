@@ -394,14 +394,15 @@ const apiCatalog = {
 await output(".well-known/api-catalog", `${JSON.stringify(apiCatalog, null, 2)}\n`);
 
 const aiCatalog = {
-  specVersion: "0.1",
-  host: { name: "Yaratu", url: `${SITE}/` },
+  specVersion: "1.0",
+  host: { displayName: "Yaratu", identifier: "yaratu.com", url: `${SITE}/` },
   entries: [
     {
-      id: "urn:air:yaratu.com:docs:llms",
+      identifier: "urn:air:yaratu.com:docs:llms",
       displayName: "Yaratu product summary",
       type: "text/markdown",
       url: `${SITE}/llms.txt`,
+      description: "Markdown product range with disclosed ingredients and product-specific halal status.",
       representativeQueries: [
         "What products does Yaratu make?",
         "Какие продукты есть у Ярату?",
@@ -409,10 +410,11 @@ const aiCatalog = {
       ]
     },
     {
-      id: "urn:air:yaratu.com:data:products",
+      identifier: "urn:air:yaratu.com:data:products",
       displayName: "Yaratu canonical product catalog",
       type: "application/json",
       url: `${SITE}/data/products.json`,
+      description: "Canonical RU+EN catalog. Nutrition is calculated, not laboratory-tested.",
       representativeQueries: [
         "Yaratu ingredients and allergens",
         "Yaratu calculated nutrition per 100 g",
@@ -420,10 +422,11 @@ const aiCatalog = {
       ]
     },
     {
-      id: "urn:air:yaratu.com:docs:retail",
+      identifier: "urn:air:yaratu.com:docs:retail",
       displayName: "Yaratu retailer contact",
       type: "text/html",
       url: `${SITE}/retail/`,
+      description: "Manufacturer contact for specifications and supply. No checkout.",
       representativeQueries: [
         "How do I request Yaratu specifications?",
         "Yaratu distributor contact in Kazan"

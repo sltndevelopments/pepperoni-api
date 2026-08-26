@@ -1,15 +1,17 @@
 {
-  "specVersion": "0.1",
+  "specVersion": "1.0",
   "host": {
-    "name": "Yaratu",
+    "displayName": "Yaratu",
+    "identifier": "yaratu.com",
     "url": "https://yaratu.com/"
   },
   "entries": [
     {
-      "id": "urn:air:yaratu.com:docs:llms",
+      "identifier": "urn:air:yaratu.com:docs:llms",
       "displayName": "Yaratu product summary",
       "type": "text/markdown",
       "url": "https://yaratu.com/llms.txt",
+      "description": "Markdown product range with disclosed ingredients and product-specific halal status.",
       "representativeQueries": [
         "What products does Yaratu make?",
         "Какие продукты есть у Ярату?",
@@ -17,10 +19,11 @@
       ]
     },
     {
-      "id": "urn:air:yaratu.com:data:products",
+      "identifier": "urn:air:yaratu.com:data:products",
       "displayName": "Yaratu canonical product catalog",
       "type": "application/json",
       "url": "https://yaratu.com/data/products.json",
+      "description": "Canonical RU+EN catalog. Nutrition is calculated, not laboratory-tested.",
       "representativeQueries": [
         "Yaratu ingredients and allergens",
         "Yaratu calculated nutrition per 100 g",
@@ -28,10 +31,11 @@
       ]
     },
     {
-      "id": "urn:air:yaratu.com:docs:retail",
+      "identifier": "urn:air:yaratu.com:docs:retail",
       "displayName": "Yaratu retailer contact",
       "type": "text/html",
       "url": "https://yaratu.com/retail/",
+      "description": "Manufacturer contact for specifications and supply. No checkout.",
       "representativeQueries": [
         "How do I request Yaratu specifications?",
         "Yaratu distributor contact in Kazan"

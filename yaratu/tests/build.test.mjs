@@ -142,7 +142,8 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   const robots = await readFile(join(dist, "robots.txt"), "utf8");
   assert.equal(catalog.linkset[0].anchor, "https://yaratu.com/data/products.json");
   assert.equal(catalog.linkset[0]["service-doc"][0].type, "text/markdown");
-  assert.equal(ard.host.url, "https://yaratu.com/");
+  assert.equal(ard.host.identifier, "yaratu.com");
+  assert.ok(ard.entries.every((entry) => entry.identifier.startsWith("urn:air:yaratu.com:")));
   assert.ok(ard.entries.every((entry) => entry.url.startsWith("https://yaratu.com/")));
   assert.equal(skills.skills.length, 3);
   for (const skill of skills.skills) {
