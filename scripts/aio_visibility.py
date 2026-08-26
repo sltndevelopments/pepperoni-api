@@ -352,7 +352,10 @@ def ask_chatgpt_search(q: str) -> tuple[str, str | None]:
         "model": OPENAI_SEARCH_MODEL,
         "input": q,
         "tools": [{"type": "web_search"}],
-        "tool_choice": "web_search",
+        # Responses API accepts none/auto/required here. Passing the tool type
+        # itself produced HTTP 400 and made a provider failure look like zero
+        # ChatGPT visibility in the buyer baseline.
+        "tool_choice": "required",
     }
     data, err = _post_json(
         "https://api.openai.com/v1/responses", payload,

@@ -29,6 +29,8 @@ from aio_visibility import (  # noqa: E402
 
 PROMPTS = json.loads((ROOT / "data" / "buyer_baseline_prompts.json").read_text())
 COMMIT = PROMPTS["after_commit"]
+OUT = ROOT / os.environ.get(
+    "BASELINE_OUT", "data/buyer_baseline_2026-08-19.json")
 
 FACT_PATTERNS = [
     ("dum_rt", r"дум\s*рт|dum\s*rt|614A"),
@@ -162,7 +164,8 @@ def main() -> int:
             )
         rows.append(rec)
 
-    out = ROOT / "data" / "buyer_baseline_2026-08-19.json"
+    out = OUT
+    out.parent.mkdir(parents=True, exist_ok=True)
     if out.exists() and os.environ.get("BASELINE_MERGE", "1") == "1":
         prev = json.loads(out.read_text(encoding="utf-8"))
         by_q = {r["q"]: r for r in prev.get("rows", [])}
@@ -178,7 +181,9 @@ def main() -> int:
         "date": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "ts": datetime.now(timezone.utc).isoformat(),
         "after_commit": COMMIT,
-        "note": "Zero point after P0 fact consistency. Site frozen for measurement.",
+        "note": os.environ.get(
+            "BASELINE_NOTE",
+            "Zero point after P0 fact consistency. Site frozen for measurement."),
         "layers": wanted,
         "rows": rows,
     }
