@@ -345,7 +345,6 @@ h3 {
       rgba(161, 117, 19, 0.14),
       transparent 60%
     );
-  animation: hero-glow 18s ease-in-out infinite alternate;
 }
 
 .hero__glow--soft {
@@ -354,7 +353,6 @@ h3 {
     rgba(78, 83, 55, 0.5),
     transparent 42%
   );
-  animation: hero-glow 22s ease-in-out infinite alternate-reverse;
 }
 
 .hero__orb {
@@ -372,7 +370,6 @@ h3 {
     transparent 68%
   );
   filter: blur(8px);
-  animation: hero-orb 20s ease-in-out infinite alternate;
 }
 
 .hero__mark {
@@ -386,7 +383,6 @@ h3 {
   filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.25));
   pointer-events: none;
   user-select: none;
-  animation: hero-mark 24s ease-in-out infinite alternate;
 }
 
 .hero__star {
@@ -405,7 +401,6 @@ h3 {
     38% 38%
   );
   opacity: 0.55;
-  animation: hero-star 10s ease-in-out infinite alternate;
 }
 
 .hero__star--a {
@@ -471,7 +466,6 @@ h3 {
   width: auto;
   margin-bottom: 1.15rem;
   opacity: 0.98;
-  animation: rise 0.9s ease both;
 }
 
 .hero h1 {
@@ -479,7 +473,6 @@ h3 {
   color: var(--cream);
   font-size: clamp(2.35rem, 5.8vw, 4.75rem);
   letter-spacing: 0.005em;
-  animation: rise 1s ease 0.08s both;
 }
 
 .hero h1 em {
@@ -492,14 +485,12 @@ h3 {
   color: rgba(255, 240, 217, 0.86);
   margin: 1rem 0 1.65rem;
   max-width: 32rem;
-  animation: rise 1s ease 0.16s both;
 }
 
 .hero__actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  animation: rise 1s ease 0.24s both;
 }
 
 .hero__badges {
@@ -509,7 +500,6 @@ h3 {
   margin: 1.55rem 0 0;
   padding: 0;
   list-style: none;
-  animation: rise 1s ease 0.32s both;
 }
 
 .badge {
@@ -645,7 +635,6 @@ h3 {
     transform: translateX(-50%);
     opacity: 0.1;
     filter: none;
-    animation: hero-mark-mobile 26s ease-in-out infinite alternate;
   }
 
   .hero__orb {
@@ -1002,6 +991,11 @@ section {
   background: transparent;
   border: 0;
   overflow: visible;
+}
+
+.products .product + .product {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 1400px;
 }
 
 .product__stage {
@@ -1562,71 +1556,6 @@ section {
 .footer a {
   text-decoration: none;
   font-weight: 500;
-}
-
-/* Motion */
-@keyframes rise {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes hero-glow {
-  from {
-    opacity: 0.85;
-    transform: scale(1) translate3d(0, 0, 0);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.05) translate3d(-1.5%, 1%, 0);
-  }
-}
-
-@keyframes hero-orb {
-  from {
-    opacity: 0.75;
-    transform: scale(1);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1.08);
-  }
-}
-
-@keyframes hero-mark {
-  from {
-    transform: translateY(-50%) scale(1) translate3d(0, 0, 0);
-  }
-  to {
-    transform: translateY(-50%) scale(1.04) translate3d(-1.5%, -1%, 0);
-  }
-}
-
-@keyframes hero-mark-mobile {
-  from {
-    transform: translateX(-50%) scale(1);
-    opacity: 0.09;
-  }
-  to {
-    transform: translateX(-50%) scale(1.06);
-    opacity: 0.13;
-  }
-}
-
-@keyframes hero-star {
-  from {
-    opacity: 0.25;
-    transform: scale(0.85) rotate(0deg);
-  }
-  to {
-    opacity: 0.7;
-    transform: scale(1.15) rotate(18deg);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

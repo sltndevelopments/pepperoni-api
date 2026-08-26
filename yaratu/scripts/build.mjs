@@ -169,8 +169,10 @@ function cardImage(product) {
   return product.image.replace(/\.jpg$/, "-800.jpg");
 }
 
-function packshot(product, lang, extra = "") {
-  return `<img src="${cardImage(product)}" srcset="${cardImage(product)} 800w, ${product.image} 1400w" sizes="(max-width: 860px) 92vw, 560px" alt="${h(product.name[lang])}" width="800" height="1285"${extra}>`;
+function packshot(product, lang, extra = "", { srcset = true } = {}) {
+  const src = cardImage(product);
+  const set = srcset ? ` srcset="${src} 800w, ${product.image} 1400w" sizes="(max-width: 860px) 92vw, 560px"` : "";
+  return `<img src="${src}"${set} alt="${h(product.name[lang])}" width="800" height="1285"${extra}>`;
 }
 
 function shell({ lang, slug = "", title, description, body, structured, extraHead = "" }) {
@@ -206,8 +208,7 @@ const brand = {"@type": "Brand", "@id": `${SITE}/#brand`, name: "Ярату", al
 
 function card(product, lang, index) {
   const L = t[lang];
-  const eager = index === 0;
-  return `<article class="product"><div class="product__stage">${packshot(product, lang, eager ? ' fetchpriority="high"' : ' loading="lazy"')}</div>
+  return `<article class="product"><div class="product__stage">${packshot(product, lang, ' loading="lazy"', { srcset: false })}</div>
 <div class="product__intro"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span></div></div>
 <h3>${h(product.name[lang])}</h3><p>${h(product.summary[lang])}</p>
 <a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
@@ -242,7 +243,6 @@ function home(lang) {
     description: L.lead,
     body,
     structured,
-    extraHead: `<link rel="preload" as="image" href="${cardImage(products[0])}" imagesrcset="${cardImage(products[0])} 800w, ${products[0].image} 1400w" imagesizes="(max-width: 860px) 92vw, 560px" fetchpriority="high">\n`
   });
 }
 

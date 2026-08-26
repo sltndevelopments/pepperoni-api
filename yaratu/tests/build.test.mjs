@@ -93,7 +93,7 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.equal((homeEn.match(/nutrition-facts nutrition-facts--compact/g) || []).length, 5);
   assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
   assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
-  assert.match(homeRu, /fetchpriority="high"/);
+  assert.doesNotMatch(homeRu, /fetchpriority="high"/);
   assert.match(homeRu, /Nutrition Facts[\s\S]*Пищевая ценность/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*Calculated from the current recipe/);
 
@@ -102,6 +102,7 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
     assert.match(html, /class="nutrition-facts"/);
     assert.match(html, /nutrition-facts__calories/);
     assert.match(html, /nutrition-facts__row--major/);
+    assert.match(html, /fetchpriority="high"/);
     assert.doesNotMatch(html, /<script[^>]+src=/);
   }
 });
@@ -157,7 +158,9 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.doesNotMatch(robots, /Agentmap/);
   assert.match(robots, /Content-Signal: ai-train=yes, search=yes, ai-input=yes/);
   assert.match(robots, /ChatGPT-User/);
-  assert.match(homeHtml, /srcset="\/packshots\/sku-vetchina-f7a3c1-800\.jpg 800w/);
+  assert.match(homeHtml, /src="\/packshots\/sku-vetchina-f7a3c1-800\.jpg"/);
+  assert.doesNotMatch(homeHtml, /1400w/);
+  assert.doesNotMatch(homeHtml, /rel="preload" as="image"/);
   const built = await files(dist);
   assert.equal(built.some((path) => path.includes("oauth")), false);
   assert.equal(built.some((path) => path.includes("mcp")), false);
