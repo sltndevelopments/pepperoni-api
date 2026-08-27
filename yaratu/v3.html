@@ -3,11 +3,10 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Ярату — мясные продукты без секретов · макет v3</title>
-    <meta name="robots" content="noindex" />
+    <title>Ярату — мясные продукты без секретов</title>
     <meta
       name="description"
-      content="Ярату — халяльные мясные продукты из Казани: состав раскрыт до ингредиентов, без нитрита натрия. Дизайн-макет v3."
+      content="Пять мясных продуктов из Казани с раскрытым составом, без нитрита натрия и с пищевой ценностью, которую можно прочитать до покупки."
     />
     <link rel="icon" href="/assets/logo/sign.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -110,8 +109,27 @@
       .nav__links a { opacity: 0.66; transition: opacity 0.15s; }
       .nav__links a:hover { opacity: 1; }
       .nav__cta { padding: 0.62rem 1.05rem; font-size: 0.68rem; }
+      .nav__menu { display: block; position: relative; }
+      .nav__menu summary {
+        list-style: none; cursor: pointer;
+        font-size: 0.68rem; font-weight: 800; letter-spacing: 0.16em;
+        text-transform: uppercase; padding: 0.62rem 0.2rem;
+      }
+      .nav__menu summary::-webkit-details-marker { display: none; }
+      .nav__menu nav {
+        position: absolute; right: 0; top: calc(100% + 0.45rem);
+        display: grid; min-width: 16rem; padding: 0.85rem 1.15rem;
+        background: var(--cream); border: 1px solid var(--line-d);
+        box-shadow: 8px 8px 0 rgba(31, 38, 18, 0.1);
+      }
+      .nav__menu nav a {
+        padding: 0.6rem 0; font-size: 0.82rem; font-weight: 700;
+        border-bottom: 1px solid var(--line-d);
+      }
+      .nav__menu nav a:last-child { border-bottom: 0; }
       @media (min-width: 820px) {
         .nav__links { display: flex; }
+        .nav__menu { display: none; }
         .nav__inner { padding: 0.85rem 0; }
       }
 
@@ -475,6 +493,37 @@
         }
       }
 
+      /* faq */
+      .faq {
+        background: var(--paper); padding: 4.5rem 0 5rem;
+        border-top: 1px solid var(--line-d);
+      }
+      .faq__title {
+        margin: 1rem 0 0; font-family: var(--serif); font-weight: 600;
+        font-size: clamp(2.4rem, 6vw, 4.4rem); line-height: 0.98;
+        text-wrap: balance;
+      }
+      .faq__title em { font-style: italic; color: var(--gold); }
+      .faq__lead {
+        margin: 1.2rem 0 0; max-width: 34rem;
+        font-size: 0.95rem; color: rgba(22, 27, 13, 0.7);
+      }
+      .faq__list { margin: 2.2rem 0 0; }
+      .faq__list details { border-top: 1px solid var(--line-d); }
+      .faq__list details:last-child { border-bottom: 1px solid var(--line-d); }
+      .faq__list summary {
+        list-style: none; cursor: pointer;
+        padding: 1.05rem 0; font-weight: 800; font-size: 0.95rem;
+      }
+      .faq__list summary::-webkit-details-marker { display: none; }
+      .faq__list details p {
+        margin: 0 0 1.15rem; max-width: 40rem;
+        color: rgba(22, 27, 13, 0.7);
+      }
+      @media (min-width: 920px) {
+        .faq { padding: 6rem 0; }
+      }
+
       /* contact */
       .contact {
         background: var(--cream); padding: 4.5rem 0 5rem;
@@ -547,16 +596,17 @@
 
     <header class="nav">
       <div class="wrap nav__inner">
-        <a class="nav__logo" href="#main" aria-label="Ярату — начало страницы">
+        <a class="nav__logo" href="/" aria-label="Ярату — главная">
           <img src="/assets/logo/logo-horizontal.svg" alt="Ярату" width="1787" height="300" />
         </a>
         <nav class="nav__links" aria-label="Разделы">
           <a href="#facts">Факты</a>
           <a href="#products">Ассортимент</a>
           <a href="#quality">Контроль</a>
-          <a href="#contact">Контакты</a>
+          <a href="#contacts">Контакты</a>
         </nav>
-        <a class="btn btn--ink nav__cta" href="#contact">Связаться</a>
+        <details class="nav__menu"><summary>Меню</summary><nav aria-label="Мобильное меню"><a href="#facts">Факты</a><a href="#products">Ассортимент</a><a href="#quality">Контроль</a><a href="#contacts">Контакты</a><a href="/retail/">Для закупщиков</a><a href="/en/" hreflang="en">English</a></nav></details>
+        <a class="btn btn--ink nav__cta" href="#contacts">Связаться</a>
       </div>
     </header>
 
@@ -584,7 +634,7 @@
               </p>
               <div class="hero__actions">
                 <a class="btn btn--cream" href="#products">Смотреть ассортимент</a>
-                <a class="btn btn--line-l" href="#contact">Связаться</a>
+                <a class="btn btn--line-l" href="#contacts">Связаться</a>
               </div>
             </div>
             <div class="hero__badge">
@@ -1085,18 +1135,56 @@
         </div>
       </section>
 
+      <!-- FAQ -->
+      <section class="faq" id="faq" aria-labelledby="faq-title">
+        <div class="wrap">
+          <p class="eyebrow" style="color: var(--gold)">№ 04 — Короткие ответы</p>
+          <h2 class="faq__title" id="faq-title">Без <em>мелкого шрифта.</em></h2>
+          <p class="faq__lead">
+            Почему Ярату: состав и цифры можно проверить до покупки. Цены и
+            оферта на сайте не публикуются.
+          </p>
+          <div class="faq__list">
+            <details>
+              <summary>Что такое Ярату?</summary>
+              <p>Ярату — мясной бренд ООО «Казанские Деликатесы»: пять варёных продуктов из Казани без нитрита натрия и с составом, раскрытым до ингредиентов.</p>
+            </details>
+            <details>
+              <summary>Для кого эта линейка?</summary>
+              <p>Для магазинов, дистрибьюторов и покупателей, которым нужен проверяемый состав, а не лозунг «чистый продукт».</p>
+            </details>
+            <details>
+              <summary>Где цены?</summary>
+              <p>Публичного потребительского прайса нет. Актуальные спецификации, фасовки и условия поставки запрашивают у производителя.</p>
+            </details>
+            <details>
+              <summary>Вся линейка халяль?</summary>
+              <p>Да. Все пять текущих продуктов входят в область действия сертификата Халяль ДУМ РТ №614А/2024.</p>
+            </details>
+            <details>
+              <summary>КБЖУ лабораторные?</summary>
+              <p>Нет. Это расчёт по текущей рецептуре на 100 г сырьевой массы, не протокол испытаний.</p>
+            </details>
+            <details>
+              <summary>Как запросить поставку?</summary>
+              <p>Напишите на info@kazandelikates.tatar или позвоните +7 987 217-02-02. Производитель в Казани, ул. Аграрная, 2, оф. 7.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
       <!-- CONTACT -->
-      <section class="contact" id="contact" aria-labelledby="contact-title">
+      <section class="contact" id="contacts" aria-labelledby="contact-title">
         <div class="wrap contact__grid">
           <div>
-            <p class="eyebrow" style="color: var(--gold)">№ 04 — Контакты</p>
+            <p class="eyebrow" style="color: var(--gold)">№ 05 — Контакты</p>
             <h2 class="contact__title" id="contact-title">
               Поговорим <em>о поставке?</em>
             </h2>
             <p class="contact__lead">
               Отправим актуальные составы, фасовки, сертификаты и условия
-              поставки. Расчётные КБЖУ всегда отмечены отдельно от лабораторных
-              значений.
+              поставки. Публичного потребительского прайса нет. Расчётные КБЖУ
+              всегда отмечены отдельно от лабораторных значений.
             </p>
             <div class="contact__actions">
               <a
@@ -1135,11 +1223,12 @@
     <footer class="footer">
       <div class="wrap">
         <div class="footer__top">
-          <a class="footer__logo" href="#main" aria-label="Ярату — наверх">
+          <a class="footer__logo" href="/" aria-label="Ярату — главная">
             <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" width="1787" height="300" />
           </a>
           <nav class="footer__links" aria-label="Документы">
             <a href="/privacy.html">Политика ПДн</a>
+            <a href="/en/" hreflang="en">English</a>
             <a href="https://kazandelikates.tatar/" rel="noopener">kazandelikates.tatar</a>
             <a href="https://pepperoni.tatar/" rel="noopener">pepperoni.tatar</a>
           </nav>
@@ -1147,7 +1236,6 @@
         <div class="footer__bottom">
           <span>© 2026 · бренд ООО «Казанские Деликатесы» · ИНН 1686021074</span>
           <span>Халяль · Без нитрита натрия · Читаемый состав</span>
-          <span class="footer__tag">v3 · дизайн-макет</span>
         </div>
       </div>
     </footer>

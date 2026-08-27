@@ -39,7 +39,7 @@ test("canonical data has five bilingual validated products", async () => {
 
 test("allowlist build excludes internal and legacy SVG", async () => {
   const built = await files(dist);
-  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 19);
+  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 18);
   assert.equal(built.some((path) => path.split("/").includes("internal")), false);
   assert.equal(built.some((path) => path.startsWith("img/") && path.endsWith(".svg")), false);
   const allowedSvg = new Set([
@@ -52,11 +52,8 @@ test("allowlist build excludes internal and legacy SVG", async () => {
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
 });
 
-// The /2 design mockup is a noindex experiment outside the canonical page contract.
-const isMockup = (path) => path === "2/index.html";
-
 test("every page has canonical and complete hreflang", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
   for (const path of built) {
     const html = await readFile(join(dist, path), "utf8");
     assert.match(html, /<link rel="canonical" href="https:\/\/yaratu\.com\/[^"]*">/);
@@ -68,7 +65,7 @@ test("every page has canonical and complete hreflang", async () => {
 });
 
 test("mobile navigation works without JavaScript and keeps native keyboard semantics", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
   const css = await readFile(join(dist, "styles.css"), "utf8");
   assert.match(css, /\.nav__menu\s*\{/);
   assert.match(css, /@media \(min-width: 860px\)[\s\S]*\.nav__menu\s*\{[\s\S]*display:\s*none/);
@@ -100,21 +97,23 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
   assert.equal((homeRu.match(/class="nf-wrap"/g) || []).length, 5);
   assert.equal((homeEn.match(/class="nf-wrap"/g) || []).length, 5);
-  assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
+  assert.match(homeRu, /<h1 class="hero__title"[^>]*>Ярату<\/h1>/);
   assert.match(homeRu, /Пять мясных продуктов из Казани/);
-  assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
+  assert.match(homeRu, /Без нитрита натрия/);
   assert.doesNotMatch(homeRu, /<table class="range-table">/);
-  assert.equal((homeRu.match(/class="product__media"/g) || []).length, 5);
+  assert.equal((homeRu.match(/class="product__plate"/g) || []).length, 5);
   assert.equal((homeRu.match(/class="product__body"/g) || []).length, 5);
-  assert.equal((homeRu.match(/class="product__nutrition"/g) || []).length, 5);
+  assert.equal((homeRu.match(/class="deal"/g) || []).length, 5);
   assert.doesNotMatch(homeRu, /<div class="kbju">/);
-  assert.match(homeRu, /Почему мы создали Ярату|Почему Ярату/);
+  assert.match(homeRu, /Почему Ярату/);
   assert.match(homeRu, /ISO 22000:2018/);
   assert.match(homeRu, /ТР ТС 021\/2011/);
   assert.match(homeRu, /id="quality"/);
   assert.match(homeRu, /id="contacts"/);
   assert.match(homeRu, /id="faq"/);
   assert.match(homeRu, /Публичного потребительского прайса нет/);
+  assert.doesNotMatch(homeRu, /noindex/);
+  assert.doesNotMatch(homeRu, /2\/index\.html|дизайн-макет/);
   assert.equal((homeRu.match(/fetchpriority="high"/g) || []).length, 0);
   assert.doesNotMatch(homeRu, /Халяль подтверждён/);
   assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
@@ -188,7 +187,7 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.doesNotMatch(robots, /Agentmap/);
   assert.match(robots, /Content-Signal: ai-train=yes, search=yes, ai-input=yes/);
   assert.match(robots, /ChatGPT-User/);
-  assert.match(homeHtml, /src="\/packshots\/sku-vetchina-f7a3c1-800\.jpg"/);
+  assert.match(homeHtml, /src="\/packshots\/sku-vetchina-f7a3c1\.jpg"/);
   assert.doesNotMatch(homeHtml, /1400w/);
   assert.doesNotMatch(homeHtml, /rel="preload" as="image"/);
   const built = await files(dist);

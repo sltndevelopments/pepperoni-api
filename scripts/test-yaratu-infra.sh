@@ -75,6 +75,14 @@ if ! grep -Fq 'try_files $uri/index.html $uri =404;' "$RENDERED"; then
   echo "FAIL: clean directory URLs are not mapped to index.html" >&2
   exit 22
 fi
+if ! grep -Fq 'location = /2' "$RENDERED"; then
+  echo "FAIL: retired /2 mockup is not redirected" >&2
+  exit 26
+fi
+if [[ -e "$DIST/2" ]]; then
+  echo "FAIL: retired /2 mockup is still in dist" >&2
+  exit 27
+fi
 if ! grep -Fq 'rel="api-catalog"' "$RENDERED"; then
   echo "FAIL: homepage Link api-catalog header is missing" >&2
   exit 23

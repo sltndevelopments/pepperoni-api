@@ -357,6 +357,51 @@ function home(lang) {
   });
 }
 
+async function editorialHome() {
+  const html = await readFile(join(root, "v3.html"), "utf8");
+  const faqs = homeFaqs("ru");
+  const items = products.map((p, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    url: absolute(pagePath("ru", `products/${p.id}`)),
+    name: p.name.ru
+  }));
+  const structured = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {"@type": "WebSite", "@id": `${SITE}/#website`, url: `${SITE}/`, name: "Yaratu", inLanguage: "ru"},
+      org,
+      brand,
+      {
+        "@type": "FAQPage",
+        mainEntity: faqs.map(([name, text]) => ({
+          "@type": "Question",
+          name,
+          acceptedAnswer: {"@type": "Answer", text}
+        }))
+      },
+      {"@type": "ItemList", name: t.ru.range, itemListElement: items}
+    ]
+  };
+  const seoHead = `    <meta name="yandex-verification" content="1817223863cbfebb">
+    <link rel="canonical" href="${absolute(pagePath("ru"))}">
+    ${alternates("")}
+    <link rel="alternate" type="text/markdown" href="/index.md" title="Markdown for agents">
+    <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
+    <link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="${absolute(pagePath("ru"))}">
+    <meta property="og:title" content="Ярату — мясные продукты без секретов">
+    <meta property="og:description" content="${h(t.ru.lead)}">
+    <meta property="og:image" content="${SITE}/assets/logo/logo-horizontal.png">
+    ${schemas(structured)}
+`;
+  if (/<meta name="robots"/i.test(html)) {
+    throw new Error("editorial homepage must be indexable: remove robots noindex from v3.html");
+  }
+  return html.replace("</head>", `${seoHead}  </head>`);
+}
+
 function productPage(product, lang) {
   const L = t[lang], slug = `products/${product.id}`;
   const ru = lang === "ru";
@@ -453,7 +498,7 @@ function privacyPage() {
 }
 
 for (const lang of ["ru", "en"]) {
-  await output(lang === "ru" ? "index.html" : "en/index.html", home(lang));
+  await output(lang === "ru" ? "index.html" : "en/index.html", lang === "ru" ? await editorialHome() : home(lang));
   await output(lang === "ru" ? "index.md" : "en/index.md", homeMarkdown(lang));
   await output(`${lang === "ru" ? "" : "en/"}retail/index.html`, retailPage(lang));
   await output(`${lang === "ru" ? "" : "en/"}retail.md`, pageMarkdown(lang, "retail"));
@@ -467,8 +512,6 @@ for (const lang of ["ru", "en"]) {
   }
 }
 await output("privacy.html", privacyPage());
-// Experimental design mockup, published at /2 (noindex, outside sitemap/hreflang).
-await output("2/index.html", await readFile(join(root, "v3.html"), "utf8"));
 
 const publicProducts = {
   schemaVersion: catalog.schemaVersion, lastModified: lastmod,
@@ -630,7 +673,7 @@ await output(".well-known/agent-skills/index.json", `${JSON.stringify({
   skills: skills.map(({ text, ...rest }) => rest)
 }, null, 2)}\n`);
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
-await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n`);
+await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n`);
 await output("_routes.json", `${JSON.stringify({version: 1, include: ["/*"], exclude: ["/assets/*", "/packshots/*", "/styles.css", "/robots.txt", "/sitemap.xml"]}, null, 2)}\n`);
 
 console.log(`Built ${sitemapUrls.length} HTML URLs and feeds from ${products.length} products.`);
