@@ -49,7 +49,7 @@ const t = {
     contact: "Запросить спецификации", footer: "бренд ООО «Казанские Деликатесы»",
     status: "Статус данных", evidence: "Рецептура и состав проверены по внутренним документам.",
     language: "English", advantages: "Преимущества", quality: "Контроль качества",
-    contacts: "Контакты", connect: "Связаться"
+    contacts: "Контакты", connect: "Связаться", seeNutrition: "Посмотреть пищевую ценность"
   },
   en: {
     home: "Home", products: "Products", retail: "For retailers", ingredients: "Disclosed ingredients",
@@ -63,7 +63,7 @@ const t = {
     contact: "Request specifications", footer: "a brand of Kazan Delicacies LLC",
     status: "Data status", evidence: "Recipe and composition reviewed against internal documents.",
     language: "Русский", advantages: "Why Yaratu", quality: "Quality control",
-    contacts: "Contact", connect: "Get in touch"
+    contacts: "Contact", connect: "Get in touch", seeNutrition: "View nutrition facts"
   }
 };
 
@@ -250,7 +250,7 @@ function card(product, lang, index) {
 <div class="product__usp"><span>${lang === "ru" ? "Особенность" : "What sets it apart"}</span><h4>${h(positioningTitle)}</h4><p>${h(positioningText)}</p></div>
 <p class="product__allergens"><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p>
 <a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
-<div class="product__nutrition"><p>${L.nutritionNote}</p>${nutritionFacts(product, lang)}</div></article>`;
+<details class="product__nutrition-toggle"><summary>${L.seeNutrition}</summary><div class="product__nutrition"><p>${L.nutritionNote}</p>${nutritionFacts(product, lang)}</div></details></article>`;
 }
 
 function homeFaqs(lang) {

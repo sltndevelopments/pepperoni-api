@@ -1690,7 +1690,8 @@ section {
 
 .product__media,
 .product__body,
-.product__nutrition {
+.product__nutrition,
+.product__nutrition-toggle {
   min-width: 0;
 }
 
@@ -1789,12 +1790,58 @@ section {
   color: var(--cream) !important;
 }
 
+.product__nutrition-toggle {
+  border-top: 1px solid var(--line);
+  background: var(--white);
+}
+
+.product__nutrition-toggle > summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1.05rem 1.15rem;
+  list-style: none;
+  cursor: pointer;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-size: 0.92rem;
+  font-weight: 500;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.product__nutrition-toggle > summary::-webkit-details-marker {
+  display: none;
+}
+
+.product__nutrition-toggle > summary::after {
+  content: "+";
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--olive);
+  font-size: 1.05rem;
+  line-height: 1;
+}
+
+.product__nutrition-toggle[open] > summary::after {
+  content: "\2212";
+}
+
+.product__nutrition-toggle > summary:hover::after {
+  border-color: var(--olive);
+}
+
 .product__nutrition {
   display: grid;
   align-content: start;
   justify-items: stretch;
   gap: 0.75rem;
-  padding: 1.25rem 1rem 1.5rem;
+  padding: 0 1rem 1.5rem;
   background: var(--white);
 }
 
@@ -2141,12 +2188,20 @@ section {
     font-size: clamp(2rem, 2.5vw, 2.7rem);
   }
 
-  .product__nutrition {
+  .product__nutrition-toggle {
     grid-column: 1 / -1;
     grid-row: 2;
+  }
+
+  .product__nutrition-toggle > summary {
+    justify-content: center;
+    padding: 1.15rem 2rem;
+    font-size: 0.98rem;
+  }
+
+  .product__nutrition {
     justify-items: center;
-    padding: 1.75rem 2rem 2.25rem;
-    border-top: 1px solid var(--line);
+    padding: 0 2rem 2.25rem;
   }
 
   .product__nutrition > p {
