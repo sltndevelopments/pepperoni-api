@@ -405,49 +405,6 @@ h3 {
   user-select: none;
 }
 
-.hero__star {
-  position: absolute;
-  width: 1.1rem;
-  height: 1.1rem;
-  background: rgba(255, 240, 217, 0.55);
-  clip-path: polygon(
-    50% 0,
-    62% 38%,
-    100% 50%,
-    62% 62%,
-    50% 100%,
-    38% 62%,
-    0 50%,
-    38% 38%
-  );
-  opacity: 0.55;
-}
-
-.hero__star--a {
-  top: 18%;
-  right: 22%;
-  width: 0.85rem;
-  height: 0.85rem;
-}
-
-.hero__star--b {
-  top: 68%;
-  right: 12%;
-  width: 1.35rem;
-  height: 1.35rem;
-  opacity: 0.35;
-  animation-delay: -3s;
-}
-
-.hero__star--c {
-  top: 28%;
-  right: 48%;
-  width: 0.65rem;
-  height: 0.65rem;
-  opacity: 0.28;
-  animation-delay: -6s;
-}
-
 .hero__shade {
   position: absolute;
   inset: 0;
@@ -469,87 +426,12 @@ h3 {
   pointer-events: none;
 }
 
-.hero__layout {
-  position: relative;
-  z-index: 1;
-  width: min(100% - 2.5rem, var(--max));
-  padding: clamp(4.5rem, 10vh, 6.5rem) 0 clamp(3rem, 7vh, 4.5rem);
-}
-
-.hero__content {
-  position: relative;
-  max-width: 34rem;
-}
-
-.hero__brand {
-  height: clamp(2.2rem, 4.2vw, 3.35rem);
-  width: auto;
-  margin-bottom: 1.15rem;
-  opacity: 0.98;
-}
-
-.hero h1 {
-  max-width: 11ch;
-  color: var(--cream);
-  font-size: clamp(2.35rem, 5.8vw, 4.75rem);
-  letter-spacing: 0.005em;
-}
-
-.hero h1 em {
-  font-style: italic;
-  font-weight: 500;
-  color: #f7e7c4;
-}
-
-.hero .lede {
-  color: rgba(255, 240, 217, 0.86);
-  margin: 1rem 0 1.65rem;
-  max-width: 32rem;
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.7rem;
-}
-
-.hero__badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin: 1.55rem 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.badge {
-  border: 1px solid rgba(255, 240, 217, 0.32);
-  padding: 0.32rem 0.68rem;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-weight: 600;
-  color: rgba(255, 240, 217, 0.88);
-  background: rgba(255, 240, 217, 0.04);
-}
-
-/* Desktop: asymmetric composition, richer depth */
+/* Desktop: richer depth for the shared decorative hero layer.
+   Layout (.hero__layout/.hero__content/.hero h1/.hero__badges/etc.) is
+   owned by the mobile-first block below — kept here in one place only. */
 @media (min-width: 900px) {
   .hero {
     align-items: stretch;
-  }
-
-  .hero__layout {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 0.85fr);
-    align-items: center;
-    min-height: min(92svh, 860px);
-    padding-block: 0;
-  }
-
-  .hero__content {
-    max-width: 36rem;
-    padding: 5.5rem 0 5rem;
   }
 
   .hero__mark {
@@ -567,84 +449,15 @@ h3 {
     opacity: 0.07;
     background-size: 320px auto;
   }
-
-  .hero__badges {
-    margin-top: 1.85rem;
-    gap: 0.6rem;
-  }
-
-  .hero .lede {
-    font-size: 1.18rem;
-  }
 }
 
-/* Mobile: compact, intentional first viewport — no oversized mark */
+/* Mobile: compact, intentional first viewport — no oversized mark.
+   Layout is owned by the mobile-first block further down; only the
+   shared decorative layer is tuned here. */
 @media (max-width: 640px) {
   .hero {
     min-height: calc(100svh - 3.7rem);
     align-items: stretch;
-  }
-
-  .hero__layout {
-    padding: 9.5rem 0 2rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    flex: 1;
-    min-height: calc(100svh - 3.7rem);
-  }
-
-  .hero__content {
-    max-width: 22rem;
-    padding-top: 0;
-  }
-
-  .hero__brand {
-    height: 1.95rem;
-    margin-bottom: 0.85rem;
-  }
-
-  .hero h1 {
-    font-size: clamp(2rem, 9vw, 2.45rem);
-    max-width: 10ch;
-    line-height: 1.08;
-  }
-
-  .hero .lede {
-    margin: 0.7rem 0 1.15rem;
-    font-size: 0.96rem;
-    line-height: 1.45;
-    max-width: 30ch;
-  }
-
-  .hero__actions {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 0.5rem;
-  }
-
-  .hero__actions .btn {
-    width: 100%;
-    min-height: 2.8rem;
-    font-size: 0.92rem;
-  }
-
-  .hero__badges {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0.35rem;
-    margin-top: 1.15rem;
-    max-width: 100%;
-  }
-
-  .badge {
-    text-align: center;
-    padding: 0.28rem 0.35rem;
-    font-size: 0.62rem;
-    letter-spacing: 0.05em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .hero__mark {
@@ -664,18 +477,6 @@ h3 {
     top: 6.2rem;
     translate: -50% -50%;
     opacity: 0.55;
-  }
-
-  .hero__star--a {
-    top: 4rem;
-    right: 12%;
-    width: 0.7rem;
-    height: 0.7rem;
-  }
-
-  .hero__star--b,
-  .hero__star--c {
-    display: none;
   }
 
   .hero__pattern {
@@ -1706,6 +1507,7 @@ section {
 
 .hero .lede {
   margin: 0.85rem 0 1.35rem;
+  color: rgba(255, 240, 217, 0.86);
   font-size: 1rem;
 }
 
@@ -1725,8 +1527,17 @@ section {
 
 .hero__product {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  min-width: 0;
+}
+
+.hero__product-frame {
+  position: relative;
   display: grid;
-  place-items: end center;
+  place-items: center;
   min-width: 0;
   isolation: isolate;
 }
@@ -1737,8 +1548,8 @@ section {
   width: min(70vw, 280px);
   aspect-ratio: 1;
   left: 50%;
-  bottom: 8%;
-  translate: -50% 0;
+  top: 50%;
+  translate: -50% -50%;
   border: 1px solid rgba(255, 240, 217, 0.24);
   border-radius: 50%;
 }
@@ -1751,18 +1562,16 @@ section {
 }
 
 .hero__product-caption {
-  position: absolute;
-  right: 0;
-  bottom: 0.75rem;
-  max-width: min(16rem, 70%);
-  padding: 0.4rem 0.65rem;
+  max-width: 16rem;
+  padding: 0.4rem 0.9rem;
   border: 1px solid rgba(255, 240, 217, 0.28);
-  background: rgba(31, 38, 18, 0.62);
+  background: rgba(31, 38, 18, 0.5);
   color: var(--cream);
   font-size: 0.64rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
+  text-align: center;
 }
 
 .story-section {
@@ -2359,8 +2168,6 @@ section {
   .hero__glow,
   .hero__orb,
   .hero__mark,
-  .hero__star,
-  .hero__brand,
   .hero h1,
   .hero .lede,
   .hero__actions,
