@@ -86,6 +86,29 @@ test("visible units and decimal separators follow locale", async () => {
   assert.match(en, /Protein 16\.7 g/);
 });
 
+test("layout stays inside the viewport and loads self-hosted fonts", async () => {
+  const css = await readFile(join(dist, "styles.css"), "utf8");
+  const home = await readFile(join(dist, "index.html"), "utf8");
+  assert.match(css, /overflow-x:\s*clip/);
+  assert.match(css, /@font-face/);
+  assert.match(css, /\/assets\/fonts\/cormorant-500-cyrillic\.woff2/);
+  assert.match(css, /\/assets\/fonts\/manrope-cyrillic\.woff2/);
+  assert.match(css, /\.product__intro\s*\{[\s\S]*justify-items:\s*start/);
+  assert.match(css, /\.range-table-wrap\s*\{/);
+  assert.match(css, /minmax\(0,\s*320px\)/);
+  assert.doesNotMatch(css, /content-visibility:\s*auto/);
+  assert.match(home, /<span class="badge">5 продуктов<\/span>/);
+  assert.match(home, /<div class="range-table-wrap">/);
+  for (const file of [
+    "assets/fonts/cormorant-500-cyrillic.woff2",
+    "assets/fonts/cormorant-500-latin.woff2",
+    "assets/fonts/manrope-cyrillic.woff2",
+    "assets/fonts/manrope-latin.woff2"
+  ]) {
+    assert.ok((await stat(join(dist, file))).size > 1000, file);
+  }
+});
+
 test("static Nutrition Facts labels are visible on home and product pages", async () => {
   const homeRu = await readFile(join(dist, "index.html"), "utf8");
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");

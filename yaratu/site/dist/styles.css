@@ -1,6 +1,61 @@
 /* Yaratu — brand identity 2026
    Colors: olive #2F391C · cream #FFF0D9 · white · gold accent #A17513
-   Logo: Circe Contrast (as SVG). Body: public sans substitute for TT Norms Pro. */
+   Logo: Circe Contrast (as SVG). Body: Manrope as a public substitute for TT Norms Pro.
+   Fonts are self-hosted so the layout does not depend on fonts.gstatic.com. */
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/cormorant-500-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/cormorant-500-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/cormorant-500italic-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Cormorant Garamond";
+  font-style: italic;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/assets/fonts/cormorant-500italic-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/assets/fonts/manrope-cyrillic.woff2") format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("/assets/fonts/manrope-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+20AC, U+2122, U+2212, U+FEFF, U+FFFD;
+}
 
 :root {
   --olive: #2f391c;
@@ -28,10 +83,12 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
+  overflow-x: clip;
   font-family: var(--font-body);
   color: var(--ink);
   background: var(--cream);
@@ -502,6 +559,7 @@ h3 {
   list-style: none;
 }
 
+.hero__badges > span,
 .badge {
   border: 1px solid rgba(255, 240, 217, 0.32);
   padding: 0.32rem 0.68rem;
@@ -610,21 +668,19 @@ h3 {
   }
 
   .hero__badges {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     gap: 0.35rem;
     margin-top: 1.15rem;
     max-width: 100%;
   }
 
+  .hero__badges > span,
   .badge {
     text-align: center;
-    padding: 0.28rem 0.35rem;
+    padding: 0.28rem 0.45rem;
     font-size: 0.62rem;
     letter-spacing: 0.05em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
   }
 
   .hero__mark {
@@ -979,10 +1035,18 @@ section {
 }
 
 /* Products — 3 layers: stage → intro+KBJU → passport */
+.range-table-wrap {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  margin: 0 0 2.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
 .range-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 0 0 2.5rem;
+  margin: 0;
   font-size: 0.95rem;
 }
 
@@ -1027,16 +1091,12 @@ section {
 
 .product {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(0, 1fr);
   gap: 0;
   background: transparent;
   border: 0;
   overflow: visible;
-}
-
-.products .product + .product {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 1400px;
+  min-width: 0;
 }
 
 .product__stage {
@@ -1059,11 +1119,19 @@ section {
 
 .product__intro {
   display: grid;
+  justify-items: start;
   gap: 1rem;
   padding: clamp(1.6rem, 3.5vw, 2.4rem) clamp(1.4rem, 3vw, 2.2rem) 1.5rem;
   background: var(--white);
   border: 1px solid var(--line);
   border-bottom: 0;
+  min-width: 0;
+}
+
+.product__intro-top,
+.product__intro h3,
+.product__intro > p {
+  width: 100%;
 }
 
 .product__intro-top {
@@ -1202,7 +1270,7 @@ section {
 
 @media (min-width: 900px) {
   .product__passport {
-    grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 320px);
     align-items: start;
   }
 }
@@ -1246,13 +1314,20 @@ section {
   border: 0;
 }
 
+.product__label,
+.product__label .nf-wrap,
+.nf-wrap,
+.nf-card {
+  min-width: 0;
+}
+
 .product__label .nf-wrap {
   width: 100%;
-  max-width: 348px;
+  max-width: min(348px, 100%);
 }
 
 .product__label--large .nf-wrap {
-  max-width: 390px;
+  max-width: min(390px, 100%);
 }
 
 .nutrition-layout {
@@ -1267,7 +1342,7 @@ section {
 
 @media (min-width: 820px) {
   .nutrition-layout {
-    grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 390px);
   }
 }
 
@@ -1277,18 +1352,19 @@ section {
 
 .nf-name {
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
+  font-size: clamp(0.85rem, 3.6vw, 1.25rem);
   font-weight: 900;
   text-transform: uppercase;
   text-align: center;
   margin: 0 0 10px;
   letter-spacing: 0.02em;
   color: #000;
+  overflow-wrap: anywhere;
 }
 
 .nf-card {
   width: 100%;
-  max-width: 348px;
+  max-width: min(348px, 100%);
   margin: 0 auto;
   border: 2px solid #000;
   padding: 8px 10px 10px;
@@ -1299,11 +1375,12 @@ section {
 }
 
 .nf-card-title {
-  font-size: 40px;
+  font-size: clamp(1.35rem, 6vw, 2.5rem);
   font-weight: 900;
   margin: 0;
-  line-height: 1;
-  letter-spacing: -1px;
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  overflow-wrap: anywhere;
 }
 
 .nf-basis {
@@ -1353,13 +1430,13 @@ section {
 }
 
 .nf-cal-label {
-  font-size: 31px;
+  font-size: clamp(1.15rem, 5vw, 1.94rem);
   font-weight: 900;
   line-height: 1;
 }
 
 .nf-cal-val {
-  font-size: 38px;
+  font-size: clamp(1.35rem, 6vw, 2.375rem);
   font-weight: 900;
   line-height: 1;
 }
@@ -1417,17 +1494,17 @@ section {
 }
 
 .nf-wrap--compact .nf-name {
-  font-size: 15px;
+  font-size: clamp(0.78rem, 3.2vw, 0.94rem);
   margin-bottom: 8px;
 }
 
 .nf-wrap--compact .nf-card {
-  max-width: 300px;
+  max-width: min(300px, 100%);
   padding: 7px 8px 9px;
 }
 
 .nf-wrap--compact .nf-card-title {
-  font-size: 30px;
+  font-size: clamp(1.25rem, 5.4vw, 1.875rem);
 }
 
 .nf-wrap--compact .nf-basis,
@@ -1440,11 +1517,11 @@ section {
 }
 
 .nf-wrap--compact .nf-cal-label {
-  font-size: 24px;
+  font-size: clamp(1.05rem, 4.4vw, 1.5rem);
 }
 
 .nf-wrap--compact .nf-cal-val {
-  font-size: 30px;
+  font-size: clamp(1.2rem, 5vw, 1.875rem);
 }
 
 .nf-wrap--compact .nf-row {
@@ -1524,6 +1601,16 @@ section {
     padding: 1rem;
   }
 
+  .range-table {
+    font-size: 0.82rem;
+  }
+
+  .range-table th,
+  .range-table td {
+    padding: 0.55rem 0.4rem;
+    overflow-wrap: anywhere;
+  }
+
   .product__label .nf-wrap {
     max-width: 100%;
   }
@@ -1543,13 +1630,34 @@ section {
 .split {
   display: grid;
   gap: 2rem;
+  min-width: 0;
 }
 
 @media (min-width: 880px) {
   .split {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 3rem;
   }
+}
+
+.product-page-hero {
+  padding-top: clamp(2.4rem, 5vw, 3.5rem);
+}
+
+.product-page-hero .product__stage {
+  min-width: 0;
+}
+
+.product-page-hero .section-head {
+  min-width: 0;
+  max-width: none;
+}
+
+.nutrition-layout,
+.nutrition-layout__copy,
+.product__passport,
+.product__passport-copy {
+  min-width: 0;
 }
 
 .checklist {

@@ -32,6 +32,12 @@ const copyAllowlist = [
   "assets/logo/logo-horizontal-black.svg",
   "assets/logo/logo-horizontal-white.svg",
   "assets/logo/sign-white.svg",
+  "assets/fonts/cormorant-500-cyrillic.woff2",
+  "assets/fonts/cormorant-500-latin.woff2",
+  "assets/fonts/cormorant-500italic-cyrillic.woff2",
+  "assets/fonts/cormorant-500italic-latin.woff2",
+  "assets/fonts/manrope-cyrillic.woff2",
+  "assets/fonts/manrope-latin.woff2",
   ...products.flatMap((p) => [p.image.slice(1), p.image.replace(/\.jpg$/, "-800.jpg").slice(1)])
 ];
 for (const file of copyAllowlist) await copy(file);
@@ -257,10 +263,10 @@ function home(lang) {
       ["03", "Product-specific halal", "Halal status is shown per product, never assumed range-wide."]
     ];
   const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><span class="hero__star hero__star--a"></span><span class="hero__star hero__star--b"></span><span class="hero__star hero__star--c"></span><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
-<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
+<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span class="badge">${lang === "ru" ? "5 продуктов" : "5 products"}</span><span class="badge">${L.ingredients}</span><span class="badge">${L.nitrite}</span></div></div></div></section>
 <section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
 <section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div>
-<table class="range-table"><caption>${lang === "ru" ? "Ассортимент без розничных цен" : "Range without consumer prices"}</caption><thead><tr><th>${lang === "ru" ? "Продукт" : "Product"}</th><th>${L.weight}</th><th>${L.nitrite}</th><th>${lang === "ru" ? "Халяль" : "Halal"}</th></tr></thead><tbody>${products.map((p) => `<tr><td><a href="${pagePath(lang, `products/${p.id}`)}">${h(p.name[lang])}</a></td><td>${formatNumber(p.netWeight.value, lang)} ${grams(lang)}</td><td>${lang === "ru" ? "Не используется" : "Not used"}</td><td>${p.claims.halal ? L.halal : L.noHalal}</td></tr>`).join("")}</tbody></table>
+<div class="range-table-wrap"><table class="range-table"><caption>${lang === "ru" ? "Ассортимент без розничных цен" : "Range without consumer prices"}</caption><thead><tr><th>${lang === "ru" ? "Продукт" : "Product"}</th><th>${L.weight}</th><th>${L.nitrite}</th><th>${lang === "ru" ? "Халяль" : "Halal"}</th></tr></thead><tbody>${products.map((p) => `<tr><td><a href="${pagePath(lang, `products/${p.id}`)}">${h(p.name[lang])}</a></td><td>${formatNumber(p.netWeight.value, lang)} ${grams(lang)}</td><td>${lang === "ru" ? "Не используется" : "Not used"}</td><td>${p.claims.halal ? L.halal : L.noHalal}</td></tr>`).join("")}</tbody></table></div>
 <div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>
 <section id="faq"><div class="wrap"><div class="section-head"><span class="eyebrow">FAQ</span><h2>${lang === "ru" ? "Короткие ответы" : "Short answers"}</h2><p>${lang === "ru" ? "Цены и оферта на сайте не публикуются." : "No prices or offers are published on this site."}</p></div><div class="faq">${faqs.map(([q, a]) => `<details><summary>${h(q)}</summary><p>${h(a)}</p></details>`).join("")}</div></div></section>`;
   return shell({
