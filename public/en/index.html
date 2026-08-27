@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-en-poster-720.webp" imagesrcset="/videos/hero-en-poster-720.webp 720w, /videos/hero-en-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
@@ -150,6 +156,30 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .footer__col a:hover{color:#fff}
 .footer__bottom{border-top:1px solid #333;padding-top:14px;text-align:center;font-size:.78rem;color:#999}
 @media(max-width:600px){.hero{padding:40px 0 32px}.usps{padding:32px 0 0}.nav__links{gap:10px;font-size:.82rem}.certs__inner{gap:16px}}
+</style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
 </style>
 </head>
 <body>

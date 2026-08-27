@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+  <!-- kd-stamp:6bdd06954a -->
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preload" as="image" type="image/webp" fetchpriority="high" href="/videos/hero-ru-poster-720.webp" imagesrcset="/videos/hero-ru-poster-720.webp 720w, /videos/hero-ru-poster.webp 960w" imagesizes="(max-width: 960px) 92vw, 920px">
@@ -184,6 +191,30 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 .seg-card__desc{font-size:.82rem;color:var(--muted);line-height:1.5;flex:1}.seg-card__case{margin-top:12px;font-size:.78rem;color:var(--green);font-weight:600}
 .seg-card__arrow{margin-left:4px}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
@@ -195,7 +226,7 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
       <a href="/pepperoni">Пепперони</a>
       <a href="/kazylyk">Казылык</a>
       <a href="/halal">Халяль</a>
-      <a href="/bakery">Выпечка</a>
+      Выпечка
       <a href="/export">Экспорт</a>
       <a href="/about">О компании</a>
       <a href="/faq">FAQ</a>
