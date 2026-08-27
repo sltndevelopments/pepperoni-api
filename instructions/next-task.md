@@ -183,6 +183,24 @@
 
 ## Log
 
+- **2026-08-27 Yaratu mobile-first rebuild — DONE.**
+  - Commit: `7983960fc` (pushing to `origin/main`; VPS via `deploy-vps.yml` → `deploy-yaratu-vps.yml`).
+  - Cause: later CSS layers set `minmax(340–420px)` / 3-col `280+330+370` without `min-width` queries; 390px viewport overflowed.
+  - Fix: mobile-first grids (`minmax(0, 1fr)`), product cards stack on phone, Nutrition Facts scale inside the box.
+  - Tests: `npm run check` 12/12; `bash scripts/test-yaratu-infra.sh` OK.
+  - Browser: scrollWidth = innerWidth at 390 / 768 / 1920. No table «Ассортимент без розничных цен».
+  - Blockers: none for this step.
+- **2026-08-27 AIO discovery (без checkout) — частично DONE, без commit.**
+  - Perplexity Typeform подана (pepperoni.tatar, EXW Kazan, info@kazandelikates.tatar).
+  - `/api/products` на VPS = local JSON, `X-Data-Source: vps-local` (не Vercel 403).
+  - MCP `tools/call` чинится локальным `mcp/api-client.js` (читает products.json).
+    На VPS файлы залиты вручную; **нужен commit+push**, иначе `deploy-vps.yml`
+    `reset --hard origin/main` откатит.
+  - OpenAI SFTP env отсутствует. Форма chatgpt.com/merchants заполнена
+    (Rinat Sultan, feed only), **не отправлена**: в `Region__c` нет Russia.
+    Microsoft Merchant Center — только из ui.ads.microsoft.com.
+  - GTIN 59/64; пустые: KD-012, KD-014, KD-015, KD-016, KD-018.
+  - Тексты: `data/aio-application-pack.md`.
 - **2026-08-26 SEO and AI trust reset — DONE.**
   - Implementation commit: `38c0d01e5d1c6b41e632a9e633e263abb0119a99`
     (`origin/main`, same hash verified on VPS).
