@@ -48,7 +48,7 @@ def audit(threshold: float = THRESHOLD) -> list[str]:
     payload = json.loads(MANIFEST.read_text(encoding="utf-8"))
     rows = [
         row for row in payload.get("entries", [])
-        if row.get("status") == "keep" and row.get("kind") != "product"
+        if row.get("status") == "keep" and row.get("kind") not in {"product", "export-country"}
     ]
     docs: list[tuple[dict, set]] = []
     errors: list[str] = []

@@ -29,6 +29,7 @@ RULES = {
     "home":     (1.00, "weekly"),
     "guide":    (0.70, "monthly"),
     "hub":      (0.80, "monthly"),
+    "export-country": (0.70, "monthly"),
     "blog":     (0.70, "monthly"),
     "static":   (0.60, "monthly"),
     "en_index": (0.90, "weekly"),

@@ -65,6 +65,28 @@ RU_PAGES = [
     _page("export.html", "documented export capability", "export", "evidence registry"),
 ]
 
+EXPORT_COUNTRIES = [
+    ("armenia", "export landing Armenia"),
+    ("azerbaijan", "export landing Azerbaijan"),
+    ("bahrain", "export landing Bahrain"),
+    ("belarus", "export landing Belarus"),
+    ("egypt", "export landing Egypt"),
+    ("georgia", "export landing Georgia"),
+    ("kazakhstan", "export landing Kazakhstan"),
+    ("kuwait", "export landing Kuwait"),
+    ("kyrgyzstan", "export landing Kyrgyzstan"),
+    ("oman", "export landing Oman"),
+    ("qatar", "export landing Qatar"),
+    ("saudi-arabia", "export landing Saudi Arabia"),
+    ("tajikistan", "export landing Tajikistan"),
+    ("uae", "export landing UAE"),
+    ("yemen", "export landing Yemen"),
+]
+RU_PAGES.extend(
+    _page(f"export/{slug}.html", intent, "export", "owner-approved country export landing")
+    for slug, intent in EXPORT_COUNTRIES
+)
+
 EN_PAGES = [
     _page("en/index.html", "manufacturer and catalog home", "marketing", "brand.txt + products.json"),
     _page("en/products/index.html", "current wholesale catalog", "sales", "Google Sheets"),
@@ -97,6 +119,10 @@ EN_PAGES = [
     _page("en/dlya-distributorov.html", "assortment for distributors", "sales", "Google Sheets"),
     _page("en/export.html", "documented export capability", "export", "evidence registry"),
 ]
+EN_PAGES.extend(
+    _page(f"en/export/{slug}.html", intent, "export", "owner-approved country export landing")
+    for slug, intent in EXPORT_COUNTRIES
+)
 
 RU_GUIDES = [
     ("blog/what-is-halal-pepperoni.html", "what halal pepperoni is"),
@@ -145,6 +171,8 @@ def locale_for(rel: str) -> str:
 def kind_for(rel: str) -> str:
     if re.fullmatch(r"(?:en/)?products/kd-\d{3}\.html", rel):
         return "product"
+    if re.fullmatch(r"(?:en/)?export/[a-z0-9-]+\.html", rel):
+        return "export-country"
     if rel.startswith(("blog/", "en/blog/")):
         return "guide"
     if rel.endswith("products/index.html"):
