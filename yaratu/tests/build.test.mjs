@@ -102,6 +102,7 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.equal((homeRu.match(/class="product__media"/g) || []).length, 5);
   assert.equal((homeRu.match(/class="product__body"/g) || []).length, 5);
   assert.equal((homeRu.match(/class="product__nutrition"/g) || []).length, 5);
+  assert.doesNotMatch(homeRu, /<div class="kbju">/);
   assert.match(homeRu, /Почему мы создали Ярату|Почему Ярату/);
   assert.match(homeRu, /ISO 22000:2018/);
   assert.match(homeRu, /ТР ТС 021\/2011/);

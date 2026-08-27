@@ -1150,19 +1150,23 @@ section {
 }
 
 .kbju div {
+  min-width: 0;
   padding-top: 0.15rem;
 }
 
 .kbju strong {
   display: block;
+  overflow-wrap: normal;
+  white-space: nowrap;
   font-family: var(--font-display);
-  font-size: clamp(1.55rem, 2.6vw, 2rem);
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
   font-weight: 500;
   line-height: 1.1;
 }
 
 .kbju span {
-  font-size: 0.72rem;
+  display: block;
+  font-size: 0.7rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -1884,15 +1888,15 @@ section {
 .product__media {
   display: grid;
   place-items: center;
-  padding: 1.25rem 1rem;
+  padding: 1.5rem 1.15rem;
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.95), transparent 50%),
+    radial-gradient(circle at 50% 42%, rgba(255, 255, 255, 0.95), transparent 52%),
     var(--cream-dim);
 }
 
 .product__media img {
-  width: min(100%, 260px);
-  max-height: 380px;
+  width: min(100%, 300px);
+  max-height: 420px;
   object-fit: contain;
   filter: drop-shadow(0 18px 18px rgba(47, 57, 28, 0.18));
 }
@@ -1900,8 +1904,8 @@ section {
 .product__body {
   display: grid;
   align-content: start;
-  gap: 1rem;
-  padding: 1.5rem 1.15rem 1.75rem;
+  gap: 0.95rem;
+  padding: 1.5rem 1.15rem 1.6rem;
   background: var(--olive);
   color: var(--cream);
 }
@@ -1914,9 +1918,10 @@ section {
 
 .product__body h3 {
   margin: 0;
+  max-width: none;
   color: var(--cream);
   font-size: clamp(1.7rem, 7vw, 2.15rem);
-  line-height: 1.1;
+  line-height: 1.12;
 }
 
 .product__body > p {
@@ -1961,10 +1966,6 @@ section {
   line-height: 1.5;
 }
 
-.product__body .kbju {
-  border-color: rgba(255, 240, 217, 0.23);
-}
-
 .product__body .product__allergens {
   padding-top: 0;
   border: 0;
@@ -1974,14 +1975,16 @@ section {
 
 .product__body .btn--outline {
   justify-self: start;
+  margin-top: 0.15rem;
   border-color: rgba(255, 240, 217, 0.58);
   color: var(--cream) !important;
 }
 
 .product__nutrition {
   display: grid;
+  align-content: start;
   justify-items: stretch;
-  gap: 0.85rem;
+  gap: 0.75rem;
   padding: 1.25rem 1rem 1.5rem;
   background: var(--white);
 }
@@ -2303,32 +2306,38 @@ section {
   }
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 960px) {
   .product {
-    grid-template-columns: minmax(0, 0.82fr) minmax(0, 0.95fr) minmax(0, 0.88fr);
+    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+  }
+
+  .product__media {
+    grid-row: 1 / span 2;
+    padding: 2rem 1.5rem;
+  }
+
+  .product__media img {
+    width: min(100%, 420px);
+    max-height: min(72vh, 620px);
   }
 
   .product__body {
-    padding: 2.4rem;
+    padding: 2rem 2rem 1.6rem;
   }
 
   .product__body h3 {
-    font-size: clamp(2.1rem, 2.6vw, 3.1rem);
+    font-size: clamp(2rem, 2.5vw, 2.7rem);
   }
 
   .product__nutrition {
-    align-content: center;
-    padding: 2rem 1.5rem;
+    padding: 0 2rem 2rem;
+    border-top: 1px solid var(--line);
   }
 
   .product__nutrition .nf-wrap,
   .product__nutrition .nf-card {
-    max-width: 380px;
-  }
-
-  .product__media img {
-    max-width: 400px;
-    max-height: 640px;
+    max-width: 360px;
+    justify-self: start;
   }
 }
 
