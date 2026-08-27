@@ -285,7 +285,7 @@
         }
       }
       .product__plate img {
-        width: min(100%, 300px); max-height: 340px;
+        width: min(100%, 320px); max-height: 420px;
         object-fit: contain; mix-blend-mode: multiply;
       }
       .product__body {
@@ -314,11 +314,66 @@
         font-size: 0.66rem; letter-spacing: 0.14em; margin-right: 0.4rem;
       }
 
-      /* Nutrition Facts — этикетка как документ-экспонат на развороте */
+      /* Nutrition Facts — этикетка выезжает по кнопке, как карта на стол */
+      .deal {
+        display: flex; flex-direction: column; align-items: center;
+        width: 100%; max-width: 320px; justify-self: center;
+        margin: 0 auto 3rem;
+      }
+      .deal__panel { order: 1; width: 100%; }
+      .deal__trigger {
+        order: 2; list-style: none; cursor: pointer; width: 100%;
+      }
+      .deal__trigger::-webkit-details-marker { display: none; }
+      .deal__trigger:focus-visible {
+        outline: 2px solid var(--gold); outline-offset: 4px;
+      }
+      .deal__teaser {
+        display: grid; gap: 1.15rem; justify-items: center;
+        padding: 2.4rem 1.6rem; text-align: center;
+        border: 1.5px dashed rgba(22, 27, 13, 0.35);
+        transition: border-color 0.2s ease, background 0.2s ease;
+      }
+      .deal__trigger:hover .deal__teaser {
+        border-color: var(--gold); background: rgba(161, 117, 19, 0.06);
+      }
+      .deal__teaser-cap {
+        font-size: 0.62rem; font-weight: 800; letter-spacing: 0.18em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.55);
+      }
+      .deal__closer {
+        display: none; align-items: center; gap: 0.45rem;
+        margin-top: 1.1rem; padding-bottom: 0.25rem;
+        font-size: 0.66rem; font-weight: 800; letter-spacing: 0.16em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.6);
+        border-bottom: 1px solid rgba(22, 27, 13, 0.3);
+      }
+      .deal__trigger:hover .deal__closer { color: var(--ink); border-color: var(--ink); }
+      .deal[open] .deal__trigger { width: auto; }
+      .deal[open] .deal__teaser { display: none; }
+      .deal[open] .deal__closer { display: inline-flex; }
+      .deal[open] .deal__panel {
+        animation: deal-from-left 0.62s cubic-bezier(0.2, 1.25, 0.35, 1) both;
+        transform-origin: center bottom;
+      }
+      .product--flip .deal[open] .deal__panel { animation-name: deal-from-right; }
+      @keyframes deal-from-left {
+        from { opacity: 0; transform: translateX(-72px) rotate(-4deg); }
+        to { opacity: 1; transform: none; }
+      }
+      @keyframes deal-from-right {
+        from { opacity: 0; transform: translateX(72px) rotate(4deg); }
+        to { opacity: 1; transform: none; }
+      }
+      @media (max-width: 919px) {
+        .deal[open] .deal__panel { animation-name: deal-up; }
+      }
+      @keyframes deal-up {
+        from { opacity: 0; transform: translateY(44px) rotate(1.5deg); }
+        to { opacity: 1; transform: none; }
+      }
       .product__label {
-        margin: 0; display: grid; gap: 0.9rem;
-        justify-items: center; align-content: center;
-        padding: 0 0 3rem;
+        margin: 0; display: grid; gap: 0.9rem; justify-items: center;
       }
       .product__label .nf-card { box-shadow: 10px 10px 0 rgba(31, 38, 18, 0.12); }
       .product__label figcaption {
@@ -371,20 +426,20 @@
         .product { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); }
         .product--flip .product__plate { order: 2; }
         .product__plate { padding: 4rem 2.5rem; }
-        .product__plate img { width: min(100%, 360px); max-height: 430px; }
+        .product__plate img { width: min(100%, 380px); max-height: 500px; }
         .product__body { padding: 3.5rem 0 3.5rem 3.2rem; }
         .product--flip .product__body { padding: 3.5rem 3.2rem 3.5rem 0; }
-        .product__label { grid-column: 1 / -1; padding: 0 0 3.5rem; }
+        .deal { grid-column: 1 / -1; margin: 0 auto 3.5rem; }
       }
       @media (min-width: 1180px) {
-        .product { grid-template-columns: minmax(0, 0.85fr) minmax(0, 1fr) minmax(0, 0.75fr); }
+        .product { grid-template-columns: minmax(0, 0.95fr) minmax(0, 1fr) minmax(0, 0.68fr); }
         .product__plate { padding: 3.5rem 1.8rem; }
-        .product__plate img { width: min(100%, 320px); max-height: 400px; }
+        .product__plate img { width: min(100%, 360px); max-height: 540px; }
         .product__body { padding: 3.5rem 2.2rem; }
         .product--flip .product__body { order: 2; padding: 3.5rem 2.2rem; }
         .product--flip .product__plate { order: 3; }
-        .product--flip .product__label { order: 1; }
-        .product__label { grid-column: auto; padding: 3.5rem 0; }
+        .product--flip .deal { order: 1; }
+        .deal { grid-column: auto; margin: 0; align-self: center; }
       }
 
       /* quality */
@@ -483,6 +538,7 @@
         html { scroll-behavior: auto; }
         .ticker__track, .badge__ring { animation: none; }
         .btn { transition: none; }
+        .deal[open] .deal__panel { animation: none; }
       }
     </style>
   </head>
@@ -619,9 +675,9 @@
                 Пять продуктов. <em>Ноль секретов.</em>
               </h2>
               <p class="products__lead">
-                В каждой карточке — полная этикетка: пищевая ценность, честно
-                помеченная как расчёт по сырьевой рецептуре, состав до
-                ингредиентов добавок и аллергены.
+                В каждой карточке — кнопка «Показать этикетку»: полная пищевая
+                ценность, честно помеченная как расчёт по сырьевой рецептуре,
+                состав до ингредиентов добавок и аллергены.
               </p>
             </div>
             <ol class="toc">
@@ -688,32 +744,43 @@
               </p>
               <p class="product__allergens"><b>Аллергены</b> молоко</p>
             </div>
-            <figure class="product__label">
-              <aside class="nf-wrap" aria-label="Пищевая ценность — Ветчина филейная">
-                <div class="nf-card">
-                  <p class="nf-card-title">Пищевая ценность</p>
-                  <p class="nf-basis">на 100 г</p>
-                  <div class="nf-net"><span>Масса нетто</span><span>150 г</span></div>
-                  <div class="nf-line-10"></div>
-                  <p class="nf-energy-cap">Калорийность / Энергетическая ценность</p>
-                  <p class="nf-energy-line">125 ккал / 523 кДж</p>
-                  <div class="nf-cal-row"><span class="nf-cal-label">Калории</span><span class="nf-cal-val">125</span></div>
-                  <div class="nf-line-5"></div>
-                  <div class="nf-dv-head">% от суточной нормы*</div>
-                  <div class="nf-row bold"><span>Белки ≥ 16,7 г</span><span>22%</span></div>
-                  <div class="nf-row bold"><span>Всего жиров ≤ 6 г</span><span>7%</span></div>
-                  <div class="nf-row indent"><span>Насыщенные жиры 2,1 г</span><span>11%</span></div>
-                  <div class="nf-row bold"><span>Углеводы ≤ 0,4 г</span><span>0%</span></div>
-                  <div class="nf-line-5"></div>
-                  <p class="nf-foot">* % от рекомендуемого уровня суточного потребления по ТР ТС 022/2011. 2500 ккал для общих рекомендаций. Расчёт по текущей рецептуре, не лабораторный протокол.</p>
-                  <div class="nf-line-1"></div>
-                  <p class="nf-ing-title">Состав</p>
-                  <p class="nf-ing-text"><b>Состав:</b> Филе бедра куриное, филе грудки куриной, вода питьевая, молочный белок, сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, соль поваренная пищевая, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, экстракты пряностей (чеснок, перец чёрный, мускатный орех), ароматизатор, мальтодекстрин.</p>
-                  <p class="nf-ing-extra"><b>Содержит:</b> Молоко</p>
-                </div>
-              </aside>
-              <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
-            </figure>
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">Пищевая ценность · состав · аллергены</span>
+                  <span class="btn btn--ink">Показать этикетку <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">Скрыть этикетку <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="Пищевая ценность — Ветчина филейная">
+                    <div class="nf-card">
+                      <p class="nf-card-title">Пищевая ценность</p>
+                      <p class="nf-basis">на 100 г</p>
+                      <div class="nf-net"><span>Масса нетто</span><span>150 г</span></div>
+                      <div class="nf-line-10"></div>
+                      <p class="nf-energy-cap">Калорийность / Энергетическая ценность</p>
+                      <p class="nf-energy-line">125 ккал / 523 кДж</p>
+                      <div class="nf-cal-row"><span class="nf-cal-label">Калории</span><span class="nf-cal-val">125</span></div>
+                      <div class="nf-line-5"></div>
+                      <div class="nf-dv-head">% от суточной нормы*</div>
+                      <div class="nf-row bold"><span>Белки ≥ 16,7 г</span><span>22%</span></div>
+                      <div class="nf-row bold"><span>Всего жиров ≤ 6 г</span><span>7%</span></div>
+                      <div class="nf-row indent"><span>Насыщенные жиры 2,1 г</span><span>11%</span></div>
+                      <div class="nf-row bold"><span>Углеводы ≤ 0,4 г</span><span>0%</span></div>
+                      <div class="nf-line-5"></div>
+                      <p class="nf-foot">* % от рекомендуемого уровня суточного потребления по ТР ТС 022/2011. 2500 ккал для общих рекомендаций. Расчёт по текущей рецептуре, не лабораторный протокол.</p>
+                      <div class="nf-line-1"></div>
+                      <p class="nf-ing-title">Состав</p>
+                      <p class="nf-ing-text"><b>Состав:</b> Филе бедра куриное, филе грудки куриной, вода питьевая, молочный белок, сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, соль поваренная пищевая, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, экстракты пряностей (чеснок, перец чёрный, мускатный орех), ароматизатор, мальтодекстрин.</p>
+                      <p class="nf-ing-extra"><b>Содержит:</b> Молоко</p>
+                    </div>
+                  </aside>
+                  <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
+                </figure>
+              </div>
+            </details>
           </article>
 
           <!-- 02 -->
@@ -740,32 +807,43 @@
                 <b>Аллергены</b> не заявлены в текущей рецептуре
               </p>
             </div>
-            <figure class="product__label">
-              <aside class="nf-wrap" aria-label="Пищевая ценность — Колбаса варёно-копчёная «Мраморная»">
-                <div class="nf-card">
-                  <p class="nf-card-title">Пищевая ценность</p>
-                  <p class="nf-basis">на 100 г</p>
-                  <div class="nf-net"><span>Масса нетто</span><span>500 г</span></div>
-                  <div class="nf-line-10"></div>
-                  <p class="nf-energy-cap">Калорийность / Энергетическая ценность</p>
-                  <p class="nf-energy-line">264 ккал / 1&nbsp;105 кДж</p>
-                  <div class="nf-cal-row"><span class="nf-cal-label">Калории</span><span class="nf-cal-val">264</span></div>
-                  <div class="nf-line-5"></div>
-                  <div class="nf-dv-head">% от суточной нормы*</div>
-                  <div class="nf-row bold"><span>Белки ≥ 14,9 г</span><span>20%</span></div>
-                  <div class="nf-row bold"><span>Всего жиров ≤ 21,9 г</span><span>26%</span></div>
-                  <div class="nf-row indent"><span>Насыщенные жиры 7,7 г</span><span>39%</span></div>
-                  <div class="nf-row bold"><span>Углеводы ≤ 0,5 г</span><span>0%</span></div>
-                  <div class="nf-line-5"></div>
-                  <p class="nf-foot">* % от рекомендуемого уровня суточного потребления по ТР ТС 022/2011. 2500 ккал для общих рекомендаций. Расчёт по текущей рецептуре, не лабораторный протокол.</p>
-                  <div class="nf-line-1"></div>
-                  <p class="nf-ing-title">Состав</p>
-                  <p class="nf-ing-text"><b>Состав:</b> Филе бедра куриное, кожа птицы, говядина, жир говяжий, вода питьевая, соль поваренная пищевая, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, виноградный сахар, мальтодекстрин, сухой глюкозный сироп, дрожжевой экстракт, ароматизатор со вкусом мяса, экстракт барбадосской вишни, сухой лимонный сок, пряности и их экстракты (чёрный и белый перец, мускатный орех, чеснок, душистый перец), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, ароматизатор типа «мясо», экстракты мускатного ореха, имбиря и кориандра, ароматизатор типа «мясо» с ароматом говядины.</p>
-                  <p class="nf-ing-extra"><b>Содержит:</b> Не заявлены в текущей рецептуре</p>
-                </div>
-              </aside>
-              <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
-            </figure>
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">Пищевая ценность · состав · аллергены</span>
+                  <span class="btn btn--ink">Показать этикетку <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">Скрыть этикетку <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="Пищевая ценность — Колбаса варёно-копчёная «Мраморная»">
+                    <div class="nf-card">
+                      <p class="nf-card-title">Пищевая ценность</p>
+                      <p class="nf-basis">на 100 г</p>
+                      <div class="nf-net"><span>Масса нетто</span><span>500 г</span></div>
+                      <div class="nf-line-10"></div>
+                      <p class="nf-energy-cap">Калорийность / Энергетическая ценность</p>
+                      <p class="nf-energy-line">264 ккал / 1&nbsp;105 кДж</p>
+                      <div class="nf-cal-row"><span class="nf-cal-label">Калории</span><span class="nf-cal-val">264</span></div>
+                      <div class="nf-line-5"></div>
+                      <div class="nf-dv-head">% от суточной нормы*</div>
+                      <div class="nf-row bold"><span>Белки ≥ 14,9 г</span><span>20%</span></div>
+                      <div class="nf-row bold"><span>Всего жиров ≤ 21,9 г</span><span>26%</span></div>
+                      <div class="nf-row indent"><span>Насыщенные жиры 7,7 г</span><span>39%</span></div>
+                      <div class="nf-row bold"><span>Углеводы ≤ 0,5 г</span><span>0%</span></div>
+                      <div class="nf-line-5"></div>
+                      <p class="nf-foot">* % от рекомендуемого уровня суточного потребления по ТР ТС 022/2011. 2500 ккал для общих рекомендаций. Расчёт по текущей рецептуре, не лабораторный протокол.</p>
+                      <div class="nf-line-1"></div>
+                      <p class="nf-ing-title">Состав</p>
+                      <p class="nf-ing-text"><b>Состав:</b> Филе бедра куриное, кожа птицы, говядина, жир говяжий, вода питьевая, соль поваренная пищевая, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, виноградный сахар, мальтодекстрин, сухой глюкозный сироп, дрожжевой экстракт, ароматизатор со вкусом мяса, экстракт барбадосской вишни, сухой лимонный сок, пряности и их экстракты (чёрный и белый перец, мускатный орех, чеснок, душистый перец), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, ароматизатор типа «мясо», экстракты мускатного ореха, имбиря и кориандра, ароматизатор типа «мясо» с ароматом говядины.</p>
+                      <p class="nf-ing-extra"><b>Содержит:</b> Не заявлены в текущей рецептуре</p>
+                    </div>
+                  </aside>
+                  <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
+                </figure>
+              </div>
+            </details>
           </article>
 
           <!-- 03 -->
@@ -788,8 +866,17 @@
               </p>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
-            <figure class="product__label">
-              <aside class="nf-wrap" aria-label="Пищевая ценность — Сосиски с брокколи">
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">Пищевая ценность · состав · аллергены</span>
+                  <span class="btn btn--ink">Показать этикетку <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">Скрыть этикетку <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="Пищевая ценность — Сосиски с брокколи">
                 <div class="nf-card">
                   <p class="nf-card-title">Пищевая ценность</p>
                   <p class="nf-basis">на 100 г</p>
@@ -814,6 +901,8 @@
               </aside>
               <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
             </figure>
+              </div>
+            </details>
           </article>
 
           <!-- 04 -->
@@ -837,8 +926,17 @@
               </p>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
-            <figure class="product__label">
-              <aside class="nf-wrap" aria-label="Пищевая ценность — Сосиски «Молочные»">
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">Пищевая ценность · состав · аллергены</span>
+                  <span class="btn btn--ink">Показать этикетку <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">Скрыть этикетку <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="Пищевая ценность — Сосиски «Молочные»">
                 <div class="nf-card">
                   <p class="nf-card-title">Пищевая ценность</p>
                   <p class="nf-basis">на 100 г</p>
@@ -863,6 +961,8 @@
               </aside>
               <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
             </figure>
+              </div>
+            </details>
           </article>
 
           <!-- 05 -->
@@ -885,8 +985,17 @@
               </p>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
-            <figure class="product__label">
-              <aside class="nf-wrap" aria-label="Пищевая ценность — Колбаса варёная «Сливочная»">
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">Пищевая ценность · состав · аллергены</span>
+                  <span class="btn btn--ink">Показать этикетку <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">Скрыть этикетку <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="Пищевая ценность — Колбаса варёная «Сливочная»">
                 <div class="nf-card">
                   <p class="nf-card-title">Пищевая ценность</p>
                   <p class="nf-basis">на 100 г</p>
@@ -911,6 +1020,8 @@
               </aside>
               <figcaption>Этикетка с полным составом · расчёт по рецептуре</figcaption>
             </figure>
+              </div>
+            </details>
           </article>
         </div>
       </section>
