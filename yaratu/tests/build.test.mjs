@@ -110,7 +110,7 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.match(homeRu, /id="contacts"/);
   assert.match(homeRu, /id="faq"/);
   assert.match(homeRu, /Публичного потребительского прайса нет/);
-  assert.equal((homeRu.match(/fetchpriority="high"/g) || []).length, 1);
+  assert.equal((homeRu.match(/fetchpriority="high"/g) || []).length, 0);
   assert.doesNotMatch(homeRu, /Халяль подтверждён/);
   assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*% Daily Value/);

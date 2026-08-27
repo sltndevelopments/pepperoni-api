@@ -274,7 +274,6 @@ function homeFaqs(lang) {
 function home(lang) {
   const L = t[lang];
   const ru = lang === "ru";
-  const heroProduct = products[0];
   const items = products.map((p, i) => ({"@type": "ListItem", position: i + 1, url: absolute(pagePath(lang, `products/${p.id}`)), name: p.name[lang]}));
   const faqs = homeFaqs(lang);
   const faqPage = {"@type": "FAQPage", mainEntity: faqs.map(([name, text]) => ({"@type": "Question", name, acceptedAnswer: {"@type": "Answer", text}}))};
@@ -338,7 +337,7 @@ function home(lang) {
   };
   const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
 <div class="wrap hero__layout"><div class="hero__content"><p class="hero__overline">${ru ? "Мясные продукты · Казань" : "Meat products · Kazan"}</p><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${ru ? "Смотреть ассортимент" : "Explore the range"}</a><a class="btn btn--ghost" href="#contacts">${L.connect}</a></div><div class="hero__badges"><span>${ru ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div>
-<div class="hero__product"><div class="hero__product-frame"><div class="hero__product-halo"></div>${packshot(heroProduct, lang, ' fetchpriority="high"', { srcset: false })}</div><span class="hero__product-caption">${h(heroProduct.name[lang])}</span></div></div></section>
+</div></section>
 <section id="advantages" class="story-section"><div class="wrap story"><div class="story__copy"><span class="eyebrow">${story.eyebrow}</span><h2>${story.title}</h2><p class="lede">${story.lead}</p><p class="story__quote">${story.quote}</p></div><div class="story__visual">${packshot(products[4], lang, ' loading="lazy"', { srcset: false })}</div></div></section>
 <section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
 <section class="production"><div class="wrap production__grid"><div><span class="eyebrow">${production.eyebrow}</span><h2>${production.title}</h2></div><div class="production__copy"><p>${production.lead}</p><div class="production__standards">${production.standards.map(([name, text]) => `<div><strong>${name}</strong><span>${text}</span></div>`).join("")}</div></div></div></section>
