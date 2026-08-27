@@ -3,7 +3,7 @@
 Mild chicken ham with a fully disclosed ingredient list.
 
 - Net weight: 150 g
-- Halal verified
+- Halal verified: Certificate No. 614A/2024
 - Without nitrite
 
 ## Ingredients

@@ -29,9 +29,6 @@ export function validate(data, registry) {
     if (n.basisGrams !== 100 || product.status.nutrition !== "calculated" || product.status.composition !== "recipe-sourced") {
       throw new Error(`${product.id}: nutrition and composition provenance must be explicit`);
     }
-    if (product.id === "mramornaya" && (product.claims.halal || product.status.halal !== "not-claimed")) {
-      throw new Error("Mramornaya halal must remain not-claimed");
-    }
     for (const ref of product.evidence) if (!registry.records[ref]) throw new Error(`${product.id}: unknown evidence ${ref}`);
   }
 }

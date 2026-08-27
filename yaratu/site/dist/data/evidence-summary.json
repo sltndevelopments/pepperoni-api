@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastModified": "2026-08-26",
+  "lastModified": "2026-08-27",
   "products": [
     {
       "id": "vetchina",
@@ -13,7 +13,7 @@
       "id": "mramornaya",
       "nutrition": "calculated",
       "composition": "recipe-sourced",
-      "halal": "not-claimed",
+      "halal": "verified",
       "evidence": "internal-reviewed"
     },
     {

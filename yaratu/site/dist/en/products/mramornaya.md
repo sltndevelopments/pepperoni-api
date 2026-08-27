@@ -3,7 +3,7 @@
 Chicken and beef sausage with a savoury spiced profile.
 
 - Net weight: 500 g
-- No halal claim
+- Halal verified: Certificate No. 614A/2024
 - Without nitrite
 
 ## Ingredients

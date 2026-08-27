@@ -30,10 +30,11 @@ test("canonical data has five bilingual validated products", async () => {
     assert.equal(product.status.nutrition, "calculated");
     assert.equal(product.status.composition, "recipe-sourced");
   }
-  const marble = data.products.find((p) => p.id === "mramornaya");
-  assert.equal(marble.claims.halal, false);
-  assert.equal(marble.status.halal, "not-claimed");
-  assert.ok(!marble.evidence.includes("halal-614a-2024"));
+  for (const product of data.products) {
+    assert.equal(product.claims.halal, true);
+    assert.equal(product.status.halal, "verified");
+    assert.ok(product.evidence.includes("halal-614a-2024"));
+  }
 });
 
 test("allowlist build excludes internal and legacy SVG", async () => {
@@ -66,6 +67,9 @@ test("mobile navigation works without JavaScript and keeps native keyboard seman
   const css = await readFile(join(dist, "styles.css"), "utf8");
   assert.match(css, /\.nav__menu\s*\{/);
   assert.match(css, /@media \(min-width: 860px\)[\s\S]*\.nav__menu\s*\{[\s\S]*display:\s*none/);
+  assert.match(css, /overflow-x:\s*clip/);
+  const cssWithoutMinWidth = css.replace(/@media \(min-width:[^)]+\)\s*\{(?:[^{}]|\{[^{}]*\})*\}/g, "");
+  assert.doesNotMatch(cssWithoutMinWidth, /grid-template-columns:[^;{]*minmax\(\s*(?:[2-9]\d{2}|1\d{3})px/);
   for (const path of built) {
     const html = await readFile(join(dist, path), "utf8");
     assert.match(html, /<details class="nav__menu"><summary>[^<]+<\/summary><nav aria-label="[^"]+">/);
@@ -89,15 +93,24 @@ test("visible units and decimal separators follow locale", async () => {
 test("static Nutrition Facts labels are visible on home and product pages", async () => {
   const homeRu = await readFile(join(dist, "index.html"), "utf8");
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
-  assert.equal((homeRu.match(/nf-wrap nf-wrap--compact/g) || []).length, 5);
-  assert.equal((homeEn.match(/nf-wrap nf-wrap--compact/g) || []).length, 5);
+  assert.equal((homeRu.match(/class="nf-wrap"/g) || []).length, 5);
+  assert.equal((homeEn.match(/class="nf-wrap"/g) || []).length, 5);
   assert.match(homeRu, /<h1>Любовь начинается со вкуса<\/h1>/);
-  assert.match(homeRu, /Ярату — мясной бренд ООО «Казанские Деликатесы»/);
+  assert.match(homeRu, /Пять мясных продуктов из Казани/);
   assert.match(homeRu, /<h2>Без нитрита натрия<\/h2>/);
-  assert.match(homeRu, /<table class="range-table">/);
+  assert.doesNotMatch(homeRu, /<table class="range-table">/);
+  assert.equal((homeRu.match(/class="product__media"/g) || []).length, 5);
+  assert.equal((homeRu.match(/class="product__body"/g) || []).length, 5);
+  assert.equal((homeRu.match(/class="product__nutrition"/g) || []).length, 5);
+  assert.match(homeRu, /Почему мы создали Ярату|Почему Ярату/);
+  assert.match(homeRu, /ISO 22000:2018/);
+  assert.match(homeRu, /ТР ТС 021\/2011/);
+  assert.match(homeRu, /id="quality"/);
+  assert.match(homeRu, /id="contacts"/);
   assert.match(homeRu, /id="faq"/);
   assert.match(homeRu, /Публичного потребительского прайса нет/);
-  assert.doesNotMatch(homeRu, /fetchpriority="high"/);
+  assert.equal((homeRu.match(/fetchpriority="high"/g) || []).length, 1);
+  assert.doesNotMatch(homeRu, /Халяль подтверждён/);
   assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*% Daily Value/);
   assert.doesNotMatch(homeRu, /Транс-жиры 0|Холестерин 0|Волокна 0/);
@@ -138,7 +151,7 @@ test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
   assert.match(feedXml, /merchant="false"/);
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
   assert.equal((sitemap.match(/<url>/g) || []).length, 18);
-  assert.equal((sitemap.match(/<lastmod>2026-08-26<\/lastmod>/g) || []).length, 18);
+  assert.equal((sitemap.match(/<lastmod>2026-08-27<\/lastmod>/g) || []).length, 18);
   assert.match(sitemap, /xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml"/);
   assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="ru"/g) || []).length, 18);
   assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="en"/g) || []).length, 18);
@@ -200,7 +213,7 @@ test("AI and crawler discovery files have complete parity", async () => {
   assert.match(llms, /\[Canonical JSON\]\(https:\/\/yaratu\.com\/data\/products\.json\)/);
   assert.match(full, /^# Yaratu full RU\+EN dataset/m);
   assert.match(full, /\[RU\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
-  assert.match(full, /Halal status: not-claimed/);
+  assert.equal((full.match(/Halal status: verified/g) || []).length, 5);
   assert.equal(wellKnown, full);
   assert.equal(identity.url, "https://yaratu.com/");
   for (const link of [ai.identity, ai.llms, ai.llmsFull, ai.wellKnownLlms, ai.products, ai.evidenceSummary, ai.sitemap, ai.llmsSitemap, ai.robotsAi]) {
@@ -229,7 +242,8 @@ test("Sheets template matches strict sync contract", async () => {
   }
   assert.equal((csv.match(/^"(vetchina|mramornaya|brokkoli|molochnye|slivochnaya)",/gm) || []).length, 5);
   assert.equal((csv.match(/"true","fully-reviewed","calculated","recipe-sourced","internal-reviewed"/g) || []).length, 5);
-  assert.match(csv, /"mramornaya"[\s\S]*?"not-claimed","true","fully-reviewed"/);
+  assert.match(csv, /"mramornaya"[\s\S]*?"verified","true","fully-reviewed"/);
+  assert.match(csv, /"mramornaya"[\s\S]*?"recipe-current;halal-614a-2024"/);
   const sync = await readFile(join(root, "scripts/sync_sheets.mjs"), "utf8");
   assert.match(sync, /YARATU_GOOGLE_SERVICE_ACCOUNT_JSON/);
   assert.match(sync, /YARATU_GOOGLE_SERVICE_ACCOUNT_B64/);

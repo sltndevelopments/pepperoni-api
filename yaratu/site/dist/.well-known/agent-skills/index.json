@@ -4,9 +4,9 @@
     {
       "name": "yaratu-catalog",
       "type": "skill-md",
-      "description": "Look up the five Yaratu products, calculated nutrition, allergens and product-specific halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
+      "description": "Look up the five Yaratu products, calculated nutrition, allergens and certificate-backed halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
       "url": "/.well-known/agent-skills/yaratu-catalog/SKILL.md",
-      "digest": "sha256:f3e284759c7d4a40df5cbc25814e63c8c17e9146219a3de4a7720d1b67e64aba"
+      "digest": "sha256:f926aee0f3017606c7b21bdb4798d9495c8c3e8fb82d0e60fb15119c31040647"
     },
     {
       "name": "yaratu-ingredients",

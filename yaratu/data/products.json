@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "lastModified": "2026-08-26",
+  "lastModified": "2026-08-27",
   "source": "google-sheets",
   "nutritionBasis": {
     "ru": "Расчётный ориентир на 100 г сырьевой массы; не лабораторное значение.",
@@ -94,16 +94,17 @@
       },
       "claims": {
         "withoutSodiumNitrite": true,
-        "halal": false
+        "halal": true
       },
       "status": {
         "nutrition": "calculated",
         "composition": "recipe-sourced",
-        "halal": "not-claimed",
+        "halal": "verified",
         "evidence": "internal-reviewed"
       },
       "evidence": [
-        "recipe-current"
+        "recipe-current",
+        "halal-614a-2024"
       ]
     },
     {

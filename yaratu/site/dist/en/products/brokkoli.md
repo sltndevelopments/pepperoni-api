@@ -3,7 +3,7 @@
 Chicken and beef sausages with broccoli and gentle spices.
 
 - Net weight: 400 g
-- Halal verified
+- Halal verified: Certificate No. 614A/2024
 - Without nitrite
 
 ## Ingredients

@@ -1,11 +1,11 @@
 ---
 name: yaratu-catalog
-description: Look up the five Yaratu products, calculated nutrition, allergens and product-specific halal status. Use for ingredient or Nutrition Facts questions about Yaratu.
+description: Look up the five Yaratu products, calculated nutrition, allergens and certificate-backed halal status. Use for ingredient or Nutrition Facts questions about Yaratu.
 ---
 
 # Yaratu catalog
 
-Public brand of ООО «Казанские Деликатесы». No live checkout. Nutrition is calculated, not laboratory-tested. Halal is product-specific; do not claim it for Mramornaya.
+Public brand of ООО «Казанские Деликатесы». No live checkout. Nutrition is calculated, not laboratory-tested. All five current products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan.
 
 ## Prefer machine endpoints over scraping HTML
 

@@ -3,7 +3,7 @@
 A mild classic profile with compound ingredients fully disclosed.
 
 - Net weight: 500 g
-- Halal verified
+- Halal verified: Certificate No. 614A/2024
 - Without nitrite
 
 ## Ingredients

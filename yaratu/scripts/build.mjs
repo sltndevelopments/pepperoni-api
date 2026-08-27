@@ -40,7 +40,7 @@ const t = {
   ru: {
     home: "Главная", products: "Продукты", retail: "Для закупщиков", ingredients: "Раскрытый состав",
     nitrite: "Без нитрита", hero: "Любовь начинается со вкуса",
-    lead: "Ярату — мясной бренд ООО «Казанские Деликатесы»: пять варёных продуктов из Казани без нитрита натрия, с комплексными добавками, раскрытыми до отдельных ингредиентов. Для магазинов и покупателей, которым нужен проверяемый состав.",
+    lead: "Пять мясных продуктов из Казани с раскрытым составом, без нитрита натрия и с пищевой ценностью, которую можно прочитать до покупки.",
     range: "Пять продуктов. Состав без сокращений.", see: "Смотреть продукт", calculated: "Расчётные КБЖУ",
     halal: "Халяль подтверждён", noHalal: "Халяль не заявлен", weight: "Масса нетто",
     composition: "Состав", allergens: "Аллергены", nutrition: "КБЖУ на 100 г",
@@ -48,12 +48,13 @@ const t = {
     kcal: "ккал", protein: "белки", fat: "жиры", carbs: "углеводы",
     contact: "Запросить спецификации", footer: "бренд ООО «Казанские Деликатесы»",
     status: "Статус данных", evidence: "Рецептура и состав проверены по внутренним документам.",
-    language: "English"
+    language: "English", advantages: "Преимущества", quality: "Контроль качества",
+    contacts: "Контакты", connect: "Связаться"
   },
   en: {
     home: "Home", products: "Products", retail: "For retailers", ingredients: "Disclosed ingredients",
     nitrite: "Without nitrite", hero: "Love begins with taste",
-    lead: "Yaratu is the meat brand of Kazan Delicacies: five cooked products from Kazan without sodium nitrite, with every compound mix listed ingredient by ingredient. For retailers and shoppers who need a checkable recipe.",
+    lead: "Five meat products from Kazan with disclosed ingredients, no sodium nitrite and nutrition you can read before you buy.",
     range: "Five products. No ingredient-list shortcuts.", see: "View product", calculated: "Calculated nutrition",
     halal: "Halal verified", noHalal: "No halal claim", weight: "Net weight",
     composition: "Ingredients", allergens: "Allergens", nutrition: "Nutrition per 100 g",
@@ -61,7 +62,8 @@ const t = {
     kcal: "kcal", protein: "protein", fat: "fat", carbs: "carbohydrate",
     contact: "Request specifications", footer: "a brand of Kazan Delicacies LLC",
     status: "Data status", evidence: "Recipe and composition reviewed against internal documents.",
-    language: "Русский"
+    language: "Русский", advantages: "Why Yaratu", quality: "Quality control",
+    contacts: "Contact", connect: "Get in touch"
   }
 };
 
@@ -123,15 +125,19 @@ function homeMarkdown(lang) {
   const L = t[lang];
   const lines = products.map((p) => {
     const n = p.nutrition;
-    return `- [${p.name[lang]}](${absolute(pagePath(lang, `products/${p.id}`))}): ${p.summary[lang]} ${formatNumber(n.caloriesKcal, lang)} ${L.kcal}, ${formatNumber(n.proteinGrams, lang)} ${grams(lang)} ${L.protein}. ${p.claims.halal ? L.halal : L.noHalal}.`;
+    return `- [${p.name[lang]}](${absolute(pagePath(lang, `products/${p.id}`))}): ${p.summary[lang]} ${formatNumber(n.caloriesKcal, lang)} ${L.kcal}, ${formatNumber(n.proteinGrams, lang)} ${grams(lang)} ${L.protein}.`;
   });
-  return `# ${L.hero}\n\n${L.lead}\n\n## ${L.range}\n\n${L.nutritionNote}\n\n${lines.join("\n")}\n\n- [${L.ingredients}](${absolute(pagePath(lang, "ingredients"))})\n- [${L.nitrite}](${absolute(pagePath(lang, "without-sodium-nitrite"))})\n- [${L.retail}](${absolute(pagePath(lang, "retail"))})\n- [llms.txt](${SITE}/llms.txt)\n- [products.json](${SITE}/data/products.json)\n`;
+  const halal = lang === "ru"
+    ? "Все пять продуктов входят в область действия сертификата Халяль ДУМ РТ №614А/2024."
+    : "All five products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan.";
+  return `# ${L.hero}\n\n${L.lead}\n\n${halal}\n\n## ${L.range}\n\n${L.nutritionNote}\n\n${lines.join("\n")}\n\n- [${L.ingredients}](${absolute(pagePath(lang, "ingredients"))})\n- [${L.nitrite}](${absolute(pagePath(lang, "without-sodium-nitrite"))})\n- [${L.retail}](${absolute(pagePath(lang, "retail"))})\n- [llms.txt](${SITE}/llms.txt)\n- [products.json](${SITE}/data/products.json)\n`;
 }
 
 function productMarkdown(product, lang) {
   const L = t[lang];
   const n = product.nutrition;
-  return `# ${product.name[lang]}\n\n${product.summary[lang]}\n\n- ${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}\n- ${product.claims.halal ? L.halal : L.noHalal}\n- ${L.nitrite}\n\n## ${L.composition}\n\n${product.ingredients[lang]}\n\n**${L.allergens}:** ${product.allergens[lang]}\n\n## ${L.nutrition}\n\n- ${L.kcal}: ${formatNumber(n.caloriesKcal, lang)}\n- ${L.protein}: ${formatNumber(n.proteinGrams, lang)} ${grams(lang)}\n- ${L.fat}: ${formatNumber(n.fatGrams, lang)} ${grams(lang)}\n- ${L.carbs}: ${formatNumber(n.carbohydrateGrams, lang)} ${grams(lang)}\n\n${L.nutritionNote}\n`;
+  const halal = lang === "ru" ? "ДУМ РТ №614А/2024" : "Certificate No. 614A/2024";
+  return `# ${product.name[lang]}\n\n${product.summary[lang]}\n\n- ${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}\n- ${L.halal}: ${halal}\n- ${L.nitrite}\n\n## ${L.composition}\n\n${product.ingredients[lang]}\n\n**${L.allergens}:** ${product.allergens[lang]}\n\n## ${L.nutrition}\n\n- ${L.kcal}: ${formatNumber(n.caloriesKcal, lang)}\n- ${L.protein}: ${formatNumber(n.proteinGrams, lang)} ${grams(lang)}\n- ${L.fat}: ${formatNumber(n.fatGrams, lang)} ${grams(lang)}\n- ${L.carbs}: ${formatNumber(n.carbohydrateGrams, lang)} ${grams(lang)}\n\n${L.nutritionNote}\n`;
 }
 
 function pageMarkdown(lang, kind) {
@@ -186,11 +192,11 @@ function shell({ lang, slug = "", title, description, body, structured, extraHea
 ${extraHead}<link rel="stylesheet" href="/styles.css">${schemas(structured || [])}</head>
 <body><a class="skip-link" href="#main">${lang === "ru" ? "К содержанию" : "Skip to content"}</a>
 <header class="nav"><div class="wrap nav__inner"><a class="nav__logo" href="${pagePath(lang)}"><img src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"></a>
-<nav class="nav__links" aria-label="${L.products}"><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang, "ingredients")}">${L.ingredients}</a><a href="${pagePath(lang, "without-sodium-nitrite")}">${L.nitrite}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a></nav>
-<details class="nav__menu"><summary>${lang === "ru" ? "Меню" : "Menu"}</summary><nav aria-label="${lang === "ru" ? "Мобильное меню" : "Mobile menu"}"><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang, "ingredients")}">${L.ingredients}</a><a href="${pagePath(lang, "without-sodium-nitrite")}">${L.nitrite}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></nav></details>
-<a class="nav__cta" href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></div></header>
+<nav class="nav__links" aria-label="${L.products}"><a href="${pagePath(lang)}#advantages">${L.advantages}</a><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang)}#quality">${L.quality}</a><a href="${pagePath(lang)}#contacts">${L.contacts}</a></nav>
+<details class="nav__menu"><summary>${lang === "ru" ? "Меню" : "Menu"}</summary><nav aria-label="${lang === "ru" ? "Мобильное меню" : "Mobile menu"}"><a href="${pagePath(lang)}#advantages">${L.advantages}</a><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang)}#quality">${L.quality}</a><a href="${pagePath(lang)}#contacts">${L.contacts}</a><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a></nav></details>
+<div class="nav__actions"><a class="nav__lang" href="${other}" hreflang="${lang === "ru" ? "en" : "ru"}">${L.language}</a><a class="nav__cta" href="${pagePath(lang)}#contacts">${L.connect}</a></div></div></header>
 <main id="main">${body}</main>
-<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="${pagePath(lang, "retail")}">${L.retail}</a><a href="/privacy.html">${lang === "ru" ? "Политика ПДн" : "Privacy"}</a><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
+<footer class="footer"><div class="wrap footer__inner"><div><img class="footer__logo" src="/assets/logo/logo-horizontal-black.svg" alt="Yaratu" width="160" height="40"><p>© 2026 Yaratu · ${L.footer}</p></div><nav><a href="${pagePath(lang)}#advantages">${L.advantages}</a><a href="${pagePath(lang)}#products">${L.products}</a><a href="${pagePath(lang)}#quality">${L.quality}</a><a href="/privacy.html">${lang === "ru" ? "Политика ПДн" : "Privacy"}</a><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a href="tel:+79872170202">+7 987 217-02-02</a></nav></div></footer></body></html>`;
 }
 
 const officialProfiles = [
@@ -209,13 +215,44 @@ const brand = {
   url: `${SITE}/`, logo: `${SITE}/assets/logo/logo-horizontal.png`, sameAs: officialProfiles
 };
 
+function productPositioning(product, lang) {
+  const copy = {
+    vetchina: {
+      ru: ["Самая лёгкая в линейке", "125 ккал и 16,7 г белка на 100 г — минимальная калорийность и максимальное содержание белка среди пяти текущих продуктов."],
+      en: ["The lightest in the range", "At 125 kcal and 16.7 g protein per 100 g, it has the lowest calories and highest protein among the five current products."],
+    },
+    mramornaya: {
+      ru: ["Выразительный мясной профиль", "Курица и говядина, варёно-копчёный формат и 0,5 г углеводов на 100 г."],
+      en: ["A bold meat profile", "Chicken and beef in a cooked-smoked format, with 0.5 g carbohydrate per 100 g."],
+    },
+    brokkoli: {
+      ru: ["Брокколи в раскрытом составе", "Курица и говядина с брокколи; 13 г белка и 1,5 г углеводов на 100 г."],
+      en: ["Broccoli in the disclosed recipe", "Chicken and beef with broccoli; 13 g protein and 1.5 g carbohydrate per 100 g."],
+    },
+    molochnye: {
+      ru: ["Мягкий классический вкус", "Молочный белок, сухое молоко и пряности раскрыты в составе; 13,5 г белка на 100 г."],
+      en: ["A mild classic taste", "Milk protein, milk powder and spices are disclosed in full; 13.5 g protein per 100 g."],
+    },
+    slivochnaya: {
+      ru: ["Нежный сливочный профиль", "14,4 г белка и 0,7 г углеводов на 100 г — с полностью раскрытым составом."],
+      en: ["A gentle creamy profile", "14.4 g protein and 0.7 g carbohydrate per 100 g, with the full ingredient list disclosed."],
+    },
+  };
+  return copy[product.id][lang];
+}
+
 function card(product, lang, index) {
   const L = t[lang];
-  return `<article class="product"><div class="product__stage">${packshot(product, lang, ' loading="lazy"', { srcset: false })}</div>
-<div class="product__intro"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span></div></div>
+  const n = product.nutrition;
+  const [positioningTitle, positioningText] = productPositioning(product, lang);
+  return `<article class="product" id="product-${product.id}"><div class="product__media">${packshot(product, lang, ' loading="lazy"', { srcset: false })}</div>
+<div class="product__body"><div class="product__intro-top"><span class="product__index">${String(index + 1).padStart(2, "0")}</span><div class="product__tags"><span class="tag">${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${L.nitrite}</span></div></div>
 <h3>${h(product.name[lang])}</h3><p>${h(product.summary[lang])}</p>
+<div class="product__usp"><span>${lang === "ru" ? "Особенность" : "What sets it apart"}</span><h4>${h(positioningTitle)}</h4><p>${h(positioningText)}</p></div>
+<div class="kbju"><div><strong>${formatNumber(n.caloriesKcal, lang)}</strong><span>${L.kcal}</span></div><div><strong>${formatNumber(n.proteinGrams, lang)} ${grams(lang)}</strong><span>${L.protein}</span></div><div><strong>${formatNumber(n.fatGrams, lang)} ${grams(lang)}</strong><span>${L.fat}</span></div><div><strong>${formatNumber(n.carbohydrateGrams, lang)} ${grams(lang)}</strong><span>${L.carbs}</span></div></div>
+<p class="product__allergens"><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p>
 <a class="btn btn--outline" href="${pagePath(lang, `products/${product.id}`)}">${L.see}</a></div>
-<div class="product__passport"><div class="product__passport-copy"><span class="product__passport-eyebrow">${L.composition}</span><p class="product__compose">${h(product.ingredients[lang])}</p><p class="product__allergens"><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><div class="product__label">${nutritionFacts(product, lang, true)}</div></div></article>`;
+<div class="product__nutrition"><p>${L.nutritionNote}</p>${nutritionFacts(product, lang)}</div></article>`;
 }
 
 function homeFaqs(lang) {
@@ -223,14 +260,14 @@ function homeFaqs(lang) {
     ["Что такое Ярату?", "Ярату — мясной бренд ООО «Казанские Деликатесы»: пять варёных продуктов из Казани без нитрита натрия и с составом, раскрытым до ингредиентов."],
     ["Для кого эта линейка?", "Для магазинов, дистрибьюторов и покупателей, которым нужен проверяемый состав, а не лозунг «чистый продукт»."],
     ["Где цены?", "Публичного потребительского прайса нет. Актуальные спецификации, фасовки и условия поставки запрашивают у производителя."],
-    ["Вся линейка халяль?", "Нет. Халяль показывается по каждому SKU. На «Мраморной» халяль не заявлен."],
+    ["Вся линейка халяль?", "Да. Все пять текущих продуктов входят в область действия сертификата Халяль ДУМ РТ №614А/2024."],
     ["КБЖУ лабораторные?", "Нет. Это расчёт по текущей рецептуре на 100 г сырьевой массы, не протокол испытаний."],
     ["Как запросить поставку?", "Напишите на info@kazandelikates.tatar или позвоните +7 987 217-02-02. Производитель в Казани, ул. Аграрная, 2, оф. 7."]
   ] : [
     ["What is Yaratu?", "Yaratu is the meat brand of Kazan Delicacies: five cooked products from Kazan without sodium nitrite and with compound mixes listed ingredient by ingredient."],
     ["Who is it for?", "Retailers, distributors and shoppers who need a checkable recipe rather than a clean-label slogan."],
     ["Where is the pricing?", "There is no public consumer price list. Specifications, pack formats and supply terms are provided by the manufacturer on request."],
-    ["Is the whole range halal?", "No. Halal is shown per SKU. Mramornaya has no halal claim."],
+    ["Is the whole range halal?", "Yes. All five current products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan."],
     ["Is nutrition laboratory-tested?", "No. Figures are calculated from the current recipe per 100 g of raw mass, not a lab protocol."],
     ["How do I request supply?", "Email info@kazandelikates.tatar or call +7 987 217-02-02. The manufacturer is in Kazan, 2 Agrarnaya Street, office 7."]
   ];
@@ -238,6 +275,8 @@ function homeFaqs(lang) {
 
 function home(lang) {
   const L = t[lang];
+  const ru = lang === "ru";
+  const heroProduct = products[0];
   const items = products.map((p, i) => ({"@type": "ListItem", position: i + 1, url: absolute(pagePath(lang, `products/${p.id}`)), name: p.name[lang]}));
   const faqs = homeFaqs(lang);
   const faqPage = {"@type": "FAQPage", mainEntity: faqs.map(([name, text]) => ({"@type": "Question", name, acceptedAnswer: {"@type": "Answer", text}}))};
@@ -249,20 +288,67 @@ function home(lang) {
     ? [
       ["01", "Без нитрита натрия", "Статус относится к пяти проверенным текущим рецептурам."],
       ["02", "Состав без сокращений", "Комплексные смеси раскрыты до входящих ингредиентов."],
-      ["03", "Халяль — по продукту", "Статус показывается отдельно и не переносится на весь ассортимент."]
+      ["03", "Пищевая ценность открыта", "КБЖУ и проценты суточной нормы видны до покупки."]
     ]
     : [
       ["01", "No sodium nitrite", "The status applies to the five reviewed current recipes."],
       ["02", "No ingredient shortcuts", "Compound mixes are disclosed ingredient by ingredient."],
-      ["03", "Product-specific halal", "Halal status is shown per product, never assumed range-wide."]
+      ["03", "Nutrition in full view", "Macros and daily-value percentages are visible before purchase."]
     ];
+  const story = ru ? {
+    eyebrow: "Почему Ярату",
+    title: "Вкус начинается с честного выбора.",
+    lead: "Мы создали Ярату, чтобы мясной продукт не приходилось выбирать вслепую. На сайте можно увидеть текущий состав, аллергены и расчётную пищевую ценность каждого продукта.",
+    quote: "Не обещания на лицевой стороне, а состав и цифры, которые можно проверить.",
+  } : {
+    eyebrow: "Why Yaratu",
+    title: "Taste begins with an informed choice.",
+    lead: "We created Yaratu so a meat product would not have to be chosen blindly. The current ingredients, allergens and calculated nutrition for every product are visible here.",
+    quote: "Not front-of-pack promises, but ingredients and figures you can check.",
+  };
+  const production = ru ? {
+    eyebrow: "Производство",
+    title: "Сделано в Казани. Контроль — на каждом уровне.",
+    lead: "Ярату — бренд ООО «Казанские Деликатесы», производителя халяльных мясных продуктов в Казани. Производство работает по системе HACCP, стандарту ISO 22000:2018 и требованиям ТР ТС 021/2011.",
+    standards: [["HACCP", "Безопасность процессов"], ["ISO 22000:2018", "Система пищевой безопасности"], ["ТР ТС 021/2011", "Требования к пищевой продукции"]],
+  } : {
+    eyebrow: "Production",
+    title: "Made in Kazan. Controlled at every level.",
+    lead: "Yaratu is a brand of Kazan Delicacies, a halal meat-products manufacturer in Kazan. Production operates under HACCP, ISO 22000:2018 and TR CU 021/2011 requirements.",
+    standards: [["HACCP", "Process safety"], ["ISO 22000:2018", "Food-safety management"], ["TR CU 021/2011", "Food-product requirements"]],
+  };
+  const quality = ru ? {
+    eyebrow: "Контроль качества",
+    title: "Доверие строится на фактах.",
+    lead: "Мы разделяем подтверждённые продуктовые факты и расчётные данные — и прямо показываем статус каждого источника.",
+    items: [
+      ["01", "HACCP и ISO 22000", "Системы управления безопасностью применяются на производстве ООО «Казанские Деликатесы»."],
+      ["02", "Сертификат Халяль", "Все пять текущих продуктов входят в область действия сертификата ДУМ РТ №614А/2024."],
+      ["03", "Полное раскрытие", "Комплексные смеси перечислены до отдельных ингредиентов, аллергены вынесены отдельно."],
+      ["04", "Честный статус КБЖУ", "Пищевая ценность рассчитана по текущей рецептуре и не выдается за лабораторный протокол."],
+    ],
+  } : {
+    eyebrow: "Quality control",
+    title: "Trust is built on facts.",
+    lead: "We separate verified product facts from calculated data and make the status of each source explicit.",
+    items: [
+      ["01", "HACCP and ISO 22000", "Food-safety management systems are applied at Kazan Delicacies production."],
+      ["02", "Halal certificate", "All five current products are covered by certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of Tatarstan."],
+      ["03", "Full disclosure", "Compound mixes are listed ingredient by ingredient, with allergens called out separately."],
+      ["04", "Honest nutrition status", "Nutrition is calculated from the current recipe and is not presented as a laboratory report."],
+    ],
+  };
   const body = `<section class="hero"><div class="hero__plane"><div class="hero__mesh"></div><div class="hero__pattern"></div><div class="hero__glow hero__glow--warm"></div><div class="hero__orb"></div><span class="hero__star hero__star--a"></span><span class="hero__star hero__star--b"></span><span class="hero__star hero__star--c"></span><img class="hero__mark" src="/assets/logo/sign-white.svg" alt=""></div><div class="hero__shade"></div>
-<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${L.products}</a><a class="btn btn--ghost" href="${pagePath(lang, "retail")}">${L.retail}</a></div><div class="hero__badges"><span>${lang === "ru" ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div></div></section>
+<div class="wrap hero__layout"><div class="hero__content"><img class="hero__brand" src="/assets/logo/logo-horizontal-white.svg" alt="Yaratu" width="214" height="40"><p class="hero__overline">${ru ? "Мясные продукты · Казань" : "Meat products · Kazan"}</p><h1>${L.hero}</h1><p class="lede">${L.lead}</p><div class="hero__actions"><a class="btn btn--solid" href="#products">${ru ? "Смотреть ассортимент" : "Explore the range"}</a><a class="btn btn--ghost" href="#contacts">${L.connect}</a></div><div class="hero__badges"><span>${ru ? "5 продуктов" : "5 products"}</span><span>${L.ingredients}</span><span>${L.nitrite}</span></div></div>
+<div class="hero__product"><div class="hero__product-halo"></div>${packshot(heroProduct, lang, ' fetchpriority="high"', { srcset: false })}<span class="hero__product-caption">${h(heroProduct.name[lang])}</span></div></div></section>
+<section id="advantages" class="story-section"><div class="wrap story"><div class="story__copy"><span class="eyebrow">${story.eyebrow}</span><h2>${story.title}</h2><p class="lede">${story.lead}</p><p class="story__quote">${story.quote}</p></div><div class="story__visual">${packshot(products[4], lang, ' loading="lazy"', { srcset: false })}</div></div></section>
 <section class="trust"><div class="wrap"><div class="facts">${facts.map(([number, title, text]) => `<article><span>${number}</span><h2>${h(title)}</h2><p>${h(text)}</p></article>`).join("")}</div></div></section>
+<section class="production"><div class="wrap production__grid"><div><span class="eyebrow">${production.eyebrow}</span><h2>${production.title}</h2></div><div class="production__copy"><p>${production.lead}</p><div class="production__standards">${production.standards.map(([name, text]) => `<div><strong>${name}</strong><span>${text}</span></div>`).join("")}</div></div></div></section>
 <section id="products"><div class="wrap"><div class="section-head"><span class="eyebrow">${L.products}</span><h2>${L.range}</h2><p>${L.nutritionNote}</p></div>
-<table class="range-table"><caption>${lang === "ru" ? "Ассортимент без розничных цен" : "Range without consumer prices"}</caption><thead><tr><th>${lang === "ru" ? "Продукт" : "Product"}</th><th>${L.weight}</th><th>${L.nitrite}</th><th>${lang === "ru" ? "Халяль" : "Halal"}</th></tr></thead><tbody>${products.map((p) => `<tr><td><a href="${pagePath(lang, `products/${p.id}`)}">${h(p.name[lang])}</a></td><td>${formatNumber(p.netWeight.value, lang)} ${grams(lang)}</td><td>${lang === "ru" ? "Не используется" : "Not used"}</td><td>${p.claims.halal ? L.halal : L.noHalal}</td></tr>`).join("")}</tbody></table>
 <div class="products">${products.map((p, i) => card(p, lang, i)).join("")}</div></div></section>
-<section id="faq"><div class="wrap"><div class="section-head"><span class="eyebrow">FAQ</span><h2>${lang === "ru" ? "Короткие ответы" : "Short answers"}</h2><p>${lang === "ru" ? "Цены и оферта на сайте не публикуются." : "No prices or offers are published on this site."}</p></div><div class="faq">${faqs.map(([q, a]) => `<details><summary>${h(q)}</summary><p>${h(a)}</p></details>`).join("")}</div></div></section>`;
+<section id="quality" class="quality"><div class="wrap quality__inner"><div class="section-head"><span class="eyebrow">${quality.eyebrow}</span><h2>${quality.title}</h2><p>${quality.lead}</p></div><div class="quality-grid">${quality.items.map(([number, title, text]) => `<article><span>${number}</span><h3>${h(title)}</h3><p>${h(text)}</p></article>`).join("")}</div></div></section>
+<section id="faq"><div class="wrap"><div class="section-head"><span class="eyebrow">FAQ</span><h2>${ru ? "Короткие ответы" : "Short answers"}</h2><p>${ru ? "Цены и оферта на сайте не публикуются." : "No prices or offers are published on this site."}</p></div><div class="faq">${faqs.map(([q, a]) => `<details><summary>${h(q)}</summary><p>${h(a)}</p></details>`).join("")}</div></div></section>
+<section id="contacts" class="contact-cta"><div class="wrap contact-cta__grid"><div><span class="eyebrow">${L.contacts}</span><h2>${ru ? "Поговорим о поставке?" : "Let’s talk supply."}</h2><p>${ru ? "Запросите актуальные спецификации, фасовки, документы и условия напрямую у производителя." : "Request current specifications, pack formats, documents and supply terms directly from the manufacturer."}</p></div><div class="contact-cta__links"><a href="tel:+79872170202">+7 987 217-02-02</a><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><address>${ru ? "Казань, ул. Аграрная, 2, оф. 7" : "2 Agrarnaya Street, office 7, Kazan"}</address><a class="btn btn--solid" href="${pagePath(lang, "retail")}">${L.retail}</a></div></div></section>`;
   return shell({
     lang,
     title: lang === "ru" ? "Ярату — раскрытый состав, без нитрита натрия" : "Yaratu — disclosed ingredients, no sodium nitrite",
@@ -274,6 +360,8 @@ function home(lang) {
 
 function productPage(product, lang) {
   const L = t[lang], slug = `products/${product.id}`;
+  const ru = lang === "ru";
+  const n = product.nutrition;
   const productSchema = {
     "@type": "Product", "@id": `${absolute(pagePath(lang, slug))}#product`, name: product.name[lang],
     description: product.summary[lang], image: absolute(product.image), brand: {"@id": `${SITE}/#brand`},
@@ -285,9 +373,9 @@ function productPage(product, lang) {
     {"@type": "ListItem", position: 2, name: L.products, item: `${absolute(pagePath(lang))}#products`},
     {"@type": "ListItem", position: 3, name: product.name[lang], item: absolute(pagePath(lang, slug))}
   ]};
-  const body = `<section class="product-page-hero"><div class="wrap split"><div class="product__stage">${packshot(product, lang, ' fetchpriority="high"')}</div><div class="section-head"><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p class="lede">${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${product.claims.halal ? L.halal : L.noHalal}</span><span class="tag">${L.nitrite}</span></div><a class="btn btn--olive" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>
-<section class="band-dim"><div class="wrap nutrition-layout"><div class="nutrition-layout__copy"><div class="section-head"><span class="eyebrow">${L.composition}</span><h2>${L.composition}</h2><p>${h(product.ingredients[lang])}</p><p><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><p class="note">${L.nutritionNote}</p></div><div class="product__label product__label--large">${nutritionFacts(product, lang)}</div></div></section>
-<section><div class="wrap"><div class="section-head"><span class="eyebrow">${L.status}</span><h2>${L.calculated}</h2><p>${L.evidence}</p><p><strong>nutrition:</strong> calculated · <strong>composition:</strong> recipe-sourced · <strong>halal:</strong> ${product.status.halal}</p></div></div></section>`;
+  const body = `<section class="product-page-hero"><div class="wrap product-page-hero__grid"><div class="product-page-hero__stage">${packshot(product, lang, ' fetchpriority="high"')}</div><div class="product-page-hero__copy"><a class="back-link" href="${pagePath(lang)}#product-${product.id}">← ${L.products}</a><span class="eyebrow">${h(product.kind[lang])}</span><h1>${h(product.name[lang])}</h1><p class="lede">${h(product.summary[lang])}</p><div class="product__tags"><span class="tag">${L.weight}: ${formatNumber(product.netWeight.value, lang)} ${grams(lang)}</span><span class="tag">${L.nitrite}</span></div><div class="kbju"><div><strong>${formatNumber(n.caloriesKcal, lang)}</strong><span>${L.kcal}</span></div><div><strong>${formatNumber(n.proteinGrams, lang)} ${grams(lang)}</strong><span>${L.protein}</span></div><div><strong>${formatNumber(n.fatGrams, lang)} ${grams(lang)}</strong><span>${L.fat}</span></div><div><strong>${formatNumber(n.carbohydrateGrams, lang)} ${grams(lang)}</strong><span>${L.carbs}</span></div></div><a class="btn btn--olive" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>
+<section class="nutrition-dossier"><div class="wrap nutrition-layout"><div class="nutrition-layout__copy"><div class="section-head"><span class="eyebrow">${L.composition}</span><h2>${ru ? "Всё важное — на одной этикетке." : "Everything important, on one label."}</h2><p>${h(product.ingredients[lang])}</p><p><strong>${L.allergens}:</strong> ${h(product.allergens[lang])}</p></div><div class="data-status"><span>${L.status}</span><p>${L.nutritionNote}</p><p>${ru ? "Состав: recipe-sourced · Халяль: сертификат ДУМ РТ №614А/2024" : "Ingredients: recipe-sourced · Halal: certificate No. 614A/2024"}</p></div></div><div class="product__label product__label--large">${nutritionFacts(product, lang)}</div></div></section>
+<section id="contacts" class="contact-cta"><div class="wrap contact-cta__grid"><div><span class="eyebrow">${L.contacts}</span><h2>${ru ? "Нужны спецификации?" : "Need specifications?"}</h2><p>${ru ? "Запросите документы, фасовки и условия поставки напрямую у производителя." : "Request documents, pack formats and supply terms directly from the manufacturer."}</p></div><div class="contact-cta__links"><a href="tel:+79872170202">+7 987 217-02-02</a><a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a><a class="btn btn--solid" href="mailto:info@kazandelikates.tatar?subject=Yaratu%20${encodeURIComponent(product.id)}">${L.contact}</a></div></div></section>`;
   return shell({lang, slug, title: `${product.name[lang]} — Yaratu`, description: product.summary[lang], body, structured: {"@context": "https://schema.org", "@graph": [org, brand, productSchema, breadcrumb]}});
 }
 
@@ -426,7 +514,7 @@ await output("ai.txt", `Yaratu permits indexing of public pages and feeds for se
 await output("989787de78c652b55e6887550582b6f6.txt", "989787de78c652b55e6887550582b6f6\n");
 
 const productLines = products.map((p) => `- [${p.name.ru}](${SITE}/products/${p.id}/) / [${p.name.en}](${SITE}/en/products/${p.id}/)`).join("\n");
-await output("llms.txt", `# Yaratu / Ярату\n\nRU+EN product range with disclosed ingredients. Nutrition is calculated, not laboratory-tested. Halal is product-specific; no halal claim is made for Mramornaya.\n\n${productLines}\n\n- [RU retail](${SITE}/retail/)\n- [EN retail](${SITE}/en/retail/)\n- [Canonical JSON](${SITE}/data/products.json)\n- [JSON feed](${SITE}/feeds/products.json), [CSV feed](${SITE}/feeds/products.csv), [XML feed](${SITE}/feeds/products.xml)\n`);
+await output("llms.txt", `# Yaratu / Ярату\n\nRU+EN product range with disclosed ingredients. Nutrition is calculated, not laboratory-tested. All five current products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan.\n\n${productLines}\n\n- [RU retail](${SITE}/retail/)\n- [EN retail](${SITE}/en/retail/)\n- [Canonical JSON](${SITE}/data/products.json)\n- [JSON feed](${SITE}/feeds/products.json), [CSV feed](${SITE}/feeds/products.csv), [XML feed](${SITE}/feeds/products.xml)\n`);
 const full = products.map((p) => `## ${p.name.ru} / ${p.name.en}\n- [RU](${SITE}/products/${p.id}/)\n- [EN](${SITE}/en/products/${p.id}/)\n\nRU ingredients: ${p.ingredients.ru}\nEN ingredients: ${p.ingredients.en}\nNutrition status: ${p.status.nutrition}; ${p.nutrition.caloriesKcal} kcal, protein ${p.nutrition.proteinGrams} g, fat ${p.nutrition.fatGrams} g, carbohydrate ${p.nutrition.carbohydrateGrams} g per 100 g raw recipe.\nHalal status: ${p.status.halal}.\n`).join("\n");
 const richLlms = `# Yaratu full RU+EN dataset\n\n${catalog.nutritionBasis.ru}\n${catalog.nutritionBasis.en}\n\n${full}`;
 await output("llms-full.txt", richLlms);
@@ -470,7 +558,7 @@ const aiCatalog = {
       displayName: "Yaratu product summary",
       type: "text/markdown",
       url: `${SITE}/llms.txt`,
-      description: "Markdown product range with disclosed ingredients and product-specific halal status.",
+      description: "Markdown product range with disclosed ingredients, calculated nutrition and certificate-backed halal status.",
       representativeQueries: [
         "What products does Yaratu make?",
         "Какие продукты есть у Ярату?",
@@ -519,8 +607,8 @@ function skillFile(name, description, body) {
 const skills = [
   skillFile(
     "yaratu-catalog",
-    "Look up the five Yaratu products, calculated nutrition, allergens and product-specific halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
-    `# Yaratu catalog\n\nPublic brand of ООО «Казанские Деликатесы». No live checkout. Nutrition is calculated, not laboratory-tested. Halal is product-specific; do not claim it for Mramornaya.\n\n## Prefer machine endpoints over scraping HTML\n\n1. Canonical JSON: ${SITE}/data/products.json\n2. Markdown dump: ${SITE}/llms.txt\n3. Full dataset: ${SITE}/llms-full.txt\n\nContacts: +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7.\n`
+    "Look up the five Yaratu products, calculated nutrition, allergens and certificate-backed halal status. Use for ingredient or Nutrition Facts questions about Yaratu.",
+    `# Yaratu catalog\n\nPublic brand of ООО «Казанские Деликатесы». No live checkout. Nutrition is calculated, not laboratory-tested. All five current products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan.\n\n## Prefer machine endpoints over scraping HTML\n\n1. Canonical JSON: ${SITE}/data/products.json\n2. Markdown dump: ${SITE}/llms.txt\n3. Full dataset: ${SITE}/llms-full.txt\n\nContacts: +7 987 217-02-02 · info@kazandelikates.tatar · Казань, ул. Аграрная, 2, оф. 7.\n`
   ),
   skillFile(
     "yaratu-ingredients",

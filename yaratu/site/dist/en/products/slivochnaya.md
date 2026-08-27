@@ -3,7 +3,7 @@
 A gentle creamy profile with a fully disclosed ingredient list.
 
 - Net weight: 400 g
-- Halal verified
+- Halal verified: Certificate No. 614A/2024
 - Without nitrite
 
 ## Ingredients

@@ -72,7 +72,6 @@ const next = {
     if (value(row, "evidence_status") !== "internal-reviewed") throw new Error(`${id}: evidence_status must be internal-reviewed`);
     const halal = value(row, "halal_status");
     if (!["verified", "not-claimed"].includes(halal)) throw new Error(`${id}: halal_status must be verified or not-claimed`);
-    if (id === "mramornaya" && halal !== "not-claimed") throw new Error("Mramornaya halal cannot be enabled by sheet sync without registered evidence");
     const evidence = value(row, "evidence_refs").split(";").map((item) => item.trim()).filter(Boolean);
     if (!evidence.length || !evidence.includes("recipe-current")) throw new Error(`${id}: evidence_refs must include recipe-current`);
     if (halal === "verified" && !evidence.includes("halal-614a-2024")) throw new Error(`${id}: verified halal requires halal evidence`);
