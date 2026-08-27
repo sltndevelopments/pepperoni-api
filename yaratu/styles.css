@@ -1649,8 +1649,15 @@ section {
 }
 
 .product-page-hero .section-head {
+  justify-items: start;
   min-width: 0;
   max-width: none;
+}
+
+.product-page-hero .section-head h1,
+.product-page-hero .section-head .lede,
+.product-page-hero .section-head .product__tags {
+  width: 100%;
 }
 
 .nutrition-layout,
