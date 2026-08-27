@@ -29,8 +29,10 @@ const copyAllowlist = [
   "styles.css",
   "assets/graphics/pattern-1.png",
   "assets/logo/logo-horizontal.png",
+  "assets/logo/logo-horizontal.svg",
   "assets/logo/logo-horizontal-black.svg",
   "assets/logo/logo-horizontal-white.svg",
+  "assets/logo/sign.svg",
   "assets/logo/sign-white.svg",
   ...products.flatMap((p) => [p.image.slice(1), p.image.replace(/\.jpg$/, "-800.jpg").slice(1)])
 ];
@@ -465,6 +467,8 @@ for (const lang of ["ru", "en"]) {
   }
 }
 await output("privacy.html", privacyPage());
+// Experimental design mockup, published at /2 (noindex, outside sitemap/hreflang).
+await output("2/index.html", await readFile(join(root, "v3.html"), "utf8"));
 
 const publicProducts = {
   schemaVersion: catalog.schemaVersion, lastModified: lastmod,

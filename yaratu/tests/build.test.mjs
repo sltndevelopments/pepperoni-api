@@ -39,19 +39,24 @@ test("canonical data has five bilingual validated products", async () => {
 
 test("allowlist build excludes internal and legacy SVG", async () => {
   const built = await files(dist);
-  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 18);
+  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 19);
   assert.equal(built.some((path) => path.split("/").includes("internal")), false);
   assert.equal(built.some((path) => path.startsWith("img/") && path.endsWith(".svg")), false);
   const allowedSvg = new Set([
+    "assets/logo/logo-horizontal.svg",
     "assets/logo/logo-horizontal-black.svg",
     "assets/logo/logo-horizontal-white.svg",
+    "assets/logo/sign.svg",
     "assets/logo/sign-white.svg"
   ]);
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
 });
 
+// The /2 design mockup is a noindex experiment outside the canonical page contract.
+const isMockup = (path) => path === "2/index.html";
+
 test("every page has canonical and complete hreflang", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
   for (const path of built) {
     const html = await readFile(join(dist, path), "utf8");
     assert.match(html, /<link rel="canonical" href="https:\/\/yaratu\.com\/[^"]*">/);
@@ -63,7 +68,7 @@ test("every page has canonical and complete hreflang", async () => {
 });
 
 test("mobile navigation works without JavaScript and keeps native keyboard semantics", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
   const css = await readFile(join(dist, "styles.css"), "utf8");
   assert.match(css, /\.nav__menu\s*\{/);
   assert.match(css, /@media \(min-width: 860px\)[\s\S]*\.nav__menu\s*\{[\s\S]*display:\s*none/);
