@@ -585,6 +585,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 26ch; }
 .psi-link { color: #1967d2; font-size: 0.9rem; }
 .agent-level { margin: 0 0 0.9rem; color: #202124; }
 .agent-level b { font-size: 2rem; margin-right: 0.4rem; color: #ea4335; }
+.agent-level.good b { color: #188038; }
 .agent-bars { list-style: none; margin: 0 0 1rem; padding: 0; display: grid; gap: 0.4rem; }
 .agent-bars li { display: flex; justify-content: space-between; color: #3c4043; font-size: 0.9rem; }
 .agent-bars i { font-style: normal; color: #5f6368; }
