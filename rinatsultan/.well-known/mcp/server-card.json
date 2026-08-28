@@ -4,12 +4,13 @@
     "title": "Rinat Sultanov",
     "version": "1.0.0"
   },
-  "description": "Public profile of Rinat Sultanov, Director of Development at Kazan Delicacies. Read llms.txt for facts, services and contact.",
+  "description": "Public profile of Rinat Sultanov, Director of Development at Kazan Delicacies. Tools: get_profile (facts and contact), get_case_study (measured AI sales agent results), request_contact (pass a company inquiry to Rinat's Telegram).",
   "transport": {
     "type": "http",
-    "url": "https://rinatsultan.com/llms.txt"
+    "url": "https://rinatsultan.com/mcp"
   },
   "capabilities": {
+    "tools": ["get_profile", "get_case_study", "request_contact"],
     "resources": ["https://rinatsultan.com/llms.txt", "https://rinatsultan.com/index.md"]
   }
 }
