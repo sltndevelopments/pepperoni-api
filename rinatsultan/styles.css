@@ -534,6 +534,11 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 26ch; }
 .press-list a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(255, 240, 217, 0.35); transition: border-color 0.2s ease; }
 .press-list a:hover { border-bottom-color: currentColor; }
 
+.case-body { max-width: 46rem; }
+.case-body p { margin: 0 0 1.2rem; color: var(--cream-dim); font-size: 1.05rem; line-height: 1.7; }
+.case-body p b { color: var(--cream); font-weight: 600; }
+.case-note { margin-top: 1.6rem; padding-top: 1.2rem; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--cream-faint); font-family: var(--font-mono); }
+
 /* practice */
 .practice-list {
   display: grid;
