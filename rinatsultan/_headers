@@ -3,13 +3,60 @@
   X-Frame-Options: DENY
   Referrer-Policy: strict-origin-when-cross-origin
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Link: </.well-known/api-catalog>; rel="api-catalog", </.well-known/ai-catalog.json>; rel="describedby"; type="application/json", </.well-known/mcp/server-card.json>; rel="describedby"; type="application/json", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </llms.txt>; rel="alternate"; type="text/markdown", </index.md>; rel="alternate"; type="text/markdown", </auth.md>; rel="alternate"; type="text/markdown"
 
-/styles.css
-  Cache-Control: public, max-age=86400
-
-/app.js
-  Cache-Control: public, max-age=86400
+/robots.txt
+  Content-Type: text/plain; charset=utf-8
+  Cache-Control: public, max-age=0, must-revalidate
 
 /llms.txt
-  Content-Type: text/plain; charset=utf-8
+  Content-Type: text/markdown; charset=utf-8
   Cache-Control: public, max-age=3600
+
+/auth.md
+  Content-Type: text/markdown; charset=utf-8
+
+/index.md
+  Content-Type: text/markdown; charset=utf-8
+
+/en/index.md
+  Content-Type: text/markdown; charset=utf-8
+
+/.well-known/api-catalog
+  Content-Type: application/linkset+json
+
+/.well-known/ai-catalog.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp/server-card.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/mcp/server-cards.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/agent-card.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/agent-skills/index.json
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/oauth-protected-resource
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/oauth-authorization-server
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/openid-configuration
+  Content-Type: application/json; charset=utf-8
+
+/.well-known/http-message-signatures-directory
+  Content-Type: application/http-message-signatures-directory+json
+
+/oauth/*
+  Content-Type: application/json; charset=utf-8
+
+/oauth/authorize
+  Content-Type: text/html; charset=utf-8

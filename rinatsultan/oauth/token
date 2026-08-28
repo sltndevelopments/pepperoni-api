@@ -1,0 +1,7 @@
+{
+  "access_token": "public",
+  "token_type": "Bearer",
+  "expires_in": 86400,
+  "scope": "profile.read",
+  "note": "This origin does not validate the token. Discovery-only placeholder for anonymous access."
+}

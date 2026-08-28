@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Authorize — Rinat Sultanov</title>
+  <meta name="robots" content="noindex">
+</head>
+<body>
+  <h1>No sign-in required</h1>
+  <p>This site is a public profile. Agents should use <code>identity_types_supported: anonymous</code> from <a href="/auth.md">auth.md</a>.</p>
+</body>
+</html>

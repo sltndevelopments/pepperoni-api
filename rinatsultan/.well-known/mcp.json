@@ -1,8 +1,40 @@
 {
-  "mcpServers": [
-    {
-      "name": "rinatsultan",
-      "url": "https://rinatsultan.com/.well-known/mcp/server-card.json"
+  "schema_version": "1.0",
+  "name": "rinatsultan.com",
+  "description": "Public profile of Rinat Sultanov, Director of Development at Kazan Delicacies. Facts, services, and contact for agents.",
+  "version": "1.0.0",
+  "publisher": {
+    "name": "Rinat Sultanov",
+    "url": "https://rinatsultan.com/",
+    "email": "995620@gmail.com"
+  },
+  "transports": {
+    "http": {
+      "url": "https://rinatsultan.com/llms.txt",
+      "description": "Markdown profile for agents. No login."
     }
-  ]
+  },
+  "tools": [
+    {
+      "name": "rinat_contact",
+      "description": "Who Rinat Sultanov is, how he works with companies, and how to contact him."
+    }
+  ],
+  "resources": [
+    {
+      "uri": "https://rinatsultan.com/llms.txt",
+      "name": "llms",
+      "mimeType": "text/markdown"
+    },
+    {
+      "uri": "https://rinatsultan.com/index.md",
+      "name": "home-md",
+      "mimeType": "text/markdown"
+    }
+  ],
+  "related": {
+    "server_card": "https://rinatsultan.com/.well-known/mcp/server-card.json",
+    "ai_catalog": "https://rinatsultan.com/.well-known/ai-catalog.json",
+    "auth": "https://rinatsultan.com/auth.md"
+  }
 }

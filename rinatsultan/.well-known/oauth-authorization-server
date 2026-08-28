@@ -1,0 +1,34 @@
+{
+  "issuer": "https://rinatsultan.com",
+  "authorization_endpoint": "https://rinatsultan.com/oauth/authorize",
+  "token_endpoint": "https://rinatsultan.com/oauth/token",
+  "jwks_uri": "https://rinatsultan.com/oauth/jwks.json",
+  "revocation_endpoint": "https://rinatsultan.com/oauth/revoke",
+  "registration_endpoint": "https://rinatsultan.com/oauth/register",
+  "grant_types_supported": [
+    "urn:ietf:params:oauth:grant-type:jwt-bearer",
+    "urn:workos:agent-auth:grant-type:claim"
+  ],
+  "response_types_supported": ["token", "none"],
+  "scopes_supported": ["profile.read"],
+  "token_endpoint_auth_methods_supported": ["none"],
+  "code_challenge_methods_supported": ["S256"],
+  "agent_auth": {
+    "skill": "https://rinatsultan.com/auth.md",
+    "register_uri": "https://rinatsultan.com/oauth/register",
+    "identity_endpoint": "https://rinatsultan.com/oauth/identity",
+    "claim_endpoint": "https://rinatsultan.com/oauth/claim",
+    "claim_uri": "https://rinatsultan.com/oauth/claim",
+    "revocation_uri": "https://rinatsultan.com/oauth/revoke",
+    "events_endpoint": "https://rinatsultan.com/oauth/events",
+    "identity_types_supported": ["anonymous"],
+    "anonymous": {
+      "credential_types_supported": ["none"],
+      "claim_uri": "https://rinatsultan.com/oauth/claim"
+    },
+    "identity_assertion": {
+      "assertion_types_supported": []
+    },
+    "events_supported": []
+  }
+}

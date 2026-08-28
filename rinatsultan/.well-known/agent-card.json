@@ -1,0 +1,34 @@
+{
+  "protocolVersion": "1.0",
+  "name": "Rinat Sultanov",
+  "description": "Public profile of Rinat Sultanov, Director of Development at Kazan Delicacies. Facts, services, and contact for agents.",
+  "url": "https://rinatsultan.com/llms.txt",
+  "version": "1.0.0",
+  "documentationUrl": "https://rinatsultan.com/llms.txt",
+  "provider": {
+    "organization": "Rinat Sultanov",
+    "url": "https://rinatsultan.com/"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://rinatsultan.com/llms.txt",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": ["text/plain", "text/markdown"],
+  "defaultOutputModes": ["text/markdown", "text/plain"],
+  "skills": [
+    {
+      "id": "rinat-profile",
+      "name": "Rinat profile",
+      "description": "Who Rinat Sultanov is, what he does, and how to contact him.",
+      "tags": ["profile", "contact", "manufacturing", "ai"]
+    }
+  ]
+}

@@ -8,12 +8,17 @@ Allow: /en/
 Allow: /llms.txt
 Allow: /index.md
 Allow: /en/index.md
+Allow: /auth.md
 Allow: /.well-known/
 Allow: /.well-known/llms.txt
 Allow: /.well-known/api-catalog
 Allow: /.well-known/ai-catalog.json
 Allow: /.well-known/mcp/server-card.json
 Allow: /.well-known/agent-skills/
+Allow: /.well-known/http-message-signatures-directory
+Allow: /.well-known/oauth-protected-resource
+Allow: /.well-known/oauth-authorization-server
+Allow: /.well-known/openid-configuration
 
 User-agent: GPTBot
 Allow: /
@@ -21,10 +26,13 @@ Allow: /
 User-agent: ChatGPT-User
 Allow: /
 
-User-agent: Google-Extended
+User-agent: OAI-SearchBot
 Allow: /
 
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
 Allow: /
 
 User-agent: Claude-Web
@@ -33,7 +41,40 @@ Allow: /
 User-agent: PerplexityBot
 Allow: /
 
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+User-agent: omgilibot
+Allow: /
+
+User-agent: Diffbot
 Allow: /
 
 Sitemap: https://rinatsultan.com/sitemap.xml
