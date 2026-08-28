@@ -292,6 +292,35 @@ h1 {
   line-height: 1;
   color: var(--cream);
 }
+.hero-areas {
+  list-style: none;
+  margin: 2.2rem 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+}
+.hero-areas li {
+  background: rgba(19, 26, 11, 0.75);
+  padding: 1.1rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.hero-areas b {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: var(--cream);
+  letter-spacing: 0.01em;
+}
+.hero-areas span {
+  font-size: 0.82rem;
+  color: var(--cream-dim);
+  line-height: 1.4;
+}
 .num dd small {
   font-size: 0.42em;
   color: var(--cream-dim);
@@ -740,6 +769,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 26ch; }
 
 @media (max-width: 560px) {
   .numbers { grid-template-columns: 1fr 1fr; }
+  .hero-areas { grid-template-columns: 1fr; }
   .steps { grid-template-columns: 1fr; }
   .case-head { flex-direction: column; gap: 0.3rem; }
 }
