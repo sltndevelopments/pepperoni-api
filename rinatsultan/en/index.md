@@ -2,7 +2,7 @@
 
 Director of Development at Kazan Delicacies.
 
-Helps manufacturing and trading companies grow with AI: production strategy, analytics, agent-led sales, SEO and AI-search visibility.
+Architect of AI transformation for manufacturing companies: sales, data and management rebuilt around AI — growth without a matching rise in headcount.
 
 Today: Director of Development at Kazan Delicacies (Kazan). Company revenue: 58.6 million RUB (2023) → 869 million RUB (2025).
 
