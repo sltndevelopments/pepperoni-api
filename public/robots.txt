@@ -17,6 +17,8 @@ Allow: /.well-known/llms.txt
 Allow: /.well-known/ai-plugin.json
 Allow: /.well-known/ai-meta.json
 Allow: /.well-known/api-catalog
+Allow: /.well-known/ai-catalog.json
+Allow: /.well-known/ard.json
 Allow: /.well-known/agent-skills/
 Allow: /llms.txt
 Allow: /llms-full.txt
@@ -165,6 +167,7 @@ Allow: /
 # ───────── Sitemaps ─────────
 Sitemap: https://pepperoni.tatar/sitemap.xml
 Sitemap: https://pepperoni.tatar/sitemap-llms.xml
+Agentmap: https://pepperoni.tatar/.well-known/ai-catalog.json
 
 # ───────── Product feeds (Google Merchant / OpenAI Commerce / Bing Shopping) ─────────
 # Discoverable feed URLs for shopping crawlers

@@ -14,7 +14,7 @@ SEC="/etc/nginx/snippets/pepperoni-security-headers.conf"
 STATIC="/etc/nginx/snippets/pepperoni-static-data.conf"
 INCLUDE_LINE='include /etc/nginx/snippets/pepperoni-agent-discovery.conf;'
 # Single-quoted nginx string: inner "rel=..." must stay intact.
-LINK_LINE='add_header Link '\''</.well-known/api-catalog>; rel="api-catalog", </.well-known/mcp.json>; rel="describedby"; type="application/json", </.well-known/mcp/server-card.json>; rel="describedby"; type="application/json", </.well-known/agent-card.json>; rel="describedby"; type="application/json", </llms.txt>; rel="alternate"; type="text/markdown", </openapi.yaml>; rel="service-desc"; type="application/yaml", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </.well-known/oauth-protected-resource>; rel="describedby"'\'' always;'
+LINK_LINE='add_header Link '\''</.well-known/api-catalog>; rel="api-catalog", </.well-known/ai-catalog.json>; rel="ai-catalog"; type="application/json", </.well-known/ard.json>; rel="ard"; type="application/json", </.well-known/mcp.json>; rel="describedby"; type="application/json", </.well-known/mcp/server-card.json>; rel="describedby"; type="application/json", </.well-known/agent-card.json>; rel="describedby"; type="application/json", </llms.txt>; rel="alternate"; type="text/markdown", </openapi.yaml>; rel="service-desc"; type="application/yaml", </.well-known/agent-skills/index.json>; rel="describedby"; type="application/json", </.well-known/oauth-protected-resource>; rel="describedby"'\'' always;'
 
 if [[ ! -f "$MAP_SRC" || ! -f "$SNIPPET_SRC" || ! -f "$VHOST" || ! -f "$SEC" ]]; then
   echo "❌ missing nginx sources"
@@ -113,8 +113,11 @@ if not m:
     raise SystemExit(1)
 indent = re.match(r'[ \t]*', m.group(1)).group(0)
 stamp = datetime.now(timezone.utc).strftime("%Y%m%d%H%M%S")
-bak = f"{path}.bak.agent.{stamp}"
-open(bak, "w", encoding="utf-8").write(text)
+from pathlib import Path
+bak_dir = Path("/etc/nginx/disabled-vhosts")
+bak_dir.mkdir(parents=True, exist_ok=True)
+bak = bak_dir / f"{Path(path).name}.bak.agent.{stamp}"
+bak.write_text(text, encoding="utf-8")
 text = text[: m.end()] + "\n" + indent + include + text[m.end():]
 open(path, "w", encoding="utf-8").write(text)
 print(f"✅ included snippet after CSP in {path}")
@@ -122,7 +125,7 @@ PY
 
 if ! nginx -t; then
   echo "❌ nginx -t failed — restoring vhost backup"
-  last=$(ls -1t "${VHOST}".bak.agent.* 2>/dev/null | head -1 || true)
+  last=$(ls -1t /etc/nginx/disabled-vhosts/"$(basename "$VHOST")".bak.agent.* 2>/dev/null | head -1 || true)
   if [[ -n "${last}" ]]; then
     cp -a "$last" "$VHOST"
     echo "  restored $VHOST from $last"

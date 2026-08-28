@@ -78,6 +78,7 @@ upsert_svcb "_mcp._agents.pepperoni.tatar" "api.pepperoni.tatar" "$MCP" SVCB
 upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$MCP" HTTPS
 upsert_svcb "_a2a._agents.pepperoni.tatar" "pepperoni.tatar" "$MCP" SVCB
 upsert_txt "_index._agents.pepperoni.tatar" "mcp=https://api.pepperoni.tatar/api/mcp a2a=https://pepperoni.tatar/.well-known/agent-card.json"
+upsert_txt "_catalog._agents.pepperoni.tatar" "url=https://pepperoni.tatar/.well-known/ai-catalog.json"
 
 echo "Verify:"
 echo "  curl -s 'https://cloudflare-dns.com/dns-query?name=_index._agents.pepperoni.tatar&type=SVCB' -H 'accept: application/dns-json'"

@@ -49,3 +49,19 @@ location = /auth.md {
     add_header Access-Control-Allow-Origin "*" always;
     try_files $uri =404;
 }
+
+location = /.well-known/ai-catalog.json {
+    root /var/www/pepperoni/repo/public;
+    default_type "application/json";
+    add_header Access-Control-Allow-Origin "*" always;
+    add_header Cache-Control "public, max-age=300" always;
+    try_files $uri =404;
+}
+
+location = /.well-known/ard.json {
+    root /var/www/pepperoni/repo/public;
+    default_type "application/json";
+    add_header Access-Control-Allow-Origin "*" always;
+    add_header Cache-Control "public, max-age=300" always;
+    try_files $uri =404;
+}

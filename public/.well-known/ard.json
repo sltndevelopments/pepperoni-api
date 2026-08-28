@@ -1,0 +1,75 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Kazan Delicacies",
+    "identifier": "did:web:pepperoni.tatar",
+    "url": "https://pepperoni.tatar/"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:pepperoni.tatar:mcp:kazan-delicacies",
+      "displayName": "Kazan Delicacies MCP",
+      "type": "application/mcp-server-card+json",
+      "url": "https://pepperoni.tatar/.well-known/mcp/server-card.json",
+      "description": "Public MCP for the 64-SKU halal wholesale catalog. Live prices, certificates, EXW Kazan inquiry. No checkout.",
+      "tags": ["mcp", "halal", "wholesale", "catalog"],
+      "capabilities": ["search_products", "get_product", "get_catalog", "get_certification", "get_delivery_info", "submit_inquiry"],
+      "representativeQueries": [
+        "Find halal pepperoni wholesale SKU and price from Kazan",
+        "Is Kazan Delicacies pepperoni certified halal?",
+        "Send a B2B EXW Kazan inquiry for sausages",
+        "What is the live wholesale catalog of pepperoni.tatar?"
+      ]
+    },
+    {
+      "identifier": "urn:air:pepperoni.tatar:api:products",
+      "displayName": "Live product catalog",
+      "type": "application/json",
+      "url": "https://api.pepperoni.tatar/api/products",
+      "description": "Canonical JSON catalog synced from Google Sheets. Wholesale prices in RUB plus export currencies. Public, no auth.",
+      "tags": ["catalog", "openapi", "b2b"],
+      "representativeQueries": [
+        "List Kazan Delicacies SKUs with wholesale prices",
+        "Get product KD-013 from the live catalog",
+        "What currencies are in the pepperoni.tatar API?"
+      ]
+    },
+    {
+      "identifier": "urn:air:pepperoni.tatar:docs:llms",
+      "displayName": "llms.txt company brief",
+      "type": "text/markdown",
+      "url": "https://pepperoni.tatar/llms.txt",
+      "description": "Markdown brief for agents: company, contacts, certificates, catalog entry points.",
+      "tags": ["llms.txt", "markdown"],
+      "representativeQueries": [
+        "Who is Kazan Delicacies and how do I contact sales?",
+        "What certificates does pepperoni.tatar have?",
+        "Where is the halal catalog for AI agents?"
+      ]
+    },
+    {
+      "identifier": "urn:air:pepperoni.tatar:agent:a2a",
+      "displayName": "Kazan Delicacies A2A card",
+      "type": "application/a2a-agent-card+json",
+      "url": "https://pepperoni.tatar/.well-known/agent-card.json",
+      "description": "A2A agent card for catalog lookup, halal certification answers, and wholesale inquiry.",
+      "tags": ["a2a", "agent-card"],
+      "representativeQueries": [
+        "Connect to the Kazan Delicacies wholesale agent",
+        "Ask the pepperoni.tatar agent for a price list"
+      ]
+    },
+    {
+      "identifier": "urn:air:pepperoni.tatar:schema:openapi",
+      "displayName": "Catalog OpenAPI",
+      "type": "application/yaml",
+      "url": "https://api.pepperoni.tatar/openapi.yaml",
+      "description": "OpenAPI description of the public catalog API. Read-only products plus inquiry.",
+      "tags": ["openapi", "api"],
+      "representativeQueries": [
+        "What endpoints does the Kazan Delicacies API expose?",
+        "How do I query pepperoni.tatar products as JSON?"
+      ]
+    }
+  ]
+}
