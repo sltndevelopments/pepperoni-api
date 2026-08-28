@@ -579,6 +579,7 @@ h2 { font-size: clamp(1.9rem, 4vw, 3rem); max-width: 26ch; }
   border: 4px solid #34a853;
   color: #188038;
 }
+.psi-scores .psi-mid { border-color: #fbbc04; color: #e37400; }
 .psi-scores span { font-size: 0.72rem; color: #5f6368; line-height: 1.25; }
 .psi-metrics { color: #5f6368; margin: 1rem 0 0.8rem; text-transform: none; letter-spacing: 0.02em; }
 .psi-link { color: #1967d2; font-size: 0.9rem; }
