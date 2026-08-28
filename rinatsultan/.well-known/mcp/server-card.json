@@ -1,0 +1,15 @@
+{
+  "serverInfo": {
+    "name": "rinatsultan.com",
+    "title": "Rinat Sultanov",
+    "version": "1.0.0"
+  },
+  "description": "Public profile of Rinat Sultanov, Director of Development at Kazan Delicacies. Read llms.txt for facts, services and contact.",
+  "transport": {
+    "type": "http",
+    "url": "https://rinatsultan.com/llms.txt"
+  },
+  "capabilities": {
+    "resources": ["https://rinatsultan.com/llms.txt", "https://rinatsultan.com/index.md"]
+  }
+}

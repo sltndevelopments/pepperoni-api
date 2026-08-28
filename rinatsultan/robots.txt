@@ -1,0 +1,40 @@
+# rinatsultan.com
+# search = index + snippets; ai-input = RAG / answers; ai-train = training
+
+User-agent: *
+Content-Signal: ai-train=yes, search=yes, ai-input=yes
+Allow: /
+Allow: /en/
+Allow: /llms.txt
+Allow: /index.md
+Allow: /en/index.md
+Allow: /.well-known/
+Allow: /.well-known/llms.txt
+Allow: /.well-known/api-catalog
+Allow: /.well-known/ai-catalog.json
+Allow: /.well-known/mcp/server-card.json
+Allow: /.well-known/agent-skills/
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+Sitemap: https://rinatsultan.com/sitemap.xml
+Agentmap: https://rinatsultan.com/.well-known/ai-catalog.json

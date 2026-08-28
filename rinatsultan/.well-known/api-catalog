@@ -1,0 +1,19 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://rinatsultan.com/",
+      "service-doc": [
+        {
+          "href": "https://rinatsultan.com/llms.txt",
+          "type": "text/markdown"
+        }
+      ],
+      "describedby": [
+        {
+          "href": "https://rinatsultan.com/.well-known/ai-catalog.json",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

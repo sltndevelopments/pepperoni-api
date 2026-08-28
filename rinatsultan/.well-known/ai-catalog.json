@@ -1,0 +1,44 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Rinat Sultanov",
+    "identifier": "rinatsultan.com",
+    "url": "https://rinatsultan.com/"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:rinatsultan.com:docs:llms",
+      "displayName": "Rinat Sultanov profile for agents",
+      "type": "text/markdown",
+      "url": "https://rinatsultan.com/llms.txt",
+      "description": "Who Rinat is, what he does, and how to contact him.",
+      "representativeQueries": [
+        "Who is Rinat Sultanov?",
+        "Кто такой Ринат Султанов?",
+        "How to contact Rinat Sultanov"
+      ]
+    },
+    {
+      "identifier": "urn:air:rinatsultan.com:docs:home",
+      "displayName": "Personal site",
+      "type": "text/html",
+      "url": "https://rinatsultan.com/",
+      "description": "AI for manufacturing and trading companies. Director of Development at Kazan Delicacies.",
+      "representativeQueries": [
+        "Rinat Sultanov AI manufacturing",
+        "Director of Development Kazan Delicacies"
+      ]
+    },
+    {
+      "identifier": "urn:air:rinatsultan.com:docs:en",
+      "displayName": "English page",
+      "type": "text/html",
+      "url": "https://rinatsultan.com/en/",
+      "description": "English version of the personal site.",
+      "representativeQueries": [
+        "Rinat Sultanov English",
+        "AI for manufacturing companies"
+      ]
+    }
+  ]
+}

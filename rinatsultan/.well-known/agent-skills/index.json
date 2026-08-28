@@ -1,0 +1,12 @@
+{
+  "$schema": "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  "skills": [
+    {
+      "name": "rinat-profile",
+      "type": "skill-md",
+      "description": "Facts about Rinat Sultanov — Director of Development at Kazan Delicacies. Use for contact, services, and background.",
+      "url": "/.well-known/agent-skills/rinat-profile/SKILL.md",
+      "digest": "sha256:d5f5ad205ee1ae3daa7976a8da56676e47a01fbcd1c0e189fd52dd41e0d3cea5"
+    }
+  ]
+}
