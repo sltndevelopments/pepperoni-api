@@ -60,8 +60,9 @@
 
   // Hero parallax: cartouche drifts up slightly slower than scroll
   var heroCartouche = d.querySelector(".hero__cartouche");
+  var heroArcade = d.querySelector(".hero .arcade img");
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (!reduceMotion && heroCartouche) {
+  if (!reduceMotion && (heroCartouche || heroArcade)) {
     var ticking = false;
     window.addEventListener("scroll", function () {
       if (ticking) return;
@@ -69,7 +70,8 @@
       window.requestAnimationFrame(function () {
         var y = window.scrollY;
         if (y < window.innerHeight * 1.2) {
-          heroCartouche.style.transform = "translateY(" + y * 0.08 + "px)";
+          if (heroCartouche) heroCartouche.style.transform = "translateY(" + y * 0.08 + "px)";
+          if (heroArcade) heroArcade.style.opacity = Math.max(0.1, 0.48 - y / 1600);
         }
         ticking = false;
       });
