@@ -342,43 +342,6 @@ p {
   0% { opacity: 0; transform: translateY(18px) scale(0.97); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
-.arcade {
-  position: relative;
-  height: clamp(7.5rem, 18vw, 14rem);
-  margin: 0 calc(-1 * var(--gutter));
-  overflow: hidden;
-  pointer-events: none;
-}
-.arcade img {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  opacity: 0.48;
-}
-.hero .arcade img {
-  width: max(200%, 2600px);
-  max-width: none;
-  animation: arcadeDrift 60s linear infinite;
-}
-@keyframes arcadeDrift {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.hero .arcade {
-  margin: auto calc(50% - 50vw) 0;
-  width: 100vw;
-}
-.section .arcade {
-  margin: 2.4rem calc(50% - 50vw) 0;
-  width: 100vw;
-}
-.footer .arcade {
-  margin: 2.2rem calc(50% - 50vw) 0;
-  width: 100vw;
-  height: clamp(6.5rem, 14vw, 11rem);
-}
 .hero__content {
   position: relative;
   z-index: 2;
@@ -1291,39 +1254,6 @@ p {
 }
 
 /* Ornaments from the packaging deck */
-.ornament-band {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  height: clamp(7.5rem, 16vw, 13.5rem);
-  overflow: hidden;
-  pointer-events: none;
-}
-.ornament-band img {
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: auto;
-  min-height: 100%;
-  object-fit: cover;
-  object-position: center bottom;
-  opacity: 0.55;
-}
-.ornament-band--bleed {
-  margin-top: clamp(2.5rem, 5vw, 4rem);
-  height: clamp(8rem, 18vw, 14rem);
-}
-.ornament-band--bleed img {
-  opacity: 0.42;
-}
-.ornament-band--footer {
-  height: clamp(6.5rem, 14vw, 11rem);
-  border-bottom: 1px solid var(--hairline);
-}
-.ornament-band--footer img {
-  opacity: 0.38;
-}
 .ornament-horse {
   display: block;
   width: min(14rem, 56%);
