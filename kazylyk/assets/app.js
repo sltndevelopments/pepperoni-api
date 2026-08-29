@@ -1,4 +1,4 @@
-// KAZYLYK — interactions: nav, reveal, accordion sync, packaging hotspots, form, analytics.
+// KAZYLYK — interactions: nav, reveal, form, analytics.
 (function () {
   "use strict";
   var d = document;
@@ -64,24 +64,6 @@
       ev(el.getAttribute("data-ev"), { label: el.getAttribute("data-ev-label") || el.textContent.trim().slice(0, 40) });
     });
   });
-
-  // Interactive packaging: highlight hotspots from legend and vice-versa
-  var stage = d.querySelector(".packart__stage");
-  if (stage) {
-    var hots = stage.querySelectorAll(".packart__hot");
-    var legends = d.querySelectorAll(".packart__legend button");
-    function activate(idx) {
-      hots.forEach(function (h, i) { h.classList.toggle("is-active", i === idx); });
-      legends.forEach(function (b, i) { b.classList.toggle("is-active", i === idx); });
-    }
-    legends.forEach(function (b, i) {
-      b.addEventListener("click", function () { activate(i); });
-    });
-    hots.forEach(function (h, i) {
-      h.addEventListener("mouseenter", function () { activate(i); });
-      h.addEventListener("focus", function () { activate(i); });
-    });
-  }
 
   // Order form: build a mailto, no backend. Honeypot + consent.
   var form = d.querySelector("#order-form");
