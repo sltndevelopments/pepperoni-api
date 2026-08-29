@@ -11,12 +11,12 @@
     <meta property="og:url" content="https://kazylyk.com/" />
     <meta property="og:title" content="KAZYLYK — казылык из Татарстана" />
     <meta property="og:description" content="Вкус Татарстана, достойный подарка. Настоящий татарский деликатес из конины." />
-    <meta property="og:image" content="https://kazylyk.com/assets/products/kazylyk-box-and-roll.jpg" />
+    <meta property="og:image" content="https://kazylyk.com/assets/products/kazylyk-box-set.jpg" />
     <link rel="icon" href="/assets/pack/favicon.svg" type="image/svg+xml" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260829-3" />
+    <link rel="stylesheet" href="/styles.css?v=20260829-4" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -49,8 +49,8 @@
         <a class="wordmark" href="/">KAZYLYK</a>
         <nav class="nav__links" aria-label="Разделы">
           <a href="#manifesto">Манифест</a>
-          <a href="#craft">Ремесло</a>
           <a href="#territory">Территория</a>
+          <a href="#forms">Формы</a>
           <a href="#lineup">Продукты</a>
           <a href="#buy">Где купить</a>
         </nav>
@@ -60,31 +60,30 @@
     </header>
     <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <a href="#manifesto">Манифест</a>
-      <a href="#craft">Ремесло</a>
       <a href="#territory">Территория</a>
+      <a href="#forms">Формы</a>
       <a href="#lineup">Продукты</a>
       <a href="#buy">Где купить</a>
     </div>
 
-    <section class="hero">
+    <section class="hero hero--deck">
       <div class="hero__topline" aria-hidden="true">
         <span>Казанские деликатесы</span>
         <span>Татарстанда ясалган · Made in Tatarstan</span>
       </div>
       <div class="hero__content">
         <div class="hero__copy">
+          <img class="hero__cartouche" src="/assets/ornaments/gold-cartouche.png" width="940" height="280" alt="КАЗЫЛЫК — традиционный премиальный татарский деликатес из конины" />
           <h1>KAZYLYK<span class="hero__h1-sub">Татарский деликатес из конины — сделан в Казани и оформлен так, чтобы знакомство с Татарстаном началось ещё до открытия коробки.</span></h1>
           <div class="hero__cta">
             <a class="btn btn--solid" href="#buy" data-ev="hero_cta" data-ev-label="where-to-buy">Где купить</a>
-            <a class="btn btn--ghost" href="#manifesto" data-ev="hero_cta" data-ev-label="manifesto">Манифест дома</a>
+            <a class="btn btn--ghost" href="#forms" data-ev="hero_cta" data-ev-label="forms">Смотреть продукт</a>
           </div>
         </div>
-        <div class="hero__photo">
-          <img src="/assets/products/kazylyk-box-and-roll.jpg" width="1600" height="1066" alt="Подарочная коробка казылыка и батон в золотой обёртке с орнаментом Казани" fetchpriority="high" />
-          <p class="hero__caption"><span>Казань, Татарстан</span><span>Казылык · 200 г</span></p>
-        </div>
       </div>
-      <div class="scroll-cue" aria-hidden="true">Листайте</div>
+      <div class="arcade" aria-hidden="true">
+        <img src="/assets/ornaments/gold-arcade.png" width="2400" height="620" alt="" />
+      </div>
     </section>
 
     <section class="section section--light manifesto" id="manifesto">
@@ -96,23 +95,59 @@
       </div>
     </section>
 
-    <section class="section section--dark" id="shelf">
+    <section class="section section--dark" id="territory">
       <div class="wrap">
-        <p class="kicker reveal">Контекст · Where we are</p>
-        <h2 class="reveal">Полка есть. Имени нет.</h2>
-        <div class="cols">
-          <div class="col reveal">
-            <h3>Покупают как колбасу</h3>
-            <p>Казылык знают, но выбирают по цене за килограмм. Производитель на этикетке ничего не значит.</p>
+        <div class="territory__grid">
+          <div>
+            <p class="kicker reveal">Территория · Origin</p>
+            <h2 class="reveal">У адреса есть вкус</h2>
+            <p class="lede reveal" style="margin-top:1.4rem">Казылык — деликатес тюркских народов и один из главных знаков татарской кухни. Его подавали на праздничный стол и дарили дорогим гостям. Наш казылык делают в Казани, из конины высшего сорта, по технологии созревания и вяления.</p>
+            <ul class="territory__list reveal">
+              <li>Кул-Шариф и Кремль — знак города</li>
+              <li>Мост Миллениум — современная Казань, а не музей</li>
+              <li>Орнамент — татарская линия, золото по чёрному</li>
+            </ul>
           </div>
-          <div class="col reveal">
-            <h3>Подарок из Казани — сладкий</h3>
-            <p>Чак-чак есть у всех. Мясной подарочный формат почти не занят, а он дороже и памятнее.</p>
+          <div class="territory__face reveal">
+            <img src="/assets/ornaments/gold-kazylyk-face.png" width="900" height="1200" alt="Лицевая сторона упаковки казылыка: золотой орнамент, арка, силуэт коня, Халяль" />
           </div>
-          <div class="col col--gold reveal">
-            <h3>Премиум никто не заявил</h3>
-            <p>В конине нет дома с именем, кодексом и узнаваемой коробкой. Место свободно — его занимают один раз.</p>
-          </div>
+        </div>
+      </div>
+      <div class="arcade" aria-hidden="true">
+        <img src="/assets/ornaments/gold-arcade.png" width="2400" height="620" alt="" />
+      </div>
+    </section>
+
+    <section class="section section--dark" id="forms">
+      <div class="wrap">
+        <p class="kicker reveal">Продукт · The forms</p>
+        <h2 class="reveal">Батон. Коробка. Срез.</h2>
+        <p class="lede reveal">Казылык показывают целиком и в разрезе, в коробке и без неё. Одна и та же конина — разные способы её увидеть.</p>
+        <div class="forms__grid">
+          <figure class="forms__cell forms__cell--wide reveal">
+            <img src="/assets/products/kazylyk-box-set.jpg" width="1600" height="1067" alt="Подарочная треугольная коробка казылыка и батон в золотой обёртке" />
+            <figcaption>Коробка и батон</figcaption>
+          </figure>
+          <figure class="forms__cell reveal">
+            <img src="/assets/products/kazylyk-bare.jpg" width="1600" height="1067" alt="Казылык без упаковки, срез батона" loading="lazy" />
+            <figcaption>Без упаковки</figcaption>
+          </figure>
+          <figure class="forms__cell reveal">
+            <img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Подарочная коробка казылыка с аркадой Казани золотом" loading="lazy" />
+            <figcaption>Аркада на коробке</figcaption>
+          </figure>
+          <figure class="forms__cell reveal">
+            <img src="/assets/products/kazylyk-wrap.jpg" width="1600" height="1067" alt="Казылык в золотой обёртке с орнаментом" loading="lazy" />
+            <figcaption>В обёртке</figcaption>
+          </figure>
+          <figure class="forms__cell reveal">
+            <img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" />
+            <figcaption>Срез</figcaption>
+          </figure>
+          <figure class="forms__cell forms__cell--wide reveal">
+            <img src="/assets/products/kazylyk-slices-studio.jpg" width="1600" height="1067" alt="Нарезка казылыка ломтиками" loading="lazy" />
+            <figcaption>Нарезка</figcaption>
+          </figure>
         </div>
       </div>
     </section>
@@ -156,35 +191,16 @@
       </div>
     </section>
 
-    <section class="section section--dark" id="territory">
-      <div class="wrap">
-        <div class="territory__grid">
-          <div>
-            <p class="kicker reveal">Территория · Origin</p>
-            <h2 class="reveal">У адреса есть вкус</h2>
-            <p class="lede reveal" style="margin-top:1.4rem">Казылык — деликатес тюркских народов и один из главных знаков татарской кухни. Его подавали на праздничный стол и дарили дорогим гостям. Наш казылык делают в Казани, из конины высшего сорта, по технологии созревания и вяления.</p>
-            <ul class="territory__list reveal">
-              <li>Кул-Шариф и Кремль — знак города</li>
-              <li>Мост Миллениум — современная Казань, а не музей</li>
-              <li>Орнамент — татарская линия, золото по чёрному</li>
-            </ul>
-          </div>
-          <div class="territory__media reveal">
-            <img src="/assets/products/kazylyk-macro-horse.jpg" width="800" height="639" alt="Макродеталь упаковки казылыка: силуэт коня и архитектура Казани" loading="lazy" />
-          </div>
-        </div>
-      </div>
-    </section>
-
     <section class="section section--dark" id="ritual">
       <div class="wrap">
         <div class="ritual__grid">
           <div class="ritual__media reveal">
-            <img src="/assets/products/kazylyk-serving.jpg" width="1600" height="1066" alt="Казылык тонкой нарезкой на сервировочной доске" loading="lazy" />
+            <img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" />
           </div>
           <div>
             <p class="kicker reveal">Ритуал · Service</p>
             <h2 class="reveal">Как это подают</h2>
+            <img class="ornament-horse reveal" src="/assets/ornaments/gold-horse.png" width="480" height="480" alt="" />
             <div class="ritual__steps">
               <div class="reveal">
                 <h3>Достать заранее</h3>
@@ -213,10 +229,10 @@
           </div>
           <p class="lede reveal">Не фабрика с ассортиментом, а дом с одним главным продуктом. Казылык — первый голос. Чак-чак — второй, в той же линейке подарков.</p>
         </div>
-        <div class="sku-grid">
+        <div class="sku-grid sku-grid--three">
           <article class="sku reveal">
             <a class="sku__media" href="/products/kazylyk/" aria-label="Казылык, подарочная коробка">
-              <img src="/assets/products/kazylyk-box.jpg" width="1600" height="1066" alt="Казылык в подарочной коробке" loading="lazy" />
+              <img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Казылык в подарочной коробке с аркадой Казани" loading="lazy" />
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-044</div>
@@ -227,7 +243,7 @@
           </article>
           <article class="sku reveal">
             <a class="sku__media" href="/products/kazylyk/" aria-label="Казылык, нарезка">
-              <img src="/assets/products/kazylyk-slices.jpg" width="1600" height="1066" alt="Казылык, нарезка ломтиками" loading="lazy" />
+              <img src="/assets/products/kazylyk-slice-pack.jpg" width="1600" height="1067" alt="Казылык, подарочная упаковка нарезки" loading="lazy" />
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-045</div>
@@ -238,24 +254,13 @@
           </article>
           <article class="sku reveal">
             <a class="sku__media" href="/products/chak-chak/" aria-label="Чак-чак в подарочной коробке">
-              <img src="/assets/products/chak-box.jpg" width="1600" height="1066" alt="Чак-чак в подарочной крафт-коробке" loading="lazy" />
+              <img src="/assets/products/chak-gift.jpg" width="1600" height="1179" alt="Чак-чак в подарочной чёрной коробке с золотым орнаментом" loading="lazy" />
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-054</div>
               <h3><a href="/products/chak-chak/">Чак-чак</a></h3>
               <p>Подарочная коробка<br />300 г · 60 суток</p>
               <a class="text-link" href="#buy" data-ev="product_select" data-ev-label="kd-054">Где купить <span>↓</span></a>
-            </div>
-          </article>
-          <article class="sku reveal">
-            <a class="sku__media" href="/products/chak-chak/" aria-label="Чак-чак в пластиковой упаковке">
-              <img src="/assets/products/chak-pieces.jpg" width="1600" height="1066" alt="Чак-чак в пластиковой упаковке" loading="lazy" />
-            </a>
-            <div class="sku__body">
-              <div class="sku__code">KD-053</div>
-              <h3><a href="/products/chak-chak/">Чак-чак</a></h3>
-              <p>Пластиковая упаковка<br />300 г · 60 суток</p>
-              <a class="text-link" href="#buy" data-ev="product_select" data-ev-label="kd-053">Где купить <span>↓</span></a>
             </div>
           </article>
         </div>
@@ -378,8 +383,11 @@
           <span>Татарстанда ясалган · Made in Tatarstan</span>
         </div>
       </div>
+      <div class="arcade" aria-hidden="true">
+        <img src="/assets/ornaments/gold-arcade.png" width="2400" height="620" alt="" />
+      </div>
     </footer>
-    <script src="/assets/facts.js?v=20260829-3"></script>
-    <script src="/assets/app.js?v=20260829-3"></script>
+    <script src="/assets/facts.js?v=20260829-4"></script>
+    <script src="/assets/app.js?v=20260829-4"></script>
   </body>
 </html>

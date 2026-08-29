@@ -17,8 +17,7 @@ window.KAZYLYK = {
   chakchak: {
     name: "Чак-чак",
     facings: [
-      { sku: "KD-054", title: "Подарочная коробка", weight: "300 г", shelf: "60 суток", storage: "до +18 °C" },
-      { sku: "KD-053", title: "Пластиковая упаковка", weight: "300 г", shelf: "60 суток", storage: "до +18 °C" }
+      { sku: "KD-054", title: "Подарочная коробка", weight: "300 г", shelf: "60 суток", storage: "до +18 °C" }
     ],
     ingredients: "" // TODO: подтвердить состав чак-чака — в каталоге битая строка (губадия). Не публиковать.
   }
