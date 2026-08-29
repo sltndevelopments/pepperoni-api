@@ -1,0 +1,52 @@
+{
+  "specVersion": "0.1",
+  "host": {
+    "name": "kazylyk.com",
+    "url": "https://kazylyk.com/"
+  },
+  "entries": [
+    {
+      "id": "urn:air:kazylyk.com:docs:llms",
+      "displayName": "KAZYLYK for language models",
+      "type": "text/plain",
+      "url": "https://kazylyk.com/llms.txt",
+      "representativeQueries": [
+        "what is kazylyk",
+        "halal horse sausage from Kazan",
+        "where to buy Tatar kazylyk gift box"
+      ]
+    },
+    {
+      "id": "urn:air:kazylyk.com:docs:home",
+      "displayName": "KAZYLYK homepage (Markdown)",
+      "type": "text/markdown",
+      "url": "https://kazylyk.com/index.md",
+      "representativeQueries": [
+        "KAZYLYK brand",
+        "Tatar gift from Kazan",
+        "Казанские Деликатесы казылык"
+      ]
+    },
+    {
+      "id": "urn:air:kazylyk.com:products:kazylyk",
+      "displayName": "Kazylyk product facts",
+      "type": "text/markdown",
+      "url": "https://kazylyk.com/products/kazylyk/index.md",
+      "representativeQueries": [
+        "KD-044 kazylyk 200g",
+        "kazylyk sliced 100g KD-045",
+        "kazylyk ingredients and storage"
+      ]
+    },
+    {
+      "id": "urn:air:kazylyk.com:products:chak-chak",
+      "displayName": "Chak-chak gift box facts",
+      "type": "text/markdown",
+      "url": "https://kazylyk.com/products/chak-chak/index.md",
+      "representativeQueries": [
+        "Kazan chak-chak gift box",
+        "KD-054 chak-chak 300g"
+      ]
+    }
+  ]
+}

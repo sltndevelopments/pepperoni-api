@@ -103,7 +103,7 @@
       var img = cell.querySelector("img");
       var cap = cell.querySelector("figcaption");
       if (!img) return;
-      lbImg.src = img.src;
+      lbImg.src = img.currentSrc || img.src;
       lbImg.alt = img.alt || "";
       lbCap.textContent = cap ? cap.textContent : "";
       lightbox.classList.add("open");

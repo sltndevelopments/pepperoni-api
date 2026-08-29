@@ -13,10 +13,13 @@
     <meta property="og:description" content="Вкус Татарстана, достойный подарка. Настоящий татарский деликатес из конины." />
     <meta property="og:image" content="https://kazylyk.com/assets/products/kazylyk-box-set.jpg" />
     <link rel="icon" href="/assets/pack/favicon.svg" type="image/svg+xml" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@300;400;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/styles.css?v=20260829-8" />
+    <link rel="alternate" type="text/markdown" href="/index.md" title="Markdown" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <link rel="ai-catalog" href="/.well-known/ai-catalog.json" />
+    <link rel="preload" href="/assets/fonts/playfair-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/playfair-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/fonts/manrope-cyrillic.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/styles.css?v=20260829-9" />
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -66,6 +69,7 @@
       <a href="#buy">Где купить</a>
     </div>
 
+    <main>
     <section class="hero hero--deck" id="hero">
       <div class="hero__topline" aria-hidden="true">
         <span>Казанские деликатесы</span>
@@ -81,7 +85,18 @@
         </div>
       </div>
       <div class="arcade" aria-hidden="true">
-        <img src="/assets/ornaments/gold-arcade-2x.png" width="5200" height="786" alt="" />
+        <div class="arcade__track">
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" decoding="async" fetchpriority="low" />
+          </picture>
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" decoding="async" fetchpriority="low" />
+          </picture>
+        </div>
       </div>
     </section>
 
@@ -108,12 +123,27 @@
             </ul>
           </div>
           <div class="territory__face reveal">
-            <img src="/assets/ornaments/gold-kazylyk-face.png" width="900" height="1200" alt="Лицевая сторона упаковки казылыка: золотой орнамент, арка, силуэт коня, Халяль" />
+            <picture>
+              <source type="image/avif" srcset="/assets/ornaments/gold-kazylyk-face.avif" />
+              <source type="image/webp" srcset="/assets/ornaments/gold-kazylyk-face.webp" />
+              <img src="/assets/ornaments/gold-kazylyk-face.png" width="662" height="997" alt="Лицевая сторона упаковки казылыка: золотой орнамент, арка, силуэт коня, Халяль" loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
       </div>
       <div class="arcade" aria-hidden="true">
-        <img src="/assets/ornaments/gold-arcade.png" width="2400" height="620" alt="" />
+        <div class="arcade__track">
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" loading="lazy" decoding="async" />
+          </picture>
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
       </div>
     </section>
 
@@ -124,27 +154,27 @@
         <p class="lede reveal">Казылык показывают целиком и в разрезе, в коробке и без неё. Одна и та же конина — разные способы её увидеть.</p>
         <div class="forms__grid">
           <figure class="forms__cell forms__cell--wide reveal">
-            <img src="/assets/products/kazylyk-box-set.jpg" width="1600" height="1067" alt="Подарочная треугольная коробка казылыка и батон в золотой обёртке" />
+            <picture><source type="image/avif" srcset="/assets/products/kazylyk-box-set.avif" /><source type="image/webp" srcset="/assets/products/kazylyk-box-set.webp" /><img src="/assets/products/kazylyk-box-set.jpg" width="1600" height="1067" alt="Подарочная треугольная коробка казылыка и батон в золотой обёртке" /></picture>
             <figcaption>Коробка и батон</figcaption>
           </figure>
           <figure class="forms__cell reveal">
-            <img src="/assets/products/kazylyk-bare.jpg" width="1600" height="1067" alt="Казылык без упаковки, срез батона" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-bare.webp" /><img src="/assets/products/kazylyk-bare.jpg" width="1600" height="1067" alt="Казылык без упаковки, срез батона" loading="lazy" /></picture>
             <figcaption>Без упаковки</figcaption>
           </figure>
           <figure class="forms__cell reveal">
-            <img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Подарочная коробка казылыка с аркадой Казани золотом" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-box-arcade.webp" /><img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Подарочная коробка казылыка с аркадой Казани золотом" loading="lazy" /></picture>
             <figcaption>Аркада на коробке</figcaption>
           </figure>
           <figure class="forms__cell reveal">
-            <img src="/assets/products/kazylyk-wrap.jpg" width="1600" height="1067" alt="Казылык в золотой обёртке с орнаментом" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-wrap.webp" /><img src="/assets/products/kazylyk-wrap.jpg" width="1600" height="1067" alt="Казылык в золотой обёртке с орнаментом" loading="lazy" /></picture>
             <figcaption>В обёртке</figcaption>
           </figure>
           <figure class="forms__cell reveal">
-            <img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-cut-studio.webp" /><img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" /></picture>
             <figcaption>Срез</figcaption>
           </figure>
           <figure class="forms__cell forms__cell--wide reveal">
-            <img src="/assets/products/kazylyk-slices-studio.jpg" width="1600" height="1067" alt="Нарезка казылыка ломтиками" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-slices-studio.webp" /><img src="/assets/products/kazylyk-slices-studio.jpg" width="1600" height="1067" alt="Нарезка казылыка ломтиками" loading="lazy" /></picture>
             <figcaption>Нарезка</figcaption>
           </figure>
         </div>
@@ -194,7 +224,7 @@
       <div class="wrap">
         <div class="ritual__grid">
           <div class="ritual__media reveal">
-            <img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" />
+            <picture><source type="image/webp" srcset="/assets/products/kazylyk-cut-studio.webp" /><img src="/assets/products/kazylyk-cut-studio.jpg" width="1600" height="1067" alt="Целый батон казылыка со срезом" loading="lazy" /></picture>
           </div>
           <div>
             <p class="kicker reveal">Ритуал · Service</p>
@@ -230,7 +260,7 @@
         <div class="sku-grid sku-grid--three">
           <article class="sku reveal">
             <a class="sku__media" href="/products/kazylyk/" aria-label="Казылык, подарочная коробка">
-              <img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Казылык в подарочной коробке с аркадой Казани" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/products/kazylyk-box-arcade.webp" /><img src="/assets/products/kazylyk-box-arcade.jpg" width="1600" height="1067" alt="Казылык в подарочной коробке с аркадой Казани" loading="lazy" /></picture>
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-044</div>
@@ -241,7 +271,7 @@
           </article>
           <article class="sku reveal">
             <a class="sku__media" href="/products/kazylyk/" aria-label="Казылык, нарезка">
-              <img src="/assets/products/kazylyk-slice-pack.jpg" width="1600" height="1067" alt="Казылык, подарочная упаковка нарезки" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/products/kazylyk-slice-pack.webp" /><img src="/assets/products/kazylyk-slice-pack.jpg" width="1600" height="1067" alt="Казылык, подарочная упаковка нарезки" loading="lazy" /></picture>
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-045</div>
@@ -252,7 +282,7 @@
           </article>
           <article class="sku reveal">
             <a class="sku__media" href="/products/chak-chak/" aria-label="Чак-чак в подарочной коробке">
-              <img src="/assets/products/chak-gift.jpg" width="1600" height="1179" alt="Чак-чак в подарочной чёрной коробке с золотым орнаментом" loading="lazy" />
+              <picture><source type="image/webp" srcset="/assets/products/chak-gift.webp" /><img src="/assets/products/chak-gift.jpg" width="1600" height="1179" alt="Чак-чак в подарочной чёрной коробке с золотым орнаментом" loading="lazy" /></picture>
             </a>
             <div class="sku__body">
               <div class="sku__code">KD-054</div>
@@ -353,6 +383,7 @@
         </form>
       </div>
     </section>
+    </main>
 
     <footer class="footer">
       <div class="wrap">
@@ -382,10 +413,21 @@
         </div>
       </div>
       <div class="arcade" aria-hidden="true">
-        <img src="/assets/ornaments/gold-arcade.png" width="2400" height="620" alt="" />
+        <div class="arcade__track">
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" loading="lazy" decoding="async" />
+          </picture>
+          <picture>
+            <source type="image/avif" srcset="/assets/ornaments/gold-arcade.avif" />
+            <source type="image/webp" srcset="/assets/ornaments/gold-arcade.webp" />
+            <img src="/assets/ornaments/gold-arcade.png" width="1280" height="193" alt="" loading="lazy" decoding="async" />
+          </picture>
+        </div>
       </div>
     </footer>
-    <script src="/assets/facts.js?v=20260829-8"></script>
-    <script src="/assets/app.js?v=20260829-8"></script>
+    <script src="/assets/facts.js?v=20260829-9"></script>
+    <script src="/assets/app.js?v=20260829-9"></script>
   </body>
 </html>
