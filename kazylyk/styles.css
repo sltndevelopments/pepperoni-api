@@ -301,6 +301,20 @@ p {
     var(--ground);
   overflow: hidden;
 }
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 45% 32% at 22% 68%, rgba(203, 177, 136, 0.07), transparent 70%),
+    radial-gradient(ellipse 30% 24% at 88% 82%, rgba(203, 177, 136, 0.05), transparent 70%);
+  pointer-events: none;
+  animation: heroGlow 14s ease-in-out infinite alternate;
+}
+@keyframes heroGlow {
+  0% { opacity: 0.55; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.06); }
+}
 .hero__topline {
   position: absolute;
   top: 6.2rem;
@@ -322,6 +336,11 @@ p {
   width: min(22rem, 78%);
   height: auto;
   margin: 0 0 1.4rem;
+  animation: cartoucheIn 1.6s var(--ease) 0.15s both;
+}
+@keyframes cartoucheIn {
+  0% { opacity: 0; transform: translateY(18px) scale(0.97); }
+  100% { opacity: 1; transform: translateY(0) scale(1); }
 }
 .arcade {
   position: relative;
@@ -337,6 +356,15 @@ p {
   width: 100%;
   height: auto;
   opacity: 0.48;
+}
+.hero .arcade img {
+  width: max(200%, 2600px);
+  max-width: none;
+  animation: arcadeDrift 60s linear infinite;
+}
+@keyframes arcadeDrift {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
 }
 .hero .arcade {
   margin: auto calc(50% - 50vw) 0;
@@ -370,6 +398,11 @@ p {
   line-height: 0.88;
   letter-spacing: 0.01em;
   color: var(--paper);
+  animation: heroWordIn 1.4s var(--ease) 0.35s both;
+}
+@keyframes heroWordIn {
+  0% { opacity: 0; transform: translateY(34px); letter-spacing: 0.06em; }
+  100% { opacity: 1; transform: translateY(0); letter-spacing: 0.01em; }
 }
 .hero h1 .hero__h1-sub {
   display: block;
@@ -381,6 +414,11 @@ p {
   color: var(--soft-on-dark);
   max-width: 40rem;
   margin-top: 1.6rem;
+  animation: heroSubIn 1.2s var(--ease) 0.75s both;
+}
+@keyframes heroSubIn {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .hero__sub {
   display: flex;
@@ -401,6 +439,11 @@ p {
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2.2rem;
+  animation: heroCtaIn 1s var(--ease) 1s both;
+}
+@keyframes heroCtaIn {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 .hero__photo {
   position: relative;
@@ -477,6 +520,7 @@ p {
 
 /* Buttons */
 .btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -488,12 +532,30 @@ p {
   text-transform: uppercase;
   border: 1px solid var(--gold);
   color: var(--gold);
-  transition: background 0.45s var(--ease), color 0.45s var(--ease), border-color 0.45s var(--ease);
+  transition: background 0.45s var(--ease), color 0.45s var(--ease), border-color 0.45s var(--ease), transform 0.35s var(--ease), box-shadow 0.45s var(--ease);
   min-height: 48px;
+  overflow: hidden;
+}
+.btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 38%, rgba(255, 255, 255, 0.22) 50%, transparent 62%);
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--ease);
+  pointer-events: none;
+}
+.btn:hover::after {
+  transform: translateX(120%);
 }
 .btn:hover {
   background: var(--gold);
   color: var(--ground);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(203, 177, 136, 0.22);
+}
+.btn:active {
+  transform: translateY(0);
 }
 .btn--solid {
   background: var(--gold);
@@ -502,6 +564,7 @@ p {
 .btn--solid:hover {
   background: var(--gold-bright);
   border-color: var(--gold-bright);
+  box-shadow: 0 12px 32px rgba(240, 216, 176, 0.28);
 }
 .btn--ghost {
   border-color: var(--hairline);
@@ -519,6 +582,7 @@ p {
 .section--light .btn:hover {
   background: var(--gold-deep);
   color: var(--paper);
+  box-shadow: 0 10px 26px rgba(140, 122, 82, 0.3);
 }
 .section--light .btn--solid {
   background: var(--ink);
@@ -541,6 +605,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
+  transition: color 0.3s var(--ease);
 }
 .section--light .text-link {
   color: var(--gold-deep);
@@ -601,14 +666,6 @@ p {
   border: 0;
   margin: 2.6rem 0;
 }
-.ornament-mark {
-  display: block;
-  width: min(22rem, 72%);
-  height: auto;
-  margin: 2.2rem 0 2.4rem;
-  mix-blend-mode: multiply;
-  opacity: 0.88;
-}
 .manifesto__text {
   font-weight: 300;
   font-size: clamp(1.1rem, 1.7vw, 1.45rem);
@@ -668,6 +725,11 @@ p {
 .step {
   border-top: 1px solid rgba(32, 32, 40, 0.28);
   padding-top: 1.5rem;
+  transition: border-color 0.5s var(--ease), transform 0.5s var(--ease);
+}
+.step:hover {
+  border-top-color: var(--gold-deep);
+  transform: translateY(-3px);
 }
 .step--gold {
   border-top-color: var(--gold-deep);
@@ -678,6 +740,10 @@ p {
   font-size: 1.5rem;
   color: var(--gold-deep);
   margin-bottom: 0.9rem;
+  transition: transform 0.5s var(--ease);
+}
+.step:hover .step__num {
+  transform: translateX(4px);
 }
 .step h3 {
   font-size: clamp(1.5rem, 2.2vw, 1.9rem);
@@ -793,13 +859,6 @@ p {
 .ritual__stack img:last-child {
   aspect-ratio: 16 / 10;
 }
-.ornament-horse {
-  display: block;
-  width: min(14rem, 56%);
-  height: auto;
-  margin: 1.6rem 0 0.4rem;
-  opacity: 0.92;
-}
 .ritual__steps {
   display: flex;
   flex-direction: column;
@@ -839,6 +898,12 @@ p {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--ground);
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.sku:hover {
+  transform: translateY(-5px);
+  border-color: var(--gold-deep);
+  box-shadow: 0 20px 44px rgba(32, 32, 40, 0.28);
 }
 .sku__media {
   height: 13rem;
@@ -852,6 +917,10 @@ p {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.8s var(--ease);
+}
+.sku:hover .sku__media img {
+  transform: scale(1.05);
 }
 .sku__media--ornament {
   background: #000;
@@ -875,6 +944,12 @@ p {
 .sku__body h3 {
   font-size: 1.55rem;
   margin: 0.9rem 0 0.6rem;
+}
+.sku__body h3 a {
+  transition: color 0.3s var(--ease);
+}
+.sku__body h3 a:hover {
+  color: var(--gold-bright);
 }
 .sku__body p {
   font-weight: 300;
@@ -923,6 +998,11 @@ p {
   padding: 1.15rem 0;
   font-weight: 300;
   font-size: 1.02rem;
+  transition: border-color 0.4s var(--ease), padding-left 0.4s var(--ease);
+}
+.docs__row:hover {
+  border-bottom-color: var(--gold);
+  padding-left: 0.4rem;
 }
 .docs__row span:first-child {
   color: var(--muted-on-dark);
@@ -1027,6 +1107,11 @@ p {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  transition: transform 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.channel:hover {
+  transform: translateY(-4px);
+  border-top-color: var(--gold);
 }
 .channel h3 {
   font-size: clamp(1.5rem, 2.2vw, 1.9rem);
@@ -1239,6 +1324,31 @@ p {
 .ornament-band--footer img {
   opacity: 0.38;
 }
+.ornament-horse {
+  display: block;
+  width: min(14rem, 56%);
+  height: auto;
+  margin: 1.6rem 0 0.4rem;
+  opacity: 0.92;
+  transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
+}
+.ornament-horse:hover {
+  transform: translateY(-4px) rotate(-1.2deg);
+  opacity: 1;
+}
+.ornament-mark {
+  display: block;
+  width: min(22rem, 72%);
+  height: auto;
+  margin: 2.2rem 0 2.4rem;
+  mix-blend-mode: multiply;
+  opacity: 0.88;
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.ornament-mark:hover {
+  opacity: 1;
+  transform: scale(1.02);
+}
 
 /* Product forms mosaic */
 .forms__grid {
@@ -1253,12 +1363,24 @@ p {
   overflow: hidden;
   border: 1px solid var(--hairline);
   background: var(--panel);
+  cursor: pointer;
+  transition: border-color 0.4s var(--ease), transform 0.5s var(--ease), box-shadow 0.5s var(--ease);
+}
+.forms__cell:hover {
+  border-color: var(--gold);
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 .forms__cell img {
   width: 100%;
   height: 100%;
   aspect-ratio: 1;
   object-fit: cover;
+  transition: transform 0.8s var(--ease), filter 0.6s var(--ease);
+}
+.forms__cell:hover img {
+  transform: scale(1.06);
+  filter: brightness(1.05);
 }
 .forms__cell--wide {
   grid-column: span 2;
@@ -1277,6 +1399,11 @@ p {
   font-weight: 600;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+  transition: padding 0.4s var(--ease), background 0.4s var(--ease);
+}
+.forms__cell:hover figcaption {
+  padding-bottom: 1rem;
+  background: linear-gradient(transparent, rgba(32, 32, 40, 0.92));
 }
 @media (max-width: 860px) {
   .forms__grid {
@@ -1308,6 +1435,74 @@ p {
 .reveal.in {
   opacity: 1;
   transform: none;
+}
+/* Staggered children inside grids */
+.cols .reveal.in,
+.steps .reveal.in,
+.sku-grid .reveal.in,
+.channels .reveal.in,
+.forms__grid .reveal.in,
+.ritual__steps .reveal.in {
+  transition-delay: calc(var(--i, 0) * 90ms);
+}
+
+/* Lightbox */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  background: rgba(24, 24, 30, 0.92);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.45s var(--ease), visibility 0.45s var(--ease);
+}
+.lightbox.open {
+  opacity: 1;
+  visibility: visible;
+}
+.lightbox img {
+  max-width: min(100%, 72rem);
+  max-height: 78vh;
+  width: auto;
+  height: auto;
+  border: 1px solid var(--hairline);
+  transform: scale(0.96);
+  transition: transform 0.45s var(--ease);
+}
+.lightbox.open img {
+  transform: scale(1);
+}
+.lightbox__caption {
+  margin: 0;
+  color: var(--soft-on-dark);
+  font-size: 0.74rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.lightbox__close {
+  position: absolute;
+  top: 1.2rem;
+  right: 1.4rem;
+  width: 48px;
+  height: 48px;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: var(--paper);
+  border: 1px solid var(--hairline);
+  transition: border-color 0.3s var(--ease), color 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.lightbox__close:hover {
+  border-color: var(--gold);
+  color: var(--gold-bright);
+  transform: rotate(90deg);
 }
 
 /* Product page */
@@ -1541,6 +1736,7 @@ p {
 @media (prefers-reduced-motion: reduce) {
   * {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
   .reveal {

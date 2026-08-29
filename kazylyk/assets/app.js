@@ -37,8 +37,13 @@
     });
   }
 
-  // Reveal on scroll
+  // Reveal on scroll (staggered inside grids)
   var reveal = d.querySelectorAll(".reveal");
+  d.querySelectorAll(".cols, .steps, .sku-grid, .channels, .forms__grid, .ritual__steps").forEach(function (grid) {
+    grid.querySelectorAll(".reveal").forEach(function (el, i) {
+      el.style.setProperty("--i", i);
+    });
+  });
   if ("IntersectionObserver" in window && reveal.length) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
@@ -52,6 +57,65 @@
   } else {
     reveal.forEach(function (el) { el.classList.add("in"); });
   }
+
+  // Hero parallax: cartouche drifts up slightly slower than scroll
+  var heroCartouche = d.querySelector(".hero__cartouche");
+  var heroArcade = d.querySelector(".hero .arcade img");
+  var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduceMotion && (heroCartouche || heroArcade)) {
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(function () {
+        var y = window.scrollY;
+        if (y < window.innerHeight * 1.2) {
+          if (heroCartouche) heroCartouche.style.transform = "translateY(" + y * 0.08 + "px)";
+          if (heroArcade) heroArcade.style.opacity = Math.max(0.1, 0.48 - y / 1600);
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // Lightbox for the forms mosaic
+  var lightbox = d.createElement("div");
+  lightbox.className = "lightbox";
+  lightbox.setAttribute("role", "dialog");
+  lightbox.setAttribute("aria-modal", "true");
+  lightbox.setAttribute("aria-label", "Фото продукта");
+  lightbox.innerHTML = '<button class="lightbox__close" aria-label="Закрыть">×</button><img alt="" /><p class="lightbox__caption"></p>';
+  d.body.appendChild(lightbox);
+  var lbImg = lightbox.querySelector("img");
+  var lbCap = lightbox.querySelector(".lightbox__caption");
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    d.body.style.overflow = "";
+  }
+  lightbox.addEventListener("click", function (e) {
+    if (e.target === lightbox || e.target.classList.contains("lightbox__close")) closeLightbox();
+  });
+  d.addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && lightbox.classList.contains("open")) closeLightbox();
+  });
+  d.querySelectorAll(".forms__cell").forEach(function (cell) {
+    cell.setAttribute("tabindex", "0");
+    cell.setAttribute("role", "button");
+    function open() {
+      var img = cell.querySelector("img");
+      var cap = cell.querySelector("figcaption");
+      if (!img) return;
+      lbImg.src = img.src;
+      lbImg.alt = img.alt || "";
+      lbCap.textContent = cap ? cap.textContent : "";
+      lightbox.classList.add("open");
+      d.body.style.overflow = "hidden";
+    }
+    cell.addEventListener("click", open);
+    cell.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); }
+    });
+  });
 
   // Analytics (dataLayer hooks, privacy-respecting, no external script)
   function ev(name, data) {
