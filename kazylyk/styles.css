@@ -342,6 +342,7 @@ p {
   0% { opacity: 0; transform: translateY(18px) scale(0.97); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
 }
+/* Arcade band */
 .arcade {
   position: relative;
   height: clamp(7.5rem, 18vw, 14rem);
@@ -1323,18 +1324,6 @@ p {
 }
 .ornament-band--footer img {
   opacity: 0.38;
-}
-.ornament-horse {
-  display: block;
-  width: min(14rem, 56%);
-  height: auto;
-  margin: 1.6rem 0 0.4rem;
-  opacity: 0.92;
-  transition: transform 0.6s var(--ease), opacity 0.6s var(--ease);
-}
-.ornament-horse:hover {
-  transform: translateY(-4px) rotate(-1.2deg);
-  opacity: 1;
 }
 .ornament-mark {
   display: block;
