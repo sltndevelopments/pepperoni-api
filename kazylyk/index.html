@@ -42,7 +42,7 @@
       }
     </script>
   </head>
-  <body>
+  <body class="home">
     <a class="skip" href="#products">К продуктам</a>
     <header class="nav">
       <div class="nav__inner">
@@ -54,20 +54,21 @@
           <a href="#buy">Где купить</a>
           <a href="#business">Для бизнеса</a>
         </nav>
-        <a class="nav__cta" href="#buy" data-ev="hero_cta" data-ev-label="header">Выбрать подарок</a>
-        <button class="nav__burger" aria-label="Меню" aria-expanded="false"><span></span></button>
+        <a class="nav__cta" href="#buy" data-ev="hero_cta" data-ev-label="header">Где купить</a>
+        <button class="nav__burger" aria-label="Меню" aria-controls="mobile-menu" aria-expanded="false"><span></span></button>
       </div>
     </header>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <a href="#story">История</a>
       <a href="#products">Казылык</a>
       <a href="#gift">Подарок</a>
       <a href="#buy">Где купить</a>
       <a href="#business">Для бизнеса</a>
-      <a class="nav__cta" href="#buy">Выбрать подарок</a>
+      <a class="nav__cta" href="#buy">Где купить</a>
     </div>
 
     <section class="hero">
+      <div class="hero__brandline" aria-hidden="true">KAZYLYK</div>
       <div class="hero__bg" aria-hidden="true">
         <svg viewBox="0 0 1600 240" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="#b18a45" stroke-width="1.1">
           <path d="M40 200 L120 120 L200 200 L280 110 L360 200" />
@@ -85,15 +86,16 @@
           <p class="hero__kicker">
             <span>Татарстанда ясалган</span><span class="dot"></span><span>Сделано в Татарстане</span><span class="dot"></span><span>Халяль</span>
           </p>
-          <h1>Казылык — вкус&nbsp;Татарстана, достойный&nbsp;подарка</h1>
-          <p class="hero__sub">Настоящий татарский деликатес из конины в упаковке, созданной как память о Казани.</p>
+          <h1>Казылык. Традиция, которая стала подарком.</h1>
+          <p class="hero__sub">Татарский деликатес из конины. Сделан в Казани и оформлен так, чтобы знакомство с Татарстаном началось ещё до открытия коробки.</p>
           <div class="hero__cta">
-            <a class="btn btn--solid" href="#buy" data-ev="hero_cta" data-ev-label="choose-gift">Выбрать подарок</a>
-            <a class="btn btn--ghost" href="#story" data-ev="hero_cta" data-ev-label="learn-story">Узнать историю</a>
+            <a class="btn btn--solid" href="#buy" data-ev="hero_cta" data-ev-label="where-to-buy">Где купить</a>
+            <a class="btn btn--ghost" href="#story" data-ev="hero_cta" data-ev-label="learn-story">Открыть историю</a>
           </div>
         </div>
         <div class="hero__photo gilt">
           <img src="/assets/products/kazylyk-box-and-roll.jpg" width="1600" height="1066" alt="Подарочная коробка казылыка и батон в золотой обёртке с орнаментом Казани" fetchpriority="high" />
+          <p class="hero__caption"><span>Казань, Татарстан</span><span>Казылык · 200 г</span></p>
         </div>
       </div>
       <div class="scroll-cue" aria-hidden="true">Листайте</div>
@@ -101,7 +103,7 @@
 
     <section class="section manifesto">
       <div class="wrap">
-        <p class="reveal">Не сувенир о&nbsp;Татарстане. <span class="accent">Сам Татарстан</span> — в продукте, орнаменте и отношении к&nbsp;гостю.</p>
+        <p class="reveal">Не воспоминание о&nbsp;Татарстане, а&nbsp;встреча с&nbsp;ним: <span class="accent">вкус, город и&nbsp;традиция</span> в&nbsp;одной коробке.</p>
       </div>
     </section>
     <section class="section" id="story">
@@ -110,9 +112,10 @@
           <img src="/assets/products/kazylyk-macro-horse.jpg" width="800" height="639" alt="Макродеталь упаковки казылыка: силуэт коня и архитектура Казани" loading="lazy" />
         </div>
         <div class="split__copy reveal">
-          <p class="kicker">История продукта</p>
-          <h2>Традиция, которой дали современную форму</h2>
-          <p class="lede">Казылык — часть татарской гастрономической культуры: деликатес из конины, который ценили за вкус, плотность и долгое хранение. Мы сохраняем уважение к продукту и гостю и готовим его на современном производстве в Казани.</p>
+          <p class="kicker">Код продукта · 01</p>
+          <h2>Сначала — традиция. Затем — форма.</h2>
+          <p class="lede">Казылык — традиционный татарский деликатес из конины. В KAZYLYK его гастрономическая основа соединена с современным производством и визуальным языком Казани.</p>
+          <p>Здесь нет декора ради декора: конь говорит о продукте, городская линия — о происхождении, а подарочная коробка — об отношении к тому, кому её вручают.</p>
           <ul class="facts">
             <li><strong>Производство</strong>Казань, Республика Татарстан</li>
             <li><strong>Контроль</strong>Халяль ДУМ РТ, HACCP, ISO 22000:2018</li>
@@ -124,29 +127,30 @@
     <section class="section" id="products">
       <div class="wrap">
         <div class="section__head center reveal">
-          <p class="kicker">Продукт крупным планом</p>
-          <h2>От закрытой коробки до&nbsp;сервировки</h2>
+          <p class="kicker">Ритуал знакомства · 02</p>
+          <h2>Пять жестов одного подарка</h2>
+          <p class="lede">Коробку рассматривают. Окно открывает продукт. Обёртку снимают. Казылык нарезают и подают. Дизайн ведёт человека по этому пути спокойно, без лишних объяснений.</p>
         </div>
         <div class="scenes">
           <article class="scene reveal">
             <div class="scene__media"><img src="/assets/products/kazylyk-box.jpg" width="1600" height="1066" alt="Закрытая подарочная коробка казылыка" loading="lazy" /></div>
-            <div class="scene__copy"><span class="scene__index">01</span><h3>Подарочная коробка</h3><p>Молочно-белая бумага, золотая линейная графика, силуэты Казани. Пломба и орнамент считываются до того, как коробка открыта.</p></div>
+            <div class="scene__copy"><span class="scene__index">01 / Встреча</span><h3>Сначала — город</h3><p>Молочно-белая бумага, золотая линия, силуэты Казани. До открытия коробки подарок уже говорит о месте, откуда он приехал.</p></div>
           </article>
           <article class="scene reveal">
             <div class="scene__media"><img src="/assets/products/kazylyk-window.jpg" width="1600" height="1066" alt="Окно коробки с нарезкой казылыка" loading="lazy" /></div>
-            <div class="scene__copy"><span class="scene__index">02</span><h3>Окно в продукт</h3><p>Овальное окно открывает нарезку — цвет, плотность и рисунок мяса видны до покупки.</p></div>
+            <div class="scene__copy"><span class="scene__index">02 / Честность</span><h3>Затем — сам продукт</h3><p>Овальное окно не прячет содержимое: цвет, плотность и рисунок нарезки видны до открытия.</p></div>
           </article>
           <article class="scene reveal">
             <div class="scene__media"><img src="/assets/products/kazylyk-roll.jpg" width="1600" height="1066" alt="Батон казылыка в фирменной обёртке" loading="lazy" /></div>
-            <div class="scene__copy"><span class="scene__index">03</span><h3>В фирменной обёртке</h3><p>Батон в золотой бумаге с тем же орнаментом — продукт сохранён и узнаваем.</p></div>
+            <div class="scene__copy"><span class="scene__index">03 / Продолжение</span><h3>История внутри</h3><p>Золотая обёртка продолжает графику коробки. Внешний образ не заканчивается после распаковки.</p></div>
           </article>
           <article class="scene reveal">
             <div class="scene__media"><img src="/assets/products/kazylyk-slices.jpg" width="1600" height="1066" alt="Нарезка казылыка ломтиками" loading="lazy" /></div>
-            <div class="scene__copy"><span class="scene__index">04</span><h3>Срез</h3><p>Тонкие ломтики, плотная текстура конины, белые вкрапления жира — то, ради чего казылык ценят.</p></div>
+            <div class="scene__copy"><span class="scene__index">04 / Вкус</span><h3>Главное — на срезе</h3><p>Плотная текстура конины и характерный рисунок становятся центром внимания. Упаковка отступает, остаётся продукт.</p></div>
           </article>
           <article class="scene reveal">
             <div class="scene__media"><img src="/assets/products/kazylyk-serving.jpg" width="1600" height="1066" alt="Казылык на сервировке" loading="lazy" /></div>
-            <div class="scene__copy"><span class="scene__index">05</span><h3>Сервировка</h3><p>Готов к употреблению — на доске, на тарелке, к чаю. Подарок, который можно сразу открыть и предложить.</p></div>
+            <div class="scene__copy"><span class="scene__index">05 / Стол</span><h3>Финал — разделить</h3><p>Казылык готов к употреблению. Его можно открыть, нарезать и сразу подать — подарок становится частью стола.</p></div>
           </article>
         </div>
 
@@ -178,22 +182,22 @@
     <section class="section gift" id="gift">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Подарок из Татарстана</p>
-          <h2>Настоящий подарок — тот, у которого есть содержание</h2>
-          <p class="lede">Два повода, один продукт. Казылык одинаково уместен в чемодане гостя Казани и в руках того, кто дарит от лица республики.</p>
+          <p class="kicker">Подарок без перевода · 03</p>
+          <h2>То, что не нужно объяснять</h2>
+          <p class="lede">Происхождение видно в орнаменте. Содержание — через окно коробки. Остаётся только выбрать, кому вы хотите подарить Татарстан.</p>
         </div>
         <div class="gift__grid">
           <article class="gift__card reveal">
             <p class="kicker">Гостю Казани</p>
-            <h3>Увезти не безделушку, а вкус республики</h3>
-            <p>Подарочная коробка помещается в руку и в память. Не магнитик, а настоящий деликатес, сделанный в Казани.</p>
-            <a class="btn btn--ghost" href="#buy" data-ev="product_select" data-ev-label="gift-guest">Выбрать подарок</a>
+            <h3>Для человека</h3>
+            <p>Гастрономический подарок из Казани: с понятным происхождением, готовый к подаче и созданный, чтобы им поделились.</p>
+            <a class="text-link" href="#buy" data-ev="product_select" data-ev-label="gift-guest">Где купить <span>↗</span></a>
           </article>
           <article class="gift__card reveal">
             <p class="kicker">От Татарстана</p>
-            <h3>Подарить то, чем можно гордиться</h3>
-            <p>Партнёру, близкому человеку или гостю — казылык, в котором есть продукт, культура и отношение.</p>
-            <a class="btn btn--ghost" href="#business" data-ev="product_select" data-ev-label="gift-b2b">Корпоративные подарки</a>
+            <h3>Для партнёров и гостей</h3>
+            <p>Подарочная серия для деловых встреч, приёмов и событий — продукт из Татарстана, который представляет республику без формальностей.</p>
+            <a class="text-link" href="#business" data-ev="product_select" data-ev-label="gift-b2b">Для бизнеса <span>↗</span></a>
           </article>
         </div>
       </div>
@@ -201,8 +205,9 @@
     <section class="section" id="kazan">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Казань в упаковке</p>
-          <h2>Иллюстрация, в которой читается город</h2>
+          <p class="kicker">Город как подпись · 04</p>
+          <h2>Казань, нарисованная золотом</h2>
+          <p class="lede">Упаковка работает как карта впечатлений: современная архитектура, исторический Кремль и образ коня собраны в единую линию.</p>
         </div>
         <div class="packart">
           <div class="packart__stage gilt">
@@ -229,35 +234,40 @@
     <section class="section" id="lineup">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Линейка</p>
-          <h2>Казылык — главный. Чак-чак — рядом.</h2>
+          <p class="kicker">Коллекция · 05</p>
+          <h2>Главный герой — казылык.<br />К чаю — чак-чак.</h2>
         </div>
         <div class="lineup__hero reveal">
           <img src="/assets/products/kazylyk-gift-1.jpg" width="1600" height="1066" alt="Казылык в подарочной коробке рядом с батоном" loading="lazy" />
           <div>
             <h3>Казылык</h3>
-            <p class="lede">Традиционный деликатес из конины. Две фасовки — для подарка и для стола.</p>
-            <p class="price">650 ₽ · 200 г</p>
-            <a class="btn" href="/products/kazylyk/" data-ev="product_select" data-ev-label="kazylyk">Смотреть казылык</a>
+            <p class="lede">Традиционный деликатес из конины. Подарочная упаковка и нарезка — для вручения и для стола.</p>
+            <div class="lineup__actions">
+              <a class="btn" href="#buy" data-ev="product_select" data-ev-label="kazylyk-buy">Где купить</a>
+              <a class="text-link" href="/products/kazylyk/">О продукте <span>→</span></a>
+            </div>
           </div>
         </div>
         <div class="lineup__secondary reveal">
           <img src="/assets/products/chak-lifestyle.jpg" width="1600" height="1245" alt="Чак-чак в подарочной коробке" loading="lazy" />
           <div>
             <h3>Чак-чак</h3>
-            <p class="lede">Дополнение к подарочной коллекции — казанская сладость в той же системе упаковки.</p>
-            <p class="price">271,70 ₽ · 300 г</p>
-            <a class="btn btn--ghost" href="/products/chak-chak/" data-ev="product_select" data-ev-label="chak-chak">Смотреть чак-чак</a>
+            <p class="lede">Казанская сладость в той же визуальной системе — спокойное дополнение к главному подарку.</p>
+            <div class="lineup__actions">
+              <a class="btn btn--ghost" href="#buy" data-ev="product_select" data-ev-label="chak-chak-buy">Где купить</a>
+              <a class="text-link" href="/products/chak-chak/">О продукте <span>→</span></a>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <section class="section trust" id="trust">
+    <section class="section trust section--dark" id="trust">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Доверие</p>
-          <h2>Сделано в Казани</h2>
+          <p class="kicker">Основа · 06</p>
+          <h2>Премиальность начинается не&nbsp;с&nbsp;золота</h2>
+          <p class="lede">Она начинается с происхождения продукта, прозрачного состава и контроля производства. Упаковка лишь делает эту основу видимой.</p>
         </div>
         <div class="trust__grid reveal">
           <div class="trust__cell"><strong>Производитель</strong><span>ООО «Казанские Деликатесы»</span></div>
@@ -269,32 +279,36 @@
       </div>
     </section>
 
-    <section class="section" id="buy">
+    <section class="section buy" id="buy">
       <div class="wrap">
         <div class="section__head reveal">
-          <p class="kicker">Где купить / заказать</p>
-          <h2>Три пути</h2>
+          <p class="kicker">Где купить · 07</p>
+          <h2>Выберите свой формат знакомства</h2>
+          <p class="lede">Розничная покупка, корпоративная серия или поставка для бизнеса — оставьте заявку, и мы направим к подходящему формату.</p>
         </div>
         <div class="buy__paths">
           <article class="path reveal">
             <h3>Для себя или в подарок</h3>
             <p>Оставьте заявку — перезвоним и поможем выбрать фасовку.</p>
-            <a class="btn btn--solid" href="#order" data-ev="order_start" data-ev-label="self">Оставить заявку</a>
+            <a class="text-link" href="#order-form" data-ev="order_start" data-ev-label="self">Оставить заявку <span>↓</span></a>
           </article>
           <article class="path reveal" id="business">
             <h3>Корпоративные подарки</h3>
             <p>Серии к праздникам, деловым встречам и приёмам гостей республики.</p>
-            <a class="btn" href="#order" data-ev="b2b_request" data-ev-label="corporate">Запросить условия</a>
+            <a class="text-link" href="#order-form" data-ev="b2b_request" data-ev-label="corporate">Запросить условия <span>↓</span></a>
           </article>
           <article class="path reveal">
             <h3>Розница, дистрибьюторы, HoReCa</h3>
             <p>Поставки в сети и на предприятия общепита. Условия — по спецификации.</p>
-            <a class="btn btn--ghost" href="#order" data-ev="b2b_request" data-ev-label="horeca">Связаться</a>
+            <a class="text-link" href="#order-form" data-ev="b2b_request" data-ev-label="horeca">Связаться <span>↓</span></a>
           </article>
         </div>
 
         <form class="form" id="order-form" novalidate>
-          <p class="kicker" style="margin:0">Заявка</p>
+          <div class="form__head">
+            <p class="kicker">Заявка</p>
+            <h3>Расскажите, для кого выбираете KAZYLYK</h3>
+          </div>
           <div class="field field--honeypot" aria-hidden="true">
             <label for="f-url">Не заполняйте</label>
             <input id="f-url" name="company_url" type="text" tabindex="-1" autocomplete="off" />
@@ -338,7 +352,7 @@
             <h4>Контакты</h4>
             <a href="tel:+79872170202">+7 987 217-02-02</a>
             <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
-            <a href="#contacts" data-ev="contacts_view">Казань, ул. Аграрная, 2, оф. 7</a>
+            <span class="footer__address">Казань, ул. Аграрная, 2, оф. 7</span>
           </div>
           <div class="footer__col">
             <h4>Разделы</h4>

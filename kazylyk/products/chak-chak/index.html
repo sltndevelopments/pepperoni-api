@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Чак-чак — 300 г, Казань | KAZYLYK</title>
-    <meta name="description" content="Казанский чак-чак 300 г: подарочная коробка 271,70 ₽ и пластиковая упаковка 194,70 ₽. 60 суток, до +18 °C. Дополнение к подарочной коллекции KAZYLYK." />
+    <title>Чак-чак — подарочная коллекция из Казани | KAZYLYK</title>
+    <meta name="description" content="Казанский чак-чак 300 г в подарочной коробке и пластиковой упаковке. 60 суток, хранение до +18 °C. Дополнение к коллекции KAZYLYK." />
     <link rel="canonical" href="https://kazylyk.com/products/chak-chak/" />
     <meta property="og:type" content="product" />
     <meta property="og:url" content="https://kazylyk.com/products/chak-chak/" />
@@ -16,13 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"Product","name":"Чак-чак","brand":{"@type":"Brand","name":"KAZYLYK"},"image":"https://kazylyk.com/assets/products/chak-box.jpg","description":"Казанский чак-чак, 300 г. Дополнение к подарочной коллекции KAZYLYK.","offers":[{"@type":"Offer","sku":"KD-054","priceCurrency":"RUB","price":"271.70","availability":"https://schema.org/InStock","url":"https://kazylyk.com/products/chak-chak/"},{"@type":"Offer","sku":"KD-053","priceCurrency":"RUB","price":"194.70","availability":"https://schema.org/InStock","url":"https://kazylyk.com/products/chak-chak/"}],"manufacturer":{"@type":"Organization","name":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}
+      {"@context":"https://schema.org","@type":"Product","name":"Чак-чак","sku":"KD-053 / KD-054","brand":{"@type":"Brand","name":"KAZYLYK"},"image":"https://kazylyk.com/assets/products/chak-box.jpg","description":"Казанский чак-чак, 300 г. Дополнение к подарочной коллекции KAZYLYK.","manufacturer":{"@type":"Organization","name":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}
     </script>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://kazylyk.com/"},{"@type":"ListItem","position":2,"name":"Чак-чак","item":"https://kazylyk.com/products/chak-chak/"}]}
     </script>
   </head>
-  <body>
+  <body class="product-page">
     <a class="skip" href="#facings">К фасовкам</a>
     <header class="nav is-scrolled">
       <div class="nav__inner">
@@ -33,43 +33,51 @@
           <a href="/#gift">Подарок</a>
           <a href="/#buy">Где купить</a>
         </nav>
-        <a class="nav__cta" href="/#buy">Выбрать подарок</a>
-        <button class="nav__burger" aria-label="Меню" aria-expanded="false"><span></span></button>
+        <a class="nav__cta" href="/#buy">Где купить</a>
+        <button class="nav__burger" aria-label="Меню" aria-controls="mobile-menu" aria-expanded="false"><span></span></button>
       </div>
     </header>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <a href="/#story">История</a>
       <a href="/#products">Казылык</a>
       <a href="/#gift">Подарок</a>
       <a href="/#buy">Где купить</a>
-      <a class="nav__cta" href="/#buy">Выбрать подарок</a>
+      <a class="nav__cta" href="/#buy">Где купить</a>
     </div>
 
-    <section class="page-hero">
-      <div class="wrap">
-        <p class="kicker"><span>Татарстанда ясалган</span> · <span>Сделано в Татарстане</span></p>
-        <h1>Чак-чак</h1>
-        <p class="lede">Дополнение к подарочной коллекции — казанская сладость в той же системе упаковки. 300 г, 60 суток.</p>
+    <section class="page-hero product-intro">
+      <div class="wrap product-intro__grid">
+        <div class="product-intro__copy">
+          <p class="kicker"><span>Татарстанда ясалган</span> · <span>Сделано в Татарстане</span></p>
+          <h1>Чак-чак</h1>
+          <p class="lede">Казанская сладость в той же визуальной системе — дополнение к главному подарку KAZYLYK.</p>
+          <p>Золотой орнамент продолжает историю коллекции, а знакомый вкус завершает её за чайным столом.</p>
+          <a class="btn btn--solid" href="/#buy">Где купить</a>
+        </div>
+        <div class="product-intro__media gilt">
+          <img src="/assets/products/chak-box.jpg" width="1600" height="1262" alt="Подарочная коробка чак-чака с золотым орнаментом" fetchpriority="high" />
+        </div>
       </div>
     </section>
 
     <section class="section--tight">
       <div class="wrap">
-        <div class="gilt" style="overflow:hidden">
-          <img src="/assets/products/chak-box.jpg" width="1600" height="1262" alt="Подарочная коробка чак-чака с золотым орнаментом" fetchpriority="high" />
+        <div class="section__head">
+          <p class="kicker">Два формата</p>
+          <h2>Для подарка. Для чаепития.</h2>
         </div>
         <div class="facings" id="facings">
           <article class="facing">
             <p class="kicker">KD-054</p>
             <h2>Подарочная коробка</h2>
-            <p class="price">271,70 ₽</p>
             <p>300 г · 60 суток · до +18 °C</p>
+            <a class="text-link" href="/#buy">Где купить <span>↗</span></a>
           </article>
           <article class="facing">
             <p class="kicker">KD-053</p>
             <h2>Пластиковая упаковка</h2>
-            <p class="price">194,70 ₽</p>
             <p>300 г · 60 суток · до +18 °C</p>
+            <a class="text-link" href="/#buy">Где купить <span>↗</span></a>
           </article>
         </div>
 

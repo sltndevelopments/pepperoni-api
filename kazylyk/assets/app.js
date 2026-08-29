@@ -18,7 +18,9 @@
   if (burger && menu) {
     function toggle(open) {
       burger.setAttribute("aria-expanded", open ? "true" : "false");
+      menu.setAttribute("aria-hidden", open ? "false" : "true");
       menu.classList.toggle("open", open);
+      if (nav) nav.classList.toggle("menu-open", open);
       d.body.style.overflow = open ? "hidden" : "";
     }
     burger.addEventListener("click", function () {
@@ -26,6 +28,12 @@
     });
     menu.querySelectorAll("a").forEach(function (a) {
       a.addEventListener("click", function () { toggle(false); });
+    });
+    d.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && burger.getAttribute("aria-expanded") === "true") {
+        toggle(false);
+        burger.focus();
+      }
     });
   }
 

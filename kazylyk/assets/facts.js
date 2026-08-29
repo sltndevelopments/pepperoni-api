@@ -9,16 +9,16 @@ window.KAZYLYK = {
   kazylyk: {
     name: "Казылык",
     facings: [
-      { sku: "KD-044", title: "Подарочная упаковка", weight: "200 г", price: "650 ₽", shelf: "180 суток", storage: "0–12 °C" },
-      { sku: "KD-045", title: "Нарезка", weight: "100 г", price: "450 ₽", shelf: "30 суток", storage: "0–12 °C" }
+      { sku: "KD-044", title: "Подарочная упаковка", weight: "200 г", shelf: "180 суток", storage: "0–12 °C" },
+      { sku: "KD-045", title: "Нарезка", weight: "100 г", shelf: "30 суток", storage: "0–12 °C" }
     ],
     ingredients: "Конина, жир конский, посолочная смесь (поваренная соль, фиксатор окраски нитрит натрия), перец чёрный, чеснок, перец красный."
   },
   chakchak: {
     name: "Чак-чак",
     facings: [
-      { sku: "KD-054", title: "Подарочная коробка", weight: "300 г", price: "271,70 ₽", shelf: "60 суток", storage: "до +18 °C" },
-      { sku: "KD-053", title: "Пластиковая упаковка", weight: "300 г", price: "194,70 ₽", shelf: "60 суток", storage: "до +18 °C" }
+      { sku: "KD-054", title: "Подарочная коробка", weight: "300 г", shelf: "60 суток", storage: "до +18 °C" },
+      { sku: "KD-053", title: "Пластиковая упаковка", weight: "300 г", shelf: "60 суток", storage: "до +18 °C" }
     ],
     ingredients: "" // TODO: подтвердить состав чак-чака — в каталоге битая строка (губадия). Не публиковать.
   }

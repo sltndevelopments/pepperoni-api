@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Казылык — подарочная упаковка и нарезка | KAZYLYK</title>
-    <meta name="description" content="Казылык из конины: коробка 200 г (650 ₽, 180 суток) и нарезка 100 г (450 ₽, 30 суток). Халяль ДУМ РТ №614А/2024. Казань." />
+    <meta name="description" content="Казылык из конины: подарочная упаковка 200 г и нарезка 100 г. Халяль ДУМ РТ №614А/2024. Сделано в Казани." />
     <link rel="canonical" href="https://kazylyk.com/products/kazylyk/" />
     <meta property="og:type" content="product" />
     <meta property="og:url" content="https://kazylyk.com/products/kazylyk/" />
@@ -16,13 +16,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Prata&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="application/ld+json">
-      {"@context":"https://schema.org","@type":"Product","name":"Казылык","brand":{"@type":"Brand","name":"KAZYLYK"},"image":"https://kazylyk.com/assets/products/kazylyk-box.jpg","description":"Традиционный татарский деликатес из конины. Подарочная упаковка и нарезка.","offers":[{"@type":"Offer","sku":"KD-044","priceCurrency":"RUB","price":"650.00","availability":"https://schema.org/InStock","url":"https://kazylyk.com/products/kazylyk/"},{"@type":"Offer","sku":"KD-045","priceCurrency":"RUB","price":"450.00","availability":"https://schema.org/InStock","url":"https://kazylyk.com/products/kazylyk/"}],"manufacturer":{"@type":"Organization","name":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}
+      {"@context":"https://schema.org","@type":"Product","name":"Казылык","sku":"KD-044 / KD-045","brand":{"@type":"Brand","name":"KAZYLYK"},"image":"https://kazylyk.com/assets/products/kazylyk-box.jpg","description":"Традиционный татарский деликатес из конины. Подарочная упаковка и нарезка.","manufacturer":{"@type":"Organization","name":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}
     </script>
     <script type="application/ld+json">
       {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Главная","item":"https://kazylyk.com/"},{"@type":"ListItem","position":2,"name":"Казылык","item":"https://kazylyk.com/products/kazylyk/"}]}
     </script>
   </head>
-  <body>
+  <body class="product-page">
     <a class="skip" href="#facings">К фасовкам</a>
     <header class="nav is-scrolled">
       <div class="nav__inner">
@@ -33,43 +33,51 @@
           <a href="/#gift">Подарок</a>
           <a href="/#buy">Где купить</a>
         </nav>
-        <a class="nav__cta" href="/#buy">Выбрать подарок</a>
-        <button class="nav__burger" aria-label="Меню" aria-expanded="false"><span></span></button>
+        <a class="nav__cta" href="/#buy">Где купить</a>
+        <button class="nav__burger" aria-label="Меню" aria-controls="mobile-menu" aria-expanded="false"><span></span></button>
       </div>
     </header>
-    <div class="mobile-menu">
+    <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
       <a href="/#story">История</a>
       <a href="/#products">Казылык</a>
       <a href="/#gift">Подарок</a>
       <a href="/#buy">Где купить</a>
-      <a class="nav__cta" href="/#buy">Выбрать подарок</a>
+      <a class="nav__cta" href="/#buy">Где купить</a>
     </div>
 
-    <section class="page-hero">
-      <div class="wrap">
-        <p class="kicker"><span>Татарстанда ясалган</span> · <span>Сделано в Татарстане</span> · <span>Халяль</span></p>
-        <h1>Казылык</h1>
-        <p class="lede">Традиционный татарский деликатес из конины. Изготовлен по технологии созревания и вяления. Готов к употреблению.</p>
+    <section class="page-hero product-intro">
+      <div class="wrap product-intro__grid">
+        <div class="product-intro__copy">
+          <p class="kicker"><span>Татарстанда ясалган</span> · <span>Сделано в Татарстане</span> · <span>Халяль</span></p>
+          <h1>Казылык</h1>
+          <p class="lede">Традиционный татарский деликатес из конины. Изготовлен по технологии созревания и вяления. Готов к употреблению.</p>
+          <p>Плотная текстура, характерный рисунок среза и подарочная упаковка, в которой Казань становится частью истории продукта.</p>
+          <a class="btn btn--solid" href="/#buy">Где купить</a>
+        </div>
+        <div class="product-intro__media gilt">
+          <img src="/assets/products/kazylyk-box-and-roll.jpg" width="1600" height="1066" alt="Казылык в коробке и в золотой обёртке" fetchpriority="high" />
+        </div>
       </div>
     </section>
 
     <section class="section--tight">
       <div class="wrap">
-        <div class="gilt" style="overflow:hidden">
-          <img src="/assets/products/kazylyk-box-and-roll.jpg" width="1600" height="1066" alt="Казылык в коробке и в золотой обёртке" fetchpriority="high" />
+        <div class="section__head">
+          <p class="kicker">Два формата</p>
+          <h2>Для подарка. Для сервировки.</h2>
         </div>
         <div class="facings" id="facings">
           <article class="facing">
             <p class="kicker">KD-044</p>
             <h2>Подарочная упаковка</h2>
-            <p class="price">650 ₽</p>
             <p>200 г · 180 суток · 0–12 °C</p>
+            <a class="text-link" href="/#buy">Где купить <span>↗</span></a>
           </article>
           <article class="facing">
             <p class="kicker">KD-045</p>
             <h2>Нарезка</h2>
-            <p class="price">450 ₽</p>
             <p>100 г · 30 суток · 0–12 °C</p>
+            <a class="text-link" href="/#buy">Где купить <span>↗</span></a>
           </article>
         </div>
 
