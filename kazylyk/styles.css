@@ -393,7 +393,7 @@ p {
   align-items: end;
 }
 .hero h1 {
-  margin: 0;
+  margin: clamp(1rem, 3.5vh, 2.5rem) 0 0;
   font-weight: 900;
   font-size: clamp(3.6rem, 11.5vw, 10.5rem);
   line-height: 0.88;
@@ -810,11 +810,21 @@ p {
   object-fit: cover;
 }
 .territory__face {
+  position: relative;
   background: #000;
-  border: 1px solid var(--hairline);
-  padding: clamp(1rem, 2.4vw, 1.8rem);
+  border: 1px solid var(--gold-deep);
+  padding: clamp(1.4rem, 3vw, 2.6rem);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(203, 177, 136, 0.08);
+}
+.territory__face::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 55% at 50% 42%, rgba(203, 177, 136, 0.14), transparent 72%);
+  pointer-events: none;
 }
 .territory__face img {
+  position: relative;
   width: 100%;
   height: auto;
   display: block;
@@ -1680,6 +1690,7 @@ p {
   }
   .hero h1 {
     font-size: clamp(3.2rem, 17vw, 4.6rem);
+    margin-top: 1.2rem;
   }
   .hero__cartouche {
     width: min(16rem, 88%);
