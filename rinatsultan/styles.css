@@ -814,6 +814,15 @@ h2 { font-size: clamp(1.55rem, 5.4vw, 3rem); max-width: 26ch; }
 .dx-n { color: var(--gold); display: block; margin-bottom: 0.7rem; }
 .dx-card h3 { font-size: 1.25rem; margin-bottom: 0.6rem; }
 .dx-card p { margin: 0; color: var(--cream-dim); font-size: 0.98rem; max-width: 52rem; }
+.dx-bullets {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--cream-dim);
+  display: grid;
+  gap: 0.45rem;
+  max-width: 52rem;
+}
+.dx-bullets li { font-size: 0.98rem; }
 
 /* ---------- animation ---------- */
 

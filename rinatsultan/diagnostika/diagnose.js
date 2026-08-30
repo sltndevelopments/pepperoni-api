@@ -1,4 +1,4 @@
-/* Owner-language diagnosis from the public contour only. */
+/* Owner-language diagnosis. Factory copy only when the facade looks like a plant. */
 
 (() => {
   const form = document.getElementById("diagnoseForm");
@@ -12,6 +12,8 @@
   const titleEl = document.getElementById("dxTitle");
   const subEl = document.getElementById("dxSub");
   const cardsEl = document.getElementById("dxCards");
+  const caveat = document.getElementById("dxCaveat");
+  const method = document.getElementById("dxMethod");
   const demo = document.getElementById("dxDemo");
 
   const normalize = (raw) => {
@@ -50,20 +52,17 @@
     return rows;
   };
 
-  const blob = (rows) => rows.map((r) => r.text).join("\n");
-
-  const match = (rows, re) => rows.filter((r) => re.test(r.text));
-
   const translateFail = (text) => {
     const rules = [
+      [/robots\.txt not found|robots\.txt.*404/i, "Нет файла robots.txt — нет явной инструкции, как роботам читать сайт."],
+      [/disallow|blocked|robots\.txt/i, "В robots.txt вход роботам закрыт или запутан."],
+      [/sitemap.*not found|sitemap\.xml not found/i, "Нет карты сайта. Поиск и агенты хуже находят страницы."],
       [/dnssec|authenticated data|ad=false/i, "DNS не подписан. Машина не может подтвердить, что записи о домене настоящие."],
-      [/llms\.txt/i, "Нет слоя llms.txt — нейросети не получают короткий, однозначный текст о компании."],
+      [/llms\.txt/i, "Нет llms.txt — нейросети не получают короткий однозначный текст."],
       [/markdown/i, "Нет текстовой версии страниц. Агент читает вёрстку, а не факты."],
-      [/robots/i, "Правила для роботов закрывают или путают вход. Часть систем вас просто не читает."],
-      [/mcp/i, "Нет программного входа для агентов. Человек открывает сайт, машина упирается."],
-      [/sitemap/i, "Карта сайта слабая или отсутствует. Поиск и агенты хуже находят страницы."],
-      [/oauth|well-known/i, "Нет стандартных адресов, по которым агент понимает, как к вам подключиться."],
-      [/content-signal|ai-train/i, "Нет явного сигнала, что машинам можно опираться на этот текст."],
+      [/mcp/i, "Нет программного входа для агентов."],
+      [/oauth|well-known/i, "Нет стандартных адресов, по которым агент понимает, как подключиться."],
+      [/content-signal|ai-train/i, "Нет явного сигнала, что на этот текст можно опираться."],
     ];
     for (const [re, line] of rules) {
       if (re.test(text)) return line;
@@ -85,83 +84,135 @@
       return ["По открытым проверкам грубых дыр не видно. Это не значит, что контур собран: виден только фасад."];
     }
     if (!lines.length) {
-      return ["Публичный контур прочитать не удалось. Ниже — только метод, без претензии, что я видел ваш сайт."];
+      return ["Публичный контур прочитать не удалось — без претензии, что я видел страницы сайта."];
     }
-    return lines.slice(0, 4);
+    return lines.slice(0, 5);
   };
 
-  const firstTouch = (host, rows) => {
-    const text = blob(rows).toLowerCase();
-    const h = host.toLowerCase();
-    if (/wildberries|ozon|avito|market\.yandex/.test(h)) {
-      return "Первичка, скорее всего, сидит в кабинетах маркетплейсов и в переписке менеджеров — не в одном контуре.";
+  const stripHtml = (html) =>
+    String(html)
+      .replace(/<script[\s\S]*?<\/script>/gi, " ")
+      .replace(/<style[\s\S]*?<\/style>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ")
+      .trim()
+      .slice(0, 6000);
+
+  const readFacade = async (url) => {
+    const ctrl = new AbortController();
+    const t = setTimeout(() => ctrl.abort(), 5000);
+    try {
+      const res = await fetch(url, { signal: ctrl.signal, mode: "cors", redirect: "follow" });
+      if (!res.ok) return "";
+      const ctype = res.headers.get("content-type") || "";
+      if (!/html|xml|text/i.test(ctype)) return "";
+      return stripHtml(await res.text());
+    } catch {
+      return "";
+    } finally {
+      clearTimeout(t);
     }
-    if (/bitrix|1c-bitrix|tilda|wix|insales/.test(text + h)) {
-      return "С улицы это витрина на типовой платформе. Первое касание, скорее всего, общая форма или почта, которую разбирают руками.";
-    }
-    if (rows.some((r) => /mcp|llms\.txt/i.test(r.text) && r.status === "pass")) {
-      return "Сайт уже можно прочитать машиной. Первичка всё равно почти наверняка на людях: найти компанию, понять, подходит ли, написать первое письмо.";
-    }
-    return "С улицы компания выглядит как витрина. Поиск клиента, квалификация и первое письмо, скорее всего, до сих пор делают менеджеры — по часам, не по контуру.";
   };
 
-  const reversible = (host) => {
-    const food = /meat|halal|milk|food|meat|мяс|халял|молоч|хлеб|птиц|деликатес|pepperoni/.test(host.toLowerCase());
-    const extra = food
-      ? " По открытому ассортименту агент может собрать досье покупателя. По цеху — нет."
-      : "";
-    return "Отдать можно только обратимое: найти компанию, собрать досье, написать черновик первого письма. Это можно остановить. Человеку остаются переговоры и цена." + extra;
-  };
-
-  const boundary = (host) => {
-    const food = /meat|halal|milk|food|мяс|халял|молоч|хлеб|птиц|деликатес|pepperoni/.test(host.toLowerCase());
-    if (food) {
-      return "Нельзя отдавать отгрузку, сертификат, рецептуру и требования сети. В пищевом контуре ошибка стоит партии, а не письма. Граница чертится до автоматизации.";
+  const classify = (host, name, pageText) => {
+    const t = `${pageText} ${name} ${host}`.toLowerCase();
+    if (/pepperoni\.tatar|казанск|деликатес|производств|комбинат|завод|халял|fmcg|мясоперераб|оптовая|дистрибуц/.test(t)) {
+      return "plant";
     }
-    return "Нельзя отдавать отгрузку, деньги, сертификаты и то, что нельзя откатить. Письмо останавливается. Фура и подпись — нет.";
-  };
-
-  const pilot = (rows) => {
-    const fails = rows.filter((r) => r.status === "fail");
-    const blind = fails.some((r) => /llms|markdown|robots|mcp/i.test(r.text));
-    const sales = "Один пилот на 90 дней: первичная работа отдела продаж. До старта фиксируем «как есть». Через 90 дней смотрим часы и ответы, не слайды. У нас на заводе контур написал 655 первых писем и вернул менеджерам около 200 часов.";
-    if (blind) {
-      return sales + " Параллельно имеет смысл починить фасад: чтобы компанию одинаково находили в поиске и в ответах нейросетей. Это не замена пилоту продаж.";
+    if (
+      /personal page|i am a |portfolio|резюме|о себе|backend|systems engineer|freelance|based in|личный сайт|обо мне/.test(t)
+    ) {
+      return "person";
     }
-    return sales;
+    return "unknown";
   };
 
-  const render = ({ url, name, rows, scanned }) => {
+  const copy = {
+    plant: {
+      first:
+        "С улицы это витрина производственной компании. Поиск клиента, квалификация и первое письмо, скорее всего, до сих пор на людях — по часам, не по контуру.",
+      give: "Отдать можно только обратимое: найти компанию, собрать досье, написать черновик первого письма. Это можно остановить. Человеку остаются переговоры и цена. Цех и отгрузка — нет.",
+      bound:
+        "Нельзя отдавать отгрузку, сертификат, рецептуру и требования сети. В пищевом и заводском контуре ошибка стоит партии, а не письма.",
+      pilot:
+        "Один пилот на 90 дней: первичная работа отдела продаж. До старта фиксируем «как есть». Через 90 дней — часы и ответы, не слайды. У нас контур написал 655 первых писем и вернул около 200 часов.",
+      caveat:
+        "Это разбор фасада, не цеха. Если узнаёте свою компанию — напишите. Беру не больше двух–трёх производств одновременно.",
+    },
+    person: {
+      first:
+        "С улицы это личная страница человека, не контур предприятия. Первичка здесь — «напишите задачу», а не отдел продаж с досье и холодными письмами.",
+      give: "Коммерческую первичку завода здесь забирать не из чего. Имеет смысл только ясный текст о человеке, который машины читают без вранья. Это не мой рабочий контур.",
+      bound:
+        "Не фура и не сертификат. Граница для такой страницы — не выдумывать клиентов, стек и заслуги. Заводской шаблон сюда нельзя натягивать.",
+      pilot:
+        "Пилот «655 писем с комбината» сюда не клеится. Я работаю со средними и крупными производствами. Если вы руководитель завода — вставьте сайт предприятия, не личную страницу.",
+      caveat: "Честный вывод: по этому адресу мы, скорее всего, не пара. Нужен сайт компании, которой вы управляете.",
+    },
+    unknown: {
+      first:
+        "По открытому сайту не видно ни отдела продаж, ни производства. Не буду назначать вам менеджеров и «первичку» — этого с улицы не доказано.",
+      give: "В принципе агенту отдают только обратимое: поиск, досье, черновик письма. Без понятного процесса компании это совет в пустоту, а не план работ.",
+      bound:
+        "Нельзя автоматизировать то, чего не описали, и нельзя применять заводской пилот к сайту, который не выглядит как комбинат. Сначала понять, что это за организация.",
+      pilot:
+        "Мой формат — производственные компании и FMCG. Если это вы — пилот на 90 дней про первичку продаж, с цифрами как в кейсе 655 писем. Если это студия, личный сайт или витрина услуг — скорее всего, нам не стоит начинать.",
+      caveat:
+        "С улицы я не дорисовываю ваш цех. Пришлите сайт предприятия — или напишите, если это производство и фасад просто молчит.",
+    },
+  };
+
+  const addCard = (n, title, body, lines) => {
+    const li = document.createElement("li");
+    li.className = "dx-card";
+    const num = document.createElement("span");
+    num.className = "dx-n mono";
+    num.textContent = n;
+    const h = document.createElement("h3");
+    h.textContent = title;
+    li.append(num, h);
+    if (lines && lines.length) {
+      const ul = document.createElement("ul");
+      ul.className = "dx-bullets";
+      for (const line of lines) {
+        const item = document.createElement("li");
+        item.textContent = line;
+        ul.appendChild(item);
+      }
+      li.appendChild(ul);
+    } else {
+      const p = document.createElement("p");
+      p.textContent = body;
+      li.appendChild(p);
+    }
+    cardsEl.appendChild(li);
+  };
+
+  const render = ({ url, name, rows, scanned, pageText }) => {
     const host = hostOf(url);
+    const kind = classify(host, name, pageText);
+    const pack = copy[kind];
     const who = (name || "").trim() || host;
-    hostEl.textContent = scanned ? host + " · открытый контур" : host + " · контур не прочитан";
-    titleEl.textContent = "Как это выглядит для «" + who + "»";
-    subEl.textContent = scanned
-      ? "Пять строк ниже: что видно с улицы и какой порядок я бы держал. Это не диагноз цеха."
-      : "Скан фасада не прошёл. Порядок всё равно тот же — без выдуманных фактов о вашей компании.";
 
-    const items = [
-      { n: "01", h: "Где сидит первичка", p: firstTouch(host, rows) },
-      { n: "02", h: "Что можно отдать агенту", p: reversible(host) },
-      { n: "03", h: "Чего нельзя ломать", p: boundary(host) },
-      { n: "04", h: "Один пилот на 90 дней", p: pilot(rows) },
-      { n: "05", h: "Что машины уже видят криво", p: machineLines(rows).join(" ") },
-    ];
+    hostEl.textContent = scanned
+      ? host + " · " + (kind === "plant" ? "похоже на производство" : kind === "person" ? "личная страница" : "тип с улицы неясен")
+      : host + " · контур не прочитан";
+    titleEl.textContent = "Как это выглядит для «" + who + "»";
+    subEl.textContent =
+      kind === "plant"
+        ? "Пять строк по фасаду и тот порядок, который я держу на заводе. Это не диагноз цеха."
+        : kind === "person"
+          ? "Фасад не производственный. Ниже — почему заводской разбор сюда не подходит."
+          : "Фасад не дал права говорить о вашем отделе продаж. Ниже только то, что можно сказать честно.";
+    caveat.textContent = pack.caveat;
+    if (method) method.hidden = true;
 
     cardsEl.replaceChildren();
-    for (const item of items) {
-      const li = document.createElement("li");
-      li.className = "dx-card";
-      const n = document.createElement("span");
-      n.className = "dx-n mono";
-      n.textContent = item.n;
-      const h = document.createElement("h3");
-      h.textContent = item.h;
-      const p = document.createElement("p");
-      p.textContent = item.p;
-      li.append(n, h, p);
-      cardsEl.appendChild(li);
-    }
+    addCard("01", "Что это с улицы", pack.first);
+    addCard("02", "Что можно отдать", pack.give);
+    addCard("03", "Чего нельзя натягивать", pack.bound);
+    addCard("04", "Какой следующий шаг честен", pack.pilot);
+    addCard("05", "Что машины уже видят криво", "", machineLines(rows));
 
     out.hidden = false;
     out.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -171,6 +222,7 @@
     note.textContent = "Смотрю открытый контур…";
     let rows = [];
     let scanned = false;
+    const pageText = await readFacade(url);
     try {
       const res = await fetch("https://isitagentready.com/api/scan", {
         method: "POST",
@@ -185,10 +237,8 @@
     } catch {
       scanned = false;
     }
-    render({ url, name, rows, scanned });
-    note.textContent = scanned
-      ? "Готово. Это разбор фасада, не смета."
-      : "Фасад прочитать не удалось — оставил только метод, без выдумок.";
+    render({ url, name, rows, scanned, pageText });
+    note.textContent = scanned ? "Готово. Без домыслов про цех." : "Фасад прочитать не удалось — без выдумок.";
   };
 
   form.addEventListener("submit", (e) => {
