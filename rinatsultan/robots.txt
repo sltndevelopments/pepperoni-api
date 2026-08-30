@@ -5,6 +5,7 @@ User-agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /
 Allow: /en/
+Allow: /diagnostika/
 Allow: /llms.txt
 Allow: /index.md
 Allow: /en/index.md
