@@ -31,9 +31,9 @@ test("canonical data has five bilingual validated products", async () => {
     assert.equal(product.status.composition, "recipe-sourced");
   }
   for (const product of data.products) {
-    assert.equal(product.claims.halal, true);
-    assert.equal(product.status.halal, "verified");
-    assert.ok(product.evidence.includes("halal-614a-2024"));
+    assert.equal(product.claims.halal, true, product.id);
+    assert.equal(product.status.halal, "verified", product.id);
+    assert.ok(product.evidence.includes("halal-614a-2024"), product.id);
   }
 });
 
@@ -147,6 +147,8 @@ test("schema types are present without commerce or rating markup", async () => {
 });
 
 test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
+  const data = JSON.parse(await readFile(join(root, "data/products.json"), "utf8"));
+  assert.match(data.lastModified, /^\d{4}-\d{2}-\d{2}$/);
   const feedJson = await readFile(join(dist, "feeds/products.json"), "utf8");
   const feedCsv = await readFile(join(dist, "feeds/products.csv"), "utf8");
   const feedXml = await readFile(join(dist, "feeds/products.xml"), "utf8");
@@ -155,8 +157,9 @@ test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
   }
   assert.match(feedXml, /merchant="false"/);
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
+  const lastmod = new RegExp(`<lastmod>${data.lastModified}</lastmod>`, "g");
   assert.equal((sitemap.match(/<url>/g) || []).length, 18);
-  assert.equal((sitemap.match(/<lastmod>2026-08-27<\/lastmod>/g) || []).length, 18);
+  assert.equal((sitemap.match(lastmod) || []).length, 18);
   assert.match(sitemap, /xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml"/);
   assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="ru"/g) || []).length, 18);
   assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="en"/g) || []).length, 18);

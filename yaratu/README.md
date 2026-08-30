@@ -15,7 +15,7 @@ Google Sheets configuration is present.
 Private Sheet (preferred):
 
 - `YARATU_SHEET_FILE_ID` — Google Drive file ID. The documented default is
-  `1rSFP1QvQX5X-92OSq_vaoF0gj0POiNHTXNMnSSBZemU`.
+  `1TpXixm6QcPjHGv6yQKLVFaUTGdJ5YzxpwN7vkkUiFJU`.
 - Set exactly one of `YARATU_GOOGLE_SERVICE_ACCOUNT_JSON` or
   `YARATU_GOOGLE_SERVICE_ACCOUNT_B64`.
 - Share the Sheet with the service-account email. No secret is stored in this repository.

@@ -2,7 +2,7 @@ import { createSign } from "node:crypto";
 import { rename, writeFile } from "node:fs/promises";
 import { loadData, validate } from "./lib.mjs";
 
-const DEFAULT_FILE_ID = "1rSFP1QvQX5X-92OSq_vaoF0gj0POiNHTXNMnSSBZemU";
+const DEFAULT_FILE_ID = "1TpXixm6QcPjHGv6yQKLVFaUTGdJ5YzxpwN7vkkUiFJU";
 const urlTemplate = process.env.YARATU_SHEETS_URL;
 const gid = process.env.YARATU_SHEETS_GID;
 const fileId = process.env.YARATU_SHEET_FILE_ID || DEFAULT_FILE_ID;
