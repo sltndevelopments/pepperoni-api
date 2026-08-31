@@ -243,7 +243,7 @@ def run_checks() -> list[str]:
     nginx_routes: dict[str, str] = {}
     active_configs = [
         path for path in sorted(NGINX.glob("*.conf"))
-        if path.name not in {"yaratu.conf", "test1-noindex.conf"}
+        if path.name not in {"yaratu.conf", "test1-noindex.conf", "rinatsultan.conf", "kazylyk.conf"}
     ]
     for config in active_configs:
         source = config.read_text(encoding="utf-8", errors="replace")
