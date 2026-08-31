@@ -234,7 +234,7 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
-    const name = cols[0];
+    const name = (cols[0] || '').replace(/\s+/g, ' ').trim();
     if (!name || name === 'Наименование' || name === 'Номенклатура' || name.startsWith('ООО')) continue;
 
     const priceVAT = toNumber(cols[colPriceVat]);
@@ -347,7 +347,7 @@ function parseBakery(lines, section, reg) {
 
   for (const cols of lines) {
     if (!cols || cols.length < 5) continue;
-    const name = cols[0];
+    const name = (cols[0] || '').replace(/\s+/g, ' ').trim();
     if (!name || name === 'Наименование' || name.startsWith('ООО')) continue;
 
     const pricePerUnit = toNumber(cols[3]);
@@ -1292,10 +1292,10 @@ async function main() {
   removeOrphanProductPages(allProducts);
   console.log(`✅ ${allProducts.length} product pages in public/products/`);
 
-  // Rebuild sitemap.xml via Python script (auto-discovers ALL HTML pages
-  // including product pages, hreflang alternates, and uses file mtime).
+  // Rebuild index manifest and sitemap.xml via Python scripts
   const { execSync } = await import('child_process');
   try {
+    execSync('python3 scripts/build_index_manifest.py', { cwd: ROOT, stdio: 'inherit' });
     execSync('python3 scripts/rebuild_sitemap.py', { cwd: ROOT, stdio: 'inherit' });
   } catch (_) {
     console.warn('⚠️  rebuild_sitemap.py failed — falling back to minimal sitemap');

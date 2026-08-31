@@ -320,7 +320,8 @@ def main():
         else:
             price_usd = price_usd_raw
             price_usd_box = 0
-        name = translate(tr, (p["name"] or "").strip().lower(), "products") or p["name"]
+        clean_name = " ".join(str(p.get("name") or "").split())
+        name = translate(tr, clean_name.lower(), "products") or clean_name
         section = translate(tr, p.get("section", ""), "sections") or p.get("section", "")
         category = translate(tr, p.get("category", ""), "categories") or p.get("category", "")
         weight = p.get("weight", "")

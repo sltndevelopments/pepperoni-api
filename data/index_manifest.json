@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-08-27T14:13:33.092148+00:00",
+  "generated_at": "2026-08-31T18:21:19.357298+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 243,
+    "keep": 239,
     "retired": 1246,
-    "all": 1489
+    "all": 1485
   },
   "entries": [
     {
@@ -1011,17 +1011,6 @@
       "kind": "product"
     },
     {
-      "url": "/en/products/kd-012",
-      "file": "en/products/kd-012.html",
-      "intent": "verified SKU KD-012",
-      "language": "en",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/en/products/kd-012",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
       "url": "/en/products/kd-013",
       "file": "en/products/kd-013.html",
       "intent": "verified SKU KD-013",
@@ -1051,17 +1040,6 @@
       "owner": "catalog",
       "source": "Google Sheets via public/products.json",
       "canonical_target": "/en/products/kd-015",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
-      "url": "/en/products/kd-016",
-      "file": "en/products/kd-016.html",
-      "intent": "verified SKU KD-016",
-      "language": "en",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/en/products/kd-016",
       "status": "keep",
       "kind": "product"
     },
@@ -2067,17 +2045,6 @@
       "kind": "product"
     },
     {
-      "url": "/products/kd-012",
-      "file": "products/kd-012.html",
-      "intent": "verified SKU KD-012",
-      "language": "ru",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/products/kd-012",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
       "url": "/products/kd-013",
       "file": "products/kd-013.html",
       "intent": "verified SKU KD-013",
@@ -2107,17 +2074,6 @@
       "owner": "catalog",
       "source": "Google Sheets via public/products.json",
       "canonical_target": "/products/kd-015",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
-      "url": "/products/kd-016",
-      "file": "products/kd-016.html",
-      "intent": "verified SKU KD-016",
-      "language": "ru",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/products/kd-016",
       "status": "keep",
       "kind": "product"
     },

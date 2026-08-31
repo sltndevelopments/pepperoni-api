@@ -71,12 +71,42 @@ export function bootstrapFromProducts(reg) {
 }
 
 /**
+ * Pack size or a clarifying word in the name changed, same product.
+ * Reuse the URL only when the match is unique — never steal a sibling SKU.
+ */
+function findMigratableEntry(reg, name, weight) {
+  const n = norm(name);
+  const w = norm(weight);
+
+  const sameName = Object.entries(reg.by_key).filter(([k]) => k.split('|')[0] === n);
+  if (sameName.length === 1) return sameName[0];
+
+  const sameWeightCloseName = Object.entries(reg.by_key).filter(([k]) => {
+    const [en, ew] = k.split('|');
+    if (ew !== w || en === n) return false;
+    return n.startsWith(`${en} `) || en.startsWith(`${n} `);
+  });
+  if (sameWeightCloseName.length === 1) return sameWeightCloseName[0];
+
+  return null;
+}
+
+/**
  * Assign a stable SKU for this product. Reuses registry entry; never
  * reassigns an existing SKU to a different fingerprint.
  */
 export function assignSku(reg, name, weight = '') {
   const key = productKey(name, weight);
   if (reg.by_key[key]) return reg.by_key[key];
+
+  const migrated = findMigratableEntry(reg, name, weight);
+  if (migrated) {
+    const [oldKey, sku] = migrated;
+    delete reg.by_key[oldKey];
+    reg.by_key[key] = sku;
+    console.log(`  🔑 sku_registry: ${sku} ${oldKey} → ${key}`);
+    return sku;
+  }
 
   // Find free KD-NNN starting at next_n (skip any still mapped)
   const used = new Set(Object.values(reg.by_key));
@@ -97,13 +127,19 @@ export function assignSku(reg, name, weight = '') {
 /** Mark SKUs absent from this sync as retired (do not reuse). */
 export function retireMissing(reg, liveKeys) {
   const live = new Set(liveKeys);
-  let retired = 0;
+  const dropped = [];
   for (const [key, sku] of Object.entries(reg.by_key)) {
     if (!live.has(key)) {
-      reg.retired[sku] = key;
+      dropped.push([key, sku]);
       delete reg.by_key[key];
-      retired += 1;
     }
+  }
+  const stillUsed = new Set(Object.values(reg.by_key));
+  let retired = 0;
+  for (const [key, sku] of dropped) {
+    if (stillUsed.has(sku)) continue;
+    reg.retired[sku] = key;
+    retired += 1;
   }
   if (retired) {
     console.log(`  🗄  sku_registry: retired ${retired} SKU(s) (kept reserved, not reused)`);

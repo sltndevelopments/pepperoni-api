@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-08-23">
+<yml_catalog date="2026-08-31">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -277,31 +277,8 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-012" available="true">
-<name>Пепперони варено-копченый из конины</name>
-<url>https://pepperoni.tatar/products/kd-012</url>
-<price>315</price>
-<currencyId>RUB</currencyId>
-<categoryId>4</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-012</vendorCode>
-<description>Пепперони варено-копченый из конины 0,5 кг | Халяль, диаметр 50–55 мм, заморозка –18°C | Варено-копчёная пепперони из конины для пиццы, хот-догов и закусок. Производство «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
-
-<picture>https://pepperoni.tatar/images/products/kd-012-main.jpg?v=ead0a132</picture>
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">0,5</param>
-<param name="Срок годности">360 суток</param>
-<param name="Температура хранения">–18°C</param>
-<param name="ТН ВЭД">160100</param>
-<param name="Диаметр, мм">50-55</param>
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
 <offer id="KD-013" available="true">
-<name>Пепперони варено-копченый куриный</name>
+<name>Пепперони варено-копченый куриный нарезка</name>
 <url>https://pepperoni.tatar/products/kd-013</url>
 <price>274</price>
 <currencyId>RUB</currencyId>
@@ -332,10 +309,10 @@
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-014</vendorCode>
 <description>Пепперони варено-копченый куриный целый батон 1 кг | Халяль, диаметр 50–55 мм, заморозка –18°C | Целый батон куриной варено-копчёной пепперони для пиццы и нарезки. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 360 суток при –18°C.</description>
-
+<barcode>4680638720462</barcode>
 <picture>https://pepperoni.tatar/images/products/kd-014-main.jpg?v=0a4688a0</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">1</param>
+<param name="Вес, кг">0,8</param>
 <param name="Срок годности">360 суток</param>
 <param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">160100</param>
@@ -355,7 +332,7 @@
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-015</vendorCode>
 <description>Грудка куриная варено-копченая 1 кг | Халяль, охлаждение 0–6°C | Сочная варено-копчёная куриная грудка для нарезки, салатов и горячих блюд. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
-
+<barcode>4680638720615</barcode>
 <picture>https://pepperoni.tatar/images/products/kd-015-main.jpg?v=5f3dbc90</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">1 кг</param>
@@ -369,32 +346,8 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-016" available="true">
-<name>Филе куриное вареное</name>
-<url>https://pepperoni.tatar/products/kd-016</url>
-<price>449</price>
-<currencyId>RUB</currencyId>
-<categoryId>4</categoryId>
-<vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-016</vendorCode>
-<description>Филе куриное варёное 1 кг | Халяль, охлаждение 0–6°C | Готовое варёное куриное филе для салатов, бутербродов и начинок. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
-
-
-<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">1 кг</param>
-<param name="Срок годности">30 суток</param>
-<param name="Температура хранения">0-6 ˚C</param>
-<param name="ТН ВЭД">160100</param>
-
-
-
-
-<param name="Страна производства">Россия</param>
-<param name="Халяль">Да</param>
-</offer>
 <offer id="KD-018" available="true">
-<name>Сосиски «К завтраку» (без оболочки) 
- для «Сосиски в тесте» 45 гр</name>
+<name>Сосиски «К завтраку» (без оболочки) для «Сосиски в тесте» 45 гр - вес сосиски</name>
 <url>https://pepperoni.tatar/products/kd-018</url>
 <price>245</price>
 <currencyId>RUB</currencyId>
@@ -402,10 +355,10 @@
 <vendor>Казанские Деликатесы</vendor>
 <vendorCode>KD-018</vendorCode>
 <description>Сосиски «К завтраку» без оболочки для «Сосиски в тесте» 45 г | Халяль, охлаждение 0–6°C | Сосиски без оболочки формата 45 г под выпечку «сосиска в тесте». «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Срок хранения 30 суток при 0–6°C.</description>
-
+<barcode>4680638720585</barcode>
 <picture>https://pepperoni.tatar/images/products/kd-018-main.jpg?v=c5791103</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
-<param name="Вес, кг">1</param>
+<param name="Вес, кг">2</param>
 <param name="Срок годности">30 суток</param>
 <param name="Температура хранения">0-6 ˚C</param>
 <param name="ТН ВЭД">160100</param>
