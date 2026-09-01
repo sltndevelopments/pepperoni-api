@@ -1,11 +1,11 @@
 {
- "generated_at": "2026-08-29T05:30:46.333939+00:00",
+ "generated_at": "2026-09-01T05:32:08.771259+00:00",
  "summary": {
-  "improved": 148,
-  "flat": 6,
-  "worse": 4,
-  "not_indexed": 692,
-  "pending": 25,
+  "improved": 5,
+  "flat": 7,
+  "worse": 0,
+  "not_indexed": 847,
+  "pending": 16,
   "converted": 0
  },
  "failing": [
@@ -18,7 +18,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 82.0,
+   "age_days": 85.0,
    "verdict": "not_indexed"
   },
   {
@@ -30,7 +30,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 82.0,
+   "age_days": 85.0,
    "verdict": "not_indexed"
   },
   {
@@ -42,7 +42,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 82.0,
+   "age_days": 85.0,
    "verdict": "not_indexed"
   },
   {
@@ -54,7 +54,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 82.0,
+   "age_days": 85.0,
    "verdict": "not_indexed"
   },
   {
@@ -66,7 +66,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 81.9,
+   "age_days": 84.9,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-08T08:53:48.489851+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|title_meta",
+   "query": "ветчина это халал",
+   "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+   "change": "title_meta",
+   "before_pos": 10.12,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 84.9,
    "verdict": "not_indexed"
   },
   {
@@ -78,7 +90,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 81.9,
+   "age_days": 84.9,
    "verdict": "not_indexed"
   },
   {
@@ -90,7 +102,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 80.9,
+   "age_days": 83.9,
    "verdict": "not_indexed"
   },
   {
@@ -102,7 +114,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 80.0,
+   "age_days": 83.0,
    "verdict": "not_indexed"
   },
   {
@@ -114,7 +126,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 79.0,
+   "age_days": 82.0,
    "verdict": "not_indexed"
   },
   {
@@ -126,7 +138,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 78.0,
+   "age_days": 81.0,
    "verdict": "not_indexed"
   },
   {
@@ -138,7 +150,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 78.0,
+   "age_days": 81.0,
    "verdict": "not_indexed"
   },
   {
@@ -150,7 +162,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 78.0,
+   "age_days": 81.0,
    "verdict": "not_indexed"
   },
   {
@@ -162,7 +174,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 78.0,
+   "age_days": 81.0,
    "verdict": "not_indexed"
   },
   {
@@ -174,7 +186,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -186,7 +198,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -198,7 +210,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -210,7 +222,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -222,7 +234,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -234,7 +246,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 74.0,
+   "age_days": 77.0,
    "verdict": "not_indexed"
   },
   {
@@ -246,7 +258,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 5,
-   "age_days": 73.0,
+   "age_days": 76.0,
    "verdict": "not_indexed"
   },
   {
@@ -258,7 +270,7 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 66.0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -270,7 +282,19 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 66.0,
+   "age_days": 69.0,
+   "verdict": "not_indexed"
+  },
+  {
+   "experiment_id": "2026-06-24T05:30:18.224227+00:00|губадия это|https://pepperoni.tatar/blog/gubadiya-chto-eto|title_meta",
+   "query": "губадия это",
+   "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+   "change": "title_meta",
+   "before_pos": 11.03,
+   "current_pos": null,
+   "impr": 0,
+   "inquiries": 0,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   },
   {
@@ -282,34 +306,10 @@
    "current_pos": null,
    "impr": 0,
    "inquiries": 0,
-   "age_days": 66.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-24T05:30:18.224227+00:00|курица халяль чем отличается|https://pepperoni.tatar/blog/kurica-halyal-optom|title_meta",
-   "query": "курица халяль чем отличается",
-   "page": "https://pepperoni.tatar/blog/kurica-halyal-optom",
-   "change": "title_meta",
-   "before_pos": 10.39,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 66.0,
-   "verdict": "not_indexed"
-  },
-  {
-   "experiment_id": "2026-06-26T03:30:06.256481+00:00|echpochmak|https://pepperoni.tatar/en/blog/what-is-echpochmak|strengthen_failing",
-   "query": "echpochmak",
-   "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
-   "change": "strengthen_failing",
-   "before_pos": 50.0,
-   "current_pos": null,
-   "impr": 0,
-   "inquiries": 0,
-   "age_days": 64.1,
+   "age_days": 69.0,
    "verdict": "not_indexed"
   }
  ],
- "graded_total": 850,
+ "graded_total": 859,
  "converting_pages": []
 }
