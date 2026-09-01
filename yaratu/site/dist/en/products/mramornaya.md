@@ -20,3 +20,5 @@ Chicken thigh fillet, poultry skin, beef, beef fat, drinking water, table salt, 
 - carbohydrate: 0.5 g
 
 Calculated estimate per 100 g of raw recipe; not a laboratory value.
+
+QR: https://yaratu.com/q/mramornaya

@@ -15,6 +15,7 @@
       "representativeQueries": [
         "What products does Yaratu make?",
         "Какие продукты есть у Ярату?",
+        "Ярату продуктлары нинди?",
         "Does Yaratu use sodium nitrite?"
       ]
     },
@@ -23,7 +24,7 @@
       "displayName": "Yaratu canonical product catalog",
       "type": "application/json",
       "url": "https://yaratu.com/data/products.json",
-      "description": "Canonical RU+EN catalog. Nutrition is calculated, not laboratory-tested.",
+      "description": "Canonical RU+EN+TT catalog. Nutrition is calculated, not laboratory-tested.",
       "representativeQueries": [
         "Yaratu ingredients and allergens",
         "Yaratu calculated nutrition per 100 g",

@@ -9,7 +9,12 @@ on:
         required: true
         default: |
           https://yaratu.com/
+          https://yaratu.com/en/
+          https://yaratu.com/tt/
           https://yaratu.com/products/vetchina/
+          https://yaratu.com/en/products/vetchina/
+          https://yaratu.com/tt/products/vetchina/
+          https://yaratu.com/q/vetchina
           https://yaratu.com/products/mramornaya/
           https://yaratu.com/products/brokkoli/
           https://yaratu.com/products/molochnye/

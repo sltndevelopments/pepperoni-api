@@ -18,14 +18,16 @@ async function files(dir, prefix = "") {
   return result;
 }
 
-test("canonical data has five bilingual validated products", async () => {
+test("canonical data has five trilingual validated products", async () => {
   const data = JSON.parse(await readFile(join(root, "data/products.json"), "utf8"));
+  assert.ok(data.nutritionBasis.ru && data.nutritionBasis.en && data.nutritionBasis.tt);
   assert.equal(data.products.length, 5);
   assert.equal(new Set(data.products.map((p) => p.id)).size, 5);
   for (const product of data.products) {
     for (const field of ["name", "kind", "summary", "ingredients", "allergens"]) {
-      assert.ok(product[field].ru);
-      assert.ok(product[field].en);
+      assert.ok(product[field].ru, `${product.id}.${field}.ru`);
+      assert.ok(product[field].en, `${product.id}.${field}.en`);
+      assert.ok(product[field].tt, `${product.id}.${field}.tt`);
     }
     assert.equal(product.status.nutrition, "calculated");
     assert.equal(product.status.composition, "recipe-sourced");
@@ -39,7 +41,7 @@ test("canonical data has five bilingual validated products", async () => {
 
 test("allowlist build excludes internal and legacy SVG", async () => {
   const built = await files(dist);
-  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 18);
+  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 32);
   assert.equal(built.some((path) => path.split("/").includes("internal")), false);
   assert.equal(built.some((path) => path.startsWith("img/") && path.endsWith(".svg")), false);
   const allowedSvg = new Set([
@@ -47,7 +49,12 @@ test("allowlist build excludes internal and legacy SVG", async () => {
     "assets/logo/logo-horizontal-black.svg",
     "assets/logo/logo-horizontal-white.svg",
     "assets/logo/sign.svg",
-    "assets/logo/sign-white.svg"
+    "assets/logo/sign-white.svg",
+    "q/vetchina.svg",
+    "q/mramornaya.svg",
+    "q/brokkoli.svg",
+    "q/molochnye.svg",
+    "q/slivochnaya.svg"
   ]);
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
 });
@@ -60,6 +67,7 @@ test("every page has canonical and complete hreflang", async () => {
     assert.match(html, /<meta name="yandex-verification" content="1817223863cbfebb">/);
     assert.match(html, /hreflang="ru"/);
     assert.match(html, /hreflang="en"/);
+    assert.match(html, /hreflang="tt"/);
     assert.match(html, /hreflang="x-default"/);
   }
 });
@@ -85,18 +93,29 @@ test("mobile navigation works without JavaScript and keeps native keyboard seman
 test("visible units and decimal separators follow locale", async () => {
   const ru = await readFile(join(dist, "products/vetchina/index.html"), "utf8");
   const en = await readFile(join(dist, "en/products/vetchina/index.html"), "utf8");
+  const tt = await readFile(join(dist, "tt/products/vetchina/index.html"), "utf8");
   assert.match(ru, /150 г/);
   assert.match(ru, /Белки ≥ 16,7 г/);
   assert.doesNotMatch(ru, /Белки ≥ 16\.7 г/);
   assert.match(en, /150 g/);
   assert.match(en, /Protein 16\.7 g/);
+  assert.match(tt, /150 г/);
+  assert.match(tt, /Аксымнар ≥ 16,7 г/);
+  assert.match(tt, /Туклану кыйммәте/);
 });
 
 test("static Nutrition Facts labels are visible on home and product pages", async () => {
   const homeRu = await readFile(join(dist, "index.html"), "utf8");
   const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
+  const homeTt = await readFile(join(dist, "tt/index.html"), "utf8");
   assert.equal((homeRu.match(/class="nf-wrap"/g) || []).length, 5);
   assert.equal((homeEn.match(/class="nf-wrap"/g) || []).length, 5);
+  assert.equal((homeTt.match(/class="nf-wrap"/g) || []).length, 5);
+  assert.match(homeRu, /<nav class="nav__langs" aria-label="Язык">/);
+  assert.match(homeRu, /<a href="\/en\/" hreflang="en">English<\/a>/);
+  assert.match(homeRu, /<a href="\/tt\/" hreflang="tt">Татарча<\/a>/);
+  assert.match(homeEn, /<nav class="nav__langs"/);
+  assert.match(homeTt, /<nav class="nav__langs"/);
   assert.match(homeRu, /<h1 class="hero__title"[^>]*>Ярату<\/h1>/);
   assert.match(homeRu, /Пять мясных продуктов из Казани/);
   assert.match(homeRu, /Без нитрита натрия/);
@@ -118,15 +137,34 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.doesNotMatch(homeRu, /Халяль подтверждён/);
   assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*% Daily Value/);
+  assert.match(homeTt, /Туклану кыйммәте[\s\S]*тәүлек нормасыннан/);
   assert.doesNotMatch(homeRu, /Транс-жиры 0|Холестерин 0|Волокна 0/);
 
-  for (const path of ["products/vetchina/index.html", "en/products/vetchina/index.html"]) {
+  for (const path of ["products/vetchina/index.html", "en/products/vetchina/index.html", "tt/products/vetchina/index.html"]) {
     const html = await readFile(join(dist, path), "utf8");
     assert.match(html, /class="nf-card"/);
     assert.match(html, /nf-cal-val/);
     assert.match(html, /nf-dv-head/);
     assert.match(html, /fetchpriority="high"/);
     assert.doesNotMatch(html, /<script[^>]+src=/);
+  }
+});
+
+test("pack QR codes open a language-neutral label page", async () => {
+  const data = JSON.parse(await readFile(join(root, "data/products.json"), "utf8"));
+  for (const product of data.products) {
+    const svg = await readFile(join(dist, `q/${product.id}.svg`), "utf8");
+    const page = await readFile(join(dist, `q/${product.id}/index.html`), "utf8");
+    const ru = await readFile(join(dist, `products/${product.id}/index.html`), "utf8");
+    assert.match(svg, new RegExp(`<title>https://yaratu\\.com/q/${product.id}</title>`));
+    assert.match(page, /hreflang="ru"/);
+    assert.match(page, /hreflang="en"/);
+    assert.match(page, /hreflang="tt"/);
+    assert.match(page, new RegExp(`href="/products/${product.id}/"`));
+    assert.match(page, new RegExp(`href="/en/products/${product.id}/"`));
+    assert.match(page, new RegExp(`href="/tt/products/${product.id}/"`));
+    assert.match(ru, new RegExp(`href="/q/${product.id}/"`));
+    assert.match(ru, /nf-qr/);
   }
 });
 
@@ -158,12 +196,13 @@ test("feeds are explicitly non-merchant and sitemap has lastmod", async () => {
   assert.match(feedXml, /merchant="false"/);
   const sitemap = await readFile(join(dist, "sitemap.xml"), "utf8");
   const lastmod = new RegExp(`<lastmod>${data.lastModified}</lastmod>`, "g");
-  assert.equal((sitemap.match(/<url>/g) || []).length, 18);
-  assert.equal((sitemap.match(lastmod) || []).length, 18);
+  assert.equal((sitemap.match(/<url>/g) || []).length, 32);
+  assert.equal((sitemap.match(lastmod) || []).length, 32);
   assert.match(sitemap, /xmlns:xhtml="http:\/\/www\.w3\.org\/1999\/xhtml"/);
-  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="ru"/g) || []).length, 18);
-  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="en"/g) || []).length, 18);
-  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="x-default"/g) || []).length, 18);
+  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="ru"/g) || []).length, 32);
+  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="en"/g) || []).length, 32);
+  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="tt"/g) || []).length, 32);
+  assert.equal((sitemap.match(/xhtml:link rel="alternate" hreflang="x-default"/g) || []).length, 32);
 });
 
 test("agent discovery files exist without fake auth, MCP or commerce", async () => {
@@ -219,8 +258,9 @@ test("AI and crawler discovery files have complete parity", async () => {
   assert.match(llms, /^# Yaratu \/ Ярату/m);
   assert.match(llms, /\[Ветчина филейная\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
   assert.match(llms, /\[Canonical JSON\]\(https:\/\/yaratu\.com\/data\/products\.json\)/);
-  assert.match(full, /^# Yaratu full RU\+EN dataset/m);
+  assert.match(full, /^# Yaratu full RU\+EN\+TT dataset/m);
   assert.match(full, /\[RU\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
+  assert.match(full, /\[TT\]\(https:\/\/yaratu\.com\/tt\/products\/vetchina\/\)/);
   assert.equal((full.match(/Halal status: verified/g) || []).length, 5);
   assert.equal(wellKnown, full);
   assert.equal(identity.url, "https://yaratu.com/");
@@ -245,7 +285,7 @@ test("Sheets template matches strict sync contract", async () => {
   const header = rows[0];
   assert.equal(rows.length, 6);
   for (const row of rows) assert.equal(row.length, header.length);
-  for (const field of ["publish", "review_status", "nutrition_status", "composition_status", "evidence_status", "evidence_refs"]) {
+  for (const field of ["publish", "review_status", "nutrition_status", "composition_status", "evidence_status", "evidence_refs", "name_tt", "ingredients_tt", "allergens_tt"]) {
     assert.ok(header.includes(field), `missing ${field}`);
   }
   assert.equal((csv.match(/^"(vetchina|mramornaya|brokkoli|molochnye|slivochnaya)",/gm) || []).length, 5);

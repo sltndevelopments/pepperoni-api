@@ -3,6 +3,10 @@
 The checked-in `data/products.json` snapshot is the canonical build input when no
 Google Sheets configuration is present.
 
+Public pages are Russian at `/`, English at `/en/`, and Tatar at `/tt/`. Nutrition
+Facts labels are translated in all three languages. Pack QR codes use stable URLs
+`https://yaratu.com/q/{id}` and open a language picker for the matching product.
+
 ## Commands
 
 - `npm run build` — rebuild `site/dist` from the allowlist.

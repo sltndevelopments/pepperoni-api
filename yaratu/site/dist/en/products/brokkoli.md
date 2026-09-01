@@ -20,3 +20,5 @@ Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultr
 - carbohydrate: 1.5 g
 
 Calculated estimate per 100 g of raw recipe; not a laboratory value.
+
+QR: https://yaratu.com/q/brokkoli

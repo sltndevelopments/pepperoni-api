@@ -20,3 +20,5 @@ Chicken thigh fillet, chicken breast fillet, drinking water, milk protein, whey 
 - carbohydrate: 0.4 g
 
 Calculated estimate per 100 g of raw recipe; not a laboratory value.
+
+QR: https://yaratu.com/q/vetchina

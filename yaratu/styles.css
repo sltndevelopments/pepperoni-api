@@ -242,9 +242,18 @@ h3 {
 }
 
 .nav__actions {
-  display: none;
+  display: flex;
   align-items: center;
-  gap: 0.75rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.55rem 0.75rem;
+}
+
+.nav__langs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem 0.7rem;
 }
 
 .nav__lang {
@@ -254,6 +263,12 @@ h3 {
   letter-spacing: 0.08em;
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.nav__lang--current {
+  color: var(--olive-deep);
+  text-decoration: underline;
+  text-underline-offset: 0.22em;
 }
 
 @media (min-width: 860px) {
@@ -283,6 +298,10 @@ h3 {
   .nav__menu summary {
     padding: 0.5rem 0.65rem;
     font-size: 0.72rem;
+  }
+
+  .nav__cta {
+    display: none;
   }
 }
 
@@ -2265,4 +2284,60 @@ section {
   width: 34%;
   background: var(--cream-dim);
   font-weight: 600;
+}
+
+.nf-qr {
+  margin-top: 0.9rem;
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+}
+
+.nf-qr__code {
+  display: block;
+  width: 112px;
+  height: 112px;
+  background: #fff;
+}
+
+.nf-qr__code svg {
+  display: block;
+  width: 112px;
+  height: 112px;
+}
+
+.nf-qr__link {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-align: center;
+  color: var(--olive);
+}
+
+.qr-landing {
+  padding: 3rem 0 5rem;
+}
+
+.qr-landing__grid {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.qr-landing__grid img {
+  width: min(100%, 28rem);
+}
+
+.qr-landing__langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin: 1.25rem 0;
+}
+
+@media (min-width: 860px) {
+  .qr-landing__grid {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    align-items: center;
+  }
 }

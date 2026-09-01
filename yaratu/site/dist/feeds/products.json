@@ -3,22 +3,26 @@
   "lastModified": "2026-09-01",
   "notice": {
     "ru": "Расчётный ориентир на 100 г сырьевой массы; не лабораторное значение.",
-    "en": "Calculated estimate per 100 g of raw recipe; not a laboratory value."
+    "en": "Calculated estimate per 100 g of raw recipe; not a laboratory value.",
+    "tt": "Чимал массасының 100 г өчен исәпләнгән күрсәткеч; лаборатор кыйммәт түгел."
   },
   "products": [
     {
       "id": "vetchina",
       "name": {
         "ru": "Ветчина филейная",
-        "en": "Chicken fillet ham"
+        "en": "Chicken fillet ham",
+        "tt": "Филелы ветчина"
       },
       "kind": {
         "ru": "Ветчина",
-        "en": "Chicken ham"
+        "en": "Chicken ham",
+        "tt": "Ветчина"
       },
       "summary": {
         "ru": "Куриная ветчина с мягким вкусом и полностью раскрытым составом.",
-        "en": "Mild chicken ham with a fully disclosed ingredient list."
+        "en": "Mild chicken ham with a fully disclosed ingredient list.",
+        "tt": "Йомшак тәмле тавык ветчинасы, составы тулысынча ачылган."
       },
       "netWeight": {
         "value": 150,
@@ -27,11 +31,13 @@
       "image": "/packshots/sku-vetchina-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, филе грудки куриной, вода питьевая, молочный белок, сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, соль поваренная пищевая, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, экстракты пряностей (чеснок, перец чёрный, мускатный орех), ароматизатор, мальтодекстрин.",
-        "en": "Chicken thigh fillet, chicken breast fillet, drinking water, milk protein, whey protein, milk powder, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, table salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), glucose, spice extracts (garlic, black pepper, nutmeg), flavouring, maltodextrin."
+        "en": "Chicken thigh fillet, chicken breast fillet, drinking water, milk protein, whey protein, milk powder, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, table salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), glucose, spice extracts (garlic, black pepper, nutmeg), flavouring, maltodextrin.",
+        "tt": "Тавык бот филесы, тавык күкрәк филесы, эчәргә яраклы су, сөт аксымы, сарысу аксымы, кипкән сөт, җимеш һәм тәмләткеч экстрактлары (помело, лимон, кара һәм ак борыч катнашмасы), тоз, ашарга яраклы тоз, чүпрә экстракты (сыра чүпрәсе), цитрус экстрактлары (лимон, лайм, әфлисун, помело), глюкоза, тәмләткеч экстрактлары (сарымсак, кара борыч, мускат чикләвеге), тәм биргеч, мальтодекстрин."
       },
       "allergens": {
         "ru": "Молоко",
-        "en": "Milk"
+        "en": "Milk",
+        "tt": "Сөт"
       },
       "nutrition": {
         "basisGrams": 100,
@@ -60,15 +66,18 @@
       "id": "mramornaya",
       "name": {
         "ru": "Колбаса варёно-копчёная «Мраморная»",
-        "en": "Mramornaya cooked smoked sausage"
+        "en": "Mramornaya cooked smoked sausage",
+        "tt": "Пешерелгән-ысланган «Мраморная» колбаса"
       },
       "kind": {
         "ru": "Колбаса варёно-копчёная",
-        "en": "Cooked smoked sausage"
+        "en": "Cooked smoked sausage",
+        "tt": "Пешерелгән-ысланган колбаса"
       },
       "summary": {
         "ru": "Колбаса из курицы и говядины с пряным мясным профилем.",
-        "en": "Chicken and beef sausage with a savoury spiced profile."
+        "en": "Chicken and beef sausage with a savoury spiced profile.",
+        "tt": "Тавык һәм сыер итеннән туры тәмле колбаса."
       },
       "netWeight": {
         "value": 500,
@@ -77,11 +86,13 @@
       "image": "/packshots/sku-mramornaya-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, кожа птицы, говядина, жир говяжий, вода питьевая, соль поваренная пищевая, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, виноградный сахар, мальтодекстрин, сухой глюкозный сироп, дрожжевой экстракт, ароматизатор со вкусом мяса, экстракт барбадосской вишни, сухой лимонный сок, пряности и их экстракты (чёрный и белый перец, мускатный орех, чеснок, душистый перец), экстракты цитрусовых (лимон, лайм, апельсин, помело), глюкоза, ароматизатор типа «мясо», экстракты мускатного ореха, имбиря и кориандра, ароматизатор типа «мясо» с ароматом говядины.",
-        "en": "Chicken thigh fillet, poultry skin, beef, beef fat, drinking water, table salt, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, grape sugar, maltodextrin, dried glucose syrup, yeast extract, meat-flavour flavouring, Barbados cherry extract, dried lemon juice, spices and extracts (black and white pepper, nutmeg, garlic, allspice), citrus extracts (lemon, lime, orange, pomelo), glucose, meat-type flavouring, nutmeg, ginger and coriander extracts, beef-flavour meat-type flavouring."
+        "en": "Chicken thigh fillet, poultry skin, beef, beef fat, drinking water, table salt, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, grape sugar, maltodextrin, dried glucose syrup, yeast extract, meat-flavour flavouring, Barbados cherry extract, dried lemon juice, spices and extracts (black and white pepper, nutmeg, garlic, allspice), citrus extracts (lemon, lime, orange, pomelo), glucose, meat-type flavouring, nutmeg, ginger and coriander extracts, beef-flavour meat-type flavouring.",
+        "tt": "Тавык бот филесы, кош тиресе, сыер ите, сыер мае, эчәргә яраклы су, ашарга яраклы тоз, җимеш һәм тәмләткеч экстрактлары (помело, лимон, кара һәм ак борыч катнашмасы), тоз, йөзем шикәре, мальтодекстрин, кипкән глюкоза шәрбәте, чүпрә экстракты, ит тәме биргеч, Барбадос чиясе экстракты, кипкән лимон суы, тәмләткечләр һәм аларның экстрактлары (кара һәм ак борыч, мускат чикләвеге, сарымсак, хушбот борыч), цитрус экстрактлары (лимон, лайм, әфлисун, помело), глюкоза, «ит» тибындагы тәм биргеч, мускат чикләвеге, имбир һәм кориандр экстрактлары, сыер ите исе белән «ит» тибындагы тәм биргеч."
       },
       "allergens": {
         "ru": "Не заявлены в текущей рецептуре",
-        "en": "None declared in the current recipe"
+        "en": "None declared in the current recipe",
+        "tt": "Хәзерге рецептурада белдерелмәгән"
       },
       "nutrition": {
         "basisGrams": 100,
@@ -110,15 +121,18 @@
       "id": "brokkoli",
       "name": {
         "ru": "Сосиски с брокколи",
-        "en": "Sausages with broccoli"
+        "en": "Sausages with broccoli",
+        "tt": "Брокколилы сосискалар"
       },
       "kind": {
         "ru": "Сосиски",
-        "en": "Sausages"
+        "en": "Sausages",
+        "tt": "Сосискалар"
       },
       "summary": {
         "ru": "Сосиски из курицы и говядины с брокколи и мягким пряным вкусом.",
-        "en": "Chicken and beef sausages with broccoli and gentle spices."
+        "en": "Chicken and beef sausages with broccoli and gentle spices.",
+        "tt": "Тавык һәм сыер итеннән брокколилы, йомшак тәмләткечле сосискалар."
       },
       "netWeight": {
         "value": 400,
@@ -127,11 +141,13 @@
       "image": "/packshots/sku-brokkoli-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе голени куриное, вода питьевая, жир говяжий, говядина, филе куриное, кожа птицы, брокколи, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), сахар, пряности и их экстракты (чёрный перец, мускатный орех, душистый перец), соль поваренная пищевая, мальтодекстрин, глюкоза, крахмал кукурузный, ароматизатор.",
-        "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, broccoli, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring."
+        "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, broccoli, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring.",
+        "tt": "Тавык балтыр филесы, эчәргә яраклы су, сыер мае, сыер ите, тавык филесы, кош тиресе, брокколи, сөт аксымы, сарысу аксымы, кипкән сөт, тавык йомыркалары (меланж), җимеш һәм тәмләткеч экстрактлары (помело, лимон, кара һәм ак борыч катнашмасы), тоз, чүпрә экстракты (сыра чүпрәсе), цитрус экстрактлары (лимон, лайм, әфлисун, помело), шикәр, тәмләткечләр һәм аларның экстрактлары (кара борыч, мускат чикләвеге, хушбот борыч), ашарга яраклы тоз, мальтодекстрин, глюкоза, кукуруз крахмалы, тәм биргеч."
       },
       "allergens": {
         "ru": "Молоко, яйца",
-        "en": "Milk, eggs"
+        "en": "Milk, eggs",
+        "tt": "Сөт, йомырка"
       },
       "nutrition": {
         "basisGrams": 100,
@@ -160,15 +176,18 @@
       "id": "molochnye",
       "name": {
         "ru": "Сосиски «Молочные»",
-        "en": "Molochnye milk sausages"
+        "en": "Molochnye milk sausages",
+        "tt": "«Молочные» сосискалар"
       },
       "kind": {
         "ru": "Сосиски",
-        "en": "Sausages"
+        "en": "Sausages",
+        "tt": "Сосискалар"
       },
       "summary": {
         "ru": "Классический мягкий профиль и состав, раскрытый до ингредиентов добавок.",
-        "en": "A mild classic profile with compound ingredients fully disclosed."
+        "en": "A mild classic profile with compound ingredients fully disclosed.",
+        "tt": "Классик йомшак тәм һәм өстәмәләрнең ингредиентларына кадәр ачылган состав."
       },
       "netWeight": {
         "value": 500,
@@ -177,11 +196,13 @@
       "image": "/packshots/sku-molochnye-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе голени куриное, вода питьевая, жир говяжий, говядина, филе куриное, кожа птицы, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), сахар, пряности и их экстракты (чёрный перец, мускатный орех, душистый перец), соль поваренная пищевая, мальтодекстрин, глюкоза, крахмал кукурузный, ароматизатор.",
-        "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring."
+        "en": "Chicken drumstick fillet, drinking water, beef fat, beef, chicken fillet, poultry skin, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), sugar, spices and extracts (black pepper, nutmeg, allspice), table salt, maltodextrin, glucose, corn starch, flavouring.",
+        "tt": "Тавык балтыр филесы, эчәргә яраклы су, сыер мае, сыер ите, тавык филесы, кош тиресе, сөт аксымы, сарысу аксымы, кипкән сөт, тавык йомыркалары (меланж), җимеш һәм тәмләткеч экстрактлары (помело, лимон, кара һәм ак борыч катнашмасы), тоз, чүпрә экстракты (сыра чүпрәсе), цитрус экстрактлары (лимон, лайм, әфлисун, помело), шикәр, тәмләткечләр һәм аларның экстрактлары (кара борыч, мускат чикләвеге, хушбот борыч), ашарга яраклы тоз, мальтодекстрин, глюкоза, кукуруз крахмалы, тәм биргеч."
       },
       "allergens": {
         "ru": "Молоко, яйца",
-        "en": "Milk, eggs"
+        "en": "Milk, eggs",
+        "tt": "Сөт, йомырка"
       },
       "nutrition": {
         "basisGrams": 100,
@@ -210,15 +231,18 @@
       "id": "slivochnaya",
       "name": {
         "ru": "Колбаса варёная «Сливочная»",
-        "en": "Slivochnaya cooked sausage"
+        "en": "Slivochnaya cooked sausage",
+        "tt": "Пешерелгән «Сливочная» колбаса"
       },
       "kind": {
         "ru": "Колбаса варёная",
-        "en": "Cooked sausage"
+        "en": "Cooked sausage",
+        "tt": "Пешерелгән колбаса"
       },
       "summary": {
         "ru": "Нежный сливочный профиль с полностью раскрытым составом.",
-        "en": "A gentle creamy profile with a fully disclosed ingredient list."
+        "en": "A gentle creamy profile with a fully disclosed ingredient list.",
+        "tt": "Нәфис каймак тәме һәм тулысынча ачылган состав."
       },
       "netWeight": {
         "value": 400,
@@ -227,11 +251,13 @@
       "image": "/packshots/sku-slivochnaya-f7a3c1.jpg",
       "ingredients": {
         "ru": "Филе бедра куриное, вода питьевая, говядина, филе куриное, кожа птицы, жир говяжий, молочный белок, сывороточный белок, сухое молоко, яйца куриные (меланж), экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, глюкоза, экстракты пряностей (чёрный перец, мускатный орех, имбирь), ароматизатор типа «сливки», дрожжевой экстракт (пивные дрожжи), экстракты цитрусовых (лимон, лайм, апельсин, помело), соль поваренная пищевая, мальтодекстрин, крахмал кукурузный, ароматизатор.",
-        "en": "Chicken thigh fillet, drinking water, beef, chicken fillet, poultry skin, beef fat, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, glucose, spice extracts (black pepper, nutmeg, ginger), cream-type flavouring, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), table salt, maltodextrin, corn starch, flavouring."
+        "en": "Chicken thigh fillet, drinking water, beef, chicken fillet, poultry skin, beef fat, milk protein, whey protein, milk powder, chicken egg melange, fruit and spice extracts (pomelo, lemon, black and white pepper blend), salt, glucose, spice extracts (black pepper, nutmeg, ginger), cream-type flavouring, yeast extract (brewer's yeast), citrus extracts (lemon, lime, orange, pomelo), table salt, maltodextrin, corn starch, flavouring.",
+        "tt": "Тавык бот филесы, эчәргә яраклы су, сыер ите, тавык филесы, кош тиресе, сыер мае, сөт аксымы, сарысу аксымы, кипкән сөт, тавык йомыркалары (меланж), җимеш һәм тәмләткеч экстрактлары (помело, лимон, кара һәм ак борыч катнашмасы), тоз, глюкоза, тәмләткеч экстрактлары (кара борыч, мускат чикләвеге, имбир), «каймак» тибындагы тәм биргеч, чүпрә экстракты (сыра чүпрәсе), цитрус экстрактлары (лимон, лайм, әфлисун, помело), ашарга яраклы тоз, мальтодекстрин, кукуруз крахмалы, тәм биргеч."
       },
       "allergens": {
         "ru": "Молоко, яйца",
-        "en": "Milk, eggs"
+        "en": "Milk, eggs",
+        "tt": "Сөт, йомырка"
       },
       "nutrition": {
         "basisGrams": 100,

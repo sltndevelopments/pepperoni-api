@@ -20,3 +20,5 @@ Chicken thigh fillet, drinking water, beef, chicken fillet, poultry skin, beef f
 - carbohydrate: 0.7 g
 
 Calculated estimate per 100 g of raw recipe; not a laboratory value.
+
+QR: https://yaratu.com/q/slivochnaya

@@ -19,7 +19,9 @@ export function validate(data, registry) {
     if (!/^[a-z0-9-]+$/.test(product.id) || ids.has(product.id)) throw new Error(`Invalid or duplicate id: ${product.id}`);
     ids.add(product.id);
     for (const field of ["name", "kind", "summary", "ingredients", "allergens"]) {
-      if (!product[field]?.ru || !product[field]?.en) throw new Error(`${product.id}.${field} must have ru and en`);
+      if (!product[field]?.ru || !product[field]?.en || !product[field]?.tt) {
+        throw new Error(`${product.id}.${field} must have ru, en and tt`);
+      }
     }
     if (!Number.isFinite(product.netWeight?.value) || product.netWeight.unit !== "g") throw new Error(`${product.id}: invalid netWeight`);
     const n = product.nutrition;
@@ -40,8 +42,10 @@ export function jsonLd(value) {
   return JSON.stringify(value).replaceAll("<", "\\u003c");
 }
 
+export const LOCALES = ["ru", "en", "tt"];
+
 export function pagePath(lang, slug = "") {
-  const prefix = lang === "en" ? "/en" : "";
+  const prefix = lang === "ru" ? "" : `/${lang}`;
   return `${prefix}/${slug}`.replace(/\/+/g, "/").replace(/\/?$/, "/");
 }
 

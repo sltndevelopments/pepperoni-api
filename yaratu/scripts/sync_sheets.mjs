@@ -57,11 +57,24 @@ const bool = (row, name) => {
 };
 
 const current = await loadData();
+const previous = Object.fromEntries(current.products.products.map((product) => [product.id, product]));
+const localized = (row, field, id) => {
+  const ru = value(row, `${field}_ru`);
+  const en = value(row, `${field}_en`);
+  const fromSheet = headers.includes(`${field}_tt`) ? value(row, `${field}_tt`) : "";
+  const tt = fromSheet || previous[id]?.[field]?.tt || "";
+  if (!ru || !en || !tt) throw new Error(`${id}.${field} must have ru, en and tt`);
+  return {ru, en, tt};
+};
 const next = {
   schemaVersion: 1,
   lastModified: new Date().toISOString().slice(0, 10),
   source: "google-sheets",
-  nutritionBasis: current.products.nutritionBasis,
+  nutritionBasis: {
+    ru: current.products.nutritionBasis.ru,
+    en: current.products.nutritionBasis.en,
+    tt: current.products.nutritionBasis.tt
+  },
   products: rows.slice(1).filter((row) => row.some(Boolean)).map((row) => {
     const id = value(row, "id");
     if (row.some((cell) => cell.trim().toUpperCase() === "REQUIRED")) throw new Error(`${id || "row"}: unresolved REQUIRED value`);
@@ -78,13 +91,13 @@ const next = {
     if (halal === "not-claimed" && evidence.includes("halal-614a-2024")) throw new Error(`${id}: not-claimed halal cannot reference halal evidence`);
     return {
       id,
-      name: {ru: value(row, "name_ru"), en: value(row, "name_en")},
-      kind: {ru: value(row, "kind_ru"), en: value(row, "kind_en")},
-      summary: {ru: value(row, "summary_ru"), en: value(row, "summary_en")},
+      name: localized(row, "name", id),
+      kind: localized(row, "kind", id),
+      summary: localized(row, "summary", id),
       netWeight: {value: number(row, "net_weight_g"), unit: "g"},
       image: value(row, "image"),
-      ingredients: {ru: value(row, "ingredients_ru"), en: value(row, "ingredients_en")},
-      allergens: {ru: value(row, "allergens_ru"), en: value(row, "allergens_en")},
+      ingredients: localized(row, "ingredients", id),
+      allergens: localized(row, "allergens", id),
       nutrition: {
         basisGrams: 100,
         caloriesKcal: number(row, "calories_kcal"),
