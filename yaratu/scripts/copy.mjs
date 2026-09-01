@@ -385,3 +385,187 @@ export const markdownPages = {
     tt: `# «Натрий нитритысыз» нәрсә аңлата?\n\nYaratu-ның биш продуктының хәзерге рецептураларында натрий нитриты E250 кулланылмый. Бу рецептура статусы, лаборатор раслау түгел.\n`
   }
 };
+
+export const editorial = {
+  en: {
+    htmlLang: "en",
+    title: "Yaratu — meat products with no secrets",
+    description: "Five meat products from Kazan with disclosed ingredients, no sodium nitrite and nutrition you can read before you buy.",
+    skip: "Skip to content",
+    navAria: "Yaratu — home",
+    nav: ["Facts", "Range", "Control", "Contacts"],
+    menu: "Menu",
+    mobileMenu: "Mobile menu",
+    retail: "For buyers",
+    langAria: "Language",
+    heroMeta: ["Meat brand · Kazan", "Halal · SAM RT No. 614A/2024"],
+    heroKicker: "meat products with no secrets",
+    heroTitle: "Yaratu",
+    heroLedeA: "Five chicken and beef products —",
+    heroLedeEm: "ingredients disclosed",
+    heroLedeB: "down to every single one.",
+    heroSub: "No sodium nitrite. Nutrition is published before purchase and honestly marked as calculated. Production — Kazan Delicacies LLC, Kazan.",
+    heroCtaRange: "View the range",
+    heroCtaContact: "Get in touch",
+    badgeText: "NO SODIUM NITRITE · HALAL SAM RT · INGREDIENTS DISCLOSED ·",
+    ticker: ["No sodium nitrite", "Ingredients disclosed in full", "Halal · SAM RT No. 614A/2024", "HACCP · ISO 22000:2018", "TR CU 021/2011", "Batch traceability"],
+    factsEyebrow: "No. 01 — What is verified",
+    factsTitle: "Verified facts",
+    facts: [
+      ["01", "No sodium nitrite", "Sodium nitrite (E250) is not used in any of the five current recipes."],
+      ["02", "Ingredients disclosed", "Compound additives are listed down to individual ingredients — no hidden trade names."],
+      ["03", "Halal", "All five products are covered by Halal certificate SAM RT No. 614A/2024."]
+    ],
+    productsEyebrow: "No. 02 — Range",
+    productsTitleA: "Five products.",
+    productsTitleEm: "Zero secrets.",
+    productsLead: "Every card has a “Show the label” button: full nutrition, honestly marked as calculated from the raw recipe, compound ingredients and allergens.",
+    toc: ["Chicken fillet ham", "Mramornaya c/s sausage", "Sausages with broccoli", "Molochnye sausages", "Slivochnaya cooked sausage"],
+    dealTeaser: "Nutrition · ingredients · allergens",
+    dealShow: "Show the label",
+    dealHide: "Hide the label",
+    labelCaption: "Full-ingredient label · calculated from the recipe · QR for other languages",
+    qrLink: "Русский · English · Татарча",
+    qualityEyebrow: "No. 03 — Quality control",
+    qualityTitleA: "Every batch —",
+    qualityTitleEm: "with a number.",
+    qualityLead: "Yaratu is a brand of Kazan Delicacies LLC. Production in Kazan operates under HACCP and ISO 22000:2018; products comply with TR CU 021/2011 and are covered by Halal certificate SAM RT No. 614A/2024.",
+    qualityList: [
+      ["Halal", "Certificate SAM RT No. 614A/2024 — all five products covered"],
+      ["HACCP", "Food-safety management system in production"],
+      ["ISO 22000:2018", "International food-safety management standard"],
+      ["TR CU 021/2011", "Technical regulation “On food safety”"],
+      ["Batch", "Batch number on the label — every pack is traceable"],
+      ["Allergens", "Ingredient and allergen specifications on request"]
+    ],
+    faqEyebrow: "No. 04 — Short answers",
+    faqTitleA: "No",
+    faqTitleEm: "fine print.",
+    faqLead: "Why Yaratu: ingredients and figures can be checked before purchase. No prices or offers are published on this site.",
+    faqs: [
+      ["What is Yaratu?", "Yaratu is the meat brand of Kazan Delicacies LLC: five cooked products from Kazan without sodium nitrite and with compound mixes listed ingredient by ingredient."],
+      ["Who is it for?", "Retailers, distributors and shoppers who need a checkable recipe rather than a clean-label slogan."],
+      ["Where is the pricing?", "There is no public consumer price list. Specifications, pack formats and supply terms are provided by the manufacturer on request."],
+      ["Is the whole range halal?", "Yes. All five current products are covered by Halal certificate No. 614A/2024 issued by the Spiritual Administration of Muslims of the Republic of Tatarstan."],
+      ["Is nutrition laboratory-tested?", "No. Figures are calculated from the current recipe per 100 g of raw mass, not a lab protocol."],
+      ["How do I request supply?", "Email info@kazandelikates.tatar or call +7 987 217-02-02. The manufacturer is in Kazan, 2 Agrarnaya Street, office 7."]
+    ],
+    contactEyebrow: "No. 05 — Contacts",
+    contactTitleA: "Let’s talk",
+    contactTitleEm: "supply?",
+    contactLead: "We will send current ingredients, pack formats, certificates and supply terms. There is no public consumer price list. Calculated nutrition is always marked separately from laboratory values.",
+    contactCta: "Request specifications",
+    mailSubject: "Yaratu / specification request",
+    contactLabels: ["Manufacturer", "Address", "Contact", "Registration"],
+    contactValues: ["Kazan Delicacies LLC", "2 Agrarnaya Street, office 7, Kazan 420061", "", "INN 1686021074 · KPP 168601001 · OGRN 1221600096893"],
+    footerAria: "Documents",
+    privacy: "Privacy policy",
+    footerTag: "meat products with no secrets"
+  },
+  tt: {
+    htmlLang: "tt",
+    title: "Ярату — серсез ит продуктлары",
+    description: "Казаннан биш ит продукты: состав ачык, натрий нитриты юк, туклану кыйммәтен сатып алуга кадәр укырга була.",
+    skip: "Эчтәлеккә",
+    navAria: "Ярату — баш бит",
+    nav: ["Фактлар", "Ассортимент", "Контроль", "Элемтә"],
+    menu: "Меню",
+    mobileMenu: "Кесә менюсы",
+    retail: "Сатып алучылар өчен",
+    langAria: "Тел",
+    heroMeta: ["Ит бренды · Казан", "Хәләл · ДУМ РТ №614А/2024"],
+    heroKicker: "серсез ит продуктлары",
+    heroTitle: "Ярату",
+    heroLedeA: "Тавык һәм сыер итеннән биш продукт —",
+    heroLedeEm: "состав ачык",
+    heroLedeB: "һәр ингредиентка кадәр.",
+    heroSub: "Натрий нитриты кулланылмый. Туклану кыйммәте сатып алуга кадәр күрсәтелгән һәм исәпләнгән дип намуслы билгеләнгән. Җитештерү — «Казанские Деликатесы» ҖЧҖ, Казан.",
+    heroCtaRange: "Ассортиментны карау",
+    heroCtaContact: "Элемтәгә керергә",
+    badgeText: "НАТРИЙ НИТРИТЫСЫЗ · ХӘЛӘЛ ДУМ РТ · СОСТАВ АЧЫК ·",
+    ticker: ["Натрий нитритысыз", "Состав ингредиентларга кадәр ачык", "Хәләл · ДУМ РТ №614А/2024", "HACCP · ISO 22000:2018", "ТР ТС 021/2011", "Партия буенча эзәрлекләнү"],
+    factsEyebrow: "№ 01 — Нәрсә расланган",
+    factsTitle: "Расланган фактлар",
+    facts: [
+      ["01", "Натрий нитриты юк", "Натрий нитриты (E250) биш хәзерге рецептураның да берсеңдә дә кулланылмый."],
+      ["02", "Состав ачык", "Комплекс кушылмалар аерым ингредиентларга кадәр санап чыгарылган — яшерен сәүдә исемнәре юк."],
+      ["03", "Хәләл", "Биш продукт та «Хәләл» ДУМ РТ №614А/2024 сертификаты өлкәсенә керә."]
+    ],
+    productsEyebrow: "№ 02 — Ассортимент",
+    productsTitleA: "Биш продукт.",
+    productsTitleEm: "Ноль сер.",
+    productsLead: "Һәр карточкада «Этикетканы күрсәтү» төймәсе бар: тулы туклану кыйммәте, чимал рецептурасы буенча исәп дип намуслы билгеләнгән, кушылмалар составы һәм аллергеннар.",
+    toc: ["Филелы ветчина", "«Мраморная» п/ы колбаса", "Брокколилы сосискалар", "«Молочные» сосискалар", "«Сливочная» пеш. колбаса"],
+    dealTeaser: "Туклану кыйммәте · состав · аллергеннар",
+    dealShow: "Этикетканы күрсәтү",
+    dealHide: "Этикетканы яшерү",
+    labelCaption: "Тулы составлы этикетка · рецептура буенча исәп · башка телләр өчен QR",
+    qrLink: "Русский · English · Татарча",
+    qualityEyebrow: "№ 03 — Сыйфат контроле",
+    qualityTitleA: "Һәр партия —",
+    qualityTitleEm: "номерлы.",
+    qualityLead: "Ярату — «Казанские Деликатесы» ҖЧҖ бренды. Казандагы җитештерү HACCP системасы һәм ISO 22000:2018 стандарты буенча эшли; продукция ТР ТС 021/2011 таләпләренә туры килә һәм «Хәләл» ДУМ РТ №614А/2024 сертификаты өлкәсенә керә.",
+    qualityList: [
+      ["Хәләл", "ДУМ РТ №614А/2024 сертификаты — биш продукт та өлкәдә"],
+      ["HACCP", "Җитештерүдә ашамлык куркынычсызлыгы идарәсе системасы"],
+      ["ISO 22000:2018", "Ашамлык куркынычсызлыгы менеджментының халыкара стандарты"],
+      ["ТР ТС 021/2011", "«Ашамлык продуктлары куркынычсызлыгы турында» техник регламент"],
+      ["Партия", "Этикеткада партия номеры — һәр упаковка эзәрлекләнә"],
+      ["Аллергеннар", "Ингредиент һәм аллерген спецификацияләре — сорау буенча"]
+    ],
+    faqEyebrow: "№ 04 — Кыска җаваплар",
+    faqTitleA: "Вак",
+    faqTitleEm: "хәрефсез.",
+    faqLead: "Нигә Ярату: составны һәм саннарны сатып алуга кадәр тикшерергә була. Сайтта бәяләр һәм оферта басылмый.",
+    faqs: [
+      ["Ярату нәрсә ул?", "Ярату — «Казанские Деликатесы» ҖЧҖ ит бренды: Казаннан биш пешерелгән продукт, натрий нитритысыз һәм ингредиентларга кадәр ачылган состав белән."],
+      ["Бу сызык кем өчен?", "Кибетләр, дистрибьюторлар һәм «чиста продукт» лозунгы түгел, ә тикшереп булган состав кирәк булган алучылар өчен."],
+      ["Бәяләр кайда?", "Ачык кулланучы прайсы юк. Актуаль спецификацияләрне, фасовкаларны һәм тәэминат шартларын җитештерүчедән сорыйлар."],
+      ["Бөтен сызык хәләлме?", "Әйе. Биш хәзерге продукт та Хәләл ДУМ РТ №614А/2024 сертификаты өлкәсенә керә."],
+      ["КБҖУ лаборатормы?", "Юк. Бу хәзерге рецептура буенча чимал массасының 100 г өчен исәп, сынау протоколы түгел."],
+      ["Тәэминатны ничек сорарга?", "info@kazandelikates.tatar адресына языгыз яки +7 987 217-02-02 номерына шалтыратыгыз. Җитештерүче Казанда, Аграрная ур., 2, 7 нче офис."]
+    ],
+    contactEyebrow: "№ 05 — Элемтә",
+    contactTitleA: "Тәэминат турында",
+    contactTitleEm: "сөйләшәбезме?",
+    contactLead: "Актуаль составларны, фасовкаларны, сертификатларны һәм тәэминат шартларын җибәрәбез. Ачык кулланучы прайсы юк. Исәпләнгән КБҖУ һәрвакыт лаборатор кыйммәтләрдән аерым билгеләнә.",
+    contactCta: "Спецификацияләр сорау",
+    mailSubject: "Ярату / спецификация сорауы",
+    contactLabels: ["Җитештерүче", "Адрес", "Элемтә", "Реквизитлар"],
+    contactValues: ["«Казанские Деликатесы» ҖЧҖ", "420061, Казан ш., Аграрная ур., 2, 7 нче офис", "", "ИНН 1686021074 · КПП 168601001 · ОГРН 1221600096893"],
+    footerAria: "Документлар",
+    privacy: "Шәхси мәгълүматлар",
+    footerTag: "серсез ит продуктлары"
+  }
+};
+
+export const editorialProducts = {
+  vetchina: {
+    en: { name: "Chicken fillet ham", nameA: "Chicken fillet", nameEm: "ham", alt: "Yaratu chicken fillet ham — 150 g pack", qrAlt: "QR: ham label in Russian, English and Tatar" },
+    tt: { name: "Филелы ветчина", nameA: "Филелы", nameEm: "ветчина", alt: "Ярату филелы ветчинасы — 150 г упаковка", qrAlt: "QR: ветчина этикеткасы рус, инглиз һәм татар телләрендә" }
+  },
+  mramornaya: {
+    en: { name: "Mramornaya cooked smoked sausage", nameA: "Cooked smoked sausage", nameEm: "“Mramornaya”", alt: "Yaratu Mramornaya cooked smoked sausage — 500 g pack", qrAlt: "QR: Mramornaya label in Russian, English and Tatar" },
+    tt: { name: "Пешерелгән-ысланган «Мраморная» колбаса", nameA: "Пешерелгән-ысланган", nameEm: "«Мраморная» колбаса", alt: "Ярату «Мраморная» пешерелгән-ысланган колбасасы — 500 г упаковка", qrAlt: "QR: «Мраморная» этикеткасы рус, инглиз һәм татар телләрендә" }
+  },
+  brokkoli: {
+    en: { name: "Sausages with broccoli", nameA: "Sausages", nameEm: "with broccoli", alt: "Yaratu sausages with broccoli — 400 g pack", qrAlt: "QR: broccoli sausages label in Russian, English and Tatar" },
+    tt: { name: "Брокколилы сосискалар", nameA: "Брокколилы", nameEm: "сосискалар", alt: "Ярату брокколилы сосискалары — 400 г упаковка", qrAlt: "QR: брокколилы сосискалар этикеткасы рус, инглиз һәм татар телләрендә" }
+  },
+  molochnye: {
+    en: { name: "Molochnye milk sausages", nameA: "Sausages", nameEm: "“Molochnye”", alt: "Yaratu Molochnye milk sausages — 500 g pack", qrAlt: "QR: Molochnye label in Russian, English and Tatar" },
+    tt: { name: "«Молочные» сосискалар", nameA: "«Молочные»", nameEm: "сосискалар", alt: "Ярату «Молочные» сосискалары — 500 г упаковка", qrAlt: "QR: «Молочные» этикеткасы рус, инглиз һәм татар телләрендә" }
+  },
+  slivochnaya: {
+    en: { name: "Slivochnaya cooked sausage", nameA: "Cooked sausage", nameEm: "“Slivochnaya”", alt: "Yaratu Slivochnaya cooked sausage — 400 g pack", qrAlt: "QR: Slivochnaya label in Russian, English and Tatar" },
+    tt: { name: "Пешерелгән «Сливочная» колбаса", nameA: "Пешерелгән", nameEm: "«Сливочная» колбаса", alt: "Ярату «Сливочная» пешерелгән колбасасы — 400 г упаковка", qrAlt: "QR: «Сливочная» этикеткасы рус, инглиз һәм татар телләрендә" }
+  }
+};
+
+export const packshotDims = {
+  vetchina: [1400, 2249],
+  mramornaya: [1400, 845],
+  brokkoli: [1400, 1337],
+  molochnye: [1400, 1576],
+  slivochnaya: [1400, 2057]
+};

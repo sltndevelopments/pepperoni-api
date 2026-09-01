@@ -150,6 +150,39 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   }
 });
 
+test("EN and TT homepages use the same editorial design as the RU home", async () => {
+  const homeEn = await readFile(join(dist, "en/index.html"), "utf8");
+  const homeTt = await readFile(join(dist, "tt/index.html"), "utf8");
+  for (const [home, lang] of [[homeEn, "en"], [homeTt, "tt"]]) {
+    assert.match(home, new RegExp(`<html lang="${lang}">`));
+    assert.match(home, /class="hero__title"/);
+    assert.match(home, /class="ticker"/);
+    assert.match(home, /class="badge__ring"/);
+    assert.match(home, /class="facts__grid"/);
+    assert.match(home, /class="toc"/);
+    assert.match(home, /class="quality__list"/);
+    assert.match(home, /class="faq__list"/);
+    assert.match(home, /class="contact__dl"/);
+    assert.equal((home.match(/class="product__plate"/g) || []).length, 5, lang);
+    assert.equal((home.match(/class="deal"/g) || []).length, 5, lang);
+    assert.equal((home.match(/class="nf-wrap"/g) || []).length, 5, lang);
+    assert.equal((home.match(/class="nf-qr"/g) || []).length, 5, lang);
+    assert.match(home, /src="\/packshots\/sku-vetchina-f7a3c1\.jpg"/);
+    assert.doesNotMatch(home, /class="hero__plane"|class="story-section"|class="contact-cta"/);
+    assert.doesNotMatch(home, /noindex/);
+  }
+  assert.match(homeEn, /<h1 class="hero__title"[^>]*>Yaratu<\/h1>/);
+  assert.match(homeEn, /Five chicken and beef products/);
+  assert.match(homeEn, /Show the label/);
+  assert.match(homeEn, /NO SODIUM NITRITE · HALAL SAM RT · INGREDIENTS DISCLOSED ·/);
+  assert.doesNotMatch(homeEn, /Пять продуктов|Показать этикетку|Скрыть этикетку|Поговорим|мелкого шрифта/);
+  assert.match(homeTt, /<h1 class="hero__title"[^>]*>Ярату<\/h1>/);
+  assert.match(homeTt, /Тавык һәм сыер итеннән биш продукт/);
+  assert.match(homeTt, /Этикетканы күрсәтү/);
+  assert.match(homeTt, /НАТРИЙ НИТРИТЫСЫЗ · ХӘЛӘЛ ДУМ РТ · СОСТАВ АЧЫК ·/);
+  assert.doesNotMatch(homeTt, /Показать этикетку|Поговорим|мелкого шрифта|Каждая партия/);
+});
+
 test("pack QR codes open a language-neutral label page", async () => {
   const data = JSON.parse(await readFile(join(root, "data/products.json"), "utf8"));
   for (const product of data.products) {

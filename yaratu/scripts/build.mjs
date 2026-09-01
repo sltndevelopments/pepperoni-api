@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { answers, homeCopy, LANG_NAME, markdownPages, nf, positioning, ui } from "./copy.mjs";
+import { answers, editorial, editorialProducts, homeCopy, LANG_NAME, markdownPages, nf, packshotDims, positioning, ui } from "./copy.mjs";
 import { absolute, escapeHtml as h, jsonLd, loadData, LOCALES, pagePath, SITE } from "./lib.mjs";
 import { qrPath, qrSvg, qrUrl } from "./qr.mjs";
 
@@ -227,19 +227,19 @@ function home(lang) {
   return shell({ lang, title: C.title, description: L.lead, body, structured });
 }
 
-async function editorialHome() {
+async function editorialHome(lang = "ru") {
   const html = await readFile(join(root, "v3.html"), "utf8");
-  const faqs = homeCopy.ru.faqs;
+  const faqs = homeCopy[lang].faqs;
   const items = products.map((p, i) => ({
     "@type": "ListItem",
     position: i + 1,
-    url: absolute(pagePath("ru", `products/${p.id}`)),
-    name: p.name.ru
+    url: absolute(pagePath(lang, `products/${p.id}`)),
+    name: p.name[lang]
   }));
   const structured = {
     "@context": "https://schema.org",
     "@graph": [
-      {"@type": "WebSite", "@id": `${SITE}/#website`, url: `${SITE}/`, name: "Yaratu", inLanguage: "ru"},
+      {"@type": "WebSite", "@id": `${SITE}/#website`, url: `${SITE}/`, name: "Yaratu", inLanguage: lang},
       org,
       brand,
       {
@@ -250,26 +250,188 @@ async function editorialHome() {
           acceptedAnswer: {"@type": "Answer", text}
         }))
       },
-      {"@type": "ItemList", name: ui.ru.range, itemListElement: items}
+      {"@type": "ItemList", name: ui[lang].range, itemListElement: items}
     ]
   };
   const seoHead = `    <meta name="yandex-verification" content="1817223863cbfebb">
-    <link rel="canonical" href="${absolute(pagePath("ru"))}">
+    <link rel="canonical" href="${absolute(pagePath(lang))}">
     ${alternates("")}
-    <link rel="alternate" type="text/markdown" href="/index.md" title="Markdown for agents">
+    <link rel="alternate" type="text/markdown" href="${markdownPath(lang)}" title="Markdown for agents">
     <link rel="api-catalog" href="/.well-known/api-catalog" type="application/linkset+json">
     <link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="${absolute(pagePath("ru"))}">
-    <meta property="og:title" content="Ярату — мясные продукты без секретов">
-    <meta property="og:description" content="${h(ui.ru.lead)}">
+    <meta property="og:url" content="${absolute(pagePath(lang))}">
+    <meta property="og:title" content="${h(homeCopy[lang].title)}">
+    <meta property="og:description" content="${h(ui[lang].lead)}">
     <meta property="og:image" content="${SITE}/assets/logo/logo-horizontal.png">
     ${schemas(structured)}
 `;
   if (/<meta name="robots"/i.test(html)) {
     throw new Error("editorial homepage must be indexable: remove robots noindex from v3.html");
   }
-  return html.replace("</head>", `${seoHead}  </head>`);
+  if (lang === "ru") return html.replace("</head>", `${seoHead}  </head>`);
+  return localizeEditorial(html, lang).replace("</head>", `${seoHead}  </head>`);
+}
+
+function localizeEditorial(html, lang) {
+  const E = editorial[lang];
+  const N = nf[lang];
+  const L = ui[lang];
+  const byId = Object.fromEntries(products.map((p) => [p.id, p]));
+  const order = ["vetchina", "mramornaya", "brokkoli", "molochnye", "slivochnaya"];
+  const num = (value) => formatNumber(value, lang);
+  const g = grams(lang);
+  let out = html;
+
+  out = out.replace('<html lang="ru">', `<html lang="${E.htmlLang}">`);
+  out = out.replace(/<title>[^<]*<\/title>/, `<title>${h(E.title)}</title>`);
+  out = out.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${h(E.description)}" />`);
+  out = out.replace("Перейти к содержанию", E.skip);
+  out = out.replace('aria-label="Ярату — главная"', `aria-label="${h(E.navAria)}"`);
+  out = out.replace('alt="Ярату" width="1787" height="300"', `alt="Yaratu" width="1787" height="300"`);
+  out = out.replace('aria-label="Разделы"', `aria-label="${h(E.navAria)}"`);
+  out = out.replaceAll(">Факты<", `>${E.nav[0]}<`);
+  out = out.replaceAll(">Ассортимент<", `>${E.nav[1]}<`);
+  out = out.replaceAll(">Контроль<", `>${E.nav[2]}<`);
+  out = out.replaceAll(">Контакты<", `>${E.nav[3]}<`);
+  out = out.replaceAll(">Связаться<", `>${E.heroCtaContact}<`);
+  out = out.replace("<summary>Меню</summary>", `<summary>${E.menu}</summary>`);
+  out = out.replace('aria-label="Мобильное меню"', `aria-label="${h(E.mobileMenu)}"`);
+  out = out.replaceAll(">Для закупщиков<", `>${E.retail}<`);
+  out = out.replace('aria-label="Язык"', `aria-label="${h(E.langAria)}"`);
+  out = out.replace('<span aria-current="page">Русский</span>', `<a href="/" hreflang="ru">Русский</a>`);
+  if (lang === "en") {
+    out = out.replace('<a href="/en/" hreflang="en">English</a>\n            <a href="/tt/" hreflang="tt">Татарча</a>', '<span aria-current="page">English</span>\n            <a href="/tt/" hreflang="tt">Татарча</a>');
+  } else {
+    out = out.replace('<a href="/tt/" hreflang="tt">Татарча</a>', '<span aria-current="page">Татарча</span>');
+  }
+  out = out.replace('<span>Мясной бренд · Казань</span>', `<span>${E.heroMeta[0]}</span>`);
+  out = out.replace('<span>Халяль · ДУМ РТ №614А/2024</span>', `<span>${E.heroMeta[1]}</span>`);
+  out = out.replaceAll("мясные продукты без секретов", E.heroKicker);
+  out = out.replace(">Ярату</h1>", `>${E.heroTitle}</h1>`);
+  out = out.replace(/Пять продуктов из курицы и говядины —\s*<em>состав раскрыт<\/em>\s*до каждого ингредиента\./, `${E.heroLedeA}\n                <em>${E.heroLedeEm}</em> ${E.heroLedeB}`);
+  out = out.replace(/Нитрит натрия не используется\. Пищевая ценность указана до покупки\s*и честно помечена как расчётная\. Производство — ООО «Казанские\s*Деликатесы», Казань\./, E.heroSub);
+  out = out.replace(">Смотреть ассортимент<", `>${E.heroCtaRange}<`);
+  out = out.replace(/БЕЗ НИТРИТА НАТРИЯ · ХАЛЯЛЬ ДУМ РТ · СОСТАВ РАСКРЫТ ·/, E.badgeText);
+  const tickerSeq = E.ticker.map((t) => `<span>${t}</span><i>✦</i>`).join("\n            ");
+  out = out.replace(/<div class="ticker__seq">[\s\S]*?<\/div>\s*<div class="ticker__seq">[\s\S]*?<\/div>/, `<div class="ticker__seq">\n            ${tickerSeq}\n          </div>\n          <div class="ticker__seq">\n            ${tickerSeq}\n          </div>`);
+  out = out.replace("№ 01 — Что подтверждено", E.factsEyebrow);
+  out = out.replace(">Подтверждённые факты<", `>${E.factsTitle}<`);
+  out = out.replace(/<div class="facts__grid">[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/, `<div class="facts__grid">${E.facts.map(([n, h2, p]) => `\n            <div class="facts__cell">\n              <span class="facts__num">${n}</span>\n              <span class="facts__h">${h2}</span>\n              <p class="facts__p">${p}</p>\n            </div>`).join("")}\n          </div>\n        </div>\n      </section>`);
+  out = out.replace("№ 02 — Ассортимент", E.productsEyebrow);
+  out = out.replace(/Пять продуктов\. <em>Ноль секретов\.<\/em>/, `${E.productsTitleA} <em>${E.productsTitleEm}</em>`);
+  out = out.replace(/В каждой карточке — кнопка «Показать этикетку»: полная пищевая\s*ценность, честно помеченная как расчёт по сырьевой рецептуре,\s*состав до ингредиентов добавок и аллергены\./, E.productsLead);
+  const tocHtml = order.map((id, i) => {
+    const p = byId[id];
+    return `<li>\n                <a href="#p-${id}">\n                  <span class="toc__num">${String(i + 1).padStart(2, "0")}</span>\n                  <span class="toc__name">${h(E.toc[i])}</span>\n                  <span class="toc__dots" aria-hidden="true"></span>\n                  <span class="toc__w">${num(p.netWeight.value)} ${g}</span>\n                </a>\n              </li>`;
+  }).join("\n              ");
+  out = out.replace(/<ol class="toc">[\s\S]*?<\/ol>/, `<ol class="toc">\n              ${tocHtml}\n            </ol>`);
+  out = out.replaceAll("Пищевая ценность · состав · аллергены", E.dealTeaser);
+  out = out.replaceAll(/Показать этикетку <span aria-hidden="true">→<\/span>/g, `${E.dealShow} <span aria-hidden="true">→</span>`);
+  out = out.replaceAll(/Скрыть этикетку <span aria-hidden="true">×<\/span>/g, `${E.dealHide} <span aria-hidden="true">×</span>`);
+  out = out.replaceAll("Этикетка с полным составом · расчёт по рецептуре · QR на другие языки", E.labelCaption);
+  out = out.replaceAll(">Русский · English · Татарча<", `>${E.qrLink}<`);
+  out = out.replace("№ 03 — Контроль качества", E.qualityEyebrow);
+  out = out.replace(/Каждая партия — <em>с номером\.<\/em>/, `${E.qualityTitleA} <em>${E.qualityTitleEm}</em>`);
+  out = out.replace(/Ярату — бренд ООО «Казанские Деликатесы»\. Производство в Казани\s*работает по системе HACCP и стандарту ISO 22000:2018; продукция\s*соответствует ТР ТС 021\/2011 и входит в область действия\s*сертификата «Халяль» ДУМ РТ №614А\/2024\./, E.qualityLead);
+  const qualityHtml = E.qualityList.map(([k, v]) => `<li>\n              <span class="quality__k">${k}</span>\n              <span class="quality__v">${v}</span>\n            </li>`).join("\n            ");
+  out = out.replace(/<ul class="quality__list">[\s\S]*?<\/ul>/, `<ul class="quality__list">\n            ${qualityHtml}\n          </ul>`);
+  out = out.replace("№ 04 — Короткие ответы", E.faqEyebrow);
+  out = out.replace(/Без <em>мелкого шрифта\.<\/em>/, `${E.faqTitleA} <em>${E.faqTitleEm}</em>`);
+  out = out.replace(/Почему Ярату: состав и цифры можно проверить до покупки\. Цены и\s*оферта на сайте не публикуются\./, E.faqLead);
+  const faqHtml = E.faqs.map(([q, a]) => `<details>\n              <summary>${h(q)}</summary>\n              <p>${h(a)}</p>\n            </details>`).join("\n            ");
+  out = out.replace(/<div class="faq__list">[\s\S]*?<\/div>\s*<\/div>\s*<\/section>/, `<div class="faq__list">\n            ${faqHtml}\n          </div>\n        </div>\n      </section>`);
+  out = out.replace("№ 05 — Контакты", E.contactEyebrow);
+  out = out.replace(/Поговорим <em>о поставке\?<\/em>/, `${E.contactTitleA} <em>${E.contactTitleEm}</em>`);
+  out = out.replace(/Отправим актуальные составы, фасовки, сертификаты и условия\s*поставки\. Публичного потребительского прайса нет\. Расчётные КБЖУ\s*всегда отмечены отдельно от лабораторных значений\./, E.contactLead);
+  out = out.replace(/Запросить спецификации<\/a\s*>/, `${E.contactCta}</a\n              >`);
+  out = out.replace("subject=Ярату%20%2F%20запрос%20спецификаций", `subject=${encodeURIComponent(E.mailSubject)}`);
+  out = out.replace(/aria-label="Ярату — главная"/g, `aria-label="${h(E.navAria)}"`);
+  out = out.replace(/alt="Ярату" width="1787" height="300"/g, `alt="Yaratu" width="1787" height="300"`);
+  out = out.replace(">Производитель<", `>${E.contactLabels[0]}<`);
+  out = out.replace(">Адрес<", `>${E.contactLabels[1]}<`);
+  out = out.replace(">Связь<", `>${E.contactLabels[2]}<`);
+  out = out.replace(">Реквизиты<", `>${E.contactLabels[3]}<`);
+  out = out.replace(">ООО «Казанские Деликатесы»</dd>", `>${E.contactValues[0]}</dd>`);
+  out = out.replace("420061, г. Казань, ул. Аграрная, д. 2, офис 7", E.contactValues[1]);
+  out = out.replace("ИНН 1686021074 · КПП 168601001 · ОГРН 1221600096893", E.contactValues[3]);
+  out = out.replace('aria-label="Документы"', `aria-label="${h(E.footerAria)}"`);
+  out = out.replace(">Политика ПДн<", `>${E.privacy}<`);
+  out = out.replace("© 2026 · бренд ООО «Казанские Деликатесы» · ИНН 1686021074", lang === "en" ? "© 2026 · a brand of Kazan Delicacies LLC · INN 1686021074" : "© 2026 · «Казанские Деликатесы» ҖЧҖ бренды · ИНН 1686021074");
+  out = out.replace("Халяль · Без нитрита натрия · Читаемый состав", lang === "en" ? "Halal · No sodium nitrite · Readable ingredients" : "Хәләл · Натрий нитритысыз · Укып була торган состав");
+
+  for (const id of order) {
+    const p = byId[id];
+    const P = editorialProducts[id][lang];
+    const n = p.nutrition;
+    const kcal = num(n.caloriesKcal);
+    const kj = num(Math.round(n.caloriesKcal * 4.184));
+    const [w, hgt] = packshotDims[id];
+    const weight = `${num(p.netWeight.value)} ${g}`;
+    const label = `${N.label} — ${P.name}`;
+    const article = new RegExp(`<article class="product[^"]*" id="p-${id}">[\\s\\S]*?<\\/article>`);
+    const repl = `<article class="product${["mramornaya", "molochnye"].includes(id) ? " product--flip" : ""}" id="p-${id}">
+            <div class="product__plate">
+              <span class="product__index" aria-hidden="true">${String(order.indexOf(id) + 1).padStart(2, "0")}</span>
+              <img
+                src="${p.image}"
+                alt="${h(P.alt)}"
+                width="${w}"
+                height="${hgt}"
+                loading="lazy"
+              />
+            </div>
+            <div class="product__body">
+              <p class="product__meta"><span>${String(order.indexOf(id) + 1).padStart(2, "0")} / 05</span><span>${weight}</span></p>
+              <h3 class="product__name">${h(P.nameA)} <em>${h(P.nameEm)}</em></h3>
+              <p class="product__desc">${h(p.summary[lang])}</p>
+              <p class="product__allergens"><b>${L.allergens}</b> ${h(p.allergens[lang])}</p>
+            </div>
+            <details class="deal">
+              <summary class="deal__trigger">
+                <span class="deal__teaser">
+                  <span class="deal__teaser-cap">${E.dealTeaser}</span>
+                  <span class="btn btn--ink">${E.dealShow} <span aria-hidden="true">→</span></span>
+                </span>
+                <span class="deal__closer">${E.dealHide} <span aria-hidden="true">×</span></span>
+              </summary>
+              <div class="deal__panel">
+                <figure class="product__label">
+                  <aside class="nf-wrap" aria-label="${h(label)}">
+                    <div class="nf-card">
+                      <p class="nf-card-title">${N.label}</p>
+                      <p class="nf-basis">${N.per}</p>
+                      <div class="nf-net"><span>${N.net}</span><span>${weight}</span></div>
+                      <div class="nf-line-10"></div>
+                      <p class="nf-energy-cap">${N.energy}</p>
+                      <p class="nf-energy-line">${kcal} ${N.kcal} / ${kj} ${N.kj}</p>
+                      <div class="nf-cal-row"><span class="nf-cal-label">${N.calories}</span><span class="nf-cal-val">${kcal}</span></div>
+                      <div class="nf-line-5"></div>
+                      <div class="nf-dv-head">${N.dv}</div>
+                      <div class="nf-row bold"><span>${N.protein(num(n.proteinGrams), g)}</span><span>${dailyPercent(n.proteinGrams, "protein")}</span></div>
+                      <div class="nf-row bold"><span>${N.fat(num(n.fatGrams), g)}</span><span>${dailyPercent(n.fatGrams, "fat")}</span></div>
+                      <div class="nf-row indent"><span>${N.sat(num(n.saturatedFatGrams), g)}</span><span>${dailyPercent(n.saturatedFatGrams, "saturatedFat")}</span></div>
+                      <div class="nf-row bold"><span>${N.carbs(num(n.carbohydrateGrams), g)}</span><span>${dailyPercent(n.carbohydrateGrams, "carbs")}</span></div>
+                      <div class="nf-line-5"></div>
+                      <p class="nf-foot">${N.foot}</p>
+                      <div class="nf-line-1"></div>
+                      <p class="nf-ing-title">${N.ingredients}</p>
+                      <p class="nf-ing-text"><b>${N.ingredientsPref}</b> ${h(p.ingredients[lang]).replace(/\.+$/, "")}.</p>
+                      <p class="nf-ing-extra"><b>${N.contains}</b> ${h(p.allergens[lang])}</p>
+                    </div>
+                  </aside>
+                  <div class="nf-qr">
+                    <a class="nf-qr__code" href="/q/${id}/"><img src="/q/${id}.svg" width="112" height="112" alt="${h(P.qrAlt)}"></a>
+                    <a class="nf-qr__link" href="/q/${id}/">${E.qrLink}</a>
+                  </div>
+                  <figcaption>${E.labelCaption}</figcaption>
+                </figure>
+              </div>
+            </details>
+          </article>`;
+    out = out.replace(article, repl);
+  }
+  return out;
 }
 
 function productPage(product, lang) {
@@ -377,7 +539,7 @@ function privacyPage() {
 }
 
 for (const lang of LOCALES) {
-  await output(localeFile(lang, "", "html"), lang === "ru" ? await editorialHome() : home(lang));
+  await output(localeFile(lang, "", "html"), await editorialHome(lang));
   await output(localeFile(lang, "", "md"), homeMarkdown(lang));
   await output(localeFile(lang, "retail"), retailPage(lang));
   await output(localeFile(lang, "retail", "md"), markdownPages.retail[lang]);
