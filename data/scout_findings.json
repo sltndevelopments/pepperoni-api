@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-01T05:32:08.613436+00:00",
+  "generated_at": "2026-09-02T05:30:43.148196+00:00",
   "new_queries": [],
   "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль колбаса",
-      "impr": 39,
+      "impr": 44,
       "clk": 0,
-      "pos": 39.7,
+      "pos": 39.3,
       "page": "https://pepperoni.tatar/"
     }
   ]

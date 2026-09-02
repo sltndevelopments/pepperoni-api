@@ -9262,5 +9262,15 @@
     "after_ctr": null,
     "after_impr": null,
     "operator_experiment_id": "exp-20260825053204-4"
+  },
+  {
+    "applied_at": "2026-09-01T16:00:07.056287+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Fillet Smoked Sausage. Smoked Meats. Weight: 0.54 kg; storage: 0-6 ˚C. Current catalog price: $3.49."
   }
 ]
