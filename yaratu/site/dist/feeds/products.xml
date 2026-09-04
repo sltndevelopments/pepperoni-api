@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<products generated="2026-09-03" merchant="false">
+<products generated="2026-09-04" merchant="false">
   <product id="vetchina"><name lang="ru">Ветчина филейная</name><name lang="en">Chicken fillet ham</name><name lang="tt">Филелы ветчина</name><netWeight unit="g">150</netWeight><nutrition status="calculated" basisGrams="100"/><halal status="verified"/></product>
   <product id="mramornaya"><name lang="ru">Колбаса варёно-копчёная «Мраморная»</name><name lang="en">Mramornaya cooked smoked sausage</name><name lang="tt">Пешерелгән-ысланган «Мраморная» колбаса</name><netWeight unit="g">500</netWeight><nutrition status="calculated" basisGrams="100"/><halal status="verified"/></product>
   <product id="brokkoli"><name lang="ru">Сосиски с брокколи</name><name lang="en">Sausages with broccoli</name><name lang="tt">Брокколилы сосискалар</name><netWeight unit="g">400</netWeight><nutrition status="calculated" basisGrams="100"/><halal status="verified"/></product>
