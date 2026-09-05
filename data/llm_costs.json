@@ -1200,8 +1200,8 @@
   }
  },
  "2026-09": {
-  "usd": 1.107406,
-  "usd_baseline": 1.087983,
+  "usd": 1.448709,
+  "usd_baseline": 1.429286,
   "days": {
    "2026-09-01": {
     "calls": 54,
@@ -1231,24 +1231,33 @@
     "usd_baseline": 0.082956
    },
    "2026-09-04": {
-    "calls": 2,
-    "in": 608,
-    "out": 800,
+    "calls": 39,
+    "in": 13359,
+    "out": 16744,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.013824,
-    "usd_baseline": 0.013824
+    "usd": 0.272183,
+    "usd_baseline": 0.272183
+   },
+   "2026-09-05": {
+    "calls": 12,
+    "in": 3648,
+    "out": 4800,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.082944,
+    "usd_baseline": 0.082944
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 110,
-    "in": 33448,
-    "out": 43443,
+    "calls": 158,
+    "in": 48040,
+    "out": 62643,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.751989,
-    "usd_baseline": 0.751989
+    "usd": 1.083765,
+    "usd_baseline": 1.083765
    },
    "seo_brain": {
     "calls": 5,
@@ -1260,24 +1269,24 @@
     "usd_baseline": 0.318824
    },
    "send_report": {
-    "calls": 2,
-    "in": 3575,
-    "out": 2719,
+    "calls": 3,
+    "in": 5382,
+    "out": 4263,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.01717,
-    "usd_baseline": 0.01717
+    "usd": 0.026697,
+    "usd_baseline": 0.026697
    }
   },
   "models": {
    "claude-sonnet-5": {
-    "calls": 110,
-    "in": 33448,
-    "out": 43443,
+    "calls": 158,
+    "in": 48040,
+    "out": 62643,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.751989,
-    "usd_baseline": 0.751989
+    "usd": 1.083765,
+    "usd_baseline": 1.083765
    },
    "claude-opus-5": {
     "calls": 1,
@@ -1298,13 +1307,13 @@
     "usd_baseline": 0.059249
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 2,
-    "in": 3575,
-    "out": 2719,
+    "calls": 3,
+    "in": 5382,
+    "out": 4263,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.01717,
-    "usd_baseline": 0.01717
+    "usd": 0.026697,
+    "usd_baseline": 0.026697
    }
   }
  }
