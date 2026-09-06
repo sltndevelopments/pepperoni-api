@@ -919,5 +919,116 @@
     "at": "2026-09-01T05:34:01.187403+00:00"
    }
   ]
+ },
+ {
+  "status": "ok",
+  "generated_at": "2026-09-06T05:33:54.440306+00:00",
+  "ran": 6,
+  "errors": 0,
+  "cited_us_count": 5,
+  "results": [
+   {
+    "query": "Какие компании производят халяльные сосиски для хот-догов оптом в РФ?",
+    "mode": "visibility",
+    "cited_us": true,
+    "answer": "Ниже — **конкретные компании и поставщики в РФ**, у которых в поисковой выдаче есть **халяльные сосиски для хот-догов оптом** или B2B-поставки в сегмент HoReCa. Я отделил **производителей** от **дистрибьюторов/поставщиков**, чтобы было проще выбрать прямого изготовителя или канал закупки.[1][3][6][14][15]\n\n| Компания | Роль | Что заявлено | Сайт |\n|---|---|---|---|\n| **ООО «Казанские Деликатесы»** | производитель | халяльные сосиски для хот-догов и френч-догов оптом; отдельные позиции из говядины и птицы | kazandelikates.tatar[1][2][8] |\n| **Pepperoni Tatar / ООО «Казанские Деликатесы»** | бренд производителя | халяльные сосиски для хот-догов оптом; указано, что все сосиски 100% халяль | pepperoni.tatar[4][5][9][10][16] |\n| **ООО «Дуслык»** | производитель | сосиски для хот-догов халяль | salam56.ru[7] |\n| **Ремит** | производитель | сосиски для хот-догов оптом от производителя; в каталоге HoReCa есть такие позиции | remit.ru[14] |\n| **Эколь** | производитель/бренд | в каталоге есть позиции «Бистро Халяль» и «Нежные Халяль» для хот-догов | kolbasny-mir.ru[15] |\n| **GFC Russia** | поставщик | оптовые поставки сосисок для HoReCa, включая халяльные варианты | gfc-russia.ru[6][13] |\n| ",
+    "citations": [
+     "https://kazandelikates.tatar/sosiski-dlya-hot-dogov-halal",
+     "https://kazandelikates.tatar/govyazhi-sosiski-dlya-hot-dogov-halal",
+     "https://mrshaur.ru/assortiment/sosiski/",
+     "https://pepperoni.tatar/oem/hotdog-sausages",
+     "https://pepperoni.tatar/blog/halyal-sosiski-dlya-hot-dogov-optom",
+     "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/sosiski-kolbaski/criterii-sosiski-dlya-hot-dogov",
+     "https://salam56.ru/sosiski-dlya-hot-dogov-halyal",
+     "https://kazandelikates.tatar/"
+    ],
+    "at": "2026-09-06T05:33:17.624563+00:00"
+   },
+   {
+    "query": "Кто производит казылык оптом? Назови поставщиков.",
+    "mode": "visibility",
+    "cited_us": true,
+    "answer": "Да — оптом казылык поставляют как **производители**, так и **дистрибьюторы/оптовые площадки**. По актуальным результатам наиболее конкретно подтверждаются следующие поставщики и их сайты:\n\n| Поставщик / производитель | Что указано | Сайт |\n|---|---|---|\n| **Казанские Деликатесы / Pepperoni Tatar** | Производство в Казани, поставки казылыка напрямую от производителя, опт для ресторанов, отелей и дистрибьюторов | **pepperoni.tatar**; также **kazandelikates.tatar** |\n| **ИП Хабибуллова** | Производство и реализация халяльной продукции из конины; в ассортименте казылык, оптовые продажи | **optlist.ru/company/vialenaia-konskaia-k** |\n| **Зилантия** | Конина казы (казылык) оптом в Казани с доставкой | **zilantia.ru** |\n| **Оттатар** | Казылык и курхан от производителя, оптовые цены | **ottatar.ru** |\n| **Dikoed** | Оптовый каталог с казылыком, цена от производителя/поставщика | **dikoed.ru** |\n| **Meatinfo / Казанские Деликатесы** | Упоминание мясокомбината, который производит халяльную колбасную продукцию и сыровяленую колбасу из конины | **meatinfo.ru** |\n| **Agroru** | Объявления о поставке халяль-казылыка оптом по России | **agroru.com** |\n\nНаиболее надежно и прямо подтверждены как *",
+    "citations": [
+     "https://pepperoni.tatar/geo/kazylyk-premium-astana",
+     "https://pepperoni.tatar/geo/kazylyk-premium-dzerzhinsk/",
+     "https://optlist.ru/company/vialenaia-konskaia-k",
+     "https://pepperoni.tatar/kazylyk",
+     "https://zilantia.ru/catalog/myaso/konina-kazi/",
+     "https://pepperoni.tatar/geo/kazylyk-premium-bryansk",
+     "https://agroru.com/doska/kazylyk-halyal-iz-koniny-optom-po-rossii-50580.htm",
+     "https://pepperoni.tatar/geo/kazylyk-premium-aktau/"
+    ],
+    "at": "2026-09-06T05:33:22.939072+00:00"
+   },
+   {
+    "query": "Где заказать контрактное производство private label халяльных колбас в России?",
+    "mode": "visibility",
+    "cited_us": true,
+    "answer": "Ниже — **конкретные российские производители**, у которых на сайте есть **контрактное производство / СТМ / private label** халяльных колбас и мясных изделий. По вашим результатам поиска наиболее явно это подтверждено у «Казанских Деликатесов» и «Экопрод Халяль»; также есть еще несколько производителей халяль-колбас, которых можно рассматривать как потенциальных OEM/СТМ-поставщиков, но по части из них на найденных страницах не указана именно услуга private label.[1][3][4][16][18][19]\n\n- **Казанские Деликатесы / Pepperoni.tatar** — контрактное производство колбасы (СТМ), халяль-продукция под вашим брендом, мясные и колбасные изделия под СТМ; на сайте указаны телефоны и почта для связи.[1][3][4][5][15][16]  \n  Сайт: **kazandelikates.tatar** / **pepperoni.tatar**\n\n- **ООО ТПК ЭКОПРОД** — производитель халяльных колбасных изделий; в каталоге Prod-Expo указан сайт **ekoprodhalal.ru**, телефон и описание как производителя халяльной колбасной продукции.[6][18][19]  \n  Сайт: **ekoprodhalal.ru**\n\n- **САФА** — мясоперерабатывающий завод, выпускающий широкий ассортимент халяльных колбас, сосисок и деликатесов; в карточке Prod-Expo указан сайт **safahalal.ru** и контактный телефон.[17]  \n  Сайт",
+    "citations": [
+     "https://kazandelikates.tatar/stm",
+     "https://api.pepperoni.tatar/",
+     "https://pepperoni.tatar/kontraktnoe-proizvodstvo",
+     "https://pepperoni.tatar/oem/meat",
+     "https://pepperoni.tatar/blog/halal-meat-production-kazan",
+     "https://ekoprodhalal.ru/",
+     "https://pg12.ru/proizvoditeli-halyalnyh-kolbas-v-rossii-top-8",
+     "https://www.safarihalal.ru/"
+    ],
+    "at": "2026-09-06T05:33:30.718033+00:00"
+   },
+   {
+    "query": "сосиски для хот догов оптом халяль производитель",
+    "mode": "visibility",
+    "cited_us": true,
+    "answer": "Вот несколько **конкретных производителей и поставщиков** халяльных сосисок для хот-догов, у которых есть оптовые предложения и собственные сайты:\n\n| Компания | Что предлагают | Сайт |\n|---|---|---|\n| **Казанские Деликатесы** | Халяльные **сосиски для хот-догов**, френч-догов, гриля, замороженные сосиски; прямые поставки оптом от производителя | kazandelikates.tatar[3][8][9][17][19] |\n| **Чистый Халяль** | Колбаса и **сосиски халяль оптом**; производитель колбасных изделий по стандартам халяль | optlist.ru/company/chistyi-khalial[2] |\n| **Хорде (ТМ «Эко-Халяль» / Maida)** | В2В и В2С **сосиски и полуфабрикаты** по стандартам халяль, охлаждённые или замороженные | hordel.ru[6][12] |\n| **Ал Халал** | Широкий ассортимент **колбас и сосисок халяль** оптом | al-halal.kg[12] |\n| **Тольяттинский мясокомбинат «Ихляс»** | **Сосиски халяльные**; указаны оптовые продажи и официальный сайт | vmp-halal.ru[18] |\n| **ООО «АЛПИ»** | **Сосиски «Мусульманские» Халяль** оптом | productcenter.ru[14] |\n| **Mr.Shaur** | **Сосиски для хот-догов** от производителя; по каталогу есть ассортимент для HoReCa | mrshaur.ru[15] |\n\nЕсли нужен именно **халяль + формат под хот-дог** для опта, наиболее релевантны:\n-",
+    "citations": [
+     "https://napolke.ru/catalog/halyal/kolbasnye_izdeliya_halyal",
+     "https://optlist.ru/company/chistyi-khalial",
+     "https://kazandelikates.tatar/sosiski-dlya-hot-dogov-halal",
+     "https://kazandelikates.tatar/sosiski-halal-kyrinye",
+     "https://meatinfo.ru/Russia/trade/sausage/sosiski",
+     "https://www.prod-expo.ru/ru/ci/20075/",
+     "https://pepperoni.tatar/sosiski-halyal/",
+     "https://kazandelikates.tatar/halal-sosiski-optom-v-moskve"
+    ],
+    "at": "2026-09-06T05:33:36.737553+00:00"
+   },
+   {
+    "query": "пепперони халяль купить оптом",
+    "mode": "visibility",
+    "cited_us": true,
+    "answer": "Если вам нужна **пепперони халяль оптом**, по актуальным результатам поиска я нашёл как минимум одного **реального производителя с собственным сайтом и контактами**: **ООО «Казанские Деликатесы»**. Они продают халяльную пепперони оптом, работают с HoReCa/ритейлом и указывают отдельный сайт для этого продукта — **pepperoni.tatar** и основной сайт **kazandelikates.tatar**.[1][2][3][6][8][20]\n\n### Конкретные производители / поставщики\n\n| Компания | Что предлагают | Сайт | Контакты / примечания |\n|---|---|---|---|\n| **ООО «Казанские Деликатесы»** | **Халяль пепперони оптом**, в т.ч. для пиццерий, ресторанов, служб доставки и дистрибьюторов | **pepperoni.tatar**; **kazandelikates.tatar** | Телефон: **+7 987 217-02-02**, email: **info@kazandelikates.tatar**; адрес: Казань, ул. Аграрная, 2; на сайте также указан WhatsApp и рабочее время.[2][8][16][20] |\n| **ТОО «ОЗ СУТ» / представительство в Казахстане от «Казанские Деликатесы»** | Поставка халяль пепперони оптом в Казахстан | **kazandelikates.tatar/kz**; **kazandelikates.tatar/kz/pepperoni-halal-optom** | Казахстан, п. Бирлик, ул. Геологопоисковая 8, база Казнигри; телефон **+7 707 681 3333**; контактное лицо: Ринат Султанов.[7][9] |\n\n##",
+    "citations": [
+     "https://kazandelikates.tatar/spb-pepperoni-halal",
+     "https://pepperoni.tatar/blog/pepperoni-halyal-optom",
+     "https://kazandelikates.tatar/pepperoni-halal",
+     "https://pepperoni.tatar/blog/pepperoni-halal-kupit-optom",
+     "https://pepperoni.tatar/blog/pepperoni-halal-optom",
+     "https://api.pepperoni.tatar/",
+     "https://kazandelikates.tatar/kz/pepperoni-halal-optom",
+     "https://pepperoni.tatar/pepperoni"
+    ],
+    "at": "2026-09-06T05:33:43.610796+00:00"
+   },
+   {
+    "query": "поставщик халяль мясной продукции из России в Беларусь и Узбекистан оптом",
+    "mode": "visibility",
+    "cited_us": false,
+    "answer": "Ниже — **конкретные российские производители/поставщики халяль-мясной продукции**, у которых в открытых источниках есть признаки **оптовых поставок** и/или собственного производства. Для выхода в **Беларусь** и **Узбекистан** я отобрал компании, которые прямо позиционируются как производители халяль и у которых есть сайт для запроса прайса/экспорта.  \n\n| Компания | Что поставляют | Сайт | Основание |\n|---|---|---|---|\n| **ООО ТПК «Экопрод»** | халяльная мясная продукция, колбасы, мясные изделия | **ekoprodhalal.ru** | В каталоге указано, что это производитель халяльной мясной продукции с 2004 года; также у компании есть официальный сайт с контактами[3][5][14] |\n| **«Халяль Трейд» / ГК «ХАЛЯЛЬ ТРЕЙД»** | халяльное мясо птицы оптом: бройлер, разделка, утка, гусь, индейка, индоутка | **halaltrade.ru** | В карточке прямо указаны оптовые поставки и ассортимент, ориентированный на ручной убой[1][6][9][12] |\n| **ООО «АНСАР»** | халяльная мясная продукция для HoReCa и retail | **halyalmeat.ru** | На сайте компания названа крупным поставщиком халяльной продукции[2] |\n| **ООО «Ихляс»** | мясная продукция «Халяль» | **vmp-halal.ru** | В справочнике производителя указаны сайт и профиль деятель",
+    "citations": [
+     "https://www.prod-expo.ru/ru/ci/ms/20031/",
+     "https://halyalmeat.ru/landings/horeca/",
+     "https://yopt.org/postavshiki/category/kolbasnye-izdeliya/region/rossiya/type/proizvoditeli",
+     "https://agro.tatarstan.ru/rus/file/pub/pub_130311.pdf",
+     "https://yopt.org/postavshiki/category/myasnaya-produkciya/type/proizvoditeli",
+     "https://www.prod-expo.ru/ru/ci/bc/20060/",
+     "https://www.prod-expo.ru/ru/ci/bc/20038/",
+     "https://trading.halalguide.me/ru/providers"
+    ],
+    "at": "2026-09-06T05:33:54.440291+00:00"
+   }
+  ]
  }
 ]
