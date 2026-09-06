@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 62 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-08-31T18:21:17.587902+00:00",
+  "dateModified": "2026-09-06T05:30:17.681352+00:00",
   "publisher": {
     "@type": "Organization",
     "@id": "https://pepperoni.tatar/#organization",
@@ -78,11 +78,11 @@
           },
           "exportPrices": {
             "USD": 3.05,
-            "KZT": 1408.61,
-            "UZS": 36100.87,
-            "KGS": 267.15,
-            "BYN": 9.37,
-            "AZN": 5.19
+            "KZT": 1399.7,
+            "UZS": 36281.75,
+            "KGS": 268.77,
+            "BYN": 9.47,
+            "AZN": 5.22
           }
         },
         "additionalProperty": [
@@ -204,12 +204,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.01,
-            "KZT": 1389.18,
-            "UZS": 35602.93,
-            "KGS": 263.46,
-            "BYN": 9.24,
-            "AZN": 5.12
+            "USD": 3,
+            "KZT": 1380.4,
+            "UZS": 35781.32,
+            "KGS": 265.06,
+            "BYN": 9.34,
+            "AZN": 5.15
           }
         },
         "additionalProperty": [
@@ -331,12 +331,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.33,
-            "KZT": 1534.9,
-            "UZS": 39337.5,
-            "KGS": 291.1,
-            "BYN": 10.21,
-            "AZN": 5.66
+            "USD": 3.32,
+            "KZT": 1525.19,
+            "UZS": 39534.6,
+            "KGS": 292.86,
+            "BYN": 10.32,
+            "AZN": 5.69
           }
         },
         "additionalProperty": [
@@ -458,12 +458,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.01,
-            "KZT": 1389.18,
-            "UZS": 35602.93,
-            "KGS": 263.46,
-            "BYN": 9.24,
-            "AZN": 5.12
+            "USD": 3,
+            "KZT": 1380.4,
+            "UZS": 35781.32,
+            "KGS": 265.06,
+            "BYN": 9.34,
+            "AZN": 5.15
           }
         },
         "additionalProperty": [
@@ -585,12 +585,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.86,
-            "KZT": 1777.76,
-            "UZS": 45561.79,
-            "KGS": 337.16,
-            "BYN": 11.82,
-            "AZN": 6.55
+            "USD": 3.84,
+            "KZT": 1766.52,
+            "UZS": 45790.08,
+            "KGS": 339.2,
+            "BYN": 11.95,
+            "AZN": 6.59
           }
         },
         "additionalProperty": [
@@ -712,12 +712,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.47,
-            "KZT": 2059.49,
-            "UZS": 52781.97,
-            "KGS": 390.59,
-            "BYN": 13.69,
-            "AZN": 7.59
+            "USD": 4.45,
+            "KZT": 2046.46,
+            "UZS": 53046.43,
+            "KGS": 392.96,
+            "BYN": 13.84,
+            "AZN": 7.64
           }
         },
         "additionalProperty": [
@@ -839,12 +839,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.79,
-            "KZT": 2210.06,
-            "UZS": 56641.03,
-            "KGS": 419.15,
-            "BYN": 14.7,
-            "AZN": 8.15
+            "USD": 4.78,
+            "KZT": 2196.09,
+            "UZS": 56924.82,
+            "KGS": 421.69,
+            "BYN": 14.85,
+            "AZN": 8.2
           }
         },
         "additionalProperty": [
@@ -964,12 +964,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.33,
-            "KZT": 1534.9,
-            "UZS": 39337.5,
-            "KGS": 291.1,
-            "BYN": 10.21,
-            "AZN": 5.66
+            "USD": 3.32,
+            "KZT": 1525.19,
+            "UZS": 39534.6,
+            "KGS": 292.86,
+            "BYN": 10.32,
+            "AZN": 5.69
           }
         },
         "additionalProperty": [
@@ -1090,12 +1090,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.91,
-            "KZT": 1340.61,
-            "UZS": 34358.07,
-            "KGS": 254.25,
-            "BYN": 8.91,
-            "AZN": 4.94
+            "USD": 2.9,
+            "KZT": 1332.13,
+            "UZS": 34530.22,
+            "KGS": 255.79,
+            "BYN": 9.01,
+            "AZN": 4.97
           }
         },
         "additionalProperty": [
@@ -1216,12 +1216,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.91,
-            "KZT": 1340.61,
-            "UZS": 34358.07,
-            "KGS": 254.25,
-            "BYN": 8.91,
-            "AZN": 4.94
+            "USD": 2.9,
+            "KZT": 1332.13,
+            "UZS": 34530.22,
+            "KGS": 255.79,
+            "BYN": 9.01,
+            "AZN": 4.97
           }
         },
         "additionalProperty": [
@@ -1343,12 +1343,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.98,
-            "KZT": 913.17,
-            "UZS": 23403.33,
-            "KGS": 173.19,
-            "BYN": 6.07,
-            "AZN": 3.37
+            "USD": 1.97,
+            "KZT": 907.39,
+            "UZS": 23520.59,
+            "KGS": 174.24,
+            "BYN": 6.14,
+            "AZN": 3.39
           }
         },
         "additionalProperty": [
@@ -1470,12 +1470,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.89,
-            "KZT": 1330.89,
-            "UZS": 34109.1,
-            "KGS": 252.41,
-            "BYN": 8.85,
-            "AZN": 4.91
+            "USD": 2.88,
+            "KZT": 1322.48,
+            "UZS": 34280,
+            "KGS": 253.94,
+            "BYN": 8.94,
+            "AZN": 4.94
           }
         },
         "additionalProperty": [
@@ -1597,12 +1597,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.81,
-            "KZT": 2219.78,
-            "UZS": 56890,
-            "KGS": 420.99,
-            "BYN": 14.76,
-            "AZN": 8.18
+            "USD": 4.8,
+            "KZT": 2205.74,
+            "UZS": 57175.04,
+            "KGS": 423.54,
+            "BYN": 14.92,
+            "AZN": 8.23
           }
         },
         "additionalProperty": [
@@ -1723,12 +1723,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.34,
-            "KZT": 2001.2,
-            "UZS": 51288.14,
-            "KGS": 379.54,
-            "BYN": 13.31,
-            "AZN": 7.38
+            "USD": 4.33,
+            "KZT": 1988.54,
+            "UZS": 51545.11,
+            "KGS": 381.84,
+            "BYN": 13.45,
+            "AZN": 7.42
           }
         },
         "additionalProperty": [
@@ -1850,12 +1850,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.58,
-            "KZT": 1190.04,
-            "UZS": 30499.15,
-            "KGS": 225.7,
-            "BYN": 7.91,
-            "AZN": 4.39
+            "USD": 2.57,
+            "KZT": 1182.51,
+            "UZS": 30651.83,
+            "KGS": 227.06,
+            "BYN": 8,
+            "AZN": 4.41
           }
         },
         "additionalProperty": [
@@ -1977,11 +1977,11 @@
           },
           "exportPrices": {
             "USD": 1.42,
-            "KZT": 655.74,
-            "UZS": 16805.65,
-            "KGS": 124.36,
-            "BYN": 4.36,
-            "AZN": 2.42
+            "KZT": 651.59,
+            "UZS": 16889.78,
+            "KGS": 125.12,
+            "BYN": 4.41,
+            "AZN": 2.43
           }
         },
         "additionalProperty": [
@@ -2102,12 +2102,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.91,
-            "KZT": 879.17,
-            "UZS": 22532.02,
-            "KGS": 166.74,
-            "BYN": 5.85,
-            "AZN": 3.24
+            "USD": 1.9,
+            "KZT": 873.61,
+            "UZS": 22644.82,
+            "KGS": 167.75,
+            "BYN": 5.91,
+            "AZN": 3.26
           }
         },
         "additionalProperty": [
@@ -2228,12 +2228,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.48,
-            "KZT": 1141.46,
-            "UZS": 29254.28,
-            "KGS": 216.48,
-            "BYN": 7.59,
-            "AZN": 4.21
+            "USD": 2.47,
+            "KZT": 1134.24,
+            "UZS": 29400.73,
+            "KGS": 217.79,
+            "BYN": 7.67,
+            "AZN": 4.23
           }
         },
         "additionalProperty": [
@@ -2355,12 +2355,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.09,
-            "KZT": 1423.19,
-            "UZS": 36474.49,
-            "KGS": 269.91,
-            "BYN": 9.46,
-            "AZN": 5.25
+            "USD": 3.08,
+            "KZT": 1414.18,
+            "UZS": 36657.08,
+            "KGS": 271.55,
+            "BYN": 9.56,
+            "AZN": 5.28
           }
         },
         "additionalProperty": [
@@ -2481,12 +2481,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.99,
-            "KZT": 1379.47,
-            "UZS": 35354.11,
-            "KGS": 261.62,
-            "BYN": 9.17,
-            "AZN": 5.09
+            "USD": 2.98,
+            "KZT": 1370.74,
+            "UZS": 35531.1,
+            "KGS": 263.21,
+            "BYN": 9.27,
+            "AZN": 5.12
           }
         },
         "additionalProperty": [
@@ -2608,12 +2608,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.54,
-            "KZT": 709.17,
-            "UZS": 18175,
-            "KGS": 134.5,
-            "BYN": 4.72,
-            "AZN": 2.61
+            "USD": 1.53,
+            "KZT": 704.68,
+            "UZS": 18265.99,
+            "KGS": 135.31,
+            "BYN": 4.77,
+            "AZN": 2.63
           }
         },
         "additionalProperty": [
@@ -2734,12 +2734,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.52,
-            "KZT": 699.45,
-            "UZS": 17926.03,
-            "KGS": 132.65,
-            "BYN": 4.65,
-            "AZN": 2.58
+            "USD": 1.51,
+            "KZT": 695.03,
+            "UZS": 18015.77,
+            "KGS": 133.46,
+            "BYN": 4.7,
+            "AZN": 2.59
           }
         },
         "additionalProperty": [
@@ -2861,11 +2861,11 @@
           },
           "exportPrices": {
             "USD": 2.85,
-            "KZT": 1316.33,
-            "UZS": 33735.79,
-            "KGS": 249.65,
-            "BYN": 8.75,
-            "AZN": 4.85
+            "KZT": 1308,
+            "UZS": 33904.67,
+            "KGS": 251.16,
+            "BYN": 8.85,
+            "AZN": 4.88
           }
         },
         "additionalProperty": [
@@ -2985,12 +2985,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.08,
-            "KZT": 1418.33,
-            "UZS": 36350,
-            "KGS": 268.99,
-            "BYN": 9.43,
-            "AZN": 5.23
+            "USD": 3.07,
+            "KZT": 1409.36,
+            "UZS": 36531.97,
+            "KGS": 270.62,
+            "BYN": 9.53,
+            "AZN": 5.26
           }
         },
         "additionalProperty": [
@@ -3110,12 +3110,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.08,
-            "KZT": 956.89,
-            "UZS": 24523.8,
-            "KGS": 181.48,
-            "BYN": 6.36,
-            "AZN": 3.53
+            "USD": 2.07,
+            "KZT": 950.83,
+            "UZS": 24646.57,
+            "KGS": 182.58,
+            "BYN": 6.43,
+            "AZN": 3.55
           }
         },
         "additionalProperty": [
@@ -3235,12 +3235,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.11,
-            "KZT": 971.46,
-            "UZS": 24897.26,
-            "KGS": 184.24,
-            "BYN": 6.46,
-            "AZN": 3.58
+            "USD": 2.1,
+            "KZT": 965.31,
+            "UZS": 25021.9,
+            "KGS": 185.36,
+            "BYN": 6.53,
+            "AZN": 3.6
           }
         },
         "additionalProperty": [
@@ -3361,12 +3361,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4,
-            "KZT": 1845.77,
-            "UZS": 47304.8,
-            "KGS": 350.06,
-            "BYN": 12.27,
-            "AZN": 6.81
+            "USD": 3.99,
+            "KZT": 1834.09,
+            "UZS": 47541.61,
+            "KGS": 352.18,
+            "BYN": 12.4,
+            "AZN": 6.85
           }
         },
         "additionalProperty": [
@@ -3487,12 +3487,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.19,
-            "KZT": 1933.2,
-            "UZS": 49545.55,
-            "KGS": 366.64,
-            "BYN": 12.85,
-            "AZN": 7.13
+            "USD": 4.18,
+            "KZT": 1920.97,
+            "UZS": 49793.58,
+            "KGS": 368.86,
+            "BYN": 12.99,
+            "AZN": 7.17
           }
         },
         "additionalProperty": [
@@ -3613,12 +3613,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.69,
-            "KZT": 1700.05,
-            "UZS": 43570.21,
-            "KGS": 322.42,
-            "BYN": 11.3,
-            "AZN": 6.27
+            "USD": 3.68,
+            "KZT": 1689.3,
+            "UZS": 43788.32,
+            "KGS": 324.38,
+            "BYN": 11.43,
+            "AZN": 6.31
           }
         },
         "additionalProperty": [
@@ -3738,12 +3738,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.28,
-            "KZT": 1049.18,
-            "UZS": 26889.04,
-            "KGS": 198.98,
-            "BYN": 6.98,
-            "AZN": 3.87
+            "USD": 2.27,
+            "KZT": 1042.54,
+            "UZS": 27023.65,
+            "KGS": 200.19,
+            "BYN": 7.05,
+            "AZN": 3.89
           }
         },
         "additionalProperty": [
@@ -3864,12 +3864,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.14,
-            "KZT": 1447.47,
-            "UZS": 37096.92,
-            "KGS": 274.52,
-            "BYN": 9.62,
-            "AZN": 5.34
+            "USD": 3.13,
+            "KZT": 1438.32,
+            "UZS": 37282.63,
+            "KGS": 276.18,
+            "BYN": 9.73,
+            "AZN": 5.37
           }
         },
         "additionalProperty": [
@@ -3990,12 +3990,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.67,
-            "KZT": 1690.34,
-            "UZS": 43321.24,
-            "KGS": 320.58,
-            "BYN": 11.24,
-            "AZN": 6.23
+            "USD": 3.66,
+            "KZT": 1679.64,
+            "UZS": 43538.11,
+            "KGS": 322.52,
+            "BYN": 11.36,
+            "AZN": 6.27
           }
         },
         "additionalProperty": [
@@ -4116,12 +4116,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.77,
-            "KZT": 1738.91,
-            "UZS": 44566.1,
-            "KGS": 329.79,
-            "BYN": 11.56,
-            "AZN": 6.41
+            "USD": 3.76,
+            "KZT": 1727.91,
+            "UZS": 44789.2,
+            "KGS": 331.79,
+            "BYN": 11.69,
+            "AZN": 6.45
           }
         },
         "additionalProperty": [
@@ -4242,12 +4242,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.97,
-            "KZT": 1831.2,
-            "UZS": 46931.34,
-            "KGS": 347.3,
-            "BYN": 12.18,
-            "AZN": 6.75
+            "USD": 3.96,
+            "KZT": 1819.62,
+            "UZS": 47166.28,
+            "KGS": 349.4,
+            "BYN": 12.31,
+            "AZN": 6.79
           }
         },
         "additionalProperty": [
@@ -4368,12 +4368,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.98,
-            "KZT": 913.17,
-            "UZS": 23403.43,
-            "KGS": 173.19,
-            "BYN": 6.07,
-            "AZN": 3.37
+            "USD": 1.97,
+            "KZT": 907.39,
+            "UZS": 23520.59,
+            "KGS": 174.24,
+            "BYN": 6.14,
+            "AZN": 3.39
           }
         },
         "additionalProperty": [
@@ -4494,12 +4494,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.81,
-            "KZT": 1758.34,
-            "UZS": 45064.04,
-            "KGS": 333.48,
-            "BYN": 11.69,
-            "AZN": 6.48
+            "USD": 3.8,
+            "KZT": 1747.22,
+            "UZS": 45289.64,
+            "KGS": 335.5,
+            "BYN": 11.82,
+            "AZN": 6.52
           }
         },
         "additionalProperty": [
@@ -4621,12 +4621,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.91,
-            "KZT": 879.17,
-            "UZS": 22532.02,
-            "KGS": 166.74,
-            "BYN": 5.85,
-            "AZN": 3.24
+            "USD": 1.9,
+            "KZT": 873.61,
+            "UZS": 22644.82,
+            "KGS": 167.75,
+            "BYN": 5.91,
+            "AZN": 3.26
           }
         },
         "additionalProperty": [
@@ -4748,12 +4748,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.51,
-            "KZT": 1617.48,
-            "UZS": 41453.94,
-            "KGS": 306.76,
-            "BYN": 10.76,
-            "AZN": 5.96
+            "USD": 3.5,
+            "KZT": 1607.25,
+            "UZS": 41661.46,
+            "KGS": 308.62,
+            "BYN": 10.87,
+            "AZN": 6
           }
         },
         "additionalProperty": [
@@ -4874,12 +4874,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.75,
-            "KZT": 806.31,
-            "UZS": 20664.73,
-            "KGS": 152.92,
-            "BYN": 5.36,
-            "AZN": 2.97
+            "USD": 1.74,
+            "KZT": 801.21,
+            "UZS": 20768.18,
+            "KGS": 153.85,
+            "BYN": 5.42,
+            "AZN": 2.99
           }
         },
         "additionalProperty": [
@@ -4999,12 +4999,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.81,
-            "KZT": 1758.34,
-            "UZS": 45064.04,
-            "KGS": 333.48,
-            "BYN": 11.69,
-            "AZN": 6.48
+            "USD": 3.8,
+            "KZT": 1747.22,
+            "UZS": 45289.64,
+            "KGS": 335.5,
+            "BYN": 11.82,
+            "AZN": 6.52
           }
         },
         "additionalProperty": [
@@ -5124,12 +5124,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.91,
-            "KZT": 879.17,
-            "UZS": 22532.02,
-            "KGS": 166.74,
-            "BYN": 5.85,
-            "AZN": 3.24
+            "USD": 1.9,
+            "KZT": 873.61,
+            "UZS": 22644.82,
+            "KGS": 167.75,
+            "BYN": 5.91,
+            "AZN": 3.26
           }
         },
         "additionalProperty": [
@@ -5251,12 +5251,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 6.28,
-            "KZT": 2894.14,
-            "UZS": 74173.09,
-            "KGS": 548.89,
-            "BYN": 19.24,
-            "AZN": 10.67
+            "USD": 6.26,
+            "KZT": 2875.83,
+            "UZS": 74544.41,
+            "KGS": 552.21,
+            "BYN": 19.45,
+            "AZN": 10.73
           }
         },
         "additionalProperty": [
@@ -5376,12 +5376,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.35,
-            "KZT": 2003.64,
-            "UZS": 51350.6,
-            "KGS": 380,
-            "BYN": 13.32,
-            "AZN": 7.39
+            "USD": 4.33,
+            "KZT": 1990.96,
+            "UZS": 51607.67,
+            "KGS": 382.3,
+            "BYN": 13.47,
+            "AZN": 7.43
           }
         },
         "additionalProperty": [
@@ -5502,12 +5502,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 28.32,
-            "KZT": 13056.38,
-            "UZS": 334618.25,
-            "KGS": 2476.2,
-            "BYN": 86.82,
-            "AZN": 48.14
+            "USD": 28.24,
+            "KZT": 12973.83,
+            "UZS": 336294.83,
+            "KGS": 2491.21,
+            "BYN": 87.75,
+            "AZN": 48.43
           }
         },
         "additionalProperty": [
@@ -5628,12 +5628,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 18.6,
-            "KZT": 8576.96,
-            "UZS": 219816.6,
-            "KGS": 1626.66,
-            "BYN": 57.03,
-            "AZN": 31.62
+            "USD": 18.55,
+            "KZT": 8522.73,
+            "UZS": 220917.97,
+            "KGS": 1636.52,
+            "BYN": 57.64,
+            "AZN": 31.81
           }
         },
         "additionalProperty": [
@@ -5754,12 +5754,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 29.9,
-            "KZT": 13788.42,
-            "UZS": 353379.63,
-            "KGS": 2615.04,
-            "BYN": 91.69,
-            "AZN": 50.84
+            "USD": 29.82,
+            "KZT": 13701.24,
+            "UZS": 355150.21,
+            "KGS": 2630.88,
+            "BYN": 92.67,
+            "AZN": 51.14
           }
         },
         "additionalProperty": [
@@ -5879,12 +5879,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 31.21,
-            "KZT": 14392.29,
-            "UZS": 368855.95,
-            "KGS": 2729.56,
-            "BYN": 95.7,
-            "AZN": 53.06
+            "USD": 31.13,
+            "KZT": 14301.29,
+            "UZS": 370704.07,
+            "KGS": 2746.1,
+            "BYN": 96.72,
+            "AZN": 53.38
           }
         },
         "additionalProperty": [
@@ -6005,12 +6005,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 34.77,
-            "KZT": 16033.66,
-            "UZS": 410922.18,
-            "KGS": 3040.86,
-            "BYN": 106.62,
-            "AZN": 59.11
+            "USD": 34.68,
+            "KZT": 15932.28,
+            "UZS": 412981.07,
+            "KGS": 3059.28,
+            "BYN": 107.75,
+            "AZN": 59.47
           }
         },
         "additionalProperty": [
@@ -6131,12 +6131,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 36.98,
-            "KZT": 17052.52,
-            "UZS": 437034.19,
-            "KGS": 3234.09,
-            "BYN": 113.39,
-            "AZN": 62.87
+            "USD": 36.88,
+            "KZT": 16944.7,
+            "UZS": 439223.91,
+            "KGS": 3253.68,
+            "BYN": 114.6,
+            "AZN": 63.25
           }
         },
         "additionalProperty": [
@@ -6257,12 +6257,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 39.36,
-            "KZT": 18148.32,
-            "UZS": 465118.06,
-            "KGS": 3441.91,
-            "BYN": 120.68,
-            "AZN": 66.91
+            "USD": 39.25,
+            "KZT": 18033.57,
+            "UZS": 467448.49,
+            "KGS": 3462.77,
+            "BYN": 121.97,
+            "AZN": 67.32
           }
         },
         "additionalProperty": [
@@ -6384,12 +6384,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.88,
-            "KZT": 866.9,
-            "UZS": 22217.6,
-            "KGS": 164.41,
-            "BYN": 5.76,
-            "AZN": 3.2
+            "USD": 1.87,
+            "KZT": 861.42,
+            "UZS": 22328.92,
+            "KGS": 165.41,
+            "BYN": 5.83,
+            "AZN": 3.22
           }
         },
         "additionalProperty": [
@@ -6512,11 +6512,11 @@
           },
           "exportPrices": {
             "USD": 2.62,
-            "KZT": 1209.76,
-            "UZS": 31004.68,
-            "KGS": 229.44,
-            "BYN": 8.04,
-            "AZN": 4.46
+            "KZT": 1202.11,
+            "UZS": 31160.02,
+            "KGS": 230.83,
+            "BYN": 8.13,
+            "AZN": 4.49
           }
         },
         "additionalProperty": [
@@ -6636,12 +6636,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 13.9,
-            "KZT": 6411.61,
-            "UZS": 164321.22,
-            "KGS": 1215.99,
-            "BYN": 42.63,
-            "AZN": 23.64
+            "USD": 13.87,
+            "KZT": 6371.07,
+            "UZS": 165144.54,
+            "KGS": 1223.36,
+            "BYN": 43.09,
+            "AZN": 23.78
           }
         },
         "additionalProperty": [
@@ -6761,12 +6761,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 22.62,
-            "KZT": 10431.09,
-            "UZS": 267335.56,
-            "KGS": 1978.3,
-            "BYN": 69.36,
-            "AZN": 38.46
+            "USD": 22.56,
+            "KZT": 10365.14,
+            "UZS": 268675.02,
+            "KGS": 1990.29,
+            "BYN": 70.1,
+            "AZN": 38.69
           }
         },
         "additionalProperty": [
@@ -6886,12 +6886,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 22.8,
-            "KZT": 10515.03,
-            "UZS": 269486.8,
-            "KGS": 1994.22,
-            "BYN": 69.92,
-            "AZN": 38.77
+            "USD": 22.74,
+            "KZT": 10448.55,
+            "UZS": 270837.04,
+            "KGS": 2006.31,
+            "BYN": 70.67,
+            "AZN": 39
           }
         },
         "additionalProperty": [
@@ -7011,12 +7011,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 18.77,
-            "KZT": 8655.67,
-            "UZS": 221833.65,
-            "KGS": 1641.59,
-            "BYN": 57.56,
-            "AZN": 31.91
+            "USD": 18.72,
+            "KZT": 8600.94,
+            "UZS": 222945.12,
+            "KGS": 1651.53,
+            "BYN": 58.17,
+            "AZN": 32.11
           }
         },
         "additionalProperty": [
@@ -7136,12 +7136,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 29.59,
-            "KZT": 13643.9,
-            "UZS": 349675.56,
-            "KGS": 2587.63,
-            "BYN": 90.72,
-            "AZN": 50.3
+            "USD": 29.51,
+            "KZT": 13557.63,
+            "UZS": 351427.57,
+            "KGS": 2603.31,
+            "BYN": 91.69,
+            "AZN": 50.61
           }
         },
         "additionalProperty": [
@@ -7261,12 +7261,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 17.08,
-            "KZT": 7874.63,
-            "UZS": 201816.58,
-            "KGS": 1493.46,
-            "BYN": 52.36,
-            "AZN": 29.03
+            "USD": 17.03,
+            "KZT": 7824.84,
+            "UZS": 202827.77,
+            "KGS": 1502.51,
+            "BYN": 52.92,
+            "AZN": 29.21
           }
         },
         "additionalProperty": [
@@ -7386,12 +7386,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 34.9,
-            "KZT": 16094.3,
-            "UZS": 412476.39,
-            "KGS": 3052.36,
-            "BYN": 107.02,
-            "AZN": 59.34
+            "USD": 34.81,
+            "KZT": 15992.54,
+            "UZS": 414543.06,
+            "KGS": 3070.85,
+            "BYN": 108.16,
+            "AZN": 59.7
           }
         },
         "additionalProperty": [
@@ -7511,12 +7511,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 36.15,
-            "KZT": 16670.17,
-            "UZS": 427235.17,
-            "KGS": 3161.57,
-            "BYN": 110.85,
-            "AZN": 61.46
+            "USD": 36.05,
+            "KZT": 16564.77,
+            "UZS": 429375.79,
+            "KGS": 3180.73,
+            "BYN": 112.03,
+            "AZN": 61.83
           }
         },
         "additionalProperty": [
@@ -7636,12 +7636,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 14.02,
-            "KZT": 6465.04,
-            "UZS": 165690.56,
-            "KGS": 1226.12,
-            "BYN": 42.99,
-            "AZN": 23.84
+            "USD": 13.98,
+            "KZT": 6424.16,
+            "UZS": 166520.74,
+            "KGS": 1233.55,
+            "BYN": 43.45,
+            "AZN": 23.98
           }
         },
         "additionalProperty": [
@@ -7761,12 +7761,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 18.62,
-            "KZT": 8584.55,
-            "UZS": 220011.05,
-            "KGS": 1628.1,
-            "BYN": 57.08,
-            "AZN": 31.65
+            "USD": 18.57,
+            "KZT": 8530.27,
+            "UZS": 221113.4,
+            "KGS": 1637.96,
+            "BYN": 57.69,
+            "AZN": 31.84
           }
         },
         "additionalProperty": [
