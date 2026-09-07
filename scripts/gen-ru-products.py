@@ -654,6 +654,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.8rem;margin:0"></p>
 </form>
 <script src="/assets/lead-form.js" defer></script>
+<link rel="stylesheet" href="/assets/catalog-chat.css">
+<script src="/assets/catalog-chat.js" defer></script>
 </div>
 </div>
 </div>

@@ -918,6 +918,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <script src="/assets/gmp-track.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
+<link rel="stylesheet" href="/assets/catalog-chat.css">
+<script src="/assets/catalog-chat.js" defer></script>
 <script>
 window.addEventListener('load',function(){{
   var s=document.createElement('script');s.async=true;

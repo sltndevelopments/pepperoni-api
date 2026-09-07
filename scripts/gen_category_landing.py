@@ -723,6 +723,8 @@ def build_html(cfg: dict, skus: list[dict], managers: dict, price_date: str) -> 
 <script src="/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/assets/gmp-track.js" defer></script>
 <script src="/assets/lead-form.js" defer></script>
+<link rel="stylesheet" href="/assets/catalog-chat.css">
+<script src="/assets/catalog-chat.js" defer></script>
 <script src="/assets/category-landing.js?v={js_rev}" defer></script>
 </body>
 </html>
