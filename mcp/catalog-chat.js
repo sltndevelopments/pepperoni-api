@@ -9,6 +9,8 @@ const SITE = 'https://pepperoni.tatar';
 
 const MODEL = process.env.CATALOG_CHAT_MODEL || 'gpt-4o-mini';
 const OPENAI_URL = process.env.CATALOG_CHAT_BASE_URL || 'https://api.openai.com/v1/chat/completions';
+const DEEPSEEK_URL = process.env.DEEPSEEK_BASE_URL || 'https://api.deepseek.com/chat/completions';
+const DEEPSEEK_MODEL = process.env.CATALOG_CHAT_DEEPSEEK_MODEL || 'deepseek-chat';
 const MAX_Q = 400;
 const MAX_HISTORY = 6;
 const MAX_MATCHES = 8;
@@ -315,17 +317,19 @@ function openaiKey() {
   return String(process.env.OPENAI_API_KEY || '').trim();
 }
 
-export async function callModel(messages, fetchImpl = fetch) {
-  const key = openaiKey();
-  if (!key) throw new Error('no_openai_key');
-  const res = await fetchImpl(OPENAI_URL, {
+function deepseekKey() {
+  return String(process.env.DEEPSEEK_API_KEY || '').trim();
+}
+
+async function completeChat({ url, key, model, messages, fetchImpl }) {
+  const res = await fetchImpl(url, {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${key}`,
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      model: MODEL,
+      model,
       temperature: 0.3,
       max_tokens: 350,
       response_format: { type: 'json_object' },
@@ -333,19 +337,52 @@ export async function callModel(messages, fetchImpl = fetch) {
     }),
   });
   const raw = await res.text();
-  if (!res.ok) {
-    throw new Error(`openai_${res.status}`);
-  }
+  if (!res.ok) throw new Error(`llm_${res.status}`);
   let data;
   try {
     data = JSON.parse(raw);
   } catch {
-    throw new Error('openai_bad_json');
+    throw new Error('llm_bad_json');
   }
-  const content = data.choices?.[0]?.message?.content;
-  const parsed = parseModelJson(content);
-  if (!parsed) throw new Error('openai_shape');
+  const parsed = parseModelJson(data.choices?.[0]?.message?.content);
+  if (!parsed) throw new Error('llm_shape');
   return parsed;
+}
+
+export function llmProviders() {
+  const list = [];
+  if (openaiKey()) list.push({ name: MODEL, url: OPENAI_URL, key: openaiKey(), model: MODEL });
+  if (deepseekKey()) {
+    list.push({
+      name: DEEPSEEK_MODEL,
+      url: DEEPSEEK_URL,
+      key: deepseekKey(),
+      model: DEEPSEEK_MODEL,
+    });
+  }
+  return list;
+}
+
+export async function callModel(messages, fetchImpl = fetch) {
+  const providers = llmProviders();
+  if (!providers.length) throw new Error('no_llm_key');
+  let last = new Error('no_llm_key');
+  for (const provider of providers) {
+    try {
+      const parsed = await completeChat({
+        url: provider.url,
+        key: provider.key,
+        model: provider.model,
+        messages,
+        fetchImpl,
+      });
+      parsed.source = provider.name;
+      return parsed;
+    } catch (err) {
+      last = err;
+    }
+  }
+  throw last;
 }
 
 function guessLang(q, lang) {
@@ -413,7 +450,7 @@ export async function answerCatalogChat(
       text: parsed.text,
       products: pickCards(products, parsed.skus, matches, currency, resolvedLang),
       lastSynced: data.lastSynced || null,
-      source: MODEL,
+      source: parsed.source || MODEL,
       cta: parsed.cta,
     };
   } catch {
@@ -429,9 +466,11 @@ export async function answerCatalogChat(
 }
 
 export function healthPayload() {
+  const names = llmProviders().map((p) => p.name);
   return {
     ok: true,
-    model: MODEL,
-    llm: Boolean(openaiKey()),
+    model: names[0] || MODEL,
+    llm: names.length > 0,
+    providers: names,
   };
 }

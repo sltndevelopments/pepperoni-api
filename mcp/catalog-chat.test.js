@@ -107,6 +107,43 @@ test('answerCatalogChat uses model cards when fetch succeeds', async () => {
   delete process.env.OPENAI_API_KEY;
 });
 
+test('answerCatalogChat uses DeepSeek if OpenAI fails', async () => {
+  let calls = 0;
+  const fetchImpl = async (url) => {
+    calls += 1;
+    if (String(url).includes('openai.com')) throw new Error('blocked');
+    return {
+      ok: true,
+      text: async () =>
+        JSON.stringify({
+          choices: [
+            {
+              message: {
+                content: JSON.stringify({
+                  text: 'Менеджер на связи: +7 987 217-02-02',
+                  skus: [],
+                  cta: 'lead',
+                }),
+              },
+            },
+          ],
+        }),
+    };
+  };
+  process.env.OPENAI_API_KEY = 'sk-test';
+  process.env.DEEPSEEK_API_KEY = 'ds-test';
+  const result = await answerCatalogChat(
+    { q: 'можно связаться с менеджером?', lang: 'ru', fetchImpl },
+    async () => ({ lastSynced: '2026-09-06', products })
+  );
+  assert.equal(result.ok, true);
+  assert.equal(result.source, 'deepseek-chat');
+  assert.match(result.text, /\+7 987 217-02-02/);
+  assert.equal(calls, 2);
+  delete process.env.OPENAI_API_KEY;
+  delete process.env.DEEPSEEK_API_KEY;
+});
+
 test('answerCatalogChat falls back when model fails', async () => {
   delete process.env.OPENAI_API_KEY;
   const result = await answerCatalogChat(
