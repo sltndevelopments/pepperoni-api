@@ -161,7 +161,11 @@ function expand(q) {
 
 export function detectIntent(q) {
   const s = String(q).toLowerCase();
-  if (/менеджер|связат|whats.?app|телеграм|telegram|позвон|написать вам|оставить заявк/.test(s)) {
+  if (
+    /менеджер|связат|whats.?app|телеграм|telegram|позвон|написать вам|оставить заявк|директор|ceo|основател|руковод/.test(
+      s
+    )
+  ) {
     return 'contacts';
   }
   if (/телефон|почт|контакт|address|phone|email|где вы|адрес/.test(s)) return 'contacts';

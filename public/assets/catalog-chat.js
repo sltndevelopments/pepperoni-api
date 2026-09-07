@@ -4,7 +4,7 @@
 
   var GPT_URL =
     "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog";
-  var CHAT_URLS = ["https://api.pepperoni.tatar/api/catalog-chat"];
+  var CHAT_URLS = ["/api/catalog-chat", "https://api.pepperoni.tatar/api/catalog-chat"];
   var CATALOG_URLS = ["/products.json", "https://api.pepperoni.tatar/api/products"];
   var PHONE = "+7 987 217-02-02";
   var TEL = "tel:+79872170202";
@@ -154,7 +154,7 @@
     if (/халяль|halal|сертиф|документ|iso|haccp|кошер|kosher|свин/.test(s) && !/цен|price|стоит|sku|kd-|пепперони|pepperoni|сосиск/.test(s)) {
       return "certs";
     }
-    if (/менеджер|связат|whats.?app|телеграм|telegram|позвон|написать вам|оставить заявк/.test(s)) {
+    if (/менеджер|связат|whats.?app|телеграм|telegram|позвон|написать вам|оставить заявк|директор|ceo|основател|руковод/.test(s)) {
       return "contacts";
     }
     if (/телефон|почт|контакт|address|phone|email|где вы|адрес/.test(s)) return "contacts";

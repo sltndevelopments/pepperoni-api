@@ -46,6 +46,7 @@ test('retrieveProducts finds pepperoni, not sausages', () => {
 
 test('detectIntent treats manager request as contacts', () => {
   assert.equal(detectIntent('можно связаться в вашим менеджером?'), 'contacts');
+  assert.equal(detectIntent('кто ваш генеральный директор?'), 'contacts');
   assert.equal(localAnswer({ q: 'можно связаться?', matches: [], lang: 'ru' }).includes('+7 987 217-02-02'), true);
 });
 
