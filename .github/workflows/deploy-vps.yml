@@ -369,6 +369,8 @@ jobs:
               sleep 1
               systemctl is-active pepperoni-mcp.service && echo "✅ pepperoni-mcp.service active"
             fi
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh /var/www/pepperoni/repo
             if [ -d /var/www/pepperoni/repo/rinatsultan ]; then
               mkdir -p /var/www/rinatsultan/current
               rsync -a --delete \

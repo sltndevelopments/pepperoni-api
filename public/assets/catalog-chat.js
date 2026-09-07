@@ -4,6 +4,7 @@
 
   var GPT_URL =
     "https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-halal-catalog";
+  var CHAT_URLS = ["https://api.pepperoni.tatar/api/catalog-chat"];
   var CATALOG_URLS = ["/products.json", "https://api.pepperoni.tatar/api/products"];
   var PHONE = "+7 987 217-02-02";
   var TEL = "tel:+79872170202";
@@ -16,11 +17,12 @@
   var COPY = {
     ru: {
       title: "Каталог оптом",
-      sub: "Живые цены с api.pepperoni.tatar",
+      sub: "Живые цены · отвечает GPT",
       open: "Спросить каталог",
       close: "Закрыть",
-      placeholder: "Пепперони, сосиски, SKU…",
-      send: "Найти",
+      placeholder: "Спросите про пепперони, сосиски, SKU…",
+      send: "Спросить",
+      wait: "Думаю…",
       hello:
         "Живой оптовый каталог. Цены и SKU только из API — число позиций не запоминаю. Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018.",
       cite: "Согласно api.pepperoni.tatar (live).",
@@ -56,11 +58,12 @@
     },
     en: {
       title: "Wholesale catalog",
-      sub: "Live prices from api.pepperoni.tatar",
+      sub: "Live prices · GPT answers",
       open: "Ask the catalog",
       close: "Close",
-      placeholder: "Pepperoni, sausages, SKU…",
-      send: "Find",
+      placeholder: "Ask about pepperoni, sausages, SKU…",
+      send: "Ask",
+      wait: "Thinking…",
       hello:
         "Live wholesale catalog. SKUs and prices come from the API only — I do not memorize assortment size. Halal DUM RT #614A/2024, HACCP, ISO 22000:2018.",
       cite: "Per api.pepperoni.tatar (live).",
@@ -150,6 +153,9 @@
     var s = String(q).toLowerCase();
     if (/халяль|halal|сертиф|документ|iso|haccp|кошер|kosher|свин/.test(s) && !/цен|price|стоит|sku|kd-|пепперони|pepperoni|сосиск/.test(s)) {
       return "certs";
+    }
+    if (/менеджер|связат|whats.?app|телеграм|telegram|позвон|написать вам|оставить заявк/.test(s)) {
+      return "contacts";
     }
     if (/телефон|почт|контакт|address|phone|email|где вы|адрес/.test(s)) return "contacts";
     if (/стм|private.?label|white.?label|собственной марк|под бренд/.test(s)) return "stm";
@@ -368,6 +374,7 @@
     var form = root.querySelector(".kd-chat__form");
     var input = form.querySelector("input");
     var fab = root.querySelector(".kd-chat__fab");
+    var history = [];
 
     function open() {
       root.classList.add("kd-chat--open");
@@ -398,15 +405,88 @@
       goLead();
     });
 
+    function remember(role, text) {
+      history.push({ role: role, content: String(text || "").slice(0, 400) });
+      if (history.length > 8) history = history.slice(-8);
+    }
+
+    function renderGpt(payload) {
+      var html = escapeHtml(payload.text || "");
+      if (payload.products && payload.products.length) {
+        html +=
+          '<div class="kd-chat__cards">' +
+          payload.products
+            .map(function (p) {
+              return (
+                '<a class="kd-chat__card" href="' +
+                escapeHtml(p.href || productHref(p, pageLang() === "en")) +
+                '">' +
+                (p.image
+                  ? '<img src="' + escapeHtml(p.image) + '" alt="" width="56" height="56">'
+                  : "<span></span>") +
+                "<div><strong>" +
+                escapeHtml(p.name || p.sku) +
+                "</strong><span>" +
+                escapeHtml(p.sku || "") +
+                (p.price ? " · " + escapeHtml(p.price) : "") +
+                "</span></div></a>"
+              );
+            })
+            .join("") +
+          "</div>";
+      }
+      return html;
+    }
+
+    function askGpt(q) {
+      var body = JSON.stringify({
+        q: q,
+        lang: pageLang(),
+        history: history.slice(0, -1),
+      });
+      function next(i) {
+        if (i >= CHAT_URLS.length) return Promise.reject(new Error("chat"));
+        return fetch(CHAT_URLS[i], {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: body,
+        }).then(function (r) {
+          if (!r.ok) throw new Error(String(r.status));
+          return r.json();
+        }).then(function (data) {
+          if (!data || !data.ok || !data.text) throw new Error("shape");
+          return data;
+        }).catch(function () {
+          return next(i + 1);
+        });
+      }
+      return next(0);
+    }
+
     function ask(q) {
       q = String(q || "").trim();
       if (!q) return;
       addMsg(log, escapeHtml(q), "user");
-      loadCatalog()
-        .then(function (data) {
-          addMsg(log, answer(q, data), "bot");
+      remember("user", q);
+      var wait = addMsg(log, "<span class=\"kd-chat__dots\" aria-label=\"" + escapeHtml(copy.wait) + "\"><i></i><i></i><i></i></span>", "bot");
+      wait.classList.add("kd-chat__msg--wait");
+      askGpt(q)
+        .then(function (payload) {
+          wait.remove();
+          addMsg(log, renderGpt(payload), "bot");
+          remember("assistant", payload.text);
         })
         .catch(function () {
+          return loadCatalog()
+            .then(function (data) {
+              wait.remove();
+              var html = answer(q, data);
+              addMsg(log, html, "bot");
+              remember("assistant", html.replace(/<[^>]+>/g, " ").trim());
+            });
+        })
+        .catch(function () {
+          wait.remove();
           addMsg(log, escapeHtml(copy.loadErr), "bot");
         });
     }
