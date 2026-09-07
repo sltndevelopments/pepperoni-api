@@ -9,7 +9,6 @@
 //                                clients that only speak SSE (e.g. Grok's
 //                                custom-connector UI asks for ".../sse")
 //   POST            /mcp/messages — POST endpoint paired with /mcp/sse
-//   GET/POST        /api/catalog-chat — cheap GPT for the on-site catalog widget
 //
 // Run via systemd (see deploy/pepperoni-mcp.service) — do not run manually
 // long-term, that's what the unit file is for.
@@ -17,13 +16,6 @@ import http from 'node:http';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
 import { createKazanMcpServer } from './create-server.js';
-import {
-  answerCatalogChat,
-  clientIp,
-  healthPayload,
-  originAllowed,
-  takeSlot,
-} from './catalog-chat.js';
 
 const PORT = process.env.MCP_PORT || 8130;
 
@@ -34,55 +26,6 @@ function setCors(res) {
     'Access-Control-Allow-Headers',
     'Content-Type, MCP-Protocol-Version, Mcp-Session-Id'
   );
-}
-
-function json(res, status, payload) {
-  res.writeHead(status, { 'Content-Type': 'application/json; charset=utf-8' });
-  res.end(JSON.stringify(payload));
-}
-
-function isCatalogChatPath(pathname) {
-  return pathname === '/api/catalog-chat' || pathname === '/catalog-chat';
-}
-
-async function handleCatalogChatHttp(req, res) {
-  if (req.method === 'GET') {
-    json(res, 200, healthPayload());
-    return;
-  }
-  if (req.method !== 'POST') {
-    json(res, 405, { error: 'method_not_allowed' });
-    return;
-  }
-  const origin = req.headers.origin;
-  const referer = req.headers.referer;
-  if (!originAllowed(origin, referer)) {
-    json(res, 403, { error: 'origin_not_allowed' });
-    return;
-  }
-  const slot = takeSlot(clientIp(req));
-  if (!slot.ok) {
-    json(res, slot.status, { error: slot.error });
-    return;
-  }
-  const raw = await readBody(req);
-  if (raw.length > 8000) {
-    json(res, 413, { error: 'too_large' });
-    return;
-  }
-  let body;
-  try {
-    body = raw ? JSON.parse(raw) : {};
-  } catch {
-    json(res, 400, { error: 'invalid_json' });
-    return;
-  }
-  const result = await answerCatalogChat({
-    q: body.q || body.message,
-    history: body.history,
-    lang: body.lang,
-  });
-  json(res, result.status || 200, result);
 }
 
 function readBody(req) {
@@ -175,9 +118,7 @@ const httpServer = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
 
   try {
-    if (isCatalogChatPath(url.pathname)) {
-      await handleCatalogChatHttp(req, res);
-    } else if (url.pathname === '/mcp/sse' && req.method === 'GET') {
+    if (url.pathname === '/mcp/sse' && req.method === 'GET') {
       await handleSseStream(req, res);
     } else if (url.pathname === '/mcp/messages' && req.method === 'POST') {
       await handleSseMessage(req, res);

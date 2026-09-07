@@ -9,8 +9,6 @@ WorkingDirectory=/var/www/pepperoni/repo
 Environment=MCP_PORT=8130
 Environment=PEPPERONI_PRODUCTS_JSON=/var/www/pepperoni/data/products.json
 Environment=PEPPERONI_LEAD_BASE=https://pepperoni.tatar
-EnvironmentFile=-/var/www/pepperoni/seo-agent.env
-Environment=CATALOG_CHAT_MODEL=gpt-4o-mini
 ExecStart=/usr/bin/node mcp/http-server.js
 Restart=on-failure
 RestartSec=3
