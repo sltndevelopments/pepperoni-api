@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-09-04T05:31:23.272201+00:00",
-  "gsc_data_through": "2026-09-01",
+  "generated_at": "2026-09-07T09:00:01.903945+00:00",
+  "gsc_data_through": "2026-09-04",
   "window_days": 28,
   "leads": {
-    "7d": 72,
-    "21d": 172,
-    "commercial_7d": 24,
+    "7d": 73,
+    "21d": 169,
+    "commercial_7d": 22,
     "on_exp_pages_21d": 0,
-    "last_at": "2026-09-03T23:19:46+00:00"
+    "last_at": "2026-09-07T08:28:30+00:00"
   },
   "experiments": [],
   "watchlist": [
@@ -22,41 +22,41 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 6,
+        "impr": 5,
         "clicks": 0,
-        "position": 25.7
+        "position": 34.8
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/pepperoni",
-          "impr": 6,
+          "impr": 5,
           "clicks": 0,
-          "position": 25.7
+          "position": 34.8
         },
         {
-          "page": "/wholesale-halal-pepperoni-supplier",
-          "impr": 3,
+          "page": "/",
+          "impr": 5,
           "clicks": 0,
-          "position": 34.3
+          "position": 1.0
         },
         {
           "page": "/products/kd-013",
           "impr": 3,
           "clicks": 0,
-          "position": 38.7
-        },
-        {
-          "page": "/",
-          "impr": 3,
-          "clicks": 0,
-          "position": 1.0
+          "position": 37.0
         },
         {
           "page": "/blog/what-is-halal-pepperoni",
           "impr": 1,
           "clicks": 0,
           "position": 33.0
+        },
+        {
+          "page": "/blog/pepperoni-halal-ili-net",
+          "impr": 1,
+          "clicks": 0,
+          "position": 4.0
         }
       ],
       "flag": "watching"
@@ -72,41 +72,41 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 13,
+        "impr": 14,
         "clicks": 0,
-        "position": 12.5
+        "position": 16.1
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/",
-          "impr": 14,
+          "impr": 16,
           "clicks": 0,
-          "position": 16.9
+          "position": 12.6
         },
         {
           "page": "/pepperoni",
-          "impr": 13,
+          "impr": 14,
           "clicks": 0,
-          "position": 12.5
-        },
-        {
-          "page": "/dlya-setey",
-          "impr": 6,
-          "clicks": 0,
-          "position": 55.7
+          "position": 16.1
         },
         {
           "page": "/blog/what-is-halal-pepperoni",
-          "impr": 6,
+          "impr": 8,
           "clicks": 0,
-          "position": 13.3
+          "position": 17.1
+        },
+        {
+          "page": "/dlya-setey",
+          "impr": 7,
+          "clicks": 0,
+          "position": 52.9
         },
         {
           "page": "/products/kd-013",
-          "impr": 4,
+          "impr": 5,
           "clicks": 0,
-          "position": 36.5
+          "position": 40.0
         }
       ],
       "flag": "watching"
@@ -167,9 +167,9 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 7,
+        "impr": 5,
         "clicks": 0,
-        "position": 60.4
+        "position": 63.0
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
@@ -177,31 +177,31 @@
           "page": "/blog/what-is-halal-pepperoni",
           "impr": 14,
           "clicks": 0,
-          "position": 7.8
+          "position": 7.6
+        },
+        {
+          "page": "/dlya-setey",
+          "impr": 8,
+          "clicks": 0,
+          "position": 67.4
         },
         {
           "page": "/",
           "impr": 8,
           "clicks": 0,
-          "position": 29.1
+          "position": 26.9
         },
         {
           "page": "/pepperoni",
-          "impr": 7,
-          "clicks": 0,
-          "position": 60.4
-        },
-        {
-          "page": "/dlya-setey",
-          "impr": 7,
-          "clicks": 0,
-          "position": 66.4
-        },
-        {
-          "page": "/blog/pepperoni-halal-ili-net",
           "impr": 5,
           "clicks": 0,
-          "position": 10.4
+          "position": 63.0
+        },
+        {
+          "page": "/products/kd-014",
+          "impr": 3,
+          "clicks": 0,
+          "position": 31.3
         }
       ],
       "flag": "watching"
@@ -217,17 +217,17 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 32,
+        "impr": 30,
         "clicks": 0,
-        "position": 39.2
+        "position": 40.4
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/en/pepperoni",
-          "impr": 32,
+          "impr": 30,
           "clicks": 0,
-          "position": 39.2
+          "position": 40.4
         },
         {
           "page": "/en/blog",
