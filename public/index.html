@@ -839,14 +839,7 @@ setTimeout(function(){
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
 },20000);
 });
-document.addEventListener('click',function(e){
-var link=e.target.closest('a');if(!link)return;
-var href=link.getAttribute('href')||'';var g=function(n){typeof ym==='function'&&ym(107064141,'reachGoal',n);};
-if(href.indexOf('tel:')===0)g('click_phone');
-if(href.indexOf('mailto:')===0)g('click_email');
-if(/wa\.me|whatsapp|t\.me\//i.test(href))g('click_messenger');
-if(/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
-});
+/* contact-click goals are sent once by /assets/lead-form.js; form_submit = attempt, not a lead */
 document.addEventListener('submit',function(e){
 if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
 },true);

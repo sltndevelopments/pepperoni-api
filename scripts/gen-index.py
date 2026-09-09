@@ -742,14 +742,10 @@ async function loadCatalog(){{
   }}
 }})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
-document.addEventListener('click',function(e){{
-  var link=e.target.closest('a');if(!link)return;
-  var href=link.getAttribute('href')||'';var g=function(n){{typeof ym==='function'&&ym(107064141,'reachGoal',n);}};
-  if(href.indexOf('tel:')===0)g('click_phone');
-  if(href.indexOf('mailto:')===0)g('click_email');
-  if(/wa\\.me|whatsapp|t\\.me\\//i.test(href))g('click_messenger');
-  if(/прайс|price|\\.(pdf|xlsx?|csv)(\\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
-}});
+/* click_phone / click_email / click_messenger / download_price are sent by
+   /assets/lead-form.js (loaded on this page); a second listener here counted
+   every contact click twice in Metrika until 2026-09-09. form_submit = attempt,
+   not a lead; the lead is lead_submit_success after server confirmation. */
 document.addEventListener('submit',function(e){{
   if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
 }},true);
