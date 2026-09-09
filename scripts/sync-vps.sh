@@ -33,6 +33,8 @@ python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.
 # 1c2. Static SKU list inside index.html / en/index.html / products hubs so the
 # catalog (names, weights, prices, links) exists in HTML without JS or scroll.
 python3 scripts/render_static_catalog.py 2>&1 || echo "[warn] render_static_catalog.py failed; static catalog may be stale"
+# Price lists come from the same products.json as cards and catalog (no more hand-made snapshots).
+python3 scripts/gen_price_lists.py 2>&1 || echo "[warn] gen_price_lists.py failed; price lists may be stale"
 
 # 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). Pulls live catalog + reconciled FAQ.
