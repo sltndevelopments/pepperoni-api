@@ -1200,8 +1200,8 @@
   }
  },
  "2026-09": {
-  "usd": 2.924014,
-  "usd_baseline": 2.885168,
+  "usd": 3.25579,
+  "usd_baseline": 3.216944,
   "days": {
    "2026-09-01": {
     "calls": 54,
@@ -1267,6 +1267,15 @@
     "usd_baseline": 0.342025
    },
    "2026-09-08": {
+    "calls": 48,
+    "in": 14592,
+    "out": 19200,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.331776,
+    "usd_baseline": 0.331776
+   },
+   "2026-09-09": {
     "calls": 12,
     "in": 3648,
     "out": 4800,
@@ -1278,13 +1287,13 @@
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 302,
-    "in": 91816,
-    "out": 120243,
+    "calls": 350,
+    "in": 106408,
+    "out": 139443,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 2.079093,
-    "usd_baseline": 2.079093
+    "usd": 2.410869,
+    "usd_baseline": 2.410869
    },
    "seo_brain": {
     "calls": 5,
@@ -1316,13 +1325,13 @@
   },
   "models": {
    "claude-sonnet-5": {
-    "calls": 302,
-    "in": 91816,
-    "out": 120243,
+    "calls": 350,
+    "in": 106408,
+    "out": 139443,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 2.079093,
-    "usd_baseline": 2.079093
+    "usd": 2.410869,
+    "usd_baseline": 2.410869
    },
    "claude-opus-5": {
     "calls": 2,
