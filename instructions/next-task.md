@@ -183,6 +183,22 @@
 
 ## Log
 
+- **2026-09-09 SEO-аудит P0 (pepperoni-seo-audit-and-plan) — DONE, в `origin/main`.**
+  - Commits: `cda2d121b` (основной, 218 файлов), `190f8c3d7`, `410f3ed42` (nginx-сниппет).
+    VPS `git rev-parse HEAD` = `410f3ed42`; `apply_nginx_trust_reset.sh` + `apply_nginx_canonical_hosts.sh` выполнены, `nginx -t` OK, reload OK.
+  - Диагноз падения (GSC Jul→Aug −91% кликов = вырезанные `/geo/`): не санкция, а политика 26.08. Не-geo держится.
+  - Каталог в HTML: `render_static_catalog.py` → `curl -s pepperoni.tatar/ | grep -c 'href="/products/kd-'` = **62** (было 0, «Загрузка каталога..»). EN и `/products` тоже 62/63.
+  - Geo по данным GSC (Jul–Sep, 2514 URL): 360 URL с кликами → 301 на хабы (463 из 468 кликов), остальные 410.
+    Live: `/geo/kazylyk-premium-chita` → 301 `/kazylyk`; `/ar/geo/babbroni-halal-jeddah` → 301 `/en/pepperoni`; `/geo/…-nowhere` → 410.
+  - Канон URL: `/vetchina-optom/` → 301, `/products/` → 301, `/en` → 301 `/en/`; canonical без слеша везде кроме `/` и `/en/` (`grep -l 'canonical.*[^/]/"'` = только `en/index.html`).
+  - api.pepperoni.tatar: `/about`, `/products/kd-013`, `/blog/*` → 301 на apex (был полный HTML-дубль с `index, follow`); `/api/products`, `/openapi.yaml`, `/.well-known/ai-plugin.json`, `/llms-full.txt` = 200.
+  - Факты: `grep -l KD-012 public --glob '!*.bak'` = 0; KD-014 = 0,8 кг; индекс 420061 (`grep -c 420059 public/index.html` = 0); `<title>` KD-013/014 без «наре/целы»; состав без «фиксатор окраски (фиксатор окраски)» (0 файлов).
+  - Гейты: `fix_pages` 260/0 repaired, `qa_pages` 260/0 FAIL, `index_policy_check` OK.
+  - Nudge: GSC sitemap ✅ (оба хоста), Google Indexing API ⛔ QUOTA_EXCEEDED (дневная квота съедена SEO-агентом), Yandex WM ⛔ `INVALID_OAUTH_TOKEN` (нужно обновить `YANDEX_WM_TOKEN`), IndexNow ✅ 8 URL.
+  - Blockers/эскалация владельцу: (1) GTM/Метрика грузятся через 45 с → GA4 недосчитывает; это осознанный размен на PSI, решение за владельцем; (2) `YANDEX_WM_TOKEN` протух; (3) в Sheets нет EN-имени для KD-008/011/013/018 — временно добавлены в `scripts/translations.json`; (4) `wholesale-price-list*.{txt,md}` статические, не генерируются из products.json.
+- **2026-08-27 Yaratu product card composition — DONE, push follows.**
+  - Two-column card: packshot left, copy + Nutrition Facts stacked right.
+  - Homepage no longer repeats KBJU next to the label; unit wrap on product pages fixed.
 - **2026-08-27 Yaratu mobile-first rebuild — DONE.**
   - Commit: `7983960fc` (pushing to `origin/main`; VPS via `deploy-vps.yml` → `deploy-yaratu-vps.yml`).
   - Cause: later CSS layers set `minmax(340–420px)` / 3-col `280+330+370` without `min-width` queries; 390px viewport overflowed.
