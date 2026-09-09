@@ -130,16 +130,29 @@ def extract_qty_from_name(name):
     return int(m.group(1)) if m else 0
 
 
+def fit_title(name: str, brand: str, extra: str, limit: int = 70) -> str:
+    """Compose <title> without cutting words mid-way; keyword tail only if it fits."""
+    budget = max(limit - len(brand), 10)
+    base = name.strip()
+    if len(base) > budget:
+        cut = base[:budget].rsplit(" ", 1)[0].rstrip(" ,;:—-(")
+        base = cut or base[:budget].rstrip()
+    title = base + brand
+    if extra and len(title) + len(extra) <= limit:
+        title += extra
+    return title
+
+
 def cleanse_ingredients(text: str) -> str:
-    """Replace sodium nitrite references so Google doesn't false-positive the page."""
+    """Keep declared ingredients as-is; only scrub non-halal leaks.
+
+    Hiding nitrite behind 'color fixative' misstated the label and produced
+    duplicated phrases. Composition comes from the Sheet and is published as declared.
+    """
     if not text:
         return text
-    text = text.replace("sodium nitrite", "color fixative")
-    text = text.replace("sodium nitrate", "color fixative")
-    text = text.replace("potassium nitrite", "color fixative")
-    text = text.replace("нитрит натрия", "фиксатор окраски")
-    text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
-    text = text.replace("нитритная соль", "посолочная смесь")
+    text = text.replace("фиксатор окраски (фиксатор окраски)", "фиксатор окраски (нитрит натрия)")
+    text = text.replace("color fixative (color fixative)", "color fixative (sodium nitrite)")
     # Halal guard: never publish pork (last-resort scrub against bad Sheet edits).
     text = re.sub(r",?\s*pork-free\b", "", text, flags=re.I)
     text = re.sub(r",?\s*без свинины\b", "", text, flags=re.I)
@@ -446,6 +459,10 @@ def main():
         specs = []
         if p.get("articleNumber") or p.get("sku"):
             specs.append(("SKU", p.get("articleNumber") or sku))
+        if weight:
+            specs.append(("Net weight", weight))
+        if p.get("qtyPerBox"):
+            specs.append(("Units per box", f"{p['qtyPerBox']} pcs"))
         if p.get("barcode"):
             specs.append(("Barcode", p["barcode"]))
         if p.get("diameter"):
@@ -491,9 +508,7 @@ def main():
             if main_img else ""
         )
 
-        suffix_en = " — Kazan Delicacies | Halal"
-        max_name_len = 70 - len(suffix_en)
-        title_en = (name[:max_name_len] if len(name) > max_name_len else name) + suffix_en
+        title_en = fit_title(name, " — Kazan Delicacies", " | Halal")
 
         html = f'''<!DOCTYPE html>
 <html lang="en">
@@ -618,6 +633,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             html += f'<div class="price-block">${pr_usd:,.2f}<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
         else:
             html += f'<div class="price-block">{pr:,.2f} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /pc" if is_bakery else " incl. VAT"}</span></div>\n'
+        if weight and not is_bakery:
+            html += f'<div style="font-size:.95rem;color:#333;margin:-8px 0 8px">Price per pack <b>{weight}</b></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ In stock</div>\n'
         if is_bakery and p["offers"].get("pricePerBox") and price_usd_box > 0:
             qty = p.get("qtyPerBox", "")

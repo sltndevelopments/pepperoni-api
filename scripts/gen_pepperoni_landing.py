@@ -28,7 +28,11 @@ SITE = "https://pepperoni.tatar"
 SKU = "KD-013"
 # The whole pepperoni family, so the landing keeps linking to the 1 kg stick and
 # the horse-meat variant the way the previous /pepperoni hub did.
-FAMILY_SKUS = ("KD-013", "KD-014", "KD-012")
+# Candidate family; the live set is whatever the Sheet currently prices.
+# A SKU without a price (e.g. KD-012 horse pepperoni) drops out of the catalog
+# and must not be offered on the landing.
+FAMILY_CANDIDATES = ("KD-013", "KD-014", "KD-012")
+FAMILY_SKUS: tuple[str, ...] = FAMILY_CANDIDATES
 
 GTM_ID = "GTM-W2Q5S8HF"
 ADS_ID = "AW-18346189266"
@@ -86,10 +90,14 @@ def load_i18n() -> dict:
 def load_products() -> dict[str, dict]:
     catalog = json.loads((PUBLIC / "products.json").read_text(encoding="utf-8"))
     items = catalog["products"] if isinstance(catalog, dict) else catalog
-    found = {i["sku"]: i for i in items if i.get("sku") in FAMILY_SKUS}
-    missing = [s for s in FAMILY_SKUS if s not in found]
-    if missing:
-        raise SystemExit(f"missing in public/products.json: {', '.join(missing)}")
+    global FAMILY_SKUS
+    found = {i["sku"]: i for i in items if i.get("sku") in FAMILY_CANDIDATES}
+    FAMILY_SKUS = tuple(s for s in FAMILY_CANDIDATES if s in found)
+    if not FAMILY_SKUS:
+        raise SystemExit("no pepperoni SKU priced in public/products.json")
+    dropped = [s for s in FAMILY_CANDIDATES if s not in found]
+    if dropped:
+        print(f"· not in catalog (no price in Sheet), skipped: {', '.join(dropped)}")
     return found
 
 
@@ -419,7 +427,7 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
             "priceCurrency": price_currency, "price": f"{price_amount}",
             "availability": product["offers"]["availability"],
             "priceValidUntil": f"{date.today().year}-12-31",
-            "seller": {"@type": "Organization", "name": L["contacts"]["company"]},
+            "seller": {"@type": "Organization", "@id": f"{SITE}/#organization", "name": L["contacts"]["company"]},
         },
     }
     breadcrumb_ld = {
@@ -525,7 +533,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{esc(meta["title"])}</title>
 <meta name="description" content="{esc(meta["description"])}">
 <meta name="keywords" content="{esc(meta["keywords"])}">
-<meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="robots" content="{"index, follow, max-image-preview:large" if lang in ("ru", "en") else "noindex,follow"}">
 <meta http-equiv="content-language" content="{lang}">
 <link rel="canonical" href="{url}">
   {alternates}
@@ -534,7 +542,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 
 <meta property="og:type" content="product">
 <meta property="og:site_name" content="pepperoni.tatar">

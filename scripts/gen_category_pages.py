@@ -100,7 +100,7 @@ def product_card_html(p):
           <div class="sku">{p["sku"]}</div>
           <div class="name">{p["name"]}</div>
           <div class="meta">{meta}</div>
-          <a href="/products/{p["sku"].lower()}/">Подробнее →</a>
+          <a href="/products/{p["sku"].lower()}">Подробнее →</a>
         </div>"""
 
 
@@ -191,7 +191,7 @@ def build_page(cfg):
         links = " · ".join(f'<a href="{u}">{t}</a>' for t, u in cfg["related_links"])
         related_html = f'<p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: {links}</p>'
 
-    url = f"https://pepperoni.tatar/{cfg['slug']}/"
+    url = f"https://pepperoni.tatar/{cfg['slug']}"
 
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -229,7 +229,7 @@ def build_page(cfg):
     "description": {json.dumps(desc, ensure_ascii=False)},
     "url": "{url}",
     "numberOfItems": {len(products)},
-    "itemListElement": [{", ".join(f'{{"@type":"ListItem","position":{i+1},"url":"https://pepperoni.tatar/products/{p["sku"].lower()}/","name":{json.dumps(p["name"],ensure_ascii=False)}}}' for i, p in enumerate(products))}]
+    "itemListElement": [{", ".join(f'{{"@type":"ListItem","position":{i+1},"url":"https://pepperoni.tatar/products/{p["sku"].lower()}","name":{json.dumps(p["name"],ensure_ascii=False)}}}' for i, p in enumerate(products))}]
   }}
   </script>
 

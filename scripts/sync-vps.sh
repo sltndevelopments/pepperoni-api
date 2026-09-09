@@ -30,6 +30,10 @@ python3 scripts/add-perf-hints.py 2>&1 || echo "[warn] add-perf-hints.py failed;
 # Assortment source of truth is Google Sheets only — do not edit counts by hand.
 python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
 
+# 1c2. Static SKU list inside index.html / en/index.html / products hubs so the
+# catalog (names, weights, prices, links) exists in HTML without JS or scroll.
+python3 scripts/render_static_catalog.py 2>&1 || echo "[warn] render_static_catalog.py failed; static catalog may be stale"
+
 # 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). Pulls live catalog + reconciled FAQ.
 python3 scripts/gen-llms-full.py 2>&1 || echo "[warn] gen-llms-full.py failed; keeping previous files"

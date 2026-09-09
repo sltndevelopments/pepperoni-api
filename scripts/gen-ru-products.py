@@ -111,14 +111,34 @@ def valid_gtin(barcode):
     return s if (10 - (total % 10)) % 10 == check else ""
 
 
+def fit_title(name: str, brand: str, extra: str, limit: int = 70) -> str:
+    """Compose <title> without cutting words mid-way.
+
+    Truncating the raw name at a byte budget produced 'наре'/'целы' fragments and
+    made sibling SKUs (sliced vs whole stick) look identical. Cut at a word
+    boundary instead and append the optional keyword tail only if it fits.
+    """
+    budget = max(limit - len(brand), 10)
+    base = name.strip()
+    if len(base) > budget:
+        cut = base[:budget].rsplit(" ", 1)[0].rstrip(" ,;:—-(")
+        base = cut or base[:budget].rstrip()
+    title = base + brand
+    if extra and len(title) + len(extra) <= limit:
+        title += extra
+    return title
+
+
 def cleanse_ingredients(text: str) -> str:
-    """Replace sodium nitrite references so Google doesn't false-positive the page."""
+    """Keep the technologist's ingredient text; only scrub non-halal leaks.
+
+    Earlier this hid 'нитрит натрия' behind its functional class, which produced
+    'фиксатор окраски (фиксатор окраски)' and misstated the label. The Sheet is the
+    source of truth for composition and must be published as declared.
+    """
     if not text:
         return text
-    text = text.replace("нитрит натрия", "фиксатор окраски")
-    text = text.replace("нитритно-посолочная смесь", "посолочная смесь")
-    text = text.replace("нитритная соль", "посолочная смесь")
-    text = text.replace("нитрит калия", "фиксатор окраски")
+    text = text.replace("фиксатор окраски (фиксатор окраски)", "фиксатор окраски (нитрит натрия)")
     # Halal guard: never publish pork. Source Sheet must stay halal; this is a
     # last-resort scrub so a bad Sheet edit can't leak pork into a halal catalog.
     text = re.sub(r",?\s*без свинины\b", "", text, flags=re.I)
@@ -438,6 +458,10 @@ def main():
         specs = []
         if p.get("articleNumber") or p.get("sku"):
             specs.append(("Артикул", p.get("articleNumber") or p["sku"]))
+        if weight:
+            specs.append(("Масса нетто", f"{weight}{weight_suffix}"))
+        if p.get("qtyPerBox"):
+            specs.append(("В коробке", f"{p['qtyPerBox']} шт"))
         if p.get("barcode"):
             specs.append(("Штрих-код", p["barcode"]))
         if p.get("diameter"):
@@ -471,9 +495,7 @@ def main():
             if main_img else ""
         )
 
-        suffix_ru = " — Казанские Деликатесы | Халяль"
-        max_name_len = 70 - len(suffix_ru)
-        title_ru = (name[:max_name_len] if len(name) > max_name_len else name) + suffix_ru
+        title_ru = fit_title(name, " — Казанские Деликатесы", " | Халяль")
 
         html = f'''<!DOCTYPE html>
 <html lang="ru">
@@ -594,6 +616,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 '''
         fmt = f"{pr:,.2f}".replace(",", " ").replace(".", ",")
         html += f'<div class="price-block">{fmt} ₽<span style="font-size:.85rem;color:#767676;font-weight:400">{" /шт" if is_bakery else " с НДС"}</span></div>\n'
+        if weight and not is_bakery:
+            html += f'<div style="font-size:.95rem;color:#333;margin:-8px 0 8px">Цена за упаковку <b>{weight}{weight_suffix}</b></div>\n'
         html += '<div style="color:#1b7a3d;font-size:.9rem;margin:8px 0">✓ В наличии</div>\n'
         if is_bakery and p["offers"].get("pricePerBox"):
             pbox = float(p["offers"]["pricePerBox"])

@@ -241,7 +241,7 @@ PAGES = [
         "specs": [
             ("Manufacturer", "Kazan Delicacies LLC (ООО «Казанские Деликатесы»)"),
             ("Tax ID (INN)", "1686021074"),
-            ("Address", "Russia, Tatarstan, Kazan, Agrarnaya St. 2 (420059)"),
+            ("Address", "Russia, Tatarstan, Kazan, Agrarnaya St. 2 (420061)"),
             ("Founded", "2022 (Halal-default product line)"),
             ("Halal authority", "DUM RT (Muslim Spiritual Board of the Republic of Tatarstan) — federally recognised"),
             ("Halal certificate", "#614A/2024 — covers the live catalog"),
@@ -497,7 +497,7 @@ def build_product_jsonld(page, primary_image):
                 "streetAddress": "ul. Agrarnaya, 2",
                 "addressLocality": "Kazan",
                 "addressRegion": "Tatarstan",
-                "postalCode": "420059",
+                "postalCode": "420061",
                 "addressCountry": "RU",
             },
         },

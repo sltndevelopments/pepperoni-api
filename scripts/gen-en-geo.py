@@ -452,7 +452,7 @@ def build_org_jsonld():
             "streetAddress": "ul. Agrarnaya, 2",
             "addressLocality": "Kazan",
             "addressRegion": "Tatarstan",
-            "postalCode": "420059",
+            "postalCode": "420061",
             "addressCountry": "RU",
         },
         "hasCredential": {
