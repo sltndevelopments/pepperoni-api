@@ -1,9 +1,26 @@
 #!/usr/bin/env python3
 """
-Submit URLs to Google Indexing API.
+Submit URLs to Google Indexing API — DISABLED for this site by policy.
 
-Default: rotate through sitemap (≤180/day).
-After SEO consolidations / deploys: use --hot (watchlist + home + nginx 301s).
+Google's Indexing API accepts only pages carrying `JobPosting` or
+`BroadcastEvent` (inside `VideoObject`) structured data:
+https://developers.google.com/search/apis/indexing-api/v3/quickstart
+pepperoni.tatar has no such pages. From 2026-08 the daily cron rotated the
+whole catalog/blog sitemap through the API (≤180/day) and `--hot` re-sent
+commercial hubs + nginx 301s after every deploy. That is outside the API's
+allowed use, burns the quota and gives Google no signal it would honour for
+regular pages. Decision 2026-09-09 (owner, growth-phase-two plan): stop it.
+
+Regular pages are discovered through sitemap.xml (`gsc-sitemap.py`),
+internal links, and — for single URLs — the URL Inspection tool in Search
+Console. Yandex (`yandex-index.py`) and IndexNow (`bing-index.py`) are
+unaffected: their recrawl APIs are for any page.
+
+The submitter is kept for the one legitimate case: if the site ever
+publishes JobPosting/BroadcastEvent pages, run with
+`--i-have-jobposting-or-broadcastevent-pages` and pass those URLs with
+`--url`. Every other invocation exits 0 without touching the API and logs
+why, so wrappers keep working.
 
 Env: GSC_SERVICE_ACCOUNT_KEY or GSC_SERVICE_ACCOUNT_KEY_B64
 """
@@ -30,6 +47,13 @@ SITEMAP_FILE = ROOT / "public" / "sitemap.xml"
 WATCHLIST = ROOT / "data" / "commercial_watchlist.json"
 DAILY_LIMIT = 180
 ORIGIN = "https://pepperoni.tatar"
+
+POLICY_NOTICE = (
+    "ℹ️  Google Indexing API: skipped by policy (2026-09-09).\n"
+    "   The API is only for JobPosting / BroadcastEvent pages; catalog, hubs and\n"
+    "   articles are discovered via sitemap.xml + internal links. Nothing was sent.\n"
+    "   See the module docstring in scripts/gsc-index.py for the rationale."
+)
 
 
 def _load_gsc_key() -> str:
@@ -283,7 +307,17 @@ def main() -> int:
         action="store_true",
         help="Also rotate sitemap submissions (default when no other mode)",
     )
+    ap.add_argument(
+        "--i-have-jobposting-or-broadcastevent-pages",
+        dest="policy_ok",
+        action="store_true",
+        help="Only for URLs with JobPosting/BroadcastEvent markup (the API's allowed scope)",
+    )
     args = ap.parse_args()
+
+    if not (args.policy_ok and args.url):
+        print(POLICY_NOTICE)
+        return 0
 
     key_json = _load_gsc_key()
     if not key_json:

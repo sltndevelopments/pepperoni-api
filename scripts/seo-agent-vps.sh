@@ -320,6 +320,7 @@ python3 scripts/qa_overrides.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  
 log "Step 4d2: Trust-reset index and governance gates …"
 python3 scripts/build_index_manifest.py >> "$LOG_FILE" 2>&1 || fail_hard "index manifest build failed"
 python3 scripts/rebuild_sitemap.py >> "$LOG_FILE" 2>&1 || fail_hard "allowlist sitemap build failed"
+python3 scripts/fix_hreflang.py >> "$LOG_FILE" 2>&1 || fail_hard "hreflang repair failed"
 python3 scripts/index_policy_check.py >> "$LOG_FILE" 2>&1 || fail_hard "index/evidence policy failed"
 python3 scripts/authority_program_check.py >> "$LOG_FILE" 2>&1 || fail_hard "authority program policy failed"
 python3 scripts/measurement_governance_check.py >> "$LOG_FILE" 2>&1 || fail_hard "measurement governance failed"
@@ -439,9 +440,11 @@ else
 fi
 touch data/.last_run 2>/dev/null || true
 
-# ---- Step 6: GSC indexing ----
-log "Step 6: Submitting URLs to Google …"
-python3 scripts/gsc-index.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  GSC indexing failed (non-fatal)"
+# ---- Step 6: Google sitemap ----
+# Indexing API removed 2026-09-09: it is only for JobPosting/BroadcastEvent
+# pages (scripts/gsc-index.py docstring). Sitemap submit is the sanctioned path.
+log "Step 6: Submitting sitemap to Google …"
+python3 scripts/gsc-sitemap.py >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  GSC sitemap submit failed (non-fatal)"
 
 # ---- Step 7: Yandex indexing ----
 log "Step 7: Submitting URLs to Yandex …"

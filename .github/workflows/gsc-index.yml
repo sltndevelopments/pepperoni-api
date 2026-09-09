@@ -38,10 +38,8 @@ jobs:
         run: python scripts/gsc-sitemap.py
         continue-on-error: true
 
-      - name: Submit URLs to Google Indexing API
-        env:
-          GSC_SERVICE_ACCOUNT_KEY: ${{ secrets.GSC_SERVICE_ACCOUNT_KEY }}
-        run: python scripts/gsc-index.py
+      # Google Indexing API step removed 2026-09-09: the API only accepts
+      # JobPosting/BroadcastEvent pages (scripts/gsc-index.py docstring).
 
       - name: Submit URLs to Yandex Webmaster
         env:
