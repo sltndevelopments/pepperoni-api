@@ -44,7 +44,7 @@
     );
   }
 
-  function fireAdsLeadConversion(userData) {
+  function fireAdsLeadConversion(userData, leadId) {
     var qs =
       "?label=" +
       encodeURIComponent(ADS_CONV_LABEL) +
@@ -88,11 +88,7 @@
           send_to: ADS_SEND_TO,
           value: 1.0,
           currency: "USD",
-          user_data: userData || {},
-        });
-        window.gtag("event", "generate_lead", {
-          event_category: "lead",
-          event_label: window.location.pathname,
+          transaction_id: leadId || undefined,
           user_data: userData || {},
         });
       } catch (e4) {}
@@ -134,6 +130,24 @@
         kind === "error" ? "#c0392b" : kind === "ok" ? "#1b7a3d" : "#666";
     }
 
+    // Measurement (2026-09-09): form_start once per form fill, and a client
+    // reference that lets the server and the analytics layer de-duplicate the
+    // same lead if the visitor double-clicks, retries after a network error,
+    // or reloads the page after sending.
+    function newRef() {
+      if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+      return "r" + Date.now().toString(36) + Math.random().toString(36).slice(2, 10);
+    }
+    form.addEventListener("focusin", function () {
+      if (form.dataset.started) return;
+      form.dataset.started = "1";
+      form.dataset.clientRef = form.dataset.clientRef || newRef();
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "form_start", page: window.location.pathname,
+        form_id: form.id || form.getAttribute("data-experiment-id") || "lead-form" });
+      if (typeof ym === "function") ym(107064141, "reachGoal", "form_start");
+    });
+
     form.addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -165,6 +179,7 @@
         consent: consent ? consent.checked : false,
         page: window.location.pathname,
         experiment_id: form.getAttribute("data-experiment-id") || "",
+        client_ref: form.dataset.clientRef || (form.dataset.clientRef = newRef()),
       };
 
       // Optional B2B category-landing fields (ignored by older intake builds;
@@ -204,46 +219,61 @@
         .then(function (res) {
           if (res.ok && res.data && res.data.ok) {
             form.reset();
+            delete form.dataset.started;
+            delete form.dataset.clientRef;
             setStatus(msg("ok"), "ok");
             try {
-              // Enhanced Conversions: prepare user_data
-              var userData = {};
-              if (payload.phone) {
-                var cleanPhone = payload.phone.replace(/[^\d+]/g, "");
-                if (cleanPhone.indexOf("+") !== 0) {
-                  if (cleanPhone.length === 11 && cleanPhone.indexOf("7") === 0) {
-                    cleanPhone = "+" + cleanPhone;
-                  } else if (cleanPhone.length === 11 && cleanPhone.indexOf("8") === 0) {
-                    cleanPhone = "+7" + cleanPhone.substring(1);
-                  } else if (cleanPhone.length === 10) {
-                    cleanPhone = "+7" + cleanPhone;
+              // lead_submit_success is counted only when the server confirms
+              // acceptance with a lead_id (honeypot hits and duplicates return
+              // ok without one), and only once per lead_id in this session.
+              var leadId = res.data.lead_id || "";
+              var fired = [];
+              try { fired = JSON.parse(sessionStorage.getItem("pepp_leads_fired") || "[]"); } catch (e0) {}
+              if (leadId && !res.data.duplicate && fired.indexOf(leadId) === -1) {
+                fired.push(leadId);
+                try { sessionStorage.setItem("pepp_leads_fired", JSON.stringify(fired.slice(-20))); } catch (e1) {}
+
+                // Google Ads enhanced conversions (hashed by gtag before sending);
+                // this is the Ads path only — nothing personal enters the GA4 event below.
+                var userData = {};
+                if (payload.phone) {
+                  var cleanPhone = payload.phone.replace(/[^\d+]/g, "");
+                  if (cleanPhone.indexOf("+") !== 0) {
+                    if (cleanPhone.length === 11 && cleanPhone.indexOf("7") === 0) {
+                      cleanPhone = "+" + cleanPhone;
+                    } else if (cleanPhone.length === 11 && cleanPhone.indexOf("8") === 0) {
+                      cleanPhone = "+7" + cleanPhone.substring(1);
+                    } else if (cleanPhone.length === 10) {
+                      cleanPhone = "+7" + cleanPhone;
+                    }
+                  }
+                  if (cleanPhone.length >= 10) {
+                    userData.phone_number = cleanPhone;
                   }
                 }
-                if (cleanPhone.length >= 10) {
-                  userData.phone_number = cleanPhone;
+                if (payload.name) {
+                  var nameParts = payload.name.trim().split(/\s+/);
+                  if (nameParts[0]) userData.first_name = nameParts[0];
+                  if (nameParts[1]) userData.last_name = nameParts[1];
                 }
-              }
-              if (payload.name) {
-                var nameParts = payload.name.trim().split(/\s+/);
-                if (nameParts[0]) userData.first_name = nameParts[0];
-                if (nameParts[1]) userData.last_name = nameParts[1];
-              }
 
-              window.dataLayer = window.dataLayer || [];
-              var leadEvent = {
-                event: "generate_lead",
-                event_category: "lead",
-                event_action: "submit",
-                page: window.location.pathname,
-                page_lang: document.body.getAttribute("data-lang") || document.documentElement.lang || "",
-                page_country: document.body.getAttribute("data-country") || "",
-                user_data: userData
-              };
-              if (typeof window.peppAttribution === "function") {
-                leadEvent.attribution = window.peppAttribution();
+                window.dataLayer = window.dataLayer || [];
+                var leadEvent = {
+                  event: "generate_lead",
+                  event_category: "lead",
+                  event_action: "submit",
+                  lead_id: leadId,
+                  page: window.location.pathname,
+                  page_lang: document.body.getAttribute("data-lang") || document.documentElement.lang || "",
+                  page_country: document.body.getAttribute("data-country") || ""
+                };
+                if (typeof window.peppAttribution === "function") {
+                  leadEvent.attribution = window.peppAttribution();
+                }
+                window.dataLayer.push(leadEvent);
+                if (typeof ym === "function") ym(107064141, "reachGoal", "lead_submit_success");
+                fireAdsLeadConversion(userData, leadId);
               }
-              window.dataLayer.push(leadEvent);
-              fireAdsLeadConversion(userData);
             } catch (err) {}
           } else {
             var err = (res.data && res.data.error) || "unknown";

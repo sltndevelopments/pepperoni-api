@@ -35,6 +35,7 @@ import sys
 import time
 import urllib.parse
 import urllib.request
+import uuid
 from collections import deque
 from pathlib import Path
 
@@ -54,7 +55,31 @@ ALLOWED_ORIGINS = {
 # Without them a RU-only validator answers `invalid_phone` to every buyer from
 # Uzbekistan, Georgia, Armenia etc. and the lead is lost before it is delivered.
 EXPORT_DIAL_CODES = ("375", "374", "992", "994", "995", "996", "998")
-MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64}
+MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64,
+           "client_ref": 64}
+
+# Measurement (2026-09-09): every accepted lead gets an opaque `lead_id` that the
+# page uses to count `lead_submit_success` exactly once. `client_ref` is a
+# per-form-fill token from the browser; a repeat with the same token within
+# DEDUP_TTL (double click, retry after a timeout, reload-and-resubmit) is
+# acknowledged with the original lead_id and `duplicate: true` and is NOT sent
+# to the sales group again.
+DEDUP_TTL = 6 * 3600
+_recent_refs: dict[str, tuple[float, str]] = {}
+
+
+def _dedup_lookup(client_ref: str) -> str | None:
+    now = time.time()
+    for ref, (ts, _lid) in list(_recent_refs.items()):
+        if now - ts > DEDUP_TTL:
+            _recent_refs.pop(ref, None)
+    hit = _recent_refs.get(client_ref)
+    return hit[1] if hit else None
+
+
+def _dedup_store(client_ref: str, lead_id: str) -> None:
+    if client_ref:
+        _recent_refs[client_ref] = (time.time(), lead_id)
 
 
 def phone_ok(raw: str) -> bool:
@@ -157,9 +182,17 @@ def lead_submit():
     message = _clip(payload.get("message", ""), "message")
     page = _clip(payload.get("page", ""), "page")
     experiment_id = _clip(payload.get("experiment_id", ""), "experiment_id")
+    client_ref = _clip(payload.get("client_ref", ""), "client_ref")
 
     if not phone_ok(phone):
         return _cors_headers(jsonify(ok=False, error="invalid_phone")), 400
+
+    if client_ref:
+        prior = _dedup_lookup(client_ref)
+        if prior:
+            log.info("Duplicate submit ignored: ref=%s lead_id=%s", client_ref, prior)
+            return _cors_headers(jsonify(ok=True, lead_id=prior, duplicate=True)), 200
+    lead_id = uuid.uuid4().hex[:12]
 
     # Build the group message. Include the source URL so the userbot's
     # _landing_and_experiment() can attribute it to a page/experiment.
@@ -177,6 +210,7 @@ def lead_submit():
         lines.append(f"🔗 Страница: {src_url}")
     if experiment_id:
         lines.append(f"🧪 Эксперимент: {experiment_id}")
+    lines.append(f"🆔 {lead_id}")
     text = "\n".join(lines)
 
     if not _send_to_group(text):
@@ -192,8 +226,9 @@ def lead_submit():
     except Exception as exc:
         log.warning("moscow-leads bridge skipped: %s", exc)
 
-    log.info("Lead delivered: phone=%s page=%s exp=%s", phone, page, experiment_id)
-    return _cors_headers(jsonify(ok=True)), 200
+    _dedup_store(client_ref, lead_id)
+    log.info("Lead delivered: lead_id=%s page=%s exp=%s", lead_id, page, experiment_id)
+    return _cors_headers(jsonify(ok=True, lead_id=lead_id)), 200
 
 
 @app.route("/lead-submit", methods=["GET", "HEAD"])

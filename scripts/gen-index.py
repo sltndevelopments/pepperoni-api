@@ -16,8 +16,10 @@ YEAR = datetime.now().year
 SKU_COUNT = len(json.loads((PUBLIC / "products.json").read_text(
     encoding="utf-8"))["products"])
 
-# GTM + Metrika after first interaction (or 45s). Never in <head>: gtag.js in
-# head was ~350 KiB unused JS and the July→August PSI drop (lab 100 → 72).
+# GTM + Metrika in the first idle slot after `load` (or first interaction).
+# Never in <head>: gtag.js in head was ~350 KiB unused JS and the July→August
+# PSI drop (lab 100 → 72). The former interaction-or-45s gate under-counted
+# short visits and was dropped 2026-09-09 (docs/sprint-2026-09/measurement-plan.md).
 DELAYED_ANALYTICS = """<script>
 function loadAnalytics(){
   if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
@@ -26,13 +28,13 @@ function loadAnalytics(){
   ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics(){
-  var events=['scroll','keydown','touchstart','click','pointerdown'];
-  function trigger(){
-    events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
-    loadAnalytics();
-  }
-  events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
-  setTimeout(loadAnalytics,45000);
+  // Measurement change 2026-09-09: analytics used to wait for a scroll/click or
+  // 45 s, so a short visit without interaction was never counted. Now it loads
+  // in the first idle slot after `load` (still after LCP, still not in <head>),
+  // or immediately on the first interaction — whichever comes first.
+  var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
+  idle(loadAnalytics,{timeout:1500});
+  ['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
 }
 if(document.readyState==='complete')armAnalytics();
 else window.addEventListener('load',armAnalytics);
