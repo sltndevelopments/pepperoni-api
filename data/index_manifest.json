@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-09T09:58:54.399352+00:00",
+  "generated_at": "2026-09-09T14:35:00.612286+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -318,13 +318,13 @@
       "kind": "hub"
     },
     {
-      "url": "/en",
+      "url": "/en/",
       "file": "en/index.html",
       "intent": "manufacturer and catalog home",
       "language": "en",
       "owner": "marketing",
       "source": "brand.txt + products.json",
-      "canonical_target": "/en",
+      "canonical_target": "/en/",
       "status": "keep",
       "kind": "home"
     },

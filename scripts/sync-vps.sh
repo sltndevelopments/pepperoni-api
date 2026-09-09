@@ -50,6 +50,7 @@ python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_c
 # SKU, so expand the manifest from products.json before rebuilding it.
 python3 scripts/build_index_manifest.py
 python3 scripts/rebuild_sitemap.py
+python3 scripts/fix_hreflang.py
 python3 scripts/fix_pages.py --all
 python3 scripts/fix_schema.py
 python3 scripts/qa_pages.py --all

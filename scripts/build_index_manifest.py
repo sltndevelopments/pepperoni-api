@@ -159,6 +159,10 @@ EN_GUIDES = [
 def clean_url(rel: str) -> str:
     if rel == "index.html":
         return "/"
+    if rel == "en/index.html":
+        # Locale root is a directory index; nginx 301s /en → /en/ and the page
+        # declares canonical /en/ (deploy/nginx/canonical-url.conf).
+        return "/en/"
     if rel.endswith("/index.html"):
         return "/" + rel[:-11]
     return "/" + rel.removesuffix(".html")

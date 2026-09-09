@@ -10,8 +10,12 @@ does not advertise false freshness.
 import hashlib
 import json
 import re
+import sys
 from datetime import date, datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import hreflang_policy  # noqa: E402
 
 ROOT    = Path(__file__).parent.parent
 PUBLIC  = ROOT / "public"
@@ -20,6 +24,8 @@ MANIFEST = ROOT / "data" / "index_manifest.json"
 CONTENT_STATE = ROOT / "data" / "sitemap_content_state.json"
 BASE    = "https://pepperoni.tatar"
 TODAY   = date.today().isoformat()
+# Directory indexes that keep a trailing slash (deploy/nginx/canonical-url.conf).
+LOCALE_ROOTS = (["en"],)
 
 # page type → (priority, changefreq)
 RULES = {
@@ -125,6 +131,10 @@ def html_to_url(path: Path) -> str:
         parts[-1] = last[:-5]
     if not parts:
         return BASE + "/"
+    # Locale roots are directory indexes: nginx 301s /en → /en/ and the page
+    # declares canonical /en/. Every other clean URL has no trailing slash.
+    if parts in LOCALE_ROOTS:
+        return BASE + "/" + "/".join(parts) + "/"
     return BASE + "/" + "/".join(parts)
 
 
@@ -248,14 +258,11 @@ def build_entries() -> list:
         pri, freq = RULES.get(kind, RULES["static"])
         lang = "en" if rel.startswith("en/") else "ru"
 
-        alternates = []
         partners = by_key.get(key, {})
-        if len(partners) >= 2 or (lang == "en" and "ru" in partners) or (lang == "ru" and "en" in partners):
-            for l in ("ru", "en"):
-                if l in partners:
-                    alternates.append((l, html_to_url(partners[l])))
-            x_default = html_to_url(partners.get("ru") or partners.get("en"))
-            alternates.append(("x-default", x_default))
+        # One rule for pages and sitemap: scripts/hreflang_policy.py
+        # (fix_hreflang.py rewrites the pages to the same list).
+        alternates = hreflang_policy.alternates(
+            key, {l: html_to_url(p) for l, p in partners.items()})
 
         entries.append({
             "url":        url,
@@ -267,7 +274,32 @@ def build_entries() -> list:
         })
 
     entries.sort(key=lambda e: (-e["priority"], e["url"]))
+    slash_errors = check_trailing_slash_policy(
+        [e["url"] for e in entries]
+        + [href for e in entries for _lang, href in e["alternates"]]
+    )
+    if slash_errors:
+        raise SystemExit("sitemap trailing-slash policy:\n" + "\n".join(slash_errors))
     return entries
+
+
+def check_trailing_slash_policy(urls: list) -> list:
+    """Every sitemap URL must match what nginx serves without a redirect.
+
+    canonical-url.conf: only `/` and the locale roots (`/en/`) keep a trailing
+    slash; `/en` 301s to `/en/` and every other `/foo/` 301s to `/foo`. A URL on
+    the wrong side of that rule makes Google fetch a redirect from the sitemap.
+    """
+    slash_roots = {BASE + "/" + "/".join(p) for p in LOCALE_ROOTS}
+    errors = []
+    for url in urls:
+        if url == BASE + "/":
+            continue
+        if url in slash_roots:
+            errors.append(f"locale root without trailing slash: {url} (expected {url}/)")
+        elif url.endswith("/") and url.rstrip("/") not in slash_roots:
+            errors.append(f"trailing slash on non-root URL: {url}")
+    return sorted(set(errors))
 
 
 def render_xml(entries: list) -> str:
