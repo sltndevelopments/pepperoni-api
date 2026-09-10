@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -310,6 +316,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="kk" data-country="kz" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -437,7 +467,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">Сол өнімді сіздің сауда белгіңізбен шығарамыз. Өз халал топпинг желісі қажет пиццерия, дистрибьютор және бөлшек сауда желілеріне арналған.</p>
   <ul class="checklist"><li>Шикізат: тауық еті, сиыр еті, жылқы еті немесе қоспалар</li><li>Ащылық деңгейі: mild / medium / spicy</li><li>Натрий нитритінсіз нұсқасы мүмкін (сұрау бойынша)</li><li>Тілімдеу: жеке диаметр мен тілім қалыңдығы</li><li>Қаптама: 0,5 кг — 5 кг аралығы, вакуум немесе науа</li><li>Жапсырма мен құрамы — нарығыңыздың тілінде</li></ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">Private Label талқылау</a>
-    <a class="btn btn--ghost" href="/oem">Келісімшарттық өндіріс</a></div>
+    Келісімшарттық өндіріс</div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">
@@ -498,7 +528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/kk">Өнімдер каталогы</a></li>
         <li><a href="/products/kd-013">KD-013 өнім парағы</a></li>
         <li><a href="/pepperoni-dlya-pizzerii">Пиццерияларға арналған пепперони</a></li>
-        <li><a href="/oem">Келісімшарттық өндіріс</a></li>
+        <li>Келісімшарттық өндіріс</li>
         
       </ul>
     </div>

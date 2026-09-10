@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ky">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -310,6 +316,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="ky" data-country="kg" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -437,7 +467,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">Ошол эле продуктту сиздин соода белгиси менен чыгарабыз. Өзүнүн халал топпинг линиясы керек болгон пиццерия, дистрибьютор жана чекене соода тармактарына ылайыктуу.</p>
   <ul class="checklist"><li>Чийки зат: тоок эти, уй эти, жылкы эти же аралашмалар</li><li>Ачуулук деңгээли: mild / medium / spicy</li><li>Натрий нитрити жок варианты мүмкүн (суроо боюнча)</li><li>Кесүү: жеке диаметр жана кесимдин калыңдыгы</li><li>Таңгак: 0,5 кг — 5 кг аралыгы, вакуум же лоток</li><li>Этикетка жана курамы — рыногуңуздун тилинде</li></ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">Private Label талкуулоо</a>
-    <a class="btn btn--ghost" href="/oem">Контракттык өндүрүш</a></div>
+    Контракттык өндүрүш</div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">
@@ -498,7 +528,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/ky">Продукциялар каталогу</a></li>
         <li><a href="/products/kd-013">KD-013 продукт барагы</a></li>
         <li><a href="/pepperoni-dlya-pizzerii">Пиццериялар үчүн пепперони</a></li>
-        <li><a href="/oem">Контракттык өндүрүш</a></li>
+        <li>Контракттык өндүрүш</li>
         
       </ul>
     </div>
