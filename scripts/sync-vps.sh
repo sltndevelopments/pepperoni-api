@@ -26,6 +26,10 @@ python3 scripts/apply_spec_holds.py --check
 # them with the full gallery (imageMain + imagePack + imageSlice thumbnails).
 python3 scripts/gen-ru-products.py 2>&1 || echo "[warn] gen-ru-products.py failed; keeping previous files"
 python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py failed; keeping previous files"
+# Commercial category pages (/sosiski-dlya-hotdog RU/EN) promise "prices from the
+# live catalog as of <lastSynced>" — rebuild them from the same products.json so a
+# Sheet price change or a lifted spec hold reaches them in the same sync cycle.
+python3 scripts/gen_category_pages.py 2>&1 || echo "[warn] gen_category_pages.py failed; keeping previous category pages"
 
 # 1b2. Perf hints (preconnect + Speculation Rules) — idempotent. Re-apply after
 # product generators rewrite HTML so Chromium keeps moderate prerender on hover.
