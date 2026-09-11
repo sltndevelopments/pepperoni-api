@@ -212,3 +212,13 @@ merge-коммита (§5).
 1 POST, 1 `lead_id`, 1 `generate_lead`, `sessionStorage` хранит id. Цены: 290 ₽ / 6 шт = 48,33 ₽/шт
 (поле `offers.pricePerPiece`, не из названия), 290 / 0,48 кг = 604 ₽/кг; дата данных 2026-09-06
 (`lastSynced`, не дата сборки). Canonical/hreflang без `.html`, `127.0.0.1`/`localhost` в страницах = 0.
+
+**Выпуск карантина и пилота с 6 позициями:** `7bc274462` (карантин + пилот), `71004110c`
+(`gen_category_pages.py` в `sync-vps.sh`). VPS HEAD = `71004110c`. Проверено live 07:52 UTC:
+`/products/kd-006`, `/products/kd-007` (RU/EN) — спорный состав = 0, пометка = 1; `api.pepperoni.tatar/api/products`
+— `ingredientsRU` пусто, `specHold` есть; `/llms.txt` — «временно не публикуется» ×2; `/sosiski-dlya-hotdog`
+RU/EN — «6 позиций», пометка о двух скрытых; cron-sync 07:40 и 07:51 прошёл с новыми шагами
+(`spec holds: OK`, `6 SKU shown, 2 on hold`, `Sync OK`), дата на пилоте = реальный `lastSynced` 2026-09-11,
+цены не изменились (290 ₽ KD-001). IndexNow: 6 изменённых URL ✅; Yandex recrawl — дневная квота 0/150,
+sitemap-квота до 2026-09-30; GSC sitemap без изменений (новых URL нет). Тестовая заявка менеджеру —
+по-прежнему **ожидает человека**.
