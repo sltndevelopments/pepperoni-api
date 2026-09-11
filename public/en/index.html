@@ -440,7 +440,7 @@ function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,c
 <p>We don't just supply — we adapt production to your business needs.</p>
 <div class="capabilities-grid">
 <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (OEM)</h3><p>Production under your trademark. Full support: recipe development to branded packaging.</p></div>
-<div class="capability-card"><h3><span aria-hidden="true">🎯</span> Menu Customization</h3><p>Pepperoni from beef, chicken or horse meat — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
+<div class="capability-card"><h3><span aria-hidden="true">🎯</span> Menu Customization</h3><p>Pepperoni for your menu — sticks and sliced. Need pepperoni for 350°C? We adjust spice, diameter, composition.</p></div>
 <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Halal &amp; HACCP</h3><p>Only beef, chicken, horse, turkey. Certified by Muslim Spiritual Board of Tatarstan. No pork, no GMO.</p></div>
 <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Export &amp; Logistics</h3><p>Shipments EXW and DAP. Strict cold chain to your distribution center.</p></div>
 </div>
@@ -482,7 +482,7 @@ style="margin-top:3px;flex:none">
 </div>
 </form>
 </div>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 <div class="info-block">
 <h2>API for Partners</h2>
 <p>Integrate the halal product catalog directly into your ERP, 1C, iiko, or MoySklad. Prices update in real time. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
@@ -844,13 +844,9 @@ if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
 ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics(){
-var events=['scroll','keydown','touchstart','click','pointerdown'];
-function trigger(){
-events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
-loadAnalytics();
-}
-events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
-setTimeout(loadAnalytics,45000);
+var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
+idle(loadAnalytics,{timeout:1500});
+['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
 }
 if(document.readyState==='complete')armAnalytics();
 else window.addEventListener('load',armAnalytics);

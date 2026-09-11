@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Default post-SEO / post-deploy indexing nudge — Google + Yandex + Bing/IndexNow.
+# Default post-SEO / post-deploy indexing nudge — Google sitemap + Yandex + Bing/IndexNow.
 #
 # Usage (VPS):
 #   set -a; . /var/www/pepperoni/seo-agent.env; set +a
@@ -29,8 +29,9 @@ have_gsc || echo "⚠️  no Google credentials — Google steps below will be s
 echo "=== gsc-sitemap (Google) ==="
 python3 scripts/gsc-sitemap.py || echo "⚠️  GSC sitemap submit failed (non-fatal)"
 
-echo "=== gsc-index --hot (Google Indexing API) ==="
-python3 scripts/gsc-index.py --hot || echo "⚠️  Google Indexing API failed (non-fatal)"
+# Google Indexing API deliberately NOT called: it only accepts JobPosting /
+# BroadcastEvent pages (see scripts/gsc-index.py docstring, decision 2026-09-09).
+# Regular pages reach Google via the sitemap submit above + internal links.
 
 echo "=== yandex-index --hot ==="
 python3 scripts/yandex-index.py --hot || echo "⚠️  Yandex indexing failed (non-fatal)"

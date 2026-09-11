@@ -170,7 +170,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:10px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer">Request Quote</button>
   <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.8rem;margin:0"></p>
 </form>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 </div>
 </div>
 </div>
@@ -184,10 +184,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 document.addEventListener("click",function(e){
   var link=e.target.closest("a");if(!link)return;
   var href=link.getAttribute("href")||"";
-  if(href.indexOf("tel:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_phone")}
-  if(href.indexOf("mailto:")===0){typeof ym==="function"&&ym(107064141,"reachGoal","click_email")}
-if(/wa\.me|whatsapp|t\.me\//i.test(href)){typeof ym==="function"&&ym(107064141,"reachGoal","click_messenger")}
-  if(/price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/price/i.test(link.textContent||"")){typeof ym==="function"&&ym(107064141,"reachGoal","download_price")}
+  /* contact-click goals are sent once by /assets/lead-form.js (dedup 2026-09-09) */
   if(href.indexOf("kazandelikates.tatar")!==-1){typeof ym==="function"&&ym(107064141,"reachGoal","go_to_main_site")}
 });
 document.querySelectorAll(".lightbox-trigger").forEach(function(el){

@@ -32,9 +32,11 @@ import logging
 import os
 import re
 import sys
+import tempfile
 import time
 import urllib.parse
 import urllib.request
+import uuid
 from collections import deque
 from pathlib import Path
 
@@ -43,6 +45,8 @@ from flask import Flask, jsonify, request
 LEADS_BOT_TOKEN = os.getenv("LEADS_BOT_TOKEN", "").strip()
 LEADS_GROUP_ID = os.getenv("LEADS_GROUP_ID", "").strip()
 PORT = int(os.getenv("LEAD_INTAKE_PORT", "5002"))
+# Overridable so the delivery path can be exercised against a local mock in tests.
+TELEGRAM_API_BASE = os.getenv("TELEGRAM_API_BASE", "https://api.telegram.org").rstrip("/")
 
 ALLOWED_ORIGINS = {
     "https://pepperoni.tatar",
@@ -54,7 +58,53 @@ ALLOWED_ORIGINS = {
 # Without them a RU-only validator answers `invalid_phone` to every buyer from
 # Uzbekistan, Georgia, Armenia etc. and the lead is lost before it is delivered.
 EXPORT_DIAL_CODES = ("375", "374", "992", "994", "995", "996", "998")
-MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64}
+MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64,
+           "client_ref": 64}
+
+# Measurement (2026-09-09): every accepted lead gets an opaque `lead_id` that the
+# page uses to count `lead_submit_success` exactly once. `client_ref` is a
+# per-form-fill token from the browser; a repeat with the same token within
+# DEDUP_TTL (double click, retry after a timeout, reload-and-resubmit) is
+# acknowledged with the original lead_id and `duplicate: true` and is NOT sent
+# to the sales group again.
+DEDUP_TTL = 6 * 3600
+# The unit runs gunicorn with 2 workers, so the store must be shared between
+# processes — a per-worker dict would let a retry that lands on the other
+# worker reach the sales group twice. sqlite (stdlib) with a short busy timeout.
+DEDUP_DB = Path(os.getenv("LEAD_DEDUP_DB", "/var/www/pepperoni/data/lead_dedup.sqlite"))
+
+
+def _dedup_conn():
+    import sqlite3
+    try:
+        DEDUP_DB.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(DEDUP_DB, timeout=2)
+    except Exception:
+        conn = sqlite3.connect(Path(tempfile.gettempdir()) / "lead_dedup.sqlite", timeout=2)
+    conn.execute("CREATE TABLE IF NOT EXISTS refs (ref TEXT PRIMARY KEY, ts REAL, lead_id TEXT)")
+    return conn
+
+
+def _dedup_lookup(client_ref: str) -> str | None:
+    try:
+        with _dedup_conn() as conn:
+            conn.execute("DELETE FROM refs WHERE ts < ?", (time.time() - DEDUP_TTL,))
+            row = conn.execute("SELECT lead_id FROM refs WHERE ref = ?", (client_ref,)).fetchone()
+        return row[0] if row else None
+    except Exception as exc:  # dedup is a safety net, never a reason to drop a lead
+        log.warning("dedup lookup failed: %s", exc)
+        return None
+
+
+def _dedup_store(client_ref: str, lead_id: str) -> None:
+    if not client_ref:
+        return
+    try:
+        with _dedup_conn() as conn:
+            conn.execute("INSERT OR REPLACE INTO refs (ref, ts, lead_id) VALUES (?, ?, ?)",
+                         (client_ref, time.time(), lead_id))
+    except Exception as exc:
+        log.warning("dedup store failed: %s", exc)
 
 
 def phone_ok(raw: str) -> bool:
@@ -102,7 +152,7 @@ def _send_to_group(text: str) -> bool:
     if not LEADS_BOT_TOKEN or not LEADS_GROUP_ID:
         log.error("LEADS_BOT_TOKEN / LEADS_GROUP_ID not configured")
         return False
-    url = f"https://api.telegram.org/bot{LEADS_BOT_TOKEN}/sendMessage"
+    url = f"{TELEGRAM_API_BASE}/bot{LEADS_BOT_TOKEN}/sendMessage"
     data = urllib.parse.urlencode({
         "chat_id": LEADS_GROUP_ID,
         "text": text,
@@ -157,9 +207,17 @@ def lead_submit():
     message = _clip(payload.get("message", ""), "message")
     page = _clip(payload.get("page", ""), "page")
     experiment_id = _clip(payload.get("experiment_id", ""), "experiment_id")
+    client_ref = _clip(payload.get("client_ref", ""), "client_ref")
 
     if not phone_ok(phone):
         return _cors_headers(jsonify(ok=False, error="invalid_phone")), 400
+
+    if client_ref:
+        prior = _dedup_lookup(client_ref)
+        if prior:
+            log.info("Duplicate submit ignored: ref=%s lead_id=%s", client_ref, prior)
+            return _cors_headers(jsonify(ok=True, lead_id=prior, duplicate=True)), 200
+    lead_id = uuid.uuid4().hex[:12]
 
     # Build the group message. Include the source URL so the userbot's
     # _landing_and_experiment() can attribute it to a page/experiment.
@@ -177,6 +235,7 @@ def lead_submit():
         lines.append(f"🔗 Страница: {src_url}")
     if experiment_id:
         lines.append(f"🧪 Эксперимент: {experiment_id}")
+    lines.append(f"🆔 {lead_id}")
     text = "\n".join(lines)
 
     if not _send_to_group(text):
@@ -192,8 +251,9 @@ def lead_submit():
     except Exception as exc:
         log.warning("moscow-leads bridge skipped: %s", exc)
 
-    log.info("Lead delivered: phone=%s page=%s exp=%s", phone, page, experiment_id)
-    return _cors_headers(jsonify(ok=True)), 200
+    _dedup_store(client_ref, lead_id)
+    log.info("Lead delivered: lead_id=%s page=%s exp=%s", lead_id, page, experiment_id)
+    return _cors_headers(jsonify(ok=True, lead_id=lead_id)), 200
 
 
 @app.route("/lead-submit", methods=["GET", "HEAD"])

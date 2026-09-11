@@ -2,8 +2,12 @@
 
 ## Что уже работает автоматически
 
-- **Indexing API** — каждые 62+ URL отправляются в Google при деплое и пуше
-- **Sitemap** — скрипт пытается отправить sitemap в GSC при каждом запуске workflow
+- **Sitemap** — скрипт отправляет sitemap в GSC при каждом запуске workflow
+- **Indexing API — отключён (2026-09-09).** Google принимает через него только
+  страницы `JobPosting` / `BroadcastEvent`; каталог, хабы и статьи в его
+  scope не входят. `scripts/gsc-index.py` без флага
+  `--i-have-jobposting-or-broadcastevent-pages` ничего не отправляет.
+  Единичные URL — через URL Inspection в интерфейсе Search Console.
 
 ## Чтобы sitemap submission работал
 
@@ -35,6 +39,6 @@ gcloud services enable webmasters.googleapis.com
 
 После настройки workflow `Google Search Console — Indexing & Sitemap` должен:
 - ✅ Отправлять sitemap (шаг 1)
-- ✅ Отправлять URL в Indexing API (шаг 2)
+- ✅ Яндекс Вебмастер + IndexNow (шаги 2–3)
 
 Проверить в GSC: **Sitemaps** → должен отображаться `https://pepperoni.tatar/sitemap.xml`.

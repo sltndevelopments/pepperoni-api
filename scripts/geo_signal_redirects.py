@@ -96,8 +96,9 @@ def decide(entries: list[dict], clicks: dict[str, float], keep_urls: set[str]) -
         n = clicks_for(row["url"], clicks)
         if n < MIN_CLICKS:
             continue
-        lang = "ru" if row.get("language") == "ru" else "en"
-        target = aic.normalize_url(aic.geo_target(row["url"], lang) or "")
+        lang = hub_lang(row.get("language"))
+        raw_target = aic.geo_target(row["url"], lang)
+        target = aic.normalize_url(raw_target) if raw_target else None
         if not target or target not in keep_urls or target == row["url"]:
             continue
         changes.append({"url": row["url"], "target": target, "clicks": n})
@@ -121,8 +122,9 @@ def decide(entries: list[dict], clicks: dict[str, float], keep_urls: set[str]) -
     for path, n in sorted(seen.items()):
         if path in known or n < MIN_CLICKS:
             continue
-        lang = "ru" if path.startswith("/geo/") else "en"
-        target = aic.normalize_url(aic.geo_target(path, lang) or "")
+        lang = hub_lang(aic.language_for(path.lstrip("/")))
+        raw_target = aic.geo_target(path, lang)
+        target = aic.normalize_url(raw_target) if raw_target else None
         if not target or target not in keep_urls:
             continue
         entries.append({
@@ -142,6 +144,49 @@ def decide(entries: list[dict], clicks: dict[str, float], keep_urls: set[str]) -
     return changes
 
 
+CLICK_REASON = "geo URL still earns search clicks"
+
+# Retired locales whose buyers read Russian: the RU hubs are the full site, the
+# EN hubs a lighter export version, so a Belarusian/Kazakh/Kyrgyz/Uzbek/Azeri/
+# Tajik/Armenian/Georgian searcher is better served by RU. Everything else
+# (ar, fr, tr, ms, id, zh, …) goes to EN.
+RU_HUB_LOCALES = {"ru", "be", "kk", "ky", "uz", "az", "tg", "hy", "ka", "uk", "tt", "ba"}
+
+
+def hub_lang(locale: str | None) -> str:
+    return "ru" if (locale or "ru") in RU_HUB_LOCALES else "en"
+
+
+def retarget(entries: list[dict], keep_urls: set[str]):
+    """Apply the current geo_target() to geo 301 rows created from click signal.
+
+    Redirect review 2026-09-09: 100+ clicked geo URLs for raw meat / minced meat
+    / dumplings (never in the catalog) were sent to /products, and hot-dog,
+    smoked and bakery slugs missed their hubs. Rows whose slug now maps to None
+    go back to 410 — a redirect that cannot answer the query is not a service.
+    """
+    moved, reverted = [], []
+    for row in entries:
+        if row.get("status") != "301" or "/geo/" not in row["url"]:
+            continue
+        if not str(row.get("reason", "")).startswith(CLICK_REASON):
+            continue
+        lang = hub_lang(row.get("language"))
+        target = aic.geo_target(row["url"], lang)
+        target = aic.normalize_url(target) if target else None
+        if not target or target not in keep_urls:
+            reverted.append(row["url"])
+            row["status"] = "410"
+            row["canonical_target"] = ""
+            row["reason"] = ("retired geo URL for goods not in the catalog "
+                             "(raw meat / minced / dumplings) — no honest redirect target")
+            continue
+        if target != row.get("canonical_target"):
+            moved.append((row["url"], row.get("canonical_target"), target))
+            row["canonical_target"] = target
+    return moved, reverted
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--gsc-json", type=Path)
@@ -149,6 +194,9 @@ def main() -> int:
     ap.add_argument("--start")
     ap.add_argument("--end")
     ap.add_argument("--apply", action="store_true")
+    ap.add_argument("--retarget", action="store_true",
+                    help="re-run geo_target() over geo 301s already in the map "
+                         "(better hubs; 410 for goods the catalog does not contain)")
     ns = ap.parse_args()
 
     if ns.fetch:
@@ -163,6 +211,14 @@ def main() -> int:
     payload = json.loads(MAP.read_text(encoding="utf-8"))
     keep_urls, _ = aic.load_keep()
     entries = payload["entries"]
+    if ns.retarget:
+        moved, reverted = retarget(entries, keep_urls)
+        print(f"retarget: {len(moved)} geo 301s moved to a better hub, "
+              f"{len(reverted)} reverted to 410 (goods not in catalog)")
+        for r in reverted[:15]:
+            print(f"  410 ← {r}")
+        for src, old, new in moved[:15]:
+            print(f"  {src}: {old} → {new}")
     changes = decide(entries, clicks, keep_urls)
 
     by_target: dict[str, int] = {}

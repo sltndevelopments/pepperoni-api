@@ -33,6 +33,8 @@ python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.
 # 1c2. Static SKU list inside index.html / en/index.html / products hubs so the
 # catalog (names, weights, prices, links) exists in HTML without JS or scroll.
 python3 scripts/render_static_catalog.py 2>&1 || echo "[warn] render_static_catalog.py failed; static catalog may be stale"
+# Price lists come from the same products.json as cards and catalog (no more hand-made snapshots).
+python3 scripts/gen_price_lists.py 2>&1 || echo "[warn] gen_price_lists.py failed; price lists may be stale"
 
 # 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). Pulls live catalog + reconciled FAQ.
@@ -50,10 +52,20 @@ python3 scripts/check_stale_counts.py --check 2>&1 || echo "[warn] check_stale_c
 # SKU, so expand the manifest from products.json before rebuilding it.
 python3 scripts/build_index_manifest.py
 python3 scripts/rebuild_sitemap.py
+python3 scripts/fix_hreflang.py
+python3 scripts/version_assets.py
 python3 scripts/fix_pages.py --all
 python3 scripts/fix_schema.py
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py
+
+# 1f. Truth gates (blocking): numbers on cards / catalogs / 4 price lists must
+# equal products.json, and no public surface (AI manifests, llms, OpenAPI,
+# titles, JSON-LD, page text) may attach a meat or curing method to
+# "pepperoni" that the catalog does not have. A Sheets change that removes a
+# SKU makes stale prose fail here instead of going live.
+python3 scripts/check_fact_consistency.py
+python3 scripts/check_product_claims.py --quiet
 
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"

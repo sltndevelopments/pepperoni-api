@@ -267,22 +267,39 @@ def topic_target(path: str, lang: str) -> str | None:
     return None
 
 
+# Retired geo slugs for goods the catalog does not contain (products.json has
+# no raw meat, minced meat or dumplings). A visitor who searched for those gets
+# nothing from a redirect to the catalog, so these stay 410 — redirect review
+# 2026-09-09 found 100+ such URLs pointed at /products.
+NOT_SOLD = ("syroje-myaso", "raw-meat", "lahmeh-niya", "farsh", "minced",
+            "pelmeni", "dumpling")
+
+
 def geo_target(path: str, lang: str) -> str | None:
     slug = path.rsplit("/", 1)[-1].lower()
     en = lang == "en"
     prefix = "/en" if en else ""
+    if any(x in slug for x in NOT_SOLD):
+        return None
     if "kazylyk" in slug:
         return f"{prefix}/kazylyk"
     if any(x in slug for x in ("pepperoni", "peperoni", "babbroni", "topping", "pizza")):
         return f"{prefix}/pepperoni"
-    if any(x in slug for x in ("sosis", "hotdog")):
+    if any(x in slug for x in ("sosiki-v-teste", "corn-dog")):
+        # sausage-in-dough is a bakery item, not a grill sausage
+        return f"{prefix}/vyipechka-halyal"
+    if any(x in slug for x in ("sosis", "hotdog", "hot-dog", "sausage", "frankfurter")):
         return f"{prefix}/sosiski-dlya-hotdog"
-    if any(x in slug for x in ("kotlet", "burger")):
+    if any(x in slug for x in ("kotlet", "burger", "burgir")):
         return f"{prefix}/kotlety-dlya-burgerov"
-    if any(x in slug for x in ("vypech", "echpoch", "gubad", "elesh", "pastry")):
+    if any(x in slug for x in ("vypech", "echpoch", "gubad", "elesh", "pastry", "bakery", "makhbuzat")):
         return f"{prefix}/vyipechka-halyal"
     if "vetchina" in slug or "ham" in slug:
         return f"{prefix}/vetchina-optom"
+    if any(x in slug for x in ("kopch", "smoked", "salami", "servelat")):
+        return f"{prefix}/kolbasy-kopchyonye"
+    if any(x in slug for x in ("varen", "cooked", "boiled", "doktorsk")):
+        return f"{prefix}/kolbasy-varenye"
     if any(x in slug for x in ("private-label", "stm")):
         return "/en/private-label" if en else "/kontraktnoe-proizvodstvo"
     return f"{prefix}/products"

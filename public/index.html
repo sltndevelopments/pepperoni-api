@@ -504,7 +504,7 @@ function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,c
 <p>Мы не просто поставляем продукцию — адаптируем под бизнес-процессы вашей сети.</p>
 <div class="capabilities-grid">
 <div class="capability-card"><h3><span aria-hidden="true">🏷️</span> Private Label (СТМ)</h3><p>Производство под вашей торговой маркой. От разработки рецептуры до брендирования упаковки.</p></div>
-<div class="capability-card"><h3><span aria-hidden="true">🎯</span> Кастомизация под меню</h3><p>Пепперони из курицы, говядины или конины — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
+<div class="capability-card"><h3><span aria-hidden="true">🎯</span> Кастомизация под меню</h3><p>Пепперони под ваше меню — в батонах и нарезках. Нужна пепперони для 350°C? Меняем остроту, диаметр, состав.</p></div>
 <div class="capability-card"><h3><span aria-hidden="true">✅</span> 100% Халяль и ХАССП</h3><p>Только говядина, курица, конина, индейка. Сертификат ДУМ РТ. Без свинины, без ГМО.</p></div>
 <div class="capability-card"><h3><span aria-hidden="true">🚚</span> Экспорт и Логистика</h3><p>Поставки на условиях EXW и DAP. Строгое соблюдение температурного режима до вашего РЦ.</p></div>
 </div>
@@ -548,7 +548,7 @@ style="margin-top:3px;flex:none">
 </div>
 </form>
 </div>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 <div class="info-block">
 <h2>API для партнёров</h2>
 <p>Интегрируйте каталог халяль товаров напрямую в ERP, 1С, iiko или МойСклад. Цены обновляются в реальном времени. <a href="/openapi.yaml">OpenAPI</a> · <a href="/api/products">JSON</a></p>
@@ -841,14 +841,7 @@ setTimeout(function(){
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(function(){});
 },20000);
 });
-document.addEventListener('click',function(e){
-var link=e.target.closest('a');if(!link)return;
-var href=link.getAttribute('href')||'';var g=function(n){typeof ym==='function'&&ym(107064141,'reachGoal',n);};
-if(href.indexOf('tel:')===0)g('click_phone');
-if(href.indexOf('mailto:')===0)g('click_email');
-if(/wa\.me|whatsapp|t\.me\//i.test(href))g('click_messenger');
-if(/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
-});
+/* contact-click goals are sent once by /assets/lead-form.js; form_submit = attempt, not a lead */
 document.addEventListener('submit',function(e){
 if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
 },true);
@@ -860,13 +853,9 @@ if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
 ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics(){
-var events=['scroll','keydown','touchstart','click','pointerdown'];
-function trigger(){
-events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
-loadAnalytics();
-}
-events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
-setTimeout(loadAnalytics,45000);
+var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
+idle(loadAnalytics,{timeout:1500});
+['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
 }
 if(document.readyState==='complete')armAnalytics();
 else window.addEventListener('load',armAnalytics);

@@ -16,8 +16,10 @@ YEAR = datetime.now().year
 SKU_COUNT = len(json.loads((PUBLIC / "products.json").read_text(
     encoding="utf-8"))["products"])
 
-# GTM + Metrika after first interaction (or 45s). Never in <head>: gtag.js in
-# head was ~350 KiB unused JS and the July→August PSI drop (lab 100 → 72).
+# GTM + Metrika in the first idle slot after `load` (or first interaction).
+# Never in <head>: gtag.js in head was ~350 KiB unused JS and the July→August
+# PSI drop (lab 100 → 72). The former interaction-or-45s gate under-counted
+# short visits and was dropped 2026-09-09 (docs/sprint-2026-09/measurement-plan.md).
 DELAYED_ANALYTICS = """<script>
 function loadAnalytics(){
   if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
@@ -26,13 +28,13 @@ function loadAnalytics(){
   ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics(){
-  var events=['scroll','keydown','touchstart','click','pointerdown'];
-  function trigger(){
-    events.forEach(function(ev){window.removeEventListener(ev,trigger,{passive:true});});
-    loadAnalytics();
-  }
-  events.forEach(function(ev){window.addEventListener(ev,trigger,{passive:true});});
-  setTimeout(loadAnalytics,45000);
+  // Measurement change 2026-09-09: analytics used to wait for a scroll/click or
+  // 45 s, so a short visit without interaction was never counted. Now it loads
+  // in the first idle slot after `load` (still after LCP, still not in <head>),
+  // or immediately on the first interaction — whichever comes first.
+  var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
+  idle(loadAnalytics,{timeout:1500});
+  ['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
 }
 if(document.readyState==='complete')armAnalytics();
 else window.addEventListener('load',armAnalytics);
@@ -740,14 +742,10 @@ async function loadCatalog(){{
   }}
 }})();
 if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js').catch(()=>{{}});
-document.addEventListener('click',function(e){{
-  var link=e.target.closest('a');if(!link)return;
-  var href=link.getAttribute('href')||'';var g=function(n){{typeof ym==='function'&&ym(107064141,'reachGoal',n);}};
-  if(href.indexOf('tel:')===0)g('click_phone');
-  if(href.indexOf('mailto:')===0)g('click_email');
-  if(/wa\\.me|whatsapp|t\\.me\\//i.test(href))g('click_messenger');
-  if(/прайс|price|\\.(pdf|xlsx?|csv)(\\?|$)/i.test(href)||/прайс|price/i.test(link.textContent||''))g('download_price');
-}});
+/* click_phone / click_email / click_messenger / download_price are sent by
+   /assets/lead-form.js (loaded on this page); a second listener here counted
+   every contact click twice in Metrika until 2026-09-09. form_submit = attempt,
+   not a lead; the lead is lead_submit_success after server confirmation. */
 document.addEventListener('submit',function(e){{
   if(e.target&&e.target.tagName==='FORM')typeof ym==='function'&&ym(107064141,'reachGoal','form_submit');
 }},true);
