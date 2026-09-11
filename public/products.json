@@ -268,14 +268,23 @@
       "seoDescriptionEN": "Hot Dog Grill Sausages with Herbs (130 g × 5 pcs) | Hot Dog Grill Sausages with Herbs for HORECA (5 pcs, 650 g) — thermostable | Professional turkey grill sausages for hot dogs, breakfasts, and grilling. Juicy, flavorful, and retain their shape during cooking. | Professional Grill Sausages with Herbs are an excellent solution for HORECA, fast food, and hot dogs. Thanks to their thermostable formulation, they retain their shape and juiciness when cooked on a grill, roller grill, or frying pan. The aroma of herbs and spices gives the product a rich and appetizing flavor. Ingredients: turkey meat, milk powder, water, flour, vegetable fiber, salt, and a complex blend of spices. No casing. Shelf life: 360 days at -18°C.",
       "diameter": "24",
       "casing": "без оболочки",
-      "ingredientsRU": "Состав: говядина, мясо кур, сыр полутвердый с МДЖ 45% (молоко коровье нормализованное пастеризованное, закваска на основе молочнокислых мезофильных и термофильных бактерий, соль, уплотнитель хлорид кальция, ферментный препарат животного происхождения: пепсин, химозин), клетчатка пшеничная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), белок растительный, регуляторы кислотности (Е450, Е451), пряности (мускатный орех, перец душистый, кориандр, чеснок), усилитель вкуса и аромата (Е621), антиокислители (Е300, Е301), экстракты пряностей.",
-      "ingredientsEN": "Ingredients: beef, chicken meat, semi-hard cheese with 45% MJ (normalized pasteurized cow's milk, starter culture based on lactic acid mesophilic and thermophilic bacteria, salt, calcium chloride sealer, enzyme preparation of animal origin: pepsin, chymosin), wheat fiber, nitrite-salt mixture (salt, sodium nitrite E250), vegetable protein, acidity regulators (E450, E451), spices (nutmeg, allspice, coriander, garlic), flavor enhancer (E621), antioxidants (E300, E301), spice extracts.",
+      "ingredientsRU": "",
+      "ingredientsEN": "",
       "nutrition": "",
       "packageType": "Вакуум",
       "image": "https://pepperoni.tatar/images/products/kd-006-main.jpg?v=866fa4f8",
       "imageMain": "https://pepperoni.tatar/images/products/kd-006-main.jpg?v=866fa4f8",
       "imagePack": "https://pepperoni.tatar/images/products/kd-006-pack.jpg?v=424b65a2",
-      "imageSlice": "https://pepperoni.tatar/images/products/kd-006-slice.jpg?v=5a0e9726"
+      "imageSlice": "https://pepperoni.tatar/images/products/kd-006-slice.jpg?v=5a0e9726",
+      "specHold": {
+        "fields": [
+          "ingredientsRU",
+          "ingredientsEN"
+        ],
+        "since": "2026-09-11",
+        "noteRU": "Спецификация уточняется. Запросите актуальную маркировку у отдела продаж: +7 987 217-02-02, info@kazandelikates.tatar.",
+        "noteEN": "Specification under review. Request the current label from sales: +7 987 217-02-02, info@kazandelikates.tatar."
+      }
     },
     {
       "name": "Сосиски «С сыром» (130 г × 5 шт)",
@@ -311,14 +320,23 @@
       "seoDescriptionEN": "Hot Dog Grill Sausages with Cheese (130 g × 5 pcs) | Hot Dog Grill Sausages with Cheese for HORECA (5 pcs, 650 g) — thermostable | Professional hot dog grill sausages with cheese for hot dogs, breakfasts, and grills. Juicy, flavorful, and retain their shape during cooking. | Professional grilled sausages with cheese are an excellent solution for HORECA, fast food, and hot dogs. Thanks to their thermostable formula, they retain their shape and juiciness when cooked on a grill, roller grill, or frying pan. The delicate melted cheese and balanced spices give the product a rich flavor. Ingredients: beef, turkey meat, hard cheese (50% fat), flour, vegetable fiber, water, salt, sodium nitrite, and a complex blend of spices. No casing. Shelf life: 360 days at –18 °C.",
       "diameter": "24",
       "casing": "без оболочки",
-      "ingredientsRU": "Состав: конина, говядина, мясо птицы (кур), кожа кур, вода, мука пшеничная, клетчатка растительная, нитритно-посолочная смесь (соль пищевая, нитрит натрия Е250), сахар, перец черный, кардамон молотый, регуляторы кислотности (Е223, Е262), антиокислитель (Е301).",
-      "ingredientsEN": "Ingredients: horse meat, beef, poultry meat (chicken), chicken skin, water, wheat flour, vegetable fiber, nitrite-salting mixture (food salt, sodium nitrite E250), sugar, black pepper, ground cardamom, acidity regulators (E223, E262), and antioxidant (E301).",
+      "ingredientsRU": "",
+      "ingredientsEN": "",
       "nutrition": "",
       "packageType": "Вакуум",
       "image": "https://pepperoni.tatar/images/products/kd-007-main.jpg?v=dd2f328f",
       "imageMain": "https://pepperoni.tatar/images/products/kd-007-main.jpg?v=dd2f328f",
       "imagePack": "https://pepperoni.tatar/images/products/kd-007-pack.jpg?v=1ef0d1d8",
-      "imageSlice": "https://pepperoni.tatar/images/products/kd-007-slice.jpg?v=5a0e9726"
+      "imageSlice": "https://pepperoni.tatar/images/products/kd-007-slice.jpg?v=5a0e9726",
+      "specHold": {
+        "fields": [
+          "ingredientsRU",
+          "ingredientsEN"
+        ],
+        "since": "2026-09-11",
+        "noteRU": "Спецификация уточняется. Запросите актуальную маркировку у отдела продаж: +7 987 217-02-02, info@kazandelikates.tatar.",
+        "noteEN": "Specification under review. Request the current label from sales: +7 987 217-02-02, info@kazandelikates.tatar."
+      }
     },
     {
       "name": "Сосиски Из конины\" (80 г х 6 шт)",

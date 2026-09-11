@@ -1,0 +1,21 @@
+{
+  "_doc": "Information quarantine for catalog fields whose published value contradicts the product name. Applied to public/products.json by scripts/apply_spec_holds.py right after sync-sheets.mjs (sync-vps.sh step 1a). Held fields are blanked in every public representation (JSON/API, RU/EN cards, llms.txt, category pages) and replaced by a 'specification under review' note; the raw Sheet values stay in Google Sheets and in data/spec_holds_raw-<date>.json for the technologist. Remove an entry only after the technologist confirms the row against label photo + specification (docs/sprint-2026-09/technologist-questions.md #14, #15). This is a publication hold, not a statement about physical batches.",
+  "holds": {
+    "KD-006": {
+      "fields": ["ingredientsRU", "ingredientsEN"],
+      "since": "2026-09-11",
+      "reason": "Name «С травами» but published ingredients list semi-hard cheese and no herbs.",
+      "ticket": "technologist-questions.md #14",
+      "exclude_from_commercial_pages": true
+    },
+    "KD-007": {
+      "fields": ["ingredientsRU", "ingredientsEN"],
+      "since": "2026-09-11",
+      "reason": "Name «С сыром» but published ingredients start with horse meat and never mention cheese.",
+      "ticket": "technologist-questions.md #15",
+      "exclude_from_commercial_pages": true
+    }
+  },
+  "note_ru": "Спецификация уточняется. Запросите актуальную маркировку у отдела продаж: +7 987 217-02-02, info@kazandelikates.tatar.",
+  "note_en": "Specification under review. Request the current label from sales: +7 987 217-02-02, info@kazandelikates.tatar."
+}

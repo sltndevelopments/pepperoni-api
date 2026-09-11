@@ -580,7 +580,10 @@ def _product_detail_cards(all_products: list[dict]) -> str:
             if cur_line:
                 out += f"- Экспортные цены: {cur_line}\n"
 
-        if p.get("ingredientsRU"):
+        hold = p.get("specHold") or {}
+        if "ingredientsRU" in hold.get("fields", []):
+            out += f"- Состав: временно не публикуется. {hold.get('noteRU', 'Спецификация уточняется.')}\n"
+        elif p.get("ingredientsRU"):
             out += f"- Состав: {_normalize_spaces(p['ingredientsRU'])}\n"
         if p.get("nutrition"):
             out += f"- Пищевая ценность: {_normalize_spaces(p['nutrition'])}\n"
@@ -1322,7 +1325,10 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
             if cur_line:
                 out += f"- Export prices: {cur_line}\n"
 
-        if p.get("ingredientsEN"):
+        hold = p.get("specHold") or {}
+        if "ingredientsEN" in hold.get("fields", []):
+            out += f"- Ingredients: temporarily not published. {hold.get('noteEN', 'Specification under review.')}\n"
+        elif p.get("ingredientsEN"):
             out += f"- {_normalize_spaces(p['ingredientsEN'])}\n"
         if p.get("seoDescriptionEN"):
             out += f"\n{_normalize_spaces(p['seoDescriptionEN'])}\n"

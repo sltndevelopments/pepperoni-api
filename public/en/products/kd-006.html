@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preload" as="image" href="https://pepperoni.tatar/images/products/kd-006-main.jpg?v=866fa4f8" fetchpriority="high">
@@ -80,8 +86,32 @@ footer a{color:#444;text-decoration:none}
 @media(max-width:767px){.product-thumbs{gap:10px}}
 @media(max-width:480px){.product-thumbs{gap:8px}}
 </style>
-<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="Yandex Metrika" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="Yandex Metrika" width="1" height="1" loading="lazy" /></div></noscript>
 <!-- /Yandex.Metrika counter -->
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -140,11 +170,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <button type="submit" style="background:#1b7a3d;color:#fff;border:0;padding:10px 16px;border-radius:6px;font-weight:600;font-size:.85rem;cursor:pointer">Request Quote</button>
   <p class="lead-form__status" role="status" aria-live="polite" style="font-size:.8rem;margin:0"></p>
 </form>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 </div>
 </div>
 </div>
-<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody><tr><td class="specs-key">SKU</td><td class="specs-val">999970</td></tr><tr><td class="specs-key">Net weight</td><td class="specs-val">0.65 kg</td></tr><tr><td class="specs-key">Barcode</td><td class="specs-val">4680638720936</td></tr><tr><td class="specs-key">Diameter</td><td class="specs-val">24 mm</td></tr><tr><td class="specs-key">Casing</td><td class="specs-val">No casing</td></tr><tr><td class="specs-key">Shelf life</td><td class="specs-val">360 days</td></tr><tr><td class="specs-key">Storage</td><td class="specs-val">–18°C</td></tr><tr><td class="specs-key">Box weight gross</td><td class="specs-val">5.2</td></tr><tr><td class="specs-key">Packaging</td><td class="specs-val">Vacuum</td></tr></tbody></table></div><div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">Ingredients: beef, chicken meat, semi-hard cheese with 45% MJ (normalized pasteurized cow's milk, starter culture based on lactic acid mesophilic and thermophilic bacteria, salt, calcium chloride sealer, enzyme preparation of animal origin: pepsin, chymosin), wheat fiber, nitrite-salt mixture (salt, sodium nitrite E250), vegetable protein, acidity regulators (E450, E451), spices (nutmeg, allspice, coriander, garlic), flavor enhancer (E621), antioxidants (E300, E301), spice extracts.</p></div>
+<div class="section-block"><h2 class="section-title">Technical specs</h2><table class="specs-table"><tbody><tr><td class="specs-key">SKU</td><td class="specs-val">999970</td></tr><tr><td class="specs-key">Net weight</td><td class="specs-val">0.65 kg</td></tr><tr><td class="specs-key">Barcode</td><td class="specs-val">4680638720936</td></tr><tr><td class="specs-key">Diameter</td><td class="specs-val">24 mm</td></tr><tr><td class="specs-key">Casing</td><td class="specs-val">No casing</td></tr><tr><td class="specs-key">Shelf life</td><td class="specs-val">360 days</td></tr><tr><td class="specs-key">Storage</td><td class="specs-val">–18°C</td></tr><tr><td class="specs-key">Box weight gross</td><td class="specs-val">5.2</td></tr><tr><td class="specs-key">Packaging</td><td class="specs-val">Vacuum</td></tr></tbody></table></div><div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#8a5a00;background:#fff7e6;border:1px solid #f0d9a8;border-radius:8px;padding:10px 12px;line-height:1.6;margin:0"><strong>Ingredients temporarily not published.</strong> Specification under review. Request the current label from sales: +7 987 217-02-02, info@kazandelikates.tatar.</p></div>
 <div class="section-block"><h2 class="section-title">Cooking methods</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">Methods: Grill, roller grill, griddle or pan.</p></div>
 <div class="section-block"><h2 class="section-title">Application & wholesale</h2><p style="font-size:.95rem;color:#333;line-height:1.7;margin:0 0 12px">“Herb Sausages (130g × 5 pcs)” is a current Kazan Delicacies catalog item. Use the specification on this page for ingredients, weight, storage, packaging and price; suitability for a particular menu or process must be confirmed against the buyer's technical brief.</p><p style="font-size:.95rem;color:#333;line-height:1.7;margin:0">Commercial terms and any private-label changes are confirmed only after the SKU and buyer specification are reviewed.</p></div><div class="section-block"><h2 class="section-title">Halal & quality</h2><p style="font-size:.95rem;color:#333;line-height:1.7;margin:0">Halal status is supported by DUM RT certificate No. 614A/2024. Request the current certificate and product documents for the proposed order.</p></div><div class="section-block"><h2 class="section-title">FAQ</h2><details style="margin:0 0 8px;border:1px solid #eee;border-radius:8px;padding:10px 14px"><summary style="font-weight:600;cursor:pointer;font-size:.95rem">Can I order wholesale?</summary><p style="font-size:.9rem;color:#444;line-height:1.6;margin:8px 0 0">Yes. Request the current case packing, minimum order, availability and logistics for this SKU.</p></details><details style="margin:0 0 8px;border:1px solid #eee;border-radius:8px;padding:10px 14px"><summary style="font-weight:600;cursor:pointer;font-size:.95rem">How is halal status verified?</summary><p style="font-size:.9rem;color:#444;line-height:1.6;margin:8px 0 0">Kazan Delicacies uses Halal certification by DUM RT. Request the current certificate and SKU documents for supplier qualification.</p></details></div><footer>
 <p><a href="/en/pepperoni">Pepperoni</a> · <a href="/en/about">About</a> · <a href="/en/faq">FAQ</a> · <a href="/en/delivery">Delivery</a> · <a href="/openapi.yaml">API for Distributors</a></p>

@@ -14,6 +14,13 @@ mkdir -p "$DATA_DIR"
 cd "$REPO_DIR"
 node scripts/sync-sheets.mjs
 
+# 1a. Information quarantine (data/spec_holds.json): blank fields whose Sheet
+# value contradicts the product name (KD-006/KD-007 ingredients, 2026-09-11)
+# before any generator reads products.json. Blocking: a held field must never
+# reach cards, llms, API or category pages. Raw values stay in Sheets.
+python3 scripts/apply_spec_holds.py
+python3 scripts/apply_spec_holds.py --check
+
 # 1b. Regenerate rich product pages (RU + EN) with gallery, SEO, Cloudinary images.
 # sync-sheets.mjs writes simple single-image pages; gen-ru/en-products.py override
 # them with the full gallery (imageMain + imagePack + imageSlice thumbnails).

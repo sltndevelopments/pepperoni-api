@@ -308,6 +308,11 @@ def build_page(cfg):
 
 CATALOG_META = json.loads((PUBLIC / "products.json").read_text())
 LAST_SYNCED = CATALOG_META.get("lastSynced", "")
+_HOLDS_PATH = Path(__file__).parent.parent / "data" / "spec_holds.json"
+HELD_COMMERCIAL = {
+    sku for sku, h in (json.loads(_HOLDS_PATH.read_text(encoding="utf-8")).get("holds", {}) if _HOLDS_PATH.exists() else {}).items()
+    if h.get("exclude_from_commercial_pages")
+}
 
 COMMERCIAL_STYLE = """
     .container{max-width:1040px}
@@ -317,6 +322,7 @@ COMMERCIAL_STYLE = """
     .hero-facts dt:first-child{margin-top:0}
     .hero-facts dd{font-weight:600}
     .price-note{font-size:.85rem;color:#666;margin:6px 0 18px}
+    .hold-note{font-size:.85rem;color:#8a5a00;background:#fff7e6;border:1px solid #f0d9a8;border-radius:8px;padding:10px 12px;margin:-8px 0 18px}
     .sku-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin:16px 0 8px}
     .sku{background:#fff;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
     .sku img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f3f3f3;display:block}
@@ -351,7 +357,8 @@ COMMERCIAL_STYLE = """
     .clarify li{margin-bottom:8px;font-size:.92rem}
     .contact-line{font-size:.95rem;margin-top:10px}
     .contact-line a{color:#1b7a3d;font-weight:600;text-decoration:none}
-    @media(max-width:720px){.hero,.order{grid-template-columns:1fr}}
+    .sku label.pick input{width:20px;height:20px;accent-color:#1b7a3d}
+    @media(max-width:720px){.hero,.order{grid-template-columns:1fr}h1{font-size:1.5rem}.sku label.pick{padding:8px 0;min-height:40px}.badge{margin-bottom:8px}}
 """
 
 COMMERCIAL_T = {
@@ -361,12 +368,13 @@ COMMERCIAL_T = {
         "h1": "Сосиски для хот-догов халяль — оптом от производителя",
         "meta": "{n} позиций сосисок для хот-догов халяль: форматы {fmts}, цены за упаковку с НДС по каталогу на {date}, заморозка {storage} и срок годности {shelf}. Фото, масса, ссылки на карточки и форма запроса условий.",
         "eyebrow": "Казанские Деликатесы · Казань · каталог синхронизирован {date}",
-        "lead": "Ниже — все {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
+        "lead": "Ниже — {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
         "facts_h": "Общее для категории",
         "f_formats": "Форматы", "f_storage": "Хранение", "f_shelf": "Срок годности", "f_pack": "Упаковка",
         "f_cert": "Сертификаты", "cert": "Халяль ДУМ РТ № 614A/2024 · ХАССП · ISO 22000:2018 · ТР ТС 021/2011",
-        "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм и за штуку рассчитана из цены и массы упаковки. Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/wholesale-price-list-ru.md\">MD</a> · <a href=\"/wholesale-price-list-ru.txt\">TXT</a>.",
+        "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм = цена упаковки с НДС ÷ масса нетто (округление до рубля); цена за штуку — из каталога (с НДС, до копейки). Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/wholesale-price-list-ru.md\">MD</a> · <a href=\"/wholesale-price-list-ru.txt\">TXT</a>.",
         "h_assort": "Ассортимент — {n} позиций",
+        "hold_note": "Ещё {n_held} позиции категории ({held_list}) временно не показаны: по ним уточняется спецификация состава. Актуальную маркировку запрашивайте у отдела продаж.",
         "per_pack": "за упаковку", "excl": "без НДС {v} ₽", "per_kg": "≈ {v} ₽/кг", "per_pc": "≈ {v} ₽/шт",
         "store": "{storage}, {shelf}", "box": "короб {v} кг брутто",
         "card": "Карточка →", "pick": "В запрос",
@@ -396,7 +404,7 @@ COMMERCIAL_T = {
         "h_faq": "Частые вопросы",
         "faq": [
             ("В каких форматах выпускаются сосиски для хот-догов?",
-             "В двух: {fmts}. Масса нетто упаковки — {weights}. Все позиции без оболочки, в вакуумной упаковке."),
+             "Показанные позиции: {fmts}; масса нетто упаковки — {weights}. Все позиции без оболочки, в вакуумной упаковке. Полный перечень форматов категории подтверждает отдел продаж."),
             ("Как хранить и какой срок годности?",
              "Заморозка {storage}, срок годности {shelf} в закрытой упаковке. Условия после размораживания и вскрытия — на этикетке и в карточке товара."),
             ("Из какого мяса сосиски и где посмотреть состав?",
@@ -416,12 +424,13 @@ COMMERCIAL_T = {
         "h1": "Halal hot dog sausages — wholesale from the manufacturer",
         "meta": "{n} halal hot dog sausage SKUs: formats {fmts}, per-pack prices incl. VAT from the catalog as of {date}, frozen at {storage}, shelf life {shelf}. Photos, weights, product links and an enquiry form.",
         "eyebrow": "Kazan Delicacies · Kazan, Russia · catalog synced {date}",
-        "lead": "All {n} SKUs of the category from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, minimum lot and delivery.",
+        "lead": "{n} SKUs of the category from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, minimum lot and delivery.",
         "facts_h": "Category facts",
         "f_formats": "Formats", "f_storage": "Storage", "f_shelf": "Shelf life", "f_pack": "Packaging",
         "f_cert": "Certificates", "cert": "Halal DUM RT No. 614A/2024 · HACCP · ISO 22000:2018 · TR CU 021/2011",
-        "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg and per-piece figures are derived from pack price and net weight. Volume pricing is confirmed by sales. Full price list: <a href=\"/wholesale-price-list.md\">MD</a> · <a href=\"/wholesale-price-list.txt\">TXT</a>.",
+        "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg = pack price incl. VAT ÷ net weight (rounded to the rouble); per-piece comes from the catalog (incl. VAT, to the kopeck). Volume pricing is confirmed by sales. Full price list: <a href=\"/wholesale-price-list.md\">MD</a> · <a href=\"/wholesale-price-list.txt\">TXT</a>.",
         "h_assort": "Assortment — {n} SKUs",
+        "hold_note": "{n_held} more SKUs of this category ({held_list}) are temporarily not shown while their ingredient specification is being verified. Request the current label from sales.",
         "per_pack": "per pack", "excl": "excl. VAT {v} ₽", "per_kg": "≈ {v} ₽/kg", "per_pc": "≈ {v} ₽/pc",
         "store": "{storage}, {shelf}", "box": "case {v} kg gross",
         "card": "Product page →", "pick": "Add to enquiry",
@@ -451,7 +460,7 @@ COMMERCIAL_T = {
         "h_faq": "FAQ",
         "faq": [
             ("Which formats are the hot dog sausages made in?",
-             "Two: {fmts}. Net pack weight — {weights}. All SKUs are skinless, vacuum packed."),
+             "SKUs shown here: {fmts}; net pack weight — {weights}. All SKUs are skinless, vacuum packed. Sales confirms the full list of formats in the category."),
             ("How are they stored and what is the shelf life?",
              "Frozen at {storage}, shelf life {shelf} in sealed packaging. Conditions after thawing and opening are on the label and product page."),
             ("What meat are they made from and where is the ingredient list?",
@@ -519,7 +528,13 @@ def build_commercial_page(cfg, lang):
     global _DECIMAL_COMMA
     _DECIMAL_COMMA = lang == "ru"
     t = COMMERCIAL_T[lang]
-    products = get_products_by_category(cfg["categories"])
+    all_products = get_products_by_category(cfg["categories"])
+    # Information quarantine: SKUs whose Sheet row contradicts their name are
+    # kept out of the active pick list until the technologist confirms them
+    # (data/spec_holds.json, exclude_from_commercial_pages). Counts, table and
+    # JSON-LD are computed from the shown set only — no "8 SKUs" promise with 6 shown.
+    held = [p for p in all_products if p["sku"] in HELD_COMMERCIAL]
+    products = [p for p in all_products if p["sku"] not in HELD_COMMERCIAL]
     if not products:
         raise SystemExit(f"no products for {cfg['categories']}")
 
@@ -540,7 +555,9 @@ def build_commercial_page(cfg, lang):
     weights_s = ("; ".join(f"{_fmt_money(w, 2)} kg" for w in weights) if lang == "en"
                  else "; ".join(f"{_fmt_money(w, 2)} кг" for w in weights))
     ctx = {"n": len(products), "fmts": fmts, "date": LAST_SYNCED, "storage": " / ".join(storage),
-           "shelf": " / ".join(shelf), "weights": weights_s}
+           "shelf": " / ".join(shelf), "weights": weights_s, "n_held": len(held),
+           "held_list": ", ".join(f"{p['sku']} {_clean_name(p, lang)}" for p in held)}
+    hold_note = t["hold_note"].format(**ctx) if held else ""
 
     url = f"https://pepperoni.tatar{t['prefix']}/{cfg['slug']}"
     ru_url = f"https://pepperoni.tatar/{cfg['slug']}"
@@ -555,11 +572,13 @@ def build_commercial_page(cfg, lang):
         excl = _num(o.get("priceExclVAT"))
         w = _num(p.get("weight"))
         per_kg = price / w if price and w else None
+        # ₽/pc comes only from offers.pricePerPiece (Sheet column / sync-sheets.mjs);
+        # the piece count parsed from the name is display-only and must agree with it.
         per_pc = _num(o.get("pricePerPiece"))
-        if per_pc is None and price:
-            m = _FMT_RE.search(p["name"])
-            per_pc = price / int(m.group(2)) if m else None
         fmt = _pack_format(p, lang)
+        m = _FMT_RE.search(p["name"])
+        if per_pc and price and m and abs(per_pc * int(m.group(2)) - price) > 1.0:
+            fmt = ""  # name and price-per-piece disagree → do not show a pack format
         name = _clean_name(p, lang)
         sku = p["sku"]
         img = p.get("imageMain") or p.get("image") or ""
@@ -656,6 +675,7 @@ def build_commercial_page(cfg, lang):
 
   <h2 id="assortiment">{t['h_assort'].format(**ctx)}</h2>
   <p class="price-note">{t['price_note'].format(**ctx)}</p>
+{('  <p class="hold-note">' + hold_note + '</p>') if hold_note else ''}
   <div class="sku-grid">
 {chr(10).join(cards)}
   </div>
@@ -965,7 +985,8 @@ def main():
                 print(f"✅ en/{out_en.name} (commercial)")
             else:
                 print(f"⏭️  en/{out_en.name} skipped (not in index allowlist)")
-            print(f"✅ {out.name} (commercial, {len(get_products_by_category(cfg['categories']))} SKU)")
+            shown = [p for p in get_products_by_category(cfg["categories"]) if p["sku"] not in HELD_COMMERCIAL]
+            print(f"✅ {out.name} (commercial, {len(shown)} SKU shown, {len(HELD_COMMERCIAL & {p['sku'] for p in get_products_by_category(cfg['categories'])})} on hold)")
             created += 1
             continue
         html = build_page(cfg)

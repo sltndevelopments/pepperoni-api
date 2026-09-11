@@ -703,7 +703,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 '''
         html += specs_table
-        if p.get("ingredientsEN"):
+        hold = p.get("specHold") or {}
+        if {"ingredientsEN", "ingredientsRU"} & set(hold.get("fields", [])):
+            note = (hold.get("noteEN") or "Specification under review. Request the current label from sales.").replace("<", "&lt;")
+            html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#8a5a00;background:#fff7e6;border:1px solid #f0d9a8;border-radius:8px;padding:10px 12px;line-height:1.6;margin:0"><strong>Ingredients temporarily not published.</strong> {note}</p></div>\n'
+        elif p.get("ingredientsEN"):
             ing = cleanse_ingredients(p["ingredientsEN"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Ingredients</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         elif p.get("ingredientsRU"):

@@ -683,7 +683,11 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 </div>
 '''
         html += specs_table
-        if p.get("ingredientsRU"):
+        hold = p.get("specHold") or {}
+        if "ingredientsRU" in hold.get("fields", []):
+            note = (hold.get("noteRU") or "Спецификация уточняется. Запросите актуальную маркировку у отдела продаж.").replace("<", "&lt;")
+            html += f'<div class="section-block"><h2 class="section-title">Состав</h2><p style="font-size:.9rem;color:#8a5a00;background:#fff7e6;border:1px solid #f0d9a8;border-radius:8px;padding:10px 12px;line-height:1.6;margin:0"><strong>Состав временно не публикуется.</strong> {note}</p></div>\n'
+        elif p.get("ingredientsRU"):
             ing = cleanse_ingredients(p["ingredientsRU"]).replace("<", "&lt;").replace(">", "&gt;")
             html += f'<div class="section-block"><h2 class="section-title">Состав</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{ing}</p></div>\n'
         if p.get("cookingMethods"):
