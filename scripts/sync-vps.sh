@@ -59,6 +59,14 @@ python3 scripts/fix_schema.py
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py
 
+# 1f. Truth gates (blocking): numbers on cards / catalogs / 4 price lists must
+# equal products.json, and no public surface (AI manifests, llms, OpenAPI,
+# titles, JSON-LD, page text) may attach a meat or curing method to
+# "pepperoni" that the catalog does not have. A Sheets change that removes a
+# SKU makes stale prose fail here instead of going live.
+python3 scripts/check_fact_consistency.py
+python3 scripts/check_product_claims.py --quiet
+
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
 

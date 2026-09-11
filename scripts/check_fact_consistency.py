@@ -7,7 +7,7 @@ price, net weight, shelf life and storage must appear in:
   * EN card  public/en/products/kd-NNN.html   (JSON-LD Offer price + visible kg)
   * static catalog blocks in index.html, en/index.html, products/index.html,
     en/products/index.html                    (weight + ₽ next to the SKU link)
-  * price lists public/wholesale-price-list-ru.md / wholesale-price-list.md
+  * all four price lists public/wholesale-price-list{,-ru}.{md,txt}
 
 A mismatch is reported with the fact's decision owner: price → sales (Sheet),
 weight/shelf life/storage/cooking → technologist (Sheet), EN name → owner-
@@ -84,6 +84,30 @@ def pricelist_row(md: str, sku: str) -> dict | None:
     return None
 
 
+def pricelist_row_txt(txt: str, sku: str) -> dict | None:
+    """Plain-text price list: `KD-NNN  Name` line followed by two indented
+    `Label: value | Label: value` lines (RU and EN labels differ)."""
+    lines = txt.splitlines()
+    for i, line in enumerate(lines):
+        if not line.startswith(f"{sku}  "):
+            continue
+        fields = {}
+        for extra in lines[i + 1:i + 3]:
+            for cell in extra.split("|"):
+                if ":" in cell:
+                    k, v = cell.split(":", 1)
+                    fields[k.strip().lower()] = v.strip()
+        def pick(*keys):
+            for k in fields:
+                if any(k.startswith(x) for x in keys):
+                    return fields[k]
+            return ""
+        return {"name": line.split("  ", 1)[1].strip(),
+                "weight": num(pick("масса", "net weight")), "price": num(pick("цена", "price")),
+                "shelf": pick("срок", "shelf"), "storage": pick("хранение", "storage")}
+    return None
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--csv", type=Path)
@@ -96,8 +120,9 @@ def main() -> int:
         ("ru", "products/index.html"): (PUBLIC / "products" / "index.html").read_text(encoding="utf-8"),
         ("en", "en/products/index.html"): (PUBLIC / "en" / "products" / "index.html").read_text(encoding="utf-8"),
     }
-    pl_ru = (PUBLIC / "wholesale-price-list-ru.md").read_text(encoding="utf-8")
-    pl_en = (PUBLIC / "wholesale-price-list.md").read_text(encoding="utf-8")
+    pricelists = {rel: (PUBLIC / rel).read_text(encoding="utf-8") for rel in (
+        "wholesale-price-list-ru.md", "wholesale-price-list.md",
+        "wholesale-price-list-ru.txt", "wholesale-price-list.txt")}
 
     issues: list[dict] = []
 
@@ -147,8 +172,8 @@ def main() -> int:
             if price is not None and not close(price, pr, 0.51):  # catalog rounds to whole ₽
                 issue(sku, "price", rel, price, pr)
 
-        for rel, md in (("wholesale-price-list-ru.md", pl_ru), ("wholesale-price-list.md", pl_en)):
-            row = pricelist_row(md, sku)
+        for rel, body in pricelists.items():
+            row = (pricelist_row_txt if rel.endswith(".txt") else pricelist_row)(body, sku)
             if not row:
                 issue(sku, "pricelist", rel, "row", "missing")
                 continue
@@ -156,12 +181,12 @@ def main() -> int:
                 issue(sku, "price", rel, price, row["price"])
             if weight is not None and not close(weight, row["weight"], 0.0011):
                 issue(sku, "weight", rel, weight, row["weight"])
-            if rel.endswith("-ru.md") and shelf and row["shelf"] != shelf:
+            if "-ru." in rel and shelf and row["shelf"] != shelf:
                 issue(sku, "shelfLife", rel, shelf, row["shelf"])
             if storage and row["storage"] != storage:
                 issue(sku, "storage", rel, storage, row["storage"])
 
-    print(f"fact consistency: {len(products)} SKU checked across cards, catalogs, price lists → "
+    print(f"fact consistency: {len(products)} SKU checked across cards, catalogs, 4 price lists → "
           f"{len(issues)} mismatch(es)")
     for i in issues[:60]:
         print(f"  {i['sku']} {i['fact']:<9} {i['where']:<40} expected={i['expected']} found={i['found']}  [{i['owner']}]")
