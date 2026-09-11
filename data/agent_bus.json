@@ -70079,8 +70079,2576 @@
    "created_at": "2026-09-10T05:31:07.739630+00:00",
    "updated_at": "2026-09-10T05:31:07.739638+00:00",
    "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5882",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "казылык это",
+    "page": "https://pepperoni.tatar/blog/what-is-kazylyk",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:казылык это"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «казылык это» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.095235+00:00",
+   "updated_at": "2026-09-10T06:00:03.095244+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5883",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "echpochmak",
+    "page": "https://pepperoni.tatar/en/blog/what-is-echpochmak",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:echpochmak"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «echpochmak» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.209519+00:00",
+   "updated_at": "2026-09-10T06:00:03.209527+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5884",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "ветчина это халал",
+    "page": "https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:ветчина это халал"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «ветчина это халал» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.326031+00:00",
+   "updated_at": "2026-09-10T06:00:03.326047+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5885",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "эчпочмак это",
+    "page": "https://pepperoni.tatar/blog/what-is-echpochmak",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:эчпочмак это"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «эчпочмак это» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.439025+00:00",
+   "updated_at": "2026-09-10T06:00:03.439034+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5886",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "губадия это",
+    "page": "https://pepperoni.tatar/blog/gubadiya-chto-eto",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:губадия это"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «губадия это» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.546508+00:00",
+   "updated_at": "2026-09-10T06:00:03.546517+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260910-5887",
+   "from": "outcome_tracker",
+   "to": "fable",
+   "type": "fix_failing_page",
+   "payload": {
+    "query": "chicken ham halal",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "verdict": "not_indexed",
+    "current_pos": null,
+    "was": null,
+    "_dedup": "failing:chicken ham halal"
+   },
+   "status": "pending",
+   "trigger": "outcome.failing",
+   "note": "НЕ сработало: «chicken ham halal» — not_indexed (поз None→None). Чинить существующую страницу.",
+   "created_at": "2026-09-10T06:00:03.651894+00:00",
+   "updated_at": "2026-09-10T06:00:03.651902+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5888",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79083346642",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: АгроПовыж\nКонтакт: Артур\nТелефон: +79083346642\nЗвонили с номера: +79083346642\nЗапрос: оптовая закупка продукции\nID звонка: CA9bda51d8e0dbbe4c472af1b0d94ac7d6",
+    "_dedup": "lead:-1003605994166:813"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:09.879983+00:00",
+   "updated_at": "2026-09-11T05:30:09.879992+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5889",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79083346642",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКомпания: Кораблёв и партнёры\nКонтакт: Артур\nТелефон: +79083346642\nЗвонили с номера: +79956860773\nГород: Набережные Челны\nЗапрос: сосиски для хот-догов\nОбъём: тонну\nДоставка: Доставка по РФ\nЗаметки: Оптовый запрос. Менеджер уточнит ",
+    "_dedup": "lead:-1003605994166:811"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:09.997942+00:00",
+   "updated_at": "2026-09-11T05:30:09.998003+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5890",
+   "from": "handoff",
+   "to": "fable",
+   "type": "strengthen_landing",
+   "payload": {
+    "cluster": "/sosiski-hotdog",
+    "evidence": "real_commercial_lead",
+    "lead_text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКомпания: Кораблёв и партнёры\nКонтакт: Артур\nТелефон: +79083346642\nЗвонили с номера: +79956860773\nГород: Набережные Челны\nЗапрос: со",
+    "_dedup": "cluster:/sosiski-hotdog"
+   },
+   "status": "pending",
+   "trigger": "lead.cluster_match",
+   "note": "Живой коммерческий лид по /sosiski-hotdog — усилить страницу/оффер",
+   "created_at": "2026-09-11T05:30:10.113534+00:00",
+   "updated_at": "2026-09-11T05:30:10.113546+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5891",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+78432216858",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +78432216858\nЗвонили с номера: +78432216858\nЗапрос: арендные квартиры\nЗаметки: Клиент сообщил предложение по аренде квартир. Направлено в общий порядок обработки комм",
+    "_dedup": "lead:-1003605994166:804"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:10.222528+00:00",
+   "updated_at": "2026-09-11T05:30:10.222536+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5892",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79197837668",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Константин\nТелефон: +79197837668\nЗвонили с номера: +79197837668\nЗапрос: оптовая закупка замороженных сосисок\nID звонка: CAbd7c71368a499beb79817ab4e8b9b272",
+    "_dedup": "lead:-1003605994166:801"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:10.325095+00:00",
+   "updated_at": "2026-09-11T05:30:10.325102+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5893",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79277239343",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: Раиль\nКонтакт: Дмитрий\nТелефон: +79277239343\nЗвонили с номера: +79278239343\nЗапрос: статус заказа\nID звонка: CA3aff3b0a3e0600817df66216cc2afa62",
+    "_dedup": "lead:-1003605994166:800"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:10.430478+00:00",
+   "updated_at": "2026-09-11T05:30:10.430486+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5894",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79226680105",
+    "text": "⚠️ Звонок — нужен менеджер\nПричина: Клиент хочет общения с менеджером и отказался разговаривать с ботом; требуется обработка менеджером.\nПравило: manager_request\nЗвонивший: +79226680105\nКонтакт: Валерий\nИнтерес: Оптовые поставки: элеш и/или эчпочмак, заморозка, ассортимент, в коробках. Город Киров.\n",
+    "_dedup": "lead:-1003605994166:798"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:10.536390+00:00",
+   "updated_at": "2026-09-11T05:30:10.536419+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5895",
+   "from": "handoff",
+   "to": "fable",
+   "type": "strengthen_landing",
+   "payload": {
+    "cluster": "/bakery",
+    "evidence": "real_commercial_lead",
+    "lead_text": "⚠️ Звонок — нужен менеджер\nПричина: Клиент хочет общения с менеджером и отказался разговаривать с ботом; требуется обработка менеджером.\nПравило: manager_request\nЗвонивший: +79226680105\nКонтакт: Валер",
+    "_dedup": "cluster:/bakery"
+   },
+   "status": "pending",
+   "trigger": "lead.cluster_match",
+   "note": "Живой коммерческий лид по /bakery — усилить страницу/оффер",
+   "created_at": "2026-09-11T05:30:10.646919+00:00",
+   "updated_at": "2026-09-11T05:30:10.646928+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5896",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79631389233",
+    "text": "Лид (Авито)\n\nТелефон: +79631389233\nИмя (профиль Авито): Пользователь\nОбъявление: Котлеты из говядины для бургера, опт\n\nКомментарий: Казань \nДинис 89631389233",
+    "_dedup": "lead:-1003605994166:794"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:10.755781+00:00",
+   "updated_at": "2026-09-11T05:30:10.755789+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5897",
+   "from": "handoff",
+   "to": "fable",
+   "type": "strengthen_landing",
+   "payload": {
+    "cluster": "/kotlety-burgery",
+    "evidence": "real_commercial_lead",
+    "lead_text": "Лид (Авито)\n\nТелефон: +79631389233\nИмя (профиль Авито): Пользователь\nОбъявление: Котлеты из говядины для бургера, опт\n\nКомментарий: Казань \nДинис 89631389233",
+    "_dedup": "cluster:/kotlety-burgery"
+   },
+   "status": "pending",
+   "trigger": "lead.cluster_match",
+   "note": "Живой коммерческий лид по /kotlety-burgery — усилить страницу/оффер",
+   "created_at": "2026-09-11T05:30:10.867034+00:00",
+   "updated_at": "2026-09-11T05:30:10.867042+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5898",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+7 999 555-44-33",
+    "text": "@Arbi_Bakhoev новый лид LEAD-00002:\nНовая заявка: ООО Ромашка, телефон +7 999 555-44-33, интересует пепперони прайс\n\nСтатус? Следующий шаг? Дедлайн (дата)?\nПример: в работе / отправить прайс / 2026-07-20",
+    "_dedup": "lead:-1003605994166:787"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:10.971400+00:00",
+   "updated_at": "2026-09-11T05:30:10.971409+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5899",
+   "from": "handoff",
+   "to": "fable",
+   "type": "strengthen_landing",
+   "payload": {
+    "cluster": "/pepperoni",
+    "evidence": "real_commercial_lead",
+    "lead_text": "@Arbi_Bakhoev новый лид LEAD-00002:\nНовая заявка: ООО Ромашка, телефон +7 999 555-44-33, интересует пепперони прайс\n\nСтатус? Следующий шаг? Дедлайн (дата)?\nПример: в работе / отправить прайс / 2026-07",
+    "_dedup": "cluster:/pepperoni"
+   },
+   "status": "pending",
+   "trigger": "lead.cluster_match",
+   "note": "Живой коммерческий лид по /pepperoni — усилить страницу/оффер",
+   "created_at": "2026-09-11T05:30:11.071810+00:00",
+   "updated_at": "2026-09-11T05:30:11.071818+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5900",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "+79296273395",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: Дмитрий\nТелефон: +79296273395\nЗвонили с номера: +79296273395\nЗапрос: SEO-продвижение сайта, вывод в топ Яндекса, бесплатный тест 7 дней, гарантия в договоре\nЗаметки: Коммерческо",
+    "_dedup": "lead:-1003605994166:779"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:11.174217+00:00",
+   "updated_at": "2026-09-11T05:30:11.174226+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5901",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79083346642",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79083346642\nЗвонили с номера: +79083346642\nЗапрос: фарш ММО\nЗаметки: Коммерческое предложение от поставщика: фарш ММО.\nID звонка: CA45b98981f9aed5209d2e819a7b4a592d",
+    "_dedup": "lead:-1003605994166:777"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.280561+00:00",
+   "updated_at": "2026-09-11T05:30:11.280570+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5902",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+74996088854",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +74996088854\nЗвонили с номера: +74996088854\nЗапрос: коммерческое предложение\nID звонка: CAe6b2ded99b6a9b69bb2b39c982c7d64d",
+    "_dedup": "lead:-1003605994166:775"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.381548+00:00",
+   "updated_at": "2026-09-11T05:30:11.381556+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5903",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79219520503",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Евгений\nТелефон: +79219520503\nЗвонили с номера: +79219520503\nЗапрос: статус заказа\nID звонка: CAdc0698a9f2839419638beef48c567bad",
+    "_dedup": "lead:-1003605994166:773"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.481948+00:00",
+   "updated_at": "2026-09-11T05:30:11.481956+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5904",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79172988088",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКомпания: мечеть Алтан\nКонтакт: Ашидин\nТелефон: +79172988088\nЗвонили с номера: +79172988088\nГород: Казань\nЗапрос: котлеты для бургеров\nОбъём: 30 котлет\nДоставка: Самовывоз Казань\nЗаметки: Самовывоз из Казани.\nID звонка: CAf63824e0c3",
+    "_dedup": "lead:-1003605994166:771"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.584985+00:00",
+   "updated_at": "2026-09-11T05:30:11.584993+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5905",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79066267625",
+    "text": "⚠️ Звонок — нужен менеджер\nПричина: Непрофильный звонок, не относится к оптовым запросам или работе с продукцией.\nПравило: default\nЗвонивший: +79066267625\nИнтерес: Входящий автоответчик: напоминание о платеже по договору лизинга от «Газпромбанк Автолизинг».\nТелефон: +79066267625\nID: CAfd4ddc13982289",
+    "_dedup": "lead:-1003605994166:768"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.723273+00:00",
+   "updated_at": "2026-09-11T05:30:11.723281+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5906",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79934170300",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79934170300\nЗвонили с номера: +79934170300\nЗапрос: коммерческое предложение\nID звонка: CAd2c204c3f868cca1d0195b4dd9f831c5",
+    "_dedup": "lead:-1003605994166:767"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.825136+00:00",
+   "updated_at": "2026-09-11T05:30:11.825144+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5907",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79211451828",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Габилл Неманович\nТелефон: +79211451828\nЗвонили с номера: +79211451828\nГород: Череповец\nЗапрос: колбасные изделия\nДоставка: Доставка по РФ\nЗаметки: ИП из Череповца. Интересует сотрудничество, колбасные изделия халяль из Каза",
+    "_dedup": "lead:-1003605994166:763"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:11.926771+00:00",
+   "updated_at": "2026-09-11T05:30:11.926780+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5908",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79625590534",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: -\nТелефон: +79625590534\nЗвонили с номера: +79625590534\nГород: Казань\nЗапрос: котлеты для бургеров\nОбъём: 0.5 кг\nЗаметки: Тестовая поставка. Клиент не продиктовал номер до конца; система подставит номер, с которого звонят.\nI",
+    "_dedup": "lead:-1003605994166:758"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.030496+00:00",
+   "updated_at": "2026-09-11T05:30:12.030505+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5909",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79221188951",
+    "text": "Request details:\nemail: ssavina@monetka.ru\nname: Светлана Савина\ncity: Екатеринбург\nphone: +79221188951\nTextarea: Торговая сеть Монетка ищет локальных производителей колбасных изделий в Татарстане\n\nAdditional information:\nTransaction ID: 6685848:8537455983\nBlock ID: rec579236425\nhttps://kazandelikat",
+    "_dedup": "lead:-1003605994166:757"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.167142+00:00",
+   "updated_at": "2026-09-11T05:30:12.167151+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5910",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79205484078",
+    "text": "Лид (Авито)\n\nТелефон: +79205484078\nИмя (профиль Авито): Ольга Махмудова\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: 8-920-548-40-78",
+    "_dedup": "lead:-1003605994166:756"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:12.267395+00:00",
+   "updated_at": "2026-09-11T05:30:12.267404+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5911",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79265119594",
+    "text": "Лид (Авито)\n\nТелефон: +79265119594\nИмя (профиль Авито): Raman\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Московская область Красногорск \n+79265119594\nРаман",
+    "_dedup": "lead:-1003605994166:753"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:12.366464+00:00",
+   "updated_at": "2026-09-11T05:30:12.366474+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5912",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79154165730",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Роман\nТелефон: +79154165730\nЗвонили с номера: +79154165730\nГород: Красногорск\nЗапрос: пепперони и ветчина для пиццы\nДоставка: Доставка по РФ\nЗаметки: Интересует закупка под маржу; уточнял минимальный заказ. Менеджер подтвер",
+    "_dedup": "lead:-1003605994166:751"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.469897+00:00",
+   "updated_at": "2026-09-11T05:30:12.469907+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5913",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79897760609",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Андрей\nТелефон: +79897760609\nЗвонили с номера: +79897760609\nГород: Зеленодольск\nЗапрос: колбаса пепперони\nОбъём: 2 кг\nДоставка: Доставка по РФ\nЗаметки: Клиент хочет купить 2 кг пепперони. Уточнить возможность отгрузки и сро",
+    "_dedup": "lead:-1003605994166:744"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.606260+00:00",
+   "updated_at": "2026-09-11T05:30:12.606268+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5914",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79162996396",
+    "text": "Request details:\nemail: zakupka5@v-opt.ru\nname: Марина Дамески\ncity: Москва\nphone: +79162996396\nTextarea: Добрый день! Являемся крупными дистрибьюторами. Находимся в Москве. Интересуют условия сотрудничества.\n\nAdditional information:\nTransaction ID: 6685848:8534098212\nBlock ID: rec579236425\nhttps://",
+    "_dedup": "lead:-1003605994166:743"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.734596+00:00",
+   "updated_at": "2026-09-11T05:30:12.734604+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5915",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+78432036343",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +78432036343\nЗвонили с номера: +78432036343\nЗапрос: Предложение по поставке ингредиентов для производства\nЗаметки: Коммерческие предложения принимаются только по элек",
+    "_dedup": "lead:-1003605994166:741"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.836524+00:00",
+   "updated_at": "2026-09-11T05:30:12.836535+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5916",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79372808555",
+    "text": "Request details:\nemail: ibatullina.ed@kzn.ssnab.ru\nname: Эльвира\ncity: Казань\nphone: +79372808555\nTextarea: Добрый день! Я- менеджер ГК \"Союзснаб\". Наша компания - крупнейший производитель ингредиентов для пищевой промышленности,в том числе и для мясопереработки. С кем могу пообщаться о сотрудничест",
+    "_dedup": "lead:-1003605994166:739"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:12.942906+00:00",
+   "updated_at": "2026-09-11T05:30:12.942914+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5917",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79108697737",
+    "text": "Лид (Авито)\n\nТелефон: +79108697737\nИмя (профиль Авито): Севанна\nОбъявление: Котлеты говяжьи сырые для бургера, оптом\n\nКомментарий: Г. Калуга\n89108697737\nСеванна",
+    "_dedup": "lead:-1003605994166:737"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:13.041938+00:00",
+   "updated_at": "2026-09-11T05:30:13.041946+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5918",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79295558876",
+    "text": "Лид (Авито)\n\nТелефон: +79295558876\nИмя (профиль Авито): Али\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Раменское\n89295558876\nАлишер",
+    "_dedup": "lead:-1003605994166:736"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:13.176402+00:00",
+   "updated_at": "2026-09-11T05:30:13.176410+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5919",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79035870305",
+    "text": "Лид (Авито)\n\nТелефон: +79035870305\nИмя (профиль Авито): Ксения\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Москва 89035870305 Ксения",
+    "_dedup": "lead:-1003605994166:734"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:13.281719+00:00",
+   "updated_at": "2026-09-11T05:30:13.281728+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5920",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "whatsapp",
+    "phone": "+79656166050",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: ИП Ахтямова\nКонтакт: Марат\nТелефон: +79656166050\nЗвонили с номера: +79656166050\nГород: Арск\nЗапрос: Пекарня: запрос оптовых цен, условия доставки в Арск, подтверждение халяль-сертификата, отправка прайс-листа и сертификата",
+    "_dedup": "lead:-1003605994166:731"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из whatsapp — связаться",
+   "created_at": "2026-09-11T05:30:13.393264+00:00",
+   "updated_at": "2026-09-11T05:30:13.393273+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5921",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79179372019",
+    "text": "Лид (Авито)\n\nТелефон: +79179372019\nИмя (профиль Авито): Svetlana Bakhtigozina\nОбъявление: Пепперони нарезка колбаса халяль мелкий опт\n\nКомментарий: Казань,89179372019.Мое имя Светлана",
+    "_dedup": "lead:-1003605994166:724"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:13.496026+00:00",
+   "updated_at": "2026-09-11T05:30:13.496035+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5922",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79605950948",
+    "text": "Request details:\nemail: konstantjn31@gmail.com\nname: Олег\ncity: Пущино московская обл\nphone: +79605950948\nTextarea: Купить мясо конины цена\n\nAdditional information:\nTransaction ID: 6685848:8525166222\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/tpost/x9mipo9zu1-polza-konskogo-myasa-nauchnii-o",
+    "_dedup": "lead:-1003605994166:723"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:13.630754+00:00",
+   "updated_at": "2026-09-11T05:30:13.630763+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5923",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79300657902",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79300657902\nЗвонили с номера: +79300657902\nЗапрос: коммерческое предложение\nID звонка: CA1c11fade93c46bba1e032d47b8ffe55e",
+    "_dedup": "lead:-1003605994166:718"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:13.737196+00:00",
+   "updated_at": "2026-09-11T05:30:13.737205+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5924",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79178513364",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Ольга\nТелефон: +79178513364\nЗвонили с номера: +79178513364\nГород: Казань\nЗапрос: колбасы (опт), прайс\nОбъём: 30 кг в месяц\nДоставка: Самовывоз Казань\nЗаметки: Клиент запросил прайс на колбасы. Самовывоз из Казани.\nID звонка",
+    "_dedup": "lead:-1003605994166:715"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:13.839714+00:00",
+   "updated_at": "2026-09-11T05:30:13.839724+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5925",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79625230915",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79625230915\nЗвонили с номера: +79625230915\nЗапрос: сотрудничество / коммерческое предложение\nID звонка: CAb18cc381d831866b13c85fe6d7c9dd77",
+    "_dedup": "lead:-1003605994166:714"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:13.944694+00:00",
+   "updated_at": "2026-09-11T05:30:13.944704+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5926",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79123147741",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: Компания Два Андрея\nКонтакт: Екатерина\nТелефон: +79123147741\nЗвонили с номера: +78332221160\nЗапрос: поставщик упаковочной плёнки для нашей продукции\nЗаметки: Просьба соединить/передать в отдел закупок. Коммерческое предлож",
+    "_dedup": "lead:-1003605994166:706"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.054608+00:00",
+   "updated_at": "2026-09-11T05:30:14.054617+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5927",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79164226400",
+    "text": "Request details:\nemail: ahd_marina@mail.ru\nname: Марина\ncity: Курск\nphone: +79164226400\nВаша_ниша: Ресторан / кафе / фастфуд\nСпособ_получения: Доставка в регионы\nВаши_объемы_закупки: до 200 000 ₽\n\nAdditional information:\nTransaction ID: 6685848:8517345532\nBlock ID: rec1144770416\nhttps://kazandelikat",
+    "_dedup": "lead:-1003605994166:700"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.158018+00:00",
+   "updated_at": "2026-09-11T05:30:14.158027+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5928",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79802498665",
+    "text": "Лид (Авито)\n\nТелефон: +79802498665\nИмя (профиль Авито): ООО \"Старт-Опт\"\nОбъявление: Пепперони нарезка халяль мелкий опт\n\nКомментарий: Воронеж\n89802498665\nАртём",
+    "_dedup": "lead:-1003605994166:698"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:14.260382+00:00",
+   "updated_at": "2026-09-11T05:30:14.260411+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5929",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79673729131",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Антон\nТелефон: +79673729131\nЗвонили с номера: +79673672913\nЗапрос: хочет купить продукцию\nID звонка: CA715c5af1b61713032fecab46346f4d28",
+    "_dedup": "lead:-1003605994166:693"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.394699+00:00",
+   "updated_at": "2026-09-11T05:30:14.394708+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5930",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79518811014",
+    "text": "Request details:\nname: Олег\ncity: Саратов\nphone: +79518811014\nTextarea: добрый день! хотел бы увидеть прайс лист на сосиски для френч дога , телефон занят постоянно !\n\nAdditional information:\nTransaction ID: 6685848:8502954142\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/sosiski-dlya-hot-dogo",
+    "_dedup": "lead:-1003605994166:690"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.497106+00:00",
+   "updated_at": "2026-09-11T05:30:14.497114+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5931",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79777585361",
+    "text": "Request details:\nemail: 9777585361a@gmaii.com\nname: Ерофеев Александр Алексеевич\ncity: Московская обл, г Щёлково\nphone: +79777585361\n\nAdditional information:\nTransaction ID: 6685848:8496910263\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/kotlety-dlya-burgerov-halal\nUTM source: yandex_network_",
+    "_dedup": "lead:-1003605994166:688"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.625844+00:00",
+   "updated_at": "2026-09-11T05:30:14.625852+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5932",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79777585361",
+    "text": "Order #1019540542\n1. Сырая говяжья котлета для бургера халяль от 50 до 200 гр. Стандарт - 100гр 1 упаковка, 300гр, 3 котлеты, nmp: 0 (5 nmp x 0.00) 999993\nPayment Amount: 0 RUB\nPayment system: (none)\n\nPurchaser information:\nname: Ерофеев Александр Алексеевич\ncity: Московская обл, г Щёлково\nemail: sa",
+    "_dedup": "lead:-1003605994166:687"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.759469+00:00",
+   "updated_at": "2026-09-11T05:30:14.759477+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5933",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+77471626182",
+    "text": "Request details:\nemail: anastasia19886102@gmail.com\nname: Анастасия\ncity: Уральск\nphone: +77471626182\nTextarea: Нужен оптовый прайс\n\nAdditional information:\nTransaction ID: 6685848:8490293043\nBlock ID: rec863988842\nhttps://kazandelikates.tatar/kz/pepperoni-halal-optom#contacts\n-----",
+    "_dedup": "lead:-1003605994166:685"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:14.894481+00:00",
+   "updated_at": "2026-09-11T05:30:14.894488+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5934",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79615371100",
+    "text": "Request details:\nemail: ari-mam@mail.ru\nname: СЛК ООО\ncity: Краснодар, Краснодарский край\nphone: +79615371100\nВаша_ниша: Другое\nСпособ_получения: Доставка по МСК или МО\nВаши_объемы_закупки: более 500 000 ₽\n\nAdditional information:\nTransaction ID: 6685848:8482106773\nBlock ID: rec1144770416\nhttps://ka",
+    "_dedup": "lead:-1003605994166:679"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.050660+00:00",
+   "updated_at": "2026-09-11T05:30:15.050687+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5935",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79063333013",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Марат\nТелефон: +79063333013\nЗвонили с номера: +79063333013\nЗапрос: Подсказать, где купить продукцию рядом с Аграрпарком; запрос на розничные точки/наличие\nЗаметки: Клиент интересуется розничной покупкой; по Аграрпарку данны",
+    "_dedup": "lead:-1003605994166:676"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.149682+00:00",
+   "updated_at": "2026-09-11T05:30:15.149690+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5936",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79055170175",
+    "text": "Лид (Авито)\n\nТелефон: +79055170175\nИмя (профиль Авито): Даниил\nОбъявление: Пепперони нарезка колбаса халяль мелкий опт\n\nКомментарий: 8905-517-01-75",
+    "_dedup": "lead:-1003605994166:674"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:15.249603+00:00",
+   "updated_at": "2026-09-11T05:30:15.249611+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5937",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79872174307",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Кристина\nТелефон: +79872174307\nЗвонили с номера: +79625523605\nГород: Казань\nЗапрос: колбаса\nОбъём: килограм\nЗаметки: Клиент указал продукт и единицу объёма без числа. Требуется уточнение объёма и условий отгрузки менеджером",
+    "_dedup": "lead:-1003605994166:673"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.381971+00:00",
+   "updated_at": "2026-09-11T05:30:15.381978+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5938",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79625515252",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: -\nТелефон: +79625515252\nЗвонили с номера: +79625515252\nЗапрос: Сосиски для хот-догов и котлеты для бургеров\nОбъём: по 2 коробки\nДоставка: Самовывоз Казань\nЗаметки: Самовывоз Казань\nID звонка: CA3cd34bb4eebf0c389391a3f2eceda",
+    "_dedup": "lead:-1003605994166:671"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.483747+00:00",
+   "updated_at": "2026-09-11T05:30:15.483755+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5939",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79269251814",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Ахмад\nТелефон: +79269251814\nЗвонили с номера: +79269251814\nЗапрос: Запрос прайс-листа\nID звонка: CA77ae19d26951e187cd4a8abdec89cd34",
+    "_dedup": "lead:-1003605994166:666"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.610980+00:00",
+   "updated_at": "2026-09-11T05:30:15.610988+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5940",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79672996416",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79672996416\nЗвонили с номера: +79672996416\nЗапрос: сотрудничество / коммерческое предложение\nЗаметки: Клиент указал цель звонка: сотрудничество. Направлен на отправк",
+    "_dedup": "lead:-1003605994166:659"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.715552+00:00",
+   "updated_at": "2026-09-11T05:30:15.715562+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5941",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+73432283066",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +73432283066\nЗвонили с номера: +73432283066\nЗапрос: коммерческое предложение\nID звонка: CA073f5f1a45eae55829b3f1b5acf118c8",
+    "_dedup": "lead:-1003605994166:658"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:15.874651+00:00",
+   "updated_at": "2026-09-11T05:30:15.874659+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5942",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79120199236",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79120199236\nЗвонили с номера: +79120199236\nЗапрос: коммерческое предложение\nID звонка: CAead337f119460ccdcc61ca1cf55c3f96",
+    "_dedup": "lead:-1003605994166:657"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.045520+00:00",
+   "updated_at": "2026-09-11T05:30:16.045528+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5943",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79277535388",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79277535388\nЗвонили с номера: +79277535388\nЗапрос: коммерческое предложение\nЗаметки: Клиент сообщил, что хочет направить коммерческое предложение. Предоставлен адрес",
+    "_dedup": "lead:-1003605994166:656"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.164855+00:00",
+   "updated_at": "2026-09-11T05:30:16.164863+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5944",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79625515252",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Людмила\nТелефон: +79625515252\nЗвонили с номера: +79625515252\nГород: Казань\nЗапрос: котлеты для бургеров\nОбъём: 100 штук\nДоставка: Самовывоз Казань\nЗаметки: Разовая закупка, самовывоз из Казани.\nID звонка: CA9712c592f89ad536",
+    "_dedup": "lead:-1003605994166:655"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.282760+00:00",
+   "updated_at": "2026-09-11T05:30:16.282768+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5945",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79632654543",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Рафаэль\nТелефон: +79632654543\nЗвонили с номера: +79632554543\nГород: Комсомольск-на-Амуре\nЗапрос: колбасы\nОбъём: 10 кг\nЗаметки: Запрос на покупку: колбасы, ориентировочно 10 кг, город Комсомольск-на-Амуре. Способ отгрузки не",
+    "_dedup": "lead:-1003605994166:654"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.443418+00:00",
+   "updated_at": "2026-09-11T05:30:16.443426+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5946",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79892144065",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79892144065\nЗвонили с номера: +79892144065\nЗапрос: сырьё для производства\nЗаметки: Входящий запрос: предлагают сырьё для производства. Направлен на отправку коммерче",
+    "_dedup": "lead:-1003605994166:649"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.565640+00:00",
+   "updated_at": "2026-09-11T05:30:16.565650+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5947",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79111189818",
+    "text": "Лид (Авито)\n\nТелефон: +79111189818\nИмя (профиль Авито): Александра\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Санкт-Петербург, Александра. 8-911-118-98-18",
+    "_dedup": "lead:-1003605994166:636"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:16.684864+00:00",
+   "updated_at": "2026-09-11T05:30:16.684874+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5948",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79172866719",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79172866719\nЗвонили с номера: +79172866719\nЗапрос: сотрудничество / коммерческое предложение\nID звонка: CAbc57a26f3c2456ea1d17af6d845c5e5b",
+    "_dedup": "lead:-1003605994166:635"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:16.803402+00:00",
+   "updated_at": "2026-09-11T05:30:16.803410+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5949",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79299890586",
+    "text": "Лид (Авито)\n\nТелефон: +79299890586\nИмя (профиль Авито): неважно\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: 89299890586",
+    "_dedup": "lead:-1003605994166:634"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:16.997585+00:00",
+   "updated_at": "2026-09-11T05:30:16.997593+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5950",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79093470331",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: ИП «Виктимеров»\nКонтакт: Азат\nТелефон: +79093470331\nЗвонили с номера: +79093470331\nГород: Уфа\nЗапрос: соединить с дистрибьютором по городу Уфа\nЗаметки: Просит контакт/соединение с дистрибьютором в Уфе. Номер подтверждён.\nI",
+    "_dedup": "lead:-1003605994166:633"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.128421+00:00",
+   "updated_at": "2026-09-11T05:30:17.128431+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5951",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79850616196",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Радмир\nТелефон: +79850616196\nЗвонили с номера: +79850616196\nЗапрос: Запрос прайса и условий. Нужен менеджер для отправки прайс-листа и консультации.\nЗаметки: Клиент не продиктовал номер. Менеджер свяжется по номеру, с котор",
+    "_dedup": "lead:-1003605994166:628"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.229941+00:00",
+   "updated_at": "2026-09-11T05:30:17.229949+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5952",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79874199292",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Айгуль\nТелефон: +79874199292\nЗвонили с номера: +79874199292\nГород: Чистополь\nЗапрос: выпечка\nОбъём: коробка\nДоставка: Доставка по РФ\nID звонка: CA13895a960797790ca778d98739c8949f",
+    "_dedup": "lead:-1003605994166:626"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.333318+00:00",
+   "updated_at": "2026-09-11T05:30:17.333327+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5953",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79290513076",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79290513076\nЗвонили с номера: +79290513076\nЗапрос: коммерческое предложение\nID звонка: CAd063c0e3f4ea142db15edaf019a49aaf",
+    "_dedup": "lead:-1003605994166:621"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.458084+00:00",
+   "updated_at": "2026-09-11T05:30:17.458093+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5954",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79179233593",
+    "text": "Request details:\nemail: dusso_kazan@mail.ru\nname: Юлия\ncity: Казань\nphone: +79179233593\nTextarea: Сотрудничество по сегменту HORECA\n\nAdditional information:\nTransaction ID: 6685848:8460378042\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/contacts\n-----",
+    "_dedup": "lead:-1003605994166:620"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.554924+00:00",
+   "updated_at": "2026-09-11T05:30:17.554934+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5955",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79274441022",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Юлия\nТелефон: +79274441022\nЗвонили с номера: +79534865803\nЗапрос: прайс-лист для HoReCa\nID звонка: CAa644144d1a51698e1b3d3f2b2d7c6509",
+    "_dedup": "lead:-1003605994166:619"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.656276+00:00",
+   "updated_at": "2026-09-11T05:30:17.656286+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5956",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79109170099",
+    "text": "Request details:\nemail: ephremovvva1408@mail.ru\nname: Наталья\ncity: Москва\nphone: +79109170099\nTextarea: Хочу получить прайс на вашу продукцию\n\nAdditional information:\nTransaction ID: 6685848:8460126982\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/kotlety-dlya-burgerov-halal\nUTM source: yande",
+    "_dedup": "lead:-1003605994166:617"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.761105+00:00",
+   "updated_at": "2026-09-11T05:30:17.761115+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5957",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+74950782059",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +74950782059\nЗвонили с номера: +74950782059\nЗапрос: реклама в Яндексе с оплатой за заявки для услуг и товаров\nЗаметки: Коммерческое предложение по рекламе. Направить ",
+    "_dedup": "lead:-1003605994166:616"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:17.896192+00:00",
+   "updated_at": "2026-09-11T05:30:17.896200+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5958",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79003272707",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Альберт\nТелефон: +79003272707\nЗвонили с номера: +79003272707\nГород: Казань\nЗапрос: пепперони халяль\nОбъём: 2–3 кг\nЗаметки: Клиент указал потребность 2–3 кг. Точный способ отгрузки (доставка или самовывоз) не уточнён. Цена и",
+    "_dedup": "lead:-1003605994166:613"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.019758+00:00",
+   "updated_at": "2026-09-11T05:30:18.019767+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5959",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+78435280807",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +78435280807\nЗвонили с номера: +78435280807\nЗапрос: коммерческое предложение\nID звонка: CAe38d5cd83bf98471a12a71740a5487e3",
+    "_dedup": "lead:-1003605994166:611"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.165016+00:00",
+   "updated_at": "2026-09-11T05:30:18.165023+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5960",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79647766757",
+    "text": "Лид (Авито)\n\nТелефон: +79647766757\nИмя (профиль Авито): Анна\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Москва, 89647766757, Анна",
+    "_dedup": "lead:-1003605994166:602"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:18.272786+00:00",
+   "updated_at": "2026-09-11T05:30:18.272794+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5961",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79279257476",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Эльвира\nТелефон: +79279257476\nЗвонили с номера: +79279257476\nГород: Казань\nЗапрос: выпечка\nОбъём: по коробке в неделю каждого вида\nЗаметки: Локация получателя указана как «дворец впечатлений» в Казани. Требуется уточнение а",
+    "_dedup": "lead:-1003605994166:601"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.377278+00:00",
+   "updated_at": "2026-09-11T05:30:18.377286+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5962",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79393433212",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Александр\nТелефон: +793934332124\nЗвонили с номера: +79033051115\nЗапрос: Сделать заказ\nID звонка: CAfe74daae66b6201a01b613b34946f9ad",
+    "_dedup": "lead:-1003605994166:593"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.509204+00:00",
+   "updated_at": "2026-09-11T05:30:18.509214+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5963",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79959448636",
+    "text": "Лид (Авито)\n\nТелефон: +79959448636\nИмя (профиль Авито): Кристиан\nОбъявление: Котлеты говяжьи готовые для бургера, оптом\n\nКомментарий: Уфа 89959448636 Кристиан",
+    "_dedup": "lead:-1003605994166:590"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:18.613159+00:00",
+   "updated_at": "2026-09-11T05:30:18.613167+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5964",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79003224151",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Анастасия\nТелефон: +79003224151\nЗвонили с номера: +79968522590\nЗапрос: прайс на сосиски и колбасу, соединение с менеджером\nID звонка: CA0a8507e66ca2593b755d7f3196d06909",
+    "_dedup": "lead:-1003605994166:583"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.744112+00:00",
+   "updated_at": "2026-09-11T05:30:18.744119+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5965",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79055800785",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79055800785\nЗвонили с номера: +79055800785\nЗапрос: Предложение поставки халяль говядины (импорт и Беларусь)\nЗаметки: Коммерческое предложение по сырью. Направить на ",
+    "_dedup": "lead:-1003605994166:580"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.875437+00:00",
+   "updated_at": "2026-09-11T05:30:18.875447+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5966",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79120709006",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Мария\nТелефон: +79120709006\nЗвонили с номера: +79120709006\nЗапрос: Статус заказа\nID звонка: CA616f7e39373d78b13cac6daa24b3edd7",
+    "_dedup": "lead:-1003605994166:573"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:18.980433+00:00",
+   "updated_at": "2026-09-11T05:30:18.980441+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5967",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79093470331",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Радик\nТелефон: +79093470331\nЗвонили с номера: +79093470331\nЗапрос: по поводу заказа\nID звонка: CAf0d56d5881a5ba4f86c38e114cb784c1",
+    "_dedup": "lead:-1003605994166:571"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.081477+00:00",
+   "updated_at": "2026-09-11T05:30:19.081486+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5968",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79141864951",
+    "text": "Request details:\nemail: buba_eva@mail.ru\nname: Ева\ncity: Хабаровск\nphone: +79141864951\nTextarea: просьба выслать прайс по сегменту Horeca\n\nAdditional information:\nTransaction ID: 6685848:8442193982\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/contacts\n-----",
+    "_dedup": "lead:-1003605994166:566"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.183637+00:00",
+   "updated_at": "2026-09-11T05:30:19.183645+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5969",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79741864951",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: ООО «Бышка»\nКонтакт: Ева\nТелефон: +79741864951\nЗвонили с номера: +79141864951\nЗапрос: нужен прайс-лист\nID звонка: CA18bcad39ec9d729495fcc924c4153241",
+    "_dedup": "lead:-1003605994166:565"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.287778+00:00",
+   "updated_at": "2026-09-11T05:30:19.287786+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5970",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+78127027760",
+    "text": "Request details:\nemail: i.rodionova@avant.spb.ru\nname: Ирина Родионова\ncity: Санкт-Петербург\nphone: +78127027760\nTextarea: Полный цикл картонной упаковки от типографии «АВАНТ»\nМы предлагаем:\n• выгодные цены за счёт прямых контрактов с производителями;\n• гибкие условия оплаты;\n• надёжная логистика бе",
+    "_dedup": "lead:-1003605994166:563"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.417071+00:00",
+   "updated_at": "2026-09-11T05:30:19.417080+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5971",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79229183000",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Михаил\nТелефон: +79229183000\nЗвонили с номера: +79229183000\nЗапрос: нужен прайс-лист\nID звонка: CA903bdff14161af08f7d98553f14c52c5",
+    "_dedup": "lead:-1003605994166:560"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.581918+00:00",
+   "updated_at": "2026-09-11T05:30:19.581929+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5972",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79992696004",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: -\nТелефон: +79992696004\nЗвонили с номера: +79992696004\nЗапрос: Оптовая покупка колбас, запрос цен\nОбъём: пару килограммов\nЗаметки: Клиент физическое лицо. Нужна консультация менеджера по ценам и оптовой закупке.\nID звонка: ",
+    "_dedup": "lead:-1003605994166:556"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.735891+00:00",
+   "updated_at": "2026-09-11T05:30:19.735899+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5973",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79105890999",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79105890999\nЗвонили с номера: +79105890999\nЗапрос: сотрудничество / коммерческое предложение\nID звонка: CA62ec58e35d2588b8df1852696dcb0e06",
+    "_dedup": "lead:-1003605994166:555"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.891387+00:00",
+   "updated_at": "2026-09-11T05:30:19.891395+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5974",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+77910005579",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Рамис\nТелефон: +77910005579\nЗвонили с номера: +79100005579\nГород: Новый Уренгой\nЗапрос: сосиски из говядины\nОбъём: 3 кг\nДоставка: Доставка по РФ\nЗаметки: Клиент хочет купить сосиски из говядины, ориентировочно 3 кг, доставк",
+    "_dedup": "lead:-1003605994166:549"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:19.989179+00:00",
+   "updated_at": "2026-09-11T05:30:19.989187+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5975",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Request details:\nemail: lapuly.2017@mail.ru\nname: Марина Филипп\ncity: Егорьевск\nTextarea: На какую сумму мин заказ.\n\nAdditional information:\nTransaction ID: 6685848:8434872353\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/contacts\n-----",
+    "_dedup": "lead:-1003605994166:547"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:20.137188+00:00",
+   "updated_at": "2026-09-11T05:30:20.137196+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5976",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79172374007",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Искандар\nТелефон: +79172374007\nЗвонили с номера: +79625523605\nГород: Казань\nЗапрос: сосиски, пепперони, колбасы, фарш\nОбъём: 50 кг\nЗаметки: Клиент хочет весь ассортимент из перечисленных категорий. Город Казань. Способ полу",
+    "_dedup": "lead:-1003605994166:546"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:20.266285+00:00",
+   "updated_at": "2026-09-11T05:30:20.266294+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5977",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: не указано\nТелефон: неизвестен\nЗвонили с номера: kazandel_megafon\nЗапрос: предложение купить отходы производства: кости, обрезь\nЗаметки: Коммерческие предложения принимать только по email info@kazandelikates.tatar\nID звонка",
+    "_dedup": "lead:-1003605994166:538"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:20.436860+00:00",
+   "updated_at": "2026-09-11T05:30:20.436869+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5978",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: не указано\nТелефон: from_caller_id\nЗвонили с номера: kazandel_megafon\nЗапрос: предложение на комплексные пищевые добавки\nЗаметки: Коммерческие предложения принимаются только по электронной почте: info@kazandelikates.tatar\nI",
+    "_dedup": "lead:-1003605994166:537"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:20.555648+00:00",
+   "updated_at": "2026-09-11T05:30:20.555657+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5979",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79503153605",
+    "text": "Лид (Авито)\n\nТелефон: +79503153605\nИмя (профиль Авито): Рустем\nОбъявление: Котлеты говяжьи сырые для бургера, оптом\n\nКомментарий: 89503153605",
+    "_dedup": "lead:-1003605994166:535"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:20.667215+00:00",
+   "updated_at": "2026-09-11T05:30:20.667224+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5980",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "whatsapp",
+    "phone": "8(919)765-13-50",
+    "text": "Добрый день!\nВходная цена — 320 руб./кг.\nПрогнозный объём — 15000 кг/мес.\n\n \nС Уважением,\nШорин Алексей\nООО «ИНДИФУД-МСК»\n109382 г. Москва, ул. Нижние Поля, д. 31, стр.1\nтел.: 8(919)765-13-50 (WhatsApp, Telegram, Viber)\nmail: shaa@indi-food.ru",
+    "_dedup": "lead:-1003605994166:533"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из whatsapp — связаться",
+   "created_at": "2026-09-11T05:30:20.812876+00:00",
+   "updated_at": "2026-09-11T05:30:20.812884+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5981",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+7 927 417 93 73",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКомпания: ОллТрейд\nКонтакт: Руслан\nТелефон: +7 927 417 93 73\nЗвонили с номера: kazandel_megafon\nЗапрос: поставка упаковки\nЗаметки: Звонок в отдел снабжения: предложение по поставке упаковки. Телефон продиктован клиентом.\nID звонка: ",
+    "_dedup": "lead:-1003605994166:532"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:20.918854+00:00",
+   "updated_at": "2026-09-11T05:30:20.918862+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5982",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "+79679789533",
+    "text": "Request details:\nemail: velikanov@qur-code.ru\nname: Алексей Великанов\ncity: ООО \"Ленинград\" Санкт-Петербург\nphone: +79679789533\nTextarea: Добрый день!\nПредлагаем рассмотреть сотрудничество с компанией ООО \"Ленинград\".\nООО \"Ленинград\" специализируется на разделке тушки ЦБ и дальнейшей реализации гото",
+    "_dedup": "lead:-1003605994166:528"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:21.025200+00:00",
+   "updated_at": "2026-09-11T05:30:21.025208+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5983",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Отправь тогда им все\nСкажи что мы можем делать под СТМ котлеты",
+    "_dedup": "lead:-1003605994166:524"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:21.135388+00:00",
+   "updated_at": "2026-09-11T05:30:21.135397+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5984",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Я минут 30 назад созванивался с ним. Хотят напрямую работать, просил отправить на почту прайс + каталог с помеченной продукцией, которая лучше всего идет",
+    "_dedup": "lead:-1003605994166:523"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:21.288542+00:00",
+   "updated_at": "2026-09-11T05:30:21.288550+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5985",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "whatsapp",
+    "phone": "+79197651350",
+    "text": "Request details:\nemail: Shaa@indi-food.ru\nname: ООО ИНДИФУД-МСК\ncity: Москва\nphone: +79197651350\nTextarea: Добрый день! Прошу прислать КП и условия работы, с учётом доставки в г. Жуковский, Моск. обл.\nС Уважением,\nШорин Алексей\nООО «ИНДИФУД-МСК»\n109382 г. Москва, ул. Нижние Поля, д. 31, стр.1\nтел.: ",
+    "_dedup": "lead:-1003605994166:519"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из whatsapp — связаться",
+   "created_at": "2026-09-11T05:30:21.402525+00:00",
+   "updated_at": "2026-09-11T05:30:21.402533+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5986",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79214151543",
+    "text": "Лид (Авито)\n\nТелефон: +79214151543\nИмя (профиль Авито): Андрей\nОбъявление: Котлеты из говядины сырые для бургера, опт\n\nКомментарий: СПб. Андрей.79214151543",
+    "_dedup": "lead:-1003605994166:516"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:21.520423+00:00",
+   "updated_at": "2026-09-11T05:30:21.520431+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5987",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79529093529",
+    "text": "Лид (Авито)\n\nТелефон: +79529093529\nИмя (профиль Авито): Гасанов Гасан\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Сосновый бор, Ленинградская область\nГасан, 89529093529",
+    "_dedup": "lead:-1003605994166:514"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:21.668400+00:00",
+   "updated_at": "2026-09-11T05:30:21.668408+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5988",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "+78432126330",
+    "text": "Request details:\nemail: info@allseals.ru\nname: Наиля\ncity: Казань\nphone: +78432126330\nTextarea: Здравствуйте!\n\nООО «Торцевик» - российская производственно-инжиниринговая компания, специализирующаяся на производстве, подборе и поставке торцевых уплотнений для насосного оборудования различных отраслей",
+    "_dedup": "lead:-1003605994166:513"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:21.782814+00:00",
+   "updated_at": "2026-09-11T05:30:21.782822+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5989",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79091929226",
+    "text": "Request details:\nemail: a.rotenberger@yamalaero.ru\nname: Ротенбергер Александра Владимировна\ncity: Тюмень\nphone: +79091929226\nTextarea: Добрый день! Подскажите у вас есть  дистрибьюторы вашей продукции в России г. Тюмень?   Специалист по закупкам цех бортового питания АТК Ямал.\n\nAdditional informati",
+    "_dedup": "lead:-1003605994166:508"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:21.898146+00:00",
+   "updated_at": "2026-09-11T05:30:21.898154+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5990",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79920181122",
+    "text": "Request details:\nemail: s.e.naimushin@gmail.com\nname: Станислав\ncity: Казань\nphone: +79920181122\nВаша_ниша: Ресторан / кафе / фастфуд\nСпособ_получения: Другое\nВаши_объемы_закупки: от 200 000 до 500 000 ₽\n\nAdditional information:\nTransaction ID: 6685848:8419121303\nBlock ID: rec1144770416\nhttps://kaza",
+    "_dedup": "lead:-1003605994166:505"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:22.007637+00:00",
+   "updated_at": "2026-09-11T05:30:22.007645+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5991",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79274045773",
+    "text": "Request details:\nname: Альфия Рустемовна\ncity: Казань\nphone: +79274045773\nTextarea: Добрый день, интересует оптовый прайс. Как с вами связаться?\n\nAdditional information:\nTransaction ID: 6685848:8416381342\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/contacts\n-----",
+    "_dedup": "lead:-1003605994166:504"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:22.115794+00:00",
+   "updated_at": "2026-09-11T05:30:22.115802+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5992",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79201792680",
+    "text": "Request details:\nemail: logirp@bk.ru\nname: Волоскова Лидия Андреевна\ncity: 2024\nphone: +79201792680\nTextarea: Стабильные поставки панировочных сухарей от производителя — ООО «Ржевская переработка»\n\nДобрый день!\n\nМеня зовут Лидия, я представляю компанию ООО «Ржевская переработка» — надёжного производ",
+    "_dedup": "lead:-1003605994166:502"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:22.226257+00:00",
+   "updated_at": "2026-09-11T05:30:22.226265+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5993",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79384331113",
+    "text": "Лид (Авито)\n\nТелефон: +79384331113\nИмя (профиль Авито): Ирина\nОбъявление: Котлеты из говядины для бургера, опт\n\nКомментарий: +79384331113 Ирина",
+    "_dedup": "lead:-1003605994166:497"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:22.344461+00:00",
+   "updated_at": "2026-09-11T05:30:22.344469+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5994",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79254647540",
+    "text": "Лид (Авито)\n\nТелефон: +79254647540\nИмя (профиль Авито): владимир\nОбъявление: Куриная грудка, халяль, Оптом\n\nКомментарий: Москва  89254647540",
+    "_dedup": "lead:-1003605994166:486"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:22.487418+00:00",
+   "updated_at": "2026-09-11T05:30:22.487426+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5995",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79172374007",
+    "text": "Request details:\nemail: mailr21p@gmail.com\nname: Искандар\ncity: Казань\nphone: +79172374007\nTextarea: Оптовая закупка для частного небольшого магазина\n\nAdditional information:\nTransaction ID: 6685848:8387802862\nBlock ID: rec579236425\nhttps://kazandelikates.tatar/cooperation#contacts_footer\n-----",
+    "_dedup": "lead:-1003605994166:485"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:22.599998+00:00",
+   "updated_at": "2026-09-11T05:30:22.600006+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5996",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79037396023",
+    "text": "Лид (Авито)\n\nТелефон: +79037396023\nИмя (профиль Авито): Леон\nОбъявление: Пепперони нарезка халяль мелкий опт\n\nКомментарий: Москва\n89037396023\nЭрол",
+    "_dedup": "lead:-1003605994166:479"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:22.713789+00:00",
+   "updated_at": "2026-09-11T05:30:22.713797+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5997",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "+79225030482",
+    "text": "Request details:\nemail: egorovasvetlana@vkysmyasa18.ru\nname: Светлана\ncity: Ижевск\nphone: +79225030482\nTextarea: Добрый день! Меня зовут Светлана, компания «Гранд-Мит» (прямые поставки говядины ХАЛЯЛЬ от производителя, Удмуртия, ИП Муллагалимов Р.Ф.).\n- В наличии приоритетные позиции для переработки",
+    "_dedup": "lead:-1003605994166:398"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:22.856526+00:00",
+   "updated_at": "2026-09-11T05:30:22.856534+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5998",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+77057371199",
+    "text": "Request details:\nemail: sales@shahproduct.com\nname: Анастасия\ncity: Казахстан Тараз\nphone: +77057371199\nTextarea: Добрый день!\n\nМеня зовут Анастасия, я представляю компанию «Шах» — одного из производителей колбасных изделий и масложировой продукции в Казахстане.\n\nМы предлагаем востребованный ассорти",
+    "_dedup": "lead:-1003605994166:396"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:22.997425+00:00",
+   "updated_at": "2026-09-11T05:30:22.997433+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-5999",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Добрый день!\nМожно получить прайс лист? Вчера написал и так и ни кто ни чего мне не перекинул",
+    "_dedup": "lead:-1003605994166:393"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:23.109892+00:00",
+   "updated_at": "2026-09-11T05:30:23.109900+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6000",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+7937 276 25 23",
+    "text": "Добрый день!\nпрошу скинуть прайс лист с доставкой до г Ульяновск. Планируем открывать точку по продажам хот догов.\nТелефон для связи +7937 276 25 23 Кирилл\n\n\n@ultimaratio9",
+    "_dedup": "lead:-1003605994166:391"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:23.223511+00:00",
+   "updated_at": "2026-09-11T05:30:23.223518+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6001",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79999117609",
+    "text": "🟣 Лид Авито\nТелефон: +79999117609\nИмя в профиле Авито: Вадим\nОбъявление: Котлеты из говядины для бургера, халяль, опт\nЧат Авито: u2i-0wg7jIyJDo7F3ENjA15pug\nСсылка: https://avito.ru/mosrentgen/produkty_pitaniya/kotlety_iz_govyadiny_dlya_burgera_halyal_opt_8333012045\n\nПереписка клиента:\nМосква\n8999911",
+    "_dedup": "lead:-1003605994166:1194"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:29.083887+00:00",
+   "updated_at": "2026-09-11T05:30:29.083894+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6002",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79285566610",
+    "text": "🟣 Лид Авито\nТелефон: +79285566610\nИмя в профиле Авито: Шамиль Дарбишев\nОбъявление: Пепперони халяль опт\nЧат Авито: u2i-Z5~xGpu3x9sjtuTUMToi6A\nСсылка: https://avito.ru/kizilyurt/produkty_pitaniya/pepperoni_halyal_opt_8397137408\n\nПереписка клиента:\nКизилюрт\n89285566610\nШамиль",
+    "_dedup": "lead:-1003605994166:1200"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:29.217898+00:00",
+   "updated_at": "2026-09-11T05:30:29.217906+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6003",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79600790834",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКомпания: ИП\nКонтакт: Марат\nТелефон: +98700790834\nЗвонили с номера: +79600790834\nЗапрос: заказ\nID звонка: CA3afbad0add58c181f3bd1dbeb20a4f0d",
+    "_dedup": "lead:-1003605994166:1205"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:29.358939+00:00",
+   "updated_at": "2026-09-11T05:30:29.358947+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6004",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Пиццерия в альметьевске",
+    "_dedup": "lead:-1003605994166:1207"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:29.465335+00:00",
+   "updated_at": "2026-09-11T05:30:29.465342+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6005",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79136520442",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Ильяс\nТелефон: +79136520442\nЗвонили с номера: +79136520442\nЗапрос: Уточнить минимальный объём закупки (опт) по колбасам, сосискам, сарделькам и фаршу\nID звонка: CA18fa40ba240ad081c16528e1a6963bb0",
+    "_dedup": "lead:-1003605994166:1221"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:29.663689+00:00",
+   "updated_at": "2026-09-11T05:30:29.663697+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6006",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79270021010",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 📨 Хочет нам что-то предложить (отправлен на info@kazandelikates.tatar)\nКонтакт: -\nТелефон: +79270021010\nЗвонили с номера: +79270021010\nЗапрос: коммерческое предложение для отдела закупок/снабжения\nID звонка: CA232e01fec7505812ff36dd1bb612d058",
+    "_dedup": "lead:-1003605994166:1228"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:29.805061+00:00",
+   "updated_at": "2026-09-11T05:30:29.805070+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6007",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "Контур Москва — территориальный менеджер.\nКарточки и напоминания приходят сюда (в личку).\nВ группе — только пятничный дайджест.\n\nКоманды:\n/leads — активные лиды\n/contact — отметить контакт (точка)\n/sellout — ввод отчёта дистрибьютора\n/akb — снимок АКБ\n/digest — дайджест сейчас",
+    "_dedup": "lead:-1003605994166:1230"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:29.905047+00:00",
+   "updated_at": "2026-09-11T05:30:29.905054+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6008",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 23 дн.\n\nMb Importersrepublic Of Uzbekistan Namanga — Узбекистан (Наманган)\nИмпортер халяльного мяса и мясной продукции в Узбекистане (Наманганская область), не производитель\n\n📧 mbigroupuz@gmail.com\n   ещё: na@chamber.uz\n\nЧто написал клиент:\nЗдравствуйте, Арби!\n\nСпасибо за Ваше п",
+    "_dedup": "lead:-1003605994166:1232"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:30.008445+00:00",
+   "updated_at": "2026-09-11T05:30:30.008453+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6009",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "",
+    "text": "👋 Кто здесь пишет\n\nЯ — система из двух ИИ-агентов, которые ищут клиентов и ведут первую переписку. Работаю на сервере компании, запускаюсь сама каждые 2 часа.\n\nАбдурахман — Россия. Ауф — экспорт: Казахстан, Кыргызстан, Узбекистан, Таджикистан, Беларусь, Азербайджан, Грузия.\n\nКлиентам оба подписывают",
+    "_dedup": "lead:-1003605994166:1233"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:30.114497+00:00",
+   "updated_at": "2026-09-11T05:30:30.114505+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6010",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "",
+    "text": "📊 Что накопилось за два месяца — честно\n\nС 5 июля отправлено 727 первых писем (Абдурахман 263, Ауф 392, плюс повторные).\n\nОтветили живые люди — 11 компаний. Это примерно 1.7% отклика: для холодной B2B-рассылки нормально.\n\nА вот что было плохо: ни один из этих 11 не был передан человеку. Я отвечал са",
+    "_dedup": "lead:-1003605994166:1234"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:30.213929+00:00",
+   "updated_at": "2026-09-11T05:30:30.213938+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6011",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 13 дн.\n\nООО «Петрокар» — Беларусь (Минск)\nИмпортёр и оптовый дистрибьютор продуктов питания для сегментов HoReCa и Retail в Беларуси, с собственными складами и автопарком; более 2000 клиентов; не является производителем мясной продукции, наличие халяльного мяса \n\n📧 minsk@petroka",
+    "_dedup": "lead:-1003605994166:1235"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:30.312845+00:00",
+   "updated_at": "2026-09-11T05:30:30.312853+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6012",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "whatsapp",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 16 дн.\n\n«Марикап» — Беларусь (Витебск)\nОптовый поставщик и дистрибьютор продуктов питания для HoReCa в Беларуси, ассортимент свыше 600 позиций, включая мясо, птицу и полуфабрикаты; работает по прямым контрактам с заводами-изготовителями, признаков собственног\n\n📧 purchase@marikap",
+    "_dedup": "lead:-1003605994166:1236"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из whatsapp — связаться",
+   "created_at": "2026-09-11T05:30:30.415041+00:00",
+   "updated_at": "2026-09-11T05:30:30.415049+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6013",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 30 дн.\n\nCJSC / Schiever Tajikistan (ЗАО «Schiever Tajikistan») — Таджикистан (Душанбе)\nРозничный ритейлер и дистрибьютор продуктов питания (включая мясо), оператор гипермаркета Auchan и сети супермаркетов bi1 в Таджикистане; импортирует мясо и мясную продукцию от внешних поставщ",
+    "_dedup": "lead:-1003605994166:1237"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:30.522210+00:00",
+   "updated_at": "2026-09-11T05:30:30.522218+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6014",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 30 дн.\n\nCJSC / Schiever Tajikistan (ЗАО «Schiever Tajikistan») — Таджикистан (Душанбе)\nРозничный ритейлер и дистрибьютор продуктов питания (включая мясо), оператор гипермаркета Auchan и сети супермаркетов bi1 в Таджикистане; импортирует мясо и мясную продукцию от внешних поставщ",
+    "_dedup": "lead:-1003605994166:1238"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:30.623033+00:00",
+   "updated_at": "2026-09-11T05:30:30.623041+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6015",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "whatsapp",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 16 дн.\n\n«Марикап» — Беларусь (Витебск)\nОптовый поставщик и дистрибьютор продуктов питания для HoReCa в Беларуси, ассортимент свыше 600 позиций, включая мясо, птицу и полуфабрикаты; работает по прямым контрактам с заводами-изготовителями, признаков собственног\n\n📧 purchase@marikap",
+    "_dedup": "lead:-1003605994166:1239"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из whatsapp — связаться",
+   "created_at": "2026-09-11T05:30:30.722902+00:00",
+   "updated_at": "2026-09-11T05:30:30.722910+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6016",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "unknown",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 13 дн.\n\nООО «Петрокар» — Беларусь (Минск)\nИмпортёр и оптовый дистрибьютор продуктов питания для сегментов HoReCa и Retail в Беларуси, с собственными складами и автопарком; более 2000 клиентов; не является производителем мясной продукции, наличие халяльного мяса \n\n📧 minsk@petroka",
+    "_dedup": "lead:-1003605994166:1240"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из unknown — связаться",
+   "created_at": "2026-09-11T05:30:30.826582+00:00",
+   "updated_at": "2026-09-11T05:30:30.826590+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6017",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 19 дн.\n\nООО «Ресторация» — Беларусь (Минск)\nООО 'Ресторация' (Беларусь) - поставщик и импортер высококачественных продуктов питания и деликатесов. Дистрибьютор для секторов HoReCa и Retail. Более 5500 постоянных клиентов (около 1500 в Retail сегменте и более 2000 \n\n📧 lishik@rest",
+    "_dedup": "lead:-1003605994166:1241"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:30.931956+00:00",
+   "updated_at": "2026-09-11T05:30:30.931965+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6018",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "site",
+    "phone": "",
+    "text": "🔥 ГОРЯЧИЙ ЛИД — ждёт 23 дн.\n\nMb Importersrepublic Of Uzbekistan Namanga — Узбекистан (Наманган)\nИмпортер халяльного мяса и мясной продукции в Узбекистане (Наманганская область), не производитель\n\n📧 mbigroupuz@gmail.com\n   ещё: na@chamber.uz\n\nЧто написал клиент:\nЗдравствуйте, Арби!\n\nСпасибо за Ваше п",
+    "_dedup": "lead:-1003605994166:1242"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из site — связаться",
+   "created_at": "2026-09-11T05:30:31.035508+00:00",
+   "updated_at": "2026-09-11T05:30:31.035517+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6019",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "avito",
+    "phone": "+79286442888",
+    "text": "🟣 Лид Авито\nТелефон: +79286442888\nИмя в профиле Авито: Муслим\nОбъявление: Пепперони халяль опт\nЧат Авито: u2i-KPGy4yEhHSA1e92s6n0ITA\nСсылка: https://avito.ru/groznyy/produkty_pitaniya/pepperoni_halyal_opt_8429045275\n\nПереписка клиента:\nГрозный \n89286442888\nМуслим",
+    "_dedup": "lead:-1003605994166:1273"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из avito — связаться",
+   "created_at": "2026-09-11T05:30:31.298623+00:00",
+   "updated_at": "2026-09-11T05:30:31.298631+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6020",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79198129033",
+    "text": "📞 Новая заявка — Казанские Деликатесы\nТип: 🛒 Хочет купить продукцию\nКонтакт: Вадим\nТелефон: +79198129033\nЗвонили с номера: +79198129033\nГород: Тольятти\nЗапрос: пепперони\nОбъём: 500 кг\nДоставка: Доставка по РФ\nID звонка: CA877ca7a718859929b5e9e7464f2bfe6b",
+    "_dedup": "lead:-1003605994166:1302"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:31.606035+00:00",
+   "updated_at": "2026-09-11T05:30:31.606043+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6021",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79162232377",
+    "text": "Request details:\nemail: khudoleev@list.ru\nname: юрий\ncity: москва\nphone: +79162232377\nTextarea: здравствуйте! подскажите как получить ваш прайс лист ( Москва)\n\nAdditional information:\nTransaction ID: 6685848:8663451492\nBlock ID: rec1554086831\nhttps://kazandelikates.tatar/distribyutory\n-----",
+    "_dedup": "lead:-1003605994166:1322"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:32.005328+00:00",
+   "updated_at": "2026-09-11T05:30:32.005336+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6022",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "+79162232377",
+    "text": "☎️ Запрос менеджера — Казанские Деликатесы\nТип: ☎️ Просит менеджера\nКонтакт: Юрий\nТелефон: +79162232377\nЗвонили с номера: +79162232377\nЗапрос: прайс-лист на выпечку и колбасы\nID звонка: CAaa1889f4d96b168f5298182aed9def1b",
+    "_dedup": "lead:-1003605994166:1323"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:32.103082+00:00",
+   "updated_at": "2026-09-11T05:30:32.103090+00:00",
+   "claimed_by": null
+  },
+  {
+   "id": "t-20260911-6023",
+   "from": "handoff",
+   "to": "steve",
+   "type": "warm_lead_followup",
+   "payload": {
+    "channel": "phone",
+    "phone": "",
+    "text": "Request details:\nemail: wosuneuzb1@gmail.com\nname: Эркин Зайнутдинов\ncity: Ташкент\nphone: +998 94-936-4095\nTextarea: Уважаемые коллеги,\nАссалам Алейкум,\n\nМы — компания Wosune International Inc., производитель сушёных овощей и фруктов, обладающая отраслевым опытом с 2006 года. Наша головная компания ",
+    "_dedup": "lead:-1003605994166:1326"
+   },
+   "status": "pending",
+   "trigger": "lead.intent=commercial",
+   "note": "Лид из phone — связаться",
+   "created_at": "2026-09-11T05:30:32.231093+00:00",
+   "updated_at": "2026-09-11T05:30:32.231100+00:00",
+   "claimed_by": null
   }
  ],
- "seq": 5881,
- "updated_at": "2026-09-10T05:31:07.972213+00:00"
+ "seq": 6023,
+ "updated_at": "2026-09-11T05:30:32.231141+00:00"
 }
