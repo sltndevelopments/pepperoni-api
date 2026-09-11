@@ -297,6 +297,438 @@ def build_page(cfg):
 </html>"""
 
 
+# ---------------------------------------------------------------------------
+# Commercial category page (pilot 2026-09: /sosiski-dlya-hotdog RU + EN).
+# Every number on the page comes from products.json: name, pack format (parsed
+# from the name), net weight, price incl./excl. VAT, price per piece, storage,
+# shelf life, casing, packaging, gross box weight, photo. Nothing about minimum
+# lots, equipment, nutrition or cooking is stated — those are "confirmed by
+# sales" until the technologist answers docs/sprint-2026-09/technologist-questions.md.
+# ---------------------------------------------------------------------------
+
+CATALOG_META = json.loads((PUBLIC / "products.json").read_text())
+LAST_SYNCED = CATALOG_META.get("lastSynced", "")
+
+COMMERCIAL_STYLE = """
+    .container{max-width:1040px}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start;margin:12px 0 8px}
+    .hero-facts{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:18px 20px;font-size:.92rem}
+    .hero-facts dt{color:#888;font-size:.78rem;text-transform:uppercase;letter-spacing:.04em;margin-top:10px}
+    .hero-facts dt:first-child{margin-top:0}
+    .hero-facts dd{font-weight:600}
+    .price-note{font-size:.85rem;color:#666;margin:6px 0 18px}
+    .sku-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px;margin:16px 0 8px}
+    .sku{background:#fff;border:1px solid #e5e5e5;border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+    .sku img{width:100%;aspect-ratio:4/3;object-fit:cover;background:#f3f3f3;display:block}
+    .sku .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+    .sku .code{font-size:.75rem;color:#aaa}
+    .sku .title{font-weight:650;font-size:.98rem;line-height:1.35}
+    .sku .fmt{font-size:.85rem;color:#555}
+    .sku .price{font-size:1.25rem;font-weight:700;color:#1b7a3d;margin-top:4px}
+    .sku .price small{font-size:.78rem;font-weight:500;color:#777;display:block}
+    .sku .derived{font-size:.8rem;color:#777}
+    .sku .store{font-size:.8rem;color:#555;border-top:1px dashed #e5e5e5;padding-top:8px;margin-top:6px}
+    .sku .links{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px;font-size:.85rem}
+    .sku .links a{color:#1b7a3d;font-weight:600;text-decoration:none}
+    .sku label.pick{display:flex;gap:6px;align-items:center;font-weight:600;color:#333;cursor:pointer}
+    .cmp{overflow-x:auto}
+    .cmp table{min-width:640px}
+    .cmp td.num{text-align:right;white-space:nowrap}
+    .order{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start;margin-top:12px}
+    .lead-form{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:20px 22px;position:relative}
+    .lead-form label{display:block;font-size:.82rem;font-weight:650;color:#666;margin:14px 0 5px}
+    .lead-form label:first-of-type{margin-top:0}
+    .lead-form input[type=text],.lead-form input[type=tel],.lead-form textarea{width:100%;padding:10px 12px;border:1px solid #d8d8d8;border-radius:8px;font:inherit;font-size:.95rem}
+    .lead-form textarea{resize:vertical}
+    .lead-form .consent{display:flex;gap:10px;align-items:flex-start;font-size:.82rem;color:#555;font-weight:400;margin-top:14px}
+    .lead-form .consent input{margin-top:3px}
+    .lead-form button{margin-top:16px;width:100%;border:0;cursor:pointer}
+    .lead-form__status{min-height:1.4em;font-size:.9rem;margin-top:10px}
+    .shortlist{font-size:.85rem;color:#555;background:#f5faf6;border:1px dashed #b9dcc3;border-radius:8px;padding:10px 12px;margin-top:8px}
+    .shortlist:empty{display:none}
+    .clarify{background:#fff;border:1px solid #e5e5e5;border-radius:12px;padding:18px 20px}
+    .clarify ul{margin-left:20px}
+    .clarify li{margin-bottom:8px;font-size:.92rem}
+    .contact-line{font-size:.95rem;margin-top:10px}
+    .contact-line a{color:#1b7a3d;font-weight:600;text-decoration:none}
+    @media(max-width:720px){.hero,.order{grid-template-columns:1fr}}
+"""
+
+COMMERCIAL_T = {
+    "ru": {
+        "lang": "ru", "prefix": "", "home": "Главная", "back": "← Все продукты",
+        "title": "Сосиски для хот-догов халяль оптом — цены, форматы, заказ | Казанские Деликатесы",
+        "h1": "Сосиски для хот-догов халяль — оптом от производителя",
+        "meta": "{n} позиций сосисок для хот-догов халяль: форматы {fmts}, цены за упаковку с НДС по каталогу на {date}, заморозка {storage} и срок годности {shelf}. Фото, масса, ссылки на карточки и форма запроса условий.",
+        "eyebrow": "Казанские Деликатесы · Казань · каталог синхронизирован {date}",
+        "lead": "Ниже — все {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
+        "facts_h": "Общее для категории",
+        "f_formats": "Форматы", "f_storage": "Хранение", "f_shelf": "Срок годности", "f_pack": "Упаковка",
+        "f_cert": "Сертификаты", "cert": "Халяль ДУМ РТ № 614A/2024 · ХАССП · ISO 22000:2018 · ТР ТС 021/2011",
+        "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм и за штуку рассчитана из цены и массы упаковки. Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/wholesale-price-list-ru.md\">MD</a> · <a href=\"/wholesale-price-list-ru.txt\">TXT</a>.",
+        "h_assort": "Ассортимент — {n} позиций",
+        "per_pack": "за упаковку", "excl": "без НДС {v} ₽", "per_kg": "≈ {v} ₽/кг", "per_pc": "≈ {v} ₽/шт",
+        "store": "{storage}, {shelf}", "box": "короб {v} кг брутто",
+        "card": "Карточка →", "pick": "В запрос",
+        "h_cmp": "Сравнение позиций",
+        "cmp_cols": ["SKU", "Название", "Формат", "Масса нетто", "Цена за уп., ₽ с НДС", "≈ ₽/кг", "≈ ₽/шт", "Хранение"],
+        "h_order": "Запросить условия",
+        "order_lead": "Одна форма — один запрос. Отметьте позиции в карточках выше или напишите свободно: город, формат точки, ориентировочный объём в месяц.",
+        "l_name": "Имя", "ph_name": "Как к вам обращаться", "l_phone": "Телефон или WhatsApp *", "ph_phone": "+7 …",
+        "l_msg": "Город, тип заведения, объём", "ph_msg": "Например: Уфа, сеть из 4 точек, 300 упаковок в месяц",
+        "consent": "Согласен на обработку персональных данных согласно <a href=\"/privacy\">политике конфиденциальности</a>.",
+        "submit": "Отправить запрос",
+        "msg": {"sending": "Отправляем…", "ok": "Спасибо! Запрос принят — менеджер свяжется с вами.", "err-phone": "Укажите телефон.",
+                "err-phone-invalid": "Проверьте номер телефона.", "err-consent": "Необходимо согласие на обработку данных.",
+                "err-rate": "Слишком много попыток. Попробуйте позже.", "err-generic": "Не удалось отправить. Позвоните: +7 987 217-02-02.",
+                "err-network": "Сеть недоступна. Позвоните: +7 987 217-02-02."},
+        "shortlist_prefix": "Позиции в запросе: ",
+        "h_clarify": "Что подтверждает отдел продаж",
+        "clarify": [
+            "Минимальную партию и кратность коробу — для каждой позиции и вашего региона.",
+            "Наличие на складе и срок отгрузки на дату заказа.",
+            "Доставку: базис по умолчанию — EXW Казань; варианты доставки до вас рассчитываем по запросу.",
+            "Комплект документов: сертификат халяль, декларация соответствия, ветеринарные сопроводительные документы.",
+            "Цену при объёме и условия оплаты.",
+        ],
+        "samples": "Перед контрактом рекомендуем проверить продукт на своём оборудовании — образцы для теста высылаем по запросу.",
+        "contact": "Телефон и WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
+        "h_faq": "Частые вопросы",
+        "faq": [
+            ("В каких форматах выпускаются сосиски для хот-догов?",
+             "В двух: {fmts}. Масса нетто упаковки — {weights}. Все позиции без оболочки, в вакуумной упаковке."),
+            ("Как хранить и какой срок годности?",
+             "Заморозка {storage}, срок годности {shelf} в закрытой упаковке. Условия после размораживания и вскрытия — на этикетке и в карточке товара."),
+            ("Из какого мяса сосиски и где посмотреть состав?",
+             "Состав каждой позиции указан в её карточке и на этикетке; в категории есть позиции из говядины, мяса кур, с бараниной и из конины. Свинины нет ни в одной позиции: производство сертифицировано Комитетом по стандарту «Халяль» ДУМ РТ, сертификат № 614A/2024."),
+            ("Какая минимальная партия и как быстро отгрузка?",
+             "Минимальная партия зависит от позиции и региона — её подтверждает отдел продаж вместе с наличием на дату запроса. Укажите позиции и объём в форме выше."),
+            ("Цены на странице — актуальные?",
+             "Цены берутся из каталога компании и обновляются вместе с ним; на странице указана дата синхронизации ({date}). Цена в заказе фиксируется в счёте."),
+        ],
+        "footer": "ООО «Казанские Деликатесы» · <a href=\"/\">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
+        "related": [("Все сосиски халяль", "/sosiski-halyal"), ("Котлеты для бургеров", "/kotlety-dlya-burgerov"), ("Пепперони для пиццерий", "/pepperoni")],
+        "related_h": "Смотрите также: ",
+    },
+    "en": {
+        "lang": "en", "prefix": "/en", "home": "Home", "back": "← All products",
+        "title": "Halal Hot Dog Sausages Wholesale — Prices, Formats, Enquiry | Kazan Delicacies",
+        "h1": "Halal hot dog sausages — wholesale from the manufacturer",
+        "meta": "{n} halal hot dog sausage SKUs: formats {fmts}, per-pack prices incl. VAT from the catalog as of {date}, frozen at {storage}, shelf life {shelf}. Photos, weights, product links and an enquiry form.",
+        "eyebrow": "Kazan Delicacies · Kazan, Russia · catalog synced {date}",
+        "lead": "All {n} SKUs of the category from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, minimum lot and delivery.",
+        "facts_h": "Category facts",
+        "f_formats": "Formats", "f_storage": "Storage", "f_shelf": "Shelf life", "f_pack": "Packaging",
+        "f_cert": "Certificates", "cert": "Halal DUM RT No. 614A/2024 · HACCP · ISO 22000:2018 · TR CU 021/2011",
+        "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg and per-piece figures are derived from pack price and net weight. Volume pricing is confirmed by sales. Full price list: <a href=\"/wholesale-price-list.md\">MD</a> · <a href=\"/wholesale-price-list.txt\">TXT</a>.",
+        "h_assort": "Assortment — {n} SKUs",
+        "per_pack": "per pack", "excl": "excl. VAT {v} ₽", "per_kg": "≈ {v} ₽/kg", "per_pc": "≈ {v} ₽/pc",
+        "store": "{storage}, {shelf}", "box": "case {v} kg gross",
+        "card": "Product page →", "pick": "Add to enquiry",
+        "h_cmp": "Compare SKUs",
+        "cmp_cols": ["SKU", "Name", "Format", "Net weight", "Price per pack, ₽ incl. VAT", "≈ ₽/kg", "≈ ₽/pc", "Storage"],
+        "h_order": "Request terms",
+        "order_lead": "One form — one enquiry. Tick SKUs in the cards above or write freely: city, type of outlet, approximate monthly volume.",
+        "l_name": "Name", "ph_name": "How should we address you", "l_phone": "Phone or WhatsApp *", "ph_phone": "+7 … / +998 …",
+        "l_msg": "City, outlet type, volume", "ph_msg": "e.g. Tashkent, 4 kiosks, 300 packs per month",
+        "consent": "I agree to the processing of personal data under the <a href=\"/privacy\">privacy policy</a>.",
+        "submit": "Send enquiry",
+        "msg": {"sending": "Sending…", "ok": "Thank you! Enquiry received — a manager will contact you.", "err-phone": "Please enter a phone number.",
+                "err-phone-invalid": "Please check the phone number.", "err-consent": "Consent to data processing is required.",
+                "err-rate": "Too many attempts. Please try later.", "err-generic": "Could not send. Call us: +7 987 217-02-02.",
+                "err-network": "Network unavailable. Call us: +7 987 217-02-02."},
+        "shortlist_prefix": "SKUs in enquiry: ",
+        "h_clarify": "What sales confirms",
+        "clarify": [
+            "Minimum lot and case multiples — per SKU and per region.",
+            "Stock availability and dispatch lead time on the order date.",
+            "Delivery: default basis EXW Kazan; delivered options are quoted on request.",
+            "Documents: halal certificate, declaration of conformity, veterinary accompanying documents.",
+            "Volume pricing and payment terms.",
+        ],
+        "samples": "Before a contract we recommend testing the product on your own equipment — samples are sent on request.",
+        "contact": "Phone & WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
+        "h_faq": "FAQ",
+        "faq": [
+            ("Which formats are the hot dog sausages made in?",
+             "Two: {fmts}. Net pack weight — {weights}. All SKUs are skinless, vacuum packed."),
+            ("How are they stored and what is the shelf life?",
+             "Frozen at {storage}, shelf life {shelf} in sealed packaging. Conditions after thawing and opening are on the label and product page."),
+            ("What meat are they made from and where is the ingredient list?",
+             "The ingredient list of every SKU is on its product page and label; the category includes beef, chicken, lamb-containing and horse-meat SKUs. No SKU contains pork: production is certified by the Halal Standards Committee of DUM RT, certificate No. 614A/2024."),
+            ("What is the minimum order and how fast is dispatch?",
+             "The minimum lot depends on the SKU and region and is confirmed by sales together with stock on the enquiry date. State SKUs and volume in the form above."),
+            ("Are the prices on this page current?",
+             "Prices come from the company catalog and update with it; the sync date is shown on the page ({date}). The order price is fixed in the invoice."),
+        ],
+        "footer": "Kazan Delicacies LLC · <a href=\"/en/\">pepperoni.tatar/en</a> · Kazan, Agrarnaya st. 2, office 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
+        "related": [("All halal sausages", "/en/sosiski-halyal"), ("Burger patties", "/en/kotlety-dlya-burgerov"), ("Pepperoni for pizzerias", "/en/pepperoni")],
+        "related_h": "See also: ",
+    },
+}
+
+_FMT_RE = __import__("re").compile(r"\(?\s*(\d+)\s*г\s*[×xх]\s*(\d+)\s*шт\s*\)?", __import__("re").I)
+
+
+def _num(v):
+    try:
+        return float(str(v).replace(",", ".").replace(" ", "").replace("кг", ""))
+    except ValueError:
+        return None
+
+
+_DECIMAL_COMMA = True  # RU formatting; build_commercial_page() flips it per language
+
+
+def _fmt_money(v, digits=0):
+    if v is None:
+        return "—"
+    s = f"{v:,.{digits}f}".replace(",", " ")
+    return s.replace(".", ",") if _DECIMAL_COMMA else s
+
+
+def _pack_format(p, lang):
+    m = _FMT_RE.search(p["name"])
+    if not m:
+        return ""
+    g, n = m.group(1), m.group(2)
+    return f"{n} × {g} г" if lang == "ru" else f"{n} × {g} g"
+
+
+_TRANSLATIONS = json.loads((Path(__file__).parent / "translations.json").read_text(encoding="utf-8"))
+_EN_FMT_RE = __import__("re").compile(r"\(\s*\d+\s*g\s*[×x]\s*\d+\s*pcs\s*\)", __import__("re").I)
+
+
+def _clean_name(p, lang):
+    """Product name without the pack-format suffix (shown separately).
+    EN names come from scripts/translations.json — the same source the EN
+    product cards and the EN price list use — never invented here."""
+    if lang == "en":
+        en = _TRANSLATIONS.get("products", {}).get(p["name"].strip().lower())
+        if not en:
+            raise SystemExit(f"no EN translation for {p['sku']} «{p['name']}» in scripts/translations.json")
+        return _EN_FMT_RE.sub("", en).strip(" ,")
+    name = _FMT_RE.sub("", p["name"]).strip(" ,")
+    # KD-008 is stored in Sheets as `Сосиски Из конины"` (stray quote, no guillemets) —
+    # reported in technologist-questions.md; render consistently until the cell is fixed.
+    name = __import__("re").sub(r'^(Сосиски)\s+"?([^«»"]+?)"?$', r"\1 «\2»", name)
+    return name.replace('"', "")
+
+
+def build_commercial_page(cfg, lang):
+    global _DECIMAL_COMMA
+    _DECIMAL_COMMA = lang == "ru"
+    t = COMMERCIAL_T[lang]
+    products = get_products_by_category(cfg["categories"])
+    if not products:
+        raise SystemExit(f"no products for {cfg['categories']}")
+
+    formats = sorted({_pack_format(p, lang) for p in products if _pack_format(p, lang)},
+                     key=lambda s: int(s.split("×")[1].split()[0]))
+    weights = sorted({_num(p.get("weight")) for p in products if _num(p.get("weight"))})
+    storage = sorted({p.get("storage", "") for p in products if p.get("storage")})
+    shelf = sorted({p.get("shelfLife", "") for p in products if p.get("shelfLife")})
+    casings = sorted({p.get("casing", "") for p in products if p.get("casing")})
+    packs = sorted({p.get("packageType", "") for p in products if p.get("packageType")})
+    if lang == "en":
+        shelf = [s.replace("суток", "days").replace("сут", "days") for s in shelf]
+        casings = ["skinless" if c == "без оболочки" else c for c in casings]
+        packs = ["vacuum" if c == "Вакуум" else c for c in packs]
+    else:
+        packs = [c.lower() for c in packs]
+    fmts = " and ".join(formats) if lang == "en" else " и ".join(formats)
+    weights_s = ("; ".join(f"{_fmt_money(w, 2)} kg" for w in weights) if lang == "en"
+                 else "; ".join(f"{_fmt_money(w, 2)} кг" for w in weights))
+    ctx = {"n": len(products), "fmts": fmts, "date": LAST_SYNCED, "storage": " / ".join(storage),
+           "shelf": " / ".join(shelf), "weights": weights_s}
+
+    url = f"https://pepperoni.tatar{t['prefix']}/{cfg['slug']}"
+    ru_url = f"https://pepperoni.tatar/{cfg['slug']}"
+    en_url = f"https://pepperoni.tatar/en/{cfg['slug']}"
+    title = t["title"]
+    desc = t["meta"].format(**ctx)
+
+    cards, rows, ld_items = [], [], []
+    for i, p in enumerate(products, 1):
+        o = p.get("offers") or {}
+        price = _num(o.get("price"))
+        excl = _num(o.get("priceExclVAT"))
+        w = _num(p.get("weight"))
+        per_kg = price / w if price and w else None
+        per_pc = _num(o.get("pricePerPiece"))
+        if per_pc is None and price:
+            m = _FMT_RE.search(p["name"])
+            per_pc = price / int(m.group(2)) if m else None
+        fmt = _pack_format(p, lang)
+        name = _clean_name(p, lang)
+        sku = p["sku"]
+        img = p.get("imageMain") or p.get("image") or ""
+        card_url = f"{t['prefix']}/products/{sku.lower()}"
+        store = t["store"].format(storage=p.get("storage", ""), shelf=(p.get("shelfLife", "").replace("суток", "days") if lang == "en" else p.get("shelfLife", "")))
+        box = _num(p.get("boxWeightGross"))
+        box_s = (" · " + t["box"].format(v=_fmt_money(box, 1))) if box else ""
+        w_s = f"{_fmt_money(w, 2)} {'kg' if lang == 'en' else 'кг'}" if w else ""
+        cards.append(f"""      <article class="sku" data-sku="{sku}">
+        {'<img src="' + img + '" alt="' + name + '" loading="lazy" width="400" height="300">' if img else ''}
+        <div class="body">
+          <div class="code">{sku}</div>
+          <div class="title">{name}</div>
+          <div class="fmt">{fmt}{' · ' if fmt and w_s else ''}{w_s}</div>
+          <div class="price">{_fmt_money(price)} ₽ <small>{t['per_pack']} · {t['excl'].format(v=_fmt_money(excl, 2))}</small></div>
+          <div class="derived">{t['per_kg'].format(v=_fmt_money(per_kg))}{' · ' + t['per_pc'].format(v=_fmt_money(per_pc, 2)) if per_pc else ''}</div>
+          <div class="store">{store}{box_s}</div>
+          <div class="links"><label class="pick"><input type="checkbox" data-pick value="{sku} {name}"> {t['pick']}</label><a href="{card_url}">{t['card']}</a></div>
+        </div>
+      </article>""")
+        rows.append(f"<tr><td><a href=\"{card_url}\">{sku}</a></td><td>{name}</td><td>{fmt}</td><td class=\"num\">{w_s}</td>"
+                    f"<td class=\"num\">{_fmt_money(price)}</td><td class=\"num\">{_fmt_money(per_kg)}</td><td class=\"num\">{_fmt_money(per_pc, 2) if per_pc else '—'}</td><td>{store}</td></tr>")
+        ld_items.append({"@type": "ListItem", "position": i, "url": f"https://pepperoni.tatar{card_url}", "name": p["name"]})
+
+    faq_pairs = [(q.format(**ctx), a.format(**ctx)) for q, a in t["faq"]]
+    faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage",
+                         "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq_pairs]},
+                        ensure_ascii=False)
+    list_ld = json.dumps({"@context": "https://schema.org", "@type": "ItemList", "name": t["h1"], "description": desc,
+                          "url": url, "numberOfItems": len(products), "itemListElement": ld_items}, ensure_ascii=False)
+    crumbs_ld = json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": t["home"], "item": f"https://pepperoni.tatar{t['prefix']}/"},
+        {"@type": "ListItem", "position": 2, "name": t["h1"], "item": url}]}, ensure_ascii=False)
+
+    msg_attrs = " ".join(f'data-msg-{k}="{v}"' for k, v in t["msg"].items())
+    other_lang = ("en", en_url, "English") if lang == "ru" else ("ru", ru_url, "Русский")
+    related = " · ".join(f'<a href="{u}">{x}</a>' for x, u in t["related"])
+    cmp_head = "".join(f"<th>{c}</th>" for c in t["cmp_cols"])
+    clarify = "\n".join(f"<li>{x}</li>" for x in t["clarify"])
+
+    return f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+{GTM}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="content-language" content="{lang}">
+  <title>{title}</title>
+  <meta name="description" content="{desc}">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="{url}">
+  <link rel="alternate" hreflang="ru" href="{ru_url}">
+  <link rel="alternate" hreflang="en" href="{en_url}">
+  <link rel="alternate" hreflang="x-default" href="{ru_url}">
+  <meta property="og:type" content="product.group">
+  <meta property="og:title" content="{title}">
+  <meta property="og:description" content="{desc}">
+  <meta property="og:url" content="{url}">
+  <meta property="og:image" content="{products[0].get('imageMain') or 'https://pepperoni.tatar/images/pepperoni-halal.png'}">
+  <meta property="og:locale" content="{'ru_RU' if lang == 'ru' else 'en_US'}">
+  <meta property="og:site_name" content="Pepperoni.tatar — Казанские деликатесы">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{title}">
+  <meta name="twitter:description" content="{desc}">
+  <script type="application/ld+json">{list_ld}</script>
+  <script type="application/ld+json">{faq_ld}</script>
+  <script type="application/ld+json">{crumbs_ld}</script>
+  <style>{BASE_STYLE}{COMMERCIAL_STYLE}</style>
+</head>
+<body>
+{GTM_BODY}
+<div class="container">
+  <nav><a href="{t['prefix'] or '/'}">{t['back']}</a> · <a href="{other_lang[1]}" hreflang="{other_lang[0]}">{other_lang[2]}</a></nav>
+
+  <p class="hero-subtitle">{t['eyebrow'].format(**ctx)}</p>
+  <h1>{t['h1']}</h1>
+  <span class="badge">Halal ДУМ РТ № 614A/2024</span>
+  <span class="badge badge-outline">HACCP / ISO 22000:2018</span>
+  <span class="badge badge-outline">{ctx['storage']} · {ctx['shelf']}</span>
+
+  <div class="hero">
+    <div>
+      <p>{t['lead'].format(**ctx)}</p>
+      <p><a class="cta" href="#zayavka">{t['h_order']}</a> <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a></p>
+    </div>
+    <dl class="hero-facts">
+      <dt>{t['f_formats']}</dt><dd>{fmts}</dd>
+      <dt>{t['f_storage']}</dt><dd>{ctx['storage']}</dd>
+      <dt>{t['f_shelf']}</dt><dd>{ctx['shelf']}</dd>
+      <dt>{t['f_pack']}</dt><dd>{', '.join(casings + packs)}</dd>
+      <dt>{t['f_cert']}</dt><dd>{t['cert']}</dd>
+    </dl>
+  </div>
+
+  <h2 id="assortiment">{t['h_assort'].format(**ctx)}</h2>
+  <p class="price-note">{t['price_note'].format(**ctx)}</p>
+  <div class="sku-grid">
+{chr(10).join(cards)}
+  </div>
+
+  <h2>{t['h_cmp']}</h2>
+  <div class="cmp"><table><thead><tr>{cmp_head}</tr></thead><tbody>
+{chr(10).join(rows)}
+  </tbody></table></div>
+
+  <h2 id="zayavka">{t['h_order']}</h2>
+  <div class="order">
+    <form class="lead-form" id="lead-{cfg['slug']}-{lang}" novalidate data-experiment-id="{cfg['slug']}-{lang}" {msg_attrs}>
+      <p style="margin:0 0 4px;font-size:.92rem;color:#555">{t['order_lead']}</p>
+      <div class="shortlist" data-shortlist aria-live="polite"></div>
+      <input type="hidden" name="category" value="{cfg['label']}">
+      <input type="hidden" name="shortlist" value="">
+      <label for="lf-name-{lang}">{t['l_name']}</label>
+      <input id="lf-name-{lang}" type="text" name="name" placeholder="{t['ph_name']}" autocomplete="name">
+      <label for="lf-phone-{lang}">{t['l_phone']}</label>
+      <input id="lf-phone-{lang}" type="tel" name="phone" required placeholder="{t['ph_phone']}" autocomplete="tel">
+      <label for="lf-msg-{lang}">{t['l_msg']}</label>
+      <textarea id="lf-msg-{lang}" name="message" rows="3" placeholder="{t['ph_msg']}"></textarea>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <label class="consent"><input type="checkbox" name="consent" required><span>{t['consent']}</span></label>
+      <button class="cta" type="submit">{t['submit']}</button>
+      <p class="lead-form__status" role="status" aria-live="polite"></p>
+    </form>
+    <div class="clarify">
+      <h3 style="margin-top:0">{t['h_clarify']}</h3>
+      <ul>
+{clarify}
+      </ul>
+      <p style="font-size:.92rem">{t['samples']}</p>
+      <p class="contact-line">{t['contact']}</p>
+    </div>
+  </div>
+
+  <p style="margin-top:20px;font-size:.9rem;color:#555">{t['related_h']}{related}</p>
+
+  <section class="faq-section">
+    <h2>{t['h_faq']}</h2>
+{faq_html(faq_pairs)}
+  </section>
+
+  <footer><p>{t['footer']}</p></footer>
+</div>
+<script>
+(function(){{
+  var box=document.querySelector('[data-shortlist]'),field=document.querySelector('input[name="shortlist"]');
+  if(!box||!field)return;
+  function sync(){{
+    var picked=[].slice.call(document.querySelectorAll('[data-pick]:checked')).map(function(c){{return c.value;}});
+    field.value=picked.join('; ');
+    box.textContent=picked.length?{json.dumps(t['shortlist_prefix'], ensure_ascii=False)}+picked.join('; '):'';
+  }}
+  document.addEventListener('change',function(e){{if(e.target&&e.target.hasAttribute('data-pick'))sync();}});
+  // The intake server forwards only name/phone/message: fold category + picked
+  // SKUs into the message text (capture phase = before lead-form.js reads it).
+  var form=field.form,msg=form&&form.querySelector('[name="message"]'),cat=form&&form.querySelector('[name="category"]');
+  if(form&&msg)form.addEventListener('submit',function(){{
+    var tag='['+(cat?cat.value:'')+']',parts=[];
+    var body=msg.value.replace(/\\n*\\[[^\\]]*\\]\\s*(SKU|Позиции)[^\\n]*/g,'').trim();
+    parts.push(tag+(field.value?' SKU: '+field.value:''));
+    if(body)parts.push(body);
+    msg.value=parts.join('\\n').slice(0,1000);
+  }},true);
+}})();
+</script>
+<script src="/assets/lead-form.js" defer></script>
+</body>
+</html>"""
+
+
 PAGES = [
     {
         "slug": "sosiski-halyal",
@@ -329,6 +761,7 @@ PAGES = [
     },
     {
         "slug": "sosiski-dlya-hotdog",
+        "commercial": True,  # pilot 2026-09: build_commercial_page(), text below is legacy and unused
         "label": "Сосиски для хот-догов халяль",
         "title": "Сосиски для хот-догов халяль оптом — гриль-сосиски из Казани | pepperoni.tatar",
         "desc": "Сосиски для хот-догов халяль оптом. 7 видов гриль-сосисок из говядины, курицы, баранины. Срок хранения 360 суток. Сертификат ДУМ РТ. Доставка по России и СНГ.",
@@ -523,6 +956,17 @@ def main():
         rel = out.relative_to(PUBLIC).as_posix()
         if rel not in approved:
             print(f"⏭️  {out.name} skipped (not in index allowlist)")
+            continue
+        if cfg.get("commercial"):
+            out.write_text(build_commercial_page(cfg, "ru"), encoding="utf-8")
+            out_en = PUBLIC / "en" / f'{cfg["slug"]}.html'
+            if out_en.relative_to(PUBLIC).as_posix() in approved:
+                out_en.write_text(build_commercial_page(cfg, "en"), encoding="utf-8")
+                print(f"✅ en/{out_en.name} (commercial)")
+            else:
+                print(f"⏭️  en/{out_en.name} skipped (not in index allowlist)")
+            print(f"✅ {out.name} (commercial, {len(get_products_by_category(cfg['categories']))} SKU)")
+            created += 1
             continue
         html = build_page(cfg)
         out.write_text(html, encoding="utf-8")
