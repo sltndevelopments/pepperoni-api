@@ -32,6 +32,7 @@ import logging
 import os
 import re
 import sys
+import tempfile
 import time
 import urllib.parse
 import urllib.request
@@ -44,6 +45,8 @@ from flask import Flask, jsonify, request
 LEADS_BOT_TOKEN = os.getenv("LEADS_BOT_TOKEN", "").strip()
 LEADS_GROUP_ID = os.getenv("LEADS_GROUP_ID", "").strip()
 PORT = int(os.getenv("LEAD_INTAKE_PORT", "5002"))
+# Overridable so the delivery path can be exercised against a local mock in tests.
+TELEGRAM_API_BASE = os.getenv("TELEGRAM_API_BASE", "https://api.telegram.org").rstrip("/")
 
 ALLOWED_ORIGINS = {
     "https://pepperoni.tatar",
@@ -65,21 +68,43 @@ MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_i
 # acknowledged with the original lead_id and `duplicate: true` and is NOT sent
 # to the sales group again.
 DEDUP_TTL = 6 * 3600
-_recent_refs: dict[str, tuple[float, str]] = {}
+# The unit runs gunicorn with 2 workers, so the store must be shared between
+# processes — a per-worker dict would let a retry that lands on the other
+# worker reach the sales group twice. sqlite (stdlib) with a short busy timeout.
+DEDUP_DB = Path(os.getenv("LEAD_DEDUP_DB", "/var/www/pepperoni/data/lead_dedup.sqlite"))
+
+
+def _dedup_conn():
+    import sqlite3
+    try:
+        DEDUP_DB.parent.mkdir(parents=True, exist_ok=True)
+        conn = sqlite3.connect(DEDUP_DB, timeout=2)
+    except Exception:
+        conn = sqlite3.connect(Path(tempfile.gettempdir()) / "lead_dedup.sqlite", timeout=2)
+    conn.execute("CREATE TABLE IF NOT EXISTS refs (ref TEXT PRIMARY KEY, ts REAL, lead_id TEXT)")
+    return conn
 
 
 def _dedup_lookup(client_ref: str) -> str | None:
-    now = time.time()
-    for ref, (ts, _lid) in list(_recent_refs.items()):
-        if now - ts > DEDUP_TTL:
-            _recent_refs.pop(ref, None)
-    hit = _recent_refs.get(client_ref)
-    return hit[1] if hit else None
+    try:
+        with _dedup_conn() as conn:
+            conn.execute("DELETE FROM refs WHERE ts < ?", (time.time() - DEDUP_TTL,))
+            row = conn.execute("SELECT lead_id FROM refs WHERE ref = ?", (client_ref,)).fetchone()
+        return row[0] if row else None
+    except Exception as exc:  # dedup is a safety net, never a reason to drop a lead
+        log.warning("dedup lookup failed: %s", exc)
+        return None
 
 
 def _dedup_store(client_ref: str, lead_id: str) -> None:
-    if client_ref:
-        _recent_refs[client_ref] = (time.time(), lead_id)
+    if not client_ref:
+        return
+    try:
+        with _dedup_conn() as conn:
+            conn.execute("INSERT OR REPLACE INTO refs (ref, ts, lead_id) VALUES (?, ?, ?)",
+                         (client_ref, time.time(), lead_id))
+    except Exception as exc:
+        log.warning("dedup store failed: %s", exc)
 
 
 def phone_ok(raw: str) -> bool:
@@ -127,7 +152,7 @@ def _send_to_group(text: str) -> bool:
     if not LEADS_BOT_TOKEN or not LEADS_GROUP_ID:
         log.error("LEADS_BOT_TOKEN / LEADS_GROUP_ID not configured")
         return False
-    url = f"https://api.telegram.org/bot{LEADS_BOT_TOKEN}/sendMessage"
+    url = f"{TELEGRAM_API_BASE}/bot{LEADS_BOT_TOKEN}/sendMessage"
     data = urllib.parse.urlencode({
         "chat_id": LEADS_GROUP_ID,
         "text": text,
