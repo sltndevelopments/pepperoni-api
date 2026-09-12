@@ -283,6 +283,7 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.equal(oidc.jwks_uri, "https://yaratu.com/.well-known/jwks.json");
   assert.equal(resource.resource, "https://yaratu.com/");
   assert.deepEqual(resource.authorization_servers, ["https://yaratu.com"]);
+  assert.deepEqual(resource.bearer_methods_supported, ["header"]);
   assert.equal(mcp.serverInfo.name, "yaratu");
   assert.equal(mcp.serverInfo.version, "1.0.0");
   assert.equal(mcp.transport.type, "http");

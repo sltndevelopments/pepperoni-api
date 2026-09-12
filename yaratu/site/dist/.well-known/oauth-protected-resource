@@ -6,6 +6,6 @@
   "scopes_supported": [
     "read:catalog"
   ],
-  "bearer_methods_supported": [],
+  "bearer_methods_supported": ["header"],
   "resource_documentation": "https://yaratu.com/auth.md"
 }

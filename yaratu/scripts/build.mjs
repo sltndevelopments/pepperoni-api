@@ -754,7 +754,7 @@ const oauthResource = {
   resource: `${SITE}/`,
   authorization_servers: [SITE],
   scopes_supported: ["read:catalog"],
-  bearer_methods_supported: [],
+  bearer_methods_supported: ["header"],
   resource_documentation: `${SITE}/auth.md`
 };
 const publicAccess = {
