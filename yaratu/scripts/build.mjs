@@ -815,7 +815,7 @@ await output("mcp/index.json", `${JSON.stringify(mcpEndpoint, null, 2)}\n`);
 await output("oauth/authorize", `${JSON.stringify(oauthUnused, null, 2)}\n`);
 await output("oauth/token", `${JSON.stringify(oauthUnused, null, 2)}\n`);
 await output("agents/register", `${JSON.stringify(publicAccess, null, 2)}\n`);
-await output("auth.md", `# Agent registration
+await output("auth.md", `# Auth.md
 
 Yaratu catalog APIs are public. Agents do not create accounts and do not receive tokens.
 

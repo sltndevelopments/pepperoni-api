@@ -290,6 +290,7 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.ok(mcp.capabilities);
   assert.deepEqual(mcp, mcpAlias);
   assert.equal(register.registration, "not-required");
+  assert.match(authMd, /^# Auth\.md$/m);
   assert.match(authMd, /## Supported flows/);
   assert.match(authMd, /## Scopes/);
   assert.match(authMd, /## How to register/);

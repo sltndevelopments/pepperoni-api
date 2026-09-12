@@ -1,4 +1,4 @@
-# Agent registration
+# Auth.md
 
 Yaratu catalog APIs are public. Agents do not create accounts and do not receive tokens.
 
