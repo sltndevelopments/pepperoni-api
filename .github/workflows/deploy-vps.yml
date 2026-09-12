@@ -242,6 +242,13 @@ jobs:
             # git reset above changes the file but the workers keep the old code
             # in memory until restarted. Without this step a fix to the form
             # handler (e.g. phone validation) silently never reaches production.
+            # partner-intake (/china HotelEx form) runs as www-data and loads
+            # /var/www/pepperoni/.env via python-dotenv; a root:600 file made it
+            # crash-loop with PermissionError (found 2026-09-12, POST → 502).
+            if [ -f /var/www/pepperoni/.env ]; then
+              chgrp www-data /var/www/pepperoni/.env && chmod 640 /var/www/pepperoni/.env
+              systemctl is-active --quiet partner-intake || systemctl restart partner-intake 2>/dev/null || true
+            fi
             UNIT=pepperoni-lead-intake
             if systemctl is-enabled "$UNIT" &>/dev/null; then
               systemctl restart "$UNIT"
