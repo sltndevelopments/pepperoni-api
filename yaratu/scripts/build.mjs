@@ -738,6 +738,7 @@ const oauthIssuer = {
   code_challenge_methods_supported: [],
   authorization_response_iss_parameter_supported: true,
   agent_auth: {
+    skill: `${SITE}/auth.md`,
     register_uri: `${SITE}/agents/register`,
     supported_identity_types: [],
     supported_credential_types: [],

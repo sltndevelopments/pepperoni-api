@@ -279,6 +279,7 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.doesNotMatch(homeHtml, /rel="preload" as="image"/);
   assert.equal(oauth.issuer, "https://yaratu.com");
   assert.deepEqual(oauth.grant_types_supported, []);
+  assert.equal(oauth.agent_auth.skill, "https://yaratu.com/auth.md");
   assert.equal(oauth.agent_auth.register_uri, "https://yaratu.com/agents/register");
   assert.equal(oidc.jwks_uri, "https://yaratu.com/.well-known/jwks.json");
   assert.equal(resource.resource, "https://yaratu.com/");
