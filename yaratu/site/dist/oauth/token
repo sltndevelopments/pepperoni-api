@@ -1,0 +1,4 @@
+{
+  "error": "authorization_not_required",
+  "error_description": "Yaratu catalog data is public. Do not request a token. GET https://yaratu.com/data/products.json"
+}

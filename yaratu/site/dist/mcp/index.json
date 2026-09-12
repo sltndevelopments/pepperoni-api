@@ -1,0 +1,35 @@
+{
+  "jsonrpc": "2.0",
+  "result": {
+    "protocolVersion": "2025-06-18",
+    "serverInfo": {
+      "name": "yaratu",
+      "title": "Yaratu catalog",
+      "version": "1.0.0"
+    },
+    "capabilities": {
+      "tools": {
+        "listChanged": false
+      },
+      "resources": {
+        "subscribe": false,
+        "listChanged": false
+      }
+    },
+    "instructions": "Read-only public catalog. Prefer GET /data/products.json. Nutrition is calculated, not laboratory-tested.",
+    "tools": [
+      {
+        "name": "list_products",
+        "description": "List the five current Yaratu products with calculated nutrition per 100 g, allergens and certificate-backed halal status. Nutrition is not a laboratory value."
+      },
+      {
+        "name": "get_product",
+        "description": "Return one Yaratu product by id: vetchina, mramornaya, brokkoli, molochnye or slivochnaya."
+      },
+      {
+        "name": "retail_contact",
+        "description": "Return the manufacturer contact for specifications and supply. There is no checkout and no consumer price list."
+      }
+    ]
+  }
+}

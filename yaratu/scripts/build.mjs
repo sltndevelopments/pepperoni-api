@@ -288,7 +288,7 @@ function localizeEditorial(html, lang) {
   out = out.replace(/<meta\s+name="description"\s+content="[^"]*"\s*\/>/, `<meta name="description" content="${h(E.description)}" />`);
   out = out.replace("Перейти к содержанию", E.skip);
   out = out.replace('aria-label="Ярату — главная"', `aria-label="${h(E.navAria)}"`);
-  out = out.replace('alt="Ярату" width="1787" height="300"', `alt="Yaratu" width="1787" height="300"`);
+  out = out.replace('alt="Ярату" width="1787" height="300"', `alt="${lang === "tt" ? "Ярату" : "Yaratu"}" width="1787" height="300"`);
   out = out.replace('aria-label="Разделы"', `aria-label="${h(E.navAria)}"`);
   out = out.replaceAll(">Факты<", `>${E.nav[0]}<`);
   out = out.replaceAll(">Ассортимент<", `>${E.nav[1]}<`);
@@ -347,7 +347,7 @@ function localizeEditorial(html, lang) {
   out = out.replace(/Запросить спецификации<\/a\s*>/, `${E.contactCta}</a\n              >`);
   out = out.replace("subject=Ярату%20%2F%20запрос%20спецификаций", `subject=${encodeURIComponent(E.mailSubject)}`);
   out = out.replace(/aria-label="Ярату — главная"/g, `aria-label="${h(E.navAria)}"`);
-  out = out.replace(/alt="Ярату" width="1787" height="300"/g, `alt="Yaratu" width="1787" height="300"`);
+  out = out.replace(/alt="Ярату" width="1787" height="300"/g, `alt="${lang === "tt" ? "Ярату" : "Yaratu"}" width="1787" height="300"`);
   out = out.replace(">Производитель<", `>${E.contactLabels[0]}<`);
   out = out.replace(">Адрес<", `>${E.contactLabels[1]}<`);
   out = out.replace(">Связь<", `>${E.contactLabels[2]}<`);
@@ -358,7 +358,7 @@ function localizeEditorial(html, lang) {
   out = out.replace('aria-label="Документы"', `aria-label="${h(E.footerAria)}"`);
   out = out.replace(">Политика ПДн<", `>${E.privacy}<`);
   out = out.replace("© 2026 · бренд ООО «Казанские Деликатесы» · ИНН 1686021074", lang === "en" ? "© 2026 · a brand of Kazan Delicacies LLC · INN 1686021074" : "© 2026 · «Казанские Деликатесы» ҖЧҖ бренды · ИНН 1686021074");
-  out = out.replace("Халяль · Без нитрита натрия · Читаемый состав", lang === "en" ? "Halal · No sodium nitrite · Readable ingredients" : "Хәләл · Натрий нитритысыз · Укып була торган состав");
+  out = out.replace("Халяль · Без нитрита натрия · Читаемый состав", lang === "en" ? "Halal · No sodium nitrite · Readable ingredients" : "Хәләл · Натрий нитритысыз · Аңлаешлы состав");
 
   for (const id of order) {
     const p = byId[id];
@@ -602,7 +602,7 @@ const sitemapQr = products.map((product) => {
 });
 const sitemapEntries = [...sitemapLocale, ...sitemapQr];
 await output("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${sitemapEntries.join("\n")}\n</urlset>\n`);
-await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\nAllow: /.well-known/api-catalog\nAllow: /.well-known/ai-catalog.json\nAllow: /.well-known/agent-skills/\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
+await output("robots.txt", `User-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\nAllow: /.well-known/api-catalog\nAllow: /.well-known/ai-catalog.json\nAllow: /.well-known/agent-skills/\nAllow: /.well-known/mcp\nAllow: /.well-known/mcp.json\nAllow: /.well-known/mcp/\nAllow: /auth.md\nAllow: /mcp\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("robots-ai.txt", `# Yaratu AI crawler directives\nUser-agent: *\nContent-Signal: ai-train=yes, search=yes, ai-input=yes\nAllow: /\n\nUser-agent: GPTBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\n\nSitemap: ${SITE}/sitemap-llms.xml\n`);
 await output("ai.txt", `Yaratu permits indexing of public pages and feeds for search and AI retrieval.\nCanonical product data: ${SITE}/data/products.json\nHuman-readable summary: ${SITE}/llms.txt\n`);
 await output("989787de78c652b55e6887550582b6f6.txt", "989787de78c652b55e6887550582b6f6\n");
@@ -723,6 +723,120 @@ await output(".well-known/agent-skills/index.json", `${JSON.stringify({
   $schema: "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
   skills: skills.map(({ text, ...rest }) => rest)
 }, null, 2)}\n`);
+
+const oauthIssuer = {
+  issuer: SITE,
+  authorization_endpoint: `${SITE}/oauth/authorize`,
+  token_endpoint: `${SITE}/oauth/token`,
+  jwks_uri: `${SITE}/.well-known/jwks.json`,
+  registration_endpoint: `${SITE}/agents/register`,
+  scopes_supported: ["read:catalog"],
+  response_types_supported: [],
+  grant_types_supported: [],
+  token_endpoint_auth_methods_supported: ["none"],
+  service_documentation: `${SITE}/auth.md`,
+  code_challenge_methods_supported: [],
+  authorization_response_iss_parameter_supported: true,
+  agent_auth: {
+    register_uri: `${SITE}/agents/register`,
+    supported_identity_types: [],
+    supported_credential_types: [],
+    documentation: `${SITE}/auth.md`
+  }
+};
+const oidcDiscovery = {
+  ...oauthIssuer,
+  subject_types_supported: ["public"],
+  id_token_signing_alg_values_supported: [],
+  claims_supported: []
+};
+const oauthResource = {
+  resource: `${SITE}/`,
+  authorization_servers: [SITE],
+  scopes_supported: ["read:catalog"],
+  bearer_methods_supported: [],
+  resource_documentation: `${SITE}/auth.md`
+};
+const publicAccess = {
+  registration: "not-required",
+  access: "public",
+  scopes: ["read:catalog"],
+  catalog: `${SITE}/data/products.json`,
+  mcp: `${SITE}/.well-known/mcp/server-card.json`
+};
+const oauthUnused = {
+  error: "authorization_not_required",
+  error_description: "Yaratu catalog data is public. Do not request a token. GET https://yaratu.com/data/products.json"
+};
+const mcpTools = [
+  {
+    name: "list_products",
+    description: "List the five current Yaratu products with calculated nutrition per 100 g, allergens and certificate-backed halal status. Nutrition is not a laboratory value."
+  },
+  {
+    name: "get_product",
+    description: "Return one Yaratu product by id: vetchina, mramornaya, brokkoli, molochnye or slivochnaya."
+  },
+  {
+    name: "retail_contact",
+    description: "Return the manufacturer contact for specifications and supply. There is no checkout and no consumer price list."
+  }
+];
+const mcpCard = {
+  $schema: "https://static.modelcontextprotocol.io/schemas/mcp-server-card/v1.json",
+  version: "1.0",
+  protocolVersion: "2025-06-18",
+  serverInfo: { name: "yaratu", title: "Yaratu catalog", version: "1.0.0" },
+  description: "Read-only Yaratu catalog. Nutrition is calculated, not laboratory-tested. No checkout.",
+  transport: { type: "http", endpoint: `${SITE}/mcp` },
+  remotes: [{ type: "http", url: `${SITE}/mcp` }],
+  capabilities: { tools: { listChanged: false }, resources: { subscribe: false, listChanged: false } },
+  authentication: { required: false },
+  tools: mcpTools
+};
+const mcpEndpoint = {
+  jsonrpc: "2.0",
+  result: {
+    protocolVersion: "2025-06-18",
+    serverInfo: mcpCard.serverInfo,
+    capabilities: mcpCard.capabilities,
+    instructions: "Read-only public catalog. Prefer GET /data/products.json. Nutrition is calculated, not laboratory-tested.",
+    tools: mcpTools
+  }
+};
+
+await output(".well-known/oauth-authorization-server", `${JSON.stringify(oauthIssuer, null, 2)}\n`);
+await output(".well-known/openid-configuration", `${JSON.stringify(oidcDiscovery, null, 2)}\n`);
+await output(".well-known/oauth-protected-resource", `${JSON.stringify(oauthResource, null, 2)}\n`);
+await output(".well-known/jwks.json", `${JSON.stringify({ keys: [] }, null, 2)}\n`);
+await output(".well-known/mcp/server-card.json", `${JSON.stringify(mcpCard, null, 2)}\n`);
+await output(".well-known/mcp.json", `${JSON.stringify(mcpCard, null, 2)}\n`);
+await output("mcp/index.json", `${JSON.stringify(mcpEndpoint, null, 2)}\n`);
+await output("oauth/authorize", `${JSON.stringify(oauthUnused, null, 2)}\n`);
+await output("oauth/token", `${JSON.stringify(oauthUnused, null, 2)}\n`);
+await output("agents/register", `${JSON.stringify(publicAccess, null, 2)}\n`);
+await output("auth.md", `# Agent registration
+
+Yaratu catalog APIs are public. Agents do not create accounts and do not receive tokens.
+
+## Supported flows
+- **Public read** — no registration. Fetch the catalog without credentials.
+
+## Scopes
+- \`read:catalog\` — already granted to every client. No bearer token.
+
+## How to register
+GET ${SITE}/agents/register
+
+This returns \`registration: not-required\` and the canonical catalog URL. There is no OTP, no client secret and no checkout.
+
+OAuth metadata: /.well-known/oauth-protected-resource
+
+Machine endpoints:
+- ${SITE}/data/products.json
+- ${SITE}/llms.txt
+- ${SITE}/.well-known/mcp/server-card.json
+`);
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
 await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n`);
 const routes = {

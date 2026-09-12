@@ -1,0 +1,9 @@
+{
+  "registration": "not-required",
+  "access": "public",
+  "scopes": [
+    "read:catalog"
+  ],
+  "catalog": "https://yaratu.com/data/products.json",
+  "mcp": "https://yaratu.com/.well-known/mcp/server-card.json"
+}

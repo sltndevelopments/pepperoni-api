@@ -95,6 +95,14 @@ if ! grep -Fq 'application/linkset+json' "$RENDERED"; then
   echo "FAIL: api-catalog media type is missing" >&2
   exit 25
 fi
+if ! grep -Fq 'location = /.well-known/mcp.json' "$RENDERED"; then
+  echo "FAIL: MCP discovery location is missing" >&2
+  exit 28
+fi
+if ! grep -Fq 'location = /auth.md' "$RENDERED"; then
+  echo "FAIL: auth.md location is missing" >&2
+  exit 29
+fi
 
 if command -v nginx >/dev/null 2>&1 && command -v openssl >/dev/null 2>&1; then
   # GitHub-hosted runners execute this gate without root. Keep the production

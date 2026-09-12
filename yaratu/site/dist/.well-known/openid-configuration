@@ -1,0 +1,29 @@
+{
+  "issuer": "https://yaratu.com",
+  "authorization_endpoint": "https://yaratu.com/oauth/authorize",
+  "token_endpoint": "https://yaratu.com/oauth/token",
+  "jwks_uri": "https://yaratu.com/.well-known/jwks.json",
+  "registration_endpoint": "https://yaratu.com/agents/register",
+  "scopes_supported": [
+    "read:catalog"
+  ],
+  "response_types_supported": [],
+  "grant_types_supported": [],
+  "token_endpoint_auth_methods_supported": [
+    "none"
+  ],
+  "service_documentation": "https://yaratu.com/auth.md",
+  "code_challenge_methods_supported": [],
+  "authorization_response_iss_parameter_supported": true,
+  "agent_auth": {
+    "register_uri": "https://yaratu.com/agents/register",
+    "supported_identity_types": [],
+    "supported_credential_types": [],
+    "documentation": "https://yaratu.com/auth.md"
+  },
+  "subject_types_supported": [
+    "public"
+  ],
+  "id_token_signing_alg_values_supported": [],
+  "claims_supported": []
+}

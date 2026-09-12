@@ -1249,5 +1249,97 @@
         </div>
       </div>
     </footer>
+    <script>
+      (function () {
+        var ids = ["vetchina", "mramornaya", "brokkoli", "molochnye", "slivochnaya"];
+        var catalogPromise;
+        function catalog() {
+          catalogPromise = catalogPromise || fetch("/data/products.json", { credentials: "omit" }).then(function (res) {
+            if (!res.ok) throw new Error("catalog HTTP " + res.status);
+            return res.json();
+          });
+          return catalogPromise;
+        }
+        function summary(product) {
+          return {
+            id: product.id,
+            name: product.name,
+            kind: product.kind,
+            netWeightGrams: product.netWeight && product.netWeight.value,
+            nutritionPer100g: product.nutrition,
+            nutritionStatus: product.status && product.status.nutrition,
+            halalStatus: product.status && product.status.halal,
+            allergens: product.allergens,
+            url: {
+              ru: "/products/" + product.id + "/",
+              en: "/en/products/" + product.id + "/",
+              tt: "/tt/products/" + product.id + "/"
+            }
+          };
+        }
+        var tools = [
+          {
+            name: "list_products",
+            description: "List the five current Yaratu products with calculated nutrition per 100 g, allergens and certificate-backed halal status. Nutrition is not a laboratory value.",
+            inputSchema: { type: "object", additionalProperties: false, properties: {} },
+            annotations: { readOnlyHint: true },
+            execute: async function () {
+              var data = await catalog();
+              return {
+                nutritionBasis: data.notice || data.nutritionBasis,
+                products: (data.products || []).map(summary)
+              };
+            }
+          },
+          {
+            name: "get_product",
+            description: "Return one Yaratu product by id: vetchina, mramornaya, brokkoli, molochnye or slivochnaya.",
+            inputSchema: {
+              type: "object",
+              additionalProperties: false,
+              required: ["id"],
+              properties: { id: { type: "string", enum: ids } }
+            },
+            annotations: { readOnlyHint: true },
+            execute: async function (input) {
+              var id = input && input.id;
+              var data = await catalog();
+              var product = (data.products || []).find(function (item) { return item.id === id; });
+              if (!product) throw new Error("Unknown product id");
+              return summary(product);
+            }
+          },
+          {
+            name: "retail_contact",
+            description: "Return the manufacturer contact for specifications and supply. There is no checkout and no consumer price list.",
+            inputSchema: { type: "object", additionalProperties: false, properties: {} },
+            annotations: { readOnlyHint: true },
+            execute: async function () {
+              return {
+                company: "OOO Kazan Delicacies",
+                email: "info@kazandelikates.tatar",
+                phone: "+7 987 217-02-02",
+                address: "Kazan, Agrarnaya 2, office 7",
+                mailto: "mailto:info@kazandelikates.tatar?subject=Yaratu%20specifications",
+                checkout: false
+              };
+            }
+          }
+        ];
+        function register(modelContext) {
+          if (!modelContext) return;
+          if (typeof modelContext.provideContext === "function") {
+            modelContext.provideContext({ tools: tools });
+          }
+          if (typeof modelContext.registerTool === "function") {
+            tools.forEach(function (tool) {
+              try { modelContext.registerTool(tool); } catch (err) {}
+            });
+          }
+        }
+        register(navigator.modelContext);
+        register(document.modelContext);
+      })();
+    </script>
   </body>
 </html>

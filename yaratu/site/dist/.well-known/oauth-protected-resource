@@ -1,0 +1,11 @@
+{
+  "resource": "https://yaratu.com/",
+  "authorization_servers": [
+    "https://yaratu.com"
+  ],
+  "scopes_supported": [
+    "read:catalog"
+  ],
+  "bearer_methods_supported": [],
+  "resource_documentation": "https://yaratu.com/auth.md"
+}

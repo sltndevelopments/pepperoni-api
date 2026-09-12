@@ -4,6 +4,11 @@ Allow: /
 Allow: /.well-known/api-catalog
 Allow: /.well-known/ai-catalog.json
 Allow: /.well-known/agent-skills/
+Allow: /.well-known/mcp
+Allow: /.well-known/mcp.json
+Allow: /.well-known/mcp/
+Allow: /auth.md
+Allow: /mcp
 
 User-agent: GPTBot
 Allow: /
