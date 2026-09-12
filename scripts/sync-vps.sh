@@ -77,6 +77,9 @@ python3 scripts/index_policy_check.py
 # SKU makes stale prose fail here instead of going live.
 python3 scripts/check_fact_consistency.py
 python3 scripts/check_product_claims.py --quiet
+# Owner-approved commercial fact (2026-09-12): private-label minimum run is
+# «от 5 тонн» — any other kg/t figure in a СТМ sentence blocks the sync.
+python3 scripts/check_stm_min_run.py --quiet
 
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"
