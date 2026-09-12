@@ -18,8 +18,30 @@
   "agent_auth": {
     "skill": "https://yaratu.com/auth.md",
     "register_uri": "https://yaratu.com/agents/register",
-    "supported_identity_types": [],
-    "supported_credential_types": [],
+    "identity_endpoint": "https://yaratu.com/oauth/identity",
+    "claim_endpoint": "https://yaratu.com/oauth/claim",
+    "claim_uri": "https://yaratu.com/oauth/claim",
+    "revocation_uri": "https://yaratu.com/oauth/revoke",
+    "events_endpoint": "https://yaratu.com/oauth/events",
+    "identity_types_supported": [
+      "anonymous"
+    ],
+    "supported_identity_types": [
+      "anonymous"
+    ],
+    "supported_credential_types": [
+      "none"
+    ],
+    "anonymous": {
+      "credential_types_supported": [
+        "none"
+      ],
+      "claim_uri": "https://yaratu.com/oauth/claim"
+    },
+    "identity_assertion": {
+      "assertion_types_supported": []
+    },
+    "events_supported": [],
     "documentation": "https://yaratu.com/auth.md"
   }
 }

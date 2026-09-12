@@ -740,8 +740,22 @@ const oauthIssuer = {
   agent_auth: {
     skill: `${SITE}/auth.md`,
     register_uri: `${SITE}/agents/register`,
-    supported_identity_types: [],
-    supported_credential_types: [],
+    identity_endpoint: `${SITE}/oauth/identity`,
+    claim_endpoint: `${SITE}/oauth/claim`,
+    claim_uri: `${SITE}/oauth/claim`,
+    revocation_uri: `${SITE}/oauth/revoke`,
+    events_endpoint: `${SITE}/oauth/events`,
+    identity_types_supported: ["anonymous"],
+    supported_identity_types: ["anonymous"],
+    supported_credential_types: ["none"],
+    anonymous: {
+      credential_types_supported: ["none"],
+      claim_uri: `${SITE}/oauth/claim`
+    },
+    identity_assertion: {
+      assertion_types_supported: []
+    },
+    events_supported: [],
     documentation: `${SITE}/auth.md`
   }
 };
@@ -760,10 +774,76 @@ const oauthResource = {
 };
 const publicAccess = {
   registration: "not-required",
+  identity_type: "anonymous",
   access: "public",
   scopes: ["read:catalog"],
   catalog: `${SITE}/data/products.json`,
-  mcp: `${SITE}/.well-known/mcp/server-card.json`
+  mcp: `${SITE}/.well-known/mcp/server-card.json`,
+  skill: `${SITE}/auth.md`
+};
+const anonymousIdentity = {
+  identity_type: "anonymous",
+  access: "public",
+  scopes: ["read:catalog"],
+  catalog: `${SITE}/data/products.json`
+};
+const anonymousClaim = {
+  identity_type: "anonymous",
+  status: "no_claim_required",
+  access: "public"
+};
+const anonymousEvents = {
+  events_supported: []
+};
+const anonymousRevoke = {
+  revoked: false,
+  note: "Yaratu does not issue credentials. There is nothing to revoke."
+};
+const a2aCard = {
+  protocolVersion: "1.0",
+  name: "Yaratu",
+  description: "Read-only Yaratu catalog. Nutrition is calculated, not laboratory-tested. No checkout.",
+  url: `${SITE}/data/products.json`,
+  version: "1.0.0",
+  documentationUrl: `${SITE}/llms.txt`,
+  provider: {
+    organization: "ООО «Казанские Деликатесы» / Kazan Delicacies",
+    url: `${SITE}/`
+  },
+  supportedInterfaces: [
+    {
+      url: `${SITE}/data/products.json`,
+      protocolBinding: "HTTP+JSON",
+      protocolVersion: "1.0"
+    }
+  ],
+  capabilities: {
+    streaming: false,
+    pushNotifications: false,
+    extendedAgentCard: false
+  },
+  defaultInputModes: ["text/plain", "text/markdown"],
+  defaultOutputModes: ["application/json", "text/markdown"],
+  skills: [
+    {
+      id: "list_products",
+      name: "List products",
+      description: "The five current Yaratu products with calculated nutrition per 100 g and certificate-backed halal status.",
+      tags: ["catalog", "halal"]
+    },
+    {
+      id: "get_product",
+      name: "Get product",
+      description: "One product by id: vetchina, mramornaya, brokkoli, molochnye or slivochnaya.",
+      tags: ["catalog"]
+    },
+    {
+      id: "retail_contact",
+      name: "Retail contact",
+      description: "Manufacturer contact for specifications and supply. No consumer price list.",
+      tags: ["retail", "contact"]
+    }
+  ]
 };
 const oauthUnused = {
   error: "authorization_not_required",
@@ -815,25 +895,40 @@ await output(".well-known/mcp.json", `${JSON.stringify(mcpCard, null, 2)}\n`);
 await output("mcp/index.json", `${JSON.stringify(mcpEndpoint, null, 2)}\n`);
 await output("oauth/authorize", `${JSON.stringify(oauthUnused, null, 2)}\n`);
 await output("oauth/token", `${JSON.stringify(oauthUnused, null, 2)}\n`);
+await output("oauth/identity", `${JSON.stringify(anonymousIdentity, null, 2)}\n`);
+await output("oauth/claim", `${JSON.stringify(anonymousClaim, null, 2)}\n`);
+await output("oauth/register", `${JSON.stringify(publicAccess, null, 2)}\n`);
+await output("oauth/events", `${JSON.stringify(anonymousEvents, null, 2)}\n`);
+await output("oauth/revoke", `${JSON.stringify(anonymousRevoke, null, 2)}\n`);
 await output("agents/register", `${JSON.stringify(publicAccess, null, 2)}\n`);
+await output(".well-known/agent-card.json", `${JSON.stringify(a2aCard, null, 2)}\n`);
 await output("auth.md", `# Auth.md
 
-Yaratu catalog APIs are public. Agents do not create accounts and do not receive tokens.
+Agent audience: buyers and assistants looking up Yaratu chicken and beef products.
+This origin is a **public catalog**. No login, no OAuth dance, no checkout, no consumer prices.
+
+Resource server: \`${SITE}/\`
+Authorization server: \`${SITE}\` (anonymous / public only)
+
+## Discovery
+
+1. \`GET /.well-known/oauth-protected-resource\`
+2. \`GET /.well-known/oauth-authorization-server\` — read \`agent_auth\`
+3. Use \`identity_types_supported: ["anonymous"]\`. Do not invent a user account.
 
 ## Supported flows
-- **Public read** — no registration. Fetch the catalog without credentials.
+- **Anonymous / public read** — the only advertised Auth.md registration method. No credential is minted.
 
 ## Scopes
-- \`read:catalog\` — already granted to every client. No bearer token.
+- \`read:catalog\` — already granted. No bearer token.
 
 ## How to register
 GET ${SITE}/agents/register
+GET ${SITE}/oauth/identity
 
-This returns \`registration: not-required\` and the canonical catalog URL. There is no OTP, no client secret and no checkout.
+Both restate \`identity_type: anonymous\` and \`registration: not-required\`. There is no OTP claim and no ID-JAG.
 
-OAuth metadata: /.well-known/oauth-protected-resource
-
-Machine endpoints:
+## What is public (no credential)
 - ${SITE}/data/products.json
 - ${SITE}/llms.txt
 - ${SITE}/.well-known/mcp/server-card.json

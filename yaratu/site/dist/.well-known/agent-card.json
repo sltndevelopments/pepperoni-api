@@ -1,0 +1,60 @@
+{
+  "protocolVersion": "1.0",
+  "name": "Yaratu",
+  "description": "Read-only Yaratu catalog. Nutrition is calculated, not laboratory-tested. No checkout.",
+  "url": "https://yaratu.com/data/products.json",
+  "version": "1.0.0",
+  "documentationUrl": "https://yaratu.com/llms.txt",
+  "provider": {
+    "organization": "ООО «Казанские Деликатесы» / Kazan Delicacies",
+    "url": "https://yaratu.com/"
+  },
+  "supportedInterfaces": [
+    {
+      "url": "https://yaratu.com/data/products.json",
+      "protocolBinding": "HTTP+JSON",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": [
+    "text/plain",
+    "text/markdown"
+  ],
+  "defaultOutputModes": [
+    "application/json",
+    "text/markdown"
+  ],
+  "skills": [
+    {
+      "id": "list_products",
+      "name": "List products",
+      "description": "The five current Yaratu products with calculated nutrition per 100 g and certificate-backed halal status.",
+      "tags": [
+        "catalog",
+        "halal"
+      ]
+    },
+    {
+      "id": "get_product",
+      "name": "Get product",
+      "description": "One product by id: vetchina, mramornaya, brokkoli, molochnye or slivochnaya.",
+      "tags": [
+        "catalog"
+      ]
+    },
+    {
+      "id": "retail_contact",
+      "name": "Retail contact",
+      "description": "Manufacturer contact for specifications and supply. No consumer price list.",
+      "tags": [
+        "retail",
+        "contact"
+      ]
+    }
+  ]
+}

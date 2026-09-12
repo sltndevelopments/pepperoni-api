@@ -281,6 +281,17 @@ test("agent discovery files exist without fake auth, MCP or commerce", async () 
   assert.deepEqual(oauth.grant_types_supported, []);
   assert.equal(oauth.agent_auth.skill, "https://yaratu.com/auth.md");
   assert.equal(oauth.agent_auth.register_uri, "https://yaratu.com/agents/register");
+  assert.deepEqual(oauth.agent_auth.identity_types_supported, ["anonymous"]);
+  assert.equal(oauth.agent_auth.identity_endpoint, "https://yaratu.com/oauth/identity");
+  assert.deepEqual(oauth.agent_auth.anonymous.credential_types_supported, ["none"]);
+  const identity = JSON.parse(await readFile(join(dist, "oauth/identity"), "utf8"));
+  const claim = JSON.parse(await readFile(join(dist, "oauth/claim"), "utf8"));
+  const a2a = JSON.parse(await readFile(join(dist, ".well-known/agent-card.json"), "utf8"));
+  assert.equal(identity.identity_type, "anonymous");
+  assert.equal(claim.status, "no_claim_required");
+  assert.equal(a2a.name, "Yaratu");
+  assert.equal(a2a.url, "https://yaratu.com/data/products.json");
+  assert.doesNotMatch(JSON.stringify(identity), /access_token/);
   assert.equal(oidc.jwks_uri, "https://yaratu.com/.well-known/jwks.json");
   assert.equal(resource.resource, "https://yaratu.com/");
   assert.deepEqual(resource.authorization_servers, ["https://yaratu.com"]);
