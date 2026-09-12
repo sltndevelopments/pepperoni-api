@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-12T15:49:01.322111+00:00",
+  "generated_at": "2026-09-12T17:55:12.095333+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 240,
-    "retired": 1491,
-    "all": 1731
+    "keep": 239,
+    "retired": 1493,
+    "all": 1732
   },
   "entries": [
     {
@@ -380,17 +380,6 @@
       "owner": "editorial",
       "source": "evidence registry + cited sources",
       "canonical_target": "/en/blog/burger-patties-wholesale-halal",
-      "status": "keep",
-      "kind": "guide"
-    },
-    {
-      "url": "/en/blog/echpochmak-halyal",
-      "file": "en/blog/echpochmak-halyal.html",
-      "intent": "what echpochmak is",
-      "language": "en",
-      "owner": "editorial",
-      "source": "evidence registry + cited sources",
-      "canonical_target": "/en/blog/echpochmak-halyal",
       "status": "keep",
       "kind": "guide"
     },
@@ -2709,6 +2698,19 @@
       "canonical_target": null,
       "status": "410",
       "reason": "no distinct supported intent or evidence",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/404.html",
+      "file": "404.html",
+      "intent": "system page",
+      "language": "ru",
+      "owner": "seo",
+      "source": "deploy/nginx/error-pages.conf",
+      "canonical_target": "/404.html",
+      "status": "noindex",
+      "reason": "branded 404 served by nginx error_page (2026-09-12)",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -10054,6 +10056,19 @@
       "canonical_target": null,
       "status": "410",
       "reason": "no distinct supported intent or evidence",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/en/blog/echpochmak-halyal",
+      "file": "en/blog/echpochmak-halyal.html",
+      "intent": "legacy URL retirement",
+      "language": "en",
+      "owner": "seo",
+      "source": "audit 2026-09-12 (Russian body on EN URL, invented figures)",
+      "canonical_target": "/en/vyipechka-halyal",
+      "status": "301",
+      "reason": "EN article body was Russian and truncated; figures unsupported → EN bakery hub",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },

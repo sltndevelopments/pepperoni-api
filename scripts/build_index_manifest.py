@@ -148,7 +148,6 @@ EN_GUIDES = [
     ("en/blog/pepperoni-for-pizzeria-horeca.html", "pepperoni procurement for pizzerias"),
     ("en/blog/pepperoni-slicing-specs.html", "sliced pepperoni specification"),
     ("en/blog/kazylyk-horse-meat-sausage.html", "what kazylyk is"),
-    ("en/blog/echpochmak-halyal.html", "what echpochmak is"),
     ("en/blog/beef-hotdog-sausages-halal.html", "hot-dog sausage procurement"),
     ("en/blog/burger-patties-wholesale-halal.html", "burger patty procurement"),
     ("en/blog/tatar-bakery-wholesale.html", "Tatar bakery procurement"),
