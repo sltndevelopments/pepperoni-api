@@ -94,14 +94,14 @@ select.dl-select{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-s
 <div class="container nav__inner">
 <span class="nav__logo">🥩 Kazan Delicacies</span>
 <div class="nav__links">
-<a href="/en/pepperoni.html">Pepperoni</a>
-<a href="/en/halal.html">Halal</a>
-<a href="/en/kazylyk.html">Kazylyk</a>
-<a href="/en/export.html">Export</a>
-<a href="/en/about.html">About</a>
+<a href="/en/pepperoni">Pepperoni</a>
+<a href="/en/halal">Halal</a>
+<a href="/en/kazylyk">Kazylyk</a>
+<a href="/en/export">Export</a>
+<a href="/en/about">About</a>
 <a href="/en/blog">Blog</a>
-<a href="/en/faq.html">FAQ</a>
-<a href="/en/delivery.html">Delivery</a>
+<a href="/en/faq">FAQ</a>
+<a href="/en/delivery">Delivery</a>
 </div>
 <div class="nav__lang"><a href="/">🇷🇺 Русский</a></div>
 </div>
@@ -427,8 +427,8 @@ Full Partner List →
 <select id="dl-vat" class="dl-select"><option value="true" selected>incl. VAT</option><option value="false">excl. VAT</option></select>
 </span>
 </div>
-<a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Download Excel (.xlsx)</a>
-<a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Download CSV</a>
+<a href="/api/export?lang=en&amp;currency=RUB&amp;format=xlsx&amp;vat=incl" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Download Excel (.xlsx)</a>
+<a href="/api/export?lang=en&amp;currency=RUB&amp;format=csv&amp;vat=incl" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Download CSV</a>
 <script>
 document.getElementById('dl-cur').addEventListener('change',function(){document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';});
 function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${vat}`:'';window.location.href=`/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${fmt}${vatParam}`;}
@@ -522,10 +522,10 @@ style="margin-top:3px;flex:none">
 </div>
 <div class="footer__col">
 <div class="footer__col-title">Navigation</div>
-<a href="/en/pepperoni.html">Pepperoni</a>
+<a href="/en/pepperoni">Pepperoni</a>
 <a href="/en/blog">Blog</a>
-<a href="/en/faq.html">FAQ</a>
-<a href="/en/delivery.html">Delivery</a>
+<a href="/en/faq">FAQ</a>
+<a href="/en/delivery">Delivery</a>
 <a href="/">🇷🇺 Russian version</a>
 <a href="/openapi.yaml">API for Partners</a>
 </div>
@@ -814,7 +814,7 @@ const secRu=p.section||'Other',catRu=p.category||secRu;
 const sec=SEC_EN[secRu]||secRu,cat=CAT_EN[catRu]||catRu;
 if(!groups[sec])groups[sec]={};if(!groups[sec][cat])groups[sec][cat]=[];
 const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
-const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
+const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerUnitExclVAT||0);
 const isBakery=!!p.offers?.pricePerUnit;
 const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
 groups[sec][cat].push({name:getNameEn(p),sku:p.sku||'',section:secRu,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img});

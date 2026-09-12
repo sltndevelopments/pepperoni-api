@@ -61,13 +61,13 @@ function gtag(){dataLayer.push(arguments);}
 <link rel="manifest" href="/manifest.json">
 <meta name="theme-color" content="#1b7a3d">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
+<meta property="og:title" content="Казанские Деликатесы — халяль колбасы и выпечка оптом | производитель в Казани">
 <meta property="og:description" content="Халяль пепперони, сосиски, котлеты, выпечка оптом. ХАССП, ISO 22000:2018, ДУМ РТ. Экспорт. EXW Казань.">
 <meta property="og:url" content="https://pepperoni.tatar/">
 <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <meta property="og:locale" content="ru_RU">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Производитель халяль колбасных изделий и выпечки оптом | Казанские Деликатесы">
+<meta name="twitter:title" content="Казанские Деликатесы — халяль колбасы и выпечка оптом | производитель в Казани">
 <meta name="twitter:description" content="Пепперони, сосиски, котлеты, выпечка. 100% Халяль. EXW Казань.">
 <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
 <script type="application/ld+json">
@@ -492,8 +492,8 @@ video.play().catch(function(){});
 <select id="dl-vat" class="dl-select"><option value="true" selected>С НДС</option><option value="false">Без НДС</option></select>
 </span>
 </div>
-<a href="#" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
-<a href="#" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
+<a href="/api/export?lang=ru&amp;currency=RUB&amp;format=xlsx&amp;vat=incl" onclick="event.preventDefault();downloadFile('xlsx')" class="btn-dl btn-dl-solid">📊 Скачать Excel (.xlsx)</a>
+<a href="/api/export?lang=ru&amp;currency=RUB&amp;format=csv&amp;vat=incl" onclick="event.preventDefault();downloadFile('csv')" class="btn-dl btn-dl-solid">📄 Скачать CSV</a>
 <script>
 document.getElementById('dl-cur').addEventListener('change',function(){document.getElementById('dl-vat-wrap').style.display=this.value==='RUB'?'':'none';});
 function downloadFile(fmt){const lang=document.getElementById('dl-lang').value,cur=document.getElementById('dl-cur').value,vat=document.getElementById('dl-vat').value,vatParam=cur==='RUB'?`&vat=${vat}`:'';window.location.href=`/api/export?lang=${encodeURIComponent(lang)}&currency=${encodeURIComponent(cur)}&format=${fmt}${vatParam}`;}
@@ -795,7 +795,7 @@ for(const p of d.products||[]){
 const sec=p.section||'Прочее',cat=p.category||sec;
 if(!groups[sec])groups[sec]={};if(!groups[sec][cat])groups[sec][cat]=[];
 const pr=parseFloat(p.offers?.price||p.offers?.pricePerUnit||0);
-const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerBoxExclVAT||0);
+const pnv=parseFloat(p.offers?.priceExclVAT||p.offers?.pricePerUnitExclVAT||0);
 const isBakery=!!p.offers?.pricePerUnit;
 const img = (p.imageMain || p.image || p.imagePack || p.imageSlice || '').trim();
 groups[sec][cat].push({name:p.name,sku:p.sku||'',section:sec,weight:p.weight||'',price:pr,priceNoVAT:pnv,shelf:p.shelfLife||'',storage:p.storage||'',hsCode:p.hsCode||'',usd:p.offers?.exportPrices?.USD||0,kzt:p.offers?.exportPrices?.KZT||0,uzs:p.offers?.exportPrices?.UZS||0,kgs:p.offers?.exportPrices?.KGS||0,byn:p.offers?.exportPrices?.BYN||0,azn:p.offers?.exportPrices?.AZN||0,isBakery,qty:p.qtyPerBox||'',image:img});
