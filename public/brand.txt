@@ -32,6 +32,15 @@ Allowed positioning:
 - Capabilities may mention HoReCa and private-label/contract manufacturing
   without promising an unverified MOQ, lead time, country approval or volume.
 
+Owner-approved commercial facts (2026-09-12, data/evidence_registry.json):
+- Private-label (СТМ) minimum run: от 5 тонн / from 5 tonnes; other terms per contract.
+- Production capacity: 12 тонн в смену / 12 tonnes per shift.
+- Wholesale basis: prices EXW Kazan, quoted per pallet; minimum order — one
+  pallet (mixed pallet possible); delivery, lead time, samples — individually.
+- Shipping documents: halal certificate, declaration of conformity, ВСД
+  («Меркурий»), «Честный знак» marking, ЭТрН electronic waybill.
+- Do not state other MOQ / kg figures, discount tiers, lead times or fees.
+
 Evidence policy:
 - Claims beyond this file require an active entry in data/evidence_registry.json.
 - Country, importer, distributor, customer, shipment, award, capacity and

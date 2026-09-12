@@ -103,7 +103,7 @@ PRODUCT_FAQ_RU = {
         ("Чем отличается варено-копчёный пепперони от сырокопчёного?",
          "Варено-копчёный мягче, нейтральнее по вкусу, дольше хранится после вскрытия. Сырокопчёный — интенсивный вкус, плотная текстура, характерный аромат."),
         ("Можно ли заказать пепперони под своей маркой (СТМ)?",
-         "Да, мы производим пепперони под частной торговой маркой заказчика от 100 кг партии. Свяжитесь с нами: +7 987 217-02-02."),
+         "Да, мы производим пепперони под частной торговой маркой заказчика — тираж от 5 тонн. Свяжитесь с нами: +7 987 217-02-02."),
         ("Какой срок хранения у замороженного пепперони?",
          "Срок хранения при −18°C — до 360 суток. В охлаждённом виде — согласно условиям конкретного SKU."),
     ],
@@ -137,7 +137,7 @@ PRODUCT_FAQ_RU = {
         ("Как использовать ветчину в ресторанном меню?",
          "Ветчина используется в нарезках, сэндвичах, пицце, салатах. Выпускается в батонах и в нарезке."),
         ("Можно ли заказать ветчину под своим брендом (СТМ)?",
-         "Да, мы производим ветчину под частной торговой маркой от партии 100 кг. Позвоните: +7 987 217-02-02."),
+         "Да, мы производим ветчину под частной торговой маркой — тираж от 5 тонн. Позвоните: +7 987 217-02-02."),
     ],
     "Копченые": [
         ("Чем отличается полукопчёная колбаса от варёно-копчёной?",
@@ -205,7 +205,7 @@ PRODUCT_FAQ_EN = {
         ("What is the difference between cooked-smoked and dry-cured pepperoni?",
          "Cooked-smoked is softer, milder in flavour, and keeps longer after opening. Dry-cured has an intense flavour, firm texture, and distinctive aroma."),
         ("Can I order pepperoni under my own brand (private label)?",
-         "Yes, we manufacture pepperoni under private label from a minimum batch of 100 kg. Contact us: +7 987 217-02-02."),
+         "Yes, we manufacture pepperoni under private label from a minimum run of 5 tonnes. Contact us: +7 987 217-02-02."),
         ("What is the shelf life of frozen pepperoni?",
          "Shelf life at −18°C is up to 360 days."),
     ],
@@ -239,7 +239,7 @@ PRODUCT_FAQ_EN = {
         ("How is ham used in restaurant menus?",
          "Ham is used in charcuterie boards, sandwiches, pizza, and salads. Available in logs and pre-sliced."),
         ("Can I order ham under my own brand (private label)?",
-         "Yes, we produce ham under private label from 100 kg batches. Call: +7 987 217-02-02."),
+         "Yes, we produce ham under private label from a minimum run of 5 tonnes. Call: +7 987 217-02-02."),
     ],
     "Копченые": [
         ("What is the difference between semi-smoked and cooked-smoked sausage?",
@@ -332,7 +332,7 @@ def patch_product_pages():
                         ("Каков минимальный заказ?",
                          "Минимальная партия — от 8 упаковок. Уточняйте условия у менеджера: +7 987 217-02-02."),
                         ("Можно ли заказать под своим брендом (СТМ)?",
-                         "Да, мы производим продукцию под частной торговой маркой от 100 кг партии."),
+                         "Да, мы производим продукцию под частной торговой маркой — тираж от 5 тонн."),
                     ]
                 else:
                     qa = [
@@ -341,7 +341,7 @@ def patch_product_pages():
                         ("What is the minimum order?",
                          "Minimum order is 8 packages. Contact us: +7 987 217-02-02."),
                         ("Can I order under my own brand (private label)?",
-                         "Yes, we manufacture under private label from 100 kg batches."),
+                         "Yes, we manufacture under private label from a minimum run of 5 tonnes."),
                     ]
 
             faq_block = (
@@ -381,7 +381,7 @@ GEO_FAQ_RU = [
     ("Как давно вы работаете на рынке?",
      "Казанские Деликатесы работают с 2022 года. Производство расположено в Казани, ул. Аграрная, 2. Отгрузки по всей России и СНГ."),
     ("Возможна ли поставка под частной торговой маркой (СТМ)?",
-     "Да, мы производим продукцию под брендом заказчика от партии 100 кг. Разработка рецептуры, дизайн упаковки — всё включено."),
+     "Да, мы производим продукцию под брендом заказчика — тираж от 5 тонн. Разработка рецептуры, дизайн упаковки — всё включено."),
 ]
 
 GEO_FAQ_EN = [
@@ -394,7 +394,7 @@ GEO_FAQ_EN = [
     ("How long have you been in business?",
      "Kazan Delicacies has been operating since 2022. Production is located in Kazan, Agrarnaya St. 2. Shipping across Russia and CIS countries."),
     ("Is private label production available?",
-     "Yes, we produce under the customer's brand from 100 kg batches. Recipe development and packaging design included."),
+     "Yes, we produce under the customer's brand from a minimum run of 5 tonnes. Recipe development and packaging design included."),
 ]
 
 

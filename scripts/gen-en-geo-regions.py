@@ -154,7 +154,7 @@ footer a{{color:#888;text-decoration:none}}
       <li>✅ <strong>Direct from manufacturer</strong> — no middlemen, factory pricing EXW Kazan</li>
       <li>✅ <strong>HACCP + ISO 22000:2018</strong> — full quality control at every production stage</li>
       <li>✅ <strong>No pork, no GMO, no meat glue</strong> — strictly halal ingredients only</li>
-      <li>✅ <strong>Private Label available</strong> — production under your brand from 500 kg/month</li>
+      <li>✅ <strong>Private Label available</strong> — production under your brand, minimum run 5 tonnes</li>
       <li>✅ <strong>Flexible logistics</strong> — refrigerated truck delivery, veterinary certificates included</li>
       <li>✅ <strong>7 currencies</strong> — invoicing in RUB, USD, KZT, UZS, KGS, BYN, AZN</li>
     </ul>

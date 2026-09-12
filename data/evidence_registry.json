@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-08-26",
+  "updated_at": "2026-09-12",
   "organization": {
     "@id": "https://pepperoni.tatar/#organization",
     "name": "Казанские Деликатесы",
@@ -164,6 +164,84 @@
       "restrictions": [
         "Do not publish an MOQ, lead time, recipe, packaging format or country approval unless it is confirmed for the specific project."
       ]
+    },
+    {
+      "id": "private_label_min_run_5t",
+      "claim_ru": "Минимальный тираж СТМ (Private Label) — от 5 тонн; остальные условия — по договору.",
+      "claim_en": "Private-label minimum run is 5 tonnes; other terms are agreed per contract.",
+      "source_type": "owner_statement",
+      "source_url": "docs/sprint-2026-09/open-questions-2026-09-12.md#4",
+      "verified_at": "2026-09-12",
+      "valid_until": null,
+      "owner": "Ринат Султан (владелец)",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "*"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "capacity_12t_per_shift",
+      "claim_ru": "Производственная мощность — 12 тонн в смену.",
+      "claim_en": "Production capacity — 12 tonnes per shift.",
+      "source_type": "owner_statement",
+      "source_url": "docs/sprint-2026-09/open-questions-2026-09-12.md#1.4",
+      "verified_at": "2026-09-12",
+      "valid_until": null,
+      "owner": "Ринат Султан (владелец)",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/kontraktnoe-proizvodstvo",
+        "/capabilities",
+        "/about",
+        "/en/kontraktnoe-proizvodstvo",
+        "/en/capabilities",
+        "/en/about",
+        "/en/private-label"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "wholesale_pallet_basis",
+      "claim_ru": "Оптовые цены — из Казани (EXW), расчёт кратно паллете; минимальный заказ — паллета, сборная паллета из разных позиций возможна; доставка и сроки — индивидуально, оплачивает покупатель; образцы — индивидуально.",
+      "claim_en": "Wholesale prices are EXW Kazan, quoted per pallet; minimum order is one pallet, mixed pallets are possible; delivery and lead time are quoted individually and paid by the buyer; samples are agreed individually.",
+      "source_type": "owner_statement",
+      "source_url": "docs/sprint-2026-09/open-questions-2026-09-12.md#2",
+      "verified_at": "2026-09-12",
+      "valid_until": null,
+      "owner": "отдел продаж / Ринат Султан",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "*"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "documents_chestny_znak_etrn",
+      "claim_ru": "Комплект документов на отгрузку: сертификат халяль, декларация соответствия, ВСД (ФГИС «Меркурий»), маркировка «Честный знак», электронная транспортная накладная (ЭТрН).",
+      "claim_en": "Shipping documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny ZNAK marking, electronic waybill (ETrN).",
+      "source_type": "owner_statement",
+      "source_url": "docs/sprint-2026-09/open-questions-2026-09-12.md#2.3",
+      "verified_at": "2026-09-12",
+      "valid_until": null,
+      "owner": "отдел продаж / Ринат Султан",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "*"
+      ],
+      "status": "active"
     }
   ],
   "independent_nodes": [
