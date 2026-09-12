@@ -177,6 +177,9 @@ jobs:
               echo "ALERT_SMTP_PORT=465"
               echo "ALERT_SMTP_USER=${ALERT_SMTP_USER:-}"
               echo "ALERT_SMTP_PASS=${ALERT_SMTP_PASS:-}"
+              # Copy of every accepted lead (lead_intake_server.py); same SMTP account.
+              # Add Арби's address here comma-separated once the owner provides it.
+              echo "LEAD_EMAIL_TO=995620@gmail.com"
             } > /var/www/pepperoni/seo-agent.env
             chmod 600 /var/www/pepperoni/seo-agent.env
             echo "✅ seo-agent.env written ($(wc -c < /var/www/pepperoni/seo-agent.env) bytes)"

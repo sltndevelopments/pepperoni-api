@@ -26,6 +26,8 @@ Environment (from /var/www/pepperoni/seo-agent.env):
   LEADS_GROUP_ID    — the leads group chat id
   LEAD_SEND_ATTEMPTS / LEAD_SEND_TIMEOUT — Bot API retries (default 3 × 5 s)
   LEAD_DEDUP_DB     — sqlite with dedup refs + undelivered-lead spool
+  LEAD_EMAIL_TO     — comma-separated addresses that get a copy of every lead
+                      (uses ALERT_SMTP_HOST/PORT/USER/PASS; off while unset)
 Companion: infra/scripts/lead_intake_flush.py (cron) re-sends the spool and
 e-mails ALERT_EMAIL_TO when a lead could not be delivered.
 """
@@ -192,6 +194,53 @@ def _send_to_group(text: str, attempts: int = SEND_ATTEMPTS) -> bool:
     return False
 
 
+# E-mail copy of every accepted lead (owner request 2026-09-12: «Ринат и Арби
+# в телеграм группе и на почте»). Independent of the Telegram channel, so it is
+# exactly the copy that survives a Bot API outage. Sent from a daemon thread
+# after the response is built — SMTP latency or failure never changes what the
+# buyer sees. Silently disabled until LEAD_EMAIL_TO and ALERT_SMTP_* are set.
+LEAD_EMAIL_TO = [a.strip() for a in os.getenv("LEAD_EMAIL_TO", "").split(",") if a.strip()]
+SMTP_HOST = os.getenv("ALERT_SMTP_HOST", "").strip()
+SMTP_PORT = int(os.getenv("ALERT_SMTP_PORT", "465") or 465)
+SMTP_USER = os.getenv("ALERT_SMTP_USER", "").strip()
+SMTP_PASS = os.getenv("ALERT_SMTP_PASS", "").strip()
+
+
+def email_configured() -> bool:
+    return bool(LEAD_EMAIL_TO and SMTP_HOST and SMTP_USER and SMTP_PASS)
+
+
+def _email_lead_sync(lead_id: str, text: str, page: str) -> None:
+    import smtplib
+    from email.message import EmailMessage
+
+    msg = EmailMessage()
+    msg["Subject"] = f"Заявка с pepperoni.tatar {page or ''} · {lead_id}".strip()
+    msg["From"] = SMTP_USER
+    msg["To"] = ", ".join(LEAD_EMAIL_TO)
+    msg.set_content(re.sub(r"</?b>", "", text) + "\n\nКопия заявки; оригинал — в группе лидов Telegram.")
+    try:
+        if SMTP_PORT == 465:
+            with smtplib.SMTP_SSL(SMTP_HOST, SMTP_PORT, timeout=20) as s:
+                s.login(SMTP_USER, SMTP_PASS)
+                s.send_message(msg)
+        else:
+            with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=20) as s:
+                s.starttls()
+                s.login(SMTP_USER, SMTP_PASS)
+                s.send_message(msg)
+        log.info("Lead e-mailed: lead_id=%s to=%s", lead_id, ",".join(LEAD_EMAIL_TO))
+    except Exception as exc:
+        log.error("Lead e-mail failed: lead_id=%s error=%s", lead_id, exc)
+
+
+def _email_lead(lead_id: str, text: str, page: str) -> None:
+    if not email_configured():
+        return
+    import threading
+    threading.Thread(target=_email_lead_sync, args=(lead_id, text, page), daemon=True).start()
+
+
 def _spool_conn():
     conn = _dedup_conn()
     conn.execute(
@@ -312,6 +361,7 @@ def lead_submit():
         log.warning("moscow-leads bridge skipped: %s", exc)
 
     _dedup_store(client_ref, lead_id)
+    _email_lead(lead_id, text, page)
     if delivered:
         log.info("Lead delivered: lead_id=%s page=%s exp=%s", lead_id, page, experiment_id)
         return _cors_headers(jsonify(ok=True, lead_id=lead_id)), 200
@@ -328,6 +378,7 @@ def health():
     return jsonify(
         ok=True,
         configured=bool(LEADS_BOT_TOKEN and LEADS_GROUP_ID),
+        email=email_configured(),
         queued=spool_pending(),
     ), 200
 
