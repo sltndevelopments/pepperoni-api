@@ -24,6 +24,10 @@ Proxied by nginx at pepperoni.tatar/lead-submit and api.pepperoni.tatar/lead-sub
 Environment (from /var/www/pepperoni/seo-agent.env):
   LEADS_BOT_TOKEN   — KDPepperoni_Bot token (admin in the leads group)
   LEADS_GROUP_ID    — the leads group chat id
+  LEAD_SEND_ATTEMPTS / LEAD_SEND_TIMEOUT — Bot API retries (default 3 × 5 s)
+  LEAD_DEDUP_DB     — sqlite with dedup refs + undelivered-lead spool
+Companion: infra/scripts/lead_intake_flush.py (cron) re-sends the spool and
+e-mails ALERT_EMAIL_TO when a lead could not be delivered.
 """
 from __future__ import annotations
 
@@ -148,7 +152,17 @@ def _clip(value: str, key: str) -> str:
     return (value or "").strip()[: MAX_LEN.get(key, 200)]
 
 
-def _send_to_group(text: str) -> bool:
+# Delivery (2026-09-12 test lead 🆔 84a8dd86… → 502): from the Selectel VPS
+# ~25% of Bot API requests time out (15 probes: 4 timeouts dual-stack, 3 forced
+# IPv4; TCP+TLS to 149.154.167.220 itself is 70 ms). One attempt with a 15 s
+# timeout therefore loses a buyer every fourth submit. Now: up to SEND_ATTEMPTS
+# short attempts, and if all fail the lead is written to a durable spool and
+# acknowledged as `queued` — lead_intake_flush.py (cron) re-sends it and alerts.
+SEND_ATTEMPTS = int(os.getenv("LEAD_SEND_ATTEMPTS", "3"))
+SEND_TIMEOUT = float(os.getenv("LEAD_SEND_TIMEOUT", "5"))  # healthy calls take ~0.2 s; failures are hangs
+
+
+def _send_to_group(text: str, attempts: int = SEND_ATTEMPTS) -> bool:
     if not LEADS_BOT_TOKEN or not LEADS_GROUP_ID:
         log.error("LEADS_BOT_TOKEN / LEADS_GROUP_ID not configured")
         return False
@@ -159,15 +173,54 @@ def _send_to_group(text: str) -> bool:
         "parse_mode": "HTML",
         "disable_web_page_preview": "true",
     }).encode()
+    last = ""
+    for i in range(1, max(1, attempts) + 1):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=SEND_TIMEOUT) as r:
+                ok = json.loads(r.read()).get("ok", False)
+                if ok:
+                    if i > 1:
+                        log.info("Telegram send succeeded on attempt %d", i)
+                    return True
+                last = "ok=false"
+        except Exception as exc:
+            last = str(exc)
+        log.warning("Telegram send attempt %d/%d failed: %s", i, attempts, last)
+        if i < attempts:
+            time.sleep(i)  # 1 s, 2 s — stays inside the browser's patience
+    log.error("Telegram send failed after %d attempts: %s", attempts, last)
+    return False
+
+
+def _spool_conn():
+    conn = _dedup_conn()
+    conn.execute(
+        "CREATE TABLE IF NOT EXISTS spool (lead_id TEXT PRIMARY KEY, ts REAL, text TEXT, "
+        "attempts INTEGER DEFAULT 0, last_error TEXT, delivered_ts REAL)"
+    )
+    return conn
+
+
+def _spool_put(lead_id: str, text: str, error: str) -> bool:
     try:
-        with urllib.request.urlopen(urllib.request.Request(url, data=data), timeout=15) as r:
-            ok = json.loads(r.read()).get("ok", False)
-            if not ok:
-                log.error("Telegram sendMessage returned ok=false")
-            return ok
+        with _spool_conn() as conn:
+            conn.execute(
+                "INSERT OR REPLACE INTO spool (lead_id, ts, text, attempts, last_error, delivered_ts) "
+                "VALUES (?, ?, ?, ?, ?, NULL)",
+                (lead_id, time.time(), text, SEND_ATTEMPTS, error[:300]),
+            )
+        return True
     except Exception as exc:
-        log.error("Telegram send failed: %s", exc)
+        log.error("spool write failed: %s", exc)
         return False
+
+
+def spool_pending() -> int:
+    try:
+        with _spool_conn() as conn:
+            return conn.execute("SELECT COUNT(*) FROM spool WHERE delivered_ts IS NULL").fetchone()[0]
+    except Exception:
+        return -1
 
 
 def _cors_headers(resp):
@@ -238,8 +291,15 @@ def lead_submit():
     lines.append(f"🆔 {lead_id}")
     text = "\n".join(lines)
 
-    if not _send_to_group(text):
-        return _cors_headers(jsonify(ok=False, error="delivery_failed")), 502
+    delivered = _send_to_group(text)
+    if not delivered:
+        # Durable acceptance: the lead is stored on disk and re-sent by
+        # lead_intake_flush.py; the buyer gets the same lead_id and does not
+        # have to call. Only if even the spool is unavailable do we say 502.
+        if not _spool_put(lead_id, text, "telegram_unreachable"):
+            return _cors_headers(jsonify(ok=False, error="delivery_failed")), 502
+        log.error("delivery_failed lead_id=%s page=%s — queued in spool (%d pending)",
+                  lead_id, page, spool_pending())
 
     # Московский контур: сразу LEAD со статусом new (без участия человека).
     try:
@@ -252,8 +312,10 @@ def lead_submit():
         log.warning("moscow-leads bridge skipped: %s", exc)
 
     _dedup_store(client_ref, lead_id)
-    log.info("Lead delivered: lead_id=%s page=%s exp=%s", lead_id, page, experiment_id)
-    return _cors_headers(jsonify(ok=True, lead_id=lead_id)), 200
+    if delivered:
+        log.info("Lead delivered: lead_id=%s page=%s exp=%s", lead_id, page, experiment_id)
+        return _cors_headers(jsonify(ok=True, lead_id=lead_id)), 200
+    return _cors_headers(jsonify(ok=True, lead_id=lead_id, queued=True)), 200
 
 
 @app.route("/lead-submit", methods=["GET", "HEAD"])
@@ -266,6 +328,7 @@ def health():
     return jsonify(
         ok=True,
         configured=bool(LEADS_BOT_TOKEN and LEADS_GROUP_ID),
+        queued=spool_pending(),
     ), 200
 
 

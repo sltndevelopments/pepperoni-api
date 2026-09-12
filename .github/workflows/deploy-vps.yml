@@ -282,6 +282,15 @@ jobs:
             else
               echo "ℹ️  Pipeline watchdog cron already present"
             fi
+            # Re-send undelivered leads from the intake spool (Bot API from the
+            # VPS times out ~25% of the time — see lead_intake_flush.py) + e-mail alert.
+            FLUSH_CRON="*/2 * * * * cd /var/www/pepperoni/repo && set -a && . /var/www/pepperoni/seo-agent.env && set +a && python3 infra/scripts/lead_intake_flush.py >> /var/log/pepperoni-lead-flush.log 2>&1"
+            if ! crontab -l 2>/dev/null | grep -q "lead_intake_flush.py"; then
+              (crontab -l 2>/dev/null; echo "$FLUSH_CRON") | crontab -
+              echo "✅ Lead spool flush cron installed (every 2 min)"
+            else
+              echo "ℹ️  Lead spool flush cron already present"
+            fi
             echo "=== Current crontab ===" && crontab -l
 
       - name: Ensure moscow-leads bot + Friday digest cron
