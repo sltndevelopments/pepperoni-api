@@ -26,6 +26,8 @@ PUBLIC = ROOT / "public"
 I18N_BASE = DATA / "pepperoni_landing_i18n.json"
 SITE = "https://pepperoni.tatar"
 SKU = "KD-013"
+INDEXABLE_LOCALES = ("ru", "en")  # other locales are noindex Ads landings
+
 # The whole pepperoni family, so the landing keeps linking to the 1 kg stick and
 # the horse-meat variant the way the previous /pepperoni hub did.
 # Candidate family; the live set is whatever the Sheet currently prices.
@@ -377,9 +379,12 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
     facts = i18n["_facts"]
     meta, url = L["meta"], page_url(lang, locales)
 
+    # Only indexable locales form the hreflang cluster: the export locales are
+    # noindex (unverified-locale policy) and hreflang to a noindex URL is a
+    # contradictory signal (audit 2026-09-12).
     alternates = "\n  ".join(
         f'<link rel="alternate" hreflang="{code}" href="{page_url(code, locales)}">'
-        for code in locales if code in i18n
+        for code in locales if code in i18n and code in INDEXABLE_LOCALES
     )
     alternates += f'\n  <link rel="alternate" hreflang="x-default" href="{page_url("en", locales)}">'
 
@@ -533,7 +538,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <title>{esc(meta["title"])}</title>
 <meta name="description" content="{esc(meta["description"])}">
 <meta name="keywords" content="{esc(meta["keywords"])}">
-<meta name="robots" content="{"index, follow, max-image-preview:large" if lang in ("ru", "en") else "noindex,follow"}">
+<meta name="robots" content="{"index, follow, max-image-preview:large" if lang in INDEXABLE_LOCALES else "noindex,follow"}">
 <meta http-equiv="content-language" content="{lang}">
 <link rel="canonical" href="{url}">
   {alternates}

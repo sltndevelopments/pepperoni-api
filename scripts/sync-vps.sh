@@ -20,6 +20,9 @@ node scripts/sync-sheets.mjs
 # reach cards, llms, API or category pages. Raw values stay in Sheets.
 python3 scripts/apply_spec_holds.py
 python3 scripts/apply_spec_holds.py --check
+# 1b. Meaning-level catalog gate (2026-09-12): dessert-with-meat, mis-keyed
+# descriptions, per-box export prices published as per-unit. Blocking.
+python3 scripts/check_catalog_sanity.py --quiet
 
 # 1b. Regenerate rich product pages (RU + EN) with gallery, SEO, Cloudinary images.
 # sync-sheets.mjs writes simple single-image pages; gen-ru/en-products.py override
@@ -80,6 +83,9 @@ python3 scripts/check_product_claims.py --quiet
 # Owner-approved commercial fact (2026-09-12): private-label minimum run is
 # «от 5 тонн» — any other kg/t figure in a СТМ sentence blocks the sync.
 python3 scripts/check_stm_min_run.py --quiet
+# Owner decision 2026-09-12: wholesale minimum is ONE PALLET for every category —
+# any kg / box / piece minimum-order figure in pages or generators blocks the sync.
+python3 scripts/check_wholesale_moq.py --quiet
 
 # 2. Копируем во временный файл
 cp -f public/products.json "$TMP_FILE"

@@ -165,7 +165,7 @@ FAQ_TOPICS = [
         "questions": [
             ("Из чего делают халяль пепперони?", "Халяль пепперони производится из говядины, курицы или конины без добавления свинины и её производных. Мы используем только сертифицированное халяль сырьё с подтверждёнными документами."),
             ("Есть ли халяль сертификат на продукцию?", "Да, вся продукция Казанских Деликатесов имеет халяль сертификат от аккредитованного органа. Копии сертификатов предоставляются по запросу."),
-            ("Какой минимальный заказ при оптовой покупке?", "Минимальный заказ на оптовую поставку — от 100 кг. Для крупных сетей и HoReCa предусмотрены специальные условия."),
+            ("Какой минимальный заказ при оптовой покупке?", "Минимальный заказ на оптовую поставку — одна паллета (сборная возможна), объём кратно паллете. Для крупных сетей и HoReCa предусмотрены специальные условия."),
             ("Возможно ли производство под СТМ (Private Label)?", "Да, мы выпускаем продукцию под брендом заказчика. Разрабатываем рецептуру, упаковку и маркировку в соответствии с вашими требованиями."),
             ("В каких диаметрах доступен пепперони?", "Доступны диаметры: 40 мм, 50 мм, 60 мм и 75 мм. Нарезка — слайсером или целыми батонами."),
             ("Осуществляете ли вы доставку в регионы и СНГ?", "Да, поставки осуществляются по всей России, а также в Казахстан, Узбекистан, Беларусь, Армению, Азербайджан и Кыргызстан."),
@@ -180,7 +180,7 @@ FAQ_TOPICS = [
         "questions": [
             ("What is halal pepperoni made of?", "Halal pepperoni is made from beef, chicken, or horse meat without any pork or pork derivatives. We use only certified halal raw materials with full documentation."),
             ("Do you have halal certification?", "Yes, all Kazan Delicacies products hold halal certification from an accredited body. Copies of certificates are available upon request."),
-            ("What is the minimum order quantity for wholesale?", "Minimum wholesale order is 100 kg. Special terms are available for retail chains and HoReCa businesses."),
+            ("What is the minimum order quantity for wholesale?", "Minimum wholesale order is one pallet (mixed pallets possible), volumes in pallet multiples. Special terms are available for retail chains and HoReCa businesses."),
             ("Do you offer Private Label production?", "Yes, we manufacture products under your brand. We develop recipes, packaging, and labeling according to your requirements."),
             ("What diameters is pepperoni available in?", "Available diameters: 40mm, 50mm, 60mm, and 75mm. We offer sliced or whole stick formats."),
             ("Do you deliver to CIS countries?", "Yes, we ship across Russia and to Kazakhstan, Uzbekistan, Belarus, Armenia, Azerbaijan, and Kyrgyzstan."),

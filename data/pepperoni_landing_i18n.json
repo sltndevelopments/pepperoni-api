@@ -114,7 +114,7 @@
         ["Формат", "Нарезка / целый батон"],
         ["Масса 10 слайсов", "26–30 г"],
         ["Фасовка", "Вакуум, 0,5 кг"],
-        ["В коробке", "6 упаковок · 2,5 кг"],
+        ["В коробке", "Уточняется у отдела продаж"],
         ["Размер короба", "260 × 235 × 180 мм"],
         ["Температура хранения", "–18°C"],
         ["Срок хранения", "360 суток"],
@@ -161,7 +161,7 @@
       "on_request": "Цена по запросу",
       "terms": [
         ["Базис поставки", "EXW Казань (другие базисы — по согласованию)"],
-        ["Минимальный заказ", "Обсуждаем под ваш объём и маршрут"],
+        ["Минимальный заказ", "Одна паллета (сборная возможна); объём кратно паллете"],
         ["Оплата", "Безналичный расчёт, внешнеторговый контракт"],
         ["Тара", "Гофрокороб, палетирование под запрос"]
       ],
@@ -220,7 +220,7 @@
         {"q": "Скручивается ли пепперони при запекании?", "a": "Нет. Продукт термостабильный: плотность фарша и оболочка подобраны так, чтобы слайс оставался плоским и не превращался в «чашечку». Это ключевое требование пиццерий, и мы предлагаем протестировать образцы в вашей печи до контракта."},
         {"q": "Какой срок хранения и температура?", "a": "360 суток при –18°C в замороженном виде. После разморозки невскрытая упаковка хранится 120 часов при +4°C, после вскрытия — 72 часа при +4°C. Разморозка: 2–6 часов при температуре до +4°C."},
         {"q": "Вы поставляете в мою страну?", "a": "Работаем с импортёрами в Казахстане, Узбекистане, Кыргызстане, Беларуси, Азербайджане, Армении, Грузии и Таджикистане. Базис по умолчанию — EXW Казань, другие условия обсуждаем. Маршрут и сроки считаем под конкретный город."},
-        {"q": "Какой минимальный заказ?", "a": "Минимальный объём зависит от страны, маршрута и формата нарезки — обсуждаем индивидуально. Для теста возможна пробная партия и отправка образцов."},
+        {"q": "Какой минимальный заказ?", "a": "Минимальный заказ — одна паллета; сборная паллета из разных позиций возможна, объём считаем кратно паллете. Маршрут, сроки и образцы согласуем индивидуально — образцы в основном бесплатно."},
         {"q": "Можно ли выпускать под нашей маркой?", "a": "Да, доступен Private Label. Меняем состав мяса, уровень остроты, диаметр и толщину нарезки, фасовку от 0,5 до 5 кг, этикетку и маркировку под ваш бренд."},
         {"q": "Какие документы вы предоставляете для импорта?", "a": "Халяль-сертификат ДУМ РТ, декларацию соответствия ЕАЭС, технические условия, ветеринарные сопроводительные документы через ФГИС «Меркурий», спецификацию продукта и маркировку под требования страны-импортёра."},
         {"q": "Это «ТД Казанский» / kazandelikates.ru?", "a": "Нет. Юрлицо — ООО «Казанские Деликатесы» (Kazan Delicacies LLC). Каталог — pepperoni.tatar, корпоративный сайт — kazandelikates.tatar. Домен kazandelikates.ru нам не принадлежит и не резолвится. Телефон +7 987 217-02-02, Казань, ул. Аграрная, 2, оф. 7."},
@@ -353,7 +353,7 @@
         ["Format", "Sliced / whole stick"],
         ["Weight of 10 slices", "26–30 g"],
         ["Pack", "Vacuum, 0.5 kg"],
-        ["Per case", "6 packs · 2.5 kg"],
+        ["Per case", "Confirmed by the sales team"],
         ["Case dimensions", "260 × 235 × 180 mm"],
         ["Storage temperature", "–18°C"],
         ["Shelf life", "360 days"],
@@ -400,7 +400,7 @@
       "on_request": "Price on request",
       "terms": [
         ["Delivery basis", "EXW Kazan (other terms by agreement)"],
-        ["Minimum order", "Agreed for your volume and route"],
+        ["Minimum order", "One pallet (mixed pallet possible); volumes in pallet multiples"],
         ["Payment", "Bank transfer, foreign trade contract"],
         ["Packaging", "Corrugated case, palletising on request"]
       ],
@@ -459,7 +459,7 @@
         {"q": "Does the pepperoni curl when baked?", "a": "No. The product is heat-stable: the meat density and the casing are tuned so the slice stays flat instead of cupping. This is a key pizzeria requirement, and we offer to test samples in your own oven before any contract."},
         {"q": "What is the shelf life and storage temperature?", "a": "360 days at –18°C frozen. Once defrosted, an unopened pack keeps for 120 hours at +4°C, and 72 hours at +4°C after opening. Defrost for 2–6 hours at up to +4°C."},
         {"q": "Do you ship to my country?", "a": "We work with importers in Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, Georgia and Tajikistan. The default basis is EXW Kazan, other terms are negotiable. Route and lead time are calculated for your specific city."},
-        {"q": "What is the minimum order?", "a": "The minimum volume depends on the country, the route and the slicing format — it is agreed individually. A trial batch and free samples are possible for testing."},
+        {"q": "What is the minimum order?", "a": "Minimum order — one pallet; a mixed pallet of several SKUs is possible and volumes are calculated in pallet multiples. Route, lead time and samples are agreed individually — samples are usually free."},
         {"q": "Can you produce under our own brand?", "a": "Yes, private label is available. We adjust the meat composition, heat level, slice diameter and thickness, pack size from 0.5 to 5 kg, and the label and marking to your brand."},
         {"q": "Which documents do you provide for import?", "a": "The DUM RT halal certificate, the EAEU declaration of conformity, technical specifications, veterinary accompanying documents, the product specification and marking adapted to the importing country's requirements."},
         {"q": "Are you “TD Kazansky” or kazandelikates.ru?", "a": "No. The legal entity is Kazan Delicacies LLC (ООО «Казанские Деликатесы»). Catalog: pepperoni.tatar. Corporate site: kazandelikates.tatar. kazandelikates.ru is not ours and does not resolve. Phone +7 987 217-02-02, Kazan, Agrarnaya 2, office 7."},
