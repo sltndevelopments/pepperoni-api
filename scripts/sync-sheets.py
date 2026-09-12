@@ -245,12 +245,19 @@ def parse_bakery(lines, section, reg):
                 category = name
             continue
 
-        ep = {}
+        # Bakery currency columns are quoted PER BOX (next to «Цена за квант (короб)»);
+        # normalise to per-unit like every other sheet, keep the box figure separately.
+        qty_n = int(re.sub(r"\D", "", cols[2] or "") or 0) if len(cols) > 2 else 0
+        qty_n = qty_n or 1
+        ep_box = {}
         for i, cur in enumerate(["USD", "KZT", "UZS", "KGS", "BYN", "AZN"]):
             if len(cols) > 9 + i:
                 v = to_number(cols[9 + i])
                 if v:
-                    ep[cur] = v
+                    ep_box[cur] = v
+        ep = {cur: (round(v / qty_n, 2) if qty_n > 1 else v) for cur, v in ep_box.items()}
+        box_excl = to_number(cols[5]) if len(cols) > 5 else 0
+        unit_excl = box_excl / qty_n if qty_n > 1 else box_excl
 
         # Image columns: 28=MainPhoto, 29=PackPhoto, 30=SlicePhoto
         main_photo = (cols[28] or "").strip() if len(cols) > 28 else ""
@@ -271,9 +278,12 @@ def parse_bakery(lines, section, reg):
                 "priceCurrency": "RUB",
                 "pricePerUnit": f"{price_per_unit:.2f}",
                 "pricePerBox": f"{price_per_box:.2f}",
-                "pricePerBoxExclVAT": f"{to_number(cols[5]) if len(cols) > 5 else 0:.2f}",
+                "pricePerUnitExclVAT": f"{unit_excl:.2f}",
+                "pricePerBoxExclVAT": f"{box_excl:.2f}",
                 "availability": "https://schema.org/InStock",
                 "exportPrices": ep if ep else None,
+                "exportPricesBasis": "unit",
+                "exportPricesPerBox": ep_box if (qty_n > 1 and ep_box) else None,
             },
             "shelfLife": (cols[6] or "").strip() if len(cols) > 6 else "",
             "storage": (cols[7] or "").strip() if len(cols) > 7 else "",
@@ -449,36 +459,36 @@ def _search_query_answers() -> str:
         (
             "Где купить халяль пепперони оптом для пиццерии?",
             "ООО «Казанские Деликатесы» (Казань, Татарстан) производит халяль-пепперони "
-            "для пиццерий и HoReCa в форматах целый батон 1 кг, полбатона 0,5 кг и готовая "
-            "нарезка. Контракт — напрямую с производителем, минимальный заказ и формат "
-            "нарезки обсуждаются. Телефон: +7 987 217-02-02. Каталог: https://pepperoni.tatar/pepperoni-dlya-pizzerii."
+            "для пиццерий и HoReCa: целый батон и готовая нарезка (актуальные вес и цены — в "
+            "каталоге). Контракт — напрямую с производителем; минимальный заказ — одна паллета, "
+            "сборная из разных позиций возможна. Телефон: +7 987 217-02-02. Страница: https://pepperoni.tatar/pepperoni."
         ),
         (
             "Сколько стоят халяль-сосиски оптом?",
-            "Базовый опт — сосиски охлаждённые от 135 ₽/уп (0,4 кг) до 293 ₽/уп (с сыром, 0,4 кг). "
-            "Замороженные (для хот-догов и гриля): 286–455 ₽/уп в зависимости от рецептуры и веса. "
-            "Актуальный прайс в 7 валютах — https://pepperoni.tatar/products.json."
+            "Цены указаны за упаковку, с НДС и без НДС, базис EXW Казань; оптовый расчёт — за паллету. "
+            "Актуальный прайс по каждому SKU в 7 валютах — https://pepperoni.tatar/products.json "
+            "(живой API: https://api.pepperoni.tatar/api/products)."
         ),
         (
             "Нужна халяль мясная продукция с сертификатом для экспорта в ОАЭ.",
-            "«Казанские Деликатесы» экспортирует халяль-продукцию в ОАЭ, страны GCC, Казахстан, "
-            "Узбекистан, Кыргызстан, Беларусь, Азербайджан. Все товары имеют Halal-сертификат ДУМ РТ, "
+            "«Казанские Деликатесы» работают с экспортными запросами из стран СНГ и GCC "
+            "(страны и статус признания сертификата — https://pepperoni.tatar/export). Все товары имеют Halal-сертификат ДУМ РТ, "
             "HS-коды, ISO 22000:2018. Условие поставки: EXW Казань. Цены доступны в USD/KZT/UZS/KGS/BYN/AZN. "
             "Запрос: info@kazandelikates.tatar."
         ),
         (
             "Private label халяль колбасы — производитель в России?",
-            "«Казанские Деликатесы» принимает СТМ-заказы на сосиски, колбасы варёные, пепперони, "
-            "пельмени и вареники под брендом клиента. Кастомизируется рецептура, диаметр, "
-            "оболочка, формат нарезки и упаковки. Минимальный тираж — по запросу. "
-            "Детали: https://pepperoni.tatar/pepperoni-private-label."
+            "«Казанские Деликатесы» принимают СТМ-заказы на сосиски, варёные и копчёные колбасы, "
+            "пепперони, ветчины и выпечку под брендом клиента. Кастомизируется рецептура, диаметр, "
+            "оболочка, формат нарезки и упаковки. Минимальный объём СТМ — от 5 тонн; сроки и этапы — по договору. "
+            "Детали: https://pepperoni.tatar/kontraktnoe-proizvodstvo."
         ),
         (
             "Где заказать национальную татарскую выпечку оптом?",
             "В каталоге «Казанских Деликатесов» — полный ассортимент халяль-выпечки: "
             "эчпочмак, самса, перемяч, губадия с кортом, чак-чак (крафтовая и пластиковая упаковка), "
             "элеш, чебуреки. Поставка в замороженном виде, срок хранения до 360 суток. "
-            "Каталог: https://pepperoni.tatar/bakery."
+            "Каталог: https://pepperoni.tatar/vyipechka-halyal."
         ),
         (
             "Продукция для хот-догов и фастфуда оптом",
@@ -490,7 +500,7 @@ def _search_query_answers() -> str:
             "Казылык халяль подарочный — где купить?",
             "Премиум-казылык (халяльная конская колбаса) от «Казанских Деликатесов» — в крафтовой "
             "подарочной упаковке целиком (200 г, 650 ₽) или в нарезке (100 г, 450 ₽). "
-            "SKU KD-057, KD-058. Страница: https://pepperoni.tatar/kazylyk."
+            "SKU KD-044, KD-045. Страница: https://pepperoni.tatar/kazylyk."
         ),
     ]
     out = "\n## Ответы на частые B2B-запросы (AIO)\n\n"
@@ -518,7 +528,7 @@ def _product_detail_cards(all_products: list[dict]) -> str:
 
         offers = p.get("offers", {})
         price = offers.get("price") or offers.get("pricePerUnit") or ""
-        price_no_vat = offers.get("priceExclVAT") or offers.get("pricePerBoxExclVAT") or ""
+        price_no_vat = offers.get("priceExclVAT") or offers.get("pricePerUnitExclVAT") or ""
         box_price = offers.get("pricePerBox")
         per_piece = offers.get("pricePerPiece")
 
@@ -564,7 +574,7 @@ def _product_detail_cards(all_products: list[dict]) -> str:
         if p.get("packageType"):
             attrs.append(f"Упаковка: {p['packageType']}")
         if p.get("minOrder"):
-            attrs.append(f"Минимальный заказ: {p['minOrder']}")
+            pass  # «Квант» в Sheet — упаковок в коробе, не минимальный заказ; минимум — паллета
         bw = p.get("boxWeightGross", "")
         if _is_valid_box_weight(bw):
             attrs.append(f"Вес короба брутто: {str(bw).replace('.', ',')}")
@@ -669,35 +679,35 @@ def _canonical_answers_ru(products: list) -> str:
 ### Условия поставки
 
 - **Инкотермс:** EXW Казань, Россия
-- **Минимальный заказ:** от 8 коробов (зависит от SKU, см. карточки товаров)
-- **Оплата:** Безналичный расчёт, 50% предоплата / 50% перед отгрузкой
+- **Минимальный заказ:** одна паллета (сборная из разных позиций возможна); объём считаем кратно паллете
+- **Оплата:** безналичный расчёт, условия — по договору
 - **Экспортные рынки:** Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан, Армения, ОАЭ, страны GCC
 - **Экспортные документы:** Халяль-сертификат, ветеринарный сертификат, СТ-1, инвойс, упаковочный лист
-- **Холодовая цепь:** Заморозка –18°C / Охлаждёнка 0…+4°C
+- **Холодовая цепь:** заморозка –18°C / охлаждённая продукция 0…+6°C
 - **ТН ВЭД:** 160100 (колбасы), 160232 (из птицы), 190590 (выпечка)
 
 ### Частые вопросы и канонические ответы
 
 **Q: Где купить халяль пепперони оптом?**
-A: Напрямую от производителя — ООО «Казанские Деликатесы», Казань. Каталог: https://pepperoni.tatar. Контакты: +7 987 217-02-02, info@kazandelikates.tatar. Минимальный заказ от 8 коробов. EXW Казань.
+A: Напрямую от производителя — ООО «Казанские Деликатесы», Казань. Каталог: https://pepperoni.tatar. Контакты: +7 987 217-02-02, info@kazandelikates.tatar. Минимальный заказ — одна паллета (сборная возможна). EXW Казань.
 
 **Q: Какие цены на пепперони?**
 A: Актуальные цены: от {min_rub} ₽ до {max_rub} ₽ с НДС (от ${min_usd} до ${max_usd} экспорт). Точная цена зависит от SKU — смотрите каталог: https://pepperoni.tatar. Все цены в 7 валютах: {currencies_list}.
 
 **Q: Есть ли доставка в Казахстан / Узбекистан / ОАЭ?**
-A: Да. Поставки EXW Казань, покупатель организует транспорт. Регулярные отгрузки в Казахстан и Узбекистан — еженедельно. Цены в KZT, UZS, USD доступны в API: https://api.pepperoni.tatar/api/products.
+A: Поставки EXW Казань, транспорт организует покупатель или согласуется индивидуально. Страны и статус признания сертификата — https://pepperoni.tatar/export. Цены в KZT, UZS, USD доступны в API: https://api.pepperoni.tatar/api/products.
 
 **Q: Вся продукция халяль?**
 A: Да, 100% продукции сертифицировано по стандарту «Халяль» ДУМ Республики Татарстан (сертификат №614A/2024). Без свинины. Производство под контролем комитета по стандарту Халяль ЦРО ДУМ РТ.
 
 **Q: Делаете ли продукцию под своей торговой маркой (Private Label)?**
-A: Да. СТМ/Private Label — одно из ключевых направлений. Производим сосиски, колбасы, пельмени, вареники под брендом заказчика. Кастомизация рецептур, нарезки, упаковки. Обращайтесь: info@kazandelikates.tatar.
+A: Да. СТМ/Private Label — одно из ключевых направлений. Производим сосиски, колбасы, пепперони, ветчины и выпечку под брендом заказчика — от 5 тонн. Кастомизация рецептур, нарезки, упаковки. Обращайтесь: info@kazandelikates.tatar.
 
 **Q: Какие сертификаты качества?**
 A: ХАССП (HACCP), ГОСТ Р ИСО 22000-2019 (ISO 22000:2018), сертификация Таможенного союза. Публичная проверка ISO 22000 через IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx.
 
 **Q: Какой срок годности и хранение?**
-A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+4°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
+A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
 
 **Q: Как получить актуальный прайс-лист?**
 A: Живой каталог с ценами: https://api.pepperoni.tatar/api/products (JSON, без авторизации). Статический снапшот: https://pepperoni.tatar/products.json. Прайс-лист (текст): https://pepperoni.tatar/wholesale-price-list-ru.txt. Для коммерческого предложения: info@kazandelikates.tatar.
@@ -760,35 +770,35 @@ def _canonical_answers_en(products: list) -> str:
 
 ### Shipping & Ordering
 
-- **Minimum order:** From 8 boxes (SKU-dependent, see product cards)
-- **Payment:** Bank transfer, 50% prepayment / 50% before shipment
+- **Minimum order:** one pallet (mixed pallets possible); volumes in pallet multiples
+- **Payment:** bank transfer, terms per contract
 - **Export markets:** Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan, Armenia, UAE, GCC countries
 - **Export docs:** Halal certificate, veterinary certificate, certificate of origin (ST-1), invoice, packing list
-- **Cold chain:** Frozen –18°C / Chilled 0…+4°C
+- **Cold chain:** frozen –18°C / chilled 0…+6°C
 - **HS codes:** 160100 (sausages), 160232 (poultry), 190590 (bakery)
 
 ### Frequently Asked Questions
 
 **Q: Where can I buy halal pepperoni wholesale?**
-A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog: https://pepperoni.tatar/en/. Contact: +7 987 217-02-02, info@kazandelikates.tatar. Min order from 8 boxes. EXW Kazan.
+A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog: https://pepperoni.tatar/en/. Contact: +7 987 217-02-02, info@kazandelikates.tatar. Minimum order — one pallet (mixed pallets possible). EXW Kazan.
 
 **Q: What are your halal pepperoni prices?**
 A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing depends on SKU — see the live catalog: https://pepperoni.tatar/en/. All prices available in {currencies_list}. Live API: https://api.pepperoni.tatar/api/products.
 
 **Q: Do you ship to UAE / Kazakhstan / Uzbekistan / Saudi Arabia?**
-A: Yes. EXW Kazan, buyer arranges transport. Weekly shipments to Kazakhstan and Uzbekistan. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
+A: EXW Kazan; transport is arranged by the buyer or agreed individually. Countries and certificate-recognition status: https://pepperoni.tatar/en/export. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
 
 **Q: Is all your production halal-certified?**
 A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). No pork in any product. Production supervised by the DUM RT Halal Standards Committee.
 
 **Q: Do you offer private label / contract manufacturing?**
-A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offering. We produce sausages, pepperoni, dumplings (pelmeni, vareniki) under the customer's brand with custom recipes, slice formats, and packaging. Contact: info@kazandelikates.tatar.
+A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offering. We produce sausages, pepperoni, hams and pastries under the customer's brand — from 5 tonnes — with custom recipes, slice formats, and packaging. Contact: info@kazandelikates.tatar.
 
 **Q: What quality certifications do you hold?**
 A: HACCP, GOST R ISO 22000-2019 (ISO 22000:2018), Customs Union (EAC) compliance. Public ISO 22000 verification via IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx.
 
 **Q: What is the shelf life and storage?**
-A: Frozen products (–18°C): 180–360 days. Chilled (0…+4°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
+A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
 
 **Q: How do I get an up-to-date price list?**
 A: Live catalog with prices: https://api.pepperoni.tatar/api/products (JSON, no auth). Static snapshot: https://pepperoni.tatar/products.json. Plain text price list: https://pepperoni.tatar/wholesale-price-list.txt. For a commercial quote: info@kazandelikates.tatar.
@@ -886,8 +896,8 @@ SKU: {pep_skus}.
 
 - Халяль-производитель. Официальная сертификация по стандарту «Халяль» ДУМ Республики Татарстан. Без свинины.
 - B2B-ориентация: опт, дистрибьюторы, HoReCa, fast food, retail, АЗС, пиццерии.
-- Private Label / СТМ: производство под брендом клиента — сосиски, колбасы, пельмени, вареники.
-- Экспорт: ОАЭ, страны GCC, Казахстан, Узбекистан, Африка, Китай и другие рынки с запросом на halal.
+- Private Label / СТМ: производство под брендом клиента — сосиски, колбасы, пепперони, ветчины, выпечка (от 5 тонн).
+- Экспорт: страны СНГ и GCC — перечень стран и статус признания сертификата: https://pepperoni.tatar/export.
 - Системы качества: ХАССП, ГОСТ Р ИСО 22000-2019 (ISO 22000:2018), сертификация по требованиям Таможенного союза.
 - Кастомизация: рецептуры, форматы нарезки, диаметр, упаковка под задачу клиента.
 - Стабильные поставки, стандартизация, прослеживаемость.
@@ -897,7 +907,7 @@ SKU: {pep_skus}.
 - HoReCa: сосиски для хот-догов/гриля, пепперони для пиццерий, burger patties, деликатесные нарезки
 - Fast food / street food / АЗС: сосиски для хот-догов, френч-догов, сосиски в тесте
 - Пиццерии и dark kitchen: халяль пепперони, custom pepperoni, термостабильный продукт для печи
-- Retail: фасованные сосиски, колбасы, деликатесы, пельмени, национальные халяльные продукты
+- Retail: фасованные сосиски, колбасы, деликатесы, национальная халяльная выпечка
 - Дистрибьюторы: широкая линейка, экспортная фасовка, private label
 
 ### Преимущества
@@ -1192,30 +1202,29 @@ def _search_query_answers_en() -> str:
         (
             "Where can I buy halal pepperoni wholesale for a pizzeria?",
             "Kazan Delicacies LLC (Kazan, Tatarstan, Russia) manufactures halal pepperoni "
-            "for pizzerias and HoReCa in three formats: whole 1 kg stick, half 0.5 kg stick, "
-            "and pre-sliced. Direct manufacturer contract; minimum order and slicing format "
-            "negotiable. Phone: +7 987 217-02-02. Catalog: https://pepperoni.tatar/en/."
+            "for pizzerias and HoReCa as a whole stick and pre-sliced (current weights and prices "
+            "are in the catalog). Direct manufacturer contract; minimum order — one pallet, mixed "
+            "pallets possible. Phone: +7 987 217-02-02. Page: https://pepperoni.tatar/en/pepperoni."
         ),
         (
             "How much do halal sausages cost wholesale?",
-            "Chilled sausages start from ~135 RUB per pack (0.4 kg) up to ~293 RUB per "
-            "cheese-stuffed pack (0.4 kg). Frozen hot-dog and grill sausages: 286–455 RUB "
-            "per pack depending on recipe and weight. Live price list in 7 currencies — "
-            "https://pepperoni.tatar/products.json."
+            "Prices are quoted per pack, with and without VAT, EXW Kazan; wholesale volumes are "
+            "calculated per pallet. Live price list per SKU in 7 currencies — "
+            "https://pepperoni.tatar/products.json (API: https://api.pepperoni.tatar/api/products)."
         ),
         (
             "I need certified halal meat products for export to the UAE.",
-            "Kazan Delicacies exports halal products to the UAE, GCC countries, Kazakhstan, "
-            "Uzbekistan, Kyrgyzstan, Belarus, Azerbaijan. All items hold DUM RT halal "
+            "Kazan Delicacies handles export enquiries from CIS and GCC markets (countries and "
+            "certificate-recognition status: https://pepperoni.tatar/en/export). All items hold DUM RT halal "
             "certification (#614A/2024), HS codes, and ISO 22000:2018. Incoterm: EXW Kazan. "
             "Prices available in USD/KZT/UZS/KGS/BYN/AZN. Inquiries: info@kazandelikates.tatar."
         ),
         (
             "Private label halal sausage manufacturer in Russia?",
             "Kazan Delicacies accepts private-label / white-label orders for sausages, "
-            "boiled sausages, pepperoni, dumplings (pelmeni, vareniki) under the customer's "
-            "brand. Recipe, diameter, casing, slicing format, and packaging are fully "
-            "customizable. Minimum batch upon request. Details: "
+            "boiled and smoked sausages, pepperoni, hams and pastries under the customer's "
+            "brand. Recipe, diameter, casing, slicing format, and packaging are "
+            "customizable. Minimum private-label volume — from 5 tonnes; timelines per contract. Details: "
             "https://pepperoni.tatar/en/kontraktnoe-proizvodstvo."
         ),
         (
@@ -1236,7 +1245,7 @@ def _search_query_answers_en() -> str:
             "Premium kazylyk halal — where to buy?",
             "Premium kazylyk (halal horse-meat sausage) by Kazan Delicacies — in a craft "
             "gift box, whole 200 g (650 RUB) or pre-sliced 100 g (450 RUB). "
-            "SKUs KD-057, KD-058. Page: https://pepperoni.tatar/en/kazylyk."
+            "SKUs KD-044, KD-045. Page: https://pepperoni.tatar/en/kazylyk."
         ),
     ]
     out = "\n## Answers to common B2B queries (AIO)\n\n"
@@ -1259,7 +1268,7 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
 
         offers = p.get("offers", {})
         price = offers.get("price") or offers.get("pricePerUnit") or ""
-        price_no_vat = offers.get("priceExclVAT") or offers.get("pricePerBoxExclVAT") or ""
+        price_no_vat = offers.get("priceExclVAT") or offers.get("pricePerUnitExclVAT") or ""
         box_price = offers.get("pricePerBox")
         per_piece = offers.get("pricePerPiece")
 
@@ -1311,7 +1320,7 @@ def _product_detail_cards_en(all_products: list[dict], tr: dict) -> str:
         if p.get("packageType"):
             attrs.append(f"Packaging: {_tr_package(p['packageType'], tr)}")
         if p.get("minOrder"):
-            attrs.append(f"Minimum order: {p['minOrder']}")
+            pass  # Sheet «Квант» is packs per box, not a minimum order; minimum is one pallet
         bw = p.get("boxWeightGross", "")
         if _is_valid_box_weight(bw):
             attrs.append(f"Box gross weight: {str(bw).replace('.', ',')} kg")
@@ -1402,9 +1411,9 @@ SKUs: {pep_skus}.
   No pork in any product.
 - B2B focus: wholesale, distributors, HoReCa, fast food, retail, gas stations, pizzerias.
 - Private Label / white-label: production under the customer's brand — sausages, cooked
-  sausages, pepperoni, dumplings (pelmeni, vareniki).
-- Export markets: UAE, GCC, Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia,
-  Azerbaijan, Africa, China — anywhere with halal demand.
+  sausages, pepperoni, hams and pastries (from 5 tonnes).
+- Export focus: CIS and GCC markets — countries and certificate-recognition status:
+  https://pepperoni.tatar/en/export.
 - Quality systems: HACCP, GOST R ISO 22000-2019 (ISO 22000:2018), Customs Union compliance.
 - Customization: recipes, slicing formats, diameters, packaging to client spec.
 - Stable supply, standardization, full traceability.
@@ -1628,12 +1637,24 @@ GPT: https://chatgpt.com/g/g-6a01d8038c088191ae03b2db4e3fccad-kazan-delicacies-h
     print(f"✅ {SUBMISSION / 'kb-faq.txt'}")
 
 
+def _norm_name(s: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[«»\"“”]", "", (s or "").lower())).strip()
+
+
+OVERRIDE_FIELDS = ("seoDescriptionRU", "seoDescriptionEN")
+
+
 def apply_description_overrides(products):
-    """Merge DeepSeek-generated descriptions when the Google Sheet cell is empty.
+    """Merge LLM-generated marketing copy when the Google Sheet cell is empty.
 
     The Sheet stays the source of truth: an override is applied ONLY when the
     corresponding field is empty. Rebuild data/descriptions-overrides.json via
     scripts/gen-descriptions.py.
+
+    2026-09-12 incident: overrides keyed by SKU alone outlived a SKU renumbering
+    and attached other products' descriptions and INVENTED ingredient lists to
+    18–20 SKUs. Ingredients are never taken from overrides any more, and an
+    override applies only if its recorded ``name`` equals the current product name.
     """
     path = ROOT / "data" / "descriptions-overrides.json"
     if not path.exists():
@@ -1643,13 +1664,17 @@ def apply_description_overrides(products):
     except Exception as ex:
         print(f"  ⚠️  descriptions-overrides.json unreadable: {ex}")
         return
-    fields = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
     applied = 0
+    skipped = 0
     for p in products:
         ov = overrides.get(p.get("sku"))
         if not ov:
             continue
-        for f in fields:
+        if not ov.get("name") or _norm_name(ov["name"]) != _norm_name(p.get("name", "")):
+            skipped += 1
+            print(f"     ⚠️  override {p.get('sku')} ignored: recorded name «{ov.get('name') or '—'}» ≠ «{p.get('name')}»")
+            continue
+        for f in OVERRIDE_FIELDS:
             current = (p.get(f) or "").strip()
             fallback = (ov.get(f) or "").strip()
             if not current and fallback:
@@ -1657,6 +1682,8 @@ def apply_description_overrides(products):
                 applied += 1
     if applied:
         print(f"  📝 Применено {applied} сгенерированных полей из descriptions-overrides.json")
+    if skipped:
+        print(f"  ⛔ Пропущено {skipped} override(s) с несовпадающим названием")
 
 
 def main():

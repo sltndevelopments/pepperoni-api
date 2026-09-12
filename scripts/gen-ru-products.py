@@ -343,7 +343,7 @@ def main():
             p["offers"]["pricePerUnit"] if is_bakery else p["offers"]["price"]
         )
         price_no_vat = p["offers"].get("priceExclVAT") or p["offers"].get(
-            "pricePerBoxExclVAT", ""
+            "pricePerUnitExclVAT", ""
         )
         ep = p["offers"].get("exportPrices") or {}
         weight = p.get("weight", "")
@@ -464,7 +464,7 @@ def main():
             specs.append(("В коробке", f"{p['qtyPerBox']} шт"))
         if p.get("barcode"):
             specs.append(("Штрих-код", p["barcode"]))
-        if p.get("diameter"):
+        if p.get("diameter") and str(p.get("diameter")).strip() not in {"0", "0,0", "0.0"}:
             specs.append(("Диаметр", f"{p['diameter']} мм"))
         if p.get("casing"):
             specs.append(("Оболочка", p["casing"]))
@@ -476,8 +476,7 @@ def main():
             specs.append(("Вес коробки брутто", p["boxWeightGross"]))
         if p.get("packageType"):
             specs.append(("Тип упаковки", p["packageType"]))
-        if p.get("minOrder"):
-            specs.append(("Мин. заказ", p["minOrder"]))
+        # «Квант» in the Sheet is packs per box, not a minimum order — the minimum is one pallet.
         if p.get("nutrition"):
             specs.append(("КБЖУ", p["nutrition"]))
         specs_rows = "".join(f'<tr><td class="specs-key">{k}</td><td class="specs-val">{v}</td></tr>' for k, v in specs)

@@ -325,26 +325,22 @@ def main():
         slug = sku.lower()
         is_bakery = bool(p.get("offers", {}).get("pricePerUnit"))
         price_rub = p["offers"]["pricePerUnit"] if is_bakery else p["offers"]["price"]
-        price_usd_raw = p["offers"].get("exportPrices", {}).get("USD", "")
-        if is_bakery and price_usd_raw:
-            qty = int(p.get("qtyPerBox") or 1) or 1
-            price_usd = f"{float(price_usd_raw) / qty:.2f}" if qty > 0 else ""
-            price_usd_box = float(price_usd_raw)
-        else:
-            price_usd = price_usd_raw
-            price_usd_box = 0
+        # exportPrices are per unit for every section since 2026-09-12 (sync
+        # normalises bakery); the per-box figure lives in exportPricesPerBox.
+        price_usd = p["offers"].get("exportPrices", {}).get("USD", "")
+        price_usd_box = float((p["offers"].get("exportPricesPerBox") or {}).get("USD") or 0) if is_bakery else 0
         clean_name = " ".join(str(p.get("name") or "").split())
         name = translate(tr, clean_name.lower(), "products") or clean_name
         section = translate(tr, p.get("section", ""), "sections") or p.get("section", "")
         category = translate(tr, p.get("category", ""), "categories") or p.get("category", "")
         weight = p.get("weight", "")
-        if weight and " g" not in weight and " kg" not in weight:
-            weight = weight.replace(",", ".") + " kg"
         weight = weight.replace(" г", " g").replace(" кг", " kg").replace(",", ".")
+        if weight and " g" not in weight and " kg" not in weight:
+            weight = weight + " kg"
         shelf_life = translate(tr, p.get("shelfLife", ""), "shelfLife") or p.get("shelfLife", "")
         storage = p.get("storage", "")
         hs_code = p.get("hsCode", "")
-        price_excl = p["offers"].get("priceExclVAT") or p["offers"].get("pricePerBoxExclVAT", "")
+        price_excl = p["offers"].get("priceExclVAT") or p["offers"].get("pricePerUnitExclVAT", "")
 
         ep = p["offers"].get("exportPrices") or {}
         pr = float(price_rub) if price_rub else 0
@@ -465,7 +461,7 @@ def main():
             specs.append(("Units per box", f"{p['qtyPerBox']} pcs"))
         if p.get("barcode"):
             specs.append(("Barcode", p["barcode"]))
-        if p.get("diameter"):
+        if p.get("diameter") and str(p.get("diameter")).strip() not in {"0", "0,0", "0.0"}:
             specs.append(("Diameter", f"{p['diameter']} mm"))
         if p.get("casing"):
             casing_en = {"без оболочки": "No casing", "натуральная": "Natural", "коллагеновая": "Collagen", "целлюлозная": "Cellulose", "фиброузная": "Fibrous", "полиамидная": "Polyamide"}.get(p["casing"].strip().lower(), p["casing"])
@@ -479,8 +475,7 @@ def main():
         if p.get("packageType"):
             pkg_en = {"вакуум": "Vacuum", "вакуумная упаковка": "Vacuum pack", "лоток": "Tray", "гофрокороб": "Corrugated box", "термоусадочная": "Shrink wrap"}.get(p["packageType"].strip().lower(), p["packageType"])
             specs.append(("Packaging", pkg_en))
-        if p.get("minOrder"):
-            specs.append(("Min order", p["minOrder"]))
+        # Sheet «Квант» is packs per box, not a minimum order — the minimum is one pallet.
         if p.get("nutrition"):
             nut = p["nutrition"]
             for ru, en in [

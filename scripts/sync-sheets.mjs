@@ -358,13 +358,23 @@ function parseBakery(lines, section, reg) {
       continue;
     }
 
+    // Bakery currency columns sit next to «Цена за квант (короб)» and are quoted
+    // PER BOX (48 эчпочмаков ≈ $35). Every other sheet quotes per pack, so we
+    // normalise export prices to per-unit and keep the raw box figure separately —
+    // otherwise a 100 g pastry is published at $34.68 (audit 2026-09-12).
+    const qtyPerBoxN = parseInt(String(cols[2] || '').replace(/\D/g, ''), 10) || 1;
+    const epBox = {};
+    const epCols = { USD: 9, KZT: 10, UZS: 11, KGS: 12, BYN: 13, AZN: 14 };
+    for (const [cur, i] of Object.entries(epCols)) {
+      const v = toNumber(cols[i]);
+      if (v) epBox[cur] = v;
+    }
     const ep = {};
-    if (toNumber(cols[9])) ep.USD = toNumber(cols[9]);
-    if (toNumber(cols[10])) ep.KZT = toNumber(cols[10]);
-    if (toNumber(cols[11])) ep.UZS = toNumber(cols[11]);
-    if (toNumber(cols[12])) ep.KGS = toNumber(cols[12]);
-    if (toNumber(cols[13])) ep.BYN = toNumber(cols[13]);
-    if (toNumber(cols[14])) ep.AZN = toNumber(cols[14]);
+    for (const [cur, v] of Object.entries(epBox)) {
+      ep[cur] = qtyPerBoxN > 1 ? Math.round((v / qtyPerBoxN) * 100) / 100 : v;
+    }
+    const pricePerBoxExclVAT = toNumber(cols[5]);
+    const pricePerUnitExclVAT = qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT;
 
     const mainPhoto = driveToDirectUrl(
       (cellBy(cols, colIndex, 'mainPhoto') || cols[28] || '').trim()
@@ -398,9 +408,12 @@ function parseBakery(lines, section, reg) {
         priceCurrency: 'RUB',
         pricePerUnit: pricePerUnit.toFixed(2),
         pricePerBox: pricePerBox.toFixed(2),
-        pricePerBoxExclVAT: toNumber(cols[5]).toFixed(2),
+        pricePerUnitExclVAT: pricePerUnitExclVAT.toFixed(2),
+        pricePerBoxExclVAT: pricePerBoxExclVAT.toFixed(2),
         availability: 'https://schema.org/InStock',
         exportPrices: Object.keys(ep).length ? ep : undefined,
+        exportPricesBasis: 'unit',
+        exportPricesPerBox: qtyPerBoxN > 1 && Object.keys(epBox).length ? epBox : undefined,
       },
       shelfLife: cols[6] || '',
       storage: cols[7] || '',
@@ -796,7 +809,7 @@ function generateProductPages(allProducts) {
     const slug = p.sku.toLowerCase();
     const isBakery = !!p.offers?.pricePerUnit;
     const priceRUB = isBakery ? p.offers.pricePerUnit : p.offers.price;
-    const priceNoVAT = p.offers.priceExclVAT || p.offers.pricePerBoxExclVAT || '';
+    const priceNoVAT = p.offers.priceExclVAT || p.offers.pricePerUnitExclVAT || '';
     const priceUSD = p.offers?.exportPrices?.USD || '';
     const ep = p.offers?.exportPrices || {};
     let exportHtml = '';
@@ -942,10 +955,24 @@ document.addEventListener('click',function(e){
   }
 }
 
-// --- Description overrides (DeepSeek-generated, merged when Sheet cell empty) ---
+// --- Description overrides (LLM-generated marketing copy, merged when Sheet cell empty) ---
 // The Google Sheet stays the source of truth: an override is applied ONLY when
 // the corresponding field from the Sheet is empty. Run scripts/gen-descriptions.py
 // to (re)build data/descriptions-overrides.json.
+//
+// 2026-09-12 incident: overrides were keyed by SKU only, and SKUs had been
+// renumbered since generation — 20 SKUs got another product's description and
+// 18 SKUs got an INVENTED ingredient list (chocolate muffin "with beef") served
+// through /products.json, the API and llms.txt. Two hard rules now:
+//   1. Ingredients are NEVER taken from overrides — composition comes from the
+//      Sheet or is not published at all ("Спецификация уточняется").
+//   2. An override applies only if its recorded `name` equals the current
+//      product name (SKU numbers move, names do not).
+const OVERRIDE_FIELDS = ['seoDescriptionRU', 'seoDescriptionEN'];
+
+function normName(s) {
+  return String(s || '').toLowerCase().replace(/[«»"“”]/g, '').replace(/\s+/g, ' ').trim();
+}
 
 function applyDescriptionOverrides(products) {
   const path = join(ROOT, 'data', 'descriptions-overrides.json');
@@ -957,12 +984,17 @@ function applyDescriptionOverrides(products) {
     console.warn(`  ⚠️  descriptions-overrides.json unreadable: ${e.message}`);
     return;
   }
-  const fields = ['seoDescriptionRU', 'seoDescriptionEN', 'ingredientsRU', 'ingredientsEN'];
   let applied = 0;
+  let skipped = 0;
   for (const p of products) {
     const ov = overrides[p.sku];
     if (!ov) continue;
-    for (const f of fields) {
+    if (!ov.name || normName(ov.name) !== normName(p.name)) {
+      skipped++;
+      console.warn(`     ⚠️  override ${p.sku} ignored: recorded name «${ov.name || '—'}» ≠ «${p.name}»`);
+      continue;
+    }
+    for (const f of OVERRIDE_FIELDS) {
       const current = (p[f] || '').toString().trim();
       const fallback = (ov[f] || '').toString().trim();
       if (!current && fallback) {
@@ -972,6 +1004,7 @@ function applyDescriptionOverrides(products) {
     }
   }
   if (applied) console.log(`  📝 Применено ${applied} сгенерированных полей из descriptions-overrides.json`);
+  if (skipped) console.log(`  ⛔ Пропущено ${skipped} override(s) с несовпадающим названием`);
 }
 
 async function urlExists(url) {

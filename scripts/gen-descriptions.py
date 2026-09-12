@@ -4,7 +4,8 @@ One-time / on-demand generator of product descriptions via DeepSeek.
 
 Reads public/products.json, and for every product MISSING
 seoDescriptionRU / seoDescriptionEN / ingredientsRU / ingredientsEN,
-generates them and stores into data/descriptions-overrides.json keyed by SKU.
+generates them and stores into data/descriptions-overrides.json keyed by SKU **with the product
+name recorded** — sync applies an override only while the name still matches.
 
 These overrides are merged back during sync-sheets (mjs + py) ONLY when the
 Google Sheet cell is empty — so the Sheet always stays the source of truth,
@@ -35,7 +36,10 @@ ROOT = Path(__file__).parent.parent
 PRODUCTS_JSON = ROOT / "public" / "products.json"
 OVERRIDES = ROOT / "data" / "descriptions-overrides.json"
 
-FIELDS = ("seoDescriptionRU", "seoDescriptionEN", "ingredientsRU", "ingredientsEN")
+# Ingredients are deliberately NOT generated: a product's composition is a fact
+# that only the Sheet (technologist) may state. 2026-09-12: generated compositions
+# keyed by stale SKU numbers put "говядина" into muffins and croissants on the live API.
+FIELDS = ("seoDescriptionRU", "seoDescriptionEN")
 
 from brand_system import brand_block
 
@@ -158,6 +162,7 @@ def main():
             print(f"     ⚠️  could not parse JSON, skipping", file=sys.stderr)
             continue
         entry = overrides.get(sku, {})
+        entry["name"] = p["name"]  # sync refuses the override once the SKU is renamed/renumbered
         for f in missing:
             val = (gen.get(f) or "").strip()
             if val:
