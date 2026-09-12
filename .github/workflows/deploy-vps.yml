@@ -396,6 +396,9 @@ jobs:
             # step makes every deploy re-install the Git version of both snippets.
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_canonical_hosts.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_canonical_hosts.sh /var/www/pepperoni/repo
+            # Branded 404 (public/404.html) instead of the bare "NOT_FOUND" body.
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_error_pages.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_error_pages.sh /var/www/pepperoni/repo
             if systemctl list-unit-files | grep -q '^pepperoni-mcp.service'; then
               install -m 644 /var/www/pepperoni/repo/deploy/pepperoni-mcp.service /etc/systemd/system/pepperoni-mcp.service
               systemctl daemon-reload

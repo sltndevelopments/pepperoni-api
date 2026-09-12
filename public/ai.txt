@@ -5,6 +5,8 @@ Allow: /
 Crawling: allowed
 Citation: allowed — cite as "Казанские Деликатесы (pepperoni.tatar)"
 Attribution: required
-Scraping: allowed for non-commercial AI training with attribution
-Commercial-training: disallowed without written consent
+Scraping: allowed for AI training with attribution
+Commercial-training: allowed with attribution
+# Policy is identical to robots.txt Content-Signal (ai-train=yes, search=yes,
+# ai-input=yes): the B2B catalog is meant to be cited, summarised and remembered.
 Contact: info@kazandelikates.tatar

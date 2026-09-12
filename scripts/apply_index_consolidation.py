@@ -167,6 +167,8 @@ def noindex_reason(rel: str) -> str | None:
         "en/privacy.html", "en/terms.html", "en/returns.html", "en/search.html",
         "china.html", "en/investment.html", "en/investors.html",
     }
+    if rel == "404.html":
+        return "branded 404 served by nginx error_page (2026-09-12)"
     if rel in exact:
         return "useful non-organic/legal page"
     if rel.startswith(("export/", "en/export/")):
