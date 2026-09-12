@@ -415,7 +415,7 @@ COMMERCIAL_T = {
              "Цены берутся из каталога компании и обновляются вместе с ним; на странице указана дата синхронизации ({date}). Цена в заказе фиксируется в счёте."),
         ],
         "footer": "ООО «Казанские Деликатесы» · <a href=\"/\">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
-        "related": [("Все сосиски халяль", "/sosiski-halyal"), ("Котлеты для бургеров", "/kotlety-dlya-burgerov"), ("Пепперони для пиццерий", "/pepperoni")],
+        "related": [("Копчёные колбасы и деликатесы", "/kolbasy-kopchyonye"), ("Котлеты для бургеров", "/kotlety-dlya-burgerov"), ("Пепперони для пиццерий", "/pepperoni")],
         "related_h": "Смотрите также: ",
     },
     "en": {
@@ -471,7 +471,7 @@ COMMERCIAL_T = {
              "Prices come from the company catalog and update with it; the sync date is shown on the page ({date}). The order price is fixed in the invoice."),
         ],
         "footer": "Kazan Delicacies LLC · <a href=\"/en/\">pepperoni.tatar/en</a> · Kazan, Agrarnaya st. 2, office 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
-        "related": [("All halal sausages", "/en/sosiski-halyal"), ("Burger patties", "/en/kotlety-dlya-burgerov"), ("Pepperoni for pizzerias", "/en/pepperoni")],
+        "related": [("Smoked sausages and deli meats", "/en/kolbasy-kopchyonye"), ("Burger patties", "/en/kotlety-dlya-burgerov"), ("Pepperoni for pizzerias", "/en/pepperoni")],
         "related_h": "See also: ",
     },
 }

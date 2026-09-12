@@ -139,6 +139,7 @@ RU_GUIDES = [
     ("blog/halal-certification-russia.html", "halal certification in Russia"),
     ("blog/iso-22000-iaf-certsearch.html", "ISO certificate verification"),
     ("blog/karmin-e120-haram.html", "carmine E120 policy"),
+    ("blog/tolko-halyal-kakie-kategorii-myasa.html", "halal-only scope and meat categories (buyer FAQ)"),
 ]
 
 EN_GUIDES = [

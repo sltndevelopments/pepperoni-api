@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-09T14:52:46.388520+00:00",
+  "generated_at": "2026-09-12T15:49:01.322111+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 239,
+    "keep": 240,
     "retired": 1491,
-    "all": 1730
+    "all": 1731
   },
   "entries": [
     {
@@ -193,6 +193,17 @@
       "owner": "editorial",
       "source": "evidence registry + cited sources",
       "canonical_target": "/blog/tatarskaya-vypechka-optom",
+      "status": "keep",
+      "kind": "guide"
+    },
+    {
+      "url": "/blog/tolko-halyal-kakie-kategorii-myasa",
+      "file": "blog/tolko-halyal-kakie-kategorii-myasa.html",
+      "intent": "halal-only scope and meat categories (buyer FAQ)",
+      "language": "ru",
+      "owner": "editorial",
+      "source": "evidence registry + cited sources",
+      "canonical_target": "/blog/tolko-halyal-kakie-kategorii-myasa",
       "status": "keep",
       "kind": "guide"
     },
