@@ -1,45 +1,41 @@
 {
- "fetched_at": "2026-09-11T05:30:03.139136+00:00",
+ "fetched_at": "2026-09-12T05:30:04.328750+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 362,
-  "users": 278,
-  "bounce_rate_pct": 33.7,
-  "page_depth": 1.28,
-  "avg_visit_sec": 83
+  "visits": 363,
+  "users": 283,
+  "bounce_rate_pct": 33.6,
+  "page_depth": 1.33,
+  "avg_visit_sec": 80
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 188
-  },
-  {
-   "source": "Ad traffic",
-   "visits": 60
+   "visits": 192
   },
   {
    "source": "Search engine traffic",
-   "visits": 58
+   "visits": 59
+  },
+  {
+   "source": "Ad traffic",
+   "visits": 57
   },
   {
    "source": "Internal traffic",
-   "visits": 45
+   "visits": 43
   },
   {
    "source": "Link traffic",
-   "visits": 9
-  },
-  {
-   "source": "Social network traffic",
-   "visits": 1
+   "visits": 11
   }
  ],
  "top_landing": [
   {
    "path": "/",
-   "visits": 183,
-   "bounce_pct": 22.4
+   "visits": 182,
+   "bounce_pct": 20.3
   },
   {
    "path": "/products/kd-057",
@@ -68,13 +64,13 @@
   },
   {
    "path": "/products/kd-048",
-   "visits": 7,
-   "bounce_pct": 28.6
+   "visits": 6,
+   "bounce_pct": 33.3
   },
   {
    "path": "/en/",
    "visits": 5,
-   "bounce_pct": 40.0
+   "bounce_pct": 60.0
   },
   {
    "path": "/products/kd-044",
@@ -82,9 +78,9 @@
    "bounce_pct": 20.0
   },
   {
-   "path": "/en",
-   "visits": 3,
-   "bounce_pct": 66.7
+   "path": "/products/kd-006",
+   "visits": 4,
+   "bounce_pct": 50.0
   },
   {
    "path": "/en/products/kd-013",
@@ -97,6 +93,11 @@
    "bounce_pct": 100.0
   },
   {
+   "path": "/en/products/kd-015",
+   "visits": 3,
+   "bounce_pct": 100.0
+  },
+  {
    "path": "/en/products/kd-053",
    "visits": 3,
    "bounce_pct": 100.0
@@ -105,17 +106,12 @@
    "path": "/products/kd-001",
    "visits": 3,
    "bounce_pct": 0.0
-  },
-  {
-   "path": "/products/kd-004",
-   "visits": 3,
-   "bounce_pct": 66.7
   }
  ],
  "leads": {
-  "total_leads": 11,
+  "total_leads": 12,
   "by_goal": {
-   "Автоцель: переход в мессенджер": 4,
+   "Автоцель: переход в мессенджер": 5,
    "Автоцель: клик по номеру телефона": 3,
    "Оставить заявку": 3,
    "Автоцель: отправка формы": 1
@@ -123,16 +119,16 @@
  },
  "inquiries_by_page": {
   "/": {
-   "28d": 5,
+   "28d": 6,
+   "7d": 1
+  },
+  "/products/kd-015": {
+   "28d": 2,
    "7d": 0
   },
   "/products/kd-004": {
    "28d": 4,
    "7d": 4
-  },
-  "/products/kd-015": {
-   "28d": 2,
-   "7d": 0
   }
  }
 }
