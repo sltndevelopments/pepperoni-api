@@ -183,6 +183,16 @@
 
 ## Log
 
+- **2026-09-13 Канон компании + коммерческие страницы (EN-спринт, шаг 1) — DONE, в `origin/main`.**
+  - Commits: `d37ac36a8` (brand.txt: юрлицо 2022 / производство с 2023; Ближний Восток = подготовка), `c6fcb6246` (СТМ RU/EN по брифу, `/en/pepperoni` под «halal pepperoni manufacturer»). VPS `/var/www/pepperoni/repo` HEAD = `c6fcb6246`.
+  - Год: `grep -c 'Производим в Казани с 2022' public/index.html` = 0; главная RU/EN, faq-ai, llms-full (`sync-sheets.py/.mjs`), 2 блога → «юрлицо 2022, производство с 2023».
+  - Экспорт: класс «экспорт в СНГ и ОАЭ» / «14+ export markets — GCC, Africa, Malaysia, China» / «6+ стран» / «документация для GCC в наличии» → KZ/BY/UZ + «Залив — подготовка, РСХН оформляется»: 12 файлов + `gen_export_pages.py` (vet=False) + 16 страниц `/export/{gulf}` RU/EN + статус-абзац на `/export` RU/EN. Live: `curl /en/export/uae | grep 'preparation stage'` = 1.
+  - СТМ: сняты «~20% доля СТМ», «2–3 варианта», «6–12 мес», «образец 2–3 недели», «Halal № 884A/2025» (capabilities RU/EN, china, kontraktnoe, en/private-label), raw meat/pastry/macarons, «Халяль или стандартная рецептура». `grep -c '884\|~20%' public/kontraktnoe-proizvodstvo.html public/en/private-label.html` = 0/0. FAQPage JSON-LD валиден.
+  - `/pepperoni` ×9 локалей: «8 стран СНГ / импортёры в 8 странах», «10 слайсов = 26–30 г», разморозка 120/72/2–6 ч, «0,5–5 кг», «в течение часа» сняты (`grep -c '26–30\|120 ч' public/pepperoni.html` = 0). EN title/H1 → «Halal pepperoni manufacturer — wholesale direct from the Kazan plant».
+  - Гейты: fix_pages 261/0, qa_pages 261/0 FAIL, index_policy OK, product_claims 0 FAIL, stm_min_run 0, wholesale_moq 0, hreflang 0, fact_consistency 0.
+  - Nudge (VPS): IndexNow 8 URL ✅ 200 ×2 эндпоинта; Yandex recrawl 0/150 (дневная), sitemap 429 (месячная до 30.09); Google sitemap — по скрипту.
+  - Blockers/эскалация: (1) `Halal № 884A/2025` (в china.html был подписан «Bakery & Ready Meals») — существует ли второй сертификат? если да — добавить в `brand.txt` и вернуть; (2) 3.4/3.3 не отвечены — масса 10 слайсов и режим разморозки убраны до данных технолога; (3) в 7 Ads-локалях `/{kk,uz,az,hy,ka,ky,tg}/pepperoni` три строки (why[1], faq[4], og_description, export.sub) временно на EN — нужен перевод; (4) WhatsApp 79274297220 на `/pepperoni` vs 79872170202 — унифицировать?
+
 - **2026-09-09 SEO-аудит P0 (pepperoni-seo-audit-and-plan) — DONE, в `origin/main`.**
   - Commits: `cda2d121b` (основной, 218 файлов), `190f8c3d7`, `410f3ed42` (nginx-сниппет).
     VPS `git rev-parse HEAD` = `410f3ed42`; `apply_nginx_trust_reset.sh` + `apply_nginx_canonical_hosts.sh` выполнены, `nginx -t` OK, reload OK.
