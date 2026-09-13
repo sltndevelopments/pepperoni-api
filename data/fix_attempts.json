@@ -40,11 +40,15 @@
     },
     "казылык это": {
       "seen_failure_ids": [
-        "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/what-is-kazylyk|title_meta"
+        "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/what-is-kazylyk|title_meta",
+        "2026-06-08T06:04:33.485416+00:00|казылык это|https://pepperoni.tatar/blog/kazylyk-chto-eto-takoe|title_meta"
       ],
-      "attempts": 1,
+      "attempts": 2,
       "last_verdict": "not_indexed",
-      "last_attempt": "2026-08-24T00:30:02.819832+00:00"
+      "last_attempt": "2026-09-13T00:00:05.102225+00:00",
+      "abandoned": true,
+      "abandon_date": "2026-09-13T00:00:05.102242+00:00",
+      "abandon_reason": "2 consecutive failing repairs — needs owner decision"
     },
     "echpochmak": {
       "seen_failure_ids": [

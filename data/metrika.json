@@ -1,18 +1,18 @@
 {
- "fetched_at": "2026-09-12T05:30:04.328750+00:00",
+ "fetched_at": "2026-09-13T05:30:04.601896+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 363,
-  "users": 283,
-  "bounce_rate_pct": 33.6,
+  "visits": 356,
+  "users": 277,
+  "bounce_rate_pct": 32.3,
   "page_depth": 1.33,
-  "avg_visit_sec": 80
+  "avg_visit_sec": 82
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 192
+   "visits": 188
   },
   {
    "source": "Search engine traffic",
@@ -20,11 +20,11 @@
   },
   {
    "source": "Ad traffic",
-   "visits": 57
+   "visits": 53
   },
   {
    "source": "Internal traffic",
-   "visits": 43
+   "visits": 44
   },
   {
    "source": "Link traffic",
@@ -34,8 +34,8 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 182,
-   "bounce_pct": 20.3
+   "visits": 185,
+   "bounce_pct": 18.9
   },
   {
    "path": "/products/kd-057",
@@ -48,14 +48,14 @@
    "bounce_pct": 38.9
   },
   {
-   "path": "/products/kd-061",
-   "visits": 11,
-   "bounce_pct": 9.1
-  },
-  {
    "path": "/products/kd-027",
    "visits": 8,
    "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-061",
+   "visits": 8,
+   "bounce_pct": 12.5
   },
   {
    "path": "/products/kd-009",
@@ -64,13 +64,13 @@
   },
   {
    "path": "/products/kd-048",
-   "visits": 6,
-   "bounce_pct": 33.3
+   "visits": 7,
+   "bounce_pct": 42.9
   },
   {
    "path": "/en/",
-   "visits": 5,
-   "bounce_pct": 60.0
+   "visits": 6,
+   "bounce_pct": 66.7
   },
   {
    "path": "/products/kd-044",
@@ -78,17 +78,7 @@
    "bounce_pct": 20.0
   },
   {
-   "path": "/products/kd-006",
-   "visits": 4,
-   "bounce_pct": 50.0
-  },
-  {
    "path": "/en/products/kd-013",
-   "visits": 3,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/en/products/kd-014",
    "visits": 3,
    "bounce_pct": 100.0
   },
@@ -106,6 +96,16 @@
    "path": "/products/kd-001",
    "visits": 3,
    "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-004",
+   "visits": 3,
+   "bounce_pct": 66.7
+  },
+  {
+   "path": "/products/kd-006",
+   "visits": 3,
+   "bounce_pct": 66.7
   }
  ],
  "leads": {
@@ -118,10 +118,6 @@
   }
  },
  "inquiries_by_page": {
-  "/": {
-   "28d": 6,
-   "7d": 1
-  },
   "/products/kd-015": {
    "28d": 2,
    "7d": 0
@@ -129,6 +125,10 @@
   "/products/kd-004": {
    "28d": 4,
    "7d": 4
+  },
+  "/": {
+   "28d": 6,
+   "7d": 1
   }
  }
 }
