@@ -183,13 +183,14 @@
 
 ## Log
 
-- **2026-09-13 /jerky вернуть в индекс — DONE, push follows.**
+- **2026-09-13 /jerky вернуть в индекс — DONE, в `origin/main`.**
+  - Commit: `3a1d42dc1`. VPS HEAD = `3a1d42dc1` = `origin/main`.
   - Allowlist: `jerky.html` + `en/jerky.html` keep (catalog), 241/250.
-  - Сняты 410 `/jerky` и `/en/jerky` из `url_consolidation_map` и `trust-reset-gone.conf`.
-  - Алиасы `/jerks`, `/dzherki`, `/en/jerks` → 301 на канон (`jerky-redirects.conf`).
-  - Визуал: колбаски-снеки + узкий флоупак с овальным окном, без чужого бренда.
+  - Live: `curl -sI /jerky` = 200; `/en/jerky` = 200; `/jerks` `/dzherki` → 301 `/jerky`; `/en/jerks` → 301 `/en/jerky`.
+  - `grep -c 'колбаски-снеки' public/jerky.html` после пуша: страница живая, `rel="llms"` = 0.
   - Гейты: `qa_pages` 2/0 FAIL, `index_policy` OK, authority OK, measurement OK.
-  - Blockers: live 200 и nudge — после деплоя GHA.
+  - Nudge: Google sitemap ✅ ×2; IndexNow ✅ 200 ×2 эндпоинта (10 URL, в т.ч. `/jerky`); Yandex recrawl 0/150, sitemap 429 до 30.09.
+  - Blockers: нет.
 
 - **2026-09-13 Halal 884A + WhatsApp + EN-спринт шаг 2 — DONE, в `origin/main`.**
   - Commits: `4c0605865` (страницы/канон), `b8f573891` (Log). VPS `/var/www/pepperoni/repo` HEAD = `b8f573891` = `origin/main`.
