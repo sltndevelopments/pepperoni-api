@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="hy">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +309,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="hy" data-country="am" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -348,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="btn-row">
       <a class="btn btn--primary" href="#zayavka">Ստանալ գնացուցակ և նմուշներ</a>
-      <a class="btn btn--wa" href="https://wa.me/79274297220?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">Գրել WhatsApp-ով</a>
+      <a class="btn btn--wa" href="https://wa.me/79872170202?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">Գրել WhatsApp-ով</a>
       <a class="btn btn--ghost" href="#video">Դիտել արտադրությունը</a>
     </div>
     <p class="hero__note">Պատասխանում ենք աշխատանքային ժամերին 1 ժամվա ընթացքում: Կուղարկենք գնացուցակը, տեխնիկական բնութագիրը և ներմուծման փաստաթղթերի ամբողջական փաթեթը:</p>
@@ -471,7 +501,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </dl>
       <p class="note">Աշխատանքային ժամեր՝ աշխ. օրեր, 9:00–18:00 (ՄՍԿ, UTC+3)</p>
       <div class="btn-row">
-        <a class="btn btn--wa" href="https://wa.me/79274297220?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn--wa" href="https://wa.me/79872170202?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </div>
@@ -507,7 +537,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="stickybar">
   <a class="btn btn--primary" href="#zayavka">Հայտ</a>
-  <a class="btn btn--wa" href="https://wa.me/79274297220?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn btn--wa" href="https://wa.me/79872170202?text=%D4%B3%D6%80%D5%A5%D5%AC%20WhatsApp-%D5%B8%D5%BE%20%E2%80%94%20%D4%B5%D6%83%D5%A1%D5%AE-%D5%A1%D5%BA%D5%AD%D5%BF%D5%A1%D5%AE%20%D5%B0%D5%A1%D5%BE%D5%AB%20%D5%BA%D5%A5%D5%BA%D5%A5%D6%80%D5%B8%D5%B6%D5%AB%2C%200%2C5%20%D5%AF%D5%A3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
   <a class="btn btn--ghost" href="tel:+79872170202">Զանգահարել</a>
 </div>
 

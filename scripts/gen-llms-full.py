@@ -58,7 +58,7 @@ n_sections = len(sections)
 def llms_map_ru() -> str:
     return f"""# Казанские Деликатесы (pepperoni.tatar)
 
-> Производитель халяльных мясных продуктов и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). Халяль ДУМ РТ №614A/2024, HACCP, ISO 22000:2018, ТР ТС 021/2011. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
+> Производитель халяльных мясных продуктов и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). Халяль ДУМ РТ №614A/2024 (мясо) и №884A/2025 (выпечка и готовые блюда), HACCP, ISO 22000:2018, ТР ТС 021/2011. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
 
 Ключевые условия (подтверждены владельцем):
 - Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — одна паллета (сборная из разных позиций возможна), объём кратно паллете.
@@ -103,7 +103,7 @@ def llms_map_ru() -> str:
 def llms_map_en() -> str:
     return f"""# Kazan Delicacies (pepperoni.tatar)
 
-> Halal meat products and Tatar bakery manufacturer in Kazan, Russia (Kazan Delicacies LLC). Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. Halal certificate DUM RT No. 614A/2024, HACCP, ISO 22000:2018, TR CU 021/2011. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
+> Halal meat products and Tatar bakery manufacturer in Kazan, Russia (Kazan Delicacies LLC). Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. Halal DUM RT No. 614A/2024 (meat) and No. 884A/2025 (bakery and ready meals), HACCP, ISO 22000:2018, TR CU 021/2011. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
 
 Key terms (owner-approved):
 - Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order — one pallet (mixed pallets possible), volumes in pallet multiples.

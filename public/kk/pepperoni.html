@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="kk">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +309,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="kk" data-country="kz" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -348,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="btn-row">
       <a class="btn btn--primary" href="#zayavka">Прайс пен үлгілерді алу</a>
-      <a class="btn btn--wa" href="https://wa.me/79274297220?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp-қа жазу</a>
+      <a class="btn btn--wa" href="https://wa.me/79872170202?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp-қа жазу</a>
       <a class="btn btn--ghost" href="#video">Өндірісті көру</a>
     </div>
     <p class="hero__note">Жұмыс уақытында бір сағат ішінде жауап береміз. Прайсты, спецификацияны және импортқа қажетті толық құжаттар пакетін жібереміз.</p>
@@ -471,7 +501,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </dl>
       <p class="note">Жұмыс уақыты: жұмыс күндері, 9:00–18:00 (Мәскеу уақыты, UTC+3)</p>
       <div class="btn-row">
-        <a class="btn btn--wa" href="https://wa.me/79274297220?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn--wa" href="https://wa.me/79872170202?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </div>
@@ -507,7 +537,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="stickybar">
   <a class="btn btn--primary" href="#zayavka">Өтінім</a>
-  <a class="btn btn--wa" href="https://wa.me/79274297220?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn btn--wa" href="https://wa.me/79872170202?text=WhatsApp-%D2%9B%D0%B0%20%D0%B6%D0%B0%D0%B7%D1%83%20%E2%80%94%20%D0%9F%D1%96%D1%81%D0%BA%D0%B5%D0%BD-%D1%8B%D1%81%D1%82%D0%B0%D0%BB%D2%93%D0%B0%D0%BD%20%D1%82%D0%B0%D1%83%D1%8B%D2%9B%20%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D1%96%2C%200%2C5%20%D0%BA%D0%B3%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
   <a class="btn btn--ghost" href="tel:+79872170202">Қоңырау</a>
 </div>
 

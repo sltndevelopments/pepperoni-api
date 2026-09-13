@@ -192,6 +192,10 @@ def build_page(cfg):
         related_html = f'<p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: {links}</p>'
 
     url = f"https://pepperoni.tatar/{cfg['slug']}"
+    en_url = f"https://pepperoni.tatar/en/{cfg['slug']}"
+    en_alt = ""
+    if (PUBLIC / "en" / f"{cfg['slug']}.html").exists():
+        en_alt = f'  <link rel="alternate" hreflang="en" href="{en_url}">\n'
 
     return f"""<!DOCTYPE html>
 <html lang="ru">
@@ -206,7 +210,7 @@ def build_page(cfg):
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
   <link rel="alternate" hreflang="ru" href="{url}">
-  <link rel="alternate" hreflang="x-default" href="{url}">
+{en_alt}  <link rel="alternate" hreflang="x-default" href="{url}">
 
   <meta property="og:type" content="product.group">
   <meta property="og:title" content="{title}">
@@ -400,7 +404,7 @@ COMMERCIAL_T = {
             "Цену при объёме и условия оплаты — обсуждаются и подтверждаются по каждому заказу.",
         ],
         "samples": "Перед контрактом рекомендуем проверить продукт на своём оборудовании — образцы для теста согласуем индивидуально, как правило бесплатно.",
-        "contact": "Телефон и WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
+        "contact": "Телефон и WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"https://wa.me/79872170202\">WhatsApp</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
         "h_case": "Кто уже покупает",
         "case": "Сосиски для хот-догов и котлеты для бургеров этой линейки поставляются в сеть АЗС «Татнефть»; халяль-продукция также идёт на кассовые зоны оператора АЗС SMARTEN, в EuroSpar, Metro и «Бэхетле». Названия покупателей и суть поставок — на странице <a href=\"/cases\">«Кейсы и клиенты»</a>; объёмы и цены по каждому контракту не раскрываем.",
         "h_faq": "Частые вопросы",
@@ -422,11 +426,11 @@ COMMERCIAL_T = {
     },
     "en": {
         "lang": "en", "prefix": "/en", "home": "Home", "back": "← All products",
-        "title": "Halal Hot Dog Sausages Wholesale — Prices, Formats, Enquiry | Kazan Delicacies",
-        "h1": "Halal hot dog sausages — wholesale from the manufacturer",
-        "meta": "{n} halal hot dog sausage SKUs: formats {fmts}, per-pack prices incl. VAT from the catalog as of {date}, frozen at {storage}, shelf life {shelf}. Photos, weights, product links and an enquiry form.",
-        "eyebrow": "Kazan Delicacies · Kazan, Russia · catalog synced {date}",
-        "lead": "{n} SKUs of the category from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, minimum lot and delivery.",
+        "title": "Halal Hot Dog Sausage Manufacturer — Wholesale from Kazan | Kazan Delicacies",
+        "h1": "Halal hot dog sausages — wholesale from the Kazan plant",
+        "meta": "{n} SKUs of frozen halal hot-dog sausages from the Kazan plant: formats {fmts}, per-pack prices incl. VAT from the catalog as of {date}, {storage}, shelf life {shelf}. Pallet MOQ, EXW Kazan. Photos, weights and an enquiry form.",
+        "eyebrow": "Halal sausage manufacturer · Kazan, Russia · catalog synced {date}",
+        "lead": "{n} SKUs from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, pallet build and delivery. Prices EXW Kazan; minimum order is one pallet.",
         "facts_h": "Category facts",
         "f_formats": "Formats", "f_storage": "Storage", "f_shelf": "Shelf life", "f_pack": "Packaging",
         "f_cert": "Certificates", "cert": "Halal DUM RT No. 614A/2024 · HACCP · ISO 22000:2018 · TR CU 021/2011",
@@ -458,7 +462,7 @@ COMMERCIAL_T = {
             "Volume pricing and payment terms — discussed and confirmed for each order.",
         ],
         "samples": "Before a contract we recommend testing the product on your own equipment — samples are agreed individually, usually free of charge.",
-        "contact": "Phone & WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
+        "contact": "Phone & WhatsApp: <a href=\"tel:+79872170202\">+7 987 217-02-02</a> · <a href=\"https://wa.me/79872170202\">WhatsApp</a> · <a href=\"mailto:info@kazandelikates.tatar\">info@kazandelikates.tatar</a>",
         "h_case": "Who already buys",
         "case": "Hot dog sausages and burger patties from this line are supplied to the Tatneft petrol-station network; our halal products also go to the checkout zones of the SMARTEN petrol-station operator, EuroSpar, Metro and Bakhetle. Customer names and the scope of each supply are on the <a href=\"/en/cases\">Cases &amp; customers</a> page; volumes and contract prices are not disclosed.",
         "h_faq": "FAQ",
@@ -605,7 +609,7 @@ def build_commercial_page(cfg, lang):
       </article>""")
         rows.append(f"<tr><td><a href=\"{card_url}\">{sku}</a></td><td>{name}</td><td>{fmt}</td><td class=\"num\">{w_s}</td>"
                     f"<td class=\"num\">{_fmt_money(price)}</td><td class=\"num\">{_fmt_money(per_kg)}</td><td class=\"num\">{_fmt_money(per_pc, 2) if per_pc else '—'}</td><td>{store}</td></tr>")
-        ld_items.append({"@type": "ListItem", "position": i, "url": f"https://pepperoni.tatar{card_url}", "name": p["name"]})
+        ld_items.append({"@type": "ListItem", "position": i, "url": f"https://pepperoni.tatar{card_url}", "name": name})
 
     faq_pairs = [(q.format(**ctx), a.format(**ctx)) for q, a in t["faq"]]
     faq_ld = json.dumps({"@context": "https://schema.org", "@type": "FAQPage",
@@ -659,14 +663,14 @@ def build_commercial_page(cfg, lang):
 
   <p class="hero-subtitle">{t['eyebrow'].format(**ctx)}</p>
   <h1>{t['h1']}</h1>
-  <span class="badge">Halal ДУМ РТ № 614A/2024</span>
+  <span class="badge">{'Halal DUM RT No. 614A/2024' if lang == 'en' else 'Халяль ДУМ РТ № 614A/2024'}</span>
   <span class="badge badge-outline">HACCP / ISO 22000:2018</span>
   <span class="badge badge-outline">{ctx['storage']} · {ctx['shelf']}</span>
 
   <div class="hero">
     <div>
       <p>{t['lead'].format(**ctx)}</p>
-      <p><a class="cta" href="#zayavka">{t['h_order']}</a> <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a></p>
+      <p><a class="cta" href="#zayavka">{t['h_order']}</a> <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a> <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
     </div>
     <dl class="hero-facts">
       <dt>{t['f_formats']}</dt><dd>{fmts}</dd>

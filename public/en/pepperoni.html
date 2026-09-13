@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +309,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="en" data-country="int" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -348,7 +378,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
     <div class="btn-row">
       <a class="btn btn--primary" href="#zayavka">Get price list and samples</a>
-      <a class="btn btn--wa" href="https://wa.me/79274297220?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">Message us on WhatsApp</a>
+      <a class="btn btn--wa" href="https://wa.me/79872170202?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">Message us on WhatsApp</a>
       <a class="btn btn--ghost" href="#video">Watch the production</a>
     </div>
     <p class="hero__note">We reply during business hours and send the price list, product specification and the full import document package.</p>
@@ -472,7 +502,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </dl>
       <p class="note">Business hours: weekdays, 9:00–18:00 (Moscow time, UTC+3)</p>
       <div class="btn-row">
-        <a class="btn btn--wa" href="https://wa.me/79274297220?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+        <a class="btn btn--wa" href="https://wa.me/79872170202?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
       </div>
     </div>
   </div>
@@ -508,7 +538,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <div class="stickybar">
   <a class="btn btn--primary" href="#zayavka">Enquiry</a>
-  <a class="btn btn--wa" href="https://wa.me/79274297220?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
+  <a class="btn btn--wa" href="https://wa.me/79872170202?text=Message%20us%20on%20WhatsApp%20%E2%80%94%20Cooked-smoked%20chicken%20pepperoni%2C%200.5%20kg%20%28KD-013%29" target="_blank" rel="noopener">WhatsApp</a>
   <a class="btn btn--ghost" href="tel:+79872170202">Call</a>
 </div>
 
