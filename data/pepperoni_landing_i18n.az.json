@@ -5,9 +5,16 @@
       "description": "İstehsalçıdan 0,5 kg bişmiş-hisə verilmiş toyuq pepperonisi topdan. Diametr 50–55 mm, sobada bükülmür, –18°C-də saxlama müddəti 360 gündür. DUM RT HALAL 614A/2024, HACCP, ISO 22000:2018. Azərbaycana və MDB ölkələrinə ixrac. Qiymət və nümunələr.",
       "keywords": "halal pepperoni topdan, Azərbaycanda pepperoni təchizatçısı, pizza üçün pepperoni topdan, toyuq pepperonisi, пепперони оптом Азербайджан, халяль пепперони, pepperoni idxalı, Private Label pepperoni",
       "og_title": "Halal pepperoni topdan — Kazan Delikates",
-      "og_description": "Pizzeriyalar və HoReCa üçün termostabil halal pepperoni. 8 MDB ölkəsinə ixrac. Qiymət, nümunələr və sənədlər."
+      "og_description": "Heat-stable halal pepperoni for pizzerias and HoReCa. CIS export: Kazakhstan, Belarus, Uzbekistan. Price list, samples, documents."
     },
-    "nav": {"catalog": "Kataloq", "current": "Pepperoni", "about": "Şirkət haqqında", "delivery": "Çatdırılma", "faq": "Suallar", "lang_switch": "Dil"},
+    "nav": {
+      "catalog": "Kataloq",
+      "current": "Pepperoni",
+      "about": "Şirkət haqqında",
+      "delivery": "Çatdırılma",
+      "faq": "Suallar",
+      "lang_switch": "Dil"
+    },
     "hero": {
       "eyebrow": "İstehsalçı · Kazan, Tatarıstan · MDB-yə ixrac",
       "h1": "İstehsalçıdan halal pepperoni topdan",
@@ -20,12 +27,30 @@
     "trust": {
       "h2": "Sənədlər və standartlar",
       "items": [
-        {"label": "Halal sertifikatı", "value": "DUM RT 614A/2024"},
-        {"label": "Qida təhlükəsizliyi", "value": "HACCP · ISO 22000:2018"},
-        {"label": "Texniki reqlament", "value": "TR CU 021/2011"},
-        {"label": "AİİB bəyannaməsi", "value": "RU D-RU.PA07.V.69731/23"},
-        {"label": "XİF MN kodu", "value": "1601 00"},
-        {"label": "“Merkuri” federal sistemi", "value": "Partiyaların izlənməsi"}
+        {
+          "label": "Halal sertifikatı",
+          "value": "DUM RT 614A/2024"
+        },
+        {
+          "label": "Qida təhlükəsizliyi",
+          "value": "HACCP · ISO 22000:2018"
+        },
+        {
+          "label": "Texniki reqlament",
+          "value": "TR CU 021/2011"
+        },
+        {
+          "label": "AİİB bəyannaməsi",
+          "value": "RU D-RU.PA07.V.69731/23"
+        },
+        {
+          "label": "XİF MN kodu",
+          "value": "1601 00"
+        },
+        {
+          "label": "“Merkuri” federal sistemi",
+          "value": "Partiyaların izlənməsi"
+        }
       ]
     },
     "video": {
@@ -49,42 +74,115 @@
       "alt_slice": "Halal pepperoni dilimləri — pizza üçün 50–55 mm diametrli hamar dilimlər",
       "specs_h3": "Spesifikasiya",
       "specs": [
-        ["Məhsulun adı", "Bişmiş-hisə verilmiş toyuq pepperonisi"],
-        ["Xammal", "Toyuq əti (halal)"],
-        ["Batonun diametri", "50–55 mm"],
-        ["Format", "Dilimlənmiş / bütöv baton"],
-        ["10 dilimin çəkisi", "26–30 g"],
-        ["Qablaşdırma", "Vakuum, 0,5 kg"],
-        ["Qutuda", "Satış şöbəsi dəqiqləşdirir"],
-        ["Qutunun ölçüsü", "260 × 235 × 180 mm"],
-        ["Saxlama temperaturu", "–18°C"],
-        ["Saxlama müddəti", "360 gün"],
-        ["Ştrix-kod", "4680638720318"],
-        ["XİF MN kodu", "1601 00"]
+        [
+          "Məhsulun adı",
+          "Bişmiş-hisə verilmiş toyuq pepperonisi"
+        ],
+        [
+          "Xammal",
+          "Toyuq əti (halal)"
+        ],
+        [
+          "Batonun diametri",
+          "50–55 mm"
+        ],
+        [
+          "Format",
+          "Dilimlənmiş / bütöv baton"
+        ],
+        [
+          "Qablaşdırma",
+          "Vakuum, 0,5 kg"
+        ],
+        [
+          "Qutuda",
+          "Satış şöbəsi dəqiqləşdirir"
+        ],
+        [
+          "Qutunun ölçüsü",
+          "260 × 235 × 180 mm"
+        ],
+        [
+          "Saxlama temperaturu",
+          "–18°C"
+        ],
+        [
+          "Saxlama müddəti",
+          "360 gün"
+        ],
+        [
+          "Ştrix-kod",
+          "4680638720318"
+        ],
+        [
+          "XİF MN kodu",
+          "1601 00"
+        ]
       ],
       "composition_h3": "Tərkibi",
       "composition": "Toyuq əti, su, duz, şəkər, ədviyyatlar (qara istiot, paprika, sarımsaq), stabilizator (pirofosfatlar), antioksidant (natrium askorbat), rəng fiksatoru (natrium nitrit).",
       "composition_note": "Donuz əti və donuz yağı yoxdur. GMO yoxdur. Transqlütaminaza yoxdur (ət yapışqanı istifadə edilmir). Allergenləri partiyanın spesifikasiyasında dəqiqləşdirin.",
       "nutrition_h3": "100 g üçün qida dəyəri",
-      "nutrition": [["Zülallar", "15 g"], ["Yağlar", "25 g"], ["Karbohidratlar", "0,96 g"], ["Enerji dəyəri", "290 kkal / 1190 kC"]],
+      "nutrition": [
+        [
+          "Zülallar",
+          "15 g"
+        ],
+        [
+          "Yağlar",
+          "25 g"
+        ],
+        [
+          "Karbohidratlar",
+          "0,96 g"
+        ],
+        [
+          "Enerji dəyəri",
+          "290 kkal / 1190 kC"
+        ]
+      ],
       "storage_h3": "Saxlama və donun açılması",
       "storage": [
-        ["Dondurulmuş", "–18°C-də 360 gün"],
-        ["Donu açılmış, qablaşdırma açılmayıb", "+4°C-də 120 saat"],
-        ["Qablaşdırma açıldıqdan sonra", "+4°C-də 72 saat"],
-        ["Donun açılması rejimi", "+4°C-dək temperaturda 2–6 saat"]
+        [
+          "Dondurulmuş",
+          "–18°C-də 360 gün"
+        ]
       ],
       "cta": "Spesifikasiyanı istəyin"
     },
     "why": {
       "h2": "Alıcılar niyə bu pepperonini seçirlər",
       "items": [
-        {"icon": "🔥", "title": "Sobada bükülmür", "text": "Sıxlıq və örtük elə seçilib ki, dilim bişirmə zamanı hamar qalır və “fincan” formasına düşmür."},
-        {"icon": "⚖️", "title": "Proqnozlaşdırılan maya dəyəri", "text": "10 dilim = 26–30 g. Porsiya dəqiq hesablanır, aşpaz toppinqi gözəyarı yerləşdirmir."},
-        {"icon": "🕌", "title": "Qeyd-şərtsiz halal", "text": "DUM RT Halal Standartı Komitəsinin 614A/2024 sertifikatı. İstehsalda donuz əti və alkoqol istifadə edilmir."},
-        {"icon": "📦", "title": "360 gün saxlama müddəti", "text": "–18°C-də uzun saxlama müddəti uzaq daşınma və gömrük rəsmiləşdirilməsi zamanı qalan müddəti qoruyur."},
-        {"icon": "🏷️", "title": "Private Label", "text": "Eyni məhsul sizin ticarət nişanınızla: resept, acılıq, dilim qalınlığı, qablaşdırma və etiket brendinizə uyğunlaşdırılır."},
-        {"icon": "📄", "title": "İdxal sənədləri paketi", "text": "Halal sertifikatı, AİİB bəyannaməsi, baytarlıq sənədləri, spesifikasiya və bazarın dilində etiket."}
+        {
+          "icon": "🔥",
+          "title": "Sobada bükülmür",
+          "text": "Sıxlıq və örtük elə seçilib ki, dilim bişirmə zamanı hamar qalır və “fincan” formasına düşmür."
+        },
+        {
+          "icon": "⚖️",
+          "title": "Proqnozlaşdırılan maya dəyəri",
+          "text": "A calibrated 50–55 mm stick gives uniform slices: portions are counted in pieces, not by eye. Portion weight is stated in the batch specification."
+        },
+        {
+          "icon": "🕌",
+          "title": "Qeyd-şərtsiz halal",
+          "text": "DUM RT Halal Standartı Komitəsinin 614A/2024 sertifikatı. İstehsalda donuz əti və alkoqol istifadə edilmir."
+        },
+        {
+          "icon": "📦",
+          "title": "360 gün saxlama müddəti",
+          "text": "–18°C-də uzun saxlama müddəti uzaq daşınma və gömrük rəsmiləşdirilməsi zamanı qalan müddəti qoruyur."
+        },
+        {
+          "icon": "🏷️",
+          "title": "Private Label",
+          "text": "Eyni məhsul sizin ticarət nişanınızla: resept, acılıq, dilim qalınlığı, qablaşdırma və etiket brendinizə uyğunlaşdırılır."
+        },
+        {
+          "icon": "📄",
+          "title": "İdxal sənədləri paketi",
+          "text": "Halal sertifikatı, AİİB bəyannaməsi, baytarlıq sənədləri, spesifikasiya və bazarın dilində etiket."
+        }
       ]
     },
     "price": {
@@ -96,23 +194,51 @@
       "your_currency": "Valyutanızda təxmini qiymət",
       "on_request": "Qiymət sorğu əsasında",
       "terms": [
-        ["Çatdırılma bazisi", "EXW Kazan (digər bazislər razılaşma ilə)"],
-        ["Minimum sifariş", "Həcminizə və marşruta uyğun razılaşdırılır"],
-        ["Ödəniş", "Bank köçürməsi, xarici ticarət müqaviləsi"],
-        ["Tara", "Oluklu karton qutu, sorğu ilə paletləmə"]
+        [
+          "Çatdırılma bazisi",
+          "EXW Kazan (digər bazislər razılaşma ilə)"
+        ],
+        [
+          "Minimum sifariş",
+          "Həcminizə və marşruta uyğun razılaşdırılır"
+        ],
+        [
+          "Ödəniş",
+          "Bank köçürməsi, xarici ticarət müqaviləsi"
+        ],
+        [
+          "Tara",
+          "Oluklu karton qutu, sorğu ilə paletləmə"
+        ]
       ],
       "note": "Milli valyutalarda təxmini qiymətlər baza qiymətindən hesablanır və məzənnə ilə dəyişir — aktual qiymət hesab-fakturada təsdiqlənir.",
       "cta": "Aktual qiyməti istəyin"
     },
     "export": {
       "h2": "İxrac: ölkələr və iş prosesi",
-      "sub": "İdxalçılar, distribyutorlar, pizzeriya şəbəkələri və yarımfabrikat istehsalçıları ilə işləyirik. Ölkəni seçin — onun tələblərinə uyğun şərtləri və sənədləri göndərək.",
+      "sub": "We work with distributors, pizzeria chains and food manufacturers. Current export directions — Kazakhstan, Belarus, Uzbekistan; other CIS countries on request. Pick your country — we will send terms and documents matched to its requirements.",
       "steps_h3": "İlk çatdırılma necə aparılır",
       "steps": [
-        {"n": "1", "title": "Sorğu və həcm", "text": "Şəhəri, formatı (dilimlənmiş və ya baton) və planlaşdırılan aylıq həcmi bildirirsiniz."},
-        {"n": "2", "title": "Qiymət və nümunələr", "text": "Sobanızda və menyunuzda sınaq üçün qiymət, spesifikasiya və nümunələr göndəririk."},
-        {"n": "3", "title": "Sənədlər", "text": "Halal sertifikatı, AİİB bəyannaməsi, baytarlıq sənədləri və etiketi hazırlayırıq."},
-        {"n": "4", "title": "Müqavilə və göndəriş", "text": "Xarici ticarət müqaviləsi, hesab və –18°C temperatur rejimində göndəriş."}
+        {
+          "n": "1",
+          "title": "Sorğu və həcm",
+          "text": "Şəhəri, formatı (dilimlənmiş və ya baton) və planlaşdırılan aylıq həcmi bildirirsiniz."
+        },
+        {
+          "n": "2",
+          "title": "Qiymət və nümunələr",
+          "text": "Sobanızda və menyunuzda sınaq üçün qiymət, spesifikasiya və nümunələr göndəririk."
+        },
+        {
+          "n": "3",
+          "title": "Sənədlər",
+          "text": "Halal sertifikatı, AİİB bəyannaməsi, baytarlıq sənədləri və etiketi hazırlayırıq."
+        },
+        {
+          "n": "4",
+          "title": "Müqavilə və göndəriş",
+          "text": "Xarici ticarət müqaviləsi, hesab və –18°C temperatur rejimində göndəriş."
+        }
       ],
       "docs_h3": "Sənəd paketinə nələr daxildir",
       "docs": [
@@ -127,12 +253,36 @@
     "usage": {
       "h2": "İstifadə sahələri",
       "items": [
-        {"icon": "🍕", "title": "Pizza", "desc": "Əsas toppinq: formasını saxlayır, bərabər görünüş və yağın eyni qaydada ayrılmasını təmin edir."},
-        {"icon": "🥪", "title": "Sendviç və şaurma", "desc": "Pikant ət qatı, qablaşdırmadan çıxarıb istifadəyə hazırdır."},
-        {"icon": "🍔", "title": "Burgerlər", "desc": "Pendirin altında əlavə dad qatı."},
-        {"icon": "🌯", "title": "Roll, tako və vraplar", "desc": "Tərəvəz və acı souslarla yaxşı uyğunlaşır."},
-        {"icon": "🍳", "title": "Səhər yeməyi və pasta", "desc": "Omlet, frittata, pasta və sobada bişirilən yeməklər."},
-        {"icon": "🛒", "title": "Pərakəndə və HoReCa distribusiyası", "desc": "Vitrin və peşəkar mətbəx üçün vakuumda hazır dilimlər."}
+        {
+          "icon": "🍕",
+          "title": "Pizza",
+          "desc": "Əsas toppinq: formasını saxlayır, bərabər görünüş və yağın eyni qaydada ayrılmasını təmin edir."
+        },
+        {
+          "icon": "🥪",
+          "title": "Sendviç və şaurma",
+          "desc": "Pikant ət qatı, qablaşdırmadan çıxarıb istifadəyə hazırdır."
+        },
+        {
+          "icon": "🍔",
+          "title": "Burgerlər",
+          "desc": "Pendirin altında əlavə dad qatı."
+        },
+        {
+          "icon": "🌯",
+          "title": "Roll, tako və vraplar",
+          "desc": "Tərəvəz və acı souslarla yaxşı uyğunlaşır."
+        },
+        {
+          "icon": "🍳",
+          "title": "Səhər yeməyi və pasta",
+          "desc": "Omlet, frittata, pasta və sobada bişirilən yeməklər."
+        },
+        {
+          "icon": "🛒",
+          "title": "Pərakəndə və HoReCa distribusiyası",
+          "desc": "Vitrin və peşəkar mətbəx üçün vakuumda hazır dilimlər."
+        }
       ]
     },
     "pl": {
@@ -143,7 +293,7 @@
         "Acılıq: mild / medium / spicy",
         "Natrium nitritsiz variant mümkündür (sorğu ilə)",
         "Kəsim: fərdi diametr və dilim qalınlığı",
-        "Qablaşdırma: 0,5-dən 5 kg-dək, vakuum və ya qab",
+        "Pack: vacuum or tray, pack weight to your specification",
         "Etiket və tərkib — bazarınızın dilində"
       ],
       "cta": "Private Label barədə danışın"
@@ -151,14 +301,38 @@
     "faq": {
       "h2": "Tez-tez verilən suallar",
       "items": [
-        {"q": "Pepperoni həqiqətən halaldır?", "a": "Bəli. İstehsal DUM RT Halal Standartı Komitəsi tərəfindən sertifikatlaşdırılıb, sertifikat 614A/2024. İstehsalda donuz əti, donuz yağı və alkoqol istifadə edilmir. Sertifikatın surətini qiymətlə birlikdə göndəririk."},
-        {"q": "Bu pepperoni hansı ətdən hazırlanır?", "a": "Əsas xammal halal toyuq ətidir. Başqa xammal lazımdırsa, sorğuda qeyd edin."},
-        {"q": "Pepperoni bişirmə zamanı bükülür?", "a": "Xeyr. Məhsul termostabildir: qiymənin sıxlığı və örtük dilimin hamar qalması və “fincan” formasına düşməməsi üçün seçilib. Bu, pizzeriyalar üçün vacib tələbdir və müqavilədən əvvəl nümunələri öz sobanızda sınamağı təklif edirik."},
-        {"q": "Saxlama müddəti və temperaturu nədir?", "a": "Dondurulmuş halda –18°C-də 360 gün. Donu açıldıqdan sonra açılmamış qablaşdırma +4°C-də 120 saat, açılmış qablaşdırma isə +4°C-də 72 saat saxlanır. Donun açılması: +4°C-dək temperaturda 2–6 saat."},
-        {"q": "Mənim ölkəmə çatdırırsınız?", "a": "Qazaxıstan, Özbəkistan, Qırğızıstan, Belarus, Azərbaycan, Ermənistan, Gürcüstan və Tacikistandakı idxalçılarla işləyirik. Standart bazis EXW Kazandır, digər şərtlər razılaşdırılır. Marşrut və müddət konkret şəhərə uyğun hesablanır."},
-        {"q": "Minimum sifariş nə qədərdir?", "a": "Minimum həcm ölkədən, marşrutdan və kəsim formatından asılıdır — fərdi qaydada razılaşdırılır. Sınaq üçün kiçik partiya və nümunələrin göndərilməsi mümkündür."},
-        {"q": "Məhsulu öz brendimizlə istehsal edə bilərsiniz?", "a": "Bəli, Private Label mövcuddur. Ət tərkibini, acılıq səviyyəsini, dilimin diametr və qalınlığını, 0,5-dən 5 kg-dək qablaşdırmanı, etiket və markalanmanı brendinizə uyğunlaşdırırıq."},
-        {"q": "İdxal üçün hansı sənədləri təqdim edirsiniz?", "a": "DUM RT halal sertifikatı, AİİB uyğunluq bəyannaməsi, texniki şərtlər, “Merkuri” sistemi ilə baytarlıq müşayiət sənədləri, məhsul spesifikasiyası və idxalçı ölkənin tələblərinə uyğun markalanma."}
+        {
+          "q": "Pepperoni həqiqətən halaldır?",
+          "a": "Bəli. İstehsal DUM RT Halal Standartı Komitəsi tərəfindən sertifikatlaşdırılıb, sertifikat 614A/2024. İstehsalda donuz əti, donuz yağı və alkoqol istifadə edilmir. Sertifikatın surətini qiymətlə birlikdə göndəririk."
+        },
+        {
+          "q": "Bu pepperoni hansı ətdən hazırlanır?",
+          "a": "Əsas xammal halal toyuq ətidir. Başqa xammal lazımdırsa, sorğuda qeyd edin."
+        },
+        {
+          "q": "Pepperoni bişirmə zamanı bükülür?",
+          "a": "Xeyr. Məhsul termostabildir: qiymənin sıxlığı və örtük dilimin hamar qalması və “fincan” formasına düşməməsi üçün seçilib. Bu, pizzeriyalar üçün vacib tələbdir və müqavilədən əvvəl nümunələri öz sobanızda sınamağı təklif edirik."
+        },
+        {
+          "q": "Saxlama müddəti və temperaturu nədir?",
+          "a": "Dondurulmuş halda –18°C-də 360 gün."
+        },
+        {
+          "q": "Mənim ölkəmə çatdırırsınız?",
+          "a": "Current export directions are Kazakhstan, Belarus and Uzbekistan. The plant is also attested by Rosselkhoznadzor for supplies to Kyrgyzstan, Armenia, Azerbaijan, Georgia and Tajikistan — these directions are opened on request. The default basis is EXW Kazan, other terms are negotiable. Route and lead time are calculated for your specific city."
+        },
+        {
+          "q": "Minimum sifariş nə qədərdir?",
+          "a": "Minimum həcm ölkədən, marşrutdan və kəsim formatından asılıdır — fərdi qaydada razılaşdırılır. Sınaq üçün kiçik partiya və nümunələrin göndərilməsi mümkündür."
+        },
+        {
+          "q": "Məhsulu öz brendimizlə istehsal edə bilərsiniz?",
+          "a": "Yes, private label is available — minimum run from 5 tonnes. We adjust the meat composition, heat level, slice diameter and thickness, pack weight, and the label and marking to your brand."
+        },
+        {
+          "q": "İdxal üçün hansı sənədləri təqdim edirsiniz?",
+          "a": "DUM RT halal sertifikatı, AİİB uyğunluq bəyannaməsi, texniki şərtlər, “Merkuri” sistemi ilə baytarlıq müşayiət sənədləri, məhsul spesifikasiyası və idxalçı ölkənin tələblərinə uyğun markalanma."
+        }
       ]
     },
     "form": {
@@ -202,6 +376,10 @@
       "privacy": "Məxfilik siyasəti",
       "rights": "İstehsalçıdan halal pepperoni topdan. Kazan, Tatarıstan Respublikası."
     },
-    "sticky": {"lead": "Sorğu", "wa": "WhatsApp", "call": "Zəng"}
+    "sticky": {
+      "lead": "Sorğu",
+      "wa": "WhatsApp",
+      "call": "Zəng"
+    }
   }
 }
