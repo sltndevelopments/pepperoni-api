@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -124,6 +130,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;font-size:.8rem;color:#888;text-align:center}
     footer a{color:#0066cc;text-decoration:none}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <!-- Google Tag Manager (noscript) -->
@@ -176,7 +206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="cta" href="mailto:info@kazandelikates.tatar">Запросить условия</a>
   <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a>
 
-  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/kolbasy-kopchyonye/">Копчёные колбасы</a> · <a href="/kolbasy-varenye/">Вареные колбасы</a> · <a href="/toppings">Топпинги для пицц</a></p>
+  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/kolbasy-kopchyonye/">Копчёные колбасы</a> · <a href="/kolbasy-varenye/">Вареные колбасы</a> · Топпинги для пицц</p>
 
   <section class="faq-section">
     <h2>Частые вопросы</h2>

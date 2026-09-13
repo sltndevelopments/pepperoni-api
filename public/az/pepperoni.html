@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="az">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +309,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="az" data-country="az" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -430,7 +460,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">Eyni məhsulu ticarət nişanınız altında istehsal edirik. Öz halal toppinq xəttinə ehtiyacı olan pizzeriya, distribyutor və pərakəndə satış şəbəkələri üçün uyğundur.</p>
   <ul class="checklist"><li>Xammal: toyuq, mal, at əti və ya qarışıqlar</li><li>Acılıq: mild / medium / spicy</li><li>Natrium nitritsiz variant mümkündür (sorğu ilə)</li><li>Kəsim: fərdi diametr və dilim qalınlığı</li><li>Qablaşdırma: 0,5-dən 5 kg-dək, vakuum və ya qab</li><li>Etiket və tərkib — bazarınızın dilində</li></ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">Private Label barədə danışın</a>
-    <a class="btn btn--ghost" href="/oem">Müqaviləli istehsal</a></div>
+    Müqaviləli istehsal</div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">
@@ -491,7 +521,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/az">Məhsul kataloqu</a></li>
         <li><a href="/products/kd-013">KD-013 məhsul səhifəsi</a></li>
         <li><a href="/pepperoni-dlya-pizzerii">Pizzeriyalar üçün pepperoni</a></li>
-        <li><a href="/oem">Müqaviləli istehsal</a></li>
+        <li>Müqaviləli istehsal</li>
         
       </ul>
     </div>
@@ -511,8 +541,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="btn btn--ghost" href="tel:+79872170202">Zəng</a>
 </div>
 
-<script src="/assets/gmp-track.js" defer></script>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/gmp-track.js?v=744092ef" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 <script>
 window.addEventListener('load',function(){
   var s=document.createElement('script');s.async=true;

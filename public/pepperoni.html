@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
@@ -303,6 +309,30 @@ footer a:hover{text-decoration:underline}
 }
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body data-lang="ru" data-country="ru" data-sku="KD-013"
  data-value="274.0" data-currency="RUB">
@@ -431,7 +461,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">Производим тот же продукт под вашей торговой маркой. Подходит сетям пиццерий, дистрибьюторам и розничным сетям, которым нужна собственная линейка халяль-топпингов.</p>
   <ul class="checklist"><li>Сырьё: курица, говядина, конина или миксы</li><li>Острота: mild / medium / spicy</li><li>Состав и нитрит натрия — только по карточке SKU в каталоге</li><li>Нарезка: индивидуальный диаметр и толщина слайса</li><li>Фасовка: от 0,5 до 5 кг, вакуум или лоток</li><li>Этикетка и состав — на языке вашего рынка</li></ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">Обсудить Private Label</a>
-    <a class="btn btn--ghost" href="/oem">Контрактное производство</a></div>
+    Контрактное производство</div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">
@@ -492,7 +522,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="/">Каталог продукции</a></li>
         <li><a href="/products/kd-013">Карточка KD-013</a></li>
         <li><a href="/pepperoni-dlya-pizzerii">Пепперони для пиццерий</a></li>
-        <li><a href="/oem">Контрактное производство</a></li>
+        <li>Контрактное производство</li>
         <li><a href="/pepperoni-v-narezke">Пепперони в нарезке</a></li><li><a href="/dlya-horeca">Для HoReCa</a></li><li><a href="/dlya-setey">Для пекарен и сетей</a></li><li><a href="/faq">Все вопросы и ответы</a></li>
       </ul>
     </div>
@@ -512,8 +542,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="btn btn--ghost" href="tel:+79872170202">Позвонить</a>
 </div>
 
-<script src="/assets/gmp-track.js" defer></script>
-<script src="/assets/lead-form.js" defer></script>
+<script src="/assets/gmp-track.js?v=744092ef" defer></script>
+<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
 <script>
 window.addEventListener('load',function(){
   var s=document.createElement('script');s.async=true;
