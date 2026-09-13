@@ -41,6 +41,15 @@ Owner-approved commercial facts (2026-09-12, data/evidence_registry.json):
   («Меркурий»), «Честный знак» marking, ЭТрН electronic waybill.
 - Do not state other MOQ / kg figures, discount tiers, lead times or fees.
 
+Owner-approved company timeline and export status (2026-09-13):
+- Legal entity ООО «Казанские Деликатесы» registered in 2022 (schema foundingDate
+  = 2022); own production in Kazan runs since 2023. Do not write «производим с
+  2022», «since 2018», «since 2011» or any other year.
+- Export markets today: CIS directions (Казахстан, Беларусь, Узбекистан).
+- Middle East / GCC: preparation stage only — the halal document contour is
+  ready, Rosselkhoznadzor export permits are pending. Wording: «готовимся к
+  поставкам / preparing to supply», never «экспортируем на Ближний Восток».
+
 Evidence policy:
 - Claims beyond this file require an active entry in data/evidence_registry.json.
 - Country, importer, distributor, customer, shipment, award, capacity and

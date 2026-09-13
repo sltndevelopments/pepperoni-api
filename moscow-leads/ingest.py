@@ -14,8 +14,8 @@ CALL_HEADER_RE = re.compile(
     r"(?:☎️\s*)?Запрос менеджера\s*[—\-]\s*Казанские\s+Деликатесы",
     re.I,
 )
-SITE_HEADER_RE = re.compile(r"🌐\s*Заявка с сайта|заявка с сайта", re.I)
-AVITO_HEADER_RE = re.compile(r"🟣\s*Лид Авито|авито", re.I)
+SITE_HEADER_RE = re.compile(r"🌐\s*Заявка с сайта|^заявка с сайта\b", re.I | re.M)
+AVITO_HEADER_RE = re.compile(r"🟣\s*Лид Авито|^Лид Авито\b", re.I | re.M)
 
 FIELD_RE = {
     "company": re.compile(r"(?:Компания|company)\s*:\s*(.+)", re.I),
@@ -30,6 +30,15 @@ FIELD_RE = {
 }
 CALL_ID_RE = re.compile(r"ID\s*звонка\s*:\s*(\S+)", re.I)
 PHONE_FALLBACK = re.compile(r"(?:\+?7|8)[\s()\-]*\d[\d\s()\-]{8,16}\d")
+
+
+def should_skip_ingest(text: str) -> bool:
+    """Команды и отчёты менеджера — не карточки входящих."""
+    t = (text or "").strip()
+    if not t or t.startswith("/"):
+        return True
+    head = t.split(None, 1)[0].upper()
+    return head.startswith("TASK-") or head.startswith("LEAD-")
 
 
 def detect_source(text: str) -> str | None:

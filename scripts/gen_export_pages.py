@@ -178,15 +178,12 @@ VET_FACTS = {
         "ar": "المنشأة (رقم RU-016/SB88273) مدرجة في سجل «سيربر» التابع لهيئة الرقابة "
               "البيطرية الروسية ومعتمدة للتصدير إلى {name}.",
     },
+    # Owner status 2026-09-13 (public/brand.txt): Gulf = preparation stage,
+    # halal documents ready, Rosselkhoznadzor export permit pending.
     False: {
-        "ru": "Предприятие внесено в реестр «Цербер» Россельхознадзора "
-              "(№ RU-016/SB88273); ветеринарные условия поставки в {name} "
-              "уточняются индивидуально под контракт.",
-        "en": "The facility is listed in the Rosselkhoznadzor “Cerberus” registry "
-              "(No. RU-016/SB88273); veterinary terms for {name} are confirmed "
-              "individually per contract.",
-        "ar": "المنشأة مدرجة في سجل «سيربر» (رقم RU-016/SB88273)؛ وتُحدد الشروط البيطرية "
-              "للتوريد إلى {name} بشكل فردي حسب العقد.",
+        "ru": 'Предприятие внесено в реестр «Цербер» Россельхознадзора (№ RU-016/SB88273). Поставки в {name} — на стадии подготовки: халяль-контур документов готов, разрешение Россельхознадзора на экспорт оформляется. Принимаем предварительные запросы; срок первой отгрузки подтверждаем после получения разрешения.',
+        "en": 'The facility is listed in the Rosselkhoznadzor “Cerberus” registry (No. RU-016/SB88273). Supplies to {name} are at the preparation stage: the halal document package is ready and the Rosselkhoznadzor export permit is being obtained. We accept preliminary enquiries; the first-shipment date is confirmed once the permit is issued.',
+        "ar": 'المنشأة مدرجة في سجل «سيربر» التابع لهيئة الرقابة البيطرية الروسية (رقم RU-016/SB88273). التوريد إلى {name} في مرحلة الإعداد: حزمة وثائق الحلال جاهزة، ويجري الحصول على تصريح التصدير من الهيئة. نقبل الطلبات المبدئية، ويُحدد موعد أول شحنة بعد صدور التصريح.',
     },
 }
 

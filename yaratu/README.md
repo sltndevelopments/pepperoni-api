@@ -33,6 +33,11 @@ Public fallback:
 Sync fails closed if any row is unpublished, contains `REQUIRED`, lacks the required
 review/provenance statuses, or has inconsistent halal evidence.
 
+Tatar text from the Sheet is imported only when the row has
+`tt_review_status=fully-reviewed`. If the column is absent, sync preserves the
+checked-in, linguistically reviewed Tatar copy. This prevents an older Sheet export
+from reintroducing unreviewed translations.
+
 `.github/workflows/sync-yaratu-products.yml` checks the private Sheet hourly. It
 commits `data/products.json` and the gated `site/dist` artifact to `main` only when
 the validated snapshot changes; production deployment continues from `origin/main`.

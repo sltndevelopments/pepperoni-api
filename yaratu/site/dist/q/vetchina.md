@@ -1,4 +1,4 @@
-# Ветчина филейная / Chicken fillet ham / Филелы ветчина
+# Ветчина филейная / Chicken fillet ham / Тавык филесыннан ветчина
 
 https://yaratu.com/q/vetchina
 

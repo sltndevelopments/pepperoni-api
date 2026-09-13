@@ -22,8 +22,9 @@ needed to publish a custom GPT that wraps `api.pepperoni.tatar` and the
 7. **Capabilities**: enable *Web Browsing* (so it can quote
    `llms-full.txt`) and *Code Interpreter* (lets buyers do quick
    margin maths in chat). Disable *DALL·E*.
-8. **Knowledge**: upload the four `kb-*.txt` files (this folder) so the
-   GPT has product detail even when our API is rate-limited.
+8. **Knowledge**: upload only constant files (`kb-company.txt`, `kb-faq.txt`).
+   Do **not** upload product price dumps — SKU counts and prices come from
+   `getProducts` / api.pepperoni.tatar.
 9. Save → **Publish** → *Everyone* → name "Kazan Delicacies — Halal
    Catalog". Tag categories: *Food & Drinks*, *Productivity*, *Lifestyle*.
 
@@ -40,10 +41,9 @@ After publish, the GPT URL goes into:
 |---|---|
 | `gpt-config.md` | Name, description, instructions, conversation starters |
 | `actions-openapi-url.txt` | URL to paste into the *Actions → Import* dialog |
-| `kb-company.txt` | Knowledge: company profile (RU + EN) |
-| `kb-products-ru.txt` | Knowledge: 77 SKU detail cards (RU) |
-| `kb-products-en.txt` | Knowledge: 77 SKU detail cards (EN) |
-| `kb-faq.txt` | Knowledge: 16 FAQ entries (RU + EN) |
+| `kb-company.txt` | Knowledge: company profile (RU + EN), no prices / SKU counts |
+| `kb-faq.txt` | Knowledge: FAQ (RU + EN), no prices / SKU counts |
+| `kb-products-ru.txt` / `kb-products-en.txt` | Local dumps only — do not upload to GPT |
 | `assets/gpt-avatar-512.png` | 512×512 avatar (existing brand logo, masked) |
 | `assets/gpt-cover-1200x630.png` | OG-style cover for the GPT Store card |
 | `submission-checklist.md` | Pre-flight checklist to run before publishing |

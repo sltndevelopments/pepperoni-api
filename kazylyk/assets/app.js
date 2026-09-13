@@ -163,4 +163,67 @@
       status.classList.toggle("error", !!isError);
     }
   }
+
+  function facts() {
+    return window.KAZYLYK || {};
+  }
+
+  var webmcpTools = [
+    {
+      name: "get_facts",
+      description: "KAZYLYK producer, contacts, and certificates. No prices.",
+      inputSchema: { type: "object", properties: {} },
+      execute: function () {
+        var F = facts();
+        return {
+          brand: "KAZYLYK",
+          producer: F.producer,
+          phone: F.phone,
+          email: F.email,
+          address: F.address,
+          certs: F.certs,
+          url: "https://kazylyk.com/"
+        };
+      }
+    },
+    {
+      name: "get_products",
+      description: "KAZYLYK SKUs: kazylyk KD-044/KD-045 and chak-chak KD-054. No prices.",
+      inputSchema: { type: "object", properties: {} },
+      execute: function () {
+        var F = facts();
+        return {
+          kazylyk: F.kazylyk,
+          chakchak: F.chakchak,
+          whereToBuy: "https://kazylyk.com/#buy"
+        };
+      }
+    },
+    {
+      name: "open_where_to_buy",
+      description: "Open the where-to-buy section. Do not invent shops or prices.",
+      inputSchema: { type: "object", properties: {} },
+      execute: function () {
+        location.href = "https://kazylyk.com/#buy";
+        return { ok: true, url: "https://kazylyk.com/#buy" };
+      }
+    }
+  ];
+
+  function attachWebmcp(mc) {
+    if (!mc) return;
+    var i;
+    if (typeof mc.registerTool === "function") {
+      for (i = 0; i < webmcpTools.length; i++) mc.registerTool(webmcpTools[i]);
+    }
+    if (typeof mc.provideContext === "function") {
+      mc.provideContext({ tools: webmcpTools });
+    }
+  }
+
+  function bootWebmcp() {
+    try { attachWebmcp(navigator.modelContext); } catch (e) {}
+  }
+  bootWebmcp();
+  if (d.addEventListener) d.addEventListener("DOMContentLoaded", bootWebmcp);
 })();

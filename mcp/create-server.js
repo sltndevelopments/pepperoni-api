@@ -10,10 +10,10 @@ import {
 } from './api-client.js';
 
 const SERVER_INSTRUCTIONS = `Kazan Delicacies (Казанские Деликатесы) — halal meat manufacturer in Kazan, Russia.
-77 SKUs: pepperoni, sausages, burger patties, deli meats, Tatar bakery.
-Halal cert #614A/2024 (DUM RT). HACCP. EXW Kazan. Private Label available.
+Live catalog SKUs from products.json: pepperoni, sausages, burger patties, deli meats, Tatar bakery.
+Halal cert #614A/2024 (DUM RT). HACCP. EXW Kazan. Private-label / contract manufacturing on inquiry.
 Use search_products for discovery, get_product for full SKU detail, get_catalog for filtered lists.
-Prices in RUB + 6 export currencies. Contact: info@kazandelikates.tatar · +79872170202`;
+Do not invent country approvals, importers, MOQ or shipping quotes. Contact: info@kazandelikates.tatar · +79872170202`;
 
 function textResult(data) {
   return {
@@ -116,7 +116,7 @@ export function createKazanMcpServer() {
     'get_delivery_info',
     {
       title: 'Delivery & export terms',
-      description: 'EXW Kazan terms, supported currencies, export markets, storage temps, HS codes.',
+      description: 'EXW Kazan terms, supported currencies, storage temps, and how to request a quote. No country-market claims.',
       inputSchema: {},
     },
     async () => textResult(DELIVERY_INFO)

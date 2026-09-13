@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib
+import os
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -400,7 +401,9 @@ class SalesFunnelTest(unittest.TestCase):
             status="approved",
             fit_check={"ok": True, "can_proceed_to_draft": True},
         )
-        with patch("channels.email.send_email", return_value={"ok": True}):
+        with patch.dict(os.environ, {"SALES_AGENT_ALLOW_LIVE_SEND": "1"}), patch(
+            "channels.email.send_email", return_value={"ok": True}
+        ):
             result = Gate(self.store)._send_one_draft(draft_id)
 
         self.assertTrue(result["ok"])
@@ -419,7 +422,7 @@ class SalesFunnelTest(unittest.TestCase):
             status="approved",
             fit_check={"ok": True, "can_proceed_to_draft": True},
         )
-        with patch(
+        with patch.dict(os.environ, {"SALES_AGENT_ALLOW_LIVE_SEND": "1"}), patch(
             "channels.email.send_email",
             return_value={"ok": False, "error": "blacklisted"},
         ):
@@ -427,6 +430,23 @@ class SalesFunnelTest(unittest.TestCase):
 
         self.assertFalse(result["ok"])
         self.assertEqual(self.store.get_draft(draft_id)["status"], "failed")
+
+    def test_live_send_blocked_without_quarantine_override(self) -> None:
+        lead_id = self._lead("Quarantine Bakery", quality="corporate")
+        draft_id = self.store.create_draft(
+            lead_id,
+            "email",
+            "Письмо",
+            status="approved",
+            fit_check={"ok": True, "can_proceed_to_draft": True},
+        )
+        with patch.dict(os.environ, {"SALES_AGENT_ALLOW_LIVE_SEND": ""}, clear=False), patch(
+            "channels.email.send_email"
+        ) as send:
+            result = Gate(self.store)._send_one_draft(draft_id)
+        send.assert_not_called()
+        self.assertFalse(result["ok"])
+        self.assertEqual(result.get("error"), "outbound_quarantine")
 
     def test_cold_draft_dry_run_never_calls_smtp(self) -> None:
         lead_id = self._lead("Dry Run Bakery", quality="corporate", tier="B", la=48)

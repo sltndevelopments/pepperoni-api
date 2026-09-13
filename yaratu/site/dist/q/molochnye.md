@@ -1,4 +1,4 @@
-# Сосиски «Молочные» / Molochnye milk sausages / «Молочные» сосискалар
+# Сосиски «Молочные» / Molochnye milk sausages / «Молочные» сосискалары
 
 https://yaratu.com/q/molochnye
 

@@ -1,10 +1,12 @@
 # Режим автономии: Opus одобряет исходящее; владельцу — горячие лиды.
 # «Не спамь» = не попасть в бан (deliverability.yaml), не лимит объёма.
 
+# 2026-08-27 quarantine: no autonomous contact with the market.
+# Re-enable only after legal review + SALES_AGENT_ALLOW_LIVE_SEND=1.
 autonomy:
-  enabled: true
-  opus_approves_outbound: true
-  auto_send_cold_email: true
+  enabled: false
+  opus_approves_outbound: false
+  auto_send_cold_email: false
   notify_on_routine_send: false
   respect_deliverability: true   # per_hour, per_day, domain_cap
 

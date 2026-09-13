@@ -15,11 +15,11 @@ locally on 2026-05-11.
 
 ```bash
 curl -fsSL https://api.pepperoni.tatar/openapi.yaml | head -5
-curl -fsSL https://api.pepperoni.tatar/api/products | jq '.products | length'  # → 77
+curl -fsSL https://api.pepperoni.tatar/api/products | jq '.products | length'  # → 62
 curl -fsSL https://api.pepperoni.tatar/.well-known/ai-plugin.json | jq .name_for_human
 ```
 
-Expected: status `200`, 77 products, name "Kazan Delicacies — Halal Catalog API".
+Expected: status `200`, 62 products, name "Kazan Delicacies — Halal Catalog API".
 
 ## Public assets reachable
 

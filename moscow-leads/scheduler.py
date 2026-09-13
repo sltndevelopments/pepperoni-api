@@ -19,7 +19,7 @@ sys.path.insert(0, str(ROOT))
 from digest import build_weekly_digest  # noqa: E402
 from keyboards import format_card, main_keyboard, stuck_keyboard  # noqa: E402
 from store import Store, datetime_from_iso  # noqa: E402
-from tg import recipient_ids, send_message, send_to_arbi, send_to_work_chat  # noqa: E402
+from tg import recipient_ids, send_message, send_to_arbi, send_to_manager, send_to_work_chat  # noqa: E402
 
 
 def _owner() -> list[int]:
@@ -49,10 +49,24 @@ def send_due_reminders(store: Store) -> dict:
             except Exception:
                 pass
         text = f"⏰ Напоминание\n{format_card(lead)}"
-        n = send_to_arbi(text, reply_markup=main_keyboard(lead["seq"]), store=store)
+        who = lead.get("assignee") or "arbi"
+        n = send_to_manager(
+            who,
+            text,
+            reply_markup=main_keyboard(lead["seq"]),
+            store=store,
+        )
         if n:
             store.set_meta(key, datetime.now(timezone.utc).isoformat())
             sent += n
+        else:
+            unbound_key = f"remind_unbound:{lead['id']}"
+            if not store.get_meta(unbound_key):
+                store.set_meta(unbound_key, datetime.now(timezone.utc).isoformat())
+                _broadcast(
+                    _owner(),
+                    f"⏰ Дедлайн {lead['id']}: менеджер {who} не привязан, карточка не ушла.\n{format_card(lead)}",
+                )
     return {"reminders_sent": sent, "skipped": skipped}
 
 
@@ -77,10 +91,22 @@ def check_72h_distributor(store: Store) -> dict:
                 f"⚠️ {lead_id} у {lead.get('distributor') or '?'} "
                 f"{int(age_h)}ч без движения\n{format_card(lead)}"
             )
-            n = send_to_arbi(text, reply_markup=stuck_keyboard(lead["seq"]), store=store)
+            who = lead.get("assignee") or "arbi"
+            n = send_to_manager(
+                who,
+                text,
+                reply_markup=stuck_keyboard(lead["seq"]),
+                store=store,
+            )
+            store.set_meta(arbi_key, now.isoformat())
             if n:
-                store.set_meta(arbi_key, now.isoformat())
                 to_arbi += n
+            else:
+                to_owner += _broadcast(
+                    _owner(),
+                    f"⚠️ {lead_id} застрял у дистра, менеджер {who} не привязан "
+                    f"(72ч-карточка не доставлена).\n{format_card(lead)}",
+                )
             continue
 
         try:
@@ -104,7 +130,7 @@ def check_72h_distributor(store: Store) -> dict:
             f"📣 Лид застрял у дистрибьютора >96ч\n"
             f"{lead_id} · {lead.get('company') or '—'}\n"
             f"Дистрибьютор: {lead.get('distributor') or '?'}\n"
-            f"Арби не ответил на напоминание (нет ОС / возврата)."
+            f"Менеджер не ответил на напоминание (нет ОС / возврата)."
         )
         n = _broadcast(_owner(), text)
         if n:
@@ -115,10 +141,11 @@ def check_72h_distributor(store: Store) -> dict:
 
 def send_friday_digest(store: Store) -> dict:
     text = build_weekly_digest(store)
-    # Дайджест: группа + владелец + личка Арби.
+    # Дайджест: группа + владелец + лички менеджеров.
     sent = send_to_work_chat(text)
     sent += _broadcast(_owner(), text)
     sent += send_to_arbi(text, store=store)
+    sent += send_to_manager("zaur", text, store=store)
     store.set_meta("last_friday_digest", datetime.now(timezone.utc).isoformat())
     return {"digest_sent": sent, "chars": len(text)}
 

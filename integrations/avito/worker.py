@@ -44,6 +44,18 @@ def _env(name: str, default: str = "") -> str:
     return os.environ.get(name, default).strip()
 
 
+def _socks_proxies() -> list[str]:
+    raw = _env("LLM_SOCKS5_PROXIES") or _env("LLM_SOCKS5_PROXY")
+    out: list[str] = []
+    for part in raw.split(","):
+        url = part.strip()
+        if url.startswith("socks5://"):
+            url = "socks5h://" + url[len("socks5://") :]
+        if url:
+            out.append(url)
+    return out
+
+
 def _utc_now() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -87,6 +99,52 @@ def _is_recruitment(chat: dict[str, Any]) -> bool:
     return any(marker and marker in url.lower() for marker in markers)
 
 
+def _safe_reason(text: str) -> str:
+    cleaned = re.sub(r"(socks5h?://)[^/\s]+@", r"\1***@", str(text), flags=re.I)
+    return cleaned.replace("\n", " ").strip()[:400]
+
+
+def _is_transient(exc: BaseException) -> bool:
+    if isinstance(exc, (TimeoutError, ConnectionError, BrokenPipeError, ConnectionResetError)):
+        return True
+    if isinstance(exc, urllib.error.URLError):
+        return True
+    text = str(exc).lower()
+    return any(
+        marker in text
+        for marker in (
+            "timed out",
+            "timeout",
+            "temporarily",
+            "connection reset",
+            "broken pipe",
+            "eof occurred",
+        )
+    )
+
+
+def _open(request: urllib.request.Request, timeout: int) -> tuple[int, Any]:
+    attempts = max(1, int(_env("AVITO_HTTP_RETRIES", "3")))
+    last: BaseException | None = None
+    for attempt in range(1, attempts + 1):
+        try:
+            with urllib.request.urlopen(request, timeout=timeout) as response:
+                body = response.read()
+                return response.status, json.loads(body) if body else None
+        except urllib.error.HTTPError as exc:
+            text = exc.read().decode("utf-8", errors="replace")
+            try:
+                return exc.code, json.loads(text)
+            except json.JSONDecodeError:
+                return exc.code, text
+        except Exception as exc:
+            last = exc
+            if not _is_transient(exc) or attempt >= attempts:
+                raise
+            time.sleep(min(8.0, 1.5 * attempt))
+    raise last or RuntimeError("HTTP request failed")
+
+
 class Http:
     def request(
         self,
@@ -103,16 +161,7 @@ class Http:
             payload = json.dumps(data, ensure_ascii=False).encode()
             req_headers.setdefault("Content-Type", "application/json")
         request = urllib.request.Request(url, data=payload, headers=req_headers, method=method)
-        try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
-                body = response.read()
-                return response.status, json.loads(body) if body else None
-        except urllib.error.HTTPError as exc:
-            text = exc.read().decode("utf-8", errors="replace")
-            try:
-                return exc.code, json.loads(text)
-            except json.JSONDecodeError:
-                return exc.code, text
+        return _open(request, timeout)
 
     def form(
         self, url: str, data: dict[str, str], *, timeout: int = 30
@@ -123,16 +172,7 @@ class Http:
             headers={"Content-Type": "application/x-www-form-urlencoded"},
             method="POST",
         )
-        try:
-            with urllib.request.urlopen(request, timeout=timeout) as response:
-                body = response.read()
-                return response.status, json.loads(body) if body else None
-        except urllib.error.HTTPError as exc:
-            text = exc.read().decode("utf-8", errors="replace")
-            try:
-                return exc.code, json.loads(text)
-            except json.JSONDecodeError:
-                return exc.code, text
+        return _open(request, timeout)
 
 
 class AvitoClient:
@@ -353,6 +393,10 @@ class Catalog:
         return "\n".join(lines) or "Подходящий товар в каталоге не найден."
 
 
+class LlmUnavailable(RuntimeError):
+    """LLM temporarily down; worker should skip the chat without a traceback."""
+
+
 class Llm:
     def __init__(self) -> None:
         provider = _env("LLM_PROVIDER").lower()
@@ -378,10 +422,73 @@ class Llm:
             self.key = _env("DEEPSEEK_API_KEY")
             self.base = _env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
             self.model = _env("DEEPSEEK_MODEL", "deepseek-v4-flash")
+        self._socks_list = _socks_proxies()
+        self._deepseek_key = _env("DEEPSEEK_API_KEY")
+        self._deepseek_base = _env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1").rstrip("/")
+        self._deepseek_model = _env("DEEPSEEK_MODEL", "deepseek-v4-flash")
+        self._cooldown_until = 0.0
+        self._outage_logged = False
+        self._socks_fallback_logged = False
+
+    def available(self) -> bool:
+        return time.monotonic() >= self._cooldown_until
+
+    @property
+    def outage(self) -> bool:
+        return self._outage_logged
+
+    def _post(
+        self,
+        *,
+        base: str,
+        key: str,
+        model: str,
+        messages: list[dict[str, str]],
+        socks_proxy: str = "",
+    ) -> str:
+        body: dict[str, Any] = {
+            "model": model,
+            "messages": messages,
+            "temperature": 0.3,
+            "max_tokens": 350,
+        }
+        if "deepseek" in base or "deepseek" in model:
+            body["thinking"] = {"type": "disabled"}
+        headers = {"Authorization": f"Bearer {key}"}
+        url = f"{base}/chat/completions"
+        if socks_proxy:
+            import requests
+
+            response = requests.post(
+                url,
+                json=body,
+                headers=headers,
+                proxies={"http": socks_proxy, "https": socks_proxy},
+                timeout=60,
+            )
+            status = response.status_code
+            try:
+                payload = response.json()
+            except ValueError:
+                payload = response.text
+        else:
+            status, payload = Http().request(
+                url, method="POST", data=body, headers=headers, timeout=60
+            )
+        if status >= 400 or not isinstance(payload, dict):
+            raise RuntimeError(f"LLM HTTP {status}")
+        choices = payload.get("choices") or []
+        message = choices[0].get("message") if choices and isinstance(choices[0], dict) else {}
+        result = message.get("content") if isinstance(message, dict) else ""
+        if not isinstance(result, str) or not result.strip():
+            raise RuntimeError("LLM returned empty response")
+        return result.strip()[:4000]
 
     def reply(self, history: list[dict[str, str]], catalog_context: str) -> str:
         if not self.key:
             raise RuntimeError("LLM_API_KEY / DEEPSEEK_API_KEY не задан")
+        if not self.available():
+            raise LlmUnavailable("LLM cooldown")
         system = """Ты консультант «Казанских Деликатесов» в чате Авито.
 Отвечай по-русски, кратко и доброжелательно. Факты о товарах бери только из
 контекста каталога ниже; если факта нет, честно скажи, что менеджер уточнит.
@@ -392,50 +499,51 @@ class Llm:
 
 Каталог:
 """ + catalog_context
-        body: dict[str, Any] = {
-            "model": self.model,
-            "messages": [{"role": "system", "content": system}, *history[-16:]],
-            "temperature": 0.3,
-            "max_tokens": 350,
-        }
-        if "deepseek" in self.base or "deepseek" in self.model:
-            body["thinking"] = {"type": "disabled"}
-        headers = {"Authorization": f"Bearer {self.key}"}
-        socks_proxy = _env("LLM_SOCKS5_PROXY")
-        if socks_proxy:
-            try:
-                import requests
-
-                response = requests.post(
-                    f"{self.base}/chat/completions",
-                    json=body,
-                    headers=headers,
-                    proxies={"http": socks_proxy, "https": socks_proxy},
-                    timeout=60,
+        messages = [{"role": "system", "content": system}, *history[-16:]]
+        attempts: list[tuple[str, str, str, str, str]] = []
+        for index, socks in enumerate(self._socks_list):
+            attempts.append((f"socks5-{index + 1}", self.base, self.key, self.model, socks))
+        attempts.append(("direct", self.base, self.key, self.model, ""))
+        if (
+            self._deepseek_key
+            and "deepseek" not in self.base
+            and _env("LLM_PROVIDER").lower() != "deepseek"
+        ):
+            attempts.append(
+                (
+                    "deepseek",
+                    self._deepseek_base,
+                    self._deepseek_key,
+                    self._deepseek_model,
+                    "",
                 )
-                status = response.status_code
-                try:
-                    payload = response.json()
-                except ValueError:
-                    payload = response.text
-            except Exception as exc:
-                raise RuntimeError(f"LLM SOCKS5 request failed: {exc}") from exc
-        else:
-            status, payload = Http().request(
-                f"{self.base}/chat/completions",
-                method="POST",
-                data=body,
-                headers=headers,
-                timeout=60,
             )
-        if status >= 400 or not isinstance(payload, dict):
-            raise RuntimeError(f"LLM HTTP {status}")
-        choices = payload.get("choices") or []
-        message = choices[0].get("message") if choices and isinstance(choices[0], dict) else {}
-        result = message.get("content") if isinstance(message, dict) else ""
-        if not isinstance(result, str) or not result.strip():
-            raise RuntimeError("LLM returned empty response")
-        return result.strip()[:4000]
+        errors: list[str] = []
+        for name, base, key, model, socks in attempts:
+            try:
+                result = self._post(
+                    base=base, key=key, model=model, messages=messages, socks_proxy=socks
+                )
+                if self._outage_logged:
+                    LOG.info("avito LLM recovered via %s", name)
+                    self._outage_logged = False
+                if name == "direct" and self._socks_list and not self._socks_fallback_logged:
+                    LOG.warning("avito LLM SOCKS5 blocked, using direct %s", base)
+                    self._socks_fallback_logged = True
+                return result
+            except Exception as exc:
+                errors.append(f"{name}: {exc}")
+                LOG.debug("avito LLM %s failed: %s", name, exc)
+        cooldown = max(30.0, float(_env("LLM_COOLDOWN_SECONDS", "120")))
+        self._cooldown_until = time.monotonic() + cooldown
+        if not self._outage_logged:
+            LOG.error(
+                "avito LLM unavailable for %ss (%s)",
+                int(cooldown),
+                "; ".join(errors),
+            )
+            self._outage_logged = True
+        raise LlmUnavailable("; ".join(errors))
 
 
 class Telegram:
@@ -454,6 +562,43 @@ class Telegram:
         )
         if status >= 400 or not isinstance(payload, dict) or not payload.get("ok"):
             raise RuntimeError(f"Telegram sendMessage failed: HTTP {status}")
+
+
+class OpsAlert:
+    """One Telegram message on outage, one on recovery. No per-tick spam."""
+
+    def __init__(self, telegram: Telegram) -> None:
+        self.telegram = telegram
+        self._fails = 0
+        self._down_sent = False
+        self._threshold = max(1, int(_env("AVITO_ALERT_FAILS", "3")))
+
+    def note_failure(self, reason: str) -> None:
+        self._fails += 1
+        if self._fails < self._threshold or self._down_sent:
+            return
+        text = (
+            "⚠️ Авито-воркер затупил\n"
+            f"{_safe_reason(reason)}\n"
+            "Пока чинится, чаты могут остаться без ответа."
+        )
+        try:
+            self.telegram.send(text)
+            self._down_sent = True
+            LOG.warning("avito ops alert sent: down")
+        except Exception as exc:
+            LOG.warning("avito ops alert failed: %s", exc)
+
+    def note_success(self) -> None:
+        self._fails = 0
+        if not self._down_sent:
+            return
+        try:
+            self.telegram.send("✅ Авито-воркер ожил. Чаты снова обрабатываются.")
+            self._down_sent = False
+            LOG.info("avito ops alert sent: recovered")
+        except Exception as exc:
+            LOG.warning("avito ops recover alert failed: %s", exc)
 
 
 def _buyer_name(chat: dict[str, Any], seller_id: int) -> str:
@@ -590,9 +735,14 @@ class Worker:
             LOG.info("avito intro sent chat=%s", chat_id)
             return
 
+        if not self.llm.available():
+            return
         conversation = _history(messages)
         title, _ = _listing(chat)
-        reply = self.llm.reply(conversation, self.catalog.relevant_context(title, _message_text(latest)))
+        try:
+            reply = self.llm.reply(conversation, self.catalog.relevant_context(title, _message_text(latest)))
+        except LlmUnavailable:
+            return
         self.avito.send(chat_id, reply)
         self.store.save_chat(chat_id, last_inbound_id=latest_id, intro_sent=True)
         LOG.info("avito LLM reply sent chat=%s", chat_id)
@@ -603,8 +753,11 @@ class Worker:
         for chat in chats:
             try:
                 self._process_chat(chat)
-            except Exception:
-                LOG.exception("avito chat processing failed chat=%s", chat.get("id"))
+            except Exception as exc:
+                if _is_transient(exc):
+                    LOG.warning("avito chat skipped chat=%s: %s", chat.get("id"), exc)
+                else:
+                    LOG.exception("avito chat processing failed chat=%s", chat.get("id"))
 
 
 def main() -> int:
@@ -612,15 +765,29 @@ def main() -> int:
         level=_env("AVITO_WORKER_LOG_LEVEL", "INFO"),
         format="%(asctime)s %(levelname)s %(name)s: %(message)s",
     )
-    worker = Worker(AvitoClient(), Store(), Catalog(), Llm(), Telegram())
+    telegram = Telegram()
+    llm = Llm()
+    worker = Worker(AvitoClient(), Store(), Catalog(), llm, telegram)
+    alerts = OpsAlert(telegram)
     interval = max(5.0, float(_env("AVITO_POLL_INTERVAL", "10")))
     LOG.info("avito worker started interval=%ss", interval)
+    last_tick_warn = 0.0
     while True:
         started = time.monotonic()
         try:
             worker.tick()
-        except Exception:
-            LOG.exception("avito worker tick failed")
+            if llm.outage:
+                alerts.note_failure("нейросеть/прокси не отвечает, покупателям нет ответа")
+            else:
+                alerts.note_success()
+        except Exception as exc:
+            alerts.note_failure(f"не достучался до Авито: {exc}")
+            if _is_transient(exc):
+                if time.monotonic() - last_tick_warn >= 60:
+                    LOG.warning("avito worker tick skipped: %s", exc)
+                    last_tick_warn = time.monotonic()
+            else:
+                LOG.exception("avito worker tick failed")
         time.sleep(max(0.0, interval - (time.monotonic() - started)))
 
 

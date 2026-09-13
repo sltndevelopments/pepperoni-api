@@ -55,6 +55,12 @@ def send_email(
     if dry_run:
         return {"ok": True, "dry_run": True, "to": to, "subject": subject}
 
+    from core.outbound_policy import refuse_live_send
+
+    blocked = refuse_live_send(to)
+    if blocked:
+        return blocked
+
     if not email_configured():
         return {"ok": False, "error": "smtp_not_configured"}
 

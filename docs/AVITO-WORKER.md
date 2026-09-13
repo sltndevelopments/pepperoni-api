@@ -11,6 +11,8 @@ existing `LEADS_GROUP_ID` group.
   before a follow-up city/name message is not lost.
 - A phone lead is saved in SQLite before it is sent to Telegram.
 - Telegram failures leave the lead in `pending` and are retried on every poll.
+- If Avito API or the LLM stays down for `AVITO_ALERT_FAILS` ticks (default 3),
+  the worker posts one message to `LEADS_GROUP_ID` and one more when it recovers.
 - The customer receives `Спасибо! Сейчас с вами свяжется менеджер.` only after
   Telegram confirms delivery.
 - The LLM receives matched catalog entries from
@@ -67,7 +69,11 @@ LLM_PROVIDER=deepseek
 Then point `LLM_BASE_URL` at the phone assistant's supported-region,
 OpenAI-compatible endpoint before changing `LLM_PROVIDER` back to `openai`.
 For a SOCKS5 egress proxy, set `LLM_SOCKS5_PROXY` to its full
-`socks5h://user:password@host:port` URL.
+`socks5h://user:password@host:port` URL. If that proxy refuses
+`api.openai.com`, leave the variable empty: the worker tries a direct
+OpenAI call, then DeepSeek if configured, and pauses LLM replies for
+`LLM_COOLDOWN_SECONDS` (default 120) instead of logging a traceback
+every poll.
 
 Without an OpenAI/explicit provider configuration, the worker uses the legacy
 `DEEPSEEK_*` variables already available in the production environment.

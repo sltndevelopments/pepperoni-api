@@ -1,4 +1,4 @@
-# Колбаса варёно-копчёная «Мраморная» / Mramornaya cooked smoked sausage / Пешерелгән-ысланган «Мраморная» колбаса
+# Колбаса варёно-копчёная «Мраморная» / Mramornaya cooked smoked sausage / Пешереп ысланган «Мраморная» колбасасы
 
 https://yaratu.com/q/mramornaya
 

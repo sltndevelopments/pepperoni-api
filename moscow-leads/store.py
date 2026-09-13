@@ -8,10 +8,15 @@ from pathlib import Path
 from typing import Any, Iterator
 
 from model import (
+    ACTIVE_TASK_CAP,
     CONTACT_RESULTS,
     CONTACT_TYPES,
+    DEFAULT_ASSIGNEE,
     DISTRIBUTORS,
     LOST_REASON_TO_STATUS,
+    MANAGER_HOME_BASE,
+    MANAGER_IDS,
+    MANAGER_LABELS,
     POINT_DISTRIBUTORS,
     POINT_SEGMENTS,
     POINT_STATUS_ACTIVE,
@@ -22,9 +27,11 @@ from model import (
     STATUSES,
     fmt_lead_id,
     fmt_point_id,
+    fmt_task_id,
     next_business_deadline,
     point_status_from_last_order,
     utcnow,
+    validate_manager,
     validate_status,
 )
 
@@ -117,6 +124,57 @@ CREATE TABLE IF NOT EXISTS sellout (
     UNIQUE(distributor, month)
 );
 CREATE INDEX IF NOT EXISTS idx_sellout_month ON sellout(month);
+
+CREATE TABLE IF NOT EXISTS managers (
+    id                TEXT PRIMARY KEY,
+    name              TEXT NOT NULL,
+    home_base         TEXT NOT NULL DEFAULT '',
+    telegram_user_id  TEXT NOT NULL DEFAULT '',
+    dm_chat_id        TEXT NOT NULL DEFAULT '',
+    active            INTEGER NOT NULL DEFAULT 1
+);
+
+CREATE TABLE IF NOT EXISTS tasks (
+    seq               INTEGER PRIMARY KEY AUTOINCREMENT,
+    id                TEXT NOT NULL UNIQUE,
+    lead_id           TEXT NOT NULL,
+    manager_id        TEXT NOT NULL,
+    objective         TEXT NOT NULL,
+    context           TEXT NOT NULL DEFAULT '',
+    success_condition TEXT NOT NULL DEFAULT '',
+    why               TEXT NOT NULL DEFAULT '',
+    deadline          TEXT,
+    status            TEXT NOT NULL DEFAULT 'open',
+    next_possible     TEXT NOT NULL DEFAULT '',
+    created_at        TEXT NOT NULL,
+    updated_at        TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_tasks_manager ON tasks(manager_id, status);
+CREATE INDEX IF NOT EXISTS idx_tasks_lead ON tasks(lead_id);
+
+CREATE TABLE IF NOT EXISTS task_reports (
+    id            INTEGER PRIMARY KEY AUTOINCREMENT,
+    task_id       TEXT NOT NULL,
+    at            TEXT NOT NULL,
+    actor         TEXT NOT NULL,
+    raw_text      TEXT NOT NULL,
+    parsed        TEXT NOT NULL DEFAULT '{}',
+    accepted      INTEGER NOT NULL DEFAULT 0,
+    reject_reason TEXT NOT NULL DEFAULT ''
+);
+CREATE INDEX IF NOT EXISTS idx_task_reports_task ON task_reports(task_id);
+
+CREATE TABLE IF NOT EXISTS challenges (
+    id             INTEGER PRIMARY KEY AUTOINCREMENT,
+    lead_id        TEXT NOT NULL DEFAULT '',
+    task_id        TEXT NOT NULL DEFAULT '',
+    manager_id     TEXT NOT NULL,
+    argument       TEXT NOT NULL,
+    status         TEXT NOT NULL DEFAULT 'pending',
+    decision_note  TEXT NOT NULL DEFAULT '',
+    created_at     TEXT NOT NULL,
+    resolved_at    TEXT
+);
 """
 
 
@@ -129,6 +187,7 @@ class Store:
     def _conn(self) -> Iterator[sqlite3.Connection]:
         conn = sqlite3.connect(self.db_path)
         conn.row_factory = sqlite3.Row
+        conn.execute("PRAGMA busy_timeout=5000")
         try:
             yield conn
             conn.commit()
@@ -138,6 +197,15 @@ class Store:
     def init(self) -> None:
         with self._conn() as conn:
             conn.executescript(SCHEMA)
+            self._ensure_column(conn, "leads", "assignee", "TEXT NOT NULL DEFAULT 'arbi'")
+            self._ensure_column(conn, "leads", "pipeline_bucket", "TEXT NOT NULL DEFAULT 'active'")
+        self.seed_managers()
+
+    @staticmethod
+    def _ensure_column(conn: sqlite3.Connection, table: str, name: str, decl: str) -> None:
+        cols = [r[1] for r in conn.execute(f"PRAGMA table_info({table})")]
+        if name not in cols:
+            conn.execute(f"ALTER TABLE {table} ADD COLUMN {name} {decl}")
 
     def _row(self, row: sqlite3.Row | None) -> dict | None:
         if not row:
@@ -166,25 +234,32 @@ class Store:
         deadline: str | None = None,
         next_step: str = "связаться",
         actor: str = "system",
+        assignee: str | None = None,
+        pipeline_bucket: str = "active",
     ) -> dict:
         now = utcnow().isoformat()
         dl = deadline or next_business_deadline()
+        who = assignee if assignee in MANAGER_IDS else DEFAULT_ASSIGNEE
+        bucket = pipeline_bucket if pipeline_bucket in ("active", "backlog", "nurture") else "active"
         with self._conn() as conn:
             if external_ref:
                 existing = conn.execute(
                     "SELECT * FROM leads WHERE external_ref=?", (external_ref,)
                 ).fetchone()
                 if existing:
-                    return dict(existing)
+                    lead = dict(existing)
+                    self.ensure_opening_task(lead, actor=actor)
+                    return self.get(lead["id"]) or lead
             cur = conn.execute(
                 """INSERT INTO leads
                    (id, source, company, contact, phone, city, request, volume,
                     status, status_changed_at, next_step, deadline, distributor,
-                    note, lost_reason, external_ref, created_at, updated_at)
-                   VALUES ('', ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?, ?, NULL, ?, NULL, ?, ?, ?)""",
+                    note, lost_reason, external_ref, assignee, pipeline_bucket,
+                    created_at, updated_at)
+                   VALUES ('', ?, ?, ?, ?, ?, ?, ?, 'new', ?, ?, ?, NULL, ?, NULL, ?, ?, ?, ?, ?)""",
                 (
                     source, company, contact, phone, city, request, volume,
-                    now, next_step, dl, note, external_ref, now, now,
+                    now, next_step, dl, note, external_ref, who, bucket, now, now,
                 ),
             )
             seq = int(cur.lastrowid)
@@ -195,7 +270,9 @@ class Store:
                 (lead_id, now, actor, "created", json.dumps({"source": source}, ensure_ascii=False)),
             )
             row = conn.execute("SELECT * FROM leads WHERE seq=?", (seq,)).fetchone()
-        return dict(row)
+        lead = dict(row)
+        self.ensure_opening_task(lead, actor=actor)
+        return self.get(lead["id"]) or lead
 
     def get(self, lead_id: str) -> dict | None:
         with self._conn() as conn:
@@ -210,6 +287,7 @@ class Store:
         *,
         status: str | None = None,
         active_only: bool = False,
+        assignee: str | None = None,
         limit: int = 500,
     ) -> list[dict]:
         q = "SELECT * FROM leads WHERE 1=1"
@@ -219,6 +297,9 @@ class Store:
             args.append(status)
         if active_only:
             q += " AND status NOT IN ('won','lost','no_demand')"
+        if assignee:
+            q += " AND assignee=?"
+            args.append(assignee)
         q += " ORDER BY updated_at DESC LIMIT ?"
         args.append(limit)
         with self._conn() as conn:
@@ -305,12 +386,39 @@ class Store:
                 ),
             )
         updated = self.get(lead_id)  # type: ignore[return-value]
-        # Первый заказ → точка в справочнике АКБ.
+        # Первый заказ → точка в справочнике АКБ. Только при реальной смене статуса.
+        if status == lead.get("status"):
+            return updated
         if status == "first_shipment" and updated:
             self.ensure_point_from_lead(updated, actor=actor, record_order=True)
         elif status == "repeat_shipment" and updated:
             self.ensure_point_from_lead(updated, actor=actor, record_order=True)
         return updated
+
+    def append_note(
+        self,
+        lead_id: str,
+        note: str,
+        *,
+        next_step: str | None = None,
+        actor: str = "system",
+    ) -> dict:
+        """Заметка/отчёт без смены статуса и без записи заказа в АКБ."""
+        lead = self.get(lead_id)
+        if not lead:
+            raise KeyError(lead_id)
+        now = utcnow().isoformat()
+        fields: dict[str, Any] = {"note": note[:500], "updated_at": now}
+        if next_step is not None:
+            fields["next_step"] = next_step[:120]
+        sets = ", ".join(f"{k}=?" for k in fields)
+        with self._conn() as conn:
+            conn.execute(f"UPDATE leads SET {sets} WHERE id=?", (*fields.values(), lead_id))
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (lead_id, now, actor, "note", json.dumps({"note": note[:200]}, ensure_ascii=False)),
+            )
+        return self.get(lead_id)  # type: ignore[return-value]
 
     def apply_lost_reason(self, lead_id: str, reason_key: str, *, actor: str = "arbi") -> dict:
         status = LOST_REASON_TO_STATUS.get(reason_key)
@@ -821,6 +929,378 @@ class Store:
                 "SELECT * FROM sellout WHERE month=?", (month,)
             ).fetchall()
         return {r["distributor"]: dict(r) for r in rows}
+
+    # --- two-manager operating loop ---
+
+    def seed_managers(self) -> None:
+        with self._conn() as conn:
+            for mid in MANAGER_IDS:
+                conn.execute(
+                    """INSERT OR IGNORE INTO managers (id, name, home_base)
+                       VALUES (?,?,?)""",
+                    (mid, MANAGER_LABELS[mid], MANAGER_HOME_BASE[mid]),
+                )
+
+    def list_managers(self) -> list[dict]:
+        with self._conn() as conn:
+            return [dict(r) for r in conn.execute("SELECT * FROM managers ORDER BY id")]
+
+    def get_manager(self, manager_id: str) -> dict | None:
+        with self._conn() as conn:
+            row = conn.execute("SELECT * FROM managers WHERE id=?", (manager_id,)).fetchone()
+        return dict(row) if row else None
+
+    def bind_manager(
+        self,
+        manager_id: str,
+        *,
+        telegram_user_id: str = "",
+        dm_chat_id: str = "",
+    ) -> dict:
+        if not validate_manager(manager_id):
+            raise ValueError(f"unknown manager: {manager_id}")
+        with self._conn() as conn:
+            fields = []
+            args: list[Any] = []
+            if telegram_user_id:
+                fields.append("telegram_user_id=?")
+                args.append(str(telegram_user_id))
+            if dm_chat_id:
+                fields.append("dm_chat_id=?")
+                args.append(str(dm_chat_id))
+            if not fields:
+                row = conn.execute("SELECT * FROM managers WHERE id=?", (manager_id,)).fetchone()
+                return dict(row) if row else {}
+            args.append(manager_id)
+            conn.execute(f"UPDATE managers SET {', '.join(fields)} WHERE id=?", args)
+            row = conn.execute("SELECT * FROM managers WHERE id=?", (manager_id,)).fetchone()
+        if dm_chat_id:
+            self.set_meta(f"{manager_id}_dm_chat_id", str(dm_chat_id))
+        return dict(row) if row else {}
+
+    def manager_by_telegram(self, user_id: int | str | None) -> dict | None:
+        if user_id is None:
+            return None
+        uid = str(user_id)
+        with self._conn() as conn:
+            row = conn.execute(
+                "SELECT * FROM managers WHERE telegram_user_id=?", (uid,)
+            ).fetchone()
+        return dict(row) if row else None
+
+    def manager_by_chat(self, chat_id: int | str | None) -> dict | None:
+        if chat_id is None:
+            return None
+        cid = str(chat_id)
+        with self._conn() as conn:
+            row = conn.execute("SELECT * FROM managers WHERE dm_chat_id=?", (cid,)).fetchone()
+        if row:
+            return dict(row)
+        for mid in MANAGER_IDS:
+            if self.get_meta(f"{mid}_dm_chat_id") == cid:
+                return self.get_manager(mid)
+        return None
+
+    def assign_lead(self, lead_id: str, manager_id: str, *, actor: str = "system") -> dict:
+        if not validate_manager(manager_id):
+            raise ValueError(f"unknown manager: {manager_id}")
+        lead = self.get(lead_id)
+        if not lead:
+            raise KeyError(lead_id)
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE leads SET assignee=?, updated_at=? WHERE id=?",
+                (manager_id, now, lead_id),
+            )
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (
+                    lead_id,
+                    now,
+                    actor,
+                    "assign",
+                    json.dumps({"from": lead.get("assignee"), "to": manager_id}, ensure_ascii=False),
+                ),
+            )
+            conn.execute(
+                "UPDATE tasks SET manager_id=?, updated_at=? WHERE lead_id=? AND status='open'",
+                (manager_id, now, lead_id),
+            )
+        return self.get(lead_id)  # type: ignore[return-value]
+
+    def open_task_count(self, manager_id: str) -> int:
+        with self._conn() as conn:
+            n = conn.execute(
+                "SELECT COUNT(*) AS n FROM tasks WHERE manager_id=? AND status IN ('open','needs_clarification')",
+                (manager_id,),
+            ).fetchone()["n"]
+        return int(n)
+
+    def create_task(
+        self,
+        *,
+        lead_id: str,
+        manager_id: str,
+        objective: str,
+        context: str = "",
+        success_condition: str = "",
+        why: str = "",
+        deadline: str | None = None,
+        next_possible: str = "",
+        actor: str = "system",
+    ) -> dict:
+        if not validate_manager(manager_id):
+            raise ValueError(f"unknown manager: {manager_id}")
+        if not self.get(lead_id):
+            raise KeyError(lead_id)
+        now = utcnow().isoformat()
+        dl = deadline or next_business_deadline()
+        with self._conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO tasks
+                   (id, lead_id, manager_id, objective, context, success_condition,
+                    why, deadline, status, next_possible, created_at, updated_at)
+                   VALUES ('', ?, ?, ?, ?, ?, ?, ?, 'open', ?, ?, ?)""",
+                (
+                    lead_id, manager_id, objective, context, success_condition,
+                    why, dl, next_possible, now, now,
+                ),
+            )
+            seq = int(cur.lastrowid)
+            task_id = fmt_task_id(seq)
+            conn.execute("UPDATE tasks SET id=? WHERE seq=?", (task_id, seq))
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (
+                    lead_id,
+                    now,
+                    actor,
+                    "task_created",
+                    json.dumps({"task_id": task_id, "objective": objective[:120]}, ensure_ascii=False),
+                ),
+            )
+            row = conn.execute("SELECT * FROM tasks WHERE seq=?", (seq,)).fetchone()
+        return dict(row)
+
+    def get_task(self, task_id: str) -> dict | None:
+        with self._conn() as conn:
+            row = conn.execute("SELECT * FROM tasks WHERE id=?", (task_id,)).fetchone()
+        return dict(row) if row else None
+
+    def list_open_tasks(self, manager_id: str, *, limit: int = ACTIVE_TASK_CAP) -> list[dict]:
+        with self._conn() as conn:
+            rows = conn.execute(
+                """SELECT * FROM tasks
+                   WHERE manager_id=? AND status IN ('open','needs_clarification')
+                   ORDER BY deadline IS NULL, deadline ASC, updated_at ASC
+                   LIMIT ?""",
+                (manager_id, limit),
+            ).fetchall()
+        return [dict(r) for r in rows]
+
+    def open_task_for_lead(self, lead_id: str) -> dict | None:
+        with self._conn() as conn:
+            row = conn.execute(
+                """SELECT * FROM tasks
+                   WHERE lead_id=? AND status IN ('open','needs_clarification')
+                   ORDER BY seq DESC LIMIT 1""",
+                (lead_id,),
+            ).fetchone()
+        return dict(row) if row else None
+
+    def ensure_opening_task(self, lead: dict, *, actor: str = "system") -> dict | None:
+        if not lead or lead.get("status") in ("won", "lost", "no_demand"):
+            return None
+        existing = self.open_task_for_lead(lead["id"])
+        if existing:
+            return existing
+        company = lead.get("company") or lead["id"]
+        return self.create_task(
+            lead_id=lead["id"],
+            manager_id=lead.get("assignee") or DEFAULT_ASSIGNEE,
+            objective=(
+                f"Установить, кто принимает решение по мясным ингредиентам у {company}, "
+                "и выяснить текущий формат закупки"
+            ),
+            context=self._lead_context(lead),
+            success_condition="Имя и роль ЛПР либо отказ с причиной; не «просто позвонил».",
+            why="Новый лид без следующего шага потеряется.",
+            deadline=lead.get("deadline") or next_business_deadline(),
+            next_possible="образцы / встреча / дистрибьютор",
+            actor=actor,
+        )
+
+    def backfill_opening_tasks(self, *, limit: int = 40, actor: str = "system") -> int:
+        n = 0
+        for lead in self.list_leads(active_only=True, limit=limit):
+            before = self.open_task_for_lead(lead["id"])
+            self.ensure_opening_task(lead, actor=actor)
+            after = self.open_task_for_lead(lead["id"])
+            if after and (not before or before["id"] != after["id"]):
+                n += 1
+        return n
+
+    @staticmethod
+    def _lead_context(lead: dict) -> str:
+        bits = [
+            f"статус {lead.get('status')}",
+            f"город {lead.get('city') or '—'}",
+            f"запрос {(lead.get('request') or '—')[:80]}",
+        ]
+        if lead.get("contact"):
+            bits.append(f"контакт {lead['contact']}")
+        if lead.get("next_step"):
+            bits.append(f"раньше: {lead['next_step']}")
+        return "; ".join(bits)
+
+    def set_task_status(self, task_id: str, status: str, *, actor: str = "system") -> dict:
+        if status not in ("open", "needs_clarification", "done", "cancelled"):
+            raise ValueError(status)
+        task = self.get_task(task_id)
+        if not task:
+            raise KeyError(task_id)
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE tasks SET status=?, updated_at=? WHERE id=?",
+                (status, now, task_id),
+            )
+            conn.execute(
+                "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                (
+                    task["lead_id"],
+                    now,
+                    actor,
+                    "task_status",
+                    json.dumps({"task_id": task_id, "to": status}, ensure_ascii=False),
+                ),
+            )
+        return self.get_task(task_id)  # type: ignore[return-value]
+
+    def add_task_report(
+        self,
+        task_id: str,
+        *,
+        raw_text: str,
+        parsed: dict,
+        accepted: bool,
+        actor: str,
+        reject_reason: str = "",
+    ) -> dict:
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO task_reports
+                   (task_id, at, actor, raw_text, parsed, accepted, reject_reason)
+                   VALUES (?,?,?,?,?,?,?)""",
+                (
+                    task_id,
+                    now,
+                    actor,
+                    raw_text,
+                    json.dumps(parsed, ensure_ascii=False),
+                    1 if accepted else 0,
+                    reject_reason,
+                ),
+            )
+            rid = int(cur.lastrowid)
+            row = conn.execute("SELECT * FROM task_reports WHERE id=?", (rid,)).fetchone()
+        return dict(row)
+
+    def task_reject_count(self, task_id: str) -> int:
+        with self._conn() as conn:
+            n = conn.execute(
+                "SELECT COUNT(*) AS n FROM task_reports WHERE task_id=? AND accepted=0",
+                (task_id,),
+            ).fetchone()["n"]
+        return int(n)
+
+    def recent_rejected_reports(self, *, hours: int = 48, limit: int = 20) -> list[dict]:
+        cutoff = (utcnow().timestamp() - hours * 3600)
+        out = []
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM task_reports WHERE accepted=0 ORDER BY id DESC LIMIT ?",
+                (limit * 3,),
+            ).fetchall()
+        for r in rows:
+            d = dict(r)
+            try:
+                if datetime_from_iso(d["at"]).timestamp() >= cutoff:
+                    out.append(d)
+            except Exception:
+                continue
+            if len(out) >= limit:
+                break
+        return out
+
+    def overdue_tasks(self) -> list[dict]:
+        today = (utcnow() + __import__("datetime").timedelta(hours=3)).date().isoformat()
+        with self._conn() as conn:
+            rows = conn.execute(
+                """SELECT * FROM tasks
+                   WHERE status IN ('open','needs_clarification')
+                     AND deadline IS NOT NULL AND deadline <= ?
+                   ORDER BY deadline ASC""",
+                (today,),
+            ).fetchall()
+        return [dict(r) for r in rows]
+
+    def create_challenge(
+        self,
+        *,
+        manager_id: str,
+        argument: str,
+        lead_id: str = "",
+        task_id: str = "",
+        actor: str = "system",
+    ) -> dict:
+        if not validate_manager(manager_id):
+            raise ValueError(f"unknown manager: {manager_id}")
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            cur = conn.execute(
+                """INSERT INTO challenges
+                   (lead_id, task_id, manager_id, argument, status, created_at)
+                   VALUES (?,?,?,?, 'pending', ?)""",
+                (lead_id, task_id, manager_id, argument[:2000], now),
+            )
+            cid = int(cur.lastrowid)
+            if lead_id:
+                conn.execute(
+                    "INSERT INTO events (lead_id, at, actor, action, detail) VALUES (?,?,?,?,?)",
+                    (
+                        lead_id,
+                        now,
+                        actor,
+                        "challenge",
+                        json.dumps({"challenge_id": cid, "argument": argument[:200]}, ensure_ascii=False),
+                    ),
+                )
+            row = conn.execute("SELECT * FROM challenges WHERE id=?", (cid,)).fetchone()
+        return dict(row)
+
+    def resolve_challenge(self, challenge_id: int, status: str, *, note: str = "", actor: str = "owner") -> dict:
+        if status not in ("accepted", "rejected"):
+            raise ValueError(status)
+        now = utcnow().isoformat()
+        with self._conn() as conn:
+            conn.execute(
+                "UPDATE challenges SET status=?, decision_note=?, resolved_at=? WHERE id=?",
+                (status, note[:500], now, challenge_id),
+            )
+            row = conn.execute("SELECT * FROM challenges WHERE id=?", (challenge_id,)).fetchone()
+        if not row:
+            raise KeyError(challenge_id)
+        return dict(row)
+
+    def pending_challenges(self) -> list[dict]:
+        with self._conn() as conn:
+            rows = conn.execute(
+                "SELECT * FROM challenges WHERE status='pending' ORDER BY id ASC"
+            ).fetchall()
+        return [dict(r) for r in rows]
 
 
 def datetime_from_iso(value: str):

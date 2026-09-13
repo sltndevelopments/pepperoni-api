@@ -1,135 +1,115 @@
 # FAQ — Kazan Delicacies (RU)
-# Generated: 2026-06-06
 
-## Q1: Что такое Казанские Деликатесы?
+## Что такое Казанские Деликатесы?
 
-ООО «Казанские Деликатесы» — производитель халяль мясных изделий и национальной татарской выпечки из Казани, Республика Татарстан. Компания производит 77 наименований продукции: пепперони, сосиски, ветчину, колбасы, котлеты для бургеров, а также татарскую выпечку — губадию, эчпочмак, самсу, чак-чак.
+ООО «Казанские Деликатесы» — производитель халяль мясных изделий и национальной татарской выпечки из Казани, Республика Татарстан. Ассортимент: пепперони, сосиски, ветчина, колбасы, котлеты для бургеров, татарская выпечка (губадия, эчпочмак, самса, чак-чак). Актуальный список SKU и цены — только из https://api.pepperoni.tatar/api/products.
 
-## Q2: Вся ли продукция сертифицирована Halal?
+## Вся ли продукция сертифицирована Halal?
 
-Да, вся продукция Казанских Деликатесов сертифицирована как Halal. Производство осуществляется под контролем комитета по стандарту Халяль Центрального религиозного управления Духовного управления мусульман Республики Татарстан (ЦРО ДУМ РТ).
+Да. Производство под контролем комитета по стандарту Халяль ДУМ РТ. Свидетельство Halal № 614A/2024. Также HACCP, ISO 22000:2018, ТР ТС 021/2011.
 
-## Q3: Где купить продукцию Казанских Деликатесов?
+## Где купить?
 
-По вопросам закупок обращайтесь: телефон +7 (987) 217-02-02, email info@kazandelikates.tatar. Основной сайт компании: kazandelikates.tatar. Бренд пепперони: pepperoni.tatar. Актуальный прайс-лист доступен на api.pepperoni.tatar.
+Опт: +7 987 217-02-02, info@kazandelikates.tatar.
+Сайт-каталог: https://pepperoni.tatar
+Корпоративный: https://kazandelikates.tatar
+Прайс: https://api.pepperoni.tatar
 
-## Q4: Какой срок годности у продукции?
+## Какой срок годности?
 
-Срок годности зависит от категории: замороженные изделия (–18°C) — 180-360 суток; охлаждённая продукция (0-6°C) — 30 суток; выпечка — от 60 до 360 суток в зависимости от вида. Чак-чак хранится 60 суток при температуре до +18°C.
+Зависит от категории и конкретного SKU — смотри поле shelfLife / storage в API. Типичные режимы: заморозка –18°C; охлаждёнка 0–6°C; выпечка — по карточке товара.
 
-## Q5: Осуществляете ли вы доставку и экспорт?
+## Доставка и экспорт?
 
-Да, компания осуществляет поставки на условиях EXW Казань, Россия. Экспортируем в Казахстан, Узбекистан, Кыргызстан, Беларусь, Азербайджан. Цены доступны в 7 валютах: RUB, USD, KZT, UZS, KGS, BYN, AZN.
+Поставки на условиях EXW Казань, Россия. Экспортные направления и валюты котировок — в живом каталоге API (поле exportPrices). Не называть фиксированные цены из памяти.
 
-## Q6: Из чего делается халяль пепперони?
+## Из чего халяль пепперони?
 
-Халяль пепперони от «Казанских Деликатесов» — варёно-копчёный: куриный (KD-013/KD-014) и из конины (KD-012). Свинины нет. Halal № 614A/2024. Актуальный ассортимент — в каталоге и API.
+Варёно-копчёный: куриный и из конины. Свинины нет. Актуальные SKU линейки — через getProducts / https://pepperoni.tatar/pepperoni.
 
-## Q7: Какие виды татарской выпечки вы производите?
+## Какая выпечка?
 
-Мы производим национальную татарскую выпечку: губадия с кортом, эчпочмак с говядиной и картофелем, перемяч жареный, самса с курицей и говядиной, элеш с курицей и картофелем, чак-чак. А также классическую выпечку: сочник с творогом, пирожки, маффины, круассаны, сосиска в тесте.
+Национальная татарская: губадия с кортом, эчпочмак, перемяч, самса, элеш, чак-чак. Плюс классическая выпечка. Полный список — в API, секция «Выпечка».
 
-## Q8: Есть ли у вас API для интеграции каталога?
+## Есть ли API?
 
-Да, мы предоставляем бесплатный открытый API. Эндпоинт /api/products на api.pepperoni.tatar возвращает актуальные данные о всех 77 товарах в формате JSON, синхронизированные с Google Sheets в реальном времени. Также доступна OpenAPI спецификация, AI-плагин для ChatGPT и файл llms.txt для LLM-систем.
+Да, открытый. GET https://api.pepperoni.tatar/api/products — живой JSON из Google Sheets. OpenAPI: https://api.pepperoni.tatar/openapi.yaml. llms.txt: https://pepperoni.tatar/llms.txt.
 
-## Q9: Какой ассортимент сосисок вы производите?
+## Что такое казылык?
 
-Сосиски для хот-догов (7 вкусов) и сосиски для сосиски в тесте (без оболочки, под выпечку). Охлаждённые сосиски: к завтраку, нежные, казанские с молоком, с сыром, из говядины и др. Все халяль, ХАССП, сделано в Татарстане.
+Традиционная конская колбаса татарской кухни. Конкретные фасовки, сроки и цены — только из API, не из памяти.
 
-## Q10: Что такое казылык?
+## Есть ли свинина?
 
-Казылык — это традиционная конская колбаса, деликатес татарской и башкирской кухни. Казанские Деликатесы производят Казылык «Премиум» в подарочной упаковке (200 г, 650 ₽, срок годности 180 суток) и в нарезке в подарочной упаковке (100 г, 450 ₽). Хранение при 0-12°C.
+Нет. Только говядина, конина, мясо птицы (курица, индейка). Без ГМО и трансглютаминазы. Halal № 614A/2024 (ДУМ РТ).
 
-## Q11: Есть ли в составе свинина?
+## Где в рознице в Казани?
 
-Нет. Используется только говядина, конина, мясо птицы (курица, индейка). Продукция не содержит ГМО и трансглютаминазу (мясной клей). Все изделия сертифицированы Halal (свидетельство № 614A/2024, ДУМ РТ).
+EuroSpar, «Бэхетле», АЗС «Татнефть» (сосиски / котлеты; в ряде точек — выпечка), Metro Cash & Carry, полки «Мираторг» (выпечка). Опт — менеджер +7 987 217-02-02.
 
-## Q12: Где купить продукцию в Казани?
+## Минимальный заказ?
 
-Продукция представлена в супермаркетах EuroSpar и «Бэхетле» в Казани, на всех АЗС «Татнефть» (сосиски для хот-догов и котлеты для гамбургеров; в ряде АЗС региона — также татарская выпечка), в Metro Cash & Carry и на полках «Мираторг» (татарская выпечка). Для оптовых закупок обращайтесь к менеджеру: +7 987 217-02-02.
+Обсуждается индивидуально. Опт и Private Label: +7 987 217-02-02 или info@kazandelikates.tatar.
 
-## Q13: Какой минимальный заказ?
+## Где производство?
 
-Минимальная партия обсуждается индивидуально в зависимости от продукта и формата сотрудничества. Для оптовых поставок и Private Label — обратитесь к менеджеру: +7 987 217-02-02 или info@kazandelikates.tatar.
+Татарстан (Казань). ХАССП на каждом этапе.
 
-## Q14: Где производится продукция? Есть ли ХАССП?
+## Private Label / СТМ?
 
-Вся продукция сделана в Татарстане (Казань). Система ХАССП — контроль качества на каждом этапе производства.
+Да. Рецептура и упаковка под бренд клиента. Заявка: info@kazandelikates.tatar (аудитория, направление рецепта, идея упаковки).
 
-## Q15: Можно ли заказать продукцию под своей торговой маркой (Private Label)?
+## Куда возите?
 
-Да, производим под СТМ (Private Label). Гибкая рецептура: пепперони из курицы, говядины или конины — в батонах и в нарезках; сосиски для хот-догов и для сосиски в тесте. ХАССП. Обращайтесь: info@kazandelikates.tatar.
-
-## Q16: В какие регионы вы доставляете?
-
-Доставка по всей России. Регулярные направления: Москва (еженедельно), Татарстан (собственная доставка), Санкт-Петербург, Башкортостан (Уфа), Екатеринбург, Самара, Саратов, Волгоград, Дагестан, Чечня. Экспорт: Казахстан, Узбекистан, Кыргызстан, Беларусь, Армения, Азербайджан.
+Россия (в т.ч. Москва, Татарстан, СПб и другие регулярные направления) и экспорт. Конкретные условия поставки — у менеджера; базис EXW Казань.
 
 ---
+
 # FAQ — Kazan Delicacies (EN)
-# Generated: 2026-06-06
 
-## Q1: What is Kazan Delicacies?
+## What is Kazan Delicacies?
 
-Kazan Delicacies LLC is a manufacturer of halal meat products and traditional Tatar pastries based in Kazan, Republic of Tatarstan. The company produces 77 product items: pepperoni, sausages, ham, smoked meats, burger patties, as well as Tatar pastries — Gubadiya, Echpochmak, samsa, and Chak-chak.
+Kazan Delicacies LLC manufactures halal meat products and traditional Tatar pastries in Kazan, Republic of Tatarstan. Range: pepperoni, sausages, ham, smoked meats, burger patties, Tatar pastries. Live SKUs and prices: https://api.pepperoni.tatar/api/products only.
 
-## Q2: Is all of your production Halal-certified?
+## Is everything Halal-certified?
 
-Yes, all Kazan Delicacies products are Halal-certified. Production is carried out under the supervision of the Halal Standards Committee of DUM RT (Spiritual Administration of Muslims of Tatarstan).
+Yes. Supervised by the Halal Standards Committee of DUM RT. Certificate Halal #614A/2024. Also HACCP, ISO 22000:2018, TR CU 021/2011.
 
-## Q3: Where can I buy Kazan Delicacies products?
+## Where to buy?
 
-For purchasing inquiries contact us: phone +7 (987) 217-02-02, email info@kazandelikates.tatar. Main company website: kazandelikates.tatar. Pepperoni brand: pepperoni.tatar. The current price list is available at api.pepperoni.tatar.
+Wholesale: +7 987 217-02-02, info@kazandelikates.tatar.
+Catalog: https://pepperoni.tatar/en/
+Corporate: https://kazandelikates.tatar
+Price list: https://api.pepperoni.tatar
 
-## Q4: What is the shelf life of your products?
+## Shelf life?
 
-Shelf life depends on the category: frozen products (–18°C) — 180–360 days; refrigerated products (0–6°C) — 30 days; pastries — 60 to 360 days depending on the type. Chak-chak keeps for 60 days at temperatures up to +18°C.
+Per SKU — use shelfLife / storage from the API. Typical: frozen –18°C; chilled 0–6°C; pastry per product card.
 
-## Q5: Do you offer delivery and export?
+## Delivery and export?
 
-Yes, the company ships on EXW Kazan, Russia terms. We export to Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, and Azerbaijan. Prices are available in 7 currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN.
+EXW Kazan, Russia. Export quotes live in API exportPrices. Never quote memorized prices.
 
-## Q6: What is halal pepperoni made from?
+## What is the pepperoni made from?
 
-Halal pepperoni from Kazan Delicacies is cooked-smoked only: chicken (KD-013/KD-014) and horse meat (KD-012). No pork. Halal #614A/2024. Live catalog via products API.
+Cooked-smoked chicken and horse meat. No pork. Current SKUs via getProducts / https://pepperoni.tatar/en/pepperoni
 
-## Q7: What types of Tatar pastries do you produce?
+## Tatar pastries?
 
-We produce traditional Tatar pastries: Gubadiya with kort, Echpochmak with beef and potato, fried peremyach, samsa with chicken and beef, elesh with chicken and potato, and Chak-chak. We also make classic pastries: sochnik with cottage cheese, pies, muffins, croissants, and sausage rolls.
+Gubadiya with kort, echpochmak, peremyach, samsa, elesh, chak-chak, plus classic bakery. Full list: API section bakery.
 
-## Q8: Do you have an API for catalog integration?
+## API?
 
-Yes, we provide a free open API. The /api/products endpoint at api.pepperoni.tatar returns up-to-date data on all 77 products in JSON format, synced with Google Sheets in real time. An OpenAPI specification, a ChatGPT AI plugin, and an llms.txt file for LLM systems are also available.
+Yes. GET https://api.pepperoni.tatar/api/products. OpenAPI: https://api.pepperoni.tatar/openapi.yaml. llms.txt: https://pepperoni.tatar/en/llms.txt
 
-## Q9: What sausage varieties do you produce?
+## Pork?
 
-We produce two types of sausages: frozen grill sausages for hot dogs (7 flavors: beef, two-meat blend, three-pepper with cheese, chicken, with lamb, with herbs, with cheese) and refrigerated sausages (9 varieties: breakfast, tender, Kazan-style with milk, with cheese, beef, premium, juicy, Buinsk-style frankfurters). All sausages are Halal-certified.
+No. Beef, horse meat, poultry only. No GMO, no transglutaminase. Halal #614A/2024 (DUM RT).
 
-## Q10: What is Kazylyk?
+## Private Label?
 
-Kazylyk is a traditional horse meat sausage, a delicacy of Tatar and Bashkir cuisine. Kazan Delicacies produces Kazylyk Premium in gift packaging (200 g, 650 ₽, shelf life 180 days) and sliced in gift packaging (100 g, 450 ₽). Store at 0–12°C.
+Yes. Recipe and packaging under the client's brand. Email info@kazandelikates.tatar with audience, recipe direction, packaging idea.
 
-## Q11: Do your products contain pork?
+## Retail consumers?
 
-No. We use only beef, horse meat, and poultry (chicken, turkey). Our products contain no GMOs and no transglutaminase (meat glue). All products are Halal-certified (certificate #614A/2024, DUM RT).
-
-## Q12: Where can I buy your products in Kazan?
-
-Our products are available at EuroSpar and Bahetle supermarkets in Kazan, at all Tatneft gas stations (hot dog sausages and burger patties; in selected stations in the region — also Tatar pastries), at Metro Cash & Carry, and on the shelves of Miratorg supermarkets (Tatar pastries). For wholesale orders, contact the manager: +7 987 217-02-02.
-
-## Q13: Can I order products under my own brand (Private Label)?
-
-Yes, we manufacture products under the customer's brand (Private Label). Flexible formulation: we can customize the recipe, spice level (mild / medium / spicy), slice sizes, and packaging from 0.5 to 5 kg. HACCP quality system. Contact us: info@kazandelikates.tatar.
-
-## Q14: Which regions do you deliver to?
-
-Delivery across all of Russia. Regular routes: Moscow (weekly), Tatarstan (own delivery), Saint Petersburg, Bashkortostan (Ufa), Yekaterinburg, Samara, Saratov, Volgograd, Dagestan, Chechnya. Export: Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia, Azerbaijan.
-
-## Q15: Can pepperoni be frozen?
-
-Yes. Halal Pepperoni is specially designed to be freezer-friendly and oven-ready — it retains its shape and does not curl when baked. Storage: 90 days at –18°C. After thawing, an unopened package keeps for 120 hours at +4°C.
-
-## Q16: Do you sell to individual consumers?
-
-Not directly from the factory. The company operates B2B (HoReCa, retail, distributors, fuel stations). Individual consumers can purchase products at retail stores and at chain fuel stations in the region.
-
+B2B factory sales. Individuals buy at retail and fuel-station chains in the region.

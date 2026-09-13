@@ -277,6 +277,16 @@ def _maybe_send_test_email(chat_id: int, question: str) -> str | None:
         return None
 
     to = em.group(0)
+    from core.outbound_policy import refuse_live_send
+
+    blocked = refuse_live_send(to)
+    if blocked:
+        return (
+            f"Карантин исходящих: письмо на <code>{to}</code> не уйдёт. "
+            "Живой SMTP на рынок закрыт (SALES_AGENT_ALLOW_LIVE_SEND). "
+            "Черновик — только через очередь аппрува, не из этого чата."
+        )
+
     kb = KnowledgeBase()
     store = Store()
     try:

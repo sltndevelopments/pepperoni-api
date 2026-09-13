@@ -102,6 +102,16 @@ def arbi_chat_ids_from_env() -> list[int]:
     return recipient_ids("MOSCOW_LEAD_ARBI_CHAT_ID")
 
 
+def zaur_chat_ids_from_env() -> list[int]:
+    return recipient_ids("MOSCOW_LEAD_ZAUR_CHAT_ID")
+
+
+def manager_chat_ids_from_env(manager_id: str) -> list[int]:
+    if manager_id == "zaur":
+        return zaur_chat_ids_from_env()
+    return arbi_chat_ids_from_env()
+
+
 def user_allowed(user_id: int | None) -> bool:
     """Если белый список пуст — разрешаем всем (локальная отладка)."""
     if not ALLOWED_USER_IDS:
@@ -152,3 +162,47 @@ def send_to_arbi(
     if sent == 0:
         sent = send_to_work_chat(text, reply_markup=reply_markup)
     return sent
+
+
+def send_to_zaur(
+    text: str,
+    *,
+    reply_markup: dict | None = None,
+    store=None,
+) -> int:
+    ids: list[int] = []
+    if store is not None:
+        raw = store.get_meta("zaur_dm_chat_id")
+        if raw and raw.lstrip("-").isdigit():
+            ids.append(int(raw))
+        mgr = store.get_manager("zaur") if hasattr(store, "get_manager") else None
+        if mgr and str(mgr.get("dm_chat_id") or "").lstrip("-").isdigit():
+            ids.append(int(mgr["dm_chat_id"]))
+    ids.extend(zaur_chat_ids_from_env())
+    seen: set[int] = set()
+    uniq: list[int] = []
+    for i in ids:
+        if i not in seen:
+            seen.add(i)
+            uniq.append(i)
+    sent = 0
+    for chat_id in uniq:
+        if send_message(chat_id, text, reply_markup=reply_markup).get("ok"):
+            sent += 1
+    return sent
+
+
+def send_to_manager(
+    manager_id: str,
+    text: str,
+    *,
+    reply_markup: dict | None = None,
+    store=None,
+) -> int:
+    if manager_id == "zaur":
+        n = send_to_zaur(text, reply_markup=reply_markup, store=store)
+        if n:
+            return n
+        # Zaur ещё не привязан — не отдаём карточку в группу как «общую».
+        return 0
+    return send_to_arbi(text, reply_markup=reply_markup, store=store)

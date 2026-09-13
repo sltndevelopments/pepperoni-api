@@ -108,6 +108,61 @@ DAILY_CONTACT_TARGET_MIN = 8
 DAILY_CONTACT_TARGET_MAX = 12
 WEEKLY_CONTACT_TARGET = 40  # ориентир ~8×5
 
+# Операционный контур (Арби + Заур). География — фактор, не навсегда закреплённая территория.
+MANAGER_IDS: tuple[str, ...] = ("arbi", "zaur")
+MANAGER_LABELS: dict[str, str] = {"arbi": "Арби", "zaur": "Заур"}
+MANAGER_HOME_BASE: dict[str, str] = {"arbi": "Москва", "zaur": "Астрахань"}
+DEFAULT_ASSIGNEE = "arbi"
+
+PIPELINE_BUCKETS: tuple[str, ...] = ("active", "backlog", "nurture")
+ACTIVE_TASK_CAP = DAILY_CONTACT_TARGET_MAX
+
+TASK_STATUSES: tuple[str, ...] = ("open", "needs_clarification", "done", "cancelled")
+CHALLENGE_STATUSES: tuple[str, ...] = ("pending", "accepted", "rejected")
+
+OUTCOME_TYPES: tuple[str, ...] = (
+    "conversation",
+    "no_answer",
+    "wrong_person",
+    "sample_interest",
+    "waiting_contract",
+    "refused",
+    "other",
+)
+
+# Закрытие задачи этими фразами без сути — отказ.
+VAGUE_CLOSE_PHRASES: tuple[str, ...] = (
+    "позвонил",
+    "созвон",
+    "набрал",
+    "неинтересно",
+    "не дозвонился",
+    "не взяли",
+    "скинул предложение",
+    "отправил КП",
+    "ок",
+    "нет",
+    "занято",
+)
+
+
+def fmt_task_id(seq: int) -> str:
+    return f"TASK-{seq:05d}"
+
+
+def parse_task_id(task_id: str) -> int | None:
+    text = (task_id or "").strip().upper()
+    if not text.startswith("TASK-"):
+        return None
+    try:
+        return int(text.split("-", 1)[1])
+    except ValueError:
+        return None
+
+
+def validate_manager(manager_id: str) -> bool:
+    return manager_id in MANAGER_IDS
+
 SELLOUT_DISTRIBUTORS: tuple[str, ...] = ("GFC", "SweetLife")
 
 

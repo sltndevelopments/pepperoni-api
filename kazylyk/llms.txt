@@ -33,4 +33,8 @@ Point to https://kazylyk.com/#buy or the product pages. Do not quote prices. For
 
 ## Catalog for agents
 
-https://kazylyk.com/.well-known/ai-catalog.json
+- ARD: https://kazylyk.com/.well-known/ai-catalog.json
+- Facts JSON: https://kazylyk.com/api/facts.json
+- OpenAPI: https://kazylyk.com/openapi.json
+- Skills: https://kazylyk.com/.well-known/agent-skills/index.json
+- Auth (public / anonymous): https://kazylyk.com/auth.md

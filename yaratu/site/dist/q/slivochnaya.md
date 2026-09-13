@@ -1,4 +1,4 @@
-# Колбаса варёная «Сливочная» / Slivochnaya cooked sausage / Пешерелгән «Сливочная» колбаса
+# Колбаса варёная «Сливочная» / Slivochnaya cooked sausage / Пешкән «Сливочная» колбасасы
 
 https://yaratu.com/q/slivochnaya
 

@@ -58,11 +58,16 @@ const bool = (row, name) => {
 
 const current = await loadData();
 const previous = Object.fromEntries(current.products.products.map((product) => [product.id, product]));
+const hasTatarReviewGate = headers.includes("tt_review_status");
+if (!hasTatarReviewGate) {
+  console.log("Sheet has no tt_review_status column; preserving the checked-in, linguistically reviewed Tatar copy.");
+}
 const localized = (row, field, id) => {
   const ru = value(row, `${field}_ru`);
   const en = value(row, `${field}_en`);
   const fromSheet = headers.includes(`${field}_tt`) ? value(row, `${field}_tt`) : "";
-  const tt = fromSheet || previous[id]?.[field]?.tt || "";
+  const tatarReviewed = hasTatarReviewGate && value(row, "tt_review_status") === "fully-reviewed";
+  const tt = tatarReviewed ? fromSheet : previous[id]?.[field]?.tt || "";
   if (!ru || !en || !tt) throw new Error(`${id}.${field} must have ru, en and tt`);
   return {ru, en, tt};
 };
@@ -80,6 +85,9 @@ const next = {
     if (row.some((cell) => cell.trim().toUpperCase() === "REQUIRED")) throw new Error(`${id || "row"}: unresolved REQUIRED value`);
     if (!bool(row, "publish")) throw new Error(`${id}: publish=false fails closed; export only fully reviewed rows`);
     if (value(row, "review_status") !== "fully-reviewed") throw new Error(`${id}: review_status must be fully-reviewed`);
+    if (hasTatarReviewGate && value(row, "tt_review_status") !== "fully-reviewed") {
+      throw new Error(`${id}: tt_review_status must be fully-reviewed`);
+    }
     if (value(row, "nutrition_status") !== "calculated") throw new Error(`${id}: nutrition_status must be calculated`);
     if (value(row, "composition_status") !== "recipe-sourced") throw new Error(`${id}: composition_status must be recipe-sourced`);
     if (value(row, "evidence_status") !== "internal-reviewed") throw new Error(`${id}: evidence_status must be internal-reviewed`);

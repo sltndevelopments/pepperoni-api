@@ -14,9 +14,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
+from command import apply_report, build_exceptions, build_my_day  # noqa: E402
 from digest import build_weekly_digest  # noqa: E402
 from ingest import ingest_text  # noqa: E402
-from model import DISTRIBUTORS  # noqa: E402
+from model import DISTRIBUTORS, MANAGER_IDS  # noqa: E402
 from store import Store  # noqa: E402
 
 
@@ -78,6 +79,45 @@ def cmd_digest(args: argparse.Namespace) -> None:
     print(build_weekly_digest(Store(args.db)))
 
 
+def cmd_day(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    print(build_my_day(store, args.manager))
+
+
+def cmd_exceptions(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    print(build_exceptions(store))
+
+
+def cmd_assign(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    lead = store.assign_lead(args.lead_id, args.manager, actor="cli")
+    print(json.dumps(lead, ensure_ascii=False, indent=2))
+
+
+def cmd_report(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    print(json.dumps(apply_report(store, args.task_id, args.text, actor="cli"), ensure_ascii=False, indent=2, default=str))
+
+
+def cmd_resolve_challenge(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    ch = store.resolve_challenge(args.id, args.status, note=args.note, actor="cli")
+    print(json.dumps(ch, ensure_ascii=False, indent=2, default=str))
+
+
+def cmd_backfill(args: argparse.Namespace) -> None:
+    store = Store(args.db)
+    store.init()
+    n = store.backfill_opening_tasks(limit=args.limit, actor="cli")
+    print(json.dumps({"opening_tasks_created": n}, ensure_ascii=False))
+
+
 def main() -> None:
     p = argparse.ArgumentParser(prog="moscow-leads")
     p.add_argument("--db", default=None)
@@ -104,6 +144,33 @@ def main() -> None:
 
     d = sub.add_parser("digest")
     d.set_defaults(func=cmd_digest)
+
+    day = sub.add_parser("day")
+    day.add_argument("--manager", choices=MANAGER_IDS, default="arbi")
+    day.set_defaults(func=cmd_day)
+
+    ex = sub.add_parser("exceptions")
+    ex.set_defaults(func=cmd_exceptions)
+
+    asg = sub.add_parser("assign")
+    asg.add_argument("lead_id")
+    asg.add_argument("manager", choices=MANAGER_IDS)
+    asg.set_defaults(func=cmd_assign)
+
+    rep = sub.add_parser("report")
+    rep.add_argument("task_id")
+    rep.add_argument("text")
+    rep.set_defaults(func=cmd_report)
+
+    rc = sub.add_parser("resolve-challenge")
+    rc.add_argument("id", type=int)
+    rc.add_argument("status", choices=("accepted", "rejected"))
+    rc.add_argument("--note", default="")
+    rc.set_defaults(func=cmd_resolve_challenge)
+
+    bf = sub.add_parser("backfill-tasks")
+    bf.add_argument("--limit", type=int, default=40)
+    bf.set_defaults(func=cmd_backfill)
 
     args = p.parse_args()
     args.func(args)

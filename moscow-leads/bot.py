@@ -14,7 +14,8 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from ingest import ingest_text  # noqa: E402
+from command import apply_report, build_exceptions, build_my_day, format_task_card  # noqa: E402
+from ingest import ingest_text, should_skip_ingest  # noqa: E402
 from keyboards import (  # noqa: E402
     contact_points_keyboard,
     contact_result_keyboard,
@@ -31,11 +32,15 @@ from model import (  # noqa: E402
     CONTACT_RESULT_LABELS,
     CONTACT_TYPE_LABELS,
     DISTRIBUTORS,
+    MANAGER_IDS,
+    MANAGER_LABELS,
     POINT_SEGMENTS,
     PRIMARY_ACTIONS,
     SELLOUT_DISTRIBUTORS,
     format_actor,
     parse_lead_id,
+    parse_task_id,
+    validate_manager,
 )
 from store import Store  # noqa: E402
 from tg import (  # noqa: E402
@@ -44,27 +49,108 @@ from tg import (  # noqa: E402
     api,
     edit_message,
     recipient_ids,
+    arbi_chat_ids_from_env,
     send_message,
-    send_to_arbi,
+    send_to_manager,
     send_to_work_chat,
     user_allowed,
     work_chat_ids,
+    zaur_chat_ids_from_env,
 )
 
 POLL_TIMEOUT = 50
+DRAFT_TTL_SEC = 30 * 60
+
+
+def _clear_user_drafts(store: Store, uid) -> None:
+    if uid is None:
+        return
+    store.set_meta(f"sellout_draft:{uid}", "")
+    store.set_meta(f"contact_draft:{uid}", "")
+
+
+def _draft_payload(data: dict) -> str:
+    data = dict(data)
+    data["_at"] = __import__("time").time()
+    return json.dumps(data, ensure_ascii=False)
+
+
+def _load_draft(store: Store, key: str) -> dict | None:
+    raw = store.get_meta(key) or ""
+    if not raw:
+        return None
+    try:
+        draft = json.loads(raw)
+    except json.JSONDecodeError:
+        store.set_meta(key, "")
+        return None
+    if not isinstance(draft, dict) or not draft:
+        return None
+    at = draft.get("_at")
+    if at:
+        try:
+            if __import__("time").time() - float(at) > DRAFT_TTL_SEC:
+                store.set_meta(key, "")
+                return None
+        except (TypeError, ValueError):
+            pass
+    return draft
 
 
 def owner_chats() -> list[int]:
     return recipient_ids("MOSCOW_LEAD_OWNER_CHAT_ID") or recipient_ids("TELEGRAM_CHAT_ID")
 
 
+def _is_owner(chat_id) -> bool:
+    try:
+        return int(chat_id) in owner_chats()
+    except (TypeError, ValueError):
+        return False
+
+
+def _report_actor(store: Store, from_user: dict, chat_id) -> tuple[str | None, bool]:
+    mgr = _resolve_manager(store, from_user, chat_id)
+    return (mgr["id"] if mgr else None, _is_owner(chat_id))
+
+
+def _send_report_result(chat_id, store: Store, result: dict) -> None:
+    if not result.get("accepted"):
+        qs = result.get("questions") or [result.get("error") or "не принято"]
+        send_message(chat_id, "Задачу не закрыл.\n" + "\n".join(f"· {q}" for q in qs))
+        return
+    nxt = result["next_task"]
+    send_message(chat_id, "Отчёт принят. Следующий шаг:\n" + format_task_card(store, nxt))
+
+
 def notify_lead_card(store: Store, lead: dict) -> int:
-    """Карточки — в личку Арби (после /start), не в группу."""
-    return send_to_arbi(
+    """Карточка — назначенному менеджеру (по умолчанию Арби)."""
+    who = lead.get("assignee") or "arbi"
+    return send_to_manager(
+        who,
         format_card(lead),
         reply_markup=main_keyboard(lead["seq"]),
         store=store,
     )
+
+
+def _resolve_manager(store: Store, from_user: dict, chat_id) -> dict | None:
+    uid = from_user.get("id")
+    return store.manager_by_telegram(uid) or store.manager_by_chat(chat_id)
+
+
+def _bind_manager_on_start(store: Store, chat_id, uid) -> str | None:
+    """Не перезаписывать личку Арби, если пишет Заур."""
+    if chat_id in zaur_chat_ids_from_env():
+        store.bind_manager("zaur", telegram_user_id=str(uid), dm_chat_id=str(chat_id))
+        return "zaur"
+    if chat_id in arbi_chat_ids_from_env():
+        store.bind_manager("arbi", telegram_user_id=str(uid), dm_chat_id=str(chat_id))
+        return "arbi"
+    existing = store.manager_by_telegram(uid) or store.manager_by_chat(chat_id)
+    if existing:
+        store.bind_manager(existing["id"], telegram_user_id=str(uid), dm_chat_id=str(chat_id))
+        return existing["id"]
+    return None
 
 
 def _actor_from_cb(cb: dict) -> str:
@@ -165,6 +251,14 @@ def handle_callback(store: Store, cb: dict) -> None:
             lead = store.set_status(lead_id, PRIMARY_ACTIONS[action], actor=actor)
             edit_message(chat_id, message_id, format_card(lead), reply_markup=main_keyboard(seq))
             answer_callback(cq_id, STATUS_OK.get(action, "ок"))
+            if action == "contacted":
+                task = store.open_task_for_lead(lead_id)
+                if task:
+                    send_message(
+                        chat_id,
+                        f"Статус «связался» записан. Чтобы закрыть задачу, нужен отчёт:\n"
+                        f"/report {task['id']} кто / роль / что узнали / что дальше",
+                    )
             return
         answer_callback(cq_id, "действие не поддержано")
     except Exception as e:
@@ -210,7 +304,7 @@ def handle_contact_callback(
         uid = (cb.get("from") or {}).get("id")
         store.set_meta(
             f"contact_draft:{uid}",
-            json.dumps({"step": "name", "segment": seg}, ensure_ascii=False),
+            _draft_payload({"step": "name", "segment": seg}),
         )
         edit_message(
             chat_id, message_id,
@@ -306,7 +400,7 @@ def handle_sellout_callback(
         uid = (cb.get("from") or {}).get("id")
         store.set_meta(
             f"sellout_draft:{uid}",
-            json.dumps({"step": "month", "distributor": dist}, ensure_ascii=False),
+            _draft_payload({"step": "month", "distributor": dist}),
         )
         edit_message(
             chat_id, message_id,
@@ -325,12 +419,8 @@ def _handle_drafts(store: Store, msg: dict, text: str, chat_id: int, actor: str)
         return False
 
     # --- sellout draft ---
-    raw_so = store.get_meta(f"sellout_draft:{uid}") or ""
-    if raw_so:
-        try:
-            draft = json.loads(raw_so)
-        except json.JSONDecodeError:
-            draft = {}
+    draft = _load_draft(store, f"sellout_draft:{uid}")
+    if draft:
         step = draft.get("step")
         if step == "month":
             month = text.strip()
@@ -339,7 +429,7 @@ def _handle_drafts(store: Store, msg: dict, text: str, chat_id: int, actor: str)
                 return True
             draft["month"] = month
             draft["step"] = "kg"
-            store.set_meta(f"sellout_draft:{uid}", json.dumps(draft, ensure_ascii=False))
+            store.set_meta(f"sellout_draft:{uid}", _draft_payload(draft))
             send_message(chat_id, f"{draft['distributor']} · {month}\nСколько кг sell-out?")
             return True
         if step == "kg":
@@ -350,7 +440,7 @@ def _handle_drafts(store: Store, msg: dict, text: str, chat_id: int, actor: str)
                 return True
             draft["kg"] = kg
             draft["step"] = "points"
-            store.set_meta(f"sellout_draft:{uid}", json.dumps(draft, ensure_ascii=False))
+            store.set_meta(f"sellout_draft:{uid}", _draft_payload(draft))
             send_message(chat_id, "Сколько уникальных точек в отчёте дистрибьютора?")
             return True
         if step == "points":
@@ -376,12 +466,8 @@ def _handle_drafts(store: Store, msg: dict, text: str, chat_id: int, actor: str)
             return True
 
     # --- contact new point draft ---
-    raw_c = store.get_meta(f"contact_draft:{uid}") or ""
-    if raw_c:
-        try:
-            draft = json.loads(raw_c)
-        except json.JSONDecodeError:
-            draft = {}
+    draft = _load_draft(store, f"contact_draft:{uid}")
+    if draft:
         if draft.get("step") == "name":
             parts = [p.strip() for p in text.split("|")]
             name = parts[0] if parts else text.strip()
@@ -418,28 +504,52 @@ def handle_message(store: Store, msg: dict) -> None:
     actor = format_actor(from_user)
     uid = from_user.get("id")
 
-    # Автозаведение из карточки ассистента — в любом чате.
-    created = ingest_text(text, store=store, actor=actor)
-    if created:
-        notify_lead_card(store, created)
-        if chat_id not in work_chat_ids():
-            send_message(chat_id, f"Создан {created['id']} · статус new")
+    if text.startswith("/cancel"):
+        _clear_user_drafts(store, uid)
+        send_message(chat_id, "Черновик сброшен.")
         return
+
+    if text.startswith("/"):
+        _clear_user_drafts(store, uid)
+
+    # Карточки входящих — только если это не команда и не отчёт менеджера.
+    if not should_skip_ingest(text):
+        created = ingest_text(text, store=store, actor=actor)
+        if created:
+            notify_lead_card(store, created)
+            if chat_id not in work_chat_ids():
+                send_message(chat_id, f"Создан {created['id']} · статус new")
+            return
 
     if _handle_drafts(store, msg, text, chat_id, actor):
         return
 
     if text.startswith("/start"):
-        # Регистрируем личку Арби для карточек.
+        bound = None
         if chat_type == "private" and uid is not None:
             if user_allowed(uid) or not ALLOWED_USER_IDS:
-                store.set_meta("arbi_dm_chat_id", str(chat_id))
+                bound = _bind_manager_on_start(store, chat_id, uid)
+        who = MANAGER_LABELS.get(bound or "", "")
+        extra = (
+            f"Вы привязаны как {who}.\n"
+            if who
+            else "Напишите /iam arbi или /iam zaur — личку Арби больше не перезаписываем вслепую.\n"
+        )
         send_message(
             chat_id,
-            "Контур Москва — территориальный менеджер.\n"
-            "Карточки и напоминания приходят сюда (в личку).\n"
+            "Полевой контур — Арби и Заур.\n"
+            "Карточки и My Day приходят в личку.\n"
             "В группе — только пятничный дайджест.\n\n"
+            f"{extra}\n"
             "Команды:\n"
+            "/day — план на сегодня\n"
+            "/cancel — сбросить черновик /contact или /sellout\n"
+            "/report TASK-00001 текст — результат живым языком\n"
+            "/challenge LEAD-00001 почему задача неверная\n"
+            "/exceptions — исключения (только владелец)\n"
+            "/challenge-ok ID / /challenge-no ID — решение владельца\n"
+            "/iam arbi|zaur — привязать эту личку\n"
+            "/assign LEAD-00001 zaur — сменить менеджера (владелец)\n"
             "/leads — активные лиды\n"
             "/contact — отметить контакт (точка)\n"
             "/sellout — ввод отчёта дистрибьютора\n"
@@ -454,8 +564,149 @@ def handle_message(store: Store, msg: dict) -> None:
             send_message(chat_id, "Нет прав на команды контура.")
         return
 
+    if text.startswith("/iam"):
+        parts = text.split()
+        mid = (parts[1] if len(parts) > 1 else "").strip().lower()
+        if not validate_manager(mid):
+            send_message(chat_id, "Напишите /iam arbi или /iam zaur")
+            return
+        if uid is None:
+            return
+        store.bind_manager(mid, telegram_user_id=str(uid), dm_chat_id=str(chat_id))
+        send_message(chat_id, f"Личка привязана к {MANAGER_LABELS[mid]}. Карточки этого менеджера пойдут сюда.")
+        return
+
+    if text.startswith("/day"):
+        mgr = _resolve_manager(store, from_user, chat_id)
+        if not mgr:
+            send_message(chat_id, "Сначала /iam arbi или /iam zaur")
+            return
+        send_message(chat_id, build_my_day(store, mgr["id"]))
+        return
+
+    if text.startswith("/exceptions"):
+        if not _is_owner(chat_id):
+            send_message(chat_id, "Исключения — только владельцу. Менеджерам: /day и /challenge.")
+            return
+        send_message(chat_id, build_exceptions(store))
+        return
+
+    if text.startswith("/challenge-ok") or text.startswith("/challenge-no"):
+        if not _is_owner(chat_id):
+            send_message(chat_id, "Решение по challenge — только владелец.")
+            return
+        accepted = text.startswith("/challenge-ok")
+        rest = text.split(None, 1)[1] if " " in text else ""
+        bits = rest.split(None, 1)
+        raw_id = (bits[0] if bits else "").lstrip("#")
+        if not raw_id.isdigit():
+            send_message(chat_id, "Формат: /challenge-ok 12 аргумент  или  /challenge-no 12 аргумент")
+            return
+        note = bits[1] if len(bits) > 1 else ""
+        try:
+            ch = store.resolve_challenge(int(raw_id), "accepted" if accepted else "rejected", note=note, actor=actor)
+        except KeyError:
+            send_message(chat_id, f"Challenge #{raw_id} не найден.")
+            return
+        except ValueError:
+            send_message(chat_id, "Нельзя решить уже закрытый или неизвестный статус.")
+            return
+        label = "принят" if accepted else "отклонён"
+        send_message(chat_id, f"Challenge #{ch['id']} {label}.")
+        mgr_id = ch.get("manager_id") or ""
+        if mgr_id:
+            send_to_manager(
+                mgr_id,
+                f"Challenge #{ch['id']} {label}" + (f": {note}" if note else ""),
+                store=store,
+            )
+        return
+
+    if text.startswith("/assign"):
+        if not _is_owner(chat_id):
+            send_message(chat_id, "Назначение — только владелец. Оспорить приоритет: /challenge LEAD-…")
+            return
+        parts = text.split()
+        if len(parts) < 3 or not parse_lead_id(parts[1].upper()) or not validate_manager(parts[2].lower()):
+            send_message(chat_id, "Формат: /assign LEAD-00001 zaur")
+            return
+        lead_id = parts[1].upper()
+        new_mgr = parts[2].lower()
+        before = store.get(lead_id) or {}
+        old_mgr = before.get("assignee") or ""
+        lead = store.assign_lead(lead_id, new_mgr, actor=actor)
+        send_message(
+            chat_id,
+            f"{lead['id']} → {MANAGER_LABELS.get(lead['assignee'], lead['assignee'])}",
+        )
+        if old_mgr and old_mgr != new_mgr:
+            send_to_manager(
+                old_mgr,
+                f"{lead_id} снят с вас → {MANAGER_LABELS.get(new_mgr, new_mgr)}",
+                store=store,
+            )
+        send_to_manager(
+            new_mgr,
+            f"{lead_id} назначен вам. Карточка в /day.",
+            store=store,
+        )
+        return
+
+    if text.startswith("/challenge"):
+        mgr = _resolve_manager(store, from_user, chat_id)
+        if not mgr:
+            send_message(chat_id, "Сначала /iam arbi или /iam zaur")
+            return
+        rest = text.split(None, 1)[1] if " " in text else ""
+        tokens = rest.split(None, 1)
+        lead_id = ""
+        task_id = ""
+        argument = rest
+        if tokens:
+            head = tokens[0].upper()
+            if parse_lead_id(head):
+                lead_id = head
+                argument = tokens[1] if len(tokens) > 1 else ""
+            elif parse_task_id(head):
+                task_id = head
+                argument = tokens[1] if len(tokens) > 1 else ""
+                t = store.get_task(task_id)
+                if t:
+                    lead_id = t["lead_id"]
+        if len(argument.strip()) < 8:
+            send_message(chat_id, "Напишите аргумент: /challenge LEAD-00001 эта сеть не приоритет, потому что …")
+            return
+        ch = store.create_challenge(
+            manager_id=mgr["id"], argument=argument.strip(),
+            lead_id=lead_id, task_id=task_id, actor=actor,
+        )
+        send_message(chat_id, f"Challenge #{ch['id']} принят в очередь владельца. Решение — в /exceptions.")
+        return
+
+    if text.startswith("/report"):
+        rest = text.split(None, 1)[1] if " " in text else ""
+        bits = rest.split(None, 1)
+        if len(bits) < 2 or not parse_task_id(bits[0].upper()):
+            send_message(chat_id, "Формат: /report TASK-00001 поговорил с Маратом, закупщик, …")
+            return
+        mid, as_owner = _report_actor(store, from_user, chat_id)
+        if not mid and not as_owner:
+            send_message(chat_id, "Сначала /iam arbi или /iam zaur")
+            return
+        result = apply_report(
+            store, bits[0].upper(), bits[1],
+            actor=actor, actor_manager_id=mid, as_owner=as_owner,
+        )
+        _send_report_result(chat_id, store, result)
+        return
+
     if text.startswith("/leads"):
-        active = store.list_leads(active_only=True, limit=20)
+        mgr = _resolve_manager(store, from_user, chat_id)
+        active = store.list_leads(
+            active_only=True,
+            assignee=mgr["id"] if mgr else None,
+            limit=20,
+        )
         if not active:
             send_message(chat_id, "Активных лидов нет.")
             return
@@ -498,6 +749,20 @@ def handle_message(store: Store, msg: dict) -> None:
         )
         return
 
+    if text.upper().startswith("TASK-") and " " in text:
+        head, body = text.split(None, 1)
+        if parse_task_id(head.upper()):
+            mid, as_owner = _report_actor(store, from_user, chat_id)
+            if not mid and not as_owner:
+                send_message(chat_id, "Сначала /iam arbi или /iam zaur")
+                return
+            result = apply_report(
+                store, head.upper(), body,
+                actor=actor, actor_manager_id=mid, as_owner=as_owner,
+            )
+            _send_report_result(chat_id, store, result)
+            return
+
     # Опциональная заметка: LEAD-00042 заметка текст
     if text.upper().startswith("LEAD-") and " " in text:
         lead_id = text.split()[0].upper()
@@ -507,10 +772,7 @@ def handle_message(store: Store, msg: dict) -> None:
                 note = note.split(None, 1)[1] if " " in note else ""
             lead = store.get(lead_id)
             if lead and note:
-                store.set_status(
-                    lead_id, lead["status"], actor=actor,
-                    note=note[:500], next_step=lead.get("next_step"),
-                )
+                store.append_note(lead_id, note[:500], actor=actor)
                 send_message(chat_id, f"Заметка к {lead_id} сохранена.")
                 return
 

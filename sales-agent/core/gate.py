@@ -224,6 +224,13 @@ class Gate:
             self.store.audit("gate", "would_send", "draft", draft_id, record)
             return record
 
+        from core.outbound_policy import live_send_allowed
+
+        if not live_send_allowed():
+            record["error"] = "outbound_quarantine"
+            self.store.audit("gate", "quarantine_block", "draft", draft_id, record)
+            return {"ok": False, **record}
+
         channel = draft.get("channel", "")
         if channel == "email":
             from datetime import datetime, timezone

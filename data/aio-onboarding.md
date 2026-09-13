@@ -1,18 +1,24 @@
-# AIO onboarding — Perplexity + OpenAI ACP (2026-07-15)
+# AIO onboarding — discovery feeds (обновлено 2026-08-27)
 
-Операционный чеклист после аудита docs (Anthropic / OpenAI / Google UCP / Grok / Copilot / Perplexity / DeepSeek).
+Каналы без корзины и без US checkout. Instant Checkout / UCP Buy / Copilot Checkout / x402 — не включать.
+
+Тексты заявок: `data/aio-application-pack.md`.
 
 ## Уже в проде
 
-| Ресурс | URL |
+| Ресурс | URL / статус |
 |---|---|
 | GMC XML (RU) | https://pepperoni.tatar/products-feed.xml |
 | OpenAI Commerce snapshot | https://pepperoni.tatar/openai-commerce-kazan-delicacies.tsv.gz |
-| MCP | https://api.pepperoni.tatar/api/mcp |
+| MCP (VPS, local catalog) | https://api.pepperoni.tatar/api/mcp |
+| Catalog JSON | https://api.pepperoni.tatar/api/products (`X-Data-Source: vps-local`) |
 | UCP discovery (no checkout) | https://pepperoni.tatar/.well-known/ucp |
-| Merchant Center | 513449343 |
+| Google Merchant Center | 513449343 |
+| GTIN / barcode | **59/64 (92.2%)**. Нет штрихкода: KD-012, KD-014, KD-015, KD-016, KD-018 |
+| Perplexity Typeform | подана 2026-08-27, ждать `taz@perplexity.ai` |
+| OpenAI SFTP env | **нет** `/var/www/pepperoni/openai-commerce.env` |
 
-`sync-vps.sh` каждые 10 мин: `gen-products-feed.py` → `upload-openai-feed-sftp.sh`.
+`sync-vps.sh` каждые 10 мин: `gen-products-feed.py` → `upload-openai-feed-sftp.sh` (без env — no-op).
 
 ---
 
@@ -44,12 +50,12 @@ https://www.perplexity.ai/hub/legal/merchant-program-terms-of-service
 
 | Метрика | Сейчас | Типичный порог программы |
 |---|---|---|
-| SKU | ~70 | ≥100 (часто) |
-| GTIN coverage | ~23% (16/70) | ≥80% |
+| SKU | 64 | ≥100 (часто) |
+| GTIN coverage | **59/64 (92.2%)** | ≥80% |
 | US ship-to | нет (EXW Kazan) | программа для продавцов в US |
 
-Подать можно; одобрение могут задержать из‑за GTIN/SKU и отсутствия US shipping.  
-Следующий продуктовый шаг: добить реальные GTIN/EAN в Google Sheets (колонка **Barcode** / «Штрихкод»; в `products.json` → поле `barcode` → в фидах `gtin`). Сейчас ~23% (16/70). Не выдумывать коды — только с упаковки / GS1. После заполнения: cron `sync-vps.sh` сам прогонит `sync-sheets.mjs` → `gen-products-feed.py` (или вручную те же скрипты).
+Форма подана 2026-08-27 (B2B / EXW Kazan / no US checkout). Одобрение всё равно могут отказать из‑за модели EXW.  
+Пять пустых штрихкодов добить в Sheets (колонка **Barcode** / «Штрихкод»): KD-012, KD-014, KD-015, KD-016, KD-018. Не выдумывать — только с упаковки / GS1. После заполнения cron `sync-vps.sh` сам прогонит sync → `gen-products-feed.py`.
 
 ### После одобрения
 
@@ -112,8 +118,27 @@ Instant Checkout / Apps SDK — не цель (B2B EXW). Цель: discovery в 
 
 ---
 
+## 4) Microsoft Merchant Center / Bing (только фид)
+
+Не Copilot Checkout. Тот же XML, что для Google.
+
+1. Войти в [Microsoft Advertising](https://ui.ads.microsoft.com) → Tools → Merchant Center → Create store.
+2. Верифицировать домен `pepperoni.tatar`.
+3. Feed: scheduled fetch `https://pepperoni.tatar/products-feed.xml` **или** Import from Google Merchant Center `513449343`.
+4. Страна/валюта: Russia / RUB. Не включать checkout.
+
+Без аккаунта Microsoft Advertising агент завести магазин не может.
+
+## 5) Claude custom connector
+
+URL уже публичный: `https://api.pepperoni.tatar/api/mcp` (без OAuth).  
+Каталог коннекторов: https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp  
+Покупатель на Pro может вставить URL сам. В каталог — заявка человека.
+
 ## Порядок действий владельца (коротко)
 
-1. [ ] Заполнить Typeform Perplexity Merchants: https://perplexity.typeform.com/to/oIcfT8U3 (feed XML — в follow-up).
-2. [ ] Заполнить форму OpenAI: https://chatgpt.com/merchants (гайд: https://developers.openai.com/commerce/guides/get-started); после одобрения — SFTP env на VPS.
-3. [ ] Добить GTIN в Sheets (колонка Barcode) → sync поднимет покрытие в фидах.
+1. [x] Perplexity Typeform — подана 2026-08-27. Ждать письмо на info@kazandelikates.tatar.
+2. [ ] OpenAI https://chatgpt.com/merchants — форма заполнена в браузере (feed only), **не отправлена**: в списке стран нет России. Не подставлять чужую страну. После одобрения — `/var/www/pepperoni/openai-commerce.env` (chmod 600).
+3. [ ] Microsoft Merchant Center — тот же `products-feed.xml` (см. §4).
+4. [ ] Реальные GTIN для KD-012, KD-014, KD-015, KD-016, KD-018 в Sheets.
+5. [ ] OpenAI Plugins Directory / Claude connector catalog — когда откроют форму; privacy https://pepperoni.tatar/privacy.html ; тесты в application pack.

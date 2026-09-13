@@ -127,7 +127,7 @@ class MoscowLeadsTest(unittest.TestCase):
                 "status_changed_at=?, updated_at=? WHERE id=?",
                 (old, old, lead["id"]),
             )
-        with patch("scheduler.send_to_arbi", return_value=1) as to_arbi, patch(
+        with patch("scheduler.send_to_manager", return_value=1) as to_mgr, patch(
             "scheduler._broadcast", return_value=1
         ) as broadcast:
             r1 = check_72h_distributor(self.store)
@@ -140,7 +140,7 @@ class MoscowLeadsTest(unittest.TestCase):
             )
             r3 = check_72h_distributor(self.store)
             self.assertEqual(r3["owner_alerts"], 1)
-        self.assertEqual(to_arbi.call_count, 1)
+        self.assertEqual(to_mgr.call_count, 1)
         self.assertGreaterEqual(broadcast.call_count, 1)
 
     def test_digest_contains_akb_sections(self) -> None:

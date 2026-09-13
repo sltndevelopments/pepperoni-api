@@ -6,6 +6,7 @@ from model import (
     CONTACT_TYPE_LABELS,
     DISTRIBUTORS,
     LOST_REASONS,
+    MANAGER_LABELS,
     POINT_SEGMENTS,
     SELLOUT_DISTRIBUTORS,
     STATUS_LABELS,
@@ -156,6 +157,8 @@ def format_card(lead: dict) -> str:
         lines.append(
             f"Контакт: {lead.get('contact') or '—'} · {lead.get('phone') or '—'}"
         )
+    if lead.get("assignee"):
+        lines.append(f"Менеджер: {MANAGER_LABELS.get(lead['assignee'], lead['assignee'])}")
     if lead.get("distributor"):
         lines.append(f"Дистрибьютор: {lead['distributor']}")
     if lead.get("next_step"):

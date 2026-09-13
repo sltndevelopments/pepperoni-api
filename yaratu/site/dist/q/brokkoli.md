@@ -1,4 +1,4 @@
-# Сосиски с брокколи / Sausages with broccoli / Брокколилы сосискалар
+# Сосиски с брокколи / Sausages with broccoli / Брокколи кушылган сосискалар
 
 https://yaratu.com/q/brokkoli
 
