@@ -208,7 +208,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="pepperoni.tatar">

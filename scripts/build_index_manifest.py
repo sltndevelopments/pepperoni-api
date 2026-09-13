@@ -57,6 +57,7 @@ RU_PAGES = [
     _page("vetchina-optom.html", "halal ham wholesale", "sales", "Google Sheets"),
     _page("vyipechka-halyal.html", "halal bakery wholesale", "sales", "Google Sheets"),
     _page("kontraktnoe-proizvodstvo.html", "private-label manufacturing", "sales", "evidence registry"),
+    _page("jerky.html", "halal jerky and snack-sausage private label", "sales", "owner-approved STM landing"),
     _page("dlya-horeca.html", "assortment for HoReCa", "sales", "Google Sheets"),
     _page("dlya-azs.html", "assortment for petrol stations", "sales", "Google Sheets"),
     _page("dlya-setey.html", "assortment for retail chains", "sales", "Google Sheets"),
@@ -112,6 +113,7 @@ EN_PAGES = [
     _page("en/vetchina-optom.html", "halal ham wholesale", "sales", "Google Sheets"),
     _page("en/vyipechka-halyal.html", "halal bakery wholesale", "sales", "Google Sheets"),
     _page("en/private-label.html", "private-label manufacturing", "sales", "evidence registry"),
+    _page("en/jerky.html", "halal jerky and snack-sausage private label", "sales", "owner-approved STM landing"),
     _page("en/dlya-horeca.html", "assortment for HoReCa", "sales", "Google Sheets"),
     _page("en/dlya-azs.html", "assortment for petrol stations", "sales", "Google Sheets"),
     _page("en/dlya-setey.html", "assortment for retail chains", "sales", "Google Sheets"),
@@ -179,7 +181,7 @@ def kind_for(rel: str) -> str:
         return "export-country"
     if rel.startswith(("blog/", "en/blog/")):
         return "guide"
-    if rel.endswith("products/index.html"):
+    if rel.endswith("products/index.html") or rel in {"jerky.html", "en/jerky.html"}:
         return "catalog"
     if rel in {"index.html", "en/index.html"}:
         return "home"

@@ -183,6 +183,14 @@
 
 ## Log
 
+- **2026-09-13 /jerky вернуть в индекс — DONE, push follows.**
+  - Allowlist: `jerky.html` + `en/jerky.html` keep (catalog), 241/250.
+  - Сняты 410 `/jerky` и `/en/jerky` из `url_consolidation_map` и `trust-reset-gone.conf`.
+  - Алиасы `/jerks`, `/dzherki`, `/en/jerks` → 301 на канон (`jerky-redirects.conf`).
+  - Визуал: колбаски-снеки + узкий флоупак с овальным окном, без чужого бренда.
+  - Гейты: `qa_pages` 2/0 FAIL, `index_policy` OK, authority OK, measurement OK.
+  - Blockers: live 200 и nudge — после деплоя GHA.
+
 - **2026-09-13 Halal 884A + WhatsApp + EN-спринт шаг 2 — DONE, в `origin/main`.**
   - Commits: `4c0605865` (страницы/канон), `b8f573891` (Log). VPS `/var/www/pepperoni/repo` HEAD = `b8f573891` = `origin/main`.
   - 884A реален (реестр ДУМ РТ, https://halalrt.ru/c/4hDESSiMNsDK3Jt/ ): кондитерские, хлебобулочные, макаронные, готовые блюда; 27.12.2025–26.12.2026. Канон: `public/brand.txt` (614A мясо + 884A выпечка; 976A/1002 — только номера, область не выдумывать). Возвращён на capabilities RU/EN, china, СТМ, llms.txt. Live: `grep -c 884A public/en/capabilities.html` = 6; `public/capabilities.html` = 4.

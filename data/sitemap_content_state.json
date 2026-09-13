@@ -75,7 +75,7 @@
       "lastmod": "2026-09-11"
     },
     "capabilities.html": {
-      "sha256": "88c4d3fafc1fea03ac8ac381aaf8e1995a6d00b1e3aa1120a1ce55c1e7ce0367",
+      "sha256": "60723760c73771fdd4989bd477315f8917c792c07a89a7549148ce1f7c58e91c",
       "lastmod": "2026-09-13"
     },
     "cases.html": {
@@ -119,7 +119,7 @@
       "lastmod": "2026-09-13"
     },
     "en/about.html": {
-      "sha256": "43ebf1dfe47b3aadcf87c9562510caac6402a9cb877772eebec0eee787897f87",
+      "sha256": "c31a13fa224b0d165c386f452a02412fb8884a5efece92c16ba624b5d9d38c62",
       "lastmod": "2026-09-13"
     },
     "en/blog.html": {
@@ -167,7 +167,7 @@
       "lastmod": "2026-08-31"
     },
     "en/capabilities.html": {
-      "sha256": "b536627a9f2e15319c46d6673416eb4352364dd5e90837d5869fa16efeb819aa",
+      "sha256": "fa252186221ff54d6e0dcf61dc2150cb171b7c6bb9ddbc0f816792c025ef7c3e",
       "lastmod": "2026-09-13"
     },
     "en/cases.html": {
@@ -207,7 +207,7 @@
       "lastmod": "2026-08-27"
     },
     "en/export.html": {
-      "sha256": "cb62db60ebe9b19b142534a45e526fea5146722d4e0a488c94b8fbc422219aba",
+      "sha256": "9897129d00bc1713d4dd000d65415107dc3ab4c21d1f7032b4fe774cd7eef98b",
       "lastmod": "2026-09-13"
     },
     "en/export/armenia.html": {
@@ -278,9 +278,13 @@
       "sha256": "b3002494cc107206a63f4d25a7bda20af842b14b003ea67a73c7d8186d42b05a",
       "lastmod": "2026-09-09"
     },
+    "en/jerky.html": {
+      "sha256": "783ca46bcca617221d7c5287119d55983c3a7f5dc1f7790b17425fddc36f10ea",
+      "lastmod": "2026-09-13"
+    },
     "en/kazylyk.html": {
-      "sha256": "31c190cc1376910cc574586dce1dfe7e261e658403f9be3a5b18b26788e7fd5f",
-      "lastmod": "2026-09-09"
+      "sha256": "55c169905a1e6b8b4d6be08c9bec2cf2a44a3ae7326b6b92cf3044512da7aa05",
+      "lastmod": "2026-09-13"
     },
     "en/kolbasy-kopchyonye.html": {
       "sha256": "63b9ee6a0743f0bedaa0bcd704769c315928d61effc5a1f378705375837b0126",
@@ -295,7 +299,7 @@
       "lastmod": "2026-09-13"
     },
     "en/pepperoni.html": {
-      "sha256": "6736111823213ed97caad77391a2cd8c0cd731a7bf506b3feaf0f0f716a3f45d",
+      "sha256": "9080fc8835bfc63c7f91af0099250cbd304d068555fc67fc6630f51856391977",
       "lastmod": "2026-09-13"
     },
     "en/pepperoni-dlya-pizzerii.html": {
@@ -311,7 +315,7 @@
       "lastmod": "2026-09-09"
     },
     "en/private-label.html": {
-      "sha256": "797eb4004a9ba22a8ef6afb634bf1e99f48b594316cc028e3e66450a44bb7c11",
+      "sha256": "9cb0a8578ed2108fa36eb03e0ab2b45d734e62ce3bb8a0da43b32e184252c584",
       "lastmod": "2026-09-13"
     },
     "en/products/index.html": {
@@ -571,7 +575,7 @@
       "lastmod": "2026-09-13"
     },
     "en/sosiski-dlya-hotdog.html": {
-      "sha256": "3c211a9407b3c17426321f758cdc0554e74ee2e84c8a5bb9acaafe576cf5105e",
+      "sha256": "4c162c5ef7c817ccb35296428681b91785746059f79673fddd4a8f068dbf2b0a",
       "lastmod": "2026-09-13"
     },
     "en/vetchina-optom.html": {
@@ -654,28 +658,32 @@
       "sha256": "bc77a23f2047db08101db3adc3e030f27225b74df1c596d4d0ad872235471639",
       "lastmod": "2026-09-09"
     },
+    "jerky.html": {
+      "sha256": "229058f2f5323e0ab76314f04955e543f16476307d70b4c4d0ec9e127bfd1d9d",
+      "lastmod": "2026-09-13"
+    },
     "kazylyk.html": {
-      "sha256": "b481214984fd2dbbdb3d3facca4c9138e9f41058a0a7d35efdb692c27e73f9b7",
-      "lastmod": "2026-09-11"
+      "sha256": "1d11779127faaed4c4a2a31ee847b7598cbe60d9df143e6068b076a9191740eb",
+      "lastmod": "2026-09-13"
     },
     "kolbasy-kopchyonye.html": {
-      "sha256": "f081ff629e75566d55ae53a75a69392fc7e42b93d9854135f02ec3ecb25f8239",
+      "sha256": "c5f66ee4fe4237e74177b129a32e8934a481a2836eade51a5b1b1b108e0e4263",
       "lastmod": "2026-09-13"
     },
     "kolbasy-varenye.html": {
-      "sha256": "0c01a2c2c91e64ed5f1715865944f36c4626e758cfd39fb407f8175d4b8f992c",
+      "sha256": "5be47a9e86beb78d15a87d09602ff12bbca706e89a673ae06c4a77602eb8d958",
       "lastmod": "2026-09-13"
     },
     "kontraktnoe-proizvodstvo.html": {
-      "sha256": "a27f6b2e5b7431c3ca36ac6a7bf8c294a97cd1fbda991ec5fd95ae01411a3e43",
+      "sha256": "c6ea82116c2613d349936db39687ec85bca6126da4d4a580349db3a5f9d48df5",
       "lastmod": "2026-09-13"
     },
     "kotlety-dlya-burgerov.html": {
-      "sha256": "d86d3536e945adc4a3d81e2d714d33bdbcd6eeee843a0e2caa59eb77347feace",
+      "sha256": "e9b7d18ac24663dddcee2da185b58ecbdef6fb295e28ccd9649477c449c5279f",
       "lastmod": "2026-09-13"
     },
     "pepperoni.html": {
-      "sha256": "9a9c308a75d553d553a648bb83922f9464060fd8579d8a1aaa235dd93e7ca69e",
+      "sha256": "80381731d7f2ab1ff5601f6f8e5b0f0c15964c6309f0a5b0b107d685af7a702c",
       "lastmod": "2026-09-13"
     },
     "pepperoni-dlya-pizzerii.html": {
@@ -947,15 +955,15 @@
       "lastmod": "2026-09-13"
     },
     "sosiski-dlya-hotdog.html": {
-      "sha256": "756f61cb286f915e16caf1c7e40439bf9d3face80c2e64694acb1d6300d791c6",
+      "sha256": "9c49ad4a1f2f26e754a862977bb58857b022b73f53912d75d81c1f3ac64d7d6d",
       "lastmod": "2026-09-13"
     },
     "vetchina-optom.html": {
-      "sha256": "1585eace176f289d3cc396b00df6c9f936c34ca0f7fa3606b88534e73058892a",
+      "sha256": "95190827549628f184edba4d062ea9a2fdb5660699b31858e2bfd80a87d8dc58",
       "lastmod": "2026-09-13"
     },
     "vyipechka-halyal.html": {
-      "sha256": "ab28ec8368267796f8769067ea2fb0c3935eca4e6f735ec44837a6fc15e1dc7a",
+      "sha256": "12fed206c17af937c0703b161410ea3d7e94e789ef0d902194e1cf5208867464",
       "lastmod": "2026-09-13"
     }
   }

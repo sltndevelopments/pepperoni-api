@@ -15,8 +15,8 @@
     ]
   },
   "counts": {
-    "301": 406,
-    "410": 1067,
+    "301": 408,
+    "410": 1063,
     "noindex": 20
   },
   "verification_files_excluded": [
@@ -7116,9 +7116,9 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/jerky",
+      "status": "301",
+      "reason": "alias of owner-approved STM jerky landing",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -9238,19 +9238,6 @@
       "canonical_target": "/en/investors",
       "status": "noindex",
       "reason": "useful non-organic/legal page",
-      "clicks_28d": 0.0,
-      "impressions_28d": 0.0
-    },
-    {
-      "url": "/en/jerky",
-      "file": "en/jerky.html",
-      "intent": "legacy URL retirement",
-      "language": "en",
-      "owner": "seo",
-      "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -12602,22 +12589,9 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
-      "clicks_28d": 0.0,
-      "impressions_28d": 0.0
-    },
-    {
-      "url": "/jerky",
-      "file": "jerky.html",
-      "intent": "legacy URL retirement",
-      "language": "ru",
-      "owner": "seo",
-      "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/jerky",
+      "status": "301",
+      "reason": "alias of owner-approved STM jerky landing",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },

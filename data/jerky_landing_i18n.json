@@ -46,7 +46,7 @@
 "tag": "OEM / СТМ",
 "badge_moq": "по договорённости",
 "badge_pack": "флоупак · дойпак · вакуум",
-"img_alt": "Визуализация говяжьих джерки: сушёные полоски мяса"
+"img_alt": "Халяль колбаски-снеки: сушёные мясные палочки"
 },
 "trust": {
 "h2": "Ключевые условия",
@@ -61,11 +61,11 @@
 },
 "about": {
 "h2": "Джерки под вашей маркой: от рецептуры до короба",
-"lead": "Выпускаем сушёные мясные снеки в формате полосок, чипсов и палочек. Подбираем сырьё, вкус, геометрию и упаковку под канал продаж; согласованные параметры закрепляем в спецификации.",
+"lead": "Выпускаем сушёные мясные снеки: колбаски-снеки в порционном флоупаке, полоски и чипсы. Подбираем сырьё, вкус, геометрию и упаковку под канал продаж; согласованные параметры закрепляем в спецификации.",
 "specs_h3": "Что входит в проект",
 "specs": [
 ["Сырьё", "Халяль говядина, курица, индейка, баранина, конина"],
-["Формат снека", "Полоски (strips), мясные чипсы, мясные палочки"],
+["Формат снека", "Колбаски-снеки, полоски (strips), мясные чипсы"],
 ["Упаковка", "Флоупак, дойпак, вакуум, МГС/MAP, гофрокороб"],
 ["Маркировка", "Ваш дизайн, язык рынка, знак «Халяль», ЕАС"],
 ["Пилот / серия", "по договорённости, зависит от логистики → 2–5 т/мес на позицию"],
@@ -94,7 +94,7 @@
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Индейка",
-"text": "Нейтральный профиль позволяет строить отдельную линейку с травами, перцем или мягким копчением."
+"text": "Колбаски-снеки из индейки: нейтральный профиль, травы, перец или мягкое копчение."
 },
 {
 "img": "/images/jerky/jerky-lamb.jpg",
@@ -110,7 +110,7 @@
 },
 "forms": {
 "h2": "Форматы джерков и мясных снеков",
-"lead": "Геометрию выбираем под канал продаж: полоски в дойпаке для полки, палочки во флоупаке для кассы, чипсы для снековой линейки.",
+"lead": "Геометрию выбираем под канал продаж: колбаска-снек в узком флоупаке у кассы, полоски в дойпаке на полке, чипсы для снековой линейки.",
 "items": [
 {
 "icon": "🥩",
@@ -119,8 +119,8 @@
 },
 {
 "icon": "🥨",
-"title": "Мясные палочки",
-"text": "Снек-стик под флоупак: АЗС, касса, спортивная полка. Диаметр и длина — в ТУ."
+"title": "Колбаски-снеки",
+"text": "Одна сушёная колбаска в узком флоупаке с окном. Формат кассы и АЗС; диаметр, длина и вес пачки — в спецификации."
 },
 {
 "icon": "🍘",
@@ -141,7 +141,7 @@
 {
 "img": "/images/jerky/jerky-flowpack.jpg",
 "title": "Флоупак",
-"text": "Подушка для палочек и порционных полосок. Касса, АЗС, импульсная полка. Плёнка и окно — по макету."
+"text": "Узкая подушка с овальным окном под одну колбаску-снек. Матовая плёнка, запайка сверху и снизу; макет — ваш."
 },
 {
 "img": "/images/jerky/jerky-doypack.jpg",
@@ -361,7 +361,7 @@
 "tag": "OEM / private label",
 "badge_moq": "agreed per contract",
 "badge_pack": "flowpack · doypack · vacuum",
-"img_alt": "Visualisation of beef jerky strips"
+"img_alt": "Halal snack sausages: dried meat sticks"
 },
 "trust": {
 "h2": "Key terms",
@@ -376,15 +376,15 @@
 },
 "about": {
 "h2": "Jerky under your brand: recipe to shipping case",
-"lead": "We manufacture dried meat snacks as strips, chips and sticks. Meat, taste, geometry and packaging are selected for the sales channel and fixed in the approved specification.",
+"lead": "We manufacture dried meat snacks: snack sausages in a slim flowpack, strips and chips. Meat, taste, geometry and packaging are selected for the sales channel and fixed in the approved specification.",
 "specs_h3": "What the project includes",
 "specs": [
 ["Raw material", "Halal beef, chicken, turkey, lamb, horse"],
-["Snack format", "Strips, meat chips, meat sticks"],
+["Snack format", "Snack sausages, strips, meat chips"],
 ["Packing", "Flowpack, doypack, vacuum, MAP, corrugated case"],
 ["Marking", "Your artwork, market language, Halal mark, EAC"],
 ["Pilot / serial", "agreed per contract, depends on logistics → 2–5 t/month per item"],
-["Lead time", "Sample in 7–14 days · brief to shipment 4–8 weeks"],
+["Sample / launch", "Sample in 7–14 days · brief to shipment 4–8 weeks"],
 ["Basis", "EXW Kazan; other terms by contract"],
 ["Model", "White label, private label, OEM or joint development"]
 ],
@@ -409,7 +409,7 @@
 {
 "img": "/images/jerky/jerky-poultry.jpg",
 "title": "Turkey",
-"text": "A neutral profile for a separate line with herbs, pepper or gentle smoke."
+"text": "Turkey snack sausages: a neutral profile with herbs, pepper or gentle smoke."
 },
 {
 "img": "/images/jerky/jerky-lamb.jpg",
@@ -425,7 +425,7 @@
 },
 "forms": {
 "h2": "Jerky and meat-snack formats",
-"lead": "Geometry follows the sales channel: strips in a doypack for the shelf, sticks in flowpack at the till, or chips for a snack range.",
+"lead": "Geometry follows the sales channel: a snack sausage in a slim flowpack at the till, strips in a doypack on the shelf, or chips for a snack range.",
 "items": [
 {
 "icon": "🥩",
@@ -434,8 +434,8 @@
 },
 {
 "icon": "🥨",
-"title": "Meat sticks",
-"text": "A snack stick for flowpack: petrol stations, checkout, sports. Diameter and length sit in the spec."
+"title": "Snack sausages",
+"text": "One dried sausage in a slim flowpack with a window. Checkout and petrol format; diameter, length and fill weight sit in the spec."
 },
 {
 "icon": "🍘",
@@ -456,7 +456,7 @@
 {
 "img": "/images/jerky/jerky-flowpack.jpg",
 "title": "Flowpack",
-"text": "A pillow bag for sticks and portioned strips. Checkout, petrol, impulse. Film and window follow the artwork."
+"text": "A slim pillow bag with an oval window for one snack sausage. Matte film, top and bottom crimp; artwork is yours."
 },
 {
 "img": "/images/jerky/jerky-doypack.jpg",
@@ -487,7 +487,7 @@
 ]
 },
 "terms": {
-"h3": "Lead time, MOQ, settlement",
+"h3": "Volume, sample, settlement",
 "lead": "Final terms depend on the recipe, packaging, volume and logistics.",
 "rows": [
 ["Pilot", "agreed per contract, depends on logistics"],

@@ -71,6 +71,7 @@ def llms_map_ru() -> str:
 ## Коммерческие страницы
 
 - [Пепперони халяль оптом (money hub)](https://pepperoni.tatar/pepperoni): форматы, цены, экспорт.
+- [Джерки и колбаски-снеки под СТМ](https://pepperoni.tatar/jerky): говядина, птица, баранина, конина; флоупак.
 - [Сосиски для хот-догов](https://pepperoni.tatar/sosiski-dlya-hotdog): линейка для АЗС и street food, паллетный базис, форма заявки.
 - [Казылык](https://pepperoni.tatar/kazylyk): конская колбаса, подарочная упаковка и нарезка.
 - [Контрактное производство / СТМ](https://pepperoni.tatar/kontraktnoe-proizvodstvo): от 5 тонн, документы, этапы.
@@ -116,6 +117,7 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 ## Commercial pages
 
 - [Halal pepperoni wholesale (money hub)](https://pepperoni.tatar/en/pepperoni): formats, prices, export.
+- [Jerky and snack sausages, private label](https://pepperoni.tatar/en/jerky): beef, poultry, lamb, horse; flowpack.
 - [Hot-dog sausages](https://pepperoni.tatar/en/sosiski-dlya-hotdog): fuel-station and street-food line, pallet basis, enquiry form.
 - [Kazylyk](https://pepperoni.tatar/en/kazylyk): horse-meat sausage, gift box and sliced.
 - [Private label / contract manufacturing](https://pepperoni.tatar/en/private-label): from 5 tonnes, documents, stages.

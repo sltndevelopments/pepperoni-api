@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-13T14:14:16.653324+00:00",
+  "generated_at": "2026-09-13T14:48:36.451794+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,8 +15,8 @@
     ]
   },
   "counts": {
-    "keep": 239,
-    "retired": 1493,
+    "keep": 241,
+    "retired": 1491,
     "all": 1732
   },
   "entries": [
@@ -778,6 +778,17 @@
       "canonical_target": "/en/halal",
       "status": "keep",
       "kind": "hub"
+    },
+    {
+      "url": "/en/jerky",
+      "file": "en/jerky.html",
+      "intent": "halal jerky and snack-sausage private label",
+      "language": "en",
+      "owner": "sales",
+      "source": "owner-approved STM landing",
+      "canonical_target": "/en/jerky",
+      "status": "keep",
+      "kind": "catalog"
     },
     {
       "url": "/en/kazylyk",
@@ -1812,6 +1823,17 @@
       "canonical_target": "/halal",
       "status": "keep",
       "kind": "hub"
+    },
+    {
+      "url": "/jerky",
+      "file": "jerky.html",
+      "intent": "halal jerky and snack-sausage private label",
+      "language": "ru",
+      "owner": "sales",
+      "source": "owner-approved STM landing",
+      "canonical_target": "/jerky",
+      "status": "keep",
+      "kind": "catalog"
     },
     {
       "url": "/kazylyk",
@@ -9767,9 +9789,9 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/jerky",
+      "status": "301",
+      "reason": "alias of owner-approved STM jerky landing",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -12474,19 +12496,6 @@
       "canonical_target": "/en/investors",
       "status": "noindex",
       "reason": "useful non-organic/legal page",
-      "clicks_28d": 0.0,
-      "impressions_28d": 0.0
-    },
-    {
-      "url": "/en/jerky",
-      "file": "en/jerky.html",
-      "intent": "legacy URL retirement",
-      "language": "en",
-      "owner": "seo",
-      "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -18425,22 +18434,9 @@
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
-      "clicks_28d": 0.0,
-      "impressions_28d": 0.0
-    },
-    {
-      "url": "/jerky",
-      "file": "jerky.html",
-      "intent": "legacy URL retirement",
-      "language": "ru",
-      "owner": "seo",
-      "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/jerky",
+      "status": "301",
+      "reason": "alias of owner-approved STM jerky landing",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
