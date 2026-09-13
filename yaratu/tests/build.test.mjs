@@ -100,7 +100,7 @@ test("visible units and decimal separators follow locale", async () => {
   assert.match(en, /150 g/);
   assert.match(en, /Protein 16\.7 g/);
   assert.match(tt, /150 г/);
-  assert.match(tt, /Аксымнар ≥ 16,7 г/);
+  assert.match(tt, /Аксым ≥ 16,7 г/);
   assert.match(tt, /Туклану кыйммәте/);
 });
 
@@ -137,7 +137,7 @@ test("static Nutrition Facts labels are visible on home and product pages", asyn
   assert.doesNotMatch(homeRu, /Халяль подтверждён/);
   assert.match(homeRu, /Пищевая ценность[\s\S]*% от суточной нормы/);
   assert.match(homeEn, /Nutrition Facts[\s\S]*% Daily Value/);
-  assert.match(homeTt, /Туклану кыйммәте[\s\S]*тәүлек нормасыннан/);
+  assert.match(homeTt, /Туклану кыйммәте[\s\S]*Тәүлеклек нормадан өлеш/);
   assert.doesNotMatch(homeRu, /Транс-жиры 0|Холестерин 0|Волокна 0/);
 
   for (const path of ["products/vetchina/index.html", "en/products/vetchina/index.html", "tt/products/vetchina/index.html"]) {
@@ -177,9 +177,9 @@ test("EN and TT homepages use the same editorial design as the RU home", async (
   assert.match(homeEn, /NO SODIUM NITRITE · HALAL SAM RT · INGREDIENTS DISCLOSED ·/);
   assert.doesNotMatch(homeEn, /Пять продуктов|Показать этикетку|Скрыть этикетку|Поговорим|мелкого шрифта/);
   assert.match(homeTt, /<h1 class="hero__title"[^>]*>Ярату<\/h1>/);
-  assert.match(homeTt, /Тавык һәм сыер итеннән биш продукт/);
+  assert.match(homeTt, /Тавык һәм сыер итеннән ясалган биш продукт/);
   assert.match(homeTt, /Этикетканы күрсәтү/);
-  assert.match(homeTt, /НАТРИЙ НИТРИТЫСЫЗ · ХӘЛӘЛ ДУМ РТ · СОСТАВ АЧЫК ·/);
+  assert.match(homeTt, /НАТРИЙ НИТРИТЫСЫЗ · ХӘЛӘЛ ДУМ РТ · СОСТАВЫ АЧЫК ·/);
   assert.doesNotMatch(homeTt, /Показать этикетку|Поговорим|мелкого шрифта|Каждая партия/);
 });
 
@@ -359,11 +359,11 @@ test("Sheets template matches strict sync contract", async () => {
   const header = rows[0];
   assert.equal(rows.length, 6);
   for (const row of rows) assert.equal(row.length, header.length);
-  for (const field of ["publish", "review_status", "nutrition_status", "composition_status", "evidence_status", "evidence_refs", "name_tt", "ingredients_tt", "allergens_tt"]) {
+  for (const field of ["publish", "review_status", "tt_review_status", "nutrition_status", "composition_status", "evidence_status", "evidence_refs", "name_tt", "ingredients_tt", "allergens_tt"]) {
     assert.ok(header.includes(field), `missing ${field}`);
   }
   assert.equal((csv.match(/^"(vetchina|mramornaya|brokkoli|molochnye|slivochnaya)",/gm) || []).length, 5);
-  assert.equal((csv.match(/"true","fully-reviewed","calculated","recipe-sourced","internal-reviewed"/g) || []).length, 5);
+  assert.equal((csv.match(/"true","fully-reviewed","fully-reviewed","calculated","recipe-sourced","internal-reviewed"/g) || []).length, 5);
   assert.match(csv, /"mramornaya"[\s\S]*?"verified","true","fully-reviewed"/);
   assert.match(csv, /"mramornaya"[\s\S]*?"recipe-current;halal-614a-2024"/);
   const sync = await readFile(join(root, "scripts/sync_sheets.mjs"), "utf8");
