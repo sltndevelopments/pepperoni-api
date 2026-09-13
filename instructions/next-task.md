@@ -183,6 +183,14 @@
 
 ## Log
 
+- **2026-09-13 Halal 884A + WhatsApp + EN-спринт шаг 2 — DONE, commit `4c0605865` (push следует).**
+  - 884A реален (реестр ДУМ РТ, https://halalrt.ru/c/4hDESSiMNsDK3Jt/ ): кондитерские, хлебобулочные, макаронные, готовые блюда; 27.12.2025–26.12.2026. Канон: `public/brand.txt` (614A мясо + 884A выпечка; 976A/1002 — только номера, область не выдумывать). Возвращён на capabilities RU/EN, china, СТМ, llms.txt. `grep -c 884 public/brand.txt` = 2; `public/en/capabilities.html` = 6.
+  - WhatsApp: владелец — везде `79872170202`. `grep -c 79274297220 public --glob '*.html'` = 0. Ilkhat `/en/investors` `79274019210` не трогали.
+  - EN-спринт: `/en/sosiski-dlya-hotdog` (title manufacturer, ItemList EN names, WA), `/en/kazylyk` (KD-044/045, 650/450 ₽, 180/30 сут, нитрит в составе), `/en/capabilities`, `/en/about` (62 SKU, 2022/2023, 884A), `/en/export` (СНГ vs Залив = подготовка).
+  - 3.3/3.4 не трогали. Ads `/{kk,uz,az,hy,ka,ky,tg}/pepperoni` — EN-строки оставлены, noindex.
+  - Гейты: fix_pages 261/0, qa_pages 261/0 FAIL, index_policy OK, product_claims 0 FAIL, stm_min_run 0, wholesale_moq 0, hreflang 0, fact_consistency 0.
+  - Blockers: перевод 7 Ads-локалей; 3.3/3.4 ждут технолога; Yandex sitemap 429 до 30.09.
+
 - **2026-09-13 Канон компании + коммерческие страницы (EN-спринт, шаг 1) — DONE, в `origin/main`.**
   - Commits: `d37ac36a8` (brand.txt: юрлицо 2022 / производство с 2023; Ближний Восток = подготовка), `c6fcb6246` (СТМ RU/EN по брифу, `/en/pepperoni` под «halal pepperoni manufacturer»). VPS `/var/www/pepperoni/repo` HEAD = `c6fcb6246`.
   - Год: `grep -c 'Производим в Казани с 2022' public/index.html` = 0; главная RU/EN, faq-ai, llms-full (`sync-sheets.py/.mjs`), 2 блога → «юрлицо 2022, производство с 2023».
