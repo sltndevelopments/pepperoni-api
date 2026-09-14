@@ -1200,8 +1200,8 @@
   }
  },
  "2026-09": {
-  "usd": 4.97338,
-  "usd_baseline": 4.924091,
+  "usd": 5.307331,
+  "usd_baseline": 5.258042,
   "days": {
    "2026-09-01": {
     "calls": 54,
@@ -1312,24 +1312,33 @@
     "usd_baseline": 0.401325
    },
    "2026-09-13": {
-    "calls": 16,
-    "in": 17105,
-    "out": 10611,
+    "calls": 53,
+    "in": 29859,
+    "out": 26120,
     "cache_w": 15538,
     "cache_r": 0,
-    "usd": 0.388389,
-    "usd_baseline": 0.368966
+    "usd": 0.639396,
+    "usd_baseline": 0.619973
+   },
+   "2026-09-14": {
+    "calls": 12,
+    "in": 3648,
+    "out": 4800,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.082944,
+    "usd_baseline": 0.082944
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 542,
-    "in": 164776,
-    "out": 215261,
+    "calls": 590,
+    "in": 179368,
+    "out": 233943,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 3.723243,
-    "usd_baseline": 3.723243
+    "usd": 4.047249,
+    "usd_baseline": 4.047249
    },
    "seo_brain": {
     "calls": 9,
@@ -1341,13 +1350,13 @@
     "usd_baseline": 0.604846
    },
    "send_report": {
-    "calls": 10,
-    "in": 17968,
-    "out": 14809,
+    "calls": 11,
+    "in": 19778,
+    "out": 16436,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.092013,
-    "usd_baseline": 0.092013
+    "usd": 0.101958,
+    "usd_baseline": 0.101958
    },
    "escalate_brain": {
     "calls": 7,
@@ -1370,13 +1379,13 @@
   },
   "models": {
    "claude-sonnet-5": {
-    "calls": 545,
-    "in": 174485,
-    "out": 216926,
+    "calls": 593,
+    "in": 189077,
+    "out": 235608,
     "cache_w": 1931,
     "cache_r": 3862,
-    "usd": 3.785744,
-    "usd_baseline": 3.794724
+    "usd": 4.10975,
+    "usd_baseline": 4.11873
    },
    "claude-opus-5": {
     "calls": 3,
@@ -1397,13 +1406,13 @@
     "usd_baseline": 0.210884
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 10,
-    "in": 17968,
-    "out": 14809,
+    "calls": 11,
+    "in": 19778,
+    "out": 16436,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.092013,
-    "usd_baseline": 0.092013
+    "usd": 0.101958,
+    "usd_baseline": 0.101958
    }
   }
  }
