@@ -9256,11 +9256,11 @@
     "before_title": "Пепперони халяль — опт от производителя | pepperoni.tatar",
     "before_desc": "Пепперони из говядины собственного производства. Сертификаты ДУМ РТ и ХАССП. Слайсерная и блочная нарезка для пиццерий и HoReCa. Запросите прайс и условия поставки.",
     "after_title": "Пепперони из какого мяса — из говядины, халяль | pepperoni.tatar",
-    "verdict": "pending",
-    "measured_at": null,
-    "after_pos": null,
-    "after_ctr": null,
-    "after_impr": null,
+    "verdict": "win",
+    "measured_at": "2026-09-15T05:36:00.309431+00:00",
+    "after_pos": 4.89,
+    "after_ctr": 0.0,
+    "after_impr": 45,
     "operator_experiment_id": "exp-20260825053204-4"
   },
   {
@@ -9322,5 +9322,15 @@
     "before_pos": 50.0,
     "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
     "before_desc": "Fillet Smoked Sausage. Smoked Meats. Weight: 0.54 kg; storage: 0-6 ˚C. Current catalog price: $3.60."
+  },
+  {
+    "applied_at": "2026-09-14T11:30:06.499982+00:00",
+    "change_type": "strengthen_failing",
+    "page": "https://pepperoni.tatar/en/products/kd-040",
+    "file_path": "public/en/products/kd-040.html",
+    "query": "chicken ham halal",
+    "before_pos": 50.0,
+    "before_title": "Fillet Smoked Sausage — Kazan Delicacies | Halal",
+    "before_desc": "Fillet Smoked Sausage. Smoked Meats. Weight: 0.54 kg; storage: 0-6 ˚C. Current catalog price: $3.59."
   }
 ]
