@@ -236,9 +236,29 @@ def check_crash_loop() -> dict:
     }
 
 
+def check_disk_space() -> dict:
+    try:
+        st = os.statvfs("/")
+        total = st.f_blocks * st.f_frsize
+        avail = st.f_bavail * st.f_frsize
+        used = total - avail
+        pct = (used / total) * 100 if total else 0
+        avail_gb = avail / (1024 ** 3)
+        ok = pct < 88.0 and avail_gb >= 3.0
+        return {
+            "ok": ok,
+            "pct_used": round(pct, 1),
+            "avail_gb": round(avail_gb, 2),
+            "error": None if ok else f"Диск / заполнен на {pct:.1f}% (свободно {avail_gb:.2f} ГБ)",
+        }
+    except Exception as e:
+        return {"ok": True, "note": str(e)}
+
+
 def run_checks() -> dict:
     return {
         "ts": datetime.now(timezone.utc).isoformat(),
+        "disk": check_disk_space(),
         "service": check_service(),
         "deepseek": check_deepseek_key(),
         "crash_loop": check_crash_loop(),
@@ -254,12 +274,18 @@ def build_report(result: dict) -> str:
     vpm2, vh = result["voice_pm2"], result["voice_health"]
     vhb = result.get("voice_heartbeat") or {"ok": True}
     vmute = result.get("voice_mute") or {"ok": True}
+    disk = result.get("disk") or {"ok": True}
     all_ok = (
         svc["ok"] and ds["ok"] and cl["ok"] and vpm2["ok"]
-        and vh["ok"] and vhb["ok"] and vmute["ok"]
+        and vh["ok"] and vhb["ok"] and vmute["ok"] and disk["ok"]
     )
 
     lines = ["<b>🤖 KazanDel AI — здоровье лидогена (чат + звонки)</b>"]
+
+    if disk["ok"]:
+        lines.append(f"✅ Диск VPS в норме (занято {disk.get('pct_used','?')}% / свободно {disk.get('avail_gb','?')} ГБ)")
+    else:
+        lines.append(f"🔴 <b>{disk.get('error','Диск VPS переполнен!')}</b> — критично, сервис упадёт при 100%!")
 
     if svc["ok"]:
         lines.append("✅ Чат-бот активен (kazandel.service)")
@@ -319,6 +345,29 @@ def send_to_telegram(text: str) -> None:
         sent = tn.notify(text)
     except Exception as e:
         print(f"⏭ telegram_notify failed: {e}", file=sys.stderr)
+
+    # Also send directly to the Leads Telegram group via KazanDel_Bot token
+    try:
+        op_env = Path("/opt/kazandel-ai-operator/.env")
+        if op_env.exists():
+            content = op_env.read_text()
+            token_m = re.search(r"TELEGRAM_BOT_TOKEN=([^\n]+)", content)
+            chat_m = re.search(r"TELEGRAM_CHAT_ID=([^\n]+)", content)
+            if token_m and chat_m:
+                token = token_m.group(1).strip()
+                chat_id = chat_m.group(1).strip()
+                data = urllib.parse.urlencode({
+                    "chat_id": chat_id,
+                    "text": text[:4000],
+                    "parse_mode": "HTML",
+                    "disable_web_page_preview": "true",
+                }).encode()
+                req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=data)
+                with urllib.request.urlopen(req, timeout=12) as resp:
+                    print("📤 sent alert to Leads Telegram group (КД ИИ Ассистент)")
+    except Exception as e:
+        print(f"⏭ leads group alert error: {e}", file=sys.stderr)
+
     if sent:
         return
     try:
@@ -346,16 +395,22 @@ def main():
         print(f"⚠️ snapshot write failed: {e}", file=sys.stderr)
 
     report, all_ok = build_report(result)
-    if "--raw-report" in args:
-        print(report)
-    else:
-        print(report.replace("<b>", "").replace("</b>", "").replace("<i>", "").replace("</i>", ""))
+    try:
+        if "--raw-report" in args:
+            print(report)
+        else:
+            print(report.replace("<b>", "").replace("</b>", "").replace("<i>", "").replace("</i>", ""))
+    except Exception:
+        pass
 
     if "--no-telegram" not in args:
         if not all_ok or "--always" in args:
             send_to_telegram(report)
         else:
-            print("✅ all checks passed — telegram alert skipped (use --always to force)")
+            try:
+                print("✅ all checks passed — telegram alert skipped (use --always to force)")
+            except Exception:
+                pass
 
     return 0 if all_ok else 1
 
