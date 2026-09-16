@@ -58,6 +58,8 @@ FORBIDDEN = [
      "остаток ответа LLM в странице"),
     (re.compile(r"var\(\u2014"), "CSS var(—x) вместо var(--x) — герой без фона"),
     (re.compile(r":root\{\u2014"), "CSS :root —vars сломаны em-dash"),
+    (re.compile(r"\.is-playing\.video-player__"),
+     "CSS: is-playing без descendant-пробела — видео скрыто"),
 ]
 
 PHONE_RE = re.compile(r"(?:\+7|%2B7|tel:\+?7)[\s\-‑–()]*(\d[\s\-‑–()]*){10}")

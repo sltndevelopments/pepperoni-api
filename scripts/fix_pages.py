@@ -56,6 +56,16 @@ KOSHER_RE = re.compile(r"кошерно для мусульман", re.I)
 # white hero on white page (pepperoni.tatar homepage 2026-08-19).
 CSS_VAR_EMDASH_RE = re.compile(r"(?<=[{;(])\u2014(?=[A-Za-z])")
 BEM_EMDASH_RE = re.compile(r"(?<=[A-Za-z0-9])\u2014(?=[A-Za-z])")
+# Naive CSS minify ate descendant combinators (space before `.class`).
+# `.video-player.is-playing.video-player__video` never matches — video stays
+# display:none after click (pepperoni.tatar homepage 2026-09-16).
+CSS_DESCENDANT_REPAIRS = (
+    (".is-playing.video-player__", ".is-playing .video-player__"),
+    (":hover.video-player__icon", ":hover .video-player__icon"),
+    (".product-card--featured.product-name", ".product-card--featured .product-name"),
+    (".product-card--featured.product-sku", ".product-card--featured .product-sku"),
+    (".badges__item.dot", ".badges__item .dot"),
+)
 UNSUPPORTED_COMMERCIAL_COPY = {
     "Минимум 20 кг, доставка 2–5 дней по России.": (
         "Минимальный заказ, наличие и логистика подтверждаются для выбранных SKU."
@@ -130,6 +140,11 @@ def fix_html(html: str) -> tuple[str, list[str]]:
     html = sub(KOSHER_RE, "халяль для мусульман", "kosher-copy", html)
     html = sub(CSS_VAR_EMDASH_RE, "--", "css-emdash-var", html)
     html = sub(BEM_EMDASH_RE, "--", "css-emdash-bem", html)
+    for broken, fixed in CSS_DESCENDANT_REPAIRS:
+        if broken in html:
+            count = html.count(broken)
+            html = html.replace(broken, fixed)
+            fixes.append(f"css-descendant ×{count}")
     for unsupported, evidence_safe in UNSUPPORTED_COMMERCIAL_COPY.items():
         if unsupported in html:
             count = html.count(unsupported)
