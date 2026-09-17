@@ -22,8 +22,10 @@ Checks (fail-fast, catches the exact failure modes from past incidents):
 Primary voice alerts go from the operator into the leads Telegram group.
 This script is the SEO-bot backup + watcher-of-watchers.
 
-Sends an alert to Telegram (SEO authorized chats) ONLY when something is wrong.
-Cron: hourly. In-call fail still alerts immediately from the operator.
+Sends an alert to Telegram ONLY when something is wrong, and only on a
+state change (or every 6 hours if still broken / disk jumped +3%).
+Disk-only warnings stay in the SEO channel — the leads group gets voice/chat
+outages only. Cron: every 10 minutes. In-call fail still alerts immediately.
 
 Usage:
     python3 scripts/monitor_kazandel_bot.py             # check + alert on Telegram
@@ -36,6 +38,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from datetime import datetime, timedelta, timezone
@@ -46,6 +49,28 @@ sys.path.insert(0, os.path.dirname(__file__))
 ROOT = Path(__file__).parent.parent
 DATA = ROOT / "data"
 SNAPSHOT = DATA / "kazandel_health.json"
+ALERT_STATE = DATA / "kazandel_health_alert.json"
+ALERT_DEDUPE_SEC = 6 * 60 * 60
+DISK_REPEAT_DELTA_PCT = 3.0
+DISK_CRIT_PCT = 94.0
+DISK_CRIT_AVAIL_GB = 2.0
+LEAD_FAIL_KEYS = (
+    "service",
+    "voice_pm2",
+    "voice_health",
+    "voice_heartbeat",
+    "voice_mute",
+)
+CHECK_KEYS = (
+    "disk",
+    "service",
+    "deepseek",
+    "crash_loop",
+    "voice_pm2",
+    "voice_health",
+    "voice_heartbeat",
+    "voice_mute",
+)
 
 BOT_DIR = Path("/root/kazandel_ai_bot")
 CONFIG_PY = BOT_DIR / "config.py"
@@ -244,7 +269,7 @@ def check_disk_space() -> dict:
         used = total - avail
         pct = (used / total) * 100 if total else 0
         avail_gb = avail / (1024 ** 3)
-        ok = pct < 88.0 and avail_gb >= 3.0
+        ok = pct < DISK_CRIT_PCT and avail_gb >= DISK_CRIT_AVAIL_GB
         return {
             "ok": ok,
             "pct_used": round(pct, 1),
@@ -338,7 +363,65 @@ def build_report(result: dict) -> str:
     return "\n".join(lines), all_ok
 
 
-def send_to_telegram(text: str) -> None:
+def failing_keys(result: dict) -> list[str]:
+    return [k for k in CHECK_KEYS if not (result.get(k) or {}).get("ok", True)]
+
+
+def _load_alert_state() -> dict:
+    try:
+        return json.loads(ALERT_STATE.read_text())
+    except Exception:
+        return {}
+
+
+def _save_alert_state(state: dict) -> None:
+    try:
+        DATA.mkdir(exist_ok=True)
+        ALERT_STATE.write_text(json.dumps(state, ensure_ascii=False, indent=1))
+    except Exception as e:
+        print(f"⚠️ alert state write failed: {e}", file=sys.stderr)
+
+
+def should_send_alert(result: dict, all_ok: bool) -> bool:
+    """Telegram only on new failure, worsening disk, or 6h reminder."""
+    if all_ok:
+        _save_alert_state({
+            "sig": "",
+            "at": 0,
+            "disk_pct": (result.get("disk") or {}).get("pct_used"),
+            "cleared_at": datetime.now(timezone.utc).isoformat(),
+        })
+        return False
+
+    keys = failing_keys(result)
+    sig = ",".join(keys)
+    disk_pct = (result.get("disk") or {}).get("pct_used")
+    now = time.time()
+    prev = _load_alert_state()
+    last_sig = prev.get("sig") or ""
+    last_at = float(prev.get("at") or 0)
+    last_disk = prev.get("disk_pct")
+    worsened_disk = (
+        "disk" in keys
+        and isinstance(disk_pct, (int, float))
+        and isinstance(last_disk, (int, float))
+        and disk_pct >= last_disk + DISK_REPEAT_DELTA_PCT
+    )
+    cooled = (now - last_at) >= ALERT_DEDUPE_SEC
+    if sig == last_sig and not worsened_disk and not cooled and last_at:
+        print(f"⏭ telegram suppressed (same failures={sig}, last {int(now - last_at)}s ago)")
+        return False
+
+    _save_alert_state({
+        "sig": sig,
+        "at": now,
+        "disk_pct": disk_pct,
+        "sent_at": datetime.now(timezone.utc).isoformat(),
+    })
+    return True
+
+
+def send_to_telegram(text: str, *, to_leads: bool = False) -> None:
     sent = 0
     try:
         import telegram_notify as tn
@@ -346,27 +429,30 @@ def send_to_telegram(text: str) -> None:
     except Exception as e:
         print(f"⏭ telegram_notify failed: {e}", file=sys.stderr)
 
-    # Also send directly to the Leads Telegram group via KazanDel_Bot token
-    try:
-        op_env = Path("/opt/kazandel-ai-operator/.env")
-        if op_env.exists():
-            content = op_env.read_text()
-            token_m = re.search(r"TELEGRAM_BOT_TOKEN=([^\n]+)", content)
-            chat_m = re.search(r"TELEGRAM_CHAT_ID=([^\n]+)", content)
-            if token_m and chat_m:
-                token = token_m.group(1).strip()
-                chat_id = chat_m.group(1).strip()
-                data = urllib.parse.urlencode({
-                    "chat_id": chat_id,
-                    "text": text[:4000],
-                    "parse_mode": "HTML",
-                    "disable_web_page_preview": "true",
-                }).encode()
-                req = urllib.request.Request(f"https://api.telegram.org/bot{token}/sendMessage", data=data)
-                with urllib.request.urlopen(req, timeout=12) as resp:
-                    print("📤 sent alert to Leads Telegram group (КД ИИ Ассистент)")
-    except Exception as e:
-        print(f"⏭ leads group alert error: {e}", file=sys.stderr)
+    # Leads group: only when chat/voice is actually down — not disk/ops noise.
+    if to_leads:
+        try:
+            op_env = Path("/opt/kazandel-ai-operator/.env")
+            if op_env.exists():
+                content = op_env.read_text()
+                token_m = re.search(r"TELEGRAM_BOT_TOKEN=([^\n]+)", content)
+                chat_m = re.search(r"TELEGRAM_CHAT_ID=([^\n]+)", content)
+                if token_m and chat_m:
+                    token = token_m.group(1).strip()
+                    chat_id = chat_m.group(1).strip()
+                    data = urllib.parse.urlencode({
+                        "chat_id": chat_id,
+                        "text": text[:4000],
+                        "parse_mode": "HTML",
+                        "disable_web_page_preview": "true",
+                    }).encode()
+                    req = urllib.request.Request(
+                        f"https://api.telegram.org/bot{token}/sendMessage", data=data
+                    )
+                    with urllib.request.urlopen(req, timeout=12) as resp:
+                        print("📤 sent alert to Leads Telegram group (КД ИИ Ассистент)")
+        except Exception as e:
+            print(f"⏭ leads group alert error: {e}", file=sys.stderr)
 
     if sent:
         return
@@ -404,9 +490,12 @@ def main():
         pass
 
     if "--no-telegram" not in args:
-        if not all_ok or "--always" in args:
-            send_to_telegram(report)
-        else:
+        lead_down = any(not (result.get(k) or {}).get("ok", True) for k in LEAD_FAIL_KEYS)
+        if "--always" in args:
+            send_to_telegram(report, to_leads=lead_down)
+        elif should_send_alert(result, all_ok):
+            send_to_telegram(report, to_leads=lead_down)
+        elif all_ok:
             try:
                 print("✅ all checks passed — telegram alert skipped (use --always to force)")
             except Exception:
