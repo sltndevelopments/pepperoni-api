@@ -146,10 +146,10 @@
     "started_at": "2026-08-25T05:32:04.804731+00:00",
     "measure_at": "2026-09-15T05:32:04+00:00",
     "maturity_days": 21,
-    "finished_at": "2026-09-16T05:31:11.230263+00:00",
+    "finished_at": "2026-09-17T05:32:45.101833+00:00",
     "result": {
-      "position": 4.7,
-      "impressions": 12,
+      "position": 4.8,
+      "impressions": 8,
       "inquiries": 0
     },
     "note": "Closed without win/loss verdict: the site-wide trust reset invalidated the fixed-URL attribution window before maturity."
