@@ -322,6 +322,8 @@ test("AI and crawler discovery files have complete parity", async () => {
   const wellKnown = await readFile(join(dist, ".well-known/llms.txt"), "utf8");
   const ai = JSON.parse(await readFile(join(dist, "ai.json"), "utf8"));
   const identity = JSON.parse(await readFile(join(dist, "identity.json"), "utf8"));
+  const aiTxt = await readFile(join(dist, "ai.txt"), "utf8");
+  const faqAi = await readFile(join(dist, "faq-ai.txt"), "utf8");
   const llmsSitemap = await readFile(join(dist, "sitemap-llms.xml"), "utf8");
   const indexNowKey = await readFile(join(dist, "989787de78c652b55e6887550582b6f6.txt"), "utf8");
   assert.match(robots, /GPTBot[\s\S]*Allow: \//);
@@ -329,19 +331,45 @@ test("AI and crawler discovery files have complete parity", async () => {
   assert.match(robots, /Sitemap: https:\/\/yaratu\.com\/sitemap\.xml/);
   assert.match(robots, /Sitemap: https:\/\/yaratu\.com\/sitemap-llms\.xml/);
   assert.match(robotsAi, /Content-Signal: ai-train=yes, search=yes, ai-input=yes/);
+  assert.match(robotsAi, /ООО «Казанские Деликатесы»/);
   assert.match(llms, /^# Yaratu \/ Ярату/m);
+  assert.match(llms, /ООО «Казанские Деликатесы»/);
+  assert.match(llms, /\+7 987 217-02-02/);
+  assert.match(llms, /info@kazandelikates\.tatar/);
+  assert.match(llms, /INN 1686021074/);
+  assert.match(llms, /is not named Yaratu Limited/);
   assert.match(llms, /\[Ветчина филейная\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
   assert.match(llms, /\[Canonical JSON\]\(https:\/\/yaratu\.com\/data\/products\.json\)/);
+  assert.doesNotMatch(llms, /Yaratu Ltd|8-800/);
   assert.match(full, /^# Yaratu full RU\+EN\+TT dataset/m);
   assert.match(full, /\[RU\]\(https:\/\/yaratu\.com\/products\/vetchina\/\)/);
   assert.match(full, /\[TT\]\(https:\/\/yaratu\.com\/tt\/products\/vetchina\/\)/);
   assert.equal((full.match(/Halal status: verified/g) || []).length, 5);
   assert.equal(wellKnown, full);
+  assert.equal(identity["@type"], "Organization");
+  assert.equal(identity.name, "ООО «Казанские Деликатесы»");
+  assert.equal(identity.legalName, "ООО «Казанские Деликатесы»");
   assert.equal(identity.url, "https://yaratu.com/");
-  for (const link of [ai.identity, ai.llms, ai.llmsFull, ai.wellKnownLlms, ai.products, ai.evidenceSummary, ai.sitemap, ai.llmsSitemap, ai.robotsAi]) {
+  assert.equal(identity.email, "info@kazandelikates.tatar");
+  assert.equal(identity.telephone, "+79872170202");
+  assert.equal(identity.taxID, "1686021074");
+  assert.equal(identity.brand.name, "Ярату");
+  assert.equal(identity.brand.alternateName, "Yaratu");
+  assert.match(identity.description, /Not named Yaratu Limited/);
+  assert.match(aiTxt, /Must not:/);
+  assert.match(aiTxt, /Yaratu Limited/);
+  assert.match(aiTxt, /info@kazandelikates\.tatar/);
+  assert.match(faqAi, /Публичного потребительского прайса нет/);
+  assert.match(faqAi, /There is no public consumer price list/);
+  assert.match(faqAi, /КБЖУ лабораторные/);
+  for (const link of [ai.identity, ai.llms, ai.llmsFull, ai.wellKnownLlms, ai.products, ai.evidenceSummary, ai.sitemap, ai.llmsSitemap, ai.robotsAi, ai.faq, ai.aiTxt]) {
     assert.match(link, /^https:\/\/yaratu\.com\//);
   }
+  assert.equal(ai.legalName, "ООО «Казанские Деликатесы»");
+  assert.equal(ai.contact.email, "info@kazandelikates.tatar");
   assert.match(llmsSitemap, /https:\/\/yaratu\.com\/\.well-known\/llms\.txt/);
+  assert.match(llmsSitemap, /https:\/\/yaratu\.com\/identity\.json/);
+  assert.match(llmsSitemap, /https:\/\/yaratu\.com\/faq-ai\.txt/);
   assert.equal(indexNowKey.trim(), "989787de78c652b55e6887550582b6f6");
 });
 

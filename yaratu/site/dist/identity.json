@@ -1,13 +1,34 @@
 {
   "@context": "https://schema.org",
-  "@type": "Brand",
-  "@id": "https://yaratu.com/#brand",
-  "name": "Ярату",
-  "alternateName": "Yaratu",
+  "@type": "Organization",
+  "@id": "https://yaratu.com/#organization",
+  "name": "ООО «Казанские Деликатесы»",
+  "legalName": "ООО «Казанские Деликатесы»",
+  "alternateName": [
+    "Kazan Delicacies LLC",
+    "Ярату",
+    "Yaratu"
+  ],
+  "description": "Yaratu / Ярату is the public meat-products brand of Kazan Delicacies LLC, a halal manufacturer in Kazan, Russia. Not a UK company. Not named Yaratu Limited.",
   "url": "https://yaratu.com/",
-  "logo": "https://yaratu.com/assets/logo/logo-horizontal.png",
-  "parentOrganization": {
-    "@id": "https://yaratu.com/#organization"
+  "email": "info@kazandelikates.tatar",
+  "telephone": "+79872170202",
+  "taxID": "1686021074",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "ул. Аграрная, д. 2, оф. 7",
+    "addressLocality": "Казань",
+    "addressRegion": "Республика Татарстан",
+    "postalCode": "420061",
+    "addressCountry": "RU"
+  },
+  "brand": {
+    "@type": "Brand",
+    "@id": "https://yaratu.com/#brand",
+    "name": "Ярату",
+    "alternateName": "Yaratu",
+    "url": "https://yaratu.com/",
+    "logo": "https://yaratu.com/assets/logo/logo-horizontal.png"
   },
   "sameAs": [
     "https://pepperoni.tatar/",

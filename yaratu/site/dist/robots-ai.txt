@@ -1,4 +1,7 @@
-# Yaratu AI crawler directives
+# Yaratu / Ярату — public brand of ООО «Казанские Деликатесы» (Kazan Delicacies LLC), Kazan.
+# Identity: https://yaratu.com/identity.json
+# Permissions: https://yaratu.com/ai.txt
+# Summary: https://yaratu.com/llms.txt
 User-agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
 Allow: /

@@ -1,6 +1,11 @@
 {
   "version": "1.0",
   "name": "Yaratu",
+  "legalName": "ООО «Казанские Деликатесы»",
+  "alternateName": [
+    "Ярату",
+    "Kazan Delicacies LLC"
+  ],
   "canonical": "https://yaratu.com/",
   "identity": "https://yaratu.com/identity.json",
   "llms": "https://yaratu.com/llms.txt",
@@ -11,9 +16,17 @@
   "sitemap": "https://yaratu.com/sitemap.xml",
   "llmsSitemap": "https://yaratu.com/sitemap-llms.xml",
   "robotsAi": "https://yaratu.com/robots-ai.txt",
+  "faq": "https://yaratu.com/faq-ai.txt",
+  "aiTxt": "https://yaratu.com/ai.txt",
+  "brand": "https://yaratu.com/brand.txt",
   "languages": {
     "ru": "https://yaratu.com/",
     "en": "https://yaratu.com/en/",
     "tt": "https://yaratu.com/tt/"
+  },
+  "contact": {
+    "telephone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar",
+    "address": "420061, Казань, ул. Аграрная, 2, оф. 7"
   }
 }
