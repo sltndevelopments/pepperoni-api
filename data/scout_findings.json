@@ -1,21 +1,22 @@
 {
-  "generated_at": "2026-09-17T05:32:44.939111+00:00",
-  "new_queries": [
+  "generated_at": "2026-09-18T05:30:32.420780+00:00",
+  "new_queries": [],
+  "rising_queries": [
     {
       "query": "родина эчпочмака",
-      "impr": 14,
+      "impr": 29,
       "clk": 0,
-      "pos": 8.6,
-      "page": "https://pepperoni.tatar/blog/echpochmak"
+      "pos": 8.2,
+      "page": "https://pepperoni.tatar/blog/echpochmak",
+      "from_impr": 14
     }
   ],
-  "rising_queries": [],
   "coverage_gaps": [
     {
       "query": "пепперони халяль купить",
-      "impr": 53,
+      "impr": 55,
       "clk": 0,
-      "pos": 24.9,
+      "pos": 24.2,
       "page": "https://pepperoni.tatar/"
     }
   ]

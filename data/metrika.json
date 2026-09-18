@@ -1,18 +1,18 @@
 {
- "fetched_at": "2026-09-17T05:30:04.850606+00:00",
+ "fetched_at": "2026-09-18T05:30:04.646356+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 334,
-  "users": 242,
-  "bounce_rate_pct": 27.2,
-  "page_depth": 1.46,
-  "avg_visit_sec": 99
+  "visits": 333,
+  "users": 240,
+  "bounce_rate_pct": 27.0,
+  "page_depth": 1.48,
+  "avg_visit_sec": 98
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 162
+   "visits": 161
   },
   {
    "source": "Search engine traffic",
@@ -20,11 +20,11 @@
   },
   {
    "source": "Internal traffic",
-   "visits": 56
+   "visits": 58
   },
   {
    "source": "Ad traffic",
-   "visits": 41
+   "visits": 39
   },
   {
    "source": "Link traffic",
@@ -34,8 +34,8 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 192,
-   "bounce_pct": 21.4
+   "visits": 193,
+   "bounce_pct": 21.8
   },
   {
    "path": "/products/kd-057",
@@ -53,14 +53,14 @@
    "bounce_pct": 10.0
   },
   {
-   "path": "/products/kd-027",
-   "visits": 9,
-   "bounce_pct": 11.1
+   "path": "/en/",
+   "visits": 8,
+   "bounce_pct": 37.5
   },
   {
-   "path": "/en/",
-   "visits": 7,
-   "bounce_pct": 42.9
+   "path": "/products/kd-027",
+   "visits": 8,
+   "bounce_pct": 12.5
   },
   {
    "path": "/products/kd-001",
@@ -70,7 +70,7 @@
   {
    "path": "/products/kd-048",
    "visits": 6,
-   "bounce_pct": 50.0
+   "bounce_pct": 66.7
   },
   {
    "path": "/products/kd-004",
@@ -88,24 +88,24 @@
    "bounce_pct": 25.0
   },
   {
-   "path": "/products/kd-061",
-   "visits": 4,
-   "bounce_pct": 25.0
-  },
-  {
    "path": "/en/products/kd-053",
    "visits": 3,
    "bounce_pct": 100.0
   },
   {
-   "path": "/products/kd-006",
+   "path": "/products/kd-054",
    "visits": 3,
-   "bounce_pct": 66.7
+   "bounce_pct": 33.3
   },
   {
-   "path": "/products/kd-012",
-   "visits": 3,
-   "bounce_pct": 66.7
+   "path": "/en",
+   "visits": 2,
+   "bounce_pct": 50.0
+  },
+  {
+   "path": "/en/blog/iso-22000-iaf-certsearch",
+   "visits": 2,
+   "bounce_pct": 0.0
   }
  ],
  "leads": {
@@ -117,16 +117,16 @@
   }
  },
  "inquiries_by_page": {
-  "/products/kd-004": {
-   "28d": 4,
-   "7d": 0
-  },
   "/": {
    "28d": 4,
    "7d": 2
   },
   "/products/kd-015": {
    "28d": 2,
+   "7d": 0
+  },
+  "/products/kd-004": {
+   "28d": 4,
    "7d": 0
   }
  }
