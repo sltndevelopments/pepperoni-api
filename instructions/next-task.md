@@ -183,6 +183,26 @@
 
 ## Log
 
+- **2026-09-19 Оптимизация краулинга Googlebot (410 для удалённых гео/SKU, локальный 404 без Vercel, ads.txt) — DONE, в `origin/main`.**
+  - Commit: `2cfa2a848`. VPS `/var/www/pepperoni/repo` HEAD = `2cfa2a848` = `origin/main`.
+  - Nginx 404 fallback: в `pepperoni.tatar` убран fallback `@vercel` из `location /`. Любой отсутствующий файл немедленно возвращает локальный брендированный `public/404.html` напрямую с SSD (задержка ~10–15 мс вместо ~450 мс через Vercel edge).
+  - 410 Gone: в `deploy/nginx/geo-cleanup-gone.conf` и генератор `scripts/apply_geo_cleanup.py` добавлены:
+    - Префиксные правила для снятых локалей: `/kk/geo/`, `/uz/geo/`, `/ar/geo/`, `/ar/export/`, `/fr/geo/`, `/ro/geo/`, `/id/geo/`, `/ka/geo/`, `/es/geo/`, `/de/geo/`.
+    - 16 снятых SKU каталога (RU + EN): `kd-012`, `kd-016`, `kd-065`..`kd-078`.
+  - ads.txt: создан `public/ads.txt` (чистый файл прямого B2B производителя, без сторонней рекламы); в `deploy/nginx/pepperoni-static-data.conf` добавлен эндпоинт `/ads.txt` с `max-age=86400`.
+  - robots.txt: кэш продлён с 300с до `max-age=86400` в `deploy/nginx/pepperoni-static-data.conf`.
+  - Live проверка:
+    - `curl -sI /kk/geo/sosiski-k` → HTTP 410 (152 байта).
+    - `curl -sI /uz/geo/kolbasnye-izdeliya-namangan` → HTTP 410 (152 байта).
+    - `curl -sI /ar/geo/babbroni-halal-dubai` → HTTP 410 (152 байта).
+    - `curl -sI /products/kd-012` → HTTP 410 (152 байта).
+    - `curl -sI /en/products/kd-016` → HTTP 410 (152 байта).
+    - `curl -sI /ads.txt` → HTTP 200, `Cache-Control: public, max-age=86400`.
+    - `curl -sI /robots.txt` → HTTP 200, `Cache-Control: public, max-age=86400`.
+    - `curl -sI /definitely-missing-test` → HTTP 404, nginx local, без `x-vercel-id`.
+  - Nudge (VPS): Google sitemap ✅ ×2 (pepperoni.tatar + api.pepperoni.tatar); IndexNow ✅ 200 (8 URL); Yandex sitemap 429 до 30.09.
+  - Blockers: нет.
+
 - **2026-09-13 /jerky вернуть в индекс — DONE, в `origin/main`.**
   - Commit: `3a1d42dc1`. VPS HEAD = `3a1d42dc1` = `origin/main`.
   - Allowlist: `jerky.html` + `en/jerky.html` keep (catalog), 241/250.
