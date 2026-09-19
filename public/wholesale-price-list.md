@@ -3,21 +3,21 @@
 Items: 62 SKUs | Manufacturer, Kazan, Russia | Delivery terms: EXW Kazan Russia
 Certificates: Halal #614A/2024 (DUM RT) | HACCP | ISO 22000:2018 | TR CU 021/2011
 Prices: RUB per sales unit (pack/piece, see “Net weight”), incl. VAT; “excl. VAT” is derived; USD is an export reference fixed in the invoice.
-Catalog data: 2026-09-13 (Google Sheets → api.pepperoni.tatar/api/products). Generated from the same source as the product cards and catalog.
+Catalog data: 2026-09-19 (Google Sheets → api.pepperoni.tatar/api/products). Generated from the same source as the product cards and catalog.
 Contact: info@kazandelikates.tatar | +7 987 217-02-02
 
 ## Frozen — 14 SKU
 
 | SKU | Product | Net weight, kg | Price, RUB incl. VAT | Excl. VAT, RUB | Per piece, RUB | USD | Min order, units | Shelf life | Storage | HS code |
 |---|---|---|---|---|---|---|---|---|---|---|
-| KD-001 | Beef Sausages (80g × 6 pcs) | 0.48 | 290 | 263.64 | 48.33 | 3.13 | 8 | 360 days | –18°C | 160100 |
+| KD-001 | Beef Sausages (80g × 6 pcs) | 0.48 | 290 | 263.64 | 48.33 | 3.14 | 8 | 360 days | –18°C | 160100 |
 | KD-002 | Two-Meat Sausages (80g × 6 pcs) | 0.48 | 286 | 260 | 47.67 | 3.09 | — | 360 days | –18°C | 160100 |
-| KD-003 | Three Peppers & Cheese Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.41 | — | 360 days | –18°C | 160100 |
+| KD-003 | Three Peppers & Cheese Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.42 | — | 360 days | –18°C | 160100 |
 | KD-004 | Chicken Sausages (80g × 6 pcs) | 0.48 | 286 | 260 | 47.67 | 3.09 | — | 360 days | –18°C | 160100 |
-| KD-005 | Lamb Sausages (80g × 6 pcs) | 0.48 | 366 | 332.73 | 61 | 3.95 | — | 360 days | –18°C | 160100 |
+| KD-005 | Lamb Sausages (80g × 6 pcs) | 0.48 | 366 | 332.73 | 61 | 3.96 | — | 360 days | –18°C | 160100 |
 | KD-006 | Herb Sausages (130g × 5 pcs) | 0.65 | 424 | 385.45 | 84.8 | 4.58 | — | 360 days | –18°C | 160100 |
-| KD-007 | Cheese Sausages (130g × 5 pcs) | 0.65 | 455 | 413.64 | 91 | 4.91 | — | 360 days | –18°C | 160100 |
-| KD-008 | Horse-Meat Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.41 | — | 360 days | –18°C | 160100 |
+| KD-007 | Cheese Sausages (130g × 5 pcs) | 0.65 | 455 | 413.64 | 91 | 4.92 | — | 360 days | –18°C | 160100 |
+| KD-008 | Horse-Meat Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.42 | — | 360 days | –18°C | 160100 |
 | KD-009 | Fried Beef Patty (100g × 3 pcs) | 0.3 | 276 | 250.91 | 92 | 2.98 | — | 360 days | –18°C | 1602 |
 | KD-010 | Fried Beef Patty (150g × 2 pcs) | 0.3 | 276 | 250.91 | 138 | 2.98 | — | 360 days | –18°C | 1602 |
 | KD-011 | Chicken Fillet Ham, Sliced | 0.5 | 188 | 170.91 | — | 2.03 | — | 30 days | 0-6 ˚C | 160100 |
@@ -31,39 +31,39 @@ Contact: info@kazandelikates.tatar | +7 987 217-02-02
 |---|---|---|---|---|---|---|---|---|---|---|
 | KD-018 | Breakfast Sausages (skinless) for Sausage Rolls, 45 g each | 2 | 245 | 222.73 | — | 2.65 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-017 | Breakfast Sausages | 0.4 | 135 | 122.73 | — | 1.46 | 0 | 30 days | 0-6 ˚C | 160100 |
-| KD-019 | Tender Sausages | 0.4 | 181 | 164.55 | — | 1.95 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-019 | Tender Sausages | 0.4 | 181 | 164.55 | — | 1.96 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-020 | Kazan Milk Sausages | 0.4 | 235 | 213.64 | — | 2.54 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-021 | Cheese Sausages | 0.4 | 293 | 266.36 | — | 3.16 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-021 | Cheese Sausages | 0.4 | 293 | 266.36 | — | 3.17 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-022 | Beef Sausages | 0.4 | 284 | 258.18 | — | 3.07 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-023 | Premium Sausages | 0.4 | 146 | 132.73 | — | 1.58 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-024 | Juicy Sausages | 0.4 | 144 | 130.91 | — | 1.56 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-035 | Cheese Sausage Links | 0.3 | 271 | 246.36 | — | 2.93 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-025 | Boiled Beef Sausage | 0.5 | 292 | 265.45 | — | 3.15 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-025 | Boiled Beef Sausage | 0.5 | 292 | 265.45 | — | 3.16 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-026 | Boiled Assorted Sausage | 0.5 | 197 | 179.09 | — | 2.13 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-027 | Boiled Tender Sausage | 0.5 | 200 | 181.82 | — | 2.16 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-028 | Turkey Ham | 0.5 | 380 | 345.45 | — | 4.1 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-029 | Marbled Beef Ham | 0.5 | 398 | 361.82 | — | 4.3 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-030 | Chicken Ham | 0.5 | 350 | 318.18 | — | 3.78 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-031 | Khan Cervelat | 0.45 | 216 | 196.36 | — | 2.33 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-028 | Turkey Ham | 0.5 | 380 | 345.45 | — | 4.11 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-029 | Marbled Beef Ham | 0.5 | 398 | 361.82 | — | 4.31 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-030 | Chicken Ham | 0.5 | 350 | 318.18 | — | 3.79 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-031 | Khan Cervelat | 0.45 | 216 | 196.36 | — | 2.34 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-032 | Tatar-Style Smoked Cervelat | 0.45 | 298 | 270.91 | — | 3.22 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-033 | Semi-Smoked Turkey Sausage | 0.45 | 348 | 316.36 | — | 3.76 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-033 | Semi-Smoked Turkey Sausage | 0.45 | 348 | 316.36 | — | 3.77 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-034 | Semi-Smoked Beef Sausage | 0.45 | 358 | 325.45 | — | 3.87 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-036 | Ramazan Smoked Sausage | 0.54 | 377 | 342.73 | — | 4.07 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-036 | Ramazan Smoked Sausage | 0.54 | 377 | 342.73 | — | 4.08 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-037 | Ramazan Smoked Sausage (half) | 0.27 | 188 | 170.91 | — | 2.03 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-038 | Marbled Smoked Sausage | 0.54 | 362 | 329.09 | — | 3.91 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-039 | Marbled Smoked Sausage (half) | 0.27 | 181 | 164.55 | — | 1.95 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-038 | Marbled Smoked Sausage | 0.54 | 362 | 329.09 | — | 3.92 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-039 | Marbled Smoked Sausage (half) | 0.27 | 181 | 164.55 | — | 1.96 | — | 30 days | 0-6 ˚C | 160100 |
 | KD-040 | Fillet Smoked Sausage | 0.54 | 333 | 302.73 | — | 3.6 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-041 | Fillet Smoked Sausage (half) | 0.27 | 166 | 150.91 | — | 1.79 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-042 | Knyazheskaya Smoked Sausage | 0.54 | 362 | 329.09 | — | 3.91 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-043 | Knyazheskaya Smoked Sausage (half) | 0.27 | 181 | 164.55 | — | 1.95 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-044 | Kazylyk Premium (gift box, horse meat) | 0.2 | 650 | 541.67 | — | 6.44 | — | 180 days | 0-12 ˚C | 160100 |
+| KD-041 | Fillet Smoked Sausage (half) | 0.27 | 166 | 150.91 | — | 1.8 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-042 | Knyazheskaya Smoked Sausage | 0.54 | 362 | 329.09 | — | 3.92 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-043 | Knyazheskaya Smoked Sausage (half) | 0.27 | 181 | 164.55 | — | 1.96 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-044 | Kazylyk Premium (gift box, horse meat) | 0.2 | 650 | 541.67 | — | 6.45 | — | 180 days | 0-12 ˚C | 160100 |
 | KD-045 | Kazylyk Premium Sliced (gift box, horse meat) | 0.1 | 450 | 375 | — | 4.46 | — | 30 days | 0-12 ˚C | 160100 |
 
 ## Bakery — 19 SKU
 
 | SKU | Product | Net weight, kg | Price, RUB incl. VAT | Excl. VAT, RUB | Per piece, RUB | USD | Min order, units | Shelf life | Storage | HS code |
 |---|---|---|---|---|---|---|---|---|---|---|
-| KD-046 | Gubadiya with Kort (Tatar layered pie) | — | — | — | — | 0.6 | — | 360 days | –18°C | 190590 |
+| KD-046 | Gubadiya with Kort (Tatar layered pie) | — | — | — | — | 0.61 | — | 360 days | –18°C | 190590 |
 | KD-047 | Fried Cheburek | — | — | — | — | 0.64 | — | 360 days | –18°C | 190590 |
 | KD-048 | Fried Peremyach (Tatar meat pie) | — | — | — | — | 0.64 | — | 360 days | –18°C | 190590 |
 | KD-049 | Chicken Samsa | — | — | — | — | 0.67 | — | 360 days | –18°C | 190590 |
@@ -75,7 +75,7 @@ Contact: info@kazandelikates.tatar | +7 987 217-02-02
 | KD-055 | Cottage Cheese Sochnik | — | — | — | — | 0.48 | — | 360 days | –18°C | 190590 |
 | KD-056 | Baked Potato Pie | — | — | — | — | 0.48 | — | 360 days | –18°C | 190590 |
 | KD-057 | Syrnik (cottage cheese pancake) | — | — | — | — | 0.49 | — | 360 days | –18°C | 040490 |
-| KD-058 | Apple Pie | — | — | — | — | 0.53 | — | 360 days | –18°C | 190590 |
+| KD-058 | Apple Pie | — | — | — | — | 0.54 | — | 360 days | –18°C | 190590 |
 | KD-059 | Spring Onion & Egg Pie | — | — | — | — | 0.63 | — | 360 days | –18°C | 190590 |
 | KD-060 | Orange Muffin | — | — | — | — | 0.73 | — | 360 days | –18°C | 190590 |
 | KD-061 | Sausage Roll | — | — | — | — | 0.75 | — | 360 days | –18°C | 190590 |
