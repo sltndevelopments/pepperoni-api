@@ -142,14 +142,14 @@
       "impressions": 59
     },
     "cost_usd": 0.0,
-    "status": "win",
+    "status": "flat",
     "started_at": "2026-08-25T05:32:04.804731+00:00",
     "measure_at": "2026-09-15T05:32:04+00:00",
     "maturity_days": 21,
-    "finished_at": "2026-09-18T05:30:32.570873+00:00",
+    "finished_at": "2026-09-19T05:30:33.064811+00:00",
     "result": {
-      "position": 5.2,
-      "impressions": 6,
+      "position": 9.0,
+      "impressions": 2,
       "inquiries": 0
     },
     "note": "Closed without win/loss verdict: the site-wide trust reset invalidated the fixed-URL attribution window before maturity."
