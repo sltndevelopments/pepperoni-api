@@ -16,7 +16,8 @@ for name in \
   pepperoni-blog-redirects.conf \
   geo-cleanup-redirects.conf geo-cleanup-gone.conf \
   en-geo-cleanup-redirects.conf en-geo-cleanup-gone.conf \
-  trust-reset-redirects.conf trust-reset-gone.conf
+  trust-reset-redirects.conf trust-reset-gone.conf \
+  pepperoni-static-data.conf
 do
   src="$REPO/deploy/nginx/$name"
   if [[ ! -f "$src" ]]; then

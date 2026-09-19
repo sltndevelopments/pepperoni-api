@@ -132,6 +132,8 @@ def _near_duplicate(html: str, path: Path) -> bool:
 
 
 def check_file(path: Path, is_new: bool = False) -> list[str]:
+    if path.suffix.lower() not in (".html", ".htm"):
+        return []
     try:
         html = path.read_text(encoding="utf-8")
     except (OSError, UnicodeDecodeError) as e:
