@@ -15,15 +15,15 @@ Contact: info@kazandelikates.tatar | +7 987 217-02-02
 | KD-003 | Three Peppers & Cheese Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.42 | — | 360 days | –18°C | 160100 |
 | KD-004 | Chicken Sausages (80g × 6 pcs) | 0.48 | 286 | 260 | 47.67 | 3.09 | — | 360 days | –18°C | 160100 |
 | KD-005 | Lamb Sausages (80g × 6 pcs) | 0.48 | 366 | 332.73 | 61 | 3.96 | — | 360 days | –18°C | 160100 |
-| KD-006 | Herb Sausages (130g × 5 pcs) | 0.65 | 424 | 385.45 | 84.8 | 4.58 | — | 360 days | –18°C | 160100 |
+| KD-006 | Herb Sausages (130g × 5 pcs) | 0.65 | 424 | 385.45 | 84.8 | 4.59 | — | 360 days | –18°C | 160100 |
 | KD-007 | Cheese Sausages (130g × 5 pcs) | 0.65 | 455 | 413.64 | 91 | 4.92 | — | 360 days | –18°C | 160100 |
 | KD-008 | Horse-Meat Sausages (80g × 6 pcs) | 0.48 | 316 | 287.27 | 52.67 | 3.42 | — | 360 days | –18°C | 160100 |
-| KD-009 | Fried Beef Patty (100g × 3 pcs) | 0.3 | 276 | 250.91 | 92 | 2.98 | — | 360 days | –18°C | 1602 |
-| KD-010 | Fried Beef Patty (150g × 2 pcs) | 0.3 | 276 | 250.91 | 138 | 2.98 | — | 360 days | –18°C | 1602 |
+| KD-009 | Fried Beef Patty (100g × 3 pcs) | 0.3 | 276 | 250.91 | 92 | 2.99 | — | 360 days | –18°C | 1602 |
+| KD-010 | Fried Beef Patty (150g × 2 pcs) | 0.3 | 276 | 250.91 | 138 | 2.99 | — | 360 days | –18°C | 1602 |
 | KD-011 | Chicken Fillet Ham, Sliced | 0.5 | 188 | 170.91 | — | 2.03 | — | 30 days | 0-6 ˚C | 160100 |
-| KD-013 | Cooked-Smoked Chicken Pepperoni (sliced) | 0.5 | 274 | 249.09 | — | 2.96 | — | 360 days | –18°C | 160100 |
-| KD-014 | Cooked-Smoked Chicken Pepperoni (whole stick) | 0.8 | 457 | 415.45 | — | 4.94 | — | 360 days | –18°C | 160100 |
-| KD-015 | Smoked Chicken Breast | — | 412 | 374.55 | — | 4.45 | — | 30 days | 0-6 ˚C | 160100 |
+| KD-013 | Cooked-Smoked Chicken Pepperoni (sliced) | 0.5 | 274 | 249.09 | — | 2.97 | — | 360 days | –18°C | 160100 |
+| KD-014 | Cooked-Smoked Chicken Pepperoni (whole stick) | 0.8 | 457 | 415.45 | — | 4.95 | — | 360 days | –18°C | 160100 |
+| KD-015 | Smoked Chicken Breast | — | 412 | 374.55 | — | 4.46 | — | 30 days | 0-6 ˚C | 160100 |
 
 ## Chilled — 29 SKU
 
@@ -71,7 +71,7 @@ Contact: info@kazandelikates.tatar | +7 987 217-02-02
 | KD-051 | Beef Samsa | — | — | — | — | 0.79 | — | 360 days | –18°C | 190590 |
 | KD-052 | Elesh with Chicken & Potato (Tatar pie) | — | — | — | — | 0.84 | — | 360 days | –18°C | 190590 |
 | KD-053 | Chak-Chak (plastic pack) | — | — | — | — | 1.93 | — | 60 days | до +18°C | 1905 |
-| KD-054 | Chak-Chak (craft gift box) | — | — | — | — | 2.69 | — | 60 days | до +18°C | 1905 |
+| KD-054 | Chak-Chak (craft gift box) | — | — | — | — | 2.7 | — | 60 days | до +18°C | 1905 |
 | KD-055 | Cottage Cheese Sochnik | — | — | — | — | 0.48 | — | 360 days | –18°C | 190590 |
 | KD-056 | Baked Potato Pie | — | — | — | — | 0.48 | — | 360 days | –18°C | 190590 |
 | KD-057 | Syrnik (cottage cheese pancake) | — | — | — | — | 0.49 | — | 360 days | –18°C | 040490 |
