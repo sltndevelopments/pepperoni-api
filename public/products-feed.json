@@ -6,7 +6,7 @@
   "description": "Machine-readable feed of 62 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-09-13T05:30:21.103962+00:00",
+  "dateModified": "2026-09-20T05:30:21.292436+00:00",
   "publisher": {
     "@type": "Organization",
     "@id": "https://pepperoni.tatar/#organization",
@@ -77,12 +77,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.13,
-            "KZT": 1413.1,
-            "UZS": 36826.27,
-            "KGS": 273.97,
-            "BYN": 9.51,
-            "AZN": 5.33
+            "USD": 3.14,
+            "KZT": 1397.14,
+            "UZS": 37000.55,
+            "KGS": 273.19,
+            "BYN": 9.45,
+            "AZN": 5.31
           }
         },
         "additionalProperty": [
@@ -205,11 +205,11 @@
           },
           "exportPrices": {
             "USD": 3.09,
-            "KZT": 1393.61,
-            "UZS": 36318.32,
-            "KGS": 270.19,
-            "BYN": 9.38,
-            "AZN": 5.25
+            "KZT": 1377.87,
+            "UZS": 36490.19,
+            "KGS": 269.42,
+            "BYN": 9.32,
+            "AZN": 5.24
           }
         },
         "additionalProperty": [
@@ -331,12 +331,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.41,
-            "KZT": 1539.8,
-            "UZS": 40127.93,
-            "KGS": 298.53,
-            "BYN": 10.36,
-            "AZN": 5.8
+            "USD": 3.42,
+            "KZT": 1522.41,
+            "UZS": 40317.84,
+            "KGS": 297.68,
+            "BYN": 10.3,
+            "AZN": 5.79
           }
         },
         "additionalProperty": [
@@ -459,11 +459,11 @@
           },
           "exportPrices": {
             "USD": 3.09,
-            "KZT": 1393.61,
-            "UZS": 36318.32,
-            "KGS": 270.19,
-            "BYN": 9.38,
-            "AZN": 5.25
+            "KZT": 1377.87,
+            "UZS": 36490.19,
+            "KGS": 269.42,
+            "BYN": 9.32,
+            "AZN": 5.24
           }
         },
         "additionalProperty": [
@@ -585,12 +585,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.95,
-            "KZT": 1783.44,
-            "UZS": 46477.29,
-            "KGS": 345.76,
-            "BYN": 12,
-            "AZN": 6.72
+            "USD": 3.96,
+            "KZT": 1763.29,
+            "UZS": 46697.24,
+            "KGS": 344.78,
+            "BYN": 11.93,
+            "AZN": 6.7
           }
         },
         "additionalProperty": [
@@ -712,12 +712,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.58,
-            "KZT": 2066.06,
-            "UZS": 53842.54,
-            "KGS": 400.56,
-            "BYN": 13.91,
-            "AZN": 7.79
+            "USD": 4.59,
+            "KZT": 2042.72,
+            "UZS": 54097.35,
+            "KGS": 399.42,
+            "BYN": 13.82,
+            "AZN": 7.76
           }
         },
         "additionalProperty": [
@@ -839,12 +839,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.91,
-            "KZT": 2217.11,
-            "UZS": 57779.14,
-            "KGS": 429.84,
-            "BYN": 14.92,
-            "AZN": 8.36
+            "USD": 4.92,
+            "KZT": 2192.07,
+            "UZS": 58052.58,
+            "KGS": 428.62,
+            "BYN": 14.83,
+            "AZN": 8.33
           }
         },
         "additionalProperty": [
@@ -964,12 +964,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.41,
-            "KZT": 1539.8,
-            "UZS": 40127.93,
-            "KGS": 298.53,
-            "BYN": 10.36,
-            "AZN": 5.8
+            "USD": 3.42,
+            "KZT": 1522.41,
+            "UZS": 40317.84,
+            "KGS": 297.68,
+            "BYN": 10.3,
+            "AZN": 5.79
           }
         },
         "additionalProperty": [
@@ -1090,12 +1090,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.98,
-            "KZT": 1344.89,
-            "UZS": 35048.45,
-            "KGS": 260.74,
-            "BYN": 9.05,
-            "AZN": 5.07
+            "USD": 2.99,
+            "KZT": 1329.7,
+            "UZS": 35214.31,
+            "KGS": 260,
+            "BYN": 9,
+            "AZN": 5.05
           }
         },
         "additionalProperty": [
@@ -1216,12 +1216,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.98,
-            "KZT": 1344.89,
-            "UZS": 35048.45,
-            "KGS": 260.74,
-            "BYN": 9.05,
-            "AZN": 5.07
+            "USD": 2.99,
+            "KZT": 1329.7,
+            "UZS": 35214.31,
+            "KGS": 260,
+            "BYN": 9,
+            "AZN": 5.05
           }
         },
         "additionalProperty": [
@@ -1292,8 +1292,8 @@
         "sku": "KD-011",
         "mpn": "995009",
         "gtin13": "4680638721391",
-        "name": "Halal Chicken Fillet Ham, Sliced (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Chicken Fillet Ham, Sliced (0.5 kg) — Kazan Delicacies. SKU: KD-011. Article: 995009. Catalog classification: Frozen Products / Toppings. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Sliced Chicken Fillet Ham (500g) — Kazan Delicacies",
+        "description": "Halal Sliced Chicken Fillet Ham (500g) — Kazan Delicacies. SKU: KD-011. Article: 995009. Catalog classification: Frozen Products / Toppings. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-011-main.jpg?v=ba1ac336",
           "https://pepperoni.tatar/images/products/kd-011-pack.jpg?v=4b8daa83",
@@ -1320,7 +1320,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Chicken Fillet Ham, Sliced (0.5 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Sliced Chicken Fillet Ham (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1344,11 +1344,11 @@
           },
           "exportPrices": {
             "USD": 2.03,
-            "KZT": 916.08,
-            "UZS": 23873.58,
-            "KGS": 177.61,
-            "BYN": 6.17,
-            "AZN": 3.45
+            "KZT": 905.73,
+            "UZS": 23986.56,
+            "KGS": 177.1,
+            "BYN": 6.13,
+            "AZN": 3.44
           }
         },
         "additionalProperty": [
@@ -1419,8 +1419,8 @@
         "sku": "KD-013",
         "mpn": "KD-013",
         "gtin13": "4680638720318",
-        "name": "Halal Cooked-Smoked Chicken Pepperoni (sliced) (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Cooked-Smoked Chicken Pepperoni (sliced) (0.5 kg) — Kazan Delicacies. SKU: KD-013. Catalog classification: Frozen Products / Toppings. Net weight: 0.5 kg. Shelf life: 360 суток. Storage: –18°C. Diameter: 50-55 mm. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Chicken Pepperoni Slices (500g, 50–55mm caliber) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Chicken Pepperoni Slices (500g, 50–55mm caliber) — Kazan Delicacies. SKU: KD-013. Catalog classification: Frozen Products / Toppings. Net weight: 0.5 kg. Shelf life: 360 суток. Storage: –18°C. Diameter: 50-55 mm. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-013-main.jpg?v=ead0a132",
           "https://pepperoni.tatar/images/products/kd-013-pack.jpg?v=74fb72be",
@@ -1447,7 +1447,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Cooked-Smoked Chicken Pepperoni (sliced) (0.5 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-Smoked Chicken Pepperoni Slices (500g, 50–55mm caliber) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1470,12 +1470,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.96,
-            "KZT": 1335.14,
-            "UZS": 34794.47,
-            "KGS": 258.85,
-            "BYN": 8.99,
-            "AZN": 5.03
+            "USD": 2.97,
+            "KZT": 1320.06,
+            "UZS": 34959.14,
+            "KGS": 258.12,
+            "BYN": 8.93,
+            "AZN": 5.02
           }
         },
         "additionalProperty": [
@@ -1546,8 +1546,8 @@
         "sku": "KD-014",
         "mpn": "KD-014",
         "gtin13": "4680638720462",
-        "name": "Halal Cooked-Smoked Chicken Pepperoni (whole stick) (0.8 kg) — Kazan Delicacies",
-        "description": "Halal Cooked-Smoked Chicken Pepperoni (whole stick) (0.8 kg) — Kazan Delicacies. SKU: KD-014. Catalog classification: Frozen Products / Toppings. Net weight: 0.8 kg. Shelf life: 360 суток. Storage: –18°C. Diameter: 50-55 mm. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Chicken Pepperoni Stick (0.8kg) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Chicken Pepperoni Stick (0.8kg) — Kazan Delicacies. SKU: KD-014. Catalog classification: Frozen Products / Toppings. Net weight: 0.8 kg. Shelf life: 360 суток. Storage: –18°C. Diameter: 50-55 mm. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-014-main.jpg?v=0a4688a0",
           "https://pepperoni.tatar/images/products/kd-014-pack.jpg?v=ff0e301b",
@@ -1574,7 +1574,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Cooked-Smoked Chicken Pepperoni (whole stick) (0.8 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-Smoked Chicken Pepperoni Stick (0.8kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1597,12 +1597,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.94,
-            "KZT": 2226.86,
-            "UZS": 58033.12,
-            "KGS": 431.73,
-            "BYN": 14.99,
-            "AZN": 8.39
+            "USD": 4.95,
+            "KZT": 2201.71,
+            "UZS": 58307.76,
+            "KGS": 430.51,
+            "BYN": 14.9,
+            "AZN": 8.37
           }
         },
         "additionalProperty": [
@@ -1673,8 +1673,8 @@
         "sku": "KD-015",
         "mpn": "KD-015",
         "gtin13": "4680638720615",
-        "name": "Halal Smoked Chicken Breast (1 kg) — Kazan Delicacies",
-        "description": "Halal Smoked Chicken Breast (1 kg) — Kazan Delicacies. SKU: KD-015. Catalog classification: Frozen Products / Toppings. Net weight: 1 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Chicken Breast Fillet (1kg) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Chicken Breast Fillet (1kg) — Kazan Delicacies. SKU: KD-015. Catalog classification: Frozen Products / Toppings. Net weight: 1 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-015-main.jpg?v=5f3dbc90",
           "https://pepperoni.tatar/images/products/kd-015-pack.jpg?v=cb9dceda"
@@ -1700,7 +1700,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Frozen Products > Toppings > Halal Smoked Chicken Breast (1 kg) — Kazan Delicacies",
+        "category": "Frozen Products > Toppings > Halal Cooked-Smoked Chicken Breast Fillet (1kg) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1723,12 +1723,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.45,
-            "KZT": 2007.58,
-            "UZS": 52318.7,
-            "KGS": 389.22,
-            "BYN": 13.51,
-            "AZN": 7.57
+            "USD": 4.46,
+            "KZT": 1984.91,
+            "UZS": 52566.29,
+            "KGS": 388.12,
+            "BYN": 13.43,
+            "AZN": 7.54
           }
         },
         "additionalProperty": [
@@ -1799,8 +1799,8 @@
         "sku": "KD-018",
         "mpn": "KD-018",
         "gtin13": "4680638720585",
-        "name": "Halal Breakfast Sausages (skinless) for Sausage Rolls, 45 g each — Kazan Delicacies",
-        "description": "Halal Breakfast Sausages (skinless) for Sausage Rolls, 45 g each — Kazan Delicacies. SKU: KD-018. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 2 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: без оболоччки. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Breakfast Sausages Skinless 45g (2kg pack) — Kazan Delicacies",
+        "description": "Halal Breakfast Sausages Skinless 45g (2kg pack) — Kazan Delicacies. SKU: KD-018. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 2 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: без оболоччки. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-018-main.jpg?v=c5791103",
           "https://pepperoni.tatar/images/products/kd-018-pack.jpg?v=d59e38ba",
@@ -1827,7 +1827,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Breakfast Sausages (skinless) for Sausage Rolls, 45 g each — Kazan Delicacies",
+        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Breakfast Sausages Skinless 45g (2kg pack) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -1851,11 +1851,11 @@
           },
           "exportPrices": {
             "USD": 2.65,
-            "KZT": 1193.83,
-            "UZS": 31111.85,
-            "KGS": 231.45,
-            "BYN": 8.03,
-            "AZN": 4.5
+            "KZT": 1180.35,
+            "UZS": 31259.08,
+            "KGS": 230.8,
+            "BYN": 7.99,
+            "AZN": 4.49
           }
         },
         "additionalProperty": [
@@ -1977,11 +1977,11 @@
           },
           "exportPrices": {
             "USD": 1.46,
-            "KZT": 657.82,
-            "UZS": 17143.26,
-            "KGS": 127.54,
-            "BYN": 4.43,
-            "AZN": 2.48
+            "KZT": 650.39,
+            "UZS": 17224.39,
+            "KGS": 127.17,
+            "BYN": 4.4,
+            "AZN": 2.47
           }
         },
         "additionalProperty": [
@@ -2102,12 +2102,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         },
         "additionalProperty": [
@@ -2229,11 +2229,11 @@
           },
           "exportPrices": {
             "USD": 2.54,
-            "KZT": 1145.1,
-            "UZS": 29841.97,
-            "KGS": 222.01,
-            "BYN": 7.71,
-            "AZN": 4.32
+            "KZT": 1132.17,
+            "UZS": 29983.2,
+            "KGS": 221.38,
+            "BYN": 7.66,
+            "AZN": 4.3
           }
         },
         "additionalProperty": [
@@ -2355,12 +2355,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.16,
-            "KZT": 1427.72,
-            "UZS": 37207.23,
-            "KGS": 276.8,
-            "BYN": 9.61,
-            "AZN": 5.38
+            "USD": 3.17,
+            "KZT": 1411.6,
+            "UZS": 37383.31,
+            "KGS": 276.01,
+            "BYN": 9.55,
+            "AZN": 5.37
           }
         },
         "additionalProperty": [
@@ -2482,11 +2482,11 @@
           },
           "exportPrices": {
             "USD": 3.07,
-            "KZT": 1383.87,
-            "UZS": 36064.34,
-            "KGS": 268.3,
-            "BYN": 9.31,
-            "AZN": 5.22
+            "KZT": 1368.24,
+            "UZS": 36235.02,
+            "KGS": 267.54,
+            "BYN": 9.26,
+            "AZN": 5.2
           }
         },
         "additionalProperty": [
@@ -2557,8 +2557,8 @@
         "sku": "KD-023",
         "mpn": "995001",
         "gtin13": "4680638721407",
-        "name": "Halal Premium Sausages (0.4 kg) — Kazan Delicacies",
-        "description": "Halal Premium Sausages (0.4 kg) — Kazan Delicacies. SKU: KD-023. Article: 995001. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 0.4 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Premium Grade Halal Sausages (400g) — Kazan Delicacies",
+        "description": "Premium Grade Halal Sausages (400g) — Kazan Delicacies. SKU: KD-023. Article: 995001. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 0.4 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-023-main.jpg?v=af801b47",
           "https://pepperoni.tatar/images/products/kd-023-pack.jpg?v=31c50f56",
@@ -2585,7 +2585,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Premium Sausages (0.4 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Sausages & Frankfurters > Premium Grade Halal Sausages (400g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2609,11 +2609,11 @@
           },
           "exportPrices": {
             "USD": 1.58,
-            "KZT": 711.43,
-            "UZS": 18540.12,
-            "KGS": 137.93,
-            "BYN": 4.79,
-            "AZN": 2.68
+            "KZT": 703.39,
+            "UZS": 18627.86,
+            "KGS": 137.54,
+            "BYN": 4.76,
+            "AZN": 2.67
           }
         },
         "additionalProperty": [
@@ -2684,8 +2684,8 @@
         "sku": "KD-024",
         "mpn": "995002",
         "gtin13": "4680638721414",
-        "name": "Halal Juicy Sausages (0.4 kg) — Kazan Delicacies",
-        "description": "Halal Juicy Sausages (0.4 kg) — Kazan Delicacies. SKU: KD-024. Article: 995002. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 0.4 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Juicy High-Grade Sausages (400g) — Kazan Delicacies",
+        "description": "Halal Juicy High-Grade Sausages (400g) — Kazan Delicacies. SKU: KD-024. Article: 995002. Catalog classification: Refrigerated Products / Sausages & Frankfurters. Net weight: 0.4 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-024-main.jpg?v=804a83c7",
           "https://pepperoni.tatar/images/products/kd-024-slice.jpg?v=b813f517"
@@ -2711,7 +2711,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Juicy Sausages (0.4 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Sausages & Frankfurters > Halal Juicy High-Grade Sausages (400g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2735,10 +2735,10 @@
           },
           "exportPrices": {
             "USD": 1.56,
-            "KZT": 701.68,
-            "UZS": 18286.15,
-            "KGS": 136.04,
-            "BYN": 4.72,
+            "KZT": 693.75,
+            "UZS": 18372.69,
+            "KGS": 135.65,
+            "BYN": 4.69,
             "AZN": 2.64
           }
         },
@@ -2861,11 +2861,11 @@
           },
           "exportPrices": {
             "USD": 2.93,
-            "KZT": 1320.52,
-            "UZS": 34413.51,
-            "KGS": 256.02,
-            "BYN": 8.89,
-            "AZN": 4.98
+            "KZT": 1305.61,
+            "UZS": 34576.37,
+            "KGS": 255.29,
+            "BYN": 8.83,
+            "AZN": 4.96
           }
         },
         "additionalProperty": [
@@ -2936,8 +2936,8 @@
         "sku": "KD-025",
         "mpn": "999998",
         "gtin13": "4680638720257",
-        "name": "Halal Boiled Beef Sausage (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Boiled Beef Sausage (0.5 kg) — Kazan Delicacies. SKU: KD-025. Article: 999998. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked Beef Sausage (500g) — Kazan Delicacies",
+        "description": "Halal Cooked Beef Sausage (500g) — Kazan Delicacies. SKU: KD-025. Article: 999998. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-025-main.jpg?v=9c105228"
         ],
@@ -2962,7 +2962,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Boiled Sausages > Halal Boiled Beef Sausage (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Boiled Sausages > Halal Cooked Beef Sausage (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -2985,12 +2985,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.15,
-            "KZT": 1422.85,
-            "UZS": 37080.24,
-            "KGS": 275.85,
-            "BYN": 9.58,
-            "AZN": 5.36
+            "USD": 3.16,
+            "KZT": 1406.78,
+            "UZS": 37255.72,
+            "KGS": 275.07,
+            "BYN": 9.52,
+            "AZN": 5.35
           }
         },
         "additionalProperty": [
@@ -3061,8 +3061,8 @@
         "sku": "KD-026",
         "mpn": "995003",
         "gtin13": "4680638721292",
-        "name": "Halal Boiled Assorted Sausage (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Boiled Assorted Sausage (0.5 kg) — Kazan Delicacies. SKU: KD-026. Article: 995003. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked Assorted Meat Sausage (500g) — Kazan Delicacies",
+        "description": "Halal Cooked Assorted Meat Sausage (500g) — Kazan Delicacies. SKU: KD-026. Article: 995003. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
@@ -3087,7 +3087,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Boiled Sausages > Halal Boiled Assorted Sausage (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Boiled Sausages > Halal Cooked Assorted Meat Sausage (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3111,11 +3111,11 @@
           },
           "exportPrices": {
             "USD": 2.13,
-            "KZT": 959.94,
-            "UZS": 25016.46,
-            "KGS": 186.11,
-            "BYN": 6.46,
-            "AZN": 3.62
+            "KZT": 949.09,
+            "UZS": 25134.85,
+            "KGS": 185.58,
+            "BYN": 6.42,
+            "AZN": 3.61
           }
         },
         "additionalProperty": [
@@ -3186,8 +3186,8 @@
         "sku": "KD-027",
         "mpn": "995004",
         "gtin13": "4680638721308",
-        "name": "Halal Boiled Tender Sausage (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Boiled Tender Sausage (0.5 kg) — Kazan Delicacies. SKU: KD-027. Article: 995004. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Tender Cooked Sausage (500g) — Kazan Delicacies",
+        "description": "Halal Tender Cooked Sausage (500g) — Kazan Delicacies. SKU: KD-027. Article: 995004. Catalog classification: Refrigerated Products / Boiled Sausages. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. Casing: есть. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-pepperoni-en.png"
         ],
@@ -3212,7 +3212,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Boiled Sausages > Halal Boiled Tender Sausage (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Boiled Sausages > Halal Tender Cooked Sausage (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3236,11 +3236,11 @@
           },
           "exportPrices": {
             "USD": 2.16,
-            "KZT": 974.56,
-            "UZS": 25397.42,
-            "KGS": 188.94,
-            "BYN": 6.56,
-            "AZN": 3.67
+            "KZT": 963.55,
+            "UZS": 25517.62,
+            "KGS": 188.41,
+            "BYN": 6.52,
+            "AZN": 3.66
           }
         },
         "additionalProperty": [
@@ -3311,8 +3311,8 @@
         "sku": "KD-028",
         "mpn": "999946",
         "gtin13": "4680638720554",
-        "name": "Halal Turkey Ham (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Turkey Ham (0.5 kg) — Kazan Delicacies. SKU: KD-028. Article: 999946. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Turkey Ham (500g) — Kazan Delicacies",
+        "description": "Halal Turkey Ham (500g) — Kazan Delicacies. SKU: KD-028. Article: 999946. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-028-main.jpg?v=10d50419",
           "https://pepperoni.tatar/images/products/kd-028-pack.jpg?v=766f0dc1"
@@ -3338,7 +3338,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Hams > Halal Turkey Ham (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Hams > Halal Turkey Ham (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3361,12 +3361,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.1,
-            "KZT": 1851.65,
-            "UZS": 48255.11,
-            "KGS": 358.99,
-            "BYN": 12.46,
-            "AZN": 6.98
+            "USD": 4.11,
+            "KZT": 1830.74,
+            "UZS": 48483.47,
+            "KGS": 357.97,
+            "BYN": 12.39,
+            "AZN": 6.96
           }
         },
         "additionalProperty": [
@@ -3437,8 +3437,8 @@
         "sku": "KD-029",
         "mpn": "999997",
         "gtin13": "4680638720271",
-        "name": "Halal Marbled Beef Ham (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Marbled Beef Ham (0.5 kg) — Kazan Delicacies. SKU: KD-029. Article: 999997. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Marbled Beef Ham (500g) — Kazan Delicacies",
+        "description": "Halal Marbled Beef Ham (500g) — Kazan Delicacies. SKU: KD-029. Article: 999997. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-029-main.jpg?v=4027d1dc",
           "https://pepperoni.tatar/images/products/kd-029-pack.jpg?v=417260e8"
@@ -3464,7 +3464,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Hams > Halal Marbled Beef Ham (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Hams > Halal Marbled Beef Ham (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3487,12 +3487,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.3,
-            "KZT": 1939.36,
-            "UZS": 50540.88,
-            "KGS": 375.99,
-            "BYN": 13.05,
-            "AZN": 7.31
+            "USD": 4.31,
+            "KZT": 1917.46,
+            "UZS": 50780.06,
+            "KGS": 374.93,
+            "BYN": 12.97,
+            "AZN": 7.29
           }
         },
         "additionalProperty": [
@@ -3563,8 +3563,8 @@
         "sku": "KD-030",
         "mpn": "999941",
         "gtin13": "4680638720547",
-        "name": "Halal Chicken Ham (0.5 kg) — Kazan Delicacies",
-        "description": "Halal Chicken Ham (0.5 kg) — Kazan Delicacies. SKU: KD-030. Article: 999941. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Chicken Ham (500g) — Kazan Delicacies",
+        "description": "Halal Chicken Ham (500g) — Kazan Delicacies. SKU: KD-030. Article: 999941. Catalog classification: Refrigerated Products / Hams. Net weight: 0.5 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-030-main.jpg?v=7faf7faf",
           "https://pepperoni.tatar/images/products/kd-030-pack.jpg?v=2069a0c2"
@@ -3590,7 +3590,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Hams > Halal Chicken Ham (0.5 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Hams > Halal Chicken Ham (500g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3613,12 +3613,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.78,
-            "KZT": 1705.47,
-            "UZS": 44445.49,
-            "KGS": 330.65,
-            "BYN": 11.48,
-            "AZN": 6.43
+            "USD": 3.79,
+            "KZT": 1686.21,
+            "UZS": 44655.83,
+            "KGS": 329.71,
+            "BYN": 11.41,
+            "AZN": 6.41
           }
         },
         "additionalProperty": [
@@ -3688,8 +3688,8 @@
         "@id": "https://pepperoni.tatar/en/products/kd-031#product",
         "sku": "KD-031",
         "mpn": "999975",
-        "name": "Halal Khan Cervelat (0.45 kg) — Kazan Delicacies",
-        "description": "Halal Khan Cervelat (0.45 kg) — Kazan Delicacies. SKU: KD-031. Article: 999975. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Khan Cervelat (450g) — Kazan Delicacies",
+        "description": "Halal Khan Cervelat (450g) — Kazan Delicacies. SKU: KD-031. Article: 999975. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-031-main.jpg?v=9bff5ec7",
           "https://pepperoni.tatar/images/products/kd-031-pack.jpg?v=3ecde64e"
@@ -3715,7 +3715,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Khan Cervelat (0.45 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Khan Cervelat (450g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3738,12 +3738,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.33,
-            "KZT": 1052.52,
-            "UZS": 27429.22,
-            "KGS": 204.06,
-            "BYN": 7.08,
-            "AZN": 3.97
+            "USD": 2.34,
+            "KZT": 1040.63,
+            "UZS": 27559.03,
+            "KGS": 203.48,
+            "BYN": 7.04,
+            "AZN": 3.96
           }
         },
         "additionalProperty": [
@@ -3865,11 +3865,11 @@
           },
           "exportPrices": {
             "USD": 3.22,
-            "KZT": 1452.09,
-            "UZS": 37842.16,
-            "KGS": 281.52,
-            "BYN": 9.77,
-            "AZN": 5.47
+            "KZT": 1435.69,
+            "UZS": 38021.25,
+            "KGS": 280.72,
+            "BYN": 9.71,
+            "AZN": 5.46
           }
         },
         "additionalProperty": [
@@ -3940,8 +3940,8 @@
         "sku": "KD-033",
         "mpn": "999910",
         "gtin13": "4680638720639",
-        "name": "Halal Semi-Smoked Turkey Sausage (0.45 kg) — Kazan Delicacies",
-        "description": "Halal Semi-Smoked Turkey Sausage (0.45 kg) — Kazan Delicacies. SKU: KD-033. Article: 999910. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Semi-Smoked Turkey Sausage (450g) — Kazan Delicacies",
+        "description": "Halal Semi-Smoked Turkey Sausage (450g) — Kazan Delicacies. SKU: KD-033. Article: 999910. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-033-main.jpg?v=97c8a31d",
           "https://pepperoni.tatar/images/products/kd-033-slice.jpg?v=4e1bae41"
@@ -3967,7 +3967,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Semi-Smoked Turkey Sausage (0.45 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Semi-Smoked Turkey Sausage (450g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -3990,12 +3990,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.76,
-            "KZT": 1695.73,
-            "UZS": 44191.52,
-            "KGS": 328.76,
-            "BYN": 11.41,
-            "AZN": 6.39
+            "USD": 3.77,
+            "KZT": 1676.57,
+            "UZS": 44400.66,
+            "KGS": 327.83,
+            "BYN": 11.34,
+            "AZN": 6.37
           }
         },
         "additionalProperty": [
@@ -4066,8 +4066,8 @@
         "sku": "KD-034",
         "mpn": "999961",
         "gtin13": "4680638720349",
-        "name": "Halal Semi-Smoked Beef Sausage (0.45 kg) — Kazan Delicacies",
-        "description": "Halal Semi-Smoked Beef Sausage (0.45 kg) — Kazan Delicacies. SKU: KD-034. Article: 999961. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Semi-Smoked Beef Sausage (450g) — Kazan Delicacies",
+        "description": "Halal Semi-Smoked Beef Sausage (450g) — Kazan Delicacies. SKU: KD-034. Article: 999961. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.45 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-034-main.jpg?v=725ebc01",
           "https://pepperoni.tatar/images/products/kd-034-slice.jpg?v=1438cb10"
@@ -4093,7 +4093,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Semi-Smoked Beef Sausage (0.45 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Semi-Smoked Beef Sausage (450g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4117,11 +4117,11 @@
           },
           "exportPrices": {
             "USD": 3.87,
-            "KZT": 1744.45,
-            "UZS": 45461.39,
-            "KGS": 338.21,
-            "BYN": 11.74,
-            "AZN": 6.57
+            "KZT": 1724.75,
+            "UZS": 45676.54,
+            "KGS": 337.25,
+            "BYN": 11.67,
+            "AZN": 6.56
           }
         },
         "additionalProperty": [
@@ -4192,8 +4192,8 @@
         "sku": "KD-036",
         "mpn": "995005",
         "gtin13": "4680638721315",
-        "name": "Halal Ramazan Smoked Sausage (0.54 kg) — Kazan Delicacies",
-        "description": "Halal Ramazan Smoked Sausage (0.54 kg) — Kazan Delicacies. SKU: KD-036. Article: 995005. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Sausage \"Ramazan\" (540g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Sausage \"Ramazan\" (540g) — Kazan Delicacies. SKU: KD-036. Article: 995005. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-036-main.jpg?v=72b9acb1",
           "https://pepperoni.tatar/images/products/kd-036-slice.jpg?v=e6079c2b"
@@ -4219,7 +4219,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Ramazan Smoked Sausage (0.54 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Sausage \"Ramazan\" (540g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4242,12 +4242,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.07,
-            "KZT": 1837.04,
-            "UZS": 47874.15,
-            "KGS": 356.16,
-            "BYN": 12.36,
-            "AZN": 6.92
+            "USD": 4.08,
+            "KZT": 1816.29,
+            "UZS": 48100.71,
+            "KGS": 355.14,
+            "BYN": 12.29,
+            "AZN": 6.9
           }
         },
         "additionalProperty": [
@@ -4318,8 +4318,8 @@
         "sku": "KD-037",
         "mpn": "995012",
         "gtin13": "4680638721322",
-        "name": "Halal Ramazan Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
-        "description": "Halal Ramazan Smoked Sausage (half) (0.27 kg) — Kazan Delicacies. SKU: KD-037. Article: 995012. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Sausage \"Ramazan\", Half Stick (270g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Sausage \"Ramazan\", Half Stick (270g) — Kazan Delicacies. SKU: KD-037. Article: 995012. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-037-main.jpg?v=884c8517",
           "https://pepperoni.tatar/images/products/kd-037-slice.jpg?v=e6079c2b"
@@ -4345,7 +4345,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Ramazan Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Sausage \"Ramazan\", Half Stick (270g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4369,11 +4369,11 @@
           },
           "exportPrices": {
             "USD": 2.03,
-            "KZT": 916.08,
-            "UZS": 23873.58,
-            "KGS": 177.61,
-            "BYN": 6.17,
-            "AZN": 3.45
+            "KZT": 905.73,
+            "UZS": 23986.56,
+            "KGS": 177.1,
+            "BYN": 6.13,
+            "AZN": 3.44
           }
         },
         "additionalProperty": [
@@ -4444,8 +4444,8 @@
         "sku": "KD-038",
         "mpn": "995006",
         "gtin13": "4680638721339",
-        "name": "Halal Marbled Smoked Sausage (0.54 kg) — Kazan Delicacies",
-        "description": "Halal Marbled Smoked Sausage (0.54 kg) — Kazan Delicacies. SKU: KD-038. Article: 995006. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Marbled Sausage (540g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Marbled Sausage (540g) — Kazan Delicacies. SKU: KD-038. Article: 995006. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-038-main.jpg?v=40304091",
           "https://pepperoni.tatar/images/products/kd-038-slice.jpg?v=ada87c69"
@@ -4471,7 +4471,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Marbled Smoked Sausage (0.54 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Marbled Sausage (540g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4494,12 +4494,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.91,
-            "KZT": 1763.94,
-            "UZS": 45969.34,
-            "KGS": 341.98,
-            "BYN": 11.87,
-            "AZN": 6.65
+            "USD": 3.92,
+            "KZT": 1744.02,
+            "UZS": 46186.89,
+            "KGS": 341.01,
+            "BYN": 11.8,
+            "AZN": 6.63
           }
         },
         "additionalProperty": [
@@ -4570,8 +4570,8 @@
         "sku": "KD-039",
         "mpn": "995011",
         "gtin13": "4680638721346",
-        "name": "Halal Marbled Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
-        "description": "Halal Marbled Smoked Sausage (half) (0.27 kg) — Kazan Delicacies. SKU: KD-039. Article: 995011. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Marbled Sausage, Half Stick (270g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Marbled Sausage, Half Stick (270g) — Kazan Delicacies. SKU: KD-039. Article: 995011. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-039-main.jpg?v=3f5f733b",
           "https://pepperoni.tatar/images/products/kd-039-pack.jpg?v=bbf0cd3d",
@@ -4598,7 +4598,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Marbled Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Marbled Sausage, Half Stick (270g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4621,12 +4621,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         },
         "additionalProperty": [
@@ -4697,8 +4697,8 @@
         "sku": "KD-040",
         "mpn": "995007",
         "gtin13": "4680638721353",
-        "name": "Halal Fillet Smoked Sausage (0.54 kg) — Kazan Delicacies",
-        "description": "Halal Fillet Smoked Sausage (0.54 kg) — Kazan Delicacies. SKU: KD-040. Article: 995007. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Fillet Sausage (540g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Fillet Sausage (540g) — Kazan Delicacies. SKU: KD-040. Article: 995007. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-040-main.jpg?v=1c224d29",
           "https://pepperoni.tatar/images/products/kd-040-pack.jpg?v=f3661c6e",
@@ -4725,7 +4725,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Fillet Smoked Sausage (0.54 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Fillet Sausage (540g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4749,11 +4749,11 @@
           },
           "exportPrices": {
             "USD": 3.6,
-            "KZT": 1622.63,
-            "UZS": 42286.71,
-            "KGS": 314.59,
-            "BYN": 10.92,
-            "AZN": 6.12
+            "KZT": 1604.31,
+            "UZS": 42486.83,
+            "KGS": 313.7,
+            "BYN": 10.85,
+            "AZN": 6.1
           }
         },
         "additionalProperty": [
@@ -4824,8 +4824,8 @@
         "sku": "KD-041",
         "mpn": "995013",
         "gtin13": "4680638721360",
-        "name": "Halal Fillet Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
-        "description": "Halal Fillet Smoked Sausage (half) (0.27 kg) — Kazan Delicacies. SKU: KD-041. Article: 995013. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Fillet Sausage, Half Stick (270g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Fillet Sausage, Half Stick (270g) — Kazan Delicacies. SKU: KD-041. Article: 995013. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-041-main.jpg?v=6c7fdeac",
           "https://pepperoni.tatar/images/products/kd-041-pack.jpg?v=0f0d111a"
@@ -4851,7 +4851,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Fillet Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Fillet Sausage, Half Stick (270g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4874,12 +4874,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.79,
-            "KZT": 808.88,
-            "UZS": 21079.86,
-            "KGS": 156.82,
-            "BYN": 5.44,
-            "AZN": 3.05
+            "USD": 1.8,
+            "KZT": 799.74,
+            "UZS": 21179.62,
+            "KGS": 156.38,
+            "BYN": 5.41,
+            "AZN": 3.04
           }
         },
         "additionalProperty": [
@@ -4950,8 +4950,8 @@
         "sku": "KD-042",
         "mpn": "995008",
         "gtin13": "4680638721377",
-        "name": "Halal Knyazheskaya Smoked Sausage (0.54 kg) — Kazan Delicacies",
-        "description": "Halal Knyazheskaya Smoked Sausage (0.54 kg) — Kazan Delicacies. SKU: KD-042. Article: 995008. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Sausage \"Knyazheskaya\" (540g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Sausage \"Knyazheskaya\" (540g) — Kazan Delicacies. SKU: KD-042. Article: 995008. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.54 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-042-main.jpg?v=bdd7515b"
         ],
@@ -4976,7 +4976,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Knyazheskaya Smoked Sausage (0.54 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Sausage \"Knyazheskaya\" (540g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -4999,12 +4999,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.91,
-            "KZT": 1763.94,
-            "UZS": 45969.34,
-            "KGS": 341.98,
-            "BYN": 11.87,
-            "AZN": 6.65
+            "USD": 3.92,
+            "KZT": 1744.02,
+            "UZS": 46186.89,
+            "KGS": 341.01,
+            "BYN": 11.8,
+            "AZN": 6.63
           }
         },
         "additionalProperty": [
@@ -5075,8 +5075,8 @@
         "sku": "KD-043",
         "mpn": "995010",
         "gtin13": "4680638721384",
-        "name": "Halal Knyazheskaya Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
-        "description": "Halal Knyazheskaya Smoked Sausage (half) (0.27 kg) — Kazan Delicacies. SKU: KD-043. Article: 995010. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Cooked-Smoked Sausage \"Knyazheskaya\", Half Stick (270g) — Kazan Delicacies",
+        "description": "Halal Cooked-Smoked Sausage \"Knyazheskaya\", Half Stick (270g) — Kazan Delicacies. SKU: KD-043. Article: 995010. Catalog classification: Refrigerated Products / Smoked Meats. Net weight: 0.27 kg. Shelf life: 30 суток. Storage: 0-6 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-043-main.jpg?v=9fe364da"
         ],
@@ -5101,7 +5101,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Smoked Meats > Halal Knyazheskaya Smoked Sausage (half) (0.27 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Smoked Meats > Halal Cooked-Smoked Sausage \"Knyazheskaya\", Half Stick (270g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -5124,12 +5124,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         },
         "additionalProperty": [
@@ -5200,8 +5200,8 @@
         "sku": "KD-044",
         "mpn": "999911",
         "gtin13": "4680638721209",
-        "name": "Halal Kazylyk Premium (gift box, horse meat) (0.2 kg) — Kazan Delicacies",
-        "description": "Halal Kazylyk Premium (gift box, horse meat) (0.2 kg) — Kazan Delicacies. SKU: KD-044. Article: 999911. Catalog classification: Refrigerated Products / Premium Kazylyk. Net weight: 0.2 kg. Shelf life: 180 суток. Storage: 0-12 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "name": "Halal Premium Horse Meat Kazylyk in Gift Box (200g) — Kazan Delicacies",
+        "description": "Halal Premium Horse Meat Kazylyk in Gift Box (200g) — Kazan Delicacies. SKU: KD-044. Article: 999911. Catalog classification: Refrigerated Products / Premium Kazylyk. Net weight: 0.2 kg. Shelf life: 180 суток. Storage: 0-12 ˚C. HS code: 160100. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-044-main.jpg?v=6333ee16",
           "https://pepperoni.tatar/images/products/kd-044-pack.jpg?v=8ffdb0db",
@@ -5228,7 +5228,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Refrigerated Products > Premium Kazylyk > Halal Kazylyk Premium (gift box, horse meat) (0.2 kg) — Kazan Delicacies",
+        "category": "Refrigerated Products > Premium Kazylyk > Halal Premium Horse Meat Kazylyk in Gift Box (200g) — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -5251,12 +5251,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 6.44,
-            "KZT": 2903.36,
-            "UZS": 75663.16,
-            "KGS": 562.89,
-            "BYN": 19.54,
-            "AZN": 10.94
+            "USD": 6.45,
+            "KZT": 2870.57,
+            "UZS": 76021.24,
+            "KGS": 561.29,
+            "BYN": 19.42,
+            "AZN": 10.91
           }
         },
         "additionalProperty": [
@@ -5377,11 +5377,11 @@
           },
           "exportPrices": {
             "USD": 4.46,
-            "KZT": 2010.02,
-            "UZS": 52382.19,
-            "KGS": 389.69,
-            "BYN": 13.53,
-            "AZN": 7.58
+            "KZT": 1987.32,
+            "UZS": 52630.09,
+            "KGS": 388.59,
+            "BYN": 13.45,
+            "AZN": 7.55
           }
         },
         "additionalProperty": [
@@ -5502,11 +5502,11 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.6,
-            "KZT": 272.88,
-            "UZS": 7111.29,
-            "KGS": 52.9,
-            "BYN": 1.84,
+            "USD": 0.61,
+            "KZT": 269.79,
+            "UZS": 7144.94,
+            "KGS": 52.75,
+            "BYN": 1.83,
             "AZN": 1.03
           }
         },
@@ -5629,10 +5629,10 @@
           },
           "exportPrices": {
             "USD": 0.64,
-            "KZT": 286.81,
-            "UZS": 7474.45,
-            "KGS": 55.61,
-            "BYN": 1.93,
+            "KZT": 283.57,
+            "UZS": 7509.82,
+            "KGS": 55.45,
+            "BYN": 1.92,
             "AZN": 1.08
           }
         },
@@ -5755,11 +5755,11 @@
           },
           "exportPrices": {
             "USD": 0.64,
-            "KZT": 288.18,
-            "UZS": 7510.01,
-            "KGS": 55.87,
-            "BYN": 1.94,
-            "AZN": 1.09
+            "KZT": 284.92,
+            "UZS": 7545.55,
+            "KGS": 55.71,
+            "BYN": 1.93,
+            "AZN": 1.08
           }
         },
         "additionalProperty": [
@@ -5880,10 +5880,10 @@
           },
           "exportPrices": {
             "USD": 0.67,
-            "KZT": 300.8,
-            "UZS": 7838.91,
-            "KGS": 58.32,
-            "BYN": 2.02,
+            "KZT": 297.4,
+            "UZS": 7876,
+            "KGS": 58.15,
+            "BYN": 2.01,
             "AZN": 1.13
           }
         },
@@ -6006,10 +6006,10 @@
           },
           "exportPrices": {
             "USD": 0.74,
-            "KZT": 335.1,
-            "UZS": 8732.9,
-            "KGS": 64.97,
-            "BYN": 2.26,
+            "KZT": 331.32,
+            "UZS": 8774.23,
+            "KGS": 64.78,
+            "BYN": 2.24,
             "AZN": 1.26
           }
         },
@@ -6132,10 +6132,10 @@
           },
           "exportPrices": {
             "USD": 0.79,
-            "KZT": 356.39,
-            "UZS": 9287.83,
-            "KGS": 69.1,
-            "BYN": 2.4,
+            "KZT": 352.37,
+            "UZS": 9331.78,
+            "KGS": 68.9,
+            "BYN": 2.38,
             "AZN": 1.34
           }
         },
@@ -6258,10 +6258,10 @@
           },
           "exportPrices": {
             "USD": 0.84,
-            "KZT": 379.3,
-            "UZS": 9884.66,
-            "KGS": 73.54,
-            "BYN": 2.55,
+            "KZT": 375.01,
+            "UZS": 9931.44,
+            "KGS": 73.33,
+            "BYN": 2.54,
             "AZN": 1.43
           }
         },
@@ -6385,11 +6385,11 @@
           },
           "exportPrices": {
             "USD": 1.93,
-            "KZT": 869.67,
-            "UZS": 22664.03,
-            "KGS": 168.61,
-            "BYN": 5.85,
-            "AZN": 3.28
+            "KZT": 859.85,
+            "UZS": 22771.28,
+            "KGS": 168.13,
+            "BYN": 5.82,
+            "AZN": 3.27
           }
         },
         "additionalProperty": [
@@ -6511,12 +6511,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.69,
-            "KZT": 1213.62,
-            "UZS": 31627.67,
-            "KGS": 235.29,
-            "BYN": 8.17,
-            "AZN": 4.57
+            "USD": 2.7,
+            "KZT": 1199.92,
+            "UZS": 31777.35,
+            "KGS": 234.62,
+            "BYN": 8.12,
+            "AZN": 4.56
           }
         },
         "additionalProperty": [
@@ -6637,10 +6637,10 @@
           },
           "exportPrices": {
             "USD": 0.48,
-            "KZT": 214.4,
-            "UZS": 5587.43,
-            "KGS": 41.57,
-            "BYN": 1.44,
+            "KZT": 211.98,
+            "UZS": 5613.88,
+            "KGS": 41.45,
+            "BYN": 1.43,
             "AZN": 0.81
           }
         },
@@ -6762,10 +6762,10 @@
           },
           "exportPrices": {
             "USD": 0.48,
-            "KZT": 218.01,
-            "UZS": 5681.4,
-            "KGS": 42.27,
-            "BYN": 1.47,
+            "KZT": 215.55,
+            "UZS": 5708.29,
+            "KGS": 42.15,
+            "BYN": 1.46,
             "AZN": 0.82
           }
         },
@@ -6887,10 +6887,10 @@
           },
           "exportPrices": {
             "USD": 0.49,
-            "KZT": 219.76,
-            "UZS": 5727.12,
-            "KGS": 42.61,
-            "BYN": 1.48,
+            "KZT": 217.28,
+            "UZS": 5754.22,
+            "KGS": 42.49,
+            "BYN": 1.47,
             "AZN": 0.83
           }
         },
@@ -7011,11 +7011,11 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.53,
-            "KZT": 241.2,
-            "UZS": 6285.86,
-            "KGS": 46.76,
-            "BYN": 1.62,
+            "USD": 0.54,
+            "KZT": 238.48,
+            "UZS": 6315.61,
+            "KGS": 46.63,
+            "BYN": 1.61,
             "AZN": 0.91
           }
         },
@@ -7137,10 +7137,10 @@
           },
           "exportPrices": {
             "USD": 0.63,
-            "KZT": 285.15,
-            "UZS": 7431.29,
-            "KGS": 55.28,
-            "BYN": 1.92,
+            "KZT": 281.93,
+            "UZS": 7466.46,
+            "KGS": 55.13,
+            "BYN": 1.91,
             "AZN": 1.07
           }
         },
@@ -7262,10 +7262,10 @@
           },
           "exportPrices": {
             "USD": 0.73,
-            "KZT": 329.16,
-            "UZS": 8577.99,
-            "KGS": 63.82,
-            "BYN": 2.22,
+            "KZT": 325.44,
+            "UZS": 8618.59,
+            "KGS": 63.63,
+            "BYN": 2.2,
             "AZN": 1.24
           }
         },
@@ -7387,11 +7387,11 @@
           },
           "exportPrices": {
             "USD": 0.75,
-            "KZT": 336.37,
-            "UZS": 8765.93,
-            "KGS": 65.21,
-            "BYN": 2.26,
-            "AZN": 1.27
+            "KZT": 332.57,
+            "UZS": 8807.41,
+            "KGS": 65.03,
+            "BYN": 2.25,
+            "AZN": 1.26
           }
         },
         "additionalProperty": [
@@ -7512,10 +7512,10 @@
           },
           "exportPrices": {
             "USD": 0.77,
-            "KZT": 348.4,
-            "UZS": 9079.58,
-            "KGS": 67.55,
-            "BYN": 2.34,
+            "KZT": 344.47,
+            "UZS": 9122.55,
+            "KGS": 67.36,
+            "BYN": 2.33,
             "AZN": 1.31
           }
         },
@@ -7637,10 +7637,10 @@
           },
           "exportPrices": {
             "USD": 0.72,
-            "KZT": 324.28,
-            "UZS": 8450.99,
-            "KGS": 62.87,
-            "BYN": 2.18,
+            "KZT": 320.62,
+            "UZS": 8490.99,
+            "KGS": 62.69,
+            "BYN": 2.17,
             "AZN": 1.22
           }
         },
@@ -7762,10 +7762,10 @@
           },
           "exportPrices": {
             "USD": 0.8,
-            "KZT": 358.83,
-            "UZS": 9351.33,
-            "KGS": 69.57,
-            "BYN": 2.42,
+            "KZT": 354.78,
+            "UZS": 9395.58,
+            "KGS": 69.37,
+            "BYN": 2.4,
             "AZN": 1.35
           }
         },

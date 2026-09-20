@@ -6,7 +6,7 @@
   "description": "Машиночитаемый каталог 62 халяль SKU (пепперони, сосиски, казылык, ветчина, татарская выпечка) от ООО «Казанские Деликатесы».",
   "url": "https://pepperoni.tatar/ru/products-feed.json",
   "inLanguage": "ru",
-  "dateModified": "2026-09-13T05:30:21.112904+00:00",
+  "dateModified": "2026-09-20T05:30:21.301565+00:00",
   "publisher": {
     "@type": "Organization",
     "@id": "https://pepperoni.tatar/#organization",
@@ -56,12 +56,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.13,
-            "KZT": 1413.1,
-            "UZS": 36826.27,
-            "KGS": 273.97,
-            "BYN": 9.51,
-            "AZN": 5.33
+            "USD": 3.14,
+            "KZT": 1397.14,
+            "UZS": 37000.55,
+            "KGS": 273.19,
+            "BYN": 9.45,
+            "AZN": 5.31
           }
         }
       }
@@ -106,11 +106,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.09,
-            "KZT": 1393.61,
-            "UZS": 36318.32,
-            "KGS": 270.19,
-            "BYN": 9.38,
-            "AZN": 5.25
+            "KZT": 1377.87,
+            "UZS": 36490.19,
+            "KGS": 269.42,
+            "BYN": 9.32,
+            "AZN": 5.24
           }
         }
       }
@@ -154,12 +154,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.41,
-            "KZT": 1539.8,
-            "UZS": 40127.93,
-            "KGS": 298.53,
-            "BYN": 10.36,
-            "AZN": 5.8
+            "USD": 3.42,
+            "KZT": 1522.41,
+            "UZS": 40317.84,
+            "KGS": 297.68,
+            "BYN": 10.3,
+            "AZN": 5.79
           }
         }
       }
@@ -204,11 +204,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.09,
-            "KZT": 1393.61,
-            "UZS": 36318.32,
-            "KGS": 270.19,
-            "BYN": 9.38,
-            "AZN": 5.25
+            "KZT": 1377.87,
+            "UZS": 36490.19,
+            "KGS": 269.42,
+            "BYN": 9.32,
+            "AZN": 5.24
           }
         }
       }
@@ -252,12 +252,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.95,
-            "KZT": 1783.44,
-            "UZS": 46477.29,
-            "KGS": 345.76,
-            "BYN": 12,
-            "AZN": 6.72
+            "USD": 3.96,
+            "KZT": 1763.29,
+            "UZS": 46697.24,
+            "KGS": 344.78,
+            "BYN": 11.93,
+            "AZN": 6.7
           }
         }
       }
@@ -301,12 +301,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.58,
-            "KZT": 2066.06,
-            "UZS": 53842.54,
-            "KGS": 400.56,
-            "BYN": 13.91,
-            "AZN": 7.79
+            "USD": 4.59,
+            "KZT": 2042.72,
+            "UZS": 54097.35,
+            "KGS": 399.42,
+            "BYN": 13.82,
+            "AZN": 7.76
           }
         }
       }
@@ -350,12 +350,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.91,
-            "KZT": 2217.11,
-            "UZS": 57779.14,
-            "KGS": 429.84,
-            "BYN": 14.92,
-            "AZN": 8.36
+            "USD": 4.92,
+            "KZT": 2192.07,
+            "UZS": 58052.58,
+            "KGS": 428.62,
+            "BYN": 14.83,
+            "AZN": 8.33
           }
         }
       }
@@ -397,12 +397,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.41,
-            "KZT": 1539.8,
-            "UZS": 40127.93,
-            "KGS": 298.53,
-            "BYN": 10.36,
-            "AZN": 5.8
+            "USD": 3.42,
+            "KZT": 1522.41,
+            "UZS": 40317.84,
+            "KGS": 297.68,
+            "BYN": 10.3,
+            "AZN": 5.79
           }
         }
       }
@@ -445,12 +445,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.98,
-            "KZT": 1344.89,
-            "UZS": 35048.45,
-            "KGS": 260.74,
-            "BYN": 9.05,
-            "AZN": 5.07
+            "USD": 2.99,
+            "KZT": 1329.7,
+            "UZS": 35214.31,
+            "KGS": 260,
+            "BYN": 9,
+            "AZN": 5.05
           }
         }
       }
@@ -493,12 +493,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.98,
-            "KZT": 1344.89,
-            "UZS": 35048.45,
-            "KGS": 260.74,
-            "BYN": 9.05,
-            "AZN": 5.07
+            "USD": 2.99,
+            "KZT": 1329.7,
+            "UZS": 35214.31,
+            "KGS": 260,
+            "BYN": 9,
+            "AZN": 5.05
           }
         }
       }
@@ -543,11 +543,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.03,
-            "KZT": 916.08,
-            "UZS": 23873.58,
-            "KGS": 177.61,
-            "BYN": 6.17,
-            "AZN": 3.45
+            "KZT": 905.73,
+            "UZS": 23986.56,
+            "KGS": 177.1,
+            "BYN": 6.13,
+            "AZN": 3.44
           }
         }
       }
@@ -591,12 +591,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.96,
-            "KZT": 1335.14,
-            "UZS": 34794.47,
-            "KGS": 258.85,
-            "BYN": 8.99,
-            "AZN": 5.03
+            "USD": 2.97,
+            "KZT": 1320.06,
+            "UZS": 34959.14,
+            "KGS": 258.12,
+            "BYN": 8.93,
+            "AZN": 5.02
           }
         }
       }
@@ -640,12 +640,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.94,
-            "KZT": 2226.86,
-            "UZS": 58033.12,
-            "KGS": 431.73,
-            "BYN": 14.99,
-            "AZN": 8.39
+            "USD": 4.95,
+            "KZT": 2201.71,
+            "UZS": 58307.76,
+            "KGS": 430.51,
+            "BYN": 14.9,
+            "AZN": 8.37
           }
         }
       }
@@ -688,12 +688,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.45,
-            "KZT": 2007.58,
-            "UZS": 52318.7,
-            "KGS": 389.22,
-            "BYN": 13.51,
-            "AZN": 7.57
+            "USD": 4.46,
+            "KZT": 1984.91,
+            "UZS": 52566.29,
+            "KGS": 388.12,
+            "BYN": 13.43,
+            "AZN": 7.54
           }
         }
       }
@@ -738,11 +738,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.65,
-            "KZT": 1193.83,
-            "UZS": 31111.85,
-            "KGS": 231.45,
-            "BYN": 8.03,
-            "AZN": 4.5
+            "KZT": 1180.35,
+            "UZS": 31259.08,
+            "KGS": 230.8,
+            "BYN": 7.99,
+            "AZN": 4.49
           }
         }
       }
@@ -786,11 +786,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 1.46,
-            "KZT": 657.82,
-            "UZS": 17143.26,
-            "KGS": 127.54,
-            "BYN": 4.43,
-            "AZN": 2.48
+            "KZT": 650.39,
+            "UZS": 17224.39,
+            "KGS": 127.17,
+            "BYN": 4.4,
+            "AZN": 2.47
           }
         }
       }
@@ -833,12 +833,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         }
       }
@@ -882,11 +882,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.54,
-            "KZT": 1145.1,
-            "UZS": 29841.97,
-            "KGS": 222.01,
-            "BYN": 7.71,
-            "AZN": 4.32
+            "KZT": 1132.17,
+            "UZS": 29983.2,
+            "KGS": 221.38,
+            "BYN": 7.66,
+            "AZN": 4.3
           }
         }
       }
@@ -930,12 +930,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.16,
-            "KZT": 1427.72,
-            "UZS": 37207.23,
-            "KGS": 276.8,
-            "BYN": 9.61,
-            "AZN": 5.38
+            "USD": 3.17,
+            "KZT": 1411.6,
+            "UZS": 37383.31,
+            "KGS": 276.01,
+            "BYN": 9.55,
+            "AZN": 5.37
           }
         }
       }
@@ -979,11 +979,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.07,
-            "KZT": 1383.87,
-            "UZS": 36064.34,
-            "KGS": 268.3,
-            "BYN": 9.31,
-            "AZN": 5.22
+            "KZT": 1368.24,
+            "UZS": 36235.02,
+            "KGS": 267.54,
+            "BYN": 9.26,
+            "AZN": 5.2
           }
         }
       }
@@ -1028,11 +1028,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 1.58,
-            "KZT": 711.43,
-            "UZS": 18540.12,
-            "KGS": 137.93,
-            "BYN": 4.79,
-            "AZN": 2.68
+            "KZT": 703.39,
+            "UZS": 18627.86,
+            "KGS": 137.54,
+            "BYN": 4.76,
+            "AZN": 2.67
           }
         }
       }
@@ -1076,10 +1076,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 1.56,
-            "KZT": 701.68,
-            "UZS": 18286.15,
-            "KGS": 136.04,
-            "BYN": 4.72,
+            "KZT": 693.75,
+            "UZS": 18372.69,
+            "KGS": 135.65,
+            "BYN": 4.69,
             "AZN": 2.64
           }
         }
@@ -1124,11 +1124,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.93,
-            "KZT": 1320.52,
-            "UZS": 34413.51,
-            "KGS": 256.02,
-            "BYN": 8.89,
-            "AZN": 4.98
+            "KZT": 1305.61,
+            "UZS": 34576.37,
+            "KGS": 255.29,
+            "BYN": 8.83,
+            "AZN": 4.96
           }
         }
       }
@@ -1170,12 +1170,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.15,
-            "KZT": 1422.85,
-            "UZS": 37080.24,
-            "KGS": 275.85,
-            "BYN": 9.58,
-            "AZN": 5.36
+            "USD": 3.16,
+            "KZT": 1406.78,
+            "UZS": 37255.72,
+            "KGS": 275.07,
+            "BYN": 9.52,
+            "AZN": 5.35
           }
         }
       }
@@ -1218,11 +1218,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.13,
-            "KZT": 959.94,
-            "UZS": 25016.46,
-            "KGS": 186.11,
-            "BYN": 6.46,
-            "AZN": 3.62
+            "KZT": 949.09,
+            "UZS": 25134.85,
+            "KGS": 185.58,
+            "BYN": 6.42,
+            "AZN": 3.61
           }
         }
       }
@@ -1265,11 +1265,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.16,
-            "KZT": 974.56,
-            "UZS": 25397.42,
-            "KGS": 188.94,
-            "BYN": 6.56,
-            "AZN": 3.67
+            "KZT": 963.55,
+            "UZS": 25517.62,
+            "KGS": 188.41,
+            "BYN": 6.52,
+            "AZN": 3.66
           }
         }
       }
@@ -1312,12 +1312,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.1,
-            "KZT": 1851.65,
-            "UZS": 48255.11,
-            "KGS": 358.99,
-            "BYN": 12.46,
-            "AZN": 6.98
+            "USD": 4.11,
+            "KZT": 1830.74,
+            "UZS": 48483.47,
+            "KGS": 357.97,
+            "BYN": 12.39,
+            "AZN": 6.96
           }
         }
       }
@@ -1360,12 +1360,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.3,
-            "KZT": 1939.36,
-            "UZS": 50540.88,
-            "KGS": 375.99,
-            "BYN": 13.05,
-            "AZN": 7.31
+            "USD": 4.31,
+            "KZT": 1917.46,
+            "UZS": 50780.06,
+            "KGS": 374.93,
+            "BYN": 12.97,
+            "AZN": 7.29
           }
         }
       }
@@ -1408,12 +1408,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.78,
-            "KZT": 1705.47,
-            "UZS": 44445.49,
-            "KGS": 330.65,
-            "BYN": 11.48,
-            "AZN": 6.43
+            "USD": 3.79,
+            "KZT": 1686.21,
+            "UZS": 44655.83,
+            "KGS": 329.71,
+            "BYN": 11.41,
+            "AZN": 6.41
           }
         }
       }
@@ -1455,12 +1455,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.33,
-            "KZT": 1052.52,
-            "UZS": 27429.22,
-            "KGS": 204.06,
-            "BYN": 7.08,
-            "AZN": 3.97
+            "USD": 2.34,
+            "KZT": 1040.63,
+            "UZS": 27559.03,
+            "KGS": 203.48,
+            "BYN": 7.04,
+            "AZN": 3.96
           }
         }
       }
@@ -1504,11 +1504,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.22,
-            "KZT": 1452.09,
-            "UZS": 37842.16,
-            "KGS": 281.52,
-            "BYN": 9.77,
-            "AZN": 5.47
+            "KZT": 1435.69,
+            "UZS": 38021.25,
+            "KGS": 280.72,
+            "BYN": 9.71,
+            "AZN": 5.46
           }
         }
       }
@@ -1551,12 +1551,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.76,
-            "KZT": 1695.73,
-            "UZS": 44191.52,
-            "KGS": 328.76,
-            "BYN": 11.41,
-            "AZN": 6.39
+            "USD": 3.77,
+            "KZT": 1676.57,
+            "UZS": 44400.66,
+            "KGS": 327.83,
+            "BYN": 11.34,
+            "AZN": 6.37
           }
         }
       }
@@ -1600,11 +1600,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.87,
-            "KZT": 1744.45,
-            "UZS": 45461.39,
-            "KGS": 338.21,
-            "BYN": 11.74,
-            "AZN": 6.57
+            "KZT": 1724.75,
+            "UZS": 45676.54,
+            "KGS": 337.25,
+            "BYN": 11.67,
+            "AZN": 6.56
           }
         }
       }
@@ -1647,12 +1647,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 4.07,
-            "KZT": 1837.04,
-            "UZS": 47874.15,
-            "KGS": 356.16,
-            "BYN": 12.36,
-            "AZN": 6.92
+            "USD": 4.08,
+            "KZT": 1816.29,
+            "UZS": 48100.71,
+            "KGS": 355.14,
+            "BYN": 12.29,
+            "AZN": 6.9
           }
         }
       }
@@ -1696,11 +1696,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 2.03,
-            "KZT": 916.08,
-            "UZS": 23873.58,
-            "KGS": 177.61,
-            "BYN": 6.17,
-            "AZN": 3.45
+            "KZT": 905.73,
+            "UZS": 23986.56,
+            "KGS": 177.1,
+            "BYN": 6.13,
+            "AZN": 3.44
           }
         }
       }
@@ -1743,12 +1743,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.91,
-            "KZT": 1763.94,
-            "UZS": 45969.34,
-            "KGS": 341.98,
-            "BYN": 11.87,
-            "AZN": 6.65
+            "USD": 3.92,
+            "KZT": 1744.02,
+            "UZS": 46186.89,
+            "KGS": 341.01,
+            "BYN": 11.8,
+            "AZN": 6.63
           }
         }
       }
@@ -1792,12 +1792,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         }
       }
@@ -1842,11 +1842,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 3.6,
-            "KZT": 1622.63,
-            "UZS": 42286.71,
-            "KGS": 314.59,
-            "BYN": 10.92,
-            "AZN": 6.12
+            "KZT": 1604.31,
+            "UZS": 42486.83,
+            "KGS": 313.7,
+            "BYN": 10.85,
+            "AZN": 6.1
           }
         }
       }
@@ -1889,12 +1889,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.79,
-            "KZT": 808.88,
-            "UZS": 21079.86,
-            "KGS": 156.82,
-            "BYN": 5.44,
-            "AZN": 3.05
+            "USD": 1.8,
+            "KZT": 799.74,
+            "UZS": 21179.62,
+            "KGS": 156.38,
+            "BYN": 5.41,
+            "AZN": 3.04
           }
         }
       }
@@ -1936,12 +1936,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 3.91,
-            "KZT": 1763.94,
-            "UZS": 45969.34,
-            "KGS": 341.98,
-            "BYN": 11.87,
-            "AZN": 6.65
+            "USD": 3.92,
+            "KZT": 1744.02,
+            "UZS": 46186.89,
+            "KGS": 341.01,
+            "BYN": 11.8,
+            "AZN": 6.63
           }
         }
       }
@@ -1983,12 +1983,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 1.95,
-            "KZT": 881.97,
-            "UZS": 22984.67,
-            "KGS": 170.99,
-            "BYN": 5.94,
-            "AZN": 3.32
+            "USD": 1.96,
+            "KZT": 872.01,
+            "UZS": 23093.44,
+            "KGS": 170.51,
+            "BYN": 5.9,
+            "AZN": 3.31
           }
         }
       }
@@ -2032,12 +2032,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 6.44,
-            "KZT": 2903.36,
-            "UZS": 75663.16,
-            "KGS": 562.89,
-            "BYN": 19.54,
-            "AZN": 10.94
+            "USD": 6.45,
+            "KZT": 2870.57,
+            "UZS": 76021.24,
+            "KGS": 561.29,
+            "BYN": 19.42,
+            "AZN": 10.91
           }
         }
       }
@@ -2080,11 +2080,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 4.46,
-            "KZT": 2010.02,
-            "UZS": 52382.19,
-            "KGS": 389.69,
-            "BYN": 13.53,
-            "AZN": 7.58
+            "KZT": 1987.32,
+            "UZS": 52630.09,
+            "KGS": 388.59,
+            "BYN": 13.45,
+            "AZN": 7.55
           }
         }
       }
@@ -2127,11 +2127,11 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 0.6,
-            "KZT": 272.88,
-            "UZS": 7111.29,
-            "KGS": 52.9,
-            "BYN": 1.84,
+            "USD": 0.61,
+            "KZT": 269.79,
+            "UZS": 7144.94,
+            "KGS": 52.75,
+            "BYN": 1.83,
             "AZN": 1.03
           }
         }
@@ -2176,10 +2176,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.64,
-            "KZT": 286.81,
-            "UZS": 7474.45,
-            "KGS": 55.61,
-            "BYN": 1.93,
+            "KZT": 283.57,
+            "UZS": 7509.82,
+            "KGS": 55.45,
+            "BYN": 1.92,
             "AZN": 1.08
           }
         }
@@ -2224,11 +2224,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.64,
-            "KZT": 288.18,
-            "UZS": 7510.01,
-            "KGS": 55.87,
-            "BYN": 1.94,
-            "AZN": 1.09
+            "KZT": 284.92,
+            "UZS": 7545.55,
+            "KGS": 55.71,
+            "BYN": 1.93,
+            "AZN": 1.08
           }
         }
       }
@@ -2271,10 +2271,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.67,
-            "KZT": 300.8,
-            "UZS": 7838.91,
-            "KGS": 58.32,
-            "BYN": 2.02,
+            "KZT": 297.4,
+            "UZS": 7876,
+            "KGS": 58.15,
+            "BYN": 2.01,
             "AZN": 1.13
           }
         }
@@ -2319,10 +2319,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.74,
-            "KZT": 335.1,
-            "UZS": 8732.9,
-            "KGS": 64.97,
-            "BYN": 2.26,
+            "KZT": 331.32,
+            "UZS": 8774.23,
+            "KGS": 64.78,
+            "BYN": 2.24,
             "AZN": 1.26
           }
         }
@@ -2367,10 +2367,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.79,
-            "KZT": 356.39,
-            "UZS": 9287.83,
-            "KGS": 69.1,
-            "BYN": 2.4,
+            "KZT": 352.37,
+            "UZS": 9331.78,
+            "KGS": 68.9,
+            "BYN": 2.38,
             "AZN": 1.34
           }
         }
@@ -2415,10 +2415,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.84,
-            "KZT": 379.3,
-            "UZS": 9884.66,
-            "KGS": 73.54,
-            "BYN": 2.55,
+            "KZT": 375.01,
+            "UZS": 9931.44,
+            "KGS": 73.33,
+            "BYN": 2.54,
             "AZN": 1.43
           }
         }
@@ -2464,11 +2464,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 1.93,
-            "KZT": 869.67,
-            "UZS": 22664.03,
-            "KGS": 168.61,
-            "BYN": 5.85,
-            "AZN": 3.28
+            "KZT": 859.85,
+            "UZS": 22771.28,
+            "KGS": 168.13,
+            "BYN": 5.82,
+            "AZN": 3.27
           }
         }
       }
@@ -2512,12 +2512,12 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 2.69,
-            "KZT": 1213.62,
-            "UZS": 31627.67,
-            "KGS": 235.29,
-            "BYN": 8.17,
-            "AZN": 4.57
+            "USD": 2.7,
+            "KZT": 1199.92,
+            "UZS": 31777.35,
+            "KGS": 234.62,
+            "BYN": 8.12,
+            "AZN": 4.56
           }
         }
       }
@@ -2560,10 +2560,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.48,
-            "KZT": 214.4,
-            "UZS": 5587.43,
-            "KGS": 41.57,
-            "BYN": 1.44,
+            "KZT": 211.98,
+            "UZS": 5613.88,
+            "KGS": 41.45,
+            "BYN": 1.43,
             "AZN": 0.81
           }
         }
@@ -2607,10 +2607,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.48,
-            "KZT": 218.01,
-            "UZS": 5681.4,
-            "KGS": 42.27,
-            "BYN": 1.47,
+            "KZT": 215.55,
+            "UZS": 5708.29,
+            "KGS": 42.15,
+            "BYN": 1.46,
             "AZN": 0.82
           }
         }
@@ -2654,10 +2654,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.49,
-            "KZT": 219.76,
-            "UZS": 5727.12,
-            "KGS": 42.61,
-            "BYN": 1.48,
+            "KZT": 217.28,
+            "UZS": 5754.22,
+            "KGS": 42.49,
+            "BYN": 1.47,
             "AZN": 0.83
           }
         }
@@ -2700,11 +2700,11 @@
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
-            "USD": 0.53,
-            "KZT": 241.2,
-            "UZS": 6285.86,
-            "KGS": 46.76,
-            "BYN": 1.62,
+            "USD": 0.54,
+            "KZT": 238.48,
+            "UZS": 6315.61,
+            "KGS": 46.63,
+            "BYN": 1.61,
             "AZN": 0.91
           }
         }
@@ -2748,10 +2748,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.63,
-            "KZT": 285.15,
-            "UZS": 7431.29,
-            "KGS": 55.28,
-            "BYN": 1.92,
+            "KZT": 281.93,
+            "UZS": 7466.46,
+            "KGS": 55.13,
+            "BYN": 1.91,
             "AZN": 1.07
           }
         }
@@ -2795,10 +2795,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.73,
-            "KZT": 329.16,
-            "UZS": 8577.99,
-            "KGS": 63.82,
-            "BYN": 2.22,
+            "KZT": 325.44,
+            "UZS": 8618.59,
+            "KGS": 63.63,
+            "BYN": 2.2,
             "AZN": 1.24
           }
         }
@@ -2842,11 +2842,11 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.75,
-            "KZT": 336.37,
-            "UZS": 8765.93,
-            "KGS": 65.21,
-            "BYN": 2.26,
-            "AZN": 1.27
+            "KZT": 332.57,
+            "UZS": 8807.41,
+            "KGS": 65.03,
+            "BYN": 2.25,
+            "AZN": 1.26
           }
         }
       }
@@ -2889,10 +2889,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.77,
-            "KZT": 348.4,
-            "UZS": 9079.58,
-            "KGS": 67.55,
-            "BYN": 2.34,
+            "KZT": 344.47,
+            "UZS": 9122.55,
+            "KGS": 67.36,
+            "BYN": 2.33,
             "AZN": 1.31
           }
         }
@@ -2936,10 +2936,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.72,
-            "KZT": 324.28,
-            "UZS": 8450.99,
-            "KGS": 62.87,
-            "BYN": 2.18,
+            "KZT": 320.62,
+            "UZS": 8490.99,
+            "KGS": 62.69,
+            "BYN": 2.17,
             "AZN": 1.22
           }
         }
@@ -2983,10 +2983,10 @@
           "itemCondition": "https://schema.org/NewCondition",
           "exportPrices": {
             "USD": 0.8,
-            "KZT": 358.83,
-            "UZS": 9351.33,
-            "KGS": 69.57,
-            "BYN": 2.42,
+            "KZT": 354.78,
+            "UZS": 9395.58,
+            "KGS": 69.37,
+            "BYN": 2.4,
             "AZN": 1.35
           }
         }
