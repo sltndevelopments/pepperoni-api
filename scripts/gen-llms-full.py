@@ -90,6 +90,7 @@ def llms_map_ru() -> str:
 
 - [О компании](https://pepperoni.tatar/about): реквизиты, сертификаты, производство.
 - [Мощности и сертификаты](https://pepperoni.tatar/capabilities): HACCP, ISO 22000, халяль.
+- [North Star — цифровая фабрика](https://pepperoni.tatar/north-star): стратегия развития «Казанских Деликатесов» как оцифрованного пищевого производства нового поколения. Интеграция данных 1С/ERP, концепция MES-light, сквозной учет партий от сырья до маржинальности и прикладные AI-ассистенты (в активной разработке как стратегический ориентир, не путать с уже внедрённым функционалом).
 - [FAQ](https://pepperoni.tatar/faq): частые вопросы закупщиков.
 - [Только халяль? Из какого мяса продукция](https://pepperoni.tatar/blog/tolko-halyal-kakie-kategorii-myasa): ответ закупщику по категориям.
 
@@ -136,6 +137,7 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 
 - [About](https://pepperoni.tatar/en/about): company details, certificates, production.
 - [Capabilities and certificates](https://pepperoni.tatar/en/capabilities): HACCP, ISO 22000, halal.
+- [North Star — Next-Gen Digital Food Factory](https://pepperoni.tatar/north-star): strategic roadmap towards a high-efficiency data-driven food factory in Kazan. Connecting ERP, MES-light concept, batch unit-economics, and specialized AI agents (in structured development as a strategic target, not yet fully deployed operational MES).
 - [FAQ](https://pepperoni.tatar/en/faq): buyer questions.
 
 ## Optional

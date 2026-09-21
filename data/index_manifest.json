@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-19T13:08:09.479395+00:00",
+  "generated_at": "2026-09-21T19:29:12.179882+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 241,
+    "keep": 242,
     "retired": 1491,
-    "all": 1732
+    "all": 1733
   },
   "entries": [
     {
@@ -1887,6 +1887,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/kotlety-dlya-burgerov",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/north-star",
+      "file": "north-star.html",
+      "intent": "digital factory strategy and technology roadmap",
+      "language": "ru",
+      "owner": "management",
+      "source": "owner directive",
+      "canonical_target": "/north-star",
       "status": "keep",
       "kind": "hub"
     },

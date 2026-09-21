@@ -950,6 +950,7 @@ SKU: {pep_skus}.
 - [Private Label / СТМ](https://pepperoni.tatar/private-label) — производство под брендом клиента
 - [Производственные мощности](https://pepperoni.tatar/capabilities) — возможности завода
 - [Кейсы и референсы](https://pepperoni.tatar/cases) — федеральные клиенты
+- [North Star — цифровая фабрика](https://pepperoni.tatar/north-star) — стратегия цифровой фабрики, интеграция ERP, MES-концепция и AI (в разработке как стратегический ориентир)
 
 ## Каталог продукции ({len(all_products)} товаров)
 """
@@ -1466,6 +1467,7 @@ Contract manufacturing, private label and wholesale supply. Pages for business c
 - [Private Label](https://pepperoni.tatar/en/private-label) — production under the customer's brand
 - [Production capabilities](https://pepperoni.tatar/en/capabilities) — and plant capacity
 - [Case studies](https://pepperoni.tatar/en/cases) — federal-client references
+- [North Star — Digital Food Factory](https://pepperoni.tatar/north-star) — digital factory strategy, ERP-MES integration roadmap and AI layer (in progress)
 
 ## Product catalog ({len(all_products)} SKUs)
 """
