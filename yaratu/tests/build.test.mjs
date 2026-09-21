@@ -39,9 +39,11 @@ test("canonical data has five trilingual validated products", async () => {
   }
 });
 
+const isMockup = (path) => path === "1/index.html";
+
 test("allowlist build excludes internal and legacy SVG", async () => {
   const built = await files(dist);
-  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 32);
+  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 33);
   assert.equal(built.some((path) => path.split("/").includes("internal")), false);
   assert.equal(built.some((path) => path.startsWith("img/") && path.endsWith(".svg")), false);
   const allowedSvg = new Set([
@@ -58,6 +60,12 @@ test("allowlist build excludes internal and legacy SVG", async () => {
   ]);
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
   assert.ok(built.includes("404.html"));
+  assert.ok(built.includes("1/index.html"));
+  const html1 = await readFile(join(dist, "1/index.html"), "utf8");
+  assert.match(html1, /<title>Ярату — концепт 1/);
+  assert.match(html1, /noindex/);
+  assert.match(html1, /id="assortment"/);
+  assert.match(html1, /id="spec-modal"/);
   const html404 = await readFile(join(dist, "404.html"), "utf8");
   assert.match(html404, /<title>404/);
   assert.match(html404, /noindex/);
@@ -65,7 +73,7 @@ test("allowlist build excludes internal and legacy SVG", async () => {
 });
 
 test("every page has canonical and complete hreflang", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
   for (const path of built) {
     const html = await readFile(join(dist, path), "utf8");
     assert.match(html, /<link rel="canonical" href="https:\/\/yaratu\.com\/[^"]*">/);
@@ -78,7 +86,7 @@ test("every page has canonical and complete hreflang", async () => {
 });
 
 test("mobile navigation works without JavaScript and keeps native keyboard semantics", async () => {
-  const built = (await files(dist)).filter((path) => path.endsWith("index.html"));
+  const built = (await files(dist)).filter((path) => path.endsWith("index.html") && !isMockup(path));
   const css = await readFile(join(dist, "styles.css"), "utf8");
   assert.match(css, /\.nav__menu\s*\{/);
   assert.match(css, /@media \(min-width: 860px\)[\s\S]*\.nav__menu\s*\{[\s\S]*display:\s*none/);

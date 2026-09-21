@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ярату — концепт 1 · мясные продукты без секретов</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/assets/logo/sign.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        --olive-night: #14180d;
+        --olive-deep: #1f2612;
+        --olive: #2f391c;
+        --cream: #fff0d9;
+        --cream-dim: #f6e6c8;
+        --paper: #f9ead0;
+        --gold: #a17513;
+        --gold-soft: #c9a24a;
+        --gold-glow: rgba(161, 117, 19, 0.22);
+        --line-l: rgba(255, 240, 217, 0.16);
+        --line-d: rgba(22, 27, 13, 0.16);
+        --serif: "Cormorant Garamond", "Times New Roman", serif;
+        --sans: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+        --max: 1240px;
+      }
+
+      body {
+        margin: 0;
+        background: var(--paper);
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.5;
+        overflow-x: clip;
+      }
+
+      /* topbar */
+      .top-nav {
+        position: sticky; top: 0; z-index: 100;
+        background: rgba(20, 24, 13, 0.94);
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--line-l);
+        color: var(--cream);
+      }
+      .top-nav__inner {
+        display: flex; align-items: center; justify-content: space-between;
+        gap: 1.2rem; padding: 0.9rem 0;
+      }
+      .top-nav__logo img { height: 1.6rem; width: auto; display: block; }
+      .top-nav__links { display: none; gap: 1.6rem; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; }
+      .top-nav__links a { color: rgba(255, 240, 217, 0.78); transition: color 0.2s; }
+      .top-nav__links a:hover { color: var(--gold-soft); }
+      .top-nav__actions { display: flex; align-items: center; gap: 0.8rem; }
+      .top-nav__phone { font-size: 0.82rem; font-weight: 700; color: var(--gold-soft); display: none; }
+      @media (min-width: 900px) {
+        .top-nav__links { display: flex; }
+        .top-nav__phone { display: inline-block; }
+      }
+
+      /* hero */
+      .v1-hero {
+        position: relative;
+        background: radial-gradient(circle at 75% 30%, #3a4723 0%, #1a220e 55%, var(--olive-night) 100%);
+        color: var(--cream);
+        padding: clamp(3.5rem, 8vw, 6.5rem) 0 4.5rem;
+        overflow: hidden;
+      }
+      .v1-hero::after {
+        content: ""; position: absolute; inset: 0;
+        background-image: radial-gradient(rgba(255, 240, 217, 0.06) 1px, transparent 1px);
+        background-size: 24px 24px; pointer-events: none; opacity: 0.6;
+      }
+      .v1-hero__grid {
+        position: relative; z-index: 2;
+        display: grid; gap: 3rem; align-items: center;
+      }
+      @media (min-width: 960px) {
+        .v1-hero__grid { grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr); }
+      }
+      .v1-hero__eyebrow {
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.22em;
+        text-transform: uppercase; color: var(--gold-soft);
+        margin-bottom: 0.8rem;
+      }
+      .v1-hero__title {
+        margin: 0; font-family: var(--serif); font-size: clamp(3.2rem, 8vw, 5.8rem);
+        line-height: 0.94; font-weight: 600; text-wrap: balance;
+      }
+      .v1-hero__title em { font-style: italic; color: var(--gold-soft); }
+      .v1-hero__lead {
+        margin: 1.5rem 0 0; font-size: 1.12rem; line-height: 1.55;
+        max-width: 36rem; color: rgba(255, 240, 217, 0.88);
+      }
+      .v1-hero__actions {
+        display: flex; flex-wrap: wrap; gap: 0.85rem; margin-top: 2rem;
+      }
+      .v1-hero__stats {
+        display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+        gap: 0.75rem; margin-top: 2.8rem; padding-top: 2rem;
+        border-top: 1px solid var(--line-l);
+      }
+      .v1-hero__stat-val { font-family: var(--serif); font-size: 1.8rem; font-weight: 700; color: var(--gold-soft); line-height: 1; }
+      .v1-hero__stat-lbl { font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.08em; color: rgba(255, 240, 217, 0.65); margin-top: 0.3rem; }
+
+      /* rotating badge card */
+      .v1-hero__stage {
+        display: flex; justify-content: center; align-items: center; position: relative;
+      }
+      .v1-seal-wrap {
+        position: relative; width: clamp(220px, 28vw, 320px); aspect-ratio: 1;
+        display: grid; place-items: center;
+        background: radial-gradient(circle, rgba(161, 117, 19, 0.16) 0%, transparent 70%);
+      }
+      .v1-seal-ring { width: 100%; height: 100%; animation: spin 28s linear infinite; }
+      .v1-seal-text { font-family: var(--sans); font-size: 10.5px; font-weight: 800; letter-spacing: 0.22em; fill: var(--gold-soft); text-transform: uppercase; }
+      .v1-seal-center { position: absolute; width: 44%; height: 44%; display: grid; place-items: center; }
+      .v1-seal-center img { width: 100%; height: auto; }
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* diamond statement emblem */
+      .v1-emblem {
+        background: var(--paper); padding: 5rem 0;
+        border-bottom: 1px solid var(--line-d); text-align: center;
+      }
+      .v1-emblem__box {
+        max-width: 720px; margin: 0 auto; display: grid; gap: 1.4rem; justify-items: center;
+      }
+      .v1-emblem__rhombus {
+        width: 64px; height: 64px; border: 2px solid var(--gold);
+        transform: rotate(45deg); display: grid; place-items: center;
+        margin-bottom: 0.5rem; background: var(--cream);
+      }
+      .v1-emblem__rhombus img {
+        width: 32px; height: 32px; transform: rotate(-45deg);
+      }
+      .v1-emblem__title {
+        margin: 0; font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 3.4rem);
+        line-height: 1.05; font-weight: 600; text-wrap: balance;
+      }
+      .v1-emblem__title em { font-style: italic; color: var(--gold); }
+      .v1-emblem__p {
+        margin: 0; font-size: 1.05rem; line-height: 1.6; color: rgba(22, 27, 13, 0.78);
+      }
+
+      /* assortment */
+      .v1-catalog {
+        padding: 5rem 0 6rem; background: var(--cream-dim);
+      }
+      .v1-section-head {
+        margin-bottom: 3rem; text-align: center; max-width: 680px; margin-inline: auto;
+      }
+      .v1-section-head .eyebrow { color: var(--gold); }
+      .v1-section-head h2 {
+        margin: 0.5rem 0 0.8rem; font-family: var(--serif);
+        font-size: clamp(2.4rem, 5vw, 3.8rem); line-height: 1; font-weight: 600;
+      }
+      .v1-section-head h2 em { font-style: italic; color: var(--gold); }
+      .v1-section-head p { margin: 0; color: rgba(22, 27, 13, 0.75); font-size: 1rem; }
+
+      .v1-cards {
+        display: grid; gap: 1.8rem;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      }
+      .v1-card {
+        background: var(--paper); border: 1px solid var(--line-d);
+        border-radius: 6px; overflow: hidden;
+        display: flex; flex-direction: column;
+        transition: transform 0.22s ease, box-shadow 0.22s ease;
+      }
+      .v1-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 16px 32px rgba(31, 38, 18, 0.08);
+      }
+      .v1-card__plate {
+        background: radial-gradient(circle at center, #fff 0%, var(--cream-dim) 100%);
+        padding: 2.2rem 1.5rem; text-align: center; position: relative;
+      }
+      .v1-card__badge {
+        position: absolute; top: 1rem; left: 1rem;
+        background: var(--olive); color: var(--cream);
+        font-size: 0.64rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; padding: 0.28rem 0.65rem; border-radius: 999px;
+      }
+      .v1-card__plate img {
+        height: 240px; width: auto; max-width: 100%; object-fit: contain;
+        margin: 0 auto; filter: drop-shadow(0 12px 16px rgba(22, 27, 13, 0.15));
+      }
+      .v1-card__body {
+        padding: 1.6rem 1.6rem 1.8rem;
+        display: flex; flex-direction: column; flex: 1;
+        gap: 0.8rem;
+      }
+      .v1-card__meta {
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em;
+        text-transform: uppercase; color: var(--gold);
+      }
+      .v1-card__name {
+        margin: 0; font-family: var(--serif); font-size: 1.85rem; font-weight: 600; line-height: 1.08;
+      }
+      .v1-card__desc { margin: 0; font-size: 0.9rem; color: rgba(22, 27, 13, 0.75); line-height: 1.45; }
+      
+      .v1-card__tags {
+        display: flex; flex-wrap: wrap; gap: 0.3rem 0.45rem; list-style: none; padding: 0; margin: 0.2rem 0;
+      }
+      .v1-card__tags li {
+        font-size: 0.7rem; font-weight: 700; padding: 0.2rem 0.55rem;
+        border-radius: 999px; background: rgba(47, 57, 28, 0.08); color: var(--olive);
+      }
+
+      .v1-card__deal { margin-top: auto; padding-top: 0.8rem; border-top: 1px solid var(--line-d); }
+      .v1-card__deal summary {
+        font-size: 0.76rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+        cursor: pointer; color: var(--olive); list-style: none; display: flex; align-items: center; justify-content: space-between;
+      }
+      .v1-card__deal summary::-webkit-details-marker { display: none; }
+      .v1-card__deal summary:hover { color: var(--gold); }
+      .v1-card__deal[open] summary span::after { content: " ×"; }
+      .v1-card__deal summary span::after { content: " →"; }
+      .v1-card__info {
+        margin-top: 1rem; font-size: 0.82rem; line-height: 1.45; color: rgba(22, 27, 13, 0.85);
+        background: #fff; padding: 1rem; border-radius: 4px; border: 1px solid var(--line-d);
+      }
+      .v1-card__info b { display: block; font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.25rem; }
+
+      /* statement banners (Chomps billboard impact) */
+      .v1-statements { display: grid; }
+      .v1-banner {
+        padding: 5rem 1.5rem; text-align: center; position: relative;
+      }
+      .v1-banner--dark { background: var(--olive-night); color: var(--cream); border-bottom: 1px solid var(--line-l); }
+      .v1-banner--cream { background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--line-d); }
+      .v1-banner--olive { background: var(--olive-deep); color: var(--cream); }
+      .v1-banner__inner { max-width: 820px; margin: 0 auto; display: grid; gap: 1rem; }
+      .v1-banner__h {
+        margin: 0; font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 4.4rem);
+        line-height: 1; font-weight: 600; text-wrap: balance;
+      }
+      .v1-banner__h em { font-style: italic; color: var(--gold-soft); }
+      .v1-banner--cream .v1-banner__h em { color: var(--gold); }
+      .v1-banner__p {
+        margin: 0; font-size: 1.1rem; line-height: 1.6; opacity: 0.85; max-width: 48ch; margin-inline: auto;
+      }
+
+      /* docs & certificates */
+      .v1-docs {
+        padding: 5.5rem 0 6rem; background: var(--olive-deep); color: var(--cream);
+      }
+      .v1-docs-grid {
+        display: grid; gap: 1.2rem;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      }
+      .v1-doc-card {
+        background: rgba(255, 240, 217, 0.05); border: 1px solid var(--line-l);
+        border-radius: 6px; padding: 1.8rem 1.6rem; display: flex; flex-direction: column; gap: 0.6rem;
+        transition: border-color 0.2s, background 0.2s;
+      }
+      .v1-doc-card:hover { border-color: var(--gold-soft); background: rgba(255, 240, 217, 0.08); }
+      .v1-doc-card__k { font-family: var(--serif); font-size: 1.5rem; font-weight: 600; color: var(--cream); }
+      .v1-doc-card__v { font-size: 0.86rem; line-height: 1.45; color: rgba(255, 240, 217, 0.72); }
+      .v1-doc-card__link {
+        margin-top: auto; padding-top: 0.8rem; font-size: 0.76rem; font-weight: 800;
+        letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-soft); text-decoration: underline;
+      }
+
+      /* contact & b2b cta */
+      .v1-contact {
+        padding: 5rem 0; background: var(--paper); border-top: 1px solid var(--line-d);
+      }
+      .v1-contact__grid {
+        display: grid; gap: 3rem; align-items: start;
+      }
+      @media (min-width: 900px) {
+        .v1-contact__grid { grid-template-columns: 1.1fr 0.9fr; }
+      }
+      .v1-contact h2 {
+        margin: 0.4rem 0 1rem; font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.6rem); line-height: 1;
+      }
+      .v1-contact h2 em { font-style: italic; color: var(--gold); }
+      .v1-contact__actions { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem; }
+
+      .v1-contact__box {
+        background: #fff; border: 1px solid var(--line-d); border-radius: 6px;
+        padding: 2rem; display: grid; gap: 1.2rem;
+      }
+      .v1-contact__item dt { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(22, 27, 13, 0.55); }
+      .v1-contact__item dd { margin: 0.2rem 0 0; font-size: 0.92rem; font-weight: 600; }
+      .v1-contact__item a { color: var(--olive); text-decoration: underline; }
+
+      /* footer */
+      .v1-footer {
+        background: var(--olive-night); color: rgba(255, 240, 217, 0.6);
+        padding: 3rem 0 2.5rem; border-top: 1px solid var(--line-l); font-size: 0.82rem;
+      }
+      .v1-footer__inner {
+        display: flex; flex-wrap: wrap; gap: 1.5rem 3rem; justify-content: space-between; align-items: center;
+      }
+      .v1-footer__logo img { height: 1.5rem; width: auto; }
+      .v1-footer__links { display: flex; flex-wrap: wrap; gap: 1.4rem; font-weight: 600; }
+      .v1-footer__links a:hover { color: var(--cream); }
+      .v1-footer__copy { width: 100%; border-top: 1px solid var(--line-l); padding-top: 1.5rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.8rem; font-size: 0.74rem; }
+
+      /* modal */
+      .modal {
+        border: none; padding: 0; background: transparent;
+        max-width: min(92vw, 520px); width: 100%; margin: auto;
+      }
+      .modal::backdrop { background: rgba(20, 24, 13, 0.82); backdrop-filter: blur(8px); }
+      .modal__card {
+        position: relative; background: var(--paper); color: var(--ink);
+        padding: 2.2rem 2rem; border: 1px solid var(--line-d); border-radius: 6px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+      }
+      .modal__close {
+        position: absolute; top: 1rem; right: 1rem; background: none; border: none;
+        font-size: 1.8rem; cursor: pointer; color: var(--ink); opacity: 0.6;
+      }
+      .modal__close:hover { opacity: 1; color: var(--gold); }
+      .modal__title { margin: 0.4rem 0 0.8rem; font-family: var(--serif); font-size: 2.2rem; line-height: 1.1; }
+      .modal__title em { font-style: italic; color: var(--gold); }
+      .modal__form { display: grid; gap: 0.9rem; }
+      .modal__field { display: grid; gap: 0.3rem; }
+      .modal__field label { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(22, 27, 13, 0.7); }
+      .modal__field input { padding: 0.75rem 0.9rem; border: 1px solid rgba(22, 27, 13, 0.25); border-radius: 4px; font-family: var(--sans); }
+      .modal__fieldset { border: 1px solid rgba(22, 27, 13, 0.18); border-radius: 4px; padding: 0.8rem; display: grid; gap: 0.45rem; }
+      .modal__fieldset legend { font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(22, 27, 13, 0.7); padding: 0 0.4rem; }
+      .modal__checkbox { display: flex; align-items: center; gap: 0.55rem; font-size: 0.84rem; cursor: pointer; }
+      .modal__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.4rem; }
+      .modal__actions .btn { flex: 1 1 160px; font-size: 0.74rem; text-align: center; justify-content: center; }
+    </style>
+  </head>
+  <body>
+    <!-- TOP NAV -->
+    <header class="top-nav">
+      <div class="wrap top-nav__inner">
+        <a class="top-nav__logo" href="/1/" aria-label="Ярату — концепт 1">
+          <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" width="1787" height="300" />
+        </a>
+        <nav class="top-nav__links" aria-label="Разделы концепта">
+          <a href="#assortment">Ассортимент</a>
+          <a href="#philosophy">Принципы</a>
+          <a href="#docs">Сертификаты</a>
+          <a href="#faq">FAQ</a>
+          <a href="#contacts">Контакты</a>
+        </nav>
+        <div class="top-nav__actions">
+          <a class="top-nav__phone" href="tel:+79872170202">+7 987 217-02-02</a>
+          <button class="btn btn--cream" type="button" onclick="showSpecModal()">Запросить спецификацию</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="main">
+      <!-- HERO -->
+      <section class="v1-hero">
+        <div class="wrap v1-hero__grid">
+          <div>
+            <span class="v1-hero__eyebrow">Казань · Халяль ДУМ РТ №614А/2024 · Без нитрита</span>
+            <h1 class="v1-hero__title">Любовь начинается <em>со вкуса.</em></h1>
+            <p class="v1-hero__lead">
+              Пять продуктов из курицы и говядины с полностью раскрытым составом,
+              без нитрита натрия и с подтверждённым халяль-статусом. Всё важное о составе — прямо на этикетке до покупки.
+            </p>
+            <div class="v1-hero__actions">
+              <a class="btn btn--cream" href="#assortment">Смотреть ассортимент ↓</a>
+              <button class="btn btn--line-l" type="button" onclick="showSpecModal()">Запросить условия B2B</button>
+            </div>
+            <div class="v1-hero__stats">
+              <div>
+                <div class="v1-hero__stat-val">0%</div>
+                <div class="v1-hero__stat-lbl">Нитрита натрия (E250)</div>
+              </div>
+              <div>
+                <div class="v1-hero__stat-val">100%</div>
+                <div class="v1-hero__stat-lbl">Раскрытый состав</div>
+              </div>
+              <div>
+                <div class="v1-hero__stat-val">614А</div>
+                <div class="v1-hero__stat-lbl">Сертификат ДУМ РТ</div>
+              </div>
+              <div>
+                <div class="v1-hero__stat-val">HACCP</div>
+                <div class="v1-hero__stat-lbl">И ISO 22000:2018</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="v1-hero__stage">
+            <div class="v1-seal-wrap">
+              <svg class="v1-seal-ring" viewBox="0 0 200 200" aria-hidden="true">
+                <defs>
+                  <path id="v1-badge-circle" d="M100 100 m-80 0 a80 80 0 1 1 160 0 a80 80 0 1 1 -160 0" />
+                </defs>
+                <text class="v1-seal-text" textLength="500" lengthAdjust="spacingAndGlyphs">
+                  <textPath href="#v1-badge-circle">БЕЗ НИТРИТА НАРИЯ · ХАЛЯЛЬ ДУМ РТ · СОСТАВ РАСКРЫТ ·</textPath>
+                </text>
+              </svg>
+              <div class="v1-seal-center">
+                <img src="/assets/logo/sign-white.svg" alt="Знак Ярату" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- DIAMOND EMBLEM -->
+      <section class="v1-emblem" id="philosophy">
+        <div class="wrap v1-emblem__box">
+          <div class="v1-emblem__rhombus" aria-hidden="true">
+            <img src="/assets/logo/sign.svg" alt="" />
+          </div>
+          <span class="eyebrow" style="color: var(--gold)">Честный выбор</span>
+          <h2 class="v1-emblem__title">Мясные продукты <em>без секретов.</em></h2>
+          <p class="v1-emblem__p">
+            Мы создали Ярату, чтобы мясной продукт не приходилось выбирать вслепую.
+            Никаких замаскированных формулировок «комплексная смесь специй» мелким шрифтом:
+            каждый экстракт, каждая специя и точный расчет белков, жиров и углеводов открыты до покупки.
+          </p>
+        </div>
+      </section>
+
+      <!-- ASSORTMENT -->
+      <section class="v1-catalog" id="assortment">
+        <div class="wrap">
+          <div class="v1-section-head">
+            <span class="eyebrow">№ 01 — Ассортимент</span>
+            <h2>Пять продуктов. <em>Ноль компромиссов.</em></h2>
+            <p>Диетические акценты, честные расчетные макросы на 100 г и полное раскрытие рецептур.</p>
+          </div>
+
+          <div class="v1-cards">
+            <!-- 01 Ветчина -->
+            <article class="v1-card" id="card-vetchina">
+              <div class="v1-card__plate">
+                <span class="v1-card__badge">High Protein · 16,7 г</span>
+                <img src="/packshots/sku-vetchina-f7a3c1.jpg" alt="Ветчина филейная Ярату" loading="lazy" />
+              </div>
+              <div class="v1-card__body">
+                <span class="v1-card__meta">01 / 05 · Ветчина · 150 г</span>
+                <h3 class="v1-card__name">Ветчина филейная</h3>
+                <p class="v1-card__desc">Куриная ветчина из отборного филе бедра и грудки. Минимальная калорийность и максимальное содержание белка в линейке.</p>
+                <ul class="v1-card__tags">
+                  <li>16,7 г белка</li>
+                  <li>125 ккал</li>
+                  <li>0,4 г углеводов</li>
+                  <li>Без E250</li>
+                </ul>
+                <details class="v1-card__deal">
+                  <summary><span>Состав и этикетка</span></summary>
+                  <div class="v1-card__info">
+                    <b>Раскрытый состав:</b>
+                    Филе бедра куриное, филе грудки куриной, вода питьевая, молочный белок, сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь чёрного и белого перца), соль, соль поваренная пищевая, дрожжевой экстракт, экстракты цитрусовых, глюкоза, экстракты чеснока, черного перца и мускатного ореха.
+                    <b style="margin-top:0.6rem">Аллергены:</b> молоко.
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <!-- 02 Мраморная -->
+            <article class="v1-card" id="card-mramornaya">
+              <div class="v1-card__plate">
+                <span class="v1-card__badge">Кето & Carnivore</span>
+                <img src="/packshots/sku-mramornaya-f7a3c1.jpg" alt="Колбаса Мраморная Ярату" loading="lazy" />
+              </div>
+              <div class="v1-card__body">
+                <span class="v1-card__meta">02 / 05 · Варёно-копчёная · 500 г</span>
+                <h3 class="v1-card__name">«Мраморная»</h3>
+                <p class="v1-card__desc">Выразительный мясной профиль из курицы и говядины. Всего 0,5 г углеводов на 100 г — безупречно для кето и безуглеводного рациона.</p>
+                <ul class="v1-card__tags">
+                  <li>14,9 г белка</li>
+                  <li>0,5 г углеводов</li>
+                  <li>Кето-профиль</li>
+                  <li>Без E250</li>
+                </ul>
+                <details class="v1-card__deal">
+                  <summary><span>Состав и этикетка</span></summary>
+                  <div class="v1-card__info">
+                    <b>Раскрытый состав:</b>
+                    Филе бедра куриное, кожа птицы, говядина, жир говяжий, вода, соль, экстракты фруктов и пряностей (помело, лимон, черный и белый перец), виноградный сахар, мальтодекстрин, дрожжевой экстракт, экстракт барбадосской вишни, сухой лимонный сок, мускатный орех, чеснок, душистый перец, имбирь, кориандр.
+                    <b style="margin-top:0.6rem">Аллергены:</b> не заявлены в рецептуре.
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <!-- 03 Брокколи -->
+            <article class="v1-card" id="card-brokkoli">
+              <div class="v1-card__plate">
+                <span class="v1-card__badge">С овощами</span>
+                <img src="/packshots/sku-brokkoli-f7a3c1.jpg" alt="Сосиски с брокколи Ярату" loading="lazy" />
+              </div>
+              <div class="v1-card__body">
+                <span class="v1-card__meta">03 / 05 · Сосиски · 400 г</span>
+                <h3 class="v1-card__name">С брокколи</h3>
+                <p class="v1-card__desc">Курица и говядина со свежей брокколи. Мягкие пряности, легкая текстура и баланс клетчатки с белком для всей семьи.</p>
+                <ul class="v1-card__tags">
+                  <li>13 г белка</li>
+                  <li>1,5 г углеводов</li>
+                  <li>Брокколи в составе</li>
+                  <li>Без E250</li>
+                </ul>
+                <details class="v1-card__deal">
+                  <summary><span>Состав и этикетка</span></summary>
+                  <div class="v1-card__info">
+                    <b>Раскрытый состав:</b>
+                    Филе голени куриное, вода, говяжий жир, говядина, филе куриное, кожа птицы, брокколи, молочный и сывороточный белок, сухое молоко, меланж куриных яиц, экстракты фруктов и пряностей (помело, лимон, перец), сахар, мускатный орех, душистый перец, кукурузный крахмал.
+                    <b style="margin-top:0.6rem">Аллергены:</b> молоко, яйца.
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <!-- 04 Молочные -->
+            <article class="v1-card" id="card-molochnye">
+              <div class="v1-card__plate">
+                <span class="v1-card__badge">К завтраку</span>
+                <img src="/packshots/sku-molochnye-f7a3c1.jpg" alt="Сосиски Молочные Ярату" loading="lazy" />
+              </div>
+              <div class="v1-card__body">
+                <span class="v1-card__meta">04 / 05 · Сосиски · 500 г</span>
+                <h3 class="v1-card__name">«Молочные»</h3>
+                <p class="v1-card__desc">Мягкий классический вкус на основе натурального молочного белка и сухого молока. Рецептура без фосфатных загустителей и без нитрита.</p>
+                <ul class="v1-card__tags">
+                  <li>13,5 г белка</li>
+                  <li>1,2 г углеводов</li>
+                  <li>Мягкий вкус</li>
+                  <li>Без E250</li>
+                </ul>
+                <details class="v1-card__deal">
+                  <summary><span>Состав и этикетка</span></summary>
+                  <div class="v1-card__info">
+                    <b>Раскрытый состав:</b>
+                    Филе голени куриное, вода, жир говяжий, говядина, куриное филе, кожа птицы, молочный белок, сывороточный белок, сухое молоко, меланж яичный, экстракты помело, лимона, перца, сахар, пряности (черный перец, мускатный орех, душистый перец), кукурузный крахмал.
+                    <b style="margin-top:0.6rem">Аллергены:</b> молоко, яйца.
+                  </div>
+                </details>
+              </div>
+            </article>
+
+            <!-- 05 Сливочная -->
+            <article class="v1-card" id="card-slivochnaya">
+              <div class="v1-card__plate">
+                <span class="v1-card__badge">Деликатес</span>
+                <img src="/packshots/sku-slivochnaya-f7a3c1.jpg" alt="Колбаса Сливочная Ярату" loading="lazy" />
+              </div>
+              <div class="v1-card__body">
+                <span class="v1-card__meta">05 / 05 · Варёная · 400 г</span>
+                <h3 class="v1-card__name">«Сливочная»</h3>
+                <p class="v1-card__desc">Нежная варёная колбаса с мягким сливочным ароматом. Экстракты цитрусовых и имбиря поддерживают стабильность без консервантов.</p>
+                <ul class="v1-card__tags">
+                  <li>14,4 г белка</li>
+                  <li>0,7 г углеводов</li>
+                  <li>Сливочный профиль</li>
+                  <li>Без E250</li>
+                </ul>
+                <details class="v1-card__deal">
+                  <summary><span>Состав и этикетка</span></summary>
+                  <div class="v1-card__info">
+                    <b>Раскрытый состав:</b>
+                    Филе бедра куриное, вода, говядина, филе куриное, кожа птицы, жир говяжий, молочный белок, сывороточный белок, сухое молоко, яйца, экстракты фруктов и пряностей (помело, лимон, белый и черный перец), глюкоза, мускатный орех, имбирь, ароматизатор типа «сливки», пивные дрожжи.
+                    <b style="margin-top:0.6rem">Аллергены:</b> молоко, яйца.
+                  </div>
+                </details>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- STATEMENTS (CHOMPS STYLE HOOKS) -->
+      <section class="v1-statements">
+        <div class="v1-banner v1-banner--dark">
+          <div class="v1-banner__inner">
+            <span class="eyebrow" style="color: var(--gold-soft)">Хук № 1</span>
+            <h2 class="v1-banner__h">Без нитрита <em>натрия.</em></h2>
+            <p class="v1-banner__p">
+              Нитрит натрия (E250) полностью исключён из всех пяти рецептур Ярату.
+              Аппетитный естественный оттенок достигается только природными экстрактами фруктов и вишни барбадосской.
+            </p>
+          </div>
+        </div>
+
+        <div class="v1-banner v1-banner--cream">
+          <div class="v1-banner__inner">
+            <span class="eyebrow" style="color: var(--gold)">Хук № 2</span>
+            <h2 class="v1-banner__h">Чистый состав <em>без сокращений.</em></h2>
+            <p class="v1-banner__p">
+              Мы не прячем состав за туманными фразами «смесь специй» или «комплексная добавка».
+              Каждый ингредиент расшифрован до лимона, помело, мускатного ореха и дрожжевого экстракта.
+            </p>
+          </div>
+        </div>
+
+        <div class="v1-banner v1-banner--olive">
+          <div class="v1-banner__inner">
+            <span class="eyebrow" style="color: var(--gold-soft)">Хук № 3</span>
+            <h2 class="v1-banner__h">Халяль ДУМ РТ <em>и безопасность ISO 22000.</em></h2>
+            <p class="v1-banner__p">
+              Вся линейка входит в область действия сертификата «Халяль» ДУМ РТ №614А/2024.
+              Собственное производство в Казани работает по международной системе HACCP и стандарту ISO 22000:2018.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- DOCS & CERTIFICATES -->
+      <section class="v1-docs" id="docs">
+        <div class="wrap">
+          <div class="v1-section-head">
+            <span class="eyebrow" style="color: var(--gold-soft)">№ 02 — Документация</span>
+            <h2 style="color: var(--cream)">Подтверждённые <em>стандарты.</em></h2>
+            <p style="color: rgba(255, 240, 217, 0.72)">Каждый продуктовый факт подтверждается официальными сертификатами и протоколами производства.</p>
+          </div>
+
+          <div class="v1-docs-grid">
+            <div class="v1-doc-card">
+              <span class="v1-doc-card__k">Халяль ДУМ РТ</span>
+              <span class="v1-doc-card__v">Сертификат №614А/2024 (17.02.2024–16.02.2027). Все пять продуктов входят в область действия.</span>
+              <a class="v1-doc-card__link" href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener">Проверить в реестре ↗</a>
+            </div>
+
+            <div class="v1-doc-card">
+              <span class="v1-doc-card__k">HACCP (ХАССП)</span>
+              <span class="v1-doc-card__v">Система анализа рисков и контроля критических точек на производстве в Казани. Предотвращение рисков на всех этапах.</span>
+              <span class="v1-doc-card__link" style="color:rgba(255,240,217,0.4)">Стандарт производства</span>
+            </div>
+
+            <div class="v1-doc-card">
+              <span class="v1-doc-card__k">ISO 22000:2018</span>
+              <span class="v1-doc-card__v">Международный стандарт системы менеджмента безопасности пищевой продукции ООО «Казанские Деликатесы».</span>
+              <span class="v1-doc-card__link" style="color:rgba(255,240,217,0.4)">Аудит качества</span>
+            </div>
+
+            <div class="v1-doc-card">
+              <span class="v1-doc-card__k">ТР ТС 021 & 022</span>
+              <span class="v1-doc-card__v">Декларации соответствия требованиям Таможенного союза о безопасности пищевой продукции и её маркировке.</span>
+              <span class="v1-doc-card__link" style="color:rgba(255,240,217,0.4)">ЕАС декларация</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="v1-emblem" id="faq" style="background: var(--paper); border-bottom: none;">
+        <div class="wrap" style="max-width: 820px; text-align: left;">
+          <div style="text-align: center; margin-bottom: 2.5rem;">
+            <span class="eyebrow" style="color: var(--gold)">№ 03 — Вопросы и ответы</span>
+            <h2 class="v1-emblem__title">Коротко <em>о главном.</em></h2>
+          </div>
+
+          <div style="display: grid; gap: 0.8rem;">
+            <details style="background: #fff; padding: 1.2rem 1.4rem; border-radius: 4px; border: 1px solid var(--line-d);">
+              <summary style="font-weight: 700; cursor: pointer;">Что такое Ярату?</summary>
+              <p style="margin: 0.8rem 0 0; font-size: 0.92rem; color: rgba(22, 27, 13, 0.8); line-height: 1.5;">Ярату — бренд мясных продуктов ООО «Казанские Деликатесы»: пять продуктов из Казани без нитрита натрия и с составом, раскрытым до отдельных ингредиентов.</p>
+            </details>
+            <details style="background: #fff; padding: 1.2rem 1.4rem; border-radius: 4px; border: 1px solid var(--line-d);">
+              <summary style="font-weight: 700; cursor: pointer;">Где цены на сайте?</summary>
+              <p style="margin: 0.8rem 0 0; font-size: 0.92rem; color: rgba(22, 27, 13, 0.8); line-height: 1.5;">Публичного потребительского прайса на сайте нет. Актуальные спецификации, фасовки и условия поставок запрашивают напрямую у производителя.</p>
+            </details>
+            <details style="background: #fff; padding: 1.2rem 1.4rem; border-radius: 4px; border: 1px solid var(--line-d);">
+              <summary style="font-weight: 700; cursor: pointer;">Вся линейка халяль?</summary>
+              <p style="margin: 0.8rem 0 0; font-size: 0.92rem; color: rgba(22, 27, 13, 0.8); line-height: 1.5;">Да. Все пять текущих продуктов входят в область действия сертификата Халяль ДУМ РТ №614А/2024.</p>
+            </details>
+            <details style="background: #fff; padding: 1.2rem 1.4rem; border-radius: 4px; border: 1px solid var(--line-d);">
+              <summary style="font-weight: 700; cursor: pointer;">КБЖУ лабораторные?</summary>
+              <p style="margin: 0.8rem 0 0; font-size: 0.92rem; color: rgba(22, 27, 13, 0.8); line-height: 1.5;">Нет. Это расчёт по текущей сырьевой рецептуре на 100 г, не протокол лабораторных испытаний. Мы честно помечаем статус данных.</p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACTS & B2B -->
+      <section class="v1-contact" id="contacts">
+        <div class="wrap v1-contact__grid">
+          <div>
+            <span class="eyebrow" style="color: var(--gold)">№ 04 — Поставки</span>
+            <h2>Поговорим <em>о поставках?</em></h2>
+            <p style="margin: 0; font-size: 1.05rem; line-height: 1.6; color: rgba(22, 27, 13, 0.8);">
+              Отправим актуальные спецификации, сертификаты качества, фасовки и коммерческие условия напрямую от производителя в Казани.
+            </p>
+            <div class="v1-contact__actions">
+              <button class="btn btn--ink" type="button" onclick="showSpecModal()">Запросить спецификации →</button>
+              <a class="btn btn--line-d" href="https://wa.me/79872170202" target="_blank" rel="noopener">Написать в WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="v1-contact__box">
+            <div class="v1-contact__item">
+              <dt>Производитель</dt>
+              <dd>ООО «Казанские Деликатесы»</dd>
+            </div>
+            <div class="v1-contact__item">
+              <dt>Адрес производства</dt>
+              <dd>420061, Россия, Республика Татарстан, г. Казань, ул. Аграрная, 2, оф. 7</dd>
+            </div>
+            <div class="v1-contact__item">
+              <dt>Прямая связь</dt>
+              <dd>
+                <a href="tel:+79872170202">+7 987 217-02-02</a><br />
+                <a href="mailto:info@kazandelikates.tatar">info@kazandelikates.tatar</a>
+              </dd>
+            </div>
+            <div class="v1-contact__item">
+              <dt>Реквизиты</dt>
+              <dd>ИНН 1686021074 · КПП 168601001 · ОГРН 1221600096893</dd>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="v1-footer">
+      <div class="wrap v1-footer__inner">
+        <div class="v1-footer__logo">
+          <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" width="1787" height="300" />
+        </div>
+        <nav class="v1-footer__links" aria-label="Ссылки">
+          <a href="/">Главная</a>
+          <a href="/privacy.html">Политика ПДн</a>
+          <a href="https://kazandelikates.tatar/" rel="noopener">kazandelikates.tatar</a>
+          <a href="https://pepperoni.tatar/" rel="noopener">pepperoni.tatar</a>
+        </nav>
+        <div class="v1-footer__copy">
+          <span>© 2026 Yaratu · концепт 1 · бренд ООО «Казанские Деликатесы»</span>
+          <span style="color:var(--gold-soft)">Халяль · Без нитрита натрия · Раскрытый состав</span>
+        </div>
+      </div>
+    </footer>
+
+    <!-- SPEC MODAL -->
+    <dialog id="spec-modal" class="modal" aria-labelledby="modal-title" onclick="if(event.target===this)closeSpecModal()">
+      <div class="modal__card">
+        <button class="modal__close" type="button" onclick="closeSpecModal()" aria-label="Закрыть">×</button>
+        <span class="eyebrow" style="color: var(--gold)">B2B · Поставки</span>
+        <h2 id="modal-title" class="modal__title">Запросить <em>спецификации</em></h2>
+        <p style="margin: 0 0 1.2rem; font-size: 0.88rem; color: rgba(22, 27, 13, 0.75);">Отправим составы, расчётные КБЖУ, сертификаты Халяль ДУМ РТ и условия прямых поставок от производителя в Казани.</p>
+        
+        <form class="modal__form" onsubmit="return handleSpecSubmit(event)">
+          <div class="modal__field">
+            <label for="spec-name">Ваше имя / Компания</label>
+            <input id="spec-name" type="text" placeholder="Имя, компания" required />
+          </div>
+          <div class="modal__field">
+            <label for="spec-phone">Телефон или WhatsApp</label>
+            <input id="spec-phone" type="tel" placeholder="+7 999 000-00-00" required />
+          </div>
+          <fieldset class="modal__fieldset">
+            <legend>Интересующие продукты</legend>
+            <label class="modal__checkbox"><input type="checkbox" name="sku" value="Ветчина филейная" checked /> <span>Ветчина филейная (150 г)</span></label>
+            <label class="modal__checkbox"><input type="checkbox" name="sku" value="Колбаса «Мраморная»" checked /> <span>Колбаса в/к «Мраморная» (500 г)</span></label>
+            <label class="modal__checkbox"><input type="checkbox" name="sku" value="Сосиски с брокколи" checked /> <span>Сосиски с брокколи (400 г)</span></label>
+            <label class="modal__checkbox"><input type="checkbox" name="sku" value="Сосиски «Молочные»" checked /> <span>Сосиски «Молочные» (500 г)</span></label>
+            <label class="modal__checkbox"><input type="checkbox" name="sku" value="Колбаса «Сливочная»" checked /> <span>Колбаса варёная «Сливочная» (400 г)</span></label>
+          </fieldset>
+          <div class="modal__actions">
+            <button type="submit" class="btn btn--ink">Написать в WhatsApp →</button>
+            <button type="button" class="btn btn--line-d" onclick="handleSpecMail()">На Email →</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <script>
+      function showSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.showModal === "function") modal.showModal();
+        else window.location.hash = "contacts";
+      }
+      function closeSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.close === "function") modal.close();
+      }
+      function handleSpecSubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var text = "Здравствуйте! Меня зовут " + name + " (" + phone + "). Интересуют спецификации Ярату: " + (skus.length ? skus.join(", ") : "все позиции") + ".";
+        window.open("https://wa.me/79872170202?text=" + encodeURIComponent(text), "_blank", "noopener");
+        closeSpecModal();
+        return false;
+      }
+      function handleSpecMail() {
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var body = "Имя / Компания: " + name + "\nТелефон: " + phone + "\nИнтересующие позиции:\n- " + (skus.length ? skus.join("\n- ") : "все позиции") + "\n\nПрошу направить спецификации и коммерческие условия.";
+        window.location.href = "mailto:info@kazandelikates.tatar?subject=" + encodeURIComponent("Ярату / Запрос спецификаций") + "&body=" + encodeURIComponent(body);
+        closeSpecModal();
+      }
+      window.showSpecModal = showSpecModal;
+      window.closeSpecModal = closeSpecModal;
+      window.handleSpecSubmit = handleSpecSubmit;
+      window.handleSpecMail = handleSpecMail;
+    </script>
+  </body>
+</html>

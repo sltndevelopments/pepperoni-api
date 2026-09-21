@@ -1141,8 +1141,11 @@ const page404 = `<!doctype html>
 </html>`;
 await output("404.html", page404);
 
+// Design variant 1 (preview/mockup at /1, noindex)
+await output("1/index.html", await readFile(join(root, "1.html"), "utf8"));
+
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
-await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n`);
+await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n/1 /1/ 301\n`);
 const routes = {
   version: 1,
   include: ["/*"],
