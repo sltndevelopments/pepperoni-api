@@ -9,621 +9,727 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;0,6..96,700;1,6..96,400;1,6..96,500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Manrope:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --night: #10140c;
-        --night-soft: #161b11;
-        --olive-deep: #1f2612;
-        --olive: #2c3820;
-        --olive-card: #1e2515;
-        --cream: #f6eedc;
-        --cream-light: #fbf6ec;
-        --paper: #f4ecda;
-        --ink: #1c2412;
-        --gold: #c4a15a;
-        --gold-light: #e5cb8f;
-        --line-l: rgba(246, 238, 220, 0.16);
-        --line-d: rgba(28, 36, 18, 0.14);
-        --serif: "Cormorant Garamond", "Times New Roman", serif;
-        --sans: "Manrope", system-ui, -apple-system, sans-serif;
+        --cream-bg: #f4ecdc;
+        --cream-card: #fdfaf3;
+        --night: #0b0e08;
+        --night-soft: #12160d;
+        --olive: #3d4a39;
+        --olive-dark: #2c3629;
+        --olive-light: #52634d;
+        --ink: #1c2414;
+        --ink-muted: rgba(28, 36, 20, 0.72);
+        --white: #ffffff;
+        --white-muted: rgba(255, 255, 255, 0.75);
+        --line-cream: rgba(28, 36, 20, 0.12);
+        --line-dark: rgba(255, 255, 255, 0.14);
+        --serif-didone: "Bodoni Moda", "Cormorant Garamond", "Didot", serif;
+        --serif-soft: "Cormorant Garamond", serif;
+        --sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       }
 
       * { box-sizing: border-box; }
-      html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+      html { scroll-behavior: auto; -webkit-text-size-adjust: 100%; }
       body {
         margin: 0;
-        background: var(--cream);
+        background: var(--cream-bg);
         color: var(--ink);
         font-family: var(--sans);
         line-height: 1.5;
-        overflow-x: hidden;
       }
       img { display: block; max-width: 100%; height: auto; }
       a { color: inherit; text-decoration: none; }
-      .wrap { width: min(1200px, calc(100% - 2.5rem)); margin-inline: auto; }
-      .serif { font-family: var(--serif); }
+      .container { width: min(1280px, calc(100% - 3rem)); margin-inline: auto; }
 
-      /* FLOATING CAPSULE HEADER */
-      .header-wrap {
-        position: fixed; top: 1rem; left: 0; right: 0; z-index: 100;
+      /* ========================================================
+         1. FLOATING PILL NAVBAR
+         ======================================================== */
+      .nav-shell {
+        position: fixed; top: 1.25rem; left: 0; right: 0; z-index: 200;
         display: flex; justify-content: center;
         padding: 0 1rem; pointer-events: none;
       }
       .nav-capsule {
         pointer-events: auto;
-        width: min(1160px, 100%);
+        width: min(1200px, 100%);
         display: flex; align-items: center; justify-content: space-between;
-        gap: 1.2rem;
-        background: rgba(246, 238, 220, 0.94);
-        backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
-        border: 1px solid rgba(255, 255, 255, 0.65);
+        gap: 1.5rem;
+        background: rgba(244, 236, 220, 0.94);
+        backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(255, 255, 255, 0.75);
         border-radius: 999px;
-        padding: 0.55rem 0.8rem 0.55rem 1.4rem;
-        box-shadow: 0 16px 36px rgba(16, 20, 12, 0.12);
+        padding: 0.6rem 0.85rem 0.6rem 1.6rem;
+        box-shadow: 0 16px 36px rgba(11, 14, 8, 0.16);
       }
-      .nav-logo { display: flex; align-items: center; gap: 0.65rem; }
-      .nav-logo img { height: 26px; width: auto; }
-      .nav-links {
-        display: none; align-items: center; gap: 1.8rem;
-        font-size: 0.86rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+      .nav-brand { display: flex; align-items: center; gap: 0.75rem; }
+      .nav-brand img { height: 26px; width: auto; }
+      .nav-menu {
+        display: none; align-items: center; gap: 2.2rem;
+        font-family: var(--sans); font-size: 0.85rem; font-weight: 700;
+        letter-spacing: 0.08em; text-transform: uppercase;
       }
-      .nav-links a { color: var(--ink); opacity: 0.78; transition: opacity 0.2s, color 0.2s; }
-      .nav-links a:hover { opacity: 1; color: var(--gold); }
-      .nav-cta {
+      .nav-menu a { color: var(--ink); opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
+      .nav-menu a:hover { opacity: 1; color: var(--olive); }
+      .nav-btn {
         display: inline-flex; align-items: center; justify-content: center;
-        background: var(--olive); color: var(--cream);
+        background: var(--olive); color: var(--white);
         border-radius: 999px; border: 0; cursor: pointer;
-        font-family: var(--sans); font-size: 0.8rem; font-weight: 700;
-        letter-spacing: 0.05em; text-transform: uppercase;
-        padding: 0.75rem 1.35rem; transition: transform 0.18s, background 0.18s;
+        font-family: var(--sans); font-size: 0.82rem; font-weight: 700;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        padding: 0.85rem 1.6rem;
+        transition: background 0.2s, transform 0.2s;
       }
-      .nav-cta:hover { background: #3b4b2b; transform: translateY(-1px); }
-      @media (min-width: 900px) { .nav-links { display: flex; } }
+      .nav-btn:hover { background: var(--olive-dark); transform: translateY(-1px); }
+      @media (min-width: 900px) { .nav-menu { display: flex; } }
 
-      /* HERO SECTION (DARK CINEMATIC EDITORIAL) */
-      .hero {
+      /* ========================================================
+         2. HERO SECTION (Dark Cured Sausages)
+         ======================================================== */
+      .hero-block {
         position: relative;
         min-height: 100vh;
         min-height: 100svh;
+        background: var(--night);
+        color: var(--white);
         display: flex; align-items: flex-end;
-        background-color: var(--night);
-        color: var(--cream);
         overflow: hidden;
       }
-      .hero-bg {
+      .hero-art {
         position: absolute; inset: 0; z-index: 0;
-        background: url("/assets/concept1/hero-sausage.jpg") right center / cover no-repeat;
+        background: url("/assets/concept1/hero-sausage-100.jpg") center center / cover no-repeat;
       }
-      .hero-bg::before {
+      .hero-art::before {
         content: ""; position: absolute; inset: 0;
         background: linear-gradient(
           to right,
-          rgba(16, 20, 12, 0.96) 0%,
-          rgba(16, 20, 12, 0.88) 45%,
-          rgba(16, 20, 12, 0.5) 75%,
-          rgba(16, 20, 12, 0.2) 100%
+          rgba(11, 14, 8, 0.94) 0%,
+          rgba(11, 14, 8, 0.82) 48%,
+          rgba(11, 14, 8, 0.45) 80%,
+          rgba(11, 14, 8, 0.25) 100%
         );
       }
       .hero-inner {
         position: relative; z-index: 2;
-        width: min(1200px, calc(100% - 2.5rem));
+        width: min(1280px, calc(100% - 3rem));
         margin: 0 auto;
-        padding: 8.5rem 0 4.5rem;
+        padding: 9.5rem 0 5rem;
         display: grid; gap: 3.5rem;
       }
       @media (min-width: 960px) {
         .hero-inner {
-          grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+          grid-template-columns: minmax(0, 1.35fr) minmax(0, 0.95fr);
           align-items: flex-end;
         }
       }
-
-      .hero-kicker {
-        margin: 0 0 0.6rem;
-        font-family: var(--serif); font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-        color: var(--cream); opacity: 0.92; font-style: italic;
+      .hero-subtitle {
+        margin: 0 0 0.8rem;
+        font-family: var(--serif-soft); font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+        color: var(--white); opacity: 0.9; font-style: italic;
       }
-      .hero-title {
+      .hero-headline {
         margin: 0;
-        font-family: var(--serif); font-weight: 500;
-        font-size: clamp(3.8rem, 10vw, 7.8rem);
-        line-height: 0.88; letter-spacing: -0.02em;
-        text-transform: uppercase; color: var(--cream);
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.6rem, 9.5vw, 7.8rem);
+        line-height: 0.9; letter-spacing: -0.02em;
+        text-transform: uppercase; color: var(--white);
       }
-      .hero-title span { display: block; }
-      .hero-lede {
-        margin: 1.5rem 0 0; max-width: 36rem;
-        font-size: 1.05rem; line-height: 1.55; color: rgba(246, 238, 220, 0.85);
+      .hero-headline span { display: block; }
+      .hero-desc {
+        margin: 1.8rem 0 0; max-width: 36rem;
+        font-size: 1.05rem; line-height: 1.6; color: var(--white-muted);
       }
 
-      .hero-tags {
-        display: flex; flex-wrap: wrap; gap: 0.55rem;
-        margin: 0 0 1.8rem; padding: 0; list-style: none;
+      /* Hero Tags & Buttons */
+      .hero-pill-tags {
+        display: flex; flex-direction: column; align-items: flex-start; gap: 0.65rem;
+        margin: 0 0 2rem; padding: 0; list-style: none;
       }
-      .hero-tag {
-        display: inline-flex; align-items: center; gap: 0.45rem;
-        background: rgba(44, 56, 32, 0.88);
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        color: var(--cream);
+      .hero-pill {
+        display: inline-flex; align-items: center; gap: 0.6rem;
+        background: rgba(61, 74, 57, 0.85);
+        backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: var(--white);
         border-radius: 999px;
-        padding: 0.45rem 0.9rem;
-        font-size: 0.82rem; font-weight: 600;
-        letter-spacing: 0.02em;
+        padding: 0.55rem 1.15rem;
+        font-size: 0.86rem; font-weight: 600; letter-spacing: 0.02em;
       }
-      .hero-tag .star-icon { color: var(--gold); font-size: 0.85rem; }
-
-      .hero-actions { display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
-      .hero-btn {
+      .hero-pill svg { width: 14px; height: 14px; fill: var(--white); flex-shrink: 0; }
+      .hero-cta-group {
+        display: flex; flex-wrap: wrap; gap: 1rem; align-items: center;
+      }
+      .btn-pill-cream {
         display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
-        background: var(--cream); color: var(--night);
-        border-radius: 999px;
-        font-family: var(--sans); font-size: 0.88rem; font-weight: 800;
-        letter-spacing: 0.04em; text-transform: uppercase;
-        padding: 1.05rem 2rem;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
+        background: var(--cream-bg); color: var(--ink);
+        border-radius: 999px; border: 0; cursor: pointer;
+        font-family: var(--sans); font-size: 0.92rem; font-weight: 800;
+        letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 1.15rem 2.2rem;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
         transition: transform 0.2s, background 0.2s;
       }
-      .hero-btn:hover { background: #fff; transform: translateY(-2px); }
-      .hero-btn-ghost {
+      .btn-pill-cream:hover { background: #fff; transform: translateY(-2px); }
+      .btn-pill-ghost {
         display: inline-flex; align-items: center; justify-content: center;
-        border: 1.5px solid rgba(246, 238, 220, 0.4);
-        color: var(--cream);
-        border-radius: 999px;
-        font-family: var(--sans); font-size: 0.88rem; font-weight: 800;
-        letter-spacing: 0.04em; text-transform: uppercase;
-        padding: 1rem 1.8rem;
-        background: transparent; cursor: pointer;
+        border: 1.5px solid rgba(255, 255, 255, 0.45);
+        color: var(--white);
+        border-radius: 999px; background: transparent; cursor: pointer;
+        font-family: var(--sans); font-size: 0.92rem; font-weight: 800;
+        letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 1.05rem 2rem;
         transition: border-color 0.2s, background 0.2s;
       }
-      .hero-btn-ghost:hover { border-color: var(--gold); background: rgba(196, 161, 90, 0.12); }
+      .btn-pill-ghost:hover { border-color: var(--white); background: rgba(255, 255, 255, 0.1); }
 
-      /* THE MONUMENTAL 4-POINTED STAR SECTION ("ВКУСНЫЙ ВЫБОР") */
-      .star-section {
-        background: var(--paper);
-        padding: clamp(6rem, 10vw, 8.5rem) 0 6rem;
+      /* ========================================================
+         3. SECTION: THE ASTROID / 4-POINTED STAR ("ВКУСНЫЙ ВЫБОР")
+         ======================================================== */
+      .star-choice-section {
+        background: var(--cream-bg);
+        padding: clamp(5.5rem, 9vw, 8.5rem) 0 6rem;
         display: flex; flex-direction: column; align-items: center;
         text-align: center;
-        position: relative; overflow: hidden;
+        position: relative;
       }
-      .star-section::before {
-        content: ""; position: absolute; inset: 0;
-        background-image: radial-gradient(rgba(44, 56, 32, 0.07) 1px, transparent 1px);
-        background-size: 32px 32px; pointer-events: none;
-      }
-
-      .monumental-star-container {
+      .star-mask-wrap {
         position: relative;
         width: min(88vw, 680px);
         aspect-ratio: 1;
         margin: 0 auto;
         display: grid; place-items: center;
       }
-
-      .monumental-star-svg {
+      .star-mask-svg {
         position: absolute; inset: 0;
         width: 100%; height: 100%;
-        filter: drop-shadow(0 24px 50px rgba(28, 36, 18, 0.28));
+        filter: drop-shadow(0 28px 56px rgba(28, 36, 20, 0.25));
       }
-
-      .monumental-star-overlay {
-        position: relative; z-index: 2;
-        color: var(--cream); text-align: center;
-        padding: 2rem; max-width: 440px;
-        text-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+      .star-mask-caption {
+        position: relative; z-index: 3;
+        color: var(--white); text-align: center;
+        padding: 2rem; max-width: 460px;
+        text-shadow: 0 6px 20px rgba(0, 0, 0, 0.7);
         pointer-events: none;
       }
-      .monumental-star-kicker {
-        margin: 0 0 0.35rem; font-family: var(--serif); font-size: clamp(1.2rem, 3vw, 1.8rem);
-        color: var(--gold-light); font-style: italic; letter-spacing: 0.04em;
+      .star-kicker {
+        margin: 0 0 0.4rem;
+        font-family: var(--serif-soft); font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+        color: rgba(255, 255, 255, 0.92); font-style: italic; letter-spacing: 0.04em;
       }
-      .monumental-star-title {
-        margin: 0; font-family: var(--serif); font-weight: 500;
-        font-size: clamp(2.8rem, 6.5vw, 4.8rem);
-        line-height: 0.92; letter-spacing: -0.02em; text-transform: uppercase;
+      .star-title {
+        margin: 0;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.2rem, 7.5vw, 5.4rem);
+        line-height: 0.92; letter-spacing: -0.01em; text-transform: uppercase;
       }
-      .monumental-star-sub {
-        margin: 0.8rem 0 0; font-family: var(--sans); font-size: 0.88rem;
-        line-height: 1.45; opacity: 0.88;
+      .star-tagline {
+        margin: 0.9rem 0 0;
+        font-family: var(--sans); font-size: 0.9rem;
+        letter-spacing: 0.06em; text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.85);
       }
 
-      /* STAR MANIFESTO */
+      /* Manifesto below star */
       .star-manifesto {
-        margin-top: 4rem; max-width: 680px; text-align: center;
+        margin-top: 4.5rem; max-width: 720px; padding: 0 1.5rem;
+      }
+      .star-manifesto-sub {
+        font-size: 0.76rem; font-weight: 800; letter-spacing: 0.25em;
+        text-transform: uppercase; color: var(--olive); margin-bottom: 0.6rem;
+      }
+      .star-manifesto-title {
+        margin: 0 0 1rem;
+        font-family: var(--serif-didone); font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+        font-weight: 500; line-height: 1.05; color: var(--ink);
+      }
+      .star-manifesto-title em { font-family: var(--serif-soft); font-style: italic; font-weight: 400; }
+      .star-manifesto-p {
+        margin: 0; font-size: 1.05rem; line-height: 1.65; color: var(--ink-muted);
+      }
+
+      /* ========================================================
+         4. SECTION: FLOATING INGREDIENTS & NUTRITIONAL HOOKS
+         ======================================================== */
+      .floating-food-section {
+        background: var(--night);
+        color: var(--white);
+        padding: clamp(5rem, 8vw, 7.5rem) 0;
+        position: relative; overflow: hidden;
+      }
+      .floating-grid {
+        display: grid; gap: 3.5rem; align-items: center;
+      }
+      @media (min-width: 960px) {
+        .floating-grid { grid-template-columns: 1.2fr 0.8fr; }
+      }
+      .floating-img-wrap {
+        position: relative; border-radius: 16px; overflow: hidden;
+      }
+      .floating-img-wrap img {
+        width: 100%; height: auto; object-fit: cover;
+      }
+      .nutri-list {
+        display: flex; flex-direction: column; gap: 2rem;
+        list-style: none; margin: 0; padding: 0;
+      }
+      .nutri-item {
+        display: flex; align-items: flex-start; gap: 1.25rem;
+      }
+      .nutri-star {
+        flex-shrink: 0; width: 22px; height: 22px; margin-top: 0.25rem;
+      }
+      .nutri-star svg { width: 100%; height: 100%; fill: var(--white); }
+      .nutri-content strong {
+        display: block; font-family: var(--serif-didone);
+        font-size: clamp(1.8rem, 3.2vw, 2.4rem); font-weight: 500;
+        line-height: 1; letter-spacing: -0.01em; color: var(--white);
+      }
+      .nutri-content span {
+        display: block; font-family: var(--serif-soft); font-style: italic;
+        font-size: 1rem; color: rgba(255, 255, 255, 0.65); margin-top: 0.35rem;
+      }
+
+      /* ========================================================
+         5. SECTION: ASSORTMENT STRIP / CAROUSEL (Full Bleed)
+         ======================================================== */
+      .assort-header-bar {
+        background: var(--cream-bg);
+        padding: clamp(4.5rem, 7vw, 6rem) 0 2.5rem;
+        text-align: center;
+      }
+      .assort-eyebrow {
+        font-family: var(--serif-soft); font-style: italic;
+        font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+        color: var(--ink); opacity: 0.75; margin-bottom: 0.2rem;
+      }
+      .assort-headline {
+        margin: 0;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.6rem, 9vw, 6.8rem);
+        line-height: 0.9; letter-spacing: -0.02em;
+        text-transform: uppercase; color: var(--ink);
+      }
+      .assort-strip {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%; background: var(--night);
+      }
+      @media (min-width: 680px) {
+        .assort-strip { grid-template-columns: repeat(2, 1fr); }
+      }
+      @media (min-width: 1100px) {
+        .assort-strip { grid-template-columns: repeat(4, 1fr); }
+      }
+      .strip-card {
+        position: relative;
+        aspect-ratio: 0.75;
+        overflow: hidden;
+        background: var(--night);
+        color: var(--white);
+        display: flex; flex-direction: column; justify-content: flex-end;
+        padding: 2.5rem 2rem;
+        cursor: pointer;
+      }
+      .strip-card-bg {
+        position: absolute; inset: 0; z-index: 0;
+        transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .strip-card-bg img {
+        width: 100%; height: 100%; object-fit: cover;
+      }
+      .strip-card:hover .strip-card-bg {
+        transform: scale(1.06);
+      }
+      .strip-card::before {
+        content: ""; position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(
+          to top,
+          rgba(11, 14, 8, 0.92) 0%,
+          rgba(11, 14, 8, 0.45) 45%,
+          rgba(11, 14, 8, 0.1) 80%,
+          transparent 100%
+        );
+      }
+      .strip-card-content {
         position: relative; z-index: 2;
       }
-      .manifesto-kicker {
-        font-size: 0.75rem; font-weight: 800; letter-spacing: 0.22em;
-        text-transform: uppercase; color: var(--gold); margin-bottom: 0.6rem;
+      .strip-card-tag {
+        display: inline-block; font-size: 0.74rem; font-weight: 800;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75); margin-bottom: 0.5rem;
       }
-      .manifesto-h {
-        margin: 0 0 0.8rem; font-family: var(--serif); font-weight: 500;
-        font-size: clamp(2rem, 4vw, 3rem); line-height: 1.05;
+      .strip-card-title {
+        margin: 0 0 0.5rem;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(2rem, 3.2vw, 2.6rem);
+        line-height: 0.95; letter-spacing: -0.01em;
+        text-transform: uppercase; color: var(--white);
       }
-      .manifesto-p {
-        margin: 0; font-size: 1.02rem; line-height: 1.6; color: rgba(28, 36, 18, 0.8);
+      .strip-card-desc {
+        margin: 0; font-size: 0.88rem; line-height: 1.45;
+        color: var(--white-muted);
+      }
+      .strip-card-stats {
+        display: flex; gap: 0.5rem; margin-top: 0.8rem;
+        list-style: none; padding: 0;
+      }
+      .strip-card-stats li {
+        font-size: 0.72rem; font-weight: 700;
+        padding: 0.25rem 0.65rem; border-radius: 999px;
+        background: rgba(255, 255, 255, 0.12);
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
       }
 
-      /* ASSORTMENT SECTION (STAR-SHAPED CAROUSEL) */
-      .assort-section {
-        background: var(--night-soft);
-        color: var(--cream);
+      /* ========================================================
+         6. THREE FULL-BLEED VALUE PROPOSITION BANNERS
+         ======================================================== */
+      .macro-banner {
+        position: relative;
+        min-height: 72vh;
+        display: flex; align-items: center;
+        color: var(--white);
+        overflow: hidden;
+      }
+      .banner-salami {
+        background: #180807 url("/assets/concept1/salami.jpg") center center / cover no-repeat;
+      }
+      .banner-pelmeni {
+        background: #151515 url("/assets/concept1/macro-pelmeni.jpg") center center / cover no-repeat;
+      }
+      .banner-meatballs {
+        background: #120e0c url("/assets/concept1/macro-meatballs.jpg") center center / cover no-repeat;
+      }
+      .macro-banner::before {
+        content: ""; position: absolute; inset: 0; z-index: 1;
+        background: linear-gradient(
+          to right,
+          rgba(11, 14, 8, 0.92) 0%,
+          rgba(11, 14, 8, 0.78) 45%,
+          rgba(11, 14, 8, 0.4) 80%,
+          rgba(11, 14, 8, 0.25) 100%
+        );
+      }
+      .macro-banner-inner {
+        position: relative; z-index: 2;
+        width: min(1280px, calc(100% - 3rem));
+        margin: 0 auto; padding: 4.5rem 0;
+        display: grid; gap: 3rem;
+      }
+      @media (min-width: 960px) {
+        .macro-banner-inner {
+          grid-template-columns: 1.1fr 0.9fr;
+          align-items: center;
+        }
+      }
+      .macro-title {
+        margin: 0;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.8rem, 9vw, 7.5rem);
+        line-height: 0.88; letter-spacing: -0.02em;
+        text-transform: uppercase; color: var(--white);
+      }
+      .macro-text {
+        font-size: 1.12rem; line-height: 1.6; color: var(--white-muted);
+      }
+      .macro-bullets {
+        display: grid; gap: 0.8rem;
+        list-style: none; margin: 1.5rem 0 0; padding: 0;
+      }
+      @media (min-width: 600px) {
+        .macro-bullets.two-cols { grid-template-columns: repeat(2, 1fr); gap: 0.8rem 1.6rem; }
+      }
+      .macro-bullets li {
+        position: relative; padding-left: 1.4rem;
+        font-size: 0.92rem; line-height: 1.45; color: rgba(255, 255, 255, 0.88);
+      }
+      .macro-bullets li::before {
+        content: "•"; position: absolute; left: 0; top: 0;
+        color: var(--white); font-size: 1.2rem;
+      }
+
+      /* ========================================================
+         7. DOCUMENTS & CERTIFICATES SECTION
+         ======================================================== */
+      .docs-wrap-section {
+        background: var(--cream-bg);
+        color: var(--ink);
         padding: clamp(5rem, 8vw, 7.5rem) 0;
       }
-      .assort-header {
-        margin-bottom: 3.5rem; text-align: center;
+      .docs-header {
+        text-align: center; margin-bottom: 3.5rem;
       }
-      .assort-kicker {
-        font-family: var(--sans); font-size: 0.78rem; font-weight: 800;
-        letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
-        margin-bottom: 0.4rem;
+      .docs-kicker {
+        font-family: var(--serif-soft); font-style: italic;
+        font-size: clamp(1.3rem, 2.5vw, 1.7rem);
+        color: var(--ink); opacity: 0.75; margin-bottom: 0.2rem;
       }
-      .assort-title {
-        margin: 0; font-family: var(--serif); font-weight: 500;
-        font-size: clamp(3.2rem, 8vw, 6.4rem);
-        line-height: 0.9; text-transform: uppercase; letter-spacing: -0.01em;
-        color: var(--cream);
-      }
-
-      /* Card Grid with 4-pointed Star Photo Containers */
-      .product-grid {
-        display: grid; gap: 1.6rem;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      }
-      .product-card {
-        background: var(--olive-card);
-        border: 1px solid var(--line-l);
-        border-radius: 16px;
-        overflow: hidden;
-        display: flex; flex-direction: column;
-        transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease;
-      }
-      .product-card:hover {
-        transform: translateY(-6px);
-        border-color: var(--gold);
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
-      }
-
-      /* Card's 4-Pointed Star Photo Window */
-      .card-star-frame {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 1.15;
-        display: grid; place-items: center;
-        padding: 1.2rem;
-        background: radial-gradient(circle at center, rgba(32, 42, 22, 0.8) 0%, rgba(16, 20, 12, 0.95) 100%);
-      }
-      .card-star-svg {
-        width: 100%; height: 100%;
-        filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.45));
-        transition: transform 0.4s ease;
-      }
-      .product-card:hover .card-star-svg { transform: scale(1.06); }
-
-      /* Star badge overlay on card */
-      .card-star-badge {
-        position: absolute; top: 0.9rem; left: 0.9rem; z-index: 3;
-        display: inline-flex; align-items: center; gap: 0.35rem;
-        background: rgba(16, 20, 12, 0.88);
-        border: 1px solid var(--gold);
-        border-radius: 999px;
-        padding: 0.28rem 0.65rem;
-        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.05em;
-        text-transform: uppercase; color: var(--gold);
-      }
-
-      .card-body {
-        padding: 1.4rem 1.4rem 1.6rem;
-        display: flex; flex-direction: column; flex: 1;
-        gap: 0.7rem;
-      }
-      .card-title {
-        margin: 0; font-family: var(--serif); font-size: 1.85rem; font-weight: 500;
-        line-height: 1.05; color: var(--cream);
-      }
-      .card-summary {
-        margin: 0; font-size: 0.88rem; line-height: 1.45;
-        color: rgba(246, 238, 220, 0.75);
-      }
-      .card-stats {
-        display: flex; flex-wrap: wrap; gap: 0.35rem 0.45rem;
-        list-style: none; margin: 0.3rem 0; padding: 0;
-      }
-      .card-stats li {
-        font-size: 0.72rem; font-weight: 700;
-        padding: 0.22rem 0.6rem; border-radius: 999px;
-        background: rgba(255, 255, 255, 0.08); color: var(--cream);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-      }
-
-      /* Toggle full recipe */
-      .card-deal {
-        margin-top: auto; padding-top: 0.8rem;
-        border-top: 1px solid var(--line-l);
-      }
-      .card-deal summary {
-        font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em;
-        text-transform: uppercase; color: var(--gold);
-        cursor: pointer; list-style: none;
-        display: flex; align-items: center; justify-content: space-between;
-      }
-      .card-deal summary::-webkit-details-marker { display: none; }
-      .card-deal summary span::after { content: " →"; }
-      .card-deal[open] summary span::after { content: " ×"; }
-      .card-deal-panel {
-        margin-top: 0.8rem; padding: 0.85rem;
-        background: rgba(0, 0, 0, 0.35); border-radius: 6px;
-        font-size: 0.8rem; line-height: 1.4; color: rgba(246, 238, 220, 0.85);
-      }
-      .card-deal-panel b {
-        display: block; font-size: 0.68rem; text-transform: uppercase;
-        letter-spacing: 0.1em; color: var(--gold); margin-bottom: 0.2rem;
-      }
-
-      /* FULL-BLEED MACRO BANNER: ЯРКИЙ ВКУС */
-      .banner-salami {
-        position: relative;
-        min-height: 65vh;
-        display: flex; align-items: flex-end;
-        background: #180807 url("/assets/concept1/salami.jpg") center / cover no-repeat;
-        color: var(--cream);
-      }
-      .banner-salami::before {
-        content: ""; position: absolute; inset: 0;
-        background: linear-gradient(to top, rgba(16, 20, 12, 0.95) 0%, rgba(16, 20, 12, 0.35) 60%, rgba(16, 20, 12, 0.2) 100%);
-      }
-      .banner-salami-inner {
-        position: relative; z-index: 2;
-        width: min(1200px, calc(100% - 2.5rem));
-        margin: 0 auto; padding: 4rem 0;
-      }
-      .banner-headline {
-        margin: 0; font-family: var(--serif); font-weight: 500;
-        font-size: clamp(3.6rem, 9vw, 7.5rem); line-height: 0.88;
-        letter-spacing: -0.02em; text-transform: uppercase;
-      }
-      .banner-desc {
-        margin: 1.2rem 0 0; max-width: 38rem;
-        font-size: 1.15rem; line-height: 1.5; color: rgba(246, 238, 220, 0.9);
-      }
-
-      /* THREE PILLARS (Chomps Hook Impact) */
-      .pillars {
-        background: var(--night);
-        color: var(--cream);
-        display: grid;
-      }
-      @media (min-width: 900px) {
-        .pillars { grid-template-columns: repeat(3, 1fr); }
-      }
-      .pillar-box {
-        padding: clamp(3rem, 5vw, 4.5rem) 2rem;
-        border-bottom: 1px solid var(--line-l);
-        display: flex; flex-direction: column; gap: 0.8rem;
-      }
-      @media (min-width: 900px) {
-        .pillar-box { border-bottom: 0; border-right: 1px solid var(--line-l); }
-        .pillar-box:last-child { border-right: 0; }
-      }
-      .pillar-num {
-        font-family: var(--serif); font-size: 3rem; font-weight: 500;
-        color: var(--gold); line-height: 1;
-      }
-      .pillar-h {
-        margin: 0; font-family: var(--serif); font-size: 2.2rem;
-        font-weight: 500; line-height: 1.05;
-      }
-      .pillar-p {
-        margin: 0; font-size: 0.94rem; line-height: 1.55;
-        color: rgba(246, 238, 220, 0.75);
-      }
-
-      /* CERTIFICATES & DOCS */
-      .docs-section {
-        background: var(--paper);
-        color: var(--ink);
-        padding: clamp(4.5rem, 8vw, 6.5rem) 0;
-      }
-      .docs-h {
-        margin: 0 0 0.5rem; font-family: var(--serif); font-size: clamp(2.4rem, 5vw, 3.8rem);
-        font-weight: 500; text-align: center;
+      .docs-title {
+        margin: 0 0 1rem;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.2rem, 8vw, 6.2rem);
+        line-height: 0.9; letter-spacing: -0.02em;
+        text-transform: uppercase; color: var(--ink);
       }
       .docs-lead {
-        margin: 0 auto 3rem; text-align: center; max-width: 580px;
-        color: rgba(28, 36, 18, 0.75);
+        margin: 0 auto; max-width: 620px;
+        font-size: 1.05rem; line-height: 1.6; color: var(--ink-muted);
       }
-      .docs-grid {
-        display: grid; gap: 1.2rem;
+      .docs-card-grid {
+        display: grid; gap: 1.5rem;
         grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       }
-      .doc-card {
-        background: #fffdf8;
-        border: 1px solid var(--line-d);
-        border-radius: 12px;
-        padding: 1.8rem 1.6rem;
-        display: flex; flex-direction: column; gap: 0.6rem;
-        transition: transform 0.2s, border-color 0.2s;
+      .doc-white-card {
+        background: var(--cream-card);
+        border: 1px solid var(--line-cream);
+        border-radius: 16px;
+        padding: 2.2rem 1.8rem;
+        display: flex; flex-direction: column; gap: 0.8rem;
+        box-shadow: 0 12px 30px rgba(28, 36, 20, 0.05);
+        transition: transform 0.2s, box-shadow 0.2s;
       }
-      .doc-card:hover {
-        transform: translateY(-3px);
-        border-color: var(--gold);
+      .doc-white-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 40px rgba(28, 36, 20, 0.1);
       }
-      .doc-title { font-family: var(--serif); font-size: 1.6rem; font-weight: 600; }
-      .doc-text { font-size: 0.88rem; line-height: 1.45; color: rgba(28, 36, 18, 0.78); }
-      .doc-link {
-        margin-top: auto; padding-top: 0.6rem; font-size: 0.76rem;
-        font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      .doc-badge {
+        font-size: 0.74rem; font-weight: 800; letter-spacing: 0.12em;
+        text-transform: uppercase; color: var(--olive);
+      }
+      .doc-h {
+        margin: 0; font-family: var(--serif-didone);
+        font-size: 1.75rem; font-weight: 500; line-height: 1.1;
+      }
+      .doc-p {
+        margin: 0; font-size: 0.92rem; line-height: 1.55; color: var(--ink-muted);
+      }
+      .doc-action {
+        margin-top: auto; padding-top: 1rem;
+        font-size: 0.8rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
         color: var(--olive); text-decoration: underline;
       }
 
-      /* "ВСЕГДА С ВАМИ" SECTION */
-      .network-section {
-        background: var(--cream);
-        padding: clamp(4.5rem, 7vw, 6rem) 0;
-        border-top: 1px solid var(--line-d);
+      /* ========================================================
+         8. WHERE TO BUY ("ЯРАТУ ВСЕГДА С ВАМИ")
+         ======================================================== */
+      .where-buy-section {
+        background: var(--cream-bg);
+        color: var(--ink);
+        padding: clamp(5rem, 8vw, 7.5rem) 0;
+        border-top: 1px solid var(--line-cream);
       }
-      .network-grid {
-        display: grid; gap: 3rem; align-items: start;
+      .where-buy-grid {
+        display: grid; gap: 4rem; align-items: start;
       }
-      @media (min-width: 900px) {
-        .network-grid { grid-template-columns: 1.15fr 0.85fr; }
+      @media (min-width: 960px) {
+        .where-buy-grid { grid-template-columns: 1.1fr 0.9fr; }
       }
-      .network-title {
-        margin: 0 0 1rem; font-family: var(--serif); font-weight: 500;
-        font-size: clamp(3rem, 7vw, 5.2rem); line-height: 0.92;
-        text-transform: uppercase;
+      .where-buy-kicker {
+        font-family: var(--serif-soft); font-style: italic;
+        font-size: clamp(1.2rem, 2vw, 1.5rem); color: var(--ink); opacity: 0.75;
+        margin-bottom: 0.4rem;
       }
-      .network-lead {
-        margin: 0 0 2rem; font-size: 1.08rem; line-height: 1.6;
-        color: rgba(28, 36, 18, 0.8);
+      .where-buy-headline {
+        margin: 0;
+        font-family: var(--serif-didone); font-weight: 500;
+        font-size: clamp(3.4rem, 8vw, 6.4rem);
+        line-height: 0.9; letter-spacing: -0.02em;
+        text-transform: uppercase; color: var(--olive);
       }
-
-      .partners-box {
-        background: #fffdf8; border: 1px solid var(--line-d);
-        border-radius: 16px; padding: 1.8rem;
-        display: grid; gap: 1.2rem;
+      .where-buy-lead {
+        margin: 2rem 0 0; max-width: 38rem;
+        font-size: 1.1rem; line-height: 1.6; color: var(--ink-muted);
       }
-      .partners-label {
-        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.15em;
-        text-transform: uppercase; color: rgba(28, 36, 18, 0.55);
+      .retailer-box {
+        background: var(--cream-card);
+        border: 1px solid var(--line-cream);
+        border-radius: 20px; padding: 2.2rem;
+        display: grid; gap: 1.5rem;
+        box-shadow: 0 16px 36px rgba(28, 36, 20, 0.06);
       }
-      .partners-list {
-        display: flex; flex-wrap: wrap; gap: 0.8rem 1.4rem;
-        font-family: var(--serif); font-size: 1.4rem; font-weight: 600;
+      .retailer-label {
+        font-size: 0.76rem; font-weight: 800; letter-spacing: 0.16em;
+        text-transform: uppercase; color: rgba(28, 36, 20, 0.6);
+      }
+      .retailer-names {
+        display: flex; flex-direction: column; gap: 0.7rem;
+        font-family: var(--serif-didone); font-size: 1.85rem; font-weight: 500;
         color: var(--ink);
       }
-      .partners-special {
-        font-size: 0.82rem; font-family: var(--sans); font-weight: 600;
-        color: var(--olive); opacity: 0.85;
+      .retailer-sub {
+        font-size: 0.88rem; font-weight: 600; color: var(--olive);
       }
-
-      .network-actions {
-        display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 1.8rem;
+      .where-buy-actions {
+        display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; margin-top: 1rem;
       }
-      .btn-cta {
-        display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
-        background: var(--olive); color: var(--cream);
+      .btn-olive-pill {
+        display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+        background: var(--olive); color: var(--white);
         border: 0; cursor: pointer; border-radius: 999px;
-        font-family: var(--sans); font-size: 0.84rem; font-weight: 800;
-        letter-spacing: 0.04em; text-transform: uppercase;
-        padding: 1rem 1.8rem; transition: transform 0.2s, background 0.2s;
+        font-family: var(--sans); font-size: 0.88rem; font-weight: 800;
+        letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 1.15rem 2.2rem;
+        box-shadow: 0 12px 28px rgba(61, 74, 57, 0.35);
+        transition: background 0.2s, transform 0.2s;
       }
-      .btn-cta:hover { background: #3b4b2b; transform: translateY(-2px); }
-      .btn-call {
+      .btn-olive-pill:hover { background: var(--olive-dark); transform: translateY(-2px); }
+      .btn-circle-phone {
         display: inline-flex; align-items: center; justify-content: center;
-        border: 1.5px solid var(--olive); color: var(--olive);
-        border-radius: 999px;
-        font-family: var(--sans); font-size: 0.84rem; font-weight: 800;
-        padding: 1rem 1.5rem;
+        width: 52px; height: 52px; border-radius: 50%;
+        background: var(--olive); color: var(--white);
+        border: 0; cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
       }
+      .btn-circle-phone:hover { background: var(--olive-dark); transform: scale(1.06); }
+      .btn-circle-phone svg { width: 22px; height: 22px; fill: var(--white); }
 
-      /* SOLID OLIVE FOOTER */
-      .footer-solid {
+      /* ========================================================
+         9. SOLID OLIVE FOOTER (Figma Authentic)
+         ======================================================== */
+      .figma-footer {
         background: var(--olive);
-        color: var(--cream);
-        padding: 3.5rem 0 2.5rem;
+        color: var(--white);
+        padding: 4.5rem 0 3rem;
       }
-      .footer-inner {
+      .footer-top-row {
         display: flex; flex-wrap: wrap; justify-content: space-between;
-        gap: 2rem 3rem; align-items: flex-start;
+        align-items: center; gap: 2rem;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
       }
-      .footer-brand { display: grid; gap: 0.8rem; }
-      .footer-brand img { height: 32px; width: auto; }
-      .footer-nav {
-        display: flex; flex-wrap: wrap; gap: 1.6rem;
-        font-size: 0.88rem; font-weight: 600;
+      .footer-logo-wrap { display: flex; align-items: center; gap: 0.8rem; }
+      .footer-logo-wrap img { height: 32px; width: auto; }
+      .footer-nav-links {
+        display: flex; flex-wrap: wrap; gap: 2rem;
+        font-family: var(--sans); font-size: 0.86rem; font-weight: 700;
+        letter-spacing: 0.08em; text-transform: uppercase;
       }
-      .footer-nav a:hover { color: var(--gold-light); }
-      .footer-bottom {
-        width: 100%; border-top: 1px solid var(--line-l);
-        margin-top: 2rem; padding-top: 1.5rem;
-        display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;
-        font-size: 0.78rem; opacity: 0.7;
+      .footer-nav-links a:hover { opacity: 0.8; }
+      .footer-bottom-row {
+        margin-top: 2.5rem;
+        display: flex; flex-wrap: wrap; justify-content: space-between;
+        align-items: flex-end; gap: 1.5rem;
+        font-size: 0.82rem; color: rgba(255, 255, 255, 0.7); line-height: 1.6;
       }
+      .footer-legal a { text-decoration: underline; color: inherit; display: block; margin-bottom: 0.25rem; }
+      .footer-credits { text-align: right; }
 
-      /* MODAL DIALOG */
+      /* ========================================================
+         10. B2B MODAL (Matching Figma Popup)
+         ======================================================== */
       dialog { border: 0; padding: 0; background: transparent; }
-      dialog::backdrop { background: rgba(16, 20, 12, 0.85); backdrop-filter: blur(8px); }
-      .modal-card {
+      dialog::backdrop { background: rgba(11, 14, 8, 0.85); backdrop-filter: blur(10px); }
+      .popup-card {
         position: relative;
-        width: min(520px, calc(100vw - 2rem));
-        background: var(--cream-light);
-        color: var(--ink);
+        width: min(520px, calc(100vw - 2.5rem));
+        background: var(--olive);
+        color: var(--white);
         border-radius: 24px;
-        padding: 2.4rem 2rem;
-        box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+        padding: 2.5rem 2.2rem;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5);
       }
-      .modal-close {
-        position: absolute; top: 1rem; right: 1.2rem;
-        border: 0; background: none; font-size: 2rem; cursor: pointer; color: var(--ink); opacity: 0.6;
+      .popup-close {
+        position: absolute; top: 1.2rem; right: 1.4rem;
+        border: 0; background: none; font-size: 2.2rem; cursor: pointer;
+        color: var(--white); opacity: 0.7; line-height: 1;
       }
-      .modal-close:hover { opacity: 1; color: var(--gold); }
-      .modal-h { margin: 0 0 0.5rem; font-family: var(--serif); font-size: 2.2rem; font-weight: 500; }
-      .modal-p { margin: 0 0 1.2rem; font-size: 0.88rem; color: rgba(28, 36, 18, 0.78); }
-      .modal-field { display: grid; gap: 0.35rem; margin-bottom: 0.8rem; }
-      .modal-field label { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; }
-      .modal-field input {
-        padding: 0.75rem 0.9rem; border: 1px solid rgba(28, 36, 18, 0.25);
-        border-radius: 8px; font-family: var(--sans); font-size: 0.95rem;
+      .popup-close:hover { opacity: 1; }
+      .popup-title {
+        margin: 0 0 0.5rem;
+        font-family: var(--serif-didone); font-size: 2.4rem; font-weight: 500;
       }
-      .modal-skus {
-        border: 1px solid rgba(28, 36, 18, 0.18); border-radius: 12px;
-        padding: 0.8rem 1rem; margin: 0.8rem 0;
-        display: grid; gap: 0.4rem;
+      .popup-p {
+        margin: 0 0 1.5rem; font-size: 0.9rem; line-height: 1.5; color: var(--white-muted);
       }
-      .modal-skus legend { font-size: 0.72rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; padding: 0 0.4rem; }
-      .modal-check { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; cursor: pointer; }
-      .modal-actions { display: flex; gap: 0.6rem; margin-top: 1rem; }
-      .modal-actions button { flex: 1; }
+      .popup-field { display: grid; gap: 0.35rem; margin-bottom: 0.9rem; }
+      .popup-field label {
+        font-size: 0.74rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
+      }
+      .popup-field input, .popup-field textarea {
+        padding: 0.85rem 1rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 10px; color: var(--white);
+        font-family: var(--sans); font-size: 0.95rem;
+      }
+      .popup-field input:focus, .popup-field textarea:focus {
+        outline: none; border-color: var(--white); background: rgba(255, 255, 255, 0.18);
+      }
+      .popup-btn-submit {
+        margin-top: 1rem; width: 100%;
+        background: var(--cream-bg); color: var(--ink);
+        border: 0; border-radius: 999px;
+        font-family: var(--sans); font-size: 0.92rem; font-weight: 800;
+        letter-spacing: 0.05em; text-transform: uppercase;
+        padding: 1.15rem; cursor: pointer;
+        transition: background 0.2s;
+      }
+      .popup-btn-submit:hover { background: #fff; }
     </style>
   </head>
   <body>
-    <!-- FLOATING CAPSULE HEADER -->
-    <div class="header-wrap">
+    <!-- 1. FLOATING PILL NAVBAR -->
+    <div class="nav-shell">
       <nav class="nav-capsule" aria-label="Основная навигация">
-        <a class="nav-logo" href="/1/" aria-label="Ярату — главная">
-          <img src="/assets/logo/logo-horizontal.svg" alt="Ярату" />
+        <a class="nav-brand" href="/1/" aria-label="Ярату — главная">
+          <img src="/assets/logo/logo-horizontal-black.svg" alt="Ярату" />
         </a>
-        <div class="nav-links">
+        <div class="nav-menu">
           <a href="#assortment">Ассортимент</a>
           <a href="#taste">Преимущества</a>
           <a href="#docs">Сертификаты</a>
           <a href="#contacts">Где купить</a>
         </div>
-        <button class="nav-cta" type="button" onclick="showSpecModal()">Запросить спецификацию</button>
+        <button class="nav-btn" type="button" onclick="showSpecModal()">
+          Запросить спецификацию
+        </button>
       </nav>
     </div>
 
-    <!-- HERO SECTION (DARK CINEMATIC EDITORIAL) -->
-    <section class="hero">
-      <div class="hero-bg" aria-hidden="true"></div>
+    <!-- 2. HERO SECTION -->
+    <section class="hero-block">
+      <div class="hero-art" aria-hidden="true"></div>
       <div class="hero-inner">
         <div>
-          <p class="hero-kicker">Новый взгляд</p>
-          <h1 class="hero-title">
+          <p class="hero-subtitle">Новый взгляд</p>
+          <h1 class="hero-headline">
             <span>НА МЯСНЫЕ</span>
             <span>ПРОДУКТЫ</span>
           </h1>
-          <p class="hero-lede">
-            Пять продуктов из курицы и говядины с полностью раскрытым составом,
-            без нитрита натрия и с подтверждённым халяль-статусом. Всё важное о составе — прямо на этикетке до покупки.
+          <p class="hero-desc">
+            Пять продуктов из отборной курицы и говядины с полностью открытым составом,
+            без нитрита натрия (E250) и с подтверждённым халяль-статусом. Всё важное о составе — прямо на лицевой стороне упаковки.
           </p>
         </div>
 
         <div>
-          <ul class="hero-tags" aria-label="Преимущества бренда">
-            <li class="hero-tag"><span class="star-icon">✦</span> HALAL-стандарт ДУМ РТ №614А</li>
-            <li class="hero-tag"><span class="star-icon">✦</span> Яркий натуральный вкус</li>
-            <li class="hero-tag"><span class="star-icon">✦</span> Без нитрита натрия и сахара</li>
-            <li class="hero-tag"><span class="star-icon">✦</span> ХАССП & ISO 22000:2018</li>
+          <ul class="hero-pill-tags" aria-label="Преимущества бренда">
+            <li class="hero-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+              HALAL-стандарт ДУМ РТ №614А
+            </li>
+            <li class="hero-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+              Яркий натуральный вкус
+            </li>
+            <li class="hero-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+              Без нитрита натрия и сахара
+            </li>
+            <li class="hero-pill">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+              ХАССП & ISO 22000:2018
+            </li>
           </ul>
-          <div class="hero-actions">
-            <a class="hero-btn" href="#assortment">
+
+          <div class="hero-cta-group">
+            <a class="btn-pill-cream" href="#assortment">
               Смотреть ассортимент <span aria-hidden="true">↓</span>
             </a>
-            <button class="hero-btn-ghost" type="button" onclick="showSpecModal()">
+            <button class="btn-pill-ghost" type="button" onclick="showSpecModal()">
               B2B сотрудничество
             </button>
           </div>
@@ -631,352 +737,388 @@
       </div>
     </section>
 
-    <!-- THE MONUMENTAL 4-POINTED STAR SECTION ("ВКУСНЫЙ ВЫБОР") -->
-    <section class="star-section">
-      <div class="wrap">
-        <div class="monumental-star-container">
-          <svg viewBox="0 0 600 600" class="monumental-star-svg" aria-hidden="true">
+    <!-- 3. THE ASTROID / 4-POINTED STAR SECTION ("ВКУСНЫЙ ВЫБОР") -->
+    <section class="star-choice-section">
+      <div class="container">
+        <div class="star-mask-wrap">
+          <svg viewBox="0 0 600 600" class="star-mask-svg" aria-hidden="true">
             <defs>
-              <clipPath id="star-monumental">
-                <path d="M 300,0 C 300,150 450,300 600,300 C 450,300 300,450 300,600 C 300,450 150,300 0,300 C 150,300 300,150 300,0 Z" />
+              <clipPath id="astroid-star-shape">
+                <!-- Authentic concave 4-pointed astroid star from Figma -->
+                <path d="M 300,0 C 300,165 435,300 600,300 C 435,300 300,435 300,600 C 300,435 165,300 0,300 C 165,300 300,165 300,0 Z" />
               </clipPath>
-              <radialGradient id="star-shadow" cx="50%" cy="50%" r="50%">
-                <stop offset="0%" stop-color="rgba(16,20,12,0.45)" />
-                <stop offset="65%" stop-color="rgba(16,20,12,0.65)" />
-                <stop offset="100%" stop-color="rgba(16,20,12,0.88)" />
+              <radialGradient id="star-overlay-dark" cx="50%" cy="50%" r="50%">
+                <stop offset="0%" stop-color="rgba(11, 14, 8, 0.35)" />
+                <stop offset="65%" stop-color="rgba(11, 14, 8, 0.65)" />
+                <stop offset="100%" stop-color="rgba(11, 14, 8, 0.9)" />
               </radialGradient>
             </defs>
-            <image href="/assets/concept1/still-life-large.jpg" width="600" height="600" preserveAspectRatio="xMidYMid slice" clip-path="url(#star-monumental)" />
-            <path d="M 300,0 C 300,150 450,300 600,300 C 450,300 300,450 300,600 C 300,450 150,300 0,300 C 150,300 300,150 300,0 Z" fill="url(#star-shadow)" />
-            <path d="M 300,0 C 300,150 450,300 600,300 C 450,300 300,450 300,600 C 300,450 150,300 0,300 C 150,300 300,150 300,0 Z" fill="none" stroke="rgba(196, 161, 90, 0.65)" stroke-width="3" />
+            <image
+              href="/assets/concept1/star-dumplings-100.jpg"
+              width="600"
+              height="600"
+              preserveAspectRatio="xMidYMid slice"
+              clip-path="url(#astroid-star-shape)"
+            />
+            <path
+              d="M 300,0 C 300,165 435,300 600,300 C 435,300 300,435 300,600 C 300,435 165,300 0,300 C 165,300 300,165 300,0 Z"
+              fill="url(#star-overlay-dark)"
+            />
           </svg>
-          <div class="monumental-star-overlay">
-            <p class="monumental-star-kicker">на каждый день</p>
-            <h2 class="monumental-star-title">ВКУСНЫЙ<br />ВЫБОР</h2>
-            <p class="monumental-star-sub">Честные макросы и натуральные экстракты</p>
+          <div class="star-mask-caption">
+            <p class="star-kicker">на каждый день</p>
+            <h2 class="star-title">ВКУСНЫЙ<br />ВЫБОР</h2>
+            <p class="star-tagline">Честные макросы и натуральные экстракты</p>
           </div>
         </div>
 
         <div class="star-manifesto">
-          <div class="manifesto-kicker">Честный выбор</div>
-          <h3 class="manifesto-h">Мясные продукты <em>без секретов.</em></h3>
-          <p class="manifesto-p">
+          <div class="star-manifesto-sub">Честный выбор</div>
+          <h3 class="star-manifesto-title">Мясные продукты <em>без секретов.</em></h3>
+          <p class="star-manifesto-p">
             Мы создали Ярату, чтобы мясной продукт не приходилось выбирать вслепую.
             Никаких замаскированных формулировок «комплексная смесь специй» мелким шрифтом:
-            каждый экстракт, каждая специя и точный расчет белков, жиров и углеводов открыты до покупки.
+            каждый экстракт, каждая специя и точный расчет белков, жиров и углеводов открыты до покупки прямо на лицевой стороне этикетки.
           </p>
         </div>
       </div>
     </section>
 
-    <!-- "Наш АССОРТИМЕНТ" SECTION (4-POINTED STAR PHOTO CONTAINERS) -->
-    <section class="assort-section" id="assortment">
-      <div class="wrap">
-        <div class="assort-header">
-          <div class="assort-kicker">Наш</div>
-          <h2 class="assort-title">АССОРТИМЕНТ</h2>
-        </div>
-
-        <div class="product-grid">
-          <!-- CARD 1: КЕТО БРОККОЛИ -->
-          <article class="product-card">
-            <div class="card-star-frame">
-              <span class="card-star-badge">✦ Кето-линейка</span>
-              <svg viewBox="0 0 240 240" class="card-star-svg" aria-hidden="true">
-                <defs>
-                  <clipPath id="star-card-1">
-                    <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" />
-                  </clipPath>
-                </defs>
-                <image href="/assets/concept1/mood-broccoli.jpg" width="240" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#star-card-1)" />
-                <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" fill="none" stroke="rgba(196, 161, 90, 0.45)" stroke-width="2" />
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">КЕТО БРОККОЛИ</h3>
-              <p class="card-summary">Менее 1,5 г углеводов на 100 г. Курица и говядина со свежей брокколи и миндалём для низкоуглеводного рациона.</p>
-              <ul class="card-stats">
-                <li>13 г белка</li>
-                <li>1,5 г углеводов</li>
-                <li>Без E250</li>
-              </ul>
-              <details class="card-deal">
-                <summary><span>Состав и этикетка</span></summary>
-                <div class="card-deal-panel">
-                  <b>Раскрытый состав:</b>
-                  Филе голени куриное, вода, говяжий жир, говядина, филе куриное, кожа птицы, брокколи, молочный и сывороточный белок, яйца, соль, экстракты фруктов и пряностей (помело, лимон, черный перец, мускатный орех).
-                  <b style="margin-top:0.4rem">Аллергены:</b> молоко, яйца.
-                </div>
-              </details>
-            </div>
-          </article>
-
-          <!-- CARD 2: КАРНИВОР -->
-          <article class="product-card">
-            <div class="card-star-frame">
-              <span class="card-star-badge">✦ Чистый белок</span>
-              <svg viewBox="0 0 240 240" class="card-star-svg" aria-hidden="true">
-                <defs>
-                  <clipPath id="star-card-2">
-                    <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" />
-                  </clipPath>
-                </defs>
-                <image href="/assets/concept1/mood-herb.jpg" width="240" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#star-card-2)" />
-                <path d="M 120,0 C 120,60 180,120 240,120 C 178,120 120,178 120,240 C 120,178 62,120 0,120 C 62,120 120,62 120,0 Z" fill="none" stroke="rgba(196, 161, 90, 0.45)" stroke-width="2" />
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">КАРНИВОР</h3>
-              <p class="card-summary">Мясной состав без лишнего. Выразительный вкус говядины и курицы с чесноком, душистым перцем и имбирем.</p>
-              <ul class="card-stats">
-                <li>14,9 г белка</li>
-                <li>0,5 г углеводов</li>
-                <li>Без E250</li>
-              </ul>
-              <details class="card-deal">
-                <summary><span>Состав и этикетка</span></summary>
-                <div class="card-deal-panel">
-                  <b>Раскрытый состав:</b>
-                  Филе бедра куриное, говядина, жир говяжий, кожа птицы, вода, соль, экстракты фруктов (помело, лимон), барбадосская вишня, сухой лимонный сок, мускатный орех, чеснок, имбирь, кориандр.
-                  <b style="margin-top:0.4rem">Аллергены:</b> не заявлены в рецептуре.
-                </div>
-              </details>
-            </div>
-          </article>
-
-          <!-- CARD 3: ВЕТЧИНА ФИЛЕЙНАЯ (HIGH PROTEIN) -->
-          <article class="product-card">
-            <div class="card-star-frame">
-              <span class="card-star-badge">✦ High Protein</span>
-              <svg viewBox="0 0 240 240" class="card-star-svg" aria-hidden="true">
-                <defs>
-                  <clipPath id="star-card-3">
-                    <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" />
-                  </clipPath>
-                </defs>
-                <rect width="240" height="240" fill="#fff" clip-path="url(#star-card-3)" />
-                <image href="/packshots/sku-vetchina-f7a3c1.jpg" width="240" height="240" preserveAspectRatio="xMidYMid meet" clip-path="url(#star-card-3)" />
-                <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" fill="none" stroke="rgba(196, 161, 90, 0.45)" stroke-width="2" />
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">ВЕТЧИНА ФИЛЕЙНАЯ</h3>
-              <p class="card-summary">Отборное филе куриной грудки и бедра. 16,7 г белка и всего 125 ккал на 100 г — максимальный белок при минимальной калорийности.</p>
-              <ul class="card-stats">
-                <li>16,7 г белка</li>
-                <li>125 ккал</li>
-                <li>0,4 г углеводов</li>
-              </ul>
-              <details class="card-deal">
-                <summary><span>Состав и этикетка</span></summary>
-                <div class="card-deal-panel">
-                  <b>Раскрытый состав:</b>
-                  Филе бедра куриное, филе грудки, вода, молочный и сывороточный белок, сухое молоко, экстракты фруктов и пряностей (помело, лимон, смесь перцев), дрожжевой экстракт, чеснок, мускатный орех.
-                  <b style="margin-top:0.4rem">Аллергены:</b> молоко.
-                </div>
-              </details>
-            </div>
-          </article>
-
-          <!-- CARD 4: МОЛОЧНЫЕ (К ЗАВТРАКУ) -->
-          <article class="product-card">
-            <div class="card-star-frame">
-              <span class="card-star-badge">✦ К завтраку</span>
-              <svg viewBox="0 0 240 240" class="card-star-svg" aria-hidden="true">
-                <defs>
-                  <clipPath id="star-card-4">
-                    <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" />
-                  </clipPath>
-                </defs>
-                <image href="/assets/concept1/mood-soft.jpg" width="240" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#star-card-4)" />
-                <path d="M 120,0 C 120,60 180,120 240,120 C 180,120 120,180 120,240 C 120,180 60,120 0,120 C 60,120 120,60 120,0 Z" fill="none" stroke="rgba(196, 161, 90, 0.45)" stroke-width="2" />
-              </svg>
-            </div>
-            <div class="card-body">
-              <h3 class="card-title">«МОЛОЧНЫЕ»</h3>
-              <p class="card-summary">Классические нежные сосиски на молочном белке и меланже. Мягкий вкус для привычных и полезных семейных завтраков.</p>
-              <ul class="card-stats">
-                <li>13,5 г белка</li>
-                <li>1,2 г углеводов</li>
-                <li>Без E250</li>
-              </ul>
-              <details class="card-deal">
-                <summary><span>Состав и этикетка</span></summary>
-                <div class="card-deal-panel">
-                  <b>Раскрытый состав:</b>
-                  Филе голени куриное, говяжий жир, говядина, куриное филе, кожа птицы, молочный белок, сухое молоко, яйца, экстракты помело, лимона, перца, мускатный орех.
-                  <b style="margin-top:0.4rem">Аллергены:</b> молоко, яйца.
-                </div>
-              </details>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- FULL-BLEED MACRO BANNER: ЯРКИЙ ВКУС -->
-    <section class="banner-salami" id="taste">
-      <div class="banner-salami-inner">
-        <h2 class="banner-headline">ЯРКИЙ ВКУС</h2>
-        <p class="banner-desc">
-          Натуральное мясо халяль, ароматные экстракты пряностей и бережная ферментация.
-          Без красителей и без нитрита натрия (E250).
-        </p>
-      </div>
-    </section>
-
-    <!-- THREE HOOK PILLARS -->
-    <section class="pillars">
-      <div class="pillar-box">
-        <div class="pillar-num">01</div>
-        <h3 class="pillar-h">Без нитрита натрия</h3>
-        <p class="pillar-p">
-          Нитрит натрия (E250) полностью исключен из всех пяти рецептур Ярату.
-          Естественный оттенок достигается только натуральными экстрактами фруктов и вишни барбадосской.
-        </p>
-      </div>
-
-      <div class="pillar-box">
-        <div class="pillar-num">02</div>
-        <h3 class="pillar-h">Состав без сокращений</h3>
-        <p class="pillar-p">
-          Мы не прячем состав за туманными фразами «смесь специй».
-          Каждый компонент расшифрован до лимона, помело, мускатного ореха и дрожжевого экстракта.
-        </p>
-      </div>
-
-      <div class="pillar-box">
-        <div class="pillar-num">03</div>
-        <h3 class="pillar-h">Халяль и ISO 22000</h3>
-        <p class="pillar-p">
-          Сертификат «Халяль» ДУМ РТ №614А/2024.
-          Собственное производство в Казани работает по международной системе HACCP и стандарту ISO 22000:2018.
-        </p>
-      </div>
-    </section>
-
-    <!-- CERTIFICATES & DOCS -->
-    <section class="docs-section" id="docs">
-      <div class="wrap">
-        <h2 class="docs-h">ДОКУМЕНТЫ</h2>
-        <p class="docs-lead">
-          Все стандарты подтверждены действующими сертификатами и протоколами пищевой безопасности.
-        </p>
-
-        <div class="docs-grid">
-          <div class="doc-card">
-            <span class="doc-title">Халяль ДУМ РТ</span>
-            <p class="doc-text">Сертификат №614А/2024. Все пять продуктов входят в область действия сертификата Комитета по стандарту «Халяль» ДУМ РТ.</p>
-            <a class="doc-link" href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener">Проверить в реестре ↗</a>
+    <!-- 4. FLOATING FOOD & NUTRITIONAL HOOKS -->
+    <section class="floating-food-section">
+      <div class="container">
+        <div class="floating-grid">
+          <div class="floating-img-wrap">
+            <img src="/assets/concept1/floating-food-100.jpg" alt="Продукты Ярату — натуральные ингредиенты" />
           </div>
-
-          <div class="doc-card">
-            <span class="doc-title">HACCP (ХАССП)</span>
-            <p class="doc-text">Система контроля критических точек на производстве ООО «Казанские Деликатесы» в Казани. Полная прослеживаемость каждой партии.</p>
-            <span class="doc-link" style="color:var(--olive);text-decoration:none">Стандарт производства</span>
-          </div>
-
-          <div class="doc-card">
-            <span class="doc-title">ISO 22000:2018</span>
-            <p class="doc-text">Международный стандарт системы менеджмента безопасности пищевой продукции. Ежегодный независимый аудит.</p>
-            <span class="doc-link" style="color:var(--olive);text-decoration:none">Аудит безопасности</span>
-          </div>
-
-          <div class="doc-card">
-            <span class="doc-title">ТР ТС 021 & 022</span>
-            <p class="doc-text">Декларации соответствия требованиям Таможенного союза о безопасности пищевой продукции и её маркировке.</p>
-            <span class="doc-link" style="color:var(--olive);text-decoration:none">Декларация ЕАС</span>
+          <div>
+            <ul class="nutri-list">
+              <li class="nutri-item">
+                <div class="nutri-star">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+                </div>
+                <div class="nutri-content">
+                  <strong>до 20 г белка</strong>
+                  <span>(на 100 г продукта)</span>
+                </div>
+              </li>
+              <li class="nutri-item">
+                <div class="nutri-star">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+                </div>
+                <div class="nutri-content">
+                  <strong>до 5 г жира</strong>
+                  <span>(на 100 г продукта)</span>
+                </div>
+              </li>
+              <li class="nutri-item">
+                <div class="nutri-star">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+                </div>
+                <div class="nutri-content">
+                  <strong>до 170 ккал</strong>
+                  <span>(на 100 г продукта)</span>
+                </div>
+              </li>
+              <li class="nutri-item">
+                <div class="nutri-star">
+                  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0L14.5 9.5L24 12L14.5 14.5L12 24L9.5 14.5L0 12L9.5 9.5L12 0Z"/></svg>
+                </div>
+                <div class="nutri-content">
+                  <strong>кето-линейки</strong>
+                  <span>(менее 1 г углеводов на 100 г продукта)</span>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- "ВСЕГДА С ВАМИ" SECTION -->
-    <section class="network-section" id="contacts">
-      <div class="wrap network-grid">
+    <!-- 5. ASSORTMENT SECTION (Full-Bleed Carousel Strip) -->
+    <section id="assortment">
+      <div class="assort-header-bar">
+        <div class="container">
+          <div class="assort-eyebrow">Наш</div>
+          <h2 class="assort-headline">АССОРТИМЕНТ</h2>
+        </div>
+      </div>
+
+      <div class="assort-strip">
+        <!-- Card 1: МАЛЫШОК -->
+        <article class="strip-card" onclick="showSpecModal()">
+          <div class="strip-card-bg">
+            <img src="/assets/concept1/mood-soft.jpg" alt="Малышок сосиски детские" />
+          </div>
+          <div class="strip-card-content">
+            <span class="strip-card-tag">Детская линейка</span>
+            <h3 class="strip-card-title">МАЛЫШОК</h3>
+            <p class="strip-card-desc">Линейка с СГР Роспотребнадзора. Нежный вкус для семейного рациона и привычных завтраков.</p>
+            <ul class="strip-card-stats">
+              <li>13,5 г белка</li>
+              <li>Без E250</li>
+              <li>СГР</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 2: ПРОТЕИН -->
+        <article class="strip-card" onclick="showSpecModal()">
+          <div class="strip-card-bg">
+            <img src="/assets/concept1/mood-grill.jpg" alt="Протеин колбаски" />
+          </div>
+          <div class="strip-card-content">
+            <span class="strip-card-tag">High Protein</span>
+            <h3 class="strip-card-title">ПРОТЕИН</h3>
+            <p class="strip-card-desc">До 20 г белка на 100 г. Для тех, кому принципиально высокое содержание качественного белка.</p>
+            <ul class="strip-card-stats">
+              <li>20 г белка</li>
+              <li>155 ккал</li>
+              <li>Халяль</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 3: КЕТО БРОККОЛИ -->
+        <article class="strip-card" onclick="showSpecModal()">
+          <div class="strip-card-bg">
+            <img src="/assets/concept1/mood-broccoli.jpg" alt="Кето брокколи сосиски" />
+          </div>
+          <div class="strip-card-content">
+            <span class="strip-card-tag">Кето-рацион</span>
+            <h3 class="strip-card-title">КЕТО БРОККОЛИ</h3>
+            <p class="strip-card-desc">Менее 1,5 г углеводов на 100 г. Курица и говядина со свежей брокколи и миндалем для низкоуглеводного питания.</p>
+            <ul class="strip-card-stats">
+              <li>13 г белка</li>
+              <li>1,5 г углев.</li>
+              <li>Без сахара</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Card 4: КАРНИВОР -->
+        <article class="strip-card" onclick="showSpecModal()">
+          <div class="strip-card-bg">
+            <img src="/assets/concept1/mood-herb.jpg" alt="Карнивор колбаса" />
+          </div>
+          <div class="strip-card-content">
+            <span class="strip-card-tag">Чистый мясной вкус</span>
+            <h3 class="strip-card-title">КАРНИВОР</h3>
+            <p class="strip-card-desc">Мясной состав без лишнего. Выразительный вкус говядины и пряностей по простой рецептуре без секретов.</p>
+            <ul class="strip-card-stats">
+              <li>14,9 г белка</li>
+              <li>0,5 г углев.</li>
+              <li>Без E250</li>
+            </ul>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- 6. THREE MACRO VALUE PROPOSITION BANNERS -->
+    <!-- Banner 1: ЯРКИЙ ВКУС -->
+    <section class="macro-banner banner-salami" id="taste">
+      <div class="macro-banner-inner">
         <div>
-          <h2 class="network-title">ВСЕГДА<br />С ВАМИ</h2>
-          <p class="network-lead">
-            Поставляем продукцию в федеральные сети, специализированные магазины и сегмент HoReCa.
-            Отправим актуальные спецификации, сертификаты и условия прямых поставок от производителя в Казани.
+          <h2 class="macro-title">ЯРКИЙ<br />ВКУС</h2>
+        </div>
+        <div>
+          <p class="macro-text">
+            Мы не используем искусственные усилители вкуса. Насыщенность и аромат создают отборное мясное сырьё халяль и правильно подобранные натуральные пряности: мускатный орех, черный перец, имбирь и кориандр.
           </p>
-          <div class="network-actions">
-            <button class="btn-cta" type="button" onclick="showSpecModal()">
-              Оставить заявку на сотрудничество →
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner 2: ЧИСТЫЙ СОСТАВ -->
+    <section class="macro-banner banner-pelmeni">
+      <div class="macro-banner-inner">
+        <div>
+          <h2 class="macro-title">ЧИСТЫЙ<br />СОСТАВ</h2>
+        </div>
+        <div>
+          <ul class="macro-bullets two-cols">
+            <li>Без соевого изолята</li>
+            <li>Без жирных обрезей и шпика</li>
+            <li>Без крахмала</li>
+            <li>Без куриной шкурки</li>
+            <li>Без сахара</li>
+            <li>В отдельных линейках — без нитрита натрия</li>
+            <li>Без искусственных усилителей вкуса</li>
+            <li>100% честный расчет КБЖУ</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Banner 3: ГАРАНТИЯ -->
+    <section class="macro-banner banner-meatballs">
+      <div class="macro-banner-inner">
+        <div>
+          <h2 class="macro-title">ГАРАНТИЯ</h2>
+          <p style="font-family: var(--serif-soft); font-style: italic; font-size: 1.4rem; color: rgba(255,255,255,0.9); margin-top: 0.5rem">
+            качественного продукта для самого строгого потребителя
+          </p>
+        </div>
+        <div>
+          <p class="macro-text">
+            Производство ЯРАТУ работает на площадке производителя «Казанские Деликатесы» в г. Казани:
+          </p>
+          <ul class="macro-bullets">
+            <li>Собственная лаборатория и постоянный производственный мониторинг</li>
+            <li>Проверки по ключевым показателям пищевой безопасности</li>
+            <li>Сквозная прослеживаемость каждой партии сырья</li>
+            <li>Внутренний халяль-комитет и сертификат ДУМ РТ №614А</li>
+            <li>Охлаждаемый транспорт с непрерывным контролем температуры</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. DOCUMENTS & CERTIFICATES -->
+    <section class="docs-wrap-section" id="docs">
+      <div class="container">
+        <div class="docs-header">
+          <div class="docs-kicker">Подтверждено</div>
+          <h2 class="docs-title">ДОКУМЕНТАМИ</h2>
+          <p class="docs-lead">
+            Все заявленные характеристики подтверждены действующими сертификатами, государственными регистрациями и международными стандартами.
+          </p>
+        </div>
+
+        <div class="docs-card-grid">
+          <div class="doc-white-card">
+            <span class="doc-badge">ДУМ РТ №614А</span>
+            <h3 class="doc-h">Халяль сертификат</h3>
+            <p class="doc-p">Производство работает строго с сертифицированным сырьем. Сертификат выдан Комитетом по стандарту «Халяль» ДУМ РТ.</p>
+            <a class="doc-action" href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener">Проверить в реестре ↗</a>
+          </div>
+
+          <div class="doc-white-card">
+            <span class="doc-badge">Роспотребнадзор</span>
+            <h3 class="doc-h">СГР на линейку «Малышок»</h3>
+            <p class="doc-p">Свидетельство о государственной регистрации детской продукции. Официальное разрешение для детского и семейного рациона.</p>
+            <span class="doc-action" style="color:var(--ink-muted);text-decoration:none">Регистрация ЕАС</span>
+          </div>
+
+          <div class="doc-white-card">
+            <span class="doc-badge">ISO 22000 & HACCP</span>
+            <h3 class="doc-h">Стандарт безопасности</h3>
+            <p class="doc-p">Международная система менеджмента безопасности пищевой продукции ГОСТ Р ИСО 22000:2018 и строгий контроль критических точек ХАССП.</p>
+            <span class="doc-action" style="color:var(--ink-muted);text-decoration:none">Аудит производства</span>
+          </div>
+
+          <div class="doc-white-card">
+            <span class="doc-badge">ТР ТС 021/2011</span>
+            <h3 class="doc-h">Декларации соответствия</h3>
+            <p class="doc-p">Полный комплект деклараций соответствия Техническим регламентам Таможенного союза о безопасности пищевой продукции и маркировке.</p>
+            <span class="doc-action" style="color:var(--ink-muted);text-decoration:none">Декларация ЕАС</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. WHERE TO BUY ("ЯРАТУ ВСЕГДА С ВАМИ") -->
+    <section class="where-buy-section" id="contacts">
+      <div class="container where-buy-grid">
+        <div>
+          <div class="where-buy-kicker">Где купить</div>
+          <h2 class="where-buy-headline">ЯРАТУ<br />ВСЕГДА<br />С ВАМИ</h2>
+          <p class="where-buy-lead">
+            Продукция представлена в федеральных сетях, экомаркетах и отделах халяльной продукции.
+            Поставляем оптовые партии в розницу и сегмент HoReCa напрямую с производства в Казани.
+          </p>
+
+          <div class="where-buy-actions">
+            <button class="btn-olive-pill" type="button" onclick="showSpecModal()">
+              Оставить заявку на сотрудничество
             </button>
-            <a class="btn-call" href="tel:+79872170202">+7 987 217-02-02</a>
+            <a class="btn-circle-phone" href="tel:+79872170202" aria-label="Позвонить в отдел продаж">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.053 15.053 0 006.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            </a>
           </div>
         </div>
 
-        <div class="partners-box">
-          <div class="partners-label">Где купить и попробовать</div>
-          <div class="partners-list">
-            <span>ВКУСВИЛЛ</span>
-            <span>ПЯТЁРОЧКА</span>
-            <span>ПЕРЕКРЁСТОК</span>
+        <div class="retailer-box">
+          <div class="retailer-label">Розничные партнеры</div>
+          <div class="retailer-names">
+            <span>Жизньмарт</span>
+            <span>ВкусВилл</span>
+            <span>Пятёрочка</span>
+            <span>Перекрёсток</span>
           </div>
-          <div class="partners-special">+ Специализированные халяль-магазины Казани и Москвы</div>
-          <hr style="border:0;border-top:1px solid var(--line-d);margin:0.5rem 0" />
-          <div style="font-size:0.85rem;line-height:1.45;color:rgba(28,36,18,0.75)">
+          <div class="retailer-sub">+ Специализированные халяль-магазины</div>
+          <hr style="border:0;border-top:1px solid var(--line-cream);margin:0.25rem 0" />
+          <div style="font-size:0.86rem;line-height:1.5;color:var(--ink-muted)">
             <strong>Производство:</strong> ООО «Казанские Деликатесы»<br />
             420061, Казань, ул. Аграрная, 2, оф. 7<br />
+            Телефон: <a href="tel:+79872170202" style="color:var(--olive);font-weight:700">+7 987 217-02-02</a><br />
             Email: <a href="mailto:info@kazandelikates.tatar" style="color:var(--olive);text-decoration:underline">info@kazandelikates.tatar</a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- SOLID OLIVE FOOTER -->
-    <footer class="footer-solid">
-      <div class="wrap">
-        <div class="footer-inner">
-          <div class="footer-brand">
+    <!-- 9. SOLID OLIVE FOOTER (Figma Authentic) -->
+    <footer class="figma-footer">
+      <div class="container">
+        <div class="footer-top-row">
+          <div class="footer-logo-wrap">
             <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" />
-            <p style="margin:0;font-size:0.82rem;opacity:0.8">Мясные продукты без секретов · Казань</p>
           </div>
-          <nav class="footer-nav" aria-label="Ссылки в подвале">
+          <nav class="footer-nav-links" aria-label="Навигация в подвале">
             <a href="#assortment">Ассортимент</a>
             <a href="#taste">Преимущества</a>
             <a href="#docs">Сертификаты</a>
-            <a href="#contacts">Контакты</a>
-            <a href="/privacy.html">Политика конфиденциальности</a>
+            <a href="#contacts">Где купить</a>
           </nav>
         </div>
-        <div class="footer-bottom">
-          <span>© 2026 Ярату · бренд ООО «Казанские Деликатесы» · ИНН 1686021074</span>
-          <span>Халяль ДУМ РТ · Без нитрита натрия · Чистый состав</span>
+
+        <div class="footer-bottom-row">
+          <div class="footer-legal">
+            <a href="/privacy.html">Политика конфиденциальности</a>
+            <a href="/privacy.html">Согласие на обработку персональных данных</a>
+            <span>© 2026 Ярату · бренд ООО «Казанские Деликатесы» · ИНН 1686021074</span>
+          </div>
+          <div class="footer-credits">
+            <span>Разработано в <strong>GROMOV BRANDING</strong></span>
+          </div>
         </div>
       </div>
     </footer>
 
-    <!-- B2B SPEC MODAL -->
+    <!-- 10. B2B MODAL (Matching Figma Popup) -->
     <dialog id="spec-modal" onclick="if(event.target===this)closeSpecModal()">
-      <div class="modal-card">
-        <button class="modal-close" type="button" onclick="closeSpecModal()" aria-label="Закрыть">×</button>
-        <h3 class="modal-h">Заявка на сотрудничество</h3>
-        <p class="modal-p">Отправим оптовые спецификации, расчетные КБЖУ, сертификаты Халяль ДУМ РТ и условия прямых поставок от производителя в Казани.</p>
-        
+      <div class="popup-card">
+        <button class="popup-close" type="button" onclick="closeSpecModal()" aria-label="Закрыть">×</button>
+        <h3 class="popup-title">Сотрудничество</h3>
+        <p class="popup-p">Оставьте ваши контакты. Мы вышлем оптовые спецификации, образцы продукции и расчет поставок в ваш регион.</p>
+
         <form onsubmit="return handleSpecSubmit(event)">
-          <div class="modal-field">
-            <label for="spec-name">Ваше имя / Компания</label>
-            <input id="spec-name" type="text" placeholder="Имя, компания" required />
+          <div class="popup-field">
+            <label for="spec-name">ФИО / Компания</label>
+            <input id="spec-name" type="text" placeholder="Иван Иванов, Сеть / Дистрибьютор" required />
           </div>
-          <div class="modal-field">
-            <label for="spec-phone">Телефон или WhatsApp</label>
+          <div class="popup-field">
+            <label for="spec-phone">Телефон</label>
             <input id="spec-phone" type="tel" placeholder="+7 999 000-00-00" required />
           </div>
-          <fieldset class="modal-skus">
-            <legend>Интересующие продукты</legend>
-            <label class="modal-check"><input type="checkbox" name="sku" value="Ветчина филейная" checked /> Ветчина филейная (150 г)</label>
-            <label class="modal-check"><input type="checkbox" name="sku" value="Колбаса «Мраморная»" checked /> Колбаса в/к «Мраморная» (500 г)</label>
-            <label class="modal-check"><input type="checkbox" name="sku" value="Сосиски с брокколи" checked /> Сосиски с брокколи (400 г)</label>
-            <label class="modal-check"><input type="checkbox" name="sku" value="Сосиски «Молочные»" checked /> Сосиски «Молочные» (500 г)</label>
-            <label class="modal-check"><input type="checkbox" name="sku" value="Колбаса «Сливочная»" checked /> Колбаса варёная «Сливочная» (400 г)</label>
-          </fieldset>
-          <div class="modal-actions">
-            <button class="btn-cta" type="submit">Написать в WhatsApp →</button>
-            <button class="btn-call" type="button" onclick="handleSpecMail()">На Email</button>
+          <div class="popup-field">
+            <label for="spec-city">Город</label>
+            <input id="spec-city" type="text" placeholder="Москва, Казань, Санкт-Петербург..." />
           </div>
+          <div class="popup-field">
+            <label for="spec-email">Email</label>
+            <input id="spec-email" type="email" placeholder="partner@example.com" />
+          </div>
+          <div class="popup-field">
+            <label for="spec-msg">Сообщение</label>
+            <textarea id="spec-msg" rows="2" placeholder="Интересующие объемы или позиции"></textarea>
+          </div>
+
+          <button class="popup-btn-submit" type="submit">
+            Отправить заявку
+          </button>
         </form>
       </div>
     </dialog>
@@ -991,32 +1133,21 @@
         var m = document.getElementById("spec-modal");
         if (m && typeof m.close === "function") m.close();
       }
-      function getSpecData() {
-        var name = (document.getElementById("spec-name") || {}).value || "";
-        var phone = (document.getElementById("spec-phone") || {}).value || "";
-        var skus = [];
-        var checked = document.querySelectorAll("#spec-modal input[name='sku']:checked");
-        for (var i = 0; i < checked.length; i++) skus.push(checked[i].value);
-        return { name: name, phone: phone, skus: skus };
-      }
       function handleSpecSubmit(e) {
         if (e && e.preventDefault) e.preventDefault();
-        var data = getSpecData();
-        var text = "Здравствуйте! Меня зовут " + data.name + " (" + data.phone + "). Интересует сотрудничество и спецификации Ярату: " + (data.skus.length ? data.skus.join(", ") : "все позиции") + ".";
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var city = (document.getElementById("spec-city") || {}).value || "";
+        var email = (document.getElementById("spec-email") || {}).value || "";
+        var msg = (document.getElementById("spec-msg") || {}).value || "";
+        var text = "Здравствуйте! Заявка на сотрудничество Ярату: " + name + ", тел: " + phone + (city ? ", город: " + city : "") + (email ? ", email: " + email : "") + (msg ? ". " + msg : "");
         window.open("https://wa.me/79872170202?text=" + encodeURIComponent(text), "_blank", "noopener");
         closeSpecModal();
         return false;
       }
-      function handleSpecMail() {
-        var data = getSpecData();
-        var body = "Имя / Компания: " + data.name + "\nТелефон: " + data.phone + "\nИнтересующие позиции:\n- " + (data.skus.length ? data.skus.join("\n- ") : "все позиции") + "\n\nПрошу направить оптовые спецификации и коммерческие условия.";
-        window.location.href = "mailto:info@kazandelikates.tatar?subject=" + encodeURIComponent("Ярату / Запрос сотрудничества") + "&body=" + encodeURIComponent(body);
-        closeSpecModal();
-      }
       window.showSpecModal = showSpecModal;
       window.closeSpecModal = closeSpecModal;
       window.handleSpecSubmit = handleSpecSubmit;
-      window.handleSpecMail = handleSpecMail;
     </script>
   </body>
 </html>
