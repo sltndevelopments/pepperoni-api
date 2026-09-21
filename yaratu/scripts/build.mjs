@@ -37,6 +37,13 @@ const copyAllowlist = [
   "assets/logo/logo-horizontal-white.svg",
   "assets/logo/sign.svg",
   "assets/logo/sign-white.svg",
+  "assets/concept1/hero-sausage.jpg",
+  "assets/concept1/still-life.jpg",
+  "assets/concept1/salami.jpg",
+  "assets/concept1/mood-soft.jpg",
+  "assets/concept1/mood-grill.jpg",
+  "assets/concept1/mood-broccoli.jpg",
+  "assets/concept1/mood-herb.jpg",
   ...products.flatMap((p) => [p.image.slice(1), p.image.replace(/\.jpg$/, "-800.jpg").slice(1)])
 ];
 for (const file of copyAllowlist) await copy(file);
