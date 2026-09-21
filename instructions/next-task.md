@@ -183,6 +183,14 @@
 
 ## Log
 
+- **2026-09-21 North Star — редизайн в Apple/investors стиле — DONE, в `origin/main`.**
+  - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
+  - Вёрстка и визуальный язык: страница `public/north-star.html` полностью переработана под Apple-стиль `https://pepperoni.tatar/en/investors` (SF Pro шрифт, палитра `#FBFBFD` / `#1D1D1F` / `#0F5132` / `#B08D57`, фиксированный frosted-glass топбар 52px с `backdrop-filter: blur(20px)`, заголовок с градиентным акцентом, закругленные пилл-кнопки, аппаратный безель для фото цеха, capacity-grid блок для `м²`/`чел·час`/`₽`, Pro Dark SKU-дашборд и финальный keynote-блок с формой).
+  - Анимация: внедрен скролл-эффект `.reveal` на IntersectionObserver с поддержкой `prefers-reduced-motion`.
+  - Гейты: `qa_pages` 0 FAIL, `fix_pages` 0 repaired, `index_policy` OK, `check_product_claims` 0 FAIL, `test_sitemap_canonical` OK.
+  - Live: `curl -sI https://pepperoni.tatar/north-star` = 200 OK.
+  - Blockers: нет.
+
 - **2026-09-21 Редизайн и динамический каталог на /about — DONE, в `origin/main`.**
   - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
   - Замена сухого хардкода: статический перечень товаров в тексте заменён на динамический каталог (`scripts/render_static_catalog.py` + клиентский fallback `products.json`), генерирующий аккуратные плашки SKU с весом и прямыми ссылками на карточки товаров.
