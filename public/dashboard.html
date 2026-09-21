@@ -140,6 +140,9 @@
     background: var(--green); box-shadow: 0 0 10px var(--green);
     animation: blink 2s infinite;
   }
+  .pulse-dot.warn {
+    background: var(--gold); box-shadow: none; animation: none;
+  }
   @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
   .btn-lock {
@@ -237,7 +240,7 @@
     border-top: 1px solid rgba(255,255,255,0.05);
     margin-top: 16px; padding-top: 12px;
     font-size: 12px; color: var(--muted-dark); font-family: var(--mono);
-    display: flex; justify-content: space-between;
+    display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap;
   }
 
   /* Section Titles */
@@ -363,8 +366,8 @@
 
       <div class="dash-controls">
         <div class="pulse-indicator">
-          <span class="pulse-dot"></span>
-          <span>1C:УНФ OData: READY</span>
+          <span class="pulse-dot warn"></span>
+          <span>1C:УНФ OData: НЕ ПОДКЛЮЧЕН</span>
         </div>
         <button class="btn-lock" onclick="logout()">Заблокировать 🔒</button>
       </div>
@@ -377,7 +380,7 @@
     <div class="hero-dash">
       <div>
         <h1>Панель эффективности завода</h1>
-        <p>Ключевые показатели производительности труда, площадей, оборота и матрицы SKU в реальном времени</p>
+        <p>Базис 2025 с одним знаменателем на показатель. Матрица SKU — из каталога. К 1С:УНФ страница не подключена.</p>
       </div>
       <div class="timestamp-tag">
         <span>БАЗИС: 2025 ФАКТ → 2026 ПЛАН</span>
@@ -395,15 +398,15 @@
       <div class="kpi-card">
         <div class="kpi-header">
           <span class="kpi-title">Выработка на человека</span>
-          <span class="kpi-chip chip-green">×2.1 за 3 года</span>
+          <span class="kpi-chip chip-green">+15% К 2026</span>
         </div>
         <div>
-          <div class="kpi-value green">13,6 млн ₽</div>
-          <div class="kpi-sub">Выручка на 1 сотрудника в год (2025 факт). В 2023 г. было 6,5 млн, в 2024 — 9,8 млн.</div>
+          <div class="kpi-value green">7,9 млн ₽</div>
+          <div class="kpi-sub">869,1 млн ₽ / 110 сотрудников, 2025 факт. План при том же штате: 1 000 / 110 = 9,1 млн. Ряд 6,5 → 9,8 → 13,6 снят: он сходится с другим штатом, не со 110.</div>
         </div>
         <div class="kpi-footer">
-          <span>ШТАТ: 110 СОТРУДНИКОВ</span>
-          <span>ЦЕЛЬ 2026: &gt; 9,1 МЛН ₽</span>
+          <span>ШТАТ: 110</span>
+          <span>ЦЕЛЬ 2026: 9,1 МЛН ₽</span>
         </div>
       </div>
 
@@ -447,18 +450,18 @@
         </div>
         <div>
           <div class="kpi-value gold">435 тыс. ₽</div>
-          <div class="kpi-sub">Выручка на 1 м² основного цеха (2 000 м²). Вся площадка (3 600 м²) — 241 тыс. ₽/м².</div>
+          <div class="kpi-sub">869,1 млн ₽ / 2 000 м² цеха. Площадка 3 600 м² — 241 тыс. ₽/м². План 278 тыс. относится к площадке, не к цеху.</div>
         </div>
         <div class="kpi-footer">
-          <span>ПЛОЩАДКА: 3 600 М²</span>
-          <span>ПЛАН 2026: 278 ТЫС./М²</span>
+          <span>ПЛАН ЦЕХА 2026: 500 ТЫС./М²</span>
+          <span>ПЛАН ПЛОЩАДКИ: 278 ТЫС./М²</span>
         </div>
       </div>
     </div>
 
     <!-- Section: Финансовый контур и оборот 1С -->
     <div class="section-h2">
-      <span>2. Финансовые показатели и динамика (1С:УНФ)</span>
+      <span>2. Оборот и прибыль (базис доклада, не live 1С)</span>
       <span class="tag">ОБОРОТ И ПРИБЫЛЬ</span>
     </div>
 
@@ -500,11 +503,11 @@
         </div>
         <div>
           <div class="kpi-value blue">545</div>
-          <div class="kpi-sub">Роботов на 10 000 работников (6 роботов на 110 чел). Цель РФ к 2030 г. — 145, Германия — 415.</div>
+          <div class="kpi-sub">6 промышленных роботов / 110 работников × 10 000. Цель РФ к 2030 г. — 145, Германия — 415. Variovac и Bizerba в этот счёт не входят: это упаковка и весы.</div>
         </div>
         <div class="kpi-footer">
-          <span>КОНТУРЫ: 4 РОБОТА И ЛИНИИ</span>
-          <span>ОБОРУДОВАНИЕ: VARIOVAC, BIZERBA</span>
+          <span>ЧИСЛИТЕЛЬ: 6 РОБОТОВ</span>
+          <span>4 КОНТУРА ПРОЕКТА — ДРУГОЙ СЧЁТ</span>
         </div>
       </div>
     </div>
@@ -574,8 +577,13 @@
           </div>
 
           <div class="res-item">
-            <span class="res-name">Загрузка мощности (от 12т/см)</span>
-            <span id="sim-capacity-load" class="res-value">46.7%</span>
+            <span class="res-name">Загрузка, 1 смена (потолок 300 т)</span>
+            <span id="sim-capacity-load" class="res-value">46,7%</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Загрузка, 2 смены (потолок 600 т)</span>
+            <span id="sim-capacity-load-2" class="res-value">23,3%</span>
           </div>
         </div>
       </div>
@@ -647,20 +655,20 @@
           <span class="eyebrow" style="margin-bottom:6px;">ТЕХНОЛОГИЧЕСКИЙ СЛОЙ</span>
           <h3 style="font-size:18px; font-weight:700;">Архитектура прямой связи с 1С:УНФ через OData</h3>
           <p style="font-size:14px; color:var(--muted); max-width:760px; margin-top:4px;">
-            1С:УНФ имеет встроенный REST-интерфейс OData. Мы можем автоматически забирать фактические движения без выгрузки файлов и ручных отчетов.
+            Пример синтаксиса, который принимает 1С:УНФ. Страница к базе не подключена: оборот и штат здесь статические, из каталога берётся только матрица SKU.
           </p>
         </div>
-        <span class="kpi-chip chip-green" style="font-size:12px; padding:6px 12px;">1C REST ODATA</span>
+        <span class="kpi-chip chip-gold" style="font-size:12px; padding:6px 12px;">ПРИМЕР, НЕ LIVE</span>
       </div>
 
       <div class="grid-3" style="margin-top:20px;">
         <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
           <div style="font-family:var(--mono); font-size:12px; color:var(--green); font-weight:700; margin-bottom:6px;">01. ВЫРУЧКА И ПРОДАЖИ</div>
-          <p style="font-size:12.5px; color:var(--muted);">Регистр накопления <code>ПродажиОбороты</code> отдаёт онлайн сумму реализации, себестоимость и маржу в разрезе SKU и покупателей.</p>
+          <p style="font-size:12.5px; color:var(--muted);">Регистр накопления <code>Продажи</code>. Обороты — функция <code>Turnovers(StartPeriod, EndPeriod)</code>, поля <code>СуммаTurnover</code> и <code>КоличествоTurnover</code>. Измерение — контрагент.</p>
         </div>
         <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
           <div style="font-family:var(--mono); font-size:12px; color:var(--blue); font-weight:700; margin-bottom:6px;">02. ПЕРСОНАЛ И ТАБЕЛЬ</div>
-          <p style="font-size:12.5px; color:var(--muted);">Справочник <code>Сотрудники</code> и документы <code>ТабельУчетаРабочегоВремени</code> отдают точное количество смен и отработанных чел·часов.</p>
+          <p style="font-size:12.5px; color:var(--muted);">Документ УНФ — <code>Табель</code>. Часы и сотрудник лежат в табличной части: с шапки их <code>$select</code> не снимет. Имя части — из <code>$metadata</code> этой базы.</p>
         </div>
         <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
           <div style="font-family:var(--mono); font-size:12px; color:var(--gold); font-weight:700; margin-bottom:6px;">03. ВЫПУСК И РАСХОД</div>
@@ -669,11 +677,14 @@
       </div>
 
       <div class="odata-code">
-# Пример OData запроса к 1C:УНФ для снятия оперативной выручки за день:<br>
-GET http://1c-server/unf/odata/standard.odata/AccumulationRegister_ПродажиОбороты?$filter=Period ge datetime'2026-09-01T00:00:00'&amp;$select=Period,СуммаОборот,КоличествоОборот,Номенклатура_Key,Покупатель_Key<br>
+# Выручка за сутки. Период — параметры функции, не $filter=Period.<br>
+GET http://1c-server/unf/odata/standard.odata/AccumulationRegister_Продажи/Turnovers(StartPeriod=datetime'2026-09-22T00:00:00',EndPeriod=datetime'2026-09-23T00:00:00')?$format=json&amp;$select=СуммаTurnover,КоличествоTurnover,Номенклатура_Key,Контрагент_Key<br>
 <br>
-# Запрос табельного фонда человеко-часов:<br>
-GET http://1c-server/unf/odata/standard.odata/Document_ТабельРабочегоВремени?$filter=Date ge datetime'2026-09-01T00:00:00'&amp;$select=Date,ОтработаноЧасов,Сотрудник_Key
+# Шапка табеля УНФ. Часов и сотрудника в ней нет.<br>
+GET http://1c-server/unf/odata/standard.odata/Document_Табель?$format=json&amp;$filter=Date ge datetime'2026-09-22T00:00:00' and Date lt datetime'2026-09-23T00:00:00'&amp;$select=Ref_Key,Number,Date<br>
+<br>
+# Строки табеля: Document_Табель_&lt;ТабличнаяЧасть&gt;. Имя части брать из $metadata, не из ЗУП.<br>
+GET http://1c-server/unf/odata/standard.odata/$metadata
       </div>
     </div>
 
@@ -750,10 +761,25 @@ GET http://1c-server/unf/odata/standard.odata/Document_ТабельРабоче�
     var perSqmAll = (revMln * 1000) / allArea;
     document.getElementById("sim-per-sqm-all").textContent = Math.round(perSqmAll).toLocaleString('ru-RU') + " тыс. ₽";
 
-    // 6. Загрузка проектной мощности (12 тонн в смену при 25 рабочих днях = 300 тонн в месяц максимум)
-    var maxCapacityMonth = 12 * 25; // 300 тонн
-    var capLoad = (tonsMonth / maxCapacityMonth) * 100;
-    document.getElementById("sim-capacity-load").textContent = capLoad.toFixed(1).replace('.', ',') + "%";
+    // 12 т/смену × 25 смен. Вторая смена поднимает потолок вдвое: 300 т и 600 т.
+    var maxOneShift = 12 * 25;
+    var maxTwoShift = 12 * 2 * 25;
+    var capOne = (tonsMonth / maxOneShift) * 100;
+    var capTwo = (tonsMonth / maxTwoShift) * 100;
+    document.getElementById("sim-capacity-load").textContent = capOne.toFixed(1).replace('.', ',') + "%";
+    document.getElementById("sim-capacity-load-2").textContent = capTwo.toFixed(1).replace('.', ',') + "%";
+  }
+
+  function escHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;");
+  }
+
+  function cleanSkuName(name) {
+    return String(name).replace(/"(\s*\()/g, "$1");
   }
 
   // Load Real Catalog Data from /products.json
@@ -781,7 +807,7 @@ GET http://1c-server/unf/odata/standard.odata/Document_ТабельРабоче�
         listHtml += '<div class="sku-row-item">' +
           '<div>' +
             '<span class="sku-code-tag">' + (p.sku || '') + '</span> ' +
-            '<span>' + (p.name || '') + '</span>' +
+            '<span>' + escHtml(cleanSkuName(p.name || '')) + '</span>' +
           '</div>' +
           '<div style="font-family:var(--mono); color:var(--muted); font-size:12px;">' + prStr + '</div>' +
         '</div>';
