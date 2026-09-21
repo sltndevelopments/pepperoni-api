@@ -57,6 +57,11 @@ test("allowlist build excludes internal and legacy SVG", async () => {
     "q/slivochnaya.svg"
   ]);
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
+  assert.ok(built.includes("404.html"));
+  const html404 = await readFile(join(dist, "404.html"), "utf8");
+  assert.match(html404, /<title>404/);
+  assert.match(html404, /noindex/);
+  assert.match(html404, /Здесь <em>пусто\.<\/em>/);
 });
 
 test("every page has canonical and complete hreflang", async () => {

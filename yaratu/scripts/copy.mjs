@@ -431,7 +431,7 @@ export const editorial = {
     qualityTitleEm: "with a number.",
     qualityLead: "Yaratu is a brand of Kazan Delicacies LLC. Production in Kazan operates under HACCP and ISO 22000:2018; products comply with TR CU 021/2011 and are covered by Halal certificate SAM RT No. 614A/2024.",
     qualityList: [
-      ["Halal", "Certificate SAM RT No. 614A/2024 — all five products covered"],
+      ["Halal", "Certificate SAM RT No. 614A/2024 — all five products covered (<a href=\"https://halalrt.ru/c/7zCTaaKdziZEPPJ/\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold-soft);text-decoration:underline\">verify in registry ↗</a>)"],
       ["HACCP", "Food-safety management system in production"],
       ["ISO 22000:2018", "International food-safety management standard"],
       ["TR CU 021/2011", "Technical regulation “On food safety”"],
@@ -506,7 +506,7 @@ export const editorial = {
     qualityTitleEm: "үз номеры бар.",
     qualityLead: "Ярату — «Казанские Деликатесы» ҖЧҖнең бренды. Казандагы җитештерү HACCP системасы һәм ISO 22000:2018 стандарты буенча эшли; продукция ТР ТС 021/2011 таләпләренә туры килә һәм ДУМ РТ №614А/2024 «Хәләл» сертификатының гамәл өлкәсенә керә.",
     qualityList: [
-      ["Хәләл", "ДУМ РТ №614А/2024 сертификатының гамәл өлкәсе биш продуктны да үз эченә ала"],
+      ["Хәләл", "ДУМ РТ №614А/2024 сертификатының гамәл өлкәсе биш продуктны да үз эченә ала (<a href=\"https://halalrt.ru/c/7zCTaaKdziZEPPJ/\" target=\"_blank\" rel=\"noopener\" style=\"color:var(--gold-soft);text-decoration:underline\">реестрда тикшерү ↗</a>)"],
       ["HACCP", "Җитештерүдә азык-төлек куркынычсызлыгы белән идарә итү системасы"],
       ["ISO 22000:2018", "Азык-төлек куркынычсызлыгы белән идарә итүнең халыкара стандарты"],
       ["ТР ТС 021/2011", "«Азык-төлек продукциясенең куркынычсызлыгы турында» техник регламент"],
@@ -541,24 +541,94 @@ export const editorial = {
 
 export const editorialProducts = {
   vetchina: {
-    en: { name: "Chicken fillet ham", nameA: "Chicken fillet", nameEm: "ham", alt: "Yaratu chicken fillet ham — 150 g pack", qrAlt: "QR: ham label in Russian, English and Tatar" },
-    tt: { name: "Тавык филесыннан ветчина", nameA: "Тавык филесыннан", nameEm: "ветчина", alt: "«Ярату»ның тавык филесыннан ветчинасы; нетто массасы 150 г", qrAlt: "Ветчина этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код" }
+    en: {
+      name: "Chicken fillet ham",
+      nameA: "Chicken fillet",
+      nameEm: "ham",
+      alt: "Yaratu chicken fillet ham — 150 g pack",
+      qrAlt: "QR: ham label in Russian, English and Tatar",
+      tags: ["16.7g protein", "125 kcal", "0.4g carbs", "No sodium nitrite"]
+    },
+    tt: {
+      name: "Тавык филесыннан ветчина",
+      nameA: "Тавык филесыннан",
+      nameEm: "ветчина",
+      alt: "«Ярату»ның тавык филесыннан ветчинасы; нетто массасы 150 г",
+      qrAlt: "Ветчина этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код",
+      tags: ["16,7 г аксым", "125 ккал", "0,4 г углевод", "Натрий нитритысыз"]
+    }
   },
   mramornaya: {
-    en: { name: "Mramornaya cooked smoked sausage", nameA: "Cooked smoked sausage", nameEm: "“Mramornaya”", alt: "Yaratu Mramornaya cooked smoked sausage — 500 g pack", qrAlt: "QR: Mramornaya label in Russian, English and Tatar" },
-    tt: { name: "Пешереп ысланган «Мраморная» колбасасы", nameA: "Пешереп ысланган", nameEm: "«Мраморная» колбасасы", alt: "«Ярату»ның пешереп ысланган «Мраморная» колбасасы; нетто массасы 500 г", qrAlt: "«Мраморная» колбасасы этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код" }
+    en: {
+      name: "Mramornaya cooked smoked sausage",
+      nameA: "Cooked smoked sausage",
+      nameEm: "“Mramornaya”",
+      alt: "Yaratu Mramornaya cooked smoked sausage — 500 g pack",
+      qrAlt: "QR: Mramornaya label in Russian, English and Tatar",
+      tags: ["14.9g protein", "0.5g carbs", "Keto profile", "No sodium nitrite"]
+    },
+    tt: {
+      name: "Пешереп ысланган «Мраморная» колбасасы",
+      nameA: "Пешереп ысланган",
+      nameEm: "«Мраморная» колбасасы",
+      alt: "«Ярату»ның пешереп ысланган «Мраморная» колбасасы; нетто массасы 500 г",
+      qrAlt: "«Мраморная» колбасасы этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код",
+      tags: ["14,9 г аксым", "0,5 г углевод", "Кето-профиль", "Натрий нитритысыз"]
+    }
   },
   brokkoli: {
-    en: { name: "Sausages with broccoli", nameA: "Sausages", nameEm: "with broccoli", alt: "Yaratu sausages with broccoli — 400 g pack", qrAlt: "QR: broccoli sausages label in Russian, English and Tatar" },
-    tt: { name: "Брокколи кушылган сосискалар", nameA: "Брокколи кушылган", nameEm: "сосискалар", alt: "«Ярату»ның брокколи кушылган сосискалары; нетто массасы 400 г", qrAlt: "Брокколи кушылган сосискалар этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код" }
+    en: {
+      name: "Sausages with broccoli",
+      nameA: "Sausages",
+      nameEm: "with broccoli",
+      alt: "Yaratu sausages with broccoli — 400 g pack",
+      qrAlt: "QR: broccoli sausages label in Russian, English and Tatar",
+      tags: ["13g protein", "1.5g carbs", "With broccoli", "No sodium nitrite"]
+    },
+    tt: {
+      name: "Брокколи кушылган сосискалар",
+      nameA: "Брокколи кушылган",
+      nameEm: "сосискалар",
+      alt: "«Ярату»ның брокколи кушылган сосискалары; нетто массасы 400 г",
+      qrAlt: "Брокколи кушылган сосискалар этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код",
+      tags: ["13 г аксым", "1,5 г углевод", "Брокколи белән", "Натрий нитритысыз"]
+    }
   },
   molochnye: {
-    en: { name: "Molochnye milk sausages", nameA: "Sausages", nameEm: "“Molochnye”", alt: "Yaratu Molochnye milk sausages — 500 g pack", qrAlt: "QR: Molochnye label in Russian, English and Tatar" },
-    tt: { name: "«Молочные» сосискалары", nameA: "«Молочные»", nameEm: "сосискалары", alt: "«Ярату»ның «Молочные» сосискалары; нетто массасы 500 г", qrAlt: "«Молочные» сосискалары этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код" }
+    en: {
+      name: "Molochnye milk sausages",
+      nameA: "Sausages",
+      nameEm: "“Molochnye”",
+      alt: "Yaratu Molochnye milk sausages — 500 g pack",
+      qrAlt: "QR: Molochnye label in Russian, English and Tatar",
+      tags: ["13.5g protein", "1.2g carbs", "Mild taste", "No sodium nitrite"]
+    },
+    tt: {
+      name: "«Молочные» сосискалары",
+      nameA: "«Молочные»",
+      nameEm: "сосискалары",
+      alt: "«Ярату»ның «Молочные» сосискалары; нетто массасы 500 г",
+      qrAlt: "«Молочные» сосискалары этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код",
+      tags: ["13,5 г аксым", "1,2 г углевод", "Йомшак тәм", "Натрий нитритысыз"]
+    }
   },
   slivochnaya: {
-    en: { name: "Slivochnaya cooked sausage", nameA: "Cooked sausage", nameEm: "“Slivochnaya”", alt: "Yaratu Slivochnaya cooked sausage — 400 g pack", qrAlt: "QR: Slivochnaya label in Russian, English and Tatar" },
-    tt: { name: "Пешкән «Сливочная» колбасасы", nameA: "Пешкән", nameEm: "«Сливочная» колбасасы", alt: "«Ярату»ның пешкән «Сливочная» колбасасы; нетто массасы 400 г", qrAlt: "«Сливочная» колбасасы этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код" }
+    en: {
+      name: "Slivochnaya cooked sausage",
+      nameA: "Cooked sausage",
+      nameEm: "“Slivochnaya”",
+      alt: "Yaratu Slivochnaya cooked sausage — 400 g pack",
+      qrAlt: "QR: Slivochnaya label in Russian, English and Tatar",
+      tags: ["14.4g protein", "0.7g carbs", "Creamy profile", "No sodium nitrite"]
+    },
+    tt: {
+      name: "Пешкән «Сливочная» колбасасы",
+      nameA: "Пешкән",
+      nameEm: "«Сливочная» колбасасы",
+      alt: "«Ярату»ның пешкән «Сливочная» колбасасы; нетто массасы 400 г",
+      qrAlt: "«Сливочная» колбасасы этикеткасының рус, инглиз һәм татар телләрендәге версияләренә QR-код",
+      tags: ["14,4 г аксым", "0,7 г углевод", "Каймаклы тәм", "Натрий нитритысыз"]
+    }
   }
 };
 
@@ -568,4 +638,67 @@ export const packshotDims = {
   brokkoli: [1400, 1337],
   molochnye: [1400, 1576],
   slivochnaya: [1400, 2057]
+};
+
+export const modalCopy = {
+  ru: {
+    eyebrow: "B2B · Поставки",
+    titleA: "Запросить",
+    titleEm: "спецификации",
+    lead: "Отправим составы, расчётные КБЖУ, сертификаты Халяль ДУМ РТ и условия прямых поставок от производителя в Казани.",
+    nameLabel: "Ваше имя / Компания",
+    namePlaceholder: "Имя, компания",
+    phoneLabel: "Телефон или WhatsApp",
+    legend: "Интересующие продукты",
+    skus: [
+      "Ветчина филейная (150 г)",
+      "Колбаса в/к «Мраморная» (500 г)",
+      "Сосиски с брокколи (400 г)",
+      "Сосиски «Молочные» (500 г)",
+      "Колбаса варёная «Сливочная» (400 г)"
+    ],
+    waBtn: "Написать в WhatsApp →",
+    mailBtn: "На Email →",
+    directCall: "Или позвоните:"
+  },
+  en: {
+    eyebrow: "B2B · Supply",
+    titleA: "Request",
+    titleEm: "specifications",
+    lead: "We will send ingredient lists, calculated nutrition, Halal certificates and direct supply terms from the manufacturer in Kazan.",
+    nameLabel: "Your name / Company",
+    namePlaceholder: "Name, company",
+    phoneLabel: "Phone or WhatsApp",
+    legend: "Products of interest",
+    skus: [
+      "Chicken fillet ham (150 g)",
+      "Mramornaya c/s sausage (500 g)",
+      "Sausages with broccoli (400 g)",
+      "Molochnye sausages (500 g)",
+      "Slivochnaya cooked sausage (400 g)"
+    ],
+    waBtn: "Message on WhatsApp →",
+    mailBtn: "Send via Email →",
+    directCall: "Or call directly:"
+  },
+  tt: {
+    eyebrow: "B2B · Тәэминат",
+    titleA: "Спецификацияләрне",
+    titleEm: "сорарга",
+    lead: "Гамәлдәге составларны, туклану кыйммәтен, Хәләл сертификатларын һәм Казандагы җитештерүчедән турыдан-туры тәэмин итү шартларын җибәрәбез.",
+    nameLabel: "Исемегез / Оешма",
+    namePlaceholder: "Исем, оешма",
+    phoneLabel: "Телефон яки WhatsApp",
+    legend: "Кызыксындырган продуктлар",
+    skus: [
+      "Тавык филесыннан ветчина (150 г)",
+      "Пешереп ысланган «Мраморная» колбасасы (500 г)",
+      "Брокколи кушылган сосискалар (400 г)",
+      "«Молочные» сосискалары (500 г)",
+      "Пешкән «Сливочная» колбасасы (400 г)"
+    ],
+    waBtn: "WhatsApp аша язу →",
+    mailBtn: "Email аша җибәрү →",
+    directCall: "Яисә шалтыратыгыз:"
+  }
 };

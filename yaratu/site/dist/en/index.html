@@ -329,6 +329,20 @@
         margin: 0; max-width: 42ch;
         font-size: 0.98rem; color: rgba(22, 27, 13, 0.78);
       }
+      .product__tags {
+        display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem;
+        margin: 0.2rem 0 0.35rem; padding: 0; list-style: none;
+      }
+      .product__tags li {
+        display: inline-flex; align-items: center;
+        padding: 0.22rem 0.62rem;
+        font-size: 0.72rem; font-weight: 700;
+        letter-spacing: 0.03em;
+        border-radius: 999px;
+        background: rgba(47, 57, 28, 0.07);
+        color: var(--olive);
+        border: 1px solid rgba(47, 57, 28, 0.16);
+      }
       .product__allergens { margin: 0; font-size: 0.85rem; color: rgba(22, 27, 13, 0.72); }
       .product__allergens b {
         font-weight: 800; text-transform: uppercase;
@@ -492,23 +506,33 @@
         margin: 1.4rem 0 0; max-width: 36rem;
         font-size: 0.95rem; color: rgba(255, 240, 217, 0.72);
       }
-      .quality__list { list-style: none; margin: 0; padding: 0; }
-      .quality__list li {
-        display: grid; gap: 0.25rem;
-        padding: 1.1rem 0; border-top: 1px solid var(--line-l);
+      .quality__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0.85rem;
+        list-style: none; margin: 0; padding: 0;
       }
-      .quality__list li:last-child { border-bottom: 1px solid var(--line-l); }
-      .quality__k { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
-      .quality__v { font-size: 0.85rem; color: rgba(255, 240, 217, 0.66); }
+      .quality__list li {
+        display: flex; flex-direction: column; justify-content: space-between;
+        gap: 0.6rem;
+        padding: 1.35rem 1.4rem;
+        background: rgba(255, 240, 217, 0.04);
+        border: 1px solid var(--line-l);
+        border-radius: 4px;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+      .quality__list li:hover {
+        border-color: var(--gold-soft);
+        background: rgba(255, 240, 217, 0.07);
+        transform: translateY(-2px);
+      }
+      .quality__k { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--cream); }
+      .quality__v { font-size: 0.84rem; line-height: 1.45; color: rgba(255, 240, 217, 0.72); }
       @media (min-width: 920px) {
         .quality { padding: 6.5rem 0 7rem; }
         .quality__grid {
-          grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-          gap: 4.5rem; align-items: start;
-        }
-        .quality__list li {
           grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-          gap: 1.5rem; align-items: baseline;
+          gap: 4.5rem; align-items: start;
         }
       }
 
@@ -582,6 +606,79 @@
         }
       }
 
+      /* B2B spec modal */
+      .modal {
+        border: none; padding: 0; background: transparent;
+        max-width: min(92vw, 520px); width: 100%;
+        margin: auto;
+      }
+      .modal::backdrop {
+        background: rgba(22, 27, 13, 0.78);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .modal__card {
+        position: relative;
+        background: var(--paper);
+        color: var(--ink);
+        padding: clamp(1.8rem, 5vw, 2.5rem);
+        border: 1px solid var(--line-d);
+        border-radius: 6px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      }
+      .modal__close {
+        position: absolute; top: 1rem; right: 1rem;
+        background: none; border: none; font-size: 1.8rem; line-height: 1;
+        cursor: pointer; color: var(--ink); opacity: 0.6;
+        padding: 0.2rem 0.5rem;
+      }
+      .modal__close:hover { opacity: 1; color: var(--gold); }
+      .modal__title {
+        margin: 0.5rem 0 0.8rem; font-family: var(--serif);
+        font-size: clamp(1.8rem, 4vw, 2.3rem); line-height: 1.1; font-weight: 600;
+      }
+      .modal__title em { font-style: italic; color: var(--gold); }
+      .modal__lead {
+        margin: 0 0 1.3rem; font-size: 0.88rem; line-height: 1.45;
+        color: rgba(22, 27, 13, 0.75);
+      }
+      .modal__form { display: grid; gap: 0.9rem; }
+      .modal__field { display: grid; gap: 0.3rem; }
+      .modal__field label {
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.7);
+      }
+      .modal__field input {
+        padding: 0.75rem 0.9rem; font-family: var(--sans); font-size: 0.92rem;
+        border: 1px solid rgba(22, 27, 13, 0.25); border-radius: 4px;
+        background: #fff; color: var(--ink);
+      }
+      .modal__field input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+      .modal__fieldset {
+        border: 1px solid rgba(22, 27, 13, 0.15); border-radius: 4px;
+        padding: 0.75rem 0.9rem; margin: 0.1rem 0;
+        display: grid; gap: 0.45rem;
+      }
+      .modal__fieldset legend {
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.7);
+        padding: 0 0.4rem;
+      }
+      .modal__checkbox {
+        display: flex; align-items: center; gap: 0.55rem;
+        font-size: 0.84rem; cursor: pointer;
+      }
+      .modal__checkbox input { accent-color: var(--olive); }
+      .modal__actions {
+        display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem;
+      }
+      .modal__actions .btn { flex: 1 1 160px; font-size: 0.72rem; padding: 0.85rem 1.2rem; }
+      .modal__direct {
+        margin: 0.4rem 0 0; font-size: 0.82rem; text-align: center;
+        color: rgba(22, 27, 13, 0.65);
+      }
+      .modal__direct a { color: var(--olive); font-weight: 700; text-decoration: underline; }
+
       /* footer */
       .footer { background: var(--ink); color: rgba(255, 240, 217, 0.66); padding: 2.8rem 0; font-size: 0.8rem; }
       .footer__top {
@@ -642,7 +739,7 @@
             <span aria-current="page">English</span>
             <a href="/tt/" hreflang="tt">Татарча</a>
           </nav>
-          <a class="btn btn--ink nav__cta" href="#contacts">Get in touch</a>
+          <a class="btn btn--ink nav__cta" href="#contacts" onclick="if(window.showSpecModal){showSpecModal();return false;}">Get in touch</a>
           <details class="nav__menu"><summary>Menu</summary><nav aria-label="Mobile menu"><a href="#facts">Facts</a><a href="#products">Range</a><a href="#quality">Control</a><a href="#contacts">Contacts</a><a href="/retail/">For buyers</a><a href="/en/" hreflang="en">English</a><a href="/tt/" hreflang="tt">Татарча</a></nav></details>
         </div>
       </div>
@@ -670,7 +767,7 @@
               </p>
               <div class="hero__actions">
                 <a class="btn btn--cream" href="#products">View the range</a>
-                <a class="btn btn--line-l" href="#contacts">Get in touch</a>
+                <a class="btn btn--line-l" href="#contacts" onclick="if(window.showSpecModal){showSpecModal();return false;}">Get in touch</a>
               </div>
             </div>
             <div class="hero__badge">
@@ -815,6 +912,12 @@
               <p class="product__meta"><span>01 / 05</span><span>150 g</span></p>
               <h3 class="product__name">Chicken fillet <em>ham</em></h3>
               <p class="product__desc">Mild chicken ham with a fully disclosed ingredient list.</p>
+              <ul class="product__tags" aria-label="Features">
+                <li>16.7g protein</li>
+                <li>125 kcal</li>
+                <li>0.4g carbs</li>
+                <li>No sodium nitrite</li>
+              </ul>
               <p class="product__allergens"><b>Allergens</b> Milk</p>
             </div>
             <details class="deal">
@@ -876,6 +979,12 @@
               <p class="product__meta"><span>02 / 05</span><span>500 g</span></p>
               <h3 class="product__name">Cooked smoked sausage <em>“Mramornaya”</em></h3>
               <p class="product__desc">Chicken and beef sausage with a savoury spiced profile.</p>
+              <ul class="product__tags" aria-label="Features">
+                <li>14.9g protein</li>
+                <li>0.5g carbs</li>
+                <li>Keto profile</li>
+                <li>No sodium nitrite</li>
+              </ul>
               <p class="product__allergens"><b>Allergens</b> None declared in the current recipe</p>
             </div>
             <details class="deal">
@@ -937,6 +1046,12 @@
               <p class="product__meta"><span>03 / 05</span><span>400 g</span></p>
               <h3 class="product__name">Sausages <em>with broccoli</em></h3>
               <p class="product__desc">Chicken and beef sausages with broccoli and gentle spices.</p>
+              <ul class="product__tags" aria-label="Features">
+                <li>13g protein</li>
+                <li>1.5g carbs</li>
+                <li>With broccoli</li>
+                <li>No sodium nitrite</li>
+              </ul>
               <p class="product__allergens"><b>Allergens</b> Milk, eggs</p>
             </div>
             <details class="deal">
@@ -998,6 +1113,12 @@
               <p class="product__meta"><span>04 / 05</span><span>500 g</span></p>
               <h3 class="product__name">Sausages <em>“Molochnye”</em></h3>
               <p class="product__desc">A mild classic profile with compound ingredients fully disclosed.</p>
+              <ul class="product__tags" aria-label="Features">
+                <li>13.5g protein</li>
+                <li>1.2g carbs</li>
+                <li>Mild taste</li>
+                <li>No sodium nitrite</li>
+              </ul>
               <p class="product__allergens"><b>Allergens</b> Milk, eggs</p>
             </div>
             <details class="deal">
@@ -1059,6 +1180,12 @@
               <p class="product__meta"><span>05 / 05</span><span>400 g</span></p>
               <h3 class="product__name">Cooked sausage <em>“Slivochnaya”</em></h3>
               <p class="product__desc">A gentle creamy profile with a fully disclosed ingredient list.</p>
+              <ul class="product__tags" aria-label="Features">
+                <li>14.4g protein</li>
+                <li>0.7g carbs</li>
+                <li>Creamy profile</li>
+                <li>No sodium nitrite</li>
+              </ul>
               <p class="product__allergens"><b>Allergens</b> Milk, eggs</p>
             </div>
             <details class="deal">
@@ -1121,7 +1248,7 @@
           <ul class="quality__list">
             <li>
               <span class="quality__k">Halal</span>
-              <span class="quality__v">Certificate SAM RT No. 614A/2024 — all five products covered</span>
+              <span class="quality__v">Certificate SAM RT No. 614A/2024 — all five products covered (<a href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener" style="color:var(--gold-soft);text-decoration:underline">verify in registry ↗</a>)</span>
             </li>
             <li>
               <span class="quality__k">HACCP</span>
@@ -1199,6 +1326,7 @@
               <a
                 class="btn btn--ink"
                 href="mailto:info@kazandelikates.tatar?subject=Yaratu%20%2F%20specification%20request"
+                onclick="if(window.showSpecModal){showSpecModal();return false;}"
                 >Request specifications</a
               >
               <a class="btn btn--line-d" href="tel:+79872170202">+7 987 217-02-02</a>
@@ -1227,6 +1355,40 @@
           </dl>
         </div>
       </section>
+
+            <!-- SPEC MODAL -->
+      <dialog id="spec-modal" class="modal" aria-labelledby="modal-title" onclick="if(event.target===this)closeSpecModal()">
+        <div class="modal__card">
+          <button class="modal__close" type="button" onclick="closeSpecModal()" aria-label="Close">×</button>
+          <span class="eyebrow" style="color: var(--gold)">B2B · Supply</span>
+          <h2 id="modal-title" class="modal__title">Request <em>specifications</em></h2>
+          <p class="modal__lead">We will send ingredient lists, calculated nutrition, Halal certificates and direct supply terms from the manufacturer in Kazan.</p>
+          
+          <form class="modal__form" onsubmit="return handleSpecSubmit(event)">
+            <div class="modal__field">
+              <label for="spec-name">Your name / Company</label>
+              <input id="spec-name" type="text" placeholder="Name, company" required />
+            </div>
+            <div class="modal__field">
+              <label for="spec-phone">Phone or WhatsApp</label>
+              <input id="spec-phone" type="tel" placeholder="+7 999 000-00-00" required />
+            </div>
+            <fieldset class="modal__fieldset">
+              <legend>Products of interest</legend>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Chicken fillet ham (150 g)" checked /> <span>Chicken fillet ham (150 g)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Mramornaya c/s sausage (500 g)" checked /> <span>Mramornaya c/s sausage (500 g)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Sausages with broccoli (400 g)" checked /> <span>Sausages with broccoli (400 g)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Molochnye sausages (500 g)" checked /> <span>Molochnye sausages (500 g)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Slivochnaya cooked sausage (400 g)" checked /> <span>Slivochnaya cooked sausage (400 g)</span></label>
+            </fieldset>
+            <div class="modal__actions">
+              <button type="submit" class="btn btn--ink modal__btn-wa">Message on WhatsApp →</button>
+              <button type="button" class="btn btn--line-d modal__btn-mail" onclick="handleSpecMail()">Send via Email →</button>
+            </div>
+            <p class="modal__direct">Or call directly: <a href="tel:+79872170202">+7 987 217-02-02</a></p>
+          </form>
+        </div>
+      </dialog>
     </main>
 
     <footer class="footer">
@@ -1250,6 +1412,45 @@
       </div>
     </footer>
     <script>
+      function showSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.showModal === "function") {
+          modal.showModal();
+        } else {
+          window.location.hash = "contacts";
+        }
+      }
+      function closeSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.close === "function") modal.close();
+      }
+      function handleSpecSubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var text = "Здравствуйте! Меня зовут " + name + " (" + phone + "). Интересуют спецификации и условия прямых поставок Ярату: " + (skus.length ? skus.join(", ") : "все позиции") + ".";
+        window.open("https://wa.me/79872170202?text=" + encodeURIComponent(text), "_blank", "noopener");
+        closeSpecModal();
+        return false;
+      }
+      function handleSpecMail() {
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var body = "Имя / Компания: " + name + "\nТелефон: " + phone + "\nИнтересующие позиции:\n- " + (skus.length ? skus.join("\n- ") : "все позиции") + "\n\nПрошу направить спецификации и коммерческие условия.";
+        window.location.href = "mailto:info@kazandelikates.tatar?subject=" + encodeURIComponent("Ярату / Запрос спецификаций") + "&body=" + encodeURIComponent(body);
+        closeSpecModal();
+      }
+      window.showSpecModal = showSpecModal;
+      window.closeSpecModal = closeSpecModal;
+      window.handleSpecSubmit = handleSpecSubmit;
+      window.handleSpecMail = handleSpecMail;
+
       (function () {
         var ids = ["vetchina", "mramornaya", "brokkoli", "molochnye", "slivochnaya"];
         var catalogPromise;

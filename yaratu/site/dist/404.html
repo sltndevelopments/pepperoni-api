@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 — Страница не найдена · Ярату</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/assets/logo/sign.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .not-found {
+        min-height: 100vh;
+        display: flex; flex-direction: column; justify-content: space-between;
+        background: var(--olive-deep); color: var(--cream);
+      }
+      .not-found__main {
+        flex: 1; display: grid; place-items: center; text-align: center;
+        padding: 4rem 1.5rem;
+      }
+      .not-found__box {
+        max-width: 520px; display: grid; gap: 1.4rem; justify-items: center;
+      }
+      .not-found__art {
+        width: 140px; height: 140px; margin-bottom: 0.5rem;
+      }
+      .not-found__code {
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.28em;
+        text-transform: uppercase; color: var(--gold-soft);
+      }
+      .not-found__title {
+        margin: 0; font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 3.8rem);
+        line-height: 1.05; font-weight: 600; text-wrap: balance;
+      }
+      .not-found__title em { font-style: italic; color: var(--gold-soft); }
+      .not-found__lead {
+        margin: 0; font-size: 1rem; line-height: 1.5; color: rgba(255, 240, 217, 0.75);
+      }
+      .not-found__actions {
+        display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="not-found">
+    <header class="nav" style="background: rgba(31, 38, 18, 0.92); border-color: var(--line-l);">
+      <div class="wrap nav__inner">
+        <a class="nav__logo" href="/" aria-label="Ярату — главная">
+          <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" width="1787" height="300" />
+        </a>
+        <a class="btn btn--cream" href="/">На главную</a>
+      </div>
+    </header>
+    <main class="not-found__main">
+      <div class="not-found__box">
+        <svg class="not-found__art" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="80" cy="80" r="74" stroke="var(--gold-soft)" stroke-width="2" stroke-opacity="0.45" />
+          <circle cx="80" cy="80" r="54" stroke="var(--gold-soft)" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="4 4" />
+          <path d="M42 50 v34 c0 6 4 10 10 10 v26" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M47 50 v24 M52 50 v24 M57 50 v24" stroke="var(--cream)" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M110 50 c0 16 -8 26 -8 38 v32" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="not-found__code">Ошибка 404</span>
+        <h1 class="not-found__title">Здесь <em>пусто.</em></h1>
+        <p class="not-found__lead">Такой страницы нет или она была перемещена. Продукты Ярату с раскрытым составом и без нитрита натрия всегда на главной.</p>
+        <div class="not-found__actions">
+          <a class="btn btn--cream" href="/">На главную</a>
+          <a class="btn btn--line-l" href="/#products">Смотреть ассортимент</a>
+        </div>
+      </div>
+    </main>
+    <footer class="footer" style="background: var(--olive-deep); border-top: 1px solid var(--line-l);">
+      <div class="wrap" style="text-align: center; color: rgba(255, 240, 217, 0.5); font-size: 0.8rem; padding: 1.5rem 0;">
+        © 2026 Yaratu · бренд ООО «Казанские Деликатесы» · ИНН 1686021074
+      </div>
+    </footer>
+  </body>
+</html>

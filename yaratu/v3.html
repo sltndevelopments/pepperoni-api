@@ -332,6 +332,20 @@
         margin: 0; max-width: 42ch;
         font-size: 0.98rem; color: rgba(22, 27, 13, 0.78);
       }
+      .product__tags {
+        display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem;
+        margin: 0.2rem 0 0.35rem; padding: 0; list-style: none;
+      }
+      .product__tags li {
+        display: inline-flex; align-items: center;
+        padding: 0.22rem 0.62rem;
+        font-size: 0.72rem; font-weight: 700;
+        letter-spacing: 0.03em;
+        border-radius: 999px;
+        background: rgba(47, 57, 28, 0.07);
+        color: var(--olive);
+        border: 1px solid rgba(47, 57, 28, 0.16);
+      }
       .product__allergens { margin: 0; font-size: 0.85rem; color: rgba(22, 27, 13, 0.72); }
       .product__allergens b {
         font-weight: 800; text-transform: uppercase;
@@ -495,23 +509,33 @@
         margin: 1.4rem 0 0; max-width: 36rem;
         font-size: 0.95rem; color: rgba(255, 240, 217, 0.72);
       }
-      .quality__list { list-style: none; margin: 0; padding: 0; }
-      .quality__list li {
-        display: grid; gap: 0.25rem;
-        padding: 1.1rem 0; border-top: 1px solid var(--line-l);
+      .quality__list {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 0.85rem;
+        list-style: none; margin: 0; padding: 0;
       }
-      .quality__list li:last-child { border-bottom: 1px solid var(--line-l); }
-      .quality__k { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; }
-      .quality__v { font-size: 0.85rem; color: rgba(255, 240, 217, 0.66); }
+      .quality__list li {
+        display: flex; flex-direction: column; justify-content: space-between;
+        gap: 0.6rem;
+        padding: 1.35rem 1.4rem;
+        background: rgba(255, 240, 217, 0.04);
+        border: 1px solid var(--line-l);
+        border-radius: 4px;
+        transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+      }
+      .quality__list li:hover {
+        border-color: var(--gold-soft);
+        background: rgba(255, 240, 217, 0.07);
+        transform: translateY(-2px);
+      }
+      .quality__k { font-family: var(--serif); font-size: 1.35rem; font-weight: 600; color: var(--cream); }
+      .quality__v { font-size: 0.84rem; line-height: 1.45; color: rgba(255, 240, 217, 0.72); }
       @media (min-width: 920px) {
         .quality { padding: 6.5rem 0 7rem; }
         .quality__grid {
-          grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
-          gap: 4.5rem; align-items: start;
-        }
-        .quality__list li {
           grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
-          gap: 1.5rem; align-items: baseline;
+          gap: 4.5rem; align-items: start;
         }
       }
 
@@ -585,6 +609,79 @@
         }
       }
 
+      /* B2B spec modal */
+      .modal {
+        border: none; padding: 0; background: transparent;
+        max-width: min(92vw, 520px); width: 100%;
+        margin: auto;
+      }
+      .modal::backdrop {
+        background: rgba(22, 27, 13, 0.78);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      .modal__card {
+        position: relative;
+        background: var(--paper);
+        color: var(--ink);
+        padding: clamp(1.8rem, 5vw, 2.5rem);
+        border: 1px solid var(--line-d);
+        border-radius: 6px;
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+      }
+      .modal__close {
+        position: absolute; top: 1rem; right: 1rem;
+        background: none; border: none; font-size: 1.8rem; line-height: 1;
+        cursor: pointer; color: var(--ink); opacity: 0.6;
+        padding: 0.2rem 0.5rem;
+      }
+      .modal__close:hover { opacity: 1; color: var(--gold); }
+      .modal__title {
+        margin: 0.5rem 0 0.8rem; font-family: var(--serif);
+        font-size: clamp(1.8rem, 4vw, 2.3rem); line-height: 1.1; font-weight: 600;
+      }
+      .modal__title em { font-style: italic; color: var(--gold); }
+      .modal__lead {
+        margin: 0 0 1.3rem; font-size: 0.88rem; line-height: 1.45;
+        color: rgba(22, 27, 13, 0.75);
+      }
+      .modal__form { display: grid; gap: 0.9rem; }
+      .modal__field { display: grid; gap: 0.3rem; }
+      .modal__field label {
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.7);
+      }
+      .modal__field input {
+        padding: 0.75rem 0.9rem; font-family: var(--sans); font-size: 0.92rem;
+        border: 1px solid rgba(22, 27, 13, 0.25); border-radius: 4px;
+        background: #fff; color: var(--ink);
+      }
+      .modal__field input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+      .modal__fieldset {
+        border: 1px solid rgba(22, 27, 13, 0.15); border-radius: 4px;
+        padding: 0.75rem 0.9rem; margin: 0.1rem 0;
+        display: grid; gap: 0.45rem;
+      }
+      .modal__fieldset legend {
+        font-size: 0.7rem; font-weight: 800; letter-spacing: 0.1em;
+        text-transform: uppercase; color: rgba(22, 27, 13, 0.7);
+        padding: 0 0.4rem;
+      }
+      .modal__checkbox {
+        display: flex; align-items: center; gap: 0.55rem;
+        font-size: 0.84rem; cursor: pointer;
+      }
+      .modal__checkbox input { accent-color: var(--olive); }
+      .modal__actions {
+        display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.3rem;
+      }
+      .modal__actions .btn { flex: 1 1 160px; font-size: 0.72rem; padding: 0.85rem 1.2rem; }
+      .modal__direct {
+        margin: 0.4rem 0 0; font-size: 0.82rem; text-align: center;
+        color: rgba(22, 27, 13, 0.65);
+      }
+      .modal__direct a { color: var(--olive); font-weight: 700; text-decoration: underline; }
+
       /* footer */
       .footer { background: var(--ink); color: rgba(255, 240, 217, 0.66); padding: 2.8rem 0; font-size: 0.8rem; }
       .footer__top {
@@ -633,7 +730,7 @@
             <a href="/en/" hreflang="en">English</a>
             <a href="/tt/" hreflang="tt">Татарча</a>
           </nav>
-          <a class="btn btn--ink nav__cta" href="#contacts">Связаться</a>
+          <a class="btn btn--ink nav__cta" href="#contacts" onclick="if(window.showSpecModal){showSpecModal();return false;}">Связаться</a>
           <details class="nav__menu"><summary>Меню</summary><nav aria-label="Мобильное меню"><a href="#facts">Факты</a><a href="#products">Ассортимент</a><a href="#quality">Контроль</a><a href="#contacts">Контакты</a><a href="/retail/">Для закупщиков</a><a href="/en/" hreflang="en">English</a><a href="/tt/" hreflang="tt">Татарча</a></nav></details>
         </div>
       </div>
@@ -663,7 +760,7 @@
               </p>
               <div class="hero__actions">
                 <a class="btn btn--cream" href="#products">Смотреть ассортимент</a>
-                <a class="btn btn--line-l" href="#contacts">Связаться</a>
+                <a class="btn btn--line-l" href="#contacts" onclick="if(window.showSpecModal){showSpecModal();return false;}">Связаться</a>
               </div>
             </div>
             <div class="hero__badge">
@@ -821,6 +918,12 @@
               <p class="product__desc">
                 Куриная ветчина с мягким вкусом и полностью раскрытым составом.
               </p>
+              <ul class="product__tags" aria-label="Особенности">
+                <li>16,7 г белка</li>
+                <li>125 ккал</li>
+                <li>0,4 г углеводов</li>
+                <li>Без нитрита натрия</li>
+              </ul>
               <p class="product__allergens"><b>Аллергены</b> молоко</p>
             </div>
             <details class="deal">
@@ -886,6 +989,12 @@
               <p class="product__desc">
                 Колбаса из курицы и говядины с пряным мясным профилем.
               </p>
+              <ul class="product__tags" aria-label="Особенности">
+                <li>14,9 г белка</li>
+                <li>0,5 г углеводов</li>
+                <li>Кето-профиль</li>
+                <li>Без нитрита натрия</li>
+              </ul>
               <p class="product__allergens">
                 <b>Аллергены</b> не заявлены в текущей рецептуре
               </p>
@@ -951,6 +1060,12 @@
               <p class="product__desc">
                 Сосиски из курицы и говядины с брокколи и мягким пряным вкусом.
               </p>
+              <ul class="product__tags" aria-label="Особенности">
+                <li>13 г белка</li>
+                <li>1,5 г углеводов</li>
+                <li>Брокколи в составе</li>
+                <li>Без нитрита натрия</li>
+              </ul>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
             <details class="deal">
@@ -1015,6 +1130,12 @@
                 Классический мягкий профиль, состав раскрыт до ингредиентов
                 добавок.
               </p>
+              <ul class="product__tags" aria-label="Особенности">
+                <li>13,5 г белка</li>
+                <li>1,2 г углеводов</li>
+                <li>Мягкий вкус</li>
+                <li>Без нитрита натрия</li>
+              </ul>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
             <details class="deal">
@@ -1078,6 +1199,12 @@
               <p class="product__desc">
                 Нежный сливочный профиль с полностью раскрытым составом.
               </p>
+              <ul class="product__tags" aria-label="Особенности">
+                <li>14,4 г белка</li>
+                <li>0,7 г углеводов</li>
+                <li>Сливочный профиль</li>
+                <li>Без нитрита натрия</li>
+              </ul>
               <p class="product__allergens"><b>Аллергены</b> молоко, яйца</p>
             </div>
             <details class="deal">
@@ -1145,7 +1272,7 @@
               <span class="quality__k">Халяль</span>
               <span class="quality__v">
                 Сертификат ДУМ РТ №614А/2024 — все пять продуктов в области
-                действия
+                действия (<a href="https://halalrt.ru/c/7zCTaaKdziZEPPJ/" target="_blank" rel="noopener" style="color:var(--gold-soft);text-decoration:underline">проверить в реестре ↗</a>)
               </span>
             </li>
             <li>
@@ -1239,6 +1366,7 @@
               <a
                 class="btn btn--ink"
                 href="mailto:info@kazandelikates.tatar?subject=Ярату%20%2F%20запрос%20спецификаций"
+                onclick="if(window.showSpecModal){showSpecModal();return false;}"
                 >Запросить спецификации</a
               >
               <a class="btn btn--line-d" href="tel:+79872170202">+7 987 217-02-02</a>
@@ -1267,6 +1395,40 @@
           </dl>
         </div>
       </section>
+
+      <!-- SPEC MODAL -->
+      <dialog id="spec-modal" class="modal" aria-labelledby="modal-title" onclick="if(event.target===this)closeSpecModal()">
+        <div class="modal__card">
+          <button class="modal__close" type="button" onclick="closeSpecModal()" aria-label="Закрыть">×</button>
+          <span class="eyebrow" style="color: var(--gold)">B2B · Поставки</span>
+          <h2 id="modal-title" class="modal__title">Запросить <em>спецификации</em></h2>
+          <p class="modal__lead">Отправим составы, расчётные КБЖУ, сертификаты Халяль ДУМ РТ и условия прямых поставок от производителя в Казани.</p>
+          
+          <form class="modal__form" onsubmit="return handleSpecSubmit(event)">
+            <div class="modal__field">
+              <label for="spec-name">Ваше имя / Компания</label>
+              <input id="spec-name" type="text" placeholder="Имя, компания" required />
+            </div>
+            <div class="modal__field">
+              <label for="spec-phone">Телефон или WhatsApp</label>
+              <input id="spec-phone" type="tel" placeholder="+7 999 000-00-00" required />
+            </div>
+            <fieldset class="modal__fieldset">
+              <legend>Интересующие продукты</legend>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Ветчина филейная" checked /> <span>Ветчина филейная (150 г)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Колбаса «Мраморная»" checked /> <span>Колбаса в/к «Мраморная» (500 г)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Сосиски с брокколи" checked /> <span>Сосиски с брокколи (400 г)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Сосиски «Молочные»" checked /> <span>Сосиски «Молочные» (500 г)</span></label>
+              <label class="modal__checkbox"><input type="checkbox" name="sku" value="Колбаса «Сливочная»" checked /> <span>Колбаса варёная «Сливочная» (400 г)</span></label>
+            </fieldset>
+            <div class="modal__actions">
+              <button type="submit" class="btn btn--ink modal__btn-wa">Написать в WhatsApp →</button>
+              <button type="button" class="btn btn--line-d modal__btn-mail" onclick="handleSpecMail()">На Email →</button>
+            </div>
+            <p class="modal__direct">Или позвоните: <a href="tel:+79872170202">+7 987 217-02-02</a></p>
+          </form>
+        </div>
+      </dialog>
     </main>
 
     <footer class="footer">
@@ -1290,6 +1452,45 @@
       </div>
     </footer>
     <script>
+      function showSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.showModal === "function") {
+          modal.showModal();
+        } else {
+          window.location.hash = "contacts";
+        }
+      }
+      function closeSpecModal() {
+        var modal = document.getElementById("spec-modal");
+        if (modal && typeof modal.close === "function") modal.close();
+      }
+      function handleSpecSubmit(e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var text = "Здравствуйте! Меня зовут " + name + " (" + phone + "). Интересуют спецификации и условия прямых поставок Ярату: " + (skus.length ? skus.join(", ") : "все позиции") + ".";
+        window.open("https://wa.me/79872170202?text=" + encodeURIComponent(text), "_blank", "noopener");
+        closeSpecModal();
+        return false;
+      }
+      function handleSpecMail() {
+        var name = (document.getElementById("spec-name") || {}).value || "";
+        var phone = (document.getElementById("spec-phone") || {}).value || "";
+        var skus = [];
+        var checkboxes = document.querySelectorAll("#spec-modal input[name='sku']:checked");
+        for (var i = 0; i < checkboxes.length; i++) skus.push(checkboxes[i].value);
+        var body = "Имя / Компания: " + name + "\nТелефон: " + phone + "\nИнтересующие позиции:\n- " + (skus.length ? skus.join("\n- ") : "все позиции") + "\n\nПрошу направить спецификации и коммерческие условия.";
+        window.location.href = "mailto:info@kazandelikates.tatar?subject=" + encodeURIComponent("Ярату / Запрос спецификаций") + "&body=" + encodeURIComponent(body);
+        closeSpecModal();
+      }
+      window.showSpecModal = showSpecModal;
+      window.closeSpecModal = closeSpecModal;
+      window.handleSpecSubmit = handleSpecSubmit;
+      window.handleSpecMail = handleSpecMail;
+
       (function () {
         var ids = ["vetchina", "mramornaya", "brokkoli", "molochnye", "slivochnaya"];
         var catalogPromise;

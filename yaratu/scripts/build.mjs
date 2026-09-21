@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { copyFile, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
-import { answers, editorial, editorialProducts, homeCopy, LANG_NAME, markdownPages, nf, packshotDims, positioning, ui } from "./copy.mjs";
+import { answers, editorial, editorialProducts, homeCopy, LANG_NAME, markdownPages, modalCopy, nf, packshotDims, positioning, ui } from "./copy.mjs";
 import { absolute, escapeHtml as h, jsonLd, loadData, LOCALES, pagePath, SITE } from "./lib.mjs";
 import { qrPath, qrSvg, qrUrl } from "./qr.mjs";
 
@@ -360,6 +360,40 @@ function localizeEditorial(html, lang) {
   out = out.replace("© 2026 · бренд ООО «Казанские Деликатесы» · ИНН 1686021074", lang === "en" ? "© 2026 · a brand of Kazan Delicacies LLC · INN 1686021074" : "© 2026 · «Казанские Деликатесы» ҖЧҖ бренды · ИНН 1686021074");
   out = out.replace("Халяль · Без нитрита натрия · Читаемый состав", lang === "en" ? "Halal · No sodium nitrite · Readable ingredients" : "Хәләл · Натрий нитритысыз · Аңлаешлы состав");
 
+  const M = modalCopy[lang];
+  if (M) {
+    const modalHtml = `      <!-- SPEC MODAL -->
+      <dialog id="spec-modal" class="modal" aria-labelledby="modal-title" onclick="if(event.target===this)closeSpecModal()">
+        <div class="modal__card">
+          <button class="modal__close" type="button" onclick="closeSpecModal()" aria-label="${lang === "en" ? "Close" : "Ябу"}">×</button>
+          <span class="eyebrow" style="color: var(--gold)">${h(M.eyebrow)}</span>
+          <h2 id="modal-title" class="modal__title">${h(M.titleA)} <em>${h(M.titleEm)}</em></h2>
+          <p class="modal__lead">${h(M.lead)}</p>
+          
+          <form class="modal__form" onsubmit="return handleSpecSubmit(event)">
+            <div class="modal__field">
+              <label for="spec-name">${h(M.nameLabel)}</label>
+              <input id="spec-name" type="text" placeholder="${h(M.namePlaceholder)}" required />
+            </div>
+            <div class="modal__field">
+              <label for="spec-phone">${h(M.phoneLabel)}</label>
+              <input id="spec-phone" type="tel" placeholder="+7 999 000-00-00" required />
+            </div>
+            <fieldset class="modal__fieldset">
+              <legend>${h(M.legend)}</legend>
+              ${M.skus.map((sku) => `<label class="modal__checkbox"><input type="checkbox" name="sku" value="${h(sku)}" checked /> <span>${h(sku)}</span></label>`).join("\n              ")}
+            </fieldset>
+            <div class="modal__actions">
+              <button type="submit" class="btn btn--ink modal__btn-wa">${h(M.waBtn)}</button>
+              <button type="button" class="btn btn--line-d modal__btn-mail" onclick="handleSpecMail()">${h(M.mailBtn)}</button>
+            </div>
+            <p class="modal__direct">${h(M.directCall)} <a href="tel:+79872170202">+7 987 217-02-02</a></p>
+          </form>
+        </div>
+      </dialog>`;
+    out = out.replace(/<!-- SPEC MODAL -->[\s\S]*?<\/dialog>/, modalHtml);
+  }
+
   for (const id of order) {
     const p = byId[id];
     const P = editorialProducts[id][lang];
@@ -385,6 +419,9 @@ function localizeEditorial(html, lang) {
               <p class="product__meta"><span>${String(order.indexOf(id) + 1).padStart(2, "0")} / 05</span><span>${weight}</span></p>
               <h3 class="product__name">${h(P.nameA)} <em>${h(P.nameEm)}</em></h3>
               <p class="product__desc">${h(p.summary[lang])}</p>
+              <ul class="product__tags" aria-label="${lang === "en" ? "Features" : "Үзенчәлекләре"}">
+                ${(P.tags || []).map((t) => `<li>${h(t)}</li>`).join("\n                ")}
+              </ul>
               <p class="product__allergens"><b>${L.allergens}</b> ${h(p.allergens[lang])}</p>
             </div>
             <details class="deal">
@@ -1022,6 +1059,88 @@ Both restate \`identity_type: anonymous\` and \`registration: not-required\`. Th
 - ${SITE}/llms.txt
 - ${SITE}/.well-known/mcp/server-card.json
 `);
+const page404 = `<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>404 — Страница не найдена · Ярату</title>
+    <meta name="robots" content="noindex, follow" />
+    <link rel="icon" href="/assets/logo/sign.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      .not-found {
+        min-height: 100vh;
+        display: flex; flex-direction: column; justify-content: space-between;
+        background: var(--olive-deep); color: var(--cream);
+      }
+      .not-found__main {
+        flex: 1; display: grid; place-items: center; text-align: center;
+        padding: 4rem 1.5rem;
+      }
+      .not-found__box {
+        max-width: 520px; display: grid; gap: 1.4rem; justify-items: center;
+      }
+      .not-found__art {
+        width: 140px; height: 140px; margin-bottom: 0.5rem;
+      }
+      .not-found__code {
+        font-size: 0.72rem; font-weight: 800; letter-spacing: 0.28em;
+        text-transform: uppercase; color: var(--gold-soft);
+      }
+      .not-found__title {
+        margin: 0; font-family: var(--serif); font-size: clamp(2.4rem, 6vw, 3.8rem);
+        line-height: 1.05; font-weight: 600; text-wrap: balance;
+      }
+      .not-found__title em { font-style: italic; color: var(--gold-soft); }
+      .not-found__lead {
+        margin: 0; font-size: 1rem; line-height: 1.5; color: rgba(255, 240, 217, 0.75);
+      }
+      .not-found__actions {
+        display: flex; flex-wrap: wrap; gap: 0.8rem; justify-content: center;
+        margin-top: 0.5rem;
+      }
+    </style>
+  </head>
+  <body class="not-found">
+    <header class="nav" style="background: rgba(31, 38, 18, 0.92); border-color: var(--line-l);">
+      <div class="wrap nav__inner">
+        <a class="nav__logo" href="/" aria-label="Ярату — главная">
+          <img src="/assets/logo/logo-horizontal-white.svg" alt="Ярату" width="1787" height="300" />
+        </a>
+        <a class="btn btn--cream" href="/">На главную</a>
+      </div>
+    </header>
+    <main class="not-found__main">
+      <div class="not-found__box">
+        <svg class="not-found__art" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="80" cy="80" r="74" stroke="var(--gold-soft)" stroke-width="2" stroke-opacity="0.45" />
+          <circle cx="80" cy="80" r="54" stroke="var(--gold-soft)" stroke-width="1.5" stroke-opacity="0.25" stroke-dasharray="4 4" />
+          <path d="M42 50 v34 c0 6 4 10 10 10 v26" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <path d="M47 50 v24 M52 50 v24 M57 50 v24" stroke="var(--cream)" stroke-width="1.5" stroke-linecap="round" />
+          <path d="M110 50 c0 16 -8 26 -8 38 v32" stroke="var(--cream)" stroke-width="2" stroke-linecap="round" />
+        </svg>
+        <span class="not-found__code">Ошибка 404</span>
+        <h1 class="not-found__title">Здесь <em>пусто.</em></h1>
+        <p class="not-found__lead">Такой страницы нет или она была перемещена. Продукты Ярату с раскрытым составом и без нитрита натрия всегда на главной.</p>
+        <div class="not-found__actions">
+          <a class="btn btn--cream" href="/">На главную</a>
+          <a class="btn btn--line-l" href="/#products">Смотреть ассортимент</a>
+        </div>
+      </div>
+    </main>
+    <footer class="footer" style="background: var(--olive-deep); border-top: 1px solid var(--line-l);">
+      <div class="wrap" style="text-align: center; color: rgba(255, 240, 217, 0.5); font-size: 0.8rem; padding: 1.5rem 0;">
+        © 2026 Yaratu · бренд ООО «Казанские Деликатесы» · ИНН 1686021074
+      </div>
+    </footer>
+  </body>
+</html>`;
+await output("404.html", page404);
+
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
 await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n`);
 const routes = {
