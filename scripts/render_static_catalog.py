@@ -186,9 +186,44 @@ def main() -> int:
     inject_home(PUBLIC / "en" / "index.html", products, "en")
     inject_hub(PUBLIC / "products" / "index.html", products, "ru")
     inject_hub(PUBLIC / "en" / "products" / "index.html", products, "en")
+    # Category sections inside about.html (RU)
+    about_path = PUBLIC / "about.html"
+    if about_path.exists():
+        about_text = about_path.read_text(encoding="utf-8")
+        about_mod = False
+        for sec in SECTION_ORDER:
+            sec_items = [p for p in products if (p.get("section") or "Прочее") == sec]
+            if not sec_items:
+                continue
+            html_pills = []
+            for p in sec_items:
+                sku = str(p.get("sku") or "").strip()
+                name = p.get("name") or sku
+                weight = p.get("weight") or ""
+                w_span = f'<span class="sku-weight">{escape(weight)}</span>' if weight else ""
+                href = f"/products/{sku.lower()}" if sku else "#"
+                html_pills.append(
+                    f'<a href="{href}" class="sku-pill">'
+                    f'<span class="sku-name">{escape(str(name))}</span>'
+                    f'{w_span}</a>'
+                )
+            block = f'<div class="live-sku-list" data-section="{sec}"><div class="sku-grid">{"".join(html_pills)}</div></div>'
+            pattern = rf'<div class="live-sku-list" data-section="{re.escape(sec)}">.*?</div>\s*</div>'
+            # Look for the live-sku-list container
+            target = f'data-section="{sec}"'
+            if target in about_text:
+                rx = re.compile(rf'<div class="live-sku-list" data-section="{re.escape(sec)}">[\s\S]*?</div>(?=\s*<p|\s*<div|\s*</div)', re.I)
+                # simpler replacement: replace <div class="live-sku-list" data-section="...">...</div>
+                m = re.search(rf'<div class="live-sku-list" data-section="{re.escape(sec)}">(?:(?!<div class="card")[\s\S])*?</div>', about_text)
+                if m:
+                    about_text = about_text[:m.start()] + block + about_text[m.end():]
+                    about_mod = True
+        if about_mod:
+            about_path.write_text(about_text, encoding="utf-8")
     print(f"static catalog: {len(products)} SKU → index.html, en/index.html, "
-          f"products/index.html, en/products/index.html")
+          f"products/index.html, en/products/index.html, about.html")
     return 0
+
 
 
 if __name__ == "__main__":

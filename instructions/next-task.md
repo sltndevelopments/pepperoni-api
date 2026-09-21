@@ -183,6 +183,14 @@
 
 ## Log
 
+- **2026-09-21 Редизайн и динамический каталог на /about — DONE, в `origin/main`.**
+  - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
+  - Замена сухого хардкода: статический перечень товаров в тексте заменён на динамический каталог (`scripts/render_static_catalog.py` + клиентский fallback `products.json`), генерирующий аккуратные плашки SKU с весом и прямыми ссылками на карточки товаров.
+  - Подача и вёрстка: внедрён живой современный B2B-дизайн в канонической палитре (брендовый hero, карточки цехов обвалки/фаршесоставления/термообработки/шоковой заморозки, сетка федеральных партнеров, прозрачные стандарты халяль и форма заявки 152-ФЗ).
+  - Гейты: `qa_pages` 0 FAIL, `fix_pages` 0 repaired, `reconcile_sku_count` in sync (62 SKU), `index_policy` OK, `check_product_claims` 0 FAIL.
+  - Live: `curl -sI https://pepperoni.tatar/about` = 200 OK.
+  - Blockers: нет.
+
 - **2026-09-21 North Star — цифровая фабрика нового поколения — DONE, в `origin/main`.**
   - Commit: `0f343d0e0`. VPS `/var/www/pepperoni/repo` HEAD = `0f343d0e0` = `origin/main`.
   - Новая страница: `public/north-star.html` (URL: `https://pepperoni.tatar/north-star`).
