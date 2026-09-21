@@ -184,14 +184,14 @@
 ## Log
 
 - **2026-09-21 North Star — цифровая фабрика нового поколения — DONE, в `origin/main`.**
-  - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
+  - Commit: `0f343d0e0`. VPS `/var/www/pepperoni/repo` HEAD = `0f343d0e0` = `origin/main`.
   - Новая страница: `public/north-star.html` (URL: `https://pepperoni.tatar/north-star`).
   - Навигация: добавлена ссылка `North Star` в меню и футер `public/index.html` и `public/about.html`.
   - Индекс и sitemap: зарегистрирована в `scripts/build_index_manifest.py`, keep = 242 (лимит 180–250), `public/sitemap.xml` пересобран (242 URL).
   - AI & LLM: ссылки и статус внедрения добавлены в `llms.txt`, `llms-full.txt`, `en/llms.txt`, `en/llms-full.txt` (через `scripts/gen-llms-full.py` и `scripts/sync-sheets.py`).
   - Гейты: `qa_pages` 0 FAIL, `fix_pages` 0 repaired, `index_policy` OK, `check_product_claims` 0 FAIL, `test_sitemap_canonical` OK, `authority_program` OK, `measurement_governance` OK.
   - Live: `curl -sI https://pepperoni.tatar/north-star` = 200 OK.
-  - Nudge: `scripts/nudge_google_after_seo.sh` на VPS.
+  - Nudge: `scripts/nudge_google_after_seo.sh` на VPS выполнен (Google sitemap ✅ ×2, IndexNow ✅ 200, Yandex sitemap 429 до 30.09).
   - Blockers: нет.
 
 - **2026-09-19 Оптимизация краулинга Googlebot (410 для удалённых гео/SKU, локальный 404 без Vercel, ads.txt) — DONE, в `origin/main`.**
