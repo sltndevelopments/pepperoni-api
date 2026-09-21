@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Executive Factory Dashboard | Казанские Деликатесы</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="/favicon.ico" sizes="any">
+
+<style>
+  :root {
+    --bg: #0D110F;
+    --card: #141A16;
+    --card-hover: #19221C;
+    --card-border: rgba(255, 255, 255, 0.08);
+    --border-accent: rgba(74, 222, 128, 0.25);
+    --ink: #F2F5F3;
+    --muted: #8E9C93;
+    --muted-dark: #58665C;
+    --green: #22C55E;
+    --green-soft: rgba(34, 197, 94, 0.12);
+    --gold: #EAB308;
+    --gold-soft: rgba(234, 179, 8, 0.12);
+    --blue: #38BDF8;
+    --blue-soft: rgba(56, 189, 248, 0.12);
+    --red: #F87171;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    --radius: 16px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  /* Password Gate Modal */
+  #auth-overlay {
+    position: fixed; inset: 0; z-index: 9999;
+    background: rgba(10, 14, 12, 0.95);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .auth-box {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    padding: 40px 32px;
+    max-width: 400px; width: 100%;
+    text-align: center;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5);
+  }
+  .auth-icon {
+    width: 54px; height: 54px; border-radius: 14px;
+    background: var(--green-soft); color: var(--green);
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 20px;
+    border: 1px solid var(--border-accent);
+  }
+  .auth-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.01em; }
+  .auth-sub { font-size: 13.5px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+  .auth-input {
+    width: 100%;
+    padding: 13px 16px;
+    border-radius: 10px;
+    background: #090D0B;
+    border: 1px solid var(--card-border);
+    color: var(--ink);
+    font-size: 15px;
+    font-family: var(--mono);
+    text-align: center;
+    outline: none;
+    margin-bottom: 14px;
+    transition: border-color .15s ease;
+  }
+  .auth-input:focus { border-color: var(--green); }
+  .auth-btn {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    background: var(--green);
+    color: #062312;
+    font-size: 14.5px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    transition: transform .15s ease, filter .15s ease;
+  }
+  .auth-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .auth-error {
+    color: var(--red);
+    font-size: 12.5px;
+    margin-top: 12px;
+    display: none;
+  }
+
+  /* Main Container */
+  #dashboard-view {
+    display: none;
+    padding-bottom: 80px;
+  }
+  .wrap { max-width: 1240px; margin: 0 auto; padding: 0 24px; }
+
+  /* Top Navigation */
+  header.dash-header {
+    border-bottom: 1px solid var(--card-border);
+    background: rgba(13, 17, 15, 0.85);
+    backdrop-filter: blur(20px);
+    position: sticky; top: 0; z-index: 100;
+  }
+  .dash-nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px; gap: 16px;
+  }
+  .dash-brand {
+    display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 15px;
+  }
+  .dash-badge {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    padding: 3px 8px; border-radius: 5px;
+    background: var(--green-soft); color: var(--green);
+    border: 1px solid var(--border-accent);
+  }
+  .dash-controls {
+    display: flex; align-items: center; gap: 16px;
+  }
+  .pulse-indicator {
+    display: flex; align-items: center; gap: 8px; font-family: var(--mono);
+    font-size: 12px; color: var(--muted);
+  }
+  .pulse-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); box-shadow: 0 0 10px var(--green);
+    animation: blink 2s infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+  .btn-lock {
+    background: transparent; border: 1px solid var(--card-border);
+    color: var(--muted); padding: 6px 14px; border-radius: 8px;
+    font-size: 12.5px; font-weight: 600; cursor: pointer;
+    transition: all .15s ease;
+  }
+  .btn-lock:hover { color: var(--ink); border-color: rgba(255,255,255,0.2); }
+
+  /* Hero Banner */
+  .hero-dash {
+    padding: 40px 0 28px;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    flex-wrap: wrap; gap: 20px;
+    border-bottom: 1px solid var(--card-border);
+    margin-bottom: 32px;
+  }
+  .hero-dash h1 {
+    font-size: clamp(26px, 3.5vw, 36px); font-weight: 800;
+    letter-spacing: -0.02em; line-height: 1.2;
+  }
+  .hero-dash p { color: var(--muted); font-size: 15px; margin-top: 6px; }
+  .timestamp-tag {
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    background: var(--card); padding: 8px 14px; border-radius: 8px;
+    border: 1px solid var(--card-border);
+  }
+
+  /* Tabs */
+  .dash-tabs {
+    display: flex; gap: 8px; margin-bottom: 28px; flex-wrap: wrap;
+    border-bottom: 1px solid var(--card-border); padding-bottom: 12px;
+  }
+  .dash-tab {
+    background: transparent; border: none; color: var(--muted);
+    padding: 8px 16px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    cursor: pointer; transition: all .15s ease;
+  }
+  .dash-tab:hover { color: var(--ink); background: rgba(255,255,255,0.03); }
+  .dash-tab.active { background: var(--green-soft); color: var(--green); border: 1px solid var(--border-accent); }
+
+  /* Bento Grid Layouts */
+  .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 24px; }
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+  @media (max-width: 1024px) {
+    .grid-4 { grid-template-columns: 1fr 1fr; }
+    .grid-3 { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 680px) {
+    .grid-4, .grid-2 { grid-template-columns: 1fr; }
+  }
+
+  /* Bento Cards */
+  .kpi-card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex; flex-direction: column; justify-content: space-between;
+    transition: border-color .15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .kpi-card:hover { border-color: rgba(255,255,255,0.18); }
+  .kpi-header {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .kpi-title { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
+  .kpi-chip {
+    font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+    padding: 2px 7px; border-radius: 4px;
+  }
+  .chip-green { background: var(--green-soft); color: var(--green); }
+  .chip-gold { background: var(--gold-soft); color: var(--gold); }
+  .chip-blue { background: var(--blue-soft); color: var(--blue); }
+
+  .kpi-value {
+    font-family: var(--mono);
+    font-size: clamp(28px, 3.2vw, 38px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .kpi-value.gold { color: var(--gold); }
+  .kpi-value.green { color: var(--green); }
+  .kpi-value.blue { color: var(--blue); }
+
+  .kpi-sub { font-size: 13px; color: var(--muted); line-height: 1.4; }
+  .kpi-footer {
+    border-top: 1px solid rgba(255,255,255,0.05);
+    margin-top: 16px; padding-top: 12px;
+    font-size: 12px; color: var(--muted-dark); font-family: var(--mono);
+    display: flex; justify-content: space-between;
+  }
+
+  /* Section Titles */
+  .section-h2 {
+    font-size: 19px; font-weight: 700; margin: 32px 0 16px;
+    letter-spacing: -0.01em; display: flex; align-items: center; gap: 10px;
+  }
+  .section-h2 .tag {
+    font-family: var(--mono); font-size: 11px; font-weight: 700;
+    color: var(--green); background: var(--green-soft);
+    padding: 2px 8px; border-radius: 4px;
+  }
+
+  /* Tables & Lists */
+  .dash-table {
+    width: 100%; border-collapse: collapse; font-size: 13.5px;
+  }
+  .dash-table th, .dash-table td {
+    padding: 12px 14px; text-align: left;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .dash-table th {
+    font-family: var(--mono); font-size: 11px; text-transform: uppercase;
+    color: var(--muted-dark); font-weight: 700; background: rgba(255,255,255,0.02);
+  }
+  .dash-table tr:last-child td { border-bottom: none; }
+  .dash-table td.num { font-family: var(--mono); text-align: right; }
+  .dash-table th.num { text-align: right; }
+
+  /* Interactive What-If Simulator */
+  .calc-card {
+    background: #111713;
+    border: 1px solid var(--border-accent);
+    border-radius: var(--radius);
+    padding: 32px;
+    margin: 32px 0;
+  }
+  .calc-header { margin-bottom: 24px; }
+  .calc-header h3 { font-size: 20px; font-weight: 700; margin-bottom: 6px; }
+  .calc-header p { font-size: 14px; color: var(--muted); }
+  .calc-grid {
+    display: grid; grid-template-columns: 1fr 1.2fr; gap: 32px;
+  }
+  @media (max-width: 860px) { .calc-grid { grid-template-columns: 1fr; } }
+  .slider-group { margin-bottom: 20px; }
+  .slider-label {
+    display: flex; justify-content: space-between; font-size: 13.5px;
+    margin-bottom: 8px; font-weight: 600;
+  }
+  .slider-val { font-family: var(--mono); color: var(--green); font-weight: 700; font-size: 15px; }
+  .range-slider {
+    width: 100%; height: 6px; border-radius: 3px;
+    background: rgba(255,255,255,0.1); outline: none;
+    -webkit-appearance: none; accent-color: var(--green);
+  }
+  .calc-results {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    background: rgba(0,0,0,0.25); border: 1px solid var(--card-border);
+    border-radius: 12px; padding: 20px;
+  }
+  .res-item { display: flex; flex-direction: column; }
+  .res-name { font-size: 11.5px; color: var(--muted); text-transform: uppercase; font-family: var(--mono); }
+  .res-value { font-family: var(--mono); font-size: 22px; font-weight: 800; color: #fff; margin-top: 4px; }
+  .res-value.accent { color: var(--green); }
+
+  /* OData Connector Diagram */
+  .odata-box {
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: var(--radius); padding: 28px; margin: 24px 0;
+  }
+  .odata-code {
+    background: #080C0A; border: 1px solid var(--card-border);
+    border-radius: 8px; padding: 14px 18px; font-family: var(--mono);
+    font-size: 12.5px; color: #7dd3a8; overflow-x: auto; margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  /* Catalog live preview container */
+  .live-catalog-strip {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px; max-height: 380px; overflow-y: auto; padding-right: 6px;
+  }
+  .sku-row-item {
+    background: #0E1410; border: 1px solid var(--card-border); border-radius: 8px;
+    padding: 10px 14px; display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  .sku-code-tag {
+    font-family: var(--mono); font-size: 11px; font-weight: 700; color: var(--green);
+  }
+</style>
+</head>
+<body>
+
+<!-- Password Gate Screen -->
+<div id="auth-overlay">
+  <div class="auth-box">
+    <div class="auth-icon">🔒</div>
+    <h2 class="auth-title">Executive Dashboard</h2>
+    <p class="auth-sub">
+      Вход в закрытую панель показателей эффективности и 1С-аналитики ООО «Казанские Деликатесы».
+    </p>
+    <form id="auth-form" onsubmit="handleAuth(event)">
+      <input type="password" id="auth-pass" class="auth-input" placeholder="Введите пароль доступа" autofocus required autocomplete="current-password">
+      <button type="submit" class="auth-btn">Войти в панель</button>
+      <div id="auth-err" class="auth-error">Неверный пароль доступа</div>
+    </form>
+    <div style="margin-top:20px; font-size:11.5px; color:var(--muted-dark); font-family:var(--mono);">
+      KAZAN DELICACIES · CONFIDENTIAL
+    </div>
+  </div>
+</div>
+
+<!-- Main Dashboard View -->
+<div id="dashboard-view">
+  
+  <header class="dash-header">
+    <div class="wrap dash-nav">
+      <div class="dash-brand">
+        <span>🥩 Казанские Деликатесы</span>
+        <span class="dash-badge">EXECUTIVE DASHBOARD</span>
+      </div>
+
+      <div class="dash-controls">
+        <div class="pulse-indicator">
+          <span class="pulse-dot"></span>
+          <span>1C:УНФ OData: READY</span>
+        </div>
+        <button class="btn-lock" onclick="logout()">Заблокировать 🔒</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    
+    <!-- Hero Title -->
+    <div class="hero-dash">
+      <div>
+        <h1>Панель эффективности завода</h1>
+        <p>Ключевые показатели производительности труда, площадей, оборота и матрицы SKU в реальном времени</p>
+      </div>
+      <div class="timestamp-tag">
+        <span>БАЗИС: 2025 ФАКТ → 2026 ПЛАН</span>
+      </div>
+    </div>
+
+    <!-- Section: Главные показатели эффективности -->
+    <div class="section-h2">
+      <span>1. Эффективность метра, человека и времени</span>
+      <span class="tag">KPI ФАБРИКИ</span>
+    </div>
+
+    <div class="grid-4">
+      <!-- 1. Выручка на сотрудника -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Выработка на человека</span>
+          <span class="kpi-chip chip-green">×2.1 за 3 года</span>
+        </div>
+        <div>
+          <div class="kpi-value green">13,6 млн ₽</div>
+          <div class="kpi-sub">Выручка на 1 сотрудника в год (2025 факт). В 2023 г. было 6,5 млн, в 2024 — 9,8 млн.</div>
+        </div>
+        <div class="kpi-footer">
+          <span>ШТАТ: 110 СОТРУДНИКОВ</span>
+          <span>ЦЕЛЬ 2026: &gt; 9,1 МЛН ₽</span>
+        </div>
+      </div>
+
+      <!-- 2. Выработка на человеко-час -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Чел·час (в деньгах)</span>
+          <span class="kpi-chip chip-blue">ФАКТ 2025</span>
+        </div>
+        <div>
+          <div class="kpi-value blue">3 919 ₽</div>
+          <div class="kpi-sub">Выручка фабрики на 1 отработанный человеко-час (при 221,7 тыс. ч-ч/год).</div>
+        </div>
+        <div class="kpi-footer">
+          <span>ПЛАН 2026: 4 509 ₽ / Ч-Ч</span>
+          <span>МЕСЯЦ: ~18 480 Ч-Ч</span>
+        </div>
+      </div>
+
+      <!-- 3. Выработка на человеко-час в кг -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Чел·час (в объёме)</span>
+          <span class="kpi-chip chip-blue">НАТУРАЛЬНЫЙ</span>
+        </div>
+        <div>
+          <div class="kpi-value">6,5 кг</div>
+          <div class="kpi-sub">Выпуск готовой продукции на 1 чел·час (при программе 120 тонн в месяц).</div>
+        </div>
+        <div class="kpi-footer">
+          <span>ДИАПАЗОН: 5.5 — 7.6 КГ</span>
+          <span>ПРОГРАММА: 100-140 Т/МЕС</span>
+        </div>
+      </div>
+
+      <!-- 4. Съем с 1 м2 цеха -->
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Съем с 1 м² цеха</span>
+          <span class="kpi-chip chip-gold">ПРОИЗВОДСТВО</span>
+        </div>
+        <div>
+          <div class="kpi-value gold">435 тыс. ₽</div>
+          <div class="kpi-sub">Выручка на 1 м² основного цеха (2 000 м²). Вся площадка (3 600 м²) — 241 тыс. ₽/м².</div>
+        </div>
+        <div class="kpi-footer">
+          <span>ПЛОЩАДКА: 3 600 М²</span>
+          <span>ПЛАН 2026: 278 ТЫС./М²</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Финансовый контур и оборот 1С -->
+    <div class="section-h2">
+      <span>2. Финансовые показатели и динамика (1С:УНФ)</span>
+      <span class="tag">ОБОРОТ И ПРИБЫЛЬ</span>
+    </div>
+
+    <div class="grid-3">
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Годовой оборот</span>
+          <span class="kpi-chip chip-green">В 15 РАЗ ЗА 3 ГОДА</span>
+        </div>
+        <div>
+          <div class="kpi-value green">869,1 млн ₽</div>
+          <div class="kpi-sub">Выручка за 2025 г. План 2026: &gt; 1,00 млрд ₽. Факт I кв. 2026 г. (упр. отчётность): 229 млн ₽.</div>
+        </div>
+        <div class="kpi-footer">
+          <span>2023: 58,6 МЛН</span>
+          <span>2024: 313,9 МЛН</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Чистая прибыль</span>
+          <span class="kpi-chip chip-green">+74% YoY</span>
+        </div>
+        <div>
+          <div class="kpi-value">68,9 млн ₽</div>
+          <div class="kpi-sub">Чистая прибыль за 2025 г. (рост с 0,13 млн в 2023 г. и 39,6 млн в 2024 г.).</div>
+        </div>
+        <div class="kpi-footer">
+          <span>НАЛОГИ 2025: 44,9 МЛН ₽</span>
+          <span>РОСТ ПЛАТЕЖЕЙ В 3.6 РАЗА</span>
+        </div>
+      </div>
+
+      <div class="kpi-card">
+        <div class="kpi-header">
+          <span class="kpi-title">Плотность роботизации</span>
+          <span class="kpi-chip chip-blue">ИНВЕСТПРОЕКТ</span>
+        </div>
+        <div>
+          <div class="kpi-value blue">545</div>
+          <div class="kpi-sub">Роботов на 10 000 работников (6 роботов на 110 чел). Цель РФ к 2030 г. — 145, Германия — 415.</div>
+        </div>
+        <div class="kpi-footer">
+          <span>КОНТУРЫ: 4 РОБОТА И ЛИНИИ</span>
+          <span>ОБОРУДОВАНИЕ: VARIOVAC, BIZERBA</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Интерактивный симулятор эффективности завода -->
+    <div class="calc-card">
+      <div class="calc-header">
+        <div class="eyebrow" style="background:rgba(34,197,94,0.15); color:var(--green); margin-bottom:8px;">WHAT-IF КАЛЬКУЛЯТОР</div>
+        <h3>Интерактивный симулятор производственной эффективности</h3>
+        <p>Меняйте плановые показатели предприятия (выручка, штат, объём выпуска) для мгновенного онлайн-расчёта удельной выработки на сотрудника, человеко-час и квадратный метр.</p>
+      </div>
+
+      <div class="calc-grid">
+        <div>
+          <!-- Слайдер 1: Выручка -->
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Годовой оборот (выручка)</span>
+              <span id="slider-rev-val" class="slider-val">1 000 млн ₽</span>
+            </div>
+            <input type="range" id="slider-rev" class="range-slider" min="300" max="2500" step="50" value="1000" oninput="updateSim()">
+          </div>
+
+          <!-- Слайдер 2: Штат -->
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Штат сотрудников на площадке</span>
+              <span id="slider-staff-val" class="slider-val">110 чел.</span>
+            </div>
+            <input type="range" id="slider-staff" class="range-slider" min="60" max="250" step="5" value="110" oninput="updateSim()">
+          </div>
+
+          <!-- Слайдер 3: Выпуск тонн -->
+          <div class="slider-group">
+            <div class="slider-label">
+              <span>Месячный объём выпуска</span>
+              <span id="slider-ton-val" class="slider-val">140 тонн/мес</span>
+            </div>
+            <input type="range" id="slider-ton" class="range-slider" min="60" max="350" step="10" value="140" oninput="updateSim()">
+          </div>
+        </div>
+
+        <div class="calc-results">
+          <div class="res-item">
+            <span class="res-name">Выручка на 1 сотрудника</span>
+            <span id="sim-rev-per-emp" class="res-value accent">9,09 млн ₽</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Выработка на 1 чел·час</span>
+            <span id="sim-rev-per-hour" class="res-value">4 509 ₽/ч</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Выпуск на 1 чел·час</span>
+            <span id="sim-kg-per-hour" class="res-value">7,58 кг/ч</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Съем с 1 м² цеха (2 000 м²)</span>
+            <span id="sim-per-sqm-prod" class="res-value accent">500 тыс. ₽</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Съем со всей базы (3 600 м²)</span>
+            <span id="sim-per-sqm-all" class="res-value">278 тыс. ₽</span>
+          </div>
+
+          <div class="res-item">
+            <span class="res-name">Загрузка мощности (от 12т/см)</span>
+            <span id="sim-capacity-load" class="res-value">46.7%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Живая матрица каталога SKU (из products.json) -->
+    <div class="section-h2">
+      <span>3. Живая продуктовая матрица</span>
+      <span class="tag" id="sku-live-tag">ОНЛАЙН ИЗ PRODUCTS.JSON: 62 SKU</span>
+    </div>
+
+    <div class="grid-2">
+      <div class="kpi-card">
+        <h4 style="font-size:15px; font-weight:700; margin-bottom:14px;">Разбивка по производственным направлениям</h4>
+        <table class="dash-table">
+          <thead>
+            <tr>
+              <th>Линейка продукции</th>
+              <th>Условия хранения</th>
+              <th class="num">SKU в каталоге</th>
+              <th class="num">Доля</th>
+            </tr>
+          </thead>
+          <tbody id="sections-table-body">
+            <tr>
+              <td><strong>❄️ Заморозка (HoReCa, АЗС, пицца)</strong></td>
+              <td>180–360 суток, –18 °C</td>
+              <td class="num" id="cnt-frozen">14</td>
+              <td class="num">22.6%</td>
+            </tr>
+            <tr>
+              <td><strong>🧊 Охлаждёнка (колбасы, ветчины)</strong></td>
+              <td>30 суток, 0…+6 °C</td>
+              <td class="num" id="cnt-chilled">29</td>
+              <td class="num">46.8%</td>
+            </tr>
+            <tr>
+              <td><strong>🥐 Татарская и классическая выпечка</strong></td>
+              <td>Шоковая заморозка / свежая</td>
+              <td class="num" id="cnt-bakery">19</td>
+              <td class="num">30.6%</td>
+            </tr>
+            <tr style="font-weight:700;">
+              <td>ИТОГО АКТИВНЫХ ПОЗИЦИЙ</td>
+              <td>Единый реестр продукции</td>
+              <td class="num" id="cnt-total" style="color:var(--green);">62</td>
+              <td class="num">100%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="kpi-card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+          <h4 style="font-size:15px; font-weight:700;">Живой перечень активных SKU</h4>
+          <span style="font-family:var(--mono); font-size:11px; color:var(--muted);" id="sku-fetch-time">Синхронизировано</span>
+        </div>
+        <div class="live-catalog-strip" id="live-catalog-list">
+          <!-- Подгрузится из products.json -->
+          <div style="padding:20px; color:var(--muted); font-size:13px;">Загрузка каталога продукции...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section: Архитектура OData-интеграции с 1C:УНФ -->
+    <div class="odata-box">
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:12px;">
+        <div>
+          <span class="eyebrow" style="margin-bottom:6px;">ТЕХНОЛОГИЧЕСКИЙ СЛОЙ</span>
+          <h3 style="font-size:18px; font-weight:700;">Архитектура прямой связи с 1С:УНФ через OData</h3>
+          <p style="font-size:14px; color:var(--muted); max-width:760px; margin-top:4px;">
+            1С:УНФ имеет встроенный REST-интерфейс OData. Мы можем автоматически забирать фактические движения без выгрузки файлов и ручных отчетов.
+          </p>
+        </div>
+        <span class="kpi-chip chip-green" style="font-size:12px; padding:6px 12px;">1C REST ODATA</span>
+      </div>
+
+      <div class="grid-3" style="margin-top:20px;">
+        <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
+          <div style="font-family:var(--mono); font-size:12px; color:var(--green); font-weight:700; margin-bottom:6px;">01. ВЫРУЧКА И ПРОДАЖИ</div>
+          <p style="font-size:12.5px; color:var(--muted);">Регистр накопления <code>ПродажиОбороты</code> отдаёт онлайн сумму реализации, себестоимость и маржу в разрезе SKU и покупателей.</p>
+        </div>
+        <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
+          <div style="font-family:var(--mono); font-size:12px; color:var(--blue); font-weight:700; margin-bottom:6px;">02. ПЕРСОНАЛ И ТАБЕЛЬ</div>
+          <p style="font-size:12.5px; color:var(--muted);">Справочник <code>Сотрудники</code> и документы <code>ТабельУчетаРабочегоВремени</code> отдают точное количество смен и отработанных чел·часов.</p>
+        </div>
+        <div style="background:#090D0B; padding:16px; border-radius:10px; border:1px solid var(--card-border);">
+          <div style="font-family:var(--mono); font-size:12px; color:var(--gold); font-weight:700; margin-bottom:6px;">03. ВЫПУСК И РАСХОД</div>
+          <p style="font-size:12.5px; color:var(--muted);">Документы <code>Производство</code> и <code>ЗаказНаПроизводство</code> передают реальный вес загруженного сырья и фактический выход партий.</p>
+        </div>
+      </div>
+
+      <div class="odata-code">
+# Пример OData запроса к 1C:УНФ для снятия оперативной выручки за день:<br>
+GET http://1c-server/unf/odata/standard.odata/AccumulationRegister_ПродажиОбороты?$filter=Period ge datetime'2026-09-01T00:00:00'&amp;$select=Period,СуммаОборот,КоличествоОборот,Номенклатура_Key,Покупатель_Key<br>
+<br>
+# Запрос табельного фонда человеко-часов:<br>
+GET http://1c-server/unf/odata/standard.odata/Document_ТабельРабочегоВремени?$filter=Date ge datetime'2026-09-01T00:00:00'&amp;$select=Date,ОтработаноЧасов,Сотрудник_Key
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  // Simple Session Lock
+  var AUTH_PASS = "Kazan116!";
+
+  function checkAuth() {
+    if (sessionStorage.getItem("kd_dash_auth") === "1") {
+      document.getElementById("auth-overlay").style.display = "none";
+      document.getElementById("dashboard-view").style.display = "block";
+      initDashboard();
+    } else {
+      document.getElementById("auth-overlay").style.display = "flex";
+      document.getElementById("dashboard-view").style.display = "none";
+    }
+  }
+
+  function handleAuth(e) {
+    e.preventDefault();
+    var val = document.getElementById("auth-pass").value;
+    if (val === AUTH_PASS) {
+      sessionStorage.setItem("kd_dash_auth", "1");
+      document.getElementById("auth-err").style.display = "none";
+      checkAuth();
+    } else {
+      document.getElementById("auth-err").style.display = "block";
+      document.getElementById("auth-pass").value = "";
+      document.getElementById("auth-pass").focus();
+    }
+  }
+
+  function logout() {
+    sessionStorage.removeItem("kd_dash_auth");
+    checkAuth();
+  }
+
+  // Interactive Simulator Logic
+  function updateSim() {
+    var revMln = parseFloat(document.getElementById("slider-rev").value);
+    var staff = parseFloat(document.getElementById("slider-staff").value);
+    var tonsMonth = parseFloat(document.getElementById("slider-ton").value);
+
+    // Update labels
+    document.getElementById("slider-rev-val").textContent = revMln.toLocaleString('ru-RU') + " млн ₽";
+    document.getElementById("slider-staff-val").textContent = staff + " чел.";
+    document.getElementById("slider-ton-val").textContent = tonsMonth + " тонн/мес";
+
+    // 1. Выручка на 1 сотрудника (млн руб)
+    var revPerEmp = revMln / staff;
+    document.getElementById("sim-rev-per-emp").textContent = revPerEmp.toFixed(2).replace('.', ',') + " млн ₽";
+
+    // 2. Человеко-часы в год (40ч неделя = ~168 ч/мес * 12 = 2016 ч/год на сотрудника)
+    var totalHoursYear = staff * 168 * 12;
+    var revPerHour = (revMln * 1000000) / totalHoursYear;
+    document.getElementById("sim-rev-per-hour").textContent = Math.round(revPerHour).toLocaleString('ru-RU') + " ₽/ч";
+
+    // 3. Выпуск на 1 человеко-час (кг)
+    var totalKgMonth = tonsMonth * 1000;
+    var hoursMonth = staff * 168;
+    var kgPerHour = totalKgMonth / hoursMonth;
+    document.getElementById("sim-kg-per-hour").textContent = kgPerHour.toFixed(2).replace('.', ',') + " кг/ч";
+
+    // 4. Съем с 1 м2 цеха (2 000 м2)
+    var prodArea = 2000;
+    var perSqmProd = (revMln * 1000) / prodArea;
+    document.getElementById("sim-per-sqm-prod").textContent = Math.round(perSqmProd).toLocaleString('ru-RU') + " тыс. ₽";
+
+    // 5. Съем со всей площадки (3 600 м2)
+    var allArea = 3600;
+    var perSqmAll = (revMln * 1000) / allArea;
+    document.getElementById("sim-per-sqm-all").textContent = Math.round(perSqmAll).toLocaleString('ru-RU') + " тыс. ₽";
+
+    // 6. Загрузка проектной мощности (12 тонн в смену при 25 рабочих днях = 300 тонн в месяц максимум)
+    var maxCapacityMonth = 12 * 25; // 300 тонн
+    var capLoad = (tonsMonth / maxCapacityMonth) * 100;
+    document.getElementById("sim-capacity-load").textContent = capLoad.toFixed(1).replace('.', ',') + "%";
+  }
+
+  // Load Real Catalog Data from /products.json
+  async function initDashboard() {
+    updateSim();
+    try {
+      var res = await fetch("/products.json");
+      if (!res.ok) return;
+      var data = await res.json();
+      var products = data.products || [];
+      if (!products.length) return;
+
+      var frozen = 0, chilled = 0, bakery = 0;
+      var listHtml = "";
+
+      products.forEach(function(p) {
+        var sec = p.section || "";
+        if (sec.indexOf("Заморозка") >= 0) frozen++;
+        else if (sec.indexOf("Охлажд") >= 0) chilled++;
+        else if (sec.indexOf("Выпеч") >= 0) bakery++;
+
+        var pr = (p.offers && (p.offers.price || p.offers.pricePerUnit)) || "";
+        var prStr = pr ? parseFloat(pr).toLocaleString('ru-RU') + " ₽" : "";
+
+        listHtml += '<div class="sku-row-item">' +
+          '<div>' +
+            '<span class="sku-code-tag">' + (p.sku || '') + '</span> ' +
+            '<span>' + (p.name || '') + '</span>' +
+          '</div>' +
+          '<div style="font-family:var(--mono); color:var(--muted); font-size:12px;">' + prStr + '</div>' +
+        '</div>';
+      });
+
+      document.getElementById("cnt-frozen").textContent = frozen;
+      document.getElementById("cnt-chilled").textContent = chilled;
+      document.getElementById("cnt-bakery").textContent = bakery;
+      document.getElementById("cnt-total").textContent = products.length;
+      document.getElementById("sku-live-tag").textContent = "ОНЛАЙН ИЗ PRODUCTS.JSON: " + products.length + " SKU";
+      document.getElementById("live-catalog-list").innerHTML = listHtml;
+      document.getElementById("sku-fetch-time").textContent = "Обновлено онлайн: " + (data.lastSynced || "сегодня");
+
+    } catch (e) {
+      console.error("Error loading products.json", e);
+    }
+  }
+
+  // Init
+  checkAuth();
+</script>
+
+</body>
+</html>

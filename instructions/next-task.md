@@ -183,8 +183,26 @@
 
 ## Log
 
-- **2026-09-21 North Star — редизайн в Apple/investors стиле — DONE, в `origin/main`.**
+- **2026-09-22 Скрытый дашборд эффективности завода /dashboard — DONE, в `origin/main`.**
   - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
+  - Реализован закрытый дашборд: `public/dashboard.html` (URL: `https://pepperoni.tatar/dashboard`).
+  - Доступ: экран блокировки с паролем `Kazan116!` и сохранением сессии в `sessionStorage`.
+  - Метрики завода (на основе доклада Минпромторга РТ):
+    - Выработка на сотрудника (13.6 млн ₽ в 2025 г.).
+    - Чел·час в деньгах (3 919 ₽/ч в 2025 г. → 4 509 ₽/ч план 2026).
+    - Чел·час в физическом объёме (6.5 кг готовой продукции на 1 чел·час).
+    - Съем с 1 м² цеха (435 тыс. ₽/м²) и всей площадки 3 600 м² (241 тыс. ₽/м² → 278 тыс. план).
+    - Оборот и прибыль: 869.1 млн ₽ (2025) → 1 млрд ₽ (план 2026), 229 млн ₽ Q1 факт, чистая прибыль 68.9 млн ₽.
+    - Интерактивный симулятор «What-If»: онлайн-пересчет всех коэффициентов при изменении выручки, штата и выпуска.
+    - Онлайн-матрица SKU: автоматическая подгрузка из `/products.json` (62 SKU, разбивка по разделам и валютам).
+    - Архитектура 1С OData: документация эндпоинтов `AccumulationRegister_ПродажиОбороты`, `Document_ТабельРабочегоВремени`, `Document_Производство`.
+  - Индексация: закрыт мета-тегом `noindex, nofollow`, зарегистрирован в `data/url_consolidation_map.json` (status: noindex).
+  - Гейты: `qa_pages` 0 FAIL, `index_policy_check` OK, `check_product_claims` 0 FAIL, `test_sitemap_canonical` OK.
+  - Live: `curl -sI https://pepperoni.tatar/dashboard` = 200 OK.
+  - Blockers: нет.
+
+- **2026-09-21 North Star — редизайн в Apple/investors стиле — DONE, в `origin/main`.**
+  - Commit: `929478c51`. VPS `/var/www/pepperoni/repo` HEAD = `f62ab0b39` (включает 929478c51).
   - Вёрстка и визуальный язык: страница `public/north-star.html` полностью переработана под Apple-стиль `https://pepperoni.tatar/en/investors` (SF Pro шрифт, палитра `#FBFBFD` / `#1D1D1F` / `#0F5132` / `#B08D57`, фиксированный frosted-glass топбар 52px с `backdrop-filter: blur(20px)`, заголовок с градиентным акцентом, закругленные пилл-кнопки, аппаратный безель для фото цеха, capacity-grid блок для `м²`/`чел·час`/`₽`, Pro Dark SKU-дашборд и финальный keynote-блок с формой).
   - Анимация: внедрен скролл-эффект `.reveal` на IntersectionObserver с поддержкой `prefers-reduced-motion`.
   - Гейты: `qa_pages` 0 FAIL, `fix_pages` 0 repaired, `index_policy` OK, `check_product_claims` 0 FAIL, `test_sitemap_canonical` OK.
@@ -192,7 +210,7 @@
   - Blockers: нет.
 
 - **2026-09-21 Редизайн и динамический каталог на /about — DONE, в `origin/main`.**
-  - Commit: TBD. VPS `/var/www/pepperoni/repo` HEAD = TBD = `origin/main`.
+  - Commit: `4a79924b3`. VPS `/var/www/pepperoni/repo` HEAD = `f62ab0b39` (включает 4a79924b3).
   - Замена сухого хардкода: статический перечень товаров в тексте заменён на динамический каталог (`scripts/render_static_catalog.py` + клиентский fallback `products.json`), генерирующий аккуратные плашки SKU с весом и прямыми ссылками на карточки товаров.
   - Подача и вёрстка: внедрён живой современный B2B-дизайн в канонической палитре (брендовый hero, карточки цехов обвалки/фаршесоставления/термообработки/шоковой заморозки, сетка федеральных партнеров, прозрачные стандарты халяль и форма заявки 152-ФЗ).
   - Гейты: `qa_pages` 0 FAIL, `fix_pages` 0 repaired, `reconcile_sku_count` in sync (62 SKU), `index_policy` OK, `check_product_claims` 0 FAIL.

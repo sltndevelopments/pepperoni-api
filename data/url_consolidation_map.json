@@ -17,7 +17,7 @@
   "counts": {
     "301": 408,
     "410": 1063,
-    "noindex": 20
+    "noindex": 21
   },
   "verification_files_excluded": [
     "d0a735c825c78ddf.html",
@@ -19391,6 +19391,19 @@
       "canonical_target": "/404.html",
       "status": "noindex",
       "reason": "branded 404 served by nginx error_page (2026-09-12)",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/dashboard",
+      "file": "dashboard.html",
+      "intent": "internal executive dashboard",
+      "language": "ru",
+      "owner": "management",
+      "source": "owner request (password-protected executive dashboard)",
+      "canonical_target": "/dashboard",
+      "status": "noindex",
+      "reason": "internal executive dashboard (password protected)",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
