@@ -13,24 +13,8 @@
   "kk"
  ],
  "geo_daily_target": 0,
- "blog_weekly_target": 3,
- "new_blog_topics": [
-  {
-   "slug": "halyal-farsh-dlya-pekaren-optom",
-   "title_ru": "Фарш халяль для пекарен оптом: ТУ, сроки, поставка из Казани",
-   "intent": "коммерческий"
-  },
-  {
-   "slug": "pepperoni-dlya-dark-kitchen-optom",
-   "title_ru": "Пепперони для dark kitchen оптом: калибр, срок, стабильность топпинга",
-   "intent": "коммерческий"
-  },
-  {
-   "slug": "eksport-halyal-v-kazakhstan-dokumenty",
-   "title_ru": "Экспорт халяль в Казахстан: документы, упаковка, Incoterms для мяса",
-   "intent": "коммерческий"
-  }
- ],
+ "blog_weekly_target": 1,
+ "new_blog_topics": [],
  "pl_oem_topics": [
   {
    "slug": "private-label-kotlety-pattisy",

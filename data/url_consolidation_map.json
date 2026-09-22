@@ -17,7 +17,7 @@
   "counts": {
     "301": 408,
     "410": 1063,
-    "noindex": 21
+    "noindex": 24
   },
   "verification_files_excluded": [
     "d0a735c825c78ddf.html",
@@ -19404,6 +19404,45 @@
       "canonical_target": "/dashboard",
       "status": "noindex",
       "reason": "internal executive dashboard (password protected)",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/blog/elesh",
+      "file": "blog/elesh.html",
+      "intent": "catalog fact sheet for query элеш это",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-052; held out of the index until manual allowlist",
+      "canonical_target": "/blog/elesh",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/blog/cheburek-zharenyj",
+      "file": "blog/cheburek-zharenyj.html",
+      "intent": "catalog fact sheet for query халяльные чебуреки",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-047; held out of the index until manual allowlist",
+      "canonical_target": "/blog/cheburek-zharenyj",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/blog/chak-chak",
+      "file": "blog/chak-chak.html",
+      "intent": "catalog fact sheet for query чак-чак в подарочной упаковке",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-053 and KD-054; held out of the index until manual allowlist",
+      "canonical_target": "/blog/chak-chak",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },

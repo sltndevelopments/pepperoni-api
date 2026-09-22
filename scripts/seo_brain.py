@@ -83,8 +83,9 @@ def inventory() -> dict:
                      "intent": t.get("intent", "коммерческий")}
                     for t in pending[:6]
                 ],
-                "rule": "Бери new_blog_topics из blog_topic_queue.next (pending). "
-                        "Не выдумывай синонимы к уже покрытым нормам.",
+                "rule": "Не бери тему из очереди автоматически. Новая статья — только если "
+                        "запроса нет ни в текущих статьях, ни на коммерческой странице. "
+                        "Пустая неделя допустима. Факты только из products.json и brand.txt.",
             }
     except Exception:
         pass
@@ -979,9 +980,10 @@ KPI — приток ЦЕЛЕВЫХ (КОММЕРЧЕСКИХ) клиентов,
   усиливают E-E-A-T/AIO-цитируемость. НЕ трать на них основной объём.
 - В new_blog_topics ВСЕГДА помечай intent. Держи перекос в сторону коммерческих:
   на каждую информационную тему — минимум 2-3 коммерческие.
-- РИТМ БЛОГА: blog_weekly_target = 2..3 новых RU-статей в неделю. Не оставляй
-  new_blog_topics пустым неделями, кроме активного P0 (mass broken links /
-  not_indexed burst). Потолок за цикл — blog_weekly_target (не 3–8 «на всякий»).
+- РИТМ БЛОГА: blog_weekly_target = 0 или 1. Одна новая RU-статья в неделю,
+  и только если запрос ещё не закрыт текущими статьями и коммерческими
+  страницами. Пустой new_blog_topics — нормальный итог недели, не ошибка.
+  Не добирай синонимы, чтобы заполнить слот. Потолок за цикл — 1.
 - АНТИ-ДУБЛИ БЛОГА: смотри inventory.blog_dedup (existing_norms_sample,
   existing_posts_sample). Синонимы slug (halyal/halal, sosiki/sosiski,
   peperoni/pepperoni, «купить/опт/gid») = ДУБЛЬ — не предлагай. Если есть
@@ -1330,8 +1332,11 @@ okr) и сам за них отвечаешь. Если активных OKR н�
 - ГОТОВЫЕ ЗАДАЧИ ИЗ РАЗВЕДКИ: блок "expert_tasks" уже отфильтрован кодом —
   "create_expert_page" (запрос с impressions>50, страницы нет → нужен экспертный
   материал) и "strengthen_landing" (страница есть, но позиция >5 → усилить).
-  Используй эти готовые задачи напрямую в new_blog_topics и rewrite_pages.
-  Лимит уже применён (expert_per_day и landing_per_day из strategy.json).
+  В new_blog_topics бери не больше одной такой задачи за неделю, и только если
+  запрос не закрыт уже опубликованной статьёй или коммерческой страницей.
+  Если подходящей нет — оставь new_blog_topics пустым. Факты статьи — только
+  из каталога и brand.txt; нет состава или срока в таблице — в тексте их нет.
+  rewrite_pages по strengthen_landing можно предлагать без новой статьи.
 - Не раздувай вывод. Списки короткие и конкретные.
 
 ВЕРНИ СТРОГО валидный JSON (без markdown, без комментариев) по схеме:
@@ -1339,8 +1344,8 @@ okr) и сам за них отвечаешь. Если активных OKR н�
   "focus_products": ["product_id", ...],        // 3-6 продуктов в порядке приоритета
   "focus_langs": ["ru","en","ar","ms","id","tr","fr","kk",...], // языки под целевые рынки
   "geo_daily_target": 80,                        // гео-страниц/день (равномерно по категориям и странам)
-  "blog_weekly_target": 3,                       // новых RU-статей/неделю (2..3). Repair-P0 → 0, иначе ≥2
-  "new_blog_topics": [                           // ≤ blog_weekly_target; UNIQUE only (см. inventory.blog_dedup)
+  "blog_weekly_target": 1,                       // 0 или 1. Пустой список допустим. Не 2–3 «чтобы было».
+  "new_blog_topics": [                           // ≤ blog_weekly_target; только незакрытый запрос (см. inventory.blog_dedup)
     {"slug":"...", "title_ru":"...", "intent":"информационный|коммерческий"}
   ],
   "pl_oem_topics": [                             // 3-8 страниц по Private Label/OEM
@@ -1853,21 +1858,18 @@ def main():
             print(f"⚠️  Telegram alert failed (non-fatal): {alert_err}")
         return 2
 
-    # Enforce weekly blog cadence cap (default 3). Prefer queue topics if brain
-    # left new_blog_topics empty without P0 repair signal.
+    # Cap at one new article. An empty list is valid: do not backfill
+    # synonyms from blog_topic_queue.
     weekly = strategy.get("blog_weekly_target")
     if not isinstance(weekly, int) or weekly < 0:
-        weekly = 3
+        weekly = 1
+        strategy["blog_weekly_target"] = weekly
+    if weekly > 1:
+        weekly = 1
         strategy["blog_weekly_target"] = weekly
     topics = strategy.get("new_blog_topics") or []
     if isinstance(topics, list) and len(topics) > weekly:
         strategy["new_blog_topics"] = topics[:weekly]
-    if weekly > 0 and not (strategy.get("new_blog_topics") or []):
-        qinfo = (digest.get("inventory") or {}).get("blog_topic_queue") or {}
-        nxt = qinfo.get("next") or []
-        if nxt:
-            strategy["new_blog_topics"] = nxt[:weekly]
-            print(f"   ℹ️  filled new_blog_topics from queue ({len(strategy['new_blog_topics'])})")
 
     # Advice may mention tooling/code changes, but production agents never
     # execute those mutations autonomously. Preserve them as an owner-visible

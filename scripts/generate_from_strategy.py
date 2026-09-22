@@ -110,7 +110,8 @@ def prep_blog(topic: dict) -> dict | None:
 - Контекстные ссылки: /pepperoni, /pepperoni-optom, /private-label
 - CTA: tel:{PHONE_TEL}, mailto:{EMAIL}
 - {CONTACTS_RULE}
-- НЕ упоминать свинину"""
+- НЕ упоминать свинину
+- Факты только из products.json и brand.txt. Нет состава, срока, массы или минимальной партии в этих источниках — в статье этого нет. Не добавляй синоним уже опубликованной статьи или коммерческой страницы."""
     return {"out": out, "label": f"blog: /blog/{slug}", "query": title,
             "system": system, "prompt": prompt}
 
