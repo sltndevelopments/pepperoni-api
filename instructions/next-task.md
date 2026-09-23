@@ -183,6 +183,11 @@
 
 ## Log
 
+- **2026-09-23 Автоматическая горячая индексация всех хабов и авто-детекция изменений.**
+  - Файлы: `scripts/yandex-index.py`, `scripts/bing-index.py`, `public/index.html`, `public/en/index.html`.
+  - В `load_hot_urls()` внедрена автоматическая загрузка всех коммерческих/доверительных хабов из `data/index_manifest.json` (включая `/jerky`, `/north-star`, `/kontraktnoe-proizvodstvo`, `/kazylyk`, `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`, `/vyipechka-halyal` и их EN-версии) + авто-детекция свежих/изменённых `.html` через git diff (приоритет 1000).
+  - В шапку и футер `index.html` и `en/index.html` добавлены прямые ссылки на `/jerky`, `/vyipechka-halyal`, `/kontraktnoe-proizvodstvo`, чтобы Googlebot получал внутренний ссылочный вес с главной страницы.
+
 - **2026-09-23 Индексация: добавлены хабы колбас в hot-список Яндекс и IndexNow.**
   - Файлы: `scripts/yandex-index.py` и `scripts/bing-index.py`.
   - Добавлены: `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`, `/kazylyk`, `/about`. Теперь отправляются при каждом деплое через авто-nudge в GitHub Actions.

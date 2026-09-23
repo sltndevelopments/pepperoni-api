@@ -83,37 +83,84 @@ def _abs(u: str) -> str:
     return ORIGIN + u
 
 
+MANIFEST = Path(__file__).resolve().parent.parent / "data" / "index_manifest.json"
+ROOT = Path(__file__).resolve().parent.parent
+TOP_COMMERCIAL = {
+    "/", "/pepperoni", "/pepperoni-dlya-pizzerii", "/jerky", "/north-star",
+    "/kontraktnoe-proizvodstvo", "/kazylyk", "/kolbasy-varenye",
+    "/kolbasy-kopchyonye", "/vetchina-optom", "/sosiski-dlya-hotdog",
+    "/kotlety-dlya-burgerov", "/vyipechka-halyal", "/about",
+    "/capabilities", "/cases", "/certificates", "/delivery", "/export", "/faq",
+    "/en/", "/en/pepperoni", "/en/jerky", "/en/private-label",
+    "/en/kazylyk", "/en/kolbasy-varenye", "/en/kolbasy-kopchyonye",
+    "/en/vetchina-optom", "/en/sosiski-dlya-hotdog", "/en/kotlety-dlya-burgerov",
+    "/en/vyipechka-halyal", "/en/about", "/en/capabilities", "/en/cases",
+    "/en/certificates", "/en/delivery", "/en/export", "/en/faq"
+}
+
+
 def load_hot_urls() -> list[str]:
-    out = [
-        f"{ORIGIN}/",
-        f"{ORIGIN}/pepperoni",
-        f"{ORIGIN}/pepperoni-dlya-pizzerii",
-        f"{ORIGIN}/kolbasy-varenye",
-        f"{ORIGIN}/kolbasy-kopchyonye",
-        f"{ORIGIN}/vetchina-optom",
-        f"{ORIGIN}/kazylyk",
-        f"{ORIGIN}/about",
+    # 1. Recently modified/created HTML pages from git
+    git_urls = []
+    try:
+        import subprocess
+        res = subprocess.run(
+            ["git", "diff", "--name-only", "HEAD~1", "HEAD"],
+            capture_output=True, text=True, cwd=str(ROOT), timeout=5
+        )
+        for line in res.stdout.splitlines():
+            line = line.strip()
+            if line.startswith("public/") and line.endswith(".html"):
+                rel = line[7:-5]
+                if rel.endswith("/index"): rel = rel[:-6]
+                if rel == "index": rel = ""
+                git_urls.append(f"{ORIGIN}/{rel}" if rel else f"{ORIGIN}/")
+    except Exception:
+        pass
+
+    llm_urls = [
         f"{ORIGIN}/llms.txt",
         f"{ORIGIN}/llms-full.txt",
         f"{ORIGIN}/en/llms.txt",
         f"{ORIGIN}/.well-known/llms.txt",
-        f"{ORIGIN}/en/pepperoni",
     ]
+
+    manifest_urls = []
+    if MANIFEST.exists():
+        try:
+            m = json.loads(MANIFEST.read_text(encoding="utf-8"))
+            for row in m.get("entries", []):
+                if row.get("status") == "keep":
+                    u_path = row.get("url", "")
+                    f_path = row.get("file", "")
+                    if not f_path.startswith("products/") and not f_path.startswith("en/products/"):
+                        manifest_urls.append(f"{ORIGIN}{u_path}")
+        except Exception:
+            pass
+
+    scored = {}
+    for u in manifest_urls:
+        path = u.replace(ORIGIN, "") or "/"
+        score = 400 if path in TOP_COMMERCIAL else 200
+        scored[u] = score
+
+    for u in llm_urls:
+        scored[u] = 500
+
+    for u in git_urls:
+        scored[u] = 1000
+
     try:
         data = json.loads(WATCHLIST.read_text(encoding="utf-8"))
         for it in data.get("items") or []:
             page = it.get("page") or ""
             if page:
-                out.append(_abs(page))
+                scored[_abs(page)] = 600
     except Exception:
         pass
-    seen: set[str] = set()
-    uniq = []
-    for u in out:
-        if u and u not in seen:
-            seen.add(u)
-            uniq.append(u)
-    return uniq
+
+    sorted_urls = sorted(scored.keys(), key=lambda x: scored[x], reverse=True)
+    return sorted_urls
 
 
 def main():
