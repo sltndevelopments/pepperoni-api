@@ -183,6 +183,10 @@
 
 ## Log
 
+- **2026-09-23 Индексация: добавлены хабы колбас в hot-список Яндекс и IndexNow.**
+  - Файлы: `scripts/yandex-index.py` и `scripts/bing-index.py`.
+  - Добавлены: `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`, `/kazylyk`, `/about`. Теперь отправляются при каждом деплое через авто-nudge в GitHub Actions.
+
 - **2026-09-23 llms: компания — производитель колбасных изделий, не завод одной позиции пепперони.**
   - Источник: `scripts/sync-sheets.py` (`generate_llms_full_txt` / `_en`, kb-company) и `scripts/gen-llms-full.py`.
   - В `llms.txt` добавлены `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`. `/pepperoni` остаётся money hub.
