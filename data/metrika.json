@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-09-22T05:30:05.562181+00:00",
+ "fetched_at": "2026-09-23T05:30:05.277941+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 333,
-  "users": 238,
-  "bounce_rate_pct": 28.2,
-  "page_depth": 1.51,
-  "avg_visit_sec": 92
+  "visits": 347,
+  "users": 251,
+  "bounce_rate_pct": 29.1,
+  "page_depth": 1.49,
+  "avg_visit_sec": 89
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 171
+   "visits": 180
   },
   {
    "source": "Internal traffic",
-   "visits": 64
+   "visits": 65
   },
   {
    "source": "Search engine traffic",
-   "visits": 60
+   "visits": 61
   },
   {
    "source": "Ad traffic",
@@ -28,14 +28,14 @@
   },
   {
    "source": "Link traffic",
-   "visits": 7
+   "visits": 10
   }
  ],
  "top_landing": [
   {
    "path": "/",
-   "visits": 189,
-   "bounce_pct": 20.6
+   "visits": 200,
+   "bounce_pct": 22.5
   },
   {
    "path": "/products/kd-057",
@@ -54,8 +54,8 @@
   },
   {
    "path": "/products/kd-046",
-   "visits": 9,
-   "bounce_pct": 44.4
+   "visits": 10,
+   "bounce_pct": 40.0
   },
   {
    "path": "/products/kd-027",
@@ -78,14 +78,14 @@
    "bounce_pct": 20.0
   },
   {
-   "path": "/products/kd-044",
+   "path": "/products/kd-014",
    "visits": 5,
    "bounce_pct": 20.0
   },
   {
-   "path": "/products/kd-014",
-   "visits": 4,
-   "bounce_pct": 25.0
+   "path": "/products/kd-044",
+   "visits": 5,
+   "bounce_pct": 20.0
   },
   {
    "path": "/products/kd-048",
@@ -117,10 +117,6 @@
   }
  },
  "inquiries_by_page": {
-  "/products/kd-015": {
-   "28d": 2,
-   "7d": 0
-  },
   "/products/kd-004": {
    "28d": 4,
    "7d": 0
@@ -128,6 +124,10 @@
   "/": {
    "28d": 2,
    "7d": 1
+  },
+  "/products/kd-015": {
+   "28d": 2,
+   "7d": 0
   }
  }
 }
