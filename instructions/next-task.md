@@ -183,6 +183,11 @@
 
 ## Log
 
+- **2026-09-23 llms: компания — производитель колбасных изделий, не завод одной позиции пепперони.**
+  - Источник: `scripts/sync-sheets.py` (`generate_llms_full_txt` / `_en`, kb-company) и `scripts/gen-llms-full.py`.
+  - В `llms.txt` добавлены `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`. `/pepperoni` остаётся money hub.
+  - Пересобрано: `python3 scripts/gen-llms-full.py`.
+
 - **2026-09-22 Блог: три статьи из каталога, темп 1/неделя, без автодобора.**
   - Статьи (noindex, не в sitemap): `/blog/elesh` (KD-052), `/blog/cheburek-zharenyj` (KD-047), `/blog/chak-chak` (KD-053, KD-054). Состава в таблице нет — в тексте его нет.
   - `blog_weekly_target` = 1, `new_blog_topics` пуст. Очередь из 9 тем переведена в `held`. Автодобор из очереди в `seo_brain.py` снят.
