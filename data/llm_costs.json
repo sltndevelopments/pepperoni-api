@@ -1200,8 +1200,8 @@
   }
  },
  "2026-09": {
-  "usd": 9.208441,
-  "usd_baseline": 9.13973,
+  "usd": 9.548899,
+  "usd_baseline": 9.480188,
   "days": {
    "2026-09-01": {
     "calls": 54,
@@ -1409,17 +1409,35 @@
     "cache_r": 0,
     "usd": 0.008731,
     "usd_baseline": 0.008731
+   },
+   "2026-09-24": {
+    "calls": 37,
+    "in": 12736,
+    "out": 15778,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.257514,
+    "usd_baseline": 0.257514
+   },
+   "2026-09-25": {
+    "calls": 12,
+    "in": 3648,
+    "out": 4800,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.082944,
+    "usd_baseline": 0.082944
    }
   },
   "scripts": {
    "repair_outcomes": {
-    "calls": 947,
-    "in": 287900,
-    "out": 376029,
+    "calls": 995,
+    "in": 302492,
+    "out": 395229,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 6.504135,
-    "usd_baseline": 6.504135
+    "usd": 6.835911,
+    "usd_baseline": 6.835911
    },
    "seo_brain": {
     "calls": 14,
@@ -1431,13 +1449,13 @@
     "usd_baseline": 0.902822
    },
    "send_report": {
-    "calls": 19,
-    "in": 34155,
-    "out": 28036,
+    "calls": 20,
+    "in": 35947,
+    "out": 29414,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.174335,
-    "usd_baseline": 0.174335
+    "usd": 0.183017,
+    "usd_baseline": 0.183017
    },
    "escalate_brain": {
     "calls": 7,
@@ -1469,13 +1487,13 @@
   },
   "models": {
    "claude-sonnet-5": {
-    "calls": 950,
-    "in": 297609,
-    "out": 377694,
+    "calls": 998,
+    "in": 312201,
+    "out": 396894,
     "cache_w": 1931,
     "cache_r": 3862,
-    "usd": 6.566636,
-    "usd_baseline": 6.575616
+    "usd": 6.898412,
+    "usd_baseline": 6.907392
    },
    "claude-opus-5": {
     "calls": 4,
@@ -1496,13 +1514,13 @@
     "usd_baseline": 0.269005
    },
    "claude-haiku-4-5-20251001": {
-    "calls": 19,
-    "in": 34155,
-    "out": 28036,
+    "calls": 20,
+    "in": 35947,
+    "out": 29414,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.174335,
-    "usd_baseline": 0.174335
+    "usd": 0.183017,
+    "usd_baseline": 0.183017
    },
    "pplx-agent-low": {
     "calls": 15,
