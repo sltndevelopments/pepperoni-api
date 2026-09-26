@@ -42,9 +42,10 @@ def _load_gsc_key() -> str:
 # pepperoni.tatar is verified as DOMAIN property (sc-domain:...), not URL-prefix.
 # SA search-console-agent@pepperoni-seo has siteOwner on sc-domain:pepperoni.tatar
 # but NOT on https://pepperoni.tatar/ — using the prefix caused 403.
+# api.pepperoni.tatar is the data host. Do not submit its sitemap copy:
+# Search Console must see one presentation sitemap.
 SITES = [
     ("sc-domain:pepperoni.tatar", "https://pepperoni.tatar/sitemap.xml"),
-    ("https://api.pepperoni.tatar/", "https://api.pepperoni.tatar/sitemap.xml"),
 ]
 
 
