@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "python3 scripts/index_policy_check.py && python3 scripts/test_sitemap_canonical.py && python3 scripts/check_product_claims.py --quiet && python3 scripts/qa_pages.py",
     "sync": "node scripts/sync-sheets.mjs",
     "sync-py": "python3 scripts/sync-sheets.py",
     "gen-ru": "python3 scripts/gen-ru-products.py",
