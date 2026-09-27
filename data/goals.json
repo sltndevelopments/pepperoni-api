@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-26T05:30:51.378077+00:00",
+ "generated_at": "2026-09-27T05:31:03.232829+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 0,
  "tracked": 14,
@@ -27,13 +27,13 @@
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 450,
+   "impressions_28d": 444,
    "clicks_28d": 1,
    "inquiries_28d": 0,
    "position_28d": 9.1,
-   "position_7d": 8.9,
+   "position_7d": 9.0,
    "trend": 0.1,
-   "gap_to_1": 7.9,
+   "gap_to_1": 8.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -41,13 +41,13 @@
   {
    "query": "пепперони из какого мяса",
    "seed": false,
-   "impressions_28d": 147,
+   "impressions_28d": 148,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 5.1,
-   "position_7d": 2.9,
-   "trend": 2.1,
-   "gap_to_1": 1.9,
+   "position_28d": 5.0,
+   "position_7d": 3.9,
+   "trend": 1.1,
+   "gap_to_1": 2.9,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -55,13 +55,13 @@
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 109,
+   "impressions_28d": 111,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 11.4,
-   "position_7d": 10.2,
-   "trend": 1.2,
-   "gap_to_1": 9.2,
+   "position_28d": 11.1,
+   "position_7d": 11.0,
+   "trend": 0.2,
+   "gap_to_1": 10.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -69,13 +69,27 @@
   {
    "query": "ветчина это халал",
    "seed": false,
-   "impressions_28d": 97,
+   "impressions_28d": 90,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 7.1,
-   "position_7d": 4.9,
-   "trend": 2.1,
-   "gap_to_1": 3.9,
+   "position_28d": 7.4,
+   "position_7d": 5.5,
+   "trend": 1.8,
+   "gap_to_1": 4.5,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "котлеты для гамбургеров оптом",
+   "seed": false,
+   "impressions_28d": 76,
+   "clicks_28d": 0,
+   "inquiries_28d": 0,
+   "position_28d": 35.0,
+   "position_7d": 47.3,
+   "trend": -12.3,
+   "gap_to_1": 46.3,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -95,29 +109,15 @@
    "conversion_gap": false
   },
   {
-   "query": "котлеты для гамбургеров оптом",
-   "seed": false,
-   "impressions_28d": 69,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 32.2,
-   "position_7d": 46.5,
-   "trend": -14.3,
-   "gap_to_1": 45.5,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
    "query": "котлеты для бургеров оптом",
    "seed": true,
-   "impressions_28d": 62,
+   "impressions_28d": 61,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 28.1,
-   "position_7d": 29.6,
-   "trend": -1.5,
-   "gap_to_1": 28.6,
+   "position_28d": 28.7,
+   "position_7d": 27.0,
+   "trend": 1.7,
+   "gap_to_1": 26.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -125,13 +125,13 @@
   {
    "query": "ветчина халяль или харам",
    "seed": false,
-   "impressions_28d": 58,
+   "impressions_28d": 59,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 3.1,
-   "position_7d": 4.1,
-   "trend": -1.0,
-   "gap_to_1": 3.1,
+   "position_28d": 3.2,
+   "position_7d": 5.1,
+   "trend": -1.9,
+   "gap_to_1": 4.1,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -139,27 +139,13 @@
   {
    "query": "котлеты для бургеров купить оптом",
    "seed": false,
-   "impressions_28d": 54,
+   "impressions_28d": 57,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 42.6,
-   "position_7d": 47.2,
-   "trend": -4.6,
-   "gap_to_1": 46.2,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "татарская колбаса из конины",
-   "seed": false,
-   "impressions_28d": 51,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 16.0,
-   "position_7d": 36.0,
-   "trend": -20.0,
-   "gap_to_1": 35.0,
+   "position_28d": 42.4,
+   "position_7d": 43.3,
+   "trend": -0.9,
+   "gap_to_1": 42.3,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -167,13 +153,27 @@
   {
    "query": "пепперони халяль купить",
    "seed": false,
-   "impressions_28d": 46,
+   "impressions_28d": 55,
    "clicks_28d": 1,
    "inquiries_28d": 5,
-   "position_28d": 21.9,
-   "position_7d": 24.9,
-   "trend": -3.0,
-   "gap_to_1": 23.9,
+   "position_28d": 24.2,
+   "position_7d": 31.1,
+   "trend": -6.9,
+   "gap_to_1": 30.1,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "пепперони халяль колбаса",
+   "seed": false,
+   "impressions_28d": 49,
+   "clicks_28d": 0,
+   "inquiries_28d": 5,
+   "position_28d": 41.4,
+   "position_7d": 65.1,
+   "trend": -23.6,
+   "gap_to_1": 64.1,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -365,16 +365,16 @@
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 2628,
+   "impressions_28d": 2632,
    "clicks_28d": 9,
-   "position_28d": 17.6
+   "position_28d": 18.0
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 63,
+   "impressions_28d": 61,
    "clicks_28d": 0,
-   "position_28d": 7.4
+   "position_28d": 7.5
   },
   {
    "country": "Беларусь",
@@ -414,9 +414,9 @@
   {
    "country": "Грузия",
    "code": "geo",
-   "impressions_28d": 14,
+   "impressions_28d": 11,
    "clicks_28d": 0,
-   "position_28d": 9.6
+   "position_28d": 7.6
   },
   {
    "country": "ОАЭ",
@@ -428,9 +428,9 @@
   {
    "country": "Сауд. Аравия",
    "code": "sau",
-   "impressions_28d": 16,
+   "impressions_28d": 15,
    "clicks_28d": 0,
-   "position_28d": 23.3
+   "position_28d": 24.8
   },
   {
    "country": "Кувейт",
@@ -456,9 +456,9 @@
   {
    "country": "Йемен",
    "code": "yem",
-   "impressions_28d": 2,
+   "impressions_28d": 1,
    "clicks_28d": 0,
-   "position_28d": 6.0
+   "position_28d": 10.0
   },
   {
    "country": "Катар",
@@ -472,7 +472,7 @@
    "code": "egy",
    "impressions_28d": 12,
    "clicks_28d": 0,
-   "position_28d": 12.2
+   "position_28d": 12.8
   }
  ]
 }
