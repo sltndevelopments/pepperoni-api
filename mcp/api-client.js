@@ -150,7 +150,7 @@ export async function getCatalog({ search, section, category, sku, lang = 'ru' }
       deliveryTerms: data.deliveryTerms || 'EXW Kazan, Russia',
       halal_cert: { number: '614A/2024', body: 'DUM RT' },
       quality_system: 'HACCP',
-      no_pork: true,
+      halal_certified: true,
       private_label: true,
     },
     products,

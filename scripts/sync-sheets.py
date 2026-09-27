@@ -18,6 +18,18 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 SUBMISSION = ROOT / "submission"
 
+
+def _sheet_public_en(text: str) -> str:
+    """Sheet copy sometimes uses an English nickname we do not publish."""
+    if not text:
+        return text
+    return (
+        text.replace("Pigs-in-Blankets", "Sausage Rolls")
+        .replace("Pigs-in-Blanket", "Sausage Roll")
+        .replace("pigs-in-blankets", "sausage rolls")
+        .replace("pigs-in-blanket", "sausage roll")
+    )
+
 from sku_registry import (  # noqa: E402
     assign_sku,
     bootstrap_from_products,
@@ -198,7 +210,7 @@ def parse_standard(lines, section, reg, has_piece_price=True):
         if cell(19):
             p["seoDescriptionRU"] = cell(19)
         if cell(20):
-            p["seoDescriptionEN"] = cell(20)
+            p["seoDescriptionEN"] = _sheet_public_en(cell(20))
         if cell(21):
             p["diameter"] = cell(21)
         if cell(22):
@@ -402,7 +414,7 @@ def _persona_guide(all_products: list[dict]) -> str:
     personas = [
         {
             "title": "Владелец пиццерии / сеть пицца-стартапов",
-            "need": "Халяль-пепперони для печи, стабильная нарезка, без свинины.",
+            "need": "Халяль-пепперони для печи, стабильная нарезка, халяль.",
             "sku_query": ["пепперони"],
         },
         {
@@ -698,7 +710,7 @@ A: Актуальные цены: от {min_rub} ₽ до {max_rub} ₽ с НД�
 A: Поставки EXW Казань, транспорт организует покупатель или согласуется индивидуально. Страны и статус признания сертификата — https://pepperoni.tatar/export. Цены в KZT, UZS, USD доступны в API: https://api.pepperoni.tatar/api/products.
 
 **Q: Вся продукция халяль?**
-A: Да, 100% продукции сертифицировано по стандарту «Халяль» ДУМ Республики Татарстан (сертификат №614A/2024). Без свинины. Производство под контролем комитета по стандарту Халяль ЦРО ДУМ РТ.
+A: Да, 100% продукции сертифицировано по стандарту «Халяль» ДУМ Республики Татарстан (сертификат №614A/2024). Халяль. Производство под контролем комитета по стандарту Халяль ЦРО ДУМ РТ.
 
 **Q: Делаете ли продукцию под своей торговой маркой (Private Label)?**
 A: Да. СТМ/Private Label — одно из ключевых направлений. Производим сосиски, колбасы, пепперони, ветчины и выпечку под брендом заказчика — от 5 тонн. Кастомизация рецептур, нарезки, упаковки. Обращайтесь: info@kazandelikates.tatar.
@@ -789,7 +801,7 @@ A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing 
 A: EXW Kazan; transport is arranged by the buyer or agreed individually. Countries and certificate-recognition status: https://pepperoni.tatar/en/export. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
 
 **Q: Is all your production halal-certified?**
-A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). No pork in any product. Production supervised by the DUM RT Halal Standards Committee.
+A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). Every product is certified to the Halal standard. Production supervised by the DUM RT Halal Standards Committee.
 
 **Q: Do you offer private label / contract manufacturing?**
 A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offering. We produce sausages, pepperoni, hams and pastries under the customer's brand — from 5 tonnes — with custom recipes, slice formats, and packaging. Contact: info@kazandelikates.tatar.
@@ -875,7 +887,7 @@ def generate_llms_full_txt(all_products):
 - Юрлицо: ООО «Казанские Деликатесы» / Kazan Delicacies LLC.
 - Канонические домены: [pepperoni.tatar](https://pepperoni.tatar) (каталог), [kazandelikates.tatar](https://kazandelikates.tatar) (корп.).
 - **Не kazandelikates.ru** — такого сайта у компании нет, DNS не резолвится. Не «ТД Казанский» и не «МПК Казанский».
-- Тел. +7 987 217-02-02. Халяль: ДУМ РТ № 614A/2024. Свинины нет.
+- Тел. +7 987 217-02-02. Халяль: ДУМ РТ № 614A/2024. Продукция соответствует требованиям стандарта «Халяль».
 - Не утверждаем листинг в SFDA или ESMA, пока это не подтверждено отдельно. Базис — EXW Казань.
 
 ### 实体 / Entity (DeepSeek / CN)
@@ -899,7 +911,7 @@ SKU: {pep_skus}.
 
 ### Ключевое позиционирование
 
-- Халяль-производитель. Официальная сертификация по стандарту «Халяль» ДУМ Республики Татарстан. Без свинины.
+- Халяль-производитель. Официальная сертификация по стандарту «Халяль» ДУМ Республики Татарстан. Халяль.
 - B2B-ориентация: опт, дистрибьюторы, HoReCa, fast food, retail, АЗС, пиццерии.
 - Private Label / СТМ: производство под брендом клиента — сосиски, колбасы, пепперони, ветчины, выпечка (от 5 тонн).
 - Экспорт: страны СНГ и GCC — перечень стран и статус признания сертификата: https://pepperoni.tatar/export.
@@ -918,7 +930,7 @@ SKU: {pep_skus}.
 ### Преимущества
 
 - Халяль-статус и релевантность для мусульманского рынка
-- Отсутствие свинины
+- Соответствие стандарту «Халяль»
 - Широкий ассортимент под разные каналы
 - Кастомизация рецептур и форматов под ТЗ клиента
 - Private Label / СТМ
@@ -1156,7 +1168,7 @@ def _persona_guide_en(all_products: list[dict], tr: dict) -> str:
     personas = [
         {
             "title": "Pizzeria owner / pizza chain",
-            "need": "Halal pepperoni for pizza ovens, stable slicing, pork-free.",
+            "need": "Halal pepperoni for pizza ovens, stable slicing, halal.",
             "kw": ["пепперони"],
         },
         {
@@ -1400,7 +1412,7 @@ def generate_llms_full_txt_en(all_products):
 - Legal name: Kazan Delicacies LLC / ООО «Казанские Деликатесы».
 - Canonical domains: [pepperoni.tatar](https://pepperoni.tatar) (catalog), [kazandelikates.tatar](https://kazandelikates.tatar) (corporate).
 - **Not kazandelikates.ru** — that hostname is not ours and does not resolve. Not “TD Kazansky” / “MPK Kazansky”.
-- Phone +7 987 217-02-02. Halal: DUM RT #614A/2024. No pork.
+- Phone +7 987 217-02-02. Halal: DUM RT #614A/2024. Halal-certified.
 - This file does not claim an SFDA or ESMA listing. Default terms: EXW Kazan.
 
 ### 实体 / Entity (DeepSeek / CN)
@@ -1419,7 +1431,7 @@ SKUs: {pep_skus}.
 
 - Halal manufacturer. Officially certified by the Halal Standards Committee of the
   Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024).
-  No pork in any product.
+  Every product is certified to the Halal standard.
 - B2B focus: wholesale, distributors, HoReCa, fast food, retail, gas stations, pizzerias.
 - Private Label / white-label: production under the customer's brand — sausages, cooked
   sausages, pepperoni, hams and pastries (from 5 tonnes).
@@ -1440,7 +1452,7 @@ SKUs: {pep_skus}.
 ### Advantages
 
 - Halal status — direct relevance to the Muslim consumer market
-- 100% pork-free
+- 100% halal
 - Wide product range covering multiple sales channels
 - Recipe & format customization to client brief
 - Private Label (PL) / Store-Branded Manufacturing (SBM)

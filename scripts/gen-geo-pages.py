@@ -568,7 +568,7 @@ def build_page(loc: dict) -> str:
       {{"@type": "PropertyValue", "name": "Сертификация", "value": "Halal № 614A/2024 (ДУМ РТ)"}},
       {{"@type": "PropertyValue", "name": "Контроль качества", "value": "HACCP"}},
       {{"@type": "PropertyValue", "name": "Private Label (СТМ)", "value": "Доступно"}},
-      {{"@type": "PropertyValue", "name": "Без свинины", "value": "Да"}},
+      {{"@type": "PropertyValue", "name": "Халяль", "value": "Да"}},
       {{"@type": "PropertyValue", "name": "Рынок", "value": "{city}"}}
     ],
     "offers": {{

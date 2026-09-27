@@ -34,34 +34,34 @@ PRODUCTS = PUBLIC / "products.json"
 TRUE_FAQ_RU = (
     "Халяль пепперони от «Казанских Деликатесов» — варёно-копчёный: "
     "куриный (KD-013 нарезка 0,5 кг, KD-014 целый батон 1 кг) и из конины "
-    "(KD-012 нарезка 0,5 кг). Свинины нет. Сертификат Halal № 614A/2024 (ДУМ РТ). "
+    "(KD-012 нарезка 0,5 кг). Продукция соответствует требованиям стандарта «Халяль». Сертификат Halal № 614A/2024 (ДУМ РТ). "
     "Актуальные цены и SKU — в каталоге https://pepperoni.tatar/pepperoni "
     "и в API https://api.pepperoni.tatar/api/products."
 )
 TRUE_FAQ_RU_SHORT = (
     "Варёно-копчёный куриный (KD-013 нарезка, KD-014 батон) и из конины (KD-012). "
-    "Свинины нет. Halal № 614A/2024. Актуальный ассортимент — в каталоге и API."
+    "Продукция соответствует требованиям стандарта «Халяль». Halal № 614A/2024. Актуальный ассортимент — в каталоге и API."
 )
 TRUE_FAQ_EN = (
     "Halal pepperoni from Kazan Delicacies is cooked-smoked only: chicken "
     "(KD-013 sliced 0.5 kg, KD-014 whole stick 1 kg) and horse meat "
-    "(KD-012 sliced 0.5 kg). No pork. Halal certificate #614A/2024 (DUM RT). "
+    "(KD-012 sliced 0.5 kg). Halal-certified. Halal certificate #614A/2024 (DUM RT). "
     "Live SKUs and prices: https://pepperoni.tatar/en/pepperoni and "
     "https://api.pepperoni.tatar/api/products."
 )
 TRUE_FAQ_EN_SHORT = (
     "Cooked-smoked chicken (KD-013 sliced, KD-014 stick) and horse meat (KD-012). "
-    "No pork. Halal #614A/2024. Live catalog via /en/pepperoni and the products API."
+    "Halal-certified. Halal #614A/2024. Live catalog via /en/pepperoni and the products API."
 )
 
 OEM_FAQ_RU = (
-    "Классическое пепперони из свинины халяльным не является. Пепперони "
+    "Халяль-пепперони соответствует стандарту «Халяль». Пепперони "
     "«Казанских Деликатесов» — 100% халяль: варёно-копчёный куриный "
     "(KD-013/KD-014) и из конины (KD-012) по стандарту «Халяль» ДУМ РТ "
     "(№ 614A/2024). Нарезка и целый батон. Актуальный ассортимент — в каталоге."
 )
 OEM_FAQ_EN = (
-    "Classic pork pepperoni is not halal. Kazan Delicacies pepperoni is 100% "
+    "Kazan Delicacies pepperoni is halal-certified and is 100% "
     "halal cooked-smoked chicken (KD-013/KD-014) and horse meat (KD-012) under "
     "DUM RT Halal #614A/2024. Sliced or whole stick. Live catalog only."
 )
@@ -276,16 +276,16 @@ def patch_faq_html(path: Path, lang: str) -> None:
         )
         # JSON-LD often uses escaped quotes differently — also plain long answer
         text = text.replace(
-            "Халяль пепперони от Казанских Деликатесов производится из говядины и курицы (классика) или из конины. В отличие от традиционного пепперони, который делается из свинины, наш продукт полностью соответствует стандартам Halal. Доступен в варёно-копчёном и сырокопчёном вариантах, в нарезке и целым батоном.",
+            "Халяль пепперони от Казанских Деликатесов производится из говядины и курицы (классика) или из конины. В отличие от традиционного пепперони, наш продукт полностью соответствует стандарту «Халяль». Доступен в варёно-копчёном и сырокопчёном вариантах, в нарезке и целым батоном.",
             TRUE_FAQ_RU,
         )
         text = text.replace(
-            "Из говядины и курицы (классика) или из конины. В отличие от традиционного пепперони из свинины, наш продукт полностью Halal. Доступен в варёно-копчёном и сырокопчёном вариантах, в нарезке и целым батоном.",
+            "Из говядины и курицы (классика) или из конины. В отличие от традиционного пепперони наш продукт полностью соответствует стандарту «Халяль». Доступен в варёно-копчёном и сырокопчёном вариантах, в нарезке и целым батоном.",
             TRUE_FAQ_RU_SHORT,
         )
     else:
         text = text.replace(
-            "Halal Pepperoni by Kazan Delicacies is made from beef and chicken (classic) or from horse meat. Unlike traditional pepperoni made from pork, our product is fully Halal-compliant. Available in cooked-smoked and dry-cured varieties, sliced or as a whole stick.",
+            "Halal Pepperoni by Kazan Delicacies is made from beef and chicken (classic) or from horse meat. Our product is fully halal-certified. Available in cooked-smoked and dry-cured varieties, sliced or as a whole stick.",
             TRUE_FAQ_EN,
         )
         text = re.sub(

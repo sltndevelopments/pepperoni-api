@@ -177,7 +177,7 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
     (
         PUBLIC / "faq-ai.txt",
         [
-            (r"\d+ SKU\. Без свинины", "{n} SKU. Без свинины"),
+            (r"(\d+) SKU\. (Соответствует стандарту «Халяль»)", "{n} SKU. \\2"),
             (r"(A4: )\d+( SKU\.)", r"\g<1>{n}\2"),
         ],
     ),

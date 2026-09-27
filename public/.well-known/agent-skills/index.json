@@ -11,7 +11,7 @@
     {
       "name": "halal-certification",
       "type": "skill-md",
-      "description": "Answer whether Kazan Delicacies products are halal and which certificates exist. Use for «пепперони халяль?», pork/alcohol questions, or export compliance.",
+      "description": "Answer whether Kazan Delicacies products are halal and which certificates exist. Use for «пепперони халяль?», halal-standard and alcohol questions, or export compliance.",
       "url": "/.well-known/agent-skills/halal-certification/SKILL.md",
       "digest": "sha256:606a8bed1b1d63cdc6ada34718a8a336826ac01948e433b85893fe09d9f2b5f5"
     },

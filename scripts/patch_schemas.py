@@ -125,7 +125,7 @@ PRODUCT_FAQ_RU = {
     ],
     "Вареные": [
         ("Из чего делают варёную колбасу?",
-         "Варёная колбаса производится из говядины и мяса птицы с натуральными специями. Без свинины, сертифицирована по стандарту халяль."),
+         "Варёная колбаса производится из говядины и мяса птицы с натуральными специями. Сертифицирована по стандарту «Халяль»."),
         ("Как долго хранится варёная колбаса?",
          "Срок хранения зависит от конкретного SKU, как правило 15–30 суток при температуре 0–6°C."),
         ("Подходит ли варёная колбаса для нарезки в ресторане?",
@@ -133,7 +133,7 @@ PRODUCT_FAQ_RU = {
     ],
     "Ветчины": [
         ("Из какого мяса производится ветчина?",
-         "Ветчина производится из курицы, индейки или говядины — в зависимости от наименования. Без свинины, халяль сертификат."),
+         "Ветчина производится из курицы, индейки или говядины — в зависимости от наименования. Сертификат стандарта «Халяль»."),
         ("Как использовать ветчину в ресторанном меню?",
          "Ветчина используется в нарезках, сэндвичах, пицце, салатах. Выпускается в батонах и в нарезке."),
         ("Можно ли заказать ветчину под своим брендом (СТМ)?",
@@ -227,7 +227,7 @@ PRODUCT_FAQ_EN = {
     ],
     "Вареные": [
         ("What are cooked sausages made from?",
-         "Cooked sausages are made from beef and poultry with natural spices. No pork, halal certified."),
+         "Cooked sausages are made from beef and poultry with natural spices. Halal certified."),
         ("How long do cooked sausages keep?",
          "Shelf life is typically 15–30 days at 0–6°C depending on the SKU."),
         ("Are cooked sausages suitable for restaurant slicing?",
@@ -235,7 +235,7 @@ PRODUCT_FAQ_EN = {
     ],
     "Ветчины": [
         ("What meat is the ham made from?",
-         "Ham is made from chicken, turkey, or beef depending on the product. No pork, halal certified."),
+         "Ham is made from chicken, turkey, or beef depending on the product. Halal certified."),
         ("How is ham used in restaurant menus?",
          "Ham is used in charcuterie boards, sandwiches, pizza, and salads. Available in logs and pre-sliced."),
         ("Can I order ham under my own brand (private label)?",

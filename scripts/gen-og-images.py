@@ -140,8 +140,8 @@ def compose(title, subtitle, badge, out_path):
 PRESETS = [
     ("og-default.png",       "Халяль колбасы, пепперони, выпечка",      "77 SKU оптом · Казань · доставка по РФ и СНГ",  "HALAL #614A/2024"),
     ("og-default-en.png",    "Halal Sausages, Pepperoni, Pastries",      "77 SKUs wholesale · Kazan · RU + CIS export",   "HALAL #614A/2024"),
-    ("og-pepperoni.png",     "Халяль пепперони для пиццерий",            "Не скручивается · термостабильный · оптом",     "Без свинины · HALAL"),
-    ("og-pepperoni-en.png",  "Halal Pepperoni for Pizzerias",            "Oven-stable · no curling · wholesale",          "Pork-free · HALAL"),
+    ("og-pepperoni.png",     "Халяль пепперони для пиццерий",            "Не скручивается · термостабильный · оптом",     "Халяль · HALAL"),
+    ("og-pepperoni-en.png",  "Halal Pepperoni for Pizzerias",            "Oven-stable · no curling · wholesale",          "Halal · HALAL"),
     ("og-kazylyk.png",       "Казылык — конская колбаса премиум",        "Подарочные коробки · халяль · Татарстан",       "HALAL · ручная нарезка"),
     ("og-kazylyk-en.png",    "Kazylyk — Premium Horse-meat Sausage",     "Gift boxes · halal · Tatarstan tradition",      "HALAL · hand-sliced"),
     ("og-bakery.png",        "Татарская выпечка оптом",                  "Эчпочмак, самса, чак-чак, губадия · халяль",    "19 SKU · халяль"),

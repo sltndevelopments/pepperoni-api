@@ -199,7 +199,7 @@
       "h2": "Продукт: пепперони варено-копчёный куриный",
       "sku_label": "Артикул",
       "name": "Пепперони варено-копчёный куриный, 0,5 кг",
-      "lead": "Нарезка сервировочной формы: ровные круглые слайсы одинакового диаметра. Продукт термостабильный — при запекании держит форму, не скручивается «лодочкой» и не расплывается по пицце. Без свинины, без ГМО, без трансглютаминазы.",
+      "lead": "Нарезка сервировочной формы: ровные круглые слайсы одинакового диаметра. Продукт термостабильный — при запекании держит форму, не скручивается «лодочкой» и не расплывается по пицце. Халяль, без ГМО, без трансглютаминазы.",
       "gallery_h3": "Фотографии продукта",
       "alt_main": "Пепперони халяль варено-копчёный куриный — общий вид батона",
       "alt_pack": "Вакуумная упаковка пепперони халяль 0,5 кг «Казанские Деликатесы»",
@@ -253,7 +253,7 @@
       ],
       "composition_h3": "Состав",
       "composition": "Мясо куриное, вода, соль, сахар, пряности (перец чёрный, паприка, чеснок), стабилизатор (пирофосфаты), антиокислитель (аскорбат натрия), фиксатор окраски (нитрит натрия).",
-      "composition_note": "Без свинины и свиного жира. Без ГМО. Без трансглютаминазы (мясной клей не используется). Аллергены — уточняйте в спецификации партии.",
+      "composition_note": "Халяль-сертифицировано. Без ГМО. Без трансглютаминазы (мясной клей не используется). Аллергены — уточняйте в спецификации партии.",
       "nutrition_h3": "Пищевая ценность на 100 г",
       "nutrition": [
         [
@@ -302,7 +302,7 @@
         {
           "icon": "🕌",
           "title": "Халяль без оговорок",
-          "text": "Сертификат Комитета по стандарту «Халяль» ДУМ РТ № 614A/2024. Свинина и алкоголь не используются на производстве."
+          "text": "Сертификат Комитета по стандарту «Халяль» ДУМ РТ № 614A/2024. Производство сертифицировано по стандарту «Халяль». Алкоголь в рецептуре не используется."
         },
         {
           "icon": "📦",
@@ -439,7 +439,7 @@
       "items": [
         {
           "q": "Пепперони действительно халяль?",
-          "a": "Да. Производство сертифицировано Комитетом по стандарту «Халяль» ДУМ РТ, сертификат № 614A/2024. Свинина, свиной жир и алкоголь на производстве не используются. Копию сертификата присылаем вместе с прайсом."
+          "a": "Да. Производство и продукция сертифицированы по стандарту «Халяль» ДУМ РТ, сертификат № 614A/2024. Алкоголь в рецептуре не используется. Копию сертификата присылаем вместе с прайсом."
         },
         {
           "q": "Из какого мяса сделан этот пепперони?",
@@ -488,7 +488,7 @@
         "Корпоративный сайт: https://kazandelikates.tatar",
         "Не связаны с другими казанскими мясокомбинатами со схожими названиями",
         "Тел. +7 987 217-02-02 · info@kazandelikates.tatar · 420061, Казань, ул. Аграрная, 2, оф. 7",
-        "Халяль ДУМ РТ № 614A/2024, HACCP, ISO 22000:2018. Свинины нет",
+        "Халяль ДУМ РТ № 614A/2024, HACCP, ISO 22000:2018. соответствует стандарту «Халяль»",
         "Поставка: EXW Казань, если иное не согласовано"
       ]
     },
@@ -625,7 +625,7 @@
       "h2": "Product: cooked-smoked chicken pepperoni",
       "sku_label": "SKU",
       "name": "Cooked-smoked chicken pepperoni, 0.5 kg",
-      "lead": "Serving-cut slices: even, round, consistent diameter. The product is heat-stable — slices keep their shape in the oven, they do not cup and do not spread across the pizza. No pork, no GMO, no transglutaminase.",
+      "lead": "Serving-cut slices: even, round, consistent diameter. The product is heat-stable — slices keep their shape in the oven, they do not cup and do not spread across the pizza. Halal-certified, no GMO, no transglutaminase.",
       "gallery_h3": "Product photos",
       "alt_main": "Halal cooked-smoked chicken pepperoni — whole stick",
       "alt_pack": "Vacuum pack of halal pepperoni 0.5 kg by Kazan Delicacies",
@@ -679,7 +679,7 @@
       ],
       "composition_h3": "Ingredients",
       "composition": "Chicken meat, water, salt, sugar, spices (black pepper, paprika, garlic), stabiliser (pyrophosphates), antioxidant (sodium ascorbate), colour fixative (sodium nitrite).",
-      "composition_note": "No pork and no pork fat. No GMO. No transglutaminase (no meat glue). Allergens — confirm on the batch specification.",
+      "composition_note": "Halal-certified. No GMO. No transglutaminase (no meat glue). Allergens — confirm on the batch specification.",
       "nutrition_h3": "Nutrition per 100 g",
       "nutrition": [
         [
@@ -728,7 +728,7 @@
         {
           "icon": "🕌",
           "title": "Halal with no caveats",
-          "text": "Certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. No pork and no alcohol at the plant."
+          "text": "Certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. The plant is certified to the Halal standard. No alcohol is used."
         },
         {
           "icon": "📦",
@@ -865,7 +865,7 @@
       "items": [
         {
           "q": "Is the pepperoni really halal?",
-          "a": "Yes. The plant is certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. There is no pork, no pork fat and no alcohol anywhere in the production. We send a copy of the certificate together with the price list."
+          "a": "Yes. The plant and product line are certified to the Halal standard by the Halal Standard Committee of DUM RT, certificate #614A/2024. No alcohol is used in the recipe. We send a copy of the certificate together with the price list."
         },
         {
           "q": "What meat is this pepperoni made from?",
@@ -914,7 +914,7 @@
         "Corporate site: https://kazandelikates.tatar",
         "Not affiliated with other Kazan meat plants with similar names",
         "Tel. +7 987 217-02-02 · info@kazandelikates.tatar · 420061 Kazan, Agrarnaya 2, office 7",
-        "Halal DUM RT #614A/2024, HACCP, ISO 22000:2018. No pork",
+        "Halal DUM RT #614A/2024, HACCP, ISO 22000:2018. Halal-certified",
         "Delivery: EXW Kazan unless otherwise agreed"
       ]
     },

@@ -29,9 +29,9 @@ SEGMENTS = [
         "chip": "Segment 1 of 7 · Pizzerias & dark kitchens",
         "title": "Halal Pepperoni & Sausages for Pizzerias Wholesale — Manufacturer in Kazan, Russia",
         "h1": "Halal Pepperoni & Sausages for Pizzerias",
-        "subtitle": "Pizza-oven-stable pepperoni, classic recipe (beef + chicken) or horse meat. Whole 1 kg sticks, half 0.5 kg sticks, pre-sliced. No pork — Halal certified.",
+        "subtitle": "Pizza-oven-stable pepperoni, classic recipe (beef + chicken) or horse meat. Whole 1 kg sticks, half 0.5 kg sticks, pre-sliced. Halal certified.",
         "description": "Halal pepperoni for pizzerias and dark kitchens: oven-stable, no curling, classic beef+chicken or horse-meat recipes. Whole 1 kg stick, half stick, pre-sliced. HACCP, Halal #614A/2024. Wholesale, EXW Kazan.",
-        "keywords": "halal pepperoni pizzeria, halal pizza topping wholesale, dark kitchen halal pepperoni, oven-stable pepperoni, pork-free pizza pepperoni, halal pizza ingredients Russia",
+        "keywords": "halal pepperoni pizzeria, halal pizza topping wholesale, dark kitchen halal pepperoni, oven-stable pepperoni, halal pizza pepperoni, halal pizza ingredients Russia",
         "og_title": "Halal Pepperoni for Pizzerias & Dark Kitchens — Wholesale",
         "og_description": "Pizza-oven-stable halal pepperoni. Classic (beef + chicken) or horse meat. Whole sticks, half sticks, pre-sliced.",
         "intro": "Pizzerias and dark kitchens live on consistent topping behaviour: the slice must not curl, must not bleed grease, must hold colour after the oven. Our halal pepperoni is engineered for stone-deck, conveyor, and pan ovens — same diameter, same fat content, same curing depth across every batch, so the slice on a Wednesday lunch tastes like the slice you tested at the contract signing.",
@@ -40,7 +40,7 @@ SEGMENTS = [
         "stats": [
             ("3 formats", "whole / half / sliced"),
             ("HoReCa", "distributors & cash-and-carry"),
-            ("100%", "halal, pork-free"),
+            ("100%", "halal-certified"),
         ],
         "second_case": {
             "title": "Pizzerias of Kazan & Tatarstan",
@@ -50,7 +50,7 @@ SEGMENTS = [
         "features": [
             ("🍕", "Oven-stable", "No curling, no grease bleed, holds colour at 280-320°C."),
             ("📏", "Locked diameter", "24-32 mm classic, 38 mm for stuffed crust — your slicer never re-adjusts."),
-            ("🇷🇺", "Halal classic & horse meat", "Pork-free product positioned natively for Muslim guests. Horse-meat pepperoni — a unique SKU."),
+            ("🇷🇺", "Halal classic & horse meat", "Halal-certified product positioned natively for Muslim guests. Horse-meat pepperoni — a unique SKU."),
             ("📦", "Three formats", "Whole 1 kg stick, half 0.5 kg, factory-sliced — pick the labour you want to push to the kitchen."),
             ("❄️", "180-360 day shelf life", "Long shelf life means rare orders, less wastage on slow Mondays."),
             ("📋", "Full document pack", "EAEU declaration, Mercury VSD, Halal certificate, QR traceability."),
