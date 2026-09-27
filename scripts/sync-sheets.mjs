@@ -16,6 +16,15 @@ import {
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const PUBLIC = join(ROOT, 'public');
+
+function sheetPublicEn(text) {
+  if (!text) return text;
+  return String(text)
+    .replaceAll('Pigs-in-Blankets', 'Sausage Rolls')
+    .replaceAll('Pigs-in-Blanket', 'Sausage Roll')
+    .replaceAll('pigs-in-blankets', 'sausage rolls')
+    .replaceAll('pigs-in-blanket', 'sausage roll');
+}
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
 
 const BASE_URL =
@@ -313,7 +322,7 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
         (cellBy(cols, colIndex, 'barcode') || cell(cols, 18) || '').trim()
       ),
       seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cell(cols, 19),
-      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cell(cols, 20),
+      seoDescriptionEN: sheetPublicEn(cellBy(cols, colIndex, 'seoEN') || cell(cols, 20)),
       diameter: cellBy(cols, colIndex, 'diameter') || cell(cols, 21),
       casing: cellBy(cols, colIndex, 'casing') || cell(cols, 22),
       ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cell(cols, 23),
@@ -423,7 +432,7 @@ function parseBakery(lines, section, reg) {
         (cellBy(cols, colIndex, 'barcode') || cols[19] || '').trim()
       ),
       seoDescriptionRU: cellBy(cols, colIndex, 'seoRU') || cols[20] || '',
-      seoDescriptionEN: cellBy(cols, colIndex, 'seoEN') || cols[21] || '',
+      seoDescriptionEN: sheetPublicEn(cellBy(cols, colIndex, 'seoEN') || cols[21] || ''),
       diameter: cellBy(cols, colIndex, 'diameter') || cols[22] || '',
       casing: cellBy(cols, colIndex, 'casing') || cols[23] || '',
       ingredientsRU: cellBy(cols, colIndex, 'ingredientsRU') || cols[24] || '',

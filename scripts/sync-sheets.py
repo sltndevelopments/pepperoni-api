@@ -18,6 +18,18 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 SUBMISSION = ROOT / "submission"
 
+
+def _sheet_public_en(text: str) -> str:
+    """Sheet copy sometimes uses an English nickname we do not publish."""
+    if not text:
+        return text
+    return (
+        text.replace("Pigs-in-Blankets", "Sausage Rolls")
+        .replace("Pigs-in-Blanket", "Sausage Roll")
+        .replace("pigs-in-blankets", "sausage rolls")
+        .replace("pigs-in-blanket", "sausage roll")
+    )
+
 from sku_registry import (  # noqa: E402
     assign_sku,
     bootstrap_from_products,
@@ -198,7 +210,7 @@ def parse_standard(lines, section, reg, has_piece_price=True):
         if cell(19):
             p["seoDescriptionRU"] = cell(19)
         if cell(20):
-            p["seoDescriptionEN"] = cell(20)
+            p["seoDescriptionEN"] = _sheet_public_en(cell(20))
         if cell(21):
             p["diameter"] = cell(21)
         if cell(22):

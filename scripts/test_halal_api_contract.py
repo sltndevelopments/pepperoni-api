@@ -14,12 +14,23 @@ PUBLIC_EMITTERS = [
     ROOT / "public" / "openapi.yaml",
 ]
 FORBIDDEN = re.compile(
-    r"свин(?!ц)|шпик|pork|porcine|\bpig\b|\bswine\b|\bhog\b|\blard\b|fatback|خنزير|no_pork",
+    r"свин(?!ц)|шпик|pork|porcine|\bpigs?\b|\bswine\b|\bhogs?\b|\blard\b|fatback|خنزير|no_pork",
     re.I,
 )
 
 
 class HalalApiContractTest(unittest.TestCase):
+    def test_plural_swine_words_are_forbidden(self) -> None:
+        pig = re.compile(r"\bpigs?\b", re.I)
+        for sample in (
+            "pig",
+            "pigs",
+            "pigs-in-blankets",
+            "Breakfast Sausages (skinless, for pigs-in-blankets)",
+        ):
+            self.assertIsNotNone(pig.search(sample), sample)
+        self.assertIsNone(pig.search("pigeon"))
+
     def test_emitters_use_halal_certified_and_not_legacy_field(self) -> None:
         for path in PUBLIC_EMITTERS:
             text = path.read_text(encoding="utf-8")
