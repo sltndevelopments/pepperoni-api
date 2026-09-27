@@ -595,6 +595,12 @@ def build_body(lang: str, L: dict, i18n: dict, family: dict[str, dict], prices: 
         """Link to the localised page when it exists, else the RU original."""
         return f"{prefix}{path}" if (PUBLIC / f"{lang}{path}.html").exists() or lang == "ru" else path
 
+    contract_url = (
+        "/kontraktnoe-proizvodstvo" if lang == "ru"
+        else "/en/private-label" if lang == "en"
+        else local("/oem")
+    )
+
     lang_menu = ""
     for code in locales:
         if code not in i18n:
@@ -847,7 +853,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">{esc(L["pl"]["lead"])}</p>
   <ul class="checklist">{pl_items}</ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">{esc(L["pl"]["cta"])}</a>
-    <a class="btn btn--ghost" href="{local("/oem")}">{esc(L["footer"]["oem"])}</a></div>
+    <a class="btn btn--ghost" href="{contract_url}">{esc(L["footer"]["oem"])}</a></div>
 </div></section>
 
 <section class="section section--soft" id="faq" data-track-section="faq"><div class="wrap">
@@ -908,7 +914,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <li><a href="{prefix or "/"}">{esc(L["footer"]["catalog"])}</a></li>
         <li><a href="/products/kd-013">{esc(L["footer"]["product"])}</a></li>
         <li><a href="{local("/pepperoni-dlya-pizzerii")}">{esc(L["footer"]["pizzeria"])}</a></li>
-        <li><a href="{local("/oem")}">{esc(L["footer"]["oem"])}</a></li>
+        <li><a href="{contract_url}">{esc(L["footer"]["oem"])}</a></li>
         {"".join(f'<li><a href="{x["href"]}">{esc(x["label"])}</a></li>' for x in L["footer"].get("extra_links", []))}
       </ul>
     </div>
