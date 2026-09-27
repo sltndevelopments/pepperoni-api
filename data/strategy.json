@@ -88,36 +88,16 @@
     "reason": "444 показа, поз 9, 1 клик. Переписать title по выигравшему паттерну ('Казылык — что это + оптом от производителя'), удлинить до 1000+ слов (конкурент 986 vs наши 333), добавить FAQ + цену/CTA опт"
    },
    {
-    "path": "/blog/kazylyk-chto-eto-takoe",
-    "reason": "КАННИБАЛИЗАЦИЯ + not_indexed 111 дней. Схлопнуть: canonical/301 на /blog/kazylyk, не плодить третью страницу"
-   },
-   {
-    "path": "/blog/what-is-kazylyk",
-    "reason": "not_indexed 111 дней, дубль EN-версии. Либо уникализировать под EN-экспорт (kazylyk horse meat halal wholesale), либо canonical на RU-кластер"
-   },
-   {
     "path": "/blog/pepperoni-iz-kakogo-myasa",
     "reason": "148 показов, позиция 3.9, ноль кликов. Title/description не цепляют — переписать с коммерческим хвостом ('…и где купить оптом'), добавить CTA на /pepperoni"
-   },
-   {
-    "path": "/blog/kotlety-dlya-burgerov-kupit-optom",
-    "reason": "235 показов по коммерческим 'котлеты для бургеров оптом', позиция ~19.7. Усилить: цена/МОЗ/фасовка/FAQ, перелинковка с /kotlety-dlya-burgerov; проверить каннибализацию с kotlety-dlya-burgerov-optom"
    },
    {
     "path": "/pepperoni",
     "reason": "agent_bus t-20260925-7731: живой коммерческий лид. Усилить оффер: прайс-диапазон, МОЗ, сроки, форма заявки выше сгиба, entity-факты для AI-цитирования"
    },
    {
-    "path": "/private-label",
-    "reason": "agent_bus t-20260925-7732: живой лид по СТМ. Добавить процесс работы по шагам, MOQ, сроки запуска, кейс-формат, FAQ для AIO"
-   },
-   {
     "path": "/en/pepperoni",
     "reason": "Брендовый запрос, позиция 2.7, CTR 0 — переписать title/description на человеческий B2B-оффер (wholesale halal pepperoni supplier)"
-   },
-   {
-    "path": "/en/investment.html",
-    "reason": "Thin-страница 5 слов — наполнить или удалить из sitemap"
    }
   ],
   "prompt_tweaks": {
