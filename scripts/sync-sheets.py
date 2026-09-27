@@ -789,7 +789,7 @@ A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing 
 A: EXW Kazan; transport is arranged by the buyer or agreed individually. Countries and certificate-recognition status: https://pepperoni.tatar/en/export. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
 
 **Q: Is all your production halal-certified?**
-A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). Halal-certified in any product. Production supervised by the DUM RT Halal Standards Committee.
+A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). Every product is certified to the Halal standard. Production supervised by the DUM RT Halal Standards Committee.
 
 **Q: Do you offer private label / contract manufacturing?**
 A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offering. We produce sausages, pepperoni, hams and pastries under the customer's brand — from 5 tonnes — with custom recipes, slice formats, and packaging. Contact: info@kazandelikates.tatar.
@@ -1419,7 +1419,7 @@ SKUs: {pep_skus}.
 
 - Halal manufacturer. Officially certified by the Halal Standards Committee of the
   Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024).
-  Halal-certified in any product.
+  Every product is certified to the Halal standard.
 - B2B focus: wholesale, distributors, HoReCa, fast food, retail, gas stations, pizzerias.
 - Private Label / white-label: production under the customer's brand — sausages, cooked
   sausages, pepperoni, hams and pastries (from 5 tonnes).

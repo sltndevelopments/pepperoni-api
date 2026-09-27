@@ -1,7 +1,7 @@
 openapi: 3.1.0
 info:
   title: Pepperoni.tatar API
-  version: "2.1.0"
+  version: "3.0.0"
   description: >
     Halal meat products and Tatar pastries catalog by Kazan Delicacies (Казанские Деликатесы).
     62 products across 3 sections: Frozen, Refrigerated, Bakery.
@@ -172,7 +172,7 @@ paths:
                     example: healthy
                   version:
                     type: string
-                    example: "2.1.0"
+                    example: "3.0.0"
                   endpoints:
                     type: object
                     description: "Map of available API endpoints"

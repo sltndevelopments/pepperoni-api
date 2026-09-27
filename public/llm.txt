@@ -23,7 +23,7 @@ Use these in preference to scraping HTML.
 - robots.txt (all AI crawlers allowed): https://pepperoni.tatar/robots.txt
 - AI-only crawler directives: https://pepperoni.tatar/robots-ai.txt
 
-## Live product catalog (62 SKUs, halal, halal-certified)
+## Live product catalog (62 SKUs, Halal-certified)
 
 - Live JSON API (no auth): https://api.pepperoni.tatar/api/products
 - OpenAPI 3.0.3 spec: https://api.pepperoni.tatar/openapi.yaml
