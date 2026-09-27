@@ -5,7 +5,7 @@ description: Look up Kazan Delicacies halal SKUs, live wholesale prices, and exp
 
 # Halal catalog (Kazan Delicacies)
 
-Manufacturer: ООО «Казанские Деликатесы» / Kazan Delicacies. Plant in Kazan, Russia. No pork, no alcohol. Halal cert ДУМ РТ #614A/2024. HACCP, ISO 22000:2018, ТР ТС 021/2011. No kosher certificate.
+Manufacturer: ООО «Казанские Деликатесы» / Kazan Delicacies. Plant in Kazan, Russia. Halal-certified, no alcohol. Halal cert ДУМ РТ #614A/2024. HACCP, ISO 22000:2018, ТР ТС 021/2011. No kosher certificate.
 
 ## Prefer machine endpoints over scraping HTML
 

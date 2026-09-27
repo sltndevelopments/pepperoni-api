@@ -262,7 +262,7 @@ const B2B_DATA = {
   manufacturer: { name: 'ООО «Казанские Деликатесы»', inn: '1686021074', ogrn: '1221600096893' },
   delivery_terms: 'EXW Kazan, Russia (Incoterms 2020)',
   private_label: true,
-  no_pork: true,
+  halal_certified: true,
   no_gmo: true,
   no_transglutaminase: true,
 };

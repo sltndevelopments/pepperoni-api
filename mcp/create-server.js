@@ -92,7 +92,7 @@ export function createKazanMcpServer() {
     {
       title: 'Halal & quality certifications',
       description:
-        'Halal certificate, HACCP, ISO 22000 verification link, and product safety guarantees (no pork, no GMO).',
+        'Halal certificate, HACCP, ISO 22000 verification link, and product safety guarantees (halal-certified, no GMO).',
       inputSchema: {},
     },
     async () => {
@@ -103,7 +103,7 @@ export function createKazanMcpServer() {
         quality_system: b2b.quality_system || 'HACCP',
         iso_22000_verify_url: ISO_22000_VERIFY_URL,
         customs_union_cert: b2b.customs_union_cert ?? true,
-        no_pork: b2b.no_pork ?? true,
+        halal_certified: b2b.halal_certified ?? true,
         no_gmo: b2b.no_gmo ?? true,
         no_transglutaminase: b2b.no_transglutaminase ?? true,
         manufacturer: b2b.manufacturer,

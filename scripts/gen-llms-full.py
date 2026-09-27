@@ -64,7 +64,7 @@ def llms_map_ru() -> str:
 - Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — одна паллета (сборная из разных позиций возможна), объём кратно паллете.
 - Контрактное производство (СТМ): от 5 тонн. Этапы и сроки — по договору. Мощность производства — 12 тонн в смену.
 - Документы к отгрузке: халяль-сертификат, декларация соответствия, ВСД («Меркурий»), «Честный знак», ЭТрН.
-- Доставка, сроки, образцы — согласуются индивидуально. Никакой свинины и алкоголя в любой продукции.
+- Доставка, сроки, образцы — согласуются индивидуально. Продукция соответствует стандарту «Халяль». Алкоголь в рецептуре не используется.
 
 Контакты: +7 987 217-02-02 · info@kazandelikates.tatar · 420061, Казань, ул. Аграрная, 2, оф. 7.
 
@@ -114,7 +114,7 @@ Key terms (owner-approved):
 - Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order — one pallet (mixed pallets possible), volumes in pallet multiples.
 - Private label (contract manufacturing): from 5 tonnes. Stages and lead times per contract. Production capacity — 12 tonnes per shift.
 - Shipping documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny Znak marking, electronic waybill.
-- Delivery, lead times and samples are agreed individually. No pork and no alcohol in any product.
+- Delivery, lead times and samples are agreed individually. Every product is certified to the Halal standard. No alcohol is used.
 
 Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., office 7, Kazan 420061, Russia.
 

@@ -153,7 +153,7 @@ footer a{{color:#888;text-decoration:none}}
       <li>✅ <strong>100% Halal</strong> — certified by Muslim Spiritual Board of Tatarstan (#614A/2024)</li>
       <li>✅ <strong>Direct from manufacturer</strong> — no middlemen, factory pricing EXW Kazan</li>
       <li>✅ <strong>HACCP + ISO 22000:2018</strong> — full quality control at every production stage</li>
-      <li>✅ <strong>No pork, no GMO, no meat glue</strong> — strictly halal ingredients only</li>
+      <li>✅ <strong>Halal-certified, no GMO, no meat glue</strong> — strictly halal ingredients only</li>
       <li>✅ <strong>Private Label available</strong> — production under your brand, minimum run 5 tonnes</li>
       <li>✅ <strong>Flexible logistics</strong> — refrigerated truck delivery, veterinary certificates included</li>
       <li>✅ <strong>7 currencies</strong> — invoicing in RUB, USD, KZT, UZS, KGS, BYN, AZN</li>
@@ -251,7 +251,7 @@ def build_page(info: dict) -> str:
     else:
         h1 = f"{product_label} Wholesale to {city_en} — Direct from Manufacturer"
         subtitle = f"{product_label} for {product_desc} in {city_en}. Certified Halal, HACCP, EXW Kazan."
-        intro = f"Kazan Delicacies supplies <strong>{product_label.lower()}</strong> wholesale to {city_en} and surrounding areas. Our products are made from premium halal-certified meats — beef, chicken, horse meat, turkey — with no pork, no GMO, and no meat glue."
+        intro = f"Kazan Delicacies supplies <strong>{product_label.lower()}</strong> wholesale to {city_en} and surrounding areas. Our products are made from premium halal-certified meats — beef, chicken, horse meat, turkey — halal-certified, with no GMO and no meat glue."
         available = f"Explore our full range of {product_label.lower()} available for wholesale delivery to {city_en}:"
 
     # Delivery text

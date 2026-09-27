@@ -49,7 +49,7 @@ PAGES = [
         "h1": "Halal Sliced Pepperoni for Pizza",
         "subtitle": "Pre-sliced, oven-stable, 0.5 kg vacuum packs. No curling, locked diameter, halal #614A/2024.",
         "description": "Halal sliced pepperoni for pizza wholesale: 0.5 kg vacuum packs, pre-sliced, oven-stable, no curling. Cooked-smoked chicken (KD-013). HACCP. EXW Kazan, Russia.",
-        "keywords": "halal sliced pepperoni for pizza, halal pizza topping wholesale, pre-sliced halal pepperoni, chicken halal pepperoni sliced, pork-free pizza topping",
+        "keywords": "halal sliced pepperoni for pizza, halal pizza topping wholesale, pre-sliced halal pepperoni, chicken halal pepperoni sliced, halal pizza topping",
         "intent": "buyer wants sliced halal pepperoni ready to use on pizzas — wholesale volume, oven-stable",
         "primary_sku": "KD-013",
         "primary_name": "Cooked-smoked chicken pepperoni (sliced)",
@@ -65,7 +65,7 @@ PAGES = [
             ("Format", "Pre-sliced, vacuum-packed"),
             ("Net weight", "0.5 kg per pack"),
             ("Stick diameter", "50–55 mm"),
-            ("Recipe", "Chicken, no pork"),
+            ("Recipe", "Chicken, halal-certified"),
             ("Halal", "Certified #614A/2024 by DUM RT"),
             ("HACCP", "Yes, ISO 22000:2018"),
             ("Cooking", "Oven-stable — no curling"),
@@ -73,7 +73,7 @@ PAGES = [
             ("Minimum order", "Discussed individually · pilot available"),
         ],
         "faqs": [
-            ("Is this pepperoni really halal?", "Yes. We hold halal certificate #614A/2024 from the Halal Standards Committee of the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). Zero pork, zero pork derivatives. Certificate copies are sent with every shipment and on request via info@kazandelikates.tatar."),
+            ("Is this pepperoni really halal?", "Yes. We hold halal certificate #614A/2024 from the Halal Standards Committee of the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT). Halal-certified raw materials only. Certificate copies are sent with every shipment and on request via info@kazandelikates.tatar."),
             ("Will the slice curl in a stone-deck oven?", "No. The product is engineered for stone-deck, conveyor, and pan ovens at 280–320 °C. Curling and grease bleed are eliminated by recipe formulation, not by curing time."),
             ("What's the slice yield per pack?", "Around 80 slices per 0.5 kg pack depending on slice thickness. Most pizzerias settle on 1.6–1.8 mm, giving 75–85 slices."),
             ("Can I order under my own brand?", "Yes — private label (СТМ / SBM / white-label). Minimum order is agreed per contract. The OMPK «Aslam» contract is traditional sausages to their recipes — it does not include pepperoni."),
@@ -93,9 +93,9 @@ PAGES = [
         "slug": "beef-halal-pepperoni",
         "title": "Halal Pepperoni Wholesale — Chicken & Horse Meat | Kazan Delicacies",
         "h1": "Halal Pepperoni (Cooked-Smoked Chicken & Horse Meat)",
-        "subtitle": "Live catalog SKUs only: chicken cooked-smoked (KD-013 sliced, KD-014 stick) and horse-meat cooked-smoked (KD-012). No pork. No dry-cured pepperoni in the current catalog.",
+        "subtitle": "Live catalog SKUs only: chicken cooked-smoked (KD-013 sliced, KD-014 stick) and horse-meat cooked-smoked (KD-012). Halal-certified. No dry-cured pepperoni in the current catalog.",
         "description": "Halal pepperoni wholesale from Kazan: cooked-smoked chicken KD-013/KD-014 and horse meat KD-012. Halal #614A/2024. HACCP. Live prices via products API. Private-label recipes (incl. beef blends) on request — not listed as stock SKUs.",
-        "keywords": "halal pepperoni wholesale, chicken halal pepperoni, horse meat pepperoni, pork-free pepperoni Russia, halal pepperoni manufacturer",
+        "keywords": "halal pepperoni wholesale, chicken halal pepperoni, horse meat pepperoni, halal pepperoni Russia, halal pepperoni manufacturer",
         "intent": "buyer wants recipe / meat type clarity and certificates",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
@@ -108,7 +108,7 @@ PAGES = [
         "primary_yield": "≈ 10 slices = 26–30 g",
         "specs": [
             ("SKU", "KD-014 (stick) / KD-013 (sliced) / KD-012 (horse, sliced)"),
-            ("Recipe", "Chicken or horse meat — no pork (live Sheets catalog)"),
+            ("Recipe", "Chicken or horse meat — halal-certified (live Sheets catalog)"),
             ("Halal", "DUM RT certificate #614A/2024"),
             ("HACCP", "Yes, ISO 22000:2018"),
             ("Shelf life", "360 days frozen at −18 °C"),
@@ -119,7 +119,7 @@ PAGES = [
             ("What pepperoni SKUs are in the live catalog?", "Only three: KD-013 chicken sliced 0.5 kg, KD-014 chicken whole stick 1 kg, KD-012 horse-meat sliced 0.5 kg. All cooked-smoked. Prices: /api/products."),
             ("Do you sell dry-cured pepperoni?", "No. Dry-cured («сырокопчёный») pepperoni is not in the current Google Sheets catalog. We supply cooked-smoked formats only."),
             ("Do you sell a beef+chicken classic pepperoni as a stock SKU?", "No stock SKU for beef+chicken. Stock recipes are chicken and horse. Beef blends are possible under private label after formulation."),
-            ("Can you do a kosher version?", "No — we hold a halal certificate, not a kosher one. Pork-free + alcohol-free on request."),
+            ("Can you do a kosher version?", "No — we hold a halal certificate, not a kosher one. Halal + alcohol-free on request."),
             ("What's the price by the tonne?", "Volume pricing on request. Live list prices via /api/products. Private-label pricing separately."),
             ("Do you sell horse-meat pepperoni?", "Yes — KD-012 cooked-smoked horse-meat pepperoni, sliced 0.5 kg. See /en/halal-pepperoni-for-pizzerias."),
         ],
@@ -246,7 +246,7 @@ PAGES = [
             ("Halal authority", "DUM RT (Muslim Spiritual Board of the Republic of Tatarstan) — federally recognised"),
             ("Halal certificate", "#614A/2024 — covers the live catalog"),
             ("Food safety", "HACCP + ISO 22000:2018"),
-            ("Production facility", "20 000 m² in Kazan, dedicated halal line, no pork on premises"),
+            ("Production facility", "20 000 m² in Kazan, dedicated halal line, halal-certified on premises"),
             ("Federal-scale references", "Tatneft, SMARTEN, EuroSpar, Bahetle, Metro, Miratorg"),
             ("Logistics", "EXW Kazan · CIS export"),
         ],
@@ -254,7 +254,7 @@ PAGES = [
             ("Why Kazan specifically?", "Kazan is the historic capital of the Republic of Tatarstan — home to the largest Muslim community in central Russia (≈ 2 million) and the seat of the Russian Muslim Spiritual Board. Halal food production has been an unbroken tradition here for centuries; the regulatory and supply infrastructure for halal meat is the most mature in Russia."),
             ("How does DUM RT halal certification compare to Saudi/Malaysian halal?", "We hold DUM RT (Muslim Spiritual Board of the Republic of Tatarstan) certificate #614A/2024. Import recognition in the destination market is confirmed with the importer before shipment. We do not claim JAKIM, SFDA, ESMA, or GSO listing without a public registry link."),
             ("Is the product 100 % made in Russia?", "Yes. Cattle and poultry are sourced from halal-certified farms in Tatarstan and neighbouring regions (Mari El, Bashkortostan). Meat processing, smoking, packaging and labelling all happen in our Kazan facility."),
-            ("Why not import from Turkey or UAE?", "Some GCC and CIS buyers source from Russia because cattle and poultry are processed on a dedicated halal line in Kazan (no pork on the site), with DUM RT certificate #614A/2024 and live EXW prices in the catalog API. Compare quotes for your volume — we do not publish a percentage vs Turkey."),
+            ("Why not import from Turkey or UAE?", "Some GCC and CIS buyers source from Russia because cattle and poultry are processed on a dedicated halal line in Kazan (halal-certified on the site), with DUM RT certificate #614A/2024 and live EXW prices in the catalog API. Compare quotes for your volume — we do not publish a percentage vs Turkey."),
             ("Are you on the Russian export-promotion list?", "Yes. We participate in Russian Export Center (REC) trade missions to UAE (annual), Kazakhstan, Uzbekistan, and Saudi Arabia."),
             ("Can I visit the factory?", "Yes — pre-arranged factory tours are welcome. Halal-authority joint audits also welcome. Contact info@kazandelikates.tatar to schedule."),
         ],
@@ -426,7 +426,7 @@ footer a{{color:#888;text-decoration:none}}
 <div class="badges">
   <span class="badge">HALAL #614A/2024</span>
   <span class="badge badge-outline">HACCP + ISO 22000</span>
-  <span class="badge badge-outline">No pork</span>
+  <span class="badge badge-outline">Halal-certified</span>
   <span class="badge badge-outline">EXW Kazan</span>
 </div>
 
