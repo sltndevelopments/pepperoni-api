@@ -1759,6 +1759,42 @@ def _report_and_ask(strategy: dict) -> None:
                  dedupe_key=f"brain-questions:{strategy.get('generated_at','')[:10]}")
 
 
+def _drop_retired_rewrite_proposals(proposals: dict) -> bool:
+    """Drop 410/301/noindex rewrite targets before strategy.json is written.
+
+    A bad model suggestion is removed and logged. Returns False only when the
+    consolidation map itself cannot be read, so an unfiltered strategy is not
+    persisted.
+    """
+    pages = proposals.get("rewrite_pages")
+    if not isinstance(pages, list) or not pages:
+        return True
+    try:
+        from check_strategy_retired_urls import (
+            drop_retired_rewrite_pages,
+            retired_status_by_url,
+        )
+        consolidation = json.loads(
+            (DATA / "url_consolidation_map.json").read_text(encoding="utf-8")
+        )
+        kept, dropped = drop_retired_rewrite_pages(
+            pages, retired_status_by_url(consolidation)
+        )
+    except Exception as exc:
+        print(
+            f"⚠️  SEO brain: retired-url filter failed ({exc}). "
+            "strategy.json NOT overwritten."
+        )
+        return False
+    for path, status in dropped:
+        print(f"SEO brain: dropped retired rewrite target {path} (status={status})")
+    if kept:
+        proposals["rewrite_pages"] = kept
+    else:
+        proposals.pop("rewrite_pages", None)
+    return True
+
+
 def main():
     if not brain_available():
         if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -1881,6 +1917,8 @@ def main():
     }
     for key in STRATEGY_ENGINEERING_FIELDS:
         strategy.pop(key, None)
+    if not _drop_retired_rewrite_proposals(proposals):
+        return 2
     if proposals:
         strategy["engineering_proposals"] = proposals
         try:
@@ -1917,7 +1955,7 @@ def main():
     print(f"   blog_weekly_target: {strategy.get('blog_weekly_target')}")
     print(f"   blog topics: {len(strategy.get('new_blog_topics', []))} | "
           f"PL/OEM: {len(strategy.get('pl_oem_topics', []))} | "
-          f"rewrites: {len(strategy.get('rewrite_pages', []))}")
+          f"rewrites: {len((strategy.get('engineering_proposals') or {}).get('rewrite_pages') or [])}")
     print(f"   cost: ${usage.get('cost_usd')} | budget left: ${usage.get('budget_remaining_usd')}")
     return 0
 
