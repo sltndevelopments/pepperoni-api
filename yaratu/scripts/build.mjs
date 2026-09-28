@@ -40,6 +40,12 @@ const copyAllowlist = [
   "assets/concept1/hero-sausage.jpg",
   "assets/concept1/hero-sausage-100.jpg",
   "assets/concept1/hero-full.jpg",
+  "assets/concept1/hero-frame.jpg",
+  "assets/concept1/line-malyshok.jpg",
+  "assets/concept1/line-protein.jpg",
+  "assets/concept1/line-broccoli.jpg",
+  "assets/concept1/line-carnivore.jpg",
+  "assets/concept1/star-food.jpg",
   "assets/concept1/still-life.jpg",
   "assets/concept1/still-life-large.jpg",
   "assets/concept1/star-dumplings-100.jpg",
@@ -60,6 +66,14 @@ const copyAllowlist = [
   "assets/concept1/macro-salami-100.jpg",
   "assets/concept1/macro-pelmeni-100.jpg",
   "assets/concept1/macro-meatballs.jpg",
+  "assets/concept1/banner-salami.jpg",
+  "assets/concept1/banner-pelmeni.jpg",
+  "assets/concept1/banner-meatballs.jpg",
+  "assets/products/sku/sku-sosiski-molochnye.png",
+  "assets/products/sku/sku-sosiski-brokkoli.png",
+  "assets/products/sku/sku-vetchina-fileynaya.png",
+  "assets/products/sku/sku-mramornaya.png",
+  "assets/products/sku/sku-slivochnaya.png",
   "assets/concept1/salami.jpg",
   "assets/concept1/mood-soft.jpg",
   "assets/concept1/mood-grill.jpg",
@@ -1172,8 +1186,11 @@ await output("404.html", page404);
 // Design variant 1 (preview/mockup at /1, noindex)
 await output("1/index.html", await readFile(join(root, "1.html"), "utf8"));
 
+// More Nutrition style landing (preview at /start, noindex)
+await output("start/index.html", await readFile(join(root, "start.html"), "utf8"));
+
 await output("_headers", `/*\n  X-Content-Type-Options: nosniff\n  Referrer-Policy: strict-origin-when-cross-origin\n  X-Frame-Options: SAMEORIGIN\n  Permissions-Policy: geolocation=(), microphone=(), camera=()\n\n/assets/*\n  Cache-Control: public, max-age=31536000, immutable\n\n/packshots/*\n  Cache-Control: public, max-age=31536000, immutable\n`);
-await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n/1 /1/ 301\n`);
+await output("_redirects", `https://www.yaratu.com/* https://yaratu.com/:splat 301\n/label / 301\n/label/ / 301\n/2 / 301\n/2/ / 301\n/1 /1/ 301\n/start /start/ 301\n`);
 const routes = {
   version: 1,
   include: ["/*"],

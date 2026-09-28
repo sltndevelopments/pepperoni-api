@@ -39,11 +39,11 @@ test("canonical data has five trilingual validated products", async () => {
   }
 });
 
-const isMockup = (path) => path === "1/index.html";
+const isMockup = (path) => path === "1/index.html" || path === "start/index.html";
 
 test("allowlist build excludes internal and legacy SVG", async () => {
   const built = await files(dist);
-  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 33);
+  assert.equal(built.filter((path) => path.endsWith("index.html")).length, 34);
   assert.equal(built.some((path) => path.split("/").includes("internal")), false);
   assert.equal(built.some((path) => path.startsWith("img/") && path.endsWith(".svg")), false);
   const allowedSvg = new Set([
@@ -61,11 +61,16 @@ test("allowlist build excludes internal and legacy SVG", async () => {
   for (const path of built.filter((item) => item.endsWith(".svg"))) assert.ok(allowedSvg.has(path), `unexpected SVG: ${path}`);
   assert.ok(built.includes("404.html"));
   assert.ok(built.includes("1/index.html"));
+  assert.ok(built.includes("start/index.html"));
   const html1 = await readFile(join(dist, "1/index.html"), "utf8");
   assert.match(html1, /<title>Ярату — концепт 1/);
   assert.match(html1, /noindex/);
   assert.match(html1, /id="assortment"/);
   assert.match(html1, /id="spec-modal"/);
+  const htmlStart = await readFile(join(dist, "start/index.html"), "utf8");
+  assert.match(htmlStart, /<title>Ярату — Вкус встречается с пользой/);
+  assert.match(htmlStart, /noindex/);
+  assert.match(htmlStart, /id="spec-modal"/);
   const html404 = await readFile(join(dist, "404.html"), "utf8");
   assert.match(html404, /<title>404/);
   assert.match(html404, /noindex/);
