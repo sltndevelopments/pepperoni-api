@@ -19,7 +19,8 @@
 <link rel="alternate" type="text/markdown" href="/en/index.md" title="Markdown for agents">
 <link rel="ai-catalog" href="/.well-known/ai-catalog.json" type="application/json">
 <link rel="describedby" href="/.well-known/ai-catalog.json" type="application/json">
-<link rel="stylesheet" href="/styles.css?v=20260831a">
+<link rel="stylesheet" href="/styles.css?v=20260927c">
+<link rel="stylesheet" href="/work/built.css?v=20260927i">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2310150a'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%23c9a227' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23fff0d9'/%3E%3C/svg%3E">
 <script type="application/ld+json">
 {
@@ -53,6 +54,7 @@
   <div class="wrap nav-in">
     <a class="brand" href="#top">RS<span class="brand-dot">·</span></a>
     <nav class="nav-links" aria-label="Sections">
+      <a href="#built">Systems</a>
       <a href="#work">Work</a>
       <a href="#method">Method</a>
       <a href="#formats">Formats</a>
@@ -60,6 +62,7 @@
       <a href="#contact">Contact</a>
     </nav>
     <div class="nav-right">
+      <a class="nav-case" href="#built">Systems</a>
       <div class="lang" aria-label="Language">
         <a href="/">RU</a>
         <span class="lang-on">EN</span>
@@ -98,6 +101,24 @@
     <div class="wrap">
       <p class="big-line reveal">I do not sell subscriptions or prompt courses. I build a working loop: people, data, agents and the company’s real processes.</p>
       <p class="big-line-sub reveal d1">I test it on a live production floor — then bring it to the client.</p>
+    </div>
+  </section>
+
+  <section class="section built" id="built">
+    <div class="wrap">
+      <p class="sec-label mono reveal">systems</p>
+      <h2 class="reveal">What already runs, and what is still on the table</h2>
+      <p class="sec-sub reveal">Client names are not listed. The profile numbers and the system list are loaded from this server. The descriptions are in Russian.</p>
+      <p class="live" id="live" data-state="wait"><i></i><span>connecting…</span></p>
+      <div class="score reveal">
+        <div><b id="count-cases">00</b><span>finished</span></div>
+        <div><b id="count-active">00</b><span>in progress</span></div>
+      </div>
+      <div id="cursor-panel"></div>
+      <h3 class="built-label">Now</h3>
+      <div class="rail ledger-list"></div>
+      <h3 class="built-label">Finished</h3>
+      <div class="chapters"></div>
     </div>
   </section>
 
@@ -378,5 +399,6 @@
 </footer>
 
 <script src="/app.js" defer></script>
+<script src="/work/live.js?v=20260927i"></script>
 </body>
 </html>

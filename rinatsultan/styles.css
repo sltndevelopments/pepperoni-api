@@ -153,6 +153,12 @@ a:hover { color: var(--gold); }
 }
 .nav-links a:hover { color: var(--cream); }
 .nav-right { display: flex; align-items: center; gap: 1.2rem; }
+.nav-case {
+  font-size: 0.85rem;
+  color: var(--gold);
+  text-decoration: none;
+}
+.nav-case:hover { color: var(--cream); }
 .lang {
   display: flex;
   align-items: center;
