@@ -20,6 +20,7 @@
 > `moscow-leads/` (полевой контур Арби: статусы/кнопки/72ч/пятничный дайджест)
 > и SEO-автоматизация в `scripts/` (`seo_brain.py`, `fable_*`, `opus_brain_client.py`).
 > Это НЕ часть сайта. См. «Границы репозитория» в `.cursor/rules/pepperoni-infra.mdc`.
+> Личный сайт rinatsultan.com вынесен в [sltndevelopments/rinatsultan](https://github.com/sltndevelopments/rinatsultan).
 
 ## Стек и зависимости (это НЕ «чистая статика»)
 

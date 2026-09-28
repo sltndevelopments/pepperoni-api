@@ -408,16 +408,4 @@ jobs:
             fi
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh /var/www/pepperoni/repo
-            if [ -d /var/www/pepperoni/repo/rinatsultan ]; then
-              mkdir -p /var/www/rinatsultan/current
-              rsync -a --delete \
-                --exclude '_headers' \
-                /var/www/pepperoni/repo/rinatsultan/ /var/www/rinatsultan/current/
-              if [ -f /etc/letsencrypt/live/rinatsultan.com/fullchain.pem ]; then
-                install -m 644 /var/www/pepperoni/repo/deploy/nginx/rinatsultan.conf \
-                  /etc/nginx/sites-available/rinatsultan.conf
-                ln -sfn /etc/nginx/sites-available/rinatsultan.conf /etc/nginx/sites-enabled/rinatsultan.conf
-                nginx -t && systemctl reload nginx
-                echo "✅ rinatsultan.com static site updated"
-              fi
-            fi
+            # rinatsultan.com moved to sltndevelopments/rinatsultan — do not rsync from here.
