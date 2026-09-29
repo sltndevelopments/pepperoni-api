@@ -183,6 +183,15 @@
 
 ## Log
 
+- **2026-09-28 Отчёт по настоящему Googlebot из nginx (read-only).**
+  - Файлы: `scripts/googlebot_crawl_report.py`, `scripts/test_googlebot_crawl_report.py`, `data/googlebot_ip_ranges.json` (снимок официальных диапазонов, creationTime 2026-09-28T14:46:17), `package.json` (тест в `npm test`; сам отчёт не в `npm test`).
+  - Коммит: `feat(seo): verified Googlebot crawl report from nginx logs`.
+  - VPS, `/var/log/nginx`, проверенный Googlebot, 14–28 Sep: verified 7107; исключено UA Googlebot вне диапазонов 11363; 200=2699, 301=391, 404=116, 410=3877, 5xx=0.
+  - 410 по первому сегменту: /geo 1763, /blog 721, /en 546, /ar 236, дальше снятые локали.
+  - 404 со ссылкой в `public/`: `/favicon.ico` (4) и `/` (2). Файлы на pepperoni.tatar живые (favicon 200, главная не 404). Те же пути на голом IP `37.9.4.101` отдают 404. Лог без `$host`, генераторы не менялись.
+  - 404 без ссылок, ничего не правилось. Живой кириллический slug `https://pepperoni.tatar/blog/eksport-halyal-snг` сейчас 404 (13 хитов в логе), латинский `/blog/eksport-halyal-sng` уже 410. KD-012/016/068 в логе как 404, сейчас на сайте 410. Добавлять их в карту 410 не стал — решение владельца.
+  - nginx, robots, sitemap, consolidation map, index manifest не менялись.
+
 - **2026-09-23 Автоматическая горячая индексация всех хабов и авто-детекция изменений.**
   - Файлы: `scripts/yandex-index.py`, `scripts/bing-index.py`, `public/index.html`, `public/en/index.html`.
   - В `load_hot_urls()` внедрена автоматическая загрузка всех коммерческих/доверительных хабов из `data/index_manifest.json` (включая `/jerky`, `/north-star`, `/kontraktnoe-proizvodstvo`, `/kazylyk`, `/kolbasy-varenye`, `/kolbasy-kopchyonye`, `/vetchina-optom`, `/vyipechka-halyal` и их EN-версии) + авто-детекция свежих/изменённых `.html` через git diff (приоритет 1000).
