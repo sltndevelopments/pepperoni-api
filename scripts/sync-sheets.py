@@ -19,16 +19,7 @@ PUBLIC = ROOT / "public"
 SUBMISSION = ROOT / "submission"
 
 
-def _sheet_public_en(text: str) -> str:
-    """Sheet copy sometimes uses an English nickname we do not publish."""
-    if not text:
-        return text
-    return (
-        text.replace("Pigs-in-Blankets", "Sausage Rolls")
-        .replace("Pigs-in-Blanket", "Sausage Roll")
-        .replace("pigs-in-blankets", "sausage rolls")
-        .replace("pigs-in-blanket", "sausage roll")
-    )
+from public_halal_language import load_previous_by_sku, scrub_sheet_products  # noqa: E402
 
 from sku_registry import (  # noqa: E402
     assign_sku,
@@ -210,7 +201,7 @@ def parse_standard(lines, section, reg, has_piece_price=True):
         if cell(19):
             p["seoDescriptionRU"] = cell(19)
         if cell(20):
-            p["seoDescriptionEN"] = _sheet_public_en(cell(20))
+            p["seoDescriptionEN"] = cell(20)
         if cell(21):
             p["diameter"] = cell(21)
         if cell(22):
@@ -1737,6 +1728,13 @@ def main():
     print(f"\n📊 Всего: {len(all_products)} товаров\n")
 
     apply_description_overrides(all_products)
+    prev_catalog = {}
+    if (PUBLIC / "products.json").exists():
+        try:
+            prev_catalog = json.loads((PUBLIC / "products.json").read_text(encoding="utf-8"))
+        except Exception as ex:
+            print(f"  ⚠️  previous products.json unreadable: {ex}")
+    all_products = scrub_sheet_products(all_products, load_previous_by_sku(prev_catalog))
 
     products_json = generate_products_json(all_products)
     out_path = PUBLIC / "products.json"

@@ -6,9 +6,10 @@ files under public/ may not, including negations and comparisons.
 """
 from __future__ import annotations
 
-import re
 import sys
 from pathlib import Path
+
+from public_halal_language import UNSAFE_PATTERNS as PATTERNS
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -17,22 +18,6 @@ TEXT_SUFFIXES = {
     ".html", ".txt", ".json", ".xml", ".yaml", ".yml", ".md", ".js",
     ".css", ".svg", ".csv",
 }
-
-# Cyrillic boundaries: ASCII \b does not treat Cyrillic as a word char reliably
-# across engines, so the RU forms are spelled out.
-PATTERNS = [
-    re.compile(r"свин(?!ц)", re.I),
-    re.compile(r"шпик", re.I),
-    re.compile(r"(?<![а-яё])сало(?![а-яё])", re.I),
-    re.compile(r"pork", re.I),
-    re.compile(r"\bporcine\b", re.I),
-    re.compile(r"\bpigs?\b", re.I),
-    re.compile(r"\bswine\b", re.I),
-    re.compile(r"\bhogs?\b", re.I),
-    re.compile(r"\blard\b", re.I),
-    re.compile(r"\bfatback\b", re.I),
-    re.compile(r"خنزير"),
-]
 
 
 def scan(root: Path) -> list[str]:

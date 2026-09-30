@@ -183,6 +183,10 @@
 
 ## Log
 
+- **2026-09-30 Fail-closed Sheets ingest.**
+  - Корень: `seoDescriptionRU` шёл в `products.json` как есть; алиас был только EN Pigs-in-Blankets. RU «отсутствие свинины» ломало `check_public_halal_language.py`.
+  - Класс: любая текстовая ячейка после единственного алиаса либо публикуется, либо отклоняется (предыдущая чистая / пусто). Без generic rewrite.
+  - Тест: `python3 scripts/test_sheet_public_text.py` + `node scripts/test_sheet_public_text.mjs` — в `npm test`.
 - **2026-09-30 Keep CTR: /blog/kazylyk + /blog/pepperoni-iz-kakogo-myasa.**
   - Title/description на паттерн «что это + оптом от производителя»; казылык переписан по каталогу KD-044/KD-045 (650 ₽ / 450 ₽, 180/30 сут, EXW паллета), без выдуманных долей мяса и «варёного казылыка». CTA на `/kazylyk`. Пепперони — сниппет + CTA на `/pepperoni`, хаб не трогали.
   - `python3 scripts/qa_pages.py` на 3 HTML → 0 FAIL; `check_public_halal_language.py` → clean; видимых слов в казылыке ≈1070.
