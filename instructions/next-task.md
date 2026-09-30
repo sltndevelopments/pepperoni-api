@@ -183,6 +183,9 @@
 
 ## Log
 
+- **2026-09-30 Keep CTR: EN kazylyk + /blog/echpochmak.**
+  - EN казылык — близнец RU: KD-044/045, без «goose etymology» и % жира vs beef. CTA `/en/kazylyk`.
+  - Эчпочмак: только KD-050 (100 г, 68,77 ₽, короб 48, –18 °C / 360 сут). Убраны 5 суток / GCC / 0,5–5 кг.
 - **2026-09-30 Keep CTR: what-is-halal + slicing pair.**
   - `/blog/what-is-halal-pepperoni` + EN: title «оптом», CTA `/pepperoni`, состав не из пустого каталога.
   - `/blog/narezka-pepperoni-parametry` + `/en/blog/pepperoni-slicing-specs`: только KD-013 50–55 мм; толщина/выход не нормируются. Сломанный HTML RU убран. hreflang пара.
