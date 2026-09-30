@@ -184,7 +184,9 @@
 ## Log
 
 - **2026-09-30 Keep CTR: pizzeria + export pepperoni blogs.**
-  - Сняты 350 °C, конина/1 кг, Татнефть, «экспорт worldwide / Ближний Восток как текущий». Остались KD-013/014 и СНГ.
+  - `ad797d31c` origin/main. Сняты 350 °C, конина/1 кг, Татнефть, «экспорт worldwide / Ближний Восток как текущий». Остались KD-013/014 и СНГ.
+- **2026-09-30 Keep CTR: сосиски для хот-догов RU+EN.**
+  - Только хаб KD-001…005 и KD-008, 6×80 г / 0,48 кг, 24 мм, –18 °C / 360 сут. Сняты выдуманные калибр-диапазон, влажность, «говяжьи хот-доги» как класс. CTA `/sosiski-dlya-hotdog`.
 - **2026-09-30 Keep CTR: /blog/iso-22000-iaf-certsearch.**
   - Только ISO 22000:2018 + FSMS-2351/А + URL IAF. Убраны CERT International, SNAS, IAF MLA, Active, scope. Статус — на живой карточке.
 - **2026-09-30 Keep CTR: halal-certification-russia RU+EN.**
