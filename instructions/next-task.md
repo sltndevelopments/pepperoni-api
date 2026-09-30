@@ -183,6 +183,8 @@
 
 ## Log
 
+- **2026-09-30 Keep CTR: halal-certification-russia RU+EN.**
+  - Только номера ДУМ РТ 614А/884А (+ 976А/1002 без выдуманного scope). Убраны 20 млн мусульман, тарифы, взаимное признание ЦДУМ/СМР, JAKIM/SFDA/GCC как текущий экспорт. CTA каталог + `/about`.
 - **2026-09-30 Keep CTR: котлеты RU+EN.**
   - Только KD-009 / KD-010, 276 ₽ / 0,3 кг, –18 °C 360 сут. Убраны smash, индейка, 80/20, GCC, «100% говядина». CTA `/kotlety-dlya-burgerov`.
 - **2026-09-30 Keep CTR: EN kazylyk + /blog/echpochmak.**
