@@ -183,6 +183,8 @@
 
 ## Log
 
+- **2026-09-30 Keep CTR: котлеты RU+EN.**
+  - Только KD-009 / KD-010, 276 ₽ / 0,3 кг, –18 °C 360 сут. Убраны smash, индейка, 80/20, GCC, «100% говядина». CTA `/kotlety-dlya-burgerov`.
 - **2026-09-30 Keep CTR: EN kazylyk + /blog/echpochmak.**
   - EN казылык — близнец RU: KD-044/045, без «goose etymology» и % жира vs beef. CTA `/en/kazylyk`.
   - Эчпочмак: только KD-050 (100 г, 68,77 ₽, короб 48, –18 °C / 360 сут). Убраны 5 суток / GCC / 0,5–5 кг.
