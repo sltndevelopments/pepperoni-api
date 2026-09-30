@@ -183,6 +183,9 @@
 
 ## Log
 
+- **2026-09-30 Keep CTR: /blog/kazylyk + /blog/pepperoni-iz-kakogo-myasa.**
+  - Title/description на паттерн «что это + оптом от производителя»; казылык переписан по каталогу KD-044/KD-045 (650 ₽ / 450 ₽, 180/30 сут, EXW паллета), без выдуманных долей мяса и «варёного казылыка». CTA на `/kazylyk`. Пепперони — сниппет + CTA на `/pepperoni`, хаб не трогали.
+  - `python3 scripts/qa_pages.py` на 3 HTML → 0 FAIL; `check_public_halal_language.py` → clean; видимых слов в казылыке ≈1070.
 - **2026-09-28 Отчёт по настоящему Googlebot из nginx (read-only).**
   - Файлы: `scripts/googlebot_crawl_report.py`, `scripts/test_googlebot_crawl_report.py`, `data/googlebot_ip_ranges.json` (снимок официальных диапазонов, creationTime 2026-09-28T14:46:17), `package.json` (тест в `npm test`; сам отчёт не в `npm test`).
   - Коммит: `feat(seo): verified Googlebot crawl report from nginx logs`.
