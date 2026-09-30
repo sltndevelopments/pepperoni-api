@@ -183,6 +183,8 @@
 
 ## Log
 
+- **2026-09-30 Keep CTR: /blog/iso-22000-iaf-certsearch.**
+  - Только ISO 22000:2018 + FSMS-2351/А + URL IAF. Убраны CERT International, SNAS, IAF MLA, Active, scope. Статус — на живой карточке.
 - **2026-09-30 Keep CTR: halal-certification-russia RU+EN.**
   - Только номера ДУМ РТ 614А/884А (+ 976А/1002 без выдуманного scope). Убраны 20 млн мусульман, тарифы, взаимное признание ЦДУМ/СМР, JAKIM/SFDA/GCC как текущий экспорт. CTA каталог + `/about`.
 - **2026-09-30 Keep CTR: котлеты RU+EN.**
