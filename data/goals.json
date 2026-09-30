@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-09-29T05:30:43.715272+00:00",
+ "generated_at": "2026-09-30T05:30:44.152747+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 1,
  "tracked": 14,
@@ -9,8 +9,8 @@
  "top_converting": [
   {
    "path": "/",
-   "28d": 5,
-   "7d": 3
+   "28d": 8,
+   "7d": 6
   },
   {
    "path": "/products/kd-004",
@@ -27,13 +27,13 @@
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 468,
+   "impressions_28d": 474,
    "clicks_28d": 1,
    "inquiries_28d": 0,
    "position_28d": 9.1,
-   "position_7d": 9.2,
-   "trend": -0.0,
-   "gap_to_1": 8.2,
+   "position_7d": 9.3,
+   "trend": -0.1,
+   "gap_to_1": 8.3,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -41,13 +41,13 @@
   {
    "query": "пепперони из какого мяса",
    "seed": false,
-   "impressions_28d": 142,
+   "impressions_28d": 140,
    "clicks_28d": 0,
    "inquiries_28d": 0,
    "position_28d": 4.9,
-   "position_7d": 3.8,
-   "trend": 1.1,
-   "gap_to_1": 2.8,
+   "position_7d": 4.0,
+   "trend": 0.9,
+   "gap_to_1": 3.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -55,13 +55,13 @@
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 120,
+   "impressions_28d": 126,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 11.5,
-   "position_7d": 13.4,
-   "trend": -1.9,
-   "gap_to_1": 12.4,
+   "position_28d": 11.3,
+   "position_7d": 13.5,
+   "trend": -2.2,
+   "gap_to_1": 12.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -69,12 +69,12 @@
   {
    "query": "ветчина это халал",
    "seed": false,
-   "impressions_28d": 88,
+   "impressions_28d": 92,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 7.6,
+   "position_28d": 7.5,
    "position_7d": 6.5,
-   "trend": 1.1,
+   "trend": 1.0,
    "gap_to_1": 5.5,
    "achieved": false,
    "ctr_gap": true,
@@ -83,13 +83,13 @@
   {
    "query": "котлеты для гамбургеров оптом",
    "seed": false,
-   "impressions_28d": 78,
+   "impressions_28d": 77,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 35.1,
-   "position_7d": 43.3,
-   "trend": -8.2,
-   "gap_to_1": 42.3,
+   "position_28d": 35.3,
+   "position_7d": 42.5,
+   "trend": -7.2,
+   "gap_to_1": 41.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -99,7 +99,7 @@
    "seed": false,
    "impressions_28d": 73,
    "clicks_28d": 1,
-   "inquiries_28d": 5,
+   "inquiries_28d": 8,
    "position_28d": 24.5,
    "position_7d": 1.0,
    "trend": 23.5,
@@ -114,24 +114,10 @@
    "impressions_28d": 66,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 28.6,
-   "position_7d": 26.8,
-   "trend": 1.8,
-   "gap_to_1": 25.8,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "котлеты для бургеров купить оптом",
-   "seed": false,
-   "impressions_28d": 57,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 42.4,
-   "position_7d": 41.1,
-   "trend": 1.2,
-   "gap_to_1": 40.1,
+   "position_28d": 29.1,
+   "position_7d": 28.7,
+   "trend": 0.4,
+   "gap_to_1": 27.7,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -139,13 +125,27 @@
   {
    "query": "ветчина халяль или харам",
    "seed": false,
-   "impressions_28d": 54,
+   "impressions_28d": 55,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 3.1,
-   "position_7d": 5.8,
-   "trend": -2.8,
-   "gap_to_1": 4.8,
+   "position_28d": 3.3,
+   "position_7d": 7.1,
+   "trend": -3.8,
+   "gap_to_1": 6.1,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "котлеты для бургеров купить оптом",
+   "seed": false,
+   "impressions_28d": 55,
+   "clicks_28d": 0,
+   "inquiries_28d": 0,
+   "position_28d": 42.5,
+   "position_7d": 42.9,
+   "trend": -0.3,
+   "gap_to_1": 41.9,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -156,10 +156,10 @@
    "impressions_28d": 48,
    "clicks_28d": 1,
    "inquiries_28d": 0,
-   "position_28d": 34.7,
-   "position_7d": 31.0,
-   "trend": 3.7,
-   "gap_to_1": 30.0,
+   "position_28d": 34.8,
+   "position_7d": 32.8,
+   "trend": 2.0,
+   "gap_to_1": 31.8,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -169,7 +169,7 @@
    "seed": false,
    "impressions_28d": 46,
    "clicks_28d": 0,
-   "inquiries_28d": 5,
+   "inquiries_28d": 8,
    "position_28d": 7.8,
    "position_7d": 1.7,
    "trend": 6.2,
@@ -181,13 +181,13 @@
   {
    "query": "сосиска в тесте оптом",
    "seed": true,
-   "impressions_28d": 14,
+   "impressions_28d": 12,
    "clicks_28d": 1,
    "inquiries_28d": 0,
-   "position_28d": 5.9,
+   "position_28d": 5.7,
    "position_7d": null,
    "trend": null,
-   "gap_to_1": 4.9,
+   "gap_to_1": 4.7,
    "achieved": false,
    "ctr_gap": false,
    "conversion_gap": false
@@ -365,28 +365,28 @@
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 2430,
+   "impressions_28d": 2389,
    "clicks_28d": 10,
-   "position_28d": 17.6
+   "position_28d": 17.7
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 40,
+   "impressions_28d": 41,
    "clicks_28d": 0,
-   "position_28d": 7.0
+   "position_28d": 7.1
   },
   {
    "country": "Беларусь",
    "code": "blr",
-   "impressions_28d": 19,
+   "impressions_28d": 16,
    "clicks_28d": 0,
-   "position_28d": 9.3
+   "position_28d": 9.4
   },
   {
    "country": "Армения",
    "code": "arm",
-   "impressions_28d": 5,
+   "impressions_28d": 3,
    "clicks_28d": 0,
    "position_28d": 8.0
   },
@@ -421,16 +421,16 @@
   {
    "country": "ОАЭ",
    "code": "are",
-   "impressions_28d": 33,
+   "impressions_28d": 35,
    "clicks_28d": 0,
-   "position_28d": 7.1
+   "position_28d": 7.2
   },
   {
    "country": "Сауд. Аравия",
    "code": "sau",
-   "impressions_28d": 16,
+   "impressions_28d": 15,
    "clicks_28d": 0,
-   "position_28d": 23.6
+   "position_28d": 24.7
   },
   {
    "country": "Кувейт",
@@ -442,9 +442,9 @@
   {
    "country": "Бахрейн",
    "code": "bhr",
-   "impressions_28d": 6,
+   "impressions_28d": 4,
    "clicks_28d": 0,
-   "position_28d": 22.0
+   "position_28d": 30.0
   },
   {
    "country": "Оман",
@@ -456,9 +456,9 @@
   {
    "country": "Йемен",
    "code": "yem",
-   "impressions_28d": 1,
+   "impressions_28d": 0,
    "clicks_28d": 0,
-   "position_28d": 10.0
+   "position_28d": null
   },
   {
    "country": "Катар",

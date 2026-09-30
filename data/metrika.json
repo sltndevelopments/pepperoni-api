@@ -1,41 +1,41 @@
 {
- "fetched_at": "2026-09-29T05:30:05.273584+00:00",
+ "fetched_at": "2026-09-30T05:30:05.665649+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 369,
-  "users": 282,
-  "bounce_rate_pct": 30.9,
-  "page_depth": 1.51,
-  "avg_visit_sec": 81
+  "visits": 384,
+  "users": 293,
+  "bounce_rate_pct": 30.7,
+  "page_depth": 1.55,
+  "avg_visit_sec": 82
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 195
+   "visits": 202
   },
   {
    "source": "Internal traffic",
-   "visits": 72
+   "visits": 76
   },
   {
    "source": "Search engine traffic",
-   "visits": 69
+   "visits": 71
   },
   {
    "source": "Ad traffic",
-   "visits": 21
+   "visits": 20
   },
   {
    "source": "Link traffic",
-   "visits": 10
+   "visits": 12
   }
  ],
  "top_landing": [
   {
    "path": "/",
-   "visits": 212,
-   "bounce_pct": 26.4
+   "visits": 225,
+   "bounce_pct": 26.7
   },
   {
    "path": "/en/",
@@ -43,14 +43,14 @@
    "bounce_pct": 53.8
   },
   {
-   "path": "/products/kd-057",
+   "path": "/products/kd-009",
    "visits": 12,
-   "bounce_pct": 0.0
+   "bounce_pct": 8.3
   },
   {
-   "path": "/products/kd-009",
-   "visits": 10,
-   "bounce_pct": 10.0
+   "path": "/products/kd-057",
+   "visits": 11,
+   "bounce_pct": 0.0
   },
   {
    "path": "/products/kd-046",
@@ -109,25 +109,26 @@
   }
  ],
  "leads": {
-  "total_leads": 11,
+  "total_leads": 14,
   "by_goal": {
-   "Автоцель: переход в мессенджер": 5,
+   "Автоцель: переход в мессенджер": 7,
    "Автоцель: клик по номеру телефона": 3,
-   "Оставить заявку": 3
+   "Оставить заявку": 3,
+   "Автоцель: клик по email": 1
   }
  },
  "inquiries_by_page": {
-  "/products/kd-004": {
-   "28d": 4,
-   "7d": 0
-  },
   "/products/kd-015": {
    "28d": 2,
    "7d": 0
   },
   "/": {
-   "28d": 5,
-   "7d": 3
+   "28d": 8,
+   "7d": 6
+  },
+  "/products/kd-004": {
+   "28d": 4,
+   "7d": 0
   }
  }
 }
