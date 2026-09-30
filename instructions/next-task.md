@@ -183,6 +183,7 @@
 
 ## Log
 
+- **2026-09-30 /blog/kak-hranit-pepperoni.** Title + каталог –18 °C / 360 сут KD-013/014; убраны выдуманные 0…+6 и обрыв HTML. CTA на `/pepperoni`.
 - **2026-09-30 Fail-closed Sheets ingest.**
   - Корень: `seoDescriptionRU` шёл в `products.json` как есть; алиас был только EN Pigs-in-Blankets. RU «отсутствие свинины» ломало `check_public_halal_language.py`.
   - Класс: любая текстовая ячейка после единственного алиаса либо публикуется, либо отклоняется (предыдущая чистая / пусто). Без generic rewrite.
