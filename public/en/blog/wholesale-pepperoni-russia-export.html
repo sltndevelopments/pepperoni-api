@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
 <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -55,6 +61,30 @@ footer a{color:#aaa}
 .faq-section summary{font-weight:600;cursor:pointer}
 @media(max-width:600px){.article-wrap{padding:24px 20px}}
 </style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
+</style>
 </head>
 <body>
 <nav class="nav"><div class="nav__inner"><a href="/en/" class="nav__logo">Kazan Delicacies</a><div class="nav__links"><a href="/en/">Catalogue</a><a href="/en/pepperoni">Pepperoni</a><a href="/en/blog">Blog</a></div></div></nav>
@@ -83,7 +113,7 @@ footer a{color:#aaa}
 <div class="info-box"><p>Other destinations: preparing to supply. Permits and a buyer’s broker decide a given lot. We do not treat a blog as an export licence.</p></div>
 
 <h2>How to buy</h2>
-<p>Open <a href="/en/pepperoni">the pepperoni page</a>, send pieces or pallets, city and SKU. Mixed pallet possible. Private label from 5 tonnes after a spec — <a href="/en/kontraktnoe-proizvodstvo">contract manufacturing</a>.</p>
+<p>Open <a href="/en/pepperoni">the pepperoni page</a>, send pieces or pallets, city and SKU. Mixed pallet possible. Private label from 5 tonnes after a spec — contract manufacturing.</p>
 <p>+7 987 217-02-02 · info@kazandelikates.tatar · Kazan, Agrarnaya 2, office 7.</p>
 
 <div class="cta-block">
