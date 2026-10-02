@@ -1577,5 +1577,42 @@
     "usd_baseline": 1.054449
    }
   }
+ },
+ "2026-10": {
+  "usd": 0.008076,
+  "usd_baseline": 0.008076,
+  "days": {
+   "2026-10-01": {
+    "calls": 1,
+    "in": 1786,
+    "out": 1258,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.008076,
+    "usd_baseline": 0.008076
+   }
+  },
+  "scripts": {
+   "send_report": {
+    "calls": 1,
+    "in": 1786,
+    "out": 1258,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.008076,
+    "usd_baseline": 0.008076
+   }
+  },
+  "models": {
+   "claude-haiku-4-5-20251001": {
+    "calls": 1,
+    "in": 1786,
+    "out": 1258,
+    "cache_w": 0,
+    "cache_r": 0,
+    "usd": 0.008076,
+    "usd_baseline": 0.008076
+   }
+  }
  }
 }
