@@ -60,6 +60,10 @@ jobs:
               mkdir -p /var/www/pepperoni/media/videos
               cp -f public/videos/* /var/www/pepperoni/media/videos/
             fi
+            if [ -d public/docs ]; then
+              mkdir -p /var/www/pepperoni/public/docs
+              cp -rf public/docs/* /var/www/pepperoni/public/docs/
+            fi
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
