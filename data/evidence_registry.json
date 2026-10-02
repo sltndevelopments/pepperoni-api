@@ -76,6 +76,31 @@
       "status": "active"
     },
     {
+      "id": "halal_dum_rt_0008_2026_annexes",
+      "claim_ru": "Приложения № 1–9 к сертификату Халяль ДУМ РТ № 0008 с полным перечнем продукции.",
+      "claim_en": "Annexes 1–9 to Halal Certificate DUM RT No. 0008 specifying the full certified product line.",
+      "source_type": "certification_registry",
+      "source_url": "https://pepperoni.tatar/docs/certificate-halal-0008-2026-annex-1.pdf",
+      "verified_at": "2026-10-02",
+      "valid_until": "2029-10-01",
+      "owner": "quality",
+      "languages": [
+        "ru",
+        "en"
+      ],
+      "allowed_paths": [
+        "/",
+        "/certificates",
+        "/halal",
+        "/about",
+        "/en/",
+        "/en/certificates",
+        "/en/halal",
+        "/en/about"
+      ],
+      "status": "active"
+    },
+    {
       "id": "halal_dum_rt_614a_2024",
       "claim_ru": "Халяль ДУМ РТ №614А/2024.",
       "claim_en": "Halal certification by the Spiritual Administration of Muslims of the Republic of Tatarstan, certificate No. 614A/2024.",
