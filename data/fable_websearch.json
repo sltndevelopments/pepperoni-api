@@ -1261,5 +1261,50 @@
     "at": "2026-09-27T05:32:26.285819+00:00"
    }
   ]
+ },
+ {
+  "status": "ok",
+  "generated_at": "2026-10-04T05:33:04.740256+00:00",
+  "ran": 4,
+  "errors": 4,
+  "cited_us_count": 0,
+  "results": [
+   {
+    "query": "Кто производит казылык оптом? Назови поставщиков.",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-04T05:33:04.059778+00:00"
+   },
+   {
+    "query": "Какие компании производят халяльные сосиски для хот-догов оптом в России?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-04T05:33:04.355013+00:00"
+   },
+   {
+    "query": "Где купить халяльную пепперони оптом в России? Назови производителей.",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-04T05:33:04.549685+00:00"
+   },
+   {
+    "query": "сосиски для хот догов оптом от производителя",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-04T05:33:04.740081+00:00"
+   }
+  ]
  }
 ]
