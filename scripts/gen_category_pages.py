@@ -7,7 +7,11 @@ Run: python scripts/gen_category_pages.py
 """
 
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from analytics_snippets import METRIKA_BLOCK
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
@@ -297,6 +301,7 @@ def build_page(cfg):
     <p>ООО «Казанские Деликатесы» · <a href="/">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href="tel:+79872170202">+7 987 217-02-02</a></p>
   </footer>
 </div>
+{METRIKA_BLOCK}
 </body>
 </html>"""
 
@@ -758,6 +763,7 @@ def build_commercial_page(cfg, lang):
 }})();
 </script>
 <script src="/assets/lead-form.js" defer></script>
+{METRIKA_BLOCK}
 </body>
 </html>"""
 

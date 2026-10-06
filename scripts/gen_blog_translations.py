@@ -8,6 +8,7 @@ import os, sys, re, time
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from analytics_snippets import METRIKA_BLOCK
 from claude_client import call_claude, CONTENT_MODEL
 
 ROOT   = Path(__file__).parent.parent
@@ -222,6 +223,7 @@ def wrap_en(slug, date, generated):
 {nav_en(slug)}
 {main_content}
 {footer_en()}
+{METRIKA_BLOCK}
 </body>
 </html>"""
 
@@ -267,6 +269,7 @@ def wrap_ru(slug, date, generated):
 {nav_ru(slug)}
 {main_content}
 {footer_ru()}
+{METRIKA_BLOCK}
 </body>
 </html>"""
 

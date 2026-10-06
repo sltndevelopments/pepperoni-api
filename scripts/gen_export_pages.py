@@ -26,6 +26,7 @@ from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from analytics_snippets import GTM_BODY, GTM_HEAD, METRIKA_BLOCK  # noqa: E402
 from claude_client import call_claude  # noqa: E402
 
 ROOT = Path(__file__).parent.parent
@@ -370,6 +371,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
     return f"""<!DOCTYPE html>
 <html lang="{lang}" dir="{ui['dir']}">
 <head>
+{GTM_HEAD}
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{gen['title']}</title>
@@ -389,6 +391,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <style>{STYLE}</style>
 </head>
 <body>
+{GTM_BODY}
 <div class="container">
 <nav><a href="{LANG_PREFIX[lang] or '/'}">{ui['home']}</a> → <a href="{LANG_PREFIX[lang]}/export">{ui['export']}</a> → {plain_name} &nbsp;|&nbsp; {lang_switcher(c['slug'], c['langs'], lang)}</nav>
 <h1>{c['flag']} {gen['h1']}</h1>
@@ -415,6 +418,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
 </div>
 <footer><a href="{LANG_PREFIX[lang] or '/'}">pepperoni.tatar</a> · {ui['catalog']}: <a href="{LANG_PREFIX['en'] if lang != 'ru' else ''}/products">{ui['catalog']}</a> · © Kazan Delicacies</footer>
 </div>
+{METRIKA_BLOCK}
 </body>
 </html>"""
 
