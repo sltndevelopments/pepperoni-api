@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-04T05:34:28.241255+00:00",
-  "gsc_data_through": "2026-09-29",
+  "generated_at": "2026-10-05T09:00:02.021414+00:00",
+  "gsc_data_through": "2026-10-02",
   "window_days": 28,
   "leads": {
-    "7d": 144,
+    "7d": 151,
     "21d": 406,
-    "commercial_7d": 24,
+    "commercial_7d": 26,
     "on_exp_pages_21d": 1,
-    "last_at": "2026-10-04T00:00:42+00:00"
+    "last_at": "2026-10-05T08:46:27+00:00"
   },
   "experiments": [],
   "watchlist": [
@@ -30,9 +30,9 @@
       "sitewide_top": [
         {
           "page": "/blog/what-is-halal-pepperoni",
-          "impr": 20,
+          "impr": 17,
           "clicks": 0,
-          "position": 7.9
+          "position": 8.2
         },
         {
           "page": "/",
@@ -72,17 +72,17 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 12,
-        "clicks": 1,
-        "position": 7.9
+        "impr": 13,
+        "clicks": 2,
+        "position": 7.8
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/pepperoni",
-          "impr": 12,
-          "clicks": 1,
-          "position": 7.9
+          "impr": 13,
+          "clicks": 2,
+          "position": 7.8
         },
         {
           "page": "/",
@@ -217,17 +217,17 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 2,
+        "impr": 1,
         "clicks": 0,
-        "position": 42.5
+        "position": 47.0
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/en/pepperoni",
-          "impr": 2,
+          "impr": 1,
           "clicks": 0,
-          "position": 42.5
+          "position": 47.0
         },
         {
           "page": "/blog/what-is-halal-pepperoni",
