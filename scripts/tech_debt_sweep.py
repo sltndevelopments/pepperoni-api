@@ -489,6 +489,12 @@ def main() -> int:
     # Stage all changed public/ files
     subprocess.run(["git", "add", "public/"], cwd=str(ROOT))
 
+    # PHASE 1: never push deletion of an allowlist page
+    subprocess.run(
+        [sys.executable, str(SCRIPTS / "index_safety.py"), "--guard-staged-commit"],
+        cwd=str(ROOT),
+    )
+
     # Commit (only if there are staged changes)
     status = subprocess.run(
         ["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)

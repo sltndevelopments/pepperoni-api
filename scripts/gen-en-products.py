@@ -3,6 +3,7 @@
 import json
 import os
 import re
+import sys
 import urllib.parse
 
 OUT = "public/en/products"
@@ -793,10 +794,15 @@ def remove_orphan_pages(products):
             continue
         slug = fname[: -len(".html")]
         if re.fullmatch(r"kd-\d+", slug) and slug not in live_slugs:
-            os.remove(os.path.join(OUT, fname))
             removed.append(fname)
     if removed:
-        print(f"Removed {len(removed)} orphan product page(s) from {OUT}/: {', '.join(sorted(removed))}")
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import index_safety
+        index_safety.refuse_orphan_product_delete(removed, lang="EN")
+        print(
+            f"PHASE 1: kept {len(removed)} orphan EN product page(s) "
+            f"(not deleted): {', '.join(sorted(removed))}"
+        )
 
 
 if __name__ == "__main__":

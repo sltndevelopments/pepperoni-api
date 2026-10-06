@@ -15,10 +15,12 @@ Modes:
   qa_pages.py                  — check git-changed *.html in public/
   qa_pages.py --all            — check the whole public/ tree
   qa_pages.py path [path…]     — check specific files/dirs
-  qa_pages.py --quarantine     — move FAILed files to data/quarantine/ and
-                                 notify Telegram, exit 0 (pipeline continues
-                                 with clean pages only). Without the flag the
-                                 script exits 1 on any FAIL (CI gate).
+  qa_pages.py --quarantine     — for NEW pages: move FAILed files to
+                                 data/quarantine/ and continue. For pages with
+                                 status=keep in data/index_manifest.json:
+                                 restore the file from git HEAD, alert, and
+                                 exit 1 (do NOT remove an indexed page).
+                                 Override: ALLOW_KEEP_QUARANTINE=1.
 """
 
 from __future__ import annotations
@@ -240,12 +242,26 @@ def main() -> int:
             print(f"  ✗ {rel}: {e}")
 
     if failed and quarantine:
-        QUARANTINE.mkdir(parents=True, exist_ok=True)
+        import index_safety
+        blocked: list[Path] = []
+        to_move: list[Path] = []
         for f in failed:
-            dest = QUARANTINE / f.relative_to(PUBLIC)
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            shutil.move(str(f), str(dest))
-        print(f"  → {len(failed)} page(s) moved to data/quarantine/")
+            if index_safety.protect_keep_from_quarantine(f, failed[f]):
+                blocked.append(f)
+            else:
+                to_move.append(f)
+        if to_move:
+            QUARANTINE.mkdir(parents=True, exist_ok=True)
+            for f in to_move:
+                dest = QUARANTINE / f.relative_to(PUBLIC)
+                dest.parent.mkdir(parents=True, exist_ok=True)
+                shutil.move(str(f), str(dest))
+            print(f"  → {len(to_move)} new page(s) moved to data/quarantine/")
+        if blocked:
+            print(
+                f"  → {len(blocked)} allowlist page(s) restored, NOT quarantined. "
+                "Pipeline stopped."
+            )
         try:
             import daily_ledger
             halal_violations = [
@@ -257,13 +273,15 @@ def main() -> int:
                 for f, e in halal_violations[:3]:
                     lines.append(f"• {f.relative_to(PUBLIC)}: {e[:80]}")
                 daily_ledger.append_event("emergency", "\n".join(lines))
-            else:
-                lines = [f"QA карантин: {len(failed)} стр."]
-                for f, errs in list(failed.items())[:4]:
-                    lines.append(f"• {f.relative_to(PUBLIC)}: {errs[0][:80]}")
+            elif to_move and not blocked:
+                lines = [f"QA карантин: {len(to_move)} стр."]
+                for f in to_move[:4]:
+                    lines.append(f"• {f.relative_to(PUBLIC)}: {failed[f][0][:80]}")
                 daily_ledger.append_event("done", "\n".join(lines))
         except Exception:
             pass
+        if blocked:
+            return 1
         return 0
 
     return 1 if failed else 0

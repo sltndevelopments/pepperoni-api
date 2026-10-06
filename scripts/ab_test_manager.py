@@ -12,15 +12,15 @@ instead of simply stopping, this module:
   2. MEASURE  — after 21 days, compare GSC positions for control vs variant.
                Called by seo-agent-vps.sh daily; does nothing until 21 days pass.
 
-  3. DECIDE   — winner keeps canonical; loser gets noindex + canonical → winner.
-               Records status: "ab_complete" with winner/loser/delta_pos.
-               If delta_pos > 20 in favour of variant → flag in daily digest.
+  3. DECIDE   — records winner/loser and alerts. Does NOT apply noindex
+               or rewrite canonical unless ALLOW_AB_NOINDEX=1.
 
 Constraints (rails):
   - Max 3 active A/B tests simultaneously (no spam).
   - Variant only created if control has GSC data (≥1 impression).
   - Variant content goes through page_reviewer + verify_invariants gate.
-  - noindex decision is autonomous; delta_pos > 20 triggers owner digest alert.
+  - noindex is never applied automatically (PHASE 1). Owner override:
+    ALLOW_AB_NOINDEX=1.
 
 Usage:
   python3 scripts/ab_test_manager.py --check-trigger  <query> <control_url> <gsc_impressions>
@@ -304,15 +304,33 @@ def _decide(test: dict, data: dict) -> None:
             winner, loser = test["control_url"], test["variant_url"]
             delta = -delta
 
-    # Apply noindex to loser
-    _apply_noindex_to_loser(loser, winner)
+    sys.path.insert(0, str(SCRIPTS))
+    import index_safety
 
-    # Update test record
-    test["status"] = "ab_complete"
+    # Update test record first so the measurement is durable even if we stop.
     test["winner"] = winner
     test["loser"] = loser
     test["delta_pos"] = round(delta, 2)
     test["decided_at"] = datetime.now(timezone.utc).isoformat()
+
+    if not index_safety.owner_override(index_safety.COUNTER_ENV_AB):
+        test["status"] = "ab_needs_owner"
+        index_safety.alert(
+            "A/B тест готов к решению — noindex не применён",
+            f"Запрос: {test['query']}\n"
+            f"Победитель (предложение): {winner}\n"
+            f"Проигравший: {loser}\n"
+            f"Δ позиций: {delta:.1f}\n"
+            f"PHASE 1: автоматический noindex/canonical запрещён. "
+            f"Чтобы применить noindex к проигравшему, владелец ставит "
+            f"{index_safety.COUNTER_ENV_AB}=1 и перезапускает --measure.",
+        )
+        print("   ⏸ noindex skipped (ALLOW_AB_NOINDEX not set); status=ab_needs_owner")
+        return
+
+    # Apply noindex to loser only with explicit owner override
+    _apply_noindex_to_loser(loser, winner)
+    test["status"] = "ab_complete"
 
     # Notify if delta large
     if delta > 20 and winner == test["variant_url"]:
@@ -322,6 +340,16 @@ def _decide(test: dict, data: dict) -> None:
 
 
 def _apply_noindex_to_loser(loser_url: str, winner_url: str) -> None:
+    sys.path.insert(0, str(SCRIPTS))
+    import index_safety
+    if index_safety.is_keep_url(loser_url) and not index_safety.owner_override(
+        index_safety.COUNTER_ENV_AB
+    ):
+        index_safety.alert(
+            "A/B noindex заблокирован для allowlist URL",
+            f"Проигравший {loser_url} в status=keep — noindex не ставится.",
+        )
+        return
     slug = _slug_from_url(loser_url)
     candidates = [PUBLIC / f"{slug}.html", PUBLIC / slug]
     for p in candidates:
