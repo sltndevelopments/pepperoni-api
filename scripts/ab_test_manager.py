@@ -304,7 +304,9 @@ def _decide(test: dict, data: dict) -> None:
             winner, loser = test["control_url"], test["variant_url"]
             delta = -delta
 
-    # Apply noindex to loser
+    # Record the winner, but do not hide the loser. noindex of a live page
+    # is a manual step (--confirm-destructive), including pages outside the
+    # allowlist: an automatic verdict must not change indexation.
     _apply_noindex_to_loser(loser, winner)
 
     # Update test record
@@ -322,6 +324,16 @@ def _decide(test: dict, data: dict) -> None:
 
 
 def _apply_noindex_to_loser(loser_url: str, winner_url: str) -> None:
+    if "--confirm-destructive" not in sys.argv:
+        sys.path.insert(0, str(SCRIPTS))
+        import index_safety
+        index_safety.alert(
+            "noindex",
+            loser_url,
+            f"A/B measure refused automatic noindex; winner would be {winner_url}",
+        )
+        print("   noindex skipped: automatic A/B noindex is disabled")
+        return
     slug = _slug_from_url(loser_url)
     candidates = [PUBLIC / f"{slug}.html", PUBLIC / slug]
     for p in candidates:

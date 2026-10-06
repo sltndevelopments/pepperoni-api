@@ -25,6 +25,8 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import index_safety  # noqa: E402
 PUBLIC = ROOT / "public"
 ANALYSIS = ROOT / "data" / "geo_cleanup_analysis.json"
 NGINX_DIR = ROOT / "deploy" / "nginx"
@@ -49,6 +51,10 @@ def delete_removed(rows: list[dict]) -> dict:
             continue
         f = PUBLIC / r["file"]
         if f.exists():
+            if index_safety.block_if_keep(
+                "delete", f, confirm=index_safety.destructive_confirmed()
+            ):
+                raise SystemExit(f"refusing to delete allowlisted page: {f}")
             f.unlink()
             counts[r["disposition"]] += 1
     return dict(counts)

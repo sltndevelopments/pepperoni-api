@@ -7,7 +7,11 @@ Run: python scripts/gen_category_pages.py
 """
 
 import json
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent))
+from metrika_snippet import ensure_metrika_html  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
@@ -991,10 +995,10 @@ def main():
             print(f"⏭️  {out.name} skipped (not in index allowlist)")
             continue
         if cfg.get("commercial"):
-            out.write_text(build_commercial_page(cfg, "ru"), encoding="utf-8")
+            out.write_text(ensure_metrika_html(build_commercial_page(cfg, "ru")), encoding="utf-8")
             out_en = PUBLIC / "en" / f'{cfg["slug"]}.html'
             if out_en.relative_to(PUBLIC).as_posix() in approved:
-                out_en.write_text(build_commercial_page(cfg, "en"), encoding="utf-8")
+                out_en.write_text(ensure_metrika_html(build_commercial_page(cfg, "en")), encoding="utf-8")
                 print(f"✅ en/{out_en.name} (commercial)")
             else:
                 print(f"⏭️  en/{out_en.name} skipped (not in index allowlist)")
@@ -1002,7 +1006,7 @@ def main():
             print(f"✅ {out.name} (commercial, {len(shown)} SKU shown, {len(HELD_COMMERCIAL & {p['sku'] for p in get_products_by_category(cfg['categories'])})} on hold)")
             created += 1
             continue
-        html = build_page(cfg)
+        html = ensure_metrika_html(build_page(cfg))
         out.write_text(html, encoding="utf-8")
         n_skus = len(get_products_by_category(cfg["categories"])) if "categories" in cfg else len(cfg["skus"])
         print(f"✅ {out.name} ({n_skus} SKU)")

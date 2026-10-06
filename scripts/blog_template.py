@@ -5,6 +5,8 @@ import json
 import re
 from datetime import datetime
 
+from metrika_snippet import ensure_metrika_html
+
 SITE = "https://pepperoni.tatar"
 YEAR = datetime.now().year
 PHONE_DISPLAY = "+7 987 217-02-02"
@@ -207,7 +209,7 @@ def wrap_blog_page(
 
     llms = '/llms.txt' if lang == 'ru' else '/en/llms.txt'
 
-    return f"""<!DOCTYPE html>
+    html = f"""<!DOCTYPE html>
 <html lang="{content_lang}">
 <head>
 {GTM}
@@ -243,6 +245,7 @@ def wrap_blog_page(
 {footer}
 </body>
 </html>"""
+    return ensure_metrika_html(html)
 
 
 TITLE_RE = re.compile(r"<title>(.*?)</title>", re.I | re.S)

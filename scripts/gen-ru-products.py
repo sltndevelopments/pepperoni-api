@@ -3,6 +3,7 @@
 import json
 import os
 import re
+import sys
 import urllib.parse
 import urllib.request
 
@@ -775,10 +776,22 @@ def remove_orphan_pages(products):
             continue
         slug = fname[: -len(".html")]
         if re.fullmatch(r"kd-\d+", slug) and slug not in live_slugs:
-            os.remove(os.path.join(OUT, fname))
+            # Do not delete. A missing Sheet row must be checked by a person
+            # before an indexed card disappears.
+            orphan = os.path.join(OUT, fname)
+            sys.path.insert(0, os.path.join(os.path.dirname(__file__)))
+            import index_safety
+            index_safety.alert(
+                "delete",
+                orphan,
+                "SKU missing from Sheets; product HTML left in place",
+            )
             removed.append(fname)
     if removed:
-        print(f"Removed {len(removed)} orphan product page(s) from {OUT}/: {', '.join(sorted(removed))}")
+        print(
+            f"Kept {len(removed)} orphan product page(s) in {OUT}/ "
+            f"(delete only by hand): {', '.join(sorted(removed))}"
+        )
 
 
 if __name__ == "__main__":

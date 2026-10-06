@@ -12,11 +12,14 @@ import json
 import re
 import sqlite3
 import subprocess
+import sys
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(ROOT / "scripts"))
+import index_safety  # noqa: E402
 PUBLIC = ROOT / "public"
 DATA = ROOT / "data"
 NGINX = ROOT / "deploy" / "nginx"
@@ -488,11 +491,19 @@ def main() -> int:
         path = PUBLIC / rel
         row = by_file.get(rel)
         if row and row["status"] in {"301", "410"} and path.exists():
+            if index_safety.block_if_keep(
+                "delete", path, confirm=index_safety.destructive_confirmed()
+            ):
+                raise SystemExit(f"refusing to delete allowlisted page: {path}")
             path.unlink()
             continue
         if not path.exists():
             continue
         is_noindex = bool(row and row["status"] == "noindex")
+        if is_noindex and index_safety.block_if_keep(
+            "noindex", path, confirm=index_safety.destructive_confirmed()
+        ):
+            raise SystemExit(f"refusing to noindex allowlisted page: {path}")
         text = path.read_text(encoding="utf-8", errors="replace")
         cleaned = clean_html(text, noindex=is_noindex)
         if cleaned != text:

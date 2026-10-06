@@ -15,10 +15,13 @@ Modes:
   qa_pages.py                  — check git-changed *.html in public/
   qa_pages.py --all            — check the whole public/ tree
   qa_pages.py path [path…]     — check specific files/dirs
-  qa_pages.py --quarantine     — move FAILed files to data/quarantine/ and
-                                 notify Telegram, exit 0 (pipeline continues
-                                 with clean pages only). Without the flag the
-                                 script exits 1 on any FAIL (CI gate).
+  qa_pages.py --quarantine     — move FAILed files that are NOT in the index
+                                 allowlist to data/quarantine/. Allowlisted pages
+                                 (status=keep) stay in public/ and are restored
+                                 from git; an alert is written. Exit 0 so the
+                                 pipeline continues. Without the flag the script
+                                 exits 1 on any FAIL (CI gate). Pass
+                                 --confirm-destructive to quarantine a keep page.
 """
 
 from __future__ import annotations
@@ -32,6 +35,8 @@ from pathlib import Path
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
 QUARANTINE = ROOT / "data" / "quarantine"
+sys.path.insert(0, str(ROOT / "scripts"))
+import index_safety  # noqa: E402
 
 GOOD_PHONE = "79872170202"
 GOOD_EMAIL = "info@kazandelikates.tatar"
@@ -241,11 +246,24 @@ def main() -> int:
 
     if failed and quarantine:
         QUARANTINE.mkdir(parents=True, exist_ok=True)
-        for f in failed:
+        confirm = index_safety.destructive_confirmed()
+        moved = 0
+        kept = 0
+        for f in list(failed):
+            # Criteria stay the same. A keep page is restored from git and
+            # left in public/; only pages outside the allowlist are moved.
+            if index_safety.block_if_keep("quarantine", f, confirm=confirm):
+                index_safety.restore_keep_file(f)
+                kept += 1
+                continue
             dest = QUARANTINE / f.relative_to(PUBLIC)
             dest.parent.mkdir(parents=True, exist_ok=True)
             shutil.move(str(f), str(dest))
-        print(f"  → {len(failed)} page(s) moved to data/quarantine/")
+            moved += 1
+        print(
+            f"  → {moved} page(s) moved to data/quarantine/; "
+            f"{kept} allowlisted page(s) left in public/"
+        )
         try:
             import daily_ledger
             halal_violations = [

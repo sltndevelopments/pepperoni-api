@@ -420,6 +420,13 @@ git add data/agent_backups/*.bak 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 
+# Allowlisted pages must not leave main via an automatic deletion.
+if ! python3 scripts/index_safety.py --refuse-staged-keep-deletions >> "$LOG_FILE" 2>&1; then
+    log "  🛑 Staged deletion of an allowlisted page — restoring it, not pushing the deletion"
+    python3 scripts/index_safety.py --restore-staged-keep-deletions >> "$LOG_FILE" 2>&1 \
+        || log_degradation "⚠️  could not restore allowlisted deletions"
+fi
+
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then

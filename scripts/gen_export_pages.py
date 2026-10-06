@@ -469,6 +469,9 @@ def main() -> int:
                                         advisor=True, json_schema=GEN_SCHEMA)
                 gen = parse_json(raw)
                 html = render(c, lang, gen)
+                sys.path.insert(0, str(ROOT / "scripts"))
+                from metrika_snippet import ensure_metrika_html
+                html = ensure_metrika_html(html)
                 out.parent.mkdir(parents=True, exist_ok=True)
                 out.write_text(html, encoding="utf-8")
                 new_urls.append(f"{BASE}{LANG_PREFIX[lang]}/export/{c['slug']}")

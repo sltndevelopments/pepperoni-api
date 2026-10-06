@@ -11,6 +11,12 @@ if [[ ! -f "$SITE" ]]; then
   exit 1
 fi
 
+# Refuse to install a snippet that would 301 or 410 an allowlisted URL.
+if ! python3 "$REPO/scripts/index_safety.py" --check-nginx-install; then
+  echo "refusing to install nginx snippets: a keep URL would receive 301 or 410" >&2
+  exit 1
+fi
+
 for name in \
   jerky-redirects.conf karmin-e120-redirects.conf \
   pepperoni-blog-redirects.conf \

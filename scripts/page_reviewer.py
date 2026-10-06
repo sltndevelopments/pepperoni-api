@@ -225,7 +225,19 @@ def _alert(msg: str) -> None:
 # ── Quarantine helper ────────────────────────────────────────────────────────
 
 def quarantine(path: Path, reasons: list, verdict: str = "reject") -> None:
-    """Move path to data/quarantine/ preserving relative structure."""
+    """Move path to data/quarantine/ preserving relative structure.
+
+    Review criteria are unchanged. An allowlisted page is not moved: the last
+    committed copy stays in public/ and an alert is written.
+    """
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import index_safety
+    if index_safety.block_if_keep(
+        "quarantine", path, confirm=index_safety.destructive_confirmed()
+    ):
+        index_safety.restore_keep_file(path)
+        _log(path, verdict, list(reasons) + ["allowlist: left in public/"])
+        return
     try:
         rel = path.relative_to(PUBLIC)
     except ValueError:
@@ -234,6 +246,20 @@ def quarantine(path: Path, reasons: list, verdict: str = "reject") -> None:
     dest.parent.mkdir(parents=True, exist_ok=True)
     shutil.move(str(path), str(dest))
     _log(path, verdict, reasons)
+
+
+def _unlink_unless_keep(path: Path, reasons: list, error: str) -> None:
+    """Last-resort delete for a new page. Never delete an allowlisted file."""
+    sys.path.insert(0, str(ROOT / "scripts"))
+    import index_safety
+    if index_safety.block_if_keep(
+        "delete", path, confirm=index_safety.destructive_confirmed()
+    ):
+        index_safety.restore_keep_file(path)
+        _log(path, "hold", reasons, error=error)
+        return
+    path.unlink(missing_ok=True)
+    _log(path, "hold", reasons, error=error)
 
 
 # ── Main gate ────────────────────────────────────────────────────────────────
@@ -356,8 +382,7 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         try:
             quarantine(path, reasons, verdict="hold")
         except Exception:
-            path.unlink(missing_ok=True)
-            _log(path, "hold", reasons, error=f"json parse error: {e}")
+            _unlink_unless_keep(path, reasons, error=f"json parse error: {e}")
         return {"verdict": "hold", "reasons": reasons}
     except Exception as e:
         # Network, timeout, budget exceeded, any other error — fail-closed:
@@ -371,8 +396,7 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         try:
             quarantine(path, reasons, verdict="hold")
         except Exception:
-            path.unlink(missing_ok=True)
-            _log(path, "hold", reasons, error=str(e))
+            _unlink_unless_keep(path, reasons, error=str(e))
         return {"verdict": "hold", "reasons": reasons}
 
     if verdict == "reject":

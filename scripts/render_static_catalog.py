@@ -178,6 +178,41 @@ def inject_hub(path: Path, products: list[dict], lang: str) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def replace_live_sku_list(html: str, section: str, block: str) -> str:
+    """Replace one about.html SKU list, including surplus </div> from older runs.
+
+    The previous matcher stopped at the first </div>, which closes only the
+    inner .sku-grid. Each sync then left the wrapper close in place and wrote
+    a new pair, so /about accumulated hundreds of extra closing tags.
+    A correct list is exactly two closes (grid, then wrapper). Anything after
+    that and before the next non-div tag is damage and is removed with the
+    old block. The following paragraph and the card close stay.
+    """
+    marker = f'<div class="live-sku-list" data-section="{section}">'
+    start = html.find(marker)
+    if start < 0:
+        return html
+    grid_close = html.find("</div>", start)
+    if grid_close < 0:
+        return html
+    pos = grid_close + len("</div>")
+    closes = [grid_close]
+    while True:
+        j = pos
+        while j < len(html) and html[j] in " \t\r\n":
+            j += 1
+        if html.startswith("</div>", j):
+            closes.append(j)
+            pos = j + len("</div>")
+            continue
+        break
+    # closes[0] is the sku-grid. closes[1] is the wrapper. The rest are surplus.
+    end = closes[1] + len("</div>") if len(closes) > 1 else closes[0] + len("</div>")
+    if len(closes) > 2:
+        end = closes[-1] + len("</div>")
+    return html[:start] + block + html[end:]
+
+
 def main() -> int:
     data = json.loads(PRODUCTS.read_text(encoding="utf-8"))
     products = data["products"] if isinstance(data, dict) else data
@@ -208,15 +243,11 @@ def main() -> int:
                     f'{w_span}</a>'
                 )
             block = f'<div class="live-sku-list" data-section="{sec}"><div class="sku-grid">{"".join(html_pills)}</div></div>'
-            pattern = rf'<div class="live-sku-list" data-section="{re.escape(sec)}">.*?</div>\s*</div>'
-            # Look for the live-sku-list container
             target = f'data-section="{sec}"'
             if target in about_text:
-                rx = re.compile(rf'<div class="live-sku-list" data-section="{re.escape(sec)}">[\s\S]*?</div>(?=\s*<p|\s*<div|\s*</div)', re.I)
-                # simpler replacement: replace <div class="live-sku-list" data-section="...">...</div>
-                m = re.search(rf'<div class="live-sku-list" data-section="{re.escape(sec)}">(?:(?!<div class="card")[\s\S])*?</div>', about_text)
-                if m:
-                    about_text = about_text[:m.start()] + block + about_text[m.end():]
+                updated = replace_live_sku_list(about_text, sec, block)
+                if updated != about_text:
+                    about_text = updated
                     about_mod = True
         if about_mod:
             about_path.write_text(about_text, encoding="utf-8")

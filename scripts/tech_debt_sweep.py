@@ -489,6 +489,20 @@ def main() -> int:
     # Stage all changed public/ files
     subprocess.run(["git", "add", "public/"], cwd=str(ROOT))
 
+    # An automatic sweep must not commit the deletion of an allowlisted page.
+    guard = subprocess.run(
+        [sys.executable, str(SCRIPTS / "index_safety.py"),
+         "--refuse-staged-keep-deletions"],
+        cwd=str(ROOT),
+    )
+    if guard.returncode != 0:
+        print("🛑 sweep: restoring allowlisted deletions; they will not be pushed")
+        subprocess.run(
+            [sys.executable, str(SCRIPTS / "index_safety.py"),
+             "--restore-staged-keep-deletions"],
+            cwd=str(ROOT),
+        )
+
     # Commit (only if there are staged changes)
     status = subprocess.run(
         ["git", "diff", "--cached", "--quiet"], cwd=str(ROOT)

@@ -70,6 +70,9 @@ python3 scripts/fix_hreflang.py
 python3 scripts/version_assets.py
 python3 scripts/fix_pages.py --all
 python3 scripts/fix_schema.py
+# Direct Metrika on every allowlisted page. Idempotent: pages that already
+# init counter 107064141 are not given a second snippet.
+python3 scripts/ensure_metrika.py --keep
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py
 
