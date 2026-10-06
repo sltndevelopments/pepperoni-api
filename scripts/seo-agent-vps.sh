@@ -420,6 +420,11 @@ git add data/agent_backups/*.bak 2>/dev/null || true
 # Worker output (PL/OEM pages from strategy).
 git add public/private-label/*.html 2>/dev/null || true
 
+# PHASE 1: never auto-commit deletion of an allowlist (status=keep) page.
+if ! python3 scripts/index_safety.py --guard-staged-commit >> "$LOG_FILE" 2>&1; then
+    log "🚨 Allowlist deletions were unstaged and restored — not pushed to main"
+fi
+
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then

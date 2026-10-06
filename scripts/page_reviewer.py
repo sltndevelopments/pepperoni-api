@@ -225,7 +225,18 @@ def _alert(msg: str) -> None:
 # ── Quarantine helper ────────────────────────────────────────────────────────
 
 def quarantine(path: Path, reasons: list, verdict: str = "reject") -> None:
-    """Move path to data/quarantine/ preserving relative structure."""
+    """Move path to data/quarantine/ preserving relative structure.
+
+    Keep/allowlist pages are restored from git and left in public/
+    (PHASE 1). New pages still go to quarantine.
+    """
+    try:
+        import index_safety
+        if index_safety.protect_keep_from_quarantine(path, reasons):
+            _log(path, "keep_protected", reasons)
+            return
+    except Exception:
+        pass
     try:
         rel = path.relative_to(PUBLIC)
     except ValueError:
@@ -356,6 +367,18 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         try:
             quarantine(path, reasons, verdict="hold")
         except Exception:
+            try:
+                import index_safety
+                if index_safety.is_keep_file(path):
+                    index_safety.restore_from_git(path)
+                    index_safety.alert(
+                        "Рецензент не удалил allowlist-страницу",
+                        f"{path.name}: JSON parse error, файл восстановлен.",
+                    )
+                    _log(path, "keep_protected", reasons, error=f"json parse error: {e}")
+                    return {"verdict": "hold", "reasons": reasons}
+            except Exception:
+                pass
             path.unlink(missing_ok=True)
             _log(path, "hold", reasons, error=f"json parse error: {e}")
         return {"verdict": "hold", "reasons": reasons}
@@ -371,6 +394,18 @@ def review_page(path: Path, meta: dict | None = None) -> dict:
         try:
             quarantine(path, reasons, verdict="hold")
         except Exception:
+            try:
+                import index_safety
+                if index_safety.is_keep_file(path):
+                    index_safety.restore_from_git(path)
+                    index_safety.alert(
+                        "Рецензент не удалил allowlist-страницу",
+                        f"{path.name}: reviewer unavailable, файл восстановлен.",
+                    )
+                    _log(path, "keep_protected", reasons, error=str(e))
+                    return {"verdict": "hold", "reasons": reasons}
+            except Exception:
+                pass
             path.unlink(missing_ok=True)
             _log(path, "hold", reasons, error=str(e))
         return {"verdict": "hold", "reasons": reasons}

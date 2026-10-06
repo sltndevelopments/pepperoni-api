@@ -4,7 +4,11 @@ Generate commercial landing pages for halal pepperoni.
 5 pages: optom, dlya-pizzerii, dlya-horeca, private-label, v-narezke
 """
 
+import sys
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from analytics_snippets import METRIKA_BLOCK
 
 PUBLIC = Path(__file__).parent.parent / "public"
 
@@ -156,6 +160,7 @@ def page(slug, title, desc, keywords, h1, hero_sub, badges, body_html, breadcrum
 
 {FOOTER}
   </div>
+{METRIKA_BLOCK}
 </body>
 </html>"""
 

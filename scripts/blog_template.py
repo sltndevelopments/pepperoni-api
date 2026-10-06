@@ -3,7 +3,12 @@ from __future__ import annotations
 
 import json
 import re
+import sys
 from datetime import datetime
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from analytics_snippets import METRIKA_BLOCK
 
 SITE = "https://pepperoni.tatar"
 YEAR = datetime.now().year
@@ -21,6 +26,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
 GTM_NS = """<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W2Q5S8HF"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>"""
+
 
 BLOG_CSS = """<style>
 :root{--green:#1b7a3d;--green-dark:#145c2e;--green-light:#e8f5e9;--text:#1a1a1a;--muted:#666;--border:#e5e5e5;--radius:10px;--shadow:0 2px 12px rgba(0,0,0,.08)}
@@ -241,6 +247,7 @@ def wrap_blog_page(
 </main>
 {tail_sections}
 {footer}
+{METRIKA_BLOCK}
 </body>
 </html>"""
 

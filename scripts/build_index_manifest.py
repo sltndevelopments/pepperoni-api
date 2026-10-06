@@ -9,7 +9,9 @@ single machine-readable registry for keep/301/410/noindex decisions.
 from __future__ import annotations
 
 import json
+import os
 import re
+import sys
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -225,7 +227,45 @@ def _product_pages() -> list[dict]:
                 "status": "keep",
                 "kind": "product",
             })
+    entries.extend(_preserve_orphan_product_keeps(entries))
     return entries
+
+
+def _preserve_orphan_product_keeps(fresh: list[dict]) -> list[dict]:
+    """Keep previously indexed SKU cards if the HTML is still on disk.
+
+    PHASE 1: a missing row in Google Sheets must not silently drop a live
+    product URL from the allowlist / sitemap. Alert and retain the file.
+    """
+    if not OUT.exists():
+        return []
+    try:
+        previous = json.loads(OUT.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    fresh_urls = {row["url"] for row in fresh}
+    extras: list[dict] = []
+    orphans: list[str] = []
+    for row in previous.get("entries") or []:
+        if row.get("status") != "keep" or row.get("kind") != "product":
+            continue
+        url = row.get("url")
+        rel = row.get("file")
+        if not url or not rel or url in fresh_urls:
+            continue
+        if not (PUBLIC / rel).exists():
+            continue
+        extras.append(row)
+        orphans.append(f"{url} ({rel})")
+    if orphans:
+        sys.path.insert(0, str(ROOT / "scripts"))
+        import index_safety
+        index_safety.alert(
+            "SKU исчез из Sheets — карточка оставлена в allowlist",
+            "PHASE 1: страницы не снимаются с индекса автоматически.\n"
+            + "\n".join(f"  {x}" for x in orphans),
+        )
+    return extras
 
 
 def _retired_entries() -> list[dict]:
@@ -259,6 +299,31 @@ def build_manifest() -> dict:
     if not MIN_INDEXABLE <= len(keep) <= MAX_INDEXABLE:
         raise SystemExit(
             f"indexable count {len(keep)} outside {MIN_INDEXABLE}..{MAX_INDEXABLE}")
+
+    new_urls = {row["url"] for row in keep}
+    if OUT.exists() and os.environ.get("ALLOW_INDEX_RETIRE", "").strip() not in {
+        "1", "true", "yes", "YES",
+    }:
+        try:
+            old = json.loads(OUT.read_text(encoding="utf-8"))
+            old_keep = {
+                e["url"] for e in old.get("entries", []) if e.get("status") == "keep"
+            }
+            dropped = sorted(old_keep - new_urls)
+        except Exception:
+            dropped = []
+        if dropped:
+            sys.path.insert(0, str(ROOT / "scripts"))
+            import index_safety
+            index_safety.alert(
+                "Манифест не перезаписан: исчезли keep URL",
+                "PHASE 1: снятие URL из allowlist требует ALLOW_INDEX_RETIRE=1.\n"
+                + "\n".join(f"  {u}" for u in dropped),
+            )
+            raise SystemExit(
+                "refusing to drop keep URLs without ALLOW_INDEX_RETIRE=1:\n"
+                + "\n".join(dropped)
+            )
 
     entries = sorted(
         [*keep, *_retired_entries()],

@@ -232,6 +232,20 @@ def main() -> int:
         print("dry-run; pass --apply to write map + nginx snippets")
         return 0
 
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+    import index_safety
+    if not index_safety.owner_override(index_safety.COUNTER_ENV_MUTATION):
+        index_safety.alert(
+            "Массовые geo 301/410 не применены",
+            "geo_signal_redirects.py --apply требует "
+            f"{index_safety.COUNTER_ENV_MUTATION}=1 (PHASE 1).",
+        )
+        print(
+            f"REFUSING --apply without {index_safety.COUNTER_ENV_MUTATION}=1",
+            file=sys.stderr,
+        )
+        return 1
+
     payload["counts"] = {s: sum(1 for r in entries if r["status"] == s)
                          for s in ("301", "410", "noindex")}
     MAP.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

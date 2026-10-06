@@ -12,6 +12,7 @@ import json
 import re
 import sqlite3
 import subprocess
+import sys
 from datetime import date, timedelta
 from pathlib import Path
 from urllib.parse import urlparse
@@ -446,6 +447,22 @@ def main() -> int:
     args.add_argument("--apply", action="store_true")
     ns = args.parse_args()
 
+    if ns.apply:
+        sys.path.insert(0, str(Path(__file__).resolve().parent))
+        import index_safety
+        if not index_safety.owner_override(index_safety.COUNTER_ENV_MUTATION):
+            index_safety.alert(
+                "Массовые 301/410/noindex не применены",
+                "apply_index_consolidation.py --apply требует "
+                f"{index_safety.COUNTER_ENV_MUTATION}=1 (PHASE 1). "
+                "Запустите без --apply для dry-run.",
+            )
+            print(
+                f"REFUSING --apply without {index_safety.COUNTER_ENV_MUTATION}=1",
+                file=sys.stderr,
+            )
+            return 1
+
     keep_urls, keep_files = load_keep()
     metrics, newest = gsc_metrics()
     redirects = old_redirects()
@@ -488,6 +505,9 @@ def main() -> int:
         path = PUBLIC / rel
         row = by_file.get(rel)
         if row and row["status"] in {"301", "410"} and path.exists():
+            if rel in keep_files:
+                print(f"skip unlink keep file: {rel}")
+                continue
             path.unlink()
             continue
         if not path.exists():
