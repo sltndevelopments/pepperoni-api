@@ -16,6 +16,12 @@ scripts/gsc-key.json
 .env
 .env.*
 !.env.example
+deploy/*.env
+
+# VPS scratch / daily spec-hold dumps (runtime, not source of truth)
+data/spec_holds_raw-*.json
+data/kazandel_health_alert.json
+scripts/_wtest
 
 # Google OAuth / YouTube client secrets (never commit)
 client_secret*.json
