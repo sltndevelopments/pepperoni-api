@@ -2,10 +2,8 @@
 """Fetch behaviour & conversion data from Yandex Metrika — Fable's "eyes" on
 what people actually DO on the site (not just search impressions).
 
-Metrika is already installed on the site (counter 107064141) with goals:
-  • click_phone  — tel: click  (a B2B lead signal)
-  • click_email  — mailto: click (a B2B lead signal)
-  • play_video   — engagement
+Metrika is already installed on the site (counter 107064141).
+Lead-level goals (not micro clicks): lead_form_submit, lead_messenger_chat, lead_call.
 
 This pulls a compact daily snapshot the brain reads each cycle:
   • visits / users / bounce / depth / avg time (last 30 days)
@@ -43,7 +41,7 @@ API = "https://api-metrika.yandex.net/stat/v1/data"
 
 # Goal names → IDs are resolved at runtime; we match by the goal NAME the site
 # uses so a goal-id change in Metrika never breaks this.
-LEAD_GOAL_NAMES = {"click_phone", "click_email"}
+LEAD_GOAL_NAMES = {"lead_form_submit", "lead_messenger_chat", "lead_call"}
 
 
 def _token() -> str:
@@ -113,16 +111,11 @@ def _top_landing(token: str, d1: str, d2: str) -> list:
 
 
 def _is_lead_goal(name: str) -> bool:
-    """Return True if a goal name represents a direct contact/inquiry intent."""
-    return any(k in name.lower() for k in (
-        "phone", "тел", "номер", "email", "почт", "mail",
-        "мессенджер", "messenger", "whatsapp", "ватсап", "telegram",
-        "телеграм", "заявк", "форм", "form", "прайс", "price", "download",
-        "скачив", "файл", "оставить заявку",
-        # Яндекс «Автоцель» labels (real names seen in production):
-        "клик по email", "переход в мессенджер", "клик по номеру",
-        "клик по телефону",
-    ))
+    """Lead level only. Micro clicks and Yandex autogoals are not leads."""
+    folded = (name or "").strip().lower()
+    names = {n.lower() for n in LEAD_GOAL_NAMES}
+    names.add("оставить заявку")
+    return folded in names
 
 
 def _leads(token: str, d1: str, d2: str) -> dict:

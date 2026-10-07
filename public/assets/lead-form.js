@@ -143,9 +143,9 @@
       form.dataset.started = "1";
       form.dataset.clientRef = form.dataset.clientRef || newRef();
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: "form_start", page: window.location.pathname,
+      window.dataLayer.push({ event: "micro_form_start", page: window.location.pathname,
         form_id: form.id || form.getAttribute("data-experiment-id") || "lead-form" });
-      if (typeof ym === "function") ym(107064141, "reachGoal", "form_start");
+      if (typeof ym === "function") ym(107064141, "reachGoal", "micro_form_start");
     });
 
     form.addEventListener("submit", function (e) {
@@ -184,7 +184,8 @@
 
       // Optional B2B category-landing fields (ignored by older intake builds;
       // also folded into `message` by category-landing.js for the sales group).
-      ["category", "to", "mgr", "city", "shortlist", "calc_snapshot"].forEach(function (key) {
+      ["category", "to", "mgr", "city", "country", "shortlist", "calc_snapshot",
+        "segment", "volume", "qualified", "reason", "company_name"].forEach(function (key) {
         var el = form.querySelector('[name="' + key + '"]');
         if (!el || !el.value) return;
         var val = el.value;
@@ -198,6 +199,16 @@
           payload[key] = String(val).slice(0, 200);
         }
       });
+
+      // landing_page, utm_* and referrer already live in peppAttribution().
+      // company stays the honeypot; a real company name is company_name (T15).
+      if (typeof window.peppAttribution === "function") {
+        var attr = window.peppAttribution();
+        ["landing_page", "referrer", "utm_source", "utm_medium", "utm_campaign",
+          "utm_content", "utm_term"].forEach(function (key) {
+          if (attr[key] && !payload[key]) payload[key] = String(attr[key]).slice(0, 300);
+        });
+      }
 
       if (btn) {
         btn.disabled = true;
@@ -223,7 +234,7 @@
             delete form.dataset.clientRef;
             setStatus(msg("ok"), "ok");
             try {
-              // lead_submit_success is counted only when the server confirms
+              // lead_form_submit is counted only when the server confirms
               // acceptance with a lead_id (honeypot hits and duplicates return
               // ok without one), and only once per lead_id in this session.
               var leadId = res.data.lead_id || "";
@@ -271,7 +282,7 @@
                   leadEvent.attribution = window.peppAttribution();
                 }
                 window.dataLayer.push(leadEvent);
-                if (typeof ym === "function") ym(107064141, "reachGoal", "lead_submit_success");
+                if (typeof ym === "function") ym(107064141, "reachGoal", "lead_form_submit");
                 fireAdsLeadConversion(userData, leadId);
               }
             } catch (err) {}
@@ -325,10 +336,10 @@
           });
         }
       };
-      if (href.indexOf("tel:") === 0) sendEvt("click_phone", "contact");
-      if (href.indexOf("mailto:") === 0) sendEvt("click_email", "contact");
-      if (/wa\.me|whatsapp|t\.me\//i.test(href)) sendEvt("click_messenger", "contact");
-      if (/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href) || /прайс|price/i.test(text)) sendEvt("download_price", "engagement");
+      if (href.indexOf("tel:") === 0) sendEvt("micro_phone_click", "micro");
+      if (href.indexOf("mailto:") === 0) sendEvt("micro_email_click", "micro");
+      if (/wa\.me|whatsapp|t\.me\//i.test(href)) sendEvt("micro_messenger_click", "micro");
+      if (/прайс|price|\.(pdf|xlsx?|csv)(\?|$)/i.test(href) || /прайс|price/i.test(text)) sendEvt("micro_file_download", "micro");
     });
   }
 })();

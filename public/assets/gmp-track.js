@@ -100,7 +100,7 @@
     return JSON.parse(JSON.stringify(attribution));
   };
   window.peppAttributionLine = function () {
-    var order = ["utm_source", "utm_medium", "utm_campaign", "campaignid", "keyword", "gclid"];
+    var order = ["utm_source", "utm_medium", "utm_campaign", "campaignid", "keyword", "gclid", "landing_page", "referrer"];
     var parts = [];
     order.forEach(function (k) {
       if (attribution[k]) parts.push(k.replace("utm_", "") + "=" + attribution[k]);

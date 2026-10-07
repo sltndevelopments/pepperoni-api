@@ -65,10 +65,12 @@ ALLOWED_ORIGINS = {
 # Uzbekistan, Georgia, Armenia etc. and the lead is lost before it is delivered.
 EXPORT_DIAL_CODES = ("375", "374", "992", "994", "995", "996", "998")
 MAX_LEN = {"name": 120, "phone": 32, "message": 1000, "page": 300, "experiment_id": 64,
-           "client_ref": 64}
+           "client_ref": 64, "landing_page": 300, "referrer": 300,
+           "company_name": 200, "segment": 80, "city": 120, "country": 80,
+           "volume": 120, "qualified": 16, "reason": 300}
 
 # Measurement (2026-09-09): every accepted lead gets an opaque `lead_id` that the
-# page uses to count `lead_submit_success` exactly once. `client_ref` is a
+# page uses to count `lead_form_submit` exactly once. `client_ref` is a
 # per-form-fill token from the browser; a repeat with the same token within
 # DEDUP_TTL (double click, retry after a timeout, reload-and-resubmit) is
 # acknowledged with the original lead_id and `duplicate: true` and is NOT sent
@@ -294,8 +296,14 @@ def lead_submit():
         return _cors_headers(jsonify(ok=False, error="rate_limited")), 429
 
     payload = request.get_json(silent=True) or request.form
-    # Honeypot: bots fill hidden "company" field; humans never see it.
-    if (payload.get("company") or "").strip():
+    # Honeypot: bots fill hidden "company". A real company name is company_name.
+    # If segment/volume/qualified/reason arrive with company, it is a
+    # qualification payload (T15), not the hidden field.
+    qual_present = any(
+        str(payload.get(key) or "").strip()
+        for key in ("company_name", "segment", "volume", "qualified", "reason")
+    )
+    if (payload.get("company") or "").strip() and not qual_present:
         log.info("Honeypot triggered from %s — silently accepted", ip)
         return _cors_headers(jsonify(ok=True)), 200  # pretend success, drop it
 
@@ -337,6 +345,34 @@ def lead_submit():
         lines.append(f"🔗 Страница: {src_url}")
     if experiment_id:
         lines.append(f"🧪 Эксперимент: {experiment_id}")
+    # Optional. The money form does not ask these (that form is T15).
+    # `company` stays the honeypot above; a real name arrives as company_name.
+    # A qualification payload may also send the name in `company` together
+    # with segment or volume — then it is a company, not a bot field.
+    company_name = _clip(payload.get("company_name", ""), "company_name")
+    if not company_name and qual_present:
+        company_name = _clip(payload.get("company", ""), "company_name")
+    extra = [
+        ("🏢 Компания", company_name),
+        ("🏷 Сегмент", _clip(payload.get("segment", ""), "segment")),
+        ("📍 Город", _clip(payload.get("city", ""), "city")),
+        ("🌍 Страна", _clip(payload.get("country", ""), "country")),
+        ("📦 Объём", _clip(payload.get("volume", ""), "volume")),
+        ("✅ Квалифицирован", _clip(payload.get("qualified", ""), "qualified")),
+        ("📝 Причина", _clip(payload.get("reason", ""), "reason")),
+        ("📄 Посадка", _clip(payload.get("landing_page", ""), "landing_page")),
+        ("↩ Реферер", _clip(payload.get("referrer", ""), "referrer")),
+    ]
+    for label, value in extra:
+        if value:
+            lines.append(f"{label}: {value}")
+    utm_bits = []
+    for key in ("utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"):
+        bit = _clip(payload.get(key, ""), key)
+        if bit:
+            utm_bits.append(f"{key}={bit}")
+    if utm_bits:
+        lines.append("📣 " + " ".join(utm_bits))
     lines.append(f"🆔 {lead_id}")
     text = "\n".join(lines)
 
