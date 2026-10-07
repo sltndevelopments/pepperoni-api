@@ -6,6 +6,9 @@ import re
 import sys
 import urllib.parse
 
+sys.path.insert(0, os.path.dirname(__file__))
+from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
+
 OUT = "public/en/products"
 PRODUCTS_JSON = "public/products.json"
 TRANSLATIONS_JSON = "scripts/translations.json"
@@ -537,11 +540,12 @@ def main():
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
+{SCRIPT}
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Home","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":2,"name":"Catalog","item":"https://pepperoni.tatar/en/"}},{{"@type":"ListItem","position":3,"name":"{name_esc}","item":"https://pepperoni.tatar/en/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{{"@type":"Organization","@id":"https://pepperoni.tatar/#organization","name":"Казанские Деликатесы","alternateName":"Kazan Delicacies","legalName":"ООО «Казанские Деликатесы»","url":"https://pepperoni.tatar/"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{name_esc}","sku":"{sku}",{gtin_field}"mpn":"{article}","description":"{seo_desc_esc}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Kazan Delicacies"}},"offers":{{"@type":"Offer","priceCurrency":"{"USD" if pr_usd > 0 else "RUB"}","price":"{f"{pr_usd:.2f}" if pr_usd > 0 else price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
 </script>
 {faq_jsonld}
 <style>

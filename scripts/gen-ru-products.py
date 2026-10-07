@@ -7,6 +7,9 @@ import sys
 import urllib.parse
 import urllib.request
 
+sys.path.insert(0, os.path.dirname(__file__))
+from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
+
 OUT = "public/products"
 LCP_IMG_DIR = "public/images/products"
 PRODUCTS_JSON = "public/products.json"
@@ -527,11 +530,12 @@ def main():
 <link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/products/{slug}">
 <link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/products/{slug}">
+{SCRIPT}
 <script type="application/ld+json">
 {{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{{"@type":"ListItem","position":1,"name":"Главная","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":2,"name":"Каталог","item":"https://pepperoni.tatar/"}},{{"@type":"ListItem","position":3,"name":"{html_esc(name)}","item":"https://pepperoni.tatar/products/{slug}"}}]}}
 </script>
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{{"@type":"Organization","@id":"https://pepperoni.tatar/#organization","name":"Казанские Деликатесы","url":"https://pepperoni.tatar/"}}}}
+{{"@context":"https://schema.org","@type":"Product","name":"{html_esc(name)}","sku":"{p['sku']}",{gtin_field}"mpn":"{article}","description":"{html_esc(seo_desc)}","image":{jsonld_images},"brand":{{"@type":"Brand","name":"Казанские Деликатесы"}},"offers":{{"@type":"Offer","priceCurrency":"RUB","price":"{price_rub}","availability":"{p.get('offers', {}).get('availability') or 'https://schema.org/InStock'}"}},"manufacturer":{json.dumps({k: ORGANIZATION[k] for k in ("@type", "@id", "name", "legalName", "url", "email", "telephone", "address", "sameAs")}, ensure_ascii=False, separators=(",", ":"))}}}
 </script>
 {faq_jsonld}
 <style>

@@ -12,6 +12,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from metrika_snippet import ensure_metrika_html  # noqa: E402
+from organization_ld import SCRIPT  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
@@ -319,6 +320,7 @@ def build_page(cfg):
   <meta name="keywords" content="{cfg["keywords"]}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
+  {SCRIPT}
   <link rel="alternate" hreflang="ru" href="{url}">
 {en_alt}  <link rel="alternate" hreflang="x-default" href="{url}">
 
@@ -772,6 +774,7 @@ def build_commercial_page(cfg, lang):
   <meta name="description" content="{desc}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
+  {SCRIPT}
   <link rel="alternate" hreflang="ru" href="{ru_url}">
   <link rel="alternate" hreflang="en" href="{en_url}">
   <link rel="alternate" hreflang="x-default" href="{ru_url}">

@@ -7,6 +7,7 @@ from datetime import datetime
 from pathlib import Path
 
 from metrika_snippet import ensure_metrika_html
+from organization_ld import SCRIPT
 
 SITE = "https://pepperoni.tatar"
 YEAR = datetime.now().year
@@ -294,6 +295,7 @@ def wrap_blog_page(
 {article_schema}
 {breadcrumb_schema(lang, title, slug)}
 {extra_head}
+{SCRIPT}
 {BLOG_CSS}
 </head>
 <body>
