@@ -479,6 +479,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label for="lf-phone">Телефон или WhatsApp *</label>
       <input id="lf-phone" type="tel" name="phone" required
              placeholder="+7 …" autocomplete="tel">
+      <label>Компания</label>
+      <input type="text" name="company_name" autocomplete="organization">
+      <label>Сегмент</label>
+      <select name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select>
+      <label>Город или страна</label>
+      <input type="text" name="city" autocomplete="address-level2">
+      <label>Объём в месяц</label>
+      <input type="text" name="volume">
       <label for="lf-msg">Город, объём, формат</label>
       <textarea id="lf-msg" name="message" rows="3" placeholder="Например: Алматы, пиццерия, 60 кг в месяц, нарезка"></textarea>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"

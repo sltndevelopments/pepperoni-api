@@ -871,6 +871,23 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <label for="lf-phone">{esc(F["phone"])} *</label>
       <input id="lf-phone" type="tel" name="phone" required
              placeholder="{COUNTRY_DIAL[country_of_page]}\u2009…" autocomplete="tel">
+      <label for="lf-co">{"Компания" if lang == "ru" else "Company"}</label>
+      <input id="lf-co" type="text" name="company_name" autocomplete="organization">
+      <label for="lf-seg">{"Сегмент" if lang == "ru" else "Segment"}</label>
+      <select id="lf-seg" name="segment">
+        <option value="">{"Не выбрано" if lang == "ru" else "Not selected"}</option>
+        <option>HoReCa</option>
+        <option>{"Сеть" if lang == "ru" else "Retail chain"}</option>
+        <option>{"Дистрибьютор" if lang == "ru" else "Distributor"}</option>
+        <option>{"АЗС" if lang == "ru" else "Petrol station"}</option>
+        <option>{"Пекарня" if lang == "ru" else "Bakery"}</option>
+        <option>{"СТМ" if lang == "ru" else "Private label"}</option>
+        <option>{"Экспорт" if lang == "ru" else "Export"}</option>
+      </select>
+      <label for="lf-city">{"Город или страна" if lang == "ru" else "City or country"}</label>
+      <input id="lf-city" type="text" name="city" autocomplete="address-level2">
+      <label for="lf-vol">{"Объём в месяц" if lang == "ru" else "Monthly volume"}</label>
+      <input id="lf-vol" type="text" name="volume">
       <label for="lf-msg">{esc(F["msg"])}</label>
       <textarea id="lf-msg" name="message" rows="3" placeholder="{esc(F["msg_ph"])}"></textarea>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true"

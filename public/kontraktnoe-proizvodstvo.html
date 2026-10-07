@@ -233,6 +233,14 @@ footer a{color:#888;text-decoration:none}
 <form class="lead-form" novalidate style="display:grid;gap:10px">
 <input type="text" name="name" placeholder="Ваше имя" autocomplete="name" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
 <input type="tel" name="phone" required placeholder="Телефон *" autocomplete="tel" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem">
+      <label>Компания</label>
+      <input type="text" name="company_name" autocomplete="organization">
+      <label>Сегмент</label>
+      <select name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select>
+      <label>Город или страна</label>
+      <input type="text" name="city" autocomplete="address-level2">
+      <label>Объём в месяц</label>
+      <input type="text" name="volume">
 <textarea name="message" rows="2" placeholder="Компания / бренд, желаемый объём, SKU" style="padding:10px 12px;border:1px solid #ddd;border-radius:6px;font:inherit;font-size:.9rem;resize:vertical"></textarea>
 <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
 <label style="display:flex;gap:8px;align-items:flex-start;font-size:.78rem;color:#666;line-height:1.4">

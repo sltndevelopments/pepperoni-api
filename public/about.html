@@ -728,6 +728,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <form class="lead-form" novalidate style="display:grid;gap:10px;margin-top:10px">
           <input type="text" name="name" placeholder="Ваше имя и компания" autocomplete="name" style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:.88rem">
           <input type="tel" name="phone" required placeholder="Телефон для связи *" autocomplete="tel" style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:.88rem">
+      <label>Компания</label>
+      <input type="text" name="company_name" autocomplete="organization">
+      <label>Сегмент</label>
+      <select name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select>
+      <label>Город или страна</label>
+      <input type="text" name="city" autocomplete="address-level2">
+      <label>Объём в месяц</label>
+      <input type="text" name="volume">
           <textarea name="message" rows="2" placeholder="Что интересует (пепперони, сосиски, выпечка, СТМ, объём)" style="padding:10px 12px;border:1px solid var(--line);border-radius:6px;font:inherit;font-size:.88rem;resize:vertical"></textarea>
           <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
           <label style="display:flex;gap:6px;align-items:flex-start;font-size:.76rem;color:var(--muted);line-height:1.4">
