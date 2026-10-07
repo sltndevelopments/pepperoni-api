@@ -4,6 +4,7 @@ from __future__ import annotations
 import json
 import re
 from datetime import datetime
+from pathlib import Path
 
 from metrika_snippet import ensure_metrika_html
 
@@ -166,6 +167,67 @@ def breadcrumb_schema(lang: str, title: str, slug: str) -> str:
     return f'<script type="application/ld+json">\n{json.dumps({"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}, ensure_ascii=False, indent=2)}\n</script>'
 
 
+# First match wins. Paths are live money pages, not retired articles.
+_CLUSTER_RULES = (
+    ("private-label", "/kontraktnoe-proizvodstvo", "контрактного производства", "private label"),
+    ("pepperoni", "/pepperoni", "пепперони", "pepperoni"),
+    ("narezka", "/pepperoni", "пепперони", "pepperoni"),
+    ("slicing", "/pepperoni", "пепперони", "pepperoni"),
+    ("bakery", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("hot-dog", "/sosiski-dlya-hotdog", "сосисок для хот-догов", "hot-dog sausages"),
+    ("hotdog", "/sosiski-dlya-hotdog", "сосисок для хот-догов", "hot-dog sausages"),
+    ("kotlet", "/kotlety-dlya-burgerov", "котлет для бургеров", "burger patties"),
+    ("burger", "/kotlety-dlya-burgerov", "котлет для бургеров", "burger patties"),
+    ("vetchina", "/vetchina-optom", "ветчины", "halal ham"),
+    ("kolbas", "/kolbasy-kopchyonye", "копчёных колбас", "smoked sausages"),
+    ("kazylyk", "/kazylyk", "казылыка", "kazylyk"),
+    ("echpochmak", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("vypechka", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("cheburek", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("chak-chak", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("elesh", "/vyipechka-halyal", "выпечки", "halal bakery"),
+    ("halal", "/halal", "халяль", "halal"),
+)
+
+
+def cluster_for_slug(lang: str, slug: str) -> tuple[str, str]:
+    folded = (slug or "").lower()
+    path, ru, en = "/products", "каталога", "the catalog"
+    for needle, candidate, label_ru, label_en in _CLUSTER_RULES:
+        if needle in folded:
+            path, ru, en = candidate, label_ru, label_en
+            break
+    if lang == "en" and path != "/kontraktnoe-proizvodstvo":
+        en_file = Path(__file__).resolve().parent.parent / "public" / "en" / f"{path.strip('/')}.html"
+        if en_file.exists():
+            path = "/en" + path
+    label = en if lang == "en" else ru
+    return path, label
+
+
+def wholesale_cta(lang: str, slug: str) -> str:
+    path, label = cluster_for_slug(lang, slug)
+    if lang == "en":
+        return (
+            '<aside class="cta-block" data-wholesale-cta>'
+            "<h2>Buying wholesale?</h2>"
+            f'<p>Specifications, EXW Kazan prices and the certificate are on the '
+            f'<a href="{path}">{label}</a> page. We reply on WhatsApp.</p>'
+            f'<p><a class="btn-cta" href="{path}">Open the page</a> '
+            '<a class="btn-cta" href="https://wa.me/79872170202">WhatsApp</a></p>'
+            "</aside>"
+        )
+    return (
+        '<aside class="cta-block" data-wholesale-cta>'
+        "<h2>Закупаете оптом?</h2>"
+        "<p>Спецификации, цены EXW Казань и сертификат — на странице "
+        f'<a href="{path}">{label}</a>. Ответим в WhatsApp.</p>'
+        f'<p><a class="btn-cta" href="{path}">Открыть страницу</a> '
+        '<a class="btn-cta" href="https://wa.me/79872170202">WhatsApp</a></p>'
+        "</aside>"
+    )
+
+
 def wrap_blog_page(
     *,
     lang: str,
@@ -242,6 +304,7 @@ def wrap_blog_page(
 {body_main}
 </main>
 {tail_sections}
+{wholesale_cta(lang, slug)}
 {footer}
 </body>
 </html>"""
