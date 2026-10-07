@@ -40,7 +40,7 @@ EMAIL = "info@kazandelikates.tatar"
 
 # ───────────────────────────── country data ─────────────────────────────────
 # halal: "gso"        — ДУМ РТ accredited by GSO/GCC → recognized in GCC states
-#        "gso_member" — country is a GSO member (Yemen) but not a GCC state
+#        "gso_member" — Yemen page: do not claim the country is a GSO member
 #        "recognized" — direct recognition (KG)
 #        "memorandum" — mutual-recognition memorandum (KZ, BY)
 #        "smiic"      — only the SMIIC umbrella applies (EG) → "уточняется"
@@ -124,15 +124,14 @@ HALAL_FACTS = {
               "GSO/GCC، لذا فإن شهادة الحلال معترف بها في {name}.",
     },
     "gso_member": {
-        "ru": "Халяль-сертификат выдан Комитетом «Халяль» ДУМ РТ (№ 614A/2024), "
-              "аккредитованным GSO — организацией по стандартизации, в которую входит "
-              "{name}. Признание подтверждается при оформлении конкретной поставки.",
+        "ru": "Халяль-сертификат выдан Комитетом «Халяль» ДУМ РТ (№ 614A/2024). "
+              "Признание сертификата в {name} подтверждается при оформлении "
+              "конкретной поставки.",
         "en": "The halal certificate is issued by the Halal Committee of the Muslim Board "
-              "of Tatarstan (No. 614A/2024), accredited by GSO — the standardization "
-              "organization that includes {name}. Recognition is confirmed per shipment.",
+              "of Tatarstan (No. 614A/2024). Recognition in {name} is confirmed "
+              "per shipment.",
         "ar": "شهادة الحلال صادرة عن لجنة الحلال التابعة للإدارة الدينية لمسلمي تتارستان "
-              "(رقم 614A/2024) المعتمدة من هيئة التقييس GSO التي تضم {name} في عضويتها. "
-              "ويتم تأكيد الاعتراف عند ترتيب كل شحنة.",
+              "(رقم 614A/2024). ويتم تأكيد الاعتراف في {name} عند ترتيب كل شحنة.",
     },
     "recognized": {
         "ru": "Халяль-сертификат ДУМ РТ (№ 614A/2024) признаётся в {name} напрямую.",
@@ -257,6 +256,8 @@ SYSTEM = brand_block("ru") + """
 2. ЗАПРЕЩЕНО упоминать свинину, бекон, шпик, алкоголь в любом контексте. Вся продукция 100% халяль
    (говядина, мясо птицы) — но НЕ пиши фраз вида «без свинины»: просто говори «халяль», «из говядины и птицы».
 3. НЕ выдумывай точную статистику, цифры рынка, имена клиентов. Общие консервативные формулировки.
+   Не называй Казань крупнейшим центром и не пиши «один из крупнейших центров».
+   Не пиши, что страна входит в GSO или другую организацию: блок сертификата уже на странице.
 4. Пиши на языке, указанном в задании, профессионально, для B2B-закупщика (дистрибьютор, сеть, HoReCa).
 5. Ответ — СТРОГО валидный JSON без markdown-обёртки."""
 
