@@ -90,6 +90,7 @@ def fetch_queries(token: str, date_from: str, date_to: str) -> list:
             f"/user/{USER_ID}/hosts/{urllib.parse.quote(HOST_ID, safe='')}"
             f"/search-queries/popular"
             f"?query_indicator=TOTAL_SHOWS&query_indicator=TOTAL_CLICKS"
+            f"&query_indicator=AVG_SHOW_POSITION&query_indicator=AVG_CLICK_POSITION"
             f"&order_by=TOTAL_SHOWS"
             f"&date_from={date_from}&date_to={date_to}"
             f"&limit={limit}&offset={offset}"
@@ -137,6 +138,11 @@ def save_queries(queries: list, fetched_at: str, date: str):
         clicks = int(float(indicators.get("TOTAL_CLICKS", 0) or 0))
         impressions = int(float(indicators.get("TOTAL_SHOWS", 0) or 0))
         ctr = clicks / impressions if impressions else 0.0
+        raw_pos = indicators.get("AVG_SHOW_POSITION")
+        # A missing indicator used to be stored as 0.0, which is not a rank.
+        position = None
+        if raw_pos not in (None, "", 0, 0.0, "0", "0.0"):
+            position = float(raw_pos)
         try:
             conn.execute(
                 """INSERT INTO yandex_queries
@@ -153,7 +159,7 @@ def save_queries(queries: list, fetched_at: str, date: str):
                     clicks,
                     impressions,
                     ctr,
-                    float(indicators.get("AVG_SHOW_POSITION", 0)),
+                    position,
                 ),
             )
             inserted += 1
@@ -198,6 +204,21 @@ def main():
     print(f"📊 Fetching Yandex queries {date_from} → {date_to} …")
     queries = fetch_queries(token, date_from, date_to)
     print(f"  Got {len(queries)} queries from Yandex")
+    with_pos = 0
+    for q in queries:
+        raw = q.get("indicators") or {}
+        if isinstance(raw, dict) and raw.get("AVG_SHOW_POSITION") not in (None, "", 0, 0.0, "0", "0.0"):
+            with_pos += 1
+        elif isinstance(raw, list) and any(
+            isinstance(item, dict) and item.get("query_indicator") == "AVG_SHOW_POSITION"
+            and item.get("value") not in (None, "", 0, 0.0, "0", "0.0")
+            for item in raw
+        ):
+            with_pos += 1
+    print(f"  Queries with a show position: {with_pos}")
+    if with_pos == 0 and queries:
+        history = fetch_query_history(token, date_from, date_to)
+        print(f"  Popular response had no positions; history rows: {len(history)}")
 
     inserted = save_queries(queries, fetched_at, date_to)
     print(f"  Saved {inserted} new rows to DB")
