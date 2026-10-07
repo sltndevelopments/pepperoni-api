@@ -68,6 +68,10 @@ BASE_STYLE = """
     .faq-section .ans{padding:4px 16px 14px;color:#555;font-size:.92rem}
     footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;font-size:.8rem;color:#888;text-align:center}
     footer a{color:#0066cc;text-decoration:none}
+    label{display:block;margin:12px 0 4px;font-size:.9rem;font-weight:600}
+    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
+    .consent{font-weight:400;font-size:.85rem}
+    figure img{max-width:100%;height:auto;border-radius:8px}
 """
 
 def get_products_by_skus(skus):
@@ -96,7 +100,7 @@ def product_card_html(p):
     shelf = p.get("shelfLife", "")
     meta_parts = []
     if weight:
-        meta_parts.append(f"Вес: {weight} кг")
+        meta_parts.append(f"Вес: {_weight_label(p)}")
     if shelf:
         meta_parts.append(f"Срок: {shelf}")
     meta = " · ".join(meta_parts)
@@ -106,6 +110,95 @@ def product_card_html(p):
           <div class="meta">{meta}</div>
           <a href="/products/{p["sku"].lower()}">Подробнее →</a>
         </div>"""
+
+
+_AUDIENCES = (
+    ("HoReCa", "/dlya-horeca"),
+    ("Сети", "/dlya-setey"),
+    ("АЗС", "/dlya-azs"),
+    ("Дистрибьюторы", "/dlya-distributorov"),
+)
+
+
+def _weight_label(p):
+    w = (p.get("weight") or "").strip()
+    if not w:
+        return "—"
+    low = w.lower()
+    if any(unit in low for unit in ("кг", "г", "kg")):
+        return w
+    return f"{w} кг"
+
+
+def _price_label(p):
+    price = (p.get("offers") or {}).get("price")
+    if price in (None, ""):
+        return "—"
+    return f"{price} ₽"
+
+
+def _sku_table(products):
+    rows = []
+    for p in products:
+        sku = p["sku"]
+        fmt = p.get("packageType") or p.get("casing") or "—"
+        rows.append(
+            "<tr>"
+            f"<td><a href=\"/products/{sku.lower()}\">{sku}</a></td>"
+            f"<td>{p['name']}</td>"
+            f"<td>{fmt}</td>"
+            f"<td>{_weight_label(p)}</td>"
+            f"<td>{p.get('storage') or '—'}</td>"
+            f"<td>{p.get('shelfLife') or '—'}</td>"
+            f"<td>{_price_label(p)}</td>"
+            "</tr>"
+        )
+    return (
+        "<table><thead><tr><th>SKU</th><th>Название</th><th>Формат</th>"
+        "<th>Масса</th><th>Хранение</th><th>Срок</th>"
+        "<th>Цена EXW, ₽ с НДС</th></tr></thead><tbody>"
+        + "".join(rows)
+        + "</tbody></table>"
+        "<p>Цена — за упаковку из каталога, EXW Казань, с НДС. "
+        "Пустая цена значит, что в каталоге её сейчас нет: сумму подтверждает отдел продаж.</p>"
+    )
+
+
+def _photo_block(products):
+    figures = []
+    for p in products:
+        for key, cap in (("imageMain", "продукт"), ("imageSlice", "срез"), ("imagePack", "упаковка")):
+            src = p.get(key)
+            if not src:
+                continue
+            figures.append(
+                f'<figure class="product-card"><img src="{src}" alt="{p["name"]}, {cap}" '
+                f'loading="lazy" width="240" height="180"><figcaption>{p["sku"]} · {cap}</figcaption></figure>'
+            )
+    if not figures:
+        return "<p>Фото этой категории в каталоге пока нет. Вид упаковки смотрите в карточке SKU.</p>"
+    return (
+        '<div class="products-grid">' + "".join(figures) + "</div>"
+        "<p>Фото короба в каталоге нет.</p>"
+    )
+
+
+def _lead_form(slug, label):
+    return f"""<form class="lead-form" id="lead-{slug}" novalidate data-experiment-id="{slug}-ru" data-msg-sending="Отправляем…" data-msg-ok="Заявка принята. Отдел продаж ответит по указанному контакту." data-msg-err-phone="Укажите телефон или WhatsApp." data-msg-err-phone-invalid="Проверьте номер." data-msg-err-consent="Нужно согласие на обработку данных." data-msg-err-rate="Слишком много попыток. Позвоните нам." data-msg-err-generic="Не удалось отправить. Позвоните +7 987 217-02-02." data-msg-err-network="Нет сети. Позвоните +7 987 217-02-02.">
+      <input type="hidden" name="category" value="{label}">
+      <label>Имя<input type="text" name="name" autocomplete="name"></label>
+      <label>Телефон или WhatsApp *<input type="tel" name="phone" required autocomplete="tel" placeholder="+7 …"></label>
+      <label>Компания<input type="text" name="company_name" autocomplete="organization"></label>
+      <label>Сегмент<select name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select></label>
+      <label>Город или страна<input type="text" name="city" autocomplete="address-level2"></label>
+      <label>Объём в месяц<input type="text" name="volume" placeholder="например, 1 паллета"></label>
+      <label>Комментарий<textarea name="message" rows="3"></textarea></label>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <label class="consent"><input type="checkbox" name="consent" required> Согласен на обработку персональных данных по <a href="/privacy">политике</a>.</label>
+      <button class="cta" type="submit">Отправить заявку</button>
+      <p class="lead-form__status" role="status" aria-live="polite"></p>
+    </form>
+    <script src="/assets/lead-form.js" defer></script>"""
 
 
 def faq_schema(pairs):
@@ -184,7 +277,18 @@ def build_page(cfg):
             "Как оформить оптовый запрос?",
             "Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, "
             "документы и логистику подтвердит отдел продаж: "
-            "info@kazandelikates.tatar, +7 987 217-02-02.",
+            "info@kazandelikates.tatar, +7 987 217-02-02. "
+            "Минимальный заказ — одна паллета, сборная паллета возможна.",
+        ),
+        (
+            "Можно ли получить образец?",
+            "Образец согласуем отдельно под ваш запрос. Срок и состав образца "
+            "называет отдел продаж, на странице их нет.",
+        ),
+        (
+            "Как устроены доставка и оплата?",
+            "Цены на странице — EXW Казань. Доставку оплачивает покупатель, "
+            "срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте.",
         ),
     ]
     faq_ld = faq_schema(faq_pairs)
@@ -276,21 +380,45 @@ def build_page(cfg):
   <span class="badge badge-outline">Оптовые поставки</span>
 
   <p>{intro}</p>
+  <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — одна паллета, сборная паллета из нескольких SKU возможна. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
+
+  <h2>Для кого</h2>
+  <ul>
+    <li><a href="/dlya-horeca">HoReCa</a></li>
+    <li><a href="/dlya-setey">Сети</a></li>
+    <li><a href="/dlya-azs">АЗС</a></li>
+    <li><a href="/dlya-distributorov">Дистрибьюторы</a></li>
+  </ul>
 
   <h2>Ассортимент ({len(products)} SKU)</h2>
+  {_sku_table(products)}
   <div class="products-grid">
 {cards}
   </div>
+
+  <h2>Фото</h2>
+  {_photo_block(products)}
+
+  <h2>Спецификации</h2>
+  <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Отдельного PDF спецификации в каталоге нет: лист под выбранные позиции запрашивайте у отдела продаж вместе с прайсом <a href="/wholesale-price-list.md">MD</a> · <a href="/wholesale-price-list.txt">TXT</a>.</p>
+
+  <h2>Документы и отгрузка</h2>
+  <ul>
+    <li>Халяль ДУМ РТ № {halal_no}</li>
+    <li>HACCP, ISO 22000:2018, ТР ТС 021/2011</li>
+    <li>Декларация соответствия, ВСД («Меркурий»), «Честный знак», электронная накладная</li>
+    <li>Базис цен — EXW Казань. Срок отгрузки называем по конкретному заказу.</li>
+  </ul>
 
   <h2>Преимущества</h2>
   <ul>
 {features_html}
   </ul>
 
-  <h2>Заказать оптом</h2>
-  <p>Условия заказа, наличие, логистика и доступные документы подтверждаются отделом продаж для выбранных SKU.</p>
-  <a class="cta" href="mailto:info@kazandelikates.tatar">Запросить условия</a>
-  <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a>
+  <h2 id="zayavka">Заказать оптом</h2>
+  <p>Обязателен контакт. Компания, сегмент, город или страна и объём в месяц можно не заполнять.</p>
+  {_lead_form(cfg["slug"], label)}
+  <p><a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a> <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
 
   {related_html}
 
@@ -710,6 +838,14 @@ def build_commercial_page(cfg, lang):
       <input id="lf-name-{lang}" type="text" name="name" placeholder="{t['ph_name']}" autocomplete="name">
       <label for="lf-phone-{lang}">{t['l_phone']}</label>
       <input id="lf-phone-{lang}" type="tel" name="phone" required placeholder="{t['ph_phone']}" autocomplete="tel">
+      <label for="lf-co-{lang}">{"Компания" if lang == "ru" else "Company"}</label>
+      <input id="lf-co-{lang}" type="text" name="company_name" autocomplete="organization">
+      <label for="lf-seg-{lang}">{"Сегмент" if lang == "ru" else "Segment"}</label>
+      <select id="lf-seg-{lang}" name="segment"><option value="">{"Не выбрано" if lang == "ru" else "Not selected"}</option><option>HoReCa</option><option>{"Сеть" if lang == "ru" else "Retail chain"}</option><option>{"Дистрибьютор" if lang == "ru" else "Distributor"}</option><option>{"АЗС" if lang == "ru" else "Petrol station"}</option><option>{"Пекарня" if lang == "ru" else "Bakery"}</option><option>{"СТМ" if lang == "ru" else "Private label"}</option><option>{"Экспорт" if lang == "ru" else "Export"}</option></select>
+      <label for="lf-city-{lang}">{"Город или страна" if lang == "ru" else "City or country"}</label>
+      <input id="lf-city-{lang}" type="text" name="city" autocomplete="address-level2">
+      <label for="lf-vol-{lang}">{"Объём в месяц" if lang == "ru" else "Monthly volume"}</label>
+      <input id="lf-vol-{lang}" type="text" name="volume">
       <label for="lf-msg-{lang}">{t['l_msg']}</label>
       <textarea id="lf-msg-{lang}" name="message" rows="3" placeholder="{t['ph_msg']}"></textarea>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
@@ -972,6 +1108,27 @@ PAGES = [
             ("Казылык", "/kazylyk"),
             ("Сосиски халяль", "/sosiski-halyal/"),
             ("О компании", "/about"),
+        ],
+    },
+    {
+        "slug": "kazylyk",
+        "label": "Казылык",
+        "keywords": "казылык, казылык оптом, конская колбаса халяль",
+        "categories": ["Премиум Казылык"],
+        "related_links": [
+            ("Пепперони", "/pepperoni"),
+            ("Копчёные колбасы", "/kolbasy-kopchyonye"),
+        ],
+    },
+    {
+        "slug": "sosiska-v-teste",
+        "label": "Сосиска в тесте",
+        "halal_cert": "614A/2024 для мясной сосиски и 884A/2025 для выпечки",
+        "keywords": "сосиска в тесте оптом, сосиска в тесте халяль",
+        "skus": ["KD-018", "KD-061"],
+        "related_links": [
+            ("Выпечка халяль", "/vyipechka-halyal"),
+            ("Сосиски халяль", "/sosiski-halyal"),
         ],
     },
     # "myasnyie-zagotovki" (farsh/meat-preps) removed 2026-07-05: the product

@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- perf-hints: preconnect -->
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
-<link rel="dns-prefetch" href="https://mc.yandex.ru">
-
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -74,7 +68,17 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     {
       "@type": "Question",
       "name": "Как оформить оптовый запрос?",
-      "acceptedAnswer": {"@type": "Answer", "text": "Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02."}
+      "acceptedAnswer": {"@type": "Answer", "text": "Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02. Минимальный заказ — одна паллета, сборная паллета возможна."}
+    },
+    {
+      "@type": "Question",
+      "name": "Можно ли получить образец?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Образец согласуем отдельно под ваш запрос. Срок и состав образца называет отдел продаж, на странице их нет."}
+    },
+    {
+      "@type": "Question",
+      "name": "Как устроены доставка и оплата?",
+      "acceptedAnswer": {"@type": "Answer", "text": "Цены на странице — EXW Казань. Доставку оплачивает покупатель, срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте."}
     }
   ]
   }
@@ -129,30 +133,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .faq-section .ans{padding:4px 16px 14px;color:#555;font-size:.92rem}
     footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;font-size:.8rem;color:#888;text-align:center}
     footer a{color:#0066cc;text-decoration:none}
-</style>
-<!-- perf-hints: speculation-rules -->
-<script type="speculationrules">
-{
-  "prerender": [{
-    "source": "document",
-    "where": {
-      "and": [
-        { "href_matches": "/*" },
-        { "not": { "href_matches": "/lead-submit*" } },
-        { "not": { "href_matches": "/lead-health*" } },
-        { "not": { "selector_matches": "[download]" } },
-        { "not": { "selector_matches": ".no-prerender" } }
-      ]
-    },
-    "eagerness": "moderate"
-  }]
-}
-</script>
-<!-- perf-hints: view-transitions -->
-<style>
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
-}
+    label{display:block;margin:12px 0 4px;font-size:.9rem;font-weight:600}
+    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
+    .consent{font-weight:400;font-size:.85rem}
+    figure img{max-width:100%;height:auto;border-radius:8px}
 </style>
 </head>
 <body>
@@ -170,124 +154,148 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <span class="badge badge-outline">Оптовые поставки</span>
 
   <p>В категории «Выпечка халяль» опубликованы 19 позиций из актуального каталога. Ниже приведены SKU и характеристики из products.json; коммерческие условия согласуются для конкретного запроса.</p>
+  <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — одна паллета, сборная паллета из нескольких SKU возможна. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
+
+  <h2>Для кого</h2>
+  <ul>
+    <li><a href="/dlya-horeca">HoReCa</a></li>
+    <li><a href="/dlya-setey">Сети</a></li>
+    <li><a href="/dlya-azs">АЗС</a></li>
+    <li><a href="/dlya-distributorov">Дистрибьюторы</a></li>
+  </ul>
 
   <h2>Ассортимент (19 SKU)</h2>
+  <table><thead><tr><th>SKU</th><th>Название</th><th>Формат</th><th>Масса</th><th>Хранение</th><th>Срок</th><th>Цена EXW, ₽ с НДС</th></tr></thead><tbody><tr><td><a href="/products/kd-046">KD-046</a></td><td>Губадия с кортом</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-047">KD-047</a></td><td>Чебурек жареный</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-048">KD-048</a></td><td>Перемяч жареный</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-049">KD-049</a></td><td>Самса с курицей</td><td>—</td><td>120 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-050">KD-050</a></td><td>Эчпочмак с говядиной и картофелем</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-051">KD-051</a></td><td>Самса с говядиной</td><td>—</td><td>120 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-052">KD-052</a></td><td>Элеш с курицей и картофелем</td><td>—</td><td>150 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-053">KD-053</a></td><td>Чак-Чак в пластиковой упаковке</td><td>—</td><td>300 г</td><td>до +18°C</td><td>60 суток</td><td>—</td></tr><tr><td><a href="/products/kd-054">KD-054</a></td><td>Чак-Чак в крафтовой подарочной упаковке</td><td>—</td><td>300 г</td><td>до +18°C</td><td>60 суток</td><td>—</td></tr><tr><td><a href="/products/kd-055">KD-055</a></td><td>Сочник с творогом</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-056">KD-056</a></td><td>Пирожок печеный с картофелем</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-057">KD-057</a></td><td>Сырник</td><td>—</td><td>70 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-058">KD-058</a></td><td>Пирожок с яблоком</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-059">KD-059</a></td><td>Пирожок с зеленым луком и яйцом</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-060">KD-060</a></td><td>Маффин апельсиновый</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-061">KD-061</a></td><td>Сосиска в тесте</td><td>—</td><td>120 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-062">KD-062</a></td><td>Пирожок с вишней</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-063">KD-063</a></td><td>Круассан с шоколадом и орехами</td><td>—</td><td>90 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr><tr><td><a href="/products/kd-064">KD-064</a></td><td>Маффин шоколадный</td><td>—</td><td>100 г</td><td>–18°C</td><td>360 суток</td><td>—</td></tr></tbody></table><p>Цена — за упаковку из каталога, EXW Казань, с НДС. Пустая цена значит, что в каталоге её сейчас нет: сумму подтверждает отдел продаж.</p>
   <div class="products-grid">
         <div class="product-card">
           <div class="sku">KD-046</div>
           <div class="name">Губадия с кортом</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-046">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-047</div>
           <div class="name">Чебурек жареный</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-047">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-048</div>
           <div class="name">Перемяч жареный</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-048">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-049</div>
           <div class="name">Самса с курицей</div>
-          <div class="meta">Вес: 120 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 120 г · Срок: 360 суток</div>
           <a href="/products/kd-049">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-050</div>
           <div class="name">Эчпочмак с говядиной и картофелем</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-050">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-051</div>
           <div class="name">Самса с говядиной</div>
-          <div class="meta">Вес: 120 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 120 г · Срок: 360 суток</div>
           <a href="/products/kd-051">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-052</div>
           <div class="name">Элеш с курицей и картофелем</div>
-          <div class="meta">Вес: 150 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 150 г · Срок: 360 суток</div>
           <a href="/products/kd-052">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-053</div>
           <div class="name">Чак-Чак в пластиковой упаковке</div>
-          <div class="meta">Вес: 300 г кг · Срок: 60 суток</div>
+          <div class="meta">Вес: 300 г · Срок: 60 суток</div>
           <a href="/products/kd-053">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-054</div>
           <div class="name">Чак-Чак в крафтовой подарочной упаковке</div>
-          <div class="meta">Вес: 300 г кг · Срок: 60 суток</div>
+          <div class="meta">Вес: 300 г · Срок: 60 суток</div>
           <a href="/products/kd-054">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-055</div>
           <div class="name">Сочник с творогом</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-055">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-056</div>
           <div class="name">Пирожок печеный с картофелем</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-056">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-057</div>
           <div class="name">Сырник</div>
-          <div class="meta">Вес: 70 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 70 г · Срок: 360 суток</div>
           <a href="/products/kd-057">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-058</div>
           <div class="name">Пирожок с яблоком</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-058">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-059</div>
           <div class="name">Пирожок с зеленым луком и яйцом</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-059">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-060</div>
           <div class="name">Маффин апельсиновый</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-060">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-061</div>
           <div class="name">Сосиска в тесте</div>
-          <div class="meta">Вес: 120 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 120 г · Срок: 360 суток</div>
           <a href="/products/kd-061">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-062</div>
           <div class="name">Пирожок с вишней</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-062">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-063</div>
           <div class="name">Круассан с шоколадом и орехами</div>
-          <div class="meta">Вес: 90 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 90 г · Срок: 360 суток</div>
           <a href="/products/kd-063">Подробнее →</a>
         </div>
         <div class="product-card">
           <div class="sku">KD-064</div>
           <div class="name">Маффин шоколадный</div>
-          <div class="meta">Вес: 100 г кг · Срок: 360 суток</div>
+          <div class="meta">Вес: 100 г · Срок: 360 суток</div>
           <a href="/products/kd-064">Подробнее →</a>
         </div>
   </div>
+
+  <h2>Фото</h2>
+  <div class="products-grid"><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-046-main.jpg?v=6947f458" alt="Губадия с кортом, продукт" loading="lazy" width="240" height="180"><figcaption>KD-046 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-046-pack.jpg?v=9c0aef3e" alt="Губадия с кортом, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-046 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-047-main.jpg?v=3fc8f620" alt="Чебурек жареный, продукт" loading="lazy" width="240" height="180"><figcaption>KD-047 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-047-pack.jpg?v=d189ac0e" alt="Чебурек жареный, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-047 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-048-main.jpg?v=7386481c" alt="Перемяч жареный, продукт" loading="lazy" width="240" height="180"><figcaption>KD-048 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-048-pack.jpg?v=3ef44184" alt="Перемяч жареный, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-048 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-049-main.jpg?v=233ca81f" alt="Самса с курицей, продукт" loading="lazy" width="240" height="180"><figcaption>KD-049 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-050-main.jpg?v=343ea601" alt="Эчпочмак с говядиной и картофелем, продукт" loading="lazy" width="240" height="180"><figcaption>KD-050 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-050-pack.jpg?v=56dbb770" alt="Эчпочмак с говядиной и картофелем, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-050 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-051-main.jpg?v=db052759" alt="Самса с говядиной, продукт" loading="lazy" width="240" height="180"><figcaption>KD-051 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-051-pack.jpg?v=37384d07" alt="Самса с говядиной, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-051 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-052-main.jpg?v=e4983f90" alt="Элеш с курицей и картофелем, продукт" loading="lazy" width="240" height="180"><figcaption>KD-052 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-052-pack.jpg?v=b95472cf" alt="Элеш с курицей и картофелем, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-052 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-053-main.jpg?v=3a3fac5b" alt="Чак-Чак в пластиковой упаковке, продукт" loading="lazy" width="240" height="180"><figcaption>KD-053 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-053-slice.jpg?v=6f9b9bf2" alt="Чак-Чак в пластиковой упаковке, срез" loading="lazy" width="240" height="180"><figcaption>KD-053 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-053-pack.jpg?v=49299708" alt="Чак-Чак в пластиковой упаковке, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-053 · упаковка</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-054-main.jpg?v=b6ca7c06" alt="Чак-Чак в крафтовой подарочной упаковке, продукт" loading="lazy" width="240" height="180"><figcaption>KD-054 · продукт</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-054-slice.jpg?v=6a4fbd2a" alt="Чак-Чак в крафтовой подарочной упаковке, срез" loading="lazy" width="240" height="180"><figcaption>KD-054 · срез</figcaption></figure><figure class="product-card"><img src="https://pepperoni.tatar/images/products/kd-054-pack.jpg?v=37b8ba6d" alt="Чак-Чак в крафтовой подарочной упаковке, упаковка" loading="lazy" width="240" height="180"><figcaption>KD-054 · упаковка</figcaption></figure></div><p>Фото короба в каталоге нет.</p>
+
+  <h2>Спецификации</h2>
+  <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Отдельного PDF спецификации в каталоге нет: лист под выбранные позиции запрашивайте у отдела продаж вместе с прайсом <a href="/wholesale-price-list.md">MD</a> · <a href="/wholesale-price-list.txt">TXT</a>.</p>
+
+  <h2>Документы и отгрузка</h2>
+  <ul>
+    <li>Халяль ДУМ РТ № 884A/2025</li>
+    <li>HACCP, ISO 22000:2018, ТР ТС 021/2011</li>
+    <li>Декларация соответствия, ВСД («Меркурий»), «Честный знак», электронная накладная</li>
+    <li>Базис цен — EXW Казань. Срок отгрузки называем по конкретному заказу.</li>
+  </ul>
 
   <h2>Преимущества</h2>
   <ul>
@@ -297,12 +305,26 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <li>MOQ, наличие, документы и логистика подтверждаются для запроса</li>
   </ul>
 
-  <h2>Заказать оптом</h2>
-  <p>Условия заказа, наличие, логистика и доступные документы подтверждаются отделом продаж для выбранных SKU.</p>
-  <a class="cta" href="mailto:info@kazandelikates.tatar">Запросить условия</a>
-  <a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a>
+  <h2 id="zayavka">Заказать оптом</h2>
+  <p>Обязателен контакт. Компания, сегмент, город или страна и объём в месяц можно не заполнять.</p>
+  <form class="lead-form" id="lead-vyipechka-halyal" novalidate data-experiment-id="vyipechka-halyal-ru" data-msg-sending="Отправляем…" data-msg-ok="Заявка принята. Отдел продаж ответит по указанному контакту." data-msg-err-phone="Укажите телефон или WhatsApp." data-msg-err-phone-invalid="Проверьте номер." data-msg-err-consent="Нужно согласие на обработку данных." data-msg-err-rate="Слишком много попыток. Позвоните нам." data-msg-err-generic="Не удалось отправить. Позвоните +7 987 217-02-02." data-msg-err-network="Нет сети. Позвоните +7 987 217-02-02.">
+      <input type="hidden" name="category" value="Выпечка халяль">
+      <label>Имя<input type="text" name="name" autocomplete="name"></label>
+      <label>Телефон или WhatsApp *<input type="tel" name="phone" required autocomplete="tel" placeholder="+7 …"></label>
+      <label>Компания<input type="text" name="company_name" autocomplete="organization"></label>
+      <label>Сегмент<select name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select></label>
+      <label>Город или страна<input type="text" name="city" autocomplete="address-level2"></label>
+      <label>Объём в месяц<input type="text" name="volume" placeholder="например, 1 паллета"></label>
+      <label>Комментарий<textarea name="message" rows="3"></textarea></label>
+      <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <label class="consent"><input type="checkbox" name="consent" required> Согласен на обработку персональных данных по <a href="/privacy">политике</a>.</label>
+      <button class="cta" type="submit">Отправить заявку</button>
+      <p class="lead-form__status" role="status" aria-live="polite"></p>
+    </form>
+    <script src="/assets/lead-form.js" defer></script>
+  <p><a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a> <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
 
-  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/kazylyk">Казылык</a> · Сосиски халяль · <a href="/about">О компании</a></p>
+  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/kazylyk">Казылык</a> · <a href="/sosiski-halyal/">Сосиски халяль</a> · <a href="/about">О компании</a></p>
 
   <section class="faq-section">
     <h2>Частые вопросы</h2>
@@ -320,7 +342,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       </details>
       <details>
         <summary>Как оформить оптовый запрос?</summary>
-        <div class="ans">Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02.</div>
+        <div class="ans">Укажите SKU, объём и пункт назначения. Наличие, минимальный заказ, документы и логистику подтвердит отдел продаж: info@kazandelikates.tatar, +7 987 217-02-02. Минимальный заказ — одна паллета, сборная паллета возможна.</div>
+      </details>
+      <details>
+        <summary>Можно ли получить образец?</summary>
+        <div class="ans">Образец согласуем отдельно под ваш запрос. Срок и состав образца называет отдел продаж, на странице их нет.</div>
+      </details>
+      <details>
+        <summary>Как устроены доставка и оплата?</summary>
+        <div class="ans">Цены на странице — EXW Казань. Доставку оплачивает покупатель, срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте.</div>
       </details>
   </section>
 

@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<!-- perf-hints: preconnect -->
-<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
-<link rel="dns-prefetch" href="https://www.googletagmanager.com">
-<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
-<link rel="dns-prefetch" href="https://mc.yandex.ru">
-
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -75,6 +69,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .faq-section .ans{padding:4px 16px 14px;color:#555;font-size:.92rem}
     footer{margin-top:60px;padding-top:20px;border-top:1px solid #eee;font-size:.8rem;color:#888;text-align:center}
     footer a{color:#0066cc;text-decoration:none}
+    label{display:block;margin:12px 0 4px;font-size:.9rem;font-weight:600}
+    input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
+    .consent{font-weight:400;font-size:.85rem}
+    figure img{max-width:100%;height:auto;border-radius:8px}
 
     .container{max-width:1040px}
     .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:start;margin:12px 0 8px}
@@ -120,30 +118,6 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     .contact-line a{color:#1b7a3d;font-weight:600;text-decoration:none}
     .sku label.pick input{width:20px;height:20px;accent-color:#1b7a3d}
     @media(max-width:720px){.hero,.order{grid-template-columns:1fr}h1{font-size:1.5rem}.sku label.pick{padding:8px 0;min-height:40px}.badge{margin-bottom:8px}}
-</style>
-<!-- perf-hints: speculation-rules -->
-<script type="speculationrules">
-{
-  "prerender": [{
-    "source": "document",
-    "where": {
-      "and": [
-        { "href_matches": "/*" },
-        { "not": { "href_matches": "/lead-submit*" } },
-        { "not": { "href_matches": "/lead-health*" } },
-        { "not": { "selector_matches": "[download]" } },
-        { "not": { "selector_matches": ".no-prerender" } }
-      ]
-    },
-    "eagerness": "moderate"
-  }]
-}
-</script>
-<!-- perf-hints: view-transitions -->
-<style>
-@media (prefers-reduced-motion: no-preference) {
-  @view-transition { navigation: auto; }
-}
 </style>
 </head>
 <body>
@@ -273,6 +247,14 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <input id="lf-name-ru" type="text" name="name" placeholder="Как к вам обращаться" autocomplete="name">
       <label for="lf-phone-ru">Телефон или WhatsApp *</label>
       <input id="lf-phone-ru" type="tel" name="phone" required placeholder="+7 …" autocomplete="tel">
+      <label for="lf-co-ru">Компания</label>
+      <input id="lf-co-ru" type="text" name="company_name" autocomplete="organization">
+      <label for="lf-seg-ru">Сегмент</label>
+      <select id="lf-seg-ru" name="segment"><option value="">Не выбрано</option><option>HoReCa</option><option>Сеть</option><option>Дистрибьютор</option><option>АЗС</option><option>Пекарня</option><option>СТМ</option><option>Экспорт</option></select>
+      <label for="lf-city-ru">Город или страна</label>
+      <input id="lf-city-ru" type="text" name="city" autocomplete="address-level2">
+      <label for="lf-vol-ru">Объём в месяц</label>
+      <input id="lf-vol-ru" type="text" name="volume">
       <label for="lf-msg-ru">Город, тип заведения, объём</label>
       <textarea id="lf-msg-ru" name="message" rows="3" placeholder="Например: Уфа, сеть из 4 точек, 300 упаковок в месяц"></textarea>
       <input type="text" name="company" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
@@ -349,7 +331,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   },true);
 })();
 </script>
-<script src="/assets/lead-form.js?v=6ccb85e8" defer></script>
+<script src="/assets/lead-form.js" defer></script>
 <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});</script>
 <noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
 </body>
