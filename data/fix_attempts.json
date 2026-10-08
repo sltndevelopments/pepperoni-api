@@ -84,11 +84,15 @@
     },
     "ветчина это халал": {
       "seen_failure_ids": [
-        "2026-06-08T08:53:48.489851+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|title_meta"
+        "2026-06-08T08:53:48.489851+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-iz-kuricy-halyal|title_meta",
+        "2026-06-09T08:46:55.176544+00:00|ветчина это халал|https://pepperoni.tatar/blog/vetchina-fileynaya-halyal|title_meta"
       ],
-      "attempts": 1,
+      "attempts": 2,
       "last_verdict": "not_indexed",
-      "last_attempt": "2026-08-24T00:30:03.064154+00:00"
+      "last_attempt": "2026-10-08T00:00:04.632657+00:00",
+      "abandoned": true,
+      "abandon_date": "2026-10-08T00:00:04.636112+00:00",
+      "abandon_reason": "2 consecutive failing repairs — needs owner decision"
     },
     "эчпочмак это": {
       "seen_failure_ids": [
