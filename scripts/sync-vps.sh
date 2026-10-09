@@ -54,6 +54,23 @@ python3 scripts/check_catalog_sanity.py --quiet
 # A later failure must leave this file in place, not roll it back to git.
 publish_catalog
 
+# A SKU number that was 410 and comes back in the sheet must be served again.
+# Regenerates deploy/nginx/geo-cleanup-gone.conf from public/products.json
+# and, on the VPS, reloads nginx. A page-text gate must not be able to leave
+# the new card answering 410.
+python3 scripts/apply_geo_cleanup.py --nginx-skus-only
+if [[ -d /etc/nginx/snippets ]]; then
+  if ! cmp -s deploy/nginx/geo-cleanup-gone.conf /etc/nginx/snippets/geo-cleanup-gone.conf; then
+    if python3 scripts/index_safety.py --check-nginx-install; then
+      install -m 0644 deploy/nginx/geo-cleanup-gone.conf /etc/nginx/snippets/geo-cleanup-gone.conf
+      nginx -t && systemctl reload nginx
+      echo "[$(date -Iseconds)] nginx: 410 list matches the live catalog"
+    else
+      echo "[warn] nginx 410 list was not installed; a keep URL would be 410 or 301"
+    fi
+  fi
+fi
+
 # 1b. Regenerate rich product pages (RU + EN) with gallery, SEO, Cloudinary images.
 # sync-sheets.mjs writes simple single-image pages; gen-ru/en-products.py override
 # them with the full gallery (imageMain + imagePack + imageSlice thumbnails).
