@@ -40,6 +40,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
+          command_timeout: 30m
           script: |
             set -e
             cd /var/www/pepperoni/repo
@@ -64,6 +65,11 @@ jobs:
               mkdir -p /var/www/pepperoni/public/docs
               cp -rf public/docs/* /var/www/pepperoni/public/docs/
             fi
+            # git reset --hard just restored the committed products.json and
+            # product HTML, which go stale the moment a price changes in
+            # Sheets. Re-apply the sheet before this SSH step returns so a
+            # deploy cannot leave that snapshot on the site.
+            bash /var/www/pepperoni/repo/scripts/sync-vps.sh
 
       - name: Install deps on VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -203,16 +209,27 @@ jobs:
             git remote set-url origin git@github.com:sltndevelopments/pepperoni-api.git
             git fetch origin main --quiet 2>&1 && echo "✅ git fetch OK via SSH deploy key"
 
-      - name: Update API data/products.json on VPS
+      - name: Confirm live catalog was republished from the sheet
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: root
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            mkdir -p /var/www/pepperoni/data
-            cp /var/www/pepperoni/repo/public/products.json /var/www/pepperoni/data/products.json
-            echo "✅ data/products.json updated: $(python3 -c "import json; d=json.load(open('/var/www/pepperoni/data/products.json')); print(len(d['products']), 'products, first price:', d['products'][0]['offers'].get('price','?'))" 2>/dev/null || echo 'copied')"
+            python3 - << 'PY'
+            import json, sys
+            from datetime import datetime, timezone
+            p = "/var/www/pepperoni/data/products.json"
+            d = json.load(open(p))
+            today = datetime.now(timezone.utc).date().isoformat()
+            price = d["products"][0]["offers"].get("price")
+            print(f"live lastSynced={d.get('lastSynced')} total={d.get('totalProducts')} first_price={price} utc_date={today}")
+            # Do not copy git's products.json over this file. The sheet sync
+            # is the only writer. A date mismatch means the deploy's sync
+            # did not publish, and the site would still be on an old snapshot.
+            if d.get("lastSynced") != today:
+                sys.exit("catalog was not republished from the sheet")
+            PY
 
       - name: Restart partner-intake service on VPS
         uses: appleboy/ssh-action@v1.0.0

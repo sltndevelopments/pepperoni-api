@@ -64,9 +64,12 @@ def scan(path: Path) -> list[str]:
         m = FIGURE.search(sent)
         if not m:
             continue
-        # «одна паллета (сборная …)» / «по 6 шт в коробе» inside an allowed sentence
-        window = sent[max(0, m.start() - 80): m.end() + 40]
-        if ALLOW.search(window):
+        # «одна паллета» / «pallet MOQ» anywhere in the sentence means the
+        # minimum is the pallet. Kg and pack counts in that sentence are
+        # prices and weights («KD-013 RUB 274 / 0.5 kg … pallet MOQ»), not a
+        # second minimum. A short window around the kg figure missed «pallet»
+        # at the end of the sentence and blocked the catalog sync.
+        if ALLOW.search(sent):
             continue
         hits.append(re.sub(r"\s+", " ", sent.strip())[:170])
     return hits

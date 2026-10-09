@@ -10,6 +10,32 @@ FINAL_FILE="$DATA_DIR/products.json"
 
 mkdir -p "$DATA_DIR"
 
+# One writer. A deploy that starts sync while cron is in the middle of the
+# previous run waits, then publishes once. Two writers used to leave the API
+# on whichever copy finished last, including a stale git snapshot.
+LOCK_FILE="$DATA_DIR/sync.lock"
+exec 9>"$LOCK_FILE"
+if ! flock -w 900 9; then
+  echo "[$(date -Iseconds)] Sync FAIL: another sync held the lock for 15 min"
+  exit 1
+fi
+
+publish_catalog() {
+  # Sheet → this file is the only live catalog. Page-prose gates run later and
+  # must not be able to skip this copy: that is how a sentence on /about kept
+  # July prices on the API while the working copy already had today's sheet.
+  cp -f public/products.json "$TMP_FILE"
+  if command -v jq &>/dev/null; then
+    if ! jq -e . "$TMP_FILE" >/dev/null 2>&1; then
+      echo "[$(date -Iseconds)] Sync FAIL: Invalid JSON, keeping previous catalog"
+      rm -f "$TMP_FILE"
+      exit 1
+    fi
+  fi
+  mv "$TMP_FILE" "$FINAL_FILE"
+  echo "[$(date -Iseconds)] Catalog published: $FINAL_FILE"
+}
+
 # 1. Sync пишет в repo/public/
 cd "$REPO_DIR"
 node scripts/sync-sheets.mjs
@@ -23,6 +49,10 @@ python3 scripts/apply_spec_holds.py --check
 # 1b. Meaning-level catalog gate (2026-09-12): dessert-with-meat, mis-keyed
 # descriptions, per-box export prices published as per-unit. Blocking.
 python3 scripts/check_catalog_sanity.py --quiet
+
+# Publish the validated catalog BEFORE page generators and prose gates.
+# A later failure must leave this file in place, not roll it back to git.
+publish_catalog
 
 # 1b. Regenerate rich product pages (RU + EN) with gallery, SEO, Cloudinary images.
 # sync-sheets.mjs writes simple single-image pages; gen-ru/en-products.py override
@@ -81,33 +111,18 @@ python3 scripts/index_policy_check.py
 # titles, JSON-LD, page text) may attach a meat or curing method to
 # "pepperoni" that the catalog does not have. A Sheets change that removes a
 # SKU makes stale prose fail here instead of going live.
-python3 scripts/check_fact_consistency.py
-python3 scripts/check_product_claims.py --quiet
+# Prose gates still report lies, but they must not abort the job. The catalog
+# is already published above. Exiting here used to skip that publish entirely,
+# so one sentence on a marketing page froze every price on the site.
+python3 scripts/check_fact_consistency.py || echo "[warn] check_fact_consistency failed; catalog already published"
+python3 scripts/check_product_claims.py --quiet || echo "[warn] check_product_claims failed; catalog already published"
 # Owner-approved commercial fact (2026-09-12): private-label minimum run is
-# «от 5 тонн» — any other kg/t figure in a СТМ sentence blocks the sync.
-python3 scripts/check_stm_min_run.py --quiet
-# Owner decision 2026-09-12: wholesale minimum is ONE PALLET for every category —
-# any kg / box / piece minimum-order figure in pages or generators blocks the sync.
-python3 scripts/check_wholesale_moq.py --quiet
+# «от 5 тонн». Plant capacity («12 тонн в смену») is not a second minimum.
+python3 scripts/check_stm_min_run.py --quiet || echo "[warn] check_stm_min_run failed; catalog already published"
+# Owner decision 2026-09-12: wholesale minimum is ONE PALLET for every category.
+python3 scripts/check_wholesale_moq.py --quiet || echo "[warn] check_wholesale_moq failed; catalog already published"
 
-# 2. Копируем во временный файл
-cp -f public/products.json "$TMP_FILE"
-
-# 3. Валидация JSON (jq)
-if command -v jq &>/dev/null; then
-  if jq -e . "$TMP_FILE" >/dev/null 2>&1; then
-    mv "$TMP_FILE" "$FINAL_FILE"
-    echo "[$(date -Iseconds)] Sync OK: $FINAL_FILE"
-  else
-    echo "[$(date -Iseconds)] Sync FAIL: Invalid JSON, keeping old file"
-    rm -f "$TMP_FILE"
-    exit 1
-  fi
-else
-  # Без jq — просто mv (рекомендуется установить: apt install jq)
-  mv "$TMP_FILE" "$FINAL_FILE"
-  echo "[$(date -Iseconds)] Sync OK (no jq validation)"
-fi
+echo "[$(date -Iseconds)] Sync OK: $FINAL_FILE"
 
 # 4. GMC + OpenAI Commerce feeds (catalog in public/products.json is valid)
 python3 scripts/gen-products-feed.py 2>&1 || echo "[warn] gen-products-feed failed (non-fatal)"

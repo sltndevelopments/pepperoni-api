@@ -1263,7 +1263,7 @@ async function main() {
 
   const csvs = await Promise.all(
     SHEETS.map((s) =>
-      fetch(`${BASE_URL}&gid=${s.gid}`)
+      fetch(`${BASE_URL}&gid=${s.gid}&cb=${Date.now()}`, { cache: 'no-store' })
         .then((r) => {
           if (!r.ok) throw new Error(`HTTP ${r.status} for ${s.section}`);
           return r.text();

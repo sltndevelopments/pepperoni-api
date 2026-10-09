@@ -67,6 +67,17 @@ def scan_file(path: Path) -> list[tuple[str, str]]:
                 continue
             if PACK_CTX.search(window) and not re.search(r"минимал|minimum|moq|от\s*\d|from\s*\d|start", window, re.I):
                 continue
+            # Throughput is not a minimum run: «мощность — 12 тонн в смену».
+            # A real minimum («от 2 тонн») in the same sentence still matches,
+            # because the capacity words have to sit on this figure.
+            before = sent[max(0, m.start() - 28): m.start()]
+            after = sent[m.end(): m.end() + 18]
+            if re.search(r"в\s*/?\s*смену|per\s+shift", after, re.I):
+                continue
+            if re.search(r"мощност|capacity", before, re.I) and not re.search(
+                r"минимал|minimum|тираж|moq", before, re.I
+            ):
+                continue
             hits.append((figure, re.sub(r"\s+", " ", sent.strip())[:180]))
             break
     return hits
