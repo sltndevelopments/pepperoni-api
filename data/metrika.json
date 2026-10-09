@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-10-08T05:30:05.862651+00:00",
+ "fetched_at": "2026-10-09T05:30:04.720977+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 383,
-  "users": 307,
-  "bounce_rate_pct": 33.2,
-  "page_depth": 1.55,
-  "avg_visit_sec": 71
+  "visits": 403,
+  "users": 328,
+  "bounce_rate_pct": 36.0,
+  "page_depth": 1.6,
+  "avg_visit_sec": 75
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 218
+   "visits": 231
   },
   {
    "source": "Internal traffic",
-   "visits": 73
+   "visits": 76
   },
   {
    "source": "Search engine traffic",
-   "visits": 68
+   "visits": 74
   },
   {
    "source": "Link traffic",
@@ -28,7 +28,7 @@
   },
   {
    "source": "Ad traffic",
-   "visits": 6
+   "visits": 4
   },
   {
    "source": "Social network traffic",
@@ -38,18 +38,13 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 245,
-   "bounce_pct": 28.2
+   "visits": 240,
+   "bounce_pct": 28.8
   },
   {
    "path": "/en/",
-   "visits": 14,
-   "bounce_pct": 64.3
-  },
-  {
-   "path": "/products/kd-009",
-   "visits": 9,
-   "bounce_pct": 11.1
+   "visits": 16,
+   "bounce_pct": 62.5
   },
   {
    "path": "/products/kd-013",
@@ -62,9 +57,19 @@
    "bounce_pct": 12.5
   },
   {
-   "path": "/products/kd-046",
+   "path": "/en/private-label",
    "visits": 7,
-   "bounce_pct": 42.9
+   "bounce_pct": 100.0
+  },
+  {
+   "path": "/products/kd-009",
+   "visits": 7,
+   "bounce_pct": 0.0
+  },
+  {
+   "path": "/products/kd-046",
+   "visits": 6,
+   "bounce_pct": 33.3
   },
   {
    "path": "/products/kd-004",
@@ -82,45 +87,40 @@
    "bounce_pct": 50.0
   },
   {
+   "path": "/products/kd-027",
+   "visits": 4,
+   "bounce_pct": 75.0
+  },
+  {
    "path": "/products/kd-048",
    "visits": 4,
    "bounce_pct": 75.0
   },
   {
-   "path": "/en/products/kd-025",
-   "visits": 3,
-   "bounce_pct": 100.0
-  },
-  {
-   "path": "/products/kd-027",
-   "visits": 3,
-   "bounce_pct": 66.7
-  },
-  {
-   "path": "/products/kd-028",
+   "path": "/about",
    "visits": 3,
    "bounce_pct": 0.0
   },
   {
    "path": "/blog/kazylyk",
-   "visits": 2,
-   "bounce_pct": 50.0
+   "visits": 3,
+   "bounce_pct": 66.7
   },
   {
-   "path": "/en/products/kd-008",
-   "visits": 2,
-   "bounce_pct": 50.0
+   "path": "/en/products/kd-025",
+   "visits": 3,
+   "bounce_pct": 100.0
   }
  ],
  "leads": {
   "total_leads": 2,
   "by_goal": {
-   "Автоцель: переход в мессенджер": 7,
+   "Автоцель: переход в мессенджер": 8,
    "Автоцель: клик по номеру телефона": 2,
+   "Автоцель: скачивание файла": 2,
    "Оставить заявку": 2,
    "Автоцель: отправка формы": 2,
    "Автоцель: клик по email": 1,
-   "Автоцель: скачивание файла": 1,
    "Автоцель: заполнил контактные данные": 1,
    "Автоцель: отправил контактные данные": 1
   }

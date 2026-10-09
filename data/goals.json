@@ -1,5 +1,5 @@
 {
- "generated_at": "2026-10-08T05:31:36.523032+00:00",
+ "generated_at": "2026-10-09T05:32:01.144399+00:00",
  "mission": "Позиция №1 в Google/Яндекс по каждому целевому запросу (RU+EN) и цитирование ИИ-ассистентами. Real KPI = квалифицированные заявки (inquiries_28d).",
  "achieved": 0,
  "tracked": 14,
@@ -17,13 +17,13 @@
   {
    "query": "казылык это",
    "seed": false,
-   "impressions_28d": 355,
+   "impressions_28d": 335,
    "clicks_28d": 0,
    "inquiries_28d": 0,
    "position_28d": 9.1,
-   "position_7d": 9.0,
-   "trend": 0.1,
-   "gap_to_1": 8.0,
+   "position_7d": 8.8,
+   "trend": 0.3,
+   "gap_to_1": 7.8,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -31,13 +31,13 @@
   {
    "query": "казылык",
    "seed": false,
-   "impressions_28d": 145,
+   "impressions_28d": 143,
    "clicks_28d": 0,
    "inquiries_28d": 0,
    "position_28d": 11.0,
-   "position_7d": 12.5,
-   "trend": -1.5,
-   "gap_to_1": 11.5,
+   "position_7d": 14.8,
+   "trend": -3.8,
+   "gap_to_1": 13.8,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -48,10 +48,10 @@
    "impressions_28d": 94,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 3.8,
-   "position_7d": 3.4,
-   "trend": 0.4,
-   "gap_to_1": 2.4,
+   "position_28d": 3.6,
+   "position_7d": 2.7,
+   "trend": 0.9,
+   "gap_to_1": 1.7,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -59,13 +59,13 @@
   {
    "query": "ветчина это халал",
    "seed": false,
-   "impressions_28d": 67,
+   "impressions_28d": 62,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 4.9,
+   "position_28d": 5.0,
    "position_7d": null,
    "trend": null,
-   "gap_to_1": 3.9,
+   "gap_to_1": 4.0,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -76,24 +76,10 @@
    "impressions_28d": 60,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 37.9,
-   "position_7d": 40.5,
-   "trend": -2.6,
-   "gap_to_1": 39.5,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "пепперони халяль",
-   "seed": false,
-   "impressions_28d": 57,
-   "clicks_28d": 1,
-   "inquiries_28d": 0,
-   "position_28d": 27.9,
-   "position_7d": null,
-   "trend": null,
-   "gap_to_1": 26.9,
+   "position_28d": 38.3,
+   "position_7d": 39.8,
+   "trend": -1.5,
+   "gap_to_1": 38.8,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -101,13 +87,27 @@
   {
    "query": "котлеты для бургеров оптом",
    "seed": true,
-   "impressions_28d": 53,
+   "impressions_28d": 55,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 29.0,
-   "position_7d": 25.3,
-   "trend": 3.7,
-   "gap_to_1": 24.3,
+   "position_28d": 29.5,
+   "position_7d": 30.4,
+   "trend": -0.9,
+   "gap_to_1": 29.4,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "пепперони халяль",
+   "seed": false,
+   "impressions_28d": 55,
+   "clicks_28d": 0,
+   "inquiries_28d": 0,
+   "position_28d": 28.7,
+   "position_7d": null,
+   "trend": null,
+   "gap_to_1": 27.7,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -115,13 +115,41 @@
   {
    "query": "сосиски для хот догов оптом",
    "seed": false,
-   "impressions_28d": 50,
+   "impressions_28d": 51,
    "clicks_28d": 0,
    "inquiries_28d": 0,
-   "position_28d": 32.7,
-   "position_7d": 30.3,
-   "trend": 2.4,
-   "gap_to_1": 29.3,
+   "position_28d": 32.3,
+   "position_7d": 30.1,
+   "trend": 2.2,
+   "gap_to_1": 29.1,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "что такое казылык",
+   "seed": false,
+   "impressions_28d": 46,
+   "clicks_28d": 0,
+   "inquiries_28d": 0,
+   "position_28d": 8.5,
+   "position_7d": 9.2,
+   "trend": -0.7,
+   "gap_to_1": 8.2,
+   "achieved": false,
+   "ctr_gap": true,
+   "conversion_gap": false
+  },
+  {
+   "query": "kazylyk",
+   "seed": false,
+   "impressions_28d": 41,
+   "clicks_28d": 2,
+   "inquiries_28d": 0,
+   "position_28d": 3.5,
+   "position_7d": 3.5,
+   "trend": 0.0,
+   "gap_to_1": 2.5,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -136,34 +164,6 @@
    "position_7d": 2.0,
    "trend": 6.9,
    "gap_to_1": 1.0,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "что такое казылык",
-   "seed": false,
-   "impressions_28d": 41,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 8.4,
-   "position_7d": 9.4,
-   "trend": -1.0,
-   "gap_to_1": 8.4,
-   "achieved": false,
-   "ctr_gap": true,
-   "conversion_gap": false
-  },
-  {
-   "query": "ветчина халяль или харам",
-   "seed": false,
-   "impressions_28d": 40,
-   "clicks_28d": 0,
-   "inquiries_28d": 0,
-   "position_28d": 4.2,
-   "position_7d": null,
-   "trend": null,
-   "gap_to_1": 3.2,
    "achieved": false,
    "ctr_gap": true,
    "conversion_gap": false
@@ -355,16 +355,16 @@
   {
    "country": "Россия",
    "code": "rus",
-   "impressions_28d": 1758,
-   "clicks_28d": 5,
+   "impressions_28d": 1719,
+   "clicks_28d": 4,
    "position_28d": 17.4
   },
   {
    "country": "Казахстан",
    "code": "kaz",
-   "impressions_28d": 32,
+   "impressions_28d": 31,
    "clicks_28d": 0,
-   "position_28d": 7.2
+   "position_28d": 7.1
   },
   {
    "country": "Беларусь",
@@ -390,9 +390,9 @@
   {
    "country": "Кыргызстан",
    "code": "kgz",
-   "impressions_28d": 8,
+   "impressions_28d": 9,
    "clicks_28d": 0,
-   "position_28d": 6.5
+   "position_28d": 6.2
   },
   {
    "country": "Таджикистан",
@@ -404,9 +404,9 @@
   {
    "country": "Грузия",
    "code": "geo",
-   "impressions_28d": 8,
+   "impressions_28d": 7,
    "clicks_28d": 0,
-   "position_28d": 7.8
+   "position_28d": 7.6
   },
   {
    "country": "ОАЭ",
