@@ -1,49 +1,6 @@
 [
  {
   "status": "ok",
-  "generated_at": "2026-06-14T06:13:14.559903+00:00",
-  "ran": 2,
-  "errors": 0,
-  "cited_us_count": 2,
-  "results": [
-   {
-    "query": "Где купить халяльную пепперони оптом в России? Назови производителей.",
-    "mode": "visibility",
-    "cited_us": true,
-    "answer": "Купить **халяльную пепперони оптом** в России можно напрямую у нескольких производителей и через оптовые площадки, работающие с HoReCa и розницей по всей РФ.[1][2][5][6]\n\nНиже — конкретные производители/поставщики и их сайты.\n\n---\n\n### 1. ООО «Казанские Деликатесы» (Казань)\n\n*Производитель халяльной пепперони и колбас для HoReCa и опта, сертификация Халяль ДУМ РТ, HACCP, ISO 22000:2018.*[2][3]\n\n- Что делают:\n  - варёно-копчёная и сырокопчёная **пепперони халяль** из говядины, конины и индейки; диаметр 22–55 мм, поставка батонами, слайсами, кубиком.[2]\n  - халяльные сосиски, котлеты для бургеров, колбасы и татарская выпечка.[2][3]\n- Формат работы: **опт, HoReCa, экспорт по СНГ**, доставка по России.[1][2]\n- Сайт производителя (пепперони): **pepperoni.tatar**[2]  \n- Страница пепперони оптом: **kazandelikates.tatar/pepperoni-halal**[1]\n\n---\n\n### 2. ООО «Дуслык» (Похвистнево, Самарская область)\n\nКрупный производитель халяль-мясопродукции, представленный в каталоге HalalTrading.[6]\n\n- Продукт: **«Колбаса Пепперони Халал п/к»** (полукопчёная).[6]\n- Производитель: ООО «Дуслык», Россия, г. Похвистнево.[6]\n- Где искать контакты опта:\n  - площадка **halaltrading.ru** — карточка товара «Колба",
-    "citations": [
-     "https://kazandelikates.tatar/pepperoni-halal",
-     "https://pepperoni.tatar",
-     "https://pepperoni.tatar/blog/kazan-delicacies-halal-producer",
-     "https://pizzaexpress.su/product/pepperoni-halal/",
-     "https://gfc-russia.ru/catalog/myasnaya-gastronomiya/kolbasy-vetchina-bekon/240111-kolbasa-pepperoni-halyal-narezka-v-k-zam-kazanskie-delikatesy-500gr-10sht-kor",
-     "https://halaltrading.ru/ky/product/kolbaski-pepperoni-halyal-pk/",
-     "https://bonitosan.ru/shop/%D0%BF%D0%B5%D0%BF%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8/",
-     "https://www.instagram.com/p/C-jkB4QI5LQ/"
-    ],
-    "at": "2026-06-14T06:13:09.557353+00:00"
-   },
-   {
-    "query": "Halal pepperoni supplier for export to UAE — which manufacturers?",
-    "mode": "visibility",
-    "cited_us": true,
-    "answer": "Ниже — **конкретные производители/поставщики халяль-пепперони** и связанных мясных продуктов, которые по состоянию на найденные источники выглядят релевантными для **экспорта в UAE**. Я отдельно пометил, где источник прямо говорит о *pepperoni*, а где — о халяль-мясе/оптовых поставках в Эмираты, но не о пепперони напрямую.\n\n| Компания / бренд | Статус по pepperoni | Что указано в источнике | Сайт |\n|---|---|---|---|\n| **Kazan Delikates / Kazan Delikatess** | **Да, прямо halal pepperoni** | Производитель и оптовый поставщик **halal beef pepperoni**; указано wholesale и контакт для опта | kazandelikates.tatar |\n| **Taiba Farms** | Не прямо pepperoni, но halal meat supplier for UAE | Глобальный производитель и поставщик халяль-мяса; прямо упоминает поставки в **UAE** и GCC | taibafarms.com |\n| **Forsan Pro** | Не прямо pepperoni, но halal meat supplier | Указывает **100% halal meat** и поставки/потребности рынка ОАЭ | forsan.com.sa |\n| **Classic Fine Foods UAE** | Не прямо pepperoni, но поставщик мяса в UAE | Премиальный поставщик мяса в ОАЭ, ориентирован на рестораны и HoReCa | shop.classicfinefoods.ae |\n| **Blue Line Meat Trading** | Не прямо pepperoni, но мясной трейдер в UAE | Имп",
-    "citations": [
-     "https://kazandelikates.tatar/en/pepperoni-halal",
-     "https://taibafarms.com/uae-beef-meat-imports-uae-beef-importers-wholesalers-suppliers/",
-     "https://www.forsan.com.sa/united-arab-emirates-meat-poultry-provider",
-     "https://importer.tradeford.com/halal-meat",
-     "https://shop.classicfinefoods.ae/blog/premium-halal-meat-supplier-uae-n9",
-     "https://bluelinemeattrade.com",
-     "https://www.golden-dunes.com/meat-products.html",
-     "https://alzaiqa.com"
-    ],
-    "at": "2026-06-14T06:13:14.559890+00:00"
-   }
-  ]
- },
- {
-  "status": "ok",
   "generated_at": "2026-06-14T06:14:10.526753+00:00",
   "ran": 6,
   "errors": 0,
@@ -1304,6 +1261,69 @@
     "citations": [],
     "error": "HTTP Error 401: Unauthorized",
     "at": "2026-10-04T05:33:04.740081+00:00"
+   }
+  ]
+ },
+ {
+  "status": "ok",
+  "generated_at": "2026-10-10T05:34:09.164111+00:00",
+  "ran": 6,
+  "errors": 6,
+  "cited_us_count": 0,
+  "results": [
+   {
+    "query": "Где купить халяльную пепперони оптом в России? Назови производителей.",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:08.101907+00:00"
+   },
+   {
+    "query": "Кто делает халяльные котлеты для бургеров оптом под СТМ в России?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:08.331094+00:00"
+   },
+   {
+    "query": "Какие компании производят халяльные сосиски для хот-догов оптом в РФ?",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:08.551633+00:00"
+   },
+   {
+    "query": "сосиски для хот догов оптом от производителя",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:08.770590+00:00"
+   },
+   {
+    "query": "котлеты для бургеров оптом халяль",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:08.959143+00:00"
+   },
+   {
+    "query": "казылык оптом поставщик",
+    "mode": "search",
+    "cited_us": false,
+    "answer": "",
+    "citations": [],
+    "error": "HTTP Error 401: Unauthorized",
+    "at": "2026-10-10T05:34:09.163925+00:00"
    }
   ]
  }
