@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE yml_catalog SYSTEM "shops.dtd">
-<yml_catalog date="2026-10-04">
+<yml_catalog date="2026-10-11">
 <shop>
 <name>Казанские Деликатесы</name>
 <company>ООО «Казанские Деликатесы»</company>
@@ -1016,7 +1016,7 @@
 <offer id="KD-046" available="true">
 <name>Губадия с кортом</name>
 <url>https://pepperoni.tatar/products/kd-046</url>
-<price>56</price>
+<price>59.93</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1039,7 +1039,7 @@
 <offer id="KD-047" available="true">
 <name>Чебурек жареный</name>
 <url>https://pepperoni.tatar/products/kd-047</url>
-<price>58.86</price>
+<price>61.81</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1062,7 +1062,7 @@
 <offer id="KD-048" available="true">
 <name>Перемяч жареный</name>
 <url>https://pepperoni.tatar/products/kd-048</url>
-<price>59.14</price>
+<price>63.29</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1085,7 +1085,7 @@
 <offer id="KD-049" available="true">
 <name>Самса с курицей</name>
 <url>https://pepperoni.tatar/products/kd-049</url>
-<price>61.73</price>
+<price>66.05</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1108,7 +1108,7 @@
 <offer id="KD-050" available="true">
 <name>Эчпочмак с говядиной и картофелем</name>
 <url>https://pepperoni.tatar/products/kd-050</url>
-<price>68.77</price>
+<price>73.58</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1131,7 +1131,7 @@
 <offer id="KD-051" available="true">
 <name>Самса с говядиной</name>
 <url>https://pepperoni.tatar/products/kd-051</url>
-<price>73.14</price>
+<price>78.28</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1154,7 +1154,7 @@
 <offer id="KD-052" available="true">
 <name>Элеш с курицей и картофелем</name>
 <url>https://pepperoni.tatar/products/kd-052</url>
-<price>77.84</price>
+<price>83.29</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1174,10 +1174,56 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
+<offer id="KD-065" available="true">
+<name>Беккен с капустой</name>
+<url>https://pepperoni.tatar/products/kd-065</url>
+<price>52.97</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-065</vendorCode>
+<description>Беккен с капустой — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Соответствует стандарту «Халяль».</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
+<param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
+<offer id="KD-066" available="true">
+<name>Вак балиш</name>
+<url>https://pepperoni.tatar/products/kd-066</url>
+<price>66.32</price>
+<currencyId>RUB</currencyId>
+<categoryId>13</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-066</vendorCode>
+<description>Вак балиш — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: национальная татарская выпечка. Вес: 100 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Соответствует стандарту «Халяль».</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
+<param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
 <offer id="KD-053" available="true">
 <name>Чак-Чак в пластиковой упаковке</name>
 <url>https://pepperoni.tatar/products/kd-053</url>
-<price>194.7</price>
+<price>211.8</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1187,8 +1233,8 @@
 <picture>https://pepperoni.tatar/images/products/kd-053-main.jpg?v=3a3fac5b</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">300 г</param>
-<param name="Срок годности">60 суток</param>
-<param name="Температура хранения">до +18°C</param>
+<param name="Срок годности">90 суток</param>
+<param name="Температура хранения">до +18°C, влажность 75%</param>
 <param name="ТН ВЭД">1905</param>
 
 
@@ -1200,7 +1246,7 @@
 <offer id="KD-054" available="true">
 <name>Чак-Чак в крафтовой подарочной упаковке</name>
 <url>https://pepperoni.tatar/products/kd-054</url>
-<price>271.7</price>
+<price>295.57</price>
 <currencyId>RUB</currencyId>
 <categoryId>13</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1210,8 +1256,8 @@
 <picture>https://pepperoni.tatar/images/products/kd-054-main.jpg?v=b6ca7c06</picture>
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">300 г</param>
-<param name="Срок годности">60 суток</param>
-<param name="Температура хранения">до +18°C</param>
+<param name="Срок годности">90 суток</param>
+<param name="Температура хранения">до +18°C, влажность 75%</param>
 <param name="ТН ВЭД">1905</param>
 
 
@@ -1223,7 +1269,7 @@
 <offer id="KD-055" available="true">
 <name>Сочник с творогом</name>
 <url>https://pepperoni.tatar/products/kd-055</url>
-<price>44</price>
+<price>47.08</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1243,14 +1289,14 @@
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
-<offer id="KD-056" available="true">
-<name>Пирожок печеный с картофелем</name>
-<url>https://pepperoni.tatar/products/kd-056</url>
-<price>44.74</price>
+<offer id="KD-067" available="true">
+<name>Пирожок жареный с картофелем</name>
+<url>https://pepperoni.tatar/products/kd-067</url>
+<price>50.92</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
-<vendorCode>KD-056</vendorCode>
+<vendorCode>KD-067</vendorCode>
 <description>Пирожок печёный с картофелем 100 г | Печёная выпечка халяль, заморозка | Пирожок с картофельной начинкой. Удобный формат для столовых, кафе и опта. «Казанские Деликатесы», Казань. Халяль ДУМ РТ. Заморозка, 360 суток при –18°C.</description>
 <barcode>4680638720714</barcode>
 
@@ -1269,7 +1315,7 @@
 <offer id="KD-057" available="true">
 <name>Сырник</name>
 <url>https://pepperoni.tatar/products/kd-057</url>
-<price>45.1</price>
+<price>48.26</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1292,7 +1338,7 @@
 <offer id="KD-058" available="true">
 <name>Пирожок с яблоком</name>
 <url>https://pepperoni.tatar/products/kd-058</url>
-<price>49.5</price>
+<price>52.97</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1315,7 +1361,7 @@
 <offer id="KD-059" available="true">
 <name>Пирожок с зеленым луком и яйцом</name>
 <url>https://pepperoni.tatar/products/kd-059</url>
-<price>58.52</price>
+<price>67.73</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1338,7 +1384,7 @@
 <offer id="KD-060" available="true">
 <name>Маффин апельсиновый</name>
 <url>https://pepperoni.tatar/products/kd-060</url>
-<price>67.55</price>
+<price>72.26</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1361,7 +1407,7 @@
 <offer id="KD-061" available="true">
 <name>Сосиска в тесте</name>
 <url>https://pepperoni.tatar/products/kd-061</url>
-<price>69.03</price>
+<price>72.49</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1384,7 +1430,7 @@
 <offer id="KD-062" available="true">
 <name>Пирожок с вишней</name>
 <url>https://pepperoni.tatar/products/kd-062</url>
-<price>71.5</price>
+<price>75.08</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1407,7 +1453,7 @@
 <offer id="KD-063" available="true">
 <name>Круассан с шоколадом и орехами</name>
 <url>https://pepperoni.tatar/products/kd-063</url>
-<price>72.6</price>
+<price>77.51</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1430,7 +1476,7 @@
 <offer id="KD-064" available="true">
 <name>Маффин шоколадный</name>
 <url>https://pepperoni.tatar/products/kd-064</url>
-<price>73.64</price>
+<price>78.78</price>
 <currencyId>RUB</currencyId>
 <categoryId>14</categoryId>
 <vendor>Казанские Деликатесы</vendor>
@@ -1440,6 +1486,29 @@
 
 <param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
 <param name="Вес, кг">100 г</param>
+<param name="Срок годности">360 суток</param>
+<param name="Температура хранения">–18°C</param>
+<param name="ТН ВЭД">190590</param>
+
+
+
+
+<param name="Страна производства">Россия</param>
+<param name="Халяль">Да</param>
+</offer>
+<offer id="KD-068" available="true">
+<name>Слойка с ветчиной и сыром</name>
+<url>https://pepperoni.tatar/products/kd-068</url>
+<price>108.15</price>
+<currencyId>RUB</currencyId>
+<categoryId>14</categoryId>
+<vendor>Казанские Деликатесы</vendor>
+<vendorCode>KD-068</vendorCode>
+<description>Слойка с ветчиной и сыром — халяль продукция от ООО «Казанские Деликатесы» (Казань, Татарстан). Категория: классическая выпечка. Вес: 90 г кг. Срок годности: 360 суток. Хранение: –18°C. Сертификат Халяль №614A/2024 (ДУМ РТ). ХАССП, ISO 22000. Соответствует стандарту «Халяль».</description>
+
+
+<param name="Сертификация">Halal №614A/2024 (ДУМ РТ)</param>
+<param name="Вес, кг">90 г</param>
 <param name="Срок годности">360 суток</param>
 <param name="Температура хранения">–18°C</param>
 <param name="ТН ВЭД">190590</param>

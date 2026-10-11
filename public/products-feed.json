@@ -3,10 +3,10 @@
   "@type": "ItemList",
   "@id": "https://pepperoni.tatar/products-feed.json",
   "name": "Kazan Delicacies — Halal Product Catalog Feed",
-  "description": "Machine-readable feed of 62 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC.",
+  "description": "Machine-readable feed of 65 halal SKUs (sausages, pepperoni, kazylyk, ham, Tatar pastries) from Kazan Delicacies LLC.",
   "url": "https://pepperoni.tatar/products-feed.json",
   "inLanguage": "en",
-  "dateModified": "2026-09-20T05:30:21.292436+00:00",
+  "dateModified": "2026-10-11T05:30:20.779040+00:00",
   "publisher": {
     "@type": "Organization",
     "@id": "https://pepperoni.tatar/#organization",
@@ -15,7 +15,7 @@
     "url": "https://pepperoni.tatar/",
     "logo": "https://pepperoni.tatar/images/logo.png"
   },
-  "numberOfItems": 62,
+  "numberOfItems": 65,
   "itemListElement": [
     {
       "@type": "ListItem",
@@ -77,12 +77,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.14,
-            "KZT": 1397.14,
-            "UZS": 37000.55,
-            "KGS": 273.19,
-            "BYN": 9.45,
-            "AZN": 5.31
+            "USD": 3.1,
+            "KZT": 1406.67,
+            "UZS": 36824.45,
+            "KGS": 270.73,
+            "BYN": 9.42,
+            "AZN": 5.26
           }
         },
         "additionalProperty": [
@@ -204,12 +204,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.09,
-            "KZT": 1377.87,
-            "UZS": 36490.19,
-            "KGS": 269.42,
-            "BYN": 9.32,
-            "AZN": 5.24
+            "USD": 3.05,
+            "KZT": 1387.26,
+            "UZS": 36316.52,
+            "KGS": 266.99,
+            "BYN": 9.29,
+            "AZN": 5.19
           }
         },
         "additionalProperty": [
@@ -331,12 +331,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.42,
-            "KZT": 1522.41,
-            "UZS": 40317.84,
-            "KGS": 297.68,
-            "BYN": 10.3,
-            "AZN": 5.79
+            "USD": 3.37,
+            "KZT": 1532.78,
+            "UZS": 40125.95,
+            "KGS": 295,
+            "BYN": 10.26,
+            "AZN": 5.73
           }
         },
         "additionalProperty": [
@@ -458,12 +458,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.09,
-            "KZT": 1377.87,
-            "UZS": 36490.19,
-            "KGS": 269.42,
-            "BYN": 9.32,
-            "AZN": 5.24
+            "USD": 3.05,
+            "KZT": 1387.26,
+            "UZS": 36316.52,
+            "KGS": 266.99,
+            "BYN": 9.29,
+            "AZN": 5.19
           }
         },
         "additionalProperty": [
@@ -585,12 +585,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.96,
-            "KZT": 1763.29,
-            "UZS": 46697.24,
-            "KGS": 344.78,
-            "BYN": 11.93,
-            "AZN": 6.7
+            "USD": 3.91,
+            "KZT": 1775.31,
+            "UZS": 46474.99,
+            "KGS": 341.68,
+            "BYN": 11.88,
+            "AZN": 6.64
           }
         },
         "additionalProperty": [
@@ -712,12 +712,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.59,
-            "KZT": 2042.72,
-            "UZS": 54097.35,
-            "KGS": 399.42,
-            "BYN": 13.82,
-            "AZN": 7.76
+            "USD": 4.53,
+            "KZT": 2056.64,
+            "UZS": 53839.88,
+            "KGS": 395.82,
+            "BYN": 13.77,
+            "AZN": 7.69
           }
         },
         "additionalProperty": [
@@ -839,12 +839,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.92,
-            "KZT": 2192.07,
-            "UZS": 58052.58,
-            "KGS": 428.62,
-            "BYN": 14.83,
-            "AZN": 8.33
+            "USD": 4.86,
+            "KZT": 2207.01,
+            "UZS": 57776.29,
+            "KGS": 424.76,
+            "BYN": 14.77,
+            "AZN": 8.26
           }
         },
         "additionalProperty": [
@@ -964,12 +964,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.42,
-            "KZT": 1522.41,
-            "UZS": 40317.84,
-            "KGS": 297.68,
-            "BYN": 10.3,
-            "AZN": 5.79
+            "USD": 3.37,
+            "KZT": 1532.78,
+            "UZS": 40125.95,
+            "KGS": 295,
+            "BYN": 10.26,
+            "AZN": 5.73
           }
         },
         "additionalProperty": [
@@ -1090,12 +1090,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.99,
-            "KZT": 1329.7,
-            "UZS": 35214.31,
-            "KGS": 260,
-            "BYN": 9,
-            "AZN": 5.05
+            "USD": 2.95,
+            "KZT": 1338.76,
+            "UZS": 35046.72,
+            "KGS": 257.66,
+            "BYN": 8.96,
+            "AZN": 5.01
           }
         },
         "additionalProperty": [
@@ -1216,12 +1216,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.99,
-            "KZT": 1329.7,
-            "UZS": 35214.31,
-            "KGS": 260,
-            "BYN": 9,
-            "AZN": 5.05
+            "USD": 2.95,
+            "KZT": 1338.76,
+            "UZS": 35046.72,
+            "KGS": 257.66,
+            "BYN": 8.96,
+            "AZN": 5.01
           }
         },
         "additionalProperty": [
@@ -1343,12 +1343,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.03,
-            "KZT": 905.73,
-            "UZS": 23986.56,
-            "KGS": 177.1,
-            "BYN": 6.13,
-            "AZN": 3.44
+            "USD": 2.01,
+            "KZT": 911.91,
+            "UZS": 23872.4,
+            "KGS": 175.51,
+            "BYN": 6.1,
+            "AZN": 3.41
           }
         },
         "additionalProperty": [
@@ -1470,12 +1470,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.97,
-            "KZT": 1320.06,
-            "UZS": 34959.14,
-            "KGS": 258.12,
-            "BYN": 8.93,
-            "AZN": 5.02
+            "USD": 2.92,
+            "KZT": 1329.06,
+            "UZS": 34792.75,
+            "KGS": 255.79,
+            "BYN": 8.9,
+            "AZN": 4.97
           }
         },
         "additionalProperty": [
@@ -1597,12 +1597,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.95,
-            "KZT": 2201.71,
-            "UZS": 58307.76,
-            "KGS": 430.51,
-            "BYN": 14.9,
-            "AZN": 8.37
+            "USD": 4.88,
+            "KZT": 2216.71,
+            "UZS": 58030.25,
+            "KGS": 426.63,
+            "BYN": 14.84,
+            "AZN": 8.29
           }
         },
         "additionalProperty": [
@@ -1723,12 +1723,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.46,
-            "KZT": 1984.91,
-            "UZS": 52566.29,
-            "KGS": 388.12,
-            "BYN": 13.43,
-            "AZN": 7.54
+            "USD": 4.4,
+            "KZT": 1998.44,
+            "UZS": 52316.11,
+            "KGS": 384.62,
+            "BYN": 13.38,
+            "AZN": 7.48
           }
         },
         "additionalProperty": [
@@ -1850,12 +1850,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.65,
-            "KZT": 1180.35,
-            "UZS": 31259.08,
-            "KGS": 230.8,
-            "BYN": 7.99,
-            "AZN": 4.49
+            "USD": 2.62,
+            "KZT": 1188.39,
+            "UZS": 31110.31,
+            "KGS": 228.72,
+            "BYN": 7.96,
+            "AZN": 4.45
           }
         },
         "additionalProperty": [
@@ -1976,12 +1976,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.46,
-            "KZT": 650.39,
-            "UZS": 17224.39,
-            "KGS": 127.17,
-            "BYN": 4.4,
-            "AZN": 2.47
+            "USD": 1.44,
+            "KZT": 654.83,
+            "UZS": 17142.42,
+            "KGS": 126.03,
+            "BYN": 4.38,
+            "AZN": 2.45
           }
         },
         "additionalProperty": [
@@ -2102,12 +2102,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.96,
-            "KZT": 872.01,
-            "UZS": 23093.44,
-            "KGS": 170.51,
-            "BYN": 5.9,
-            "AZN": 3.31
+            "USD": 1.93,
+            "KZT": 877.95,
+            "UZS": 22983.53,
+            "KGS": 168.97,
+            "BYN": 5.88,
+            "AZN": 3.28
           }
         },
         "additionalProperty": [
@@ -2228,12 +2228,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.54,
-            "KZT": 1132.17,
-            "UZS": 29983.2,
-            "KGS": 221.38,
-            "BYN": 7.66,
-            "AZN": 4.3
+            "USD": 2.51,
+            "KZT": 1139.88,
+            "UZS": 29840.5,
+            "KGS": 219.38,
+            "BYN": 7.63,
+            "AZN": 4.26
           }
         },
         "additionalProperty": [
@@ -2355,12 +2355,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.17,
-            "KZT": 1411.6,
-            "UZS": 37383.31,
-            "KGS": 276.01,
-            "BYN": 9.55,
-            "AZN": 5.37
+            "USD": 3.13,
+            "KZT": 1421.22,
+            "UZS": 37205.39,
+            "KGS": 273.53,
+            "BYN": 9.51,
+            "AZN": 5.32
           }
         },
         "additionalProperty": [
@@ -2481,12 +2481,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.07,
-            "KZT": 1368.24,
-            "UZS": 36235.02,
-            "KGS": 267.54,
-            "BYN": 9.26,
-            "AZN": 5.2
+            "USD": 3.03,
+            "KZT": 1377.56,
+            "UZS": 36062.56,
+            "KGS": 265.13,
+            "BYN": 9.22,
+            "AZN": 5.15
           }
         },
         "additionalProperty": [
@@ -2608,12 +2608,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.58,
-            "KZT": 703.39,
-            "UZS": 18627.86,
-            "KGS": 137.54,
-            "BYN": 4.76,
-            "AZN": 2.67
+            "USD": 1.56,
+            "KZT": 708.18,
+            "UZS": 18539.2,
+            "KGS": 136.3,
+            "BYN": 4.74,
+            "AZN": 2.65
           }
         },
         "additionalProperty": [
@@ -2734,12 +2734,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.56,
-            "KZT": 693.75,
-            "UZS": 18372.69,
-            "KGS": 135.65,
-            "BYN": 4.69,
-            "AZN": 2.64
+            "USD": 1.54,
+            "KZT": 698.48,
+            "UZS": 18285.24,
+            "KGS": 134.43,
+            "BYN": 4.68,
+            "AZN": 2.61
           }
         },
         "additionalProperty": [
@@ -2860,12 +2860,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.93,
-            "KZT": 1305.61,
-            "UZS": 34576.37,
-            "KGS": 255.29,
-            "BYN": 8.83,
-            "AZN": 4.96
+            "USD": 2.89,
+            "KZT": 1314.51,
+            "UZS": 34411.81,
+            "KGS": 252.99,
+            "BYN": 8.8,
+            "AZN": 4.92
           }
         },
         "additionalProperty": [
@@ -2985,12 +2985,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.16,
-            "KZT": 1406.78,
-            "UZS": 37255.72,
-            "KGS": 275.07,
-            "BYN": 9.52,
-            "AZN": 5.35
+            "USD": 3.12,
+            "KZT": 1416.37,
+            "UZS": 37078.41,
+            "KGS": 272.59,
+            "BYN": 9.48,
+            "AZN": 5.3
           }
         },
         "additionalProperty": [
@@ -3110,12 +3110,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.13,
-            "KZT": 949.09,
-            "UZS": 25134.85,
-            "KGS": 185.58,
-            "BYN": 6.42,
-            "AZN": 3.61
+            "USD": 2.1,
+            "KZT": 955.56,
+            "UZS": 25015.23,
+            "KGS": 183.91,
+            "BYN": 6.4,
+            "AZN": 3.58
           }
         },
         "additionalProperty": [
@@ -3235,12 +3235,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.16,
-            "KZT": 963.55,
-            "UZS": 25517.62,
-            "KGS": 188.41,
-            "BYN": 6.52,
-            "AZN": 3.66
+            "USD": 2.14,
+            "KZT": 970.11,
+            "UZS": 25396.17,
+            "KGS": 186.71,
+            "BYN": 6.49,
+            "AZN": 3.63
           }
         },
         "additionalProperty": [
@@ -3361,12 +3361,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.11,
-            "KZT": 1830.74,
-            "UZS": 48483.47,
-            "KGS": 357.97,
-            "BYN": 12.39,
-            "AZN": 6.96
+            "USD": 4.06,
+            "KZT": 1843.22,
+            "UZS": 48252.72,
+            "KGS": 354.75,
+            "BYN": 12.34,
+            "AZN": 6.9
           }
         },
         "additionalProperty": [
@@ -3487,12 +3487,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.31,
-            "KZT": 1917.46,
-            "UZS": 50780.06,
-            "KGS": 374.93,
-            "BYN": 12.97,
-            "AZN": 7.29
+            "USD": 4.25,
+            "KZT": 1930.53,
+            "UZS": 50538.38,
+            "KGS": 371.55,
+            "BYN": 12.92,
+            "AZN": 7.22
           }
         },
         "additionalProperty": [
@@ -3613,12 +3613,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.79,
-            "KZT": 1686.21,
-            "UZS": 44655.83,
-            "KGS": 329.71,
-            "BYN": 11.41,
-            "AZN": 6.41
+            "USD": 3.74,
+            "KZT": 1697.7,
+            "UZS": 44443.3,
+            "KGS": 326.74,
+            "BYN": 11.37,
+            "AZN": 6.35
           }
         },
         "additionalProperty": [
@@ -3738,12 +3738,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.34,
-            "KZT": 1040.63,
-            "UZS": 27559.03,
-            "KGS": 203.48,
-            "BYN": 7.04,
-            "AZN": 3.96
+            "USD": 2.31,
+            "KZT": 1047.72,
+            "UZS": 27427.86,
+            "KGS": 201.64,
+            "BYN": 7.01,
+            "AZN": 3.92
           }
         },
         "additionalProperty": [
@@ -3864,12 +3864,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.22,
-            "KZT": 1435.69,
-            "UZS": 38021.25,
-            "KGS": 280.72,
-            "BYN": 9.71,
-            "AZN": 5.46
+            "USD": 3.18,
+            "KZT": 1445.47,
+            "UZS": 37840.29,
+            "KGS": 278.2,
+            "BYN": 9.68,
+            "AZN": 5.41
           }
         },
         "additionalProperty": [
@@ -3990,12 +3990,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.77,
-            "KZT": 1676.57,
-            "UZS": 44400.66,
-            "KGS": 327.83,
-            "BYN": 11.34,
-            "AZN": 6.37
+            "USD": 3.71,
+            "KZT": 1688,
+            "UZS": 44189.34,
+            "KGS": 324.87,
+            "BYN": 11.3,
+            "AZN": 6.32
           }
         },
         "additionalProperty": [
@@ -4116,12 +4116,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.87,
-            "KZT": 1724.75,
-            "UZS": 45676.54,
-            "KGS": 337.25,
-            "BYN": 11.67,
-            "AZN": 6.56
+            "USD": 3.82,
+            "KZT": 1736.5,
+            "UZS": 45459.15,
+            "KGS": 334.21,
+            "BYN": 11.63,
+            "AZN": 6.5
           }
         },
         "additionalProperty": [
@@ -4242,12 +4242,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.08,
-            "KZT": 1816.29,
-            "UZS": 48100.71,
-            "KGS": 355.14,
-            "BYN": 12.29,
-            "AZN": 6.9
+            "USD": 4.02,
+            "KZT": 1828.67,
+            "UZS": 47871.78,
+            "KGS": 351.95,
+            "BYN": 12.24,
+            "AZN": 6.84
           }
         },
         "additionalProperty": [
@@ -4368,12 +4368,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 2.03,
-            "KZT": 905.73,
-            "UZS": 23986.56,
-            "KGS": 177.1,
-            "BYN": 6.13,
-            "AZN": 3.44
+            "USD": 2.01,
+            "KZT": 911.91,
+            "UZS": 23872.4,
+            "KGS": 175.51,
+            "BYN": 6.1,
+            "AZN": 3.41
           }
         },
         "additionalProperty": [
@@ -4494,12 +4494,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.92,
-            "KZT": 1744.02,
-            "UZS": 46186.89,
-            "KGS": 341.01,
-            "BYN": 11.8,
-            "AZN": 6.63
+            "USD": 3.86,
+            "KZT": 1755.91,
+            "UZS": 45967.07,
+            "KGS": 337.94,
+            "BYN": 11.75,
+            "AZN": 6.57
           }
         },
         "additionalProperty": [
@@ -4621,12 +4621,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.96,
-            "KZT": 872.01,
-            "UZS": 23093.44,
-            "KGS": 170.51,
-            "BYN": 5.9,
-            "AZN": 3.31
+            "USD": 1.93,
+            "KZT": 877.95,
+            "UZS": 22983.53,
+            "KGS": 168.97,
+            "BYN": 5.88,
+            "AZN": 3.28
           }
         },
         "additionalProperty": [
@@ -4748,12 +4748,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.6,
-            "KZT": 1604.31,
-            "UZS": 42486.83,
-            "KGS": 313.7,
-            "BYN": 10.85,
-            "AZN": 6.1
+            "USD": 3.55,
+            "KZT": 1615.24,
+            "UZS": 42284.62,
+            "KGS": 310.87,
+            "BYN": 10.81,
+            "AZN": 6.04
           }
         },
         "additionalProperty": [
@@ -4874,12 +4874,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.8,
-            "KZT": 799.74,
-            "UZS": 21179.62,
-            "KGS": 156.38,
-            "BYN": 5.41,
-            "AZN": 3.04
+            "USD": 1.77,
+            "KZT": 805.2,
+            "UZS": 21078.82,
+            "KGS": 154.97,
+            "BYN": 5.39,
+            "AZN": 3.01
           }
         },
         "additionalProperty": [
@@ -4999,12 +4999,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 3.92,
-            "KZT": 1744.02,
-            "UZS": 46186.89,
-            "KGS": 341.01,
-            "BYN": 11.8,
-            "AZN": 6.63
+            "USD": 3.86,
+            "KZT": 1755.91,
+            "UZS": 45967.07,
+            "KGS": 337.94,
+            "BYN": 11.75,
+            "AZN": 6.57
           }
         },
         "additionalProperty": [
@@ -5124,12 +5124,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 1.96,
-            "KZT": 872.01,
-            "UZS": 23093.44,
-            "KGS": 170.51,
-            "BYN": 5.9,
-            "AZN": 3.31
+            "USD": 1.93,
+            "KZT": 877.95,
+            "UZS": 22983.53,
+            "KGS": 168.97,
+            "BYN": 5.88,
+            "AZN": 3.28
           }
         },
         "additionalProperty": [
@@ -5251,12 +5251,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 6.45,
-            "KZT": 2870.57,
-            "UZS": 76021.24,
-            "KGS": 561.29,
-            "BYN": 19.42,
-            "AZN": 10.91
+            "USD": 6.36,
+            "KZT": 2890.13,
+            "UZS": 75659.43,
+            "KGS": 556.24,
+            "BYN": 19.35,
+            "AZN": 10.81
           }
         },
         "additionalProperty": [
@@ -5376,12 +5376,12 @@
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 4.46,
-            "KZT": 1987.32,
-            "UZS": 52630.09,
-            "KGS": 388.59,
-            "BYN": 13.45,
-            "AZN": 7.55
+            "USD": 4.4,
+            "KZT": 2000.86,
+            "UZS": 52379.6,
+            "KGS": 385.09,
+            "BYN": 13.39,
+            "AZN": 7.49
           }
         },
         "additionalProperty": [
@@ -5494,20 +5494,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-046",
           "priceCurrency": "RUB",
-          "price": 56.0,
-          "priceExclVAT": 2443.64,
+          "price": 59.93,
+          "priceExclVAT": 2615.04,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.61,
-            "KZT": 269.79,
-            "UZS": 7144.94,
-            "KGS": 52.75,
-            "BYN": 1.83,
-            "AZN": 1.03
+            "USD": 0.64,
+            "KZT": 290.69,
+            "UZS": 7609.71,
+            "KGS": 55.95,
+            "BYN": 1.95,
+            "AZN": 1.09
           }
         },
         "additionalProperty": [
@@ -5620,20 +5620,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-047",
           "priceCurrency": "RUB",
-          "price": 58.86,
-          "priceExclVAT": 1605.27,
+          "price": 61.81,
+          "priceExclVAT": 1685.7,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.64,
-            "KZT": 283.57,
-            "UZS": 7509.82,
-            "KGS": 55.45,
-            "BYN": 1.92,
-            "AZN": 1.08
+            "USD": 0.66,
+            "KZT": 299.81,
+            "UZS": 7848.56,
+            "KGS": 57.7,
+            "BYN": 2.01,
+            "AZN": 1.12
           }
         },
         "additionalProperty": [
@@ -5746,20 +5746,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-048",
           "priceCurrency": "RUB",
-          "price": 59.14,
-          "priceExclVAT": 2580.65,
+          "price": 63.29,
+          "priceExclVAT": 2761.92,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.64,
-            "KZT": 284.92,
-            "UZS": 7545.55,
-            "KGS": 55.71,
-            "BYN": 1.93,
-            "AZN": 1.08
+            "USD": 0.68,
+            "KZT": 307.01,
+            "UZS": 8037.13,
+            "KGS": 59.09,
+            "BYN": 2.06,
+            "AZN": 1.15
           }
         },
         "additionalProperty": [
@@ -5871,20 +5871,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-049",
           "priceCurrency": "RUB",
-          "price": 61.73,
-          "priceExclVAT": 2693.67,
+          "price": 66.05,
+          "priceExclVAT": 2882.4,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.67,
-            "KZT": 297.4,
-            "UZS": 7876,
-            "KGS": 58.15,
-            "BYN": 2.01,
-            "AZN": 1.13
+            "USD": 0.71,
+            "KZT": 320.4,
+            "UZS": 8387.72,
+            "KGS": 61.67,
+            "BYN": 2.15,
+            "AZN": 1.2
           }
         },
         "additionalProperty": [
@@ -5997,20 +5997,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-050",
           "priceCurrency": "RUB",
-          "price": 68.77,
-          "priceExclVAT": 3000.87,
+          "price": 73.58,
+          "priceExclVAT": 3210.72,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.74,
-            "KZT": 331.32,
-            "UZS": 8774.23,
-            "KGS": 64.78,
-            "BYN": 2.24,
-            "AZN": 1.26
+            "USD": 0.79,
+            "KZT": 356.9,
+            "UZS": 9343.12,
+            "KGS": 68.69,
+            "BYN": 2.39,
+            "AZN": 1.34
           }
         },
         "additionalProperty": [
@@ -6123,20 +6123,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-051",
           "priceCurrency": "RUB",
-          "price": 73.14,
-          "priceExclVAT": 3191.56,
+          "price": 78.28,
+          "priceExclVAT": 3415.68,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.79,
-            "KZT": 352.37,
-            "UZS": 9331.78,
-            "KGS": 68.9,
-            "BYN": 2.38,
-            "AZN": 1.34
+            "USD": 0.84,
+            "KZT": 379.68,
+            "UZS": 9939.55,
+            "KGS": 73.07,
+            "BYN": 2.54,
+            "AZN": 1.42
           }
         },
         "additionalProperty": [
@@ -6249,20 +6249,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-052",
           "priceCurrency": "RUB",
-          "price": 77.84,
-          "priceExclVAT": 3396.65,
+          "price": 83.29,
+          "priceExclVAT": 3634.56,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.84,
-            "KZT": 375.01,
-            "UZS": 9931.44,
-            "KGS": 73.33,
-            "BYN": 2.54,
-            "AZN": 1.43
+            "USD": 0.89,
+            "KZT": 404.01,
+            "UZS": 10576.49,
+            "KGS": 77.76,
+            "BYN": 2.7,
+            "AZN": 1.51
           }
         },
         "additionalProperty": [
@@ -6329,12 +6329,260 @@
       "position": 51,
       "item": {
         "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-065#product",
+        "sku": "KD-065",
+        "mpn": "KD-065",
+        "name": "Halal Беккен с капустой (100 g) — Kazan Delicacies",
+        "description": "Halal Беккен с капустой (100 g) — Kazan Delicacies. SKU: KD-065. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "image": [
+          "https://pepperoni.tatar/og-bakery-en.png"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-065",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
+          "name": "Kazan Delicacies",
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Republic of Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Беккен с капустой (100 g) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-065",
+          "priceCurrency": "RUB",
+          "price": 52.97,
+          "priceExclVAT": 2311.2,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#organization"
+          },
+          "exportPrices": {
+            "USD": 0.57,
+            "KZT": 256.91,
+            "UZS": 6725.54,
+            "KGS": 49.45,
+            "BYN": 1.72,
+            "AZN": 0.96
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Национальная татарская выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 52,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-066#product",
+        "sku": "KD-066",
+        "mpn": "KD-066",
+        "name": "Halal Вак балиш (100 g) — Kazan Delicacies",
+        "description": "Halal Вак балиш (100 g) — Kazan Delicacies. SKU: KD-066. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "image": [
+          "https://pepperoni.tatar/og-bakery-en.png"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-066",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
+          "name": "Kazan Delicacies",
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Republic of Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Traditional Tatar Pastries > Halal Вак балиш (100 g) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-066",
+          "priceCurrency": "RUB",
+          "price": 66.32,
+          "priceExclVAT": 2893.92,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#organization"
+          },
+          "exportPrices": {
+            "USD": 0.71,
+            "KZT": 321.69,
+            "UZS": 8421.24,
+            "KGS": 61.91,
+            "BYN": 2.15,
+            "AZN": 1.2
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Национальная татарская выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 53,
+      "item": {
+        "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-053#product",
         "sku": "KD-053",
         "mpn": "KD-053",
         "gtin13": "4680638720820",
         "name": "Halal Chak-chak in plastic pack 300 g — Kazan Delicacies",
-        "description": "Halal Chak-chak in plastic pack 300 g — Kazan Delicacies. SKU: KD-053. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 300 g. Shelf life: 60 суток. Storage: до +18°C. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "description": "Halal Chak-chak in plastic pack 300 g — Kazan Delicacies. SKU: KD-053. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 300 g. Shelf life: 90 суток. Storage: до +18°C, влажность 75%. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-053-main.jpg?v=3a3fac5b",
           "https://pepperoni.tatar/images/products/kd-053-pack.jpg?v=49299708",
@@ -6376,21 +6624,14 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-053",
           "priceCurrency": "RUB",
-          "price": 194.7,
-          "priceExclVAT": 162.25,
+          "price": 211.8,
+          "priceExclVAT": 0.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
-          "exportPrices": {
-            "USD": 1.93,
-            "KZT": 859.85,
-            "UZS": 22771.28,
-            "KGS": 168.13,
-            "BYN": 5.82,
-            "AZN": 3.27
-          }
+          "exportPrices": null
         },
         "additionalProperty": [
           {
@@ -6411,12 +6652,12 @@
           {
             "@type": "PropertyValue",
             "name": "shelfLife",
-            "value": "60 суток"
+            "value": "90 суток"
           },
           {
             "@type": "PropertyValue",
             "name": "storage",
-            "value": "до +18°C"
+            "value": "до +18°C, влажность 75%"
           },
           {
             "@type": "PropertyValue",
@@ -6453,7 +6694,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 52,
+      "position": 54,
       "item": {
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-054#product",
@@ -6461,7 +6702,7 @@
         "mpn": "KD-054",
         "gtin13": "4680638720769",
         "name": "Halal Chak-chak in kraft gift pack 300 g — Kazan Delicacies",
-        "description": "Halal Chak-chak in kraft gift pack 300 g — Kazan Delicacies. SKU: KD-054. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 300 g. Shelf life: 60 суток. Storage: до +18°C. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "description": "Halal Chak-chak in kraft gift pack 300 g — Kazan Delicacies. SKU: KD-054. Catalog classification: Bakery / Traditional Tatar Pastries. Net weight: 300 g. Shelf life: 90 суток. Storage: до +18°C, влажность 75%. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/images/products/kd-054-main.jpg?v=b6ca7c06",
           "https://pepperoni.tatar/images/products/kd-054-pack.jpg?v=37b8ba6d",
@@ -6503,21 +6744,14 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-054",
           "priceCurrency": "RUB",
-          "price": 271.7,
-          "priceExclVAT": 226.42,
+          "price": 295.57,
+          "priceExclVAT": 0.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
-          "exportPrices": {
-            "USD": 2.7,
-            "KZT": 1199.92,
-            "UZS": 31777.35,
-            "KGS": 234.62,
-            "BYN": 8.12,
-            "AZN": 4.56
-          }
+          "exportPrices": null
         },
         "additionalProperty": [
           {
@@ -6538,12 +6772,12 @@
           {
             "@type": "PropertyValue",
             "name": "shelfLife",
-            "value": "60 суток"
+            "value": "90 суток"
           },
           {
             "@type": "PropertyValue",
             "name": "storage",
-            "value": "до +18°C"
+            "value": "до +18°C, влажность 75%"
           },
           {
             "@type": "PropertyValue",
@@ -6580,7 +6814,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 53,
+      "position": 55,
       "item": {
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-055#product",
@@ -6628,20 +6862,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-055",
           "priceCurrency": "RUB",
-          "price": 44.0,
-          "priceExclVAT": 1200.0,
+          "price": 47.08,
+          "priceExclVAT": 1284.0,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.48,
-            "KZT": 211.98,
-            "UZS": 5613.88,
-            "KGS": 41.45,
-            "BYN": 1.43,
-            "AZN": 0.81
+            "USD": 0.5,
+            "KZT": 228.36,
+            "UZS": 5978.26,
+            "KGS": 43.95,
+            "BYN": 1.53,
+            "AZN": 0.85
           }
         },
         "additionalProperty": [
@@ -6705,19 +6939,19 @@
     },
     {
       "@type": "ListItem",
-      "position": 54,
+      "position": 56,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-056#product",
-        "sku": "KD-056",
-        "mpn": "KD-056",
+        "@id": "https://pepperoni.tatar/en/products/kd-067#product",
+        "sku": "KD-067",
+        "mpn": "KD-067",
         "gtin13": "4680638720714",
         "name": "Halal Baked potato pie 100 g — Kazan Delicacies",
-        "description": "Halal Baked potato pie 100 g — Kazan Delicacies. SKU: KD-056. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "description": "Halal Baked potato pie 100 g — Kazan Delicacies. SKU: KD-067. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-bakery-en.png"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-056",
+        "url": "https://pepperoni.tatar/en/products/kd-067",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -6751,260 +6985,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-056",
+          "url": "https://pepperoni.tatar/en/products/kd-067",
           "priceCurrency": "RUB",
-          "price": 44.74,
-          "priceExclVAT": 1952.29,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@id": "https://pepperoni.tatar/#organization"
-          },
-          "exportPrices": {
-            "USD": 0.48,
-            "KZT": 215.55,
-            "UZS": 5708.29,
-            "KGS": 42.15,
-            "BYN": 1.46,
-            "AZN": 0.82
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Классическая выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "190590"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.100 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 55,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-057#product",
-        "sku": "KD-057",
-        "mpn": "KD-057",
-        "gtin13": "4680638720721",
-        "name": "Halal Syrniki 70 g — Kazan Delicacies",
-        "description": "Halal Syrniki 70 g — Kazan Delicacies. SKU: KD-057. Catalog classification: Bakery / Classic Pastries. Net weight: 70 g. Shelf life: 360 суток. Storage: –18°C. HS code: 040490. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
-        "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-057",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "@id": "https://pepperoni.tatar/#organization",
-          "name": "Kazan Delicacies",
-          "legalName": "ООО «Казанские Деликатесы»",
-          "url": "https://pepperoni.tatar/",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2, office 7",
-            "addressLocality": "Kazan",
-            "addressRegion": "Republic of Tatarstan",
-            "postalCode": "420061",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Syrniki 70 g — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-057",
-          "priceCurrency": "RUB",
-          "price": 45.1,
-          "priceExclVAT": 1968.0,
-          "availability": "https://schema.org/InStock",
-          "itemCondition": "https://schema.org/NewCondition",
-          "seller": {
-            "@id": "https://pepperoni.tatar/#organization"
-          },
-          "exportPrices": {
-            "USD": 0.49,
-            "KZT": 217.28,
-            "UZS": 5754.22,
-            "KGS": 42.49,
-            "BYN": 1.47,
-            "AZN": 0.83
-          }
-        },
-        "additionalProperty": [
-          {
-            "@type": "PropertyValue",
-            "name": "halal",
-            "value": true
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "section",
-            "value": "Выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "category",
-            "value": "Классическая выпечка"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "shelfLife",
-            "value": "360 суток"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "storage",
-            "value": "–18°C"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "hsCode",
-            "value": "040490"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "weight_kg",
-            "value": "0.070 kg"
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "minOrder_boxes",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "diameter_mm",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "casing",
-            "value": ""
-          },
-          {
-            "@type": "PropertyValue",
-            "name": "packageType",
-            "value": ""
-          }
-        ]
-      }
-    },
-    {
-      "@type": "ListItem",
-      "position": 56,
-      "item": {
-        "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-058#product",
-        "sku": "KD-058",
-        "mpn": "KD-058",
-        "gtin13": "4680638720691",
-        "name": "Halal Apple pie 100 g — Kazan Delicacies",
-        "description": "Halal Apple pie 100 g — Kazan Delicacies. SKU: KD-058. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
-        "image": [
-          "https://pepperoni.tatar/og-bakery-en.png"
-        ],
-        "url": "https://pepperoni.tatar/en/products/kd-058",
-        "brand": {
-          "@type": "Brand",
-          "name": "Kazan Delicacies"
-        },
-        "manufacturer": {
-          "@type": "Organization",
-          "@id": "https://pepperoni.tatar/#organization",
-          "name": "Kazan Delicacies",
-          "legalName": "ООО «Казанские Деликатесы»",
-          "url": "https://pepperoni.tatar/",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Agrarnaya, 2, office 7",
-            "addressLocality": "Kazan",
-            "addressRegion": "Republic of Tatarstan",
-            "postalCode": "420061",
-            "addressCountry": "RU"
-          }
-        },
-        "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Apple pie 100 g — Kazan Delicacies",
-        "hasCertification": {
-          "@type": "Certification",
-          "name": "Halal",
-          "identifier": "614A/2024",
-          "issuedBy": {
-            "@type": "Organization",
-            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
-            "url": "https://dumrt.ru"
-          }
-        },
-        "offers": {
-          "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-058",
-          "priceCurrency": "RUB",
-          "price": 49.5,
-          "priceExclVAT": 1620.0,
+          "price": 50.92,
+          "priceExclVAT": 2221.92,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7012,11 +6996,11 @@
           },
           "exportPrices": {
             "USD": 0.54,
-            "KZT": 238.48,
-            "UZS": 6315.61,
-            "KGS": 46.63,
-            "BYN": 1.61,
-            "AZN": 0.91
+            "KZT": 246.99,
+            "UZS": 6465.74,
+            "KGS": 47.54,
+            "BYN": 1.65,
+            "AZN": 0.92
           }
         },
         "additionalProperty": [
@@ -7083,16 +7067,16 @@
       "position": 57,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-059#product",
-        "sku": "KD-059",
-        "mpn": "KD-059",
-        "gtin13": "4680638720783",
-        "name": "Halal Green onion and egg pie 100 g — Kazan Delicacies",
-        "description": "Halal Green onion and egg pie 100 g — Kazan Delicacies. SKU: KD-059. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "@id": "https://pepperoni.tatar/en/products/kd-057#product",
+        "sku": "KD-057",
+        "mpn": "KD-057",
+        "gtin13": "4680638720721",
+        "name": "Halal Syrniki 70 g — Kazan Delicacies",
+        "description": "Halal Syrniki 70 g — Kazan Delicacies. SKU: KD-057. Catalog classification: Bakery / Classic Pastries. Net weight: 70 g. Shelf life: 360 суток. Storage: –18°C. HS code: 040490. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-bakery-en.png"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-059",
+        "url": "https://pepperoni.tatar/en/products/kd-057",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -7113,7 +7097,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Green onion and egg pie 100 g — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Syrniki 70 g — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -7126,22 +7110,22 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-059",
+          "url": "https://pepperoni.tatar/en/products/kd-057",
           "priceCurrency": "RUB",
-          "price": 58.52,
-          "priceExclVAT": 2553.6,
+          "price": 48.26,
+          "priceExclVAT": 2105.76,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.63,
-            "KZT": 281.93,
-            "UZS": 7466.46,
-            "KGS": 55.13,
-            "BYN": 1.91,
-            "AZN": 1.07
+            "USD": 0.52,
+            "KZT": 234.07,
+            "UZS": 6127.72,
+            "KGS": 45.05,
+            "BYN": 1.57,
+            "AZN": 0.88
           }
         },
         "additionalProperty": [
@@ -7173,12 +7157,12 @@
           {
             "@type": "PropertyValue",
             "name": "hsCode",
-            "value": "190590"
+            "value": "040490"
           },
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0.100 kg"
+            "value": "0.070 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7208,16 +7192,16 @@
       "position": 58,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-060#product",
-        "sku": "KD-060",
-        "mpn": "KD-060",
-        "gtin13": "4680638720738",
-        "name": "Halal Orange muffin 100 g — Kazan Delicacies",
-        "description": "Halal Orange muffin 100 g — Kazan Delicacies. SKU: KD-060. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "@id": "https://pepperoni.tatar/en/products/kd-058#product",
+        "sku": "KD-058",
+        "mpn": "KD-058",
+        "gtin13": "4680638720691",
+        "name": "Halal Apple pie 100 g — Kazan Delicacies",
+        "description": "Halal Apple pie 100 g — Kazan Delicacies. SKU: KD-058. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-bakery-en.png"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-060",
+        "url": "https://pepperoni.tatar/en/products/kd-058",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -7238,7 +7222,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Orange muffin 100 g — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Apple pie 100 g — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -7251,22 +7235,22 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-060",
+          "url": "https://pepperoni.tatar/en/products/kd-058",
           "priceCurrency": "RUB",
-          "price": 67.55,
-          "priceExclVAT": 1473.82,
+          "price": 52.97,
+          "priceExclVAT": 1733.56,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.73,
-            "KZT": 325.44,
-            "UZS": 8618.59,
-            "KGS": 63.63,
-            "BYN": 2.2,
-            "AZN": 1.24
+            "USD": 0.57,
+            "KZT": 256.93,
+            "UZS": 6726.16,
+            "KGS": 49.45,
+            "BYN": 1.72,
+            "AZN": 0.96
           }
         },
         "additionalProperty": [
@@ -7333,16 +7317,16 @@
       "position": 59,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-061#product",
-        "sku": "KD-061",
-        "mpn": "KD-061",
-        "gtin13": "4680638720776",
-        "name": "Halal Sausage roll 120 g — Kazan Delicacies",
-        "description": "Halal Sausage roll 120 g — Kazan Delicacies. SKU: KD-061. Catalog classification: Bakery / Classic Pastries. Net weight: 120 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "@id": "https://pepperoni.tatar/en/products/kd-059#product",
+        "sku": "KD-059",
+        "mpn": "KD-059",
+        "gtin13": "4680638720783",
+        "name": "Halal Green onion and egg pie 100 g — Kazan Delicacies",
+        "description": "Halal Green onion and egg pie 100 g — Kazan Delicacies. SKU: KD-059. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-bakery-en.png"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-061",
+        "url": "https://pepperoni.tatar/en/products/kd-059",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -7363,7 +7347,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Sausage roll 120 g — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Green onion and egg pie 100 g — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -7376,22 +7360,22 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-061",
+          "url": "https://pepperoni.tatar/en/products/kd-059",
           "priceCurrency": "RUB",
-          "price": 69.03,
-          "priceExclVAT": 3012.22,
+          "price": 67.73,
+          "priceExclVAT": 2955.36,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.75,
-            "KZT": 332.57,
-            "UZS": 8807.41,
-            "KGS": 65.03,
-            "BYN": 2.25,
-            "AZN": 1.26
+            "USD": 0.72,
+            "KZT": 328.51,
+            "UZS": 8600.03,
+            "KGS": 63.23,
+            "BYN": 2.2,
+            "AZN": 1.23
           }
         },
         "additionalProperty": [
@@ -7428,7 +7412,7 @@
           {
             "@type": "PropertyValue",
             "name": "weight_kg",
-            "value": "0.120 kg"
+            "value": "0.100 kg"
           },
           {
             "@type": "PropertyValue",
@@ -7458,16 +7442,16 @@
       "position": 60,
       "item": {
         "@type": "Product",
-        "@id": "https://pepperoni.tatar/en/products/kd-062#product",
-        "sku": "KD-062",
-        "mpn": "KD-062",
-        "gtin13": "4680638720707",
-        "name": "Halal Cherry pie 100 g — Kazan Delicacies",
-        "description": "Halal Cherry pie 100 g — Kazan Delicacies. SKU: KD-062. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "@id": "https://pepperoni.tatar/en/products/kd-060#product",
+        "sku": "KD-060",
+        "mpn": "KD-060",
+        "gtin13": "4680638720738",
+        "name": "Halal Orange muffin 100 g — Kazan Delicacies",
+        "description": "Halal Orange muffin 100 g — Kazan Delicacies. SKU: KD-060. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
         "image": [
           "https://pepperoni.tatar/og-bakery-en.png"
         ],
-        "url": "https://pepperoni.tatar/en/products/kd-062",
+        "url": "https://pepperoni.tatar/en/products/kd-060",
         "brand": {
           "@type": "Brand",
           "name": "Kazan Delicacies"
@@ -7488,7 +7472,7 @@
           }
         },
         "countryOfOrigin": "RU",
-        "category": "Bakery > Classic Pastries > Halal Cherry pie 100 g — Kazan Delicacies",
+        "category": "Bakery > Classic Pastries > Halal Orange muffin 100 g — Kazan Delicacies",
         "hasCertification": {
           "@type": "Certification",
           "name": "Halal",
@@ -7501,10 +7485,10 @@
         },
         "offers": {
           "@type": "Offer",
-          "url": "https://pepperoni.tatar/en/products/kd-062",
+          "url": "https://pepperoni.tatar/en/products/kd-060",
           "priceCurrency": "RUB",
-          "price": 71.5,
-          "priceExclVAT": 3120.0,
+          "price": 72.26,
+          "priceExclVAT": 1576.56,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
@@ -7512,10 +7496,10 @@
           },
           "exportPrices": {
             "USD": 0.77,
-            "KZT": 344.47,
-            "UZS": 9122.55,
-            "KGS": 67.36,
-            "BYN": 2.33,
+            "KZT": 350.5,
+            "UZS": 9175.51,
+            "KGS": 67.46,
+            "BYN": 2.35,
             "AZN": 1.31
           }
         },
@@ -7583,6 +7567,256 @@
       "position": 61,
       "item": {
         "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-061#product",
+        "sku": "KD-061",
+        "mpn": "KD-061",
+        "gtin13": "4680638720776",
+        "name": "Halal Sausage roll 120 g — Kazan Delicacies",
+        "description": "Halal Sausage roll 120 g — Kazan Delicacies. SKU: KD-061. Catalog classification: Bakery / Classic Pastries. Net weight: 120 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "image": [
+          "https://pepperoni.tatar/og-bakery-en.png"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-061",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
+          "name": "Kazan Delicacies",
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Republic of Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Classic Pastries > Halal Sausage roll 120 g — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-061",
+          "priceCurrency": "RUB",
+          "price": 72.49,
+          "priceExclVAT": 3163.2,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#organization"
+          },
+          "exportPrices": {
+            "USD": 0.77,
+            "KZT": 351.62,
+            "UZS": 9204.84,
+            "KGS": 67.67,
+            "BYN": 2.35,
+            "AZN": 1.32
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Классическая выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.120 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 62,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-062#product",
+        "sku": "KD-062",
+        "mpn": "KD-062",
+        "gtin13": "4680638720707",
+        "name": "Halal Cherry pie 100 g — Kazan Delicacies",
+        "description": "Halal Cherry pie 100 g — Kazan Delicacies. SKU: KD-062. Catalog classification: Bakery / Classic Pastries. Net weight: 100 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "image": [
+          "https://pepperoni.tatar/og-bakery-en.png"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-062",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
+          "name": "Kazan Delicacies",
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Republic of Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Classic Pastries > Halal Cherry pie 100 g — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-062",
+          "priceCurrency": "RUB",
+          "price": 75.08,
+          "priceExclVAT": 3276.0,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#organization"
+          },
+          "exportPrices": {
+            "USD": 0.8,
+            "KZT": 364.16,
+            "UZS": 9533.09,
+            "KGS": 70.09,
+            "BYN": 2.44,
+            "AZN": 1.36
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Классическая выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 63,
+      "item": {
+        "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-063#product",
         "sku": "KD-063",
         "mpn": "KD-063",
@@ -7628,20 +7862,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-063",
           "priceCurrency": "RUB",
-          "price": 72.6,
-          "priceExclVAT": 1210.0,
+          "price": 77.51,
+          "priceExclVAT": 1409.2,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.72,
-            "KZT": 320.62,
-            "UZS": 8490.99,
-            "KGS": 62.69,
-            "BYN": 2.17,
-            "AZN": 1.22
+            "USD": 0.83,
+            "KZT": 375.95,
+            "UZS": 9841.78,
+            "KGS": 72.35,
+            "BYN": 2.52,
+            "AZN": 1.41
           }
         },
         "additionalProperty": [
@@ -7705,7 +7939,7 @@
     },
     {
       "@type": "ListItem",
-      "position": 62,
+      "position": 64,
       "item": {
         "@type": "Product",
         "@id": "https://pepperoni.tatar/en/products/kd-064#product",
@@ -7753,20 +7987,20 @@
           "@type": "Offer",
           "url": "https://pepperoni.tatar/en/products/kd-064",
           "priceCurrency": "RUB",
-          "price": 73.64,
-          "priceExclVAT": 1606.69,
+          "price": 78.78,
+          "priceExclVAT": 1718.88,
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": {
             "@id": "https://pepperoni.tatar/#organization"
           },
           "exportPrices": {
-            "USD": 0.8,
-            "KZT": 354.78,
-            "UZS": 9395.58,
-            "KGS": 69.37,
-            "BYN": 2.4,
-            "AZN": 1.35
+            "USD": 0.84,
+            "KZT": 382.14,
+            "UZS": 10003.81,
+            "KGS": 73.55,
+            "BYN": 2.56,
+            "AZN": 1.43
           }
         },
         "additionalProperty": [
@@ -7804,6 +8038,130 @@
             "@type": "PropertyValue",
             "name": "weight_kg",
             "value": "0.100 kg"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "minOrder_boxes",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "diameter_mm",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "casing",
+            "value": ""
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "packageType",
+            "value": ""
+          }
+        ]
+      }
+    },
+    {
+      "@type": "ListItem",
+      "position": 65,
+      "item": {
+        "@type": "Product",
+        "@id": "https://pepperoni.tatar/en/products/kd-068#product",
+        "sku": "KD-068",
+        "mpn": "KD-068",
+        "name": "Halal Слойка с ветчиной и сыром (90 g) — Kazan Delicacies",
+        "description": "Halal Слойка с ветчиной и сыром (90 g) — Kazan Delicacies. SKU: KD-068. Catalog classification: Bakery / Classic Pastries. Net weight: 90 g. Shelf life: 360 суток. Storage: –18°C. HS code: 190590. Manufacturer: Kazan Delicacies LLC, Kazan, Russia. Halal certificate DUM RT No. 614A/2024. Current availability, commercial terms, destination requirements and supporting documents are confirmed for the selected SKU on request.",
+        "image": [
+          "https://pepperoni.tatar/og-bakery-en.png"
+        ],
+        "url": "https://pepperoni.tatar/en/products/kd-068",
+        "brand": {
+          "@type": "Brand",
+          "name": "Kazan Delicacies"
+        },
+        "manufacturer": {
+          "@type": "Organization",
+          "@id": "https://pepperoni.tatar/#organization",
+          "name": "Kazan Delicacies",
+          "legalName": "ООО «Казанские Деликатесы»",
+          "url": "https://pepperoni.tatar/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Agrarnaya, 2, office 7",
+            "addressLocality": "Kazan",
+            "addressRegion": "Republic of Tatarstan",
+            "postalCode": "420061",
+            "addressCountry": "RU"
+          }
+        },
+        "countryOfOrigin": "RU",
+        "category": "Bakery > Classic Pastries > Halal Слойка с ветчиной и сыром (90 g) — Kazan Delicacies",
+        "hasCertification": {
+          "@type": "Certification",
+          "name": "Halal",
+          "identifier": "614A/2024",
+          "issuedBy": {
+            "@type": "Organization",
+            "name": "Muslim Spiritual Board of the Republic of Tatarstan (DUM RT)",
+            "url": "https://dumrt.ru"
+          }
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://pepperoni.tatar/en/products/kd-068",
+          "priceCurrency": "RUB",
+          "price": 108.15,
+          "priceExclVAT": 4719.36,
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": {
+            "@id": "https://pepperoni.tatar/#organization"
+          },
+          "exportPrices": {
+            "USD": 1.15,
+            "KZT": 524.6,
+            "UZS": 13733.23,
+            "KGS": 100.96,
+            "BYN": 3.51,
+            "AZN": 1.96
+          }
+        },
+        "additionalProperty": [
+          {
+            "@type": "PropertyValue",
+            "name": "halal",
+            "value": true
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "section",
+            "value": "Выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "category",
+            "value": "Классическая выпечка"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "shelfLife",
+            "value": "360 суток"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "storage",
+            "value": "–18°C"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "hsCode",
+            "value": "190590"
+          },
+          {
+            "@type": "PropertyValue",
+            "name": "weight_kg",
+            "value": "0.090 kg"
           },
           {
             "@type": "PropertyValue",

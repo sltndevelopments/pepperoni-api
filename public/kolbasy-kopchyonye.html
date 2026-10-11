@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+<!-- perf-hints: preconnect -->
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+<link rel="preconnect" href="https://mc.yandex.ru" crossorigin>
+<link rel="dns-prefetch" href="https://mc.yandex.ru">
+
 <!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -138,6 +144,30 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     input,select,textarea{width:100%;max-width:420px;padding:8px 10px;border:1px solid #ddd;border-radius:6px;font:inherit}
     .consent{font-weight:400;font-size:.85rem}
     figure img{max-width:100%;height:auto;border-radius:8px}
+</style>
+<!-- perf-hints: speculation-rules -->
+<script type="speculationrules">
+{
+  "prerender": [{
+    "source": "document",
+    "where": {
+      "and": [
+        { "href_matches": "/*" },
+        { "not": { "href_matches": "/lead-submit*" } },
+        { "not": { "href_matches": "/lead-health*" } },
+        { "not": { "selector_matches": "[download]" } },
+        { "not": { "selector_matches": ".no-prerender" } }
+      ]
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+<!-- perf-hints: view-transitions -->
+<style>
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition { navigation: auto; }
+}
 </style>
 </head>
 <body>
@@ -280,10 +310,10 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <button class="cta" type="submit">Отправить заявку</button>
       <p class="lead-form__status" role="status" aria-live="polite"></p>
     </form>
-    <script src="/assets/lead-form.js" defer></script>
+    <script src="/assets/lead-form.js?v=49ca3441" defer></script>
   <p><a class="cta cta-outline" href="tel:+79872170202">+7 987 217-02-02</a> <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
 
-  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/vetchina-optom/">Ветчина халяль</a> · <a href="/kolbasy-varenye/">Вареные колбасы</a> · <a href="/toppings">Пепперони топпинги</a></p>
+  <p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: <a href="/vetchina-optom/">Ветчина халяль</a> · <a href="/kolbasy-varenye/">Вареные колбасы</a> · Пепперони топпинги</p>
 
   <section class="faq-section">
     <h2>Частые вопросы</h2>
@@ -318,6 +348,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </footer>
 </div>
 <script type="text/javascript">(function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window,document,"script","https://mc.yandex.ru/metrika/tag.js","ym");ym(107064141,"init",{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:"dataLayer"});</script>
-<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" /></div></noscript>
+<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" width="1" height="1" loading="lazy" /></div></noscript>
 </body>
 </html>
