@@ -1579,8 +1579,8 @@
   }
  },
  "2026-10": {
-  "usd": 0.883238,
-  "usd_baseline": 0.824387,
+  "usd": 0.89409,
+  "usd_baseline": 0.835239,
   "days": {
    "2026-10-01": {
     "calls": 1,
@@ -1655,24 +1655,24 @@
     "usd_baseline": 0.008313
    },
    "2026-10-10": {
-    "calls": 1,
-    "in": 12432,
-    "out": 4186,
+    "calls": 2,
+    "in": 14234,
+    "out": 5996,
     "cache_w": 15778,
     "cache_r": 0,
-    "usd": 0.265423,
-    "usd_baseline": 0.2457
+    "usd": 0.276275,
+    "usd_baseline": 0.256552
    }
   },
   "scripts": {
    "send_report": {
-    "calls": 7,
-    "in": 12527,
-    "out": 9987,
+    "calls": 8,
+    "in": 14329,
+    "out": 11797,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.062462,
-    "usd_baseline": 0.062462
+    "usd": 0.073314,
+    "usd_baseline": 0.073314
    },
    "seo_brain": {
     "calls": 3,
@@ -1686,13 +1686,13 @@
   },
   "models": {
    "claude-haiku-4-5-20251001": {
-    "calls": 7,
-    "in": 12527,
-    "out": 9987,
+    "calls": 8,
+    "in": 14329,
+    "out": 11797,
     "cache_w": 0,
     "cache_r": 0,
-    "usd": 0.062462,
-    "usd_baseline": 0.062462
+    "usd": 0.073314,
+    "usd_baseline": 0.073314
    },
    "claude-opus-5": {
     "calls": 3,

@@ -1,26 +1,26 @@
 {
- "fetched_at": "2026-10-10T05:30:49.450832+00:00",
+ "fetched_at": "2026-10-11T05:32:15.604729+00:00",
  "counter": "107064141",
  "days": 30,
  "totals": {
-  "visits": 419,
-  "users": 345,
-  "bounce_rate_pct": 36.0,
+  "visits": 429,
+  "users": 354,
+  "bounce_rate_pct": 35.9,
   "page_depth": 1.59,
   "avg_visit_sec": 72
  },
  "sources": [
   {
    "source": "Direct traffic",
-   "visits": 233
+   "visits": 229
   },
   {
    "source": "Search engine traffic",
-   "visits": 91
+   "visits": 107
   },
   {
    "source": "Internal traffic",
-   "visits": 74
+   "visits": 72
   },
   {
    "source": "Link traffic",
@@ -38,8 +38,8 @@
  "top_landing": [
   {
    "path": "/",
-   "visits": 242,
-   "bounce_pct": 28.5
+   "visits": 235,
+   "bounce_pct": 28.9
   },
   {
    "path": "/en/",
@@ -48,13 +48,28 @@
   },
   {
    "path": "/blog/kazylyk",
-   "visits": 10,
-   "bounce_pct": 30.0
+   "visits": 14,
+   "bounce_pct": 28.6
+  },
+  {
+   "path": "/dlya-azs",
+   "visits": 11,
+   "bounce_pct": 9.1
   },
   {
    "path": "/products/kd-013",
    "visits": 9,
    "bounce_pct": 22.2
+  },
+  {
+   "path": "/blog/tatarskaya-vypechka-optom",
+   "visits": 8,
+   "bounce_pct": 50.0
+  },
+  {
+   "path": "/blog/pepperoni-iz-kakogo-myasa",
+   "visits": 7,
+   "bounce_pct": 14.3
   },
   {
    "path": "/en/private-label",
@@ -72,14 +87,9 @@
    "bounce_pct": 0.0
   },
   {
-   "path": "/blog/pepperoni-iz-kakogo-myasa",
-   "visits": 5,
-   "bounce_pct": 20.0
-  },
-  {
-   "path": "/dlya-azs",
+   "path": "/about",
    "visits": 4,
-   "bounce_pct": 25.0
+   "bounce_pct": 0.0
   },
   {
    "path": "/en/products/kd-029",
@@ -98,16 +108,6 @@
   },
   {
    "path": "/products/kd-027",
-   "visits": 4,
-   "bounce_pct": 75.0
-  },
-  {
-   "path": "/products/kd-046",
-   "visits": 4,
-   "bounce_pct": 25.0
-  },
-  {
-   "path": "/products/kd-048",
    "visits": 4,
    "bounce_pct": 75.0
   }
