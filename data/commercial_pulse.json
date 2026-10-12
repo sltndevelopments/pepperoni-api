@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-10-05T09:00:02.021414+00:00",
-  "gsc_data_through": "2026-10-02",
+  "generated_at": "2026-10-11T05:36:39.881410+00:00",
+  "gsc_data_through": "2026-10-08",
   "window_days": 28,
   "leads": {
-    "7d": 151,
-    "21d": 406,
-    "commercial_7d": 26,
+    "7d": 161,
+    "21d": 415,
+    "commercial_7d": 19,
     "on_exp_pages_21d": 1,
-    "last_at": "2026-10-05T08:46:27+00:00"
+    "last_at": "2026-10-10T21:21:44+00:00"
   },
   "experiments": [],
   "watchlist": [
@@ -22,41 +22,29 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 8,
-        "clicks": 1,
-        "position": 9.2
+        "impr": 4,
+        "clicks": 0,
+        "position": 7.0
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/blog/what-is-halal-pepperoni",
-          "impr": 17,
+          "impr": 7,
           "clicks": 0,
-          "position": 8.2
+          "position": 6.4
         },
         {
           "page": "/",
-          "impr": 15,
+          "impr": 6,
           "clicks": 0,
-          "position": 6.7
+          "position": 2.8
         },
         {
           "page": "/pepperoni",
-          "impr": 8,
-          "clicks": 1,
-          "position": 9.2
-        },
-        {
-          "page": "/products/kd-013",
-          "impr": 2,
+          "impr": 4,
           "clicks": 0,
-          "position": 38.5
-        },
-        {
-          "page": "/pizzeria",
-          "impr": 2,
-          "clicks": 0,
-          "position": 61.5
+          "position": 7.0
         }
       ],
       "flag": "watching"
@@ -72,41 +60,41 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 13,
+        "impr": 11,
         "clicks": 2,
-        "position": 7.8
+        "position": 10.4
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
           "page": "/pepperoni",
-          "impr": 13,
+          "impr": 11,
           "clicks": 2,
-          "position": 7.8
+          "position": 10.4
         },
         {
           "page": "/",
-          "impr": 9,
+          "impr": 7,
           "clicks": 0,
-          "position": 17.1
-        },
-        {
-          "page": "/dlya-setey",
-          "impr": 4,
-          "clicks": 0,
-          "position": 58.0
-        },
-        {
-          "page": "/products/kd-013",
-          "impr": 2,
-          "clicks": 0,
-          "position": 29.5
+          "position": 17.0
         },
         {
           "page": "/pizzeria",
-          "impr": 2,
+          "impr": 3,
           "clicks": 0,
-          "position": 53.0
+          "position": 49.7
+        },
+        {
+          "page": "/dlya-setey",
+          "impr": 3,
+          "clicks": 0,
+          "position": 43.3
+        },
+        {
+          "page": "/blog/what-is-halal-pepperoni",
+          "impr": 3,
+          "clicks": 0,
+          "position": 30.3
         }
       ],
       "flag": "watching"
@@ -169,39 +157,39 @@
       "exact": {
         "impr": 3,
         "clicks": 0,
-        "position": 71.3
+        "position": 57.7
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
         {
-          "page": "/blog/what-is-halal-pepperoni",
-          "impr": 7,
-          "clicks": 0,
-          "position": 7.7
-        },
-        {
-          "page": "/dlya-setey",
-          "impr": 6,
-          "clicks": 0,
-          "position": 42.2
-        },
-        {
-          "page": "/",
-          "impr": 5,
-          "clicks": 0,
-          "position": 17.8
-        },
-        {
           "page": "/pepperoni",
           "impr": 3,
           "clicks": 0,
-          "position": 71.3
+          "position": 57.7
         },
         {
-          "page": "/kontraktnoe-proizvodstvo",
+          "page": "/dlya-setey",
+          "impr": 3,
+          "clicks": 0,
+          "position": 47.3
+        },
+        {
+          "page": "/blog/what-is-halal-pepperoni",
+          "impr": 3,
+          "clicks": 0,
+          "position": 18.0
+        },
+        {
+          "page": "/kolbasy-varenye",
           "impr": 2,
           "clicks": 0,
-          "position": 88.0
+          "position": 80.0
+        },
+        {
+          "page": "/kolbasy-kopchyonye",
+          "impr": 2,
+          "clicks": 0,
+          "position": 78.5
         }
       ],
       "flag": "watching"
@@ -217,18 +205,12 @@
       "baseline_position": null,
       "baseline_impr_90d": null,
       "exact": {
-        "impr": 1,
+        "impr": 0,
         "clicks": 0,
-        "position": 47.0
+        "position": null
       },
       "delta_vs_baseline": null,
       "sitewide_top": [
-        {
-          "page": "/en/pepperoni",
-          "impr": 1,
-          "clicks": 0,
-          "position": 47.0
-        },
         {
           "page": "/blog/what-is-halal-pepperoni",
           "impr": 1,
@@ -236,7 +218,7 @@
           "position": 5.0
         }
       ],
-      "flag": "watching"
+      "flag": "not_ranking_yet"
     }
   ],
   "north_star": "leads + commercial GSC vs kazandelikates; no geo farm"
