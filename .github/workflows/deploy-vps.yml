@@ -56,6 +56,22 @@ jobs:
             done
             rm -rf "$KEEP"
             echo "Deployed: $(git log -1 --oneline)"
+            # The Avito worker is a long-running Python process. git reset
+            # updates the file, but the process keeps the old module until
+            # restart — otherwise outage-alert fixes never reach the group.
+            if systemctl is-enabled pepperoni-avito-worker &>/dev/null; then
+              systemctl restart pepperoni-avito-worker
+              sleep 1
+              if systemctl is-active --quiet pepperoni-avito-worker; then
+                echo "✅ pepperoni-avito-worker restarted"
+              else
+                echo "⚠️  pepperoni-avito-worker failed to restart"
+                journalctl -u pepperoni-avito-worker --no-pager -n 30
+                exit 1
+              fi
+            else
+              echo "ℹ️  pepperoni-avito-worker unit not installed — skipping restart"
+            fi
             # nginx serves /videos/ from media/, not repo/public/videos/
             if [ -d public/videos ]; then
               mkdir -p /var/www/pepperoni/media/videos

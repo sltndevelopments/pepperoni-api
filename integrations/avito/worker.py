@@ -565,17 +565,27 @@ class Telegram:
 
 
 class OpsAlert:
-    """One Telegram message on outage, one on recovery. No per-tick spam."""
+    """One Telegram message after a sustained outage, one on recovery.
 
-    def __init__(self, telegram: Telegram) -> None:
+    A blip that recovers inside the hold window sends nothing. The down
+    message goes out only once the failure has lasted the full hold, and the
+    recovery message only follows that down message.
+    """
+
+    def __init__(self, telegram: Telegram, *, now=None, hold_seconds: float | None = None) -> None:
         self.telegram = telegram
-        self._fails = 0
+        self._now = now or time.monotonic
+        self._down_since: float | None = None
         self._down_sent = False
-        self._threshold = max(1, int(_env("AVITO_ALERT_FAILS", "3")))
+        if hold_seconds is None:
+            hold_seconds = float(_env("AVITO_ALERT_HOLD_SECONDS", "300"))
+        self._hold_seconds = max(0.0, hold_seconds)
 
     def note_failure(self, reason: str) -> None:
-        self._fails += 1
-        if self._fails < self._threshold or self._down_sent:
+        now = self._now()
+        if self._down_since is None:
+            self._down_since = now
+        if self._down_sent or now - self._down_since < self._hold_seconds:
             return
         text = (
             "⚠️ Авито-воркер затупил\n"
@@ -590,12 +600,13 @@ class OpsAlert:
             LOG.warning("avito ops alert failed: %s", exc)
 
     def note_success(self) -> None:
-        self._fails = 0
         if not self._down_sent:
+            self._down_since = None
             return
         try:
             self.telegram.send("✅ Авито-воркер ожил. Чаты снова обрабатываются.")
             self._down_sent = False
+            self._down_since = None
             LOG.info("avito ops alert sent: recovered")
         except Exception as exc:
             LOG.warning("avito ops recover alert failed: %s", exc)

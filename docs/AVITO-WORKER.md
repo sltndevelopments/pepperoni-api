@@ -11,8 +11,9 @@ existing `LEADS_GROUP_ID` group.
   before a follow-up city/name message is not lost.
 - A phone lead is saved in SQLite before it is sent to Telegram.
 - Telegram failures leave the lead in `pending` and are retried on every poll.
-- If Avito API or the LLM stays down for `AVITO_ALERT_FAILS` ticks (default 3),
+- If Avito API or the LLM stays down for `AVITO_ALERT_HOLD_SECONDS` (default 300),
   the worker posts one message to `LEADS_GROUP_ID` and one more when it recovers.
+  An outage that clears before the hold expires is silent.
 - The customer receives `Спасибо! Сейчас с вами свяжется менеджер.` only after
   Telegram confirms delivery.
 - The LLM receives matched catalog entries from
