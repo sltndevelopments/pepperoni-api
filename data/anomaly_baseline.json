@@ -1,24 +1,5 @@
 [
   {
-    "date": "2026-07-09",
-    "ts": "2026-07-09T05:30:32.305112+00:00",
-    "clicks": 61,
-    "impressions": 24096,
-    "wpos": 19.63,
-    "queries": {
-      "казылык это": 10.1,
-      "казылык": 8.8,
-      "pepperoni.tatar kazan delicacies halal pepperoni": 5.8,
-      "пепперони халяль": 45.3,
-      "сосиски для хот догов оптом": 61.1,
-      "echpochmak": 9.2,
-      "russia halal market size 2026 trillion rubles": 3.1,
-      "pepperoni.tatar kazan delicacies": 6.5,
-      "kazylyk": 5.0,
-      "котлеты для гамбургеров оптом": 29.1
-    }
-  },
-  {
     "date": "2026-07-10",
     "ts": "2026-07-10T05:30:31.762457+00:00",
     "clicks": 62,
@@ -1706,6 +1687,25 @@
       "pepperoni.tatar": 22.9,
       "echpochmak": 9.3,
       "пепперони из какого мяса": 6.0,
+      "котлеты для гамбургеров оптом": 31.1
+    }
+  },
+  {
+    "date": "2026-10-13",
+    "ts": "2026-10-13T05:33:18.891057+00:00",
+    "clicks": 101,
+    "impressions": 40658,
+    "wpos": 18.85,
+    "queries": {
+      "казылык это": 9.8,
+      "казылык": 9.2,
+      "сосиски для хот догов оптом": 51.6,
+      "пепперони халяль": 40.3,
+      "pepperoni.tatar kazan delicacies halal pepperoni": 5.8,
+      "pepperoni.tatar kazan delicacies": 6.6,
+      "pepperoni.tatar": 22.9,
+      "пепперони из какого мяса": 6.0,
+      "echpochmak": 9.3,
       "котлеты для гамбургеров оптом": 31.1
     }
   }
