@@ -183,6 +183,26 @@
 
 ## Log
 
+- **2026-10-15 Catalog Sheet SoT: retire KD-012, confirm 884A, map turkey SKUs.**
+  - **Done.** Google Sheets via `products.json` is the assortment source of truth. Horse pepperoni **KD-012 is not in the Sheet** — removed as a current product; `/products/kd-012` and `/en/products/kd-012` stay **HTTP 410**. Turkey ham ≠ semi-smoked turkey: **KD-028** Ветчина из Индейки 0,5 кг; **KD-033** Полукопченая из Индейки 0,45 кг. Live pepperoni: **KD-013** нарезка 0,5 кг / **KD-014** батон 0,8 кг (chicken). Certificates synced from live `/halal`; 884A valid.
+  - **origin/main:** `dade0d2d62746c7480b2c9674548ec33d3817db1` (PR https://github.com/sltndevelopments/pepperoni-api/pull/18 MERGED).
+  - **Deploy to VPS:** https://github.com/sltndevelopments/pepperoni-api/actions/runs/38797308455 — success (1m35s), `headSha=dade0d2d62746c7480b2c9674548ec33d3817db1`.
+  - **Live curl (2026-10-15):**
+    - `https://pepperoni.tatar/products/kd-012` → HTTP 410; `/en/products/kd-012` → HTTP 410.
+    - sitemap.xml 248 URLs, **kd-012 count 0**, all **248 HTTP 200**.
+    - `llms.txt`: `grep -c KD-012` = 0, `grep -c конин` = 0. Certs: 0008, 614A/2024, 884A/2025, HACCP, ISO 22000:2018 (FSMS-2351/А), СС.003181, ТР ТС 021/2011.
+    - `/halal` lists the **same cert set** (Cyrillic А on 614А/884А vs Latin A in llms/API).
+    - API `https://api.pepperoni.tatar/api/products`: 65 SKUs, `lastSynced=2026-10-15`, `KD-012` absent, certificates valid. Local git `products.json` lastSynced **2026-10-11** — **SKU names/weights/availability identical** to live.
+    - Product pages 200: KD-028 h1 «Ветчина из Индейки»; KD-033 «Полукопченая из Индейки»; EN «Turkey Ham» / «Semi-Smoked Turkey Sausage».
+  - **Repo leftover alignment** (this branch, Sheet names overwrite stale helpers): regenerated `docs/ids-for-google-sheet.csv` + `urls-for-google-sheet.csv` from `products.json` (65 rows, no KD-012; KD-013/014 chicken pepperoni; KD-028/033 turkey). `sku_count_state.json` 62→65. Dropped horse-pepperoni / turkey-loaf-vs-sliced aliases from `gen-index.py`, `public/en/index.html`, `translations.json`, `api/products.js`.
+  - **grep (full files, never head):** `public/products.json` KD-012 = 0; `public/llms.txt` KD-012 = 0 / конин = 0; `public/sitemap.xml` kd-012 = 0; `data/site_facts.json` UNVERIFIED = 0; `docs/ids-for-google-sheet.csv` KD-012 = 0.
+  - **Sheet-vs-site discrepancies (reported, not invented-away):**
+    1. Literal «no конин in API product list» **fails on Sheet-true KD-008** «Сосиски Из конины" (80 г х 6 шт)» — stays.
+    2. `/halal` annex cards transcribe certificate annexes that still list «пепперони из говядины и конины» — **certificate scope, not live catalog**. Live catalog has no horse pepperoni SKU.
+    3. `blog/pepperoni-iz-kakogo-myasa.html` discusses horse in pepperoni as cuisine, then states current serial line is chicken KD-013/014 only.
+    4. `data/image_manifest.json` / `image_mirror.json` still keep KD-012 photo snapshots (sync auto-files; not sold).
+    5. Git `products.json` lastSynced 2026-10-11 vs live API 2026-10-15; assortment match 65/65.
+  - **Blockers:** none for KD-012/certs/turkey. Do not use Google Indexing API. `seo-agent.env` not required for this non-URL-set change.
 - **2026-10-02 Размещение нового сертификата Халяль ДУМ РТ № 0008 (2026–2029) и Приложений № 1–9.**
   - Получен от бухгалтерии (Гульнара Адаева), выдан Комитетом по стандарту «Халяль» ДУМ РТ 02.10.2026 (действует до 01.10.2029) на мясо, птицу, колбасы, пепперони, полуфабрикаты.
   - Размещён на главной (`public/index.html` и `public/en/index.html`) отдельным интерактивным блоком под видео производства с превью (WEBP/JPG) и скачиванием PDF (`public/docs/certificate-halal-0008-2026.pdf`), а также в бейджах и реестре документов. Скан и карточка приведены к альбомной ориентации (коммит `0f1cb7f09`).

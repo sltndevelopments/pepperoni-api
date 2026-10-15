@@ -1371,13 +1371,10 @@ const CAT_EN={{
 }};
 const SEC_ICONS={{'Frozen Products':'❄️','Chilled Products':'🧊','Bakery & Pastry':'🥐'}};
 const NAME_EN_OVERRIDES={{
-  'Пепперони варено-копченый из конины':'Horse Pepperoni Cooked-Smoked (sliced)',
+  'Пепперони варено-копченый куриный нарезка':'Chicken Pepperoni Cooked-Smoked (sliced)',
   'Пепперони варено-копченый куриный':'Chicken Pepperoni Cooked-Smoked (sliced)',
   'Пепперони варено-копченый куриный целый батон':'Chicken Pepperoni Cooked-Smoked (whole stick)',
-  'Ветчина из Курицы в батоне':'Chicken Ham (whole)',
-  'Ветчина из Курицы в нарезке':'Chicken Ham (sliced)',
-  'Ветчина из Индейки в батоне':'Turkey Ham (whole)',
-  'Ветчина из Индейки в нарезке':'Turkey Ham (sliced)',
+  'Ветчина Куриная Филейная в нарезке':'Chicken Fillet Ham (sliced)',
   'Грудка куриная варено-копченая':'Smoked Chicken Breast',
   'Филе куриное варное':'Boiled Chicken Fillet',
   'Фарш говяжий':'Beef Mince',

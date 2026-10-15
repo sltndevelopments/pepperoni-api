@@ -72,18 +72,10 @@ const TRANSLATIONS = {
   'котлета говяжья прожаренная (100 г × 3 шт)': 'Fried Beef Patty (100g × 3 pcs)',
   'котлета говяжья прожаренная (150 г × 2 шт)': 'Fried Beef Patty (150g × 2 pcs)',
   'топпинги': 'Toppings',
-  'ветчина из курицы в батоне': 'Chicken Ham (whole)',
-  'ветчина из курицы в нарезке': 'Chicken Ham (sliced)',
-  'ветчина из индейки в батоне': 'Turkey Ham (whole)',
-  'ветчина из индейки в нарезке': 'Turkey Ham (sliced)',
-  'пепперони вар-коп из конины': 'Boiled-Smoked Pepperoni (horse meat)',
-  'пепперони варено-копченый из конины': 'Boiled-Smoked Pepperoni (horse meat)',
-  'пепперони вар-коп классика': 'Boiled-Smoked Pepperoni Classic (beef & chicken)',
-  'пепперони варено-копченый классика': 'Boiled-Smoked Pepperoni Classic (beef & chicken)',
-  'пепперони вар-коп классика целый батон': 'Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken)',
-  'пепперони варено-копченый классика целый батон': 'Boiled-Smoked Pepperoni Classic (whole stick, beef & chicken)',
-  'пепперони сырокопчёный в нарезке': 'Dry-Cured Pepperoni (sliced, beef & chicken)',
-  'пепперони сырокопчёный целый батон': 'Dry-Cured Pepperoni (whole stick, beef & chicken)',
+  'ветчина куриная филейная в нарезке': 'Chicken Fillet Ham (sliced)',
+  'пепперони варено-копченый куриный нарезка': 'Boiled-Smoked Chicken Pepperoni (sliced)',
+  'пепперони варено-копченый куриный': 'Boiled-Smoked Chicken Pepperoni (sliced)',
+  'пепперони варено-копченый куриный целый батон': 'Boiled-Smoked Chicken Pepperoni (whole stick)',
   'грудка куриная варено-копченая': 'Smoked Chicken Breast',
   'филе куриное варное': 'Boiled Chicken Fillet',
   'мясные заготовки': 'Meat Preparations',
@@ -197,11 +189,8 @@ const STORAGE_TR_MAP = {
 };
 
 const DESC_TR = {
-  'пепперони вар-коп классика': 'Boiled-smoked classic pepperoni from beef and chicken. Halal. Thermostable — does not curl when baked.',
-  'пепперони вар-коп классика целый батон': 'Boiled-smoked classic pepperoni, whole stick, from beef and chicken. Halal.',
-  'пепперони вар-коп из конины': 'Boiled-smoked pepperoni from horse meat. Halal.',
-  'пепперони сырокопчёный в нарезке': 'Dry-cured pepperoni, sliced, from beef and chicken. Halal.',
-  'пепперони сырокопчёный целый батон': 'Dry-cured pepperoni, whole stick, from beef and chicken. Halal.',
+  'пепперони варено-копченый куриный нарезка': 'Cooked-smoked chicken pepperoni, sliced. Halal.',
+  'пепперони варено-копченый куриный целый батон': 'Cooked-smoked chicken pepperoni, whole stick. Halal.',
 };
 
 function translateProduct(product) {
@@ -248,11 +237,8 @@ function addPhoto(product) {
 }
 
 const ENRICHMENTS = {
-  'пепперони вар-коп классика': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы. Халяль. Термостабильный — не скручивается при запекании.' },
-  'пепперони вар-коп классика целый батон': { meatType: 'говядина, курица', description: 'Пепперони варёно-копчёный классический из говядины и курицы, целый батон. Халяль.' },
-  'пепперони вар-коп из конины': { meatType: 'конина', description: 'Пепперони варёно-копчёный из конины. Халяль.' },
-  'пепперони сырокопчёный в нарезке': { meatType: 'говядина, курица', description: 'Пепперони сырокопчёный в нарезке из говядины и курицы. Халяль.' },
-  'пепперони сырокопчёный целый батон': { meatType: 'говядина, курица', description: 'Пепперони сырокопчёный из говядины и курицы, целый батон. Халяль.' },
+  'пепперони варено-копченый куриный нарезка': { meatType: 'курица', description: 'Пепперони варёно-копчёный куриный, нарезка. Халяль.' },
+  'пепперони варено-копченый куриный целый батон': { meatType: 'курица', description: 'Пепперони варёно-копчёный куриный, целый батон. Халяль.' },
 };
 
 const B2B_DATA = {
@@ -268,11 +254,8 @@ const B2B_DATA = {
 };
 
 const PRODUCT_B2B = {
-  'пепперони вар-коп классика': { ean: '4680638720318', min_order: '6 packs (1 box)', pallet_qty: '120 boxes', export_ready: true },
-  'пепперони вар-коп классика целый батон': { ean: '4680638720318', min_order: '6 pcs (1 box)', export_ready: true },
-  'пепперони вар-коп из конины': { min_order: '6 packs (1 box)', export_ready: true },
-  'пепперони сырокопчёный в нарезке': { min_order: '6 packs (1 box)', export_ready: true },
-  'пепперони сырокопчёный целый батон': { min_order: '6 pcs (1 box)', export_ready: true },
+  'пепперони варено-копченый куриный нарезка': { min_order: '6 packs (1 box)', export_ready: true },
+  'пепперони варено-копченый куриный целый батон': { min_order: '6 pcs (1 box)', export_ready: true },
   'казылык «премиум» в подарочной упаковке': { min_order: '1 pc', export_ready: true },
   'казылык «премиум» в нарезке в подарочной упаковке': { min_order: '1 pc', export_ready: true },
 };

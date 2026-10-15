@@ -17,7 +17,7 @@
   },
   "catalog": {
     "sku_count": 65,
-    "_source": "public/products.json totalProducts (synced from Google Sheets, lastSynced 2026-10-15); sku_count_state.json=62 is stale",
+    "_source": "public/products.json totalProducts (synced from Google Sheets, lastSynced 2026-10-15)",
     "pepperoni": {
       "KD-013": {"format_ru": "нарезка", "format_en": "sliced", "weight_kg": 0.5, "on_sale": true},
       "KD-014": {"format_ru": "целый батон", "format_en": "whole stick", "weight_kg": 0.8, "on_sale": true},
