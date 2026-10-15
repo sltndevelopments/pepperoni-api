@@ -110,6 +110,18 @@ COUNTRIES = [
      "cities": "Каир, Александрия"},
 ]
 
+# content_plan_pages.py owns Kazakhstan (item 8) and Uzbekistan (item 13).
+# Yemen is retired from the keep allowlist (Gulf stays a section on /export).
+# Never LLM-write or --refresh-facts these slugs: Uzbekistan is not EAEU and
+# must not get invented UZS prices or shipment promises.
+OWNED_BY_CONTENT_PLAN = {"kazakhstan", "uzbekistan"}
+RETIRED_FROM_KEEP = {"yemen"}
+
+
+def skip_managed_slug(slug: str) -> bool:
+    return slug in OWNED_BY_CONTENT_PLAN or slug in RETIRED_FROM_KEEP
+
+
 # ─────────────────────── certification fact sentences ───────────────────────
 # Rendered verbatim from data — the LLM never writes this section.
 # Do not claim GSO/JAKIM/SFDA or destination-market recognition: evidence_registry
@@ -420,8 +432,7 @@ def refresh_facts(only: str | None) -> int:
     for c in COUNTRIES:
         if only and c["slug"] != only:
             continue
-        if c["slug"] == "kazakhstan" and not only:
-            # content_plan_pages.py owns /export/kazakhstan (item 8).
+        if skip_managed_slug(c["slug"]):
             continue
         for lang in c["langs"]:
             out = PUBLIC / (LANG_PREFIX[lang].strip("/") or ".") / "export" / f"{c['slug']}.html"
@@ -503,6 +514,8 @@ def main() -> int:
     lang_names = {"ru": "русский", "en": "английский (English)", "ar": "арабский (العربية، فصحى)"}
     for c in COUNTRIES:
         if args.only and c["slug"] != args.only:
+            continue
+        if skip_managed_slug(c["slug"]):
             continue
         for lang in c["langs"]:
             if made >= args.max:

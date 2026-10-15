@@ -84,7 +84,7 @@ EXPORT_COUNTRIES = [
     ("saudi-arabia", "export landing Saudi Arabia"),
     ("tajikistan", "export landing Tajikistan"),
     ("uae", "export landing UAE"),
-    ("yemen", "export landing Yemen"),
+    ("uzbekistan", "export landing Uzbekistan (Cerberus readiness)"),
 ]
 RU_PAGES.extend(
     _page(f"export/{slug}.html", intent, "export", "owner-approved country export landing")

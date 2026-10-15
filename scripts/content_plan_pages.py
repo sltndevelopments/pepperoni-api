@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Content-plan 2026-10-16 items 2–4 and 8–9.
+"""Content-plan 2026-10-16 items 2–4, 8–9 and 13.
 
 Catalog-backed pages. Facts come from products.json, site_facts.json and
 evidence_registry.json. No invented oven tests, transit days, diameters,
-clients or capacities. KD-012 stays out of the catalog.
+clients, capacities, UZS offer prices or shipment promises. KD-012 stays out.
 """
 from __future__ import annotations
 
@@ -262,7 +262,7 @@ def write_sosiska() -> None:
     p017 = next((p for p in data["products"] if p["sku"] == "KD-017"), None)
     for lang in ("ru", "en"):
         if lang == "ru":
-            title = "Сосиска в тесте оптом для пекарен — KD-018 и KD-061 | pepperoni.tatar"
+            title = "Сосиска в тесте оптом для пекарен — KD-018 и KD-061 | Казанские Деликатесы"
             desc = (
                 "Для пекарен: сосиска без оболочки KD-018 (45 г — вес сосиски, упаковка 2 кг) "
                 "под своё тесто и готовая сосиска в тесте KD-061 (120 г, −18 °C, 360 суток). "
@@ -414,7 +414,7 @@ def write_bakery() -> None:
     n_bakery = len(all_bakery)
     for lang in ("ru", "en"):
         if lang == "ru":
-            title = "Татарская выпечка халяль оптом — эчпочмак, губадия, самса | pepperoni.tatar"
+            title = "Татарская выпечка оптом — халяль эчпочмак, губадия, самса | Казанские Деликатесы"
             desc = (
                 f"Хаб татарской выпечки: {len(tatar)} SKU из прайса (губадия, чебурек, перемяч, "
                 f"самса, эчпочмак, элеш, беккен, вак балиш). Всего в разделе «Выпечка» {n_bakery} SKU. "
@@ -536,13 +536,13 @@ def write_pizzeria() -> None:
     assert not any(p["sku"] == "KD-012" for p in data["products"])
     for lang in ("ru", "en"):
         if lang == "ru":
-            title = "Пепперони для пиццерии — куриный KD-013 / KD-014 | pepperoni.tatar"
+            title = "Пепперони для пиццерии без свинины — куриный KD-013 / KD-014"
             desc = (
-                "Применение в пиццерии: куриный варёно-копчёный пепперони KD-013 нарезка 0,5 кг "
-                "и KD-014 целый батон 0,8 кг. Халяль ДУМ РТ №0008 / №614A/2024. "
-                "Пепперони из конины в текущем каталоге нет."
+                "Где купить пепперони для пиццерии без свинины: куриный варёно-копчёный "
+                "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Халяль ДУМ РТ №0008 / №614A/2024. "
+                "Форматы и оптовый каталог — на /pepperoni."
             )
-            h1 = "Пепперони для пиццерии"
+            h1 = "Пепперони для пиццерии без свинины"
             intro = (
                 "<p class=\"lead\">Эта страница — про применение на кухне пиццерии. "
                 "Продукт и форматы — на <a href=\"/pepperoni\">/pepperoni</a>. "
@@ -575,13 +575,13 @@ def write_pizzeria() -> None:
                  "На /pepperoni. Здесь — сценарий пиццерии."),
             ]
         else:
-            title = "Pepperoni for pizzerias — chicken KD-013 / KD-014"
+            title = "Pepperoni for pizzerias, no pork — chicken KD-013 / KD-014"
             desc = (
-                "Pizzeria use: cooked-smoked chicken pepperoni KD-013 sliced 0.5 kg "
-                "and KD-014 whole stick 0.8 kg. Halal DUM RT No. 0008 / No. 614A/2024. "
-                "Horse-meat pepperoni is not in the current catalog."
+                "Where to buy pork-free pepperoni for a pizzeria: cooked-smoked chicken "
+                "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Halal DUM RT No. 0008 / "
+                "No. 614A/2024. Formats and wholesale catalog live on /en/pepperoni."
             )
-            h1 = "Pepperoni for pizzerias"
+            h1 = "Pepperoni for pizzerias — no pork"
             intro = (
                 "<p class=\"lead\">This page is the pizzeria application. "
                 "Product and formats live on <a href=\"/en/pepperoni\">/en/pepperoni</a>. "
@@ -649,13 +649,13 @@ def write_kazakhstan() -> None:
     for lang, slug_dir in (("ru", PUBLIC / "export"), ("en", PUBLIC / "en" / "export")):
         slug_dir.mkdir(parents=True, exist_ok=True)
         if lang == "ru":
-            title = "Экспорт халяль в Казахстан — Казанские Деликатесы"
+            title = "Экспорт халяль колбасы в Казахстан — Цербер, EXW Казань"
             desc = (
-                f"Поставки в Казахстан из текущего экспорта ({current_ru}). "
+                f"Экспорт халяль колбасы в Казахстан из текущего экспорта ({current_ru}). "
                 f"Каталог {n} SKU, площадка в реестре «Цербер» RU-016/SB88273. "
                 "Срок доставки на странице не фиксируем. EXW Казань."
             )
-            h1 = "Халяль из Казани в Казахстан"
+            h1 = "Экспорт халяль колбасы в Казахстан"
             tag = "Текущие поставки · ЕАЭС · EXW Казань"
             intro = (
                 f"<p class=\"lead\">Казахстан входит в текущие экспортные направления "
@@ -701,13 +701,13 @@ def write_kazakhstan() -> None:
                  "в реестре доказательств нет."),
             ]
         else:
-            title = "Halal meat export to Kazakhstan | Kazan Delicacies"
+            title = "Halal sausage export to Kazakhstan — Cerberus, EXW Kazan"
             desc = (
                 f"Kazakhstan is a current shipment destination ({current_en}). "
                 f"{n} SKU catalog, Cerberus facility RU-016/SB88273. "
                 "No invented transit days. EXW Kazan."
             )
-            h1 = "Halal from Kazan to Kazakhstan"
+            h1 = "Halal sausage export to Kazakhstan"
             tag = "Current shipments · EAEU · EXW Kazan"
             intro = (
                 f"<p class=\"lead\">Kazakhstan is listed among current export destinations "
@@ -816,6 +816,194 @@ def write_kazakhstan() -> None:
         path = slug_dir / "kazakhstan.html"
         path.write_text(ensure_metrika_html(html), encoding="utf-8")
         print(f"  export/kazakhstan [{lang}] sku={n}")
+
+
+# ── item 13: /export/uzbekistan (readiness only) ───────────────────────────
+
+def write_uzbekistan() -> None:
+    """Cerberus-attested readiness. Not current shipments, not EAEU, no UZS offer."""
+    n = sku_count()
+    current_ru = ", ".join(FACTS["export"]["current_ru"])
+    current_en = ", ".join(FACTS["export"]["current_en"])
+    data = catalog()
+    pepp = by_sku(data, "KD-013", "KD-014")
+    kazy = [p for p in data["products"] if p.get("category") == "Премиум Казылык"]
+    for lang, slug_dir in (("ru", PUBLIC / "export"), ("en", PUBLIC / "en" / "export")):
+        slug_dir.mkdir(parents=True, exist_ok=True)
+        if lang == "ru":
+            title = "Халяль мясная продукция из России в Узбекистан | Казанские Деликатесы"
+            desc = (
+                "Халяль мясная продукция из России в Узбекистан: площадка RU-016/SB88273 "
+                f"в реестре «Цербер» среди аттестованных направлений. Текущие отгрузки — "
+                f"{current_ru}; аттестация не равна поставке. Оферты в UZS нет. EXW Казань."
+            )
+            h1 = "Халяль мясная продукция из России в Узбекистан"
+            tag = "Готовность площадки · Цербер · не текущая отгрузка"
+            intro = (
+                "<p class=\"lead\">Узбекистан указан среди стран, на которые площадка "
+                "№ RU-016/SB88273 аттестована в реестре «Цербер» Россельхознадзора. "
+                "Это аттестация предприятия, не обещание конкретной партии "
+                f"и не текущая отгрузка. Текущие поставки — {current_ru}.</p>"
+            )
+            cert = (
+                f"<h2>Сертификация и допуск</h2><div class=\"card\">"
+                f"<p>{cert_line_ru()}</p>"
+                "<p>Признание сертификата в Узбекистане подтверждаем по конкретной поставке "
+                "с импортёром. На странице нет заявления о взаимном признании органа страны назначения.</p>"
+                "<p>Площадка в реестре «Цербер» (№ RU-016/SB88273), аттестована для экспорта в Узбекистан. "
+                "Аттестация площадки — не график отгрузки.</p>"
+                "<p>Узбекистан не входит в ЕАЭС: таможенное оформление — вне контура союза, "
+                "детали подтверждаем по партии. Сроки в днях на странице не публикуем.</p></div>"
+            )
+            how = (
+                "<h2>Как устроена логистика (факты, которые есть)</h2>"
+                "<p>Базис по умолчанию — EXW Казань (Incoterms 2020). Перевозку организует покупатель "
+                "или согласовываем отдельно. Срок в днях и «регулярные поставки в Ташкент» "
+                "на этой странице не публикуем: в реестре доказательств нет подтверждённого "
+                "транзитного времени и нет обещания объёма.</p>"
+                "<p>Цены в сумах (UZS) на странице нет. Базовая цена — рубли EXW; валюта расчёта — "
+                "по договору. Справочные валюты каталога не являются офертой в UZS.</p>"
+            )
+            facts = (
+                f"<div class=\"card\"><ul>\n"
+                f"<li>Ассортимент: {n} наименований халяль в каталоге — пепперони, сосиски, "
+                "котлеты, копчёные колбасы, казылык, татарская выпечка.</li>"
+                "<li>Для запроса чаще берут KD-013/014 (куриный пепперони) и сосиски — "
+                "состав и цена только из карточек SKU, в рублях EXW.</li>"
+                "<li>Документы к отгрузке: халяль, декларация, ВСД («Меркурий»), «Честный знак», ЭТрН.</li>"
+                "<li>MOQ — одна паллета, сборная возможна.</li>"
+                "<li>Образцы — индивидуально, см. <a href=\"/kak-zakazat#samples\">как заказать</a>.</li></ul></div>"
+            )
+            faq = [
+                ("Вы уже поставляете в Узбекистан?",
+                 f"Среди текущих отгрузок указаны {current_ru}. Узбекистан — в списке "
+                 "аттестации «Цербер», не в списке текущих поставок. Конкретную партию "
+                 "не обещаем на странице."),
+                ("Сколько дней занимает доставка в Ташкент?",
+                 "На странице нет числа дней. Срок подтверждаем по маршруту и партии."),
+                ("Какая цена в сумах?",
+                 "Оферты в UZS нет. База — рубли EXW Казань; валюту счёта согласуем."),
+                ("Узбекистан в ЕАЭС?",
+                 "Нет. Таможня и ветеринарные документы — по конкретной поставке, не по правилам союза."),
+            ]
+        else:
+            title = "Halal meat from Russia to Uzbekistan | Kazan Delicacies"
+            desc = (
+                "Halal meat from Russia to Uzbekistan: facility RU-016/SB88273 is Cerberus-attested "
+                f"for this destination. Current shipments are {current_en}; attestation is not a "
+                "shipment. No UZS offer. EXW Kazan."
+            )
+            h1 = "Halal meat from Russia to Uzbekistan"
+            tag = "Facility readiness · Cerberus · not a current shipment"
+            intro = (
+                "<p class=\"lead\">Uzbekistan is listed among destinations for which facility "
+                "No. RU-016/SB88273 is attested in the Rosselkhoznadzor Cerberus registry. "
+                "That is a facility attestation, not a promise of a consignment "
+                f"and not a current shipment. Current shipments are {current_en}.</p>"
+            )
+            cert = (
+                f"<h2>Certification and market access</h2><div class=\"card\">"
+                f"<p>{cert_line_en()}</p>"
+                "<p>Certificate recognition in Uzbekistan is confirmed per shipment with the importer. "
+                "This page does not claim destination-authority approval.</p>"
+                "<p>The facility is in the Cerberus registry (No. RU-016/SB88273) and attested for export to Uzbekistan. "
+                "Attestation is not a shipping timetable.</p>"
+                "<p>Uzbekistan is not an EAEU member; customs are outside the union and confirmed per consignment. "
+                "No day-count is published here.</p></div>"
+            )
+            how = (
+                "<h2>Logistics facts we can state</h2>"
+                "<p>Default basis is EXW Kazan (Incoterms 2020). The buyer arranges freight, or we agree otherwise. "
+                "We do not publish transit days or a regular Tashkent schedule: the evidence registry has "
+                "no confirmed transit time and no volume promise.</p>"
+                "<p>No som (UZS) offer on this page. Base price is RUB EXW; invoice currency is by contract. "
+                "Catalog reference currencies are not a UZS offer.</p>"
+            )
+            facts = (
+                f"<div class=\"card\"><ul>\n"
+                f"<li>Range: {n} halal SKUs — pepperoni, sausages, burger patties, smoked sausages, "
+                "kazylyk, Tatar pastry.</li>"
+                "<li>Typical enquiry mix: KD-013/014 chicken pepperoni and sausages — "
+                "composition and price only from SKU cards, RUB EXW.</li>"
+                "<li>Shipping documents: halal, declaration, Mercury VSD, Chestny Znak, e-waybill.</li>"
+                "<li>MOQ — one pallet, mixed pallet possible.</li>"
+                "<li>Samples individually — <a href=\"/en/kak-zakazat#samples\">how to order</a>.</li></ul></div>"
+            )
+            faq = [
+                ("Do you already ship to Uzbekistan?",
+                 f"Current shipments are {current_en}. Uzbekistan is on the Cerberus attestation list, "
+                 "not the current-shipment list. This page does not promise a consignment."),
+                ("How many days to Tashkent?",
+                 "No day-count on this page. Transit is confirmed per route and consignment."),
+                ("What is the price in UZS?",
+                 "There is no UZS offer. Base is RUB EXW Kazan; invoice currency is agreed."),
+                ("Is Uzbekistan in the EAEU?",
+                 "No. Customs and veterinary documents are confirmed per consignment, not under union rules."),
+            ]
+        extra = [{
+            "@context": "https://schema.org", "@type": "Service",
+            "name": h1, "serviceType": "Halal meat export readiness",
+            "areaServed": {"@type": "Country", "name": "Uzbekistan"},
+            "provider": {"@id": "https://pepperoni.tatar/#organization"},
+        }]
+        pepp_h = "Пепперони и казылык из каталога" if lang == "ru" else "Pepperoni and kazylyk from the catalog"
+        body = (
+            f"<p>{tag}</p>" + intro + cert + how + facts
+            + f"<h2>{pepp_h}</h2>" + sku_table(pepp + kazy, lang)
+            + '<p><a class="cta" href="tel:+79872170202">' + PHONE + "</a></p>"
+        )
+        url = f"{BASE}{prefix(lang)}/export/uzbekistan"
+        home = f"{BASE}/" if lang == "ru" else f"{BASE}/en/"
+        ld = [
+            {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                {"@type": "ListItem", "position": 1,
+                 "name": "Главная" if lang == "ru" else "Home", "item": home},
+                {"@type": "ListItem", "position": 2,
+                 "name": "Экспорт" if lang == "ru" else "Export",
+                 "item": f"{BASE}{prefix(lang)}/export"},
+                {"@type": "ListItem", "position": 3, "name": "Uzbekistan" if lang == "en" else "Узбекистан",
+                 "item": url},
+            ]},
+            {"@context": "https://schema.org", "@type": "FAQPage",
+             "mainEntity": json.loads(faq_ld(faq))},
+            extra[0],
+        ]
+        html = f"""<!DOCTYPE html>
+<html lang="{lang}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{title}</title>
+<meta name="description" content="{desc}">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="{url}">
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="alternate" hreflang="ru" href="{BASE}/export/uzbekistan">
+<link rel="alternate" hreflang="en" href="{BASE}/en/export/uzbekistan">
+<link rel="alternate" hreflang="ru-UZ" href="{BASE}/export/uzbekistan">
+<link rel="alternate" hreflang="en-UZ" href="{BASE}/en/export/uzbekistan">
+<link rel="alternate" hreflang="x-default" href="{BASE}/en/export/uzbekistan">
+{org_script()}
+<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>
+<style>{CSS}</style>
+</head>
+<body>
+<div class="container">
+<nav><a href="{prefix(lang) or '/'}">{"Главная" if lang == "ru" else "Home"}</a> →
+<a href="{prefix(lang)}/export">{"Экспорт" if lang == "ru" else "Export"}</a> →
+{"Узбекистан" if lang == "ru" else "Uzbekistan"}
+· <a href="{"/en" if lang == "ru" else ""}/export/uzbekistan">{"EN" if lang == "ru" else "RU"}</a></nav>
+<h1>🇺🇿 {h1}</h1>
+{body}
+<section class="faq-section"><h2>{"Частые вопросы" if lang == "ru" else "FAQ"}</h2>
+{faq_html(faq)}</section>
+<footer><p><a href="{prefix(lang) or '/'}">pepperoni.tatar</a></p></footer>
+</div>
+</body>
+</html>"""
+        path = slug_dir / "uzbekistan.html"
+        path.write_text(ensure_metrika_html(html), encoding="utf-8")
+        print(f"  export/uzbekistan [{lang}] sku={n}")
 
 
 # ── item 2: /halal verify block ───────────────────────────────────────────
@@ -973,11 +1161,33 @@ Prices are EXW Kazan; the minimum order is one pallet. Gulf states are at the pr
 
 <h2>2. Veterinary accreditation"""
 
+    ru_title = "Экспорт халяль мясной продукции из России | Казанские Деликатесы"
+    ru_desc = (
+        f"Экспорт халяль мясной продукции из России. Текущие поставки — {current_ru}. "
+        "Площадка RU-016/SB88273 в «Цербере», в том числе аттестация на Узбекистан. "
+        "EXW Казань. Признание сертификата — по поставке, не список стран органа."
+    )
+    en_title = "Halal meat export from Russia | Kazan Delicacies"
+    en_desc = (
+        f"Halal meat export from Russia. Current shipments: {current_en}. "
+        "Cerberus facility RU-016/SB88273, including Uzbekistan attestation. "
+        "EXW Kazan. Certificate recognition is confirmed per shipment."
+    )
+
     ru_path = PUBLIC / "export.html"
     ru = ru_path.read_text(encoding="utf-8")
     ru2, n_ru = HUB_RECOG_RU.subn(ru_block, ru, count=1)
     ru2 = HUB_SKU_RU.sub(rf"\g<1>{n}\2", ru2)
     ru2 = HUB_CURRENT_RU.sub(f"Текущие экспортные направления — {current_ru}", ru2)
+    ru2 = re.sub(r"<title>[^<]*</title>", f"<title>{ru_title}</title>", ru2, count=1)
+    ru2 = re.sub(
+        r'(<meta name="description" content=")[^"]*(")',
+        rf"\1{ru_desc}\2", ru2, count=1)
+    ru2 = re.sub(r"<h1>[^<]*</h1>", "<h1>Экспорт халяль мясной продукции из России</h1>", ru2, count=1)
+    ru2 = ru2.replace('href="/export/yemen"', 'href="/export/uzbekistan"')
+    ru2 = ru2.replace(">🇾🇪 Йемен</a>", ">🇺🇿 Узбекистан</a>")
+    ru2 = ru2.replace("<span>🇺🇿 Узбекистан</span>",
+                      '<span><a href="/export/uzbekistan" style="text-decoration:none;color:inherit">🇺🇿 Узбекистан</a></span>')
     if ru2 != ru:
         ru_path.write_text(ru2, encoding="utf-8")
     print(f"  export hub [ru] sku={n} recog={n_ru}")
@@ -987,6 +1197,15 @@ Prices are EXW Kazan; the minimum order is one pallet. Gulf states are at the pr
     en2, n_en = HUB_RECOG_EN.subn(en_block, en, count=1)
     en2 = HUB_SKU_EN.sub(rf"\g<1>{n}\2", en2)
     en2 = HUB_CURRENT_EN.sub(f"Current export directions — {current_en}", en2)
+    en2 = re.sub(r"<title>[^<]*</title>", f"<title>{en_title}</title>", en2, count=1)
+    en2 = re.sub(
+        r'(<meta name="description" content=")[^"]*(")',
+        rf"\1{en_desc}\2", en2, count=1)
+    en2 = re.sub(r"<h1>[^<]*</h1>", "<h1>Halal meat export from Russia</h1>", en2, count=1)
+    en2 = en2.replace('href="/en/export/yemen"', 'href="/en/export/uzbekistan"')
+    en2 = en2.replace(">🇾🇪 Yemen</a>", ">🇺🇿 Uzbekistan</a>")
+    en2 = en2.replace("<span>🇺🇿 Uzbekistan</span>",
+                      '<span><a href="/en/export/uzbekistan" style="text-decoration:none;color:inherit">🇺🇿 Uzbekistan</a></span>')
     if en2 != en:
         en_path.write_text(en2, encoding="utf-8")
     print(f"  export hub [en] sku={n} recog={n_en}")
@@ -997,6 +1216,7 @@ def main() -> int:
     write_bakery()
     write_pizzeria()
     write_kazakhstan()
+    write_uzbekistan()
     write_export_hub()
     inject_halal()
     from content_plan_audience import write_batch4

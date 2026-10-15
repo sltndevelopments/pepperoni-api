@@ -19,6 +19,7 @@ Outputs:
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -723,7 +724,31 @@ def _write_if_changed(path: Path, text: str) -> bool:
     return True
 
 
-def main() -> int:
+def write_pdf_only() -> int:
+    """Rebuild prices.pdf after inject_site_links so PDF mtime is not older than price.html."""
+    meta, products, tr = load()
+    pdf_path = PUBLIC / "prices.pdf"
+    ok = write_pdf(
+        PUBLIC / "price.html", pdf_path, meta=meta, products=products, tr=tr,
+    )
+    if ok:
+        print(f"prices.pdf: refreshed after inject ({pdf_path.stat().st_size} bytes)")
+        return 0
+    print("ERROR: prices.pdf: --pdf-only rebuild failed", file=sys.stderr)
+    return 1
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--pdf-only",
+        action="store_true",
+        help="rebuild prices.pdf from the catalog (run after inject_site_links)",
+    )
+    args = ap.parse_args(argv)
+    if args.pdf_only:
+        return write_pdf_only()
+
     meta, products, tr = load()
     outputs = {
         "wholesale-price-list-ru.md": ("ru", render_md),

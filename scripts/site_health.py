@@ -99,8 +99,11 @@ def audit(limit_examples: int = 15) -> dict:
         else:
             canon_clusters[cm.group(1).strip()] += 1
 
-        # internal links
-        for href in HREF_RE.findall(html):
+        # internal links (skip JS/CSS so template literals like
+        # href="/products/${slug}" are not counted as 404s)
+        html_for_links = re.sub(
+            r"<(script|style)[^>]*>.*?</\1>", " ", html, flags=re.I | re.S)
+        for href in HREF_RE.findall(html_for_links):
             tgt = _norm_path(href)
             if tgt is None:
                 continue

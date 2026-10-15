@@ -84,6 +84,26 @@ GEO_SLUG_ALIASES = {
     "topping-dlya-pitstsy": "/pepperoni-v-narezke",
 }
 
+# Retired hub URLs that still appear as internal hrefs after the keep/301/410
+# reset. Map the class to the live keep page instead of unwrapping.
+RETIRED_HREFS = {
+    "/certificates": "/halal",
+    "/en/certificates": "/en/halal",
+    "/oem": "/kontraktnoe-proizvodstvo",
+    "/en/oem": "/en/private-label",
+    "/oem/meat": "/kontraktnoe-proizvodstvo",
+    "/en/oem/meat": "/en/private-label",
+    "/private-label": "/kontraktnoe-proizvodstvo",
+    "/toppings": "/pepperoni-v-narezke",
+    "/en/toppings": "/en/pepperoni-v-narezke",
+    "/pepperoni-dlya-horeca": "/dlya-horeca",
+    "/en/pepperoni-dlya-horeca": "/en/dlya-horeca",
+    "/sosiski-halyal": "/sosiski-dlya-hotdog",
+    "/sosiski-halyal/": "/sosiski-dlya-hotdog",
+    "/en/sosiski-halyal": "/en/sosiski-dlya-hotdog",
+    "/en/sosiski-halyal/": "/en/sosiski-dlya-hotdog",
+}
+
 
 def _geo_fallback() -> dict[str, str]:
     """Map a product geo-slug → its best existing category page, so a link to a
@@ -155,7 +175,7 @@ def _resolves(path: str) -> bool:
     return any((PUBLIC / c).exists() for c in (rel, f"{rel}.html", f"{rel}/index.html"))
 
 
-def _suggest(path: str) -> str | None:
+def _suggest(path: str, from_en: bool = False) -> str | None:
     """Find an existing path that's an obvious fix for a broken one.
 
     Handles the concrete generator bugs seen on this site:
@@ -171,6 +191,13 @@ def _suggest(path: str) -> str | None:
             return None
         path = pu.path or "/"
     base = path.split("#")[0].split("?")[0]
+    retired_keys = [base, base.rstrip("/") + "/", base.rstrip("/")]
+    if from_en and not base.startswith("/en"):
+        retired_keys = [f"/en{base}", f"/en{base.rstrip('/')}", f"/en{base}/"] + retired_keys
+    for key in retired_keys:
+        retired = RETIRED_HREFS.get(key)
+        if retired and _resolves(retired):
+            return retired
     # 1) collapse duplicated /en/en/, /ar/ar/ etc.
     dedup = re.sub(r"^/([a-z]{2})/\1/", r"/\1/", base)
     if dedup != base and _resolves(dedup):
@@ -209,7 +236,7 @@ def _suggest(path: str) -> str | None:
 _SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.I | re.S)
 
 
-def _fix_html(html: str) -> tuple[str, dict]:
+def _fix_html(html: str, from_en: bool = False) -> tuple[str, dict]:
     """Repair broken/dead <a href> in rendered HTML.
 
     <script> blocks are preserved verbatim — their template-literal strings
@@ -245,7 +272,7 @@ def _fix_html(html: str) -> tuple[str, dict]:
             return whole
 
         # 2) try to redirect to an obviously-correct existing page
-        fix = _suggest(href)
+        fix = _suggest(href, from_en=from_en)
         if fix:
             stats["redirected"] += 1
             return whole.replace(f'"{href}"', f'"{fix}"').replace(
@@ -275,7 +302,8 @@ def main() -> int:
             html = f.read_text(encoding="utf-8", errors="ignore")
         except Exception:
             continue
-        new, stats = _fix_html(html)
+        rel = str(f.relative_to(PUBLIC)).replace("\\", "/")
+        new, stats = _fix_html(html, from_en=rel.startswith("en/"))
         if new != html:
             changed_files += 1
             for k in totals:

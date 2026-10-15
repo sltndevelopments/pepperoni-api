@@ -187,7 +187,7 @@ export const DELIVERY_INFO = {
   origin: 'Kazan, Republic of Tatarstan, Russia',
   currencies: ['RUB', 'USD', 'KZT', 'UZS', 'KGS', 'BYN', 'AZN'],
   exportMarkets:
-    'Commercial destinations are confirmed per buyer inquiry. Do not assume a listed country, importer or approval.',
+    'Current shipments: Kazakhstan, Belarus, Kyrgyzstan. Cerberus attestation also lists Uzbekistan — attestation is not a shipment. Country pages: https://pepperoni.tatar/export, /export/kazakhstan, /export/uzbekistan. Do not quote UZS as an offer.',
   storage: {
     frozen: '−18°C',
     chilled: '0–6°C',
@@ -200,7 +200,8 @@ export const DELIVERY_INFO = {
     url: 'https://kazandelikates.tatar',
   },
   detailsUrl: 'https://pepperoni.tatar/export',
-  note: 'No freight calculator API — request a quote via submit_inquiry. Terms are EXW Kazan unless a written offer says otherwise.',
+  uzbekistanReadinessUrl: 'https://pepperoni.tatar/export/uzbekistan',
+  note: 'No freight calculator API — request a quote via submit_inquiry. Terms are EXW Kazan unless a written offer says otherwise. Uzbekistan page is facility readiness only.',
 };
 
 export const ISO_22000_VERIFY_URL =

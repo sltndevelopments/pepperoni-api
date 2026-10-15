@@ -130,6 +130,11 @@ python3 scripts/fix_schema.py
 python3 scripts/ensure_metrika.py --keep
 # Cross-links to money/segment pages + brand-site link + contact-click goals (idempotent block).
 python3 scripts/inject_site_links.py 2>&1 || echo "[warn] inject_site_links.py failed; site-links block may be stale"
+# inject_site_links rewrites price.html after the first PDF write; rebuild PDF
+# now so prices.pdf mtime is not older than price.html (deploy check warning).
+if ! python3 scripts/gen_price_lists.py --pdf-only; then
+  echo "[error] gen_price_lists.py --pdf-only failed — prices.pdf may be older than price.html" >&2
+fi
 python3 scripts/clean_faqpage_schema.py 2>&1 || echo "[warn] clean_faqpage_schema.py failed; FAQPage copies may remain"
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py

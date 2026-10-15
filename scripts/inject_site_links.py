@@ -41,6 +41,7 @@ LINKS = {
            ("/dlya-pekaren", "Пекарни"),
            ("/zamorozhennaya-vypechka-dlya-kofeen", "Выпечка для кофеен"),
            ("/dlya-distributorov", "Дистрибьюторам"),
+           ("/export", "Экспорт"),
            ("/kontraktnoe-proizvodstvo", "Контрактное производство (СТМ)")],
     "en": [("/en/price", "Price list"), ("/en/kak-zakazat", "How to order"),
            ("/en/pepperoni", "Halal pepperoni wholesale"), ("/en/pizzeria", "For pizzerias"),
@@ -48,7 +49,9 @@ LINKS = {
            ("/en/dlya-horeca", "HoReCa"), ("/en/dlya-azs", "Fuel stations"),
            ("/en/dlya-setey", "Retail chains"),            ("/en/dlya-pekaren", "Bakeries"),
            ("/en/zamorozhennaya-vypechka-dlya-kofeen", "Bakery for coffee shops"),
-           ("/en/dlya-distributorov", "Distributors"), ("/en/private-label", "Private label")],
+           ("/en/dlya-distributorov", "Distributors"),
+           ("/en/export", "Export"),
+           ("/en/private-label", "Private label")],
 }
 BRAND_TXT = {"ru": "Бренд-сайт компании", "en": "Company brand site"}
 NAV_LABEL = {"ru": "Направления", "en": "Directions"}
