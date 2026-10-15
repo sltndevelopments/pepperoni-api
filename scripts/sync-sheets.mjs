@@ -39,13 +39,19 @@ function certificatesForApi() {
 
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
 
+// Canonical Google Sheet file ID (owner SoT):
+// https://docs.google.com/spreadsheets/d/15jVAechvVgq3c5UQnnefwUaJ5CCO-65o7fJhG9EN4kc
+// Title « Прайс КД». Tabs: HoReCa (gid 1087942289), Ретейл (1589357549), Выпечка (26993021).
+// Cron fetches the *published CSV* (2PACX), not /export by file id — that URL is 401
+// without Google auth. GID list is the proof it is this file, not another spreadsheet.
+const SHEET_FILE_ID = '15jVAechvVgq3c5UQnnefwUaJ5CCO-65o7fJhG9EN4kc';
 const BASE_URL =
   'https://docs.google.com/spreadsheets/d/e/2PACX-1vRWKnx70tXlapgtJsR4rw9WLeQlksXAaXCQzZP1RBh9G7H9lQK4rt0ga9DaJkV28F7q8GDgkRZM3Arj/pub?output=csv';
 
 const SHEETS = [
-  // Frozen (Заморозка) — 30 cols, has separate "Цена за 1 шт" column at C.
+  // Sheet tab title is «HoReCa»; catalog section label remains «Заморозка».
   { gid: '1087942289', section: 'Заморозка', type: 'standard', hasPiecePrice: true },
-  // Chilled (Охлаждённая) — 29 cols, NO "Цена за 1 шт"; everything after B shifted left by 1.
+  // Sheet tab title is «Ретейл»; catalog section label remains «Охлаждённая продукция».
   { gid: '1589357549', section: 'Охлаждённая продукция', type: 'standard', hasPiecePrice: false },
   { gid: '26993021', section: 'Выпечка', type: 'bakery' },
 ];
@@ -1276,7 +1282,7 @@ async function mirrorCatalogImages(products) {
 // --- Main ---
 
 async function main() {
-  console.log('📥 Загрузка данных из Google Sheets...');
+  console.log(`📥 Загрузка данных из Google Sheets ${SHEET_FILE_ID}…`);
 
   // Stable SKUs: deleting/reordering rows must NOT reshuffle /products/kd-NNN
   let reg = bootstrapFromProducts(loadRegistry());
