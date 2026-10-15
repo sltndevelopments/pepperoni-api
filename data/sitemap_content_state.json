@@ -3,11 +3,11 @@
   "updated_at": "2026-10-15",
   "files": {
     "index.html": {
-      "sha256": "9ddb98143a48d534335526b8bed4f0cf3d6383a7d521db98ae5944228de6cc06",
+      "sha256": "6927fd5a81bba74cdbf1aa1406024d725720bffca3883a5dd85d06c35ff5176b",
       "lastmod": "2026-10-15"
     },
     "about.html": {
-      "sha256": "37a6fc6612cc242e47adb5c816d3d812824ff212ba72244b80abfc556d10fb25",
+      "sha256": "bd3c99dcbeb212907f66d8773e6bb87a1c528596012c79f462e28378e8a8716e",
       "lastmod": "2026-10-15"
     },
     "blog.html": {
@@ -75,19 +75,15 @@
       "lastmod": "2026-10-15"
     },
     "capabilities.html": {
-      "sha256": "a97c3a636e78dcb028fe02a80e56b938229fdc89983e12e1f72fa5e51735e424",
+      "sha256": "3f3b3596030a21b080bce5ee3ce927a64931ac0683ddd62bbd169d9d628bcae4",
       "lastmod": "2026-10-15"
     },
     "cases.html": {
       "sha256": "5392ccae397ea18127442b0fe2e38cf9ebd97df01e33d154747472b404f93cb6",
       "lastmod": "2026-10-15"
     },
-    "certificates.html": {
-      "sha256": "49b0a6ff1444da118e527a9f22fd6be9e504d174ce67ad0048c813ff1e792a14",
-      "lastmod": "2026-10-15"
-    },
     "delivery.html": {
-      "sha256": "9e3859e316c0dde7685f9928de3bcf918aef344ad746d3f03524adc71dde0966",
+      "sha256": "8b0c22343ce8a52153b6b69c445527b4fc19f498a5a4b03d314ece9cb10154fd",
       "lastmod": "2026-10-15"
     },
     "dlya-azs.html": {
@@ -115,11 +111,11 @@
       "lastmod": "2026-10-15"
     },
     "en/index.html": {
-      "sha256": "722cbc3e345af75e4d7d551dbd0f32e8e7512d41fde4de9518c35900b7f46559",
+      "sha256": "1fad0b4c661abb4910195502f3cc4aa1d7e273730ea9602971cb2aca05328ed5",
       "lastmod": "2026-10-15"
     },
     "en/about.html": {
-      "sha256": "4355465c8dc39b9ad8e377c5140a83f2cc593a73cf07fd110a2ade9926e50da0",
+      "sha256": "ccb52c55ddccaff2ed38aa2777348d32bfe58793028c174efb587772cafade39",
       "lastmod": "2026-10-15"
     },
     "en/blog.html": {
@@ -167,19 +163,15 @@
       "lastmod": "2026-10-15"
     },
     "en/capabilities.html": {
-      "sha256": "e09183b2d148765bc774afbeabee0bac8c7731a92b94b7a8683c41e9131a2e09",
+      "sha256": "afd518574942bec593afa97f8b988a33d512ee588e4c7d1e3b43ea47d0dfdb1f",
       "lastmod": "2026-10-15"
     },
     "en/cases.html": {
       "sha256": "3081405a82bd9fcb0ecbf799fc32ced9ce3edf21eac7f6c0121fb392b9c41709",
       "lastmod": "2026-10-15"
     },
-    "en/certificates.html": {
-      "sha256": "03556c1cc2c8059778ef9306c9f93f298ee5eb402f7cbc9d96ffe3357e2d4ad9",
-      "lastmod": "2026-10-15"
-    },
     "en/delivery.html": {
-      "sha256": "9507d3c583722d49bd1a2e2fbbf4cf33d9d13889816b89b2c5ed3adf3f515a1d",
+      "sha256": "5335008f84fbd1806970cbf3e1c6cfa97d900f7d270d55a4317dd520f947d01d",
       "lastmod": "2026-10-15"
     },
     "en/dlya-azs.html": {
@@ -207,75 +199,75 @@
       "lastmod": "2026-10-15"
     },
     "en/export.html": {
-      "sha256": "574e085b2eafb3dd75abfb3e1822335c1ec6b92ed19200d204bebc7988e85060",
+      "sha256": "ea3c552ed2d929308bb9e4b6b78a96ecff9bf01886b9801f1e49d81ff5bca38e",
       "lastmod": "2026-10-15"
     },
     "en/export/armenia.html": {
-      "sha256": "aa897b85e132fafbdc2c70af15f62a64fd1aa275e98e248e9c98a31adba115b9",
+      "sha256": "83c186e65f51c97c127742fe8ad0dbf1de299dd44dd2b260c71dacaeebce6054",
       "lastmod": "2026-10-15"
     },
     "en/export/azerbaijan.html": {
-      "sha256": "22037169b4745c61286b410f8024087bb26a3e48769a0a645f07774b2ee1406a",
+      "sha256": "4b3194a7f41fec7694bd5765a29582acdceca953a1b6064f0d124e477a2f5dbe",
       "lastmod": "2026-10-15"
     },
     "en/export/bahrain.html": {
-      "sha256": "bf0c0bd45dc0db282a14e1e8941c83ec6d14abedf59e9a10709c5fb585f52bc3",
+      "sha256": "afec9fd25d5526981d4913f14a1ab3838617b116a35f949eb4f6ed07cb336f84",
       "lastmod": "2026-10-15"
     },
     "en/export/belarus.html": {
-      "sha256": "6f5d5eed7b0e298de65d5d9b1aa883f2cd6dc2b9f8d3f70f38e69492ac0e5dd6",
+      "sha256": "1e73dc4a704982e595dae405c9568e7d1f14a8394319f184164f05157d46d8e3",
       "lastmod": "2026-10-15"
     },
     "en/export/egypt.html": {
-      "sha256": "72cde0308d6d8a0d3a737f06b95b0b583020994270148ffd34ca20e3f4ef0b24",
+      "sha256": "ef59bc21a0b02517d75861f5c4d29be7928f44ddb1fc18793db0672dff7040a7",
       "lastmod": "2026-10-15"
     },
     "en/export/georgia.html": {
-      "sha256": "8512450b3040900b68d2ba194487300341d761f83b374a7b4bdfbe770a22d7d9",
+      "sha256": "02e002be6634729fbc12b6fc04f5b934f8d98cc2c4570ab722e181afc2093d5a",
       "lastmod": "2026-10-15"
     },
     "en/export/kazakhstan.html": {
-      "sha256": "e8f8741d4ed65d0d427d7c2d1806c195b64515ef4c5438562edf2cb7f0874667",
+      "sha256": "7707adc96ef70fb1d9813b402deed9e03abef6b2f64277e98182e57fc016ee0a",
       "lastmod": "2026-10-15"
     },
     "en/export/kuwait.html": {
-      "sha256": "4a3cbebc8d97cb1a8562219ab0796d58543031514d0f559a181bb927e8c10f52",
+      "sha256": "80793f15d8240d87364390a28272e58c7b7472e9f7e1c235f015401e28ee0e82",
       "lastmod": "2026-10-15"
     },
     "en/export/kyrgyzstan.html": {
-      "sha256": "6589e82e1b8aa33c32b9a455a8c1e19c72763637603a230c99e626ea61318389",
+      "sha256": "40cdec8730eb774c7120bb50540e4054c60d4582ee5dfe2aca3d2013efac4f2f",
       "lastmod": "2026-10-15"
     },
     "en/export/oman.html": {
-      "sha256": "03b9eaf850d23ab98f929fe53d26e005be1b06bdda37e535b1361fb6f0748234",
+      "sha256": "3cdc3b051cf541789c961745885294c16e9a83b71f0f390b9274d575f72c74db",
       "lastmod": "2026-10-15"
     },
     "en/export/qatar.html": {
-      "sha256": "b5bf405e4ac23e7b062fff87cac96a45a6dca0dc35af8992b4edc9179a8600a8",
+      "sha256": "8920c098d9ffd8f8efd33efa54f40e81b09cf5a6c6fe06110448fc4be6d9e113",
       "lastmod": "2026-10-15"
     },
     "en/export/saudi-arabia.html": {
-      "sha256": "2e485e7f8518cc6cfe79a3230dccd6ab7750ee092943364b9fa3fec9543b6a61",
+      "sha256": "cd3ec47c4c103ac9af5217fb94ae28bf35d74c2629b19ba36d3ceb03018b2c7a",
       "lastmod": "2026-10-15"
     },
     "en/export/tajikistan.html": {
-      "sha256": "7fe8c8341d54513e29263eb32748ac1e8688a75c808fb8a15752e610329c6c23",
+      "sha256": "f6ae9d5eba8e0c03097ce53d8fd24f2e4e3a65ccc3b84756fd939e00f4bf883c",
       "lastmod": "2026-10-15"
     },
     "en/export/uae.html": {
-      "sha256": "59ad3509bd617a62b536da14191154e492e596103c09fbf94f871a0f7aadaec4",
+      "sha256": "4b8f04cd2ac86e9a86af69faa6d7b8229eef2d15cbecd57e1bb1accdc8b39dd8",
       "lastmod": "2026-10-15"
     },
     "en/export/yemen.html": {
-      "sha256": "9f875ac97295ebada7a2c021271e9d06cb202e90fb7a31f3b6546878d5e0e22b",
+      "sha256": "3a8995668defa4ce0fcfb2055e7bf053a0ccda3a0e8871862ff59b10f860feaa",
       "lastmod": "2026-10-15"
     },
     "en/faq.html": {
-      "sha256": "1037aee9b83308ea1429e1c21f50f80bc793fa6428852475afcf1be1391759d6",
+      "sha256": "72aa98b996dc50adab4251f31a4a7f48bfee9845f1e35e1128b2a51a4a830fd0",
       "lastmod": "2026-10-15"
     },
     "en/halal.html": {
-      "sha256": "0d0c8522a3f45ac28c8159d79b3670f6e502694220291b5690493367c92006ab",
+      "sha256": "5b1810d892ce6ed352a06ebf03befa57f282ff8d48294f8116b46c02e568d459",
       "lastmod": "2026-10-15"
     },
     "en/jerky.html": {
@@ -299,11 +291,11 @@
       "lastmod": "2026-10-15"
     },
     "en/pepperoni.html": {
-      "sha256": "3d5e360c171a1d5311def623126c11fa84374102a0cfdf63b0ca0f775232b324",
+      "sha256": "10a836e26635f96a2a52268b142f687aa39a1751d132c219419c3cdddcc0770c",
       "lastmod": "2026-10-15"
     },
     "en/pepperoni-dlya-pizzerii.html": {
-      "sha256": "46f07660add77ebceed1f9e0f68c9a2a8659b197e168714295b77813e95c01d6",
+      "sha256": "669979f70458f5cc505509f0af2f3c5d7c420752c8317a96ac4d312df7707b74",
       "lastmod": "2026-10-15"
     },
     "en/pepperoni-v-narezke.html": {
@@ -319,7 +311,7 @@
       "lastmod": "2026-10-15"
     },
     "en/products/index.html": {
-      "sha256": "a0d416f77fa73e2240ea39c80dc15878f0b36e8a8ee62999ea39f4ccf0c6dd73",
+      "sha256": "99d806e52e09e981f0f640621068b2fd93135dcb7078d9c9fdb4c6997cd41cba",
       "lastmod": "2026-10-15"
     },
     "en/products/kd-001.html": {
@@ -583,11 +575,11 @@
       "lastmod": "2026-10-15"
     },
     "en/sosiska-v-teste.html": {
-      "sha256": "d1acc7382876cee6cc37bcc8d9779536dc891ba2b90c977b793816d72b5480e8",
+      "sha256": "be99f414d335f4a1508dab30c77063f348e976200b4ca7522f236608b1b707b9",
       "lastmod": "2026-10-15"
     },
     "en/sosiski-dlya-hotdog.html": {
-      "sha256": "5a6ec62fc86cefb2ccc35795faf1f7ed338c6d71e8efaa50cdcd32c5c88f6e31",
+      "sha256": "3c511acef4c3fc141cdac7334070468dfb235a89648dea2fb5d753a5250f6685",
       "lastmod": "2026-10-15"
     },
     "en/vetchina-optom.html": {
@@ -595,99 +587,95 @@
       "lastmod": "2026-10-15"
     },
     "en/vyipechka-halyal.html": {
-      "sha256": "f536d25da1f8c7334eb5a035ddc367410c164b4d0edf7ab22877c30a48b868c9",
+      "sha256": "24a029fa82e435011bcf49e312ce25ac57d7340a179556a2dd88d8ab6bc7ed05",
       "lastmod": "2026-10-15"
     },
     "export.html": {
-      "sha256": "5fbdfe206fd6874237ec88ea3d970d26474b7507679154ed113d81aee35f0d27",
+      "sha256": "3c54ff92f96865da705ee4d8de6c348d71e7897b61e7c4c6e950d70bf43874a5",
       "lastmod": "2026-10-15"
     },
     "export/armenia.html": {
-      "sha256": "da076bae80b4b449833a0835e7b62d85dec0749d111a496e47872acba6c17687",
+      "sha256": "cb4ab09eeb33fc9f2d29ea0d0cff13c8a6da0f44be4efb0969d9b72c32f495a0",
       "lastmod": "2026-10-15"
     },
     "export/azerbaijan.html": {
-      "sha256": "46a0a0bc4c1e419b59d0cf849a9ab6d37a2f0e15e8b297733deebb4499b0ab22",
+      "sha256": "f12f30a25303fe3bcd457a467828f2cee4d6858c4c6cea47bec2ac9aaabd314a",
       "lastmod": "2026-10-15"
     },
     "export/bahrain.html": {
-      "sha256": "9b89101a31ee6c5a47c4bc7e52ded3e4de0122183ac7d7c80f285f782a996ded",
+      "sha256": "d0b76a14c71ede35f15c139affd74f384713907c57b844316af05a29db653c30",
       "lastmod": "2026-10-15"
     },
     "export/belarus.html": {
-      "sha256": "e525bac803b38bd1faed69cd93a08127738694db27a98850c5a9d8441a408a56",
+      "sha256": "f1fa5718ce998a85b1a66fdc2f24530d1aeb53a58f939e9a394df34d043fb8b9",
       "lastmod": "2026-10-15"
     },
     "export/egypt.html": {
-      "sha256": "2aade2746e109b0b9032f5a9e79d88560d4fb2f6a746667cf72e34838b448e7e",
+      "sha256": "0d12fe78c0db5ab2c89ef4ddbe33f7995d7cc86f27b48cdd7d4d2673f4804843",
       "lastmod": "2026-10-15"
     },
     "export/georgia.html": {
-      "sha256": "3d46a86d5c37004a79bdf63371c4c9e7aea41fd19c3445a41e69a6b2fcfee5c1",
+      "sha256": "3d3103d4342c2442fafa85fd5affd464a51ca6e2b5e3f2684b65a195e6c956ee",
       "lastmod": "2026-10-15"
     },
     "export/kazakhstan.html": {
-      "sha256": "3f03e50061478a53c5a98c0118459c8401965dcd847003e86c528fbe42da5b55",
+      "sha256": "37805d2bd7a58fe40996502751f31f65afdac611535d613a990f9777c4633d46",
       "lastmod": "2026-10-15"
     },
     "export/kuwait.html": {
-      "sha256": "2bb5774d56660eab1781b6d4eedadd00f07260e163f251e7bbb8a71e945cafb1",
+      "sha256": "64a08badc3056021b9d587451cced1e0b9ed4f6cfb71861f05cb78109fcf0418",
       "lastmod": "2026-10-15"
     },
     "export/kyrgyzstan.html": {
-      "sha256": "2956e872b477d2818de7f375a985c3a648c2207b8e824da1a0bf9e2b5052aa15",
+      "sha256": "25f1919c5be6ad811d3793b2db53a5973b5af2409b972b34e0d92551139105f9",
       "lastmod": "2026-10-15"
     },
     "export/oman.html": {
-      "sha256": "1c4ff31d8fd36128c944e6b0b288e1f3cb43fc8a8572469e9faa2e21215d9f2c",
+      "sha256": "385a141189c084e99eac4f46fbadecf593875ae3f50bda7fdbecbdae905257a0",
       "lastmod": "2026-10-15"
     },
     "export/qatar.html": {
-      "sha256": "b5793305a450314e55e2844114333237be675b0740c95cd019b1d29ddbbebece",
+      "sha256": "f8f27148db52515058678362b88e66a8ad86f9cc7b2a1055b95fbaa3b66ada86",
       "lastmod": "2026-10-15"
     },
     "export/saudi-arabia.html": {
-      "sha256": "4bd5533ec4a58f0ec2516a8a1af985104274ac4fa50a30a6a90109432a473f7e",
+      "sha256": "70dc550d8a56b5c671d822ec4588915bb5f5f2116b9c58ffcd0ed51d6916fb2a",
       "lastmod": "2026-10-15"
     },
     "export/tajikistan.html": {
-      "sha256": "2374ebea8856279961885bf1dc3fd9d7309ea3891a0b9a30c3be7f81a6732a6d",
+      "sha256": "a437b90e88a61fd07c81ccdc8fb35771752b0fb21923dcea91592eab8343eff1",
       "lastmod": "2026-10-15"
     },
     "export/uae.html": {
-      "sha256": "fca53c5630dc67dfc3fd697e6f011f921ddf16beb3fed64734d1cc69dae24e01",
+      "sha256": "4ff5aaffead22b06d2f398e0810e31c35673cdc45606a2c767201b57e1faf685",
       "lastmod": "2026-10-15"
     },
     "export/yemen.html": {
-      "sha256": "d5d58ff4a394066b7f345226f38249c4897d2308bcfcbd746a00661f965b1de9",
+      "sha256": "66a86097d33914dd65a7b65d4fd4f1f0d4709e01e5e0a18957e7f58ebb0f8b7f",
       "lastmod": "2026-10-15"
     },
     "faq.html": {
-      "sha256": "246bd35ff8d90bbd3ecd63db8cd7bcfff3bbedf486f1af6b072643cd0fe151fd",
+      "sha256": "83060325bd03a04a4b4ff9fa4ecb379418166113c7181f370786c1c4fca85ef1",
       "lastmod": "2026-10-15"
     },
     "halal.html": {
-      "sha256": "833a44f28fd094019f2fc1a2b34aab99a911f13a6a7e6935fd8606aeef152da1",
+      "sha256": "d9c9456e4ab18b1d9db08e72722880a20114c1233d57cadb5dd4b4aa22b2e255",
       "lastmod": "2026-10-15"
     },
     "jerky.html": {
       "sha256": "7c08bde171730e452c1c5c35cd74957c2d7b98e5cd6ee6baf86ec23ac829276d",
       "lastmod": "2026-10-15"
     },
-    "kak-zakazat.html": {
-      "sha256": "f786494b0ed8c056d7881c8c67e6a6b534399ac6144905b32278043eb115ae0c",
-      "lastmod": "2026-10-15"
-    },
     "kazylyk.html": {
-      "sha256": "a7db09b6d2c32e59f60cbed89de515c61c547cac4d9052aa012067b1a55e4158",
+      "sha256": "f05aff4fc112b5eb922a659b9fc4bd6a2478ba4a9eec09d2211ae41aa2ea60d3",
       "lastmod": "2026-10-15"
     },
     "kolbasy-kopchyonye.html": {
-      "sha256": "9438c1bf5cc21bf5cb9594c8fc8b772dd4a3484dd8b4115b12427b08b1a1570d",
+      "sha256": "e844e6cb2844bf3001ee6f239ca1dd4f7e1cb45219aa3133f645129d486facba",
       "lastmod": "2026-10-15"
     },
     "kolbasy-varenye.html": {
-      "sha256": "79e06006dcab2fffe49abb363a0366c48ae4b6a40f250e93e1cb44fd7e64f208",
+      "sha256": "9133ac7a205b318fa68a4b4eb30991372fee9b4ef7f95451431697df0aa9f1af",
       "lastmod": "2026-10-15"
     },
     "kontraktnoe-proizvodstvo.html": {
@@ -695,7 +683,7 @@
       "lastmod": "2026-10-15"
     },
     "kotlety-dlya-burgerov.html": {
-      "sha256": "9966603b0bd0baf945921331ed809505433c9156ebedb698e25ec8d73f60e480",
+      "sha256": "a1786d6c34f3d4257fda96385c5baa5e0af6c1f23c5af87d1a69296bd77c57e2",
       "lastmod": "2026-10-15"
     },
     "north-star.html": {
@@ -703,11 +691,11 @@
       "lastmod": "2026-10-15"
     },
     "pepperoni.html": {
-      "sha256": "a999c877351cc9f9cc132305fc7029a008c6e58d0246c06850e8d180f15d7422",
+      "sha256": "e8ebebfe14f7abd919a8c478778b339632062bc9d46cc8a9e0948c2b1377ed04",
       "lastmod": "2026-10-15"
     },
     "pepperoni-dlya-pizzerii.html": {
-      "sha256": "195a9b7ad3c1afb4900fb6c039ad5427662c49ba2d498c957661732f5b693f7c",
+      "sha256": "ce4776cd47de12000db24725590955a9b1c1f2b3c6ea3c116358a64dfed213af",
       "lastmod": "2026-10-15"
     },
     "pepperoni-v-narezke.html": {
@@ -718,12 +706,8 @@
       "sha256": "1f0649e76444393e9c3c812572da98ba6d88c877a1df8b72d9c38de8d19f472b",
       "lastmod": "2026-10-15"
     },
-    "price.html": {
-      "sha256": "da8445f2272a9da5f5e464dbaf666ef871f46abc1ad52665f2d359319422f3e1",
-      "lastmod": "2026-10-15"
-    },
     "products/index.html": {
-      "sha256": "4b938ead8b77a886b6d42a5c361040795c7ec5b27c977fb915f154922002401d",
+      "sha256": "5e2a33f2084989315ad5594ec764f4cc31750ed97bdf5434133e5aca64e02f67",
       "lastmod": "2026-10-15"
     },
     "products/kd-001.html": {
@@ -987,19 +971,19 @@
       "lastmod": "2026-10-15"
     },
     "sosiska-v-teste.html": {
-      "sha256": "1472c11c6e7b90245f338649f2fd14d66d777363e0d514ca23511f25c90f743b",
+      "sha256": "ad3ba9b981707f416320b12837ee8a20d4849e6f3ad08ae5d3149e60d2429471",
       "lastmod": "2026-10-15"
     },
     "sosiski-dlya-hotdog.html": {
-      "sha256": "9ab7e619dbfc29c7e9d1b1c8baf35d7f9923f7e9943b4de66ec530ea0b6e7121",
+      "sha256": "b6bb09be94fc9e62a8588cc38c70d5697bea95ee5b02b1959a7ca20d58edd582",
       "lastmod": "2026-10-15"
     },
     "vetchina-optom.html": {
-      "sha256": "2d6b5d38c6440647b9eca197b317cd41e12c20f04a43fd6992de3177819f34bc",
+      "sha256": "1dbdd3a973079a6a845b6d78d00236801be1c9cf75c17ed685c4769b2831a9c5",
       "lastmod": "2026-10-15"
     },
     "vyipechka-halyal.html": {
-      "sha256": "378627d249ca8c8d9a6c1c245591cc691de87cb90fc1d1df3db0454f37e7c1a3",
+      "sha256": "8d0da166dcdcb721611be5ad22dd19e7efb9aa4dfcec54ffc5f37b1bc8bf9cfb",
       "lastmod": "2026-10-15"
     }
   }

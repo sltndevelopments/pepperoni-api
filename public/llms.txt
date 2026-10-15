@@ -24,6 +24,10 @@
 - [Контрактное производство / СТМ](https://pepperoni.tatar/kontraktnoe-proizvodstvo): от 5 тонн, документы, этапы.
 - [Кейсы и покупатели](https://pepperoni.tatar/cases): сети АЗС, ретейл, фудсервис, СТМ.
 - [Экспорт](https://pepperoni.tatar/export): страны и статус признания сертификата.
+- [Экспорт в Казахстан](https://pepperoni.tatar/export/kazakhstan): текущие поставки, Цербер, без выдуманных сроков.
+- [Сосиска в тесте для пекарен](https://pepperoni.tatar/sosiska-v-teste): KD-018 без оболочки и KD-061 готовая.
+- [Выпечка халяль](https://pepperoni.tatar/vyipechka-halyal): татарская линейка KD-046–052, 065, 066.
+- [Пепперони для пиццерии](https://pepperoni.tatar/pepperoni-dlya-pizzerii): применение KD-013/014, без выдуманного теста в печи.
 
 ## Каталог и данные
 
@@ -32,6 +36,16 @@
 - [API /api/products](https://api.pepperoni.tatar/api/products): живой JSON без авторизации.
 - [OpenAPI](https://api.pepperoni.tatar/openapi.yaml): описание эндпоинтов.
 - [Полный контекст для LLM (llms-full.txt)](https://pepperoni.tatar/llms-full.txt): все SKU, состав, цены в 7 валютах, FAQ.
+
+## Сертификаты (матрица SKU)
+
+- 0008: мясо, птица, колбасы, пепперони, полуфабрикаты, кулинария, отрубы (категории BI, BIII); ГОСТ Р 70401-2022; 43 SKU; срок до 2029-10-01; проверка: https://pepperoni.tatar/docs/certificate-halal-0008-2026.pdf
+- 614A/2024: мясная продукция; 43 SKU; срок до 2027-02-16; проверка: https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/
+- 884A/2025: кондитерские, хлебобулочные изделия и кулинария; 22 SKU; срок до 2026-12-26; проверка: https://halalrt.ru/c/4hDESSiMNsDK3Jt/
+- ISO 22000:2018 (не халяль): система менеджмента безопасности пищевой продукции (HACCP); 65 SKU; срок до —; проверка: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx
+- СС.003181: программа РЭЦ «Сделано в России»; 65 SKU; срок до 2028-10-23; проверка: https://pepperoni.tatar/docs/made-in-russia-cc003181.pdf
+
+Проверка документов: [https://pepperoni.tatar/halal](https://pepperoni.tatar/halal). ISO 22000 не выдаём за халяль.
 
 ## Доверие
 

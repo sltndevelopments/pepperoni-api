@@ -89,7 +89,7 @@ def ru_tovar(n: int) -> str:
 
 STATE_FILE = ROOT / "data" / "sku_count_state.json"
 # Historic whole-catalog totals that still appear in published HTML.
-BASE_STALE_COUNTS = {72, 77}
+BASE_STALE_COUNTS = {62, 72, 77}
 
 
 def stale_counts(live_n: int) -> list[int]:

@@ -82,6 +82,13 @@ ABSENT_FROM_CATALOG = re.compile(
 )
 CONVENTIONAL = re.compile(r"обычн\w* (?:американск\w* )?пепперони|традиционн\w*|классическ\w* американск|conventional|"
                           r"traditional(?:ly)?|american pepperoni|в сша|in the us", re.I)
+# KD-012 is retired; saying it is absent from the catalog is not an assortment claim.
+ABSENT_FROM_CATALOG = re.compile(
+    r"(?:not in the (?:current )?catalog|is retired|снят(?:а|о)?\b|"
+    r"в текущем каталоге нет|нет в (?:текущем )?каталог|"
+    r"не в (?:прайс|каталог)|not (?:listed|in the price list))",
+    re.I,
+)
 URLISH = re.compile(r"https?://\S+|pepperoni\.tatar|kazandelikates\.tatar|/pepperoni\S*", re.I)
 
 
@@ -109,6 +116,8 @@ def meats_in(text: str) -> set[str]:
 def hits_in(sentence: str, allowed: set[str]) -> set[str]:
     s = URLISH.sub(" ", sentence)
     if not re.search(PEPP, s, re.I) or CONVENTIONAL.search(s) or s.rstrip().endswith("?"):
+        return set()
+    if ABSENT_FROM_CATALOG.search(s):
         return set()
     found = set()
     for rx in ATTACH:

@@ -31,8 +31,46 @@ def export_current(lang: str = "en") -> list[str]:
     return list(FACTS["export"]["current_" + ("ru" if lang == "ru" else "en")])
 
 
+def _products() -> list[dict]:
+    p = ROOT / "public" / "products.json"
+    try:
+        return list(json.loads(p.read_text(encoding="utf-8")).get("products") or [])
+    except Exception:
+        return []
+
+
+def sku_matrix() -> list[dict]:
+    """Certificate → live SKU count/list from products.json section mapping."""
+    products = _products()
+    matrix = FACTS["certificates"].get("sku_matrix") or {}
+    out = []
+    for key in ("halal_0008", "halal_614a", "halal_bakery", "iso_22000", "made_in_russia"):
+        rule = matrix.get(key) or {}
+        cert = FACTS["certificates"][key]
+        sections = list(rule.get("sections") or [])
+        skus = [p["sku"] for p in products if p.get("section") in sections]
+        row = {
+            "key": key,
+            "number": cert.get("number"),
+            "status": cert.get("status", "valid"),
+            "kind": rule.get("kind"),
+            "sections": sections,
+            "sku_count": len(skus),
+            "skus": skus,
+            "valid_from": cert.get("valid_from"),
+            "valid_until": cert.get("valid_until"),
+            "scope_ru": cert.get("scope_ru"),
+            "scope_en": cert.get("scope_en"),
+            "verify_url": rule.get("verify_url"),
+            "not_halal": bool(rule.get("not_halal")),
+        }
+        out.append(row)
+    return out
+
+
 def certificates_for_api() -> list[dict]:
-    """Public certificate list matching live /halal (number, scope, validity)."""
+    """Public certificate list matching live /halal (number, scope, validity, SKU scope)."""
+    by_key = {row["key"]: row for row in sku_matrix()}
     c = FACTS["certificates"]
     keys = ("halal_0008", "halal_614a", "halal_bakery", "iso_22000", "made_in_russia")
     out = []
@@ -42,6 +80,13 @@ def certificates_for_api() -> list[dict]:
             "number", "scope_ru", "scope_en", "valid_from", "valid_until",
             "issuer_ru", "registry", "status",
         ) if k in item}
+        mx = by_key.get(key) or {}
+        row["sku_count"] = mx.get("sku_count")
+        row["sections"] = mx.get("sections")
+        row["kind"] = mx.get("kind")
+        row["verify_url"] = mx.get("verify_url")
+        if mx.get("not_halal"):
+            row["not_halal"] = True
         out.append(row)
     return out
 

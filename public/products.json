@@ -2850,7 +2850,14 @@
       "valid_from": "2026-10-02",
       "valid_until": "2029-10-01",
       "issuer_ru": "Комитет «Халяль» ДУМ РТ",
-      "status": "valid"
+      "status": "valid",
+      "sku_count": 43,
+      "sections": [
+        "Заморозка",
+        "Охлаждённая продукция"
+      ],
+      "kind": "meat",
+      "verify_url": "https://pepperoni.tatar/docs/certificate-halal-0008-2026.pdf"
     },
     {
       "number": "614A/2024",
@@ -2859,7 +2866,14 @@
       "valid_from": "2024-02-17",
       "valid_until": "2027-02-16",
       "issuer_ru": "Комитет «Халяль» ДУМ РТ",
-      "status": "valid"
+      "status": "valid",
+      "sku_count": 43,
+      "sections": [
+        "Заморозка",
+        "Охлаждённая продукция"
+      ],
+      "kind": "meat",
+      "verify_url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/"
     },
     {
       "number": "884A/2025",
@@ -2868,21 +2882,44 @@
       "valid_from": "2025-12-27",
       "valid_until": "2026-12-26",
       "issuer_ru": "Комитет «Халяль» ДУМ РТ",
-      "status": "valid"
+      "status": "valid",
+      "sku_count": 22,
+      "sections": [
+        "Выпечка"
+      ],
+      "kind": "bakery",
+      "verify_url": "https://halalrt.ru/c/4hDESSiMNsDK3Jt/"
     },
     {
       "number": "ISO 22000:2018",
       "scope_ru": "система менеджмента безопасности пищевой продукции (HACCP)",
       "scope_en": "food safety management system (HACCP)",
       "registry": "FSMS-2351/A",
-      "status": "valid"
+      "status": "valid",
+      "sku_count": 65,
+      "sections": [
+        "Заморозка",
+        "Охлаждённая продукция",
+        "Выпечка"
+      ],
+      "kind": "facility",
+      "verify_url": "https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx",
+      "not_halal": true
     },
     {
       "number": "СС.003181",
       "scope_ru": "программа РЭЦ «Сделано в России»",
       "scope_en": "Russian Export Center Made in Russia programme",
       "valid_until": "2028-10-23",
-      "status": "valid"
+      "status": "valid",
+      "sku_count": 65,
+      "sections": [
+        "Заморозка",
+        "Охлаждённая продукция",
+        "Выпечка"
+      ],
+      "kind": "facility",
+      "verify_url": "https://pepperoni.tatar/docs/made-in-russia-cc003181.pdf"
     }
   ]
 }

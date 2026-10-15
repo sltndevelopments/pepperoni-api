@@ -138,10 +138,14 @@ def _weight_label(p):
 
 
 def _price_label(p):
-    price = (p.get("offers") or {}).get("price")
-    if price in (None, ""):
-        return "—"
-    return f"{price} ₽"
+    offers = p.get("offers") or {}
+    price = offers.get("price")
+    if price not in (None, ""):
+        return f"{price} ₽"
+    ppu = offers.get("pricePerUnit")
+    if ppu not in (None, ""):
+        return f"{ppu} ₽/шт"
+    return "—"
 
 
 def _sku_table(products):
@@ -1177,6 +1181,14 @@ def main():
         rel = out.relative_to(PUBLIC).as_posix()
         if rel not in approved:
             print(f"⏭️  {out.name} skipped (not in index allowlist)")
+            continue
+        if cfg["slug"] in {"sosiska-v-teste", "vyipechka-halyal"}:
+            from content_plan_pages import write_bakery, write_sosiska
+            if cfg["slug"] == "sosiska-v-teste":
+                write_sosiska()
+            else:
+                write_bakery()
+            created += 1
             continue
         if cfg.get("commercial"):
             out.write_text(ensure_metrika_html(build_commercial_page(cfg, "ru")), encoding="utf-8")

@@ -27,6 +27,7 @@ CONFIRM_FLAG = "--confirm-destructive"
 NGINX_INSTALL = (
     "jerky-redirects.conf",
     "karmin-e120-redirects.conf",
+    "certificates-halal-redirects.conf",
     "pepperoni-blog-redirects.conf",
     "geo-cleanup-redirects.conf",
     "geo-cleanup-gone.conf",

@@ -8,6 +8,7 @@ Scans public/ (html/json/txt/yaml) and generator sources in scripts/,
 lib/, submission/. Usage: apply_site_facts.py [--check]
 """
 from __future__ import annotations
+import json
 import re
 import sys
 from pathlib import Path
@@ -16,9 +17,32 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_facts import ROOT, sku_count, kd014_weight, plural_ru  # noqa: E402
 
 N = sku_count()
-STALE = r"(?:77|62)"
+STATE_FILE = ROOT / "data" / "sku_count_state.json"
+
+
+def _stale_counts() -> str:
+    """Historic whole-catalog totals that must never be re-baked into prose."""
+    olds = {62, 72, 77}
+    if STATE_FILE.exists():
+        try:
+            st = json.loads(STATE_FILE.read_text(encoding="utf-8"))
+            for key in ("previous", "current"):
+                v = st.get(key)
+                if isinstance(v, int) and v > 0:
+                    olds.add(v)
+        except Exception:
+            pass
+    olds.discard(N)
+    return "(?:" + "|".join(str(n) for n in sorted(olds, reverse=True)) + ")"
+
+
+STALE = _stale_counts()
 RULES = [
     (re.compile(rf"(?<![\d.,]){STALE}(\s+(?:halal\s+)?SKUs?\b)"), rf"{N}\1"),
+    # Split HTML stats: <div class="num">62</div><div class="lbl">SKU…
+    (re.compile(
+        rf'(<(?:div|span) class="num">){STALE}(</(?:div|span)>\s*<(?:div|span) class="(?:lbl|label)">(?:SKUs?\b|наименовани))'
+    ), rf"\g<1>{N}\2"),
     (re.compile(rf"(?<![\d.,]){STALE}\s+(наименовани)[йяе]\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, 'е', 'я', 'й')}"),
     (re.compile(rf"(?<![\d.,]){STALE}\s+(позици)[йия]\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, 'я', 'и', 'й')}"),
     (re.compile(rf"(?<![\d.,]){STALE}\s+(товар)(?:ов|а)?\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, '', 'а', 'ов')}"),

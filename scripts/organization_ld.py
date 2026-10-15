@@ -8,7 +8,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from site_facts import postal_code, street_address
+from site_facts import certificates_for_api, postal_code, street_address
 
 ORG_ID = "https://pepperoni.tatar/#organization"
 LOCAL_ID = "https://pepperoni.tatar/#localbusiness"
@@ -42,6 +42,16 @@ ORGANIZATION = {
         "https://www.youtube.com/@kazandelikates",
     ],
 }
+
+ORGANIZATION["hasCredential"] = [
+    {
+        "@type": "DigitalDocument",
+        "name": item["number"],
+        "description": item.get("scope_en") or item.get("scope_ru"),
+        **({"url": item["verify_url"]} if item.get("verify_url") else {}),
+    }
+    for item in certificates_for_api()
+]
 
 LOCAL_BUSINESS = {
     "@context": "https://schema.org",

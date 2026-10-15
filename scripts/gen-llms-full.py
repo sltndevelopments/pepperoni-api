@@ -29,7 +29,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 sys.path.insert(0, str(ROOT / "scripts"))
-from site_facts import cert_line_en, cert_line_ru  # noqa: E402
+from site_facts import cert_line_en, cert_line_ru, sku_matrix  # noqa: E402
 
 spec = importlib.util.spec_from_file_location(
     "sync_sheets", ROOT / "scripts" / "sync-sheets.py"
@@ -55,6 +55,26 @@ last_synced = data.get("lastSynced", "")
 n_sku = len(products)
 sections = sorted({p.get("section", "") for p in products if p.get("section")})
 n_sections = len(sections)
+
+
+def _cert_matrix_md(lang: str) -> str:
+    lines = []
+    for row in sku_matrix():
+        until = row.get("valid_until") or "—"
+        note = " (не халяль)" if row.get("not_halal") and lang == "ru" else (
+            " (not a halal certificate)" if row.get("not_halal") else "")
+        sections = ", ".join(row.get("sections") or [])
+        if lang == "ru":
+            lines.append(
+                f"- {row['number']}{note}: {row.get('scope_ru') or sections}; "
+                f"{row['sku_count']} SKU; срок до {until}; проверка: {row.get('verify_url') or '/halal'}"
+            )
+        else:
+            lines.append(
+                f"- {row['number']}{note}: {row.get('scope_en') or sections}; "
+                f"{row['sku_count']} SKUs; valid until {until}; check: {row.get('verify_url') or '/en/halal'}"
+            )
+    return "\n".join(lines)
 
 
 def llms_map_ru() -> str:
@@ -84,6 +104,10 @@ def llms_map_ru() -> str:
 - [Контрактное производство / СТМ](https://pepperoni.tatar/kontraktnoe-proizvodstvo): от 5 тонн, документы, этапы.
 - [Кейсы и покупатели](https://pepperoni.tatar/cases): сети АЗС, ретейл, фудсервис, СТМ.
 - [Экспорт](https://pepperoni.tatar/export): страны и статус признания сертификата.
+- [Экспорт в Казахстан](https://pepperoni.tatar/export/kazakhstan): текущие поставки, Цербер, без выдуманных сроков.
+- [Сосиска в тесте для пекарен](https://pepperoni.tatar/sosiska-v-teste): KD-018 без оболочки и KD-061 готовая.
+- [Выпечка халяль](https://pepperoni.tatar/vyipechka-halyal): татарская линейка KD-046–052, 065, 066.
+- [Пепперони для пиццерии](https://pepperoni.tatar/pepperoni-dlya-pizzerii): применение KD-013/014, без выдуманного теста в печи.
 
 ## Каталог и данные
 
@@ -92,6 +116,12 @@ def llms_map_ru() -> str:
 - [API /api/products](https://api.pepperoni.tatar/api/products): живой JSON без авторизации.
 - [OpenAPI](https://api.pepperoni.tatar/openapi.yaml): описание эндпоинтов.
 - [Полный контекст для LLM (llms-full.txt)](https://pepperoni.tatar/llms-full.txt): все SKU, состав, цены в 7 валютах, FAQ.
+
+## Сертификаты (матрица SKU)
+
+{_cert_matrix_md("ru")}
+
+Проверка документов: [https://pepperoni.tatar/halal](https://pepperoni.tatar/halal). ISO 22000 не выдаём за халяль.
 
 ## Доверие
 
@@ -136,6 +166,10 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Private label / contract manufacturing](https://pepperoni.tatar/en/private-label): from 5 tonnes, documents, stages.
 - [Cases and buyers](https://pepperoni.tatar/en/cases): fuel-station chains, retail, foodservice, private label.
 - [Export](https://pepperoni.tatar/en/export): countries and certificate-recognition status.
+- [Export to Kazakhstan](https://pepperoni.tatar/en/export/kazakhstan): current shipments, Cerberus, no invented transit days.
+- [Sausage in dough for bakeries](https://pepperoni.tatar/en/sosiska-v-teste): KD-018 casing-free and KD-061 ready roll.
+- [Halal bakery](https://pepperoni.tatar/en/vyipechka-halyal): Tatar line KD-046–052, 065, 066.
+- [Pepperoni for pizzerias](https://pepperoni.tatar/en/pepperoni-dlya-pizzerii): KD-013/014 application, no invented oven test.
 
 ## Catalog and data
 
@@ -144,6 +178,12 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [API /api/products](https://api.pepperoni.tatar/api/products): live JSON, no auth.
 - [OpenAPI](https://api.pepperoni.tatar/openapi.yaml): endpoint description.
 - [Full LLM context (llms-full.txt)](https://pepperoni.tatar/en/llms-full.txt): every SKU, ingredients, prices in 7 currencies, FAQ.
+
+## Certificates (SKU matrix)
+
+{_cert_matrix_md("en")}
+
+Document check: [https://pepperoni.tatar/en/halal](https://pepperoni.tatar/en/halal). ISO 22000 is not a halal certificate.
 
 ## Trust
 
