@@ -1,28 +1,39 @@
-"""One Organization object for every pepperoni.tatar page.
+"""One Organization (and LocalBusiness) object for pepperoni.tatar pages.
 
-Identity fields come from public/brand.txt. taxID is omitted: the brand file
-has no INN, and a guessed number must not be published.
+Identity fields are the public requisites in data/site_facts.json. taxID is
+the ИНН — it is published on /about and in legal pages, not guessed.
 """
 from __future__ import annotations
 
 import json
+from pathlib import Path
+
+from site_facts import postal_code, street_address
 
 ORG_ID = "https://pepperoni.tatar/#organization"
+LOCAL_ID = "https://pepperoni.tatar/#localbusiness"
+
+_FACTS = json.loads(
+    (Path(__file__).resolve().parent.parent / "data" / "site_facts.json")
+    .read_text(encoding="utf-8")
+)
+_CO = _FACTS["company"]
 
 ORGANIZATION = {
     "@context": "https://schema.org",
     "@type": "Organization",
     "@id": ORG_ID,
     "name": "Казанские Деликатесы",
-    "legalName": "ООО «Казанские Деликатесы»",
+    "legalName": _CO["legal_name_ru"],
+    "taxID": _CO["inn"],
     "url": "https://pepperoni.tatar/",
-    "email": "info@kazandelikates.tatar",
-    "telephone": "+7 987 217-02-02",
+    "email": _CO["email"],
+    "telephone": _CO["phone"],
     "address": {
         "@type": "PostalAddress",
-        "streetAddress": "ул. Аграрная, 2, оф. 7",
+        "streetAddress": street_address(),
         "addressLocality": "Казань",
-        "postalCode": "420061",
+        "postalCode": postal_code() or "420061",
         "addressCountry": "RU",
     },
     "sameAs": [
@@ -32,12 +43,35 @@ ORGANIZATION = {
     ],
 }
 
+LOCAL_BUSINESS = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": LOCAL_ID,
+    "name": "Казанские Деликатесы",
+    "legalName": _CO["legal_name_ru"],
+    "taxID": _CO["inn"],
+    "url": "https://pepperoni.tatar/",
+    "email": _CO["email"],
+    "telephone": _CO["phone"],
+    "address": dict(ORGANIZATION["address"]),
+    "parentOrganization": {"@id": ORG_ID},
+}
+
 SAME_AS = set(ORGANIZATION["sameAs"])
 SCRIPT = (
     '<script type="application/ld+json">'
     + json.dumps(ORGANIZATION, ensure_ascii=False, separators=(",", ":"))
     + "</script>"
 )
+LOCAL_SCRIPT = (
+    "<!-- localbusiness-ld:start -->"
+    '<script type="application/ld+json">'
+    + json.dumps(LOCAL_BUSINESS, ensure_ascii=False, separators=(",", ":"))
+    + "</script>"
+    "<!-- localbusiness-ld:end -->"
+)
 
 # Fields that must agree wherever an Organization states them.
+# taxID is published on LocalBusiness and /about; older Organization blocks
+# without it are still valid as long as they do not contradict the ИНН.
 IDENTITY_KEYS = ("name", "legalName", "email", "telephone")

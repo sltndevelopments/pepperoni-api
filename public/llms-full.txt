@@ -1665,7 +1665,7 @@ EN: https://pepperoni.tatar/en/products/kd-068
 
 ### Какой минимальный заказ?
 
-Минимальная партия обсуждается индивидуально в зависимости от продукта и формата сотрудничества. Для оптовых поставок и Private Label — обратитесь к менеджеру: +7 987 217-02-02 или info@kazandelikates.tatar.
+Оптовый минимум и шаги заказа — на странице «Как заказать» (/kak-zakazat). Прайс: /price. Контакт: +7 987 217-02-02 или info@kazandelikates.tatar.
 
 ### Где производится продукция? Есть ли ХАССП?
 
@@ -1766,4 +1766,4 @@ A: Халяль ДУМ РТ №0008 (мясо, птица, колбасы, пе�
 A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
 
 **Q: Как получить актуальный прайс-лист?**
-A: Живой каталог с ценами: https://api.pepperoni.tatar/api/products (JSON, без авторизации). Статический снапшот: https://pepperoni.tatar/products.json. Прайс-лист (текст): https://pepperoni.tatar/wholesale-price-list-ru.txt. Для коммерческого предложения: info@kazandelikates.tatar.
+A: HTML-прайс: https://pepperoni.tatar/price (Excel /prices.xlsx, PDF /prices.pdf). Живой каталог: https://api.pepperoni.tatar/api/products. Как заказать: https://pepperoni.tatar/kak-zakazat. Для коммерческого предложения: info@kazandelikates.tatar.

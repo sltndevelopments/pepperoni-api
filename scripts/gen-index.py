@@ -244,6 +244,8 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <a href="/bakery">Выпечка</a>
       <a href="/export">Экспорт</a>
       <a href="/about">О компании</a>
+      <a href="/price">Прайс</a>
+      <a href="/kak-zakazat">Как заказать</a>
       <a href="/faq">FAQ</a>
       <a href="/delivery">Доставка</a>
       <a href="/blog">Блог</a>
@@ -496,6 +498,8 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
         <a href="/pepperoni">Пепперони</a>
         <a href="/kazylyk">Казылык</a>
         <a href="/vyipechka-halyal">Выпечка</a>
+        <a href="/price">Прайс</a>
+        <a href="/kak-zakazat">Как заказать</a>
         <a href="/faq">FAQ</a>
         <a href="/delivery">Доставка</a>
         <a href="/blog">Блог</a>
@@ -922,6 +926,8 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <a href="/en/kazylyk">Kazylyk</a>
       <a href="/en/export">Export</a>
       <a href="/en/about">About</a>
+      <a href="/en/price">Price list</a>
+      <a href="/en/kak-zakazat">How to order</a>
       <a href="/en/blog">Blog</a>
       <a href="/en/faq">FAQ</a>
       <a href="/en/delivery">Delivery</a>
@@ -1169,6 +1175,8 @@ select.dl-select{{padding:6px 10px;border-radius:6px;border:1px solid #ddd;font-
       <div class="footer__col">
         <div class="footer__col-title">Navigation</div>
         <a href="/en/pepperoni">Pepperoni</a>
+        <a href="/en/price">Price list</a>
+        <a href="/en/kak-zakazat">How to order</a>
         <a href="/en/blog">Blog</a>
         <a href="/en/faq">FAQ</a>
         <a href="/en/delivery">Delivery</a>

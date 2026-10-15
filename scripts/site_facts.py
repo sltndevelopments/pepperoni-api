@@ -6,6 +6,7 @@ KD-014 weight, export countries or requisites.
 """
 from __future__ import annotations
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -43,6 +44,72 @@ def certificates_for_api() -> list[dict]:
         ) if k in item}
         out.append(row)
     return out
+
+
+def phone_digits() -> str:
+    return re.sub(r"\D", "", str(FACTS["company"]["phone"]))
+
+
+def phone_tel() -> str:
+    digits = phone_digits()
+    return f"tel:+{digits}" if digits else ""
+
+
+def phone_wa() -> str:
+    digits = phone_digits()
+    return f"https://wa.me/{digits}" if digits else ""
+
+
+def street_address() -> str:
+    """Street line parsed from company.address_ru — not a second hardcoded address."""
+    addr = str(FACTS["company"]["address_ru"])
+    m = re.search(r"(ул\.\s*[^,]+,\s*д\.\s*\d+,\s*офис\s*\d+)", addr, re.I)
+    return m.group(1) if m else addr
+
+
+def postal_code() -> str:
+    m = re.match(r"(\d{6})", str(FACTS["company"]["address_ru"]))
+    return m.group(1) if m else ""
+
+
+def meat_halal_number() -> str:
+    return str(FACTS["certificates"]["halal_0008"]["number"])
+
+
+def certs_price_ru() -> str:
+    c = FACTS["certificates"]
+    return (
+        f"Халяль №{c['halal_0008']['number']} (ДУМ РТ, основной) | "
+        f"№{c['halal_614a']['number']} | №{c['halal_bakery']['number']} | "
+        f"ХАССП | {c['iso_22000']['number']} | ТР ТС 021/2011"
+    )
+
+
+def certs_price_en() -> str:
+    c = FACTS["certificates"]
+    return (
+        f"Halal No. {c['halal_0008']['number']} (DUM RT, primary) | "
+        f"No. {c['halal_614a']['number']} | No. {c['halal_bakery']['number']} | "
+        f"HACCP | {c['iso_22000']['number']} | TR CU 021/2011"
+    )
+
+
+def certs_category_ru() -> str:
+    c = FACTS["certificates"]
+    return (
+        f"Халяль ДУМ РТ № {c['halal_0008']['number']} · "
+        f"№ {c['halal_614a']['number']} · № {c['halal_bakery']['number']} · "
+        f"ХАССП · ISO 22000:2018 · ТР ТС 021/2011"
+    )
+
+
+def certs_category_en() -> str:
+    c = FACTS["certificates"]
+    return (
+        f"Halal DUM RT No. {c['halal_0008']['number']} · "
+        f"No. {c['halal_614a']['number']} · No. {c['halal_bakery']['number']} · "
+        f"HACCP · ISO 22000:2018 · TR CU 021/2011"
+    )
 
 
 def cert_line_ru() -> str:

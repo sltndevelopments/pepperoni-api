@@ -248,6 +248,35 @@ jobs:
             if d.get("lastSynced") != today:
                 sys.exit("catalog was not republished from the sheet")
             PY
+            python3 - << 'PY'
+            import os, sys
+            from pathlib import Path
+            repo = Path("/var/www/pepperoni/repo")
+            html = repo / "public/price.html"
+            pdf = repo / "public/prices.pdf"
+            chrome = None
+            for candidate in (
+                "/opt/google/chrome/chrome",
+                "/usr/bin/google-chrome-stable",
+                "/usr/bin/chromium",
+                "/usr/bin/chromium-browser",
+            ):
+                p = Path(candidate)
+                if p.is_file() and os.access(p, os.X_OK):
+                    chrome = candidate
+                    break
+            if not chrome:
+                print("❌ Chrome/Chromium missing on VPS — prices.pdf cannot be rebuilt")
+                sys.exit(1)
+            print(f"✅ chrome={chrome}")
+            if not pdf.is_file():
+                print("❌ public/prices.pdf missing")
+                sys.exit(1)
+            print(f"✅ prices.pdf {pdf.stat().st_size} bytes")
+            if html.is_file() and pdf.stat().st_mtime + 5 < html.stat().st_mtime:
+                print("❌ prices.pdf older than price.html — PDF rebuild skipped or failed")
+                sys.exit(1)
+            PY
 
       - name: Restart partner-intake service on VPS
         uses: appleboy/ssh-action@v1.0.0
@@ -447,4 +476,6 @@ jobs:
             fi
             chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh
             bash /var/www/pepperoni/repo/scripts/apply_nginx_catalog_chat.sh /var/www/pepperoni/repo
+            chmod +x /var/www/pepperoni/repo/scripts/apply_nginx_price_types.sh
+            bash /var/www/pepperoni/repo/scripts/apply_nginx_price_types.sh /var/www/pepperoni/repo
             # rinatsultan.com moved to sltndevelopments/rinatsultan — do not rsync from here.

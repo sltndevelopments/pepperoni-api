@@ -132,7 +132,8 @@ def main() -> int:
 
     for p in products:
         sku = p["sku"]
-        price = num((p.get("offers") or {}).get("price"))
+        offers = p.get("offers") or {}
+        price = num(offers.get("price")) or num(offers.get("pricePerUnit"))
         weight = num(p.get("weight"))
         usd = num(((p.get("offers") or {}).get("exportPrices") or {}).get("USD"))
         shelf = str(p.get("shelfLife") or "").strip()

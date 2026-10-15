@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-15T16:58:06.324769+00:00",
+  "generated_at": "2026-10-15T22:07:31.587562+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 248,
-    "retired": 1495,
-    "all": 1743
+    "keep": 250,
+    "retired": 1497,
+    "all": 1747
   },
   "entries": [
     {
@@ -1869,6 +1869,17 @@
       "kind": "catalog"
     },
     {
+      "url": "/kak-zakazat",
+      "file": "kak-zakazat.html",
+      "intent": "how to order wholesale",
+      "language": "ru",
+      "owner": "sales",
+      "source": "site_facts.json + evidence registry",
+      "canonical_target": "/kak-zakazat",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
       "url": "/kazylyk",
       "file": "kazylyk.html",
       "intent": "kazylyk wholesale",
@@ -1975,6 +1986,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/pizzeria",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/price",
+      "file": "price.html",
+      "intent": "wholesale price list",
+      "language": "ru",
+      "owner": "sales",
+      "source": "Google Sheets via products.json",
+      "canonical_target": "/price",
       "status": "keep",
       "kind": "hub"
     },
@@ -12629,6 +12651,19 @@
       "impressions_28d": 0.0
     },
     {
+      "url": "/en/kak-zakazat",
+      "file": "en/kak-zakazat.html",
+      "intent": "EN how to order (language pair of /kak-zakazat)",
+      "language": "en",
+      "owner": "sales",
+      "source": "site_facts.json + evidence registry",
+      "canonical_target": "/en/kak-zakazat",
+      "status": "noindex",
+      "reason": "published for EN buyers; not in keep set because indexable cap is 250 and RU /kak-zakazat is the indexed commercial URL",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
       "url": "/en/kontraktnoe-proizvodstvo",
       "file": "en/kontraktnoe-proizvodstvo.html",
       "intent": "legacy URL retirement",
@@ -12768,6 +12803,19 @@
       "canonical_target": "/en/pepperoni",
       "status": "301",
       "reason": "explicit duplicate",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/en/price",
+      "file": "en/price.html",
+      "intent": "EN wholesale price list (language pair of /price)",
+      "language": "en",
+      "owner": "sales",
+      "source": "Google Sheets via products.json",
+      "canonical_target": "/en/price",
+      "status": "noindex",
+      "reason": "published for EN buyers; not in keep set because indexable cap is 250 and RU /price is the indexed commercial URL",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },

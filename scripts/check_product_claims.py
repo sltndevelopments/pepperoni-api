@@ -73,6 +73,13 @@ CUSTOM_CTX = re.compile(r"стм|private[- ]label|white[- ]label|под зака
                         r"гибк\w* рецептур|recipe", re.I)
 NEGATED_PORK = re.compile(r"(?:без|no|zero|free|not|не содерж\w*|никак\w*|исключ\w*|вместо|instead of)[^.]{0,25}(?:свин\w*|pork)|"
                           r"(?:свин\w*|pork)[- ]?(?:free|нет|не использ\w*|исключ\w*)", re.I)
+# Denial that a meat-pepperoni is in the live catalog — not an assortment claim.
+ABSENT_FROM_CATALOG = re.compile(
+    r"(?:в\s+текущ\w*\s+каталоге\s+нет|нет\s+в\s+(?:текущ\w*\s+)?каталоге|"
+    r"is\s+not\s+in\s+the\s+current\s+catalog|"
+    r"not\s+in\s+the\s+current\s+catalog)",
+    re.I,
+)
 CONVENTIONAL = re.compile(r"обычн\w* (?:американск\w* )?пепперони|традиционн\w*|классическ\w* американск|conventional|"
                           r"traditional(?:ly)?|american pepperoni|в сша|in the us", re.I)
 URLISH = re.compile(r"https?://\S+|pepperoni\.tatar|kazandelikates\.tatar|/pepperoni\S*", re.I)
@@ -111,6 +118,8 @@ def hits_in(sentence: str, allowed: set[str]) -> set[str]:
     found -= allowed
     if "pork" in found and NEGATED_PORK.search(s):
         found.discard("pork")
+    if found and ABSENT_FROM_CATALOG.search(s):
+        return set()
     return found
 
 

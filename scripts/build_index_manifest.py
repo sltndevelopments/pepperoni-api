@@ -44,6 +44,8 @@ RU_PAGES = [
     _page("faq.html", "buyer questions", "sales", "brand.txt + products.json"),
     _page("halal.html", "halal controls and certificate", "quality", "evidence registry"),
     _page("delivery.html", "delivery terms", "sales", "products.json"),
+    _page("price.html", "wholesale price list", "sales", "Google Sheets via products.json"),
+    _page("kak-zakazat.html", "how to order wholesale", "sales", "site_facts.json + evidence registry"),
     _page("north-star.html", "digital factory strategy and technology roadmap", "management", "owner directive"),
     _page("pepperoni.html", "halal pepperoni wholesale", "sales", "Google Sheets"),
     _page("pepperoni-v-narezke.html", "sliced pepperoni specification", "sales", "Google Sheets"),

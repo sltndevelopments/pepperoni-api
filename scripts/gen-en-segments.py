@@ -724,7 +724,7 @@ footer a{{color:#888;text-decoration:none}}
 <a href="https://wa.me/79872170202?text={whatsapp_text_url}" class="cta cta-outline">💬 WhatsApp</a>
 
 <footer>
-  <p><a href="/en/">← Catalog</a> &middot; <a href="/en/pepperoni">Pepperoni</a> &middot; <a href="/en/about">About</a> &middot; <a href="/en/delivery">Delivery</a> &middot; <a href="/en/faq">FAQ</a></p>
+  <p><a href="/en/">← Catalog</a> &middot; <a href="/en/price">Price list</a> &middot; <a href="/en/kak-zakazat">How to order</a> &middot; <a href="/en/pepperoni">Pepperoni</a> &middot; <a href="/en/about">About</a> &middot; <a href="/en/delivery">Delivery</a> &middot; <a href="/en/faq">FAQ</a></p>
   <p>&copy; <a href="https://kazandelikates.tatar">Kazan Delicacies</a> &middot; <a href="https://pepperoni.tatar/en/">pepperoni.tatar</a></p>
 </footer>
 </div>
