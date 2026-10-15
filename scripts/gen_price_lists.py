@@ -531,22 +531,40 @@ def render_html(meta: dict, rows: list[dict], lang: str) -> str:
     )
 
 
+def _is_chrome_wrapper(path: str) -> bool:
+    """PATH wrappers inject --remote-debugging-port and hang on --print-to-pdf."""
+    p = Path(path)
+    try:
+        if p.stat().st_size > 100_000:
+            return False
+        head = p.read_bytes()[:4000]
+    except OSError:
+        return False
+    return head.startswith(b"#!") or b"remote-debugging-port" in head
+
+
 def _chrome_bin() -> str | None:
-    """Prefer the real Chrome binary. PATH wrappers may add
-    --remote-debugging-port and never exit after --print-to-pdf."""
-    for candidate in (
+    """Prefer the real Chrome/Chromium binary, not a PATH wrapper."""
+    candidates = [
         "/opt/google/chrome/chrome",
         "/usr/bin/google-chrome-stable",
+        "/usr/lib/chromium-browser/chromium-browser",
+        "/usr/lib/chromium/chromium",
         "/usr/bin/chromium",
         "/usr/bin/chromium-browser",
-    ):
-        if Path(candidate).is_file() and os.access(candidate, os.X_OK):
+    ]
+    for which in ("google-chrome-stable", "chromium", "chromium-browser"):
+        found = shutil.which(which)
+        if found:
+            candidates.append(found)
+    seen = set()
+    for candidate in candidates:
+        if not candidate or candidate in seen:
+            continue
+        seen.add(candidate)
+        if Path(candidate).is_file() and os.access(candidate, os.X_OK) and not _is_chrome_wrapper(candidate):
             return candidate
-    return (
-        shutil.which("chromium")
-        or shutil.which("chromium-browser")
-        or shutil.which("google-chrome-stable")
-    )
+    return None
 
 
 def write_pdf(html_path: Path, dest: Path) -> bool:

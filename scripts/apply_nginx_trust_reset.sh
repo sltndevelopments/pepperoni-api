@@ -19,6 +19,7 @@ fi
 
 for name in \
   jerky-redirects.conf karmin-e120-redirects.conf \
+  certificates-halal-redirects.conf \
   pepperoni-blog-redirects.conf \
   geo-cleanup-redirects.conf geo-cleanup-gone.conf \
   en-geo-cleanup-redirects.conf en-geo-cleanup-gone.conf \
@@ -44,6 +45,7 @@ text = path.read_text()
 names = [
     "jerky-redirects.conf",
     "karmin-e120-redirects.conf",
+    "certificates-halal-redirects.conf",
     "pepperoni-blog-redirects.conf",
     "geo-cleanup-redirects.conf",
     "geo-cleanup-gone.conf",

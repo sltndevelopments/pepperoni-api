@@ -27,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from claude_client import call_claude  # noqa: E402
+from site_facts import sku_count, cert_line_en, cert_line_ru  # noqa: E402
 
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
@@ -111,62 +112,55 @@ COUNTRIES = [
 
 # ─────────────────────── certification fact sentences ───────────────────────
 # Rendered verbatim from data — the LLM never writes this section.
-HALAL_FACTS = {
-    "gso": {
-        "ru": "Продукция сертифицирована Комитетом по стандарту «Халяль» ДУМ РТ "
-              "(свидетельство № 614A/2024). Орган аккредитован GSO/GCC, поэтому "
-              "халяль-сертификат признаётся в {name}.",
-        "en": "Products are certified by the Halal Standard Committee of the Muslim "
-              "Religious Board of Tatarstan (certificate No. 614A/2024). The body holds "
-              "GSO/GCC accreditation, so the halal certificate is recognized in {name}.",
-        "ar": "المنتجات حاصلة على شهادة حلال من لجنة معيار الحلال التابعة للإدارة الدينية "
-              "لمسلمي تتارستان (شهادة رقم 614A/2024). الجهة معتمدة من هيئة التقييس الخليجية "
-              "GSO/GCC، لذا فإن شهادة الحلال معترف بها في {name}.",
-    },
-    "gso_member": {
-        "ru": "Халяль-сертификат выдан Комитетом «Халяль» ДУМ РТ (№ 614A/2024). "
-              "Признание сертификата в {name} подтверждается при оформлении "
-              "конкретной поставки.",
-        "en": "The halal certificate is issued by the Halal Committee of the Muslim Board "
-              "of Tatarstan (No. 614A/2024). Recognition in {name} is confirmed "
-              "per shipment.",
-        "ar": "شهادة الحلال صادرة عن لجنة الحلال التابعة للإدارة الدينية لمسلمي تتارستان "
-              "(رقم 614A/2024). ويتم تأكيد الاعتراف في {name} عند ترتيب كل شحنة.",
-    },
-    "recognized": {
-        "ru": "Халяль-сертификат ДУМ РТ (№ 614A/2024) признаётся в {name} напрямую.",
-        "en": "The halal certificate of the Muslim Board of Tatarstan (No. 614A/2024) is "
-              "directly recognized in {name}.",
-        "ar": "شهادة الحلال (رقم 614A/2024) معترف بها مباشرة في {name}.",
-    },
-    "memorandum": {
-        "ru": "Между органами сертификации действует меморандум о взаимном признании "
-              "халяль-сертификата ДУМ РТ (№ 614A/2024) — он принимается в {name}.",
-        "en": "A mutual-recognition memorandum applies: the halal certificate of the "
-              "Muslim Board of Tatarstan (No. 614A/2024) is accepted in {name}.",
-        "ar": "بموجب مذكرة اعتراف متبادل، تُقبل شهادة الحلال (رقم 614A/2024) في {name}.",
-    },
-    "smiic": {
-        "ru": "Комитет «Халяль» ДУМ РТ (№ 614A/2024) имеет международную аккредитацию "
-              "SMIIC. Порядок признания сертификата в {name} подтверждается "
-              "индивидуально при проработке поставки.",
-        "en": "The Halal Committee of the Muslim Board of Tatarstan (No. 614A/2024) holds "
-              "international SMIIC accreditation. Certificate recognition in {name} is "
-              "confirmed individually when arranging a shipment.",
-        "ar": "تحمل لجنة الحلال (رقم 614A/2024) اعتماد SMIIC الدولي. ويتم تأكيد إجراءات "
-              "الاعتراف بالشهادة في {name} بشكل فردي عند ترتيب التوريد.",
-    },
-    None: {
-        "ru": "Продукция имеет халяль-сертификат ДУМ РТ (№ 614A/2024) с международной "
-              "аккредитацией SMIIC и GSO/GCC; условия признания в {name} уточняются "
-              "при оформлении поставки.",
-        "en": "Products carry the halal certificate of the Muslim Board of Tatarstan "
-              "(No. 614A/2024) with international SMIIC and GSO/GCC accreditation; "
-              "recognition terms in {name} are confirmed when arranging supply.",
-        "ar": "تحمل المنتجات شهادة حلال (رقم 614A/2024) باعتماد SMIIC وGSO/GCC الدوليين؛ "
-              "وتُحدد شروط الاعتراف في {name} عند ترتيب التوريد.",
-    },
-}
+# Do not claim GSO/JAKIM/SFDA or destination-market recognition: evidence_registry
+# forbids country approval without an active public source. Recognition is
+# confirmed per shipment.
+def halal_fact(lang: str, name: str) -> str:
+    # Do not place «признан» / recognition next to ОАЭ/Сауд/JAKIM/GSO:
+    # index_policy UNSUPPORTED_CLAIM_RE treats that as a destination-approval claim.
+    _ = name
+    if lang == "ru":
+        return (
+            f"{cert_line_ru()}. Признание сертификата в стране назначения "
+            "подтверждается по конкретной поставке с импортёром; на этой странице "
+            "нет заявления о признании органа страны назначения."
+        )
+    if lang == "en":
+        return (
+            f"{cert_line_en()}. Certificate recognition in the destination market "
+            "is confirmed per shipment with the importer; this page does not claim "
+            "approval by the destination-market authority."
+        )
+    return (
+        f"{cert_line_en()}. يتم تأكيد الاعتراف بالشهادة في سوق المقصد عند كل شحنة "
+        "مع المستورد؛ ولا ندّعي اعتماد جهة السوق المستهدف في هذه الصفحة."
+    )
+
+
+def common_facts(lang: str) -> list[str]:
+    n = sku_count()
+    if lang == "ru":
+        return [
+            "Условия поставки: EXW Казань (Incoterms 2020); иные условия — по согласованию.",
+            "Документы: халяль-свидетельство, ветеринарные сертификаты, декларации соответствия ЕАЭС — комплект по конкретной поставке.",
+            "Расчёты: RUB, USD и другие валюты по договору. Цены на странице — не оферта в валюте страны назначения.",
+            f"Ассортимент: {n} наименований халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.",
+            "Private Label / СТМ: производство под маркой заказчика, объём — по договору (от 5 т).",
+        ]
+    if lang == "en":
+        return [
+            "Delivery terms: EXW Kazan (Incoterms 2020); other terms negotiable.",
+            "Documents: halal certificate, veterinary certificates, EAEU declarations of conformity — pack confirmed per shipment.",
+            "Payment currencies: RUB, USD and others by contract. Page copy is not an offer in the destination currency.",
+            f"Range: {n} halal SKUs — pepperoni, sausages, burger patties, smoked sausages, kazylyk, Tatar pastry.",
+            "Private Label / OEM: production under the customer's brand; volume agreed per contract (from 5 tonnes).",
+        ]
+    return [
+        "شروط التسليم: EXW قازان (إنكوتيرمز 2020)؛ وتُتاح شروط أخرى بالاتفاق.",
+        "المستندات: شهادة الحلال، الشهادات البيطرية، إقرارات مطابقة الاتحاد الاقتصادي الأوراسي.",
+        f"التشكيلة: {n} صنف حلال — بيبروني، نقانق، أقراص برغر، نقانق مدخنة، قازيليك، معجنات تتارية.",
+        "العلامة الخاصة / OEM: الإنتاج تحت علامة العميل؛ الحجم باتفاق العقد.",
+    ]
 
 VET_FACTS = {
     True: {
@@ -184,24 +178,6 @@ VET_FACTS = {
         "en": 'The facility is listed in the Rosselkhoznadzor “Cerberus” registry (No. RU-016/SB88273). Supplies to {name} are at the preparation stage: the halal document package is ready and the Rosselkhoznadzor export permit is being obtained. We accept preliminary enquiries; the first-shipment date is confirmed once the permit is issued.',
         "ar": 'المنشأة مدرجة في سجل «سيربر» التابع لهيئة الرقابة البيطرية الروسية (رقم RU-016/SB88273). التوريد إلى {name} في مرحلة الإعداد: حزمة وثائق الحلال جاهزة، ويجري الحصول على تصريح التصدير من الهيئة. نقبل الطلبات المبدئية، ويُحدد موعد أول شحنة بعد صدور التصريح.',
     },
-}
-
-COMMON_FACTS = {
-    "ru": ["Условия поставки: EXW Казань (Incoterms 2020); иные условия — по согласованию.",
-           "Документы: халяль-свидетельство, ветеринарные сертификаты, декларации соответствия ЕАЭС.",
-           "Расчёты: RUB, USD, KZT, UZS, KGS, BYN, AZN.",
-           "Ассортимент: живой каталог халяль — пепперони, сосиски, котлеты, копчёные колбасы, казылык, татарская выпечка.",
-           "Private Label / СТМ: производство под маркой заказчика, объём — по договору."],
-    "en": ["Delivery terms: EXW Kazan (Incoterms 2020); other terms negotiable.",
-           "Documents: halal certificate, veterinary certificates, EAEU declarations of conformity.",
-           "Payment currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN.",
-           "Range: live halal catalog — pepperoni, sausages, burger patties, smoked sausages, kazylyk, Tatar pastry.",
-           "Private Label / OEM: production under the customer's brand; volume agreed per contract."],
-    "ar": ["شروط التسليم: EXW قازان (إنكوتيرمز 2020)؛ وتُتاح شروط أخرى بالاتفاق.",
-           "المستندات: شهادة الحلال، الشهادات البيطرية، إقرارات مطابقة الاتحاد الاقتصادي الأوراسي.",
-           "عملات الدفع: RUB, USD, KZT, UZS, KGS, BYN, AZN.",
-           "التشكيلة: الكتالوج الحي للحلال — بيبروني، نقانق، أقراص برغر، نقانق مدخنة، قازيليك، معجنات تتارية.",
-           "العلامة الخاصة / OEM: الإنتاج تحت علامة العميل؛ الحجم باتفاق العقد."],
 }
 
 UI = {
@@ -337,9 +313,9 @@ def render(c: dict, lang: str, gen: dict) -> str:
     name = c[lang] if lang != "ru" else c["ru_loc"]
     plain_name = c[lang]
     url = f"{BASE}{LANG_PREFIX[lang]}/export/{c['slug']}"
-    halal_fact = HALAL_FACTS[c["halal"]][lang].format(name=plain_name)
+    halal_txt = halal_fact(lang, plain_name)
     vet_fact = VET_FACTS[c["vet"]][lang].format(name=plain_name)
-    facts_li = "\n".join(f"<li>{f}</li>" for f in COMMON_FACTS[lang])
+    facts_li = "\n".join(f"<li>{f}</li>" for f in common_facts(lang))
     if c["eaeu"]:
         eaeu_note = {"ru": "<li>Страна входит в ЕАЭС — упрощённое таможенное оформление.</li>",
                      "en": "<li>The country is an EAEU member — simplified customs clearance.</li>",
@@ -378,7 +354,6 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="{url}">
 <link rel="icon" href="/favicon.ico" sizes="any">
-<link rel="llms" href="/llms.txt" type="text/plain" title="LLM instructions">
 {hreflang_block(c['slug'], c['langs'], c['iso'])}
 <meta property="og:type" content="website">
 <meta property="og:title" content="{gen['title']}">
@@ -397,7 +372,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <span class="badge">HALAL · B2B · {c['iso']}</span>
 <div class="lead">{gen['intro_html']}</div>
 <h2>{ui['cert_h']}</h2>
-<div class="card"><p>{halal_fact}</p><p>{vet_fact}</p></div>
+<div class="card"><p>{halal_txt}</p><p>{vet_fact}</p></div>
 {gen['market_html']}
 <h2>{ui['how_h']}</h2>
 {gen['logistics_html']}
@@ -427,6 +402,77 @@ def parse_json(raw: str) -> dict:
     return json.loads(raw[start:end + 1])
 
 
+CARD_RE = re.compile(
+    r'(<h2>[^<]*(?:Сертификация|Certification|الشهادات)[^<]*</h2>\s*'
+    r'<div class="card">)(.*?)(</div>)',
+    re.S,
+)
+FACTS_UL_RE = re.compile(
+    r'(<div class="card"><ul>\s*)(.*?)(\s*</ul></div>)',
+    re.S,
+)
+
+
+def refresh_facts(only: str | None) -> int:
+    """Patch live cert + SKU-count facts into already generated export HTML."""
+    n = sku_count()
+    changed = 0
+    for c in COUNTRIES:
+        if only and c["slug"] != only:
+            continue
+        if c["slug"] == "kazakhstan" and not only:
+            # content_plan_pages.py owns /export/kazakhstan (item 8).
+            continue
+        for lang in c["langs"]:
+            out = PUBLIC / (LANG_PREFIX[lang].strip("/") or ".") / "export" / f"{c['slug']}.html"
+            if not out.exists():
+                continue
+            html = out.read_text(encoding="utf-8")
+            name = c[lang] if lang != "ru" else c["ru_loc"]
+            plain = c[lang]
+            cert = (
+                f"<p>{halal_fact(lang, plain)}</p>"
+                f"<p>{VET_FACTS[c['vet']][lang].format(name=plain)}</p>"
+            )
+            html2, n_card = CARD_RE.subn(rf"\1{cert}\3", html, count=1)
+            facts_li = "\n".join(f"<li>{f}</li>" for f in common_facts(lang))
+            if c["eaeu"]:
+                eaeu_note = {
+                    "ru": "<li>Страна входит в ЕАЭС — упрощённое таможенное оформление.</li>",
+                    "en": "<li>The country is an EAEU member — simplified customs clearance.</li>",
+                    "ar": "",
+                }[lang]
+            else:
+                eaeu_note = ""
+            html2, n_ul = FACTS_UL_RE.subn(
+                rf"\1{facts_li}\n{eaeu_note}\3", html2, count=1)
+            # Strip invented numeric transit days (not in evidence_registry).
+            html2 = re.sub(
+                r"(?:typically (?:ranges from |takes (?:between )?))?\d+\s*[–-]\s*\d+\s*(?:business )?days",
+                "transit time is confirmed per shipment",
+                html2,
+                flags=re.I,
+            )
+            html2 = re.sub(
+                r"(?:от|за)\s+\d+\s*[–-]\s*\d+\s*(?:рабочих )?дн(?:я|ей|и)",
+                "срок доставки подтверждаем по конкретной поставке",
+                html2,
+                flags=re.I,
+            )
+            html2 = re.sub(
+                r"(?:ориентировочно\s+)?\d+\s*[–-]\s*\d+\s*(?:рабочих\s+)?дн(?:я|ей|и)",
+                "срок доставки подтверждаем по конкретной поставке",
+                html2,
+                flags=re.I,
+            )
+            if html2 != html:
+                out.write_text(html2, encoding="utf-8")
+                changed += 1
+                print(f"  refreshed {out.relative_to(ROOT)} (sku={n}, card={n_card}, ul={n_ul})")
+    print(f"export facts refresh: {changed} file(s), sku_count={n}")
+    return 0
+
+
 def add_to_sitemap(urls: list) -> None:
     if not SITEMAP.exists():
         return
@@ -446,7 +492,12 @@ def main() -> int:
     ap.add_argument("--only", help="country slug")
     ap.add_argument("--max", type=int, default=int(os.environ.get("EXPORT_MAX", "60")),
                     help="max LLM page generations this run")
+    ap.add_argument("--refresh-facts", action="store_true",
+                    help="rewrite cert card + catalog-count facts on existing pages (no LLM)")
     args = ap.parse_args()
+
+    if args.refresh_facts:
+        return refresh_facts(args.only)
 
     made, new_urls = 0, []
     lang_names = {"ru": "русский", "en": "английский (English)", "ar": "арабский (العربية، فصحى)"}

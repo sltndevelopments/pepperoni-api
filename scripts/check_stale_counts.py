@@ -56,6 +56,12 @@ PATTERNS = [
     re.compile(rf"\b{RU_WORDS}\s*[:—-]?\s*(\d{{1,4}})(?!\d)"),
     re.compile(rf"(?<![\d-])(\d{{1,4}})\s+{EN_WORDS}\b", re.I),
     re.compile(rf'"product_count"\s*:\s*(\d{{1,4}})'),
+    # Split hero stats: <div class="num">62</div><div class="lbl">SKU…
+    re.compile(
+        r'class="num">(\d{1,4})</(?:div|span)>\s*<(?:div|span) class="(?:lbl|label)"[^>]*>'
+        r'(?:SKUs?\b|наименовани)',
+        re.I,
+    ),
 ]
 
 # "numberOfItems" appears both for the whole-catalog ItemList/OfferCatalog

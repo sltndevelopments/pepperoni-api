@@ -80,6 +80,8 @@ python3 scripts/gen-en-products.py 2>&1 || echo "[warn] gen-en-products.py faile
 # live catalog as of <lastSynced>" — rebuild them from the same products.json so a
 # Sheet price change or a lifted spec hold reaches them in the same sync cycle.
 python3 scripts/gen_category_pages.py 2>&1 || echo "[warn] gen_category_pages.py failed; keeping previous category pages"
+python3 scripts/gen_export_pages.py --refresh-facts 2>&1 || echo "[warn] gen_export_pages --refresh-facts failed; export SKU counts may be stale"
+python3 scripts/content_plan_pages.py 2>&1 || echo "[warn] content_plan_pages.py failed; bakery/pizzeria/KZ/halal matrix may be stale"
 
 # 1b2. Perf hints (preconnect + Speculation Rules) — idempotent. Re-apply after
 # product generators rewrite HTML so Chromium keeps moderate prerender on hover.

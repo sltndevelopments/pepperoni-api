@@ -35,7 +35,7 @@ EN_FAQ_BLOCK = re.compile(
     re.S,
 )
 VISIBLE_FAQ_RE = re.compile(
-    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|Вопросы и ответы|FAQ|Frequently asked)\s*<'
     r'|<details\b[^>]*>\s*<summary\b'
     r'|<div class="faq-(?:item|q|a)"'
     r'|<p class="faq-q"',
@@ -46,7 +46,7 @@ QA_MARKUP_RE = re.compile(
     re.I,
 )
 FAQ_HEADING_RE = re.compile(
-    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)',
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|Вопросы и ответы|FAQ|Frequently asked)',
     re.I,
 )
 

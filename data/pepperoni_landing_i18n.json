@@ -14,7 +14,7 @@
     "vetis": "28c3cbc5-b6c1-4dcd-bccc-0f78f80ebb12",
     "barcode": "4680638720318",
     "hs_code": "1601 00",
-    "diameter": "50–55",
+    "diameter": "not in products.json",
     "net_weight": "0,5",
     "storage_temp": "–18°C",
     "shelf_life_days": "360",
@@ -150,7 +150,7 @@
     "hero": {
       "eyebrow": "Производитель · Казань, Татарстан · Экспорт в СНГ",
       "h1": "Пепперони халяль оптом от производителя",
-      "sub": "Варено-копчёный куриный пепперони для пиццерий, HoReCa и дистрибуции. Диаметр 50–55 мм, ровные слайсы, не скручивается в печи. Срок хранения 360 суток при –18°C — удобно для экспортных плеч.",
+      "sub": "Варено-копчёный куриный пепперони: KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Срок хранения 360 суток при –18°C. Применение в пиццерии — на /pepperoni-dlya-pizzerii. Пепперони из конины в текущем каталоге нет.",
       "cta_primary": "Получить прайс и образцы",
       "cta_wa": "Написать в WhatsApp",
       "cta_video": "Смотреть производство",
@@ -161,7 +161,7 @@
       "items": [
         {
           "label": "Халяль-сертификат",
-          "value": "ДУМ РТ № 614A/2024"
+          "value": "ДУМ РТ №0008 / №614A/2024"
         },
         {
           "label": "Пищевая безопасность",
@@ -199,11 +199,11 @@
       "h2": "Продукт: пепперони варено-копчёный куриный",
       "sku_label": "Артикул",
       "name": "Пепперони варено-копчёный куриный, 0,5 кг",
-      "lead": "Нарезка сервировочной формы: ровные круглые слайсы одинакового диаметра. Продукт термостабильный — при запекании держит форму, не скручивается «лодочкой» и не расплывается по пицце. Халяль, без ГМО, без трансглютаминазы.",
+      "lead": "Два формата из каталога: нарезка KD-013 (0,5 кг) и целый батон KD-014 (0,8 кг), варёно-копчёный куриный. Состав, цена EXW и хранение — в карточках SKU. Халяль ДУМ РТ №0008 и №614A/2024.",
       "gallery_h3": "Фотографии продукта",
       "alt_main": "Пепперони халяль варено-копчёный куриный — общий вид батона",
       "alt_pack": "Вакуумная упаковка пепперони халяль 0,5 кг «Казанские Деликатесы»",
-      "alt_slice": "Нарезка пепперони халяль — ровные слайсы диаметром 50–55 мм для пиццы",
+      "alt_slice": "Нарезка пепперони халяль KD-013 — слайсы для пиццы, фото из каталога",
       "specs_h3": "Спецификация",
       "specs": [
         [
@@ -216,7 +216,7 @@
         ],
         [
           "Диаметр батона",
-          "50–55 мм"
+          "в спецификации партии, в каталоге не публикуем"
         ],
         [
           "Формат",
@@ -291,18 +291,18 @@
       "items": [
         {
           "icon": "🔥",
-          "title": "Не скручивается в печи",
-          "text": "Плотность и оболочка подобраны так, что слайс остаётся плоским при запекании и не превращается в «чашечку»."
+          "title": "Два формата из каталога",
+          "text": "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Поведение в печи на этой странице не заявляем: нет опубликованного теста с условиями. Сценарий кухни — /pepperoni-dlya-pizzerii."
         },
         {
           "icon": "⚖️",
           "title": "Предсказуемый фудкост",
-          "text": "Калиброванный батон 50–55 мм даёт одинаковые слайсы: порция считается по штукам, а не «на глаз». Масса порции — в спецификации партии."
+          "text": "Масса упаковки и цена EXW — в карточках KD-013 и KD-014. Порция и диаметр слайса — в спецификации партии, не в рекламном тексте."
         },
         {
           "icon": "🕌",
           "title": "Халяль без оговорок",
-          "text": "Сертификат Комитета по стандарту «Халяль» ДУМ РТ № 614A/2024. Производство сертифицировано по стандарту «Халяль». Алкоголь в рецептуре не используется."
+          "text": "Халяль ДУМ РТ №0008 (до 01.10.2029) и №614A/2024 (до 16.02.2027). Алкоголь в рецептуре не используется."
         },
         {
           "icon": "📦",
@@ -425,7 +425,7 @@
       "h2": "Private Label — пепперони под вашим брендом",
       "lead": "Производим тот же продукт под вашей торговой маркой. Подходит сетям пиццерий, дистрибьюторам и розничным сетям, которым нужна собственная линейка халяль-топпингов.",
       "items": [
-        "Сырьё: курица, говядина, конина или миксы",
+        "Текущий каталог — курица (KD-013/014). Другое сырьё для СТМ — только по спецификации заказчика, без обещания конины в прайсе",
         "Острота: mild / medium / spicy",
         "Состав и нитрит натрия — только по карточке SKU в каталоге",
         "Нарезка: индивидуальный диаметр и толщина слайса",
@@ -447,7 +447,7 @@
         },
         {
           "q": "Скручивается ли пепперони при запекании?",
-          "a": "Нет. Продукт термостабильный: плотность фарша и оболочка подобраны так, чтобы слайс оставался плоским и не превращался в «чашечку». Это ключевое требование пиццерий, и мы предлагаем протестировать образцы в вашей печи до контракта."
+          "a": "Результат теста в печи на сайте не публикуем: нет снимка с условиями. Образец для вашей печи согласует отдел продаж. Сценарий пиццерии — /pepperoni-dlya-pizzerii."
         },
         {
           "q": "Какой срок хранения и температура?",
@@ -455,7 +455,7 @@
         },
         {
           "q": "Вы поставляете в мою страну?",
-          "a": "Текущие экспортные направления — Казахстан, Беларусь, Узбекистан. Предприятие аттестовано Россельхознадзором для поставок также в Кыргызстан, Армению, Азербайджан, Грузию и Таджикистан — эти направления открываем по запросу. Базис по умолчанию — EXW Казань, другие условия обсуждаем. Маршрут и сроки считаем под конкретный город."
+          "a": "Текущие экспортные направления — Казахстан, Беларусь, Кыргызстан. Предприятие аттестовано Россельхознадзором также для Армении, Азербайджана, Грузии, Таджикистана и Узбекистана — эти направления открываем по запросу. Базис по умолчанию — EXW Казань. Срок в днях на странице не фиксируем."
         },
         {
           "q": "Какой минимальный заказ?",
@@ -576,7 +576,7 @@
     "hero": {
       "eyebrow": "Halal pepperoni manufacturer · Kazan, Tatarstan, Russia · CIS export",
       "h1": "Halal pepperoni manufacturer — wholesale direct from the Kazan plant",
-      "sub": "Cooked-smoked chicken pepperoni for pizzeria chains, HoReCa and distributors. Calibrated 50–55 mm stick, even slices that stay flat in the oven. 360-day shelf life at –18°C — built for long export routes. Sold by the pallet, EXW Kazan; private label from 5 tonnes.",
+      "sub": "Cooked-smoked chicken pepperoni: KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. 360-day shelf life at –18°C. Pizzeria use is on /en/pepperoni-dlya-pizzerii. Horse-meat pepperoni is not in the current catalog.",
       "cta_primary": "Get price list and samples",
       "cta_wa": "Message us on WhatsApp",
       "cta_video": "Watch the production",
@@ -587,7 +587,7 @@
       "items": [
         {
           "label": "Halal certificate",
-          "value": "DUM RT #614A/2024"
+          "value": "DUM RT No. 0008 / No. 614A/2024"
         },
         {
           "label": "Food safety",
@@ -625,11 +625,11 @@
       "h2": "Product: cooked-smoked chicken pepperoni",
       "sku_label": "SKU",
       "name": "Cooked-smoked chicken pepperoni, 0.5 kg",
-      "lead": "Serving-cut slices: even, round, consistent diameter. The product is heat-stable — slices keep their shape in the oven, they do not cup and do not spread across the pizza. Halal-certified, no GMO, no transglutaminase.",
+      "lead": "Two catalog formats: sliced KD-013 (0.5 kg) and whole stick KD-014 (0.8 kg), cooked-smoked chicken. Composition, EXW price and storage are on the SKU cards. Halal DUM RT No. 0008 and No. 614A/2024.",
       "gallery_h3": "Product photos",
       "alt_main": "Halal cooked-smoked chicken pepperoni — whole stick",
       "alt_pack": "Vacuum pack of halal pepperoni 0.5 kg by Kazan Delicacies",
-      "alt_slice": "Sliced halal pepperoni — even 50–55 mm slices for pizza",
+      "alt_slice": "Sliced halal pepperoni KD-013 — catalog photo for pizza",
       "specs_h3": "Specification",
       "specs": [
         [
@@ -642,7 +642,7 @@
         ],
         [
           "Stick diameter",
-          "50–55 mm"
+          "in the batch specification; not published in the catalog"
         ],
         [
           "Format",
@@ -717,18 +717,18 @@
       "items": [
         {
           "icon": "🔥",
-          "title": "Stays flat in the oven",
-          "text": "Density and casing are tuned so the slice stays flat while baking instead of curling into a cup."
+          "title": "Two catalog formats",
+          "text": "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Oven behaviour is not claimed here: there is no published test with conditions. Kitchen scenario — /en/pepperoni-dlya-pizzerii."
         },
         {
           "icon": "⚖️",
           "title": "Predictable food cost",
-          "text": "A calibrated 50–55 mm stick gives uniform slices: portions are counted in pieces, not by eye. Portion weight is stated in the batch specification."
+          "text": "Pack weight and EXW price are on the KD-013 and KD-014 cards. Portion and slice diameter are in the batch specification, not in marketing copy."
         },
         {
           "icon": "🕌",
           "title": "Halal with no caveats",
-          "text": "Certified by the Halal Standard Committee of DUM RT, certificate #614A/2024. The plant is certified to the Halal standard. No alcohol is used."
+          "text": "Halal DUM RT No. 0008 (until 1 Oct 2029) and No. 614A/2024 (until 16 Feb 2027). No alcohol is used."
         },
         {
           "icon": "📦",
@@ -851,7 +851,7 @@
       "h2": "Private label — pepperoni under your brand",
       "lead": "We produce the same product under your trademark. It suits pizzeria chains, distributors and retail chains that need their own halal topping line.",
       "items": [
-        "Raw material: chicken, beef, horse meat or blends",
+        "Current catalog is chicken (KD-013/014). Other meats for private label are only against the buyer's specification — horse pepperoni is not in the price list",
         "Heat level: mild / medium / spicy",
         "Ingredients and sodium nitrite are listed on each SKU card",
         "Slicing: custom diameter and slice thickness",
@@ -873,7 +873,7 @@
         },
         {
           "q": "Does the pepperoni curl when baked?",
-          "a": "No. The product is heat-stable: the meat density and the casing are tuned so the slice stays flat instead of cupping. This is a key pizzeria requirement, and we offer to test samples in your own oven before any contract."
+          "a": "We do not publish an oven-test result: there is no photo with conditions. Sales can agree a sample for your oven. Pizzeria scenario — /en/pepperoni-dlya-pizzerii."
         },
         {
           "q": "What is the shelf life and storage temperature?",

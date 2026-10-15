@@ -56,15 +56,6 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/cases"/>
   </url>
   <url>
-    <loc>https://pepperoni.tatar/certificates</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/certificates"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/certificates"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/certificates"/>
-  </url>
-  <url>
     <loc>https://pepperoni.tatar/delivery</loc>
     <lastmod>2026-10-15</lastmod>
     <changefreq>monthly</changefreq>
@@ -162,15 +153,6 @@
     <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/cases"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/cases"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/cases"/>
-  </url>
-  <url>
-    <loc>https://pepperoni.tatar/en/certificates</loc>
-    <lastmod>2026-10-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://pepperoni.tatar/certificates"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://pepperoni.tatar/en/certificates"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://pepperoni.tatar/certificates"/>
   </url>
   <url>
     <loc>https://pepperoni.tatar/en/delivery</loc>

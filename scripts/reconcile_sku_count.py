@@ -153,8 +153,8 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
             (r'("name": "Заморозка", "numberOfItems": )\d+', r"\g<1>{frozen}"),
             (r'("name": "Охлаждённая продукция", "numberOfItems": )\d+', r"\g<1>{chilled}"),
             (r'("name": "Выпечка", "numberOfItems": )\d+', r"\g<1>{bakery}"),
-            (r'(<span class="num">)\d+(</span><span class="label">наименований продукции</span>)',
-             r"\g<1>{n}\2"),
+            (r'(<span class="num">)\d+(</span>\s*<span class="label">)наименовани[яйе] продукции(</span>)',
+             r"\g<1>{n}\2наименований продукции\g<3>"),
             (r"всего \d+ SKUs,", "всего {n} SKUs,"),
             (r"<strong>\d+ наименовани[яй]</strong>", "<strong>{ru_name}</strong>"),
             (r"JSON, \d+ товара?, синхронизация", "JSON, {ru}, синхронизация"),
@@ -171,7 +171,28 @@ TARGETS: list[tuple[Path, list[tuple[str, str]]]] = [
             (r"\d+ SKUs · 7 currencies", "{n} SKUs · 7 currencies"),
             (r"\d+ SKUs total,", "{n} SKUs total,"),
             (r"\d+ halal SKUs · HACCP", "{n} halal SKUs · HACCP"),
-            (r"(<span class=\"num\">)\d+(</span>)", r"\g<1>{n}\2"),
+            (r'(<span class="num">)\d+(</span><span class="label">halal SKUs )',
+             r"\g<1>{n}\2"),
+            # Do NOT rewrite every span.num — that stamped the catalog
+            # total onto "product lines" and "CIS export directions".
+            (r'(<span class="num">)\d+(</span><span class="label">product lines: frozen, chilled, bakery</span>)',
+             r"\g<1>3\2"),
+            (r'(<span class="num">)\d+(</span><span class="label">CIS export directions: )[^<]+',
+             r"\g<1>3\2Kazakhstan, Belarus, Kyrgyzstan; Gulf — in preparation"),
+        ],
+    ),
+    (
+        PUBLIC / "capabilities.html",
+        [
+            (r'(<div class="num">)\d+(</div>\s*<div class="lbl">SKU в живом каталоге</div>)',
+             r"\g<1>{n}\2"),
+        ],
+    ),
+    (
+        PUBLIC / "en" / "capabilities.html",
+        [
+            (r'(<div class="num">)\d+(</div>\s*<div class="lbl">SKUs in the live catalog</div>)',
+             r"\g<1>{n}\2"),
         ],
     ),
     (
@@ -306,6 +327,37 @@ def patch_file(path: Path, rules: list[tuple[str, str]], ctx: dict, check_only: 
     return True, True
 
 
+def export_targets(ctx: dict) -> list[tuple[Path, list[tuple[str, str]]]]:
+    """Country export pages and export hubs bake a whole-catalog count in the facts list."""
+    rules_en = [
+        (r"Range: \d+ halal SKUs —", "Range: {n} halal SKUs —"),
+        (r"Range: live halal catalog —", "Range: {n} halal SKUs —"),
+        (r"Products:</strong> \d+ halal SKUs", "Products:</strong> {n} halal SKUs"),
+        (r"Products:</strong> live halal catalog", "Products:</strong> {n} halal SKUs"),
+    ]
+    rules_ru = [
+        (r"Ассортимент: \d+ наименований халяль —", "Ассортимент: {n} наименований халяль —"),
+        (r"Ассортимент: живой каталог халяль —", "Ассортимент: {n} наименований халяль —"),
+        (r"Продукция:</strong> \d+ наименований халяль", "Продукция:</strong> {n} наименований халяль"),
+        (r"Продукция:</strong> живой каталог халяль", "Продукция:</strong> {n} наименований халяль"),
+    ]
+    out: list[tuple[Path, list[tuple[str, str]]]] = []
+    for hub, rules in (
+        (PUBLIC / "export.html", rules_ru),
+        (PUBLIC / "en" / "export.html", rules_en),
+    ):
+        if hub.exists():
+            out.append((hub, rules))
+    for folder, rules in (
+        (PUBLIC / "export", rules_ru),
+        (PUBLIC / "en" / "export", rules_en),
+    ):
+        if folder.is_dir():
+            for path in sorted(folder.glob("*.html")):
+                out.append((path, rules))
+    return out
+
+
 def save_state(n: int) -> None:
     STATE_FILE.parent.mkdir(parents=True, exist_ok=True)
     prev = None
@@ -354,7 +406,7 @@ def main() -> int:
 
     any_mismatch = False
     any_changed = False
-    for path, rules in TARGETS:
+    for path, rules in TARGETS + export_targets(ctx):
         if not path.exists():
             continue
         mismatched, wrote = patch_file(path, rules, ctx, check_only)

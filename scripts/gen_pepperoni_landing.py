@@ -763,7 +763,6 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <span class="badge badge--halal">HALAL {esc(facts["halal_cert"])}</span>
       <span class="badge">HACCP</span>
       <span class="badge">ISO 22000:2018</span>
-      <span class="badge">{esc(facts["diameter"])} mm</span>
       <span class="badge">{esc(facts["shelf_life_days"])} / {esc(facts["storage_temp"])}</span>
     </div>
     <div class="btn-row">

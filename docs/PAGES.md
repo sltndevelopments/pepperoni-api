@@ -8,14 +8,14 @@ it indexable by itself.
 ## Current canonical surface
 
 - Target: 180–250 indexable URLs.
-- Current allowlist: 250 URLs (policy cap).
+- Current allowlist: 248 URLs.
 - Languages: Russian at the root and English under `/en`.
 - Product records: one RU and one EN page for every current `KD-NNN` SKU in
   `public/products.json`.
 - Commercial pages: category, audience, private-label, export and catalog
   hubs listed explicitly in `scripts/build_index_manifest.py`.
-- Trust pages: `/about`, `/capabilities`, `/certificates`, `/cases`, `/export`
-  and `/editorial-policy`, with English counterparts.
+- Trust pages: `/about`, `/capabilities`, `/halal`, `/cases`, `/export`
+  and `/editorial-policy`, with English counterparts. `/certificates` 301s to `/halal`.
 - Editorial pages: 25 selected cornerstone guides across RU and EN.
 - City × product pages and unsupported locales: never indexable.
 
@@ -32,10 +32,8 @@ python3 scripts/rebuild_sitemap.py
 - EN private label: `/en/private-label`
 - Halal pepperoni commercial hub: `/pepperoni` and `/en/pepperoni`
 - Catalog: `/products` and `/en/products`
-- Wholesale price list: `/price` (indexable) and `/en/price` (published, noindex — allowlist cap 250); downloads `/prices.xlsx`, `/prices.pdf`
-- How to order: `/kak-zakazat` (indexable) and `/en/kak-zakazat` (published, noindex — allowlist cap 250)
 - Company identity: `/about` and `/en/about`
-- Certificate verification: `/certificates` and `/en/certificates`
+- Certificate verification: `/halal` and `/en/halal` (`/certificates` → 301 `/halal`)
 
 Legacy `/oem`, `/private-label`, narrow private-label pages, synonym landings
 and duplicate articles must resolve through the consolidation map, not compete

@@ -72,7 +72,37 @@
       "_source": "live https://pepperoni.tatar/halal 2026-10-15; PDF /docs/made-in-russia-cc003181.pdf"
     },
     "halal_meat_primary": {"issuer_ru": "Комитет «Халяль» ДУМ РТ", "number": "0008", "valid_until": "2029-10-01", "_source": "alias of certificates.halal_0008"},
-    "standards": ["HACCP", "ТР ТС 021/2011"]
+    "standards": ["HACCP", "ТР ТС 021/2011"],
+    "sku_matrix": {
+      "_doc": "Certificate → catalog section. Live SKU lists and counts come from products.json via site_facts.sku_matrix(); do not freeze a SKU list here.",
+      "halal_0008": {
+        "sections": ["Заморозка", "Охлаждённая продукция"],
+        "kind": "meat",
+        "verify_url": "https://pepperoni.tatar/docs/certificate-halal-0008-2026.pdf"
+      },
+      "halal_614a": {
+        "sections": ["Заморозка", "Охлаждённая продукция"],
+        "kind": "meat",
+        "verify_url": "https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/"
+      },
+      "halal_bakery": {
+        "sections": ["Выпечка"],
+        "kind": "bakery",
+        "verify_url": "https://halalrt.ru/c/4hDESSiMNsDK3Jt/"
+      },
+      "iso_22000": {
+        "sections": ["Заморозка", "Охлаждённая продукция", "Выпечка"],
+        "kind": "facility",
+        "verify_url": "https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx",
+        "not_halal": true
+      },
+      "made_in_russia": {
+        "sections": ["Заморозка", "Охлаждённая продукция", "Выпечка"],
+        "kind": "facility",
+        "verify_url": "https://pepperoni.tatar/docs/made-in-russia-cc003181.pdf"
+      },
+      "_source": "products.json section field + certificates.* on this file; owner 2026-10-15: every certificate on live /halal is valid, including 884A/2025"
+    }
   },
   "export": {
     "current_ru": ["Казахстан", "Беларусь", "Кыргызстан"],

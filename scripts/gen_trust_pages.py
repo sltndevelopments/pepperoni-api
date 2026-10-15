@@ -63,7 +63,7 @@ def shell(*, lang: str, slug: str, title: str, description: str,
             ("/products", "Каталог"),
             ("/pepperoni", "Пепперони"),
             ("/kontraktnoe-proizvodstvo", "СТМ"),
-            ("/certificates", "Сертификаты"),
+            ("/halal", "Халяль"),
             ("/about", "О компании"),
         ]
         cta = "Запросить спецификацию"
@@ -73,7 +73,7 @@ def shell(*, lang: str, slug: str, title: str, description: str,
             ("/en/products", "Catalog"),
             ("/en/pepperoni", "Pepperoni"),
             ("/en/private-label", "Private label"),
-            ("/en/certificates", "Certificates"),
+            ("/en/halal", "Halal"),
             ("/en/about", "Company"),
         ]
         cta = "Request specification"
@@ -309,6 +309,9 @@ def main() -> int:
     data = facts()
     for lang, pages in (("ru", ru_pages(data)), ("en", en_pages(data))):
         for slug, page in pages.items():
+            if slug == "certificates":
+                # Content-plan item 2: /certificates 301 → /halal; do not recreate HTML.
+                continue
             out = PUBLIC / (f"en/{slug}.html" if lang == "en" else f"{slug}.html")
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_text(
