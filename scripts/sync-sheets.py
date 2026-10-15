@@ -724,7 +724,7 @@ A: {cert_line_ru()}. Публичная проверка ISO 22000 через IA
 A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
 
 **Q: Как получить актуальный прайс-лист?**
-A: Живой каталог с ценами: https://api.pepperoni.tatar/api/products (JSON, без авторизации). Статический снапшот: https://pepperoni.tatar/products.json. Прайс-лист (текст): https://pepperoni.tatar/wholesale-price-list-ru.txt. Для коммерческого предложения: info@kazandelikates.tatar.
+A: HTML-прайс: https://pepperoni.tatar/price (Excel /prices.xlsx, PDF /prices.pdf). Живой каталог: https://api.pepperoni.tatar/api/products. Как заказать: https://pepperoni.tatar/kak-zakazat. Для коммерческого предложения: info@kazandelikates.tatar.
 """
 
 
@@ -815,7 +815,7 @@ A: {cert_line_en()}. Public ISO 22000 verification via IAF CertSearch: https://w
 A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
 
 **Q: How do I get an up-to-date price list?**
-A: Live catalog with prices: https://api.pepperoni.tatar/api/products (JSON, no auth). Static snapshot: https://pepperoni.tatar/products.json. Plain text price list: https://pepperoni.tatar/wholesale-price-list.txt. For a commercial quote: info@kazandelikates.tatar.
+A: HTML price list: https://pepperoni.tatar/en/price (Excel /prices.xlsx, PDF /prices.pdf). Live catalog: https://api.pepperoni.tatar/api/products. How to order: https://pepperoni.tatar/en/kak-zakazat. For a commercial quote: info@kazandelikates.tatar.
 """
 
 

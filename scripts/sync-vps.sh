@@ -98,6 +98,7 @@ python3 scripts/apply_site_facts.py 2>&1 || echo "[warn] apply_site_facts.py fai
 python3 scripts/render_static_catalog.py 2>&1 || echo "[warn] render_static_catalog.py failed; static catalog may be stale"
 # Price lists come from the same products.json as cards and catalog (no more hand-made snapshots).
 python3 scripts/gen_price_lists.py 2>&1 || echo "[warn] gen_price_lists.py failed; price lists may be stale"
+python3 scripts/gen_how_to_order.py 2>&1 || echo "[warn] gen_how_to_order.py failed; /kak-zakazat may be stale"
 
 # 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one
 # that sync-sheets.mjs writes). Pulls live catalog + reconciled FAQ.
@@ -124,6 +125,7 @@ python3 scripts/fix_schema.py
 python3 scripts/ensure_metrika.py --keep
 # Cross-links to money/segment pages + brand-site link + contact-click goals (idempotent block).
 python3 scripts/inject_site_links.py 2>&1 || echo "[warn] inject_site_links.py failed; site-links block may be stale"
+python3 scripts/clean_faqpage_schema.py 2>&1 || echo "[warn] clean_faqpage_schema.py failed; FAQPage copies may remain"
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py
 

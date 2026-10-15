@@ -166,11 +166,12 @@ TOP_COMMERCIAL = {
     "/kolbasy-kopchyonye", "/vetchina-optom", "/sosiski-dlya-hotdog",
     "/kotlety-dlya-burgerov", "/vyipechka-halyal", "/about",
     "/capabilities", "/cases", "/certificates", "/delivery", "/export", "/faq",
+    "/price", "/kak-zakazat",
     "/en/", "/en/pepperoni", "/en/jerky", "/en/private-label",
     "/en/kazylyk", "/en/kolbasy-varenye", "/en/kolbasy-kopchyonye",
     "/en/vetchina-optom", "/en/sosiski-dlya-hotdog", "/en/kotlety-dlya-burgerov",
     "/en/vyipechka-halyal", "/en/about", "/en/capabilities", "/en/cases",
-    "/en/certificates", "/en/delivery", "/en/export", "/en/faq"
+    "/en/certificates", "/en/delivery", "/en/export", "/en/faq",
 }
 
 

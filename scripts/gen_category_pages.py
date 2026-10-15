@@ -402,7 +402,7 @@ def build_page(cfg):
   {_photo_block(products)}
 
   <h2>Спецификации</h2>
-  <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Отдельного PDF спецификации в каталоге нет: лист под выбранные позиции запрашивайте у отдела продаж вместе с прайсом <a href="/wholesale-price-list.md">MD</a> · <a href="/wholesale-price-list.txt">TXT</a>.</p>
+  <p>Состав, масса, хранение и срок годности — в карточке SKU и на маркировке. Полный прайс: <a href="/price">/price</a> · <a href="/prices.xlsx">Excel</a> · <a href="/prices.pdf">PDF</a>. Как заказать: <a href="/kak-zakazat">/kak-zakazat</a>.</p>
 
   <h2>Документы и отгрузка</h2>
   <ul>
@@ -512,7 +512,7 @@ COMMERCIAL_T = {
         "facts_h": "Общее для категории",
         "f_formats": "Форматы", "f_storage": "Хранение", "f_shelf": "Срок годности", "f_pack": "Упаковка",
         "f_cert": "Сертификаты", "cert": "Халяль ДУМ РТ № 614A/2024 · ХАССП · ISO 22000:2018 · ТР ТС 021/2011",
-        "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм = цена упаковки с НДС ÷ масса нетто (округление до рубля); цена за штуку — из каталога (с НДС, до копейки). Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/wholesale-price-list-ru.md\">MD</a> · <a href=\"/wholesale-price-list-ru.txt\">TXT</a>.",
+        "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм = цена упаковки с НДС ÷ масса нетто (округление до рубля); цена за штуку — из каталога (с НДС, до копейки). Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/price\">HTML</a> · <a href=\"/prices.xlsx\">Excel</a> · <a href=\"/prices.pdf\">PDF</a>. <a href=\"/kak-zakazat\">Как заказать</a>.",
         "h_assort": "Ассортимент — {n} позиций",
         "hold_note": "Ещё {n_held} позиции категории ({held_list}) временно не показаны: по ним уточняется спецификация состава. Актуальную маркировку запрашивайте у отдела продаж.",
         "per_pack": "за упаковку", "excl": "без НДС {v} ₽", "per_kg": "≈ {v} ₽/кг", "per_pc": "≈ {v} ₽/шт",
@@ -570,7 +570,7 @@ COMMERCIAL_T = {
         "facts_h": "Category facts",
         "f_formats": "Formats", "f_storage": "Storage", "f_shelf": "Shelf life", "f_pack": "Packaging",
         "f_cert": "Certificates", "cert": "Halal DUM RT No. 614A/2024 · HACCP · ISO 22000:2018 · TR CU 021/2011",
-        "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg = pack price incl. VAT ÷ net weight (rounded to the rouble); per-piece comes from the catalog (incl. VAT, to the kopeck). Volume pricing is confirmed by sales. Full price list: <a href=\"/wholesale-price-list.md\">MD</a> · <a href=\"/wholesale-price-list.txt\">TXT</a>.",
+        "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg = pack price incl. VAT ÷ net weight (rounded to the rouble); per-piece comes from the catalog (incl. VAT, to the kopeck). Volume pricing is confirmed by sales. Full price list: <a href=\"/en/price\">HTML</a> · <a href=\"/prices.xlsx\">Excel</a> · <a href=\"/prices.pdf\">PDF</a>. <a href=\"/en/kak-zakazat\">How to order</a>.",
         "h_assort": "Assortment — {n} SKUs",
         "hold_note": "{n_held} more SKUs of this category ({held_list}) are temporarily not shown while their ingredient specification is being verified. Request the current label from sales.",
         "per_pack": "per pack", "excl": "excl. VAT {v} ₽", "per_kg": "≈ {v} ₽/kg", "per_pc": "≈ {v} ₽/pc",

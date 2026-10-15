@@ -6,10 +6,12 @@ Why (audit 2026-10-15): money/segment pages (/pepperoni, /jerky, /pizzeria,
 (brand site) was not referenced as such; pages without /assets/lead-form.js
 sent no Metrika goals for phone/WhatsApp/e-mail clicks.
 
-Block lives between <!-- site-links:start --> and <!-- site-links:end -->,
-is placed right before </footer> (else </body>), and is rewritten in place on
-every run (cron-safe: run after generators in sync-vps.sh). No canonical or
-hreflang is touched. Usage: inject_site_links.py [--check]
+Blocks (cron-safe, rewritten in place after generators in sync-vps.sh):
+  <!-- site-links:start --> … footer cross-links …
+  <!-- company-footer:start --> … requisites from site_facts.json …
+  <!-- localbusiness-ld:start --> … LocalBusiness JSON-LD in <head> …
+
+No canonical or hreflang is touched. Usage: inject_site_links.py [--check]
 """
 from __future__ import annotations
 import re
@@ -17,20 +19,28 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+from organization_ld import LOCAL_SCRIPT  # noqa: E402
 from site_facts import FACTS, ROOT  # noqa: E402
 
 PUBLIC = ROOT / "public"
 START, END = "<!-- site-links:start -->", "<!-- site-links:end -->"
 BLOCK_RX = re.compile(re.escape(START) + r".*?" + re.escape(END) + r"\n?", re.S)
+REQ_START, REQ_END = "<!-- company-footer:start -->", "<!-- company-footer:end -->"
+REQ_RX = re.compile(re.escape(REQ_START) + r".*?" + re.escape(REQ_END) + r"\n?", re.S)
+LB_START, LB_END = "<!-- localbusiness-ld:start -->", "<!-- localbusiness-ld:end -->"
+LB_RX = re.compile(re.escape(LB_START) + r".*?" + re.escape(LB_END) + r"\n?", re.S)
 BRAND = FACTS["company"]["brand_site"]
+_CO = FACTS["company"]
 
 LINKS = {
-    "ru": [("/pepperoni", "Пепперони халяль оптом"), ("/pizzeria", "Для пиццерий"),
+    "ru": [("/price", "Прайс-лист"), ("/kak-zakazat", "Как заказать"),
+           ("/pepperoni", "Пепперони халяль оптом"), ("/pizzeria", "Для пиццерий"),
            ("/jerky", "Джерки под СТМ"), ("/sosiska-v-teste", "Сосиска в тесте"),
            ("/dlya-horeca", "HoReCa"), ("/dlya-azs", "АЗС"), ("/dlya-setey", "Сети"),
            ("/dlya-pekaren", "Пекарни"), ("/dlya-distributorov", "Дистрибьюторам"),
            ("/kontraktnoe-proizvodstvo", "Контрактное производство (СТМ)")],
-    "en": [("/en/pepperoni", "Halal pepperoni wholesale"), ("/en/pizzeria", "For pizzerias"),
+    "en": [("/en/price", "Price list"), ("/en/kak-zakazat", "How to order"),
+           ("/en/pepperoni", "Halal pepperoni wholesale"), ("/en/pizzeria", "For pizzerias"),
            ("/en/jerky", "Private-label jerky"), ("/en/sosiska-v-teste", "Sausage rolls"),
            ("/en/dlya-horeca", "HoReCa"), ("/en/dlya-azs", "Fuel stations"),
            ("/en/dlya-setey", "Retail chains"), ("/en/dlya-pekaren", "Bakeries"),
@@ -61,10 +71,39 @@ def block(path: str, html: str) -> str:
             f'{items}<br>{brand}</nav>{goals}\n{END}\n')
 
 
+def requisites(path: str) -> str:
+    lang = "en" if path.startswith("/en") else "ru"
+    if lang == "ru":
+        line = (
+            f'{_CO["legal_name_ru"]} · ИНН {_CO["inn"]} · ОГРН {_CO["ogrn"]}<br>'
+            f'{_CO["address_ru"]}<br>'
+            f'<a href="tel:+79872170202">{_CO["phone"]}</a> · '
+            f'<a href="mailto:{_CO["email"]}">{_CO["email"]}</a> · '
+            f'<a href="/price">Прайс</a> · <a href="/kak-zakazat">Как заказать</a>'
+        )
+    else:
+        line = (
+            f'{_CO["legal_name_en"]} · INN {_CO["inn"]} · OGRN {_CO["ogrn"]}<br>'
+            f'{_CO["address_en"]}<br>'
+            f'<a href="tel:+79872170202">{_CO["phone"]}</a> · '
+            f'<a href="mailto:{_CO["email"]}">{_CO["email"]}</a> · '
+            f'<a href="/en/price">Price list</a> · '
+            f'<a href="/en/kak-zakazat">How to order</a>'
+        )
+    return (
+        f'{REQ_START}\n<div class="company-requisites" style="'
+        f'font-size:.82rem;line-height:1.65;padding:14px 16px;text-align:center;'
+        f'border-top:1px solid rgba(127,127,127,.25)">{line}</div>\n{REQ_END}\n'
+    )
+
+
 def main() -> int:
     check = "--check" in sys.argv
     sm = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
     paths = [re.sub(r"^https://pepperoni\.tatar", "", u) or "/" for u in re.findall(r"<loc>(.*?)</loc>", sm)]
+    for extra in ("/en/price", "/en/kak-zakazat"):
+        if extra not in paths:
+            paths.append(extra)
     changed = missing = 0
     for path in paths:
         f = url_to_file(path)
@@ -73,7 +112,11 @@ def main() -> int:
             continue
         html = f.read_text(encoding="utf-8")
         base = BLOCK_RX.sub("", html)
-        b = block(path, base)
+        base = REQ_RX.sub("", base)
+        base = LB_RX.sub("", base)
+        if "</head>" in base and LB_START not in base:
+            base = base.replace("</head>", LOCAL_SCRIPT + "\n</head>", 1)
+        b = block(path, base) + requisites(path)
         idx = base.rfind("</footer>")
         if idx < 0:
             idx = base.rfind("</body>")

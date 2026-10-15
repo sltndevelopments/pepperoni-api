@@ -177,12 +177,14 @@ def category_deep_content(category, name, section):
         "утверждённого каталога. Применимость для конкретного меню или процесса "
         "подтверждается по техническому заданию закупщика."
     )
-    faq = [
-        ("Можно заказать оптом?",
-         "Да. Запросите актуальную коробочную фасовку, минимальный заказ, наличие и логистику для этого SKU."),
-        ("Как подтверждается халяль?",
-         "Компания использует сертификацию ДУМ РТ. Для квалификации поставщика запросите актуальный сертификат и документы на SKU."),
-    ]
+    order = (
+        "<div class=\"section-block\"><h2 class=\"section-title\">Заказ</h2>"
+        "<p style=\"font-size:.95rem;color:#333;line-height:1.7;margin:0\">"
+        "Оптовый заказ — по инструкции <a href=\"/kak-zakazat\">«Как заказать»</a>. "
+        "Прайс: <a href=\"/price\">/price</a> · "
+        "<a href=\"/prices.xlsx\">Excel</a> · <a href=\"/prices.pdf\">PDF</a>. "
+        "Халяль — <a href=\"/halal\">/halal</a>.</p></div>"
+    )
 
     common = (
         "<div class=\"section-block\"><h2 class=\"section-title\">Применение и опт</h2>"
@@ -197,15 +199,7 @@ def category_deep_content(category, name, section):
         "заказа.</p></div>"
     )
 
-    faq_html = ("<div class=\"section-block\"><h2 class=\"section-title\">Частые вопросы</h2>"
-                + "".join(
-                    f"<details style=\"margin:0 0 8px;border:1px solid #eee;border-radius:8px;padding:10px 14px\">"
-                    f"<summary style=\"font-weight:600;cursor:pointer;font-size:.95rem\">{q}</summary>"
-                    f"<p style=\"font-size:.9rem;color:#444;line-height:1.6;margin:8px 0 0\">{a}</p></details>"
-                    for q, a in faq)
-                + "</div>")
-
-    return common + faq_html, faq
+    return common + order, []
 
 
 def _cloudinary_public_id(url_or_pid: str) -> str:
@@ -487,7 +481,7 @@ def main():
         specs_table = f'<div class="section-block"><h2 class="section-title">Технические характеристики</h2><table class="specs-table"><tbody>{specs_rows}</tbody></table></div>' if specs else ""
 
         deep_html, _faq_pairs = category_deep_content(p.get("category"), name, section)
-        faq_jsonld = _faq_jsonld(_faq_pairs)
+        faq_jsonld = ""
 
         # Галерея целиком same-origin (зеркала) — preconnect к Cloudinary нужен
         # только если зеркалирование не удалось и src остался внешним.
@@ -703,7 +697,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             html += f'<div class="section-block"><h2 class="section-title">Способы приготовления</h2><p style="font-size:.9rem;color:#444;line-height:1.6;margin:0">{cm}</p></div>\n'
         html += deep_html
         html += '''<footer>
-<p><a href="/pepperoni">Пепперони</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
+<p><a href="/pepperoni">Пепперони</a> · <a href="/price">Прайс</a> · <a href="/kak-zakazat">Как заказать</a> · <a href="/about">О компании</a> · <a href="/faq">FAQ</a> · <a href="/delivery">Доставка</a> · <a href="/openapi.yaml">API для дистрибьюторов</a></p>
 <p>© <a href="https://kazandelikates.tatar">Казанские Деликатесы</a> · <a href="https://pepperoni.tatar">pepperoni.tatar</a></p>
 </footer>
 </div>

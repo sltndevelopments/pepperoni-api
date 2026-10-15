@@ -1761,4 +1761,4 @@ A: Halal DUM RT No. 0008 (meat, poultry, sausages, pepperoni, semi-finished; 2 O
 A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
 
 **Q: How do I get an up-to-date price list?**
-A: Live catalog with prices: https://api.pepperoni.tatar/api/products (JSON, no auth). Static snapshot: https://pepperoni.tatar/products.json. Plain text price list: https://pepperoni.tatar/wholesale-price-list.txt. For a commercial quote: info@kazandelikates.tatar.
+A: HTML price list: https://pepperoni.tatar/en/price (Excel /prices.xlsx, PDF /prices.pdf). Live catalog: https://api.pepperoni.tatar/api/products. How to order: https://pepperoni.tatar/en/kak-zakazat. For a commercial quote: info@kazandelikates.tatar.

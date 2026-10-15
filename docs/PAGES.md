@@ -8,7 +8,7 @@ it indexable by itself.
 ## Current canonical surface
 
 - Target: 180–250 indexable URLs.
-- Current allowlist: 213 URLs.
+- Current allowlist: 250 URLs (policy cap).
 - Languages: Russian at the root and English under `/en`.
 - Product records: one RU and one EN page for every current `KD-NNN` SKU in
   `public/products.json`.
@@ -32,6 +32,8 @@ python3 scripts/rebuild_sitemap.py
 - EN private label: `/en/private-label`
 - Halal pepperoni commercial hub: `/pepperoni` and `/en/pepperoni`
 - Catalog: `/products` and `/en/products`
+- Wholesale price list: `/price` (indexable) and `/en/price` (published, noindex — allowlist cap 250); downloads `/prices.xlsx`, `/prices.pdf`
+- How to order: `/kak-zakazat` (indexable) and `/en/kak-zakazat` (published, noindex — allowlist cap 250)
 - Company identity: `/about` and `/en/about`
 - Certificate verification: `/certificates` and `/en/certificates`
 

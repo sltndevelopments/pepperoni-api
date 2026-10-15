@@ -3,6 +3,40 @@
   "cleanUrls": true,
   "headers": [
     {
+      "source": "/prices.xlsx",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"prices.xlsx\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600"
+        }
+      ]
+    },
+    {
+      "source": "/prices.pdf",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/pdf"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "inline; filename=\"prices.pdf\""
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=600"
+        }
+      ]
+    },
+    {
       "source": "/docs/:file",
       "headers": [
         {

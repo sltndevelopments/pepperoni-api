@@ -335,6 +335,10 @@ def clean_schema(node):
     kind = node.get("@type")
     kinds = kind if isinstance(kind, list) else [kind]
     if "LocalBusiness" in kinds:
+        # Canonical NAP on keep pages is injected by inject_site_links.py.
+        # Strip only stray LocalBusiness nodes (wrong @id or leftover copies).
+        if node.get("@id") == "https://pepperoni.tatar/#localbusiness":
+            return node
         return None
     node = dict(node)
     node.pop("shippingDetails", None)

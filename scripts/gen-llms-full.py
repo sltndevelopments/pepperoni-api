@@ -75,6 +75,8 @@ def llms_map_ru() -> str:
 - [Варёные колбасы халяль оптом](https://pepperoni.tatar/kolbasy-varenye): каталог варёных колбас.
 - [Копчёные колбасы халяль оптом](https://pepperoni.tatar/kolbasy-kopchyonye): сервелат и копчёные колбасы.
 - [Ветчина халяль оптом](https://pepperoni.tatar/vetchina-optom): ветчина из курицы и индейки.
+- [Прайс-лист](https://pepperoni.tatar/price): HTML, Excel и PDF из того же каталога, что карточки.
+- [Как заказать](https://pepperoni.tatar/kak-zakazat): шаги, паллетный минимум, EXW Казань, документы к отгрузке.
 - [Пепперони халяль оптом (money hub)](https://pepperoni.tatar/pepperoni): форматы, цены, экспорт.
 - [Джерки и колбаски-снеки под СТМ](https://pepperoni.tatar/jerky): говядина, птица, баранина; флоупак.
 - [Сосиски для хот-догов](https://pepperoni.tatar/sosiski-dlya-hotdog): линейка для АЗС и street food, паллетный базис, форма заявки.
@@ -125,6 +127,8 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Cooked halal sausages, wholesale](https://pepperoni.tatar/en/kolbasy-varenye): cooked-sausage catalog.
 - [Smoked halal sausages, wholesale](https://pepperoni.tatar/en/kolbasy-kopchyonye): servelat and smoked sausages.
 - [Halal ham, wholesale](https://pepperoni.tatar/en/vetchina-optom): chicken and turkey ham.
+- [Price list](https://pepperoni.tatar/en/price): HTML, Excel and PDF from the same catalog as the cards.
+- [How to order](https://pepperoni.tatar/en/kak-zakazat): steps, pallet minimum, EXW Kazan, shipping documents.
 - [Halal pepperoni wholesale (money hub)](https://pepperoni.tatar/en/pepperoni): formats, prices, export.
 - [Jerky and snack sausages, private label](https://pepperoni.tatar/en/jerky): beef, poultry, lamb, horse; flowpack.
 - [Hot-dog sausages](https://pepperoni.tatar/en/sosiski-dlya-hotdog): fuel-station and street-food line, pallet basis, enquiry form.

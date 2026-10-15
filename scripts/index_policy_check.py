@@ -18,6 +18,16 @@ SITEMAP = PUBLIC / "sitemap.xml"
 NGINX = ROOT / "deploy" / "nginx"
 BASE = "https://pepperoni.tatar"
 ORG_ID = f"{BASE}/#organization"
+LOCAL_ID = f"{BASE}/#localbusiness"
+VISIBLE_FAQ_RE = re.compile(
+    r'class="[^"]*faq[^"]*"'
+    r'|id="[^"]*faq[^"]*"'
+    r'|<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'|<div class="faq-(?:item|q|a)"'
+    r'|<p class="faq-q"',
+    re.I,
+)
+PRODUCT_CARD_RE = re.compile(r"(?:^|/)(?:en/)?products/kd-\d{3}\.html$")
 
 VERIFY_RE = re.compile(
     r"(?:^|/)(?:yandex_?[0-9a-f]+|google[0-9a-f]+|[0-9a-f]{16})\.html$")
@@ -80,6 +90,43 @@ def clean_url(rel: str) -> str:
     if rel.endswith("/index.html"):
         return "/" + rel[:-11].rstrip("/")
     return "/" + rel.removesuffix(".html")
+
+
+def has_visible_faq(source: str) -> bool:
+    body = source.split("<body", 1)[-1] if "<body" in source.lower() else source
+    body = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", body, flags=re.I | re.S)
+    return bool(VISIBLE_FAQ_RE.search(body))
+
+
+def own_localbusiness(node) -> list[dict]:
+    found: list[dict] = []
+    if isinstance(node, list):
+        for item in node:
+            found.extend(own_localbusiness(item))
+        return found
+    if not isinstance(node, dict):
+        return found
+    kind = node.get("@type")
+    kinds = kind if isinstance(kind, list) else [kind]
+    name = str(node.get("name") or node.get("legalName") or "")
+    if "LocalBusiness" in kinds and re.search(
+            r"Казанские Деликатесы|Kazan Delicac", name, re.I):
+        found.append(node)
+    for value in node.values():
+        found.extend(own_localbusiness(value))
+    return found
+
+
+def faqpage_nodes(node) -> bool:
+    if isinstance(node, list):
+        return any(faqpage_nodes(item) for item in node)
+    if not isinstance(node, dict):
+        return False
+    kind = node.get("@type")
+    kinds = kind if isinstance(kind, list) else [kind]
+    if "FAQPage" in kinds:
+        return True
+    return any(faqpage_nodes(v) for v in node.values())
 
 
 def own_org_ids(node) -> list[str | None]:
@@ -160,7 +207,6 @@ def html_errors(path: Path, row: dict) -> list[str]:
         if match.group(1).lower() != "info@kazandelikates.tatar":
             errors.append(f"unapproved mailto: {match.group(1)}")
     for forbidden in (
-        "LocalBusiness",
         "shippingDetails",
         "hasMerchantReturnPolicy",
         'rel="llms"',
@@ -186,6 +232,30 @@ def html_errors(path: Path, row: dict) -> list[str]:
             if org_id != ORG_ID:
                 errors.append(
                     f"own Organization @id must be {ORG_ID}, got {org_id!r}")
+        for lb in own_localbusiness(payload):
+            if lb.get("@id") not in (LOCAL_ID, ORG_ID):
+                errors.append(
+                    f"own LocalBusiness @id must be {LOCAL_ID}, got {lb.get('@id')!r}")
+            tel = str(lb.get("telephone") or "")
+            if tel and re.sub(r"\D", "", tel) not in {"79872170202", "7"}:
+                if re.sub(r"\D", "", tel) != "79872170202":
+                    errors.append(f"LocalBusiness telephone mismatch: {tel!r}")
+            email = str(lb.get("email") or "").lower()
+            if email and email != "info@kazandelikates.tatar":
+                errors.append(f"LocalBusiness email mismatch: {email!r}")
+            tax = str(lb.get("taxID") or "")
+            if tax and tax != "1686021074":
+                errors.append(f"LocalBusiness taxID mismatch: {tax!r}")
+            addr = lb.get("address") if isinstance(lb.get("address"), dict) else {}
+            locality = str(addr.get("addressLocality") or "")
+            if locality and locality not in {"Казань", "Kazan"}:
+                errors.append(
+                    f"LocalBusiness addressLocality mismatch: {locality!r}")
+        if faqpage_nodes(payload) and not has_visible_faq(source):
+            errors.append("FAQPage JSON-LD without a visible FAQ")
+    rel = str(path).replace("\\", "/")
+    if PRODUCT_CARD_RE.search(rel) and "FAQPage" in source:
+        errors.append("templated FAQPage on product card")
     return sorted(set(errors))
 
 
