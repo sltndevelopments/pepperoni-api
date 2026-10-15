@@ -90,6 +90,8 @@ python3 scripts/add-perf-hints.py 2>&1 || echo "[warn] add-perf-hints.py failed;
 # gen-llms-full — that step copies FAQ answers from faq.html into llms.txt.
 # Assortment source of truth is Google Sheets only — do not edit counts by hand.
 python3 scripts/reconcile_sku_count.py 2>&1 || echo "[warn] reconcile_sku_count.py failed; SKU-count text may be stale"
+# Facts registry (data/site_facts.json): rewrite known stale fact strings (SKU count, KD-014 weight).
+python3 scripts/apply_site_facts.py 2>&1 || echo "[warn] apply_site_facts.py failed; fact text may be stale"
 
 # 1c2. Static SKU list inside index.html / en/index.html / products hubs so the
 # catalog (names, weights, prices, links) exists in HTML without JS or scroll.
@@ -120,6 +122,8 @@ python3 scripts/fix_schema.py
 # Direct Metrika on every allowlisted page. Idempotent: pages that already
 # init counter 107064141 are not given a second snippet.
 python3 scripts/ensure_metrika.py --keep
+# Cross-links to money/segment pages + brand-site link + contact-click goals (idempotent block).
+python3 scripts/inject_site_links.py 2>&1 || echo "[warn] inject_site_links.py failed; site-links block may be stale"
 python3 scripts/qa_pages.py --all
 python3 scripts/index_policy_check.py
 

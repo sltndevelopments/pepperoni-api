@@ -33,7 +33,7 @@ PRODUCTS = PUBLIC / "products.json"
 
 TRUE_FAQ_RU = (
     "Халяль пепперони от «Казанских Деликатесов» — варёно-копчёный: "
-    "куриный (KD-013 нарезка 0,5 кг, KD-014 целый батон 1 кг) и из конины "
+    "куриный (KD-013 нарезка 0,5 кг, KD-014 целый батон 0,8 кг) и из конины "
     "(KD-012 нарезка 0,5 кг). Продукция соответствует требованиям стандарта «Халяль». Сертификат Halal № 614A/2024 (ДУМ РТ). "
     "Актуальные цены и SKU — в каталоге https://pepperoni.tatar/pepperoni "
     "и в API https://api.pepperoni.tatar/api/products."
@@ -44,7 +44,7 @@ TRUE_FAQ_RU_SHORT = (
 )
 TRUE_FAQ_EN = (
     "Halal pepperoni from Kazan Delicacies is cooked-smoked only: chicken "
-    "(KD-013 sliced 0.5 kg, KD-014 whole stick 1 kg) and horse meat "
+    "(KD-013 sliced 0.5 kg, KD-014 whole stick 0.8 kg) and horse meat "
     "(KD-012 sliced 0.5 kg). Halal-certified. Halal certificate #614A/2024 (DUM RT). "
     "Live SKUs and prices: https://pepperoni.tatar/en/pepperoni and "
     "https://api.pepperoni.tatar/api/products."

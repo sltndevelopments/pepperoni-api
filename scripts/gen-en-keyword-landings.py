@@ -116,7 +116,7 @@ PAGES = [
             ("Private label", "Custom meat blends on request — not stock SKUs"),
         ],
         "faqs": [
-            ("What pepperoni SKUs are in the live catalog?", "Only three: KD-013 chicken sliced 0.5 kg, KD-014 chicken whole stick 1 kg, KD-012 horse-meat sliced 0.5 kg. All cooked-smoked. Prices: /api/products."),
+            ("What pepperoni SKUs are in the live catalog?", "Two: KD-013 chicken sliced 0.5 kg and KD-014 chicken whole stick 0.8 kg, both cooked-smoked. Prices: /api/products."),
             ("Do you sell dry-cured pepperoni?", "No. Dry-cured («сырокопчёный») pepperoni is not in the current Google Sheets catalog. We supply cooked-smoked formats only."),
             ("Do you sell a beef+chicken classic pepperoni as a stock SKU?", "No stock SKU for beef+chicken. Stock recipes are chicken and horse. Beef blends are possible under private label after formulation."),
             ("Can you do a kosher version?", "No — we hold a halal certificate, not a kosher one. Halal + alcohol-free on request."),

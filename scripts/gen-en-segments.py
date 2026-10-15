@@ -251,8 +251,8 @@ SEGMENTS = [
         "description": "Halal pepperoni, sausages, kazylyk, Tatar pastries for retail chains: shelf-ready packaging, full document pack, halal #614A/2024. Cases: EuroSpar, Bahetle, Metro, Miratorg.",
         "keywords": "halal retail wholesale, halal pepperoni retail chain, halal Tatar pastry retail, kazylyk retail, EuroSpar Bahetle halal supplier, halal supplier retail Russia",
         "og_title": "Halal Products for Retail Chains — Pepperoni, Sausages, Kazylyk, Pastries",
-        "og_description": "Shelf-ready halal product: 77 SKUs, full document pack, retail-grade packaging.",
-        "intro": "Retail buyers want one supplier with <strong>a deep matrix</strong>, <strong>retail-grade packaging</strong>, <strong>shelf life that survives DC routing</strong>, and <strong>halal certification</strong> that opens both the Muslim audience and the wider shopper. We supply all 77 SKUs — frozen, chilled, bakery — under one EAEU declaration line, one Mercury VSD process, one document portal.",
+        "og_description": "Shelf-ready halal product: 65 SKUs, full document pack, retail-grade packaging.",
+        "intro": "Retail buyers want one supplier with <strong>a deep matrix</strong>, <strong>retail-grade packaging</strong>, <strong>shelf life that survives DC routing</strong>, and <strong>halal certification</strong> that opens both the Muslim audience and the wider shopper. We supply all 65 SKUs — frozen, chilled, bakery — under one EAEU declaration line, one Mercury VSD process, one document portal.",
         "case_title": "Retail-chain track record",
         "case_body": "Our products are listed in <strong>EuroSpar</strong> and <strong>Bahetle</strong> supermarkets across Kazan, in <strong>Metro Cash &amp; Carry</strong>, and on <strong>Miratorg</strong> shelves (Tatar pastry line). Some assortment goes to regional retail across Volga and Central federal districts.",
         "stats": [
@@ -268,7 +268,7 @@ SEGMENTS = [
         "features": [
             ("🛒", "Retail-grade packaging", "Vacuum or MAP, retail-friendly weight, branded sleeve where required."),
             ("📋", "Full document portal", "EAEU, Mercury VSD, Halal, GTIN, retail-ready barcode."),
-            ("📦", "77 SKU matrix", "Frozen + chilled + bakery + ready pastries — one supplier, one DC route."),
+            ("📦", "65 SKU matrix", "Frozen + chilled + bakery + ready pastries — one supplier, one DC route."),
             ("❄️", "Long shelf life", "Frozen 180-360 days; chilled 30 days; bakery 60-360 days."),
             ("☪️", "Halal-default", "Opens Muslim audience and works for the general shopper too."),
             ("🚚", "Logistics", "EXW Kazan. Federal weekly cadence."),
@@ -282,7 +282,7 @@ SEGMENTS = [
             ("Echpochmak with beef & potato", "frozen", "from 69 ₽/pc"),
             ("Cheese sausages, vacuum", "0.4 kg", "from 293 ₽"),
         ],
-        "items_note": "All 77 SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
+        "items_note": "All 65 SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
         "logistics_heading": "Logistics & terms for retail chains",
         "logistics": [
             ("Incoterm", "EXW Kazan"),
@@ -320,12 +320,12 @@ SEGMENTS = [
         "chip": "Segment 5 of 7 · Distributors",
         "title": "Become a Distributor of Halal Meat & Tatar Pastries from Kazan, Russia | Kazan Delicacies",
         "h1": "Become a Distributor of Halal Products from Tatarstan",
-        "subtitle": "Wide matrix (77 SKUs), export packaging, long shelf life, multi-currency price list, regional exclusivity available.",
-        "description": "Become a halal-meat & Tatar-pastry distributor from Kazan: 77 SKUs, export packaging, multi-currency pricing (7 currencies), regional exclusivity. EXW Kazan. Halal #614A/2024.",
+        "subtitle": "Wide matrix (65 SKUs), export packaging, long shelf life, multi-currency price list, regional exclusivity available.",
+        "description": "Become a halal-meat & Tatar-pastry distributor from Kazan: 65 SKUs, export packaging, multi-currency pricing (7 currencies), regional exclusivity. EXW Kazan. Halal #614A/2024.",
         "keywords": "halal distributor Russia, halal meat distributor wholesale, halal pepperoni distributor, halal Tatar pastry wholesale, multi-currency halal supplier, halal export CIS",
         "og_title": "Become a Distributor of Halal Meat & Pastries — Kazan Delicacies",
-        "og_description": "77 SKUs, 7 currencies, EXW Kazan, regional exclusivity available. Halal-default supplier.",
-        "intro": "Foodservice and retail distributors win on <strong>matrix depth</strong>, <strong>price-list discipline</strong>, and <strong>document availability before the shipment</strong>. We give you 77 halal SKUs from one factory in Kazan, prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN), and a daily-synced API so your sales reps quote from live data, not a quarterly PDF.",
+        "og_description": "65 SKUs, 7 currencies, EXW Kazan, regional exclusivity available. Halal-default supplier.",
+        "intro": "Foodservice and retail distributors win on <strong>matrix depth</strong>, <strong>price-list discipline</strong>, and <strong>document availability before the shipment</strong>. We give you 65 halal SKUs from one factory in Kazan, prices in 7 currencies (RUB, USD, KZT, UZS, KGS, BYN, AZN), and a daily-synced API so your sales reps quote from live data, not a quarterly PDF.",
         "case_title": "Distribution track record",
         "case_body": "We're listed by federal foodservice distributors <strong>GFC</strong> and <strong>SweetLife</strong> — covering HoReCa, dark kitchens and convenience retail across Russia. Regional distribution partners cover Volga, Central, Urals and CIS routes.",
         "stats": [
@@ -335,7 +335,7 @@ SEGMENTS = [
         ],
         "second_case": {
             "title": "CIS export route",
-            "body": "Regular shipments to <strong>Kazakhstan, Uzbekistan, Kyrgyzstan, Belarus, Armenia, Azerbaijan</strong>. HS codes, halal certificate, multi-currency invoicing. EXW Kazan or buyer-arranged transit.",
+            "body": "Current shipments to <strong>Kazakhstan, Belarus, Kyrgyzstan</strong>; plant attested in Cerberus for Uzbekistan, Armenia, Azerbaijan, Georgia, Tajikistan (opened on request). HS codes, halal certificate, multi-currency invoicing. EXW Kazan or buyer-arranged transit.",
         },
         "features_heading": "What distributors need — and what we deliver",
         "features": [
@@ -367,7 +367,7 @@ SEGMENTS = [
         ],
         "why_heading": "Why distributors choose us",
         "why": [
-            "<strong>77 SKUs from one factory</strong> — no juggling 5 suppliers",
+            "<strong>65 SKUs from one factory</strong> — no juggling 5 suppliers",
             "<strong>API price list</strong> — never quote from a stale PDF again",
             "<strong>Halal default</strong> — opens Muslim audience without dual matrix",
             "<strong>Private Label</strong> on every SKU — your distributor brand on the box",
@@ -397,7 +397,7 @@ SEGMENTS = [
         "description": "Halal supply for HoReCa: pepperoni for pizzerias, hot-dog & grill sausages, burger patties, sliced hams, deli, ready Tatar pastries. HACCP, Halal #614A/2024. EXW Kazan.",
         "keywords": "halal HoReCa wholesale, halal pepperoni restaurant, halal grill sausage HoReCa, halal hotel catering supplier, halal dark kitchen wholesale, halal hot dog restaurant",
         "og_title": "Halal Products for HoReCa & Catering — Wholesale",
-        "og_description": "77 halal SKUs for restaurants, hotels, catering and dark kitchens. One supplier, one document pack.",
+        "og_description": "65 halal SKUs for restaurants, hotels, catering and dark kitchens. One supplier, one document pack.",
         "intro": "HoReCa lives on <strong>menu consistency</strong>, <strong>portion economics</strong> and <strong>halal label without extra friction</strong>. We feed pizzerias (oven-stable pepperoni), grill restaurants (premium hot-dog and grill sausages), hotel breakfasts (sliced hams, deli, smoked chicken), and catering kitchens (Tatar pastry sets, kazylyk gift boxes). One supplier, one document portal, one taste across all your touchpoints.",
         "case_title": "Catering & corporate references",
         "case_body": "We supply the corporate canteen of <strong>Kazan Helicopter Plant</strong> (premium beef & lamb sausages for shift catering). Federal foodservice distributors <strong>GFC</strong> and <strong>SweetLife</strong> route our products to HoReCa nationwide.",

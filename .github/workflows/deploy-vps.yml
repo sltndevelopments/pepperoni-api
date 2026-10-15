@@ -17,6 +17,8 @@ jobs:
           python3 scripts/index_policy_check.py
           python3 scripts/authority_program_check.py
           python3 scripts/measurement_governance_check.py
+          python3 scripts/apply_site_facts.py --check || echo "::warning::stale fact strings (see data/site_facts.json)"
+          python3 scripts/inject_site_links.py --check || echo "::warning::site-links block out of date"
 
       # Deploy = git sync, NOT rsync --delete. The VPS repo is a live git clone
       # whose untracked files are runtime state the agents create between

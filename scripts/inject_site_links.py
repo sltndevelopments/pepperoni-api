@@ -1,0 +1,92 @@
+#!/usr/bin/env python3
+"""Inject one idempotent cross-link block into every sitemap page.
+
+Why (audit 2026-10-15): money/segment pages (/pepperoni, /jerky, /pizzeria,
+/en/sosiska-v-teste, /dlya-*) had <=1 internal inlink; kazandelikates.tatar
+(brand site) was not referenced as such; pages without /assets/lead-form.js
+sent no Metrika goals for phone/WhatsApp/e-mail clicks.
+
+Block lives between <!-- site-links:start --> and <!-- site-links:end -->,
+is placed right before </footer> (else </body>), and is rewritten in place on
+every run (cron-safe: run after generators in sync-vps.sh). No canonical or
+hreflang is touched. Usage: inject_site_links.py [--check]
+"""
+from __future__ import annotations
+import re
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from site_facts import FACTS, ROOT  # noqa: E402
+
+PUBLIC = ROOT / "public"
+START, END = "<!-- site-links:start -->", "<!-- site-links:end -->"
+BLOCK_RX = re.compile(re.escape(START) + r".*?" + re.escape(END) + r"\n?", re.S)
+BRAND = FACTS["company"]["brand_site"]
+
+LINKS = {
+    "ru": [("/pepperoni", "Пепперони халяль оптом"), ("/pizzeria", "Для пиццерий"),
+           ("/jerky", "Джерки под СТМ"), ("/sosiska-v-teste", "Сосиска в тесте"),
+           ("/dlya-horeca", "HoReCa"), ("/dlya-azs", "АЗС"), ("/dlya-setey", "Сети"),
+           ("/dlya-pekaren", "Пекарни"), ("/dlya-distributorov", "Дистрибьюторам"),
+           ("/kontraktnoe-proizvodstvo", "Контрактное производство (СТМ)")],
+    "en": [("/en/pepperoni", "Halal pepperoni wholesale"), ("/en/pizzeria", "For pizzerias"),
+           ("/en/jerky", "Private-label jerky"), ("/en/sosiska-v-teste", "Sausage rolls"),
+           ("/en/dlya-horeca", "HoReCa"), ("/en/dlya-azs", "Fuel stations"),
+           ("/en/dlya-setey", "Retail chains"), ("/en/dlya-pekaren", "Bakeries"),
+           ("/en/dlya-distributorov", "Distributors"), ("/en/private-label", "Private label")],
+}
+BRAND_TXT = {"ru": "Бренд-сайт компании", "en": "Company brand site"}
+NAV_LABEL = {"ru": "Направления", "en": "Directions"}
+
+
+def url_to_file(path: str) -> Path | None:
+    if path in ("/", ""):
+        return PUBLIC / "index.html"
+    if path == "/en/":
+        return PUBLIC / "en" / "index.html"
+    for c in (PUBLIC / (path.strip("/") + ".html"), PUBLIC / path.strip("/") / "index.html"):
+        if c.is_file():
+            return c
+    return None
+
+
+def block(path: str, html: str) -> str:
+    lang = "en" if path.startswith("/en") else "ru"
+    items = " · ".join(f'<a href="{h}">{t}</a>' for h, t in LINKS[lang] if h != path.rstrip("/"))
+    brand = f'{BRAND_TXT[lang]}: <a href="{BRAND}" rel="noopener">kazandelikates.tatar</a>'
+    goals = "" if "lead-form.js" in html else '\n<script src="/assets/lead-goals.js" defer></script>'
+    return (f'{START}\n<nav class="site-links" aria-label="{NAV_LABEL[lang]}" '
+            f'style="font-size:.85rem;line-height:1.7;padding:12px 16px;text-align:center">'
+            f'{items}<br>{brand}</nav>{goals}\n{END}\n')
+
+
+def main() -> int:
+    check = "--check" in sys.argv
+    sm = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
+    paths = [re.sub(r"^https://pepperoni\.tatar", "", u) or "/" for u in re.findall(r"<loc>(.*?)</loc>", sm)]
+    changed = missing = 0
+    for path in paths:
+        f = url_to_file(path)
+        if not f:
+            missing += 1
+            continue
+        html = f.read_text(encoding="utf-8")
+        base = BLOCK_RX.sub("", html)
+        b = block(path, base)
+        idx = base.rfind("</footer>")
+        if idx < 0:
+            idx = base.rfind("</body>")
+        if idx < 0:
+            continue
+        new = base[:idx] + b + base[idx:]
+        if new != html:
+            changed += 1
+            if not check:
+                f.write_text(new, encoding="utf-8")
+    print(f"site-links: {changed} page(s) {'need update' if check else 'updated'}, {missing} sitemap URL(s) without file")
+    return 1 if (check and changed) else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

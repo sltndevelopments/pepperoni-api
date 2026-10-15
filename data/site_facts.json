@@ -1,0 +1,42 @@
+{
+  "_doc": "Single source of truth for public company facts. Read by scripts/site_facts.py (generators, llms.txt, feeds) and enforced by scripts/check_site_facts.py. Change a fact here, never in prose. Every value lists its source.",
+  "version": "2026-10-15",
+  "company": {
+    "legal_name_ru": "ООО «Казанские Деликатесы»",
+    "legal_name_en": "Kazan Delicacies LLC",
+    "inn": "1686021074",
+    "ogrn": "1221600096893",
+    "address_ru": "420061, Республика Татарстан, г. Казань, ул. Аграрная, д. 2, офис 7",
+    "address_en": "420061 Kazan, Agrarnaya 2, office 7, Republic of Tatarstan, Russia",
+    "phone": "+7 987 217-02-02",
+    "email": "info@kazandelikates.tatar",
+    "main_site": "https://pepperoni.tatar",
+    "brand_site": "https://kazandelikates.tatar",
+    "brand_site_role": "image/brand site; pepperoni.tatar is the main catalog (API, MCP, prices, currencies)",
+    "_source": "public/about.html requisites + Rinat decision 2026-10-15 (main/brand roles); 'а/я 107' is a postal box, not the address"
+  },
+  "catalog": {
+    "sku_count": 65,
+    "_source": "public/products.json totalProducts (synced from Google Sheets, lastSynced 2026-10-15); sku_count_state.json=62 is stale",
+    "pepperoni": {
+      "KD-013": {"format_ru": "нарезка", "format_en": "sliced", "weight_kg": 0.5, "on_sale": true},
+      "KD-014": {"format_ru": "целый батон", "format_en": "whole stick", "weight_kg": 0.8, "on_sale": true},
+      "_source": "products.json weight field (Sheets); KD-014 on sale per Rinat 2026-10-15"
+    }
+  },
+  "certificates": {
+    "halal_meat_primary": {"issuer_ru": "Комитет «Халяль» ДУМ РТ", "number": "0008", "valid_until": "2029-10-01", "_source": "data/evidence_registry.json halal_dum_rt_0008_2026 (verified 2026-10-02, PDF /docs/certificate-halal-0008-2026.pdf)"},
+    "halal_meat_previous": {"number": "614A/2024", "valid_until": "2027-02-16", "_source": "evidence_registry halal_dum_rt_614a_2024 (halalrt.ru registry)"},
+    "halal_bakery": {"number": "884A/2025", "valid_until": null, "_flag": "UNVERIFIED: used on most pages/llms.txt but absent from evidence_registry; owner must confirm", "_source": "llms.txt + majority of pages"},
+    "iso_22000": "ISO 22000:2018, FSMS-2351/A",
+    "standards": ["HACCP", "ТР ТС 021/2011"]
+  },
+  "export": {
+    "current_ru": ["Казахстан", "Беларусь", "Кыргызстан"],
+    "current_en": ["Kazakhstan", "Belarus", "Kyrgyzstan"],
+    "cerberus_attested_en": ["Kazakhstan", "Kyrgyzstan", "Belarus", "Armenia", "Tajikistan", "Georgia", "Azerbaijan", "Uzbekistan"],
+    "gulf": "preparation (Rosselkhoznadzor permit pending)",
+    "_source": "/en/export page (Sep 2026, most specific: separates current shipments from Cerberus attestation)"
+  },
+  "terms": {"basis": "EXW Казань", "moq": "1 паллета (сборная возможна)", "private_label_min": "5 т", "capacity": "12 т/смена", "_source": "evidence_registry wholesale_pallet_basis, private_label_min_run_5t, capacity_12t_per_shift"}
+}
