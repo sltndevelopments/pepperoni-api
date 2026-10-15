@@ -77,6 +77,11 @@ def main() -> int:
 
     pepp = html_of("pepperoni.html")
     piz = html_of("pepperoni-dlya-pizzerii.html")
+    check("Казахстан, Беларусь, Узбекистан" not in pepp,
+          "/pepperoni does not list Uzbekistan as a current shipment")
+    i18n = json.loads((ROOT / "data" / "pepperoni_landing_i18n.json").read_text(encoding="utf-8"))
+    check("Казахстан, Беларусь, Узбекистан" not in i18n["ru"]["export"]["sub"],
+          "i18n RU export.sub does not list UZ as current")
     check("для пиццерий" not in title_of("pepperoni.html").lower(),
           "/pepperoni title does not target pizzerias")
     check("пиццер" in title_of("pepperoni-dlya-pizzerii.html").lower(),
