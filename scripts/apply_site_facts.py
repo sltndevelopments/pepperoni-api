@@ -13,19 +13,26 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from site_facts import ROOT, sku_count, kd014_weight  # noqa: E402
+from site_facts import ROOT, sku_count, kd014_weight, plural_ru  # noqa: E402
 
 N = sku_count()
 STALE = r"(?:77|62)"
 RULES = [
     (re.compile(rf"(?<![\d.,]){STALE}(\s+(?:halal\s+)?SKUs?\b)"), rf"{N}\1"),
-    (re.compile(rf"(?<![\d.,]){STALE}(\s+(?:наименовани[йяе]|позици[йи]|товаров)\b)"), rf"{N}\1"),
+    (re.compile(rf"(?<![\d.,]){STALE}\s+(наименовани)[йяе]\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, 'е', 'я', 'й')}"),
+    (re.compile(rf"(?<![\d.,]){STALE}\s+(позици)[йия]\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, 'я', 'и', 'й')}"),
+    (re.compile(rf"(?<![\d.,]){STALE}\s+(товар)(?:ов|а)?\b"), lambda m: f"{N} {m.group(1)}{plural_ru(N, '', 'а', 'ов')}"),
     (re.compile(r"(KD-014[^<\n]{0,40}?(?:whole stick|stick))\s+1 kg"), rf"\1 {kd014_weight('en')}"),
     (re.compile(r"(KD-014[^<\n]{0,40}?(?:целый батон|батон))\s+1 кг"), rf"\1 {kd014_weight('ru')}"),
     (re.compile(r"(целый батон|whole stick)\s+1 (кг|kg)(?=\s*\|\s*Халяль|\s*\|\s*Halal)"),
      lambda m: f"{m.group(1)} {kd014_weight('ru' if m.group(2) == 'кг' else 'en')}"),
     (re.compile(r"(KD-013 / KD-014\)</td><td>)Нарезка 0,5 кг / батон 1 кг"), rf"\1Нарезка 0,5 кг / батон {kd014_weight('ru')}"),
 ]
+FIX_PLURAL = [
+    (re.compile(rf"(?<![\d.,]){N}\s+позици[иия]\b"), lambda m: f"{N} позици{plural_ru(N, 'я', 'и', 'й')}"),
+    (re.compile(rf"(?<![\d.,]){N}\s+наименовани[яе]\b"), lambda m: f"{N} наименовани{plural_ru(N, 'е', 'я', 'й')}"),
+]
+RULES += FIX_PLURAL
 SKIP = {"node_modules", ".git", "agent_backups"}
 GLOBS = {"public": ["**/*.html", "**/*.json", "**/*.txt", "**/*.yaml"],
          "scripts": ["**/*.py"], "lib": ["**/*.mjs", "**/*.js"], "submission": ["**/*.txt"]}
