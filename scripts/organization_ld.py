@@ -8,6 +8,8 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+from site_facts import postal_code, street_address
+
 ORG_ID = "https://pepperoni.tatar/#organization"
 LOCAL_ID = "https://pepperoni.tatar/#localbusiness"
 
@@ -29,9 +31,9 @@ ORGANIZATION = {
     "telephone": _CO["phone"],
     "address": {
         "@type": "PostalAddress",
-        "streetAddress": "ул. Аграрная, 2, оф. 7",
+        "streetAddress": street_address(),
         "addressLocality": "Казань",
-        "postalCode": "420061",
+        "postalCode": postal_code() or "420061",
         "addressCountry": "RU",
     },
     "sameAs": [

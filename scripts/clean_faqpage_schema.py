@@ -35,11 +35,18 @@ EN_FAQ_BLOCK = re.compile(
     re.S,
 )
 VISIBLE_FAQ_RE = re.compile(
-    r'class="[^"]*faq[^"]*"'
-    r'|id="[^"]*faq[^"]*"'
-    r'|<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'|<details\b[^>]*>\s*<summary\b'
     r'|<div class="faq-(?:item|q|a)"'
     r'|<p class="faq-q"',
+    re.I,
+)
+QA_MARKUP_RE = re.compile(
+    r'<details\b|<div class="faq-(?:item|q|a)"|<p class="faq-q"',
+    re.I,
+)
+FAQ_HEADING_RE = re.compile(
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)',
     re.I,
 )
 
@@ -73,7 +80,13 @@ def _kinds(node) -> list[str]:
 def _is_faqpage(node) -> bool:
     if isinstance(node, list):
         return any(_is_faqpage(item) for item in node)
-    return "FAQPage" in _kinds(node)
+    if not isinstance(node, dict):
+        return False
+    if "FAQPage" in _kinds(node):
+        return True
+    if "@graph" in node:
+        return _is_faqpage(node["@graph"])
+    return False
 
 
 def _strip_faq_from_graph(node):
@@ -95,6 +108,14 @@ def remove_faqpage_scripts(html: str) -> str:
             return match.group(0)
         if not _is_faqpage(data):
             return match.group(0)
+        if isinstance(data, dict) and "@graph" in data:
+            graph = _strip_faq_from_graph(data["@graph"])
+            if not graph:
+                return ""
+            data = dict(data)
+            data["@graph"] = graph
+            dumped = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+            return f'<script type="application/ld+json">{dumped}</script>'
         if isinstance(data, list):
             cleaned = _strip_faq_from_graph(data)
             if not cleaned:
@@ -107,9 +128,12 @@ def remove_faqpage_scripts(html: str) -> str:
 
 
 def has_visible_faq(html: str) -> bool:
+    """True only when the page shows a real FAQ (heading + Q/A), not a stray class."""
     body = html.split("<body", 1)[-1] if "<body" in html.lower() else html
     body = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", body, flags=re.I | re.S)
-    return bool(VISIBLE_FAQ_RE.search(body))
+    heading = bool(FAQ_HEADING_RE.search(body))
+    qa = bool(QA_MARKUP_RE.search(body))
+    return heading and qa
 
 
 def clean_product(html: str, is_en: bool) -> str:

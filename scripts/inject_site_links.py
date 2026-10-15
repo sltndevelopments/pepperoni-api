@@ -20,7 +20,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from organization_ld import LOCAL_SCRIPT  # noqa: E402
-from site_facts import FACTS, ROOT  # noqa: E402
+from site_facts import FACTS, ROOT, phone_tel  # noqa: E402
 
 PUBLIC = ROOT / "public"
 START, END = "<!-- site-links:start -->", "<!-- site-links:end -->"
@@ -31,6 +31,7 @@ LB_START, LB_END = "<!-- localbusiness-ld:start -->", "<!-- localbusiness-ld:end
 LB_RX = re.compile(re.escape(LB_START) + r".*?" + re.escape(LB_END) + r"\n?", re.S)
 BRAND = FACTS["company"]["brand_site"]
 _CO = FACTS["company"]
+TEL = phone_tel()
 
 LINKS = {
     "ru": [("/price", "Прайс-лист"), ("/kak-zakazat", "Как заказать"),
@@ -77,7 +78,7 @@ def requisites(path: str) -> str:
         line = (
             f'{_CO["legal_name_ru"]} · ИНН {_CO["inn"]} · ОГРН {_CO["ogrn"]}<br>'
             f'{_CO["address_ru"]}<br>'
-            f'<a href="tel:+79872170202">{_CO["phone"]}</a> · '
+            f'<a href="{TEL}">{_CO["phone"]}</a> · '
             f'<a href="mailto:{_CO["email"]}">{_CO["email"]}</a> · '
             f'<a href="/price">Прайс</a> · <a href="/kak-zakazat">Как заказать</a>'
         )
@@ -85,7 +86,7 @@ def requisites(path: str) -> str:
         line = (
             f'{_CO["legal_name_en"]} · INN {_CO["inn"]} · OGRN {_CO["ogrn"]}<br>'
             f'{_CO["address_en"]}<br>'
-            f'<a href="tel:+79872170202">{_CO["phone"]}</a> · '
+            f'<a href="{TEL}">{_CO["phone"]}</a> · '
             f'<a href="mailto:{_CO["email"]}">{_CO["email"]}</a> · '
             f'<a href="/en/price">Price list</a> · '
             f'<a href="/en/kak-zakazat">How to order</a>'

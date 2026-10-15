@@ -20,11 +20,18 @@ BASE = "https://pepperoni.tatar"
 ORG_ID = f"{BASE}/#organization"
 LOCAL_ID = f"{BASE}/#localbusiness"
 VISIBLE_FAQ_RE = re.compile(
-    r'class="[^"]*faq[^"]*"'
-    r'|id="[^"]*faq[^"]*"'
-    r'|<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)\s*<'
+    r'|<details\b[^>]*>\s*<summary\b'
     r'|<div class="faq-(?:item|q|a)"'
     r'|<p class="faq-q"',
+    re.I,
+)
+QA_MARKUP_RE = re.compile(
+    r'<details\b|<div class="faq-(?:item|q|a)"|<p class="faq-q"',
+    re.I,
+)
+FAQ_HEADING_RE = re.compile(
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)',
     re.I,
 )
 PRODUCT_CARD_RE = re.compile(r"(?:^|/)(?:en/)?products/kd-\d{3}\.html$")
@@ -95,7 +102,7 @@ def clean_url(rel: str) -> str:
 def has_visible_faq(source: str) -> bool:
     body = source.split("<body", 1)[-1] if "<body" in source.lower() else source
     body = re.sub(r"<(script|style)[^>]*>.*?</\1>", " ", body, flags=re.I | re.S)
-    return bool(VISIBLE_FAQ_RE.search(body))
+    return bool(FAQ_HEADING_RE.search(body) and QA_MARKUP_RE.search(body))
 
 
 def own_localbusiness(node) -> list[dict]:

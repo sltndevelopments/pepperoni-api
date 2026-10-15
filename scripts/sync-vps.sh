@@ -97,7 +97,10 @@ python3 scripts/apply_site_facts.py 2>&1 || echo "[warn] apply_site_facts.py fai
 # catalog (names, weights, prices, links) exists in HTML without JS or scroll.
 python3 scripts/render_static_catalog.py 2>&1 || echo "[warn] render_static_catalog.py failed; static catalog may be stale"
 # Price lists come from the same products.json as cards and catalog (no more hand-made snapshots).
-python3 scripts/gen_price_lists.py 2>&1 || echo "[warn] gen_price_lists.py failed; price lists may be stale"
+if ! python3 scripts/gen_price_lists.py; then
+  echo "[error] gen_price_lists.py failed — prices.xlsx/pdf/html may be stale; Chrome missing is not silent" >&2
+fi
+python3 scripts/stamp_catalog_prices.py 2>&1 || echo "[warn] stamp_catalog_prices.py failed; blog prices may be stale"
 python3 scripts/gen_how_to_order.py 2>&1 || echo "[warn] gen_how_to_order.py failed; /kak-zakazat may be stale"
 
 # 1d. Regenerate rich llms.txt for RU and EN (overrides the thin one

@@ -27,7 +27,7 @@ import subprocess
 import sys
 import time
 import zipfile
-from datetime import date
+from datetime import date, datetime
 from html import escape
 from io import BytesIO
 from pathlib import Path
@@ -39,14 +39,14 @@ PRODUCTS = PUBLIC / "products.json"
 TRANSLATIONS = ROOT / "scripts" / "translations.json"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from commercial_page import page as wrap_page  # noqa: E402
-from site_facts import FACTS  # noqa: E402
+from site_facts import FACTS, certs_price_en, certs_price_ru  # noqa: E402
 
 SECTION_ORDER = ["Заморозка", "Охлаждённая продукция", "Выпечка"]
 SECTION_EN = {"Заморозка": "Frozen", "Охлаждённая продукция": "Chilled", "Выпечка": "Bakery"}
 
-CONTACT = "info@kazandelikates.tatar | +7 987 217-02-02"
-CERTS_RU = "Халяль №614A/2024 (ДУМ РТ) | ХАССП | ISO 22000:2018 | ТР ТС 021/2011"
-CERTS_EN = "Halal #614A/2024 (DUM RT) | HACCP | ISO 22000:2018 | TR CU 021/2011"
+CONTACT = f"{FACTS['company']['email']} | {FACTS['company']['phone']}"
+CERTS_RU = certs_price_ru()
+CERTS_EN = certs_price_en()
 MOQ_RU = FACTS["terms"]["moq"]
 MOQ_EN = "1 pallet (mixed pallet possible)"
 BASIS_RU = FACTS["terms"]["basis"]
@@ -77,7 +77,9 @@ def fmt_card(v: float | None) -> str:
 def weight_kg(p: dict) -> float | None:
     raw = str(p.get("weight") or "").strip()
     if re.search(r"\bг\b|\bg\b", raw, re.I) and "кг" not in raw.lower() and "kg" not in raw.lower():
-        grams = num(re.sub(r"[^\d.,]", "", raw))
+        # First gram figure only: "80 г х 6" is 80 g, not 806.
+        m = re.search(r"(\d+(?:[.,]\d+)?)\s*(?:г|g)\b", raw, re.I)
+        grams = num(m.group(1) if m else None)
         return (grams / 1000.0) if grams else None
     return num(raw)
 
@@ -196,14 +198,38 @@ COLS_EN = ["SKU", "Product", "Net weight, kg", "Price, RUB incl. VAT", "Excl. VA
            "Per piece, RUB", "USD", "Min order, units", "Shelf life", "Storage", "HS code"]
 
 
-def cells(r: dict, lang: str) -> list[str]:
+def _shelf(r: dict, lang: str) -> str:
     shelf = r["shelf"] or "—"
     if lang == "en" and shelf != "—":
         shelf = shelf.replace("суток", "days").replace("сут.", "days").replace("дней", "days").replace("дн.", "days")
+    return shelf
+
+
+def cell_values(r: dict, lang: str) -> list[tuple[object, bool]]:
+    """Typed cells for xlsx: (value, is_numeric). None numeric → em dash text."""
     return [
-        r["sku"], r["name"], fmt(r["weight"], 3), fmt(r["price"]), fmt(r["price_ex_vat"]),
-        fmt(r["per_piece"]), fmt(r["usd"]), r["min_order"] or "—", shelf, r["storage"] or "—", r["hs"] or "—",
+        (r["sku"], False),
+        (r["name"], False),
+        (r["weight"], True),
+        (r["price"], True),
+        (r["price_ex_vat"], True),
+        (r["per_piece"], True),
+        (r["usd"], True),
+        (r["min_order"] or "—", False),
+        (_shelf(r, lang), False),
+        (r["storage"] or "—", False),
+        (r["hs"] or "—", False),
     ]
+
+
+def cells(r: dict, lang: str) -> list[str]:
+    out = []
+    for i, (val, numeric) in enumerate(cell_values(r, lang)):
+        if numeric:
+            out.append(fmt(val, 3 if i == 2 else 2))
+        else:
+            out.append("—" if val in (None, "") else str(val))
+    return out
 
 
 def sections_of(rows: list[dict]) -> list[str]:
@@ -245,18 +271,50 @@ def render_txt(meta: dict, rows: list[dict], lang: str) -> str:
     return "\n".join(lines).rstrip() + "\n"
 
 
-def _xlsx_sheet(name: str, headers: list[str], body: list[list[str]], idx: int) -> str:
+def _xlsx_cell(ref: str, val, numeric: bool) -> str:
+    if numeric:
+        n = float(val) if isinstance(val, (int, float)) else num(val)
+        if n is not None:
+            v = f"{n:.6f}".rstrip("0").rstrip(".")
+            return f'<c r="{ref}" t="n"><v>{v}</v></c>'
+        val = "—"
+    text = xml_escape(str(val if val not in (None, "") else "—"))
+    return f'<c r="{ref}" t="inlineStr"><is><t xml:space="preserve">{text}</t></is></c>'
+
+
+def _zip_datetime(synced: str) -> tuple[int, int, int, int, int, int]:
+    """Deterministic ZipInfo date from products.json lastSynced, not now()."""
+    raw = str(synced or "").strip()
+    try:
+        if "T" in raw:
+            dt = datetime.fromisoformat(raw.replace("Z", "+00:00"))
+        else:
+            dt = datetime.strptime(raw[:10], "%Y-%m-%d")
+        return (dt.year, dt.month, dt.day, getattr(dt, "hour", 0),
+                getattr(dt, "minute", 0), getattr(dt, "second", 0))
+    except (ValueError, TypeError):
+        return (2026, 1, 1, 0, 0, 0)
+
+
+def _zip_writestr(z: zipfile.ZipFile, name: str, data: str | bytes, dt) -> None:
+    info = zipfile.ZipInfo(name, date_time=dt)
+    info.compress_type = zipfile.ZIP_DEFLATED
+    if isinstance(data, str):
+        data = data.encode("utf-8")
+    z.writestr(info, data)
+
+
+def _xlsx_sheet(name: str, headers: list[str], body: list[list[tuple[object, bool]]], idx: int) -> str:
     rows_xml = []
-    all_rows = [headers, *body]
-    for r_i, row in enumerate(all_rows, 1):
-        cells = []
-        for c_i, val in enumerate(row):
-            ref = f"{chr(65 + c_i)}{r_i}"
-            text = xml_escape(str(val))
-            cells.append(
-                f'<c r="{ref}" t="inlineStr"><is><t xml:space="preserve">{text}</t></is></c>'
-            )
-        rows_xml.append(f'<row r="{r_i}">{"".join(cells)}</row>')
+    header_cells = []
+    for c_i, val in enumerate(headers):
+        header_cells.append(_xlsx_cell(f"{chr(65 + c_i)}1", val, False))
+    rows_xml.append(f'<row r="1">{"".join(header_cells)}</row>')
+    for r_i, row in enumerate(body, 2):
+        cells_xml = []
+        for c_i, (val, numeric) in enumerate(row):
+            cells_xml.append(_xlsx_cell(f"{chr(65 + c_i)}{r_i}", val, numeric))
+        rows_xml.append(f'<row r="{r_i}">{"".join(cells_xml)}</row>')
     return (
         '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
         '<worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">'
@@ -271,12 +329,12 @@ def write_xlsx(meta: dict, products: list[dict], tr: dict, dest: Path) -> None:
     synced = meta.get("lastSynced", "")
     sheets: list[tuple[str, str]] = []
 
-    def pack(lang: str, rows: list[dict]) -> list[tuple[str, list[str], list[list[str]]]]:
+    def pack(lang: str, rows: list[dict]) -> list[tuple[str, list[str], list[list[tuple[object, bool]]]]]:
         cols = COLS_EN if lang == "en" else COLS_RU
         out = []
         for sec in sections_of(rows):
             title = SECTION_EN.get(sec, sec) if lang == "en" else sec
-            body = [cells(r, lang) for r in rows if r["section"] == sec]
+            body = [cell_values(r, lang) for r in rows if r["section"] == sec]
             out.append((title[:31], cols, body))
         return out
 
@@ -284,7 +342,7 @@ def write_xlsx(meta: dict, products: list[dict], tr: dict, dest: Path) -> None:
     packed += [("EN " + n, h, b) for n, h, b in pack("en", en_rows)]
     # Excel sheet names must be unique and ≤31 chars
     used = set()
-    named: list[tuple[str, list[str], list[list[str]]]] = []
+    named: list[tuple[str, list[str], list[list[tuple[object, bool]]]]] = []
     for name, headers, body in packed:
         base = re.sub(r"[\\/?*\\[\\]]", " ", name)[:31]
         candidate = base
@@ -296,9 +354,10 @@ def write_xlsx(meta: dict, products: list[dict], tr: dict, dest: Path) -> None:
         used.add(candidate.lower())
         named.append((candidate, headers, body))
 
+    dt = _zip_datetime(synced)
     buf = BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
-        z.writestr("[Content_Types].xml",
+        _zip_writestr(z, "[Content_Types].xml",
                    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
                    '<Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types">'
                    '<Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/>'
@@ -309,38 +368,37 @@ def write_xlsx(meta: dict, products: list[dict], tr: dict, dest: Path) -> None:
                        f'ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>'
                        for i in range(1, len(named) + 1)
                    )
-                   + "</Types>")
-        z.writestr("_rels/.rels",
+                   + "</Types>", dt)
+        _zip_writestr(z, "_rels/.rels",
                    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
                    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
                    '<Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>'
-                   "</Relationships>")
+                   "</Relationships>", dt)
         sheets_xml = "".join(
             f'<sheet name="{xml_escape(name)}" sheetId="{i}" r:id="rId{i}"/>'
             for i, (name, _, _) in enumerate(named, 1)
         )
-        z.writestr("xl/workbook.xml",
+        _zip_writestr(z, "xl/workbook.xml",
                    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
                    '<workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" '
                    'xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships">'
-                   f'<sheets>{sheets_xml}</sheets></workbook>')
-        z.writestr("xl/_rels/workbook.xml.rels",
+                   f'<sheets>{sheets_xml}</sheets></workbook>', dt)
+        _zip_writestr(z, "xl/_rels/workbook.xml.rels",
                    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
                    '<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">'
                    + "".join(
                        f'<Relationship Id="rId{i}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet{i}.xml"/>'
                        for i in range(1, len(named) + 1)
                    )
-                   + "</Relationships>")
+                   + "</Relationships>", dt)
         for i, (name, headers, body) in enumerate(named, 1):
-            z.writestr(f"xl/worksheets/sheet{i}.xml", _xlsx_sheet(name, headers, body, i))
-        # unused but keeps some Excel versions happy
-        z.writestr("docProps/core.xml",
+            _zip_writestr(z, f"xl/worksheets/sheet{i}.xml", _xlsx_sheet(name, headers, body, i), dt)
+        _zip_writestr(z, "docProps/core.xml",
                    '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>'
                    '<cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" '
                    'xmlns:dc="http://purl.org/dc/elements/1.1/">'
                    f'<dc:title>Kazan Delicacies price list {xml_escape(synced)}</dc:title>'
-                   "<dc:creator>pepperoni.tatar</dc:creator></cp:coreProperties>")
+                   "<dc:creator>pepperoni.tatar</dc:creator></cp:coreProperties>", dt)
     dest.write_bytes(buf.getvalue())
 
 
@@ -494,15 +552,16 @@ def _chrome_bin() -> str | None:
 def write_pdf(html_path: Path, dest: Path) -> bool:
     """Print /price to PDF so the download matches the HTML table.
 
-    Chrome/Chromium when present (this environment and some VPS images). If
-    the binary is missing, the previous prices.pdf is kept — same fail-open
-    pattern as other sync generators.
+    Missing Chrome/Chromium is an ERROR, not a silent keep-stale. Callers
+    log it; deploy-vps.yml fails the deploy if the binary is absent.
     """
     tmp = dest.with_suffix(".pdf.tmp")
     if tmp.exists():
         tmp.unlink()
     chrome = _chrome_bin()
     if not chrome:
+        print("ERROR: prices.pdf: Chrome/Chromium not found; PDF not rebuilt",
+              file=sys.stderr)
         return False
     user_dir = Path("/tmp/pepperoni-price-pdf-chrome")
     user_dir.mkdir(parents=True, exist_ok=True)
@@ -519,7 +578,8 @@ def write_pdf(html_path: Path, dest: Path) -> bool:
         proc = subprocess.Popen(
             cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env,
         )
-    except OSError:
+    except OSError as exc:
+        print(f"ERROR: prices.pdf: failed to launch {chrome}: {exc}", file=sys.stderr)
         return False
     deadline = time.time() + 45
     ok = False
@@ -544,9 +604,29 @@ def write_pdf(html_path: Path, dest: Path) -> bool:
     if ok:
         tmp.replace(dest)
         return True
+    print(f"ERROR: prices.pdf: print-to-pdf failed ({chrome})", file=sys.stderr)
     if tmp.exists():
         tmp.unlink()
     return False
+
+
+def _strip_runtime(html: str) -> str:
+    """Ignore inject_site_links / LocalBusiness blocks when deciding if /price changed."""
+    for start, end in (
+        ("<!-- site-links:start -->", "<!-- site-links:end -->"),
+        ("<!-- company-footer:start -->", "<!-- company-footer:end -->"),
+        ("<!-- localbusiness-ld:start -->", "<!-- localbusiness-ld:end -->"),
+    ):
+        html = re.sub(re.escape(start) + r".*?" + re.escape(end) + r"\n?", "", html, flags=re.S)
+    return html
+
+
+def _write_if_changed(path: Path, text: str) -> bool:
+    if path.is_file() and _strip_runtime(path.read_text(encoding="utf-8")) == _strip_runtime(text):
+        return False
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(text, encoding="utf-8")
+    return True
 
 
 def main() -> int:
@@ -563,21 +643,25 @@ def main() -> int:
 
     ru_rows = rows_for(products, "ru", tr)
     en_rows = rows_for(products, "en", tr)
-    (PUBLIC / "price.html").write_text(render_html(meta, ru_rows, "ru"), encoding="utf-8")
-    (PUBLIC / "en").mkdir(parents=True, exist_ok=True)
-    (PUBLIC / "en" / "price.html").write_text(render_html(meta, en_rows, "en"), encoding="utf-8")
+    ru_changed = _write_if_changed(PUBLIC / "price.html", render_html(meta, ru_rows, "ru"))
+    en_changed = _write_if_changed(PUBLIC / "en" / "price.html", render_html(meta, en_rows, "en"))
     write_xlsx(meta, products, tr, PUBLIC / "prices.xlsx")
-    pdf_ok = write_pdf(PUBLIC / "price.html", PUBLIC / "prices.pdf")
-    if pdf_ok:
-        extra = "prices.xlsx + prices.pdf"
-    elif (PUBLIC / "prices.pdf").is_file():
-        extra = "prices.xlsx; prices.pdf kept previous"
+    pdf_path = PUBLIC / "prices.pdf"
+    need_pdf = ru_changed or en_changed or not pdf_path.is_file()
+    rc = 0
+    if need_pdf:
+        pdf_ok = write_pdf(PUBLIC / "price.html", pdf_path)
+        if pdf_ok:
+            extra = "prices.xlsx + prices.pdf"
+        else:
+            extra = "prices.xlsx; prices.pdf NOT updated"
+            rc = 1
     else:
-        extra = "prices.xlsx; prices.pdf missing"
-        print("warn: prices.pdf not generated (no Chrome) and no previous file")
+        extra = "prices.xlsx; prices.pdf unchanged (price.html identical)"
+        pdf_ok = False
     print(f"price lists: {len(products)} SKU → txt/md/html/xlsx"
           f"{' /pdf' if pdf_ok else ''} (data {meta.get('lastSynced')}); {extra}")
-    return 0
+    return rc
 
 
 if __name__ == "__main__":

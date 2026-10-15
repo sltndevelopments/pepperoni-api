@@ -11,13 +11,15 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from commercial_page import page as wrap_page  # noqa: E402
-from site_facts import FACTS, sku_count  # noqa: E402
+from site_facts import FACTS, phone_tel, phone_wa, sku_count  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 _CO = FACTS["company"]
 _TERMS = FACTS["terms"]
 N = sku_count()
+TEL = phone_tel()
+WA = phone_wa()
 
 
 def _faq_ld(pairs: list[tuple[str, str]]) -> str:
@@ -123,7 +125,7 @@ def ru() -> str:
 <h2>Шаги</h2>
 <ol>
 <li>Выберите ассортимент в <a href="/">каталоге</a> или в <a href="/price">прайс-листе</a>. Цены на прайсе — те же, что на карточках. Файлы: <a href="/prices.xlsx">Excel</a>, <a href="/prices.pdf">PDF</a>.</li>
-<li>Отправьте заявку по телефону <a href="tel:+79872170202">{escape(phone)}</a>, почте <a href="mailto:{escape(email)}">{escape(email)}</a>, <a href="https://wa.me/79872170202">WhatsApp</a> или через форму на странице категории. Укажите город, тип точки и ориентировочный объём.</li>
+<li>Отправьте заявку по телефону <a href="{TEL}">{escape(phone)}</a>, почте <a href="mailto:{escape(email)}">{escape(email)}</a>, <a href="{WA}">WhatsApp</a> или через форму на странице категории. Укажите город, тип точки и ориентировочный объём.</li>
 <li>Отдел продаж подтвердит наличие, состав паллеты и цену из действующего каталога. Цена заказа фиксируется в счёте.</li>
 <li>Базис поставки — {escape(_TERMS['basis'])}. Доставку оплачивает покупатель; срок отгрузки согласовывается по конкретной заявке.</li>
 <li>С отгрузкой идут сертификат халяль, декларация соответствия, ВСД (ФГИС «Меркурий»), маркировка «Честный знак» и электронная транспортная накладная (ЭТрН).</li>
@@ -138,7 +140,7 @@ def ru() -> str:
 <h2>Доставка и оплата</h2>
 <div class="card">
 <p>Базис — {escape(_TERMS['basis'])}. Покупатель забирает товар со склада в Казани либо организует перевозку за свой счёт. Срок отгрузки называем по заказу.</p>
-<p>Условия оплаты фиксируются в счёте. Расчёты возможны в валютах каталога: RUB, USD, KZT, UZS, KGS, BYN, AZN.</p>
+<p>Условия оплаты фиксируются в счёте. В каталоге — справочные экспортные цены в USD, KZT, UZS, KGS, BYN, AZN.</p>
 <p>Подробнее о базисе и экспортных валютах — на странице <a href="/delivery">доставки</a>.</p>
 </div>
 
@@ -156,7 +158,7 @@ def ru() -> str:
 <div class="card">
 <p>{escape(legal)} · ИНН {escape(inn)} · ОГРН {escape(ogrn)}</p>
 <p>{escape(addr)}</p>
-<p><a href="tel:+79872170202">{escape(phone)}</a> · <a href="mailto:{escape(email)}">{escape(email)}</a> · <a href="https://wa.me/79872170202">WhatsApp</a></p>
+<p><a href="{TEL}">{escape(phone)}</a> · <a href="mailto:{escape(email)}">{escape(email)}</a> · <a href="{WA}">WhatsApp</a></p>
 </div>
 
 <section class="faq" id="faq">
@@ -224,7 +226,7 @@ def en() -> str:
 <h2>Steps</h2>
 <ol>
 <li>Choose items in the <a href="/en/">catalog</a> or the <a href="/en/price">price list</a>. Prices match the product cards. Files: <a href="/prices.xlsx">Excel</a>, <a href="/prices.pdf">PDF</a>.</li>
-<li>Send an enquiry by phone <a href="tel:+79872170202">{escape(phone)}</a>, e-mail <a href="mailto:{escape(email)}">{escape(email)}</a>, <a href="https://wa.me/79872170202">WhatsApp</a> or the form on a category page. State city, channel and approximate volume.</li>
+<li>Send an enquiry by phone <a href="{TEL}">{escape(phone)}</a>, e-mail <a href="mailto:{escape(email)}">{escape(email)}</a>, <a href="{WA}">WhatsApp</a> or the form on a category page. State city, channel and approximate volume.</li>
 <li>Sales confirms availability, pallet mix and the live catalog price. The order price is fixed in the invoice.</li>
 <li>Basis is EXW Kazan. The buyer pays freight; lead time is agreed for the specific order.</li>
 <li>Shipping set: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny ZNAK marking, electronic waybill (ETrN).</li>
@@ -239,7 +241,7 @@ def en() -> str:
 <h2>Delivery and payment</h2>
 <div class="card">
 <p>Basis is EXW Kazan. The buyer collects from the Kazan warehouse or arranges freight at their own cost. Lead time is named per order.</p>
-<p>Payment terms are fixed in the invoice. Catalog currencies: RUB, USD, KZT, UZS, KGS, BYN, AZN.</p>
+<p>Payment terms are fixed in the invoice. The catalog lists reference export prices in USD, KZT, UZS, KGS, BYN, AZN.</p>
 <p>More on the basis and export currencies: <a href="/en/delivery">delivery</a>.</p>
 </div>
 
@@ -257,7 +259,7 @@ def en() -> str:
 <div class="card">
 <p>{escape(legal)} · INN {escape(inn)} · OGRN {escape(ogrn)}</p>
 <p>{escape(addr)}</p>
-<p><a href="tel:+79872170202">{escape(phone)}</a> · <a href="mailto:{escape(email)}">{escape(email)}</a> · <a href="https://wa.me/79872170202">WhatsApp</a></p>
+<p><a href="{TEL}">{escape(phone)}</a> · <a href="mailto:{escape(email)}">{escape(email)}</a> · <a href="{WA}">WhatsApp</a></p>
 </div>
 
 <section class="faq" id="faq">

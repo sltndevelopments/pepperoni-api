@@ -45,7 +45,7 @@ footer a{color:#555;text-decoration:none}
 .faq details{border:1px solid #e5e5e5;border-radius:8px;padding:10px 14px;margin:0 0 8px;background:#fff}
 .faq summary{font-weight:600;cursor:pointer}
 @media print{
-  nav.topnav,.dl a.ghost,footer .print-hide{display:none}
+  .topnav,nav.topnav,.dl a.ghost,footer .print-hide{display:none}
   body{background:#fff}
   table{font-size:10px}
   a{color:#000;text-decoration:none}

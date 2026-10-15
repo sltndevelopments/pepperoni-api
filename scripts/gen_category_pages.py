@@ -13,6 +13,12 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
+from site_facts import (  # noqa: E402
+    FACTS,
+    certs_category_en,
+    certs_category_ru,
+    meat_halal_number,
+)
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
@@ -249,8 +255,8 @@ def build_page(cfg):
         "актуального каталога. Ниже приведены SKU и характеристики из "
         "products.json; коммерческие условия согласуются для конкретного запроса."
     )
-    # Meat SKUs: 614A/2024. Bakery (vyipechka-halyal) sets halal_cert to 884A/2025.
-    halal_no = cfg.get("halal_cert", "614A/2024")
+    # Meat SKUs: primary DUM RT №0008 from site_facts. Bakery sets 884A/2025.
+    halal_no = cfg.get("halal_cert") or meat_halal_number()
     features = [
         f"{len(products)} SKU из синхронизированного каталога",
         "Масса, состав, хранение и срок годности — в карточке каждого SKU",
@@ -511,7 +517,7 @@ COMMERCIAL_T = {
         "lead": "Ниже — {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
         "facts_h": "Общее для категории",
         "f_formats": "Форматы", "f_storage": "Хранение", "f_shelf": "Срок годности", "f_pack": "Упаковка",
-        "f_cert": "Сертификаты", "cert": "Халяль ДУМ РТ № 614A/2024 · ХАССП · ISO 22000:2018 · ТР ТС 021/2011",
+        "f_cert": "Сертификаты", "cert": certs_category_ru(),
         "price_note": "Цены — за упаковку, в рублях с НДС, из каталога на {date}; цена без НДС указана под каждой ценой. Цена за килограмм = цена упаковки с НДС ÷ масса нетто (округление до рубля); цена за штуку — из каталога (с НДС, до копейки). Цены при объёме подтверждает отдел продаж. Полный прайс: <a href=\"/price\">HTML</a> · <a href=\"/prices.xlsx\">Excel</a> · <a href=\"/prices.pdf\">PDF</a>. <a href=\"/kak-zakazat\">Как заказать</a>.",
         "h_assort": "Ассортимент — {n} позиций",
         "hold_note": "Ещё {n_held} позиции категории ({held_list}) временно не показаны: по ним уточняется спецификация состава. Актуальную маркировку запрашивайте у отдела продаж.",
@@ -550,7 +556,13 @@ COMMERCIAL_T = {
             ("Как хранить и какой срок годности?",
              "Заморозка {storage}, срок годности {shelf} в закрытой упаковке. Условия после размораживания и вскрытия — на этикетке и в карточке товара."),
             ("Из какого мяса сосиски и где посмотреть состав?",
-             "Состав каждой позиции указан в её карточке и на этикетке; в категории есть позиции из говядины, мяса кур, с бараниной и из конины. Все позиции категории соответствуют стандарту «Халяль». Производство сертифицировано Комитетом по стандарту «Халяль» ДУМ РТ, сертификат № 614A/2024."),
+             "Состав каждой позиции указан в её карточке и на этикетке; в категории есть позиции из говядины, мяса кур, с бараниной и из конины. Все позиции категории соответствуют стандарту «Халяль». Производство сертифицировано Комитетом по стандарту «Халяль» ДУМ РТ, основной сертификат № "
+             + FACTS["certificates"]["halal_0008"]["number"]
+             + ", также № "
+             + FACTS["certificates"]["halal_614a"]["number"]
+             + " и № "
+             + FACTS["certificates"]["halal_bakery"]["number"]
+             + "."),
             ("Какая минимальная партия и как быстро отгрузка?",
              "Минимальный заказ — одна паллета; сборная паллета из нескольких позиций возможна, объём считаем кратно паллете. Цены — со склада в Казани (EXW). Наличие и срок отгрузки подтверждает отдел продаж на дату запроса. Укажите позиции и объём в форме выше."),
             ("Цены на странице — актуальные?",
@@ -569,7 +581,7 @@ COMMERCIAL_T = {
         "lead": "{n} SKUs from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, pallet build and delivery. Prices EXW Kazan; minimum order is one pallet.",
         "facts_h": "Category facts",
         "f_formats": "Formats", "f_storage": "Storage", "f_shelf": "Shelf life", "f_pack": "Packaging",
-        "f_cert": "Certificates", "cert": "Halal DUM RT No. 614A/2024 · HACCP · ISO 22000:2018 · TR CU 021/2011",
+        "f_cert": "Certificates", "cert": certs_category_en(),
         "price_note": "Prices are per pack in RUB incl. VAT from the catalog as of {date}; the excl.-VAT price is shown under each price. Per-kg = pack price incl. VAT ÷ net weight (rounded to the rouble); per-piece comes from the catalog (incl. VAT, to the kopeck). Volume pricing is confirmed by sales. Full price list: <a href=\"/en/price\">HTML</a> · <a href=\"/prices.xlsx\">Excel</a> · <a href=\"/prices.pdf\">PDF</a>. <a href=\"/en/kak-zakazat\">How to order</a>.",
         "h_assort": "Assortment — {n} SKUs",
         "hold_note": "{n_held} more SKUs of this category ({held_list}) are temporarily not shown while their ingredient specification is being verified. Request the current label from sales.",
@@ -608,7 +620,13 @@ COMMERCIAL_T = {
             ("How are they stored and what is the shelf life?",
              "Frozen at {storage}, shelf life {shelf} in sealed packaging. Conditions after thawing and opening are on the label and product page."),
             ("What meat are they made from and where is the ingredient list?",
-             "The ingredient list of every SKU is on its product page and label; the category includes beef, chicken, lamb-containing and horse-meat SKUs. All products in this category are Halal-certified. Production is certified by the Halal Standards Committee of DUM RT under certificate No. 614A/2024."),
+             "The ingredient list of every SKU is on its product page and label; the category includes beef, chicken, lamb-containing and horse-meat SKUs. All products in this category are Halal-certified. Production is certified by the Halal Standards Committee of DUM RT under primary certificate No. "
+             + FACTS["certificates"]["halal_0008"]["number"]
+             + ", also No. "
+             + FACTS["certificates"]["halal_614a"]["number"]
+             + " and No. "
+             + FACTS["certificates"]["halal_bakery"]["number"]
+             + "."),
             ("What is the minimum order and how fast is dispatch?",
              "The minimum order is one pallet; a mixed pallet of several SKUs is possible and volumes are quoted in pallet multiples. Prices are EXW Kazan. Stock and dispatch date are confirmed by sales on the enquiry date. State SKUs and volume in the form above."),
             ("Are the prices on this page current?",
@@ -800,7 +818,7 @@ def build_commercial_page(cfg, lang):
 
   <p class="hero-subtitle">{t['eyebrow'].format(**ctx)}</p>
   <h1>{t['h1']}</h1>
-  <span class="badge">{'Halal DUM RT No. 614A/2024' if lang == 'en' else 'Халяль ДУМ РТ № 614A/2024'}</span>
+  <span class="badge">{'Halal DUM RT No. ' + meat_halal_number() if lang == 'en' else 'Халяль ДУМ РТ № ' + meat_halal_number()}</span>
   <span class="badge badge-outline">HACCP / ISO 22000:2018</span>
   <span class="badge badge-outline">{ctx['storage']} · {ctx['shelf']}</span>
 
@@ -1085,7 +1103,7 @@ PAGES = [
     },
     {
         "slug": "vyipechka-halyal",
-        "halal_cert": "884A/2025",
+        "halal_cert": FACTS["certificates"]["halal_bakery"]["number"],
         "label": "Выпечка халяль",
         "title": "Выпечка халяль оптом — татарская и классическая выпечка из Казани | pepperoni.tatar",
         "desc": "Выпечка халяль оптом: 19 SKU — губадия, чебурек, перемяч, сочник, пирожки. Национальная татарская и классическая выпечка. Сертификат ДУМ РТ. Доставка по России.",
@@ -1126,7 +1144,10 @@ PAGES = [
     {
         "slug": "sosiska-v-teste",
         "label": "Сосиска в тесте",
-        "halal_cert": "614A/2024 для мясной сосиски и 884A/2025 для выпечки",
+        "halal_cert": (
+            f"{FACTS['certificates']['halal_614a']['number']} для мясной сосиски и "
+            f"{FACTS['certificates']['halal_bakery']['number']} для выпечки"
+        ),
         "keywords": "сосиска в тесте оптом, сосиска в тесте халяль",
         "skus": ["KD-018", "KD-061"],
         "related_links": [
