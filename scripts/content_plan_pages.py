@@ -807,7 +807,7 @@ def write_kazakhstan() -> None:
 · <a href="{"/en" if lang == "ru" else ""}/export/kazakhstan">{"EN" if lang == "ru" else "RU"}</a></nav>
 <h1>🇰🇿 {h1}</h1>
 {body}
-<section class="faq-section"><h2>{"Вопросы и ответы" if lang == "ru" else "FAQ"}</h2>
+<section class="faq-section"><h2>{"Частые вопросы" if lang == "ru" else "FAQ"}</h2>
 {faq_html(faq)}</section>
 <footer><p><a href="{prefix(lang) or '/'}">pepperoni.tatar</a></p></footer>
 </div>

@@ -31,7 +31,7 @@ QA_MARKUP_RE = re.compile(
     re.I,
 )
 FAQ_HEADING_RE = re.compile(
-    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|FAQ|Frequently asked)',
+    r'<(?:h1|h2|h3)[^>]*>\s*(?:Частые вопросы|Вопросы и ответы|FAQ|Frequently asked)',
     re.I,
 )
 PRODUCT_CARD_RE = re.compile(r"(?:^|/)(?:en/)?products/kd-\d{3}\.html$")
