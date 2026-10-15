@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updated_at": "2026-09-12",
+  "updated_at": "2026-10-15",
   "organization": {
     "@id": "https://pepperoni.tatar/#organization",
     "name": "Казанские Деликатесы",
@@ -113,6 +113,47 @@
         "ru",
         "en"
       ],
+      "allowed_paths": [
+        "/certificates",
+        "/halal",
+        "/about",
+        "/en/certificates",
+        "/en/halal",
+        "/en/about"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "halal_dum_rt_884a_2025",
+      "claim_ru": "Халяль ДУМ РТ №884А/2025 — кондитерские, хлебобулочные изделия и кулинария; действует с 27.12.2025 по 26.12.2026.",
+      "claim_en": "Halal certification by DUM RT, certificate No. 884A/2025 — confectionery, bakery and ready meals; valid 27 Dec 2025–26 Dec 2026.",
+      "source_type": "certification_registry",
+      "source_url": "https://halalrt.ru/c/4hDESSiMNsDK3Jt/",
+      "verified_at": "2026-10-15",
+      "valid_until": "2026-12-26",
+      "owner": "quality",
+      "languages": ["ru", "en"],
+      "allowed_paths": [
+        "/certificates",
+        "/halal",
+        "/about",
+        "/vyipechka-halyal",
+        "/en/certificates",
+        "/en/halal",
+        "/en/about"
+      ],
+      "status": "active"
+    },
+    {
+      "id": "made_in_russia_ss_003181",
+      "claim_ru": "Сертификат соответствия «Сделано в России» № СС.003181 (программа РЭЦ), действует до 23.10.2028.",
+      "claim_en": "Made in Russia certificate of conformity No. SS.003181 (REC programme), valid until 23 Oct 2028.",
+      "source_type": "owner_document",
+      "source_url": "https://pepperoni.tatar/docs/made-in-russia-cc003181.pdf",
+      "verified_at": "2026-10-15",
+      "valid_until": "2028-10-23",
+      "owner": "quality",
+      "languages": ["ru", "en"],
       "allowed_paths": [
         "/certificates",
         "/halal",

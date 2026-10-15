@@ -38,25 +38,28 @@ PACK_KEYWORDS  = ["упаковка", "pack", "в упаковке", "упак"]
 # ─── Маппинг: ключевые слова → SKU + поле ───────────────────────────────────
 # Порядок важен: более специфичные паттерны — первыми.
 MAPPING = [
-    # Котлеты
-    {"sku": "KD-008", "field": "imagePack",  "keywords": ["котлета готовая", "котлеты из говядины готов"]},
-    {"sku": "KD-008", "field": "imageSlice", "keywords": ["котлета сырая"]},
-    {"sku": "KD-009", "field": "imagePack",  "keywords": ["котлета готовая"]},
+    # Котлеты (Sheets: KD-009 100 г, KD-010 150 г)
+    {"sku": "KD-009", "field": "imagePack",  "keywords": ["котлета готовая", "котлеты из говядины готов"]},
     {"sku": "KD-009", "field": "imageSlice", "keywords": ["котлета сырая"]},
+    {"sku": "KD-010", "field": "imagePack",  "keywords": ["котлета готовая"]},
+    {"sku": "KD-010", "field": "imageSlice", "keywords": ["котлета сырая"]},
 
-    # Ветчина из Курицы
-    {"sku": "KD-010", "field": "imagePack",  "keywords": ["куриная ветчина", "ветчина из курицы"]},
-    {"sku": "KD-010", "field": "imageSlice", "keywords": ["куриная грудка в разрезе"]},
-    {"sku": "KD-011", "field": "imagePack",  "keywords": ["куриная ветчина", "ветчина из курицы"]},
+    # Ветчина из Курицы (Sheets: KD-011 нарезка филейная, KD-030 ветчина из курицы)
+    {"sku": "KD-011", "field": "imagePack",  "keywords": ["куриная ветчина", "ветчина из курицы", "ветчина филейная"]},
     {"sku": "KD-011", "field": "imageSlice", "keywords": ["куриная грудка в разрезе"]},
+    {"sku": "KD-030", "field": "imagePack",  "keywords": ["куриная ветчина", "ветчина из курицы"]},
 
-    # Ветчина из Индейки
-    {"sku": "KD-012", "field": "imagePack",  "keywords": ["полукопченая из индейки"]},
-    {"sku": "KD-012", "field": "imageSlice", "keywords": ["карпаччо из индейки без упаковки"]},
-    {"sku": "KD-013", "field": "imagePack",  "keywords": ["полукопченая из индейки"]},
-    {"sku": "KD-013", "field": "imageSlice", "keywords": ["карпаччо из индейки без упаковки"]},
+    # Ветчина из Индейки (Sheets: KD-028, 0,5 кг) — NOT the same product as semi-smoked turkey
+    {"sku": "KD-028", "field": "imagePack",  "keywords": ["ветчина из индейки", "ветчина из Индейки"]},
+    {"sku": "KD-028", "field": "imageSlice", "keywords": ["ветчина из индейки"]},
 
-    # Пепперони
+    # Полукопченая из Индейки (Sheets: KD-033, 0,45 кг) — different SKU from turkey ham
+    {"sku": "KD-033", "field": "imagePack",  "keywords": ["полукопченая из индейки", "колбаса полукопченая из индейки"]},
+    {"sku": "KD-033", "field": "imageSlice", "keywords": ["полукопченая из индейки"]},
+
+    # Пепперони (Sheets: KD-013 нарезка, KD-014 батон; KD-012 horse retired / 410)
+    {"sku": "KD-013", "field": "imagePack",  "keywords": ["пепперони"]},
+    {"sku": "KD-013", "field": "imageSlice", "keywords": ["пепперони в разрезе"]},
     {"sku": "KD-014", "field": "imagePack",  "keywords": ["пепперони цельная", "пепперони.jpg"]},
     {"sku": "KD-014", "field": "imageSlice", "keywords": ["пепперони в разрезе"]},
 
@@ -68,74 +71,56 @@ MAPPING = [
     {"sku": "KD-024", "field": "imagePack",  "keywords": ["куриная грудка.jpg"]},
     {"sku": "KD-025", "field": "imagePack",  "keywords": ["котлеты из говядины.jpg"]},
 
-    # Сосиски казанские с молоком (imageSlice)
-    {"sku": "KD-029", "field": "imageSlice", "keywords": ["сосиски казанские молочные"]},
+    # Сосиски казанские с молоком (Sheets: KD-020)
+    {"sku": "KD-020", "field": "imageSlice", "keywords": ["сосиски казанские молочные"]},
 
-    # Сосиски Сочные
-    {"sku": "KD-033", "field": "imagePack",  "keywords": ["сосиски казанские сочные", "казанские сочные.jpg"]},
+    # Сосиски Сочные (Sheets: KD-024)
+    {"sku": "KD-024", "field": "imagePack",  "keywords": ["сосиски казанские сочные", "казанские сочные.jpg"]},
 
-    # Вареные колбасы
-    {"sku": "KD-035", "field": "imagePack",  "keywords": ["колбаса вареная из говядины"]},
-    {"sku": "KD-035", "field": "imageSlice", "keywords": ["колбаса вареная из говядины"]},
-    {"sku": "KD-036", "field": "imagePack",  "keywords": ["нежная классик", "нежная ск"]},
-    {"sku": "KD-036", "field": "imageSlice", "keywords": ["нежная классик"]},
-    {"sku": "KD-037", "field": "imagePack",  "keywords": ["нежная классик", "нежная ск"]},
-    {"sku": "KD-037", "field": "imageSlice", "keywords": ["нежная классик"]},
+    # Вареные колбасы (Sheets: KD-025 говядина, KD-027 нежная)
+    {"sku": "KD-025", "field": "imagePack",  "keywords": ["колбаса вареная из говядины"]},
+    {"sku": "KD-025", "field": "imageSlice", "keywords": ["колбаса вареная из говядины"]},
+    {"sku": "KD-027", "field": "imagePack",  "keywords": ["нежная классик", "нежная ск"]},
+    {"sku": "KD-027", "field": "imageSlice", "keywords": ["нежная классик"]},
 
-    # Ветчина из Индейки (охл.)
-    {"sku": "KD-038", "field": "imagePack",  "keywords": ["полукопченая из индейки"]},
+    # Ветчина Мраморная (Sheets: KD-029)
+    {"sku": "KD-029", "field": "imagePack",  "keywords": ["мраморная говяжья ветчина", "ветчина мраморная"]},
 
-    # Ветчина Мраморная
-    {"sku": "KD-039", "field": "imagePack",  "keywords": ["мраморная говяжья ветчина", "ветчина мраморная"]},
+    # Сервелат Ханский (Sheets: KD-031)
+    {"sku": "KD-031", "field": "imagePack",  "keywords": ["сервелат ханский"]},
+    {"sku": "KD-031", "field": "imageSlice", "keywords": ["татарский сервелат все виды нарезки"]},
 
-    # Ветчина из Курицы (охл.)
-    {"sku": "KD-040", "field": "imagePack",  "keywords": ["куриная ветчина", "ветчина из курицы"]},
+    # Сервелат по-татарски (Sheets: KD-032)
+    {"sku": "KD-032", "field": "imagePack",  "keywords": ["сервелат по-татарски"]},
+    {"sku": "KD-032", "field": "imageSlice", "keywords": ["сервелат по-татарски"]},
 
-    # Ветчина Филейная
-    {"sku": "KD-041", "field": "imagePack",  "keywords": ["ветчина филейная"]},
+    # Полукопченая из Говядины (Sheets: KD-034) — not KD-044 (kazylyk)
+    {"sku": "KD-034", "field": "imagePack",  "keywords": ["колбаса полукопченая из говядины"]},
+    {"sku": "KD-034", "field": "imageSlice", "keywords": ["полукопченая из говядины"]},
 
-    # Сервелат Ханский
-    {"sku": "KD-042", "field": "imagePack",  "keywords": ["сервелат ханский"]},
-    {"sku": "KD-042", "field": "imageSlice", "keywords": ["татарский сервелат все виды нарезки"]},
+    # Грудка куриная варено-копченая (Sheets: KD-015)
+    {"sku": "KD-015", "field": "imagePack",  "keywords": ["куриная грудка.jpg"]},
+    {"sku": "KD-015", "field": "imageSlice", "keywords": ["куриная грудка в разрезе"]},
 
-    # Сервелат по-татарски
-    {"sku": "KD-043", "field": "imagePack",  "keywords": ["сервелат по-татарски"]},
-    {"sku": "KD-043", "field": "imageSlice", "keywords": ["сервелат по-татарски"]},
+    # в/к Рамазан (Sheets: KD-036)
+    {"sku": "KD-036", "field": "imagePack",  "keywords": ["колбаса варено-копченая рамазан", "рамазан .jpg"]},
 
-    # Полукопченые
-    {"sku": "KD-044", "field": "imagePack",  "keywords": ["колбаса полукопченая из индейки"]},
-    {"sku": "KD-044", "field": "imageSlice", "keywords": ["полукопченая из индейки"]},
-    {"sku": "KD-045", "field": "imagePack",  "keywords": ["колбаса полукопченая из говядины"]},
-    {"sku": "KD-045", "field": "imageSlice", "keywords": ["полукопченая из говядины"]},
+    # в/к Мраморная (Sheets: KD-038)
+    {"sku": "KD-038", "field": "imagePack",  "keywords": ["колбаса варено-копченая мраморная", "мраморная 1.0.jpg"]},
 
-    # Грудка куриная
-    {"sku": "KD-047", "field": "imagePack",  "keywords": ["куриная грудка.jpg"]},
-    {"sku": "KD-047", "field": "imageSlice", "keywords": ["куриная грудка в разрезе"]},
-    {"sku": "KD-048", "field": "imagePack",  "keywords": ["куриная грудка.jpg"]},
-    {"sku": "KD-048", "field": "imageSlice", "keywords": ["куриная грудка в разрезе"]},
+    # в/к Филейный (Sheets: KD-040)
+    {"sku": "KD-040", "field": "imagePack",  "keywords": ["сервелат варено-копченый филейный"]},
+    {"sku": "KD-040", "field": "imageSlice", "keywords": ["сервелат филейный все виды нарезки"]},
 
-    # в/к Рамазан
-    {"sku": "KD-049", "field": "imagePack",  "keywords": ["колбаса варено-копченая рамазан", "рамазан .jpg"]},
+    # в/к Княжеская (Sheets: KD-042)
+    {"sku": "KD-042", "field": "imageSlice", "keywords": ["княжеская все виды нарезки"]},
 
-    # в/к Мраморная
-    {"sku": "KD-051", "field": "imagePack",  "keywords": ["колбаса варено-копченая мраморная", "мраморная 1.0.jpg"]},
+    # Выпечка — Самса с курицей (Sheets: KD-049)
+    {"sku": "KD-049", "field": "imagePack",  "keywords": ["самса с курицей 1.0"]},
 
-    # в/к Филейный
-    {"sku": "KD-053", "field": "imagePack",  "keywords": ["сервелат варено-копченый филейный"]},
-    {"sku": "KD-053", "field": "imageSlice", "keywords": ["сервелат филейный все виды нарезки"]},
-    {"sku": "KD-054", "field": "imagePack",  "keywords": ["сервелат варено-копченый филейный"]},
-    {"sku": "KD-054", "field": "imageSlice", "keywords": ["сервелат филейный все виды нарезки"]},
-
-    # в/к Княжеская
-    {"sku": "KD-055", "field": "imageSlice", "keywords": ["княжеская все виды нарезки"]},
-    {"sku": "KD-056", "field": "imageSlice", "keywords": ["княжеская все виды нарезки"]},
-
-    # Выпечка — Самса с курицей
-    {"sku": "KD-062", "field": "imagePack",  "keywords": ["самса с курицей 1.0"]},
-
-    # Чак-чак
-    {"sku": "KD-066", "field": "imagePack",  "keywords": ["чак чак без упаковки.jpg", "чак чак без упаковки 1.jpg"]},
-    {"sku": "KD-066", "field": "imageSlice", "keywords": ["чак чак 1.0.jpg"]},
+    # Чак-чак (Sheets: KD-053 пластик, KD-054 крафт)
+    {"sku": "KD-053", "field": "imagePack",  "keywords": ["чак чак без упаковки.jpg", "чак чак без упаковки 1.jpg"]},
+    {"sku": "KD-054", "field": "imageSlice", "keywords": ["чак чак 1.0.jpg"]},
 ]
 
 

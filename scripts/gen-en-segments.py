@@ -54,7 +54,7 @@ SEGMENTS = [
         "features": [
             ("🍕", "Oven-stable", "No curling, no grease bleed, holds colour at 280-320°C."),
             ("📏", "Locked diameter", "24-32 mm classic, 38 mm for stuffed crust — your slicer never re-adjusts."),
-            ("🇷🇺", "Halal classic & horse meat", "Halal-certified product positioned natively for Muslim guests. Horse-meat pepperoni — a unique SKU."),
+            ("🇷🇺", "Halal chicken pepperoni", "Halal-certified cooked-smoked chicken pepperoni (KD-013 sliced, KD-014 stick). Horse-meat pepperoni is not in the current catalog."),
             ("📦", "Three formats", "Whole 1 kg stick, half 0.5 kg, factory-sliced — pick the labour you want to push to the kitchen."),
             ("❄️", "180-360 day shelf life", "Long shelf life means rare orders, less wastage on slow Mondays."),
             ("📋", "Full document pack", "EAEU declaration, Mercury VSD, Halal certificate, QR traceability."),
@@ -62,8 +62,7 @@ SEGMENTS = [
         "items_heading": "Pepperoni SKUs for pizzerias",
         "items": [
             ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
-            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
-            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", "457 ₽"),
         ],
         "items_note": "Current prices live at <a href=\"/en/\" style=\"color:#0066cc\">/en/</a>. Private-label and custom-format quotations on request.",
         "logistics_heading": "Logistics & terms for pizza chains",
@@ -80,7 +79,7 @@ SEGMENTS = [
         "why": [
             "<strong>Halal-default product</strong> — works for Muslim and non-Muslim guests alike, no double menu",
             "<strong>Diameter & casing locked</strong> across every batch — slicer settings never drift",
-            "<strong>Horse-meat pepperoni</strong> — high-margin unique SKU for premium positioning",
+            "<strong>Two live formats</strong> — KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg",
             "<strong>Private Label</strong> — your pizzeria's brand on the box, recipe customisable",
             "<strong>In-house production</strong> in Kazan — no middleman between you and the recipe",
             "<strong>Federal-scale case</strong> — already producing for OMPK / Ostankino",
@@ -352,9 +351,10 @@ SEGMENTS = [
         ],
         "items_heading": "Distribution-friendly SKUs",
         "items": [
-            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "1 kg", "457 ₽"),
+            ("Chicken cooked-smoked pepperoni KD-014, whole stick", "0.8 kg", "457 ₽"),
             ("Chicken cooked-smoked pepperoni KD-013, sliced", "0.5 kg", "274 ₽"),
-            ("Horse-meat cooked-smoked pepperoni KD-012, sliced", "0.5 kg", "315 ₽"),
+            ("Turkey ham KD-028", "0.5 kg", "—"),
+            ("Semi-smoked turkey sausage KD-033", "0.45 kg", "—"),
             ("Kazylyk «Premium» (gift box)", "200 g", "650 ₽"),
             ("Cheese sausages", "0.65 kg × 5", "455 ₽"),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
@@ -485,7 +485,7 @@ SEGMENTS = [
         ],
         "second_case": {
             "title": "Private-label categories we run",
-            "body": "Sausages (hot-dog, grill, casingless, breakfast), cooked-smoked pepperoni (chicken KD-013/014, horse KD-012), hams, boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak. Assortment follows the live Google Sheets catalog only.",
+            "body": "Sausages (hot-dog, grill, casingless, breakfast), cooked-smoked chicken pepperoni (KD-013/014), turkey ham (KD-028), semi-smoked turkey sausage (KD-033), boiled & semi-smoked sausages, kazylyk, dumplings (pelmeni, vareniki), echpochmak, samsa, chebureks, chak-chak. Assortment follows the live Google Sheets catalog only.",
         },
         "features_heading": "What we customise",
         "features": [

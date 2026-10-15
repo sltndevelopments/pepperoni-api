@@ -28,6 +28,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
+sys.path.insert(0, str(ROOT / "scripts"))
+from site_facts import cert_line_en, cert_line_ru  # noqa: E402
 
 spec = importlib.util.spec_from_file_location(
     "sync_sheets", ROOT / "scripts" / "sync-sheets.py"
@@ -58,7 +60,7 @@ n_sections = len(sections)
 def llms_map_ru() -> str:
     return f"""# Казанские Деликатесы (pepperoni.tatar)
 
-> Производитель халяльных колбасных изделий и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Каталог pepperoni.tatar — все позиции, не одна линейка пепперони. Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). Халяль ДУМ РТ №614A/2024 (мясо) и №884A/2025 (выпечка и готовые блюда), HACCP, ISO 22000:2018, ТР ТС 021/2011. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
+> Производитель халяльных колбасных изделий и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Каталог pepperoni.tatar — все позиции, не одна линейка пепперони. Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). {cert_line_ru()}. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
 
 Ключевые условия (подтверждены владельцем):
 - Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — одна паллета (сборная из разных позиций возможна), объём кратно паллете.
@@ -74,7 +76,7 @@ def llms_map_ru() -> str:
 - [Копчёные колбасы халяль оптом](https://pepperoni.tatar/kolbasy-kopchyonye): сервелат и копчёные колбасы.
 - [Ветчина халяль оптом](https://pepperoni.tatar/vetchina-optom): ветчина из курицы и индейки.
 - [Пепперони халяль оптом (money hub)](https://pepperoni.tatar/pepperoni): форматы, цены, экспорт.
-- [Джерки и колбаски-снеки под СТМ](https://pepperoni.tatar/jerky): говядина, птица, баранина, конина; флоупак.
+- [Джерки и колбаски-снеки под СТМ](https://pepperoni.tatar/jerky): говядина, птица, баранина; флоупак.
 - [Сосиски для хот-догов](https://pepperoni.tatar/sosiski-dlya-hotdog): линейка для АЗС и street food, паллетный базис, форма заявки.
 - [Казылык](https://pepperoni.tatar/kazylyk): конская колбаса, подарочная упаковка и нарезка.
 - [Контрактное производство / СТМ](https://pepperoni.tatar/kontraktnoe-proizvodstvo): от 5 тонн, документы, этапы.
@@ -108,7 +110,7 @@ def llms_map_ru() -> str:
 def llms_map_en() -> str:
     return f"""# Kazan Delicacies (pepperoni.tatar)
 
-> Manufacturer of halal sausage products and Tatar bakery in Kazan, Russia (Kazan Delicacies LLC). The pepperoni.tatar catalog is the full range, not a single pepperoni line. Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. Halal DUM RT No. 614A/2024 (meat) and No. 884A/2025 (bakery and ready meals), HACCP, ISO 22000:2018, TR CU 021/2011. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
+> Manufacturer of halal sausage products and Tatar bakery in Kazan, Russia (Kazan Delicacies LLC). The pepperoni.tatar catalog is the full range, not a single pepperoni line. Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. {cert_line_en()}. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
 
 Key terms (owner-approved):
 - Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order — one pallet (mixed pallets possible), volumes in pallet multiples.

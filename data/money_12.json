@@ -71,18 +71,18 @@
       "pitch3": ["Халяль", "Патти 100 г", "3 шт"]
     },
     {
-      "sku": "KD-012",
-      "tier": "A",
-      "role": "pepperoni_horeca",
-      "channels": ["horeca", "pl", "retail"],
-      "pitch3": ["Халяль", "Конина", "Топпинг пиццы"]
-    },
-    {
       "sku": "KD-013",
       "tier": "A",
       "role": "pepperoni_horeca",
       "channels": ["horeca", "pl", "retail", "azs"],
       "pitch3": ["Халяль", "Курица", "Топпинг пиццы"]
+    },
+    {
+      "sku": "KD-014",
+      "tier": "A",
+      "role": "pepperoni_horeca",
+      "channels": ["horeca", "pl", "retail"],
+      "pitch3": ["Халяль", "Курица", "Батон 0,8 кг"]
     },
     {
       "sku": "KD-044",
@@ -96,10 +96,6 @@
     {
       "sku": "KD-010",
       "note": "Бургер 150 г — парный к KD-009 для PL/меню"
-    },
-    {
-      "sku": "KD-014",
-      "note": "Пепперони целый батон — пиццерии / нарезка на точке"
     },
     {
       "sku": "KD-045",

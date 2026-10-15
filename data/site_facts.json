@@ -25,10 +25,53 @@
     }
   },
   "certificates": {
-    "halal_meat_primary": {"issuer_ru": "Комитет «Халяль» ДУМ РТ", "number": "0008", "valid_until": "2029-10-01", "_source": "data/evidence_registry.json halal_dum_rt_0008_2026 (verified 2026-10-02, PDF /docs/certificate-halal-0008-2026.pdf)"},
-    "halal_meat_previous": {"number": "614A/2024", "valid_until": "2027-02-16", "_source": "evidence_registry halal_dum_rt_614a_2024 (halalrt.ru registry)"},
-    "halal_bakery": {"number": "884A/2025", "valid_until": null, "_flag": "UNVERIFIED: used on most pages/llms.txt but absent from evidence_registry; owner must confirm", "_source": "llms.txt + majority of pages"},
-    "iso_22000": "ISO 22000:2018, FSMS-2351/A",
+    "halal_0008": {
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "number": "0008",
+      "scope_ru": "мясо, птица, колбасы, пепперони, полуфабрикаты, кулинария, отрубы (категории BI, BIII); ГОСТ Р 70401-2022",
+      "scope_en": "meat, poultry, sausages, pepperoni, semi-finished products, culinary, cuts (categories BI, BIII); GOST R 70401-2022",
+      "valid_from": "2026-10-02",
+      "valid_until": "2029-10-01",
+      "status": "valid",
+      "_source": "live https://pepperoni.tatar/halal 2026-10-15; evidence_registry halal_dum_rt_0008_2026; PDF /docs/certificate-halal-0008-2026.pdf"
+    },
+    "halal_614a": {
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "number": "614A/2024",
+      "scope_ru": "мясная продукция",
+      "scope_en": "meat products",
+      "valid_from": "2024-02-17",
+      "valid_until": "2027-02-16",
+      "status": "valid",
+      "_source": "live https://pepperoni.tatar/halal 2026-10-15; evidence_registry halal_dum_rt_614a_2024; https://halalrt.ru/certificates/company/119/kazanskiye-delikatesy/"
+    },
+    "halal_bakery": {
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "number": "884A/2025",
+      "scope_ru": "кондитерские, хлебобулочные изделия и кулинария",
+      "scope_en": "confectionery, bakery and ready meals",
+      "valid_from": "2025-12-27",
+      "valid_until": "2026-12-26",
+      "status": "valid",
+      "_source": "live https://pepperoni.tatar/halal 2026-10-15; owner confirmed all DUM RT halal certificates valid, including 884A; https://halalrt.ru/c/4hDESSiMNsDK3Jt/"
+    },
+    "iso_22000": {
+      "number": "ISO 22000:2018",
+      "registry": "FSMS-2351/A",
+      "scope_ru": "система менеджмента безопасности пищевой продукции (HACCP)",
+      "scope_en": "food safety management system (HACCP)",
+      "status": "valid",
+      "_source": "live https://pepperoni.tatar/halal 2026-10-15; https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx"
+    },
+    "made_in_russia": {
+      "number": "СС.003181",
+      "scope_ru": "программа РЭЦ «Сделано в России»",
+      "scope_en": "Russian Export Center Made in Russia programme",
+      "valid_until": "2028-10-23",
+      "status": "valid",
+      "_source": "live https://pepperoni.tatar/halal 2026-10-15; PDF /docs/made-in-russia-cc003181.pdf"
+    },
+    "halal_meat_primary": {"issuer_ru": "Комитет «Халяль» ДУМ РТ", "number": "0008", "valid_until": "2029-10-01", "_source": "alias of certificates.halal_0008"},
     "standards": ["HACCP", "ТР ТС 021/2011"]
   },
   "export": {

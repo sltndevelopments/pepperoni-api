@@ -14,7 +14,7 @@
 | Catalog JSON | https://api.pepperoni.tatar/api/products (`X-Data-Source: vps-local`) |
 | UCP discovery (no checkout) | https://pepperoni.tatar/.well-known/ucp |
 | Google Merchant Center | 513449343 |
-| GTIN / barcode | **59/64 (92.2%)**. Нет штрихкода: KD-012, KD-014, KD-015, KD-016, KD-018 |
+| GTIN / barcode | **59/64 (92.2%)**. Нет штрихкода: KD-014, KD-015, KD-018 (KD-012 horse pepperoni is retired / 410; KD-016 retired) |
 | Perplexity Typeform | подана 2026-08-27, ждать `taz@perplexity.ai` |
 | OpenAI SFTP env | **нет** `/var/www/pepperoni/openai-commerce.env` |
 
@@ -55,7 +55,7 @@ https://www.perplexity.ai/hub/legal/merchant-program-terms-of-service
 | US ship-to | нет (EXW Kazan) | программа для продавцов в US |
 
 Форма подана 2026-08-27 (B2B / EXW Kazan / no US checkout). Одобрение всё равно могут отказать из‑за модели EXW.  
-Пять пустых штрихкодов добить в Sheets (колонка **Barcode** / «Штрихкод»): KD-012, KD-014, KD-015, KD-016, KD-018. Не выдумывать — только с упаковки / GS1. После заполнения cron `sync-vps.sh` сам прогонит sync → `gen-products-feed.py`.
+Пустые штрихкоды добить в Sheets (колонка **Barcode** / «Штрихкод») для живых SKU без GTIN (KD-014, KD-015, KD-018). KD-012 (пепперони из конины) и KD-016 сняты с каталога. Не выдумывать — только с упаковки / GS1. После заполнения cron `sync-vps.sh` сам прогонит sync → `gen-products-feed.py`.
 
 ### После одобрения
 
@@ -140,5 +140,5 @@ URL уже публичный: `https://api.pepperoni.tatar/api/mcp` (без OAu
 1. [x] Perplexity Typeform — подана 2026-08-27. Ждать письмо на info@kazandelikates.tatar.
 2. [ ] OpenAI https://chatgpt.com/merchants — форма заполнена в браузере (feed only), **не отправлена**: в списке стран нет России. Не подставлять чужую страну. После одобрения — `/var/www/pepperoni/openai-commerce.env` (chmod 600).
 3. [ ] Microsoft Merchant Center — тот же `products-feed.xml` (см. §4).
-4. [ ] Реальные GTIN для KD-012, KD-014, KD-015, KD-016, KD-018 в Sheets.
+4. [ ] Реальные GTIN для живых SKU без штрихкода (KD-014, KD-015, KD-018) в Sheets. KD-012 retired.
 5. [ ] OpenAI Plugins Directory / Claude connector catalog — когда откроют форму; privacy https://pepperoni.tatar/privacy.html ; тесты в application pack.

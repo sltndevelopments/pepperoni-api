@@ -17,6 +17,25 @@ import { loadPreviousBySku, scrubSheetProducts } from './public_halal_language.m
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const PUBLIC = join(ROOT, 'public');
+const SITE_FACTS = JSON.parse(
+  readFileSync(join(ROOT, 'data', 'site_facts.json'), 'utf8'),
+);
+
+function certificatesForApi() {
+  const c = SITE_FACTS.certificates;
+  const keys = ['halal_0008', 'halal_614a', 'halal_bakery', 'iso_22000', 'made_in_russia'];
+  return keys.map((key) => {
+    const item = c[key];
+    const row = {};
+    for (const k of [
+      'number', 'scope_ru', 'scope_en', 'valid_from', 'valid_until',
+      'issuer_ru', 'registry', 'status',
+    ]) {
+      if (item[k] != null) row[k] = item[k];
+    }
+    return row;
+  });
+}
 
 const CLOUDINARY_BASE = 'https://res.cloudinary.com/duygfl3vz/image/upload';
 
@@ -483,6 +502,7 @@ function generateProductsJSON(allProducts) {
     lastSynced: today,
     deliveryTerms: 'EXW Kazan Russia',
     certification: 'Halal',
+    certificates: certificatesForApi(),
     sections: ['Заморозка', 'Охлаждённая продукция', 'Выпечка'],
     totalProducts: allProducts.length,
     products: allProducts,

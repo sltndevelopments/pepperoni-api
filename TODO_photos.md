@@ -5,15 +5,17 @@ These cards appear without `![]()` in `llms-full.txt`, reducing AI-search visibi
 
 Generated: 2026-05-18 | Total missing: 30 / 77 SKUs (down from 38 after fixing bakery sync)
 
+**SKU remap (Google Sheets / products.json, 2026-10):** this list used a superseded SKU map. Current catalog: turkey ham = **KD-028**, semi-smoked turkey = **KD-033**, horse pepperoni **KD-012 is retired** (URL 410). Rows below that still show old codes are historical photo-todo labels, not live SKUs.
+
 ## Заморозка (Frozen)
 
 | SKU | Product | Category |
 |-----|---------|----------|
 | KD-010 | Ветчина из Курицы в батоне | Топпинги |
 | KD-011 | Ветчина из Курицы в нарезке | Топпинги |
-| KD-012 | Ветчина из Индейки в батоне | Топпинги |
-| KD-013 | Ветчина из Индейки в нарезке | Топпинги |
-| KD-014 | Пепперони варено-копченый из конины | Топпинги |
+| KD-028 | Ветчина из Индейки | Ветчины |
+| KD-033 | Полукопченая из Индейки | Копченые |
+| KD-012 | ~~Пепперони из конины~~ retired, URL 410 | — |
 | KD-020 | Филе куриное варное | Мясные заготовки |
 | KD-021 | Фарш говяжий | Мясные заготовки |
 | KD-022 | Фарш из куриной кожи | Мясные заготовки |

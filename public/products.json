@@ -2841,5 +2841,48 @@
       "nutrition": "",
       "packageType": ""
     }
+  ],
+  "certificates": [
+    {
+      "number": "0008",
+      "scope_ru": "мясо, птица, колбасы, пепперони, полуфабрикаты, кулинария, отрубы (категории BI, BIII); ГОСТ Р 70401-2022",
+      "scope_en": "meat, poultry, sausages, pepperoni, semi-finished products, culinary, cuts (categories BI, BIII); GOST R 70401-2022",
+      "valid_from": "2026-10-02",
+      "valid_until": "2029-10-01",
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "status": "valid"
+    },
+    {
+      "number": "614A/2024",
+      "scope_ru": "мясная продукция",
+      "scope_en": "meat products",
+      "valid_from": "2024-02-17",
+      "valid_until": "2027-02-16",
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "status": "valid"
+    },
+    {
+      "number": "884A/2025",
+      "scope_ru": "кондитерские, хлебобулочные изделия и кулинария",
+      "scope_en": "confectionery, bakery and ready meals",
+      "valid_from": "2025-12-27",
+      "valid_until": "2026-12-26",
+      "issuer_ru": "Комитет «Халяль» ДУМ РТ",
+      "status": "valid"
+    },
+    {
+      "number": "ISO 22000:2018",
+      "scope_ru": "система менеджмента безопасности пищевой продукции (HACCP)",
+      "scope_en": "food safety management system (HACCP)",
+      "registry": "FSMS-2351/A",
+      "status": "valid"
+    },
+    {
+      "number": "СС.003181",
+      "scope_ru": "программа РЭЦ «Сделано в России»",
+      "scope_en": "Russian Export Center Made in Russia programme",
+      "valid_until": "2028-10-23",
+      "status": "valid"
+    }
   ]
 }

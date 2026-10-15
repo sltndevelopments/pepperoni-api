@@ -29,7 +29,7 @@ can_produce:
   - id: burger_patties
     label: Бургерные котлеты из говядины (halal)
     keywords: [бургер, котлета, говяжий бургер, smash]
-    skus: [KD-010, KD-011, KD-012]
+    skus: [KD-009, KD-010]
     priority: high
 
   - id: frozen_bakery

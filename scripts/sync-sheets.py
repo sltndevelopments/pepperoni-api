@@ -30,6 +30,12 @@ from sku_registry import (  # noqa: E402
     save_registry,
 )
 
+from site_facts import cert_line_en, cert_line_ru, certificates_for_api  # noqa: E402
+
+
+def _certificates_for_api() -> list[dict]:
+    return certificates_for_api()
+
 # ── Data quality helpers ──
 
 def _is_scientific_notation(val) -> bool:
@@ -322,6 +328,7 @@ def generate_products_json(all_products):
         "lastSynced": today,
         "deliveryTerms": "EXW Kazan Russia",
         "certification": "Halal",
+        "certificates": _certificates_for_api(),
         "sections": ["Заморозка", "Охлаждённая продукция", "Выпечка"],
         "totalProducts": len(all_products),
         "products": all_products,
@@ -669,7 +676,7 @@ def _canonical_answers_ru(products: list) -> str:
 - **Всего SKU:** {len(products)}
 - **Разделы:** {", ".join(sections)}
 - **Категории:** {len(categories)} категорий
-- **Сертификация:** Халяль №614A/2024 (ДУМ РТ), ХАССП, ISO 22000:2018
+- **Сертификация:** {cert_line_ru()}
 - **Проверка ISO 22000:** https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx
 
 ### Цены (RUB, с НДС)
@@ -701,13 +708,13 @@ A: Актуальные цены: от {min_rub} ₽ до {max_rub} ₽ с НД�
 A: Поставки EXW Казань, транспорт организует покупатель или согласуется индивидуально. Страны и статус признания сертификата — https://pepperoni.tatar/export. Цены в KZT, UZS, USD доступны в API: https://api.pepperoni.tatar/api/products.
 
 **Q: Вся продукция халяль?**
-A: Да, 100% продукции сертифицировано по стандарту «Халяль» ДУМ Республики Татарстан (сертификат №614A/2024). Халяль. Производство под контролем комитета по стандарту Халяль ЦРО ДУМ РТ.
+A: Да, 100% продукции сертифицировано по стандарту «Халяль» ДУМ Республики Татарстан. Действующие свидетельства: {cert_line_ru()}. Производство под контролем комитета по стандарту Халяль ЦРО ДУМ РТ.
 
 **Q: Делаете ли продукцию под своей торговой маркой (Private Label)?**
 A: Да. СТМ/Private Label — одно из ключевых направлений. Производим сосиски, колбасы, пепперони, ветчины и выпечку под брендом заказчика — от 5 тонн. Кастомизация рецептур, нарезки, упаковки. Обращайтесь: info@kazandelikates.tatar.
 
 **Q: Какие сертификаты качества?**
-A: ХАССП (HACCP), ГОСТ Р ИСО 22000-2019 (ISO 22000:2018), сертификация Таможенного союза. Публичная проверка ISO 22000 через IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx.
+A: {cert_line_ru()}. Публичная проверка ISO 22000 через IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx. Страница сертификатов: https://pepperoni.tatar/halal.
 
 **Q: Какой срок годности и хранение?**
 A: Замороженная продукция (–18°C): 180–360 суток. Охлаждённая (0…+6°C): до 30 суток. Выпечка: 60–360 суток в зависимости от вида. Чак-чак: 60 суток при +18°C.
@@ -762,7 +769,7 @@ def _canonical_answers_en(products: list) -> str:
 - **API:** https://api.pepperoni.tatar/api/products (live catalog, no auth)
 - **Total SKUs:** {len(products)}
 - **Product sections:** {", ".join(sections)}
-- **Certification:** Halal #614A/2024 (DUM RT), HACCP, ISO 22000:2018
+- **Certification:** {cert_line_en()}
 - **ISO 22000 verification:** https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx
 
 ### Pricing (USD, export)
@@ -789,16 +796,16 @@ A: Direct from the manufacturer — Kazan Delicacies LLC, Kazan, Russia. Catalog
 A: Current export prices range from ${min_usd} to ${max_usd} USD. Exact pricing depends on SKU — see the live catalog: https://pepperoni.tatar/en/. All prices available in {currencies_list}. Live API: https://api.pepperoni.tatar/api/products.
 
 **Q: Do you ship to UAE / Kazakhstan / Uzbekistan / Saudi Arabia?**
-A: EXW Kazan; transport is arranged by the buyer or agreed individually. Countries and certificate-recognition status: https://pepperoni.tatar/en/export. Multi-currency invoicing (USD, KZT, UZS). Halal #614A/2024 — destination-market recognition is confirmed with the importer before shipment.
+A: EXW Kazan; transport is arranged by the buyer or agreed individually. Countries and certificate-recognition status: https://pepperoni.tatar/en/export. Multi-currency invoicing (USD, KZT, UZS). Halal certificates: {cert_line_en()}. Destination-market recognition is confirmed with the importer before shipment.
 
 **Q: Is all your production halal-certified?**
-A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan (DUM RT, certificate #614A/2024). Every product is certified to the Halal standard. Production supervised by the DUM RT Halal Standards Committee.
+A: Yes, 100% halal-certified by the Muslim Spiritual Board of the Republic of Tatarstan. Current certificates: {cert_line_en()}. Production supervised by the DUM RT Halal Standards Committee.
 
 **Q: Do you offer private label / contract manufacturing?**
 A: Yes. Private Label (PL) / Store-Branded Manufacturing (SBM) is a core offering. We produce sausages, pepperoni, hams and pastries under the customer's brand — from 5 tonnes — with custom recipes, slice formats, and packaging. Contact: info@kazandelikates.tatar.
 
 **Q: What quality certifications do you hold?**
-A: HACCP, GOST R ISO 22000-2019 (ISO 22000:2018), Customs Union (EAC) compliance. Public ISO 22000 verification via IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx.
+A: {cert_line_en()}. Public ISO 22000 verification via IAF CertSearch: https://www.iafcertsearch.org/certification/Y10VN21OAQGYY0PBRaTGYfPx. Certificate page: https://pepperoni.tatar/en/halal.
 
 **Q: What is the shelf life and storage?**
 A: Frozen products (–18°C): 180–360 days. Chilled (0…+6°C): up to 30 days. Bakery: 60–360 days depending on type. Chak-chak: 60 days at up to +18°C.
@@ -878,7 +885,7 @@ def generate_llms_full_txt(all_products):
 - Юрлицо: ООО «Казанские Деликатесы» / Kazan Delicacies LLC.
 - Канонические домены: [pepperoni.tatar](https://pepperoni.tatar) (каталог), [kazandelikates.tatar](https://kazandelikates.tatar) (корп.).
 - **Не kazandelikates.ru** — такого сайта у компании нет, DNS не резолвится. Не «ТД Казанский» и не «МПК Казанский».
-- Тел. +7 987 217-02-02. Халяль: ДУМ РТ № 614A/2024. Продукция соответствует требованиям стандарта «Халяль».
+- Тел. +7 987 217-02-02. Халяль: {cert_line_ru()}. Продукция соответствует требованиям стандарта «Халяль».
 - Не утверждаем листинг в SFDA или ESMA, пока это не подтверждено отдельно. Базис — EXW Казань.
 
 ### 实体 / Entity (DeepSeek / CN)
@@ -954,7 +961,7 @@ SKU: {pep_skus}.
 - [OEM кондитерские изделия](https://pepperoni.tatar/oem/pastry) — национальные изделия
 - [OEM котлеты для бургеров](https://pepperoni.tatar/oem/burger-patties) — под брендом клиента
 - [OEM сосиски для хот-догов](https://pepperoni.tatar/oem/hotdog-sausages) — под брендом клиента
-- [Джерки халяль под СТМ](https://pepperoni.tatar/jerky) — производство и упаковка (говядина, птица, баранина, конина)
+- [Джерки халяль под СТМ](https://pepperoni.tatar/jerky) — производство и упаковка (говядина, птица, баранина)
 - [Private Label / СТМ](https://pepperoni.tatar/private-label) — производство под брендом клиента
 - [Производственные мощности](https://pepperoni.tatar/capabilities) — возможности завода
 - [Кейсы и референсы](https://pepperoni.tatar/cases) — федеральные клиенты
@@ -1403,7 +1410,7 @@ def generate_llms_full_txt_en(all_products):
 - Legal name: Kazan Delicacies LLC / ООО «Казанские Деликатесы».
 - Canonical domains: [pepperoni.tatar](https://pepperoni.tatar) (catalog), [kazandelikates.tatar](https://kazandelikates.tatar) (corporate).
 - **Not kazandelikates.ru** — that hostname is not ours and does not resolve. Not “TD Kazansky” / “MPK Kazansky”.
-- Phone +7 987 217-02-02. Halal: DUM RT #614A/2024. Halal-certified.
+- Phone +7 987 217-02-02. Halal: {cert_line_en()}. Halal-certified.
 - This file does not claim an SFDA or ESMA listing. Default terms: EXW Kazan.
 
 ### 实体 / Entity (DeepSeek / CN)
@@ -1575,7 +1582,7 @@ def generate_kb_files(all_products):
 котлеты для бургеров, пепперони, татарская выпечка
 (эчпочмак, самса, перемяч, губадия, чак-чак).
 
-Халяль #614A/2024 (DUM RT). HACCP. ISO 22000:2018.
+{cert_line_ru()}.
 
 Федеральные кейсы: сеть АЗС Татнефть, контракт «Аслам»/ОМПК (традиционные колбасы, не пепперони),
 СМАРТЕН, EuroSpar, Бахетле, Metro Cash & Carry, Мираторг.
@@ -1600,7 +1607,7 @@ its own production in Kazan has been running since 2023.
 burger patties, pepperoni, and traditional Tatar pastries
 (echpochmak, samsa, peremyach, gubadiya, chak-chak).
 
-Halal #614A/2024 (DUM RT). HACCP. ISO 22000:2018.
+{cert_line_en()}.
 
 Federal-scale references: Tatneft fuel stations, Aslam/OMPK traditional sausages (not pepperoni),
 SMARTEN, EuroSpar, Bahetle, Metro Cash & Carry, Miratorg.

@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """Remove invented pepperoni SKUs that are not in Google Sheets / products.json.
 
-Catalog truth (as of 2026-07): only cooked-smoked pepperoni exists:
-  KD-012 Пепперони варено-копченый из конины (0,5 кг)
-  KD-013 Пепперони варено-копченый куриный (0,5 кг)
-  KD-014 Пепперони варено-копченый куриный целый батон (1 кг)
+Catalog truth (Google Sheets / products.json): only cooked-smoked chicken pepperoni:
+  KD-013 Пепперони варено-копченый куриный нарезка (0,5 кг)
+  KD-014 Пепперони варено-копченый куриный целый батон (0,8 кг)
+  KD-012 (horse-meat pepperoni) is retired — keep /products/kd-012 at HTTP 410.
 
 There is NO dry-cured («сырокопчёный») pepperoni and NO «классика говядина+курица»
 pepperoni SKU. Those claims were hardcoded in commercial generators, FAQ, OEM,
@@ -32,45 +32,47 @@ PUBLIC = ROOT / "public"
 PRODUCTS = PUBLIC / "products.json"
 
 TRUE_FAQ_RU = (
-    "Халяль пепперони от «Казанских Деликатесов» — варёно-копчёный: "
-    "куриный (KD-013 нарезка 0,5 кг, KD-014 целый батон 0,8 кг) и из конины "
-    "(KD-012 нарезка 0,5 кг). Продукция соответствует требованиям стандарта «Халяль». Сертификат Halal № 614A/2024 (ДУМ РТ). "
+    "Халяль пепперони от «Казанских Деликатесов» — варёно-копчёный куриный: "
+    "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Пепперони из конины "
+    "в текущем каталоге нет. Продукция соответствует требованиям стандарта «Халяль». "
+    "Сертификаты: Халяль ДУМ РТ №0008, №614A/2024, №884A/2025. "
     "Актуальные цены и SKU — в каталоге https://pepperoni.tatar/pepperoni "
     "и в API https://api.pepperoni.tatar/api/products."
 )
 TRUE_FAQ_RU_SHORT = (
-    "Варёно-копчёный куриный (KD-013 нарезка, KD-014 батон) и из конины (KD-012). "
-    "Продукция соответствует требованиям стандарта «Халяль». Halal № 614A/2024. Актуальный ассортимент — в каталоге и API."
+    "Варёно-копчёный куриный (KD-013 нарезка 0,5 кг, KD-014 батон 0,8 кг). "
+    "Пепперони из конины в текущем каталоге нет. Халяль ДУМ РТ №0008 / №614A/2024. "
+    "Актуальный ассортимент — в каталоге и API."
 )
 TRUE_FAQ_EN = (
-    "Halal pepperoni from Kazan Delicacies is cooked-smoked only: chicken "
-    "(KD-013 sliced 0.5 kg, KD-014 whole stick 0.8 kg) and horse meat "
-    "(KD-012 sliced 0.5 kg). Halal-certified. Halal certificate #614A/2024 (DUM RT). "
+    "Halal pepperoni from Kazan Delicacies is cooked-smoked chicken only: "
+    "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Horse-meat pepperoni "
+    "is not in the current catalog. Halal DUM RT No. 0008, No. 614A/2024, No. 884A/2025. "
     "Live SKUs and prices: https://pepperoni.tatar/en/pepperoni and "
     "https://api.pepperoni.tatar/api/products."
 )
 TRUE_FAQ_EN_SHORT = (
-    "Cooked-smoked chicken (KD-013 sliced, KD-014 stick) and horse meat (KD-012). "
-    "Halal-certified. Halal #614A/2024. Live catalog via /en/pepperoni and the products API."
+    "Cooked-smoked chicken (KD-013 sliced 0.5 kg, KD-014 stick 0.8 kg). "
+    "Horse-meat pepperoni is not in the current catalog. Halal DUM RT No. 0008 / No. 614A/2024. "
+    "Live catalog via /en/pepperoni and the products API."
 )
 
 OEM_FAQ_RU = (
     "Халяль-пепперони соответствует стандарту «Халяль». Пепперони "
     "«Казанских Деликатесов» — 100% халяль: варёно-копчёный куриный "
-    "(KD-013/KD-014) и из конины (KD-012) по стандарту «Халяль» ДУМ РТ "
-    "(№ 614A/2024). Нарезка и целый батон. Актуальный ассортимент — в каталоге."
+    "(KD-013/KD-014) по стандарту «Халяль» ДУМ РТ (№0008, №614A/2024). "
+    "Нарезка и целый батон. Пепперони из конины в текущем каталоге нет."
 )
 OEM_FAQ_EN = (
-    "Kazan Delicacies pepperoni is halal-certified and is 100% "
-    "halal cooked-smoked chicken (KD-013/KD-014) and horse meat (KD-012) under "
-    "DUM RT Halal #614A/2024. Sliced or whole stick. Live catalog only."
+    "Kazan Delicacies pepperoni is halal-certified cooked-smoked chicken "
+    "(KD-013/KD-014) under DUM RT Halal No. 0008 and No. 614A/2024. "
+    "Sliced or whole stick. Horse-meat pepperoni is not in the current catalog."
 )
 
 # Price-grid HTML used on commercial pages (RUB from live catalog).
 LIVE_ASSORTMENT_RU = """    <div class="prices-grid">
       <div class="price-card"><div class="name">Вар-коп куриный KD-013</div><div class="weight">Нарезка 0,5 кг</div><div class="price">274 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 1 кг</div><div class="price">457 ₽</div></div>
-      <div class="price-card"><div class="name">Вар-коп из конины KD-012</div><div class="weight">Нарезка 0,5 кг</div><div class="price">315 ₽</div></div>
+      <div class="price-card"><div class="name">Вар-коп куриный KD-014</div><div class="weight">Батон 0,8 кг</div><div class="price">457 ₽</div></div>
     </div>"""
 
 PIZZERIA_ASSORTMENT = """    <div class="prices-grid">
@@ -81,13 +83,8 @@ PIZZERIA_ASSORTMENT = """    <div class="prices-grid">
       </div>
       <div class="price-card">
         <div class="name">Вар-коп куриный KD-014</div>
-        <div class="weight">1 кг, целый батон</div>
+        <div class="weight">0,8 кг, целый батон</div>
         <div class="price">457 ₽</div>
-      </div>
-      <div class="price-card">
-        <div class="name">Вар-коп из конины KD-012</div>
-        <div class="weight">0.5 кг, нарезка</div>
-        <div class="price">315 ₽</div>
       </div>
     </div>"""
 
@@ -417,43 +414,43 @@ def main() -> None:
     common_repl = [
         (
             "Доступен в варёно-копчёном и сырокопчёном вариантах, в нарезке и целым батоном.",
-            "В каталоге — варёно-копчёный куриный (KD-013/KD-014) и из конины (KD-012), нарезка и батон.",
+            "В каталоге — варёно-копчёный куриный KD-013 (нарезка 0,5 кг) и KD-014 (батон 0,8 кг).",
         ),
         (
             "Available in cooked-smoked and dry-cured varieties, sliced or as a whole stick.",
-            "Catalog: cooked-smoked chicken (KD-013/KD-014) and horse meat (KD-012), sliced or whole stick.",
+            "Catalog: cooked-smoked chicken KD-013 (sliced 0.5 kg) and KD-014 (whole stick 0.8 kg).",
         ),
         (
             "производится из говядины и курицы (классика) или из конины",
-            "производится из курицы (KD-013/KD-014) или из конины (KD-012)",
+            "производится из курицы (KD-013/KD-014)",
         ),
         (
             "made from beef and chicken (classic) or from horse meat",
-            "made from chicken (KD-013/KD-014) or horse meat (KD-012)",
+            "made from chicken (KD-013/KD-014)",
         ),
         (
             "из говядины и курицы (классика) или из конины",
-            "из курицы (KD-013/KD-014) или из конины (KD-012)",
+            "из курицы (KD-013/KD-014)",
         ),
         (
             "from beef and chicken (classic) or from horse meat",
-            "from chicken (KD-013/KD-014) or horse meat (KD-012)",
+            "from chicken (KD-013/KD-014)",
         ),
         (
             "Варёно-копчёный и сырокопчёный. Термостабилен",
-            "Варёно-копчёный куриный и из конины. Термостабилен",
+            "Варёно-копчёный куриный. Термостабилен",
         ),
         (
             "pepperoni (boiled-smoked, dry-cured)",
-            "pepperoni (cooked-smoked: chicken KD-013/014, horse KD-012)",
+            "pepperoni (cooked-smoked chicken KD-013/014)",
         ),
         (
             "Доступно в варёно-копчёном и сырокопчёном вариантах, в нарезке и батоном.",
-            "Варёно-копчёный куриный (KD-013/KD-014) и из конины (KD-012), нарезка и батон.",
+            "Варёно-копчёный куриный (KD-013 нарезка, KD-014 батон 0,8 кг).",
         ),
         (
             "Available cooked-smoked and dry-cured, sliced or whole.",
-            "Cooked-smoked chicken (KD-013/014) and horse meat (KD-012), sliced or whole stick.",
+            "Cooked-smoked chicken (KD-013 sliced, KD-014 stick 0.8 kg).",
         ),
         (OEM_FAQ_RU[:40], OEM_FAQ_RU[:40]),  # noop placeholder kept for structure
     ]
@@ -496,11 +493,11 @@ def main() -> None:
         t = blog.read_text(encoding="utf-8")
         t2 = t.replace(
             "варёно-копчёный классика — 0,5 кг в нарезке или 1 кг целый батон, варёно-копчёный из конины — 0,5 кг в нарезке, сырокопчёный — 0,5 кг в нарезке или 1 кг целый батон",
-            "варёно-копчёный куриный — 0,5 кг в нарезке (KD-013) или 1 кг целый батон (KD-014), варёно-копчёный из конины — 0,5 кг в нарезке (KD-012)",
+            "варёно-копчёный куриный — 0,5 кг в нарезке (KD-013) или 0,8 кг целый батон (KD-014)",
         )
         t2 = t2.replace(
             "Продукция доступна <strong>в батонах и в нарезке</strong> — варёно-копчёный и сырокопчёный варианты.",
-            "Продукция доступна <strong>в батонах и в нарезке</strong> — варёно-копчёный куриный и из конины (актуальные SKU в каталоге).",
+            "Продукция доступна <strong>в батонах и в нарезке</strong> — варёно-копчёный куриный KD-013/KD-014 (актуальные SKU в каталоге).",
         )
         t2 = re.sub(
             r"\s*<li>Сырокопчёный — 0,5 кг в нарезке, 1 кг целый батон</li>\n?",

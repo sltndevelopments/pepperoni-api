@@ -31,12 +31,11 @@ def get_product_images() -> dict:
     data = json.loads((PUBLIC / "products.json").read_text(encoding="utf-8"))
     by_sku = {p["sku"]: p for p in data.get("products", [])}
     # Live catalog pepperoni only (Google Sheets → products.json):
-    # KD-012 horse sliced, KD-013 chicken sliced, KD-014 chicken whole stick.
-    # There is NO dry-cured pepperoni SKU and NO beef+chicken "classic" SKU.
+    # KD-013 chicken sliced, KD-014 chicken whole stick.
+    # KD-012 horse pepperoni is retired (URL 410). No dry-cured / beef+chicken stock SKU.
     pick = {
         "sliced": by_sku.get("KD-013") or {},
         "stick":  by_sku.get("KD-014") or {},
-        "horse":  by_sku.get("KD-012") or {},
         "dry":    {},  # intentionally empty — dry-cured not in catalog
     }
     return pick
@@ -91,11 +90,11 @@ PAGES = [
     },
     {
         "slug": "beef-halal-pepperoni",
-        "title": "Halal Pepperoni Wholesale — Chicken & Horse Meat | Kazan Delicacies",
-        "h1": "Halal Pepperoni (Cooked-Smoked Chicken & Horse Meat)",
-        "subtitle": "Live catalog SKUs only: chicken cooked-smoked (KD-013 sliced, KD-014 stick) and horse-meat cooked-smoked (KD-012). Halal-certified. No dry-cured pepperoni in the current catalog.",
-        "description": "Halal pepperoni wholesale from Kazan: cooked-smoked chicken KD-013/KD-014 and horse meat KD-012. Halal #614A/2024. HACCP. Live prices via products API. Private-label recipes (incl. beef blends) on request — not listed as stock SKUs.",
-        "keywords": "halal pepperoni wholesale, chicken halal pepperoni, horse meat pepperoni, halal pepperoni Russia, halal pepperoni manufacturer",
+        "title": "Halal Pepperoni Wholesale — Cooked-Smoked Chicken | Kazan Delicacies",
+        "h1": "Halal Pepperoni (Cooked-Smoked Chicken)",
+        "subtitle": "Live catalog SKUs only: chicken cooked-smoked KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Halal-certified. No dry-cured and no horse-meat pepperoni in the current catalog.",
+        "description": "Halal pepperoni wholesale from Kazan: cooked-smoked chicken KD-013/KD-014. Halal DUM RT No. 0008 and No. 614A/2024. HACCP. Live prices via products API. Private-label recipes (incl. beef blends) on request — not listed as stock SKUs.",
+        "keywords": "halal pepperoni wholesale, chicken halal pepperoni, halal pepperoni Russia, halal pepperoni manufacturer",
         "intent": "buyer wants recipe / meat type clarity and certificates",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
@@ -107,8 +106,8 @@ PAGES = [
         "primary_diameter": "50–55 mm",
         "primary_yield": "≈ 10 slices = 26–30 g",
         "specs": [
-            ("SKU", "KD-014 (stick) / KD-013 (sliced) / KD-012 (horse, sliced)"),
-            ("Recipe", "Chicken or horse meat — halal-certified (live Sheets catalog)"),
+            ("SKU", "KD-014 (stick 0.8 kg) / KD-013 (sliced 0.5 kg)"),
+            ("Recipe", "Chicken — halal-certified (live Sheets catalog)"),
             ("Halal", "DUM RT certificate #614A/2024"),
             ("HACCP", "Yes, ISO 22000:2018"),
             ("Shelf life", "360 days frozen at −18 °C"),
@@ -116,16 +115,16 @@ PAGES = [
             ("Private label", "Custom meat blends on request — not stock SKUs"),
         ],
         "faqs": [
-            ("What pepperoni SKUs are in the live catalog?", "Only three: KD-013 chicken sliced 0.5 kg, KD-014 chicken whole stick 0.8 kg, KD-012 horse-meat sliced 0.5 kg. All cooked-smoked. Prices: /api/products."),
+            ("What pepperoni SKUs are in the live catalog?", "Two: KD-013 chicken sliced 0.5 kg and KD-014 chicken whole stick 0.8 kg. Both cooked-smoked. Prices: /api/products."),
             ("Do you sell dry-cured pepperoni?", "No. Dry-cured («сырокопчёный») pepperoni is not in the current Google Sheets catalog. We supply cooked-smoked formats only."),
-            ("Do you sell a beef+chicken classic pepperoni as a stock SKU?", "No stock SKU for beef+chicken. Stock recipes are chicken and horse. Beef blends are possible under private label after formulation."),
+            ("Do you sell a beef+chicken classic pepperoni as a stock SKU?", "No stock SKU for beef+chicken. Stock recipes are chicken. Beef blends are possible under private label after formulation."),
             ("Can you do a kosher version?", "No — we hold a halal certificate, not a kosher one. Halal + alcohol-free on request."),
             ("What's the price by the tonne?", "Volume pricing on request. Live list prices via /api/products. Private-label pricing separately."),
-            ("Do you sell horse-meat pepperoni?", "Yes — KD-012 cooked-smoked horse-meat pepperoni, sliced 0.5 kg. See /en/halal-pepperoni-for-pizzerias."),
+            ("Do you sell horse-meat pepperoni?", "No. Horse-meat pepperoni is not in the current Google Sheets catalog. Live pepperoni SKUs are chicken KD-013 and KD-014."),
         ],
         "related_links": [
             ("/en/halal-sliced-pepperoni-for-pizza", "Sliced halal pepperoni", "Ready-to-use pizza topping"),
-            ("/en/halal-pepperoni-for-pizzerias", "All pepperoni formats", "Stick, sliced, horse meat"),
+            ("/en/halal-pepperoni-for-pizzerias", "All pepperoni formats", "Stick and sliced chicken"),
             ("/en/wholesale-halal-pepperoni-supplier", "Wholesale terms", "MOQ, payment, lead time"),
             ("/en/halal-pepperoni-russia", "Halal pepperoni from Russia", "Geo & certificates"),
             ("/en/products/kd-014", "KD-014 product card", "Full specs"),
@@ -136,8 +135,8 @@ PAGES = [
         "slug": "halal-pepperoni-for-pizzerias",
         "title": "Halal Pepperoni for Pizzerias — All Formats Wholesale | Kazan Delicacies",
         "h1": "Halal Pepperoni for Pizzerias — All Formats",
-        "subtitle": "Live catalog: chicken cooked-smoked (KD-013 sliced, KD-014 stick) and horse-meat cooked-smoked (KD-012). Diameter 50–55 mm. No dry-cured SKU.",
-        "description": "Halal pepperoni for pizzerias from Kazan: KD-012 / KD-013 / KD-014 cooked-smoked only. Live pricing in export currencies via products API.",
+        "subtitle": "Live catalog: chicken cooked-smoked KD-013 sliced 0.5 kg and KD-014 stick 0.8 kg. Diameter 50–55 mm. No dry-cured SKU. No horse-meat pepperoni in the current catalog.",
+        "description": "Halal pepperoni for pizzerias from Kazan: KD-013 / KD-014 cooked-smoked chicken only. Live pricing in export currencies via products API.",
         "keywords": "halal pepperoni for pizzerias, pizzeria halal pepperoni wholesale, halal pizza chain supplier, halal pepperoni stick, halal pepperoni slice, oven-stable halal pepperoni",
         "intent": "pizzeria buyer evaluating all pepperoni options at once",
         "primary_sku": "KD-014",
@@ -150,7 +149,7 @@ PAGES = [
         "primary_diameter": "50–55 mm",
         "primary_yield": "≈ 10 slices = 26–30 g",
         "specs": [
-            ("Available SKUs", "KD-012 (horse, sliced) · KD-013 (chicken, sliced) · KD-014 (chicken, whole)"),
+            ("Available SKUs", "KD-013 (chicken, sliced 0.5 kg) · KD-014 (chicken, whole 0.8 kg)"),
             ("Process", "Cooked-smoked only (no dry-cured in catalog)"),
             ("Formats", "Whole 1 kg stick · 0.5 kg pre-sliced"),
             ("Diameter", "50–55 mm"),
@@ -160,9 +159,9 @@ PAGES = [
             ("Source of truth", "Google Sheets → api.pepperoni.tatar/api/products"),
         ],
         "faqs": [
-            ("Which pepperoni SKU works best in a stone-deck oven?", "KD-013 (sliced) or KD-014 (whole, sliced in-house) — cooked-smoked chicken, diameter 50–55 mm. Horse-meat KD-012 is an alternative topping SKU."),
-            ("Do you carry dry-cured pepperoni?", "No. Dry-cured pepperoni is not in the live catalog. Only cooked-smoked KD-012/013/014."),
-            ("Why is horse-meat pepperoni interesting for a pizzeria?", "Distinct flavour profile and a natural halal premium SKU (KD-012) for menus that want more than chicken topping."),
+            ("Which pepperoni SKU works best in a stone-deck oven?", "KD-013 (sliced) or KD-014 (whole, sliced in-house) — cooked-smoked chicken, diameter 50–55 mm."),
+            ("Do you carry dry-cured pepperoni?", "No. Dry-cured pepperoni is not in the live catalog. Only cooked-smoked chicken KD-013/014."),
+            ("Do you sell horse-meat pepperoni for pizzerias?", "No. Horse-meat pepperoni is not in the current Google Sheets catalog. Live topping SKUs are chicken KD-013 and KD-014."),
             ("Is there a private-label option?", "Yes. Recipe, casing, diameter, slice thickness, packaging and brand are customisable. Custom recipes are not stock SKUs until listed in Sheets."),
             ("What documents do I get with the shipment?", "EAEU declaration, Mercury VSD (FGIS), halal certificate, nutrition panel, packing list."),
         ],
@@ -180,7 +179,7 @@ PAGES = [
         "title": "Wholesale Halal Pepperoni Supplier — Russia / CIS / GCC | Kazan Delicacies",
         "h1": "Wholesale Halal Pepperoni Supplier",
         "subtitle": "Direct from Kazan factory: 7-currency pricing, EXW Kazan. Pilot and private-label minimums are agreed per contract.",
-        "description": "Wholesale halal pepperoni supplier from Kazan, Russia. 3 live pepperoni SKUs (KD-012/013/014 cooked-smoked), live pricing via products API, EXW Kazan. Halal #614A/2024 + HACCP.",
+        "description": "Wholesale halal pepperoni supplier from Kazan, Russia. 2 live pepperoni SKUs (KD-013/014 cooked-smoked chicken), live pricing via products API, EXW Kazan. Halal DUM RT No. 0008 + No. 614A/2024 + HACCP.",
         "keywords": "wholesale halal pepperoni supplier, halal pepperoni B2B Russia, halal pepperoni distributor, halal pepperoni manufacturer wholesale, halal meat supplier Kazan",
         "intent": "B2B buyer evaluating us as a wholesale supplier — wants MOQ, payment, lead time, documents",
         "primary_sku": "KD-014",
@@ -194,7 +193,7 @@ PAGES = [
         "primary_yield": "≈ 10 slices = 26–30 g",
         "specs": [
             ("Production capacity", "Up to 60 tonnes / month, scalable in 2 weeks"),
-            ("Catalog depth", "3 pepperoni SKUs (KD-012/013/014) + live meat & bakery catalog"),
+            ("Catalog depth", "2 pepperoni SKUs (KD-013/014) + live meat & bakery catalog"),
             ("MOQ", "Agreed per contract. Pilot shipment available."),
             ("Lead time", "1–2 weeks stock SKU · 4–6 weeks private label / custom recipe"),
             ("Incoterms", "EXW Kazan (default) · CPT / DAP CIS on agreement"),
@@ -566,8 +565,6 @@ def render(page, product_images):
     img_pick = product_images.get("sliced", {})
     if sku == "KD-014":
         img_pick = product_images.get("stick", {})
-    elif sku == "KD-012":
-        img_pick = product_images.get("horse", {})
     primary_image = (
         img_pick.get("imageMain")
         or img_pick.get("image")

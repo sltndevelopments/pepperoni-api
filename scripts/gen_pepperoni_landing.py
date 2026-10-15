@@ -28,12 +28,9 @@ SITE = "https://pepperoni.tatar"
 SKU = "KD-013"
 INDEXABLE_LOCALES = ("ru", "en")  # other locales are noindex Ads landings
 
-# The whole pepperoni family, so the landing keeps linking to the 1 kg stick and
-# the horse-meat variant the way the previous /pepperoni hub did.
-# Candidate family; the live set is whatever the Sheet currently prices.
-# A SKU without a price (e.g. KD-012 horse pepperoni) drops out of the catalog
-# and must not be offered on the landing.
-FAMILY_CANDIDATES = ("KD-013", "KD-014", "KD-012")
+# Live pepperoni family from Google Sheets / products.json.
+# KD-012 (horse-meat cooked-smoked pepperoni) is retired; product URL stays 410.
+FAMILY_CANDIDATES = ("KD-013", "KD-014")
 FAMILY_SKUS: tuple[str, ...] = FAMILY_CANDIDATES
 
 GTM_ID = "GTM-W2Q5S8HF"

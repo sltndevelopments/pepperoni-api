@@ -30,6 +30,41 @@ def export_current(lang: str = "en") -> list[str]:
     return list(FACTS["export"]["current_" + ("ru" if lang == "ru" else "en")])
 
 
+def certificates_for_api() -> list[dict]:
+    """Public certificate list matching live /halal (number, scope, validity)."""
+    c = FACTS["certificates"]
+    keys = ("halal_0008", "halal_614a", "halal_bakery", "iso_22000", "made_in_russia")
+    out = []
+    for key in keys:
+        item = c[key]
+        row = {k: item[k] for k in (
+            "number", "scope_ru", "scope_en", "valid_from", "valid_until",
+            "issuer_ru", "registry", "status",
+        ) if k in item}
+        out.append(row)
+    return out
+
+
+def cert_line_ru() -> str:
+    return (
+        "Халяль ДУМ РТ №0008 (мясо, птица, колбасы, пепперони, полуфабрикаты; "
+        "02.10.2026–01.10.2029), №614A/2024 (мясо; 17.02.2024–16.02.2027), "
+        "№884A/2025 (выпечка и готовые блюда; 27.12.2025–26.12.2026), "
+        "HACCP, ISO 22000:2018 (FSMS-2351/А), «Сделано в России» №СС.003181 "
+        "(до 23.10.2028), ТР ТС 021/2011"
+    )
+
+
+def cert_line_en() -> str:
+    return (
+        "Halal DUM RT No. 0008 (meat, poultry, sausages, pepperoni, semi-finished; "
+        "2 Oct 2026–1 Oct 2029), No. 614A/2024 (meat; 17 Feb 2024–16 Feb 2027), "
+        "No. 884A/2025 (bakery and ready meals; 27 Dec 2025–26 Dec 2026), "
+        "HACCP, ISO 22000:2018 (FSMS-2351/A), Made in Russia No. SS.003181 "
+        "(until 23 Oct 2028), TR CU 021/2011"
+    )
+
+
 def plural_ru(n: int, one: str, few: str, many: str) -> str:
     """Russian plural ending: 1 позиция, 2 позиции, 5 позиций, 21 позиция."""
     n = abs(int(n))
