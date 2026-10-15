@@ -81,7 +81,7 @@ def main() -> int:
           "/pepperoni title does not target pizzerias")
     check("пиццер" in title_of("pepperoni-dlya-pizzerii.html").lower(),
           "/pepperoni-dlya-pizzerii title targets pizzerias")
-    check("без свинины" in piz, "pizzeria page says no pork")
+    check("куриный" in piz or "KD-013" in piz, "pizzeria page is chicken KD-013/014")
     check(h1_count(pepp) == 1 and h1_count(piz) == 1, "pepperoni pair one H1 each")
 
     llms = (ROOT / "public" / "llms.txt").read_text(encoding="utf-8")

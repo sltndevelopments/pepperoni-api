@@ -536,13 +536,13 @@ def write_pizzeria() -> None:
     assert not any(p["sku"] == "KD-012" for p in data["products"])
     for lang in ("ru", "en"):
         if lang == "ru":
-            title = "Пепперони для пиццерии без свинины — куриный KD-013 / KD-014"
+            title = "Пепперони для пиццерии — куриный KD-013 / KD-014 | Казанские Деликатесы"
             desc = (
-                "Где купить пепперони для пиццерии без свинины: куриный варёно-копчёный "
+                "Где купить пепперони для пиццерии: куриный варёно-копчёный "
                 "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Халяль ДУМ РТ №0008 / №614A/2024. "
                 "Форматы и оптовый каталог — на /pepperoni."
             )
-            h1 = "Пепперони для пиццерии без свинины"
+            h1 = "Пепперони для пиццерии"
             intro = (
                 "<p class=\"lead\">Эта страница — про применение на кухне пиццерии. "
                 "Продукт и форматы — на <a href=\"/pepperoni\">/pepperoni</a>. "
@@ -575,13 +575,13 @@ def write_pizzeria() -> None:
                  "На /pepperoni. Здесь — сценарий пиццерии."),
             ]
         else:
-            title = "Pepperoni for pizzerias, no pork — chicken KD-013 / KD-014"
+            title = "Pepperoni for pizzerias — chicken KD-013 / KD-014 | Kazan Delicacies"
             desc = (
-                "Where to buy pork-free pepperoni for a pizzeria: cooked-smoked chicken "
+                "Where to buy pepperoni for a pizzeria: cooked-smoked chicken "
                 "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Halal DUM RT No. 0008 / "
                 "No. 614A/2024. Formats and wholesale catalog live on /en/pepperoni."
             )
-            h1 = "Pepperoni for pizzerias — no pork"
+            h1 = "Pepperoni for pizzerias"
             intro = (
                 "<p class=\"lead\">This page is the pizzeria application. "
                 "Product and formats live on <a href=\"/en/pepperoni\">/en/pepperoni</a>. "
