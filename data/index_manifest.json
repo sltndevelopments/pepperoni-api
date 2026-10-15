@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-09-21T19:29:12.179882+00:00",
+  "generated_at": "2026-10-15T16:58:06.324769+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 242,
-    "retired": 1491,
-    "all": 1733
+    "keep": 248,
+    "retired": 1495,
+    "all": 1743
   },
   "entries": [
     {
@@ -1484,17 +1484,6 @@
       "kind": "product"
     },
     {
-      "url": "/en/products/kd-056",
-      "file": "en/products/kd-056.html",
-      "intent": "verified SKU KD-056",
-      "language": "en",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/en/products/kd-056",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
       "url": "/en/products/kd-057",
       "file": "en/products/kd-057.html",
       "intent": "verified SKU KD-057",
@@ -1579,6 +1568,50 @@
       "owner": "catalog",
       "source": "Google Sheets via public/products.json",
       "canonical_target": "/en/products/kd-064",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/en/products/kd-065",
+      "file": "en/products/kd-065.html",
+      "intent": "verified SKU KD-065",
+      "language": "en",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/en/products/kd-065",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/en/products/kd-066",
+      "file": "en/products/kd-066.html",
+      "intent": "verified SKU KD-066",
+      "language": "en",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/en/products/kd-066",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/en/products/kd-067",
+      "file": "en/products/kd-067.html",
+      "intent": "verified SKU KD-067",
+      "language": "en",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/en/products/kd-067",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/en/products/kd-068",
+      "file": "en/products/kd-068.html",
+      "intent": "verified SKU KD-068",
+      "language": "en",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/en/products/kd-068",
       "status": "keep",
       "kind": "product"
     },
@@ -2540,17 +2573,6 @@
       "kind": "product"
     },
     {
-      "url": "/products/kd-056",
-      "file": "products/kd-056.html",
-      "intent": "verified SKU KD-056",
-      "language": "ru",
-      "owner": "catalog",
-      "source": "Google Sheets via public/products.json",
-      "canonical_target": "/products/kd-056",
-      "status": "keep",
-      "kind": "product"
-    },
-    {
       "url": "/products/kd-057",
       "file": "products/kd-057.html",
       "intent": "verified SKU KD-057",
@@ -2635,6 +2657,50 @@
       "owner": "catalog",
       "source": "Google Sheets via public/products.json",
       "canonical_target": "/products/kd-064",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/products/kd-065",
+      "file": "products/kd-065.html",
+      "intent": "verified SKU KD-065",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/products/kd-065",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/products/kd-066",
+      "file": "products/kd-066.html",
+      "intent": "verified SKU KD-066",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/products/kd-066",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/products/kd-067",
+      "file": "products/kd-067.html",
+      "intent": "verified SKU KD-067",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/products/kd-067",
+      "status": "keep",
+      "kind": "product"
+    },
+    {
+      "url": "/products/kd-068",
+      "file": "products/kd-068.html",
+      "intent": "verified SKU KD-068",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "Google Sheets via public/products.json",
+      "canonical_target": "/products/kd-068",
       "status": "keep",
       "kind": "product"
     },
@@ -7246,6 +7312,19 @@
       "impressions_28d": 7.0
     },
     {
+      "url": "/blog/chak-chak",
+      "file": "blog/chak-chak.html",
+      "intent": "catalog fact sheet for query чак-чак в подарочной упаковке",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-053 and KD-054; held out of the index until manual allowlist",
+      "canonical_target": "/blog/chak-chak",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
       "url": "/blog/chakchak-optom",
       "file": "blog/chakchak-optom.html",
       "intent": "legacy URL retirement",
@@ -7294,6 +7373,19 @@
       "canonical_target": null,
       "status": "410",
       "reason": "no distinct supported intent or evidence",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/blog/cheburek-zharenyj",
+      "file": "blog/cheburek-zharenyj.html",
+      "intent": "catalog fact sheet for query халяльные чебуреки",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-047; held out of the index until manual allowlist",
+      "canonical_target": "/blog/cheburek-zharenyj",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -7463,6 +7555,19 @@
       "canonical_target": null,
       "status": "410",
       "reason": "no distinct supported intent or evidence",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/blog/elesh",
+      "file": "blog/elesh.html",
+      "intent": "catalog fact sheet for query элеш это",
+      "language": "ru",
+      "owner": "catalog",
+      "source": "products.json KD-052; held out of the index until manual allowlist",
+      "canonical_target": "/blog/elesh",
+      "status": "noindex",
+      "reason": "draft from catalog; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -9790,6 +9895,19 @@
       "canonical_target": "/china",
       "status": "noindex",
       "reason": "useful non-organic/legal page",
+      "clicks_28d": 0.0,
+      "impressions_28d": 0.0
+    },
+    {
+      "url": "/dashboard",
+      "file": "dashboard.html",
+      "intent": "internal executive dashboard",
+      "language": "ru",
+      "owner": "management",
+      "source": "owner request (password-protected executive dashboard)",
+      "canonical_target": "/dashboard",
+      "status": "noindex",
+      "reason": "internal executive dashboard (password protected)",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
