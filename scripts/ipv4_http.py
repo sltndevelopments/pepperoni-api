@@ -27,7 +27,7 @@ class IPv4HTTPSConnection(http.client.HTTPSConnection):
             sock = None
             try:
                 sock = socket.socket(af, socktype, proto)
-                sock.settimeout(self.timeout)
+                sock.settimeout(self.timeout if self.timeout is not None else 20)
                 sock.connect(sa)
                 ctx = self._context or ssl.create_default_context()
                 self.sock = ctx.wrap_socket(sock, server_hostname=self.host)

@@ -13,6 +13,7 @@ Env: YANDEX_WM_TOKEN (OAuth token)
 import argparse
 import json
 import os
+import socket
 import sys
 import time
 import urllib.error
@@ -25,10 +26,33 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from ipv4_http import force_ipv4_https  # noqa: E402
 
 
-def _urlopen(req, timeout=15):
-    """Yandex Webmaster AAAA is unreachable from Selectel VPS (errno 101)."""
+def _urlopen(req, timeout=20):
+    """Yandex Webmaster AAAA is unreachable from Selectel VPS (errno 101).
+
+    IPv4 213.180.193.61:443 can still time out from the same host; callers
+    must catch URLError/TimeoutError so --hot does not traceback.
+    """
     with force_ipv4_https():
         return urllib.request.urlopen(req, timeout=timeout)
+
+
+def _ipv4_probe(host: str, port: int = 443, timeout: float = 8) -> str:
+    try:
+        infos = socket.getaddrinfo(host, port, socket.AF_INET, socket.SOCK_STREAM)
+    except OSError as exc:
+        return f"dns-fail {exc}"
+    last = "no-address"
+    for _af, socktype, proto, _canon, sa in infos:
+        sock = socket.socket(socket.AF_INET, socktype, proto)
+        sock.settimeout(timeout)
+        try:
+            sock.connect(sa)
+            sock.close()
+            return f"ok {sa[0]}"
+        except OSError as exc:
+            last = f"{sa[0]} {exc}"
+            sock.close()
+    return last
 
 USER_ID      = os.environ.get("YANDEX_USER_ID", "238539242")
 HOST_ID      = os.environ.get("YANDEX_HOST_ID", "https:pepperoni.tatar:443")
@@ -81,10 +105,13 @@ def api_get(token: str, path: str) -> dict:
         headers={"Authorization": f"OAuth {token}"},
     )
     try:
-        with _urlopen(req, timeout=10) as r:
+        with _urlopen(req, timeout=20) as r:
             return json.loads(r.read())
     except urllib.error.HTTPError as e:
         print(f"  ⚠️  API {e.code}: {e.read().decode()[:120]}")
+        return {}
+    except (urllib.error.URLError, TimeoutError, OSError) as e:
+        print(f"  ⚠️  API network: {e}")
         return {}
 
 
@@ -105,7 +132,7 @@ def submit_url(token: str, url: str) -> str:
         method="POST",
     )
     try:
-        with _urlopen(req, timeout=15) as r:
+        with _urlopen(req, timeout=20) as r:
             result = json.loads(r.read())
             return f"✅ {url} (task: {result.get('task_id', 'ok')})"
     except urllib.error.HTTPError as e:
@@ -113,6 +140,8 @@ def submit_url(token: str, url: str) -> str:
         if e.code == 429:
             return "⛔ QUOTA_EXCEEDED"
         return f"⚠️  {url} → {e.code}: {body[:100]}"
+    except (urllib.error.URLError, TimeoutError, OSError) as e:
+        return f"⚠️  {url} → network {e}"
 
 
 def _find_sitemap_id(token: str) -> str | None:
@@ -154,6 +183,8 @@ def submit_sitemap(token: str) -> str:
         if e.code == 409:
             return f"ℹ️  Sitemap recrawl already pending (Yandex rate limit): {SITEMAP_URL}"
         return f"⚠️  Sitemap {e.code}: {e.read().decode()[:100]}"
+    except (urllib.error.URLError, TimeoutError, OSError) as e:
+        return f"⚠️  Sitemap network: {e}"
 
 
 def _abs(u: str) -> str:
@@ -263,6 +294,12 @@ def main():
         sys.exit(1)
 
     print(f"🔑 User: {USER_ID} | Host: {HOST_ID}")
+    probe = _ipv4_probe("api.webmaster.yandex.net")
+    print(f"🔌 IPv4 probe api.webmaster.yandex.net:443 → {probe}")
+    if not probe.startswith("ok "):
+        print("⚠️  Yandex Webmaster IPv4 is not reachable from this host.")
+        print("ℹ️  IndexNow (bing-index / yandex.com/indexnow) still notifies Yandex.")
+        sys.exit(0)
 
     # Submit sitemap (always, doesn't count against URL quota)
     print("\n📋 Submitting sitemap...")

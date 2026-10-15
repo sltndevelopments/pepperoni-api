@@ -154,7 +154,8 @@ def write_setey() -> None:
             body = (
                 f"<p class=\"lead\">Buyer page: live-catalog matrix, barcode, shelf life and "
                 f"storage from the card, shipping documents. Chain names and volumes only on "
-                f"<a href=\"/en/cases\">/en/cases</a> where already published. No fill-rate %.</p>"
+                f"<a href=\"/en/cases\">/en/cases</a> where already published. "
+                f"Service percentages are not published here.</p>"
                 f"<p>{cert_en}</p>"
                 f"<h2>Catalog matrix ({len(products)} SKUs)</h2>{table}"
                 f"<h2>DC documents</h2><ul>"

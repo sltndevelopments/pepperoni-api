@@ -196,6 +196,7 @@ def main():
     endpoints = [
         "https://api.indexnow.org/indexnow",  # Bing, Yandex, Seznam, Naver
         "https://www.bing.com/indexnow",
+        "https://yandex.com/indexnow",  # Yandex direct; Webmaster API may time out on VPS IPv4
     ]
 
     total_ok = 0

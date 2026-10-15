@@ -56,6 +56,14 @@ def main() -> int:
     check(bool(infos), "Yandex Webmaster has an A record")
     check(all(r[0] == socket.AF_INET for r in infos), "AF_INET results are IPv4")
     check(hasattr(IPv4HTTPSConnection, "connect"), "IPv4 HTTPS connection override")
+    import importlib.util
+    spec = importlib.util.spec_from_file_location(
+        "yandex_index", ROOT / "scripts" / "yandex-index.py"
+    )
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    probe = mod._ipv4_probe("api.webmaster.yandex.net")
+    check(isinstance(probe, str) and len(probe) > 2, f"IPv4 probe returns status ({probe})")
 
     coffee = ROOT / "public" / "zamorozhennaya-vypechka-dlya-kofeen.html"
     setey = ROOT / "public" / "dlya-setey.html"
@@ -69,6 +77,11 @@ def main() -> int:
         check("0008" in html, "setey primary cert 0008")
         check("Мираторг" not in html, "setey does not invent Miratorg")
         check("fill-rate" not in html.lower() and "ниже 1%" not in html, "setey no invented SLA %")
+    setey_en = ROOT / "public" / "en" / "dlya-setey.html"
+    if setey_en.is_file():
+        html = setey_en.read_text(encoding="utf-8")
+        check("fill-rate" not in html.lower(), "EN setey no fill-rate")
+        check("Miratorg" not in html, "EN setey does not invent Miratorg")
     return 1 if fail else 0
 
 
