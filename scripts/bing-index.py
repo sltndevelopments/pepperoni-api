@@ -20,6 +20,9 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from ipv4_http import force_ipv4_https  # noqa: E402
+
 INDEXNOW_KEY = os.environ.get("INDEXNOW_KEY", "2164b9a639c7455aad8651dc19e48641")
 SITEMAP_FILE = Path(__file__).parent.parent / "public" / "sitemap.xml"
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
@@ -38,8 +41,9 @@ def load_sitemap_urls() -> list[str]:
         return urls
     print("⚠️  Local sitemap not found, fetching from web...")
     try:
-        with urllib.request.urlopen(SITEMAP_URL, timeout=15) as r:
-            root = ET.fromstring(r.read())
+        with force_ipv4_https():
+            with urllib.request.urlopen(SITEMAP_URL, timeout=15) as r:
+                root = ET.fromstring(r.read())
         ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
         urls = [loc.text.strip() for loc in root.findall(".//sm:loc", ns) if loc.text]
         print(f"📋 Fetched {len(urls)} URLs")
@@ -63,8 +67,9 @@ def submit_batch(urls: list[str], endpoint: str) -> str:
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=20) as r:
-            return f"✅ {r.status} — {len(urls)} URLs"
+        with force_ipv4_https():
+            with urllib.request.urlopen(req, timeout=20) as r:
+                return f"✅ {r.status} — {len(urls)} URLs"
     except urllib.error.HTTPError as e:
         body = e.read().decode()
         return f"⚠️  {e.code}: {body[:150]}"

@@ -38,13 +38,16 @@ LINKS = {
            ("/pepperoni", "Пепперони халяль оптом"), ("/pizzeria", "Для пиццерий"),
            ("/jerky", "Джерки под СТМ"), ("/sosiska-v-teste", "Сосиска в тесте"),
            ("/dlya-horeca", "HoReCa"), ("/dlya-azs", "АЗС"), ("/dlya-setey", "Сети"),
-           ("/dlya-pekaren", "Пекарни"), ("/dlya-distributorov", "Дистрибьюторам"),
+           ("/dlya-pekaren", "Пекарни"),
+           ("/zamorozhennaya-vypechka-dlya-kofeen", "Выпечка для кофеен"),
+           ("/dlya-distributorov", "Дистрибьюторам"),
            ("/kontraktnoe-proizvodstvo", "Контрактное производство (СТМ)")],
     "en": [("/en/price", "Price list"), ("/en/kak-zakazat", "How to order"),
            ("/en/pepperoni", "Halal pepperoni wholesale"), ("/en/pizzeria", "For pizzerias"),
            ("/en/jerky", "Private-label jerky"), ("/en/sosiska-v-teste", "Sausage rolls"),
            ("/en/dlya-horeca", "HoReCa"), ("/en/dlya-azs", "Fuel stations"),
-           ("/en/dlya-setey", "Retail chains"), ("/en/dlya-pekaren", "Bakeries"),
+           ("/en/dlya-setey", "Retail chains"),            ("/en/dlya-pekaren", "Bakeries"),
+           ("/en/zamorozhennaya-vypechka-dlya-kofeen", "Bakery for coffee shops"),
            ("/en/dlya-distributorov", "Distributors"), ("/en/private-label", "Private label")],
 }
 BRAND_TXT = {"ru": "Бренд-сайт компании", "en": "Company brand site"}

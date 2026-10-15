@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-15T22:56:58.116160+00:00",
+  "generated_at": "2026-10-15T23:17:06.920729+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 248,
+    "keep": 250,
     "retired": 1499,
-    "all": 1747
+    "all": 1749
   },
   "entries": [
     {
@@ -1638,6 +1638,17 @@
       "kind": "hub"
     },
     {
+      "url": "/en/zamorozhennaya-vypechka-dlya-kofeen",
+      "file": "en/zamorozhennaya-vypechka-dlya-kofeen.html",
+      "intent": "frozen bakery for coffee shops",
+      "language": "en",
+      "owner": "sales",
+      "source": "Google Sheets",
+      "canonical_target": "/en/zamorozhennaya-vypechka-dlya-kofeen",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
       "url": "/export",
       "file": "export.html",
       "intent": "documented export capability",
@@ -2745,6 +2756,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/vyipechka-halyal",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/zamorozhennaya-vypechka-dlya-kofeen",
+      "file": "zamorozhennaya-vypechka-dlya-kofeen.html",
+      "intent": "frozen bakery for coffee shops",
+      "language": "ru",
+      "owner": "sales",
+      "source": "Google Sheets",
+      "canonical_target": "/zamorozhennaya-vypechka-dlya-kofeen",
       "status": "keep",
       "kind": "hub"
     },

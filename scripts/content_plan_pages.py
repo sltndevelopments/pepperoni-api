@@ -999,6 +999,8 @@ def main() -> int:
     write_kazakhstan()
     write_export_hub()
     inject_halal()
+    from content_plan_audience import write_batch4
+    write_batch4()
     print("content_plan_pages: done")
     return 0
 

@@ -531,8 +531,20 @@ def render_html(meta: dict, rows: list[dict], lang: str) -> str:
     )
 
 
+def _is_snap(path: str) -> bool:
+    try:
+        real = os.path.realpath(path)
+    except OSError:
+        real = path
+    return "/snap/" in real.replace("\\", "/")
+
+
 def _is_chrome_wrapper(path: str) -> bool:
-    """PATH wrappers inject --remote-debugging-port and hang on --print-to-pdf."""
+    """Skip PATH wrappers that inject --remote-debugging-port (hang on PDF).
+
+    A shebang launcher is fine as long as it does not add that flag.
+    Snap binaries are rejected separately: confinement breaks --print-to-pdf.
+    """
     p = Path(path)
     try:
         if p.stat().st_size > 100_000:
@@ -540,47 +552,43 @@ def _is_chrome_wrapper(path: str) -> bool:
         head = p.read_bytes()[:4000]
     except OSError:
         return False
-    return head.startswith(b"#!") or b"remote-debugging-port" in head
+    return b"remote-debugging-port" in head
 
 
-def _chrome_bin() -> str | None:
-    """Prefer the real Chrome/Chromium binary, not a PATH wrapper."""
+def _chrome_candidates() -> list[str]:
+    """Non-snap Chrome/Chromium binaries, real files first."""
     candidates = [
         "/opt/google/chrome/chrome",
         "/usr/bin/google-chrome-stable",
         "/usr/lib/chromium-browser/chromium-browser",
         "/usr/lib/chromium/chromium",
-        "/usr/bin/chromium",
         "/usr/bin/chromium-browser",
+        "/usr/bin/chromium",
     ]
-    for which in ("google-chrome-stable", "chromium", "chromium-browser"):
+    for which in ("google-chrome-stable", "chromium-browser", "chromium"):
         found = shutil.which(which)
         if found:
             candidates.append(found)
-    seen = set()
+    seen: set[str] = set()
+    out: list[str] = []
     for candidate in candidates:
         if not candidate or candidate in seen:
             continue
         seen.add(candidate)
-        if Path(candidate).is_file() and os.access(candidate, os.X_OK) and not _is_chrome_wrapper(candidate):
-            return candidate
-    return None
+        if _is_snap(candidate):
+            continue
+        if not (Path(candidate).is_file() and os.access(candidate, os.X_OK)):
+            continue
+        if _is_chrome_wrapper(candidate):
+            continue
+        out.append(candidate)
+    return out
 
 
-def write_pdf(html_path: Path, dest: Path) -> bool:
-    """Print /price to PDF so the download matches the HTML table.
-
-    Missing Chrome/Chromium is an ERROR, not a silent keep-stale. Callers
-    log it; deploy-vps.yml fails the deploy if the binary is absent.
-    """
+def _chrome_print(chrome: str, html_path: Path, dest: Path) -> bool:
     tmp = dest.with_suffix(".pdf.tmp")
     if tmp.exists():
         tmp.unlink()
-    chrome = _chrome_bin()
-    if not chrome:
-        print("ERROR: prices.pdf: Chrome/Chromium not found; PDF not rebuilt",
-              file=sys.stderr)
-        return False
     user_dir = Path("/tmp/pepperoni-price-pdf-chrome")
     user_dir.mkdir(parents=True, exist_ok=True)
     cmd = [
@@ -592,14 +600,16 @@ def write_pdf(html_path: Path, dest: Path) -> bool:
     ]
     env = os.environ.copy()
     env.setdefault("HOME", "/tmp")
+    err_log = Path("/tmp/pepperoni-price-pdf-chrome.err")
     try:
-        proc = subprocess.Popen(
-            cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, env=env,
-        )
+        with err_log.open("wb") as errf:
+            proc = subprocess.Popen(
+                cmd, stdout=subprocess.DEVNULL, stderr=errf, env=env,
+            )
     except OSError as exc:
         print(f"ERROR: prices.pdf: failed to launch {chrome}: {exc}", file=sys.stderr)
         return False
-    deadline = time.time() + 45
+    deadline = time.time() + 15
     ok = False
     try:
         while time.time() < deadline:
@@ -622,10 +632,76 @@ def write_pdf(html_path: Path, dest: Path) -> bool:
     if ok:
         tmp.replace(dest)
         return True
-    print(f"ERROR: prices.pdf: print-to-pdf failed ({chrome})", file=sys.stderr)
+    hint = ""
+    try:
+        hint = err_log.read_text(errors="replace")[-300:].strip()
+    except OSError:
+        pass
+    extra = f" — {hint}" if hint else ""
+    print(f"ERROR: prices.pdf: print-to-pdf failed ({chrome}){extra}", file=sys.stderr)
     if tmp.exists():
         tmp.unlink()
     return False
+
+
+def _python_pdf(meta: dict, products: list[dict], tr: dict, dest: Path) -> bool:
+    """Catalog table PDF when Chromium cannot print. Same rows as xlsx."""
+    try:
+        from price_pdf import DEJAVU, write_catalog_pdf  # noqa: E402
+    except Exception as exc:
+        print(f"ERROR: prices.pdf: python fallback import failed: {exc}", file=sys.stderr)
+        return False
+    if not DEJAVU.is_file():
+        print(f"ERROR: prices.pdf: missing font {DEJAVU}", file=sys.stderr)
+        return False
+    rows_ru = rows_for(products, "ru", tr)
+    headers = COLS_RU
+    table = []
+    for r in rows_ru:
+        cells = cell_values(r, "ru")
+        table.append([
+            "" if v is None else (f"{v:.2f}" if isinstance(v, float) else str(v))
+            for v, _n in cells
+        ])
+    synced = meta.get("lastSynced") or ""
+    subtitle = [
+        f"Позиций: {len(products)} SKU · {BASIS_RU} · {MOQ_RU} · каталог {synced}",
+        f"Сертификаты: {CERTS_RU}",
+        f"Контакт: {CONTACT}",
+    ]
+    try:
+        write_catalog_pdf(
+            dest,
+            "Казанские Деликатесы — оптовый прайс-лист (халяль)",
+            subtitle,
+            headers,
+            table,
+        )
+    except Exception as exc:
+        print(f"ERROR: prices.pdf: python fallback failed: {exc}", file=sys.stderr)
+        return False
+    return dest.is_file() and dest.stat().st_size > 1000
+
+
+def write_pdf(html_path: Path, dest: Path, meta=None, products=None, tr=None) -> bool:
+    """Rebuild prices.pdf from catalog rows (DejaVu). Optional non-snap Chrome.
+
+    Snap Chromium is skipped: --print-to-pdf fails under confinement.
+    Python table PDF is the VPS-reliable writer so a Sheet price change
+    still refreshes prices.pdf when Chrome is missing or confined.
+    """
+    if meta is not None and products is not None:
+        if _python_pdf(meta, products, tr or {}, dest):
+            print("prices.pdf: rebuilt with DejaVu table (no snap Chromium)")
+            return True
+    chromes = _chrome_candidates()
+    for chrome in chromes:
+        if _chrome_print(chrome, html_path, dest):
+            print(f"prices.pdf: printed with {chrome}")
+            return True
+    print("ERROR: prices.pdf: DejaVu writer failed and no non-snap Chrome print",
+          file=sys.stderr)
+    return dest.is_file() and dest.stat().st_size > 1000
 
 
 def _strip_runtime(html: str) -> str:
@@ -665,10 +741,16 @@ def main() -> int:
     en_changed = _write_if_changed(PUBLIC / "en" / "price.html", render_html(meta, en_rows, "en"))
     write_xlsx(meta, products, tr, PUBLIC / "prices.xlsx")
     pdf_path = PUBLIC / "prices.pdf"
-    need_pdf = ru_changed or en_changed or not pdf_path.is_file()
+    catalog_newer = (
+        pdf_path.is_file()
+        and PRODUCTS.stat().st_mtime > pdf_path.stat().st_mtime + 1
+    )
+    need_pdf = ru_changed or en_changed or not pdf_path.is_file() or catalog_newer
     rc = 0
     if need_pdf:
-        pdf_ok = write_pdf(PUBLIC / "price.html", pdf_path)
+        pdf_ok = write_pdf(
+            PUBLIC / "price.html", pdf_path, meta=meta, products=products, tr=tr,
+        )
         if pdf_ok:
             extra = "prices.xlsx + prices.pdf"
         else:
