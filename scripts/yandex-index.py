@@ -21,6 +21,15 @@ import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from ipv4_http import force_ipv4_https  # noqa: E402
+
+
+def _urlopen(req, timeout=15):
+    """Yandex Webmaster AAAA is unreachable from Selectel VPS (errno 101)."""
+    with force_ipv4_https():
+        return urllib.request.urlopen(req, timeout=timeout)
+
 USER_ID      = os.environ.get("YANDEX_USER_ID", "238539242")
 HOST_ID      = os.environ.get("YANDEX_HOST_ID", "https:pepperoni.tatar:443")
 SITEMAP_URL  = "https://pepperoni.tatar/sitemap.xml"
@@ -54,7 +63,7 @@ def load_sitemap_urls() -> list[str]:
         return urls
     print("⚠️  Local sitemap not found, fetching from web...")
     try:
-        with urllib.request.urlopen(SITEMAP_URL, timeout=15) as r:
+        with _urlopen(SITEMAP_URL, timeout=15) as r:
             content = r.read()
         root = ET.fromstring(content)
         ns = {"sm": "http://www.sitemaps.org/schemas/sitemap/0.9"}
@@ -72,7 +81,7 @@ def api_get(token: str, path: str) -> dict:
         headers={"Authorization": f"OAuth {token}"},
     )
     try:
-        with urllib.request.urlopen(req, timeout=10) as r:
+        with _urlopen(req, timeout=10) as r:
             return json.loads(r.read())
     except urllib.error.HTTPError as e:
         print(f"  ⚠️  API {e.code}: {e.read().decode()[:120]}")
@@ -96,7 +105,7 @@ def submit_url(token: str, url: str) -> str:
         method="POST",
     )
     try:
-        with urllib.request.urlopen(req, timeout=15) as r:
+        with _urlopen(req, timeout=15) as r:
             result = json.loads(r.read())
             return f"✅ {url} (task: {result.get('task_id', 'ok')})"
     except urllib.error.HTTPError as e:
@@ -136,7 +145,7 @@ def submit_sitemap(token: str) -> str:
     req.add_header("Authorization", f"OAuth {token}")
     req.add_header("Content-Length", "0")
     try:
-        with urllib.request.urlopen(req, timeout=15) as r:
+        with _urlopen(req, timeout=15) as r:
             # 202 Accepted = queued; recrawl may be rate-limited (allowed=false)
             return f"✅ Sitemap recrawl queued: {SITEMAP_URL} (HTTP {r.status})"
     except urllib.error.HTTPError as e:
@@ -165,13 +174,16 @@ TOP_COMMERCIAL = {
     "/kontraktnoe-proizvodstvo", "/kazylyk", "/kolbasy-varenye",
     "/kolbasy-kopchyonye", "/vetchina-optom", "/sosiski-dlya-hotdog",
     "/kotlety-dlya-burgerov", "/vyipechka-halyal", "/about",
-    "/capabilities", "/cases", "/certificates", "/delivery", "/export", "/faq",
-    "/price", "/kak-zakazat",
+    "/capabilities", "/cases", "/halal", "/delivery", "/export", "/faq",
+    "/price", "/kak-zakazat", "/dlya-setey", "/dlya-distributorov", "/dlya-horeca",
+    "/zamorozhennaya-vypechka-dlya-kofeen",
     "/en/", "/en/pepperoni", "/en/jerky", "/en/private-label",
     "/en/kazylyk", "/en/kolbasy-varenye", "/en/kolbasy-kopchyonye",
     "/en/vetchina-optom", "/en/sosiski-dlya-hotdog", "/en/kotlety-dlya-burgerov",
     "/en/vyipechka-halyal", "/en/about", "/en/capabilities", "/en/cases",
-    "/en/certificates", "/en/delivery", "/en/export", "/en/faq",
+    "/en/halal", "/en/delivery", "/en/export", "/en/faq",
+    "/en/dlya-setey", "/en/dlya-distributorov", "/en/dlya-horeca",
+    "/en/zamorozhennaya-vypechka-dlya-kofeen",
 }
 
 

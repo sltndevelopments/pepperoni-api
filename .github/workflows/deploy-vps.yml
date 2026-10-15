@@ -254,27 +254,38 @@ jobs:
             repo = Path("/var/www/pepperoni/repo")
             html = repo / "public/price.html"
             pdf = repo / "public/prices.pdf"
+            dejavu = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
             chrome = None
             for candidate in (
                 "/opt/google/chrome/chrome",
                 "/usr/bin/google-chrome-stable",
-                "/usr/bin/chromium",
+                "/usr/lib/chromium-browser/chromium-browser",
                 "/usr/bin/chromium-browser",
+                "/usr/bin/chromium",
             ):
                 p = Path(candidate)
+                real = os.path.realpath(candidate)
+                if "/snap/" in real.replace("\\", "/"):
+                    continue
                 if p.is_file() and os.access(p, os.X_OK):
                     chrome = candidate
                     break
-            if not chrome:
-                print("❌ Chrome/Chromium missing on VPS — prices.pdf cannot be rebuilt")
+            if chrome:
+                print(f"✅ chrome={chrome} (optional; DejaVu table PDF is the writer)")
+            else:
+                print("ℹ️  no non-snap Chrome — prices.pdf uses DejaVu table fallback")
+            if not dejavu.is_file():
+                print(f"⚠️  missing {dejavu} — Python PDF fallback cannot run")
+            if not pdf.is_file() or pdf.stat().st_size < 1000:
+                print("❌ public/prices.pdf missing or empty")
                 sys.exit(1)
-            print(f"✅ chrome={chrome}")
-            if not pdf.is_file():
-                print("❌ public/prices.pdf missing")
+            header = pdf.read_bytes()[:8]
+            if not header.startswith(b"%PDF"):
+                print(f"❌ public/prices.pdf is not a PDF ({header!r})")
                 sys.exit(1)
-            print(f"✅ prices.pdf {pdf.stat().st_size} bytes")
+            print(f"✅ prices.pdf {pdf.stat().st_size} bytes {header!r}")
             if html.is_file() and pdf.stat().st_mtime + 5 < html.stat().st_mtime:
-                print("⚠️  prices.pdf older than price.html — Chrome is present; PDF rebuild may have been skipped")
+                print("⚠️  prices.pdf older than price.html — rebuild may have been skipped")
             PY
 
       - name: Restart partner-intake service on VPS

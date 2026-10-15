@@ -65,6 +65,7 @@ RU_PAGES = [
     _page("dlya-setey.html", "assortment for retail chains", "sales", "Google Sheets"),
     _page("dlya-pekaren.html", "assortment for bakeries", "sales", "Google Sheets"),
     _page("dlya-distributorov.html", "assortment for distributors", "sales", "Google Sheets"),
+    _page("zamorozhennaya-vypechka-dlya-kofeen.html", "frozen bakery for coffee shops", "sales", "Google Sheets"),
     _page("export.html", "documented export capability", "export", "evidence registry"),
 ]
 
@@ -120,6 +121,7 @@ EN_PAGES = [
     _page("en/dlya-setey.html", "assortment for retail chains", "sales", "Google Sheets"),
     _page("en/dlya-pekaren.html", "assortment for bakeries", "sales", "Google Sheets"),
     _page("en/dlya-distributorov.html", "assortment for distributors", "sales", "Google Sheets"),
+    _page("en/zamorozhennaya-vypechka-dlya-kofeen.html", "frozen bakery for coffee shops", "sales", "Google Sheets"),
     _page("en/export.html", "documented export capability", "export", "evidence registry"),
 ]
 EN_PAGES.extend(

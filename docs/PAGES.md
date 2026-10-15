@@ -8,7 +8,7 @@ it indexable by itself.
 ## Current canonical surface
 
 - Target: 180–250 indexable URLs.
-- Current allowlist: 248 URLs.
+- Current allowlist: 250 URLs.
 - Languages: Russian at the root and English under `/en`.
 - Product records: one RU and one EN page for every current `KD-NNN` SKU in
   `public/products.json`.

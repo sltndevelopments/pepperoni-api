@@ -108,6 +108,10 @@ def llms_map_ru() -> str:
 - [Сосиска в тесте для пекарен](https://pepperoni.tatar/sosiska-v-teste): KD-018 без оболочки и KD-061 готовая.
 - [Выпечка халяль](https://pepperoni.tatar/vyipechka-halyal): татарская линейка KD-046–052, 065, 066.
 - [Пепперони для пиццерии](https://pepperoni.tatar/pepperoni-dlya-pizzerii): применение KD-013/014, без выдуманного теста в печи.
+- [Для розничных сетей](https://pepperoni.tatar/dlya-setey): матрица KD-025–034, 036–045, EAN из каталога.
+- [Для дистрибьюторов](https://pepperoni.tatar/dlya-distributorov): {n_sku} SKU, EXW, паллета, эксклюзив индивидуально.
+- [Для HoReCa](https://pepperoni.tatar/dlya-horeca): гриль-сосиски и охлаждёнка, ветчина и котлеты ссылками.
+- [Выпечка для кофеен](https://pepperoni.tatar/zamorozhennaya-vypechka-dlya-kofeen): сценарий заморозки без выдуманного режима печи.
 
 ## Каталог и данные
 
@@ -170,6 +174,10 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Sausage in dough for bakeries](https://pepperoni.tatar/en/sosiska-v-teste): KD-018 casing-free and KD-061 ready roll.
 - [Halal bakery](https://pepperoni.tatar/en/vyipechka-halyal): Tatar line KD-046–052, 065, 066.
 - [Pepperoni for pizzerias](https://pepperoni.tatar/en/pepperoni-dlya-pizzerii): KD-013/014 application, no invented oven test.
+- [Retail chains](https://pepperoni.tatar/en/dlya-setey): KD-025–034, 036–045 matrix, catalog EAN.
+- [Distributors](https://pepperoni.tatar/en/dlya-distributorov): {n_sku} SKUs, EXW, pallet, exclusivity individually.
+- [HoReCa](https://pepperoni.tatar/en/dlya-horeca): grill and chilled sausages; ham and patties as links.
+- [Bakery for coffee shops](https://pepperoni.tatar/en/zamorozhennaya-vypechka-dlya-kofeen): freezer scenario, no invented oven programme.
 
 ## Catalog and data
 

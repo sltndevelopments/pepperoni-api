@@ -112,6 +112,8 @@ def ru() -> str:
          "Сертификат халяль, декларация соответствия, ВСД (ФГИС «Меркурий»), маркировка «Честный знак», электронная транспортная накладная (ЭТрН)."),
         ("Какой минимум для контрактного производства (СТМ)?",
          f"От {_TERMS['private_label_min']}. Подробности — на странице контрактного производства."),
+        ("Как получить образцы или пробную партию?",
+         "Образцы согласуем индивидуально. Пробная отгрузка — в том же паллетном минимуме: одна паллета, сборная из нескольких SKU возможна. Цену образца отдельно не публикуем."),
     ]
     faq_html = "".join(
         f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>"
@@ -153,6 +155,13 @@ def ru() -> str:
 <li>Электронная транспортная накладная (ЭТрН)</li>
 </ul>
 <p>Реестр сертификатов — <a href="/halal">/halal</a>.</p>
+
+<h2 id="samples">Образцы и пробная партия</h2>
+<div class="card">
+<p>Перед контрактом можно запросить образцы — состав, объём и доставку образца согласуем индивидуально. Отдельной цены «за образец» в каталоге нет.</p>
+<p>Пробная партия идёт как обычный оптовый заказ: {escape(_TERMS['moq'])}. Сборная паллета из нескольких SKU возможна. Это тот же базис {escape(_TERMS['basis'])}, те же документы к отгрузке.</p>
+<p>В заявке укажите город, тип точки и SKU с <a href="/price">прайса</a>. Для сетей — <a href="/dlya-setey">/dlya-setey</a>, для дистрибьюторов — <a href="/dlya-distributorov">/dlya-distributorov</a>, для HoReCa — <a href="/dlya-horeca">/dlya-horeca</a>.</p>
+</div>
 
 <h2>Контакты</h2>
 <div class="card">
@@ -213,6 +222,8 @@ def en() -> str:
          "Halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny ZNAK marking, electronic waybill (ETrN)."),
         ("What is the private-label minimum?",
          f"From {_TERMS['private_label_min']}. Details are on the private-label page."),
+        ("How do we get samples or a pilot shipment?",
+         "Samples are agreed individually. A pilot shipment uses the same wholesale minimum: one pallet, mixed SKUs possible. We do not publish a separate sample price."),
     ]
     faq_html = "".join(
         f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>"
@@ -254,6 +265,13 @@ def en() -> str:
 <li>Electronic waybill (ETrN)</li>
 </ul>
 <p>Certificate list: <a href="/en/halal">/en/halal</a>.</p>
+
+<h2 id="samples">Samples and pilot shipment</h2>
+<div class="card">
+<p>Samples before a contract are agreed individually — assortment, volume and how the sample is sent. The catalog has no separate “sample price”.</p>
+<p>A pilot shipment is a normal wholesale order: one pallet; a mixed pallet of several SKUs is possible. Same EXW Kazan basis, same shipping documents.</p>
+<p>State city, channel and SKUs from the <a href="/en/price">price list</a>. Retail chains: <a href="/en/dlya-setey">/en/dlya-setey</a>. Distributors: <a href="/en/dlya-distributorov">/en/dlya-distributorov</a>. HoReCa: <a href="/en/dlya-horeca">/en/dlya-horeca</a>.</p>
+</div>
 
 <h2>Contacts</h2>
 <div class="card">
