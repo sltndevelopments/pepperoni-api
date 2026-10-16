@@ -108,9 +108,9 @@ def write_setey() -> None:
         shown = [_named(p, lang) for p in products]
         table = _barcode_table(products, lang)
         if lang == "ru":
-            title = "Халяль для розничных сетей — матрица SKU, EAN, документы | Казанские Деликатесы"
+            title = "Халяль продукция для розничных сетей — поставщик | Казанские Деликатесы"
             desc = (
-                f"Поставщик халяль для розничных сетей: {len(products)} SKU из каталога "
+                f"Поставщик халяль продукции для розничных сетей: {len(products)} SKU из каталога "
                 f"(KD-025–034, 036–045), EAN с карточек, {MOQ}, {BASIS}. "
                 f"{cert_ru}."
             )
@@ -145,7 +145,7 @@ def write_setey() -> None:
                  "Названия покупателей только на /cases. Здесь их не повторяем и не добавляем новых."),
             ]
         else:
-            title = "Halal for retail chains — SKU matrix, EAN, documents | Kazan Delicacies"
+            title = "Halal products for retail chains — supplier | Kazan Delicacies"
             desc = (
                 f"Halal supplier for retail chains: {len(products)} catalog SKUs "
                 f"(KD-025–034, 036–045), card EAN, {MOQ}, EXW Kazan. {cert_en}."
@@ -202,9 +202,9 @@ def write_distributorov() -> None:
     )
     for lang in ("ru", "en"):
         if lang == "ru":
-            title = "Дистрибьютор халяль мясной продукции — условия поставки | Казанские Деликатесы"
+            title = "Дистрибьютор халяль мясной продукции — ищем поставщика | Казанские Деликатесы"
             desc = (
-                f"Ищем и работаем с дистрибьюторами халяль из Казани: каталог {n} SKU, "
+                f"Ищем поставщика? Дистрибьютор халяль мясной продукции из Казани: каталог {n} SKU, "
                 f"{BASIS}, {MOQ}, образцы индивидуально, эксклюзивность обсуждается индивидуально."
             )
             h1 = "Халяль для дистрибьюторов"
@@ -282,9 +282,9 @@ def write_horeca() -> None:
         ctable = cp.sku_table([_named(p, lang) for p in chill], lang)
         ptable = cp.sku_table([_named(p, lang) for p in pepp], lang)
         if lang == "ru":
-            title = "Халяль для HoReCa — сосиски, пепперони, без выдуманных тестов | Казанские Деликатесы"
+            title = "Халяль сосиски для HoReCa — оптом из Казани | Казанские Деликатесы"
             desc = (
-                "Халяль для HoReCa и АЗС: гриль-сосиски KD-001–008 (кроме позиций на hold), "
+                "Халяль сосиски для HoReCa и АЗС: гриль KD-001–008 (кроме позиций на hold), "
                 "охлаждённые KD-019–024, пепперони KD-013/014. Ветчина и котлеты — ссылками. "
                 "Тест гриля с температурой не публикуем."
             )
@@ -321,9 +321,9 @@ def write_horeca() -> None:
                  f"{MOQ}. Образцы — /kak-zakazat#samples."),
             ]
         else:
-            title = "Halal for HoReCa — sausages and pepperoni, no invented grill tests"
+            title = "Halal sausages for HoReCa — wholesale from Kazan | Kazan Delicacies"
             desc = (
-                "HoReCa and fuel-station halal: grill sausages KD-001–008 (holds excluded), "
+                "Halal sausages for HoReCa and fuel stations: grill KD-001–008 (holds excluded), "
                 "chilled KD-019–024, pepperoni KD-013/014. Ham and patties are links. "
                 "No published grill-test temperatures."
             )

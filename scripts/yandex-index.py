@@ -208,6 +208,8 @@ TOP_COMMERCIAL = {
     "/capabilities", "/cases", "/halal", "/delivery", "/export", "/faq",
     "/price", "/kak-zakazat", "/dlya-setey", "/dlya-distributorov", "/dlya-horeca",
     "/zamorozhennaya-vypechka-dlya-kofeen",
+    "/sosiska-v-teste", "/pepperoni-dlya-pizzerii",
+    "/export/kazakhstan", "/export/uzbekistan",
     "/en/", "/en/pepperoni", "/en/jerky", "/en/private-label",
     "/en/kazylyk", "/en/kolbasy-varenye", "/en/kolbasy-kopchyonye",
     "/en/vetchina-optom", "/en/sosiski-dlya-hotdog", "/en/kotlety-dlya-burgerov",
@@ -215,6 +217,8 @@ TOP_COMMERCIAL = {
     "/en/halal", "/en/delivery", "/en/export", "/en/faq",
     "/en/dlya-setey", "/en/dlya-distributorov", "/en/dlya-horeca",
     "/en/zamorozhennaya-vypechka-dlya-kofeen",
+    "/en/sosiska-v-teste", "/en/pepperoni-dlya-pizzerii",
+    "/en/export/kazakhstan", "/en/export/uzbekistan",
 }
 
 

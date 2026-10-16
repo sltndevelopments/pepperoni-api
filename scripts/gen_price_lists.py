@@ -19,6 +19,7 @@ Outputs:
 """
 from __future__ import annotations
 
+import argparse
 import json
 import os
 import re
@@ -701,7 +702,7 @@ def write_pdf(html_path: Path, dest: Path, meta=None, products=None, tr=None) ->
             return True
     print("ERROR: prices.pdf: DejaVu writer failed and no non-snap Chrome print",
           file=sys.stderr)
-    return dest.is_file() and dest.stat().st_size > 1000
+    return False
 
 
 def _strip_runtime(html: str) -> str:
@@ -723,7 +724,33 @@ def _write_if_changed(path: Path, text: str) -> bool:
     return True
 
 
-def main() -> int:
+def write_pdf_only() -> int:
+    """Rebuild prices.pdf after inject_site_links so PDF mtime is not older than price.html."""
+    meta, products, tr = load()
+    pdf_path = PUBLIC / "prices.pdf"
+    before = pdf_path.stat().st_mtime if pdf_path.is_file() else 0
+    ok = write_pdf(
+        PUBLIC / "price.html", pdf_path, meta=meta, products=products, tr=tr,
+    )
+    after = pdf_path.stat().st_mtime if pdf_path.is_file() else 0
+    if ok and after > before:
+        print(f"prices.pdf: refreshed after inject ({pdf_path.stat().st_size} bytes)")
+        return 0
+    print("ERROR: prices.pdf: --pdf-only did not rewrite the file", file=sys.stderr)
+    return 1
+
+
+def main(argv: list[str] | None = None) -> int:
+    ap = argparse.ArgumentParser()
+    ap.add_argument(
+        "--pdf-only",
+        action="store_true",
+        help="rebuild prices.pdf from the catalog (run after inject_site_links)",
+    )
+    args = ap.parse_args(argv)
+    if args.pdf_only:
+        return write_pdf_only()
+
     meta, products, tr = load()
     outputs = {
         "wholesale-price-list-ru.md": ("ru", render_md),

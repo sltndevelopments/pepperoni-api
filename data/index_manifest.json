@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-15T23:17:06.920729+00:00",
+  "generated_at": "2026-10-15T23:48:20.930274+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -725,13 +725,13 @@
       "kind": "export-country"
     },
     {
-      "url": "/en/export/yemen",
-      "file": "en/export/yemen.html",
-      "intent": "export landing Yemen",
+      "url": "/en/export/uzbekistan",
+      "file": "en/export/uzbekistan.html",
+      "intent": "export landing Uzbekistan (Cerberus readiness)",
       "language": "en",
       "owner": "export",
       "source": "owner-approved country export landing",
-      "canonical_target": "/en/export/yemen",
+      "canonical_target": "/en/export/uzbekistan",
       "status": "keep",
       "kind": "export-country"
     },
@@ -1814,13 +1814,13 @@
       "kind": "export-country"
     },
     {
-      "url": "/export/yemen",
-      "file": "export/yemen.html",
-      "intent": "export landing Yemen",
+      "url": "/export/uzbekistan",
+      "file": "export/uzbekistan.html",
+      "intent": "export landing Uzbekistan (Cerberus readiness)",
       "language": "ru",
       "owner": "export",
       "source": "owner-approved country export landing",
-      "canonical_target": "/export/yemen",
+      "canonical_target": "/export/uzbekistan",
       "status": "keep",
       "kind": "export-country"
     },

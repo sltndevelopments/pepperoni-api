@@ -105,6 +105,7 @@ def llms_map_ru() -> str:
 - [Кейсы и покупатели](https://pepperoni.tatar/cases): сети АЗС, ретейл, фудсервис, СТМ.
 - [Экспорт](https://pepperoni.tatar/export): страны и статус признания сертификата.
 - [Экспорт в Казахстан](https://pepperoni.tatar/export/kazakhstan): текущие поставки, Цербер, без выдуманных сроков.
+- [Халяль в Узбекистан](https://pepperoni.tatar/export/uzbekistan): аттестация «Цербер», не текущая отгрузка, без оферты в UZS.
 - [Сосиска в тесте для пекарен](https://pepperoni.tatar/sosiska-v-teste): KD-018 без оболочки и KD-061 готовая.
 - [Выпечка халяль](https://pepperoni.tatar/vyipechka-halyal): татарская линейка KD-046–052, 065, 066.
 - [Пепперони для пиццерии](https://pepperoni.tatar/pepperoni-dlya-pizzerii): применение KD-013/014, без выдуманного теста в печи.
@@ -171,6 +172,7 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Cases and buyers](https://pepperoni.tatar/en/cases): fuel-station chains, retail, foodservice, private label.
 - [Export](https://pepperoni.tatar/en/export): countries and certificate-recognition status.
 - [Export to Kazakhstan](https://pepperoni.tatar/en/export/kazakhstan): current shipments, Cerberus, no invented transit days.
+- [Halal to Uzbekistan](https://pepperoni.tatar/en/export/uzbekistan): Cerberus attestation, not a current shipment, no UZS offer.
 - [Sausage in dough for bakeries](https://pepperoni.tatar/en/sosiska-v-teste): KD-018 casing-free and KD-061 ready roll.
 - [Halal bakery](https://pepperoni.tatar/en/vyipechka-halyal): Tatar line KD-046–052, 065, 066.
 - [Pepperoni for pizzerias](https://pepperoni.tatar/en/pepperoni-dlya-pizzerii): KD-013/014 application, no invented oven test.

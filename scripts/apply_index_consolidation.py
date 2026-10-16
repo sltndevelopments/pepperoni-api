@@ -208,6 +208,9 @@ def static_target(path: str, lang: str) -> tuple[str | None, bool]:
         "/vetchina-iz-kuricy-halyal-v2": "/vetchina-optom",
         "/wholesale-halal-pepperoni-supplier": "/pepperoni",
         "/en/wholesale-halal-pepperoni-supplier": "/en/pepperoni",
+        "/export/yemen": "/export",
+        "/en/export/yemen": "/en/export",
+        "/ar/export/yemen": "/en/export",
         "/what-is-halal-pepperoni-v2": "/blog/what-is-halal-pepperoni",
         "/what-is-echpochmak-v2": "/blog/echpochmak",
     }

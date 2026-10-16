@@ -35,6 +35,7 @@ NGINX_INSTALL = (
     "en-geo-cleanup-gone.conf",
     "trust-reset-redirects.conf",
     "trust-reset-gone.conf",
+    "export-country-redirects.conf",
 )
 
 _EXACT_LOC = re.compile(
