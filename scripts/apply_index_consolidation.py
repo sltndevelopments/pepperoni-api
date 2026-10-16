@@ -212,7 +212,7 @@ def static_target(path: str, lang: str) -> tuple[str | None, bool]:
         "/en/export/yemen": "/en/export",
         "/ar/export/yemen": "/en/export",
         "/what-is-halal-pepperoni-v2": "/blog/what-is-halal-pepperoni",
-        "/what-is-echpochmak-v2": "/blog/echpochmak",
+        "/what-is-echpochmak-v2": "/halyal-vypechka-optom-dlya-pekaren",
     }
     if path in mappings:
         return mappings[path], True
@@ -237,7 +237,9 @@ def topic_target(path: str, lang: str) -> str | None:
     if "kazylyk" in slug or "казылык" in slug:
         return "/en/blog/kazylyk-horse-meat-sausage" if en else "/blog/kazylyk"
     if "echpoch" in slug:
-        return "/en/blog/echpochmak-halyal" if en else "/blog/echpochmak"
+        return (
+            "/en/halyal-vypechka-optom-dlya-pekaren"
+            if en else "/halyal-vypechka-optom-dlya-pekaren")
     if any(x in slug for x in ("hotdog", "hot-dog", "sosis", "sausage")):
         return (
             "/en/blog/beef-hotdog-sausages-halal"
@@ -249,15 +251,15 @@ def topic_target(path: str, lang: str) -> str | None:
     if any(x in slug for x in ("private-label", "stm", "kontrakt")):
         return "/en/private-label" if en else "/kontraktnoe-proizvodstvo"
     if "iso-22000" in slug:
-        return f"{prefix}/blog/iso-22000-iaf-certsearch"
+        return f"{prefix}/halal"
     if any(x in slug for x in ("certif", "sertifik", "halal-production", "halal-meat-production")):
         return f"{prefix}/blog/halal-certification-russia"
     if "karmin" in slug or "carmine" in slug or "e120" in slug:
         return f"{prefix}/blog/karmin-e120-haram"
     if any(x in slug for x in ("tatar", "vypech", "bakery", "gubad", "elesh")):
         return (
-            "/en/blog/tatar-bakery-wholesale"
-            if en else "/blog/tatarskaya-vypechka-optom")
+            "/en/halyal-vypechka-optom-dlya-pekaren"
+            if en else "/halyal-vypechka-optom-dlya-pekaren")
     if "pepperoni" in slug or "peperoni" in slug:
         if any(x in slug for x in ("slice", "narez", "diametr", "razmer", "spec")):
             return (

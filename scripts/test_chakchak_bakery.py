@@ -141,7 +141,7 @@ def main() -> int:
     ):
         check(rel in keep, f"{rel} is keep")
     keep_n = len(keep)
-    check(180 <= keep_n <= 260, f"keep count {keep_n} in 180–260")
+    check(180 <= keep_n <= 250, f"keep count {keep_n} in 180–250")
 
     sitemap = (ROOT / "public" / "sitemap.xml").read_text(encoding="utf-8")
     check("chak-chak-optom" in sitemap, "sitemap has chak-chak-optom")
