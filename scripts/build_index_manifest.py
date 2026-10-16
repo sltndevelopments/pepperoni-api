@@ -20,7 +20,7 @@ OUT = DATA / "index_manifest.json"
 RETIRE_MAP = DATA / "url_consolidation_map.json"
 
 MIN_INDEXABLE = 180
-MAX_INDEXABLE = 250
+MAX_INDEXABLE = 260
 
 
 def _page(path: str, intent: str, owner: str, source: str) -> dict:
@@ -66,6 +66,8 @@ RU_PAGES = [
     _page("dlya-pekaren.html", "assortment for bakeries", "sales", "Google Sheets"),
     _page("dlya-distributorov.html", "assortment for distributors", "sales", "Google Sheets"),
     _page("zamorozhennaya-vypechka-dlya-kofeen.html", "frozen bakery for coffee shops", "sales", "Google Sheets"),
+    _page("chak-chak-optom.html", "chak-chak wholesale two pack formats", "sales", "Google Sheets"),
+    _page("halyal-vypechka-optom-dlya-pekaren.html", "halal bakery wholesale for bakeries and coffee shops", "editorial", "Google Sheets + evidence registry"),
     _page("export.html", "documented export capability", "export", "evidence registry"),
 ]
 
@@ -122,6 +124,8 @@ EN_PAGES = [
     _page("en/dlya-pekaren.html", "assortment for bakeries", "sales", "Google Sheets"),
     _page("en/dlya-distributorov.html", "assortment for distributors", "sales", "Google Sheets"),
     _page("en/zamorozhennaya-vypechka-dlya-kofeen.html", "frozen bakery for coffee shops", "sales", "Google Sheets"),
+    _page("en/chak-chak-optom.html", "chak-chak wholesale two pack formats", "sales", "Google Sheets"),
+    _page("en/halyal-vypechka-optom-dlya-pekaren.html", "halal bakery wholesale for bakeries and coffee shops", "editorial", "Google Sheets + evidence registry"),
     _page("en/export.html", "documented export capability", "export", "evidence registry"),
 ]
 EN_PAGES.extend(

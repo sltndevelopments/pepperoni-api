@@ -76,7 +76,7 @@ def main() -> int:
     check("export/yemen.html" not in keep_files, "Yemen RU not keep")
     check("en/export/yemen.html" not in keep_files, "Yemen EN not keep")
     keep_n = len(keep_files)
-    check(180 <= keep_n <= 250, f"keep count {keep_n} in 180–250")
+    check(180 <= keep_n <= 260, f"keep count {keep_n} in 180–260")
 
     pepp = html_of("pepperoni.html")
     piz = html_of("pepperoni-dlya-pizzerii.html")

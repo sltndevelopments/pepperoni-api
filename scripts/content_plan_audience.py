@@ -82,6 +82,8 @@ def _links(lang: str) -> str:
             '<a href="/dlya-azs">АЗС</a> · '
             '<a href="/vyipechka-halyal">выпечка</a> · '
             '<a href="/zamorozhennaya-vypechka-dlya-kofeen">выпечка для кофеен</a> · '
+            '<a href="/chak-chak-optom">чак-чак оптом</a> · '
+            '<a href="/halyal-vypechka-optom-dlya-pekaren">выпечка для пекарен</a> · '
             '<a href="/cases">кейсы</a>.</p>'
         )
     return (
@@ -96,6 +98,8 @@ def _links(lang: str) -> str:
         '<a href="/en/dlya-azs">fuel stations</a> · '
         '<a href="/en/vyipechka-halyal">bakery</a> · '
         '<a href="/en/zamorozhennaya-vypechka-dlya-kofeen">bakery for coffee shops</a> · '
+        '<a href="/en/chak-chak-optom">chak-chak wholesale</a> · '
+        '<a href="/en/halyal-vypechka-optom-dlya-pekaren">bakery for bakeries</a> · '
         '<a href="/en/cases">cases</a>.</p>'
     )
 
@@ -399,7 +403,9 @@ def write_coffee() -> None:
             body = (
                 "<p class=\"lead\">Не копия хаба выпечки: здесь сценарий «из морозилки на витрину». "
                 "Татарская линейка остаётся на <a href=\"/vyipechka-halyal\">/vyipechka-halyal</a>. "
-                "Пекарни с сосиской в тесте — <a href=\"/sosiska-v-teste\">/sosiska-v-teste</a>.</p>"
+                "Пекарни с сосиской в тесте — <a href=\"/sosiska-v-teste\">/sosiska-v-teste</a>. "
+                "Статья для пекарен и кофеен — "
+                "<a href=\"/halyal-vypechka-optom-dlya-pekaren\">/halyal-vypechka-optom-dlya-pekaren</a>.</p>"
                 f"<p>{cert_line_ru()}</p>"
                 "<h2>Из заморозки в печь</h2>"
                 "<div class=\"note\">Масса, срок, хранение и количество в коробе — из карточек каталога "
@@ -428,7 +434,9 @@ def write_coffee() -> None:
             body = (
                 "<p class=\"lead\">Not a copy of the bakery hub: this page is the freezer-to-counter scenario. "
                 "Tatar line stays on <a href=\"/en/vyipechka-halyal\">/en/vyipechka-halyal</a>. "
-                "Sausage in dough for bakeries: <a href=\"/en/sosiska-v-teste\">/en/sosiska-v-teste</a>.</p>"
+                "Sausage in dough for bakeries: <a href=\"/en/sosiska-v-teste\">/en/sosiska-v-teste</a>. "
+                "Bakeries and coffee shops article: "
+                "<a href=\"/en/halyal-vypechka-optom-dlya-pekaren\">/en/halyal-vypechka-optom-dlya-pekaren</a>.</p>"
                 f"<p>{cert_line_en()}</p>"
                 "<h2>From freezer to oven</h2>"
                 "<div class=\"note\">Weight, shelf life, storage and pieces per box come from the catalog cards "

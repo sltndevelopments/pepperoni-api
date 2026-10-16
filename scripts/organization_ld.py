@@ -45,8 +45,9 @@ ORGANIZATION = {
 
 ORGANIZATION["hasCredential"] = [
     {
-        "@type": "DigitalDocument",
+        "@type": "EducationalOccupationalCredential",
         "name": item["number"],
+        "credentialCategory": "certification",
         "description": item.get("scope_en") or item.get("scope_ru"),
         **({"url": item["verify_url"]} if item.get("verify_url") else {}),
     }

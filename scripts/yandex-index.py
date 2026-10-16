@@ -208,6 +208,7 @@ TOP_COMMERCIAL = {
     "/capabilities", "/cases", "/halal", "/delivery", "/export", "/faq",
     "/price", "/kak-zakazat", "/dlya-setey", "/dlya-distributorov", "/dlya-horeca",
     "/zamorozhennaya-vypechka-dlya-kofeen",
+    "/chak-chak-optom", "/halyal-vypechka-optom-dlya-pekaren",
     "/sosiska-v-teste", "/pepperoni-dlya-pizzerii",
     "/export/kazakhstan", "/export/uzbekistan",
     "/en/", "/en/pepperoni", "/en/jerky", "/en/private-label",
@@ -217,6 +218,7 @@ TOP_COMMERCIAL = {
     "/en/halal", "/en/delivery", "/en/export", "/en/faq",
     "/en/dlya-setey", "/en/dlya-distributorov", "/en/dlya-horeca",
     "/en/zamorozhennaya-vypechka-dlya-kofeen",
+    "/en/chak-chak-optom", "/en/halyal-vypechka-optom-dlya-pekaren",
     "/en/sosiska-v-teste", "/en/pepperoni-dlya-pizzerii",
     "/en/export/kazakhstan", "/en/export/uzbekistan",
 }

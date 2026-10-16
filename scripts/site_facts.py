@@ -11,6 +11,11 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 FACTS = json.loads((ROOT / "data" / "site_facts.json").read_text(encoding="utf-8"))
+_EVIDENCE_PATH = ROOT / "data" / "evidence_registry.json"
+_EVIDENCE = (
+    json.loads(_EVIDENCE_PATH.read_text(encoding="utf-8"))
+    if _EVIDENCE_PATH.exists() else {}
+)
 
 
 def sku_count() -> int:
@@ -174,6 +179,77 @@ def cert_line_en() -> str:
         "No. 884A/2025 (bakery and ready meals; 27 Dec 2025–26 Dec 2026), "
         "HACCP, ISO 22000:2018 (FSMS-2351/A), Made in Russia No. SS.003181 "
         "(until 23 Oct 2028), TR CU 021/2011"
+    )
+
+
+def _iso_date(iso: str, lang: str) -> str:
+    parts = (iso or "").split("-")
+    if len(parts) != 3:
+        return iso or "—"
+    year, month, day = parts
+    if lang == "ru":
+        return f"{day}.{month}.{year}"
+    months = (
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December",
+    )
+    try:
+        return f"{int(day)} {months[int(month) - 1]} {year}"
+    except (TypeError, ValueError, IndexError):
+        return iso
+
+
+def evidence_claim(entry_id: str, lang: str) -> str:
+    """Return claim_ru / claim_en from evidence_registry.json. Empty if absent."""
+    rows = _EVIDENCE.get("entries") or _EVIDENCE.get("claims") or []
+    if isinstance(_EVIDENCE, list):
+        rows = _EVIDENCE
+    key = "claim_ru" if lang == "ru" else "claim_en"
+    for row in rows:
+        if isinstance(row, dict) and row.get("id") == entry_id:
+            return str(row.get(key) or "").strip()
+    return ""
+
+
+def bakery_halal_cert() -> dict:
+    """Halal bakery certificate from site_facts.json — never a hardcoded number."""
+    return dict(FACTS["certificates"]["halal_bakery"])
+
+
+_TERM_EN = {
+    "moq": "1 pallet (mixed pallet possible)",
+    "basis": "EXW Kazan",
+}
+
+
+def term(key: str, lang: str) -> str:
+    """Wholesale term from site_facts.terms. EN is a translation, not a new claim."""
+    ru = str((FACTS.get("terms") or {}).get(key) or "")
+    if lang != "en":
+        return ru
+    return _TERM_EN.get(key, ru)
+
+
+def bakery_halal_line(lang: str) -> str:
+    """884A/2025 line for bakery pages. Prefer evidence_registry, else site_facts."""
+    claimed = evidence_claim("halal_dum_rt_884a_2025", lang)
+    if claimed:
+        return claimed
+    cert = bakery_halal_cert()
+    number = cert.get("number") or "—"
+    until = _iso_date(str(cert.get("valid_until") or ""), lang)
+    since = _iso_date(str(cert.get("valid_from") or ""), lang)
+    if lang == "ru":
+        scope = cert.get("scope_ru") or "кондитерские, хлебобулочные изделия и кулинария"
+        issuer = cert.get("issuer_ru") or "ДУМ РТ"
+        return (
+            f"Халяль {issuer} № {number} — {scope}; "
+            f"действует с {since} по {until}."
+        )
+    scope = cert.get("scope_en") or "confectionery, bakery and ready meals"
+    return (
+        f"Halal DUM RT certificate No. {number} — {scope}; "
+        f"valid {since}–{until}."
     )
 
 

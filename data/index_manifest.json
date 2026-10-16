@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "generated_at": "2026-10-15T23:48:20.930274+00:00",
+  "generated_at": "2026-10-16T19:10:46.698389+00:00",
   "policy": {
     "indexable_min": 180,
-    "indexable_max": 250,
+    "indexable_max": 260,
     "languages": [
       "ru",
       "en"
@@ -15,9 +15,9 @@
     ]
   },
   "counts": {
-    "keep": 250,
+    "keep": 254,
     "retired": 1499,
-    "all": 1749
+    "all": 1753
   },
   "entries": [
     {
@@ -237,6 +237,17 @@
       "owner": "sales",
       "source": "evidence registry",
       "canonical_target": "/cases",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/chak-chak-optom",
+      "file": "chak-chak-optom.html",
+      "intent": "chak-chak wholesale two pack formats",
+      "language": "ru",
+      "owner": "sales",
+      "source": "Google Sheets",
+      "canonical_target": "/chak-chak-optom",
       "status": "keep",
       "kind": "hub"
     },
@@ -479,6 +490,17 @@
       "owner": "sales",
       "source": "evidence registry",
       "canonical_target": "/en/cases",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/en/chak-chak-optom",
+      "file": "en/chak-chak-optom.html",
+      "intent": "chak-chak wholesale two pack formats",
+      "language": "en",
+      "owner": "sales",
+      "source": "Google Sheets",
+      "canonical_target": "/en/chak-chak-optom",
       "status": "keep",
       "kind": "hub"
     },
@@ -754,6 +776,17 @@
       "owner": "quality",
       "source": "evidence registry",
       "canonical_target": "/en/halal",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/en/halyal-vypechka-optom-dlya-pekaren",
+      "file": "en/halyal-vypechka-optom-dlya-pekaren.html",
+      "intent": "halal bakery wholesale for bakeries and coffee shops",
+      "language": "en",
+      "owner": "editorial",
+      "source": "Google Sheets + evidence registry",
+      "canonical_target": "/en/halyal-vypechka-optom-dlya-pekaren",
       "status": "keep",
       "kind": "hub"
     },
@@ -1843,6 +1876,17 @@
       "owner": "quality",
       "source": "evidence registry",
       "canonical_target": "/halal",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/halyal-vypechka-optom-dlya-pekaren",
+      "file": "halyal-vypechka-optom-dlya-pekaren.html",
+      "intent": "halal bakery wholesale for bakeries and coffee shops",
+      "language": "ru",
+      "owner": "editorial",
+      "source": "Google Sheets + evidence registry",
+      "canonical_target": "/halyal-vypechka-optom-dlya-pekaren",
       "status": "keep",
       "kind": "hub"
     },
@@ -7349,26 +7393,26 @@
     {
       "url": "/blog/chakchak-optom",
       "file": "blog/chakchak-optom.html",
-      "intent": "legacy URL retirement",
+      "intent": "noindex pointer to chak-chak wholesale landing",
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/chak-chak-optom",
+      "status": "noindex",
+      "reason": "pointer to chak-chak wholesale landing; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
     {
       "url": "/blog/chakchak-wholesale-gifts",
       "file": "blog/chakchak-wholesale-gifts.html",
-      "intent": "legacy URL retirement",
+      "intent": "noindex pointer to chak-chak wholesale landing",
       "language": "ru",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/chak-chak-optom",
+      "status": "noindex",
+      "reason": "pointer to chak-chak wholesale landing; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
@@ -10105,26 +10149,26 @@
     {
       "url": "/en/blog/chakchak-optom",
       "file": "en/blog/chakchak-optom.html",
-      "intent": "legacy URL retirement",
+      "intent": "noindex pointer to chak-chak wholesale landing",
       "language": "en",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/en/chak-chak-optom",
+      "status": "noindex",
+      "reason": "pointer to chak-chak wholesale landing; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
     {
       "url": "/en/blog/chakchak-wholesale-gifts",
       "file": "en/blog/chakchak-wholesale-gifts.html",
-      "intent": "legacy URL retirement",
+      "intent": "noindex pointer to chak-chak wholesale landing",
       "language": "en",
       "owner": "seo",
       "source": "fresh GSC query×page + index policy",
-      "canonical_target": null,
-      "status": "410",
-      "reason": "no distinct supported intent or evidence",
+      "canonical_target": "/en/chak-chak-optom",
+      "status": "noindex",
+      "reason": "pointer to chak-chak wholesale landing; not allowlisted",
       "clicks_28d": 0.0,
       "impressions_28d": 0.0
     },
