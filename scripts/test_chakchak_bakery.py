@@ -56,8 +56,34 @@ def main() -> int:
     check("KD-053" in en and "KD-054" in en, "EN chak-chak lists both SKUs")
     check(price_token(p053) in ru and price_token(p054) in ru, "RU prices from products.json")
     check(price_token(p053) in en and price_token(p054) in en, "EN prices from products.json")
-    check("60 суток" in ru or "60" in ru, "RU shelf-life days from Sheet SEO cell")
+    check("90 суток" in ru and not re.search(r"(?<!\d)60 суток", ru),
+          "RU shelf-life from catalog shelfLife")
+    check("90 days" in en and not re.search(r"(?<!\d)60 days", en),
+          "EN shelf-life from catalog shelfLife")
+    check("shelfLife" in ru and "SEO-ячейк" not in ru, "RU cites catalog shelfLife field")
     check("+18" in ru and "+18" in en, "storage up to +18 from catalog")
+    check("влажность 75%" in ru, "RU storage humidity from catalog")
+    check("humidity 75%" in en and "влажность" not in en, "EN storage humidity translated")
+    check("паллета" not in en and "1 pallet" in en, "EN MOQ translated from site_facts")
+    check("EXW Kazan" in en and "EXW Казань" not in en, "EN basis translated from site_facts")
+    check('"@type":"EducationalOccupationalCredential"' in ru, "RU Organization credential type")
+    check('"@type":"EducationalOccupationalCredential"' in en, "EN Organization credential type")
+    check('"@type":"DigitalDocument"' not in ru and '"@type":"DigitalDocument"' not in en,
+          "chak-chak Organization is not DigitalDocument")
+    ru_ld = re.findall(r'<script type="application/ld\+json">(.*?)</script>', ru, re.S)
+    en_ld = re.findall(r'<script type="application/ld\+json">(.*?)</script>', en, re.S)
+    ru_blob = "\n".join(ru_ld)
+    en_blob = "\n".join(en_ld)
+    check("охлаждённ" not in ru_blob.lower() and "охлажденн" not in ru_blob.lower(),
+          "RU KD-053 schema has no охлаждённый")
+    check("chilled" not in en_blob.lower(), "EN KD-053 schema has no chilled")
+    for sku, blob in (("KD-053", ru_blob), ("KD-054", ru_blob)):
+        match = re.search(rf'"sku":"{sku}".*?"image":(\[.*?\])', blob)
+        if not match:
+            check(False, f"{sku} image list present")
+        else:
+            imgs = json.loads(match.group(1))
+            check(len(imgs) == len(set(imgs)), f"{sku} image list deduped")
     check(number in ru and "/halal" in ru, "RU bakery cert + /halal link")
     check(number in en and "/en/halal" in en, "EN bakery cert + /en/halal link")
     check('"@type":"Product"' in ru and '"@type":"Offer"' in ru, "RU Product/Offer schema")
@@ -80,6 +106,25 @@ def main() -> int:
     check("/en/sosiska-v-teste" in art_en and "/en/vyipechka-halyal" in art_en, "EN article cross-links")
     check(h1_count(art_ru) == 1 and h1_count(art_en) == 1, "article one H1 each")
     check("350 °C" not in art_ru and "350°C" not in art_ru, "article no invented oven temp")
+    check("21" in art_ru and "21" in art_en, "article copy uses 21 distinct SKUs")
+    check('"numberOfItems":21' in art_ru and '"numberOfItems":21' in art_en,
+          "ItemList numberOfItems is 21")
+    check("влажность" not in art_en and "паллета" not in art_en, "EN article has no leftover RU terms")
+    check("245.00 ₽/упак." in art_ru or "245.00 ₽/упак" in art_ru, "RU KD-018 price has pack unit")
+    check("245.00 RUB/pack" in art_en, "EN KD-018 price has pack unit")
+    check('"@type":"EducationalOccupationalCredential"' in art_ru, "article Organization credential type")
+    art_ru_ld = "\n".join(re.findall(r'<script type="application/ld\+json">(.*?)</script>', art_ru, re.S))
+    art_en_ld = "\n".join(re.findall(r'<script type="application/ld\+json">(.*?)</script>', art_en, re.S))
+    ru_061 = len(re.findall(r'"sku":"KD-061"|/products/kd-061"', art_ru_ld))
+    # ItemList names the SKU in url + name; count url occurrences
+    ru_061_urls = len(re.findall(r"/products/kd-061", art_ru_ld))
+    en_061_urls = len(re.findall(r"/en/products/kd-061", art_en_ld))
+    check(ru_061_urls == 1, f"RU ItemList KD-061 once (got {ru_061_urls})")
+    check(en_061_urls == 1, f"EN ItemList KD-061 once (got {en_061_urls})")
+    positions = [int(x) for x in re.findall(r'"position":(\d+)', art_ru_ld)]
+    item_positions = [p for p in positions if p >= 1]
+    # Breadcrumb uses 1,2; ItemList uses 1..21
+    check(21 in item_positions and item_positions.count(21) >= 1, "ItemList reaches position 21")
 
     blog_ru = html_of("blog/chakchak-optom.html")
     gifts = html_of("blog/chakchak-wholesale-gifts.html")

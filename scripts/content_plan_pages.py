@@ -20,8 +20,10 @@ from site_facts import (  # noqa: E402
     bakery_halal_line,
     cert_line_en,
     cert_line_ru,
+    plural_ru,
     sku_count,
     sku_matrix,
+    term,
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -86,10 +88,13 @@ def price_label(p: dict, lang: str) -> str:
     offers = p.get("offers") or {}
     price = offers.get("price")
     ppu = offers.get("pricePerUnit")
-    if price not in (None, ""):
-        return f"{price} ₽" if lang == "ru" else f"{price} RUB"
+    ppb = offers.get("pricePerBox")
     if ppu not in (None, ""):
         return f"{ppu} ₽/шт" if lang == "ru" else f"{ppu} RUB/pc"
+    if price not in (None, ""):
+        return f"{price} ₽/упак." if lang == "ru" else f"{price} RUB/pack"
+    if ppb not in (None, ""):
+        return f"{ppb} ₽/кор." if lang == "ru" else f"{ppb} RUB/box"
     return "—" if lang == "ru" else "on request"
 
 
@@ -118,6 +123,8 @@ def catalog_units(text: str | None, lang: str) -> str:
     out = re.sub(r"\bсут\b", "days", out)
     out = out.replace(" кг", " kg").replace("кг", "kg")
     out = out.replace(" г", " g")
+    out = re.sub(r"\bдо\s+", "up to ", out)
+    out = out.replace("влажность", "humidity")
     return out
 
 
@@ -286,13 +293,39 @@ def offer_amount(p: dict) -> str | None:
     return None
 
 
-def seo_shelf_life(p: dict, lang: str) -> str:
-    """Prefer the Sheet SEO cell when it states a day count; else shelfLife."""
-    blob = f"{p.get('seoDescriptionRU') or ''} {p.get('seoDescriptionEN') or ''}"
-    match = re.search(r"(\d+)\s*(?:суток|days)", blob, re.I)
-    if match:
-        return f"{match.group(1)} суток" if lang == "ru" else f"{match.group(1)} days"
+def catalog_shelf_life(p: dict, lang: str) -> str:
+    """Structured shelfLife from products.json — not the Sheet SEO cell."""
     return catalog_units(p.get("shelfLife"), lang)
+
+
+def product_description(p: dict, lang: str) -> str:
+    """Catalog fields only. Drops SEO-cell copy (60 days, охлаждённый/chilled)."""
+    name = product_name(p, lang)
+    weight = weight_label(p, lang)
+    life = catalog_shelf_life(p, lang)
+    store = catalog_units(p.get("storage"), lang)
+    if lang == "ru":
+        text = (
+            f"{name}, {weight}. Срок хранения {life} (поле shelfLife каталога). "
+            f"Хранение: {store}."
+        )
+    else:
+        text = (
+            f"{name}, {weight}. Shelf life {life} (catalog shelfLife field). "
+            f"Storage: {store}."
+        )
+    return re.sub(r"(?i)\s*(охлаждённ\w*|охлажденн\w*|chilled)\s*", " ", text).strip()
+
+
+def unique_images(p: dict) -> list[str]:
+    seen: set[str] = set()
+    out: list[str] = []
+    for key in ("imageMain", "imagePack", "imageSlice", "image"):
+        src = p.get(key)
+        if src and src not in seen:
+            seen.add(src)
+            out.append(src)
+    return out
 
 
 def product_offer_ld(p: dict, lang: str, offer_url: str) -> dict:
@@ -304,15 +337,12 @@ def product_offer_ld(p: dict, lang: str, offer_url: str) -> dict:
         "name": product_name(p, lang),
         "sku": p["sku"],
         "url": f"{BASE}{product_url(p['sku'], lang)}",
-        "description": (
-            (p.get("seoDescriptionRU") if lang == "ru" else p.get("seoDescriptionEN"))
-            or product_name(p, lang)
-        )[:400],
+        "description": product_description(p, lang)[:400],
         "brand": {"@type": "Brand",
                   "name": "Казанские Деликатесы" if lang == "ru" else "Kazan Delicacies"},
         "manufacturer": {"@id": f"{BASE}/#organization"},
     }
-    images = [p[k] for k in ("imageMain", "imagePack", "imageSlice", "image") if p.get(k)]
+    images = unique_images(p)
     if images:
         node["image"] = images
     barcode = str(p.get("barcode") or "").strip()
@@ -1336,13 +1366,13 @@ def write_chakchak() -> None:
     p053, p054 = items
     cert = bakery_halal_line("ru")
     cert_en = bakery_halal_line("en")
-    moq = FACTS["terms"]["moq"]
-    basis = FACTS["terms"]["basis"]
     for lang in ("ru", "en"):
-        life053 = seo_shelf_life(p053, lang)
-        life054 = seo_shelf_life(p054, lang)
+        life053 = catalog_shelf_life(p053, lang)
+        life054 = catalog_shelf_life(p054, lang)
         store053 = catalog_units(p053.get("storage"), lang)
         store054 = catalog_units(p054.get("storage"), lang)
+        moq = term("moq", lang)
+        basis = term("basis", lang)
         box053 = p053.get("qtyPerBox") or "—"
         box054 = p054.get("qtyPerBox") or "—"
         landing = f"{BASE}{prefix(lang)}/chak-chak-optom"
@@ -1370,7 +1400,7 @@ def write_chakchak() -> None:
                 "и крафтовая подарочная. Масса обеих строк — 300 г. "
                 f"В коробе {box053} шт (KD-053) и {box054} шт (KD-054). "
                 "Состава и пищевой ценности в таблице нет — на странице их нет.</p>"
-                f"<p>Срок годности в карточке SEO-ячейки листа: {life053} (KD-053) и "
+                f"<p>Срок годности из поля shelfLife каталога: {life053} (KD-053) и "
                 f"{life054} (KD-054). Хранение: {store053}. "
                 "Это не −18 °C и не 360 суток, как у замороженной выпечки.</p>"
             )
@@ -1400,7 +1430,7 @@ def write_chakchak() -> None:
                  "Обе по 300 г. Других фасовок чак-чака в текущем каталоге нет."),
                 ("Какой срок и температура?",
                  f"{life053}, хранение {store053}. Цифры из products.json "
-                 "(SEO-ячейка листа и поле storage), не из рекламного текста."),
+                 "(поле shelfLife и поле storage), не из рекламного текста."),
                 ("Какой сертификат халяль?",
                  f"{cert} Страница проверки — /halal."),
                 ("Как заказать оптом?",
@@ -1427,7 +1457,7 @@ def write_chakchak() -> None:
                 "Both rows weigh 300 g. "
                 f"Box count: {box053} pcs (KD-053) and {box054} pcs (KD-054). "
                 "Composition and nutrition cells are empty — this page does not invent them.</p>"
-                f"<p>Shelf life from the Sheet SEO cell: {life053} (KD-053) and "
+                f"<p>Shelf life from the catalog shelfLife field: {life053} (KD-053) and "
                 f"{life054} (KD-054). Storage: {store053}. "
                 "That is not −18 °C and not 360 days, unlike frozen pastry.</p>"
             )
@@ -1438,7 +1468,7 @@ def write_chakchak() -> None:
             )
             order = (
                 "<h2>How to order</h2>"
-                f"<p>Basis EXW Kazan, minimum {moq}. "
+                f"<p>Basis {basis}, minimum {moq}. "
                 "Price list and enquiry: <a href=\"/en/kak-zakazat\">/en/kak-zakazat</a> and "
                 "<a href=\"/en/price\">/en/price</a>. "
                 "We do not publish transit days.</p>"
@@ -1458,11 +1488,11 @@ def write_chakchak() -> None:
                  "The live catalog has no other chak-chak pack sizes."),
                 ("What shelf life and storage?",
                  f"{life053}, storage {store053}. Figures come from products.json "
-                 "(Sheet SEO cell and the storage field)."),
+                 "(shelfLife and storage fields)."),
                 ("Which halal certificate?",
                  f"{cert_en} Verification page: /en/halal."),
                 ("How to order wholesale?",
-                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum {moq}, EXW Kazan. "
+                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum {moq}, {basis}. "
                  "Steps: /en/kak-zakazat, price list: /en/price."),
             ]
         body = (
@@ -1498,15 +1528,19 @@ def write_bakery_for_bakeries() -> None:
     )
     cert_ru = bakery_halal_line("ru")
     cert_en = bakery_halal_line("en")
-    moq = FACTS["terms"]["moq"]
-    basis = FACTS["terms"]["basis"]
+    frozen_without_061 = [p for p in frozen if p["sku"] != "KD-061"]
+    listed = sausage + frozen_without_061
     n_frozen = len(frozen)
+    n_distinct = len(listed)
     for lang in ("ru", "en"):
+        moq = term("moq", lang)
+        basis = term("basis", lang)
         if lang == "ru":
             title = "Халяль выпечка оптом для пекарен и кофеен | Казанские Деликатесы"
             desc = (
-                f"Замороженная выпечка ({n_frozen} SKU) и сосиска в тесте KD-018 / KD-061 "
-                f"для пекарен и кофеен. Заказ — /kak-zakazat и /price. {cert_ru}"
+                f"{n_distinct} {plural_ru(n_distinct, 'позиция', 'позиции', 'позиций')} без повторов: "
+                f"замороженная выпечка ({n_frozen} SKU, включая KD-061) и охлаждённая сосиска KD-018. "
+                f"Заказ — /kak-zakazat и /price. {cert_ru}"
             )
             h1 = "Халяль-выпечка оптом для пекарен и кофеен"
             intro = (
@@ -1559,8 +1593,9 @@ def write_bakery_for_bakeries() -> None:
             )
             faq = [
                 ("Какие SKU входят в статью?",
-                 f"Замороженная выпечка из каталога: {n_frozen} позиций с хранением −18 °C, "
-                 "плюс KD-018 (сосиска без оболочки) и KD-061 (готовая сосиска в тесте). "
+                 f"{n_distinct} {plural_ru(n_distinct, 'позиция', 'позиции', 'позиций')} без повторов: "
+                 f"охлаждённая KD-018 и {n_frozen} строк "
+                 "замороженной выпечки (KD-061 входит в заморозку, не считается дважды). "
                  "Чак-чак KD-053/054 — на /chak-chak-optom, это не заморозка."),
                 ("Какой сертификат на выпечку?",
                  f"{cert_ru} Проверка — /halal. KD-018 закрывается мясными свидетельствами."),
@@ -1572,8 +1607,8 @@ def write_bakery_for_bakeries() -> None:
         else:
             title = "Halal bakery wholesale for bakeries and coffee shops | Kazan Delicacies"
             desc = (
-                f"Frozen bakery ({n_frozen} SKUs) and sausage-in-dough KD-018 / KD-061 "
-                f"for bakeries and coffee shops. Order via /en/kak-zakazat and /en/price. {cert_en}"
+                f"{n_distinct} distinct SKUs: frozen bakery ({n_frozen} rows, including KD-061) "
+                f"and chilled sausage KD-018. Order via /en/kak-zakazat and /en/price. {cert_en}"
             )
             h1 = "Halal bakery wholesale for bakeries and coffee shops"
             intro = (
@@ -1617,7 +1652,7 @@ def write_bakery_for_bakeries() -> None:
                 "<h2>How to order</h2>"
                 f"<p>Enquiry steps: <a href=\"/en/kak-zakazat\">/en/kak-zakazat</a>. "
                 f"Price list from the same catalog: <a href=\"/en/price\">/en/price</a>. "
-                f"Basis EXW Kazan, minimum {moq}. "
+                f"Basis {basis}, minimum {moq}. "
                 "Samples and a pilot pallet: "
                 "<a href=\"/en/kak-zakazat#samples\">/en/kak-zakazat#samples</a>. "
                 "This page does not publish transit days or your oven programme.</p>"
@@ -1629,15 +1664,15 @@ def write_bakery_for_bakeries() -> None:
             )
             faq = [
                 ("Which SKUs are in this article?",
-                 f"Frozen bakery from the catalog: {n_frozen} SKUs stored at −18 °C, "
-                 "plus KD-018 (casing-free sausage) and KD-061 (ready sausage in dough). "
+                 f"{n_distinct} distinct SKUs: chilled KD-018 and {n_frozen} frozen bakery "
+                 "rows (KD-061 is in the frozen list, not counted twice). "
                  "Chak-chak KD-053/054 is on /en/chak-chak-optom — it is not frozen."),
                 ("Which certificate covers bakery?",
                  f"{cert_en} Verify on /en/halal. KD-018 is covered by the meat certificates."),
                 ("Where is sausage in dough on its own?",
                  "On /en/sosiska-v-teste: only KD-018 and KD-061, with no invented oven test."),
                 ("How do we order?",
-                 f"/en/kak-zakazat and /en/price. Minimum {moq}, EXW Kazan. {PHONE}, {EMAIL}."),
+                 f"/en/kak-zakazat and /en/price. Minimum {moq}, {basis}. {PHONE}, {EMAIL}."),
             ]
         extra = [
             {
@@ -1653,28 +1688,37 @@ def write_bakery_for_bakeries() -> None:
                 "@context": "https://schema.org",
                 "@type": "ItemList",
                 "name": h1,
-                "numberOfItems": n_frozen + 2,
+                "numberOfItems": n_distinct,
                 "itemListElement": [
                     {"@type": "ListItem", "position": i + 1,
                      "url": f"{BASE}{product_url(p['sku'], lang)}",
                      "name": product_name(p, lang)}
-                    for i, p in enumerate(sausage + frozen)
+                    for i, p in enumerate(listed)
                 ],
             },
         ]
-        h_frozen = "Замороженная выпечка из каталога" if lang == "ru" else "Frozen bakery from the catalog"
+        if lang == "ru":
+            h_frozen = (
+                f"Замороженная выпечка из каталога ({n_frozen} SKU; "
+                "KD-061 разобрана в блоке «Сосиска в тесте»)"
+            )
+        else:
+            h_frozen = (
+                f"Frozen bakery from the catalog ({n_frozen} SKUs; "
+                "KD-061 is covered in the sausage-in-dough block)"
+            )
         body = (
             intro + who + sausage_block
             + sku_table(sausage, lang)
-            + f"<h2>{h_frozen} ({n_frozen} SKU)</h2>"
-            + sku_list(frozen, lang)
+            + f"<h2>{h_frozen}</h2>"
+            + sku_list(frozen_without_061, lang)
             + docs + order + related
         )
         html = ensure_metrika_html(
             shell(lang, "halyal-vypechka-optom-dlya-pekaren", title, desc, h1, body, faq, extra)
         )
         write_html(lang, "halyal-vypechka-optom-dlya-pekaren", html)
-        print(f"  bakery-for-bakeries [{lang}] frozen={n_frozen}")
+        print(f"  bakery-for-bakeries [{lang}] frozen={n_frozen} distinct={n_distinct}")
 
 
 def write_chakchak_blogs() -> None:
@@ -1701,9 +1745,9 @@ def write_chakchak_blogs() -> None:
                 f"<a href=\"{landing}\">{landing}</a>. "
                 "Здесь только указатель, чтобы старый адрес не оставлял закупщика без ссылки.</p>"
                 f"<p>В каталоге две строки: <a href=\"/products/kd-053\">{p053['sku']}</a> "
-                f"«{p053['name']}» ({price_label(p053, 'ru')}, {seo_shelf_life(p053, 'ru')}, "
+                f"«{p053['name']}» ({price_label(p053, 'ru')}, {catalog_shelf_life(p053, 'ru')}, "
                 f"{p053.get('storage')}) и <a href=\"/products/kd-054\">{p054['sku']}</a> "
-                f"«{p054['name']}» ({price_label(p054, 'ru')}, {seo_shelf_life(p054, 'ru')}, "
+                f"«{p054['name']}» ({price_label(p054, 'ru')}, {catalog_shelf_life(p054, 'ru')}, "
                 f"{p054.get('storage')}). Масса обеих — 300 г.</p>"
                 f"<p>{bakery_halal_line('ru')} Проверка — <a href=\"/halal\">/halal</a>.</p>"
                 f"<p><a class=\"cta\" href=\"{landing}\">Открыть /chak-chak-optom</a></p>"
@@ -1725,7 +1769,7 @@ def write_chakchak_blogs() -> None:
                 f"<p class=\"lead\">Крафтовая подарочная упаковка — {p054['sku']}. "
                 f"Полный опт обеих фасовок — <a href=\"{landing}\">{landing}</a>.</p>"
                 f"<p>{p054['name']}: {weight_label(p054)}, {price_label(p054, 'ru')}, "
-                f"{seo_shelf_life(p054, 'ru')}, {p054.get('storage')}. "
+                f"{catalog_shelf_life(p054, 'ru')}, {p054.get('storage')}. "
                 f"Рядом в каталоге пластик {p053['sku']} за {price_label(p053, 'ru')}.</p>"
                 f"<p>{bakery_halal_line('ru')} Проверка — <a href=\"/halal\">/halal</a>.</p>"
                 f"<p><a class=\"cta\" href=\"{landing}\">К оптовой странице чак-чака</a></p>"
@@ -1749,10 +1793,10 @@ def write_chakchak_blogs() -> None:
                 "This note exists so the old URL still points to the live assortment.</p>"
                 f"<p>Catalog rows: <a href=\"/en/products/kd-053\">{p053['sku']}</a> "
                 f"«{product_name(p053, 'en')}» ({price_label(p053, 'en')}, "
-                f"{seo_shelf_life(p053, 'en')}, {catalog_units(p053.get('storage'), 'en')}) and "
+                f"{catalog_shelf_life(p053, 'en')}, {catalog_units(p053.get('storage'), 'en')}) and "
                 f"<a href=\"/en/products/kd-054\">{p054['sku']}</a> "
                 f"«{product_name(p054, 'en')}» ({price_label(p054, 'en')}, "
-                f"{seo_shelf_life(p054, 'en')}, {catalog_units(p054.get('storage'), 'en')}). "
+                f"{catalog_shelf_life(p054, 'en')}, {catalog_units(p054.get('storage'), 'en')}). "
                 "Both weigh 300 g.</p>"
                 f"<p>{bakery_halal_line('en')} Verify on <a href=\"/en/halal\">/en/halal</a>.</p>"
                 f"<p><a class=\"cta\" href=\"{landing}\">Open /en/chak-chak-optom</a></p>"
@@ -1774,7 +1818,7 @@ def write_chakchak_blogs() -> None:
                 f"<p class=\"lead\">The kraft gift pack is {p054['sku']}. "
                 f"Both pack formats: <a href=\"{landing}\">{landing}</a>.</p>"
                 f"<p>{product_name(p054, 'en')}: {weight_label(p054, 'en')}, "
-                f"{price_label(p054, 'en')}, {seo_shelf_life(p054, 'en')}, "
+                f"{price_label(p054, 'en')}, {catalog_shelf_life(p054, 'en')}, "
                 f"{catalog_units(p054.get('storage'), 'en')}. "
                 f"Plastic {p053['sku']} is {price_label(p053, 'en')}.</p>"
                 f"<p>{bakery_halal_line('en')} Verify on <a href=\"/en/halal\">/en/halal</a>.</p>"

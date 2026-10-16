@@ -216,6 +216,20 @@ def bakery_halal_cert() -> dict:
     return dict(FACTS["certificates"]["halal_bakery"])
 
 
+_TERM_EN = {
+    "moq": "1 pallet (mixed pallet possible)",
+    "basis": "EXW Kazan",
+}
+
+
+def term(key: str, lang: str) -> str:
+    """Wholesale term from site_facts.terms. EN is a translation, not a new claim."""
+    ru = str((FACTS.get("terms") or {}).get(key) or "")
+    if lang != "en":
+        return ru
+    return _TERM_EN.get(key, ru)
+
+
 def bakery_halal_line(lang: str) -> str:
     """884A/2025 line for bakery pages. Prefer evidence_registry, else site_facts."""
     claimed = evidence_claim("halal_dum_rt_884a_2025", lang)
