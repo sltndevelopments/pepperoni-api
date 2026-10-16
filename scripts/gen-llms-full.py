@@ -113,6 +113,8 @@ def llms_map_ru() -> str:
 - [Для дистрибьюторов](https://pepperoni.tatar/dlya-distributorov): {n_sku} SKU, EXW, паллета, эксклюзив индивидуально.
 - [Для HoReCa](https://pepperoni.tatar/dlya-horeca): гриль-сосиски и охлаждёнка, ветчина и котлеты ссылками.
 - [Выпечка для кофеен](https://pepperoni.tatar/zamorozhennaya-vypechka-dlya-kofeen): сценарий заморозки без выдуманного режима печи.
+- [Чак-чак оптом](https://pepperoni.tatar/chak-chak-optom): KD-053 пластик и KD-054 крафт 300 г, срок и цена из каталога.
+- [Выпечка для пекарен и кофеен](https://pepperoni.tatar/halyal-vypechka-optom-dlya-pekaren): заморозка и сосиска в тесте, заказ через /kak-zakazat.
 
 ## Каталог и данные
 
@@ -180,6 +182,8 @@ Contacts: +7 987 217-02-02 · info@kazandelikates.tatar · 2 Agrarnaya St., offi
 - [Distributors](https://pepperoni.tatar/en/dlya-distributorov): {n_sku} SKUs, EXW, pallet, exclusivity individually.
 - [HoReCa](https://pepperoni.tatar/en/dlya-horeca): grill and chilled sausages; ham and patties as links.
 - [Bakery for coffee shops](https://pepperoni.tatar/en/zamorozhennaya-vypechka-dlya-kofeen): freezer scenario, no invented oven programme.
+- [Chak-chak wholesale](https://pepperoni.tatar/en/chak-chak-optom): KD-053 plastic and KD-054 kraft 300 g, shelf life and price from the catalog.
+- [Bakery for bakeries and coffee shops](https://pepperoni.tatar/en/halyal-vypechka-optom-dlya-pekaren): frozen pastry and sausage in dough; order via /en/kak-zakazat.
 
 ## Catalog and data
 
