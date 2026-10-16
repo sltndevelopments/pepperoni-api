@@ -20,7 +20,7 @@ OUT = DATA / "index_manifest.json"
 RETIRE_MAP = DATA / "url_consolidation_map.json"
 
 MIN_INDEXABLE = 180
-MAX_INDEXABLE = 260
+MAX_INDEXABLE = 250
 
 
 def _page(path: str, intent: str, owner: str, source: str) -> dict:
@@ -140,13 +140,10 @@ RU_GUIDES = [
     ("blog/narezka-pepperoni-parametry.html", "sliced pepperoni specification"),
     ("blog/kak-hranit-pepperoni.html", "pepperoni storage"),
     ("blog/kazylyk.html", "what kazylyk is"),
-    ("blog/echpochmak.html", "what echpochmak is"),
     ("blog/sosiski-dlya-hot-dogov-optom.html", "hot-dog sausage procurement"),
     ("blog/kotlety-dlya-burgerov-optom.html", "burger patty procurement"),
-    ("blog/tatarskaya-vypechka-optom.html", "Tatar bakery procurement"),
     ("blog/private-label-kolbasnyh-izdeliy.html", "private-label buying guide"),
     ("blog/halal-certification-russia.html", "halal certification in Russia"),
-    ("blog/iso-22000-iaf-certsearch.html", "ISO certificate verification"),
     ("blog/karmin-e120-haram.html", "carmine E120 policy"),
     ("blog/tolko-halyal-kakie-kategorii-myasa.html", "halal-only scope and meat categories (buyer FAQ)"),
 ]
@@ -159,7 +156,6 @@ EN_GUIDES = [
     ("en/blog/kazylyk-horse-meat-sausage.html", "what kazylyk is"),
     ("en/blog/beef-hotdog-sausages-halal.html", "hot-dog sausage procurement"),
     ("en/blog/burger-patties-wholesale-halal.html", "burger patty procurement"),
-    ("en/blog/tatar-bakery-wholesale.html", "Tatar bakery procurement"),
     ("en/blog/private-label-meat-products.html", "private-label buying guide"),
     ("en/blog/halal-certification-russia.html", "halal certification in Russia"),
 ]
