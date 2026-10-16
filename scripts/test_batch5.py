@@ -60,6 +60,9 @@ def main() -> int:
           "UZ EN readiness, not shipment")
     check("ЕАЭС" in uz and "не входит" in uz, "UZ states not EAEU")
     check("not an EAEU" in uz_en, "UZ EN states not EAEU")
+    check("варено-копченый" not in uz_en, "UZ EN sku table uses EN names")
+    check("суток" not in uz_en, "UZ EN sku table uses EN shelf-life units")
+    check("Cooked-Smoked Chicken Pepperoni" in uz_en, "UZ EN has translated KD-013 name")
     check(not re.search(r"\bUZS\b.{0,40}\d", uz), "UZ RU has no UZS amount")
     check("Оферты в UZS нет" in uz or "в сумах" in uz, "UZ RU refuses UZS offer")
     check("no UZS offer" in uz_en.lower() or "no som" in uz_en.lower(), "UZ EN refuses UZS offer")
@@ -96,6 +99,17 @@ def main() -> int:
 
     mcp = (ROOT / "mcp" / "api-client.js").read_text(encoding="utf-8")
     check("/export/uzbekistan" in mcp, "MCP DELIVERY_INFO mentions Uzbekistan")
+    jerky_en = html_of("en/jerky.html")
+    jerky_ru = html_of("jerky.html")
+    check('href="/oem"' not in jerky_en and 'href="/en/oem"' not in jerky_en,
+          "EN jerky does not link retired /oem")
+    check('href="/oem"' not in jerky_ru, "RU jerky does not link retired /oem")
+    check("/en/private-label" in jerky_en, "EN jerky STM URL is /en/private-label")
+    check("/kontraktnoe-proizvodstvo" in jerky_ru, "RU jerky STM URL is /kontraktnoe-proizvodstvo")
+    write_pdf_fn = price_src[price_src.find("def write_pdf("):price_src.find("def _strip_runtime")]
+    check("return dest.is_file() and dest.stat().st_size > 1000" not in write_pdf_fn,
+          "write_pdf does not treat leftover PDF as success")
+    check("after > before" in price_src, "write_pdf_only checks mtime actually moved")
     check("Do not quote UZS as an offer" in mcp, "MCP does not treat UZS as offer")
 
     meta = json.loads((ROOT / "public" / ".well-known" / "ai-meta.json").read_text())

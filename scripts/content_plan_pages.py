@@ -25,6 +25,7 @@ from site_facts import (  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
+_TRANSLATIONS = json.loads((Path(__file__).resolve().parent / "translations.json").read_text(encoding="utf-8"))
 PHONE = FACTS["company"]["phone"]
 EMAIL = FACTS["company"]["email"]
 ADDR_RU = FACTS["company"]["address_ru"]
@@ -91,13 +92,32 @@ def price_label(p: dict, lang: str) -> str:
     return "—" if lang == "ru" else "on request"
 
 
-def weight_label(p: dict) -> str:
+def weight_label(p: dict, lang: str = "ru") -> str:
     w = (p.get("weight") or "").strip()
     if not w:
         return "—"
-    if any(u in w.lower() for u in ("кг", "г", "kg", "g")):
-        return w
-    return f"{w} кг"
+    if not any(u in w.lower() for u in ("кг", "г", "kg", "g")):
+        w = f"{w} кг"
+    return catalog_units(w, lang)
+
+
+def product_name(p: dict, lang: str) -> str:
+    if lang != "en":
+        return p["name"]
+    return _TRANSLATIONS.get("products", {}).get(p["name"].strip().lower()) or p["name"]
+
+
+def catalog_units(text: str | None, lang: str) -> str:
+    """Mechanical RU→EN units from the Sheet cell. No invented numbers."""
+    if not text:
+        return "—"
+    if lang != "en":
+        return text
+    out = text.replace("суток", "days").replace("сут.", "days")
+    out = re.sub(r"\bсут\b", "days", out)
+    out = out.replace(" кг", " kg").replace("кг", "kg")
+    out = out.replace(" г", " g")
+    return out
 
 
 def prefix(lang: str) -> str:
@@ -198,13 +218,12 @@ def sku_table(products: list[dict], lang: str) -> str:
         "SKU", "Name", "Weight", "Storage", "Shelf life", "EXW price")
     rows = []
     for p in products:
-        name = p["name"]
         rows.append(
             "<tr>"
             f'<td><a href="{product_url(p["sku"], lang)}">{p["sku"]}</a></td>'
-            f"<td>{name}</td><td>{weight_label(p)}</td>"
-            f"<td>{p.get('storage') or '—'}</td>"
-            f"<td>{p.get('shelfLife') or '—'}</td>"
+            f"<td>{product_name(p, lang)}</td><td>{weight_label(p, lang)}</td>"
+            f"<td>{catalog_units(p.get('storage'), lang)}</td>"
+            f"<td>{catalog_units(p.get('shelfLife'), lang)}</td>"
             f"<td>{price_label(p, lang)}</td></tr>"
         )
     note = (
@@ -226,8 +245,8 @@ def cards(products: list[dict], lang: str) -> str:
     for p in products:
         bits.append(
             f'<div class="product-card"><div class="sku">{p["sku"]}</div>'
-            f'<div class="name">{p["name"]}</div>'
-            f'<div class="meta">{weight_label(p)} · {p.get("shelfLife") or ""} · {p.get("storage") or ""}</div>'
+          f'<div class="name">{product_name(p, lang)}</div>'
+          f'<div class="meta">{weight_label(p, lang)} · {catalog_units(p.get("shelfLife"), lang)} · {catalog_units(p.get("storage"), lang)}</div>'
             f'<a href="{product_url(p["sku"], lang)}">{more}</a></div>'
         )
     return '<div class="products-grid">' + "".join(bits) + "</div>"
@@ -244,7 +263,7 @@ def photos(products: list[dict], lang: str) -> str:
                 continue
             cap = ru if lang == "ru" else en
             figures.append(
-                f'<figure class="product-card"><img src="{src}" alt="{p["name"]}, {cap}" '
+                f'<figure class="product-card"><img src="{src}" alt="{product_name(p, lang)}, {cap}" '
                 f'loading="lazy" width="240" height="180">'
                 f'<figcaption>{p["sku"]} · {cap}</figcaption></figure>'
             )
@@ -331,15 +350,15 @@ def write_sosiska() -> None:
             who = (
                 "<h2>For bakeries</h2><ul>"
                 "<li><strong>KD-018</strong> — casing-free breakfast sausages for sausage-in-dough; "
-                f"the catalog name states 45 g sausage weight, pack {weight_label(p018)}, "
-                f"storage {p018.get('storage')}, shelf life {p018.get('shelfLife')}.</li>"
+                f"the catalog name states 45 g sausage weight, pack {weight_label(p018, lang)}, "
+                f"storage {catalog_units(p018.get('storage'), lang)}, shelf life {catalog_units(p018.get('shelfLife'), lang)}.</li>"
                 "<li><strong>KD-061</strong> — ready «Sausage in dough», "
-                f"{weight_label(p061)}, {p061.get('storage')}, {p061.get('shelfLife')}. "
+                f"{weight_label(p061, lang)}, {catalog_units(p061.get('storage'), lang)}, {catalog_units(p061.get('shelfLife'), lang)}. "
                 "Catalog section: classic bakery.</li></ul>"
             )
             link017 = (
                 f'<p>Related: <a href="{product_url("KD-017", "en")}">KD-017 breakfast sausages</a> '
-                f"({weight_label(p017)}, {p017.get('shelfLife')}) — with casing, not a dough filling. "
+                f"({weight_label(p017, lang)}, {catalog_units(p017.get('shelfLife'), lang)}) — with casing, not a dough filling. "
                 "Linked here, not substituted for KD-018.</p>"
                 if p017 else ""
             )

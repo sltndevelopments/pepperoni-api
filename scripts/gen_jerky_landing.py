@@ -155,7 +155,7 @@ def build_head(lang: str, L: dict, i18n: dict) -> str:
             {"@type": "ListItem", "position": 1, "name": L["nav"]["catalog"],
              "item": SITE + ("" if lang == "ru" else "/en")},
             {"@type": "ListItem", "position": 2, "name": L["nav"]["oem"],
-             "item": SITE + ("/oem" if lang == "ru" else "/en/oem")},
+             "item": SITE + ("/kontraktnoe-proizvodstvo" if lang == "ru" else "/en/private-label")},
             {"@type": "ListItem", "position": 3, "name": L["nav"]["current"], "item": url},
         ],
     }
@@ -251,6 +251,8 @@ def build_body(lang: str, L: dict, i18n: dict) -> str:
     def local(path: str) -> str:
         return f"{prefix}{path}" if lang == "ru" or (PUBLIC / f"en{path}.html").exists() else path
 
+    stm = "/kontraktnoe-proizvodstvo" if lang == "ru" else "/en/private-label"
+
     lang_menu = ""
     for code in locales:
         current = ' aria-current="page"' if code == lang else ""
@@ -336,8 +338,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <a class="brand" href="{prefix or "/"}">Kazan <span>Delicacies</span></a>
   <nav class="topnav" aria-label="{esc(L["nav"]["catalog"])}">
     <a href="{prefix or "/"}">{esc(L["nav"]["catalog"])}</a>
-    <a href="{local("/oem")}">{esc(L["nav"]["oem"])}</a>
-    <a href="{local("/private-label")}">{esc(L["nav"]["pl"])}</a>
+    <a href="{stm}">{esc(L["nav"]["oem"])}</a>
+    <a href="{stm}">{esc(L["nav"]["pl"])}</a>
     <a href="#faq">{esc(L["nav"]["faq"])}</a>
   </nav>
   <div class="topbar__spacer"></div>
@@ -352,7 +354,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <main>
 <nav class="crumbs" aria-label="Breadcrumb">
   <a href="{prefix or "/"}">{esc(L["nav"]["catalog"])}</a> /
-  <a href="{local("/oem")}">{esc(L["nav"]["oem"])}</a> /
+  <a href="{stm}">{esc(L["nav"]["oem"])}</a> /
   <span aria-current="page">{esc(L["nav"]["current"])}</span>
 </nav>
 <section class="hero" data-track-section="hero"><div class="wrap hero__grid">
@@ -443,7 +445,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <p class="lede">{esc(L["pl"]["lead"])}</p>
   <ul class="checklist">{pl_items}</ul>
   <div class="btn-row"><a class="btn btn--primary" href="#zayavka">{esc(L["pl"]["cta"])}</a>
-    <a class="btn btn--ghost" href="{local("/oem/meat")}">{esc(L["footer"]["meat_oem"])}</a></div>
+    <a class="btn btn--ghost" href="{stm}">{esc(L["footer"]["meat_oem"])}</a></div>
 </div></section>
 
 <section class="section" data-track-section="flow"><div class="wrap">
@@ -515,8 +517,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <h4>{esc(L["footer"]["links_label"])}</h4>
       <ul>
         <li><a href="{prefix or "/"}">{esc(L["footer"]["catalog"])}</a></li>
-        <li><a href="{local("/oem")}">{esc(L["footer"]["oem"])}</a></li>
-        <li><a href="{local("/private-label")}">{esc(L["footer"]["pl"])}</a></li>
+        <li><a href="{stm}">{esc(L["footer"]["oem"])}</a></li>
+        <li><a href="{stm}">{esc(L["footer"]["pl"])}</a></li>
         <li><a href="{local("/capabilities")}">{esc(L["footer"]["cap"])}</a></li>
         <li><a href="{local("/pepperoni")}">{esc(L["footer"]["pepperoni"])}</a></li>
         <li><a href="{local("/kazylyk")}">{esc(L["footer"]["kazylyk"])}</a></li>
