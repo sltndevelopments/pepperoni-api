@@ -25,7 +25,7 @@ from site_facts import (  # noqa: E402
 from wholesale_nav import brand_title_suffix, wholesale_block  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
-HERO_SLUGS = {"kotlety-dlya-burgerov", "kazylyk", "vetchina-optom"}
+HERO_SLUGS = {"kotlety-dlya-burgerov", "kazylyk", "vetchina-optom", "sosiski-halyal-optom"}
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
@@ -104,6 +104,24 @@ def get_products_by_category(categories):
     """
     cat_set = {c for c in categories}
     return [p for p in PRODUCTS if p.get("category") in cat_set]
+
+
+def page_products(cfg):
+    """Catalog rows for a category page.
+
+    Prefer the stable category field. An optional ``skus`` allowlist then
+    keeps only those SKU strings that still exist in products.json — missing
+    codes are skipped, never invented.
+    """
+    if "categories" in cfg:
+        products = get_products_by_category(cfg["categories"])
+    else:
+        products = get_products_by_skus(cfg.get("skus") or [])
+    wanted = [s.upper() for s in cfg.get("skus") or []]
+    if wanted:
+        wanted_set = set(wanted)
+        products = [p for p in products if (p.get("sku") or "").upper() in wanted_set]
+    return products
 
 
 def product_card_html(p):
@@ -350,6 +368,60 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
                 "Коммерческие условия согласуются для конкретного запроса."
             ),
         )
+    if slug == "sosiski-halyal-optom":
+        names = ", ".join(p.get("name") or p.get("sku") or "" for p in products)
+        return (
+            "Сосиски халяль оптом — охлаждённые SKU от производителя",
+            "Сосиски халяль оптом — охлаждённые от производителя",
+            (
+                f"Сосиски халяль оптом: {n} охлаждённые позиции из каталога "
+                f"({names}). Цены и хранение — в таблице из products.json. "
+                "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
+            ),
+            (
+                f"Охлаждённые сосиски халяль из актуального каталога: {n} SKU "
+                f"({skus}). Это не замороженные сосиски для хот-догов — они "
+                "на <a href=\"/sosiski-dlya-hotdog\">/sosiski-dlya-hotdog</a>. "
+                "Цены в таблице ниже берутся из products.json."
+            ),
+        )
+    if slug == "kolbasy-kopchyonye":
+        have = {(p.get("sku") or "").upper(): p for p in products}
+        named = []
+        if "KD-031" in have:
+            named.append("сервелат ханский")
+        if "KD-032" in have:
+            named.append("сервелат по-татарски")
+        if "KD-034" in have:
+            named.append("полукопчёная говяжья")
+        named_s = ", ".join(named) if named else "копчёные позиции каталога"
+        return (
+            f"Копчёные колбасы халяль оптом — {named_s}",
+            f"Копчёные колбасы халяль — {named_s}",
+            (
+                f"Копчёные колбасы халяль оптом: {n} SKU из каталога, в том числе "
+                f"{named_s}. {bits}. Халяль ДУМ РТ. EXW Казань."
+            ),
+            (
+                f"В категории {n} позиций из products.json. На странице есть "
+                f"{named_s} — только те названия, которые есть в каталоге. "
+                "Состав, масса и цена — в карточке SKU."
+            ),
+        )
+    if slug == "kolbasy-varenye":
+        return (
+            "Варёная колбаса халяль / мусульманская оптом",
+            "Варёная колбаса халяль — мусульманская, оптом",
+            (
+                f"Варёная колбаса халяль и мусульманская варёная колбаса оптом: "
+                f"{n} SKU из каталога. {bits}. Халяль ДУМ РТ. EXW Казань."
+            ),
+            (
+                f"Варёная колбаса халяль (мусульманская) — {n} позиции из "
+                f"актуального каталога ({skus}). Состав и цена — в карточке SKU, "
+                "не в рекламном тексте."
+            ),
+        )
     return None
 
 
@@ -360,10 +432,7 @@ def build_page(cfg):
     config. This prevents fixed MOQ, delivery, shelf-life and composition
     claims from drifting away from the approved catalog.
     """
-    if "categories" in cfg:
-        products = get_products_by_category(cfg["categories"])
-    else:
-        products = get_products_by_skus(cfg["skus"])
+    products = page_products(cfg)
     cards = "\n".join(product_card_html(p) for p in products)
 
     label = cfg["label"]
@@ -545,6 +614,7 @@ def build_page(cfg):
   {lead_html}
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — 1 паллета. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
+  {f'<h2>{cfg["extra_h2"]}</h2><p>{cfg["extra_p"]}</p>' if cfg.get("extra_h2") else ""}
   <h2>Для кого</h2>
   <ul>
     <li><a href="/dlya-horeca">HoReCa</a></li>
@@ -724,16 +794,28 @@ COMMERCIAL_T = {
              "Цены берутся из каталога компании и обновляются вместе с ним; на странице указана дата синхронизации ({date}). Цена в заказе фиксируется в счёте."),
             ("Есть ли тест на роликовом гриле?",
              "В каталоге у гриль-сосисок указан способ приготовления: гриль, роликовый гриль, решётка или сковорода. Отдельного теста с температурой, временем и фото на этой странице нет."),
+            ("Подойдут ли колбаски для хот-догов на гриль?",
+             "Да: в карточках категории указан гриль (в том числе роликовый), решётка или сковорода. Температуру и время на своей точке проверяете образцом — на странице их нет."),
+            ("Есть ли отдельные колбаски для френч-дога?",
+             "Отдельного SKU «френч-дог» в каталоге нет. Для френч-дога берут те же колбаски для хот-догов: формат и масса — в карточке выбранного SKU."),
         ],
         "footer": "ООО «Казанские Деликатесы» · <a href=\"/\">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
         "related": [
             ("HoReCa", "/dlya-horeca"), ("АЗС", "/dlya-azs"),
             ("Котлеты для бургеров", "/kotlety-dlya-burgerov"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
             ("Как выбрать сосиски", "/blog/sosiski-dlya-hot-dogov-optom"),
             ("Ветчина", "/vetchina-optom"),
             ("Как заказать", "/kak-zakazat"),
         ],
         "related_h": "Смотрите также: ",
+        "extra_h2": "Гриль, колбаски для хот-догов и френч-дог",
+        "extra_html": (
+            "<p>Категория закрывает запросы «сосиски для хот-догов», «колбаски для хот-догов» "
+            "и «гриль». В каталоге у этих SKU указан способ приготовления: гриль, роликовый "
+            "гриль, решётка или сковорода. Отдельного SKU «френч-дог» в Sheets нет — френч-дог "
+            "это подача той же колбаски в багете; формат упаковки и цена — в карточке SKU.</p>"
+        ),
     },
     "en": {
         "lang": "en", "prefix": "/en", "home": "Home", "back": "← All products",
@@ -1063,6 +1145,7 @@ def build_commercial_page(cfg, lang):
   </section>
 
   <p style="margin-top:20px;font-size:.9rem;color:#555">{t['related_h']}{related}</p>
+{('  <section class="section"><h2>' + t['extra_h2'] + '</h2>' + t['extra_html'] + '</section>') if t.get('extra_h2') else ''}
 
   <section class="faq-section">
     <h2>{t['h_faq']}</h2>
@@ -1100,14 +1183,15 @@ def build_commercial_page(cfg, lang):
 
 PAGES = [
     {
-        "slug": "sosiski-halyal",
-        "label": "Сосиски халяль",
-        "title": "Сосиски халяль оптом — купить халяльные сосиски из Казани | pepperoni.tatar",
-        "desc": "Сосиски халяль оптом от производителя в Казани. 9 видов: к завтраку, нежные, с сыром, казанские, из говядины. Сертификат ДУМ РТ, ХАССП, без ГМО. Доставка по России и СНГ.",
-        "h1": "Сосиски халяль — купить оптом от производителя",
+        "slug": "sosiski-halyal-optom",
+        "label": "Сосиски халяль оптом",
+        "title": "Сосиски халяль оптом — охлаждённые SKU от производителя",
+        "desc": "Сосиски халяль оптом: охлаждённые позиции из каталога. Цены — из products.json. Халяль ДУМ РТ. EXW Казань.",
+        "h1": "Сосиски халяль оптом — охлаждённые от производителя",
         "subtitle": "Казанские Деликатесы · халяль-производство, Казань",
-        "keywords": "халяльные сосиски, сосиски из говядины, сосиски оптом Казань, купить сосиски халяль",
+        "keywords": "сосиски халяль оптом, халяльные сосиски, сосиски из говядины, сосиски оптом Казань",
         "categories": ["Сосиски, сардельки"],
+        "skus": ["KD-017", "KD-019", "KD-020", "KD-021", "KD-022", "KD-023", "KD-024", "KD-035"],
         "intro": "Сосиски и сардельки халяль — натуральные, без ГМО, из охлаждённого говяжьего и куриного мяса. Производим в Казани по стандартам ХАССП / ISO 22000. Каждая партия сопровождается халяль-сертификатом ДУМ РТ.",
         "features": [
             "Сертификат Halal ДУМ РТ — подходит для мусульман и ЗОЖ-покупателей",
@@ -1123,7 +1207,9 @@ PAGES = [
             ("Какой срок хранения?", "Охлаждённые сосиски хранятся при температуре 0–6 °C. Срок хранения указан на упаковке каждого SKU — обычно 30–45 суток."),
         ],
         "related_links": [
-            ("Сосиски для хот-догов", "/sosiski-dlya-hotdog/"),
+            ("Каталог", "/products"),
+            ("Сосиски для хот-догов", "/sosiski-dlya-hotdog"),
+            ("Главная", "/"),
             ("Казылык", "/kazylyk"),
             ("Пепперони", "/pepperoni-dlya-pizzerii"),
         ],
@@ -1153,7 +1239,7 @@ PAGES = [
             ("Как оформить оптовый заказ?", "Напишите на info@kazandelikates.tatar или позвоните +7 987 217-02-02. Минимальный заказ — 1 паллета, объём кратно паллете. Доставляем по всей России и СНГ."),
         ],
         "related_links": [
-            ("Сосиски халяль", "/sosiski-halyal/"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
             ("Котлеты для бургеров", "/kotlety-dlya-burgerov"),
             ("Пепперони для HoReCa", "/pepperoni-dlya-horeca"),
         ],
@@ -1215,6 +1301,13 @@ PAGES = [
             ("Вареные колбасы", "/kolbasy-varenye/"),
             ("Пепперони топпинги", "/toppings"),
         ],
+        "extra_h2": "Сервелат ханский, сервелат по-татарски, полукопчёная говяжья",
+        "extra_p": (
+            "В каталоге есть сервелат «Ханский» (KD-031), сервелат по-татарски в/к (KD-032) "
+            "и полукопчёная из говядины (KD-034). Других названий «татарский/ханский» "
+            "или «полукопчёная говяжья» в каталоге нет — ниже только эти позиции и остальные "
+            "копчёные SKU из той же категории."
+        ),
     },
     {
         "slug": "kolbasy-varenye",
@@ -1240,7 +1333,7 @@ PAGES = [
             ("Есть ли аналог «Докторской» халяль?", "KD-037 «Нежная» — наш аналог нежной вареной колбасы халяль, с мягким вкусом, подходящий для детей и людей, соблюдающих халяль."),
         ],
         "related_links": [
-            ("Сосиски халяль", "/sosiski-halyal/"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
             ("Ветчина оптом", "/vetchina-optom/"),
             ("Копчёные колбасы", "/kolbasy-kopchyonye/"),
         ],
@@ -1300,7 +1393,7 @@ PAGES = [
         ],
         "related_links": [
             ("Казылык", "/kazylyk"),
-            ("Сосиски халяль", "/sosiski-halyal/"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
             ("О компании", "/about"),
         ],
     },
@@ -1326,7 +1419,7 @@ PAGES = [
         "skus": ["KD-018", "KD-061"],
         "related_links": [
             ("Выпечка халяль", "/vyipechka-halyal"),
-            ("Сосиски халяль", "/sosiski-halyal"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
         ],
     },
     # "myasnyie-zagotovki" (farsh/meat-preps) removed 2026-07-05: the product

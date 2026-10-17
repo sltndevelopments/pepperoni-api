@@ -98,8 +98,8 @@ RETIRED_HREFS = {
     "/en/toppings": "/en/pepperoni-v-narezke",
     "/pepperoni-dlya-horeca": "/dlya-horeca",
     "/en/pepperoni-dlya-horeca": "/en/dlya-horeca",
-    "/sosiski-halyal": "/sosiski-dlya-hotdog",
-    "/sosiski-halyal/": "/sosiski-dlya-hotdog",
+    "/sosiski-halyal": "/sosiski-halyal-optom",
+    "/sosiski-halyal/": "/sosiski-halyal-optom",
     "/en/sosiski-halyal": "/en/sosiski-dlya-hotdog",
     "/en/sosiski-halyal/": "/en/sosiski-dlya-hotdog",
 }

@@ -200,7 +200,7 @@ def static_target(path: str, lang: str) -> tuple[str | None, bool]:
         "/certificates": "/halal",
         "/en/certificates": "/en/halal",
         "/sosiski": "/sosiski-dlya-hotdog",
-        "/sosiski-halyal": "/sosiski-dlya-hotdog",
+        "/sosiski-halyal": "/sosiski-halyal-optom",
         "/en/sosiski-halyal": "/en/sosiski-dlya-hotdog",
         "/kazylyk-v2": "/kazylyk",
         "/pepperoni-halyal-v2": "/pepperoni",

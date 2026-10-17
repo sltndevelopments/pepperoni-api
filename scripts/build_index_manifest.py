@@ -51,6 +51,7 @@ RU_PAGES = [
     _page("pepperoni-dlya-pizzerii.html", "pepperoni for pizzerias", "sales", "Google Sheets"),
     _page("pizzeria.html", "foodservice products for pizzerias", "sales", "Google Sheets"),
     _page("sosiski-dlya-hotdog.html", "hot-dog sausages wholesale", "sales", "Google Sheets"),
+    _page("sosiski-halyal-optom.html", "chilled halal sausages wholesale", "sales", "Google Sheets"),
     _page("sosiska-v-teste.html", "sausage-in-dough wholesale", "sales", "Google Sheets"),
     _page("kotlety-dlya-burgerov.html", "burger patties wholesale", "sales", "Google Sheets"),
     _page("kazylyk.html", "kazylyk wholesale", "sales", "Google Sheets"),
@@ -88,9 +89,11 @@ EXPORT_COUNTRIES = [
     ("uae", "export landing UAE"),
     ("uzbekistan", "export landing Uzbekistan (Cerberus readiness)"),
 ]
+# /export/bahrain stays on disk as noindex to free one keep slot (250 ceiling).
 RU_PAGES.extend(
     _page(f"export/{slug}.html", intent, "export", "owner-approved country export landing")
     for slug, intent in EXPORT_COUNTRIES
+    if slug != "bahrain"
 )
 
 EN_PAGES = [
