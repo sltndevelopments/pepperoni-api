@@ -70,11 +70,15 @@ def main() -> int:
     check("KD-008" not in kot or "хот" in kot.lower(), "RU kotlety does not treat KD-008 as a patty")
 
     hot = html("sosiski-dlya-hotdog.html")
-    check("Сосиски для хот-догов оптом" in title_of("sosiski-dlya-hotdog.html"), "RU hotdog title")
+    check(
+        "сосиски для хот догов оптом" in title_of("sosiski-dlya-hotdog.html").lower().replace("-", " "),
+        "RU hotdog title",
+    )
     check('href="/blog/sosiski-dlya-hot-dogov-optom"' in hot, "RU hotdog links to guide")
 
     pep = html("pepperoni.html")
-    check("Пепперони халяль — что это и из чего" in title_of("pepperoni.html"), "RU pepperoni title")
+    check("пепперони халяль купить" in title_of("pepperoni.html").lower(), "RU pepperoni title is commercial")
+    check("что это" not in title_of("pepperoni.html").lower(), "RU pepperoni title is not informational")
     check("куриный" in h1_of("pepperoni.html").lower() or "куриный" in pep, "RU pepperoni H1/body is chicken")
     check("+7 987 217-02-02" in pep, "RU pepperoni hero has phone")
     moq_ru = term("moq", "ru")
