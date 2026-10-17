@@ -361,24 +361,20 @@ git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 \
     && log "  ✅ Rebased on origin/main" \
     || fail_hard "git pull --rebase failed — refusing to commit on top of a diverged/broken tree"
 
-# Inject deploy-stamp into index.html BEFORE git add so the stamp lands in the
-# commit and reaches the live site. .deploy_stamp is gitignored (local only).
-python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  deploy stamp inject failed (non-fatal)"
+# Do not inject a deploy stamp into public/index.html: that file is no
+# longer committed, so --verify would compare a local-only token to live
+# and fire a false notify_emergency. Deploy publishes the commit SHA.
 
-# Stage any new/modified HTML in geo, blog, and key pages
-git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
-git add public/blog.html public/en/blog.html 2>/dev/null || true
-git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
+# Do NOT auto-commit generated HTML (geo/blog/export/product cards).
+# 2026-10-17: git add -u 'public/**/*.html' pushed a stale export/uzbekistan
+# shell and turned main CI red. Pages reach main only via a human PR.
 # SKU-count reconcile output (manifest/ai-plugin/mcp/ai.json) — patched by
 # sync-vps.sh via reconcile_sku_count.py, must reach main or the fix resets.
 git add public/manifest.json public/.well-known/ai-plugin.json public/.well-known/mcp.json public/ai.json 2>/dev/null || true
-# Optimizer edits title/meta across any existing page + its durable ledger.
-git add -u 'public/**/*.html' 2>/dev/null || true
 git add data/experiments.json 2>/dev/null || true
 # Scout discovery state + approval queue (durable, git-tracked).
 git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
-# Landing-Builder output (approved landings) + sitemap.
-git add public/landing/*.html 2>/dev/null || true
+# Landing HTML is not auto-committed (same rule as export/geo pages).
 # Competitor-Scout weekly findings (durable, git-tracked).
 git add data/competitor_findings.json 2>/dev/null || true
 # Anomaly-Guard daily baseline time series (durable, git-tracked).
@@ -417,8 +413,7 @@ git add 'scripts/brain_tools/*.py' 2>/dev/null || true
 # Brain may have patched core agent code (with backups) — track both.
 git add -u 'scripts/*.py' 2>/dev/null || true
 git add data/agent_backups/*.bak 2>/dev/null || true
-# Worker output (PL/OEM pages from strategy).
-git add public/private-label/*.html 2>/dev/null || true
+# Private-label HTML is not auto-committed.
 
 # Allowlisted pages must not leave main via an automatic deletion.
 if ! python3 scripts/index_safety.py --refuse-staged-keep-deletions >> "$LOG_FILE" 2>&1; then
@@ -427,13 +422,18 @@ if ! python3 scripts/index_safety.py --refuse-staged-keep-deletions >> "$LOG_FIL
         || log_degradation "⚠️  could not restore allowlisted deletions"
 fi
 
+# Belt-and-suspenders: never commit generated HTML even if a helper staged it.
+staged_html=$(git diff --cached --name-only | grep -E '^public/.*\.html$' || true)
+if [ -n "$staged_html" ]; then
+    echo "$staged_html" | xargs -r git reset -q --
+    log "  ⚠️  Unstaged generated public HTML before commit"
+fi
+
 if ! git diff --cached --quiet 2>/dev/null; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     if git commit -m "chore(seo): auto-update by SEO agent $(date +%Y-%m-%d)" >> "$LOG_FILE" 2>&1; then
         if git push origin HEAD:main >> "$LOG_FILE" 2>&1; then
             log "  ✅ Pushed $CHANGED file(s) to GitHub — deploy will follow automatically"
-            # Verify stamp reaches live site (2 retries × 90s). Fires emergency if not.
-            python3 scripts/deploy_check.py --verify >> "$LOG_FILE" 2>&1 &
             # Guard: critical homepage sections (segments + partners) still present.
             python3 scripts/deploy_check.py --check-sections >> "$LOG_FILE" 2>&1 &
         else

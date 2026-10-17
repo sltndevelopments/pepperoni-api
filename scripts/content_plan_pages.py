@@ -1176,9 +1176,11 @@ def write_uzbekistan() -> None:
 <link rel="alternate" hreflang="x-default" href="{BASE}/en/export/uzbekistan">
 {org_script()}
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",", ":"))}</script>
+{stylesheet_link()}
 <style>{CSS}</style>
 </head>
-<body>
+<body class="kd-landing">
+{topbar_html(lang, "export/uzbekistan")}
 <div class="container">
 <nav><a href="{prefix(lang) or '/'}">{"Главная" if lang == "ru" else "Home"}</a> →
 <a href="{prefix(lang)}/export">{"Экспорт" if lang == "ru" else "Export"}</a> →

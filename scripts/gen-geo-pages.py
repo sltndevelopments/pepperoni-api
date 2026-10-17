@@ -5,6 +5,10 @@ Generate geo-targeted landing pages for halal pepperoni.
 """
 
 from pathlib import Path
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
 GEO_DIR = PUBLIC / "geo"
@@ -594,10 +598,12 @@ def build_page(loc: dict) -> str:
   }}
   </script>
 
+  {stylesheet_link()}
   <style>{CSS}</style>
 </head>
-<body>
+<body class="kd-landing">
 {GTM_NOSCRIPT}
+{topbar_html("ru", "geo/" + loc["slug"])}
 
   <div class="container">
     <!-- Nav -->
@@ -733,7 +739,7 @@ def main():
 
     update_sitemap(slugs)
     print(f"\n🎉 Готово! Страницы в: public/geo/")
-    print("Запусти: git add public/geo/ public/sitemap.xml && git commit && git push")
+    print("Next: open a human PR with the generated geo pages (do not auto-commit HTML).")
 
 
 if __name__ == "__main__":
