@@ -87,7 +87,8 @@ def main() -> int:
     else:
         check("паллет" not in pep.lower(), "RU pepperoni has no pallet wording without terms.moq")
 
-    check("Казылык — что это" in title_of("blog/kazylyk.html"), "blog/kazylyk informational title")
+    check("Казылык — как называется конская колбаса у татар" in title_of("blog/kazylyk.html"),
+          "blog/kazylyk informational title")
     check("купить оптом" not in title_of("blog/kazylyk.html").lower(), "blog/kazylyk title has no купить оптом")
     check('href="/kazylyk"' in html("blog/kazylyk.html"), "blog/kazylyk bridges to commercial")
 
