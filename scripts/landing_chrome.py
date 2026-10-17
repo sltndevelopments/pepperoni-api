@@ -45,6 +45,8 @@ HERO_CRITICAL_CSS = (
     ".kd-brand{font-weight:800;color:#111614;text-decoration:none;white-space:nowrap}"
     ".kd-brand span{color:#16723c}"
     ".kd-navwrap{display:none}"
+    ".kd-navtoggle{list-style:none}"
+    ".kd-navtoggle::-webkit-details-marker{display:none}"
     ".kd-topnav{display:flex;gap:16px;font-size:.88rem;flex-wrap:wrap}"
     ".kd-topnav a{color:#5c6660;text-decoration:none}"
     ".kd-topbar__spacer{flex:1}"
@@ -59,19 +61,25 @@ HERO_CRITICAL_CSS = (
     ".kd-btn--primary{background:#111614;color:#fff}"
     "@media(max-width:900px){.kd-topnav--wide{display:none}"
     ".kd-navwrap{display:block}}"
-    "@media(max-width:560px){.kd-topphone{display:none}}"
+    "@media(max-width:560px){.kd-topphone{display:none}"
+    "body.kd-landing h1{font-size:1.7rem}}"
     "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
     "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
     "margin:6px 4px 20px 0}"
 )
 
-# Tiny Metrika queue in <head>. tag.js still loads after `load` so early
-# reachGoal calls (micro_form_start, lead submit) push onto ym.a instead of
-# throwing. Do not load mc.yandex.ru from this snippet.
+# Tiny Metrika queue + init in <head>. tag.js still loads after `load` so
+# early reachGoal calls (micro_form_start, lead submit) push onto ym.a
+# after init. Do not load mc.yandex.ru from this snippet.
+YM_INIT = (
+    "ym(107064141,'init',{clickmap:true,trackLinks:true,"
+    "accurateTrackBounce:true,ecommerce:'dataLayer'});"
+)
 YM_QUEUE_STUB = (
     "<script>"
     "window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)};"
     "ym.l=+new Date;"
+    f"{YM_INIT}"
     "</script>"
 )
 
@@ -83,7 +91,6 @@ function loadAnalytics(){
   if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');
   (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
-  ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
 }
 function armAnalytics(){
   var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
@@ -132,7 +139,7 @@ def is_lcp_render_slug(slug: str) -> bool:
 
 
 def ym_queue_stub() -> str:
-    """Head-only Metrika queue. Does not fetch tag.js."""
+    """Head-only Metrika queue + init. Does not fetch tag.js."""
     return YM_QUEUE_STUB
 
 
