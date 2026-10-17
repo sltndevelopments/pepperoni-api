@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Inject one idempotent cross-link block into every sitemap page.
+"""Inject one idempotent cross-link block into sitemap and noindex pages.
 
 Why (audit 2026-10-15): money/segment pages (/pepperoni, /jerky, /pizzeria,
 /en/sosiska-v-teste, /dlya-*) had <=1 internal inlink; kazandelikates.tatar
@@ -111,6 +111,11 @@ def top_level_organizations(html: str) -> list[dict]:
     return found
 
 
+def site_organizations(html: str) -> list[dict]:
+    """Top-level Organization nodes that are this site's #organization."""
+    return [node for node in top_level_organizations(html) if node.get("@id") == ORG_ID]
+
+
 def _lone_organization(data) -> bool:
     """True when this JSON-LD document is only the shared Organization node."""
     if isinstance(data, dict):
@@ -182,9 +187,13 @@ def url_to_file(path: str) -> Path | None:
         return PUBLIC / "index.html"
     if path == "/en/":
         return PUBLIC / "en" / "index.html"
-    for c in (PUBLIC / (path.strip("/") + ".html"), PUBLIC / path.strip("/") / "index.html"):
-        if c.is_file():
-            return c
+    rel = path.strip("/")
+    candidates = [PUBLIC / (rel + ".html"), PUBLIC / rel / "index.html"]
+    if rel.endswith(".html"):
+        candidates.insert(0, PUBLIC / rel)
+    for candidate in candidates:
+        if candidate.is_file():
+            return candidate
     return None
 
 
@@ -224,13 +233,28 @@ def requisites(path: str) -> str:
     )
 
 
-def main() -> int:
-    check = "--check" in sys.argv
+def managed_paths() -> list[str]:
+    """Sitemap keep URLs plus noindex HTML that still exists on disk."""
     sm = (PUBLIC / "sitemap.xml").read_text(encoding="utf-8")
     paths = [re.sub(r"^https://pepperoni\.tatar", "", u) or "/" for u in re.findall(r"<loc>(.*?)</loc>", sm)]
     for extra in ("/en/price", "/en/kak-zakazat"):
         if extra not in paths:
             paths.append(extra)
+    retire = ROOT / "data" / "url_consolidation_map.json"
+    if retire.is_file():
+        payload = json.loads(retire.read_text(encoding="utf-8"))
+        for row in payload.get("entries") or []:
+            if row.get("status") != "noindex":
+                continue
+            url = row.get("url") or ""
+            if url and url not in paths:
+                paths.append(url)
+    return paths
+
+
+def main() -> int:
+    check = "--check" in sys.argv
+    paths = managed_paths()
     changed = missing = 0
     for path in paths:
         f = url_to_file(path)
