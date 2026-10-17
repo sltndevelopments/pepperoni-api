@@ -54,8 +54,9 @@ Allowed positioning:
 Owner-approved commercial facts (2026-09-12, data/evidence_registry.json):
 - Private-label (СТМ) minimum run: от 5 тонн / from 5 tonnes; other terms per contract.
 - Production capacity: 12 тонн в смену / 12 tonnes per shift.
-- Wholesale basis: prices EXW Kazan, quoted per pallet; minimum order — one
-  pallet (mixed pallet possible); delivery, lead time, samples — individually.
+- Wholesale basis: prices EXW Kazan, quoted per pallet. Canonical MOQ:
+  «Минимальный заказ — 1 паллета» / «Minimum order: 1 pallet». Do not write
+  «8», box counts, «mixed pallet», or any other MOQ figure.
 - Shipping documents: halal certificate, declaration of conformity, ВСД
   («Меркурий»), «Честный знак» marking, ЭТрН electronic waybill.
 - Do not state other MOQ / kg figures, discount tiers, lead times or fees.
@@ -64,10 +65,14 @@ Owner-approved company timeline and export status (2026-09-13):
 - Legal entity ООО «Казанские Деликатесы» registered in 2022 (schema foundingDate
   = 2022); own production in Kazan runs since 2023. Do not write «производим с
   2022», «since 2018», «since 2011» or any other year.
-- Export markets today: CIS directions (Казахстан, Беларусь, Узбекистан).
+- Export markets today (live /export): current shipments — Казахстан,
+  Беларусь, Кыргызстан. Cerberus attestation (not a current shipment) —
+  Казахстан, Кыргызстан, Беларусь, Армения, Таджикистан, Грузия, Азербайджан,
+  Узбекистан. Do not list Uzbekistan as a current shipment.
 - Middle East / GCC: preparation stage only — the halal document contour is
   ready, Rosselkhoznadzor export permits are pending. Wording: «готовимся к
   поставкам / preparing to supply», never «экспортируем на Ближний Восток».
+  Gulf preparation list: Саудовская Аравия, ОАЭ, Катар, Оман, Кувейт, Бахрейн.
 
 Evidence policy:
 - Claims beyond this file require an active entry in data/evidence_registry.json.

@@ -43,7 +43,7 @@
 <param name="Диаметр, мм">24</param>
 <param name="Оболочка">без оболочки</param>
 <param name="Упаковка">Вакуум</param>
-<param name="Мин. заказ, коробов">8</param>
+<param name="Квант, коробов">8</param>
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
@@ -388,7 +388,7 @@
 <param name="Диаметр, мм">0</param>
 <param name="Оболочка">есть</param>
 
-<param name="Мин. заказ, коробов">0</param>
+<param name="Квант, коробов">0</param>
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
