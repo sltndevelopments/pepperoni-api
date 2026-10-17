@@ -195,6 +195,7 @@ def source_files() -> list[Path]:
         if path.name in {
             "test_no_hardcoded_prices.py",
             "test_no_hardcoded_prices_mutation.py",
+            "test_stamp_catalog_prices.py",
         }:
             continue
         seen.add(resolved)
@@ -441,17 +442,16 @@ def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
 
 def _stamp_at(text: str, start: int) -> tuple[str | None, str | None]:
     window = text[max(0, start - 500):start]
-    for tag in reversed(list(re.finditer(r"<[^>]+>", window))):
+    for tag in reversed(list(re.finditer(r"<([A-Za-z][\w:-]*)\b[^>]*>", window))):
         raw = tag.group(0)
         found = re.search(r'data-catalog-price=["\'](KD-\d{3})["\']', raw, re.I)
         if not found:
             continue
+        if re.search(rf"</{re.escape(tag.group(1))}\b", window[tag.end():], re.I):
+            continue
         field_m = re.search(r'data-price-field=["\']([^"\']+)["\']', raw, re.I)
         return found.group(1).upper(), (field_m.group(1) if field_m else None)
-    found = list(STAMP_SKU_RE.finditer(window))
-    if not found:
-        return None, None
-    return found[-1].group(1).upper(), None
+    return None, None
 
 
 def _stamp_sku_at(text: str, start: int) -> str | None:
