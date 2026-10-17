@@ -1,0 +1,46 @@
+name: VPS git reconciliation (read-only)
+
+# Manual only. Uses the same Selectel SSH secrets as deploy-vps.yml.
+# Must not change anything on the VPS — report artifact only.
+on:
+  workflow_dispatch:
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Checkout reporter
+        uses: actions/checkout@v4
+
+      - name: Collect read-only report over SSH
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+        run: |
+          set -euo pipefail
+          test -n "${VPS_HOST:-}"
+          test -n "${VPS_SSH_KEY:-}"
+          mkdir -p ~/.ssh recon-report
+          printf '%s\n' "$VPS_SSH_KEY" > ~/.ssh/vps_key
+          chmod 600 ~/.ssh/vps_key
+          ssh -i ~/.ssh/vps_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new \
+            "root@${VPS_HOST}" \
+            'bash -s -- /tmp/pepperoni-git-recon' \
+            < scripts/vps_git_recon_readonly.sh
+          scp -i ~/.ssh/vps_key -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new -r \
+            "root@${VPS_HOST}:/tmp/pepperoni-git-recon/." recon-report/
+          # Drop the key from the runner workspace before the artifact step.
+          rm -f ~/.ssh/vps_key
+          test -s recon-report/git-status-porcelain.txt
+          test -s recon-report/meta.txt
+          echo "=== meta ==="
+          cat recon-report/meta.txt
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vps-git-reconciliation
+          path: recon-report/
+          if-no-files-found: error
+          retention-days: 30
