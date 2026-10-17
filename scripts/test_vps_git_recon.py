@@ -146,6 +146,17 @@ def main() -> int:
     check(wf.find("deploy-vps.yml/runs") < wf.find("ssh -q"),
           "poll step precedes SSH")
     check("sleep 60" not in wf, "recon has no sleep 60")
+    check("sleep 90" not in wf, "recon has no one-shot sleep 90")
+    wait_step = wf.split("Collect, count, and encrypt")[0]
+    check("sleep 15" not in wait_step,
+          "deploy-wait step has no minute guard")
+    check("sleep 15" in wf and "+ 180" in wf,
+          "minute guard loops with sleep 15 and a 3 min cap")
+    check('"$rem" -ge 2' in wf and '"$rem" -le 8' in wf,
+          "minute guard waits until rem is 2..8")
+    check(wf.find("sleep 15") < wf.find("ssh -q") and
+          wf.rfind("sleep 15", 0, wf.find("ssh -q")) > wf.find("trap"),
+          "minute guard is immediately before SSH")
 
     check("secrets.VPS_HOST" in wf and "secrets.VPS_SSH_KEY" in wf,
           "reuses deploy-vps.yml SSH secrets")
@@ -258,6 +269,8 @@ def main() -> int:
           "docs mention trap + BatchMode failure hygiene")
     check("vps-recon" in docs and "deploy-vps" in docs and "sleep 60" not in docs,
           "docs mention distinct groups and no sleep 60")
+    check("2..8" in docs and "sleep 15" in docs,
+          "docs mention the pre-SSH minute-guard loop")
 
     # Live local collector: stream tar, accept empty porcelain.
     with tempfile.TemporaryDirectory() as tmp:
