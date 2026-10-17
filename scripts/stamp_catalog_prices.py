@@ -41,12 +41,16 @@ def catalog() -> dict[str, dict]:
         if not sku:
             continue
         o = p.get("offers") or {}
-        piece = num(o.get("pricePerUnit") or o.get("price"))
+        ppu = num(o.get("pricePerUnit"))
+        if ppu is not None:
+            field, piece = "pricePerUnit", ppu
+        else:
+            field, piece = "price", num(o.get("price"))
         box = num(o.get("pricePerBox"))
         qty = str(p.get("qtyPerBox") or "").strip() or None
         if piece is None:
             continue
-        out[sku] = {"piece": piece, "box": box, "qty": qty}
+        out[sku] = {"piece": piece, "box": box, "qty": qty, "field": field}
     return out
 
 
@@ -57,7 +61,7 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
     sku = m.group(1).upper()
     if sku not in prices:
         return row
-    tds = list(re.finditer(r"(<td>)(.*?)(</td>)", row, re.S))
+    tds = list(re.finditer(r"(<td\b[^>]*>)(.*?)(</td>)", row, re.S))
     if len(tds) < 4:
         return row
     target = None
@@ -75,6 +79,7 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
         return row
     cell = target.group(2)
     piece = prices[sku]["piece"]
+    field = prices[sku].get("field") or "price"
     if re.search(r"RUB\s", cell, re.I):
         new_cell = re.sub(r"RUB\s+\d+(?:\.\d+)?", f"RUB {en_money(piece)}", cell, count=1)
     elif "₽" in cell:
@@ -82,9 +87,14 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
     else:
         new_cell = ru_money(piece)
     start, end = target.span()
-    open_td = target.group(1)
-    if "data-catalog-price" not in open_td:
-        open_td = f'<td data-catalog-price="{sku}" data-price-field="pricePerUnit">'
+    extra = re.sub(
+        r"\s+data-(?:catalog-price|price-field)=\"[^\"]*\"",
+        "",
+        target.group(1),
+    )
+    extra = re.sub(r"^<td\b", "", extra, count=1)
+    extra = extra[:-1] if extra.endswith(">") else extra
+    open_td = f'<td data-catalog-price="{sku}" data-price-field="{field}"{extra}>'
     return row[:start] + open_td + new_cell + target.group(3) + row[end:]
 
 
