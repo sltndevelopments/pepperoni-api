@@ -127,10 +127,14 @@ if (methods[0] !== 'init') { console.log('FIRST ' + JSON.stringify(methods)); pr
 if (methods.filter(m => m === 'init').length !== 1) {
   console.log('DUP ' + JSON.stringify(methods)); process.exit(1);
 }
-if (methods.indexOf('reachGoal') < 0 || calls.every(a => a[2] !== 'micro_form_start')) {
+const goals = calls.map(a => a[2]);
+if (methods.indexOf('reachGoal') < 0 || goals.indexOf('micro_form_start') < 0) {
   console.log('LOST ' + JSON.stringify(calls)); process.exit(1);
 }
-console.log('QUEUED ' + methods.join(','));
+if (goals.indexOf('lead_form_submit') < 0) {
+  console.log('LOST_LEAD ' + JSON.stringify(calls)); process.exit(1);
+}
+console.log('QUEUED ' + methods.join(',') + ' goals=' + goals.filter(Boolean).join(','));
 """,
             js,
         ],
@@ -138,8 +142,10 @@ console.log('QUEUED ' + methods.join(','));
         capture_output=True,
         text=True,
     )
-    check(node.returncode == 0 and "QUEUED" in node.stdout,
-          f"init is first on ym.a, then goals ({node.stdout.strip() or node.stderr.strip()})")
+    check(node.returncode == 0 and "QUEUED" in node.stdout
+          and "lead_form_submit" in node.stdout,
+          f"init is first; micro_form_start and lead_form_submit stay queued"
+          f" ({node.stdout.strip() or node.stderr.strip()})")
 
     if fail:
         print(f"test_ym_queue_stub: {fail} FAIL")
