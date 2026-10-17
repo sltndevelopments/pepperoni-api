@@ -14,7 +14,9 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 PRODUCTS = PUBLIC / "products.json"
-ROW_RE = re.compile(r"<tr>.*?</tr>", re.S)
+ROW_RE = re.compile(r"<tr\b[^>]*>.*?</tr>", re.S)
+TABLE_RE = re.compile(r"<table\b[^>]*>.*?</table>", re.S)
+PIECE_HEADERS = ("за шт", "per piece", "per pc")
 
 
 def num(v) -> float | None:
@@ -50,11 +52,57 @@ def catalog() -> dict[str, dict]:
         qty = str(p.get("qtyPerBox") or "").strip() or None
         if piece is None:
             continue
-        out[sku] = {"piece": piece, "box": box, "qty": qty, "field": field}
+        out[sku] = {
+            "piece": piece,
+            "box": box,
+            "qty": qty,
+            "field": field,
+            "per_piece": num(o.get("pricePerPiece")),
+        }
     return out
 
 
-def _stamp_row(row: str, prices: dict[str, dict]) -> str:
+def _header_cells(table: str) -> list[str]:
+    thead = re.search(r"<thead\b[^>]*>.*?</thead>", table, re.S | re.I)
+    block = thead.group(0) if thead else table
+    first = re.search(r"<tr\b[^>]*>.*?</tr>", block, re.S)
+    if not first:
+        return []
+    raw = re.findall(r"<th\b[^>]*>(.*?)</th>", first.group(0), re.S | re.I)
+    return [re.sub(r"<[^>]+>", "", c).strip().lower() for c in raw]
+
+
+def _piece_col(headers: list[str]) -> int | None:
+    for i, h in enumerate(headers):
+        if any(key in h for key in PIECE_HEADERS):
+            return i
+    return None
+
+
+def _rewrite_amount(cell: str, amount: float) -> str:
+    if re.search(r"RUB\s", cell, re.I):
+        return re.sub(r"RUB\s+\d+(?:\.\d+)?", f"RUB {en_money(amount)}", cell, count=1)
+    if "₽" in cell:
+        return re.sub(r"\d[\d\s]*(?:[.,]\d+)?\s*₽", f"{ru_money(amount)} ₽", cell, count=1)
+    return ru_money(amount)
+
+
+def _apply_td(row: str, target: re.Match, sku: str, amount: float, field: str) -> str:
+    cell = target.group(2)
+    new_cell = _rewrite_amount(cell, amount)
+    start, end = target.span()
+    extra = re.sub(
+        r"\s+data-(?:catalog-price|price-field)=\"[^\"]*\"",
+        "",
+        target.group(1),
+    )
+    extra = re.sub(r"^<td\b", "", extra, count=1)
+    extra = extra[:-1] if extra.endswith(">") else extra
+    open_td = f'<td data-catalog-price="{sku}" data-price-field="{field}"{extra}>'
+    return row[:start] + open_td + new_cell + target.group(3) + row[end:]
+
+
+def _stamp_row(row: str, prices: dict[str, dict], piece_col: int | None = None) -> str:
     m = re.search(r'href="(?:/en)?/products/(kd-\d{3})"', row, re.I)
     if not m:
         return row
@@ -62,6 +110,13 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
     if sku not in prices:
         return row
     tds = list(re.finditer(r"(<td\b[^>]*>)(.*?)(</td>)", row, re.S))
+    if piece_col is not None:
+        if piece_col >= len(tds):
+            return row
+        amount = prices[sku].get("per_piece")
+        if amount is None:
+            return row
+        return _apply_td(row, tds[piece_col], sku, amount, "pricePerPiece")
     if len(tds) < 4:
         return row
     target = None
@@ -77,29 +132,17 @@ def _stamp_row(row: str, prices: dict[str, dict]) -> str:
             break
     if target is None:
         return row
-    cell = target.group(2)
-    piece = prices[sku]["piece"]
     field = prices[sku].get("field") or "price"
-    if re.search(r"RUB\s", cell, re.I):
-        new_cell = re.sub(r"RUB\s+\d+(?:\.\d+)?", f"RUB {en_money(piece)}", cell, count=1)
-    elif "₽" in cell:
-        new_cell = re.sub(r"\d[\d\s]*(?:[.,]\d+)?\s*₽", f"{ru_money(piece)} ₽", cell, count=1)
-    else:
-        new_cell = ru_money(piece)
-    start, end = target.span()
-    extra = re.sub(
-        r"\s+data-(?:catalog-price|price-field)=\"[^\"]*\"",
-        "",
-        target.group(1),
-    )
-    extra = re.sub(r"^<td\b", "", extra, count=1)
-    extra = extra[:-1] if extra.endswith(">") else extra
-    open_td = f'<td data-catalog-price="{sku}" data-price-field="{field}"{extra}>'
-    return row[:start] + open_td + new_cell + target.group(3) + row[end:]
+    return _apply_td(row, target, sku, prices[sku]["piece"], field)
+
+
+def _stamp_table(table: str, prices: dict[str, dict]) -> str:
+    idx = _piece_col(_header_cells(table))
+    return ROW_RE.sub(lambda m: _stamp_row(m.group(0), prices, piece_col=idx), table)
 
 
 def stamp_text(html: str, prices: dict[str, dict], rel: str = "") -> str:
-    html = ROW_RE.sub(lambda m: _stamp_row(m.group(0), prices), html)
+    html = TABLE_RE.sub(lambda m: _stamp_table(m.group(0), prices), html)
     for sku, row in prices.items():
         ru_p = ru_money(row["piece"])
         en_p = en_money(row["piece"])
