@@ -81,10 +81,12 @@ def main() -> int:
     check(ru in echo, f"echpochmak FAQ has catalog piece {ru}")
 
     en052 = (PUBLIC / "en" / "products" / "kd-052.html").read_text(encoding="utf-8")
-    usd = products["KD-052"]["offers"]["exportPrices"]["USD"]
-    check(f'"price":"{usd:.2f}"' in en052 or f'"price": "{usd:.2f}"' in en052
-          or f'"price":"{usd}"' in en052,
-          f"EN kd-052 JSON-LD USD is {usd}")
+    rub052 = products["KD-052"]["offers"].get("pricePerUnit") or products["KD-052"]["offers"]["price"]
+    check('"priceCurrency":"RUB"' in en052 or '"priceCurrency": "RUB"' in en052,
+          "EN kd-052 JSON-LD Offer is RUB from products.json")
+    check(f'"price":"{rub052}"' in en052 or f'"price": "{rub052}"' in en052
+          or f'"price":"{float(rub052):.2f}"' in en052,
+          f"EN kd-052 JSON-LD RUB is {rub052}")
     check("$0.91" not in en052, "EN kd-052 no longer $0.91")
     return 1 if fail else 0
 

@@ -1,0 +1,87 @@
+#!/usr/bin/env python3
+"""Read RUB (and Sheet export) prices from public/products.json.
+
+Owner rule 2026-10-17: every public price comes from the Google Sheet via
+products.json. Generators import helpers from here — they must not embed
+ruble/dollar literals.
+"""
+from __future__ import annotations
+
+import json
+from functools import lru_cache
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+PRODUCTS = ROOT / "public" / "products.json"
+
+
+def num(v) -> float | None:
+    if v is None or v == "":
+        return None
+    try:
+        return float(str(v).replace(",", ".").replace("\u00a0", "").replace(" ", "").replace("₽", ""))
+    except (TypeError, ValueError):
+        return None
+
+
+@lru_cache(maxsize=1)
+def catalog() -> dict:
+    data = json.loads(PRODUCTS.read_text(encoding="utf-8"))
+    by_sku = {}
+    for p in data.get("products") or []:
+        sku = (p.get("sku") or "").upper()
+        if sku:
+            by_sku[sku] = p
+    return {
+        "meta": {k: data.get(k) for k in ("lastSynced", "totalProducts", "deliveryTerms", "publisher")},
+        "by_sku": by_sku,
+        "products": list(data.get("products") or []),
+    }
+
+
+def product(sku: str) -> dict:
+    row = catalog()["by_sku"].get(sku.upper())
+    if not row:
+        raise KeyError(f"SKU {sku} is not in products.json")
+    return row
+
+
+def rub(sku: str) -> float:
+    """Sheet offer: bakery uses pricePerUnit, meat lines use price."""
+    offers = product(sku).get("offers") or {}
+    value = num(offers.get("price")) or num(offers.get("pricePerUnit"))
+    if value is None:
+        raise KeyError(f"{sku} has no RUB price in products.json")
+    return value
+
+
+def rub_box(sku: str) -> float | None:
+    return num((product(sku).get("offers") or {}).get("pricePerBox"))
+
+
+def export_amount(sku: str, currency: str) -> float | None:
+    """Sheet exportPrices.<CCY> — not a locally invented FX conversion."""
+    ep = (product(sku).get("offers") or {}).get("exportPrices") or {}
+    return num(ep.get(currency))
+
+
+def rub_str(sku: str, decimals: int = 2) -> str:
+    return f"{rub(sku):.{decimals}f}"
+
+
+def rub_int_if_whole(sku: str) -> str:
+    value = rub(sku)
+    if abs(value - round(value)) < 0.001:
+        return str(int(round(value)))
+    return f"{value:.2f}"
+
+
+def rub_display(sku: str, lang: str = "ru") -> str:
+    token = rub_str(sku)
+    if lang == "en":
+        return f"{token} RUB"
+    return f"{token} ₽"
+
+
+def last_synced() -> str:
+    return str(catalog()["meta"].get("lastSynced") or "")

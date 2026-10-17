@@ -7,6 +7,12 @@ Generate geo-targeted landing pages for:
 """
 
 from pathlib import Path
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from catalog_prices import rub_int_if_whole, rub_str  # noqa: E402
+
+def _p(sku: str) -> str:
+    return f"{rub_int_if_whole(sku)} ₽"
 import re
 
 PUBLIC = Path(__file__).parent.parent / "public"
@@ -176,7 +182,7 @@ def build_burger_page(loc):
       {{"@type": "PropertyValue", "name": "Контроль качества", "value": "HACCP"}},
       {{"@type": "PropertyValue", "name": "Рынок", "value": "{city}"}}
     ],
-    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "276.00", "availability": "https://schema.org/InStock"}}
+    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "{rub_str('KD-009')}", "availability": "https://schema.org/InStock"}}
   }}
   </script>
   <script type="application/ld+json">
@@ -217,8 +223,8 @@ def build_burger_page(loc):
 
   <h2>Ассортимент котлет</h2>
   <div class="prices-grid">
-    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">100 г × 3 шт (0,3 кг)</div><div class="price">276 ₽</div></div>
-    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">150 г × 2 шт (0,3 кг)</div><div class="price">276 ₽</div></div>
+    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">100 г × 3 шт (0,3 кг)</div><div class="price">PRICE_KD009</div></div>
+    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">150 г × 2 шт (0,3 кг)</div><div class="price">PRICE_KD009</div></div>
   </div>
   <p style="font-size:.85rem;color:#888">Цены без НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
 
@@ -303,7 +309,7 @@ def build_hotdog_page(loc):
       {{"@type": "PropertyValue", "name": "Контроль качества", "value": "HACCP"}},
       {{"@type": "PropertyValue", "name": "Рынок", "value": "{city}"}}
     ],
-    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "290.00", "availability": "https://schema.org/InStock"}}
+    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "{rub_str('KD-001')}", "availability": "https://schema.org/InStock"}}
   }}
   </script>
   <script type="application/ld+json">
@@ -344,12 +350,12 @@ def build_hotdog_page(loc):
 
   <h2>Ассортимент для хот-догов и франч-догов</h2>
   <div class="prices-grid">
-    <div class="price-card"><div class="name">Из говядины (80 г × 6 шт)</div><div class="weight">0,48 кг | для хот-дога</div><div class="price">290 ₽</div></div>
-    <div class="price-card"><div class="name">Два мяса (80 г × 6 шт)</div><div class="weight">0,48 кг | говядина + курица</div><div class="price">286 ₽</div></div>
-    <div class="price-card"><div class="name">Три перца с сыром (80 г × 6 шт)</div><div class="weight">0,48 кг | хит для гриля</div><div class="price">316 ₽</div></div>
-    <div class="price-card"><div class="name">Куриные (80 г × 6 шт)</div><div class="weight">0,48 кг | из курицы</div><div class="price">286 ₽</div></div>
-    <div class="price-card"><div class="name">С бараниной (80 г × 6 шт)</div><div class="weight">0,48 кг | баранина</div><div class="price">366 ₽</div></div>
-    <div class="price-card"><div class="name">С сыром (130 г × 5 шт)</div><div class="weight">0,65 кг | для франч-дога</div><div class="price">455 ₽</div></div>
+    <div class="price-card"><div class="name">Из говядины (80 г × 6 шт)</div><div class="weight">0,48 кг | для хот-дога</div><div class="price">PRICE_KD001</div></div>
+    <div class="price-card"><div class="name">Два мяса (80 г × 6 шт)</div><div class="weight">0,48 кг | говядина + курица</div><div class="price">PRICE_KD002</div></div>
+    <div class="price-card"><div class="name">Три перца с сыром (80 г × 6 шт)</div><div class="weight">0,48 кг | хит для гриля</div><div class="price">PRICE_KD003</div></div>
+    <div class="price-card"><div class="name">Куриные (80 г × 6 шт)</div><div class="weight">0,48 кг | из курицы</div><div class="price">PRICE_KD002</div></div>
+    <div class="price-card"><div class="name">С бараниной (80 г × 6 шт)</div><div class="weight">0,48 кг | баранина</div><div class="price">PRICE_KD005</div></div>
+    <div class="price-card"><div class="name">С сыром (130 г × 5 шт)</div><div class="weight">0,65 кг | для франч-дога</div><div class="price">PRICE_KD007</div></div>
   </div>
   <p style="font-size:.85rem;color:#888">Цены без НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
   <p style="font-size:.85rem;color:#666"><strong>Также доступны без оболочки</strong> — специальный формат для франч-догов, 45 г, упаковка 1 кг.</p>
@@ -432,14 +438,14 @@ def main():
         # Burger patties
         burger_slug = f"kotlety-dlya-burgerov-{loc['slug_suffix']}"
         out = GEO_DIR / f"{burger_slug}.html"
-        out.write_text(build_burger_page(loc), encoding="utf-8")
+        out.write_text(_fill_geo(build_burger_page(loc)), encoding="utf-8")
         print(f"  ✅ {out.name}")
         slugs.append(burger_slug)
 
         # Hot dog sausages
         hotdog_slug = f"sosiki-dlya-hotdog-{loc['slug_suffix']}"
         out = GEO_DIR / f"{hotdog_slug}.html"
-        out.write_text(build_hotdog_page(loc), encoding="utf-8")
+        out.write_text(_fill_geo(build_hotdog_page(loc)), encoding="utf-8")
         print(f"  ✅ {out.name}")
         slugs.append(hotdog_slug)
 
@@ -450,3 +456,17 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
+def _fill_geo(s: str) -> str:
+    table = {
+        'PRICE_KD009': _p('KD-009'),
+        'PRICE_KD001': _p('KD-001'),
+        'PRICE_KD002': _p('KD-002'),
+        'PRICE_KD003': _p('KD-003'),
+        'PRICE_KD005': _p('KD-005'),
+        'PRICE_KD007': _p('KD-007'),
+    }
+    for k, v in table.items():
+        s = s.replace(k, v)
+    return s
