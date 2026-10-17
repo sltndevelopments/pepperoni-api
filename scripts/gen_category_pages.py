@@ -233,6 +233,71 @@ def faq_html(pairs):
     return "\n".join(blocks)
 
 
+def _pack_price(product: dict) -> str:
+    raw = str((product.get("offers") or {}).get("price") or "").strip()
+    if raw.endswith(".00"):
+        raw = raw[:-3]
+    return raw.replace(".", ",")
+
+
+def _sku_bit(product: dict) -> str:
+    sku = product.get("sku") or ""
+    weight = str(product.get("weight") or "").replace(".", ",")
+    price = _pack_price(product)
+    shelf = product.get("shelfLife") or ""
+    storage = product.get("storage") or ""
+    parts = [sku]
+    if weight:
+        parts.append(f"{weight} кг")
+    if price:
+        parts.append(f"{price} ₽")
+    extra = ", ".join(x for x in (shelf, storage) if x)
+    bit = " / ".join(parts)
+    return f"{bit} ({extra})" if extra else bit
+
+
+def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
+    """Query-targeted title/H1/description/intro from live catalog rows."""
+    slug = cfg.get("slug")
+    n = len(products)
+    bits = "; ".join(_sku_bit(p) for p in products)
+    skus = " / ".join(p.get("sku") or "" for p in products)
+    if slug == "kazylyk":
+        return (
+            "Казылык оптом — сыровяленая колбаса из конины | Казанские Деликатесы",
+            "Казылык оптом — сыровяленая колбаса из конины",
+            (
+                f"Казылык — сыровяленая колбаса из конины, {n} SKU: {bits}. "
+                "Состав — конина и конский жир. Халяль ДУМ РТ. EXW Казань."
+            ),
+            (
+                f"Казылык — сыровяленая колбаса из конины. В категории {n} "
+                "охлаждённые позиции «Премиум». Что это за продукт и чем он "
+                "отличается от казы — в <a href=\"/blog/kazylyk\">статье</a>. "
+                "Ниже SKU и характеристики из products.json; условия заказа "
+                "подтверждает отдел продаж."
+            ),
+        )
+    if slug == "kotlety-dlya-burgerov":
+        return (
+            f"Котлеты для бургеров оптом — халяль {skus} | Казанские Деликатесы",
+            "Котлеты для бургеров оптом — халяль, заморозка –18 °C",
+            (
+                f"Котлеты для бургеров и гамбургеров оптом: {bits}. "
+                "Состав в карточке — говядина и мякоть куриного окорока. "
+                "Халяль ДУМ РТ. EXW Казань."
+            ),
+            (
+                f"Котлеты для бургеров и гамбургеров: {n} замороженные позиции "
+                f"{skus}. Форматы, состав и заявка — также в "
+                "<a href=\"/blog/kotlety-dlya-burgerov-optom\">гиде</a>. "
+                "Ниже данные актуального каталога; коммерческие условия "
+                "согласуются для конкретного запроса."
+            ),
+        )
+    return None
+
+
 def build_page(cfg):
     """Build a catalog-backed category hub.
 
@@ -247,18 +312,22 @@ def build_page(cfg):
     cards = "\n".join(product_card_html(p) for p in products)
 
     label = cfg["label"]
-    title = f"{label} оптом — каталог Казанских Деликатесов"
-    desc = (
-        f"{label}: {len(products)} SKU в актуальном каталоге. "
-        "Масса, состав, хранение и срок годности указаны в карточках товаров; "
-        "условия оптового заказа подтверждает отдел продаж."
-    )
-    h1 = f"{label} оптом" if cfg.get("slug") == "kazylyk" else f"{label} — оптовый каталог"
-    intro = (
-        f"В категории «{label}» опубликованы {len(products)} позиций из "
-        "актуального каталога. Ниже приведены SKU и характеристики из "
-        "products.json; коммерческие условия согласуются для конкретного запроса."
-    )
+    seo = _catalog_seo(cfg, products)
+    if seo:
+        title, h1, desc, intro = seo
+    else:
+        title = f"{label} оптом — каталог Казанских Деликатесов"
+        desc = (
+            f"{label}: {len(products)} SKU в актуальном каталоге. "
+            "Масса, состав, хранение и срок годности указаны в карточках товаров; "
+            "условия оптового заказа подтверждает отдел продаж."
+        )
+        h1 = f"{label} оптом" if cfg.get("slug") == "kazylyk" else f"{label} — оптовый каталог"
+        intro = (
+            f"В категории «{label}» опубликованы {len(products)} позиций из "
+            "актуального каталога. Ниже приведены SKU и характеристики из "
+            "products.json; коммерческие условия согласуются для конкретного запроса."
+        )
     # Meat SKUs: primary DUM RT №0008 from site_facts. Bakery sets 884A/2025.
     halal_no = cfg.get("halal_cert") or meat_halal_number()
     features = [
@@ -514,8 +583,8 @@ COMMERCIAL_STYLE = """
 COMMERCIAL_T = {
     "ru": {
         "lang": "ru", "prefix": "", "home": "Главная", "back": "← Все продукты",
-        "title": "Сосиски для хот-догов халяль оптом — цены, форматы, заказ | Казанские Деликатесы",
-        "h1": "Сосиски для хот-догов халяль — оптом от производителя",
+        "title": "Сосиски для хот-догов оптом — халяль, цены и форматы | Казанские Деликатесы",
+        "h1": "Сосиски для хот-догов оптом — халяль от производителя",
         "meta": "{n} позиций сосисок для хот-догов халяль: форматы {fmts}, цены за упаковку с НДС по каталогу на {date}, заморозка {storage} и срок годности {shelf}. Фото, масса, ссылки на карточки и форма запроса условий.",
         "eyebrow": "Казанские Деликатесы · Казань · каталог синхронизирован {date}",
         "lead": "Ниже — {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
@@ -578,6 +647,7 @@ COMMERCIAL_T = {
         "related": [
             ("HoReCa", "/dlya-horeca"), ("АЗС", "/dlya-azs"),
             ("Котлеты для бургеров", "/kotlety-dlya-burgerov"),
+            ("Как выбрать сосиски", "/blog/sosiski-dlya-hot-dogov-optom"),
             ("Ветчина", "/vetchina-optom"),
             ("Как заказать", "/kak-zakazat"),
         ],
@@ -585,8 +655,8 @@ COMMERCIAL_T = {
     },
     "en": {
         "lang": "en", "prefix": "/en", "home": "Home", "back": "← All products",
-        "title": "Halal Hot Dog Sausage Manufacturer — Wholesale from Kazan | Kazan Delicacies",
-        "h1": "Halal hot dog sausages — wholesale from the Kazan plant",
+        "title": "Halal hot dog sausages wholesale — prices and formats | Kazan Delicacies",
+        "h1": "Halal hot dog sausages wholesale from the Kazan plant",
         "meta": "{n} SKUs of frozen halal hot-dog sausages from the Kazan plant: formats {fmts}, per-pack prices incl. VAT from the catalog as of {date}, {storage}, shelf life {shelf}. Pallet MOQ, EXW Kazan. Photos, weights and an enquiry form.",
         "eyebrow": "Halal sausage manufacturer · Kazan, Russia · catalog synced {date}",
         "lead": "{n} SKUs from the live catalog, with prices and photos. Tick the ones you need, state volume and city — sales will confirm availability, pallet build and delivery. Prices EXW Kazan; minimum order is one pallet.",
@@ -649,6 +719,7 @@ COMMERCIAL_T = {
         "related": [
             ("HoReCa", "/en/dlya-horeca"), ("Fuel stations", "/en/dlya-azs"),
             ("Burger patties", "/en/kotlety-dlya-burgerov"),
+            ("Hot-dog sausage guide", "/en/blog/beef-hotdog-sausages-halal"),
             ("Halal ham", "/en/vetchina-optom"),
             ("How to order", "/en/kak-zakazat"),
         ],
@@ -1114,9 +1185,9 @@ PAGES = [
             ("Как заказать оптом?", "Email info@kazandelikates.tatar или +7 987 217-02-02. Минимальный заказ — одна паллета (сборная возможна)."),
         ],
         "related_links": [
-            ("Сосиски для хот-догов", "/sosiski-dlya-hotdog/"),
-            ("Пепперони для HoReCa", "/pepperoni-dlya-horeca"),
-            ("Топпинги для пицц", "/toppings"),
+            ("Гид по котлетам оптом", "/blog/kotlety-dlya-burgerov-optom"),
+            ("Сосиски для хот-догов", "/sosiski-dlya-hotdog"),
+            ("HoReCa", "/dlya-horeca"),
         ],
     },
     {
@@ -1155,6 +1226,7 @@ PAGES = [
         "keywords": "казылык, казылык оптом, конская колбаса халяль",
         "categories": ["Премиум Казылык"],
         "related_links": [
+            ("Что такое казылык", "/blog/kazylyk"),
             ("Пепперони", "/pepperoni"),
             ("Копчёные колбасы", "/kolbasy-kopchyonye"),
         ],
@@ -1183,6 +1255,7 @@ PAGES = [
 def main():
     if not MANIFEST_PATH.exists():
         raise SystemExit("index manifest is required before category generation")
+    wanted = {arg for arg in sys.argv[1:] if not arg.startswith("-")}
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     approved = {
         entry["file"]
@@ -1191,6 +1264,8 @@ def main():
     }
     created = 0
     for cfg in PAGES:
+        if wanted and cfg["slug"] not in wanted:
+            continue
         out = PUBLIC / f'{cfg["slug"]}.html'
         rel = out.relative_to(PUBLIC).as_posix()
         if rel not in approved:
