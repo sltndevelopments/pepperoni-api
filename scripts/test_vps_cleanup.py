@@ -54,10 +54,33 @@ def main() -> int:
     check("set -euo pipefail" in script, "script uses set -euo pipefail")
     check("umask 077" in script, "umask 077 at the top")
     check('MODE="${MODE:-${1:-dry-run}}"' in script, "default mode is dry-run")
-    check("/var/www/pepperoni/repo/data/sync.lock" in script,
-          "uses the requested lock path")
+    check('DATA_DIR="${DATA_DIR:-/var/www/pepperoni/data}"' in script,
+          "DATA_DIR matches sync-vps.sh")
+    check('LOCK_FILE="${LOCK_FILE:-$DATA_DIR/sync.lock}"' in script,
+          "lock is DATA_DIR/sync.lock")
+    check("/var/www/pepperoni/repo/data/sync.lock" not in script,
+          "does not use the repo-data lock path")
+    check('LOCK_FILE="$DATA_DIR/sync.lock"' in (ROOT / "scripts" / "sync-vps.sh").read_text(encoding="utf-8"),
+          "sync-vps.sh still locks DATA_DIR/sync.lock")
+    check("sync.lock" not in (ROOT / ".github" / "workflows" / "deploy-vps.yml").read_text(encoding="utf-8"),
+          "deploy-vps.yml has no lock of its own")
     check('exec 9<"$LOCK_FILE"' in script, "opens the lock read-only")
-    check("lock missing" in script, "missing lock prints lock missing")
+    for code in (
+        "bad mode",
+        "flock missing",
+        "repo missing",
+        "not root",
+        "cron.d missing",
+        "backups missing",
+        "lock missing",
+        "lock wait failed",
+    ):
+        check(f'preflight_fail "{code}"' in script or f"vps-cleanup: {code}" in script,
+              f"preflight has {code}")
+    check("preflight_fail()" in script, "preflight_fail prints to stdout")
+    check('echo "vps-cleanup: $1"' in script, "preflight codes go to stdout")
+    check("echo \"vps-cleanup: $1\" >&2" not in script,
+          "preflight codes are not stderr-only")
     check("flock -w 900" in script, "flock waits 900 s")
     check("backup failed, no changes" in script, "backup failure uses the fixed line")
     check("chmod 700 \"$BACKUP_DIR\"" in script, "backup dir chmod 700")
@@ -294,7 +317,54 @@ def _fixture() -> None:
         missing["LOCK_FILE"] = str(base / "no-such-lock")
         miss = _run(missing)
         check(miss.returncode != 0, "missing lock exits nonzero")
-        check("lock missing" in miss.stderr, "missing lock prints lock missing")
+        check("vps-cleanup: lock missing" in miss.stdout, "missing lock prints to stdout")
+        check("/var/www" not in miss.stdout and "no-such-lock" not in miss.stdout,
+              "lock missing log has no path")
+
+        bad = dict(env)
+        bad["MODE"] = "nope"
+        bad_run = _run(bad)
+        check(bad_run.returncode != 0, "bad mode exits nonzero")
+        check("vps-cleanup: bad mode" in bad_run.stdout, "bad mode prints to stdout")
+
+        norepo = dict(env)
+        norepo["REPO"] = str(base / "no-such-repo")
+        nr = _run(norepo)
+        check(nr.returncode != 0, "missing repo exits nonzero")
+        check("vps-cleanup: repo missing" in nr.stdout, "repo missing prints to stdout")
+
+        noflock = dict(env)
+        fake_bin = base / "path-no-flock"
+        fake_bin.mkdir()
+        os.symlink("/usr/bin/bash", fake_bin / "bash")
+        noflock["PATH"] = str(fake_bin)
+        nf = _run(noflock)
+        check(nf.returncode != 0, "missing flock exits nonzero")
+        check("vps-cleanup: flock missing" in nf.stdout, "flock missing prints to stdout")
+
+        nocron = dict(env)
+        nocron["CRON_D"] = str(base / "no-such-cron.d")
+        nc = _run(nocron)
+        check(nc.returncode != 0, "missing cron.d exits nonzero")
+        check("vps-cleanup: cron.d missing" in nc.stdout, "cron.d missing prints to stdout")
+
+        nobak = dict(env)
+        nobak["BACKUP_DIR"] = str(base / "no-such-backups" / "pepperoni")
+        nb = _run(nobak)
+        check(nb.returncode != 0, "missing backups parent exits nonzero")
+        check("vps-cleanup: backups missing" in nb.stdout, "backups missing prints to stdout")
+
+        as_root_paths = dict(env)
+        as_root_paths["CRON_D"] = "/etc/cron.d"
+        as_root_paths["ETC_PEPPERONI"] = "/etc/pepperoni"
+        as_root_paths["SYSTEMD_DIR"] = "/etc/systemd/system"
+        as_root_paths["BACKUP_DIR"] = "/var/backups/pepperoni"
+        rootish = _run(as_root_paths)
+        if os.geteuid() != 0:
+            check(rootish.returncode != 0, "system paths without root exit nonzero")
+            check("vps-cleanup: not root" in rootish.stdout, "not root prints to stdout")
+        else:
+            check(True, "not root check skipped (running as root)")
 
         dry = _run(env)
         check(dry.returncode == 0, f"fixture dry-run exits 0 ({dry.stderr.strip()})")
