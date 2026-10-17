@@ -766,7 +766,7 @@ COMMERCIAL_T = {
         "shortlist_prefix": "SKUs in enquiry: ",
         "h_clarify": "What sales confirms",
         "clarify": [
-            "Pallet build: minimum order is one pallet, mixed pallets of several SKUs are possible; volumes are quoted in pallet multiples.",
+            "Pallet build: Minimum order: 1 pallet; volumes are quoted in pallet multiples.",
             "Stock availability and dispatch lead time on the order date.",
             "Delivery: prices are EXW Kazan warehouse; delivery is quoted individually (including backhaul transport) and paid by the buyer; lead times are agreed per order.",
             "Documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny ZNAK marking, electronic waybill (ETrN).",
@@ -791,7 +791,7 @@ COMMERCIAL_T = {
              + FACTS["certificates"]["halal_bakery"]["number"]
              + "."),
             ("What is the minimum order and how fast is dispatch?",
-             "The minimum order is one pallet; a mixed pallet of several SKUs is possible and volumes are quoted in pallet multiples. Prices are EXW Kazan. Stock and dispatch date are confirmed by sales on the enquiry date. State SKUs and volume in the form above."),
+             "Minimum order: 1 pallet; volumes are quoted in pallet multiples. Prices are EXW Kazan. Stock and dispatch date are confirmed by sales on the enquiry date. State SKUs and volume in the form above."),
             ("Are the prices on this page current?",
              "Prices come from the company catalog and update with it; the sync date is shown on the page ({date}). The order price is fixed in the invoice."),
             ("Is there a roller-grill test?",

@@ -159,7 +159,7 @@ def ru() -> str:
 <h2 id="samples">Образцы и пробная партия</h2>
 <div class="card">
 <p>Перед контрактом можно запросить образцы — состав, объём и доставку образца согласуем индивидуально. Отдельной цены «за образец» в каталоге нет.</p>
-<p>Пробная партия идёт как обычный оптовый заказ: {escape(_TERMS['moq'])}. Сборная паллета из нескольких SKU возможна. Это тот же базис {escape(_TERMS['basis'])}, те же документы к отгрузке.</p>
+<p>Пробная партия идёт как обычный оптовый заказ: Минимальный заказ — 1 паллета. Это тот же базис {escape(_TERMS['basis'])}, те же документы к отгрузке.</p>
 <p>В заявке укажите город, тип точки и SKU с <a href="/price">прайса</a>. Для сетей — <a href="/dlya-setey">/dlya-setey</a>, для дистрибьюторов — <a href="/dlya-distributorov">/dlya-distributorov</a>, для HoReCa — <a href="/dlya-horeca">/dlya-horeca</a>.</p>
 </div>
 
@@ -245,7 +245,7 @@ def en() -> str:
 
 <h2>Minimum order</h2>
 <div class="card">
-<p><strong>Wholesale:</strong> one pallet; a mixed pallet is possible. Volumes are quoted in pallet multiples.</p>
+<p><strong>Wholesale:</strong> Minimum order: 1 pallet. Volumes are quoted in pallet multiples.</p>
 <p><strong>Private label:</strong> from {escape(_TERMS['private_label_min'])}. See the <a href="/en/private-label">private-label page</a>.</p>
 </div>
 
@@ -269,7 +269,7 @@ def en() -> str:
 <h2 id="samples">Samples and pilot shipment</h2>
 <div class="card">
 <p>Samples before a contract are agreed individually — assortment, volume and how the sample is sent. The catalog has no separate “sample price”.</p>
-<p>A pilot shipment is a normal wholesale order: one pallet; a mixed pallet of several SKUs is possible. Same EXW Kazan basis, same shipping documents.</p>
+<p>A pilot shipment is a normal wholesale order: Minimum order: 1 pallet. Same EXW Kazan basis, same shipping documents.</p>
 <p>State city, channel and SKUs from the <a href="/en/price">price list</a>. Retail chains: <a href="/en/dlya-setey">/en/dlya-setey</a>. Distributors: <a href="/en/dlya-distributorov">/en/dlya-distributorov</a>. HoReCa: <a href="/en/dlya-horeca">/en/dlya-horeca</a>.</p>
 </div>
 
