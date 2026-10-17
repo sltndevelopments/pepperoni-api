@@ -11,6 +11,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
+from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
 from site_facts import (  # noqa: E402
@@ -378,10 +379,12 @@ def build_page(cfg):
   }}
   </script>
 
+  {stylesheet_link()}
   <style>{BASE_STYLE}</style>
 </head>
-<body>
+<body class="kd-landing">
 {GTM_BODY}
+{topbar_html("ru", cfg["slug"])}
 <div class="container">
   <nav><a href="/">← Все продукты</a></nav>
 
@@ -827,10 +830,12 @@ def build_commercial_page(cfg, lang):
   <script type="application/ld+json">{list_ld}</script>
   <script type="application/ld+json">{faq_ld}</script>
   <script type="application/ld+json">{crumbs_ld}</script>
+  {stylesheet_link()}
   <style>{BASE_STYLE}{COMMERCIAL_STYLE}</style>
 </head>
-<body>
+<body class="kd-landing">
 {GTM_BODY}
+{topbar_html(lang, cfg["slug"])}
 <div class="container">
   <nav><a href="{t['prefix'] or '/'}">{t['back']}</a> · <a href="{other_lang[1]}" hreflang="{other_lang[0]}">{other_lang[2]}</a></nav>
 
