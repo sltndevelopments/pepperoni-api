@@ -134,6 +134,29 @@ def main() -> int:
     check(stylesheet_link().startswith("<!-- kd-landing-css:start -->"),
           "stylesheet marker present")
 
+    uz_src = (ROOT / "scripts" / "content_plan_pages.py").read_text(encoding="utf-8")
+    check("stylesheet_link()" in uz_src and 'topbar_html(lang, "export/uzbekistan")' in uz_src,
+          "write_uzbekistan emits shared chrome")
+    exp_src = (ROOT / "scripts" / "gen_export_pages.py").read_text(encoding="utf-8")
+    check("stylesheet_link()" in exp_src and "topbar_html(" in exp_src,
+          "gen_export_pages emit shared chrome")
+    geo_src = (ROOT / "scripts" / "gen-geo-pages.py").read_text(encoding="utf-8")
+    check("stylesheet_link()" in geo_src and "topbar_html(" in geo_src,
+          "gen-geo-pages emit shared chrome")
+
+    def no_html_git_add(rel: str) -> None:
+        text = (ROOT / rel).read_text(encoding="utf-8")
+        active = "\n".join(
+            line for line in text.splitlines()
+            if line.strip() and not line.lstrip().startswith("#")
+        )
+        hits = [line.strip() for line in active.splitlines()
+                if "git add" in line and ".html" in line]
+        check(not hits, f"{rel} does not git-add generated HTML")
+
+    no_html_git_add("scripts/seo-agent-vps.sh")
+    no_html_git_add(".github/workflows/seo-agent.yml")
+
     former = {
         "price.html": ["/", "/kak-zakazat", "/delivery", "/about", "/en/price"],
         "kak-zakazat.html": ["/", "/price", "/delivery", "/about", "/en/kak-zakazat"],

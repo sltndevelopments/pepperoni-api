@@ -365,20 +365,16 @@ git pull --rebase --autostash origin main >> "$LOG_FILE" 2>&1 \
 # commit and reaches the live site. .deploy_stamp is gitignored (local only).
 python3 scripts/deploy_check.py --inject >> "$LOG_FILE" 2>&1 || log_degradation "⚠️  deploy stamp inject failed (non-fatal)"
 
-# Stage any new/modified HTML in geo, blog, and key pages
-git add public/geo/*.html public/en/geo/*.html public/blog/*.html public/en/blog/*.html 2>/dev/null || true
-git add public/blog.html public/en/blog.html 2>/dev/null || true
-git add public/index.html public/pepperoni.html public/en/index.html public/sitemap.xml 2>/dev/null || true
+# Do NOT auto-commit generated HTML (geo/blog/export/product cards).
+# 2026-10-17: git add -u 'public/**/*.html' pushed a stale export/uzbekistan
+# shell and turned main CI red. Pages reach main only via a human PR.
 # SKU-count reconcile output (manifest/ai-plugin/mcp/ai.json) — patched by
 # sync-vps.sh via reconcile_sku_count.py, must reach main or the fix resets.
 git add public/manifest.json public/.well-known/ai-plugin.json public/.well-known/mcp.json public/ai.json 2>/dev/null || true
-# Optimizer edits title/meta across any existing page + its durable ledger.
-git add -u 'public/**/*.html' 2>/dev/null || true
 git add data/experiments.json 2>/dev/null || true
 # Scout discovery state + approval queue (durable, git-tracked).
 git add data/scout_state.json data/scout_findings.json data/approvals.json 2>/dev/null || true
-# Landing-Builder output (approved landings) + sitemap.
-git add public/landing/*.html 2>/dev/null || true
+# Landing HTML is not auto-committed (same rule as export/geo pages).
 # Competitor-Scout weekly findings (durable, git-tracked).
 git add data/competitor_findings.json 2>/dev/null || true
 # Anomaly-Guard daily baseline time series (durable, git-tracked).
@@ -417,8 +413,7 @@ git add 'scripts/brain_tools/*.py' 2>/dev/null || true
 # Brain may have patched core agent code (with backups) — track both.
 git add -u 'scripts/*.py' 2>/dev/null || true
 git add data/agent_backups/*.bak 2>/dev/null || true
-# Worker output (PL/OEM pages from strategy).
-git add public/private-label/*.html 2>/dev/null || true
+# Private-label HTML is not auto-committed.
 
 # Allowlisted pages must not leave main via an automatic deletion.
 if ! python3 scripts/index_safety.py --refuse-staged-keep-deletions >> "$LOG_FILE" 2>&1; then

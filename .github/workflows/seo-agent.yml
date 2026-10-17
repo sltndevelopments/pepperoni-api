@@ -213,46 +213,12 @@ jobs:
         run: |
           git config user.email "seo-agent@pepperoni.tatar"
           git config user.name  "SEO Agent"
-          # Optimizer edits title/meta across any existing public/*.html page.
-          # Stage every tracked HTML change (does NOT add brand-new untracked
-          # files — those only appear when generate_pages=true and are staged
-          # by the explicit globs below).
-          git add -u "public/**/*.html" 2>/dev/null || true
-          # Landing-Builder output (owner-approved landings) + ledger + queue.
-          git add "public/landing/*.html" 2>/dev/null || true
+          # Generated HTML must not be auto-committed. 2026-10-17: staging
+          # public/**/*.html pushed a stale export/uzbekistan shell and
+          # turned main CI red. Pages reach main only via a human PR.
           git add data/experiments.json data/approvals.json 2>/dev/null || true
-          # Anomaly-Guard baseline + brain-escalation state.
           git add data/anomaly_baseline.json data/escalation_state.json 2>/dev/null || true
-          # Blog articles (RU + EN)
-          git add "public/blog/*.html" 2>/dev/null || true
-          git add "public/en/blog/*.html" 2>/dev/null || true
-          # FAQ pages
-          git add "public/faq/*.html" 2>/dev/null || true
-          git add "public/en/faq/*.html" 2>/dev/null || true
-          # Geo pages (type+geo + regular geo)
-          git add "public/geo/*.html" 2>/dev/null || true
-          # Bulk multilingual geo pages
-          git add "public/en/geo/*.html" 2>/dev/null || true
-          git add "public/ar/geo/*.html" 2>/dev/null || true
-          git add "public/kk/geo/*.html" 2>/dev/null || true
-          git add "public/uz/geo/*.html" 2>/dev/null || true
-          git add "public/ky/geo/*.html" 2>/dev/null || true
-          git add "public/tg/geo/*.html" 2>/dev/null || true
-          git add "public/az/geo/*.html" 2>/dev/null || true
-          git add "public/ka/geo/*.html" 2>/dev/null || true
-          git add "public/mn/geo/*.html" 2>/dev/null || true
-          git add "public/ro/geo/*.html" 2>/dev/null || true
-          git add "public/hy/geo/*.html" 2>/dev/null || true
-          git add "public/be/geo/*.html" 2>/dev/null || true
-          # Durable experiment ledger (source of truth for the measure/revert loop)
           git add data/experiments.json 2>/dev/null || true
-          # News section
-          git add "public/news/*.html" 2>/dev/null || true
-          # Updated pages and sitemap
-          git add public/sitemap.xml public/index.html public/en/index.html 2>/dev/null || true
-          git add public/pepperoni.html 2>/dev/null || true
-          # Product card updates
-          git add "public/products/*.html" "public/en/products/*.html" 2>/dev/null || true
           # Guard: never commit unresolved merge-conflict markers into prod.
           if git diff --cached --name-only -z | xargs -0 -r grep -lE '^(<{7}|={7}|>{7})( |$)' 2>/dev/null; then
             echo "::error::Merge-conflict markers detected in staged files — aborting commit."

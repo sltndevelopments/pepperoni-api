@@ -27,6 +27,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
 from claude_client import call_claude  # noqa: E402
+from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 from site_facts import sku_count, cert_line_en, cert_line_ru  # noqa: E402
 
 ROOT = Path(__file__).parent.parent
@@ -374,9 +375,11 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <meta property="og:image" content="{BASE}/images/logo.png">
 <meta property="og:locale" content="{ui['locale']}">
 <script type="application/ld+json">{ld}</script>
+{stylesheet_link()}
 <style>{STYLE}</style>
 </head>
-<body>
+<body class="kd-landing">
+{topbar_html("en" if lang != "ru" else "ru", f"export/{c['slug']}")}
 <div class="container">
 <nav><a href="{LANG_PREFIX[lang] or '/'}">{ui['home']}</a> → <a href="{LANG_PREFIX[lang]}/export">{ui['export']}</a> → {plain_name} &nbsp;|&nbsp; {lang_switcher(c['slug'], c['langs'], lang)}</nav>
 <h1>{c['flag']} {gen['h1']}</h1>
