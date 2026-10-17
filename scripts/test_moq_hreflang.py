@@ -56,6 +56,24 @@ def main() -> int:
 
     src = (SCRIPTS / "check_fact_consistency.py").read_text(encoding="utf-8")
     check("scan_moq_text" in src, "fact-consistency runs the MOQ scanner")
+    check(r"сборн\w*" in src and r"паллет\w*" in src,
+          "MOQ_BAN catches сборн…паллет in any word order")
+    from check_fact_consistency import check_moq_export_variants  # noqa: E402
+    mixed = check_moq_export_variants(
+        "blog/kazylyk.html",
+        "<p>Сборную паллету согласуйте с продажами</p>",
+    )
+    check(any("mixed pallet" in item for item in mixed),
+          "сборную паллету fails MOQ_BAN")
+    reverse = check_moq_export_variants(
+        "blog/kazylyk.html",
+        "<p>паллету сборную не предлагаем</p>",
+    )
+    check(any("mixed pallet" in item for item in reverse),
+          "паллету сборную fails MOQ_BAN")
+    check(check_moq_export_variants("blog/kazylyk.html",
+                                   "<p>Минимальный заказ — 1 паллета</p>") == [],
+          "canonical pallet MOQ is not banned")
 
     man = json.loads((ROOT / "data" / "index_manifest.json").read_text())
     noindex = {r["url"].rstrip("/") or "/" for r in man["entries"] if r.get("status") == "noindex"}

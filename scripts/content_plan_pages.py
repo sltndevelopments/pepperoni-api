@@ -195,6 +195,7 @@ def shell(lang: str, slug: str, title: str, desc: str, h1: str, body: str,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 <meta name="description" content="{desc}">
+<meta property="og:title" content="{title}">
 <meta name="robots" content="{robots}">
 <link rel="canonical" href="{url}">
 <link rel="icon" href="/favicon.ico" sizes="any">
@@ -721,107 +722,188 @@ def write_bakery() -> None:
 
 # ── item 9: /pepperoni-dlya-pizzerii ──────────────────────────────────────
 
+def format_diameter(raw: str | None, lang: str) -> str:
+    """Pretty-print products.json diameter. '50-55' → '50–55 мм' / '50–55 mm'."""
+    text = str(raw or "").strip()
+    if not text:
+        return ""
+    text = text.replace("-", "–")
+    if not re.search(r"(?:мм|mm)\b", text, re.I):
+        text = f"{text} {'мм' if lang == 'ru' else 'mm'}"
+    return text
+
+
+def pizzeria_caliber(items: list[dict], lang: str) -> str:
+    """Shared caliber clause from KD-013/KD-014 diameter. Empty if none set."""
+    rows = []
+    for product in items:
+        cal = format_diameter(product.get("diameter"), lang)
+        if not cal:
+            continue
+        weight = (product.get("weight") or "").strip()
+        sku = product["sku"]
+        if lang == "ru":
+            kind = "нарезка" if sku.upper() == "KD-013" else "батон"
+            rows.append((sku, kind, weight, cal))
+        else:
+            kind = "sliced" if sku.upper() == "KD-013" else "stick"
+            rows.append((sku, kind, weight, cal))
+    if not rows:
+        return ""
+    cals = {row[3] for row in rows}
+    if lang == "ru":
+        parts = [f"{sku} {kind} {weight} кг" for sku, kind, weight, _ in rows]
+        if len(cals) == 1:
+            return f"{' и '.join(parts)}, оба калибр {next(iter(cals))}"
+        return "; ".join(
+            f"{sku} {kind} {weight} кг — {cal}" for sku, kind, weight, cal in rows
+        )
+    parts = [f"{sku} {kind} {weight} kg" for sku, kind, weight, _ in rows]
+    if len(cals) == 1:
+        return f"{' and '.join(parts)}, both {next(iter(cals))} caliber"
+    return "; ".join(
+        f"{sku} {kind} {weight} kg — {cal}" for sku, kind, weight, cal in rows
+    )
+
+
+def pizzeria_page(lang: str, items: list[dict]) -> str:
+    caliber = pizzeria_caliber(items, lang)
+    if lang == "ru":
+        title = "Пепперони для пиццерии — куриный KD-013 / KD-014, нарезка и размеры"
+        desc = (
+            "Где купить пепперони для пиццерии: куриный варёно-копчёный "
+            "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Халяль ДУМ РТ №0008 / №614A/2024. "
+            "Форматы и оптовый каталог — на /pepperoni."
+        )
+        h1 = title
+        caliber_lead = f", калибр слайса {format_diameter(items[0].get('diameter'), 'ru')} из каталога" if caliber else ""
+        intro = (
+            "<p class=\"lead\">Пепперони для пиццерии: куриный варёно-копчёный "
+            "KD-013 (нарезка 0,5 кг) и KD-014 (батон 0,8 кг)"
+            f"{caliber_lead}. "
+            "Продукт и форматы — на <a href=\"/pepperoni\">/pepperoni</a>. "
+            "Шире ассортимент для кухни ресторана — на "
+            "<a href=\"/dlya-horeca\">/dlya-horeca</a>. "
+            "Обе позиции — 360 суток при −18 °C.</p>"
+        )
+        oven = (
+            "<h2>Тест в печи</h2>"
+            "<p class=\"note\">"
+            + (f"Калибр слайса в каталоге — {format_diameter(items[0].get('diameter'), 'ru')} (KD-013 и KD-014). " if caliber else "")
+            + "Публичного фото теста в пицца-печи с температурой и временем нет. "
+            "«Не скручивается» не пишем: снимка реального теста нет. "
+            "Отдел продаж согласует образец для вашей печи.</p>"
+        )
+        use = (
+            "<h2>Как берут на кухне</h2><ul>"
+            "<li>KD-013 — готовая нарезка, 0,5 кг, без слайсера на смене.</li>"
+            "<li>KD-014 — целый батон 0,8 кг, нарезка толщины — на вашем слайсере.</li>"
+            "<li>Состав, цена EXW и наличие — в карточках SKU, не в рекламном тексте.</li></ul>"
+        )
+        size_faq = "Диаметра готовой пиццы в каталоге нет."
+        if caliber:
+            size_faq += f" Размеры слайса пепперони — из products.json: {caliber}."
+        size_faq += " Шире ассортимент для кухни ресторана — на /dlya-horeca."
+        faq = [
+            ("Какие размеры пиццы под ваш пепперони?", size_faq),
+            ("Из какого мяса пепперони?",
+             "В текущем каталоге — курица: KD-013 нарезка 0,5 кг и KD-014 батон 0,8 кг. "
+             "Пепперони из конины в текущем каталоге нет."),
+        ]
+        if caliber:
+            faq.append((
+                "Какой диаметр слайса?",
+                f"{format_diameter(items[0].get('diameter'), 'ru')} у KD-013 и KD-014: "
+                "поле diameter в products.json.",
+            ))
+        faq.extend([
+            ("Есть ли тест в печи?",
+             "Снимка реального теста с условиями нет. Образец для вашей печи — через отдел продаж."),
+            ("Где продукт и форматы?",
+             "На /pepperoni. Здесь — сценарий пиццерии."),
+        ])
+    else:
+        title = "Pepperoni for pizzerias — chicken KD-013 / KD-014, slices and sizes"
+        desc = (
+            "Pepperoni for pizzerias: cooked-smoked chicken "
+            "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Halal DUM RT No. 0008 / "
+            "No. 614A/2024. Formats and wholesale catalog live on /en/pepperoni."
+        )
+        h1 = title
+        caliber_lead = (
+            f", slice caliber {format_diameter(items[0].get('diameter'), 'en')} from the catalog"
+            if caliber else ""
+        )
+        intro = (
+            "<p class=\"lead\">Pepperoni for pizzerias: cooked-smoked chicken "
+            "KD-013 (sliced 0.5 kg) and KD-014 (0.8 kg stick)"
+            f"{caliber_lead}. "
+            "Product and formats live on <a href=\"/en/pepperoni\">/en/pepperoni</a>. "
+            "Wider HoReCa range — <a href=\"/en/dlya-horeca\">/en/dlya-horeca</a>. "
+            "Both SKUs keep 360 days at −18 °C.</p>"
+        )
+        oven = (
+            "<h2>Oven test</h2>"
+            "<p class=\"note\">"
+            + (f"Catalog slice caliber is {format_diameter(items[0].get('diameter'), 'en')} (KD-013 and KD-014). " if caliber else "")
+            + "There is no published pizza-oven test photo with temperature and time. "
+            "We do not claim 'does not cup'. Sales can agree a sample.</p>"
+        )
+        use = (
+            "<h2>Kitchen formats</h2><ul>"
+            "<li>KD-013 — factory sliced, 0.5 kg, no slicer on the shift.</li>"
+            "<li>KD-014 — whole 0.8 kg stick, slice thickness on your slicer.</li>"
+            "<li>Composition, EXW price and stock are on the SKU cards.</li></ul>"
+        )
+        size_faq = "The catalog has no finished-pizza diameter."
+        if caliber:
+            size_faq += f" Pepperoni slice sizes come from products.json: {caliber}."
+        size_faq += " Wider HoReCa range — /en/dlya-horeca."
+        faq = [
+            ("What pizza sizes fit this pepperoni?", size_faq),
+            ("What meat is the pepperoni?",
+             "Current catalog is chicken: KD-013 sliced 0.5 kg and KD-014 stick 0.8 kg. "
+             "Horse-meat pepperoni is not in the current catalog."),
+        ]
+        if caliber:
+            faq.append((
+                "What slice diameter?",
+                f"{format_diameter(items[0].get('diameter'), 'en')} on KD-013 and KD-014: "
+                "the diameter field in products.json.",
+            ))
+        faq.extend([
+            ("Is there an oven test?",
+             "No published test photo with conditions. A sample for your oven is via sales."),
+            ("Where are product and formats?",
+             "On /en/pepperoni. This URL is the pizzeria scenario."),
+        ])
+    extra = [{
+        "@context": "https://schema.org", "@type": "ItemList",
+        "name": h1, "numberOfItems": 2,
+        "itemListElement": [
+            {"@type": "ListItem", "position": i + 1,
+             "url": f"{BASE}{product_url(p['sku'], lang)}", "name": p["name"]}
+            for i, p in enumerate(items)
+        ],
+    }]
+    body = (
+        intro + use
+        + sku_table(items, lang) + cards(items, lang) + photos(items, lang)
+        + oven
+        + f'<p><a href="{prefix(lang)}/pepperoni">'
+        f'{"Продукт и форматы →" if lang == "ru" else "Product and formats →"}</a></p>'
+    )
+    return ensure_metrika_html(
+        shell(lang, "pepperoni-dlya-pizzerii", title, desc, h1, body, faq, extra)
+    )
+
+
 def write_pizzeria() -> None:
     data = catalog()
     items = by_sku(data, "KD-013", "KD-014")
     assert not any(p["sku"] == "KD-012" for p in data["products"])
     for lang in ("ru", "en"):
-        if lang == "ru":
-            title = "Пепперони для пиццерии — куриный KD-013 / KD-014 | Казанские Деликатесы"
-            desc = (
-                "Где купить пепперони для пиццерии: куриный варёно-копчёный "
-                "KD-013 нарезка 0,5 кг и KD-014 целый батон 0,8 кг. Халяль ДУМ РТ №0008 / №614A/2024. "
-                "Форматы и оптовый каталог — на /pepperoni."
-            )
-            h1 = "Пепперони для пиццерии"
-            intro = (
-                "<p class=\"lead\">Эта страница — про применение на кухне пиццерии. "
-                "Продукт и форматы — на <a href=\"/pepperoni\">/pepperoni</a>. "
-                "В каталоге две позиции: нарезка KD-013 (0,5 кг) и батон KD-014 (0,8 кг), "
-                "оба варёно-копчёные куриные, 360 суток при −18 °C.</p>"
-            )
-            oven = (
-                "<h2>Тест в печи</h2>"
-                "<p class=\"note\">Публичного фото теста в пицца-печи с условиями (температура, "
-                "время, диаметр слайса) нет. Не указываем «не скручивается» и диаметр в миллиметрах, "
-                "пока нет спецификации партии или снимка реального теста. "
-                "Отдел продаж согласует образец для вашей печи.</p>"
-            )
-            use = (
-                "<h2>Как берут на кухне</h2><ul>"
-                "<li>KD-013 — готовая нарезка, 0,5 кг, без слайсера на смене.</li>"
-                "<li>KD-014 — целый батон 0,8 кг, нарезка толщины — на вашем слайсере.</li>"
-                "<li>Состав, цена EXW и наличие — в карточках SKU, не в рекламном тексте.</li></ul>"
-            )
-            faq = [
-                ("Из какого мяса пепперони?",
-                 "В текущем каталоге — курица: KD-013 нарезка 0,5 кг и KD-014 батон 0,8 кг. "
-                 "Пепперони из конины в текущем каталоге нет."),
-                ("Какой диаметр слайса?",
-                 "Диаметр на этой странице не публикуем: в products.json поля диаметра нет. "
-                 "Значение — в спецификации партии по запросу."),
-                ("Есть ли тест в печи?",
-                 "Снимка реального теста с условиями нет. Образец для вашей печи — через отдел продаж."),
-                ("Где продукт и форматы?",
-                 "На /pepperoni. Здесь — сценарий пиццерии."),
-            ]
-        else:
-            title = "Pepperoni for pizzerias — chicken KD-013 / KD-014 | Kazan Delicacies"
-            desc = (
-                "Where to buy pepperoni for a pizzeria: cooked-smoked chicken "
-                "KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg. Halal DUM RT No. 0008 / "
-                "No. 614A/2024. Formats and wholesale catalog live on /en/pepperoni."
-            )
-            h1 = "Pepperoni for pizzerias"
-            intro = (
-                "<p class=\"lead\">This page is the pizzeria application. "
-                "Product and formats live on <a href=\"/en/pepperoni\">/en/pepperoni</a>. "
-                "Catalog: KD-013 sliced 0.5 kg and KD-014 whole stick 0.8 kg, both chicken "
-                "cooked-smoked, 360 days at −18 °C.</p>"
-            )
-            oven = (
-                "<h2>Oven test</h2>"
-                "<p class=\"note\">There is no published pizza-oven test photo with conditions "
-                "(temperature, time, slice diameter). We do not claim 'does not cup' or a millimetre "
-                "diameter until a batch spec or a real test shot exists. Sales can agree a sample.</p>"
-            )
-            use = (
-                "<h2>Kitchen formats</h2><ul>"
-                "<li>KD-013 — factory sliced, 0.5 kg, no slicer on the shift.</li>"
-                "<li>KD-014 — whole 0.8 kg stick, slice thickness on your slicer.</li>"
-                "<li>Composition, EXW price and stock are on the SKU cards.</li></ul>"
-            )
-            faq = [
-                ("What meat is the pepperoni?",
-                 "Current catalog is chicken: KD-013 sliced 0.5 kg and KD-014 stick 0.8 kg. "
-                 "Horse-meat pepperoni is not in the current catalog."),
-                ("What slice diameter?",
-                 "Not published here: products.json has no diameter field. "
-                 "The batch specification is sent on request."),
-                ("Is there an oven test?",
-                 "No published test photo with conditions. A sample for your oven is via sales."),
-                ("Where are product and formats?",
-                 "On /en/pepperoni. This URL is the pizzeria scenario."),
-            ]
-        extra = [{
-            "@context": "https://schema.org", "@type": "ItemList",
-            "name": h1, "numberOfItems": 2,
-            "itemListElement": [
-                {"@type": "ListItem", "position": i + 1,
-                 "url": f"{BASE}{product_url(p['sku'], lang)}", "name": p["name"]}
-                for i, p in enumerate(items)
-            ],
-        }]
-        body = (
-            intro + use
-            + sku_table(items, lang) + cards(items, lang) + photos(items, lang)
-            + oven
-            + f'<p><a href="{prefix(lang)}/pepperoni">'
-            f'{"Продукт и форматы →" if lang == "ru" else "Product and formats →"}</a></p>'
-        )
-        html = ensure_metrika_html(
-            shell(lang, "pepperoni-dlya-pizzerii", title, desc, h1, body, faq, extra)
-        )
+        html = pizzeria_page(lang, items)
         path = (PUBLIC / "en" / "pepperoni-dlya-pizzerii.html" if lang == "en"
                 else PUBLIC / "pepperoni-dlya-pizzerii.html")
         path.write_text(html, encoding="utf-8")

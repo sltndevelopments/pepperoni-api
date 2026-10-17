@@ -539,6 +539,10 @@ def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
 
 MOQ_BAN = [
     (re.compile(r"сборн\w*[^.]{0,60}возможн", re.I), "legacy MOQ 'сборная … возможна'"),
+    (re.compile(r"сборн\w*(?:\W+\w+){0,5}\W+паллет\w*", re.I),
+     "legacy MOQ mixed pallet"),
+    (re.compile(r"паллет\w*(?:\W+\w+){0,5}\W+сборн\w*", re.I),
+     "legacy MOQ mixed pallet"),
     (re.compile(r"1 паллета,\s*1 паллета", re.I), "doubled MOQ '1 паллета, 1 паллета'"),
     (re.compile(r"one pallet,\s*1 pallet", re.I), "doubled MOQ 'one pallet, 1 pallet'"),
     (re.compile(r"1 pallet[;,]\s*1 pallet", re.I), "doubled MOQ '1 pallet, 1 pallet'"),

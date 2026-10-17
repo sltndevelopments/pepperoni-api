@@ -15,6 +15,12 @@ PUBLIC = ROOT / "public"
 CSS_HREF = "/assets/kd-landing.css"
 CSS_START = "<!-- kd-landing-css:start -->"
 CSS_END = "<!-- kd-landing-css:end -->"
+LCP_FONT_HREF = "/fonts/f0.woff2"
+LCP_FONT_SLUGS = {
+    "sosiski-dlya-hotdog",
+    "kotlety-dlya-burgerov",
+    "sosiski-halyal-optom",
+}
 TOP_START = "<!-- kd-landing-topbar:start -->"
 TOP_END = "<!-- kd-landing-topbar:end -->"
 
@@ -48,6 +54,24 @@ LANDINGS: list[tuple[str, str, str]] = [
 
 def stylesheet_link() -> str:
     return f'{CSS_START}<link rel="stylesheet" href="{CSS_HREF}">{CSS_END}'
+
+
+def font_lcp_hints(slug: str = "") -> str:
+    """Preload the hero webfont with font-display:swap. Text-LCP hubs only."""
+    if slug and slug not in LCP_FONT_SLUGS:
+        return ""
+    return (
+        '<!-- kd-font-lcp:start -->'
+        f'<link rel="preload" as="font" type="font/woff2" href="{LCP_FONT_HREF}" crossorigin>'
+        "<style>"
+        "@font-face{font-family:Nunito;font-style:normal;font-weight:500 800;"
+        "font-display:swap;src:url(/fonts/f0.woff2) format(\"woff2\");"
+        "unicode-range:U+0301,U+0400-045F,U+0490-0491,U+04B0-04B1,U+2116}"
+        "body.kd-landing,body.kd-landing h1{"
+        "font-family:Nunito,-apple-system,BlinkMacSystemFont,\"Segoe UI\",Roboto,sans-serif}"
+        "</style>"
+        "<!-- kd-font-lcp:end -->"
+    )
 
 
 def _home(lang: str) -> str:

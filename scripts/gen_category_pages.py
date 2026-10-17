@@ -13,7 +13,7 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
+from landing_chrome import font_lcp_hints, stylesheet_link, topbar_html  # noqa: E402
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
 from site_facts import (  # noqa: E402
@@ -514,6 +514,15 @@ def _query_faq(slug: str) -> list[tuple[str, str]]:
                 "Карточка KD-030 — /products/kd-030.",
             ),
         ]
+    if slug == "kazylyk":
+        return [
+            (
+                "Что такое татарская колбаса из конины?",
+                "Татарская колбаса из конины в нашем каталоге — это казылык: "
+                "сыровяленые позиции «Премиум» KD-044 и KD-045. "
+                "Состав, масса и цена — в таблице и в карточках SKU.",
+            ),
+        ]
     return []
 
 
@@ -621,7 +630,7 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     if slug == "kazylyk":
         return (
             brand_title_suffix("Казылык купить оптом — что это и цена", "ru"),
-            "Казылык оптом — что это",
+            "Казылык оптом — татарская колбаса из конины",
             (
                 "Казылык — что это: сыровяленая колбаса из конины. "
                 "Мясная основа: конина и конский жир. "
@@ -629,7 +638,8 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
                 "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
             ),
             (
-                f"Казылык — что это: сыровяленая колбаса из конины. В категории {n} "
+                f"Казылык — что это: татарская колбаса из конины, сыровяленая. "
+                f"В категории {n} "
                 "охлаждённые позиции «Премиум». Цена и фасовка — в таблице каталога, "
                 "не в заголовке. Чем казылык отличается от казы — в "
                 "<a href=\"/blog/kazylyk\">статье</a>. "
@@ -899,7 +909,11 @@ def build_page(cfg, jerks=False):
             "срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте.",
         ),
     ]
-    faq_pairs.extend(_query_faq(cfg.get("slug") or ""))
+    extra_faq = _query_faq(cfg.get("slug") or "")
+    if (cfg.get("slug") or "") == "kazylyk":
+        faq_pairs = extra_faq + faq_pairs
+    else:
+        faq_pairs.extend(extra_faq)
     faq_ld = faq_schema(faq_pairs)
     faq_block = faq_html(faq_pairs)
 
@@ -1007,6 +1021,7 @@ def build_page(cfg, jerks=False):
   }}
   </script>
 
+  {font_lcp_hints(cfg["slug"])}
   {stylesheet_link()}
   <style>{JERKS_EXTRA_STYLE if jerks else BASE_STYLE}</style>
 </head>
@@ -1472,6 +1487,7 @@ def build_commercial_page(cfg, lang):
   <script type="application/ld+json">{list_ld}</script>
   <script type="application/ld+json">{faq_ld}</script>
   <script type="application/ld+json">{crumbs_ld}</script>
+  {font_lcp_hints(cfg["slug"])}
   {stylesheet_link()}
   <style>{BASE_STYLE}{COMMERCIAL_STYLE}</style>
 </head>
