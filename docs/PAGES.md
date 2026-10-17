@@ -65,6 +65,17 @@ and source, regenerate the manifest and pass the deployment gates. New country
 pages also require a real importer or distributor, destination documents,
 logistics evidence and human editorial review.
 
+## Private consent drafts (not indexable)
+
+`/cases/<slug>` drafts for client consent live under `public/cases/`. They are
+`noindex, nofollow`, listed as `noindex` in `data/url_consolidation_map.json`,
+disallowed in `robots.txt` as `/cases/`, absent from the allowlist and
+sitemap, and not linked from public pages. Do not add them to
+`scripts/build_index_manifest.py` until the owner has written consent.
+
+Current drafts: `/cases/gfc`, `/cases/sweet-life`, `/cases/tatneft`,
+`/cases/aslam-ompk`.
+
 ## Retirement states
 
 `data/url_consolidation_map.json` records every retired URL:
