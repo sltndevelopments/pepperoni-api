@@ -19,13 +19,16 @@ from pathlib import Path
 import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from site_facts import sku_count  # noqa: E402  (data/site_facts.json registry)
-from catalog_prices import rub_int_if_whole  # noqa: E402
+from catalog_prices import rub_int_if_whole, weight_en  # noqa: E402
 
 def _p(sku: str) -> str:
     return f"{rub_int_if_whole(sku)} ₽"
 
 def _pc(sku: str) -> str:
     return f"{rub_int_if_whole(sku)} ₽/pc"
+
+def _w(sku: str) -> str:
+    return weight_en(sku)
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -143,7 +146,7 @@ SEGMENTS = [
             ("Horse-meat sausages", "~80 g vac-pack", "—"),
             ("Boiled-Smoked Pepperoni, sliced", "0.5 kg", _p("KD-013")),
             ("Burger patty", "100 g × 3 pcs", _p("KD-009")),
-            ("Sausage roll", "~100 g/pc", _pc("KD-050")),
+            ("Sausage roll", _w("KD-061"), _pc("KD-061")),
         ],
         "items_note": "Live prices in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. For private label (network-branded hot dog or sausage roll) we put together a separate proposal.",
         "logistics_heading": "Logistics & terms for fuel-station chains",
@@ -290,7 +293,7 @@ SEGMENTS = [
             ("Kazylyk «Premium» sliced (gift box)", "100 g", _p("KD-045")),
             ("Chak-chak (craft gift box)", "300 g", "by request"),
             ("Echpochmak with beef & potato", "frozen", _pc("KD-050")),
-            ("Cheese sausages, vacuum", "0.4 kg", _p("KD-007")),
+            ("Cheese sausages, vacuum", _w("KD-021"), _p("KD-021")),
         ],
         "items_note": "All {SKU_N} SKUs in the <a href=\"/en/\" style=\"color:#0066cc\">catalog</a>. Private-label retail packs (your chain's brand) — quotation on request.",
         "logistics_heading": "Logistics & terms for retail chains",

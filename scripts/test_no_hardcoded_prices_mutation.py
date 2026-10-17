@@ -2,20 +2,27 @@
 """Mutation tests for the hardcoded-price gate (review P3–P6, P9–P12 + f-string).
 
 Each plant is assembled at runtime so this file itself does not contain a
-currency-marked literal. The gate must FAIL every plant.
+currency-marked literal. The four review-round-3 plants (E1/E2/E9/E5) go
+through main() so discovery and skip rules are exercised.
 """
 from __future__ import annotations
 
 import sys
 from pathlib import Path
 
+ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from test_no_hardcoded_prices import (  # noqa: E402
     accepted_amounts,
+    main as gate_main,
     scan_html_loose_text,
     scan_source_text,
     scan_visible_text,
 )
+
+PEPPERONI = ROOT / "public" / "pepperoni.html"
+PROMO = ROOT / "public" / "promo-test.html"
+SEGMENTS = ROOT / "scripts" / "gen-en-segments.py"
 
 
 def _join(*parts: str) -> str:
@@ -28,6 +35,19 @@ def _check(name: str, hits: list[str], failures: list[str]) -> None:
         return
     print(f"  FAIL {name}: gate missed the plant")
     failures.append(name)
+
+
+def _expect_main_fail(name: str, apply, revert, failures: list[str]) -> None:
+    apply()
+    try:
+        rc = gate_main()
+        if rc != 0:
+            print(f"  ok {name} → main() rc={rc}")
+            return
+        print(f"  FAIL {name}: main() returned 0")
+        failures.append(name)
+    finally:
+        revert()
 
 
 def main() -> int:
@@ -77,6 +97,54 @@ def main() -> int:
     # f-string on 3.12+ (FSTRING_MIDDLE) and 3.11 (STRING)
     p2 = _join("x = 1\ns = f\"от ", "274", " ₽ {x}\"\n")
     _check("P2 f-string", scan_source_text("scripts/gen-en-segments.py", p2), failures)
+
+    original_pepperoni = PEPPERONI.read_text(encoding="utf-8")
+    original_segments = SEGMENTS.read_text(encoding="utf-8")
+    promo_existed = PROMO.exists()
+    promo_original = PROMO.read_text(encoding="utf-8") if promo_existed else None
+
+    e1 = _join('<p data-catalog-price="KD-013">', "999", " ₽</p>\n")
+
+    def apply_e1() -> None:
+        PEPPERONI.write_text(original_pepperoni + e1, encoding="utf-8")
+
+    def revert_pepperoni() -> None:
+        PEPPERONI.write_text(original_pepperoni, encoding="utf-8")
+
+    _expect_main_fail("E1 stamped 999 on KD-013", apply_e1, revert_pepperoni, failures)
+
+    e2 = _join(
+        '<div class="promo">Цена ', "999", " ₽</div>\n",
+        "<table><tr><td>KD-013</td><td>", "999", " ₽</td></tr></table>\n",
+    )
+
+    def apply_e2() -> None:
+        PEPPERONI.write_text(original_pepperoni + e2, encoding="utf-8")
+
+    _expect_main_fail("E2 div/td 999 on landing", apply_e2, revert_pepperoni, failures)
+
+    e9 = _join("<html><body><div>KD-013 ", "999", " ₽</div></body></html>\n")
+
+    def apply_e9() -> None:
+        PROMO.write_text(e9, encoding="utf-8")
+
+    def revert_e9() -> None:
+        if promo_existed:
+            PROMO.write_text(promo_original or "", encoding="utf-8")
+        elif PROMO.exists():
+            PROMO.unlink()
+
+    _expect_main_fail("E9 new page with price", apply_e9, revert_e9, failures)
+
+    e5 = _join("\nprice = \"", "274", "\"\n")
+
+    def apply_e5() -> None:
+        SEGMENTS.write_text(original_segments + e5, encoding="utf-8")
+
+    def revert_e5() -> None:
+        SEGMENTS.write_text(original_segments, encoding="utf-8")
+
+    _expect_main_fail("E5 price = string 274", apply_e5, revert_e5, failures)
 
     if failures:
         print(f"test_no_hardcoded_prices_mutation: {len(failures)} missed: {failures}")

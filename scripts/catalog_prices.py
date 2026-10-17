@@ -8,6 +8,7 @@ ruble/dollar literals.
 from __future__ import annotations
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 
@@ -93,6 +94,33 @@ def positive(v) -> float | None:
     if n is None or n <= 0:
         return None
     return n
+
+
+def weight(sku: str) -> str:
+    return str(product(sku).get("weight") or "").strip()
+
+
+def weight_en(sku: str) -> str:
+    """Catalog weight as an EN label (0,8 → 0.8 kg, 120 г → 120 g)."""
+    raw = weight(sku)
+    if not raw:
+        return ""
+    norm = raw.replace(",", ".")
+    m = re.match(r"^([\d.]+)\s*(кг|kg|г|g)?$", norm, re.I)
+    if not m:
+        return raw
+    n, unit = m.group(1), (m.group(2) or "").lower()
+    if unit in {"г", "g"}:
+        return f"{n} g"
+    if unit in {"кг", "kg"}:
+        return f"{n} kg"
+    try:
+        val = float(n)
+    except ValueError:
+        return raw
+    if val >= 20:
+        return f"{n} g"
+    return f"{n} kg"
 
 
 def sku_amounts(sku: str) -> set[float]:

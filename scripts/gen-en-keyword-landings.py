@@ -21,7 +21,10 @@ import sys
 from pathlib import Path
 from urllib.parse import quote
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from catalog_prices import export_amount, rub_int_if_whole, rub_str  # noqa: E402
+from catalog_prices import export_amount, rub_int_if_whole, rub_str, weight_en  # noqa: E402
+
+W_KD013 = weight_en("KD-013")
+W_KD014 = weight_en("KD-014")
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -99,7 +102,7 @@ PAGES = [
         "intent": "buyer wants recipe / meat type clarity and certificates",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -110,7 +113,7 @@ PAGES = [
             ("Halal", "DUM RT certificate #614A/2024"),
             ("HACCP", "Yes, ISO 22000:2018"),
             ("Shelf life", "360 days frozen at −18 °C"),
-            ("Available formats", "Whole 1 kg stick · 0.5 kg sliced"),
+            ("Available formats", f"Whole {W_KD014} stick · {W_KD013} sliced"),
             ("Private label", "Custom meat blends on request — not stock SKUs"),
         ],
         "faqs": [
@@ -140,7 +143,7 @@ PAGES = [
         "intent": "pizzeria buyer evaluating all pepperoni options at once",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -148,7 +151,7 @@ PAGES = [
         "specs": [
             ("Available SKUs", "KD-013 (chicken, sliced 0.5 kg) · KD-014 (chicken, whole 0.8 kg)"),
             ("Process", "Cooked-smoked only (no dry-cured in catalog)"),
-            ("Formats", "Whole 1 kg stick · 0.5 kg pre-sliced"),
+            ("Formats", f"Whole {W_KD014} stick · {W_KD013} pre-sliced"),
             ("Diameter", "50–55 mm"),
             ("Oven behaviour", "Thermally stable; does not cup/curl"),
             ("Halal", "Certificate #614A/2024, DUM RT"),
@@ -181,7 +184,7 @@ PAGES = [
         "intent": "B2B buyer evaluating us as a wholesale supplier — wants MOQ, payment, lead time, documents",
         "primary_sku": "KD-014",
         "primary_name": "Cooked-smoked chicken pepperoni (whole stick)",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -225,7 +228,7 @@ PAGES = [
         "intent": "user searching by origin (Russia / Kazan) and wants assurance of authenticity / halal credentials",
         "primary_sku": "KD-014",
         "primary_name": "Halal Pepperoni from Russia (KD-014)",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen",
         "primary_diameter": "50–55 mm",
@@ -269,7 +272,7 @@ PAGES = [
         "intent": "international buyer evaluating cross-border supply from a Russian halal manufacturer",
         "primary_sku": "KD-014",
         "primary_name": "Halal Pepperoni Export SKU (KD-014)",
-        "primary_weight": "1.0 kg",
+        "primary_weight": W_KD014,
         "primary_pack": "Vacuum-packed whole stick",
         "primary_storage": "−18 °C, 360 days frozen, cold-chain transit",
         "primary_diameter": "50–55 mm",

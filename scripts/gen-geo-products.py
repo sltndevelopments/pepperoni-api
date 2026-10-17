@@ -227,7 +227,7 @@ def build_burger_page(loc):
     <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">100 г × 3 шт (0,3 кг)</div><div class="price">PRICE_KD009</div></div>
     <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">150 г × 2 шт (0,3 кг)</div><div class="price">PRICE_KD010</div></div>
   </div>
-  <p style="font-size:.85rem;color:#888">Цены без НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
+  <p style="font-size:.85rem;color:#888">Цены с НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
 
   <h2>Характеристики</h2>
   <div class="card">
@@ -359,7 +359,7 @@ def build_hotdog_page(loc):
     <div class="price-card"><div class="name">С бараниной (80 г × 6 шт)</div><div class="weight">0,48 кг | баранина</div><div class="price">PRICE_KD005</div></div>
     <div class="price-card"><div class="name">С сыром (130 г × 5 шт)</div><div class="weight">0,65 кг | для франч-дога</div><div class="price">PRICE_KD007</div></div>
   </div>
-  <p style="font-size:.85rem;color:#888">Цены без НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
+  <p style="font-size:.85rem;color:#888">Цены с НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
   <p style="font-size:.85rem;color:#666"><strong>Также доступны без оболочки</strong> — специальный формат для франч-догов, 45 г, упаковка 1 кг.</p>
 
   <h2>Характеристики</h2>

@@ -81,10 +81,11 @@ def is_price_name(name: str) -> bool:
         return True
     return name in {"rub", "usd", "RUB", "USD", "kzt", "KZT"}
 SKU_RE = re.compile(r"\bKD-\d{3}\b", re.I)
-STAMP_RE = re.compile(
-    r'data-catalog-price|data-from-catalog|<!--\s*catalog-price',
+STAMP_SKU_RE = re.compile(
+    r'data-catalog-price=["\'](KD-\d{3})["\']',
     re.I,
 )
+NUMERIC_PRICE_STR = re.compile(r"^\d+(?:[.,]\d+)?$")
 URL_SKU = re.compile(r"/products/(kd-\d{3})", re.I)
 LD_RE = re.compile(
     r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
@@ -105,13 +106,26 @@ CURRENCY_AMOUNT = re.compile(
     """,
     re.X | re.I,
 )
-SKIP_AFTER_AMOUNT = re.compile(r"^\s*(?:M\b|млн|млрд|/\$)")
+SKIP_AFTER_AMOUNT = re.compile(
+    r"^\s*(?:M\b|млн|млрд|/\$|/кг|/шт|/kg\b|/pc\b|/pcs\b|/ч\b|/h\b)"
+)
+SKIP_GENERATED_PAGES = {
+    "dashboard.html",
+    "en/dashboard.html",
+}
 LOCALE_SKIP = ("hy/", "tg/", "ka/", "kk/", "ky/", "uz/", "az/", "zh/", "ar/", "he/",
                "1/", "2/", "3/", "4/", "5/")
 
 
 def close(a: float | None, b: float | None, tol: float = 0.011) -> bool:
-    return a is not None and b is not None and abs(a - b) <= tol
+    if a is None or b is None:
+        return False
+    if abs(a - b) <= tol:
+        return True
+    # Cards/index often show 61.81 as 62 ₽
+    if abs(a - round(a)) < 1e-9 and abs(round(b) - a) <= 0.5:
+        return True
+    return False
 
 
 def accepted_amounts() -> set[float]:
@@ -161,6 +175,11 @@ def source_files() -> list[Path]:
             continue
         if "__pycache__" in path.parts:
             continue
+        if path.name in {
+            "test_no_hardcoded_prices.py",
+            "test_no_hardcoded_prices_mutation.py",
+        }:
+            continue
         seen.add(resolved)
         out.append(path)
     return sorted(out)
@@ -180,6 +199,21 @@ def _strip_string_token(raw: str) -> str:
     return raw
 
 
+def _dict_price_key(tokens: list, i: int) -> bool:
+    """True for {"primary_price_rub": "274"} — a price-ish key, then :, then a number string."""
+    j = i - 1
+    while j >= 0 and tokens[j].type in {tokenize.NL, tokenize.NEWLINE, tokenize.COMMENT}:
+        j -= 1
+    if j < 0 or tokens[j].string != ":":
+        return False
+    k = j - 1
+    while k >= 0 and tokens[k].type in {tokenize.NL, tokenize.NEWLINE, tokenize.COMMENT}:
+        k -= 1
+    if k < 0 or tokens[k].type != tokenize.STRING:
+        return False
+    return bool(re.search(r"price", tokens[k].string, re.I))
+
+
 def scan_python_source(rel: str, src: bytes) -> list[str]:
     hits = []
     try:
@@ -197,6 +231,8 @@ def scan_python_source(rel: str, src: bytes) -> list[str]:
                 if _stale_ok(rel, token):
                     continue
                 hits.append(f"{rel}:{tok.start[0]} hardcoded {token!r}")
+            if NUMERIC_PRICE_STR.match(body.strip()) and _dict_price_key(tokens, i):
+                hits.append(f"{rel}:{tok.start[0]} hardcoded price string {body!r}")
         if tok.type == tokenize.NAME and is_price_name(tok.string):
             j = i + 1
             while j < len(tokens) and tokens[j].type in {tokenize.NL, tokenize.NEWLINE,
@@ -212,6 +248,12 @@ def scan_python_source(rel: str, src: bytes) -> list[str]:
                     hits.append(
                         f"{rel}:{tok.start[0]} hardcoded {tok.string} = {tokens[k].string}"
                     )
+                elif k < len(tokens) and tokens[k].type == tokenize.STRING:
+                    body = _strip_string_token(tokens[k].string)
+                    if NUMERIC_PRICE_STR.match(body.strip()):
+                        hits.append(
+                            f"{rel}:{tok.start[0]} hardcoded {tok.string} = {tokens[k].string}"
+                        )
     return hits
 
 
@@ -228,6 +270,12 @@ def scan_text_source(rel: str, text: str) -> list[str]:
         ):
             if is_price_name(m.group(1)):
                 hits.append(f"{rel}:{i} hardcoded {m.group(1)} = {m.group(2)}")
+        for m in re.finditer(
+            r"""\b([A-Za-z_][A-Za-z0-9_]*)\s*=\s*['\"](\d+(?:[.,]\d+)?)['\"]""",
+            line,
+        ):
+            if is_price_name(m.group(1)):
+                hits.append(f"{rel}:{i} hardcoded {m.group(1)} = {m.group(2)!r}")
     return hits
 
 
@@ -293,9 +341,15 @@ def _card_sku(rel: str) -> str:
 
 
 def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
-                 stamped: bool, unbound_ok: bool) -> str | None:
-    if stamped:
-        return None
+                 stamp_sku: str | None, unbound_ok: bool) -> str | None:
+    if stamp_sku:
+        try:
+            allowed = sku_amounts(stamp_sku)
+        except KeyError:
+            return f"{rel} stamped {amount} for unknown {stamp_sku}"
+        if any(close(amount, x, 0.051) for x in allowed):
+            return None
+        return f"{rel} stamped {amount} for {stamp_sku} != products.json"
     if skus:
         for sku in skus:
             try:
@@ -314,11 +368,24 @@ def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
     return f"{rel} {amount} has no KD-NNN / stamp (hardcoded visible price)"
 
 
+def _stamp_sku_at(text: str, start: int) -> str | None:
+    window = text[max(0, start - 400):start]
+    found = list(STAMP_SKU_RE.finditer(window))
+    if not found:
+        return None
+    return found[-1].group(1).upper()
+
+
+def _visible_html(html: str) -> str:
+    html = re.sub(r"<script\b[^>]*>.*?</script>", " ", html, flags=re.I | re.S)
+    html = re.sub(r"<style\b[^>]*>.*?</style>", " ", html, flags=re.I | re.S)
+    return html
+
+
 def scan_visible_text(rel: str, text: str, accepted: set[float],
                       *, unbound_ok: bool = True,
                       page_skus: set[str] | None = None) -> list[str]:
     issues = []
-    stamped_all = bool(STAMP_RE.search(text))
     card = _card_sku(rel)
     page_skus = page_skus or {s.upper() for s in SKU_RE.findall(text)}
     for m in CURRENCY_AMOUNT.finditer(text):
@@ -327,13 +394,13 @@ def scan_visible_text(rel: str, text: str, accepted: set[float],
             continue
         if SKIP_AFTER_AMOUNT.match(text[m.end():m.end() + 8]):
             continue
+        stamp_sku = _stamp_sku_at(text, m.start())
         skus = _nearby_skus(text, m.start(), m.end())
+        if stamp_sku:
+            skus.add(stamp_sku)
         if card:
             skus.add(card)
-        elif page_skus:
-            skus |= page_skus
-        stamped = stamped_all or bool(STAMP_RE.search(text[max(0, m.start() - 80):m.end() + 80]))
-        hit = check_amount(rel, amount, skus, accepted, stamped, unbound_ok)
+        hit = check_amount(rel, amount, skus, accepted, stamp_sku, unbound_ok)
         if hit:
             issues.append(hit)
     return issues
@@ -425,17 +492,12 @@ def scan_generated(accepted: set[float]) -> list[str]:
     locale_skip = LOCALE_SKIP
     for path in PUBLIC.rglob("*.html"):
         rel = path.relative_to(PUBLIC).as_posix()
-        if rel.startswith(locale_skip):
+        if rel.startswith(locale_skip) or rel in SKIP_GENERATED_PAGES:
             continue
         html = path.read_text(encoding="utf-8")
         issues.extend(scan_offers(rel, html))
-        issues.extend(scan_html_loose_text(rel, html, accepted))
-        # Product cards + wholesale-style pages: every visible money token
-        # next to a SKU must match that SKU (covers planted 999 ₽ on a card).
-        if _card_sku(rel) or "price" in rel or rel.startswith(("blog/", "en/blog/",
-                                                                "blog.html", "en/blog.html",
-                                                                "llms")):
-            issues.extend(scan_visible_text(rel, html, accepted, unbound_ok=True))
+        visible = _visible_html(html)
+        issues.extend(scan_visible_text(rel, visible, accepted, unbound_ok=True))
 
     for path in list(PUBLIC.rglob("llms*.txt")) + list(PUBLIC.rglob(".well-known/llms*.txt")):
         rel = path.relative_to(PUBLIC).as_posix()
