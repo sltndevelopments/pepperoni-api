@@ -97,8 +97,8 @@ def og_title(html: str) -> str:
     return (m.group(1).strip() if m else "")
 
 
-def article_headline(html: str) -> str | None:
-    found = None
+def jsonld_nodes(html: str, rel: str) -> list:
+    nodes = []
     for raw in re.findall(
         r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
         html,
@@ -106,12 +106,21 @@ def article_headline(html: str) -> str | None:
     ):
         try:
             data = json.loads(raw.strip())
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as exc:
+            check(False, f"{rel} JSON-LD is valid JSON ({exc})")
             continue
-        nodes = data if isinstance(data, list) else [data]
-        for node in nodes:
-            if isinstance(node, dict) and node.get("@type") == "Article":
-                found = str(node.get("headline") or "").strip()
+        if isinstance(data, list):
+            nodes.extend(item for item in data if isinstance(item, dict))
+        elif isinstance(data, dict):
+            nodes.append(data)
+    return nodes
+
+
+def article_headline(html: str, rel: str = "") -> str | None:
+    found = None
+    for node in jsonld_nodes(html, rel):
+        if node.get("@type") == "Article":
+            found = str(node.get("headline") or "").strip()
     return found
 
 
@@ -158,7 +167,7 @@ def main() -> int:
         h1 = h1_of(html)
         og = og_title(html)
         check(bool(title) and og == title, f"{rel} og:title equals <title>")
-        headline = article_headline(html)
+        headline = article_headline(html, rel)
         if headline is not None:
             check(headline == title, f"{rel} Article headline equals <title>")
             check(headline == h1, f"{rel} Article headline equals H1")
@@ -172,19 +181,9 @@ def main() -> int:
 
     en_home = (PUBLIC / "en/index.html").read_text(encoding="utf-8")
     crumbs = []
-    for raw in re.findall(
-        r'<script[^>]+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
-        en_home,
-        re.I | re.S,
-    ):
-        try:
-            data = json.loads(raw.strip())
-        except json.JSONDecodeError:
-            continue
-        nodes = data if isinstance(data, list) else [data]
-        for node in nodes:
-            if isinstance(node, dict) and node.get("@type") == "BreadcrumbList":
-                crumbs = node.get("itemListElement") or []
+    for node in jsonld_nodes(en_home, "en/index.html"):
+        if node.get("@type") == "BreadcrumbList":
+            crumbs = node.get("itemListElement") or []
     check(len(crumbs) == 1, "EN homepage BreadcrumbList has one level")
     if crumbs:
         item = crumbs[0].get("item") if isinstance(crumbs[0], dict) else ""

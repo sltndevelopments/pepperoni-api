@@ -47,6 +47,13 @@ def main() -> int:
     check("/kazylyk" not in found, "href inside HTML comment is ignored")
     check("/blog/elesh" not in found, "href inside <script> is ignored")
     check("/blog/echpochmak" not in found, "href inside <template> is ignored")
+    nested = """<a href="/halal">keep</a>
+<template>outer <template><a href="/blog/echpochmak">inner</a></template>
+<a href="/blog/elesh">outer</a></template>"""
+    nested_found = inbound.extract_hrefs(nested, "/about")
+    check("/halal" in nested_found, "visible href survives nested <template>")
+    check("/blog/echpochmak" not in nested_found, "href inside nested <template> is ignored")
+    check("/blog/elesh" not in nested_found, "href inside outer <template> is ignored")
     if fail:
         print(f"test_inbound_links: {fail} FAIL")
         return 1

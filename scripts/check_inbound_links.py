@@ -26,8 +26,11 @@ MIN_INBOUND = 3
 START, END = "<!-- keep-inbound:start -->", "<!-- keep-inbound:end -->"
 BLOCK_RX = re.compile(re.escape(START) + r".*?" + re.escape(END) + r"\n?", re.S)
 HREF_RE = re.compile(r"""href=["']([^"'#]+)["']""", re.I)
-HIDDEN_MARKUP_RE = re.compile(
-    r"<!--.*?-->|<script\b[^>]*>.*?</script>|<template\b[^>]*>.*?</template>",
+COMMENT_RE = re.compile(r"<!--.*?-->", re.S)
+SCRIPT_RE = re.compile(r"<script\b[^>]*>.*?</script>", re.I | re.S)
+# Innermost <template> first so nested templates do not leak inner hrefs.
+INNER_TEMPLATE_RE = re.compile(
+    r"<template\b[^>]*>(?:(?!<template\b).)*?</template>",
     re.I | re.S,
 )
 
@@ -173,7 +176,13 @@ def file_for_url(url: str, entries: list[dict] | None = None) -> str | None:
 
 def visible_markup(html: str) -> str:
     """Drop comments and non-rendered href hosts before counting inbound links."""
-    return HIDDEN_MARKUP_RE.sub("", html)
+    html = COMMENT_RE.sub("", html)
+    html = SCRIPT_RE.sub("", html)
+    prev = None
+    while prev != html:
+        prev = html
+        html = INNER_TEMPLATE_RE.sub("", html)
+    return html
 
 
 def extract_hrefs(html: str, src_url: str) -> set[str]:
