@@ -51,6 +51,33 @@ RULES = [
     (re.compile(r"(целый батон|whole stick)\s+1 (кг|kg)(?=\s*\|\s*Халяль|\s*\|\s*Halal)"),
      lambda m: f"{m.group(1)} {kd014_weight('ru' if m.group(2) == 'кг' else 'en')}"),
     (re.compile(r"(KD-013 / KD-014\)</td><td>)Нарезка 0,5 кг / батон 1 кг"), rf"\1Нарезка 0,5 кг / батон {kd014_weight('ru')}"),
+    (re.compile(r"1 паллета \(сборная из разных позиций возможна\)"), "1 паллета"),
+    (re.compile(r"одна паллета \(сборная из разных позиций возможна\)"), "1 паллета"),
+    (re.compile(r"1 паллета \(сборная возможна\)"), "1 паллета"),
+    (re.compile(r"одна паллета \(сборная возможна\)"), "1 паллета"),
+    (re.compile(r"Минимальный заказ — 1 паллета,\s*1 паллета"), "Минимальный заказ — 1 паллета"),
+    (re.compile(r"Минимальный заказ — одна паллета"), "Минимальный заказ — 1 паллета"),
+    (re.compile(r"Минимальный заказ: одна паллета"), "Минимальный заказ — 1 паллета"),
+    (re.compile(r"минимум одна паллета"), "Минимальный заказ — 1 паллета"),
+    (re.compile(r"MOQ — one pallet,\s*1 pallet"), "Minimum order: 1 pallet"),
+    (re.compile(r"one pallet,\s*1 pallet"), "1 pallet"),
+    (re.compile(r"1 pallet[;,]\s*1 pallet"), "1 pallet"),
+    (re.compile(r"1 pallet \(mixed pallets? possible\)"), "1 pallet"),
+    (re.compile(r"one pallet \(mixed pallets? possible\)"), "1 pallet"),
+    (re.compile(r"Minimum order — one pallet"), "Minimum order: 1 pallet"),
+    (re.compile(r"Minimum order — 1 pallet"), "Minimum order: 1 pallet"),
+    (re.compile(r"Minimum order: one pallet"), "Minimum order: 1 pallet"),
+    (re.compile(r",?\s*сборная паллета из разных позиций возможна"), ""),
+    (re.compile(r",?\s*сборная из разных позиций возможна"), ""),
+    (re.compile(r",?\s*сборная паллета из нескольких позиций возможна"), ""),
+    (re.compile(r",?\s*сборная паллета из нескольких SKU возможна"), ""),
+    (re.compile(r",?\s*сборная паллета возможна"), ""),
+    (re.compile(r",?\s*сборная из нескольких SKU возможна"), ""),
+    (re.compile(r"\s*\(возможна сборная паллета из разных позиций ассортимента\)"), ""),
+    (re.compile(r", сборная возможна"), ""),
+    (re.compile(r" \(сборная возможна\)"), ""),
+    (re.compile(r",?\s*mixed pallets? are possible"), ""),
+    (re.compile(r"mixed pallet possible"), ""),
 ]
 FIX_PLURAL = [
     (re.compile(rf"(?<![\d.,]){N}\s+позици[иия]\b"), lambda m: f"{N} позици{plural_ru(N, 'я', 'и', 'й')}"),
@@ -60,7 +87,12 @@ RULES += FIX_PLURAL
 SKIP = {"node_modules", ".git", "agent_backups"}
 GLOBS = {"public": ["**/*.html", "**/*.json", "**/*.txt", "**/*.yaml"],
          "scripts": ["**/*.py"], "lib": ["**/*.mjs", "**/*.js"], "submission": ["**/*.txt"]}
-SELF = {"apply_site_facts.py", "test_halal_api_contract.py", "render_static_catalog.py", "gen_price_lists.py", "check_stale_counts.py", "bulk_fix_stale_content.py", "reconcile_sku_count.py"}
+SELF = {
+    "apply_site_facts.py", "test_halal_api_contract.py", "render_static_catalog.py",
+    "gen_price_lists.py", "check_stale_counts.py", "bulk_fix_stale_content.py",
+    "reconcile_sku_count.py", "check_fact_consistency.py", "test_fact_consistency.py",
+    "test_seo_batch_rank.py", "test_chakchak_bakery.py",
+}
 
 
 def main() -> int:

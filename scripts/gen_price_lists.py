@@ -49,7 +49,7 @@ CONTACT = f"{FACTS['company']['email']} | {FACTS['company']['phone']}"
 CERTS_RU = certs_price_ru()
 CERTS_EN = certs_price_en()
 MOQ_RU = FACTS["terms"]["moq"]
-MOQ_EN = "1 pallet (mixed pallet possible)"
+MOQ_EN = FACTS["terms"].get("moq_en") or "1 pallet"
 BASIS_RU = FACTS["terms"]["basis"]
 
 

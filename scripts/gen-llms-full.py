@@ -57,6 +57,16 @@ sections = sorted({p.get("section", "") for p in products if p.get("section")})
 n_sections = len(sections)
 
 
+def _scope_unpublished(row: dict) -> bool:
+    """Registry-only certs have no published product list — never print 0 SKU."""
+    if row.get("kind") == "registry":
+        return True
+    if not (row.get("sections") or []):
+        scope = f"{row.get('scope_ru') or ''} {row.get('scope_en') or ''}"
+        return "не опубликован" in scope or "not published" in scope
+    return False
+
+
 def _cert_matrix_md(lang: str) -> str:
     lines = []
     for row in sku_matrix():
@@ -64,15 +74,22 @@ def _cert_matrix_md(lang: str) -> str:
         note = " (не халяль)" if row.get("not_halal") and lang == "ru" else (
             " (not a halal certificate)" if row.get("not_halal") else "")
         sections = ", ".join(row.get("sections") or [])
+        if _scope_unpublished(row):
+            sku_bit = "состав не опубликован" if lang == "ru" else "scope not published"
+        else:
+            sku_bit = (
+                f"{row['sku_count']} SKU" if lang == "ru"
+                else f"{row['sku_count']} SKUs"
+            )
         if lang == "ru":
             lines.append(
                 f"- {row['number']}{note}: {row.get('scope_ru') or sections}; "
-                f"{row['sku_count']} SKU; срок до {until}; проверка: {row.get('verify_url') or '/halal'}"
+                f"{sku_bit}; срок до {until}; проверка: {row.get('verify_url') or '/halal'}"
             )
         else:
             lines.append(
                 f"- {row['number']}{note}: {row.get('scope_en') or sections}; "
-                f"{row['sku_count']} SKUs; valid until {until}; check: {row.get('verify_url') or '/en/halal'}"
+                f"{sku_bit}; valid until {until}; check: {row.get('verify_url') or '/en/halal'}"
             )
     return "\n".join(lines)
 
@@ -83,7 +100,8 @@ def llms_map_ru() -> str:
 > Производитель халяльных колбасных изделий и татарской выпечки в Казани (ООО «Казанские Деликатесы»). Каталог pepperoni.tatar — все позиции, не одна линейка пепперони. Оптовые поставки для сетей, HoReCa, АЗС, дистрибьюторов; контрактное производство (СТМ). {cert_line_ru()}. Каталог: {n_sku} SKU в {n_sections} разделах ({", ".join(sections)}), обновлён {last_synced}.
 
 Ключевые условия (подтверждены владельцем):
-- Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — одна паллета (сборная из разных позиций возможна), объём кратно паллете.
+- Цены EXW Казань, с НДС и без НДС; оптовый расчёт — за паллету. Минимальный заказ — 1 паллета.
+- Текущие экспортные поставки: Казахстан, Беларусь, Кыргызстан. Узбекистан — аттестация «Цербер», не текущая отгрузка.
 - Контрактное производство (СТМ): от 5 тонн. Этапы и сроки — по договору. Мощность производства — 12 тонн в смену.
 - Документы к отгрузке: халяль-сертификат, декларация соответствия, ВСД («Меркурий»), «Честный знак», ЭТрН.
 - Доставка, сроки, образцы — согласуются индивидуально. Продукция соответствует стандарту «Халяль». Алкоголь в рецептуре не используется.
@@ -152,7 +170,8 @@ def llms_map_en() -> str:
 > Manufacturer of halal sausage products and Tatar bakery in Kazan, Russia (Kazan Delicacies LLC). The pepperoni.tatar catalog is the full range, not a single pepperoni line. Wholesale supply for retail chains, HoReCa, fuel stations and distributors; private-label / contract manufacturing. {cert_line_en()}. Catalog: {n_sku} SKUs in {n_sections} sections, updated {last_synced}.
 
 Key terms (owner-approved):
-- Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order — one pallet (mixed pallets possible), volumes in pallet multiples.
+- Prices EXW Kazan, with and without VAT; wholesale volumes are calculated per pallet. Minimum order: 1 pallet.
+- Current export shipments: Kazakhstan, Belarus, Kyrgyzstan. Uzbekistan is Cerberus attestation, not a current shipment.
 - Private label (contract manufacturing): from 5 tonnes. Stages and lead times per contract. Production capacity — 12 tonnes per shift.
 - Shipping documents: halal certificate, declaration of conformity, veterinary certificate (Mercury), Chestny Znak marking, electronic waybill.
 - Delivery, lead times and samples are agreed individually. Every product is certified to the Halal standard. No alcohol is used.

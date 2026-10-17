@@ -484,7 +484,7 @@ def write_sosiska() -> None:
                 f"<li>KD-018 (охлаждённая мясная позиция): Халяль ДУМ РТ №0008 и №614A/2024.</li>"
                 f"<li>KD-061 (выпечка): Халяль ДУМ РТ №884A/2025.</li>"
                 "<li>ISO 22000:2018 (FSMS-2351/А) — контур безопасности, это не халяль-сертификат.</li>"
-                "<li>MOQ — одна паллета, сборная возможна. EXW Казань.</li></ul>"
+                "<li>MOQ — одна паллета. EXW Казань.</li></ul>"
             )
             faq = [
                 ("Какие SKU на этой странице?",
@@ -496,7 +496,7 @@ def write_sosiska() -> None:
                 ("Как подтверждается халяль?",
                  f"{cert_line_ru()}. Для выпечки действует №884A/2025, для мясной сосиски — №0008 и №614A/2024."),
                 ("Как заказать?",
-                 f"Укажите SKU и объём. {PHONE}, {EMAIL}. Минимальный заказ — одна паллета, сборная возможна."),
+                 f"Укажите SKU и объём. {PHONE}, {EMAIL}. Минимальный заказ — 1 паллета."),
             ]
         else:
             title = "Sausage in dough wholesale for bakeries — KD-018 and KD-061"
@@ -537,7 +537,7 @@ def write_sosiska() -> None:
                 "<li>KD-018 (chilled meat): Halal DUM RT No. 0008 and No. 614A/2024.</li>"
                 "<li>KD-061 (bakery): Halal DUM RT No. 884A/2025.</li>"
                 "<li>ISO 22000:2018 (FSMS-2351/A) is food-safety, not a halal certificate.</li>"
-                "<li>MOQ — one pallet, mixed pallet possible. EXW Kazan.</li></ul>"
+                "<li>Minimum order: 1 pallet. EXW Kazan.</li></ul>"
             )
             faq = [
                 ("Which SKUs are on this page?",
@@ -549,7 +549,7 @@ def write_sosiska() -> None:
                 ("How is halal confirmed?",
                  f"{cert_line_en()}. Bakery SKU uses No. 884A/2025; the meat sausage uses No. 0008 and No. 614A/2024."),
                 ("How to order?",
-                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum order is one pallet; mixed pallets are possible."),
+                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum order: 1 pallet."),
             ]
         extra = [{
             "@context": "https://schema.org", "@type": "ItemList",
@@ -630,7 +630,7 @@ def write_bakery() -> None:
                 "<h2>Документы</h2><ul>"
                 f"<li>{bakery_halal_line('ru')} Проверка — <a href=\"/halal\">/halal</a>.</li>"
                 "<li>ISO 22000:2018 — контур безопасности, не халяль.</li>"
-                "<li>MOQ — одна паллета, сборная возможна. EXW Казань.</li></ul>"
+                "<li>MOQ — одна паллета. EXW Казань.</li></ul>"
             )
             faq = [
                 ("Сколько SKU в хабе?",
@@ -642,7 +642,7 @@ def write_bakery() -> None:
                  "Имя технолога на сайте не публикуем: в реестре доказательств нет согласованной персоны. "
                  "Состав и срок — в карточке SKU."),
                 ("Как заказать?",
-                 f"{PHONE}, {EMAIL}. Минимальный заказ — одна паллета."),
+                 f"{PHONE}, {EMAIL}. Минимальный заказ — 1 паллета."),
             ]
         else:
             title = "Tatar halal bakery wholesale — echpochmak, gubadiya, samsa"
@@ -674,7 +674,7 @@ def write_bakery() -> None:
                 "<h2>Documents</h2><ul>"
                 f"<li>{bakery_halal_line('en')} Verify on <a href=\"/en/halal\">/en/halal</a>.</li>"
                 "<li>ISO 22000:2018 is food-safety, not halal.</li>"
-                "<li>MOQ — one pallet, mixed pallet possible. EXW Kazan.</li></ul>"
+                "<li>Minimum order: 1 pallet. EXW Kazan.</li></ul>"
             )
             faq = [
                 ("How many SKUs?",
@@ -686,7 +686,7 @@ def write_bakery() -> None:
                  "No person is named: the evidence registry has no consented Person. "
                  "Composition and shelf life are on the SKU card."),
                 ("How to order?",
-                 f"{PHONE}, {EMAIL}. Minimum order is one pallet."),
+                 f"{PHONE}, {EMAIL}. Minimum order: 1 pallet."),
             ]
         extra = [{
             "@context": "https://schema.org", "@type": "ItemList",
@@ -877,7 +877,7 @@ def write_kazakhstan() -> None:
                 "<li>Для запроса чаще берут KD-013/014 (куриный пепперони), сосиски и казылык — "
                 "состав и цена только из карточек SKU.</li>"
                 "<li>Документы к отгрузке: халяль, декларация, ВСД («Меркурий»), «Честный знак», ЭТрН.</li>"
-                "<li>MOQ — одна паллета, сборная возможна.</li></ul></div>"
+                "<li>MOQ — одна паллета.</li></ul></div>"
             )
             faq = [
                 ("Вы уже поставляете в Казахстан?",
@@ -927,7 +927,7 @@ def write_kazakhstan() -> None:
                 "<li>Typical enquiry mix: KD-013/014 chicken pepperoni, sausages and kazylyk — "
                 "composition and price only from SKU cards.</li>"
                 "<li>Shipping documents: halal, declaration, Mercury VSD, Chestny Znak, e-waybill.</li>"
-                "<li>MOQ — one pallet, mixed pallet possible.</li></ul></div>"
+                "<li>Minimum order: 1 pallet.</li></ul></div>"
             )
             faq = [
                 ("Do you already ship to Kazakhstan?",
@@ -1062,7 +1062,7 @@ def write_uzbekistan() -> None:
                 "<li>Для запроса чаще берут KD-013/014 (куриный пепперони) и сосиски — "
                 "состав и цена только из карточек SKU, в рублях EXW.</li>"
                 "<li>Документы к отгрузке: халяль, декларация, ВСД («Меркурий»), «Честный знак», ЭТрН.</li>"
-                "<li>MOQ — одна паллета, сборная возможна.</li>"
+                "<li>MOQ — одна паллета.</li>"
                 "<li>Образцы — индивидуально, см. <a href=\"/kak-zakazat#samples\">как заказать</a>.</li></ul></div>"
             )
             faq = [
@@ -1117,7 +1117,7 @@ def write_uzbekistan() -> None:
                 "<li>Typical enquiry mix: KD-013/014 chicken pepperoni and sausages — "
                 "composition and price only from SKU cards, RUB EXW.</li>"
                 "<li>Shipping documents: halal, declaration, Mercury VSD, Chestny Znak, e-waybill.</li>"
-                "<li>MOQ — one pallet, mixed pallet possible.</li>"
+                "<li>Minimum order: 1 pallet.</li>"
                 "<li>Samples individually — <a href=\"/en/kak-zakazat#samples\">how to order</a>.</li></ul></div>"
             )
             faq = [
@@ -1210,6 +1210,8 @@ def matrix_html(lang: str) -> str:
     meat = next(r for r in rows if r["key"] == "halal_0008")
     meat_b = next(r for r in rows if r["key"] == "halal_614a")
     bak = next(r for r in rows if r["key"] == "halal_bakery")
+    extra_a = next(r for r in rows if r["key"] == "halal_976a")
+    extra_b = next(r for r in rows if r["key"] == "halal_1002")
     iso = next(r for r in rows if r["key"] == "iso_22000")
     mir = next(r for r in rows if r["key"] == "made_in_russia")
     n = sku_count()
@@ -1243,6 +1245,11 @@ def matrix_html(lang: str) -> str:
 
     meat_scope = "Заморозка + охлаждёнка" if lang == "ru" else "Frozen + chilled"
     bak_scope = "Выпечка" if lang == "ru" else "Bakery"
+    extra_scope = (
+        "в реестре; состав текстом не опубликован"
+        if lang == "ru"
+        else "in the registry; product scope is not published as text"
+    )
     fac = "площадка (все разделы)" if lang == "ru" else "facility (all sections)"
     table = (
         "<table class=\"data-table\"><thead><tr>"
@@ -1251,6 +1258,8 @@ def matrix_html(lang: str) -> str:
         + row(meat, meat_scope)
         + row(meat_b, meat_scope)
         + row(bak, bak_scope)
+        + row(extra_a, extra_scope)
+        + row(extra_b, extra_scope)
         + row(iso, fac, f" · {iso_note}")
         + row(mir, fac)
         + "</tbody></table>"

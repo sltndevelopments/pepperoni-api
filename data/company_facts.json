@@ -35,10 +35,32 @@
       "valid_until": "2026-12-26",
       "issuer": "Комитет «Халяль» ДУМ РТ",
       "_source": "data/site_facts.json certificates.halal_bakery; public/brand.txt; /halal"
+    },
+    {
+      "number": "976A/2026",
+      "valid_from": "2026-06-04",
+      "valid_until": "2027-06-03",
+      "issuer": "Комитет «Халяль» ДУМ РТ",
+      "scope": "product scope is not published as text on the public registry card",
+      "_source": "public/brand.txt; https://halalrt.ru/c/7eK53w8SXP8M7zC; owner 2026-10-17"
+    },
+    {
+      "number": "1002/2026",
+      "valid_from": "2026-07-30",
+      "valid_until": "2027-02-16",
+      "issuer": "Комитет «Халяль» ДУМ РТ",
+      "scope": "product scope is not published as text on the public registry card",
+      "_source": "public/brand.txt; https://halalrt.ru/c/67CpLps2FMkeJ6d; owner 2026-10-17"
     }
   ],
   "production_capacity": "12 т/смена",
-  "moq": "1 паллета (сборная возможна)",
+  "moq": "1 паллета",
+  "moq_en": "1 pallet",
+  "moq_phrase_ru": "Минимальный заказ — 1 паллета",
+  "moq_phrase_en": "Minimum order: 1 pallet",
+  "export_current_ru": ["Казахстан", "Беларусь", "Кыргызстан"],
+  "export_current_en": ["Kazakhstan", "Belarus", "Kyrgyzstan"],
+  "export_current_iso": ["KZ", "BY", "KG"],
   "private_label_min": "5 т",
   "delivery_terms": "EXW Казань",
   "delivery_terms_en": "EXW Kazan",
@@ -52,7 +74,8 @@
     "founding_year": "public/brand.txt (legal entity 2022); public/about.html; schema foundingDate = 2022",
     "production_since": "public/brand.txt; public/about.html",
     "production_capacity": "data/site_facts.json terms.capacity; public/brand.txt; evidence_registry capacity_12t_per_shift",
-    "moq": "data/site_facts.json terms.moq; public/brand.txt",
+    "moq": "owner 2026-10-17 canonical wording; data/site_facts.json terms.moq",
+    "export_current_ru": "live https://pepperoni.tatar/export 2026-10-17 current shipments",
     "delivery_terms": "data/site_facts.json terms.basis; public/brand.txt; products.json deliveryTerms"
   }
 }

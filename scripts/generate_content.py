@@ -92,7 +92,7 @@ BLOG_TOPICS_RU = [
     ("Пепперони оптом: как найти надёжного поставщика", "pepperoni-optom-postavshchik"),
     ("HACCP и ISO на производстве мясных деликатесов: что это значит", "haccp-iso-myasnoe-proizvodstvo"),
     ("Пепперони из конины: особенности и рынок сбыта", "pepperoni-iz-koniny"),
-    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Узбекистан", "eksport-halyal-snг"),
+    ("Экспорт халяль продукции в страны СНГ: Казахстан, Беларусь, Кыргызстан", "eksport-halyal-snг"),
     ("Хот-дог сосиски оптом: ассортимент и условия поставки", "sosiki-dlya-hotdog-optom"),
     ("Котлеты для бургеров оптом: как выбрать производителя", "kotlety-dlya-burgerov-optom"),
     ("Халяль сертификация мясной продукции в России", "halyal-sertifikaciya-myasa"),
@@ -116,7 +116,7 @@ BLOG_TOPICS_EN = [
     ("Hot Dog Sausages Wholesale: Choosing the Right Supplier", "hot-dog-sausages-wholesale"),
     ("Burger Patties Wholesale: Halal Options for HoReCa", "burger-patties-wholesale-halal"),
     ("HACCP and ISO in Meat Production: Quality Assurance Explained", "haccp-iso-meat-production"),
-    ("Halal Meat Export to CIS Countries: Kazakhstan, Uzbekistan, Belarus", "halal-meat-export-cis"),
+    ("Halal Meat Export to CIS Countries: Kazakhstan, Belarus, Kyrgyzstan", "halal-meat-export-cis"),
     ("Frozen Meat Semi-Products for HoReCa: Bulk Ordering Guide", "frozen-meat-products-horeca"),
     ("Kazan Delicacies: Halal Meat Producer in Russia Since 2022", "kazan-delicacies-halal-producer"),
     ("Pepperoni for Sushi Rolls: Specifications and Applications", "pepperoni-for-sushi"),
@@ -165,10 +165,10 @@ FAQ_TOPICS = [
         "questions": [
             ("Из чего делают халяль пепперони?", "Халяль пепперони производится из говядины, курицы или конины из сертифицированного халяль-сырья. Мы используем только сертифицированное халяль сырьё с подтверждёнными документами."),
             ("Есть ли халяль сертификат на продукцию?", "Да, вся продукция Казанских Деликатесов имеет халяль сертификат от аккредитованного органа. Копии сертификатов предоставляются по запросу."),
-            ("Какой минимальный заказ при оптовой покупке?", "Минимальный заказ на оптовую поставку — одна паллета (сборная возможна), объём кратно паллете. Для крупных сетей и HoReCa предусмотрены специальные условия."),
+            ("Какой минимальный заказ при оптовой покупке?", "Минимальный заказ на оптовую поставку — 1 паллета, объём кратно паллете. Для крупных сетей и HoReCa предусмотрены специальные условия."),
             ("Возможно ли производство под СТМ (Private Label)?", "Да, мы выпускаем продукцию под брендом заказчика. Разрабатываем рецептуру, упаковку и маркировку в соответствии с вашими требованиями."),
             ("В каких диаметрах доступен пепперони?", "Доступны диаметры: 40 мм, 50 мм, 60 мм и 75 мм. Нарезка — слайсером или целыми батонами."),
-            ("Осуществляете ли вы доставку в регионы и СНГ?", "Да, поставки осуществляются по всей России, а также в Казахстан, Узбекистан, Беларусь, Армению, Азербайджан и Кыргызстан."),
+            ("Осуществляете ли вы доставку в регионы и СНГ?", "Да, текущие отгрузки — в Казахстан, Беларусь и Кыргызстан. Узбекистан, Армения и Азербайджан — аттестация «Цербер», не текущая отгрузка."),
             ("Какие сертификаты качества есть на производстве?", "Производство сертифицировано по стандартам HACCP и ISO 22000. Предоставляем все необходимые ветеринарные документы и декларации соответствия."),
         ]
     },
@@ -180,10 +180,10 @@ FAQ_TOPICS = [
         "questions": [
             ("What is halal pepperoni made of?", "Halal pepperoni is made from beef, chicken, or horse meat from certified halal raw materials. We use only certified halal raw materials with full documentation."),
             ("Do you have halal certification?", "Yes, all Kazan Delicacies products hold halal certification from an accredited body. Copies of certificates are available upon request."),
-            ("What is the minimum order quantity for wholesale?", "Minimum wholesale order is one pallet (mixed pallets possible), volumes in pallet multiples. Special terms are available for retail chains and HoReCa businesses."),
+            ("What is the minimum order quantity for wholesale?", "Minimum wholesale order is 1 pallet, volumes in pallet multiples. Special terms are available for retail chains and HoReCa businesses."),
             ("Do you offer Private Label production?", "Yes, we manufacture products under your brand. We develop recipes, packaging, and labeling according to your requirements."),
             ("What diameters is pepperoni available in?", "Available diameters: 40mm, 50mm, 60mm, and 75mm. We offer sliced or whole stick formats."),
-            ("Do you deliver to CIS countries?", "Yes, we ship across Russia and to Kazakhstan, Uzbekistan, Belarus, Armenia, Azerbaijan, and Kyrgyzstan."),
+            ("Do you deliver to CIS countries?", "Yes, current shipments go to Kazakhstan, Belarus and Kyrgyzstan. Uzbekistan, Armenia and Azerbaijan are Cerberus attestation, not shipments."),
             ("What quality certifications do you have?", "Our production is certified to HACCP and ISO 22000 standards. We provide all required veterinary documents and conformity declarations."),
         ]
     },

@@ -49,7 +49,7 @@ def sku_matrix() -> list[dict]:
     products = _products()
     matrix = FACTS["certificates"].get("sku_matrix") or {}
     out = []
-    for key in ("halal_0008", "halal_614a", "halal_bakery", "iso_22000", "made_in_russia"):
+    for key in ("halal_0008", "halal_614a", "halal_bakery", "halal_976a", "halal_1002", "iso_22000", "made_in_russia"):
         rule = matrix.get(key) or {}
         cert = FACTS["certificates"][key]
         sections = list(rule.get("sections") or [])
@@ -77,7 +77,7 @@ def certificates_for_api() -> list[dict]:
     """Public certificate list matching live /halal (number, scope, validity, SKU scope)."""
     by_key = {row["key"]: row for row in sku_matrix()}
     c = FACTS["certificates"]
-    keys = ("halal_0008", "halal_614a", "halal_bakery", "iso_22000", "made_in_russia")
+    keys = ("halal_0008", "halal_614a", "halal_bakery", "halal_976a", "halal_1002", "iso_22000", "made_in_russia")
     out = []
     for key in keys:
         item = c[key]
@@ -167,6 +167,8 @@ def cert_line_ru() -> str:
         "Халяль ДУМ РТ №0008 (мясо, птица, колбасы, пепперони, полуфабрикаты; "
         "02.10.2026–01.10.2029), №614A/2024 (мясо; 17.02.2024–16.02.2027), "
         "№884A/2025 (выпечка и готовые блюда; 27.12.2025–26.12.2026), "
+        "дополнительные номера реестра №976A/2026 и №1002/2026 "
+        "(состав текстом не опубликован), "
         "HACCP, ISO 22000:2018 (FSMS-2351/А), «Сделано в России» №СС.003181 "
         "(до 23.10.2028), ТР ТС 021/2011"
     )
@@ -177,6 +179,8 @@ def cert_line_en() -> str:
         "Halal DUM RT No. 0008 (meat, poultry, sausages, pepperoni, semi-finished; "
         "2 Oct 2026–1 Oct 2029), No. 614A/2024 (meat; 17 Feb 2024–16 Feb 2027), "
         "No. 884A/2025 (bakery and ready meals; 27 Dec 2025–26 Dec 2026), "
+        "additional registry numbers 976A/2026 and 1002/2026 "
+        "(product scope is not published as text), "
         "HACCP, ISO 22000:2018 (FSMS-2351/A), Made in Russia No. SS.003181 "
         "(until 23 Oct 2028), TR CU 021/2011"
     )
@@ -217,17 +221,23 @@ def bakery_halal_cert() -> dict:
 
 
 _TERM_EN = {
-    "moq": "1 pallet (mixed pallet possible)",
+    "moq": "moq_en",
+    "moq_phrase_ru": "moq_phrase_en",
     "basis": "EXW Kazan",
 }
 
 
 def term(key: str, lang: str) -> str:
     """Wholesale term from site_facts.terms. EN is a translation, not a new claim."""
-    ru = str((FACTS.get("terms") or {}).get(key) or "")
-    if lang != "en":
-        return ru
-    return _TERM_EN.get(key, ru)
+    terms = FACTS.get("terms") or {}
+    if lang == "en":
+        mapped = _TERM_EN.get(key)
+        if mapped and mapped in terms:
+            return str(terms.get(mapped) or "")
+        if mapped and mapped not in terms:
+            return str(mapped) if mapped != "moq_en" else "1 pallet"
+        return str(terms.get(key) or "")
+    return str(terms.get(key) or "")
 
 
 def bakery_halal_line(lang: str) -> str:

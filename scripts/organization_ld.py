@@ -41,6 +41,10 @@ ORGANIZATION = {
         "https://www.wikidata.org/wiki/Q141108238",
         "https://www.youtube.com/@kazandelikates",
     ],
+    "areaServed": [
+        {"@type": "Country", "name": name}
+        for name in ["Russia"] + list((_FACTS.get("export") or {}).get("current_en") or [])
+    ],
 }
 
 ORGANIZATION["hasCredential"] = [

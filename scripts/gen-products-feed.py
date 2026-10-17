@@ -861,7 +861,7 @@ def write_json(rows: list, products: list, path: Path):
                 {"@type": "PropertyValue", "name": "storage", "value": p.get("storage", "")},
                 {"@type": "PropertyValue", "name": "hsCode", "value": sanitize_hs_code(p.get("hsCode"))},
                 {"@type": "PropertyValue", "name": "weight_kg", "value": normalize_weight(p.get("weight", ""))},
-                {"@type": "PropertyValue", "name": "minOrder_boxes", "value": p.get("minOrder", "")},
+                {"@type": "PropertyValue", "name": "quantum_boxes", "value": p.get("minOrder", "")},
                 {"@type": "PropertyValue", "name": "diameter_mm", "value": p.get("diameter", "")},
                 {"@type": "PropertyValue", "name": "casing", "value": p.get("casing", "")},
                 {"@type": "PropertyValue", "name": "packageType", "value": p.get("packageType", "")},

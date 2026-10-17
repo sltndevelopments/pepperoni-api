@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync, statSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import {
@@ -21,9 +21,9 @@ const SITE_FACTS = JSON.parse(
   readFileSync(join(ROOT, 'data', 'site_facts.json'), 'utf8'),
 );
 
-function certificatesForApi() {
+export function certificatesForApi() {
   const c = SITE_FACTS.certificates;
-  const keys = ['halal_0008', 'halal_614a', 'halal_bakery', 'iso_22000', 'made_in_russia'];
+  const keys = ['halal_0008', 'halal_614a', 'halal_bakery', 'halal_976a', 'halal_1002', 'iso_22000', 'made_in_russia'];
   return keys.map((key) => {
     const item = c[key];
     const row = {};
@@ -58,7 +58,7 @@ const SHEETS = [
 
 // --- CSV parser ---
 
-function parseCSV(text) {
+export function parseCSV(text) {
   const rows = [];
   let current = '';
   let inQuotes = false;
@@ -99,7 +99,7 @@ function parseCSV(text) {
   return lines;
 }
 
-function toNumber(s) {
+export function toNumber(s) {
   if (!s) return 0;
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
@@ -172,6 +172,7 @@ const HEADER_ALIASES = {
   slicePhoto: ['фото среза'],
   params: ['параметры товара'],
   quantum: ['квант'],
+  priceBoxExclVAT: ['без ндс'],
 };
 
 function findHeaderRowIndex(lines) {
@@ -184,7 +185,7 @@ function findHeaderRowIndex(lines) {
 }
 
 /** Build { logicalKey: columnIndex } from a header row. */
-function buildColIndex(headerRow) {
+export function buildColIndex(headerRow) {
   const idx = {};
   const norms = (headerRow || []).map(normalizeHeader);
   for (const [key, aliases] of Object.entries(HEADER_ALIASES)) {
@@ -200,7 +201,7 @@ function buildColIndex(headerRow) {
   return idx;
 }
 
-function cellBy(cols, colIndex, key) {
+export function cellBy(cols, colIndex, key) {
   const j = colIndex[key];
   if (j == null || j < 0 || j >= cols.length) return '';
   return cols[j] || '';
@@ -357,7 +358,7 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
   return { products };
 }
 
-function parseBakery(lines, section, reg) {
+export function parseBakery(lines, section, reg) {
   let category = '';
   const products = [];
 
@@ -400,8 +401,12 @@ function parseBakery(lines, section, reg) {
     for (const [cur, v] of Object.entries(epBox)) {
       ep[cur] = qtyPerBoxN > 1 ? Math.round((v / qtyPerBoxN) * 100) / 100 : v;
     }
-    const pricePerBoxExclVAT = toNumber(cols[5]);
-    const pricePerUnitExclVAT = qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT;
+    const exclRaw = cellBy(cols, colIndex, 'priceBoxExclVAT');
+    const hasExcl = Boolean(String(exclRaw || '').trim());
+    const pricePerBoxExclVAT = hasExcl ? toNumber(exclRaw) : null;
+    const pricePerUnitExclVAT = hasExcl
+      ? (qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT)
+      : null;
 
     const mainPhoto = driveToDirectUrl(
       (cellBy(cols, colIndex, 'mainPhoto') || cols[28] || '').trim()
@@ -435,8 +440,10 @@ function parseBakery(lines, section, reg) {
         priceCurrency: 'RUB',
         pricePerUnit: pricePerUnit.toFixed(2),
         pricePerBox: pricePerBox.toFixed(2),
-        pricePerUnitExclVAT: pricePerUnitExclVAT.toFixed(2),
-        pricePerBoxExclVAT: pricePerBoxExclVAT.toFixed(2),
+        ...(hasExcl ? {
+          pricePerUnitExclVAT: pricePerUnitExclVAT.toFixed(2),
+          pricePerBoxExclVAT: pricePerBoxExclVAT.toFixed(2),
+        } : {}),
         availability: 'https://schema.org/InStock',
         exportPrices: Object.keys(ep).length ? ep : undefined,
         exportPricesBasis: 'unit',
@@ -751,7 +758,7 @@ ${p.hsCode ? `<param name="ТН ВЭД">${escapeXml(p.hsCode)}</param>` : ''}
 ${p.diameter ? `<param name="Диаметр, мм">${escapeXml(String(p.diameter))}</param>` : ''}
 ${p.casing ? `<param name="Оболочка">${escapeXml(p.casing)}</param>` : ''}
 ${p.packageType ? `<param name="Упаковка">${escapeXml(p.packageType)}</param>` : ''}
-${p.minOrder ? `<param name="Мин. заказ, коробов">${escapeXml(String(p.minOrder))}</param>` : ''}
+${p.minOrder ? `<param name="Квант, коробов">${escapeXml(String(p.minOrder))}</param>` : ''}
 <param name="Страна производства">Россия</param>
 <param name="Халяль">Да</param>
 </offer>
@@ -860,7 +867,7 @@ function generateProductPages(allProducts) {
     if (p.shelfLife) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Срок годности</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.shelfLife}</td></tr>`);
     if (p.storage) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Условия хранения</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.storage}</td></tr>`);
     if (p.boxWeightGross) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Вес коробки брутто</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.boxWeightGross}</td></tr>`);
-    if (p.minOrder) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Мин. заказ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.minOrder}</td></tr>`);
+    specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">Минимальный заказ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">1 паллета</td></tr>`);
     if (p.nutrition) specsRows.push(`<tr><td style="padding:8px 12px;border:1px solid #e0e0e0;color:#666">КБЖУ</td><td style="padding:8px 12px;border:1px solid #e0e0e0">${p.nutrition}</td></tr>`);
     const specsTable = specsRows.length ? `<div style="margin-top:24px"><h3 style="font-size:1rem;color:#1b7a3d;margin-bottom:12px;font-weight:600">Технические характеристики</h3><table style="width:100%;border-collapse:collapse;font-size:.9rem;border:1px solid #e0e0e0;border-radius:6px;overflow:hidden"><tbody>${specsRows.join('')}</tbody></table></div>` : '';
 
@@ -1388,7 +1395,11 @@ async function main() {
   console.log('\n🎉 Синхронизация завершена!');
 }
 
-main().catch((err) => {
-  console.error('❌ Ошибка:', err.message);
-  process.exit(1);
-});
+const invokedAsMain = process.argv[1]
+  && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+if (invokedAsMain) {
+  main().catch((err) => {
+    console.error('❌ Ошибка:', err.message);
+    process.exit(1);
+  });
+}
