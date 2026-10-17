@@ -134,12 +134,24 @@ def main() -> int:
     check(re.search(r"ssh\s+-q\s+-o\s+BatchMode=yes\b", wf), "ssh -q BatchMode")
     check("2>/dev/null" in wf, "ssh stderr hidden")
     check("vps-cleanup: ssh failed" in wf, "fixed ssh failure line")
-    check("status=in_progress" in wf, "skip checks deploy in_progress")
-    check("vps-cleanup: skip, deploy in_progress" in wf, "skip prints a fixed line")
+    check("skip, deploy in_progress" not in wf, "does not one-shot skip deploy")
+    check("deploy-vps.yml/runs" in wf and "per_page=1" in wf,
+          "wait polls deploy-vps.yml runs")
+    check(all(s in wf for s in ("queued", "in_progress", "waiting", "pending", "requested")),
+          "wait sums queued/in_progress/waiting/pending/requested")
+    check("+ 600" in wf, "wait has a 600 s deadline")
+    check("vps-cleanup: deploy still active after 10 min" in wf,
+          "timeout prints a fixed message and exits")
+    check("exit 1" in wf.split("Wait until no Deploy")[1].split("Cleanup over SSH")[0],
+          "wait timeout exits 1 before SSH")
+    wait_step = wf.split("Wait until no Deploy")[1].split("Cleanup over SSH")[0]
+    check("sleep 15" in wait_step, "wait polls every 15 s")
+    check('"$quiet" -ge 2' in wait_step, "wait requires two quiet polls")
     check('"$rem" -ge 2' in wf and '"$rem" -le 8' in wf, "minute guard 2..8")
     check("sleep 15" in wf and "+ 180" in wf, "minute guard cap 3 min")
-    check(wf.find("status=in_progress") < wf.find("ssh -q"),
-          "deploy skip precedes SSH")
+    check(wf.find("deploy-vps.yml/runs") < wf.find("ssh -q"),
+          "deploy wait precedes SSH")
+    check("flock -w 900" in script, "flock wait is unchanged")
     check("--name-status" in wf, "resolve mode uses git diff --name-status")
     check("vps_cleanup_resolve_mode.sh" in wf, "workflow calls the mode resolver")
     check("mode=none" in wf or "mode == 'dry-run'" in wf,
