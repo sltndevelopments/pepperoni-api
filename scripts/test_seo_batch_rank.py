@@ -9,6 +9,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from site_facts import term  # noqa: E402
 fail = 0
 
 
@@ -74,7 +76,12 @@ def main() -> int:
     pep = html("pepperoni.html")
     check("Пепперони халяль — купить оптом" in title_of("pepperoni.html"), "RU pepperoni title")
     check("куриный" in h1_of("pepperoni.html").lower() or "куриный" in pep, "RU pepperoni H1/body is chicken")
-    check("паллет" in pep.lower() and "+7 987 217-02-02" in pep, "RU pepperoni hero has MOQ and phone")
+    check("+7 987 217-02-02" in pep, "RU pepperoni hero has phone")
+    moq_ru = term("moq", "ru")
+    if moq_ru:
+        check(moq_ru in pep, "RU pepperoni MOQ follows site_facts.terms")
+    else:
+        check("паллет" not in pep.lower(), "RU pepperoni has no pallet wording without terms.moq")
 
     check("Казылык — что это" in title_of("blog/kazylyk.html"), "blog/kazylyk informational title")
     check("купить оптом" not in title_of("blog/kazylyk.html").lower(), "blog/kazylyk title has no купить оптом")
@@ -126,10 +133,25 @@ def main() -> int:
           "EN KD-013 offer is RUB from products.json")
     check(str((en_offer or {}).get("price")) in {rub, str(float(rub)), "274", "274.0", "274.00"},
           f"EN KD-013 offer price is catalog {rub}")
+    check(re.search(r'property=["\']product:price:amount["\']\s+content=["\']274(?:\.0+)?["\']', en_pep),
+          "EN /pepperoni product:price:amount is 274")
+    check(re.search(r'property=["\']product:price:currency["\']\s+content=["\']RUB["\']', en_pep),
+          "EN /pepperoni product:price:currency is RUB")
+    check("one pallet minimum" not in en_pep.lower(),
+          "EN pepperoni does not invent 'one pallet minimum'")
+    moq_en = term("moq", "en")
+    if moq_en:
+        check(moq_en.lower() in en_pep.lower(), "EN pepperoni MOQ follows site_facts.terms")
+    else:
+        check("mixed pallet" not in en_pep.lower() and "pallet moq" not in en_pep.lower(),
+              "EN pepperoni has no pallet wording without terms.moq")
 
+    catalog = json.loads((PUBLIC / "products.json").read_text(encoding="utf-8"))
+    sync_date = str(catalog.get("lastSynced") or "")[:10]
     en_hot = html("en/sosiski-dlya-hotdog.html")
-    check(en_hot.count("2026-10-16") == 8, "EN hotdog keeps catalog as of 2026-10-16 in 8 places")
-    check("2026-10-11" not in en_hot, "EN hotdog was not reverted to 2026-10-11")
+    check(bool(sync_date), "products.json lastSynced is set")
+    check(en_hot.count(sync_date) == 8,
+          f"EN hotdog uses catalog lastSynced {sync_date} in 8 places")
 
     check("Котлеты для бургеров оптом" in title_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog title")
     check("гамбургеров" in desc_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog covers гамбургеров")

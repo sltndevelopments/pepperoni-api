@@ -24,6 +24,9 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 PUBLIC = ROOT / "public"
 I18N_BASE = DATA / "pepperoni_landing_i18n.json"
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from site_facts import term  # noqa: E402
 SITE = "https://pepperoni.tatar"
 SKU = "KD-013"
 INDEXABLE_LOCALES = ("ru", "en")  # other locales are noindex Ads landings
@@ -369,9 +372,72 @@ def sku_price(item: dict, currency: str) -> float:
     return float(item["offers"]["exportPrices"][currency])
 
 
+def catalog_rub_meta(product: dict) -> tuple[str, str]:
+    """Open Graph product:price is always the catalog RUB offer, not locale USD."""
+    amount = float(product["offers"]["price"])
+    text = str(int(amount)) if amount == int(amount) else str(amount)
+    return text, product["offers"].get("priceCurrency") or "RUB"
+
+
+def apply_terms_copy(lang: str, L: dict) -> dict:
+    """Keep pallet/MOQ wording only when site_facts.terms.moq is set.
+
+    Extra slogans ('one pallet minimum', 'volumes in pallet multiples') are
+    not in terms and must not appear on the pepperoni pages.
+    """
+    L = json.loads(json.dumps(L))
+    moq = (term("moq", lang) or "").strip()
+    replacements = (
+        ("Pallet MOQ", moq),
+        ("Паллетный MOQ", moq),
+        ("one pallet minimum / mixed pallet", moq),
+        ("one pallet minimum", moq),
+        ("Minimum order is one pallet (mixed pallet possible)",
+         f"Minimum order — {moq}" if moq else ""),
+        ("Minimum order — one pallet; a mixed pallet of several SKUs is possible and volumes are calculated in pallet multiples",
+         f"Minimum order — {moq}" if moq else ""),
+        ("One pallet (mixed pallet possible); volumes in pallet multiples", moq),
+        ("a mixed pallet of several SKUs is possible and volumes are calculated in pallet multiples. ",
+         ""),
+        ("volumes are calculated in pallet multiples", ""),
+        ("volumes in pallet multiples", ""),
+        ("Одна паллета (сборная возможна); объём кратно паллете", moq),
+        ("Минимальный заказ — одна паллета; сборная паллета из разных позиций возможна, объём считаем кратно паллете",
+         f"Минимальный заказ — {moq}" if moq else ""),
+        ("Минимальный заказ — одна паллета (сборная возможна)",
+         f"Минимальный заказ — {moq}" if moq else ""),
+        ("объём считаем кратно паллете", ""),
+        ("объём кратно паллете", ""),
+    )
+    if not moq:
+        replacements = replacements + (
+            ("1 pallet (mixed pallet possible), ", ""),
+            ("1 pallet (mixed pallet possible)", ""),
+            ("1 паллета (сборная возможна), ", ""),
+            ("1 паллета (сборная возможна)", ""),
+        )
+
+    def walk(obj):
+        if isinstance(obj, str):
+            text = obj
+            for old, new in replacements:
+                text = text.replace(old, new)
+            text = text.replace(" ,", ",").replace(",.", ".")
+            text = text.replace("  ", " ")
+            return text
+        if isinstance(obj, list):
+            return [walk(x) for x in obj]
+        if isinstance(obj, dict):
+            return {k: walk(v) for k, v in obj.items()}
+        return obj
+
+    return walk(L)
+
+
 def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
                price_amount: float, price_currency: str) -> str:
     product = family[SKU]
+    og_price_amount, og_price_currency = catalog_rub_meta(product)
     locales = i18n["_locales"]
     facts = i18n["_facts"]
     meta, url = L["meta"], page_url(lang, locales)
@@ -557,8 +623,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <meta property="og:image:width" content="800">
 <meta property="og:image:height" content="533">
 <meta property="og:locale" content="{locales[lang]["og"]}">
-<meta property="product:price:amount" content="{price_amount}">
-<meta property="product:price:currency" content="{price_currency}">
+<meta property="product:price:amount" content="{og_price_amount}">
+<meta property="product:price:currency" content="{og_price_currency}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{esc(meta["og_title"])}">
 <meta name="twitter:description" content="{esc(meta["og_description"])}">
@@ -966,7 +1032,7 @@ window.addEventListener('load',function(){{
 
 
 def render(lang: str, i18n: dict, family: dict[str, dict]) -> str:
-    L = i18n[lang]
+    L = apply_terms_copy(lang, i18n[lang])
     product = family[SKU]
     export = product["offers"]["exportPrices"]
     prices = {
