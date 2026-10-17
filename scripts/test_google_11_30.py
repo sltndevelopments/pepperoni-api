@@ -192,15 +192,28 @@ def main() -> int:
 
     for rel in LCP_HUBS:
         html = (PUBLIC / rel).read_text(encoding="utf-8")
+        head = html.split("</head>", 1)[0]
         check('rel="preload"' in html and "as=\"font\"" in html.replace("'", '"'),
               f"{rel} preloads the main font")
         check("font-display:swap" in html.replace(" ", ""),
               f"{rel} fonts use font-display:swap")
-        blocking_css = re.findall(
-            r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', html, re.I,
+        check('id="kd-hero-critical"' in head, f"{rel} inlines hero critical CSS")
+        check("animation:none" in html.replace(" ", ""),
+              f"{rel} hero text has no opacity/transform animation")
+        check("gtm.js" not in head.lower() and "GTM-W2Q5S8HF" not in head,
+              f"{rel} has no GTM in <head>")
+        check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
+        check("loadAnalytics" in html, f"{rel} delays GTM/Metrika until after load")
+        check(
+            re.search(r'<script[^>]+src=["\']/assets/lead-form\.js["\'][^>]*\bdefer', html, re.I),
+            f"{rel} lead-form.js is defer",
         )
-        extra = [tag for tag in blocking_css if "kd-landing.css" not in tag]
-        check(not extra, f"{rel} has no extra render-blocking stylesheet")
+        head_wo_ns = re.sub(r"<noscript\b[^>]*>.*?</noscript>", "", head, flags=re.I | re.S)
+        blocking_css = re.findall(
+            r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', head_wo_ns, re.I,
+        )
+        extra = [tag for tag in blocking_css if 'media="print"' not in tag]
+        check(not extra, f"{rel} has no render-blocking stylesheet")
 
     if fail:
         print(f"test_google_11_30: {fail} FAIL")

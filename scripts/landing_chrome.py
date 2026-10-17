@@ -21,6 +21,49 @@ LCP_FONT_SLUGS = {
     "kotlety-dlya-burgerov",
     "sosiski-halyal-optom",
 }
+LCP_RENDER_SLUGS = LCP_FONT_SLUGS
+
+# Enough to paint the hero H1 on first frame. Full kd-landing.css is deferred.
+HERO_CRITICAL_CSS = (
+    "html,body{margin:0}"
+    "body.kd-landing{font-family:-apple-system,BlinkMacSystemFont,\"Segoe UI\","
+    "Roboto,sans-serif;color:#111614;background:#fbfbfd;line-height:1.65}"
+    "body.kd-landing .container{max-width:1120px;margin:0 auto;padding:28px 24px 72px}"
+    "body.kd-landing h1{font-size:clamp(1.85rem,4.2vw,2.9rem);font-weight:800;"
+    "line-height:1.2;letter-spacing:-.02em;margin:8px 0 16px;color:#111614}"
+    "body.kd-landing .hero-subtitle,body.kd-landing .eyebrow,"
+    "body.kd-landing .hero__sub{color:#5c6660;font-size:1.05rem;max-width:70ch}"
+    "body.kd-landing .hero{padding:12px 0 28px}"
+    "body.kd-landing .hero,body.kd-landing .hero__copy,body.kd-landing .hero h1,"
+    "body.kd-landing h1,body.kd-landing .hero-subtitle,body.kd-landing .hero__sub{"
+    "opacity:1;transform:none;animation:none;transition:none}"
+    ".kd-topbar{min-height:56px}"
+    ".kd-topbar__in{display:flex;align-items:center;gap:12px;max-width:1120px;"
+    "margin:0 auto;padding:10px 24px}"
+    ".kd-brand{font-weight:800;color:#111614;text-decoration:none}"
+    "body.kd-landing .badge{display:inline-block;background:#16723c;color:#fff;"
+    "padding:4px 12px;border-radius:4px;font-size:.85rem;font-weight:600;"
+    "margin:6px 4px 20px 0}"
+)
+
+# Same idle-after-load gate as gen-index.py: GTM/Metrika must not sit in <head>.
+DELAYED_ANALYTICS = """<script>
+function loadAnalytics(){
+  if(window.__analyticsLoaded)return;window.__analyticsLoaded=true;
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-W2Q5S8HF');
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for(var j=0;j<document.scripts.length;j++){if(document.scripts[j].src===r)return}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a);})(window,document,'script','https://mc.yandex.ru/metrika/tag.js','ym');
+  ym(107064141,'init',{clickmap:true,trackLinks:true,accurateTrackBounce:true,ecommerce:'dataLayer'});
+}
+function armAnalytics(){
+  var idle=window.requestIdleCallback||function(cb){return setTimeout(cb,1);};
+  idle(loadAnalytics,{timeout:1500});
+  ['scroll','keydown','touchstart','click','pointerdown'].forEach(function(ev){window.addEventListener(ev,loadAnalytics,{passive:true,once:true});});
+}
+if(document.readyState==='complete')armAnalytics();
+else window.addEventListener('load',armAnalytics);
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/107064141" style="position:absolute;left:-9999px" alt="" width="1" height="1" loading="lazy"/></div></noscript>
+"""
 TOP_START = "<!-- kd-landing-topbar:start -->"
 TOP_END = "<!-- kd-landing-topbar:end -->"
 
@@ -52,7 +95,26 @@ LANDINGS: list[tuple[str, str, str]] = [
 ]
 
 
-def stylesheet_link() -> str:
+def is_lcp_render_slug(slug: str) -> bool:
+    return slug in LCP_RENDER_SLUGS
+
+
+def delayed_analytics() -> str:
+    """GTM + Metrika after `load`/idle. Lead-form.js stays a separate defer tag."""
+    return DELAYED_ANALYTICS
+
+
+def stylesheet_link(slug: str = "") -> str:
+    """Blocking sheet by default; LCP hubs inline hero CSS and defer the rest."""
+    if slug in LCP_RENDER_SLUGS:
+        return (
+            f"{CSS_START}"
+            f'<style id="kd-hero-critical">{HERO_CRITICAL_CSS}</style>'
+            f'<link rel="stylesheet" href="{CSS_HREF}" media="print" '
+            f"onload=\"this.media='all'\">"
+            f'<noscript><link rel="stylesheet" href="{CSS_HREF}"></noscript>'
+            f"{CSS_END}"
+        )
     return f'{CSS_START}<link rel="stylesheet" href="{CSS_HREF}">{CSS_END}'
 
 

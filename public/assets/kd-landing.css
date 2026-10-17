@@ -85,6 +85,16 @@ body.kd-landing .hero__sub { color: var(--ink-soft); font-size: 1.05rem; max-wid
 body.kd-landing .hero {
   padding: 12px 0 28px;
 }
+body.kd-landing .hero,
+body.kd-landing .hero__copy,
+body.kd-landing .hero h1,
+body.kd-landing h1,
+body.kd-landing .hero-subtitle,
+body.kd-landing .hero__sub {
+  opacity: 1;
+  transform: none;
+  animation: none;
+}
 body.kd-landing .hero__grid {
   display: grid;
   grid-template-columns: 1.08fr .92fr;
