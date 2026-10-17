@@ -123,6 +123,198 @@ def weight_en(sku: str) -> str:
     return f"{n} kg"
 
 
+PACK_FIELDS = (
+    "price",
+    "pricePerBox",
+    "priceExclVAT",
+    "pricePerBoxExclVAT",
+)
+PIECE_FIELDS = (
+    "pricePerPiece",
+    "pricePerUnit",
+    "pricePerUnitExclVAT",
+)
+_PACK_COUNT = re.compile(
+    r"\((\d+(?:[.,]\d+)?)\s*г\s*[×xх]\s*(\d+)\s*шт",
+    re.I,
+)
+
+
+def sku_from_url(url: str) -> str:
+    m = re.search(r"/products/(kd-\d{3})", str(url or ""), re.I)
+    return m.group(1).upper() if m else ""
+
+
+def iter_jsonld_nodes(node):
+    """Every dict in a JSON-LD blob, any depth (ItemList, offers, @graph)."""
+    if isinstance(node, dict):
+        yield node
+        for value in node.values():
+            yield from iter_jsonld_nodes(value)
+    elif isinstance(node, list):
+        for item in node:
+            yield from iter_jsonld_nodes(item)
+
+
+def iter_ld_offers(root):
+    """Yield (sku, offer_or_product) for every priced Product/Offer, any depth."""
+
+    def walk(node, sku: str = ""):
+        if isinstance(node, list):
+            for item in node:
+                yield from walk(item, sku)
+            return
+        if not isinstance(node, dict):
+            return
+        here = (
+            str(node.get("sku") or "").upper()
+            or sku_from_url(str(node.get("url") or ""))
+            or sku
+        )
+        types = node.get("@type")
+        typeset = {types} if isinstance(types, str) else set(types or [])
+        if node.get("price") is not None and (
+            typeset & {"Product", "Offer"} or not typeset
+        ):
+            yield here, node
+        for value in node.values():
+            yield from walk(value, here)
+
+    yield from walk(root)
+
+
+def stamp_attr(sku: str, field: str = "price") -> str:
+    return f'data-catalog-price="{sku.upper()}" data-price-field="{field}"'
+
+
+def pack_format_en(sku: str) -> str:
+    """'130 g × 5' from the catalog name, else weight_en()."""
+    name = str(product(sku).get("name") or "")
+    match = _PACK_COUNT.search(name)
+    if match:
+        return f"{match.group(1).replace(',', '.')} g × {match.group(2)}"
+    return weight_en(sku)
+
+
+def piece_count(sku: str) -> int | None:
+    match = _PACK_COUNT.search(str(product(sku).get("name") or ""))
+    return int(match.group(2)) if match else None
+
+
+def weight_kg(sku: str) -> float | None:
+    raw = weight(sku).replace(",", ".")
+    match = re.match(r"^([\d.]+)\s*(кг|kg|г|g)?$", raw, re.I)
+    if not match:
+        return None
+    value = num(match.group(1))
+    if value is None:
+        return None
+    unit = (match.group(2) or "").lower()
+    if unit in {"г", "g"}:
+        return value / 1000.0
+    if unit in {"кг", "kg"}:
+        return value
+    return value / 1000.0 if value >= 20 else value
+
+
+def sku_field_amounts(sku: str, fields: tuple[str, ...]) -> set[float]:
+    offers = product(sku).get("offers") or {}
+    out: set[float] = set()
+    for key in fields:
+        n = positive(offers.get(key))
+        if n is not None:
+            out.add(round(n, 2))
+    return out
+
+
+_UNIT_HINTS = (
+    (re.compile(r"(?:/шт|/pc\b|/pcs\b|за\s*шт)", re.I), "piece"),
+    (re.compile(r"(?:per\s+pack|за\s*(?:пачк|упак)|/упак|/pack\b|пачку)", re.I), "pack"),
+    (re.compile(r"(?:/?\s*короб|за\s*короб|per\s+case)", re.I), "box"),
+    (re.compile(r"без\s*ндс|excl", re.I), "excl"),
+    (re.compile(r"(?:/кг|/kg\b)", re.I), "kg"),
+)
+_KG_HINT = re.compile(r"(?:/кг|/kg\b)", re.I)
+
+
+def infer_unit(ctx: str) -> str | None:
+    """Nearest unit suffix in ctx wins (so 'за упаковку · без НДС' is pack)."""
+    found: list[tuple[int, str]] = []
+    for rx, unit in _UNIT_HINTS:
+        match = rx.search(ctx or "")
+        if match:
+            found.append((match.start(), unit))
+    if not found:
+        return None
+    found.sort()
+    return found[0][1]
+
+
+def header_unit(header: str) -> str | None:
+    """Classify a table header. None = not a price column; skip = ignore ≈/кг."""
+    text = re.sub(r"<[^>]+>", " ", header or "")
+    low = text.lower()
+    if re.search(r"штрих|barcode|gtin|ean", low):
+        return None
+    priced = bool(re.search(r"₽|rub|цена|price", low))
+    if not priced:
+        return None
+    if "≈" in text and _KG_HINT.search(text):
+        return "skip"
+    if _KG_HINT.search(text):
+        return "kg"
+    if re.search(r"\busd\b", low) and "rub" not in low:
+        return "usd"
+    if re.search(r"/шт|/pc\b|/pcs\b|за\s*шт|\bшт\b|piece", low):
+        return "piece"
+    if re.search(r"короб|box|case", low):
+        return "box"
+    if re.search(r"без\s*ндс|excl", low):
+        return "excl"
+    if re.search(r"пачк|упак|pack|за\s*уп", low):
+        return "pack"
+    return "any"
+
+
+def sku_amounts_for(sku: str, unit: str | None = None,
+                    field: str | None = None) -> set[float]:
+    """Unit-strict catalog amounts. field= wins (data-price-field)."""
+    if field:
+        key = field.split(".")[-1]
+        if key.upper() in {"USD", "KZT", "UZS", "KGS", "BYN", "AZN"}:
+            n = export_amount(sku, key.upper())
+            return {round(n, 2)} if n is not None else set()
+        return sku_field_amounts(sku, (field,))
+    if unit == "pack":
+        return sku_field_amounts(sku, PACK_FIELDS)
+    if unit == "piece":
+        out = sku_field_amounts(sku, PIECE_FIELDS)
+        pack = positive((product(sku).get("offers") or {}).get("price"))
+        count = piece_count(sku)
+        if pack is not None and count:
+            out.add(round(pack / count, 2))
+        return out
+    if unit == "kg":
+        pack = rub(sku)
+        kg = weight_kg(sku)
+        if kg:
+            return {round(pack / kg, 2)}
+        return set()
+    if unit == "box":
+        return sku_field_amounts(sku, ("pricePerBox", "pricePerBoxExclVAT"))
+    if unit == "excl":
+        return sku_field_amounts(
+            sku,
+            ("priceExclVAT", "pricePerUnitExclVAT", "pricePerBoxExclVAT"),
+        )
+    if unit == "usd":
+        n = export_amount(sku, "USD")
+        return {round(n, 2)} if n is not None else set()
+    if unit == "skip":
+        return set()
+    return sku_amounts(sku)
+
+
 def sku_amounts(sku: str) -> set[float]:
     """Every live number that may appear next to this SKU."""
     row = product(sku)
@@ -145,4 +337,8 @@ def sku_amounts(sku: str) -> set[float]:
             n = positive(value)
             if n is not None:
                 out.add(round(n, 2))
+    count = piece_count(sku)
+    pack = positive(offers.get("price"))
+    if pack is not None and count:
+        out.add(round(pack / count, 2))
     return out

@@ -26,7 +26,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 sys.path.insert(0, str(ROOT / "scripts"))
-from catalog_prices import catalog, num, rub  # noqa: E402
+from catalog_prices import catalog, iter_jsonld_nodes, iter_ld_offers, num, rub  # noqa: E402
 
 COMPANY_PATH = ROOT / "data" / "company_facts.json"
 SITE_FACTS_PATH = ROOT / "data" / "site_facts.json"
@@ -66,13 +66,7 @@ def parse_ld(html: str, rel: str = "") -> tuple[list[dict], list[str]]:
             if rel:
                 issues.append(f"{rel} malformed JSON-LD: {exc}")
             continue
-        blob = [node] if isinstance(node, dict) else list(node) if isinstance(node, list) else []
-        for item in blob:
-            if not isinstance(item, dict):
-                continue
-            if isinstance(item.get("@graph"), list):
-                out.extend(x for x in item["@graph"] if isinstance(x, dict))
-            out.append(item)
+        out.extend(n for n in iter_jsonld_nodes(node) if isinstance(n, dict))
     return out, issues
 
 
@@ -132,11 +126,6 @@ def pricelist_row_txt(txt: str, sku: str) -> dict | None:
                 "weight": num(pick("масса", "net weight")), "price": num(pick("цена", "price")),
                 "shelf": pick("срок", "shelf"), "storage": pick("хранение", "storage")}
     return None
-
-
-def sku_from_url(url: str) -> str:
-    m = re.search(r"/products/(kd-\d{3})", str(url or ""), re.I)
-    return m.group(1).upper() if m else ""
 
 
 def walk_public_files() -> list[Path]:
@@ -221,24 +210,6 @@ def check_products_self(by_sku: dict[str, dict]) -> list[str]:
     return issues
 
 
-def _offer_nodes(node: dict) -> list[tuple[str, dict]]:
-    """(sku, offer) pairs. Parent Product sku/url is inherited by child Offers."""
-    parent_sku = str(node.get("sku") or "").upper() or sku_from_url(str(node.get("url") or ""))
-    raw = node.get("offers")
-    offers = raw if isinstance(raw, list) else [raw] if isinstance(raw, dict) else []
-    types = node.get("@type")
-    typeset = {types} if isinstance(types, str) else set(types or [])
-    if "Offer" in typeset and not offers:
-        offers = [node]
-    out = []
-    for offer in offers:
-        if not isinstance(offer, dict):
-            continue
-        sku = str(offer.get("sku") or "").upper() or sku_from_url(str(offer.get("url") or "")) or parent_sku
-        out.append((sku, offer))
-    return out
-
-
 def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) -> list[str]:
     issues = []
     nodes, ld_issues = parse_ld(html, rel)
@@ -256,9 +227,12 @@ def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) ->
             tel = re.sub(r"\D", "", str(node.get("telephone") or ""))
             if tel and tel not in {company["phone_e164"].lstrip("+"), "79872170202"}:
                 issues.append(f"{rel} JSON-LD telephone {node.get('telephone')}")
-        if not (typeset & {"Product", "Offer"}):
+    for raw in LD_RE.findall(html):
+        try:
+            root = json.loads(raw)
+        except json.JSONDecodeError:
             continue
-        for sku, offer in _offer_nodes(node):
+        for sku, offer in iter_ld_offers(root):
             currency = offer.get("priceCurrency")
             price = num(offer.get("price"))
             if sku == "KD-012":

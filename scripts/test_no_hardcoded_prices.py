@@ -11,10 +11,12 @@ sku/url → SKU mapping; unbound paragraph/meta prices need a SKU or stamp marke
 """
 from __future__ import annotations
 
+import ast
 import json
 import re
 import sys
 import tokenize
+from html import unescape
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -23,7 +25,17 @@ PUBLIC = ROOT / "public"
 LIB = ROOT / "lib"
 TEMPLATES = ROOT / "templates"
 sys.path.insert(0, str(SCRIPTS))
-from catalog_prices import catalog, num, rub, sku_amounts  # noqa: E402
+from catalog_prices import (  # noqa: E402
+    catalog,
+    header_unit,
+    infer_unit,
+    iter_jsonld_nodes,
+    iter_ld_offers,
+    num,
+    rub,
+    sku_amounts,
+    sku_amounts_for,
+)
 
 ALLOW_SOURCE = {
     (ROOT / "public" / "products.json").resolve(),
@@ -86,7 +98,6 @@ STAMP_SKU_RE = re.compile(
     re.I,
 )
 NUMERIC_PRICE_STR = re.compile(r"^\d+(?:[.,]\d+)?$")
-URL_SKU = re.compile(r"/products/(kd-\d{3})", re.I)
 LD_RE = re.compile(
     r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
     re.I | re.S,
@@ -107,8 +118,14 @@ CURRENCY_AMOUNT = re.compile(
     re.X | re.I,
 )
 SKIP_AFTER_AMOUNT = re.compile(
-    r"^\s*(?:M\b|млн|млрд|/\$|/кг|/шт|/kg\b|/pc\b|/pcs\b|/ч\b|/h\b)"
+    r"^\s*(?:M\b|млн|млрд|/\$|/ч\b|/h\b)"
 )
+SKIP_KG_ONLY = re.compile(r"^\s*(?:/кг|/kg\b)")
+AFTER_PIECE = re.compile(r"^\s*(?:/шт|/pc\b|/pcs\b)")
+TABLE_RE = re.compile(r"<table\b[^>]*>(.*?)</table>", re.I | re.S)
+TR_RE = re.compile(r"<tr\b[^>]*>(.*?)</tr>", re.I | re.S)
+TH_RE = re.compile(r"<th\b[^>]*>(.*?)</th>", re.I | re.S)
+TD_RE = re.compile(r"<td\b[^>]*>(.*?)</td>", re.I | re.S)
 SKIP_GENERATED_PAGES = {
     "dashboard.html",
     "en/dashboard.html",
@@ -254,6 +271,70 @@ def scan_python_source(rel: str, src: bytes) -> list[str]:
                         hits.append(
                             f"{rel}:{tok.start[0]} hardcoded {tok.string} = {tokens[k].string}"
                         )
+    hits.extend(scan_python_ast(rel, src))
+    return hits
+
+
+def _ast_name(node: ast.AST) -> str | None:
+    if isinstance(node, ast.Name):
+        return node.id
+    if isinstance(node, ast.Attribute):
+        return node.attr
+    return None
+
+
+def _ast_numeric_price(node: ast.AST) -> str | None:
+    if isinstance(node, ast.Constant):
+        if isinstance(node.value, bool):
+            return None
+        if isinstance(node.value, (int, float)):
+            return repr(node.value) if isinstance(node.value, float) else str(node.value)
+        if isinstance(node.value, str) and NUMERIC_PRICE_STR.match(node.value.strip()):
+            return json.dumps(node.value)
+    if isinstance(node, ast.Call) and isinstance(node.func, ast.Name):
+        if node.func.id in {"str", "int", "float"} and node.args:
+            arg = node.args[0]
+            if isinstance(arg, ast.Constant) and isinstance(arg.value, (int, float)) and not isinstance(arg.value, bool):
+                return f"{node.func.id}({arg.value})"
+            if (
+                isinstance(arg, ast.Constant)
+                and isinstance(arg.value, str)
+                and NUMERIC_PRICE_STR.match(arg.value.strip())
+            ):
+                return f"{node.func.id}({arg.value!r})"
+    return None
+
+
+def scan_python_ast(rel: str, src: bytes) -> list[str]:
+    """Catch price = str(274) and price: str = \"274\" (tokenize misses both)."""
+    hits: list[str] = []
+    try:
+        tree = ast.parse(src)
+    except SyntaxError:
+        return hits
+
+    class Visitor(ast.NodeVisitor):
+        def visit_Assign(self, node: ast.Assign) -> None:
+            lit = _ast_numeric_price(node.value)
+            if lit:
+                for target in node.targets:
+                    name = _ast_name(target)
+                    if name and is_price_name(name):
+                        hits.append(f"{rel}:{node.lineno} hardcoded {name} = {lit}")
+            self.generic_visit(node)
+
+        def visit_AnnAssign(self, node: ast.AnnAssign) -> None:
+            if node.value is None:
+                return self.generic_visit(node)
+            lit = _ast_numeric_price(node.value)
+            name = _ast_name(node.target)
+            if lit and name and is_price_name(name):
+                ann = ast.unparse(node.annotation) if node.annotation is not None else ""
+                suffix = f": {ann} = {lit}" if ann else f" = {lit}"
+                hits.append(f"{rel}:{node.lineno} hardcoded {name}{suffix}")
+            self.generic_visit(node)
+
+    Visitor().visit(tree)
     return hits
 
 
@@ -306,19 +387,8 @@ def parse_ld(html: str, rel: str = "") -> tuple[list[dict], list[str]]:
             if rel:
                 issues.append(f"{rel} malformed JSON-LD: {exc}")
             continue
-        blob = [node] if isinstance(node, dict) else list(node) if isinstance(node, list) else []
-        for item in blob:
-            if not isinstance(item, dict):
-                continue
-            if isinstance(item.get("@graph"), list):
-                out.extend(x for x in item["@graph"] if isinstance(x, dict))
-            out.append(item)
+        out.extend(n for n in iter_jsonld_nodes(node) if isinstance(n, dict))
     return out, issues
-
-
-def sku_from_url(url: str) -> str:
-    m = URL_SKU.search(str(url or ""))
-    return m.group(1).upper() if m else ""
 
 
 def _amount(m: re.Match) -> float | None:
@@ -341,10 +411,11 @@ def _card_sku(rel: str) -> str:
 
 
 def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
-                 stamp_sku: str | None, unbound_ok: bool) -> str | None:
+                 stamp_sku: str | None, unbound_ok: bool,
+                 unit: str | None = None, field: str | None = None) -> str | None:
     if stamp_sku:
         try:
-            allowed = sku_amounts(stamp_sku)
+            allowed = sku_amounts_for(stamp_sku, unit, field)
         except KeyError:
             return f"{rel} stamped {amount} for unknown {stamp_sku}"
         if any(close(amount, x, 0.051) for x in allowed):
@@ -353,12 +424,12 @@ def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
     if skus:
         for sku in skus:
             try:
-                allowed = sku_amounts(sku)
+                allowed = sku_amounts_for(sku, unit, field)
             except KeyError:
                 return f"{rel} {amount} next to unknown {sku}"
             if any(close(amount, x, 0.051) for x in allowed):
                 return None
-        if unbound_ok and round(amount, 2) in accepted:
+        if unbound_ok and unit is None and field is None and round(amount, 2) in accepted:
             return None
         return f"{rel} {amount} next to {sorted(skus)} != products.json"
     if unbound_ok and round(amount, 2) in accepted:
@@ -368,12 +439,24 @@ def check_amount(rel: str, amount: float, skus: set[str], accepted: set[float],
     return f"{rel} {amount} has no KD-NNN / stamp (hardcoded visible price)"
 
 
-def _stamp_sku_at(text: str, start: int) -> str | None:
-    window = text[max(0, start - 400):start]
+def _stamp_at(text: str, start: int) -> tuple[str | None, str | None]:
+    window = text[max(0, start - 500):start]
+    for tag in reversed(list(re.finditer(r"<[^>]+>", window))):
+        raw = tag.group(0)
+        found = re.search(r'data-catalog-price=["\'](KD-\d{3})["\']', raw, re.I)
+        if not found:
+            continue
+        field_m = re.search(r'data-price-field=["\']([^"\']+)["\']', raw, re.I)
+        return found.group(1).upper(), (field_m.group(1) if field_m else None)
     found = list(STAMP_SKU_RE.finditer(window))
     if not found:
-        return None
-    return found[-1].group(1).upper()
+        return None, None
+    return found[-1].group(1).upper(), None
+
+
+def _stamp_sku_at(text: str, start: int) -> str | None:
+    sku, _field = _stamp_at(text, start)
+    return sku
 
 
 def _visible_html(html: str) -> str:
@@ -392,15 +475,33 @@ def scan_visible_text(rel: str, text: str, accepted: set[float],
         amount = _amount(m)
         if amount is None or amount <= 0:
             continue
-        if SKIP_AFTER_AMOUNT.match(text[m.end():m.end() + 8]):
+        after = text[m.end():m.end() + 12]
+        if SKIP_AFTER_AMOUNT.match(after):
             continue
-        stamp_sku = _stamp_sku_at(text, m.start())
+        stamp_sku, stamp_field = _stamp_at(text, m.start())
         skus = _nearby_skus(text, m.start(), m.end())
         if stamp_sku:
             skus.add(stamp_sku)
         if card:
             skus.add(card)
-        hit = check_amount(rel, amount, skus, accepted, stamp_sku, unbound_ok)
+        if SKIP_KG_ONLY.match(after) and not skus:
+            continue
+        after_ctx = re.sub(r"<[^>]+>", " ", text[m.end():m.end() + 40])
+        cut = re.search(r"[\n\r)(]|\d{2,}", after_ctx)
+        if cut:
+            after_ctx = after_ctx[:cut.start()]
+        before_ctx = re.sub(r"<[^>]+>", " ", text[max(0, m.start() - 24):m.start()])
+        unit = infer_unit(after_ctx)
+        if unit is None and re.search(
+            r"(?:без\s*ндс|excl(?:\.?\s*vat)?)\s*$", before_ctx, re.I
+        ):
+            unit = "excl"
+        if AFTER_PIECE.match(after):
+            unit = "piece"
+        elif SKIP_KG_ONLY.match(after) and skus:
+            unit = "kg"
+        hit = check_amount(rel, amount, skus, accepted, stamp_sku, unbound_ok,
+                           unit=unit, field=stamp_field)
         if hit:
             issues.append(hit)
     return issues
@@ -418,27 +519,77 @@ def scan_html_loose_text(rel: str, html: str, accepted: set[float]) -> list[str]
     return issues
 
 
+def _td_amount(cell: str) -> float | None:
+    text = unescape(re.sub(r"<[^>]+>", " ", cell)).replace("\xa0", " ").strip()
+    if text in {"", "—", "-", "–", "−"}:
+        return None
+    stripped = re.sub(
+        r"(?:₽|руб(?:\.|лей)?|RUB|USD|KZT|/шт|/pc|/pcs|/кг|/kg|/упак\.?|/pack)",
+        "",
+        text,
+        flags=re.I,
+    )
+    stripped = re.sub(r"\s+", "", stripped)
+    if not re.fullmatch(
+        r"\d{1,3}(?:,\d{3})+\.\d{2}|\d+[.,]\d{1,2}|\d{2,5}",
+        stripped,
+    ):
+        return None
+    return num(stripped)
+
+
+def scan_price_tables(rel: str, html: str, accepted: set[float]) -> list[str]:
+    """Rows under ₽/RUB/Цена/Price headers: each numeric td vs the row SKU."""
+    issues = []
+    for table in TABLE_RE.findall(html):
+        rows = TR_RE.findall(table)
+        if not rows:
+            continue
+        headers: list[str] = []
+        for row in rows:
+            found = [unescape(re.sub(r"<[^>]+>", " ", h)) for h in TH_RE.findall(row)]
+            if found:
+                headers = found
+                break
+        if not any(re.search(r"₽|RUB|Цена|Price", h, re.I) for h in headers):
+            continue
+        units = [header_unit(h) for h in headers]
+        for row in rows:
+            tds = TD_RE.findall(row)
+            if not tds:
+                continue
+            row_text = unescape(re.sub(r"<[^>]+>", " ", row))
+            skus = {s.upper() for s in SKU_RE.findall(row_text)}
+            if not skus:
+                continue
+            for i, td in enumerate(tds):
+                unit = units[i] if i < len(units) else None
+                if i >= len(units):
+                    unit = "any"
+                if unit in {None, "skip"}:
+                    continue
+                amount = _td_amount(td)
+                if amount is None:
+                    continue
+                hit = check_amount(
+                    rel, amount, skus, accepted, None, False,
+                    unit=None if unit == "any" else unit,
+                )
+                if hit:
+                    issues.append(hit)
+    return issues
+
+
 def scan_offers(rel: str, html: str) -> list[str]:
     issues = []
-    nodes, ld_issues = parse_ld(html, rel)
-    issues.extend(ld_issues)
     by_sku = catalog()["by_sku"]
-    for node in nodes:
-        types = node.get("@type")
-        typeset = {types} if isinstance(types, str) else set(types or [])
-        parent_sku = str(node.get("sku") or "").upper() or sku_from_url(str(node.get("url") or ""))
-        raw = node.get("offers")
-        offers = raw if isinstance(raw, list) else [raw] if isinstance(raw, dict) else []
-        if "Offer" in typeset and node.get("price") is not None and node not in offers:
-            offers.append(node)
-        if not (typeset & {"Product", "Offer"}):
+    for raw in LD_RE.findall(html):
+        try:
+            root = json.loads(raw)
+        except json.JSONDecodeError as exc:
+            issues.append(f"{rel} malformed JSON-LD: {exc}")
             continue
-        for offer in offers:
-            if not isinstance(offer, dict):
-                continue
-            sku = (str(offer.get("sku") or "").upper()
-                   or sku_from_url(str(offer.get("url") or ""))
-                   or parent_sku)
+        for sku, offer in iter_ld_offers(root):
             price = num(offer.get("price"))
             currency = offer.get("priceCurrency")
             if price is None:
@@ -498,6 +649,7 @@ def scan_generated(accepted: set[float]) -> list[str]:
         issues.extend(scan_offers(rel, html))
         visible = _visible_html(html)
         issues.extend(scan_visible_text(rel, visible, accepted, unbound_ok=True))
+        issues.extend(scan_price_tables(rel, visible, accepted))
 
     for path in list(PUBLIC.rglob("llms*.txt")) + list(PUBLIC.rglob(".well-known/llms*.txt")):
         rel = path.relative_to(PUBLIC).as_posix()
