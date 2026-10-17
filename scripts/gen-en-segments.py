@@ -582,7 +582,6 @@ HEAD_TPL = """<!DOCTYPE html>
 <link rel="apple-touch-icon" sizes="180x180" href="/images/icon-180.png">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="manifest" href="/manifest.json">
-<link rel="llms" href="/en/llms.txt" type="text/plain" title="LLM instructions (English)">
 <title>{title}</title>
 <meta name="description" content="{description}">
 <meta name="keywords" content="{keywords}">
