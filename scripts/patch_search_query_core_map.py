@@ -48,6 +48,8 @@ TO_301.update({url: "/vetchina-optom" for url in HAM_TO_VETCHINA})
 DROP_FROM_RETIRE = {
     "/blog/echpochmak",
     "/blog/elesh",
+    "/north-star",
+    "/en/editorial-policy",
 }
 
 NOINDEX = {
@@ -58,19 +60,19 @@ NOINDEX = {
         "canonical_target": "/blog/gubadiya-eto",
         "reason": "restored old URL; not allowlisted",
     },
-    "/north-star": {
-        "file": "north-star.html",
-        "intent": "digital factory strategy",
+    "/blog/karmin-e120-haram": {
+        "file": "blog/karmin-e120-haram.html",
+        "intent": "carmine E120 policy",
         "language": "ru",
-        "canonical_target": "/north-star",
-        "reason": "slot freed for bakery explainers; page kept noindex",
+        "canonical_target": "/blog/karmin-e120-haram",
+        "reason": "slot freed so /north-star stays keep",
     },
-    "/en/editorial-policy": {
-        "file": "en/editorial-policy.html",
-        "intent": "editorial policy",
+    "/en/blog/private-label-meat-products": {
+        "file": "en/blog/private-label-meat-products.html",
+        "intent": "private-label buying guide",
         "language": "en",
-        "canonical_target": "/en/editorial-policy",
-        "reason": "slot freed for bakery explainers; RU editorial-policy stays keep",
+        "canonical_target": "/en/blog/private-label-meat-products",
+        "reason": "slot freed so /en/editorial-policy stays keep; RU guide remains",
     },
 }
 

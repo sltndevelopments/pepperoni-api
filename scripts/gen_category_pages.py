@@ -8,6 +8,7 @@ Run: python scripts/gen_category_pages.py
 
 import json
 import sys
+from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
@@ -24,6 +25,7 @@ from site_facts import (  # noqa: E402
 from wholesale_nav import brand_title_suffix, wholesale_block  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
+HERO_SLUGS = {"kotlety-dlya-burgerov", "kazylyk", "vetchina-optom"}
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
@@ -195,6 +197,56 @@ def _photo_block(products):
         '<div class="products-grid">' + "".join(figures) + "</div>"
         "<p>Фото короба в каталоге нет.</p>"
     )
+
+
+def _first_product_image(products):
+    for product in products:
+        for key in ("imageMain", "imagePack", "imageSlice"):
+            src = product.get(key)
+            if src:
+                return src, product
+    return "", None
+
+
+def _hero_block(cfg, h1, intro, products, wholesale_html, table_html):
+    src, product = _first_product_image(products)
+    sku = (product or {}).get("sku") or ""
+    alt = f"{(product or {}).get('name') or h1}"
+    img = ""
+    if src:
+        img = (
+            f'<div class="hero__media"><img src="{escape(src)}" alt="{escape(alt)}" '
+            f'width="800" height="533" fetchpriority="high" decoding="async">'
+            f'<span class="hero__tag">{escape(sku)}</span></div>'
+        )
+    return f"""<section class="hero" id="hero"><div class="hero__grid">
+  <div class="hero__copy">
+    <p class="eyebrow">Казанские Деликатесы · данные актуального каталога</p>
+    <h1>{h1}</h1>
+    <p class="hero__sub">{intro}</p>
+  </div>
+  {img}
+  <div class="hero__actions">
+    <div class="badges">
+      <span class="badge">Халяль ДУМ РТ</span>
+      <span class="badge badge-outline">ХАССП / ISO 22000</span>
+      <span class="badge badge-outline">Оптовые поставки</span>
+    </div>
+    <div class="btn-row">
+      <a class="cta" href="#zayavka">Получить КП</a>
+      <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a>
+    </div>
+  </div>
+</div></section>
+<section class="section" id="optom">
+  {wholesale_html}
+  <div class="tbl">
+  {table_html}
+  </div>
+  <div class="btn-row">
+    <a class="cta" href="#zayavka">Получить КП</a>
+  </div>
+</section>"""
 
 
 def _lead_form(slug, label):
@@ -393,6 +445,27 @@ def build_page(cfg):
        <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
   </aside>
   {wholesale_block("ru", "/" + cfg["slug"])}"""
+    table_html = _sku_table(products)
+    hero = cfg["slug"] in HERO_SLUGS
+    og_src, _ = _first_product_image(products) if hero else ("", None)
+    og_image = og_src or "https://pepperoni.tatar/images/pepperoni-halal.png"
+    if hero:
+        lead_html = _hero_block(
+            cfg, h1, intro, products,
+            wholesale_html.replace(' id="optom"', "", 1),
+            table_html,
+        )
+        assortment_table = ""
+    else:
+        lead_html = f"""  <p class="hero-subtitle">Казанские Деликатесы · данные актуального каталога</p>
+  <h1>{h1}</h1>
+  <span class="badge">Халяль ДУМ РТ</span>
+  <span class="badge badge-outline">ХАССП / ISO 22000</span>
+  <span class="badge badge-outline">Оптовые поставки</span>
+
+  <p>{intro}</p>
+  {wholesale_html}"""
+        assortment_table = table_html
 
     url = f"https://pepperoni.tatar/{cfg['slug']}"
     en_url = f"https://pepperoni.tatar/en/{cfg['slug']}"
@@ -420,14 +493,14 @@ def build_page(cfg):
   <meta property="og:title" content="{title}">
   <meta property="og:description" content="{desc}">
   <meta property="og:url" content="{url}">
-  <meta property="og:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta property="og:image" content="{og_image}">
   <meta property="og:locale" content="ru_RU">
   <meta property="og:site_name" content="Pepperoni.tatar — Казанские деликатесы">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
-  <meta name="twitter:image" content="https://pepperoni.tatar/images/pepperoni-halal.png">
+  <meta name="twitter:image" content="{og_image}">
 
   <script type="application/ld+json">
   {{
@@ -469,14 +542,7 @@ def build_page(cfg):
 <div class="container">
   <nav><a href="/">← Все продукты</a></nav>
 
-  <p class="hero-subtitle">Казанские Деликатесы · данные актуального каталога</p>
-  <h1>{h1}</h1>
-  <span class="badge">Халяль ДУМ РТ</span>
-  <span class="badge badge-outline">ХАССП / ISO 22000</span>
-  <span class="badge badge-outline">Оптовые поставки</span>
-
-  <p>{intro}</p>
-  {wholesale_html}
+  {lead_html}
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — одна паллета, сборная паллета из нескольких SKU возможна. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   <h2>Для кого</h2>
@@ -488,7 +554,7 @@ def build_page(cfg):
   </ul>
 
   <h2>Ассортимент ({len(products)} SKU)</h2>
-  {_sku_table(products)}
+  {assortment_table}
   <div class="products-grid">
 {cards}
   </div>

@@ -8,11 +8,15 @@ import sys
 from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from inject_site_links import top_level_organizations, url_to_file  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 NGINX = ROOT / "deploy" / "nginx"
 MANIFEST = ROOT / "data" / "index_manifest.json"
 RETIRE = ROOT / "data" / "url_consolidation_map.json"
+SITEMAP = PUBLIC / "sitemap.xml"
 ORIGIN = "https://pepperoni.tatar"
 
 LOC_301 = re.compile(
@@ -202,6 +206,22 @@ def main() -> int:
     check(180 <= keep_n <= 250, f"allowlist keep={keep_n} in 180..250", failures)
     check("/blog/echpochmak" in keep, "/blog/echpochmak is keep", failures)
     check("/blog/elesh" in keep, "/blog/elesh is keep", failures)
+    check("/north-star" in keep, "/north-star is keep", failures)
+    check("/en/editorial-policy" in keep, "/en/editorial-policy is keep", failures)
+    check("/blog/karmin-e120-haram" not in keep, "/blog/karmin-e120-haram is not keep", failures)
+    check("/en/blog/private-label-meat-products" not in keep,
+          "/en/blog/private-label-meat-products is not keep", failures)
+    check("/blog/private-label-kolbasnyh-izdeliy" in keep,
+          "/blog/private-label-kolbasnyh-izdeliy stays keep", failures)
+    check(by_url["/blog/karmin-e120-haram"]["status"] == "noindex",
+          "/blog/karmin-e120-haram is noindex", failures)
+    check(by_url["/en/blog/private-label-meat-products"]["status"] == "noindex",
+          "/en/blog/private-label-meat-products is noindex", failures)
+    check(
+        redirects.get("/blog/karmin-e120-halyal") == "/blog/tolko-halyal-kakie-kategorii-myasa",
+        "/blog/karmin-e120-halyal → keep guide",
+        failures,
+    )
 
     # Money pages do not link to 410 or noindex URLs.
     noindex_urls = {row["url"] for row in retire["entries"] if row.get("status") == "noindex"}
@@ -232,7 +252,7 @@ def main() -> int:
                 bad_links.append(f"{page_url} → {target} (410)")
             elif target in noindex_urls and (
                 target.startswith(("/blog/", "/en/blog/"))
-                or target in {"/north-star", "/en/editorial-policy", "/blog/gubadiya-eto"}
+                or target in {"/blog/gubadiya-eto"}
             ):
                 bad_links.append(f"{page_url} → {target} (noindex)")
     check(not bad_links, f"money pages do not link 410/noindex ({len(bad_links)})", failures)
@@ -288,6 +308,34 @@ def main() -> int:
 
     check(ORG_LD_RE.search(html("price.html")), "Organization JSON-LD on /price", failures)
     check(ORG_LD_RE.search(html("pepperoni.html")), "Organization JSON-LD on /pepperoni", failures)
+    org_dupes = []
+    sm = SITEMAP.read_text(encoding="utf-8")
+    sitemap_paths = [
+        re.sub(r"^https://pepperoni\.tatar", "", loc) or "/"
+        for loc in re.findall(r"<loc>(.*?)</loc>", sm)
+    ]
+    for path in sitemap_paths:
+        page = url_to_file(path)
+        if not page:
+            continue
+        orgs = top_level_organizations(page.read_text(encoding="utf-8"))
+        if len(orgs) != 1:
+            org_dupes.append(f"{path}={len(orgs)}")
+    check(not org_dupes, f"exactly one top-level Organization ({len(org_dupes)} pages)", failures)
+    if org_dupes:
+        print("  sample:", "; ".join(org_dupes[:8]))
+
+    for rel, needle in (
+        ("kotlety-dlya-burgerov.html", "/images/products/kd-009"),
+        ("kazylyk.html", "/images/products/kd-044"),
+        ("vetchina-optom.html", "/images/products/kd-028"),
+    ):
+        page = html(rel)
+        check('class="hero"' in page and 'class="hero__media"' in page,
+              f"{rel} has jerky/pepperoni hero", failures)
+        check(needle in page, f"{rel} hero uses catalog product image", failures)
+        check('class="tbl"' in page and "<table" in page, f"{rel} has styled spec table", failures)
+        check("Получить КП" in page, f"{rel} has КП CTA", failures)
     check("Оптовым покупателям" in html("blog/what-is-halal-pepperoni.html")
           or "wholesale-buyers" in html("blog/what-is-halal-pepperoni.html"),
           "blog template has wholesale-buyers block", failures)

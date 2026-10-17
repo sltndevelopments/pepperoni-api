@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generated_at": "2026-10-17T07:43:08.333524+00:00",
+  "generated_at": "2026-10-17T07:55:32.137086+00:00",
   "policy": {
     "indexable_min": 180,
     "indexable_max": 250,
@@ -94,17 +94,6 @@
       "owner": "editorial",
       "source": "evidence registry + cited sources",
       "canonical_target": "/blog/kak-hranit-pepperoni",
-      "status": "keep",
-      "kind": "guide"
-    },
-    {
-      "url": "/blog/karmin-e120-haram",
-      "file": "blog/karmin-e120-haram.html",
-      "intent": "carmine E120 policy",
-      "language": "ru",
-      "owner": "editorial",
-      "source": "evidence registry + cited sources",
-      "canonical_target": "/blog/karmin-e120-haram",
       "status": "keep",
       "kind": "guide"
     },
@@ -417,17 +406,6 @@
       "kind": "guide"
     },
     {
-      "url": "/en/blog/private-label-meat-products",
-      "file": "en/blog/private-label-meat-products.html",
-      "intent": "private-label buying guide",
-      "language": "en",
-      "owner": "editorial",
-      "source": "evidence registry + cited sources",
-      "canonical_target": "/en/blog/private-label-meat-products",
-      "status": "keep",
-      "kind": "guide"
-    },
-    {
       "url": "/en/blog/what-is-halal-pepperoni",
       "file": "en/blog/what-is-halal-pepperoni.html",
       "intent": "what halal pepperoni is",
@@ -545,6 +523,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/en/dlya-setey",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/en/editorial-policy",
+      "file": "en/editorial-policy.html",
+      "intent": "fact checking and content ownership",
+      "language": "en",
+      "owner": "editorial",
+      "source": "evidence registry",
+      "canonical_target": "/en/editorial-policy",
       "status": "keep",
       "kind": "hub"
     },
@@ -1931,6 +1920,17 @@
       "owner": "sales",
       "source": "Google Sheets",
       "canonical_target": "/kotlety-dlya-burgerov",
+      "status": "keep",
+      "kind": "hub"
+    },
+    {
+      "url": "/north-star",
+      "file": "north-star.html",
+      "intent": "digital factory strategy and technology roadmap",
+      "language": "ru",
+      "owner": "management",
+      "source": "owner directive",
+      "canonical_target": "/north-star",
       "status": "keep",
       "kind": "hub"
     },

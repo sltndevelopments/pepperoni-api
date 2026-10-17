@@ -45,6 +45,7 @@ RU_PAGES = [
     _page("delivery.html", "delivery terms", "sales", "products.json"),
     _page("price.html", "wholesale price list", "sales", "Google Sheets via products.json"),
     _page("kak-zakazat.html", "how to order wholesale", "sales", "site_facts.json + evidence registry"),
+    _page("north-star.html", "digital factory strategy and technology roadmap", "management", "owner directive"),
     _page("pepperoni.html", "halal pepperoni wholesale", "sales", "Google Sheets"),
     _page("pepperoni-v-narezke.html", "sliced pepperoni specification", "sales", "Google Sheets"),
     _page("pepperoni-dlya-pizzerii.html", "pepperoni for pizzerias", "sales", "Google Sheets"),
@@ -99,6 +100,7 @@ EN_PAGES = [
     _page("en/about.html", "verified company identity", "management", "evidence registry"),
     _page("en/capabilities.html", "documented production capabilities", "production", "evidence registry"),
     _page("en/cases.html", "independently verifiable supply examples", "sales", "evidence registry"),
+    _page("en/editorial-policy.html", "fact checking and content ownership", "editorial", "evidence registry"),
     _page("en/faq.html", "buyer questions", "sales", "brand.txt + products.json"),
     _page("en/halal.html", "halal controls and certificate", "quality", "evidence registry"),
     _page("en/delivery.html", "delivery terms", "sales", "products.json"),
@@ -142,7 +144,6 @@ RU_GUIDES = [
     ("blog/kotlety-dlya-burgerov-optom.html", "burger patty procurement"),
     ("blog/private-label-kolbasnyh-izdeliy.html", "private-label buying guide"),
     ("blog/halal-certification-russia.html", "halal certification in Russia"),
-    ("blog/karmin-e120-haram.html", "carmine E120 policy"),
     ("blog/tolko-halyal-kakie-kategorii-myasa.html", "halal-only scope and meat categories (buyer FAQ)"),
     ("blog/echpochmak.html", "what echpochmak is"),
     ("blog/elesh.html", "what elesh is"),
@@ -156,7 +157,6 @@ EN_GUIDES = [
     ("en/blog/kazylyk-horse-meat-sausage.html", "what kazylyk is"),
     ("en/blog/beef-hotdog-sausages-halal.html", "hot-dog sausage procurement"),
     ("en/blog/burger-patties-wholesale-halal.html", "burger patty procurement"),
-    ("en/blog/private-label-meat-products.html", "private-label buying guide"),
     ("en/blog/halal-certification-russia.html", "halal certification in Russia"),
 ]
 
