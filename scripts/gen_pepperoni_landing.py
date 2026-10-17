@@ -743,7 +743,7 @@ def build_body(lang: str, L: dict, i18n: dict, family: dict[str, dict], prices: 
     docs = "".join(f"<li>{esc(d)}</li>" for d in L["export"]["docs"])
     pl_items = "".join(f"<li>{esc(x)}</li>" for x in L["pl"]["items"])
     faq = "".join(
-        f'<details><summary>{esc(i["q"])}</summary><p>{esc(i["a"])}</p></details>'
+        f'<details><summary>{esc(i["q"])}</summary><p>{i.get("a_html") or esc(i["a"])}</p></details>'
         for i in L["faq"]["items"]
     )
     entity = L.get("entity") or {}

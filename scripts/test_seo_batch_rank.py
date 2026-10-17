@@ -178,8 +178,11 @@ def main() -> int:
     check("What is kazylyk" in title_of("en/blog/kazylyk-horse-meat-sausage.html"), "EN kazylyk blog title")
     check("wholesale from the maker" not in title_of("en/blog/kazylyk-horse-meat-sausage.html"), "EN kazylyk blog title not commercial")
 
-    check("supplier" in title_of("en/pepperoni.html").lower(), "EN pepperoni title is B2B supplier")
+    check("pepperoni halal wholesale" in title_of("en/pepperoni.html").lower(),
+          "EN pepperoni title is pepperoni halal wholesale")
     check("chicken" in desc_of("en/pepperoni.html").lower(), "EN pepperoni desc names chicken")
+    check("no. 0008" in desc_of("en/pepperoni.html").lower(),
+          "EN pepperoni desc names DUM RT No. 0008")
 
     man = json.loads((ROOT / "data" / "index_manifest.json").read_text(encoding="utf-8"))
     keep = [e for e in man["entries"] if e.get("status") == "keep"]
