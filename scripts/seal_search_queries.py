@@ -6,6 +6,8 @@ import argparse
 import sys
 from pathlib import Path
 
+sys.tracebacklimit = 0
+
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from print_search_queries_report import print_counts  # noqa: E402
 from seal_vps_git_recon import encrypt_to_age  # noqa: E402
@@ -14,6 +16,7 @@ DEFAULT_RECIPIENT = Path(__file__).resolve().parent.parent / "ops" / "recon-age.
 
 
 def main(argv: list[str] | None = None) -> int:
+    sys.tracebacklimit = 0
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--recipient-file", type=Path, default=DEFAULT_RECIPIENT)
     parser.add_argument("--out", type=Path, default=Path("search-queries.tar.age"))
@@ -22,13 +25,20 @@ def main(argv: list[str] | None = None) -> int:
     if not data:
         sys.stderr.write("seal_search_queries: empty stdin\n")
         return 2
-    rc = print_counts(data, sys.stdout)
+    try:
+        rc = print_counts(data, sys.stdout)
+    except Exception as exc:
+        sys.stderr.write(f"seal_search_queries: {type(exc).__name__}\n")
+        return 1
     if rc != 0:
         return rc
     try:
         encrypt_to_age(data, args.recipient_file, args.out)
     except SystemExit:
         sys.stderr.write("seal_search_queries: age failed\n")
+        return 1
+    except Exception as exc:
+        sys.stderr.write(f"seal_search_queries: {type(exc).__name__}\n")
         return 1
     return 0
 
