@@ -522,7 +522,10 @@ def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
 
 
 MOQ_BAN = [
-    (re.compile(r"сборная возможна", re.I), "legacy MOQ 'сборная возможна'"),
+    (re.compile(r"сборн\w*[^.]{0,60}возможн", re.I), "legacy MOQ 'сборная … возможна'"),
+    (re.compile(r"1 паллета,\s*1 паллета", re.I), "doubled MOQ '1 паллета, 1 паллета'"),
+    (re.compile(r"one pallet,\s*1 pallet", re.I), "doubled MOQ 'one pallet, 1 pallet'"),
+    (re.compile(r"1 pallet[;,]\s*1 pallet", re.I), "doubled MOQ '1 pallet, 1 pallet'"),
     (re.compile(r"mixed pallets? possible", re.I), "legacy MOQ 'mixed pallet possible'"),
     (re.compile(r"minOrder_boxes"), "feed publishes Sheet quantum as minOrder_boxes"),
     (re.compile(r"Мин\.\s*заказ,\s*коробов"), "YML publishes Sheet quantum as Мин. заказ"),
@@ -570,6 +573,9 @@ def check_moq_and_export(company: dict) -> list[str]:
         for needle in needles:
             if needle not in text:
                 issues.append(f"{rel} missing {needle!r}")
+        if rel.endswith("llms.txt") or rel.endswith("llms-full.txt"):
+            if re.search(r"(?:976A/2026|1002/2026)[^\n]*0 SKU", text):
+                issues.append(f"{rel} unpublished cert printed as 0 SKU")
     return issues
 
 

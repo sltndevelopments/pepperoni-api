@@ -57,6 +57,16 @@ sections = sorted({p.get("section", "") for p in products if p.get("section")})
 n_sections = len(sections)
 
 
+def _scope_unpublished(row: dict) -> bool:
+    """Registry-only certs have no published product list — never print 0 SKU."""
+    if row.get("kind") == "registry":
+        return True
+    if not (row.get("sections") or []):
+        scope = f"{row.get('scope_ru') or ''} {row.get('scope_en') or ''}"
+        return "не опубликован" in scope or "not published" in scope
+    return False
+
+
 def _cert_matrix_md(lang: str) -> str:
     lines = []
     for row in sku_matrix():
@@ -64,15 +74,22 @@ def _cert_matrix_md(lang: str) -> str:
         note = " (не халяль)" if row.get("not_halal") and lang == "ru" else (
             " (not a halal certificate)" if row.get("not_halal") else "")
         sections = ", ".join(row.get("sections") or [])
+        if _scope_unpublished(row):
+            sku_bit = "состав не опубликован" if lang == "ru" else "scope not published"
+        else:
+            sku_bit = (
+                f"{row['sku_count']} SKU" if lang == "ru"
+                else f"{row['sku_count']} SKUs"
+            )
         if lang == "ru":
             lines.append(
                 f"- {row['number']}{note}: {row.get('scope_ru') or sections}; "
-                f"{row['sku_count']} SKU; срок до {until}; проверка: {row.get('verify_url') or '/halal'}"
+                f"{sku_bit}; срок до {until}; проверка: {row.get('verify_url') or '/halal'}"
             )
         else:
             lines.append(
                 f"- {row['number']}{note}: {row.get('scope_en') or sections}; "
-                f"{row['sku_count']} SKUs; valid until {until}; check: {row.get('verify_url') or '/en/halal'}"
+                f"{sku_bit}; valid until {until}; check: {row.get('verify_url') or '/en/halal'}"
             )
     return "\n".join(lines)
 

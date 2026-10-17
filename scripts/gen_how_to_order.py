@@ -113,7 +113,7 @@ def ru() -> str:
         ("Какой минимум для контрактного производства (СТМ)?",
          f"От {_TERMS['private_label_min']}. Подробности — на странице контрактного производства."),
         ("Как получить образцы или пробную партию?",
-         "Образцы согласуем индивидуально. Пробная отгрузка — в том же паллетном минимуме: одна паллета, сборная из нескольких SKU возможна. Цену образца отдельно не публикуем."),
+         "Образцы согласуем индивидуально. Пробная отгрузка — в том же паллетном минимуме: Минимальный заказ — 1 паллета. Цену образца отдельно не публикуем."),
     ]
     faq_html = "".join(
         f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>"
@@ -213,7 +213,7 @@ def en() -> str:
     ]
     faq = [
         ("What is the minimum order?",
-         "Minimum order is one pallet; a mixed pallet of several SKUs is possible. Volumes are quoted in pallet multiples."),
+         "Minimum order: 1 pallet. Volumes are quoted in pallet multiples."),
         ("Who pays for delivery?",
          "Basis is EXW Kazan. The buyer pays freight; route and lead time are quoted individually."),
         ("How is payment agreed?",
@@ -223,7 +223,7 @@ def en() -> str:
         ("What is the private-label minimum?",
          f"From {_TERMS['private_label_min']}. Details are on the private-label page."),
         ("How do we get samples or a pilot shipment?",
-         "Samples are agreed individually. A pilot shipment uses the same wholesale minimum: one pallet, mixed SKUs possible. We do not publish a separate sample price."),
+         "Samples are agreed individually. A pilot shipment uses the same wholesale minimum: Minimum order: 1 pallet. We do not publish a separate sample price."),
     ]
     faq_html = "".join(
         f"<details><summary>{escape(q)}</summary><p>{escape(a)}</p></details>"

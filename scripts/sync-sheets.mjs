@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { writeFileSync, readFileSync, mkdirSync, existsSync, readdirSync, unlinkSync, statSync } from 'fs';
-import { join, dirname } from 'path';
+import { join, dirname, resolve } from 'path';
 import { fileURLToPath } from 'url';
 import { createHash } from 'crypto';
 import {
@@ -21,9 +21,9 @@ const SITE_FACTS = JSON.parse(
   readFileSync(join(ROOT, 'data', 'site_facts.json'), 'utf8'),
 );
 
-function certificatesForApi() {
+export function certificatesForApi() {
   const c = SITE_FACTS.certificates;
-  const keys = ['halal_0008', 'halal_614a', 'halal_bakery', 'iso_22000', 'made_in_russia'];
+  const keys = ['halal_0008', 'halal_614a', 'halal_bakery', 'halal_976a', 'halal_1002', 'iso_22000', 'made_in_russia'];
   return keys.map((key) => {
     const item = c[key];
     const row = {};
@@ -58,7 +58,7 @@ const SHEETS = [
 
 // --- CSV parser ---
 
-function parseCSV(text) {
+export function parseCSV(text) {
   const rows = [];
   let current = '';
   let inQuotes = false;
@@ -99,7 +99,7 @@ function parseCSV(text) {
   return lines;
 }
 
-function toNumber(s) {
+export function toNumber(s) {
   if (!s) return 0;
   return parseFloat(s.replace(/\s/g, '').replace(',', '.')) || 0;
 }
@@ -185,7 +185,7 @@ function findHeaderRowIndex(lines) {
 }
 
 /** Build { logicalKey: columnIndex } from a header row. */
-function buildColIndex(headerRow) {
+export function buildColIndex(headerRow) {
   const idx = {};
   const norms = (headerRow || []).map(normalizeHeader);
   for (const [key, aliases] of Object.entries(HEADER_ALIASES)) {
@@ -201,7 +201,7 @@ function buildColIndex(headerRow) {
   return idx;
 }
 
-function cellBy(cols, colIndex, key) {
+export function cellBy(cols, colIndex, key) {
   const j = colIndex[key];
   if (j == null || j < 0 || j >= cols.length) return '';
   return cols[j] || '';
@@ -358,7 +358,7 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
   return { products };
 }
 
-function parseBakery(lines, section, reg) {
+export function parseBakery(lines, section, reg) {
   let category = '';
   const products = [];
 
@@ -401,9 +401,12 @@ function parseBakery(lines, section, reg) {
     for (const [cur, v] of Object.entries(epBox)) {
       ep[cur] = qtyPerBoxN > 1 ? Math.round((v / qtyPerBoxN) * 100) / 100 : v;
     }
-    const exclRaw = cellBy(cols, colIndex, 'priceBoxExclVAT') || cols[5] || '';
-    const pricePerBoxExclVAT = toNumber(exclRaw);
-    const pricePerUnitExclVAT = qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT;
+    const exclRaw = cellBy(cols, colIndex, 'priceBoxExclVAT');
+    const hasExcl = Boolean(String(exclRaw || '').trim());
+    const pricePerBoxExclVAT = hasExcl ? toNumber(exclRaw) : null;
+    const pricePerUnitExclVAT = hasExcl
+      ? (qtyPerBoxN > 1 ? pricePerBoxExclVAT / qtyPerBoxN : pricePerBoxExclVAT)
+      : null;
 
     const mainPhoto = driveToDirectUrl(
       (cellBy(cols, colIndex, 'mainPhoto') || cols[28] || '').trim()
@@ -437,8 +440,10 @@ function parseBakery(lines, section, reg) {
         priceCurrency: 'RUB',
         pricePerUnit: pricePerUnit.toFixed(2),
         pricePerBox: pricePerBox.toFixed(2),
-        pricePerUnitExclVAT: pricePerUnitExclVAT.toFixed(2),
-        pricePerBoxExclVAT: pricePerBoxExclVAT.toFixed(2),
+        ...(hasExcl ? {
+          pricePerUnitExclVAT: pricePerUnitExclVAT.toFixed(2),
+          pricePerBoxExclVAT: pricePerBoxExclVAT.toFixed(2),
+        } : {}),
         availability: 'https://schema.org/InStock',
         exportPrices: Object.keys(ep).length ? ep : undefined,
         exportPricesBasis: 'unit',
@@ -1390,7 +1395,11 @@ async function main() {
   console.log('\n🎉 Синхронизация завершена!');
 }
 
-main().catch((err) => {
-  console.error('❌ Ошибка:', err.message);
-  process.exit(1);
-});
+const invokedAsMain = process.argv[1]
+  && fileURLToPath(import.meta.url) === resolve(process.argv[1]);
+if (invokedAsMain) {
+  main().catch((err) => {
+    console.error('❌ Ошибка:', err.message);
+    process.exit(1);
+  });
+}

@@ -537,7 +537,7 @@ def write_sosiska() -> None:
                 "<li>KD-018 (chilled meat): Halal DUM RT No. 0008 and No. 614A/2024.</li>"
                 "<li>KD-061 (bakery): Halal DUM RT No. 884A/2025.</li>"
                 "<li>ISO 22000:2018 (FSMS-2351/A) is food-safety, not a halal certificate.</li>"
-                "<li>MOQ — one pallet, 1 pallet. EXW Kazan.</li></ul>"
+                "<li>Minimum order: 1 pallet. EXW Kazan.</li></ul>"
             )
             faq = [
                 ("Which SKUs are on this page?",
@@ -549,7 +549,7 @@ def write_sosiska() -> None:
                 ("How is halal confirmed?",
                  f"{cert_line_en()}. Bakery SKU uses No. 884A/2025; the meat sausage uses No. 0008 and No. 614A/2024."),
                 ("How to order?",
-                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum order is one pallet; mixed pallets are possible."),
+                 f"Name the SKU and volume. {PHONE}, {EMAIL}. Minimum order: 1 pallet."),
             ]
         extra = [{
             "@context": "https://schema.org", "@type": "ItemList",
@@ -674,7 +674,7 @@ def write_bakery() -> None:
                 "<h2>Documents</h2><ul>"
                 f"<li>{bakery_halal_line('en')} Verify on <a href=\"/en/halal\">/en/halal</a>.</li>"
                 "<li>ISO 22000:2018 is food-safety, not halal.</li>"
-                "<li>MOQ — one pallet, 1 pallet. EXW Kazan.</li></ul>"
+                "<li>Minimum order: 1 pallet. EXW Kazan.</li></ul>"
             )
             faq = [
                 ("How many SKUs?",
@@ -686,7 +686,7 @@ def write_bakery() -> None:
                  "No person is named: the evidence registry has no consented Person. "
                  "Composition and shelf life are on the SKU card."),
                 ("How to order?",
-                 f"{PHONE}, {EMAIL}. Minimum order is one pallet."),
+                 f"{PHONE}, {EMAIL}. Minimum order: 1 pallet."),
             ]
         extra = [{
             "@context": "https://schema.org", "@type": "ItemList",
@@ -927,7 +927,7 @@ def write_kazakhstan() -> None:
                 "<li>Typical enquiry mix: KD-013/014 chicken pepperoni, sausages and kazylyk — "
                 "composition and price only from SKU cards.</li>"
                 "<li>Shipping documents: halal, declaration, Mercury VSD, Chestny Znak, e-waybill.</li>"
-                "<li>MOQ — one pallet, 1 pallet.</li></ul></div>"
+                "<li>Minimum order: 1 pallet.</li></ul></div>"
             )
             faq = [
                 ("Do you already ship to Kazakhstan?",
@@ -1117,7 +1117,7 @@ def write_uzbekistan() -> None:
                 "<li>Typical enquiry mix: KD-013/014 chicken pepperoni and sausages — "
                 "composition and price only from SKU cards, RUB EXW.</li>"
                 "<li>Shipping documents: halal, declaration, Mercury VSD, Chestny Znak, e-waybill.</li>"
-                "<li>MOQ — one pallet, 1 pallet.</li>"
+                "<li>Minimum order: 1 pallet.</li>"
                 "<li>Samples individually — <a href=\"/en/kak-zakazat#samples\">how to order</a>.</li></ul></div>"
             )
             faq = [
