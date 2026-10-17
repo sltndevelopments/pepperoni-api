@@ -13,7 +13,7 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
+from landing_chrome import font_lcp_hints, stylesheet_link, topbar_html  # noqa: E402
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
 from site_facts import (  # noqa: E402
@@ -1007,6 +1007,7 @@ def build_page(cfg, jerks=False):
   }}
   </script>
 
+  {font_lcp_hints(cfg["slug"])}
   {stylesheet_link()}
   <style>{JERKS_EXTRA_STYLE if jerks else BASE_STYLE}</style>
 </head>
@@ -1472,6 +1473,7 @@ def build_commercial_page(cfg, lang):
   <script type="application/ld+json">{list_ld}</script>
   <script type="application/ld+json">{faq_ld}</script>
   <script type="application/ld+json">{crumbs_ld}</script>
+  {font_lcp_hints(cfg["slug"])}
   {stylesheet_link()}
   <style>{BASE_STYLE}{COMMERCIAL_STYLE}</style>
 </head>

@@ -26,6 +26,10 @@ MIN_INBOUND = 3
 START, END = "<!-- keep-inbound:start -->", "<!-- keep-inbound:end -->"
 BLOCK_RX = re.compile(re.escape(START) + r".*?" + re.escape(END) + r"\n?", re.S)
 HREF_RE = re.compile(r"""href=["']([^"'#]+)["']""", re.I)
+HIDDEN_MARKUP_RE = re.compile(
+    r"<!--.*?-->|<script\b[^>]*>.*?</script>|<template\b[^>]*>.*?</template>",
+    re.I | re.S,
+)
 
 # Unique target URLs from the 58-query core (yadro-zaprosov-v2, 17.10.2026).
 CORE_LANDINGS = (
@@ -167,8 +171,14 @@ def file_for_url(url: str, entries: list[dict] | None = None) -> str | None:
     return None
 
 
+def visible_markup(html: str) -> str:
+    """Drop comments and non-rendered href hosts before counting inbound links."""
+    return HIDDEN_MARKUP_RE.sub("", html)
+
+
 def extract_hrefs(html: str, src_url: str) -> set[str]:
     found: set[str] = set()
+    html = visible_markup(html)
     base = ORIGIN + (src_url if src_url != "/" else "/")
     for raw in HREF_RE.findall(html):
         dest = norm_path(urljoin(base if base.endswith("/") else base + "/", raw))

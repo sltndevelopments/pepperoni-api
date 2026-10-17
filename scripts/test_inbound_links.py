@@ -37,6 +37,16 @@ def main() -> int:
     # Pack-weight style sanity: a known hub is well linked.
     check(len(graph.get("/halal", set())) >= 3, "/halal has ≥3 inbound")
     check(len(graph.get("/kazylyk", set())) >= 3, "/kazylyk has ≥3 inbound")
+
+    hidden = """<a href="/halal">keep</a>
+<!-- <a href="/kazylyk">commented</a> -->
+<script>document.write('<a href="/blog/elesh">script</a>')</script>
+<template><a href="/blog/echpochmak">template</a></template>"""
+    found = inbound.extract_hrefs(hidden, "/about")
+    check("/halal" in found, "visible href is counted")
+    check("/kazylyk" not in found, "href inside HTML comment is ignored")
+    check("/blog/elesh" not in found, "href inside <script> is ignored")
+    check("/blog/echpochmak" not in found, "href inside <template> is ignored")
     if fail:
         print(f"test_inbound_links: {fail} FAIL")
         return 1
