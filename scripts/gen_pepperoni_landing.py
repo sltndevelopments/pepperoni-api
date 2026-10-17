@@ -426,7 +426,10 @@ def build_head(lang: str, L: dict, i18n: dict, family: dict[str, dict],
         ],
         "offers": {
             "@type": "Offer", "url": url,
-            "priceCurrency": price_currency, "price": f"{price_amount}",
+            # Offer always uses the catalog RUB price (products.json offers.price),
+            # not the locale display currency (USD on /en).
+            "priceCurrency": product["offers"].get("priceCurrency") or "RUB",
+            "price": f"{float(product['offers']['price'])}",
             "availability": product["offers"]["availability"],
             "priceValidUntil": f"{date.today().year}-12-31",
             "seller": {"@type": "Organization", "@id": f"{SITE}/#organization", "name": L["contacts"]["company"]},

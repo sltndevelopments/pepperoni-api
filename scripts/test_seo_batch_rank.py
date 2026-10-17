@@ -80,10 +80,56 @@ def main() -> int:
     check("купить оптом" not in title_of("blog/kazylyk.html").lower(), "blog/kazylyk title has no купить оптом")
     check('href="/kazylyk"' in html("blog/kazylyk.html"), "blog/kazylyk bridges to commercial")
 
+    meat_page = html("blog/pepperoni-iz-kakogo-myasa.html")
     desc_meat = desc_of("blog/pepperoni-iz-kakogo-myasa.html")
-    check("куриная" in desc_meat, "pepperoni meat desc names chicken")
-    check("KD-013" in desc_meat, "pepperoni meat desc names KD-013")
-    check("не выпускаются" in desc_meat, "pepperoni meat desc says beef/horse are not in the line")
+    og_meat = re.search(
+        r'<meta\s+property=["\']og:description["\']\s+content=["\'](.*?)["\']',
+        meat_page, re.I | re.S,
+    )
+    og_meat = og_meat.group(1) if og_meat else ""
+    art_ld = None
+    for blob in re.findall(r'<script type="application/ld\+json">(.*?)</script>', meat_page, re.S):
+        try:
+            node = json.loads(blob)
+        except json.JSONDecodeError:
+            continue
+        if node.get("@type") == "Article":
+            art_ld = node
+            break
+    art_desc = (art_ld or {}).get("description") or ""
+    for label, text in (("meta", desc_meat), ("og", og_meat), ("Article JSON-LD", art_desc)):
+        check("куриная" in text and "KD-013" in text and "KD-014" in text,
+              f"pepperoni meat {label} names chicken KD-013/KD-014")
+        check("не выпускаются" not in text and "конина" not in text.lower()
+              and "говядина" not in text.lower() and "horse" not in text.lower(),
+              f"pepperoni meat {label} does not mention other meats")
+
+    kazy_desc = desc_of("kazylyk.html")
+    check("мясная основа: конина и конский жир" in kazy_desc.lower(),
+          "kazylyk desc calls composition a meat base")
+    check("состав — конина и конский жир" not in kazy_desc.lower(),
+          "kazylyk desc does not claim a two-ingredient composition")
+
+    en_pep = html("en/pepperoni.html")
+    en_offer = None
+    for blob in re.findall(r'<script type="application/ld\+json">(.*?)</script>', en_pep, re.S):
+        try:
+            node = json.loads(blob)
+        except json.JSONDecodeError:
+            continue
+        if node.get("@type") == "Product" and node.get("sku") == "KD-013":
+            en_offer = node.get("offers") or {}
+            break
+    rub = str(by_sku["KD-013"]["offers"]["price"])
+    check(en_offer is not None, "EN /pepperoni has KD-013 Product JSON-LD")
+    check((en_offer or {}).get("priceCurrency") == "RUB",
+          "EN KD-013 offer is RUB from products.json")
+    check(str((en_offer or {}).get("price")) in {rub, str(float(rub)), "274", "274.0", "274.00"},
+          f"EN KD-013 offer price is catalog {rub}")
+
+    en_hot = html("en/sosiski-dlya-hotdog.html")
+    check(en_hot.count("2026-10-16") == 8, "EN hotdog keeps catalog as of 2026-10-16 in 8 places")
+    check("2026-10-11" not in en_hot, "EN hotdog was not reverted to 2026-10-11")
 
     check("Котлеты для бургеров оптом" in title_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog title")
     check("гамбургеров" in desc_of("blog/kotlety-dlya-burgerov-optom.html"), "kotlety blog covers гамбургеров")
