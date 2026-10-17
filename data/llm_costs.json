@@ -1579,8 +1579,8 @@
   }
  },
  "2026-10": {
-  "usd": 0.9413,
-  "usd_baseline": 0.882449,
+  "usd": 1.213398,
+  "usd_baseline": 1.134824,
   "days": {
    "2026-10-01": {
     "calls": 1,
@@ -1707,6 +1707,15 @@
     "cache_r": 0,
     "usd": 0.009419,
     "usd_baseline": 0.009419
+   },
+   "2026-10-17": {
+    "calls": 1,
+    "in": 12697,
+    "out": 4400,
+    "cache_w": 15778,
+    "cache_r": 0,
+    "usd": 0.272097,
+    "usd_baseline": 0.252375
    }
   },
   "scripts": {
@@ -1720,13 +1729,13 @@
     "usd_baseline": 0.120524
    },
    "seo_brain": {
-    "calls": 3,
-    "in": 38445,
-    "out": 13372,
-    "cache_w": 47080,
+    "calls": 4,
+    "in": 51142,
+    "out": 17772,
+    "cache_w": 62858,
     "cache_r": 0,
-    "usd": 0.820775,
-    "usd_baseline": 0.761925
+    "usd": 1.092872,
+    "usd_baseline": 1.0143
    }
   },
   "models": {
@@ -1740,13 +1749,13 @@
     "usd_baseline": 0.120524
    },
    "claude-opus-5": {
-    "calls": 3,
-    "in": 38445,
-    "out": 13372,
-    "cache_w": 47080,
+    "calls": 4,
+    "in": 51142,
+    "out": 17772,
+    "cache_w": 62858,
     "cache_r": 0,
-    "usd": 0.820775,
-    "usd_baseline": 0.761925
+    "usd": 1.092872,
+    "usd_baseline": 1.0143
    }
   }
  }
