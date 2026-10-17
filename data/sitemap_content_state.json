@@ -1,58 +1,66 @@
 {
   "version": 1,
-  "updated_at": "2026-10-16",
+  "updated_at": "2026-10-17",
   "files": {
     "index.html": {
-      "sha256": "1780b5c98ce8e5171e7c4a8302fbe06edb2fcc75c9ea53c630f54b13b860840a",
-      "lastmod": "2026-10-16"
+      "sha256": "b3a63e3824a14e0874894f9c6faaf280af69f1ef83af9d6d89965bc83d2bc544",
+      "lastmod": "2026-10-17"
     },
     "about.html": {
       "sha256": "a4d5d696d9689f6ba25f9ff4543e0d4f99e16c1bc04b58b35927fd888e49fcbb",
       "lastmod": "2026-10-16"
     },
     "blog.html": {
-      "sha256": "451725d14172520b14c027e59d1e3e562bedaceab47bba937cc74cb8ecc80844",
-      "lastmod": "2026-10-16"
+      "sha256": "ffa2b5fed17a537e6e34a495b04f1352e4bfc53c91d42d59ac59b08e19f46a7d",
+      "lastmod": "2026-10-17"
+    },
+    "blog/echpochmak.html": {
+      "sha256": "194573c549b15949c7c3f796bf40e55d2c733a58d35317c1e422c054aa903bc0",
+      "lastmod": "2026-10-17"
+    },
+    "blog/elesh.html": {
+      "sha256": "45550ae7b4fe9c7e700f9f23c4ed9722d59c36bdd566f5758639c2576820b11a",
+      "lastmod": "2026-10-17"
     },
     "blog/halal-certification-russia.html": {
       "sha256": "486c84f17c092cc6fa82b4a14dd23b34413c8f8493d1b4a69a9dd4ae92f49879",
       "lastmod": "2026-10-16"
     },
     "blog/kak-hranit-pepperoni.html": {
-      "sha256": "3b5648e280f5681550fe4ea62df248a4decf38ec004b7fda5ef0d7ce60383ef3",
-      "lastmod": "2026-10-16"
+      "sha256": "a093cc13f1812331e1e5b44a9027bfa73019bbd39879dc33db8039537aac6cfd",
+      "lastmod": "2026-10-17"
     },
     "blog/karmin-e120-haram.html": {
       "sha256": "04ff2c2258a0ad03eb4991f83d33ef91d0ea27b412ed4360ccfe7fd41de53a98",
       "lastmod": "2026-10-16"
     },
     "blog/kazylyk.html": {
-      "sha256": "436258834edcbf456d92f58bcdbf64475ff370ae93e062fb16cbfbfb7cd2be29",
-      "lastmod": "2026-10-16"
+      "sha256": "26860ad779397ddf06bda4a49362a9f4354a87a2086276fba3198a7a762d4a9b",
+      "lastmod": "2026-10-17"
     },
     "blog/kotlety-dlya-burgerov-optom.html": {
-      "sha256": "7e993c02f64c57103cd6058d69cfa61fb86c92598e0dbe22b845ac6c92e4cd7f",
-      "lastmod": "2026-10-16"
+      "sha256": "54b38348a10c275ae9281d25a658e370b7683472a44ab56abcd7da07622f03c4",
+      "lastmod": "2026-10-17"
     },
     "blog/narezka-pepperoni-parametry.html": {
-      "sha256": "e7cd524813b1ff37cd34c51d8de8c50f50142fd97269cb7c20f0e1b39d626b17",
-      "lastmod": "2026-10-16"
+      "sha256": "dcf3e44aebba5ae35ed7c55126fb4082c6e30a01d5b8a83100d4b7ca94e71373",
+      "lastmod": "2026-10-17"
     },
     "blog/pepperoni-for-pizzeria-horeca.html": {
-      "sha256": "9bad185104f2d39220c2716723bb2bde497694b9508a68844e1f6553aeab8fae",
-      "lastmod": "2026-10-16"
+      "sha256": "174fa73207cc1d027cab51ece304a2287c9d0e76baba671932f15edf519ccc88",
+      "lastmod": "2026-10-17"
     },
     "blog/pepperoni-iz-kakogo-myasa.html": {
-      "sha256": "88251f5c4f0661b95620a26f82ddd07be2f5f3f3c349a7da0b661007b5e1b6ab",
-      "lastmod": "2026-10-16"
+      "sha256": "02fa292de2ed1acadc3f9953e2f9ccf7f797b4a628129e4b18604f6f8f103e95",
+      "lastmod": "2026-10-17"
     },
     "blog/private-label-kolbasnyh-izdeliy.html": {
       "sha256": "d8a27885021cde62716047785a14328f65ae5bbe5ffc81d7203f38c6c8defd4d",
       "lastmod": "2026-10-16"
     },
     "blog/sosiski-dlya-hot-dogov-optom.html": {
-      "sha256": "b592e06e4460a6a94f5baa71c304d93ecc27c1a9ce08e6741f8bb7f33952787e",
-      "lastmod": "2026-10-16"
+      "sha256": "ae4ba9937db5352365b0de3ec5355d7f6bab8b6c784d46248f2f117301880a4e",
+      "lastmod": "2026-10-17"
     },
     "blog/tolko-halyal-kakie-kategorii-myasa.html": {
       "sha256": "5feb3d49421f6ce6ec5d933194f677416ce5da25bc73d6ac2b1b6b1c5e85d5ae",
@@ -71,32 +79,32 @@
       "lastmod": "2026-10-16"
     },
     "chak-chak-optom.html": {
-      "sha256": "9a4129dd990a3d1eefc19d847e99fe2a37ca9a729ddaadbcd8e33c7c8fb1327f",
-      "lastmod": "2026-10-16"
+      "sha256": "0cf480b786b19afc19dfee55fe67d860d03051d023084a880a73526fb3375e54",
+      "lastmod": "2026-10-17"
     },
     "delivery.html": {
-      "sha256": "28706f89f328517173074806d30844e50dacf769c2d0e9497e084c1321996145",
-      "lastmod": "2026-10-16"
+      "sha256": "91f061a543cae1f783d4d9f11666eacf3b094a12e041b260d3382898f5326f3f",
+      "lastmod": "2026-10-17"
     },
     "dlya-azs.html": {
       "sha256": "b745f37b67729d5158aa4ec95f1ebcafc09c1ff2ea95200aa88eef3ff85b6880",
       "lastmod": "2026-10-16"
     },
     "dlya-distributorov.html": {
-      "sha256": "784374810309bcbbd35d6e9b83c17384716d8c08b2b21190b11845a2eaadf411",
-      "lastmod": "2026-10-16"
+      "sha256": "f06ed7f4cb3c4aa80b860fb69637eb66518de0c136722ec04ebee249f3e711bd",
+      "lastmod": "2026-10-17"
     },
     "dlya-horeca.html": {
-      "sha256": "8b78e168d3d4bb669bc9c37ab58391934d265f2e43d4e6b3df2e1fd330fe282b",
-      "lastmod": "2026-10-16"
+      "sha256": "d21be0f23cb661b8ace34e154b03c6fd6ab32584a6004954a9ed4c8711c960e5",
+      "lastmod": "2026-10-17"
     },
     "dlya-pekaren.html": {
       "sha256": "ec1dedf0d2b01257702da59b2ebddef57cdb9483c0a411696ce4e7959813cba8",
       "lastmod": "2026-10-16"
     },
     "dlya-setey.html": {
-      "sha256": "f408faef80b11dc6567843c2a7b349af779bffb0aa48c398fbb53c68c5c0d94e",
-      "lastmod": "2026-10-16"
+      "sha256": "74fb543ec03b09bc1442b7ea3cab58606a6e3bb330a7303845c3d1996f48d3de",
+      "lastmod": "2026-10-17"
     },
     "editorial-policy.html": {
       "sha256": "89f26bd2219d610ccb14120abd429c55342a91fa54a550f697334e4d05342fe9",
@@ -111,44 +119,44 @@
       "lastmod": "2026-10-16"
     },
     "en/blog.html": {
-      "sha256": "c0afc2340837eeef8126506596e47074f00edab7382bd42aff30a3b352379f7e",
-      "lastmod": "2026-10-16"
+      "sha256": "8c505ddf7f13b371fbcda593f2338bd056cd14072a885a206ed0d16cfc7475be",
+      "lastmod": "2026-10-17"
     },
     "en/blog/beef-hotdog-sausages-halal.html": {
       "sha256": "d4ea4204cee820e2a868c55f55d983cd22e0a66f51f0d85ed864bc6a1fa4c4a8",
       "lastmod": "2026-10-16"
     },
     "en/blog/burger-patties-wholesale-halal.html": {
-      "sha256": "dab5d240082ef6cae3fb8701c57749dd19222ddc227dee071fcfb2eb9d199f4d",
-      "lastmod": "2026-10-16"
+      "sha256": "3c1c95997883c0af95c924a91cb5fcfca17dff18b2dec15ff668e23e5758c4e7",
+      "lastmod": "2026-10-17"
     },
     "en/blog/halal-certification-russia.html": {
       "sha256": "645d26fee411ed7745c7fd119fca7c8b77956ec5175a0798c1d64e0295c80a40",
       "lastmod": "2026-10-16"
     },
     "en/blog/kazylyk-horse-meat-sausage.html": {
-      "sha256": "19cf0a7244a682ab5899683af4f877da5f77d19fcbaf9472aa96e3bfc5c0d335",
-      "lastmod": "2026-10-16"
+      "sha256": "2976b1ecf9dd927d0cf2aea2385584f9c260d213ed93d72fb2d9aa83dc053448",
+      "lastmod": "2026-10-17"
     },
     "en/blog/pepperoni-for-pizzeria-horeca.html": {
-      "sha256": "eb8c068ea670c4ee1a3a5e8e08ae08c2c1edd2be943f7ef02fdfa4587ad4cb89",
-      "lastmod": "2026-10-16"
+      "sha256": "b68553b547b753d2d6e5bd20d24d348fe59294dbcef68b1c89ce7727fb552db9",
+      "lastmod": "2026-10-17"
     },
     "en/blog/pepperoni-slicing-specs.html": {
-      "sha256": "ce4bc33c8bf9168aa523f412982c433e6f63677dd5c11debb6fa292b20d5b240",
-      "lastmod": "2026-10-16"
+      "sha256": "84d555c8a7750c7783a55d0bde81229e057e6d4c72955e198b0f6ca29a0209be",
+      "lastmod": "2026-10-17"
     },
     "en/blog/private-label-meat-products.html": {
       "sha256": "5592240127ab86419e3d7943aac5320fb0a195178e44ece754c8fc3c060bc5d7",
       "lastmod": "2026-10-16"
     },
     "en/blog/what-is-halal-pepperoni.html": {
-      "sha256": "411f6b6c6fab3e523b72e6e4a96551b86596c543ea34d3b66f9aeb09c6fda1ff",
-      "lastmod": "2026-10-16"
+      "sha256": "eeabd52ebfd54fd50ffefb79a045c01a8d0e97e00528f5ac815d30f3fdcd076b",
+      "lastmod": "2026-10-17"
     },
     "en/blog/wholesale-pepperoni-russia-export.html": {
-      "sha256": "32107d1706d11f81f4513538d08aaa83b9a661add1aff695bbbe4c2cf6bf54eb",
-      "lastmod": "2026-10-16"
+      "sha256": "517210bdd04c02f53d4d17fe6b422c2f676f633e3f7ceb1fc3bf9e3c12fa6721",
+      "lastmod": "2026-10-17"
     },
     "en/capabilities.html": {
       "sha256": "a63dd09fb08f340d8ef187f19c296930c590a735f401764d1efb1ac44efc432c",
@@ -159,36 +167,32 @@
       "lastmod": "2026-10-16"
     },
     "en/chak-chak-optom.html": {
-      "sha256": "c7cf99d8f57b01985d4edcb5f54c0296548ad05613c44212c5601e4cbc0f159c",
-      "lastmod": "2026-10-16"
+      "sha256": "12ce24d53a7851aec43e1c6077acf6782a3e96109a5750bf7eafe5a9cee1e69c",
+      "lastmod": "2026-10-17"
     },
     "en/delivery.html": {
-      "sha256": "999053760793ddff36a599d49ac4a8b4788e9548ef8979370846807e4d3d2181",
-      "lastmod": "2026-10-16"
+      "sha256": "c61d54c18f85df162b113f64044e04be8319a67423584be129614534d760aa1a",
+      "lastmod": "2026-10-17"
     },
     "en/dlya-azs.html": {
-      "sha256": "06b79790d572ccd165f8189a08c713dcd623d99cbfbe1e2fac8b4e85f6a6bde0",
-      "lastmod": "2026-10-16"
+      "sha256": "1576c77d13253f315b3898769e86fc916bef97187075f968551c508e42b02151",
+      "lastmod": "2026-10-17"
     },
     "en/dlya-distributorov.html": {
-      "sha256": "08f19839d2d39f111c32dd63d61d0f050d0619740f9e92983797be1d2d529576",
-      "lastmod": "2026-10-16"
+      "sha256": "44ccada88a1d18f5d0dc85a94c50e1f52a144661f1b2f1a037929351d124c236",
+      "lastmod": "2026-10-17"
     },
     "en/dlya-horeca.html": {
-      "sha256": "0f6ef74c861c0f8f32d6aa3818c811b32777a8546c05f064c87135f13ec114c7",
-      "lastmod": "2026-10-16"
+      "sha256": "d4d6fd380516e274b5ef58f63acd0ffe2c62aa98e93a7b6fd0c733ded13654b4",
+      "lastmod": "2026-10-17"
     },
     "en/dlya-pekaren.html": {
-      "sha256": "bf877f67f05459d82ee2d96cdaeaf8097c10ebdb74f5231ddb2b5e98f23129c8",
-      "lastmod": "2026-10-16"
+      "sha256": "07ce9cecb1a33ced7fe0a7679747a7277639a3a942c534a24822f95dfe30079d",
+      "lastmod": "2026-10-17"
     },
     "en/dlya-setey.html": {
-      "sha256": "e27dd6de387fce34bff0dd9912ac8800fb8cb87b3b64cbfb968be57ef3fc4fd9",
-      "lastmod": "2026-10-16"
-    },
-    "en/editorial-policy.html": {
-      "sha256": "b87d04fd1d4c59ca66162d24393c5f59a7e9781328816103f129f223defee02d",
-      "lastmod": "2026-10-16"
+      "sha256": "c3186d074edbe648f31ea181070e0a50d84f8d5967e7b5c81d1635828f5e69e0",
+      "lastmod": "2026-10-17"
     },
     "en/export.html": {
       "sha256": "520b6dee96160c1171843969e13170e68df22e6a79fd206911a7fab14434457c",
@@ -199,80 +203,80 @@
       "lastmod": "2026-10-16"
     },
     "en/export/azerbaijan.html": {
-      "sha256": "c4d231d8d86f127d37848bfd388ea3d29a570222543fd1198652c98a7c9d38d2",
-      "lastmod": "2026-10-16"
+      "sha256": "3b60d768cc260e5755dcc20b883974b9a301553b7bd7ac0f437d459a6129b0e9",
+      "lastmod": "2026-10-17"
     },
     "en/export/bahrain.html": {
-      "sha256": "5ae6c3c34b8b724063bde6450fdf52cab1ea8a0699f8acedb8ee681fd5a58987",
-      "lastmod": "2026-10-16"
+      "sha256": "6ab262fdd2e7f89c50a15cbb34389675301a22ab28d2d63994c36179d1fdd808",
+      "lastmod": "2026-10-17"
     },
     "en/export/belarus.html": {
       "sha256": "7596d7d0dea2c336c6f9d848d9a942d194f1dea90b308600b43e43da06cd6b63",
       "lastmod": "2026-10-16"
     },
     "en/export/egypt.html": {
-      "sha256": "df54896574f2ce7a8dbd66fd6d8ec856f86f84ec6cf55d26b369a3b75644e0dc",
-      "lastmod": "2026-10-16"
+      "sha256": "5cc08f6e79ccfa079d1247cfe96685318000bf271c62b2a27bd004a8d3b765b8",
+      "lastmod": "2026-10-17"
     },
     "en/export/georgia.html": {
-      "sha256": "b8bfd508c4e7298fe944973be01588d49e8328063001d75c4da8f962e75a673a",
-      "lastmod": "2026-10-16"
+      "sha256": "990425fd384e61bc09e941c514edfb85b18bf028a903f3975014095752c6c445",
+      "lastmod": "2026-10-17"
     },
     "en/export/kazakhstan.html": {
-      "sha256": "b23f98c03bfe19506bc7b3dd820e557cc3dce175315b46863e406cfb61323115",
-      "lastmod": "2026-10-16"
+      "sha256": "b7e7e5c97be0209232bc87cef611589ac4b7c54b03d2124937e07a28cb7efcd6",
+      "lastmod": "2026-10-17"
     },
     "en/export/kuwait.html": {
-      "sha256": "741549e052051c670ebf5e9f63186df9ea4e5db9f284850bb60c59cf99843529",
-      "lastmod": "2026-10-16"
+      "sha256": "fc5dc373c889307f4a1971a6643f3921b4e4049fd122ac92b2aaf9b5eca21403",
+      "lastmod": "2026-10-17"
     },
     "en/export/kyrgyzstan.html": {
       "sha256": "0a2aa405f512eb242a70f7960112525ee528956c8cce05729b8d379c5b76472e",
       "lastmod": "2026-10-16"
     },
     "en/export/oman.html": {
-      "sha256": "6df76b6207409799dab869cf8c62b7f420f9b06a6a2601f877df78daf52f1fe5",
-      "lastmod": "2026-10-16"
+      "sha256": "3778bcd4e8e6ca424a819d1655ed24682860e2c9f6de832d9cb465f483f44991",
+      "lastmod": "2026-10-17"
     },
     "en/export/qatar.html": {
-      "sha256": "b2fb957e096c2c31178697f3dcb8035e6825cde5b58afe9cf78273ea8cc22e53",
-      "lastmod": "2026-10-16"
+      "sha256": "dfa4a2571aeec4c379782d90a7aa719c51389df7782442a2368298caf029c27c",
+      "lastmod": "2026-10-17"
     },
     "en/export/saudi-arabia.html": {
-      "sha256": "4e7cb8199ddf551357ea1a1d5cd64e9e7c69be6a0eb439a4903426d1c012a36b",
-      "lastmod": "2026-10-16"
+      "sha256": "f95fd12a96fdb9d132cc9e1552a98a849f84e6c5aa8a12845e4e41d97ab769fb",
+      "lastmod": "2026-10-17"
     },
     "en/export/tajikistan.html": {
-      "sha256": "b1c70dfb8be5b672471625ba8cd2b5d616722dd3370f3b33e97ff6577ccaf42f",
-      "lastmod": "2026-10-16"
+      "sha256": "e11bfcf1c3a5969d23b60f7bcebd5c1295f3ab485fbdd32e1cfb80d0db81517f",
+      "lastmod": "2026-10-17"
     },
     "en/export/uae.html": {
-      "sha256": "0cc668656db1e93c320d0d5a2d8d50ccb491dd7710e9da2d36873ce67bf36494",
-      "lastmod": "2026-10-16"
+      "sha256": "74950129f9d60f960743cd8d3b436a44c7d46b54a7c54c02ce839381093178b6",
+      "lastmod": "2026-10-17"
     },
     "en/export/uzbekistan.html": {
-      "sha256": "f8d3fa9d18607e4fc851ece6ec1d367004410c454a37ffbb7c624b427b6af351",
-      "lastmod": "2026-10-16"
+      "sha256": "5377090f7aa94ac886508544e2b323ec4df79ce5134f9769015da75d27331f7b",
+      "lastmod": "2026-10-17"
     },
     "en/faq.html": {
-      "sha256": "8d7670659f7d52022bd15bc60558a8a36d9e79c0ec70b884988a617787cb8089",
-      "lastmod": "2026-10-16"
+      "sha256": "b700dc4abaa6f03a559503de7a96f1233e83ae1c5fab8c7ebe8f2bdbbdffea7f",
+      "lastmod": "2026-10-17"
     },
     "en/halal.html": {
-      "sha256": "460104a4bd4a627dad3d56482b7ca328d0281600a269aad3e88fd9acc1376571",
-      "lastmod": "2026-10-16"
+      "sha256": "9002f0b3fae2a593ec6f915c169f03adb04ea71219afcfc4f9c243c1b98ea402",
+      "lastmod": "2026-10-17"
     },
     "en/halyal-vypechka-optom-dlya-pekaren.html": {
-      "sha256": "fa171367a9408023fcd624743000f99bcdd9ac0aec054bdd72322fd31f7e3cff",
-      "lastmod": "2026-10-16"
+      "sha256": "f6ed27910c49bdfaac5cc34911410d74a6dc4c07d451be6cb1f303598d15c8ad",
+      "lastmod": "2026-10-17"
     },
     "en/jerky.html": {
       "sha256": "1de74374f63fc3eb345f29451e7cc7ef0e0c2eada4383d4f0bae3135bcd3ada6",
       "lastmod": "2026-10-16"
     },
     "en/kazylyk.html": {
-      "sha256": "b26d15acbeab6c02ec713db4c092cf44f094dfdc57ede720dd1dab0a469d8c4e",
-      "lastmod": "2026-10-16"
+      "sha256": "54010330f96d2f202bcecce027719384135134989b32acb3f5440a94369fd1e9",
+      "lastmod": "2026-10-17"
     },
     "en/kolbasy-kopchyonye.html": {
       "sha256": "05ddf4335c0319f7f0d479d028074712d7375042ed7383819eb7af9c030ef50c",
@@ -283,24 +287,24 @@
       "lastmod": "2026-10-16"
     },
     "en/kotlety-dlya-burgerov.html": {
-      "sha256": "3cab8e4c13c99d175f6067a09096837724f099010408529c3c7ed1bf73832166",
-      "lastmod": "2026-10-16"
+      "sha256": "3a37dad07cd5edf5d67058e270ddf43c6f3f6d3f35e16bbbc9365905ced49406",
+      "lastmod": "2026-10-17"
     },
     "en/pepperoni.html": {
-      "sha256": "a114d1c835fef40f4e62805e2d16fb14b99ba9c736b679e7fa819dc86370545c",
-      "lastmod": "2026-10-16"
+      "sha256": "7655f9e6423d7d0f7db8b18ebd0f30923cb635f1224f5757e0312843bcb238a8",
+      "lastmod": "2026-10-17"
     },
     "en/pepperoni-dlya-pizzerii.html": {
-      "sha256": "b90d7c17a01a5fb9427a0e182eb7af5b9ac87d8f688738c1613b3d25bff02228",
-      "lastmod": "2026-10-16"
+      "sha256": "59ba1e7d6bb0c14f0c5b6f947b45e88cecc6066dd2fed3dba30bdb57525687f0",
+      "lastmod": "2026-10-17"
     },
     "en/pepperoni-v-narezke.html": {
-      "sha256": "5de35cb1b978721de8559bd6247f6af87696085520f063ff012dfe8787c6ab1a",
-      "lastmod": "2026-10-16"
+      "sha256": "c687461c598259211f8af9ea544bc8ac8b1b6d196a7851dcee70b47055af5b5b",
+      "lastmod": "2026-10-17"
     },
     "en/pizzeria.html": {
-      "sha256": "3056e8ff8fe66f6011e86be8d7063810d67900bb517992ccc47827ff07ad4ed2",
-      "lastmod": "2026-10-16"
+      "sha256": "41244bd947c7bfc5201fb52db64c7df7c91ce0876120d9f03b299b032ada4cfe",
+      "lastmod": "2026-10-17"
     },
     "en/private-label.html": {
       "sha256": "321653d17b8793a9ce10a6eacc0ebcf3b4852d87c42f5b269c363b3cf5d94e9f",
@@ -311,284 +315,284 @@
       "lastmod": "2026-10-16"
     },
     "en/products/kd-001.html": {
-      "sha256": "715944161680426155884ac60b3e668aaf04f24c026336ac9ae12a2cc466bb11",
-      "lastmod": "2026-10-16"
+      "sha256": "5598b1ab8281c1ce597541f1239119b0a0a756b2cf79f148b76451023f3bbaaf",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-002.html": {
-      "sha256": "13a9d4f96d820de01c720648b8746ffcc7f353d53239b067e70b45e4e9163d0d",
-      "lastmod": "2026-10-16"
+      "sha256": "cf413c5538f85e92be27246525626488437de3d1e975913f9b4893de7b54914c",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-003.html": {
-      "sha256": "d31d04470f90badb3747d3890259069495e92bcdcb6722aa1abb8ebcbeb6da57",
-      "lastmod": "2026-10-16"
+      "sha256": "3416eef6129e72bc1bd3e965aa1b50fa2b0cc49a96a20dd7a161ba70714d1024",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-004.html": {
-      "sha256": "03987436b237bae29f3c00314e59c68b62da0d02bf3e4e197f969d47a920938b",
-      "lastmod": "2026-10-16"
+      "sha256": "ba07a9561d3e1a0603cbf03fd44a9279269f9fc67b015599a976db0a94105ec5",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-005.html": {
-      "sha256": "7ea9932cead2168c8107c01fd11f26fc5725384e031cbfd446d2c77c8fbeb661",
-      "lastmod": "2026-10-16"
+      "sha256": "d89c9127255a6c91ad55a57b51d46c064a0beb55a730a47fb4534d7950dbc121",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-006.html": {
-      "sha256": "dffb8102659a7d4c1ed16b7c652f502c5179af31129b0c5128dfd95dd08e714c",
-      "lastmod": "2026-10-16"
+      "sha256": "253553996ce1da310c46d99ba4baf8d213d014bd80c4e3b02165f4fa31b4a4ef",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-007.html": {
-      "sha256": "4ba80a0ee68d6578b6653659a3796dacd70413d55b198dc44082bf54eedbe7ac",
-      "lastmod": "2026-10-16"
+      "sha256": "f4145d1b51754b9414c2e6d8b792dde08ad0ba8b6a936c0c20d5a1c269583e61",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-008.html": {
-      "sha256": "e590d01a304b09e0448daebeb61b96523b40a19d900799d38b2d82a7b7f9ddf8",
-      "lastmod": "2026-10-16"
+      "sha256": "8842cf09a1d151450bc8dd23a923a3aa82f80b2bae3bb0d748800e44ced52b01",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-009.html": {
-      "sha256": "852048d75752bf6f75cc285f111a618998dde0682637eefedd48a7f101c3339c",
-      "lastmod": "2026-10-16"
+      "sha256": "89ad78c9066912d85f9dad64d3baf61de04a736d5a8212264a4d67f1a16b32be",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-010.html": {
-      "sha256": "978e4f4b97ef92b04e65810c2deb7d13169f5fd1eed0461eef757ec4c1a7e572",
-      "lastmod": "2026-10-16"
+      "sha256": "394d39380720882499fc65e3cd2365f9ccb10dec177e3bd87f617a947780a825",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-011.html": {
-      "sha256": "741de13cfe67e9443f033eef8a8f88515511960fcebf6e3c7d33b4d791759bf7",
-      "lastmod": "2026-10-16"
+      "sha256": "9324f6491aa1600fa3741f92a0e5f9e111e65fef1c02016c9f88b3b662e3e3da",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-013.html": {
-      "sha256": "c1bcbdc62517e17d1500be24eca04c9d90dbc6b60ce7b37b0bc967295e86464f",
-      "lastmod": "2026-10-16"
+      "sha256": "6228a2b3a657f44de561b7e124a751f7580f44082e2536536e5a386ba7eb216a",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-014.html": {
-      "sha256": "8819fc017079d794cc32adc74152ae038ceb4b5073c32bb0480e7c3540b437ef",
-      "lastmod": "2026-10-16"
+      "sha256": "096baff149ba22c0853777a640517d79fb372d64fa89d108ab40c8a38bcc4337",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-015.html": {
-      "sha256": "edbcd0bd00004a1caf770e8403e0ca90bfe3b2f5a6eb46b2a2a0f14731678b7c",
-      "lastmod": "2026-10-16"
+      "sha256": "f41fba14cc1dfb56df9673a54e192f5de0fede019f5c56c797e28f8e6d442294",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-017.html": {
-      "sha256": "8b80166b4652140b1bdb927ea244f2c7a6ec88ca1043684d158e95076953dd44",
-      "lastmod": "2026-10-16"
+      "sha256": "8874809f8ff8f4ce5427601c46e786fb446868ac34ec70944ca60a26d4515044",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-018.html": {
-      "sha256": "5a61071edafb93e03f8d3d4cbac1a8bf2604215a35a6b2d1fa78cea6566081d2",
-      "lastmod": "2026-10-16"
+      "sha256": "cfec12d5d759888f36504fcd55507699ec045202ee57e2881c0bec17f2ca41c0",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-019.html": {
-      "sha256": "7e1bf93570e794411cba9d663346857ace2c9c7af922f94177a3d47505edc9a8",
-      "lastmod": "2026-10-16"
+      "sha256": "ff9cb2b6e89b7374ba2facc590c06f702c4972d46a704658b3336b46886458c9",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-020.html": {
-      "sha256": "1db530584aae84a4b814e7c8dc5966fbf2c32b95ce40fda16495383aee15e394",
-      "lastmod": "2026-10-16"
+      "sha256": "925a16f9a63656012110d6f8249d8c6f5a3afd0fffd57986cd7029d632f6c05e",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-021.html": {
-      "sha256": "526f70144ffa932772a94366505670701e357815ba5904261f49164b83eb89c3",
-      "lastmod": "2026-10-16"
+      "sha256": "014db97f967a29e2834ed69a48351f7fba8e494b5629258be6c0af3c6d9f7eea",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-022.html": {
-      "sha256": "ac4284e14c7687987ac7d79ec401df47f0dc2d2f3cbed6077c09f9552e9f3337",
-      "lastmod": "2026-10-16"
+      "sha256": "6bdbcec6b7f0cc9ae36aee08d9e7146f42cbd85ee9671b326442898e2e3517ba",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-023.html": {
-      "sha256": "6ac96a4dbcb03ddc259a029c67635235f70f792ab0c53b477bf465fba007cde1",
-      "lastmod": "2026-10-16"
+      "sha256": "f1bedd7fa310174d7214eb4e2442691171f675924e21447101d930f639247789",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-024.html": {
-      "sha256": "ca444455cfa3f0612bd32f280984c139465f1aaa82086b68db570b5cc7395256",
-      "lastmod": "2026-10-16"
+      "sha256": "d212819407f13d358d0c0e51cb645e2645ce9738246e95b940ba141d90b61704",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-025.html": {
-      "sha256": "926be921bfc5eb6781bfe1bd76f1a1aa39415ce648c9be90cc732e8bc0532645",
-      "lastmod": "2026-10-16"
+      "sha256": "f6f927f65d30332640046989dd32dfc2f2479207553fccbddd32cffc02223e00",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-026.html": {
-      "sha256": "96909ff2b3155d494bbf9fe82dfd47d32374ab6160d4063ec2260f7eae9d329c",
-      "lastmod": "2026-10-16"
+      "sha256": "44655a7971f6a288501a513839145cf7be3a6bee07dadcff1bfab1beef3e0e0e",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-027.html": {
-      "sha256": "e8f44305ee37ec97fb52d26e2465c1ce9f989b3ff8cfbeb9cbc3dcd9f5976599",
-      "lastmod": "2026-10-16"
+      "sha256": "07a1c3639deceb34945edc2d01531fb4666ba79c4d086aaeaae42d6d95569454",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-028.html": {
-      "sha256": "b1721f92b29cd0ac51e0de5ab30d037db929412f8c312b6b1096d9e02e0915e2",
-      "lastmod": "2026-10-16"
+      "sha256": "189f2bf473e5c1ef0c6b763ede994dda060f55736c972c16b2e123f0c226effd",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-029.html": {
-      "sha256": "90780601251c1964023d60f4fe2236b2ae94755eb10a06213f261d851901caf0",
-      "lastmod": "2026-10-16"
+      "sha256": "2ecd7c7a914a584d24259426411757c0b90912ecd3a542a5b4829f7c79541bf1",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-030.html": {
-      "sha256": "a82a53a73a25504d13dd1b9137f0511461b402e9d4f8a7354498844d057cc19d",
-      "lastmod": "2026-10-16"
+      "sha256": "6eb4dcdd22a5e03d13d14a0cfb3ab886a3a4643393b2ea4b1bca6889c4e934a8",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-031.html": {
-      "sha256": "f609dc7b23ec0e9dd817e51102621e51b39a4348de58e7cc54e664d96a47d542",
-      "lastmod": "2026-10-16"
+      "sha256": "bfee9a0a25b8cfe1b0d9755c18b0493f6446f205e50372d5ae731b6559bab98b",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-032.html": {
-      "sha256": "d64fbbbb259053efa17169209f058294fadfe6bb64d1201100e346241c93cff9",
-      "lastmod": "2026-10-16"
+      "sha256": "6288083f84f6e36cf2a0c9013e76ce965ab5a2bfcac33385c233deefc0ed7c3f",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-033.html": {
-      "sha256": "888cfb0688d93877c3340a40aef975a30a04b69b00f4971094e44b99e630119a",
-      "lastmod": "2026-10-16"
+      "sha256": "89c5a935dc42195bba03480ad57515a5df92d0cf9ec4e5293c16fc5a9d84fd2c",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-034.html": {
-      "sha256": "b0ddaa976b917654d621ce753bbe7f28e2ad15c56903c2d0d3acef9031997cee",
-      "lastmod": "2026-10-16"
+      "sha256": "4054650dff547aba3e29e955b4af988a2b342334855302ab00962205e118a767",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-035.html": {
-      "sha256": "6ef1ce23592bd09b5b038684584a4a3412622eb7396de92f35810b09a994f2e2",
-      "lastmod": "2026-10-16"
+      "sha256": "6dd84dc7d521cac65c7db7c91f87894f525645d8b585aa5a1f7395f70952f7a9",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-036.html": {
-      "sha256": "8975cd6b54693a29b8759de30ad93cc75c772bbf2e279eca76620161f952505f",
-      "lastmod": "2026-10-16"
+      "sha256": "60f6c2a659976104cd9557e396d9773d36ceff86e1461f1163e4be66da55e96d",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-037.html": {
-      "sha256": "2850e4ff5faad0bfcbe0519edd7691e89e2c0a0b3cee3d5d89927d89b52a56f9",
-      "lastmod": "2026-10-16"
+      "sha256": "e02731bd161d2004e7194b7b410a4bc7e796f0b6488cf1372ad791868d1f3d06",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-038.html": {
-      "sha256": "207841ab3fef88cc56f15ec416a3cb8f07aa5088eb0b0d0a9d9569cb63a2581e",
-      "lastmod": "2026-10-16"
+      "sha256": "fec0d12390dfcfc7acc4247e3fdeea5a6cd0214d8d317dacab3b5f843b878b42",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-039.html": {
-      "sha256": "e599e11f512c4e588135b7f5700abe8f6c513fb16cc3aed3f6d04c1d7f773d64",
-      "lastmod": "2026-10-16"
+      "sha256": "e6d142b3fd5ec52dd24114d86a72604fec4c95996559e657f7cbf43eb024c80d",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-040.html": {
-      "sha256": "959e1764c101ffe01375407cdecc9268e6f307a6500c883f5d266d182f09e28d",
-      "lastmod": "2026-10-16"
+      "sha256": "be60a014d68d6b1199484693c0ccb081529aca13f5c3c36d4f119e10bca5fc14",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-041.html": {
-      "sha256": "af738c210d399269d04f912f31a172db094b628f3f1889cd13a643d084b8d8a2",
-      "lastmod": "2026-10-16"
+      "sha256": "c6c75c4d79426eef85a6eed2f5037ebfcf338257215afb5afd18434bb53c49e3",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-042.html": {
-      "sha256": "4a4733b27ed2ee7f6f9ba6ff2c4bfe11da76737c1cf838331376533d85ad3d40",
-      "lastmod": "2026-10-16"
+      "sha256": "9713348eb9fcca5478a25a631c9d88b509a181ff3bba7fec16f7ab852a53fcab",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-043.html": {
-      "sha256": "fa6baa448253c2d3cbfe79e12fdeeb1e4820f1df72f483caa3c7163ca595e748",
-      "lastmod": "2026-10-16"
+      "sha256": "fe9221b20101b50e3c01d6fb98443e945c7751f2cfac39fe5b2881d71a7e70e6",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-044.html": {
-      "sha256": "23625e631294c8bbc3e867ff3ed425f500e63adf8ee8f24d62bd91ccc70a0e84",
-      "lastmod": "2026-10-16"
+      "sha256": "459cd64cf088daac48e6a9ae6e0fc53e57eb8b4b1907d1f65301d56b62887fa6",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-045.html": {
-      "sha256": "4c4e0c1f97a296de7df79795f7ac9643bcd3b432e7365d74ae2f3c9ede0da00c",
-      "lastmod": "2026-10-16"
+      "sha256": "e2c8adc78f653d3d3526338b1b23f9f8b94a8af804c6b8def1805fa011a02449",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-046.html": {
-      "sha256": "258281022e0b7ea5a6bbdeac9f8c37d9fe8551491092fdcc98d95e41aad68f62",
-      "lastmod": "2026-10-16"
+      "sha256": "2eb0d2d91dd7f1b935035e67c4e2d0d2fdb3a5c8e926a548c284d3a0cfddf73e",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-047.html": {
-      "sha256": "75c90e04eaade206bacc5a24a7da4a2821e10c45f60fc4e3a079d77b0895195c",
-      "lastmod": "2026-10-16"
+      "sha256": "a478c7ce70c75ed5dbd6d75ce0da2f3e86048e7352967884d5274c437d7488de",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-048.html": {
-      "sha256": "3576d4a85169f58615ceb8e1d117c7ba89d861a6ef15b17fb3ad5b205605722f",
-      "lastmod": "2026-10-16"
+      "sha256": "cb1aa2a2f213282bfeb0f7f1e88c238a8ec69865fa569799f50e591aaf3039fa",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-049.html": {
-      "sha256": "cd194636033628d791417b1735b6939c9b08c9d4b0f79aed76799dbdd22050b6",
-      "lastmod": "2026-10-16"
+      "sha256": "96d35f4e913ff0759020527efdbc6754fc79074146cc400486bdd85fa02a5874",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-050.html": {
-      "sha256": "6ae6648946ec27a996ec2ff3069e4507e1285b7b31503c0a22f4a509431a4588",
-      "lastmod": "2026-10-16"
+      "sha256": "40e1c9f0417707ce057200cfe1e240a9d4fd0c102d1581be3f4f744bb2714d79",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-051.html": {
-      "sha256": "f77f3fba69c0fd4a31e3f0e3e2d92824f6854a119c7b83b639df17d01cfce271",
-      "lastmod": "2026-10-16"
+      "sha256": "458c6f4ab6c228d645639b43c077e95669b4a1471234db0e397e4ba112fffbca",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-052.html": {
-      "sha256": "9257dad0417c58c2804843d99dbbce1187c82b9617e5d9756abb7fee06721237",
-      "lastmod": "2026-10-16"
+      "sha256": "20eadc521945ae7d40aee4b7af838009ab75c4532fa142cb8b7f9fe4c12cc3fa",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-053.html": {
-      "sha256": "9d5817ab6d28d4e6c644487a4746330708147c0fb5d6bb4a1f83f97df54960cc",
-      "lastmod": "2026-10-16"
+      "sha256": "ec353f6b7579bd9ddc44ecc32b5ab2e8675bff85479352bb7551e2504c15e03f",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-054.html": {
-      "sha256": "3eaa6d111f19c51e9d97d6e52f580614f9b29b7563c18e011af201a74a5a1e2b",
-      "lastmod": "2026-10-16"
+      "sha256": "00abbc0dc0f5089f5dfda4bd11f047d3a9a25c287b490121e73714786594f8cb",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-055.html": {
-      "sha256": "8bf71517108362c4fbeaa818897f531347fc7300db2bc16d7b538fed8ea64ebc",
-      "lastmod": "2026-10-16"
+      "sha256": "276544da661945ca2393e362743411b477631746e61cd4bfd42b6e548ee3f5d1",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-057.html": {
-      "sha256": "47d626c55314d5a5f4c1ea62ab781c211ce259dd5f365ba9ce3fd20417a064a2",
-      "lastmod": "2026-10-16"
+      "sha256": "5f91095ee116f29786a6887dc06d34cb19f067183af8e4ff577b2f24394a77f3",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-058.html": {
-      "sha256": "bb84155f1d8dce941d0565c61fabc3d6767d871b450aba2157f336f576b6a094",
-      "lastmod": "2026-10-16"
+      "sha256": "d95ff57b70e3591eaae0f75c8f1e97b507e51eff8127a61182024d6854c69a04",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-059.html": {
-      "sha256": "42c82800f73a470593db73d24d924c6e856a0f7c8462f7c0b4215e7ec0dce2e1",
-      "lastmod": "2026-10-16"
+      "sha256": "fe42f1acc6ebe5cbfbbe5ca271627df6aaee071d31af5bdb3a46a84cf94c0515",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-060.html": {
-      "sha256": "2723a0f8481f8960ca7a9acc14695296128d6fe3de44dde24f8ae53cff982638",
-      "lastmod": "2026-10-16"
+      "sha256": "c5714e0cd19a026d79e8d43f8ccbfc8fe43df95beaa42b44b8674fa892fb7c1c",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-061.html": {
-      "sha256": "617df555d20489f2d605e5659e9f4b83c40e938c75d1a75517490db4fcafac43",
-      "lastmod": "2026-10-16"
+      "sha256": "9094a833ba6f1ccc5a9f4385ccf9744b0415896588562f730d3879b9ed3e03dc",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-062.html": {
-      "sha256": "f0850ef00e22459838eb8442db342b85b9c3e8baab214b054d0f8d9f29c081ec",
-      "lastmod": "2026-10-16"
+      "sha256": "1886c6c1ba9cd371b8ae54bb46b09121933784c931001a2c7b65e6912066bbe1",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-063.html": {
-      "sha256": "07430935c39ec02ac444ab0e51e03cc2e5a80f09491a6d888089dfcced12fef6",
-      "lastmod": "2026-10-16"
+      "sha256": "67e03e7d4a70a3a7318bef9a844e1dd33de825fac6b2da92aa65074d60a8d24c",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-064.html": {
-      "sha256": "7fc9237e4d7a76a439cad88689941f36ec60fdd929995bc83c98c8b4d73f6349",
-      "lastmod": "2026-10-16"
+      "sha256": "931398f991da6756107344ec7aafd6508e213781dd8bb171e72933531038535d",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-065.html": {
-      "sha256": "74af46feb4466941d0a51e81230c11a26f82cbf8a2f27f5eb6d3f4cc1c0154e7",
-      "lastmod": "2026-10-16"
+      "sha256": "9bf571eb5b3d638c44a1fe3240f6d4b0cc7f0f0d1d06490a363dd6fede9ed6db",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-066.html": {
-      "sha256": "c388d41b5a28d8f5ce29cbd3045d50869cb2f7d1b667c8e5567fc8e2bca7ad3d",
-      "lastmod": "2026-10-16"
+      "sha256": "8f57b7de14173af959b8c5086ebd16628c935f168778292f3bfba518fad13f97",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-067.html": {
-      "sha256": "e62fec9a6f586938b6ff1df7dfdcea0351992e889b607a2bff2cc2856b51b120",
-      "lastmod": "2026-10-16"
+      "sha256": "a0c82b7d5b1f6b3f4319b10e8ac2ec9d77eca749af8bc9f78252e526c32aac0b",
+      "lastmod": "2026-10-17"
     },
     "en/products/kd-068.html": {
-      "sha256": "ded3912784c2f8fa8bcbcbe57eb51ecda337ee3467255ab01d5557cfff082743",
-      "lastmod": "2026-10-16"
+      "sha256": "48ade431d8dcec7963acab71fc832a88a5f98076cc795f2211cee81acbd11a5d",
+      "lastmod": "2026-10-17"
     },
     "en/sosiska-v-teste.html": {
-      "sha256": "096bc3f4a0d6985470cb2b06af1ced58eb53edf8858f01270102bcf8330cbed8",
-      "lastmod": "2026-10-16"
+      "sha256": "09f7db1f3a291b65fe7982dd345e339186132f442f9bbaebfe00e1b5e1594151",
+      "lastmod": "2026-10-17"
     },
     "en/sosiski-dlya-hotdog.html": {
-      "sha256": "ba313096822c4f821a915f05c6798cc1fdb48c2a60118922eb42b8bb262aa00d",
-      "lastmod": "2026-10-16"
+      "sha256": "afefe9d2e47baa42b9469d9575e4577a1d04b34522c799e152ce59bd8cad4ec0",
+      "lastmod": "2026-10-17"
     },
     "en/vetchina-optom.html": {
       "sha256": "b5cbca9642cbf551762573b1c908292c38592591496c718b752d7070d616ada9",
       "lastmod": "2026-10-16"
     },
     "en/vyipechka-halyal.html": {
-      "sha256": "df600ed9c6b1e7ac20a136307db3a16b0c743b7787945dc5fba7c4d6479b305c",
-      "lastmod": "2026-10-16"
+      "sha256": "0631f7fb4cbf1bc3c40d7fee86674f20bb75d777a0b9e42868db4e7d2cf786da",
+      "lastmod": "2026-10-17"
     },
     "en/zamorozhennaya-vypechka-dlya-kofeen.html": {
-      "sha256": "959d3467dd52713b5e8b5cb48ec5553bf4a1d5220d31e8919a91f0ef9ddc534c",
-      "lastmod": "2026-10-16"
+      "sha256": "34b97019c13832f01d0d269c311ed8a7d68a64d87e526614bc36e5d710efa0b9",
+      "lastmod": "2026-10-17"
     },
     "export.html": {
       "sha256": "124e499180ede2b4898a3dc2d337f795976e11ce4a10de9dd9f7d8fafd3184ad",
@@ -599,84 +603,84 @@
       "lastmod": "2026-10-16"
     },
     "export/azerbaijan.html": {
-      "sha256": "f4ab70b12961efa91bfac6eff93045b3b6f71d53ea84adc8812c4d5e326b4d60",
-      "lastmod": "2026-10-16"
+      "sha256": "1e8a8a9d122597d8d7b18813b0ce5446d1506eddbaed998034b8b4a606fd2c23",
+      "lastmod": "2026-10-17"
     },
     "export/bahrain.html": {
-      "sha256": "dff2e32777195e2ef00bddf2427d394ea0f0c635646a4a04f897863be54b54b4",
-      "lastmod": "2026-10-16"
+      "sha256": "20e0f79621c4b1e479a3a95296cd288b0ac1f6c213ae719fb01a72764195e7c3",
+      "lastmod": "2026-10-17"
     },
     "export/belarus.html": {
       "sha256": "753204a4ed60bc1f328821d2fc3106f4d11763f3d4495cae104477b585748306",
       "lastmod": "2026-10-16"
     },
     "export/egypt.html": {
-      "sha256": "d50045e7cbe7df9ef33ed30af968b4c50f04d4f5c21556ecbf54f8caa8db6bd9",
-      "lastmod": "2026-10-16"
+      "sha256": "ab4f89931d987d7a264f728a367acd55ce38b97fee3a9a5e7f12a2812f760267",
+      "lastmod": "2026-10-17"
     },
     "export/georgia.html": {
-      "sha256": "47a342a8d1b239494c7e3d7eaaa56cbe294a4ef5d74775bcfe538785639a838d",
-      "lastmod": "2026-10-16"
+      "sha256": "7e9a604fc05b8a83c6e92148159c82a6625743c49de7c0e30d88504e97543817",
+      "lastmod": "2026-10-17"
     },
     "export/kazakhstan.html": {
-      "sha256": "f5d167c71d3e3eab96bef2823b6164246eb697757b84ef74ea550d92808ceb0e",
-      "lastmod": "2026-10-16"
+      "sha256": "d95c9dcf7d3ac6a57e3ebbae437b6f0da5018923c093979ed0d3f769ea8feb47",
+      "lastmod": "2026-10-17"
     },
     "export/kuwait.html": {
-      "sha256": "a102f5e13fd73a968f3ba717c734313d4eecb557e0fff818c11a5ac38ec961df",
-      "lastmod": "2026-10-16"
+      "sha256": "9e2fa29a29273bbb89fec7b9b987e82920a2ec1c84c4913ade77bb01a6cc731f",
+      "lastmod": "2026-10-17"
     },
     "export/kyrgyzstan.html": {
       "sha256": "96962842b46a930b55e279c35df39b0953ae9cf5ac15ff985e4162cc21af6cb0",
       "lastmod": "2026-10-16"
     },
     "export/oman.html": {
-      "sha256": "7304bade6b3e9140d6fd6495adbdf4ed9501bcf155aa725928da387491aa7e47",
-      "lastmod": "2026-10-16"
+      "sha256": "7428b029563dc5de941a8dbd072d79121ee6049345ab03d31c0a561240e70a0b",
+      "lastmod": "2026-10-17"
     },
     "export/qatar.html": {
-      "sha256": "8a96ed9cb9d67b5f6e43395b5081a74157159403e581b1dbccf2607a97d62841",
-      "lastmod": "2026-10-16"
+      "sha256": "0d0e99a23a7be6e893fbceaf11d35982f508720a5249c32a6b2cd2a0fc7c5de0",
+      "lastmod": "2026-10-17"
     },
     "export/saudi-arabia.html": {
-      "sha256": "14c290d225f6f2127e8b5db46ed9da5e568bf8a4224d9f7043722ec4741ebf5f",
-      "lastmod": "2026-10-16"
+      "sha256": "35129b12fd87385e56ec54943a8c6176cd04d1a214ed1fb69db636ac22adec76",
+      "lastmod": "2026-10-17"
     },
     "export/tajikistan.html": {
-      "sha256": "f3f0c3ab3055031381bb7f27400b2ec502860ab26721b3afbd4aa93edb0c38c5",
-      "lastmod": "2026-10-16"
+      "sha256": "ad7f8eaab3c0af63112749e0923ee2a06c40137c3cc742ea2955f7ab4b6eecd1",
+      "lastmod": "2026-10-17"
     },
     "export/uae.html": {
-      "sha256": "956b75191fe52dde6c267084a7c33a4c38c11e21cfa73317018682db05888b72",
-      "lastmod": "2026-10-16"
+      "sha256": "4553e1784d2f6b898c1f22d1c94624aa450950806901bc84b62c077de7d98bdc",
+      "lastmod": "2026-10-17"
     },
     "export/uzbekistan.html": {
-      "sha256": "108dcc00e7b40cb27ee0f94f9cb4fc987482f3ea3a09e7d6640485666d588c3b",
-      "lastmod": "2026-10-16"
+      "sha256": "5e217507cbe9e9b8dc7153831792db76d2ca84834e7a2f12d5f7536097ac2ca1",
+      "lastmod": "2026-10-17"
     },
     "faq.html": {
-      "sha256": "648b9cf8d27dd5378de057d90adb456d1c08666733a18341d32108dfb074fe5a",
-      "lastmod": "2026-10-16"
+      "sha256": "462b88bbaa943852b6c5f63854372cf69aec9d4b3d08e6b32d72f6963f12dfa5",
+      "lastmod": "2026-10-17"
     },
     "halal.html": {
-      "sha256": "3be36970c5faab7ce93523e8f552ac19fda6ac712ba6784b923ff654a4e3f1a4",
-      "lastmod": "2026-10-16"
+      "sha256": "ffb2116ae62fbe9abe2f119dee83d88c3c16aa317d03f56af81465b0b3c87806",
+      "lastmod": "2026-10-17"
     },
     "halyal-vypechka-optom-dlya-pekaren.html": {
-      "sha256": "2f1bdaebe2cfa07ae73318ef3b5a1a0095f82ddb5797dc3e86e2dbb55fa31fb8",
-      "lastmod": "2026-10-16"
+      "sha256": "2f38d53a76944050e1843b4f1f70ddba3c65ffd6529c80c770fe0735e85107a3",
+      "lastmod": "2026-10-17"
     },
     "jerky.html": {
       "sha256": "d1b8ca78d07b68c8f5a2e736d07140c6e8fcfd77a4f274274a2595e4ec3f25ff",
       "lastmod": "2026-10-16"
     },
     "kak-zakazat.html": {
-      "sha256": "1cc69987a95d693babce6e2433890657017b64c1b2e1dc5e417fcee70519876e",
-      "lastmod": "2026-10-16"
+      "sha256": "0e37dd9ccb860c9e9bdee69ba97078ccebc0a6518a5775b7325bdb69ec7a4e00",
+      "lastmod": "2026-10-17"
     },
     "kazylyk.html": {
-      "sha256": "0ea8bff139119823b4246247ea1cff5aeccfb25d331dc27c2fb3c609e96c98fd",
-      "lastmod": "2026-10-16"
+      "sha256": "8f41789c2b30160aeffc0ee5aa6e93974fcd00739f8ccab6ba84b4dab6e25668",
+      "lastmod": "2026-10-17"
     },
     "kolbasy-kopchyonye.html": {
       "sha256": "99a2cf2ee620e2f91515b29bd8d36c4ce053b80af0643082ffcc3a93cc2f13e8",
@@ -691,20 +695,16 @@
       "lastmod": "2026-10-16"
     },
     "kotlety-dlya-burgerov.html": {
-      "sha256": "4e481cd23dbffbc972ccee2e1f2fd1689c9e64162e4f7fe995fe01f3b77055f0",
-      "lastmod": "2026-10-16"
-    },
-    "north-star.html": {
-      "sha256": "a89fa7f8c8826f15a9706013e0a835d66348d0f626ca6b0a14baca6d7adc9061",
-      "lastmod": "2026-10-16"
+      "sha256": "0af237747fb47c746cedde65ce109c07b96cb60f54cd83127efb0db04e4e8922",
+      "lastmod": "2026-10-17"
     },
     "pepperoni.html": {
-      "sha256": "8ff7acf6332c90f4d514dc9019f413fc69fd183481068d3747ebcb0f6fb4633a",
-      "lastmod": "2026-10-16"
+      "sha256": "5f7b68ab350865b488fb2dc5bea0a2777abd645730a6fc092d348f9193b1c3a5",
+      "lastmod": "2026-10-17"
     },
     "pepperoni-dlya-pizzerii.html": {
-      "sha256": "8c070609c89c111ff146994978da8e8b12a9eb09252c98dec194e07de93b3621",
-      "lastmod": "2026-10-16"
+      "sha256": "37dda2807bdb5ccb73c4046038e4d7ca17ad6cd0289944c11e61ed46c11b2c51",
+      "lastmod": "2026-10-17"
     },
     "pepperoni-v-narezke.html": {
       "sha256": "ccbe6801b91204776ad331a1ab456a44592d281b44d5adc81f36059c107f8a41",
@@ -715,280 +715,280 @@
       "lastmod": "2026-10-16"
     },
     "price.html": {
-      "sha256": "75d89f1be08539838553c2b32a1f158be2fe449172a620726041631c5f360a0e",
-      "lastmod": "2026-10-16"
+      "sha256": "eb146b141d2b54a736055a01ba98d01223bf47872527510d1931a0e2700c6ea5",
+      "lastmod": "2026-10-17"
     },
     "products/index.html": {
       "sha256": "a83f802f5ad9bf9502664e4adf6201f9cad41a06a29e1a41cb0e042c5811b53e",
       "lastmod": "2026-10-16"
     },
     "products/kd-001.html": {
-      "sha256": "2db3c85e8b9119a6f3e3c80cc38cdd6e5e0ce2645ebf22b08d03cfa5ab42d783",
-      "lastmod": "2026-10-16"
+      "sha256": "e7b42a97e308d77bb09f7f88025aff4b4f32b47141473ceae842bc03def79ff1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-002.html": {
-      "sha256": "70e2ff14d4e029992ba0e79755fd990f29210c54099e4997499e7fe5ec9228b6",
-      "lastmod": "2026-10-16"
+      "sha256": "9e903904960934e176a06d360821ba2320ea77b06eae4b73fa1d890562cc3a5d",
+      "lastmod": "2026-10-17"
     },
     "products/kd-003.html": {
-      "sha256": "514021667b251ed58976ad8f18b42ba9adc6ef5933b28209b459ef5abd120f7a",
-      "lastmod": "2026-10-16"
+      "sha256": "f1d470000fb8b4a8ae2fdd34680d016f7d1902709db4e91acb86231f12c83be1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-004.html": {
-      "sha256": "ad6f2ab4cc139980092555ff683fde294b0f2c2cc1682223ae5ff40ba740f1b5",
-      "lastmod": "2026-10-16"
+      "sha256": "cdf870dbe8b3dab48d414e446fefb32f391ed3e3b32591d4427c4ce213440abc",
+      "lastmod": "2026-10-17"
     },
     "products/kd-005.html": {
-      "sha256": "859aad2f8f3b34d5e62d96ecf4f8b9d1efe45fe8f5a068670ef743d209efe222",
-      "lastmod": "2026-10-16"
+      "sha256": "4da02a2c7828ca2101868624b0ef66f20a17a77142612e2003a38c89d2b9e725",
+      "lastmod": "2026-10-17"
     },
     "products/kd-006.html": {
-      "sha256": "a3fdf88a92118108b60feab2d2336007cb1d2ec245f8ccc4f8b51e358ed8404d",
-      "lastmod": "2026-10-16"
+      "sha256": "864575bec984a69f922e7b070930a6b6c3ffcd8f3806fd74ede18f6c4b793266",
+      "lastmod": "2026-10-17"
     },
     "products/kd-007.html": {
-      "sha256": "baf6a0da7aceb5a5e94e25873ba5f6c55a6c2d42531f8bd8ce90222b63bde8b5",
-      "lastmod": "2026-10-16"
+      "sha256": "6172a687fa01415192a4ace9a2b7ff7b43e95d9ae98ca09fc22d082df929af6f",
+      "lastmod": "2026-10-17"
     },
     "products/kd-008.html": {
-      "sha256": "da3180d857c10c8d38a885d5132f2fa343eb398bfc8dee7f17bb8fdbc5677130",
-      "lastmod": "2026-10-16"
+      "sha256": "2a08b1b372aa124ba90b5dea4ccf5c3b1fbc4837c29ab0f357d185df79709123",
+      "lastmod": "2026-10-17"
     },
     "products/kd-009.html": {
-      "sha256": "198da9c7c65910980f692e95216a5c33a4b797271f6b94adf8c9a4a26fa684da",
-      "lastmod": "2026-10-16"
+      "sha256": "8ef0b40cbfc04b981d7e0b7cc6f359c3ef26c37c22969683d801b8bf04a654c1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-010.html": {
-      "sha256": "70e7562b99650a0b657fe38c697b8af26bc3e083aef6d6bf4f44c2ad3d6bb9c3",
-      "lastmod": "2026-10-16"
+      "sha256": "cab08aa2d17c5a09757180d99818cc00a5acfc5506774e674f2cbb038c8e4b69",
+      "lastmod": "2026-10-17"
     },
     "products/kd-011.html": {
-      "sha256": "a25574f7084ec23c06676aade2cd0d3b440dbf53fa3a9b46c1df5e6a07c57672",
-      "lastmod": "2026-10-16"
+      "sha256": "baf0cd99348d5bae5188167146f3db07713b77aeeb59323a84d0860ccd558deb",
+      "lastmod": "2026-10-17"
     },
     "products/kd-013.html": {
-      "sha256": "8f0eba83730c3b58ccaa185409944c99cfc4c111ec4be6d8e21802d0aa1a6d28",
-      "lastmod": "2026-10-16"
+      "sha256": "0a6751df98dd63cd7fc0c6739a1787f2acefced8da1778d216b1e7f577484627",
+      "lastmod": "2026-10-17"
     },
     "products/kd-014.html": {
-      "sha256": "659175f7d0399c675b796fdf7e9ae30668409d17578d49f9b33283faa4bf9f6c",
-      "lastmod": "2026-10-16"
+      "sha256": "666e01968c3c35a356eeb0a5825b0bde0dcca2f48caa94ef2e90da0b80ee30e5",
+      "lastmod": "2026-10-17"
     },
     "products/kd-015.html": {
-      "sha256": "3966cc177df27f4ad1b66ec2157c3ef90b7b518f382af99c29145bef6b97c9df",
-      "lastmod": "2026-10-16"
+      "sha256": "fbd9600ada5813d8ac4334ae6ba3ccbb4472a852e68a9636ac84cc26a4b18231",
+      "lastmod": "2026-10-17"
     },
     "products/kd-017.html": {
-      "sha256": "7f40a0f0aba306b9315cd2c67ee2b6bfd6c0e866e75ec6d5accdbc940b5cbbf8",
-      "lastmod": "2026-10-16"
+      "sha256": "6e15734ea5d81fb16a255903dd838476a7a65f3bd4e093d8d3fd36040d2c7ac2",
+      "lastmod": "2026-10-17"
     },
     "products/kd-018.html": {
-      "sha256": "97472ed6b55accec3a03bc54107f0e8732e0e4e0455e7686dae1c8b914f23b30",
-      "lastmod": "2026-10-16"
+      "sha256": "762eb354ab1cb8ba96138adb60cd89d6a863a945418c7c7867c9d62fb24353cd",
+      "lastmod": "2026-10-17"
     },
     "products/kd-019.html": {
-      "sha256": "e936233372ebd3c2d60cdcc8fe2d0b723a9f40d0f03a9e5c15277417a49b24d3",
-      "lastmod": "2026-10-16"
+      "sha256": "6f0b9bcc70144798a0766f6219f5a88a1d9433bbf6e5d447f1cf40b39213e2fb",
+      "lastmod": "2026-10-17"
     },
     "products/kd-020.html": {
-      "sha256": "ef63050b533529bdc8c3b9db0a096a36297ed5c8d5f8acfa35c3d491a578704c",
-      "lastmod": "2026-10-16"
+      "sha256": "5e8abd26441bf13f4be4a6c413498722041de38f9fa6f219f95788849ad16a92",
+      "lastmod": "2026-10-17"
     },
     "products/kd-021.html": {
-      "sha256": "d1818c1194e4d6f6101e1674acb80a4aa42f7987170a2166217181e55f916cf5",
-      "lastmod": "2026-10-16"
+      "sha256": "9ea44b851dedb54d60d8d9b077386b7798f33b7cbf0be785f4fc1545188eb14d",
+      "lastmod": "2026-10-17"
     },
     "products/kd-022.html": {
-      "sha256": "71446d0ef64c2c82fedfdf6857fc7709862a795cd4cbae84014e1a713a7fece1",
-      "lastmod": "2026-10-16"
+      "sha256": "768cf8e4405eb6acbce633601b284e1e798fb2ae42966be95c10fabf48219f0e",
+      "lastmod": "2026-10-17"
     },
     "products/kd-023.html": {
-      "sha256": "9b1d31754ac9b2c171719522e710d357a3b06d2194978ba0d86e8a77dd820365",
-      "lastmod": "2026-10-16"
+      "sha256": "8465b97adfd3fc3d13e86c2735c11fe104c5ec93fa4b953e4c9276b051a5b2b5",
+      "lastmod": "2026-10-17"
     },
     "products/kd-024.html": {
-      "sha256": "d1fe31c33e57df206de62bef9b9ab0943250b2407388c65bef2a66468690a177",
-      "lastmod": "2026-10-16"
+      "sha256": "8635f50a21b1a67b140cb4e061951b0e46049e13fb0679e27977f3398276b0a1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-025.html": {
-      "sha256": "8ea841a42118c664e477d8a5cdfa56bc1381ec75a46fa0a1ca69b269f565506b",
-      "lastmod": "2026-10-16"
+      "sha256": "d64fed049ec3954859f57843c77f5c2ef404ed3b14e4a3fa8bfd88239f05098b",
+      "lastmod": "2026-10-17"
     },
     "products/kd-026.html": {
-      "sha256": "c55ff497da5e36814c5f9f1b980ad4f11a48c64624e9856082ea6cfd1b72b8e4",
-      "lastmod": "2026-10-16"
+      "sha256": "3ac34a051411641a55c1533ce6b977ddc7e9be7123217c319baa92e8b50b8dfd",
+      "lastmod": "2026-10-17"
     },
     "products/kd-027.html": {
-      "sha256": "c4a917fbc8098e0257efeb6316c0477178a2efda9f951b86fa7303907015a761",
-      "lastmod": "2026-10-16"
+      "sha256": "441f38065dfb90c56b313812301318b68e367a3f19aa51da06554311ac919ef1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-028.html": {
-      "sha256": "6560e351f442c7c5165e7f3c723c5616e6ec0b51fa05f19001cb41f9524d8620",
-      "lastmod": "2026-10-16"
+      "sha256": "11eb4f19714c5ac53fdb00bc38a7bc5faf499ffc17dce1baeb4f6bd8b5c6aab6",
+      "lastmod": "2026-10-17"
     },
     "products/kd-029.html": {
-      "sha256": "e5d8d38c3dbb1aeda48b73c42eb94b014c8d8962fa55cc09e1d971f6586eb469",
-      "lastmod": "2026-10-16"
+      "sha256": "74e3ce6c26a4e07ed3fa601034db22303aee5efe7431daef64fc3dd8161c9d08",
+      "lastmod": "2026-10-17"
     },
     "products/kd-030.html": {
-      "sha256": "ed485722cc59e7c7088db0a826da55688673c1ed83a17f0e63d4573eaa8b8d3f",
-      "lastmod": "2026-10-16"
+      "sha256": "7e6c7d3b77e659d277d1d90b25d3774ff926450f2a0679264e491fb5c8700bec",
+      "lastmod": "2026-10-17"
     },
     "products/kd-031.html": {
-      "sha256": "e7654f93f1a9e9ea0d7fc7f6928f6673ab0416084758096249043e01e896e84e",
-      "lastmod": "2026-10-16"
+      "sha256": "adf009213cbefe905de728bcc7d02323ac04884b9b1cf3112ac893734e722324",
+      "lastmod": "2026-10-17"
     },
     "products/kd-032.html": {
-      "sha256": "b58893364d42369e6f919df29980358bac288d4de43269152e3749e988f0e0c1",
-      "lastmod": "2026-10-16"
+      "sha256": "7e18aeb7028f050ef241730f5c5853e0c6c6a14a51b371cadacb65f1d09503fd",
+      "lastmod": "2026-10-17"
     },
     "products/kd-033.html": {
-      "sha256": "41af207bc3585da4058850fb0de379646a9f41eb02e6c04ba75ef4849756e210",
-      "lastmod": "2026-10-16"
+      "sha256": "819ba938553f8dd4acacb80642f51e5c6d92a28510ee781f7c0c6acc36a131f4",
+      "lastmod": "2026-10-17"
     },
     "products/kd-034.html": {
-      "sha256": "1be63e4f1124521757aec7e86a8a4e2b8d731071d09310eaa78c90634d745d0a",
-      "lastmod": "2026-10-16"
+      "sha256": "acf6bd914b0ef7db85eda3f816c72f7d9a5c6733715623eec1349564e473ac6c",
+      "lastmod": "2026-10-17"
     },
     "products/kd-035.html": {
-      "sha256": "a36e7f3eba973d68c27069ffcbb0b6d64e988f05c1fc41d7e7bd93b540be9afe",
-      "lastmod": "2026-10-16"
+      "sha256": "46c1138ab8dbb4132fcf20b87827dba980fea6b99274ad1dd5399165a1fe18e1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-036.html": {
-      "sha256": "ef8d2f68a421906fdd6705f48663fb90d1ad9fa6b4812e08d7b81912242881f9",
-      "lastmod": "2026-10-16"
+      "sha256": "5afa60f8f57ac34d6114de92b96f3be826aea14e8ad262a6c1f70254410611fa",
+      "lastmod": "2026-10-17"
     },
     "products/kd-037.html": {
-      "sha256": "8cc543910634e9b4e7029d9e8aae347cec387545ec21be4d1230c86295cfab7a",
-      "lastmod": "2026-10-16"
+      "sha256": "41a2010505cadd9eef284cb2e49b2bba3d5cf5fcd910aeb07d83371a647c8f8d",
+      "lastmod": "2026-10-17"
     },
     "products/kd-038.html": {
-      "sha256": "9a47457d024ec2d6dcdea08092e0d263d02fac16a2bf134ba41640ec902c8758",
-      "lastmod": "2026-10-16"
+      "sha256": "c5c643a7ffb361d4763763e593b8121c60f0abacb2015e605b12263dd9f5f2ea",
+      "lastmod": "2026-10-17"
     },
     "products/kd-039.html": {
-      "sha256": "ad9bbf2c54589014b3ad348c4ec89d6a3854ca95f7dffdc8072d5ce7753eb298",
-      "lastmod": "2026-10-16"
+      "sha256": "766211cebb3fe0713a83b37d5296963e73f452734e0dd55863a4b988e44ef428",
+      "lastmod": "2026-10-17"
     },
     "products/kd-040.html": {
-      "sha256": "2835eda9a7b6d57074e12855f8bccef693df16ae1cb3a98de456b3f5c329d63d",
-      "lastmod": "2026-10-16"
+      "sha256": "cf4cbd35cda65e474ea3770dcea3ef59ba3f14181d8581f883d50dc6f70c04de",
+      "lastmod": "2026-10-17"
     },
     "products/kd-041.html": {
-      "sha256": "8d42e669e0666c43715af51f2b41b51a065c2ce0554f3e90d6a49784e29698d2",
-      "lastmod": "2026-10-16"
+      "sha256": "e3a7f50f9d77016a24beba5a63bc353cb4ca9f53f9be0c7a35bbff65d3ab98a2",
+      "lastmod": "2026-10-17"
     },
     "products/kd-042.html": {
-      "sha256": "eeb04988270d0f146f28264ca144188547c6f56bdb5a7fa191f35235cc4f4460",
-      "lastmod": "2026-10-16"
+      "sha256": "0caaacb9968e0b96dcc0a274d8b3f9aec9237f48ee9f22b09140d2b90abba635",
+      "lastmod": "2026-10-17"
     },
     "products/kd-043.html": {
-      "sha256": "3b9bc15b572781327cf80c943a5b69e18eb7b62513bcc084f12d7ecfd037a1d3",
-      "lastmod": "2026-10-16"
+      "sha256": "127fef5b9e532b39f0cb719e7f614e2ef4ba8c1ed93e9c239f0dcd240f3ce10a",
+      "lastmod": "2026-10-17"
     },
     "products/kd-044.html": {
-      "sha256": "f3cb8e940ae50a2d54f18f1788aa34b57062a6445f7359e9e95d83345f2e6910",
-      "lastmod": "2026-10-16"
+      "sha256": "54a24c637f5e8b22bbe1b022b959eddd8b2361610562e33b863c6e39cb82a4e1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-045.html": {
-      "sha256": "b6a7df29e16f21962b5ceb342317b57b7f219769a4bd63d6615472f070fa1d88",
-      "lastmod": "2026-10-16"
+      "sha256": "a66f5b51adfd0a1a5751b90d790629a4a3bb68f7c853e46c3c7ddad645dd7a8b",
+      "lastmod": "2026-10-17"
     },
     "products/kd-046.html": {
-      "sha256": "47269708dd3ea6c5b7d3ff7c646202e8b99167feba7079bf29067ceba14963f3",
-      "lastmod": "2026-10-16"
+      "sha256": "c494a54925455a2adb6bdbd49f3a58526ac6165ff845fa0c55020a7451171bee",
+      "lastmod": "2026-10-17"
     },
     "products/kd-047.html": {
-      "sha256": "0008a9cd02c1999c30d32e2cca4dfde85f9f5de0eb9c33f1716a72ecd20b7d45",
-      "lastmod": "2026-10-16"
+      "sha256": "ceffba760afc5e7cba6f7c95dfd04d52a4f8efc773569f22d743c0c3a238d2e2",
+      "lastmod": "2026-10-17"
     },
     "products/kd-048.html": {
-      "sha256": "7d574ca0dd91aa4f8ca62b1d3f5bd3cfad17dd86b2cad496a3a31ab3bfa73d25",
-      "lastmod": "2026-10-16"
+      "sha256": "5b7537c212e2ad6fcba3f8e777d99db0e9b1a327ba3b8826b752a1cb421f74e7",
+      "lastmod": "2026-10-17"
     },
     "products/kd-049.html": {
-      "sha256": "cdbbd677055735ca6ad303ed22aa42642a8da1fc8b10270e86a589749f6a2332",
-      "lastmod": "2026-10-16"
+      "sha256": "02c16cc5158c6fe553237981aae1d69bc3cebe74a5018e32f67cb176faf6ad36",
+      "lastmod": "2026-10-17"
     },
     "products/kd-050.html": {
-      "sha256": "835c68b4a041298d718943944da8f0c2d95b23a29cabdd97428ac372296b42a9",
-      "lastmod": "2026-10-16"
+      "sha256": "5911c582b60a150f3cfe8ef71c6349b3ececb971f9429e4c53b1dedc4c54eb20",
+      "lastmod": "2026-10-17"
     },
     "products/kd-051.html": {
-      "sha256": "3ebf35b6b06bfbb01279ef163be9f4ed62063bc81e1d4fb815b445b088d674ce",
-      "lastmod": "2026-10-16"
+      "sha256": "1d8b0de154b3115ac9d4a7204264767dcb7e15209ec2f3bbda2de4392d3741ab",
+      "lastmod": "2026-10-17"
     },
     "products/kd-052.html": {
-      "sha256": "f647983c37fc81e9c2db21588f25fb137955f1a74dcfc5c2809b2f5514edacf7",
-      "lastmod": "2026-10-16"
+      "sha256": "fef861ed809988dac23e9e9c8c44cf33a1a7f60d982875dcf3660c8954e8062f",
+      "lastmod": "2026-10-17"
     },
     "products/kd-053.html": {
-      "sha256": "787e0cb2cbd72ed8b24534a4aeab86fd96ae267e34513a12bfee604a43ede79d",
-      "lastmod": "2026-10-16"
+      "sha256": "23a4f6660cbb4706db2300646ef816320184466ec956fdd4008ab3afa9f2b63c",
+      "lastmod": "2026-10-17"
     },
     "products/kd-054.html": {
-      "sha256": "57ee8b4b1af3f41fbcfdabb555415546ff515b29d1109a4a7422aa6c2d93d0cf",
-      "lastmod": "2026-10-16"
+      "sha256": "af878f5373350991596f5ed69d5ee1f5dbae0e84a3fc92388e56bc774342356e",
+      "lastmod": "2026-10-17"
     },
     "products/kd-055.html": {
-      "sha256": "5d3bdf1e9a17bdf2f75ca23a15555d845776cc6c9eb8d2bd34d4799309233c3a",
-      "lastmod": "2026-10-16"
+      "sha256": "b61a05458bd40a357e37015623f85edf9ec93b8d886223919afb3851a267d33d",
+      "lastmod": "2026-10-17"
     },
     "products/kd-057.html": {
-      "sha256": "672c38c6e69c7f8eee8bac289365a6b1b7d3434c8ac6620347cf4eae4cca49b2",
-      "lastmod": "2026-10-16"
+      "sha256": "d9f6097cab78c1e72d367e193e02fbdfbd7b7135cd0b2b41d567d09dcf4ee3c8",
+      "lastmod": "2026-10-17"
     },
     "products/kd-058.html": {
-      "sha256": "031b8b5f076072153075aa614db124b12f3df7d81a6cbba7a07583bbf218113b",
-      "lastmod": "2026-10-16"
+      "sha256": "59fed7469e566527b3537fdf7ca281239611e5b5ccb64ea3c41fd6b76170f1a1",
+      "lastmod": "2026-10-17"
     },
     "products/kd-059.html": {
-      "sha256": "1d20ee143a56ce656e45d6627a259f534ab4292eff3caa53c630a44e9d34b486",
-      "lastmod": "2026-10-16"
+      "sha256": "a1adc52523d09250a6ea8900374ab042d595ad9aa0731a1a3d506c2d31395b27",
+      "lastmod": "2026-10-17"
     },
     "products/kd-060.html": {
-      "sha256": "bae89705b2e37426a69436685993b5694e405bb683ca0467b93d2e679e6425d7",
-      "lastmod": "2026-10-16"
+      "sha256": "42d79ad24548fd08eba448c7da1e044409c2617a5fbde4add59932697ac37807",
+      "lastmod": "2026-10-17"
     },
     "products/kd-061.html": {
-      "sha256": "5d2be7da184fe34370fed1cde420972e6d97146b939780a17f28a25a97b7a61e",
-      "lastmod": "2026-10-16"
+      "sha256": "533fca31f34ed1bb5617548bc096d71cff94a6bf54a87f2e2fcd23008ab69b63",
+      "lastmod": "2026-10-17"
     },
     "products/kd-062.html": {
-      "sha256": "4fe4a05429f9c163da01d6b3264276fe83be7b78856c56c8221b081df2d3aa77",
-      "lastmod": "2026-10-16"
+      "sha256": "01a793ebafd48057778bae3b99850c313d6abd0314e1395f9c5069bfdf597ab2",
+      "lastmod": "2026-10-17"
     },
     "products/kd-063.html": {
-      "sha256": "6e0c21cc10ff0b2367baf52bae9af5579c0cc706a9bbc501c6479913372d0445",
-      "lastmod": "2026-10-16"
+      "sha256": "18b56c1ce550d306afb5deb0daeb451f2528342f3039550571ba13964f5b89fd",
+      "lastmod": "2026-10-17"
     },
     "products/kd-064.html": {
-      "sha256": "ef0efaf10e6d2424bf955cc93374e4dd539750a36239433b23c7b3db0d7aed60",
-      "lastmod": "2026-10-16"
+      "sha256": "0e4836551fe8a717218092ffc4d15afa6dc3c8cf3064d4a44bb0ec586be4f45e",
+      "lastmod": "2026-10-17"
     },
     "products/kd-065.html": {
-      "sha256": "96844e36fe96acf3f5fd37365a5f09883d75d2a989a5f260ac624b5423ba42ba",
-      "lastmod": "2026-10-16"
+      "sha256": "3f2770e7d3de79373de4033221425d1d81be41ec9e3d75b6a47f4eb7def8b89a",
+      "lastmod": "2026-10-17"
     },
     "products/kd-066.html": {
-      "sha256": "6ce3c0f66e1d6242afd31e708428de58ccebce15f6beb54cb09a5a3167addedb",
-      "lastmod": "2026-10-16"
+      "sha256": "c505a7329b9fda9a7d67a12b81bd5632c8c2e2f70e56f8efb2f7c2ae18a414b8",
+      "lastmod": "2026-10-17"
     },
     "products/kd-067.html": {
-      "sha256": "5d8271677fb1e77aacd7651091c8ebf9751c2e621b883691afe01b89b955f8ae",
-      "lastmod": "2026-10-16"
+      "sha256": "7bc39b3b0f8d2d7bbdb747f0528c8f1031f503378a270974dc60ecec033f0702",
+      "lastmod": "2026-10-17"
     },
     "products/kd-068.html": {
-      "sha256": "f3dee670bc369d199efdd96638f7f78cd5e3059048889570a203ebed31515d50",
-      "lastmod": "2026-10-16"
+      "sha256": "0607e5565a5e3fe05f2069b6e7f9b6b803624e9c2ddf39831e6a50abeb40deeb",
+      "lastmod": "2026-10-17"
     },
     "sosiska-v-teste.html": {
-      "sha256": "7ca5575fb2b22caf25d973d87fde692e6786adb7e0d8b77e7ceb6774f75883a9",
-      "lastmod": "2026-10-16"
+      "sha256": "e499b1a0521c11e55e0c4b9900530ceccce3c60c77a33a6fe0fbcf787033e3d8",
+      "lastmod": "2026-10-17"
     },
     "sosiski-dlya-hotdog.html": {
-      "sha256": "ae8f18999e124af3fe831be9749f687232e1e17deb3e990d62048e0d2bbf03ab",
-      "lastmod": "2026-10-16"
+      "sha256": "999deff91cd92ac8af0f8c379a6d77397ea757611c252599671729149ead4766",
+      "lastmod": "2026-10-17"
     },
     "vetchina-optom.html": {
       "sha256": "99b5d35b06a5b883a67f52fc953b1561d6ed24687754f5f8d490f50f174c5963",
@@ -999,8 +999,8 @@
       "lastmod": "2026-10-16"
     },
     "zamorozhennaya-vypechka-dlya-kofeen.html": {
-      "sha256": "f584a4217b335331b18daa909338052521989af1378fad016a1dda366eab4386",
-      "lastmod": "2026-10-16"
+      "sha256": "89bd3a33a5a3db5a162a7725780452760f52f39de2db7dcc51b0ac9d645ac099",
+      "lastmod": "2026-10-17"
     }
   }
 }

@@ -19,8 +19,13 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from organization_ld import LOCAL_SCRIPT  # noqa: E402
+from organization_ld import LOCAL_SCRIPT, SCRIPT  # noqa: E402
 from site_facts import FACTS, ROOT, phone_tel  # noqa: E402
+from wholesale_nav import (  # noqa: E402
+    WHOLESALE_END,
+    WHOLESALE_START,
+    wholesale_block,
+)
 
 PUBLIC = ROOT / "public"
 START, END = "<!-- site-links:start -->", "<!-- site-links:end -->"
@@ -29,6 +34,12 @@ REQ_START, REQ_END = "<!-- company-footer:start -->", "<!-- company-footer:end -
 REQ_RX = re.compile(re.escape(REQ_START) + r".*?" + re.escape(REQ_END) + r"\n?", re.S)
 LB_START, LB_END = "<!-- localbusiness-ld:start -->", "<!-- localbusiness-ld:end -->"
 LB_RX = re.compile(re.escape(LB_START) + r".*?" + re.escape(LB_END) + r"\n?", re.S)
+ORG_START, ORG_END = "<!-- organization-ld:start -->", "<!-- organization-ld:end -->"
+ORG_RX = re.compile(re.escape(ORG_START) + r".*?" + re.escape(ORG_END) + r"\n?", re.S)
+WHOLESALE_RX = re.compile(
+    re.escape(WHOLESALE_START) + r".*?" + re.escape(WHOLESALE_END) + r"\n?", re.S
+)
+ORG_MARKED = f"{ORG_START}{SCRIPT}{ORG_END}"
 BRAND = FACTS["company"]["brand_site"]
 _CO = FACTS["company"]
 TEL = phone_tel()
@@ -41,6 +52,9 @@ LINKS = {
            ("/dlya-pekaren", "Пекарни"),
            ("/zamorozhennaya-vypechka-dlya-kofeen", "Выпечка для кофеен"),
            ("/dlya-distributorov", "Дистрибьюторам"),
+           ("/chak-chak-optom", "Чак-чак оптом"),
+           ("/halyal-vypechka-optom-dlya-pekaren", "Выпечка для пекарен"),
+           ("/vyipechka-halyal", "Выпечка халяль"),
            ("/export", "Экспорт"),
            ("/kontraktnoe-proizvodstvo", "Контрактное производство (СТМ)")],
     "en": [("/en/price", "Price list"), ("/en/kak-zakazat", "How to order"),
@@ -50,6 +64,9 @@ LINKS = {
            ("/en/dlya-setey", "Retail chains"),            ("/en/dlya-pekaren", "Bakeries"),
            ("/en/zamorozhennaya-vypechka-dlya-kofeen", "Bakery for coffee shops"),
            ("/en/dlya-distributorov", "Distributors"),
+           ("/en/chak-chak-optom", "Chak-chak wholesale"),
+           ("/en/halyal-vypechka-optom-dlya-pekaren", "Bakery for bakeries"),
+           ("/en/vyipechka-halyal", "Halal bakery"),
            ("/en/export", "Export"),
            ("/en/private-label", "Private label")],
 }
@@ -121,9 +138,18 @@ def main() -> int:
         base = BLOCK_RX.sub("", html)
         base = REQ_RX.sub("", base)
         base = LB_RX.sub("", base)
+        base = ORG_RX.sub("", base)
+        base = WHOLESALE_RX.sub("", base)
         if "</head>" in base and LB_START not in base:
             base = base.replace("</head>", LOCAL_SCRIPT + "\n</head>", 1)
-        b = block(path, base) + requisites(path)
+        if "</head>" in base and ORG_START not in base:
+            base = base.replace("</head>", ORG_MARKED + "\n</head>", 1)
+        lang = "en" if path.startswith("/en") else "ru"
+        wants_wholesale = path.startswith(
+            ("/blog/", "/en/blog/", "/products/", "/en/products/")
+        ) or path in {"/blog", "/en/blog"}
+        extra = wholesale_block(lang, path) if wants_wholesale else ""
+        b = extra + block(path, base) + requisites(path)
         idx = base.rfind("</footer>")
         if idx < 0:
             idx = base.rfind("</body>")

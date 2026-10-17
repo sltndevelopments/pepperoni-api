@@ -19,7 +19,9 @@ from site_facts import (  # noqa: E402
     certs_category_en,
     certs_category_ru,
     meat_halal_number,
+    term,
 )
+from wholesale_nav import brand_title_suffix, wholesale_block  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
@@ -265,11 +267,12 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     skus = " / ".join(p.get("sku") or "" for p in products)
     if slug == "kazylyk":
         return (
-            "Казылык оптом — сыровяленая колбаса из конины | Казанские Деликатесы",
+            brand_title_suffix("Казылык оптом — сыровяленая колбаса из конины", "ru"),
             "Казылык оптом — сыровяленая колбаса из конины",
             (
-                f"Казылык — сыровяленая колбаса из конины, {n} SKU: {bits}. "
-                "Мясная основа: конина и конский жир. Халяль ДУМ РТ. EXW Казань."
+                f"Казылык оптом из конины, {n} SKU: {bits}. "
+                "Мясная основа: конина и конский жир. Халяль ДУМ РТ. EXW Казань. "
+                "Заявка — получить КП."
             ),
             (
                 f"Казылык — сыровяленая колбаса из конины. В категории {n} "
@@ -281,19 +284,18 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
         )
     if slug == "kotlety-dlya-burgerov":
         return (
-            f"Котлеты для бургеров оптом — халяль {skus} | Казанские Деликатесы",
-            "Котлеты для бургеров оптом — халяль, заморозка –18 °C",
+            brand_title_suffix("Котлеты для бургеров оптом", "ru"),
+            f"Котлеты для бургеров оптом — халяль {skus}",
             (
                 f"Котлеты для бургеров и гамбургеров оптом: {bits}. "
                 "Состав в карточке — говядина и мякоть куриного окорока. "
-                "Халяль ДУМ РТ. EXW Казань."
+                "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
             ),
             (
-                f"Котлеты для бургеров и гамбургеров: {n} замороженные позиции "
-                f"{skus}. Форматы, состав и заявка — также в "
+                f"Котлеты для бургеров оптом: {n} замороженные позиции "
+                f"{skus}. Форматы и спецификации — в таблице каталога и в "
                 "<a href=\"/blog/kotlety-dlya-burgerov-optom\">гиде</a>. "
-                "Ниже данные актуального каталога; коммерческие условия "
-                "согласуются для конкретного запроса."
+                "Коммерческие условия согласуются для конкретного запроса."
             ),
         )
     return None
@@ -381,6 +383,16 @@ def build_page(cfg):
     if cfg.get("related_links"):
         links = " · ".join(f'<a href="{u}">{t}</a>' for t, u in cfg["related_links"])
         related_html = f'<p style="margin-top:12px;font-size:.9rem;color:#555;">Смотрите также: {links}</p>'
+    moq = (term("moq", "ru") or "").strip()
+    moq_line = f"<p>Минимальный заказ — {moq}. Базис — EXW Казань.</p>" if moq else ""
+    wholesale_html = f"""<aside class="hero-facts" id="optom" style="background:#f7f6f2;border:1px solid #e6e4df;border-radius:14px;padding:18px 20px;margin:20px 0">
+    <h2 style="margin-top:0">Опт и заявка</h2>
+    {moq_line}
+    <p>Форматы и цены — из актуального каталога в таблице ниже. Коммерческое предложение готовим по SKU и объёму.</p>
+    <p><a class="cta" href="#zayavka">Получить КП</a>
+       <a class="cta cta-outline" href="https://wa.me/79872170202">WhatsApp</a></p>
+  </aside>
+  {wholesale_block("ru", "/" + cfg["slug"])}"""
 
     url = f"https://pepperoni.tatar/{cfg['slug']}"
     en_url = f"https://pepperoni.tatar/en/{cfg['slug']}"
@@ -464,6 +476,7 @@ def build_page(cfg):
   <span class="badge badge-outline">Оптовые поставки</span>
 
   <p>{intro}</p>
+  {wholesale_html}
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — одна паллета, сборная паллета из нескольких SKU возможна. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   <h2>Для кого</h2>

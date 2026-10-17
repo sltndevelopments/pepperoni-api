@@ -843,6 +843,22 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 </div></section>
 
+<section class="section" id="buy" data-track-section="buy"><div class="wrap">
+  <h2>{esc("Опт: форматы и КП" if lang == "ru" else "Wholesale formats and quote")}</h2>
+  <p class="lede">{esc("Форматы — из актуального каталога. Минимальный заказ — " + (term("moq", "ru") or "по запросу") + "." if lang == "ru" else "Formats come from the live catalogue. Minimum order — " + (term("moq", "en") or "on request") + ".")}</p>
+  <div class="tbl"><table><tbody>
+    {"".join(
+        f'<tr><th>{sku}</th><td>{esc(family[sku].get("name") or sku)}</td>'
+        f'<td>{esc(str(family[sku].get("weight") or ""))} kg</td></tr>'
+        for sku in FAMILY_SKUS if sku in family
+    )}
+  </tbody></table></div>
+  <div class="btn-row">
+    <a class="btn btn--primary" href="#zayavka">{esc(L["hero"]["cta_primary"])}</a>
+    <a class="btn btn--wa" href="{wa}" target="_blank" rel="noopener">{esc(L["sticky"]["wa"])}</a>
+  </div>
+</div></section>
+
 <section class="section section--soft" data-track-section="trust"><div class="wrap">
   <h2>{esc(L["trust"]["h2"])}</h2>
   <div class="trust">{trust}</div>

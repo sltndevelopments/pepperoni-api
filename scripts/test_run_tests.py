@@ -45,6 +45,7 @@ def main() -> int:
         "test_run_tests.py",
         "test_fact_consistency.py",
         "test_no_hardcoded_prices.py",
+        "test_search_query_core.py",
     ):
         check(name in py_names, f"discovers {name}")
     check("ab_test_manager.py" not in py_names,
