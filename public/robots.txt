@@ -8,6 +8,9 @@
 
 User-agent: *
 Content-Signal: ai-train=yes, search=yes, ai-input=yes
+# Private client-consent drafts. Hub /cases stays public; subpages stay closed
+# until the owner opens them for indexing.
+Disallow: /cases/
 Allow: /
 Allow: /geo/
 Allow: /products/
