@@ -192,15 +192,56 @@ def main() -> int:
 
     for rel in LCP_HUBS:
         html = (PUBLIC / rel).read_text(encoding="utf-8")
+        head = html.split("</head>", 1)[0]
         check('rel="preload"' in html and "as=\"font\"" in html.replace("'", '"'),
               f"{rel} preloads the main font")
         check("font-display:swap" in html.replace(" ", ""),
               f"{rel} fonts use font-display:swap")
-        blocking_css = re.findall(
-            r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', html, re.I,
+        check('id="kd-hero-critical"' in head, f"{rel} inlines hero critical CSS")
+        check("animation:none" in html.replace(" ", ""),
+              f"{rel} hero text has no opacity/transform animation")
+        check("gtm.js" not in head.lower() and "GTM-W2Q5S8HF" not in head,
+              f"{rel} has no GTM in <head>")
+        check("googletagmanager.com" not in head and "mc.yandex.ru" not in head,
+              f"{rel} does not preconnect third-party analytics")
+        check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
+        body = html.split("</head>", 1)[1] if "</head>" in html else ""
+        body_no_js = re.sub(
+            r"<script\b(?![^>]*application/ld\+json)[^>]*>.*?</script>",
+            "",
+            body,
+            flags=re.I | re.S,
         )
-        extra = [tag for tag in blocking_css if "kd-landing.css" not in tag]
-        check(not extra, f"{rel} has no extra render-blocking stylesheet")
+        check("application/ld+json" in body_no_js, f"{rel} keeps JSON-LD as static body HTML")
+        check('"@type":"Organization"' in body_no_js.replace(" ", ""),
+              f"{rel} static HTML has Organization JSON-LD")
+        check('"@type":"BreadcrumbList"' in body_no_js.replace(" ", ""),
+              f"{rel} static HTML has BreadcrumbList JSON-LD")
+        check("loadAnalytics" in html, f"{rel} delays GTM/Metrika until after load")
+        check("setTimeout(loadAnalytics,1500)" in html.replace(" ", ""),
+              f"{rel} Metrika has a 1.5s timeout so bounces still count")
+        check("addEventListener('load',armAnalytics)" in html
+              or 'addEventListener("load",armAnalytics)' in html,
+              f"{rel} arms analytics on window load")
+        check(
+            re.search(r'<script[^>]+src=["\']/assets/lead-form\.js["\'][^>]*\bdefer', html, re.I),
+            f"{rel} lead-form.js is defer",
+        )
+        head_wo_ns = re.sub(r"<noscript\b[^>]*>.*?</noscript>", "", head, flags=re.I | re.S)
+        blocking_css = re.findall(
+            r'<link[^>]+rel=["\']stylesheet["\'][^>]*>', head_wo_ns, re.I,
+        )
+        extra = [tag for tag in blocking_css if 'media="print"' not in tag]
+        check(not extra, f"{rel} has no render-blocking stylesheet")
+
+    chrome_src = (ROOT / "scripts" / "landing_chrome.py").read_text(encoding="utf-8")
+    cat_src = (ROOT / "scripts" / "gen_category_pages.py").read_text(encoding="utf-8")
+    check("setTimeout(loadAnalytics,1500)" in chrome_src.replace(" ", ""),
+          "landing_chrome Metrika timeout is bounce-safe")
+    check("application/ld+json" not in chrome_src,
+          "landing_chrome does not inject JSON-LD from JS")
+    check('"ld_tail": ld_html' in cat_src and "insertAdjacent" not in cat_src,
+          "category generator emits JSON-LD as static ld_tail markup")
 
     if fail:
         print(f"test_google_11_30: {fail} FAIL")

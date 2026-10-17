@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""JSON-LD on product cards and landings: valid JSON, Product, Org, breadcrumbs."""
+"""JSON-LD on every keep page: static raw HTML, Product, Org, breadcrumbs.
+
+Yandex does not reliably execute JS. Schema must be in the server HTML as
+`<script type="application/ld+json">` markup — not injected after load.
+This gate strips executable scripts before parsing so a JS string does not
+count as schema.
+"""
 from __future__ import annotations
 
 import json
@@ -17,8 +23,23 @@ LD_RE = re.compile(
     r'<script\s+type=["\']application/ld\+json["\'][^>]*>(.*?)</script>',
     re.I | re.S,
 )
+SCRIPT_RE = re.compile(r"<script\b([^>]*)>(.*?)</script>", re.I | re.S)
 # RU homepage JSON-LD is owned by the parallel wholesale PR.
-BREADCRUMB_SKIP = {"index.html"}
+# These Article guides ship Organization (+ Article) and never had crumbs;
+# do not invent BreadcrumbList here.
+BREADCRUMB_SKIP = {
+    "index.html",
+    "blog/elesh.html",
+    "blog/kuritsa-halyal-chem-otlichaetsya.html",
+    "blog/pepperoni-for-pizzeria-horeca.html",
+    "blog/private-label-kolbasnyh-izdeliy.html",
+    "blog/sosiski-dlya-hot-dogov-optom.html",
+    "blog/tolko-halyal-kakie-kategorii-myasa.html",
+    "en/blog/beef-hotdog-sausages-halal.html",
+    "en/blog/burger-patties-wholesale-halal.html",
+    "en/blog/pepperoni-for-pizzeria-horeca.html",
+    "en/blog/wholesale-pepperoni-russia-export.html",
+}
 
 fail = 0
 
@@ -84,6 +105,18 @@ def catalog() -> dict[str, dict]:
     return {row["sku"]: row for row in rows}
 
 
+def raw_html_without_js(html: str) -> str:
+    """Drop executable <script> so only static ld+json markup remains."""
+
+    def keep(match: re.Match[str]) -> str:
+        attrs = match.group(1)
+        if re.search(r"""type\s*=\s*["']application/ld\+json["']""", attrs, re.I):
+            return match.group(0)
+        return ""
+
+    return SCRIPT_RE.sub(keep, html)
+
+
 def keep_targets() -> list[dict]:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     out = []
@@ -93,9 +126,7 @@ def keep_targets() -> list[dict]:
         kind = row.get("kind")
         rel = row.get("file") or ""
         is_product = kind == "product" or rel.startswith(("products/kd-", "en/products/kd-"))
-        is_landing = kind in {"home", "hub", "catalog"}
-        if is_product or is_landing:
-            out.append({**row, "is_product": is_product})
+        out.append({**row, "is_product": is_product})
     return out
 
 
@@ -115,12 +146,14 @@ def product_price(sku_row: dict | None):
 def main() -> int:
     products = catalog()
     targets = keep_targets()
+    check(len(targets) == 250, f"validates every keep page ({len(targets)})")
     check(any(row["is_product"] for row in targets), "validates product cards")
     check(any(row.get("kind") == "hub" for row in targets), "validates landing hubs")
+    check(any(row.get("kind") == "guide" for row in targets), "validates guides")
 
     for row in targets:
         rel = row["file"]
-        html = (PUBLIC / rel).read_text(encoding="utf-8")
+        html = raw_html_without_js((PUBLIC / rel).read_text(encoding="utf-8"))
         blobs, bad = parse_ld(html)
         check(bad == 0, f"{row['url']} JSON-LD is valid JSON")
         tops: list[dict] = []

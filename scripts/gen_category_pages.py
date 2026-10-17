@@ -13,7 +13,13 @@ from html import escape
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent))
-from landing_chrome import font_lcp_hints, stylesheet_link, topbar_html  # noqa: E402
+from landing_chrome import (  # noqa: E402
+    delayed_analytics,
+    font_lcp_hints,
+    is_lcp_render_slug,
+    stylesheet_link,
+    topbar_html,
+)
 from metrika_snippet import ensure_metrika_html  # noqa: E402
 from organization_ld import SCRIPT  # noqa: E402
 from site_facts import (  # noqa: E402
@@ -830,6 +836,43 @@ def build_jerks_catalog_page(cfg):
     return build_page(cfg, jerks=True)
 
 
+def _ld_scripts(*payloads: dict) -> str:
+    return "\n".join(
+        '<script type="application/ld+json">'
+        + json.dumps(data, ensure_ascii=False, separators=(",", ":"))
+        + "</script>"
+        for data in payloads
+    )
+
+
+def _hub_chrome(slug: str, page_css: str, ld_html: str) -> dict[str, str]:
+    """LCP hubs: critical hero CSS in <head>; sheet/GTM later.
+
+    JSON-LD stays static server HTML (`ld_tail` at the end of <body>).
+    Yandex does not reliably run JS — do not inject schema after load.
+    """
+    lcp = is_lcp_render_slug(slug)
+    sheet = stylesheet_link(slug if lcp else "")
+    fonts = font_lcp_hints(slug)
+    if lcp:
+        return {
+            "gtm_head": "",
+            "ld_head": "",
+            "css_head": f"  {fonts}\n  {sheet}",
+            "rest_css": f'<style id="kd-page-rest">{page_css}</style>',
+            "ld_tail": ld_html,
+            "analytics": delayed_analytics(),
+        }
+    return {
+        "gtm_head": GTM,
+        "ld_head": ld_html,
+        "css_head": f"  {fonts}\n  {sheet}\n  <style>{page_css}</style>",
+        "rest_css": "",
+        "ld_tail": "",
+        "analytics": "",
+    }
+
+
 def build_page(cfg, jerks=False):
     """Build a catalog-backed category hub.
 
@@ -961,10 +1004,47 @@ def build_page(cfg, jerks=False):
     if (PUBLIC / "en" / f"{cfg['slug']}.html").exists():
         en_alt = f'  <link rel="alternate" hreflang="en" href="{en_url}">\n'
 
+    ld_html = SCRIPT + "\n" + _ld_scripts(
+        {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "name": h1,
+            "description": desc,
+            "url": url,
+            "numberOfItems": len(products),
+            "itemListElement": [
+                {
+                    "@type": "ListItem",
+                    "position": i + 1,
+                    "url": f"https://pepperoni.tatar/products/{p['sku'].lower()}",
+                    "name": p["name"],
+                }
+                for i, p in enumerate(products)
+            ],
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": json.loads(faq_ld),
+        },
+        {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+                {"@type": "ListItem", "position": 1, "name": "Главная",
+                 "item": "https://pepperoni.tatar/"},
+                {"@type": "ListItem", "position": 2, "name": h1, "item": url},
+            ],
+        },
+    )
+    chrome = _hub_chrome(
+        cfg["slug"], JERKS_EXTRA_STYLE if jerks else BASE_STYLE, ld_html
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="ru">
 <head>
-{GTM}
+{chrome["gtm_head"]}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-language" content="ru">
@@ -973,7 +1053,6 @@ def build_page(cfg, jerks=False):
   <meta name="keywords" content="{cfg["keywords"]}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
-  {SCRIPT}
   <link rel="alternate" hreflang="ru" href="{url}">
 {en_alt}  <link rel="alternate" hreflang="x-default" href="{url}">
 
@@ -989,41 +1068,8 @@ def build_page(cfg, jerks=False):
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
   <meta name="twitter:image" content="{og_image}">
-
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": {json.dumps(h1, ensure_ascii=False)},
-    "description": {json.dumps(desc, ensure_ascii=False)},
-    "url": "{url}",
-    "numberOfItems": {len(products)},
-    "itemListElement": [{", ".join(f'{{"@type":"ListItem","position":{i+1},"url":"https://pepperoni.tatar/products/{p["sku"].lower()}","name":{json.dumps(p["name"],ensure_ascii=False)}}}' for i, p in enumerate(products))}]
-  }}
-  </script>
-
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": {faq_ld}
-  }}
-  </script>
-
-  <script type="application/ld+json">
-  {{
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {{"@type": "ListItem", "position": 1, "name": "Главная", "item": "https://pepperoni.tatar/"}},
-      {{"@type": "ListItem", "position": 2, "name": {json.dumps(h1, ensure_ascii=False)}, "item": "{url}"}}
-    ]
-  }}
-  </script>
-
-  {font_lcp_hints(cfg["slug"])}
-  {stylesheet_link()}
-  <style>{JERKS_EXTRA_STYLE if jerks else BASE_STYLE}</style>
+{chrome["ld_head"]}
+{chrome["css_head"]}
 </head>
 <body class="kd-landing{' jerks-landing' if jerks else ''}">
 {GTM_BODY}
@@ -1072,6 +1118,9 @@ def build_page(cfg, jerks=False):
     <p>ООО «Казанские Деликатесы» · <a href="/">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href="tel:+79872170202">+7 987 217-02-02</a></p>
   </footer>
 </div>
+{chrome["rest_css"]}
+{chrome["ld_tail"]}
+{chrome["analytics"]}
 </body>
 </html>"""
 
@@ -1458,11 +1507,18 @@ def build_commercial_page(cfg, lang):
     related = " · ".join(f'<a href="{u}">{x}</a>' for x, u in t["related"])
     cmp_head = "".join(f"<th>{c}</th>" for c in t["cmp_cols"])
     clarify = "\n".join(f"<li>{x}</li>" for x in t["clarify"])
+    ld_html = (
+        SCRIPT + "\n"
+        + f'<script type="application/ld+json">{list_ld}</script>\n'
+        + f'<script type="application/ld+json">{faq_ld}</script>\n'
+        + f'<script type="application/ld+json">{crumbs_ld}</script>'
+    )
+    chrome = _hub_chrome(cfg["slug"], BASE_STYLE + COMMERCIAL_STYLE, ld_html)
 
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
-{GTM}
+{chrome["gtm_head"]}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="content-language" content="{lang}">
@@ -1470,7 +1526,6 @@ def build_commercial_page(cfg, lang):
   <meta name="description" content="{desc}">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="{url}">
-  {SCRIPT}
   <link rel="alternate" hreflang="ru" href="{ru_url}">
   <link rel="alternate" hreflang="en" href="{en_url}">
   <link rel="alternate" hreflang="x-default" href="{ru_url}">
@@ -1484,12 +1539,8 @@ def build_commercial_page(cfg, lang):
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="{title}">
   <meta name="twitter:description" content="{desc}">
-  <script type="application/ld+json">{list_ld}</script>
-  <script type="application/ld+json">{faq_ld}</script>
-  <script type="application/ld+json">{crumbs_ld}</script>
-  {font_lcp_hints(cfg["slug"])}
-  {stylesheet_link()}
-  <style>{BASE_STYLE}{COMMERCIAL_STYLE}</style>
+{chrome["ld_head"]}
+{chrome["css_head"]}
 </head>
 <body class="kd-landing">
 {GTM_BODY}
@@ -1604,6 +1655,9 @@ def build_commercial_page(cfg, lang):
 }})();
 </script>
 <script src="/assets/lead-form.js" defer></script>
+{chrome["rest_css"]}
+{chrome["ld_tail"]}
+{chrome["analytics"]}
 </body>
 </html>"""
 

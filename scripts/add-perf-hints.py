@@ -82,7 +82,18 @@ YM_IMG_RE = re.compile(
 )
 
 
+PRECONNECT_RE = re.compile(
+    re.escape(PERF_MARKER)
+    + r"\n?(?:<link rel=\"(?:preconnect|dns-prefetch)\"[^>]*>\n?){0,8}",
+    re.I,
+)
+
+
 def add_preconnects(html: str) -> str:
+    # LCP hubs delay GTM/Metrika until after `load`. Warming those sockets in
+    # <head> puts third-party work back on the first-paint path.
+    if 'id="kd-hero-critical"' in html or "function loadAnalytics" in html:
+        return PRECONNECT_RE.sub("", html)
     if PERF_MARKER in html:
         return html
     m = HEAD_RE.search(html)
