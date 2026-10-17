@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from html import escape
 
+from landing_chrome import stylesheet_link, topbar_html
 from organization_ld import SCRIPT
 
 GTM_HEAD = """<!-- Google Tag Manager -->
@@ -65,8 +66,12 @@ def page(
     body: str,
     extra_head: str = "",
     robots: str = "index, follow",
+    slug: str = "",
 ) -> str:
     locale = "ru_RU" if lang == "ru" else "en_US"
+    if not slug:
+        slug = "price" if "/price" in canonical else "kak-zakazat"
+    chrome = topbar_html(lang, slug)
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -90,10 +95,12 @@ def page(
 <meta property="og:locale" content="{locale}">
 {SCRIPT}
 {extra_head}
+{stylesheet_link()}
 <style>{CSS}</style>
 </head>
-<body>
+<body class="kd-landing">
 {GTM_BODY}
+{chrome}
 <div class="container">
 {nav_html}
 {body}
