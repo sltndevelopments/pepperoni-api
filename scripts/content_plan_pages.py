@@ -747,15 +747,6 @@ def write_pizzeria() -> None:
                 "пока нет спецификации партии или снимка реального теста. "
                 "Отдел продаж согласует образец для вашей печи.</p>"
             )
-            pizza_sausage = (
-                "<h2>Какая колбаса для пиццы</h2>"
-                "<p>Для пиццы в текущем каталоге — пепперони: "
-                "<a href=\"/products/kd-013\">KD-013</a> нарезка и "
-                "<a href=\"/products/kd-014\">KD-014</a> целый батон, оба варёно-копчёные куриные. "
-                "Другой колбасы «для пиццы» в Sheets нет. Сервелат и полукопчёные позиции — "
-                "на <a href=\"/kolbasy-kopchyonye\">копчёных колбасах</a>; цена и состав — "
-                "в карточке SKU.</p>"
-            )
             use = (
                 "<h2>Как берут на кухне</h2><ul>"
                 "<li>KD-013 — готовая нарезка, 0,5 кг, без слайсера на смене.</li>"
@@ -794,15 +785,6 @@ def write_pizzeria() -> None:
                 "(temperature, time, slice diameter). We do not claim 'does not cup' or a millimetre "
                 "diameter until a batch spec or a real test shot exists. Sales can agree a sample.</p>"
             )
-            pizza_sausage = (
-                "<h2>Which sausage for pizza</h2>"
-                "<p>The current catalog pizza sausage is pepperoni: "
-                "<a href=\"/en/products/kd-013\">KD-013</a> sliced and "
-                "<a href=\"/en/products/kd-014\">KD-014</a> whole stick, both cooked-smoked chicken. "
-                "No other “pizza sausage” SKU is in the Sheet. Smoked cervelat lives on "
-                "<a href=\"/en/kolbasy-kopchyonye\">smoked sausages</a>; price and ingredients "
-                "are on the SKU card.</p>"
-            )
             use = (
                 "<h2>Kitchen formats</h2><ul>"
                 "<li>KD-013 — factory sliced, 0.5 kg, no slicer on the shift.</li>"
@@ -831,7 +813,7 @@ def write_pizzeria() -> None:
             ],
         }]
         body = (
-            intro + pizza_sausage + use
+            intro + use
             + sku_table(items, lang) + cards(items, lang) + photos(items, lang)
             + oven
             + f'<p><a href="{prefix(lang)}/pepperoni">'

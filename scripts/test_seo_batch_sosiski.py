@@ -49,6 +49,12 @@ def main() -> int:
     check('class="tbl"' in ru and "<table" in ru, "new page has catalog table")
     check("Минимальный заказ — 1 паллета" in ru, "canonical MOQ")
     check("/sosiski-dlya-hotdog" in ru and "/products" in ru, "new page links hubs")
+    check("по всей России" in ru and "Москв" in ru and "Санкт-Петербург" in ru,
+          "new page phrases Russia / Moscow / SPb")
+    check('id="dostavka"' in ru and "Доставка в Москву и СПб" in ru, "new page delivery section")
+    check('id="po-myasu"' in ru and "Говяжьи" in ru and "Куриные" in ru, "new page meat-type blocks")
+    check("/kotlety-dlya-burgerov#dostavka" in ru and "/kazylyk#dostavka" in ru,
+          "new page links cutlet/kazylyk delivery")
     check('"@type": "ItemList"' in ru or '"@type":"ItemList"' in ru, "ItemList schema")
     check('"@type": "FAQPage"' in ru or '"@type":"FAQPage"' in ru, "FAQ schema")
     orgs = len(re.findall(r'"@type"\s*:\s*"Organization"', ru))
@@ -66,8 +72,11 @@ def main() -> int:
     check("Халяль колбасы и сосиски оптом от производителя" in products_ru, "RU /products title")
     check("<h1>Халяль колбасы и сосиски оптом от производителя</h1>" in products_ru, "RU /products H1")
     check("/sosiski-halyal-optom" in products_ru, "/products links new page")
-    check("<title>Halal sausages wholesale</title>" in products_en, "EN /products title")
-    check("<h1>Halal sausages wholesale</h1>" in products_en, "EN /products H1")
+    check("/kotlety-dlya-burgerov#dostavka" in products_ru, "/products links cutlet delivery")
+    check("/kazylyk#dostavka" in products_ru, "/products links kazylyk delivery")
+    check("<title>Product catalog — SKU pages | Kazan Delicacies</title>" in products_en,
+          "EN /products keeps original catalog title")
+    check("<h1>Product catalog</h1>" in products_en, "EN /products keeps original H1")
 
     smoked = html_of("kolbasy-kopchyonye.html")
     check("сервелат" in smoked.lower() and "ханск" in smoked.lower(), "smoked has ханский")
@@ -86,16 +95,27 @@ def main() -> int:
     check("Гриль, колбаски для хот-догов и френч-дог" in hotdog, "hotdog H2 grill/french-dog")
     check("френч-дог" in hotdog.lower(), "hotdog FAQ/copy has френч-дог")
     check("/sosiski-halyal-optom" in hotdog, "hotdog links chilled sausages")
+    check("по всей России" in hotdog and 'id="dostavka"' in hotdog, "hotdog Russia delivery")
+    check('id="po-myasu"' in hotdog and "Говяжьи" in hotdog and "Куриные" in hotdog,
+          "hotdog meat-type blocks")
+    check("KD-005" not in (hotdog.split('id="po-myasu"', 1)[-1].split('id="dostavka"', 1)[0]),
+          "lamb-named KD-005 stays out of beef/chicken blocks")
+
+    kot = html_of("kotlety-dlya-burgerov.html")
+    kaz = html_of("kazylyk.html")
+    check('id="dostavka"' in kot and "Доставка в Москву и СПб" in kot, "cutlets delivery section")
+    check('id="dostavka"' in kaz and "Доставка в Москву и СПб" in kaz, "kazylyk delivery section")
+    check("Москв" not in re.search(r"<title>(.*?)</title>", kot).group(1),
+          "cutlets title still has no Москва")
 
     home = html_of("index.html")
     check("/sosiski-halyal-optom" in home, "home links new page")
 
     pizza = html_of("pepperoni-dlya-pizzerii.html")
-    check("Какая колбаса для пиццы" in pizza, "pizzeria block present")
-
+    check("Какая колбаса для пиццы" not in pizza, "pizzeria pizza-sausage block dropped")
     pep = html_of("en/blog/what-is-halal-pepperoni.html")
-    check("chicken pepperoni" in pep.lower() and "poultry-only" in pep.lower(),
-          "EN pepperoni article targets poultry-only / chicken pepperoni")
+    check("porkless" not in pep.lower() and "poultry-only" not in pep.lower(),
+          "EN pepperoni article has no porkless / poultry-only add-on")
 
     hot_blog = html_of("en/blog/beef-hotdog-sausages-halal.html")
     burg_blog = html_of("en/blog/burger-patties-wholesale-halal.html")

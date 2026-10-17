@@ -7,6 +7,7 @@ Run: python scripts/gen_category_pages.py
 """
 
 import json
+import re
 import sys
 from html import escape
 from pathlib import Path
@@ -26,6 +27,26 @@ from wholesale_nav import brand_title_suffix, wholesale_block  # noqa: E402
 
 PUBLIC = Path(__file__).parent.parent / "public"
 HERO_SLUGS = {"kotlety-dlya-burgerov", "kazylyk", "vetchina-optom", "sosiski-halyal-optom"}
+SAUSAGE_MEAT_SLUGS = {
+    "sosiski-halyal-optom",
+    "sosiski-dlya-hotdog",
+    "kolbasy-kopchyonye",
+    "kolbasy-varenye",
+}
+RUSSIA_DELIVERY_SLUGS = SAUSAGE_MEAT_SLUGS | {
+    "kotlety-dlya-burgerov",
+    "kazylyk",
+}
+# Backed by public/about.html (regular runs to Moscow / SPb, −18 °C or 0…+6 °C)
+# and public/delivery.html + company_facts (EXW Kazan, buyer pays).
+RUSSIA_DELIVERY_P = (
+    "Отгрузки по всей России. Регулярные рейсы в Москву и Санкт-Петербург — "
+    "собственная доставка и рефрижераторные перевозчики, терморежим −18 °C или "
+    "0…+6 °C (как на <a href=\"/about\">странице о компании</a>). Базис цен — "
+    "EXW Казань; доставку оплачивает покупатель. Маршрут и срок называем по "
+    "заказу — числа дней на странице нет. Минимальный заказ — 1 паллета. "
+    "Подробнее: <a href=\"/delivery\">доставка</a>."
+)
 PRODUCTS = json.loads((PUBLIC / "products.json").read_text())["products"]
 MANIFEST_PATH = Path(__file__).parent.parent / "data" / "index_manifest.json"
 
@@ -329,6 +350,70 @@ def _sku_bit(product: dict) -> str:
     return f"{bit} ({extra})" if extra else bit
 
 
+def russia_delivery_html() -> str:
+    return (
+        '<section id="dostavka">'
+        "<h2>Доставка в Москву и СПб / по России</h2>"
+        f"<p>{RUSSIA_DELIVERY_P}</p>"
+        "</section>"
+    )
+
+
+def _meat_groups(products: list) -> tuple[list[dict], list[dict]]:
+    """Split live catalog rows into beef / chicken when the Sheet says so."""
+    beef, chicken = [], []
+    seen_b, seen_c = set(), set()
+    for p in products:
+        sku = (p.get("sku") or "").upper()
+        if not sku:
+            continue
+        name = (p.get("name") or "").lower()
+        ing = (p.get("ingredientsRU") or "").lower()
+        other_named = bool(re.search(r"баран|индейк|конин", name))
+        named_beef = "говяд" in name
+        named_chicken = "курин" in name
+        ing_beef = bool(re.search(r"состав:\s*говядин", ing))
+        ing_chicken = bool(
+            re.search(
+                r"состав:\s*(мясо кур|филе кур|мякоть окорочка кур|мясо куриное|филе куриных)",
+                ing,
+            )
+        )
+        is_beef = named_beef or (ing_beef and not other_named and not named_chicken)
+        is_chicken = named_chicken or (ing_chicken and not other_named and not named_beef)
+        if is_beef and sku not in seen_b:
+            beef.append(p)
+            seen_b.add(sku)
+        if is_chicken and sku not in seen_c:
+            chicken.append(p)
+            seen_c.add(sku)
+    return beef, chicken
+
+
+def meat_type_html(products: list, prefix: str = "") -> str:
+    beef, chicken = _meat_groups(products)
+    if not beef and not chicken:
+        return ""
+    blocks = [
+        "<p>Блоки ниже — только SKU этой страницы, у которых в названии или "
+        "в начале состава из каталога указана говядина или курица. Полный "
+        "состав — в карточке: название не заменяет рецептуру.</p>"
+    ]
+    for heading, rows in (("Говяжьи", beef), ("Куриные", chicken)):
+        if not rows:
+            continue
+        items = []
+        for p in rows:
+            sku = p.get("sku") or ""
+            href = f"{prefix}/products/{sku.lower()}"
+            items.append(
+                f'<li><a href="{href}">{escape(sku)}</a> — '
+                f"{escape(p.get('name') or sku)}</li>"
+            )
+        blocks.append(f"<h2>{heading}</h2><ul>\n{''.join(items)}\n</ul>")
+    return '<section id="po-myasu">\n' + "\n".join(blocks) + "\n</section>"
+
+
 def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
     """Query-targeted title/H1/description/intro from live catalog rows."""
     slug = cfg.get("slug")
@@ -369,19 +454,24 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
             ),
         )
     if slug == "sosiski-halyal-optom":
-        names = ", ".join(p.get("name") or p.get("sku") or "" for p in products)
+        names = ", ".join(
+            (p.get("name") or p.get("sku") or "").replace('"', "")
+            for p in products
+        )
         return (
-            "Сосиски халяль оптом — охлаждённые SKU от производителя",
-            "Сосиски халяль оптом — охлаждённые от производителя",
+            "Сосиски халяль оптом — охлаждённые SKU по всей России",
+            "Сосиски халяль оптом — по всей России",
             (
-                f"Сосиски халяль оптом: {n} охлаждённые позиции из каталога "
-                f"({names}). Цены и хранение — в таблице из products.json. "
-                "Халяль ДУМ РТ. EXW Казань. Заявка — получить КП."
+                f"Сосиски халяль оптом по всей России: {n} охлаждённые позиции "
+                f"из каталога ({names}). Отгрузки в Москву и Санкт-Петербург. "
+                "Цены и хранение — в таблице из products.json. Халяль ДУМ РТ. "
+                "EXW Казань. Заявка — получить КП."
             ),
             (
                 f"Охлаждённые сосиски халяль из актуального каталога: {n} SKU "
-                f"({skus}). Это не замороженные сосиски для хот-догов — они "
-                "на <a href=\"/sosiski-dlya-hotdog\">/sosiski-dlya-hotdog</a>. "
+                f"({skus}). Отгрузки по всей России, в том числе в Москву и "
+                "Санкт-Петербург. Это не замороженные сосиски для хот-догов — "
+                "они на <a href=\"/sosiski-dlya-hotdog\">/sosiski-dlya-hotdog</a>. "
                 "Цены в таблице ниже берутся из products.json."
             ),
         )
@@ -396,30 +486,34 @@ def _catalog_seo(cfg: dict, products: list) -> tuple[str, str, str, str] | None:
             named.append("полукопчёная говяжья")
         named_s = ", ".join(named) if named else "копчёные позиции каталога"
         return (
-            f"Копчёные колбасы халяль оптом — {named_s}",
-            f"Копчёные колбасы халяль — {named_s}",
+            f"Копчёные колбасы халяль оптом — {named_s}, по всей России",
+            f"Копчёные колбасы халяль — {named_s}, по всей России",
             (
-                f"Копчёные колбасы халяль оптом: {n} SKU из каталога, в том числе "
-                f"{named_s}. {bits}. Халяль ДУМ РТ. EXW Казань."
+                f"Копчёные колбасы халяль оптом по всей России: {n} SKU из каталога, "
+                f"в том числе {named_s}. Отгрузки в Москву и Санкт-Петербург. "
+                f"{bits}. Халяль ДУМ РТ. EXW Казань."
             ),
             (
                 f"В категории {n} позиций из products.json. На странице есть "
                 f"{named_s} — только те названия, которые есть в каталоге. "
+                "Отгрузки по всей России, в том числе в Москву и Санкт-Петербург. "
                 "Состав, масса и цена — в карточке SKU."
             ),
         )
     if slug == "kolbasy-varenye":
         return (
-            "Варёная колбаса халяль / мусульманская оптом",
-            "Варёная колбаса халяль — мусульманская, оптом",
+            "Варёная колбаса халяль / мусульманская оптом по всей России",
+            "Варёная колбаса халяль — мусульманская, по всей России",
             (
-                f"Варёная колбаса халяль и мусульманская варёная колбаса оптом: "
-                f"{n} SKU из каталога. {bits}. Халяль ДУМ РТ. EXW Казань."
+                f"Варёная колбаса халяль и мусульманская варёная колбаса оптом "
+                f"по всей России: {n} SKU из каталога. Отгрузки в Москву и "
+                f"Санкт-Петербург. {bits}. Халяль ДУМ РТ. EXW Казань."
             ),
             (
                 f"Варёная колбаса халяль (мусульманская) — {n} позиции из "
-                f"актуального каталога ({skus}). Состав и цена — в карточке SKU, "
-                "не в рекламном тексте."
+                f"актуального каталога ({skus}). Отгрузки по всей России, "
+                "в том числе в Москву и Санкт-Петербург. Состав и цена — "
+                "в карточке SKU, не в рекламном тексте."
             ),
         )
     return None
@@ -490,6 +584,14 @@ def build_page(cfg):
             "называет отдел продаж, на странице их нет.",
         ),
         (
+            "Как устроены доставка и оплата?",
+            "Цены на странице — EXW Казань. Отгрузки по всей России; регулярные "
+            "рейсы в Москву и Санкт-Петербург. Доставку оплачивает покупатель, "
+            "срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте. "
+            "Минимальный заказ — 1 паллета.",
+        )
+        if cfg.get("slug") in RUSSIA_DELIVERY_SLUGS
+        else (
             "Как устроены доставка и оплата?",
             "Цены на странице — EXW Казань. Доставку оплачивает покупатель, "
             "срок отгрузки согласуем под заказ. Условия оплаты фиксируются в счёте.",
@@ -615,6 +717,8 @@ def build_page(cfg):
   <p>Производим эту категорию в Казани для HoReCa, сетей, АЗС и дистрибьюторов. Минимальный заказ — 1 паллета. Цены EXW Казань. С поставкой идут халяль-сертификат, декларация соответствия, ВСД («Меркурий») и маркировка «Честный знак».</p>
 
   {f'<h2>{cfg["extra_h2"]}</h2><p>{cfg["extra_p"]}</p>' if cfg.get("extra_h2") else ""}
+  {meat_type_html(products) if cfg.get("slug") in SAUSAGE_MEAT_SLUGS else ""}
+  {russia_delivery_html() if cfg.get("slug") in RUSSIA_DELIVERY_SLUGS else ""}
   <h2>Для кого</h2>
   <ul>
     <li><a href="/dlya-horeca">HoReCa</a></li>
@@ -735,11 +839,11 @@ COMMERCIAL_STYLE = """
 COMMERCIAL_T = {
     "ru": {
         "lang": "ru", "prefix": "", "home": "Главная", "back": "← Все продукты",
-        "title": "Сосиски для хот-догов оптом — халяль, цены и форматы | Казанские Деликатесы",
-        "h1": "Сосиски для хот-догов оптом — халяль от производителя",
-        "meta": "{n} позиций сосисок для хот-догов халяль: форматы {fmts}, цены за упаковку с НДС по каталогу на {date}, заморозка {storage} и срок годности {shelf}. Фото, масса, ссылки на карточки и форма запроса условий.",
+        "title": "Сосиски для хот-догов оптом — халяль по всей России | Казанские Деликатесы",
+        "h1": "Сосиски для хот-догов оптом — халяль по всей России",
+        "meta": "{n} позиций сосисок для хот-догов халяль по всей России: форматы {fmts}, цены за упаковку с НДС по каталогу на {date}, заморозка {storage} и срок годности {shelf}. Отгрузки в Москву и Санкт-Петербург. Фото, масса, ссылки на карточки и форма запроса условий.",
         "eyebrow": "Казанские Деликатесы · Казань · каталог синхронизирован {date}",
-        "lead": "Ниже — {n} позиций категории из действующего каталога с ценами и фото. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
+        "lead": "Ниже — {n} позиций категории из действующего каталога с ценами и фото. Отгрузки по всей России, в том числе в Москву и Санкт-Петербург. Выберите нужные, укажите объём и город — отдел продаж подтвердит наличие, минимальную партию и доставку.",
         "facts_h": "Общее для категории",
         "f_formats": "Форматы", "f_storage": "Хранение", "f_shelf": "Срок годности", "f_pack": "Упаковка",
         "f_cert": "Сертификаты", "cert": certs_category_ru(),
@@ -766,7 +870,7 @@ COMMERCIAL_T = {
         "clarify": [
             "Состав паллеты: минимальный заказ — 1 паллета; объём считаем кратно паллете.",
             "Наличие на складе и срок отгрузки на дату заказа.",
-            "Доставку: цены — со склада в Казани (EXW); доставку рассчитываем индивидуально (в т. ч. попутным транспортом), оплачивает покупатель; сроки — по согласованию.",
+            "Доставку: цены — со склада в Казани (EXW); отгрузки по всей России, регулярные рейсы в Москву и Санкт-Петербург; доставку рассчитываем индивидуально (в т. ч. попутным транспортом), оплачивает покупатель; сроки — по согласованию.",
             "Комплект документов: сертификат халяль, декларация соответствия, ВСД (ФГИС «Меркурий»), маркировка «Честный знак», электронная транспортная накладная (ЭТрН).",
             "Цену при объёме и условия оплаты — обсуждаются и подтверждаются по каждому заказу.",
         ],
@@ -798,12 +902,16 @@ COMMERCIAL_T = {
              "Да: в карточках категории указан гриль (в том числе роликовый), решётка или сковорода. Температуру и время на своей точке проверяете образцом — на странице их нет."),
             ("Есть ли отдельные колбаски для френч-дога?",
              "Отдельного SKU «френч-дог» в каталоге нет. Для френч-дога берут те же колбаски для хот-догов: формат и масса — в карточке выбранного SKU."),
+            ("Есть ли доставка по всей России, в Москву и Санкт-Петербург?",
+             "Отгрузки по всей России. Регулярные рейсы в Москву и Санкт-Петербург. Цены — EXW Казань, доставку оплачивает покупатель. Срок называем по заказу, числа дней на странице нет. Минимальный заказ — 1 паллета."),
         ],
         "footer": "ООО «Казанские Деликатесы» · <a href=\"/\">pepperoni.tatar</a> · г. Казань, ул. Аграрная, 2, оф. 7 · <a href=\"tel:+79872170202\">+7 987 217-02-02</a>",
         "related": [
             ("HoReCa", "/dlya-horeca"), ("АЗС", "/dlya-azs"),
             ("Котлеты для бургеров", "/kotlety-dlya-burgerov"),
             ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
+            ("Доставка котлет в Москву и СПб", "/kotlety-dlya-burgerov#dostavka"),
+            ("Доставка казылыка в Москву и СПб", "/kazylyk#dostavka"),
             ("Как выбрать сосиски", "/blog/sosiski-dlya-hot-dogov-optom"),
             ("Ветчина", "/vetchina-optom"),
             ("Как заказать", "/kak-zakazat"),
@@ -1146,6 +1254,7 @@ def build_commercial_page(cfg, lang):
 
   <p style="margin-top:20px;font-size:.9rem;color:#555">{t['related_h']}{related}</p>
 {('  <section class="section"><h2>' + t['extra_h2'] + '</h2>' + t['extra_html'] + '</section>') if t.get('extra_h2') else ''}
+{(meat_type_html(products) + russia_delivery_html()) if lang == "ru" else ""}
 
   <section class="faq-section">
     <h2>{t['h_faq']}</h2>
@@ -1210,8 +1319,8 @@ PAGES = [
             ("Каталог", "/products"),
             ("Сосиски для хот-догов", "/sosiski-dlya-hotdog"),
             ("Главная", "/"),
-            ("Казылык", "/kazylyk"),
-            ("Пепперони", "/pepperoni-dlya-pizzerii"),
+            ("Доставка казылыка в Москву и СПб", "/kazylyk#dostavka"),
+            ("Доставка котлет в Москву и СПб", "/kotlety-dlya-burgerov#dostavka"),
         ],
     },
     {
@@ -1363,7 +1472,8 @@ PAGES = [
         ],
         "related_links": [
             ("Гид по котлетам оптом", "/blog/kotlety-dlya-burgerov-optom"),
-            ("Сосиски для хот-догов", "/sosiski-dlya-hotdog"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
+            ("Доставка казылыка в Москву и СПб", "/kazylyk#dostavka"),
             ("HoReCa", "/dlya-horeca"),
         ],
     },
@@ -1404,7 +1514,8 @@ PAGES = [
         "categories": ["Премиум Казылык"],
         "related_links": [
             ("Что такое казылык", "/blog/kazylyk"),
-            ("Пепперони", "/pepperoni"),
+            ("Сосиски халяль оптом", "/sosiski-halyal-optom"),
+            ("Доставка котлет в Москву и СПб", "/kotlety-dlya-burgerov#dostavka"),
             ("Копчёные колбасы", "/kolbasy-kopchyonye"),
         ],
     },
