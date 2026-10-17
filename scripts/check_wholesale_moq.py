@@ -21,8 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 
 CTX = re.compile(
-    r"минимальн\w*\s+(?:оптов\w+\s+)?(?:заказ|парти|объ[её]м)|мин\.\s*заказ|"
-    r"minimum\s+(?:wholesale\s+)?order|min(?:\.|imum)?\s*order|moq|"
+    r"минимальн\w*\s+(?:оптов\w+\s+)?(?:заказ|парти\w*|объ[её]м)|мин\.\s*заказ|"
+    r"minimum\s+(?:wholesale\s+)?(?:order|batch|lot)|"
+    r"min(?:\.|imum)?\s*(?:order|batch|lot)|moq|"
+    r"от\s+упаковк\w*|from\s+(?:a\s+)?pack(?:age)?s?\b|"
     r"оптов\w*\s+(?:партии|закупк\w*|поставк\w*|покупател\w*)\s+(?:—\s*)?от\s*\d|"
     r"wholesale\s+(?:supply\s+|orders?\s+)?from\s+\d|оптом\s+от\s+\d|opt\w*\s+from\s+\d",
     re.I,
@@ -38,14 +40,15 @@ ALLOW = re.compile(r"паллет|pallet|тонн|tonnes?|\btons?\b", re.I)
 # — unless that phrase is the object of the minimum-order verb
 # («Минимальный заказ — упаковка 100 кг» must still fail).
 PACK_WEIGHT = re.compile(
-    r"(?:нарезк\w*|упаковк\w*|фасовк\w*|вес(?:ом)?|батон|net\s+weight|pack(?:age)?)"
+    r"(?:нарезк\w*|упаковк\w*|фасовк\w*|вес(?:ом)?|масс\w*|батон|net\s+weight|pack(?:age)?)"
     r"\s*(?:—|-|:)?\s*\d[\d\s,.]*\s*(?:кг|kg)",
     re.I,
 )
 _MOQ_OBJECT_PREFIX = re.compile(
-    r"(?:минимальн\w*\s+(?:оптов\w+\s+)?(?:заказ|парти|объ[её]м)|"
-    r"мин\.\s*заказ|minimum\s+(?:wholesale\s+)?order|"
-    r"min(?:\.|imum)?\s*order|\bmoq)\s*[—\-:]?\s*$",
+    r"(?:минимальн\w*\s+(?:оптов\w+\s+)?(?:заказ|парти\w*|объ[её]м)|"
+    r"мин\.\s*заказ|minimum\s+(?:wholesale\s+)?(?:order|batch|lot)|"
+    r"min(?:\.|imum)?\s*(?:order|batch|lot)|\bmoq|"
+    r"(?:от|from))\s*[—\-:]?\s*$",
     re.I,
 )
 
@@ -56,7 +59,8 @@ SCAN = [
 ]
 SKIP_PARTS = {"1", "2", "3", "4", "5", "node_modules", "site", "quarantine", "_quarantine_stale_syrokopch"}
 SKIP_NAMES = {"check_wholesale_moq.py", "check_stm_min_run.py", "fix_moq_100kg.py", "fix_pages.py",
-              "generate_geo_bulk.py", "bulk_fix_stale_content.py"}  # quote bad figures as prohibitions
+              "generate_geo_bulk.py", "bulk_fix_stale_content.py",
+              "test_seo_followup_batch.py", "test_moq_hreflang.py"}  # quote bad figures as prohibitions
 
 
 def sentences(text: str):

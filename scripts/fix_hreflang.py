@@ -25,10 +25,19 @@ PUBLIC = ROOT / "public"
 MANIFEST = ROOT / "data" / "index_manifest.json"
 sys.path.insert(0, str(ROOT / "scripts"))
 
-from hreflang_policy import BASE, alternates, pair_key  # noqa: E402
+from hreflang_policy import (  # noqa: E402
+    BASE,
+    alternates,
+    filter_page_alternates,
+    pair_key,
+)
 
 RE_ALT = re.compile(
     r'[ \t]*<link\s+rel=["\']alternate["\']\s+hreflang=["\'](ru|en|x-default)["\']\s+href=["\']([^"\']+)["\']\s*/?>[ \t]*\n?',
+    re.I,
+)
+RE_ANY_ALT = re.compile(
+    r'[ \t]*<link\s+rel=["\']alternate["\']\s+hreflang=["\']([^"\']+)["\']\s+href=["\']([^"\']+)["\']\s*/?>[ \t]*\n?',
     re.I,
 )
 RE_CANON = re.compile(r'[ \t]*<link[^>]+rel=["\']canonical["\'][^>]*>[ \t]*\n?', re.I)
@@ -67,6 +76,29 @@ def fix_file(path: Path, alts: list[tuple[str, str]], check: bool) -> bool:
     return True
 
 
+def strip_mixed_index_hreflang(path: Path, page_url: str, check: bool) -> bool:
+    """Drop hreflang that mixes a keep page with a noindex twin (any variant)."""
+    text = path.read_text(encoding="utf-8")
+    found = [(m.group(1), m.group(2)) for m in RE_ANY_ALT.finditer(text)]
+    if not found:
+        return False
+    kept = filter_page_alternates(page_url, found)
+    if not any(lang == "x-default" for lang, _ in kept) and kept:
+        kept.append(("x-default", page_url))
+    if kept == found:
+        return False
+    if check:
+        return True
+    matches = list(RE_ANY_ALT.finditer(text))
+    first = matches[0]
+    indent = re.match(r"[ \t]*", first.group(0)).group(0)
+    block = render(kept, indent)
+    head, tail = text[: first.start()], text[first.start():]
+    tail = RE_ANY_ALT.sub("", tail)
+    path.write_text(head + block + tail, encoding="utf-8")
+    return True
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--check", action="store_true")
@@ -89,6 +121,17 @@ def main() -> int:
             if not path.is_file():
                 continue
             if fix_file(path, alts, ns.check):
+                changed.append(row["file"])
+
+    for row in manifest["entries"]:
+        if row.get("status") not in {"keep", "noindex"}:
+            continue
+        path = PUBLIC / row["file"]
+        if not path.is_file():
+            continue
+        page_url = BASE + row["url"]
+        if strip_mixed_index_hreflang(path, page_url, ns.check):
+            if row["file"] not in changed:
                 changed.append(row["file"])
 
     verb = "disagree with sitemap" if ns.check else "rewritten"

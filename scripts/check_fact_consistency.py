@@ -28,6 +28,7 @@ ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
 sys.path.insert(0, str(ROOT / "scripts"))
 from catalog_prices import catalog, iter_jsonld_nodes, iter_ld_offers, num, rub  # noqa: E402
+from check_wholesale_moq import scan_text as scan_moq_text  # noqa: E402
 
 COMPANY_PATH = ROOT / "data" / "company_facts.json"
 SITE_FACTS_PATH = ROOT / "data" / "site_facts.json"
@@ -677,6 +678,8 @@ def check_moq_export_variants(rel: str, text: str) -> list[str]:
     for rx, label in UNAVAILABLE_EXPORT:
         if rx.search(text):
             issues.append(f"{rel} {label}")
+    for hit in scan_moq_text(text):
+        issues.append(f"{rel} non-pallet MOQ {hit!r}")
     return issues
 
 

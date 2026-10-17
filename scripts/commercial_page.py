@@ -5,6 +5,7 @@ from html import escape
 
 from landing_chrome import stylesheet_link, topbar_html
 from organization_ld import SCRIPT
+from hreflang_policy import filter_page_alternates
 
 GTM_HEAD = """<!-- Google Tag Manager -->
 <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -72,6 +73,19 @@ def page(
     if not slug:
         slug = "price" if "/price" in canonical else "kak-zakazat"
     chrome = topbar_html(lang, slug)
+    alts = filter_page_alternates(
+        canonical,
+        [
+            ("ru", hreflang_ru),
+            ("en", hreflang_en),
+            ("x-default", hreflang_ru),
+        ],
+    )
+    if not any(code == "x-default" for code, _ in alts) and alts:
+        alts.append(("x-default", canonical))
+    hreflang_html = "\n".join(
+        f'<link rel="alternate" hreflang="{code}" href="{href}">' for code, href in alts
+    )
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -85,9 +99,7 @@ def page(
 <meta name="description" content="{escape(description)}">
 <meta name="robots" content="{escape(robots)}">
 <link rel="canonical" href="{canonical}">
-<link rel="alternate" hreflang="ru" href="{hreflang_ru}">
-<link rel="alternate" hreflang="en" href="{hreflang_en}">
-<link rel="alternate" hreflang="x-default" href="{hreflang_ru}">
+{hreflang_html}
 <meta property="og:type" content="website">
 <meta property="og:title" content="{escape(title)}">
 <meta property="og:description" content="{escape(description)}">

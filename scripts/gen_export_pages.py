@@ -29,6 +29,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 from claude_client import call_claude  # noqa: E402
 from landing_chrome import stylesheet_link, topbar_html  # noqa: E402
 from site_facts import sku_count, cert_line_en, cert_line_ru  # noqa: E402
+from hreflang_policy import filter_page_alternates  # noqa: E402
 
 ROOT = Path(__file__).parent.parent
 PUBLIC = ROOT / "public"
@@ -299,16 +300,22 @@ GEN_SCHEMA = {
 }
 
 
-def hreflang_block(slug: str, langs: list, iso: str) -> str:
-    """Full regional hreflang matrix; all lang versions cross-reference each other."""
-    lines = []
+def hreflang_block(slug: str, langs: list, iso: str, cur: str) -> str:
+    """Regional hreflang matrix, minus allowlist-noindex twins."""
+    page = f"{BASE}{LANG_PREFIX[cur]}/export/{slug}"
+    alts: list[tuple[str, str]] = []
     for lg in langs:
         url = f"{BASE}{LANG_PREFIX[lg]}/export/{slug}"
-        lines.append(f'<link rel="alternate" hreflang="{lg}" href="{url}">')
-        lines.append(f'<link rel="alternate" hreflang="{lg}-{iso}" href="{url}">')
+        alts.append((lg, url))
+        alts.append((f"{lg}-{iso}", url))
     xdef = f"{BASE}{LANG_PREFIX['en' if 'en' in langs else langs[0]]}/export/{slug}"
-    lines.append(f'<link rel="alternate" hreflang="x-default" href="{xdef}">')
-    return "\n".join(lines)
+    alts.append(("x-default", xdef))
+    alts = filter_page_alternates(page, alts)
+    if not any(lang == "x-default" for lang, _ in alts) and alts:
+        alts.append(("x-default", page))
+    return "\n".join(
+        f'<link rel="alternate" hreflang="{lang}" href="{href}">' for lang, href in alts
+    )
 
 
 def lang_switcher(slug: str, langs: list, cur: str) -> str:
@@ -367,7 +374,7 @@ def render(c: dict, lang: str, gen: dict) -> str:
 <meta name="robots" content="{"noindex, follow" if lang == "ru" and c["slug"] in {"bahrain", "kuwait"} else "index, follow"}">
 <link rel="canonical" href="{url}">
 <link rel="icon" href="/favicon.ico" sizes="any">
-{hreflang_block(c['slug'], c['langs'], c['iso'])}
+{hreflang_block(c['slug'], c['langs'], c['iso'], lang)}
 <meta property="og:type" content="website">
 <meta property="og:title" content="{gen['title']}">
 <meta property="og:description" content="{gen['meta_description']}">
