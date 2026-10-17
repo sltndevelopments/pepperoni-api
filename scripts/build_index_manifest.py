@@ -262,8 +262,10 @@ def build_manifest() -> dict:
         raise SystemExit(
             f"indexable count {len(keep)} outside {MIN_INDEXABLE}..{MAX_INDEXABLE}")
 
+    keep_urls = {row["url"] for row in keep}
+    retired = [row for row in _retired_entries() if row.get("url") not in keep_urls]
     entries = sorted(
-        [*keep, *_retired_entries()],
+        [*keep, *retired],
         key=lambda row: (row.get("status") != "keep", row["url"]),
     )
     return {
