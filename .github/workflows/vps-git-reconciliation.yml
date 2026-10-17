@@ -1,9 +1,17 @@
 name: VPS git reconciliation (read-only)
 
-# Manual only. Uses the same Selectel SSH secrets as deploy-vps.yml.
-# Must not change anything on the VPS — stream a tar to the runner, write locally.
+# workflow_dispatch stays. Push to main on the trigger file (or the collector
+# script) is the one-shot so a merge can produce a job log without Actions
+# write permission. Must not change anything on the VPS — stream a tar to
+# the runner, write locally, print paths/sizes/mtimes/cron+unit lines only.
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ops/recon-trigger.txt
+      - scripts/vps_git_recon_readonly.sh
 
 jobs:
   report:
@@ -45,3 +53,6 @@ jobs:
           path: recon-report/
           if-no-files-found: error
           retention-days: 30
+
+      - name: Print report to job log
+        run: python3 scripts/print_vps_git_recon_report.py recon-report

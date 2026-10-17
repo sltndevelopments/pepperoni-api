@@ -11,11 +11,24 @@ This document is the plan. Step 1 is **measurement only**.
 
 ## What step 1 does
 
-Manual workflow: `.github/workflows/vps-git-reconciliation.yml`
-(`workflow_dispatch`). It uses the same `VPS_HOST` / `VPS_SSH_KEY` secrets as
+Workflow: `.github/workflows/vps-git-reconciliation.yml`. Triggers:
+
+- `workflow_dispatch` (still available once someone with Actions write
+  permission can click it)
+- `push` to `main` filtered on `ops/recon-trigger.txt` and
+  `scripts/vps_git_recon_readonly.sh` — one-shot after merge, so the report
+  lands in the Actions job log without needing `workflow_dispatch`
+
+It uses the same `VPS_HOST` / `VPS_SSH_KEY` secrets as
 `deploy-vps.yml`, SSHs as root, and runs
 `scripts/vps_git_recon_readonly.sh` **piped from the runner**. The script on
-the VPS copy of `main` is never required.
+the VPS copy of `main` is never required. After unpack, the runner prints
+the report with `scripts/print_vps_git_recon_report.py` (full: meta, HEAD,
+branch, porcelain, diff stat/numstat/names, crontab, systemd, mtimes;
+untracked/ignored capped at 400 lines plus remainder and a top-level
+directory count). The printer redacts lines that look like secrets
+(`KEY` / `TOKEN` / `SECRET` / `PASSWORD` / env values) and never opens
+drifted files from the checkout.
 
 The job **must not** modify the server: no `git add`, `commit`, `reset`,
 `checkout`, `clean`, `stash`, `pull`, or `push`; no `rm` / `mkdir` / file
@@ -98,8 +111,9 @@ running** until another writer exists (for example CI that syncs Sheets and
 deploys the result). Stopping `sync-vps.sh` would freeze `api.pepperoni.tatar`
 on the last git snapshot.
 
-1. **Now (this PR):** run the workflow, store the artifact, do not change
-   the server.
+1. **Now:** merging a change to `ops/recon-trigger.txt` (or dispatching
+   the workflow) stores the artifact and prints the report in the job log.
+   Do not change the server.
 2. Label every path on the artifact with the three buckets. Human review.
 3. For `should-be-in-git`: PR from a clean checkout, then deploy as usual.
 4. For `generated-by-cron`: keep generating on the VPS. Optionally gitignore
