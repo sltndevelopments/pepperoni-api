@@ -5,6 +5,11 @@ on:
     branches: [main]
   workflow_dispatch:
 
+# Own group: recon must not be able to evict a pending deploy.
+concurrency:
+  group: deploy-vps
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest

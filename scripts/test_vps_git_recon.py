@@ -120,6 +120,33 @@ def main() -> int:
     check(bool(re.search(r"20\d{2}-\d{2}-\d{2}", trigger.read_text(encoding="utf-8"))),
           "recon-trigger.txt has a dated line")
 
+    recon_group = re.search(r"(?m)^\s*group:\s*(\S+)\s*$", wf)
+    deploy_group = re.search(r"(?m)^\s*group:\s*(\S+)\s*$", deploy)
+    check(bool(recon_group) and bool(deploy_group),
+          "both workflows declare a concurrency group")
+    check(recon_group and deploy_group and recon_group.group(1) != deploy_group.group(1),
+          "recon and deploy concurrency groups differ")
+    check("group: vps-recon" in wf, "recon uses group vps-recon")
+    check("group: deploy-vps" in deploy, "deploy uses group deploy-vps")
+    check("vps-pepperoni" not in wf and "vps-pepperoni" not in deploy,
+          "shared vps-pepperoni group is gone")
+    check("cancel-in-progress: false" in wf and "cancel-in-progress: false" in deploy,
+          "neither group cancels an in-progress run")
+    check(re.search(r"(?m)^\s*actions:\s*read\s*$", wf),
+          "recon has actions: read to poll deploy runs")
+    check("github.token" in wf and "github.repository" in wf,
+          "poll step uses github.token and github.repository")
+    check("deploy-vps.yml/runs" in wf and "per_page=1" in wf,
+          "poll queries deploy-vps.yml runs")
+    check(all(s in wf for s in ("queued", "in_progress", "waiting", "pending", "requested")),
+          "poll sums queued/in_progress/waiting/pending/requested")
+    check("+ 600" in wf, "poll has a 600 s deadline")
+    check("vps-git-reconciliation: deploy still active after 10 min" in wf,
+          "timeout prints a fixed message")
+    check(wf.find("deploy-vps.yml/runs") < wf.find("ssh -q"),
+          "poll step precedes SSH")
+    check("sleep 60" not in wf, "recon has no sleep 60")
+
     check("secrets.VPS_HOST" in wf and "secrets.VPS_SSH_KEY" in wf,
           "reuses deploy-vps.yml SSH secrets")
     check("secrets.VPS_HOST" in deploy and "secrets.VPS_SSH_KEY" in deploy,
@@ -229,6 +256,8 @@ def main() -> int:
     check("counts" in docs.lower(), "docs say the job log is counts-only")
     check("trap" in docs.lower() and "batchmode" in docs.lower(),
           "docs mention trap + BatchMode failure hygiene")
+    check("vps-recon" in docs and "deploy-vps" in docs and "sleep 60" not in docs,
+          "docs mention distinct groups and no sleep 60")
 
     # Live local collector: stream tar, accept empty porcelain.
     with tempfile.TemporaryDirectory() as tmp:

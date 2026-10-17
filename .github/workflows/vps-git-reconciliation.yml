@@ -11,6 +11,15 @@ on:
     paths:
       - ops/recon-trigger.txt
 
+# Own group so a queued recon cannot cancel a pending Deploy to VPS.
+concurrency:
+  group: vps-recon
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+  actions: read
+
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -18,6 +27,41 @@ jobs:
     steps:
       - name: Checkout reporter
         uses: actions/checkout@v4
+
+      - name: Wait until no Deploy to VPS run is active
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          deadline=$(( $(date +%s) + 600 ))
+          quiet=0
+          while :; do
+            n=0
+            for s in queued in_progress waiting pending requested; do
+              c=$(gh api "repos/$REPO/actions/workflows/deploy-vps.yml/runs?status=$s&per_page=1" --jq '.total_count' 2>/dev/null) || {
+                echo "vps-git-reconciliation: deploy status check failed" >&2
+                exit 1
+              }
+              n=$(( n + c ))
+            done
+            if [ "$n" -eq 0 ]; then
+              quiet=$(( quiet + 1 ))
+              [ "$quiet" -ge 2 ] && break
+            else
+              quiet=0
+            fi
+            if [ "$(date +%s)" -ge "$deadline" ]; then
+              echo "vps-git-reconciliation: deploy still active after 10 min" >&2
+              exit 1
+            fi
+            sleep 20
+          done
+          min=$(date +%M)
+          min=$((10#$min))
+          if [ $(( min % 10 )) -eq 0 ] || [ $(( min % 10 )) -eq 9 ]; then
+            sleep 90
+          fi
 
       - name: Install age
         run: sudo apt-get update -qq && sudo apt-get install -y age
