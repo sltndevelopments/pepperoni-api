@@ -9,7 +9,8 @@ from pathlib import Path
 from urllib.parse import urljoin, urlparse
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
-from inject_site_links import top_level_organizations, url_to_file  # noqa: E402
+from build_index_manifest import build_manifest  # noqa: E402
+from inject_site_links import site_organizations, url_to_file  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
 PUBLIC = ROOT / "public"
@@ -45,19 +46,46 @@ def _norm(path: str) -> str:
     return value.rstrip("/") or "/"
 
 
-def nginx_maps() -> tuple[dict[str, str], set[str]]:
+def nginx_raw_301() -> dict[str, str]:
+    """Exact nginx 301 sources (keep .html and trailing slash) → dest path."""
     redirects: dict[str, str] = {}
-    gone: set[str] = set()
     for conf in sorted(NGINX.glob("*redirects.conf")):
         text = conf.read_text(encoding="utf-8", errors="replace")
         for src, dst in LOC_301.findall(text):
-            redirects[_norm(src.strip('"'))] = _norm(dst.strip('"'))
+            source = src.strip().strip('"')
+            if not source.startswith("/"):
+                source = "/" + source
+            redirects[source] = _norm(dst.strip('"'))
+    return redirects
+
+
+def nginx_maps() -> tuple[dict[str, str], set[str]]:
+    raw = nginx_raw_301()
+    redirects = {_norm(src): dst for src, dst in raw.items()}
+    gone: set[str] = set()
     gone_text = (NGINX / "trust-reset-gone.conf").read_text(
         encoding="utf-8", errors="replace"
     )
     for src in LOC_410.findall(gone_text):
         gone.add(_norm(src.strip('"')))
     return redirects, gone
+
+
+def generated_html_files(manifest: dict, retire: dict) -> list[Path]:
+    files: list[Path] = []
+    seen: set[str] = set()
+    rows = list(manifest.get("entries") or []) + list(retire.get("entries") or [])
+    for row in rows:
+        if row.get("status") not in {"keep", "noindex"}:
+            continue
+        rel = row.get("file") or ""
+        if not rel or rel in seen:
+            continue
+        path = PUBLIC / rel
+        if path.is_file():
+            seen.add(rel)
+            files.append(path)
+    return files
 
 
 def follow(path: str, redirects: dict[str, str]) -> list[str]:
@@ -222,6 +250,41 @@ def main() -> int:
         "/blog/karmin-e120-halyal → keep guide",
         failures,
     )
+    raw_301 = nginx_raw_301()
+    check(
+        raw_301.get("/blog/karmin-e120-halyal/") == "/blog/tolko-halyal-kakie-kategorii-myasa",
+        "/blog/karmin-e120-halyal/ is a one-hop 301",
+        failures,
+    )
+    variant_miss = []
+    for src, dst in raw_301.items():
+        hops = follow(dst, redirects)
+        if len(hops) > 1:
+            variant_miss.append(f"{src} dest chains {hops}")
+            continue
+        if src == "/" or src.endswith(".html") or src.endswith("/"):
+            continue
+        for variant in (src + ".html", src + "/"):
+            if variant not in raw_301:
+                variant_miss.append(f"missing {variant}")
+            elif raw_301[variant] != dst:
+                variant_miss.append(f"{variant} → {raw_301[variant]} != {dst}")
+    check(not variant_miss, f"redirect variants are one hop ({len(variant_miss)})", failures)
+    if variant_miss:
+        print("  sample:", "; ".join(variant_miss[:8]))
+
+    robots_tolko = re.search(
+        r'<meta[^>]+name=["\']robots["\'][^>]*content=["\']([^"\']+)["\']',
+        html("blog/tolko-halyal-kakie-kategorii-myasa.html"),
+        re.I,
+    )
+    check(
+        robots_tolko is not None
+        and "index" in robots_tolko.group(1).lower()
+        and "noindex" not in robots_tolko.group(1).lower(),
+        "/blog/tolko-halyal-kakie-kategorii-myasa has index, follow",
+        failures,
+    )
 
     # Money pages do not link to 410 or noindex URLs.
     noindex_urls = {row["url"] for row in retire["entries"] if row.get("status") == "noindex"}
@@ -309,21 +372,27 @@ def main() -> int:
     check(ORG_LD_RE.search(html("price.html")), "Organization JSON-LD on /price", failures)
     check(ORG_LD_RE.search(html("pepperoni.html")), "Organization JSON-LD on /pepperoni", failures)
     org_dupes = []
-    sm = SITEMAP.read_text(encoding="utf-8")
-    sitemap_paths = [
-        re.sub(r"^https://pepperoni\.tatar", "", loc) or "/"
-        for loc in re.findall(r"<loc>(.*?)</loc>", sm)
-    ]
-    for path in sitemap_paths:
-        page = url_to_file(path)
-        if not page:
-            continue
-        orgs = top_level_organizations(page.read_text(encoding="utf-8"))
+    for path in generated_html_files(manifest, retire):
+        orgs = site_organizations(path.read_text(encoding="utf-8"))
         if len(orgs) != 1:
-            org_dupes.append(f"{path}={len(orgs)}")
-    check(not org_dupes, f"exactly one top-level Organization ({len(org_dupes)} pages)", failures)
+            org_dupes.append(f"{path.relative_to(PUBLIC)}={len(orgs)}")
+    check(not org_dupes, f"exactly one Organization on generated pages ({len(org_dupes)})", failures)
     if org_dupes:
         print("  sample:", "; ".join(org_dupes[:8]))
+
+    fresh = build_manifest()
+    committed = json.loads(MANIFEST.read_text(encoding="utf-8"))
+    check(committed.get("counts") == fresh.get("counts"),
+          "committed manifest counts match regenerated", failures)
+    check(committed.get("entries") == fresh.get("entries"),
+          "committed manifest entries match regenerated", failures)
+    north_statuses = {row["status"] for row in committed["entries"] if row["url"] == "/north-star"}
+    en_ed_statuses = {
+        row["status"] for row in committed["entries"] if row["url"] == "/en/editorial-policy"
+    }
+    check(north_statuses == {"keep"}, "manifest /north-star is keep only", failures)
+    check(en_ed_statuses == {"keep"}, "manifest /en/editorial-policy is keep only", failures)
+    check(committed["counts"]["keep"] == 250, "manifest keep count is 250", failures)
 
     for rel, needle in (
         ("kotlety-dlya-burgerov.html", "/images/products/kd-009"),
