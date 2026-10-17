@@ -333,6 +333,32 @@ write_crontab_dumps() {
   return 0
 }
 
+planned_bytes() {
+  local i total=0
+  for i in 1 2 3 4 5 6 7; do
+    total=$(( total + ${item_b[i]} ))
+  done
+  echo "$total"
+}
+
+check_backup_space() {
+  local total need free target
+  total="$(planned_bytes)"
+  need=$(( total * 3 / 2 + 1073741824 ))
+  target="$BACKUP_DIR"
+  if [[ ! -e "$target" ]]; then
+    target="$(dirname "$BACKUP_DIR")"
+  fi
+  if ! command -v df >/dev/null 2>&1; then
+    return 1
+  fi
+  free="$(df -PB1 "$target" 2>/dev/null | awk 'NR==2 {print $4}')"
+  if [[ ! "$free" =~ ^[0-9]+$ ]]; then
+    return 1
+  fi
+  [[ "$free" -ge "$need" ]]
+}
+
 do_backup() {
   local stamp dest tmpdest list n got work p
   work="$(mktemp -d)" || return 1
@@ -354,9 +380,9 @@ do_backup() {
   dest="$BACKUP_DIR/cleanup-${stamp}.tar.gz"
   tmpdest="${dest}.tmp"
   if [[ "$n" -eq 0 ]]; then
-    tar czf "$tmpdest" -C "$work" --files-from /dev/null 2>/dev/null || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
+    tar -I 'gzip -1' -cf "$tmpdest" -C "$work" --files-from /dev/null 2>/dev/null || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
   else
-    tar czf "$tmpdest" -T "$list" 2>/dev/null || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
+    tar -I 'gzip -1' -cf "$tmpdest" -T "$list" 2>/dev/null || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
   fi
   chmod 600 "$tmpdest" || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
   gzip -t "$tmpdest" 2>/dev/null || { rm -f "$tmpdest"; rm -rf "$work"; return 1; }
@@ -450,10 +476,23 @@ cron_extra="$(crontab_dump_count)" || {
 }
 planned=$(( planned + cron_extra ))
 
+space_ok=0
+if check_backup_space; then
+  echo "backup space: ok"
+  space_ok=1
+else
+  echo "backup space: insufficient"
+fi
+
 if [[ "$MODE" != "apply" ]]; then
   echo "backup would include ${planned} files"
   print_status
   exit 0
+fi
+
+if [[ "$space_ok" -ne 1 ]]; then
+  echo "vps-cleanup: backup space insufficient"
+  exit 1
 fi
 
 set +e
