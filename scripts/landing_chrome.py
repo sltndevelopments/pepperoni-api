@@ -70,6 +70,8 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
             ("/kontraktnoe-proizvodstvo", "OEM"),
             ("/price", "Прайс"),
             ("/kak-zakazat", "Как заказать"),
+            ("/delivery", "Доставка"),
+            ("/about", "О компании"),
         ]
         lang_label = "Русский"
         alt_label = "English"
@@ -77,12 +79,15 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
         cta_href = cta_href or "/kak-zakazat"
         phone_label = "+7 987 217-02-02"
         nav_label = "Разделы"
+        menu_label = "Меню"
     else:
         links = [
             (home, "Catalog"),
             ("/en/private-label", "Private Label"),
             ("/en/price", "Price list"),
             ("/en/kak-zakazat", "How to order"),
+            ("/en/delivery", "Delivery"),
+            ("/en/about", "About"),
         ]
         lang_label = "English"
         alt_label = "Русский"
@@ -90,6 +95,7 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
         cta_href = cta_href or "/en/kak-zakazat"
         phone_label = "+7 987 217-02-02"
         nav_label = "Sections"
+        menu_label = "Menu"
     nav = "".join(
         f'<a href="{escape(href)}"'
         + (' aria-current="page"' if href == here else "")
@@ -108,7 +114,10 @@ def topbar_html(lang: str, slug: str, *, cta_href: str | None = None,
     inner = (
         f'<header class="kd-topbar"><div class="kd-topbar__in">\n'
         f'  <a class="kd-brand" href="{home}">Kazan <span>Delicacies</span></a>\n'
-        f'  <nav class="kd-topnav" aria-label="{nav_label}">{nav}</nav>\n'
+        f'  <details class="kd-navwrap">\n'
+        f'    <summary class="kd-navtoggle">{escape(menu_label)}</summary>\n'
+        f'    <nav class="kd-topnav" aria-label="{nav_label}">{nav}</nav>\n'
+        f'  </details>\n'
         f'  <div class="kd-topbar__spacer"></div>\n'
         f'  <a class="kd-topphone" href="tel:+79872170202">{phone_label}</a>\n'
         f'{langs}'

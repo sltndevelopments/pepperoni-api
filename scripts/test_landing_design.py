@@ -114,8 +114,33 @@ def main() -> int:
     bar = topbar_html("ru", "price")
     check("tel:+79872170202" in bar and "info@" not in bar.split("tel:")[0],
           "topbar uses canonical phone")
+    check('class="kd-navwrap"' in bar and 'class="kd-navtoggle"' in bar,
+          "topbar has details/summary hamburger")
+    check('href="/delivery"' in bar and 'href="/about"' in bar,
+          "RU topbar has Доставка and О компании")
+    en_bar = topbar_html("en", "price")
+    check('href="/en/delivery"' in en_bar and 'href="/en/about"' in en_bar,
+          "EN topbar has Delivery and About")
+    check('class="kd-langs"' in bar and 'href="/en/price"' in bar,
+          "RU topbar has language switch to EN")
+    check('class="kd-langs"' in en_bar and 'href="/price"' in en_bar,
+          "EN topbar has language switch to RU")
+    check(".kd-navwrap:not([open]) .kd-topnav { display: none; }" in css
+          or ".kd-navwrap:not([open]) .kd-topnav{display:none;}" in css.replace(" ", ""),
+          "CSS shows hamburger panel under 900px instead of hiding nav")
     check(stylesheet_link().startswith("<!-- kd-landing-css:start -->"),
           "stylesheet marker present")
+
+    former = {
+        "price.html": ["/", "/kak-zakazat", "/delivery", "/about", "/en/price"],
+        "kak-zakazat.html": ["/", "/price", "/delivery", "/about", "/en/kak-zakazat"],
+        "en/price.html": ["/en/", "/en/kak-zakazat", "/en/delivery", "/en/about", "/price"],
+        "en/kak-zakazat.html": ["/en/", "/en/price", "/en/delivery", "/en/about", "/kak-zakazat"],
+    }
+    for rel, hrefs in former.items():
+        page = html_of(rel)
+        missing = [h for h in hrefs if f'href="{h}"' not in page]
+        check(not missing, f"{rel} keeps former nav links {hrefs}")
 
     if fail:
         print(f"test_landing_design: {fail} FAIL")
