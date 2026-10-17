@@ -56,6 +56,8 @@ def main() -> int:
     check("KD-053" in en and "KD-054" in en, "EN chak-chak lists both SKUs")
     check(price_token(p053) in ru and price_token(p054) in ru, "RU prices from products.json")
     check(price_token(p053) in en and price_token(p054) in en, "EN prices from products.json")
+    check(FACTS.get("catalog", {}).get("chak_chak", {}).get("shelf_life_days") == 90,
+          "site_facts chak-chak shelf life is 90")
     check("90 суток" in ru and not re.search(r"(?<!\d)60 суток", ru),
           "RU shelf-life from catalog shelfLife")
     check("90 days" in en and not re.search(r"(?<!\d)60 days", en),

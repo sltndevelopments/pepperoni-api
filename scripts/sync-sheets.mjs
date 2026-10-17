@@ -158,6 +158,8 @@ function normalizeHeader(h) {
 const HEADER_ALIASES = {
   barcode: ['штрих-код', 'штрихкод', 'barcode', 'gtin', 'ean'],
   article: ['артикул'],
+  shelfLife: ['срок годности', 'срок хранения', 'shelf life'],
+  storage: ['хранение', 'storage'],
   seoRU: ['seo описание ru'],
   seoEN: ['seo описание en'],
   diameter: ['диаметр'],
@@ -192,7 +194,10 @@ export function buildColIndex(headerRow) {
     for (let j = 0; j < norms.length; j++) {
       const h = norms[j];
       if (!h) continue;
-      if (aliases.some((a) => h === a || h.includes(a))) {
+      const hit = key === 'storage'
+        ? aliases.some((a) => h === a)
+        : aliases.some((a) => h === a || h.includes(a));
+      if (hit) {
         idx[key] = j;
         break;
       }
@@ -205,6 +210,26 @@ export function cellBy(cols, colIndex, key) {
   const j = colIndex[key];
   if (j == null || j < 0 || j >= cols.length) return '';
   return cols[j] || '';
+}
+
+/** Rewrite SEO-description shelf-life numbers to the named shelf-life column.
+ *  Chak-chak Sheet cells: tab Выпечка / G «Срок годности» = 90 суток,
+ *  U/V «SEO Описание» still say 60 — column wins, description must not override. */
+const SEO_SHELF_RX = /(?<!\d)(\d+)\s*(суток|сут\.?|days?)(?=\s|$|[.,;:+])/gi;
+
+export function alignSeoShelfLife(product) {
+  const life = String(product?.shelfLife || '');
+  const want = life.match(/(?<!\d)(\d+)/);
+  if (!want) return product;
+  const days = want[1];
+  for (const key of ['seoDescriptionRU', 'seoDescriptionEN']) {
+    const text = product[key];
+    if (!text) continue;
+    product[key] = String(text).replace(SEO_SHELF_RX, (m, n, unit) => (
+      n === days ? m : `${days} ${unit}`
+    ));
+  }
+  return product;
 }
 
 /** Convert Google Drive / bare Cloudinary public_id to a usable https URL */
@@ -331,8 +356,8 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
       weight,
       brand: 'Казанские Деликатесы',
       offers,
-      shelfLife: cell(cols, 5),
-      storage: cell(cols, 6),
+      shelfLife: cellBy(cols, colIndex, 'shelfLife') || cell(cols, 5),
+      storage: cellBy(cols, colIndex, 'storage') || cell(cols, 6),
       hsCode: cell(cols, 7),
       cookingMethods: cellBy(cols, colIndex, 'params') || cell(cols, 14),
       minOrder: cellBy(cols, colIndex, 'quantum') || cell(cols, 15),
@@ -353,6 +378,7 @@ function parseStandard(lines, section, reg, hasPiecePrice = true) {
       imagePack: packPhoto || undefined,
       imageSlice: slicePhoto || undefined,
     });
+    alignSeoShelfLife(products[products.length - 1]);
   }
 
   return { products };
@@ -449,8 +475,8 @@ export function parseBakery(lines, section, reg) {
         exportPricesBasis: 'unit',
         exportPricesPerBox: qtyPerBoxN > 1 && Object.keys(epBox).length ? epBox : undefined,
       },
-      shelfLife: cols[6] || '',
-      storage: cols[7] || '',
+      shelfLife: cellBy(cols, colIndex, 'shelfLife') || '',
+      storage: cellBy(cols, colIndex, 'storage') || cols[7] || '',
       hsCode: cols[8] || '',
       boxWeightGross,
       barcode: fixBarcode(
@@ -469,6 +495,7 @@ export function parseBakery(lines, section, reg) {
     if (mainPhoto) product.imageMain = mainPhoto;
     if (packPhoto) product.imagePack = packPhoto;
     if (slicePhoto) product.imageSlice = slicePhoto;
+    alignSeoShelfLife(product);
 
     products.push(product);
   }

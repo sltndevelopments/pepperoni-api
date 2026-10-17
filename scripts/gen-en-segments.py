@@ -348,7 +348,7 @@ SEGMENTS = [
         ],
         "second_case": {
             "title": "CIS export route",
-            "body": "Current shipments to <strong>Kazakhstan, Belarus, Kyrgyzstan</strong>; plant attested in Cerberus for Uzbekistan, Armenia, Azerbaijan, Georgia, Tajikistan (opened on request). HS codes, halal certificate, multi-currency invoicing. EXW Kazan or buyer-arranged transit.",
+            "body": "Current shipments to <strong>Kazakhstan, Belarus, Kyrgyzstan</strong>; Uzbekistan, Armenia, Azerbaijan, Georgia and Tajikistan are available for supply (Cerberus attestation). HS codes, halal certificate, multi-currency invoicing. EXW Kazan or buyer-arranged transit.",
         },
         "features_heading": "What distributors need — and what we deliver",
         "features": [

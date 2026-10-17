@@ -168,7 +168,7 @@ FAQ_TOPICS = [
             ("Какой минимальный заказ при оптовой покупке?", "Минимальный заказ на оптовую поставку — 1 паллета, объём кратно паллете. Для крупных сетей и HoReCa предусмотрены специальные условия."),
             ("Возможно ли производство под СТМ (Private Label)?", "Да, мы выпускаем продукцию под брендом заказчика. Разрабатываем рецептуру, упаковку и маркировку в соответствии с вашими требованиями."),
             ("В каких диаметрах доступен пепперони?", "Доступны диаметры: 40 мм, 50 мм, 60 мм и 75 мм. Нарезка — слайсером или целыми батонами."),
-            ("Осуществляете ли вы доставку в регионы и СНГ?", "Да, текущие отгрузки — в Казахстан, Беларусь и Кыргызстан. Узбекистан, Армения и Азербайджан — аттестация «Цербер», не текущая отгрузка."),
+            ("Осуществляете ли вы доставку в регионы и СНГ?", "Да, текущие отгрузки — в Казахстан, Беларусь и Кыргызстан. Узбекистан, Армения и Азербайджан — аттестация «Цербер», можем поставлять."),
             ("Какие сертификаты качества есть на производстве?", "Производство сертифицировано по стандартам HACCP и ISO 22000. Предоставляем все необходимые ветеринарные документы и декларации соответствия."),
         ]
     },
@@ -183,7 +183,7 @@ FAQ_TOPICS = [
             ("What is the minimum order quantity for wholesale?", "Minimum wholesale order is 1 pallet, volumes in pallet multiples. Special terms are available for retail chains and HoReCa businesses."),
             ("Do you offer Private Label production?", "Yes, we manufacture products under your brand. We develop recipes, packaging, and labeling according to your requirements."),
             ("What diameters is pepperoni available in?", "Available diameters: 40mm, 50mm, 60mm, and 75mm. We offer sliced or whole stick formats."),
-            ("Do you deliver to CIS countries?", "Yes, current shipments go to Kazakhstan, Belarus and Kyrgyzstan. Uzbekistan, Armenia and Azerbaijan are Cerberus attestation, not shipments."),
+            ("Do you deliver to CIS countries?", "Yes, current shipments go to Kazakhstan, Belarus and Kyrgyzstan. Uzbekistan, Armenia and Azerbaijan are Cerberus attestation, available for supply."),
             ("What quality certifications do you have?", "Our production is certified to HACCP and ISO 22000 standards. We provide all required veterinary documents and conformity declarations."),
         ]
     },

@@ -22,6 +22,13 @@
       "KD-013": {"format_ru": "нарезка", "format_en": "sliced", "weight_kg": 0.5, "on_sale": true},
       "KD-014": {"format_ru": "целый батон", "format_en": "whole stick", "weight_kg": 0.8, "on_sale": true},
       "_source": "products.json weight field (Sheets); KD-014 on sale per Rinat 2026-10-15"
+    },
+    "chak_chak": {
+      "skus": ["KD-053", "KD-054"],
+      "shelf_life_days": 90,
+      "shelf_life_ru": "90 суток",
+      "shelf_life_en": "90 days",
+      "_source": "owner 2026-10-17; Sheet tab Выпечка column G «Срок годности» (rows 13–14). SEO Описание RU/EN (columns U/V, same rows) still says 60 and must not override shelfLife"
     }
   },
   "certificates": {
@@ -141,11 +148,15 @@
     "cerberus_attested_ru": ["Казахстан", "Кыргызстан", "Беларусь", "Армения", "Таджикистан", "Грузия", "Азербайджан", "Узбекистан"],
     "cerberus_attested_en": ["Kazakhstan", "Kyrgyzstan", "Belarus", "Armenia", "Tajikistan", "Georgia", "Azerbaijan", "Uzbekistan"],
     "cerberus_attested_iso": ["KZ", "KG", "BY", "AM", "TJ", "GE", "AZ", "UZ"],
+    "supply_available_ru": ["Узбекистан", "Азербайджан", "Армения", "Таджикистан", "Грузия"],
+    "supply_available_en": ["Uzbekistan", "Azerbaijan", "Armenia", "Tajikistan", "Georgia"],
+    "supply_phrase_ru": "можем поставлять",
+    "supply_phrase_en": "available for supply",
     "gulf_ru": ["Саудовская Аравия", "ОАЭ", "Катар", "Оман", "Кувейт", "Бахрейн"],
     "gulf_en": ["Saudi Arabia", "UAE", "Qatar", "Oman", "Kuwait", "Bahrain"],
     "gulf_iso": ["SA", "AE", "QA", "OM", "KW", "BH"],
     "gulf": "preparation (Rosselkhoznadzor permit pending)",
-    "_source": "live https://pepperoni.tatar/export 2026-10-17 (current shipments vs Cerberus attestation vs Gulf preparation)"
+    "_source": "live https://pepperoni.tatar/export 2026-10-17; owner 2026-10-17: Cerberus countries including UZ/AZ are supply-available («можем поставлять»), not unavailable. Current regular shipments remain KZ, BY, KG."
   },
   "terms": {
     "basis": "EXW Казань",

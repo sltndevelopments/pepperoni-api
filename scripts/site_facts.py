@@ -36,6 +36,17 @@ def export_current(lang: str = "en") -> list[str]:
     return list(FACTS["export"]["current_" + ("ru" if lang == "ru" else "en")])
 
 
+def export_supply_available(lang: str = "en") -> list[str]:
+    key = "supply_available_ru" if lang == "ru" else "supply_available_en"
+    return list(FACTS["export"].get(key) or [])
+
+
+def export_supply_phrase(lang: str = "en") -> str:
+    if lang == "ru":
+        return FACTS["export"].get("supply_phrase_ru") or "можем поставлять"
+    return FACTS["export"].get("supply_phrase_en") or "available for supply"
+
+
 def _products() -> list[dict]:
     p = ROOT / "public" / "products.json"
     try:
