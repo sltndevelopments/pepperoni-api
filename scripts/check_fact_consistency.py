@@ -56,20 +56,87 @@ def close(a: float | None, b: float | None, tol: float = 0.011) -> bool:
     return a is not None and b is not None and abs(a - b) <= tol
 
 
-def parse_ld(html: str) -> list[dict]:
+def parse_ld(html: str, rel: str = "") -> tuple[list[dict], list[str]]:
     out: list[dict] = []
+    issues: list[str] = []
     for raw in LD_RE.findall(html):
         try:
             node = json.loads(raw)
-        except json.JSONDecodeError:
+        except json.JSONDecodeError as exc:
+            if rel:
+                issues.append(f"{rel} malformed JSON-LD: {exc}")
             continue
-        if isinstance(node, list):
-            out.extend(x for x in node if isinstance(x, dict))
-        elif isinstance(node, dict):
-            if isinstance(node.get("@graph"), list):
-                out.extend(x for x in node["@graph"] if isinstance(x, dict))
-            out.append(node)
+        blob = [node] if isinstance(node, dict) else list(node) if isinstance(node, list) else []
+        for item in blob:
+            if not isinstance(item, dict):
+                continue
+            if isinstance(item.get("@graph"), list):
+                out.extend(x for x in item["@graph"] if isinstance(x, dict))
+            out.append(item)
+    return out, issues
+
+
+def jsonld_prices(html: str) -> set[float]:
+    out = set()
+    for m in re.finditer(r'"price"\s*:\s*"?([0-9]+(?:\.[0-9]+)?)"?', html):
+        out.add(float(m.group(1)))
     return out
+
+
+def visible_weights(html: str, lang: str) -> set[float]:
+    body = html.split("<body", 1)[-1]
+    unit = "кг" if lang == "ru" else "kg"
+    return {num(m.group(1)) for m in re.finditer(rf">\s*([0-9]+(?:[.,][0-9]+)?)\s*{unit}\s*<", body)}
+
+
+def visible_prices_rub(html: str) -> set[float]:
+    body = html.split("<body", 1)[-1]
+    found = set()
+    for m in re.finditer(r">\s*([0-9][0-9\s\u00a0]*(?:[.,][0-9]{2})?)\s*₽", body):
+        found.add(num(m.group(1)))
+    for m in re.finditer(r">\s*([0-9][0-9\s\u00a0]*(?:[.,][0-9]{2})?)\s*RUB\b", body, re.I):
+        found.add(num(m.group(1)))
+    return {x for x in found if x is not None}
+
+
+def pricelist_row(md: str, sku: str) -> dict | None:
+    for line in md.splitlines():
+        if line.startswith(f"| {sku} |"):
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            return {"name": cells[1], "weight": num(cells[2]), "price": num(cells[3]),
+                    "shelf": cells[8], "storage": cells[9]}
+    return None
+
+
+def pricelist_row_txt(txt: str, sku: str) -> dict | None:
+    """Plain-text price list: `KD-NNN  Name` line followed by two indented
+    `Label: value | Label: value` lines (RU and EN labels differ)."""
+    lines = txt.splitlines()
+    for i, line in enumerate(lines):
+        if not line.startswith(f"{sku}  "):
+            continue
+        fields = {}
+        for extra in lines[i + 1:i + 3]:
+            for cell in extra.split("|"):
+                if ":" in cell:
+                    k, v = cell.split(":", 1)
+                    fields[k.strip().lower()] = v.strip()
+
+        def pick(*keys):
+            for k in fields:
+                if any(k.startswith(x) for x in keys):
+                    return fields[k]
+            return ""
+
+        return {"name": line.split("  ", 1)[1].strip(),
+                "weight": num(pick("масса", "net weight")), "price": num(pick("цена", "price")),
+                "shelf": pick("срок", "shelf"), "storage": pick("хранение", "storage")}
+    return None
+
+
+def sku_from_url(url: str) -> str:
+    m = re.search(r"/products/(kd-\d{3})", str(url or ""), re.I)
+    return m.group(1).upper() if m else ""
 
 
 def walk_public_files() -> list[Path]:
@@ -154,9 +221,29 @@ def check_products_self(by_sku: dict[str, dict]) -> list[str]:
     return issues
 
 
+def _offer_nodes(node: dict) -> list[tuple[str, dict]]:
+    """(sku, offer) pairs. Parent Product sku/url is inherited by child Offers."""
+    parent_sku = str(node.get("sku") or "").upper() or sku_from_url(str(node.get("url") or ""))
+    raw = node.get("offers")
+    offers = raw if isinstance(raw, list) else [raw] if isinstance(raw, dict) else []
+    types = node.get("@type")
+    typeset = {types} if isinstance(types, str) else set(types or [])
+    if "Offer" in typeset and not offers:
+        offers = [node]
+    out = []
+    for offer in offers:
+        if not isinstance(offer, dict):
+            continue
+        sku = str(offer.get("sku") or "").upper() or sku_from_url(str(offer.get("url") or "")) or parent_sku
+        out.append((sku, offer))
+    return out
+
+
 def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) -> list[str]:
     issues = []
-    for node in parse_ld(html):
+    nodes, ld_issues = parse_ld(html, rel)
+    issues.extend(ld_issues)
+    for node in nodes:
         types = node.get("@type")
         typeset = {types} if isinstance(types, str) else set(types or [])
         if typeset & {"Organization", "LocalBusiness"}:
@@ -169,15 +256,14 @@ def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) ->
             tel = re.sub(r"\D", "", str(node.get("telephone") or ""))
             if tel and tel not in {company["phone_e164"].lstrip("+"), "79872170202"}:
                 issues.append(f"{rel} JSON-LD telephone {node.get('telephone')}")
-        if "Product" in typeset:
-            sku = str(node.get("sku") or "").upper()
-            offer = node.get("offers")
-            if isinstance(offer, list):
-                offer = offer[0] if offer else {}
-            if not isinstance(offer, dict):
-                continue
+        if not (typeset & {"Product", "Offer"}):
+            continue
+        for sku, offer in _offer_nodes(node):
             currency = offer.get("priceCurrency")
             price = num(offer.get("price"))
+            if sku == "KD-012":
+                issues.append(f"{rel} JSON-LD Product SKU KD-012 (retired, not in catalog)")
+                continue
             if sku and sku in by_sku:
                 if currency and currency != "RUB":
                     issues.append(
@@ -189,8 +275,8 @@ def check_jsonld(rel: str, html: str, company: dict, by_sku: dict[str, dict]) ->
                         f"{rel} {sku} {by_sku[sku].get('name')} "
                         f"Offer price {price} != catalog {rub(sku)}"
                     )
-            elif sku == "KD-012":
-                issues.append(f"{rel} JSON-LD Product SKU KD-012 (retired, not in catalog)")
+            elif price is not None and rel.startswith(("products/kd-", "en/products/kd-")):
+                issues.append(f"{rel} Offer price {price} has no sku/url → SKU mapping")
     return issues
 
 
@@ -338,37 +424,50 @@ def check_api_mcp(company: dict) -> list[str]:
     return issues
 
 
-def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
-    """Product cards, catalog blocks, four wholesale price lists."""
-    issues = []
-    catalogs = {
-        ("ru", "index.html"): (PUBLIC / "index.html").read_text(encoding="utf-8")
-        if (PUBLIC / "index.html").is_file() else "",
-        ("en", "en/index.html"): (PUBLIC / "en" / "index.html").read_text(encoding="utf-8")
-        if (PUBLIC / "en" / "index.html").is_file() else "",
-        ("ru", "products/index.html"): (PUBLIC / "products" / "index.html").read_text(encoding="utf-8")
-        if (PUBLIC / "products" / "index.html").is_file() else "",
-        ("en", "en/products/index.html"): (PUBLIC / "en" / "products" / "index.html").read_text(encoding="utf-8")
-        if (PUBLIC / "en" / "products" / "index.html").is_file() else "",
-    }
+def catalog_rows(html: str, sku: str, lang: str) -> tuple[float | None, float | None]:
+    prefix = "/en" if lang == "en" else ""
+    m = re.search(
+        rf'<li><a href="{prefix}/products/{sku.lower()}">[^<]*</a>'
+        rf'<span class="cs-meta">([^<]*)(?:<span class=cs-price>([^<]*)</span>)?',
+        html,
+    )
+    if not m:
+        return None, None
+    meta = unescape(m.group(1))
+    w = re.search(r"([0-9]+(?:[.,][0-9]+)?)\s*(?:кг|kg)", meta)
+    return (num(w.group(1)) if w else None), num(m.group(2)) if m.group(2) else None
 
-    def catalog_rows(html: str, sku: str, lang: str) -> tuple[float | None, float | None]:
-        prefix = "/en" if lang == "en" else ""
-        m = re.search(
-            rf'<li><a href="{prefix}/products/{sku.lower()}">[^<]*</a>'
-            rf'<span class="cs-meta">([^<]*)(?:<span class=cs-price>([^<]*)</span>)?',
-            html,
-        )
-        if not m:
-            return None, None
-        meta = unescape(m.group(1))
-        w = re.search(r"([0-9]+(?:[.,][0-9]+)?)\s*(?:кг|kg)", meta)
-        return (num(w.group(1)) if w else None), num(m.group(2)) if m.group(2) else None
+
+def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
+    """Product cards (JSON-LD + visible ₽/kg), catalog blocks, four wholesale lists."""
+    issues = []
+    catalogs = {}
+    for lang, rel in (
+        ("ru", "index.html"),
+        ("en", "en/index.html"),
+        ("ru", "products/index.html"),
+        ("en", "en/products/index.html"),
+    ):
+        path = PUBLIC / rel
+        catalogs[(lang, rel)] = path.read_text(encoding="utf-8") if path.is_file() else ""
+    pricelists = {}
+    for rel in (
+        "wholesale-price-list-ru.md",
+        "wholesale-price-list.md",
+        "wholesale-price-list-ru.txt",
+        "wholesale-price-list.txt",
+    ):
+        path = PUBLIC / rel
+        if not path.is_file():
+            issues.append(f"{rel} missing")
+            continue
+        pricelists[rel] = path.read_text(encoding="utf-8")
 
     for sku, row in by_sku.items():
         price = rub(sku)
         weight = num(row.get("weight"))
         shelf = str(row.get("shelfLife") or "").strip()
+        storage = str(row.get("storage") or "").strip()
         for lang in ("ru", "en"):
             rel = f"{'en/' if lang == 'en' else ''}products/{sku.lower()}.html"
             path = PUBLIC / rel
@@ -376,22 +475,56 @@ def check_cards_and_lists(by_sku: dict[str, dict]) -> list[str]:
                 issues.append(f"{sku} card missing: {rel}")
                 continue
             html = path.read_text(encoding="utf-8")
+            ld = jsonld_prices(html)
+            if price is not None and not any(close(price, x) for x in ld):
+                issues.append(
+                    f"{rel} {sku} {row.get('name')} JSON-LD price {sorted(ld)} != catalog {price}"
+                )
+            vw = visible_weights(html, lang)
+            if weight is not None and not any(close(weight, x, 0.0011) for x in vw if x):
+                issues.append(
+                    f"{rel} {sku} visible weight {sorted(x for x in vw if x)} != {weight}"
+                )
+            vp = visible_prices_rub(html)
+            if price is not None and not any(close(price, x) for x in vp):
+                issues.append(
+                    f"{rel} {sku} {row.get('name')} visible price {sorted(vp)} != catalog {price}"
+                )
             if lang == "ru" and shelf and shelf not in html:
                 issues.append(f"{rel} missing shelfLife {shelf}")
+            if lang == "ru" and storage and storage not in html:
+                issues.append(f"{rel} missing storage {storage}")
             if lang == "en":
                 days = catalog_shelf_days(row)
                 if days and not re.search(rf"{days}\s*days", html, re.I) and shelf not in html:
                     issues.append(f"{rel} missing shelf-life {days} days")
         for (lang, rel), html in catalogs.items():
             if not html:
+                issues.append(f"{rel} catalog missing")
                 continue
             w, pr = catalog_rows(html, sku, lang)
             if w is None and pr is None:
+                issues.append(f"{rel} {sku} catalog row missing")
                 continue
-            if weight is not None and w is not None and not close(weight, w, 0.011):
+            if weight is not None and w is not None and not close(weight, w, 0.0011):
                 issues.append(f"{rel} {sku} weight {w} != {weight}")
             if pr is not None and not close(price, pr, 0.51):
                 issues.append(f"{rel} {sku} {row.get('name')} catalog price {pr} != {price}")
+        for rel, body in pricelists.items():
+            row_pl = (pricelist_row_txt if rel.endswith(".txt") else pricelist_row)(body, sku)
+            if not row_pl:
+                issues.append(f"{rel} {sku} row missing")
+                continue
+            if price is not None and not close(price, row_pl["price"]):
+                issues.append(
+                    f"{rel} {sku} {row.get('name')} price {row_pl['price']} != {price}"
+                )
+            if weight is not None and not close(weight, row_pl["weight"], 0.0011):
+                issues.append(f"{rel} {sku} weight {row_pl['weight']} != {weight}")
+            if "-ru." in rel and shelf and row_pl["shelf"] != shelf:
+                issues.append(f"{rel} {sku} shelf {row_pl['shelf']!r} != {shelf!r}")
+            if storage and row_pl["storage"] != storage:
+                issues.append(f"{rel} {sku} storage {row_pl['storage']!r} != {storage!r}")
     return issues
 
 

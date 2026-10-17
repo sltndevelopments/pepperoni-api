@@ -85,3 +85,36 @@ def rub_display(sku: str, lang: str = "ru") -> str:
 
 def last_synced() -> str:
     return str(catalog()["meta"].get("lastSynced") or "")
+
+
+def positive(v) -> float | None:
+    """Sheet 'без НДС' cells land as 0.00 — treat that as missing, not a price."""
+    n = num(v)
+    if n is None or n <= 0:
+        return None
+    return n
+
+
+def sku_amounts(sku: str) -> set[float]:
+    """Every live number that may appear next to this SKU."""
+    row = product(sku)
+    offers = row.get("offers") or {}
+    out: set[float] = set()
+    for key in (
+        "price",
+        "pricePerUnit",
+        "pricePerBox",
+        "priceExclVAT",
+        "pricePerUnitExclVAT",
+        "pricePerBoxExclVAT",
+        "pricePerPiece",
+    ):
+        n = positive(offers.get(key))
+        if n is not None:
+            out.add(round(n, 2))
+    for bucket in ("exportPrices", "exportPricesPerBox"):
+        for value in (offers.get(bucket) or {}).values():
+            n = positive(value)
+            if n is not None:
+                out.add(round(n, 2))
+    return out

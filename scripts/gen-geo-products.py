@@ -182,7 +182,8 @@ def build_burger_page(loc):
       {{"@type": "PropertyValue", "name": "Контроль качества", "value": "HACCP"}},
       {{"@type": "PropertyValue", "name": "Рынок", "value": "{city}"}}
     ],
-    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "{rub_str('KD-009')}", "availability": "https://schema.org/InStock"}}
+    "sku": "KD-009",
+    "offers": {{"@type": "Offer", "sku": "KD-009", "priceCurrency": "RUB", "price": "{rub_str('KD-009')}", "availability": "https://schema.org/InStock"}}
   }}
   </script>
   <script type="application/ld+json">
@@ -224,7 +225,7 @@ def build_burger_page(loc):
   <h2>Ассортимент котлет</h2>
   <div class="prices-grid">
     <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">100 г × 3 шт (0,3 кг)</div><div class="price">PRICE_KD009</div></div>
-    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">150 г × 2 шт (0,3 кг)</div><div class="price">PRICE_KD009</div></div>
+    <div class="price-card"><div class="name">Котлета говяжья прожаренная</div><div class="weight">150 г × 2 шт (0,3 кг)</div><div class="price">PRICE_KD010</div></div>
   </div>
   <p style="font-size:.85rem;color:#888">Цены без НДС. Оптовые условия и экспортные цены в {loc["currency"]} — по запросу.</p>
 
@@ -309,7 +310,8 @@ def build_hotdog_page(loc):
       {{"@type": "PropertyValue", "name": "Контроль качества", "value": "HACCP"}},
       {{"@type": "PropertyValue", "name": "Рынок", "value": "{city}"}}
     ],
-    "offers": {{"@type": "Offer", "priceCurrency": "RUB", "price": "{rub_str('KD-001')}", "availability": "https://schema.org/InStock"}}
+    "sku": "KD-001",
+    "offers": {{"@type": "Offer", "sku": "KD-001", "priceCurrency": "RUB", "price": "{rub_str('KD-001')}", "availability": "https://schema.org/InStock"}}
   }}
   </script>
   <script type="application/ld+json">
@@ -353,7 +355,7 @@ def build_hotdog_page(loc):
     <div class="price-card"><div class="name">Из говядины (80 г × 6 шт)</div><div class="weight">0,48 кг | для хот-дога</div><div class="price">PRICE_KD001</div></div>
     <div class="price-card"><div class="name">Два мяса (80 г × 6 шт)</div><div class="weight">0,48 кг | говядина + курица</div><div class="price">PRICE_KD002</div></div>
     <div class="price-card"><div class="name">Три перца с сыром (80 г × 6 шт)</div><div class="weight">0,48 кг | хит для гриля</div><div class="price">PRICE_KD003</div></div>
-    <div class="price-card"><div class="name">Куриные (80 г × 6 шт)</div><div class="weight">0,48 кг | из курицы</div><div class="price">PRICE_KD002</div></div>
+    <div class="price-card"><div class="name">Куриные (80 г × 6 шт)</div><div class="weight">0,48 кг | из курицы</div><div class="price">PRICE_KD004</div></div>
     <div class="price-card"><div class="name">С бараниной (80 г × 6 шт)</div><div class="weight">0,48 кг | баранина</div><div class="price">PRICE_KD005</div></div>
     <div class="price-card"><div class="name">С сыром (130 г × 5 шт)</div><div class="weight">0,65 кг | для франч-дога</div><div class="price">PRICE_KD007</div></div>
   </div>
@@ -454,19 +456,22 @@ def main():
     return slugs
 
 
-if __name__ == "__main__":
-    main()
-
-
+# Must be defined before the module entry point calls main().
 def _fill_geo(s: str) -> str:
     table = {
         'PRICE_KD009': _p('KD-009'),
+        'PRICE_KD010': _p('KD-010'),
         'PRICE_KD001': _p('KD-001'),
         'PRICE_KD002': _p('KD-002'),
         'PRICE_KD003': _p('KD-003'),
+        'PRICE_KD004': _p('KD-004'),
         'PRICE_KD005': _p('KD-005'),
         'PRICE_KD007': _p('KD-007'),
     }
     for k, v in table.items():
         s = s.replace(k, v)
     return s
+
+
+if __name__ == "__main__":
+    main()

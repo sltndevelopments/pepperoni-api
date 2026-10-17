@@ -9,6 +9,7 @@ import urllib.request
 
 sys.path.insert(0, os.path.dirname(__file__))
 from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
+from catalog_prices import positive  # noqa: E402
 
 OUT = "public/products"
 LCP_IMG_DIR = "public/images/products"
@@ -633,17 +634,18 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                 pp_fmt = f"{float(pp):,.2f}".replace(",", " ").replace(".", ",")
                 html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Цена за 1 шт: <b>{pp_fmt} ₽</b></div>\n'
         # Bakery: pricePerBoxExclVAT is box wholesale, not an "export" currency.
-        if is_bakery and p["offers"].get("pricePerBoxExclVAT"):
-            box_ex = p["offers"]["pricePerBoxExclVAT"]
-            try:
-                box_ex_fmt = f"{float(box_ex):,.2f}".replace(",", " ").replace(".", ",")
-            except (TypeError, ValueError):
-                box_ex_fmt = str(box_ex)
+        # Empty Sheet "без НДС" cells sync as 0.00 — hide, do not render.
+        if not positive(price_no_vat):
+            price_no_vat = ""
+        box_ex_live = positive(p["offers"].get("pricePerBoxExclVAT")) if is_bakery else None
+        if box_ex_live is not None:
+            box_ex_fmt = f"{box_ex_live:,.2f}".replace(",", " ").replace(".", ",")
             html += (
                 f'<div style="margin-top:6px;font-size:.9rem;color:#444">'
                 f'Цена за коробку без НДС: <b>{box_ex_fmt} ₽</b></div>\n'
             )
-            price_no_vat = p["offers"].get("priceExclVAT") or ""
+            if not p["offers"].get("priceExclVAT"):
+                price_no_vat = ""
         if price_no_vat or ep:
             html += '<h2 class="section-title" style="margin-top:20px">Экспортные цены</h2><div class="export-prices">'
             if price_no_vat:

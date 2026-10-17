@@ -8,6 +8,7 @@ import urllib.parse
 
 sys.path.insert(0, os.path.dirname(__file__))
 from organization_ld import ORGANIZATION, SCRIPT  # noqa: E402
+from catalog_prices import positive  # noqa: E402
 
 OUT = "public/en/products"
 PRODUCTS_JSON = "public/products.json"
@@ -340,6 +341,8 @@ def main():
         storage = p.get("storage", "")
         hs_code = p.get("hsCode", "")
         price_excl = p["offers"].get("priceExclVAT") or p["offers"].get("pricePerUnitExclVAT", "")
+        if not positive(price_excl):
+            price_excl = ""
 
         ep = p["offers"].get("exportPrices") or {}
         pr = float(price_rub) if price_rub else 0
@@ -646,17 +649,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
                     pp_str = ""
                 if pp_str:
                     html += f'<div style="margin-top:8px;font-size:.9rem;color:#444">Price per piece: <b>{pp_str}</b></div>\n'
-        if is_bakery and p["offers"].get("pricePerBoxExclVAT"):
-            box_ex = p["offers"]["pricePerBoxExclVAT"]
-            try:
-                box_ex_fmt = f"{float(box_ex):,.2f}".replace(",", " ")
-            except (TypeError, ValueError):
-                box_ex_fmt = str(box_ex)
+        box_ex_live = positive(p["offers"].get("pricePerBoxExclVAT")) if is_bakery else None
+        if box_ex_live is not None:
+            box_ex_fmt = f"{box_ex_live:,.2f}".replace(",", " ")
             html += (
                 f'<div style="margin-top:6px;font-size:.9rem;color:#444">'
                 f'Box price excl. VAT: <b>{box_ex_fmt} ₽</b></div>\n'
             )
-            price_excl = p["offers"].get("priceExclVAT") or ""
+            if not positive(p["offers"].get("priceExclVAT")):
+                price_excl = ""
         if price_excl or ep:
             html += '<h2 class="section-title" style="margin-top:20px">Export Prices</h2><div class="export-prices">'
             if price_excl:
