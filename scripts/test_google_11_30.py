@@ -204,6 +204,11 @@ def main() -> int:
             crit = m.group(1).replace(" ", "")
         check(".kd-topnav{" in crit and ".kd-navwrap{display:none}" in crit,
               f"{rel} critical CSS styles the topbar/nav")
+        check(".kd-navtoggle::-webkit-details-marker{display:none}" in crit,
+              f"{rel} critical CSS hides the Menu summary marker")
+        check("body.kd-landingh1{font-size:clamp(1.85rem,4.2vw,2.9rem)" in crit
+              and "body.kd-landingh1{font-size:1.7rem}" in crit,
+              f"{rel} critical H1 size matches kd-landing.css")
         check(".kd-btn--primary{" in crit and "@media(max-width:900px)" in crit,
               f"{rel} critical CSS hides the hamburger until the sheet loads")
         check("animation:none" in html.replace(" ", ""),
@@ -215,6 +220,11 @@ def main() -> int:
         check("window.ym=window.ym||function(){(ym.a=ym.a||[]).push(arguments)}"
               in head.replace(" ", ""),
               f"{rel} creates the ym queue stub in <head>")
+        check("ym(107064141,'init'" in head.replace(" ", ""),
+              f"{rel} queues ym init in <head>")
+        after_head = html.split("</head>", 1)[1] if "</head>" in html else ""
+        check("ym(107064141,'init'" not in after_head.replace(" ", ""),
+              f"{rel} delayed loader has no ym init")
         check("metrika/tag.js" not in head, f"{rel} does not load tag.js from <head>")
         check("application/ld+json" not in head, f"{rel} keeps JSON-LD out of <head>")
         body = html.split("</head>", 1)[1] if "</head>" in html else ""
