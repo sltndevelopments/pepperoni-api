@@ -39,6 +39,9 @@ data/logs/
 __pycache__/
 *.pyc
 
+# One-off trust-reset buyer baseline snapshots (keep the committed file)
+data/buyer_baseline_trust_reset_*
+
 # QA quarantine — broken pages held back by qa_pages.py, regenerated each run
 data/quarantine/
 # Runtime watermark for quarantine growth checks (must survive VPS git reset)

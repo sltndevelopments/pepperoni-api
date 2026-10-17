@@ -42,6 +42,7 @@ def main() -> int:
         "test_seo_batch_rank.py",
         "test_landing_design.py",
         "test_vps_git_recon.py",
+        "test_vps_cleanup.py",
         "test_run_tests.py",
         "test_fact_consistency.py",
         "test_no_hardcoded_prices.py",
